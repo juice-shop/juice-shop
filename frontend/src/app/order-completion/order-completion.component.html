@@ -3,16 +3,16 @@
   ~ SPDX-License-Identifier: MIT
   -->
 
-<div fxLayout="column" fxLayoutGap="10px" class="main-wrapper">
+<mat-card class="mat-elevation-z6 mat-own-card">
     <div>
-       <div fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column">
-          <mat-card class="mat-elevation-z6" fxFlex="60%">
+       <div fxLayout="row" fxLayout.lt-md="column">
+          <mat-card class="mat-elevation-z0" fxFlex="60%">
              <div>
                 <h1 class="confirmation" translate>THANKS_FOR_PURCHASE</h1>
                 <div translate>PURCHASE_COMMENT_PREFIX <a routerLink="/track-result/new" [queryParams]="{ id: this.orderId }" translate>TITLE_TRACK_ORDERS</a> PURCHASE_COMMENT_SUFFIX</div>
              </div>
           </mat-card>
-          <mat-card class="mat-elevation-z6" fxFlex="40%">
+          <mat-card class="mat-elevation-z0" fxFlex="40%">
              <div  *ngIf="address">
                <span *ngIf="orderDetails.eta !== '?' && orderDetails.eta !== undefined"><div class="confirmation" translate [translateParams]="{'numberdays': orderDetails.eta}">ESTIMATED_TIME_OF_DELIVERY</div></span>
                <div><b translate>LABEL_DELIVERY_ADDRESS</b></div>
@@ -24,7 +24,7 @@
           </mat-card>
        </div>
     </div>
-    <div class="mat-elevation-z6 table-container custom-slate">
+    <div class="mat-elevation-z0 table-container">
        <div class="heading">
             <span class="heading-text">{{"ORDER_SUMMARY" | translate}}</span>
             <span fxFlex></span>
@@ -67,7 +67,7 @@
                    <tr class="mat-row">
                       <td translate>PROMOTION</td>
                    </tr>
-                   <tr class="mat-row">
+                   <tr class="mat-row" style="font-weight: bold;">
                       <td translate>LABEL_TOTAL_PRICE</td>
                    </tr>
                 </table>
@@ -87,7 +87,7 @@
                    <tr class="mat-row">
                       <td>{{ promotionalDiscount.toFixed(2) }}&curren;</td>
                    </tr>
-                   <tr class="mat-row">
+                   <tr class="mat-row" style="font-weight: bold;">
                       <td>{{ orderDetails.totalPrice?.toFixed(2) }}&curren;</td>
                    </tr>
                 </table>
@@ -100,8 +100,8 @@
     </div>
 
     <div>
-        <mat-card class="mat-elevation-z6">
+        <mat-card class="mat-elevation-z0">
           <div translate [translateParams]="{'bonus': orderDetails.bonus}">BONUS_POINTS_COUNT</div>
         </mat-card>
     </div>
-</div>
+</mat-card>

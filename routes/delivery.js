@@ -16,7 +16,8 @@ module.exports.getDeliveryMethods = function getDeliveryMethods () {
           id: method.id,
           name: method.name,
           price: insecurity.isDeluxe(req) ? method.deluxePrice : method.price,
-          eta: method.eta
+          eta: method.eta,
+          icon: method.icon
         })
       }
       res.status(200).json({ status: 'success', data: sendMethods })
@@ -34,7 +35,8 @@ module.exports.getDeliveryMethod = function getDeliveryMethod () {
         id: method.id,
         name: method.name,
         price: insecurity.isDeluxe(req) ? method.deluxePrice : method.price,
-        eta: method.eta
+        eta: method.eta,
+        icon: method.icon
       }
       res.status(200).json({ status: 'success', data: sendMethod })
     } else {

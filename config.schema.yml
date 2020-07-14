@@ -99,6 +99,8 @@ challenges:
     type: boolean
   showHints:
     type: boolean
+  restrictToTutorialsFirst:
+    type: boolean
   overwriteUrlForProductTamperingChallenge:
     type: string
   xssBonusPayload:
@@ -123,6 +125,8 @@ products:
     image:
       type: string
     quantity:
+      type: number
+    limitPerUser:
       type: number
     deletedDate:
       type: string
@@ -384,6 +388,11 @@ ctf:
         type: string
       code:
         type: string
+    resetPasswordUvoginChallenge:
+      name:
+        type: string
+      code:
+        type: string
     resetPasswordBjoernChallenge:
       name:
         type: string
@@ -615,6 +624,11 @@ ctf:
       code:
         type: string
     csrfChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    xssBonusChallenge:
       name:
         type: string
       code:

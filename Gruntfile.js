@@ -7,7 +7,7 @@
 
 module.exports = function (grunt) {
   var node = grunt.option('node') || process.env.nodejs_version || process.env.TRAVIS_NODE_VERSION || ''
-  var platform = grunt.option('platform') || process.env.TRAVIS ? 'x64' : ''
+  var platform = grunt.option('platform') || process.env.TRAVIS_CPU_ARCH === 'amd64' ? 'x64' : (process.env.TRAVIS_CPU_ARCH || '')
   var os = grunt.option('os') || process.env.TRAVIS_OS_NAME === 'windows' ? 'win32' : (process.env.TRAVIS_OS_NAME === 'osx' ? 'darwin' : (process.env.TRAVIS_OS_NAME || ''))
 
   grunt.initConfig({
@@ -33,6 +33,7 @@ module.exports = function (grunt) {
         files: [
           {
             src: [
+              'LICENSE',
               '*.md',
               'app.js',
               'server.js',

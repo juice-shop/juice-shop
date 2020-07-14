@@ -65,6 +65,11 @@ export class ServerStartedNotificationComponent implements OnInit {
 
   clearProgress () {
     this.cookieService.delete('continueCode', '/')
+    localStorage.removeItem('displayedDifficulties')
+    localStorage.removeItem('showSolvedChallenges')
+    localStorage.removeItem('showDisabledChallenges')
+    localStorage.removeItem('showOnlyTutorialChallenges')
+    localStorage.removeItem('displayedChallengeCategories')
     this.hackingProgress.cleared = true
   }
 

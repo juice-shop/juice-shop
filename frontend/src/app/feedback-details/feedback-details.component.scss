@@ -1,0 +1,17 @@
+/*!
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
+mat-divider {
+  margin-bottom: 10px;
+}
+
+.dialogAction {
+  margin-bottom: 0 !important;
+}
+
+mat-dialog-content {
+  max-width: 320px;
+  min-width: 280px;
+}

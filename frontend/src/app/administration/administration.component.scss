@@ -5,15 +5,24 @@
 
 $bg-heading: rgba(0, 0, 0, .13);
 
-.container {
-  justify-content: center;
-}
-
 .heading {
   background: $bg-heading;
   justify-content: center;
   margin-bottom: 10px;
-  padding: 12px 20px;
+  padding: 12px 12px;
+  font-size: large;
+}
+
+.container {
+  justify-content: center;
+}
+
+mat-table {
+  height: 767px;
+}
+
+mat-header-row {
+  min-height: 0px !important;
 }
 
 .user-container,
@@ -41,11 +50,75 @@ mat-header-cell {
 }
 
 .mat-column-comment {
-  padding: 10px;
+  padding: 5px;
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 55% !important;
+  width: 55% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.mat-column-user {
+  padding: 5px;
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 7% !important;
+  width: 7% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.mat-column-rating {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 20% !important;
+  width: 20% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
 
 mat-cell:last-child,
 mat-footer-cell:last-child,
 mat-header-cell:last-child {
   padding-right: 50px;
+}
+
+mat-row {
+ height: 69px;
+}
+
+.mat-own-card {
+  display: block;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 20px;
+}
+
+p {
+  overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }

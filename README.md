@@ -90,7 +90,6 @@ overview please visit the official project page:
 
 ### Docker Container
 
-[![Docker Automated build](https://img.shields.io/docker/automated/bkimminich/juice-shop.svg)](https://hub.docker.com/r/bkimminich/juice-shop)
 [![Docker Pulls](https://img.shields.io/docker/pulls/bkimminich/juice-shop.svg)](https://hub.docker.com/r/bkimminich/juice-shop)
 ![Docker Stars](https://img.shields.io/docker/stars/bkimminich/juice-shop.svg)
 [![](https://images.microbadger.com/badges/image/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop
@@ -181,13 +180,14 @@ OWASP Juice Shop officially supports the following versions of
 official [node.js LTS schedule](https://github.com/nodejs/LTS). Docker
 images and packaged distributions are offered accordingly.
 
-| node.js  | Supported            | [Packaged Distributions](#packaged-distributions)                                                                                                                                                                                                                 | [Docker image](#docker-container) tags                                                       |
-|:---------|:---------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------|
-| 13.x     | :heavy_check_mark:   | [![Windows](docs/win32.png)](https://github.com/bkimminich/juice-shop/releases/latest) [![Linux](docs/linux.png)](https://github.com/bkimminich/juice-shop/releases/latest) [![MacOS](docs/darwin.png)](https://github.com/bkimminich/juice-shop/releases/latest) |                                                                                              |
-| __12.x__ | :heavy_check_mark:   | [![Windows](docs/win32.png)](https://github.com/bkimminich/juice-shop/releases/latest) [![Linux](docs/linux.png)](https://github.com/bkimminich/juice-shop/releases/latest) [![MacOS](docs/darwin.png)](https://github.com/bkimminich/juice-shop/releases/latest) | __`latest`__ (current official `master` release), `snapshot` (preview from `develop` branch) |
-| 11.x     | (:heavy_check_mark:) |                                                                                                                                                                                                                                                                   |                                                                                              |
-| 10.x     | :heavy_check_mark:   | [![Windows](docs/win32.png)](https://github.com/bkimminich/juice-shop/releases/latest) [![Linux](docs/linux.png)](https://github.com/bkimminich/juice-shop/releases/latest) [![MacOS](docs/darwin.png)](https://github.com/bkimminich/juice-shop/releases/latest) |                                                                                              |
-| <10.x    | :x:                  |                                                                                                                                                                                                                                                                   |                                                                                              |
+| node.js | Supported            | [Packaged Distributions](#packaged-distributions)      | [Docker images](#docker-container) from `master` | [Docker images](#docker-container) from `develop` |
+|:--------|:---------------------|:-------------------------------------------------------|:-------------------------------------------------|:--------------------------------------------------|
+| 14.x    | :heavy_check_mark:   | Windows (`x64`), MacOS (`x64`), Linux (`x64`, `arm64`) |                                                  |                                                   |
+| 13.x    | (:heavy_check_mark:) |                                                        |                                                  |                                                   |
+| 12.x    | :heavy_check_mark:   | Windows (`x64`), MacOS (`x64`), Linux (`x64`, `arm64`) | `latest` (`linux/amd64`, `linux/arm`)            | `snapshot` (`linux/amd64`)                        |
+| 11.x    | (:heavy_check_mark:) |                                                        |                                                  |                                                   |
+| 10.x    | :heavy_check_mark:   | Windows (`x64`), MacOS (`x64`), Linux (`x64`, `arm64`) |                                                  |                                                   |
+| <10.x   | :x:                  |                                                        |                                                  |                                                   |
 
 Juice Shop is automatically tested _only on the latest `.x` minor
 version_ of each node.js version mentioned above! There is no guarantee
@@ -258,7 +258,7 @@ also [browse the full content online](https://pwning.owasp-juice.shop)!
   HTML5
 * [PDF of the Intro Slide Deck](docs/OWASP%20Juice%20Shop%20-%20Probably%20the%20most%20modern%20and%20sophisticated%20insecure%20web%20application.pdf)
 
-## Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/owasp-juice-shop/localized.svg)](https://crowdin.com/project/owasp-juice-shop) [![Bountysource Activity](https://img.shields.io/bountysource/team/juice-shop/activity.svg)](https://www.bountysource.com/teams/juice-shop) ![GitHub issues by-label](https://img.shields.io/github/issues/bkimminich/juice-shop/help%20wanted.svg) ![GitHub issues by-label](https://img.shields.io/github/issues/bkimminich/juice-shop/good%20first%20issue.svg)
+## Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/owasp-juice-shop/localized.svg)](https://crowdin.com/project/owasp-juice-shop) ![GitHub issues by-label](https://img.shields.io/github/issues/bkimminich/juice-shop/help%20wanted.svg) ![GitHub issues by-label](https://img.shields.io/github/issues/bkimminich/juice-shop/good%20first%20issue.svg)
 
 We are always happy to get new contributors on board! Please check
 [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to
