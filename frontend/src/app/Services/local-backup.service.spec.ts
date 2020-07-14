@@ -3,7 +3,7 @@ import { inject, TestBed } from '@angular/core/testing'
 import { LocalBackupService } from './local-backup.service'
 import { CookieService } from 'ngx-cookie-service'
 import { TranslateFakeLoader, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core'
-import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('LocalBackupService', () => {
   let service: LocalBackupService
