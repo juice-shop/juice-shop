@@ -57,6 +57,7 @@ export class ScoreBoardComponent implements OnInit {
   public showContributionInfoBox: boolean = true
   public questionnaireUrl: string = 'https://forms.gle/2Tr5m1pqnnesApxN8'
   public appName: string = 'OWASP Juice Shop'
+  public localBackupEnabled: boolean = true
 
   constructor (private configurationService: ConfigurationService, private challengeService: ChallengeService, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService, private translate: TranslateService, private localBackupService: LocalBackupService) {
   }
@@ -78,6 +79,7 @@ export class ScoreBoardComponent implements OnInit {
       this.appName = config.application.name
       this.restrictToTutorialsFirst = config.challenges.restrictToTutorialsFirst
       this.showOnlyTutorialChallenges = localStorage.getItem('showOnlyTutorialChallenges') ? JSON.parse(String(localStorage.getItem('showOnlyTutorialChallenges'))) : this.restrictToTutorialsFirst
+      this.localBackupEnabled = config.application.localBackupEnabled
       this.challengeService.find({ sort: 'name' }).subscribe((challenges) => {
         this.challenges = challenges
         for (let i = 0; i < this.challenges.length; i++) {

@@ -60,7 +60,7 @@
         <i class="fa-2x fas fa-exclamation-circle" aria-hidden="true"></i> {{"BTN_SHOW_UNAVAILABLE" | translate}}
       </mat-button-toggle>
 
-      <button mat-fab class="backupButton" color="primary" (click)="saveBackup()"
+      <button *ngIf="localBackupEnabled" mat-fab class="backupButton" color="primary" (click)="saveBackup()"
               aria-label="Button to save local backup" matTooltip="{{ 'SAVE_BACKUP_TOOLTIP' | translate  }}"
               matTooltipPosition="above">
         <mat-icon>
@@ -74,7 +74,7 @@
                (change)="restoreBackup($event.target.files.item(0))"
                style="display:none;">
       </div>
-      <button mat-fab class="backupButton" color="primary" (click)="restoreBackupFile.click()"
+      <button *ngIf="localBackupEnabled" mat-fab class="backupButton" color="primary" (click)="restoreBackupFile.click()"
               aria-label="Button to restore local backup" matTooltip="{{ 'RESTORE_BACKUP_TOOLTIP' | translate  }}"
               matTooltipPosition="above">
         <mat-icon>
