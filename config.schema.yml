@@ -18,6 +18,8 @@ application:
     type: boolean
   showGitHubLinks:
     type: boolean
+  localBackupEnabled:
+    type: boolean
   numberOfRandomFakeUsers:
     type: number
   altcoinName:
