@@ -60,8 +60,6 @@
         <i class="fa-2x fas fa-exclamation-circle" aria-hidden="true"></i> {{"BTN_SHOW_UNAVAILABLE" | translate}}
       </mat-button-toggle>
 
-      <div *ngIf="numDisabledChallenges > 0 && showDisabledChallenges" class="disabled-challenges-infoBox mat-button" [innerHTML]="'INFO_DISABLED_CHALLENGES' | translate: {num: numDisabledChallenges, env: disabledEnv}"></div>
-
       <button mat-fab class="backupButton" color="primary" (click)="saveBackup()"
               aria-label="Button to save local backup" matTooltip="{{ 'SAVE_BACKUP_TOOLTIP' | translate  }}"
               matTooltipPosition="above">
@@ -80,10 +78,11 @@
               aria-label="Button to restore local backup" matTooltip="{{ 'RESTORE_BACKUP_TOOLTIP' | translate  }}"
               matTooltipPosition="above">
         <mat-icon>
-          redo
+          settings_backup_restore
         </mat-icon>
       </button>
 
+      <div *ngIf="numDisabledChallenges > 0 && showDisabledChallenges" class="disabled-challenges-infoBox mat-button" [innerHTML]="'INFO_DISABLED_CHALLENGES' | translate: {num: numDisabledChallenges, env: disabledEnv}"></div>
 
     </div>
     <mat-divider></mat-divider>
