@@ -8,6 +8,7 @@ import { SafeHtml } from '@angular/platform-browser'
 export interface Challenge {
   name: string
   category: string
+  tag?: string
   description?: string | SafeHtml
   difficulty: number
   hint?: string

@@ -27,6 +27,7 @@ import { EventEmitter } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 import { ChallengeStatusBadgeComponent } from '../challenge-status-badge/challenge-status-badge.component'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatChipsModule } from "@angular/material/chips";
 
 class MockSocket {
   on (str: string, callback: Function) {
@@ -78,7 +79,8 @@ describe('ScoreBoardComponent', () => {
         MatTooltipModule,
         MatButtonToggleModule,
         MatIconModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatChipsModule
       ],
       declarations: [ ScoreBoardComponent, ChallengeStatusBadgeComponent ],
       providers: [
