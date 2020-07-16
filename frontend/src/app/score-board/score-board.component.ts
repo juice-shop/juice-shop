@@ -44,7 +44,7 @@ export class ScoreBoardComponent implements OnInit {
   public isLastTutorialsTier: boolean = false
   public tutorialsTier: number = 1
   public disabledEnv?: string
-  public displayedColumns = ['name', 'difficulty', 'description', 'category', 'status']
+  public displayedColumns = ['name', 'difficulty', 'description', 'category', 'tags', 'status']
   public offsetValue = ['100%', '100%', '100%', '100%', '100%', '100%']
   public allowRepeatNotifications: boolean = false
   public showChallengeHints: boolean = true
