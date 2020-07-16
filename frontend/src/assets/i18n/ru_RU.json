@@ -348,5 +348,7 @@
   "INFO_FULL_CHALLENGE_MODE": "Заверши оставшиеся задания обучения, чтобы открыть все {{num}} испытаний и разблокировать расширенные фильтры для таблицы результатов!",
   "INFO_NEXT_TUTORIAL_TIER": "Пройдите {{tier}} тренировочных испытания, чтобы открыть следующий уровень сложности!",
   "SHOW_COMMENT": "Show Comment",
-  "INFO_VULNERABILITY_MITIGATION_LINK": "Click to learn how to avoid or mitigate similar vulnerabilities!"
+  "INFO_VULNERABILITY_MITIGATION_LINK": "Click to learn how to avoid or mitigate similar vulnerabilities!",
+  "SAVE_BACKUP_TOOLTIP": "Save challenge progress and application settings to file.",
+  "RESTORE_BACKUP_TOOLTIP": "Restore challenge progress and application settings from file."
 }
