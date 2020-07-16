@@ -127,7 +127,7 @@ import { MatPasswordStrengthModule } from '@angular-material-extensions/password
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { FeedbackDetailsComponent } from './feedback-details/feedback-details.component'
 import { MatSliderModule } from '@angular/material/slider'
-import { MatChipsModule } from "@angular/material/chips";
+import { MatChipsModule } from '@angular/material/chips'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json')
@@ -189,59 +189,59 @@ export function HttpLoaderFactory (http: HttpClient) {
     DeluxeUserComponent,
     FeedbackDetailsComponent
   ],
-    imports: [
-        BrowserModule,
-        Routing,
-        TranslateModule.forRoot(
-            {
-                loader: {
-                    provide: TranslateLoader,
-                    useFactory: HttpLoaderFactory,
-                    deps: [HttpClient]
-                }
-            }
-        ),
-        MatPasswordStrengthModule.forRoot(),
-        FlexLayoutModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        SlideshowModule,
-        QRCodeModule,
-        FileUploadModule,
-        ClipboardModule,
-        NgxSpinnerModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatButtonModule,
-        MatSidenavModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatCardModule,
-        MatInputModule,
-        MatCheckboxModule,
-        MatDialogModule,
-        MatDividerModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatExpansionModule,
-        MatProgressBarModule,
-        MatTooltipModule,
-        MatMenuModule,
-        MatListModule,
-        MatButtonToggleModule,
-        LayoutModule,
-        MatGridListModule,
-        NgMatSearchBarModule,
-        MatBadgeModule,
-        MatRadioModule,
-        MatSnackBarModule,
-        MatSliderModule,
-        MatSlideToggleModule,
-        MatChipsModule
-    ],
+  imports: [
+    BrowserModule,
+    Routing,
+    TranslateModule.forRoot(
+      {
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+        }
+      }
+    ),
+    MatPasswordStrengthModule.forRoot(),
+    FlexLayoutModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    SlideshowModule,
+    QRCodeModule,
+    FileUploadModule,
+    ClipboardModule,
+    NgxSpinnerModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCardModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatExpansionModule,
+    MatProgressBarModule,
+    MatTooltipModule,
+    MatMenuModule,
+    MatListModule,
+    MatButtonToggleModule,
+    LayoutModule,
+    MatGridListModule,
+    NgMatSearchBarModule,
+    MatBadgeModule,
+    MatRadioModule,
+    MatSnackBarModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatChipsModule
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
