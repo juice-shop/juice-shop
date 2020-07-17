@@ -132,9 +132,11 @@
       <ng-container matColumnDef="tags">
         <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-xl translate>LABEL_TAGS</mat-header-cell>
         <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-xl>
-          <mat-chip-list *ngIf="challenge.tag">
-            <mat-chip>{{challenge.tag}}</mat-chip>
-          </mat-chip-list>
+          <span *ngIf="challenge.tags">
+            <mat-chip-list *ngFor="let tag of challenge.tags.split(',')">
+              <mat-chip>{{tag}}</mat-chip>
+            </mat-chip-list>
+          </span>
         </mat-cell>
       </ng-container>
 
