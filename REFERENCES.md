@@ -25,6 +25,10 @@ where this project was mentioned or used!
 
 ### Pod- & Webcasts
 
+* [Web security for web developers with Zaproxy by Simon Bennetts](https://youtu.be/54UV2_JwcIY)
+  with
+  [Eddie Jaoude](https://www.youtube.com/channel/UC5mnBodB73bR88fLXHSfzYA)
+  :mega:
 * [ZAP in Ten](https://www.alldaydevops.com/zap-in-ten) with Simon
   Bennetts
   * [ZAP in Ten: ADDO Workshop Section 1 - Introduction](https://play.vidyard.com/BAmiaxyzS3g2BCgX2vbVvV)
