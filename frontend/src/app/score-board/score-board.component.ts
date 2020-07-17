@@ -17,6 +17,7 @@ import { faGem } from '@fortawesome/free-regular-svg-icons'
 import { faBtc, faGithub, faGitter } from '@fortawesome/free-brands-svg-icons'
 import { Challenge } from '../Models/challenge.model'
 import { TranslateService } from '@ngx-translate/core'
+import { LocalBackupService } from '../Services/local-backup.service'
 
 library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy, faPollH)
 dom.watch()
@@ -43,7 +44,7 @@ export class ScoreBoardComponent implements OnInit {
   public isLastTutorialsTier: boolean = false
   public tutorialsTier: number = 1
   public disabledEnv?: string
-  public displayedColumns = ['name', 'difficulty', 'description', 'category', 'status']
+  public displayedColumns = ['name', 'difficulty', 'description', 'category', 'tags', 'status']
   public offsetValue = ['100%', '100%', '100%', '100%', '100%', '100%']
   public allowRepeatNotifications: boolean = false
   public showChallengeHints: boolean = true
@@ -56,8 +57,9 @@ export class ScoreBoardComponent implements OnInit {
   public showContributionInfoBox: boolean = true
   public questionnaireUrl: string = 'https://forms.gle/2Tr5m1pqnnesApxN8'
   public appName: string = 'OWASP Juice Shop'
+  public localBackupEnabled: boolean = true
 
-  constructor (private configurationService: ConfigurationService, private challengeService: ChallengeService, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService, private translate: TranslateService) {
+  constructor (private configurationService: ConfigurationService, private challengeService: ChallengeService, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService, private translate: TranslateService, private localBackupService: LocalBackupService) {
   }
 
   ngOnInit () {
@@ -77,6 +79,7 @@ export class ScoreBoardComponent implements OnInit {
       this.appName = config.application.name
       this.restrictToTutorialsFirst = config.challenges.restrictToTutorialsFirst
       this.showOnlyTutorialChallenges = localStorage.getItem('showOnlyTutorialChallenges') ? JSON.parse(String(localStorage.getItem('showOnlyTutorialChallenges'))) : this.restrictToTutorialsFirst
+      this.localBackupEnabled = config.application.localBackupEnabled
       this.challengeService.find({ sort: 'name' }).subscribe((challenges) => {
         this.challenges = challenges
         for (let i = 0; i < this.challenges.length; i++) {
@@ -329,5 +332,13 @@ export class ScoreBoardComponent implements OnInit {
 
   times (numberOfTimes: number) {
     return Array(numberOfTimes).fill('★')
+  }
+
+  saveBackup () {
+    this.localBackupService.save(this.appName.toLowerCase().replace(/ /, '_'))
+  }
+
+  restoreBackup (file: File) {
+    this.localBackupService.restore(file)
   }
 }

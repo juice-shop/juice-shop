@@ -3,6 +3,7 @@ application:
   favicon: favicon_ctf.ico
   showVersionNumber: false
   showGitHubLinks: false
+  localBackupEnabled: false
   welcomeBanner:
     showOnFirstStart: false
 challenges:

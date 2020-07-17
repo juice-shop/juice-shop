@@ -52,6 +52,8 @@ Shop easier to hack!
   * [★★★ Login Bender](https://youtu.be/a6kh9fL77A0)
   * [★★★ Login Jim](https://youtu.be/zJpJibswGWA)
   * [★★★ Manipluate Basket](https://youtu.be/pdtDtmIiSOQ)
+  * [★★★ Payback Time](https://youtu.be/QN4f00VsXn4)
+  * [★★★ Privacy Policy Inspection](https://youtu.be/5DUXTmp5KbI)
 * [HackerOne #h1-2004 Community Day: Intro to Web Hacking - OWASP Juice Shop](https://youtu.be/KmlwIwG7Kv4)
   by [Nahamsec](https://twitch.tv/nahamsec) including the creation of a
   (fake) bugbounty report for all findings (🧃`v10.x`)
@@ -60,6 +62,8 @@ Shop easier to hack!
   (🧃`v8.x`, 🇮🇩)
 * [OWASP Juice Shop All Challenges Solved || ETHIKERS](https://youtu.be/Fjdhf6OHgRk)
   full-spoiler, time-lapsed, no-commentary hacking trip (🧃`v8.x`)
+* [Hacking JavaScript - Intro to Hacking Web Apps (Episode 3)](https://youtu.be/ejB1i5n_d7o)
+  by Arthur Kay (🧃`v8.x`)
 * [HackerSploit](https://www.youtube.com/channel/UC0ZTPkdxlAKf-V33tqXwi3Q)
   Youtube channel (🧃`v7.x`)
   * [OWASP Juice Shop - SQL Injection](https://youtu.be/nH4r6xv-qGg)
