@@ -304,8 +304,8 @@
 	"Super rare \"Juice Shop\" card with holographic foil-coating for the <a href=\"https://docs.google.com/forms/d/e/1FAIpQLSecLEakawSQ56lBe2JOSbFwFYrKDCIN7Yd3iHFdQc5z8ApwdQ/viewform\">Adversary Trading Cards</a> CCG.": "超级稀有的带有全息金箔纸的 \"Juice Shop\"<a href=\"https://docs.google.com/forms/d/e/1FAIpQLSecLEakawSQ56lBe2JOSbFwFYrKDCIN7Yd3iHFdQc5z8ApwdQ/viewform\">攻击者集换式卡片</a>",
 	"OWASP Juice Shop \"King of the Hill\" Facemask": "OWASP Juice Shop \"山丘之王\" 面罩",
 	"Facemask with compartment for filter from 50% cotton and 50% polyester.": "含有50%棉和50%聚酯纤维的过滤面罩。",
-	"Determine the answer to John's security question by looking at an upload of him to the Photo Wall and use it to reset his password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism.": "Determine the answer to John's security question by looking at an upload of him to the Photo Wall and use it to reset his password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism.",
-	"Take a look at the meta data of the corresponding photo.": "Take a look at the meta data of the corresponding photo.",
-	"Determine the answer to Emma's security question by looking at an upload of her to the Photo Wall and use it to reset her password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism.": "Determine the answer to Emma's security question by looking at an upload of her to the Photo Wall and use it to reset her password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism.",
-	"Take a look at the details in the photo to determine the location of where it was taken.": "Take a look at the details in the photo to determine the location of where it was taken."
+	"Determine the answer to John's security question by looking at an upload of him to the Photo Wall and use it to reset his password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism.": "通过查看他上传到照片墙的照片来确定John安全问题的答案并通过 <a href=\"/#/forgot-password\">忘记密码</a> 机制重置他的密码。",
+	"Take a look at the meta data of the corresponding photo.": "查看相应照片的元数据。",
+	"Determine the answer to Emma's security question by looking at an upload of her to the Photo Wall and use it to reset her password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism.": "通过查看她上传到照片墙的照片来确定Emma安全问题的答案并通过 <a href=\"/#/forgot-password\">忘记密码</a> 机制重置他的密码。",
+	"Take a look at the details in the photo to determine the location of where it was taken.": "查看照片中的详细信息，以确定照片的拍摄地点。"
 }

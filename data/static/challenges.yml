@@ -171,6 +171,7 @@
 -
   name: 'Easter Egg'
   category: 'Broken Access Control'
+  tags: ['Shenanigans']
   description: 'Find the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.'
   difficulty: 4
   hint: 'If you solved one of the three file access challenges, you already know where to find the easter egg.'
@@ -331,6 +332,7 @@
 -
   name: 'Imaginary Challenge'
   category: 'Cryptographic Issues'
+  tags: ['Shenanigans']
   description: 'Solve challenge #999. Unfortunately, this challenge does not exist.'
   difficulty: 6
   hint: 'You need to trick the hacking progress persistence feature into thinking you solved challenge #999.'
@@ -349,6 +351,7 @@
 -
   name: 'Leaked Unsafe Product'
   category: 'Sensitive Data Exposure'
+  tags: ['Shenanigans']
   description: 'Identify an unsafe product that was removed from the shop and <a href="/#/contact">inform the shop</a> which ingredients are dangerous.'
   difficulty: 4
   hint: 'Your own SQLi and someone else''s Ctrl-V will be your accomplices in this challenge!'
@@ -427,6 +430,7 @@
 -
   name: 'Login MC SafeSearch'
   category: 'Sensitive Data Exposure'
+  tags: ['Shenanigans']
   description: 'Log in with MC SafeSearch''s original user credentials without applying SQL Injection or any other bypass.'
   difficulty: 2
   hint: 'You should listen to MC''s hit song "Protect Ya Passwordz".'
@@ -472,6 +476,7 @@
 -
   name: 'Nested Easter Egg'
   category: 'Cryptographic Issues'
+  tags: ['Shenanigans']
   description: 'Apply some advanced cryptanalysis to find <i>the real</i> easter egg.'
   difficulty: 4
   hint: 'You might have to peel through several layers of tough-as-nails encryption for this challenge.'
@@ -543,6 +548,7 @@
 -
   name: 'Premium Paywall'
   category: 'Cryptographic Issues'
+  tags: ['Shenanigans']
   description: '<i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><!--IvLuRfBJYlmStf9XfL6ckJFngyd9LfV1JaaN/KRTPQPidTuJ7FR+D/nkWJUF+0xUF07CeCeqYfxq+OJVVa0gNbqgYkUNvn//UbE7e95C+6e+7GtdpqJ8mqm4WcPvUGIUxmGLTTAC2+G9UuFCD1DUjg==--> <a href="https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm" target="_blank"><i class="fab fa-btc fa-sm"></i> Unlock Premium Challenge</a> to access exclusive content.'
   difficulty: 6
   hint: 'You do not have to pay anything to unlock this challenge! Nonetheless, donations are very much appreciated.'
@@ -552,6 +558,7 @@
 -
   name: 'Privacy Policy'
   category: 'Miscellaneous'
+  tags: ['Shenanigans']
   description: 'Read our privacy policy.'
   difficulty: 1
   hint: 'We won''t even ask you to confirm that you did. Just read it. Please. Pretty please.'
@@ -563,6 +570,7 @@
 -
   name: 'Privacy Policy Inspection'
   category: 'Security through Obscurity'
+  tags: ['Shenanigans']
   description: 'Prove that you actually read our privacy policy.'
   difficulty: 3
   hint: 'Only by visiting a special URL you can confirm that you read it carefully.'
@@ -700,6 +708,7 @@
 -
   name: 'Steganography'
   category: 'Security through Obscurity'
+  tags: ['Shenanigans']
   description: '<a href="/#/contact">Rat out</a> a notorious character hiding in plain sight in the shop. (Mention the exact name of the character)'
   difficulty: 4
   hint: 'No matter how good your eyes are, you will need tool assistance for this challenge.'
@@ -858,6 +867,7 @@
 -
   name: 'Missing Encoding'
   category: 'Improper Input Validation'
+  tags: ['Shenanigans']
   description: 'Retrieve the photo of Bjoern''s cat in "melee combat-mode".'
   difficulty: 1
   hint: 'Check the Photo Wall for an image that could not be loaded correctly.'
@@ -903,6 +913,7 @@
 -
   name: 'Bonus Payload'
   category: 'XSS'
+  tags: ['Shenanigans']
   description: 'Use the bonus payload <code>&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;</code> in the <i>DOM XSS</i> challenge.'
   difficulty: 1
   hint: 'Copy + Paste = Solved!'

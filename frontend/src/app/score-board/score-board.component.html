@@ -60,6 +60,28 @@
         <i class="fa-2x fas fa-exclamation-circle" aria-hidden="true"></i> {{"BTN_SHOW_UNAVAILABLE" | translate}}
       </mat-button-toggle>
 
+      <button *ngIf="localBackupEnabled" mat-fab class="backupButton" color="primary" (click)="saveBackup()"
+              aria-label="Button to save local backup" matTooltip="{{ 'SAVE_BACKUP_TOOLTIP' | translate  }}"
+              matTooltipPosition="above">
+        <mat-icon>
+          save_alt
+        </mat-icon>
+      </button>
+
+      <div class="form-group">
+        <input type="file"
+               #restoreBackupFile
+               (change)="restoreBackup($event.target.files.item(0))"
+               style="display:none;">
+      </div>
+      <button *ngIf="localBackupEnabled" mat-fab class="backupButton" color="primary" (click)="restoreBackupFile.click()"
+              aria-label="Button to restore local backup" matTooltip="{{ 'RESTORE_BACKUP_TOOLTIP' | translate  }}"
+              matTooltipPosition="above">
+        <mat-icon>
+          settings_backup_restore
+        </mat-icon>
+      </button>
+
       <div *ngIf="numDisabledChallenges > 0 && showDisabledChallenges" class="disabled-challenges-infoBox mat-button" [innerHTML]="'INFO_DISABLED_CHALLENGES' | translate: {num: numDisabledChallenges, env: disabledEnv}"></div>
 
     </div>
@@ -105,6 +127,17 @@
       <ng-container matColumnDef="category">
         <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-lg translate>LABEL_CATEGORY</mat-header-cell>
         <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-lg> {{challenge.category}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="tags">
+        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-xl translate>LABEL_TAGS</mat-header-cell>
+        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-xl>
+          <span *ngIf="challenge.tags">
+            <mat-chip-list *ngFor="let tag of challenge.tags.split(',')">
+              <mat-chip>{{tag}}</mat-chip>
+            </mat-chip-list>
+          </span>
+        </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="status">
