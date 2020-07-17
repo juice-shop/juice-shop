@@ -52,6 +52,8 @@
 -
   name: 'Bjoern''s Favorite Pet'
   category: 'Broken Authentication'
+  tags:
+    - OSINT
   description: 'Reset the password of Bjoern''s OWASP account via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
   difficulty: 3
   hint: 'He might have spoilered it on at least one occasion where a camera was running. Maybe elsewhere as well.'
@@ -344,6 +346,8 @@
 -
   name: 'Leaked Access Logs'
   category: 'Sensitive Data Exposure'
+  tags:
+    - OSINT
   description: 'Dumpster dive the Internet for a leaked password and log in to the original user account it belongs to. (Creating a new account with the same password does not qualify as a solution.)'
   difficulty: 5
   hint: 'Once you have it, a technique called "Password Spraying" might prove useful.'
@@ -355,6 +359,7 @@
   category: 'Sensitive Data Exposure'
   tags:
     - Shenanigans
+    - OSINT
   description: 'Identify an unsafe product that was removed from the shop and <a href="/#/contact">inform the shop</a> which ingredients are dangerous.'
   difficulty: 4
   hint: 'Your own SQLi and someone else''s Ctrl-V will be your accomplices in this challenge!'
@@ -435,6 +440,7 @@
   category: 'Sensitive Data Exposure'
   tags:
     - Shenanigans
+    - OSINT
   description: 'Log in with MC SafeSearch''s original user credentials without applying SQL Injection or any other bypass.'
   difficulty: 2
   hint: 'You should listen to MC''s hit song "Protect Ya Passwordz".'
@@ -620,6 +626,8 @@
 -
   name: 'Reset Bender''s Password'
   category: 'Broken Authentication'
+  tags:
+    - OSINT
   description: 'Reset Bender''s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
   difficulty: 4
   hint: 'Not as trivial as Jim''s but still not too difficult with some "Futurama" background knowledge.'
@@ -629,6 +637,8 @@
 -
   name: 'Reset Bjoern''s Password'
   category: 'Broken Authentication'
+  tags:
+    - OSINT
   description: 'Reset the password of Bjoern''s internal account via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
   difficulty: 5
   hint: 'Nothing a little bit of Facebook stalking couldn''t reveal. Might involve a historical twist.'
@@ -638,6 +648,8 @@
 -
   name: 'Reset Jim''s Password'
   category: 'Broken Authentication'
+  tags:
+    - OSINT
   description: 'Reset Jim''s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
   difficulty: 3
   hint: 'It''s hard for celebrities to pick a security question from a hard-coded list where the answer is not publicly exposed.'
@@ -647,6 +659,8 @@
 -
   name: 'Reset Morty''s Password'
   category: 'Broken Anti Automation'
+  tags:
+    - OSINT
   description: 'Reset Morty''s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>his obfuscated answer</i> to his security question.'
   difficulty: 5
   hint: 'Find a way to bypass the rate limiting and brute force the obfuscated answer to Morty''s security question.'
@@ -820,6 +834,8 @@
 -
   name: 'Vulnerable Library'
   category: 'Vulnerable Components'
+  tags:
+    - OSINT
   description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your comment)'
   difficulty: 4
   hint: 'Report one of two possible answers via the "Customer Feedback" form. Do not forget to submit the library''s version as well.'
@@ -942,6 +958,8 @@
 -
   name: 'Reset Uvogin''s Password'
   category: 'Sensitive Data Exposure'
+  tags:
+    - OSINT
   description: 'Reset Uvogin''s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
   difficulty: 4
   hint: 'You might have to do some OSINT on his social media personas to find out his honest answer to the security question.'
@@ -951,6 +969,8 @@
 -
   name: 'Meta Geo Stalking'
   category: 'Sensitive Data Exposure'
+  tags:
+    - OSINT
   description: 'Determine the answer to John''s security question by looking at an upload of him to the Photo Wall and use it to reset his password via the <a href="/#/forgot-password">Forgot Password</a> mechanism.'
   difficulty: 2
   hint: 'Take a look at the meta data of the corresponding photo.'
@@ -960,6 +980,8 @@
 -
   name: 'Visual Geo Stalking'
   category: 'Sensitive Data Exposure'
+  tags:
+    - OSINT
   description: 'Determine the answer to Emma''s security question by looking at an upload of her to the Photo Wall and use it to reset her password via the <a href="/#/forgot-password">Forgot Password</a> mechanism.'
   difficulty: 2
   hint: 'Take a look at the details in the photo to determine the location of where it was taken.'
