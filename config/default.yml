@@ -19,7 +19,7 @@ application:
     slackUrl: 'http://owaspslack.com'
     redditUrl: 'https://www.reddit.com/r/owasp_juiceshop'
     pressKitUrl: 'https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop'
-    questionnaireUrl: 'https://forms.gle/2Tr5m1pqnnesApxN8'
+    questionnaireUrl: ~
   recyclePage:
     topProductImage: fruit_press.jpg
     bottomProductImage: apple_pressings.jpg
