@@ -63,6 +63,8 @@
 -
   name: 'Blockchain Hype'
   category: 'Security through Obscurity'
+  tags:
+    - Contraption
   description: 'Learn about the Token Sale before its official announcement.'
   difficulty: 5
   hint: 'The developers truly believe in "Security through Obscurity" over actual access restrictions.'
@@ -84,6 +86,8 @@
 -
   name: 'CAPTCHA Bypass'
   category: 'Broken Anti Automation'
+  tags:
+    - Brute Force
   description: 'Submit 10 or more customer feedbacks within 10 seconds.'
   difficulty: 3
   hint: 'After finding a CAPTCHA bypass, write a script that automates feedback submission. Or open many browser tabs and be really quick.'
@@ -164,6 +168,8 @@
 -
   name: 'Deprecated Interface'
   category: 'Security Misconfiguration'
+  tags:
+    - Contraption
   description: 'Use a deprecated B2B interface that was not properly shut down.'
   difficulty: 2
   hint: 'The developers who disabled the interface think they could go invisible by just closing their eyes.'
@@ -220,6 +226,8 @@
 -
   name: 'Extra Language'
   category: 'Broken Anti Automation'
+  tags:
+    - Brute Force
   description: 'Retrieve the language file that never made it into production.'
   difficulty: 5
   hint: 'Brute force is not the only option for this challenge, but a perfectly viable one.'
@@ -278,6 +286,8 @@
 -
   name: 'Forgotten Developer Backup'
   category: 'Sensitive Data Exposure'
+  tags:
+    - Contraption
   description: 'Access a developer''s forgotten backup file.'
   difficulty: 4
   hint: 'You need to trick a security mechanism into thinking that the file you want has a valid file type.'
@@ -287,6 +297,8 @@
 -
   name: 'Forgotten Sales Backup'
   category: 'Sensitive Data Exposure'
+  tags:
+    - Contraption
   description: 'Access a salesman''s forgotten backup file.'
   difficulty: 4
   hint: 'You need to trick a security mechanism into thinking that the file you want has a valid file type.'
@@ -389,6 +401,8 @@
 -
   name: 'Login Amy'
   category: 'Sensitive Data Exposure'
+  tags:
+    - OSINT
   description: 'Log in with Amy''s original user credentials. (This could take 93.83 billion trillion trillion centuries to brute force, but luckily she did not read the "One Important Final Note")'
   difficulty: 3
   hint: 'This challenge will make you go after a needle in a haystack.'
@@ -450,6 +464,8 @@
 -
   name: 'Login Support Team'
   category: 'Security Misconfiguration'
+  tags:
+    - Contraption
   description: 'Log in with the support team''s original user credentials without applying SQL Injection or any other bypass.'
   difficulty: 6
   hint: 'The underlying flaw of this challenge is a lot more human error than technical weakness.'
@@ -541,6 +557,8 @@
 -
   name: 'Password Strength'
   category: 'Broken Authentication'
+  tags:
+    - Brute Force
   description: 'Log in with the administrator''s user credentials without previously changing them or applying SQL Injection.'
   difficulty: 2
   hint: 'This one should be equally easy to a) brute force, b) crack the password hash or c) simply guess.'
@@ -661,6 +679,7 @@
   category: 'Broken Anti Automation'
   tags:
     - OSINT
+    - Brute Force
   description: 'Reset Morty''s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>his obfuscated answer</i> to his security question.'
   difficulty: 5
   hint: 'Find a way to bypass the rate limiting and brute force the obfuscated answer to Morty''s security question.'
@@ -688,6 +707,8 @@
 -
   name: 'SSTi'
   category: 'Injection'
+  tags:
+    - Contraption
   description: 'Infect the server with juicy malware by abusing arbitrary command execution.'
   difficulty: 6
   hint: '"SSTi" is a clear indicator that this has nothing to do with anything Angular. Also, make sure to use only our non-malicious malware.'
@@ -757,6 +778,8 @@
 -
   name: 'Supply Chain Attack'
   category: 'Vulnerable Components'
+  tags:
+    - OSINT
   description: '<a href="/#/contact">Inform the development team</a> about a danger to some of <em>their</em> credentials. (Send them the URL of the <em>original report</em> or an assigned CVE or another identifier of this vulnerability)'
   difficulty: 5
   hint: 'This vulnerability will not affect any customer of the shop. It is aimed exclusively at its developers.'
@@ -907,6 +930,8 @@
 -
   name: 'Cross-Site Imaging'
   category: 'Security Misconfiguration'
+  tags:
+    - Contraption
   description: 'Stick <a href="http://placekitten.com/" target="_blank">cute cross-domain kittens</a> all over our delivery boxes.'
   difficulty: 5
   hint: 'This challenge would formally have to be in several categories as the developers made multiple gaffes for this to be possible.'
