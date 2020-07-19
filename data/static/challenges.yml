@@ -229,6 +229,8 @@
 -
   name: 'Error Handling'
   category: 'Security Misconfiguration'
+  tags:
+    - Prerequisite
   description: 'Provoke an error that is neither very gracefully nor consistently handled.'
   difficulty: 1
   hint: 'Try to submit bad input to forms. Alternatively tamper with URL paths or parameters.'
