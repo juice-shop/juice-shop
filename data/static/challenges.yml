@@ -158,6 +158,8 @@
 -
   name: 'DOM XSS'
   category: 'XSS'
+  tags:
+    - Tutorial
   description: 'Perform a <i>DOM</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code>.'
   difficulty: 1
   hint: 'Look for an input field where its content appears in the HTML when its form is submitted.'
@@ -266,6 +268,8 @@
 -
   name: 'Forged Feedback'
   category: 'Broken Access Control'
+  tags:
+    - Tutorial
   description: 'Post some feedback in another users name.'
   difficulty: 3
   hint: 'You can solve this by tampering with the user interface or by intercepting the communication with the RESTful backend.'
@@ -403,6 +407,8 @@
 -
   name: 'Login Admin'
   category: 'Injection'
+  tags:
+    - Tutorial
   description: 'Log in with the administrator''s user account.'
   difficulty: 2
   hint: 'Try different SQL Injection attack patterns depending whether you know the admin''s email address or not.'
@@ -425,6 +431,8 @@
 -
   name: 'Login Bender'
   category: 'Injection'
+  tags:
+    - Tutorial
   description: 'Log in with Bender''s user account.'
   difficulty: 3
   hint: 'If you know Bender''s email address, try SQL Injection. Bender''s password hash might not help you very much.'
@@ -454,6 +462,8 @@
 -
   name: 'Login Jim'
   category: 'Injection'
+  tags:
+    - Tutorial
   description: 'Log in with Jim''s user account.'
   difficulty: 3
   hint: 'Try cracking Jim''s password hash if you harvested it already. Alternatively, if you know Jim''s email address, try SQL Injection.'
@@ -577,6 +587,7 @@
   category: 'Broken Authentication'
   tags:
     - Brute Force
+    - Tutorial
   description: 'Log in with the administrator''s user credentials without previously changing them or applying SQL Injection.'
   difficulty: 2
   hint: 'This one should be equally easy to a) brute force, b) crack the password hash or c) simply guess.'
@@ -610,6 +621,7 @@
   category: 'Miscellaneous'
   tags:
     - Good Practice
+    - Tutorial
   description: 'Read our privacy policy.'
   difficulty: 1
   hint: 'We won''t even ask you to confirm that you did. Just read it. Please. Pretty please.'
@@ -742,6 +754,8 @@
 -
   name: 'Score Board'
   category: 'Miscellaneous'
+  tags:
+    - Tutorial
   description: 'Find the carefully hidden ''Score Board'' page.'
   difficulty: 1
   hint: 'Try to find a reference or clue behind the scenes. Or simply guess what URL the Score Board might have.'
@@ -873,6 +887,8 @@
 -
   name: 'View Basket'
   category: 'Broken Access Control'
+  tags:
+    - Tutorial
   description: 'View another user''s shopping basket.'
   difficulty: 2
   hint: 'Have an eye on the HTTP traffic while shopping. Alternatively try to find a client-side association of users to their basket.'
@@ -1003,6 +1019,7 @@
   category: 'XSS'
   tags:
     - Shenanigans
+    - Tutorial
   description: 'Use the bonus payload <code>&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;</code> in the <i>DOM XSS</i> challenge.'
   difficulty: 1
   hint: 'Copy + Paste = Solved!'
