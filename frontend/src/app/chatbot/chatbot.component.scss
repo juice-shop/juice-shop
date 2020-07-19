@@ -88,6 +88,13 @@ mat-form-field {
   padding-top: 15px;
 }
 
+.message-container {
+  margin-right: 25px;
+  width: auto;
+  overflow: hidden;
+  height: auto;
+}
+
 .speech-bubble-right {
   background: rgb(84, 110, 122);
   border-radius: 4px;
@@ -97,7 +104,7 @@ mat-form-field {
   padding: 15px;
   float: right;
   position: relative;
-  margin-top: 25px;
+  margin-bottom: 25px;
 
   &::after {
     border-left: 20px solid transparent;
@@ -118,7 +125,7 @@ mat-form-field {
   padding: 15px;
   float: left;
   position: relative;
-  margin-top: 25px;
+  margin-bottom: 25px;
 
   &::after {
     border-right: 20px solid transparent;
