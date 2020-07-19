@@ -3,15 +3,30 @@
   ~ SPDX-License-Identifier: MIT
   -->
 
-  <div fxLayoutAlign="center">
-    <mat-card class="mat-elevation-z6">  
-      <h1>Juicy Chat</h1>  
-      <mat-card id="chat-container">
-        <mat-card id="chat-box">
-          <div id="chat-window"></div>
-          <div class="message-box-container"></div>
-        </mat-card>
+<div fxLayoutAlign="center">
+  <mat-card class="mat-elevation-z6">  
+    <h1>Juicy Chat</h1>  
+    <mat-card id="chat-container">
+      <mat-card id="chat-box">
+
+        <div id="chat-window">
+          <div class="speech-bubble-right">askdbagsdv asiudgasiu asodgasui d asiudgasiud iasidgiasu  asiudgasi iuasgd</div>
+          <div class="speech-bubble-left">askdbagsdv asiudgasiu asodgasui d asiudgasiud iasidgiasu  asiudgasi iuasgd</div>
+        </div>
+
+        <div class="message-box-container">
+          <div class="form-wrapper">
+            <mat-form-field color="accent" appearance="outline">
+              <mat-label>Message</mat-label>
+              <input id="message" #message name="message"
+                      matInput placeholder="Ask me anything"
+                      aria-label="Text field for the login email">
+            </mat-form-field>   
+          </div>   
+        </div>
+
       </mat-card>
     </mat-card>
-  </div>
+  </mat-card>
+</div>
   
