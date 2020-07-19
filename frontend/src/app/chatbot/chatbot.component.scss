@@ -1,0 +1,59 @@
+/*!
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
+$bg-chat: rgba(0, 0, 0, .3);
+$bg-white: rgba(255, 255, 255, 0.1);
+
+mat-card {
+  height: auto;
+  min-width: 320px;
+  width: 60%;
+}
+  
+mat-form-field {
+  padding-top: 10px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+#submitButton {
+  margin-left: 20%;
+  margin-top: 30px;
+  width: 60%;
+}
+
+#chat-container {
+  display: flex;
+  position: relative;
+  width: 95%;
+  box-shadow: none;
+}
+
+#chat-box {
+  width: 80%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 650px;
+  background-color: $bg-chat;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+}
+
+#chat-window {
+  height: 90%;
+}
+
+.message-box-container {
+  width: 100%;
+  height: 10%;
+  border-top: solid 1px white;
+}
