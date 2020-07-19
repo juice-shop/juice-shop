@@ -181,6 +181,7 @@
   category: 'Broken Access Control'
   tags:
     - Shenanigans
+    - Contraption
   description: 'Find the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.'
   difficulty: 4
   hint: 'If you solved one of the three file access challenges, you already know where to find the easter egg.'
@@ -486,6 +487,7 @@
   category: 'Sensitive Data Exposure'
   tags:
     - Good Practice
+    - Contraption
   description: 'Access a misplaced <a href="https://github.com/Neo23x0/sigma">SIEM signature</a> file.'
   difficulty: 4
   hint: 'You need to trick a security mechanism into thinking that the file you want has a valid file type.'
