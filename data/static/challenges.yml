@@ -1,6 +1,8 @@
 -
   name: 'API-only XSS'
   category: 'XSS'
+  tags:
+    - Danger Zone
   description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> without using the frontend application at all.'
   difficulty: 3
   hint: 'You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.'
@@ -40,6 +42,8 @@
 -
   name: 'Arbitrary File Write'
   category: 'Vulnerable Components'
+  tags:
+    - Danger Zone
   description: 'Overwrite the <a href="/ftp/legal.md">Legal Information</a> file.'
   difficulty: 6
   hint: 'Look out for a tweet praising new functionality of the web shop. Then find a third party vulnerability associated with it.'
@@ -74,6 +78,8 @@
 -
   name: 'Blocked RCE DoS'
   category: 'Insecure Deserialization'
+  tags:
+    - Danger Zone
   description: 'Perform a Remote Code Execution that would keep a less hardened application busy <em>forever</em>.'
   difficulty: 5
   hint: 'The feature you need to exploit for this challenge is not directly advertised anywhere.'
@@ -115,6 +121,8 @@
 -
   name: 'CSP Bypass'
   category: 'XSS'
+  tags:
+    - Danger Zone
   description: 'Bypass the Content Security Policy and perform an XSS attack with <code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> on a legacy page within the application.'
   difficulty: 4
   hint: 'What is even "better" than a legacy page with a homegrown RegEx sanitizer? Having CSP injection issues on the exact same page as well!'
@@ -127,6 +135,8 @@
 -
   name: 'Client-side XSS Protection'
   category: 'XSS'
+  tags:
+    - Danger Zone
   description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> bypassing a <i>client-side</i> security mechanism.'
   difficulty: 3
   hint: 'Only some input fields validate their input. Even less of these are persisted in a way where their content is shown on another screen.'
@@ -336,6 +346,8 @@
 -
   name: 'HTTP-Header XSS'
   category: 'XSS'
+  tags:
+    - Danger Zone
   description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> through an HTTP header.'
   difficulty: 4
   hint: 'Finding a piece of displayed information that could originate from an HTTP header is part of this challenge.'
@@ -517,6 +529,8 @@
 -
   name: 'NoSQL DoS'
   category: 'Injection'
+  tags:
+    - Danger Zone
   description: 'Let the server sleep for some time. (It has done more than enough hard work for you)'
   difficulty: 4
   hint: 'This challenge is essentially a stripped-down Denial of Service (DoS) attack.'
@@ -529,6 +543,8 @@
 -
   name: 'NoSQL Exfiltration'
   category: 'Injection'
+  tags:
+    - Danger Zone
   description: 'All your orders are belong to us! Even the ones which don''t.'
   difficulty: 5
   hint: 'Take a close look on how the $where query operator works in MongoDB.'
@@ -625,6 +641,8 @@
 -
   name: 'Reflected XSS'
   category: 'XSS'
+  tags:
+    - Danger Zone
   description: 'Perform a <i>reflected</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code>.'
   difficulty: 2
   hint: 'Look for a url parameter where its value appears in the page it is leading to.'
@@ -711,6 +729,7 @@
   category: 'Injection'
   tags:
     - Contraption
+    - Danger Zone
   description: 'Infect the server with juicy malware by abusing arbitrary command execution.'
   difficulty: 6
   hint: '"SSTi" is a clear indicator that this has nothing to do with anything Angular. Also, make sure to use only our non-malicious malware.'
@@ -745,6 +764,8 @@
 -
   name: 'Server-side XSS Protection'
   category: 'XSS'
+  tags:
+    - Danger Zone
   description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> bypassing a <i>server-side</i> security mechanism.'
   difficulty: 4
   hint: 'The "Comment" field in the "Customer Feedback" screen is where you want to put your focus on.'
@@ -768,6 +789,8 @@
 -
   name: 'Successful RCE DoS'
   category: 'Insecure Deserialization'
+  tags:
+    - Danger Zone
   description: 'Perform a Remote Code Execution that occupies the server for a while without using infinite loops.'
   difficulty: 6
   hint: 'Your attack payload must not trigger the protection against too many iterations.'
@@ -836,6 +859,8 @@
 -
   name: 'Video XSS'
   category: 'XSS'
+  tags:
+    - Danger Zone
   description: 'Embed an XSS payload <code>&lt;/script&gt;&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> into our promo video.'
   difficulty: 6
   hint: 'You have to reuse the vulnerability behind one other 6-star challenge to be able to solve this one.'
@@ -888,6 +913,8 @@
 -
   name: 'XXE Data Access'
   category: 'XXE'
+  tags:
+    - Danger Zone
   description: 'Retrieve the content of <code>C:\Windows\system.ini</code> or <code>/etc/passwd</code> from the server.'
   difficulty: 3
   hint: 'The leverage point for this challenge is the deprecated B2B interface.'
@@ -900,6 +927,8 @@
 -
   name: 'XXE DoS'
   category: 'XXE'
+  tags:
+    - Danger Zone
   description: 'Give the server something to chew on for quite a while.'
   difficulty: 5
   hint: 'It is not as easy as sending a large amount of data directly to the deprecated B2B interface.'
