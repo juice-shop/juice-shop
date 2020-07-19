@@ -33,6 +33,8 @@
 -
   name: 'Admin Section'
   category: 'Broken Access Control'
+  tags:
+    - Good for Demos
   description: 'Access the administration section of the store.'
   difficulty: 2
   hint: 'It is just slightly harder to find than the score board link.'
@@ -44,6 +46,7 @@
   category: 'Vulnerable Components'
   tags:
     - Danger Zone
+    - Prerequisite
   description: 'Overwrite the <a href="/ftp/legal.md">Legal Information</a> file.'
   difficulty: 6
   hint: 'Look out for a tweet praising new functionality of the web shop. Then find a third party vulnerability associated with it.'
@@ -149,6 +152,8 @@
 -
   name: 'Confidential Document'
   category: 'Sensitive Data Exposure'
+  tags:
+    - Good for Demos
   description: 'Access a confidential document.'
   difficulty: 1
   hint: 'Analyze and tamper with links in the application that deliver a file directly.'
@@ -160,6 +165,7 @@
   category: 'XSS'
   tags:
     - Tutorial
+    - Good for Demos
   description: 'Perform a <i>DOM</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code>.'
   difficulty: 1
   hint: 'Look for an input field where its content appears in the HTML when its form is submitted.'
@@ -182,6 +188,7 @@
   category: 'Security Misconfiguration'
   tags:
     - Contraption
+    - Prerequisite
   description: 'Use a deprecated B2B interface that was not properly shut down.'
   difficulty: 2
   hint: 'The developers who disabled the interface think they could go invisible by just closing their eyes.'
@@ -194,6 +201,7 @@
   tags:
     - Shenanigans
     - Contraption
+    - Good for Demos
   description: 'Find the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.'
   difficulty: 4
   hint: 'If you solved one of the three file access challenges, you already know where to find the easter egg.'
@@ -259,6 +267,8 @@
 -
   name: 'Forged Coupon'
   category: 'Cryptographic Issues'
+  tags:
+    - Good for Demos
   description: 'Forge a coupon code that gives you a discount of at least 80%.'
   difficulty: 6
   hint: 'Try either a) a knowledgable brute force attack or b) reverse engineering or c) some research in the cloud.'
@@ -303,6 +313,8 @@
   category: 'Sensitive Data Exposure'
   tags:
     - Contraption
+    - Good for Demos
+    - Prerequisite
   description: 'Access a developer''s forgotten backup file.'
   difficulty: 4
   hint: 'You need to trick a security mechanism into thinking that the file you want has a valid file type.'
@@ -409,6 +421,7 @@
   category: 'Injection'
   tags:
     - Tutorial
+    - Good for Demos
   description: 'Log in with the administrator''s user account.'
   difficulty: 2
   hint: 'Try different SQL Injection attack patterns depending whether you know the admin''s email address or not.'
@@ -530,6 +543,7 @@
   category: 'Cryptographic Issues'
   tags:
     - Shenanigans
+    - Good for Demos
   description: 'Apply some advanced cryptanalysis to find <i>the real</i> easter egg.'
   difficulty: 4
   hint: 'You might have to peel through several layers of tough-as-nails encryption for this challenge.'
@@ -622,6 +636,7 @@
   tags:
     - Good Practice
     - Tutorial
+    - Good for Demos
   description: 'Read our privacy policy.'
   difficulty: 1
   hint: 'We won''t even ask you to confirm that you did. Just read it. Please. Pretty please.'
@@ -635,6 +650,7 @@
   category: 'Security through Obscurity'
   tags:
     - Shenanigans
+    - Good for Demos
   description: 'Prove that you actually read our privacy policy.'
   difficulty: 3
   hint: 'Only by visiting a special URL you can confirm that you read it carefully.'
@@ -655,6 +671,7 @@
   category: 'XSS'
   tags:
     - Danger Zone
+    - Good for Demos
   description: 'Perform a <i>reflected</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code>.'
   difficulty: 2
   hint: 'Look for a url parameter where its value appears in the page it is leading to.'
@@ -889,6 +906,7 @@
   category: 'Broken Access Control'
   tags:
     - Tutorial
+    - Good for Demos
   description: 'View another user''s shopping basket.'
   difficulty: 2
   hint: 'Have an eye on the HTTP traffic while shopping. Alternatively try to find a client-side association of users to their basket.'
