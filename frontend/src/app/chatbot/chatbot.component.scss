@@ -13,8 +13,6 @@ mat-card {
   
 mat-form-field {
   height: 0px;
-  padding-top: 5px;
-  padding-bottom: 10px;
   width: 70%;
   display: block;
   margin: auto;
@@ -84,9 +82,10 @@ mat-form-field {
 }
 
 .message-box-container {
-  width: 100%;
+  width: auto;
   height: 10%;
   border-top: solid 1px white;
+  padding-top: 15px;
 }
 
 .speech-bubble-right {

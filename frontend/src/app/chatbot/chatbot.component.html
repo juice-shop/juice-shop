@@ -10,17 +10,18 @@
       <mat-card id="chat-box">
 
         <div id="chat-window">
-          <div class="speech-bubble-right">askdbagsdv asiudgasiu asodgasui d asiudgasiud iasidgiasu  asiudgasi iuasgd</div>
-          <div class="speech-bubble-left">askdbagsdv asiudgasiu asodgasui d asiudgasiud iasidgiasu  asiudgasi iuasgd</div>
+          <div *ngFor="let message of messages; index as index" class="{{message.author == 'user' ? 'speech-bubble-right' : 'speech-bubble-left'}}">
+            {{message.body}}
+          </div><br/>
         </div>
 
         <div class="message-box-container">
           <div class="form-wrapper">
             <mat-form-field color="accent" appearance="outline">
               <mat-label>Message</mat-label>
-              <input id="message" #message name="message"
+              <input id="message" #message name="message" [formControl]="messageControl"
                       matInput placeholder="Ask me anything"
-                      aria-label="Text field for the login email">
+                      aria-label="Text field for the login email" (keyup.enter)="sendMessage()">
             </mat-form-field>   
           </div>   
         </div>
