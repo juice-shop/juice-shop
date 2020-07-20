@@ -130,10 +130,10 @@
       </ng-container>
 
       <ng-container matColumnDef="tags">
-        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-xl translate>LABEL_TAGS</mat-header-cell>
-        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-xl>
+        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-lg translate>LABEL_TAGS</mat-header-cell>
+        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-lg>
           <span *ngIf="challenge.tags">
-            <mat-chip-list *ngFor="let tag of challenge.tags.split(',')">
+            <mat-chip-list *ngFor="let tag of challenge.tags.split(',').sort()">
               <mat-chip>{{tag}}</mat-chip>
             </mat-chip-list>
           </span>
