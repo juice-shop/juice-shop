@@ -60,6 +60,7 @@ import { CaptchaService } from './Services/captcha.service'
 import { WindowRefService } from './Services/window-ref.service'
 import { ProductReviewService } from './Services/product-review.service'
 import { ComplaintService } from './Services/complaint.service'
+import { ChatbotService } from './Services/chatbot.service'
 import { TrackOrderService } from './Services/track-order.service'
 import { RecycleService } from './Services/recycle.service'
 import { BasketService } from './Services/basket.service'
@@ -260,6 +261,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     WindowRefService,
     ProductReviewService,
     ComplaintService,
+    ChatbotService,
     TrackOrderService,
     RecycleService,
     BasketService,
