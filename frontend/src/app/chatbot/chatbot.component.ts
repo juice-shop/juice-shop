@@ -40,12 +40,10 @@ export class ChatbotComponent implements OnInit {
 
   ngOnInit () {
     this.chatbotService.getChatbotStatus().subscribe((response) => {
-      if (!response.status) {
-        this.messages.push({
-          author: MessageSources.bot,
-          body: 'Juicy isn\'t ready at the moment, please wait while I set things up'
-        })
-      }
+      this.messages.push({
+        author: MessageSources.bot,
+        body: response.body
+      })
     })
   }
 
@@ -56,7 +54,7 @@ export class ChatbotComponent implements OnInit {
         if (!response.status) {
           this.messages.push({
             author: MessageSources.bot,
-            body: 'Juicy isn\'t ready at the moment, please wait while I set things up'
+            body: response.body
           })
         } else {
           this.messages.push({
