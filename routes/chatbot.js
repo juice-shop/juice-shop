@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-const { Bot } = require('juicy-chat-bot')
+const { Bot } = require('../../juicy-chat-bot/index')
 const insecurity = require('../lib/insecurity')
 const jwt = require('jsonwebtoken')
 const utils = require('../lib/utils')
@@ -17,10 +17,39 @@ bot.train()
 
 module.exports.bot = bot
 
-module.exports.status = function test () {
+module.exports.status = function status () {
   return async (req, res, next) => {
+    const token = utils.jwtFrom(req) || req.cookies.token
+    if (token) {
+      const user = await new Promise((resolve, reject) => {
+        jwt.verify(token, insecurity.publicKey, (err, decoded) => {
+          if (err !== null) {
+            res.status(401).json({
+              error: 'Unauthenticated user'
+            })
+          } else {
+            resolve(decoded.data)
+          }
+        })
+      })
+  
+      if (!user) {
+        return
+      }
+
+      const username = user.username || user.email.split('@')[0]
+      bot.addUser(`${user.id}`, username)
+
+      res.status(200).json({
+        status: bot.training.state,
+        body: bot.training.state ? bot.greet(`${user.id}`) : 'Juicy isn\'t ready at the moment, please wait while I set things up'
+      })
+      return
+    }
+
     res.status(200).json({
-      status: bot.training.state
+      status: bot.training.state,
+      body: 'Hi, I can\'t recognize you. Sign in to talk to Juicy'
     })
   }
 }
@@ -57,7 +86,7 @@ module.exports.process = function respond () {
       bot.addUser(`${user.id}`, username)
       res.status(200).json({
         action: 'response',
-        body: bot.greet()
+        body: bot.greet(`${user.id}`)
       })
       return
     }
@@ -69,7 +98,7 @@ module.exports.process = function respond () {
     if (!req.body.query) {
       res.status(200).json({
         action: 'response',
-        body: bot.greet()
+        body: bot.greet(`${user.id}`)
       })
       return
     }
