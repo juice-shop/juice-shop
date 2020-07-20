@@ -3,11 +3,10 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { environment } from '../../environments/environment'
-import { ComplaintService } from '../Services/complaint.service'
+import { ChatbotService } from '../Services/chatbot.service'
 import { UserService } from '../Services/user.service'
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
-import { FormControl, Validators } from '@angular/forms'
+import { Component, OnInit } from '@angular/core'
+import { FormControl } from '@angular/forms'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
@@ -35,29 +34,46 @@ export class ChatbotComponent implements OnInit {
 
   public messageControl: FormControl = new FormControl()
   public messages: ChatMessage[] = []
+  public juicyImageSrc: string = 'assets/public/images/JuicyChatBot.png'
 
-  constructor (private userService: UserService, private complaintService: ComplaintService, private formSubmitService: FormSubmitService, private translate: TranslateService) { }
+  constructor (private userService: UserService, private chatbotService: ChatbotService, private formSubmitService: FormSubmitService, private translate: TranslateService) { }
 
   ngOnInit () {
-    const dummyMessage: ChatMessage = {
-      author: MessageSources.bot,
-      body: "Hi there juicy"
-    }
-    this.messages.push(dummyMessage)
-    this.messages.push(dummyMessage)
-    this.messages.push(dummyMessage)
+    this.chatbotService.getChatbotStatus().subscribe((response) => {
+      if (!response.status) {
+        this.messages.push({
+          author: MessageSources.bot,
+          body: 'Juicy isn\'t ready at the moment, please wait while I set things up'
+        })
+      }
+    })
   }
 
   sendMessage() {
     let messageBody = this.messageControl.value
     if (messageBody) {
-      this.messages.push({
-        author: MessageSources.user,
-        body: messageBody
+      this.chatbotService.getChatbotStatus().subscribe((response) => {
+        if (!response.status) {
+          this.messages.push({
+            author: MessageSources.bot,
+            body: 'Juicy isn\'t ready at the moment, please wait while I set things up'
+          })
+        } else {
+          this.messages.push({
+            author: MessageSources.user,
+            body: messageBody
+          })
+          this.messageControl.setValue('')
+    
+          this.chatbotService.getResponse(messageBody).subscribe((response) => {
+            this.messages.push({
+              author: MessageSources.bot,
+              body: response.body
+            })
+          })
+        }
       })
-      this.messageControl.setValue('')
     }
-    console.log(this.messages)
   }
 
 }
