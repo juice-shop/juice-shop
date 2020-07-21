@@ -343,6 +343,15 @@ products:
     image: ccg_foil.png
     reviews:
       - { text: "Mau Mau with bling-bling? Humans are so pathetic!", author: bender }
+  -
+    name: 'Juice Shop "Permafrost" 2020 Edition'
+    description: 'Exact version of <a href="https://github.com/bkimminich/juice-shop/releases/tag/v9.3.1-PERMAFROST">OWASP Juice Shop archived on 02/02/2020</a> by the GitHub Archive Program and ultimately went into the <a href="https://github.blog/2020-07-16-github-archive-program-the-journey-of-the-worlds-open-source-code-to-the-arctic">Arctic Code Vault</a> on July 8. 2020 where it will be safely stored for at least 1000 years.'
+    price: 9999.99
+    quantity: 1
+    limitPerUser: 1
+    image: permafrost.jpg
+    reviews:
+      - { text: "🧊 Let it go, let it go 🎶 Can't hold it back anymore 🎶 Let it go, let it go 🎶 Turn away and slam the door ❄️", author: rapper }
 memories:
   -
     image: 'magn(et)ificent!-1571814229653.jpg'
