@@ -305,3 +305,6 @@ ctf:
     geoStalkingVisualChallenge:
       name: The Netherlands
       code: NL
+    nullByteChallenge:
+      name: Burundi
+      code: BI

@@ -1081,3 +1081,14 @@
   hintUrl: 'https://pwning.owasp-juice.shop/part2/sensitive-data-exposure.html#determine-the-answer-to-emmas-security-question'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html'
   key: geoStalkingVisualChallenge
+-
+  name: 'Poison Null Byte'
+  category: 'Improper Input Validation'
+  tags:
+    - Prerequisite
+  description: 'Bypass a security control with a <a href="http://hakipedia.com/index.php/Poison_Null_Byte">Poison Null Byte</a> to access a file not meant for your eyes.'
+  difficulty: 4
+  hint: 'Take a look at the details in the photo to determine the location of where it was taken.'
+  hintUrl: 'https://pwning.owasp-juice.shop/part2/improper-input-validation.html#bypass-a-security-control-with-a-poison-null-byte'
+  mitigationUrl: ~
+  key: nullByteChallenge

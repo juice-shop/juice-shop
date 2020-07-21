@@ -55,4 +55,12 @@ describe('/ftp', () => {
 
     protractor.expect.challengeSolved({ challenge: 'Misplaced Signature File' })
   })
+
+  describe('challenge "nullByteChallenge"', () => {
+    it('should be able to access file other than Markdown or PDF in /ftp with poison null byte attack', () => {
+      browser.driver.get(browser.baseUrl + '/ftp/encrypt.pyc%2500.md')
+    })
+
+    protractor.expect.challengeSolved({ challenge: 'Poison Null Byte' })
+  })
 })
