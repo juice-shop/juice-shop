@@ -41,8 +41,8 @@ module.exports = function servePublicFiles () {
     utils.solveIf(challenges.misplacedSignatureFileChallenge, () => { return file.toLowerCase() === 'suspicious_errors.yml' })
 
     utils.solveIf(challenges.nullByteChallenge, () => {
-      return challenges.easterEggLevelOneChallenge.solved || challenges.forgottenDevBackupChallenge.solved || challenges.forgottenBackupChallenge.solved
-        || challenges.misplacedSignatureFileChallenge.solved || file.toLowerCase() === 'encrypt.pyc'
+      return challenges.easterEggLevelOneChallenge.solved || challenges.forgottenDevBackupChallenge.solved || challenges.forgottenBackupChallenge.solved ||
+        challenges.misplacedSignatureFileChallenge.solved || file.toLowerCase() === 'encrypt.pyc'
     })
   }
 
