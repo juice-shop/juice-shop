@@ -92,6 +92,7 @@ const orderHistory = require('./routes/orderHistory')
 const delivery = require('./routes/delivery')
 const deluxe = require('./routes/deluxe')
 const memory = require('./routes/memory')
+const chatbot = require('./routes/chatbot')
 const locales = require('./data/static/locales')
 const i18n = require('i18n')
 
@@ -523,6 +524,8 @@ app.put('/rest/wallet/balance', insecurity.appendUserId(), wallet.addWalletBalan
 app.get('/rest/deluxe-membership', deluxe.deluxeMembershipStatus())
 app.post('/rest/deluxe-membership', insecurity.appendUserId(), deluxe.upgradeToDeluxe())
 app.get('/rest/memories', memory.getMemories())
+app.get('/rest/chatbot/status', chatbot.status())
+app.post('/rest/chatbot/respond', chatbot.process())
 /* NoSQL API endpoints */
 app.get('/rest/products/:id/reviews', showProductReviews())
 app.put('/rest/products/:id/reviews', createProductReviews())
