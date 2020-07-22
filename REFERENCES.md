@@ -25,6 +25,10 @@ where this project was mentioned or used!
 
 ### Pod- & Webcasts
 
+* [Web security for web developers with Zaproxy by Simon Bennetts](https://youtu.be/54UV2_JwcIY)
+  with
+  [Eddie Jaoude](https://www.youtube.com/channel/UC5mnBodB73bR88fLXHSfzYA)
+  :mega:
 * [ZAP in Ten](https://www.alldaydevops.com/zap-in-ten) with Simon
   Bennetts
   * [ZAP in Ten: ADDO Workshop Section 1 - Introduction](https://play.vidyard.com/BAmiaxyzS3g2BCgX2vbVvV)
@@ -197,11 +201,14 @@ where this project was mentioned or used!
     with Björn Kimminich, Jannik Hollenbach & Timo Pagel 15.06.2020
     ([Youtube](https://youtu.be/h5ApBfFMmao))
   * [OWASP Juice Shop Deep Dive: MultiJuicer](https://open-security-summit-2020.heysummit.com/talks/owasp-juice-shop-deep-dive-multijuicer/)
-    with Jannik Hollenbach & Robert Seedorf, 15.06.2020 ([Youtube](https://youtu.be/1YHjkc3Xzd0))
+    with Jannik Hollenbach & Robert Seedorf, 15.06.2020
+    ([Youtube](https://youtu.be/1YHjkc3Xzd0))
   * [OWASP Juice Shop Deep Dive: Integration](https://open-security-summit-2020.heysummit.com/talks/owasp-juice-shop-deep-dive-integration/)
-    with Björn Kimminich, 15.06.2020 ([Youtube](https://youtu.be/9SkUohiKgtU))
+    with Björn Kimminich, 15.06.2020
+    ([Youtube](https://youtu.be/9SkUohiKgtU))
   * [OWASP Juice Shop Deep Dive: Theming](https://open-security-summit-2020.heysummit.com/talks/owasp-juice-shop-deep-dive-theming-1/)
-    with Björn Kimminich, 15.06.2020 ([Youtube](https://youtu.be/WtY712DdlR8))
+    with Björn Kimminich, 15.06.2020
+    ([Youtube](https://youtu.be/WtY712DdlR8))
   * [OWASP Juice Shop Introduction](https://pre-summit-training-sessions.heysummit.com/talks/owasp-juice-shop-introduction/)
     with Björn Kimminich, 11.06.2020
     ([Youtube](https://youtu.be/wCF08BdXdDg))
@@ -252,18 +259,15 @@ where this project was mentioned or used!
 
 ## Conference and Meetup Appearances
 
+#### Upcoming
+
+* [OWASP Projects Panel](https://www.meetup.com/de-DE/womeninappsec/events/271754765/)
+  hosted by [OWASP WIA](https://www.meetup.com/womeninappsec/) moderated
+  by Zoe Braiterman with panelists Bjoern Kimminich, Glenn & Riccardo
+  ten Cate and Spyros Gasteratos
+  ([Youtube](https://youtu.be/d96-HCrSh2M))
+
 #### 2020
-
-🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠
-:mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask:
-🦠
-
-_Please stay safe at home for now and watch an existing recording
-instead!_
-
-🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠
-:mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask:
-🦠
 
 * [OWASP ZAP Intro (Online)](https://www.meetup.com/de-DE/OWASP-Hamburg-Stammtisch/events/270078609/)
   by Simon Bennetts,
