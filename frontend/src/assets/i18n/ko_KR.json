@@ -105,6 +105,7 @@
   "TITLE_SCORE_BOARD": "점수판",
   "LABEL_DIFFICULTY": "난이도",
   "LABEL_CATEGORY": "분류",
+  "LABEL_TAGS": "Tags",
   "LABEL_CHALLENGES": "도전 과제",
   "LABEL_STATUS": "상태",
   "STATUS_UNSOLVED": "미해결",
