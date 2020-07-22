@@ -105,6 +105,7 @@
   "TITLE_SCORE_BOARD": "计分板",
   "LABEL_DIFFICULTY": "难度系数",
   "LABEL_CATEGORY": "分类",
+  "LABEL_TAGS": "Tags",
   "LABEL_CHALLENGES": "挑战",
   "LABEL_STATUS": "状态",
   "STATUS_UNSOLVED": "未解决",

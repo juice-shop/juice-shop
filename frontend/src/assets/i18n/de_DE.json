@@ -105,6 +105,7 @@
   "TITLE_SCORE_BOARD": "Punkteübersicht",
   "LABEL_DIFFICULTY": "Schwierigkeitsgrad",
   "LABEL_CATEGORY": "Kategorie",
+  "LABEL_TAGS": "Stichworte",
   "LABEL_CHALLENGES": "Herausforderungen",
   "LABEL_STATUS": "Status",
   "STATUS_UNSOLVED": "ungelöst",
@@ -349,6 +350,6 @@
   "INFO_NEXT_TUTORIAL_TIER": "Schließe die {{tier}} Tutorial-Herausforderungen ab, um die nächste Schwierigkeitsstufe zu enthüllen!",
   "SHOW_COMMENT": "Kommentar anzeigen",
   "INFO_VULNERABILITY_MITIGATION_LINK": "Klicke, um zu lernen, wie man ähnliche Schwachstellen vermeidet oder abmildert!",
-  "SAVE_BACKUP_TOOLTIP": "Save challenge progress and application settings to file.",
-  "RESTORE_BACKUP_TOOLTIP": "Restore challenge progress and application settings from file."
+  "SAVE_BACKUP_TOOLTIP": "Fortschritt bei Herausforderungen und Anwendungseinstellungen in Datei speichern.",
+  "RESTORE_BACKUP_TOOLTIP": "Fortschritt bei Herausforderungen und Anwendungseinstellungen aus Datei wiederherstellen."
 }
