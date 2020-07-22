@@ -134,7 +134,9 @@
         <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-lg>
           <span *ngIf="challenge.tags">
             <mat-chip-list *ngFor="let tag of challenge.tags.split(',').sort()">
-              <mat-chip>{{tag}}</mat-chip>
+              <mat-chip [matTooltip]="('TAG_' + tag.toUpperCase().replace(' ', '_') + '_DESCRIPTION' | translate)">
+                {{('TAG_' + tag.toUpperCase().replace(' ', '_') | translate)}}
+              </mat-chip>
             </mat-chip-list>
           </span>
         </mat-cell>
