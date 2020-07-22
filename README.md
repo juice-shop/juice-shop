@@ -234,27 +234,23 @@ members can best try to help you.
 :stop_sign: **Please avoid opening GitHub issues for support requests or
 questions!**
 
-## Documentation
+## Documentation [![Write Goodreads Review](https://img.shields.io/badge/goodreads-write%20review-47129532.svg)](https://www.goodreads.com/review/edit/47129532)
 
-### Pwning OWASP Juice Shop [![Write Goodreads Review](https://img.shields.io/badge/goodreads-write%20review-47129532.svg)](https://www.goodreads.com/review/edit/47129532)
+OWASP Juice Shop comes with an official companion guide. It will give
+you a complete overview of all vulnerabilities found in the application
+including hints how to spot and exploit them. In the appendix you will
+even find complete step-by-step solutions to every challenge. Full
+documentation of all setup options, customization, CTF setup etc. is
+also included.
 
-This is the official companion guide to the OWASP Juice Shop. It will
-give you a complete overview of the vulnerabilities found in the
-application including hints how to spot and exploit them. In the
-appendix you will even find complete step-by-step solutions to every
-challenge. [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) is
-published under
+[Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) is published
+under
 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
-and is available **for free** in PDF, Kindle and ePub format. You can
-also [browse the full content online](https://pwning.owasp-juice.shop)!
+and is available **for free** in PDF, Kindle and ePub format on LeanPub.
+You can also
+[browse the full content online](https://pwning.owasp-juice.shop)!
 
 [![Pwning OWASP Juice Shop Cover](https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/cover_small.jpg)](https://leanpub.com/juice-shop)
-
-### Slide Decks
-
-* [Introduction Slide Deck](http://bkimminich.github.io/juice-shop) in
-  HTML5
-* [PDF of the Intro Slide Deck](docs/OWASP%20Juice%20Shop%20-%20Probably%20the%20most%20modern%20and%20sophisticated%20insecure%20web%20application.pdf)
 
 ## Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/owasp-juice-shop/localized.svg)](https://crowdin.com/project/owasp-juice-shop) ![GitHub issues by-label](https://img.shields.io/github/issues/bkimminich/juice-shop/help%20wanted.svg) ![GitHub issues by-label](https://img.shields.io/github/issues/bkimminich/juice-shop/good%20first%20issue.svg)
 
