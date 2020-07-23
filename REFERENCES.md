@@ -37,6 +37,8 @@ where this project was mentioned or used!
     :mega:
   * [ZAP in Ten: ADDO Workshop Section 4 - Intro to Authentication](https://play.vidyard.com/zwWm4qMRc8wD2KAgozvC5t)
     :mega:
+  * [ZAP in Ten: ADDO Workshop Section 6 - Standard Auth with JuiceShop](https://play.vidyard.com/igf3A8UdZ6QAGiFjEpLH86)
+  * [ZAP in Ten: ADDO Workshop Section 8 - JuiceShop SSO Authentication](https://play.vidyard.com/TMcBcuhyPt57sUqPcJUtpv)
 * 15min video tutorial by
   [Nick Malcolm](https://www.youtube.com/channel/UCgU77NClL2pLS92viQro6yA):
   [OWASP Juice Shop 101](https://youtu.be/8ZYoe0xu6QY) :godmode:
