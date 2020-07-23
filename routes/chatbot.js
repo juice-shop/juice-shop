@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-const { Bot } = require('../../juicy-chat-bot/index')
+const { Bot } = require('juicy-chat-bot')
 const insecurity = require('../lib/insecurity')
 const jwt = require('jsonwebtoken')
 const utils = require('../lib/utils')
@@ -12,7 +12,7 @@ const fs = require('fs')
 
 const trainingSet = fs.readFileSync(`data/static/${config.get('application.chatBot.trainingData')}`)
 
-const bot = new Bot(config.get('application.chatBot.name'), config.get('application.chatBot.greeting'), trainingSet)
+const bot = new Bot(config.get('application.chatBot.name'), config.get('application.chatBot.greeting'), trainingSet, config.get('application.chatBot.defaultResponse'))
 bot.train()
 
 module.exports.bot = bot
