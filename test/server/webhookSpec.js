@@ -24,7 +24,7 @@ describe('webhook', () => {
     })
 
     it('submits POST with payload to existing URL', () => {
-      expect(() => webhook.notify(challenge, 'https://webhook.site/46beb3e9-df8f-495b-98b9-abf0d4ae38a0')).to.not.throw()
+      expect(() => webhook.notify(challenge, 'https://webhook.site/#!/e3b07c99-fd53-4799-aa18-984f71009f8c')).to.not.throw()
     })
   })
 })
