@@ -46,7 +46,7 @@
     "ng2-file-upload": "^1.4.0",
     "ngx-clipboard": "^12.3.1",
     "ngx-cookie-service": "^3.0.4",
-    "ngx-spinner": "~8.0.3",
+    "ngx-spinner": "^10.0.1",
     "node-sass": "^4.14.0",
     "rxjs": "6.5.4",
     "snarkdown": "^1.2.2",
