@@ -940,6 +940,8 @@
 -
   name: 'Whitelist Bypass'
   category: 'Unvalidated Redirects'
+  tags:
+    - Prerequisite
   description: 'Enforce a redirect to a page you are not supposed to redirect to.'
   difficulty: 4
   hint: 'You have to find a way to beat the whitelist of allowed redirect URLs.'
