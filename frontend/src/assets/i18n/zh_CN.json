@@ -367,7 +367,7 @@
   "TAG_TUTORIAL": "新手教程",
   "TAG_TUTORIAL_DESCRIPTION": "标记有用于帮助新手的教程的挑战。",
   "TAG_BRUTE_FORCE": "暴力破解",
-  "TAG_BRUTE_FORCE_DESCRIPTION": "Marks challenges where automation of some security tool or custom script is an option or even prerequisite.",
-  "TAG_GOOD_PRACTICE": "Good Practice",
-  "TAG_GOOD_PRACTICE_DESCRIPTION": "Highlights challenges which are less about vulnerabilities but promoting good (security) practices."
+  "TAG_BRUTE_FORCE_DESCRIPTION": "标记可能需要用到自动化安全工具或自定义脚本的挑战。",
+  "TAG_GOOD_PRACTICE": "最佳实践",
+  "TAG_GOOD_PRACTICE_DESCRIPTION": "高亮更多涉及安全最佳实践而不是漏洞的挑战。"
 }
