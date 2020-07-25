@@ -261,16 +261,13 @@ where this project was mentioned or used!
 
 ## Conference and Meetup Appearances
 
-#### Upcoming
+#### 2020
 
 * [OWASP Projects Panel](https://www.meetup.com/de-DE/womeninappsec/events/271754765/)
   hosted by [OWASP WIA](https://www.meetup.com/womeninappsec/) moderated
   by Zoe Braiterman with panelists Bjoern Kimminich, Glenn & Riccardo
-  ten Cate and Spyros Gasteratos
+  ten Cate and Spyros Gasteratos, 25.07.2020
   ([Youtube](https://youtu.be/d96-HCrSh2M))
-
-#### 2020
-
 * [OWASP ZAP Intro (Online)](https://www.meetup.com/de-DE/OWASP-Hamburg-Stammtisch/events/270078609/)
   by Simon Bennetts,
   [48. OWASP Stammtisch Hamburg](https://owasp.org/www-chapter-germany/stammtische/hamburg/),
