@@ -90,8 +90,8 @@
       <mat-button-toggle class="category-toggle" appearance="legacy" *ngFor="let category of availableChallengeCategories"
                          (change)="toggleShowChallengeCategory(category)"
                          [checked]="displayedChallengeCategories.includes(category)" [disabled]="restrictToTutorialsFirst && !allTutorialsCompleted"
-                         [matTooltip]="restrictToTutorialsFirst && !allTutorialsCompleted ? ('INFO_FULL_CHALLENGE_MODE' | translate: {num: challenges.length}) : ('CATEGORY_' + category.toUpperCase().split(' ').join('_') + '_DESCRIPTION' | translate)" matTooltipPosition="above">
-        {{('CATEGORY_' + category.toUpperCase().split(' ').join('_') | translate)}}
+                         [matTooltip]="restrictToTutorialsFirst && !allTutorialsCompleted ? ('INFO_FULL_CHALLENGE_MODE' | translate: {num: challenges.length}) : ('CATEGORY_' + category?.toUpperCase().split(' ').join('_') + '_DESCRIPTION' | translate)" matTooltipPosition="above">
+        {{('CATEGORY_' + category?.toUpperCase().split(' ').join('_') | translate)}}
       </mat-button-toggle>
 
       <button class="mat-button" (click)="toggleAllChallengeCategory()" [disabled]="restrictToTutorialsFirst && !allTutorialsCompleted">{{(this.toggledMajorityOfCategories ? "BTN_HIDE_ALL" : "BTN_SHOW_ALL") | translate}}</button>
@@ -127,7 +127,7 @@
       <ng-container matColumnDef="category">
         <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-lg translate>LABEL_CATEGORY</mat-header-cell>
         <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-lg>
-          {{('CATEGORY_' + challenge.category.toUpperCase().split(' ').join('_') | translate)}}
+          {{('CATEGORY_' + challenge.category?.toUpperCase().split(' ').join('_') | translate)}}
         </mat-cell>
       </ng-container>
 
@@ -136,8 +136,8 @@
         <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-lg>
           <span *ngIf="challenge.tags">
             <mat-chip-list *ngFor="let tag of challenge.tags.split(',').sort()">
-              <mat-chip [matTooltip]="('TAG_' + tag.toUpperCase().split(' ').join('_') + '_DESCRIPTION' | translate)">
-                {{('TAG_' + tag.toUpperCase().split(' ').join('_') | translate)}}
+              <mat-chip [matTooltip]="('TAG_' + tag?.toUpperCase().split(' ').join('_') + '_DESCRIPTION' | translate)">
+                {{('TAG_' + tag?.toUpperCase().split(' ').join('_') | translate)}}
               </mat-chip>
             </mat-chip-list>
           </span>
