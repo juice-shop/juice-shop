@@ -354,7 +354,7 @@
   "RESTORE_BACKUP_TOOLTIP": "Fortschritt bei Herausforderungen und Anwendungseinstellungen aus Datei wiederherstellen.",
   "TAG_DANGER_ZONE": "Gefahrenzone",
   "TAG_DANGER_ZONE_DESCRIPTION": "Markiert potenziell gefährliche Herausforderungen, die bei Docker/Heroku standardmäßig aufgrund von RCE oder anderen Risiken deaktiviert werden.",
-  "TAG_GOOD_FOR_DEMOS": "Good for Demos",
+  "TAG_GOOD_FOR_DEMOS": "Gut für Demos",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "Highlights challenges which are suitable for live demos or awareness trainings.",
   "TAG_PREREQUISITE": "Voraussetzung",
   "TAG_PREREQUISITE_DESCRIPTION": "Markiert Herausforderungen, die gelöst werden müssen, bevor eine oder mehrere andere Herausforderungen (realistisch) gelöst werden können.",
