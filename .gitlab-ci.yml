@@ -1,6 +1,8 @@
 include:
-  - template: Dependency-Scanning.gitlab-ci.yml
-  - template: SAST.gitlab-ci.yml
+  - project: 'devops/devops-tools'
+    ref: security
+    file: '/templates/.gitlab-ci-template.yml'
 
 variables:
   SAST_EXCLUDED_PATHS: "frontend/src/assets/private/**"
+  CI_IS_DEPLOY_OLD: "true"
