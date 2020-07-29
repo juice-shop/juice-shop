@@ -19,7 +19,7 @@ module.exports.bot = bot
 
 module.exports.status = function status () {
   return async (req, res, next) => {
-    const token = utils.jwtFrom(req) || req.cookies.token
+    const token = req.cookies.token || utils.jwtFrom(req)
     if (token) {
       const user = await new Promise((resolve, reject) => {
         jwt.verify(token, insecurity.publicKey, (err, decoded) => {
@@ -56,7 +56,7 @@ module.exports.status = function status () {
 
 module.exports.process = function respond () {
   return async (req, res, next) => {
-    const token = utils.jwtFrom(req) || req.cookies.token
+    const token = req.cookies.token || utils.jwtFrom(req)
     if (!bot.training.state || !token) {
       res.status(400).json({
         error: 'Unauthenticated user'
@@ -90,8 +90,8 @@ module.exports.process = function respond () {
       })
       return
     }
-
-    if (bot.factory.run(`currentUser('${user.id}')`) && bot.factory.run(`currentUser('${user.id}')`) !== username) {
+    
+    if (bot.factory.run(`currentUser('${user.id}')`) != username) {
       bot.addUser(`${user.id}`, username)
     }
 

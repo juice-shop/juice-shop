@@ -11,7 +11,8 @@
 
         <div id="chat-window">
           <div *ngFor="let message of messages; index as index" class="message-container">
-            <img  *ngIf="message.author == 'bot'" src="{{juicyImageSrc}}" class="juicy-chat-bot-image" height="70px"/>
+            <img  *ngIf="message.author == 'bot'" src="{{juicyImageSrc}}" class="juicy-chat-bot-image"/>
+            <img  *ngIf="message.author == 'user'" src="{{profileImageSrc}}" class="profile-image"/>
             <div class="{{message.author == 'user' ? 'speech-bubble-right' : 'speech-bubble-left'}}">
               {{message.body}}
             </div>

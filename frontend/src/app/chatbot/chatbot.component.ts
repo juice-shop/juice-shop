@@ -35,6 +35,7 @@ export class ChatbotComponent implements OnInit {
   public messageControl: FormControl = new FormControl()
   public messages: ChatMessage[] = []
   public juicyImageSrc: string = 'assets/public/images/JuicyChatBot.png'
+  public profileImageSrc: string = 'assets/public/images/uploads/default.svg'
 
   constructor (private userService: UserService, private chatbotService: ChatbotService, private formSubmitService: FormSubmitService, private translate: TranslateService) { }
 
@@ -44,6 +45,13 @@ export class ChatbotComponent implements OnInit {
         author: MessageSources.bot,
         body: response.body
       })
+    })
+
+    this.userService.whoAmI().subscribe((user: any) => {
+      console.log(user)
+      this.profileImageSrc = user.profileImage
+    }, (err) => {
+      console.log(err)
     })
   }
 
