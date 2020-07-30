@@ -11,6 +11,7 @@ import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { TranslateService } from '@ngx-translate/core'
+import { CookieService } from 'ngx-cookie-service'
 
 library.add(faBomb)
 dom.watch()
@@ -25,6 +26,11 @@ interface ChatMessage {
   body: string
 }
 
+interface messageActions {
+  response: string,
+  namequery: string,
+}
+
 @Component({
   selector: 'app-complaint',
   templateUrl: './chatbot.component.html',
@@ -36,15 +42,17 @@ export class ChatbotComponent implements OnInit {
   public messages: ChatMessage[] = []
   public juicyImageSrc: string = 'assets/public/images/JuicyChatBot.png'
   public profileImageSrc: string = 'assets/public/images/uploads/default.svg'
+  public messageActions: messageActions = {
+    response: 'query',
+    namequery: 'setname'
+  }
+  public currentAction: string = this.messageActions.response
 
-  constructor (private userService: UserService, private chatbotService: ChatbotService, private formSubmitService: FormSubmitService, private translate: TranslateService) { }
+  constructor (private userService: UserService, private chatbotService: ChatbotService, private cookieService: CookieService, private formSubmitService: FormSubmitService, private translate: TranslateService) { }
 
   ngOnInit () {
     this.chatbotService.getChatbotStatus().subscribe((response) => {
-      this.messages.push({
-        author: MessageSources.bot,
-        body: response.body
-      })
+      this.handleResponse(response)
     })
 
     this.userService.whoAmI().subscribe((user: any) => {
@@ -53,6 +61,20 @@ export class ChatbotComponent implements OnInit {
     }, (err) => {
       console.log(err)
     })
+  }
+
+  handleResponse(response) {
+    this.messages.push({
+      author: MessageSources.bot,
+      body: response.body
+    })
+    this.currentAction = this.messageActions[response.action]
+    if (response.token) {
+      localStorage.setItem('token', response.token)
+      let expires = new Date()
+      expires.setHours(expires.getHours() + 8)
+      this.cookieService.set('token', response.token, expires, '/')
+    }
   }
 
   sendMessage() {
@@ -71,11 +93,8 @@ export class ChatbotComponent implements OnInit {
           })
           this.messageControl.setValue('')
     
-          this.chatbotService.getResponse(messageBody).subscribe((response) => {
-            this.messages.push({
-              author: MessageSources.bot,
-              body: response.body
-            })
+          this.chatbotService.getResponse(this.currentAction, messageBody).subscribe((response) => {
+            this.handleResponse(response)
           })
         }
       })
