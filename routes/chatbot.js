@@ -9,11 +9,62 @@ const jwt = require('jsonwebtoken')
 const utils = require('../lib/utils')
 const config = require('config')
 const fs = require('fs')
+const models = require('../models/index')
 
 const trainingSet = fs.readFileSync(`data/static/${config.get('application.chatBot.trainingData')}`)
 
 const bot = new Bot(config.get('application.chatBot.name'), config.get('application.chatBot.greeting'), trainingSet, config.get('application.chatBot.defaultResponse'))
 bot.train()
+
+function processQuery(user, req, res) {
+  const username = user.username
+  if (!username) {
+    res.status(200).json({
+      action: 'namequery',
+      body: 'I\'m sorry I didn\'t get your name. What shall I call you?'
+    })
+    return
+  }
+
+  if (!bot.factory.run(`currentUser('${user.id}')`)) {
+    bot.addUser(`${user.id}`, username)
+    res.status(200).json({
+      action: 'response',
+      body: bot.greet(`${user.id}`)
+    })
+    return
+  }
+  
+  if (bot.factory.run(`currentUser('${user.id}')`) != username) {
+    bot.addUser(`${user.id}`, username)
+  }
+
+  if (!req.body.query) {
+    res.status(200).json({
+      action: 'response',
+      body: bot.greet(`${user.id}`)
+    })
+    return
+  }
+
+  const response = await bot.respond(req.body.query, user.id)
+  res.status(200).json(response)
+}
+
+function setUserName(user, req, res) {
+  models.User.findByPk(user.id).then(user => {
+    user.update({ username: req.body.query }).then(newuser => {
+      newuser = utils.queryResultToJson(newuser)
+      const updatedToken = insecurity.authorize(newuser)
+      insecurity.authenticatedUsers.put(updatedToken, newuser)
+      bot.addUser(`${user.id}`, newuser.username)
+      res.status(200).json({
+        action: 'response',
+        body: bot.greet(`${user.id}`)
+      })
+    })
+  })
+}
 
 module.exports.bot = bot
 
@@ -37,7 +88,16 @@ module.exports.status = function status () {
         return
       }
 
-      const username = user.username || user.email.split('@')[0]
+      const username = user.username
+
+      if (!username) {
+        res.status(200).json({
+          action: 'namequery',
+          body: 'I\'m sorry I didn\'t get your name. What shall I call you?'
+        })
+        return
+      }
+
       bot.addUser(`${user.id}`, username)
 
       res.status(200).json({
@@ -79,31 +139,11 @@ module.exports.process = function respond () {
     if (!user) {
       return
     }
-
-    const username = user.username || user.email.split('@')[0]
-
-    if (!bot.factory.run(`currentUser('${user.id}')`)) {
-      bot.addUser(`${user.id}`, username)
-      res.status(200).json({
-        action: 'response',
-        body: bot.greet(`${user.id}`)
-      })
-      return
-    }
     
-    if (bot.factory.run(`currentUser('${user.id}')`) != username) {
-      bot.addUser(`${user.id}`, username)
+    if (req.body.action === 'query') {
+      processQuery(user, req, res)
+    } else if (req.body.action === 'setname') {
+      setUserName(user, req, res)
     }
-
-    if (!req.body.query) {
-      res.status(200).json({
-        action: 'response',
-        body: bot.greet(`${user.id}`)
-      })
-      return
-    }
-
-    const response = await bot.respond(req.body.query, user.id)
-    res.status(200).json(response)
   }
 }
