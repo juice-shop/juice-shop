@@ -17,8 +17,8 @@ export class ChatbotService {
       return this.http.get(this.host + '/status').pipe(map((response: any) => response), catchError(error => { throw error }))
     }
 
-    getResponse (query) {
-      return this.http.post(this.host + '/respond', { query: query }).pipe(map((response: any) => response), catchError(error => { throw error }))
+    getResponse (action, query) {
+      return this.http.post(this.host + '/respond', { action: action, query: query }).pipe(map((response: any) => response), catchError(error => { throw error }))
     }
     
 }
