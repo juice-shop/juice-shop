@@ -16,7 +16,7 @@ const trainingSet = fs.readFileSync(`data/static/${config.get('application.chatB
 const bot = new Bot(config.get('application.chatBot.name'), config.get('application.chatBot.greeting'), trainingSet, config.get('application.chatBot.defaultResponse'))
 bot.train()
 
-function processQuery(user, req, res) {
+async function processQuery(user, req, res) {
   const username = user.username
   if (!username) {
     res.status(200).json({
@@ -57,10 +57,11 @@ function setUserName(user, req, res) {
       newuser = utils.queryResultToJson(newuser)
       const updatedToken = insecurity.authorize(newuser)
       insecurity.authenticatedUsers.put(updatedToken, newuser)
-      bot.addUser(`${user.id}`, newuser.username)
+      bot.addUser(`${newuser.id}`, req.body.query)
       res.status(200).json({
         action: 'response',
-        body: bot.greet(`${user.id}`)
+        body: bot.greet(`${newuser.id}`),
+        token: updatedToken
       })
     })
   })
@@ -141,7 +142,7 @@ module.exports.process = function respond () {
     }
     
     if (req.body.action === 'query') {
-      processQuery(user, req, res)
+      await processQuery(user, req, res)
     } else if (req.body.action === 'setname') {
       setUserName(user, req, res)
     }
