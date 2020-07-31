@@ -32,7 +32,7 @@ interface messageActions {
 }
 
 @Component({
-  selector: 'app-complaint',
+  selector: 'app-chatbot',
   templateUrl: './chatbot.component.html',
   styleUrls: ['./chatbot.component.scss']
 })
@@ -52,11 +52,16 @@ export class ChatbotComponent implements OnInit {
 
   ngOnInit () {
     this.chatbotService.getChatbotStatus().subscribe((response) => {
-      this.handleResponse(response)
+      this.messages.push({
+        author: MessageSources.bot,
+        body: response.body
+      })
+      if (response.action) {
+        this.currentAction = this.messageActions[response.action]
+      }
     })
 
     this.userService.whoAmI().subscribe((user: any) => {
-      console.log(user)
       this.profileImageSrc = user.profileImage
     }, (err) => {
       console.log(err)
@@ -80,20 +85,21 @@ export class ChatbotComponent implements OnInit {
   sendMessage() {
     let messageBody = this.messageControl.value
     if (messageBody) {
+      this.messages.push({
+        author: MessageSources.user,
+        body: messageBody
+      })
+      this.messageControl.setValue('')
       this.chatbotService.getChatbotStatus().subscribe((response) => {
-        if (!response.status) {
+        if (!response.status && !response.action) {
           this.messages.push({
             author: MessageSources.bot,
             body: response.body
           })
         } else {
-          this.messages.push({
-            author: MessageSources.user,
-            body: messageBody
-          })
-          this.messageControl.setValue('')
-    
-          this.chatbotService.getResponse(this.currentAction, messageBody).subscribe((response) => {
+            console.log(messageBody)
+            console.log(this.currentAction)
+            this.chatbotService.getResponse(this.currentAction, messageBody).subscribe((response) => {
             this.handleResponse(response)
           })
         }
