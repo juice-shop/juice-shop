@@ -17,8 +17,8 @@ library.add(faBomb)
 dom.watch()
 
 enum MessageSources {
-  user = "user",
-  bot = "bot"
+  user = 'user',
+  bot = 'bot'
 }
 
 interface ChatMessage {
@@ -26,7 +26,7 @@ interface ChatMessage {
   body: string
 }
 
-interface messageActions {
+interface MessageActions {
   response: string,
   namequery: string,
 }
@@ -42,7 +42,7 @@ export class ChatbotComponent implements OnInit {
   public messages: ChatMessage[] = []
   public juicyImageSrc: string = 'assets/public/images/JuicyChatBot.png'
   public profileImageSrc: string = 'assets/public/images/uploads/default.svg'
-  public messageActions: messageActions = {
+  public messageActions: MessageActions = {
     response: 'query',
     namequery: 'setname'
   }
@@ -68,7 +68,7 @@ export class ChatbotComponent implements OnInit {
     })
   }
 
-  handleResponse(response) {
+  handleResponse (response) {
     this.messages.push({
       author: MessageSources.bot,
       body: response.body
@@ -82,7 +82,7 @@ export class ChatbotComponent implements OnInit {
     }
   }
 
-  sendMessage() {
+  sendMessage () {
     let messageBody = this.messageControl.value
     if (messageBody) {
       this.messages.push({
@@ -97,9 +97,9 @@ export class ChatbotComponent implements OnInit {
             body: response.body
           })
         } else {
-            console.log(messageBody)
-            console.log(this.currentAction)
-            this.chatbotService.getResponse(this.currentAction, messageBody).subscribe((response) => {
+          console.log(messageBody)
+          console.log(this.currentAction)
+          this.chatbotService.getResponse(this.currentAction, messageBody).subscribe((response) => {
             this.handleResponse(response)
           })
         }
