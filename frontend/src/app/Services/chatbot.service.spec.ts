@@ -40,7 +40,7 @@ describe('ChatbotService', () => {
   it('should get query response from the REST API', inject([ChatbotService, HttpTestingController],
     fakeAsync((service: ChatbotService, httpMock: HttpTestingController) => {
       let res: any
-      service.getResponse('apiQuery').subscribe((data) => res = data)
+      service.getResponse('query', 'apiQuery').subscribe((data) => res = data)
       const req = httpMock.expectOne('http://localhost:3000/rest/chatbot/respond')
       req.flush({ action: 'response', body: 'apiResponse' })
 
