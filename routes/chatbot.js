@@ -16,7 +16,7 @@ const trainingSet = fs.readFileSync(`data/static/${config.get('application.chatB
 const bot = new Bot(config.get('application.chatBot.name'), config.get('application.chatBot.greeting'), trainingSet, config.get('application.chatBot.defaultResponse'))
 bot.train()
 
-async function processQuery(user, req, res) {
+async function processQuery (user, req, res) {
   const username = user.username
   if (!username) {
     res.status(200).json({
@@ -34,8 +34,8 @@ async function processQuery(user, req, res) {
     })
     return
   }
-  
-  if (bot.factory.run(`currentUser('${user.id}')`) != username) {
+
+  if (bot.factory.run(`currentUser('${user.id}')`) !== username) {
     bot.addUser(`${user.id}`, username)
   }
 
@@ -51,7 +51,7 @@ async function processQuery(user, req, res) {
   res.status(200).json(response)
 }
 
-function setUserName(user, req, res) {
+function setUserName (user, req, res) {
   models.User.findByPk(user.id).then(user => {
     user.update({ username: req.body.query }).then(newuser => {
       newuser = utils.queryResultToJson(newuser)
@@ -84,7 +84,7 @@ module.exports.status = function status () {
           }
         })
       })
-  
+
       if (!user) {
         return
       }
@@ -140,7 +140,7 @@ module.exports.process = function respond () {
     if (!user) {
       return
     }
-    
+
     if (req.body.action === 'query') {
       await processQuery(user, req, res)
     } else if (req.body.action === 'setname') {
