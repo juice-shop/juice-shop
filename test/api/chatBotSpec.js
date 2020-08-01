@@ -6,8 +6,6 @@
 const frisby = require('frisby')
 const config = require('config')
 const { bot } = require('../../routes/chatbot')
-const jwt = require('jsonwebtoken')
-const insecurity = require('../../lib/insecurity')
 const fs = require('fs')
 
 const REST_URL = 'http://localhost:3000/rest/'
@@ -73,12 +71,6 @@ describe('/chatbot', () => {
     })
 
     bot.addUser('1337', 'bkimminich')
-    const user = await new Promise((resolve, reject) => {
-      jwt.verify(token, insecurity.publicKey, (err, decoded) => {
-        resolve(decoded.data)
-      })
-    })
-
     const testCommand = trainingData.intents[0].question
 
     return frisby.setup({
