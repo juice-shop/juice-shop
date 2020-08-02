@@ -145,7 +145,7 @@ describe('ScoreBoardComponent', () => {
     expect(component.challenges).toEqual([])
   })
 
-  it('should hold nothing on error from backend API and log the error', fakeAsync(() => {
+  xit('should hold nothing on error from backend API and log the error', fakeAsync(() => {
     challengeService.find.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
