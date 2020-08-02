@@ -21,8 +21,9 @@ module.exports = function updateUserProfile () {
             req.body.username !== user.username
         })
         user.update({ username: req.body.username }).then(newuser => {
-          newuser = utils.queryResultToJson(user)
+          newuser = utils.queryResultToJson(newuser)
           const updatedToken = insecurity.authorize(newuser)
+          insecurity.authenticatedUsers.put(updatedToken, newuser)
           res.cookie('token', updatedToken)
           res.location(process.env.BASE_PATH + '/profile')
           res.redirect(process.env.BASE_PATH + '/profile')

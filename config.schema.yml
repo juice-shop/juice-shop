@@ -35,6 +35,8 @@ application:
       type: string
     trainingData:
       type: string
+    defaultResponse:
+      type: string
   social:
     twitterUrl:
       type: string
