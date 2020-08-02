@@ -37,12 +37,14 @@ describe('/chatbot', () => {
       .expect('json', 'status', true)
   })
 
-  it('Returns greeting for new user', async () => {
+  it('Asks for username if not defined', async () => {
     const { token } = await login({
       email: `J12934@${config.get('application.domain')}`,
       password: '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
     })
+
     const testCommand = trainingData.intents[0].question
+
     return frisby.setup({
       request: {
         headers: {
@@ -53,20 +55,49 @@ describe('/chatbot', () => {
     }, true)
       .post(REST_URL + 'chatbot/respond', {
         body: {
+          action: 'query',
+          query: testCommand
+        }
+      })
+      .expect('status', 200)
+      .expect('json', 'action', 'namequery')
+      .expect('json', 'body', 'I\'m sorry I didn\'t get your name. What shall I call you?')
+  })
+
+  it('Returns greeting if username is defined', async () => {
+    const { token } = await login({
+      email: 'bjoern.kimminich@gmail.com',
+      password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+    })
+
+    bot.addUser('1337', 'bkimminich')
+    const testCommand = trainingData.intents[0].question
+
+    return frisby.setup({
+      request: {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    }, true)
+      .post(REST_URL + 'chatbot/respond', {
+        body: {
+          action: 'query',
           query: testCommand
         }
       })
       .expect('status', 200)
       .expect('json', 'action', 'response')
-      .expect('json', 'body', bot.greet())
+      .expect('json', 'body', bot.greet('1337'))
   })
 
   it('Returns proper response for registered user', async () => {
     const { token } = await login({
-      email: `J12934@${config.get('application.domain')}`,
-      password: '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
+      email: 'bjoern.kimminich@gmail.com',
+      password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
     })
-    bot.addUser('12345', 'J12934')
+    bot.addUser('12345', 'bkimminich')
     const testCommand = trainingData.intents[0].question
     const testResponse = await bot.respond(testCommand, 12345)
     return frisby.setup({
@@ -79,11 +110,13 @@ describe('/chatbot', () => {
     }, true)
       .post(REST_URL + 'chatbot/respond', {
         body: {
+          action: 'query',
           query: testCommand
         }
       })
       .post(REST_URL + 'chatbot/respond', {
         body: {
+          action: 'query',
           query: testCommand
         }
       })
