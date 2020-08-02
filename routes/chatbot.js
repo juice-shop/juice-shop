@@ -21,7 +21,7 @@ async function processQuery (user, req, res) {
   if (!username) {
     res.status(200).json({
       action: 'namequery',
-      body: 'I\'m sorry I didn\'t get your name. What shall I call you?'
+      body: `I'm sorry I didn't get your name. What shall I call you?`
     })
     return
   }
@@ -94,7 +94,7 @@ module.exports.status = function status () {
       if (!username) {
         res.status(200).json({
           action: 'namequery',
-          body: 'I\'m sorry I didn\'t get your name. What shall I call you?'
+          body: `I'm sorry I didn't get your name. What shall I call you?`
         })
         return
       }
@@ -103,14 +103,14 @@ module.exports.status = function status () {
 
       res.status(200).json({
         status: bot.training.state,
-        body: bot.training.state ? bot.greet(`${user.id}`) : 'Juicy isn\'t ready at the moment, please wait while I set things up'
+        body: bot.training.state ? bot.greet(`${user.id}`) : `${config.get('application.chatBot.name')} isn't ready at the moment, please wait while I set things up`
       })
       return
     }
 
     res.status(200).json({
       status: bot.training.state,
-      body: 'Hi, I can\'t recognize you. Sign in to talk to Juicy'
+      body: `Hi, I can't recognize you. Sign in to talk to ${config.get('application.chatBot.name')}`
     })
   }
 }
