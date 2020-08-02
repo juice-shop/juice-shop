@@ -4,8 +4,8 @@
   -->
 
 <div fxLayoutAlign="center">
-  <mat-card class="mat-elevation-z6">  
-    <h1>{{"JUICY_CHAT" | translate}}</h1>  
+  <mat-card class="mat-elevation-z6">
+    <h1>{{"SECTION_SUPPORT_CHAT" | translate}}</h1>
     <mat-card id="chat-container">
       <mat-card id="chat-box">
 
@@ -26,12 +26,11 @@
               <input id="message" #message name="message" [formControl]="messageControl"
                       matInput placeholder="Ask me anything"
                       aria-label="Text field for the login email" (keyup.enter)="sendMessage()">
-            </mat-form-field>   
-          </div>   
+            </mat-form-field>
+          </div>
         </div>
 
       </mat-card>
     </mat-card>
   </mat-card>
 </div>
-  
