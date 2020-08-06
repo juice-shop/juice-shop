@@ -9,6 +9,7 @@ module.exports = (sequelize, { STRING, INTEGER, BOOLEAN, NUMBER }) => {
     key: STRING,
     name: STRING,
     category: STRING,
+    tags: STRING,
     description: STRING,
     difficulty: INTEGER,
     hint: STRING,

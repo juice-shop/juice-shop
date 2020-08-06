@@ -60,6 +60,28 @@
         <i class="fa-2x fas fa-exclamation-circle" aria-hidden="true"></i> {{"BTN_SHOW_UNAVAILABLE" | translate}}
       </mat-button-toggle>
 
+      <button *ngIf="localBackupEnabled" mat-fab class="backupButton" color="primary" (click)="saveBackup()"
+              aria-label="Button to save local backup" matTooltip="{{ 'SAVE_BACKUP_TOOLTIP' | translate  }}"
+              matTooltipPosition="above">
+        <mat-icon>
+          save_alt
+        </mat-icon>
+      </button>
+
+      <div class="form-group">
+        <input type="file"
+               #restoreBackupFile
+               (change)="restoreBackup($event.target.files.item(0))"
+               style="display:none;">
+      </div>
+      <button *ngIf="localBackupEnabled" mat-fab class="backupButton" color="primary" (click)="restoreBackupFile.click()"
+              aria-label="Button to restore local backup" matTooltip="{{ 'RESTORE_BACKUP_TOOLTIP' | translate  }}"
+              matTooltipPosition="above">
+        <mat-icon>
+          settings_backup_restore
+        </mat-icon>
+      </button>
+
       <div *ngIf="numDisabledChallenges > 0 && showDisabledChallenges" class="disabled-challenges-infoBox mat-button" [innerHTML]="'INFO_DISABLED_CHALLENGES' | translate: {num: numDisabledChallenges, env: disabledEnv}"></div>
 
     </div>
@@ -68,8 +90,8 @@
       <mat-button-toggle class="category-toggle" appearance="legacy" *ngFor="let category of availableChallengeCategories"
                          (change)="toggleShowChallengeCategory(category)"
                          [checked]="displayedChallengeCategories.includes(category)" [disabled]="restrictToTutorialsFirst && !allTutorialsCompleted"
-                         [matTooltip]="restrictToTutorialsFirst && !allTutorialsCompleted ? ('INFO_FULL_CHALLENGE_MODE' | translate: {num: challenges.length}) : ''" matTooltipPosition="above">
-        {{category}}
+                         [matTooltip]="restrictToTutorialsFirst && !allTutorialsCompleted ? ('INFO_FULL_CHALLENGE_MODE' | translate: {num: challenges.length}) : ('CATEGORY_' + category?.toUpperCase().split(' ').join('_') + '_DESCRIPTION' | translate)" matTooltipPosition="above">
+        {{('CATEGORY_' + category?.toUpperCase().split(' ').join('_') | translate)}}
       </mat-button-toggle>
 
       <button class="mat-button" (click)="toggleAllChallengeCategory()" [disabled]="restrictToTutorialsFirst && !allTutorialsCompleted">{{(this.toggledMajorityOfCategories ? "BTN_HIDE_ALL" : "BTN_SHOW_ALL") | translate}}</button>
@@ -104,7 +126,22 @@
 
       <ng-container matColumnDef="category">
         <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-lg translate>LABEL_CATEGORY</mat-header-cell>
-        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-lg> {{challenge.category}}</mat-cell>
+        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-lg>
+          {{('CATEGORY_' + challenge.category?.toUpperCase().split(' ').join('_') | translate)}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="tags">
+        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-lg translate>LABEL_TAGS</mat-header-cell>
+        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-lg>
+          <span *ngIf="challenge.tags">
+            <mat-chip-list *ngFor="let tag of challenge.tags.split(',').sort()">
+              <mat-chip [matTooltip]="('TAG_' + tag?.toUpperCase().split(' ').join('_') + '_DESCRIPTION' | translate)">
+                {{('TAG_' + tag?.toUpperCase().split(' ').join('_') | translate)}}
+              </mat-chip>
+            </mat-chip-list>
+          </span>
+        </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="status">

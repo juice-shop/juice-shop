@@ -20,6 +20,7 @@ import { throwError } from 'rxjs/internal/observable/throwError'
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatCardModule } from '@angular/material/card'
 import { MatDividerModule } from '@angular/material/divider'
+import { MatIconModule } from '@angular/material/icon'
 
 describe('AdministrationComponent', () => {
   let component: AdministrationComponent
@@ -47,7 +48,8 @@ describe('AdministrationComponent', () => {
         MatDialogModule,
         MatPaginatorModule,
         MatDividerModule,
-        MatCardModule
+        MatCardModule,
+        MatIconModule
       ],
       declarations: [ AdministrationComponent ],
       providers: [
