@@ -938,3 +938,12 @@
   hintUrl: 'https://pwning.owasp-juice.shop/part2/sensitive-data-exposure.html#determine-the-answer-to-emmas-security-question'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html'
   key: geoStalkingVisualChallenge
+-
+  name: 'Kill Juicy'
+  category: 'Improper Input Validation'
+  description: 'Permanently disable the Juicy Chatbot so that it can no longer answer customer queries'
+  difficulty: 4
+  hint: 'Think of a way to get a hold of the internal workings on the chatbot API'
+  hintUrl: ''
+  mitigationUrl: ''
+  key: killJuicyChallenge
