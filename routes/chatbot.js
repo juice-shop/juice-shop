@@ -53,7 +53,7 @@ async function processQuery (user, req, res) {
     res.status(200).json(response)
   } catch (err) {
     try {
-      const response = await bot.respond(testCommand, user.id)
+      await bot.respond(testCommand, user.id)
       res.status(200).json({
         action: 'namequery',
         body: 'I\'m sorry I didn\'t get your name. What shall I call you?'
@@ -66,7 +66,6 @@ async function processQuery (user, req, res) {
       })
     }
   }
-
 }
 
 function setUserName (user, req, res) {
