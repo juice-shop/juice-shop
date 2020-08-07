@@ -939,7 +939,7 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html'
   key: geoStalkingVisualChallenge
 -
-  name: 'Kill Juicy'
+  name: 'Kill Chatbot'
   category: 'Improper Input Validation'
   description: 'Permanently disable the Juicy Chatbot so that it can no longer answer customer queries'
   difficulty: 4
