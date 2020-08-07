@@ -129,6 +129,7 @@ import { MatPasswordStrengthModule } from '@angular-material-extensions/password
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { FeedbackDetailsComponent } from './feedback-details/feedback-details.component'
 import { MatSliderModule } from '@angular/material/slider'
+import { MatChipsModule } from '@angular/material/chips'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json')
@@ -241,7 +242,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatRadioModule,
     MatSnackBarModule,
     MatSliderModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatChipsModule
   ],
   providers: [
     {
