@@ -1092,6 +1092,7 @@
   hintUrl: ''
   mitigationUrl: ''
   key: killJuicyChallenge
+-
   name: 'Poison Null Byte'
   category: 'Improper Input Validation'
   tags:
