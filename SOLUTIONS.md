@@ -56,6 +56,7 @@ Shop easier to hack!
   * [★★★ Privacy Policy Inspection](https://youtu.be/5DUXTmp5KbI)
   * [★★★ Product Tampering](https://youtu.be/G4UKdotkyu8)
   * [★★★ Reset Jim's Password](https://youtu.be/qYVlxeKVhgA)
+  * [★★★ Upload Size](https://youtu.be/5pcAPUihhWA)
 * [Live Hacking von Online-Shop „Juice Shop” – Level 1 (Twitch Live-Stream)](https://youtu.be/ccy-eKYpdbk)
   (:de:) by
   [Gregor Biswanger](https://www.youtube.com/channel/UCGMA9qDbIQ-EhgLD-ZrsHWw)
