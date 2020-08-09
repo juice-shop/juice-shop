@@ -370,6 +370,8 @@
   "TAG_BRUTE_FORCE_DESCRIPTION": "标记可能需要用到自动化安全工具或自定义脚本的挑战。",
   "TAG_GOOD_PRACTICE": "最佳实践",
   "TAG_GOOD_PRACTICE_DESCRIPTION": "高亮更多涉及安全最佳实践而不是漏洞的挑战。",
+  "TAG_CODE_ANALYSIS": "Code Analysis",
+  "TAG_CODE_ANALYSIS_DESCRIPTION": "Marks challenges where it can be helpful to rummage through some source code of the application or a third party.",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "失效的访问控制",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "失效的反自动化",
   "CATEGORY_BROKEN_AUTHENTICATION": "失效的认证",
