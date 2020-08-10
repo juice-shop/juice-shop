@@ -7,7 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "postinstall": "ngcc"
+    "postinstall": "ngcc --tsconfig \"./src/tsconfig.app.json\""
   },
   "private": true,
   "dependencies": {
