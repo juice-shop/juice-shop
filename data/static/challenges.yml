@@ -1097,6 +1097,15 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html'
   key: geoStalkingVisualChallenge
 -
+  name: 'Kill Chatbot'
+  category: 'Improper Input Validation'
+  description: 'Permanently disable the support chatbot so that it can no longer answer customer queries'
+  difficulty: 4
+  hint: 'Think of a way to get a hold of the internal workings on the chatbot API'
+  hintUrl: ''
+  mitigationUrl: ''
+  key: killChatbotChallenge
+-
   name: 'Poison Null Byte'
   category: 'Improper Input Validation'
   tags:

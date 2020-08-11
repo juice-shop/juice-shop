@@ -23,7 +23,7 @@
           <div class="form-wrapper">
             <mat-form-field color="accent" appearance="outline">
               <mat-label>Message</mat-label>
-              <input id="message" #message name="message" [formControl]="messageControl"
+              <input id="message-input" #message name="message" [formControl]="messageControl"
                       matInput placeholder="Ask me anything"
                       aria-label="Text field for the login email" (keyup.enter)="sendMessage()">
             </mat-form-field>
