@@ -10,9 +10,10 @@ const utils = require('../lib/utils')
 const config = require('config')
 const fs = require('fs')
 const models = require('../models/index')
+const challenges = require('../data/datacache').challenges
 
 const trainingSet = fs.readFileSync(`data/static/${config.get('application.chatBot.trainingData')}`)
-
+const testCommand = JSON.parse(trainingSet).intents[0].question
 const bot = new Bot(config.get('application.chatBot.name'), config.get('application.chatBot.greeting'), trainingSet, config.get('application.chatBot.defaultResponse'))
 bot.train()
 
@@ -47,8 +48,26 @@ async function processQuery (user, req, res) {
     return
   }
 
-  const response = await bot.respond(req.body.query, user.id)
-  res.status(200).json(response)
+  try {
+    const response = await bot.respond(req.body.query, user.id)
+    res.status(200).json(response)
+  } catch (err) {
+    try {
+      await bot.respond(testCommand, user.id)
+      res.status(200).json({
+        action: 'namequery',
+        body: 'I\'m sorry I didn\'t get your name. What shall I call you?'
+      })
+    } catch (err) {
+      if (!challenges.killChatbotChallenge.solved) {
+        utils.solve(challenges.killChatbotChallenge)
+      }
+      res.status(200).json({
+        action: 'response',
+        body: 'Oh no... Remember to stay hydrated when I\'m gone...'
+      })
+    }
+  }
 }
 
 function setUserName (user, req, res) {
