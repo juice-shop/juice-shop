@@ -23,7 +23,7 @@ describe('/chatbot', () => {
       browser.get(protractor.basePath + '/#/chatbot')
       messageBox = element(by.id('message-input'))
       messageBox.sendKeys('hi')
-      messageBox.sendKeys(protractor.Key.ENTER)
+      browser.actions().sendKeys(protractor.Key.ENTER).perform()
     })
     protractor.expect.challengeSolved({ challenge: 'Kill Chatbot' })
   })
