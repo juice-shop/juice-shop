@@ -17,7 +17,7 @@
         <input id="email" #email name="email"
                [formControl]="emailControl"
                (focus)="this.error=null"
-               matInput placeholder=""
+               matInput placeholder="" type="email"
                aria-label="Text field for the login email">
         <mat-error *ngIf="emailControl.invalid" translate>MANDATORY_EMAIL</mat-error>
       </mat-form-field>
