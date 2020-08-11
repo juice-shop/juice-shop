@@ -9,7 +9,7 @@ describe('/chatbot', () => {
   let username, submitButton, messageBox
   protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
-  describe('challenge "killJuicy"', () => {
+  describe('challenge "killChatbot"', () => {
     it('should be possible to kill the chatbot by setting the process to null', () => {
       browser.waitForAngularEnabled(false)
       browser.get(protractor.basePath + '/profile')

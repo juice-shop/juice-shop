@@ -305,7 +305,7 @@ ctf:
     geoStalkingVisualChallenge:
       name: The Netherlands
       code: NL
-    killJuicyChallenge:
+    killChatbotChallenge:
       name: Czechoslovakia
       code: CSK
     nullByteChallenge:
