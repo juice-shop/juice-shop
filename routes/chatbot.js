@@ -60,7 +60,7 @@ async function processQuery (user, req, res) {
       })
     } catch (err) {
       if (!challenges.killChatbotChallenge.solved) {
-        utils.solveIf(challenges.killChatbotChallenge)
+        utils.solve(challenges.killChatbotChallenge)
       }
       res.status(200).json({
         action: 'response',
