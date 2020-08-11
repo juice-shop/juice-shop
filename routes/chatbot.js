@@ -59,7 +59,9 @@ async function processQuery (user, req, res) {
         body: 'I\'m sorry I didn\'t get your name. What shall I call you?'
       })
     } catch (err) {
-      utils.solve(challenges.killJuicyChallenge)
+      if (!challenges.killChatbotChallenge.solved) {
+        utils.solveIf(challenges.killChatbotChallenge)
+      }
       res.status(200).json({
         action: 'response',
         body: 'Oh no... Remember to stay hydrated when I\'m gone...'
