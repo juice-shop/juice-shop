@@ -51,16 +51,12 @@ overview please visit the official project page:
   - [Azure Container Instance](#azure-container-instance)
   - [Google Compute Engine Instance](#google-compute-engine-instance)
 - [Demo](#demo)
-- [Features](#features)
-  - [Customization](#customization)
-  - [CTF-Extension](#ctf-extension)
 - [Documentation](#documentation)
   - [Node.js version compatibility](#nodejs-version-compatibility)
   - [Troubleshooting](#troubleshooting)
   - [Official companion guide](#official-companion-guide)
 - [Contributing](#contributing)
-  - [Guidelines](#guidelines)
-  - [References](#references)
+- [References](#references)
 - [Merchandise](#merchandise)
 - [Donations](#donations)
 - [Contributors](#contributors)
@@ -209,30 +205,6 @@ Feel free to have a look at the latest version of OWASP Juice Shop:
 > supposed__ to use this instance for your own hacking endeavours! No
 > guaranteed uptime! Guaranteed stern looks if you break it!
 
-## Features
-
-### Customization
-
-Via a YAML configuration file in `/config`, the OWASP Juice Shop can be
-customized in its content and look & feel.
-
-For detailed instructions and examples please refer to
-[our _Customization_ documentation](https://pwning.owasp-juice.shop/part1/customization.html).
-
-### CTF-Extension
-
-If you want to run OWASP Juice Shop as a Capture-The-Flag event, we
-recommend you set it up along with a [CTFd](https://ctfd.io),
-[FBCTF](https://github.com/facebook/fbctf) or
-[RootTheBox](https://root-the-box.com/) server conveniently using the
-official
-[`juice-shop-ctf-cli`](https://www.npmjs.com/package/juice-shop-ctf-cli)
-tool.
-
-For step-by-step instructions and examples please refer to
-[the _Hosting a CTF event_ chapter](https://pwning.owasp-juice.shop/part1/ctf.html)
-of our companion guide ebook.
-
 ## Documentation
 
 ### Node.js version compatibility
@@ -282,8 +254,11 @@ OWASP Juice Shop comes with an official companion guide eBook. It will
 give you a complete overview of all vulnerabilities found in the
 application including hints how to spot and exploit them. In the
 appendix you will even find complete step-by-step solutions to every
-challenge. Full documentation of all setup options, customization, CTF
-setup etc. is also included.
+challenge. Extensive documentation of
+[custom re-branding](https://pwning.owasp-juice.shop/part1/customization.html),
+[CTF-support](https://pwning.owasp-juice.shop/part1/ctf.html),
+[trainer's guide](https://pwning.owasp-juice.shop/appendix/trainers.html)
+and much more is also included.
 
 [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) is published
 under
@@ -296,8 +271,6 @@ You can also
 
 ## Contributing
 
-### Guidelines
-
 [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors)
 [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/owasp-juice-shop/localized.svg)](https://crowdin.com/project/owasp-juice-shop)
@@ -309,7 +282,7 @@ We are always happy to get new contributors on board! Please check
 [contribute to our codebase](CONTRIBUTING.md#code-contributions) or the
 [translation into different languages](CONTRIBUTING.md#i18n-contributions)!
 
-### References
+## References
 
 Did you write a blog post, magazine article or do a podcast about or
 mentioning OWASP Juice Shop? Or maybe you held or joined a conference
