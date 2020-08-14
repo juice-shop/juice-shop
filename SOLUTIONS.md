@@ -57,10 +57,14 @@ Shop easier to hack!
   * [★★★ Product Tampering](https://youtu.be/G4UKdotkyu8)
   * [★★★ Reset Jim's Password](https://youtu.be/qYVlxeKVhgA)
   * [★★★ Upload Size](https://youtu.be/5pcAPUihhWA)
-* [Live Hacking von Online-Shop „Juice Shop” – Level 1 (Twitch Live-Stream)](https://youtu.be/ccy-eKYpdbk)
-  (:de:) by
+* Live Hacking von Online-Shop „Juice Shop” (:de:)
+  [Twitch live stream](https://www.twitch.tv/GregorBiswanger) recordings
+  by
   [Gregor Biswanger](https://www.youtube.com/channel/UCGMA9qDbIQ-EhgLD-ZrsHWw)
   (🧃`v11.x`)
+  * [Level 1](https://youtu.be/ccy-eKYpdbk)
+  * [Level 2](https://youtu.be/KtMPEDJx0Sg)
+  * [Level 3](https://youtu.be/aqXfFVHJ91g)
 * [HackerOne #h1-2004 Community Day: Intro to Web Hacking - OWASP Juice Shop](https://youtu.be/KmlwIwG7Kv4)
   by [Nahamsec](https://twitch.tv/nahamsec) including the creation of a
   (fake) bugbounty report for all findings (🧃`v10.x`)
