@@ -1,0 +1,46 @@
+application:
+  name: OWASP Juice Shop
+  source: https://github.com/bkimminich/juice-shop
+vulnerabilities:
+  -
+    description: DOM-based XSS in search query
+    classifiers:
+      - "CWE-79"
+      - "CWE-749"
+      - "A7:2017"
+      - "WASC-8"
+    flags:
+      files:
+        - "main-es[0-9]*\.js"
+        - "search-result\.component\.html"
+        - "search-result\.component\.ts"
+      code:
+        - "\[innerhtml\]"
+        - "DomSanitizer"
+        - "searchValue"
+        - "bypassSecurityTrustHtml"
+      runtime:
+        - "#/search"
+        - "q="
+  -
+    description: Stored XSS in product description
+    classifiers:
+      - "CWE-79"
+      - "CWE-749"
+      - "A7:2017"
+      - "WASC-8"
+    flags:
+      files:
+        - "main-es[0-9]*\.js"
+        - "search-result\.component\.ts"
+        - "product-details\.component\.html"
+      code:
+        - "DomSanitizer"
+        - "tableData\[i\]\.description"
+        - "bypassSecurityTrustHtml"
+        - "trustProductDescription"
+        - "\[innerhtml\]"
+      runtime:
+        - "/api/Products"
+        - "/api/Products/[0-9]*"
+        - "#/search"
