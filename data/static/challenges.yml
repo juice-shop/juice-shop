@@ -1104,8 +1104,8 @@
   description: 'Permanently disable the support chatbot so that it can no longer answer customer queries.'
   difficulty: 5
   hint: 'Think of a way to get a hold of the internal workings on the chatbot API.'
-  hintUrl: ''
-  mitigationUrl: ''
+  hintUrl: 'https://pwning.owasp-juice.shop/part2/improper-input-validation.html#permanently-disable-the-support-chatbot'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html'
   key: killChatbotChallenge
 -
   name: 'Poison Null Byte'
