@@ -1101,9 +1101,9 @@
   category: 'Improper Input Validation'
   tags:
     - Code Analysis
-  description: 'Permanently disable the support chatbot so that it can no longer answer customer queries'
-  difficulty: 4
-  hint: 'Think of a way to get a hold of the internal workings on the chatbot API'
+  description: 'Permanently disable the support chatbot so that it can no longer answer customer queries.'
+  difficulty: 5
+  hint: 'Think of a way to get a hold of the internal workings on the chatbot API.'
   hintUrl: ''
   mitigationUrl: ''
   key: killChatbotChallenge
