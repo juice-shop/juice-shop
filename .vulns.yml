@@ -79,3 +79,35 @@ vulnerabilities:
         - "/file-upload"
         - "Content-Disposition: form-data; name=\"file\";"
         - "Content-Type: text/xml"
+  -
+    description: Stored XSS in customer feedback through non-recursive HTML sanitization
+    classifiers:
+      - "CWE-79"
+      - "CWE-829"
+      - "A7:2017"
+      - "A9:2017"
+      - "WASC-8"
+    flags:
+      files:
+        - "package\.json"
+        - "main-es[0-9]*\.js"
+        - "contact\.component\.ts"
+        - "contact\.component\.html"
+        - "administration\.component\.html"
+        - "administration\.component\.ts"
+        - "feedback-details\.component\.html"
+        - "about\.component\.html"
+        - "about\.component\.ts"
+      code:
+        - "DomSanitizer"
+        - "feedbacks\[i\]\.comment"
+        - "feedback\.comment"
+        - "bypassSecurityTrustHtml"
+        - "populateSlideshowFromFeedbacks"
+        - "\[innerhtml\]"
+        - "sanitize-html.*1\.4\.2"
+      runtime:
+        - "/api/Feedbacks"
+        - "comment: \".*\""
+        - "/#/administration"
+        - "/#/about"
