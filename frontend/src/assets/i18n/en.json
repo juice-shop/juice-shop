@@ -371,6 +371,8 @@
   "TAG_BRUTE_FORCE_DESCRIPTION": "Marks challenges where automation of some security tool or custom script is an option or even prerequisite.",
   "TAG_GOOD_PRACTICE": "Good Practice",
   "TAG_GOOD_PRACTICE_DESCRIPTION": "Highlights challenges which are less about vulnerabilities but promoting good (security) practices.",
+  "TAG_CODE_ANALYSIS": "Code Analysis",
+  "TAG_CODE_ANALYSIS_DESCRIPTION": "Marks challenges where it can be helpful to rummage through some source code of the application or a third party.",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "Broken Access Control",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "Broken Anti Automation",
   "CATEGORY_BROKEN_AUTHENTICATION": "Broken Authentication",
