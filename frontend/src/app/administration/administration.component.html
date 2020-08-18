@@ -94,7 +94,9 @@
           <ng-container matColumnDef="rating">
             <mat-header-cell *matHeaderCellDef translate></mat-header-cell>
             <mat-cell *matCellDef="let feedback">
-              <bar-rating [rate]="feedback.rating" readOnly="true" [max]="5"></bar-rating>
+              <mat-icon *ngFor="let i of times(feedback.rating)">
+                star_rate
+              </mat-icon>
             </mat-cell>
           </ng-container>
 

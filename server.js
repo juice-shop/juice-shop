@@ -11,6 +11,7 @@ const finale = require('finale-rest')
 const express = require('express')
 const compression = require('compression')
 const helmet = require('helmet')
+const featurePolicy = require('feature-policy')
 const errorhandler = require('errorhandler')
 const cookieParser = require('cookie-parser')
 const serveIndex = require('serve-index')
@@ -41,6 +42,7 @@ const repeatNotification = require('./routes/repeatNotification')
 const continueCode = require('./routes/continueCode')
 const restoreProgress = require('./routes/restoreProgress')
 const fileServer = require('./routes/fileServer')
+const quarantineServer = require('./routes/quarantineServer')
 const keyServer = require('./routes/keyServer')
 const logFileServer = require('./routes/logfileServer')
 const metrics = require('./routes/metrics')
@@ -90,6 +92,7 @@ const orderHistory = require('./routes/orderHistory')
 const delivery = require('./routes/delivery')
 const deluxe = require('./routes/deluxe')
 const memory = require('./routes/memory')
+const chatbot = require('./routes/chatbot')
 const locales = require('./data/static/locales')
 const i18n = require('i18n')
 
@@ -147,7 +150,7 @@ app.use(helmet.noSniff())
 app.use(helmet.frameguard())
 // app.use(helmet.xssFilter()); // = no protection from persisted XSS via RESTful API
 app.disable('x-powered-by')
-app.use(helmet.featurePolicy({
+app.use(featurePolicy({
   features: {
     payment: ["'self'"]
   }
@@ -208,7 +211,8 @@ const serveIndexMiddleware = (req, res, next) => {
 
 /* /ftp directory browsing and file download */
 app.use('/ftp', serveIndexMiddleware, serveIndex('ftp', { icons: true }))
-app.use('/ftp/:file', fileServer())
+app.use('/ftp(?!/quarantine)/:file', fileServer())
+app.use('/ftp/quarantine/:file', quarantineServer())
 
 /* /encryptionkeys directory browsing */
 app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' }))
@@ -519,7 +523,9 @@ app.get('/rest/wallet/balance', insecurity.appendUserId(), wallet.getWalletBalan
 app.put('/rest/wallet/balance', insecurity.appendUserId(), wallet.addWalletBalance())
 app.get('/rest/deluxe-membership', deluxe.deluxeMembershipStatus())
 app.post('/rest/deluxe-membership', insecurity.appendUserId(), deluxe.upgradeToDeluxe())
-app.get('/rest/memories', memory.getMemory())
+app.get('/rest/memories', memory.getMemories())
+app.get('/rest/chatbot/status', chatbot.status())
+app.post('/rest/chatbot/respond', chatbot.process())
 /* NoSQL API endpoints */
 app.get('/rest/products/:id/reviews', showProductReviews())
 app.put('/rest/products/:id/reviews', createProductReviews())

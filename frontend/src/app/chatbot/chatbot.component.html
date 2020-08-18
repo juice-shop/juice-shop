@@ -1,0 +1,36 @@
+<!--
+  ~ Copyright (c) 2014-2020 Bjoern Kimminich.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+<div fxLayoutAlign="center">
+  <mat-card class="mat-elevation-z6">
+    <h1>{{"SECTION_SUPPORT_CHAT" | translate}}</h1>
+    <mat-card id="chat-container">
+      <mat-card id="chat-box">
+
+        <div id="chat-window">
+          <div *ngFor="let message of messages; index as index" class="message-container">
+            <img  *ngIf="message.author == 'bot'" src="{{juicyImageSrc}}" class="juicy-chat-bot-image"/>
+            <img  *ngIf="message.author == 'user'" src="{{profileImageSrc}}" class="profile-image"/>
+            <div class="{{message.author == 'user' ? 'speech-bubble-right' : 'speech-bubble-left'}}">
+              {{message.body}}
+            </div>
+          </div>
+        </div>
+
+        <div class="message-box-container">
+          <div class="form-wrapper">
+            <mat-form-field color="accent" appearance="outline">
+              <mat-label>Message</mat-label>
+              <input id="message-input" #message name="message" [formControl]="messageControl"
+                      matInput placeholder="Ask me anything"
+                      aria-label="Text field for the login email" (keyup.enter)="sendMessage()">
+            </mat-form-field>
+          </div>
+        </div>
+
+      </mat-card>
+    </mat-card>
+  </mat-card>
+</div>

@@ -5,7 +5,7 @@
 
 import { UserDetailsComponent } from '../user-details/user-details.component'
 import { FeedbackDetailsComponent } from '../feedback-details/feedback-details.component'
-import { BarRatingModule } from 'ng2-bar-rating'
+
 import { FeedbackService } from '../Services/feedback.service'
 import { UserService } from '../Services/user.service'
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing'
@@ -20,6 +20,7 @@ import { throwError } from 'rxjs/internal/observable/throwError'
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatCardModule } from '@angular/material/card'
 import { MatDividerModule } from '@angular/material/divider'
+import { MatIconModule } from '@angular/material/icon'
 
 describe('AdministrationComponent', () => {
   let component: AdministrationComponent
@@ -41,13 +42,14 @@ describe('AdministrationComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        BarRatingModule,
+
         MatTableModule,
         TranslateModule.forRoot(),
         MatDialogModule,
         MatPaginatorModule,
         MatDividerModule,
-        MatCardModule
+        MatCardModule,
+        MatIconModule
       ],
       declarations: [ AdministrationComponent ],
       providers: [

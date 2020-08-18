@@ -24,16 +24,8 @@ describe('/#/administration', () => {
       browser.get(protractor.basePath + '/#/administration')
 
       $$('.mat-cell.mat-column-remove > button').first().click()
-      browser.wait(protractor.ExpectedConditions.stalenessOf(element(by.js(selectFiveStarRating))), 5000)
     })
 
     protractor.expect.challengeSolved({ challenge: 'Five-Star Feedback' })
   })
 })
-
-function selectFiveStarRating () {
-  var rating = document.querySelector('.br-units')
-  if (rating.querySelectorAll('.br-selected').length === 5) {
-    return rating
-  }
-}

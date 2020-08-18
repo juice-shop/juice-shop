@@ -193,6 +193,15 @@
       {{"NAV_COMPLAIN" | translate}}
     </span>
   </a>
+  <a mat-list-item *ngIf="isLoggedIn()" routerLink="/chatbot" (click)="onToggleSidenav();"
+     aria-label="Go to chatbot page">
+     <i class="material-icons">
+      chat
+    </i>
+    <span class="menu-text truncate">
+      {{"SECTION_SUPPORT_CHAT" | translate}}
+    </span>
+  </a>
 
   <mat-divider></mat-divider>
 
@@ -229,6 +238,15 @@
     <mat-icon matListIcon class="fas fa-trophy fa-lg"></mat-icon>
     <span class="menu-text truncate">
       {{"TITLE_SCORE_BOARD" | translate}}
+    </span>
+  </a>
+  <a *ngIf="!scoreBoardVisible && offerScoreBoardTutorial" mat-list-item (click)="startHackingInstructor()"
+     aria-label="Launch beginners tutorial">
+    <i class="material-icons">
+      school
+    </i>
+    <span class="menu-text truncate">
+      {{"BTN_GETTING_STARTED" | translate}}
     </span>
   </a>
 

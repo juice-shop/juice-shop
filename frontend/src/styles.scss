@@ -76,32 +76,6 @@
   }
 }
 
-@mixin bar-rating-theme($theme) {
-  .br-default .br-units {
-    align-items: center;
-  }
-
-  .br-default .br-unit {
-    font-size: 23px;
-    height: 18px;
-    margin-right: 5px;
-    width: 18px;
-  }
-
-  .br-default .br-unit::after {
-    color: mat-color(map-get($theme, primary), lighter);
-    content: '\2605';
-  }
-
-  .br-default .br-selected::after {
-    color: mat-color(map-get($theme, accent), lighter);
-  }
-
-  .br-default .br-active::after {
-    color: mat-color(map-get($theme, accent), lighter);
-  }
-}
-
 @mixin score-star-theme($theme) {
   .empty-star {
     stop-color: mat-color(map-get($theme, primary));
@@ -141,7 +115,6 @@
   @include link-theme($theme);
   @include notification-theme($theme);
   @include image-thumbnail-theme($theme);
-  @include bar-rating-theme($theme);
   @include score-star-theme($theme);
   @include snackbar($theme);
   @include google-button($theme);

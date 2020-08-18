@@ -109,4 +109,6 @@ export class ContactComponent implements OnInit {
     this.captchaControl.setValue('')
   }
 
-}
+  formatRating (value: number) {
+    return value + '★'
+  }}

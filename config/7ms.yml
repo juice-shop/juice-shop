@@ -113,4 +113,3 @@ products:
     description: 'Today is part <strong>FIVE</strong> (insert menacing voice: "<em>the final chapter!!!</em>) of our series on attacking the <a href="https://www.owasp.org/index.php/OWASP_Juice_Shop_Project" target="_blank">OWASP Juice Shop</a> which is "an intentionally insecure webapp for security trainings written entirely in Javascript which encompasses the entire OWASP Top Ten and other severe security flaws."'
     price: 1.99
     image: hqdefault.jpg
-memories: []
