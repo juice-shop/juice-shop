@@ -72,6 +72,7 @@
   category: 'Security through Obscurity'
   tags:
     - Contraption
+    - Code Analysis
   description: 'Learn about the Token Sale before its official announcement.'
   difficulty: 5
   hint: 'The developers truly believe in "Security through Obscurity" over actual access restrictions.'
@@ -271,6 +272,7 @@
   category: 'Cryptographic Issues'
   tags:
     - Good for Demos
+    - Code Analysis
   description: 'Forge a coupon code that gives you a discount of at least 80%.'
   difficulty: 6
   hint: 'Try either a) a knowledgable brute force attack or b) reverse engineering or c) some research in the cloud.'
@@ -380,6 +382,7 @@
   category: 'Cryptographic Issues'
   tags:
     - Shenanigans
+    - Code Analysis
   description: 'Solve challenge #999. Unfortunately, this challenge does not exist.'
   difficulty: 6
   hint: 'You need to trick the hacking progress persistence feature into thinking you solved challenge #999.'
@@ -459,6 +462,8 @@
 -
   name: 'Login Bjoern'
   category: 'Broken Authentication'
+  tags:
+    - Code Analysis
   description: 'Log in with Bjoern''s Gmail account <i>without</i> previously changing his password, applying SQL Injection, or hacking his Google account.'
   difficulty: 4
   hint: 'The security flaw behind this challenge is 100% OWASP Juice Shop''s fault and 0% Google''s.'
@@ -468,6 +473,8 @@
 -
   name: 'Login CISO'
   category: 'Broken Authentication'
+  tags:
+    - Code Analysis
   description: 'Exploit OAuth 2.0 to log in with the Chief Information Security Officer''s user account.'
   difficulty: 5
   hint: 'Don''t try to beat Google''s OAuth 2.0 service. Rather investigate implementation flaws on OWASP Juice Shop''s end.'
@@ -592,6 +599,8 @@
 -
   name: 'Outdated Whitelist'
   category: 'Unvalidated Redirects'
+  tags:
+    - Code Analysis
   description: 'Let us redirect you to one of our crypto currency addresses which are not promoted any longer.'
   difficulty: 1
   hint: 'We might have failed to take this out of our code properly.'
@@ -749,6 +758,8 @@
 -
   name: 'SSRF'
   category: 'Broken Access Control'
+  tags:
+    - Code Analysis
   description: 'Request a hidden resource on server through server.'
   difficulty: 6
   hint: 'Reverse engineering something bad can make good things happen.'
@@ -761,6 +772,7 @@
   tags:
     - Contraption
     - Danger Zone
+    - Code Analysis
   description: 'Infect the server with juicy malware by abusing arbitrary command execution.'
   difficulty: 6
   hint: '"SSTi" is a clear indicator that this has nothing to do with anything Angular. Also, make sure to use only our non-malicious malware.'
@@ -775,6 +787,7 @@
   category: 'Miscellaneous'
   tags:
     - Tutorial
+    - Code Analysis
   description: 'Find the carefully hidden ''Score Board'' page.'
   difficulty: 1
   hint: 'Try to find a reference or clue behind the scenes. Or simply guess what URL the Score Board might have.'
@@ -1086,11 +1099,13 @@
 -
   name: 'Kill Chatbot'
   category: 'Improper Input Validation'
-  description: 'Permanently disable the support chatbot so that it can no longer answer customer queries'
-  difficulty: 4
-  hint: 'Think of a way to get a hold of the internal workings on the chatbot API'
-  hintUrl: ''
-  mitigationUrl: ''
+  tags:
+    - Code Analysis
+  description: 'Permanently disable the support chatbot so that it can no longer answer customer queries.'
+  difficulty: 5
+  hint: 'Think of a way to get a hold of the internal workings on the chatbot API.'
+  hintUrl: 'https://pwning.owasp-juice.shop/part2/improper-input-validation.html#permanently-disable-the-support-chatbot'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html'
   key: killChatbotChallenge
 -
   name: 'Poison Null Byte'
