@@ -1,0 +1,113 @@
+application:
+  name: OWASP Juice Shop
+  source: https://github.com/bkimminich/juice-shop
+vulnerabilities:
+  -
+    description: DOM-based XSS in search query
+    classifiers:
+      - "CWE-79"
+      - "CWE-749"
+      - "A7:2017"
+      - "WASC-8"
+    flags:
+      files:
+        - "main-es[0-9]*\.js"
+        - "search-result\.component\.html"
+        - "search-result\.component\.ts"
+      code:
+        - "\[innerhtml\]"
+        - "DomSanitizer"
+        - "searchValue"
+        - "bypassSecurityTrustHtml"
+      runtime:
+        - "#/search"
+        - "q="
+  -
+    description: Stored XSS in product description
+    classifiers:
+      - "CWE-79"
+      - "CWE-749"
+      - "A7:2017"
+      - "WASC-8"
+    flags:
+      files:
+        - "main-es[0-9]*\.js"
+        - "search-result\.component\.ts"
+        - "product-details\.component\.html"
+      code:
+        - "DomSanitizer"
+        - "tableData\[i\]\.description"
+        - "bypassSecurityTrustHtml"
+        - "trustProductDescription"
+        - "\[innerhtml\]"
+      runtime:
+        - "/api/Products"
+        - "/api/Products/[0-9]*"
+        - "#/search"
+  -
+    description: SQL Injection into user login
+    classifiers:
+      - "CWE-74"
+      - "CWE-89"
+      - "A1:2017"
+      - "WASC-19"
+    flags:
+      files:
+        - "login\.js"
+      code:
+        - "sequelize\.query"
+        - "req\.body\.email"
+        - "req\.body\.password"
+      runtime:
+        - "/rest/user/login"
+        - "{email: \".*\", password: \".*\"}"
+  -
+    description: XXE via file upload in user complaints
+    classifiers:
+      - "CWE-611"
+      - "A4:2017"
+      - "WASC-43"
+    flags:
+      files:
+        - "fileUpload\.js"
+      code:
+        - "handleXmlUpload"
+        - "libxml\.parseXml"
+        - "req\.body\.password"
+        - "B2B customer complaints via file upload have been deprecated for security reasons"
+      runtime:
+        - "/file-upload"
+        - "Content-Disposition: form-data; name=\"file\";"
+        - "Content-Type: text/xml"
+  -
+    description: Stored XSS in customer feedback through non-recursive HTML sanitization
+    classifiers:
+      - "CWE-79"
+      - "CWE-829"
+      - "A7:2017"
+      - "A9:2017"
+      - "WASC-8"
+    flags:
+      files:
+        - "package\.json"
+        - "main-es[0-9]*\.js"
+        - "contact\.component\.ts"
+        - "contact\.component\.html"
+        - "administration\.component\.html"
+        - "administration\.component\.ts"
+        - "feedback-details\.component\.html"
+        - "about\.component\.html"
+        - "about\.component\.ts"
+      code:
+        - "DomSanitizer"
+        - "feedbacks\[i\]\.comment"
+        - "feedback\.comment"
+        - "bypassSecurityTrustHtml"
+        - "populateSlideshowFromFeedbacks"
+        - "\[innerhtml\]"
+        - "sanitize-html.*1\.4\.2"
+      runtime:
+        - "/api/Feedbacks"
+        - "comment: \".*\""
+        - "/#/administration"
+        - "/#/about"
