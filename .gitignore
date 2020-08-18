@@ -25,6 +25,7 @@ vagrant/.vagrant/
 *.log
 JSON
 JSON.map
+frontend/src/**/*.js
 
 # IDEs
 .idea/
