@@ -1,6 +1,7 @@
 [
   { "key": "en", "icons": ["gb", "us"], "shortKey": "EN", "lang": "English" },
   { "key": "ar_SA", "icons": ["ae", "tn"], "shortKey": "AR", "lang": "عربى" },
+  { "key": "hy_AM", "icons": ["am"], "shortKey": "AM", "lang": "հայերեն" },
   { "key": "az_AZ", "icons": ["az"], "shortKey": "AZ", "lang": "Azərbaycanca" },
   { "key": "bg_BG", "icons": ["bg"], "shortKey": "BG", "lang": "български (език)" },
   { "key": "ca_ES", "icons": ["es-ct"], "shortKey": "CA", "lang": "Catalan" },
@@ -32,8 +33,10 @@
   { "key": "ro_RO", "icons": ["ro"], "shortKey": "RO", "lang": "Românesc" },
   { "key": "ru_RU", "icons": ["ru"], "shortKey": "RU", "lang": "Pусский" },
   { "key": "sv_SE", "icons": ["se"], "shortKey": "SV", "lang": "Svenska" },
+  { "key": "th_TH", "icons": ["th"], "shortKey": "TH", "lang": "ไทย" },
   { "key": "tr_TR", "icons": ["tr"], "shortKey": "TR", "lang": "Türkçe" },
   { "key": "ur_PK", "icons": ["pk"], "shortKey": "UR", "lang": "اردو" },
   { "key": "zh_CN", "icons": ["cn"], "shortKey": "CN", "lang": "中国" },
-  { "key": "zh_HK", "icons": ["hk"], "shortKey": "HK", "lang": "繁體中文" }
+  { "key": "zh_HK", "icons": ["hk"], "shortKey": "HK", "lang": "繁體中文" },
+  { "key": "zh_TW", "icons": ["tw"], "shortKey": "TW", "lang": "繁體中文" }
 ]

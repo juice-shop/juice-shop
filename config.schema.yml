@@ -18,6 +18,8 @@ application:
     type: boolean
   showGitHubLinks:
     type: boolean
+  localBackupEnabled:
+    type: boolean
   numberOfRandomFakeUsers:
     type: number
   altcoinName:
@@ -26,6 +28,15 @@ application:
     type: string
   customMetricsPrefix:
     type: string
+  chatBot:
+    name:
+      type: string
+    greeting:
+      type: string
+    trainingData:
+      type: string
+    defaultResponse:
+      type: string
   social:
     twitterUrl:
       type: string
@@ -99,6 +110,8 @@ challenges:
     type: boolean
   showHints:
     type: boolean
+  showMitigations:
+    type: boolean
   restrictToTutorialsFirst:
     type: boolean
   overwriteUrlForProductTamperingChallenge:
@@ -126,6 +139,8 @@ products:
       type: string
     quantity:
       type: number
+    limitPerUser:
+      type: number
     deletedDate:
       type: string
     urlForProductTamperingChallenge:
@@ -149,6 +164,14 @@ memories:
     caption:
       type: string
     user:
+      type: string
+    geoStalkingMetaSecurityQuestion:
+      type: number
+    geoStalkingMetaSecurityAnswer:
+      type: string
+    geoStalkingVisualSecurityQuestion:
+      type: number
+    geoStalkingVisualSecurityAnswer:
       type: string
 ctf:
   showFlagsInNotifications:

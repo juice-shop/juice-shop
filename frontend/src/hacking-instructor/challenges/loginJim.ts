@@ -49,13 +49,13 @@ export const LoginJimInstruction: ChallengeInstruction = {
     {
       text:
         'Go back to the product list and click on some to open their details dialog which also hold the user reviews.',
-      fixture: '#searchQuery',
+      fixture: '.fill-remaining-space',
       resolved: waitForAngularRouteToBeVisited('search')
     },
     {
       text:
         'Once you found a user review by Jim and learned his email, go to the _Login_ screen.',
-      fixture: '#searchQuery',
+      fixture: '.fill-remaining-space',
       unskippable: true,
       resolved: waitForAngularRouteToBeVisited('login')
     },

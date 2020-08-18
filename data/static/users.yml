@@ -229,3 +229,15 @@
       cardNum: 1234567812345678
       expMonth: 12
       expYear: 2099
+-
+  email: john
+  username: j0hNny
+  password: 'y&x5Z#f6W532Z4445#Ae2HkwZVyDb7&oCUaDzFU'
+  key: john
+  role: 'customer'
+- 
+  email: emma
+  username: E=ma²
+  password: 'y&x5Z#f6W532ZUf$q3DsdgfgfgxxUsvoCUaDzFU'
+  key: emma
+  role: 'customer'

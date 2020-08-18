@@ -55,11 +55,12 @@ module.exports = async () => {
 
 async function createChallenges () {
   const showHints = config.get('challenges.showHints')
+  const showMitigations = config.get('challenges.showMitigations')
 
   const challenges = await loadStaticData('challenges')
 
   await Promise.all(
-    challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, key, disabledEnv, tutorial }) => {
+    challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, mitigationUrl, key, disabledEnv, tutorial, tags }) => {
       const effectiveDisabledEnv = utils.determineDisabledEnv(disabledEnv)
       description = description.replace('juice-sh.op', config.get('application.domain'))
       description = description.replace('&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;', entities.encode(config.get('challenges.xssBonusPayload')))
@@ -70,11 +71,13 @@ async function createChallenges () {
           key,
           name,
           category,
+          tags: tags ? tags.join(',') : undefined,
           description: effectiveDisabledEnv ? (description + ' <em>(This challenge is <strong>' + (config.get('challenges.safetyOverride') ? 'potentially harmful' : 'not available') + '</strong> on ' + effectiveDisabledEnv + '!)</em>') : description,
           difficulty,
           solved: false,
           hint: showHints ? hint : null,
           hintUrl: showHints ? hintUrl : null,
+          mitigationUrl: showMitigations ? mitigationUrl : null,
           disabledEnv: config.get('challenges.safetyOverride') ? null : effectiveDisabledEnv,
           tutorialOrder: tutorial ? tutorial.order : null
         })
@@ -209,19 +212,19 @@ function createRandomFakeUsers () {
 }
 
 function createQuantity () {
-  const limitPerUserProuductIds = [1, 5, 7, 20, 24]
   return Promise.all(
     config.get('products').map((product, index) => {
       return models.Quantity.create({
         ProductId: index + 1,
         quantity: product.quantity !== undefined ? product.quantity : Math.floor(Math.random() * 70 + 30),
-        limitPerUser: limitPerUserProuductIds.includes(index + 1) ? 5 : null
+        limitPerUser: product.limitPerUser || null
       }).catch((err) => {
         logger.error(`Could not create quantity: ${err.message}`)
       })
     })
   )
 }
+
 function createMemories () {
   const memories = [models.Memory.create({
     imagePath: 'assets/public/images/uploads/😼-#zatschi-#whoneedsfourlegs-1572600969477.jpg',
@@ -231,12 +234,20 @@ function createMemories () {
     logger.error(`Could not create memory: ${err.message}`)
   })]
   Array.prototype.push.apply(memories, Promise.all(
-    config.get('memories').map((memory) => {
+    utils.thaw(config.get('memories')).map((memory) => {
       let tmpImageFileName = memory.image
       if (utils.startsWith(memory.image, 'http')) {
         const imageUrl = memory.image
         tmpImageFileName = utils.extractFilename(memory.image)
         utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/uploads/' + tmpImageFileName)
+      }
+      if (memory.geoStalkingMetaSecurityQuestion && memory.geoStalkingMetaSecurityAnswer) {
+        createSecurityAnswer(datacache.users.john.id, memory.geoStalkingMetaSecurityQuestion, memory.geoStalkingMetaSecurityAnswer)
+        memory.user = 'john'
+      }
+      if (memory.geoStalkingVisualSecurityQuestion && memory.geoStalkingVisualSecurityAnswer) {
+        createSecurityAnswer(datacache.users.emma.id, memory.geoStalkingVisualSecurityQuestion, memory.geoStalkingVisualSecurityAnswer)
+        memory.user = 'emma'
       }
       return models.Memory.create({
         imagePath: 'assets/public/images/uploads/' + tmpImageFileName,
@@ -252,7 +263,7 @@ function createMemories () {
 
 function createProducts () {
   const products = utils.thaw(config.get('products')).map((product) => {
-    product.price = product.price || Math.floor(Math.random())
+    product.price = product.price || Math.floor(Math.random() * 9 + 1)
     product.deluxePrice = product.deluxePrice || product.price
     product.description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
 
