@@ -54,110 +54,63 @@ Abhishek bundela
 
 ## Translators
 
-Based on [CrowdIn](https://crowdin.com/project/owasp-juice-shop)
-translations as of Fri, 28 Feb 2020 (ordered alphabetically).
+As exported from
+[CrowdIn Top Members Report](https://crowdin.com/project/owasp-juice-shop/settings#reports-top-members)
+(by # of translated Strings) for all languages as of Wed, 19 Aug 2020
+after
+[conversion into Markdown](https://thisdavej.com/copy-table-in-excel-and-paste-as-a-markdown-table/).
 
-- Abdo Farwan aka `abdofarwan` (Arabic, Turkish)
-- adeyosemanputra (Indonesian)
-- Albert Camps aka `campsupc` (Catalan; Spanish)
-- Aleksandra Niemyska aka `niemyskaa` (Polish)
-- Allan Kimmer Jensen aka `Saturate` (Danish)
-- Andrew Pio aka `siranen` (Polish)
-- asifnm (Dutch)
-- atteism (Swedish)
-- AviD aka `avidouglen` (Hebrew)
-- Bart Decker aka `Decker` (Dutch)
-- bill aka `Hawxdu` (Chinese Simplified)
-- Björn Kimminich aka `bkimminich` (German)
-- bmoritz (Estonian)
-- BostonLow (Hebrew)
-- Bruno Rodrigues aka `bmvr` (Portuguese)
-- CarlCampbell (Spanish)
-- Carlos Allendes aka `OwaspChile` (Spanish)
-- cello-anders (Swedish)
-- Claudio Snidero aka `cla7997` (Italian)
-- Coink aka `CoinkWang` (Chinese Simplified)
-- Daan Sprenkels aka `dsprenkels` (Dutch)
-- Daniel Paniagua aka `danielgpm` (Spanish)
-- dav1ds (French)
-- Davis Freimanis aka `davisfreimanis` (Latvian)
-- DenisCherean (Romanian)
-- Diego Andreé Porras Rivas aka `andree.rivas` (Spanish)
-- Dmitry aka `shipko` (Russian)
-- Egert Aia aka `aiaegert` (Estonian)
-- Ender Çulha aka `ecu` (Turkish)
-- Enrique Rossel ake `erossel` (Spanish)
-- Estevam Arantes aka `Es7evam` (Portuguese; Portuguese, Brazilian)
-- Ezequiel Andino aka `acidobinario` (Spanish)
-- fieldhill13 (Russian)
-- Forbidden aka `cptbl00dra1n` (Chinese Simplified)
-- FoteiniAthina (Greek)
-- GiorgiSharia (Georgian)
-- Giovanni aka `cruzgio` (Spanish)
-- Héctor Lecuanda aka `hlecuanda` (Spanish)
-- Henry Hu aka `ninedter` (Chinese Traditional)
-- Idomin Ninja aka `Idomin` (Polish)
-- janesmae (Estonian)
-- jasinski_tomasz (Polish)
-- Jorge Estigarribia aka `jorgestiga` (Spanish; Portuguese, Brazilian)
-- kahfiehudson (Indonesian)
-- Kamil Vavra aka `vavkamil` (Czech)
-- Karl aka `spruur` (Estonian)
-- Klas Fahlberg aka `FahlbergKlas` (Swedish)
-- Koji O aka `marlboro20light` (Japanese)
-- Kylian Runembert aka `FunnHydra` (French)
-- landinl (Swedish)
-- Lars Grini aka `lars.grini` (Norwegian)
-- Manu B aka `Rosina` (Dutch)
-- ManuelFranz (German)
-- Marc Rüttler aka `MarcRler` (German)
-- Martin Hartl aka `hartlmartin` (Czech)
-- mateomartinez (Spanish)
-- Mattias Persson aka `mattiasbpersson` (Swedish)
-- Mehyar Shammas aka `mashkuov` (Arabic)
-- Michiya Tominaga aka `nuwaa` (Japanese)
-- Mircea Ulmeanu aka `boltzmann.gt` (Romanian)
-- Mohammad Febri Ramadlan aka `mohammadfebrir` (Indonesian)
-- motofy (Japanese)
-- MrNinhoJr a aka `mrninhojr` (Portugese, Brazilian)`
-- mrudul (Hindi)
-- Natalia aka `notNao` (Spanish)
-- Nico Ådahl aka `nigotiator` (Finnish)
-- nilfigo (Japanese)
-- OliverkeHU (Hungarian)
-- orjen (Romanian)
-- OrNol aka `TRNSLR` (Dutch)
-- Oussama Bouthouri aka `Boussama`/`oussama.bouthouri` (Arabic)
-- owangen (Norwegian; Danish)
-- Pablo Barrera aka `pablo.barrera` (Spanish)
-- Pär Svedberg aka `grebdevs` (Swedish)
-- Phakphum Visetnut aka `phakphum_visetnut` (Thai)
-- r0n1am (Chinese Traditional, Hong Kong)
-- rachidbm (Dutch)
-- rakzcs (Estonian)
-- Rasmus Bidstrup aka `rasmusbidstrup` (Danish)
-- redr0n19 (Russian)
-- Richardson Lima aka `contatorichardsonlima` (Portuguese, Brazilian)
-- Riotaro OKADA aka `riotaro` (Japanese)
-- Roy Quiceno aka `rquiceno` (Spanish)
-- rToxic (Chinese Simplified)
-- sergio.kubota (Portuguese, Brazilian)
-- Shahin Farzaliyev aka `Khan27` (Azerbaijani)
-- Simon Basset aka `simbas` (French)
-- sjroh (Korean)
-- soledad aro aka `cristinagarciaaro` (Spanish)
-- Stavros M. aka `msstavros` (Greek)
-- stejkenzie (Czech)
-- Stella Dineva aka `stella.dineva` (Bulgarian)
-- talisainen (Russian)
-- thinbashane (Burmese)
-- timexlord (Romanian)
-- Tomas Rosenqvist aka `Muamaidbengt` (Swedish)
-- tongsonghua aka `yolylight` (Chinese Simplified)
-- vientspam (Dutch; Italian; French)
-- Wout Huygens aka `lenkadubois` (Dutch)
-- zvargun (Turkish)
-- にのせき aka `ninoseki` (Japanese)
+| Name                                  | Languages                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Translated |
+|:--------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------|
+| Björn Kimminich (bkimminich)          | German; Chinese Simplified; German, Switzerland; Romanian; French; Estonian; Portuguese; Dutch; Spanish; Arabic; Hindi; Russian; Swedish; Norwegian; Polish; Portuguese, Brazilian; Turkish; Indonesian; Japanese; Italian; Hebrew; Chinese Traditional, Hong Kong; Czech; Danish; Burmese; Greek; Korean; Thai; Bulgarian; Georgian; Finnish; Klingon; Latvian; Azerbaijani; Hungarian; Catalan; Lithuanian; Urdu (Pakistan); Chinese Traditional; Armenian | 5627       |
+| tongsonghua (yolylight)               | Chinese Simplified                                                                                                                                                                                                                                                                                                                                                                                                                                           | 497        |
+| DenisCherean                          | Romanian                                                                                                                                                                                                                                                                                                                                                                                                                                                     | 452        |
+| Simon Basset (simbas)                 | French                                                                                                                                                                                                                                                                                                                                                                                                                                                       | 392        |
+| janesmae                              | Estonian                                                                                                                                                                                                                                                                                                                                                                                                                                                     | 372        |
+| schattenbaum                          | German, Switzerland; German                                                                                                                                                                                                                                                                                                                                                                                                                                  | 312        |
+| Marc Rüttler (MarcRler)               | Catalan; Lithuanian; Italian; Spanish; French; Hungarian; Dutch; German; Turkish; Portuguese; Danish; Swedish; Greek; Estonian; Russian; Azerbaijani; Bulgarian                                                                                                                                                                                                                                                                                              | 274        |
+| Enrique Rossel (erossel)              | Spanish                                                                                                                                                                                                                                                                                                                                                                                                                                                      | 263        |
+| Dmitry (shipko)                       | Russian                                                                                                                                                                                                                                                                                                                                                                                                                                                      | 250        |
+| owangen                               | Norwegian; Danish; Klingon                                                                                                                                                                                                                                                                                                                                                                                                                                   | 246        |
+| sjroh                                 | Korean                                                                                                                                                                                                                                                                                                                                                                                                                                                       | 224        |
+| Phakphum Visetnut (phakphum_visetnut) | Thai                                                                                                                                                                                                                                                                                                                                                                                                                                                         | 213        |
+| Davis Freimanis (davisfreimanis)      | Latvian; Swedish                                                                                                                                                                                                                                                                                                                                                                                                                                             | 205        |
+| Kamil Vavra (vavkamil)                | Czech                                                                                                                                                                                                                                                                                                                                                                                                                                                        | 192        |
+| Abdo Farwan (abdofarwan)              | Arabic; Turkish                                                                                                                                                                                                                                                                                                                                                                                                                                              | 164        |
+| Stavros M. (msstavros)                | Greek                                                                                                                                                                                                                                                                                                                                                                                                                                                        | 159        |
+| Stella Dineva (stella.dineva)         | Bulgarian                                                                                                                                                                                                                                                                                                                                                                                                                                                    | 159        |
+| AviD (avidouglen)                     | Hebrew                                                                                                                                                                                                                                                                                                                                                                                                                                                       | 156        |
+| GiorgiSharia                          | Georgian                                                                                                                                                                                                                                                                                                                                                                                                                                                     | 156        |
+| Pablo Barrera (pablo.barrera)         | Spanish                                                                                                                                                                                                                                                                                                                                                                                                                                                      | 147        |
+
+**Additional translations by:** Oussama Bouthouri (Boussama), OrNol
+(TRNSRL), sergio.kubota, Ender Çulha (ecu), Claudio Snidero (cla7997),
+Coink (CoinkWang), r0n1am, Shahin Farzaliyev (Khan27), thinbashane,
+stejkenzie, rToxic, adeyosemanputra, fieldhill13, Kylian Runembert
+(FunnHydra), Jorge Estigarribia (jorgestiga), orjen, Allan Kimmer Jensen
+(Saturate), Mehyar Shammas (mashkuov), Idomin Ninja (Idomin), Andrew Pio
+(siranen), timexlord, Nico Ådahl (nigotiator), zvargun, asifnm, Estevam
+Arantes (Es7evam), Daniel Paniagua (danielgpm), にのせき (ninoseki),
+Giovanni (cruzgio), MrNinhoJr a (mrninhojr), vientspam, BostonLow,
+jasinski_tomasz, Tomas Rosenqvist (Muamaidbengt), Pär Svedberg
+(grebdevs), Lars Grini (lars.grini), Albert Camps (campsupc),
+FoteiniAthina, Koji O (marlboro20light), OliverkeHU, Egert Aia
+(aiaegert), Zenmaster212, rakzcs, atteism, Bruno Rodrigues (bmvr),
+mateomartinez, coavacoffee, Aleksandra Niemyska (niemyskaa), Karl
+(spruur), Rasmus Bidstrup (rasmusbidstrup), talisainen, bill (Hawxdu),
+Daan Sprenkels (dsprenkels), rachidbm, Oussama Bouthouri
+(oussama.bouthouri), Diego Andreé Porras Rivas (andree.rivas), Mattias
+Persson (mattiasbpersson), Mohammad Febri Ramadlan (mohammadfebrir),
+bmoritz, Kitisak Jirawannakool (jkitisak), Manu B (Rosina), Riotaro
+OKADA (riotaro), Syahrol, CarlCampbell, Bart Decker (Decker), Héctor
+Lecuanda (hlecuanda), Michiya Tominaga (nuwaa), Lenka Dubois
+(lenkadubois), redr0n19, mrudul, Natalia (notNao), Henry Hu (ninedter),
+Klas Fahlberg (FahlbergKlas), cello-anders, Roy Quiceno (rquiceno),
+Martin Hartl (hartlmartin), REMOVED_USER, Carlos Allendes (OwaspChile),
+landinl, Mircea Ulmeanu (boltzmann.gt), Richardson Lima
+(contatorichardsonlima), dav1ds, Katharina Wittkowsky (kwittkowsky),
+soledad aro (cristinagarciaaro), nilfigo, motofy, Forbidden (Origami),
+kahfiehudson, Ezequiel Andino (acidobinario), ManuelFranz
 
 ## Special Thanks
 
