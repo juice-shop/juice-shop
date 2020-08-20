@@ -20,16 +20,55 @@
     {
     "question": "howdy",
     "intent": "greetings.hello"
+    },
+    {
+      "question": "how much is X",
+      "intent": "queries.productprice"
+    },
+    {
+      "question": "how much does X cost",
+      "intent": "queries.productprice"
+    },
+    {
+      "question": "how much do X and Y cost",
+      "intent": "queries.productprice"
+    },
+    {
+      "question": "how much do X,Y cost",
+      "intent": "queries.productprice"
+    },
+    {
+      "question": "how much is X and Y",
+      "intent": "queries.productprice"
+    },
+    {
+      "question": "What is the price of X and Y",
+      "intent": "queries.productprice"
     }
+
   ],
   "answers": [
     {
-    "intent": "greetings.bye",
-    "answer": "Ok Cya"
+      "intent": "greetings.bye",
+      "answer": {
+        "action": "response",
+        "body": "Ok Cya <customer-name>"
+      }
     },
     {
-    "intent": "greetings.hello",
-    "answer": "Hello there <customer-name>!"
+      "intent": "greetings.hello",
+      "answer": {
+        "action": "response",
+        "body": "Hello there!"
+      }
+    },
+    {
+      "intent": "queries.productprice",
+      "answer": {
+        "action": "function",
+        "handler": "productPrice",
+        "body": ""
+      }
     }
   ]
 }
