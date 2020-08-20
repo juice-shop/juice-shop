@@ -144,7 +144,7 @@ describe('/chatbot', () => {
       .expect('json', 'error', 'Unauthenticated user')
   })
 
-  it('Returns proper response for custom callbacks', () => {
+  it('Returns proper response for custom callbacks', async () => {
     const { token } = await login({
       email: 'bjoern.kimminich@gmail.com',
       password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
