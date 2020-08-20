@@ -44,6 +44,10 @@
     {
       "question": "What is the price of X and Y",
       "intent": "queries.productprice"
+    },
+    {
+      "question": "function test command b8a8ba1ecea1607e1713e31a3d9e5e19",
+      "intent": "queries.functionTest"
     }
 
   ],
@@ -66,8 +70,14 @@
       "intent": "queries.productprice",
       "answer": {
         "action": "function",
-        "handler": "productPrice",
-        "body": ""
+        "handler": "productPrice"
+      }
+    },
+    {
+      "intent": "queries.functionTest",
+      "answer": {
+        "action": "function",
+        "handler": "testFunction"
       }
     }
   ]
