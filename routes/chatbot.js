@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-const { Bot } = require('../../juicy-chat-bot/index')
+const { Bot } = require('juicy-chat-bot')
 const insecurity = require('../lib/insecurity')
 const jwt = require('jsonwebtoken')
 const utils = require('../lib/utils')
