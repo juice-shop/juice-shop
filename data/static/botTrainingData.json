@@ -46,6 +46,18 @@
       "intent": "queries.productprice"
     },
     {
+      "question": "What are deluxe membership benefits",
+      "intent": "queries.deluxeMembership"
+    },
+    {
+      "question": "What goodies do deluxe members get",
+      "intent": "queries.deluxeMembership"
+    },
+    {
+      "question": "Why would I become a deluxe member",
+      "intent": "queries.deluxeMembership"
+    },
+    {
       "question": "function test command b8a8ba1ecea1607e1713e31a3d9e5e19",
       "intent": "queries.functionTest"
     }
@@ -64,6 +76,13 @@
       "answer": {
         "action": "response",
         "body": "Hello there!"
+      }
+    },
+    {
+      "intent": "queries.deluxeMembership",
+      "answer": {
+        "action": "response",
+        "body": "Deluxe members get free fast shipping, special discounts on many products and can enjoy unlimited purchase quantities even on our rarer products!"
       }
     },
     {
