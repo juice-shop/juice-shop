@@ -20,16 +20,65 @@
     {
     "question": "howdy",
     "intent": "greetings.hello"
+    },
+    {
+      "question": "how much is X",
+      "intent": "queries.productprice"
+    },
+    {
+      "question": "how much does X cost",
+      "intent": "queries.productprice"
+    },
+    {
+      "question": "how much do X and Y cost",
+      "intent": "queries.productprice"
+    },
+    {
+      "question": "how much do X,Y cost",
+      "intent": "queries.productprice"
+    },
+    {
+      "question": "how much is X and Y",
+      "intent": "queries.productprice"
+    },
+    {
+      "question": "What is the price of X and Y",
+      "intent": "queries.productprice"
+    },
+    {
+      "question": "function test command b8a8ba1ecea1607e1713e31a3d9e5e19",
+      "intent": "queries.functionTest"
     }
+
   ],
   "answers": [
     {
-    "intent": "greetings.bye",
-    "answer": "Ok Cya"
+      "intent": "greetings.bye",
+      "answer": {
+        "action": "response",
+        "body": "Ok Cya <customer-name>"
+      }
     },
     {
-    "intent": "greetings.hello",
-    "answer": "Hello there <customer-name>!"
+      "intent": "greetings.hello",
+      "answer": {
+        "action": "response",
+        "body": "Hello there!"
+      }
+    },
+    {
+      "intent": "queries.productprice",
+      "answer": {
+        "action": "function",
+        "handler": "productPrice"
+      }
+    },
+    {
+      "intent": "queries.functionTest",
+      "answer": {
+        "action": "function",
+        "handler": "testFunction"
+      }
     }
   ]
 }
