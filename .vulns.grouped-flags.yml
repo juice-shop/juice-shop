@@ -1,0 +1,52 @@
+application:
+  name: OWASP Juice Shop
+  source: https://github.com/bkimminich/juice-shop
+vulnerabilities:
+  -
+    description: DOM-based XSS in search query
+    classifiers:
+      - "CWE-79"
+      - "CWE-749"
+      - "A7:2017"
+      - "WASC-8"
+    evidences:
+      -
+        location: "#/search"
+        flags:
+          - "q="
+      -
+        location: "main-es[0-9]*\.js"
+        flags:
+          - "bypassSecurityTrustHtml"
+      -
+        location: "search-result\.component\.ts"
+        flags:
+          - "DomSanitizer"
+          - "searchValue"
+          - "bypassSecurityTrustHtml"
+      -
+        location: "search-result\.component\.html"
+        flags:
+          - "\[innerhtml\]"
+          - "searchValue"
+  # [...]
+  -
+    description: SQL Injection into user login
+    classifiers:
+      - "CWE-74"
+      - "CWE-89"
+      - "A1:2017"
+      - "WASC-19"
+    evidences:
+      -
+        location: "login\.js"
+        flags:
+          - "sequelize\.query"
+          - "req\.body\.email"
+          - "req\.body\.password"
+      -
+        location: "/rest/user/login"
+        http_method: POST
+        flags:
+          - "{email: \".*\", password: \".*\"}"
+  # [...]
