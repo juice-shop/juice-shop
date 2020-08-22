@@ -7,6 +7,7 @@ const { Bot } = require('juicy-chat-bot')
 const insecurity = require('../lib/insecurity')
 const jwt = require('jsonwebtoken')
 const utils = require('../lib/utils')
+const botUtils = require('../lib/botUtils')
 const config = require('config')
 const fs = require('fs')
 const models = require('../models/index')
@@ -50,13 +51,24 @@ async function processQuery (user, req, res) {
 
   try {
     const response = await bot.respond(req.body.query, user.id)
-    res.status(200).json(response)
+    if (response.action === 'function') {
+      if (response.handler && botUtils[response.handler]) {
+        res.status(200).json(await botUtils[response.handler](req.body.query))
+      } else {
+        res.status(200).json({
+          action: 'response',
+          body: config.get('application.chatBot.defaultResponse')
+        })
+      }
+    } else {
+      res.status(200).json(response)
+    }
   } catch (err) {
     try {
       await bot.respond(testCommand, user.id)
       res.status(200).json({
-        action: 'namequery',
-        body: 'I\'m sorry I didn\'t get your name. What shall I call you?'
+        action: 'response',
+        body: config.get('application.chatBot.defaultResponse')
       })
     } catch (err) {
       if (!challenges.killChatbotChallenge.solved) {
