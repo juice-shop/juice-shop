@@ -53,7 +53,7 @@ async function processQuery (user, req, res) {
     const response = await bot.respond(req.body.query, user.id)
     if (response.action === 'function') {
       if (response.handler && botUtils[response.handler]) {
-        res.status(200).json(await botUtils[response.handler](req.body.query))
+        res.status(200).json(await botUtils[response.handler](req.body.query, user))
       } else {
         res.status(200).json({
           action: 'response',
