@@ -304,7 +304,7 @@ where this project was mentioned or used!
   by Tim Corless-Carter,
   [BSidesMCR 2019](https://www.bsidesmcr.org.uk/), 29.08.2019
   ([Youtube](https://youtu.be/hlgp7oeVpac) :godmode:)
-* [JavaScript-Security: "Pwn" den Juice Shop](https://www.enterjs.de/single?id=7685&javascript-security%3A-%22pwn%22-den-juice-shop)
+* [JavaScript-Security: "Pwn" den Juice Shop](https://enterjs.de/2019/single034c.html?id=7685&javascript-security%3A-%22pwn%22-den-juice-shop)
   workshop with Timo Pagel & Björn Kimminich,
   [enterJS 2019](https://www.enterjs.de/2019/), 25.06.2019
 * [Web Application Hacking with Burp Suite and OWASP ZAP](https://globalappsectelaviv2019.sched.com/event/MLSU/web-application-hacking-with-burp-suite-and-owasp-zap)
