@@ -6,3 +6,6 @@ include:
 variables:
   SAST_EXCLUDED_PATHS: "frontend/src/assets/private/**"
   CI_IS_DEPLOY_OLD: "true"
+
+
+#test
