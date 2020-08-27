@@ -13,7 +13,8 @@ const fs = require('fs')
 const models = require('../models/index')
 const challenges = require('../data/datacache').challenges
 
-const trainingSet = fs.readFileSync(`data/static/${config.get('application.chatBot.trainingData')}`)
+const trainingDataPath = utils.extractFilename(config.get('application.chatBot.trainingData'))
+const trainingSet = fs.readFileSync(`data/static/${trainingDataPath}`)
 const testCommand = JSON.parse(trainingSet).intents[0].question
 const bot = new Bot(config.get('application.chatBot.name'), config.get('application.chatBot.greeting'), trainingSet, config.get('application.chatBot.defaultResponse'))
 bot.train()
