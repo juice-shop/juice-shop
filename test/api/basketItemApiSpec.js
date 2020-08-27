@@ -162,7 +162,7 @@ describe('/api/BasketItems/:id', () => {
       })
   })
 
-  it('PUT update basket ID of basket item without basket ID is forbidden', () => {
+  it('PUT update basket ID of basket item without basket ID', () => {
     return frisby.post(API_URL + '/BasketItems', {
       headers: authHeader,
       body: {
@@ -176,11 +176,11 @@ describe('/api/BasketItems/:id', () => {
         return frisby.put(API_URL + '/BasketItems/' + json.data.id, {
           headers: authHeader,
           body: {
-            BasketId: 42
+            BasketId: 3
           }
         })
-          .expect('status', 500)
-          .expect('json', { message: 'internal error', errors: ['SQLITE_CONSTRAINT: FOREIGN KEY constraint failed'] })
+          .expect('status', 200)
+          .expect('json', 'data', { BasketId: 3 })
       })
   })
 
