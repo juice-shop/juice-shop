@@ -37,6 +37,8 @@ application:
       type: string
     defaultResponse:
       type: string
+    avatar:
+      type: string
   social:
     twitterUrl:
       type: string
