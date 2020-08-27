@@ -41,7 +41,7 @@ export class ChatbotComponent implements OnInit {
   public messageControl: FormControl = new FormControl()
   public messages: ChatMessage[] = []
   public juicyImageSrc: string = 'chatbot-avatar'
-  public profileImageSrc: string = 'assets/public/images/uploads/default.svg'
+  public profileImageSrc: string = 'assets/public/images/default.svg'
   public messageActions: MessageActions = {
     response: 'query',
     namequery: 'setname'
