@@ -4,13 +4,10 @@
  */
 
 const frisby = require('frisby')
-const fs = require('fs')
-const path = require('path')
-const URL = 'http://localhost:3000'
-const API_URL = 'http://localhost:3000/metrics'
+const API_URL = 'http://localhost:3000/metrics/'
 
 describe('/metrics', () => {
-  it('GET metrics via public API that are available instantaneously', () => {
+  it('GET metrics via public API', () => {
     return frisby.get(API_URL)
       .expect('status', 200)
       .expect('header', 'content-type', /text\/plain/)
@@ -26,35 +23,7 @@ describe('/metrics', () => {
       .expect('bodyContains', /^.*_user_social_interactions{type="feedback",app=".*"} [0-9]*$/gm)
       .expect('bodyContains', /^.*_user_social_interactions{type="complaint",app=".*"} [0-9]*$/gm)
       .expect('bodyContains', /^http_requests_count{status_code="[0-9]XX",app=".*"} [0-9]*$/gm)
-  })
-
-  it('GET file upload metrics via public API', () => {
-    const file = path.resolve(__dirname, '../files/validSizeAndTypeForClient.pdf')
-    const form = frisby.formData()
-    form.append('file', fs.createReadStream(file))
-
-    return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
-      .expect('status', 204)
-      .then(() => {
-        return frisby.get(API_URL)
-          .expect('status', 200)
-          .expect('header', 'content-type', /text\/plain/)
-          .expect('bodyContains', /^file_uploads_count{file_type=".*",app=".*"} [0-9]*$/gm)
-      })
-  })
-
-  it('GET file upload error metrics via public API', () => {
-    const file = path.resolve(__dirname, '../files/invalidSizeForServer.pdf')
-    const form = frisby.formData()
-    form.append('file', fs.createReadStream(file))
-
-    return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
-      .expect('status', 500)
-      .then(() => {
-        return frisby.get(API_URL)
-          .expect('status', 200)
-          .expect('header', 'content-type', /text\/plain/)
-          .expect('bodyContains', /^file_upload_errors{file_type=".*",app=".*"} [0-9]*$/gm)
-      })
+      .expect('bodyContains', /^file_uploads_count{file_type=".*",app=".*"} [0-9]*$/gm)
+      .expect('bodyContains', /^file_upload_errors{file_type=".*",app=".*"} [0-9]*$/gm)
   })
 })

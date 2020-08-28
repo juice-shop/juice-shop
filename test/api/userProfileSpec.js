@@ -61,7 +61,7 @@ describe('/profile', () => {
 
     return frisby.post(URL + '/profile', {
       headers: { 'Content-Type': form.getHeaders()['content-type'] },
-      body: form
+      body: form,
     })
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
