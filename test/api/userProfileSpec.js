@@ -42,4 +42,30 @@ describe('/profile', () => {
       .expect('header', 'content-type', /text\/html/)
       .expect('bodyContains', 'id="email" type="email" name="email" value="jim@juice-sh.op"')
   })
+
+  it('POST update username of authenticated user', () => {
+    const form = frisby.formData()
+    form.append('username', 'Localhorst')
+
+    return frisby.post(URL + '/profile', {
+      headers: { 'Content-Type': form.getHeaders()['content-type'], Cookie: authHeader.Cookie },
+      body: form,
+      redirect: 'manual'
+    })
+      .expect('status', 302)
+  })
+
+  xit('POST update username is forbidden for unauthenticated user', () => { // FIXME runs into "socket hang up"
+    const form = frisby.formData()
+    form.append('username', 'Localhorst')
+
+    return frisby.post(URL + '/profile', {
+      headers: { 'Content-Type': form.getHeaders()['content-type'] },
+      body: form,
+    })
+      .expect('status', 500)
+      .expect('header', 'content-type', /text\/html/)
+      .expect('bodyContains', `<h1>${config.get('application.name')} (Express`)
+      .expect('bodyContains', 'Error: Blocked illegal activity')
+  })
 })
