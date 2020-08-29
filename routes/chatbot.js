@@ -10,13 +10,30 @@ const utils = require('../lib/utils')
 const botUtils = require('../lib/botUtils')
 const config = require('config')
 const fs = require('fs')
+const download = require('download')
 const models = require('../models/index')
 const challenges = require('../data/datacache').challenges
 
-const trainingSet = fs.readFileSync(`data/static/${config.get('application.chatBot.trainingData')}`)
-const testCommand = JSON.parse(trainingSet).intents[0].question
-const bot = new Bot(config.get('application.chatBot.name'), config.get('application.chatBot.greeting'), trainingSet, config.get('application.chatBot.defaultResponse'))
-bot.train()
+let trainingFile = config.get('application.chatBot.trainingData')
+let testCommand, bot
+
+async function initialize () {
+  if (utils.startsWith(trainingFile, 'http')) {
+    const file = utils.extractFilename(trainingFile)
+    const data = await download(trainingFile)
+    fs.writeFileSync('data/chatbot/' + file, data)
+  }
+
+  fs.copyFileSync('data/static/botDefaultTrainingData.json', 'data/chatbot/botDefaultTrainingData.json')
+
+  trainingFile = utils.extractFilename(trainingFile)
+  const trainingSet = fs.readFileSync(`data/chatbot/${trainingFile}`)
+  testCommand = JSON.parse(trainingSet).intents[0].question
+  bot = new Bot(config.get('application.chatBot.name'), config.get('application.chatBot.greeting'), trainingSet, config.get('application.chatBot.defaultResponse'))
+  bot.train()
+}
+
+initialize()
 
 async function processQuery (user, req, res) {
   const username = user.username
@@ -102,6 +119,13 @@ module.exports.bot = bot
 
 module.exports.status = function status () {
   return async (req, res, next) => {
+    if (!bot) {
+      res.status(200).json({
+        status: false,
+        body: `${config.get('application.chatBot.name')} isn't ready at the moment, please wait while I set things up`
+      })
+      return
+    }
     const token = req.cookies.token || utils.jwtFrom(req)
     if (token) {
       const user = await new Promise((resolve, reject) => {
@@ -148,6 +172,12 @@ module.exports.status = function status () {
 
 module.exports.process = function respond () {
   return async (req, res, next) => {
+    if (!bot) {
+      res.status(200).json({
+        action: 'response',
+        body: `${config.get('application.chatBot.name')} isn't ready at the moment, please wait while I set things up`
+      })
+    }
     const token = req.cookies.token || utils.jwtFrom(req)
     if (!bot.training.state || !token) {
       res.status(400).json({

@@ -60,8 +60,31 @@
     {
       "question": "function test command b8a8ba1ecea1607e1713e31a3d9e5e19",
       "intent": "queries.functionTest"
+    },
+    {
+      "question": "Do you know anything about Blockchain",
+      "intent": "queries.blockchain"
+    },
+    {
+      "question": "Can you tell me about cryptocurrency",
+      "intent": "queries.blockchain"
+    },
+    {
+      "question": "Anything about cryptocurrency",
+      "intent": "queries.blockchain"
+    },
+    {
+      "question": "Do you use blockchain",
+      "intent": "queries.blockchain"
+    },
+    {
+      "question": "When does the token sale start",
+      "intent": "queries.blockchain"
+    },
+    {
+      "question": "token sale",
+      "intent": "queries.blockchain"
     }
-
   ],
   "answers": [
     {
@@ -97,6 +120,13 @@
       "answer": {
         "action": "function",
         "handler": "testFunction"
+      }
+    },
+    {
+      "intent": "queries.blockchain",
+      "answer": {
+        "action": "response",
+        "body": "No! I don't know anything about blockchain or cryptocurrency! There is no token sale going on right now!"
       }
     }
   ]
