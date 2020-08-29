@@ -95,7 +95,6 @@ const memory = require('./routes/memory')
 const chatbot = require('./routes/chatbot')
 const locales = require('./data/static/locales')
 const i18n = require('i18n')
-const chatbotFiles = require('./routes/chatbotFilesHandler')
 
 require('./lib/startup/restoreOverwrittenFilesWithOriginals')()
 require('./lib/startup/cleanupFtpFolder')()
@@ -547,9 +546,6 @@ app.get('/redirect', redirect())
 /* Routes for promotion video page */
 app.get('/promotion', videoHandler.promotionVideo())
 app.get('/video', videoHandler.getVideo())
-
-/* Routes for chatbot files */
-app.get('/chatbot-avatar', chatbotFiles.avatar())
 
 /* Routes for profile page */
 app.get('/profile', insecurity.updateAuthenticatedUsers(), userProfile())
