@@ -79,7 +79,8 @@ jobs:
         - npm test
         - npm run frisby
       after_success:
-        - "./cc-test-reporter format-coverage -t lcov --add-prefix frontend -o build/reports/coverage/codeclimate.frontend.json
+        - "sed -i 's/SF:/SF:frontend\//g' build/reports/coverage/frontend-tests/lcov.info"
+        - "./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.frontend.json
       build/reports/coverage/frontend-tests/lcov.info"
         - "./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.server.json
       build/reports/coverage/server-tests/lcov.info"
