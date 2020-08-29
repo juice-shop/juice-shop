@@ -5,8 +5,7 @@
 
 <div fxLayoutAlign="center">
   <mat-card class="mat-elevation-z6">
-    <h1>{{"SECTION_SUPPORT_CHAT" | translate}}</h1>
-    <h3>{{"LABEL_POWERED_BY_CHATBOT" | translate: { chatbot: 'juicy-chat-bot' } }} </h3>
+    <h1>{{"SECTION_SUPPORT_CHAT" | translate}} <span class="powered-by">({{"LABEL_POWERED_BY_CHATBOT" | translate: { chatbot: 'juicy-chat-bot' } }})</span></h1>
     <mat-card id="chat-container">
       <mat-card id="chat-box">
 
@@ -30,7 +29,6 @@
             </mat-form-field>
           </div>
         </div>
-
       </mat-card>
     </mat-card>
   </mat-card>
