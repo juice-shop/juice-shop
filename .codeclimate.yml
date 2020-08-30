@@ -23,9 +23,9 @@ checks:
   identical-code:
     enabled: false
 exclude_patterns:
-  - 'data/datacreator.js'
-  - 'lib/logger.js'
-  - 'frontend/src/assets/private/**/*'
-  - 'frontend/src/hacking-instructor/**/*'
-  - 'Gruntfile.js'
   - '**/*conf.js'
+  - 'Gruntfile.js'
+  - 'data/datacreator.js'
+  - 'frontend/src/hacking-instructor/'
+  - 'frontend/src/assets/private/'
+  - 'lib/logger.js'
