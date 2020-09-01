@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import * as FileSaver from 'file-saver'
 
-fdescribe('LocalBackupService', () => {
+describe('LocalBackupService', () => {
   let snackBar: any
   let cookieService: any
 
