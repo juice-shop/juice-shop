@@ -16,7 +16,7 @@ describe('LoginGuard', () => {
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
             { path: '403', component: ErrorPageComponent }
-          ]
+        ]
         )],
       providers: [LoginGuard]
     })
@@ -34,7 +34,7 @@ describe('AdminGuard', () => {
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
             { path: '403', component: ErrorPageComponent }
-          ]
+        ]
         )],
       providers: [AdminGuard, LoginGuard]
     })
@@ -52,7 +52,7 @@ describe('AccountingGuard', () => {
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
             { path: '403', component: ErrorPageComponent }
-          ]
+        ]
         )],
       providers: [AccountingGuard, LoginGuard]
     })
@@ -70,7 +70,7 @@ describe('DeluxeGuard', () => {
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
             { path: '403', component: ErrorPageComponent }
-          ]
+        ]
         )],
       providers: [DeluxeGuard, LoginGuard]
     })
