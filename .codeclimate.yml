@@ -26,6 +26,6 @@ exclude_patterns:
   - '**/*conf.js'
   - 'Gruntfile.js'
   - 'data/datacreator.js'
-  - 'frontend/src/hacking-instructor/'
-  - 'frontend/src/assets/private/'
+  - 'frontend/src/hacking-instructor/**/*.ts'
+  - 'frontend/src/assets/private/*.js'
   - 'lib/logger.js'

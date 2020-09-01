@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service'
 import { saveAs } from 'file-saver'
 import { SnackBarHelperService } from './snack-bar-helper.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
+import { from } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -36,17 +37,17 @@ export class LocalBackupService {
   }
 
   restore (backupFile: File) {
-    backupFile.text().then((backupData) => {
+    return from(backupFile.text().then((backupData) => {
       const backup: Backup = JSON.parse(backupData)
 
       if (backup.version === this.VERSION) {
-        this.restoreLocalStorage('displayedDifficulties', backup.scoreBoard.displayedDifficulties)
-        this.restoreLocalStorage('showSolvedChallenges', backup.scoreBoard.showSolvedChallenges)
-        this.restoreLocalStorage('showDisabledChallenges', backup.scoreBoard.showDisabledChallenges)
-        this.restoreLocalStorage('showOnlyTutorialChallenges', backup.scoreBoard.showOnlyTutorialChallenges)
-        this.restoreLocalStorage('displayedChallengeCategories', backup.scoreBoard.displayedChallengeCategories)
-        this.restoreCookie('welcomebanner_status', backup.banners.welcomeBannerStatus)
-        this.restoreCookie('cookieconsent_status', backup.banners.cookieConsentStatus)
+        this.restoreLocalStorage('displayedDifficulties', backup.scoreBoard?.displayedDifficulties)
+        this.restoreLocalStorage('showSolvedChallenges', backup.scoreBoard?.showSolvedChallenges)
+        this.restoreLocalStorage('showDisabledChallenges', backup.scoreBoard?.showDisabledChallenges)
+        this.restoreLocalStorage('showOnlyTutorialChallenges', backup.scoreBoard?.showOnlyTutorialChallenges)
+        this.restoreLocalStorage('displayedChallengeCategories', backup.scoreBoard?.displayedChallengeCategories)
+        this.restoreCookie('welcomebanner_status', backup.banners?.welcomeBannerStatus)
+        this.restoreCookie('cookieconsent_status', backup.banners?.cookieConsentStatus)
         this.restoreCookie('language', backup.language)
         this.restoreCookie('continueCode', backup.continueCode)
 
@@ -62,7 +63,7 @@ export class LocalBackupService {
       }
     }).catch((err) => {
       this.snackBarHelperService.open('Backup restore operation failed: ' + err.message, 'errorBar')
-    })
+    }))
   }
 
   private restoreCookie (cookieName: string, cookieValue: string) {
