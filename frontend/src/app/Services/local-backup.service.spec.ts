@@ -44,7 +44,7 @@ fdescribe('LocalBackupService', () => {
     cookieService.set('language', 'de')
     service.save()
 
-    const blob = new Blob([JSON.stringify({ version: 1, language: 'de'})], { type: 'text/plain;charset=utf-8' })
+    const blob = new Blob([JSON.stringify({ version: 1, language: 'de' })], { type: 'text/plain;charset=utf-8' })
     expect(FileSaver.saveAs).toHaveBeenCalledWith(blob, `owasp_juice_shop-${new Date().toISOString().split('T')[0]}.json`)
   }))
 
