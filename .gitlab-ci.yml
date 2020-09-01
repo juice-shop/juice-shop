@@ -1,6 +1,6 @@
 include:
   - project: 'devops/devops-tools'
-    ref: security
+    ref: ARCH-218
     file: '/templates/.gitlab-ci-template.yml'
 
 variables:
