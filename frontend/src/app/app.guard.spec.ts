@@ -38,7 +38,7 @@ describe('AdminGuard', () => {
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
             { path: '403', component: ErrorPageComponent }
-          ]
+        ]
         )],
       providers: [
         AdminGuard,
@@ -138,7 +138,7 @@ describe('DeluxeGuard', () => {
         )],
       providers: [
         DeluxeGuard,
-        { provide: LoginGuard, useValue: loginGuard },
+        { provide: LoginGuard, useValue: loginGuard }
       ]
     })
   })
