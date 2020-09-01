@@ -1,4 +1,4 @@
-import { fakeAsync, inject, TestBed } from '@angular/core/testing'
+import { async, inject, TestBed } from '@angular/core/testing'
 
 import { LocalBackupService } from './local-backup.service'
 import { CookieService } from 'ngx-cookie-service'
@@ -6,7 +6,7 @@ import { TranslateFakeLoader, TranslateLoader, TranslateModule, TranslateService
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
-describe('LocalBackupService', () => {
+fdescribe('LocalBackupService', () => {
   let snackBar: any
   let cookieService: any
 
@@ -43,19 +43,19 @@ describe('LocalBackupService', () => {
     // TODO Spy into "saveAs" and check if created file contains expected language
   }))
 
-  it('should restore language from backup file', inject([LocalBackupService], fakeAsync((service: LocalBackupService) => {
+  it('should restore language from backup file', async(inject([LocalBackupService], (service: LocalBackupService) => {
     cookieService.set('language', 'de')
     service.restore(new File(['{ "version": 1, "language": "cn" }'], 'test.json', { type: 'application/json' })).subscribe(() => {
       expect(cookieService.get('language')).toBe('cn')
       expect(snackBar.open).toHaveBeenCalled()
-    }) // FIXME Address 'Spec 'LocalBackupService should ...' has no expectations.'
+    })
   })))
 
-  it('should not restore language from an outdated backup version', inject([LocalBackupService], fakeAsync((service: LocalBackupService) => {
+  it('should not restore language from an outdated backup version', async(inject([LocalBackupService], (service: LocalBackupService) => {
     cookieService.set('language', 'de')
     service.restore(new File(['{ "version": 0, "language": "cn" }'], 'test.json', { type: 'application/json' })).subscribe(() => {
       expect(cookieService.get('language')).toBe('de')
-      expect(snackBar.open).toHaveBeenCalled() // FIXME Address 'Spec 'LocalBackupService should ...' has no expectations.'
+      expect(snackBar.open).toHaveBeenCalled()
     })
   })))
 })
