@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service'
 import { TranslateFakeLoader, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import * as FileSaver from 'file-saver'
 
 fdescribe('LocalBackupService', () => {
   let snackBar: any
@@ -38,14 +39,18 @@ fdescribe('LocalBackupService', () => {
   }))
 
   it('should save language to file', inject([LocalBackupService], (service: LocalBackupService) => {
+    spyOn(FileSaver, 'saveAs').and.stub()
+
     cookieService.set('language', 'de')
     service.save()
-    // TODO Spy into "saveAs" and check if created file contains expected language
+
+    const blob = new Blob([JSON.stringify({ version: 1, language: 'de'})], { type: 'text/plain;charset=utf-8' })
+    expect(FileSaver.saveAs).toHaveBeenCalledWith(blob, `owasp_juice_shop-${new Date().toISOString().split('T')[0]}.json`)
   }))
 
   it('should restore language from backup file', async(inject([LocalBackupService], (service: LocalBackupService) => {
     cookieService.set('language', 'de')
-    service.restore(new File(['{ "version": 1, "language": "cn" }'], 'test.json', { type: 'application/json' })).subscribe(() => {
+    service.restore(new File(['{ "version": 1, "language": "cn" }'], 'test.json')).subscribe(() => {
       expect(cookieService.get('language')).toBe('cn')
       expect(snackBar.open).toHaveBeenCalled()
     })
@@ -53,7 +58,7 @@ fdescribe('LocalBackupService', () => {
 
   it('should not restore language from an outdated backup version', async(inject([LocalBackupService], (service: LocalBackupService) => {
     cookieService.set('language', 'de')
-    service.restore(new File(['{ "version": 0, "language": "cn" }'], 'test.json', { type: 'application/json' })).subscribe(() => {
+    service.restore(new File(['{ "version": 0, "language": "cn" }'], 'test.json')).subscribe(() => {
       expect(cookieService.get('language')).toBe('de')
       expect(snackBar.open).toHaveBeenCalled()
     })
