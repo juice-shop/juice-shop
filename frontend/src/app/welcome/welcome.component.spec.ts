@@ -8,20 +8,20 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { CookieService } from 'ngx-cookie-service'
 
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing'
 
 import { WelcomeComponent } from './welcome.component'
 import { of } from 'rxjs'
 import { ConfigurationService } from '../Services/configuration.service'
 
-describe('WelcomeComponent', () => { // FIXME Tests frequently fail probably due to wrong async handling
+describe('WelcomeComponent', () => {
   let component: WelcomeComponent
   let configurationService: any
   let cookieService: any
   let fixture: ComponentFixture<WelcomeComponent>
   let dialog: any
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: {} }))
     dialog = jasmine.createSpyObj('MatDialog', ['open'])
@@ -43,36 +43,34 @@ describe('WelcomeComponent', () => { // FIXME Tests frequently fail probably due
       .compileComponents()
 
     cookieService = TestBed.inject(CookieService)
-  }))
+  })
 
   beforeEach(() => {
     fixture = TestBed.createComponent(WelcomeComponent)
     component = fixture.componentInstance
+    cookieService.delete('welcomebanner_status')
   })
 
   it('should create', () => {
     expect(component).toBeTruthy()
   })
 
-  xit('should open the welcome banner dialog if configured to show on start', fakeAsync(() => {
+  it('should open the welcome banner dialog if configured to show on start', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { welcomeBanner: { showOnFirstStart: true } } }))
     component.ngOnInit()
-    tick()
     expect(dialog.open).toHaveBeenCalled()
-  }))
+  })
 
-  xit('should not open the welcome banner dialog if configured to not show on start', fakeAsync(() => {
+  it('should not open the welcome banner dialog if configured to not show on start', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { welcomeBanner: { showOnFirstStart: false } } }))
     component.ngOnInit()
-    tick()
     expect(dialog.open).not.toHaveBeenCalled()
-  }))
+  })
 
-  xit('should not open the welcome banner dialog if previously dismissed', fakeAsync(() => {
+  it('should not open the welcome banner dialog if previously dismissed', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { welcomeBanner: { showOnFirstStart: true } } }))
     cookieService.set('welcomebanner_status', 'dismiss')
     component.ngOnInit()
-    tick()
     expect(dialog.open).not.toHaveBeenCalled()
-  }))
+  })
 })
