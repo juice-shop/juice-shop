@@ -8,13 +8,13 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { CookieService } from 'ngx-cookie-service'
 
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing'
 
 import { WelcomeComponent } from './welcome.component'
 import { of } from 'rxjs'
 import { ConfigurationService } from '../Services/configuration.service'
 
-fdescribe('WelcomeComponent', () => {
+describe('WelcomeComponent', () => {
   let component: WelcomeComponent
   let configurationService: any
   let cookieService: any
@@ -57,12 +57,14 @@ fdescribe('WelcomeComponent', () => {
   it('should open the welcome banner dialog if configured to show on start', fakeAsync(() => {
     configurationService.getApplicationConfiguration.and.returnValue(of({application: {welcomeBanner: {showOnFirstStart: true}}}))
     component.ngOnInit()
+    tick()
     expect(dialog.open).toHaveBeenCalled()
   }))
 
   it('should not open the welcome banner dialog if configured to not show on start', fakeAsync(() => {
     configurationService.getApplicationConfiguration.and.returnValue(of({application: {welcomeBanner: {showOnFirstStart: false}}}))
     component.ngOnInit()
+    tick()
     expect(dialog.open).not.toHaveBeenCalled()
   }))
 
@@ -70,6 +72,7 @@ fdescribe('WelcomeComponent', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({application: {welcomeBanner: {showOnFirstStart: true}}}))
     cookieService.set('welcomebanner_status', 'dismiss')
     component.ngOnInit()
+    tick()
     expect(dialog.open).not.toHaveBeenCalled()
   }))
 })
