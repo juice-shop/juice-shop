@@ -14,7 +14,7 @@ import { WelcomeComponent } from './welcome.component'
 import { of } from 'rxjs'
 import { ConfigurationService } from '../Services/configuration.service'
 
-xdescribe('WelcomeComponent', () => { // FIXME Tests frequently fail probably due to wrong async handling
+describe('WelcomeComponent', () => { // FIXME Tests frequently fail probably due to wrong async handling
   let component: WelcomeComponent
   let configurationService: any
   let cookieService: any
@@ -54,21 +54,21 @@ xdescribe('WelcomeComponent', () => { // FIXME Tests frequently fail probably du
     expect(component).toBeTruthy()
   })
 
-  it('should open the welcome banner dialog if configured to show on start', fakeAsync(() => {
+  xit('should open the welcome banner dialog if configured to show on start', fakeAsync(() => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { welcomeBanner: { showOnFirstStart: true } } }))
     component.ngOnInit()
     tick()
     expect(dialog.open).toHaveBeenCalled()
   }))
 
-  it('should not open the welcome banner dialog if configured to not show on start', fakeAsync(() => {
+  xit('should not open the welcome banner dialog if configured to not show on start', fakeAsync(() => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { welcomeBanner: { showOnFirstStart: false } } }))
     component.ngOnInit()
     tick()
     expect(dialog.open).not.toHaveBeenCalled()
   }))
 
-  it('should not open the welcome banner dialog if previously dismissed', fakeAsync(() => {
+  xit('should not open the welcome banner dialog if previously dismissed', fakeAsync(() => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { welcomeBanner: { showOnFirstStart: true } } }))
     cookieService.set('welcomebanner_status', 'dismiss')
     component.ngOnInit()
