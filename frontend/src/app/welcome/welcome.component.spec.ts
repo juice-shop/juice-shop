@@ -23,7 +23,7 @@ describe('WelcomeComponent', () => {
 
   beforeEach(async(() => {
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
-    configurationService.getApplicationConfiguration.and.returnValue(of({application: {}}))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {} }))
     dialog = jasmine.createSpyObj('MatDialog', ['open'])
     dialog.open.and.returnValue(null)
 
@@ -35,8 +35,8 @@ describe('WelcomeComponent', () => {
       ],
       declarations: [WelcomeComponent],
       providers: [
-        {provide: ConfigurationService, useValue: configurationService},
-        {provide: MatDialog, useValue: dialog},
+        { provide: ConfigurationService, useValue: configurationService },
+        { provide: MatDialog, useValue: dialog },
         CookieService
       ]
     })
@@ -55,21 +55,21 @@ describe('WelcomeComponent', () => {
   })
 
   it('should open the welcome banner dialog if configured to show on start', fakeAsync(() => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({application: {welcomeBanner: {showOnFirstStart: true}}}))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { welcomeBanner: { showOnFirstStart: true } } }))
     component.ngOnInit()
     tick()
     expect(dialog.open).toHaveBeenCalled()
   }))
 
   it('should not open the welcome banner dialog if configured to not show on start', fakeAsync(() => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({application: {welcomeBanner: {showOnFirstStart: false}}}))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { welcomeBanner: { showOnFirstStart: false } } }))
     component.ngOnInit()
     tick()
     expect(dialog.open).not.toHaveBeenCalled()
   }))
 
   it('should not open the welcome banner dialog if previously dismissed', fakeAsync(() => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({application: {welcomeBanner: {showOnFirstStart: true}}}))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { welcomeBanner: { showOnFirstStart: true } } }))
     cookieService.set('welcomebanner_status', 'dismiss')
     component.ngOnInit()
     tick()
