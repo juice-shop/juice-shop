@@ -11,8 +11,8 @@ import { CookieService } from 'ngx-cookie-service'
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 
 import { WelcomeComponent } from './welcome.component'
-import { of } from "rxjs";
-import { ConfigurationService } from "../Services/configuration.service";
+import { of } from 'rxjs'
+import { ConfigurationService } from '../Services/configuration.service'
 
 fdescribe('WelcomeComponent', () => {
   let component: WelcomeComponent
