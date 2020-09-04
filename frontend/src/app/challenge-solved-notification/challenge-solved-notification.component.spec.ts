@@ -16,8 +16,8 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core
 import { SocketIoService } from '../Services/socket-io.service'
 
 import { ChallengeSolvedNotificationComponent } from './challenge-solved-notification.component'
-import { of } from "rxjs";
-import { EventEmitter } from "@angular/core";
+import { of } from 'rxjs'
+import { EventEmitter } from '@angular/core'
 
 class MockSocket {
   on (str: string, callback: Function) {
@@ -97,7 +97,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
   it('should add new notification', fakeAsync(() => {
     translateService.get.and.returnValue(of('CHALLENGE_SOLVED'))
     component.notifications = []
-    component.showNotification({ challenge: 'Test', flag: '1234'})
+    component.showNotification({ challenge: 'Test', flag: '1234' })
     tick()
 
     expect(translateService.get).toHaveBeenCalledWith('CHALLENGE_SOLVED', { challenge: 'Test' })
