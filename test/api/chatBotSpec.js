@@ -43,7 +43,7 @@ describe('/chatbot', () => {
       password: '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
     })
 
-    const testCommand = trainingData.intents[0].question
+    const testCommand = trainingData.data[0].utterances[0]
 
     return frisby.setup({
       request: {
@@ -71,7 +71,7 @@ describe('/chatbot', () => {
     })
 
     bot.addUser('1337', 'bkimminich')
-    const testCommand = trainingData.intents[0].question
+    const testCommand = trainingData.data[0].utterances[0]
 
     return frisby.setup({
       request: {
@@ -98,7 +98,7 @@ describe('/chatbot', () => {
       password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
     })
     bot.addUser('12345', 'bkimminich')
-    const testCommand = trainingData.intents[0].question
+    const testCommand = trainingData.data[0].utterances[0]
     const testResponse = await bot.respond(testCommand, 12345)
     return frisby.setup({
       request: {
@@ -126,7 +126,7 @@ describe('/chatbot', () => {
   })
 
   it('POST returns error for unauthenticated user', () => {
-    const testCommand = trainingData.intents[0].question
+    const testCommand = trainingData.data[0].utterances[0]
     return frisby.setup({
       request: {
         headers: {
