@@ -197,23 +197,26 @@ export class ScoreBoardComponent implements OnInit {
 
   calculateGradientOffsets (challenges: Challenge[]) {
     for (let difficulty = 1; difficulty <= 6; difficulty++) {
-      let solved = 0
-      let total = 0
+      this.offsetValue[difficulty - 1] = this.calculateGradientOffset(challenges, difficulty)
+    }
+  }
 
-      for (let i = 0; i < challenges.length; i++) {
-        if (challenges[i].difficulty === difficulty) {
-          total++
-          if (challenges[i].solved) {
-            solved++
-          }
+  calculateGradientOffset (challenges: Challenge[], difficulty: number) {
+    let solved = 0
+    let total = 0
+
+    for (let i = 0; i < challenges.length; i++) {
+      if (challenges[i].difficulty === difficulty) {
+        total++
+        if (challenges[i].solved) {
+          solved++
         }
       }
-
-      let offset: any = Math.round(solved * 100 / total)
-      offset = 100 - offset
-      offset = +offset + '%'
-      this.offsetValue[difficulty - 1] = offset
     }
+
+    let offset: any = Math.round(solved * 100 / total)
+    offset = 100 - offset
+    return +offset + '%'
   }
 
   toggleDifficulty (difficulty: number) {
@@ -298,8 +301,7 @@ export class ScoreBoardComponent implements OnInit {
       if (!this.displayedChallengeCategories.includes(challenge.category)) return false
       if (!this.showSolvedChallenges && challenge.solved) return false
       if (!this.showDisabledChallenges && challenge.disabledEnv) return false
-      if (this.showOnlyTutorialChallenges && !challenge.hasTutorial) return false
-      return true
+      return !(this.showOnlyTutorialChallenges && !challenge.hasTutorial)
     })
 
     let dataSource = new MatTableDataSource()

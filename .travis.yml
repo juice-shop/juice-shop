@@ -69,7 +69,7 @@ jobs:
     - stage: integration
       if: tag IS blank
       env:
-        - secure: KBx27d+h4Aa1vsRG1/gBxIFgee5N4Ln9rf1hmCcpHYp+9A+qspXpJRGm8Loy1dF+NhfY0POnQshAzOgG2isv7/CnNIJmWjHLXwqNvMkKpl2EDbl7EGBGByjvR9K9A84rn7BJJAEsb0/6NNofLhvhheL5mxd1SYvdlbewYeyg3dU=
+        - secure: AeVhoUC3YYuMfRB9j3q7YrxkM1zCoKFNoDrb0/prLrAktrZJSP/CmtMEBJPckjUIh8c5lcYYYmQ7O6cBJdOhyBuCbhQAcqOwR8WAUJa5bfXNge65Q+6ekEVg08IaUNaOyJbcUj8bOgiFirqsy+0JBWRazdJpoe9JhnWxdbiP9N4=
       before_script:
         - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
           > ./cc-test-reporter
@@ -79,6 +79,7 @@ jobs:
         - npm test
         - npm run frisby
       after_success:
+        - "sed -i 's/SF:/SF:frontend\\//g' build/reports/coverage/frontend-tests/lcov.info"
         - "./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.frontend.json
       build/reports/coverage/frontend-tests/lcov.info"
         - "./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.server.json
