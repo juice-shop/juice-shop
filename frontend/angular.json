@@ -92,7 +92,10 @@
             "assets": [
               "src/assets"
             ],
-            "codeCoverage": true
+            "codeCoverage": true,
+            "codeCoverageExclude": [
+              "src/hacking-instructor/**/*.ts"
+            ]
           }
         },
         "lint": {
