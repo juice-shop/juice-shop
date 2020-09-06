@@ -65,7 +65,7 @@
     "protractor": "npm run e2e",
     "serve": "concurrently --kill-others \"node app\" \"cd frontend && ng serve\"",
     "start": "node app",
-    "test": "cd frontend && ng test --watch=false --source-map=false && cd .. && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
+    "test": "cd frontend && ng test --watch=false --source-map=true && cd .. && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
     "test:chromium": "cd frontend && ng test --watch=false --source-map=false --browsers=ChromiumHeadless && cd .. && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
     "vagrant": "cd vagrant && vagrant up"
   },
@@ -133,7 +133,8 @@
     "js-yaml": "^3.14.0",
     "jsonwebtoken": "0.4.0",
     "jssha": "^3.1.1",
-    "juicy-chat-bot": "^0.5.0",
+    "juicy-chat-bot": "~0.5.0",
+    "juicy-chat-bot": "~0.4.0",
     "libxmljs2": "^0.26.0",
     "marsdb": "^0.6.11",
     "morgan": "^1.10.0",

@@ -10,7 +10,7 @@ mat-card {
   min-width: 320px;
   width: 60%;
 }
-  
+
 mat-form-field {
   height: 0px;
   width: 70%;
@@ -68,16 +68,16 @@ mat-form-field {
   ::-webkit-scrollbar-track {
     background: none;
   }
-  
+
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: red; 
+    background: red;
     border-radius: 10px;
   }
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #b30000; 
+    background: #b30000;
   }
 }
 
@@ -149,4 +149,8 @@ mat-form-field {
   margin-left: 10px;
   height: 40px;
   border-radius: 50%;
+}
+
+.powered-by {
+  font-size: xx-small;
 }
