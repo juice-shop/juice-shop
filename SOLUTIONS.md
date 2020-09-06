@@ -59,6 +59,7 @@ Shop easier to hack!
   * [★★★ Upload Size](https://youtu.be/5pcAPUihhWA)
   * [★★★ Upload Type](https://youtu.be/4FPyMdyVt2s)
   * [★★★★ Access Log (Sensitive Data Exposure)](https://youtu.be/RBTfGk-ZwnY)
+  * [★★★★ Ephemeral Accountant (SQL-Injection)](https://youtu.be/rD-_fRDHf9o)
 * Live Hacking von Online-Shop „Juice Shop” (:de:)
   [Twitch live stream](https://www.twitch.tv/GregorBiswanger) recordings
   by

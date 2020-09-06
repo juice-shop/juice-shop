@@ -59,7 +59,7 @@ export class AdminGuard implements CanActivate {
 
 @Injectable()
 export class AccountingGuard implements CanActivate {
-  constructor (private router: Router, private loginGuard: LoginGuard) {}
+  constructor (private loginGuard: LoginGuard) {}
 
   canActivate () {
     let payload = this.loginGuard.tokenDecode()
