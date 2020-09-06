@@ -28,7 +28,7 @@ async function initialize () {
 
   trainingFile = utils.extractFilename(trainingFile)
   const trainingSet = fs.readFileSync(`data/chatbot/${trainingFile}`)
-  testCommand = JSON.parse(trainingSet).intents[0].question
+  testCommand = JSON.parse(trainingSet).data[0].utterances[0]
   bot = new Bot(config.get('application.chatBot.name'), config.get('application.chatBot.greeting'), trainingSet, config.get('application.chatBot.defaultResponse'))
   bot.train()
 }
