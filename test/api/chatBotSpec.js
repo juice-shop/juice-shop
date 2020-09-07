@@ -101,7 +101,6 @@ describe('/chatbot', () => {
     })
     bot.addUser('12345', 'bkimminich')
     const testCommand = trainingData.data[0].utterances[0]
-    const testResponse = await bot.respond(testCommand, 12345)
     return frisby.setup({
       request: {
         headers: {
@@ -123,8 +122,9 @@ describe('/chatbot', () => {
         }
       })
       .expect('status', 200)
-      .expect('json', 'action', 'response')
-      .expect('json', 'body', testResponse.body)
+      .then(({ json }) => {
+        expect(trainingData.data[0].answers).toContainEqual(json)
+      })
   })
 
   it('POST returns error for unauthenticated user', () => {
@@ -147,34 +147,37 @@ describe('/chatbot', () => {
   })
 
   it('Returns proper response for custom callbacks', async () => {
-    const { token } = await login({
-      email: 'bjoern.kimminich@gmail.com',
-      password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
-    })
-    const testCommand = 'function test command b8a8ba1ecea1607e1713e31a3d9e5e19'
-    const testResponse = '3be2e438b7f3d04c89d7749f727bb3bd'
-    return frisby.setup({
-      request: {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      }
-    }, true)
-      .post(REST_URL + 'chatbot/respond', {
-        body: {
-          action: 'query',
-          query: testCommand
-        }
+    const functionTest = trainingData.data.filter(data => data.intent === 'queries.functionTest')
+    if (functionTest) {
+      const { token } = await login({
+        email: 'bjoern.kimminich@gmail.com',
+        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
       })
-      .post(REST_URL + 'chatbot/respond', {
-        body: {
-          action: 'query',
-          query: testCommand
+      const testCommand = functionTest[0].utterances[0]
+      const testResponse = '3be2e438b7f3d04c89d7749f727bb3bd'
+      return frisby.setup({
+        request: {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
         }
-      })
-      .expect('status', 200)
-      .expect('json', 'action', 'response')
-      .expect('json', 'body', testResponse)
+      }, true)
+        .post(REST_URL + 'chatbot/respond', {
+          body: {
+            action: 'query',
+            query: testCommand
+          }
+        })
+        .post(REST_URL + 'chatbot/respond', {
+          body: {
+            action: 'query',
+            query: testCommand
+          }
+        })
+        .expect('status', 200)
+        .expect('json', 'action', 'response')
+        .expect('json', 'body', testResponse)
+    }
   })
 })
