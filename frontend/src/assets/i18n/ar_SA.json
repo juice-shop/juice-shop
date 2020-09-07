@@ -45,6 +45,8 @@
   "TITLE_ABOUT": "من نحن",
   "SECTION_CORPORATE_HISTORY": "تاريخ الشركة و سياستها",
   "SECTION_CUSTOMER_FEEDBACK": "ملاحظات العملاء",
+  "SECTION_SUPPORT_CHAT": "Support Chat",
+  "LABEL_POWERED_BY_CHATBOT": "powered by {{chatbot}}",
   "SECTION_SOCIAL_MEDIA": "تابعنا على وسائل التواصل الاجتماعية",
   "LINK_TERMS_OF_USE": "التحقق من شروط الاستخدام الخاصة بنا المملة إذا كنت مهتما بمثل هذه الأشياء التافهة.",
   "TITLE_ADMINISTRATION": "الإدارة",
