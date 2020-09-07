@@ -145,7 +145,11 @@
         },
         {
           "action": "response",
-          "body": "\uD83E\uDD2F!"
+          "body": "Not possible, sorry. We're out of coupons!"
+        },
+        {
+          "action": "response",
+          "body": "I have to ask my manager, please try again later!"
         },
         {
           "action": "response",
