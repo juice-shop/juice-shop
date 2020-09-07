@@ -311,3 +311,6 @@ ctf:
     nullByteChallenge:
       name: Burundi
       code: BI
+    bullyChatbotChallenge:
+      name: Guam
+      code: GU
