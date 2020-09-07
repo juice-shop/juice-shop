@@ -5,11 +5,12 @@
 
 const frisby = require('frisby')
 const config = require('config')
-const { bot } = require('../../routes/chatbot')
+const { initialize, bot } = require('../../routes/chatbot')
 const fs = require('fs')
+const utils = require('../../lib/utils')
 
 const REST_URL = 'http://localhost:3000/rest/'
-const trainingData = JSON.parse(fs.readFileSync(`data/static/${config.get('application.chatBot.trainingData')}`, { encoding: 'utf8' }))
+let trainingData
 
 async function login ({ email, password, totpSecret }) {
   const loginRes = await frisby
@@ -28,7 +29,8 @@ async function login ({ email, password, totpSecret }) {
 
 describe('/chatbot', () => {
   beforeAll(async () => {
-    return bot.train()
+    await initialize()
+    trainingData = JSON.parse(fs.readFileSync(`data/chatbot/${utils.extractFilename(config.get('application.chatBot.trainingData'))}`, { encoding: 'utf8' }))
   })
 
   it('GET bot training state', () => {
