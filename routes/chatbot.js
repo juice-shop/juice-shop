@@ -30,7 +30,7 @@ async function initialize () {
   const trainingSet = fs.readFileSync(`data/chatbot/${trainingFile}`)
   testCommand = JSON.parse(trainingSet).data[0].utterances[0]
   bot = new Bot(config.get('application.chatBot.name'), config.get('application.chatBot.greeting'), trainingSet, config.get('application.chatBot.defaultResponse'))
-  bot.train()
+  return bot.train()
 }
 
 initialize()
@@ -114,6 +114,8 @@ function setUserName (user, req, res) {
     })
   })
 }
+
+module.exports.initialize = initialize
 
 module.exports.bot = bot
 
