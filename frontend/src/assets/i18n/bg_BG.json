@@ -45,6 +45,8 @@
   "TITLE_ABOUT": "За нас",
   "SECTION_CORPORATE_HISTORY": "Корпоративна история & политика",
   "SECTION_CUSTOMER_FEEDBACK": "Обратна връзка",
+  "SECTION_SUPPORT_CHAT": "Support Chat",
+  "LABEL_POWERED_BY_CHATBOT": "powered by {{chatbot}}",
   "SECTION_SOCIAL_MEDIA": "Следвайте ни в социалните мрежи",
   "LINK_TERMS_OF_USE": "Вижте нашите скучни условия за ползване, ако се интересувате от такива тъпотии.",
   "TITLE_ADMINISTRATION": "Администрация",
