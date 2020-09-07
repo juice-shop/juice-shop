@@ -45,6 +45,8 @@
   "TITLE_ABOUT": "ჩვენს შესახებ",
   "SECTION_CORPORATE_HISTORY": "კორპორაციის ისტორია&პოლიტიკა",
   "SECTION_CUSTOMER_FEEDBACK": "ინფორმაცია მომხმარებლისგან",
+  "SECTION_SUPPORT_CHAT": "Support Chat",
+  "LABEL_POWERED_BY_CHATBOT": "powered by {{chatbot}}",
   "SECTION_SOCIAL_MEDIA": "გამოგვიწერეთ სოციალურ ქსელში",
   "LINK_TERMS_OF_USE": "წაიკითხეთ მოსაწყენი მოხმარების პირობები თუ ასეთი რაღაცეები გაინტერესებთ.",
   "TITLE_ADMINISTRATION": "ადმინისტრაცია",
