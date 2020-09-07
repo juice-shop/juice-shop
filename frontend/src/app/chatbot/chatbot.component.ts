@@ -97,12 +97,12 @@ export class ChatbotComponent implements OnInit {
             body: response.body
           })
         } else {
-          console.log(messageBody)
-          console.log(this.currentAction)
           this.chatbotService.getResponse(this.currentAction, messageBody).subscribe((response) => {
             this.handleResponse(response)
           })
         }
+        const chat = document.getElementById('chat-window')
+        chat.scrollTop = chat.scrollHeight
       })
     }
   }
