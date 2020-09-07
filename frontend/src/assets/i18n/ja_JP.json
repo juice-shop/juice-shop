@@ -45,6 +45,8 @@
   "TITLE_ABOUT": "会社概要",
   "SECTION_CORPORATE_HISTORY": "社歴 & ポリシー",
   "SECTION_CUSTOMER_FEEDBACK": "カスタマーフィードバック",
+  "SECTION_SUPPORT_CHAT": "Support Chat",
+  "LABEL_POWERED_BY_CHATBOT": "powered by {{chatbot}}",
   "SECTION_SOCIAL_MEDIA": "ソーシャルメディアでフォローしてください",
   "LINK_TERMS_OF_USE": "もしくだらないことにご興味がおありでしたら、弊サイトの退屈な利用規約をご確認ください",
   "TITLE_ADMINISTRATION": "管理",
