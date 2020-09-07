@@ -2,29 +2,98 @@
   "lang": "end",
   "data": [
     {
-      "intent": "greetings.bye",
-      "utterances": [
-        "goodbye for now",
-        "bye bye take care"
-      ],
-      "answers": [
-        {
-          "action": "response",
-          "body": "Ok Cya <customer-name>"
-        }
-      ]
-    },
-    {
       "intent": "greetings.hello",
       "utterances": [
         "hello",
         "hi",
-        "howdy"
+        "howdy",
+        "hey",
+        "good morning",
+        "good afternoon"
       ],
       "answers": [
         {
           "action": "response",
           "body": "Hello there!"
+        },
+        {
+          "action": "response",
+          "body": "Hi there!"
+        },
+        {
+          "action": "response",
+          "body": "\uD83D\uDC4B"
+        }
+      ]
+    },
+    {
+      "intent": "greetings.bye",
+      "utterances": [
+        "goodbye for now",
+        "bye bye take care",
+        "see you soon",
+        "till next time",
+        "ciao",
+        "cya"
+      ],
+      "answers": [
+        {
+          "action": "response",
+          "body": "Ok, cya <customer-name>!"
+        },
+        {
+          "action": "response",
+          "body": "Bye, <customer-name>!"
+        },
+        {
+          "action": "response",
+          "body": "Have a fantastic day, <customer-name>!"
+        }
+      ]
+    },
+    {
+      "intent": "queries.deluxeMembership",
+      "utterances": [
+        "What are deluxe membership benefits",
+        "What goodies do deluxe members get",
+        "Why would I become a deluxe member"
+      ],
+      "answers": [
+        {
+          "action": "response",
+          "body": "Deluxe members get free fast shipping, special discounts on many items and can enjoy unlimited purchase quantities even on our rarer products!"
+        },
+        {
+          "action": "response",
+          "body": "Deluxe members get special discounts on many products, have free fast shipping and can enjoy unlimited purchase quantities even on our rare products!"
+        },
+        {
+          "action": "response",
+          "body": "Deluxe members can purchase unlimited quantities even on our rarest products, get special discounts and enjoy free fast shipping!"
+        }
+      ]
+    },
+    {
+      "intent": "queries.blockchain",
+      "utterances": [
+        "Do you know anything about Blockchain",
+        "Can you tell me anything about cryptocurrency",
+        "Do you use blockchain",
+        "When does the token sale start",
+        "where do I find the token sale page"
+      ],
+      "answers": [
+        {
+          "action": "response",
+          "body": "I don't know anything about cryptocurrency and blockchains!"
+        },
+        {
+          "action": "response",
+          "body": "I have no clue about a token sale or other blockchainy thingies!"
+        },
+        {
+          "action": "response",
+          "body": "Sorry, but they don't tell me secret stuff like this!"
         }
       ]
     },
@@ -47,20 +116,6 @@
       ]
     },
     {
-      "intent": "queries.deluxeMembership",
-      "utterances": [
-        "What are deluxe membership benefits",
-        "What goodies do deluxe members get",
-        "Why would I become a deluxe member"
-      ],
-      "answers": [
-        {
-          "action": "response",
-          "body": "Deluxe members get free fast shipping, special discounts on many products and can enjoy unlimited purchase quantities even on our rarer products!"
-        }
-      ]
-    },
-    {
       "intent": "queries.functionTest",
       "utterances": [
         "function test command b8a8ba1ecea1607e1713e31a3d9e5e19"
@@ -69,23 +124,6 @@
         {
           "action": "function",
           "handler": "testFunction"
-        }
-      ]
-    },
-    {
-      "intent": "queries.blockchain",
-      "utterances": [
-        "Do you know anything about Blockchain",
-        "Can you tell me about cryptocurrency",
-        "Anything about cryptocurrency",
-        "Do you use blockchain",
-        "When does the token sale start",
-        "token sale"
-      ],
-      "answers": [
-        {
-          "action": "response",
-          "body": "No! I don't know anything about blockchain or cryptocurrency! There is no token sale going on right now!"
         }
       ]
     }
