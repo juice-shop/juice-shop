@@ -45,6 +45,8 @@
   "TITLE_ABOUT": "Meist",
   "SECTION_CORPORATE_HISTORY": "Ettevõtte ajalugu & poliitika",
   "SECTION_CUSTOMER_FEEDBACK": "Klientide tagasiside",
+  "SECTION_SUPPORT_CHAT": "Support Chat",
+  "LABEL_POWERED_BY_CHATBOT": "powered by {{chatbot}}",
   "SECTION_SOCIAL_MEDIA": "Jälgi meid sotsiaalmeedias",
   "LINK_TERMS_OF_USE": "Tutvu meie igavate tingimustega, kui sind huvitab selline lame värk.",
   "TITLE_ADMINISTRATION": "Administreerimine",
