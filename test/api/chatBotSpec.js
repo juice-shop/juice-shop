@@ -5,11 +5,12 @@
 
 const frisby = require('frisby')
 const config = require('config')
-const { bot } = require('../../routes/chatbot')
+const { initialize, bot } = require('../../routes/chatbot')
 const fs = require('fs')
+const utils = require('../../lib/utils')
 
 const REST_URL = 'http://localhost:3000/rest/'
-const trainingData = JSON.parse(fs.readFileSync(`data/static/${config.get('application.chatBot.trainingData')}`, { encoding: 'utf8' }))
+let trainingData
 
 async function login ({ email, password, totpSecret }) {
   const loginRes = await frisby
@@ -28,7 +29,8 @@ async function login ({ email, password, totpSecret }) {
 
 describe('/chatbot', () => {
   beforeAll(async () => {
-    return bot.train()
+    await initialize()
+    trainingData = JSON.parse(fs.readFileSync(`data/chatbot/${utils.extractFilename(config.get('application.chatBot.trainingData'))}`, { encoding: 'utf8' }))
   })
 
   it('GET bot training state', () => {
@@ -43,7 +45,7 @@ describe('/chatbot', () => {
       password: '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
     })
 
-    const testCommand = trainingData.intents[0].question
+    const testCommand = trainingData.data[0].utterances[0]
 
     return frisby.setup({
       request: {
@@ -71,7 +73,7 @@ describe('/chatbot', () => {
     })
 
     bot.addUser('1337', 'bkimminich')
-    const testCommand = trainingData.intents[0].question
+    const testCommand = trainingData.data[0].utterances[0]
 
     return frisby.setup({
       request: {
@@ -98,7 +100,7 @@ describe('/chatbot', () => {
       password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
     })
     bot.addUser('12345', 'bkimminich')
-    const testCommand = trainingData.intents[0].question
+    const testCommand = trainingData.data[0].utterances[0]
     const testResponse = await bot.respond(testCommand, 12345)
     return frisby.setup({
       request: {
@@ -126,7 +128,7 @@ describe('/chatbot', () => {
   })
 
   it('POST returns error for unauthenticated user', () => {
-    const testCommand = trainingData.intents[0].question
+    const testCommand = trainingData.data[0].utterances[0]
     return frisby.setup({
       request: {
         headers: {
