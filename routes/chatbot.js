@@ -88,9 +88,7 @@ async function processQuery (user, req, res) {
         body: config.get('application.chatBot.defaultResponse')
       })
     } catch (err) {
-      if (!challenges.killChatbotChallenge.solved) {
-        utils.solve(challenges.killChatbotChallenge)
-      }
+      utils.solveIf(challenges.killChatbotChallenge, () => { return true })
       res.status(200).json({
         action: 'response',
         body: 'Oh no... Remember to stay hydrated when I\'m gone...'
