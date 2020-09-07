@@ -45,6 +45,8 @@
   "TITLE_ABOUT": "Sobre Nosotros",
   "SECTION_CORPORATE_HISTORY": "Historia de la Empresa & Política",
   "SECTION_CUSTOMER_FEEDBACK": "Opiniones de los clientes",
+  "SECTION_SUPPORT_CHAT": "Support Chat",
+  "LABEL_POWERED_BY_CHATBOT": "powered by {{chatbot}}",
   "SECTION_SOCIAL_MEDIA": "Síguenos en las redes sociales",
   "LINK_TERMS_OF_USE": "Eche un vistazo a nuestras aburridas condiciones de uso.",
   "TITLE_ADMINISTRATION": "Administración",
