@@ -45,6 +45,8 @@
   "TITLE_ABOUT": "О нас",
   "SECTION_CORPORATE_HISTORY": "Корпоративная история & политика",
   "SECTION_CUSTOMER_FEEDBACK": "Отзывы клиентов",
+  "SECTION_SUPPORT_CHAT": "Support Chat",
+  "LABEL_POWERED_BY_CHATBOT": "powered by {{chatbot}}",
   "SECTION_SOCIAL_MEDIA": "Присоединяйтесь к нам в социальных сетях",
   "LINK_TERMS_OF_USE": "Прочти наши скучные условия пользования, если совсем делать нечего.",
   "TITLE_ADMINISTRATION": "Администрирование",
