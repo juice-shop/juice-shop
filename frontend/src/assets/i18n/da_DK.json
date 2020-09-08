@@ -45,6 +45,8 @@
   "TITLE_ABOUT": "Om os",
   "SECTION_CORPORATE_HISTORY": "Virksomhedshistorie & politik",
   "SECTION_CUSTOMER_FEEDBACK": "Kundefeedback",
+  "SECTION_SUPPORT_CHAT": "Support Chat",
+  "LABEL_POWERED_BY_CHATBOT": "powered by {{chatbot}}",
   "SECTION_SOCIAL_MEDIA": "Følg os på sociale medier",
   "LINK_TERMS_OF_USE": "Tjek vores kedelige vilkår for anvendelse, hvis du er interesseret i sådan kedelige ting.",
   "TITLE_ADMINISTRATION": "Administration",

@@ -45,6 +45,8 @@
   "TITLE_ABOUT": "Tentang kami",
   "SECTION_CORPORATE_HISTORY": "Sejarah perusahaan & kebijakan",
   "SECTION_CUSTOMER_FEEDBACK": "Feedback pelanggan",
+  "SECTION_SUPPORT_CHAT": "Support Chat",
+  "LABEL_POWERED_BY_CHATBOT": "powered by {{chatbot}}",
   "SECTION_SOCIAL_MEDIA": "Ikuti kami di Social Media",
   "LINK_TERMS_OF_USE": "Lihat persyaratan penggunaan kami yang membosankan jika anda tertarik dengan hal semacam itu.",
   "TITLE_ADMINISTRATION": "Administrasi",

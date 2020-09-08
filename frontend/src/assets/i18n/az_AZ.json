@@ -45,6 +45,8 @@
   "TITLE_ABOUT": "Haqqımızda",
   "SECTION_CORPORATE_HISTORY": "Korporativ Tarixçə və Siyasət",
   "SECTION_CUSTOMER_FEEDBACK": "Müştəri Əks Əlaqəsi",
+  "SECTION_SUPPORT_CHAT": "Support Chat",
+  "LABEL_POWERED_BY_CHATBOT": "powered by {{chatbot}}",
   "SECTION_SOCIAL_MEDIA": "Bizi Sosial Mediada İzləyin",
   "LINK_TERMS_OF_USE": "Check out our boring terms of use if you are interested in such lame stuff.",
   "TITLE_ADMINISTRATION": "Administration",

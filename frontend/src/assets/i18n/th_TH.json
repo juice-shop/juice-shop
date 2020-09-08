@@ -45,6 +45,8 @@
   "TITLE_ABOUT": "เกี่ยวกับเรา",
   "SECTION_CORPORATE_HISTORY": "ประวัติความเป็นมาและนโยบายบริษัท",
   "SECTION_CUSTOMER_FEEDBACK": "ความคิดเห็นของลูกค้า",
+  "SECTION_SUPPORT_CHAT": "Support Chat",
+  "LABEL_POWERED_BY_CHATBOT": "powered by {{chatbot}}",
   "SECTION_SOCIAL_MEDIA": "ติดตามเราบนโซเชี่ยลมีเดีย",
   "LINK_TERMS_OF_USE": "Check out our boring terms of use if you are interested in such lame stuff.",
   "TITLE_ADMINISTRATION": "ส่วนผู้ดูแลระบบ",

@@ -45,6 +45,8 @@
   "TITLE_ABOUT": "Om oss",
   "SECTION_CORPORATE_HISTORY": "Historia och Policyer",
   "SECTION_CUSTOMER_FEEDBACK": "Kundrecensioner",
+  "SECTION_SUPPORT_CHAT": "Support Chat",
+  "LABEL_POWERED_BY_CHATBOT": "powered by {{chatbot}}",
   "SECTION_SOCIAL_MEDIA": "Följ oss på sociala medier",
   "LINK_TERMS_OF_USE": "Läs våra tråkiga kundvillkor om du är intresserad av sådant.",
   "TITLE_ADMINISTRATION": "Administration",
