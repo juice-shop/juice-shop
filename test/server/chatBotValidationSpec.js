@@ -9,7 +9,7 @@ const expect = chai.expect
 chai.use(sinonChai)
 
 const validateChatBot = require('../../lib/startup/validateChatBot')
-const { checkIntentWithHandlerExists } = require('../../lib/startup/validateChatBot')
+const { checkIntentWithFunctionHandlerExists } = require('../../lib/startup/validateChatBot')
 
 describe('chatBotValidation', () => {
   describe('checkIntentWithHandlerExists', () => {
@@ -28,7 +28,7 @@ describe('chatBotValidation', () => {
         ]
       }
 
-      expect(checkIntentWithHandlerExists(trainingData, 'queries.test', 'testHandler')).to.equal(true)
+      expect(checkIntentWithFunctionHandlerExists(trainingData, 'queries.test', 'testHandler')).to.equal(true)
     })
 
     it('should fail if the training data lacks the expected intent', () => {
@@ -40,7 +40,7 @@ describe('chatBotValidation', () => {
         ]
       }
 
-      expect(checkIntentWithHandlerExists(trainingData, 'queries.test')).to.equal(false)
+      expect(checkIntentWithFunctionHandlerExists(trainingData, 'queries.test')).to.equal(false)
     })
 
     it('should fail if the training data lacks the expected handler for the given intent', () => {
@@ -58,7 +58,7 @@ describe('chatBotValidation', () => {
         ]
       }
 
-      expect(checkIntentWithHandlerExists(trainingData, 'queries.test', 'testHandler')).to.equal(false)
+      expect(checkIntentWithFunctionHandlerExists(trainingData, 'queries.test', 'testHandler')).to.equal(false)
     })
   })
 
