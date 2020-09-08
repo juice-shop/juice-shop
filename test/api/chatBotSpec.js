@@ -148,36 +148,34 @@ describe('/chatbot', () => {
 
   it('Returns proper response for custom callbacks', async () => {
     const functionTest = trainingData.data.filter(data => data.intent === 'queries.functionTest')
-    if (functionTest) {
-      const { token } = await login({
-        email: 'bjoern.kimminich@gmail.com',
-        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
-      })
-      const testCommand = functionTest[0].utterances[0]
-      const testResponse = '3be2e438b7f3d04c89d7749f727bb3bd'
-      return frisby.setup({
-        request: {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
+    const { token } = await login({
+      email: 'bjoern.kimminich@gmail.com',
+      password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+    })
+    const testCommand = functionTest[0].utterances[0]
+    const testResponse = '3be2e438b7f3d04c89d7749f727bb3bd'
+    return frisby.setup({
+      request: {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
         }
-      }, true)
-        .post(REST_URL + 'chatbot/respond', {
-          body: {
-            action: 'query',
-            query: testCommand
-          }
-        })
-        .post(REST_URL + 'chatbot/respond', {
-          body: {
-            action: 'query',
-            query: testCommand
-          }
-        })
-        .expect('status', 200)
-        .expect('json', 'action', 'response')
-        .expect('json', 'body', testResponse)
-    }
+      }
+    }, true)
+      .post(REST_URL + 'chatbot/respond', {
+        body: {
+          action: 'query',
+          query: testCommand
+        }
+      })
+      .post(REST_URL + 'chatbot/respond', {
+        body: {
+          action: 'query',
+          query: testCommand
+        }
+      })
+      .expect('status', 200)
+      .expect('json', 'action', 'response')
+      .expect('json', 'body', testResponse)
   })
 })
