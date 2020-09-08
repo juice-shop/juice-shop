@@ -53,7 +53,7 @@ describe('/chatbot', () => {
       browser.actions().sendKeys(protractor.Key.ENTER).perform()
       messageBox.sendKeys('...')
       browser.actions().sendKeys(protractor.Key.ENTER).perform()
-      for (let i=0; i<100; i++) {
+      for (let i = 0; i < 100; i++) {
         messageBox.sendKeys(couponIntent.utterances[0])
         browser.actions().sendKeys(protractor.Key.ENTER).perform()
       }
