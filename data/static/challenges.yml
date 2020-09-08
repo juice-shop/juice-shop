@@ -1125,7 +1125,7 @@
     - Shenanigans
     - Brute Force
   description: 'Receive a coupon code from the support chatbot.'
-  difficulty: 2
+  difficulty: 1
   hint: 'Just keep asking.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/miscellaneous.html#receive-a-coupon-code-from-the-support-chatbot'
   mitigationUrl: ~
