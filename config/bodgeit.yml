@@ -8,6 +8,9 @@ application:
   altcoinName: Bodgecoin
   privacyContactEmail: 'donotreply@thebodgeitstore.com'
   customMetricsPrefix: bodgeit
+  chatBot:
+    name: 'Clippy'
+    avatar: 'https://ph-files.imgix.net/901876fb-f043-45bb-bfc2-bea8f477e533?auto=format&auto=compress&codec=mozjpeg&cs=strip&w=80&h=80&fit=crop'
   social:
     twitterUrl: null
     facebookUrl: null

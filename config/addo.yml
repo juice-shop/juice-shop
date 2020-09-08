@@ -8,6 +8,9 @@ application:
   altcoinName: ADDcOin
   privacyContactEmail: 'donotreply@ad.do'
   customMetricsPrefix: addo
+  chatBot:
+    name: 'Bobby'
+    avatar: 'https://www.alldaydevops.com/hs-fs/hubfs/2019-ADDO/2019-footer-bobby-1.png?width=135&name=2019-footer-bobby-1.png'
   social:
     twitterUrl: 'https://twitter.com/AllDayDevOps'
     facebookUrl: 'https://www.facebook.com/AllDayDevOps/'
