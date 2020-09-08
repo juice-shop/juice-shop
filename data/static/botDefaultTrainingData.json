@@ -1,5 +1,5 @@
 {
-  "lang": "end",
+  "lang": "en",
   "data": [
     {
       "intent": "greetings.hello",
