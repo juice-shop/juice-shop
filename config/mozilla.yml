@@ -9,6 +9,9 @@ application:
   altcoinName: Mozquito
   privacyContactEmail: 'donotreply@mozilla-ctf.op'
   customMetricsPrefix: mozctf
+  chatBot:
+    name: 'Foxy'
+    avatar: 'https://upload.wikimedia.org/wikipedia/commons/9/9f/Fennec_Fox_Vulpes_zerda.jpg'
   social:
     twitterUrl: 'https://twitter.com/mozcloudsec'
     facebookUrl: null

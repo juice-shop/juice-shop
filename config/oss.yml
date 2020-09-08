@@ -11,6 +11,9 @@ application:
     dismissText: "I've been there live, so thanks!"
     linkText: 'I want to watch that!'
     linkUrl: 'https://youtu.be/WtY712DdlR8?t=413'
+  chatBot:
+    name: 'Dinis'
+    avatar: 'https://pbs.twimg.com/profile_images/552850030105591808/x3i7zK5r_400x400.jpeg'
   social:
     twitterUrl: 'https://twitter.com/opensecsummit'
     facebookUrl: ~
