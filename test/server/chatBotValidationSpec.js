@@ -17,11 +17,11 @@ describe('chatBotValidation', () => {
       const trainingData = {
         data: [
           {
-            "intent": "queries.test",
-            "answers": [
+            intent: 'queries.test',
+            answers: [
               {
-                "action": "function",
-                "handler": "testHandler"
+                action: 'function',
+                handler: 'testHandler'
               }
             ]
           }
@@ -35,7 +35,7 @@ describe('chatBotValidation', () => {
       const trainingData = {
         data: [
           {
-            "intent": "queries.dummy"
+            intent: 'queries.dummy'
           }
         ]
       }
@@ -47,11 +47,11 @@ describe('chatBotValidation', () => {
       const trainingData = {
         data: [
           {
-            "intent": "queries.test",
-            "answers": [
+            intent: 'queries.test',
+            answers: [
               {
-                "action": "function",
-                "handler": "dummyHandler"
+                action: 'function',
+                handler: 'dummyHandler'
               }
             ]
           }
@@ -67,6 +67,6 @@ describe('chatBotValidation', () => {
   })
 
   it('should fail if the chatbot training data is empty', () => {
-    expect(validateChatBot({ data: []}, false)).to.equal(false)
+    expect(validateChatBot({ data: [] }, false)).to.equal(false)
   })
 })
