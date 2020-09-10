@@ -57,6 +57,26 @@ function verifySecurityAnswerChallenges (user, answer) {
   utils.solveIf(challenges.resetPasswordMortyChallenge, () => { return user.id === users.morty.id && answer === '5N0wb41L' })
   utils.solveIf(challenges.resetPasswordBjoernOwaspChallenge, () => { return user.id === users.bjoernOwasp.id && answer === 'Zaya' })
   utils.solveIf(challenges.resetPasswordUvoginChallenge, () => { return user.id === users.uvogin.id && answer === 'Silence of the Lambs' })
-  utils.solveIf(challenges.geoStalkingMetaChallenge, () => { return user.id === users.john.id && answer === config.get('challenges.geoStalking.securityAnswerJohn') })
-  utils.solveIf(challenges.geoStalkingVisualChallenge, () => { return user.id === users.emma.id && answer === config.get('challenges.geoStalking.securityAnswerEmma') })
+  utils.solveIf(challenges.geoStalkingMetaChallenge, () => {
+    const securityAnswer = ((() => {
+      const memories = config.get('memories')
+      for (let i = 0; i < memories.length; i++) {
+        if (memories[i].geoStalkingMetaSecurityAnswer) {
+          return memories[i].geoStalkingMetaSecurityAnswer
+        }
+      }
+    })())
+    return user.id === users.john.id && answer === securityAnswer
+  })
+  utils.solveIf(challenges.geoStalkingVisualChallenge, () => {
+    const securityAnswer = ((() => {
+      const memories = config.get('memories')
+      for (let i = 0; i < memories.length; i++) {
+        if (memories[i].geoStalkingVisualSecurityAnswer) {
+          return memories[i].geoStalkingVisualSecurityAnswer
+        }
+      }
+    })())
+    return user.id === users.emma.id && answer === securityAnswer
+  })
 }

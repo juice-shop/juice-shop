@@ -5,7 +5,7 @@
 
 const config = require('config')
 
-describe('/#/geo', () => {
+fdescribe('/#/photo-wall', () => {
   let email, securityAnswer, newPassword, newPasswordRepeat, resetButton
 
   const EC = protractor.ExpectedConditions
@@ -42,9 +42,9 @@ describe('/#/geo', () => {
       newPassword.sendKeys('123456')
       newPasswordRepeat.sendKeys('123456')
       resetButton.click()
-
-      protractor.expect.challengeSolved({ challenge: 'Meta Geo Stalking' })
     })
+
+    protractor.expect.challengeSolved({ challenge: 'Meta Geo Stalking' })
   })
 
   describe('challenge "geoStalkingVisual"', () => {
@@ -64,8 +64,8 @@ describe('/#/geo', () => {
       newPassword.sendKeys('123456')
       newPasswordRepeat.sendKeys('123456')
       resetButton.click()
-
-      protractor.expect.challengeSolved({ challenge: 'Visual Geo Stalking' })
     })
+
+    protractor.expect.challengeSolved({ challenge: 'Visual Geo Stalking' })
   })
 })
