@@ -10,6 +10,9 @@ application:
   customMetricsPrefix: sevenminsec
   chatBot:
     name: 'Brian'
+    greeting: "Hi <customer-name>, it's me, your friend and pal <bot-name>!"
+    trainingData: 'https://gist.githubusercontent.com/bkimminich/d62bd52a1df4831a0fae7fb06062e3f0/raw/009bc0422a9269aaf6cd168e9c36b98093413c78/bot7msTrainingData.json'
+    defaultResponse: "Sorry, but \"no comprende\"!"
     avatar: 'https://images.squarespace-cdn.com/content/v1/59f9e1c4d0e6281017434039/1509770498383-8VJKZ4PXTTHVIGIEG0KF/ke17ZwdGBToddI8pDm48kMreedPISwI1jnn2bzTr4CdZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzByX1XvUQea7698-2ac2uOajsBu-kHm1WemVMRSlEblOw5yevDuXqve6GdwpxNsnc/BrianJohnson-headshot.jpg?format=300w'
   social:
     twitterUrl: 'https://twitter.com/7MinSec'
