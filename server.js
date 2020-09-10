@@ -4,7 +4,7 @@
  */
 
 const path = require('path')
-const fs = require('fs-extra')
+const fs = require('fs')
 const morgan = require('morgan')
 const colors = require('colors/safe')
 const finale = require('finale-rest')
@@ -96,9 +96,9 @@ const chatbot = require('./routes/chatbot')
 const locales = require('./data/static/locales')
 const i18n = require('i18n')
 
+require('./lib/startup/validatePreconditions')()
 require('./lib/startup/restoreOverwrittenFilesWithOriginals')()
 require('./lib/startup/cleanupFtpFolder')()
-require('./lib/startup/validatePreconditions')()
 require('./lib/startup/validateConfig')()
 
 const multer = require('multer')
