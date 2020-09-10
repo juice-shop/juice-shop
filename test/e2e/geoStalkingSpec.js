@@ -5,7 +5,7 @@
 
 const config = require('config')
 
-fdescribe('/#/photo-wall', () => {
+describe('/#/photo-wall', () => {
   let email, securityAnswer, newPassword, newPasswordRepeat, resetButton
 
   const EC = protractor.ExpectedConditions
