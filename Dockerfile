@@ -21,13 +21,13 @@ LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
     org.opencontainers.image.revision=$VCS_REF \
     org.opencontainers.image.created=$BUILD_DATE
 WORKDIR /juice-shop
-RUN addgroup juicer && \
-    adduser -D -G juicer juicer
+RUN addgroup --system --gid 1001 juicer && \
+    adduser juicer --system --uid 1001 --ingroup juicer
 COPY --from=installer --chown=juicer /juice-shop .
 RUN mkdir logs && \
     chown -R juicer logs && \
     chgrp -R 0 ftp/ frontend/dist/ logs/ data/ i18n/ && \
     chmod -R g=u ftp/ frontend/dist/ logs/ data/ i18n/
-USER juicer
+USER 1001
 EXPOSE 3000
 CMD ["npm", "start"]
