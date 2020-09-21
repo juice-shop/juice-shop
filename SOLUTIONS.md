@@ -61,6 +61,7 @@ Shop easier to hack!
   * [★★★★ Access Log (Sensitive Data Exposure)](https://youtu.be/RBTfGk-ZwnY)
   * [★★★★ Ephemeral Accountant (SQL-Injection)](https://youtu.be/rD-_fRDHf9o)
   * [★★★★ Expired Coupon (Improper Input Validation)](https://youtu.be/4cWTUdTvTZg)
+  * [★★★★ Forgotten Developer Backup (Sensitive Data Exposure)](https://youtu.be/YvkuVZ6r2Rg)
 * Live Hacking von Online-Shop „Juice Shop” (:de:)
   [Twitch live stream](https://www.twitch.tv/GregorBiswanger) recordings
   by
