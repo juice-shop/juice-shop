@@ -15,8 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 7,
-  "iteration": 1588242543747,
+  "id": 27,
+  "iteration": 1600786581400,
   "links": [],
   "panels": [
     {
@@ -47,6 +47,12 @@
       "datasource": "Prometheus",
       "decimals": 0,
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "percent",
       "gauge": {
         "maxValue": 100,
@@ -145,6 +151,12 @@
       "datasource": "Prometheus",
       "decimals": 0,
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "percent",
       "gauge": {
         "maxValue": 100,
@@ -159,7 +171,7 @@
         "x": 4,
         "y": 1
       },
-      "id": 92,
+      "id": 106,
       "interval": null,
       "links": [],
       "mappingType": 1,
@@ -191,7 +203,7 @@
       ],
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1588242543747,
+      "repeatIteration": 1600786581400,
       "repeatPanelId": 2,
       "scopedVars": {
         "difficulties": {
@@ -245,6 +257,12 @@
       "datasource": "Prometheus",
       "decimals": 0,
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "percent",
       "gauge": {
         "maxValue": 100,
@@ -259,7 +277,7 @@
         "x": 8,
         "y": 1
       },
-      "id": 93,
+      "id": 107,
       "interval": null,
       "links": [],
       "mappingType": 1,
@@ -291,7 +309,7 @@
       ],
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1588242543747,
+      "repeatIteration": 1600786581400,
       "repeatPanelId": 2,
       "scopedVars": {
         "difficulties": {
@@ -345,6 +363,12 @@
       "datasource": "Prometheus",
       "decimals": 0,
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "percent",
       "gauge": {
         "maxValue": 100,
@@ -359,7 +383,7 @@
         "x": 12,
         "y": 1
       },
-      "id": 94,
+      "id": 108,
       "interval": null,
       "links": [],
       "mappingType": 1,
@@ -391,7 +415,7 @@
       ],
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1588242543747,
+      "repeatIteration": 1600786581400,
       "repeatPanelId": 2,
       "scopedVars": {
         "difficulties": {
@@ -445,6 +469,12 @@
       "datasource": "Prometheus",
       "decimals": 0,
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "percent",
       "gauge": {
         "maxValue": 100,
@@ -459,7 +489,7 @@
         "x": 16,
         "y": 1
       },
-      "id": 95,
+      "id": 109,
       "interval": null,
       "links": [],
       "mappingType": 1,
@@ -491,7 +521,7 @@
       ],
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1588242543747,
+      "repeatIteration": 1600786581400,
       "repeatPanelId": 2,
       "scopedVars": {
         "difficulties": {
@@ -545,6 +575,12 @@
       "datasource": "Prometheus",
       "decimals": 0,
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "percent",
       "gauge": {
         "maxValue": 100,
@@ -559,7 +595,7 @@
         "x": 20,
         "y": 1
       },
-      "id": 96,
+      "id": 110,
       "interval": null,
       "links": [],
       "mappingType": 1,
@@ -591,7 +627,7 @@
       ],
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1588242543747,
+      "repeatIteration": 1600786581400,
       "repeatPanelId": 2,
       "scopedVars": {
         "difficulties": {
@@ -633,6 +669,33 @@
     },
     {
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "max": 100,
+          "min": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "super-light-green",
+                "value": null
+              },
+              {
+                "color": "semi-dark-green",
+                "value": 20
+              },
+              {
+                "color": "dark-green",
+                "value": 60
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 4,
         "w": 24,
@@ -643,41 +706,19 @@
       "maxPerRow": 4,
       "options": {
         "colorMode": "value",
-        "fieldOptions": {
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "vertical",
+        "reduceOptions": {
           "calcs": [
             "max"
           ],
-          "defaults": {
-            "mappings": [],
-            "max": 100,
-            "min": 1,
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "super-light-green",
-                  "value": null
-                },
-                {
-                  "color": "semi-dark-green",
-                  "value": 20
-                },
-                {
-                  "color": "dark-green",
-                  "value": 60
-                }
-              ]
-            },
-            "unit": "percent"
-          },
-          "overrides": [],
+          "fields": "",
           "values": false
         },
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "vertical"
+        "textMode": "auto"
       },
-      "pluginVersion": "6.7.3",
+      "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
       "targets": [
@@ -1250,6 +1291,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -1272,10 +1320,8 @@
       "lines": false,
       "linewidth": 1,
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1352,6 +1398,32 @@
     {
       "cacheTimeout": null,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "displayName": "",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 50
+              },
+              {
+                "color": "red",
+                "value": 100
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 5,
         "w": 9,
@@ -1361,40 +1433,18 @@
       "id": 90,
       "links": [],
       "options": {
-        "fieldOptions": {
+        "orientation": "auto",
+        "reduceOptions": {
           "calcs": [
             "mean"
           ],
-          "defaults": {
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "yellow",
-                  "value": 50
-                },
-                {
-                  "color": "red",
-                  "value": 100
-                }
-              ]
-            },
-            "title": "",
-            "unit": "none"
-          },
-          "overrides": [],
+          "fields": "",
           "values": false
         },
-        "orientation": "auto",
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "6.7.3",
+      "pluginVersion": "7.1.5",
       "targets": [
         {
           "expr": "rate(file_uploads_count[1h]) * 3600",
@@ -1413,6 +1463,32 @@
     {
       "cacheTimeout": null,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "displayName": "",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 5
+              },
+              {
+                "color": "red",
+                "value": 10
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 5,
         "w": 15,
@@ -1422,40 +1498,18 @@
       "id": 91,
       "links": [],
       "options": {
-        "fieldOptions": {
+        "orientation": "auto",
+        "reduceOptions": {
           "calcs": [
             "mean"
           ],
-          "defaults": {
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "yellow",
-                  "value": 5
-                },
-                {
-                  "color": "red",
-                  "value": 10
-                }
-              ]
-            },
-            "title": "",
-            "unit": "short"
-          },
-          "overrides": [],
+          "fields": "",
           "values": false
         },
-        "orientation": "auto",
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "6.7.3",
+      "pluginVersion": "7.1.5",
       "targets": [
         {
           "expr": "rate(file_upload_errors[1h]) * 3600",
@@ -1471,18 +1525,83 @@
       "type": "gauge"
     },
     {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 22
+      },
+      "id": 105,
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true
+      },
+      "pluginVersion": "7.1.5",
+      "targets": [
+        {
+          "expr": "sort_desc(avg by (task)(juiceshop_startup_duration_seconds))",
+          "format": "time_series",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "{{ task }}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Startup Duration",
+      "type": "bargauge"
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 10,
         "w": 9,
         "x": 0,
-        "y": 22
+        "y": 28
       },
       "hiddenSeries": false,
       "id": 46,
@@ -1500,11 +1619,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "paceLength": 10,
       "percentage": false,
+      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1575,13 +1692,20 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 10,
         "w": 7,
         "x": 9,
-        "y": 22
+        "y": 28
       },
       "hiddenSeries": false,
       "id": 48,
@@ -1599,11 +1723,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "paceLength": 10,
       "percentage": false,
+      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1670,6 +1792,12 @@
         "#d44a3a"
       ],
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -1682,7 +1810,7 @@
         "h": 6,
         "w": 5,
         "x": 16,
-        "y": 22
+        "y": 28
       },
       "id": 52,
       "interval": null,
@@ -1753,6 +1881,12 @@
         "#d44a3a"
       ],
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -1765,7 +1899,7 @@
         "h": 3,
         "w": 3,
         "x": 21,
-        "y": 22
+        "y": 28
       },
       "id": 84,
       "interval": "",
@@ -1838,6 +1972,12 @@
         "#d44a3a"
       ],
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -1850,7 +1990,7 @@
         "h": 3,
         "w": 3,
         "x": 21,
-        "y": 25
+        "y": 31
       },
       "id": 50,
       "interval": "",
@@ -1919,13 +2059,20 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 11,
         "w": 8,
         "x": 16,
-        "y": 28
+        "y": 34
       },
       "hiddenSeries": false,
       "id": 56,
@@ -1943,11 +2090,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "paceLength": 10,
       "percentage": false,
+      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2018,13 +2163,20 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 16,
         "x": 0,
-        "y": 32
+        "y": 38
       },
       "hiddenSeries": false,
       "id": 54,
@@ -2043,11 +2195,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "paceLength": 10,
       "percentage": false,
+      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2128,7 +2278,7 @@
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 22,
+  "schemaVersion": 26,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -2215,8 +2365,5 @@
   "timezone": "",
   "title": "Juice Shop Instance Status",
   "uid": "Sj-cIdwZk",
-  "variables": {
-    "list": []
-  },
-  "version": 6
+  "version": 7
 }
