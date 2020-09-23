@@ -15,8 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 27,
-  "iteration": 1600786581400,
+  "id": 7,
+  "iteration": 1600870228619,
   "links": [],
   "panels": [
     {
@@ -203,7 +203,7 @@
       ],
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600786581400,
+      "repeatIteration": 1600870228619,
       "repeatPanelId": 2,
       "scopedVars": {
         "difficulties": {
@@ -309,7 +309,7 @@
       ],
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600786581400,
+      "repeatIteration": 1600870228619,
       "repeatPanelId": 2,
       "scopedVars": {
         "difficulties": {
@@ -415,7 +415,7 @@
       ],
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600786581400,
+      "repeatIteration": 1600870228619,
       "repeatPanelId": 2,
       "scopedVars": {
         "difficulties": {
@@ -521,7 +521,7 @@
       ],
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600786581400,
+      "repeatIteration": 1600870228619,
       "repeatPanelId": 2,
       "scopedVars": {
         "difficulties": {
@@ -627,7 +627,7 @@
       ],
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1600786581400,
+      "repeatIteration": 1600870228619,
       "repeatPanelId": 2,
       "scopedVars": {
         "difficulties": {
@@ -706,6 +706,35 @@
       "maxPerRow": 4,
       "options": {
         "colorMode": "value",
+        "fieldOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "super-light-green",
+                  "value": null
+                },
+                {
+                  "color": "semi-dark-green",
+                  "value": 20
+                },
+                {
+                  "color": "dark-green",
+                  "value": 60
+                }
+              ]
+            },
+            "title": "",
+            "unit": "percent"
+          },
+          "overrides": [],
+          "values": false
+        },
         "graphMode": "area",
         "justifyMode": "center",
         "orientation": "vertical",
@@ -718,14 +747,15 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "6.7.3",
       "repeat": null,
       "repeatDirection": "h",
       "targets": [
         {
           "expr": "sum by (category)(juiceshop_challenges_solved{}) / sum by (category)(juiceshop_challenges_total{}) * 100 != 0",
+          "instant": false,
           "interval": "",
-          "legendFormat": "{{category}} ",
+          "legendFormat": "{{category}}",
           "refId": "A"
         }
       ],
@@ -1320,6 +1350,9 @@
       "lines": false,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
       "percentage": false,
       "pluginVersion": "7.1.5",
       "pointradius": 2,
@@ -1433,6 +1466,29 @@
       "id": 90,
       "links": [],
       "options": {
+        "fieldOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [],
+          "values": false
+        },
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -1444,7 +1500,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "6.7.3",
       "targets": [
         {
           "expr": "rate(file_uploads_count[1h]) * 3600",
@@ -1498,6 +1554,29 @@
       "id": 91,
       "links": [],
       "options": {
+        "fieldOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [],
+          "values": false
+        },
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -1509,7 +1588,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "6.7.3",
       "targets": [
         {
           "expr": "rate(file_upload_errors[1h]) * 3600",
@@ -1556,6 +1635,29 @@
       "id": 105,
       "options": {
         "displayMode": "gradient",
+        "fieldOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [],
+          "values": false
+        },
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -1566,7 +1668,7 @@
         },
         "showUnfilled": true
       },
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "6.7.3",
       "targets": [
         {
           "expr": "sort_desc(avg by (task)(juiceshop_startup_duration_seconds))",
@@ -1619,6 +1721,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
       "paceLength": 10,
       "percentage": false,
       "pluginVersion": "7.1.5",
@@ -1723,6 +1828,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
       "paceLength": 10,
       "percentage": false,
       "pluginVersion": "7.1.5",
@@ -2090,6 +2198,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
       "paceLength": 10,
       "percentage": false,
       "pluginVersion": "7.1.5",
@@ -2195,6 +2306,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
       "paceLength": 10,
       "percentage": false,
       "pluginVersion": "7.1.5",
@@ -2278,7 +2392,7 @@
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 26,
+  "schemaVersion": 22,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -2365,5 +2479,8 @@
   "timezone": "",
   "title": "Juice Shop Instance Status",
   "uid": "Sj-cIdwZk",
-  "version": 7
+  "variables": {
+    "list": []
+  },
+  "version": 13
 }
