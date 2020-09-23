@@ -2,7 +2,7 @@
  * Copyright (c) 2014-2020 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
-
+const startTime = Date.now()
 const path = require('path')
 const fs = require('fs')
 const morgan = require('morgan')
@@ -22,6 +22,7 @@ const robots = require('express-robots-txt')
 const yaml = require('js-yaml')
 const swaggerUi = require('swagger-ui-express')
 const RateLimit = require('express-rate-limit')
+const client = require('prom-client')
 const swaggerDocument = yaml.load(fs.readFileSync('./swagger.yml', 'utf8'))
 const {
   ensureFileIsPassed,
@@ -96,10 +97,26 @@ const chatbot = require('./routes/chatbot')
 const locales = require('./data/static/locales')
 const i18n = require('i18n')
 
-require('./lib/startup/validatePreconditions')()
-require('./lib/startup/restoreOverwrittenFilesWithOriginals')()
-require('./lib/startup/cleanupFtpFolder')()
-require('./lib/startup/validateConfig')()
+const appName = config.get('application.customMetricsPrefix')
+const startupGauge = new client.Gauge({
+  name: `${appName}_startup_duration_seconds`,
+  help: `Duration ${appName} required to perform a certain task during startup`,
+  labelNames: ['task']
+})
+
+// Wraps the function and measures its (async) execution time
+const collectDurationPromise = (name, func) => {
+  return async (...args) => {
+    const end = startupGauge.startTimer({ task: name })
+    const res = await func(...args)
+    end()
+    return res
+  }
+}
+collectDurationPromise('validatePreconditions', require('./lib/startup/validatePreconditions'))()
+collectDurationPromise('restoreOverwrittenFilesWithOriginals', require('./lib/startup/restoreOverwrittenFilesWithOriginals'))()
+collectDurationPromise('cleanupFtpFolder', require('./lib/startup/cleanupFtpFolder'))()
+collectDurationPromise('validateConfig', require('./lib/startup/validateConfig'))()
 
 const multer = require('multer')
 const uploadToMemory = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
@@ -558,13 +575,16 @@ app.use(verify.errorHandlingChallenge())
 app.use(errorhandler())
 
 exports.start = async function (readyCallback) {
+  const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
   await models.sequelize.sync({ force: true })
   await datacreator()
+  datacreatorEnd()
   const port = process.env.PORT || config.get('server.port')
   process.env.BASE_PATH = process.env.BASE_PATH || config.get('server.basePath')
 
   server.listen(port, () => {
     logger.info(colors.cyan(`Server listening on port ${colors.bold(port)}`))
+    startupGauge.set({ task: 'total' }, (Date.now() - startTime) / 1000)
     if (process.env.BASE_PATH !== '') {
       logger.info(colors.cyan(`Server using proxy base path ${colors.bold(process.env.BASE_PATH)} for redirects`))
     }
