@@ -34,6 +34,7 @@ import { ErasureRequestComponent } from './erasure-request/erasure-request.compo
 import { ChangePasswordComponent } from './change-password/change-password.component'
 import { ProductDetailsComponent } from './product-details/product-details.component'
 import { ComplaintComponent } from './complaint/complaint.component'
+import { ChatbotComponent } from './chatbot/chatbot.component'
 import { TrackResultComponent } from './track-result/track-result.component'
 import { RecycleComponent } from './recycle/recycle.component'
 import { QrCodeComponent } from './qr-code/qr-code.component'
@@ -59,6 +60,7 @@ import { CaptchaService } from './Services/captcha.service'
 import { WindowRefService } from './Services/window-ref.service'
 import { ProductReviewService } from './Services/product-review.service'
 import { ComplaintService } from './Services/complaint.service'
+import { ChatbotService } from './Services/chatbot.service'
 import { TrackOrderService } from './Services/track-order.service'
 import { RecycleService } from './Services/recycle.service'
 import { BasketService } from './Services/basket.service'
@@ -152,6 +154,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     ChangePasswordComponent,
     ProductDetailsComponent,
     ComplaintComponent,
+    ChatbotComponent,
     TrackResultComponent,
     RecycleComponent,
     QrCodeComponent,
@@ -260,6 +263,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     WindowRefService,
     ProductReviewService,
     ComplaintService,
+    ChatbotService,
     TrackOrderService,
     RecycleService,
     BasketService,

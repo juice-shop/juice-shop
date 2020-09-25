@@ -305,6 +305,12 @@ ctf:
     geoStalkingVisualChallenge:
       name: The Netherlands
       code: NL
+    killChatbotChallenge:
+      name: Czechoslovakia
+      code: CSK
     nullByteChallenge:
       name: Burundi
       code: BI
+    bullyChatbotChallenge:
+      name: Guam
+      code: GU

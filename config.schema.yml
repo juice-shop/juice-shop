@@ -28,6 +28,17 @@ application:
     type: string
   customMetricsPrefix:
     type: string
+  chatBot:
+    name:
+      type: string
+    greeting:
+      type: string
+    trainingData:
+      type: string
+    defaultResponse:
+      type: string
+    avatar:
+      type: string
   social:
     twitterUrl:
       type: string
@@ -641,6 +652,31 @@ ctf:
       code:
         type: string
     xssBonusChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    geoStalkingMetaChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    geoStalkingVisualChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    killChatbotChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    nullByteChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    bullyChatbotChallenge:
       name:
         type: string
       code:

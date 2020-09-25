@@ -14,6 +14,7 @@ module.exports = function retrieveUserList () {
       usersWithLoginStatus.data.forEach(user => {
         user.token = insecurity.authenticatedUsers.tokenOf(user)
         user.password = user.password ? user.password.replace(/./g, '*') : null
+        user.totpSecret = user.totpSecret ? user.totpSecret.replace(/./g, '*') : null
       })
       res.json(usersWithLoginStatus)
     }).catch(error => {

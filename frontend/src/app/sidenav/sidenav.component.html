@@ -193,6 +193,15 @@
       {{"NAV_COMPLAIN" | translate}}
     </span>
   </a>
+  <a mat-list-item *ngIf="isLoggedIn()" routerLink="/chatbot" (click)="onToggleSidenav();"
+     aria-label="Go to chatbot page">
+     <i class="material-icons">
+      chat
+    </i>
+    <span class="menu-text truncate">
+      {{"SECTION_SUPPORT_CHAT" | translate}}
+    </span>
+  </a>
 
   <mat-divider></mat-divider>
 
