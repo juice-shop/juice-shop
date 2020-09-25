@@ -169,7 +169,7 @@ function createAddresses (UserId, addresses) {
 }
 
 function createCards (UserId, cards) {
-  cards.map((card) => {
+  return Promise.all(cards.map((card) => {
     return models.Card.create({
       UserId: UserId,
       fullName: card.fullName,
