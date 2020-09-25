@@ -115,7 +115,7 @@ jobs:
         - npm start &
         - "../../test/smoke/smoke-test.sh http://localhost:3000"
     - stage: deploy
-      if: "(branch = master OR branch = develop OR branch = gsoc2020) AND NOT type =
+      if: "(branch = master OR branch = develop) AND NOT type =
       pull_request"
       install: skip
       script: skip
@@ -129,7 +129,6 @@ jobs:
           app:
             master: juice-shop
             develop: juice-shop-staging
-            gsoc2020: juice-shop-gsoc
           on:
             repo: bkimminich/juice-shop
           edge: true

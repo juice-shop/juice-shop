@@ -1097,6 +1097,17 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html'
   key: geoStalkingVisualChallenge
 -
+  name: 'Kill Chatbot'
+  category: 'Vulnerable Components'
+  tags:
+    - Code Analysis
+  description: 'Permanently disable the support chatbot so that it can no longer answer customer queries.'
+  difficulty: 5
+  hint: 'Think of a way to get a hold of the internal workings on the chatbot API.'
+  hintUrl: 'https://pwning.owasp-juice.shop/part2/improper-input-validation.html#permanently-disable-the-support-chatbot'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html'
+  key: killChatbotChallenge
+-
   name: 'Poison Null Byte'
   category: 'Improper Input Validation'
   tags:
@@ -1107,3 +1118,15 @@
   hintUrl: 'https://pwning.owasp-juice.shop/part2/improper-input-validation.html#bypass-a-security-control-with-a-poison-null-byte'
   mitigationUrl: ~
   key: nullByteChallenge
+-
+  name: 'Bully Chatbot'
+  category: 'Miscellaneous'
+  tags:
+    - Shenanigans
+    - Brute Force
+  description: 'Receive a coupon code from the support chatbot.'
+  difficulty: 1
+  hint: 'Just keep asking.'
+  hintUrl: 'https://pwning.owasp-juice.shop/part2/miscellaneous.html#receive-a-coupon-code-from-the-support-chatbot'
+  mitigationUrl: ~
+  key: bullyChatbotChallenge
