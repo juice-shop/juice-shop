@@ -179,7 +179,7 @@ function createCards (UserId, cards) {
     }).catch((err) => {
       logger.error(`Could not create card: ${err.message}`)
     })
-  })
+  }))
 }
 
 function deleteUser (userId) {
