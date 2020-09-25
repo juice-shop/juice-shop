@@ -286,19 +286,19 @@ function createProducts () {
   })
 
   // add Challenge specific information
-  const chrismasChallengeProduct = products.find(({ useForChristmasSpecialChallenge }) => useForChristmasSpecialChallenge)
+  const christmasChallengeProduct = products.find(({ useForChristmasSpecialChallenge }) => useForChristmasSpecialChallenge)
   const pastebinLeakChallengeProduct = products.find(({ keywordsForPastebinDataLeakChallenge }) => keywordsForPastebinDataLeakChallenge)
   const tamperingChallengeProduct = products.find(({ urlForProductTamperingChallenge }) => urlForProductTamperingChallenge)
-  const blueprintRetrivalChallengeProduct = products.find(({ fileForRetrieveBlueprintChallenge }) => fileForRetrieveBlueprintChallenge)
+  const blueprintRetrievalChallengeProduct = products.find(({ fileForRetrieveBlueprintChallenge }) => fileForRetrieveBlueprintChallenge)
 
-  chrismasChallengeProduct.description += ' (Seasonal special offer! Limited availability!)'
-  chrismasChallengeProduct.deletedAt = '2014-12-27 00:00:00.000 +00:00'
+  christmasChallengeProduct.description += ' (Seasonal special offer! Limited availability!)'
+  christmasChallengeProduct.deletedAt = '2014-12-27 00:00:00.000 +00:00'
   tamperingChallengeProduct.description += ' <a href="' + tamperingChallengeProduct.urlForProductTamperingChallenge + '" target="_blank">More...</a>'
   tamperingChallengeProduct.deletedAt = null
   pastebinLeakChallengeProduct.description += ' (This product is unsafe! We plan to remove it from the stock!)'
   pastebinLeakChallengeProduct.deletedAt = '2019-02-1 00:00:00.000 +00:00'
 
-  let blueprint = blueprintRetrivalChallengeProduct.fileForRetrieveBlueprintChallenge
+  let blueprint = blueprintRetrievalChallengeProduct.fileForRetrieveBlueprintChallenge
   if (utils.startsWith(blueprint, 'http')) {
     const blueprintUrl = blueprint
     blueprint = utils.extractFilename(blueprint)
