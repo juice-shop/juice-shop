@@ -19,6 +19,15 @@ module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
         await models.Wallet.decrement({ balance: 49 }, { where: { UserId: req.body.UserId } })
       }
     }
+
+    if (req.body.paymentMode === 'card') {
+      const card = await models.Card.findOne({ where: { id: req.body.paymentId, UserId: req.body.UserId } })
+      if (!card || card.expYear < new Date().getFullYear() || (card.expYear === new Date().getFullYear() && card.expMonth - 1 < new Date().getMonth())) {
+        res.status(400).json({ status: 'error', error: 'Invalid Card' })
+        return
+      }
+    }
+
     models.User.findOne({ where: { id: req.body.UserId, role: insecurity.roles.customer } })
       .then(user => {
         if (user) {
