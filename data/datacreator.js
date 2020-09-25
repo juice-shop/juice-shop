@@ -373,7 +373,7 @@ function createBaskets () {
 
   return Promise.all(
     baskets.map(basket => {
-      models.Basket.create(basket).catch((err) => {
+      return models.Basket.create(basket).catch((err) => {
         logger.error(`Could not insert Basket for UserId ${basket.UserId}: ${err.message}`)
       })
     })
@@ -426,7 +426,7 @@ function createBasketItems () {
 
   return Promise.all(
     basketItems.map(basketItem => {
-      models.BasketItem.create(basketItem).catch((err) => {
+      return models.BasketItem.create(basketItem).catch((err) => {
         logger.error(`Could not insert BasketItem for BasketId ${basketItem.BasketId}: ${err.message}`)
       })
     })
@@ -682,7 +682,7 @@ function createPurchaseQuantity () {
 
   return Promise.all(
     orderedQuantitys.map(orderedQuantity => {
-      models.PurchaseQuantity.create(orderedQuantity).catch((err) => {
+      return models.PurchaseQuantity.create(orderedQuantity).catch((err) => {
         logger.error(`Could not insert ordered quantity: ${err.message}`)
       })
     })
