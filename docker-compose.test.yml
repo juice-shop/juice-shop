@@ -2,7 +2,7 @@ version: "3.3"
 services:
   sut:
     build: ./test/smoke/
-    links:
+    links: sky
       - app
   app:
     image: bkimminich/juice-shop:latest-amd64
