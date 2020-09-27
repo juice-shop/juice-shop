@@ -291,7 +291,7 @@
   "PRINT_ORDER_CONFIRMATION": "Print Order Confirmation",
   "DIGITAL_WALLET": "數位錢包",
   "LABEL_ADD_MONEY": "Add Money",
-  "LABEL_WALLET_BALANCE": "Wallet Balance",
+  "LABEL_WALLET_BALANCE": "錢包總額",
   "MANDATORY_AMOUNT": "Please enter an amount",
   "LABEL_AMOUNT": "Amount",
   "AMOUNT_LIMIT": "You can add a minimum of 10¤ and only up to 1000¤.",
