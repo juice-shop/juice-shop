@@ -169,7 +169,7 @@ function createAddresses (UserId, addresses) {
 }
 
 function createCards (UserId, cards) {
-  cards.map((card) => {
+  return Promise.all(cards.map((card) => {
     return models.Card.create({
       UserId: UserId,
       fullName: card.fullName,
@@ -179,7 +179,7 @@ function createCards (UserId, cards) {
     }).catch((err) => {
       logger.error(`Could not create card: ${err.message}`)
     })
-  })
+  }))
 }
 
 function deleteUser (userId) {
@@ -226,15 +226,15 @@ function createQuantity () {
 }
 
 function createMemories () {
-  const memories = [models.Memory.create({
-    imagePath: 'assets/public/images/uploads/😼-#zatschi-#whoneedsfourlegs-1572600969477.jpg',
-    caption: '😼 #zatschi #whoneedsfourlegs',
-    UserId: datacache.users.bjoernOwasp.id
-  }).catch((err) => {
-    logger.error(`Could not create memory: ${err.message}`)
-  })]
-  Array.prototype.push.apply(memories, Promise.all(
-    utils.thaw(config.get('memories')).map((memory) => {
+  const memories = [
+    models.Memory.create({
+      imagePath: 'assets/public/images/uploads/😼-#zatschi-#whoneedsfourlegs-1572600969477.jpg',
+      caption: '😼 #zatschi #whoneedsfourlegs',
+      UserId: datacache.users.bjoernOwasp.id
+    }).catch((err) => {
+      logger.error(`Could not create memory: ${err.message}`)
+    }),
+    ...utils.thaw(config.get('memories')).map((memory) => {
       let tmpImageFileName = memory.image
       if (utils.startsWith(memory.image, 'http')) {
         const imageUrl = memory.image
@@ -257,8 +257,9 @@ function createMemories () {
         logger.error(`Could not create memory: ${err.message}`)
       })
     })
-  ))
-  return memories
+  ]
+
+  return Promise.all(memories)
 }
 
 function createProducts () {
@@ -285,19 +286,19 @@ function createProducts () {
   })
 
   // add Challenge specific information
-  const chrismasChallengeProduct = products.find(({ useForChristmasSpecialChallenge }) => useForChristmasSpecialChallenge)
+  const christmasChallengeProduct = products.find(({ useForChristmasSpecialChallenge }) => useForChristmasSpecialChallenge)
   const pastebinLeakChallengeProduct = products.find(({ keywordsForPastebinDataLeakChallenge }) => keywordsForPastebinDataLeakChallenge)
   const tamperingChallengeProduct = products.find(({ urlForProductTamperingChallenge }) => urlForProductTamperingChallenge)
-  const blueprintRetrivalChallengeProduct = products.find(({ fileForRetrieveBlueprintChallenge }) => fileForRetrieveBlueprintChallenge)
+  const blueprintRetrievalChallengeProduct = products.find(({ fileForRetrieveBlueprintChallenge }) => fileForRetrieveBlueprintChallenge)
 
-  chrismasChallengeProduct.description += ' (Seasonal special offer! Limited availability!)'
-  chrismasChallengeProduct.deletedAt = '2014-12-27 00:00:00.000 +00:00'
+  christmasChallengeProduct.description += ' (Seasonal special offer! Limited availability!)'
+  christmasChallengeProduct.deletedAt = '2014-12-27 00:00:00.000 +00:00'
   tamperingChallengeProduct.description += ' <a href="' + tamperingChallengeProduct.urlForProductTamperingChallenge + '" target="_blank">More...</a>'
   tamperingChallengeProduct.deletedAt = null
   pastebinLeakChallengeProduct.description += ' (This product is unsafe! We plan to remove it from the stock!)'
   pastebinLeakChallengeProduct.deletedAt = '2019-02-1 00:00:00.000 +00:00'
 
-  let blueprint = blueprintRetrivalChallengeProduct.fileForRetrieveBlueprintChallenge
+  let blueprint = blueprintRetrievalChallengeProduct.fileForRetrieveBlueprintChallenge
   if (utils.startsWith(blueprint, 'http')) {
     const blueprintUrl = blueprint
     blueprint = utils.extractFilename(blueprint)
@@ -372,7 +373,7 @@ function createBaskets () {
 
   return Promise.all(
     baskets.map(basket => {
-      models.Basket.create(basket).catch((err) => {
+      return models.Basket.create(basket).catch((err) => {
         logger.error(`Could not insert Basket for UserId ${basket.UserId}: ${err.message}`)
       })
     })
@@ -425,7 +426,7 @@ function createBasketItems () {
 
   return Promise.all(
     basketItems.map(basketItem => {
-      models.BasketItem.create(basketItem).catch((err) => {
+      return models.BasketItem.create(basketItem).catch((err) => {
         logger.error(`Could not insert BasketItem for BasketId ${basketItem.BasketId}: ${err.message}`)
       })
     })
@@ -681,7 +682,7 @@ function createPurchaseQuantity () {
 
   return Promise.all(
     orderedQuantitys.map(orderedQuantity => {
-      models.PurchaseQuantity.create(orderedQuantity).catch((err) => {
+      return models.PurchaseQuantity.create(orderedQuantity).catch((err) => {
         logger.error(`Could not insert ordered quantity: ${err.message}`)
       })
     })

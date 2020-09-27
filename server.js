@@ -584,7 +584,7 @@ exports.start = async function (readyCallback) {
 
   server.listen(port, () => {
     logger.info(colors.cyan(`Server listening on port ${colors.bold(port)}`))
-    startupGauge.set({ task: 'total' }, (Date.now() - startTime) / 1000)
+    startupGauge.set({ task: 'ready' }, (Date.now() - startTime) / 1000)
     if (process.env.BASE_PATH !== '') {
       logger.info(colors.cyan(`Server using proxy base path ${colors.bold(process.env.BASE_PATH)} for redirects`))
     }
@@ -594,8 +594,8 @@ exports.start = async function (readyCallback) {
     }
   })
 
-  require('./lib/startup/customizeApplication')()
-  require('./lib/startup/customizeEasterEgg')()
+  collectDurationPromise('customizeApplication', require('./lib/startup/customizeApplication'))()
+  collectDurationPromise('customizeEasterEgg', require('./lib/startup/customizeEasterEgg'))()
 }
 
 exports.close = function (exitCode) {
