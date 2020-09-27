@@ -236,7 +236,7 @@
   "MANDATORY_NAME": "請提供姓名",
   "MANDATORY_NUMBER": "請提供行動電話號碼",
   "MANDATORY_ZIP": "請提供郵遞區號",
-  "MANDATORY_CITY": "Please provide a city.",
+  "MANDATORY_CITY": "請提供城市",
   "INVALID_MOBILE_NUMBER": "Mobile number must match {{range}} format.",
   "UNAUTHORIZED_ACCESS_ERROR": "Please login to view this page.",
   "SEARCH_PROCESSING": "Searching for products",
