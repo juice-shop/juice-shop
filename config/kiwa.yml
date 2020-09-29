@@ -9,10 +9,17 @@ application:
   theme: bluegrey-lightgreen # Options: bluegrey-lightgreen blue-lightblue deeppurple-amber indigo-pink pink-bluegrey purple-green deeporange-indigo
   showVersionNumber: true
   showGitHubLinks: false
+  localBackupEnabled: true
   numberOfRandomFakeUsers: 0
   altcoinName: Kiwacoin
   privacyContactEmail: donotreply@owasp-juice.shop
   customMetricsPrefix: kiwashop
+  chatBot:
+    name: 'Bert'
+    greeting: "Nice to meet you <customer-name>, I'm <bot-name>"
+    trainingData: 'botDefaultTrainingData.json'
+    defaultResponse: "Sorry I couldn't understand what you were trying to say"
+    avatar: 'JuicyChatBot.png'
   social:
     twitterUrl: 'https://twitter.com/owasp_juiceshop'
     facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
@@ -33,8 +40,8 @@ application:
     buttonColor: '#558b2f'
     buttonTextColor: '#ffffff'
     message: 'This website uses cookies to ensure you get the most extreme tracking experience. By using this website you agree to paint your wall purple.'
-    dismissText: 'I agree but have not read it'
-    linkText: 'Will not allow you to opt out'
+    dismissText: 'I agree but have not read the cookie message.'
+    linkText: 'The Kiwa Cookie policy *not serious*'
     linkUrl: 'https://www.youtube.com/watch?v=9PnbKL3wuH4'
   securityTxt:
     contact: 'mailto:donotreply@owasp-juice.shop'
@@ -67,6 +74,7 @@ application:
 challenges:
   showSolvedNotifications: true
   showHints: true
+  showMitigations: true
   restrictToTutorialsFirst: false
   overwriteUrlForProductTamperingChallenge: 'https://owasp.slack.com'
   xssBonusPayload: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
@@ -393,6 +401,16 @@ memories:
     image: 'my-rare-collectors-item!-[̲̅$̲̅(̲̅-͡°-͜ʖ-͡°̲̅)̲̅$̲̅]-1572603645543.jpg'
     caption: 'My rare collectors item! [̲̅$̲̅(̲̅ ͡° ͜ʖ ͡°̲̅)̲̅$̲̅]'
     user: bjoernGoogle
+  -
+    image: 'favorite-hiking-place.png' 
+    caption: 'I love going hiking here...'
+    geoStalkingMetaSecurityQuestion: 14
+    geoStalkingMetaSecurityAnswer: 'Daniel Boone National Forest'
+  -
+    image: 'IMG_4253.jpg'
+    caption: 'My old workplace...'
+    geoStalkingVisualSecurityQuestion: 10
+    geoStalkingVisualSecurityAnswer: 'ITsec'
 ctf:
   showFlagsInNotifications: false
   showCountryDetailsInNotifications: none # Options: none  name  flag  both

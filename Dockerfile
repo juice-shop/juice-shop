@@ -26,15 +26,6 @@ RUN addgroup juicer && \
     adduser -D -G juicer juicer
 COPY --from=installer --chown=juicer /juice-shop .
 
-USER root
-RUN apk update
-RUN apk add ca-certificates 
-RUN rm -rf /var/cache/apk/*
-
-COPY wildcard.crt /usr/local/share/ca-certificates/wildcard.crt
-RUN echo wildcard.crt >> /etc/ca-certificates.conf
-RUN update-ca-certificates --fresh
-
 RUN mkdir logs && \
     chown -R juicer logs && \
     chgrp -R 0 ftp/ frontend/dist/ logs/ data/ i18n/ && \
