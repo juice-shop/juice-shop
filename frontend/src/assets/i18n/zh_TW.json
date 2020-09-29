@@ -99,7 +99,7 @@
   "ENTER_CAPTCHA": "輸入CAPTCHA",
   "TITLE_COMPLAIN": "File Complaint",
   "MANDATORY_MESSAGE": "Please provide a text.",
-  "INVALID_MESSAGE_LENGTH": "Text length must be {{length}} characters.",
+  "INVALID_MESSAGE_LENGTH": "文字長度應為{{length}}個字",
   "INVALID_FILE_SIZE": "File too large. Maximum {{size}} allowed.",
   "INVALID_FILE_TYPE": "Forbidden file type. Only {{type}} allowed.",
   "LABEL_CUSTOMER": "顧客",
