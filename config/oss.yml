@@ -11,6 +11,9 @@ application:
     dismissText: "I've been there live, so thanks!"
     linkText: 'I want to watch that!'
     linkUrl: 'https://youtu.be/WtY712DdlR8?t=413'
+  chatBot:
+    name: 'Dinis'
+    avatar: 'https://pbs.twimg.com/profile_images/552850030105591808/x3i7zK5r_400x400.jpeg'
   social:
     twitterUrl: 'https://twitter.com/opensecsummit'
     facebookUrl: ~
@@ -109,3 +112,13 @@ memories:
     image: 'https://user-images.githubusercontent.com/15072044/41010154-be17a162-692d-11e8-84f8-3cb855ae473d.jpg'
     caption: 'Security'
     user: admin
+  -
+    image: 'favorite-hiking-place.png'
+    caption: 'I love going hiking here...'
+    geoStalkingMetaSecurityQuestion: 14
+    geoStalkingMetaSecurityAnswer: 'Daniel Boone National Forest'
+  -
+    image: 'IMG_4253.jpg'
+    caption: 'My old workplace...'
+    geoStalkingVisualSecurityQuestion: 10
+    geoStalkingVisualSecurityAnswer: 'ITsec'

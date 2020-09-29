@@ -37,5 +37,6 @@
   { "key": "tr_TR", "icons": ["tr"], "shortKey": "TR", "lang": "Türkçe" },
   { "key": "ur_PK", "icons": ["pk"], "shortKey": "UR", "lang": "اردو" },
   { "key": "zh_CN", "icons": ["cn"], "shortKey": "CN", "lang": "中国" },
-  { "key": "zh_HK", "icons": ["hk"], "shortKey": "HK", "lang": "繁體中文" }
+  { "key": "zh_HK", "icons": ["hk"], "shortKey": "HK", "lang": "繁體中文" },
+  { "key": "zh_TW", "icons": ["tw"], "shortKey": "TW", "lang": "繁體中文" }
 ]

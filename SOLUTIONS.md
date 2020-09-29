@@ -59,6 +59,10 @@ Shop easier to hack!
   * [★★★ Upload Size](https://youtu.be/5pcAPUihhWA)
   * [★★★ Upload Type](https://youtu.be/4FPyMdyVt2s)
   * [★★★★ Access Log (Sensitive Data Exposure)](https://youtu.be/RBTfGk-ZwnY)
+  * [★★★★ Ephemeral Accountant (SQL-Injection)](https://youtu.be/rD-_fRDHf9o)
+  * [★★★★ Expired Coupon (Improper Input Validation)](https://youtu.be/4cWTUdTvTZg)
+  * [★★★★ Forgotten Developer Backup (Sensitive Data Exposure)](https://youtu.be/YvkuVZ6r2Rg)
+  * [★★★★ Forgotten Sales Backup (Sensitive Data Exposure)](https://youtu.be/5g4WRASni6g)
 * Live Hacking von Online-Shop „Juice Shop” (:de:)
   [Twitch live stream](https://www.twitch.tv/GregorBiswanger) recordings
   by
@@ -70,6 +74,9 @@ Shop easier to hack!
 * [HackerOne #h1-2004 Community Day: Intro to Web Hacking - OWASP Juice Shop](https://youtu.be/KmlwIwG7Kv4)
   by [Nahamsec](https://twitch.tv/nahamsec) including the creation of a
   (fake) bugbounty report for all findings (🧃`v10.x`)
+* [TryHackme - JuiceShop Walkthrough](https://youtu.be/3yYNvRVlKmo) by
+  [Profesor Parno](https://www.youtube.com/channel/UCcBThq4OKjox_kfPkG1BF0Q)
+  (🧃`v8.x`, 🇮🇩)
 * [OWASP Juice Shop All Challenges Solved || ETHIKERS](https://youtu.be/Fjdhf6OHgRk)
   full-spoiler, time-lapsed, no-commentary hacking trip (🧃`v8.x`)
 * [Hacking JavaScript - Intro to Hacking Web Apps (Episode 3)](https://youtu.be/ejB1i5n_d7o)

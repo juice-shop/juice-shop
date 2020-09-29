@@ -24,6 +24,7 @@ interface Config {
     theme: string
     showVersionNumber: boolean
     showGitHubLinks: boolean
+    localBackupEnabled: boolean
     numberOfRandomFakeUsers: number
     altcoinName: string
     privacyContactEmail: string
@@ -75,6 +76,7 @@ interface Config {
   challenges: {
     showSolvedNotifications: boolean
     showHints: boolean
+    showMitigations: boolean
     restrictToTutorialsFirst: boolean
     safetyOverride: boolean
     overwriteUrlForProductTamperingChallenge: string
