@@ -74,6 +74,7 @@ mat-card {
   overflow: hidden;
   position: absolute;
   width: 150px;
+  pointer-events: none;
 }
 
 .ribbon::before {

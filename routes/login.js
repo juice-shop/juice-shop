@@ -13,7 +13,7 @@ const config = require('config')
 module.exports = function login () {
   function afterLogin (user, res, next) {
     verifyPostLoginChallenges(user)
-    models.Basket.findOrCreate({ where: { userId: user.data.id }, defaults: {} })
+    models.Basket.findOrCreate({ where: { UserId: user.data.id }, defaults: {} })
       .then(([basket]) => {
         const token = insecurity.authorize(user)
         user.bid = basket.id // keep track of original basket for challenge solution check
