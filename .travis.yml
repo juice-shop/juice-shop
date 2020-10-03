@@ -45,8 +45,6 @@ deploy:
       tags: true
     edge: true
 jobs:
-  allow_failures:
-    - arch: arm64
   include:
     - stage: lint
       if: tag IS blank
