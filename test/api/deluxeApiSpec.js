@@ -8,6 +8,22 @@ const config = require('config')
 
 const jsonHeader = { 'content-type': 'application/json' }
 const REST_URL = 'http://localhost:3000/rest'
+const API_URL = 'http://localhost:3000/api'
+
+async function login ({ email, password, totpSecret }) {
+  const loginRes = await frisby
+    .post(REST_URL + '/user/login', {
+      email,
+      password
+    }).catch((res) => {
+      if (res.json && res.json.type && res.json.status === 'totp_token_required') {
+        return res
+      }
+      throw new Error(`Failed to login '${email}'`)
+    })
+
+  return loginRes.json.authentication
+}
 
 describe('/rest/deluxe-membership', () => {
   it('GET deluxe membership status for customers', () => {
@@ -82,25 +98,44 @@ describe('/rest/deluxe-membership', () => {
       })
   })
 
-  it('POST upgrade deluxe membership status for customers', () => {
-    return frisby.post(REST_URL + '/user/login', {
-      headers: jsonHeader,
-      body: {
-        email: 'bender@' + config.get('application.domain'),
-        password: 'OhG0dPlease1nsertLiquor!'
-      }
+  it('POST upgrade deluxe membership status for customers', async () => {
+    const { token } = await login({
+      email: 'bender@' + config.get('application.domain'),
+      password: 'OhG0dPlease1nsertLiquor!'
+    })
+
+    frisby.get(API_URL + '/Cards', {
+      headers: { Authorization: 'Bearer ' + token, 'content-type': 'application/json' }
     })
       .expect('status', 200)
-      .then(({ json: jsonLogin }) => {
+      .then(({ json }) => {
         return frisby.post(REST_URL + '/deluxe-membership', {
-          headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
+          headers: { Authorization: 'Bearer ' + token, 'content-type': 'application/json' },
           body: {
-            paymentMode: 'card'
+            paymentMode: 'card',
+            paymentId: json.data[0].id.toString()
           }
         })
           .expect('status', 200)
-          .expect('json', 'data', { confirmation: 'Congratulations! You are now a deluxe member!' })
+          .expect('json', 'status', 'success')
       })
+  })
+
+  it('POST deluxe membership status with wrong card id throws error', async () => {
+    const { token } = await login({
+      email: 'jim@' + config.get('application.domain'),
+      password: 'ncc-1701'
+    })
+
+    frisby.post(REST_URL + '/deluxe-membership', {
+      headers: { Authorization: 'Bearer ' + token, 'content-type': 'application/json' },
+      body: {
+        paymentMode: 'card',
+        paymentId: 1337
+      }
+    })
+      .expect('status', 400)
+      .expect('json', 'error', 'Invalid Card')
   })
 
   it('POST deluxe membership status for deluxe members throws error', () => {
@@ -116,7 +151,7 @@ describe('/rest/deluxe-membership', () => {
         return frisby.post(REST_URL + '/deluxe-membership', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
           body: {
-            paymentMode: 'card'
+            paymentMode: 'wallet'
           }
         })
           .expect('status', 400)
@@ -137,7 +172,7 @@ describe('/rest/deluxe-membership', () => {
         return frisby.post(REST_URL + '/deluxe-membership', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
           body: {
-            paymentMode: 'card'
+            paymentMode: 'wallet'
           }
         })
           .expect('status', 400)
@@ -158,7 +193,7 @@ describe('/rest/deluxe-membership', () => {
         return frisby.post(REST_URL + '/deluxe-membership', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
           body: {
-            paymentMode: 'card'
+            paymentMode: 'wallet'
           }
         })
           .expect('status', 400)

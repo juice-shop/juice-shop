@@ -111,6 +111,12 @@
   }
 }
 
+@mixin overlay-theme($theme) {
+  .overlay {
+    background: mat-color(map-get($theme, primary), darker, .7);
+  }
+}
+
 @mixin custom-components-theme($theme) {
   @include link-theme($theme);
   @include notification-theme($theme);
@@ -119,6 +125,7 @@
   @include snackbar($theme);
   @include google-button($theme);
   @include deluxe-membership-theme($theme);
+  @include overlay-theme($theme);
 }
 
 $bg-hacking-instructor: rgba(0, 0, 0, .3);

@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "12.0.0",
+  "version": "12.1.1-SNAPSHOT",
   "private": true,
   "description": "Probably the most modern and sophisticated insecure web application",
   "keywords": [
@@ -34,21 +34,21 @@
     "Jannik Hollenbach",
     "Aashish683",
     "greenkeeper[bot]",
-    "agrawalarpit14",
     "MarcRler",
+    "agrawalarpit14",
+    "Scar26",
     "CaptainFreak",
     "Supratik Das",
-    "Scar26",
+    "JuiceShopBot",
     "aaryan10",
     "m4l1c3",
     "Timo Pagel",
     "Josh Grossman",
-    "Mohit Sharma",
-    "JuiceShopBot",
     "JamesCullum",
     "omerlh",
     "Martin Rock-Evans",
     "Alejandro Saenz",
+    "Justin Smid",
     "Marc O'Polo"
   ],
   "scripts": {

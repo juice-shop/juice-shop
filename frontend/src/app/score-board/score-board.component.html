@@ -46,7 +46,7 @@
         <i class="fa-2x fas fa-trophy" aria-hidden="true"></i> {{"BTN_SHOW_SOLVED" | translate}}
       </mat-button-toggle>
 
-      <mat-button-toggle id="btnToggleShowOnlyTutorialChallenges" (change)="toggleShowOnlyTutorialChallenges()"
+      <mat-button-toggle id="btnToggleShowOnlyTutorialChallenges" *ngIf="showHackingInstructor" (change)="toggleShowOnlyTutorialChallenges()"
                          [checked]="showOnlyTutorialChallenges" [disabled]="restrictToTutorialsFirst && !allTutorialsCompleted"
                          [matTooltip]="restrictToTutorialsFirst && !allTutorialsCompleted ? ('INFO_FULL_CHALLENGE_MODE' | translate: {num: challenges.length}) : ''" matTooltipPosition="above">
         <mat-icon>
