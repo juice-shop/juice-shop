@@ -66,7 +66,7 @@ export class OrderSummaryComponent implements OnInit {
       this.basketService.updateNumberOfCardItems()
       this.ngZone.run(() => this.router.navigate(['/order-completion', orderConfirmationId]))
     }, (err) => {
-      console.log(err);
+      console.log(err)
       this.snackBarHelperService.open(err.error?.error.message, 'errorBar')
     })
   }
