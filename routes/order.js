@@ -129,9 +129,15 @@ module.exports = function placeOrder () {
 
           if (req.body.UserId) {
             if (req.body.orderDetails.paymentId === 'wallet') {
-              models.Wallet.decrement({ balance: totalPrice }, { where: { UserId: req.body.UserId } }).catch(error => {
-                next(error)
-              })
+              const wallet = await models.Wallet.findOne({ where: { UserId: req.body.UserId } })
+              if(wallet.balance >= totalPrice) {
+                models.Wallet.decrement({ balance: totalPrice }, { where: { UserId: req.body.UserIdz } }).catch(error => {
+                  next(error)
+                })
+              }
+              else {
+                next(new Error(`Insufficient Wallet Balance.`))
+              }
             }
             models.Wallet.increment({ balance: totalPoints }, { where: { UserId: req.body.UserId } }).catch(error => {
               next(error)
