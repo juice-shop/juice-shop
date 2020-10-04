@@ -192,9 +192,9 @@ export class PaymentComponent implements OnInit {
       }, (err) => console.log(err))
     } else {
       if (this.paymentMode === 'wallet') {
-        if(this.walletBalance <= 0 || this.walletBalance < this.totalPrice) {
+        if (this.walletBalance <= 0 || this.walletBalance < this.totalPrice) {
           this.snackBarHelperService.open('INSUFFICIENT_WALLET_BALANCE_ERROR', 'errorBar')
-          return;
+          return
         }
         sessionStorage.setItem('paymentId', 'wallet')
       } else {
