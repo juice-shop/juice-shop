@@ -597,7 +597,7 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Injection_Prevention_Cheat_Sheet.html'
   key: noSqlReviewsChallenge
 -
-  name: 'Outdated Whitelist'
+  name: 'Outdated Allowlist'
   category: 'Unvalidated Redirects'
   tags:
     - Code Analysis
@@ -951,13 +951,13 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html'
   key: weirdCryptoChallenge
 -
-  name: 'Whitelist Bypass'
+  name: 'Allowlist Bypass'
   category: 'Unvalidated Redirects'
   tags:
     - Prerequisite
   description: 'Enforce a redirect to a page you are not supposed to redirect to.'
   difficulty: 4
-  hint: 'You have to find a way to beat the whitelist of allowed redirect URLs.'
+  hint: 'You have to find a way to beat the allowlist of allowed redirect URLs.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/unvalidated-redirects.html#enforce-a-redirect-to-a-page-you-are-not-supposed-to-redirect-to'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html'
   key: redirectChallenge

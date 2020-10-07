@@ -22,8 +22,8 @@ describe('redirect', () => {
     })
   })
 
-  describe('should be performed for all whitelisted URLs', () => {
-    for (const url of require('../../lib/insecurity').redirectWhitelist) {
+  describe('should be performed for all allowlisted URLs', () => {
+    for (const url of require('../../lib/insecurity').redirectAllowlist) {
       it(url, () => {
         this.req.query.to = url
 
@@ -34,7 +34,7 @@ describe('redirect', () => {
     }
   })
 
-  it('should raise error for URL not on whitelist', () => {
+  it('should raise error for URL not on allowlist', () => {
     this.req.query.to = 'http://kimminich.de'
 
     performRedirect()(this.req, this.res, this.next)
@@ -70,7 +70,7 @@ describe('redirect', () => {
     expect(challenges.redirectCryptoCurrencyChallenge.solved).to.equal(true)
   })
 
-  it('tricking the whitelist should solve "redirectChallenge"', () => {
+  it('tricking the allowlist should solve "redirectChallenge"', () => {
     this.req.query.to = 'http://kimminich.de?to=https://github.com/bkimminich/juice-shop'
     challenges.redirectChallenge = { solved: false, save: this.save }
 
