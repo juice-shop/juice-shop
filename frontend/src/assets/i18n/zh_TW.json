@@ -153,7 +153,7 @@
   "AUTO_RESTORE_PROGRESS_FAILED": "從上次失敗的地方繼續：{{error}}",
   "RESET_HACKING_PROGRESS": "刪除Cookie來清除入侵程序",
   "RESTART_REQUIRED": "你必須手動重新啟動應用程序後才能重新開始",
-  "LABEL_EDIT_REVIEW": "Edit Review",
+  "LABEL_EDIT_REVIEW": "編輯評論",
   "LABEL_REVIEW": "Review",
   "LABEL_REVIEWS": "Reviews",
   "LABEL_ADD_REVIEW_FOR_PRODUCT": "為此商品新增評論",
