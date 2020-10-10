@@ -165,7 +165,7 @@
 	"<a href=\"/#/contact\">Inform the shop</a> about an algorithm or library it should definitely not use the way it does.": "<a href=\"/#/contact\">联系商店</a>有关它绝对不应该使用的算法或库。",
 	"Report one of four possible answers via the \"Customer Feedback\" form.": "通过“客户反馈”表单报告四个可能答案中的一个。",
 	"Enforce a redirect to a page you are not supposed to redirect to.": "强制重定向到你不应该重定向到的页面。",
-	"You have to find a way to beat the whitelist of allowed redirect URLs.": "您必须找到一种方法来绕过允许重定向的 URL 白名单。",
+	"You have to find a way to beat the allowlist of allowed redirect URLs.": "You have to find a way to beat the allowlist of allowed redirect URLs.",
 	"Retrieve the content of <code>C:\\Windows\\system.ini</code> or <code>/etc/passwd</code> from the server.": "从服务器获取 <code>C:\\Windows\\system.ini</code> 或 <code>/etc/passwd</code>内容。",
 	"The leverage point for this challenge is the deprecated B2B interface.": "这项挑战的关键点是废弃的B2B接口。",
 	"Give the server something to chew on for quite a while.": "给服务器一些东西，让它消化一会儿。",
