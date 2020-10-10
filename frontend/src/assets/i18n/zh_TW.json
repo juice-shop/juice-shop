@@ -362,7 +362,7 @@
   "TAG_PREREQUISITE": "先決條件",
   "TAG_PREREQUISITE_DESCRIPTION": "標示有需完成前置要求(挑戰)的挑戰",
   "TAG_OSINT": "OSINT",
-  "TAG_OSINT_DESCRIPTION": "Marks challenges which require some Internet research or \"social stalking\" actvitiy outside the application.",
+  "TAG_OSINT_DESCRIPTION": "標記一些挑戰是需要在應用程式外進行Internet搜尋或是進行“社會跟蹤”活動\n",
   "TAG_CONTRAPTION": "Contraption",
   "TAG_CONTRAPTION_DESCRIPTION": "Indicates that a challenge is not exactly part of a realistic scenario but might be a bit forced or crafted.",
   "TAG_SHENANIGANS": "Shenanigans",
