@@ -137,7 +137,7 @@
   "MANDATORY_ADDRESS": "請提供一個地址",
   "MANDATORY_QUANTITY": "請提供數量",
   "IN_LITERS_PLACEHOLDER": "...in liters",
-  "REQUEST_PICKUP": "Please pickup at above address instead of sending a recycle box.",
+  "REQUEST_PICKUP": "請在上述地址取貨，不要送回收箱",
   "LABEL_PICKUP_DATE": "收件日期",
   "SECTION_RECYCLING": "Recycling Requests",
   "LABEL_ADDRESS": "地址",
