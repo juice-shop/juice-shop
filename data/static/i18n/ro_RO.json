@@ -165,7 +165,7 @@
 	"<a href=\"/#/contact\">Inform the shop</a> about an algorithm or library it should definitely not use the way it does.": "<a href=\"/#/contact\">Informează magazinul</a> despre un algoritm sau o bibliotecă pe care cu siguranță nu ar trebui să o folosească în modul în care o folosește.",
 	"Report one of four possible answers via the \"Customer Feedback\" form.": "Raportează unul dintre cele patru răspunsuri posibile prin intermediul formularului \"Feedback-ul clienţilor\".",
 	"Enforce a redirect to a page you are not supposed to redirect to.": "Impune o redirecționare către o pagină la care nu trebuie să redirectionezi.",
-	"You have to find a way to beat the whitelist of allowed redirect URLs.": "Trebuie să găsiți o modalitate de a bate lista albă a URL-urilor permise de redirecționare.",
+	"You have to find a way to beat the allowlist of allowed redirect URLs.": "You have to find a way to beat the allowlist of allowed redirect URLs.",
 	"Retrieve the content of <code>C:\\Windows\\system.ini</code> or <code>/etc/passwd</code> from the server.": "Recuperează conținutul <code>C:\\Windows\\system.ini</code> sau <code>/etc/passwd</code> de pe server.",
 	"The leverage point for this challenge is the deprecated B2B interface.": "Punctul relevant pentru această provocare este învechita interfață B2B.",
 	"Give the server something to chew on for quite a while.": "Dă serverului ceva ce să \"mestece\" ceva pentru o vreme.",
