@@ -140,7 +140,7 @@
 	"Behave like any \"white-hat\" should before getting into the action.": "Gedraag je als een \"white-hat\" voordat je in actie komt.",
 	"Undoubtably you want to read our security policy before conducting any research on our application.": "Je zal ongetwijfeld ons veiligheidsbeleid willen lezen voordat je de applicatie zal gaan onderzoeken.",
 	"Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> bypassing a <i>server-side</i> security mechanism.": "Voer een <i>persistente</i> XSS aanval met <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> uit zonder gebruik te maken van de backend applicatie.",
-	"The \"Comment\" field in the \"Customer Feedback\" screen is where you want to put your focus on.": "The \"Comment\" field in the \"Customer Feedback\" screen is where you want to put your focus on.",
+	"The \"Comment\" field in the \"Customer Feedback\" screen is where you want to put your focus on.": "Het veld \"Commentaar\" in het scherm \"Klant Feedback\" is waar je je focus op wilt hebben.",
 	"<a href=\"/#/contact\">Rat out</a> a notorious character hiding in plain sight in the shop. (Mention the exact name of the character)": "<a href=\"/#/contact\">Rat out</a> a notorious character hiding in plain sight in the shop. (Mention the exact name of the character)",
 	"No matter how good your eyes are, you will need tool assistance for this challenge.": "No matter how good your eyes are, you will need tool assistance for this challenge.",
 	"Perform a Remote Code Execution that occupies the server for a while without using infinite loops.": "Perform a Remote Code Execution that occupies the server for a while without using infinite loops.",
