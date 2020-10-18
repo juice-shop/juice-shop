@@ -98,7 +98,7 @@
   "LABEL_CAPTCHA": "驗證碼",
   "ENTER_CAPTCHA": "輸入CAPTCHA",
   "TITLE_COMPLAIN": "進行申訴",
-  "MANDATORY_MESSAGE": "Please provide a text.",
+  "MANDATORY_MESSAGE": "請提供內容。",
   "INVALID_MESSAGE_LENGTH": "文字長度應為{{length}}個字",
   "INVALID_FILE_SIZE": "檔案過大，上限為{{size}}。",
   "INVALID_FILE_TYPE": "禁止的檔案類型。只允許{{type}}。",
@@ -404,6 +404,6 @@
   "CATEGORY_UNVALIDATED_REDIRECTS_DESCRIPTION": "Web應用程序經常將用戶重導並轉向到其他頁面和網站，並使用未受信任的資料來確定目標頁面。缺乏合適的驗證，攻擊者就可以將受害者重新導向到釣魚網頁或惡意軟體網站，或者使用重導來存取未經授權的頁面。",
   "CATEGORY_VULNERABLE_COMPONENTS_DESCRIPTION": "函式庫、框架及軟體模組等各式元件具有與應用程式相同的執行權限。當一個元件的弱點遭利用，可能會造成資料毀損或主機入侵。應用程式與應用程式介面共用有已知弱點之元件會破壞應用程式安全並增加受攻擊影響之機會",
   "CATEGORY_XSS_DESCRIPTION": "XSS弱點發生在應用程式包含了未被信任的資料，在新的網頁中未進行合適的驗證或是\n編碼，或是更新一個既有網頁的情況使用到使用者提供的資料透過瀏覽器API來建立HTML或JavaScript\n。XSS允許攻擊者在受害者的瀏覽器中執行Script，這些Script可以劫持使用者Session，置換網頁或是重新導向使用者至惡意網站。",
-  "CATEGORY_XXE_DESCRIPTION": "Many older or poorly configured XML processors evaluate external entity references within XML documents. External entities can be used to disclose internal files using the file URI handler, internal file shares, internal port scanning, remote code execution, and denial of service attacks.",
+  "CATEGORY_XXE_DESCRIPTION": "許多較舊的或設定不當的XML處理器都會評估XML文檔中的外部實體引用。\n外部實體可以使用file URL handler，內部文件分享，內部port掃描，遠程程式執行和拒絕服務攻擊來洩漏內部文件。",
   "INSUFFICIENT_WALLET_BALANCE": "餘額不足。"
 }
