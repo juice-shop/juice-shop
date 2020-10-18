@@ -403,7 +403,7 @@
   "CATEGORY_SENSITIVE_DATA_EXPOSURE_DESCRIPTION": "許多Web應用程序和API無法正確的保護敏感資料，例如金融，醫療保健和PII。攻擊者可能會竊取或竄改這些受保護程度不高的資料，以進行信用卡欺詐，身分盜用或其他犯罪。敏感資料可能會在沒有額外保護的情況下受到竊取，例如靜態的資料加密或傳輸中資料加密，並且與瀏覽器進行資料交換時需要採取特殊的預防措施。",
   "CATEGORY_UNVALIDATED_REDIRECTS_DESCRIPTION": "Web應用程序經常將用戶重導並轉向到其他頁面和網站，並使用未受信任的資料來確定目標頁面。缺乏合適的驗證，攻擊者就可以將受害者重新導向到釣魚網頁或惡意軟體網站，或者使用重導來存取未經授權的頁面。",
   "CATEGORY_VULNERABLE_COMPONENTS_DESCRIPTION": "函式庫、框架及軟體模組等各式元件具有與應用程式相同的執行權限。當一個元件的弱點遭利用，可能會造成資料毀損或主機入侵。應用程式與應用程式介面共用有已知弱點之元件會破壞應用程式安全並增加受攻擊影響之機會",
-  "CATEGORY_XSS_DESCRIPTION": "Cross-Site Scripting (XSS) flaws occur whenever an application includes untrusted data in a new web page without proper validation or escaping, or updates an existing web page with user-supplied data using a browser API that can create HTML or JavaScript. XSS allows attackers to execute scripts in the victim’s browser which can hijack user sessions, deface web sites, or redirect the user to malicious sites.",
+  "CATEGORY_XSS_DESCRIPTION": "XSS弱點發生在應用程式包含了未被信任的資料，在新的網頁中未進行合適的驗證或是\n編碼，或是更新一個既有網頁的情況使用到使用者提供的資料透過瀏覽器API來建立HTML或JavaScript\n。XSS允許攻擊者在受害者的瀏覽器中執行Script，這些Script可以劫持使用者Session，置換網頁或是重新導向使用者至惡意網站。",
   "CATEGORY_XXE_DESCRIPTION": "Many older or poorly configured XML processors evaluate external entity references within XML documents. External entities can be used to disclose internal files using the file URI handler, internal file shares, internal port scanning, remote code execution, and denial of service attacks.",
   "INSUFFICIENT_WALLET_BALANCE": "餘額不足。"
 }
