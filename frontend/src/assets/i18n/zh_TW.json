@@ -114,7 +114,7 @@
   "STATUS_UNSOLVED": "尚未解決",
   "STATUS_SOLVED": "已解決",
   "STATUS_UNAVAILABLE": "無法使用",
-  "CALL_FOR_CONTRIBUTIONS": "Got an idea for a new challenge? Found a vulnerability that is not tracked here? Let us know via <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> community chat or by opening a <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a> issue!",
+  "CALL_FOR_CONTRIBUTIONS": "想到新挑戰嗎?找到沒有紀錄的新弱點嗎?在<a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'>Gitter.im</a>社群討論或新增一個<a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'>GitHub</a>議題。",
   "CALL_FOR_FEEDBACK": "請回答<a href='{{questionnaire}}'><i class='fas fa-poll-h'></i>問卷</a>，改善{{appname}}並為您提供更好的服務",
   "CHALLENGE_SOLVED": "您成功地解決一個挑戰：{{challenge}}",
   "INVALID_CONTINUE_CODE": "無效的延續代碼",
