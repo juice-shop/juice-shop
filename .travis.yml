@@ -11,7 +11,6 @@ node_js:
   - 14
   - 12
   - 10
-  - 15
 cache:
   directories:
     - node_modules
