@@ -65,7 +65,7 @@
 	"Log in with Chris' erased user account.": "使用Chris的已刪除使用者帳戶登入。",
 	"Turns out that something is technically and legally wrong with the implementation of the \"right to be forgotten\" for users.": "結果發現，實施使用者“被遺忘的權利”在技術上和法律上都是錯誤的。",
 	"Steal someone else's personal data without using Injection.": "不使用 Injection方法來竊取某人的個人資料。",
-	"Trick the regular Data Export to give you more than actually belongs to you.": "Trick the regular Data Export to give you more than actually belongs to you.",
+	"Trick the regular Data Export to give you more than actually belongs to you.": "欺騙正規的資料輸出功能，來獲取遠超於所屬於你的東西。",
 	"Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> through an HTTP header.": "Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> through an HTTP header.",
 	"Finding a piece of displayed information that could originate from an HTTP header is part of this challenge.": "Finding a piece of displayed information that could originate from an HTTP header is part of this challenge.",
 	"Solve challenge #999. Unfortunately, this challenge does not exist.": "Solve challenge #999. Unfortunately, this challenge does not exist.",
