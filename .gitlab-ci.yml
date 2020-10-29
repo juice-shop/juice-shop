@@ -21,3 +21,4 @@ sonarcloud-check:
     - merge_requests
     - master
     - develop
+    - newBranch
