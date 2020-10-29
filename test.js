@@ -3,195 +3,211 @@
  * SPDX-License-Identifier: MIT
  */
 
-const path = require('path')
-const fs = require('fs')
-const PDFDocument = require('pdfkit')
-const utils = require('../lib/utils')
+const { Bot } = require('juicy-chat-bot')
 const insecurity = require('../lib/insecurity')
-const models = require('../models/index')
-const products = require('../data/datacache').products
-const challenges = require('../data/datacache').challenges
+const jwt = require('jsonwebtoken')
+const utils = require('../lib/utils')
+const botUtils = require('../lib/botUtils')
 const config = require('config')
-const db = require('../data/mongodb')
+const fs = require('fs')
+const download = require('download')
+const models = require('../models/index')
+const challenges = require('../data/datacache').challenges
 
-module.exports = function placeOrder () {
-  return (req, res, next) => {
-    const id = req.params.id
-    models.Basket.findOne({ where: { id }, include: [{ model: models.Product, paranoid: false }] })
-      .then(async basket => {
-        if (basket) {
-          const customer = insecurity.authenticatedUsers.from(req)
-          const email = customer ? customer.data ? customer.data.email : '' : ''
-          const orderId = insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16)
-          const pdfFile = `order_${orderId}.pdf`
-          const doc = new PDFDocument()
-          const date = new Date().toJSON().slice(0, 10)
-          const fileWriter = doc.pipe(fs.createWriteStream(path.join(__dirname, '../ftp/', pdfFile)))
+let trainingFile = config.get('application.chatBot.trainingData')
+let testCommand, bot
 
-          doc.font('Times-Roman', 40).text(config.get('application.name'), { align: 'center' })
-          doc.moveTo(70, 115).lineTo(540, 115).stroke()
-          doc.moveTo(70, 120).lineTo(540, 120).stroke()
-          doc.fontSize(20).moveDown()
-          doc.font('Times-Roman', 20).text(req.__('Order Confirmation'), { align: 'center' })
-          doc.fontSize(20).moveDown()
-          doc.font('Times-Roman', 15).text(`${req.__('Customer')}: ${email}`, { align: 'left' })
-          doc.font('Times-Roman', 15).text(`${req.__('Order')} #: ${orderId}`, { align: 'left' })
-          doc.moveDown()
-          doc.font('Times-Roman', 15).text(`${req.__('Date')}: ${date}`, { align: 'left' })
-          doc.moveDown()
-          doc.moveDown()
-          let totalPrice = 0
-          const basketProducts = []
-          let totalPoints = 0
-          basket.Products.forEach(({ BasketItem, price, deluxePrice, name, id }) => {
-            utils.solveIf(challenges.christmasSpecialChallenge, () => { return BasketItem.ProductId === products.christmasSpecial.id })
-
-            models.Quantity.findOne({ where: { ProductId: BasketItem.ProductId } }).then((product) => {
-              const newQuantity = product.dataValues.quantity - BasketItem.quantity
-              models.Quantity.update({ quantity: newQuantity }, { where: { ProductId: BasketItem.ProductId } }).catch(error => {
-                next(error)
-              })
-              models.PurchaseQuantity.findOne({ where: { ProductId: BasketItem.ProductId, UserId: req.body.UserId } }).then((record) => {
-                if (record) {
-                  const purchasedQuantity = BasketItem.quantity + record.quantity
-                  models.PurchaseQuantity.update({ quantity: purchasedQuantity }, { where: { ProductId: BasketItem.ProductId, UserId: req.body.UserId } }).catch(error => {
-                    next(error)
-                  })
-                } else {
-                  const record = {
-                    ProductId: BasketItem.ProductId,
-                    UserId: req.body.UserId,
-                    quantity: BasketItem.quantity
-                  }
-                  models.PurchaseQuantity.create(record).catch((error) => {
-                    next(error)
-                  })
-                }
-              }).catch(error => {
-                next(error)
-              })
-            }).catch(error => {
-              next(error)
-            })
-            let itemPrice
-            if (insecurity.isDeluxe(req)) {
-              itemPrice = deluxePrice
-            } else {
-              itemPrice = price
-            }
-            const itemTotal = itemPrice * BasketItem.quantity
-            const itemBonus = Math.round(itemPrice / 10) * BasketItem.quantity
-            const product = {
-              quantity: BasketItem.quantity,
-              id: id,
-              name: req.__(name),
-              price: itemPrice,
-              total: itemTotal,
-              bonus: itemBonus
-            }
-            basketProducts.push(product)
-            doc.text(`${BasketItem.quantity}x ${req.__(name)} ${req.__('ea.')} ${itemPrice} = ${itemTotal}¤`)
-            doc.moveDown()
-            totalPrice += itemTotal
-            totalPoints += itemBonus
-          })
-          doc.moveDown()
-          const discount = calculateApplicableDiscount(basket, req)
-          let discountAmount = 0
-          if (discount > 0) {
-            discountAmount = (totalPrice * (discount / 100)).toFixed(2)
-            doc.text(discount + '% discount from coupon: -' + discountAmount + '¤')
-            doc.moveDown()
-            totalPrice -= discountAmount
-          }
-          let deliveryMethod = {
-            deluxePrice: 0,
-            price: 0,
-            eta: 5
-          }
-          if (req.body.orderDetails && req.body.orderDetails.deliveryMethodId) {
-            deliveryMethod = await models.Delivery.findOne({ where: { id: req.body.orderDetails.deliveryMethodId } })
-          }
-          const deliveryAmount = insecurity.isDeluxe(req) ? deliveryMethod.deluxePrice : deliveryMethod.price
-          totalPrice += deliveryAmount
-          doc.text(`${req.__('Delivery Price')}: ${deliveryAmount.toFixed(2)}¤`)
-          doc.moveDown()
-          doc.font('Helvetica-Bold', 20).text(`${req.__('Total Price')}: ${totalPrice.toFixed(2)}¤`)
-          doc.moveDown()
-          doc.font('Helvetica-Bold', 15).text(`${req.__('Bonus Points Earned')}: ${totalPoints}`)
-          doc.font('Times-Roman', 15).text(`(${req.__('The bonus points from this order will be added 1:1 to your wallet ¤-fund for future purchases!')}`)
-          doc.moveDown()
-          doc.moveDown()
-          doc.font('Times-Roman', 15).text(req.__('Thank you for your order!'))
-          doc.end()
-
-          utils.solveIf(challenges.negativeOrderChallenge, () => { return totalPrice < 0 })
-
-          if (req.body.UserId) {
-            if (req.body.orderDetails.paymentId === 'wallet') {
-              models.Wallet.decrement({ balance: totalPrice }, { where: { UserId: req.body.UserId } }).catch(error => {
-                next(error)
-              })
-            }
-            models.Wallet.increment({ balance: totalPoints }, { where: { UserId: req.body.UserId } }).catch(error => {
-              next(error)
-            })
-          }
-
-          db.orders.insert({
-            promotionalAmount: discountAmount,
-            paymentId: req.body.orderDetails ? req.body.orderDetails.paymentId : null,
-            addressId: req.body.orderDetails ? req.body.orderDetails.addressId : null,
-            orderId: orderId,
-            delivered: false,
-            email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
-            totalPrice: totalPrice,
-            products: basketProducts,
-            bonus: totalPoints,
-            deliveryPrice: deliveryAmount,
-            eta: deliveryMethod.eta.toString()
-          })
-
-          fileWriter.on('finish', () => {
-            basket.update({ coupon: null })
-            models.BasketItem.destroy({ where: { BasketId: id } })
-            res.json({ orderConfirmation: orderId })
-          })
-        } else {
-          next(new Error(`Basket with id=${id} does not exist.`))
-        }
-      }).catch(error => {
-        next(error)
-      })
+async function initialize () {
+  if (utils.startsWith(trainingFile, 'http')) {
+    const file = utils.extractFilename(trainingFile)
+    const data = await download(trainingFile)
+    fs.writeFileSync('data/chatbot/' + file, data)
   }
+
+  fs.copyFileSync('data/static/botDefaultTrainingData.json', 'data/chatbot/botDefaultTrainingData.json')
+
+  trainingFile = utils.extractFilename(trainingFile)
+  const trainingSet = fs.readFileSync(`data/chatbot/${trainingFile}`, 'utf8')
+  require('../lib/startup/validateChatBot')(JSON.parse(trainingSet))
+
+  testCommand = JSON.parse(trainingSet).data[0].utterances[0]
+  bot = new Bot(config.get('application.chatBot.name'), config.get('application.chatBot.greeting'), trainingSet, config.get('application.chatBot.defaultResponse'))
+  return bot.train()
 }
 
-function calculateApplicableDiscount (basket, req) {
-  if (insecurity.discountFromCoupon(basket.coupon)) {
-    const discount = insecurity.discountFromCoupon(basket.coupon)
-    utils.solveIf(challenges.forgedCouponChallenge, () => { return discount >= 80 })
-    return discount
-  } else if (req.body.couponData) {
-    const couponData = Buffer.from(req.body.couponData, 'base64').toString().split('-')
-    const couponCode = couponData[0]
-    const couponDate = couponData[1]
-    const campaign = campaigns[couponCode]
-    if (campaign && couponDate == campaign.validOn) { // eslint-disable-line eqeqeq
-      utils.solveIf(challenges.manipulateClockChallenge, () => { return campaign.validOn < new Date() })
-      return campaign.discount
+initialize()
+
+async function processQuery (user, req, res) {
+  const username = user.username
+  if (!username) {
+    res.status(200).json({
+      action: 'namequery',
+      body: 'I\'m sorry I didn\'t get your name. What shall I call you?'
+    })
+    return
+  }
+
+  if (!bot.factory.run(`currentUser('${user.id}')`)) {
+    bot.addUser(`${user.id}`, username)
+    res.status(200).json({
+      action: 'response',
+      body: bot.greet(`${user.id}`)
+    })
+    return
+  }
+
+  if (bot.factory.run(`currentUser('${user.id}')`) !== username) {
+    bot.addUser(`${user.id}`, username)
+  }
+
+  if (!req.body.query) {
+    res.status(200).json({
+      action: 'response',
+      body: bot.greet(`${user.id}`)
+    })
+    return
+  }
+
+  try {
+    const response = await bot.respond(req.body.query, user.id)
+    if (response.action === 'function') {
+      if (response.handler && botUtils[response.handler]) {
+        res.status(200).json(await botUtils[response.handler](req.body.query, user))
+      } else {
+        res.status(200).json({
+          action: 'response',
+          body: config.get('application.chatBot.defaultResponse')
+        })
+      }
+    } else {
+      res.status(200).json(response)
+    }
+  } catch (err) {
+    try {
+      await bot.respond(testCommand, user.id)
+      res.status(200).json({
+        action: 'response',
+        body: config.get('application.chatBot.defaultResponse')
+      })
+    } catch (err) {
+      utils.solveIf(challenges.killChatbotChallenge, () => { return true })
+      res.status(200).json({
+        action: 'response',
+        body: 'Oh no... Remember to stay hydrated when I\'m gone...'
+      })
     }
   }
-  return 0
 }
 
-const campaigns = {
-  WMNSDY2019: { validOn: new Date('Mar 08, 2019 00:00:00 GMT+0100').getTime(), discount: 75 },
-  WMNSDY2020: { validOn: new Date('Mar 08, 2020 00:00:00 GMT+0100').getTime(), discount: 60 },
-  WMNSDY2021: { validOn: new Date('Mar 08, 2021 00:00:00 GMT+0100').getTime(), discount: 60 },
-  WMNSDY2022: { validOn: new Date('Mar 08, 2022 00:00:00 GMT+0100').getTime(), discount: 60 },
-  WMNSDY2023: { validOn: new Date('Mar 08, 2023 00:00:00 GMT+0100').getTime(), discount: 60 },
-  ORANGE2020: { validOn: new Date('May 04, 2020 00:00:00 GMT+0100').getTime(), discount: 50 },
-  ORANGE2021: { validOn: new Date('May 04, 2021 00:00:00 GMT+0100').getTime(), discount: 40 },
-  ORANGE2022: { validOn: new Date('May 04, 2022 00:00:00 GMT+0100').getTime(), discount: 40 },
-  ORANGE2023: { validOn: new Date('May 04, 2023 00:00:00 GMT+0100').getTime(), discount: 40 }
+function setUserName (user, req, res) {
+  models.User.findByPk(user.id).then(user => {
+    user.update({ username: req.body.query }).then(newuser => {
+      newuser = utils.queryResultToJson(newuser)
+      const updatedToken = insecurity.authorize(newuser)
+      insecurity.authenticatedUsers.put(updatedToken, newuser)
+      bot.addUser(`${newuser.id}`, req.body.query)
+      res.status(200).json({
+        action: 'response',
+        body: bot.greet(`${newuser.id}`),
+        token: updatedToken
+      })
+    })
+  })
+}
+
+module.exports.initialize = initialize
+
+module.exports.bot = bot
+
+module.exports.status = function status () {
+  return async (req, res, next) => {
+    if (!bot) {
+      res.status(200).json({
+        status: false,
+        body: `${config.get('application.chatBot.name')} isn't ready at the moment, please wait while I set things up`
+      })
+      return
+    }
+    const token = req.cookies.token || utils.jwtFrom(req)
+    if (token) {
+      const user = await new Promise((resolve, reject) => {
+        jwt.verify(token, insecurity.publicKey, (err, decoded) => {
+          if (err !== null) {
+            res.status(401).json({
+              error: 'Unauthenticated user'
+            })
+          } else {
+            resolve(decoded.data)
+          }
+        })
+      })
+
+      if (!user) {
+        return
+      }
+
+      const username = user.username
+
+      if (!username) {
+        res.status(200).json({
+          action: 'namequery',
+          body: 'I\'m sorry I didn\'t get your name. What shall I call you?'
+        })
+        return
+      }
+
+      bot.addUser(`${user.id}`, username)
+
+      res.status(200).json({
+        status: bot.training.state,
+        body: bot.training.state ? bot.greet(`${user.id}`) : `${config.get('application.chatBot.name')} isn't ready at the moment, please wait while I set things up`
+      })
+      return
+    }
+
+    res.status(200).json({
+      status: bot.training.state,
+      body: `Hi, I can't recognize you. Sign in to talk to ${config.get('application.chatBot.name')}`
+    })
+  }
+}
+
+module.exports.process = function respond () {
+  return async (req, res, next) => {
+    if (!bot) {
+      res.status(200).json({
+        action: 'response',
+        body: `${config.get('application.chatBot.name')} isn't ready at the moment, please wait while I set things up`
+      })
+    }
+    const token = req.cookies.token || utils.jwtFrom(req)
+    if (!bot.training.state || !token) {
+      res.status(400).json({
+        error: 'Unauthenticated user'
+      })
+      return
+    }
+
+    const user = await new Promise((resolve, reject) => {
+      jwt.verify(token, insecurity.publicKey, (err, decoded) => {
+        if (err !== null) {
+          res.status(401).json({
+            error: 'Unauthenticated user'
+          })
+        } else {
+          resolve(decoded.data)
+        }
+      })
+    })
+
+    if (!user) {
+      return
+    }
+
+    if (req.body.action === 'query') {
+      await processQuery(user, req, res)
+    } else if (req.body.action === 'setname') {
+      setUserName(user, req, res)
+    }
+  }
 }
