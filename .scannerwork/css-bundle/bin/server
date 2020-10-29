@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+/*
+* This script expects following arguments
+*
+* port - port number on which server should listen
+* host - host address on which server should listen
+*/
+
+const server = require("../lib/src/server");
+
+const port = process.argv[2];
+const host = process.argv[3];
+
+server.start(port, host);

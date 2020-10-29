@@ -1,0 +1,11 @@
+{
+  "name": "run-node-bundle",
+  "version": "1.0.0",
+  "description": "Small nested project to provide run-node",
+  "main": "index.js",
+  "author": "",
+  "license": "LGPL-3.0",
+  "dependencies": {
+    "run-node": "1.0.0"
+  }
+}

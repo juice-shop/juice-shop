@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  zap:
+    image: owasp/zap2docker-stable
+    command: zap.sh -daemon -port 8090 -host 0.0.0.0
+    privileged: true
+    user: root
+    ports:
+      - 8090:8090
+    container_name: zap
+  juice:
+    build: .
+    ports:
+      - "3000:3000"
