@@ -1,2 +1,9 @@
 random = 10
 console.log(random + 20)
+random = 10
+random = 10
+random = 10
+random = 10
+random = 10
+random = 10
+random = 10
