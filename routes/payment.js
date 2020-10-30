@@ -19,8 +19,10 @@ module.exports.getPaymentMethods = function getPaymentMethods () {
 module.exports.getPaymentMethodById = function getPaymentMethodById () {
   return async (req, res, next) => {
     const card = await models.Card.findOne({ where: { id: req.params.id, UserId: req.body.UserId } })
-    const cardNumber = String(card.cardNum)
-    card.cardNum = '*'.repeat(12) + cardNumber.substring(cardNumber.length - 4)
+    if (card) {
+      const cardNumber = String(card.cardNum)
+      card.cardNum = '*'.repeat(12) + cardNumber.substring(cardNumber.length - 4)
+    }
     if (card) {
       res.status(200).json({ status: 'success', data: card })
     } else {
