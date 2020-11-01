@@ -150,7 +150,7 @@
 	"The 2FA implementation requires to store a secret for every user. You will need to find a way to access this secret in order to solve this challenge.": "The 2FA implementation requires to store a secret for every user. You will need to find a way to access this secret in order to solve this challenge.",
 	"Forge an essentially unsigned JWT token that impersonates the (non-existing) user <i>jwtn3d@juice-sh.op</i>.": "Forge an essentially unsigned JWT token that impersonates the (non-existing) user <i>jwtn3d@juice-sh.op</i>.",
 	"This challenge exploits a weird option that is supported when signing tokens with JWT.": "This challenge exploits a weird option that is supported when signing tokens with JWT.",
-	"Upload a file larger than 100 kB.": "Upload a file larger than 100 kB.",
+	"Upload a file larger than 100 kB.": "上船一個超過100kB的檔案",
 	"You can attach a small file to the \"Complaint\" form. Investigate how this upload actually works.": "You can attach a small file to the \"Complaint\" form. Investigate how this upload actually works.",
 	"Upload a file that has no .pdf or .zip extension.": "Upload a file that has no .pdf or .zip extension.",
 	"You can attach a PDF or ZIP file to the \"Complaint\" form. Investigate how this upload actually works.": "You can attach a PDF or ZIP file to the \"Complaint\" form. Investigate how this upload actually works.",
