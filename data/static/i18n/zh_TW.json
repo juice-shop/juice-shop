@@ -121,7 +121,7 @@
 	"Look for one of the following: a) broken admin functionality, b) holes in RESTful API or c) possibility for SQL Injection.": "查找以下內容之一：a）不良的管理功能，b）RESTful API中的漏洞或 c）SQL注入的可能性。",
 	"Perform a <i>reflected</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code>.": "進行<i>反射性的</i>XSS攻擊透過<code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code>",
 	"Look for an input field where its content appears in the response HTML when its form is submitted.": "當表單送出後，尋找一個輸入區域的內容會顯示在HTML的回應中。",
-	"Follow the DRY principle while registering a user.": "Follow the DRY principle while registering a user.",
+	"Follow the DRY principle while registering a user.": "註冊帳號時請遵循DRY原則。",
 	"You can solve this by cleverly interacting with the UI or bypassing it altogether.": "You can solve this by cleverly interacting with the UI or bypassing it altogether.",
 	"Reset Bender's password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.": "Reset Bender's password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.",
 	"Not as trivial as Jim's but still not too difficult with some \"Futurama\" background knowledge.": "Not as trivial as Jim's but still not too difficult with some \"Futurama\" background knowledge.",
