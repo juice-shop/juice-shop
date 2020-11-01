@@ -155,7 +155,7 @@
 	"Upload a file that has no .pdf or .zip extension.": "上傳一個非PDF或ZIP格式之檔案",
 	"You can attach a PDF or ZIP file to the \"Complaint\" form. Investigate how this upload actually works.": "You can attach a PDF or ZIP file to the \"Complaint\" form. Investigate how this upload actually works.",
 	"Retrieve a list of all user credentials via SQL Injection.": "利用SQL注入以獲取全部使用者憑證之清單",
-	"Gather information on where user data is stored and how it is addressed. Then craft a corresponding UNION SELECT attack.": "Gather information on where user data is stored and how it is addressed. Then craft a corresponding UNION SELECT attack.",
+	"Gather information on where user data is stored and how it is addressed. Then craft a corresponding UNION SELECT attack.": "收集使用者資料儲存路徑及表示方式之資訊，再做出一個對應的UNION SELECT攻擊",
 	"Embed an XSS payload <code>&lt;/script&gt;&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> into our promo video.": "Embed an XSS payload <code>&lt;/script&gt;&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> into our promo video.",
 	"You have to reuse the vulnerability behind one other 6-star challenge to be able to solve this one.": "You have to reuse the vulnerability behind one other 6-star challenge to be able to solve this one.",
 	"View another user's shopping basket.": "View another user's shopping basket.",
