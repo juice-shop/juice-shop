@@ -26,7 +26,7 @@ Shop easier to hack!
   * [★ DOM XSS](https://youtu.be/BuVxyBo05F8)
   * [★ Error Handling](https://youtu.be/WGafQnjSMk4)
   * [★ Missing Encoding](https://youtu.be/W7Bt2AmYtao)
-  * [★ Outdated Whitelist](https://youtu.be/TEdZAXuTfpk)
+  * [★ Outdated Allowlist](https://youtu.be/TEdZAXuTfpk)
   * [★ Privacy Policy](https://youtu.be/f5tM_4vBq-w)
   * [★ Repetitive Registration](https://youtu.be/mHjYOtKGYQM)
   * [★★ Login Admin](https://youtu.be/LuU1fSuc7Gg)
