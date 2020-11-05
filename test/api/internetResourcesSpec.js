@@ -14,7 +14,7 @@ describe('Required Internet resource', () => {
         .expect('bodyContains', 'this coupled with Eurogium Edule was sometimes found fatal')
     })
 
-    it('for 7MS configuration (https://pastebin.com/8SMbWPxc)', () => {
+    xit('for 7MS configuration (https://pastebin.com/8SMbWPxc)', () => { // FIXME Test would need to confirm/bypass PasteBin SMART filter to retrieve content
       return frisby.get('https://pastebin.com/8SMbWPxc')
         .expect('status', 200)
         .expect('bodyContains', 'TAYLOR SWIFT')
@@ -31,7 +31,7 @@ describe('Required Internet resource', () => {
         .expect('bodyContains', 'Note to self: Option (1) and (3) of the above should not be combined.')
     })
 
-    it('for Mozilla configuration (https://pastebin.com/t8jqE1y7)', () => {
+    xit('for Mozilla configuration (https://pastebin.com/t8jqE1y7)', () => { // FIXME Test would need to confirm/bypass PasteBin SMART filter to retrieve content
       return frisby.get('https://pastebin.com/t8jqE1y7')
         .expect('status', 200)
         .expect('bodyContains', 'Fixed a bug that, when this plugin was installed together with both the')

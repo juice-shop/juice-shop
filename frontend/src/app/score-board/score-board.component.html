@@ -103,13 +103,13 @@
     <mat-table *ngIf="challenges" [dataSource]="filterToDataSource(challenges)" [trackBy]="trackById">
 
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-sm translate>LABEL_NAME</mat-header-cell>
-        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-sm> {{challenge.name}}</mat-cell>
+        <mat-header-cell *matHeaderCellDef translate>LABEL_NAME</mat-header-cell>
+        <mat-cell *matCellDef="let challenge"> {{challenge.name}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="difficulty">
-        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md translate>LABEL_DIFFICULTY</mat-header-cell>
-        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-md>
+        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-sm translate>LABEL_DIFFICULTY</mat-header-cell>
+        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-sm>
           <mat-icon *ngFor="let i of times(challenge.difficulty)">
             star_rate
           </mat-icon>
@@ -117,16 +117,16 @@
       </ng-container>
 
       <ng-container matColumnDef="description">
-        <mat-header-cell *matHeaderCellDef fxFlex="1 1 50%" translate>LABEL_DESCRIPTION
+        <mat-header-cell *matHeaderCellDef fxFlex="1 1 38%" translate>LABEL_DESCRIPTION
         </mat-header-cell>
-        <mat-cell *matCellDef="let challenge" fxFlex="1 1 50%">
+        <mat-cell *matCellDef="let challenge" fxFlex="1 1 38%">
           <div [innerHTML]="challenge.description"></div>
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="category">
-        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-lg translate>LABEL_CATEGORY</mat-header-cell>
-        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-lg>
+        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md translate>LABEL_CATEGORY</mat-header-cell>
+        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-md>
           {{('CATEGORY_' + challenge.category?.toUpperCase().split(' ').join('_') | translate)}}
         </mat-cell>
       </ng-container>

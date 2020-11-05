@@ -13,20 +13,20 @@ describe('/redirect', () => {
   })
 
   describe('challenge "redirect"', () => {
-    it('should redirect to target URL if whitelisted URL is contained in it as parameter', () => {
+    it('should redirect to target URL if allowlisted URL is contained in it as parameter', () => {
       browser.driver.get(browser.baseUrl + '/redirect?to=https://owasp.org?trickIndexOf=https://github.com/bkimminich/juice-shop').then(() => {
         expect(browser.driver.getCurrentUrl()).toMatch(/https:\/\/owasp\.org/)
       })
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Whitelist Bypass' })
+    protractor.expect.challengeSolved({ challenge: 'Allowlist Bypass' })
   })
 
   describe('challenge "redirectCryptoCurrency"', () => {
-    it('should still redirect to forgotten entry https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6 on whitelist', () => {
+    it('should still redirect to forgotten entry https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6 on allowlist', () => {
       browser.driver.get(browser.baseUrl + '/redirect?to=https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6')
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Outdated Whitelist' })
+    protractor.expect.challengeSolved({ challenge: 'Outdated Allowlist' })
   })
 })

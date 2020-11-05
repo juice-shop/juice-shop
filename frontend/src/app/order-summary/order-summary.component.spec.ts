@@ -124,7 +124,7 @@ describe('OrderSummaryComponent', () => {
 
   it('should hold card on ngOnInit when paymentId is initialized to an id', () => {
     sessionStorage.setItem('paymentId', '1')
-    paymentService.getById.and.returnValue(of({ cardNum: '1234123412341234' }))
+    paymentService.getById.and.returnValue(of({ cardNum: '************1234' }))
     component.ngOnInit()
     expect(component.paymentMethod).toEqual({ cardNum: '1234' })
   })
