@@ -30,8 +30,8 @@ OWASP Juice Shop is probably the most modern and sophisticated insecure
 web application! It can be used in security trainings, awareness demos,
 CTFs and as a guinea pig for security tools! Juice Shop encompasses
 vulnerabilities from the entire
-[OWASP Top Ten](https://owasp.org/www-project-top-ten) along
-with many other security flaws found in real-world applications!
+[OWASP Top Ten](https://owasp.org/www-project-top-ten) along with many
+other security flaws found in real-world applications!
 
 ![Juice Shop Screenshot Slideshow](screenshots/slideshow.gif)
 
@@ -220,6 +220,7 @@ accordingly.
 
 | node.js | Supported            | Tested             | [Packaged Distributions](#packaged-distributions)      | [Docker images](#docker-container) from `master` | [Docker images](#docker-container) from `develop` |
 |:--------|:---------------------|:-------------------|:-------------------------------------------------------|:-------------------------------------------------|:--------------------------------------------------|
+| 15.x    | :x:                  | :x:                |                                                        |                                                  |                                                   |
 | 14.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`, `arm64`) |                                                  |                                                   |
 | 13.x    | (:heavy_check_mark:) | :x:                |                                                        |                                                  |                                                   |
 | 12.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`, `arm64`) | `latest` (`linux/amd64`, `linux/arm`)            | `snapshot` (`linux/amd64`)                        |
