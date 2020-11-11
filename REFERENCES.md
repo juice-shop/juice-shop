@@ -25,6 +25,9 @@ where this project was mentioned or used!
 
 ### Pod- & Webcasts
 
+* [Learn Web App Security Penetration Testing with Juice Shop \[Free\]](https://youtu.be/ShUTDUYEMWA)
+  by
+  [Gerald Auger - Simply Cyber](https://www.youtube.com/channel/UCG-48Ki-b6W_siaUkukJOSw)
 * [Web security for web developers with Zaproxy by Simon Bennetts](https://youtu.be/54UV2_JwcIY)
   with
   [Eddie Jaoude](https://www.youtube.com/channel/UC5mnBodB73bR88fLXHSfzYA)
