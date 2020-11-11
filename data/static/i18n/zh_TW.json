@@ -287,7 +287,7 @@
 	" <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>": " <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>",
 	" <em>(This challenge is <strong>potentially harmful</strong> on Heroku!)</em>": " <em>(This challenge is <strong>potentially harmful</strong> on Heroku!)</em>",
 	"Find the endpoint that serves usage data to be scraped by a <a href=\"https://github.com/prometheus/prometheus\">popular monitoring system</a>.": "尋找提供由<a href=\"https://github.com/prometheus/prometheus\">熱門監控系統</a>分析所得使用資料之端點",
-	"Try to guess what URL the endpoint might have.": "Try to guess what URL the endpoint might have.",
+	"Try to guess what URL the endpoint might have.": "猜測端點的URL為何",
 	"Look for a url parameter where its value appears in the page it is leading to.": "Look for a url parameter where its value appears in the page it is leading to.",
 	"Change the name of a user by performing Cross-Site Request Forgery from <a href=\"http://htmledit.squarefree.com\">another origin</a>.": "Change the name of a user by performing Cross-Site Request Forgery from <a href=\"http://htmledit.squarefree.com\">another origin</a>.",
 	"Find a form which updates the username and then construct a malicious page in the online HTML editor.": "Find a form which updates the username and then construct a malicious page in the online HTML editor.",
