@@ -11,10 +11,11 @@ const insecurity = require('../lib/insecurity')
 module.exports = function productReviews () {
   return (req, res, next) => {
     const user = insecurity.authenticatedUsers.from(req)
+    let stringId = typeof(req.body.id) === "string" ? req.body.id : "";
     db.reviews.update(
-      { _id: req.body.id },
+      { _id: stringId }, // from jwt?
       { $set: { message: req.body.message } },
-      { multi: true }
+      { multi: false }// { multi: true }
     ).then(
       result => {
         utils.solveIf(challenges.noSqlReviewsChallenge, () => { return result.modified > 1 })
