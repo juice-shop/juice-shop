@@ -13,7 +13,7 @@ module.exports = function productReviews () {
     const user = insecurity.authenticatedUsers.from(req)
     let stringId = typeof(req.body.id) === "string" ? req.body.id : "";
     db.reviews.update(
-      { _id: stringId }, // from jwt?
+      { _id: stringId },
       { $set: { message: req.body.message } },
       { multi: false }// { multi: true }
     ).then(
@@ -22,7 +22,7 @@ module.exports = function productReviews () {
         utils.solveIf(challenges.forgedReviewChallenge, () => { return user && user.data && result.original[0].author !== user.data.email && result.modified === 1 })
         res.json(result)
       }, err => {
-        res.status(500).json(err)
+        res.status(500).json(err )
       })
   }
 }
