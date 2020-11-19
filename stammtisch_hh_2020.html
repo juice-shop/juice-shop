@@ -112,7 +112,7 @@
 
 				<section>
 					<h2>Mitigation Links</h2>
-					<p>Many solved challenges link to a corresponding OWASP Cheat Sheet</p>
+					<p>Many solved challenges link to a corresponding <a href="https://cheatsheetseries.owasp.org/" target="_blank">OWASP Cheat Sheet</a></p>
 					<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/mitigation_links.png"/>
 				</section>
 
@@ -123,15 +123,46 @@
 				</section>
 
 				<section>
-					<h3>Geo Stalking Challenges</h3>
-					<h1>🚧</h1>
+					<h3>New Challenges</h3>
+					<p>Between release 9.x and 12.x several challenges have been added</p>
+					<ul>
+						<li>Bully Chatbot (⭐)</li>
+						<li>Exposed Metrics (⭐)</li>
+						<li>Missing Encoding (⭐)</li>
+						<li>Meta Geo Stalking (⭐⭐)</li>
+						<li>Visual Geo Stalking (⭐⭐)</li>
+						<li>Database Schema (⭐⭐⭐)</li>
+						<li>Ephemeral Accountant (⭐⭐⭐⭐)</li>
+						<li>Poison Null Byte (⭐⭐⭐⭐)</li>
+						<li>Reset Uvogin's Password (⭐⭐⭐⭐)</li>
+						<li>Kill Chatbot (⭐⭐⭐⭐⭐)</li>
+					</ul>
 				</section>
 
 				<section>
 					<h2>Local Backup</h2>
 					<p>Save and later restore your hacking progress as well as language, Score Board filters, banner dismissal to a <code>JSON</code> file</p>
-					<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/manual_backup.png" height="230"/>
-					<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/local_backup_file.png" height="230"/>
+					<div class="twocolumn">
+						<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/manual_backup.png" height="200"/>
+						<pre><code>
+{
+  "version": 1,
+  "scoreBoard": {
+	"displayedDifficulties": [ 1, 2 ],
+	"displayedChallengeCategories": [
+	  "Broken Access Control",
+	  "Broken Anti Automation"
+	]
+  },
+  "banners": {
+	"welcomeBannerStatus": "dismiss",
+	"cookieConsentStatus": "dismiss"
+  },
+  "language": "de_DE",
+  "continueCode": "rzJBXpa...bm457LX4v7o"
+}
+						</code></pre>
+					</div>
 				</section>
 
 				<section>
@@ -152,17 +183,35 @@
 
 				<section>
 					<h3>Solution Webhook</h3>
-					<h1>🚧</h1>
-				</section>
-
-				<section>
-					<h3>Prometheus Monitoring</h3>
-					<h1>🚧</h1>
+					<p>Sends a payload to a specified URL whenever a challenge is solved</p>
+					<pre><code>
+{
+  "solution": {
+    "challenge": "localXssChallenge",
+    "evidence": null,
+    "issuedOn": "2020-05-26T22:03:20.059Z"
+  },
+  "ctfFlag": "b0d70dce6cadadb85882ea498fac6785dba2349b",
+  "issuer": {
+    "hostName": "Traviss-Mac-6.local",
+    "os": "Darwin (17.7.0)",
+    "appName": "OWASP Juice Shop",
+    "config": "default",
+    "version": "11.2.0"
+  }
+}
+					</code></pre>
+					<p><small>
+						🚧 Early adopters include <a href="https://github.com/iteratec/multi-juicer" target="_blank">MultiJuicer</a> for a central Score Board across multiple instances and
+						<a href="https://owasp.org/www-project-security-knowledge-framework/" target="_blank">OWASP SKF</a> for recognizing a successful solve of a Juice Shop lab launched from within their platform.
+					</small></p>
 				</section>
 
 				<section>
 					<h3>Grafana Dashboard</h3>
-					<h1>🚧</h1>
+					<p><code>JSON</code> template allows to import a dashboard into Grafana consuming and displaying all metrics gathered via Prometheus</p>
+					<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/appendix/img/grafana_01.png" height="200"/>
+					<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/appendix/img/grafana_02.png" height="200"/>
 				</section>
 
 				<section>
