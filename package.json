@@ -66,6 +66,7 @@
     "serve": "concurrently --kill-others \"node app\" \"cd frontend && ng serve\"",
     "start": "node app",
     "test": "cd frontend && ng test --watch=false --source-map=true && cd .. && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
+    "test:server": "nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
     "test:chromium": "cd frontend && ng test --watch=false --source-map=false --browsers=ChromiumHeadless && cd .. && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
     "vagrant": "cd vagrant && vagrant up"
   },
@@ -165,6 +166,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
     "cross-spawn": "^7.0.3",
     "frisby": "^2.1.2",
     "grunt-cli": "^1.3.2",
