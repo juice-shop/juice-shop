@@ -186,10 +186,10 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
               this.productService.get(updatedBasketItem.ProductId).subscribe((product) => {
                 this.translateService.get('BASKET_ADD_SAME_PRODUCT', { product: product.name }).subscribe((basketAddSameProduct) => {
                   this.snackBarHelperService.open(basketAddSameProduct,'confirmBar')
-                  this.basketService.updateNumberOfCardItems()
+                  this.basketService.updateNumberOfCartItems()
                 }, (translationId) => {
                   this.snackBarHelperService.open(translationId,'confirmBar')
-                  this.basketService.updateNumberOfCardItems()
+                  this.basketService.updateNumberOfCartItems()
                 })
               }, (err) => console.log(err))
             },(err) => {
@@ -205,10 +205,10 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
           this.productService.get(newBasketItem.ProductId).subscribe((product) => {
             this.translateService.get('BASKET_ADD_PRODUCT', { product: product.name }).subscribe((basketAddProduct) => {
               this.snackBarHelperService.open(basketAddProduct,'confirmBar')
-              this.basketService.updateNumberOfCardItems()
+              this.basketService.updateNumberOfCartItems()
             }, (translationId) => {
               this.snackBarHelperService.open(translationId,'confirmBar')
-              this.basketService.updateNumberOfCardItems()
+              this.basketService.updateNumberOfCartItems()
             })
           }, (err) => console.log(err))
         }, (err) => {
