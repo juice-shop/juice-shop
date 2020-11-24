@@ -367,7 +367,7 @@
   "TAG_CONTRAPTION_DESCRIPTION": "Indicates that a challenge is not exactly part of a realistic scenario but might be a bit forced or crafted.",
   "TAG_SHENANIGANS": "Shenanigans",
   "TAG_SHENANIGANS_DESCRIPTION": "Marks challenges which are not considered serious and/or realistic but exist more for entertainment.",
-  "TAG_TUTORIAL": "Tutorial",
+  "TAG_TUTORIAL": "Tutoriel",
   "TAG_TUTORIAL_DESCRIPTION": "Marks challenges for which a Hacking Instructor script exists to assist newcomers.",
   "TAG_BRUTE_FORCE": "Brute Force",
   "TAG_BRUTE_FORCE_DESCRIPTION": "Marks challenges where automation of some security tool or custom script is an option or even prerequisite.",
@@ -403,7 +403,7 @@
   "CATEGORY_SENSITIVE_DATA_EXPOSURE_DESCRIPTION": "Many web applications and APIs do not properly protect sensitive data, such as financial, healthcare, and PII. Attackers may steal or modify such weakly protected data to conduct credit card fraud, identity theft, or other crimes. Sensitive data may be compromised without extra protection, such as encryption at rest or in transit, and requires special precautions when exchanged with the browser.",
   "CATEGORY_UNVALIDATED_REDIRECTS_DESCRIPTION": "Web applications frequently redirect and forward users to other pages and websites, and use untrusted data to determine the destination pages. Without proper validation, attackers can redirect victims to phishing or malware sites, or use forwards to access unauthorized pages.",
   "CATEGORY_VULNERABLE_COMPONENTS_DESCRIPTION": "Components, such as libraries, frameworks, and other software modules, run with the same privileges as the application. If a vulnerable component is exploited, such an attack can facilitate serious data loss or server takeover. Applications and APIs using components with known vulnerabilities may undermine application defenses and enable various attacks and impacts.",
-  "CATEGORY_XSS_DESCRIPTION": "Cross-Site Scripting (XSS) flaws occur whenever an application includes untrusted data in a new web page without proper validation or escaping, or updates an existing web page with user-supplied data using a browser API that can create HTML or JavaScript. XSS allows attackers to execute scripts in the victim’s browser which can hijack user sessions, deface web sites, or redirect the user to malicious sites.",
+  "CATEGORY_XSS_DESCRIPTION": "Des failles Cross-Site Scripting (XSS) surviennent chaque fois qu'une application inclut des données non fiables dans une nouvelle page Web sans validation ni échappement appropriés, ou met à jour une page Web existante avec des données fournies par l'utilisateur en utilisant une API de navigateur qui peut créer du HTML ou du JavaScript. XSS permet à des attaquants d'exécuter des scripts dans le navigateur de la victime qui peuvent détourner les sessions d'utilisateur, détourner les sites Web ou rediriger l'utilisateur vers des sites malveillants.",
   "CATEGORY_XXE_DESCRIPTION": "Many older or poorly configured XML processors evaluate external entity references within XML documents. External entities can be used to disclose internal files using the file URI handler, internal file shares, internal port scanning, remote code execution, and denial of service attacks.",
   "INSUFFICIENT_WALLET_BALANCE": "Insufficient wallet balance."
 }
