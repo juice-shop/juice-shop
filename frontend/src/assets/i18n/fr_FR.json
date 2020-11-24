@@ -348,7 +348,7 @@
   "ENTER_COUPON_CODE": "Veuillez entrer votre code de coupon",
   "COUPON_CODE_HINT": "Le code promo doit comporter 10 caractères.",
   "CHARGED_WALLET": "Portefeuille chargé avec succès.",
-  "BTN_SHOW_ONLY_TUTORIALS": "Show tutorials only",
+  "BTN_SHOW_ONLY_TUTORIALS": "Afficher uniquement les tutoriels",
   "INFO_FULL_CHALLENGE_MODE": "Complete the remaining tutorial challenges to unveil all {{num}} challenges and unlock the advanced Score Board filters!",
   "INFO_NEXT_TUTORIAL_TIER": "Complete the {{tier}} tutorial challenges to unveil the next difficulty tier!",
   "SHOW_COMMENT": "Afficher le commentaire",
