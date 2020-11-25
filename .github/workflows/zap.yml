@@ -1,0 +1,12 @@
+name: Zap Scan
+
+on: [push,pull_request]
+
+jobs:
+  zap:
+    runs-on: ubuntu-latest
+    steps:
+    - name: OWASP ZAP Baseline Scan
+      uses: zaproxy/action-baseline@v0.3.0
+      with:
+        target: 'https://test3.xandfury.dev/'

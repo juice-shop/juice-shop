@@ -1,0 +1,27 @@
+name: gobuster
+
+on: [push,pull_request]
+
+jobs:
+  gobuster:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Install go
+          uses: actions/setup-go@v2
+        - name: Install gobuster
+          run: go get -u github.com/OJ/gobuster
+        - name: Get wordlist
+          run: wget https://raw.githubusercontent.com/digination/dirbuster-ng/master/wordlists/small.txt && echo "$(echo -n '.env'; cat small.txt)" > small.txt
+        - name: Run gobuster to check if any unwanted dirs are not exposed on the apps?
+          run: |
+             export PATH=$PATH:$(go env GOPATH)/bin
+             gobuster dir -u https://test3.xandfury.dev/ -w small.txt --wildcard | grep "200" > res.txt
+        - name: Check for exposed endpoints
+          run: if [[ -s res.txt ]]; then exit 1; else echo "success!"; fi
+#         - name: Install gobuster
+#           run: |
+#             export PATH=$PATH:$(go env GOPATH)/bin
+#             go get -u github.com/OJ/gobuster
+#             wget https://raw.githubusercontent.com/digination/dirbuster-ng/master/wordlists/small.txt && echo "$(echo -n '.env'; cat small.txt)" > small.txt
+#             gobuster dir -u https://test3.xandfury.dev/ -w small.txt --wildcard | grep "200" > res.txt
+#             if [[ -s res.txt ]]; then exit 1; else echo "success!"; fi

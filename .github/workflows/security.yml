@@ -1,0 +1,45 @@
+name: Security Scan!
+
+on:
+  schedule:
+    - cron: "* 13 * * 1"
+
+jobs:
+  zap:
+    runs-on: ubuntu-latest
+    steps:
+    - name: OWASP ZAP Baseline Scan
+      uses: zaproxy/action-baseline@v0.3.0
+      with:
+        target: 'https://test3.xandfury.dev/'
+    - name: SendGrid Mail Action
+      uses: mmichailidis/sendgrid-mail-action@v1.0
+      with: 
+            sendgrid-token: <test_tolks_env_var>
+            mail: tada!
+            
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+    - name: gitleaks-action
+      uses: zricethezav/gitleaks-action@master
+ 
+  gobuster:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install go
+        uses: actions/setup-go@v2.0.3
+      - name: Install gobuster
+        run: go get -u github.com/OJ/gobuster
+      - name: Get wordlist
+        run: wget https://raw.githubusercontent.com/digination/dirbuster-ng/master/wordlists/small.txt && echo "$(echo -n '.env'; cat small.txt)" > small.txt
+      - name: Run gobuster to check if any unwanted dirs are not exposed on the apps?
+        run: gobuster dir -u https://test3.xandfury.dev/ -w small.txt --wildcard | grep "200" > res.txt
+      - name: Check for exposed endpoints
+        run: |
+          if [[ -s res.txt ]]; then exit 1; else echo "success!"; fi
+
+          
