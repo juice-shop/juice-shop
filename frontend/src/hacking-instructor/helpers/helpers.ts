@@ -35,7 +35,7 @@ export function waitForInputToNotHaveValue (inputSelector: string, value: string
     while (true) {
       if (inputElement.value !== value) {
         break
-      } else if (options.ignoreCase && inputElement.value.toLowerCase() === value.toLowerCase()) {
+      } else if (options.ignoreCase && inputElement.value.toLowerCase() !== value.toLowerCase()) {
         break
       }
       await sleep(100)
