@@ -15,6 +15,7 @@ export const PrivacyPolicyInstruction: ChallengeInstruction = {
       text:
         'Log in with any user to begin this challenge. You can use an existing or freshly registered account.',
       fixture: 'app-navbar',
+      fixtureAfter: true,
       unskippable: true,
       resolved: waitForLogIn()
     },

@@ -25,6 +25,7 @@ export const LoginBenderInstruction: ChallengeInstruction = {
       text:
         "Let's try if we find a way to log in with Bender's user account. To begin, go to the _Login_ page via the _Account_ menu.",
       fixture: 'app-navbar',
+      fixtureAfter: true,
       unskippable: true,
       resolved: waitForAngularRouteToBeVisited('login')
     },
@@ -50,6 +51,7 @@ export const LoginBenderInstruction: ChallengeInstruction = {
       text:
         'Go to the _About Us_ page where user feedback is displayed among other things.',
       fixture: 'app-navbar',
+      fixtureAfter: true,
       resolved: waitForAngularRouteToBeVisited('about')
     },
     {

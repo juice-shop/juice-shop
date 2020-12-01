@@ -11,6 +11,7 @@ export const ForgedFeedbackInstruction: ChallengeInstruction = {
       text:
           'To start this challenge, first go to the _Customer Feedback_ page.',
       fixture: 'app-navbar',
+      fixtureAfter: true,
       unskippable: true,
       resolved: waitForAngularRouteToBeVisited('contact')
     },
