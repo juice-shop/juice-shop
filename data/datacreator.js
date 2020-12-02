@@ -580,14 +580,16 @@ function createOrders () {
       id: products[0].id,
       name: products[0].name,
       price: products[0].price,
-      total: products[0].price * 3
+      total: products[0].price * 3,
+      bonus: Math.round(products[0].price/10) * 3
     },
     {
       quantity: 1,
       id: products[1].id,
       name: products[1].name,
       price: products[1].price,
-      total: products[1].price * 1
+      total: products[1].price * 1,
+      bonus: Math.round(products[1].price/10) * 1
     }
   ]
 
@@ -597,7 +599,8 @@ function createOrders () {
       id: products[2].id,
       name: products[2].name,
       price: products[2].price,
-      total: products[2].price * 3
+      total: products[2].price * 3,
+      bonus: Math.round(products[2].price/10) * 3
     }
   ]
 
@@ -607,14 +610,16 @@ function createOrders () {
       id: products[0].id,
       name: products[0].name,
       price: products[0].price,
-      total: products[0].price * 3
+      total: products[0].price * 3,
+      bonus: Math.round(products[0].price/10) * 3
     },
     {
       quantity: 5,
       id: products[3].id,
       name: products[3].name,
       price: products[3].price,
-      total: products[3].price * 5
+      total: products[3].price * 5,
+      bonus: Math.round(products[3].price/10) * 5
     }
   ]
 
@@ -623,6 +628,7 @@ function createOrders () {
       orderId: insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16),
       email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
       totalPrice: basket1Products[0].total + basket1Products[1].total,
+      bonus: basket1Products[0].bonus + basket1Products[1].bonus,
       products: basket1Products,
       eta: Math.floor((Math.random() * 5) + 1).toString(),
       delivered: false
@@ -631,6 +637,7 @@ function createOrders () {
       orderId: insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16),
       email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
       totalPrice: basket2Products[0].total,
+      bonus: basket2Products[0].bonus,
       products: basket2Products,
       eta: '0',
       delivered: true
@@ -639,6 +646,7 @@ function createOrders () {
       orderId: insecurity.hash('demo').slice(0, 4) + '-' + utils.randomHexString(16),
       email: 'demo'.replace(/[aeiou]/gi, '*'),
       totalPrice: basket3Products[0].total + basket3Products[1].total,
+      bonus: basket3Products[0].bonus + basket3Products[1].bonus,
       products: basket3Products,
       eta: '0',
       delivered: true
@@ -646,11 +654,12 @@ function createOrders () {
   ]
 
   return Promise.all(
-    orders.map(({ orderId, email, totalPrice, products, eta, delivered }) =>
+    orders.map(({ orderId, email, totalPrice, bonus, products, eta, delivered }) =>
       mongodb.orders.insert({
         orderId: orderId,
         email: email,
         totalPrice: totalPrice,
+        bonus: bonus,
         products: products,
         eta: eta,
         delivered: delivered
