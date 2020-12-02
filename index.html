@@ -518,6 +518,39 @@ products:
 					<img src="assets/prometheus_logo.png" height="200" style="background: none; border:none; box-shadow:none;"/>
 				</div>
 			</section>
+
+			<section>
+				<h3>🔗 Solution Webhook</h3>
+				<p>Sends a payload to a specified URL whenever a challenge is solved</p>
+				<pre><code>
+{
+  "solution": {
+    "challenge": "localXssChallenge",
+    "evidence": null,
+    "issuedOn": "2020-05-26T22:03:20.059Z"
+  },
+  "ctfFlag": "b0d70dce6cadadb85882ea498fac6785dba2349b",
+  "issuer": {
+    "hostName": "Traviss-Mac-6.local",
+    "os": "Darwin (17.7.0)",
+    "appName": "OWASP Juice Shop",
+    "config": "default",
+    "version": "11.2.0"
+  }
+}
+					</code></pre>
+				<p><small>
+					🚧 Early adopters include <a href="https://github.com/iteratec/multi-juicer" target="_blank">MultiJuicer</a> for a central Score Board across multiple instances, and
+					<a href="https://owasp.org/www-project-security-knowledge-framework/" target="_blank">OWASP SKF</a> for recognizing a successful solve of a Juice Shop lab launched from within their platform.
+				</small></p>
+			</section>
+
+			<section>
+				<h3>Grafana Dashboard</h3>
+				<p><code>JSON</code> template allows to import a dashboard into Grafana consuming and displaying all metrics gathered via Prometheus</p>
+				<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/appendix/img/grafana_01.png" height="200"/>
+				<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/appendix/img/grafana_02.png" height="200"/>
+			</section>
 		</section>
 
 		<section>
