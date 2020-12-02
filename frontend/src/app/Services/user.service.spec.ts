@@ -147,7 +147,7 @@ describe('UserService', () => {
   it('should upgrade users deluxe status directly from the rest api', inject([UserService, HttpTestingController],
     fakeAsync((service: UserService, httpMock: HttpTestingController) => {
       let res
-      service.upgradeToDeluxe('wallet').subscribe((data) => res = data)
+      service.upgradeToDeluxe('wallet', null).subscribe((data) => res = data)
       const req = httpMock.expectOne('http://localhost:3000/rest/deluxe-membership')
       req.flush({ data: 'apiResponse' })
       tick()

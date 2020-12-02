@@ -32,6 +32,7 @@ export class SidenavComponent implements OnInit {
   public showOrdersSubmenu: boolean = false
   public isShowing = false
   public sizeOfMail: number = 0
+  public offerScoreBoardTutorial: boolean = false
 
   @Output() public sidenavToggle = new EventEmitter()
 
@@ -117,6 +118,9 @@ export class SidenavComponent implements OnInit {
       if (config && config.application) {
         this.showGitHubLink = config.application.showGitHubLinks
       }
+      if (config && config.application.welcomeBanner.showOnFirstStart && config.hackingInstructor.isEnabled) {
+        this.offerScoreBoardTutorial = config.application.welcomeBanner.showOnFirstStart && config.hackingInstructor.isEnabled
+      }
     }, (err) => console.log(err))
   }
 
@@ -127,5 +131,13 @@ export class SidenavComponent implements OnInit {
     } else {
       return false
     }
+  }
+
+  startHackingInstructor () {
+    this.onToggleSidenav()
+    console.log('Starting instructions for challenge "Score Board"')
+    import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
+      module.startHackingInstructorFor('Score Board')
+    })
   }
 }

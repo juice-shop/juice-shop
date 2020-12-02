@@ -55,11 +55,12 @@ module.exports = async () => {
 
 async function createChallenges () {
   const showHints = config.get('challenges.showHints')
+  const showMitigations = config.get('challenges.showMitigations')
 
   const challenges = await loadStaticData('challenges')
 
   await Promise.all(
-    challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, key, disabledEnv, tutorial }) => {
+    challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, mitigationUrl, key, disabledEnv, tutorial, tags }) => {
       const effectiveDisabledEnv = utils.determineDisabledEnv(disabledEnv)
       description = description.replace('juice-sh.op', config.get('application.domain'))
       description = description.replace('&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;', entities.encode(config.get('challenges.xssBonusPayload')))
@@ -70,11 +71,13 @@ async function createChallenges () {
           key,
           name,
           category,
+          tags: tags ? tags.join(',') : undefined,
           description: effectiveDisabledEnv ? (description + ' <em>(This challenge is <strong>' + (config.get('challenges.safetyOverride') ? 'potentially harmful' : 'not available') + '</strong> on ' + effectiveDisabledEnv + '!)</em>') : description,
           difficulty,
           solved: false,
           hint: showHints ? hint : null,
           hintUrl: showHints ? hintUrl : null,
+          mitigationUrl: showMitigations ? mitigationUrl : null,
           disabledEnv: config.get('challenges.safetyOverride') ? null : effectiveDisabledEnv,
           tutorialOrder: tutorial ? tutorial.order : null
         })
@@ -166,7 +169,7 @@ function createAddresses (UserId, addresses) {
 }
 
 function createCards (UserId, cards) {
-  cards.map((card) => {
+  return Promise.all(cards.map((card) => {
     return models.Card.create({
       UserId: UserId,
       fullName: card.fullName,
@@ -176,7 +179,7 @@ function createCards (UserId, cards) {
     }).catch((err) => {
       logger.error(`Could not create card: ${err.message}`)
     })
-  })
+  }))
 }
 
 function deleteUser (userId) {
@@ -209,34 +212,42 @@ function createRandomFakeUsers () {
 }
 
 function createQuantity () {
-  const limitPerUserProuductIds = [1, 5, 7, 20, 24]
   return Promise.all(
     config.get('products').map((product, index) => {
       return models.Quantity.create({
         ProductId: index + 1,
         quantity: product.quantity !== undefined ? product.quantity : Math.floor(Math.random() * 70 + 30),
-        limitPerUser: limitPerUserProuductIds.includes(index + 1) ? 5 : null
+        limitPerUser: product.limitPerUser || null
       }).catch((err) => {
         logger.error(`Could not create quantity: ${err.message}`)
       })
     })
   )
 }
+
 function createMemories () {
-  const memories = [models.Memory.create({
-    imagePath: 'assets/public/images/uploads/😼-#zatschi-#whoneedsfourlegs-1572600969477.jpg',
-    caption: '😼 #zatschi #whoneedsfourlegs',
-    UserId: datacache.users.bjoernOwasp.id
-  }).catch((err) => {
-    logger.error(`Could not create memory: ${err.message}`)
-  })]
-  Array.prototype.push.apply(memories, Promise.all(
-    config.get('memories').map((memory) => {
+  const memories = [
+    models.Memory.create({
+      imagePath: 'assets/public/images/uploads/😼-#zatschi-#whoneedsfourlegs-1572600969477.jpg',
+      caption: '😼 #zatschi #whoneedsfourlegs',
+      UserId: datacache.users.bjoernOwasp.id
+    }).catch((err) => {
+      logger.error(`Could not create memory: ${err.message}`)
+    }),
+    ...utils.thaw(config.get('memories')).map((memory) => {
       let tmpImageFileName = memory.image
       if (utils.startsWith(memory.image, 'http')) {
         const imageUrl = memory.image
         tmpImageFileName = utils.extractFilename(memory.image)
         utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/uploads/' + tmpImageFileName)
+      }
+      if (memory.geoStalkingMetaSecurityQuestion && memory.geoStalkingMetaSecurityAnswer) {
+        createSecurityAnswer(datacache.users.john.id, memory.geoStalkingMetaSecurityQuestion, memory.geoStalkingMetaSecurityAnswer)
+        memory.user = 'john'
+      }
+      if (memory.geoStalkingVisualSecurityQuestion && memory.geoStalkingVisualSecurityAnswer) {
+        createSecurityAnswer(datacache.users.emma.id, memory.geoStalkingVisualSecurityQuestion, memory.geoStalkingVisualSecurityAnswer)
+        memory.user = 'emma'
       }
       return models.Memory.create({
         imagePath: 'assets/public/images/uploads/' + tmpImageFileName,
@@ -246,13 +257,14 @@ function createMemories () {
         logger.error(`Could not create memory: ${err.message}`)
       })
     })
-  ))
-  return memories
+  ]
+
+  return Promise.all(memories)
 }
 
 function createProducts () {
   const products = utils.thaw(config.get('products')).map((product) => {
-    product.price = product.price || Math.floor(Math.random())
+    product.price = product.price || Math.floor(Math.random() * 9 + 1)
     product.deluxePrice = product.deluxePrice || product.price
     product.description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
 
@@ -274,19 +286,19 @@ function createProducts () {
   })
 
   // add Challenge specific information
-  const chrismasChallengeProduct = products.find(({ useForChristmasSpecialChallenge }) => useForChristmasSpecialChallenge)
+  const christmasChallengeProduct = products.find(({ useForChristmasSpecialChallenge }) => useForChristmasSpecialChallenge)
   const pastebinLeakChallengeProduct = products.find(({ keywordsForPastebinDataLeakChallenge }) => keywordsForPastebinDataLeakChallenge)
   const tamperingChallengeProduct = products.find(({ urlForProductTamperingChallenge }) => urlForProductTamperingChallenge)
-  const blueprintRetrivalChallengeProduct = products.find(({ fileForRetrieveBlueprintChallenge }) => fileForRetrieveBlueprintChallenge)
+  const blueprintRetrievalChallengeProduct = products.find(({ fileForRetrieveBlueprintChallenge }) => fileForRetrieveBlueprintChallenge)
 
-  chrismasChallengeProduct.description += ' (Seasonal special offer! Limited availability!)'
-  chrismasChallengeProduct.deletedAt = '2014-12-27 00:00:00.000 +00:00'
+  christmasChallengeProduct.description += ' (Seasonal special offer! Limited availability!)'
+  christmasChallengeProduct.deletedAt = '2014-12-27 00:00:00.000 +00:00'
   tamperingChallengeProduct.description += ' <a href="' + tamperingChallengeProduct.urlForProductTamperingChallenge + '" target="_blank">More...</a>'
   tamperingChallengeProduct.deletedAt = null
   pastebinLeakChallengeProduct.description += ' (This product is unsafe! We plan to remove it from the stock!)'
   pastebinLeakChallengeProduct.deletedAt = '2019-02-1 00:00:00.000 +00:00'
 
-  let blueprint = blueprintRetrivalChallengeProduct.fileForRetrieveBlueprintChallenge
+  let blueprint = blueprintRetrievalChallengeProduct.fileForRetrieveBlueprintChallenge
   if (utils.startsWith(blueprint, 'http')) {
     const blueprintUrl = blueprint
     blueprint = utils.extractFilename(blueprint)
@@ -361,7 +373,7 @@ function createBaskets () {
 
   return Promise.all(
     baskets.map(basket => {
-      models.Basket.create(basket).catch((err) => {
+      return models.Basket.create(basket).catch((err) => {
         logger.error(`Could not insert Basket for UserId ${basket.UserId}: ${err.message}`)
       })
     })
@@ -414,7 +426,7 @@ function createBasketItems () {
 
   return Promise.all(
     basketItems.map(basketItem => {
-      models.BasketItem.create(basketItem).catch((err) => {
+      return models.BasketItem.create(basketItem).catch((err) => {
         logger.error(`Could not insert BasketItem for BasketId ${basketItem.BasketId}: ${err.message}`)
       })
     })
@@ -568,14 +580,16 @@ function createOrders () {
       id: products[0].id,
       name: products[0].name,
       price: products[0].price,
-      total: products[0].price * 3
+      total: products[0].price * 3,
+      bonus: Math.round(products[0].price / 10) * 3
     },
     {
       quantity: 1,
       id: products[1].id,
       name: products[1].name,
       price: products[1].price,
-      total: products[1].price * 1
+      total: products[1].price * 1,
+      bonus: Math.round(products[1].price / 10) * 1
     }
   ]
 
@@ -585,7 +599,8 @@ function createOrders () {
       id: products[2].id,
       name: products[2].name,
       price: products[2].price,
-      total: products[2].price * 3
+      total: products[2].price * 3,
+      bonus: Math.round(products[2].price / 10) * 3
     }
   ]
 
@@ -595,14 +610,16 @@ function createOrders () {
       id: products[0].id,
       name: products[0].name,
       price: products[0].price,
-      total: products[0].price * 3
+      total: products[0].price * 3,
+      bonus: Math.round(products[0].price / 10) * 3
     },
     {
       quantity: 5,
       id: products[3].id,
       name: products[3].name,
       price: products[3].price,
-      total: products[3].price * 5
+      total: products[3].price * 5,
+      bonus: Math.round(products[3].price / 10) * 5
     }
   ]
 
@@ -611,6 +628,7 @@ function createOrders () {
       orderId: insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16),
       email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
       totalPrice: basket1Products[0].total + basket1Products[1].total,
+      bonus: basket1Products[0].bonus + basket1Products[1].bonus,
       products: basket1Products,
       eta: Math.floor((Math.random() * 5) + 1).toString(),
       delivered: false
@@ -619,6 +637,7 @@ function createOrders () {
       orderId: insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16),
       email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
       totalPrice: basket2Products[0].total,
+      bonus: basket2Products[0].bonus,
       products: basket2Products,
       eta: '0',
       delivered: true
@@ -627,6 +646,7 @@ function createOrders () {
       orderId: insecurity.hash('demo').slice(0, 4) + '-' + utils.randomHexString(16),
       email: 'demo'.replace(/[aeiou]/gi, '*'),
       totalPrice: basket3Products[0].total + basket3Products[1].total,
+      bonus: basket3Products[0].bonus + basket3Products[1].bonus,
       products: basket3Products,
       eta: '0',
       delivered: true
@@ -634,11 +654,12 @@ function createOrders () {
   ]
 
   return Promise.all(
-    orders.map(({ orderId, email, totalPrice, products, eta, delivered }) =>
+    orders.map(({ orderId, email, totalPrice, bonus, products, eta, delivered }) =>
       mongodb.orders.insert({
         orderId: orderId,
         email: email,
         totalPrice: totalPrice,
+        bonus: bonus,
         products: products,
         eta: eta,
         delivered: delivered
@@ -670,7 +691,7 @@ function createPurchaseQuantity () {
 
   return Promise.all(
     orderedQuantitys.map(orderedQuantity => {
-      models.PurchaseQuantity.create(orderedQuantity).catch((err) => {
+      return models.PurchaseQuantity.create(orderedQuantity).catch((err) => {
         logger.error(`Could not insert ordered quantity: ${err.message}`)
       })
     })

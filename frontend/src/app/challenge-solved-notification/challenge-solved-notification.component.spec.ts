@@ -12,10 +12,12 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing'
 import { SocketIoService } from '../Services/socket-io.service'
 
 import { ChallengeSolvedNotificationComponent } from './challenge-solved-notification.component'
+import { of } from 'rxjs'
+import { EventEmitter } from '@angular/core'
 
 class MockSocket {
   on (str: string, callback: Function) {
@@ -27,6 +29,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
   let component: ChallengeSolvedNotificationComponent
   let fixture: ComponentFixture<ChallengeSolvedNotificationComponent>
   let socketIoService: any
+  let translateService: any
   let mockSocket: any
 
   beforeEach(async(() => {
@@ -34,6 +37,11 @@ describe('ChallengeSolvedNotificationComponent', () => {
     mockSocket = new MockSocket()
     socketIoService = jasmine.createSpyObj('SocketIoService', ['socket'])
     socketIoService.socket.and.returnValue(mockSocket)
+    translateService = jasmine.createSpyObj('TranslateService', ['get'])
+    translateService.get.and.returnValue(of({}))
+    translateService.onLangChange = new EventEmitter()
+    translateService.onTranslationChange = new EventEmitter()
+    translateService.onDefaultLangChange = new EventEmitter()
 
     TestBed.configureTestingModule({
       imports: [
@@ -46,10 +54,10 @@ describe('ChallengeSolvedNotificationComponent', () => {
       declarations: [ ChallengeSolvedNotificationComponent ],
       providers: [
         { provide: SocketIoService, useValue: socketIoService },
+        { provide: TranslateService, useValue: translateService },
         ConfigurationService,
         ChallengeService,
         CountryMappingService,
-        TranslateService,
         CookieService
       ]
     })
@@ -76,7 +84,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
     expect(component.notifications).toEqual([{ message: 'bar', flag: '5678', copied: false }])
   })
 
-  it('should delte all notifications if the shiftKey was pressed', () => {
+  it('should delete all notifications if the shiftKey was pressed', () => {
     component.notifications = [
       { message: 'foo', flag: '1234', copied: false },
       { message: 'bar', flag: '5678', copied: false }
@@ -85,4 +93,14 @@ describe('ChallengeSolvedNotificationComponent', () => {
 
     expect(component.notifications).toEqual([])
   })
+
+  it('should add new notification', fakeAsync(() => {
+    translateService.get.and.returnValue(of('CHALLENGE_SOLVED'))
+    component.notifications = []
+    component.showNotification({ challenge: 'Test', flag: '1234' })
+    tick()
+
+    expect(translateService.get).toHaveBeenCalledWith('CHALLENGE_SOLVED', { challenge: 'Test' })
+    expect(component.notifications).toEqual([ { message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: undefined } ])
+  }))
 })

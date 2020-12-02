@@ -8,6 +8,12 @@ application:
   altcoinName: Sevencoin
   privacyContactEmail: 'donotreply@7-ms.us'
   customMetricsPrefix: sevenminsec
+  chatBot:
+    name: 'Brian'
+    greeting: "Hi <customer-name>, it's me, your friend and pal <bot-name>!"
+    trainingData: 'https://gist.githubusercontent.com/bkimminich/d62bd52a1df4831a0fae7fb06062e3f0/raw/59dadc1e0ab1b5cb9264e85bc78736aaa3f0eb6b/bot7msTrainingData.json'
+    defaultResponse: "Sorry, but \"no comprende\"!"
+    avatar: 'https://images.squarespace-cdn.com/content/v1/59f9e1c4d0e6281017434039/1509770498383-8VJKZ4PXTTHVIGIEG0KF/ke17ZwdGBToddI8pDm48kMreedPISwI1jnn2bzTr4CdZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzByX1XvUQea7698-2ac2uOajsBu-kHm1WemVMRSlEblOw5yevDuXqve6GdwpxNsnc/BrianJohnson-headshot.jpg?format=300w'
   social:
     twitterUrl: 'https://twitter.com/7MinSec'
     facebookUrl: null
@@ -113,4 +119,3 @@ products:
     description: 'Today is part <strong>FIVE</strong> (insert menacing voice: "<em>the final chapter!!!</em>) of our series on attacking the <a href="https://www.owasp.org/index.php/OWASP_Juice_Shop_Project" target="_blank">OWASP Juice Shop</a> which is "an intentionally insecure webapp for security trainings written entirely in Javascript which encompasses the entire OWASP Top Ten and other severe security flaws."'
     price: 1.99
     image: hqdefault.jpg
-memories: []

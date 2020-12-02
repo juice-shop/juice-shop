@@ -62,7 +62,7 @@ describe('/redirect', () => {
       .expect('bodyContains', '&#39;includes&#39; of undefined')
   })
 
-  it('GET error message hinting at whitelist validation when calling /redirect with an unrecognized "to" target', () => {
+  it('GET error message hinting at allowlist validation when calling /redirect with an unrecognized "to" target', () => {
     return frisby.get(URL + '/redirect?to=whatever')
       .expect('status', 406)
       .expect('header', 'content-type', /text\/html/)
@@ -74,8 +74,8 @@ describe('/redirect', () => {
     return frisby.get(URL + '/redirect?to=/score-board?satisfyIndexOf=https://github.com/bkimminich/juice-shop')
       .expect('status', 200)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', 'main-es2015.js')
-      .expect('bodyContains', 'runtime-es2015.js')
-      .expect('bodyContains', 'polyfills-es2015.js')
+      .expect('bodyContains', 'main-es2018.js')
+      .expect('bodyContains', 'runtime-es2018.js')
+      .expect('bodyContains', 'polyfills-es2018.js')
   })
 })

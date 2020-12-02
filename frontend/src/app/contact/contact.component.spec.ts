@@ -17,7 +17,7 @@ import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FeedbackService } from '../Services/feedback.service'
-import { BarRatingModule } from 'ng2-bar-rating'
+import { MatSliderModule } from '@angular/material/slider'
 import { of, throwError } from 'rxjs'
 
 describe('ContactComponent', () => {
@@ -48,7 +48,7 @@ describe('ContactComponent', () => {
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
-        BarRatingModule,
+        MatSliderModule,
         BrowserAnimationsModule,
         MatCardModule,
         MatFormFieldModule,

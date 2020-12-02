@@ -1,0 +1,156 @@
+/*!
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
+$bg-chat: rgba(0, 0, 0, .3);
+
+mat-card {
+  height: auto;
+  min-width: 320px;
+  width: 60%;
+}
+
+mat-form-field {
+  height: 0px;
+  width: 70%;
+  display: block;
+  margin: auto;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+#submitButton {
+  margin-left: 20%;
+  margin-top: 30px;
+  width: 60%;
+}
+
+#chat-container {
+  display: flex;
+  position: relative;
+  width: 95%;
+  box-shadow: none;
+}
+
+#chat-box {
+  width: 80%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 650px;
+  background-color: $bg-chat;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+}
+
+.form-wrapper {
+  font-size: 10px;
+}
+
+#chat-window {
+  height: 90%;
+  padding: 20px;
+  overflow-y: auto;
+
+  ::-webkit-scrollbar {
+    width: 20px;
+    background: none;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: none;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: red;
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #b30000;
+  }
+}
+
+.message-box-container {
+  width: auto;
+  height: 10%;
+  border-top: solid 1px white;
+  padding-top: 15px;
+}
+
+.message-container {
+  margin-right: 25px;
+  width: auto;
+  overflow: hidden;
+  height: auto;
+}
+
+.speech-bubble-right {
+  background: rgb(84, 110, 122);
+  border-radius: 4px;
+  font-size: 15px;
+  line-height: 1.3;
+  max-width: 500px;
+  padding: 15px;
+  float: right;
+  position: relative;
+  margin-bottom: 25px;
+
+  &::after {
+    border-left: 20px solid transparent;
+    border-top: 20px solid rgb(84, 110, 122);
+    bottom: -20px;
+    content: "";
+    position: absolute;
+    right: 20px;
+  }
+}
+
+.speech-bubble-left {
+  background: rgb(84, 110, 122);
+  border-radius: 4px;
+  font-size: 15px;
+  line-height: 1.3;
+  max-width: 500px;
+  padding: 15px;
+  float: left;
+  position: relative;
+  margin-bottom: 25px;
+
+  &::after {
+    border-right: 20px solid transparent;
+    border-top: 20px solid rgb(84, 110, 122);
+    bottom: -20px;
+    content: "";
+    position: absolute;
+    left: 20px;
+  }
+}
+
+.juicy-chat-bot-image {
+  float: left;
+  margin-top: 20px;
+  height: 70px;
+}
+
+.profile-image {
+  float: right;
+  margin-top: 20px;
+  margin-left: 10px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.powered-by {
+  font-size: xx-small;
+}
