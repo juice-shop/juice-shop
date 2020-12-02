@@ -19,6 +19,7 @@
       <span fxShow fxHide.lt-lg translate>BTN_GETTING_STARTED</span>
     </button>
     <button mat-raised-button class="close-dialog" (click)="closeWelcome()" color="primary"
+            *ngIf="showDismissBtn"
             aria-label="Close Welcome Banner">
       <mat-icon>
         visibility_off

@@ -11,7 +11,7 @@ import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testi
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { BarRatingModule } from 'ng2-bar-rating'
+
 import { of, throwError } from 'rxjs'
 import { MatTableModule } from '@angular/material/table'
 import { MatExpansionModule } from '@angular/material/expansion'
@@ -48,7 +48,7 @@ describe('PaymentMethodComponent', () => {
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
-        BarRatingModule,
+
         BrowserAnimationsModule,
         MatCardModule,
         MatTableModule,
@@ -80,7 +80,7 @@ describe('PaymentMethodComponent', () => {
   })
 
   it('should hold cards returned by backend API', () => {
-    paymentService.get.and.returnValue(of([{ cardNum: '1231123112311231' }, { cardNum: '6454645464546454' }]))
+    paymentService.get.and.returnValue(of([{ cardNum: '************1231' }, { cardNum: '************6454' }]))
     component.load()
     expect(component.storedCards.length).toBe(2)
     expect(component.storedCards[0].cardNum).toBe('************1231')

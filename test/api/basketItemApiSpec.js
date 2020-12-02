@@ -162,6 +162,28 @@ describe('/api/BasketItems/:id', () => {
       })
   })
 
+  it('PUT update basket ID of basket item without basket ID', () => {
+    return frisby.post(API_URL + '/BasketItems', {
+      headers: authHeader,
+      body: {
+        ProductId: 8,
+        quantity: 8
+      }
+    })
+      .expect('status', 200)
+      .then(({ json }) => {
+        expect(json.data.BasketId).toBeUndefined()
+        return frisby.put(API_URL + '/BasketItems/' + json.data.id, {
+          headers: authHeader,
+          body: {
+            BasketId: 3
+          }
+        })
+          .expect('status', 200)
+          .expect('json', 'data', { BasketId: 3 })
+      })
+  })
+
   it('PUT update product ID of basket item is forbidden', () => {
     return frisby.post(API_URL + '/BasketItems', {
       headers: authHeader,

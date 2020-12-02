@@ -165,7 +165,7 @@
 	"<a href=\"/#/contact\">Inform the shop</a> about an algorithm or library it should definitely not use the way it does.": "<a href=\"/#/contact\">联系商店</a>有关它绝对不应该使用的算法或库。",
 	"Report one of four possible answers via the \"Customer Feedback\" form.": "通过“客户反馈”表单报告四个可能答案中的一个。",
 	"Enforce a redirect to a page you are not supposed to redirect to.": "强制重定向到你不应该重定向到的页面。",
-	"You have to find a way to beat the whitelist of allowed redirect URLs.": "您必须找到一种方法来绕过允许重定向的 URL 白名单。",
+	"You have to find a way to beat the allowlist of allowed redirect URLs.": "您必须找到一种方法来绕过允许重定向的 URL 列表。",
 	"Retrieve the content of <code>C:\\Windows\\system.ini</code> or <code>/etc/passwd</code> from the server.": "从服务器获取 <code>C:\\Windows\\system.ini</code> 或 <code>/etc/passwd</code>内容。",
 	"The leverage point for this challenge is the deprecated B2B interface.": "这项挑战的关键点是废弃的B2B接口。",
 	"Give the server something to chew on for quite a while.": "给服务器一些东西，让它消化一会儿。",
@@ -297,5 +297,18 @@
 	"Look closely at what happens when you attempt to upgrade your account.": "仔细观察当你试图升级你的帐户时会发生什么。",
 	" <em>(This challenge is <strong>not available</strong> on Windows!)</em>": " <em>(这个挑战在Windows上 <strong>不可用</strong>!)</em>",
 	"Reset Uvogin's password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.": "通过<a href=\"/#/forgot-password\">忘记密码</a>功能中安全问题的<i>原始答案</i>来重置Uvogin的密码.",
-	"You might have to do some OSINT on his social media personas to find out his honest answer to the security question.": "你可能必须对他的社交媒体做一些OSINT(公开资源情报计划)工作，以便找到他对安全问题的诚实回答。"
+	"You might have to do some OSINT on his social media personas to find out his honest answer to the security question.": "你可能必须对他的社交媒体做一些OSINT(公开资源情报计划)工作，以便找到他对安全问题的诚实回答。",
+	"Juice Shop Adversary Trading Card (Common)": "Juice Shop攻击者集换式卡片 (常见)",
+	"Common rarity \"Juice Shop\" card for the <a href=\"https://docs.google.com/forms/d/e/1FAIpQLSecLEakawSQ56lBe2JOSbFwFYrKDCIN7Yd3iHFdQc5z8ApwdQ/viewform\">Adversary Trading Cards</a> CCG.": "常见稀有度的 \"Juice Shop\"  <a href=\"https://docs.google.com/forms/d/e/1FAIpQLSecLEakawSQ56lBe2JOSbFwFYrKDCIN7Yd3iHFdQc5z8ApwdQ/viewform\">攻击者集换式卡片</a>",
+	"Juice Shop Adversary Trading Card (Super Rare)": "Juice Shop攻击者集换式卡片 (超级稀有)",
+	"Super rare \"Juice Shop\" card with holographic foil-coating for the <a href=\"https://docs.google.com/forms/d/e/1FAIpQLSecLEakawSQ56lBe2JOSbFwFYrKDCIN7Yd3iHFdQc5z8ApwdQ/viewform\">Adversary Trading Cards</a> CCG.": "超级稀有的带有全息金箔纸的 \"Juice Shop\"<a href=\"https://docs.google.com/forms/d/e/1FAIpQLSecLEakawSQ56lBe2JOSbFwFYrKDCIN7Yd3iHFdQc5z8ApwdQ/viewform\">攻击者集换式卡片</a>",
+	"OWASP Juice Shop \"King of the Hill\" Facemask": "OWASP Juice Shop \"山丘之王\" 面罩",
+	"Facemask with compartment for filter from 50% cotton and 50% polyester.": "含有50%棉和50%聚酯纤维的过滤面罩。",
+	"Determine the answer to John's security question by looking at an upload of him to the Photo Wall and use it to reset his password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism.": "通过查看他上传到照片墙的照片来确定John安全问题的答案并通过 <a href=\"/#/forgot-password\">忘记密码</a> 机制重置他的密码。",
+	"Take a look at the meta data of the corresponding photo.": "查看相应照片的元数据。",
+	"Determine the answer to Emma's security question by looking at an upload of her to the Photo Wall and use it to reset her password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism.": "通过查看她上传到照片墙的照片来确定Emma安全问题的答案并通过 <a href=\"/#/forgot-password\">忘记密码</a> 机制重置他的密码。",
+	"Take a look at the details in the photo to determine the location of where it was taken.": "查看照片中的详细信息，以确定照片的拍摄地点。",
+	"Juice Shop \"Permafrost\" 2020 Edition": "Juice Shop \"永久冻结\" 2020 版",
+	"Exact version of <a href=\"https://github.com/bkimminich/juice-shop/releases/tag/v9.3.1-PERMAFROST\">OWASP Juice Shop that was archived on 02/02/2020</a> by the GitHub Archive Program and ultimately went into the <a href=\"https://github.blog/2020-07-16-github-archive-program-the-journey-of-the-worlds-open-source-code-to-the-arctic\">Arctic Code Vault</a> on July 8. 2020 where it will be safely stored for at least 1000 years.": "特定版本 <a href=\"https://github.com/bkimminich/juice-shop/releases/tag/v9.3.1-PERMAFROST\">于2020年2月2日存档的OWASP果汁店</a> ，最终于2020年7月8日进入GitHub的 <a href=\"https://github.blog/2020-07-16-github-archive-program-the-journey-of-the-worlds-open-source-code-to-the-arctic\">Arctic Code Vault</a>它将安全储存至少1000年。",
+	"Bypass a security control with a <a href=\"http://hakipedia.com/index.php/Poison_Null_Byte\">Poison Null Byte</a> to access a file not meant for your eyes.": "用 <a href=\"http://hakipedia.com/index.php/Poison_Null_Byte\">Poison Null Byte</a> 绕过安全控制来访问一个你看不着的文件。"
 }

@@ -5,9 +5,13 @@ application:
   favicon: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/favicon_v2.ico'
   theme: deeporange-indigo
   showGitHubLinks: true
+  localBackupEnabled: false
   altcoinName: Mozquito
   privacyContactEmail: 'donotreply@mozilla-ctf.op'
   customMetricsPrefix: mozctf
+  chatBot:
+    name: 'Foxy'
+    avatar: 'https://upload.wikimedia.org/wikipedia/commons/9/9f/Fennec_Fox_Vulpes_zerda.jpg'
   social:
     twitterUrl: 'https://twitter.com/mozcloudsec'
     facebookUrl: null
@@ -33,7 +37,6 @@ application:
     contact: 'mailto:donotreply@mozilla-ctf.op'
     encryption: ~
 challenges:
-  showSolvedNotifications: true
   showHints: false
   xssBonusPayload: '<iframe width="560" height="315" src="https://www.youtube.com/embed/0u9g0LhRkGk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
 hackingInstructor:
@@ -180,4 +183,3 @@ products:
     deletedDate: '2017-07-01'
 ctf:
   showFlagsInNotifications: true
-memories: []

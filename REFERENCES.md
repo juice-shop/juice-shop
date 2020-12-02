@@ -25,16 +25,30 @@ where this project was mentioned or used!
 
 ### Pod- & Webcasts
 
+* [Learn Web App Security Penetration Testing with Juice Shop \[Free\]](https://youtu.be/ShUTDUYEMWA)
+  by
+  [Gerald Auger - Simply Cyber](https://www.youtube.com/channel/UCG-48Ki-b6W_siaUkukJOSw)
+* [Web security for web developers with Zaproxy by Simon Bennetts](https://youtu.be/54UV2_JwcIY)
+  with
+  [Eddie Jaoude](https://www.youtube.com/channel/UC5mnBodB73bR88fLXHSfzYA)
+  :mega:
 * [ZAP in Ten](https://www.alldaydevops.com/zap-in-ten) with Simon
   Bennetts
   * [ZAP in Ten: ADDO Workshop Section 1 - Introduction](https://play.vidyard.com/BAmiaxyzS3g2BCgX2vbVvV)
     :mega:
   * [ZAP in Ten: ADDO Workshop Section 3 - Packaged Scans](https://play.vidyard.com/iT5C1onahsh3YhQi5SRnLL)
     :mega:
+  * [ZAP in Ten: ADDO Workshop Section 4 - Intro to Authentication](https://play.vidyard.com/zwWm4qMRc8wD2KAgozvC5t)
+    :mega:
+  * [ZAP in Ten: ADDO Workshop Section 6 - Standard Auth with JuiceShop](https://play.vidyard.com/igf3A8UdZ6QAGiFjEpLH86)
+  * [ZAP in Ten: ADDO Workshop Section 8 - JuiceShop SSO Authentication](https://play.vidyard.com/TMcBcuhyPt57sUqPcJUtpv)
 * 15min video tutorial by
   [Nick Malcolm](https://www.youtube.com/channel/UCgU77NClL2pLS92viQro6yA):
   [OWASP Juice Shop 101](https://youtu.be/8ZYoe0xu6QY) :godmode:
 * [Application Security Podcast](https://securityjourney.com/application-security-podcast):
+  * Episode 7.2:
+    [Jannik Hollenbach — Multijuicer: JuiceShop with a side of Kubernetes](https://podcast.securityjourney.com/jannik-hollenbach-multijuicer-juiceshop-with-a-side-of-kubernetes/)
+    ([Youtube](https://youtu.be/3M6EMDKIAYs))
   * Episode 5.21:
     [Season 5 Finale — A cross section of #AppSec (S05E21)](https://podcast.securityjourney.com/season-5-finale-a-cross-section-of-appsec/)
     (contains
@@ -162,6 +176,10 @@ where this project was mentioned or used!
 
 ## Lectures and Trainings
 
+* [Web Application Ethical Hacking - Penetration Testing Course for Beginners](https://youtu.be/X4eRbHgRawI)
+  :godmode: by The Cyber Mentor on
+  [freeCodeCamp.org](https://www.youtube.com/channel/UC8butISFwT-Wl7EV0hUK0BQ)'s
+  YouTube channel
 * [Real World Web Penetration Testing](https://training.secureideas.com/course/real-world-web-pentesting/start-course/)
   course by Jason Gillam :dollar:
 * [Brakeing Down Security Web App Sec Training #1](https://drive.google.com/drive/folders/0B-qfQ-gWynwidlJ1YjgxakdPWDA)
@@ -182,6 +200,34 @@ where this project was mentioned or used!
 
 ## Summits & Open Source Events
 
+* [Juice Shop Track](https://open-security-summit-2020.heysummit.com/topics/owasp-juiceshop/)
+  at [Open Security Summit 2020](https://open-security-summit.org/)
+  * [OWASP Juice Shop Cocktail Party: Ask us anything!](https://open-security-summit-2020.heysummit.com/talks/owasp-juice-shop-cocktail-party-ask-us-anything/)
+    with Björn Kimminich, Jannik Hollenbach & Timo Pagel 15.06.2020
+    ([Youtube](https://youtu.be/h5ApBfFMmao))
+  * [OWASP Juice Shop Deep Dive: MultiJuicer](https://open-security-summit-2020.heysummit.com/talks/owasp-juice-shop-deep-dive-multijuicer/)
+    with Jannik Hollenbach & Robert Seedorf, 15.06.2020
+    ([Youtube](https://youtu.be/1YHjkc3Xzd0))
+  * [OWASP Juice Shop Deep Dive: Integration](https://open-security-summit-2020.heysummit.com/talks/owasp-juice-shop-deep-dive-integration/)
+    with Björn Kimminich, 15.06.2020
+    ([Youtube](https://youtu.be/9SkUohiKgtU))
+  * [OWASP Juice Shop Deep Dive: Theming](https://open-security-summit-2020.heysummit.com/talks/owasp-juice-shop-deep-dive-theming-1/)
+    with Björn Kimminich, 15.06.2020
+    ([Youtube](https://youtu.be/WtY712DdlR8))
+  * [OWASP Juice Shop Introduction](https://pre-summit-training-sessions.heysummit.com/talks/owasp-juice-shop-introduction/)
+    with Björn Kimminich, 11.06.2020
+    ([Youtube](https://youtu.be/wCF08BdXdDg))
+  * [MultiJuicer Introduction](https://pre-summit-training-sessions.heysummit.com/talks/multijuicer-introduction/)
+    with Jannik Hollenbach and Robert Seedorf, 02.06.2020
+    ([Youtube](https://youtu.be/6NMjZbfnTOU))
+  * [OWASP Juice Shop Introduction](https://pre-summit-training-sessions.heysummit.com/talks/owasp-juice-shop/)
+    with Björn Kimminich, 02.06.2020
+    ([Youtube](https://youtu.be/Ry0mXz6ZPXc))
+* [Drinks with Adversaries: Creating Adversary Trading Cards](https://pre-summit-training-sessions.heysummit.com/talks/social-drinks-and-adversaries)
+  with Mark Miller at
+  [Open Security Summit 2020](https://open-security-summit.org/),
+  01.06.2020 ([Youtube](https://www.youtube.com/watch?v=3roVZNwptOU))
+  :mega:
 * Selected Project at
   [OWASP Projects Summit - Winter 2020](https://owasp.org/www-staff/projects/202002-Projects-Summit-Q1.html)
   with Björn Kimminich, Jannik Hollenbach and Marc Rüttler collaborating
@@ -220,17 +266,11 @@ where this project was mentioned or used!
 
 #### 2020
 
-🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠
-:mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask:
-🦠
-
-_Please stay safe at home for now and watch an existing recording
-instead!_
-
-🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠
-:mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask:
-🦠
-
+* [OWASP Projects Panel](https://www.meetup.com/de-DE/womeninappsec/events/271754765/)
+  hosted by [OWASP WIA](https://www.meetup.com/womeninappsec/) moderated
+  by Zoe Braiterman with panelists Bjoern Kimminich, Glenn & Riccardo
+  ten Cate and Spyros Gasteratos, 25.07.2020
+  ([Youtube](https://youtu.be/d96-HCrSh2M))
 * [OWASP ZAP Intro (Online)](https://www.meetup.com/de-DE/OWASP-Hamburg-Stammtisch/events/270078609/)
   by Simon Bennetts,
   [48. OWASP Stammtisch Hamburg](https://owasp.org/www-chapter-germany/stammtische/hamburg/),
@@ -267,7 +307,7 @@ instead!_
   by Tim Corless-Carter,
   [BSidesMCR 2019](https://www.bsidesmcr.org.uk/), 29.08.2019
   ([Youtube](https://youtu.be/hlgp7oeVpac) :godmode:)
-* [JavaScript-Security: "Pwn" den Juice Shop](https://www.enterjs.de/single?id=7685&javascript-security%3A-%22pwn%22-den-juice-shop)
+* [JavaScript-Security: "Pwn" den Juice Shop](https://enterjs.de/2019/single034c.html?id=7685&javascript-security%3A-%22pwn%22-den-juice-shop)
   workshop with Timo Pagel & Björn Kimminich,
   [enterJS 2019](https://www.enterjs.de/2019/), 25.06.2019
 * [Web Application Hacking with Burp Suite and OWASP ZAP](https://globalappsectelaviv2019.sched.com/event/MLSU/web-application-hacking-with-burp-suite-and-owasp-zap)

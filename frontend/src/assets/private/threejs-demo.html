@@ -2,15 +2,15 @@
 <html>
 <head>
     <title>Welcome to Planet Orangeuze</title>
-    <script src="assets/private/three.js"></script>
-    <script src="assets/private/OrbitControls.js"></script>
-    <script src="assets/private/dat.gui.min.js"></script>
-    <script src="assets/private/stats.min.js"></script>
-    <script src="assets/private/EffectComposer.js"></script>
-    <script src="assets/private/RenderPass.js"></script>
-    <script src="assets/private/CopyShader.js"></script>
-    <script src="assets/private/ShaderPass.js"></script>
-    <script src="assets/private/MaskPass.js"></script>
+    <script src="/assets/private/three.js"></script>
+    <script src="/assets/private/OrbitControls.js"></script>
+    <script src="/assets/private/dat.gui.min.js"></script>
+    <script src="/assets/private/stats.min.js"></script>
+    <script src="/assets/private/EffectComposer.js"></script>
+    <script src="/assets/private/RenderPass.js"></script>
+    <script src="/assets/private/CopyShader.js"></script>
+    <script src="/assets/private/ShaderPass.js"></script>
+    <script src="/assets/private/MaskPass.js"></script>
     <style>
         body {
             margin: 0;
@@ -86,7 +86,7 @@ function init() {
     cameraBG.position.z = 50;
     sceneBG = new THREE.Scene();
 
-    var materialColor = new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture("assets/private/starry_background.jpg"), depthTest: false });
+    var materialColor = new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture("/assets/private/starry_background.jpg"), depthTest: false });
     var bgPlane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), materialColor);
     bgPlane.position.z = -100;
     bgPlane.scale.set(window.innerWidth * 2, window.innerHeight * 2, 1);
@@ -110,9 +110,9 @@ function init() {
 
 
 function createOrangeMaterial() {
-    var orangeTexture = THREE.ImageUtils.loadTexture("assets/private/orangemap2k.jpg");
-    var specularMap = THREE.ImageUtils.loadTexture("assets/private/earthspec4k.jpg");
-    var normalMap = THREE.ImageUtils.loadTexture("assets/private/earth_normalmap_flat4k.jpg");
+    var orangeTexture = THREE.ImageUtils.loadTexture("/assets/private/orangemap2k.jpg");
+    var specularMap = THREE.ImageUtils.loadTexture("/assets/private/earthspec4k.jpg");
+    var normalMap = THREE.ImageUtils.loadTexture("/assets/private/earth_normalmap_flat4k.jpg");
 
     var orangeMaterial = new THREE.MeshPhongMaterial();
     orangeMaterial.map = orangeTexture;
@@ -127,7 +127,7 @@ function createOrangeMaterial() {
 }
 
 function createCloudMaterial() {
-    var cloudTexture = THREE.ImageUtils.loadTexture("assets/private/fair_clouds_4k.png");
+    var cloudTexture = THREE.ImageUtils.loadTexture("/assets/private/fair_clouds_4k.png");
 
     var cloudMaterial = new THREE.MeshPhongMaterial();
     cloudMaterial.map = cloudTexture;

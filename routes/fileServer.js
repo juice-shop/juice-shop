@@ -21,9 +21,12 @@ module.exports = function servePublicFiles () {
   }
 
   function verify (file, res, next) {
-    if (file && (endsWithWhitelistedFileType(file) || (file === 'incident-support.kdbx'))) {
+    if (file && (endsWithAllowlistedFileType(file) || (file === 'incident-support.kdbx'))) {
       file = insecurity.cutOffPoisonNullByte(file)
+
+      utils.solveIf(challenges.directoryListingChallenge, () => { return file.toLowerCase() === 'acquisitions.md' })
       verifySuccessfulPoisonNullByteExploit(file)
+
       res.sendFile(path.resolve(__dirname, '../ftp/', file))
     } else {
       res.status(403)
@@ -33,13 +36,17 @@ module.exports = function servePublicFiles () {
 
   function verifySuccessfulPoisonNullByteExploit (file) {
     utils.solveIf(challenges.easterEggLevelOneChallenge, () => { return file.toLowerCase() === 'eastere.gg' })
-    utils.solveIf(challenges.directoryListingChallenge, () => { return file.toLowerCase() === 'acquisitions.md' })
     utils.solveIf(challenges.forgottenDevBackupChallenge, () => { return file.toLowerCase() === 'package.json.bak' })
     utils.solveIf(challenges.forgottenBackupChallenge, () => { return file.toLowerCase() === 'coupons_2013.md.bak' })
     utils.solveIf(challenges.misplacedSignatureFileChallenge, () => { return file.toLowerCase() === 'suspicious_errors.yml' })
+
+    utils.solveIf(challenges.nullByteChallenge, () => {
+      return challenges.easterEggLevelOneChallenge.solved || challenges.forgottenDevBackupChallenge.solved || challenges.forgottenBackupChallenge.solved ||
+        challenges.misplacedSignatureFileChallenge.solved || file.toLowerCase() === 'encrypt.pyc'
+    })
   }
 
-  function endsWithWhitelistedFileType (param) {
+  function endsWithAllowlistedFileType (param) {
     return utils.endsWith(param, '.md') || utils.endsWith(param, '.pdf')
   }
 }

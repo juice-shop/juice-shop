@@ -10,6 +10,11 @@ const challenges = require('../data/datacache').challenges
 
 module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
   return async (req, res, next) => {
+    const user = await models.User.findOne({ where: { id: req.body.UserId, role: insecurity.roles.customer } })
+    if (!user) {
+      res.status(400).json({ status: 'error', error: 'Something went wrong. Please try again!' })
+      return
+    }
     if (req.body.paymentMode === 'wallet') {
       const wallet = await models.Wallet.findOne({ where: { UserId: req.body.UserId } })
       if (wallet.balance < 49) {
@@ -19,20 +24,22 @@ module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
         await models.Wallet.decrement({ balance: 49 }, { where: { UserId: req.body.UserId } })
       }
     }
-    models.User.findOne({ where: { id: req.body.UserId, role: insecurity.roles.customer } })
+
+    if (req.body.paymentMode === 'card') {
+      const card = await models.Card.findOne({ where: { id: req.body.paymentId, UserId: req.body.UserId } })
+      if (!card || card.expYear < new Date().getFullYear() || (card.expYear === new Date().getFullYear() && card.expMonth - 1 < new Date().getMonth())) {
+        res.status(400).json({ status: 'error', error: 'Invalid Card' })
+        return
+      }
+    }
+
+    user.update({ role: insecurity.roles.deluxe, deluxeToken: insecurity.deluxeToken(user.dataValues.email) })
       .then(user => {
-        if (user) {
-          user.update({ role: insecurity.roles.deluxe, deluxeToken: insecurity.deluxeToken(user.dataValues.email) })
-            .then(user => {
-              utils.solveIf(challenges.freeDeluxeChallenge, () => { return insecurity.verify(utils.jwtFrom(req)) && req.body.paymentMode !== 'wallet' && req.body.paymentMode !== 'card' })
-              user = utils.queryResultToJson(user)
-              const updatedToken = insecurity.authorize(user)
-              insecurity.authenticatedUsers.put(updatedToken, user)
-              res.status(200).json({ status: 'success', data: { confirmation: 'Congratulations! You are now a deluxe member!', token: updatedToken } })
-            })
-        } else {
-          res.status(400).json({ status: 'error', error: 'Something went wrong. Please try again!' })
-        }
+        utils.solveIf(challenges.freeDeluxeChallenge, () => { return insecurity.verify(utils.jwtFrom(req)) && req.body.paymentMode !== 'wallet' && req.body.paymentMode !== 'card' })
+        user = utils.queryResultToJson(user)
+        const updatedToken = insecurity.authorize(user)
+        insecurity.authenticatedUsers.put(updatedToken, user)
+        res.status(200).json({ status: 'success', data: { confirmation: 'Congratulations! You are now a deluxe member!', token: updatedToken } })
       })
   }
 }

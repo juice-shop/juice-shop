@@ -11,6 +11,8 @@ package-lock.json
 i18n/*.json
 !frontend/src/assets/i18n/*.json
 !data/static/i18n/*.json
+data/chatbot/*.*
+!data/chatbot/.gitkeep
 
 # Build
 .nyc_output/
@@ -25,6 +27,7 @@ vagrant/.vagrant/
 *.log
 JSON
 JSON.map
+frontend/src/**/*.js
 
 # IDEs
 .idea/
@@ -53,3 +56,4 @@ config/*.yml
 !config/mozilla.yml
 !config/unsafe.yml
 !config/tutorial.yml
+!config/oss.yml
