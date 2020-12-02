@@ -581,7 +581,7 @@ function createOrders () {
       name: products[0].name,
       price: products[0].price,
       total: products[0].price * 3,
-      bonus: Math.round(products[0].price/10) * 3
+      bonus: Math.round(products[0].price / 10) * 3
     },
     {
       quantity: 1,
@@ -589,7 +589,7 @@ function createOrders () {
       name: products[1].name,
       price: products[1].price,
       total: products[1].price * 1,
-      bonus: Math.round(products[1].price/10) * 1
+      bonus: Math.round(products[1].price / 10) * 1
     }
   ]
 
@@ -600,7 +600,7 @@ function createOrders () {
       name: products[2].name,
       price: products[2].price,
       total: products[2].price * 3,
-      bonus: Math.round(products[2].price/10) * 3
+      bonus: Math.round(products[2].price / 10) * 3
     }
   ]
 
@@ -611,7 +611,7 @@ function createOrders () {
       name: products[0].name,
       price: products[0].price,
       total: products[0].price * 3,
-      bonus: Math.round(products[0].price/10) * 3
+      bonus: Math.round(products[0].price / 10) * 3
     },
     {
       quantity: 5,
@@ -619,7 +619,7 @@ function createOrders () {
       name: products[3].name,
       price: products[3].price,
       total: products[3].price * 5,
-      bonus: Math.round(products[3].price/10) * 5
+      bonus: Math.round(products[3].price / 10) * 5
     }
   ]
 
