@@ -108,18 +108,12 @@
 				</section>
 
 				<section data-background="assets/god_2018/Dm0oN_dV4AEYQjm.jpg">
-					<div>
-						<h4>An Open Source Success Story:</h4>
-						<h3>How</h3>
-						<h1>OWASP<br>Juice Shop</h1>
-						<h3>got >7.4 Mio. 🐳-image pulls since 2017</h3>
-						<br>
-						<h4>TLL TechExchange 04.12.2020</h4>
-						<h4>by <a href="http://kimminich.de">Björn Kimminich</a> / <a href="http://twitter.com/bkimminich">@bkimminich</a></h4>
-						<p>
-							<small><a href="https://owasp-juice.shop">https://owasp-juice.shop</a></small>
-						</p>
-					</div>
+					<br><br><br><br><br><br>
+					<img class="no-box" height="100px" src="https://camo.githubusercontent.com/6242cc83b5f0041a3b96aa274bd59c4870c8c06a/68747470733a2f2f696d672e736869656c64732e696f2f646f636b65722f70756c6c732f626b696d6d696e6963682f6a756963652d73686f702e737667"/>
+				</section>
+
+				<section>
+					<h1>Hacking Challenges</h1>
 				</section>
 
 				<section>
@@ -167,6 +161,32 @@
 					</section>
 
 					<section>
+						<h2>Local Backup</h2>
+						<p>Save and later restore your hacking progress as well as language, Score Board filters, banner dismissal to a <code>JSON</code> file</p>
+						<div class="twocolumn">
+							<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/manual_backup.png" height="200"/>
+							<pre><code>
+{
+  "version": 1,
+  "scoreBoard": {
+	"displayedDifficulties": [ 1, 2 ],
+	"displayedChallengeCategories": [
+	  "Broken Access Control",
+	  "Broken Anti Automation"
+	]
+  },
+  "banners": {
+	"welcomeBannerStatus": "dismiss",
+	"cookieConsentStatus": "dismiss"
+  },
+  "language": "de_DE",
+  "continueCode": "rzJBXpa...bm457LX4v7o"
+}
+						</code></pre>
+						</div>
+					</section>
+
+					<section>
 						<h2>Hacking Instructor</h2>
 						<p>
 							Some challenges come with an embedded interactive tutorial
@@ -211,7 +231,7 @@
 					<section>
 						<h2>Try Juice Shop on OpenShift</h2>
 						<p>
-							Spawn a <a href="" target="_blank">Juice Shop instance for yourself in the KN Private Cloud</a> in under 2 minutes! Just pick a team name, write down your access code and start hacking!
+							Spawn a <a href="https://juice-balancer-cp-429991.apps.cluster1.emea.cp.int.kn/" target="_blank">Juice Shop instance for yourself in the KN Private Cloud</a> in under 2 minutes! Just pick a team name, write down your access code and start hacking!
 						</p>
 						<img src="assets/OpenShift-LogoType.svg.png" height="300" class="no-box"/>
 						<p>
@@ -224,6 +244,14 @@
 
 				<section>
 					<h1>Behind the Scenes</h1>
+				</section>
+
+				<section>
+					<h2>Modern Web-Architecture</h2>
+					<p>
+						JavaScript/TypeScript all the way from UI to REST API
+					</p>
+					<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/introduction/img/architecture-diagram.png"/>
 				</section>
 
 				<section>
