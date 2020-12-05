@@ -53,4 +53,4 @@
 		 </span>
 
 </mat-table>
-<div *ngIf="totalPrice" id="price">{{"LABEL_TOTAL_PRICE"| translate }}: {{itemTotal}}¤</div>
+<div *ngIf="totalPrice" id="price">{{"LABEL_TOTAL_PRICE"| translate }}: {{ (itemTotal).toFixed(2) }}¤</div>
