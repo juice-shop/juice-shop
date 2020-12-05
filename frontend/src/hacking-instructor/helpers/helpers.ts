@@ -37,7 +37,7 @@ export function waitForInputToNotHaveValue (inputSelector: string, value: string
         break
       } else if (!options.ignoreCase && inputElement.value !== value) {
         break
-      } else 
+      }
       await sleep(100)
     }
   }
@@ -50,7 +50,7 @@ export function waitForInputToNotHaveValueAndNotBeEmpty (inputSelector: string, 
     ) as HTMLInputElement
 
     while (true) {
-      if (inputElement.value != "") {
+      if (inputElement.value !== '') {
         if (options.ignoreCase && inputElement.value.toLowerCase() !== value.toLowerCase()) {
           break
         } else if (!options.ignoreCase && inputElement.value !== value) {
