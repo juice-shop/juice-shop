@@ -14,11 +14,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: "Use Node.js ${{ matrix.node-version }}"
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Cache Node.js modules
+      - name: "Cache Node.js modules"
         uses: actions/cache@v2
         with:
           # npm cache files are stored in `~/.npm` on Linux/macOS
@@ -27,11 +27,27 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-node-
             ${{ runner.OS }}-
-      - name: Install application
+      - name: "Install Angular CLI"
+        run: npm install -g @angular/cli
+      - name: "Install application"
         run: npm install
-      - name: Execute unit tests
+      - name: "Execute unit tests"
         run: npm test
-      - name: Execute integration tests
+      - name: "Execute integration tests"
         run: |
           export NODE_ENV=test
           npm run frisby
+      - uses: nanasess/setup-chromedriver@master
+      - run: |
+          export DISPLAY=:99
+          chromedriver --url-base=/wd/hub &
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
+      - name: "Execute e2e tests"
+        run: |
+          export NODE_ENV=test
+          npm run protractor
+      - name: "Execute e2e tests with application hosted in subfolder"
+        run: |
+          export NODE_ENV=test
+          npm run preprotractor
+          run e2e -- subfolder
