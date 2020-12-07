@@ -23,9 +23,14 @@ addons:
   chrome: stable
 services:
   - docker
-install:
-  - if [[ -z "$TRAVIS_TAG" ]]; then npm install; fi
-script: if [[ -z "$TRAVIS_TAG" && "$TRAVIS_OS_NAME" != "windows" && "$TRAVIS_CPU_ARCH"
+#install:
+#  - if [[ -z "$TRAVIS_TAG" ]]; then npm install; fi
+#script: if [[ -z "$TRAVIS_TAG" && "$TRAVIS_OS_NAME" != "windows" && "$TRAVIS_CPU_ARCH"
+#  == "amd64" ]]; then NODE_ENV=test npm test; fi
+install: # TODO Uncomment above original scripts once Travis-CI licensing issues have been resolved
+  - if [[ -z "$TRAVIS_TAG" && "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_CPU_ARCH"
+    == "amd64" ]]; then npm install; fi
+script: if [[ -z "$TRAVIS_TAG" && "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_CPU_ARCH"
   == "amd64" ]]; then NODE_ENV=test npm test; fi
 before_deploy:
   - npm install --production
