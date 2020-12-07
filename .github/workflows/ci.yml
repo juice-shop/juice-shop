@@ -1,4 +1,4 @@
-name: Node.js CI
+name: "Node.js CI"
 
 on: [push]
 
@@ -28,10 +28,10 @@ jobs:
             ${{ runner.OS }}-node-
             ${{ runner.OS }}-
       - name: Install application
-      - run: npm install
+        run: npm install
       - name: Execute unit tests
-      - run: npm test
+        run: npm test
       - name: Execute integration tests
-      - run: export NODE_ENV=test
-      - run: npm run frisby
-
+        run: |
+          export NODE_ENV=test
+          npm run frisby
