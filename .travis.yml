@@ -97,12 +97,13 @@ jobs:
       script:
         - export NODE_ENV=test
         - npm run protractor
-    - stage: e2e
-      if: tag IS blank
-      script:
-        - export NODE_ENV=test
-        - npm run preprotractor
-        - npm run e2e -- subfolder
+    # TODO Uncomment below script once Travis-CI licensing issues have been resolved
+#    - stage: e2e
+#      if: tag IS blank
+#      script:
+#        - export NODE_ENV=test
+#        - npm run preprotractor
+#        - npm run e2e -- subfolder
     - stage: smoke
       if: tag IS blank
       before_install:
