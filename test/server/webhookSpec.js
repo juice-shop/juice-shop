@@ -5,6 +5,8 @@
 
 const chai = require('chai')
 const expect = chai.expect
+const chaiAsPromised = require('chai-as-promised')
+chai.use(chaiAsPromised)
 
 describe('webhook', () => {
   const webhook = require('../../lib/webhook')
@@ -16,15 +18,15 @@ describe('webhook', () => {
 
   describe('notify', () => {
     it('fails when no webhook URL is provided via environment variable', () => {
-      expect(() => webhook.notify(challenge)).to.throw('options.uri is a required argument')
+      expect(webhook.notify(challenge)).to.eventually.throw('options.uri is a required argument')
     })
 
     it('fails when supplied webhook is not a valid URL', () => {
-      expect(() => webhook.notify(challenge, 'localhorst')).to.throw('Invalid URI "localhorst"')
+      expect(webhook.notify(challenge, 'localhorst')).to.eventually.throw('Invalid URI "localhorst"')
     })
 
     it('submits POST with payload to existing URL', () => {
-      expect(() => webhook.notify(challenge, 'https://enmmrmqnft1o.x.pipedream.net')).to.not.throw()
+      expect(webhook.notify(challenge, 'https://enmmrmqnft1o.x.pipedream.net')).to.eventually.not.throw()
     })
   })
 })
