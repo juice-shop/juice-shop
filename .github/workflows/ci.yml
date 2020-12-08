@@ -83,3 +83,4 @@ jobs:
           ./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.api.json build/reports/coverage/api-tests/lcov.info
           ./cc-test-reporter sum-coverage build/reports/coverage/codeclimate.*.json -p 3
           ./cc-test-reporter upload-coverage
+        shell: bash
