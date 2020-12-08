@@ -1,4 +1,4 @@
-name: "Node.js CI"
+name: "CI/CD Pipeline"
 
 on: [push]
 
@@ -21,7 +21,6 @@ jobs:
       - name: "Cache Node.js modules"
         uses: actions/cache@v2
         with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
           path: ~/.npm
           key: ${{ runner.OS }}-node-${{ hashFiles('**/package.json') }}
           restore-keys: |
@@ -32,6 +31,7 @@ jobs:
       - name: "Install application"
         run: npm install
       - name: "Lint code and configurations"
+        if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14.x'
         run: |
           npm run lint
           npm run lint:config -- -f ./config/7ms.yml
@@ -47,8 +47,10 @@ jobs:
           npm run lint:config -- -f ./config/tutorial.yml
           npm run lint:config -- -f ./config/unsafe.yml
       - name: "Execute unit tests"
+        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest' # FIXME Reliability issues with tests on Windows are a known issue from Travis-CI
         run: npm test
       - name: "Execute integration tests"
+        if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14.x'
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
           set NODE_ENV=test
