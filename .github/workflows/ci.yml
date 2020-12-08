@@ -50,5 +50,11 @@ jobs:
         run: npm test
       - name: "Execute integration tests"
         run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then
+          set NODE_ENV=test
+          else
           export NODE_ENV=test
+          fi
           npm run frisby
+        shell: bash
+
