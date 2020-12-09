@@ -26,6 +26,7 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { EventEmitter } from '@angular/core'
+import { DeliveryMethodComponent } from '../delivery-method/delivery-method.component'
 
 describe('AddressComponent', () => {
   let component: AddressComponent
@@ -49,7 +50,9 @@ describe('AddressComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
+        RouterTestingModule.withRoutes([
+          { path: 'delivery-method', component: DeliveryMethodComponent }
+        ]),
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
