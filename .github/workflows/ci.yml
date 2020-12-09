@@ -12,7 +12,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
-      - name: "Install Angular CLI"
+      - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
         run: |
@@ -55,7 +55,7 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-node-
             ${{ runner.OS }}-
-      - name: "Install Angular CLI"
+      - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
         run: npm install
@@ -95,7 +95,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
-      - name: "Install Angular CLI"
+      - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
         run: npm install
@@ -103,3 +103,31 @@ jobs:
         run: |
           set NODE_ENV=test
           npm run protractor
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@v2
+      - name: "Use Node.js 14.x"
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: "Install CLI tools"
+        run: |
+          npm install -g @angular/cli
+          npm install -g grunt-cli
+      - name: "Package application"
+        run: |
+          npm install --production
+          npm install -g grunt-cli
+          npm run package:ci
+      - name: "Unpack application archive"
+        run: |
+          cd dist
+          tar -zxf juice-shop-*.tgz
+          cd juice-shop_*
+      - name: "Execute smoke test"
+        run: |
+          npm start &
+          chmod +x test/smoke/smoke-test.sh
+          ../../test/smoke/smoke-test.sh http://localhost:3000
