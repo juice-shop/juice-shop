@@ -101,6 +101,23 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get upgrade google-chrome-stable -y
+      - name: "Update Chromedriver"
+        run: |
+          CHROME_VERSION=$(google-chrome --product-version)
+          CHROME_VERSION=${CHROME_VERSION%.*}
+          LATEST_CHROMEDRIVER_VERSION=$(curl "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
+          echo "Downloading chromedriver v$LATEST_CHROMEDRIVER_VERSION..."
+          wget "https://chromedriver.storage.googleapis.com/$LATEST_CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
+          unzip chromedriver_linux64.zip
+          rm chromedriver_linux64.zip
+          CHROMEDRIVER_DIR="/usr/local/share/chrome_driver"
+          CHROMEDRIVER_BIN="$CHROMEDRIVER_DIR/chromedriver"
+          sudo rm -rf $CHROMEDRIVER_DIR/*
+          sudo rm -rf $CHROMEDRIVER_BIN/*
+          sudo mkdir -p $CHROMEDRIVER_DIR
+          sudo mv "chromedriver" $CHROMEDRIVER_BIN
+          sudo chmod +x $CHROMEDRIVER_BIN
+          chromedriver --version
       - name: "Install application"
         run: npm install
       - name: "Execute end-to-end tests"
