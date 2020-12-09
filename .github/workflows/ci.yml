@@ -8,6 +8,8 @@ jobs:
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@v2
+      - name: "Install Angular CLI"
+        run: npm install -g @angular/cli
       - name: "Install application"
         run: |
           npm install --ignore-scripts
