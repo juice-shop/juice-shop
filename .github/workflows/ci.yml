@@ -87,7 +87,7 @@ jobs:
           ./cc-test-reporter upload-coverage
         shell: bash
   e2e:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@v2
@@ -97,24 +97,11 @@ jobs:
           node-version: 14.x
       - name: "Install Angular CLI"
         run: npm install -g @angular/cli
-      - name: "Update Chrome"
-        run: |
-          sudo apt-get update
-          sudo apt-get upgrade google-chrome-stable -y
       - name: "Install Chromedriver"
         uses: nanasess/setup-chromedriver@master
       - name: "Install application"
-        run: |
-          export DISPLAY=:99
-          chromedriver --url-base=/wd/hub &
-          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
-          npm install
+        run: npm install
       - name: "Execute end-to-end tests"
         run: |
-          export NODE_ENV=test
-          sudo npm run protractor
-      - name: "Execute end-to-end tests (with application hosted in subfolder)"
-        run: |
-          export NODE_ENV=test
-          sudo npm run preprotractor
-          sudo npm run e2e -- subfolder
+          set NODE_ENV=test
+          npm run protractor
