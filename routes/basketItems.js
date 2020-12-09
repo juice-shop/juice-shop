@@ -73,14 +73,11 @@ module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBefor
 }
 
 async function quantityCheck (req, res, next, id, quantity) {
-  const record = await models.PurchaseQuantity.findOne({ where: { ProductId: id, UserId: req.body.UserId } })
-
-  const previousPurchase = record ? record.quantity : 0
-
   const product = await models.Quantity.findOne({ where: { ProductId: id } })
 
-  if (!product.limitPerUser || (product.limitPerUser && (product.limitPerUser - previousPurchase) >= quantity) || insecurity.isDeluxe(req)) {
-    if (product.quantity >= quantity) {
+  // is product limited per user and order, except if user is deluxe?
+  if (!product.limitPerUser || (product.limitPerUser && product.limitPerUser >= quantity) || insecurity.isDeluxe(req)) {
+    if (product.quantity >= quantity) { // enough in stock?
       next()
     } else {
       res.status(400).json({ error: res.__('We are out of stock! Sorry for the inconvenience.') })
