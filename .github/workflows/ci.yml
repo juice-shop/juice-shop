@@ -97,6 +97,10 @@ jobs:
           node-version: 14.x
       - name: "Install Angular CLI"
         run: npm install -g @angular/cli
+      - name: "Update Chrome"
+        run: |
+          sudo apt-get update
+          sudo apt-get upgrade google-chrome-stable -y
       - name: "Install application"
         run: npm install
       - name: "Execute end-to-end tests"
