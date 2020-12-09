@@ -101,31 +101,20 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get upgrade google-chrome-stable -y
-      - name: "Update Chromedriver"
+      - name: "Install Chromedriver"
+        uses: nanasess/setup-chromedriver@master
         run: |
-          CHROME_VERSION=$(google-chrome --product-version)
-          CHROME_VERSION=${CHROME_VERSION%.*}
-          LATEST_CHROMEDRIVER_VERSION=$(curl "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
-          echo "Downloading chromedriver v$LATEST_CHROMEDRIVER_VERSION..."
-          wget "https://chromedriver.storage.googleapis.com/$LATEST_CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
-          unzip chromedriver_linux64.zip
-          rm chromedriver_linux64.zip
-          CHROMEDRIVER_DIR="/usr/local/share/chrome_driver"
-          CHROMEDRIVER_BIN="$CHROMEDRIVER_DIR/chromedriver"
-          sudo rm -rf $CHROMEDRIVER_DIR/*
-          sudo rm -rf $CHROMEDRIVER_BIN/*
-          sudo mkdir -p $CHROMEDRIVER_DIR
-          sudo mv "chromedriver" $CHROMEDRIVER_BIN
-          sudo chmod +x $CHROMEDRIVER_BIN
-          chromedriver --version
+          export DISPLAY=:99
+          chromedriver --url-base=/wd/hub &
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
       - name: "Install application"
         run: npm install
       - name: "Execute end-to-end tests"
         run: |
           export NODE_ENV=test
-          npm run protractor
+          sudo npm run protractor
       - name: "Execute end-to-end tests (with application hosted in subfolder)"
         run: |
           export NODE_ENV=test
-          npm run preprotractor
-          npm run e2e -- subfolder
+          sudo npm run preprotractor
+          sudo npm run e2e -- subfolder
