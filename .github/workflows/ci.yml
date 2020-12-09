@@ -103,6 +103,11 @@ jobs:
         run: |
           set NODE_ENV=test
           npm run protractor
+      - name: "Execute end-to-end tests (application hosted in subfolder)"
+        run: |
+          set NODE_ENV=test
+          npm run preprotractor
+          npm run e2e -- subfolder
   smoke:
     runs-on: ubuntu-latest
     steps:
