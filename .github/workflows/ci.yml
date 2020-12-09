@@ -103,12 +103,12 @@ jobs:
           sudo apt-get upgrade google-chrome-stable -y
       - name: "Install Chromedriver"
         uses: nanasess/setup-chromedriver@master
+      - name: "Install application"
         run: |
           export DISPLAY=:99
           chromedriver --url-base=/wd/hub &
           sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
-      - name: "Install application"
-        run: npm install
+          npm install
       - name: "Execute end-to-end tests"
         run: |
           export NODE_ENV=test
