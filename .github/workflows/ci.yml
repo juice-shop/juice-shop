@@ -103,7 +103,20 @@ jobs:
         run: |
           set NODE_ENV=test
           npm run protractor
-      - name: "Execute end-to-end tests (application hosted in subfolder)"
+  e2e-in-subfolder:
+    runs-on: windows-latest
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@v2
+      - name: "Use Node.js 14.x"
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: "Install CLI tools"
+        run: npm install -g @angular/cli
+      - name: "Install application"
+        run: npm install
+      - name: "Execute end-to-end tests with application hosted in subfolder"
         run: |
           set NODE_ENV=test
           npm run preprotractor
