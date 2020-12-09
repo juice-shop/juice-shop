@@ -116,6 +116,17 @@ jobs:
         run: |
           npm install -g @angular/cli
           npm install -g grunt-cli
+      - name: "Set Travis-CI environment variables" # TODO: Replace with more fitting names if Travis-CI gets removed
+        run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then
+          echo "{TRAVIS_OS_NAME}={windows}" >> $GITHUB_ENV
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+          echo "{TRAVIS_OS_NAME}={osx}" >> $GITHUB_ENV
+          else
+          echo "{TRAVIS_OS_NAME}={linux}" >> $GITHUB_ENV
+          fi
+          echo "{TRAVIS_NODE_VERSION}={${{ matrix.node-version }}}" >> $GITHUB_ENV
+          echo "{TRAVIS_CPU_ARCH}={x64}" >> $GITHUB_ENV
       - name: "Package application"
         run: |
           npm install --production
