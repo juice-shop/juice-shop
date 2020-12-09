@@ -86,3 +86,25 @@ jobs:
           ./cc-test-reporter sum-coverage build/reports/coverage/codeclimate.*.json -p 3
           ./cc-test-reporter upload-coverage
         shell: bash
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@v2
+      - name: "Use Node.js 14.x"
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: "Install Angular CLI"
+        run: npm install -g @angular/cli
+      - name: "Install application"
+        run: npm install
+      - name: "Execute end-to-end tests"
+        run: |
+          export NODE_ENV=test
+          npm run protractor
+      - name: "Execute end-to-end tests (with application hosted in subfolder)"
+        run: |
+          export NODE_ENV=test
+          npm run preprotractor
+          npm run e2e -- subfolder
