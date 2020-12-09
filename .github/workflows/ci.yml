@@ -60,10 +60,8 @@ jobs:
       - name: "Install application"
         run: npm install
       - name: "Execute unit tests"
-        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest' # FIXME Reliability issues with tests on Windows are a known issue from Travis-CI
         run: npm test
       - name: "Execute integration tests"
-        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest' # FIXME Reliability issues with tests on Windows are a known issue from Travis-CI
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
           set NODE_ENV=test
