@@ -1,6 +1,6 @@
 name: "CI/CD Pipeline"
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   lint:
@@ -73,7 +73,7 @@ jobs:
           npm run frisby
         shell: bash
       - name: "Publish coverage to Codeclimate"
-        if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14.x'
+        if: github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14.x'
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         run: |
