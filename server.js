@@ -346,7 +346,7 @@ app.post('/api/Users', verify.registerAdminChallenge())
 app.post('/api/Users', verify.passwordRepeatChallenge())
 /* Unauthorized users are not allowed to access B2B API */
 app.use('/b2b/v2', insecurity.isAuthorized())
-/* Check if the quantity is available and add item to basket */
+/* Check if the quantity is available in stock and limit per user not exceeded, then add item to basket */
 app.put('/api/BasketItems/:id', insecurity.appendUserId(), basketItems.quantityCheckBeforeBasketItemUpdate())
 app.post('/api/BasketItems', insecurity.appendUserId(), basketItems.quantityCheckBeforeBasketItemAddition(), basketItems.addBasketItem())
 /* Accounting users are allowed to check and update quantities */
