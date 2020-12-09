@@ -6,18 +6,13 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+      - name: "Check out Git repository"
       - uses: actions/checkout@v2
-      - name: "Use Node.js 14.x"
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-      - name: "Install Linting tools"
+      - name: "Install application"
         run: |
-          npm install -g @angular/cli
-          npm i -g standard@14
-          npm i -g yaml-schema-validator
-      - name: "Build Angular client"
-        run: cd frontend && npm install && cd ..
+          npm install --ignore-scripts
+          cd frontend
+          npm install --ignore-scripts
       - name: "Lint code and configurations"
         run: |
           npm run lint
@@ -40,6 +35,7 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
         node-version: [10.x, 12.x, 14.x]
     steps:
+      - name: "Check out Git repository"
       - uses: actions/checkout@v2
       - name: "Use Node.js ${{ matrix.node-version }}"
         uses: actions/setup-node@v1
@@ -55,7 +51,7 @@ jobs:
             ${{ runner.OS }}-
       - name: "Install Angular CLI"
         run: npm install -g @angular/cli
-      - name: "Build application"
+      - name: "Install application"
         run: npm install
       - name: "Execute unit tests"
         if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest' # FIXME Reliability issues with tests on Windows are a known issue from Travis-CI
