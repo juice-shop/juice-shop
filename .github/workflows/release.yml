@@ -89,3 +89,15 @@ jobs:
           build-args: |
             VCS_REF=${{ env.VCS_REF }}
             BUILD_DATE=${{ env.BUILD_DATE }}
+  notify-slack:
+    if: always()
+    needs:
+      - package
+      - docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Slack workflow notification"
+        uses: Gamesight/slack-workflow-status@master
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}

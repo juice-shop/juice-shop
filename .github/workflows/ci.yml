@@ -222,3 +222,18 @@ jobs:
           heroku_app_name: ${{ env.HEROKU_APP }}
           heroku_email: bjoern.kimminich@owasp.org
           branch: ${{ env.HEROKU_BRANCH }}
+  notify-slack:
+    if: always()
+    needs:
+      - docker
+      - heroku
+      - lint
+      - e2e-in-subfolder
+      - smoke
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Slack workflow notification"
+        uses: Gamesight/slack-workflow-status@master
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
