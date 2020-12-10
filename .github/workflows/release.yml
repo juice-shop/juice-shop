@@ -48,22 +48,14 @@ jobs:
           npm install --production
           npm install -g grunt-cli
           npm run package:ci
-      - name: "Create Release for ${{ github.ref }}"
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Upload packaged archive to release" # TODO: Will create a published (!) release on the fly even if one with the same name in draft exists. Looking up the draft and passing upload URL to shogo82148/actions-upload-release-asset@v1 would be preferable in the long run.
+        uses: svenstaro/upload-release-action@v2
         with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-          draft: true
-          prerelease: false
-      - name: "Upload packaged archive to release"
-        uses: shogo82148/actions-upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: dist/*
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: dist/*
+          tag: ${{ github.ref }}
           overwrite: true
+          file_glob: true
   docker:
     runs-on: ubuntu-latest
     steps:
