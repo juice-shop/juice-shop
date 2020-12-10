@@ -42,6 +42,7 @@ jobs:
           fi
           echo "TRAVIS_CPU_ARCH=x64" >> $GITHUB_ENV
           echo "TRAVIS_NODE_VERSION=${{ matrix.node-version }}" >> $GITHUB_ENV
+        shell: bash
       - name: "Package application"
         run: |
           npm install --production
