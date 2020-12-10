@@ -1,0 +1,79 @@
+name: "Release new version"
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  package:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [10, 12, 14]
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@v2
+      - name: "Use Node.js ${{ matrix.node-version }}"
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: "Cache Node.js modules"
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
+      - name: "Install CLI tools"
+        run: |
+          npm install -g @angular/cli
+          npm install -g grunt-cli
+      - name: "Set Travis-CI environment variables" # TODO: Replace with more fitting names if Travis-CI gets removed
+        run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then
+          echo "TRAVIS_OS_NAME=win32" >> $GITHUB_ENV
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+          echo "TRAVIS_OS_NAME=darwin" >> $GITHUB_ENV
+          else
+          echo "TRAVIS_OS_NAME=linux" >> $GITHUB_ENV
+          fi
+          echo "TRAVIS_CPU_ARCH=x64" >> $GITHUB_ENV
+          echo "TRAVIS_NODE_VERSION=${{ matrix.node-version }}" >> $GITHUB_ENV
+      - name: "Package application"
+        run: |
+          npm install --production
+          npm install -g grunt-cli
+          npm run package:ci
+  docker:
+    if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@v2
+      - name: "Set up QEMU"
+        uses: docker/setup-qemu-action@v1
+      - name: "Set up Docker Buildx"
+        uses: docker/setup-buildx-action@v1
+      - name: "Login to DockerHub"
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: "Get tag name"
+        id: tag
+        uses: dawidd6/action-get-tag@v1
+      - name: "Build and push"
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64,linux/arm/v7,linux/arm64
+          push: true
+          tags: |
+            bkimminich/juice-shop:${{ steps.tag.outputs.tag }}
+          build-args: |
+            VCS_REF=`git rev-parse --short HEAD`
+            BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”`

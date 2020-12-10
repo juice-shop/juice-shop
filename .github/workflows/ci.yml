@@ -8,10 +8,10 @@ jobs:
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@v2
-      - name: "Use Node.js 14.x"
+      - name: "Use Node.js 14"
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 14
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
@@ -39,7 +39,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [10.x, 12.x, 14.x]
+        node-version: [10, 12, 14]
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@v2
@@ -73,7 +73,7 @@ jobs:
           npm run frisby
         shell: bash
       - name: "Publish coverage to Codeclimate"
-        if: github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14.x'
+        if: github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         run: |
@@ -91,10 +91,10 @@ jobs:
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@v2
-      - name: "Use Node.js 14.x"
+      - name: "Use Node.js 14"
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 14
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
@@ -108,10 +108,10 @@ jobs:
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@v2
-      - name: "Use Node.js 14.x"
+      - name: "Use Node.js 14"
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 14
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
@@ -126,10 +126,10 @@ jobs:
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@v2
-      - name: "Use Node.js 14.x"
+      - name: "Use Node.js 14"
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 14
       - name: "Install CLI tools"
         run: |
           npm install -g @angular/cli
@@ -137,7 +137,7 @@ jobs:
       - name: "Set Travis-CI environment variables" # TODO: Replace with more fitting names if Travis-CI gets removed
         run: |
           echo "TRAVIS_OS_NAME=linux" >> $GITHUB_ENV
-          echo "TRAVIS_NODE_VERSION=14.x" >> $GITHUB_ENV
+          echo "TRAVIS_NODE_VERSION=14" >> $GITHUB_ENV
           echo "TRAVIS_CPU_ARCH=x64" >> $GITHUB_ENV
       - name: "Package application"
         run: |
