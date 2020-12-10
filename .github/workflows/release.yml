@@ -48,14 +48,22 @@ jobs:
           npm install --production
           npm install -g grunt-cli
           npm run package:ci
-      - name: "Upload packaged archive to release"
-        uses: svenstaro/upload-release-action@v2
+      - name: "Create Release for ${{ github.ref }}"
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/*
-          tag: ${{ github.ref }}
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          draft: true
+          prerelease: false
+      - name: "Upload packaged archive to release"
+        uses: shogo82148/actions-upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: dist/*
           overwrite: true
-          file_glob: true
   docker:
     runs-on: ubuntu-latest
     steps:
