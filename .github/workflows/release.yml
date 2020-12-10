@@ -56,7 +56,6 @@ jobs:
           overwrite: true
           file_glob: true
   docker:
-    if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
