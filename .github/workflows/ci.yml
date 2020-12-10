@@ -142,7 +142,7 @@ jobs:
         run: |
           npm install -g @angular/cli
           npm install -g grunt-cli
-      - name: "Set Travis-CI environment variables" # TODO: Replace with more fitting names if Travis-CI gets removed
+      - name: "Set packaging options for Grunt" # TODO: Replace with more fitting names if Travis-CI gets removed
         run: |
           echo "TRAVIS_OS_NAME=linux" >> $GITHUB_ENV
           echo "TRAVIS_NODE_VERSION=14" >> $GITHUB_ENV
@@ -178,13 +178,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: "Set tag for ${{ github.ref }}"
+      - name: "Set tag & labels for ${{ github.ref }}"
         run: |
           if [ "$GITHUB_REF" == "refs/heads/master" ]; then
           echo "DOCKER_TAG=latest" >> $GITHUB_ENV
           else
           echo "DOCKER_TAG=snapshot" >> $GITHUB_ENV
           fi
+          echo "VCS_REF=`git rev-parse --short HEAD`" >> $GITHUB_ENV
+          echo "BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”`" >> $GITHUB_ENV
       - name: "Build and push"
         uses: docker/build-push-action@v2
         with:
@@ -195,8 +197,8 @@ jobs:
           tags: |
             bkimminich/juice-shop:${{ env.DOCKER_TAG }}
           build-args: |
-            VCS_REF=`git rev-parse --short HEAD`
-            BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”`
+            VCS_REF=${{ env.VCS_REF }}
+            BUILD_DATE=${{ env.BUILD_DATE }}
   heroku:
     if: github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
     needs: [test, e2e]
