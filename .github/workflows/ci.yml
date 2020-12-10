@@ -142,11 +142,11 @@ jobs:
         run: |
           npm install -g @angular/cli
           npm install -g grunt-cli
-      - name: "Set packaging options for Grunt" # TODO: Replace with more fitting names if Travis-CI gets removed
+      - name: "Set packaging options for Grunt"
         run: |
-          echo "TRAVIS_OS_NAME=linux" >> $GITHUB_ENV
-          echo "TRAVIS_NODE_VERSION=14" >> $GITHUB_ENV
-          echo "TRAVIS_CPU_ARCH=x64" >> $GITHUB_ENV
+          echo "PCKG_OS_NAME=linux" >> $GITHUB_ENV
+          echo "PCKG_NODE_VERSION=14" >> $GITHUB_ENV
+          echo "PCKG_CPU_ARCH=x64" >> $GITHUB_ENV
       - name: "Package application"
         run: |
           npm install --production

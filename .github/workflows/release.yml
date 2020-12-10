@@ -1,4 +1,4 @@
-name: "Release new version"
+name: "Release Pipeline"
 
 on:
   push:
@@ -31,24 +31,24 @@ jobs:
         run: |
           npm install -g @angular/cli
           npm install -g grunt-cli
-      - name: "Set packaging options for Grunt" # TODO: Replace with more fitting names if Travis-CI gets removed
+      - name: "Set packaging options for Grunt"
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
-          echo "TRAVIS_OS_NAME=win32" >> $GITHUB_ENV
+          echo "PCKG_OS_NAME=win32" >> $GITHUB_ENV
           elif [ "$RUNNER_OS" == "macOS" ]; then
-          echo "TRAVIS_OS_NAME=darwin" >> $GITHUB_ENV
+          echo "PCKG_OS_NAME=darwin" >> $GITHUB_ENV
           else
-          echo "TRAVIS_OS_NAME=linux" >> $GITHUB_ENV
+          echo "PCKG_OS_NAME=linux" >> $GITHUB_ENV
           fi
-          echo "TRAVIS_CPU_ARCH=x64" >> $GITHUB_ENV
-          echo "TRAVIS_NODE_VERSION=${{ matrix.node-version }}" >> $GITHUB_ENV
+          echo "PCKG_CPU_ARCH=x64" >> $GITHUB_ENV
+          echo "PCKG_NODE_VERSION=${{ matrix.node-version }}" >> $GITHUB_ENV
         shell: bash
       - name: "Package application"
         run: |
           npm install --production
           npm install -g grunt-cli
           npm run package:ci
-      - name: "Upload packaged archive to release" # TODO: Will create a published (!) release on the fly even if one with the same name in draft exists. Looking up the draft and passing upload URL to shogo82148/actions-upload-release-asset@v1 would be preferable in the long run.
+      - name: "Upload packaged archive to release" # TODO: Will use (or create on the fly) a published (!) release with the tag name even if one in draft-mode already exists. Looking up the draft and passing upload URL to shogo82148/actions-upload-release-asset@v1 would be preferable in the long run.
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
