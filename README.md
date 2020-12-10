@@ -217,15 +217,15 @@ OWASP Juice Shop officially supports the following versions of
 possible. Docker images and packaged distributions are offered
 accordingly.
 
-| node.js | Supported            | Tested             | [Packaged Distributions](#packaged-distributions)      | [Docker images](#docker-container) from `master` | [Docker images](#docker-container) from `develop` |
-|:--------|:---------------------|:-------------------|:-------------------------------------------------------|:-------------------------------------------------|:--------------------------------------------------|
-| 15.x    | :x:                  | :x:                |                                                        |                                                  |                                                   |
-| 14.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`, `arm64`) |                                                  |                                                   |
-| 13.x    | (:heavy_check_mark:) | :x:                |                                                        |                                                  |                                                   |
-| 12.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`, `arm64`) | `latest` (`linux/amd64`, `linux/arm`)            | `snapshot` (`linux/amd64`)                        |
-| 11.x    | (:heavy_check_mark:) | :x:                |                                                        |                                                  |                                                   |
-| 10.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`, `arm64`) |                                                  |                                                   |
-| <10.x   | :x:                  | :x:                |                                                        |                                                  |                                                   |
+| node.js | Supported            | Tested             | [Packaged Distributions](#packaged-distributions) | [Docker images](#docker-container) from `master`        | [Docker images](#docker-container) from `develop`         |
+|:--------|:---------------------|:-------------------|:--------------------------------------------------|:--------------------------------------------------------|:----------------------------------------------------------|
+| 15.x    | :x:                  | :x:                |                                                   |                                                         |                                                           |
+| 14.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                         |                                                           |
+| 13.x    | (:heavy_check_mark:) | :x:                |                                                   |                                                         |                                                           |
+| 12.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     | `latest` (`linux/amd64`, `linux/arm/v7`, `linux/arm64`) | `snapshot` (`linux/amd64`, `linux/arm/v7`, `linux/arm64`) |
+| 11.x    | (:heavy_check_mark:) | :x:                |                                                   |                                                         |                                                           |
+| 10.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                         |                                                           |
+| <10.x   | :x:                  | :x:                |                                                   |                                                         |                                                           |
 
 Juice Shop is automatically tested _only on the latest `.x` minor
 version_ of each node.js version mentioned above! There is no guarantee
