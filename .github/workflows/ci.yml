@@ -220,7 +220,7 @@ jobs:
           heroku_email: bjoern.kimminich@owasp.org
           branch: ${{ env.HEROKU_BRANCH }}
   notify-slack:
-    if: github.event_name == 'push' && always()
+    if: github.event_name == 'push' && (success() || failure())
     needs:
       - docker
       - heroku
