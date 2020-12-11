@@ -2,13 +2,13 @@ name: "CI/CD Pipeline"
 
 on:
   push:
-    branches-ignore:
-      - l10n_develop
-      - gh-pages
+    branches:
+      - '!l10n_develop'
+      - '!gh-pages'
   pull_request:
-    branches-ignore:
-      - l10n_develop
-      - gh-pages
+    branches:
+      - '!l10n_develop'
+      - '!gh-pages'
 
 jobs:
   lint:
