@@ -161,6 +161,7 @@ export class NavbarComponent implements OnInit {
     localStorage.removeItem('token')
     this.cookieService.delete('token', '/')
     sessionStorage.removeItem('bid')
+    sessionStorage.removeItem('itemTotal')
     this.userService.isLoggedIn.next(false)
     this.ngZone.run(() => this.router.navigate(['/']))
   }
