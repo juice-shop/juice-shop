@@ -46,14 +46,13 @@ jobs:
           npm install --production
           npm install -g grunt-cli
           npm run package:ci
-      - name: "Upload packaged archive to release" # TODO: Will use (or create on the fly) a published (!) release with the tag name even if one in draft-mode already exists. Looking up the draft and passing upload URL to shogo82148/actions-upload-release-asset@v1 would be preferable in the long run.
-        uses: svenstaro/upload-release-action@v2
+      - name: 'Attach packaged archive to tag release'
+        uses: softprops/action-gh-release@v1
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/*
-          tag: ${{ github.ref }}
-          overwrite: true
-          file_glob: true
+          draft: true
+          files: dist/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   docker:
     runs-on: ubuntu-latest
     steps:
