@@ -1,0 +1,11 @@
+.git/
+node_modules/
+screenshots/
+test/
+build/
+dist/
+vagrant/
+docs/
+Dockerfile
+frontend/node_modules/
+frontend/dist/

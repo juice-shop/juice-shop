@@ -1,0 +1,8 @@
+applications:
+- path: .
+  name: juice-shop
+  memory: 4G
+  instances: 
+  command: node app
+  env:
+    CF_STAGING_TIMEOUT: 35
