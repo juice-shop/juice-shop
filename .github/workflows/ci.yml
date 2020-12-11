@@ -4,9 +4,17 @@ on:
     branches-ignore:
       - l10n_develop
       - gh-pages
+    paths-ignore:
+      - '*.md'
+      - 'LICENSE'
   pull_request:
     branches:
       - develop
+    paths-ignore:
+      - '*.md'
+      - 'LICENSE'
+      - 'data/static/i18n/*.json'
+      - 'frontend/src/assets/i18n/*.json'
 jobs:
   lint:
     runs-on: ubuntu-latest
