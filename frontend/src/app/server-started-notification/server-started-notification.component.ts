@@ -65,6 +65,10 @@ export class ServerStartedNotificationComponent implements OnInit {
 
   clearProgress () {
     this.cookieService.delete('continueCode', '/')
+    this.cookieService.delete('token', '/')
+    sessionStorage.removeItem('bid')
+    sessionStorage.removeItem('itemTotal')
+    localStorage.removeItem('token')
     localStorage.removeItem('displayedDifficulties')
     localStorage.removeItem('showSolvedChallenges')
     localStorage.removeItem('showDisabledChallenges')
