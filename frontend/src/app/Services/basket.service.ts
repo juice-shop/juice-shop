@@ -54,7 +54,7 @@ export class BasketService {
     return this.http.put(this.hostServer + '/rest/basket/' + id + '/coupon/' + coupon, {}).pipe(map((response: any) => response.discount), catchError((error) => { throw error }))
   }
 
-  updateNumberOfCardItems () {
+  updateNumberOfCartItems () {
     this.find(parseInt(sessionStorage.getItem('bid'), 10)).subscribe((basket) => {
       this.itemTotal.next(basket.Products.reduce((itemTotal, product) => itemTotal + product.BasketItem.quantity, 0))
     },(err) => console.log(err))
