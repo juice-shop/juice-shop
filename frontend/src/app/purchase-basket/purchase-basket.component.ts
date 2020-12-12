@@ -63,7 +63,7 @@ export class PurchaseBasketComponent implements OnInit {
   delete (id) {
     this.basketService.del(id).subscribe(() => {
       this.load()
-      this.basketService.updateNumberOfCardItems()
+      this.basketService.updateNumberOfCartItems()
     }, (err) => console.log(err))
   }
 
@@ -80,7 +80,7 @@ export class PurchaseBasketComponent implements OnInit {
       let newQuantity = basketItem.quantity + value
       this.basketService.put(id, { quantity: newQuantity < 1 ? 1 : newQuantity }).subscribe(() => {
         this.load()
-        this.basketService.updateNumberOfCardItems()
+        this.basketService.updateNumberOfCartItems()
       },(err) => {
         this.snackBarHelperService.open(err.error?.error,'errorBar')
         console.log(err)
