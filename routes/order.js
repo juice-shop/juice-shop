@@ -51,25 +51,6 @@ module.exports = function placeOrder () {
               models.Quantity.update({ quantity: newQuantity }, { where: { ProductId: BasketItem.ProductId } }).catch(error => {
                 next(error)
               })
-              models.PurchaseQuantity.findOne({ where: { ProductId: BasketItem.ProductId, UserId: req.body.UserId } }).then((record) => {
-                if (record) {
-                  const purchasedQuantity = BasketItem.quantity + record.quantity
-                  models.PurchaseQuantity.update({ quantity: purchasedQuantity }, { where: { ProductId: BasketItem.ProductId, UserId: req.body.UserId } }).catch(error => {
-                    next(error)
-                  })
-                } else {
-                  const record = {
-                    ProductId: BasketItem.ProductId,
-                    UserId: req.body.UserId,
-                    quantity: BasketItem.quantity
-                  }
-                  models.PurchaseQuantity.create(record).catch((error) => {
-                    next(error)
-                  })
-                }
-              }).catch(error => {
-                next(error)
-              })
             }).catch(error => {
               next(error)
             })
