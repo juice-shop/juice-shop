@@ -25,6 +25,7 @@ export const LoginJimInstruction: ChallengeInstruction = {
       text:
         "Let's try if we find a way to log in with Jim's user account. To begin, go to the _Login_ page via the _Account_ menu.",
       fixture: 'app-navbar',
+      fixtureAfter: true,
       unskippable: true,
       resolved: waitForAngularRouteToBeVisited('login')
     },

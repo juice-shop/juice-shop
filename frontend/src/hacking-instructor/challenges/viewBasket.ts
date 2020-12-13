@@ -70,6 +70,7 @@ export const ViewBasketInstruction: ChallengeInstruction = {
       text:
           'Now, go to any other screen and then back to _Your Basket_. If nothing happens you might have set an invalid or non-existing `bid`. Try another in that case.',
       fixture: 'app-navbar',
+      fixtureAfter: true,
       unskippable: true,
       async resolved () {
         let total = sessionStorage.getItem('itemTotal')
@@ -84,7 +85,7 @@ export const ViewBasketInstruction: ChallengeInstruction = {
     {
       text:
           "🎉 Congratulations! You are now viewing another user's shopping basket!",
-      fixture: 'app-navbar',
+      fixture: 'app-basket',
       resolved: waitInMs(15000)
     }
   ]
