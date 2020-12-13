@@ -7,7 +7,7 @@ import {
   waitForInputToHaveValue,
   waitForElementToGetClicked,
   waitInMs,
-  waitForAngularRouteToBeVisited, waitForLogOut, waitForInputToNotHaveValue
+  waitForAngularRouteToBeVisited, waitForLogOut, waitForInputToNotHaveValueAndNotBeEmpty
 } from '../helpers/helpers'
 import { ChallengeInstruction } from '../'
 
@@ -69,7 +69,7 @@ export const LoginBenderInstruction: ChallengeInstruction = {
       text: "Now put anything in the **password field**. Let's assume we don't know it yet, even if you happen to already do.",
       fixture: '#password',
       unskippable: true,
-      resolved: waitForInputToNotHaveValue('#password', 'OhG0dPlease1nsertLiquor!')
+      resolved: waitForInputToNotHaveValueAndNotBeEmpty('#password', 'OhG0dPlease1nsertLiquor!')
     },
     {
       text: 'Press the _Log in_ button.',
