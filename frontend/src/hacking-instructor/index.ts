@@ -113,8 +113,7 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   if (hint.fixtureAfter) {
     // insertAfter does not exist so we simulate it this way
     target.parentElement!.insertBefore(relAnchor, target.nextSibling)
-  }
-  else {
+  } else {
     target.parentElement!.insertBefore(relAnchor, target)
   }
 
