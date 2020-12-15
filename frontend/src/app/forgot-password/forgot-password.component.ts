@@ -30,31 +30,35 @@ export class ForgotPasswordComponent {
   public securityQuestion?: string
   public error?: string
   public confirmation?: string
+  private timeout
 
   constructor (private securityQuestionService: SecurityQuestionService, private userService: UserService, private translate: TranslateService) { }
 
   findSecurityQuestion () {
-    this.securityQuestion = undefined
-    if (this.emailControl.value) {
-      this.securityQuestionService.findBy(this.emailControl.value).subscribe((securityQuestion: SecurityQuestion) => {
-        if (securityQuestion) {
-          this.securityQuestion = securityQuestion.question
-          this.securityQuestionControl.enable()
-          this.passwordControl.enable()
-          this.repeatPasswordControl.enable()
-        } else {
-          this.securityQuestionControl.disable()
-          this.passwordControl.disable()
-          this.repeatPasswordControl.disable()
-        }
-      },
-      (error) => error
-      )
-    } else {
-      this.securityQuestionControl.disable()
-      this.passwordControl.disable()
-      this.repeatPasswordControl.disable()
-    }
+    clearTimeout(this.timeout)
+    this.timeout = setTimeout(() => {
+      this.securityQuestion = undefined
+      if (this.emailControl.value) {
+        this.securityQuestionService.findBy(this.emailControl.value).subscribe((securityQuestion: SecurityQuestion) => {
+          if (securityQuestion) {
+            this.securityQuestion = securityQuestion.question
+            this.securityQuestionControl.enable()
+            this.passwordControl.enable()
+            this.repeatPasswordControl.enable()
+          } else {
+            this.securityQuestionControl.disable()
+            this.passwordControl.disable()
+            this.repeatPasswordControl.disable()
+          }
+        },
+          (error) => error
+        )
+      } else {
+        this.securityQuestionControl.disable()
+        this.passwordControl.disable()
+        this.repeatPasswordControl.disable()
+      }
+    }, 1000)
   }
 
   resetPassword () {
