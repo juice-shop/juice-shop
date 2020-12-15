@@ -8,6 +8,8 @@ jobs:
     steps:
     - name: Check out Git repository
       uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.BOT_TOKEN }}
     - name: Install Linter
       run: |
         npm install --ignore-scripts

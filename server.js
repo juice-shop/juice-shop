@@ -183,7 +183,7 @@ app.use((req, res, next) => {
 app.use(metrics.observeRequestMetricsMiddleware())
 
 /* Security Policy */
-const securityTxtExpiration = new Date()
+let securityTxtExpiration = new Date()
 securityTxtExpiration.setFullYear(securityTxtExpiration.getFullYear() + 1)
 app.get(['/.well-known/security.txt', '/security.txt'], verify.accessControlChallenges())
 app.use(['/.well-known/security.txt', '/security.txt'], securityTxt({
