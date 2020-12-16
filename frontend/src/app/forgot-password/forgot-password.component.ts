@@ -30,6 +30,7 @@ export class ForgotPasswordComponent {
   public securityQuestion?: string
   public error?: string
   public confirmation?: string
+  public timeoutDuration = 1000
   private timeout
 
   constructor (private securityQuestionService: SecurityQuestionService, private userService: UserService, private translate: TranslateService) { }
@@ -58,7 +59,7 @@ export class ForgotPasswordComponent {
         this.passwordControl.disable()
         this.repeatPasswordControl.disable()
       }
-    }, 1000)
+    }, this.timeoutDuration)
   }
 
   resetPassword () {
