@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -14,6 +14,7 @@ import { faEye, faEyeSlash, faKey } from '@fortawesome/free-solid-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { ConfigurationService } from '../Services/configuration.service'
+import { BasketService } from '../Services/basket.service'
 
 library.add(faKey, faEye, faEyeSlash, faGoogle)
 dom.watch()
@@ -36,7 +37,7 @@ export class LoginComponent implements OnInit {
   public clientId = '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
   public oauthUnavailable: boolean = true
   public redirectUri: string = ''
-  constructor (private configurationService: ConfigurationService, private userService: UserService, private windowRefService: WindowRefService, private cookieService: CookieService, private router: Router, private formSubmitService: FormSubmitService, private ngZone: NgZone) { }
+  constructor (private configurationService: ConfigurationService, private userService: UserService, private windowRefService: WindowRefService, private cookieService: CookieService, private router: Router, private formSubmitService: FormSubmitService, private basketService: BasketService, private ngZone: NgZone) { }
 
   ngOnInit () {
     const email = localStorage.getItem('email')
@@ -77,6 +78,7 @@ export class LoginComponent implements OnInit {
       expires.setHours(expires.getHours() + 8)
       this.cookieService.set('token', authentication.token, expires, '/')
       sessionStorage.setItem('bid', authentication.bid)
+      this.basketService.updateNumberOfCartItems()
       this.userService.isLoggedIn.next(true)
       this.ngZone.run(() => this.router.navigate(['/search']))
     }, ({ error }) => {

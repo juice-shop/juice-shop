@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -48,6 +48,11 @@ export interface ChallengeHint {
    * Query Selector String of the Element the hint should be displayed next to.
    */
   fixture: string
+  /**
+   * Set to true if the hint should be displayed after the target
+   * Defaults to false (hint displayed before target)
+   */
+  fixtureAfter?: boolean
   /**
    * Set to true if the hint should not be able to be skipped by clicking on it.
    * Defaults to false
@@ -105,7 +110,12 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   relAnchor.style.display = 'inline'
   relAnchor.appendChild(elem)
 
-  target.parentElement!.insertBefore(relAnchor, target)
+  if (hint.fixtureAfter) {
+    // insertAfter does not exist so we simulate it this way
+    target.parentElement!.insertBefore(relAnchor, target.nextSibling)
+  } else {
+    target.parentElement!.insertBefore(relAnchor, target)
+  }
 
   return relAnchor
 }

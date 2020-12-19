@@ -1,7 +1,7 @@
 /*
-* Copyright (c) 2014-2020 Bjoern Kimminich.
-* SPDX-License-Identifier: MIT
-*/
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
 
 import { UserService } from '../Services/user.service'
 import { Component, OnInit, Inject } from '@angular/core'

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -28,7 +28,7 @@ describe('/#/forgot-password', () => {
   describe('as Jim', () => {
     it('should be able to reset password with his security answer', () => {
       email.sendKeys('jim@' + config.get('application.domain'))
-      browser.wait(EC.visibilityOf(securityAnswer), 2000, 'Security answer field did not become visible')
+      browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
       securityAnswer.sendKeys('Samuel')
       newPassword.sendKeys('I <3 Spock')
       newPasswordRepeat.sendKeys('I <3 Spock')
@@ -43,7 +43,7 @@ describe('/#/forgot-password', () => {
   describe('as Bender', () => {
     it('should be able to reset password with his security answer', () => {
       email.sendKeys('bender@' + config.get('application.domain'))
-      browser.wait(EC.visibilityOf(securityAnswer), 2000, 'Security answer field did not become visible')
+      browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
       securityAnswer.sendKeys('Stop\'n\'Drop')
       newPassword.sendKeys('Brannigan 8=o Leela')
       newPasswordRepeat.sendKeys('Brannigan 8=o Leela')
@@ -59,7 +59,7 @@ describe('/#/forgot-password', () => {
     describe('for his internal account', () => {
       it('should be able to reset password with his security answer', () => {
         email.sendKeys('bjoern@' + config.get('application.domain'))
-        browser.wait(EC.visibilityOf(securityAnswer), 2000, 'Security answer field did not become visible')
+        browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
         securityAnswer.sendKeys('West-2082')
         newPassword.sendKeys('monkey birthday ')
         newPasswordRepeat.sendKeys('monkey birthday ')
@@ -74,7 +74,7 @@ describe('/#/forgot-password', () => {
     describe('for his OWASP account', () => {
       it('should be able to reset password with his security answer', () => {
         email.sendKeys('bjoern@owasp.org')
-        browser.wait(EC.visibilityOf(securityAnswer), 2000, 'Security answer field did not become visible')
+        browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
         securityAnswer.sendKeys('Zaya')
         newPassword.sendKeys('kitten lesser pooch')
         newPasswordRepeat.sendKeys('kitten lesser pooch')
@@ -90,7 +90,7 @@ describe('/#/forgot-password', () => {
   describe('as Morty', () => {
     it('should be able to reset password with his security answer', () => {
       email.sendKeys('morty@' + config.get('application.domain'))
-      browser.wait(EC.visibilityOf(securityAnswer), 2000, 'Security answer field did not become visible')
+      browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
       securityAnswer.sendKeys('5N0wb41L')
       newPassword.sendKeys('iBurri3dMySe1f!')
       newPasswordRepeat.sendKeys('iBurri3dMySe1f!')
@@ -105,7 +105,7 @@ describe('/#/forgot-password', () => {
   describe('as Uvogin', () => {
     it('should be able to reset password with his security answer', () => {
       email.sendKeys('uvogin@' + config.get('application.domain'))
-      browser.wait(EC.visibilityOf(securityAnswer), 2000, 'Security answer field did not become visible')
+      browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
       securityAnswer.sendKeys('Silence of the Lambs')
       newPassword.sendKeys('ora-ora > muda-muda')
       newPasswordRepeat.sendKeys('ora-ora > muda-muda')

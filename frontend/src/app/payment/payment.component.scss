@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -59,4 +59,8 @@ mat-card {
 .detail-divider {
   margin-bottom: 12px;
   margin-top: 12px;
+}
+
+.mat-card .mat-divider-horizontal {
+ position: relative !important;
 }

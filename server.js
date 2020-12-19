@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 const startTime = Date.now()
@@ -183,11 +183,15 @@ app.use((req, res, next) => {
 app.use(metrics.observeRequestMetricsMiddleware())
 
 /* Security Policy */
-app.get('/.well-known/security.txt', verify.accessControlChallenges())
-app.use('/.well-known/security.txt', securityTxt({
+const securityTxtExpiration = new Date()
+securityTxtExpiration.setFullYear(securityTxtExpiration.getFullYear() + 1)
+app.get(['/.well-known/security.txt', '/security.txt'], verify.accessControlChallenges())
+app.use(['/.well-known/security.txt', '/security.txt'], securityTxt({
   contact: config.get('application.securityTxt.contact'),
   encryption: config.get('application.securityTxt.encryption'),
-  acknowledgements: config.get('application.securityTxt.acknowledgements')
+  acknowledgements: config.get('application.securityTxt.acknowledgements'),
+  preferredLanguages: [...new Set(locales.map(locale => locale.key.substr(0, 2)))].join(', '),
+  expires: securityTxtExpiration.toUTCString()
 }))
 
 /* robots.txt */
@@ -346,7 +350,7 @@ app.post('/api/Users', verify.registerAdminChallenge())
 app.post('/api/Users', verify.passwordRepeatChallenge())
 /* Unauthorized users are not allowed to access B2B API */
 app.use('/b2b/v2', insecurity.isAuthorized())
-/* Check if the quantity is available and add item to basket */
+/* Check if the quantity is available in stock and limit per user not exceeded, then add item to basket */
 app.put('/api/BasketItems/:id', insecurity.appendUserId(), basketItems.quantityCheckBeforeBasketItemUpdate())
 app.post('/api/BasketItems', insecurity.appendUserId(), basketItems.quantityCheckBeforeBasketItemAddition(), basketItems.addBasketItem())
 /* Accounting users are allowed to check and update quantities */

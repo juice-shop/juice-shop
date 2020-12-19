@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import {
   waitInMs,
   sleep, waitForAngularRouteToBeVisited, waitForElementToGetClicked, waitForDevTools
@@ -11,6 +16,7 @@ export const ForgedFeedbackInstruction: ChallengeInstruction = {
       text:
           'To start this challenge, first go to the _Customer Feedback_ page.',
       fixture: 'app-navbar',
+      fixtureAfter: true,
       unskippable: true,
       resolved: waitForAngularRouteToBeVisited('contact')
     },

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -73,12 +73,12 @@ describe('SearchResultComponent', () => {
     productService = jasmine.createSpyObj('ProductService', ['search','get'])
     productService.search.and.returnValue(of([]))
     productService.get.and.returnValue(of({}))
-    basketService = jasmine.createSpyObj('BasketService', ['find','get','put','save','updateNumberOfCardItems'])
+    basketService = jasmine.createSpyObj('BasketService', ['find','get','put','save','updateNumberOfCartItems'])
     basketService.find.and.returnValue(of({ Products: [] }))
     basketService.get.and.returnValue(of({ quantinty: 1 }))
     basketService.put.and.returnValue(of({ ProductId: 1 }))
     basketService.save.and.returnValue(of({ ProductId: 1 }))
-    basketService.updateNumberOfCardItems.and.returnValue(of({}))
+    basketService.updateNumberOfCartItems.and.returnValue(of({}))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
     translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
