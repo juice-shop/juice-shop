@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { async, inject, TestBed } from '@angular/core/testing'
 
 import { LocalBackupService } from './local-backup.service'

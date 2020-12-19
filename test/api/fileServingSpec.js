@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -50,6 +50,11 @@ describe('Server', () => {
   })
 
   it('GET serves a security.txt file', () => {
+    return frisby.get(URL + '/security.txt')
+      .expect('status', 200)
+  })
+
+  it('GET serves a security.txt file under well-known subfolder', () => {
     return frisby.get(URL + '/.well-known/security.txt')
       .expect('status', 200)
   })

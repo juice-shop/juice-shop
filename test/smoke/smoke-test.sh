@@ -1,5 +1,10 @@
 #!/bin/sh
 
+#
+# Copyright (c) 2014-2021 Bjoern Kimminich.
+# SPDX-License-Identifier: MIT
+#
+
 printf "Waiting 20sec for %s to launch" "$1"
 sleep 5
 printf "....."

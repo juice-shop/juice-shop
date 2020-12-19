@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -32,6 +32,7 @@ export const PasswordStrengthInstruction: ChallengeInstruction = {
       text:
         "If you don't know it already, you must first find out the admin's email address. The user feedback and product reviews are good places to look into. When you have it, go to the _Login_ page.",
       fixture: 'app-navbar',
+      fixtureAfter: true,
       unskippable: true,
       resolved: waitForAngularRouteToBeVisited('login')
     },

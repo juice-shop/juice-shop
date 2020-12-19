@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Injectable } from '@angular/core'
 import { Backup } from '../Models/backup.model'
 import { CookieService } from 'ngx-cookie-service'

@@ -18,15 +18,8 @@ jobs:
     - uses: stefanzweifel/git-auto-commit-action@v4.0.0
       with:
         commit_message: "Auto-fix linting issues"
-
-        # Optional name of the branch the commit should be pushed to
-        # Required if Action is used in Workflow listening to the `pull_request` event
         branch: ${{ github.head_ref }}
-
-        # Optional git params
         commit_options: '--signoff'
-
-        # Optional commit user and author settings
         commit_user_name: JuiceShopBot
         commit_user_email: 61591748+JuiceShopBot@users.noreply.github.com
         commit_author: JuiceShopBot <61591748+JuiceShopBot@users.noreply.github.com>
