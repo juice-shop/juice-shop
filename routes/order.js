@@ -157,11 +157,11 @@ module.exports = function placeOrder () {
             eta: deliveryMethod.eta.toString()
           })
 
-          fileWriter.on('finish', () => {
+          //fileWriter.on('finish', () => {
             basket.update({ coupon: null })
             models.BasketItem.destroy({ where: { BasketId: id } })
             res.json({ orderConfirmation: orderId })
-          })
+          //})
         } else {
           next(new Error(`Basket with id=${id} does not exist.`))
         }
