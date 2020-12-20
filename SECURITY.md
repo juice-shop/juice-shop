@@ -15,8 +15,8 @@ We provide security patches for the latest released minor version.
 
 | Version | Supported          |
 |:--------|:-------------------|
-| 12.2.x   | :white_check_mark: |
-| <12.2    | :x:                |
+| 12.3.x   | :white_check_mark: |
+| <12.3    | :x:                |
 
 ## Reporting a Vulnerability
 
@@ -28,4 +28,3 @@ contact our shop's "security team" at the address mentioned in our
 > Instead of fixing reported vulnerabilities we might turn them into
 > hacking challenges! You might receive a reward for reporting a
 > vulnerability that makes it into one of our challenges!
-
