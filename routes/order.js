@@ -28,6 +28,12 @@ module.exports = function placeOrder () {
           const date = new Date().toJSON().slice(0, 10)
           const fileWriter = doc.pipe(fs.createWriteStream(path.join(__dirname, '../ftp/', pdfFile)))
 
+          fileWriter.on('finish', () => {
+            basket.update({ coupon: null })
+            models.BasketItem.destroy({ where: { BasketId: id } })
+            res.json({ orderConfirmation: orderId })
+          })
+
           doc.font('Times-Roman', 40).text(config.get('application.name'), { align: 'center' })
           doc.moveTo(70, 115).lineTo(540, 115).stroke()
           doc.moveTo(70, 120).lineTo(540, 120).stroke()
@@ -104,7 +110,6 @@ module.exports = function placeOrder () {
           doc.moveDown()
           doc.moveDown()
           doc.font('Times-Roman', 15).text(req.__('Thank you for your order!'))
-          doc.end()
 
           utils.solveIf(challenges.negativeOrderChallenge, () => { return totalPrice < 0 })
 
@@ -136,12 +141,8 @@ module.exports = function placeOrder () {
             bonus: totalPoints,
             deliveryPrice: deliveryAmount,
             eta: deliveryMethod.eta.toString()
-          })
-
-          fileWriter.on('finish', () => {
-            basket.update({ coupon: null })
-            models.BasketItem.destroy({ where: { BasketId: id } })
-            res.json({ orderConfirmation: orderId })
+          }).then(() => {
+            doc.end()
           })
         } else {
           next(new Error(`Basket with id=${id} does not exist.`))
