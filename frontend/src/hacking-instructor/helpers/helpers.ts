@@ -160,6 +160,7 @@ export function waitForDevTools () {
   return async () => {
     while (true) {
       console.dir(element)
+      console.clear()
       if (checkStatus) {
         break
       }
