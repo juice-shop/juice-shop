@@ -10,8 +10,6 @@ on:
     tags-ignore:
       - '*'
   pull_request:
-    branches:
-      - develop
     paths-ignore:
       - '*.md'
       - 'LICENSE'
