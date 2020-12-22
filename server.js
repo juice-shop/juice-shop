@@ -190,7 +190,7 @@ app.use(['/.well-known/security.txt', '/security.txt'], securityTxt({
   contact: config.get('application.securityTxt.contact'),
   encryption: config.get('application.securityTxt.encryption'),
   acknowledgements: config.get('application.securityTxt.acknowledgements'),
-  preferredLanguages: [...new Set(locales.map(locale => locale.key.substr(0, 2)))].join(', '),
+  'Preferred-Languages': [...new Set(locales.map(locale => locale.key.substr(0, 2)))].join(', '),
   expires: securityTxtExpiration.toUTCString()
 }))
 
