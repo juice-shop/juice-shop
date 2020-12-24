@@ -216,7 +216,7 @@ jobs:
           if [ "$GITHUB_REF" == "refs/heads/master" ]; then
           echo "HEROKU_APP=juice-shop" >> $GITHUB_ENV
           echo "HEROKU_BRANCH=master" >> $GITHUB_ENV
-          else if [ "$GITHUB_REF" == "refs/heads/angular11" ]; then
+          elif [ "$GITHUB_REF" == "refs/heads/angular11" ]; then
           echo "HEROKU_APP=juice-shop-experimental" >> $GITHUB_ENV
           echo "HEROKU_BRANCH=angular11" >> $GITHUB_ENV
           else
