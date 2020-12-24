@@ -16,213 +16,28 @@ module.exports = {
         "browser": true,
         "node": true
     },
-    "extends": [
-        "prettier",
-        "prettier/@typescript-eslint"
-    ],
-    "parser": "@typescript-eslint/parser",
+  "extends": "standard-with-typescript",
     "parserOptions": {
         "project": "./src/tsconfig.*.json",
         "sourceType": "module"
     },
-    "plugins": [
-        "eslint-plugin-import",
-        "eslint-plugin-jsdoc",
-        "@typescript-eslint",
-        "@typescript-eslint/tslint"
-    ],
-    "rules": {
-        "@typescript-eslint/await-thenable": "error",
-        "@typescript-eslint/consistent-type-assertions": "error",
-        "@typescript-eslint/member-delimiter-style": [
-            "error",
-            {
-                "multiline": {
-                    "delimiter": "none",
-                    "requireLast": true
-                },
-                "singleline": {
-                    "delimiter": "semi",
-                    "requireLast": false
-                }
-            }
-        ],
-        "@typescript-eslint/naming-convention": "error",
-        "@typescript-eslint/no-empty-function": "error",
-        "@typescript-eslint/no-floating-promises": "off",
-        "@typescript-eslint/no-misused-new": "error",
-        "@typescript-eslint/no-unnecessary-qualifier": "error",
-        "@typescript-eslint/no-unnecessary-type-assertion": "error",
-        "@typescript-eslint/no-unused-expressions": [
-            "error",
-            {
-                "allowTaggedTemplates": true,
-                "allowShortCircuit": true
-            }
-        ],
-        "@typescript-eslint/prefer-namespace-keyword": "error",
-        "@typescript-eslint/quotes": [
-            "error",
-            "single",
-            {
-                "avoidEscape": true
-            }
-        ],
-        "@typescript-eslint/semi": [
-            "error",
-            "never"
-        ],
-        "@typescript-eslint/triple-slash-reference": [
-            "error",
-            {
-                "path": "always",
-                "types": "prefer-import",
-                "lib": "always"
-            }
-        ],
-        "@typescript-eslint/type-annotation-spacing": "error",
-        "@typescript-eslint/unified-signatures": "error",
-        "brace-style": [
-            "error",
-            "1tbs"
-        ],
-        "comma-dangle": "error",
-        "curly": [
-            "error",
-            "multi-line"
-        ],
-        "eol-last": "error",
-        "eqeqeq": [
-            "error",
-            "smart"
-        ],
-        "id-blacklist": [
-            "error",
-            "any",
-            "Number",
-            "number",
-            "String",
-            "string",
-            "Boolean",
-            "boolean",
-            "Undefined",
-            "undefined"
-        ],
-        "id-match": "error",
-        "import/no-deprecated": "warn",
-        "jsdoc/check-alignment": "error",
-        "jsdoc/check-indentation": "error",
-        "jsdoc/newline-after-description": "error",
-        "new-parens": "error",
-        "no-caller": "error",
-        "no-cond-assign": "error",
-        "no-constant-condition": "error",
-        "no-control-regex": "error",
-        "no-duplicate-imports": "error",
-        "no-empty": "error",
-        "no-eval": "error",
-        "no-fallthrough": "error",
-        "no-invalid-regexp": "error",
-        "no-multiple-empty-lines": "error",
-        "no-redeclare": "error",
-        "no-regex-spaces": "error",
-        "no-return-await": "error",
-        "no-throw-literal": "error",
-        "no-trailing-spaces": "error",
-        "no-underscore-dangle": "error",
-        "no-unused-labels": "error",
-        "no-var": "error",
-        "one-var": [
-            "error",
-            "never"
-        ],
-        "radix": "error",
-        "space-before-function-paren": [
-            "error",
-            "always"
-        ],
-        "space-in-parens": [
-            "error",
-            "never"
-        ],
-        "spaced-comment": [
-            "error",
-            "always",
-            {
-                "markers": [
-                    "/"
-                ]
-            }
-        ],
-        "use-isnan": "error",
-        "@typescript-eslint/tslint/config": [
-            "error",
-            {
-                "rules": {
-                    "block-spacing": [
-                        true,
-                        "always"
-                    ],
-                    "brace-style": [
-                        true,
-                        "1tbs",
-                        {
-                            "allowSingleLine": true
-                        }
-                    ],
-                    "handle-callback-err": [
-                        true,
-                        "^(err|error)$"
-                    ],
-                    "no-duplicate-case": true,
-                    "no-empty-character-class": true,
-                    "no-ex-assign": true,
-                    "no-extra-boolean-cast": true,
-                    "no-inner-declarations": [
-                        true,
-                        "functions"
-                    ],
-                    "no-multi-spaces": true,
-                    "no-unexpected-multiline": true,
-                    "object-curly-spacing": [
-                        true,
-                        "always"
-                    ],
-                    "strict-type-predicates": true,
-                    "ter-arrow-spacing": [
-                        true,
-                        {
-                            "before": true,
-                            "after": true
-                        }
-                    ],
-                    "ter-func-call-spacing": [
-                        true,
-                        "never"
-                    ],
-                    "ter-indent": [
-                        true,
-                        2,
-                        {
-                            "SwitchCase": 1
-                        }
-                    ],
-                    "ter-no-irregular-whitespace": true,
-                    "ter-no-sparse-arrays": true,
-                    "valid-typeof": true,
-                    "whitespace": [
-                        true,
-                        "check-branch",
-                        "check-decl",
-                        "check-operator",
-                        "check-rest-spread",
-                        "check-type",
-                        "check-typecast",
-                        "check-type-operator",
-                        "check-preblock"
-                    ]
-                }
-            }
-        ]
-    }
-};
+  "rules": { // FIXME New linting errors since migrating from StandardJS-style TSLint. Should be gradually turned back on and fixed.
+    "no-return-assign": "off",
+    "no-useless-escape": "off",
+    "promise/param-names": "off",
+    "standard/no-callback-literal": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
+    "@typescript-eslint/no-invalid-void-type": "off",
+    "@typescript-eslint/restrict-plus-operands": "off",
+    "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/prefer-optional-chain": "off",
+    "@typescript-eslint/consistent-type-assertions": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-extraneous-class": "off",
+    "@typescript-eslint/require-array-sort-compare": "off"
+
+  }
+}
