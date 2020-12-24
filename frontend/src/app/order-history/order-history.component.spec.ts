@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
 import { TranslateModule } from '@ngx-translate/core'
 import { MatDividerModule } from '@angular/material/divider'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { ProductService } from '../Services/product.service'
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatGridListModule } from '@angular/material/grid-list'
@@ -33,9 +33,8 @@ describe('AccountingComponent', () => {
   let orderHistoryService
   let dialog: any
 
-  beforeEach(async(() => {
-
-    dialog = jasmine.createSpyObj('MatDialog',['open'])
+  beforeEach(waitForAsync(() => {
+    dialog = jasmine.createSpyObj('MatDialog', ['open'])
     dialog.open.and.returnValue(null)
     productService = jasmine.createSpyObj('ProductService', ['get'])
     productService.get.and.returnValue(of({}))
@@ -43,7 +42,7 @@ describe('AccountingComponent', () => {
     orderHistoryService.get.and.returnValue(of([]))
 
     TestBed.configureTestingModule({
-      declarations: [ OrderHistoryComponent ],
+      declarations: [OrderHistoryComponent],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
@@ -63,10 +62,10 @@ describe('AccountingComponent', () => {
       providers: [
         { provide: ProductService, useValue: productService },
         { provide: OrderHistoryService, useValue: orderHistoryService },
-				{ provide: MatDialog, useValue: dialog }
+        { provide: MatDialog, useValue: dialog }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

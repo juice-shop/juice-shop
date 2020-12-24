@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -9,7 +9,7 @@ import { Observable, Observer, of } from 'rxjs'
 export const mimeType = (
   control: AbstractControl
 ): Promise<{ [key: string]: any }> | Observable<{ [key: string]: any }> => {
-  if (typeof(control.value) === 'string') {
+  if (typeof (control.value) === 'string') {
     return of(null)
   }
   const file = control.value as File

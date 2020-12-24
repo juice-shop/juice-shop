@@ -11,48 +11,34 @@
 ## GitHub Contributors
 
 As reported by [`gitstats`](http://gitstats.sourceforge.net/) analysis
-of `master` as of Thu, 17 Dec 2020 after deduplication with `.mailmap`
+of `master` as of Sun, 20 Dec 2020 after deduplication with `.mailmap`
 and
 [conversion into Markdown](https://jmalarcon.github.io/markdowntables/).
 
-| Author             | Commits (%)    | + lines | - lines | First commit | Last commit | Age                 | Active days | # by commits |
-|:-------------------|:---------------|:--------|:--------|:-------------|:------------|:--------------------|:------------|:-------------|
-| Björn Kimminich    | 13563 (89.73%) | 404879  | 369592  | 2014-09-19   | 2020-12-16  | 2280 days, 2:28:04  | 1282        | 1            |
-| Jannik Hollenbach  | 315 (2.08%)    | 8028    | 4986    | 2017-04-14   | 2020-11-20  | 1316 days, 19:47:55 | 93          | 2            |
-| Aashish683         | 229 (1.52%)    | 149990  | 3609    | 2018-01-31   | 2018-08-04  | 184 days, 15:12:04  | 65          | 3            |
-| greenkeeper\[bot\] | 151 (1.00%)    | 2047    | 1486    | 2018-01-30   | 2019-07-06  | 521 days, 16:54:22  | 109         | 4            |
-| MarcRler           | 147 (0.97%)    | 5049    | 3257    | 2019-03-18   | 2020-04-08  | 386 days, 13:04:25  | 52          | 5            |
-| agrawalarpit14     | 136 (0.90%)    | 14899   | 5871    | 2019-02-19   | 2019-08-16  | 178 days, 4:13:54   | 62          | 6            |
-| Scar26             | 124 (0.82%)    | 2380    | 997     | 2020-02-04   | 2020-09-30  | 238 days, 13:06:35  | 54          | 7            |
-| CaptainFreak       | 85 (0.56%)     | 2632    | 801     | 2018-01-29   | 2018-08-09  | 192 days, 11:01:12  | 45          | 8            |
-| Supratik Das       | 84 (0.56%)     | 1461    | 415     | 2018-12-29   | 2019-05-06  | 127 days, 13:24:18  | 21          | 9            |
-| JuiceShopBot       | 48 (0.32%)     | 278     | 245     | 2020-02-28   | 2020-12-02  | 278 days, 6:35:12   | 35          | 10           |
-| aaryan10           | 25 (0.17%)     | 764     | 369     | 2019-01-12   | 2019-04-19  | 96 days, 11:34:16   | 12          | 11           |
-| m4l1c3             | 18 (0.12%)     | 82      | 42      | 2017-02-09   | 2017-02-13  | 4 days, 19:08:33    | 2           | 12           |
-| Timo Pagel         | 15 (0.10%)     | 447     | 222     | 2016-09-06   | 2019-06-29  | 1025 days, 11:26:33 | 9           | 13           |
-| Josh Grossman      | 15 (0.10%)     | 3358    | 1815    | 2017-08-06   | 2018-03-18  | 224 days, 8:30:24   | 4           | 14           |
-| JamesCullum        | 11 (0.07%)     | 327     | 186     | 2019-09-18   | 2020-03-26  | 190 days, 10:32:23  | 6           | 15           |
-| omerlh             | 10 (0.07%)     | 103     | 27      | 2017-11-28   | 2018-12-23  | 389 days, 16:27:55  | 6           | 16           |
-| Martin Rock-Evans  | 10 (0.07%)     | 266     | 52      | 2019-06-04   | 2019-06-06  | 2 days, 8:23:06     | 3           | 17           |
-| Alejandro Saenz    | 10 (0.07%)     | 313     | 139     | 2019-03-31   | 2019-09-22  | 175 days, 7:38:26   | 3           | 18           |
-| Justin Smid        | 9 (0.06%)      | 246     | 137     | 2020-06-12   | 2020-06-15  | 3 days, 7:59:46     | 2           | 19           |
-| Marc O'Polo        | 6 (0.04%)      | 563     | 266     | 2019-03-16   | 2019-03-17  | 1 day, 23:36:28     | 2           | 20           |
+|Author|Commits (%)|+ lines|- lines|First commit|Last commit|Age|Active days|# by commits|
+|--- |--- |--- |--- |--- |--- |--- |--- |--- |
+|Björn Kimminich|13600 (89.66%)|405709|370346|2014-09-19|2020-12-19|2283 days, 6:12:52|1289|1|
+|Jannik Hollenbach|315 (2.08%)|8028|4986|2017-04-14|2020-11-20|1316 days, 19:47:55|93|2|
+|Aashish683|229 (1.51%)|149990|3609|2018-01-31|2018-08-04|184 days, 15:12:04|65|3|
+|greenkeeper\[bot\]|151 (1.00%)|2047|1486|2018-01-30|2019-07-06|521 days, 16:54:22|109|4|
+|MarcRler|150 (0.99%)|5054|3258|2019-03-18|2020-12-05|628 days, 1:05:38|54|5|
+|agrawalarpit14|136 (0.90%)|14899|5871|2019-02-19|2019-08-16|178 days, 4:13:54|62|6|
+|Scar26|124 (0.82%)|2380|997|2020-02-04|2020-09-30|238 days, 13:06:35|54|7|
+|CaptainFreak|85 (0.56%)|2632|801|2018-01-29|2018-08-09|192 days, 11:01:12|45|8|
+|Supratik Das|84 (0.55%)|1461|415|2018-12-29|2019-05-06|127 days, 13:24:18|21|9|
+|JuiceShopBot|51 (0.34%)|281|249|2020-02-28|2020-12-15|291 days, 0:34:44|37|10|
+|aaryan10|25 (0.16%)|764|369|2019-01-12|2019-04-19|96 days, 11:34:16|12|11|
+|m4l1c3|18 (0.12%)|82|42|2017-02-09|2017-02-13|4 days, 19:08:33|2|12|
+|Timo Pagel|15 (0.10%)|447|222|2016-09-06|2019-06-29|1025 days, 11:26:33|9|13|
+|Josh Grossman|15 (0.10%)|3358|1815|2017-08-06|2018-03-18|224 days, 8:30:24|4|14|
+|Clément Notin|13 (0.09%)|97|117|2020-11-17|2020-12-09|22 days, 5:00:47|6|15|
+|JamesCullum|11 (0.07%)|327|186|2019-09-18|2020-03-26|190 days, 10:32:23|6|16|
+|omerlh|10 (0.07%)|103|27|2017-11-28|2018-12-23|389 days, 16:27:55|6|17|
+|Martin Rock-Evans|10 (0.07%)|266|52|2019-06-04|2019-06-06|2 days, 8:23:06|3|18|
+|Alejandro Saenz|10 (0.07%)|313|139|2019-03-31|2019-09-22|175 days, 7:38:26|3|19|
+|Justin Smid|9 (0.06%)|246|137|2020-06-12|2020-06-15|3 days, 7:59:46|2|20|
 
-**Additional contributions by:** Jorge Estigarribia, madhurw7, Nat
-McHugh, Rijul Gulati, Rick Daalhuizen, PranjalAgni, Julian Winter, João
-Fonseca, Greg Guthe, Clément Notin, yuvraj, Viktor Lindström, Simon
-Basset, Shivam Luthra, Roberto Abdelkader Martínez Pérez, Paulino
-Calderon, Nick Murison, Ingo Bente, Devansh Batra, Benjamin Liebe, Aron
-Smit, Andrew Stubbs, Abdelrhman Magdy, Aaron Edwards, 003random,
-whitesource-bolt-for-github\[bot\], timmar2000, root, ridhishjain,
-ninoseki, lucky70707, jamiemcgregor, battletux, adam, Zander Mackie,
-Travis Webb, The Gitter Badger, Stuart Winter-Tear, Stephen OBrien,
-Simon de Lang, Rotem Reiss, Priit Pääsukene, Mohammed Ali Agha, Mashiro
-Shiina, M4ttsson, Luke Dekker, Ken Friis Larsen, Johanna A, Joe Butler,
-Jet Anderson, Jason Haley, Jainendra Mandavi, Gorka Vicente, Dinis Cruz,
-Christian Kühn, Chris Castle, Bitdeli Chef, AviD, Artemiy Knipe |
-Артемий Кондатьев, Alvaro Viebrantz, Alec Brooks, Achim Grimm, Abhishek
-bundela
+**Additional contributions by:** Marc O'Polo, Jorge Estigarribia, madhurw7, Nat McHugh, Rijul Gulati, Rick Daalhuizen, PranjalAgni, Julian Winter, João Fonseca, Greg Guthe, yuvraj, Viktor Lindström, Simon Basset, Shivam Luthra, Roberto Abdelkader Martínez Pérez, Paulino Calderon, Nick Murison, Ingo Bente, Devansh Batra, Benjamin Liebe, Aron Smit, Andrew Stubbs, Abdelrhman Magdy, Aaron Edwards, 003random, whitesource-bolt-for-github\[bot\], timmar2000, root, ridhishjain, ninoseki, lucky70707, jamiemcgregor, battletux, adam, Zander Mackie, Travis Webb, The Gitter Badger, Stuart Winter-Tear, Stephen OBrien, Simon de Lang, Rotem Reiss, Priit Pääsukene, Mohammed Ali Agha, Mashiro Shiina, M4ttsson, Luke Dekker, Ken Friis Larsen, Johanna A, Joe Butler, Jet Anderson, Jason Haley, Jainendra Mandavi, Gorka Vicente, Dinis Cruz, Christian Kühn, Chris Castle, Bitdeli Chef, AviD, Artemiy Knipe | Артемий Кондатьев, Alvaro Viebrantz, Alec Brooks, Achim Grimm, Abhishek bundela
 
 ## Translators
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -18,11 +18,10 @@ import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
   styleUrls: ['./address-create.component.scss']
 })
 export class AddressCreateComponent implements OnInit {
-
   public countryControl: FormControl = new FormControl('', [Validators.required])
   public nameControl: FormControl = new FormControl('', [Validators.required])
-  public numberControl: FormControl = new FormControl('',[Validators.required,Validators.min(1111111),Validators.max(9999999999)])
-  public pinControl: FormControl = new FormControl('',[Validators.required, Validators.maxLength(8)])
+  public numberControl: FormControl = new FormControl('', [Validators.required, Validators.min(1111111), Validators.max(9999999999)])
+  public pinControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(8)])
   public addressControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(160)])
   public cityControl: FormControl = new FormControl('', [Validators.required])
   public stateControl: FormControl = new FormControl()
@@ -30,9 +29,9 @@ export class AddressCreateComponent implements OnInit {
   public mode = 'create'
   private addressId: string = undefined
 
-  constructor (private location: Location, private formSubmitService: FormSubmitService,
-    private addressService: AddressService, private router: Router, public activatedRoute: ActivatedRoute,
-    private translate: TranslateService, private snackBarHelperService: SnackBarHelperService) { }
+  constructor (private readonly location: Location, private readonly formSubmitService: FormSubmitService,
+    private readonly addressService: AddressService, private readonly router: Router, public activatedRoute: ActivatedRoute,
+    private readonly translate: TranslateService, private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
     this.address = {}
@@ -65,7 +64,7 @@ export class AddressCreateComponent implements OnInit {
         this.ngOnInit()
         this.resetForm()
         this.routeToPreviousUrl()
-        this.translate.get('ADDRESS_UPDATED',{ city: savedAddress.city }).subscribe((addressUpdated) => {
+        this.translate.get('ADDRESS_UPDATED', { city: savedAddress.city }).subscribe((addressUpdated) => {
           this.snackBarHelperService.open(addressUpdated, 'confirmBar')
         }, (translationId) => {
           this.snackBarHelperService.open(translationId, 'confirmBar')
@@ -81,7 +80,7 @@ export class AddressCreateComponent implements OnInit {
         this.ngOnInit()
         this.resetForm()
         this.routeToPreviousUrl()
-        this.translate.get('ADDRESS_ADDED',{ city: savedAddress.city }).subscribe((addressAdded) => {
+        this.translate.get('ADDRESS_ADDED', { city: savedAddress.city }).subscribe((addressAdded) => {
           this.snackBarHelperService.open(addressAdded, 'confirmBar')
         }, (translationId) => {
           this.snackBarHelperService.open(translationId, 'confirmBar')

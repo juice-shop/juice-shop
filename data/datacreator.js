@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -42,7 +42,6 @@ module.exports = async () => {
     createRecycleItem,
     createOrders,
     createQuantity,
-    createPurchaseQuantity,
     createWallet,
     createDeliveryMethods,
     createMemories
@@ -667,33 +666,5 @@ function createOrders () {
         logger.error(`Could not insert Order ${orderId}: ${err.message}`)
       })
     )
-  )
-}
-
-function createPurchaseQuantity () {
-  const orderedQuantitys = [
-    {
-      quantity: 3,
-      ProductId: 1,
-      UserId: 1
-    },
-    {
-      quantity: 1,
-      ProductId: 2,
-      UserId: 1
-    },
-    {
-      quantity: 3,
-      ProductId: 3,
-      UserId: 1
-    }
-  ]
-
-  return Promise.all(
-    orderedQuantitys.map(orderedQuantity => {
-      return models.PurchaseQuantity.create(orderedQuantity).catch((err) => {
-        logger.error(`Could not insert ordered quantity: ${err.message}`)
-      })
-    })
   )
 }

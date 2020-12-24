@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -12,9 +12,8 @@ import { catchError } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class LanguagesService {
-
-  private hostServer = environment.hostServer
-  constructor (private http: HttpClient) { }
+  private readonly hostServer = environment.hostServer
+  constructor (private readonly http: HttpClient) { }
 
   getLanguages () {
     return this.http.get(`${this.hostServer}/rest/languages`).pipe(catchError((err) => { throw err }))

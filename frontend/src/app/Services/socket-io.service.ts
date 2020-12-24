@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -11,11 +11,10 @@ import * as io from 'socket.io-client'
   providedIn: 'root'
 })
 export class SocketIoService {
-
   public io = io
   private _socket: any
 
-  constructor (private ngZone: NgZone) {
+  constructor (private readonly ngZone: NgZone) {
     this.ngZone.runOutsideAngular(() => {
       if (environment.hostServer === '.') {
         this._socket = this.io.connect(window.location.origin, {

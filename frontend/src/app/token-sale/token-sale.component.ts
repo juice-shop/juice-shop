@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -19,9 +19,8 @@ dom.watch()
   styleUrls: ['./token-sale.component.scss']
 })
 export class TokenSaleComponent implements OnInit {
-
   public altcoinName = 'Juicycoin'
-  constructor (private configurationService: ConfigurationService) { }
+  constructor (private readonly configurationService: ConfigurationService) { }
 
   ngOnInit () {
     this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
@@ -30,5 +29,4 @@ export class TokenSaleComponent implements OnInit {
       }
     }, (err) => console.log(err))
   }
-
 }

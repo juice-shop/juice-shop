@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -12,20 +12,18 @@ import { catchError, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class RecycleService {
+  private readonly hostServer = environment.hostServer
+  private readonly host = this.hostServer + '/api/Recycles'
 
-  private hostServer = environment.hostServer
-  private host = this.hostServer + '/api/Recycles'
-
-  constructor (private http: HttpClient) { }
+  constructor (private readonly http: HttpClient) { }
 
   find (params?: any) {
-    return this.http.get(this.host + '/' , {
+    return this.http.get(this.host + '/', {
       params: params
-    }).pipe(map((response: any) => response.data),catchError((error) => { throw error }))
+    }).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 
   save (params: any) {
-    return this.http.post(this.host + '/', params).pipe(map((response: any) => response.data),catchError((error) => { throw error }))
+    return this.http.post(this.host + '/', params).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
-
 }

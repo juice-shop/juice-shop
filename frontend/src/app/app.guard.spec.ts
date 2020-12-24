@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -15,7 +15,7 @@ describe('LoginGuard', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
-            { path: '403', component: ErrorPageComponent }
+          { path: '403', component: ErrorPageComponent }
         ]
         )],
       providers: [LoginGuard]
@@ -31,13 +31,13 @@ describe('AdminGuard', () => {
   let loginGuard: any
 
   beforeEach(() => {
-    loginGuard = jasmine.createSpyObj('LoginGuard',['tokenDecode', 'forbidRoute'])
+    loginGuard = jasmine.createSpyObj('LoginGuard', ['tokenDecode', 'forbidRoute'])
 
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
-            { path: '403', component: ErrorPageComponent }
+          { path: '403', component: ErrorPageComponent }
         ]
         )],
       providers: [
@@ -79,13 +79,13 @@ describe('AccountingGuard', () => {
   let loginGuard: any
 
   beforeEach(() => {
-    loginGuard = jasmine.createSpyObj('LoginGuard',['tokenDecode', 'forbidRoute'])
+    loginGuard = jasmine.createSpyObj('LoginGuard', ['tokenDecode', 'forbidRoute'])
 
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
-            { path: '403', component: ErrorPageComponent }
+          { path: '403', component: ErrorPageComponent }
         ]
         )],
       providers: [
@@ -127,13 +127,13 @@ describe('DeluxeGuard', () => {
   let loginGuard: any
 
   beforeEach(() => {
-    loginGuard = jasmine.createSpyObj('LoginGuard',['tokenDecode'])
+    loginGuard = jasmine.createSpyObj('LoginGuard', ['tokenDecode'])
 
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
-            { path: '403', component: ErrorPageComponent }
+          { path: '403', component: ErrorPageComponent }
         ]
         )],
       providers: [

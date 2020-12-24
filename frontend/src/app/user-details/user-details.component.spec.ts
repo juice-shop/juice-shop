@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { UserService } from '../Services/user.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatDividerModule } from '@angular/material/divider'
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { UserDetailsComponent } from './user-details.component'
 
@@ -16,7 +16,7 @@ describe('UserDetailsComponent', () => {
   let component: UserDetailsComponent
   let fixture: ComponentFixture<UserDetailsComponent>
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -24,14 +24,14 @@ describe('UserDetailsComponent', () => {
         MatDividerModule,
         MatDialogModule
       ],
-      declarations: [ UserDetailsComponent ],
+      declarations: [UserDetailsComponent],
       providers: [
         UserService,
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: { productData: {} } }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { TwoFactorAuthComponent } from './two-factor-auth.component'
 
 import { ReactiveFormsModule } from '@angular/forms'
@@ -31,7 +31,7 @@ describe('TwoFactorAuthComponent', () => {
   let component: TwoFactorAuthComponent
   let fixture: ComponentFixture<TwoFactorAuthComponent>
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [TwoFactorAuthComponent],
       imports: [

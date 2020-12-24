@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
 import { TranslateModule } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { ReactiveFormsModule } from '@angular/forms'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing'
 import { ForgotPasswordComponent } from './forgot-password.component'
 import { SecurityQuestionService } from '../Services/security-question.service'
 
@@ -28,15 +28,14 @@ describe('ForgotPasswordComponent', () => {
   let securityQuestionService: any
   let userService: any
 
-  beforeEach(async(() => {
-
+  beforeEach(waitForAsync(() => {
     securityQuestionService = jasmine.createSpyObj('SecurityQuestionService', ['findBy'])
     securityQuestionService.findBy.and.returnValue(of({}))
-    userService = jasmine.createSpyObj('UserService',['resetPassword'])
+    userService = jasmine.createSpyObj('UserService', ['resetPassword'])
     userService.resetPassword.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
-      declarations: [ ForgotPasswordComponent ],
+      declarations: [ForgotPasswordComponent],
       imports: [
         TranslateModule.forRoot(),
         MatPasswordStrengthModule.forRoot(),
@@ -56,7 +55,7 @@ describe('ForgotPasswordComponent', () => {
         { provide: UserService, useValue: userService }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -81,41 +80,49 @@ describe('ForgotPasswordComponent', () => {
     expect(component.emailControl.valid).toBe(true)
   })
 
-  it('should be compulsory to answer to the security question', () => {
+  it('should be compulsory to answer to the security question', fakeAsync(() => {
     component.emailControl.setValue('a@a')
+    tick(component.timeoutDuration)
     component.securityQuestionControl.setValue('')
     expect(component.securityQuestionControl.valid).toBeFalsy()
     component.securityQuestionControl.setValue('Answer')
     expect(component.securityQuestionControl.valid).toBe(true)
-  })
+    flush()
+  }))
 
   it('should be compulsory to fill the password field', () => {
     component.passwordControl.setValue('')
     expect(component.passwordControl.valid).toBeFalsy()
   })
 
-  it('should have a password length of at least five characters', () => {
+  it('should have a password length of at least five characters', fakeAsync(() => {
     component.emailControl.setValue('a@a')
+    tick(component.timeoutDuration)
     component.passwordControl.setValue('aaa')
     expect(component.passwordControl.valid).toBeFalsy()
     component.passwordControl.setValue('aaaaa')
     expect(component.passwordControl.valid).toBe(true)
-  })
+    flush()
+  }))
 
-  it('should allow password length of more than twenty characters', () => {
+  it('should allow password length of more than twenty characters', fakeAsync(() => {
     component.emailControl.setValue('a@a')
+    tick(component.timeoutDuration)
     component.passwordControl.setValue('aaaaaaaaaaaaaaaaaaaaa')
     expect(component.passwordControl.valid).toBe(true)
-  })
+    flush()
+  }))
 
-  it('should be compulsory to repeat the password', () => {
+  it('should be compulsory to repeat the password', fakeAsync(() => {
     component.emailControl.setValue('a@a')
+    tick(component.timeoutDuration)
     component.passwordControl.setValue('a')
     component.repeatPasswordControl.setValue('')
     expect(component.repeatPasswordControl.valid).toBeFalsy()
     component.repeatPasswordControl.setValue('a')
     expect(component.repeatPasswordControl.valid).toBe(true)
-  })
+    flush()
+  }))
 
   it('should reset form on calling resetForm', () => {
     component.emailControl.setValue('email')
@@ -139,7 +146,7 @@ describe('ForgotPasswordComponent', () => {
 
   it('should clear form and show confirmation after changing password', () => {
     userService.resetPassword.and.returnValue(of({}))
-    spyOn(component,'resetForm')
+    spyOn(component, 'resetForm')
     component.resetPassword()
     expect(component.confirmation).toBeDefined()
     expect(component.resetForm).toHaveBeenCalled()
@@ -147,18 +154,20 @@ describe('ForgotPasswordComponent', () => {
 
   it('should clear form and gracefully handle error on password change', fakeAsync(() => {
     userService.resetPassword.and.returnValue(throwError({ error: 'Error' }))
-    spyOn(component,'resetErrorForm')
+    spyOn(component, 'resetErrorForm')
     component.resetPassword()
     expect(component.error).toBe('Error')
     expect(component.resetErrorForm).toHaveBeenCalled()
   }))
 
-  it('should find the security question of a user with a known email address', () => {
+  it('should find the security question of a user with a known email address', fakeAsync(() => {
     securityQuestionService.findBy.and.returnValue(of({ question: 'What is your favorite test tool?' }))
     component.emailControl.setValue('known@user.test')
+    tick(component.timeoutDuration)
     component.findSecurityQuestion()
     expect(component.securityQuestion).toBe('What is your favorite test tool?')
-  })
+    flush()
+  }))
 
   it('should not find the security question for an email address not bound to a user', () => {
     securityQuestionService.findBy.and.returnValue(of({}))
@@ -170,8 +179,10 @@ describe('ForgotPasswordComponent', () => {
   it('should not have a security question when lookup by email address failed', fakeAsync(() => {
     securityQuestionService.findBy.and.returnValue(throwError('Error'))
     component.emailControl.setValue('some@user.test')
+    tick(component.timeoutDuration)
     component.findSecurityQuestion()
     expect(component.securityQuestion).toBeUndefined()
+    flush()
   }))
 
   it('should find not attempt to find security question for empty email address', () => {

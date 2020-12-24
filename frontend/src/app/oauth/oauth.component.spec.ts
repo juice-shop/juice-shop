@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatIconModule } from '@angular/material/icon'
 import { MatCheckboxModule } from '@angular/material/checkbox'
@@ -24,9 +24,9 @@ describe('OAuthComponent', () => {
   let component: OAuthComponent
   let fixture: ComponentFixture<OAuthComponent>
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ OAuthComponent, LoginComponent ],
+      declarations: [OAuthComponent, LoginComponent],
       imports: [
         RouterTestingModule.withRoutes([
           { path: 'login', component: LoginComponent }
@@ -35,7 +35,7 @@ describe('OAuthComponent', () => {
         ReactiveFormsModule,
         TranslateModule.forRoot(),
         MatInputModule,
-        MatIconModule ,
+        MatIconModule,
         MatCardModule,
         MatFormFieldModule,
         MatCheckboxModule,
@@ -46,7 +46,7 @@ describe('OAuthComponent', () => {
         { provide: ActivatedRoute, useValue: { snapshot: { data: { params: '?alt=json&access_token=TEST' } } } }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

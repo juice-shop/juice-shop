@@ -1,4 +1,9 @@
-import { async, inject, TestBed } from '@angular/core/testing'
+/*
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
+import { inject, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { LocalBackupService } from './local-backup.service'
 import { CookieService } from 'ngx-cookie-service'
@@ -12,7 +17,7 @@ describe('LocalBackupService', () => {
   let cookieService: any
 
   beforeEach(() => {
-    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
+    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
     snackBar.open.and.returnValue(null)
 
     TestBed.configureTestingModule({
@@ -48,7 +53,7 @@ describe('LocalBackupService', () => {
     expect(FileSaver.saveAs).toHaveBeenCalledWith(blob, `owasp_juice_shop-${new Date().toISOString().split('T')[0]}.json`)
   }))
 
-  it('should restore language from backup file', async(inject([LocalBackupService], (service: LocalBackupService) => {
+  it('should restore language from backup file', waitForAsync(inject([LocalBackupService], (service: LocalBackupService) => {
     cookieService.set('language', 'de')
     service.restore(new File(['{ "version": 1, "language": "cn" }'], 'test.json')).subscribe(() => {
       expect(cookieService.get('language')).toBe('cn')
@@ -56,7 +61,7 @@ describe('LocalBackupService', () => {
     })
   })))
 
-  it('should not restore language from an outdated backup version', async(inject([LocalBackupService], (service: LocalBackupService) => {
+  it('should not restore language from an outdated backup version', waitForAsync(inject([LocalBackupService], (service: LocalBackupService) => {
     cookieService.set('language', 'de')
     service.restore(new File(['{ "version": 0, "language": "cn" }'], 'test.json')).subscribe(() => {
       expect(cookieService.get('language')).toBe('de')

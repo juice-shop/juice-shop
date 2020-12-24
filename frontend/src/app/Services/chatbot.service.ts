@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { environment } from '../../environments/environment'
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
@@ -7,10 +12,10 @@ import { catchError, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class ChatbotService {
-  private hostServer = environment.hostServer
-  private host = this.hostServer + '/rest/chatbot'
+  private readonly hostServer = environment.hostServer
+  private readonly host = this.hostServer + '/rest/chatbot'
 
-  constructor (private http: HttpClient) { }
+  constructor (private readonly http: HttpClient) { }
 
   getChatbotStatus () {
     return this.http.get(this.host + '/status').pipe(map((response: any) => response), catchError(error => { throw error }))

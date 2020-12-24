@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -52,7 +52,6 @@ dom.watch()
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-
   public userEmail: string = ''
   public languages: any = []
   public selectedLanguage: string = 'placeholder'
@@ -66,11 +65,11 @@ export class NavbarComponent implements OnInit {
 
   @Output() public sidenavToggle = new EventEmitter()
 
-  constructor (private administrationService: AdministrationService, private challengeService: ChallengeService,
-    private configurationService: ConfigurationService, private userService: UserService, private ngZone: NgZone,
-    private cookieService: CookieService, private router: Router, private translate: TranslateService,
-    private io: SocketIoService, private langService: LanguagesService, private loginGuard: LoginGuard,
-    private snackBar: MatSnackBar, private basketService: BasketService) { }
+  constructor (private readonly administrationService: AdministrationService, private readonly challengeService: ChallengeService,
+    private readonly configurationService: ConfigurationService, private readonly userService: UserService, private readonly ngZone: NgZone,
+    private readonly cookieService: CookieService, private readonly router: Router, private readonly translate: TranslateService,
+    private readonly io: SocketIoService, private readonly langService: LanguagesService, private readonly loginGuard: LoginGuard,
+    private readonly snackBar: MatSnackBar, private readonly basketService: BasketService) { }
 
   ngOnInit () {
     this.getLanguages()
@@ -140,9 +139,9 @@ export class NavbarComponent implements OnInit {
   search (value: string) {
     if (value) {
       const queryParams = { queryParams: { q: value } }
-      this.ngZone.run(() => this.router.navigate(['/search'], queryParams))
+      this.ngZone.run(async () => await this.router.navigate(['/search'], queryParams))
     } else {
-      this.ngZone.run(() => this.router.navigate(['/search']))
+      this.ngZone.run(async () => await this.router.navigate(['/search']))
     }
   }
 
@@ -161,19 +160,20 @@ export class NavbarComponent implements OnInit {
     localStorage.removeItem('token')
     this.cookieService.delete('token', '/')
     sessionStorage.removeItem('bid')
+    sessionStorage.removeItem('itemTotal')
     this.userService.isLoggedIn.next(false)
-    this.ngZone.run(() => this.router.navigate(['/']))
+    this.ngZone.run(async () => await this.router.navigate(['/']))
   }
 
   changeLanguage (langKey: string) {
     this.translate.use(langKey)
-    let expires = new Date()
+    const expires = new Date()
     expires.setFullYear(expires.getFullYear() + 1)
     this.cookieService.set('language', langKey, expires, '/')
     if (this.languages.find((y: { key: string }) => y.key === langKey)) {
       const language = this.languages.find((y: { key: string }) => y.key === langKey)
       this.shortKeyLang = language.shortKey
-      let snackBarRef = this.snackBar.open('Language has been changed to ' + language.lang, 'Force page reload', {
+      const snackBarRef = this.snackBar.open('Language has been changed to ' + language.lang, 'Force page reload', {
         duration: 5000
       })
       snackBarRef.onAction().subscribe(() => {
@@ -198,7 +198,7 @@ export class NavbarComponent implements OnInit {
     this.sidenavToggle.emit()
   }
 
-  // tslint:disable-next-line:no-empty
+  // eslint-disable-next-line no-empty,@typescript-eslint/no-empty-function
   noop () { }
 
   getLanguages () {

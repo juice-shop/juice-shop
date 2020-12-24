@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { DataExportComponent } from './data-export.component'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { ImageCaptchaService } from '../Services/image-captcha.service'
@@ -27,7 +27,7 @@ describe('DataExportComponent', () => {
   let dataSubjectService: any
   let domSanitizer: DomSanitizer
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     imageCaptchaService = jasmine.createSpyObj('ImageCaptchaService', ['getCaptcha'])
     imageCaptchaService.getCaptcha.and.returnValue(of({}))
     dataSubjectService = jasmine.createSpyObj('DataSubjectService', ['dataExport'])
@@ -97,8 +97,8 @@ describe('DataExportComponent', () => {
 
   it('should show the confirmation and fetch user data and reset data export form on requesting data export', () => {
     dataSubjectService.dataExport.and.returnValue(of({ confirmation: 'Data being exported', userData: '{ user data }' }))
-    spyOn(component,'resetForm')
-    spyOn(component,'ngOnInit')
+    spyOn(component, 'resetForm')
+    spyOn(component, 'ngOnInit')
     component.save()
     expect(component.confirmation).toBe('Data being exported')
     expect(component.userData).toBe('{ user data }')
@@ -109,7 +109,7 @@ describe('DataExportComponent', () => {
 
   it('should clear the form and display error if exporting data fails', fakeAsync(() => {
     dataSubjectService.dataExport.and.returnValue(throwError({ error: 'Error' }))
-    spyOn(component,'resetFormError')
+    spyOn(component, 'resetFormError')
     component.save()
     expect(component.confirmation).toBeNull()
     expect(component.error).toBe('Error')

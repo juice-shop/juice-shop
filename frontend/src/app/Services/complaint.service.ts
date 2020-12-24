@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -12,13 +12,11 @@ import { catchError, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class ComplaintService {
-
-  private hostServer = environment.hostServer
-  private host = this.hostServer + '/api/Complaints'
-  constructor (private http: HttpClient) { }
+  private readonly hostServer = environment.hostServer
+  private readonly host = this.hostServer + '/api/Complaints'
+  constructor (private readonly http: HttpClient) { }
 
   save (params: any) {
     return this.http.post(this.host + '/', params).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
-
 }
