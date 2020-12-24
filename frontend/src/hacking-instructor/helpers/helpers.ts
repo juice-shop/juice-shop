@@ -11,7 +11,7 @@ export async function sleep (timeInMs: number): Promise<void> {
 
 export function waitForInputToHaveValue (inputSelector: string, value: string, options = { ignoreCase: true }) {
   return async () => {
-    const inputElement = document.querySelector(
+    const inputElement: HTMLInputElement = document.querySelector(
       inputSelector
     )
 
@@ -28,7 +28,7 @@ export function waitForInputToHaveValue (inputSelector: string, value: string, o
 
 export function waitForInputToNotHaveValue (inputSelector: string, value: string, options = { ignoreCase: true }) {
   return async () => {
-    const inputElement = document.querySelector(
+    const inputElement: HTMLInputElement = document.querySelector(
       inputSelector
     )
 
@@ -45,7 +45,7 @@ export function waitForInputToNotHaveValue (inputSelector: string, value: string
 
 export function waitForInputToNotHaveValueAndNotBeEmpty (inputSelector: string, value: string, options = { ignoreCase: true }) {
   return async () => {
-    const inputElement = document.querySelector(
+    const inputElement: HTMLInputElement = document.querySelector(
       inputSelector
     )
 
@@ -64,7 +64,7 @@ export function waitForInputToNotHaveValueAndNotBeEmpty (inputSelector: string, 
 
 export function waitForInputToNotBeEmpty (inputSelector: string) {
   return async () => {
-    const inputElement = document.querySelector(
+    const inputElement: HTMLInputElement = document.querySelector(
       inputSelector
     )
 
