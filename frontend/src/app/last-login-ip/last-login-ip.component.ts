@@ -15,9 +15,8 @@ import * as jwtDecode from 'jwt-decode'
 })
 
 export class LastLoginIpComponent {
-
   lastLoginIp: any = '?'
-  constructor (private sanitizer: DomSanitizer) {}
+  constructor (private readonly sanitizer: DomSanitizer) {}
 
   ngOnInit () {
     try {
@@ -37,5 +36,4 @@ export class LastLoginIpComponent {
       }
     }
   }
-
 }

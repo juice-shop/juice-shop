@@ -17,7 +17,7 @@ describe('LocalBackupService', () => {
   let cookieService: any
 
   beforeEach(() => {
-    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
+    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
     snackBar.open.and.returnValue(null)
 
     TestBed.configureTestingModule({

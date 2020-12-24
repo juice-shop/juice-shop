@@ -43,7 +43,7 @@ describe('AccountingComponent', () => {
     orderHistoryService.toggleDeliveryStatus.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
-      declarations: [ AccountingComponent ],
+      declarations: [AccountingComponent],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
@@ -64,7 +64,7 @@ describe('AccountingComponent', () => {
         { provide: OrderHistoryService, useValue: orderHistoryService }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

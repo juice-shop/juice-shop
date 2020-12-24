@@ -17,11 +17,10 @@ describe('TokenSaleComponent', () => {
   let configurationService: any
 
   beforeEach(waitForAsync(() => {
-
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { } }))
     TestBed.configureTestingModule({
-      declarations: [ TokenSaleComponent ],
+      declarations: [TokenSaleComponent],
       imports: [
         TranslateModule.forRoot(),
         MatCardModule,
@@ -31,7 +30,7 @@ describe('TokenSaleComponent', () => {
         { provide: ConfigurationService, useValue: configurationService }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

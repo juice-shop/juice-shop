@@ -35,12 +35,11 @@ export interface Order {
   styleUrls: ['./order-history.component.scss']
 })
 export class OrderHistoryComponent implements OnInit {
-
   public tableColumns = ['product', 'price', 'quantity', 'total price', 'review']
   public orders: Order[] = []
   public emptyState: boolean = true
 
-  constructor (private router: Router, private dialog: MatDialog, private orderHistoryService: OrderHistoryService, private basketService: BasketService, private productService: ProductService, private ngZone: NgZone) { }
+  constructor (private readonly router: Router, private readonly dialog: MatDialog, private readonly orderHistoryService: OrderHistoryService, private readonly basketService: BasketService, private readonly productService: ProductService, private readonly ngZone: NgZone) { }
 
   ngOnInit () {
     this.orderHistoryService.get().subscribe((orders) => {
@@ -69,7 +68,7 @@ export class OrderHistoryComponent implements OnInit {
           delivered: order.delivered
         })
       }
-    },(err) => console.log(err))
+    }, (err) => console.log(err))
   }
 
   showDetail (id: number) {
@@ -89,16 +88,16 @@ export class OrderHistoryComponent implements OnInit {
           productData: element
         }
       })
-    },(err) => console.log(err))
+    }, (err) => console.log(err))
   }
 
   openConfirmationPDF (orderId) {
     const redirectUrl = this.basketService.hostServer + '/ftp/order_' + orderId + '.pdf'
-    window.open(redirectUrl,'_blank')
+    window.open(redirectUrl, '_blank')
   }
 
   trackOrder (orderId) {
-    this.ngZone.run(() => this.router.navigate(['/track-result'], {
+    this.ngZone.run(async () => await this.router.navigate(['/track-result'], {
       queryParams: {
         id: orderId
       }

@@ -22,9 +22,9 @@ export class WelcomeBannerComponent implements OnInit {
   private readonly welcomeBannerStatusCookieKey = 'welcomebanner_status'
 
   constructor (
-        public dialogRef: MatDialogRef<WelcomeBannerComponent>,
-        private configurationService: ConfigurationService,
-        private cookieService: CookieService) { }
+    public dialogRef: MatDialogRef<WelcomeBannerComponent>,
+    private readonly configurationService: ConfigurationService,
+    private readonly cookieService: CookieService) { }
 
   ngOnInit (): void {
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
@@ -53,7 +53,7 @@ export class WelcomeBannerComponent implements OnInit {
 
   closeWelcome (): void {
     this.dialogRef.close()
-    let expires = new Date()
+    const expires = new Date()
     expires.setFullYear(expires.getFullYear() + 1)
     this.cookieService.set(this.welcomeBannerStatusCookieKey, 'dismiss', expires, '/')
   }

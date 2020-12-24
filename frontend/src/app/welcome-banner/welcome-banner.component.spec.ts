@@ -31,11 +31,11 @@ describe('WelcomeBannerComponent', () => {
       ],
       declarations: [WelcomeBannerComponent],
       providers: [
-       { provide: MatDialogRef, useValue: matDialogRef },
+        { provide: MatDialogRef, useValue: matDialogRef },
         CookieService
       ]
     })
-    .compileComponents()
+      .compileComponents()
 
     cookieService = TestBed.inject(CookieService)
   }))

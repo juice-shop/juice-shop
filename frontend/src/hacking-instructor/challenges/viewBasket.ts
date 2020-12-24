@@ -56,7 +56,7 @@ export const ViewBasketInstruction: ChallengeInstruction = {
       fixture: 'app-navbar',
       unskippable: true,
       async resolved () {
-        let bid = sessionStorage.getItem('bid')
+        const bid = sessionStorage.getItem('bid')
         while (true) {
           if (sessionStorage.getItem('bid') !== bid) {
             break
@@ -78,7 +78,7 @@ export const ViewBasketInstruction: ChallengeInstruction = {
       fixtureAfter: true,
       unskippable: true,
       async resolved () {
-        let total = sessionStorage.getItem('itemTotal')
+        const total = sessionStorage.getItem('itemTotal')
         while (true) {
           if (sessionStorage.getItem('itemTotal') !== total) {
             break

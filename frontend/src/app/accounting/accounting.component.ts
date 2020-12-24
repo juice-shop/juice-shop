@@ -28,8 +28,7 @@ interface Order {
   templateUrl: './accounting.component.html',
   styleUrls: ['./accounting.component.scss']
 })
-export class AccountingComponent implements AfterViewInit,OnDestroy {
-
+export class AccountingComponent implements AfterViewInit, OnDestroy {
   public orderHistoryColumns = ['OrderId', 'Price', 'Status', 'StatusButton']
   @ViewChild('paginatorOrderHistory', { static: true }) paginatorOrderHistory: MatPaginator
   public orderData: Order[]
@@ -43,7 +42,7 @@ export class AccountingComponent implements AfterViewInit,OnDestroy {
   private productSubscription: Subscription
   private quantitySubscription: Subscription
   public quantityMap: any
-  constructor (private productService: ProductService, private quantityService: QuantityService, private orderHistoryService: OrderHistoryService) { }
+  constructor (private readonly productService: ProductService, private readonly quantityService: QuantityService, private readonly orderHistoryService: OrderHistoryService) { }
 
   ngAfterViewInit () {
     this.loadQuantity()
@@ -60,7 +59,7 @@ export class AccountingComponent implements AfterViewInit,OnDestroy {
           quantity: item.quantity
         }
       })
-    },(err) => {
+    }, (err) => {
       this.error = err.error
       this.confirmation = null
       console.log(err)
@@ -108,7 +107,7 @@ export class AccountingComponent implements AfterViewInit,OnDestroy {
       })
       this.confirmation = 'Quantity for ' + product.name + ' has been updated.'
       this.loadQuantity()
-    },(err) => {
+    }, (err) => {
       this.error = err.error
       this.confirmation = null
       console.log(err)
@@ -120,7 +119,7 @@ export class AccountingComponent implements AfterViewInit,OnDestroy {
     this.productService.put(id, { price: value < 0 ? 0 : value }).subscribe((product) => {
       this.confirmation = 'Price for ' + product.name + ' has been updated.'
       this.loadProducts()
-    },(err) => {
+    }, (err) => {
       this.error = err.error
       this.confirmation = null
       console.log(err)

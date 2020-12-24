@@ -28,7 +28,6 @@ dom.watch()
   styleUrls: ['./score-board.component.scss']
 })
 export class ScoreBoardComponent implements OnInit {
-
   public availableDifficulties: number[] = [1, 2, 3, 4, 5, 6]
   public displayedDifficulties: number[] = [1]
   public availableChallengeCategories: string[] = []
@@ -59,7 +58,7 @@ export class ScoreBoardComponent implements OnInit {
   public appName: string = 'OWASP Juice Shop'
   public localBackupEnabled: boolean = true
 
-  constructor (private configurationService: ConfigurationService, private challengeService: ChallengeService, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService, private translate: TranslateService, private localBackupService: LocalBackupService) {
+  constructor (private readonly configurationService: ConfigurationService, private readonly challengeService: ChallengeService, private readonly sanitizer: DomSanitizer, private readonly ngZone: NgZone, private readonly io: SocketIoService, private readonly spinner: NgxSpinnerService, private readonly translate: TranslateService, private readonly localBackupService: LocalBackupService) {
   }
 
   ngOnInit () {
@@ -142,7 +141,7 @@ export class ScoreBoardComponent implements OnInit {
     if (challenge.disabledEnv) {
       this.numDisabledChallenges++
       this.disabledEnv = challenge.disabledEnv
-      this.translate.get('CHALLENGE_UNAVAILABLE',{ env: challenge.disabledEnv }).subscribe((challengeUnavailable) => {
+      this.translate.get('CHALLENGE_UNAVAILABLE', { env: challenge.disabledEnv }).subscribe((challengeUnavailable) => {
         challenge.hint = challengeUnavailable
       }, (translationId) => {
         challenge.hint = translationId
@@ -258,7 +257,7 @@ export class ScoreBoardComponent implements OnInit {
         return a.tutorialOrder - b.tutorialOrder
       })
     } else {
-      this.challenges.sort((a,b) => {
+      this.challenges.sort((a, b) => {
         if (a.name < b.name) return -1
         if (a.name > b.name) return 1
         return 0
@@ -304,7 +303,7 @@ export class ScoreBoardComponent implements OnInit {
       return !(this.showOnlyTutorialChallenges && !challenge.hasTutorial)
     })
 
-    let dataSource = new MatTableDataSource()
+    const dataSource = new MatTableDataSource()
     dataSource.data = challenges
     return dataSource
   }
@@ -316,7 +315,7 @@ export class ScoreBoardComponent implements OnInit {
         this.solvedChallengesOfDifficulty[difficulty - 1] = []
       } else {
         this.totalChallengesOfDifficulty[difficulty - 1] = this.challenges.filter((challenge) => challenge.difficulty === difficulty)
-        this.solvedChallengesOfDifficulty[difficulty - 1] = this.challenges.filter((challenge) => challenge.difficulty === difficulty && challenge.solved === true)
+        this.solvedChallengesOfDifficulty[difficulty - 1] = this.challenges.filter((challenge) => challenge.difficulty === difficulty && challenge.solved)
       }
     }
   }

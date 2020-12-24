@@ -25,5 +25,5 @@ export class PrivacySecurityComponent {
       map(result => result.matches)
     )
 
-  constructor (private breakpointObserver: BreakpointObserver) {}
+  constructor (private readonly breakpointObserver: BreakpointObserver) {}
 }

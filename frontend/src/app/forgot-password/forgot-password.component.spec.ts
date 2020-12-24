@@ -29,14 +29,13 @@ describe('ForgotPasswordComponent', () => {
   let userService: any
 
   beforeEach(waitForAsync(() => {
-
     securityQuestionService = jasmine.createSpyObj('SecurityQuestionService', ['findBy'])
     securityQuestionService.findBy.and.returnValue(of({}))
-    userService = jasmine.createSpyObj('UserService',['resetPassword'])
+    userService = jasmine.createSpyObj('UserService', ['resetPassword'])
     userService.resetPassword.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
-      declarations: [ ForgotPasswordComponent ],
+      declarations: [ForgotPasswordComponent],
       imports: [
         TranslateModule.forRoot(),
         MatPasswordStrengthModule.forRoot(),
@@ -56,7 +55,7 @@ describe('ForgotPasswordComponent', () => {
         { provide: UserService, useValue: userService }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -147,7 +146,7 @@ describe('ForgotPasswordComponent', () => {
 
   it('should clear form and show confirmation after changing password', () => {
     userService.resetPassword.and.returnValue(of({}))
-    spyOn(component,'resetForm')
+    spyOn(component, 'resetForm')
     component.resetPassword()
     expect(component.confirmation).toBeDefined()
     expect(component.resetForm).toHaveBeenCalled()
@@ -155,7 +154,7 @@ describe('ForgotPasswordComponent', () => {
 
   it('should clear form and gracefully handle error on password change', fakeAsync(() => {
     userService.resetPassword.and.returnValue(throwError({ error: 'Error' }))
-    spyOn(component,'resetErrorForm')
+    spyOn(component, 'resetErrorForm')
     component.resetPassword()
     expect(component.error).toBe('Error')
     expect(component.resetErrorForm).toHaveBeenCalled()

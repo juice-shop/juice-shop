@@ -31,7 +31,6 @@ describe('SavedAddressComponent', () => {
   let snackBar: any
 
   beforeEach(waitForAsync(() => {
-
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
@@ -52,10 +51,10 @@ describe('SavedAddressComponent', () => {
         MatTooltipModule,
         MatCheckboxModule
       ],
-      declarations: [ SavedAddressComponent, AddressComponent ],
+      declarations: [SavedAddressComponent, AddressComponent],
       providers: [{ provide: MatSnackBar, useValue: snackBar }]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

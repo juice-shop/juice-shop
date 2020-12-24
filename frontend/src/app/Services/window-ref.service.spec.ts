@@ -9,7 +9,6 @@ import { WindowRefService } from './window-ref.service'
 
 describe('WindowRefService', () => {
   beforeEach(() => {
-
     TestBed.configureTestingModule({
       providers: [WindowRefService]
     })

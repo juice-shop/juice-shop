@@ -10,7 +10,6 @@ import { FeedbackService } from './feedback.service'
 
 describe('FeedbackService', () => {
   beforeEach(() => {
-
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [FeedbackService]
@@ -21,7 +20,7 @@ describe('FeedbackService', () => {
     expect(service).toBeTruthy()
   }))
 
-  it('should get all feedback directly from the rest api' ,inject([FeedbackService,HttpTestingController],
+  it('should get all feedback directly from the rest api', inject([FeedbackService, HttpTestingController],
     fakeAsync((service: FeedbackService, httpMock: HttpTestingController) => {
       let res: any
       service.find(null).subscribe((data) => res = data)
@@ -36,7 +35,7 @@ describe('FeedbackService', () => {
     })
   ))
 
-  it('should delete feedback directly via the rest api' ,inject([FeedbackService,HttpTestingController],
+  it('should delete feedback directly via the rest api', inject([FeedbackService, HttpTestingController],
     fakeAsync((service: FeedbackService, httpMock: HttpTestingController) => {
       let res: any
       service.del(1).subscribe((data) => res = data)
@@ -50,7 +49,7 @@ describe('FeedbackService', () => {
     })
   ))
 
-  it('should create feedback directly via the rest api' ,inject([FeedbackService,HttpTestingController],
+  it('should create feedback directly via the rest api', inject([FeedbackService, HttpTestingController],
     fakeAsync((service: FeedbackService, httpMock: HttpTestingController) => {
       let res: any
       service.save(null).subscribe((data) => res = data)

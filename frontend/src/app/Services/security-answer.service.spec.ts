@@ -10,7 +10,6 @@ import { SecurityAnswerService } from './security-answer.service'
 
 describe('SecurityAnswerService', () => {
   beforeEach(() => {
-
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [SecurityAnswerService]

@@ -30,9 +30,8 @@ describe('BasketComponent', () => {
   let snackBar: any
 
   beforeEach(waitForAsync(() => {
-
     TestBed.configureTestingModule({
-      declarations: [ BasketComponent, PurchaseBasketComponent ],
+      declarations: [BasketComponent, PurchaseBasketComponent],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
@@ -54,7 +53,7 @@ describe('BasketComponent', () => {
         { provide: MatSnackBar, useValue: snackBar }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -78,7 +77,7 @@ describe('BasketComponent', () => {
   })
 
   it('should store itemTotal in session storage', () => {
-    spyOn(sessionStorage,'setItem')
+    spyOn(sessionStorage, 'setItem')
     component.getBonusPoints([1, 10])
     expect(sessionStorage.setItem).toHaveBeenCalledWith('itemTotal', 1 as any)
   })

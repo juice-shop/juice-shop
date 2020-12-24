@@ -12,11 +12,10 @@ import { catchError, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class SecurityAnswerService {
+  private readonly hostServer = environment.hostServer
+  private readonly host = this.hostServer + '/api/SecurityAnswers'
 
-  private hostServer = environment.hostServer
-  private host = this.hostServer + '/api/SecurityAnswers'
-
-  constructor (private http: HttpClient) { }
+  constructor (private readonly http: HttpClient) { }
 
   save (params: any) {
     return this.http.post(this.host + '/', params).pipe(

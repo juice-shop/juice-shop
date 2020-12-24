@@ -10,7 +10,6 @@ import { UserService } from './user.service'
 
 describe('UserService', () => {
   beforeEach(() => {
-
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [UserService]
@@ -117,7 +116,7 @@ describe('UserService', () => {
   it('should reset the password directly from the rest api', inject([UserService, HttpTestingController],
     fakeAsync((service: UserService, httpMock: HttpTestingController) => {
       let res: any
-      let mockObject = { req: 'apiRequest' }
+      const mockObject = { req: 'apiRequest' }
       service.resetPassword(mockObject).subscribe((data) => res = data)
 
       const req = httpMock.expectOne('http://localhost:3000/rest/user/reset-password')

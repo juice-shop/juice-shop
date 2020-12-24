@@ -29,8 +29,7 @@ describe('ComplaintComponent', () => {
   let translateService
 
   beforeEach(waitForAsync(() => {
-
-    userService = jasmine.createSpyObj('UserService',['whoAmI'])
+    userService = jasmine.createSpyObj('UserService', ['whoAmI'])
     userService.whoAmI.and.returnValue(of({}))
     complaintService = jasmine.createSpyObj('ComplaintService', ['save'])
     complaintService.save.and.returnValue(of({}))
@@ -52,14 +51,14 @@ describe('ComplaintComponent', () => {
         MatInputModule,
         MatButtonModule
       ],
-      declarations: [ ComplaintComponent ],
+      declarations: [ComplaintComponent],
       providers: [
         { provide: UserService, useValue: userService },
         { provide: ComplaintService, useValue: complaintService },
         { provide: TranslateService, useValue: translateService }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -85,7 +84,7 @@ describe('ComplaintComponent', () => {
 
   it('should have a message of maximum 160 characters', () => {
     let str: string = ''
-    for (let i = 0;i < 161; i++) {
+    for (let i = 0; i < 161; i++) {
       str += 'a'
     }
     component.messageControl.setValue(str)
@@ -127,12 +126,12 @@ describe('ComplaintComponent', () => {
     translateService.get.and.returnValue(of('CUSTOMER_SUPPORT_COMPLAINT_REPLY'))
     component.uploader.queue[0] = null as unknown as FileItem
     component.save()
-    expect(translateService.get).toHaveBeenCalledWith('CUSTOMER_SUPPORT_COMPLAINT_REPLY',{ ref: 42 })
+    expect(translateService.get).toHaveBeenCalledWith('CUSTOMER_SUPPORT_COMPLAINT_REPLY', { ref: 42 })
   })
 
   it('should begin uploading file if it has been added on saving', fakeAsync(() => {
-    component.uploader.queue[0] = new FileItem(component.uploader, new File([''], 'file.pdf', { 'type': 'application/pdf' }),{})
-    spyOn(component.uploader.queue[0],'upload')
+    component.uploader.queue[0] = new FileItem(component.uploader, new File([''], 'file.pdf', { type: 'application/pdf' }), {})
+    spyOn(component.uploader.queue[0], 'upload')
     component.save()
     expect(component.uploader.queue[0].upload).toHaveBeenCalled()
   }))

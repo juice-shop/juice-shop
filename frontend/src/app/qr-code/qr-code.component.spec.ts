@@ -24,12 +24,12 @@ describe('QrCodeComponent', () => {
         MatButtonModule,
         MatDialogModule
       ],
-      declarations: [ QrCodeComponent ],
+      declarations: [QrCodeComponent],
       providers: [
-         { provide: MAT_DIALOG_DATA, useValue: { data: 'data', url: 'url', address: 'address', title: 'title' } }
+        { provide: MAT_DIALOG_DATA, useValue: { data: 'data', url: 'url', address: 'address', title: 'title' } }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

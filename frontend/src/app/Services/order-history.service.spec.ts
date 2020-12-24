@@ -48,7 +48,7 @@ describe('OrderHistoryService', () => {
   it('should update address directly from the api', inject([OrderHistoryService, HttpTestingController],
     fakeAsync((service: OrderHistoryService, httpMock: HttpTestingController) => {
       let res
-      service.toggleDeliveryStatus(1,{}).subscribe((data) => res = data)
+      service.toggleDeliveryStatus(1, {}).subscribe((data) => res = data)
       const req = httpMock.expectOne('http://localhost:3000/rest/order-history/1/delivery-status')
       req.flush({ data: 'apiResponse' })
       tick()

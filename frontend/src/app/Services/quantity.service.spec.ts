@@ -10,7 +10,6 @@ import { QuantityService } from './quantity.service'
 
 describe('QuantityService', () => {
   beforeEach(() => {
-
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [QuantityService]
@@ -39,7 +38,7 @@ describe('QuantityService', () => {
   it('should change quantity directly via the rest api', inject([QuantityService, HttpTestingController],
     fakeAsync((service: QuantityService, httpMock: HttpTestingController) => {
       let res
-      service.put(42,{}).subscribe((data) => res = data)
+      service.put(42, {}).subscribe((data) => res = data)
       const req = httpMock.expectOne('http://localhost:3000/api/Quantitys/42')
       req.flush({ data: 'apiResponse' })
 
@@ -50,5 +49,4 @@ describe('QuantityService', () => {
       httpMock.verify()
     })
   ))
-
 })

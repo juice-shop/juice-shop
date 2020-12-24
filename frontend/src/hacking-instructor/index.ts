@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-// @ts-ignore
+// @ts-expect-error
 import snarkdown from 'snarkdown' // TODO Remove ts-ignore when https://github.com/developit/snarkdown/pull/74 is merged
 
 import { LoginAdminInstruction } from './challenges/loginAdmin'
@@ -83,7 +83,7 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   elem.style.whiteSpace = 'initial'
   elem.style.lineHeight = '1.3'
   elem.style.top = '24px'
-  if (hint.unskippable !== true) {
+  if (!hint.unskippable) {
     elem.style.cursor = 'pointer'
   }
   elem.style.fontSize = '14px'
@@ -112,16 +112,16 @@ function loadHint (hint: ChallengeHint): HTMLElement {
 
   if (hint.fixtureAfter) {
     // insertAfter does not exist so we simulate it this way
-    target.parentElement!.insertBefore(relAnchor, target.nextSibling)
+    target.parentElement.insertBefore(relAnchor, target.nextSibling)
   } else {
-    target.parentElement!.insertBefore(relAnchor, target)
+    target.parentElement.insertBefore(relAnchor, target)
   }
 
   return relAnchor
 }
 
-function waitForClick (element: HTMLElement) {
-  return new Promise((resolve) => {
+async function waitForClick (element: HTMLElement) {
+  return await new Promise((resolve) => {
     element.addEventListener('click', resolve)
   })
 }
@@ -133,7 +133,7 @@ export function hasInstructions (challengeName: String): boolean {
 export async function startHackingInstructorFor (challengeName: String): Promise<void> {
   const challengeInstruction = challengeInstructions.find(({ name }) => name === challengeName) || TutorialUnavailableInstruction
 
-  for (const hint of challengeInstruction!.hints) {
+  for (const hint of challengeInstruction.hints) {
     const element = loadHint(hint)
     if (!element) {
       console.warn(`Could not find Element with fixture "${hint.fixture}"`)
@@ -141,11 +141,11 @@ export async function startHackingInstructorFor (challengeName: String): Promise
     }
     element.scrollIntoView()
 
-    const continueConditions: Promise<void | {}>[] = [
+    const continueConditions: Array<Promise<void | {}>> = [
       hint.resolved()
     ]
 
-    if (hint.unskippable !== true) {
+    if (!hint.unskippable) {
       continueConditions.push(waitForClick(element))
     }
 

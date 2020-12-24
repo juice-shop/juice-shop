@@ -18,14 +18,13 @@ dom.watch()
   styleUrls: ['./error-page.component.scss']
 })
 export class ErrorPageComponent implements OnInit {
-
   public error: string | null = null
 
-  constructor (private route: ActivatedRoute, private translate: TranslateService) {
+  constructor (private readonly route: ActivatedRoute, private readonly translate: TranslateService) {
   }
 
   ngOnInit () {
-    const errorKey = this.route.snapshot.queryParams['error']
+    const errorKey = this.route.snapshot.queryParams.error
     if (errorKey) {
       this.translate.get(errorKey).subscribe((errorMessage) => {
         this.error = errorMessage

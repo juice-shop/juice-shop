@@ -61,7 +61,7 @@ describe('AddressService', () => {
   it('should update address directly from the api', inject([AddressService, HttpTestingController],
     fakeAsync((service: AddressService, httpMock: HttpTestingController) => {
       let res
-      service.put(1,{}).subscribe((data) => res = data)
+      service.put(1, {}).subscribe((data) => res = data)
       const req = httpMock.expectOne('http://localhost:3000/api/Addresss/1')
       req.flush({ data: 'apiResponse' })
       tick()

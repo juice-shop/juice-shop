@@ -97,8 +97,8 @@ describe('DataExportComponent', () => {
 
   it('should show the confirmation and fetch user data and reset data export form on requesting data export', () => {
     dataSubjectService.dataExport.and.returnValue(of({ confirmation: 'Data being exported', userData: '{ user data }' }))
-    spyOn(component,'resetForm')
-    spyOn(component,'ngOnInit')
+    spyOn(component, 'resetForm')
+    spyOn(component, 'ngOnInit')
     component.save()
     expect(component.confirmation).toBe('Data being exported')
     expect(component.userData).toBe('{ user data }')
@@ -109,7 +109,7 @@ describe('DataExportComponent', () => {
 
   it('should clear the form and display error if exporting data fails', fakeAsync(() => {
     dataSubjectService.dataExport.and.returnValue(throwError({ error: 'Error' }))
-    spyOn(component,'resetFormError')
+    spyOn(component, 'resetFormError')
     component.save()
     expect(component.confirmation).toBeNull()
     expect(component.error).toBe('Error')

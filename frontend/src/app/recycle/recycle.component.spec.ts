@@ -43,20 +43,19 @@ describe('RecycleComponent', () => {
   let snackBar: any
 
   beforeEach(waitForAsync(() => {
-
-    recycleService = jasmine.createSpyObj('RecycleService',['save','find'])
+    recycleService = jasmine.createSpyObj('RecycleService', ['save', 'find'])
     recycleService.save.and.returnValue(of({}))
     recycleService.find.and.returnValue(of([{}]))
-    userService = jasmine.createSpyObj('UserService',['whoAmI'])
+    userService = jasmine.createSpyObj('UserService', ['whoAmI'])
     userService.whoAmI.and.returnValue(of({}))
-    configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
+    configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
     translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
-    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
+    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
       imports: [
@@ -80,7 +79,7 @@ describe('RecycleComponent', () => {
         MatDialogModule,
         MatDividerModule
       ],
-      declarations: [ RecycleComponent, AddressComponent ],
+      declarations: [RecycleComponent, AddressComponent],
       providers: [
         { provide: RecycleService, useValue: recycleService },
         { provide: UserService, useValue: userService },
@@ -89,7 +88,7 @@ describe('RecycleComponent', () => {
         { provide: MatSnackBar, useValue: snackBar }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -140,7 +139,7 @@ describe('RecycleComponent', () => {
     recycleService.save.and.returnValue(of({}))
     userService.whoAmI.and.returnValue(of({}))
     translateService.get.and.returnValue(of('CONFIRM_RECYCLING_BOX'))
-    spyOn(component,'initRecycle')
+    spyOn(component, 'initRecycle')
     spyOn(component.addressComponent, 'load')
     component.addressId = '1'
     component.recycleQuantityControl.setValue(100)
@@ -158,7 +157,7 @@ describe('RecycleComponent', () => {
     recycleService.save.and.returnValue(of({ isPickup: true, pickupDate: '10/7/2018' }))
     userService.whoAmI.and.returnValue(of({}))
     translateService.get.and.returnValue(of('CONFIRM_RECYCLING_PICKUP'))
-    spyOn(component,'initRecycle')
+    spyOn(component, 'initRecycle')
     spyOn(component.addressComponent, 'load')
     component.addressId = '1'
     component.recycleQuantityControl.setValue(100)
@@ -174,7 +173,7 @@ describe('RecycleComponent', () => {
   })
 
   it('should hold existing recycles', () => {
-    recycleService.find.and.returnValue(of([ { quantity: 1 }, { quantity: 2 }]))
+    recycleService.find.and.returnValue(of([{ quantity: 1 }, { quantity: 2 }]))
     component.ngOnInit()
     expect(component.recycles.length).toBe(2)
     expect(component.recycles[0].quantity).toBe(1)

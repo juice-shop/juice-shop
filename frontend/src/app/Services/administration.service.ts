@@ -12,11 +12,10 @@ import { catchError, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class AdministrationService {
+  private readonly hostServer = environment.hostServer
+  private readonly host = this.hostServer + '/rest/admin'
 
-  private hostServer = environment.hostServer
-  private host = this.hostServer + '/rest/admin'
-
-  constructor (private http: HttpClient) { }
+  constructor (private readonly http: HttpClient) { }
 
   getApplicationVersion () {
     return this.http.get(this.host + '/application-version').pipe(
@@ -24,5 +23,4 @@ export class AdministrationService {
       catchError(error => { throw error })
     )
   }
-
 }

@@ -23,10 +23,9 @@ describe('ProductReviewEditComponent', () => {
   let dialogRef: any
 
   beforeEach(waitForAsync(() => {
-
-    productReviewService = jasmine.createSpyObj('ProductReviewService',['patch'])
+    productReviewService = jasmine.createSpyObj('ProductReviewService', ['patch'])
     productReviewService.patch.and.returnValue(of({}))
-    dialogRef = jasmine.createSpyObj('MatDialogRef',['close'])
+    dialogRef = jasmine.createSpyObj('MatDialogRef', ['close'])
     dialogRef.close.and.returnValue({})
 
     TestBed.configureTestingModule({
@@ -40,14 +39,14 @@ describe('ProductReviewEditComponent', () => {
         MatButtonModule,
         MatSnackBarModule
       ],
-      declarations: [ ProductReviewEditComponent ],
+      declarations: [ProductReviewEditComponent],
       providers: [
         { provide: ProductReviewService, useValue: productReviewService },
         { provide: MAT_DIALOG_DATA, useValue: { productData: {} } },
         { provide: MatDialogRef, useValue: dialogRef }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

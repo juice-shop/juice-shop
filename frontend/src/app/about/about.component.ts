@@ -22,7 +22,6 @@ dom.watch()
   styleUrls: ['./about.component.scss']
 })
 export class AboutComponent implements OnInit {
-
   public twitterUrl?: string
   public facebookUrl?: string
   public slackUrl?: string
@@ -30,7 +29,7 @@ export class AboutComponent implements OnInit {
   public pressKitUrl?: string
   public slideshowDataSource: IImage[] = []
 
-  private images = [
+  private readonly images = [
     'assets/public/images/carousel/1.jpg',
     'assets/public/images/carousel/2.jpg',
     'assets/public/images/carousel/3.jpg',
@@ -40,7 +39,7 @@ export class AboutComponent implements OnInit {
     'assets/public/images/carousel/7.jpg'
   ]
 
-  private stars = [
+  private readonly stars = [
     null,
     '<i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>',
     '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>',
@@ -49,7 +48,7 @@ export class AboutComponent implements OnInit {
     '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>'
   ]
 
-  constructor (private configurationService: ConfigurationService, private feedbackService: FeedbackService, private sanitizer: DomSanitizer) {}
+  constructor (private readonly configurationService: ConfigurationService, private readonly feedbackService: FeedbackService, private readonly sanitizer: DomSanitizer) {}
 
   ngOnInit () {
     this.populateSlideshowFromFeedbacks()
@@ -71,7 +70,7 @@ export class AboutComponent implements OnInit {
           this.pressKitUrl = config.application.social.pressKitUrl
         }
       }
-    },(err) => console.log(err))
+    }, (err) => console.log(err))
   }
 
   populateSlideshowFromFeedbacks () {
@@ -81,7 +80,7 @@ export class AboutComponent implements OnInit {
         feedbacks[i].comment = this.sanitizer.bypassSecurityTrustHtml(feedbacks[i].comment)
         this.slideshowDataSource.push({ url: this.images[i % this.images.length], caption: feedbacks[i].comment })
       }
-    },(err) => {
+    }, (err) => {
       console.log(err)
     })
   }

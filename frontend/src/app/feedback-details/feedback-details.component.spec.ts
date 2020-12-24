@@ -24,14 +24,14 @@ describe('FeedbackDetailsComponent', () => {
         MatDividerModule,
         MatDialogModule
       ],
-      declarations: [ FeedbackDetailsComponent ],
+      declarations: [FeedbackDetailsComponent],
       providers: [
         UserService,
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: { productData: {} } }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

@@ -32,10 +32,10 @@ describe('ErasureRequestComponent', () => {
   let location: Location
 
   beforeEach(waitForAsync(() => {
-    cookieService = jasmine.createSpyObj('CookieService',['delete', 'get', 'set'])
-    userService = jasmine.createSpyObj('UserService',['saveLastLoginIp'])
+    cookieService = jasmine.createSpyObj('CookieService', ['delete', 'get', 'set'])
+    userService = jasmine.createSpyObj('UserService', ['saveLastLoginIp'])
     userService.saveLastLoginIp.and.returnValue(of({}))
-    userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn',['next'])
+    userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn', ['next'])
     userService.isLoggedIn.next.and.returnValue({})
     dataSubjectService = jasmine.createSpyObj('DataSubjectService', ['erase'])
     dataSubjectService.erase.and.returnValue(of({}))
@@ -43,7 +43,7 @@ describe('ErasureRequestComponent', () => {
     securityQuestionService.findBy.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
-      declarations: [ ErasureRequestComponent ],
+      declarations: [ErasureRequestComponent],
       imports: [
         RouterTestingModule.withRoutes([
           { path: 'erasure-request', component: ErasureRequestComponent }
@@ -140,7 +140,7 @@ describe('ErasureRequestComponent', () => {
   })
 
   it('should remove authentication token from localStorage', () => {
-    spyOn(localStorage,'removeItem')
+    spyOn(localStorage, 'removeItem')
     component.logout()
     expect(localStorage.removeItem).toHaveBeenCalledWith('token')
   })
@@ -151,7 +151,7 @@ describe('ErasureRequestComponent', () => {
   })
 
   it('should remove basket id from session storage', () => {
-    spyOn(sessionStorage,'removeItem')
+    spyOn(sessionStorage, 'removeItem')
     component.logout()
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('bid')
   })

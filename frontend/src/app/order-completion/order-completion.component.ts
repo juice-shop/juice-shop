@@ -22,8 +22,7 @@ dom.watch()
   styleUrls: ['./order-completion.component.scss']
 })
 export class OrderCompletionComponent implements OnInit {
-
-  public tableColumns = ['product','price','quantity','total price']
+  public tableColumns = ['product', 'price', 'quantity', 'total price']
   public dataSource
   public orderId
   public orderDetails: any = { totalPrice: 0 }
@@ -32,7 +31,7 @@ export class OrderCompletionComponent implements OnInit {
   public address: any
   public tweetText: string = 'I just purchased'
 
-  constructor (private configurationService: ConfigurationService, private addressService: AddressService, private trackOrderService: TrackOrderService, public activatedRoute: ActivatedRoute, private basketService: BasketService) { }
+  constructor (private readonly configurationService: ConfigurationService, private readonly addressService: AddressService, private readonly trackOrderService: TrackOrderService, public activatedRoute: ActivatedRoute, private readonly basketService: BasketService) { }
 
   ngOnInit () {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
@@ -56,22 +55,22 @@ export class OrderCompletionComponent implements OnInit {
           if (config && config.application && config.application.social) {
             this.tweetText += '%0afrom '
             if (config.application.social.twitterUrl) {
-              this.tweetText += config.application.social.twitterUrl.replace('https://twitter.com/','@')
+              this.tweetText += config.application.social.twitterUrl.replace('https://twitter.com/', '@')
             } else {
               this.tweetText += config.application.name
             }
           }
-        },(err) => console.log(err))
+        }, (err) => console.log(err))
         this.addressService.getById(this.orderDetails.addressId).subscribe((address) => {
           this.address = address
         }, (error) => console.log(error))
-      },(err) => console.log(err))
-    },(err) => console.log(err))
+      }, (err) => console.log(err))
+    }, (err) => console.log(err))
   }
 
   openConfirmationPDF () {
     const redirectUrl = this.basketService.hostServer + '/ftp/order_' + this.orderId + '.pdf'
-    window.open(redirectUrl,'_blank')
+    window.open(redirectUrl, '_blank')
   }
 
   truncateTweet = (tweet, maxLength = 140) => {

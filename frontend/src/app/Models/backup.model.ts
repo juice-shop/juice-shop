@@ -7,6 +7,6 @@ export interface Backup {
   version: number
   continueCode?: string
   language?: string
-  banners?: { welcomeBannerStatus?: string; cookieConsentStatus?: string }
-  scoreBoard?: { showOnlyTutorialChallenges?: boolean; displayedChallengeCategories?: string[]; displayedDifficulties?: number[]; showDisabledChallenges?: boolean; showSolvedChallenges?: boolean }
+  banners?: { welcomeBannerStatus?: string, cookieConsentStatus?: string }
+  scoreBoard?: { showOnlyTutorialChallenges?: boolean, displayedChallengeCategories?: string[], displayedDifficulties?: number[], showDisabledChallenges?: boolean, showSolvedChallenges?: boolean }
 }

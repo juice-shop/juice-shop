@@ -39,8 +39,7 @@ describe('OrderSummaryComponent', () => {
   let snackBar: any
 
   beforeEach(waitForAsync(() => {
-
-    addressService = jasmine.createSpyObj('AddressService',['getById'])
+    addressService = jasmine.createSpyObj('AddressService', ['getById'])
     addressService.getById.and.returnValue(of([]))
     basketService = jasmine.createSpyObj('BasketService', ['checkout', 'find', 'updateNumberOfCartItems'])
     basketService.find.and.returnValue(of({ Products: [] }))
@@ -50,12 +49,12 @@ describe('OrderSummaryComponent', () => {
     paymentService.getById.and.returnValue(of([]))
     deliveryService = jasmine.createSpyObj('DeliveryService', ['getById'])
     deliveryService.getById.and.returnValue(of({ price: 10 }))
-    deluxeGuard = jasmine.createSpyObj('',['isDeluxe'])
+    deluxeGuard = jasmine.createSpyObj('', ['isDeluxe'])
     deluxeGuard.isDeluxe.and.returnValue(false)
-    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
+    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
-      declarations: [ OrderSummaryComponent, PurchaseBasketComponent, OrderCompletionComponent ],
+      declarations: [OrderSummaryComponent, PurchaseBasketComponent, OrderCompletionComponent],
       imports: [
         RouterTestingModule.withRoutes([
           { path: 'order-completion', component: OrderCompletionComponent }
@@ -82,7 +81,7 @@ describe('OrderSummaryComponent', () => {
         { provide: MatSnackBar, useValue: snackBar }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -145,7 +144,7 @@ describe('OrderSummaryComponent', () => {
 
   it('should remove session details from session storage', () => {
     basketService.checkout.and.returnValue(of({ orderConfirmationId: '1234123412341234' }))
-    spyOn(sessionStorage,'removeItem')
+    spyOn(sessionStorage, 'removeItem')
     component.placeOrder()
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('paymentId')
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('addressId')

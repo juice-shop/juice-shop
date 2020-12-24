@@ -9,7 +9,6 @@ import { FormSubmitService } from './form-submit.service'
 
 describe('FormSubmitService', () => {
   beforeEach(() => {
-
     TestBed.configureTestingModule({
       providers: [FormSubmitService]
     })

@@ -15,10 +15,9 @@ import { from } from 'rxjs'
   providedIn: 'root'
 })
 export class LocalBackupService {
+  private readonly VERSION = 1
 
-  private VERSION = 1
-
-  constructor (private cookieService: CookieService, private snackBarHelperService: SnackBarHelperService, private snackBar: MatSnackBar) { }
+  constructor (private readonly cookieService: CookieService, private readonly snackBarHelperService: SnackBarHelperService, private readonly snackBar: MatSnackBar) { }
 
   save (fileName: string = 'owasp_juice_shop') {
     const backup: Backup = { version: this.VERSION }
@@ -56,13 +55,12 @@ export class LocalBackupService {
         this.restoreCookie('language', backup.language)
         this.restoreCookie('continueCode', backup.continueCode)
 
-        let snackBarRef = this.snackBar.open('Backup has been restored from ' + backupFile.name, 'Force page reload', {
+        const snackBarRef = this.snackBar.open('Backup has been restored from ' + backupFile.name, 'Force page reload', {
           duration: 5000
         })
         snackBarRef.onAction().subscribe(() => {
           location.reload()
         })
-
       } else {
         this.snackBarHelperService.open('Version ' + backup.version + ' is incompatible with expected version ' + this.VERSION, 'errorBar')
       }
@@ -73,7 +71,7 @@ export class LocalBackupService {
 
   private restoreCookie (cookieName: string, cookieValue: string) {
     if (cookieValue) {
-      let expires = new Date()
+      const expires = new Date()
       expires.setFullYear(expires.getFullYear() + 1)
       this.cookieService.set(cookieName, cookieValue, expires, '/')
     } else {

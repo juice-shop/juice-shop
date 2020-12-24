@@ -10,7 +10,6 @@ import { AdministrationService } from './administration.service'
 
 describe('AdministrationService', () => {
   beforeEach(() => {
-
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [AdministrationService]

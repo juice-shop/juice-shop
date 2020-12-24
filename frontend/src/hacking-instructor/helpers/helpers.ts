@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-export function sleep (timeInMs: number): Promise<void> {
-  return new Promise((resolved) => {
+export async function sleep (timeInMs: number): Promise<void> {
+  return await new Promise((resolved) => {
     setTimeout(resolved, timeInMs)
   })
 }
@@ -13,7 +13,7 @@ export function waitForInputToHaveValue (inputSelector: string, value: string, o
   return async () => {
     const inputElement = document.querySelector(
       inputSelector
-    ) as HTMLInputElement
+    )
 
     while (true) {
       if (options.ignoreCase && inputElement.value.toLowerCase() === value.toLowerCase()) {
@@ -30,7 +30,7 @@ export function waitForInputToNotHaveValue (inputSelector: string, value: string
   return async () => {
     const inputElement = document.querySelector(
       inputSelector
-    ) as HTMLInputElement
+    )
 
     while (true) {
       if (options.ignoreCase && inputElement.value.toLowerCase() !== value.toLowerCase()) {
@@ -47,7 +47,7 @@ export function waitForInputToNotHaveValueAndNotBeEmpty (inputSelector: string, 
   return async () => {
     const inputElement = document.querySelector(
       inputSelector
-    ) as HTMLInputElement
+    )
 
     while (true) {
       if (inputElement.value !== '') {
@@ -66,7 +66,7 @@ export function waitForInputToNotBeEmpty (inputSelector: string) {
   return async () => {
     const inputElement = document.querySelector(
       inputSelector
-    ) as HTMLInputElement
+    )
 
     while (true) {
       if (inputElement.value && inputElement.value !== '') {
@@ -81,7 +81,7 @@ export function waitForElementToGetClicked (elementSelector: string) {
   return async () => {
     const element = document.querySelector(
       elementSelector
-    ) as HTMLElement
+    )
     if (!element) {
       console.warn(`Could not find Element with selector "${elementSelector}"`)
     }
@@ -97,7 +97,7 @@ export function waitForElementsInnerHtmlToBe (elementSelector: string, value: St
     while (true) {
       const element = document.querySelector(
         elementSelector
-      ) as HTMLElement
+      )
 
       if (element && element.innerHTML === value) {
         break
@@ -108,7 +108,7 @@ export function waitForElementsInnerHtmlToBe (elementSelector: string, value: St
 }
 
 export function waitInMs (timeInMs: number) {
-  return () => sleep(timeInMs)
+  return async () => await sleep(timeInMs)
 }
 
 export function waitForAngularRouteToBeVisited (route: String) {

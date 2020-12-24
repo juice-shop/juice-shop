@@ -29,10 +29,11 @@ export class ErasureRequestComponent implements OnInit {
     emailControl: new FormControl('', [Validators.required, Validators.email]),
     securityQuestionControl: new FormControl('', [Validators.required])
   })
+
   public securityQuestion?: string
   public error?: string
 
-  constructor (private securityQuestionService: SecurityQuestionService, private dataSubjectService: DataSubjectService, private ngZone: NgZone, private router: Router, private cookieService: CookieService, private userService: UserService, private translateService: TranslateService, private snackBar: MatSnackBar, private snackBarHelperService: SnackBarHelperService) { }
+  constructor (private readonly securityQuestionService: SecurityQuestionService, private readonly dataSubjectService: DataSubjectService, private readonly ngZone: NgZone, private readonly router: Router, private readonly cookieService: CookieService, private readonly userService: UserService, private readonly translateService: TranslateService, private readonly snackBar: MatSnackBar, private readonly snackBarHelperService: SnackBarHelperService) { }
   ngOnInit () {
     this.findSecurityQuestion()
   }
@@ -74,7 +75,7 @@ export class ErasureRequestComponent implements OnInit {
     this.cookieService.delete('token', '/')
     sessionStorage.removeItem('bid')
     this.userService.isLoggedIn.next(false)
-    this.ngZone.run(() => this.router.navigate(['/']))
+    this.ngZone.run(async () => await this.router.navigate(['/']))
     this.snackBarHelperService.open('CONFIRM_ERASURE_REQUEST')
   }
 

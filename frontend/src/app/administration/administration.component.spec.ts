@@ -30,12 +30,11 @@ describe('AdministrationComponent', () => {
   let feedbackService: any
 
   beforeEach(waitForAsync(() => {
-
-    dialog = jasmine.createSpyObj('MatDialog',['open'])
+    dialog = jasmine.createSpyObj('MatDialog', ['open'])
     dialog.open.and.returnValue(null)
-    userService = jasmine.createSpyObj('UserService',['find'])
+    userService = jasmine.createSpyObj('UserService', ['find'])
     userService.find.and.returnValue(of([{ email: 'User1' }, { email: 'User2' }]))
-    feedbackService = jasmine.createSpyObj('FeedbackService', ['find','del'])
+    feedbackService = jasmine.createSpyObj('FeedbackService', ['find', 'del'])
     feedbackService.find.and.returnValue(of([{ comment: 'Feedback1' }, { comment: 'Feedback2' }]))
     feedbackService.del.and.returnValue(of(null))
 
@@ -51,14 +50,14 @@ describe('AdministrationComponent', () => {
         MatCardModule,
         MatIconModule
       ],
-      declarations: [ AdministrationComponent ],
+      declarations: [AdministrationComponent],
       providers: [
         { provide: MatDialog, useValue: dialog },
-        { provide: UserService , useValue: userService },
+        { provide: UserService, useValue: userService },
         { provide: FeedbackService, useValue: feedbackService }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -71,14 +70,14 @@ describe('AdministrationComponent', () => {
     expect(component).toBeTruthy()
   })
 
-  it('should find all users via the UserService' , () => {
+  it('should find all users via the UserService', () => {
     component.findAllUsers()
     expect(component.userDataSource.data.length).toBe(2)
     expect(component.userDataSource.data[0].email).toMatch(/User1/)
     expect(component.userDataSource.data[1].email).toMatch(/User2/)
   })
 
-  it('should give an error if UserService fails to find all users' , fakeAsync(() => {
+  it('should give an error if UserService fails to find all users', fakeAsync(() => {
     userService.find.and.returnValue(throwError('Error'))
     component.findAllUsers()
 
@@ -94,7 +93,7 @@ describe('AdministrationComponent', () => {
     expect(component.feedbackDataSource.data[1].comment).toMatch(/Feedback2/)
   })
 
-  it('should give an error if FeedbackService fails to find all feedbacks' , fakeAsync(() => {
+  it('should give an error if FeedbackService fails to find all feedbacks', fakeAsync(() => {
     feedbackService.find.and.returnValue(throwError('Error'))
     component.findAllFeedbacks()
 
@@ -104,7 +103,7 @@ describe('AdministrationComponent', () => {
   }))
 
   it('should refresh all feedbacks after deletion', () => {
-    spyOn(component,'findAllFeedbacks')
+    spyOn(component, 'findAllFeedbacks')
     component.deleteFeedback(1)
     expect(component.findAllFeedbacks).toHaveBeenCalled()
     expect(feedbackService.del).toHaveBeenCalledWith(1)
@@ -119,12 +118,12 @@ describe('AdministrationComponent', () => {
     expect(component.error).toBe('Error')
   }))
 
-  it('should open the UserDetailsComponent to show details' , () => {
+  it('should open the UserDetailsComponent to show details', () => {
     component.showUserDetail(1)
     expect(dialog.open).toHaveBeenCalledWith(UserDetailsComponent, { data: { id: 1 } })
   })
 
-  it('should open the FeedbackDetailsComponent to show details' , () => {
+  it('should open the FeedbackDetailsComponent to show details', () => {
     component.showFeedbackDetails('Feedback', 1)
     expect(dialog.open).toHaveBeenCalledWith(FeedbackDetailsComponent, { data: { feedback: 'Feedback', id: 1 } })
   })
@@ -136,7 +135,7 @@ describe('AdministrationComponent', () => {
     expect(component.userColumns[2]).toBe('user_detail')
   })
 
-  it('should have four columns in the feedback table' , () => {
+  it('should have four columns in the feedback table', () => {
     expect(component.feedbackColumns.length).toBe(4)
     expect(component.feedbackColumns[0]).toBe('user')
     expect(component.feedbackColumns[1]).toBe('comment')

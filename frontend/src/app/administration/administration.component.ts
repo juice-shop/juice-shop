@@ -25,10 +25,9 @@ dom.watch()
   styleUrls: ['./administration.component.scss']
 })
 export class AdministrationComponent implements OnInit {
-
   public userDataSource: any
   public userDataSourceHidden: any
-  public userColumns = ['user','email','user_detail']
+  public userColumns = ['user', 'email', 'user_detail']
   public feedbackDataSource: any
   public feedbackColumns = ['user', 'comment', 'rating', 'remove']
   public error: any
@@ -36,8 +35,8 @@ export class AdministrationComponent implements OnInit {
   public resultsLengthFeedback = 0
   @ViewChild('paginatorUsers') paginatorUsers: MatPaginator
   @ViewChild('paginatorFeedb') paginatorFeedb: MatPaginator
-  constructor (private dialog: MatDialog, private userService: UserService, private feedbackService: FeedbackService,
-    private sanitizer: DomSanitizer) {}
+  constructor (private readonly dialog: MatDialog, private readonly userService: UserService, private readonly feedbackService: FeedbackService,
+    private readonly sanitizer: DomSanitizer) {}
 
   ngOnInit () {
     this.findAllUsers()
@@ -48,14 +47,13 @@ export class AdministrationComponent implements OnInit {
     this.userService.find().subscribe((users) => {
       this.userDataSource = users
       this.userDataSourceHidden = users
-      for (let user of this.userDataSource) {
+      for (const user of this.userDataSource) {
         user.email = this.sanitizer.bypassSecurityTrustHtml(`<span class="${user.token ? 'confirmation' : 'error'}">${user.email}</span>`)
       }
       this.userDataSource = new MatTableDataSource(this.userDataSource)
       this.userDataSource.paginator = this.paginatorUsers
       this.resultsLengthUser = users.length
-
-    },(err) => {
+    }, (err) => {
       this.error = err
       console.log(this.error)
     })
@@ -64,13 +62,13 @@ export class AdministrationComponent implements OnInit {
   findAllFeedbacks () {
     this.feedbackService.find().subscribe((feedbacks) => {
       this.feedbackDataSource = feedbacks
-      for (let feedback of this.feedbackDataSource) {
+      for (const feedback of this.feedbackDataSource) {
         feedback.comment = this.sanitizer.bypassSecurityTrustHtml(feedback.comment)
       }
       this.feedbackDataSource = new MatTableDataSource(this.feedbackDataSource)
       this.feedbackDataSource.paginator = this.paginatorFeedb
       this.resultsLengthFeedback = feedbacks.length
-    },(err) => {
+    }, (err) => {
       this.error = err
       console.log(this.error)
     })
@@ -79,7 +77,7 @@ export class AdministrationComponent implements OnInit {
   deleteFeedback (id: number) {
     this.feedbackService.del(id).subscribe(() => {
       this.findAllFeedbacks()
-    },(err) => {
+    }, (err) => {
       this.error = err
       console.log(this.error)
     })

@@ -17,14 +17,13 @@ dom.watch()
   styleUrls: ['./basket.component.scss']
 })
 export class BasketComponent {
-
   public productCount: number = 0
   public bonus: number = 0
 
-  constructor (private router: Router, private ngZone: NgZone) {}
+  constructor (private readonly router: Router, private readonly ngZone: NgZone) {}
 
   checkout () {
-    this.ngZone.run(() => this.router.navigate(['/address/select']))
+    this.ngZone.run(async () => await this.router.navigate(['/address/select']))
   }
 
   getProductCount (total) {

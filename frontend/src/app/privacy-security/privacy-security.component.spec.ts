@@ -42,7 +42,7 @@ describe('PrivacySecurityComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule
       ],
-      providers : [ TranslateService ]
+      providers: [TranslateService]
     }).compileComponents()
   }))
 

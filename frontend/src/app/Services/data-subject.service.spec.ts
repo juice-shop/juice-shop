@@ -9,7 +9,6 @@ import { DataSubjectService } from './data-subject.service'
 
 describe('DataSubjectService', () => {
   beforeEach(() => {
-
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [DataSubjectService]

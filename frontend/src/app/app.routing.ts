@@ -44,16 +44,16 @@ import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, LoginGuard } from './app.guard'
 
 export function token1 (...args: number[]) {
-  let L = Array.prototype.slice.call(args)
-  let D = L.shift()
+  const L = Array.prototype.slice.call(args)
+  const D = L.shift()
   return L.reverse().map(function (C, A) {
     return String.fromCharCode(C - D - 45 - A)
   }).join('')
 }
 
 export function token2 (...args: number[]) {
-  let T = Array.prototype.slice.call(arguments)
-  let M = T.shift()
+  const T = Array.prototype.slice.call(arguments)
+  const M = T.shift()
   return T.reverse().map(function (m, H) {
     return String.fromCharCode(m - M - 24 - H)
   }).join('')
@@ -194,10 +194,12 @@ const routes: Routes = [
     path: 'privacy-security',
     component: PrivacySecurityComponent,
     children: [
-      { path: 'privacy-policy',
+      {
+        path: 'privacy-policy',
         component: PrivacyPolicyComponent
       },
-      { path: 'change-password',
+      {
+        path: 'change-password',
         component: ChangePasswordComponent
       },
       {
@@ -243,7 +245,7 @@ export function oauthMatcher (url: UrlSegment[]): UrlMatchResult {
   if (url.length === 0) {
     return null as unknown as UrlMatchResult
   }
-  let path = window.location.href
+  const path = window.location.href
   if (path.includes('#access_token=')) {
     return ({ consumed: url })
   }

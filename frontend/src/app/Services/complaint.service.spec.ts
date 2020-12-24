@@ -10,7 +10,6 @@ import { ComplaintService } from './complaint.service'
 
 describe('ComplaintService', () => {
   beforeEach(() => {
-
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [ComplaintService]

@@ -12,10 +12,9 @@ import { catchError } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class ImageCaptchaService {
+  private readonly hostServer = environment.hostServer
 
-  private hostServer = environment.hostServer
-
-  constructor (private http: HttpClient) { }
+  constructor (private readonly http: HttpClient) { }
 
   getCaptcha () {
     return this.http.get(this.hostServer + '/rest/image-captcha/').pipe(catchError((err) => { throw err }))

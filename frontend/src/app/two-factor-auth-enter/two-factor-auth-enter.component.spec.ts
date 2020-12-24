@@ -68,14 +68,14 @@ describe('TwoFactorAuthEnterComponent', () => {
         MatSnackBarModule,
         MatTooltipModule
       ],
-      declarations: [ TwoFactorAuthEnterComponent, SearchResultComponent ],
+      declarations: [TwoFactorAuthEnterComponent, SearchResultComponent],
       providers: [
         { provide: UserService, useValue: userService },
         CookieService,
         WindowRefService
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

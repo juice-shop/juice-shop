@@ -21,14 +21,13 @@ dom.watch()
   styleUrls: ['./change-password.component.scss']
 })
 export class ChangePasswordComponent {
-
   public passwordControl: FormControl = new FormControl('', [Validators.required])
   public newPasswordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)])
   public repeatNewPasswordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20), matchValidator(this.newPasswordControl)])
   public error: any
   public confirmation: any
 
-  constructor (private userService: UserService, private formSubmitService: FormSubmitService, private translate: TranslateService) { }
+  constructor (private readonly userService: UserService, private readonly formSubmitService: FormSubmitService, private readonly translate: TranslateService) { }
 
   ngOnInit () {
     this.formSubmitService.attachEnterKeyHandler('password-form', 'changeButton', () => this.changePassword())
@@ -79,8 +78,8 @@ export class ChangePasswordComponent {
 
 function matchValidator (newPasswordControl: AbstractControl) {
   return function matchOtherValidate (repeatNewPasswordControl: FormControl) {
-    let password = newPasswordControl.value
-    let passwordRepeat = repeatNewPasswordControl.value
+    const password = newPasswordControl.value
+    const passwordRepeat = repeatNewPasswordControl.value
     if (password !== passwordRepeat) {
       return { notSame: true }
     }

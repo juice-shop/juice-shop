@@ -28,8 +28,7 @@ describe('WalletComponent', () => {
   let snackBar: any
 
   beforeEach(waitForAsync(() => {
-
-    walletService = jasmine.createSpyObj('AddressService',['get', 'put'])
+    walletService = jasmine.createSpyObj('AddressService', ['get', 'put'])
     walletService.get.and.returnValue(of({}))
     walletService.put.and.returnValue(of({}))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
@@ -37,7 +36,7 @@ describe('WalletComponent', () => {
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
-    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
+    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
       imports: [
@@ -52,14 +51,14 @@ describe('WalletComponent', () => {
         MatInputModule,
         MatGridListModule
       ],
-      declarations: [ WalletComponent],
+      declarations: [WalletComponent],
       providers: [
         { provide: WalletService, useValue: walletService },
         { provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -95,7 +94,7 @@ describe('WalletComponent', () => {
     expect(component.balance).toBe('100.00')
   })
 
-  it('should log error while getting balance from backend API directly to browser console' , fakeAsync(() => {
+  it('should log error while getting balance from backend API directly to browser console', fakeAsync(() => {
     walletService.get.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
