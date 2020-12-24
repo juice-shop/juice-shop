@@ -199,7 +199,7 @@ export class NavbarComponent implements OnInit {
     this.sidenavToggle.emit()
   }
 
-  // tslint:disable-next-line:no-empty
+  // eslint-disable-next-line no-empty,@typescript-eslint/no-empty-function
   noop () { }
 
   getLanguages () {
