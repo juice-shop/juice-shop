@@ -8,13 +8,14 @@ const fs = require('fs')
 const models = require('../models/index')
 const insecurity = require('../lib/insecurity')
 const logger = require('../lib/logger')
-const fileType = require('file-type')
+const FileType = require('file-type')
 
 module.exports = function fileUpload () {
-  return (req, res, next) => {
+ return async (req, res, next) => {
     const file = req.file
     const buffer = file.buffer
-    const uploadedFileType = fileType(buffer)
+    const uploadedFileType = await FileType.fromBuffer(buffer)
+
     if (uploadedFileType !== null && utils.startsWith(uploadedFileType.mime, 'image')) {
       const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
       if (loggedInUser) {
