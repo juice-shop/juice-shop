@@ -205,7 +205,7 @@ jobs:
             VCS_REF=${{ env.VCS_REF }}
             BUILD_DATE=${{ env.BUILD_DATE }}
   heroku:
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/angular11')
     needs: [test, e2e]
     runs-on: ubuntu-latest
     steps:
@@ -216,6 +216,9 @@ jobs:
           if [ "$GITHUB_REF" == "refs/heads/master" ]; then
           echo "HEROKU_APP=juice-shop" >> $GITHUB_ENV
           echo "HEROKU_BRANCH=master" >> $GITHUB_ENV
+          else if [ "$GITHUB_REF" == "refs/heads/angular11" ]; then
+          echo "HEROKU_APP=juice-shop-experimental" >> $GITHUB_ENV
+          echo "HEROKU_BRANCH=angular11" >> $GITHUB_ENV
           else
           echo "HEROKU_APP=juice-shop-staging" >> $GITHUB_ENV
           echo "HEROKU_BRANCH=develop" >> $GITHUB_ENV
