@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-// @ts-expect-error
-import snarkdown from 'snarkdown' // TODO Remove ts-ignore when https://github.com/developit/snarkdown/pull/74 is merged
+import snarkdown from 'snarkdown'
 
 import { LoginAdminInstruction } from './challenges/loginAdmin'
 import { DomXssInstruction } from './challenges/domXss'
