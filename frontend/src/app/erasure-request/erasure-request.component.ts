@@ -78,7 +78,7 @@ export class ErasureRequestComponent implements OnInit {
     this.snackBarHelperService.open('CONFIRM_ERASURE_REQUEST')
   }
 
-  // tslint:disable-next-line:no-empty
+  // eslint-disable-next-line no-empty, @typescript-eslint/no-empty-function
   noop () { }
 
   resetForm () {

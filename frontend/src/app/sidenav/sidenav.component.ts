@@ -88,7 +88,7 @@ export class SidenavComponent implements OnInit {
     window.location.replace(environment.hostServer + '/profile')
   }
 
-  // tslint:disable-next-line:no-empty
+  // eslint-disable-next-line no-empty,@typescript-eslint/no-empty-function
   noop () { }
 
   getScoreBoardStatus () {
