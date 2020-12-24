@@ -13,7 +13,7 @@ export function waitForInputToHaveValue (inputSelector: string, value: string, o
   return async () => {
     const inputElement = document.querySelector(
       inputSelector
-    )
+    ) as HTMLInputElement
 
     while (true) {
       if (options.ignoreCase && inputElement.value.toLowerCase() === value.toLowerCase()) {
@@ -30,7 +30,7 @@ export function waitForInputToNotHaveValue (inputSelector: string, value: string
   return async () => {
     const inputElement = document.querySelector(
       inputSelector
-    )
+    ) as HTMLInputElement
 
     while (true) {
       if (options.ignoreCase && inputElement.value.toLowerCase() !== value.toLowerCase()) {
@@ -47,7 +47,7 @@ export function waitForInputToNotHaveValueAndNotBeEmpty (inputSelector: string, 
   return async () => {
     const inputElement = document.querySelector(
       inputSelector
-    )
+    ) as HTMLInputElement
 
     while (true) {
       if (inputElement.value !== '') {
@@ -66,7 +66,7 @@ export function waitForInputToNotBeEmpty (inputSelector: string) {
   return async () => {
     const inputElement = document.querySelector(
       inputSelector
-    )
+    ) as HTMLInputElement
 
     while (true) {
       if (inputElement.value && inputElement.value !== '') {
