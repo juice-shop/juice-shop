@@ -176,7 +176,7 @@ app.use(function (req, res, next) {
   // res.setHeader('Cross-Origin-Resource-Policy', 'same-site')
   // res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups')
   // res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp')
-  // next() // TODO Replace above manually set headers with helmet solution once supported (see https://github.com/helmetjs/helmet/issues/176)
+  next() // TODO Replace above manually set headers with helmet solution once supported (see https://github.com/helmetjs/helmet/issues/176)
 })
 
 /* Remove duplicate slashes from URL which allowed bypassing subsequent filters */
