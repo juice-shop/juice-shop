@@ -17,7 +17,6 @@ describe('TrackResultComponent', () => {
   let fixture: ComponentFixture<TrackResultComponent>
 
   beforeEach(waitForAsync(() => {
-
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -26,10 +25,10 @@ describe('TrackResultComponent', () => {
         MatCardModule,
         MatTableModule
       ],
-      declarations: [ TrackResultComponent ],
+      declarations: [TrackResultComponent],
       providers: [TrackOrderService]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

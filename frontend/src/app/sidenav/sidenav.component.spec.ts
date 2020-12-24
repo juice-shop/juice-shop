@@ -39,20 +39,19 @@ describe('SidenavComponent', () => {
   let loginGuard
 
   beforeEach(waitForAsync(() => {
-
-    configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
+    configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { welcomeBanner: {} }, hackingInstructor: {} }))
-    challengeService = jasmine.createSpyObj('ChallengeService',['find'])
+    challengeService = jasmine.createSpyObj('ChallengeService', ['find'])
     challengeService.find.and.returnValue(of([{ solved: false }]))
-    cookieService = jasmine.createSpyObj('CookieService',['delete', 'get', 'set'])
+    cookieService = jasmine.createSpyObj('CookieService', ['delete', 'get', 'set'])
     mockSocket = new MockSocket()
     socketIoService = jasmine.createSpyObj('SocketIoService', ['socket'])
     socketIoService.socket.and.returnValue(mockSocket)
-    loginGuard = jasmine.createSpyObj('LoginGuard',['tokenDecode'])
+    loginGuard = jasmine.createSpyObj('LoginGuard', ['tokenDecode'])
     loginGuard.tokenDecode.and.returnValue(of(true))
 
     TestBed.configureTestingModule({
-      declarations: [ SidenavComponent ],
+      declarations: [SidenavComponent],
       imports: [
         HttpClientModule,
         TranslateModule.forRoot(),
@@ -73,7 +72,7 @@ describe('SidenavComponent', () => {
         TranslateService
       ]
     })
-    .compileComponents()
+      .compileComponents()
 
     translateService = TestBed.inject(TranslateService)
   }))

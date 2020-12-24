@@ -36,15 +36,15 @@ export class RegisterComponent implements OnInit {
   public selected?: number
   public error: string | null = null
 
-  constructor (private securityQuestionService: SecurityQuestionService,
-    private userService: UserService,
-    private securityAnswerService: SecurityAnswerService,
-    private router: Router,
-    private formSubmitService: FormSubmitService,
-    private translateService: TranslateService,
-    private snackBar: MatSnackBar,
-    private snackBarHelperService: SnackBarHelperService,
-    private ngZone: NgZone) { }
+  constructor (private readonly securityQuestionService: SecurityQuestionService,
+    private readonly userService: UserService,
+    private readonly securityAnswerService: SecurityAnswerService,
+    private readonly router: Router,
+    private readonly formSubmitService: FormSubmitService,
+    private readonly translateService: TranslateService,
+    private readonly snackBar: MatSnackBar,
+    private readonly snackBarHelperService: SnackBarHelperService,
+    private readonly ngZone: NgZone) { }
 
   ngOnInit () {
     this.securityQuestionService.find(null).subscribe((securityQuestions: any) => {
@@ -64,11 +64,14 @@ export class RegisterComponent implements OnInit {
     }
 
     this.userService.save(user).subscribe((response: any) => {
-      this.securityAnswerService.save({UserId: response.id, answer: this.securityAnswerControl.value,
-        SecurityQuestionId: this.securityQuestionControl.value}).subscribe(() => {
-          this.ngZone.run(() => this.router.navigate(['/login']))
-          this.snackBarHelperService.open('CONFIRM_REGISTER')
-        })
+      this.securityAnswerService.save({
+        UserId: response.id,
+        answer: this.securityAnswerControl.value,
+        SecurityQuestionId: this.securityQuestionControl.value
+      }).subscribe(() => {
+        this.ngZone.run(async () => await this.router.navigate(['/login']))
+        this.snackBarHelperService.open('CONFIRM_REGISTER')
+      })
     }, (err) => {
       console.log(err)
       if (err.error && err.error.errors) {
@@ -85,8 +88,8 @@ export class RegisterComponent implements OnInit {
 
 function matchValidator (passwordControl: AbstractControl) {
   return function matchOtherValidate (repeatPasswordControl: FormControl) {
-    let password = passwordControl.value
-    let passwordRepeat = repeatPasswordControl.value
+    const password = passwordControl.value
+    const passwordRepeat = repeatPasswordControl.value
     if (password !== passwordRepeat) {
       return { notSame: true }
     }

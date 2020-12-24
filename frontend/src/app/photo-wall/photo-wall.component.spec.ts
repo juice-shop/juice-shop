@@ -37,8 +37,7 @@ describe('PhotoWallComponent', () => {
   let translateService
 
   beforeEach(waitForAsync(() => {
-
-    configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
+    configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
     photoWallService = jasmine.createSpyObj('PhotoWallService', ['get', 'addMemory'])
     photoWallService.get.and.returnValue(of([]))
@@ -48,10 +47,10 @@ describe('PhotoWallComponent', () => {
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
-    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
+    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
-      declarations: [ PhotoWallComponent ],
+      declarations: [PhotoWallComponent],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
@@ -78,7 +77,7 @@ describe('PhotoWallComponent', () => {
         { provide: MatSnackBar, useValue: snackBar }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -123,8 +122,8 @@ describe('PhotoWallComponent', () => {
 
   it('should add new memory to photo wall', () => {
     photoWallService.addMemory.and.returnValue(of({}))
-    spyOn(component,'ngOnInit')
-    spyOn(component,'resetForm')
+    spyOn(component, 'ngOnInit')
+    spyOn(component, 'resetForm')
     component.save()
     expect(component.ngOnInit).toHaveBeenCalled()
     expect(component.resetForm).toHaveBeenCalled()

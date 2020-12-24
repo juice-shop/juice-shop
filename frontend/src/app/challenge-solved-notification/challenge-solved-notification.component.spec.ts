@@ -33,7 +33,6 @@ describe('ChallengeSolvedNotificationComponent', () => {
   let mockSocket: any
 
   beforeEach(waitForAsync(() => {
-
     mockSocket = new MockSocket()
     socketIoService = jasmine.createSpyObj('SocketIoService', ['socket'])
     socketIoService.socket.and.returnValue(mockSocket)
@@ -51,7 +50,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
         MatCardModule,
         MatButtonModule
       ],
-      declarations: [ ChallengeSolvedNotificationComponent ],
+      declarations: [ChallengeSolvedNotificationComponent],
       providers: [
         { provide: SocketIoService, useValue: socketIoService },
         { provide: TranslateService, useValue: translateService },
@@ -61,7 +60,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
         CookieService
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -101,6 +100,6 @@ describe('ChallengeSolvedNotificationComponent', () => {
     tick()
 
     expect(translateService.get).toHaveBeenCalledWith('CHALLENGE_SOLVED', { challenge: 'Test' })
-    expect(component.notifications).toEqual([ { message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: undefined } ])
+    expect(component.notifications).toEqual([{ message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: undefined }])
   }))
 })

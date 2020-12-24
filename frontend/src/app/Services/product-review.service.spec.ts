@@ -10,7 +10,6 @@ import { ProductReviewService } from './product-review.service'
 
 describe('ProductReviewService', () => {
   beforeEach(() => {
-
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [ProductReviewService]
@@ -53,7 +52,7 @@ describe('ProductReviewService', () => {
   it('should edit product reviews directly via the rest api', inject([ProductReviewService, HttpTestingController],
     fakeAsync((service: ProductReviewService, httpMock: HttpTestingController) => {
       let res: any
-      service.patch(null as unknown as { id: string; message: string }).subscribe((data: any) => res = data)
+      service.patch(null as unknown as { id: string, message: string }).subscribe((data: any) => res = data)
       const req = httpMock.expectOne('http://localhost:3000/rest/products/reviews')
       req.flush({ data: 'apiResponse' })
 

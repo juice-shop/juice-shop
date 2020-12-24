@@ -23,7 +23,6 @@ dom.watch()
   styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent implements OnInit {
-
   public authorControl: FormControl = new FormControl({ value: '', disabled: true }, [])
   public feedbackControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(160)])
   public captchaControl: FormControl = new FormControl('', [Validators.required, Validators.pattern('-?[\\d]*')])
@@ -35,8 +34,8 @@ export class ContactComponent implements OnInit {
   public confirmation: any
   public error: any
 
-  constructor (private userService: UserService, private captchaService: CaptchaService, private feedbackService: FeedbackService,
-    private formSubmitService: FormSubmitService, private translate: TranslateService, private snackBarHelperService: SnackBarHelperService) { }
+  constructor (private readonly userService: UserService, private readonly captchaService: CaptchaService, private readonly feedbackService: FeedbackService,
+    private readonly formSubmitService: FormSubmitService, private readonly translate: TranslateService, private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
     this.userService.whoAmI().subscribe((data: any) => {
@@ -84,7 +83,7 @@ export class ContactComponent implements OnInit {
       this.ngOnInit()
       this.resetForm()
     }, (err) => {
-      this.snackBarHelperService.open(err.error?.error,'errorBar')
+      this.snackBarHelperService.open(err.error?.error, 'errorBar')
       this.feedback = {}
       this.resetCaptcha()
     })
@@ -111,4 +110,5 @@ export class ContactComponent implements OnInit {
 
   formatRating (value: number) {
     return value + '★'
-  }}
+  }
+}

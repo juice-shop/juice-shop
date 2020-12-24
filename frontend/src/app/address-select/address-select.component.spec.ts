@@ -40,7 +40,7 @@ describe('AddressSelectComponent', () => {
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
-    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
+    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
     snackBar.open.and.returnValue(null)
 
     TestBed.configureTestingModule({
@@ -65,11 +65,11 @@ describe('AddressSelectComponent', () => {
         MatTooltipModule,
         MatCheckboxModule
       ],
-      declarations: [ AddressSelectComponent, AddressComponent, DeliveryMethodComponent ],
+      declarations: [AddressSelectComponent, AddressComponent, DeliveryMethodComponent],
       providers: [{ provide: TranslateService, useValue: translateService },
-                  { provide: MatSnackBar, useValue: snackBar }]
+        { provide: MatSnackBar, useValue: snackBar }]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

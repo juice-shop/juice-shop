@@ -12,10 +12,10 @@ import { catchError, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class ProductService {
-  private hostServer = environment.hostServer
-  private host = this.hostServer + '/api/Products'
+  private readonly hostServer = environment.hostServer
+  private readonly host = this.hostServer + '/api/Products'
 
-  constructor (private http: HttpClient) { }
+  constructor (private readonly http: HttpClient) { }
 
   search (criteria: any) {
     return this.http.get(this.hostServer + '/rest/products/search?q=' + criteria).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
@@ -27,7 +27,7 @@ export class ProductService {
 
   get (id: number) {
     return this.http.get(this.host + '/' + id + '?d=' + encodeURIComponent(new Date().toDateString())).pipe(map((response: any) =>
-    response.data), catchError((err) => { throw err }))
+      response.data), catchError((err) => { throw err }))
   }
 
   put (id, params) {

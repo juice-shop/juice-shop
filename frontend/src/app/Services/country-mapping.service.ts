@@ -12,9 +12,8 @@ import { catchError } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class CountryMappingService {
-
-  private hostServer = environment.hostServer
-  constructor (private http: HttpClient) { }
+  private readonly hostServer = environment.hostServer
+  constructor (private readonly http: HttpClient) { }
 
   getCountryMapping () {
     return this.http.get(this.hostServer + '/rest/country-mapping').pipe(catchError((err) => { throw err }))

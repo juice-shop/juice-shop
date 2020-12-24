@@ -10,7 +10,7 @@ import { Injectable, NgZone } from '@angular/core'
 
 @Injectable()
 export class LoginGuard implements CanActivate {
-  constructor (private router: Router, private ngZone: NgZone) {}
+  constructor (private readonly router: Router, private readonly ngZone: NgZone) {}
 
   canActivate () {
     if (localStorage.getItem('token')) {
@@ -22,7 +22,7 @@ export class LoginGuard implements CanActivate {
   }
 
   forbidRoute (error = 'UNAUTHORIZED_PAGE_ACCESS_ERROR') {
-    this.ngZone.run(() => this.router.navigate(['403'], {
+    this.ngZone.run(async () => await this.router.navigate(['403'], {
       skipLocationChange: true,
       queryParams: { error }
     }))
@@ -44,10 +44,10 @@ export class LoginGuard implements CanActivate {
 
 @Injectable()
 export class AdminGuard implements CanActivate {
-  constructor (private loginGuard: LoginGuard) {}
+  constructor (private readonly loginGuard: LoginGuard) {}
 
   canActivate () {
-    let payload = this.loginGuard.tokenDecode()
+    const payload = this.loginGuard.tokenDecode()
     if (payload && payload.data && payload.data.role === roles.admin) {
       return true
     } else {
@@ -59,10 +59,10 @@ export class AdminGuard implements CanActivate {
 
 @Injectable()
 export class AccountingGuard implements CanActivate {
-  constructor (private loginGuard: LoginGuard) {}
+  constructor (private readonly loginGuard: LoginGuard) {}
 
   canActivate () {
-    let payload = this.loginGuard.tokenDecode()
+    const payload = this.loginGuard.tokenDecode()
     if (payload && payload.data && payload.data.role === roles.accounting) {
       return true
     } else {
@@ -74,10 +74,10 @@ export class AccountingGuard implements CanActivate {
 
 @Injectable()
 export class DeluxeGuard {
-  constructor (private loginGuard: LoginGuard) {}
+  constructor (private readonly loginGuard: LoginGuard) {}
 
   isDeluxe () {
-    let payload = this.loginGuard.tokenDecode()
+    const payload = this.loginGuard.tokenDecode()
     return payload && payload.data && payload.data.role === roles.deluxe
   }
 }

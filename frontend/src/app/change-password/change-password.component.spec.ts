@@ -23,8 +23,7 @@ describe('ChangePasswordComponent', () => {
   let userService: any
 
   beforeEach(waitForAsync(() => {
-
-    userService = jasmine.createSpyObj('UserService',['changePassword'])
+    userService = jasmine.createSpyObj('UserService', ['changePassword'])
     userService.changePassword.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
@@ -38,10 +37,10 @@ describe('ChangePasswordComponent', () => {
         MatInputModule,
         MatButtonModule
       ],
-      declarations: [ ChangePasswordComponent ],
-      providers: [ { provide: UserService, useValue: userService } ]
+      declarations: [ChangePasswordComponent],
+      providers: [{ provide: UserService, useValue: userService }]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -96,7 +95,7 @@ describe('ChangePasswordComponent', () => {
 
   it('should clear form and show confirmation after changing password', () => {
     userService.changePassword.and.returnValue(of({}))
-    spyOn(component,'resetForm')
+    spyOn(component, 'resetForm')
     component.passwordControl.setValue('old')
     component.newPasswordControl.setValue('foobar')
     component.repeatNewPasswordControl.setValue('foobar')
@@ -108,7 +107,7 @@ describe('ChangePasswordComponent', () => {
 
   it('should clear form and gracefully handle error on password change', fakeAsync(() => {
     userService.changePassword.and.returnValue(throwError('Error'))
-    spyOn(component,'resetPasswords')
+    spyOn(component, 'resetPasswords')
     console.log = jasmine.createSpy('log')
     component.passwordControl.setValue('old')
     component.newPasswordControl.setValue('foobar')

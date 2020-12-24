@@ -10,7 +10,6 @@ import { ProductService } from './product.service'
 
 describe('ProductService', () => {
   beforeEach(() => {
-
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [ProductService]

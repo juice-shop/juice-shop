@@ -12,10 +12,10 @@ import { catchError, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class ChatbotService {
-  private hostServer = environment.hostServer
-  private host = this.hostServer + '/rest/chatbot'
+  private readonly hostServer = environment.hostServer
+  private readonly host = this.hostServer + '/rest/chatbot'
 
-  constructor (private http: HttpClient) { }
+  constructor (private readonly http: HttpClient) { }
 
   getChatbotStatus () {
     return this.http.get(this.host + '/status').pipe(map((response: any) => response), catchError(error => { throw error }))

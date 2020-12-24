@@ -101,8 +101,8 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.component.html"
+              "src/app/**/*.ts",
+              "src/hacking-instructor/**/*.ts"
             ]
           }
         }

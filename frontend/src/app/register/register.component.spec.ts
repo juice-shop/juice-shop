@@ -37,7 +37,6 @@ describe('RegisterComponent', () => {
   let location: Location
 
   beforeEach(waitForAsync(() => {
-
     securityAnswerService = jasmine.createSpyObj('SecurityAnswerService', ['save'])
     securityAnswerService.save.and.returnValue(of({}))
     securityQuestionService = jasmine.createSpyObj('SecurityQuestionService', ['find'])
@@ -66,14 +65,14 @@ describe('RegisterComponent', () => {
         MatIconModule,
         MatSlideToggleModule
       ],
-      declarations: [ RegisterComponent, LoginComponent ],
+      declarations: [RegisterComponent, LoginComponent],
       providers: [
         { provide: SecurityAnswerService, useValue: securityAnswerService },
         { provide: SecurityQuestionService, useValue: securityQuestionService },
         { provide: UserService, useValue: userService }
       ]
     })
-    .compileComponents()
+      .compileComponents()
 
     location = TestBed.inject(Location)
   }))
@@ -133,8 +132,8 @@ describe('RegisterComponent', () => {
   })
 
   it('password and repeat password should be the same', () => {
-    let password: string = 'aaaaa'
-    let passwordRepeat: string = 'aaaaa'
+    const password: string = 'aaaaa'
+    const passwordRepeat: string = 'aaaaa'
     component.passwordControl.setValue(password)
     component.repeatPasswordControl.setValue('bbbbb')
     expect(component.repeatPasswordControl.valid).toBeFalsy()
@@ -145,7 +144,7 @@ describe('RegisterComponent', () => {
   it('redirects to login page after user registration', fakeAsync(() => {
     userService.save.and.returnValue(of({ id: 1, question: 'Wat is?' }))
     securityAnswerService.save.and.returnValue(of({}))
-    component.securityQuestions = [ { id: 1, question: 'Wat is?' } ]
+    component.securityQuestions = [{ id: 1, question: 'Wat is?' }]
     component.emailControl.setValue('x@x.xx')
     component.passwordControl.setValue('password')
     component.repeatPasswordControl.setValue('password')
@@ -163,7 +162,7 @@ describe('RegisterComponent', () => {
   }))
 
   it('loading secret questions', () => {
-    securityQuestionService.find.and.returnValue(of([ { id: 1, question: 'WTF?' }, { id: 2, question: 'WAT?' } ]))
+    securityQuestionService.find.and.returnValue(of([{ id: 1, question: 'WTF?' }, { id: 2, question: 'WAT?' }]))
     component.ngOnInit()
     expect(component.securityQuestions.length).toBe(2)
     expect(component.securityQuestions[0].question).toBe('WTF?')

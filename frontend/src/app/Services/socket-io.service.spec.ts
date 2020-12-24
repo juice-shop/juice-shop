@@ -9,7 +9,6 @@ import { SocketIoService } from './socket-io.service'
 
 describe('SocketIoService', () => {
   beforeEach(() => {
-
     TestBed.configureTestingModule({
       providers: [SocketIoService]
     })

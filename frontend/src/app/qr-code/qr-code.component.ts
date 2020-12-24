@@ -17,7 +17,6 @@ dom.watch()
   styleUrls: ['./qr-code.component.scss']
 })
 export class QrCodeComponent implements OnInit {
-
   public title!: string
   public url!: string
   public address!: string
@@ -30,5 +29,4 @@ export class QrCodeComponent implements OnInit {
     this.address = this.dialogData.address
     this.data = this.dialogData.data
   }
-
 }

@@ -11,7 +11,7 @@ import { ChallengeService } from './challenge.service'
 describe('ChallengeService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports : [
+      imports: [
         HttpClientTestingModule
       ],
       providers: [ChallengeService]
@@ -22,7 +22,7 @@ describe('ChallengeService', () => {
     expect(service).toBeTruthy()
   }))
 
-  it('should get all challenges directly from the rest api' ,inject([ChallengeService, HttpTestingController],
+  it('should get all challenges directly from the rest api', inject([ChallengeService, HttpTestingController],
     fakeAsync((service: ChallengeService, httpMock: HttpTestingController) => {
       let res: any
       service.find().subscribe((data) => res = data)
@@ -37,7 +37,7 @@ describe('ChallengeService', () => {
     })
   ))
 
-  it('should get current continue code directly from the rest api' ,inject([ChallengeService, HttpTestingController],
+  it('should get current continue code directly from the rest api', inject([ChallengeService, HttpTestingController],
     fakeAsync((service: ChallengeService, httpMock: HttpTestingController) => {
       let res: any
       service.continueCode().subscribe((data) => res = data)
@@ -52,7 +52,7 @@ describe('ChallengeService', () => {
     })
   ))
 
-  it('should pass continue code for restoring challenge progress on to the rest api' ,inject([ChallengeService, HttpTestingController],
+  it('should pass continue code for restoring challenge progress on to the rest api', inject([ChallengeService, HttpTestingController],
     fakeAsync((service: ChallengeService, httpMock: HttpTestingController) => {
       let res: any
       service.restoreProgress('CODE').subscribe((data) => res = data)
@@ -67,7 +67,7 @@ describe('ChallengeService', () => {
     })
   ))
 
-  it('should repeat notification directly from the rest api' ,inject([ChallengeService, HttpTestingController],
+  it('should repeat notification directly from the rest api', inject([ChallengeService, HttpTestingController],
     fakeAsync((service: ChallengeService, httpMock: HttpTestingController) => {
       let res: any
       service.repeatNotification('CHALLENGE').subscribe((data) => res = data)

@@ -36,8 +36,7 @@ describe('AddressComponent', () => {
   let translateService
 
   beforeEach(waitForAsync(() => {
-
-    addressService = jasmine.createSpyObj('AddressService',['get', 'del'])
+    addressService = jasmine.createSpyObj('AddressService', ['get', 'del'])
     addressService.get.and.returnValue(of([]))
     addressService.del.and.returnValue(of({}))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
@@ -45,7 +44,7 @@ describe('AddressComponent', () => {
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
-    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
+    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
     snackBar.open.and.returnValue(null)
 
     TestBed.configureTestingModule({
@@ -69,14 +68,14 @@ describe('AddressComponent', () => {
         MatIconModule,
         MatTooltipModule
       ],
-      declarations: [ AddressComponent, AddressCreateComponent ],
+      declarations: [AddressComponent, AddressCreateComponent],
       providers: [
         { provide: AddressService, useValue: addressService },
         { provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -116,14 +115,14 @@ describe('AddressComponent', () => {
     addressService.get.and.returnValue(of([]))
     addressService.del.and.returnValue(of([]))
     component.deleteAddress(1)
-    spyOn(component,'load')
+    spyOn(component, 'load')
     expect(addressService.del).toHaveBeenCalled()
     expect(addressService.get).toHaveBeenCalled()
   }))
 
   it('should store address id in session storage', () => {
     component.addressId = 1
-    spyOn(sessionStorage,'setItem')
+    spyOn(sessionStorage, 'setItem')
     component.chooseAddress()
     expect(sessionStorage.setItem).toHaveBeenCalledWith('addressId', 1 as any)
   })

@@ -11,11 +11,10 @@ import * as io from 'socket.io-client'
   providedIn: 'root'
 })
 export class SocketIoService {
-
   public io = io
   private _socket: any
 
-  constructor (private ngZone: NgZone) {
+  constructor (private readonly ngZone: NgZone) {
     this.ngZone.runOutsideAngular(() => {
       if (environment.hostServer === '.') {
         this._socket = this.io.connect(window.location.origin, {

@@ -34,8 +34,7 @@ describe('AccountingComponent', () => {
   let dialog: any
 
   beforeEach(waitForAsync(() => {
-
-    dialog = jasmine.createSpyObj('MatDialog',['open'])
+    dialog = jasmine.createSpyObj('MatDialog', ['open'])
     dialog.open.and.returnValue(null)
     productService = jasmine.createSpyObj('ProductService', ['get'])
     productService.get.and.returnValue(of({}))
@@ -43,7 +42,7 @@ describe('AccountingComponent', () => {
     orderHistoryService.get.and.returnValue(of([]))
 
     TestBed.configureTestingModule({
-      declarations: [ OrderHistoryComponent ],
+      declarations: [OrderHistoryComponent],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
@@ -63,10 +62,10 @@ describe('AccountingComponent', () => {
       providers: [
         { provide: ProductService, useValue: productService },
         { provide: OrderHistoryService, useValue: orderHistoryService },
-				{ provide: MatDialog, useValue: dialog }
+        { provide: MatDialog, useValue: dialog }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

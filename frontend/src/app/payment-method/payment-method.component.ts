@@ -23,14 +23,13 @@ dom.watch()
 })
 
 export class PaymentMethodComponent implements OnInit {
-
   @Output() emitSelection = new EventEmitter()
   @Input('allowDelete') public allowDelete: boolean = false
   public displayedColumns = ['Number', 'Name', 'Expiry']
   public nameControl: FormControl = new FormControl('', [Validators.required])
-  public numberControl: FormControl = new FormControl('',[Validators.required, Validators.min(1000000000000000), Validators.max(9999999999999999)])
-  public monthControl: FormControl = new FormControl('',[Validators.required])
-  public yearControl: FormControl = new FormControl('',[Validators.required])
+  public numberControl: FormControl = new FormControl('', [Validators.required, Validators.min(1000000000000000), Validators.max(9999999999999999)])
+  public monthControl: FormControl = new FormControl('', [Validators.required])
+  public yearControl: FormControl = new FormControl('', [Validators.required])
   public confirmation: any
   public error: any
   public storedCards: any
@@ -41,7 +40,7 @@ export class PaymentMethodComponent implements OnInit {
   public cardsExist: boolean = false
   public paymentId: any = undefined
 
-  constructor (public paymentService: PaymentService, private translate: TranslateService, private snackBarHelperService: SnackBarHelperService) { }
+  constructor (public paymentService: PaymentService, private readonly translate: TranslateService, private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
     this.monthRange = Array.from(Array(12).keys()).map(i => i + 1)
@@ -69,15 +68,15 @@ export class PaymentMethodComponent implements OnInit {
     this.card.expYear = this.yearControl.value
     this.paymentService.save(this.card).subscribe((savedCards) => {
       this.error = null
-      this.translate.get('CREDIT_CARD_SAVED',{ cardnumber: String(savedCards.cardNum).substring(String(savedCards.cardNum).length - 4) }).subscribe((creditCardSaved) => {
-        this.snackBarHelperService.open(creditCardSaved,'confirmBar')
+      this.translate.get('CREDIT_CARD_SAVED', { cardnumber: String(savedCards.cardNum).substring(String(savedCards.cardNum).length - 4) }).subscribe((creditCardSaved) => {
+        this.snackBarHelperService.open(creditCardSaved, 'confirmBar')
       }, (translationId) => {
-        this.snackBarHelperService.open(translationId,'confirmBar')
+        this.snackBarHelperService.open(translationId, 'confirmBar')
       })
       this.load()
       this.resetForm()
     }, (err) => {
-      this.snackBarHelperService.open(err.error?.error,'errorBar')
+      this.snackBarHelperService.open(err.error?.error, 'errorBar')
       this.resetForm()
     })
   }

@@ -20,8 +20,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { EventEmitter } from '@angular/core'
 
 enum MessageSources {
-    user = 'user',
-    bot = 'bot'
+  user = 'user',
+  bot = 'bot'
 }
 
 describe('ComplaintComponent', () => {
@@ -31,7 +31,6 @@ describe('ComplaintComponent', () => {
   let translateService
 
   beforeEach(waitForAsync(() => {
-
     chatbotService = jasmine.createSpyObj('ChatbotService', ['getChatbotStatus', 'getResponse'])
     chatbotService.getChatbotStatus.and.returnValue(of({
       status: true,
@@ -58,13 +57,13 @@ describe('ComplaintComponent', () => {
         MatInputModule,
         MatButtonModule
       ],
-      declarations: [ ChatbotComponent ],
+      declarations: [ChatbotComponent],
       providers: [
         { provide: ChatbotService, useValue: chatbotService },
         { provide: TranslateService, useValue: translateService }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

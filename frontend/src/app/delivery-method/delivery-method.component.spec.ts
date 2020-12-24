@@ -34,14 +34,13 @@ describe('DeliveryMethodComponent', () => {
   let deliveryService: any
 
   beforeEach(waitForAsync(() => {
-
-    addressService = jasmine.createSpyObj('AddressService',['getById'])
+    addressService = jasmine.createSpyObj('AddressService', ['getById'])
     addressService.getById.and.returnValue(of([]))
     deliveryService = jasmine.createSpyObj('DeliveryService', ['get'])
     deliveryService.get.and.returnValue(of([]))
 
     TestBed.configureTestingModule({
-      declarations: [ DeliveryMethodComponent, PaymentComponent, PaymentMethodComponent ],
+      declarations: [DeliveryMethodComponent, PaymentComponent, PaymentMethodComponent],
       imports: [
         RouterTestingModule.withRoutes([
           { path: 'payment/shop', component: PaymentComponent }
@@ -66,7 +65,7 @@ describe('DeliveryMethodComponent', () => {
         { provide: DeliveryService, useValue: deliveryService }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -116,7 +115,7 @@ describe('DeliveryMethodComponent', () => {
 
   it('should store address id in session storage', () => {
     component.deliveryMethodId = 1
-    spyOn(sessionStorage,'setItem')
+    spyOn(sessionStorage, 'setItem')
     component.chooseDeliveryMethod()
     expect(sessionStorage.setItem).toHaveBeenCalledWith('deliveryMethodId', '1')
   })

@@ -38,7 +38,6 @@ describe('AppComponent', () => {
   let app: AppComponent
 
   beforeEach(waitForAsync(() => {
-
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
@@ -71,7 +70,7 @@ describe('AppComponent', () => {
         MatListModule,
         MatDialogModule
       ],
-      providers : [ TranslateService, LoginGuard ]
+      providers: [TranslateService, LoginGuard]
     }).compileComponents()
   }))
 

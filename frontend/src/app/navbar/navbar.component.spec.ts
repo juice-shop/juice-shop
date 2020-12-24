@@ -59,28 +59,27 @@ describe('NavbarComponent', () => {
   let loginGuard
 
   beforeEach(waitForAsync(() => {
-
-    administrationService = jasmine.createSpyObj('AdministrationService',['getApplicationVersion'])
+    administrationService = jasmine.createSpyObj('AdministrationService', ['getApplicationVersion'])
     administrationService.getApplicationVersion.and.returnValue(of(undefined))
-    configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
+    configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
-    userService = jasmine.createSpyObj('UserService',['whoAmI','getLoggedInState','saveLastLoginIp'])
+    userService = jasmine.createSpyObj('UserService', ['whoAmI', 'getLoggedInState', 'saveLastLoginIp'])
     userService.whoAmI.and.returnValue(of({}))
     userService.getLoggedInState.and.returnValue(of(true))
     userService.saveLastLoginIp.and.returnValue(of({}))
-    userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn',['next'])
+    userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn', ['next'])
     userService.isLoggedIn.next.and.returnValue({})
-    challengeService = jasmine.createSpyObj('ChallengeService',['find'])
+    challengeService = jasmine.createSpyObj('ChallengeService', ['find'])
     challengeService.find.and.returnValue(of([{ solved: false }]))
-    cookieService = jasmine.createSpyObj('CookieService',['delete', 'get', 'set'])
+    cookieService = jasmine.createSpyObj('CookieService', ['delete', 'get', 'set'])
     mockSocket = new MockSocket()
     socketIoService = jasmine.createSpyObj('SocketIoService', ['socket'])
     socketIoService.socket.and.returnValue(mockSocket)
-    loginGuard = jasmine.createSpyObj('LoginGuard',['tokenDecode'])
+    loginGuard = jasmine.createSpyObj('LoginGuard', ['tokenDecode'])
     loginGuard.tokenDecode.and.returnValue(of(true))
 
     TestBed.configureTestingModule({
-      declarations: [ NavbarComponent, SearchResultComponent ],
+      declarations: [NavbarComponent, SearchResultComponent],
       imports: [
         RouterTestingModule.withRoutes([
           { path: 'search', component: SearchResultComponent }
@@ -117,7 +116,7 @@ describe('NavbarComponent', () => {
         TranslateService
       ]
     })
-    .compileComponents()
+      .compileComponents()
 
     location = TestBed.inject(Location)
     translateService = TestBed.inject(TranslateService)
@@ -173,7 +172,7 @@ describe('NavbarComponent', () => {
 
   it('should set user email on page reload if user is authenticated', () => {
     userService.whoAmI.and.returnValue(of({ email: 'dummy@dummy.com' }))
-    localStorage.setItem('token','token')
+    localStorage.setItem('token', 'token')
     component.ngOnInit()
     expect(component.userEmail).toBe('dummy@dummy.com')
   })
@@ -237,7 +236,7 @@ describe('NavbarComponent', () => {
   }))
 
   it('should remove authentication token from localStorage', () => {
-    spyOn(localStorage,'removeItem')
+    spyOn(localStorage, 'removeItem')
     component.logout()
     expect(localStorage.removeItem).toHaveBeenCalledWith('token')
   })
@@ -248,7 +247,7 @@ describe('NavbarComponent', () => {
   })
 
   it('should remove basket id from session storage', () => {
-    spyOn(sessionStorage,'removeItem')
+    spyOn(sessionStorage, 'removeItem')
     component.logout()
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('bid')
   })
@@ -270,7 +269,7 @@ describe('NavbarComponent', () => {
   }))
 
   it('should set selected a language', () => {
-    spyOn(translateService,'use').and.callFake((lang: any) => lang)
+    spyOn(translateService, 'use').and.callFake((lang: any) => lang)
     component.changeLanguage('xx')
     expect(translateService.use).toHaveBeenCalledWith('xx')
   })

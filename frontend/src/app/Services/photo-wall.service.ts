@@ -12,11 +12,10 @@ import { catchError, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class PhotoWallService {
+  private readonly hostServer = environment.hostServer
+  private readonly host = this.hostServer + '/rest/memories'
 
-  private hostServer = environment.hostServer
-  private host = this.hostServer + '/rest/memories'
-
-  constructor (private http: HttpClient) { }
+  constructor (private readonly http: HttpClient) { }
 
   addMemory (caption: string, image: File) {
     const postData = new FormData()

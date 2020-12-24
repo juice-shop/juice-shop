@@ -18,7 +18,7 @@ describe('PrivacyPolicyComponent', () => {
   let configurationService: any
 
   beforeEach(waitForAsync(() => {
-    configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
+    configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
 
     TestBed.configureTestingModule({

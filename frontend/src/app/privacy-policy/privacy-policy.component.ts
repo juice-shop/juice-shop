@@ -13,12 +13,11 @@ import { ConfigurationService } from '../Services/configuration.service'
   styleUrls: ['./privacy-policy.component.scss']
 })
 export class PrivacyPolicyComponent implements OnInit {
-
   public applicationName: string = 'OWASP Juice Shop'
   public privacyContactEmail!: string
   public applicationUrl!: string
 
-  constructor (@Inject(DOCUMENT) private _document: HTMLDocument, private configurationService: ConfigurationService) { }
+  constructor (@Inject(DOCUMENT) private readonly _document: HTMLDocument, private readonly configurationService: ConfigurationService) { }
 
   ngOnInit (): void {
     this.applicationUrl = this._document.location.protocol + '//' + this._document.location.hostname
@@ -33,5 +32,4 @@ export class PrivacyPolicyComponent implements OnInit {
       }
     }, (err) => console.log(err))
   }
-
 }

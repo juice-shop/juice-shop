@@ -24,14 +24,14 @@ describe('UserDetailsComponent', () => {
         MatDividerModule,
         MatDialogModule
       ],
-      declarations: [ UserDetailsComponent ],
+      declarations: [UserDetailsComponent],
       providers: [
         UserService,
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: { productData: {} } }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

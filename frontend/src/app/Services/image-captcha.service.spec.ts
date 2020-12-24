@@ -9,7 +9,6 @@ import { ImageCaptchaService } from './image-captcha.service'
 
 describe('ImageCaptchaService', () => {
   beforeEach(() => {
-
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [ImageCaptchaService]

@@ -21,7 +21,6 @@ import { roles } from '../roles'
   styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent implements OnInit {
-
   public applicationName = 'OWASP Juice Shop'
   public showGitHubLink = true
   public userEmail = ''
@@ -36,16 +35,16 @@ export class SidenavComponent implements OnInit {
 
   @Output() public sidenavToggle = new EventEmitter()
 
-  constructor (private administrationService: AdministrationService, private challengeService: ChallengeService,
-    private ngZone: NgZone, private io: SocketIoService, private userService: UserService, private cookieService: CookieService,
-    private router: Router, private configurationService: ConfigurationService, private loginGuard: LoginGuard) { }
+  constructor (private readonly administrationService: AdministrationService, private readonly challengeService: ChallengeService,
+    private readonly ngZone: NgZone, private readonly io: SocketIoService, private readonly userService: UserService, private readonly cookieService: CookieService,
+    private readonly router: Router, private readonly configurationService: ConfigurationService, private readonly loginGuard: LoginGuard) { }
 
   ngOnInit () {
     this.administrationService.getApplicationVersion().subscribe((version: any) => {
       if (version) {
         this.version = 'v' + version
       }
-    },(err) => console.log(err))
+    }, (err) => console.log(err))
     this.getApplicationDetails()
     this.getScoreBoardStatus()
 
@@ -81,7 +80,7 @@ export class SidenavComponent implements OnInit {
     this.cookieService.delete('token', '/')
     sessionStorage.removeItem('bid')
     this.userService.isLoggedIn.next(false)
-    this.ngZone.run(() => this.router.navigate(['/']))
+    this.ngZone.run(async () => await this.router.navigate(['/']))
   }
 
   goToProfilePage () {

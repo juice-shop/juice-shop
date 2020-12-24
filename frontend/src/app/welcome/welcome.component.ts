@@ -16,15 +16,14 @@ import { CookieService } from 'ngx-cookie-service'
 })
 
 export class WelcomeComponent implements OnInit {
-
   private readonly welcomeBannerStatusCookieKey = 'welcomebanner_status'
 
-  constructor (private dialog: MatDialog, private configurationService: ConfigurationService, private cookieService: CookieService) { }
+  constructor (private readonly dialog: MatDialog, private readonly configurationService: ConfigurationService, private readonly cookieService: CookieService) { }
 
   ngOnInit (): void {
-    let welcomeBannerStatus = this.cookieService.get(this.welcomeBannerStatusCookieKey)
+    const welcomeBannerStatus = this.cookieService.get(this.welcomeBannerStatusCookieKey)
     if (welcomeBannerStatus === 'dismiss') {
-      return
+
     } else {
       this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
         if (config && config.application && config.application.welcomeBanner && !config.application.welcomeBanner.showOnFirstStart) {

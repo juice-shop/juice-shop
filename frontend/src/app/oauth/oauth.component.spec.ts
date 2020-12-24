@@ -26,7 +26,7 @@ describe('OAuthComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ OAuthComponent, LoginComponent ],
+      declarations: [OAuthComponent, LoginComponent],
       imports: [
         RouterTestingModule.withRoutes([
           { path: 'login', component: LoginComponent }
@@ -35,7 +35,7 @@ describe('OAuthComponent', () => {
         ReactiveFormsModule,
         TranslateModule.forRoot(),
         MatInputModule,
-        MatIconModule ,
+        MatIconModule,
         MatCardModule,
         MatFormFieldModule,
         MatCheckboxModule,
@@ -46,7 +46,7 @@ describe('OAuthComponent', () => {
         { provide: ActivatedRoute, useValue: { snapshot: { data: { params: '?alt=json&access_token=TEST' } } } }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

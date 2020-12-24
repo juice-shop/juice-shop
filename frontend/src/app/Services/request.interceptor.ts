@@ -9,7 +9,6 @@ import { Observable } from 'rxjs'
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
-
   intercept (req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (localStorage.getItem('token')) {
       req = req.clone({
@@ -27,5 +26,4 @@ export class RequestInterceptor implements HttpInterceptor {
     }
     return next.handle(req)
   }
-
 }

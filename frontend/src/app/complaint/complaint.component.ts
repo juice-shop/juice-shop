@@ -23,7 +23,6 @@ dom.watch()
   styleUrls: ['./complaint.component.scss']
 })
 export class ComplaintComponent implements OnInit {
-
   public customerControl: FormControl = new FormControl({ value: '', disabled: true }, [])
   public messageControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(160)])
   @ViewChild('fileControl', { static: true }) fileControl!: ElementRef // For controlling the DOM Element for file input.
@@ -31,14 +30,15 @@ export class ComplaintComponent implements OnInit {
   public uploader: FileUploader = new FileUploader({
     url: environment.hostServer + '/file-upload',
     authToken: `Bearer ${localStorage.getItem('token')}`,
-    allowedMimeType: [ 'application/pdf' , 'application/xml', 'text/xml' , 'application/zip', 'application/x-zip-compressed', 'multipart/x-zip'],
+    allowedMimeType: ['application/pdf', 'application/xml', 'text/xml', 'application/zip', 'application/x-zip-compressed', 'multipart/x-zip'],
     maxFileSize: 100000
   })
+
   public userEmail: any = undefined
   public complaint: any = undefined
   public confirmation: any
 
-  constructor (private userService: UserService, private complaintService: ComplaintService, private formSubmitService: FormSubmitService, private translate: TranslateService) { }
+  constructor (private readonly userService: UserService, private readonly complaintService: ComplaintService, private readonly formSubmitService: FormSubmitService, private readonly translate: TranslateService) { }
 
   ngOnInit () {
     this.initComplaint()
@@ -53,7 +53,7 @@ export class ComplaintComponent implements OnInit {
       this.saveComplaint()
       this.uploader.clearQueue()
     }
-    this.formSubmitService.attachEnterKeyHandler('complaint-form', 'submitButton',() => this.save())
+    this.formSubmitService.attachEnterKeyHandler('complaint-form', 'submitButton', () => this.save())
   }
 
   initComplaint () {
@@ -80,7 +80,7 @@ export class ComplaintComponent implements OnInit {
   saveComplaint () {
     this.complaint.message = this.messageControl.value
     this.complaintService.save(this.complaint).subscribe((savedComplaint: any) => {
-      this.translate.get('CUSTOMER_SUPPORT_COMPLAINT_REPLY',{ ref: savedComplaint.id }).subscribe((customerSupportReply) => {
+      this.translate.get('CUSTOMER_SUPPORT_COMPLAINT_REPLY', { ref: savedComplaint.id }).subscribe((customerSupportReply) => {
         this.confirmation = customerSupportReply
       }, (translationId) => {
         this.confirmation = translationId

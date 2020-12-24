@@ -30,13 +30,12 @@ describe('SavedPaymentMethodsComponent', () => {
   let snackBar: any
 
   beforeEach(waitForAsync(() => {
-
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
     translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
-    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
+    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
       imports: [
@@ -54,13 +53,13 @@ describe('SavedPaymentMethodsComponent', () => {
         MatRadioModule,
         MatDialogModule
       ],
-      declarations: [ SavedPaymentMethodsComponent, PaymentMethodComponent ],
+      declarations: [SavedPaymentMethodsComponent, PaymentMethodComponent],
       providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

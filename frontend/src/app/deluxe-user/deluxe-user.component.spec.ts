@@ -36,14 +36,13 @@ describe('DeluxeUserComponent', () => {
   let location: Location
 
   beforeEach(waitForAsync(() => {
-
-    userService = jasmine.createSpyObj('UserService',['deluxeStatus', 'upgradeToDeluxe', 'saveLastLoginIp'])
+    userService = jasmine.createSpyObj('UserService', ['deluxeStatus', 'upgradeToDeluxe', 'saveLastLoginIp'])
     userService.deluxeStatus.and.returnValue(of({}))
     userService.upgradeToDeluxe.and.returnValue(of({}))
     userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn', ['next'])
     userService.isLoggedIn.next.and.returnValue({})
     userService.saveLastLoginIp.and.returnValue(of({}))
-    cookieService = jasmine.createSpyObj('CookieService',['delete'])
+    cookieService = jasmine.createSpyObj('CookieService', ['delete'])
 
     TestBed.configureTestingModule({
       imports: [
@@ -67,13 +66,13 @@ describe('DeluxeUserComponent', () => {
         MatCheckboxModule,
         MatTooltipModule
       ],
-      declarations: [ DeluxeUserComponent, LoginComponent ],
+      declarations: [DeluxeUserComponent, LoginComponent],
       providers: [
         { provide: UserService, useValue: userService },
         { provide: CookieService, useValue: cookieService }
       ]
     })
-    .compileComponents()
+      .compileComponents()
 
     location = TestBed.inject(Location)
   }))
@@ -95,5 +94,4 @@ describe('DeluxeUserComponent', () => {
   })
 
   // TODO Add test that checks if websocket gets notified as expected
-
 })

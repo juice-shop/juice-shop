@@ -12,11 +12,10 @@ import { catchError, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class AddressService {
+  private readonly hostServer = environment.hostServer
+  private readonly host = this.hostServer + '/api/Addresss'
 
-  private hostServer = environment.hostServer
-  private host = this.hostServer + '/api/Addresss'
-
-  constructor (private http: HttpClient) { }
+  constructor (private readonly http: HttpClient) { }
 
   get () {
     return this.http.get(this.host).pipe(map((response: any) => response.data), catchError((err) => { throw err }))

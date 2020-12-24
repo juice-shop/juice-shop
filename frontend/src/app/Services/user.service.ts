@@ -19,16 +19,15 @@ interface Passwords {
   providedIn: 'root'
 })
 export class UserService {
-
   public isLoggedIn = new Subject<any>()
-  private hostServer = environment.hostServer
-  private host = this.hostServer + '/api/Users'
+  private readonly hostServer = environment.hostServer
+  private readonly host = this.hostServer + '/api/Users'
 
-  constructor (private http: HttpClient) { }
+  constructor (private readonly http: HttpClient) { }
 
   find (params?: any) {
     return this.http.get(this.hostServer + '/rest/user/authentication-details/', { params: params }).pipe(map((response: any) =>
-    response.data),catchError((err) => { throw err }))
+      response.data), catchError((err) => { throw err }))
   }
 
   get (id: number) {

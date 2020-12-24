@@ -12,15 +12,13 @@ import { catchError, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class TrackOrderService {
+  private readonly hostServer = environment.hostServer
+  private readonly host = this.hostServer + '/rest/track-order'
 
-  private hostServer = environment.hostServer
-  private host = this.hostServer + '/rest/track-order'
-
-  constructor (private http: HttpClient) { }
+  constructor (private readonly http: HttpClient) { }
 
   save (params: any) {
     params = encodeURIComponent(params)
-    return this.http.get(this.host + '/' + params).pipe(map((response: any) => response),catchError((error) => { throw error }))
+    return this.http.get(this.host + '/' + params).pipe(map((response: any) => response), catchError((error) => { throw error }))
   }
-
 }

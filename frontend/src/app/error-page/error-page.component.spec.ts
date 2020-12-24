@@ -24,7 +24,7 @@ describe('ErrorPageComponent', () => {
       providers: [
         {
           provide: ActivatedRoute,
-          useValue: { snapshot: { queryParams: { 'error': 'UNAUTHORIZED_PAGE_ACCESS_ERROR' } } }
+          useValue: { snapshot: { queryParams: { error: 'UNAUTHORIZED_PAGE_ACCESS_ERROR' } } }
         }
       ]
     })
