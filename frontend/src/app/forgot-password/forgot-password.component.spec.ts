@@ -6,7 +6,7 @@
 import { TranslateModule } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { ReactiveFormsModule } from '@angular/forms'
-import { async, ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing'
 import { ForgotPasswordComponent } from './forgot-password.component'
 import { SecurityQuestionService } from '../Services/security-question.service'
 
@@ -28,7 +28,7 @@ describe('ForgotPasswordComponent', () => {
   let securityQuestionService: any
   let userService: any
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     securityQuestionService = jasmine.createSpyObj('SecurityQuestionService', ['findBy'])
     securityQuestionService.findBy.and.returnValue(of({}))

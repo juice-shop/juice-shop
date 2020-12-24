@@ -12,7 +12,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { ChatbotComponent } from './chatbot.component'
 import { of, throwError } from 'rxjs'
 
@@ -30,7 +30,7 @@ describe('ComplaintComponent', () => {
   let chatbotService: any
   let translateService
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     chatbotService = jasmine.createSpyObj('ChatbotService', ['getChatbotStatus', 'getResponse'])
     chatbotService.getChatbotStatus.and.returnValue(of({

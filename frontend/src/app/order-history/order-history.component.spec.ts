@@ -6,7 +6,7 @@
 import { TranslateModule } from '@ngx-translate/core'
 import { MatDividerModule } from '@angular/material/divider'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { ProductService } from '../Services/product.service'
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatGridListModule } from '@angular/material/grid-list'
@@ -33,7 +33,7 @@ describe('AccountingComponent', () => {
   let orderHistoryService
   let dialog: any
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     dialog = jasmine.createSpyObj('MatDialog',['open'])
     dialog.open.and.returnValue(null)

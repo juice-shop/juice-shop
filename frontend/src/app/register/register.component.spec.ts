@@ -8,7 +8,7 @@ import { SecurityAnswerService } from '../Services/security-answer.service'
 import { UserService } from '../Services/user.service'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { async, ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing'
 import { RegisterComponent } from './register.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { RouterTestingModule } from '@angular/router/testing'
@@ -36,7 +36,7 @@ describe('RegisterComponent', () => {
   let userService: any
   let location: Location
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     securityAnswerService = jasmine.createSpyObj('SecurityAnswerService', ['save'])
     securityAnswerService.save.and.returnValue(of({}))

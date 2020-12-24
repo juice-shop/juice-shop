@@ -8,7 +8,7 @@ import { FeedbackDetailsComponent } from '../feedback-details/feedback-details.c
 
 import { FeedbackService } from '../Services/feedback.service'
 import { UserService } from '../Services/user.service'
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing'
 
 import { AdministrationComponent } from './administration.component'
 import { MatTableModule } from '@angular/material/table'
@@ -29,7 +29,7 @@ describe('AdministrationComponent', () => {
   let userService: any
   let feedbackService: any
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     dialog = jasmine.createSpyObj('MatDialog',['open'])
     dialog.open.and.returnValue(null)

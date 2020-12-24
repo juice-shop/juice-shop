@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core'
 import { MatInputModule } from '@angular/material/input'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatDialogModule } from '@angular/material/dialog'
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { BasketComponent } from './basket.component'
 import { MatCardModule } from '@angular/material/card'
@@ -29,7 +29,7 @@ describe('BasketComponent', () => {
   let deluxeGuard
   let snackBar: any
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
       declarations: [ BasketComponent, PurchaseBasketComponent ],

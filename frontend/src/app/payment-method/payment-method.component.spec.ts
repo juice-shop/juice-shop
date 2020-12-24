@@ -7,7 +7,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -30,7 +30,7 @@ describe('PaymentMethodComponent', () => {
   let translateService
   let snackBar: any
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     paymentService = jasmine.createSpyObj('BasketService', ['save','get','del'])
     paymentService.save.and.returnValue(of([]))

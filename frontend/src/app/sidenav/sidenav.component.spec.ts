@@ -4,7 +4,7 @@
  */
 
 import { ChallengeService } from '../Services/challenge.service'
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { SocketIoService } from '../Services/socket-io.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
@@ -38,7 +38,7 @@ describe('SidenavComponent', () => {
   let socketIoService: any
   let loginGuard
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { welcomeBanner: {} }, hackingInstructor: {} }))

@@ -7,7 +7,7 @@ import { SearchResultComponent } from '../search-result/search-result.component'
 import { WindowRefService } from '../Services/window-ref.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { UserService } from '../Services/user.service'
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing'
 import { LoginComponent } from './login.component'
 import { RouterTestingModule } from '@angular/router/testing'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -35,7 +35,7 @@ describe('LoginComponent', () => {
   let userService: any
   let location: Location
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     userService = jasmine.createSpyObj('UserService', ['login'])
     userService.login.and.returnValue(of({}))

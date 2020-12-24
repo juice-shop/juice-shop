@@ -9,7 +9,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { UserService } from '../Services/user.service'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 import { EventEmitter } from '@angular/core'
 import { ContactComponent } from './contact.component'
@@ -29,7 +29,7 @@ describe('ContactComponent', () => {
   let snackBar: any
   let translateService
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
     translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()

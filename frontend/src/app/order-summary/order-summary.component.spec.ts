@@ -5,7 +5,7 @@
 
 import { TranslateModule } from '@ngx-translate/core'
 import { MatInputModule } from '@angular/material/input'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatTableModule } from '@angular/material/table'
 import { MatButtonModule } from '@angular/material/button'
@@ -38,7 +38,7 @@ describe('OrderSummaryComponent', () => {
   let deluxeGuard
   let snackBar: any
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     addressService = jasmine.createSpyObj('AddressService',['getById'])
     addressService.getById.and.returnValue(of([]))

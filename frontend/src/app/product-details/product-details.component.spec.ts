@@ -16,7 +16,7 @@ import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { MatBadgeModule } from '@angular/material/badge'
-import { async, ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatIconModule } from '@angular/material/icon'
 import { MatExpansionModule } from '@angular/material/expansion'
@@ -35,7 +35,7 @@ describe('ProductDetailsComponent', () => {
   let dialog: any
   let dialogRefMock
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     userService = jasmine.createSpyObj('UserService',['whoAmI'])
     userService.whoAmI.and.returnValue(of({}))

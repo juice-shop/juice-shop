@@ -4,7 +4,7 @@
  */
 
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
 import { TrackResultComponent } from './track-result.component'
 import { MatTableModule } from '@angular/material/table'
@@ -16,7 +16,7 @@ describe('TrackResultComponent', () => {
   let component: TrackResultComponent
   let fixture: ComponentFixture<TrackResultComponent>
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
       imports: [

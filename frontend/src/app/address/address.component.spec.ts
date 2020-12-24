@@ -6,7 +6,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { AddressComponent } from './address.component'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -35,7 +35,7 @@ describe('AddressComponent', () => {
   let snackBar: any
   let translateService
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     addressService = jasmine.createSpyObj('AddressService',['get', 'del'])
     addressService.get.and.returnValue(of([]))

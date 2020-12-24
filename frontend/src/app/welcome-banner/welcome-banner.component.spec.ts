@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { CookieService } from 'ngx-cookie-service'
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { WelcomeBannerComponent } from './welcome-banner.component'
 import { MatDialogRef } from '@angular/material/dialog'
@@ -20,7 +20,7 @@ describe('WelcomeBannerComponent', () => {
   let cookieService: any
   let matDialogRef: MatDialogRef<WelcomeBannerComponent>
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     matDialogRef = jasmine.createSpyObj('MatDialogRef', ['close'])
     TestBed.configureTestingModule({
       imports: [

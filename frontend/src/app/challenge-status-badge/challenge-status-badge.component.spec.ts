@@ -4,7 +4,7 @@
  */
 
 import { ChallengeService } from '../Services/challenge.service'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { ChallengeStatusBadgeComponent } from './challenge-status-badge.component'
 import { of, throwError } from 'rxjs'
@@ -24,7 +24,7 @@ describe('ChallengeStatusBadgeComponent', () => {
   let component: ChallengeStatusBadgeComponent
   let fixture: ComponentFixture<ChallengeStatusBadgeComponent>
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     challengeService = jasmine.createSpyObj('ChallengeService', ['repeatNotification'])
     challengeService.repeatNotification.and.returnValue(of({}))

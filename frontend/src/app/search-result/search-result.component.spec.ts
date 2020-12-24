@@ -6,7 +6,7 @@
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatDividerModule } from '@angular/material/divider'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing'
 import { SearchResultComponent } from './search-result.component'
 import { ProductService } from '../Services/product.service'
 import { RouterTestingModule } from '@angular/router/testing'
@@ -63,7 +63,7 @@ describe('SearchResultComponent', () => {
   let deluxeGuard
   let snackBar: any
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     dialog = jasmine.createSpyObj('MatDialog',['open'])
     dialog.open.and.returnValue(null)
