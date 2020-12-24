@@ -19,7 +19,7 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { MatIconModule } from '@angular/material/icon'
 import { NgxSpinnerModule } from 'ngx-spinner'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { ScoreBoardComponent } from './score-board.component'
 import { of, throwError } from 'rxjs'
 import { DomSanitizer } from '@angular/platform-browser'
@@ -45,7 +45,7 @@ describe('ScoreBoardComponent', () => {
   let socketIoService: any
   let mockSocket: any
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     challengeService = jasmine.createSpyObj('ChallengeService',['find'])
     challengeService.find.and.returnValue(of([{}]))

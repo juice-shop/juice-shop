@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { DataExportComponent } from './data-export.component'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { ImageCaptchaService } from '../Services/image-captcha.service'
@@ -27,7 +27,7 @@ describe('DataExportComponent', () => {
   let dataSubjectService: any
   let domSanitizer: DomSanitizer
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     imageCaptchaService = jasmine.createSpyObj('ImageCaptchaService', ['getCaptcha'])
     imageCaptchaService.getCaptcha.and.returnValue(of({}))
     dataSubjectService = jasmine.createSpyObj('DataSubjectService', ['dataExport'])

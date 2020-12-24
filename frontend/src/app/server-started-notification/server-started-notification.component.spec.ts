@@ -8,7 +8,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { ServerStartedNotificationComponent } from './server-started-notification.component'
 import { ChallengeService } from '../Services/challenge.service'
@@ -31,7 +31,7 @@ describe('ServerStartedNotificationComponent', () => {
   let socketIoService: any
   let mockSocket: any
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     challengeService = jasmine.createSpyObj('ChallengeService', ['restoreProgress'])
     challengeService.restoreProgress.and.returnValue(of({}))

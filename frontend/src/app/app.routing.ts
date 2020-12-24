@@ -237,7 +237,7 @@ const routes: Routes = [
   }
 ]
 
-export const Routing = RouterModule.forRoot(routes, { useHash: true })
+export const Routing = RouterModule.forRoot(routes, { useHash: true, relativeLinkResolution: 'legacy' })
 
 export function oauthMatcher (url: UrlSegment[]): UrlMatchResult {
   if (url.length === 0) {

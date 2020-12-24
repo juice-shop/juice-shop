@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { ErasureRequestComponent } from './erasure-request.component'
 import { DataSubjectService } from '../Services/data-subject.service'
 import { RouterTestingModule } from '@angular/router/testing'
@@ -31,7 +31,7 @@ describe('ErasureRequestComponent', () => {
   let userService: any
   let location: Location
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     cookieService = jasmine.createSpyObj('CookieService',['delete', 'get', 'set'])
     userService = jasmine.createSpyObj('UserService',['saveLastLoginIp'])
     userService.saveLastLoginIp.and.returnValue(of({}))

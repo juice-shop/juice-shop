@@ -6,7 +6,7 @@
 import { TranslateModule } from '@ngx-translate/core'
 import { MatDividerModule } from '@angular/material/divider'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { AccountingComponent } from './accounting.component'
 import { ProductService } from '../Services/product.service'
 import { RouterTestingModule } from '@angular/router/testing'
@@ -30,7 +30,7 @@ describe('AccountingComponent', () => {
   let quantityService
   let orderHistoryService
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     quantityService = jasmine.createSpyObj('QuantityService', ['getAll', 'put'])
     quantityService.getAll.and.returnValue(of([]))
     quantityService.put.and.returnValue(of({}))

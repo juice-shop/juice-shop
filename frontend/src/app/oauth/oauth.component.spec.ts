@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatIconModule } from '@angular/material/icon'
 import { MatCheckboxModule } from '@angular/material/checkbox'
@@ -24,7 +24,7 @@ describe('OAuthComponent', () => {
   let component: OAuthComponent
   let fixture: ComponentFixture<OAuthComponent>
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ OAuthComponent, LoginComponent ],
       imports: [

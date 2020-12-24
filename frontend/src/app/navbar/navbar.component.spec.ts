@@ -8,7 +8,7 @@ import { SearchResultComponent } from '../search-result/search-result.component'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { UserService } from '../Services/user.service'
 import { ConfigurationService } from '../Services/configuration.service'
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { NavbarComponent } from './navbar.component'
 import { Location } from '@angular/common'
@@ -58,7 +58,7 @@ describe('NavbarComponent', () => {
   let location: Location
   let loginGuard
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     administrationService = jasmine.createSpyObj('AdministrationService',['getApplicationVersion'])
     administrationService.getApplicationVersion.and.returnValue(of(undefined))

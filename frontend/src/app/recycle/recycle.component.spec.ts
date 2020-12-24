@@ -13,7 +13,7 @@ import { MatCardModule } from '@angular/material/card'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { RecycleComponent } from './recycle.component'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -42,7 +42,7 @@ describe('RecycleComponent', () => {
   let translateService
   let snackBar: any
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     recycleService = jasmine.createSpyObj('RecycleService',['save','find'])
     recycleService.save.and.returnValue(of({}))
