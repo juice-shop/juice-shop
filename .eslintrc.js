@@ -21,9 +21,5 @@ module.exports = {
     'app/private/**',
     'vagrant/**',
     'frontend/**'
-  ],
-  rules: {
-    'no-loss-of-precision': 'off',
-    'array-callback-return': 'off'
-  }
+  ]
 }
