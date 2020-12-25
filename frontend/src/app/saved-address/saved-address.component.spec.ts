@@ -22,7 +22,7 @@ import { AddressComponent } from '../address/address.component'
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatSnackBar } from '@angular/material/snack-bar'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 
 describe('SavedAddressComponent', () => {

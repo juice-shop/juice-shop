@@ -29,7 +29,6 @@ describe('ErasureRequestComponent', () => {
   let dataSubjectService: any
   let cookieService: any
   let userService: any
-  let location: Location
 
   beforeEach(waitForAsync(() => {
     cookieService = jasmine.createSpyObj('CookieService', ['delete', 'get', 'set'])
@@ -66,8 +65,7 @@ describe('ErasureRequestComponent', () => {
         TranslateService
       ]
     }).compileComponents()
-
-    location = TestBed.inject(Location)
+    TestBed.inject(Location)
   }))
 
   beforeEach(() => {

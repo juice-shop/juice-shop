@@ -18,7 +18,7 @@ import { MatGridListModule } from '@angular/material/grid-list'
 import { WalletComponent } from './wallet.component'
 import { WalletService } from '../Services/wallet.service'
 import { EventEmitter } from '@angular/core'
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 describe('WalletComponent', () => {
   let component: WalletComponent

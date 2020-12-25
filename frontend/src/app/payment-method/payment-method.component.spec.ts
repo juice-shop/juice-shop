@@ -21,7 +21,7 @@ import { PaymentService } from '../Services/payment.service'
 import { MatDialogModule } from '@angular/material/dialog'
 import { PaymentMethodComponent } from './payment-method.component'
 import { EventEmitter } from '@angular/core'
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 describe('PaymentMethodComponent', () => {
   let component: PaymentMethodComponent

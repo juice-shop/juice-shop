@@ -28,7 +28,6 @@ module.exports = {
     '@typescript-eslint/no-floating-promises': 'off',
     '@typescript-eslint/prefer-optional-chain': 'off',
     '@typescript-eslint/consistent-type-assertions': 'off',
-    '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-extraneous-class': 'off',
     '@typescript-eslint/require-array-sort-compare': 'off'
   }

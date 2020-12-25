@@ -10,8 +10,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { SnackBarHelperService } from './snack-bar-helper.service'
 
 describe('SnackBarHelperService', () => {
-  let translateService
-
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [

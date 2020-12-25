@@ -7,7 +7,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { PaymentComponent } from './payment.component'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -37,7 +37,7 @@ import { WalletComponent } from '../wallet/wallet.component'
 import { MatIconModule } from '@angular/material/icon'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatTooltipModule } from '@angular/material/tooltip'
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 describe('PaymentComponent', () => {
   let component: PaymentComponent
@@ -50,7 +50,6 @@ describe('PaymentComponent', () => {
   let walletService: any
   let deliveryService: any
   let userService: any
-  let location: Location
   let snackBar: any
 
   beforeEach(waitForAsync(() => {
@@ -118,7 +117,7 @@ describe('PaymentComponent', () => {
       ]
     })
       .compileComponents()
-    location = TestBed.inject(Location)
+    TestBed.inject(Location)
   }))
 
   beforeEach(() => {

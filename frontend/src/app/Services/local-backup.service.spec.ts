@@ -7,7 +7,7 @@ import { inject, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { LocalBackupService } from './local-backup.service'
 import { CookieService } from 'ngx-cookie-service'
-import { TranslateFakeLoader, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core'
+import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import * as FileSaver from 'file-saver'

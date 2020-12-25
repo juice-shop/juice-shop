@@ -31,7 +31,7 @@ import { MatRadioModule } from '@angular/material/radio'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 describe('RecycleComponent', () => {
   let component: RecycleComponent
