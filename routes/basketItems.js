@@ -10,12 +10,12 @@ const models = require('../models/index')
 
 module.exports.addBasketItem = function addBasketItem () {
   return (req, res, next) => {
-    var result = utils.parseJsonCustom(req.rawBody)
-    var productIds = []
-    var basketIds = []
-    var quantities = []
+    const result = utils.parseJsonCustom(req.rawBody)
+    const productIds = []
+    const basketIds = []
+    const quantities = []
 
-    for (var i = 0; i < result.length; i++) {
+    for (let i = 0; i < result.length; i++) {
       if (result[i].key === 'ProductId') {
         productIds.push(result[i].value)
       } else if (result[i].key === 'BasketId') {

@@ -47,7 +47,7 @@ describe('/#/basket', () => {
       it('should manipulate basket of other user instead of the one associated to logged-in user', () => {
         browser.waitForAngularEnabled(false)
         browser.executeScript(baseUrl => {
-          var xhttp = new XMLHttpRequest()
+          const xhttp = new XMLHttpRequest()
           xhttp.onreadystatechange = function () {
             if (this.status === 200) {
               console.log('Success')

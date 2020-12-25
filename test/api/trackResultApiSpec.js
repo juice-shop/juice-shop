@@ -16,7 +16,7 @@ describe('/rest/track-order/:id', () => {
   })
 
   it('GET all orders by injecting into orderId', () => {
-    var product = Joi.object().keys({
+    const product = Joi.object().keys({
       quantity: Joi.number(),
       name: Joi.string(),
       price: Joi.number(),
