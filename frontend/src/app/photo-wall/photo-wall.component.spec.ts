@@ -25,7 +25,7 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatInputModule } from '@angular/material/input'
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatSnackBar } from '@angular/material/snack-bar'
 import { EventEmitter } from '@angular/core'
 
 describe('PhotoWallComponent', () => {

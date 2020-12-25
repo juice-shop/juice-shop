@@ -25,8 +25,8 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { EventEmitter } from '@angular/core'
-import { of, throwError } from 'rxjs'
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { of } from 'rxjs'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 describe('AddressSelectComponent', () => {
   let component: AddressSelectComponent

@@ -33,7 +33,6 @@ describe('DeluxeUserComponent', () => {
   let fixture: ComponentFixture<DeluxeUserComponent>
   let userService
   let cookieService: any
-  let location: Location
 
   beforeEach(waitForAsync(() => {
     userService = jasmine.createSpyObj('UserService', ['deluxeStatus', 'upgradeToDeluxe', 'saveLastLoginIp'])
@@ -73,8 +72,7 @@ describe('DeluxeUserComponent', () => {
       ]
     })
       .compileComponents()
-
-    location = TestBed.inject(Location)
+    TestBed.inject(Location)
   }))
 
   beforeEach(() => {

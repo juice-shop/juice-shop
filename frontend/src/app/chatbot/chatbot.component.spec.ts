@@ -12,9 +12,9 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { ChatbotComponent } from './chatbot.component'
-import { of, throwError } from 'rxjs'
+import { of } from 'rxjs'
 
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { EventEmitter } from '@angular/core'
