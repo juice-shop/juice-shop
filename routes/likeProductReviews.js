@@ -13,7 +13,7 @@ module.exports = function productReviews () {
     const id = req.body.id
     const user = insecurity.authenticatedUsers.from(req)
     db.reviews.findOne({ _id: id }).then(review => {
-      var likedBy = review.likedBy
+      const likedBy = review.likedBy
       if (!likedBy.includes(user.data.email)) {
         db.reviews.update(
           { _id: id },
@@ -23,10 +23,10 @@ module.exports = function productReviews () {
             // Artificial wait for timing attack challenge
             setTimeout(function () {
               db.reviews.findOne({ _id: id }).then(review => {
-                var likedBy = review.likedBy
+                const likedBy = review.likedBy
                 likedBy.push(user.data.email)
-                var count = 0
-                for (var i = 0; i < likedBy.length; i++) {
+                let count = 0
+                for (let i = 0; i < likedBy.length; i++) {
                   if (likedBy[i] === user.data.email) {
                     count++
                   }

@@ -6,14 +6,16 @@ jobs:
   LMLFTFY:
     runs-on: ubuntu-latest
     steps:
-    - name: Check out Git repository
+    - name: "Check out Git repository"
       uses: actions/checkout@v2
-    - name: Install Linter
+    - name: "Install CLI tools"
+      run: npm install -g @angular/cli
+    - name: "Install application"
       run: |
         npm install --ignore-scripts
         cd frontend
         npm install --ignore-scripts
-    - name: Fix everything which can be fixed
+    - name: "Fix everything which can be fixed"
       run: 'npm run lint:fix'
     - uses: stefanzweifel/git-auto-commit-action@v4.0.0
       with:

@@ -4,6 +4,7 @@
  */
 
 module.exports = {
+  root: true,
   env: {
     browser: true,
     node: true
@@ -30,6 +31,5 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-extraneous-class': 'off',
     '@typescript-eslint/require-array-sort-compare': 'off'
-
   }
 }

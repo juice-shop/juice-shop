@@ -15,7 +15,7 @@ describe('/api', () => {
       it('should be possible to create a new product when logged in', () => {
         const EC = protractor.ExpectedConditions
         browser.executeScript(baseUrl => {
-          var xhttp = new XMLHttpRequest()
+          const xhttp = new XMLHttpRequest()
           xhttp.onreadystatechange = function () {
             if (this.status === 200) {
               console.log('Success')
@@ -72,7 +72,7 @@ describe('/api', () => {
       browser.waitForAngularEnabled(false)
 
       browser.executeScript((baseUrl, tamperingProductId, overwriteUrl) => {
-        var xhttp = new XMLHttpRequest()
+        const xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function () {
           if (this.status === 200) {
             console.log('Success')
@@ -102,7 +102,7 @@ describe('/rest/saveLoginIp', () => {
       it('should be possible to save log-in IP when logged in', () => {
         browser.waitForAngularEnabled(false)
         browser.executeScript(baseUrl => {
-          var xhttp = new XMLHttpRequest()
+          const xhttp = new XMLHttpRequest()
           xhttp.onreadystatechange = function () {
             if (this.status === 200) {
               console.log('Success')
