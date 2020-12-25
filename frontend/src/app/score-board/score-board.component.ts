@@ -96,7 +96,7 @@ export class ScoreBoardComponent implements OnInit {
             })
           }
         }
-        this.availableChallengeCategories.sort()
+        this.availableChallengeCategories.sort((a, b) => a.localeCompare(b))
         this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(String(localStorage.getItem('displayedChallengeCategories'))) : this.availableChallengeCategories
         this.calculateProgressPercentage()
         this.populateFilteredChallengeLists()
