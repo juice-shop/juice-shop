@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { TranslateModule } from '@ngx-translate/core'
 import { ProductReviewEditComponent } from '../product-review-edit/product-review-edit.component'
 import { By } from '@angular/platform-browser'

@@ -192,6 +192,7 @@ describe('SearchResultComponent', () => {
   })
 
   it('should open a modal dialog with product details', () => {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     component.showDetail({ id: 42 } as Product)
     expect(dialog.open).toHaveBeenCalledWith(ProductDetailsComponent, {
       width: '500px',
