@@ -109,7 +109,6 @@ describe('AccountingComponent', () => {
   }))
 
   it('should open a modal dialog when showDetail is called', () => {
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     productService.get.and.returnValue(of({ id: 42, name: 'A', description: 'B', image: 'C', price: 10 } as Product))
     component.showDetail(42)
     expect(productService.get).toHaveBeenCalled()
