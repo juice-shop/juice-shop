@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-/* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { ChallengeService } from '../Services/challenge.service'
 import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 

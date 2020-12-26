@@ -15,6 +15,7 @@ module.exports = {
     sourceType: 'module'
   },
   rules: { // FIXME New linting errors since migrating from StandardJS-style TSLint. Should be gradually turned back on and fixed.
+    '@typescript-eslint/consistent-type-assertions': 'off',
     'no-return-assign': 'off',
     'no-useless-escape': 'off',
     'promise/param-names': 'off',
