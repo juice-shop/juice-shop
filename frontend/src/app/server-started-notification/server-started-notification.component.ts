@@ -26,7 +26,7 @@ interface HackingProgress {
   styleUrls: ['./server-started-notification.component.scss']
 })
 export class ServerStartedNotificationComponent implements OnInit {
-  public hackingProgress: HackingProgress = {} as HackingProgress
+  public hackingProgress: HackingProgress
 
   constructor (private readonly ngZone: NgZone, private readonly challengeService: ChallengeService, private readonly translate: TranslateService, private readonly cookieService: CookieService, private readonly ref: ChangeDetectorRef, private readonly io: SocketIoService) {
   }
