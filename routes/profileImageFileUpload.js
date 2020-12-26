@@ -17,7 +17,7 @@ module.exports = function fileUpload () {
     console.log(file)
     const uploadedFileType = await fileType.fromBuffer(buffer)
 
-    if(uploadedFileType === undefined){
+    if(uploadedFileType == undefined){
       res.status(500)
       next(new Error('Illegal file type'))
     }else{
