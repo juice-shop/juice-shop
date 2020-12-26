@@ -42,7 +42,7 @@ export class ContactComponent implements OnInit {
       this.feedback = {}
       this.userIdControl.setValue(data.id)
       this.feedback.UserId = data.id
-      this.authorControl.setValue(data.email ? '***' + data.email.slice(3) : 'anonymous')
+      this.authorControl.setValue(data.email ? `***${data.email.slice(3)}` : 'anonymous')
     }, (err) => {
       this.feedback = undefined
       console.log(err)
@@ -109,6 +109,6 @@ export class ContactComponent implements OnInit {
   }
 
   formatRating (value: number) {
-    return value + '★'
+    return `${value}★`
   }
 }

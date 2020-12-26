@@ -43,8 +43,8 @@ export class RecycleComponent implements OnInit {
   ngOnInit () {
     this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
       if (config && config.application && config.application.recyclePage) {
-        this.topImage = 'assets/public/images/products/' + config.application.recyclePage.topProductImage
-        this.bottomImage = 'assets/public/images/products/' + config.application.recyclePage.bottomProductImage
+        this.topImage = `assets/public/images/products/${config.application.recyclePage.topProductImage}`
+        this.bottomImage = `assets/public/images/products/${config.application.recyclePage.bottomProductImage}`
       }
     }, (err) => console.log(err))
 

@@ -33,6 +33,6 @@ export class DeliveryService {
   }
 
   getById (id) {
-    return this.http.get(this.host + '/' + id).pipe(map((response: DeliverySingleMethodResponse) => response.data), catchError((err) => { throw err }))
+    return this.http.get(`${this.host}/${id}`).pipe(map((response: DeliverySingleMethodResponse) => response.data), catchError((err) => { throw err }))
   }
 }

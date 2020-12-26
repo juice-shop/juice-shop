@@ -215,7 +215,7 @@ export class ScoreBoardComponent implements OnInit {
 
     let offset: any = Math.round(solved * 100 / total)
     offset = 100 - offset
-    return +offset + '%'
+    return `${+offset}%`
   }
 
   toggleDifficulty (difficulty: number) {

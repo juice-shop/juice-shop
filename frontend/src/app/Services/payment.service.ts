@@ -22,7 +22,7 @@ export class PaymentService {
   }
 
   getById (id) {
-    return this.http.get(this.host + '/' + id).pipe(map((response: any) => response.data), catchError(err => { throw err }))
+    return this.http.get(`${this.host}/${id}`).pipe(map((response: any) => response.data), catchError(err => { throw err }))
   }
 
   save (params) {
@@ -30,6 +30,6 @@ export class PaymentService {
   }
 
   del (id) {
-    return this.http.delete(this.host + '/' + id).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.delete(`${this.host}/${id}`).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 }

@@ -92,7 +92,7 @@ export class OrderHistoryComponent implements OnInit {
   }
 
   openConfirmationPDF (orderId) {
-    const redirectUrl = this.basketService.hostServer + '/ftp/order_' + orderId + '.pdf'
+    const redirectUrl = `${this.basketService.hostServer}/ftp/order_${orderId}.pdf`
     window.open(redirectUrl, '_blank')
   }
 

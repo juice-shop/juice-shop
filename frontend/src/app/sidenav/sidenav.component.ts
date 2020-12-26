@@ -42,7 +42,7 @@ export class SidenavComponent implements OnInit {
   ngOnInit () {
     this.administrationService.getApplicationVersion().subscribe((version: any) => {
       if (version) {
-        this.version = 'v' + version
+        this.version = `v${version}`
       }
     }, (err) => console.log(err))
     this.getApplicationDetails()
@@ -101,7 +101,7 @@ export class SidenavComponent implements OnInit {
   getUserDetails () {
     this.userService.whoAmI().subscribe((user: any) => {
       this.userEmail = user.email
-      this.sizeOfMail = ('' + user.email).length
+      this.sizeOfMail = (`${user.email}`).length
     }, (err) => console.log(err))
   }
 

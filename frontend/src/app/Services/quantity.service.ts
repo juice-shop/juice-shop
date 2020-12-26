@@ -22,6 +22,6 @@ export class QuantityService {
   }
 
   put (id, params) {
-    return this.http.put(this.host + '/' + id, params).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
+    return this.http.put(`${this.host}/${id}`, params).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 }

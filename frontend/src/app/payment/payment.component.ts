@@ -123,10 +123,11 @@ export class PaymentComponent implements OnInit {
   applyCoupon () {
     this.campaignCoupon = this.couponControl.value
     this.clientDate = new Date()
+    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
     const offsetTimeZone = (this.clientDate.getTimezoneOffset() + 60) * 60 * 1000
     this.clientDate.setHours(0, 0, 0, 0)
     this.clientDate = this.clientDate.getTime() - offsetTimeZone
-    sessionStorage.setItem('couponDetails', this.campaignCoupon + '-' + this.clientDate)
+    sessionStorage.setItem('couponDetails', `${this.campaignCoupon}-${this.clientDate}`)
     const campaign = this.campaigns[this.couponControl.value]
     if (campaign) {
       if (this.clientDate === campaign.validOn) {
