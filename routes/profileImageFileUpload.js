@@ -11,7 +11,7 @@ const logger = require('../lib/logger')
 const fileType = require('file-type')
 
 module.exports = function fileUpload () {
-  return async(req, res, next) => {
+  return async (req, res, next) => {
     const file = req.file
     const buffer = file.buffer
     console.log(file)
