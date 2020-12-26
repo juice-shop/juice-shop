@@ -180,6 +180,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
         if (productsInBasket[i].id === id) {
           found = true
           this.basketService.get(productsInBasket[i].BasketItem.id).subscribe((existingBasketItem) => {
+            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
             const newQuantity = existingBasketItem.quantity + 1
             this.basketService.put(existingBasketItem.id, { quantity: newQuantity }).subscribe((updatedBasketItem) => {
               this.productService.get(updatedBasketItem.ProductId).subscribe((product) => {

@@ -25,7 +25,6 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/restrict-template-expressions': 'off',
     '@typescript-eslint/no-invalid-void-type': 'off',
-    '@typescript-eslint/restrict-plus-operands': 'off',
     '@typescript-eslint/no-floating-promises': 'off',
     '@typescript-eslint/prefer-optional-chain': 'off'
   }

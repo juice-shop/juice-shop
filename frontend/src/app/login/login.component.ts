@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
       this.rememberMe.setValue(false)
     }
 
-    this.redirectUri = this.windowRefService.nativeWindow.location.protocol + '//' + this.windowRefService.nativeWindow.location.host
+    this.redirectUri = `${this.windowRefService.nativeWindow.location.protocol}//${this.windowRefService.nativeWindow.location.host}`
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       if (config && config.application && config.application.googleOauth) {
         this.clientId = config.application.googleOauth.clientId

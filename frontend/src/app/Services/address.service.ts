@@ -22,7 +22,7 @@ export class AddressService {
   }
 
   getById (id) {
-    return this.http.get(this.host + '/' + id).pipe(map((response: any) => response.data), catchError(err => { throw err }))
+    return this.http.get(`${this.host}/${id}`).pipe(map((response: any) => response.data), catchError(err => { throw err }))
   }
 
   save (params) {
@@ -30,10 +30,10 @@ export class AddressService {
   }
 
   put (id, params) {
-    return this.http.put(this.host + '/' + id, params).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.put(`${this.host}/${id}`, params).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
   del (id) {
-    return this.http.delete(this.host + '/' + id).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.delete(`${this.host}/${id}`).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 }

@@ -105,7 +105,7 @@ export class AccountingComponent implements AfterViewInit, OnDestroy {
       const product = this.tableData.find((product) => {
         return product.id === quantity.ProductId
       })
-      this.confirmation = 'Quantity for ' + product.name + ' has been updated.'
+      this.confirmation = `Quantity for ${product.name} has been updated.`
       this.loadQuantity()
     }, (err) => {
       this.error = err.error
@@ -117,7 +117,7 @@ export class AccountingComponent implements AfterViewInit, OnDestroy {
   modifyPrice (id, value) {
     this.error = null
     this.productService.put(id, { price: value < 0 ? 0 : value }).subscribe((product) => {
-      this.confirmation = 'Price for ' + product.name + ' has been updated.'
+      this.confirmation = `Price for ${product.name} has been updated.`
       this.loadProducts()
     }, (err) => {
       this.error = err.error

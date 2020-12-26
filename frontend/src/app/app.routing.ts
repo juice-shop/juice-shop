@@ -259,6 +259,7 @@ export function tokenMatcher (url: UrlSegment[]): UrlMatchResult {
   }
 
   const path = url[0].toString()
+  // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
   if (path.match((token1(25, 184, 174, 179, 182, 186) + (36669).toString(36).toLowerCase() + token2(13, 144, 87, 152, 139, 144, 83, 138) + (10).toString(36).toLowerCase()))) {
     return ({ consumed: url })
   }
