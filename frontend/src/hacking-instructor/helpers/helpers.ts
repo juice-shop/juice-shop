@@ -111,7 +111,7 @@ export function waitInMs (timeInMs: number) {
   return async () => await sleep(timeInMs)
 }
 
-export function waitForAngularRouteToBeVisited (route: String) {
+export function waitForAngularRouteToBeVisited (route: string) {
   return async () => {
     while (true) {
       if (window.location.hash === `#/${route}`) {

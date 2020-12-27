@@ -64,7 +64,7 @@ export class LocalBackupService {
       } else {
         this.snackBarHelperService.open(`Version ${backup.version} is incompatible with expected version ${this.VERSION}`, 'errorBar')
       }
-    }).catch((err) => {
+    }).catch((err: Error) => {
       this.snackBarHelperService.open(`Backup restore operation failed: ${err.message}`, 'errorBar')
     }))
   }

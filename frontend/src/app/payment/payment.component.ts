@@ -127,6 +127,7 @@ export class PaymentComponent implements OnInit {
     const offsetTimeZone = (this.clientDate.getTimezoneOffset() + 60) * 60 * 1000
     this.clientDate.setHours(0, 0, 0, 0)
     this.clientDate = this.clientDate.getTime() - offsetTimeZone
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     sessionStorage.setItem('couponDetails', `${this.campaignCoupon}-${this.clientDate}`)
     const campaign = this.campaigns[this.couponControl.value]
     if (campaign) {

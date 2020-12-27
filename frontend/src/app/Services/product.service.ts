@@ -17,7 +17,7 @@ export class ProductService {
 
   constructor (private readonly http: HttpClient) { }
 
-  search (criteria: any) {
+  search (criteria: string) {
     return this.http.get(`${this.hostServer}/rest/products/search?q=${criteria}`).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
@@ -30,7 +30,7 @@ export class ProductService {
       response.data), catchError((err) => { throw err }))
   }
 
-  put (id, params) {
+  put (id: number, params) {
     return this.http.put(`${this.host}/${id}`, params).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 }
