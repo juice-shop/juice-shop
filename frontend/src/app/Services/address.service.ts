@@ -21,7 +21,8 @@ export class AddressService {
     return this.http.get(this.host).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
-  getById (id: number) {
+  getById (id) {
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     return this.http.get(`${this.host}/${id}`).pipe(map((response: any) => response.data), catchError(err => { throw err }))
   }
 
@@ -29,7 +30,8 @@ export class AddressService {
     return this.http.post(this.host + '/', params).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
-  put (id: number, params) {
+  put (id, params) {
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     return this.http.put(`${this.host}/${id}`, params).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
