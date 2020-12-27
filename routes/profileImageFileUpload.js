@@ -21,7 +21,6 @@ module.exports = function fileUpload () {
       next(new Error('Illegal file type'))
     }else{
         if (uploadedFileType !== null && utils.startsWith(uploadedFileType.mime, 'image')) {
-          console.log("WORKS")
           const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
           if (loggedInUser) {
             fs.open(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.${uploadedFileType.ext}`, 'w', function (err, fd) {
