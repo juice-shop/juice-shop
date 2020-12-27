@@ -42,6 +42,7 @@ export class ContactComponent implements OnInit {
       this.feedback = {}
       this.userIdControl.setValue(data.id)
       this.feedback.UserId = data.id
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       this.authorControl.setValue(data.email ? `***${data.email.slice(3)}` : 'anonymous')
     }, (err) => {
       this.feedback = undefined
@@ -62,6 +63,7 @@ export class ContactComponent implements OnInit {
   save () {
     this.feedback.captchaId = this.captchaId
     this.feedback.captcha = this.captchaControl.value
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     this.feedback.comment = `${this.feedbackControl.value} (${this.authorControl.value})`
     this.feedback.rating = this.rating
     this.feedback.UserId = this.userIdControl.value

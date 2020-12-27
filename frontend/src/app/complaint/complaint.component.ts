@@ -44,6 +44,7 @@ export class ComplaintComponent implements OnInit {
     this.initComplaint()
     this.uploader.onWhenAddingFileFailed = (item, filter) => {
       this.fileUploadError = filter
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       throw new Error(`Error due to : ${filter.name}`)
     }
     this.uploader.onAfterAddingFile = () => {

@@ -47,6 +47,7 @@ export class AdministrationComponent implements OnInit {
       this.userDataSource = users
       this.userDataSourceHidden = users
       for (const user of this.userDataSource) {
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         user.email = this.sanitizer.bypassSecurityTrustHtml(`<span class="${user.token ? 'confirmation' : 'error'}">${user.email}</span>`)
       }
       this.userDataSource = new MatTableDataSource(this.userDataSource)

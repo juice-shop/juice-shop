@@ -148,9 +148,9 @@ export class ScoreBoardComponent implements OnInit {
       })
     } else if (challenge.hintUrl) {
       if (challenge.hint) {
-        this.translate.get('CLICK_FOR_MORE_HINTS').subscribe((clickForMoreHints) => {
+        this.translate.get('CLICK_FOR_MORE_HINTS').subscribe((clickForMoreHints: string) => {
           challenge.hint += ` ${clickForMoreHints}`
-        }, (translationId) => {
+        }, (translationId: string) => {
           challenge.hint += ` ${translationId}`
         })
       } else {
@@ -320,7 +320,7 @@ export class ScoreBoardComponent implements OnInit {
     }
   }
 
-  startHackingInstructor (challengeName: String) {
+  startHackingInstructor (challengeName: string) {
     console.log(`Starting instructions for challenge "${challengeName}"`)
     import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
       module.startHackingInstructorFor(challengeName)

@@ -25,7 +25,7 @@ export class OrderHistoryService {
     return this.http.get(this.host + '/orders').pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
-  toggleDeliveryStatus (id, params) {
+  toggleDeliveryStatus (id: number, params) {
     return this.http.put(`${this.host}/${id}/delivery-status`, params).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 }

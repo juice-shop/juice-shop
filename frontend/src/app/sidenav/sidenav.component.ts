@@ -42,6 +42,7 @@ export class SidenavComponent implements OnInit {
   ngOnInit () {
     this.administrationService.getApplicationVersion().subscribe((version: any) => {
       if (version) {
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         this.version = `v${version}`
       }
     }, (err) => console.log(err))
@@ -101,6 +102,7 @@ export class SidenavComponent implements OnInit {
   getUserDetails () {
     this.userService.whoAmI().subscribe((user: any) => {
       this.userEmail = user.email
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       this.sizeOfMail = (`${user.email}`).length
     }, (err) => console.log(err))
   }

@@ -24,7 +24,7 @@ dom.watch()
 export class OrderCompletionComponent implements OnInit {
   public tableColumns = ['product', 'price', 'quantity', 'total price']
   public dataSource
-  public orderId
+  public orderId: string
   public orderDetails: any = { totalPrice: 0 }
   public deliveryPrice = 0
   public promotionalDiscount = 0
@@ -49,6 +49,7 @@ export class OrderCompletionComponent implements OnInit {
         this.orderDetails.bonus = results.data[0].bonus
         this.dataSource = new MatTableDataSource<Element>(this.orderDetails.products)
         for (const product of this.orderDetails.products) {
+          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
           this.tweetText += `%0a- ${product.name}`
         }
         this.tweetText = this.truncateTweet(this.tweetText)
@@ -74,7 +75,7 @@ export class OrderCompletionComponent implements OnInit {
     window.open(redirectUrl, '_blank')
   }
 
-  truncateTweet = (tweet, maxLength = 140) => {
+  truncateTweet = (tweet: string, maxLength = 140) => {
     if (!tweet) return null
     const showDots = tweet.length > maxLength
     return `${tweet.substring(0, maxLength)}${showDots ? '...' : ''}`
