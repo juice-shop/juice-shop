@@ -46,6 +46,13 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
       defaultValue: 'customer',
       validate: {
         isIn: [['customer', 'deluxe', 'accounting', 'admin']]
+      },
+      set (role) {
+        const profileImage = this.getDataValue('profileImage')
+        if (role === insecurity.roles.admin && (!profileImage || profileImage === '/assets/public/images/uploads/default.svg')) {
+          this.setDataValue('profileImage', '/assets/public/images/uploads/defaultAdmin.png')
+        }
+        this.setDataValue('role', role)
       }
     },
     deluxeToken: {
