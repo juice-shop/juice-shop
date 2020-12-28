@@ -82,14 +82,14 @@ export class NavbarComponent implements OnInit {
     }, (err) => console.log(err))
 
     this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
-      if (config && config.application && config.application.name) {
+      if (config?.application?.name) {
         this.applicationName = config.application.name
       }
-      if (config && config.application) {
+      if (config?.application) {
         this.showGitHubLink = config.application.showGitHubLinks
       }
 
-      if (config && config.application && config.application.logo) {
+      if (config?.application?.logo) {
         let logo: string = config.application.logo
 
         if (logo.substring(0, 4) === 'http') {
@@ -212,6 +212,6 @@ export class NavbarComponent implements OnInit {
 
   isAccounting () {
     const payload = this.loginGuard.tokenDecode()
-    return payload && payload.data && payload.data.role === roles.accounting
+    return payload?.data && payload.data.role === roles.accounting
   }
 }

@@ -113,13 +113,13 @@ export class SidenavComponent implements OnInit {
 
   getApplicationDetails () {
     this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
-      if (config && config.application && config.application.name) {
+      if (config?.application?.name) {
         this.applicationName = config.application.name
       }
-      if (config && config.application) {
+      if (config?.application) {
         this.showGitHubLink = config.application.showGitHubLinks
       }
-      if (config && config.application.welcomeBanner.showOnFirstStart && config.hackingInstructor.isEnabled) {
+      if (config?.application.welcomeBanner.showOnFirstStart && config.hackingInstructor.isEnabled) {
         this.offerScoreBoardTutorial = config.application.welcomeBanner.showOnFirstStart && config.hackingInstructor.isEnabled
       }
     }, (err) => console.log(err))
@@ -127,7 +127,7 @@ export class SidenavComponent implements OnInit {
 
   isAccounting () {
     const payload = this.loginGuard.tokenDecode()
-    if (payload && payload.data && payload.data.role === roles.accounting) {
+    if (payload?.data && payload.data.role === roles.accounting) {
       return true
     } else {
       return false
