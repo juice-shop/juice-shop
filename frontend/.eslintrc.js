@@ -16,14 +16,13 @@ module.exports = {
   },
   rules: { // FIXME New linting errors since migrating from StandardJS-style TSLint. Should be gradually turned back on and fixed.
     '@typescript-eslint/consistent-type-assertions': 'off',
+    '@typescript-eslint/no-invalid-void-type': 'off',
     'no-return-assign': 'off',
     'no-useless-escape': 'off',
     'promise/param-names': 'off',
     'standard/no-callback-literal': 'off',
     '@typescript-eslint/strict-boolean-expressions': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/no-non-null-assertion': 'off',
-    '@typescript-eslint/no-invalid-void-type': 'off',
     '@typescript-eslint/no-floating-promises': 'off'
   }
 }
