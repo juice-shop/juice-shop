@@ -22,10 +22,10 @@ export class PrivacyPolicyComponent implements OnInit {
   ngOnInit (): void {
     this.applicationUrl = this._document.location.protocol + '//' + this._document.location.hostname
     this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
-      if (config && config.application && config.application.name) {
+      if (config?.application?.name) {
         this.applicationName = config.application.name
       }
-      if (config && config.application && config.application.privacyContactEmail) {
+      if (config?.application?.privacyContactEmail) {
         this.privacyContactEmail = config.application.privacyContactEmail
       } else {
         this.privacyContactEmail = `donotreply@${this._document.location.hostname}`

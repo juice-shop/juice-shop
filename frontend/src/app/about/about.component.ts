@@ -53,7 +53,7 @@ export class AboutComponent implements OnInit {
   ngOnInit () {
     this.populateSlideshowFromFeedbacks()
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      if (config && config.application && config.application.social) {
+      if (config?.application?.social) {
         if (config.application.social.twitterUrl) {
           this.twitterUrl = config.application.social.twitterUrl
         }

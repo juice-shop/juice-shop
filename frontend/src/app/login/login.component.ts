@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     this.redirectUri = `${this.windowRefService.nativeWindow.location.protocol}//${this.windowRefService.nativeWindow.location.host}`
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      if (config && config.application && config.application.googleOauth) {
+      if (config?.application?.googleOauth) {
         this.clientId = config.application.googleOauth.clientId
         const authorizedRedirect = config.application.googleOauth.authorizedRedirects.find(r => r.uri === this.redirectUri)
         if (authorizedRedirect) {

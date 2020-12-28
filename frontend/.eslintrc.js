@@ -24,7 +24,6 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-invalid-void-type': 'off',
-    '@typescript-eslint/no-floating-promises': 'off',
-    '@typescript-eslint/prefer-optional-chain': 'off'
+    '@typescript-eslint/no-floating-promises': 'off'
   }
 }

@@ -74,7 +74,7 @@ export class RegisterComponent implements OnInit {
       })
     }, (err) => {
       console.log(err)
-      if (err.error && err.error.errors) {
+      if (err.error?.errors) {
         const error = err.error.errors[0]
         if (error.message) {
           // eslint-disable-next-line @typescript-eslint/restrict-plus-operands

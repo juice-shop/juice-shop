@@ -86,7 +86,7 @@ export class PaymentComponent implements OnInit {
     this.paymentPanelExpanded = localStorage.getItem('paymentPanelExpanded') ? JSON.parse(localStorage.getItem('paymentPanelExpanded')) : false
 
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      if (config && config.application && config.application.social) {
+      if (config?.application?.social) {
         if (config.application.social.twitterUrl) {
           this.twitterUrl = config.application.social.twitterUrl
         }

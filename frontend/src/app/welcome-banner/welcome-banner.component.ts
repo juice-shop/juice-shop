@@ -28,12 +28,12 @@ export class WelcomeBannerComponent implements OnInit {
 
   ngOnInit (): void {
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      if (config && config.application && config.application.welcomeBanner) {
+      if (config?.application?.welcomeBanner) {
         this.title = config.application.welcomeBanner.title
         this.message = config.application.welcomeBanner.message
       }
-      if (config && config.application) {
-        this.showHackingInstructor = config.hackingInstructor && config.hackingInstructor.isEnabled
+      if (config?.application) {
+        this.showHackingInstructor = config.hackingInstructor?.isEnabled
       }
       // Don't allow to skip the tutorials when restrictToTutorialsFirst and showHackingInstructor are enabled
       if (this.showHackingInstructor && config.challenges && config.challenges.restrictToTutorialsFirst) {
