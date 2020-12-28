@@ -23,7 +23,7 @@ describe('ProductService', () => {
   it('should search for products directly from the rest api', inject([ProductService, HttpTestingController],
     fakeAsync((service: ProductService, httpMock: HttpTestingController) => {
       let res: any
-      service.search(1).subscribe((data) => res = data)
+      service.search('1').subscribe((data) => res = data)
       const req = httpMock.expectOne('http://localhost:3000/rest/products/search?q=1')
       req.flush({ data: 'apiResponse' })
 
