@@ -3,7 +3,6 @@
   password: 'admin123'
   key: admin
   role: 'admin'
-  profileImage: defaultAdmin.png
   securityQuestion:
     id: 2
     answer: '@xI98PxDO+06!'
@@ -90,7 +89,6 @@
   customDomain: true
   key: bjoernGoogle
   role: 'admin'
-  profileImage: defaultAdmin.png
   address:
     - fullName: 'Bjoern Kimminich'
       mobileNum: 4917000001
@@ -117,7 +115,6 @@
   password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P'
   key: support
   role: 'admin'
-  profileImage: defaultAdmin.png
   securityQuestion:
     id: 10
     answer: 'SC OLEA SRL' # http://www.olea.com.ro/
@@ -143,7 +140,6 @@
   password: '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
   key: jannik
   role: 'admin'
-  profileImage: defaultAdmin.png
   securityQuestion:
     id: 1
     answer: 'azjTLprq2im6p86RbFrA41L'
@@ -154,7 +150,6 @@
   totpSecret: IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH
   key: timo
   role: 'admin'
-  profileImage: defaultAdmin.png
   securityQuestion:
     id: 1
     answer: 'NZMJLjEinU7TFElDIYW8'
@@ -170,7 +165,7 @@
   email: bjoern
   password: 'monkey summer birthday are all bad passwords but work just fine in a long passphrase'
   key: bjoern
-  profileImage: defaultAdmin.png
+  profileImage: '12.png'
   role: 'admin'
   isAdmin: true
   securityQuestion:
@@ -182,7 +177,7 @@
   customDomain: true
   key: bjoernOwasp
   role: 'deluxe'
-  profileImage: '12.jpg'
+  profileImage: '13.jpg'
   securityQuestion:
     id: 7
     answer: 'Zaya' # https://www.youtube.com/watch?v=Lu0-kDdtVf4
