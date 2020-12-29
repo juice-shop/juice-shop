@@ -190,8 +190,8 @@ describe('ScoreBoardComponent', () => {
     challengeService.find.and.returnValue(of([{ name: 'Challenge #1', solved: false }, { name: 'Challenge #2', solved: false }]))
     spyOn(mockSocket, 'on')
     component.ngOnInit()
-    const callback = mockSocket.on.calls.argsFor(0)[1]
-    callback({ challenge: 'ping', name: 'Challenge #1' })
+    const triggerChallengeSolvedEvent = mockSocket.on.calls.argsFor(0)[1]
+    triggerChallengeSolvedEvent({ challenge: 'ping', name: 'Challenge #1' })
     expect(component.challenges[0].solved).toBe(true)
     expect(component.challenges[1].solved).toBe(false)
   })
@@ -200,8 +200,8 @@ describe('ScoreBoardComponent', () => {
     challengeService.find.and.returnValue(of([{ name: 'Challenge #1', solved: false }, { name: 'Challenge #2', solved: false }]))
     spyOn(mockSocket, 'on')
     component.ngOnInit()
-    const callback = mockSocket.on.calls.argsFor(0)[1]
-    callback({ challenge: 'ping', name: 'Challenge #1337' })
+    const triggerChallengeSolvedEvent = mockSocket.on.calls.argsFor(0)[1]
+    triggerChallengeSolvedEvent({ challenge: 'ping', name: 'Challenge #1337' })
     expect(component.challenges[0].solved).toBe(false)
     expect(component.challenges[1].solved).toBe(false)
   })
