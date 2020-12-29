@@ -4,8 +4,8 @@
  */
 
 export async function sleep (timeInMs: number): Promise<void> {
-  return await new Promise((resolved) => {
-    setTimeout(resolved, timeInMs)
+  return await new Promise((resolve) => {
+    setTimeout(resolve, timeInMs)
   })
 }
 
