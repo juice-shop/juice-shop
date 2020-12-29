@@ -14,7 +14,7 @@ module.exports = {
     project: './src/tsconfig.*.json',
     sourceType: 'module'
   },
-  rules: { // FIXME New linting errors since migrating from StandardJS-style TSLint. Should be gradually turned back on and fixed.
+  rules: { // FIXME Remaining linting errors since migrating from StandardJS-style TSLint. Significant refactoring expected in order to turn on!
     '@typescript-eslint/strict-boolean-expressions': 'off',
     '@typescript-eslint/consistent-type-assertions': 'off',
     '@typescript-eslint/no-invalid-void-type': 'off',
