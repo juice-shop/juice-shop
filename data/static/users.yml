@@ -242,3 +242,12 @@
   password: 'y&x5Z#f6W532ZUf$q3DsdgfgfgxxUsvoCUaDzFU'
   key: emma
   role: 'customer'
+-
+  email: stan
+  username: SmilinStan
+  password: 'ship coffin krypt cross estate supply insurance asbestos souvenir'
+  key: stan
+  role: 'deluxe'
+  securityQuestion:
+    id: 10
+    answer: "Used Ship Emporium" # https://monkeyisland.fandom.com/wiki/Stan_S._Stanman
