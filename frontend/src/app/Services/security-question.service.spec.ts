@@ -39,7 +39,7 @@ describe('SecurityQuestionService', () => {
     fakeAsync((service: SecurityQuestionService, httpMock: HttpTestingController) => {
       let res: any
       service.findBy('x@y.z').subscribe((data) => (res = data))
-      const req = httpMock.expectOne('http://localhost:3000/rest\/user\/security-question\?email=x@y\.z')
+      const req = httpMock.expectOne('http://localhost:3000/rest/user/security-question?email=x@y.z')
       req.flush({ question: 'apiResponse' })
       tick()
 
