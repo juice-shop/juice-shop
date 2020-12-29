@@ -73,7 +73,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit () {
     this.getLanguages()
-    this.basketService.getItemTotal().subscribe(x => this.itemTotal = x)
+    this.basketService.getItemTotal().subscribe(x => (this.itemTotal = x))
     this.administrationService.getApplicationVersion().subscribe((version: any) => {
       if (version) {
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
