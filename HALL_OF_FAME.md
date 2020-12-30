@@ -132,7 +132,7 @@ sutanci
   [OWASP Juice Shop Jingle](https://soundcloud.com/braimee/owasp-juice-shop-jingle)
   written and performed by [Brian Johnson](https://github.com/braimee)
 * Juicy Chat Bot artworks by Kharisma Mulyana (courtesy of [Timo Pagel](https://github.com/wurstbrot/))
-* Coreteam profile picture artworks by Kharisma Mulyana (courtesy of [Timo Pagel](https://github.com/wurstbrot/))
+* Admin profile picture artworks by Kharisma Mulyana (courtesy of [Timo Pagel](https://github.com/wurstbrot/))
 
 ## Stargazers (over time)
 
