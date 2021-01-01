@@ -167,9 +167,16 @@ jobs:
           npm start &
           chmod +x test/smoke/smoke-test.sh
           test/smoke/smoke-test.sh http://localhost:3000
+  docker-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@v2
+      - name: "Execute smoke test on Docker"
+        run: docker-compose -f docker-compose.test.yml up --exit-code-from sut
   docker:
     if: github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
-    needs: [test, e2e]
+    needs: [test, e2e, docker-test]
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
