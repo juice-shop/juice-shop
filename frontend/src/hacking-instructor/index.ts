@@ -30,8 +30,6 @@ const challengeInstructions: ChallengeInstruction[] = [
   LoginBenderInstruction
 ]
 
-const fallbackInstruction = TutorialUnavailableInstruction
-
 export interface ChallengeInstruction {
   name: string
   hints: ChallengeHint[]

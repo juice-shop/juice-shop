@@ -18,7 +18,7 @@ export class ProductReviewService {
   constructor (private readonly http: HttpClient) { }
 
   get (id: number) {
-    return this.http.get(this.host + '/' + id + '/reviews').pipe(
+    return this.http.get(`${this.host}/${id}/reviews`).pipe(
       map((response: any) => response.data), catchError(err => {
         throw err
       })
@@ -26,7 +26,7 @@ export class ProductReviewService {
   }
 
   create (id: number, review: { message: string, author: string }) {
-    return this.http.put(this.host + '/' + id + '/reviews', review).pipe(map((response: any) => response.data),
+    return this.http.put(`${this.host}/${id}/reviews`, review).pipe(map((response: any) => response.data),
       catchError((err) => { throw err })
     )
   }

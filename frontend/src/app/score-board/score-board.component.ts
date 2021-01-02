@@ -72,9 +72,9 @@ export class ScoreBoardComponent implements OnInit {
       this.allowRepeatNotifications = config.challenges.showSolvedNotifications && config.ctf?.showFlagsInNotifications
       this.showChallengeHints = config.challenges.showHints
       this.showVulnerabilityMitigations = config.challenges.showMitigations
-      this.showHackingInstructor = config.hackingInstructor && config.hackingInstructor.isEnabled
+      this.showHackingInstructor = config.hackingInstructor?.isEnabled
       this.showContributionInfoBox = config.application.showGitHubLinks
-      this.questionnaireUrl = config.application.social && config.application.social.questionnaireUrl
+      this.questionnaireUrl = config.application.social?.questionnaireUrl
       this.appName = config.application.name
       this.restrictToTutorialsFirst = config.challenges.restrictToTutorialsFirst
       this.showOnlyTutorialChallenges = localStorage.getItem('showOnlyTutorialChallenges') ? JSON.parse(String(localStorage.getItem('showOnlyTutorialChallenges'))) : this.restrictToTutorialsFirst
@@ -96,7 +96,7 @@ export class ScoreBoardComponent implements OnInit {
             })
           }
         }
-        this.availableChallengeCategories.sort()
+        this.availableChallengeCategories.sort((a, b) => a.localeCompare(b))
         this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(String(localStorage.getItem('displayedChallengeCategories'))) : this.availableChallengeCategories
         this.calculateProgressPercentage()
         this.populateFilteredChallengeLists()
@@ -121,7 +121,7 @@ export class ScoreBoardComponent implements OnInit {
 
     this.ngZone.runOutsideAngular(() => {
       this.io.socket().on('challenge solved', (data: any) => {
-        if (data && data.challenge) {
+        if (data?.challenge) {
           for (let i = 0; i < this.challenges.length; i++) {
             if (this.challenges[i].name === data.name) {
               this.challenges[i].solved = true
@@ -148,9 +148,9 @@ export class ScoreBoardComponent implements OnInit {
       })
     } else if (challenge.hintUrl) {
       if (challenge.hint) {
-        this.translate.get('CLICK_FOR_MORE_HINTS').subscribe((clickForMoreHints) => {
+        this.translate.get('CLICK_FOR_MORE_HINTS').subscribe((clickForMoreHints: string) => {
           challenge.hint += ` ${clickForMoreHints}`
-        }, (translationId) => {
+        }, (translationId: string) => {
           challenge.hint += ` ${translationId}`
         })
       } else {
@@ -215,7 +215,7 @@ export class ScoreBoardComponent implements OnInit {
 
     let offset: any = Math.round(solved * 100 / total)
     offset = 100 - offset
-    return +offset + '%'
+    return `${+offset}%`
   }
 
   toggleDifficulty (difficulty: number) {
@@ -320,7 +320,7 @@ export class ScoreBoardComponent implements OnInit {
     }
   }
 
-  startHackingInstructor (challengeName: String) {
+  startHackingInstructor (challengeName: string) {
     console.log(`Starting instructions for challenge "${challengeName}"`)
     import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
       module.startHackingInstructorFor(challengeName)

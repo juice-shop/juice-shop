@@ -33,7 +33,6 @@ describe('SidenavComponent', () => {
   let challengeService: any
   let cookieService: any
   let configurationService: any
-  let translateService: any
   let mockSocket: any
   let socketIoService: any
   let loginGuard
@@ -73,8 +72,7 @@ describe('SidenavComponent', () => {
       ]
     })
       .compileComponents()
-
-    translateService = TestBed.inject(TranslateService)
+    TestBed.inject(TranslateService)
   }))
 
   beforeEach(() => {

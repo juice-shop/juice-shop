@@ -9,12 +9,11 @@ import { MatDialog } from '@angular/material/dialog'
 import { FeedbackService } from '../Services/feedback.service'
 import { MatTableDataSource } from '@angular/material/table'
 import { UserService } from '../Services/user.service'
-import { Component, OnInit, ViewChild, QueryList } from '@angular/core'
+import { Component, OnInit, ViewChild } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faArchive, faEye, faHome, faTrashAlt, faUser } from '@fortawesome/free-solid-svg-icons'
 import { MatPaginator } from '@angular/material/paginator'
-import { TranslateModule, TranslateService } from '@ngx-translate/core'
 
 library.add(faUser, faEye, faHome, faArchive, faTrashAlt)
 dom.watch()
@@ -48,6 +47,7 @@ export class AdministrationComponent implements OnInit {
       this.userDataSource = users
       this.userDataSourceHidden = users
       for (const user of this.userDataSource) {
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         user.email = this.sanitizer.bypassSecurityTrustHtml(`<span class="${user.token ? 'confirmation' : 'error'}">${user.email}</span>`)
       }
       this.userDataSource = new MatTableDataSource(this.userDataSource)

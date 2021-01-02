@@ -73,22 +73,23 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit () {
     this.getLanguages()
-    this.basketService.getItemTotal().subscribe(x => this.itemTotal = x)
+    this.basketService.getItemTotal().subscribe(x => (this.itemTotal = x))
     this.administrationService.getApplicationVersion().subscribe((version: any) => {
       if (version) {
-        this.version = 'v' + version
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        this.version = `v${version}`
       }
     }, (err) => console.log(err))
 
     this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
-      if (config && config.application && config.application.name) {
+      if (config?.application?.name) {
         this.applicationName = config.application.name
       }
-      if (config && config.application) {
+      if (config?.application) {
         this.showGitHubLink = config.application.showGitHubLinks
       }
 
-      if (config && config.application && config.application.logo) {
+      if (config?.application?.logo) {
         let logo: string = config.application.logo
 
         if (logo.substring(0, 4) === 'http') {
@@ -173,7 +174,8 @@ export class NavbarComponent implements OnInit {
     if (this.languages.find((y: { key: string }) => y.key === langKey)) {
       const language = this.languages.find((y: { key: string }) => y.key === langKey)
       this.shortKeyLang = language.shortKey
-      const snackBarRef = this.snackBar.open('Language has been changed to ' + language.lang, 'Force page reload', {
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      const snackBarRef = this.snackBar.open(`Language has been changed to ${language.lang}`, 'Force page reload', {
         duration: 5000
       })
       snackBarRef.onAction().subscribe(() => {
@@ -210,6 +212,6 @@ export class NavbarComponent implements OnInit {
 
   isAccounting () {
     const payload = this.loginGuard.tokenDecode()
-    return payload && payload.data && payload.data.role === roles.accounting
+    return payload?.data && payload.data.role === roles.accounting
   }
 }

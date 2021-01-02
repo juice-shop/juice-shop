@@ -31,7 +31,7 @@ export class UserService {
   }
 
   get (id: number) {
-    return this.http.get(this.host + '/' + id).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.get(`${this.host}/${id}`).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
   save (params: any) {

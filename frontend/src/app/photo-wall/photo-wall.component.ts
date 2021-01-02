@@ -45,13 +45,14 @@ export class PhotoWallComponent implements OnInit {
       }
       for (const memory of memories) {
         if (memory.User?.username) {
-          memory.caption += ` (© ${memory.User.username})`
+          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+          memory.caption = `${memory.caption} (© ${memory.User.username})`
         }
         this.slideshowDataSource.push({ url: memory.imagePath, caption: memory.caption })
       }
     }, (err) => console.log(err))
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      if (config && config.application && config.application.social) {
+      if (config?.application?.social) {
         if (config.application.social.twitterUrl) {
           this.twitterHandle = config.application.social.twitterUrl.replace('https://twitter.com/', '@')
         }

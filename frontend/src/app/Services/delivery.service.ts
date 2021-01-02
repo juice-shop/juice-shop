@@ -33,6 +33,7 @@ export class DeliveryService {
   }
 
   getById (id) {
-    return this.http.get(this.host + '/' + id).pipe(map((response: DeliverySingleMethodResponse) => response.data), catchError((err) => { throw err }))
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    return this.http.get(`${this.host}/${id}`).pipe(map((response: DeliverySingleMethodResponse) => response.data), catchError((err) => { throw err }))
   }
 }

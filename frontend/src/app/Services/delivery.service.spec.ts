@@ -22,7 +22,7 @@ describe('DeliveryService', () => {
   it('should get address directly from the api', inject([DeliveryService, HttpTestingController],
     fakeAsync((service: DeliveryService, httpMock: HttpTestingController) => {
       let res
-      service.get().subscribe((data) => res = data)
+      service.get().subscribe((data) => (res = data))
       const req = httpMock.expectOne('http://localhost:3000/api/Deliverys')
       req.flush({ data: 'apiResponse' })
       tick()
@@ -35,7 +35,7 @@ describe('DeliveryService', () => {
   it('should get single address directly from the api', inject([DeliveryService, HttpTestingController],
     fakeAsync((service: DeliveryService, httpMock: HttpTestingController) => {
       let res
-      service.getById(1).subscribe((data) => res = data)
+      service.getById(1).subscribe((data) => (res = data))
       const req = httpMock.expectOne('http://localhost:3000/api/Deliverys/1')
       req.flush({ data: 'apiResponse' })
       tick()

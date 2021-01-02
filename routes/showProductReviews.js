@@ -30,7 +30,7 @@ module.exports = function productReviews () {
       const t1 = new Date().getTime()
       utils.solveIf(challenges.noSqlCommandChallenge, () => { return (t1 - t0) > 2000 })
       const user = insecurity.authenticatedUsers.from(req)
-      for (var i = 0; i < reviews.length; i++) {
+      for (let i = 0; i < reviews.length; i++) {
         if (user === undefined || reviews[i].likedBy.includes(user.data.email)) {
           reviews[i].liked = true
         }

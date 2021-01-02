@@ -148,7 +148,7 @@ describe('/#/login', () => {
       loginButton.click()
 
       browser.executeScript(baseUrl => {
-        var xhttp = new XMLHttpRequest()
+        const xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function () {
           if (this.status === 200) {
             console.log('Success')

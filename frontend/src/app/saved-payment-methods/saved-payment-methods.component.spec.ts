@@ -20,8 +20,8 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { SavedPaymentMethodsComponent } from './saved-payment-methods.component'
 import { PaymentMethodComponent } from '../payment-method/payment-method.component'
 import { EventEmitter } from '@angular/core'
-import { of, throwError } from 'rxjs'
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { of } from 'rxjs'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 describe('SavedPaymentMethodsComponent', () => {
   let component: SavedPaymentMethodsComponent

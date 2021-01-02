@@ -49,7 +49,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
   ngOnInit () {
     this.ngZone.runOutsideAngular(() => {
       this.io.socket().on('challenge solved', (data: ChallengeSolvedMessage) => {
-        if (data && data.challenge) {
+        if (data?.challenge) {
           if (!data.hidden) {
             this.showNotification(data)
           }
@@ -62,7 +62,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
     })
 
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      if (config && config.ctf) {
+      if (config?.ctf) {
         if (config.ctf.showFlagsInNotifications) {
           this.showCtfFlagsInNotifications = config.ctf.showFlagsInNotifications
         } else {

@@ -42,7 +42,8 @@ export class SidenavComponent implements OnInit {
   ngOnInit () {
     this.administrationService.getApplicationVersion().subscribe((version: any) => {
       if (version) {
-        this.version = 'v' + version
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        this.version = `v${version}`
       }
     }, (err) => console.log(err))
     this.getApplicationDetails()
@@ -101,7 +102,8 @@ export class SidenavComponent implements OnInit {
   getUserDetails () {
     this.userService.whoAmI().subscribe((user: any) => {
       this.userEmail = user.email
-      this.sizeOfMail = ('' + user.email).length
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      this.sizeOfMail = (`${user.email}`).length
     }, (err) => console.log(err))
   }
 
@@ -111,13 +113,13 @@ export class SidenavComponent implements OnInit {
 
   getApplicationDetails () {
     this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
-      if (config && config.application && config.application.name) {
+      if (config?.application?.name) {
         this.applicationName = config.application.name
       }
-      if (config && config.application) {
+      if (config?.application) {
         this.showGitHubLink = config.application.showGitHubLinks
       }
-      if (config && config.application.welcomeBanner.showOnFirstStart && config.hackingInstructor.isEnabled) {
+      if (config?.application.welcomeBanner.showOnFirstStart && config.hackingInstructor.isEnabled) {
         this.offerScoreBoardTutorial = config.application.welcomeBanner.showOnFirstStart && config.hackingInstructor.isEnabled
       }
     }, (err) => console.log(err))
@@ -125,7 +127,7 @@ export class SidenavComponent implements OnInit {
 
   isAccounting () {
     const payload = this.loginGuard.tokenDecode()
-    if (payload && payload.data && payload.data.role === roles.accounting) {
+    if (payload?.data && payload.data.role === roles.accounting) {
       return true
     } else {
       return false

@@ -23,7 +23,7 @@ describe('QuantityService', () => {
   it('should get all quantities directly from the rest api', inject([QuantityService, HttpTestingController],
     fakeAsync((service: QuantityService, httpMock: HttpTestingController) => {
       let res
-      service.getAll().subscribe((data) => res = data)
+      service.getAll().subscribe((data) => (res = data))
       const req = httpMock.expectOne('http://localhost:3000/api/Quantitys/')
       req.flush({ data: 'apiResponse' })
 
@@ -38,7 +38,7 @@ describe('QuantityService', () => {
   it('should change quantity directly via the rest api', inject([QuantityService, HttpTestingController],
     fakeAsync((service: QuantityService, httpMock: HttpTestingController) => {
       let res
-      service.put(42, {}).subscribe((data) => res = data)
+      service.put(42, {}).subscribe((data) => (res = data))
       const req = httpMock.expectOne('http://localhost:3000/api/Quantitys/42')
       req.flush({ data: 'apiResponse' })
 

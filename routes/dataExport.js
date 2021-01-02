@@ -25,7 +25,7 @@ module.exports = function dataExport () {
       }
 
       const memories = await models.Memory.findAll({ where: { UserId: req.body.UserId } })
-      memories.map(memory => {
+      memories.forEach(memory => {
         userData.memories.push({
           imageUrl: req.protocol + '://' + req.get('host') + '/' + memory.imagePath,
           caption: memory.caption
@@ -34,7 +34,7 @@ module.exports = function dataExport () {
 
       db.orders.find({ email: updatedEmail }).then(orders => {
         if (orders.length > 0) {
-          orders.map(order => {
+          orders.forEach(order => {
             userData.orders.push({
               orderId: order.orderId,
               totalPrice: order.totalPrice,
@@ -47,7 +47,7 @@ module.exports = function dataExport () {
 
         db.reviews.find({ author: email }).then(reviews => {
           if (reviews.length > 0) {
-            reviews.map(review => {
+            reviews.forEach(review => {
               userData.reviews.push({
                 message: review.message,
                 author: review.author,

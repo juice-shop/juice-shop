@@ -37,7 +37,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     this.data.productData.points = Math.round(this.data.productData.price / 10)
     this.reviews$ = this.productReviewService.get(this.data.productData.id)
     this.userSubscription = this.userService.whoAmI().subscribe((user: any) => {
-      if (user && user.email) {
+      if (user?.email) {
         this.author = user.email
       } else {
         this.author = 'Anonymous'
@@ -68,14 +68,14 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       data: {
         reviewData: review
       }
-    }).afterClosed().subscribe(() => this.reviews$ = this.productReviewService.get(this.data.productData.id))
+    }).afterClosed().subscribe(() => (this.reviews$ = this.productReviewService.get(this.data.productData.id)))
   }
 
   likeReview (review: Review) {
     this.productReviewService.like(review._id).subscribe(() => {
       console.log('Liked ' + review._id)
     })
-    setTimeout(() => this.reviews$ = this.productReviewService.get(this.data.productData.id), 200)
+    setTimeout(() => (this.reviews$ = this.productReviewService.get(this.data.productData.id)), 200)
   }
 
   isLoggedIn () {

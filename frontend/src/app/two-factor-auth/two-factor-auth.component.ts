@@ -73,22 +73,22 @@ export class TwoFactorAuthComponent {
 
   setup () {
     this.twoFactorAuthService.setup(
-      this.twoFactorSetupForm.get('passwordControl')!.value,
-      this.twoFactorSetupForm.get('initalTokenControl')!.value,
+      this.twoFactorSetupForm.get('passwordControl')?.value,
+      this.twoFactorSetupForm.get('initalTokenControl')?.value,
       this.setupToken
     ).subscribe(() => {
       this.setupStatus = true
       this.snackBarHelperService.open('CONFIRM_2FA_SETUP')
     }, () => {
-      this.twoFactorSetupForm.get('passwordControl')!.markAsPristine()
-      this.twoFactorSetupForm.get('initalTokenControl')!.markAsPristine()
+      this.twoFactorSetupForm.get('passwordControl')?.markAsPristine()
+      this.twoFactorSetupForm.get('initalTokenControl')?.markAsPristine()
       this.errored = true
     })
   }
 
   disable () {
     this.twoFactorAuthService.disable(
-      this.twoFactorDisableForm.get('passwordControl')!.value
+      this.twoFactorDisableForm.get('passwordControl')?.value
     ).subscribe(() => {
       this.updateStatus().subscribe(
         () => {
@@ -97,7 +97,7 @@ export class TwoFactorAuthComponent {
       )
       this.snackBarHelperService.open('CONFIRM_2FA_DISABLE')
     }, () => {
-      this.twoFactorDisableForm.get('passwordControl')!.markAsPristine()
+      this.twoFactorDisableForm.get('passwordControl')?.markAsPristine()
       this.errored = true
     })
   }
