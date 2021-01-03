@@ -7,6 +7,7 @@
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/owasp-juice-shop/localized.svg)](https://crowdin.com/project/owasp-juice-shop)
 ![GitHub issues by-label "help wanted"](https://img.shields.io/github/issues/bkimminich/juice-shop/help%20wanted.svg)
 ![GitHub issues by-label "good first issue"](https://img.shields.io/github/issues/bkimminich/juice-shop/good%20first%20issue.svg)
+![Merge Chance](https://img.shields.io/endpoint?url=https%3A%2F%2Fmerge-chance.info%2Fbadge%3Frepo%3Dbkimminich/juice-shop)
 
 ## Code Contributions
 
