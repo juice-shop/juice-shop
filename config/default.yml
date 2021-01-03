@@ -336,6 +336,7 @@ products:
     description: 'Common rarity "Juice Shop" card for the <a href="https://docs.google.com/forms/d/e/1FAIpQLSecLEakawSQ56lBe2JOSbFwFYrKDCIN7Yd3iHFdQc5z8ApwdQ/viewform">Adversary Trading Cards</a> CCG.'
     price: 2.99
     deluxePrice: 0.99
+    deletedDate: '2020-11-30'
     limitPerUser: 5
     image: ccg_common.png
     reviews:
@@ -345,6 +346,7 @@ products:
     description: 'Super rare "Juice Shop" card with holographic foil-coating for the <a href="https://docs.google.com/forms/d/e/1FAIpQLSecLEakawSQ56lBe2JOSbFwFYrKDCIN7Yd3iHFdQc5z8ApwdQ/viewform">Adversary Trading Cards</a> CCG.'
     price: 99.99
     deluxePrice: 69.99
+    deletedDate: '2020-11-30'
     quantity: 2
     limitPerUser: 1
     image: ccg_foil.png
