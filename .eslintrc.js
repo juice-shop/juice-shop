@@ -1,15 +1,16 @@
+/*
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 module.exports = {
+  extends: 'standard',
   env: {
     browser: true,
-    commonjs: true,
-    es6: true,
     jasmine: true,
     mocha: true,
     protractor: true
   },
-  extends: [
-    'standard'
-  ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly'
