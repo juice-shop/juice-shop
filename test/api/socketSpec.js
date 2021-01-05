@@ -3,13 +3,14 @@
  * SPDX-License-Identifier: MIT
  */
 
-const io = require('socket.io-client')
+ import {io} from "socket.io-client";
+
 
 describe('WebSocket', () => {
-  let socket
+  const socket = io()
 
   beforeEach(done => {
-    socket = io.connect('http://localhost:3000', {
+    socket = io('http://localhost:3000', {
       'reconnection delay': 0,
       'reopen delay': 0,
       'force new connection': true
