@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -22,7 +22,6 @@ dom.watch()
   styleUrls: ['./address.component.scss']
 })
 export class AddressComponent implements OnInit {
-
   @Output() emitSelection = new EventEmitter()
   @Input('allowEdit') public allowEdit: Boolean = false
   @Input('addNewAddressDiv') public addNewAddressDiv: Boolean = true
@@ -36,8 +35,8 @@ export class AddressComponent implements OnInit {
   public error: any
   public addressExist: Boolean = false
 
-  constructor (private addressService: AddressService, private translate: TranslateService,
-    private router: Router, private ngZone: NgZone, private snackBarHelperService: SnackBarHelperService) { }
+  constructor (private readonly addressService: AddressService, private readonly translate: TranslateService,
+    private readonly router: Router, private readonly ngZone: NgZone, private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
     if (this.allowEdit) {
@@ -54,7 +53,7 @@ export class AddressComponent implements OnInit {
       this.storedAddresses = addresses
       this.dataSource = new MatTableDataSource<Element>(this.storedAddresses)
     }, (err) => {
-      this.snackBarHelperService.open(err.error?.error,'errorBar')
+      this.snackBarHelperService.open(err.error?.error, 'errorBar')
       console.log(err)
     })
   }
@@ -71,20 +70,20 @@ export class AddressComponent implements OnInit {
 
   chooseAddress () {
     sessionStorage.setItem('addressId', this.addressId)
-    this.ngZone.run(() => this.router.navigate(['/delivery-method']))
+    this.ngZone.run(async () => await this.router.navigate(['/delivery-method']))
   }
 
   deleteAddress (id: number) {
     this.addressService.del(id).subscribe(() => {
       this.error = null
       this.translate.get('ADDRESS_REMOVED').subscribe((addressRemoved) => {
-        this.snackBarHelperService.open(addressRemoved,'confirmBar')
+        this.snackBarHelperService.open(addressRemoved, 'confirmBar')
       }, (translationId) => {
-        this.snackBarHelperService.open(translationId,'confirmBar')
+        this.snackBarHelperService.open(translationId, 'confirmBar')
       })
       this.load()
     }, (err) => {
-      this.snackBarHelperService.open(err.error?.error,'errorBar')
+      this.snackBarHelperService.open(err.error?.error, 'errorBar')
       console.log(err)
     })
   }

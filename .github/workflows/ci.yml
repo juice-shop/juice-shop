@@ -1,0 +1,251 @@
+name: "CI/CD Pipeline"
+on:
+  push:
+    branches-ignore:
+      - l10n_develop
+      - gh-pages
+    paths-ignore:
+      - '*.md'
+      - 'LICENSE'
+    tags-ignore:
+      - '*'
+  pull_request:
+    paths-ignore:
+      - '*.md'
+      - 'LICENSE'
+      - 'data/static/i18n/*.json'
+      - 'frontend/src/assets/i18n/*.json'
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@v2
+      - name: "Use Node.js 14"
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: "Install CLI tools"
+        run: npm install -g @angular/cli
+      - name: "Install application"
+        run: |
+          npm install --ignore-scripts
+          cd frontend
+          npm install --ignore-scripts
+      - name: "Lint code and configurations"
+        run: |
+          npm run lint
+          npm run lint:config -- -f ./config/7ms.yml
+          npm run lint:config -- -f ./config/addo.yml
+          npm run lint:config -- -f ./config/bodgeit.yml
+          npm run lint:config -- -f ./config/ctf.yml
+          npm run lint:config -- -f ./config/default.yml
+          npm run lint:config -- -f ./config/fbctf.yml
+          npm run lint:config -- -f ./config/juicebox.yml
+          npm run lint:config -- -f ./config/mozilla.yml
+          npm run lint:config -- -f ./config/oss.yml
+          npm run lint:config -- -f ./config/quiet.yml
+          npm run lint:config -- -f ./config/tutorial.yml
+          npm run lint:config -- -f ./config/unsafe.yml
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [10, 12, 14]
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@v2
+      - name: "Use Node.js ${{ matrix.node-version }}"
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: "Cache Node.js modules"
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
+      - name: "Install CLI tools"
+        run: npm install -g @angular/cli
+      - name: "Install application"
+        run: npm install
+      - name: "Execute unit tests"
+        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest' # FIXME Reliability issues with tests on Windows are a known issue from Travis-CI
+        run: npm test
+      - name: "Execute integration tests"
+        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest' # FIXME Reliability issues with tests on Windows are a known issue from Travis-CI
+        run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then
+          set NODE_ENV=test
+          else
+          export NODE_ENV=test
+          fi
+          npm run frisby
+        shell: bash
+      - name: "Publish coverage to Codeclimate"
+        if: github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-0.7.0-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          sed -i s/SF:/SF:frontend\\//g build/reports/coverage/frontend-tests/lcov.info
+          ./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.frontend.json build/reports/coverage/frontend-tests/lcov.info
+          ./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.server.json build/reports/coverage/server-tests/lcov.info
+          ./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.api.json build/reports/coverage/api-tests/lcov.info
+          ./cc-test-reporter sum-coverage build/reports/coverage/codeclimate.*.json -p 3
+          ./cc-test-reporter upload-coverage
+        shell: bash
+  e2e:
+    runs-on: windows-latest
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@v2
+      - name: "Use Node.js 14"
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: "Install CLI tools"
+        run: npm install -g @angular/cli
+      - name: "Install application"
+        run: npm install
+      - name: "Execute end-to-end tests"
+        run: |
+          set NODE_ENV=test
+          npm run protractor
+  e2e-in-subfolder:
+    runs-on: windows-latest
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@v2
+      - name: "Use Node.js 14"
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: "Install CLI tools"
+        run: npm install -g @angular/cli
+      - name: "Install application"
+        run: npm install
+      - name: "Execute end-to-end tests with application hosted in subfolder"
+        run: |
+          set NODE_ENV=test
+          npm run preprotractor
+          npm run e2e -- subfolder
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@v2
+      - name: "Use Node.js 14"
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: "Install CLI tools"
+        run: |
+          npm install -g @angular/cli
+          npm install -g grunt-cli
+      - name: "Set packaging options for Grunt"
+        run: |
+          echo "PCKG_OS_NAME=linux" >> $GITHUB_ENV
+          echo "PCKG_NODE_VERSION=14" >> $GITHUB_ENV
+          echo "PCKG_CPU_ARCH=x64" >> $GITHUB_ENV
+      - name: "Package application"
+        run: |
+          npm install --production
+          npm install -g grunt-cli
+          npm run package:ci
+      - name: "Unpack application archive"
+        run: |
+          cd dist
+          tar -zxf juice-shop-*.tgz
+          cd juice-shop_*
+      - name: "Execute smoke test"
+        run: |
+          npm start &
+          chmod +x test/smoke/smoke-test.sh
+          test/smoke/smoke-test.sh http://localhost:3000
+  docker-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@v2
+      - name: "Execute smoke test on Docker"
+        run: docker-compose -f docker-compose.test.yml up --exit-code-from sut
+  docker:
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
+    needs: [test, e2e, docker-test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@v2
+      - name: "Set up QEMU"
+        uses: docker/setup-qemu-action@v1
+      - name: "Set up Docker Buildx"
+        uses: docker/setup-buildx-action@v1
+      - name: "Login to DockerHub"
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: "Set tag & labels for ${{ github.ref }}"
+        run: |
+          if [ "$GITHUB_REF" == "refs/heads/master" ]; then
+          echo "DOCKER_TAG=latest" >> $GITHUB_ENV
+          else
+          echo "DOCKER_TAG=snapshot" >> $GITHUB_ENV
+          fi
+          echo "VCS_REF=`git rev-parse --short HEAD`" >> $GITHUB_ENV
+          echo "BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”`" >> $GITHUB_ENV
+      - name: "Build and push"
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64,linux/arm/v7,linux/arm64
+          push: true
+          tags: |
+            bkimminich/juice-shop:${{ env.DOCKER_TAG }}
+          build-args: |
+            VCS_REF=${{ env.VCS_REF }}
+            BUILD_DATE=${{ env.BUILD_DATE }}
+  heroku:
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
+    needs: [test, e2e]
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@v2
+      - name: "Set Heroku app & branch for ${{ github.ref }}"
+        run: |
+          if [ "$GITHUB_REF" == "refs/heads/master" ]; then
+          echo "HEROKU_APP=juice-shop" >> $GITHUB_ENV
+          echo "HEROKU_BRANCH=master" >> $GITHUB_ENV
+          else
+          echo "HEROKU_APP=juice-shop-staging" >> $GITHUB_ENV
+          echo "HEROKU_BRANCH=develop" >> $GITHUB_ENV
+          fi
+      - name: "Deploy ${{ github.ref }} to Heroku"
+        uses: akhileshns/heroku-deploy@v3.7.8
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ env.HEROKU_APP }}
+          heroku_email: bjoern.kimminich@owasp.org
+          branch: ${{ env.HEROKU_BRANCH }}
+  notify-slack:
+    if: github.event_name == 'push' && (success() || failure())
+    needs:
+      - docker
+      - heroku
+      - lint
+      - e2e-in-subfolder
+      - smoke
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Slack workflow notification"
+        uses: Gamesight/slack-workflow-status@master
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}

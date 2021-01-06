@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -14,6 +14,7 @@ import { faEye, faEyeSlash, faKey } from '@fortawesome/free-solid-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { ConfigurationService } from '../Services/configuration.service'
+import { BasketService } from '../Services/basket.service'
 
 library.add(faKey, faEye, faEyeSlash, faGoogle)
 dom.watch()
@@ -26,7 +27,6 @@ const oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
   public emailControl = new FormControl('', [Validators.required])
   public passwordControl = new FormControl('', [Validators.required])
   public hide = true
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   public clientId = '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
   public oauthUnavailable: boolean = true
   public redirectUri: string = ''
-  constructor (private configurationService: ConfigurationService, private userService: UserService, private windowRefService: WindowRefService, private cookieService: CookieService, private router: Router, private formSubmitService: FormSubmitService, private ngZone: NgZone) { }
+  constructor (private readonly configurationService: ConfigurationService, private readonly userService: UserService, private readonly windowRefService: WindowRefService, private readonly cookieService: CookieService, private readonly router: Router, private readonly formSubmitService: FormSubmitService, private readonly basketService: BasketService, private readonly ngZone: NgZone) { }
 
   ngOnInit () {
     const email = localStorage.getItem('email')
@@ -48,11 +48,12 @@ export class LoginComponent implements OnInit {
       this.rememberMe.setValue(false)
     }
 
-    this.redirectUri = this.windowRefService.nativeWindow.location.protocol + '//' + this.windowRefService.nativeWindow.location.host
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    this.redirectUri = `${this.windowRefService.nativeWindow.location.protocol}//${this.windowRefService.nativeWindow.location.host}`
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      if (config && config.application && config.application.googleOauth) {
+      if (config?.application?.googleOauth) {
         this.clientId = config.application.googleOauth.clientId
-        let authorizedRedirect = config.application.googleOauth.authorizedRedirects.find(r => r.uri === this.redirectUri)
+        const authorizedRedirect = config.application.googleOauth.authorizedRedirects.find(r => r.uri === this.redirectUri)
         if (authorizedRedirect) {
           this.oauthUnavailable = false
           this.redirectUri = authorizedRedirect.proxy ? authorizedRedirect.proxy : authorizedRedirect.uri
@@ -60,9 +61,8 @@ export class LoginComponent implements OnInit {
           this.oauthUnavailable = true
           console.log(this.redirectUri + ' is not an authorized redirect URI for this application.')
         }
-
       }
-    },(err) => console.log(err))
+    }, (err) => console.log(err))
 
     this.formSubmitService.attachEnterKeyHandler('login-form', 'loginButton', () => this.login())
   }
@@ -73,16 +73,17 @@ export class LoginComponent implements OnInit {
     this.user.password = this.passwordControl.value
     this.userService.login(this.user).subscribe((authentication: any) => {
       localStorage.setItem('token', authentication.token)
-      let expires = new Date()
+      const expires = new Date()
       expires.setHours(expires.getHours() + 8)
       this.cookieService.set('token', authentication.token, expires, '/')
       sessionStorage.setItem('bid', authentication.bid)
+      this.basketService.updateNumberOfCartItems()
       this.userService.isLoggedIn.next(true)
-      this.ngZone.run(() => this.router.navigate(['/search']))
+      this.ngZone.run(async () => await this.router.navigate(['/search']))
     }, ({ error }) => {
       if (error.status && error.data && error.status === 'totp_token_required') {
         localStorage.setItem('totp_tmp_token', error.data.tmpToken)
-        this.ngZone.run(() => this.router.navigate(['/2fa/enter']))
+        this.ngZone.run(async () => await this.router.navigate(['/2fa/enter']))
         return
       }
       localStorage.removeItem('token')
@@ -108,5 +109,4 @@ export class LoginComponent implements OnInit {
   googleLogin () {
     this.windowRefService.nativeWindow.location.replace(`${oauthProviderUrl}?client_id=${this.clientId}&response_type=token&scope=email&redirect_uri=${this.redirectUri}`)
   }
-
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -8,7 +8,7 @@ const models = require('../models/index')
 module.exports.getPaymentMethods = function getPaymentMethods () {
   return async (req, res, next) => {
     const cards = await models.Card.findAll({ where: { UserId: req.body.UserId } })
-    cards.map(card => {
+    cards.forEach(card => {
       const cardNumber = String(card.cardNum)
       card.cardNum = '*'.repeat(12) + cardNumber.substring(cardNumber.length - 4)
     })

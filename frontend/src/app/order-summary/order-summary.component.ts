@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -17,14 +17,13 @@ import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
   styleUrls: ['./order-summary.component.scss']
 })
 export class OrderSummaryComponent implements OnInit {
-
   public bonus = 0
   public itemTotal = 0
   public deliveryPrice = 0
   public promotionalDiscount = 0
   public address: any
   public paymentMethod: any
-  constructor (private router: Router, private addressService: AddressService, private paymentService: PaymentService, private basketService: BasketService, private deliveryService: DeliveryService, private ngZone: NgZone, private snackBarHelperService: SnackBarHelperService) { }
+  constructor (private readonly router: Router, private readonly addressService: AddressService, private readonly paymentService: PaymentService, private readonly basketService: BasketService, private readonly deliveryService: DeliveryService, private readonly ngZone: NgZone, private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
     this.deliveryService.getById(sessionStorage.getItem('deliveryMethodId')).subscribe((method) => {
@@ -63,8 +62,8 @@ export class OrderSummaryComponent implements OnInit {
       sessionStorage.removeItem('deliveryMethodId')
       sessionStorage.removeItem('couponDetails')
       sessionStorage.removeItem('couponDiscount')
-      this.basketService.updateNumberOfCardItems()
-      this.ngZone.run(() => this.router.navigate(['/order-completion', orderConfirmationId]))
+      this.basketService.updateNumberOfCartItems()
+      this.ngZone.run(async () => await this.router.navigate(['/order-completion', orderConfirmationId]))
     }, (err) => {
       console.log(err)
       this.snackBarHelperService.open(err.error?.error.message, 'errorBar')

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -142,8 +142,8 @@ describe('/#/contact', () => {
     it('should be possible to post feedback with zero stars by double-clicking rating widget', () => {
       browser.executeAsyncScript(baseUrl => {
         var callback = arguments[arguments.length - 1] // eslint-disable-line
-        var xhttp = new XMLHttpRequest()
-        var captcha
+        const xhttp = new XMLHttpRequest()
+        let captcha
         xhttp.onreadystatechange = function () {
           if (this.status === 200) {
             captcha = JSON.parse(this.responseText)
@@ -156,7 +156,7 @@ describe('/#/contact', () => {
         xhttp.send()
 
         function sendPostRequest (_captcha) {
-          var xhttp = new XMLHttpRequest()
+          const xhttp = new XMLHttpRequest()
           xhttp.onreadystatechange = function () {
             if (this.status === 201) {
               console.log('Success')
@@ -180,7 +180,7 @@ describe('/#/contact', () => {
     xit('should be possible to post 10 or more customer feedbacks in less than 10 seconds', () => {
       browser.waitForAngularEnabled(false)
 
-      for (var i = 0; i < 11; i++) {
+      for (let i = 0; i < 11; i++) {
         comment.sendKeys('Spam #' + i)
         rating.click()
         submitButton.click()

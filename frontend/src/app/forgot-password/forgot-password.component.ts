@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -22,7 +22,6 @@ dom.watch()
   styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent {
-
   public emailControl: FormControl = new FormControl('', [Validators.required, Validators.email])
   public securityQuestionControl: FormControl = new FormControl({ disabled: true, value: '' }, [Validators.required])
   public passwordControl: FormControl = new FormControl({ disabled: true, value: '' }, [Validators.required, Validators.minLength(5)])
@@ -30,48 +29,57 @@ export class ForgotPasswordComponent {
   public securityQuestion?: string
   public error?: string
   public confirmation?: string
+  public timeoutDuration = 1000
+  private timeout
 
-  constructor (private securityQuestionService: SecurityQuestionService, private userService: UserService, private translate: TranslateService) { }
+  constructor (private readonly securityQuestionService: SecurityQuestionService, private readonly userService: UserService, private readonly translate: TranslateService) { }
 
   findSecurityQuestion () {
-    this.securityQuestion = undefined
-    if (this.emailControl.value) {
-      this.securityQuestionService.findBy(this.emailControl.value).subscribe((securityQuestion: SecurityQuestion) => {
-        if (securityQuestion) {
-          this.securityQuestion = securityQuestion.question
-          this.securityQuestionControl.enable()
-          this.passwordControl.enable()
-          this.repeatPasswordControl.enable()
-        } else {
-          this.securityQuestionControl.disable()
-          this.passwordControl.disable()
-          this.repeatPasswordControl.disable()
-        }
-      },
-      (error) => error
-      )
-    } else {
-      this.securityQuestionControl.disable()
-      this.passwordControl.disable()
-      this.repeatPasswordControl.disable()
-    }
+    clearTimeout(this.timeout)
+    this.timeout = setTimeout(() => {
+      this.securityQuestion = undefined
+      if (this.emailControl.value) {
+        this.securityQuestionService.findBy(this.emailControl.value).subscribe((securityQuestion: SecurityQuestion) => {
+          if (securityQuestion) {
+            this.securityQuestion = securityQuestion.question
+            this.securityQuestionControl.enable()
+            this.passwordControl.enable()
+            this.repeatPasswordControl.enable()
+          } else {
+            this.securityQuestionControl.disable()
+            this.passwordControl.disable()
+            this.repeatPasswordControl.disable()
+          }
+        },
+        (error) => error
+        )
+      } else {
+        this.securityQuestionControl.disable()
+        this.passwordControl.disable()
+        this.repeatPasswordControl.disable()
+      }
+    }, this.timeoutDuration)
   }
 
   resetPassword () {
-    this.userService.resetPassword({email: this.emailControl.value, answer: this.securityQuestionControl.value,
-      new: this.passwordControl.value, repeat: this.repeatPasswordControl.value}).subscribe(() => {
-        this.error = undefined
-        this.translate.get('PASSWORD_SUCCESSFULLY_CHANGED').subscribe((passwordSuccessfullyChanged) => {
-          this.confirmation = passwordSuccessfullyChanged
-        }, (translationId) => {
-          this.confirmation = translationId
-        })
-        this.resetForm()
-      }, (error) => {
-        this.error = error.error
-        this.confirmation = undefined
-        this.resetErrorForm()
+    this.userService.resetPassword({
+      email: this.emailControl.value,
+      answer: this.securityQuestionControl.value,
+      new: this.passwordControl.value,
+      repeat: this.repeatPasswordControl.value
+    }).subscribe(() => {
+      this.error = undefined
+      this.translate.get('PASSWORD_SUCCESSFULLY_CHANGED').subscribe((passwordSuccessfullyChanged) => {
+        this.confirmation = passwordSuccessfullyChanged
+      }, (translationId) => {
+        this.confirmation = translationId
       })
+      this.resetForm()
+    }, (error) => {
+      this.error = error.error
+      this.confirmation = undefined
+      this.resetErrorForm()
+    })
   }
 
   resetForm () {
@@ -106,8 +114,8 @@ export class ForgotPasswordComponent {
 
 function matchValidator (passwordControl: AbstractControl) {
   return function matchOtherValidate (repeatPasswordControl: FormControl) {
-    let password = passwordControl.value
-    let passwordRepeat = repeatPasswordControl.value
+    const password = passwordControl.value
+    const passwordRepeat = repeatPasswordControl.value
     if (password !== passwordRepeat) {
       return { notSame: true }
     }

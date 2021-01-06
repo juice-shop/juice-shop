@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -13,8 +13,7 @@ import { DOCUMENT } from '@angular/common'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
-  constructor (@Inject(DOCUMENT) private _document: HTMLDocument, private translate: TranslateService) {
+  constructor (@Inject(DOCUMENT) private readonly _document: HTMLDocument, private readonly translate: TranslateService) {
     this.translate.setDefaultLang('en')
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -16,7 +16,7 @@ module.exports = function retrieveBasket () {
         /* jshint eqeqeq:false */
         utils.solveIf(challenges.basketAccessChallenge, () => {
           const user = insecurity.authenticatedUsers.from(req)
-          return user && id && id !== 'undefined' && id !== 'null' && user.bid != id // eslint-disable-line eqeqeq
+          return user && id && id !== 'undefined' && id !== 'null' && id !== 'NaN' && user.bid && user.bid != id // eslint-disable-line eqeqeq
         })
         if (basket && basket.Products && basket.Products.length > 0) {
           for (let i = 0; i < basket.Products.length; i++) {

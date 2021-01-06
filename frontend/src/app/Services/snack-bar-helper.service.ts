@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -11,9 +11,8 @@ import { TranslateService } from '@ngx-translate/core'
   providedIn: 'root'
 })
 export class SnackBarHelperService {
-
-  constructor (private translateService: TranslateService,
-               private snackBar: MatSnackBar) { }
+  constructor (private readonly translateService: TranslateService,
+    private readonly snackBar: MatSnackBar) { }
 
   open (message: string, cssClass?: string) {
     this.translateService.get(message).subscribe((translatedMessage) => {

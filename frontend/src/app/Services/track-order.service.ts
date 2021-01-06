@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -12,15 +12,13 @@ import { catchError, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class TrackOrderService {
+  private readonly hostServer = environment.hostServer
+  private readonly host = this.hostServer + '/rest/track-order'
 
-  private hostServer = environment.hostServer
-  private host = this.hostServer + '/rest/track-order'
+  constructor (private readonly http: HttpClient) { }
 
-  constructor (private http: HttpClient) { }
-
-  save (params: any) {
+  save (params: string) {
     params = encodeURIComponent(params)
-    return this.http.get(this.host + '/' + params).pipe(map((response: any) => response),catchError((error) => { throw error }))
+    return this.http.get(`${this.host}/${params}`).pipe(map((response: any) => response), catchError((error) => { throw error }))
   }
-
 }

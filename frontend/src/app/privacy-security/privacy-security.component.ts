@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -25,5 +25,5 @@ export class PrivacySecurityComponent {
       map(result => result.matches)
     )
 
-  constructor (private breakpointObserver: BreakpointObserver) {}
+  constructor (private readonly breakpointObserver: BreakpointObserver) {}
 }

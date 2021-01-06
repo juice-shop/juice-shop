@@ -1,14 +1,14 @@
 /*
-* Copyright (c) 2014-2020 Bjoern Kimminich.
-* SPDX-License-Identifier: MIT
-*/
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
 
 import { TranslateModule } from '@ngx-translate/core'
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog'
 import { UserService } from '../Services/user.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatDividerModule } from '@angular/material/divider'
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { FeedbackDetailsComponent } from './feedback-details.component'
 
@@ -16,7 +16,7 @@ describe('FeedbackDetailsComponent', () => {
   let component: FeedbackDetailsComponent
   let fixture: ComponentFixture<FeedbackDetailsComponent>
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -24,14 +24,14 @@ describe('FeedbackDetailsComponent', () => {
         MatDividerModule,
         MatDialogModule
       ],
-      declarations: [ FeedbackDetailsComponent ],
+      declarations: [FeedbackDetailsComponent],
       providers: [
         UserService,
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: { productData: {} } }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

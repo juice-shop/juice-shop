@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -23,12 +23,11 @@ dom.watch()
   styleUrls: ['./product-review-edit.component.scss']
 })
 export class ProductReviewEditComponent implements OnInit {
-
-  public editReviewControl: FormControl = new FormControl('',[ Validators.required, Validators.minLength(1), Validators.maxLength(160)])
+  public editReviewControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(160)])
   public error: string | null = null
 
-  constructor (@Inject(MAT_DIALOG_DATA) public data: { reviewData: Review }, private productReviewService: ProductReviewService, private dialogRef: MatDialogRef<ProductReviewEditComponent>,
-    private snackBar: MatSnackBar, private snackBarHelperService: SnackBarHelperService) { }
+  constructor (@Inject(MAT_DIALOG_DATA) public data: { reviewData: Review }, private readonly productReviewService: ProductReviewService, private readonly dialogRef: MatDialogRef<ProductReviewEditComponent>,
+    private readonly snackBar: MatSnackBar, private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
     this.editReviewControl.setValue(this.data.reviewData.message)
@@ -37,7 +36,7 @@ export class ProductReviewEditComponent implements OnInit {
   editReview () {
     this.productReviewService.patch({ id: this.data.reviewData._id, message: this.editReviewControl.value }).subscribe(() => {
       this.dialogRef.close()
-    },(err) => {
+    }, (err) => {
       console.log(err)
       this.error = err
     })

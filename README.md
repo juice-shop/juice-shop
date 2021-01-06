@@ -6,8 +6,7 @@
 [![Subreddit subscribers](https://img.shields.io/reddit/subreddit-subscribers/owasp_juiceshop?style=social)](https://reddit.com/r/owasp_juiceshop)
 
 
-[![Build Status](https://travis-ci.org/bkimminich/juice-shop.svg?branch=master)](https://travis-ci.org/bkimminich/juice-shop)
-[![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/bkimminich/juice-shop.svg)](https://cloud.docker.com/repository/docker/bkimminich/juice-shop/builds)
+![CI/CD Pipeline](https://github.com/bkimminich/juice-shop/workflows/CI/CD%20Pipeline/badge.svg?branch=master)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/f6959582d3acc8bc2607/test_coverage)](https://codeclimate.com/github/bkimminich/juice-shop/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f6959582d3acc8bc2607/maintainability)](https://codeclimate.com/github/bkimminich/juice-shop/maintainability)
 [![Code Climate technical debt](https://img.shields.io/codeclimate/tech-debt/bkimminich/juice-shop)](https://codeclimate.com/github/bkimminich/juice-shop/trends/technical_debt)
@@ -218,15 +217,15 @@ OWASP Juice Shop officially supports the following versions of
 possible. Docker images and packaged distributions are offered
 accordingly.
 
-| node.js | Supported            | Tested             | [Packaged Distributions](#packaged-distributions)      | [Docker images](#docker-container) from `master` | [Docker images](#docker-container) from `develop` |
-|:--------|:---------------------|:-------------------|:-------------------------------------------------------|:-------------------------------------------------|:--------------------------------------------------|
-| 15.x    | :x:                  | :x:                |                                                        |                                                  |                                                   |
-| 14.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`, `arm64`) |                                                  |                                                   |
-| 13.x    | (:heavy_check_mark:) | :x:                |                                                        |                                                  |                                                   |
-| 12.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`, `arm64`) | `latest` (`linux/amd64`, `linux/arm`)            | `snapshot` (`linux/amd64`)                        |
-| 11.x    | (:heavy_check_mark:) | :x:                |                                                        |                                                  |                                                   |
-| 10.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`, `arm64`) |                                                  |                                                   |
-| <10.x   | :x:                  | :x:                |                                                        |                                                  |                                                   |
+| node.js | Supported            | Tested             | [Packaged Distributions](#packaged-distributions) | [Docker images](#docker-container) from `master`        | [Docker images](#docker-container) from `develop`         |
+|:--------|:---------------------|:-------------------|:--------------------------------------------------|:--------------------------------------------------------|:----------------------------------------------------------|
+| 15.x    | :x:                  | :x:                |                                                   |                                                         |                                                           |
+| 14.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                         |                                                           |
+| 13.x    | (:heavy_check_mark:) | :x:                |                                                   |                                                         |                                                           |
+| 12.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     | `latest` (`linux/amd64`, `linux/arm/v7`, `linux/arm64`) | `snapshot` (`linux/amd64`, `linux/arm/v7`, `linux/arm64`) |
+| 11.x    | (:heavy_check_mark:) | :x:                |                                                   |                                                         |                                                           |
+| 10.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                         |                                                           |
+| <10.x   | :x:                  | :x:                |                                                   |                                                         |                                                           |
 
 Juice Shop is automatically tested _only on the latest `.x` minor
 version_ of each node.js version mentioned above! There is no guarantee
@@ -349,6 +348,6 @@ For a list of all contributors to the OWASP Juice Shop please visit our
 
 This program is free software: you can redistribute it and/or modify it
 under the terms of the [MIT license](LICENSE). OWASP Juice Shop and any
-contributions are Copyright © by Bjoern Kimminich 2014-2020.
+contributions are Copyright © by Bjoern Kimminich 2014-2021.
 
 ![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_400px.png)

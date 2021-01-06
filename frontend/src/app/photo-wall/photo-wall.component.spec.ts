@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatDividerModule } from '@angular/material/divider'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatCardModule } from '@angular/material/card'
@@ -25,7 +25,7 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatInputModule } from '@angular/material/input'
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatSnackBar } from '@angular/material/snack-bar'
 import { EventEmitter } from '@angular/core'
 
 describe('PhotoWallComponent', () => {
@@ -36,9 +36,8 @@ describe('PhotoWallComponent', () => {
   let snackBar: any
   let translateService
 
-  beforeEach(async(() => {
-
-    configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
+  beforeEach(waitForAsync(() => {
+    configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
     photoWallService = jasmine.createSpyObj('PhotoWallService', ['get', 'addMemory'])
     photoWallService.get.and.returnValue(of([]))
@@ -48,10 +47,10 @@ describe('PhotoWallComponent', () => {
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
-    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
+    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
-      declarations: [ PhotoWallComponent ],
+      declarations: [PhotoWallComponent],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
@@ -78,7 +77,7 @@ describe('PhotoWallComponent', () => {
         { provide: MatSnackBar, useValue: snackBar }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -123,8 +122,8 @@ describe('PhotoWallComponent', () => {
 
   it('should add new memory to photo wall', () => {
     photoWallService.addMemory.and.returnValue(of({}))
-    spyOn(component,'ngOnInit')
-    spyOn(component,'resetForm')
+    spyOn(component, 'ngOnInit')
+    spyOn(component, 'resetForm')
     component.save()
     expect(component.ngOnInit).toHaveBeenCalled()
     expect(component.resetForm).toHaveBeenCalled()
