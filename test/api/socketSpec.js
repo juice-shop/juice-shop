@@ -3,11 +3,10 @@
  * SPDX-License-Identifier: MIT
  */
 
- import {io} from "socket.io-client";
-
+const io = require('socket.io-client')
 
 describe('WebSocket', () => {
-  const socket = io()
+  let socket
 
   beforeEach(done => {
     socket = io('http://localhost:3000', {
