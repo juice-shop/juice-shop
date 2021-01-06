@@ -248,8 +248,9 @@ products:
     name: 'Juice Shop Artwork'
     description: 'Unique masterpiece painted with different kinds of juice on 90g/m² lined paper.'
     price: 278.74
-    quantity: 1
+    quantity: 0
     image: artwork.jpg
+    deletedDate: '2020-12-24'
   -
     name: 'Global OWASP WASPY Award 2017 Nomination'
     description: 'Your chance to nominate up to three quiet pillars of the OWASP community ends 2017-06-30! <a href="https://www.owasp.org/index.php/WASPY_Awards_2017">Nominate now!</a>'
@@ -335,6 +336,7 @@ products:
     description: 'Common rarity "Juice Shop" card for the <a href="https://docs.google.com/forms/d/e/1FAIpQLSecLEakawSQ56lBe2JOSbFwFYrKDCIN7Yd3iHFdQc5z8ApwdQ/viewform">Adversary Trading Cards</a> CCG.'
     price: 2.99
     deluxePrice: 0.99
+    deletedDate: '2020-11-30'
     limitPerUser: 5
     image: ccg_common.png
     reviews:
@@ -344,6 +346,7 @@ products:
     description: 'Super rare "Juice Shop" card with holographic foil-coating for the <a href="https://docs.google.com/forms/d/e/1FAIpQLSecLEakawSQ56lBe2JOSbFwFYrKDCIN7Yd3iHFdQc5z8ApwdQ/viewform">Adversary Trading Cards</a> CCG.'
     price: 99.99
     deluxePrice: 69.99
+    deletedDate: '2020-11-30'
     quantity: 2
     limitPerUser: 1
     image: ccg_foil.png
@@ -358,6 +361,15 @@ products:
     image: permafrost.jpg
     reviews:
       - { text: "🧊 Let it go, let it go 🎶 Can't hold it back anymore 🎶 Let it go, let it go 🎶 Turn away and slam the door ❄️", author: rapper }
+  -
+    name: 'Best Juice Shop Salesman Artwork'
+    description: 'Unique digital painting depicting Stan, our most qualified and almost profitable salesman. He made a succesful carreer in selling used ships, coffins, krypts, crosses, real estate, life insurance, restaurant supplies, voodoo enhanced asbestos and courtroom souvenirs before <em>finally</em> adding his expertise to the Juice Shop marketing team.'
+    price: 5000
+    quantity: 1
+    image: artwork2.jpg
+    reviews:
+      - { text: "I'd stand on my head to make you a deal for this piece of art.", author: stan }
+      - { text: "Just when my opinion of humans couldn't get any lower, along comes Stan...", author: bender }
 memories:
   -
     image: 'magn(et)ificent!-1571814229653.jpg'

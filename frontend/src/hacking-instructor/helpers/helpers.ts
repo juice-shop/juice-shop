@@ -1,24 +1,24 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
-export function sleep (timeInMs: number): Promise<void> {
-  return new Promise((resolved) => {
-    setTimeout(resolved, timeInMs)
+export async function sleep (timeInMs: number): Promise<void> {
+  return await new Promise((resolve) => {
+    setTimeout(resolve, timeInMs)
   })
 }
 
 export function waitForInputToHaveValue (inputSelector: string, value: string, options = { ignoreCase: true }) {
   return async () => {
-    const inputElement = document.querySelector(
+    const inputElement: HTMLInputElement = document.querySelector(
       inputSelector
-    ) as HTMLInputElement
+    )
 
     while (true) {
-      if (inputElement.value === value) {
+      if (options.ignoreCase && inputElement.value.toLowerCase() === value.toLowerCase()) {
         break
-      } else if (options.ignoreCase && inputElement.value.toLowerCase() === value.toLowerCase()) {
+      } else if (!options.ignoreCase && inputElement.value === value) {
         break
       }
       await sleep(100)
@@ -28,15 +28,34 @@ export function waitForInputToHaveValue (inputSelector: string, value: string, o
 
 export function waitForInputToNotHaveValue (inputSelector: string, value: string, options = { ignoreCase: true }) {
   return async () => {
-    const inputElement = document.querySelector(
+    const inputElement: HTMLInputElement = document.querySelector(
       inputSelector
-    ) as HTMLInputElement
+    )
 
     while (true) {
-      if (inputElement.value !== value) {
+      if (options.ignoreCase && inputElement.value.toLowerCase() !== value.toLowerCase()) {
         break
-      } else if (options.ignoreCase && inputElement.value.toLowerCase() === value.toLowerCase()) {
+      } else if (!options.ignoreCase && inputElement.value !== value) {
         break
+      }
+      await sleep(100)
+    }
+  }
+}
+
+export function waitForInputToNotHaveValueAndNotBeEmpty (inputSelector: string, value: string, options = { ignoreCase: true }) {
+  return async () => {
+    const inputElement: HTMLInputElement = document.querySelector(
+      inputSelector
+    )
+
+    while (true) {
+      if (inputElement.value !== '') {
+        if (options.ignoreCase && inputElement.value.toLowerCase() !== value.toLowerCase()) {
+          break
+        } else if (!options.ignoreCase && inputElement.value !== value) {
+          break
+        }
       }
       await sleep(100)
     }
@@ -45,9 +64,9 @@ export function waitForInputToNotHaveValue (inputSelector: string, value: string
 
 export function waitForInputToNotBeEmpty (inputSelector: string) {
   return async () => {
-    const inputElement = document.querySelector(
+    const inputElement: HTMLInputElement = document.querySelector(
       inputSelector
-    ) as HTMLInputElement
+    )
 
     while (true) {
       if (inputElement.value && inputElement.value !== '') {
@@ -62,7 +81,7 @@ export function waitForElementToGetClicked (elementSelector: string) {
   return async () => {
     const element = document.querySelector(
       elementSelector
-    ) as HTMLElement
+    )
     if (!element) {
       console.warn(`Could not find Element with selector "${elementSelector}"`)
     }
@@ -78,7 +97,7 @@ export function waitForElementsInnerHtmlToBe (elementSelector: string, value: St
     while (true) {
       const element = document.querySelector(
         elementSelector
-      ) as HTMLElement
+      )
 
       if (element && element.innerHTML === value) {
         break
@@ -89,10 +108,10 @@ export function waitForElementsInnerHtmlToBe (elementSelector: string, value: St
 }
 
 export function waitInMs (timeInMs: number) {
-  return () => sleep(timeInMs)
+  return async () => await sleep(timeInMs)
 }
 
-export function waitForAngularRouteToBeVisited (route: String) {
+export function waitForAngularRouteToBeVisited (route: string) {
   return async () => {
     while (true) {
       if (window.location.hash === `#/${route}`) {
@@ -141,6 +160,7 @@ export function waitForDevTools () {
   return async () => {
     while (true) {
       console.dir(element)
+      console.clear()
       if (checkStatus) {
         break
       }

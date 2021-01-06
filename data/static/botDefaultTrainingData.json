@@ -162,6 +162,29 @@
       ]
     },
     {
+      "intent": "queries.singstar",
+      "utterances": [
+        "Can you sing me a song",
+        "Does your shop have a theme song",
+        "Do you have a jingle",
+        "Play me some music"
+      ],
+      "answers": [
+        {
+          "action": "response",
+          "body": "I can't sing too well, but you might want to check out our promotion video instead!"
+        },
+        {
+          "action": "response",
+          "body": "The full version of our jingle is available on Soundcloud! Please click \uD83E\uDDE1 if you like it!"
+        },
+        {
+          "action": "response",
+          "body": "Juuuuice shop, Juuu-uuuice Shop, just don't test the site with Bob's sweet or you hm-hm-hm-hmmmmm..."
+        }
+      ]
+    },
+    {
       "intent": "queries.functionTest",
       "utterances": [
         "function test command b8a8ba1ecea1607e1713e31a3d9e5e19"

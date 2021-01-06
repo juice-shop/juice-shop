@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -25,25 +25,24 @@ dom.watch()
   styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
-
   public author: string = 'Anonymous'
   public reviews$: any
   public userSubscription: any
-  public reviewControl: FormControl = new FormControl('',[Validators.maxLength(160)])
-  constructor (private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: { productData: Product}, private productReviewService: ProductReviewService,
-    private userService: UserService, private snackBar: MatSnackBar, private snackBarHelperService: SnackBarHelperService) { }
+  public reviewControl: FormControl = new FormControl('', [Validators.maxLength(160)])
+  constructor (private readonly dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: { productData: Product}, private readonly productReviewService: ProductReviewService,
+    private readonly userService: UserService, private readonly snackBar: MatSnackBar, private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
     this.data.productData.points = Math.round(this.data.productData.price / 10)
     this.reviews$ = this.productReviewService.get(this.data.productData.id)
     this.userSubscription = this.userService.whoAmI().subscribe((user: any) => {
-      if (user && user.email) {
+      if (user?.email) {
         this.author = user.email
       } else {
         this.author = 'Anonymous'
       }
-    },(err) => console.log(err))
+    }, (err) => console.log(err))
   }
 
   ngOnDestroy () {
@@ -53,13 +52,12 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
   addReview (textPut: HTMLTextAreaElement) {
-
     const review = { message: textPut.value, author: this.author }
 
     textPut.value = ''
     this.productReviewService.create(this.data.productData.id, review).subscribe(() => {
       this.reviews$ = this.productReviewService.get(this.data.productData.id)
-    },(err) => console.log(err))
+    }, (err) => console.log(err))
     this.snackBarHelperService.open('CONFIRM_REVIEW_SAVED')
   }
 
@@ -68,16 +66,16 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       width: '500px',
       height: 'max-content',
       data: {
-        reviewData : review
+        reviewData: review
       }
-    }).afterClosed().subscribe(() => this.reviews$ = this.productReviewService.get(this.data.productData.id))
+    }).afterClosed().subscribe(() => (this.reviews$ = this.productReviewService.get(this.data.productData.id)))
   }
 
   likeReview (review: Review) {
     this.productReviewService.like(review._id).subscribe(() => {
       console.log('Liked ' + review._id)
     })
-    setTimeout(() => this.reviews$ = this.productReviewService.get(this.data.productData.id), 200)
+    setTimeout(() => (this.reviews$ = this.productReviewService.get(this.data.productData.id)), 200)
   }
 
   isLoggedIn () {

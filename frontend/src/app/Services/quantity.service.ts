@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -12,17 +12,16 @@ import { catchError, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class QuantityService {
-  private hostServer = environment.hostServer
-  private host = this.hostServer + '/api/Quantitys'
+  private readonly hostServer = environment.hostServer
+  private readonly host = this.hostServer + '/api/Quantitys'
 
-  constructor (private http: HttpClient) { }
+  constructor (private readonly http: HttpClient) { }
 
   getAll () {
     return this.http.get(this.host + '/').pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
-  put (id, params) {
-    return this.http.put(this.host + '/' + id, params).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
+  put (id: number, params) {
+    return this.http.put(`${this.host}/${id}`, params).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
-
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -7,7 +7,7 @@ import {
   waitForInputToHaveValue,
   waitForElementToGetClicked,
   waitInMs,
-  waitForAngularRouteToBeVisited, waitForLogOut, waitForInputToNotHaveValue
+  waitForAngularRouteToBeVisited, waitForLogOut, waitForInputToNotHaveValueAndNotBeEmpty
 } from '../helpers/helpers'
 import { ChallengeInstruction } from '../'
 
@@ -25,6 +25,7 @@ export const LoginBenderInstruction: ChallengeInstruction = {
       text:
         "Let's try if we find a way to log in with Bender's user account. To begin, go to the _Login_ page via the _Account_ menu.",
       fixture: 'app-navbar',
+      fixtureAfter: true,
       unskippable: true,
       resolved: waitForAngularRouteToBeVisited('login')
     },
@@ -50,6 +51,7 @@ export const LoginBenderInstruction: ChallengeInstruction = {
       text:
         'Go to the _About Us_ page where user feedback is displayed among other things.',
       fixture: 'app-navbar',
+      fixtureAfter: true,
       resolved: waitForAngularRouteToBeVisited('about')
     },
     {
@@ -69,7 +71,7 @@ export const LoginBenderInstruction: ChallengeInstruction = {
       text: "Now put anything in the **password field**. Let's assume we don't know it yet, even if you happen to already do.",
       fixture: '#password',
       unskippable: true,
-      resolved: waitForInputToNotHaveValue('#password', 'OhG0dPlease1nsertLiquor!')
+      resolved: waitForInputToNotHaveValueAndNotBeEmpty('#password', 'OhG0dPlease1nsertLiquor!')
     },
     {
       text: 'Press the _Log in_ button.',

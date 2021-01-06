@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
 import { ChallengeService } from '../Services/challenge.service'
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { SocketIoService } from '../Services/socket-io.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
@@ -33,26 +33,24 @@ describe('SidenavComponent', () => {
   let challengeService: any
   let cookieService: any
   let configurationService: any
-  let translateService: any
   let mockSocket: any
   let socketIoService: any
   let loginGuard
 
-  beforeEach(async(() => {
-
-    configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
+  beforeEach(waitForAsync(() => {
+    configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { welcomeBanner: {} }, hackingInstructor: {} }))
-    challengeService = jasmine.createSpyObj('ChallengeService',['find'])
+    challengeService = jasmine.createSpyObj('ChallengeService', ['find'])
     challengeService.find.and.returnValue(of([{ solved: false }]))
-    cookieService = jasmine.createSpyObj('CookieService',['delete', 'get', 'set'])
+    cookieService = jasmine.createSpyObj('CookieService', ['delete', 'get', 'set'])
     mockSocket = new MockSocket()
     socketIoService = jasmine.createSpyObj('SocketIoService', ['socket'])
     socketIoService.socket.and.returnValue(mockSocket)
-    loginGuard = jasmine.createSpyObj('LoginGuard',['tokenDecode'])
+    loginGuard = jasmine.createSpyObj('LoginGuard', ['tokenDecode'])
     loginGuard.tokenDecode.and.returnValue(of(true))
 
     TestBed.configureTestingModule({
-      declarations: [ SidenavComponent ],
+      declarations: [SidenavComponent],
       imports: [
         HttpClientModule,
         TranslateModule.forRoot(),
@@ -73,9 +71,8 @@ describe('SidenavComponent', () => {
         TranslateService
       ]
     })
-    .compileComponents()
-
-    translateService = TestBed.inject(TranslateService)
+      .compileComponents()
+    TestBed.inject(TranslateService)
   }))
 
   beforeEach(() => {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -42,7 +42,6 @@ interface TableEntry {
   styleUrls: ['./search-result.component.scss']
 })
 export class SearchResultComponent implements OnDestroy, AfterViewInit {
-
   public displayedColumns = ['Image', 'Product', 'Description', 'Price', 'Select']
   public tableData!: any[]
   public pageSizeOptions: number[] = []
@@ -51,21 +50,21 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
   public searchValue?: SafeHtml
   public resultsLength = 0
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | null = null
-  private productSubscription?: Subscription
+  private readonly productSubscription?: Subscription
   private routerSubscription?: Subscription
   public breakpoint: number = 6
   public emptyState = false
 
-  constructor (private deluxeGuard: DeluxeGuard, private dialog: MatDialog, private productService: ProductService,
-   private quantityService: QuantityService, private basketService: BasketService, private translateService: TranslateService,
-   private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService,
-   private snackBarHelperService: SnackBarHelperService, private cdRef: ChangeDetectorRef) { }
+  constructor (private readonly deluxeGuard: DeluxeGuard, private readonly dialog: MatDialog, private readonly productService: ProductService,
+    private readonly quantityService: QuantityService, private readonly basketService: BasketService, private readonly translateService: TranslateService,
+    private readonly router: Router, private readonly route: ActivatedRoute, private readonly sanitizer: DomSanitizer, private readonly ngZone: NgZone, private readonly io: SocketIoService,
+    private readonly snackBarHelperService: SnackBarHelperService, private readonly cdRef: ChangeDetectorRef) { }
 
   ngAfterViewInit () {
     const products = this.productService.search('')
     const quantities = this.quantityService.getAll()
     forkJoin([quantities, products]).subscribe(([quantities, products]) => {
-      let dataTable: TableEntry[] = []
+      const dataTable: TableEntry[] = []
       this.tableData = products
       this.trustProductDescription(products)
       for (const product of products) {
@@ -99,7 +98,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
       this.routerSubscription = this.router.events.subscribe(() => {
         this.filterTable()
       })
-      let challenge: string = this.route.snapshot.queryParams.challenge
+      const challenge: string = this.route.snapshot.queryParams.challenge
       if (challenge && this.route.snapshot.url.join('').match(/hacking-instructor/)) {
         this.startHackingInstructor(decodeURIComponent(challenge))
       }
@@ -156,7 +155,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
     }
   }
 
-  startHackingInstructor (challengeName: String) {
+  startHackingInstructor (challengeName: string) {
     console.log(`Starting instructions for challenge "${challengeName}"`)
     import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
       module.startHackingInstructorFor(challengeName)
@@ -175,25 +174,26 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
 
   addToBasket (id?: number) {
     this.basketService.find(Number(sessionStorage.getItem('bid'))).subscribe((basket) => {
-      let productsInBasket: any = basket.Products
+      const productsInBasket: any = basket.Products
       let found = false
       for (let i = 0; i < productsInBasket.length; i++) {
         if (productsInBasket[i].id === id) {
           found = true
           this.basketService.get(productsInBasket[i].BasketItem.id).subscribe((existingBasketItem) => {
-            let newQuantity = existingBasketItem.quantity + 1
+            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+            const newQuantity = existingBasketItem.quantity + 1
             this.basketService.put(existingBasketItem.id, { quantity: newQuantity }).subscribe((updatedBasketItem) => {
               this.productService.get(updatedBasketItem.ProductId).subscribe((product) => {
                 this.translateService.get('BASKET_ADD_SAME_PRODUCT', { product: product.name }).subscribe((basketAddSameProduct) => {
-                  this.snackBarHelperService.open(basketAddSameProduct,'confirmBar')
-                  this.basketService.updateNumberOfCardItems()
+                  this.snackBarHelperService.open(basketAddSameProduct, 'confirmBar')
+                  this.basketService.updateNumberOfCartItems()
                 }, (translationId) => {
-                  this.snackBarHelperService.open(translationId,'confirmBar')
-                  this.basketService.updateNumberOfCardItems()
+                  this.snackBarHelperService.open(translationId, 'confirmBar')
+                  this.basketService.updateNumberOfCartItems()
                 })
               }, (err) => console.log(err))
-            },(err) => {
-              this.snackBarHelperService.open(err.error?.error,'errorBar')
+            }, (err) => {
+              this.snackBarHelperService.open(err.error?.error, 'errorBar')
               console.log(err)
             })
           }, (err) => console.log(err))
@@ -204,15 +204,15 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
         this.basketService.save({ ProductId: id, BasketId: sessionStorage.getItem('bid'), quantity: 1 }).subscribe((newBasketItem) => {
           this.productService.get(newBasketItem.ProductId).subscribe((product) => {
             this.translateService.get('BASKET_ADD_PRODUCT', { product: product.name }).subscribe((basketAddProduct) => {
-              this.snackBarHelperService.open(basketAddProduct,'confirmBar')
-              this.basketService.updateNumberOfCardItems()
+              this.snackBarHelperService.open(basketAddProduct, 'confirmBar')
+              this.basketService.updateNumberOfCartItems()
             }, (translationId) => {
-              this.snackBarHelperService.open(translationId,'confirmBar')
-              this.basketService.updateNumberOfCardItems()
+              this.snackBarHelperService.open(translationId, 'confirmBar')
+              this.basketService.updateNumberOfCartItems()
             })
           }, (err) => console.log(err))
         }, (err) => {
-          this.snackBarHelperService.open(err.error?.error,'errorBar')
+          this.snackBarHelperService.open(err.error?.error, 'errorBar')
           console.log(err)
         })
       }

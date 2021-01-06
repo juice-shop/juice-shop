@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -33,17 +33,15 @@ describe('DeluxeUserComponent', () => {
   let fixture: ComponentFixture<DeluxeUserComponent>
   let userService
   let cookieService: any
-  let location: Location
 
-  beforeEach(async(() => {
-
-    userService = jasmine.createSpyObj('UserService',['deluxeStatus', 'upgradeToDeluxe', 'saveLastLoginIp'])
+  beforeEach(waitForAsync(() => {
+    userService = jasmine.createSpyObj('UserService', ['deluxeStatus', 'upgradeToDeluxe', 'saveLastLoginIp'])
     userService.deluxeStatus.and.returnValue(of({}))
     userService.upgradeToDeluxe.and.returnValue(of({}))
     userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn', ['next'])
     userService.isLoggedIn.next.and.returnValue({})
     userService.saveLastLoginIp.and.returnValue(of({}))
-    cookieService = jasmine.createSpyObj('CookieService',['delete'])
+    cookieService = jasmine.createSpyObj('CookieService', ['delete'])
 
     TestBed.configureTestingModule({
       imports: [
@@ -67,15 +65,14 @@ describe('DeluxeUserComponent', () => {
         MatCheckboxModule,
         MatTooltipModule
       ],
-      declarations: [ DeluxeUserComponent, LoginComponent ],
+      declarations: [DeluxeUserComponent, LoginComponent],
       providers: [
         { provide: UserService, useValue: userService },
         { provide: CookieService, useValue: cookieService }
       ]
     })
-    .compileComponents()
-
-    location = TestBed.inject(Location)
+      .compileComponents()
+    TestBed.inject(Location)
   }))
 
   beforeEach(() => {
@@ -95,5 +92,4 @@ describe('DeluxeUserComponent', () => {
   })
 
   // TODO Add test that checks if websocket gets notified as expected
-
 })

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -286,11 +286,9 @@ export function HttpLoaderFactory (http: HttpClient) {
 })
 
 export class AppModule {
-
-  constructor (configurationService: ConfigurationService, overlayContainer: OverlayContainer) {
+  constructor (public configurationService: ConfigurationService, public overlayContainer: OverlayContainer) {
     configurationService.getApplicationConfiguration().subscribe((conf) => {
       overlayContainer.getContainerElement().classList.add(conf.application.theme + '-theme')
     })
   }
-
 }

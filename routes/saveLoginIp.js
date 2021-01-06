@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -11,9 +11,9 @@ const challenges = cache.challenges
 
 module.exports = function saveLoginIp () {
   return (req, res, next) => {
-    var loggedInUser = insecurity.authenticatedUsers.from(req)
+    const loggedInUser = insecurity.authenticatedUsers.from(req)
     if (loggedInUser !== undefined) {
-      var lastLoginIp = req.headers['true-client-ip']
+      let lastLoginIp = req.headers['true-client-ip']
       if (!utils.disableOnContainerEnv()) {
         utils.solveIf(challenges.httpHeaderXssChallenge, () => { return lastLoginIp === '<iframe src="javascript:alert(`xss`)">' })
       } else {

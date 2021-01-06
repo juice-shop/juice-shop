@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -30,8 +30,7 @@ interface TwoFactorAuthStatusPayload {
   providedIn: 'root'
 })
 export class TwoFactorAuthService {
-
-  constructor (private http: HttpClient) {}
+  constructor (private readonly http: HttpClient) {}
 
   verify (totpToken: String): Observable<AuthenticationPayload> {
     return this.http.post<TwoFactorVerifyResponse>(`${environment.hostServer}/rest/2fa/verify`, {

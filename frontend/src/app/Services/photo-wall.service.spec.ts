@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -22,7 +22,7 @@ describe('PhotoWallService', () => {
   it('should get memories directly from the api', inject([PhotoWallService, HttpTestingController],
     fakeAsync((service: PhotoWallService, httpMock: HttpTestingController) => {
       let res
-      service.get().subscribe((data) => res = data)
+      service.get().subscribe((data) => (res = data))
       const req = httpMock.expectOne('http://localhost:3000/rest/memories/')
       req.flush({ data: 'apiResponse' })
       tick()
@@ -35,7 +35,7 @@ describe('PhotoWallService', () => {
   it('should create memories directly from the api', inject([PhotoWallService, HttpTestingController],
     fakeAsync((service: PhotoWallService, httpMock: HttpTestingController) => {
       let res
-      service.addMemory('str', new File([''], 'image')).subscribe((data) => res = data)
+      service.addMemory('str', new File([''], 'image')).subscribe((data) => (res = data))
       const req = httpMock.expectOne('http://localhost:3000/rest/memories')
       req.flush({ data: 'apiResponse' })
       tick()

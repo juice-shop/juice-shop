@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -98,11 +98,10 @@ interface Config {
   providedIn: 'root'
 })
 export class ConfigurationService {
-
-  private hostServer = environment.hostServer
-  private host = this.hostServer + '/rest/admin'
+  private readonly hostServer = environment.hostServer
+  private readonly host = this.hostServer + '/rest/admin'
   private configObservable: any
-  constructor (private http: HttpClient) { }
+  constructor (private readonly http: HttpClient) { }
 
   getApplicationConfiguration (): Observable<Config> {
     if (this.configObservable) {

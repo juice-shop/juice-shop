@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -40,7 +40,6 @@ dom.watch()
   styleUrls: ['./payment.component.scss']
 })
 export class PaymentComponent implements OnInit {
-
   public couponConfirmation: any
   public couponError: any
   public card: any = {}
@@ -48,7 +47,7 @@ export class PaymentComponent implements OnInit {
   public facebookUrl = null
   public applicationName = 'OWASP Juice Shop'
   private campaignCoupon: string
-  public couponControl: FormControl = new FormControl('',[Validators.required, Validators.minLength(10), Validators.maxLength(10)])
+  public couponControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)])
   public clientDate: any
   public paymentId: any = undefined
   public couponPanelExpanded: boolean = false
@@ -58,7 +57,7 @@ export class PaymentComponent implements OnInit {
   public walletBalanceStr: string
   public totalPrice: any = 0
   public paymentMode: string = 'card'
-  private campaigns = {
+  private readonly campaigns = {
     WMNSDY2019: { validOn: 1551999600000, discount: 75 },
     WMNSDY2020: { validOn: 1583622000000, discount: 60 },
     WMNSDY2021: { validOn: 1615158000000, discount: 60 },
@@ -70,24 +69,24 @@ export class PaymentComponent implements OnInit {
     ORANGE2023: { validOn: 1683154800000, discount: 40 }
   }
 
-  constructor (private location: Location, private cookieService: CookieService,
-    private userService: UserService, private deliveryService: DeliveryService, private walletService: WalletService,
-    private router: Router, private dialog: MatDialog, private configurationService: ConfigurationService,
-    private basketService: BasketService, private translate: TranslateService,
-    private activatedRoute: ActivatedRoute, private ngZone: NgZone,
-    private snackBarHelperService: SnackBarHelperService) { }
+  constructor (private readonly location: Location, private readonly cookieService: CookieService,
+    private readonly userService: UserService, private readonly deliveryService: DeliveryService, private readonly walletService: WalletService,
+    private readonly router: Router, private readonly dialog: MatDialog, private readonly configurationService: ConfigurationService,
+    private readonly basketService: BasketService, private readonly translate: TranslateService,
+    private readonly activatedRoute: ActivatedRoute, private readonly ngZone: NgZone,
+    private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
     this.initTotal()
     this.walletService.get().subscribe((balance) => {
       this.walletBalance = balance
       this.walletBalanceStr = parseFloat(balance).toFixed(2)
-    },(err) => console.log(err))
+    }, (err) => console.log(err))
     this.couponPanelExpanded = localStorage.getItem('couponPanelExpanded') ? JSON.parse(localStorage.getItem('couponPanelExpanded')) : false
     this.paymentPanelExpanded = localStorage.getItem('paymentPanelExpanded') ? JSON.parse(localStorage.getItem('paymentPanelExpanded')) : false
 
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      if (config && config.application && config.application.social) {
+      if (config?.application?.social) {
         if (config.application.social.twitterUrl) {
           this.twitterUrl = config.application.social.twitterUrl
         }
@@ -98,7 +97,7 @@ export class PaymentComponent implements OnInit {
           this.applicationName = config.application.name
         }
       }
-    },(err) => console.log(err))
+    }, (err) => console.log(err))
   }
 
   initTotal () {
@@ -118,16 +117,18 @@ export class PaymentComponent implements OnInit {
           this.totalPrice = itemTotal + deliveryPrice - promotionalDiscount
         })
       }
-    },(err) => console.log(err))
+    }, (err) => console.log(err))
   }
 
   applyCoupon () {
     this.campaignCoupon = this.couponControl.value
     this.clientDate = new Date()
+    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
     const offsetTimeZone = (this.clientDate.getTimezoneOffset() + 60) * 60 * 1000
-    this.clientDate.setHours(0,0,0,0)
+    this.clientDate.setHours(0, 0, 0, 0)
     this.clientDate = this.clientDate.getTime() - offsetTimeZone
-    sessionStorage.setItem('couponDetails', this.campaignCoupon + '-' + this.clientDate)
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    sessionStorage.setItem('couponDetails', `${this.campaignCoupon}-${this.clientDate}`)
     const campaign = this.campaigns[this.couponControl.value]
     if (campaign) {
       if (this.clientDate === campaign.validOn) {
@@ -144,7 +145,7 @@ export class PaymentComponent implements OnInit {
     } else {
       this.basketService.applyCoupon(Number(sessionStorage.getItem('bid')), encodeURIComponent(this.couponControl.value)).subscribe((discount: any) => {
         this.showConfirmation(discount)
-      },(err) => {
+      }, (err) => {
         this.couponConfirmation = undefined
         this.couponError = err
         this.resetCouponForm()
@@ -178,9 +179,9 @@ export class PaymentComponent implements OnInit {
     if (this.mode === 'wallet') {
       this.walletService.put({ balance: this.totalPrice }).subscribe(() => {
         sessionStorage.removeItem('walletTotal')
-        this.ngZone.run(() => this.router.navigate(['/wallet']))
+        this.ngZone.run(async () => await this.router.navigate(['/wallet']))
         this.snackBarHelperService.open('CHARGED_WALLET', 'confirmBar')
-      },(err) => {
+      }, (err) => {
         console.log(err)
         this.snackBarHelperService.open(err.error?.error, 'errorBar')
       })
@@ -188,7 +189,7 @@ export class PaymentComponent implements OnInit {
       this.userService.upgradeToDeluxe(this.paymentMode, this.paymentId).subscribe((data) => {
         localStorage.setItem('token', data.token)
         this.cookieService.set('token', data.token)
-        this.ngZone.run(() => this.router.navigate(['/deluxe-membership']))
+        this.ngZone.run(async () => await this.router.navigate(['/deluxe-membership']))
       }, (err) => console.log(err))
     } else {
       if (this.paymentMode === 'wallet') {
@@ -200,11 +201,11 @@ export class PaymentComponent implements OnInit {
       } else {
         sessionStorage.setItem('paymentId', this.paymentId)
       }
-      this.ngZone.run(() => this.router.navigate(['/order-summary']))
+      this.ngZone.run(async () => await this.router.navigate(['/order-summary']))
     }
   }
 
-  // tslint:disable-next-line:no-empty
+  // eslint-disable-next-line no-empty,@typescript-eslint/no-empty-function
   noop () { }
 
   showBitcoinQrCode () {

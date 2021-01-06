@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { QRCodeModule } from 'anuglar2-qrcode'
 import { TranslateModule } from '@ngx-translate/core'
 import { QrCodeComponent } from './qr-code.component'
@@ -15,7 +15,7 @@ describe('QrCodeComponent', () => {
   let component: QrCodeComponent
   let fixture: ComponentFixture<QrCodeComponent>
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -24,12 +24,12 @@ describe('QrCodeComponent', () => {
         MatButtonModule,
         MatDialogModule
       ],
-      declarations: [ QrCodeComponent ],
+      declarations: [QrCodeComponent],
       providers: [
-         { provide: MAT_DIALOG_DATA, useValue: { data: 'data', url: 'url', address: 'address', title: 'title' } }
+        { provide: MAT_DIALOG_DATA, useValue: { data: 'data', url: 'url', address: 'address', title: 'title' } }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

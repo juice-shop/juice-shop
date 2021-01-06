@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -10,8 +10,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { SnackBarHelperService } from './snack-bar-helper.service'
 
 describe('SnackBarHelperService', () => {
-  let translateService
-
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -15,9 +15,8 @@ import * as jwtDecode from 'jwt-decode'
 })
 
 export class LastLoginIpComponent {
-
   lastLoginIp: any = '?'
-  constructor (private sanitizer: DomSanitizer) {}
+  constructor (private readonly sanitizer: DomSanitizer) {}
 
   ngOnInit () {
     try {
@@ -33,9 +32,9 @@ export class LastLoginIpComponent {
     if (token) {
       payload = jwtDecode(token)
       if (payload.data.lastLoginIp) {
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         this.lastLoginIp = this.sanitizer.bypassSecurityTrustHtml(`<small>${payload.data.lastLoginIp}</small>`)
       }
     }
   }
-
 }

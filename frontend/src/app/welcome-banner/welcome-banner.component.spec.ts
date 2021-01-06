@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { CookieService } from 'ngx-cookie-service'
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { WelcomeBannerComponent } from './welcome-banner.component'
 import { MatDialogRef } from '@angular/material/dialog'
@@ -20,7 +20,7 @@ describe('WelcomeBannerComponent', () => {
   let cookieService: any
   let matDialogRef: MatDialogRef<WelcomeBannerComponent>
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     matDialogRef = jasmine.createSpyObj('MatDialogRef', ['close'])
     TestBed.configureTestingModule({
       imports: [
@@ -31,11 +31,11 @@ describe('WelcomeBannerComponent', () => {
       ],
       declarations: [WelcomeBannerComponent],
       providers: [
-       { provide: MatDialogRef, useValue: matDialogRef },
+        { provide: MatDialogRef, useValue: matDialogRef },
         CookieService
       ]
     })
-    .compileComponents()
+      .compileComponents()
 
     cookieService = TestBed.inject(CookieService)
   }))
