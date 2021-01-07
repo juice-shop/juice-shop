@@ -5,7 +5,7 @@
 
 <div class="container challenge-solved-toast mat-elevation-z4">
   <mat-card class="accent-notification" *ngFor="let notification of notifications; index as index">
-    <div> {{notification.message}}<span (click)="closeNotification(index, $event.shiftKey)" style="float:right;cursor:pointer">X</span></div>
+    <div> {{notification.message}}<button mat-button (click)="closeNotification(index, $event.shiftKey)" style="float:right">X</button></div>
     <br>
     <div [hidden]="!showCtfFlagsInNotifications">
       <div *ngIf="showCtfCountryDetailsInNotifications !== 'none'">
