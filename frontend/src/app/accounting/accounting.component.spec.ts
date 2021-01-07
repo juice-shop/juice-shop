@@ -22,6 +22,7 @@ import { throwError } from 'rxjs/internal/observable/throwError'
 import { OrderHistoryService } from '../Services/order-history.service'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('AccountingComponent', () => {
   let component: AccountingComponent
@@ -29,6 +30,7 @@ describe('AccountingComponent', () => {
   let productService
   let quantityService
   let orderHistoryService
+  let snackBar: any
 
   beforeEach(waitForAsync(() => {
     quantityService = jasmine.createSpyObj('QuantityService', ['getAll', 'put'])
@@ -41,6 +43,8 @@ describe('AccountingComponent', () => {
     orderHistoryService = jasmine.createSpyObj('OrderHistoryService', ['getAll', 'toggleDeliveryStatus'])
     orderHistoryService.getAll.and.returnValue(of([]))
     orderHistoryService.toggleDeliveryStatus.and.returnValue(of({}))
+    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
+    snackBar.open.and.returnValue(null)
 
     TestBed.configureTestingModule({
       declarations: [AccountingComponent],
@@ -56,12 +60,14 @@ describe('AccountingComponent', () => {
         MatGridListModule,
         MatCardModule,
         MatIconModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatSnackBarModule
       ],
       providers: [
         { provide: ProductService, useValue: productService },
         { provide: QuantityService, useValue: quantityService },
-        { provide: OrderHistoryService, useValue: orderHistoryService }
+        { provide: OrderHistoryService, useValue: orderHistoryService },
+        { provide: MatSnackBar, useValue: snackBar }
       ]
     })
       .compileComponents()
@@ -134,6 +140,7 @@ describe('AccountingComponent', () => {
     orderHistoryService.toggleDeliveryStatus.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.changeDeliveryStatus(true, 1)
+    expect(snackBar.open).toHaveBeenCalled()
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
@@ -149,8 +156,7 @@ describe('AccountingComponent', () => {
     console.log = jasmine.createSpy('log')
     component.modifyPrice(1, 100)
     fixture.detectChanges()
-    expect(component.error).toBe('Error')
-    expect(component.confirmation).toBe(null)
+    expect(snackBar.open).toHaveBeenCalled()
     expect(console.log).toHaveBeenCalledWith({ error: 'Error' })
   }))
 
@@ -159,8 +165,7 @@ describe('AccountingComponent', () => {
     console.log = jasmine.createSpy('log')
     component.modifyQuantity(1, 100)
     fixture.detectChanges()
-    expect(component.error).toBe('Error')
-    expect(component.confirmation).toBe(null)
+    expect(snackBar.open).toHaveBeenCalled()
     expect(console.log).toHaveBeenCalledWith({ error: 'Error' })
   }))
 
@@ -169,14 +174,14 @@ describe('AccountingComponent', () => {
     component.tableData = [{ id: 1, name: 'Apple Juice' }]
     component.modifyQuantity(1, 100)
     fixture.detectChanges()
-    expect(component.confirmation).toBe('Quantity for Apple Juice has been updated.')
+    expect(snackBar.open).toHaveBeenCalled()
   }))
 
   it('should show confirmation on modifying price of a product', fakeAsync(() => {
     productService.put.and.returnValue(of({ name: 'Apple Juice' }))
     component.modifyPrice(1, 100)
     fixture.detectChanges()
-    expect(component.confirmation).toBe('Price for Apple Juice has been updated.')
+    expect(snackBar.open).toHaveBeenCalled()
   }))
 
   it('should modify quantity of a product', () => {

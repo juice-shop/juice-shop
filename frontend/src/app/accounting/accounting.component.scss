@@ -3,15 +3,62 @@
  * SPDX-License-Identifier: MIT
  */
 
-.table-container {
-  min-width: 350px;
-}
+$bg-heading: rgba(0, 0, 0, .13);
 
 .heading {
-  background: rgba(0, 0, 0, .2);
-  font-size: x-large;
+  background: $bg-heading;
   justify-content: center;
-  padding: 12px 20px;
+  margin-bottom: 10px;
+  padding: 12px 12px;
+  font-size: large;
+}
+
+.container {
+  justify-content: center;
+}
+
+mat-table {
+  height: 767px;
+}
+
+mat-header-row {
+  min-height: 0px !important;
+}
+
+.orders-container,
+.inventory-container {
+  max-width: 600px;
+  min-width: 300px;
+  width: 70%;
+}
+
+.orders-table,
+.inventory-table {
+  margin-bottom: 25px;
+}
+
+mat-cell,
+mat-footer-cell,
+mat-header-cell {
+  align-items: normal;
+  display: block;
+}
+
+mat-cell:last-child,
+mat-footer-cell:last-child,
+mat-header-cell:last-child {
+  padding-right: 50px;
+}
+
+mat-row {
+  height: 69px;
+}
+
+.mat-own-card {
+  display: block;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 20px;
 }
 
 .product {
@@ -20,9 +67,4 @@
 
 .input-field {
   width: 80px;
-}
-
-.main-wrapper {
-  margin-left: 10%;
-  margin-right: 10%;
 }
