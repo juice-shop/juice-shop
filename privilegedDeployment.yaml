@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: snyk-deployment
+  labels:
+    app.kubernetes.io/name: snyk-deployment
+    helm.sh/chart: snyk-deployment-0.1.0
+    app.kubernetes.io/instance: snyk-deployment
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Tiller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: snyk-deployment
+      app.kubernetes.io/instance: snyk-deployment
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: snyk-deployment
+        app.kubernetes.io/instance: snyk-deployment
+    spec:
+      hostPID: true
+      containers:
+        - name: snyk-deployment1
+          image: "orka/snyk-deployment:latest"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 5000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+        - name: snyk-deployment2
+          image: "orka/snyk-deployment:latest"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 5000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            # limits:
+              # cpu: 100
+              # memory: 100
+          securityContext:
+            privileged: true
+            capabilities:
+              # drop:
+                # - all
+              add:
+                - CAP_SYS_ADMIN
+      volumes:
+        - name: dockersock
+          hostPath:
+            path: /var/run/docker.sock
