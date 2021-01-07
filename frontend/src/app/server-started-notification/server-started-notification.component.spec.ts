@@ -15,6 +15,7 @@ import { ChallengeService } from '../Services/challenge.service'
 import { SocketIoService } from '../Services/socket-io.service'
 import { of, throwError } from 'rxjs'
 import { EventEmitter } from '@angular/core'
+import { MatIconModule } from '@angular/material/icon'
 
 class MockSocket {
   on (str: string, callback: Function) {
@@ -48,7 +49,8 @@ describe('ServerStartedNotificationComponent', () => {
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         MatCardModule,
-        MatButtonModule
+        MatButtonModule,
+        MatIconModule
       ],
       declarations: [ServerStartedNotificationComponent],
       providers: [
