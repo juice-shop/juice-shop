@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: MIT
  */
 
-$bg-heading: rgba(0, 0, 0, .13);
+$bg-heading: rgba(0, 0, 0, 0.13);
 
 .heading {
   background: $bg-heading;
+  font-size: large;
   justify-content: center;
   margin-bottom: 10px;
-  padding: 12px 12px;
-  font-size: large;
+  padding: 12px;
 }
 
 .container {
@@ -22,7 +22,7 @@ mat-table {
 }
 
 mat-header-row {
-  min-height: 0px !important;
+  min-height: 0 !important;
 }
 
 .user-container,
@@ -50,53 +50,53 @@ mat-header-cell {
 }
 
 .mat-column-comment {
-  padding: 5px;
-  word-wrap: break-word !important;
-  white-space: unset !important;
   flex: 0 0 55% !important;
-  width: 55% !important;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-
-  word-break: break-word;
 
   -ms-hyphens: auto;
   -moz-hyphens: auto;
   -webkit-hyphens: auto;
   hyphens: auto;
+  overflow-wrap: break-word;
+  padding: 5px;
+  white-space: unset !important;
+  width: 55% !important;
+
+  word-break: break-word;
+  word-wrap: break-word !important;
+  word-wrap: break-word;
 }
 
 .mat-column-user {
-  padding: 5px;
-  word-wrap: break-word !important;
-  white-space: unset !important;
   flex: 0 0 7% !important;
-  width: 7% !important;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-
-  word-break: break-word;
 
   -ms-hyphens: auto;
   -moz-hyphens: auto;
   -webkit-hyphens: auto;
   hyphens: auto;
+  overflow-wrap: break-word;
+  padding: 5px;
+  white-space: unset !important;
+  width: 7% !important;
+
+  word-break: break-word;
+  word-wrap: break-word !important;
+  word-wrap: break-word;
 }
 
 .mat-column-rating {
-  word-wrap: break-word !important;
-  white-space: unset !important;
   flex: 0 0 20% !important;
-  width: 20% !important;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-
-  word-break: break-word;
 
   -ms-hyphens: auto;
   -moz-hyphens: auto;
   -webkit-hyphens: auto;
   hyphens: auto;
+  overflow-wrap: break-word;
+  white-space: unset !important;
+  width: 20% !important;
+
+  word-break: break-word;
+  word-wrap: break-word !important;
+  word-wrap: break-word;
 }
 
 mat-cell:last-child,
@@ -106,19 +106,19 @@ mat-header-cell:last-child {
 }
 
 mat-row {
- height: 69px;
+  height: 69px;
 }
 
 .mat-own-card {
   display: block;
+  margin-bottom: 20px;
   margin-left: 10%;
   margin-right: 10%;
-  margin-bottom: 20px;
 }
 
 p {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
   overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
 }
