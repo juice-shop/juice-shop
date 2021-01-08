@@ -113,6 +113,6 @@ describe('ChallengeSolvedNotificationComponent', () => {
     challengeService.continueCode.and.returnValue(of(undefined))
     console.log = jasmine.createSpy('log')
 
-    expect(function () { component.saveProgress() }).toThrow()
+    expect(component.saveProgress).toThrow()
   })
 })
