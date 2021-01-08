@@ -11,6 +11,7 @@ module.exports = {
   rules: {
     'property-no-vendor-prefix': null,
     'value-no-vendor-prefix': null,
+    'selector-no-vendor-prefix': null,
     'selector-pseudo-element-no-unknown': null, // FIXME Rules from this line downward need to be gradually checked and fixed
     'selector-max-compound-selectors': null,
     'selector-max-id': null,
