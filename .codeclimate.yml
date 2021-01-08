@@ -4,7 +4,7 @@ plugins:
     enabled: true
   csslint:
     enabled: true
-  scsslint:
+  scss-lint:
     enabled: true
   fixme:
     enabled: true
