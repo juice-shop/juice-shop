@@ -53,7 +53,7 @@ input {
 
 .grid img {
   border-radius: 4px;
-  box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, .3);
   max-width: 100%;
 }
 
@@ -74,7 +74,7 @@ input {
   position: absolute;
   right: 0;
   text-align: center;
-  transition: 0.5s ease;
+  transition: .5s ease;
 }
 
 .container:hover .overlay {

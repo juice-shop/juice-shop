@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-$bg-heading: rgba(0, 0, 0, 0.2);
+$bg-heading: rgba(0, 0, 0, .2);
 
 .table-container {
   min-width: 350px;
@@ -72,9 +72,9 @@ mat-card {
 .ribbon {
   height: 150px;
   overflow: hidden;
-  pointer-events: none;
   position: absolute;
   width: 150px;
+  pointer-events: none;
 }
 
 .ribbon::before {
@@ -85,14 +85,14 @@ mat-card {
 }
 
 .ribbon span {
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
   color: #fff;
   display: block;
   font: 700 18px/1 'Lato', sans-serif;
   padding: 15px 0;
   position: absolute;
   text-align: center;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
   width: 225px;
 }
 

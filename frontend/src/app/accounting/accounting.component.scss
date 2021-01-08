@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: MIT
  */
 
-$bg-heading: rgba(0, 0, 0, 0.13);
+$bg-heading: rgba(0, 0, 0, .13);
 
 .heading {
   background: $bg-heading;
-  font-size: large;
   justify-content: center;
   margin-bottom: 10px;
-  padding: 12px;
+  padding: 12px 12px;
+  font-size: large;
 }
 
 .container {
@@ -22,7 +22,7 @@ mat-table {
 }
 
 mat-header-row {
-  min-height: 0 !important;
+  min-height: 0px !important;
 }
 
 .orders-container,
@@ -56,9 +56,9 @@ mat-row {
 
 .mat-own-card {
   display: block;
-  margin-bottom: 20px;
   margin-left: 10%;
   margin-right: 10%;
+  margin-bottom: 20px;
 }
 
 .product {
