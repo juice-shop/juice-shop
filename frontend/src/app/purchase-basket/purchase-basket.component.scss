@@ -4,7 +4,7 @@
  */
 
 .heading {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, .2);
   font-size: x-large;
   justify-content: center;
   padding: 12px 20px;
@@ -16,14 +16,14 @@
 }
 
 mat-cell {
-  margin-bottom: 15px;
-  margin-top: 15px;
   padding-left: 10px;
   padding-right: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 mat-header-row {
-  min-height: 0 !important;
+  min-height: 0px !important;
 }
 
 mat-footer-cell {
@@ -41,8 +41,8 @@ mat-footer-cell {
 }
 
 #price {
-  font-size: large;
   margin-top: 30px;
-  text-align: right;
   width: 100%;
+  font-size: large;
+  text-align: right;
 }
