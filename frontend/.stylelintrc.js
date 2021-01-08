@@ -9,15 +9,18 @@ module.exports = {
     'stylelint-scss'
   ],
   rules: {
+    'selector-max-id': 1,
+    'selector-max-compound-selectors': 4,
+    'selector-pseudo-element-no-unknown': [
+      true,
+      {
+        'ignorePseudoElements': ['ng-deep']
+      }
+    ],
     'property-no-vendor-prefix': null,
     'value-no-vendor-prefix': null,
     'selector-no-vendor-prefix': null,
-    'selector-pseudo-element-no-unknown': null, // FIXME Rules from this line downward need to be gradually checked and fixed
-    'selector-max-compound-selectors': null,
-    'selector-max-id': null,
-    'selector-class-pattern': null,
     'selector-no-qualifying-type': null,
-    'property-no-unknown': null,
-    'color-named': null
+    'selector-class-pattern': null
   }
 }

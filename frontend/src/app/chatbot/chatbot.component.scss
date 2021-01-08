@@ -71,7 +71,7 @@ mat-form-field {
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: red;
+    background: #f00;
     border-radius: 10px;
   }
 
@@ -82,7 +82,7 @@ mat-form-field {
 }
 
 .message-box-container {
-  border-top: solid 1px white;
+  border-top: solid 1px #fff;
   height: 10%;
   padding-top: 15px;
   width: auto;
