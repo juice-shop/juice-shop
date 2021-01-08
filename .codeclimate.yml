@@ -4,6 +4,8 @@ plugins:
     enabled: true
   csslint:
     enabled: true
+  scsslint:
+    enabled: true
   fixme:
     enabled: true
   duplication:
