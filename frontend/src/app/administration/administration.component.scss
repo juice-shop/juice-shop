@@ -51,7 +51,6 @@ mat-header-cell {
 
 .mat-column-comment {
   flex: 0 0 55% !important;
-
   -ms-hyphens: auto;
   -moz-hyphens: auto;
   -webkit-hyphens: auto;
@@ -63,12 +62,10 @@ mat-header-cell {
 
   word-break: break-word;
   word-wrap: break-word !important;
-  word-wrap: break-word;
 }
 
 .mat-column-user {
   flex: 0 0 7% !important;
-
   -ms-hyphens: auto;
   -moz-hyphens: auto;
   -webkit-hyphens: auto;
@@ -77,15 +74,12 @@ mat-header-cell {
   padding: 5px;
   white-space: unset !important;
   width: 7% !important;
-
   word-break: break-word;
   word-wrap: break-word !important;
-  word-wrap: break-word;
 }
 
 .mat-column-rating {
   flex: 0 0 20% !important;
-
   -ms-hyphens: auto;
   -moz-hyphens: auto;
   -webkit-hyphens: auto;
@@ -93,10 +87,8 @@ mat-header-cell {
   overflow-wrap: break-word;
   white-space: unset !important;
   width: 20% !important;
-
   word-break: break-word;
   word-wrap: break-word !important;
-  word-wrap: break-word;
 }
 
 mat-cell:last-child,
