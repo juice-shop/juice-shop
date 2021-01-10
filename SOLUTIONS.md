@@ -78,6 +78,7 @@ Shop easier to hack!
   * [Level 1](https://youtu.be/ccy-eKYpdbk)
   * [Level 2](https://youtu.be/KtMPEDJx0Sg)
   * [Level 3](https://youtu.be/aqXfFVHJ91g)
+  * [Level 4](https://youtu.be/jfe-iEePlTc)
 * [HackerOne #h1-2004 Community Day: Intro to Web Hacking - OWASP Juice Shop](https://youtu.be/KmlwIwG7Kv4)
   by [Nahamsec](https://twitch.tv/nahamsec) including the creation of a
   (fake) bugbounty report for all findings (🧃`v10.x`)
