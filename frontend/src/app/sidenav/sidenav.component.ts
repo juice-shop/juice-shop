@@ -127,11 +127,7 @@ export class SidenavComponent implements OnInit {
 
   isAccounting () {
     const payload = this.loginGuard.tokenDecode()
-    if (payload?.data && payload.data.role === roles.accounting) {
-      return true
-    } else {
-      return false
-    }
+    return payload?.data?.role === roles.accounting
   }
 
   startHackingInstructor () {
