@@ -20,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatListModule } from '@angular/material/list'
+import { roles } from '../roles'
 
 class MockSocket {
   on (str: string, callback: Function) {
@@ -47,7 +48,7 @@ describe('SidenavComponent', () => {
     socketIoService = jasmine.createSpyObj('SocketIoService', ['socket'])
     socketIoService.socket.and.returnValue(mockSocket)
     loginGuard = jasmine.createSpyObj('LoginGuard', ['tokenDecode'])
-    loginGuard.tokenDecode.and.returnValue(of(true))
+    loginGuard.tokenDecode.and.returnValue({})
 
     TestBed.configureTestingModule({
       declarations: [SidenavComponent],
@@ -83,5 +84,17 @@ describe('SidenavComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy()
+  })
+
+  it('should show accounting functionality when user has according role', () => {
+    loginGuard.tokenDecode.and.returnValue({ data: { role: roles.accounting } })
+
+    expect(component.isAccounting()).toBe(true)
+  })
+
+  it('should not show accounting functionality when user lacks according role', () => {
+    loginGuard.tokenDecode.and.returnValue({ data: { role: roles.customer } })
+
+    expect(component.isAccounting()).toBe(false)
   })
 })
