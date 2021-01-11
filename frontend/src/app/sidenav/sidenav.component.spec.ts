@@ -109,4 +109,18 @@ describe('SidenavComponent', () => {
 
     expect(component.version).toBe('v1.2.3')
   })
+
+  it('should hide Score Board link when Score Board was not discovered yet', () => {
+    challengeService.find.and.returnValue(of([{ name: 'Score Board', solved: false }]))
+    component.getScoreBoardStatus()
+
+    expect(component.scoreBoardVisible).toBe(false)
+  })
+
+  it('should show Score Board link when Score Board was already discovered', () => {
+    challengeService.find.and.returnValue(of([{ name: 'Score Board', solved: true }]))
+    component.getScoreBoardStatus()
+
+    expect(component.scoreBoardVisible).toBe(true)
+  })
 })
