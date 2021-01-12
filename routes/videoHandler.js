@@ -26,7 +26,7 @@ exports.getVideo = () => {
         'Content-Range': `bytes ${start}-${end}/${fileSize}`,
         'Accept-Ranges': 'bytes',
         'Content-Length': chunksize,
-        'Content-Location': '/assets/public/videos/JuiceShopJingle.mp4',
+        'Content-Location': '/assets/public/videos/owasp_promo.mp4',
         'Content-Type': 'video/mp4'
       }
       res.writeHead(206, head)
@@ -71,7 +71,7 @@ exports.promotionVideo = () => {
 }
 
 function getSubsFromFile () {
-  let subtitles = 'JuiceShopJingle.vtt'
+  let subtitles = 'owasp_promo.vtt'
   if (config && config.application && config.application.promotion && config.application.promotion.subtitles !== null) {
     subtitles = utils.extractFilename(config.application.promotion.subtitles)
   }
@@ -84,5 +84,5 @@ function videoPath () {
     const video = utils.extractFilename(config.application.promotion.video)
     return 'frontend/src/assets/public/videos/' + video
   }
-  return 'frontend/src/assets/public/videos/JuiceShopJingle.mp4'
+  return 'frontend/src/assets/public/videos/owasp_promo.mp4'
 }
