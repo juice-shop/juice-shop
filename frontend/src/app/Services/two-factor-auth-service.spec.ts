@@ -20,9 +20,9 @@ describe('TwoFactorAuthServiceService', () => {
 
   it('should verify TOTP token directly via the rest api', inject([TwoFactorAuthService, HttpTestingController],
     fakeAsync((service: TwoFactorAuthService, httpMock: HttpTestingController) => {
+      localStorage.setItem('totp_tmp_token', '000000')
       let res: any
       service.verify('123456').subscribe((data) => (res = data))
-      localStorage.setItem('totp_tmp_token', '000000')
 
       const req = httpMock.expectOne('http://localhost:3000/rest/2fa/verify')
       req.flush({ authentication: 'apiResponse' })
