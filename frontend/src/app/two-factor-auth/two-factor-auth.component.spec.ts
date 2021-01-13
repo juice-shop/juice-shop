@@ -29,6 +29,7 @@ import { QRCodeModule } from 'anuglar2-qrcode'
 import { of } from 'rxjs'
 import { ConfigurationService } from '../Services/configuration.service'
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
+import { throwError } from 'rxjs/internal/observable/throwError'
 
 describe('TwoFactorAuthComponent', () => {
   let component: TwoFactorAuthComponent
@@ -78,7 +79,7 @@ describe('TwoFactorAuthComponent', () => {
     expect(component).toBeTruthy()
   })
 
-  it('should set 2FA status, TOTP secret and URL as retrieved', () => {
+  it('should set TOTP secret and URL if 2FA is not already set up', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { name: 'Test App' } }))
     twoFactorAuthService.status.and.returnValue(of({ setup: false, email: 'email', secret: 'secret', setupToken: '12345' }))
 
@@ -87,5 +88,71 @@ describe('TwoFactorAuthComponent', () => {
     expect(component.setupStatus).toBe(false)
     expect(component.totpUrl).toBe('otpauth://totp/Test%20App:email?secret=secret&issuer=Test%20App')
     expect(component.totpSecret).toBe('secret')
+  })
+
+  it('should not set TOTP secret and URL if 2FA is already set up', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { name: 'Test App' } }))
+    twoFactorAuthService.status.and.returnValue(of({ setup: true, email: 'email', secret: 'secret', setupToken: '12345' }))
+
+    component.updateStatus()
+
+    expect(component.setupStatus).toBe(true)
+    expect(component.totpUrl).toBe(undefined)
+    expect(component.totpSecret).toBe(undefined)
+  })
+
+  it('should confirm successful setup of 2FA', () => {
+    twoFactorAuthService.setup.and.returnValue(of({}))
+    component.setupStatus = false
+    component.twoFactorSetupForm.get('passwordControl').setValue('password')
+    component.twoFactorSetupForm.get('initalTokenControl').setValue('12345')
+
+    component.setup()
+
+    expect(component.setupStatus).toBe(true)
+    expect(twoFactorAuthService.setup).toHaveBeenCalledWith('password', '12345', undefined)
+  })
+
+  it('should reset and mark form as errored when 2FA setup fails', () => {
+    twoFactorAuthService.setup.and.returnValue(throwError(new Error('Error')))
+    component.setupStatus = false
+    component.errored = false
+    component.twoFactorSetupForm.get('passwordControl').markAsDirty()
+    component.twoFactorSetupForm.get('initalTokenControl').markAsDirty()
+
+    expect(component.twoFactorSetupForm.get('passwordControl').pristine).toBe(false)
+    expect(component.twoFactorSetupForm.get('initalTokenControl').pristine).toBe(false)
+    component.setup()
+
+    expect(component.setupStatus).toBe(false)
+    expect(component.errored).toBe(true)
+    expect(component.twoFactorSetupForm.get('passwordControl').pristine).toBe(true)
+    expect(component.twoFactorSetupForm.get('initalTokenControl').pristine).toBe(true)
+  })
+
+  it('should confirm successfully disabling 2FA', () => {
+    twoFactorAuthService.status.and.returnValue(of({ setup: true, email: 'email', secret: 'secret', setupToken: '12345' }))
+    twoFactorAuthService.disable.and.returnValue(of({}))
+    component.setupStatus = true
+    component.twoFactorDisableForm.get('passwordControl').setValue('password')
+
+    component.disable()
+
+    expect(component.setupStatus).toBe(false)
+    expect(twoFactorAuthService.disable).toHaveBeenCalledWith('password')
+  })
+
+  it('should reset and mark form as errored when disabling 2FA fails', () => {
+    twoFactorAuthService.disable.and.returnValue(throwError(new Error('Error')))
+    component.setupStatus = true
+    component.errored = false
+    component.twoFactorDisableForm.get('passwordControl').markAsDirty()
+
+    expect(component.twoFactorDisableForm.get('passwordControl').pristine).toBe(false)
+    component.disable()
+
+    expect(component.setupStatus).toBe(true)
+    expect(component.errored).toBe(true)
+    expect(component.twoFactorDisableForm.get('passwordControl').pristine).toBe(true)
   })
 })
