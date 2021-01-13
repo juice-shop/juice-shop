@@ -26,12 +26,20 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatTooltipModule } from '@angular/material/tooltip'
 
 import { QRCodeModule } from 'anuglar2-qrcode'
+import { of } from 'rxjs'
+import { ConfigurationService } from '../Services/configuration.service'
+import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
 
 describe('TwoFactorAuthComponent', () => {
   let component: TwoFactorAuthComponent
   let fixture: ComponentFixture<TwoFactorAuthComponent>
+  let twoFactorAuthService: any
+  let configurationService: any
 
   beforeEach(waitForAsync(() => {
+    twoFactorAuthService = jasmine.createSpyObj('TwoFactorAuthService', ['status', 'setup', 'disable'])
+    configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { } }))
     TestBed.configureTestingModule({
       declarations: [TwoFactorAuthComponent],
       imports: [
@@ -52,6 +60,10 @@ describe('TwoFactorAuthComponent', () => {
         QRCodeModule,
         MatSnackBarModule,
         MatTooltipModule
+      ],
+      providers: [
+        { provide: ConfigurationService, useValue: configurationService },
+        { provide: TwoFactorAuthService, useValue: twoFactorAuthService }
       ]
     }).compileComponents()
   }))
@@ -64,5 +76,16 @@ describe('TwoFactorAuthComponent', () => {
 
   it('should compile', () => {
     expect(component).toBeTruthy()
+  })
+
+  it('should set 2FA status, TOTP secret and URL as retrieved', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { name: 'Test App' } }))
+    twoFactorAuthService.status.and.returnValue(of({ setup: false, email: 'email', secret: 'secret', setupToken: '12345' }))
+
+    component.updateStatus()
+
+    expect(component.setupStatus).toBe(false)
+    expect(component.totpUrl).toBe('otpauth://totp/Test%20App:email?secret=secret&issuer=Test%20App')
+    expect(component.totpSecret).toBe('secret')
   })
 })
