@@ -4,13 +4,7 @@
  */
 
 .heading {
-  background: rgba(0, 0, 0, 0.2);
   padding: 12px 20px;
-}
-
-.heading-main {
-  font-size: x-large;
-  justify-content: center;
 }
 
 .heading-text {
@@ -20,6 +14,14 @@
 
 mat-card {
   height: auto;
+  width: 80%;
+}
+
+.card1{
+  margin: 0 auto;
+  width: 80%;
+  border-radius: 5px;
+
 }
 
 .main-wrapper {
@@ -45,6 +47,10 @@ mat-footer-cell {
   margin-right: auto;
   margin-top: 20px;
   width: 50%;
+}
+
+.custom-slate{
+  border-radius: 5px;
 }
 
 .noResult {
