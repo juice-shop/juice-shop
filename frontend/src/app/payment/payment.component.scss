@@ -15,15 +15,15 @@ mat-form-field {
 
 
 .btn-return {
+  display: block;
   margin-left: 0;
   margin-right: auto;
-  display: block;
 }
 
 .nextButton {
-  margin-right: 0;
-  margin-left: auto;
   display: block;
+  margin-left: auto;
+  margin-right: 0;
   margin-top: -37px;
 }
 
@@ -40,9 +40,9 @@ mat-card {
 }
 
 .custom-card {
+  padding-bottom: 18px;
   padding-left: 24px;
   padding-right: 24px;
-  padding-bottom: 18px;
   padding-top: 18px;
 }
 
@@ -62,5 +62,5 @@ mat-card {
 }
 
 .mat-card .mat-divider-horizontal {
- position: relative !important;
+  position: relative !important;
 }

@@ -176,7 +176,6 @@ describe('/#/contact', () => {
 
   describe('challenge "captchaBypass"', () => {
     const EC = protractor.ExpectedConditions
-    // FIXME Find faster alternative to consistently fire 10 feedbacks in a row within 10sec time limit
     xit('should be possible to post 10 or more customer feedbacks in less than 10 seconds', () => {
       browser.waitForAngularEnabled(false)
 

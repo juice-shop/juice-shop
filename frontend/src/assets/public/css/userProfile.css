@@ -9,13 +9,14 @@
   }
 }
 @media (max-width: 1200px) {
-  #card{
+  #card {
     width: 65% !important;
   }
 }
-h3{
-  margin-top: 30px !important;
+
+h3 {
   margin-bottom: 30px !important;
+  margin-top: 30px !important;
 }
 
 .breakLine {
@@ -24,7 +25,7 @@ h3{
 
 .breakLine>div {
   display: table-cell;
-  white-space:nowrap;
+  white-space: nowrap;
 }
 
 .line>div {
@@ -37,20 +38,23 @@ h3{
 }
 
 .line {
-  width: 50%;
   vertical-align: middle;
+  width: 50%;
 }
 
 ::-webkit-input-placeholder {
-  font-size: .66em;
+  font-size: 0.66em;
 }
+
 ::-moz-placeholder {
-  font-size: .66em;
+  font-size: 0.66em;
 }
+
 :-ms-input-placeholder {
-  font-size: .66em;
+  font-size: 0.66em;
 }
+
 ::placeholder {
-  font-size: .66em;
+  font-size: 0.66em;
 }
 

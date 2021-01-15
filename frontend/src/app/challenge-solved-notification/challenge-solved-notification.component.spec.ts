@@ -18,6 +18,7 @@ import { SocketIoService } from '../Services/socket-io.service'
 import { ChallengeSolvedNotificationComponent } from './challenge-solved-notification.component'
 import { of } from 'rxjs'
 import { EventEmitter } from '@angular/core'
+import { MatIconModule } from '@angular/material/icon'
 
 class MockSocket {
   on (str: string, callback: Function) {
@@ -30,6 +31,8 @@ describe('ChallengeSolvedNotificationComponent', () => {
   let fixture: ComponentFixture<ChallengeSolvedNotificationComponent>
   let socketIoService: any
   let translateService: any
+  let cookieService: any
+  let challengeService: any
   let mockSocket: any
 
   beforeEach(waitForAsync(() => {
@@ -41,6 +44,8 @@ describe('ChallengeSolvedNotificationComponent', () => {
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
+    cookieService = jasmine.createSpyObj('CookieService', ['set'])
+    challengeService = jasmine.createSpyObj('ChallengeService', ['continueCode'])
 
     TestBed.configureTestingModule({
       imports: [
@@ -48,16 +53,17 @@ describe('ChallengeSolvedNotificationComponent', () => {
         TranslateModule.forRoot(),
         ClipboardModule,
         MatCardModule,
-        MatButtonModule
+        MatButtonModule,
+        MatIconModule
       ],
       declarations: [ChallengeSolvedNotificationComponent],
       providers: [
         { provide: SocketIoService, useValue: socketIoService },
         { provide: TranslateService, useValue: translateService },
+        { provide: CookieService, useValue: cookieService },
+        { provide: ChallengeService, useValue: challengeService },
         ConfigurationService,
-        ChallengeService,
-        CountryMappingService,
-        CookieService
+        CountryMappingService
       ]
     })
       .compileComponents()
@@ -102,4 +108,11 @@ describe('ChallengeSolvedNotificationComponent', () => {
     expect(translateService.get).toHaveBeenCalledWith('CHALLENGE_SOLVED', { challenge: 'Test' })
     expect(component.notifications).toEqual([{ message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: undefined }])
   }))
+
+  it('should throw error when not supplied with a valid continue code', () => {
+    challengeService.continueCode.and.returnValue(of(undefined))
+    console.log = jasmine.createSpy('log')
+
+    expect(component.saveProgress).toThrow()
+  })
 })

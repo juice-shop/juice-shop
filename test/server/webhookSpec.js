@@ -26,7 +26,7 @@ describe('webhook', () => {
     })
 
     it('submits POST with payload to existing URL', () => {
-      expect(webhook.notify(challenge, 'https://enmmrmqnft1o.x.pipedream.net')).to.eventually.not.throw()
+      expect(webhook.notify(challenge, 'https://enlm7zwniuyah.x.pipedream.net/')).to.eventually.not.throw()
     })
   })
 })

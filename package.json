@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "12.4.0",
+  "version": "12.5.0-SNAPSHOT",
   "private": true,
   "description": "Probably the most modern and sophisticated insecure web application",
   "keywords": [
@@ -56,18 +56,18 @@
     "e2e": "node test/e2eTests.js",
     "frisby": "nyc --report-dir=./build/reports/coverage/api-tests jest --silent --runInBand --forceExit",
     "postinstall": "cd frontend && npm install && cd .. && npm run build",
-    "lint": "eslint *.js data lib models routes test views && cd frontend && ng lint && cd ..",
+    "lint": "eslint *.js data lib models routes test views && cd frontend && ng lint && npx stylelint \"**/*.scss\" && cd ..",
     "lint:config": "schema validate -s config.schema.yml",
-    "lint:fix": "eslint *.js data lib models routes test views --fix && cd frontend && ng lint --fix && cd ..",
+    "lint:fix": "eslint *.js data lib models routes test views --fix && cd frontend && ng lint --fix && npx stylelint \"**/*.scss\" --fix && cd ..",
     "package": "grunt package",
     "package:ci": "npm prune --production && npm dedupe && cd frontend && npm prune --production && npm dedupe && cd .. && grunt package",
     "preprotractor": "npm dedupe && node ./node_modules/protractor/bin/webdriver-manager update --gecko false",
     "protractor": "npm run e2e",
     "serve": "concurrently --kill-others \"node app\" \"cd frontend && ng serve\"",
     "start": "node app",
-    "test": "cd frontend && ng test --watch=false --source-map=true && cd .. && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
+    "test": "cd frontend && ng test --watch=false --source-map=true && cd .. && npm run test:server",
+    "test:chromium": "cd frontend && ng test --watch=false --source-map=false --browsers=ChromiumHeadless && cd .. && npm run test:server",
     "test:server": "nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
-    "test:chromium": "cd frontend && ng test --watch=false --source-map=false --browsers=ChromiumHeadless && cd .. && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
     "vagrant": "cd vagrant && vagrant up"
   },
   "jest": {

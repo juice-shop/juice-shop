@@ -177,13 +177,13 @@ export class PaymentComponent implements OnInit {
   choosePayment () {
     sessionStorage.removeItem('itemTotal')
     if (this.mode === 'wallet') {
-      this.walletService.put({ balance: this.totalPrice }).subscribe(() => {
+      this.walletService.put({ balance: this.totalPrice, paymentId: this.paymentId }).subscribe(() => {
         sessionStorage.removeItem('walletTotal')
         this.ngZone.run(async () => await this.router.navigate(['/wallet']))
         this.snackBarHelperService.open('CHARGED_WALLET', 'confirmBar')
       }, (err) => {
         console.log(err)
-        this.snackBarHelperService.open(err.error?.error, 'errorBar')
+        this.snackBarHelperService.open(err.error?.message, 'errorBar')
       })
     } else if (this.mode === 'deluxe') {
       this.userService.upgradeToDeluxe(this.paymentMode, this.paymentId).subscribe((data) => {

@@ -9,12 +9,6 @@ import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core'
 import { CookieService } from 'ngx-cookie-service'
 import { SocketIoService } from '../Services/socket-io.service'
 
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
-
-library.add(faTrash)
-dom.watch()
-
 interface HackingProgress {
   autoRestoreMessage: string | null
   cleared: boolean

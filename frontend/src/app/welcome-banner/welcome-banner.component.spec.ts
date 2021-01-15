@@ -7,20 +7,25 @@ import { TranslateModule } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { CookieService } from 'ngx-cookie-service'
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { WelcomeBannerComponent } from './welcome-banner.component'
 import { MatDialogRef } from '@angular/material/dialog'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'
+import { of, throwError } from 'rxjs'
+import { ConfigurationService } from '../Services/configuration.service'
 
 describe('WelcomeBannerComponent', () => {
   let component: WelcomeBannerComponent
   let fixture: ComponentFixture<WelcomeBannerComponent>
   let cookieService: any
   let matDialogRef: MatDialogRef<WelcomeBannerComponent>
+  let configurationService: any
 
   beforeEach(waitForAsync(() => {
+    configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { } }))
     matDialogRef = jasmine.createSpyObj('MatDialogRef', ['close'])
     TestBed.configureTestingModule({
       imports: [
@@ -32,6 +37,7 @@ describe('WelcomeBannerComponent', () => {
       declarations: [WelcomeBannerComponent],
       providers: [
         { provide: MatDialogRef, useValue: matDialogRef },
+        { provide: ConfigurationService, useValue: configurationService },
         CookieService
       ]
     })
@@ -60,4 +66,40 @@ describe('WelcomeBannerComponent', () => {
     expect(cookieService.get('welcomebanner_status')).toBe('dismiss')
     expect(matDialogRef.close).toHaveBeenCalled()
   })
+
+  it('should dismiss and add cookie when starting hacking instructor', () => {
+    component.startHackingInstructor()
+    expect(cookieService.get('welcomebanner_status')).toBe('dismiss')
+    expect(matDialogRef.close).toHaveBeenCalled()
+  })
+
+  it('should set banner properties as obtained from configuration', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { welcomeBanner: { title: 'Title', message: 'Message' } } }))
+    component.ngOnInit()
+
+    expect(component.title).toBe('Title')
+    expect(component.message).toBe('Message')
+  })
+
+  it('should show hacking instructor if enabled in configuration', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ hackingInstructor: { isEnabled: true } }))
+    component.ngOnInit()
+
+    expect(component.showHackingInstructor).toBe(true)
+  })
+
+  it('should prevent dismissing banner in tutorial mode', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ challenges: { restrictToTutorialsFirst: true }, hackingInstructor: { isEnabled: true } }))
+    component.ngOnInit()
+
+    expect(component.dialogRef.disableClose).toBe(true)
+    expect(component.showDismissBtn).toBe(false)
+  })
+
+  it('should log error on failure in retrieving configuration from backend', fakeAsync(() => {
+    configurationService.getApplicationConfiguration.and.returnValue(throwError('Error'))
+    console.log = jasmine.createSpy('log')
+    component.ngOnInit()
+    expect(console.log).toHaveBeenCalledWith('Error')
+  }))
 })
