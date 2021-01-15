@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-$bg-chat: rgba(0, 0, 0, .3);
+$bg-chat: rgba(0, 0, 0, 0.3);
 
 mat-card {
   height: auto;
@@ -12,10 +12,10 @@ mat-card {
 }
 
 mat-form-field {
-  height: 0px;
-  width: 70%;
   display: block;
+  height: 0;
   margin: auto;
+  width: 70%;
 }
 
 .form-container {
@@ -31,23 +31,23 @@ mat-form-field {
 }
 
 #chat-container {
+  box-shadow: none;
   display: flex;
   position: relative;
   width: 95%;
-  box-shadow: none;
 }
 
 #chat-box {
-  width: 80%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  height: 650px;
+  align-content: space-between;
   background-color: $bg-chat;
-  padding: 0px;
+  display: block;
   display: flex;
   flex-direction: column;
-  align-content: space-between;
+  height: 650px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+  width: 80%;
 }
 
 .form-wrapper {
@@ -56,12 +56,12 @@ mat-form-field {
 
 #chat-window {
   height: 90%;
-  padding: 20px;
   overflow-y: auto;
+  padding: 20px;
 
   ::-webkit-scrollbar {
-    width: 20px;
     background: none;
+    width: 20px;
   }
 
   /* Track */
@@ -71,7 +71,7 @@ mat-form-field {
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: red;
+    background: #f00;
     border-radius: 10px;
   }
 
@@ -82,35 +82,35 @@ mat-form-field {
 }
 
 .message-box-container {
-  width: auto;
+  border-top: solid 1px #fff;
   height: 10%;
-  border-top: solid 1px white;
   padding-top: 15px;
+  width: auto;
 }
 
 .message-container {
-  margin-right: 25px;
-  width: auto;
-  overflow: hidden;
   height: auto;
+  margin-right: 25px;
+  overflow: hidden;
+  width: auto;
 }
 
 .speech-bubble-right {
   background: rgb(84, 110, 122);
   border-radius: 4px;
+  float: right;
   font-size: 15px;
   line-height: 1.3;
+  margin-bottom: 25px;
   max-width: 500px;
   padding: 15px;
-  float: right;
   position: relative;
-  margin-bottom: 25px;
 
   &::after {
     border-left: 20px solid transparent;
     border-top: 20px solid rgb(84, 110, 122);
     bottom: -20px;
-    content: "";
+    content: '';
     position: absolute;
     right: 20px;
   }
@@ -119,36 +119,36 @@ mat-form-field {
 .speech-bubble-left {
   background: rgb(84, 110, 122);
   border-radius: 4px;
+  float: left;
   font-size: 15px;
   line-height: 1.3;
+  margin-bottom: 25px;
   max-width: 500px;
   padding: 15px;
-  float: left;
   position: relative;
-  margin-bottom: 25px;
 
   &::after {
     border-right: 20px solid transparent;
     border-top: 20px solid rgb(84, 110, 122);
     bottom: -20px;
-    content: "";
-    position: absolute;
+    content: '';
     left: 20px;
+    position: absolute;
   }
 }
 
 .juicy-chat-bot-image {
   float: left;
-  margin-top: 20px;
   height: 70px;
+  margin-top: 20px;
 }
 
 .profile-image {
-  float: right;
-  margin-top: 20px;
-  margin-left: 10px;
-  height: 40px;
   border-radius: 50%;
+  float: right;
+  height: 40px;
+  margin-left: 10px;
+  margin-top: 20px;
 }
 
 .powered-by {

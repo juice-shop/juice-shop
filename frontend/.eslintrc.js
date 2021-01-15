@@ -4,12 +4,8 @@
  */
 
 module.exports = {
-  root: true,
-  env: {
-    browser: true,
-    node: true
-  },
   extends: 'standard-with-typescript',
+  root: true,
   parserOptions: {
     project: './src/tsconfig.*.json',
     sourceType: 'module'
