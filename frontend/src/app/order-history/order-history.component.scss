@@ -4,22 +4,25 @@
  */
 
 .heading {
-  background: rgba(0, 0, 0, 0.2);
   padding: 12px 20px;
 }
 
-.heading-main {
-  font-size: x-large;
-  justify-content: center;
-}
 
 .heading-text {
   justify-content: center;
   padding: 12px 20px;
 }
 
+
 mat-card {
   height: auto;
+  width: 80%;
+}
+
+.card1 {
+  border-radius: 5px;
+  margin: 0 auto;
+  width: 80%;
 }
 
 .main-wrapper {
@@ -37,6 +40,15 @@ mat-footer-cell {
   text-align: right;
 }
 
+mat-card-title {
+  font-size: 30px;
+  margin-bottom: 25px;
+}
+
+.border {
+  border: 0.5px solid #f2f2f2;
+}
+
 .emptyState {
   display: block;
   height: auto !important;
@@ -45,6 +57,10 @@ mat-footer-cell {
   margin-right: auto;
   margin-top: 20px;
   width: 50%;
+}
+
+.custom-slate {
+  border-radius: 5px;
 }
 
 .noResult {
