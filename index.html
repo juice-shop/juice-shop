@@ -33,7 +33,7 @@
 
 	<!-- Challenges of current Juice Shop release -->
 	<script>
-		fetch("http://demo.owasp-juice.shop/api/Challenges").then(async (res) => {
+		fetch("https://demo.owasp-juice.shop/api/Challenges").then(async (res) => {
 			const challenges = await res.json();
 			document.getElementById('numChallenges').innerHTML = challenges.data.length
 		})
