@@ -50,11 +50,12 @@ describe('/api/Wallets', () => {
       .expect('status', 401)
   })
 
-  it('GET wallet retrieves wallet amount of requesting user', () => {
+  it('PUT charge wallet from credit card of requesting user', () => {
     return frisby.put(REST_URL + '/wallet/balance', {
       headers: authHeader,
       body: {
-        balance: 10
+        balance: 10,
+        paymentId: 5
       }
     })
       .expect('status', 200)
@@ -68,5 +69,26 @@ describe('/api/Wallets', () => {
             data: 110
           })
       })
+  })
+
+  it('PUT charge wallet from foreign credit card is forbidden', () => {
+    return frisby.put(REST_URL + '/wallet/balance', {
+      headers: authHeader,
+      body: {
+        balance: 10,
+        paymentId: 1
+      }
+    })
+      .expect('status', 402)
+  })
+
+  it('PUT charge wallet without credit card is forbidden', () => {
+    return frisby.put(REST_URL + '/wallet/balance', {
+      headers: authHeader,
+      body: {
+        balance: 10
+      }
+    })
+      .expect('status', 402)
   })
 })
