@@ -264,11 +264,26 @@ where this project was mentioned or used!
 
 ## Conference and Meetup Appearances
 
+#### 2021
+
+* [Modern Web Application Hacking for Beginners](https://github.com/bkimminich/it-security-lecture/tree/workshop),
+  virtual 4h diversity training by Björn Kimminich,
+  [OWASP Training Events 2021 - 2020 SOS Re-run](https://github.com/OWASP/www-event-2021-training),
+  26.01.2021
+
 #### 2020
 
 * [FPs are Cheap. Show me the CVEs!](https://www.blackhat.com/eu-20/briefings/schedule/index.html#fps-are-cheap-show-me-the-cves-21345)
   by Bas van Schaik & Kevin Backhouse,
   [Black Hat Europe 2020](https://www.blackhat.com/eu-20/), 09.12.2020
+* [Juice Shop 12: Novelties by the litre (Online)](https://www.meetup.com/de-DE/OWASP-Hamburg-Stammtisch/events/272842835/)
+  by Björn Kimminich,
+  [48. OWASP Stammtisch Hamburg](https://owasp.org/www-chapter-germany/stammtische/hamburg/),
+  24.11.2020 ([Youtube](https://youtu.be/AUhDItHHLiY))
+* [Modern Web Application Hacking for Beginners](https://github.com/bkimminich/it-security-lecture/tree/workshop),
+  virtual 4h diversity training by Björn Kimminich,
+  [AppSec Days - Summer of Security 2020](https://github.com/OWASP/www-event-2020-08-virtual),
+  25.08.2020
 * [OWASP Projects Panel](https://www.meetup.com/de-DE/womeninappsec/events/271754765/)
   hosted by [OWASP WIA](https://www.meetup.com/womeninappsec/) moderated
   by Zoe Braiterman with panelists Bjoern Kimminich, Glenn & Riccardo
