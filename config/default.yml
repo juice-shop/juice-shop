@@ -48,8 +48,8 @@ application:
     encryption: 'https://keybase.io/bkimminich/pgp_keys.asc?fingerprint=19c01cb7157e4645e9e2c863062a85a8cbfbdcda'
     acknowledgements: '/#/score-board'
   promotion:
-    video: JuiceShopJingle.mp4
-    subtitles: JuiceShopJingle.vtt
+    video: owasp_promo.mp4
+    subtitles: owasp_promo.vtt
   easterEggPlanet:
     name: Orangeuze
     overlayMap: orangemap2k.jpg

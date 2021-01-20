@@ -5,26 +5,26 @@
 
 <div class="container challenge-solved-toast mat-elevation-z4">
   <mat-card class="accent-notification" *ngFor="let notification of notifications; index as index">
-    <div> {{notification.message}}<span (click)="closeNotification(index, $event.shiftKey)" style="float:right;cursor:pointer">X</span></div>
+    <div>{{notification.message}}<button id="closeButton" mat-button (click)="closeNotification(index, $event.shiftKey)">X</button></div>
     <br>
     <div [hidden]="!showCtfFlagsInNotifications">
-      <div *ngIf="showCtfCountryDetailsInNotifications !== 'none'">
-        <span
-        class="flag-icon flag-icon-{{notification.country.code | lowercase}}"
-        *ngIf="showCtfCountryDetailsInNotifications === 'flag' || showCtfCountryDetailsInNotifications === 'both'">
-        </span>
-        <i class="fa fa-globe" *ngIf="showCtfCountryDetailsInNotifications === 'name'"></i>
-        <span *ngIf="showCtfCountryDetailsInNotifications === 'name' || showCtfCountryDetailsInNotifications === 'both'">
-            {{notification.country.name}}
-        </span>
-        <br>
-      </div>
-      <i class="fas fa-flag-checkered"></i> {{notification.flag}}
-      <button ngxClipboard mat-raised-button [cbContent]="notification.flag" (cbOnSuccess)="notification.copied = true" [disabled]="notification.copied">
-        <i class="fas fa-clipboard" aria-hidden="true"></i>
+      <span class="icon-box"><mat-icon>outlined_flag</mat-icon> {{notification.flag}}</span>&nbsp;
+      <button ngxClipboard mat-stroked-button [cbContent]="notification.flag" (cbOnSuccess)="notification.copied = true" [disabled]="notification.copied">
+        <mat-icon>content_copy</mat-icon>
         <span [hidden]="!notification.copied">{{"COPY_SUCCESS" | translate}}</span>
         <span [hidden]="notification.copied">{{"COPY_TO_CLIPBOARD" | translate}}</span>
       </button>
+      <br>
+      <span *ngIf="showCtfCountryDetailsInNotifications !== 'none'" class="icon-box">
+        <span
+          class="flag-icon flag-icon-{{notification.country.code | lowercase}}"
+          *ngIf="showCtfCountryDetailsInNotifications === 'flag' || showCtfCountryDetailsInNotifications === 'both'">
+        </span>
+        <mat-icon *ngIf="showCtfCountryDetailsInNotifications === 'name'">my_location</mat-icon>&nbsp;
+        <span *ngIf="showCtfCountryDetailsInNotifications === 'name' || showCtfCountryDetailsInNotifications === 'both'">
+            {{notification.country.name}}
+        </span>
+      </span>
     </div>
   </mat-card>
 </div>
