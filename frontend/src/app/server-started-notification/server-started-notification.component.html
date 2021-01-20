@@ -6,11 +6,13 @@
 <mat-card class="container primary-notification mat-elevation-z4" *ngIf="hackingProgress.autoRestoreMessage">
   <mat-card-header></mat-card-header>
   <mat-card-content>
-    <span translate>NOTIFICATION_SERVER_STARTED</span>: {{hackingProgress.autoRestoreMessage}}<span (click)="closeNotification()" style="float:right;cursor:pointer">X</span>
-    <button mat-raised-button [disabled]="hackingProgress.cleared" (click)="clearProgress()">
-        <i class="fas fa-trash" aria-hidden="true"></i>
-        <span *ngIf="hackingProgress.cleared" translate>RESTART_REQUIRED</span>
-        <span *ngIf="!hackingProgress.cleared" translate>RESET_HACKING_PROGRESS</span>
+    <span translate>NOTIFICATION_SERVER_STARTED</span>: {{hackingProgress.autoRestoreMessage}}&nbsp;<button id="closeButton" mat-button (click)="closeNotification()">X</button>
+    <button mat-stroked-button [disabled]="hackingProgress.cleared" (click)="clearProgress()">
+      <mat-icon>
+        delete_forever
+      </mat-icon>
+      <span *ngIf="hackingProgress.cleared" translate>RESTART_REQUIRED</span>
+      <span *ngIf="!hackingProgress.cleared" translate>RESET_HACKING_PROGRESS</span>
     </button>
   </mat-card-content>
 </mat-card>

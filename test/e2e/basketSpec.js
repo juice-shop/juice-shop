@@ -69,25 +69,24 @@ describe('/#/basket', () => {
 
   describe('as jim', () => {
     protractor.beforeEach.login({ email: 'jim@' + config.get('application.domain'), password: 'ncc-1701' })
-    xdescribe('challenge "manipulateClock"', () => { // FIXME Frequently fails on Travis-CI with "Failed: element not interactable"
+    describe('challenge "manipulateClock"', () => {
       it('should be possible to enter WMNSDY2019 coupon', () => {
         browser.waitForAngularEnabled(false)
         browser.executeScript('window.localStorage.couponPanelExpanded = false;')
-        browser.driver.sleep(1000)
+        browser.driver.sleep(2000)
         browser.waitForAngularEnabled(true)
 
         browser.get(protractor.basePath + '/#/payment/shop')
 
         browser.waitForAngularEnabled(false)
         browser.executeScript('event = new Date("March 08, 2019 00:00:00"); Date = function(Date){return function() {date = event; return date; }}(Date);')
-        browser.driver.sleep(1000)
+        browser.driver.sleep(2000)
         browser.waitForAngularEnabled(true)
 
         element(by.id('collapseCouponElement')).click()
         browser.wait(protractor.ExpectedConditions.presenceOf($('#coupon')), 5000, 'Coupon textfield not present.') // eslint-disable-line no-undef
 
         element(by.id('coupon')).sendKeys('WMNSDY2019')
-        browser.driver.sleep(1000)
         element(by.id('applyCouponButton')).click()
       })
 
