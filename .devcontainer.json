@@ -1,0 +1,14 @@
+{
+    "extensions": [
+        "eg2.vscode-npm-script",
+        "angular.ng-template",
+        "dbaeumer.vscode-eslint",
+        "stylelint.vscode-stylelint"
+    ],
+    "settings": {
+        "eslint.workingDirectories": [
+            { "mode": "auto" }
+        ]
+    },
+    "postCreateCommand": "npm install"
+}
