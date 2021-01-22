@@ -1,4 +1,5 @@
 {
+    "image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:14",
     "extensions": [
         "eg2.vscode-npm-script",
         "angular.ng-template",
