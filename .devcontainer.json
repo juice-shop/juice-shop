@@ -10,5 +10,5 @@
             { "mode": "auto" }
         ]
     },
-    "postCreateCommand": "apt-get update && export NG_CLI_ANALYTICS=ci && npm i -g @angular/cli"
+    "postCreateCommand": "export NG_CLI_ANALYTICS=ci && npm i -g @angular/cli && npm install"
 }
