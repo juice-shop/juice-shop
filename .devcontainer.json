@@ -1,5 +1,4 @@
 {
-    "image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:14",
     "extensions": [
         "eg2.vscode-npm-script",
         "angular.ng-template",
@@ -11,5 +10,5 @@
             { "mode": "auto" }
         ]
     },
-    "postCreateCommand": "export NG_CLI_ANALYTICS=ci && npm i -g @angular/cli && npm install"
+    "postCreateCommand": "apt-get update && export NG_CLI_ANALYTICS=ci && npm i -g @angular/cli"
 }
