@@ -9,7 +9,9 @@ Shop easier to hack!
 > to contain _spoilers for entire challenge solutions_ so the entries
 > themselves are not individually tagged! You might not want to view
 > anything from this page before tackling the related challenges
-> yourself!
+> yourself! :broken_heart: marks resources which rely on
+> [_some form of cheating_](https://pwning.owasp-juice.shop/part1/rules.html#%E2%9D%8C-things-considered-cheating)
+> to solve a challenge.
 >
 > 🧃 is followed by the last known major release of OWASP Juice Shop
 > that a solution/script/tool is supposedly working with or that a video
@@ -69,6 +71,7 @@ Shop easier to hack!
   * [★★★★ Misplaced Signature File (Sensitive Data Exposure)](https://youtu.be/56qHiwxTjYY)
   * [★★★★ Nested Easter Egg (Cryptographic Issues)](https://youtu.be/yvatrnWvcGE)
   * [★★★★ NoSql Manipulation (Injection)](https://youtu.be/frymuDxKwmc)
+    :broken_heart:
 * [Broken Authentication and SQL Injection - OWASP Juice Shop TryHackMe](https://youtu.be/W4MXUnZB2jc)
   by
   [Motasem Hamdan - CyberSecurity Trainer](https://www.youtube.com/channel/UCNSdU_1ehXtGclimTVckHmQ)
