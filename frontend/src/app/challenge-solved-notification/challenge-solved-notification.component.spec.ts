@@ -16,7 +16,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angul
 import { SocketIoService } from '../Services/socket-io.service'
 
 import { ChallengeSolvedNotificationComponent } from './challenge-solved-notification.component'
-import { of } from 'rxjs'
+import { of, throwError } from 'rxjs'
 import { EventEmitter } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 
@@ -109,10 +109,28 @@ describe('ChallengeSolvedNotificationComponent', () => {
     expect(component.notifications).toEqual([{ message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: undefined }])
   }))
 
+  it('should store retrieved continue code as cookie for 1 year', () => {
+    challengeService.continueCode.and.returnValue(of('12345'))
+
+    const expires = new Date()
+    component.saveProgress()
+    expires.setFullYear(expires.getFullYear() + 1)
+
+    expect(cookieService.set).toHaveBeenCalledWith('continueCode', '12345', expires, '/')
+  })
+
   it('should throw error when not supplied with a valid continue code', () => {
     challengeService.continueCode.and.returnValue(of(undefined))
     console.log = jasmine.createSpy('log')
 
     expect(component.saveProgress).toThrow()
   })
+
+  it('should log error from continue code API call directly to browser console', fakeAsync(() => {
+    challengeService.continueCode.and.returnValue(throwError('Error'))
+    console.log = jasmine.createSpy('log')
+    component.saveProgress()
+    fixture.detectChanges()
+    expect(console.log).toHaveBeenCalledWith('Error')
+  }))
 })
