@@ -15,7 +15,7 @@
 	"He might have spoilered it on at least one occasion where a camera was running. Maybe elsewhere as well.": "He might have spoilered it on at least one occasion where a camera was running. Maybe elsewhere as well.",
 	"Learn about the Token Sale before its official announcement.": "Learn about the Token Sale before its official announcement.",
 	"The developers truly believe in \"Security through Obscurity\" over actual access restrictions.": "The developers truly believe in \"Security through Obscurity\" over actual access restrictions.",
-	"Perform a Remote Code Execution that would keep a less hardened application busy <em>forever</em>.": "Perform a Remote Code Execution that would keep a less hardened application busy <em>forever</em>.",
+	"Perform a Remote Code Execution that would keep a less hardened application busy <em>forever</em>.": "Teosta koodi kaugkäivitus, mis hoiab vähem karastatud rakenduse hõivatud <em>igavesti</em>. ",
 	"The feature you need to exploit for this challenge is not directly advertised anywhere.": "The feature you need to exploit for this challenge is not directly advertised anywhere.",
 	"Submit 10 or more customer feedbacks within 10 seconds.": "Submit 10 or more customer feedbacks within 10 seconds.",
 	"After finding a CAPTCHA bypass, write a script that automates feedback submission. Or open many browser tabs and be really quick.": "After finding a CAPTCHA bypass, write a script that automates feedback submission. Or open many browser tabs and be really quick.",
@@ -274,7 +274,7 @@
 	"This amazing web application security awareness board game is <a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=1969196030\">available for Tabletop Simulator on Steam Workshop</a> now!": "This amazing web application security awareness board game is <a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=1969196030\">available for Tabletop Simulator on Steam Workshop</a> now!",
 	"<em>The official Companion Guide</em> by Björn Kimminich available <a href=\"https://leanpub.com/juice-shop\">for free on LeanPub</a> and also <a href=\"https://pwning.owasp-juice.shop\">readable online</a>!": "<em>Björn Kimminichi ametlik juhend</em> on <a href=\"https://leanpub.com/juice-shop\"> LeanPubis tasuta saadaval </a> ja samuti <a href=\"https://pwning.owasp-juice.shop\">loetav veebis</a>!",
 	"We are out of stock! Sorry for the inconvenience.": "Kaup on otsas! Vabandage ebamugavuste pärast.",
-	"Wrong answer to CAPTCHA. Please try again.": "Wrong answer to CAPTCHA. Please try again.",
+	"Wrong answer to CAPTCHA. Please try again.": "Vale CAPTCHA vastus. Palun proovi uuesti.",
 	"Invalid email or password.": "Vigane e-posti aadress või salasõna.",
 	"Current password is not correct.": "Praegune salasõna pole õige.",
 	"Password cannot be empty.": "Salasõna ei saa olla tühi.",
@@ -311,6 +311,6 @@
 	"Juice Shop \"Permafrost\" 2020 Edition": "Juice Shop \"Igikeltsa\" 2020 Väljaanne",
 	"Exact version of <a href=\"https://github.com/bkimminich/juice-shop/releases/tag/v9.3.1-PERMAFROST\">OWASP Juice Shop that was archived on 02/02/2020</a> by the GitHub Archive Program and ultimately went into the <a href=\"https://github.blog/2020-07-16-github-archive-program-the-journey-of-the-worlds-open-source-code-to-the-arctic\">Arctic Code Vault</a> on July 8. 2020 where it will be safely stored for at least 1000 years.": "Exact version of <a href=\"https://github.com/bkimminich/juice-shop/releases/tag/v9.3.1-PERMAFROST\">OWASP Juice Shop that was archived on 02/02/2020</a> by the GitHub Archive Program and ultimately went into the <a href=\"https://github.blog/2020-07-16-github-archive-program-the-journey-of-the-worlds-open-source-code-to-the-arctic\">Arctic Code Vault</a> on July 8. 2020 where it will be safely stored for at least 1000 years.",
 	"Bypass a security control with a <a href=\"http://hakipedia.com/index.php/Poison_Null_Byte\">Poison Null Byte</a> to access a file not meant for your eyes.": "Bypass a security control with a <a href=\"http://hakipedia.com/index.php/Poison_Null_Byte\">Poison Null Byte</a> to access a file not meant for your eyes.",
-	"Best Juice Shop Salesman Artwork": "Best Juice Shop Salesman Artwork",
+	"Best Juice Shop Salesman Artwork": "Parima mahlapoe müügimehe kunstiteos",
 	"Unique digital painting depicting Stan, our most qualified and almost profitable salesman. He made a succesful carreer in selling used ships, coffins, krypts, crosses, real estate, life insurance, restaurant supplies, voodoo enhanced asbestos and courtroom souvenirs before <em>finally</em> adding his expertise to the Juice Shop marketing team.": "Unique digital painting depicting Stan, our most qualified and almost profitable salesman. He made a succesful carreer in selling used ships, coffins, krypts, crosses, real estate, life insurance, restaurant supplies, voodoo enhanced asbestos and courtroom souvenirs before <em>finally</em> adding his expertise to the Juice Shop marketing team."
 }
