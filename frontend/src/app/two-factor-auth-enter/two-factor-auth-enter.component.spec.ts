@@ -33,17 +33,21 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatTooltipModule } from '@angular/material/tooltip'
 
 import { of } from 'rxjs'
+import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
 
 describe('TwoFactorAuthEnterComponent', () => {
   let component: TwoFactorAuthEnterComponent
   let fixture: ComponentFixture<TwoFactorAuthEnterComponent>
   let userService: any
+  let twoFactorAuthService: any
 
   beforeEach(waitForAsync(() => {
     userService = jasmine.createSpyObj('UserService', ['login'])
     userService.login.and.returnValue(of({}))
     userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn', ['next'])
     userService.isLoggedIn.next.and.returnValue({})
+    twoFactorAuthService = jasmine.createSpyObj('TwoFactorAuthService', ['verify'])
+    twoFactorAuthService.verify.and.returnValue(of({ }))
 
     TestBed.configureTestingModule({
       imports: [
@@ -71,6 +75,7 @@ describe('TwoFactorAuthEnterComponent', () => {
       declarations: [TwoFactorAuthEnterComponent, SearchResultComponent],
       providers: [
         { provide: UserService, useValue: userService },
+        { provide: TwoFactorAuthService, useValue: twoFactorAuthService },
         CookieService,
         WindowRefService
       ]
