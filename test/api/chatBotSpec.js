@@ -154,6 +154,30 @@ describe('/chatbot', () => {
         })
     })
 
+    it('Greets back registered user after being told username', async () => {
+      const { token } = await login({
+        email: `stan@${config.get('application.domain')}`,
+        password: 'ship coffin krypt cross estate supply insurance asbestos souvenir'
+      })
+      return frisby.setup({
+        request: {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      }, true)
+        .post(REST_URL + 'chatbot/respond', {
+          body: {
+            action: 'setname',
+            query: 'NotGuybrushThreepwood'
+          }
+        })
+        .expect('status', 200)
+        .expect('json', 'action', 'response')
+        .expect('json', 'body', /NotGuybrushThreepwood/)
+    })
+
     it('POST returns error for unauthenticated user', () => {
       const testCommand = trainingData.data[0].utterances[0]
       return frisby.setup({
