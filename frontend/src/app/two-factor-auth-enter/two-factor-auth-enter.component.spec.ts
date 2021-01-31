@@ -38,6 +38,7 @@ import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
 describe('TwoFactorAuthEnterComponent', () => {
   let component: TwoFactorAuthEnterComponent
   let fixture: ComponentFixture<TwoFactorAuthEnterComponent>
+  let cookieService: any
   let userService: any
   let twoFactorAuthService: any
 
@@ -77,10 +78,12 @@ describe('TwoFactorAuthEnterComponent', () => {
         { provide: UserService, useValue: userService },
         { provide: TwoFactorAuthService, useValue: twoFactorAuthService },
         CookieService,
-        WindowRefService
+        WindowRefService,
+        CookieService
       ]
     })
       .compileComponents()
+    cookieService = TestBed.inject(CookieService)
   }))
 
   beforeEach(() => {
@@ -91,5 +94,32 @@ describe('TwoFactorAuthEnterComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy()
+  })
+
+  it('should store authentication token in cookie', () => {
+    twoFactorAuthService.verify.and.returnValue(of({ token: 'TOKEN' }))
+    component.verify()
+
+    expect(cookieService.get('token')).toBe('TOKEN')
+  })
+
+  it('should store authentication token in local storage', () => {
+    twoFactorAuthService.verify.and.returnValue(of({ token: 'TOKEN' }))
+    component.verify()
+
+    expect(localStorage.getItem('token')).toBe('TOKEN')
+  })
+
+  it('should store basket ID in session storage', () => {
+    twoFactorAuthService.verify.and.returnValue(of({ bid: 42 }))
+    component.verify()
+
+    expect(sessionStorage.getItem('bid')).toBe('42')
+  })
+
+  xit('should notify about user login after 2FA verification', () => { // FIXME Spy call is not registered at all
+    component.verify()
+
+    expect(userService.isLoggedIn.next).toHaveBeenCalledWith(true)
   })
 })
