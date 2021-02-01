@@ -10,6 +10,7 @@ const fs = require('fs')
 const utils = require('../../lib/utils')
 
 const REST_URL = 'http://localhost:3000/rest/'
+const API_URL = 'http://localhost:3000/api/'
 let trainingData
 
 async function login ({ email, password, totpSecret }) {
@@ -151,6 +152,36 @@ describe('/chatbot', () => {
         .expect('status', 200)
         .then(({ json }) => {
           expect(trainingData.data[0].answers).toContainEqual(json)
+        })
+    })
+
+    it('Responds with product price when asked question with product name', async () => {
+      const { token } = await login({
+        email: 'bjoern.kimminich@gmail.com',
+        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+      })
+      return frisby.get(API_URL + '/Products/1')
+        .expect('status', 200)
+        .then(({ json }) => {
+          return frisby.setup({
+            request: {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
+            }
+          }, true)
+            .post(REST_URL + 'chatbot/respond', {
+              body: {
+                action: 'query',
+                query: 'How much is ' + json.data.name + '?'
+              }
+            })
+            .expect('status', 200)
+            .expect('json', 'action', 'response')
+            .then(({ body = json.body }) => {
+              expect(body).toContain(`${json.data.name} costs ${json.data.price}¤`)
+            })
         })
     })
 
