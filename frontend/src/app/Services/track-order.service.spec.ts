@@ -23,7 +23,7 @@ describe('TrackOrderService', () => {
   it('should get tracking order results directly via the rest api', inject([TrackOrderService, HttpTestingController],
     fakeAsync((service: TrackOrderService, httpMock: HttpTestingController) => {
       let res: any
-      service.save('5267-f9cd5882f54c75a3').subscribe((data) => (res = data))
+      service.find('5267-f9cd5882f54c75a3').subscribe((data) => (res = data))
       const req = httpMock.expectOne('http://localhost:3000/rest/track-order/5267-f9cd5882f54c75a3')
       req.flush('apiResponse')
 

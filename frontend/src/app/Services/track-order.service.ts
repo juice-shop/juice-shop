@@ -17,7 +17,7 @@ export class TrackOrderService {
 
   constructor (private readonly http: HttpClient) { }
 
-  save (params: string) {
+  find (params: string) {
     params = encodeURIComponent(params)
     return this.http.get(`${this.host}/${params}`).pipe(map((response: any) => response), catchError((error) => { throw error }))
   }
