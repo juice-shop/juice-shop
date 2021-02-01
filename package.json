@@ -155,7 +155,7 @@
     "sequelize": "^6.4.0",
     "sequelize-notupdate-attributes": "^1.0.0",
     "serve-index": "^1.9.1",
-    "socket.io": "^2.3.0",
+    "socket.io": "^3.1.0",
     "sqlite3": "^5.0.0",
     "svg-captcha": "^1.4.0",
     "swagger-ui-express": "^4.1.4",
@@ -187,7 +187,7 @@
     "shelljs": "^0.8.4",
     "sinon": "^9.0.2",
     "sinon-chai": "^3.5.0",
-    "socket.io-client": "^2.3.0",
+    "socket.io-client": "^3.1.0",
     "webdriver-manager": "^12.1.7"
   },
   "engines": {
