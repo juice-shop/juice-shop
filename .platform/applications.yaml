@@ -1,0 +1,32 @@
+- name: app
+  type: "nodejs:12"
+  disk: 512
+  mounts:
+    'data/chatbot':
+      source: local
+      source_path: chatbot
+    'data/db':
+      source: local
+      source_path: db
+    'i18n':
+      source: local
+      source_path: i18n
+    'ftp':
+      source: local
+      source_path: ftp
+    'logs':
+      source: local
+      source_path: logs
+  variables:
+    env:
+      NODE_OPTIONS: --max_old_space_size=1536
+      NG_CLI_ANALYTICS: ci
+  hooks:
+    build: |
+      sed -i '' -e 's$data/juiceshop.sqlite$data/db/juiceshop.sqlite$' models/index.js
+      npm install --production --unsafe-perm
+      npm dedupe
+      rm -rf frontend/node_modules
+  web:
+    commands:
+      start: npm start
