@@ -10,6 +10,7 @@ import { saveAs } from 'file-saver'
 import { SnackBarHelperService } from './snack-bar-helper.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { from } from 'rxjs'
+import { ChallengeService } from './challenge.service'
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ import { from } from 'rxjs'
 export class LocalBackupService {
   private readonly VERSION = 1
 
-  constructor (private readonly cookieService: CookieService, private readonly snackBarHelperService: SnackBarHelperService, private readonly snackBar: MatSnackBar) { }
+  constructor (private readonly cookieService: CookieService, private readonly challengeService: ChallengeService, private readonly snackBarHelperService: SnackBarHelperService, private readonly snackBar: MatSnackBar) { }
 
   save (fileName: string = 'owasp_juice_shop') {
     const backup: Backup = { version: this.VERSION }
@@ -55,10 +56,16 @@ export class LocalBackupService {
         this.restoreCookie('language', backup.language)
         this.restoreCookie('continueCode', backup.continueCode)
 
-        const snackBarRef = this.snackBar.open('Backup has been restored from ' + backupFile.name, 'Force page reload', {
-          duration: 5000
+        const snackBarRef = this.snackBar.open('Backup has been restored from ' + backupFile.name, 'Apply changes now', {
+          duration: 10000
         })
         snackBarRef.onAction().subscribe(() => {
+          if (backup.continueCode) {
+            this.challengeService.restoreProgress(encodeURIComponent(backup.continueCode)).subscribe(() => {
+            }, (error) => {
+              console.log(error)
+            })
+          }
           location.reload()
         })
       } else {

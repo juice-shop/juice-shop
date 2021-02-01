@@ -11,14 +11,17 @@ import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-tran
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import * as FileSaver from 'file-saver'
+import { ChallengeService } from './challenge.service'
 
 describe('LocalBackupService', () => {
   let snackBar: any
   let cookieService: any
+  let challengeService: any
 
   beforeEach(() => {
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
     snackBar.open.and.returnValue(null)
+    challengeService = jasmine.createSpyObj('ChallengeService', ['restoreProgress'])
 
     TestBed.configureTestingModule({
       imports: [
@@ -32,6 +35,7 @@ describe('LocalBackupService', () => {
       ],
       providers: [
         { provide: MatSnackBar, useValue: snackBar },
+        { provide: ChallengeService, useValue: challengeService },
         CookieService,
         LocalBackupService
       ]
