@@ -42,7 +42,7 @@ describe('OrderCompletionComponent', () => {
   beforeEach(waitForAsync(() => {
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
-    trackOrderService = jasmine.createSpyObj('TrackOrderService', ['save'])
+    trackOrderService = jasmine.createSpyObj('TrackOrderService', ['find'])
     trackOrderService.find.and.returnValue(of({ data: [{ products: [] }] }))
     activatedRoute = new MockActivatedRoute()
     addressService = jasmine.createSpyObj('AddressService', ['getById'])
