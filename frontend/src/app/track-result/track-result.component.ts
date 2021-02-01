@@ -14,7 +14,7 @@ import { faHome, faSync, faTruck, faTruckLoading, faWarehouse } from '@fortaweso
 library.add(faWarehouse, faSync, faTruckLoading, faTruck, faHome)
 dom.watch()
 
-enum Status {
+export enum Status {
   New,
   Packing,
   Transit,
