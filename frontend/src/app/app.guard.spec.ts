@@ -25,6 +25,16 @@ describe('LoginGuard', () => {
   it('should be created', inject([LoginGuard], (guard: LoginGuard) => {
     expect(guard).toBeTruthy()
   }))
+
+  it('should open for authenticated users', inject([LoginGuard], (guard: LoginGuard) => {
+    localStorage.setItem('token', 'TOKEN')
+    expect(guard.canActivate()).toBeTrue()
+  }))
+
+  it('should close for anonymous users', inject([LoginGuard], (guard: LoginGuard) => {
+    localStorage.removeItem('token')
+    expect(guard.canActivate()).toBeFalse()
+  }))
 })
 
 describe('AdminGuard', () => {
