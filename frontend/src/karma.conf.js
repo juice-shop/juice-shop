@@ -22,8 +22,10 @@ module.exports = function (config) {
     },
     coverageReporter: {
       dir: require('path').join(__dirname, '../../build/reports/coverage/frontend-tests'),
-      reports: ['html', 'lcovonly'],
-      fixWebpackSourcePaths: true
+      reporters: [
+        { type: 'html', subdir: '.' },
+        { type: 'lcovonly', subdir: '.' }
+      ]
     },
     reporters: ['progress', 'kjhtml'],
     port: 9876,
