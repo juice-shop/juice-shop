@@ -252,6 +252,12 @@ describe('NavbarComponent', () => {
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('bid')
   })
 
+  it('should remove basket item total from session storage', () => {
+    spyOn(sessionStorage, 'removeItem')
+    component.logout()
+    expect(sessionStorage.removeItem).toHaveBeenCalledWith('itemTotal')
+  })
+
   it('should set the login status to be false via UserService', () => {
     component.logout()
     expect(userService.isLoggedIn.next).toHaveBeenCalledWith(false)

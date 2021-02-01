@@ -4,7 +4,7 @@
  */
 
 import { ChallengeService } from '../Services/challenge.service'
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing'
 import { SocketIoService } from '../Services/socket-io.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
@@ -22,6 +22,8 @@ import { MatMenuModule } from '@angular/material/menu'
 import { MatListModule } from '@angular/material/list'
 import { roles } from '../roles'
 import { AdministrationService } from '../Services/administration.service'
+import { UserService } from '../Services/user.service'
+import { Location } from '@angular/common'
 
 class MockSocket {
   on (str: string, callback: Function) {
@@ -35,16 +37,24 @@ describe('SidenavComponent', () => {
   let challengeService: any
   let cookieService: any
   let configurationService: any
+  let userService: any
   let administractionService: any
   let mockSocket: any
   let socketIoService: any
   let loginGuard
+  let location: Location
 
   beforeEach(waitForAsync(() => {
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { welcomeBanner: {} }, hackingInstructor: {} }))
     challengeService = jasmine.createSpyObj('ChallengeService', ['find'])
     challengeService.find.and.returnValue(of([{ solved: false }]))
+    userService = jasmine.createSpyObj('UserService', ['whoAmI', 'getLoggedInState', 'saveLastLoginIp'])
+    userService.whoAmI.and.returnValue(of({}))
+    userService.getLoggedInState.and.returnValue(of(true))
+    userService.saveLastLoginIp.and.returnValue(of({}))
+    userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn', ['next'])
+    userService.isLoggedIn.next.and.returnValue({})
     administractionService = jasmine.createSpyObj('AdministrationService', ['getApplicationVersion'])
     administractionService.getApplicationVersion.and.returnValue(of(null))
     cookieService = jasmine.createSpyObj('CookieService', ['delete', 'get', 'set'])
@@ -70,6 +80,7 @@ describe('SidenavComponent', () => {
       providers: [
         { provide: ConfigurationService, useValue: configurationService },
         { provide: ChallengeService, useValue: challengeService },
+        { provide: UserService, useValue: userService },
         { provide: AdministrationService, useValue: administractionService },
         { provide: CookieService, useValue: cookieService },
         { provide: SocketIoService, useValue: socketIoService },
@@ -78,6 +89,7 @@ describe('SidenavComponent', () => {
       ]
     })
       .compileComponents()
+    location = TestBed.inject(Location)
     TestBed.inject(TranslateService)
   }))
 
@@ -123,4 +135,43 @@ describe('SidenavComponent', () => {
 
     expect(component.scoreBoardVisible).toBe(true)
   })
+
+  it('should remove authentication token from localStorage', () => {
+    spyOn(localStorage, 'removeItem')
+    component.logout()
+    expect(localStorage.removeItem).toHaveBeenCalledWith('token')
+  })
+
+  it('should remove authentication token from cookies', () => {
+    component.logout()
+    expect(cookieService.delete).toHaveBeenCalledWith('token', '/')
+  })
+
+  it('should remove basket id from session storage', () => {
+    spyOn(sessionStorage, 'removeItem')
+    component.logout()
+    expect(sessionStorage.removeItem).toHaveBeenCalledWith('bid')
+  })
+
+  it('should remove basket item total from session storage', () => {
+    spyOn(sessionStorage, 'removeItem')
+    component.logout()
+    expect(sessionStorage.removeItem).toHaveBeenCalledWith('itemTotal')
+  })
+
+  it('should set the login status to be false via UserService', () => {
+    component.logout()
+    expect(userService.isLoggedIn.next).toHaveBeenCalledWith(false)
+  })
+
+  it('should save the last login IP address', () => {
+    component.logout()
+    expect(userService.saveLastLoginIp).toHaveBeenCalled()
+  })
+
+  it('should forward to main page', fakeAsync(() => {
+    component.logout()
+    tick()
+    expect(location.path()).toBe('/')
+  }))
 })
