@@ -36,7 +36,7 @@ export class OrderCompletionComponent implements OnInit {
   ngOnInit () {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.orderId = paramMap.get('id')
-      this.trackOrderService.save(this.orderId).subscribe((results) => {
+      this.trackOrderService.find(this.orderId).subscribe((results) => {
         this.promotionalDiscount = results.data[0].promotionalAmount ? parseFloat(results.data[0].promotionalAmount) : 0
         this.deliveryPrice = results.data[0].deliveryPrice ? parseFloat(results.data[0].deliveryPrice) : 0
         this.orderDetails.addressId = results.data[0].addressId
