@@ -33,6 +33,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
   let translateService: any
   let cookieService: any
   let challengeService: any
+  let configurationService: any
   let mockSocket: any
 
   beforeEach(waitForAsync(() => {
@@ -46,6 +47,8 @@ describe('ChallengeSolvedNotificationComponent', () => {
     translateService.onDefaultLangChange = new EventEmitter()
     cookieService = jasmine.createSpyObj('CookieService', ['set'])
     challengeService = jasmine.createSpyObj('ChallengeService', ['continueCode'])
+    configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
+    configurationService.getApplicationConfiguration.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
       imports: [
@@ -62,7 +65,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
         { provide: TranslateService, useValue: translateService },
         { provide: CookieService, useValue: cookieService },
         { provide: ChallengeService, useValue: challengeService },
-        ConfigurationService,
+        { provide: ConfigurationService, useValue: configurationService },
         CountryMappingService
       ]
     })
@@ -133,4 +136,40 @@ describe('ChallengeSolvedNotificationComponent', () => {
     fixture.detectChanges()
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
+
+  it('should show CTF flag codes if configured accordingly', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { showFlagsInNotifications: true } }))
+    component.ngOnInit()
+
+    expect(component.showCtfFlagsInNotifications).toBeTrue()
+  })
+
+  it('should hide CTF flag codes if configured accordingly', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { showFlagsInNotifications: false } }))
+    component.ngOnInit()
+
+    expect(component.showCtfFlagsInNotifications).toBeFalse()
+  })
+
+  it('should hide CTF flag codes by default', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { } }))
+    component.ngOnInit()
+
+    expect(component.showCtfFlagsInNotifications).toBeFalse()
+  })
+
+  it('should hide FBCTF-specific country details by default', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { } }))
+    component.ngOnInit()
+
+    expect(component.showCtfCountryDetailsInNotifications).toBe('none')
+  })
+
+  it('should not load countries for FBCTF when configured to hide country details', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { showCountryDetailsInNotifications: 'none' } }))
+    component.ngOnInit()
+
+    expect(component.showCtfCountryDetailsInNotifications).toBe('none')
+    expect(component.countryMap).toBeUndefined()
+  })
 })
