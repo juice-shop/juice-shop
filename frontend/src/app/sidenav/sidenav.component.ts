@@ -26,11 +26,9 @@ export class SidenavComponent implements OnInit {
   public userEmail = ''
   public scoreBoardVisible: boolean = false
   public version: string = ''
-  public isExpanded = true
   public showPrivacySubmenu: boolean = false
   public showOrdersSubmenu: boolean = false
   public isShowing = false
-  public sizeOfMail: number = 0
   public offerScoreBoardTutorial: boolean = false
 
   @Output() public sidenavToggle = new EventEmitter()
@@ -80,6 +78,7 @@ export class SidenavComponent implements OnInit {
     localStorage.removeItem('token')
     this.cookieService.delete('token', '/')
     sessionStorage.removeItem('bid')
+    sessionStorage.removeItem('itemTotal')
     this.userService.isLoggedIn.next(false)
     this.ngZone.run(async () => await this.router.navigate(['/']))
   }
@@ -102,8 +101,6 @@ export class SidenavComponent implements OnInit {
   getUserDetails () {
     this.userService.whoAmI().subscribe((user: any) => {
       this.userEmail = user.email
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      this.sizeOfMail = (`${user.email}`).length
     }, (err) => console.log(err))
   }
 
