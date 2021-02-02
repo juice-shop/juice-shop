@@ -13,7 +13,8 @@ describe('webhook', () => {
 
   const challenge = {
     key: 'key',
-    name: 'name'
+    name: 'name',
+    difficulty: 1
   }
 
   describe('notify', () => {
