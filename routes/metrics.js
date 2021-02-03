@@ -91,7 +91,7 @@ exports.observeMetrics = function observeMetrics () {
 
   const cheatScoreMetrics = new Prometheus.Gauge({
     name: `${app}_cheat_score`,
-    help: 'Overall probability that any challenge were solved by cheating.',
+    help: 'Overall probability that any challenges were solved by cheating.',
     labelNames: ['type']
   })
 
