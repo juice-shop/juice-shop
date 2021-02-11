@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -9,7 +9,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { UserService } from '../Services/user.service'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 import { EventEmitter } from '@angular/core'
 import { ContactComponent } from './contact.component'
@@ -29,16 +29,16 @@ describe('ContactComponent', () => {
   let snackBar: any
   let translateService
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
     translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
-    userService = jasmine.createSpyObj('UserService',['whoAmI'])
+    userService = jasmine.createSpyObj('UserService', ['whoAmI'])
     userService.whoAmI.and.returnValue(of({}))
-    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
-    feedbackService = jasmine.createSpyObj('FeedbackService',['save'])
+    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
+    feedbackService = jasmine.createSpyObj('FeedbackService', ['save'])
     feedbackService.save.and.returnValue(of({}))
     captchaService = jasmine.createSpyObj('CaptchaService', ['getCaptcha'])
     captchaService.getCaptcha.and.returnValue(of({}))
@@ -55,7 +55,7 @@ describe('ContactComponent', () => {
         MatInputModule,
         MatSnackBarModule
       ],
-      declarations: [ ContactComponent ],
+      declarations: [ContactComponent],
       providers: [
         { provide: UserService, useValue: userService },
         { provide: MatSnackBar, useValue: snackBar },
@@ -64,7 +64,7 @@ describe('ContactComponent', () => {
         { provide: TranslateService, useValue: translateService }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -104,7 +104,7 @@ describe('ContactComponent', () => {
 
   it('feedback should not be more than 160 characters', () => {
     let str: string = ''
-    for (let i = 0;i < 161;++i) {
+    for (let i = 0; i < 161; ++i) {
       str += 'a'
     }
     component.feedbackControl.setValue(str)
@@ -177,8 +177,8 @@ describe('ContactComponent', () => {
 
   it('should display thank-you message and reset feedback form on saving feedback', () => {
     feedbackService.save.and.returnValue(of({ rating: 4 }))
-    spyOn(component,'resetForm')
-    spyOn(component,'ngOnInit')
+    spyOn(component, 'resetForm')
+    spyOn(component, 'ngOnInit')
     component.save()
     expect(snackBar.open).toHaveBeenCalled()
     expect(component.ngOnInit).toHaveBeenCalled()
@@ -187,8 +187,8 @@ describe('ContactComponent', () => {
 
   it('should display 5-star thank-you message and reset feedback form on saving 5-star feedback', () => {
     feedbackService.save.and.returnValue(of({ rating: 5 }))
-    spyOn(component,'resetForm')
-    spyOn(component,'ngOnInit')
+    spyOn(component, 'resetForm')
+    spyOn(component, 'ngOnInit')
     component.save()
     expect(snackBar.open).toHaveBeenCalled()
     expect(component.ngOnInit).toHaveBeenCalled()
@@ -197,7 +197,7 @@ describe('ContactComponent', () => {
 
   it('should clear the form display error if saving feedback fails', fakeAsync(() => {
     feedbackService.save.and.returnValue(throwError({ error: 'Error' }))
-    spyOn(component,'resetCaptcha')
+    spyOn(component, 'resetCaptcha')
     component.save()
     expect(snackBar.open).toHaveBeenCalled()
     expect(component.resetCaptcha).toHaveBeenCalled()

@@ -165,6 +165,7 @@
   email: bjoern
   password: 'monkey summer birthday are all bad passwords but work just fine in a long passphrase'
   key: bjoern
+  profileImage: '12.png'
   role: 'admin'
   isAdmin: true
   securityQuestion:
@@ -176,7 +177,7 @@
   customDomain: true
   key: bjoernOwasp
   role: 'deluxe'
-  profileImage: '12.jpg'
+  profileImage: '13.jpg'
   securityQuestion:
     id: 7
     answer: 'Zaya' # https://www.youtube.com/watch?v=Lu0-kDdtVf4
@@ -241,3 +242,13 @@
   password: 'y&x5Z#f6W532ZUf$q3DsdgfgfgxxUsvoCUaDzFU'
   key: emma
   role: 'customer'
+-
+  email: stan
+  username: SmilinStan
+  password: 'ship coffin krypt cross estate supply insurance asbestos souvenir'
+  key: stan
+  profileImage: '20.jpg'
+  role: 'deluxe'
+  securityQuestion:
+    id: 10
+    answer: "Used Ship Emporium" # https://monkeyisland.fandom.com/wiki/Stan_S._Stanman

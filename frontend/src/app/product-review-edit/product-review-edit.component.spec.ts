@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
-import { async, ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
 import { ProductReviewEditComponent } from './product-review-edit.component'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -22,11 +22,10 @@ describe('ProductReviewEditComponent', () => {
   let productReviewService: any
   let dialogRef: any
 
-  beforeEach(async(() => {
-
-    productReviewService = jasmine.createSpyObj('ProductReviewService',['patch'])
+  beforeEach(waitForAsync(() => {
+    productReviewService = jasmine.createSpyObj('ProductReviewService', ['patch'])
     productReviewService.patch.and.returnValue(of({}))
-    dialogRef = jasmine.createSpyObj('MatDialogRef',['close'])
+    dialogRef = jasmine.createSpyObj('MatDialogRef', ['close'])
     dialogRef.close.and.returnValue({})
 
     TestBed.configureTestingModule({
@@ -40,14 +39,14 @@ describe('ProductReviewEditComponent', () => {
         MatButtonModule,
         MatSnackBarModule
       ],
-      declarations: [ ProductReviewEditComponent ],
+      declarations: [ProductReviewEditComponent],
       providers: [
         { provide: ProductReviewService, useValue: productReviewService },
         { provide: MAT_DIALOG_DATA, useValue: { productData: {} } },
         { provide: MatDialogRef, useValue: dialogRef }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

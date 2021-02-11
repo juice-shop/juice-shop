@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -16,7 +16,7 @@ describe('/rest/track-order/:id', () => {
   })
 
   it('GET all orders by injecting into orderId', () => {
-    var product = Joi.object().keys({
+    const product = Joi.object().keys({
       quantity: Joi.number(),
       name: Joi.string(),
       price: Joi.number(),

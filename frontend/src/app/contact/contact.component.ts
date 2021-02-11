@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -23,7 +23,6 @@ dom.watch()
   styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent implements OnInit {
-
   public authorControl: FormControl = new FormControl({ value: '', disabled: true }, [])
   public feedbackControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(160)])
   public captchaControl: FormControl = new FormControl('', [Validators.required, Validators.pattern('-?[\\d]*')])
@@ -35,15 +34,16 @@ export class ContactComponent implements OnInit {
   public confirmation: any
   public error: any
 
-  constructor (private userService: UserService, private captchaService: CaptchaService, private feedbackService: FeedbackService,
-    private formSubmitService: FormSubmitService, private translate: TranslateService, private snackBarHelperService: SnackBarHelperService) { }
+  constructor (private readonly userService: UserService, private readonly captchaService: CaptchaService, private readonly feedbackService: FeedbackService,
+    private readonly formSubmitService: FormSubmitService, private readonly translate: TranslateService, private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
     this.userService.whoAmI().subscribe((data: any) => {
       this.feedback = {}
       this.userIdControl.setValue(data.id)
       this.feedback.UserId = data.id
-      this.authorControl.setValue(data.email ? '***' + data.email.slice(3) : 'anonymous')
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      this.authorControl.setValue(data.email ? `***${data.email.slice(3)}` : 'anonymous')
     }, (err) => {
       this.feedback = undefined
       console.log(err)
@@ -63,6 +63,7 @@ export class ContactComponent implements OnInit {
   save () {
     this.feedback.captchaId = this.captchaId
     this.feedback.captcha = this.captchaControl.value
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     this.feedback.comment = `${this.feedbackControl.value} (${this.authorControl.value})`
     this.feedback.rating = this.rating
     this.feedback.UserId = this.userIdControl.value
@@ -84,7 +85,7 @@ export class ContactComponent implements OnInit {
       this.ngOnInit()
       this.resetForm()
     }, (err) => {
-      this.snackBarHelperService.open(err.error?.error,'errorBar')
+      this.snackBarHelperService.open(err.error?.error, 'errorBar')
       this.feedback = {}
       this.resetCaptcha()
     })
@@ -110,5 +111,6 @@ export class ContactComponent implements OnInit {
   }
 
   formatRating (value: number) {
-    return value + '★'
-  }}
+    return `${value}★`
+  }
+}

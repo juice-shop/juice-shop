@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -7,7 +7,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -25,8 +25,8 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { EventEmitter } from '@angular/core'
-import { of, throwError } from 'rxjs'
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { of } from 'rxjs'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 describe('AddressSelectComponent', () => {
   let component: AddressSelectComponent
@@ -34,13 +34,13 @@ describe('AddressSelectComponent', () => {
   let snackBar: any
   let translateService
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
     translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
-    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
+    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
     snackBar.open.and.returnValue(null)
 
     TestBed.configureTestingModule({
@@ -65,11 +65,11 @@ describe('AddressSelectComponent', () => {
         MatTooltipModule,
         MatCheckboxModule
       ],
-      declarations: [ AddressSelectComponent, AddressComponent, DeliveryMethodComponent ],
+      declarations: [AddressSelectComponent, AddressComponent, DeliveryMethodComponent],
       providers: [{ provide: TranslateService, useValue: translateService },
-                  { provide: MatSnackBar, useValue: snackBar }]
+        { provide: MatSnackBar, useValue: snackBar }]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

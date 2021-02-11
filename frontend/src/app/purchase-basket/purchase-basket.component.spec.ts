@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatInputModule } from '@angular/material/input'
 import { BasketService } from '../Services/basket.service'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatTableModule } from '@angular/material/table'
 import { MatButtonModule } from '@angular/material/button'
@@ -31,27 +31,26 @@ describe('PurchaseBasketComponent', () => {
   let deluxeGuard
   let snackBar: any
 
-  beforeEach(async(() => {
-
-    basketService = jasmine.createSpyObj('BasketService', ['find','del','get','put','updateNumberOfCardItems'])
+  beforeEach(waitForAsync(() => {
+    basketService = jasmine.createSpyObj('BasketService', ['find', 'del', 'get', 'put', 'updateNumberOfCartItems'])
     basketService.find.and.returnValue(of({ Products: [] }))
     basketService.del.and.returnValue(of({}))
     basketService.get.and.returnValue(of({}))
     basketService.put.and.returnValue(of({}))
-    basketService.updateNumberOfCardItems.and.returnValue(of({}))
-    userService = jasmine.createSpyObj('UserService',['whoAmI'])
+    basketService.updateNumberOfCartItems.and.returnValue(of({}))
+    userService = jasmine.createSpyObj('UserService', ['whoAmI'])
     userService.whoAmI.and.returnValue(of({}))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
     translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
-    deluxeGuard = jasmine.createSpyObj('',['isDeluxe'])
+    deluxeGuard = jasmine.createSpyObj('', ['isDeluxe'])
     deluxeGuard.isDeluxe.and.returnValue(false)
-    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
+    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
-      declarations: [ PurchaseBasketComponent ],
+      declarations: [PurchaseBasketComponent],
       imports: [
         HttpClientTestingModule,
         TranslateModule.forRoot(),
@@ -68,11 +67,11 @@ describe('PurchaseBasketComponent', () => {
         { provide: TranslateService, useValue: translateService },
         { provide: BasketService, useValue: basketService },
         { provide: MatSnackBar, useValue: snackBar },
-        { provide: UserService , useValue: userService },
+        { provide: UserService, useValue: userService },
         { provide: DeluxeGuard, useValue: deluxeGuard }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -85,7 +84,7 @@ describe('PurchaseBasketComponent', () => {
     expect(component).toBeTruthy()
   })
 
-  it('should load user email when being created' , () => {
+  it('should load user email when being created', () => {
     userService.whoAmI.and.returnValue(of({ email: 'a@a' }))
     component.ngOnInit()
     expect(component.userEmail).toBe('(a@a)')
@@ -140,19 +139,19 @@ describe('PurchaseBasketComponent', () => {
     expect(component.dataSource).toEqual([])
   })
 
-  it('should log error while getting Products from backend API directly to browser console' , fakeAsync(() => {
+  it('should log error while getting Products from backend API directly to browser console', fakeAsync(() => {
     basketService.find.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.load()
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
-  it('should pass delete request for basket item via BasketService' , () => {
+  it('should pass delete request for basket item via BasketService', () => {
     component.delete(1)
     expect(basketService.del).toHaveBeenCalledWith(1)
   })
 
-  it('should load again after deleting a basket item' , () => {
+  it('should load again after deleting a basket item', () => {
     basketService.find.and.returnValue(of({ Products: [{ name: 'Product1', price: 1, deluxePrice: 1, BasketItem: { quantity: 1 } }, { name: 'Product2', price: 2, deluxePrice: 2, BasketItem: { quantity: 2 } }] }))
     component.delete(1)
     expect(component.dataSource.length).toBe(2)
@@ -164,19 +163,19 @@ describe('PurchaseBasketComponent', () => {
     expect(component.dataSource[1].BasketItem.quantity).toBe(2)
   })
 
-  it('should log error while deleting basket item directly to browser console' , fakeAsync(() => {
+  it('should log error while deleting basket item directly to browser console', fakeAsync(() => {
     basketService.del.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.delete(1)
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
-  it('should update basket item with increased quantity after adding another item of same type' , () => {
-    basketService.find.and.returnValue(of({ Products: [ { name: 'Product1', price: 1, deluxePrice: 1, BasketItem: { id: 1, quantity: 1 } } ] }))
+  it('should update basket item with increased quantity after adding another item of same type', () => {
+    basketService.find.and.returnValue(of({ Products: [{ name: 'Product1', price: 1, deluxePrice: 1, BasketItem: { id: 1, quantity: 1 } }] }))
     basketService.get.and.returnValue(of({ id: 1, quantity: 1 }))
     component.inc(1)
     expect(basketService.get).toHaveBeenCalledWith(1)
-    expect(basketService.put).toHaveBeenCalledWith(1,{ quantity: 2 })
+    expect(basketService.put).toHaveBeenCalledWith(1, { quantity: 2 })
   })
 
   it('should not increase quantity on error retrieving basket item and log the error', fakeAsync(() => {
@@ -188,7 +187,7 @@ describe('PurchaseBasketComponent', () => {
   }))
 
   it('should not increase quantity on error updating basket item and log the error', fakeAsync(() => {
-    basketService.find.and.returnValue(of({ Products: [ { BasketItem: { id: 1, quantity: 1 } } ] }))
+    basketService.find.and.returnValue(of({ Products: [{ BasketItem: { id: 1, quantity: 1 } }] }))
     basketService.get.and.returnValue(of({ id: 1, quantity: 1 }))
     basketService.put.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
@@ -197,29 +196,29 @@ describe('PurchaseBasketComponent', () => {
   }))
 
   it('should load again after increasing product quantity', () => {
-    basketService.find.and.returnValue(of({ Products: [ { BasketItem: { id: 1, quantity: 2 } } ] }))
+    basketService.find.and.returnValue(of({ Products: [{ BasketItem: { id: 1, quantity: 2 } }] }))
     basketService.get.and.returnValue(of({ id: 1, quantity: 2 }))
     basketService.put.and.returnValue(of({ id: 1, quantity: 3 }))
     component.inc(1)
     expect(basketService.find).toHaveBeenCalled()
   })
 
-  it('should update basket item with decreased quantity after removing an item' , () => {
-    basketService.find.and.returnValue(of({ Products: [ { BasketItem: { id: 1, quantity: 2 } } ] }))
+  it('should update basket item with decreased quantity after removing an item', () => {
+    basketService.find.and.returnValue(of({ Products: [{ BasketItem: { id: 1, quantity: 2 } }] }))
     basketService.get.and.returnValue(of({ id: 1, quantity: 2 }))
     basketService.put.and.returnValue(of({ id: 1, quantity: 1 }))
     component.dec(1)
     expect(basketService.get).toHaveBeenCalledWith(1)
-    expect(basketService.put).toHaveBeenCalledWith(1,{ quantity: 1 })
+    expect(basketService.put).toHaveBeenCalledWith(1, { quantity: 1 })
   })
 
   it('should always keep one item of any product in the basket when reducing quantity via UI', () => {
-    basketService.find.and.returnValue(of({ Products: [ { BasketItem: { id: 1, quantity: 1 } } ] }))
+    basketService.find.and.returnValue(of({ Products: [{ BasketItem: { id: 1, quantity: 1 } }] }))
     basketService.get.and.returnValue(of({ id: 1, quantity: 1 }))
     basketService.put.and.returnValue(of({ id: 1, quantity: 1 }))
     component.dec(1)
     expect(basketService.get).toHaveBeenCalledWith(1)
-    expect(basketService.put).toHaveBeenCalledWith(1,{ quantity: 1 })
+    expect(basketService.put).toHaveBeenCalledWith(1, { quantity: 1 })
   })
 
   it('should not decrease quantity on error retrieving basket item and log the error', fakeAsync(() => {
@@ -231,7 +230,7 @@ describe('PurchaseBasketComponent', () => {
   }))
 
   it('should not decrease quantity on error updating basket item and log the error', fakeAsync(() => {
-    basketService.find.and.returnValue(of({ Products: [ { BasketItem: { id: 1, quantity: 1 } } ] }))
+    basketService.find.and.returnValue(of({ Products: [{ BasketItem: { id: 1, quantity: 1 } }] }))
     basketService.get.and.returnValue(of({ id: 1, quantity: 1 }))
     basketService.put.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
@@ -239,8 +238,8 @@ describe('PurchaseBasketComponent', () => {
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
-  it('should load again after decreasing product quantity' , () => {
-    basketService.find.and.returnValue(of({ Products: [ { BasketItem: { id: 1, quantity: 2 } } ] }))
+  it('should load again after decreasing product quantity', () => {
+    basketService.find.and.returnValue(of({ Products: [{ BasketItem: { id: 1, quantity: 2 } }] }))
     basketService.get.and.returnValue(of({ id: 1, quantity: 2 }))
     basketService.put.and.returnValue(of({ id: 1, quantity: 1 }))
     component.dec(1)
@@ -248,7 +247,7 @@ describe('PurchaseBasketComponent', () => {
   })
 
   it('should reset quantity to 1 when decreasing for quantity tampered to be negative', () => {
-    basketService.find.and.returnValue(of({ Products: [ { BasketItem: { id: 1, quantity: -100 } } ] }))
+    basketService.find.and.returnValue(of({ Products: [{ BasketItem: { id: 1, quantity: -100 } }] }))
     basketService.get.and.returnValue(of({ id: 1, quantity: -100 }))
     basketService.put.and.returnValue(of({ id: 1, quantity: 1 }))
     component.dec(1)
@@ -257,7 +256,7 @@ describe('PurchaseBasketComponent', () => {
   })
 
   it('should reset quantity to 1 when increasing for quantity tampered to be negative', () => {
-    basketService.find.and.returnValue(of({ Products: [ { BasketItem: { id: 1, quantity: -100 } } ] }))
+    basketService.find.and.returnValue(of({ Products: [{ BasketItem: { id: 1, quantity: -100 } }] }))
     basketService.get.and.returnValue(of({ id: 1, quantity: -100 }))
     basketService.put.and.returnValue(of({ id: 1, quantity: 1 }))
     component.inc(1)

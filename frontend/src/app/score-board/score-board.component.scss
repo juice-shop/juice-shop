@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -63,18 +63,19 @@ mat-table {
 }
 
 .disabled-challenges-infoBox {
+  align-self: center;
+  color: rgb(230, 74, 25);
+  cursor: default;
   height: 100%;
   margin: 0;
-  align-self: center;
-  color: rgb(230,74,25);
-  cursor: default;
+
   a {
-    font-style: normal;
     color: rgb(84, 110, 122);
+    font-style: normal;
   }
 }
 
 .backupButton {
-  margin-left: 15px;
   align-self: center;
+  margin-left: 15px;
 }

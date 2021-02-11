@@ -45,9 +45,9 @@
   "TITLE_ABOUT": "Sobre nós",
   "SECTION_CORPORATE_HISTORY": "História e Política da Empresa",
   "SECTION_CUSTOMER_FEEDBACK": "Comentário dos Clientes",
-  "SECTION_SUPPORT_CHAT": "Support Chat",
-  "LABEL_POWERED_BY_CHATBOT": "powered by {{chatbot}}",
-  "ASK_ME_ANYTHING_PLACEHOLDER": "Ask me anything in English",
+  "SECTION_SUPPORT_CHAT": "Chat de Suporte",
+  "LABEL_POWERED_BY_CHATBOT": "desenvolvido por {{chatbot}}",
+  "ASK_ME_ANYTHING_PLACEHOLDER": "Pergunte-me alguma coisa em Inglês",
   "SECTION_SOCIAL_MEDIA": "Nos acompanhe nas redes sociais",
   "LINK_TERMS_OF_USE": "Confira nosso entediante termo de uso se você está interessado em algo tão chato.",
   "TITLE_ADMINISTRATION": "Administração",
@@ -363,8 +363,8 @@
   "TAG_PREREQUISITE_DESCRIPTION": "Marca os desafios que precisam ser resolvidos antes que um ou mais desafios possam ser (realisticamente) resolvidos.",
   "TAG_OSINT": "OSINT",
   "TAG_OSINT_DESCRIPTION": "Marca os desafios que requerem alguma pesquisa na internet ou \"Social Stalking\" fora do aplicativo.",
-  "TAG_CONTRAPTION": "Contraption",
-  "TAG_CONTRAPTION_DESCRIPTION": "Indicates that a challenge is not exactly part of a realistic scenario but might be a bit forced or crafted.",
+  "TAG_CONTRAPTION": "Geringonça",
+  "TAG_CONTRAPTION_DESCRIPTION": "Indica que um desafio não é exatamente parte de um cenário realista, mas pode ser um pouco forçado ou trabalhoso.",
   "TAG_SHENANIGANS": "Mutretas",
   "TAG_SHENANIGANS_DESCRIPTION": "Marca os desafios que não são considerados sérios ou realistas e que existem mais para entretenimento.",
   "TAG_TUTORIAL": "Tutorial",
@@ -405,5 +405,5 @@
   "CATEGORY_VULNERABLE_COMPONENTS_DESCRIPTION": "Componentes como bibliotecas, frameworks e outros softwares, são executados com o mesmo nível de privilégio da aplicação. Se um componente vulnerável é explorado, um ataque pode causar uma perda séria de dados ou a obtenção de controle completo do servidor. Aplicações e APIs que usam componentes com vulnerabilidades conhecidas podem prejudicar os métodos de defesa da aplicação e permitir inúmeros ataques.",
   "CATEGORY_XSS_DESCRIPTION": "Falhas de Cross-Site Scripting (XSS) ocorrem sempre que uma aplicação inclui dados não confiáveis em uma página web sem antes validá-los ou normalizá-los, ou quando atualiza uma página existente com código HTML ou Javascript fornecido pelo usuário. XSS permite que atacantes executem scripts no navegador do usuário, permitindo roubo de sessão, deface de websites e redirecionamento do usuário para sites maliciosos.",
   "CATEGORY_XXE_DESCRIPTION": "Muitos processadores de XML antigos ou mal configurados avaliam referências à entidades externas dentro do documento XML. Entidades externas podem ser usados para descobrir arquivos internos usando o URI handler, acessar compartilhamentos de arquivos internos, realizar escaneamento de portas, execução de código e negação de serviço.",
-  "INSUFFICIENT_WALLET_BALANCE": "Insufficient wallet balance."
+  "INSUFFICIENT_WALLET_BALANCE": "Saldo de carteira insuficiente."
 }

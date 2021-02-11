@@ -9,7 +9,9 @@ Shop easier to hack!
 > to contain _spoilers for entire challenge solutions_ so the entries
 > themselves are not individually tagged! You might not want to view
 > anything from this page before tackling the related challenges
-> yourself!
+> yourself! :broken_heart: marks resources which rely on
+> [_some form of cheating_](https://pwning.owasp-juice.shop/part1/rules.html#%E2%9D%8C-things-considered-cheating)
+> to solve a challenge.
 >
 > 🧃 is followed by the last known major release of OWASP Juice Shop
 > that a solution/script/tool is supposedly working with or that a video
@@ -66,6 +68,13 @@ Shop easier to hack!
   * [★★★★ GDPR Data Theft (Sensitive Data Exposure)](https://youtu.be/GPW90c4Ahbc)
   * [★★★★ Legacy Typosquatting (Vulnerable Components)](https://youtu.be/HqkGeWtwiHY)
   * [★★★★ Login Bjoern (Broken Authentication)](https://youtu.be/pmBJ1ZAlpF8)
+  * [★★★★ Misplaced Signature File (Sensitive Data Exposure)](https://youtu.be/56qHiwxTjYY)
+  * [★★★★ Nested Easter Egg (Cryptographic Issues)](https://youtu.be/yvatrnWvcGE)
+  * [★★★★ NoSql Manipulation (Injection)](https://youtu.be/frymuDxKwmc)
+    :broken_heart:
+* [Broken Authentication and SQL Injection - OWASP Juice Shop TryHackMe](https://youtu.be/W4MXUnZB2jc)
+  by
+  [Motasem Hamdan - CyberSecurity Trainer](https://www.youtube.com/channel/UCNSdU_1ehXtGclimTVckHmQ)
 * Live Hacking von Online-Shop „Juice Shop” (:de:)
   [Twitch live stream](https://www.twitch.tv/GregorBiswanger) recordings
   by
@@ -74,6 +83,7 @@ Shop easier to hack!
   * [Level 1](https://youtu.be/ccy-eKYpdbk)
   * [Level 2](https://youtu.be/KtMPEDJx0Sg)
   * [Level 3](https://youtu.be/aqXfFVHJ91g)
+  * [Level 4](https://youtu.be/jfe-iEePlTc)
 * [HackerOne #h1-2004 Community Day: Intro to Web Hacking - OWASP Juice Shop](https://youtu.be/KmlwIwG7Kv4)
   by [Nahamsec](https://twitch.tv/nahamsec) including the creation of a
   (fake) bugbounty report for all findings (🧃`v10.x`)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -36,15 +36,15 @@ export class RegisterComponent implements OnInit {
   public selected?: number
   public error: string | null = null
 
-  constructor (private securityQuestionService: SecurityQuestionService,
-    private userService: UserService,
-    private securityAnswerService: SecurityAnswerService,
-    private router: Router,
-    private formSubmitService: FormSubmitService,
-    private translateService: TranslateService,
-    private snackBar: MatSnackBar,
-    private snackBarHelperService: SnackBarHelperService,
-    private ngZone: NgZone) { }
+  constructor (private readonly securityQuestionService: SecurityQuestionService,
+    private readonly userService: UserService,
+    private readonly securityAnswerService: SecurityAnswerService,
+    private readonly router: Router,
+    private readonly formSubmitService: FormSubmitService,
+    private readonly translateService: TranslateService,
+    private readonly snackBar: MatSnackBar,
+    private readonly snackBarHelperService: SnackBarHelperService,
+    private readonly ngZone: NgZone) { }
 
   ngOnInit () {
     this.securityQuestionService.find(null).subscribe((securityQuestions: any) => {
@@ -64,16 +64,20 @@ export class RegisterComponent implements OnInit {
     }
 
     this.userService.save(user).subscribe((response: any) => {
-      this.securityAnswerService.save({UserId: response.id, answer: this.securityAnswerControl.value,
-        SecurityQuestionId: this.securityQuestionControl.value}).subscribe(() => {
-          this.ngZone.run(() => this.router.navigate(['/login']))
-          this.snackBarHelperService.open('CONFIRM_REGISTER')
-        })
+      this.securityAnswerService.save({
+        UserId: response.id,
+        answer: this.securityAnswerControl.value,
+        SecurityQuestionId: this.securityQuestionControl.value
+      }).subscribe(() => {
+        this.ngZone.run(async () => await this.router.navigate(['/login']))
+        this.snackBarHelperService.open('CONFIRM_REGISTER')
+      })
     }, (err) => {
       console.log(err)
-      if (err.error && err.error.errors) {
+      if (err.error?.errors) {
         const error = err.error.errors[0]
         if (error.message) {
+          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
           this.error = error.message[0].toUpperCase() + error.message.slice(1)
         } else {
           this.error = error
@@ -85,8 +89,8 @@ export class RegisterComponent implements OnInit {
 
 function matchValidator (passwordControl: AbstractControl) {
   return function matchOtherValidate (repeatPasswordControl: FormControl) {
-    let password = passwordControl.value
-    let passwordRepeat = repeatPasswordControl.value
+    const password = passwordControl.value
+    const passwordRepeat = repeatPasswordControl.value
     if (password !== passwordRepeat) {
       return { notSame: true }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -9,7 +9,6 @@ import { Observable } from 'rxjs'
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
-
   intercept (req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (localStorage.getItem('token')) {
       req = req.clone({
@@ -27,5 +26,4 @@ export class RequestInterceptor implements HttpInterceptor {
     }
     return next.handle(req)
   }
-
 }

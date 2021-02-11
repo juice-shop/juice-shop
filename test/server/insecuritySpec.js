@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -34,7 +34,7 @@ describe('insecurity', () => {
     const z85 = require('z85')
 
     it('returns base85-encoded month, year and discount as coupon code', () => {
-      const coupon = insecurity.generateCoupon(20, new Date('1980-01-01'))
+      const coupon = insecurity.generateCoupon(20, new Date('1980-01-02'))
       expect(coupon).to.equal('n<MiifFb4l')
       expect(z85.decode(coupon).toString()).to.equal('JAN80-20')
     })

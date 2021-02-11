@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -15,7 +15,7 @@ describe('LoginGuard', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
-            { path: '403', component: ErrorPageComponent }
+          { path: '403', component: ErrorPageComponent }
         ]
         )],
       providers: [LoginGuard]
@@ -25,19 +25,48 @@ describe('LoginGuard', () => {
   it('should be created', inject([LoginGuard], (guard: LoginGuard) => {
     expect(guard).toBeTruthy()
   }))
+
+  it('should open for authenticated users', inject([LoginGuard], (guard: LoginGuard) => {
+    localStorage.setItem('token', 'TOKEN')
+    expect(guard.canActivate()).toBeTrue()
+  }))
+
+  it('should close for anonymous users', inject([LoginGuard], (guard: LoginGuard) => {
+    localStorage.removeItem('token')
+    expect(guard.canActivate()).toBeFalse()
+  }))
+
+  it('returns payload from decoding a valid JWT', inject([LoginGuard], (guard: LoginGuard) => {
+    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c')
+    expect(guard.tokenDecode()).toEqual({
+      sub: '1234567890',
+      name: 'John Doe',
+      iat: 1516239022
+    })
+  }))
+
+  it('returns nothing when decoding an invalid JWT', inject([LoginGuard], (guard: LoginGuard) => {
+    localStorage.setItem('token', '12345.abcde')
+    expect(guard.tokenDecode()).toBeNull()
+  }))
+
+  it('returns nothing when decoding an non-existing JWT', inject([LoginGuard], (guard: LoginGuard) => {
+    localStorage.removeItem('token')
+    expect(guard.tokenDecode()).toBeNull()
+  }))
 })
 
 describe('AdminGuard', () => {
   let loginGuard: any
 
   beforeEach(() => {
-    loginGuard = jasmine.createSpyObj('LoginGuard',['tokenDecode', 'forbidRoute'])
+    loginGuard = jasmine.createSpyObj('LoginGuard', ['tokenDecode', 'forbidRoute'])
 
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
-            { path: '403', component: ErrorPageComponent }
+          { path: '403', component: ErrorPageComponent }
         ]
         )],
       providers: [
@@ -79,13 +108,13 @@ describe('AccountingGuard', () => {
   let loginGuard: any
 
   beforeEach(() => {
-    loginGuard = jasmine.createSpyObj('LoginGuard',['tokenDecode', 'forbidRoute'])
+    loginGuard = jasmine.createSpyObj('LoginGuard', ['tokenDecode', 'forbidRoute'])
 
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
-            { path: '403', component: ErrorPageComponent }
+          { path: '403', component: ErrorPageComponent }
         ]
         )],
       providers: [
@@ -127,13 +156,13 @@ describe('DeluxeGuard', () => {
   let loginGuard: any
 
   beforeEach(() => {
-    loginGuard = jasmine.createSpyObj('LoginGuard',['tokenDecode'])
+    loginGuard = jasmine.createSpyObj('LoginGuard', ['tokenDecode'])
 
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
-            { path: '403', component: ErrorPageComponent }
+          { path: '403', component: ErrorPageComponent }
         ]
         )],
       providers: [

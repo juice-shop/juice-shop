@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -28,7 +28,6 @@ dom.watch()
   styleUrls: ['./score-board.component.scss']
 })
 export class ScoreBoardComponent implements OnInit {
-
   public availableDifficulties: number[] = [1, 2, 3, 4, 5, 6]
   public displayedDifficulties: number[] = [1]
   public availableChallengeCategories: string[] = []
@@ -59,7 +58,7 @@ export class ScoreBoardComponent implements OnInit {
   public appName: string = 'OWASP Juice Shop'
   public localBackupEnabled: boolean = true
 
-  constructor (private configurationService: ConfigurationService, private challengeService: ChallengeService, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService, private translate: TranslateService, private localBackupService: LocalBackupService) {
+  constructor (private readonly configurationService: ConfigurationService, private readonly challengeService: ChallengeService, private readonly sanitizer: DomSanitizer, private readonly ngZone: NgZone, private readonly io: SocketIoService, private readonly spinner: NgxSpinnerService, private readonly translate: TranslateService, private readonly localBackupService: LocalBackupService) {
   }
 
   ngOnInit () {
@@ -73,9 +72,9 @@ export class ScoreBoardComponent implements OnInit {
       this.allowRepeatNotifications = config.challenges.showSolvedNotifications && config.ctf?.showFlagsInNotifications
       this.showChallengeHints = config.challenges.showHints
       this.showVulnerabilityMitigations = config.challenges.showMitigations
-      this.showHackingInstructor = config.hackingInstructor && config.hackingInstructor.isEnabled
+      this.showHackingInstructor = config.hackingInstructor?.isEnabled
       this.showContributionInfoBox = config.application.showGitHubLinks
-      this.questionnaireUrl = config.application.social && config.application.social.questionnaireUrl
+      this.questionnaireUrl = config.application.social?.questionnaireUrl
       this.appName = config.application.name
       this.restrictToTutorialsFirst = config.challenges.restrictToTutorialsFirst
       this.showOnlyTutorialChallenges = localStorage.getItem('showOnlyTutorialChallenges') ? JSON.parse(String(localStorage.getItem('showOnlyTutorialChallenges'))) : this.restrictToTutorialsFirst
@@ -97,7 +96,7 @@ export class ScoreBoardComponent implements OnInit {
             })
           }
         }
-        this.availableChallengeCategories.sort()
+        this.availableChallengeCategories.sort((a, b) => a.localeCompare(b))
         this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(String(localStorage.getItem('displayedChallengeCategories'))) : this.availableChallengeCategories
         this.calculateProgressPercentage()
         this.populateFilteredChallengeLists()
@@ -122,7 +121,7 @@ export class ScoreBoardComponent implements OnInit {
 
     this.ngZone.runOutsideAngular(() => {
       this.io.socket().on('challenge solved', (data: any) => {
-        if (data && data.challenge) {
+        if (data?.challenge) {
           for (let i = 0; i < this.challenges.length; i++) {
             if (this.challenges[i].name === data.name) {
               this.challenges[i].solved = true
@@ -142,16 +141,16 @@ export class ScoreBoardComponent implements OnInit {
     if (challenge.disabledEnv) {
       this.numDisabledChallenges++
       this.disabledEnv = challenge.disabledEnv
-      this.translate.get('CHALLENGE_UNAVAILABLE',{ env: challenge.disabledEnv }).subscribe((challengeUnavailable) => {
+      this.translate.get('CHALLENGE_UNAVAILABLE', { env: challenge.disabledEnv }).subscribe((challengeUnavailable) => {
         challenge.hint = challengeUnavailable
       }, (translationId) => {
         challenge.hint = translationId
       })
     } else if (challenge.hintUrl) {
       if (challenge.hint) {
-        this.translate.get('CLICK_FOR_MORE_HINTS').subscribe((clickForMoreHints) => {
+        this.translate.get('CLICK_FOR_MORE_HINTS').subscribe((clickForMoreHints: string) => {
           challenge.hint += ` ${clickForMoreHints}`
-        }, (translationId) => {
+        }, (translationId: string) => {
           challenge.hint += ` ${translationId}`
         })
       } else {
@@ -216,7 +215,7 @@ export class ScoreBoardComponent implements OnInit {
 
     let offset: any = Math.round(solved * 100 / total)
     offset = 100 - offset
-    return +offset + '%'
+    return `${+offset}%`
   }
 
   toggleDifficulty (difficulty: number) {
@@ -258,7 +257,7 @@ export class ScoreBoardComponent implements OnInit {
         return a.tutorialOrder - b.tutorialOrder
       })
     } else {
-      this.challenges.sort((a,b) => {
+      this.challenges.sort((a, b) => {
         if (a.name < b.name) return -1
         if (a.name > b.name) return 1
         return 0
@@ -304,7 +303,7 @@ export class ScoreBoardComponent implements OnInit {
       return !(this.showOnlyTutorialChallenges && !challenge.hasTutorial)
     })
 
-    let dataSource = new MatTableDataSource()
+    const dataSource = new MatTableDataSource()
     dataSource.data = challenges
     return dataSource
   }
@@ -316,12 +315,12 @@ export class ScoreBoardComponent implements OnInit {
         this.solvedChallengesOfDifficulty[difficulty - 1] = []
       } else {
         this.totalChallengesOfDifficulty[difficulty - 1] = this.challenges.filter((challenge) => challenge.difficulty === difficulty)
-        this.solvedChallengesOfDifficulty[difficulty - 1] = this.challenges.filter((challenge) => challenge.difficulty === difficulty && challenge.solved === true)
+        this.solvedChallengesOfDifficulty[difficulty - 1] = this.challenges.filter((challenge) => challenge.difficulty === difficulty && challenge.solved)
       }
     }
   }
 
-  startHackingInstructor (challengeName: String) {
+  startHackingInstructor (challengeName: string) {
     console.log(`Starting instructions for challenge "${challengeName}"`)
     import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
       module.startHackingInstructorFor(challengeName)

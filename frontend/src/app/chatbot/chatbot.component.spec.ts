@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -12,16 +12,16 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { ChatbotComponent } from './chatbot.component'
-import { of, throwError } from 'rxjs'
+import { of } from 'rxjs'
 
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { EventEmitter } from '@angular/core'
 
 enum MessageSources {
-    user = 'user',
-    bot = 'bot'
+  user = 'user',
+  bot = 'bot'
 }
 
 describe('ComplaintComponent', () => {
@@ -30,8 +30,7 @@ describe('ComplaintComponent', () => {
   let chatbotService: any
   let translateService
 
-  beforeEach(async(() => {
-
+  beforeEach(waitForAsync(() => {
     chatbotService = jasmine.createSpyObj('ChatbotService', ['getChatbotStatus', 'getResponse'])
     chatbotService.getChatbotStatus.and.returnValue(of({
       status: true,
@@ -58,13 +57,13 @@ describe('ComplaintComponent', () => {
         MatInputModule,
         MatButtonModule
       ],
-      declarations: [ ChatbotComponent ],
+      declarations: [ChatbotComponent],
       providers: [
         { provide: ChatbotService, useValue: chatbotService },
         { provide: TranslateService, useValue: translateService }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

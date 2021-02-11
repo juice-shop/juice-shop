@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -22,18 +22,18 @@ dom.watch()
   styleUrls: ['./photo-wall.component.scss']
 })
 export class PhotoWallComponent implements OnInit {
-
   public emptyState: boolean = true
   public imagePreview: string
   public form: FormGroup = new FormGroup({
     image: new FormControl('', { validators: [Validators.required], asyncValidators: [mimeType] }),
     caption: new FormControl('', [Validators.required])
   })
+
   public slideshowDataSource: IImage[] = []
   public twitterHandle = null
 
-  constructor (private photoWallService: PhotoWallService, private configurationService: ConfigurationService,
-    private snackBarHelperService: SnackBarHelperService) { }
+  constructor (private readonly photoWallService: PhotoWallService, private readonly configurationService: ConfigurationService,
+    private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
     this.slideshowDataSource = []
@@ -45,18 +45,19 @@ export class PhotoWallComponent implements OnInit {
       }
       for (const memory of memories) {
         if (memory.User?.username) {
-          memory.caption += ` (© ${memory.User.username})`
+          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+          memory.caption = `${memory.caption} (© ${memory.User.username})`
         }
         this.slideshowDataSource.push({ url: memory.imagePath, caption: memory.caption })
       }
-    },(err) => console.log(err))
+    }, (err) => console.log(err))
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      if (config && config.application && config.application.social) {
+      if (config?.application?.social) {
         if (config.application.social.twitterUrl) {
-          this.twitterHandle = config.application.social.twitterUrl.replace('https://twitter.com/','@')
+          this.twitterHandle = config.application.social.twitterUrl.replace('https://twitter.com/', '@')
         }
       }
-    },(err) => console.log(err))
+    }, (err) => console.log(err))
   }
 
   onImagePicked (event: Event) {
@@ -75,7 +76,7 @@ export class PhotoWallComponent implements OnInit {
       this.resetForm()
       this.ngOnInit()
       this.snackBarHelperService.open('IMAGE_UPLOAD_SUCCESS', 'confirmBar')
-    },(err) => {
+    }, (err) => {
       this.snackBarHelperService.open(err.error?.error, 'errorBar')
       console.log(err)
     })

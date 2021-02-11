@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -9,7 +9,7 @@ describe('WebSocket', () => {
   let socket
 
   beforeEach(done => {
-    socket = io.connect('http://localhost:3000', {
+    socket = io('http://localhost:3000', {
       'reconnection delay': 0,
       'reopen delay': 0,
       'force new connection': true

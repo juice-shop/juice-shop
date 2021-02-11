@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -10,7 +10,6 @@ import { AdministrationService } from './administration.service'
 
 describe('AdministrationService', () => {
   beforeEach(() => {
-
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [AdministrationService]
@@ -24,7 +23,7 @@ describe('AdministrationService', () => {
   it('should get application version directly from the rest api', inject([AdministrationService, HttpTestingController],
     fakeAsync((service: AdministrationService, httpMock: HttpTestingController) => {
       let res: any
-      service.getApplicationVersion().subscribe((data) => res = data)
+      service.getApplicationVersion().subscribe((data) => (res = data))
       const req = httpMock.expectOne('http://localhost:3000/rest/admin/application-version')
       req.flush({ version: 'apiResponse' })
       tick()

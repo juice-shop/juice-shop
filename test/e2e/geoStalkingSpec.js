@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -37,7 +37,7 @@ describe('/#/photo-wall', () => {
       })())
 
       email.sendKeys('john@' + config.get('application.domain'))
-      browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
+      browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
       securityAnswer.sendKeys(answer)
       newPassword.sendKeys('123456')
       newPasswordRepeat.sendKeys('123456')
@@ -59,7 +59,7 @@ describe('/#/photo-wall', () => {
       })())
 
       email.sendKeys('emma@' + config.get('application.domain'))
-      browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
+      browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
       securityAnswer.sendKeys(answer)
       newPassword.sendKeys('123456')
       newPasswordRepeat.sendKeys('123456')

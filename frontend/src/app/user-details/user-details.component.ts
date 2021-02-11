@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -18,14 +18,12 @@ dom.watch()
   styleUrls: ['./user-details.component.scss']
 })
 export class UserDetailsComponent implements OnInit {
-
   public user: any
-  constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private userService: UserService) { }
+  constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly userService: UserService) { }
 
   ngOnInit () {
     this.userService.get(this.dialogData.id).subscribe((user) => {
       this.user = user
-    },(err) => console.log(err))
+    }, (err) => console.log(err))
   }
-
 }
