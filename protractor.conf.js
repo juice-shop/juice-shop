@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -63,7 +63,7 @@ exports.config = {
   }
 }
 
-if (process.env.TRAVIS_BUILD_NUMBER) {
+if (process.env.CI) {
   exports.config.capabilities.chromeOptions = {
     args: ['--headless', '--disable-gpu', '--window-size=1024,768']
   }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -9,7 +9,6 @@ import { SocketIoService } from './socket-io.service'
 
 describe('SocketIoService', () => {
   beforeEach(() => {
-
     TestBed.configureTestingModule({
       providers: [SocketIoService]
     })

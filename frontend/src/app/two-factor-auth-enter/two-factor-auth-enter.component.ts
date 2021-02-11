@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -32,11 +32,11 @@ export class TwoFactorAuthEnterComponent {
   public errored: Boolean = false
 
   constructor (
-    private twoFactorAuthService: TwoFactorAuthService,
-    private cookieService: CookieService,
-    private userService: UserService,
-    private router: Router,
-    private ngZone: NgZone
+    private readonly twoFactorAuthService: TwoFactorAuthService,
+    private readonly cookieService: CookieService,
+    private readonly userService: UserService,
+    private readonly router: Router,
+    private readonly ngZone: NgZone
   ) { }
 
   verify () {
@@ -44,14 +44,14 @@ export class TwoFactorAuthEnterComponent {
 
     this.twoFactorAuthService.verify(fields.token).subscribe((authentication) => {
       localStorage.setItem('token', authentication.token)
-      let expires = new Date()
+      const expires = new Date()
       expires.setHours(expires.getHours() + 8)
       this.cookieService.set('token', authentication.token, expires, '/')
       sessionStorage.setItem('bid', authentication.bid.toString())
-      /* Use userService to notifiy if user has logged in*/
-      /* this.userService.isLoggedIn = true;*/
+      /* Use userService to notifiy if user has logged in */
+      /* this.userService.isLoggedIn = true; */
       this.userService.isLoggedIn.next(true)
-      this.ngZone.run(() => this.router.navigate(['/search']))
+      this.ngZone.run(async () => await this.router.navigate(['/search']))
     }, (error) => {
       this.errored = true
       setTimeout(() => {
@@ -60,5 +60,4 @@ export class TwoFactorAuthEnterComponent {
       return error
     })
   }
-
 }

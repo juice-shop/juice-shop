@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -10,7 +10,6 @@ import { SecurityAnswerService } from './security-answer.service'
 
 describe('SecurityAnswerService', () => {
   beforeEach(() => {
-
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [SecurityAnswerService]
@@ -24,7 +23,7 @@ describe('SecurityAnswerService', () => {
   it('should create feedback directly via the rest api', inject([SecurityAnswerService, HttpTestingController],
     fakeAsync((service: SecurityAnswerService, httpMock: HttpTestingController) => {
       let res: any
-      service.save(null).subscribe((data) => res = data)
+      service.save(null).subscribe((data) => (res = data))
       const req = httpMock.expectOne('http://localhost:3000/api/SecurityAnswers/')
       req.flush({ data: 'apiResponse' })
 

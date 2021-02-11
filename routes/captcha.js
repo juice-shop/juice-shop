@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -7,18 +7,18 @@ const models = require('../models/index')
 
 function captchas () {
   return (req, res) => {
-    var captchaId = req.app.locals.captchaId++
-    var operators = ['*', '+', '-']
+    const captchaId = req.app.locals.captchaId++
+    const operators = ['*', '+', '-']
 
-    var firstTerm = Math.floor((Math.random() * 10) + 1)
-    var secondTerm = Math.floor((Math.random() * 10) + 1)
-    var thirdTerm = Math.floor((Math.random() * 10) + 1)
+    const firstTerm = Math.floor((Math.random() * 10) + 1)
+    const secondTerm = Math.floor((Math.random() * 10) + 1)
+    const thirdTerm = Math.floor((Math.random() * 10) + 1)
 
-    var firstOperator = operators[Math.floor((Math.random() * 3))]
-    var secondOperator = operators[Math.floor((Math.random() * 3))]
+    const firstOperator = operators[Math.floor((Math.random() * 3))]
+    const secondOperator = operators[Math.floor((Math.random() * 3))]
 
-    var expression = firstTerm.toString() + firstOperator + secondTerm.toString() + secondOperator + thirdTerm.toString()
-    var answer = eval(expression).toString() // eslint-disable-line no-eval
+    const expression = firstTerm.toString() + firstOperator + secondTerm.toString() + secondOperator + thirdTerm.toString()
+    const answer = eval(expression).toString() // eslint-disable-line no-eval
 
     const captcha = {
       captchaId: captchaId,

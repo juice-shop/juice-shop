@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -18,7 +18,7 @@ describe('/rest/products/reviews', () => {
       it('should be possible to inject a command into the get route', () => {
         browser.waitForAngularEnabled(false)
         browser.executeScript(baseUrl => {
-          var xhttp = new XMLHttpRequest()
+          const xhttp = new XMLHttpRequest()
           xhttp.onreadystatechange = function () {
             if (this.status === 200) {
               console.log('Success')
@@ -38,7 +38,7 @@ describe('/rest/products/reviews', () => {
       it('should be possible to inject and get all the orders', () => {
         browser.waitForAngularEnabled(false)
         browser.executeScript(baseUrl => {
-          var xhttp = new XMLHttpRequest()
+          const xhttp = new XMLHttpRequest()
           xhttp.onreadystatechange = function () {
             if (this.status === 200) {
               console.log('Success')
@@ -71,7 +71,7 @@ describe('/rest/products/reviews', () => {
     it('should be possible to edit any existing review', () => {
       browser.waitForAngularEnabled(false)
       browser.executeScript(baseUrl => {
-        var xhttp = new XMLHttpRequest()
+        const xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function () {
           if (this.status === 200) {
             const reviewId = JSON.parse(this.responseText).data[0]._id
@@ -84,7 +84,7 @@ describe('/rest/products/reviews', () => {
         xhttp.send()
 
         function editReview (reviewId) {
-          var xhttp = new XMLHttpRequest()
+          const xhttp = new XMLHttpRequest()
           xhttp.onreadystatechange = function () {
             if (this.status === 200) {
               console.log('Success')
@@ -108,7 +108,7 @@ describe('/rest/products/reviews', () => {
     it('should be possible to like reviews multiple times', () => {
       browser.waitForAngularEnabled(false)
       browser.executeScript(baseUrl => {
-        var xhttp = new XMLHttpRequest()
+        const xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function () {
           if (this.status === 200) {
             const reviewId = JSON.parse(this.responseText).data[0]._id
@@ -123,7 +123,7 @@ describe('/rest/products/reviews', () => {
         xhttp.send()
 
         function sendPostRequest (reviewId) {
-          var xhttp = new XMLHttpRequest()
+          const xhttp = new XMLHttpRequest()
           xhttp.onreadystatechange = function () {
             if (this.status === 200) {
               console.log('Success')

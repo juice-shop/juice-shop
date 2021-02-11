@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -28,6 +28,12 @@ module.exports = function placeOrder () {
           const date = new Date().toJSON().slice(0, 10)
           const fileWriter = doc.pipe(fs.createWriteStream(path.join(__dirname, '../ftp/', pdfFile)))
 
+          fileWriter.on('finish', () => {
+            basket.update({ coupon: null })
+            models.BasketItem.destroy({ where: { BasketId: id } })
+            res.json({ orderConfirmation: orderId })
+          })
+
           doc.font('Times-Roman', 40).text(config.get('application.name'), { align: 'center' })
           doc.moveTo(70, 115).lineTo(540, 115).stroke()
           doc.moveTo(70, 120).lineTo(540, 120).stroke()
@@ -49,25 +55,6 @@ module.exports = function placeOrder () {
             models.Quantity.findOne({ where: { ProductId: BasketItem.ProductId } }).then((product) => {
               const newQuantity = product.dataValues.quantity - BasketItem.quantity
               models.Quantity.update({ quantity: newQuantity }, { where: { ProductId: BasketItem.ProductId } }).catch(error => {
-                next(error)
-              })
-              models.PurchaseQuantity.findOne({ where: { ProductId: BasketItem.ProductId, UserId: req.body.UserId } }).then((record) => {
-                if (record) {
-                  const purchasedQuantity = BasketItem.quantity + record.quantity
-                  models.PurchaseQuantity.update({ quantity: purchasedQuantity }, { where: { ProductId: BasketItem.ProductId, UserId: req.body.UserId } }).catch(error => {
-                    next(error)
-                  })
-                } else {
-                  const record = {
-                    ProductId: BasketItem.ProductId,
-                    UserId: req.body.UserId,
-                    quantity: BasketItem.quantity
-                  }
-                  models.PurchaseQuantity.create(record).catch((error) => {
-                    next(error)
-                  })
-                }
-              }).catch(error => {
                 next(error)
               })
             }).catch(error => {
@@ -123,7 +110,6 @@ module.exports = function placeOrder () {
           doc.moveDown()
           doc.moveDown()
           doc.font('Times-Roman', 15).text(req.__('Thank you for your order!'))
-          doc.end()
 
           utils.solveIf(challenges.negativeOrderChallenge, () => { return totalPrice < 0 })
 
@@ -155,12 +141,8 @@ module.exports = function placeOrder () {
             bonus: totalPoints,
             deliveryPrice: deliveryAmount,
             eta: deliveryMethod.eta.toString()
-          })
-
-          fileWriter.on('finish', () => {
-            basket.update({ coupon: null })
-            models.BasketItem.destroy({ where: { BasketId: id } })
-            res.json({ orderConfirmation: orderId })
+          }).then(() => {
+            doc.end()
           })
         } else {
           next(new Error(`Basket with id=${id} does not exist.`))

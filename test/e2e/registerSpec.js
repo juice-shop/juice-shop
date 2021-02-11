@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -18,7 +18,7 @@ describe('/#/register', () => {
 
       it('should be possible to bypass validation by directly using Rest API', async () => {
         browser.executeScript(baseUrl => {
-          var xhttp = new XMLHttpRequest()
+          const xhttp = new XMLHttpRequest()
           xhttp.onreadystatechange = function () {
             if (this.status === 201) {
               console.log('Success')
@@ -65,7 +65,7 @@ describe('/#/register', () => {
   describe('challenge "registerAdmin"', () => {
     it('should be possible to register admin user using REST API', () => {
       browser.executeScript(baseUrl => {
-        var xhttp = new XMLHttpRequest()
+        const xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function () {
           if (this.status === 201) {
             console.log('Success')
@@ -84,7 +84,7 @@ describe('/#/register', () => {
   describe('challenge "passwordRepeat"', () => {
     it('should be possible to register user without repeating the password', () => {
       browser.executeScript(baseUrl => {
-        var xhttp = new XMLHttpRequest()
+        const xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function () {
           if (this.status === 201) {
             console.log('Success')

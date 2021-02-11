@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -338,7 +338,7 @@ function dlpPastebinDataLeakChallenge () {
 function dangerousIngredients () {
   const ingredients = []
   const dangerousProduct = config.get('products').filter(product => product.keywordsForPastebinDataLeakChallenge)[0]
-  dangerousProduct.keywordsForPastebinDataLeakChallenge.map((keyword) => {
+  dangerousProduct.keywordsForPastebinDataLeakChallenge.forEach((keyword) => {
     ingredients.push({ [Op.like]: `%${keyword}%` })
   })
   return ingredients

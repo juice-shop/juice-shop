@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -15,6 +15,7 @@ export const PrivacyPolicyInstruction: ChallengeInstruction = {
       text:
         'Log in with any user to begin this challenge. You can use an existing or freshly registered account.',
       fixture: 'app-navbar',
+      fixtureAfter: true,
       unskippable: true,
       resolved: waitForLogIn()
     },

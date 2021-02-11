@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -7,7 +7,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -21,7 +21,7 @@ import { PaymentService } from '../Services/payment.service'
 import { MatDialogModule } from '@angular/material/dialog'
 import { PaymentMethodComponent } from './payment-method.component'
 import { EventEmitter } from '@angular/core'
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 describe('PaymentMethodComponent', () => {
   let component: PaymentMethodComponent
@@ -30,9 +30,8 @@ describe('PaymentMethodComponent', () => {
   let translateService
   let snackBar: any
 
-  beforeEach(async(() => {
-
-    paymentService = jasmine.createSpyObj('BasketService', ['save','get','del'])
+  beforeEach(waitForAsync(() => {
+    paymentService = jasmine.createSpyObj('BasketService', ['save', 'get', 'del'])
     paymentService.save.and.returnValue(of([]))
     paymentService.get.and.returnValue(of([]))
     paymentService.del.and.returnValue(of([]))
@@ -41,7 +40,7 @@ describe('PaymentMethodComponent', () => {
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
-    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
+    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
       imports: [
@@ -59,14 +58,14 @@ describe('PaymentMethodComponent', () => {
         MatRadioModule,
         MatDialogModule
       ],
-      declarations: [ PaymentMethodComponent ],
+      declarations: [PaymentMethodComponent],
       providers: [
         { provide: PaymentService, useValue: paymentService },
         { provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -99,7 +98,7 @@ describe('PaymentMethodComponent', () => {
     expect(component.storedCards).toEqual([])
   })
 
-  it('should log error while getting Cards from backend API directly to browser console' , fakeAsync(() => {
+  it('should log error while getting Cards from backend API directly to browser console', fakeAsync(() => {
     paymentService.get.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.load()
@@ -161,17 +160,17 @@ describe('PaymentMethodComponent', () => {
     paymentService.get.and.returnValue(of([]))
     paymentService.save.and.returnValue(of({ cardNum: '1234' }))
     translateService.get.and.returnValue(of('CREDIT_CARD_SAVED'))
-    spyOn(component,'resetForm')
-    spyOn(component,'load')
+    spyOn(component, 'resetForm')
+    spyOn(component, 'load')
     component.save()
-    expect(translateService.get).toHaveBeenCalledWith('CREDIT_CARD_SAVED',{ cardnumber: '1234' })
+    expect(translateService.get).toHaveBeenCalledWith('CREDIT_CARD_SAVED', { cardnumber: '1234' })
     expect(component.load).toHaveBeenCalled()
     expect(component.resetForm).toHaveBeenCalled()
   })
 
   it('should clear the form and display error if saving card fails', fakeAsync(() => {
     paymentService.save.and.returnValue(throwError({ error: 'Error' }))
-    spyOn(component,'resetForm')
+    spyOn(component, 'resetForm')
     component.save()
     expect(snackBar.open).toHaveBeenCalled()
     expect(component.resetForm).toHaveBeenCalled()

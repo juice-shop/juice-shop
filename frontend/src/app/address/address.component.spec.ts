@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { AddressComponent } from './address.component'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -23,9 +23,10 @@ import { MatRadioModule } from '@angular/material/radio'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatSnackBar } from '@angular/material/snack-bar'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { EventEmitter } from '@angular/core'
+import { DeliveryMethodComponent } from '../delivery-method/delivery-method.component'
 
 describe('AddressComponent', () => {
   let component: AddressComponent
@@ -34,9 +35,8 @@ describe('AddressComponent', () => {
   let snackBar: any
   let translateService
 
-  beforeEach(async(() => {
-
-    addressService = jasmine.createSpyObj('AddressService',['get', 'del'])
+  beforeEach(waitForAsync(() => {
+    addressService = jasmine.createSpyObj('AddressService', ['get', 'del'])
     addressService.get.and.returnValue(of([]))
     addressService.del.and.returnValue(of({}))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
@@ -44,12 +44,14 @@ describe('AddressComponent', () => {
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
-    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
+    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
     snackBar.open.and.returnValue(null)
 
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
+        RouterTestingModule.withRoutes([
+          { path: 'delivery-method', component: DeliveryMethodComponent }
+        ]),
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
@@ -66,14 +68,14 @@ describe('AddressComponent', () => {
         MatIconModule,
         MatTooltipModule
       ],
-      declarations: [ AddressComponent, AddressCreateComponent ],
+      declarations: [AddressComponent, AddressCreateComponent],
       providers: [
         { provide: AddressService, useValue: addressService },
         { provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -113,14 +115,14 @@ describe('AddressComponent', () => {
     addressService.get.and.returnValue(of([]))
     addressService.del.and.returnValue(of([]))
     component.deleteAddress(1)
-    spyOn(component,'load')
+    spyOn(component, 'load')
     expect(addressService.del).toHaveBeenCalled()
     expect(addressService.get).toHaveBeenCalled()
   }))
 
   it('should store address id in session storage', () => {
     component.addressId = 1
-    spyOn(sessionStorage,'setItem')
+    spyOn(sessionStorage, 'setItem')
     component.chooseAddress()
     expect(sessionStorage.setItem).toHaveBeenCalledWith('addressId', 1 as any)
   })

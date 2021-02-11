@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -12,7 +12,7 @@ module.exports = (sequelize, { STRING, INTEGER }) => {
       validate: {
         isInt: true,
         min: 1000000000000000,
-        max: 9999999999999999
+        max: 9999999999999998
       }
     },
     expMonth: {

@@ -1,34 +1,34 @@
 /*!
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
 mat-card {
-   display: block;
-   margin-left: 20%;
-   margin-right: 20%;
+  display: block;
+  margin-left: 20%;
+  margin-right: 20%;
 }
 
 .addressCont {
   margin-bottom: 12px;
 }
 
-.detail-divider{
+.detail-divider {
   border-top-width: 4px !important;
   margin-left: 1% !important;
   width: 98% !important;
 }
 
 .btn-return {
+  display: block;
   margin-left: 0;
   margin-right: auto;
-  display: block;
 }
 
 .nextButton {
-  margin-right: 0;
-  margin-left: auto;
   display: block;
+  margin-left: auto;
+  margin-right: 0;
   margin-top: -37px;
 }
 

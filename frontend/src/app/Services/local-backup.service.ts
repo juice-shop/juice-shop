@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Injectable } from '@angular/core'
 import { Backup } from '../Models/backup.model'
 import { CookieService } from 'ngx-cookie-service'
@@ -5,15 +10,15 @@ import { saveAs } from 'file-saver'
 import { SnackBarHelperService } from './snack-bar-helper.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { from } from 'rxjs'
+import { ChallengeService } from './challenge.service'
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalBackupService {
+  private readonly VERSION = 1
 
-  private VERSION = 1
-
-  constructor (private cookieService: CookieService, private snackBarHelperService: SnackBarHelperService, private snackBar: MatSnackBar) { }
+  constructor (private readonly cookieService: CookieService, private readonly challengeService: ChallengeService, private readonly snackBarHelperService: SnackBarHelperService, private readonly snackBar: MatSnackBar) { }
 
   save (fileName: string = 'owasp_juice_shop') {
     const backup: Backup = { version: this.VERSION }
@@ -51,24 +56,29 @@ export class LocalBackupService {
         this.restoreCookie('language', backup.language)
         this.restoreCookie('continueCode', backup.continueCode)
 
-        let snackBarRef = this.snackBar.open('Backup has been restored from ' + backupFile.name, 'Force page reload', {
-          duration: 5000
+        const snackBarRef = this.snackBar.open('Backup has been restored from ' + backupFile.name, 'Apply changes now', {
+          duration: 10000
         })
         snackBarRef.onAction().subscribe(() => {
+          if (backup.continueCode) {
+            this.challengeService.restoreProgress(encodeURIComponent(backup.continueCode)).subscribe(() => {
+            }, (error) => {
+              console.log(error)
+            })
+          }
           location.reload()
         })
-
       } else {
-        this.snackBarHelperService.open('Version ' + backup.version + ' is incompatible with expected version ' + this.VERSION, 'errorBar')
+        this.snackBarHelperService.open(`Version ${backup.version} is incompatible with expected version ${this.VERSION}`, 'errorBar')
       }
-    }).catch((err) => {
-      this.snackBarHelperService.open('Backup restore operation failed: ' + err.message, 'errorBar')
+    }).catch((err: Error) => {
+      this.snackBarHelperService.open(`Backup restore operation failed: ${err.message}`, 'errorBar')
     }))
   }
 
   private restoreCookie (cookieName: string, cookieValue: string) {
     if (cookieValue) {
-      let expires = new Date()
+      const expires = new Date()
       expires.setFullYear(expires.getFullYear() + 1)
       this.cookieService.set(cookieName, cookieValue, expires, '/')
     } else {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -15,10 +15,9 @@ export class AddressSelectComponent {
   public addressId: any = undefined
   public showNextButton: boolean = true
 
-  constructor (private router: Router, private ngZone: NgZone) {}
+  constructor (private readonly router: Router, private readonly ngZone: NgZone) {}
 
   getMessage (id) {
     this.addressId = id
   }
-
 }

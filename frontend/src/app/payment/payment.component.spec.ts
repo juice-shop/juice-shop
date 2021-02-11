@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -7,7 +7,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { PaymentComponent } from './payment.component'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -37,7 +37,7 @@ import { WalletComponent } from '../wallet/wallet.component'
 import { MatIconModule } from '@angular/material/icon'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatTooltipModule } from '@angular/material/tooltip'
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 describe('PaymentComponent', () => {
   let component: PaymentComponent
@@ -50,12 +50,10 @@ describe('PaymentComponent', () => {
   let walletService: any
   let deliveryService: any
   let userService: any
-  let location: Location
   let snackBar: any
 
-  beforeEach(async(() => {
-
-    configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
+  beforeEach(waitForAsync(() => {
+    configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
     translateService.get.and.returnValue(of({}))
@@ -64,21 +62,21 @@ describe('PaymentComponent', () => {
     translateService.onDefaultLangChange = new EventEmitter()
     basketService = jasmine.createSpyObj('BasketService', ['applyCoupon'])
     basketService.applyCoupon.and.returnValue(of({}))
-    dialog = jasmine.createSpyObj('MatDialog',['open'])
+    dialog = jasmine.createSpyObj('MatDialog', ['open'])
     dialog.open.and.returnValue(null)
-    cookieService = jasmine.createSpyObj('CookieService',['delete'])
-    walletService = jasmine.createSpyObj('AddressService',['get', 'put'])
+    cookieService = jasmine.createSpyObj('CookieService', ['delete'])
+    walletService = jasmine.createSpyObj('AddressService', ['get', 'put'])
     walletService.get.and.returnValue(of({}))
     walletService.put.and.returnValue(of({}))
     deliveryService = jasmine.createSpyObj('DeliveryService', ['getById'])
     deliveryService.getById.and.returnValue(of({ price: 10 }))
-    userService = jasmine.createSpyObj('UserService',['deluxeStatus', 'upgradeToDeluxe', 'saveLastLoginIp'])
+    userService = jasmine.createSpyObj('UserService', ['deluxeStatus', 'upgradeToDeluxe', 'saveLastLoginIp'])
     userService.deluxeStatus.and.returnValue(of({}))
     userService.upgradeToDeluxe.and.returnValue(of({}))
     userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn', ['next'])
     userService.isLoggedIn.next.and.returnValue({})
     userService.saveLastLoginIp.and.returnValue(of({}))
-    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
+    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
       imports: [
@@ -104,7 +102,7 @@ describe('PaymentComponent', () => {
         MatCheckboxModule,
         MatTooltipModule
       ],
-      declarations: [ PaymentComponent, PaymentMethodComponent, OrderSummaryComponent, PurchaseBasketComponent, LoginComponent, WalletComponent ],
+      declarations: [PaymentComponent, PaymentMethodComponent, OrderSummaryComponent, PurchaseBasketComponent, LoginComponent, WalletComponent],
       providers: [
         { provide: BasketService, useValue: basketService },
         { provide: MatDialog, useValue: dialog },
@@ -118,8 +116,8 @@ describe('PaymentComponent', () => {
 
       ]
     })
-    .compileComponents()
-    location = TestBed.inject(Location)
+      .compileComponents()
+    TestBed.inject(Location)
   }))
 
   beforeEach(() => {
@@ -190,11 +188,11 @@ describe('PaymentComponent', () => {
     component.couponControl.setValue('valid_base85')
     component.applyCoupon()
 
-    expect(translateService.get).toHaveBeenCalledWith('DISCOUNT_APPLIED',{ discount: 42 })
+    expect(translateService.get).toHaveBeenCalledWith('DISCOUNT_APPLIED', { discount: 42 })
     expect(component.couponError).toBeUndefined()
   })
 
-  it('should translate DISCOUNT_APPLIED message' , () => {
+  it('should translate DISCOUNT_APPLIED message', () => {
     basketService.applyCoupon.and.returnValue(of(42))
     translateService.get.and.returnValue(of('Translation of DISCOUNT_APPLIED'))
     component.couponControl.setValue('')
@@ -208,9 +206,9 @@ describe('PaymentComponent', () => {
     expect(component.couponError).toBeUndefined()
   })
 
-  it('should store discount percent in session storage' , () => {
+  it('should store discount percent in session storage', () => {
     translateService.get.and.returnValue(of('Translation of DISCOUNT_APPLIED'))
-    spyOn(sessionStorage,'setItem')
+    spyOn(sessionStorage, 'setItem')
     component.showConfirmation(70)
     expect(sessionStorage.setItem).toHaveBeenCalledWith('couponDiscount', 70 as any)
   })
@@ -231,7 +229,7 @@ describe('PaymentComponent', () => {
         title: 'TITLE_BITCOIN_ADDRESS'
       }
     }
-    expect(dialog.open).toHaveBeenCalledWith(QrCodeComponent,data)
+    expect(dialog.open).toHaveBeenCalledWith(QrCodeComponent, data)
   })
 
   it('should open QrCodeComponent for Dash', () => {
@@ -244,7 +242,7 @@ describe('PaymentComponent', () => {
         title: 'TITLE_DASH_ADDRESS'
       }
     }
-    expect(dialog.open).toHaveBeenCalledWith(QrCodeComponent,data)
+    expect(dialog.open).toHaveBeenCalledWith(QrCodeComponent, data)
   })
 
   it('should open QrCodeComponent for Ether', () => {
@@ -257,17 +255,17 @@ describe('PaymentComponent', () => {
         title: 'TITLE_ETHER_ADDRESS'
       }
     }
-    expect(dialog.open).toHaveBeenCalledWith(QrCodeComponent,data)
+    expect(dialog.open).toHaveBeenCalledWith(QrCodeComponent, data)
   })
 
   it('should call initTotal on calling ngOnInit', () => {
-    spyOn(component,'initTotal')
+    spyOn(component, 'initTotal')
     component.ngOnInit()
     expect(component.initTotal).toHaveBeenCalled()
   })
 
   it('should call initTotal on calling showConfirmation', () => {
-    spyOn(component,'initTotal')
+    spyOn(component, 'initTotal')
     component.showConfirmation(10)
     expect(component.initTotal).toHaveBeenCalled()
   })
@@ -281,7 +279,7 @@ describe('PaymentComponent', () => {
     component.mode = 'shop'
     component.paymentMode = 'card'
     component.paymentId = 1
-    spyOn(sessionStorage,'setItem')
+    spyOn(sessionStorage, 'setItem')
     component.choosePayment()
     expect(sessionStorage.setItem).toHaveBeenCalledWith('paymentId', 1 as any)
   })
@@ -289,7 +287,7 @@ describe('PaymentComponent', () => {
   it('should store wallet as paymentId in session storage on calling choosePayment while paymentMode is equal to wallet', () => {
     component.mode = 'shop'
     component.paymentMode = 'wallet'
-    spyOn(sessionStorage,'setItem')
+    spyOn(sessionStorage, 'setItem')
     component.choosePayment()
     expect(sessionStorage.setItem).toHaveBeenCalledWith('paymentId', 'wallet')
   })
@@ -306,7 +304,7 @@ describe('PaymentComponent', () => {
   it('should remove walletTotal from session storage on calling choosePayment in wallet mode', () => {
     component.mode = 'wallet'
     walletService.put.and.returnValue(of({}))
-    spyOn(sessionStorage,'removeItem')
+    spyOn(sessionStorage, 'removeItem')
     component.choosePayment()
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('walletTotal')
   })

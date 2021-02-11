@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -10,7 +10,6 @@ import { ProductReviewService } from './product-review.service'
 
 describe('ProductReviewService', () => {
   beforeEach(() => {
-
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [ProductReviewService]
@@ -24,7 +23,7 @@ describe('ProductReviewService', () => {
   it('should get product reviews directly via the rest api', inject([ProductReviewService, HttpTestingController],
     fakeAsync((service: ProductReviewService, httpMock: HttpTestingController) => {
       let res: any
-      service.get(42).subscribe((data) => res = data)
+      service.get(42).subscribe((data) => (res = data))
       const req = httpMock.expectOne('http://localhost:3000/rest/products/42/reviews')
       req.flush({ data: 'apiResponse' })
 
@@ -38,7 +37,7 @@ describe('ProductReviewService', () => {
   it('should create product reviews directly via the rest api', inject([ProductReviewService, HttpTestingController],
     fakeAsync((service: ProductReviewService, httpMock: HttpTestingController) => {
       let res: any
-      service.create(42, { message: 'A', author: 'B' }).subscribe((data: any) => res = data)
+      service.create(42, { message: 'A', author: 'B' }).subscribe((data: any) => (res = data))
       const req = httpMock.expectOne('http://localhost:3000/rest/products/42/reviews')
       req.flush({ data: 'apiResponse' })
 
@@ -53,7 +52,7 @@ describe('ProductReviewService', () => {
   it('should edit product reviews directly via the rest api', inject([ProductReviewService, HttpTestingController],
     fakeAsync((service: ProductReviewService, httpMock: HttpTestingController) => {
       let res: any
-      service.patch(null as unknown as { id: string; message: string }).subscribe((data: any) => res = data)
+      service.patch(null as unknown as { id: string, message: string }).subscribe((data: any) => (res = data))
       const req = httpMock.expectOne('http://localhost:3000/rest/products/reviews')
       req.flush({ data: 'apiResponse' })
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -17,7 +17,6 @@ dom.watch()
   styleUrls: ['./qr-code.component.scss']
 })
 export class QrCodeComponent implements OnInit {
-
   public title!: string
   public url!: string
   public address!: string
@@ -30,5 +29,4 @@ export class QrCodeComponent implements OnInit {
     this.address = this.dialogData.address
     this.data = this.dialogData.data
   }
-
 }

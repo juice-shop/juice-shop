@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -23,7 +23,7 @@ describe('CountryMappingService', () => {
   it('should get the country mapping directly through the rest API', inject([CountryMappingService, HttpTestingController],
     fakeAsync((service: CountryMappingService, httpMock: HttpTestingController) => {
       let res: any
-      service.getCountryMapping().subscribe((data) => res = data)
+      service.getCountryMapping().subscribe((data) => (res = data))
 
       const req = httpMock.expectOne('http://localhost:3000/rest/country-mapping')
       req.flush('apiResponse')

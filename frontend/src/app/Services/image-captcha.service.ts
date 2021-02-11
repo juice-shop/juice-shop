@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -12,10 +12,9 @@ import { catchError } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class ImageCaptchaService {
+  private readonly hostServer = environment.hostServer
 
-  private hostServer = environment.hostServer
-
-  constructor (private http: HttpClient) { }
+  constructor (private readonly http: HttpClient) { }
 
   getCaptcha () {
     return this.http.get(this.hostServer + '/rest/image-captcha/').pipe(catchError((err) => { throw err }))

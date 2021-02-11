@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -19,20 +19,19 @@ interface Passwords {
   providedIn: 'root'
 })
 export class UserService {
-
   public isLoggedIn = new Subject<any>()
-  private hostServer = environment.hostServer
-  private host = this.hostServer + '/api/Users'
+  private readonly hostServer = environment.hostServer
+  private readonly host = this.hostServer + '/api/Users'
 
-  constructor (private http: HttpClient) { }
+  constructor (private readonly http: HttpClient) { }
 
   find (params?: any) {
     return this.http.get(this.hostServer + '/rest/user/authentication-details/', { params: params }).pipe(map((response: any) =>
-    response.data),catchError((err) => { throw err }))
+      response.data), catchError((err) => { throw err }))
   }
 
   get (id: number) {
-    return this.http.get(this.host + '/' + id).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.get(`${this.host}/${id}`).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
   save (params: any) {

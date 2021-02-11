@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -12,12 +12,13 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing'
 import { SocketIoService } from '../Services/socket-io.service'
 
 import { ChallengeSolvedNotificationComponent } from './challenge-solved-notification.component'
-import { of } from 'rxjs'
+import { of, throwError } from 'rxjs'
 import { EventEmitter } from '@angular/core'
+import { MatIconModule } from '@angular/material/icon'
 
 class MockSocket {
   on (str: string, callback: Function) {
@@ -30,10 +31,12 @@ describe('ChallengeSolvedNotificationComponent', () => {
   let fixture: ComponentFixture<ChallengeSolvedNotificationComponent>
   let socketIoService: any
   let translateService: any
+  let cookieService: any
+  let challengeService: any
+  let configurationService: any
   let mockSocket: any
 
-  beforeEach(async(() => {
-
+  beforeEach(waitForAsync(() => {
     mockSocket = new MockSocket()
     socketIoService = jasmine.createSpyObj('SocketIoService', ['socket'])
     socketIoService.socket.and.returnValue(mockSocket)
@@ -42,6 +45,10 @@ describe('ChallengeSolvedNotificationComponent', () => {
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
+    cookieService = jasmine.createSpyObj('CookieService', ['set'])
+    challengeService = jasmine.createSpyObj('ChallengeService', ['continueCode'])
+    configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
+    configurationService.getApplicationConfiguration.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
       imports: [
@@ -49,19 +56,20 @@ describe('ChallengeSolvedNotificationComponent', () => {
         TranslateModule.forRoot(),
         ClipboardModule,
         MatCardModule,
-        MatButtonModule
+        MatButtonModule,
+        MatIconModule
       ],
-      declarations: [ ChallengeSolvedNotificationComponent ],
+      declarations: [ChallengeSolvedNotificationComponent],
       providers: [
         { provide: SocketIoService, useValue: socketIoService },
         { provide: TranslateService, useValue: translateService },
-        ConfigurationService,
-        ChallengeService,
-        CountryMappingService,
-        CookieService
+        { provide: CookieService, useValue: cookieService },
+        { provide: ChallengeService, useValue: challengeService },
+        { provide: ConfigurationService, useValue: configurationService },
+        CountryMappingService
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -101,6 +109,67 @@ describe('ChallengeSolvedNotificationComponent', () => {
     tick()
 
     expect(translateService.get).toHaveBeenCalledWith('CHALLENGE_SOLVED', { challenge: 'Test' })
-    expect(component.notifications).toEqual([ { message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: undefined } ])
+    expect(component.notifications).toEqual([{ message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: undefined }])
   }))
+
+  it('should store retrieved continue code as cookie for 1 year', () => {
+    challengeService.continueCode.and.returnValue(of('12345'))
+
+    const expires = new Date()
+    component.saveProgress()
+    expires.setFullYear(expires.getFullYear() + 1)
+
+    expect(cookieService.set).toHaveBeenCalledWith('continueCode', '12345', expires, '/')
+  })
+
+  it('should throw error when not supplied with a valid continue code', () => {
+    challengeService.continueCode.and.returnValue(of(undefined))
+    console.log = jasmine.createSpy('log')
+
+    expect(component.saveProgress).toThrow()
+  })
+
+  it('should log error from continue code API call directly to browser console', fakeAsync(() => {
+    challengeService.continueCode.and.returnValue(throwError('Error'))
+    console.log = jasmine.createSpy('log')
+    component.saveProgress()
+    fixture.detectChanges()
+    expect(console.log).toHaveBeenCalledWith('Error')
+  }))
+
+  it('should show CTF flag codes if configured accordingly', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { showFlagsInNotifications: true } }))
+    component.ngOnInit()
+
+    expect(component.showCtfFlagsInNotifications).toBeTrue()
+  })
+
+  it('should hide CTF flag codes if configured accordingly', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { showFlagsInNotifications: false } }))
+    component.ngOnInit()
+
+    expect(component.showCtfFlagsInNotifications).toBeFalse()
+  })
+
+  it('should hide CTF flag codes by default', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { } }))
+    component.ngOnInit()
+
+    expect(component.showCtfFlagsInNotifications).toBeFalse()
+  })
+
+  it('should hide FBCTF-specific country details by default', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { } }))
+    component.ngOnInit()
+
+    expect(component.showCtfCountryDetailsInNotifications).toBe('none')
+  })
+
+  it('should not load countries for FBCTF when configured to hide country details', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { showCountryDetailsInNotifications: 'none' } }))
+    component.ngOnInit()
+
+    expect(component.showCtfCountryDetailsInNotifications).toBe('none')
+    expect(component.countryMap).toBeUndefined()
+  })
 })

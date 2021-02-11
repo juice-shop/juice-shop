@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
 
@@ -22,21 +22,19 @@ export class WelcomeBannerComponent implements OnInit {
   private readonly welcomeBannerStatusCookieKey = 'welcomebanner_status'
 
   constructor (
-        public dialogRef: MatDialogRef<WelcomeBannerComponent>,
-        private configurationService: ConfigurationService,
-        private cookieService: CookieService) { }
+    public dialogRef: MatDialogRef<WelcomeBannerComponent>,
+    private readonly configurationService: ConfigurationService,
+    private readonly cookieService: CookieService) { }
 
   ngOnInit (): void {
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      if (config && config.application && config.application.welcomeBanner) {
+      if (config?.application?.welcomeBanner) {
         this.title = config.application.welcomeBanner.title
         this.message = config.application.welcomeBanner.message
       }
-      if (config && config.application) {
-        this.showHackingInstructor = config.hackingInstructor && config.hackingInstructor.isEnabled
-      }
+      this.showHackingInstructor = config.hackingInstructor?.isEnabled
       // Don't allow to skip the tutorials when restrictToTutorialsFirst and showHackingInstructor are enabled
-      if (this.showHackingInstructor && config.challenges && config.challenges.restrictToTutorialsFirst) {
+      if (this.showHackingInstructor && config.challenges?.restrictToTutorialsFirst) {
         this.dialogRef.disableClose = true
         this.showDismissBtn = false
       }
@@ -53,7 +51,7 @@ export class WelcomeBannerComponent implements OnInit {
 
   closeWelcome (): void {
     this.dialogRef.close()
-    let expires = new Date()
+    const expires = new Date()
     expires.setFullYear(expires.getFullYear() + 1)
     this.cookieService.set(this.welcomeBannerStatusCookieKey, 'dismiss', expires, '/')
   }
