@@ -50,6 +50,7 @@ const metrics = require('./routes/metrics')
 const authenticatedUsers = require('./routes/authenticatedUsers')
 const currentUser = require('./routes/currentUser')
 const login = require('./routes/login')
+const dataErasure = require('./routes/data-erasure')
 const changePassword = require('./routes/changePassword')
 const resetPassword = require('./routes/resetPassword')
 const securityQuestion = require('./routes/securityQuestion')
@@ -172,6 +173,11 @@ app.use(featurePolicy({
     payment: ["'self'"]
   }
 }))
+
+/* Helps in connecting to hbs files */
+app.set('views', path.join(__dirname, 'views'))
+/* Sets view engine to hbs */
+app.set('view engine', 'hbs')
 
 /* Remove duplicate slashes from URL which allowed bypassing subsequent filters */
 app.use((req, res, next) => {
@@ -510,6 +516,8 @@ for (const { name, exclude } of autoModels) {
     return context.continue
   })
 }
+
+app.use('/dataerasure', dataErasure)
 
 /* Custom Restful API */
 app.post('/rest/user/login', login())
