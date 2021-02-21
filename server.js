@@ -114,9 +114,13 @@ const collectDurationPromise = (name, func) => {
   }
 }
 collectDurationPromise('validatePreconditions', require('./lib/startup/validatePreconditions'))()
-collectDurationPromise('restoreOverwrittenFilesWithOriginals', require('./lib/startup/restoreOverwrittenFilesWithOriginals'))()
 collectDurationPromise('cleanupFtpFolder', require('./lib/startup/cleanupFtpFolder'))()
 collectDurationPromise('validateConfig', require('./lib/startup/validateConfig'))()
+
+// Reloads the i18n files in case of server restarts or starts.
+async function reloadI18nFiles () {
+  collectDurationPromise('restoreOverwrittenFilesWithOriginals', require('./lib/startup/restoreOverwrittenFilesWithOriginals'))()
+}
 
 const multer = require('multer')
 const uploadToMemory = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
@@ -251,14 +255,16 @@ app.use(express.static(path.join(__dirname, '/frontend/dist/frontend')))
 app.use(cookieParser('kekse'))
 
 /* Configure and enable backend-side i18n */
-i18n.configure({
-  locales: locales.map(locale => locale.key),
-  directory: path.join(__dirname, '/i18n'),
-  cookie: 'language',
-  defaultLocale: 'en',
-  autoReload: true
-})
-app.use(i18n.init)
+async function configureI18n () {
+  i18n.configure({
+    locales: locales.map(locale => locale.key),
+    directory: path.join(__dirname, '/i18n'),
+    cookie: 'language',
+    defaultLocale: 'en',
+    autoReload: true
+  })
+  app.use(i18n.init)
+}
 
 app.use(bodyParser.urlencoded({ extended: true }))
 /* File Upload */
@@ -579,6 +585,10 @@ app.use(verify.errorHandlingChallenge())
 app.use(errorhandler())
 
 exports.start = async function (readyCallback) {
+  // i18n files reloaded and i18n instance configured once files are loaded.
+  await reloadI18nFiles()
+  await configureI18n()
+
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
   await models.sequelize.sync({ force: true })
   await datacreator()
