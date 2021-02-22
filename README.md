@@ -249,7 +249,7 @@ questions!**
 
 ### Official companion guide
 
-[![Write Goodreads Review](https://img.shields.io/badge/goodreads-write%20review-47129532.svg)](https://www.goodreads.com/review/edit/47129532)
+[![Write Goodreads Review](https://img.shields.io/badge/goodreads-write%20review-49557240.svg)](https://www.goodreads.com/review/edit/49557240)
 
 OWASP Juice Shop comes with an official companion guide eBook. It will
 give you a complete overview of all vulnerabilities found in the

@@ -72,6 +72,7 @@ Shop easier to hack!
   * [★★★★ Nested Easter Egg (Cryptographic Issues)](https://youtu.be/yvatrnWvcGE)
   * [★★★★ NoSql Manipulation (Injection)](https://youtu.be/frymuDxKwmc)
     :broken_heart:
+  * [★★★★★ Change Benders Password (Broken Authentication)](https://youtu.be/J3BSi-z9_7I)
 * [Broken Authentication and SQL Injection - OWASP Juice Shop TryHackMe](https://youtu.be/W4MXUnZB2jc)
   by
   [Motasem Hamdan - CyberSecurity Trainer](https://www.youtube.com/channel/UCNSdU_1ehXtGclimTVckHmQ)
