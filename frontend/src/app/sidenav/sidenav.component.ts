@@ -87,7 +87,7 @@ export class SidenavComponent implements OnInit {
     window.location.replace(environment.hostServer + '/profile')
   }
 
-  goToDataErasurePage() {
+  goToDataErasurePage () {
     window.location.replace(environment.hostServer + '/dataerasure')
   }
 
