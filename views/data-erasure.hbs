@@ -146,22 +146,35 @@
         <h5>Request Data Erasure</h5>
         <form onsubmit='return onSubmit(this)'>
         <div class="mt-2">
-		<input type="email" placeholder="email" name="email" class="w-full border border-black rounded outline-none p-2">
+		<input type="email" placeholder="email" name="email" id="email" class="w-full border border-black rounded outline-none p-2">
 		</div>
 		<div class="mt-2">
-		<input type="text" name="answer" placeholder="Security Answer" class="w-full border border-black rounded outline-none p-2">
+		<input type="text" name="answer" placeholder="Security Answer" id="ans" class="w-full border border-black rounded outline-none p-2">
 		</div>
 		<div class="mt-4 flex justify-end">
-		<button class="uppercase px-8 py-2 rounded border border-green-600 text-green-600 max-w-max shadow-sm hover:shadow-lg" type="submit">Delete User Data</button>
-            </form></button>
+        <button class="uppercase px-8 py-2 rounded border border-green-600 text-green-600 max-w-max shadow-sm hover:shadow-lg" type="submit">Delete User Data</button>
+            </form>
 		</div>
     </form>
         </div> 
   </div> 
     <script type="text/javascript">
+                let input1 = document.getElementById("email");
+                let input2 = document.getElementById("ans")
+                let button1 = document.querySelector("button");
+                button1.disabled = true;
+                input1.addEventListener("change", stateHandle);
+                function stateHandle() {
+                input2.addEventListener("change", stateHandle);
+                if (input1.value === "" || input2.value === "") {
+                    button1.disabled = true;
+                } else {
+                    button1.disabled = false;
+                }
+                }
 				function onSubmit( form ){
                     var data = $(form).serializeArray();
-					var formObject = { profile : {} };
+                    var formObject = { profile : {} };
 					$.each(data,
 					    function(i, v) {
 					        formObject.profile[v.name] = v.value;
@@ -177,7 +190,7 @@
 					    dataType: 'html'
 					});
                     console.log($.ajax)
-					return false; //don't submit
+					return false;
 				}   
   </script>   
 {{/if}}

@@ -14,7 +14,7 @@ describe('/datarasure', () => {
   })
 
   it('GET data-erasure page', () => {
-    return frisby.get(URL + '/promotion')
+    return frisby.get(URL + '/dataerasure')
       .expect('header', 'content-type', /text\/html/)
   })
 })
