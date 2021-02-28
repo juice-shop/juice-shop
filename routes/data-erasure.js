@@ -8,8 +8,7 @@ const router = express.Router()
 const insecurity = require('../lib/insecurity')
 const models = require('../models/index')
 
-
-router.get('/', async(req, res, next) => {
+router.get('/', async (req, res, next) => {
   const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
   const email = loggedInUser.data.email
   models.SecurityAnswer.findOne({
@@ -21,7 +20,7 @@ router.get('/', async(req, res, next) => {
     if (answer) {
       models.SecurityQuestion.findByPk(answer.SecurityQuestionId).then(question => {
         const q = question.dataValues.question
-        res.render('data-erasure', {e:email, q:q})
+        res.render('data-erasure', { e: email, q: q })
       }).catch(error => {
         next(error)
       })
@@ -33,7 +32,7 @@ router.get('/', async(req, res, next) => {
   })
 })
 
-router.post('/', (req, res) => {
+router.post('/', (req, res, next) => {
   const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
   if (loggedInUser) {
     const userData = {
