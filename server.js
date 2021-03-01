@@ -45,6 +45,7 @@ const restoreProgress = require('./routes/restoreProgress')
 const fileServer = require('./routes/fileServer')
 const quarantineServer = require('./routes/quarantineServer')
 const keyServer = require('./routes/keyServer')
+const dataErasure = require('./routes/dataErasure')
 const logFileServer = require('./routes/logfileServer')
 const metrics = require('./routes/metrics')
 const authenticatedUsers = require('./routes/authenticatedUsers')
@@ -177,6 +178,11 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use('/assets/public/images/products', verify.accessControlChallenges())
   app.use('/assets/public/images/uploads', verify.accessControlChallenges())
   app.use('/assets/i18n', verify.accessControlChallenges())
+
+  /* Helps in connecting to hbs files */
+  app.set('views', path.join(__dirname, 'views'))
+  /* Sets view engine to hbs */
+  app.set('view engine', 'hbs')
 
   /* Checks for challenges solved by abusing SSTi and SSRF bugs */
   app.use('/solve/challenges/server-side', verify.serverSideChallenges())
@@ -537,6 +543,9 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Routes for promotion video page */
   app.get('/promotion', videoHandler.promotionVideo())
   app.get('/video', videoHandler.getVideo())
+
+  /* Route for dataerasure page */
+  app.use('/dataerasure', dataErasure)
 
   /* Routes for profile page */
   app.get('/profile', insecurity.updateAuthenticatedUsers(), userProfile())

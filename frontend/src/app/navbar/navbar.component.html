@@ -131,7 +131,7 @@
         </mat-icon>
         <span translate>TITLE_REQUEST_DATA_EXPORT</span>
       </button>
-      <button mat-menu-item [routerLink]="['privacy-security/erasure-request']" aria-label="Go to data subject page">
+      <button mat-menu-item (click) = "goToDataErasurePage()" aria-label="Go to data subject page">
         <mat-icon>
           delete_forever
         </mat-icon>
