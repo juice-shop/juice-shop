@@ -180,6 +180,11 @@ app.use((req, res, next) => {
   next()
 })
 
+/* Helps in connecting to hbs files */
+app.set('views', path.join(__dirname, 'views'))
+/* Sets view engine to hbs */
+app.set('view engine', 'hbs')
+
 /* Increase request counter metric for every request */
 app.use(metrics.observeRequestMetricsMiddleware())
 
