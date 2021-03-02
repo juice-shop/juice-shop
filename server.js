@@ -301,7 +301,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/api/Recycles', recycles.blockRecycleItems())
   app.post('/api/Recycles', security.isAuthorized())
   /* Challenge evaluation before finale takes over */
-  app.get('/api/Recycles/:id', recycles.sequelizeVulnerabilityChallenge())
+  app.get('/api/Recycles/:id', recycles.getRecycleItem())
   app.put('/api/Recycles/:id', security.denyAll())
   app.delete('/api/Recycles/:id', security.denyAll())
   /* SecurityQuestions: Only GET list of questions allowed. */
