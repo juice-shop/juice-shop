@@ -4,7 +4,7 @@
  */
 
 const models = require('../models/index')
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 
 module.exports.getDeliveryMethods = function getDeliveryMethods () {
   return async (req, res, next) => {
@@ -15,7 +15,7 @@ module.exports.getDeliveryMethods = function getDeliveryMethods () {
         sendMethods.push({
           id: method.id,
           name: method.name,
-          price: insecurity.isDeluxe(req) ? method.deluxePrice : method.price,
+          price: security.isDeluxe(req) ? method.deluxePrice : method.price,
           eta: method.eta,
           icon: method.icon
         })
@@ -34,7 +34,7 @@ module.exports.getDeliveryMethod = function getDeliveryMethod () {
       const sendMethod = {
         id: method.id,
         name: method.name,
-        price: insecurity.isDeluxe(req) ? method.deluxePrice : method.price,
+        price: security.isDeluxe(req) ? method.deluxePrice : method.price,
         eta: method.eta,
         icon: method.icon
       }

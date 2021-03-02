@@ -4,7 +4,7 @@
  */
 
 const utils = require('../lib/utils')
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 const jwt = require('jsonwebtoken')
 const jws = require('jws')
 const models = require('../models/index')
@@ -16,7 +16,7 @@ const config = require('config')
 
 exports.forgedFeedbackChallenge = () => (req, res, next) => {
   utils.solveIf(challenges.forgedFeedbackChallenge, () => {
-    const user = insecurity.authenticatedUsers.from(req)
+    const user = security.authenticatedUsers.from(req)
     const userId = user && user.data ? user.data.id : undefined
     return req.body && req.body.UserId && req.body.UserId != userId // eslint-disable-line eqeqeq
   })
@@ -37,7 +37,7 @@ exports.captchaBypassChallenge = () => (req, res, next) => {
 }
 
 exports.registerAdminChallenge = () => (req, res, next) => {
-  utils.solveIf(challenges.registerAdminChallenge, () => { return req.body && req.body.role === insecurity.roles.admin })
+  utils.solveIf(challenges.registerAdminChallenge, () => { return req.body && req.body.role === security.roles.admin })
   next()
 }
 
@@ -95,7 +95,7 @@ function jwtChallenge (challenge, req, algorithm, email) {
   const token = utils.jwtFrom(req)
   if (token) {
     const decoded = jws.decode(token) ? jwt.decode(token) : null
-    jwt.verify(token, insecurity.publicKey, (err, verified) => {
+    jwt.verify(token, security.publicKey, (err, verified) => {
       if (err === null) {
         utils.solveIf(challenge, () => { return hasAlgorithm(token, algorithm) && hasEmail(decoded, email) })
       }

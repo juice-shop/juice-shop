@@ -4,11 +4,11 @@
  */
 
 const models = require('../models/index')
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 
 module.exports = function erasureRequest () {
   return (req, res, next) => {
-    const loggedInUser = insecurity.authenticatedUsers.from(req)
+    const loggedInUser = security.authenticatedUsers.from(req)
     if (loggedInUser) {
       const userData = {
         UserId: loggedInUser.data.id,

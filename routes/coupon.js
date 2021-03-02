@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: MIT
  */
 
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 const models = require('../models/index')
 
 module.exports = function applyCoupon () {
   return ({ params }, res, next) => {
     const id = params.id
     let coupon = params.coupon ? decodeURIComponent(params.coupon) : undefined
-    const discount = insecurity.discountFromCoupon(coupon)
+    const discount = security.discountFromCoupon(coupon)
     coupon = discount ? coupon : null
     models.Basket.findByPk(id).then(basket => {
       if (basket) {

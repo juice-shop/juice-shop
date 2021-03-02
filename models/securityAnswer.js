@@ -4,14 +4,14 @@
  */
 
 /* jslint node: true */
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 
 module.exports = (sequelize, { STRING, INTEGER }) => {
   const SecurityAnswer = sequelize.define('SecurityAnswer', {
     answer: {
       type: STRING,
       set (answer) {
-        this.setDataValue('answer', insecurity.hmac(answer))
+        this.setDataValue('answer', security.hmac(answer))
       }
     },
     UserId: { type: INTEGER, unique: true }

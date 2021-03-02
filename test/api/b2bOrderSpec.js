@@ -6,11 +6,11 @@
 const frisby = require('frisby')
 const Joi = frisby.Joi
 const utils = require('../../lib/utils')
-const insecurity = require('../../lib/insecurity')
+const security = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/b2b/v2/orders'
 
-const authHeader = { Authorization: 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
+const authHeader = { Authorization: 'Bearer ' + security.authorize(), 'content-type': 'application/json' }
 
 describe('/b2b/v2/orders', () => {
   if (!utils.disableOnContainerEnv()) {

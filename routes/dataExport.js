@@ -4,14 +4,14 @@
  */
 
 const utils = require('../lib/utils')
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 const db = require('../data/mongodb')
 const challenges = require('../data/datacache').challenges
 const models = require('../models/index')
 
 module.exports = function dataExport () {
   return async (req, res, next) => {
-    const loggedInUser = insecurity.authenticatedUsers.get(req.headers.authorization.replace('Bearer ', ''))
+    const loggedInUser = security.authenticatedUsers.get(req.headers.authorization.replace('Bearer ', ''))
     if (loggedInUser && loggedInUser.data && loggedInUser.data.email && loggedInUser.data.id) {
       const username = loggedInUser.data.username
       const email = loggedInUser.data.email
@@ -57,7 +57,7 @@ module.exports = function dataExport () {
               })
             })
           }
-          const emailHash = insecurity.hash(email).slice(0, 4)
+          const emailHash = security.hash(email).slice(0, 4)
           for (const order of userData.orders) {
             utils.solveIf(challenges.dataExportChallenge, () => { return order.orderId.split('-')[0] !== emailHash })
           }

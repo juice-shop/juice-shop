@@ -4,7 +4,7 @@
  */
 
 /* jslint node: true */
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
@@ -15,10 +15,10 @@ module.exports = (sequelize, { STRING, INTEGER }) => {
       set (comment) {
         let sanitizedComment
         if (!utils.disableOnContainerEnv()) {
-          sanitizedComment = insecurity.sanitizeHtml(comment)
+          sanitizedComment = security.sanitizeHtml(comment)
           utils.solveIf(challenges.persistedXssFeedbackChallenge, () => { return utils.contains(sanitizedComment, '<iframe src="javascript:alert(`xss`)">') })
         } else {
-          sanitizedComment = insecurity.sanitizeSecure(comment)
+          sanitizedComment = security.sanitizeSecure(comment)
         }
         this.setDataValue('comment', sanitizedComment)
       }

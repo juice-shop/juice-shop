@@ -4,7 +4,7 @@
  */
 
 const frisby = require('frisby')
-const insecurity = require('../../lib/insecurity')
+const security = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
@@ -12,9 +12,9 @@ const REST_URL = 'http://localhost:3000/rest'
 const jsonHeader = { 'content-type': 'application/json' }
 let authHeader
 
-const validCoupon = insecurity.generateCoupon(15)
-const outdatedCoupon = insecurity.generateCoupon(20, new Date(2001, 0, 1))
-const forgedCoupon = insecurity.generateCoupon(99)
+const validCoupon = security.generateCoupon(15)
+const outdatedCoupon = security.generateCoupon(20, new Date(2001, 0, 1))
+const forgedCoupon = security.generateCoupon(99)
 
 beforeAll(() => {
   return frisby.post(REST_URL + '/user/login', {

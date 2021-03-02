@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 const models = require('../models/')
 const otplib = require('otplib')
 const utils = require('../lib/utils')
@@ -20,7 +20,7 @@ async function verify (req, res) {
   const { tmpToken, totpToken } = req.body
 
   try {
-    const { userId, type } = insecurity.verify(tmpToken) && insecurity.decode(tmpToken)
+    const { userId, type } = security.verify(tmpToken) && security.decode(tmpToken)
 
     if (type !== 'password_valid_needs_second_factor_token') {
       throw new Error('Invalid token type')
@@ -39,9 +39,9 @@ async function verify (req, res) {
 
     const [basket] = await models.Basket.findOrCreate({ where: { userId }, defaults: {} })
 
-    const token = insecurity.authorize(plainUser)
+    const token = security.authorize(plainUser)
     plainUser.bid = basket.id // keep track of original basket for challenge solution check
-    insecurity.authenticatedUsers.put(token, plainUser)
+    security.authenticatedUsers.put(token, plainUser)
 
     res.json({ authentication: { token, bid: basket.id, umail: user.email } })
   } catch (error) {
@@ -56,7 +56,7 @@ async function verify (req, res) {
  */
 async function status (req, res) {
   try {
-    const data = insecurity.authenticatedUsers.from(req)
+    const data = security.authenticatedUsers.from(req)
     if (!data) {
       throw new Error('You need to be logged in to see this')
     }
@@ -69,7 +69,7 @@ async function status (req, res) {
         setup: false,
         secret,
         email: user.email,
-        setupToken: insecurity.authorize({
+        setupToken: security.authorize({
           secret,
           type: 'totp_setup_secret'
         })
@@ -95,7 +95,7 @@ async function status (req, res) {
  */
 async function setup (req, res) {
   try {
-    const data = insecurity.authenticatedUsers.from(req)
+    const data = security.authenticatedUsers.from(req)
     if (!data) {
       throw new Error('Need to login before setting up 2FA')
     }
@@ -103,7 +103,7 @@ async function setup (req, res) {
 
     const { password, setupToken, initialToken } = req.body
 
-    if (user.password !== insecurity.hash(password)) {
+    if (user.password !== security.hash(password)) {
       throw new Error('Password doesnt match stored password')
     }
 
@@ -111,7 +111,7 @@ async function setup (req, res) {
       throw new Error('User has 2fa already setup')
     }
 
-    const { secret, type } = insecurity.verify(setupToken) && insecurity.decode(setupToken)
+    const { secret, type } = security.verify(setupToken) && security.decode(setupToken)
     if (type !== 'totp_setup_secret') {
       throw new Error('SetupToken is of wrong type')
     }
@@ -123,7 +123,7 @@ async function setup (req, res) {
     const userModel = await models.User.findByPk(user.id)
     userModel.totpSecret = secret
     await userModel.save()
-    insecurity.authenticatedUsers.updateFrom(req, utils.queryResultToJson(userModel))
+    security.authenticatedUsers.updateFrom(req, utils.queryResultToJson(userModel))
 
     res.status(200).send()
   } catch (error) {
@@ -136,7 +136,7 @@ async function setup (req, res) {
  */
 async function disable (req, res) {
   try {
-    const data = insecurity.authenticatedUsers.from(req)
+    const data = security.authenticatedUsers.from(req)
     if (!data) {
       throw new Error('Need to login before setting up 2FA')
     }
@@ -144,7 +144,7 @@ async function disable (req, res) {
 
     const { password } = req.body
 
-    if (user.password !== insecurity.hash(password)) {
+    if (user.password !== security.hash(password)) {
       throw new Error('Password doesnt match stored password')
     }
 
@@ -152,7 +152,7 @@ async function disable (req, res) {
     const userModel = await models.User.findByPk(user.id)
     userModel.totpSecret = ''
     await userModel.save()
-    insecurity.authenticatedUsers.updateFrom(req, utils.queryResultToJson(userModel))
+    security.authenticatedUsers.updateFrom(req, utils.queryResultToJson(userModel))
 
     res.status(200).send()
   } catch (error) {

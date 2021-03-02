@@ -6,7 +6,7 @@
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const users = require('../data/datacache').users
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 const models = require('../models/index')
 const config = require('config')
 
@@ -29,7 +29,7 @@ module.exports = function resetPassword () {
           where: { email }
         }]
       }).then(data => {
-        if (insecurity.hmac(answer) === data.answer) {
+        if (security.hmac(answer) === data.answer) {
           models.User.findByPk(data.UserId).then(user => {
             user.update({ password: newPassword }).then(user => {
               verifySecurityAnswerChallenges(user, answer)

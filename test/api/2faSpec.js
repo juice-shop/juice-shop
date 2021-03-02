@@ -5,7 +5,7 @@
 
 const frisby = require('frisby')
 const Joi = frisby.Joi
-const insecurity = require('../../lib/insecurity')
+const security = require('../../lib/insecurity')
 const config = require('config')
 
 const otplib = require('otplib')
@@ -65,7 +65,7 @@ async function register ({ email, password, totpSecret }) {
         },
         body: {
           password,
-          setupToken: insecurity.authorize({
+          setupToken: security.authorize({
             secret: totpSecret,
             type: 'totp_setup_secret'
           }),
@@ -92,7 +92,7 @@ function getStatus (token) {
 
 describe('/rest/2fa/verify', () => {
   it('POST should return a valid authentication when a valid tmp token is passed', async () => {
-    const tmpTokenWurstbrot = insecurity.authorize({
+    const tmpTokenWurstbrot = security.authorize({
       userId: 10,
       type: 'password_valid_needs_second_factor_token'
     })
@@ -119,7 +119,7 @@ describe('/rest/2fa/verify', () => {
   })
 
   it('POST should fail if a invalid totp token is used', async () => {
-    const tmpTokenWurstbrot = insecurity.authorize({
+    const tmpTokenWurstbrot = security.authorize({
       userId: 10,
       type: 'password_valid_needs_second_factor_token'
     })
@@ -234,7 +234,7 @@ describe('/rest/2fa/setup', () => {
         },
         body: {
           password,
-          setupToken: insecurity.authorize({
+          setupToken: security.authorize({
             secret,
             type: 'totp_setup_secret'
           }),
@@ -278,7 +278,7 @@ describe('/rest/2fa/setup', () => {
         },
         body: {
           password: password + ' this makes the password wrong',
-          setupToken: insecurity.authorize({
+          setupToken: security.authorize({
             secret,
             type: 'totp_setup_secret'
           }),
@@ -306,7 +306,7 @@ describe('/rest/2fa/setup', () => {
         },
         body: {
           password: password,
-          setupToken: insecurity.authorize({
+          setupToken: security.authorize({
             secret,
             type: 'totp_setup_secret'
           }),
@@ -334,7 +334,7 @@ describe('/rest/2fa/setup', () => {
         },
         body: {
           password,
-          setupToken: insecurity.authorize({
+          setupToken: security.authorize({
             secret,
             type: 'totp_setup_secret_foobar'
           }),
@@ -360,7 +360,7 @@ describe('/rest/2fa/setup', () => {
         },
         body: {
           password,
-          setupToken: insecurity.authorize({
+          setupToken: security.authorize({
             secret: totpSecret,
             type: 'totp_setup_secret'
           }),

@@ -7,7 +7,7 @@ const path = require('path')
 const fs = require('fs')
 const PDFDocument = require('pdfkit')
 const utils = require('../lib/utils')
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 const models = require('../models/index')
 const products = require('../data/datacache').products
 const challenges = require('../data/datacache').challenges
@@ -20,9 +20,9 @@ module.exports = function placeOrder () {
     models.Basket.findOne({ where: { id }, include: [{ model: models.Product, paranoid: false }] })
       .then(async basket => {
         if (basket) {
-          const customer = insecurity.authenticatedUsers.from(req)
+          const customer = security.authenticatedUsers.from(req)
           const email = customer ? customer.data ? customer.data.email : '' : ''
-          const orderId = insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16)
+          const orderId = security.hash(email).slice(0, 4) + '-' + utils.randomHexString(16)
           const pdfFile = `order_${orderId}.pdf`
           const doc = new PDFDocument()
           const date = new Date().toJSON().slice(0, 10)
@@ -61,7 +61,7 @@ module.exports = function placeOrder () {
               next(error)
             })
             let itemPrice
-            if (insecurity.isDeluxe(req)) {
+            if (security.isDeluxe(req)) {
               itemPrice = deluxePrice
             } else {
               itemPrice = price
@@ -99,7 +99,7 @@ module.exports = function placeOrder () {
           if (req.body.orderDetails && req.body.orderDetails.deliveryMethodId) {
             deliveryMethod = await models.Delivery.findOne({ where: { id: req.body.orderDetails.deliveryMethodId } })
           }
-          const deliveryAmount = insecurity.isDeluxe(req) ? deliveryMethod.deluxePrice : deliveryMethod.price
+          const deliveryAmount = security.isDeluxe(req) ? deliveryMethod.deluxePrice : deliveryMethod.price
           totalPrice += deliveryAmount
           doc.text(`${req.__('Delivery Price')}: ${deliveryAmount.toFixed(2)}¤`)
           doc.moveDown()
@@ -154,8 +154,8 @@ module.exports = function placeOrder () {
 }
 
 function calculateApplicableDiscount (basket, req) {
-  if (insecurity.discountFromCoupon(basket.coupon)) {
-    const discount = insecurity.discountFromCoupon(basket.coupon)
+  if (security.discountFromCoupon(basket.coupon)) {
+    const discount = security.discountFromCoupon(basket.coupon)
     utils.solveIf(challenges.forgedCouponChallenge, () => { return discount >= 80 })
     return discount
   } else if (req.body.couponData) {

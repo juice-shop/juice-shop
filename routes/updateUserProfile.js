@@ -4,14 +4,14 @@
  */
 
 const models = require('../models/index')
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 const utils = require('../lib/utils')
 const cache = require('../data/datacache')
 const challenges = cache.challenges
 
 module.exports = function updateUserProfile () {
   return (req, res, next) => {
-    const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
+    const loggedInUser = security.authenticatedUsers.get(req.cookies.token)
 
     if (loggedInUser) {
       models.User.findByPk(loggedInUser.data.id).then(user => {
@@ -22,8 +22,8 @@ module.exports = function updateUserProfile () {
         })
         user.update({ username: req.body.username }).then(newuser => {
           newuser = utils.queryResultToJson(newuser)
-          const updatedToken = insecurity.authorize(newuser)
-          insecurity.authenticatedUsers.put(updatedToken, newuser)
+          const updatedToken = security.authorize(newuser)
+          security.authenticatedUsers.put(updatedToken, newuser)
           res.cookie('token', updatedToken)
           res.location(process.env.BASE_PATH + '/profile')
           res.redirect(process.env.BASE_PATH + '/profile')

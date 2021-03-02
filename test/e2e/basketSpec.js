@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-const insecurity = require('../../lib/insecurity')
+const security = require('../../lib/insecurity')
 const config = require('config')
 const models = require('../../models/index')
 
@@ -120,7 +120,7 @@ describe('/#/basket', () => {
         element(by.id('collapseCouponElement')).click()
         browser.wait(protractor.ExpectedConditions.presenceOf($('#coupon')), 5000, 'Coupon textfield not present.') // eslint-disable-line no-undef
         browser.driver.sleep(1000)
-        element(by.id('coupon')).sendKeys(insecurity.generateCoupon(90))
+        element(by.id('coupon')).sendKeys(security.generateCoupon(90))
         browser.driver.sleep(1000)
         element(by.id('applyCouponButton')).click()
       })

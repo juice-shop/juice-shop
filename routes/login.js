@@ -4,7 +4,7 @@
  */
 
 const utils = require('../lib/utils')
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 const models = require('../models/index')
 const challenges = require('../data/datacache').challenges
 const users = require('../data/datacache').users
@@ -15,9 +15,9 @@ module.exports = function login () {
     verifyPostLoginChallenges(user)
     models.Basket.findOrCreate({ where: { UserId: user.data.id }, defaults: {} })
       .then(([basket]) => {
-        const token = insecurity.authorize(user)
+        const token = security.authorize(user)
         user.bid = basket.id // keep track of original basket for challenge solution check
-        insecurity.authenticatedUsers.put(token, user)
+        security.authenticatedUsers.put(token, user)
         res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })
       }).catch(error => {
         next(error)
@@ -26,10 +26,10 @@ module.exports = function login () {
 
   return (req, res, next) => {
     verifyPreLoginChallenges(req)
-    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${insecurity.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true })
+    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true })
       .then((authenticatedUser) => {
         let user = utils.queryResultToJson(authenticatedUser)
-        const rememberedEmail = insecurity.userEmailFrom(req)
+        const rememberedEmail = security.userEmailFrom(req)
         if (rememberedEmail && req.body.oauth) {
           models.User.findOne({ where: { email: rememberedEmail } }).then(rememberedUser => {
             user = utils.queryResultToJson(rememberedUser)
@@ -40,7 +40,7 @@ module.exports = function login () {
           res.status(401).json({
             status: 'totp_token_required',
             data: {
-              tmpToken: insecurity.authorize({
+              tmpToken: security.authorize({
                 userId: user.data.id,
                 type: 'password_valid_needs_second_factor_token'
               })

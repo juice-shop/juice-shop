@@ -6,12 +6,12 @@
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const db = require('../data/mongodb')
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 
 module.exports = function productReviews () {
   return (req, res, next) => {
     const id = req.body.id
-    const user = insecurity.authenticatedUsers.from(req)
+    const user = security.authenticatedUsers.from(req)
     db.reviews.findOne({ _id: id }).then(review => {
       const likedBy = review.likedBy
       if (!likedBy.includes(user.data.email)) {

@@ -4,7 +4,7 @@
  */
 
 const utils = require('../lib/utils')
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 const models = require('../models/index')
 const cache = require('../data/datacache')
 const challenges = cache.challenges
@@ -20,14 +20,14 @@ module.exports = function changePassword () {
       res.status(401).send(res.__('New and repeated password do not match.'))
     } else {
       const token = headers.authorization ? headers.authorization.substr('Bearer='.length) : null
-      const loggedInUser = insecurity.authenticatedUsers.get(token)
+      const loggedInUser = security.authenticatedUsers.get(token)
       if (loggedInUser) {
-        if (currentPassword && insecurity.hash(currentPassword) !== loggedInUser.data.password) {
+        if (currentPassword && security.hash(currentPassword) !== loggedInUser.data.password) {
           res.status(401).send(res.__('Current password is not correct.'))
         } else {
           models.User.findByPk(loggedInUser.data.id).then(user => {
             user.update({ password: newPassword }).then(user => {
-              utils.solveIf(challenges.changePasswordBenderChallenge, () => { return user.id === 3 && !currentPassword && user.password === insecurity.hash('slurmCl4ssic') })
+              utils.solveIf(challenges.changePasswordBenderChallenge, () => { return user.id === 3 && !currentPassword && user.password === security.hash('slurmCl4ssic') })
               res.json({ user })
             }).catch(error => {
               next(error)
