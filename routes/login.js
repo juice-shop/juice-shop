@@ -34,7 +34,7 @@ module.exports = function login () {
         if (rememberedEmail && req.body.oauth) {
           models.User.findOne({ where: { email: rememberedEmail } }).then(rememberedUser => {
             user = utils.queryResultToJson(rememberedUser)
-            utils.solveIf(challenges.loginCisoChallenge, () => { return user.data.id === users.ciso.id }) // vuln-code-snippet hide-line
+            utils.solveIf(challenges.loginCisoChallenge, () => { return user.data.id === users.ciso.id })
             afterLogin(user, res, next)
           })
         } else if (user.data && user.data.id && user.data.totpSecret !== '') {
@@ -56,7 +56,7 @@ module.exports = function login () {
         next(error)
       })
   }
-  // vuln-code-snippet end
+  // vuln-code-snippet end [loginAdminChallenge, loginBenderChallenge, loginJimChallenge]
 
   function verifyPreLoginChallenges (req) {
     utils.solveIf(challenges.weakPasswordChallenge, () => { return req.body.email === 'admin@' + config.get('application.domain') && req.body.password === 'admin123' })
