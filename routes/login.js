@@ -11,8 +11,9 @@ const users = require('../data/datacache').users
 const config = require('config')
 
 module.exports = function login () {
+  // vuln-code-snippet start [loginAdminChallenge, loginBenderChallenge, loginJimChallenge]
   function afterLogin (user, res, next) {
-    verifyPostLoginChallenges(user)
+    verifyPostLoginChallenges(user) // vuln-code-snippet hide-line
     models.Basket.findOrCreate({ where: { UserId: user.data.id }, defaults: {} })
       .then(([basket]) => {
         const token = security.authorize(user)
@@ -25,15 +26,15 @@ module.exports = function login () {
   }
 
   return (req, res, next) => {
-    verifyPreLoginChallenges(req)
-    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true })
+    verifyPreLoginChallenges(req) // vuln-code-snippet hide-line
+    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true }) // vuln-code-snippet vuln-line
       .then((authenticatedUser) => {
         let user = utils.queryResultToJson(authenticatedUser)
         const rememberedEmail = security.userEmailFrom(req)
         if (rememberedEmail && req.body.oauth) {
           models.User.findOne({ where: { email: rememberedEmail } }).then(rememberedUser => {
             user = utils.queryResultToJson(rememberedUser)
-            utils.solveIf(challenges.loginCisoChallenge, () => { return user.data.id === users.ciso.id })
+            utils.solveIf(challenges.loginCisoChallenge, () => { return user.data.id === users.ciso.id }) // vuln-code-snippet hide-line
             afterLogin(user, res, next)
           })
         } else if (user.data && user.data.id && user.data.totpSecret !== '') {
@@ -55,6 +56,7 @@ module.exports = function login () {
         next(error)
       })
   }
+  // vuln-code-snippet end
 
   function verifyPreLoginChallenges (req) {
     utils.solveIf(challenges.weakPasswordChallenge, () => { return req.body.email === 'admin@' + config.get('application.domain') && req.body.password === 'admin123' })
