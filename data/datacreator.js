@@ -9,7 +9,7 @@ const datacache = require('./datacache')
 const config = require('config')
 const utils = require('../lib/utils')
 const mongodb = require('./mongodb')
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 const logger = require('../lib/logger')
 
 const fs = require('fs')
@@ -99,8 +99,8 @@ async function createUsers () {
           email: completeEmail,
           password,
           role,
-          deluxeToken: role === insecurity.roles.deluxe ? insecurity.deluxeToken(completeEmail) : '',
-          profileImage: `assets/public/images/uploads/${profileImage || (role === insecurity.roles.admin ? 'defaultAdmin.png' : 'default.svg')}`,
+          deluxeToken: role === security.roles.deluxe ? security.deluxeToken(completeEmail) : '',
+          profileImage: `assets/public/images/uploads/${profileImage || (role === security.roles.admin ? 'defaultAdmin.png' : 'default.svg')}`,
           totpSecret
         })
         datacache.users[key] = user
@@ -624,7 +624,7 @@ function createOrders () {
 
   const orders = [
     {
-      orderId: insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16),
+      orderId: security.hash(email).slice(0, 4) + '-' + utils.randomHexString(16),
       email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
       totalPrice: basket1Products[0].total + basket1Products[1].total,
       bonus: basket1Products[0].bonus + basket1Products[1].bonus,
@@ -633,7 +633,7 @@ function createOrders () {
       delivered: false
     },
     {
-      orderId: insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16),
+      orderId: security.hash(email).slice(0, 4) + '-' + utils.randomHexString(16),
       email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
       totalPrice: basket2Products[0].total,
       bonus: basket2Products[0].bonus,
@@ -642,7 +642,7 @@ function createOrders () {
       delivered: true
     },
     {
-      orderId: insecurity.hash('demo').slice(0, 4) + '-' + utils.randomHexString(16),
+      orderId: security.hash('demo').slice(0, 4) + '-' + utils.randomHexString(16),
       email: 'demo'.replace(/[aeiou]/gi, '*'),
       totalPrice: basket3Products[0].total + basket3Products[1].total,
       bonus: basket3Products[0].bonus + basket3Products[1].bonus,

@@ -6,7 +6,7 @@
 const svgCaptcha = require('svg-captcha')
 const models = require('../models/index')
 const Op = models.Sequelize.Op
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 
 function imageCaptchas () {
   return (req, res) => {
@@ -15,7 +15,7 @@ function imageCaptchas () {
     const imageCaptcha = {
       image: captcha.data,
       answer: captcha.text,
-      UserId: insecurity.authenticatedUsers.from(req).data.id
+      UserId: security.authenticatedUsers.from(req).data.id
     }
     const imageCaptchaInstance = models.ImageCaptcha.build(imageCaptcha)
     imageCaptchaInstance.save().then(() => {
@@ -25,7 +25,7 @@ function imageCaptchas () {
 }
 
 imageCaptchas.verifyCaptcha = () => (req, res, next) => {
-  const user = insecurity.authenticatedUsers.from(req)
+  const user = security.authenticatedUsers.from(req)
   const UserId = user ? user.data ? user.data.id : undefined : undefined
   models.ImageCaptcha.findAll({
     limit: 1,

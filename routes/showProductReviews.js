@@ -5,7 +5,7 @@
 
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 const db = require('../data/mongodb')
 
 // Blocking sleep function as in native MongoDB
@@ -29,7 +29,7 @@ module.exports = function productReviews () {
     db.reviews.find({ $where: 'this.product == ' + id }).then(reviews => {
       const t1 = new Date().getTime()
       utils.solveIf(challenges.noSqlCommandChallenge, () => { return (t1 - t0) > 2000 })
-      const user = insecurity.authenticatedUsers.from(req)
+      const user = security.authenticatedUsers.from(req)
       for (let i = 0; i < reviews.length; i++) {
         if (user === undefined || reviews[i].likedBy.includes(user.data.email)) {
           reviews[i].liked = true

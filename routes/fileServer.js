@@ -5,7 +5,7 @@
 
 const path = require('path')
 const utils = require('../lib/utils')
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 
 module.exports = function servePublicFiles () {
@@ -22,7 +22,7 @@ module.exports = function servePublicFiles () {
 
   function verify (file, res, next) {
     if (file && (endsWithAllowlistedFileType(file) || (file === 'incident-support.kdbx'))) {
-      file = insecurity.cutOffPoisonNullByte(file)
+      file = security.cutOffPoisonNullByte(file)
 
       utils.solveIf(challenges.directoryListingChallenge, () => { return file.toLowerCase() === 'acquisitions.md' })
       verifySuccessfulPoisonNullByteExploit(file)

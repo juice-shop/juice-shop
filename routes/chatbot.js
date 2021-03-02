@@ -4,7 +4,7 @@
  */
 
 const { Bot } = require('juicy-chat-bot')
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 const jwt = require('jsonwebtoken')
 const utils = require('../lib/utils')
 const botUtils = require('../lib/botUtils')
@@ -103,8 +103,8 @@ function setUserName (user, req, res) {
   models.User.findByPk(user.id).then(user => {
     user.update({ username: req.body.query }).then(newuser => {
       newuser = utils.queryResultToJson(newuser)
-      const updatedToken = insecurity.authorize(newuser)
-      insecurity.authenticatedUsers.put(updatedToken, newuser)
+      const updatedToken = security.authorize(newuser)
+      security.authenticatedUsers.put(updatedToken, newuser)
       bot.addUser(`${newuser.id}`, req.body.query)
       res.status(200).json({
         action: 'response',
@@ -131,7 +131,7 @@ module.exports.status = function status () {
     const token = req.cookies.token || utils.jwtFrom(req)
     if (token) {
       const user = await new Promise((resolve, reject) => {
-        jwt.verify(token, insecurity.publicKey, (err, decoded) => {
+        jwt.verify(token, security.publicKey, (err, decoded) => {
           if (err !== null) {
             res.status(401).json({
               error: 'Unauthenticated user'
@@ -189,7 +189,7 @@ module.exports.process = function respond () {
     }
 
     const user = await new Promise((resolve, reject) => {
-      jwt.verify(token, insecurity.publicKey, (err, decoded) => {
+      jwt.verify(token, security.publicKey, (err, decoded) => {
         if (err !== null) {
           res.status(401).json({
             error: 'Unauthenticated user'

@@ -9,7 +9,7 @@ const sinonChai = require('sinon-chai')
 const expect = chai.expect
 chai.use(sinonChai)
 const cache = require('../../data/datacache')
-const insecurity = require('../../lib/insecurity')
+const security = require('../../lib/insecurity')
 const config = require('config')
 const utils = require('../../lib/utils')
 
@@ -28,7 +28,7 @@ describe('verify', () => {
 
   describe('"forgedFeedbackChallenge"', () => {
     beforeEach(() => {
-      insecurity.authenticatedUsers.put('token12345', {
+      security.authenticatedUsers.put('token12345', {
         data: {
           id: 42,
           email: 'test@juice-sh.op'
@@ -274,7 +274,7 @@ describe('verify', () => {
     })
 
     it('"jwtUnsignedChallenge" is not solved via regularly signed token even with email jwtn3d@juice-sh.op in the payload', () => {
-      const token = insecurity.authorize({ data: { email: 'jwtn3d@juice-sh.op' } })
+      const token = security.authorize({ data: { email: 'jwtn3d@juice-sh.op' } })
       this.req.headers = { authorization: 'Bearer ' + token }
 
       verify.jwtChallenges()(this.req, this.res, this.next)
@@ -308,7 +308,7 @@ describe('verify', () => {
       })
 
       it('"jwtForgedChallenge" is not solved when token regularly signed with private RSA-key has email rsa_lord@juice-sh.op in the payload', () => {
-        const token = insecurity.authorize({ data: { email: 'rsa_lord@juice-sh.op' } })
+        const token = security.authorize({ data: { email: 'rsa_lord@juice-sh.op' } })
         this.req.headers = { authorization: 'Bearer ' + token }
 
         verify.jwtChallenges()(this.req, this.res, this.next)

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 const utils = require('../lib/utils')
 const cache = require('../data/datacache')
 const challenges = cache.challenges
@@ -12,8 +12,8 @@ module.exports = function retrieveLoggedInUser () {
   return (req, res) => {
     let user
     try {
-      if (insecurity.verify(req.cookies.token)) {
-        user = insecurity.authenticatedUsers.get(req.cookies.token)
+      if (security.verify(req.cookies.token)) {
+        user = security.authenticatedUsers.get(req.cookies.token)
       }
     } catch (err) {
       user = undefined

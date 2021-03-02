@@ -6,11 +6,11 @@
 const db = require('../data/mongodb')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 
 module.exports = function productReviews () {
   return (req, res, next) => {
-    const user = insecurity.authenticatedUsers.from(req)
+    const user = security.authenticatedUsers.from(req)
     utils.solveIf(challenges.forgedReviewChallenge, () => { return user && user.data.email !== req.body.author })
     db.reviews.insert({
       product: req.params.id,

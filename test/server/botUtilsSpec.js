@@ -5,7 +5,7 @@
 
 const chai = require('chai')
 const expect = chai.expect
-const insecurity = require('../../lib/insecurity')
+const security = require('../../lib/insecurity')
 
 describe('botUtils', () => {
   const botUtils = require('../../lib/botUtils')
@@ -23,7 +23,7 @@ describe('botUtils', () => {
     it('response contains a valid 10% coupon code for current date', () => {
       expect(botUtils.couponCode()).to.deep.equal({
         action: 'response',
-        body: `Oooookay, if you promise to stop nagging me here's a 10% coupon code for you: ${insecurity.generateCoupon(10, new Date())}`
+        body: `Oooookay, if you promise to stop nagging me here's a 10% coupon code for you: ${security.generateCoupon(10, new Date())}`
       })
     })
   })

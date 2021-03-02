@@ -5,11 +5,11 @@
 
 const frisby = require('frisby')
 const Joi = frisby.Joi
-const insecurity = require('../../lib/insecurity')
+const security = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/api'
 
-const authHeader = { Authorization: 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
+const authHeader = { Authorization: 'Bearer ' + security.authorize(), 'content-type': 'application/json' }
 
 describe('/api/SecurityAnswers', () => {
   it('GET all security answers is forbidden via public API even when authenticated', () => {

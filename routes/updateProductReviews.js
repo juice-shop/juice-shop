@@ -6,11 +6,11 @@
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const db = require('../data/mongodb')
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 
 module.exports = function productReviews () {
   return (req, res, next) => {
-    const user = insecurity.authenticatedUsers.from(req)
+    const user = security.authenticatedUsers.from(req)
     db.reviews.update(
       { _id: req.body.id },
       { $set: { message: req.body.message } },

@@ -4,13 +4,13 @@
  */
 
 const models = require('../models/index')
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
 module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
   return async (req, res, next) => {
-    const user = await models.User.findOne({ where: { id: req.body.UserId, role: insecurity.roles.customer } })
+    const user = await models.User.findOne({ where: { id: req.body.UserId, role: security.roles.customer } })
     if (!user) {
       res.status(400).json({ status: 'error', error: 'Something went wrong. Please try again!' })
       return
@@ -33,12 +33,12 @@ module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
       }
     }
 
-    user.update({ role: insecurity.roles.deluxe, deluxeToken: insecurity.deluxeToken(user.dataValues.email) })
+    user.update({ role: security.roles.deluxe, deluxeToken: security.deluxeToken(user.dataValues.email) })
       .then(user => {
-        utils.solveIf(challenges.freeDeluxeChallenge, () => { return insecurity.verify(utils.jwtFrom(req)) && req.body.paymentMode !== 'wallet' && req.body.paymentMode !== 'card' })
+        utils.solveIf(challenges.freeDeluxeChallenge, () => { return security.verify(utils.jwtFrom(req)) && req.body.paymentMode !== 'wallet' && req.body.paymentMode !== 'card' })
         user = utils.queryResultToJson(user)
-        const updatedToken = insecurity.authorize(user)
-        insecurity.authenticatedUsers.put(updatedToken, user)
+        const updatedToken = security.authorize(user)
+        security.authenticatedUsers.put(updatedToken, user)
         res.status(200).json({ status: 'success', data: { confirmation: 'Congratulations! You are now a deluxe member!', token: updatedToken } })
       })
   }
@@ -46,9 +46,9 @@ module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
 
 module.exports.deluxeMembershipStatus = function deluxeMembershipStatus () {
   return (req, res, next) => {
-    if (insecurity.isCustomer(req)) {
+    if (security.isCustomer(req)) {
       res.status(200).json({ status: 'success', data: { membershipCost: 49 } })
-    } else if (insecurity.isDeluxe(req)) {
+    } else if (security.isDeluxe(req)) {
       res.status(400).json({ status: 'error', error: 'You are already a deluxe member!' })
     } else {
       res.status(400).json({ status: 'error', error: 'You are not eligible for deluxe membership!' })

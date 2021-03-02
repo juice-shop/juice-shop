@@ -4,7 +4,7 @@
  */
 
 /* jslint node: true */
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const config = require('config')
@@ -16,9 +16,9 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
       defaultValue: '',
       set (username) {
         if (!utils.disableOnContainerEnv()) {
-          username = insecurity.sanitizeLegacy(username)
+          username = security.sanitizeLegacy(username)
         } else {
-          username = insecurity.sanitizeSecure(username)
+          username = security.sanitizeSecure(username)
         }
         this.setDataValue('username', username)
       }
@@ -30,7 +30,7 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
         if (!utils.disableOnContainerEnv()) {
           utils.solveIf(challenges.persistedXssUserChallenge, () => { return utils.contains(email, '<iframe src="javascript:alert(`xss`)">') })
         } else {
-          email = insecurity.sanitizeSecure(email)
+          email = security.sanitizeSecure(email)
         }
         this.setDataValue('email', email)
       }
@@ -38,7 +38,7 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
     password: {
       type: STRING,
       set (clearTextPassword) {
-        this.setDataValue('password', insecurity.hash(clearTextPassword))
+        this.setDataValue('password', security.hash(clearTextPassword))
       }
     },
     role: {
@@ -49,7 +49,7 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
       },
       set (role) {
         const profileImage = this.getDataValue('profileImage')
-        if (role === insecurity.roles.admin && (!profileImage || profileImage === '/assets/public/images/uploads/default.svg')) {
+        if (role === security.roles.admin && (!profileImage || profileImage === '/assets/public/images/uploads/default.svg')) {
           this.setDataValue('profileImage', '/assets/public/images/uploads/defaultAdmin.png')
         }
         this.setDataValue('role', role)

@@ -6,7 +6,7 @@
 const frisby = require('frisby')
 const Joi = frisby.Joi
 const utils = require('../../lib/utils')
-const insecurity = require('../../lib/insecurity')
+const security = require('../../lib/insecurity')
 const config = require('config')
 
 const tamperingProductId = ((() => {
@@ -20,7 +20,7 @@ const tamperingProductId = ((() => {
 
 const API_URL = 'http://localhost:3000/api'
 
-const authHeader = { Authorization: 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
+const authHeader = { Authorization: 'Bearer ' + security.authorize(), 'content-type': 'application/json' }
 const jsonHeader = { 'content-type': 'application/json' }
 
 describe('/api/Products', () => {

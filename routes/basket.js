@@ -4,7 +4,7 @@
  */
 
 const utils = require('../lib/utils')
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 const models = require('../models/index')
 const challenges = require('../data/datacache').challenges
 
@@ -15,7 +15,7 @@ module.exports = function retrieveBasket () {
       .then(basket => {
         /* jshint eqeqeq:false */
         utils.solveIf(challenges.basketAccessChallenge, () => {
-          const user = insecurity.authenticatedUsers.from(req)
+          const user = security.authenticatedUsers.from(req)
           return user && id && id !== 'undefined' && id !== 'null' && id !== 'NaN' && user.bid && user.bid != id // eslint-disable-line eqeqeq
         })
         if (basket && basket.Products && basket.Products.length > 0) {

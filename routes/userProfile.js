@@ -6,7 +6,7 @@
 const fs = require('fs')
 const models = require('../models/index')
 const utils = require('../lib/utils')
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 const pug = require('pug')
 const config = require('config')
@@ -16,7 +16,7 @@ module.exports = function getUserProfile () {
   return (req, res, next) => {
     fs.readFile('views/userProfile.pug', function (err, buf) {
       if (err) throw err
-      const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
+      const loggedInUser = security.authenticatedUsers.get(req.cookies.token)
       if (loggedInUser) {
         models.User.findByPk(loggedInUser.data.id).then(user => {
           let template = buf.toString()
@@ -34,7 +34,7 @@ module.exports = function getUserProfile () {
           }
           const theme = themes[config.get('application.theme')]
           template = template.replace(/_username_/g, username)
-          template = template.replace(/_emailHash_/g, insecurity.hash(user.dataValues.email))
+          template = template.replace(/_emailHash_/g, security.hash(user.dataValues.email))
           template = template.replace(/_title_/g, config.get('application.name'))
           template = template.replace(/_favicon_/g, favicon())
           template = template.replace(/_bgColor_/g, theme.bgColor)

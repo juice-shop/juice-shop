@@ -4,7 +4,7 @@
  */
 
 const frisby = require('frisby')
-const insecurity = require('../../lib/insecurity')
+const security = require('../../lib/insecurity')
 const config = require('config')
 
 const christmasProduct = config.get('products').filter(({ useForChristmasSpecialChallenge }) => useForChristmasSpecialChallenge)[0]
@@ -87,12 +87,12 @@ describe('/rest/products/search', () => {
       .expect('json', 'data.?', {
         id: 1,
         price: 'admin@' + config.get('application.domain'),
-        deluxePrice: insecurity.hash('admin123')
+        deluxePrice: security.hash('admin123')
       })
       .expect('json', 'data.?', {
         id: 2,
         price: 'jim@' + config.get('application.domain'),
-        deluxePrice: insecurity.hash('ncc-1701')
+        deluxePrice: security.hash('ncc-1701')
       })
       .expect('json', 'data.?', {
         id: 3,
@@ -102,17 +102,17 @@ describe('/rest/products/search', () => {
       .expect('json', 'data.?', {
         id: 4,
         price: 'bjoern.kimminich@gmail.com',
-        deluxePrice: insecurity.hash('bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI=')
+        deluxePrice: security.hash('bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI=')
       })
       .expect('json', 'data.?', {
         id: 5,
         price: 'ciso@' + config.get('application.domain'),
-        deluxePrice: insecurity.hash('mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb')
+        deluxePrice: security.hash('mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb')
       })
       .expect('json', 'data.?', {
         id: 6,
         price: 'support@' + config.get('application.domain'),
-        deluxePrice: insecurity.hash('J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P')
+        deluxePrice: security.hash('J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P')
       })
   })
 

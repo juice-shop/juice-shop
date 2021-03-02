@@ -5,7 +5,7 @@
 
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 const models = require('../models/index')
 
 module.exports.addBasketItem = function addBasketItem () {
@@ -25,7 +25,7 @@ module.exports.addBasketItem = function addBasketItem () {
       }
     }
 
-    const user = insecurity.authenticatedUsers.from(req)
+    const user = security.authenticatedUsers.from(req)
     if (user && basketIds[0] && basketIds[0] !== 'undefined' && user.bid != basketIds[0]) { // eslint-disable-line eqeqeq
       res.status(401).send('{\'error\' : \'Invalid BasketId\'}')
     } else {
@@ -59,7 +59,7 @@ module.exports.quantityCheckBeforeBasketItemAddition = function quantityCheckBef
 module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBeforeBasketItemUpdate () {
   return (req, res, next) => {
     models.BasketItem.findOne({ where: { id: req.params.id } }).then((item) => {
-      const user = insecurity.authenticatedUsers.from(req)
+      const user = security.authenticatedUsers.from(req)
       utils.solveIf(challenges.basketManipulateChallenge, () => { return user && req.body.BasketId && user.bid != req.body.BasketId }) // eslint-disable-line eqeqeq
       if (req.body.quantity) {
         quantityCheck(req, res, next, item.ProductId, req.body.quantity)
@@ -76,7 +76,7 @@ async function quantityCheck (req, res, next, id, quantity) {
   const product = await models.Quantity.findOne({ where: { ProductId: id } })
 
   // is product limited per user and order, except if user is deluxe?
-  if (!product.limitPerUser || (product.limitPerUser && product.limitPerUser >= quantity) || insecurity.isDeluxe(req)) {
+  if (!product.limitPerUser || (product.limitPerUser && product.limitPerUser >= quantity) || security.isDeluxe(req)) {
     if (product.quantity >= quantity) { // enough in stock?
       next()
     } else {

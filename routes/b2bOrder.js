@@ -4,7 +4,7 @@
  */
 
 const utils = require('../lib/utils')
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 const safeEval = require('notevil')
 const vm = require('vm')
 const challenges = require('../data/datacache').challenges
@@ -34,7 +34,7 @@ module.exports = function b2bOrder () {
   }
 
   function uniqueOrderNumber () {
-    return insecurity.hash(new Date() + '_B2B')
+    return security.hash(new Date() + '_B2B')
   }
 
   function dateTwoWeeksFromNow () {

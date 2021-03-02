@@ -6,12 +6,12 @@
 const frisby = require('frisby')
 const Joi = frisby.Joi
 const utils = require('../../lib/utils')
-const insecurity = require('../../lib/insecurity')
+const security = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
 
-const authHeader = { Authorization: 'Bearer ' + insecurity.authorize(), 'content-type': /application\/json/ }
+const authHeader = { Authorization: 'Bearer ' + security.authorize(), 'content-type': /application\/json/ }
 const jsonHeader = { 'content-type': 'application/json' }
 
 describe('/api/Feedbacks', () => {
@@ -127,7 +127,7 @@ describe('/api/Feedbacks', () => {
             return frisby.post(API_URL + '/Feedbacks', {
               headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
               body: {
-                comment: 'Stupid JWT secret "' + insecurity.defaultSecret + '" and being typosquatted by epilogue-js and anuglar2-qrcode!',
+                comment: 'Stupid JWT secret "' + security.defaultSecret + '" and being typosquatted by epilogue-js and anuglar2-qrcode!',
                 rating: 5,
                 UserId: 4,
                 captchaId: json.captchaId,

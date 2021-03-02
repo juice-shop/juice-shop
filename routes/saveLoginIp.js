@@ -4,20 +4,20 @@
  */
 
 const utils = require('../lib/utils')
-const insecurity = require('../lib/insecurity')
+const security = require('../lib/insecurity')
 const models = require('../models/index')
 const cache = require('../data/datacache')
 const challenges = cache.challenges
 
 module.exports = function saveLoginIp () {
   return (req, res, next) => {
-    const loggedInUser = insecurity.authenticatedUsers.from(req)
+    const loggedInUser = security.authenticatedUsers.from(req)
     if (loggedInUser !== undefined) {
       let lastLoginIp = req.headers['true-client-ip']
       if (!utils.disableOnContainerEnv()) {
         utils.solveIf(challenges.httpHeaderXssChallenge, () => { return lastLoginIp === '<iframe src="javascript:alert(`xss`)">' })
       } else {
-        lastLoginIp = insecurity.sanitizeSecure(lastLoginIp)
+        lastLoginIp = security.sanitizeSecure(lastLoginIp)
       }
       if (lastLoginIp === undefined) {
         lastLoginIp = utils.toSimpleIpAddress(req.connection.remoteAddress)
