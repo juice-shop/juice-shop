@@ -6,7 +6,7 @@
 const models = require('../models/index')
 const utils = require('../lib/utils')
 
-exports.sequelizeVulnerabilityChallenge = () => (req, res) => {
+exports.getRecycleItem = () => (req, res) => {
   models.Recycle.findAll({
     where: {
       id: JSON.parse(req.params.id)
