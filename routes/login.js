@@ -11,9 +11,7 @@ const users = require('../data/datacache').users
 const config = require('config')
 
 module.exports = function login () {
-  // vuln-code-snippet start loginAdminChallenge
-  // vuln-code-snippet start loginBenderChallenge
-  // vuln-code-snippet start loginJimChallenge
+  // vuln-code-snippet start loginAdminChallenge loginBenderChallenge loginJimChallenge
   function afterLogin (user, res, next) {
     verifyPostLoginChallenges(user) // vuln-code-snippet hide-line
     models.Basket.findOrCreate({ where: { UserId: user.data.id }, defaults: {} })
@@ -29,7 +27,7 @@ module.exports = function login () {
 
   return (req, res, next) => {
     verifyPreLoginChallenges(req) // vuln-code-snippet hide-line
-    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true }) // vuln-code-snippet vuln-line
+    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true }) // vuln-code-snippet vuln-line loginAdminChallenge loginBenderChallenge loginJimChallenge
       .then((authenticatedUser) => {
         let user = utils.queryResultToJson(authenticatedUser)
         const rememberedEmail = security.userEmailFrom(req)
@@ -58,9 +56,7 @@ module.exports = function login () {
         next(error)
       })
   }
-  // vuln-code-snippet end loginJimChallenge
-  // vuln-code-snippet end loginBenderChallenge
-  // vuln-code-snippet end loginAdminChallenge
+  // vuln-code-snippet end loginAdminChallenge loginBenderChallenge loginJimChallenge
 
   function verifyPreLoginChallenges (req) {
     utils.solveIf(challenges.weakPasswordChallenge, () => { return req.body.email === 'admin@' + config.get('application.domain') && req.body.password === 'admin123' })
