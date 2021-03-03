@@ -16,11 +16,11 @@ module.exports = function serveCodeSnippet () {
         .path('.')
         .collect(asArray())
         .find(new RegExp(`vuln-code-snippet start.*${challenge.key}`))
-      if (matches[0]) { // TODO Currently only a single code snippet is supported
+      if (matches[0]) { // TODO Currently only a single source file is supported
         const source = fs.readFileSync(matches[0].path, 'utf8')
         let snippet = source.match(`// vuln-code-snippet start.*${challenge.key}(.|\\r\\n|\\n|\\r)*vuln-code-snippet end.*${challenge.key}`)
         if (snippet) {
-          snippet = snippet[0]
+          snippet = snippet[0] // TODO Currently only a single code snippet is supported
           snippet = snippet.replace(/\/\/ vuln-code-snippet start.*/g, '')
           snippet = snippet.replace(/\/\/ vuln-code-snippet end.*/g, '')
           snippet = snippet.replace(/.*\/\/ vuln-code-snippet hide-line/g, '')
