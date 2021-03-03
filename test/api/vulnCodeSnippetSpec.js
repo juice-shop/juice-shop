@@ -21,7 +21,7 @@ describe('/snippet/:challenge', () => {
       .expect('json', 'error', 'No code snippet available for: easterEggLevelTwoChallenge')
   })
 
-  xit('GET code snippet retrieval for challenge with code snippet', () => { // FIXME fails during GitHub CI/CD but works on Win10 locally
+  it('GET code snippet retrieval for challenge with code snippet', () => {
     return frisby.get(URL + '/snippet/loginAdminChallenge')
       .expect('status', 200)
       .expect('jsonTypes', {
