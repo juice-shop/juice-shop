@@ -15,13 +15,13 @@ describe('/snippet/:challenge', () => {
       .expect('json', 'error', 'Unknown challenge key: doesNotExistChallenge')
   })
 
-  xit('GET code snippet retrieval for challenge without code snippet throws error', () => { // FIXME Re-enable once hard-coded demo file is replaced with actual file search
+  it('GET code snippet retrieval for challenge without code snippet throws error', () => {
     return frisby.get(URL + '/snippet/easterEggLevelTwoChallenge')
       .expect('status', 404)
       .expect('json', 'error', 'No code snippet available for: easterEggLevelTwoChallenge')
   })
 
-  xit('GET code snippet retrieval for challenge with code snippet', () => { // FIXME fails on GitHub workflow, works on Bjoern's Win 10 machine
+  it('GET code snippet retrieval for challenge with code snippet', () => {
     return frisby.get(URL + '/snippet/loginAdminChallenge')
       .expect('status', 200)
       .expect('jsonTypes', {
