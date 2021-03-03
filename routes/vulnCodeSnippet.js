@@ -24,6 +24,7 @@ module.exports = function serveCodeSnippet () {
           snippet = snippet.replace(/\/\/ vuln-code-snippet start.*/g, '')
           snippet = snippet.replace(/\/\/ vuln-code-snippet end.*/g, '')
           snippet = snippet.replace(/.*\/\/ vuln-code-snippet hide-line/g, '')
+          snippet = snippet.replace(/.*\/\/ vuln-code-snippet hide-start(.|\r\n|\n|\r)*\/\/ vuln-code-snippet hide-end/g, '')
           snippet = snippet.trim()
 
           const lines = snippet.split('\r\n')

@@ -7,14 +7,15 @@ const utils = require('../lib/utils')
 const models = require('../models/index')
 const challenges = require('../data/datacache').challenges
 
+// vuln-code-snippet start unionSqlInjectionChallenge dbSchemaChallenge
 module.exports = function searchProducts () {
   return (req, res, next) => {
     let criteria = req.query.q === 'undefined' ? '' : req.query.q || ''
     criteria = (criteria.length <= 200) ? criteria : criteria.substring(0, 200)
-    models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`)
+    models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`) // vuln-code-snippet vuln-line unionSqlInjectionChallenge dbSchemaChallenge
       .then(([products]) => {
         const dataString = JSON.stringify(products)
-        if (utils.notSolved(challenges.unionSqlInjectionChallenge)) {
+        if (utils.notSolved(challenges.unionSqlInjectionChallenge)) { // vuln-code-snippet hide-start
           let solved = true
           models.User.findAll().then(data => {
             const users = utils.queryResultToJson(data)
@@ -47,7 +48,7 @@ module.exports = function searchProducts () {
               }
             }
           })
-        }
+        } // vuln-code-snippet hide-end
         for (let i = 0; i < products.length; i++) {
           products[i].name = req.__(products[i].name)
           products[i].description = req.__(products[i].description)
@@ -58,3 +59,4 @@ module.exports = function searchProducts () {
       })
   }
 }
+// vuln-code-snippet end unionSqlInjectionChallenge dbSchemaChallenge
