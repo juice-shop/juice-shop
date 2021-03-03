@@ -10,8 +10,8 @@ const challenges = require('../data/datacache').challenges
 const users = require('../data/datacache').users
 const config = require('config')
 
+// vuln-code-snippet start loginAdminChallenge loginBenderChallenge loginJimChallenge
 module.exports = function login () {
-  // vuln-code-snippet start loginAdminChallenge loginBenderChallenge loginJimChallenge
   function afterLogin (user, res, next) {
     verifyPostLoginChallenges(user) // vuln-code-snippet hide-line
     models.Basket.findOrCreate({ where: { UserId: user.data.id }, defaults: {} })
