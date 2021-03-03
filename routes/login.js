@@ -34,7 +34,7 @@ module.exports = function login () {
         if (rememberedEmail && req.body.oauth) {
           models.User.findOne({ where: { email: rememberedEmail } }).then(rememberedUser => {
             user = utils.queryResultToJson(rememberedUser)
-            utils.solveIf(challenges.loginCisoChallenge, () => { return user.data.id === users.ciso.id })
+            utils.solveIf(challenges.loginCisoChallenge, () => { return user.data.id === users.ciso.id }) // vuln-code-snippet hide-line
             afterLogin(user, res, next)
           })
         } else if (user.data && user.data.id && user.data.totpSecret !== '') {
