@@ -4,6 +4,7 @@
  */
 
 const frisby = require('frisby')
+const Joi = frisby.Joi
 
 const URL = 'http://localhost:3000'
 
@@ -14,9 +15,18 @@ describe('/snippet/:challenge', () => {
       .expect('json', 'error', 'Unknown challenge key: doesNotExistChallenge')
   })
 
-  it('GET code snippet retrieval for challenge without code snippet throws error', () => {
+  xit('GET code snippet retrieval for challenge without code snippet throws error', () => {
     return frisby.get(URL + '/snippet/easterEggLevelTwoChallenge')
       .expect('status', 404)
       .expect('json', 'error', 'No code snippet available for: easterEggLevelTwoChallenge')
+  })
+
+  it('GET code snippet retrieval for challenge with code snippet', () => {
+    return frisby.get(URL + '/snippet/loginAdminChallenge')
+      .expect('status', 200)
+      .expect('jsonTypes', {
+        snippet: Joi.string(),
+        vulnLine: Joi.number()
+      })
   })
 })
