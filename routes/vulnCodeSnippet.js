@@ -15,10 +15,10 @@ module.exports = function serveCodeSnippet () {
         .create()
         .path('.')
         .collect(asArray())
-        .find(`vuln-code-snippet start ${challenge.key}`)
+        .find(new RegExp(`vuln-code-snippet start.*${challenge.key}`))
       if (matches[0]) { // TODO Currently only a single code snippet is supported
         const source = fs.readFileSync(matches[0].path, 'utf8')
-        let snippet = source.match(`// vuln-code-snippet start ${challenge.key}(.|\\r\\n)*vuln-code-snippet end ${challenge.key}`)
+        let snippet = source.match(`// vuln-code-snippet start.*${challenge.key}(.|\\r\\n)*vuln-code-snippet end.*${challenge.key}`)
         snippet = snippet[0]
         snippet = snippet.replace(/\/\/ vuln-code-snippet start.*/g, '')
         snippet = snippet.replace(/\/\/ vuln-code-snippet end.*/g, '')
@@ -28,7 +28,7 @@ module.exports = function serveCodeSnippet () {
         const lines = snippet.split('\r\n')
         let vulnLine
         for (let i = 0; i < lines.length; i++) {
-          if (/vuln-code-snippet vuln-line/.exec(lines[i])) {
+          if (new RegExp(`vuln-code-snippet vuln-line.*${challenge.key}`).exec(lines[i])) {
             vulnLine = i + 1 // TODO Currently only a single vulnerable code line is supported
             break
           }
