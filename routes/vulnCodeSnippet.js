@@ -27,7 +27,9 @@ module.exports = function serveCodeSnippet () {
           snippet = snippet.replace(/.*\/\/ vuln-code-snippet hide-start(.|\r\n|\n|\r)*\/\/ vuln-code-snippet hide-end/g, '')
           snippet = snippet.trim()
 
-          const lines = snippet.split('\r\n')
+          let lines = snippet.split('\r\n')
+          if (lines.length === 1) lines = snippet.split('\n')
+          if (lines.length === 1) lines = snippet.split('\r')
           let vulnLine
           for (let i = 0; i < lines.length; i++) {
             if (new RegExp(`vuln-code-snippet vuln-line.*${challenge.key}`).exec(lines[i])) {
