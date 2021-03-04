@@ -407,7 +407,7 @@
   "CATEGORY_XXE_DESCRIPTION": "许多较旧的或配置不当的XML处理器都会解析XML文档中的外部实体引用。 外部实体可以用于使用文件URI处理程序泄露内部文件，共享内部文件，内部端口扫描，远程代码执行和拒绝服务攻击。",
   "INSUFFICIENT_WALLET_BALANCE": "账户余额不足",
   "LABEL_CODE_SNIPPET": "Corresponding Code Snippet",
-  "REVEAL_VULNERABLE_CODE_LINE": "Hover to reveal vulnerable line of code",
+  "REVEAL_VULNERABLE_CODE_LINES": "Hover to reveal vulnerable line(s) of code",
   "INFO_VULNERABLE_CODE_SNIPPET": "Show corresponding vulnerable code snippet.",
-  "LABEL_LINE": "Line"
+  "LABEL_LINES": "Line(s)"
 }
