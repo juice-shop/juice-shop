@@ -407,7 +407,7 @@
   "CATEGORY_XXE_DESCRIPTION": "許多較舊的或設定不當的XML處理器都會評估XML文檔中的外部實體引用。\n外部實體可以使用file URL handler，內部文件分享，內部port掃描，遠程程式執行和拒絕服務攻擊來洩漏內部文件。",
   "INSUFFICIENT_WALLET_BALANCE": "餘額不足。",
   "LABEL_CODE_SNIPPET": "Corresponding Code Snippet",
-  "REVEAL_VULNERABLE_CODE_LINE": "Hover to reveal vulnerable line of code",
+  "REVEAL_VULNERABLE_CODE_LINES": "Hover to reveal vulnerable line(s) of code",
   "INFO_VULNERABLE_CODE_SNIPPET": "Show corresponding vulnerable code snippet.",
-  "LABEL_LINE": "Line"
+  "LABEL_LINES": "Line(s)"
 }
