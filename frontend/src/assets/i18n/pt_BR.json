@@ -407,7 +407,7 @@
   "CATEGORY_XXE_DESCRIPTION": "Muitos processadores de XML antigos ou mal configurados avaliam referências à entidades externas dentro do documento XML. Entidades externas podem ser usados para descobrir arquivos internos usando o URI handler, acessar compartilhamentos de arquivos internos, realizar escaneamento de portas, execução de código e negação de serviço.",
   "INSUFFICIENT_WALLET_BALANCE": "Saldo de carteira insuficiente.",
   "LABEL_CODE_SNIPPET": "Corresponding Code Snippet",
-  "REVEAL_VULNERABLE_CODE_LINE": "Hover to reveal vulnerable line of code",
+  "REVEAL_VULNERABLE_CODE_LINES": "Hover to reveal vulnerable line(s) of code",
   "INFO_VULNERABLE_CODE_SNIPPET": "Show corresponding vulnerable code snippet.",
-  "LABEL_LINE": "Line"
+  "LABEL_LINES": "Line(s)"
 }
