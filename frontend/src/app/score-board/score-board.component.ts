@@ -18,9 +18,8 @@ import { faBtc, faGithub, faGitter } from '@fortawesome/free-brands-svg-icons'
 import { Challenge } from '../Models/challenge.model'
 import { TranslateService } from '@ngx-translate/core'
 import { LocalBackupService } from '../Services/local-backup.service'
-import {UserDetailsComponent} from "../user-details/user-details.component";
-import {MatDialog} from "@angular/material/dialog";
-import {CodeSnippetComponent} from "../code-snippet/code-snippet.component";
+import { MatDialog } from '@angular/material/dialog'
+import { CodeSnippetComponent } from '../code-snippet/code-snippet.component'
 
 library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy, faPollH)
 dom.watch()
