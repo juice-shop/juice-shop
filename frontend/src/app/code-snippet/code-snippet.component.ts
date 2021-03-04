@@ -20,7 +20,7 @@ export class CodeSnippetComponent implements OnInit {
     this.codeSnippetService.get(this.dialogData.key).subscribe((snippet) => {
       this.snippet = snippet
     }, (err) => {
-      this.snippet = { snippet: JSON.stringify(err.error?.error), vulnLine: 0 }
+      this.snippet = { snippet: JSON.stringify(err.error?.error), vulnLines: [] }
     })
   }
 }
