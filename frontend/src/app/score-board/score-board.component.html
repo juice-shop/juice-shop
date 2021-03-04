@@ -105,7 +105,6 @@
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef translate>LABEL_NAME</mat-header-cell>
         <mat-cell *matCellDef="let challenge">
-          <button mat-button (click)="showCodeSnippet(challenge.key)"><mat-icon>code</mat-icon></button>
           {{challenge.name}}
         </mat-cell>
       </ng-container>
@@ -120,9 +119,9 @@
       </ng-container>
 
       <ng-container matColumnDef="description">
-        <mat-header-cell *matHeaderCellDef fxFlex="1 1 38%" translate>LABEL_DESCRIPTION
+        <mat-header-cell *matHeaderCellDef fxFlex="1 1 31%" translate>LABEL_DESCRIPTION
         </mat-header-cell>
-        <mat-cell *matCellDef="let challenge" fxFlex="1 1 38%">
+        <mat-cell *matCellDef="let challenge" fxFlex="1 1 31%">
           <div [innerHTML]="challenge.description"></div>
         </mat-cell>
       </ng-container>
@@ -156,7 +155,7 @@
           </app-challenge-status-badge>
           <button
             *ngIf="showHackingInstructor && !challenge.solved && !challenge.disabledEnv && challenge.hasTutorial"
-            mat-raised-button color="warn"
+            mat-mini-fab color="warn"
             (click)="startHackingInstructor(challenge.name)"
             [matTooltip]="('INFO_HACKING_INSTRUCTOR' | translate)"
             matTooltipPosition="above"
@@ -168,7 +167,7 @@
           </button>
           <a *ngIf="showVulnerabilityMitigations && challenge.solved && challenge.mitigationUrl" [href]="challenge.mitigationUrl" target="_blank">
             <button
-              mat-raised-button color="accent"
+              mat-mini-fab color="accent"
               [matTooltip]="('INFO_VULNERABILITY_MITIGATION_LINK' | translate)"
               matTooltipPosition="above"
               class="vulnerability-mitigation-button"
@@ -178,6 +177,18 @@
               </mat-icon>
             </button>
           </a>
+          <button
+            *ngIf="true"
+            mat-mini-fab color="primary"
+            (click)="showCodeSnippet(challenge.key)"
+            [matTooltip]="('INFO_VULNERABLE_CODE_SNIPPET' | translate)"
+            matTooltipPosition="above"
+            class="code-snippet-button"
+            >
+            <mat-icon>
+              code
+            </mat-icon>
+          </button>
         </mat-cell>
       </ng-container>
 
