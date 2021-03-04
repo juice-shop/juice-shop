@@ -30,16 +30,15 @@ module.exports = function serveCodeSnippet () {
           let lines = snippet.split('\r\n')
           if (lines.length === 1) lines = snippet.split('\n')
           if (lines.length === 1) lines = snippet.split('\r')
-          let vulnLine
+          const vulnLines = []
           for (let i = 0; i < lines.length; i++) {
             if (new RegExp(`vuln-code-snippet vuln-line.*${challenge.key}`).exec(lines[i])) {
-              vulnLine = i + 1 // TODO Currently only a single vulnerable code line is supported
-              break
+              vulnLines.push(i + 1)
             }
           }
           snippet = snippet.replace(/\/\/ vuln-code-snippet vuln-line.*/g, '')
 
-          return res.json({ snippet, vulnLine })
+          return res.json({ snippet, vulnLines })
         } else {
           res.status(422).json({ status: 'error', error: 'Broken code snippet boundaries for: ' + challenge.key })
         }
