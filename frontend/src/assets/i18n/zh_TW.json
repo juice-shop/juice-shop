@@ -405,5 +405,9 @@
   "CATEGORY_VULNERABLE_COMPONENTS_DESCRIPTION": "函式庫、框架及軟體模組等各式元件具有與應用程式相同的執行權限。當一個元件的弱點遭利用，可能會造成資料毀損或主機入侵。應用程式與應用程式介面共用有已知弱點之元件會破壞應用程式安全並增加受攻擊影響之機會",
   "CATEGORY_XSS_DESCRIPTION": "XSS弱點發生在應用程式包含了未被信任的資料，在新的網頁中未進行合適的驗證或是\n編碼，或是更新一個既有網頁的情況使用到使用者提供的資料透過瀏覽器API來建立HTML或JavaScript\n。XSS允許攻擊者在受害者的瀏覽器中執行Script，這些Script可以劫持使用者Session，置換網頁或是重新導向使用者至惡意網站。",
   "CATEGORY_XXE_DESCRIPTION": "許多較舊的或設定不當的XML處理器都會評估XML文檔中的外部實體引用。\n外部實體可以使用file URL handler，內部文件分享，內部port掃描，遠程程式執行和拒絕服務攻擊來洩漏內部文件。",
-  "INSUFFICIENT_WALLET_BALANCE": "餘額不足。"
+  "INSUFFICIENT_WALLET_BALANCE": "餘額不足。",
+  "LABEL_CODE_SNIPPET": "Corresponding Code Snippet",
+  "REVEAL_VULNERABLE_CODE_LINE": "Hover to reveal vulnerable line of code",
+  "INFO_VULNERABLE_CODE_SNIPPET": "Show corresponding vulnerable code snippet.",
+  "LABEL_LINE": "Line"
 }
