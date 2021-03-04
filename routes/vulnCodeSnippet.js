@@ -4,6 +4,7 @@
  */
 
 const challenges = require('../data/datacache').challenges
+const path = require('path')
 const fs = require('fs')
 const { FileSniffer, asArray } = require('filesniffer')
 
@@ -20,8 +21,8 @@ module.exports = function serveCodeSnippet () {
         .collect(asArray())
         .find(new RegExp(`vuln-code-snippet start.*${challenge.key}`))
       if (matches[0]) { // TODO Currently only a single source file is supported
-        const source = fs.readFileSync(matches[0].path, 'utf8')
-        let snippet = source.match(`// vuln-code-snippet start.*${challenge.key}(.|\\r\\n|\\n|\\r)*vuln-code-snippet end.*${challenge.key}`)
+        const source = fs.readFileSync(path.join(__dirname, '..', matches[0].path), 'utf8')
+        let snippet = source.match(`// vuln-code-snippet start.*${challenge.key}(.|\\r\\n|\\n|\\r)*vuln-code-snippet end.*${challenge.key}`) // FIXME Hangs up for code outside /routes
         if (snippet) {
           snippet = snippet[0] // TODO Currently only a single code snippet is supported
           snippet = snippet.replace(/\/\/ vuln-code-snippet start.*(\r\n|\n|\r)?/g, '')
