@@ -407,7 +407,7 @@
   "CATEGORY_XXE_DESCRIPTION": "De nombreux processeurs XML anciens ou mal configurés évaluent les références d'entités externes dans les documents XML. Les entités externes peuvent être utilisées pour divulguer des fichiers internes en utilisant le gestionnaire de fichier URI, partage de fichiers internes, analyse de ports internes, exécution de code à distance et attaques par déni de service.",
   "INSUFFICIENT_WALLET_BALANCE": "Solde du portefeuille insuffisant.",
   "LABEL_CODE_SNIPPET": "Corresponding Code Snippet",
-  "REVEAL_VULNERABLE_CODE_LINE": "Hover to reveal vulnerable line of code",
+  "REVEAL_VULNERABLE_CODE_LINES": "Hover to reveal vulnerable line(s) of code",
   "INFO_VULNERABLE_CODE_SNIPPET": "Show corresponding vulnerable code snippet.",
-  "LABEL_LINE": "Line"
+  "LABEL_LINES": "Line(s)"
 }
