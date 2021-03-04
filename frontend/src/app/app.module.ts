@@ -131,7 +131,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { FeedbackDetailsComponent } from './feedback-details/feedback-details.component'
 import { MatSliderModule } from '@angular/material/slider'
 import { MatChipsModule } from '@angular/material/chips'
-import {CodeSnippetComponent} from "./code-snippet/code-snippet.component";
+import { CodeSnippetComponent } from './code-snippet/code-snippet.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json')

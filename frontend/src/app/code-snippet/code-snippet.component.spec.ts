@@ -5,13 +5,12 @@
 
 import { TranslateModule } from '@ngx-translate/core'
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog'
-import { UserService } from '../Services/user.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatDividerModule } from '@angular/material/divider'
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { CodeSnippetComponent } from './code-snippet.component'
-import {CodeSnippetService} from "../Services/code-snippet.service";
+import { CodeSnippetService } from '../Services/code-snippet.service'
 
 describe('UserDetailsComponent', () => {
   let component: CodeSnippetComponent
