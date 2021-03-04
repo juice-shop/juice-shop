@@ -10,3 +10,14 @@ mat-divider {
 .dialogAction {
   margin-bottom: 0 !important;
 }
+
+.spoiler {
+  cursor: pointer;
+}
+
+.spoiler span {
+  display: none;
+}
+.spoiler:hover span {
+  display: inline;
+}
