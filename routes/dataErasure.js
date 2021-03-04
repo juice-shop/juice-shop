@@ -19,8 +19,7 @@ router.get('/', async (req, res, next) => {
   }).then(answer => {
     if (answer) {
       models.SecurityQuestion.findByPk(answer.SecurityQuestionId).then(question => {
-        const q = question.dataValues.question
-        res.render('dataErasure', { e: email, q: q })
+        res.render('dataErasure', { Email: email, securityQuestion: question.dataValues.question })
       }).catch(error => {
         next(error)
       })
@@ -34,21 +33,19 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
-  if (loggedInUser) {
+  if (loggedInUser && loggedInUser.data.email === req.body.profile.email) {
     const userData = {
       UserId: loggedInUser.data.id,
       deletionRequested: true
     }
-    models.PrivacyRequest.create(userData).then(() => {
-      res.status(202).send()
-    }).catch((err) => {
+    models.PrivacyRequest.create(userData).catch((err) => {
       next(err)
     })
+    const email = req.body.profile
+    res.render('dataErasure', email)
   } else {
     next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
   }
-  const profile = req.body.profile
-  res.render('dataErasure', profile)
 })
 
 module.exports = router
