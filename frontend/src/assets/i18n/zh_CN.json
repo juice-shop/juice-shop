@@ -405,5 +405,9 @@
   "CATEGORY_VULNERABLE_COMPONENTS_DESCRIPTION": "库，框架和其他软件模块等组件以与应用程序相同的特权运行。 如果利用了易受攻击的组件，则此类攻击可能会导致严重的数据丢失或服务器沦陷。 使用具有已知漏洞的组件的应用程序和API可能破坏应用程序防御，并造成各种攻击和影响。",
   "CATEGORY_XSS_DESCRIPTION": "只要应用程序在未经适当验证或转义的情况下将新数据中的不信任数据包含在新网页中，或者使用可创建HTML或JavaScript的浏览器API用用户提供的数据更新现有网页，就会出现跨站脚本（XSS）漏洞。 XSS允许攻击者在受害者的浏览器中执行脚本，这些脚本可以劫持用户会话，破坏网站或将用户重定向到恶意网站。\n",
   "CATEGORY_XXE_DESCRIPTION": "许多较旧的或配置不当的XML处理器都会解析XML文档中的外部实体引用。 外部实体可以用于使用文件URI处理程序泄露内部文件，共享内部文件，内部端口扫描，远程代码执行和拒绝服务攻击。",
-  "INSUFFICIENT_WALLET_BALANCE": "账户余额不足"
+  "INSUFFICIENT_WALLET_BALANCE": "账户余额不足",
+  "LABEL_CODE_SNIPPET": "Corresponding Code Snippet",
+  "REVEAL_VULNERABLE_CODE_LINE": "Hover to reveal vulnerable line of code",
+  "INFO_VULNERABLE_CODE_SNIPPET": "Show corresponding vulnerable code snippet.",
+  "LABEL_LINE": "Line"
 }
