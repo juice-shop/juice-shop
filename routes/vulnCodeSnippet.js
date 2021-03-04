@@ -13,7 +13,10 @@ module.exports = function serveCodeSnippet () {
     if (challenge) {
       const matches = await FileSniffer
         .create()
-        .path('.')
+        .path('./server.js')
+        .path('./routes')
+        .path('./frontend/src/app')
+        .depth(1)
         .collect(asArray())
         .find(new RegExp(`vuln-code-snippet start.*${challenge.key}`))
       if (matches[0]) { // TODO Currently only a single source file is supported
