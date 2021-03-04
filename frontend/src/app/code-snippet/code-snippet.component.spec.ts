@@ -10,11 +10,12 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatDividerModule } from '@angular/material/divider'
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
-import { UserDetailsComponent } from './user-details.component'
+import { CodeSnippetComponent } from './code-snippet.component'
+import {CodeSnippetService} from "../Services/code-snippet.service";
 
 describe('UserDetailsComponent', () => {
-  let component: UserDetailsComponent
-  let fixture: ComponentFixture<UserDetailsComponent>
+  let component: CodeSnippetComponent
+  let fixture: ComponentFixture<CodeSnippetComponent>
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -24,9 +25,9 @@ describe('UserDetailsComponent', () => {
         MatDividerModule,
         MatDialogModule
       ],
-      declarations: [UserDetailsComponent],
+      declarations: [CodeSnippetComponent],
       providers: [
-        UserService,
+        CodeSnippetService,
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: { dialogData: {} } }
       ]
@@ -35,7 +36,7 @@ describe('UserDetailsComponent', () => {
   }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserDetailsComponent)
+    fixture = TestBed.createComponent(CodeSnippetComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })

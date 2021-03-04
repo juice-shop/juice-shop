@@ -1,0 +1,35 @@
+<!--
+  ~ Copyright (c) 2014-2021 Bjoern Kimminich.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+<mat-dialog-content class="mat-typography">
+  <header>
+    <h1>{{"LABEL_CODE_SNIPPET" | translate}}</h1>
+  </header>
+  <mat-divider></mat-divider>
+  <div class="container" fxLayout="column">
+    <div fxLayout="row" fxLayoutGap="10px">
+      <div>
+        <pre><code [highlight]="snippet?.snippet" [lineNumbers]="true"></code></pre>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="10px">
+      <div>
+        <strong translate="VULNERABLE_CODE_LINE"></strong>
+        <p>{{snippet?.vulnLine}}</p>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions align="end" class="dialogAction">
+    <button mat-button style="height: 0; position: absolute;">
+      <!-- 'absorbs' the auto-focus behavior -->
+    </button>
+    <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="Close Dialog">
+      <i class="material-icons">
+        close
+      </i>
+      <span>  {{'BTN_CLOSE' | translate}}</span>
+    </button>
+  </mat-dialog-actions>
+</mat-dialog-content>

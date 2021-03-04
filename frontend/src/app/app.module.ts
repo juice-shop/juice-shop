@@ -98,6 +98,7 @@ import { MatGridListModule } from '@angular/material/grid-list'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatBadgeModule } from '@angular/material/badge'
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs'
 import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component'
 import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
@@ -130,6 +131,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { FeedbackDetailsComponent } from './feedback-details/feedback-details.component'
 import { MatSliderModule } from '@angular/material/slider'
 import { MatChipsModule } from '@angular/material/chips'
+import {CodeSnippetComponent} from "./code-snippet/code-snippet.component";
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json')
@@ -190,7 +192,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     DeliveryMethodComponent,
     PhotoWallComponent,
     DeluxeUserComponent,
-    FeedbackDetailsComponent
+    FeedbackDetailsComponent,
+    CodeSnippetComponent
   ],
   imports: [
     BrowserModule,
@@ -243,13 +246,25 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatSnackBarModule,
     MatSliderModule,
     MatSlideToggleModule,
-    MatChipsModule
+    MatChipsModule,
+    HighlightModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,
       multi: true
+    },
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: {
+        coreLibraryLoader: async () => await import('highlight.js/lib/core'),
+        lineNumbersLoader: async () => await import('highlightjs-line-numbers.js'),
+        languages: {
+          typescript: async () => await import('highlight.js/lib/languages/typescript'),
+          javascript: async () => await import('highlight.js/lib/languages/javascript')
+        }
+      }
     },
     ProductService,
     ConfigurationService,
