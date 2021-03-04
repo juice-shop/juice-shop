@@ -271,6 +271,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     delayMs: 0
   }))
 
+  // vuln-code-snippet start changeProductChallenge
   /** Authorization **/
   /* Checks on JWT in Authorization header */
   app.use(verify.jwtChallenges())
@@ -285,13 +286,13 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/api/Users', security.isAuthorized())
   app.route('/api/Users/:id')
     .get(security.isAuthorized())
-    .put(security.denyAll()) // Updating users is forbidden to make the password change challenge harder
-    .delete(security.denyAll()) // Deleting users is forbidden entirely to keep login challenges solvable
+    .put(security.denyAll())
+    .delete(security.denyAll())
   /* Products: Only GET is allowed in order to view products */
   app.post('/api/Products', security.isAuthorized())
-  // app.put('/api/Products/:id', security.isAuthorized()); // = missing function-level access control vulnerability
-  app.delete('/api/Products/:id', security.denyAll()) // Deleting products is forbidden entirely to keep the O-Saft url-change challenge solvable
-  /* Challenges: GET list of challenges allowed. Everything else forbidden independent of authorization (hence the random secret) */
+  // app.put('/api/Products/:id', security.isAuthorized()) // vuln-code-snippet vuln-line changeProductChallenge
+  app.delete('/api/Products/:id', security.denyAll())
+  /* Challenges: GET list of challenges allowed. Everything else forbidden entirely */
   app.post('/api/Challenges', security.denyAll())
   app.use('/api/Challenges/:id', security.denyAll())
   /* Complaints: POST and GET allowed when logged in only */
@@ -315,7 +316,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use('/rest/user/authentication-details', security.isAuthorized())
   app.use('/rest/basket/:id', security.isAuthorized())
   app.use('/rest/basket/:id/order', security.isAuthorized())
-  /* Challenge evaluation before finale takes over */
+  /* Challenge evaluation before finale takes over */ // vuln-code-snippet hide-start
   app.post('/api/Feedbacks', verify.forgedFeedbackChallenge())
   /* Captcha verification before finale takes over */
   app.post('/api/Feedbacks', captcha.verifyCaptcha())
@@ -323,7 +324,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.post('/api/Feedbacks', verify.captchaBypassChallenge())
   /* User registration challenge verifications before finale takes over */
   app.post('/api/Users', verify.registerAdminChallenge())
-  app.post('/api/Users', verify.passwordRepeatChallenge())
+  app.post('/api/Users', verify.passwordRepeatChallenge()) // vuln-code-snippet hide-end
   /* Unauthorized users are not allowed to access B2B API */
   app.use('/b2b/v2', security.isAuthorized())
   /* Check if the quantity is available in stock and limit per user not exceeded, then add item to basket */
@@ -356,6 +357,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/api/Addresss/:id', security.appendUserId(), address.getAddressById())
   app.get('/api/Deliverys', delivery.getDeliveryMethods())
   app.get('/api/Deliverys/:id', delivery.getDeliveryMethod())
+  // vuln-code-snippet end changeProductChallenge
 
   /* Verify the 2FA Token */
   app.post('/rest/2fa/verify',
