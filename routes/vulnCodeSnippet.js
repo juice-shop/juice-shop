@@ -21,10 +21,10 @@ module.exports = function serveCodeSnippet () {
         let snippet = source.match(`// vuln-code-snippet start.*${challenge.key}(.|\\r\\n|\\n|\\r)*vuln-code-snippet end.*${challenge.key}`)
         if (snippet) {
           snippet = snippet[0] // TODO Currently only a single code snippet is supported
-          snippet = snippet.replace(/\/\/ vuln-code-snippet start.*/g, '')
+          snippet = snippet.replace(/\/\/ vuln-code-snippet start.*(\r\n|\n|\r)?/g, '')
           snippet = snippet.replace(/\/\/ vuln-code-snippet end.*/g, '')
-          snippet = snippet.replace(/.*\/\/ vuln-code-snippet hide-line/g, '')
-          snippet = snippet.replace(/.*\/\/ vuln-code-snippet hide-start(.|\r\n|\n|\r)*\/\/ vuln-code-snippet hide-end/g, '')
+          snippet = snippet.replace(/.*\/\/ vuln-code-snippet hide-line(\r\n|\n|\r)?/g, '')
+          snippet = snippet.replace(/.*\/\/ vuln-code-snippet hide-start(.|\r\n|\n|\r)*\/\/ vuln-code-snippet hide-end(\r\n|\n|\r)?/g, '')
           snippet = snippet.trim()
 
           let lines = snippet.split('\r\n')
