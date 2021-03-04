@@ -407,7 +407,7 @@
   "CATEGORY_XXE_DESCRIPTION": "Many older or poorly configured XML processors evaluate external entity references within XML documents. External entities can be used to disclose internal files using the file URI handler, internal file shares, internal port scanning, remote code execution, and denial of service attacks.",
   "INSUFFICIENT_WALLET_BALANCE": "Ebapiisav rahakoti saldo.",
   "LABEL_CODE_SNIPPET": "Corresponding Code Snippet",
-  "REVEAL_VULNERABLE_CODE_LINE": "Hover to reveal vulnerable line of code",
+  "REVEAL_VULNERABLE_CODE_LINES": "Hover to reveal vulnerable line(s) of code",
   "INFO_VULNERABLE_CODE_SNIPPET": "Show corresponding vulnerable code snippet.",
-  "LABEL_LINE": "Line"
+  "LABEL_LINES": "Line(s)"
 }
