@@ -14,10 +14,18 @@
         <pre><code [highlight]="snippet?.snippet" [lineNumbers]="true"></code></pre>
       </div>
     </div>
-    <div fxLayout="row" fxLayoutGap="10px">
+    <div *ngIf="snippet?.vulnLine > 0" fxLayout="row" fxLayoutGap="10px">
       <div>
-        <strong translate="VULNERABLE_CODE_LINE"></strong>
-        <p>{{snippet?.vulnLine}}</p>
+        <em translate="REVEAL_VULNERABLE_CODE_LINE"></em>
+        <span class="spoiler">
+          <mat-icon color="warn">
+            lock_open
+          </mat-icon>
+          <br>
+          <span>
+            <mat-chip><span translate="LABEL_LINE"></span>&nbsp;<code>{{snippet?.vulnLine}}</code></mat-chip>
+          </span>
+        </span>
       </div>
     </div>
   </div>
