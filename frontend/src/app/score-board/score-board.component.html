@@ -104,7 +104,10 @@
 
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef translate>LABEL_NAME</mat-header-cell>
-        <mat-cell *matCellDef="let challenge"> {{challenge.name}}</mat-cell>
+        <mat-cell *matCellDef="let challenge">
+          <button mat-button (click)="showCodeSnippet(challenge.key)"><mat-icon>code</mat-icon></button>
+          {{challenge.name}}
+        </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="difficulty">

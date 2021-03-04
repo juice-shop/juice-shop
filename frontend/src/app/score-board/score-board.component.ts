@@ -18,6 +18,9 @@ import { faBtc, faGithub, faGitter } from '@fortawesome/free-brands-svg-icons'
 import { Challenge } from '../Models/challenge.model'
 import { TranslateService } from '@ngx-translate/core'
 import { LocalBackupService } from '../Services/local-backup.service'
+import {UserDetailsComponent} from "../user-details/user-details.component";
+import {MatDialog} from "@angular/material/dialog";
+import {CodeSnippetComponent} from "../code-snippet/code-snippet.component";
 
 library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy, faPollH)
 dom.watch()
@@ -58,7 +61,7 @@ export class ScoreBoardComponent implements OnInit {
   public appName: string = 'OWASP Juice Shop'
   public localBackupEnabled: boolean = true
 
-  constructor (private readonly configurationService: ConfigurationService, private readonly challengeService: ChallengeService, private readonly sanitizer: DomSanitizer, private readonly ngZone: NgZone, private readonly io: SocketIoService, private readonly spinner: NgxSpinnerService, private readonly translate: TranslateService, private readonly localBackupService: LocalBackupService) {
+  constructor (private readonly configurationService: ConfigurationService, private readonly challengeService: ChallengeService, private readonly sanitizer: DomSanitizer, private readonly ngZone: NgZone, private readonly io: SocketIoService, private readonly spinner: NgxSpinnerService, private readonly translate: TranslateService, private readonly localBackupService: LocalBackupService, private readonly dialog: MatDialog) {
   }
 
   ngOnInit () {
@@ -341,5 +344,13 @@ export class ScoreBoardComponent implements OnInit {
 
   restoreBackup (file: File) {
     this.localBackupService.restore(file)
+  }
+
+  showCodeSnippet (key: string) {
+    this.dialog.open(CodeSnippetComponent, {
+      data: {
+        key: key
+      }
+    })
   }
 }
