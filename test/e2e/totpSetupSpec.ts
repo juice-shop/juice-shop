@@ -4,7 +4,7 @@
  */
 
 const otplib = require('otplib')
-const config = require('config')
+import config = require('config')
 
 const EC = protractor.ExpectedConditions
 
