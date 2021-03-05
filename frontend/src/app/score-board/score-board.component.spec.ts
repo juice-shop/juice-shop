@@ -29,6 +29,7 @@ import { ChallengeStatusBadgeComponent } from '../challenge-status-badge/challen
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatChipsModule } from '@angular/material/chips'
 import { MatDialogModule } from '@angular/material/dialog'
+import { CodeSnippetService } from '../Services/code-snippet.service'
 
 class MockSocket {
   on (str: string, callback: Function) {
@@ -42,6 +43,7 @@ describe('ScoreBoardComponent', () => {
   let challengeService: any
   let configurationService: any
   let translateService: any
+  let codeSnippetService: any
   let sanitizer: any
   let socketIoService: any
   let mockSocket: any
@@ -56,6 +58,8 @@ describe('ScoreBoardComponent', () => {
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
+    codeSnippetService = jasmine.createSpyObj('CodeSnippetService', ['challenges'])
+    codeSnippetService.challenges.and.returnValue(of([]))
     sanitizer = jasmine.createSpyObj('DomSanitizer', ['bypassSecurityTrustHtml', 'sanitize'])
     sanitizer.bypassSecurityTrustHtml.and.callFake((args: any) => args)
     sanitizer.sanitize.and.returnValue({})
@@ -87,6 +91,7 @@ describe('ScoreBoardComponent', () => {
       providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: ChallengeService, useValue: challengeService },
+        { provide: CodeSnippetService, useValue: codeSnippetService },
         { provide: ConfigurationService, useValue: configurationService },
         { provide: DomSanitizer, useValue: sanitizer },
         { provide: SocketIoService, useValue: socketIoService }

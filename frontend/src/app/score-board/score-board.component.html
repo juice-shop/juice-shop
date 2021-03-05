@@ -176,9 +176,9 @@
                 policy
               </mat-icon>
             </button>
-          </a> <!-- TODO Show snippet button only for solved challenges (after sufficient manual testing of the feature) -->
+          </a>
           <button
-            *ngIf="true"
+            *ngIf="challenge.hasSnippet"
             mat-mini-fab color="primary"
             (click)="showCodeSnippet(challenge.key)"
             [matTooltip]="('INFO_VULNERABLE_CODE_SNIPPET' | translate)"

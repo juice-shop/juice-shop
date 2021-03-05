@@ -20,4 +20,8 @@ export class CodeSnippetService {
   get (key: string) {
     return this.http.get(`${this.host}/${key}`).pipe(map((response: any) => response), catchError((err) => { throw err }))
   }
+
+  challenges () {
+    return this.http.get(`${this.host}`).pipe(map((response: any) => response.challenges), catchError((err) => { throw err }))
+  }
 }
