@@ -21,6 +21,7 @@ module.exports = {
   ignorePatterns: [
     'app/private/**',
     'vagrant/**',
-    'frontend/**'
+    'frontend/**',
+    'dist/**'
   ]
 }
