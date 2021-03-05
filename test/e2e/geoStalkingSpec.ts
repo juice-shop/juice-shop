@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-const config = require('config')
+import config = require('config')
 
 describe('/#/photo-wall', () => {
   let email, securityAnswer, newPassword, newPasswordRepeat, resetButton

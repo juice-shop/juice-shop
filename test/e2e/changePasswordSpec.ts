@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-const config = require('config')
+import config = require('config')
 
 describe('/#/privacy-security/change-password', () => {
   let currentPassword, newPassword, newPasswordRepeat, changeButton
