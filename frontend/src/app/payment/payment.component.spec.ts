@@ -27,7 +27,7 @@ import { PaymentMethodComponent } from '../payment-method/payment-method.compone
 import { RouterTestingModule } from '@angular/router/testing'
 import { OrderSummaryComponent } from '../order-summary/order-summary.component'
 import { PurchaseBasketComponent } from '../purchase-basket/purchase-basket.component'
-import { CookieService } from 'ngx-cookie-service'
+import { CookieService } from 'ngx-cookie'
 import { WalletService } from '../Services/wallet.service'
 import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'
@@ -64,7 +64,7 @@ describe('PaymentComponent', () => {
     basketService.applyCoupon.and.returnValue(of({}))
     dialog = jasmine.createSpyObj('MatDialog', ['open'])
     dialog.open.and.returnValue(null)
-    cookieService = jasmine.createSpyObj('CookieService', ['delete'])
+    cookieService = jasmine.createSpyObj('CookieService', ['remove'])
     walletService = jasmine.createSpyObj('AddressService', ['get', 'put'])
     walletService.get.and.returnValue(of({}))
     walletService.put.and.returnValue(of({}))

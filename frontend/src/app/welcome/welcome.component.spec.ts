@@ -6,7 +6,7 @@
 import { TranslateModule } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
-import { CookieService } from 'ngx-cookie-service'
+import { CookieModule, CookieService } from 'ngx-cookie'
 
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
@@ -30,6 +30,7 @@ describe('WelcomeComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
+        CookieModule.forRoot(),
         HttpClientTestingModule,
         MatDialogModule
       ],
@@ -48,7 +49,7 @@ describe('WelcomeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(WelcomeComponent)
     component = fixture.componentInstance
-    cookieService.delete('welcomebanner_status')
+    cookieService.remove('welcomebanner_status')
   })
 
   it('should create', () => {
@@ -69,7 +70,7 @@ describe('WelcomeComponent', () => {
 
   it('should not open the welcome banner dialog if previously dismissed', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { welcomeBanner: { showOnFirstStart: true } } }))
-    cookieService.set('welcomebanner_status', 'dismiss')
+    cookieService.put('welcomebanner_status', 'dismiss')
     component.ngOnInit()
     expect(dialog.open).not.toHaveBeenCalled()
   })

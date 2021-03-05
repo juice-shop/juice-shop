@@ -7,7 +7,7 @@ import { ClipboardModule } from 'ngx-clipboard'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 import { CountryMappingService } from '../Services/country-mapping.service'
-import { CookieService } from 'ngx-cookie-service'
+import { CookieModule, CookieService } from 'ngx-cookie'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
@@ -45,7 +45,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
-    cookieService = jasmine.createSpyObj('CookieService', ['set'])
+    cookieService = jasmine.createSpyObj('CookieService', ['put'])
     challengeService = jasmine.createSpyObj('ChallengeService', ['continueCode'])
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
@@ -54,6 +54,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
       imports: [
         HttpClientTestingModule,
         TranslateModule.forRoot(),
+        CookieModule.forRoot(),
         ClipboardModule,
         MatCardModule,
         MatButtonModule,
@@ -119,7 +120,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
     component.saveProgress()
     expires.setFullYear(expires.getFullYear() + 1)
 
-    expect(cookieService.set).toHaveBeenCalledWith('continueCode', '12345', expires, '/')
+    expect(cookieService.put).toHaveBeenCalledWith('continueCode', '12345', { expires })
   })
 
   it('should throw error when not supplied with a valid continue code', () => {
