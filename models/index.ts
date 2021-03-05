@@ -4,7 +4,7 @@
  */
 
 /* jslint node: true */
-const fs = require('fs')
+import fs = require('fs')
 const path = require('path')
 const sequelizeNoUpdateAttributes = require('sequelize-notupdate-attributes')
 const Sequelize = require('sequelize')
@@ -25,7 +25,7 @@ sequelizeNoUpdateAttributes(sequelize)
 const db = {}
 
 fs.readdirSync(__dirname)
-  .filter(file => (file.indexOf('.') !== 0) && (file !== 'index.js'))
+  .filter(file => (file.match(/\.[jt]s$/)) && !file.includes('index.'))
   .forEach(file => {
     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes)
     db[model.name] = model
