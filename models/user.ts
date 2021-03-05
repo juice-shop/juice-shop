@@ -7,7 +7,7 @@
 const security = require('../lib/insecurity')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
-const config = require('config')
+import config = require('config')
 
 module.exports = (sequelize, { STRING, BOOLEAN }) => {
   const User = sequelize.define('User', {

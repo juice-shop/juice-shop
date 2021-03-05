@@ -5,7 +5,7 @@
 
 /* jslint node: true */
 const security = require('../lib/insecurity')
-const utils = require('../lib/utils')
+import utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
 module.exports = (sequelize, { STRING, INTEGER }) => {
