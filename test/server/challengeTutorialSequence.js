@@ -22,7 +22,7 @@ const loadYamlFile = async (filename) => {
 describe('challengeTutorialSequence', () => {
   let challenges
   before(async () => {
-    challenges = await loadYamlFile(path.join(__dirname, '../../data/static/challenges.yml'))
+    challenges = await loadYamlFile(path.resolve('data/static/challenges.yml'))
   })
 
   it('should have unique tutorial orders', async () => {
