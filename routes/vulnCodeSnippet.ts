@@ -13,7 +13,7 @@ exports.serveCodeSnippet = () => async (req, res, next) => {
   if (challenge) {
     const matches = await FileSniffer
       .create()
-      .path('./server.js')
+      .path('./server.ts')
       .path('./routes')
       .path('./lib')
       .path('./frontend/src/app')

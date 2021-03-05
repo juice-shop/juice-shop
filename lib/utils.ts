@@ -4,7 +4,7 @@
  */
 
 /* jslint node: true */
-const fs = require('fs')
+import fs = require('fs')
 const colors = require('colors/safe')
 const notifications = require('../data/datacache').notifications
 const challenges = require('../data/datacache').challenges

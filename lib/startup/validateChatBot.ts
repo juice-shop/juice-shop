@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-const config = require('config')
+import config = require('config')
 const colors = require('colors/safe')
 const logger = require('../logger')
 const utils = require('../utils')
