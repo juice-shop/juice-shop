@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-const otplib = require('otplib')
+import otplib = require('otplib')
 const url = require('url')
 
 let basePath = (new url.URL(browser.baseUrl)).pathname

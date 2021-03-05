@@ -4,7 +4,7 @@
  */
 
 const config = require('config')
-const request = require('request')
+import request = require('request')
 
 describe('/#/deluxe-membership', () => {
   describe('challenge "svgInjection"', () => {
