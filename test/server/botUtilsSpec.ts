@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-const chai = require('chai')
+import chai = require('chai')
 const expect = chai.expect
 const security = require('../../lib/insecurity')
 
