@@ -4,7 +4,7 @@
  */
 
 const config = require('config')
-const path = require('path')
+import path = require('path')
 const utils = require('../../lib/utils')
 
 describe('/#/complain', () => {

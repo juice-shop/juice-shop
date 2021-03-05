@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-const config = require('config')
+import config = require('config')
 const utils = require('../../lib/utils')
 
 describe('/b2b/v2/order', () => {
