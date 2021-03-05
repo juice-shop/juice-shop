@@ -22,7 +22,7 @@ exports.config = {
   allScriptsTimeout: 80000,
 
   specs: [
-    'test/e2e/*.js'
+    'test/e2e/*.ts'
   ],
 
   capabilities: {
@@ -41,7 +41,11 @@ exports.config = {
     showColors: true,
     defaultTimeoutInterval: 90000
   },
-
+  beforeLaunch: function () {
+    require('ts-node').register({
+      project: 'tsconfig.json'
+    })
+  },
   onPrepare: function () {
     const jasmineReporters = require('jasmine-reporters')
     jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
