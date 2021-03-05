@@ -4,7 +4,7 @@
  */
 
 /* jslint node: true */
-module.exports = (sequelize, { INTEGER }) => {
+export = (sequelize, { INTEGER }) => {
   const Wallet = sequelize.define('Wallet', {
     balance: {
       type: INTEGER,

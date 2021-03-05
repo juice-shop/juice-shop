@@ -4,7 +4,7 @@
  */
 
 /* jslint node: true */
-module.exports = (sequelize, { INTEGER, BOOLEAN }) => {
+export = (sequelize, { INTEGER, BOOLEAN }) => {
   const PrivacyRequest = sequelize.define('PrivacyRequest', {
     UserId: { type: INTEGER },
     deletionRequested: { type: BOOLEAN, defaultValue: false }
