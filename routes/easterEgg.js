@@ -10,6 +10,6 @@ const challenges = require('../data/datacache').challenges
 module.exports = function serveEasterEgg () {
   return (req, res) => {
     utils.solveIf(challenges.easterEggLevelTwoChallenge, () => { return true })
-    res.sendFile(path.resolve(__dirname, '../frontend/dist/frontend/assets/private/threejs-demo.html'))
+    res.sendFile(path.resolve('frontend/dist/frontend/assets/private/threejs-demo.html'))
   }
 }

@@ -95,7 +95,7 @@ const delivery = require('./routes/delivery')
 const deluxe = require('./routes/deluxe')
 const memory = require('./routes/memory')
 const chatbot = require('./routes/chatbot')
-const locales = require('./data/static/locales')
+const locales = require('./data/static/locales.json')
 const i18n = require('i18n')
 
 const appName = config.get('application.customMetricsPrefix')
@@ -224,14 +224,14 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Swagger documentation for B2B v2 endpoints */
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
-  app.use(express.static(path.join(__dirname, '/frontend/dist/frontend')))
+  app.use(express.static(path.resolve('frontend/dist/frontend')))
   app.use(cookieParser('kekse'))
   // vuln-code-snippet end directoryListingChallenge accessLogDisclosureChallenge
 
   /* Configure and enable backend-side i18n */
   i18n.configure({
     locales: locales.map(locale => locale.key),
-    directory: path.join(__dirname, '/i18n'),
+    directory: path.resolve('i18n'),
     cookie: 'language',
     defaultLocale: 'en',
     autoReload: true
@@ -257,7 +257,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   })
   /* HTTP request logging */
   const accessLogStream = require('file-stream-rotator').getStream({
-    filename: './logs/access.log',
+    filename: path.resolve('logs/access.log'),
     frequency: 'daily',
     verbose: false,
     max_logs: '2d'
@@ -575,7 +575,7 @@ const uploadToDisk = multer({
       if (isValid) {
         error = null
       }
-      cb(error, './frontend/dist/frontend/assets/public/images/uploads/')
+      cb(error, path.resolve('frontend/dist/frontend/assets/public/images/uploads/'))
     },
     filename: (req, file, cb) => {
       const name = security.sanitizeFilename(file.originalname)
