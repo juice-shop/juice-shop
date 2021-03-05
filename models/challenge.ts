@@ -4,7 +4,7 @@
  */
 
 /* jslint node: true */
-module.exports = (sequelize, { STRING, INTEGER, BOOLEAN, NUMBER }) => {
+export = (sequelize, { STRING, INTEGER, BOOLEAN, NUMBER }) => {
   const Challenge = sequelize.define('Challenge', {
     key: STRING,
     name: STRING,

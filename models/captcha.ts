@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-module.exports = (sequelize, { INTEGER, STRING }) => {
+export = (sequelize, { INTEGER, STRING }) => {
   const Captcha = sequelize.define('Captcha', {
     captchaId: INTEGER,
     captcha: STRING,

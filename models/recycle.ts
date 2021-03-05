@@ -4,7 +4,7 @@
  */
 
 /* jslint node: true */
-module.exports = (sequelize, { INTEGER, BOOLEAN, DATE }) => {
+export = (sequelize, { INTEGER, BOOLEAN, DATE }) => {
   const Recycle = sequelize.define('Recycle', {
     quantity: INTEGER(4),
     isPickup: { type: BOOLEAN, defaultValue: false },
