@@ -4,7 +4,7 @@
  */
 
 /* jslint node: true */
-module.exports = (sequelize, { STRING, INTEGER }) => {
+export = (sequelize, { STRING, INTEGER }) => {
   const Card = sequelize.define('Card', {
     fullName: STRING,
     cardNum: {

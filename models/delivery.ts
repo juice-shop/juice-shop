@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-module.exports = (sequelize, { FLOAT, STRING }) => {
+export = (sequelize, { FLOAT, STRING }) => {
   const Delivery = sequelize.define('Delivery', {
     name: STRING,
     price: FLOAT,
