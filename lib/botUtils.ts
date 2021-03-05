@@ -2,7 +2,7 @@
  * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
-const models = require('../models/index')
+import models = require('../models/index')
 const fuzz = require('fuzzball')
 const security = require('./insecurity')
 const utils = require('./utils')

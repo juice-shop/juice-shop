@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-const glob = require('glob')
+import glob = require('glob')
 const path = require('path')
 const fs = require('fs-extra')
 const logger = require('../logger')

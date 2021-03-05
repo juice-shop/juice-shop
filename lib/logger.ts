@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-const winston = require('winston')
+import winston = require('winston')
 
 module.exports = winston.createLogger({
   transports: [

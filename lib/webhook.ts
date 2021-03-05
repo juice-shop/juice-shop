@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-const request = require('request')
+import request = require('request')
 const { promisify } = require('util')
 const colors = require('colors/safe')
 const antiCheat = require('./antiCheat')
