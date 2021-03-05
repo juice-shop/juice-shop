@@ -22,8 +22,8 @@ const loadYamlFile = async (filename) => {
 describe('challengeCountryMapping', () => {
   let challenges, countryMapping
   before(async () => {
-    challenges = await loadYamlFile(path.join(__dirname, '../../data/static/challenges.yml'))
-    countryMapping = (await loadYamlFile(path.join(__dirname, '../../config/fbctf.yml'))).ctf.countryMapping
+    challenges = await loadYamlFile(path.resolve('data/static/challenges.yml'))
+    countryMapping = (await loadYamlFile(path.resolve('config/fbctf.yml'))).ctf.countryMapping
   })
   it('should have a country mapping for every challenge', async () => {
     for (const { key } of challenges) {
