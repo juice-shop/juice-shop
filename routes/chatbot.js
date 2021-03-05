@@ -24,7 +24,10 @@ async function initialize () {
     fs.writeFileSync('data/chatbot/' + file, data)
   }
 
-  fs.copyFileSync('data/static/botDefaultTrainingData.json', 'data/chatbot/botDefaultTrainingData.json')
+  fs.copyFileSync(
+    'data/static/botDefaultTrainingData.json',
+    'data/chatbot/botDefaultTrainingData.json'
+  )
 
   trainingFile = utils.extractFilename(trainingFile)
   const trainingSet = fs.readFileSync(`data/chatbot/${trainingFile}`, 'utf8')
