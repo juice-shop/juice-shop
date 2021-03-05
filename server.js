@@ -206,8 +206,9 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     next()
   }
 
+  // vuln-code-snippet start directoryListingChallenge accessLogDisclosureChallenge
   /* /ftp directory browsing and file download */
-  app.use('/ftp', serveIndexMiddleware, serveIndex('ftp', { icons: true }))
+  app.use('/ftp', serveIndexMiddleware, serveIndex('ftp', { icons: true })) // vuln-code-snippet vuln-line directoryListingChallenge
   app.use('/ftp(?!/quarantine)/:file', fileServer())
   app.use('/ftp/quarantine/:file', quarantineServer())
 
@@ -216,15 +217,16 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use('/encryptionkeys/:file', keyServer())
 
   /* /logs directory browsing */
-  app.use('/support/logs', serveIndexMiddleware, serveIndex('logs', { icons: true, view: 'details' }))
-  app.use('/support/logs', verify.accessControlChallenges())
-  app.use('/support/logs/:file', logFileServer())
+  app.use('/support/logs', serveIndexMiddleware, serveIndex('logs', { icons: true, view: 'details' })) // vuln-code-snippet vuln-line accessLogDisclosureChallenge
+  app.use('/support/logs', verify.accessControlChallenges()) // vuln-code-snippet hide-line
+  app.use('/support/logs/:file', logFileServer()) // vuln-code-snippet vuln-line accessLogDisclosureChallenge
 
   /* Swagger documentation for B2B v2 endpoints */
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
   app.use(express.static(path.join(__dirname, '/frontend/dist/frontend')))
   app.use(cookieParser('kekse'))
+  // vuln-code-snippet end directoryListingChallenge accessLogDisclosureChallenge
 
   /* Configure and enable backend-side i18n */
   i18n.configure({
@@ -585,10 +587,12 @@ const uploadToDisk = multer({
   })
 })
 
+// vuln-code-snippet start exposedMetricsChallenge
 /* Serve metrics */
 const Metrics = metrics.observeMetrics()
 const metricsUpdateLoop = Metrics.updateLoop
-app.get('/metrics', metrics.serveMetrics())
+app.get('/metrics', metrics.serveMetrics()) // vuln-code-snippet vuln-line exposedMetricsChallenge
+// vuln-code-snippet end exposedMetricsChallenge
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
 exports.start = async function (readyCallback) {
