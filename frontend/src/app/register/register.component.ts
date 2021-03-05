@@ -21,6 +21,7 @@ import { SecurityQuestion } from '../Models/securityQuestion.model'
 library.add(faUserPlus, faExclamationCircle)
 dom.watch()
 
+// vuln-code-snippet start passwordRepeatChallenge
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -28,8 +29,8 @@ dom.watch()
 })
 export class RegisterComponent implements OnInit {
   public emailControl: FormControl = new FormControl('', [Validators.required, Validators.email])
-  public passwordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)])
-  public repeatPasswordControl: FormControl = new FormControl('', [Validators.required, matchValidator(this.passwordControl)])
+  public passwordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]) // vuln-code-snippet vuln-line passwordRepeatChallenge
+  public repeatPasswordControl: FormControl = new FormControl('', [Validators.required, matchValidator(this.passwordControl)]) // vuln-code-snippet vuln-line passwordRepeatChallenge
   public securityQuestionControl: FormControl = new FormControl('', [Validators.required])
   public securityAnswerControl: FormControl = new FormControl('', [Validators.required])
   public securityQuestions!: SecurityQuestion[]
@@ -97,3 +98,4 @@ function matchValidator (passwordControl: AbstractControl) {
     return null
   }
 }
+// vuln-code-snippet end passwordRepeatChallenge
