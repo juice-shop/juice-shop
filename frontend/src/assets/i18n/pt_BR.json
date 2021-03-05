@@ -405,5 +405,9 @@
   "CATEGORY_VULNERABLE_COMPONENTS_DESCRIPTION": "Componentes como bibliotecas, frameworks e outros softwares, são executados com o mesmo nível de privilégio da aplicação. Se um componente vulnerável é explorado, um ataque pode causar uma perda séria de dados ou a obtenção de controle completo do servidor. Aplicações e APIs que usam componentes com vulnerabilidades conhecidas podem prejudicar os métodos de defesa da aplicação e permitir inúmeros ataques.",
   "CATEGORY_XSS_DESCRIPTION": "Falhas de Cross-Site Scripting (XSS) ocorrem sempre que uma aplicação inclui dados não confiáveis em uma página web sem antes validá-los ou normalizá-los, ou quando atualiza uma página existente com código HTML ou Javascript fornecido pelo usuário. XSS permite que atacantes executem scripts no navegador do usuário, permitindo roubo de sessão, deface de websites e redirecionamento do usuário para sites maliciosos.",
   "CATEGORY_XXE_DESCRIPTION": "Muitos processadores de XML antigos ou mal configurados avaliam referências à entidades externas dentro do documento XML. Entidades externas podem ser usados para descobrir arquivos internos usando o URI handler, acessar compartilhamentos de arquivos internos, realizar escaneamento de portas, execução de código e negação de serviço.",
-  "INSUFFICIENT_WALLET_BALANCE": "Saldo de carteira insuficiente."
+  "INSUFFICIENT_WALLET_BALANCE": "Saldo de carteira insuficiente.",
+  "LABEL_CODE_SNIPPET": "Corresponding Code Snippet",
+  "REVEAL_VULNERABLE_CODE_LINES": "Hover to reveal vulnerable line(s) of code",
+  "INFO_VULNERABLE_CODE_SNIPPET": "Show corresponding vulnerable code snippet.",
+  "LABEL_LINES": "Line(s)"
 }
