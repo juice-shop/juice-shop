@@ -8,7 +8,7 @@ import fs = require('fs')
 const colors = require('colors/safe')
 const notifications = require('../data/datacache').notifications
 const challenges = require('../data/datacache').challenges
-const packageJson = require('../package.json')
+import packageJson from '../package.json'
 const sanitizeHtml = require('sanitize-html')
 const jsSHA = require('jssha')
 const Entities = require('html-entities').AllHtmlEntities

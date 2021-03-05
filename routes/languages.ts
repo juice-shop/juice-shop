@@ -4,7 +4,7 @@
  */
 
 import fs = require('fs')
-const locales = require('../data/static/locales.json')
+import locales from '../data/static/locales.json'
 
 module.exports = function getLanguageList () { // TODO Refactor and extend to also load backend translations from /i18n/*json and calculate joint percentage/gauge
   return (req, res, next) => {
