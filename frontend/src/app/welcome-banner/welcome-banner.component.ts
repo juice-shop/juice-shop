@@ -6,7 +6,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { MatDialogRef } from '@angular/material/dialog'
-import { CookieService } from 'ngx-cookie-service'
+import { CookieService } from 'ngx-cookie'
 
 @Component({
   selector: 'app-welcome-banner',
@@ -53,6 +53,6 @@ export class WelcomeBannerComponent implements OnInit {
     this.dialogRef.close()
     const expires = new Date()
     expires.setFullYear(expires.getFullYear() + 1)
-    this.cookieService.set(this.welcomeBannerStatusCookieKey, 'dismiss', expires, '/')
+    this.cookieService.put(this.welcomeBannerStatusCookieKey, 'dismiss', { expires })
   }
 }

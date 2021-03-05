@@ -30,6 +30,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatChipsModule } from '@angular/material/chips'
 import { MatDialogModule } from '@angular/material/dialog'
 import { CodeSnippetService } from '../Services/code-snippet.service'
+import { LocalBackupService } from '../Services/local-backup.service'
 
 class MockSocket {
   on (str: string, callback: Function) {
@@ -42,6 +43,7 @@ describe('ScoreBoardComponent', () => {
   let fixture: ComponentFixture<ScoreBoardComponent>
   let challengeService: any
   let configurationService: any
+  let localBackupService: any
   let translateService: any
   let codeSnippetService: any
   let sanitizer: any
@@ -94,6 +96,7 @@ describe('ScoreBoardComponent', () => {
         { provide: CodeSnippetService, useValue: codeSnippetService },
         { provide: ConfigurationService, useValue: configurationService },
         { provide: DomSanitizer, useValue: sanitizer },
+        { provide: LocalBackupService, useValue: localBackupService },
         { provide: SocketIoService, useValue: socketIoService }
       ]
     })

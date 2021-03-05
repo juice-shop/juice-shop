@@ -11,7 +11,7 @@ import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { TranslateService } from '@ngx-translate/core'
-import { CookieService } from 'ngx-cookie-service'
+import { CookieService } from 'ngx-cookie'
 
 library.add(faBomb)
 dom.watch()
@@ -78,7 +78,7 @@ export class ChatbotComponent implements OnInit {
       localStorage.setItem('token', response.token)
       const expires = new Date()
       expires.setHours(expires.getHours() + 8)
-      this.cookieService.set('token', response.token, expires, '/')
+      this.cookieService.put('token', response.token, { expires })
     }
   }
 
