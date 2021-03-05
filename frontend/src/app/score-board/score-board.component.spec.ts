@@ -28,6 +28,7 @@ import { SocketIoService } from '../Services/socket-io.service'
 import { ChallengeStatusBadgeComponent } from '../challenge-status-badge/challenge-status-badge.component'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatChipsModule } from '@angular/material/chips'
+import { MatDialogModule } from '@angular/material/dialog'
 
 class MockSocket {
   on (str: string, callback: Function) {
@@ -79,7 +80,8 @@ describe('ScoreBoardComponent', () => {
         MatButtonToggleModule,
         MatIconModule,
         MatSnackBarModule,
-        MatChipsModule
+        MatChipsModule,
+        MatDialogModule
       ],
       declarations: [ScoreBoardComponent, ChallengeStatusBadgeComponent],
       providers: [
