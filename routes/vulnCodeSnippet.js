@@ -16,6 +16,7 @@ module.exports = function serveCodeSnippet () {
         .create()
         .path('./server.js')
         .path('./routes')
+        .path('./lib')
         .path('./frontend/src/app')
         .depth(1)
         .collect(asArray())
