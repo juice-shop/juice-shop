@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-const path = require('path')
+import path = require('path')
 const fs = require('fs')
 const logger = require('../logger')
 const { promisify } = require('util')

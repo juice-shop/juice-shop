@@ -7,7 +7,7 @@ const notifications = require('../../data/datacache').notifications
 const utils = require('../utils')
 const security = require('../insecurity')
 const challenges = require('../../data/datacache').challenges
-const config = require('config')
+import config = require('config')
 let firstConnectedSocket = null
 
 const registerWebsocketEvents = (server) => {

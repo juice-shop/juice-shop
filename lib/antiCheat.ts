@@ -5,7 +5,7 @@
 
 const colors = require('colors/safe')
 const logger = require('./logger')
-const config = require('config')
+import config = require('config')
 
 const coupledChallenges = { // TODO prevent also near-identical challenges (e.g. all null byte file access or dom xss + bonus payload etc.) from counting as cheating
   loginAdminChallenge: ['weakPasswordChallenge'],

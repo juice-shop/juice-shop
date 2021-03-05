@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-const config = require('config')
+import config = require('config')
 const process = require('process')
 const semver = require('semver')
 const pjson = require('../../package.json')

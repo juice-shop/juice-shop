@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-const config = require('config')
+import config = require('config')
 const replace = require('replace')
 const utils = require('../utils')
 
