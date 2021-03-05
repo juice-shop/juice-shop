@@ -3,15 +3,14 @@
  * SPDX-License-Identifier: MIT
  */
 
-let dependencyChecker = {}
 try {
-  dependencyChecker = require('check-dependencies')
+  var dependencyChecker = require('check-dependencies')
 } catch (err) {
   console.error('Please run "npm install" before starting the application!')
   process.exit(1)
 }
 const logger = require('../logger')
-const colors = require('colors/safe')
+import colors = require('colors/safe')
 
 const validateDependencies = async ({ packageDir = '.', exitOnFailure = true } = {}) => {
   let success = true

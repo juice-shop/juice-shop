@@ -4,7 +4,7 @@
  */
 const startTime = Date.now()
 const path = require('path')
-const fs = require('fs')
+import fs = require('fs')
 const morgan = require('morgan')
 const colors = require('colors/safe')
 const finale = require('finale-rest')
@@ -596,6 +596,10 @@ app.get('/metrics', metrics.serveMetrics()) // vuln-code-snippet vuln-line expos
 // vuln-code-snippet end exposedMetricsChallenge
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
+const registerWebsocketEvents = require('./lib/startup/registerWebsocketEvents')
+const customizeApplication = require('./lib/startup/customizeApplication')
+const customizeEasterEgg = require('./lib/startup/customizeEasterEgg')
+
 exports.start = async function (readyCallback) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
   await models.sequelize.sync({ force: true })
@@ -610,14 +614,14 @@ exports.start = async function (readyCallback) {
     if (process.env.BASE_PATH !== '') {
       logger.info(colors.cyan(`Server using proxy base path ${colors.bold(process.env.BASE_PATH)} for redirects`))
     }
-    require('./lib/startup/registerWebsocketEvents')(server)
+    registerWebsocketEvents(server)
     if (readyCallback) {
       readyCallback()
     }
   })
 
-  collectDurationPromise('customizeApplication', require('./lib/startup/customizeApplication'))()
-  collectDurationPromise('customizeEasterEgg', require('./lib/startup/customizeEasterEgg'))()
+  collectDurationPromise('customizeApplication', customizeApplication)()
+  collectDurationPromise('customizeEasterEgg', customizeEasterEgg)()
 }
 
 exports.close = function (exitCode) {
