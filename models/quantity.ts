@@ -4,7 +4,7 @@
  */
 
 /* jslint node: true */
-module.exports = (sequelize, { INTEGER }) => {
+export = (sequelize, { INTEGER }) => {
   const Quantity = sequelize.define('Quantity', {
     quantity: {
       type: INTEGER,

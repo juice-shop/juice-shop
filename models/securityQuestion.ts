@@ -4,7 +4,7 @@
  */
 
 /* jslint node: true */
-module.exports = (sequelize, { STRING }) => {
+export = (sequelize, { STRING }) => {
   const SecurityQuestion = sequelize.define('SecurityQuestion', {
     question: STRING
   }

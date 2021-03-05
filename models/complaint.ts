@@ -5,7 +5,7 @@
 
 /* jslint node: true */
 
-module.exports = (sequelize, { STRING }) => {
+export = (sequelize, { STRING }) => {
   const Complaint = sequelize.define('Complaint', {
     message: STRING,
     file: STRING

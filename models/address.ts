@@ -4,7 +4,7 @@
  */
 
 /* jslint node: true */
-module.exports = (sequelize, { STRING, INTEGER }) => {
+export = (sequelize, { STRING, INTEGER }) => {
   const Address = sequelize.define('Address', {
     fullName: STRING,
     mobileNum: {
