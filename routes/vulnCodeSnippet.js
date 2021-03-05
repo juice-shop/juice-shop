@@ -22,13 +22,13 @@ module.exports = function serveCodeSnippet () {
         .find(new RegExp(`vuln-code-snippet start.*${challenge.key}`))
       if (matches[0]) { // TODO Currently only a single source file is supported
         const source = fs.readFileSync(path.join(__dirname, '..', matches[0].path), 'utf8')
-        let snippet = source.match(`// vuln-code-snippet start.*${challenge.key}(.|\\r\\n|\\n|\\r)*vuln-code-snippet end.*${challenge.key}`) // FIXME Hangs up for code outside /routes
+        let snippet = source.match(`// vuln-code-snippet start.*${challenge.key}([^])*vuln-code-snippet end.*${challenge.key}`)
         if (snippet) {
           snippet = snippet[0] // TODO Currently only a single code snippet is supported
-          snippet = snippet.replace(/\/\/ vuln-code-snippet start.*(\r\n|\n|\r)?/g, '')
+          snippet = snippet.replace(/\/\/ vuln-code-snippet start.*[\r\n]{0,2}/g, '')
           snippet = snippet.replace(/\/\/ vuln-code-snippet end.*/g, '')
-          snippet = snippet.replace(/.*\/\/ vuln-code-snippet hide-line(\r\n|\n|\r)?/g, '')
-          snippet = snippet.replace(/.*\/\/ vuln-code-snippet hide-start(.|\r\n|\n|\r)*\/\/ vuln-code-snippet hide-end(\r\n|\n|\r)?/g, '')
+          snippet = snippet.replace(/.*\/\/ vuln-code-snippet hide-line[\r\n]{0,2}/g, '')
+          snippet = snippet.replace(/.*\/\/ vuln-code-snippet hide-start([^])*\/\/ vuln-code-snippet hide-end[\r\n]{0,2}/g, '')
           snippet = snippet.trim()
 
           let lines = snippet.split('\r\n')
