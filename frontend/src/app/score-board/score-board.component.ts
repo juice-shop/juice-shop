@@ -20,6 +20,7 @@ import { TranslateService } from '@ngx-translate/core'
 import { LocalBackupService } from '../Services/local-backup.service'
 import { MatDialog } from '@angular/material/dialog'
 import { CodeSnippetComponent } from '../code-snippet/code-snippet.component'
+import { CodeSnippetService } from '../Services/code-snippet.service'
 
 library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy, faPollH)
 dom.watch()
@@ -60,7 +61,7 @@ export class ScoreBoardComponent implements OnInit {
   public appName: string = 'OWASP Juice Shop'
   public localBackupEnabled: boolean = true
 
-  constructor (private readonly configurationService: ConfigurationService, private readonly challengeService: ChallengeService, private readonly sanitizer: DomSanitizer, private readonly ngZone: NgZone, private readonly io: SocketIoService, private readonly spinner: NgxSpinnerService, private readonly translate: TranslateService, private readonly localBackupService: LocalBackupService, private readonly dialog: MatDialog) {
+  constructor (private readonly configurationService: ConfigurationService, private readonly challengeService: ChallengeService, private readonly codeSnippetService: CodeSnippetService, private readonly sanitizer: DomSanitizer, private readonly ngZone: NgZone, private readonly io: SocketIoService, private readonly spinner: NgxSpinnerService, private readonly translate: TranslateService, private readonly localBackupService: LocalBackupService, private readonly dialog: MatDialog) {
   }
 
   ngOnInit () {
@@ -82,39 +83,42 @@ export class ScoreBoardComponent implements OnInit {
       this.showOnlyTutorialChallenges = localStorage.getItem('showOnlyTutorialChallenges') ? JSON.parse(String(localStorage.getItem('showOnlyTutorialChallenges'))) : this.restrictToTutorialsFirst
       this.localBackupEnabled = config.application.localBackupEnabled
       this.challengeService.find({ sort: 'name' }).subscribe((challenges) => {
-        this.challenges = challenges
-        for (let i = 0; i < this.challenges.length; i++) {
-          this.augmentHintText(this.challenges[i])
-          this.trustDescriptionHtml(this.challenges[i])
-          if (this.challenges[i].name === 'Score Board') {
-            this.challenges[i].solved = true
+        this.codeSnippetService.challenges().subscribe((challengesWithCodeSnippet) => {
+          this.challenges = challenges
+          for (let i = 0; i < this.challenges.length; i++) {
+            this.augmentHintText(this.challenges[i])
+            this.trustDescriptionHtml(this.challenges[i])
+            if (this.challenges[i].name === 'Score Board') {
+              this.challenges[i].solved = true
+            }
+            if (!this.availableChallengeCategories.includes(challenges[i].category)) {
+              this.availableChallengeCategories.push(challenges[i].category)
+            }
+            if (this.showHackingInstructor) {
+              import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
+                challenges[i].hasTutorial = module.hasInstructions(challenges[i].name)
+              })
+            }
+            challenges[i].hasSnippet = challengesWithCodeSnippet.indexOf(challenges[i].key) > -1
           }
-          if (!this.availableChallengeCategories.includes(challenges[i].category)) {
-            this.availableChallengeCategories.push(challenges[i].category)
-          }
-          if (this.showHackingInstructor) {
-            import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
-              challenges[i].hasTutorial = module.hasInstructions(challenges[i].name)
+          this.availableChallengeCategories.sort((a, b) => a.localeCompare(b))
+          this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(String(localStorage.getItem('displayedChallengeCategories'))) : this.availableChallengeCategories
+          this.calculateProgressPercentage()
+          this.populateFilteredChallengeLists()
+          this.calculateGradientOffsets(challenges)
+          this.calculateTutorialTier(challenges)
+
+          this.toggledMajorityOfDifficulties = this.determineToggledMajorityOfDifficulties()
+          this.toggledMajorityOfCategories = this.determineToggledMajorityOfCategories()
+
+          if (this.showOnlyTutorialChallenges) {
+            this.challenges.sort((a, b) => {
+              return a.tutorialOrder - b.tutorialOrder
             })
           }
-        }
-        this.availableChallengeCategories.sort((a, b) => a.localeCompare(b))
-        this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(String(localStorage.getItem('displayedChallengeCategories'))) : this.availableChallengeCategories
-        this.calculateProgressPercentage()
-        this.populateFilteredChallengeLists()
-        this.calculateGradientOffsets(challenges)
-        this.calculateTutorialTier(challenges)
 
-        this.toggledMajorityOfDifficulties = this.determineToggledMajorityOfDifficulties()
-        this.toggledMajorityOfCategories = this.determineToggledMajorityOfCategories()
-
-        if (this.showOnlyTutorialChallenges) {
-          this.challenges.sort((a, b) => {
-            return a.tutorialOrder - b.tutorialOrder
-          })
-        }
-
-        this.spinner.hide()
+          this.spinner.hide()
+        })
       }, (err) => {
         this.challenges = []
         console.log(err)
