@@ -405,5 +405,9 @@
   "CATEGORY_VULNERABLE_COMPONENTS_DESCRIPTION": "Components, such as libraries, frameworks, and other software modules, run with the same privileges as the application. If a vulnerable component is exploited, such an attack can facilitate serious data loss or server takeover. Applications and APIs using components with known vulnerabilities may undermine application defenses and enable various attacks and impacts.",
   "CATEGORY_XSS_DESCRIPTION": "Cross-Site Scripting (XSS) flaws occur whenever an application includes untrusted data in a new web page without proper validation or escaping, or updates an existing web page with user-supplied data using a browser API that can create HTML or JavaScript. XSS allows attackers to execute scripts in the victim’s browser which can hijack user sessions, deface web sites, or redirect the user to malicious sites.",
   "CATEGORY_XXE_DESCRIPTION": "Many older or poorly configured XML processors evaluate external entity references within XML documents. External entities can be used to disclose internal files using the file URI handler, internal file shares, internal port scanning, remote code execution, and denial of service attacks.",
-  "INSUFFICIENT_WALLET_BALANCE": "Insufficient wallet balance."
+  "INSUFFICIENT_WALLET_BALANCE": "Insufficient wallet balance.",
+  "LABEL_CODE_SNIPPET": "Corresponding Code Snippet",
+  "REVEAL_VULNERABLE_CODE_LINES": "Hover to reveal vulnerable line(s) of code",
+  "INFO_VULNERABLE_CODE_SNIPPET": "Show corresponding vulnerable code snippet.",
+  "LABEL_LINES": "Line(s)"
 }
