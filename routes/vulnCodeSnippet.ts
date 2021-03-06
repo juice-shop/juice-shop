@@ -57,7 +57,7 @@ exports.serveCodeSnippet = () => async (req, res, next) => {
 exports.challengesWithCodeSnippet = () => async (req, res, next) => {
   const matches = await FileSniffer
     .create()
-    .path('./server.js')
+    .path('./server.ts')
     .path('./routes')
     .path('./lib')
     .path('./frontend/src/app')
