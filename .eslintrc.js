@@ -28,6 +28,12 @@ module.exports = {
   ],
   overrides: [
     {
+      /**
+       * Purpose of this Section:
+       *  Temporarily suppress TypeScript-related linting errors during migration to typescript.
+       * When to remove:
+       *  After all @typescript-eslint warnings are fixed/resolved.
+       */
       files: ['**/*.ts'],
       parser: '@typescript-eslint/parser',
       rules: {
