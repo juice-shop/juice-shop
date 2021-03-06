@@ -118,7 +118,7 @@ async function createUsers () {
 
 async function createWallet () {
   const users = await loadStaticData('users')
-  return Promise.all(
+  return await Promise.all(
     users.map((user, index) => {
       return models.Wallet.create({
         UserId: index + 1,
@@ -167,8 +167,8 @@ function createAddresses (UserId, addresses) {
   })
 }
 
-function createCards (UserId, cards) {
-  return Promise.all(cards.map((card) => {
+async function createCards (UserId, cards) {
+  return await Promise.all(cards.map((card) => {
     return models.Card.create({
       UserId: UserId,
       fullName: card.fullName,
@@ -187,7 +187,7 @@ function deleteUser (userId) {
   })
 }
 
-function createRandomFakeUsers () {
+async function createRandomFakeUsers () {
   function getGeneratedRandomFakeUserEmail () {
     const randomDomain = makeRandomString(4).toLowerCase() + '.' + makeRandomString(2).toLowerCase()
     return makeRandomString(5).toLowerCase() + '@' + randomDomain
@@ -210,8 +210,8 @@ function createRandomFakeUsers () {
   ))
 }
 
-function createQuantity () {
-  return Promise.all(
+async function createQuantity () {
+  return await Promise.all(
     config.get('products').map((product, index) => {
       return models.Quantity.create({
         ProductId: index + 1,
@@ -224,7 +224,7 @@ function createQuantity () {
   )
 }
 
-function createMemories () {
+async function createMemories () {
   const memories = [
     models.Memory.create({
       imagePath: 'assets/public/images/uploads/😼-#zatschi-#whoneedsfourlegs-1572600969477.jpg',
@@ -261,7 +261,7 @@ function createMemories () {
   return Promise.all(memories)
 }
 
-function createProducts () {
+async function createProducts () {
   const products = utils.thaw(config.get('products')).map((product) => {
     product.price = product.price || Math.floor(Math.random() * 9 + 1)
     product.deluxePrice = product.deluxePrice || product.price
@@ -332,8 +332,8 @@ function createProducts () {
           }
           return persistedProduct
         })
-          .then(({ id }) =>
-            Promise.all(
+          .then(async ({ id }) =>
+            await Promise.all(
               reviews.map(({ text, author }) =>
                 mongodb.reviews.insert({
                   message: text,
@@ -361,7 +361,7 @@ function createProducts () {
   }
 }
 
-function createBaskets () {
+async function createBaskets () {
   const baskets = [
     { UserId: 1 },
     { UserId: 2 },
@@ -370,7 +370,7 @@ function createBaskets () {
     { UserId: 16 }
   ]
 
-  return Promise.all(
+  return await Promise.all(
     baskets.map(basket => {
       return models.Basket.create(basket).catch((err) => {
         logger.error(`Could not insert Basket for UserId ${basket.UserId}: ${err.message}`)
@@ -379,7 +379,7 @@ function createBaskets () {
   )
 }
 
-function createBasketItems () {
+async function createBasketItems () {
   const basketItems = [
     {
       BasketId: 1,
@@ -423,7 +423,7 @@ function createBasketItems () {
     }
   ]
 
-  return Promise.all(
+  return await Promise.all(
     basketItems.map(basketItem => {
       return models.BasketItem.create(basketItem).catch((err) => {
         logger.error(`Could not insert BasketItem for BasketId ${basketItem.BasketId}: ${err.message}`)
@@ -432,7 +432,7 @@ function createBasketItems () {
   )
 }
 
-function createAnonymousFeedback () {
+async function createAnonymousFeedback () {
   const feedbacks = [
     {
       comment: 'Incompetent customer support! Can\'t even upload photo of broken purchase!<br><em>Support Team: Sorry, only order confirmation PDFs can be attached to complaints!</em>',
@@ -452,7 +452,7 @@ function createAnonymousFeedback () {
     }
   ]
 
-  return Promise.all(
+  return await Promise.all(
     feedbacks.map((feedback) => createFeedback(null, feedback.comment, feedback.rating))
   )
 }
@@ -473,7 +473,7 @@ function createComplaints () {
   })
 }
 
-function createRecycleItem () {
+async function createRecycleItem () {
   const recycles = [
     {
       UserId: 2,
@@ -539,7 +539,7 @@ function createRecycleItem () {
       isPickup: true
     }
   ]
-  return Promise.all(
+  return await Promise.all(
     recycles.map((recycle) => createRecycle(recycle))
   )
 }
@@ -570,7 +570,7 @@ function createSecurityAnswer (UserId, SecurityQuestionId, answer) {
   })
 }
 
-function createOrders () {
+async function createOrders () {
   const email = 'admin@' + config.get('application.domain')
   const products = config.get('products')
   const basket1Products = [
@@ -652,7 +652,7 @@ function createOrders () {
     }
   ]
 
-  return Promise.all(
+  return await Promise.all(
     orders.map(({ orderId, email, totalPrice, bonus, products, eta, delivered }) =>
       mongodb.orders.insert({
         orderId: orderId,

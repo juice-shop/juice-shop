@@ -153,7 +153,7 @@ const checkForIllogicalCombos = (configuration = config.util.toObject()) => {
     logger.warn(`CTF flags are enabled while challenge solved notifications are disabled (${colors.red('NOT OK')})`)
     success = false
   }
-  if (['name', 'flag', 'both'].indexOf(configuration.ctf.showCountryDetailsInNotifications) >= 0 && !configuration.ctf.showFlagsInNotifications) {
+  if (['name', 'flag', 'both'].includes(configuration.ctf.showCountryDetailsInNotifications) && !configuration.ctf.showFlagsInNotifications) {
     logger.warn(`CTF country mappings for FBCTF are enabled while CTF flags are disabled (${colors.red('NOT OK')})`)
     success = false
   }

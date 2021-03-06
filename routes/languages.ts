@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-import fs = require('fs')
 import locales from '../data/static/locales.json'
+import fs = require('fs')
 
 module.exports = function getLanguageList () { // TODO Refactor and extend to also load backend translations from /i18n/*json and calculate joint percentage/gauge
   return (req, res, next) => {
@@ -53,10 +53,10 @@ module.exports = function getLanguageList () { // TODO Refactor and extend to al
       })
     })
 
-    function calcPercentage (fileContent, enContent) {
+    async function calcPercentage (fileContent, enContent) {
       const totalStrings = Object.keys(enContent).length
       let differentStrings = 0
-      return new Promise((resolve, reject) => {
+      return await new Promise((resolve, reject) => {
         try {
           for (const key in fileContent) {
             if (Object.prototype.hasOwnProperty.call(fileContent, key) && fileContent[key] !== enContent[key]) {
