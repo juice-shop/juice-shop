@@ -115,8 +115,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - name: "Install ChromeDriver matching installed Chrome version"
-        uses: nanasess/setup-chromedriver@master
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
@@ -138,8 +136,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - name: "Install ChromeDriver matching installed Chrome version"
-        uses: nanasess/setup-chromedriver@master
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
