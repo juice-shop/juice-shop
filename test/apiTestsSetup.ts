@@ -5,8 +5,8 @@
 
 import server = require('./../server')
 
-module.exports = () => new Promise((resolve, reject) =>
-  server.start(err => {
+export = async () => await new Promise(async (resolve, reject) =>
+  await server.start(err => {
     if (err) {
       reject(err)
     }
