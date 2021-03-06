@@ -57,9 +57,9 @@
     "e2e": "ts-node test/e2eTests.ts",
     "frisby": "nyc --report-dir=./build/reports/coverage/api-tests jest --silent --runInBand --forceExit",
     "postinstall": "cd frontend && npm install --legacy-peer-deps && cd .. && npm run build:frontend && (npm run --silent build:server || cd .)",
-    "lint": "eslint *.js data lib models routes test views && cd frontend && ng lint && npx stylelint \"**/*.scss\" && cd ..",
+    "lint": "eslint *.[jt]s data lib models routes test views && cd frontend && ng lint && npx stylelint \"**/*.scss\" && cd ..",
     "lint:config": "schema validate -s config.schema.yml",
-    "lint:fix": "eslint *.js data lib models routes test views --fix && cd frontend && ng lint --fix && npx stylelint \"**/*.scss\" --fix && cd ..",
+    "lint:fix": "eslint *.[jt]s data lib models routes test views --fix && cd frontend && ng lint --fix && npx stylelint \"**/*.scss\" --fix && cd ..",
     "package": "grunt package",
     "package:ci": "npm prune --production && npm dedupe && cd frontend && npm prune --production && npm dedupe && cd .. && grunt package",
     "preprotractor": "npm dedupe && node ./node_modules/protractor/bin/webdriver-manager update --gecko false",
@@ -216,14 +216,17 @@
     "@types/swagger-ui-express": "^4.1.2",
     "@types/unzipper": "^0.10.3",
     "@types/validator": "^13.1.3",
+    "@typescript-eslint/eslint-plugin": "^4.16.1",
+    "@typescript-eslint/parser": "^4.16.1",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "cross-spawn": "^7.0.3",
-    "eslint": "^7.16.0",
+    "eslint": "^7.21.0",
     "eslint-config-standard": "^16.0.2",
+    "eslint-config-standard-with-typescript": "^20.0.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-promise": "^4.3.1",
     "frisby": "^2.1.2",
     "grunt-cli": "^1.3.2",
     "http-server": "^0.12.3",
@@ -263,18 +266,6 @@
   ],
   "heroku-run-build-script": true,
   "standard": {
-    "ignore": [
-      "/app/private/**",
-      "/vagrant/**",
-      "/frontend/**"
-    ],
-    "env": {
-      "jasmine": true,
-      "node": true,
-      "browser": true,
-      "mocha": true,
-      "protractor": true
-    },
     "global": [
       "angular",
       "inject"

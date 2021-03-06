@@ -4,9 +4,10 @@
  */
 
 module.exports = {
-  extends: 'standard',
+  extends: 'standard-with-typescript',
   env: {
     browser: true,
+    node: true,
     jasmine: true,
     mocha: true,
     protractor: true
@@ -16,7 +17,8 @@ module.exports = {
     SharedArrayBuffer: 'readonly'
   },
   parserOptions: {
-    ecmaVersion: 2018
+    ecmaVersion: 2018,
+    project: './tsconfig.json'
   },
   ignorePatterns: [
     'app/private/**',
