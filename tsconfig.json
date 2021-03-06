@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "./dist",
+    "outDir": "./build",
     "allowJs": true,
     "module": "commonjs",
     "target": "es2018",
@@ -33,6 +33,7 @@
     "node_modules",
     "frontend",
     "dist",
+    "build",
     "vagrant",
     "**/*.d.ts",
     ".eslintrc.js"
