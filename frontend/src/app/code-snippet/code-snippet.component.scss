@@ -15,10 +15,22 @@ mat-divider {
   cursor: pointer;
 }
 
-.spoiler span {
+.spoiler .spoiler-on {
+  display: none;
+  margin-left: 10px;
+}
+
+.spoiler:hover .spoiler-on {
+  display: inline;
+}
+
+
+.spoiler .spoiler-off {
+  display: inline;
+  margin-left: 10px;
+}
+
+.spoiler:hover .spoiler-off {
   display: none;
 }
 
-.spoiler:hover span {
-  display: inline;
-}

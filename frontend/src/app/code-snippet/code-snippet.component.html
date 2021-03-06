@@ -16,14 +16,18 @@
     </div>
     <div *ngIf="snippet?.vulnLines.length > 0" fxLayout="row" fxLayoutGap="10px">
       <div>
-        <em translate="REVEAL_VULNERABLE_CODE_LINES"></em>
         <span class="spoiler">
-          <mat-icon color="warn">
-            lock_open
-          </mat-icon>
-          <br>
+          <mat-chip>
+            {{ "REVEAL_VULNERABLE_CODE_LINES" | translate }}
+            <mat-icon color="warn" class="spoiler-off">
+              visibility_off
+            </mat-icon>
+            <mat-icon color="accent" class="spoiler-on">
+              visibility
+            </mat-icon>
+          </mat-chip>
           <span>
-            <mat-chip><span translate="LABEL_LINES"></span>&nbsp;<code>{{snippet?.vulnLines}}</code></mat-chip>
+            <mat-chip class="spoiler-on"><span translate="LABEL_LINES"></span>&nbsp;<code>{{snippet?.vulnLines}}</code></mat-chip>
           </span>
         </span>
       </div>
