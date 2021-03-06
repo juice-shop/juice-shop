@@ -53,7 +53,7 @@ describe('/chatbot', () => {
         password: '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
       })
 
-      return frisby.setup({
+      return await frisby.setup({
         request: {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -75,7 +75,7 @@ describe('/chatbot', () => {
 
       const testCommand = trainingData.data[0].utterances[0]
 
-      return frisby.setup({
+      return await frisby.setup({
         request: {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -103,7 +103,7 @@ describe('/chatbot', () => {
       bot.addUser('1337', 'bkimminich')
       const testCommand = trainingData.data[0].utterances[0]
 
-      return frisby.setup({
+      return await frisby.setup({
         request: {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -129,7 +129,7 @@ describe('/chatbot', () => {
       })
       bot.addUser('12345', 'bkimminich')
       const testCommand = trainingData.data[0].utterances[0]
-      return frisby.setup({
+      return await frisby.setup({
         request: {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -160,7 +160,7 @@ describe('/chatbot', () => {
         email: 'bjoern.kimminich@gmail.com',
         password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
       })
-      return frisby.get(API_URL + '/Products/1')
+      return await frisby.get(API_URL + '/Products/1')
         .expect('status', 200)
         .then(({ json }) => {
           return frisby.setup({
@@ -190,7 +190,7 @@ describe('/chatbot', () => {
         email: `stan@${config.get('application.domain')}`,
         password: 'ship coffin krypt cross estate supply insurance asbestos souvenir'
       })
-      return frisby.setup({
+      return await frisby.setup({
         request: {
           headers: {
             Authorization: `Bearer ${token}`,

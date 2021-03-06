@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: MIT
  */
 
+import pjson from '../../package.json'
 import config = require('config')
 const process = require('process')
 const semver = require('semver')
-import pjson from '../../package.json'
 const colors = require('colors/safe')
 const logger = require('../logger')
 const portscanner = require('portscanner')
@@ -76,8 +76,8 @@ const checkIfRunningOnSupportedCPU = (runningArch) => {
   return true
 }
 
-const checkIfPortIsAvailable = (port) => {
-  return new Promise((resolve, reject) => {
+const checkIfPortIsAvailable = async (port) => {
+  return await new Promise((resolve, reject) => {
     portscanner.checkPortStatus(port, function (error, status) {
       if (error) {
         reject(error)

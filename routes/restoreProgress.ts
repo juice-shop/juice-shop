@@ -12,7 +12,7 @@ module.exports = function restoreProgress () {
   return ({ params }, res) => {
     const continueCode = params.continueCode
     const ids = hashids.decode(continueCode)
-    if (utils.notSolved(challenges.continueCodeChallenge) && ids.indexOf(999) > -1) {
+    if (utils.notSolved(challenges.continueCodeChallenge) && ids.includes(999)) {
       utils.solve(challenges.continueCodeChallenge)
       res.end()
     } else if (ids.length > 0) {

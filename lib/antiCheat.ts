@@ -47,7 +47,7 @@ function areCoupled (challenge, previousChallenge) {
 }
 
 function isTrivial (challenge) {
-  return trivialChallenges.indexOf(challenge.key) > -1
+  return trivialChallenges.includes(challenge.key)
 }
 
 function previous () {
