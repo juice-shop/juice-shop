@@ -17,6 +17,18 @@
       "dom"
     ]
   },
+  "include" : [
+    "data/**/*.ts",
+    "lib/**/*.ts",
+    "lib/**/*.js",
+    "models/**/*.ts",
+    "routes/**/*.ts",
+    "test/**/*.ts",
+    "views/**/*.ts",
+    "views/**/*.js",
+    "*.ts",
+    "*.js"
+  ],
   "exclude": [
     "node_modules",
     "frontend",
