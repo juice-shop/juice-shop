@@ -600,7 +600,7 @@ const registerWebsocketEvents = require('./lib/startup/registerWebsocketEvents')
 const customizeApplication = require('./lib/startup/customizeApplication')
 const customizeEasterEgg = require('./lib/startup/customizeEasterEgg')
 
-exports.start = async function (readyCallback) {
+export async function start (readyCallback) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
   await models.sequelize.sync({ force: true })
   await datacreator()
@@ -624,7 +624,7 @@ exports.start = async function (readyCallback) {
   collectDurationPromise('customizeEasterEgg', customizeEasterEgg)()
 }
 
-exports.close = function (exitCode) {
+export function close (exitCode) {
   if (server) {
     clearInterval(metricsUpdateLoop)
     server.close()
