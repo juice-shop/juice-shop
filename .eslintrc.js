@@ -25,5 +25,27 @@ module.exports = {
     'vagrant/**',
     'frontend/**',
     'dist/**'
+  ],
+  overrides: [
+    {
+      files: ['**/*.ts'],
+      parser: '@typescript-eslint/parser',
+      rules: {
+        '@typescript-eslint/explicit-function-return-type': 'warn',
+        '@typescript-eslint/no-dynamic-delete': 'warn',
+        '@typescript-eslint/no-floating-promises': 'warn',
+        '@typescript-eslint/no-misused-promises': 'warn',
+        '@typescript-eslint/no-this-alias': 'warn',
+        '@typescript-eslint/no-var-requires': 'warn',
+        '@typescript-eslint/prefer-includes': 'warn',
+        '@typescript-eslint/prefer-nullish-coalescing': 'warn',
+        '@typescript-eslint/prefer-optional-chain': 'warn',
+        '@typescript-eslint/promise-function-async': 'warn',
+        '@typescript-eslint/restrict-template-expressions': 'warn',
+        '@typescript-eslint/restrict-plus-operands': 'warn',
+        '@typescript-eslint/return-await': 'warn',
+        '@typescript-eslint/strict-boolean-expressions': 'warn'
+      }
+    }
   ]
 }
