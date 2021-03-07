@@ -8,21 +8,21 @@ const Joi = frisby.Joi
 
 const URL = 'http://localhost:3000'
 
-describe('/snippet/:challenge', () => {
+describe('/snippets/:challenge', () => {
   it('GET code snippet retrieval for unknown challenge key throws error', () => {
-    return frisby.get(URL + '/snippet/doesNotExistChallenge')
+    return frisby.get(URL + '/snippets/doesNotExistChallenge')
       .expect('status', 412)
       .expect('json', 'error', 'Unknown challenge key: doesNotExistChallenge')
   })
 
   it('GET code snippet retrieval for challenge without code snippet throws error', () => {
-    return frisby.get(URL + '/snippet/easterEggLevelTwoChallenge')
+    return frisby.get(URL + '/snippets/easterEggLevelTwoChallenge')
       .expect('status', 404)
       .expect('json', 'error', 'No code snippet available for: easterEggLevelTwoChallenge')
   })
 
   it('GET code snippet retrieval for challenge with code snippet', () => {
-    return frisby.get(URL + '/snippet/loginAdminChallenge')
+    return frisby.get(URL + '/snippets/loginAdminChallenge')
       .expect('status', 200)
       .expect('jsonTypes', {
         snippet: Joi.string(),
