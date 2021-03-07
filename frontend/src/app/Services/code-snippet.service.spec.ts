@@ -25,7 +25,7 @@ describe('CodeSnippetService', () => {
       let res: any
       service.get('testChallenge').subscribe((data) => (res = data))
 
-      const req = httpMock.expectOne('http://localhost:3000/snippet/testChallenge')
+      const req = httpMock.expectOne('http://localhost:3000/snippets/testChallenge')
       req.flush({ snippet: 'apiResponse' })
       tick()
 

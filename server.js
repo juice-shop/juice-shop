@@ -552,8 +552,8 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.post('/profile', updateUserProfile())
 
   /* Route for vulnerable code snippets */
-  app.get('/snippet', vulnCodeSnippet.challengesWithCodeSnippet())
-  app.get('/snippet/:challenge', vulnCodeSnippet.serveCodeSnippet())
+  app.get('/snippets', vulnCodeSnippet.challengesWithCodeSnippet())
+  app.get('/snippets/:challenge', vulnCodeSnippet.serveCodeSnippet())
 
   app.use(angular())
 
