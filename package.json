@@ -248,7 +248,7 @@
     "webdriver-manager": "^12.1.7"
   },
   "engines": {
-    "node": "10 - 15"
+    "node": "12 - 15"
   },
   "os": [
     "win32",
