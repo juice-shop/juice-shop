@@ -178,7 +178,7 @@
             </button>
           </a>
           <button
-            *ngIf="challenge.hasSnippet"
+            *ngIf="challenge.hasSnippet && (showCodeSnippets === 'always' || showCodeSnippets === 'solved' && challenge.solved)"
             mat-mini-fab color="primary"
             (click)="showCodeSnippet(challenge.key)"
             [matTooltip]="('INFO_VULNERABLE_CODE_SNIPPET' | translate)"
