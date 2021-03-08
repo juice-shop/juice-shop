@@ -33,7 +33,8 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
-  if (loggedInUser && loggedInUser.data.email === req.body.profile.email) {
+  const Email = req.body.profile
+  if (loggedInUser && loggedInUser.data.email === Email.email) {
     const userData = {
       UserId: loggedInUser.data.id,
       deletionRequested: true
@@ -41,8 +42,7 @@ router.post('/', (req, res, next) => {
     models.PrivacyRequest.create(userData).catch((err) => {
       next(err)
     })
-    const email = req.body.profile
-    res.render('dataErasure', email)
+    res.render('dataErasure', Email)
   } else {
     next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
   }
