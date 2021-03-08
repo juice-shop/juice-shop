@@ -114,6 +114,8 @@ challenges:
     type: boolean
   showMitigations:
     type: boolean
+  showCodeSnippets:
+    type: string
   restrictToTutorialsFirst:
     type: boolean
   overwriteUrlForProductTamperingChallenge:
