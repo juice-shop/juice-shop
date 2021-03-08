@@ -383,6 +383,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Verifying DB related challenges can be postponed until the next request for challenges is coming via finale */
   app.use(verify.databaseRelatedChallenges())
 
+  // vuln-code-snippet start registerAdminChallenge
   /* Generated API endpoints */
   finale.initialize({ app, sequelize: models.sequelize })
 
@@ -411,13 +412,14 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
     // create a wallet when a new user is registered using API
     if (name === 'User') {
-      resource.create.send.before((req, res, context) => {
+      resource.create.send.before((req, res, context) => { // vuln-code-snippet vuln-line registerAdminChallenge
         models.Wallet.create({ UserId: context.instance.id }).catch((err) => {
           console.log(err)
         })
         return context.continue
       })
     }
+    // vuln-code-snippet end registerAdminChallenge
 
     // translate challenge descriptions and hints on-the-fly
     if (name === 'Challenge') {
