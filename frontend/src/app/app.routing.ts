@@ -43,25 +43,10 @@ import { PhotoWallComponent } from './photo-wall/photo-wall.component'
 import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, LoginGuard } from './app.guard'
 
-export function token1 (...args: number[]) {
-  const L = Array.prototype.slice.call(args)
-  const D = L.shift()
-  return L.reverse().map(function (C, A) {
-    return String.fromCharCode(C - D - 45 - A)
-  }).join('')
-}
-
-export function token2 (...args: number[]) {
-  const T = Array.prototype.slice.call(arguments)
-  const M = T.shift()
-  return T.reverse().map(function (m, H) {
-    return String.fromCharCode(m - M - 24 - H)
-  }).join('')
-}
-
+// vuln-code-snippet start adminSectionChallenge scoreBoardChallenge
 const routes: Routes = [
   {
-    path: 'administration',
+    path: 'administration', // vuln-code-snippet vuln-line adminSectionChallenge
     component: AdministrationComponent,
     canActivate: [AdminGuard]
   },
@@ -172,7 +157,7 @@ const routes: Routes = [
     component: SearchResultComponent
   },
   {
-    path: 'score-board',
+    path: 'score-board', // vuln-code-snippet vuln-line scoreBoardChallenge
     component: ScoreBoardComponent
   },
   {
@@ -220,13 +205,14 @@ const routes: Routes = [
       }
     ]
   },
+  // vuln-code-snippet start tokenSaleChallenge
   {
     matcher: oauthMatcher,
     data: { params: (window.location.href).substr(window.location.href.indexOf('#')) },
     component: OAuthComponent
   },
   {
-    matcher: tokenMatcher,
+    matcher: tokenMatcher, // vuln-code-snippet vuln-line tokenSaleChallenge
     component: TokenSaleComponent
   },
   {
@@ -238,6 +224,7 @@ const routes: Routes = [
     component: SearchResultComponent
   }
 ]
+// vuln-code-snippet end adminSectionChallenge scoreBoardChallenge
 
 export const Routing = RouterModule.forRoot(routes, { useHash: true, relativeLinkResolution: 'legacy' })
 
@@ -260,9 +247,26 @@ export function tokenMatcher (url: UrlSegment[]): UrlMatchResult {
 
   const path = url[0].toString()
   // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-  if (path.match((token1(25, 184, 174, 179, 182, 186) + (36669).toString(36).toLowerCase() + token2(13, 144, 87, 152, 139, 144, 83, 138) + (10).toString(36).toLowerCase()))) {
+  if (path.match((token1(25, 184, 174, 179, 182, 186) + (36669).toString(36).toLowerCase() + token2(13, 144, 87, 152, 139, 144, 83, 138) + (10).toString(36).toLowerCase()))) { // vuln-code-snippet vuln-line tokenSaleChallenge
     return ({ consumed: url })
   }
 
   return null as unknown as UrlMatchResult
 }
+
+export function token1 (...args: number[]) { // vuln-code-snippet vuln-line tokenSaleChallenge
+  const L = Array.prototype.slice.call(args)
+  const D = L.shift()
+  return L.reverse().map(function (C, A) {
+    return String.fromCharCode(C - D - 45 - A)
+  }).join('')
+}
+
+export function token2 (...args: number[]) { // vuln-code-snippet vuln-line tokenSaleChallenge
+  const T = Array.prototype.slice.call(arguments)
+  const M = T.shift()
+  return T.reverse().map(function (m, H) {
+    return String.fromCharCode(m - M - 24 - H)
+  }).join('')
+}
+// vuln-code-snippet end tokenSaleChallenge
