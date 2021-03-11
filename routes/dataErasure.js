@@ -2,7 +2,6 @@
  * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
-
 const express = require('express')
 const router = express.Router()
 const insecurity = require('../lib/insecurity')
@@ -19,7 +18,7 @@ router.get('/', async (req, res, next) => {
   }).then(answer => {
     if (answer) {
       models.SecurityQuestion.findByPk(answer.SecurityQuestionId).then(question => {
-        res.render('dataErasure', { Email: email, securityQuestion: question.dataValues.question })
+        res.render('dataErasure', { userEmail: email, securityQuestion: question.dataValues.question })
       }).catch(error => {
         next(error)
       })
@@ -33,16 +32,16 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
-  const Email = req.body.profile
-  if (loggedInUser && loggedInUser.data.email === Email.email) {
+  if (loggedInUser) {
     const userData = {
       UserId: loggedInUser.data.id,
       deletionRequested: true
     }
-    models.PrivacyRequest.create(userData).catch((err) => {
+    models.PrivacyRequest.create(userData).then(() => {
+      res.render('dataErasure', req.body.profile)
+    }).catch((err) => {
       next(err)
     })
-    res.render('dataErasure', Email)
   } else {
     next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
   }
