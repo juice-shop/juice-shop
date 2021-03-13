@@ -23,7 +23,7 @@ application:
   social:
     twitterUrl: 'https://twitter.com/owasp_juiceshop'
     facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
-    slackUrl: 'http://owaspslack.com'
+    slackUrl: 'https://owasp.org/slack/invite'
     redditUrl: 'https://www.reddit.com/r/owasp_juiceshop'
     pressKitUrl: 'https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop'
     questionnaireUrl: ~
