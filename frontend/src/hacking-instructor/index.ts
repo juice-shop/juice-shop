@@ -99,6 +99,14 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   textBox.style.flexGrow = '2'
   textBox.innerHTML = snarkdown(hint.text)
 
+  const cancelButton = document.createElement('a')
+  cancelButton.id = 'cancelButton'
+  cancelButton.style.textDecoration = 'none'
+  cancelButton.innerHTML = '<br/><br/><br/>🚫'
+  cancelButton.style.fontSize = 'large'
+  cancelButton.title = 'Cancel the tutorial'
+  textBox.append(cancelButton)
+
   elem.appendChild(picture)
   elem.appendChild(textBox)
 
@@ -120,6 +128,14 @@ function loadHint (hint: ChallengeHint): HTMLElement {
 async function waitForClick (element: HTMLElement) {
   return await new Promise((resolve) => {
     element.addEventListener('click', resolve)
+  })
+}
+
+async function waitForCancel (element: HTMLElement) {
+  return await new Promise((resolve) => {
+    element.addEventListener('click', () => {
+      resolve('break')
+    })
   })
 }
 
@@ -145,8 +161,13 @@ export async function startHackingInstructorFor (challengeName: String): Promise
     if (!hint.unskippable) {
       continueConditions.push(waitForClick(element))
     }
+    continueConditions.push(waitForCancel(document.getElementById('cancelButton')))
 
-    await Promise.race(continueConditions)
+    const command = await Promise.race(continueConditions)
+    if (command === 'break') {
+      element.remove()
+      break
+    }
 
     element.remove()
   }
