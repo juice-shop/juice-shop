@@ -262,7 +262,8 @@ export function HttpLoaderFactory (http: HttpClient) {
         lineNumbersLoader: async () => await import('highlightjs-line-numbers.js'),
         languages: {
           typescript: async () => await import('highlight.js/lib/languages/typescript'),
-          javascript: async () => await import('highlight.js/lib/languages/javascript')
+          javascript: async () => await import('highlight.js/lib/languages/javascript'),
+          yaml: async () => await import('highlight.js/lib/languages/yaml')
         }
       }
     },
