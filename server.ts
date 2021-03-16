@@ -264,14 +264,16 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   })
   app.use(morgan('combined', { stream: accessLogStream }))
 
+  // vuln-code-snippet start resetPasswordMortyChallenge
   /* Rate limiting */
   app.enable('trust proxy')
   app.use('/rest/user/reset-password', new RateLimit({
     windowMs: 5 * 60 * 1000,
     max: 100,
-    keyGenerator ({ headers, ip }) { return headers['X-Forwarded-For'] || ip },
+    keyGenerator ({ headers, ip }) { return headers['X-Forwarded-For'] || ip }, // vuln-code-snippet vuln-line resetPasswordMortyChallenge
     delayMs: 0
   }))
+  // vuln-code-snippet end resetPasswordMortyChallenge
 
   // vuln-code-snippet start changeProductChallenge
   /** Authorization **/
@@ -383,6 +385,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Verifying DB related challenges can be postponed until the next request for challenges is coming via finale */
   app.use(verify.databaseRelatedChallenges())
 
+  // vuln-code-snippet start registerAdminChallenge
   /* Generated API endpoints */
   finale.initialize({ app, sequelize: models.sequelize })
 
@@ -411,13 +414,14 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
     // create a wallet when a new user is registered using API
     if (name === 'User') {
-      resource.create.send.before((req, res, context) => {
+      resource.create.send.before((req, res, context) => { // vuln-code-snippet vuln-line registerAdminChallenge
         models.Wallet.create({ UserId: context.instance.id }).catch((err) => {
           console.log(err)
         })
         return context.continue
       })
     }
+    // vuln-code-snippet end registerAdminChallenge
 
     // translate challenge descriptions and hints on-the-fly
     if (name === 'Challenge') {
@@ -548,8 +552,8 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.post('/profile', updateUserProfile())
 
   /* Route for vulnerable code snippets */
-  app.get('/snippet', vulnCodeSnippet.challengesWithCodeSnippet())
-  app.get('/snippet/:challenge', vulnCodeSnippet.serveCodeSnippet())
+  app.get('/snippets', vulnCodeSnippet.challengesWithCodeSnippet())
+  app.get('/snippets/:challenge', vulnCodeSnippet.serveCodeSnippet())
 
   app.use(angular())
 

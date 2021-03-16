@@ -121,6 +121,7 @@ jobs:
         run: npm install
       - name: "Execute end-to-end tests"
         uses: nick-invision/retry@v2
+        continue-on-error: true
         with:
           timeout_minutes: 20
           max_attempts: 2
@@ -142,6 +143,7 @@ jobs:
         run: npm install
       - name: "Execute end-to-end tests with application hosted in subfolder"
         uses: nick-invision/retry@v2
+        continue-on-error: true
         with:
           timeout_minutes: 20
           max_attempts: 2

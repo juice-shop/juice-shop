@@ -13,7 +13,7 @@ import { catchError, map } from 'rxjs/operators'
 })
 export class CodeSnippetService {
   private readonly hostServer = environment.hostServer
-  private readonly host = this.hostServer + '/snippet'
+  private readonly host = this.hostServer + '/snippets'
 
   constructor (private readonly http: HttpClient) { }
 
