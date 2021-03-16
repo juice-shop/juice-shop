@@ -36,9 +36,9 @@ function handleZipFileUpload ({ file }, res, next) {
       const filename = file.originalname.toLowerCase()
       const tempFile = path.join(os.tmpdir(), filename)
       fs.open(tempFile, 'w', function (err, fd) {
-        if (err) { next(err) }
+        if (err != null) { next(err) }
         fs.write(fd, buffer, 0, buffer.length, null, function (err) {
-          if (err) { next(err) }
+          if (err != null) { next(err) }
           fs.close(fd, function () {
             fs.createReadStream(tempFile)
               .pipe(unzipper.Parse()) // vuln-code-snippet vuln-line fileWriteChallenge

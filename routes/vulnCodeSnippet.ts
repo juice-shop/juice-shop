@@ -24,7 +24,7 @@ exports.serveCodeSnippet = () => async (req, res, next) => {
     if (matches[0]) { // TODO Currently only a single source file is supported
       const source = fs.readFileSync(path.resolve(matches[0].path), 'utf8')
       let snippet = source.match(`[/#]{0,2} vuln-code-snippet start.*${challenge.key}([^])*vuln-code-snippet end.*${challenge.key}`)
-      if (snippet) {
+      if (snippet != null) {
         snippet = snippet[0] // TODO Currently only a single code snippet is supported
         snippet = snippet.replace(/[/#]{0,2} vuln-code-snippet start.*[\r\n]{0,2}/g, '')
         snippet = snippet.replace(/[/#]{0,2} vuln-code-snippet end.*/g, '')
@@ -37,7 +37,7 @@ exports.serveCodeSnippet = () => async (req, res, next) => {
         if (lines.length === 1) lines = snippet.split('\r')
         const vulnLines = []
         for (let i = 0; i < lines.length; i++) {
-          if (new RegExp(`vuln-code-snippet vuln-line.*${challenge.key}`).exec(lines[i])) {
+          if (new RegExp(`vuln-code-snippet vuln-line.*${challenge.key}`).exec(lines[i]) != null) {
             vulnLines.push(i + 1)
           }
         }

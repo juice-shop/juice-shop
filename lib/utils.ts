@@ -31,7 +31,7 @@ if (process.env.CTF_KEY !== undefined && process.env.CTF_KEY !== '') {
   ctfKey = process.env.CTF_KEY
 } else {
   fs.readFile('ctf.key', 'utf8', (err, data) => {
-    if (err) {
+    if (err != null) {
       throw err
     }
     ctfKey = data

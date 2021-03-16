@@ -15,7 +15,7 @@ const themes = require('../views/themes/themes').themes
 module.exports = function getUserProfile () {
   return (req, res, next) => {
     fs.readFile('views/userProfile.pug', function (err, buf) {
-      if (err) throw err
+      if (err != null) throw err
       const loggedInUser = security.authenticatedUsers.get(req.cookies.token)
       if (loggedInUser) {
         models.User.findByPk(loggedInUser.data.id).then(user => {
