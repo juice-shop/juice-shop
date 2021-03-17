@@ -24,9 +24,9 @@ module.exports = function fileUpload () {
         const loggedInUser = security.authenticatedUsers.get(req.cookies.token)
         if (loggedInUser) {
           fs.open(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.${uploadedFileType.ext}`, 'w', function (err, fd) {
-            if (err) logger.warn('Error opening file: ' + err.message)
+            if (err != null) logger.warn('Error opening file: ' + err.message)
             fs.write(fd, buffer, 0, buffer.length, null, function (err) {
-              if (err) logger.warn('Error writing file: ' + err.message)
+              if (err != null) logger.warn('Error writing file: ' + err.message)
               fs.close(fd, function () { })
             })
           })

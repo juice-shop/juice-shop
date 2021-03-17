@@ -10,7 +10,7 @@ const logger = require('../logger')
 
 const cleanupFtpFolder = () => {
   glob(path.resolve('ftp/*.pdf'), (err, files) => {
-    if (err) {
+    if (err != null) {
       logger.warn('Error listing PDF files in /ftp folder: ' + err.message)
     } else {
       files.forEach(filename => {

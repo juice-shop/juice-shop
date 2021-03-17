@@ -45,7 +45,7 @@ exports.getVideo = () => {
 exports.promotionVideo = () => {
   return (req, res) => {
     fs.readFile('views/promotionVideo.pug', function (err, buf) {
-      if (err) throw err
+      if (err != null) throw err
       let template = buf.toString()
       const subs = getSubsFromFile()
 
