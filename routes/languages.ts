@@ -13,24 +13,24 @@ module.exports = function getLanguageList () { // TODO Refactor and extend to al
     let enContent
 
     fs.readFile('frontend/dist/frontend/assets/i18n/en.json', 'utf-8', (err, content) => {
-      if (err) {
+      if (err != null) {
         next(new Error(`Unable to retrieve en.json language file: ${err.message}`))
       }
       enContent = JSON.parse(content)
       fs.readdir('frontend/dist/frontend/assets/i18n/', (err, languageFiles) => {
-        if (err) {
+        if (err != null) {
           next(new Error(`Unable to read i18n directory: ${err.message}`))
         }
         languageFiles.forEach((fileName) => {
           fs.readFile('frontend/dist/frontend/assets/i18n/' + fileName, 'utf-8', async (err, content) => {
-            if (err) {
+            if (err != null) {
               next(new Error(`Unable to retrieve ${fileName} language file: ${err.message}`))
             }
             const fileContent = JSON.parse(content)
             const percentage = await calcPercentage(fileContent, enContent)
             const key = fileName.substring(0, fileName.indexOf('.'))
             let locale = locales.find((l) => l.key === key)
-            if (!locale) locale = ''
+            if (locale == null) locale = ''
             const lang = {
               key: key,
               lang: fileContent.LANGUAGE,
