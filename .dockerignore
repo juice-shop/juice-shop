@@ -6,7 +6,6 @@ test/
 build/reports
 dist/
 vagrant/
-docs/
 logs/
 Dockerfile
 .npmrc
