@@ -35,6 +35,7 @@ module.exports = function (grunt) {
             src: [
               'LICENSE',
               '*.md',
+              'package.json',
               'ctf.key',
               'swagger.yml',
               'config.schema.yml',
