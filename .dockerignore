@@ -3,7 +3,7 @@ monitoring/
 node_modules/
 screenshots/
 test/
-build/reports
+build/reports/
 dist/
 vagrant/
 logs/
