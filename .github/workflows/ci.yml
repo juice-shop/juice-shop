@@ -178,9 +178,9 @@ jobs:
         run: |
           cd dist
           tar -zxf juice-shop-*.tgz
-          cd juice-shop_*
       - name: "Execute smoke test"
         run: |
+          cd dist/juice-shop_*
           npm start &
           chmod +x test/smoke/smoke-test.sh
           test/smoke/smoke-test.sh http://localhost:3000
