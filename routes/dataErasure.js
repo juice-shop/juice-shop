@@ -18,7 +18,7 @@ router.get('/', async (req, res, next) => {
   }).then(answer => {
     if (answer) {
       models.SecurityQuestion.findByPk(answer.SecurityQuestionId).then(question => {
-        res.render('dataErasure', { userEmail: email, securityQuestion: question.dataValues.question })
+        res.render('dataErasureForm', { userEmail: email, securityQuestion: question.dataValues.question })
       }).catch(error => {
         next(error)
       })
@@ -38,7 +38,8 @@ router.post('/', (req, res, next) => {
       deletionRequested: true
     }
     models.PrivacyRequest.create(userData).then(() => {
-      res.render('dataErasure', req.body.profile)
+      console.log(req.body.profile)
+      res.render('dataErasureResult', req.body.profile)
     }).catch((err) => {
       next(err)
     })

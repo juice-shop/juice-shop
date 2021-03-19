@@ -184,6 +184,8 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Sets view engine to hbs */
   app.set('view engine', 'hbs')
 
+  app.use(express.static(path.join(__dirname, '/public')))
+
   /* Checks for challenges solved by abusing SSTi and SSRF bugs */
   app.use('/solve/challenges/server-side', verify.serverSideChallenges())
 
