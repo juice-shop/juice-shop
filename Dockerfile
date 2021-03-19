@@ -1,6 +1,7 @@
 FROM node:12 as installer
 COPY . /juice-shop
 WORKDIR /juice-shop
+RUN npm i -g typescript ts-node
 RUN npm install --production --unsafe-perm
 RUN npm dedupe
 RUN rm -rf frontend/node_modules
@@ -26,8 +27,8 @@ RUN addgroup --system --gid 1001 juicer && \
 COPY --from=installer --chown=juicer /juice-shop .
 RUN mkdir logs && \
     chown -R juicer logs && \
-    chgrp -R 0 ftp/ frontend/dist/ logs/ data/ i18n/ build/ && \
-    chmod -R g=u ftp/ frontend/dist/ logs/ data/ i18n/ build/
+    chgrp -R 0 ftp/ frontend/dist/ logs/ data/ i18n/ && \
+    chmod -R g=u ftp/ frontend/dist/ logs/ data/ i18n/
 USER 1001
 EXPOSE 3000
 CMD ["npm", "start"]
