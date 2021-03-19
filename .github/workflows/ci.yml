@@ -182,6 +182,7 @@ jobs:
         run: |
           cd dist/juice-shop_*
           npm start &
+          cd ../..
           chmod +x test/smoke/smoke-test.sh
           test/smoke/smoke-test.sh http://localhost:3000
   docker-test:
