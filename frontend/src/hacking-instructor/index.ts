@@ -105,12 +105,12 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   cancelButton.style.backgroundColor = 'transparent'
   cancelButton.style.border = 'none'
   cancelButton.style.color = 'white'
-  cancelButton.innerHTML = '<div style="font-size:"large";">&times;</div>'
+  cancelButton.innerHTML = '<div style;">&times;</div>'
   cancelButton.style.fontSize = 'large'
   cancelButton.title = 'Cancel the tutorial'
   cancelButton.style.position = 'relative'
   cancelButton.style.zIndex = '20001'
-  cancelButton.style.bottom = '-20px'
+  cancelButton.style.bottom = '-22px'
 
   elem.appendChild(picture)
   elem.appendChild(textBox)
