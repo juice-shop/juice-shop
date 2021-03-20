@@ -23,9 +23,9 @@ exports.serveCodeSnippet = () => async (req, res, next) => {
       .find(new RegExp(`vuln-code-snippet start.*${challenge.key}`))
     if (matches[0]) { // TODO Currently only a single source file is supported
       const source = fs.readFileSync(path.resolve(matches[0].path), 'utf8')
-      let snippet = source.match(`[/#]{0,2} vuln-code-snippet start.*${challenge.key}([^])*vuln-code-snippet end.*${challenge.key}`)
-      if (snippet != null) {
-        snippet = snippet[0] // TODO Currently only a single code snippet is supported
+      const snippets = source.match(`[/#]{0,2} vuln-code-snippet start.*${challenge.key}([^])*vuln-code-snippet end.*${challenge.key}`)
+      if (snippets != null) {
+        let snippet = snippets[0] // TODO Currently only a single code snippet is supported
         snippet = snippet.replace(/[/#]{0,2} vuln-code-snippet start.*[\r\n]{0,2}/g, '')
         snippet = snippet.replace(/[/#]{0,2} vuln-code-snippet end.*/g, '')
         snippet = snippet.replace(/.*[/#]{0,2} vuln-code-snippet hide-line[\r\n]{0,2}/g, '')
