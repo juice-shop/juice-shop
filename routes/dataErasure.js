@@ -38,7 +38,6 @@ router.post('/', (req, res, next) => {
       deletionRequested: true
     }
     models.PrivacyRequest.create(userData).then(() => {
-      console.log(req.body.profile)
       res.render('dataErasureResult', req.body.profile)
     }).catch((err) => {
       next(err)
