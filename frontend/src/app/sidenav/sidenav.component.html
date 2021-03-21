@@ -132,7 +132,7 @@
         </mat-icon>
         <span class="menu-text truncate" translate>TITLE_REQUEST_DATA_EXPORT</span>
       </a>
-      <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/erasure-request"
+      <a mat-list-item *ngIf="isLoggedIn()" (click) = "goToDataErasurePage()"
          (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to data subject page">
         <mat-icon>
           delete_forever

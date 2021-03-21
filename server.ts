@@ -84,6 +84,7 @@ const videoHandler = require('./routes/videoHandler')
 const twoFactorAuth = require('./routes/2fa')
 const languageList = require('./routes/languages')
 const config = require('config')
+const dataErasure = require('./routes/dataErasure')
 const imageCaptcha = require('./routes/imageCaptcha')
 const dataExport = require('./routes/dataExport')
 const address = require('./routes/address')
@@ -122,6 +123,13 @@ collectDurationPromise('validateConfig', require('./lib/startup/validateConfig')
 async function restoreOverwrittenFilesWithOriginals () {
   await collectDurationPromise('restoreOverwrittenFilesWithOriginals', require('./lib/startup/restoreOverwrittenFilesWithOriginals'))()
 }
+
+/* Sets view engine to hbs */
+app.set('view engine', 'hbs')
+
+//app.use(express.static(path.join(__dirname, "public")))
+app.use(express.static('public'))
+
 // Function called first to ensure that all the i18n files are reloaded successfully before other linked operations.
 restoreOverwrittenFilesWithOriginals().then(() => {
   /* Locals */
@@ -539,6 +547,9 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', easterEgg())
   app.get('/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us', premiumReward())
   app.get('/we/may/also/instruct/you/to/refuse/all/reasonably/necessary/responsibility', privacyPolicyProof())
+
+  /* Route for dataerasure page */
+  app.use('/dataerasure', dataErasure)
 
   /* Route for redirects */
   app.get('/redirect', redirect())
