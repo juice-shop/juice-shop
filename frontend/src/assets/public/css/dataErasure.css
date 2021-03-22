@@ -1,133 +1,135 @@
-body{
-    background-color: #303030;
+body {
+  background-color: #303030;
 }
-.main-content{
-    display: flex;
-    justify-content: center;
-    margin-bottom: 40px;
+.main-content {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
 }
 .form {
-    margin-top: 50px;
-    background-color: #424242;
-    width: 600px;
-    height: 370px;
-    border-radius: .5rem;
-    padding: 10px;
-    box-shadow: 5px 10px 18px #202020;
+  margin-top: 50px;
+  background-color: #424242;
+  width: 600px;
+  height: 370px;
+  border-radius: 0.5rem;
+  padding: 10px;
+  box-shadow: 5px 10px 18px #202020;
 }
 form {
-    margin-top: 40px;
-    display: grid;
+  margin-top: 40px;
+  display: grid;
 }
-h4,p,h5 {
-    color: whitesmoke;
+h4,
+p,
+h5 {
+  color: whitesmoke;
 }
 input {
-    width:520px;
-    height: 45px;
-    border-radius: .4rem;
-    margin-left:5px;
-    background-color: #424242;
-    border:1px solid #999898;
-    margin-bottom: 20px;
-    color: whitesmoke;
+  width: 520px;
+  height: 45px;
+  border-radius: 0.4rem;
+  margin-left: 5px;
+  background-color: #424242;
+  border: 1px solid #999898;
+  margin-bottom: 20px;
+  color: whitesmoke;
 }
 input:hover {
-    cursor: text;
+  cursor: text;
 }
 button {
-    width: 200px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #546e7a;
-    color: whitesmoke;
-    border-radius: .2rem;
-    margin-left: 200px;
-    font-weight:500;
-    box-shadow: 1px 1px 1px 1px #302f2f;
-    font-size: 18px;
+  width: 200px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #546e7a;
+  color: whitesmoke;
+  border-radius: 0.2rem;
+  margin-left: 200px;
+  font-weight: 500;
+  box-shadow: 1px 1px 1px 1px #302f2f;
+  font-size: 18px;
 }
 #ansBlock {
-    display: none;
+  display: none;
 }
 input::placeholder {
-    color: #999898;
-    font-size: 13px;
+  color: #999898;
+  font-size: 13px;
 }
 .header {
-    height: auto;
-    color: whitesmoke;
-    font-size: 25px;
-    box-shadow: 5px 10px 18px #201f1f;
-    background-color: #546e7a;;
+  height: auto;
+  color: whitesmoke;
+  font-size: 25px;
+  box-shadow: 5px 10px 18px #201f1f;
+  background-color: #546e7a;
 }
 .header-text {
-    color: whitesmoke;
-    font-size: 20px;
-    padding-top: 10px;
-    margin-top:10px;
-    font-weight: 500;
+  color: whitesmoke;
+  font-size: 20px;
+  padding-top: 10px;
+  margin-top: 10px;
+  font-weight: 500;
 }
-.cross{
-    font-size:1.4em;
-    padding-right: 5px;
+.cross {
+  font-size: 1.4em;
+  padding-right: 5px;
 }
 a {
-    color: whitesmoke;
-    text-decoration: none;
-    padding-top: 10px;
+  color: whitesmoke;
+  text-decoration: none;
+  padding-top: 10px;
 }
 img {
-    width: 50px;
-    height: 60px;
+  width: 50px;
+  height: 60px;
 }
 label {
-    font-size: 10px;
-    height: 20px;
-    width: 500px !important;
+  font-size: 10px;
+  height: 20px;
+  width: 500px !important;
 }
 .message {
-    display: flex;
-    justify-content: center;
-    padding-top: 60px;
-    font-size: 19px;
-    width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 60px;
+  font-size: 19px;
+  width: 100%;
 }
 .inputLable {
-    height: 20px;
-    width: 500px !important;
+  height: 20px;
+  width: 500px !important;
 }
 .home-page {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 img {
-    padding-top: 5px;
-    padding-left: 50px;
+  padding-top: 5px;
+  padding-left: 50px;
 }
 .back {
-    color: whitesmoke;
-    position: absolute;
-    font-size: 15px;
-    top: 8px;
-} 
+  color: whitesmoke;
+  position: absolute;
+  font-size: 15px;
+  top: 8px;
+}
 label {
-    color:whitesmoke;
-    font-size:15px;
+  color: whitesmoke;
+  font-size: 15px;
 }
 
 #email {
-    margin-left: 19px;
+  margin-left: 19px;
 }
 #ans {
-    margin-left: 6px;
+  margin-left: 6px;
 }
 i {
-    color: whitesmoke;
-    margin-left: 20px;
-    margin-right: 5px;
+  color: whitesmoke;
+  margin-left: 20px;
+  margin-right: 5px;
 }
 .anchor {
-    font-size: 15px;
+  font-size: 15px;
 }
