@@ -12,6 +12,10 @@ const router = express.Router()
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 router.get('/', async (req, res, next): Promise<void> => {
   const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
+  if (!loggedInUser) {
+    next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+    return
+  }
   const email = loggedInUser.data.email
 
   try {
