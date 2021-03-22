@@ -6,10 +6,14 @@
 import frisby = require('frisby')
 
 const jsonHeader = { 'content-type': 'application/json' }
+const BASE_URL = 'http://localhost:3000'
 const REST_URL = 'http://localhost:3000/rest'
 
-describe('/rest/user/erasure-request', () => {
+describe('/dataerasure', () => {
   it('Erasure request does not actually delete the user', () => {
+    const form = frisby.formData()
+    form.append('email', 'bjoern.kimminich@gmail.com')
+
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
@@ -19,10 +23,12 @@ describe('/rest/user/erasure-request', () => {
     })
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
-        return frisby.post(REST_URL + '/user/erasure-request', {
-          headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token }
+        return frisby.post(BASE_URL + '/dataerasure/', {
+          headers: { Cookie: 'token=' + jsonLogin.authentication.token },
+          body: form
         })
-          .expect('status', 202)
+          .expect('status', 200)
+          .expect('header', 'Content-Type', 'text/html; charset=utf-8')
           .then(() => {
             return frisby.post(REST_URL + '/user/login', {
               headers: jsonHeader,

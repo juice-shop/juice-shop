@@ -32,6 +32,7 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
+  console.log("foooobar")
   if (loggedInUser) {
     const userData = {
       UserId: loggedInUser.data.id,
