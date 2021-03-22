@@ -84,7 +84,7 @@ const videoHandler = require('./routes/videoHandler')
 const twoFactorAuth = require('./routes/2fa')
 const languageList = require('./routes/languages')
 const config = require('config')
-const dataErasure = require('./routes/dataErasure')
+import dataErasure from './routes/dataErasure'
 const imageCaptcha = require('./routes/imageCaptcha')
 const dataExport = require('./routes/dataExport')
 const address = require('./routes/address')
