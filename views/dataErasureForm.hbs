@@ -17,33 +17,18 @@
         <h5>Request Data Erasure</h5>
         <form action="/dataerasure" method="POST">
             <div>
-                <label for="email" class="inputLable">Email</label>
-                <input type="email" placeholder={{userEmail}} name="email" id="email">
+                <label for="email">Confirm Email Address</label>
+                <input type="email" required placeholder={{userEmail}} name="email" id="email">
             </div>
-            <div id="ansBlock">
-                <label for="ans" class="inputLable">Answer</label>
-                <input type="text" placeholder="{{securityQuestion}}" id="ans">
+            <div>
+                <label for="securityAnswer">Answer</label>
+                <input type="text" required placeholder="{{securityQuestion}}" id="securityAnswer"
+                    name="securityAnswer">
             </div>
             <button type="submit" class="deleteButton mdl-button mdl-button--raised"
-                style="background-color:#546E7A; color: #FFFFFF; margin-left:200px;"><span class="cross">&times;</span>
+                style="background-color:#546E7A; color: #FFFFFF; margin-left:200px;">
+                <span class="cross">&times;</span>
                 Delete User Data</button>
         </form>
     </div>
 </div>
-<script type="text/javascript">
-    let email = document.getElementById("email");
-    let ans = document.getElementById("ans")
-    let ansBlock = document.getElementById("ansBlock")
-    let deleteButton = document.querySelector("button");
-    deleteButton.disabled = true;
-    email.addEventListener("change", stateHandle);
-    function stateHandle() {
-        ansBlock.style = "display:block;"
-        ans.addEventListener("change", stateHandle);
-        if (email.value === "" || ans.value === "") {
-            deleteButton.disabled = true;
-        } else {
-            deleteButton.disabled = false;
-        }
-    }
-</script>

@@ -25,8 +25,6 @@ h5 {
   color: whitesmoke;
 }
 input {
-  width: 520px;
-  height: 45px;
   border-radius: 0.4rem;
   margin-left: 5px;
   background-color: #424242;
@@ -50,9 +48,6 @@ button {
   font-weight: 500;
   box-shadow: 1px 1px 1px 1px #302f2f;
   font-size: 18px;
-}
-#ansBlock {
-  display: none;
 }
 input::placeholder {
   color: #999898;
@@ -87,8 +82,6 @@ img {
 }
 label {
   font-size: 10px;
-  height: 20px;
-  width: 500px !important;
 }
 .message {
   display: flex;
@@ -119,12 +112,6 @@ label {
   font-size: 15px;
 }
 
-#email {
-  margin-left: 19px;
-}
-#ans {
-  margin-left: 6px;
-}
 i {
   color: whitesmoke;
   margin-left: 20px;
