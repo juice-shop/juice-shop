@@ -1,4 +1,3 @@
-import { token1 } from '../frontend/src/app/app.routing';
 /*
  * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
@@ -20,7 +19,6 @@ router.get('/', (req, res, next) => {
      if (answer) {
        models.SecurityQuestion.findByPk(answer.SecurityQuestionId).then(question => {
         res.render('dataErasureForm', { userEmail: email, securityQuestion: question.dataValues.question })
-        //res.render('dataErasureForm')
        }).catch(error => {
          next(error)
        })
