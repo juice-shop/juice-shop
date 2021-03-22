@@ -1,0 +1,30 @@
+<link rel="stylesheet" type="text/css" href="/stylesheets/styles.css">
+<link rel='icon' href="./assets/public/images/JuiceShop_Logo_50px.png">
+<link rel="stylesheet" href='https://code.getmdl.io/1.3.0/material.min.css'>
+<link rel="stylesheet" href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700', type='text/css'>
+<div class="header">
+    <a href="./#/"><i class='material-icons'>arrow_back</i></a>
+    <a href="./#/" class="back"><span>Back</span></a>
+    <a href="./#/" class=""><img src="./assets/public/images/JuiceShop_Logo.png" alt=""></a>
+    <a href="./#/"><span class="header-text">OWASP Juice Shop</span></a>
+</div>
+<div class="main-content">
+	<div class="form">
+		<p class="message">Sorry to see you leave! Your erasure request will be processed shortly.</p>
+        <button class="home-page mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="background-color:#546E7A; color: #FFFFFF; margin-left:200px;">Go To HomePage</button>
+    </div>			
+</div>
+<script>
+    let button = document.querySelector('button')
+    localStorage.removeItem('token')
+    sessionStorage.removeItem('bid')
+    // delete token cookie
+    var href = window.location.href
+    href = href.replace("/dataerasure", "/#/");
+    Cookies.remove("token");
+    button.addEventListener('click', (event) => {
+        window.location.replace(href)
+    })
+</script>
