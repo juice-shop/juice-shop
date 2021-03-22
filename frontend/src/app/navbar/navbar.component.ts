@@ -196,6 +196,10 @@ export class NavbarComponent implements OnInit {
     window.location.replace(environment.hostServer + '/profile')
   }
 
+  goToDataErasurePage () {
+    window.location.replace(environment.hostServer + '/dataerasure')
+  }
+
   onToggleSidenav = () => {
     this.sidenavToggle.emit()
   }

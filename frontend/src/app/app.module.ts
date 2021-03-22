@@ -30,7 +30,6 @@ import { SearchResultComponent } from './search-result/search-result.component'
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'
 import { RegisterComponent } from './register/register.component'
 import { ContactComponent } from './contact/contact.component'
-import { ErasureRequestComponent } from './erasure-request/erasure-request.component'
 import { ChangePasswordComponent } from './change-password/change-password.component'
 import { ProductDetailsComponent } from './product-details/product-details.component'
 import { ComplaintComponent } from './complaint/complaint.component'
@@ -152,7 +151,6 @@ export function HttpLoaderFactory (http: HttpClient) {
     ForgotPasswordComponent,
     RegisterComponent,
     ContactComponent,
-    ErasureRequestComponent,
     ChangePasswordComponent,
     ProductDetailsComponent,
     ComplaintComponent,
