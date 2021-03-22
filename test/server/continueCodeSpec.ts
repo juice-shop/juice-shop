@@ -19,7 +19,7 @@ describe('continueCode', () => {
   })
 
   it('should be undefined when no challenges exist', () => {
-    Object.keys(challenges).forEach(key => { delete challenges[key] })
+    Object.keys(challenges).forEach(key => { delete challenges[key] }) // eslint-disable-line @typescript-eslint/no-dynamic-delete
 
     retrieveCurrentContinueCode()(this.req, this.res)
     expect(this.res.json).to.have.been.calledWith({ continueCode: undefined })
