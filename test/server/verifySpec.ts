@@ -157,7 +157,7 @@ describe('verify', () => {
     describe('is solved when an error occurs on a this.response with error', () => {
       const httpStatus = [402, 403, 404, 500]
       httpStatus.forEach(statusCode => {
-        it(statusCode + ' status code', () => {
+        it(`${statusCode} status code`, () => {
           this.res.statusCode = statusCode
           this.err = new Error()
 
@@ -180,7 +180,7 @@ describe('verify', () => {
     describe('is not solved when no error occurs on a this.response with error', () => {
       const httpStatus = [401, 402, 404, 500]
       httpStatus.forEach(statusCode => {
-        it(statusCode + ' status code', () => {
+        it(`${statusCode} status code`, () => {
           this.res.statusCode = statusCode
           this.err = undefined
 
@@ -275,7 +275,7 @@ describe('verify', () => {
 
     it('"jwtUnsignedChallenge" is not solved via regularly signed token even with email jwtn3d@juice-sh.op in the payload', () => {
       const token = security.authorize({ data: { email: 'jwtn3d@juice-sh.op' } })
-      this.req.headers = { authorization: 'Bearer ' + token }
+      this.req.headers = { authorization: `Bearer ${token}` }
 
       verify.jwtChallenges()(this.req, this.res, this.next)
 
@@ -309,7 +309,7 @@ describe('verify', () => {
 
       it('"jwtForgedChallenge" is not solved when token regularly signed with private RSA-key has email rsa_lord@juice-sh.op in the payload', () => {
         const token = security.authorize({ data: { email: 'rsa_lord@juice-sh.op' } })
-        this.req.headers = { authorization: 'Bearer ' + token }
+        this.req.headers = { authorization: `Bearer ${token}` }
 
         verify.jwtChallenges()(this.req, this.res, this.next)
 

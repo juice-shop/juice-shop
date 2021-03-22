@@ -23,7 +23,7 @@ describe('fileUpload', () => {
   describe('should not solve "uploadSizeChallenge" when file size is', () => {
     const sizes = [0, 1, 100, 1000, 10000, 99999, 100000]
     sizes.forEach(size => {
-      it(size + ' bytes', () => {
+      it(`${size} bytes`, () => {
         challenges.uploadSizeChallenge = { solved: false, save: this.save }
         this.req.file.size = size
 
