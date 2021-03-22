@@ -42,6 +42,7 @@ router.post('/', async (req, res, next): Promise<void> => {
       UserId: loggedInUser.data.id,
       deletionRequested: true
     })
+    res.clearCookie('token')
     res.render('dataErasureResult', req.body.profile)
   } catch (error) {
     next(error)
