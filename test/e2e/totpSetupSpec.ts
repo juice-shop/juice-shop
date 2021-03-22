@@ -29,23 +29,23 @@ describe('/#/basket', () => {
 
   describe('as wurstbrot', () => {
     protractor.beforeEach.login({
-      email: 'wurstbrot@' + config.get('application.domain'),
+      email: `wurstbrot@${config.get('application.domain')}`,
       password: 'EinBelegtesBrotMitSchinkenSCHINKEN!',
       totpSecret: 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH'
     })
 
     it('should show an success message for 2fa enabled accounts', () => {
-      browser.get(protractor.basePath + '/#/privacy-security/two-factor-authentication')
+      browser.get(`${protractor.basePath}/#/privacy-security/two-factor-authentication`)
 
       browser.wait(EC.visibilityOf(successMessage), 5000, '2FA success message didnt show up for an 2fa enabled account in time')
     })
   })
 
   describe('as amy', () => {
-    protractor.beforeEach.login({ email: 'amy@' + config.get('application.domain'), password: 'K1f.....................' })
+    protractor.beforeEach.login({ email: `amy@${config.get('application.domain')}`, password: 'K1f.....................' })
 
     it('should be possible to setup 2fa for a account without 2fa enabled', async () => {
-      browser.get(protractor.basePath + '/#/privacy-security/two-factor-authentication')
+      browser.get(`${protractor.basePath}/#/privacy-security/two-factor-authentication`)
 
       browser.wait(EC.visibilityOf(setupInstructions), 5000, '2FA setup instructions should show up for users without 2fa enabled')
 
