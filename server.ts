@@ -2,6 +2,7 @@
  * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
+import dataErasure from './routes/dataErasure'
 const startTime = Date.now()
 const path = require('path')
 import fs = require('fs')
@@ -84,7 +85,6 @@ const videoHandler = require('./routes/videoHandler')
 const twoFactorAuth = require('./routes/2fa')
 const languageList = require('./routes/languages')
 const config = require('config')
-import dataErasure from './routes/dataErasure'
 const imageCaptcha = require('./routes/imageCaptcha')
 const dataExport = require('./routes/dataExport')
 const address = require('./routes/address')
