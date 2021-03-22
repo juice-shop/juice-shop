@@ -2,7 +2,7 @@
  * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
-import express from 'express'
+import express, { Request, Response, NextFunction } from 'express'
 import insecurity from '../lib/insecurity'
 
 const models = require('../models/index')
@@ -33,8 +33,13 @@ router.get('/', async (req, res, next): Promise<void> => {
   }
 })
 
+interface DataErasureRequestParams {
+  email: string
+  securityAnswer: string
+}
+
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
-router.post('/', async (req, res, next): Promise<void> => {
+router.post('/', async (req: Request<{}, {}, DataErasureRequestParams>, res: Response, next: NextFunction): Promise<void> => {
   const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
   if (!loggedInUser) {
     next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
@@ -47,7 +52,9 @@ router.post('/', async (req, res, next): Promise<void> => {
       deletionRequested: true
     })
     res.clearCookie('token')
-    res.render('dataErasureResult', req.body.profile)
+    res.render('dataErasureResult', {
+      ...req.body
+    })
   } catch (error) {
     next(error)
   }
