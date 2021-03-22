@@ -9,25 +9,25 @@ const models = require('../models/index')
 
 router.get('/', (req, res, next) => {
   const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
-   const email = loggedInUser.data.email
-   models.SecurityAnswer.findOne({
-     include: [{
-       model: models.User,
-       where: { email }
-     }]
-   }).then(answer => {
-     if (answer) {
-       models.SecurityQuestion.findByPk(answer.SecurityQuestionId).then(question => {
+  const email = loggedInUser.data.email
+  models.SecurityAnswer.findOne({
+    include: [{
+      model: models.User,
+      where: { email }
+    }]
+  }).then(answer => {
+    if (answer) {
+      models.SecurityQuestion.findByPk(answer.SecurityQuestionId).then(question => {
         res.render('dataErasureForm', { userEmail: email, securityQuestion: question.dataValues.question })
-       }).catch(error => {
-         next(error)
-       })
-     } else {
-       res.json({})
-     }
-   }).catch(error => {
-     next(error)
-   })
+      }).catch(error => {
+        next(error)
+      })
+    } else {
+      res.json({})
+    }
+  }).catch(error => {
+    next(error)
+  })
 })
 
 router.post('/', (req, res, next) => {
