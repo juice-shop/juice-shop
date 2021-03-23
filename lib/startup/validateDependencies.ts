@@ -4,13 +4,14 @@
  */
 
 try {
-  var dependencyChecker = require('check-dependencies')
+  require('check-dependencies')
 } catch (err) {
   console.error('Please run "npm install" before starting the application!')
   process.exit(1)
 }
 const logger = require('../logger')
 import colors = require('colors/safe')
+const dependencyChecker = require('check-dependencies')
 
 const validateDependencies = async ({ packageDir = '.', exitOnFailure = true } = {}) => {
   let success = true
