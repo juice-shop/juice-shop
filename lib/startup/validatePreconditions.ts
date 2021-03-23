@@ -22,6 +22,9 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
   success = checkIfRunningOnSupportedCPU(process.arch) && success
 
   const asyncConditions = (await Promise.all([
+    // Transpiled backend code
+    checkIfRequiredFileExists('build/server.js'),
+    // Angular frontend scripts
     checkIfRequiredFileExists('frontend/dist/frontend/index.html'),
     checkIfRequiredFileExists('frontend/dist/frontend/styles.css'),
     checkIfRequiredFileExists('frontend/dist/frontend/main-es2018.js'),
