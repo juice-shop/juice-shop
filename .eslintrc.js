@@ -37,20 +37,19 @@ module.exports = {
       files: ['**/*.ts'],
       parser: '@typescript-eslint/parser',
       rules: {
-        '@typescript-eslint/explicit-function-return-type': 'warn',
-        '@typescript-eslint/no-dynamic-delete': 'warn',
+        'no-void': 'off', // conflicting with recommendation from @typescript-eslint/no-floating-promises
         '@typescript-eslint/no-floating-promises': 'warn',
-        '@typescript-eslint/no-misused-promises': 'warn',
-        '@typescript-eslint/no-this-alias': 'warn',
-        '@typescript-eslint/no-var-requires': 'warn',
-        '@typescript-eslint/prefer-includes': 'warn',
-        '@typescript-eslint/prefer-nullish-coalescing': 'warn',
-        '@typescript-eslint/prefer-optional-chain': 'warn',
-        '@typescript-eslint/promise-function-async': 'warn',
-        '@typescript-eslint/restrict-template-expressions': 'warn',
-        '@typescript-eslint/restrict-plus-operands': 'warn',
-        '@typescript-eslint/return-await': 'warn',
-        '@typescript-eslint/strict-boolean-expressions': 'warn'
+        // FIXME warnings below this line need to be checked and fixed
+        '@typescript-eslint/explicit-function-return-type': 'off',
+        '@typescript-eslint/no-misused-promises': 'off',
+        '@typescript-eslint/no-this-alias': 'off',
+        '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/prefer-nullish-coalescing': 'off',
+        '@typescript-eslint/prefer-optional-chain': 'off',
+        '@typescript-eslint/promise-function-async': 'off',
+        '@typescript-eslint/restrict-template-expressions': 'off',
+        '@typescript-eslint/restrict-plus-operands': 'off',
+        '@typescript-eslint/strict-boolean-expressions': 'off'
       }
     }
   ]

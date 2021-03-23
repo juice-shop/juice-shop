@@ -119,7 +119,7 @@ describe('/ftp', () => {
   })
 
   it('GET a file whose name contains a "/" fails with a 403 error', () => {
-    frisby.fetch(URL + '/ftp/%2fetc%2fos-release%2500.md', {}, { urlEncode: false })
+    return frisby.fetch(URL + '/ftp/%2fetc%2fos-release%2500.md', {}, { urlEncode: false })
       .expect('status', 403)
       .expect('bodyContains', 'Error: File names cannot contain forward slashes!')
   })

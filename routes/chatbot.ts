@@ -38,7 +38,7 @@ async function initialize () {
   return bot.train()
 }
 
-initialize()
+void initialize()
 
 async function processQuery (user, req, res) {
   const username = user.username
