@@ -23,7 +23,7 @@ app.use('/subfolder', (req, res) => {
 })
 
 exports.start = async function (readyCallback) {
-  serverApp.start(() => {
+  void serverApp.start(() => {
     server.listen(proxyPort, () => {
       logger.info(colors.cyan(`Subfolder proxy listening on port ${proxyPort}`))
 

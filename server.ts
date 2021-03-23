@@ -115,9 +115,9 @@ const collectDurationPromise = (name, func) => {
     return res
   }
 }
-collectDurationPromise('validatePreconditions', require('./lib/startup/validatePreconditions'))()
-collectDurationPromise('cleanupFtpFolder', require('./lib/startup/cleanupFtpFolder'))()
-collectDurationPromise('validateConfig', require('./lib/startup/validateConfig'))()
+void collectDurationPromise('validatePreconditions', require('./lib/startup/validatePreconditions'))()
+void collectDurationPromise('cleanupFtpFolder', require('./lib/startup/cleanupFtpFolder'))()
+void collectDurationPromise('validateConfig', require('./lib/startup/validateConfig'))()
 
 // Reloads the i18n files in case of server restarts or starts.
 async function restoreOverwrittenFilesWithOriginals () {
@@ -635,8 +635,8 @@ export async function start (readyCallback) {
     }
   })
 
-  collectDurationPromise('customizeApplication', customizeApplication)()
-  collectDurationPromise('customizeEasterEgg', customizeEasterEgg)()
+  void collectDurationPromise('customizeApplication', customizeApplication)()
+  void collectDurationPromise('customizeEasterEgg', customizeEasterEgg)()
 }
 
 export function close (exitCode) {

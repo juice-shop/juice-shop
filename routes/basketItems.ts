@@ -52,7 +52,7 @@ module.exports.addBasketItem = function addBasketItem () {
 
 module.exports.quantityCheckBeforeBasketItemAddition = function quantityCheckBeforeBasketItemAddition () {
   return (req, res, next) => {
-    quantityCheck(req, res, next, req.body.ProductId, req.body.quantity)
+    void quantityCheck(req, res, next, req.body.ProductId, req.body.quantity)
   }
 }
 
@@ -62,7 +62,7 @@ module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBefor
       const user = security.authenticatedUsers.from(req)
       utils.solveIf(challenges.basketManipulateChallenge, () => { return user && req.body.BasketId && user.bid != req.body.BasketId }) // eslint-disable-line eqeqeq
       if (req.body.quantity) {
-        quantityCheck(req, res, next, item.ProductId, req.body.quantity)
+        void quantityCheck(req, res, next, item.ProductId, req.body.quantity)
       } else {
         next()
       }

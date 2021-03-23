@@ -110,7 +110,7 @@ describe('/encryptionkeys', () => {
   })
 
   it('GET a key file whose name contains a "/" fails with a 403 error', () => {
-    frisby.fetch(URL + '/encryptionkeys/%2fetc%2fos-release%2500.md', {}, { urlEncode: false })
+    return frisby.fetch(URL + '/encryptionkeys/%2fetc%2fos-release%2500.md', {}, { urlEncode: false })
       .expect('status', 403)
       .expect('bodyContains', 'Error: File names cannot contain forward slashes!')
   })

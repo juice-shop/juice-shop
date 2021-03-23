@@ -12,7 +12,7 @@ const API_URL = 'http://localhost:3000/api'
 
 async function login ({ email, password, totpSecret }) {
   const loginRes = await frisby
-    .post(REST_URL + '/user/login', {
+    .post(`${REST_URL}/user/login`, {
       email,
       password
     }).catch((res) => {
@@ -100,7 +100,7 @@ describe('/rest/deluxe-membership', () => {
 
   it('POST upgrade deluxe membership status for customers', async () => {
     const { token } = await login({
-      email: 'bender@' + config.get('application.domain'),
+      email: `bender@${config.get('application.domain')}`,
       password: 'OhG0dPlease1nsertLiquor!'
     })
 
@@ -123,7 +123,7 @@ describe('/rest/deluxe-membership', () => {
 
   it('POST deluxe membership status with wrong card id throws error', async () => {
     const { token } = await login({
-      email: 'jim@' + config.get('application.domain'),
+      email: `jim@${config.get('application.domain')}`,
       password: 'ncc-1701'
     })
 
