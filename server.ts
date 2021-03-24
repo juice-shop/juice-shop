@@ -615,8 +615,8 @@ export async function start (readyCallback) {
   await models.sequelize.sync({ force: true })
   await datacreator()
   datacreatorEnd()
-  const port = process.env.PORT || config.get('server.port')
-  process.env.BASE_PATH = process.env.BASE_PATH || config.get('server.basePath')
+  const port = process.env.PORT ?? config.get('server.port')
+  process.env.BASE_PATH = process.env.BASE_PATH ?? config.get('server.basePath')
 
   server.listen(port, () => {
     logger.info(colors.cyan(`Server listening on port ${colors.bold(port)}`))

@@ -34,9 +34,9 @@ const validateConfig = ({ products = config.get('products'), memories = config.g
   success = checkSpecialMemoriesHaveNoUserAssociated(memories) && success
   success = checkForIllogicalCombos() && success
   if (success) {
-    logger.info(`Configuration ${colors.bold(process.env.NODE_ENV || 'default')} validated (${colors.green('OK')})`)
+    logger.info(`Configuration ${colors.bold(process.env.NODE_ENV ?? 'default')} validated (${colors.green('OK')})`)
   } else {
-    logger.warn(`Configuration ${colors.bold(process.env.NODE_ENV || 'default')} validated (${colors.red('NOT OK')})`)
+    logger.warn(`Configuration ${colors.bold(process.env.NODE_ENV ?? 'default')} validated (${colors.red('NOT OK')})`)
     logger.warn(`Visit ${colors.yellow('https://pwning.owasp-juice.shop/part1/customization.html#yaml-configuration-file')} for the configuration schema definition.`)
     if (exitOnFailure) {
       logger.error(colors.red('Exiting due to configuration errors!'))

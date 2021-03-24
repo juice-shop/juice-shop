@@ -46,7 +46,7 @@ exports.queryResultToJson = (data, status) => {
     } else if (data.length > 0) {
       wrappedData = []
       for (let i = 0; i < data.length; i++) {
-        wrappedData.push(data[i] && data[i].dataValues ? data[i].dataValues : data[i])
+        wrappedData.push(data[i]?.dataValues ? data[i].dataValues : data[i])
       }
     } else {
       wrappedData = data
@@ -107,15 +107,14 @@ exports.solveIf = function (challenge, criteria, isRestore) {
 }
 
 exports.solve = function (challenge, isRestore) {
-  const self = this
   challenge.solved = true
-  challenge.save().then(solvedChallenge => {
+  challenge.save().then((solvedChallenge) => {
     solvedChallenge.description = entities.decode(sanitizeHtml(solvedChallenge.description, {
       allowedTags: [],
       allowedAttributes: []
     }))
     logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} ${solvedChallenge.difficulty}-star ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
-    self.sendNotification(solvedChallenge, isRestore)
+    this.sendNotification(solvedChallenge, isRestore)
     if (!isRestore) {
       const cheatScore = antiCheat.calculateCheatScore(challenge)
       if (process.env.SOLUTIONS_WEBHOOK) {
@@ -194,7 +193,7 @@ exports.downloadToFile = async (url, dest) => {
 }
 
 exports.jwtFrom = ({ headers }) => {
-  if (headers && headers.authorization) {
+  if (headers?.authorization) {
     const parts = headers.authorization.split(' ')
     if (parts.length === 2) {
       const scheme = parts[0]

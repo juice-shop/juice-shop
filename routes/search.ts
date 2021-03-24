@@ -19,7 +19,7 @@ module.exports = function searchProducts () {
           let solved = true
           models.User.findAll().then(data => {
             const users = utils.queryResultToJson(data)
-            if (users.data && users.data.length) {
+            if (users.data?.length) {
               for (let i = 0; i < users.data.length; i++) {
                 solved = solved && utils.containsOrEscaped(dataString, users.data[i].email) && utils.contains(dataString, users.data[i].password)
                 if (!solved) {
@@ -36,7 +36,7 @@ module.exports = function searchProducts () {
           let solved = true
           models.sequelize.query('SELECT sql FROM sqlite_master').then(([data]) => {
             const tableDefinitions = utils.queryResultToJson(data)
-            if (tableDefinitions.data && tableDefinitions.data.length) {
+            if (tableDefinitions.data?.length) {
               for (let i = 0; i < tableDefinitions.data.length; i++) {
                 solved = solved && utils.containsOrEscaped(dataString, tableDefinitions.data[i].sql)
                 if (!solved) {
