@@ -32,9 +32,9 @@ export class WelcomeBannerComponent implements OnInit {
         this.title = config.application.welcomeBanner.title
         this.message = config.application.welcomeBanner.message
       }
-      this.showHackingInstructor = config.hackingInstructor?.isEnabled
+      this.showHackingInstructor = config?.hackingInstructor?.isEnabled
       // Don't allow to skip the tutorials when restrictToTutorialsFirst and showHackingInstructor are enabled
-      if (this.showHackingInstructor && config.challenges?.restrictToTutorialsFirst) {
+      if (this.showHackingInstructor && config?.challenges?.restrictToTutorialsFirst) {
         this.dialogRef.disableClose = true
         this.showDismissBtn = false
       }
