@@ -572,6 +572,7 @@ function createSecurityAnswer (UserId, SecurityQuestionId, answer) {
 
 function createOrders () {
   const email = 'admin@' + config.get('application.domain')
+  let emailConfig = config.get('application.domain')
   const products = config.get('products')
   const basket1Products = [
     {
@@ -625,7 +626,7 @@ function createOrders () {
   const orders = [
     {
       orderId: insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16),
-      email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
+      email: (emailConfig ? email.replace(/[aeiou]/gi, '*') : undefined),
       totalPrice: basket1Products[0].total + basket1Products[1].total,
       bonus: basket1Products[0].bonus + basket1Products[1].bonus,
       products: basket1Products,
@@ -634,7 +635,7 @@ function createOrders () {
     },
     {
       orderId: insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16),
-      email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
+      email: (emailConfig ? email.replace(/[aeiou]/gi, '*') : undefined),
       totalPrice: basket2Products[0].total,
       bonus: basket2Products[0].bonus,
       products: basket2Products,
