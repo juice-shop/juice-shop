@@ -104,7 +104,7 @@ describe('/rest/deluxe-membership', () => {
       password: 'OhG0dPlease1nsertLiquor!'
     })
 
-    frisby.get(API_URL + '/Cards', {
+    return await frisby.get(API_URL + '/Cards', {
       headers: { Authorization: 'Bearer ' + token, 'content-type': 'application/json' }
     })
       .expect('status', 200)
@@ -127,7 +127,7 @@ describe('/rest/deluxe-membership', () => {
       password: 'ncc-1701'
     })
 
-    frisby.post(REST_URL + '/deluxe-membership', {
+    return await frisby.post(REST_URL + '/deluxe-membership', {
       headers: { Authorization: 'Bearer ' + token, 'content-type': 'application/json' },
       body: {
         paymentMode: 'card',
