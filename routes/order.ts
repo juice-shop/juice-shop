@@ -96,7 +96,7 @@ module.exports = function placeOrder () {
             price: 0,
             eta: 5
           }
-          if (req.body.orderDetails && req.body.orderDetails.deliveryMethodId) {
+          if (req.body.orderDetails?.deliveryMethodId) {
             deliveryMethod = await models.Delivery.findOne({ where: { id: req.body.orderDetails.deliveryMethodId } })
           }
           const deliveryAmount = security.isDeluxe(req) ? deliveryMethod.deluxePrice : deliveryMethod.price

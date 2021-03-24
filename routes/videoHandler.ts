@@ -72,7 +72,7 @@ exports.promotionVideo = () => {
 
 function getSubsFromFile () {
   let subtitles = 'owasp_promo.vtt'
-  if (config && config.application && config.application.promotion && config.application.promotion.subtitles !== null) {
+  if (config?.application?.promotion?.subtitles !== null) {
     subtitles = utils.extractFilename(config.application.promotion.subtitles)
   }
   const data = fs.readFileSync('frontend/dist/frontend/assets/public/videos/' + subtitles, 'utf8')
@@ -80,7 +80,7 @@ function getSubsFromFile () {
 }
 
 function videoPath () {
-  if (config && config.application && config.application.promotion && config.application.promotion.video !== null) {
+  if (config?.application?.promotion?.video !== null) {
     const video = utils.extractFilename(config.application.promotion.video)
     return 'frontend/src/assets/public/videos/' + video
   }

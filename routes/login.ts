@@ -37,7 +37,7 @@ module.exports = function login () {
             utils.solveIf(challenges.loginCisoChallenge, () => { return user.data.id === users.ciso.id }) // vuln-code-snippet hide-line
             afterLogin(user, res, next)
           })
-        } else if (user.data && user.data.id && user.data.totpSecret !== '') {
+        } else if (user.data?.id && user.data.totpSecret !== '') {
           res.status(401).json({
             status: 'totp_token_required',
             data: {
@@ -47,7 +47,7 @@ module.exports = function login () {
               })
             }
           })
-        } else if (user.data && user.data.id) {
+        } else if (user.data?.id) {
           afterLogin(user, res, next)
         } else {
           res.status(401).send(res.__('Invalid email or password.'))

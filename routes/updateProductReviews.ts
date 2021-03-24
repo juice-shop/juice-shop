@@ -19,7 +19,7 @@ module.exports = function productReviews () {
     ).then(
       result => {
         utils.solveIf(challenges.noSqlReviewsChallenge, () => { return result.modified > 1 }) // vuln-code-snippet hide-line
-        utils.solveIf(challenges.forgedReviewChallenge, () => { return user && user.data && result.original[0].author !== user.data.email && result.modified === 1 }) // vuln-code-snippet hide-line
+        utils.solveIf(challenges.forgedReviewChallenge, () => { return user?.data && result.original[0].author !== user.data.email && result.modified === 1 }) // vuln-code-snippet hide-line
         res.json(result)
       }, err => {
         res.status(500).json(err)
