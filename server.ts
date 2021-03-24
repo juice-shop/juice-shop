@@ -2,6 +2,7 @@
  * Copyright (c) 2014-2021 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
+import dataErasure from './routes/dataErasure'
 const startTime = Date.now()
 const path = require('path')
 import fs = require('fs')
@@ -84,11 +85,9 @@ const videoHandler = require('./routes/videoHandler')
 const twoFactorAuth = require('./routes/2fa')
 const languageList = require('./routes/languages')
 const config = require('config')
-const dataErasure = require('./routes/dataErasure')
 const imageCaptcha = require('./routes/imageCaptcha')
 const dataExport = require('./routes/dataExport')
 const address = require('./routes/address')
-const erasureRequest = require('./routes/erasureRequest')
 const payment = require('./routes/payment')
 const wallet = require('./routes/wallet')
 const orderHistory = require('./routes/orderHistory')
@@ -126,9 +125,6 @@ async function restoreOverwrittenFilesWithOriginals () {
 
 /* Sets view engine to hbs */
 app.set('view engine', 'hbs')
-
-// app.use(express.static(path.join(__dirname, "public")))
-app.use(express.static('public'))
 
 // Function called first to ensure that all the i18n files are reloaded successfully before other linked operations.
 restoreOverwrittenFilesWithOriginals().then(() => {
@@ -523,7 +519,6 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.post('/rest/user/data-export', security.appendUserId(), imageCaptcha.verifyCaptcha())
   app.post('/rest/user/data-export', security.appendUserId(), dataExport())
   app.get('/rest/languages', languageList())
-  app.post('/rest/user/erasure-request', erasureRequest())
   app.get('/rest/order-history', orderHistory.orderHistory())
   app.get('/rest/order-history/orders', security.isAccounting(), orderHistory.allOrders())
   app.put('/rest/order-history/:id/delivery-status', security.isAccounting(), orderHistory.toggleDeliveryStatus())
