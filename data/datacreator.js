@@ -150,7 +150,7 @@ async function createDeliveryMethods () {
   )
 }
 
-function createAddresses (UserId, addresses) {
+async function createAddresses (UserId, addresses) {
   addresses.map((address) => {
     return models.Address.create({
       UserId: UserId,
