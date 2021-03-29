@@ -11,7 +11,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { RouterTestingModule } from '@angular/router/testing'
 import { of } from 'rxjs'
 import { HttpClientModule } from '@angular/common/http'
-import { CookieService } from 'ngx-cookie-service'
+import { CookieModule, CookieService } from 'ngx-cookie'
 import { LoginGuard } from '../app.guard'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { SidenavComponent } from './sidenav.component'
@@ -57,7 +57,7 @@ describe('SidenavComponent', () => {
     userService.isLoggedIn.next.and.returnValue({})
     administractionService = jasmine.createSpyObj('AdministrationService', ['getApplicationVersion'])
     administractionService.getApplicationVersion.and.returnValue(of(null))
-    cookieService = jasmine.createSpyObj('CookieService', ['delete', 'get', 'set'])
+    cookieService = jasmine.createSpyObj('CookieService', ['remove', 'get', 'put'])
     mockSocket = new MockSocket()
     socketIoService = jasmine.createSpyObj('SocketIoService', ['socket'])
     socketIoService.socket.and.returnValue(mockSocket)
@@ -75,6 +75,7 @@ describe('SidenavComponent', () => {
         MatButtonModule,
         MatMenuModule,
         MatListModule,
+        CookieModule.forRoot(),
         RouterTestingModule
       ],
       providers: [
@@ -144,7 +145,7 @@ describe('SidenavComponent', () => {
 
   it('should remove authentication token from cookies', () => {
     component.logout()
-    expect(cookieService.delete).toHaveBeenCalledWith('token', '/')
+    expect(cookieService.remove).toHaveBeenCalledWith('token')
   })
 
   it('should remove basket id from session storage', () => {

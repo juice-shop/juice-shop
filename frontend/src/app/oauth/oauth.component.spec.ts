@@ -21,6 +21,7 @@ import { ActivatedRoute } from '@angular/router'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { of, throwError } from 'rxjs'
 import { UserService } from '../Services/user.service'
+import { CookieModule } from 'ngx-cookie'
 
 describe('OAuthComponent', () => {
   let component: OAuthComponent
@@ -43,6 +44,7 @@ describe('OAuthComponent', () => {
         ]
         ),
         ReactiveFormsModule,
+        CookieModule.forRoot(),
         TranslateModule.forRoot(),
         MatInputModule,
         MatIconModule,
