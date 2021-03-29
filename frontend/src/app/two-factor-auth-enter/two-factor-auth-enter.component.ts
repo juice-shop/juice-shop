@@ -6,7 +6,7 @@
 import { Component, NgZone } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
-import { CookieService } from 'ngx-cookie-service'
+import { CookieService } from 'ngx-cookie'
 import { UserService } from '../Services/user.service'
 import { Router } from '@angular/router'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
@@ -46,7 +46,7 @@ export class TwoFactorAuthEnterComponent {
       localStorage.setItem('token', authentication.token)
       const expires = new Date()
       expires.setHours(expires.getHours() + 8)
-      this.cookieService.set('token', authentication.token, expires, '/')
+      this.cookieService.put('token', authentication.token, { expires })
       sessionStorage.setItem('bid', authentication.bid.toString())
       /* Use userService to notifiy if user has logged in */
       /* this.userService.isLoggedIn = true; */

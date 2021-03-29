@@ -6,7 +6,7 @@
 import { TranslateService } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
 import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core'
-import { CookieService } from 'ngx-cookie-service'
+import { CookieService } from 'ngx-cookie'
 import { SocketIoService } from '../Services/socket-io.service'
 
 interface HackingProgress {
@@ -55,8 +55,8 @@ export class ServerStartedNotificationComponent implements OnInit {
   }
 
   clearProgress () {
-    this.cookieService.delete('continueCode', '/')
-    this.cookieService.delete('token', '/')
+    this.cookieService.remove('continueCode')
+    this.cookieService.remove('token')
     sessionStorage.removeItem('bid')
     sessionStorage.removeItem('itemTotal')
     localStorage.removeItem('token')

@@ -27,7 +27,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router'
 import { WalletService } from '../Services/wallet.service'
 import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'
-import { CookieService } from 'ngx-cookie-service'
+import { CookieService } from 'ngx-cookie'
 import { Location } from '@angular/common'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
@@ -188,7 +188,7 @@ export class PaymentComponent implements OnInit {
     } else if (this.mode === 'deluxe') {
       this.userService.upgradeToDeluxe(this.paymentMode, this.paymentId).subscribe((data) => {
         localStorage.setItem('token', data.token)
-        this.cookieService.set('token', data.token)
+        this.cookieService.put('token', data.token)
         this.ngZone.run(async () => await this.router.navigate(['/deluxe-membership']))
       }, (err) => console.log(err))
     } else {
