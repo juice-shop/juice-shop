@@ -4,6 +4,7 @@ const config = require('config')
 const chai = require('chai')
 const sinonChai = require('sinon-chai')
 const expect = chai.expect
+const path = require('path')
 chai.use(sinonChai)
 
 const products = config.get('products')
@@ -13,7 +14,7 @@ describe('forBlueprintChallenge', () => {
     it('should contain the exif data for the blueprint challenge', () => {
       products.forEach(product => {
         if (product.exifForBlueprintChallenge !== undefined) {
-          ExifImage({ image: pathToImage }, function (error, exifData) {
+          ExifImage({ image: path.resolve(pathToImage) }, function (error, exifData) {
             if (error) {
               expect.fail("Could no read EXIF data")
             }
