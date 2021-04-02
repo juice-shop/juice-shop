@@ -32,6 +32,7 @@ const validateConfig = ({ products = config.get('products'), memories = config.g
   success = checkUnambiguousMandatorySpecialMemories(memories) && success
   success = checkUniqueSpecialOnMemories(memories) && success
   success = checkSpecialMemoriesHaveNoUserAssociated(memories) && success
+  success = checkForExifData(products) && success
   success = checkForIllogicalCombos() && success
   if (success) {
     logger.info(`Configuration ${colors.bold(process.env.NODE_ENV ?? 'default')} validated (${colors.green('OK')})`)
@@ -43,6 +44,20 @@ const validateConfig = ({ products = config.get('products'), memories = config.g
       process.exit(1)
     }
   }
+  return success
+}
+
+const checkForExifData = (products) => {
+  let success = true
+  products.forEach(product => {
+    if (product.image === '3d_keychain.jpg') {
+      if (product.exifForBlueprintChallenge === undefined) {
+        logger.warn(`No exifForBlueprintChallenge found (${colors.red('NOT OK')})`)
+        success = false
+      }
+    }
+  })
+
   return success
 }
 
