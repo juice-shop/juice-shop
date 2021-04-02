@@ -50,7 +50,7 @@ const validateConfig = ({ products = config.get('products'), memories = config.g
 const checkForExifData = (products) => {
   let success = true
   products.forEach(product => {
-    if (product.image === '3d_keychain.jpg') {
+    if (product.fileForRetrieveBlueprintChallenge !== undefined) {
       if (product.exifForBlueprintChallenge === undefined) {
         logger.warn(`No exifForBlueprintChallenge found (${colors.red('NOT OK')})`)
         success = false

@@ -1,5 +1,5 @@
 const ExifImage = require('exif').ExifImage
-const pathToImage = 'frontend/src/assets/public/images/products/3d_keychain.jpg'
+let pathToImage = 'frontend/src/assets/public/images/products/3d_keychain.jpg'
 const config = require('config')
 const chai = require('chai')
 const sinonChai = require('sinon-chai')
@@ -12,12 +12,14 @@ describe('forBlueprintChallenge', () => {
   describe('exifDataValidation', () => {
     it('should contain the exif data for the blueprint challenge', () => {
       products.forEach(product => {
-        if (product.image === '3d_keychain.jpg') {
+        if (product.exifForBlueprintChallenge !== undefined) {
           ExifImage({ image: pathToImage }, function (error, exifData) {
             if (error) {
-              expect(1).to.equal(0)
+              expect.fail("Could no read EXIF data")
             }
-            expect(product.exifForBlueprintChallenge).to.equal(exifData.image.Make)
+            Object.getOwnPropertyNames(product.exifForBlueprintChallenge).forEach(property => {
+                expect(exifData.image[property]).to.equal(product.exifForBlueprintChallenge[property])
+            })
           })
         }
       })
