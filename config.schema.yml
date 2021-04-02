@@ -156,7 +156,6 @@ products:
     fileForRetrieveBlueprintChallenge:
       type: string
     exifForBlueprintChallenge:
-      type: object
       Make:
         type: string
     reviews:
