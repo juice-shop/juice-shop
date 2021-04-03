@@ -4,6 +4,7 @@ const config = require('config')
 const chai = require('chai')
 const sinonChai = require('sinon-chai')
 const expect = chai.expect
+const path = require('path')
 const download = require('download')
 chai.use(sinonChai)
 
@@ -16,12 +17,12 @@ describe('forBlueprintChallenge', () => {
         if (product.exifForBlueprintChallenge !== undefined) {
           const url = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/
           if (url.test(product.image)) {
-            const filepath = 'frontend/dist/frontend/'
+            const filepath = 'frontend/dist/frontend/assets/public/images/products'
             await download(product.image, filepath)
             const splitPath = product.image.split('/')
-            pathToImage = `${filepath}${splitPath[splitPath.length - 1]}`
+            pathToImage = path.resolve(filepath, splitPath[splitPath.length - 1])
           } else {
-            pathToImage = pathToImage + product.image
+            pathToImage = path.resolve(pathToImage, product.image)
           }
           ExifImage({ image: pathToImage }, function (error, exifData) {
             if (error) {
