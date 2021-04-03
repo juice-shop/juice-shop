@@ -4,28 +4,32 @@ const config = require('config')
 const chai = require('chai')
 const sinonChai = require('sinon-chai')
 const expect = chai.expect
-const path = require('path')
+const download = require('download')
 chai.use(sinonChai)
 
 const products = config.get('products')
 
 describe('forBlueprintChallenge', () => {
   describe('exifDataValidation', () => {
-    it('should contain the exif data for the blueprint challenge', () => {
-      products.forEach(product => {
+    it('should contain the exif data for the blueprint challenge', async () => {
+      await products.forEach(async product => {
         if (product.exifForBlueprintChallenge !== undefined) {
           const url = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/
           if (url.test(product.image)) {
-            pathToImage = product.image
+            const filepath = 'frontend/dist/frontend/'
+            await download(product.image, filepath)
+            const splitPath = product.image.split('/')
+            pathToImage = `${filepath}${splitPath[splitPath.length - 1]}`
           } else {
             pathToImage = pathToImage + product.image
           }
-          ExifImage({ image: path.resolve(pathToImage) }, function (error, exifData) {
+          ExifImage({ image: pathToImage }, function (error, exifData) {
             if (error) {
-              expect.fail('Could no read EXIF data')
+              expect.fail('Could not read EXIF data')
             }
-            Object.getOwnPropertyNames(product.exifForBlueprintChallenge).forEach(property => {
-              expect(exifData.image[property]).to.equal(product.exifForBlueprintChallenge[property])
+            const properties = Object.values(exifData.image)
+            product.exifForBlueprintChallenge.forEach(property => {
+              expect(properties).to.include(property)
             })
           })
         }
