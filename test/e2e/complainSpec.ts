@@ -10,10 +10,10 @@ const utils = require('../../lib/utils')
 describe('/#/complain', () => {
   let file, complaintMessage, submitButton
 
-  protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
+  protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
   beforeEach(() => {
-    browser.get(protractor.basePath + '/#/complain')
+    browser.get(`${protractor.basePath}/#/complain`)
     file = element(by.id('file'))
     complaintMessage = element(by.id('complaintMessage'))
     submitButton = element(by.id('submitButton'))
@@ -30,7 +30,7 @@ describe('/#/complain', () => {
         data.append('file', blob, 'invalidSizeForClient.pdf')
 
         const request = new XMLHttpRequest()
-        request.open('POST', baseUrl + '/file-upload')
+        request.open('POST', `${baseUrl}/file-upload`)
         request.send(data)
       }, browser.baseUrl)
       browser.driver.sleep(1000)
@@ -48,7 +48,7 @@ describe('/#/complain', () => {
         data.append('file', blob, 'invalidTypeForClient.exe')
 
         const request = new XMLHttpRequest()
-        request.open('POST', baseUrl + '/file-upload')
+        request.open('POST', `${baseUrl}/file-upload`)
         request.send(data)
       }, browser.baseUrl)
       browser.driver.sleep(1000)
@@ -119,13 +119,13 @@ describe('/#/complain', () => {
         file.sendKeys(path.resolve('test/files/videoExploit.zip'))
         submitButton.click()
         browser.waitForAngularEnabled(false)
-        browser.get(protractor.basePath + '/promotion')
+        browser.get(`${protractor.basePath}/promotion`)
         browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /promotion")
         browser.switchTo().alert().then(alert => {
           expect(alert.getText()).toEqual('xss')
           alert.accept()
         })
-        browser.get(protractor.basePath + '/')
+        browser.get(`${protractor.basePath}/`)
         browser.driver.sleep(5000)
         browser.waitForAngularEnabled(true)
       })

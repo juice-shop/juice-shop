@@ -14,12 +14,12 @@ protractor.expect = {
   challengeSolved: function (context) {
     describe('(shared)', () => {
       beforeEach(() => {
-        browser.get(protractor.basePath + '/#/score-board')
+        browser.get(`${protractor.basePath}/#/score-board`)
       })
 
-      it("challenge '" + context.challenge + "' should be solved on score board", () => {
-        expect(element(by.id(context.challenge + '.solved')).isPresent()).toBeTruthy()
-        expect(element(by.id(context.challenge + '.notSolved')).isPresent()).toBeFalsy()
+      it(`challenge '${context.challenge}' should be solved on score board`, () => {
+        expect(element(by.id(`${context.challenge}.solved`)).isPresent()).toBeTruthy()
+        expect(element(by.id(`${context.challenge}.notSolved`)).isPresent()).toBeFalsy()
       })
     })
   }
@@ -29,7 +29,7 @@ protractor.beforeEach = {
   login: function (context) {
     describe('(shared)', () => {
       beforeEach(() => {
-        browser.get(protractor.basePath + '/#/login')
+        browser.get(`${protractor.basePath}/#/login`)
 
         element(by.id('email')).sendKeys(context.email)
         element(by.id('password')).sendKeys(context.password)
@@ -49,7 +49,7 @@ protractor.beforeEach = {
         }
       })
 
-      it('should have logged in user "' + context.email + '" with password "' + context.password + '"', () => {
+      it(`should have logged in user "${context.email}" with password "${context.password}"`, () => {
         expect(browser.getCurrentUrl()).toMatch(/\/search/)
       })
     })

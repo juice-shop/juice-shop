@@ -12,7 +12,7 @@ const jsonHeader = { 'content-type': 'application/json' }
 let authHeader
 
 beforeAll(() => {
-  return frisby.post(URL + '/rest/user/login', {
+  return frisby.post(`${URL}/rest/user/login`, {
     headers: jsonHeader,
     body: {
       email: 'jim@juice-sh.op',
@@ -21,13 +21,13 @@ beforeAll(() => {
   })
     .expect('status', 200)
     .then(({ json }) => {
-      authHeader = { Cookie: 'token=' + json.authentication.token }
+      authHeader = { Cookie: `token=${json.authentication.token}` }
     })
 })
 
 describe('/profile', () => {
   it('GET user profile is forbidden for unauthenticated user', () => {
-    return frisby.get(URL + '/profile')
+    return frisby.get(`${URL}/profile`)
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
       .expect('bodyContains', `<h1>${config.get('application.name')} (Express`)
@@ -35,7 +35,7 @@ describe('/profile', () => {
   })
 
   it('GET user profile of authenticated user', () => {
-    return frisby.get(URL + '/profile', {
+    return frisby.get(`${URL}/profile`, {
       headers: authHeader
     })
       .expect('status', 200)
@@ -47,7 +47,7 @@ describe('/profile', () => {
     const form = frisby.formData()
     form.append('username', 'Localhorst')
 
-    return frisby.post(URL + '/profile', {
+    return frisby.post(`${URL}/profile`, {
       headers: { 'Content-Type': form.getHeaders()['content-type'], Cookie: authHeader.Cookie },
       body: form,
       redirect: 'manual'
@@ -59,7 +59,7 @@ describe('/profile', () => {
     const form = frisby.formData()
     form.append('username', 'Localhorst')
 
-    return frisby.post(URL + '/profile', {
+    return frisby.post(`${URL}/profile`, {
       headers: { 'Content-Type': form.getHeaders()['content-type'] },
       body: form
     })

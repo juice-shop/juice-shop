@@ -17,7 +17,7 @@ describe('/#/photo-wall', () => {
       }
     })
     browser.wait(EC.stalenessOf($('#logout')), 5000)
-    browser.get(protractor.basePath + '/#/forgot-password')
+    browser.get(`${protractor.basePath}/#/forgot-password`)
     email = element(by.id('email'))
     securityAnswer = element(by.id('securityAnswer'))
     newPassword = element(by.id('newPassword'))
@@ -36,7 +36,7 @@ describe('/#/photo-wall', () => {
         }
       })())
 
-      email.sendKeys('john@' + config.get('application.domain'))
+      email.sendKeys(`john@${config.get('application.domain')}`)
       browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
       securityAnswer.sendKeys(answer)
       newPassword.sendKeys('123456')
@@ -58,7 +58,7 @@ describe('/#/photo-wall', () => {
         }
       })())
 
-      email.sendKeys('emma@' + config.get('application.domain'))
+      email.sendKeys(`emma@${config.get('application.domain')}`)
       browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
       securityAnswer.sendKeys(answer)
       newPassword.sendKeys('123456')

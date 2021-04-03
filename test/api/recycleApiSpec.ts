@@ -9,11 +9,11 @@ const security = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/api'
 
-const authHeader = { Authorization: 'Bearer ' + security.authorize(), 'content-type': 'application/json' }
+const authHeader = { Authorization: `Bearer ${security.authorize()}`, 'content-type': 'application/json' }
 
 describe('/api/Recycles', () => {
   it('POST new recycle', () => {
-    return frisby.post(API_URL + '/Recycles', {
+    return frisby.post(`${API_URL}/Recycles`, {
       headers: authHeader,
       body: {
         quantity: 200,
@@ -32,7 +32,7 @@ describe('/api/Recycles', () => {
   })
 
   it('Will prevent GET all recycles from this endpoint', () => {
-    return frisby.get(API_URL + '/Recycles')
+    return frisby.get(`${API_URL}/Recycles`)
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', 'data', {
@@ -41,7 +41,7 @@ describe('/api/Recycles', () => {
   })
 
   it('PUT update existing recycle is forbidden', () => {
-    return frisby.put(API_URL + '/Recycles/1', {
+    return frisby.put(`${API_URL}/Recycles/1`, {
       headers: authHeader,
       body: {
         quantity: 100000
@@ -51,7 +51,7 @@ describe('/api/Recycles', () => {
   })
 
   it('DELETE existing recycle is forbidden', () => {
-    return frisby.del(API_URL + '/Recycles/1', { headers: authHeader })
+    return frisby.del(`${API_URL}/Recycles/1`, { headers: authHeader })
       .expect('status', 401)
   })
 })

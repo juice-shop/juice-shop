@@ -15,7 +15,7 @@ const REST_URL = 'http://localhost:3000/rest'
 
 describe('/rest/products/search', () => {
   it('GET product search with no matches returns no products', () => {
-    return frisby.get(REST_URL + '/products/search?q=nomatcheswhatsoever')
+    return frisby.get(`${REST_URL}/products/search?q=nomatcheswhatsoever`)
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .then(({ json }) => {
@@ -24,7 +24,7 @@ describe('/rest/products/search', () => {
   })
 
   it('GET product search with one match returns found product', () => {
-    return frisby.get(REST_URL + '/products/search?q=o-saft')
+    return frisby.get(`${REST_URL}/products/search?q=o-saft`)
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .then(({ json }) => {
@@ -36,7 +36,7 @@ describe('/rest/products/search', () => {
     return frisby.get(`${REST_URL}/products/search?q=';`)
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
+      .expect('bodyContains', `<h1>${config.get('application.name')} (Express`)
       .expect('bodyContains', 'SQLITE_ERROR: near &quot;;&quot;: syntax error')
   })
 
@@ -44,7 +44,7 @@ describe('/rest/products/search', () => {
     return frisby.get(`${REST_URL}/products/search?q=' union select id,email,password from users--`)
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
+      .expect('bodyContains', `<h1>${config.get('application.name')} (Express`)
       .expect('bodyContains', 'SQLITE_ERROR: near &quot;union&quot;: syntax error')
   })
 
@@ -52,7 +52,7 @@ describe('/rest/products/search', () => {
     return frisby.get(`${REST_URL}/products/search?q=') union select id,email,password from users--`)
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
+      .expect('bodyContains', `<h1>${config.get('application.name')} (Express`)
       .expect('bodyContains', 'SQLITE_ERROR: near &quot;union&quot;: syntax error')
   })
 
@@ -60,7 +60,7 @@ describe('/rest/products/search', () => {
     return frisby.get(`${REST_URL}/products/search?q=')) union select * from users--`)
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
+      .expect('bodyContains', `<h1>${config.get('application.name')} (Express`)
       .expect('bodyContains', 'SQLITE_ERROR: SELECTs to the left and right of UNION do not have the same number of result columns', () => {})
   })
 
@@ -86,17 +86,17 @@ describe('/rest/products/search', () => {
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data.?', {
         id: 1,
-        price: 'admin@' + config.get('application.domain'),
+        price: `admin@${config.get('application.domain')}`,
         deluxePrice: security.hash('admin123')
       })
       .expect('json', 'data.?', {
         id: 2,
-        price: 'jim@' + config.get('application.domain'),
+        price: `jim@${config.get('application.domain')}`,
         deluxePrice: security.hash('ncc-1701')
       })
       .expect('json', 'data.?', {
         id: 3,
-        price: 'bender@' + config.get('application.domain')
+        price: `bender@${config.get('application.domain')}`
         // no check for Bender's password as it might have already been changed by different test
       })
       .expect('json', 'data.?', {
@@ -106,12 +106,12 @@ describe('/rest/products/search', () => {
       })
       .expect('json', 'data.?', {
         id: 5,
-        price: 'ciso@' + config.get('application.domain'),
+        price: `ciso@${config.get('application.domain')}`,
         deluxePrice: security.hash('mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb')
       })
       .expect('json', 'data.?', {
         id: 6,
-        price: 'support@' + config.get('application.domain'),
+        price: `support@${config.get('application.domain')}`,
         deluxePrice: security.hash('J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P')
       })
   })
@@ -129,7 +129,7 @@ describe('/rest/products/search', () => {
   })
 
   it('GET product search cannot select logically deleted christmas special by default', () => {
-    return frisby.get(REST_URL + '/products/search?q=seasonal%20special%20offer')
+    return frisby.get(`${REST_URL}/products/search?q=seasonal%20special%20offer`)
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .then(({ json }) => {
@@ -167,12 +167,12 @@ describe('/rest/products/search', () => {
   })
 
   it('GET product search with empty search parameter returns all products', () => {
-    return frisby.get(API_URL + '/Products')
+    return frisby.get(`${API_URL}/Products`)
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .then(({ json }) => {
         const products = json.data
-        return frisby.get(REST_URL + '/products/search?q=')
+        return frisby.get(`${REST_URL}/products/search?q=`)
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
           .then(({ json }) => {
@@ -182,12 +182,12 @@ describe('/rest/products/search', () => {
   })
 
   it('GET product search without search parameter returns all products', () => {
-    return frisby.get(API_URL + '/Products')
+    return frisby.get(`${API_URL}/Products`)
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .then(({ json }) => {
         const products = json.data
-        return frisby.get(REST_URL + '/products/search')
+        return frisby.get(`${REST_URL}/products/search`)
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
           .then(({ json }) => {
