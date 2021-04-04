@@ -54,22 +54,21 @@ router.post('/', async (req: Request<{}, {}, DataErasureRequestParams>, res: Res
 
     if (req.body.layout !== undefined) {
       const conditions: boolean = (req.body.layout.includes('ftp') || req.body.layout.includes('ctf.key') || req.body.layout.includes('encryptionkeys'))
-      if (conditions === false) {
+      if (!conditions) {
         res.render('dataErasureResult', {
           ...req.body
         }, (error, html) => {
           if (html === undefined) {
-            next(new Error('No Such file exist'))
-          }else {
-            const sendlfrResponse: string = JSON.stringify(html).slice(0,100) + '......'
+            next(error)
+          } else {
+            const sendlfrResponse: string = JSON.stringify(html).slice(0, 100) + '......'
             res.send(sendlfrResponse)
           }
-        })   
-      }else {
+        })
+      } else {
         next(new Error('File access not allowed'))
-      }   
-    }
-    else {
+      }
+    } else {
       res.render('dataErasureResult', {
         ...req.body
       })
