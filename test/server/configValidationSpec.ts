@@ -25,7 +25,8 @@ describe('configValidation', () => {
         },
         {
           name: 'Melon Juice',
-          fileForRetrieveBlueprintChallenge: 'foobar'
+          fileForRetrieveBlueprintChallenge: 'foobar',
+          exifForBlueprintChallenge: ['OpenSCAD']
         },
         {
           name: 'Rippertuer Special Juice',
@@ -34,6 +35,29 @@ describe('configValidation', () => {
       ]
 
       expect(checkUnambiguousMandatorySpecialProducts(products)).to.equal(true)
+    })
+
+    it('should fail if product has no exifForBlueprintChallenge', () => {
+      const products = [
+        {
+          name: 'Apple Juice',
+          useForChristmasSpecialChallenge: true
+        },
+        {
+          name: 'Orange Juice',
+          urlForProductTamperingChallenge: 'foobar'
+        },
+        {
+          name: 'Melon Juice',
+          fileForRetrieveBlueprintChallenge: 'foobar'
+        },
+        {
+          name: 'Rippertuer Special Juice',
+          keywordsForPastebinDataLeakChallenge: ['bla', 'blubb']
+        }
+      ]
+
+      expect(checkUnambiguousMandatorySpecialProducts(products)).to.equal(false)
     })
 
     it('should fail if multiple products are configured for the same challenge', () => {
@@ -52,7 +76,8 @@ describe('configValidation', () => {
         },
         {
           name: 'Melon Juice',
-          fileForRetrieveBlueprintChallenge: 'foobar'
+          fileForRetrieveBlueprintChallenge: 'foobar',
+          exifForBlueprintChallenge: ['OpenSCAD']
         }
       ]
 
@@ -88,7 +113,8 @@ describe('configValidation', () => {
         },
         {
           name: 'Melon Juice',
-          fileForRetrieveBlueprintChallenge: 'foobar'
+          fileForRetrieveBlueprintChallenge: 'foobar',
+          exifForBlueprintChallenge: ['OpenSCAD']
         },
         {
           name: 'Rippertuer Special Juice',
