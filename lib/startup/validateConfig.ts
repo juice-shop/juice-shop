@@ -78,6 +78,9 @@ const checkUnambiguousMandatorySpecialProducts = (products) => {
     } else if (matchingProducts.length > 1) {
       logger.warn(`${matchingProducts.length} products are configured as ${colors.italic(name)} but only one is allowed (${colors.red('NOT OK')})`)
       success = false
+    } else if (key === 'fileForRetrieveBlueprintChallenge' && matchingProducts[0].exifForBlueprintChallenge === undefined) {
+      logger.warn(`Product ${colors.italic(matchingProducts[0].name)} configured as ${colors.italic(name)} does't contain ${colors.italic('exifForBlueprintChallenge')} (${colors.red('NOT OK')})`)
+      success = false
     }
   })
   return success
@@ -89,6 +92,9 @@ const checkUniqueSpecialOnProducts = (products) => {
     const appliedSpecials = specialProducts.filter(({ key }) => product[key])
     if (appliedSpecials.length > 1) {
       logger.warn(`Product ${colors.italic(product.name)} is used as ${appliedSpecials.map(({ name }) => `${colors.italic(name)}`).join(' and ')} but can only be used for one challenge (${colors.red('NOT OK')})`)
+      success = false
+    } else if (product.fileForRetrieveBlueprintChallenge && product.exifForBlueprintChallenge === undefined) {
+      logger.warn(`Product ${colors.italic(product.name)} is used for ${colors.italic('fileForRetrieveBlueprintChallenge')} but does't contain ${colors.italic('exifForBlueprintChallenge')} (${colors.red('NOT OK')})`)
       success = false
     }
   })
