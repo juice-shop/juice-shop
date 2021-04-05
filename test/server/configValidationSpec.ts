@@ -9,10 +9,10 @@ const expect = chai.expect
 chai.use(sinonChai)
 
 const validateConfig = require('../../lib/startup/validateConfig')
-const { checkUnambiguousMandatorySpecialProducts, checkUniqueSpecialOnProducts, checkYamlSchema, checkMinimumRequiredNumberOfProducts, checkUnambiguousMandatorySpecialMemories, checkMinimumRequiredNumberOfMemories, checkUniqueSpecialOnMemories, checkSpecialMemoriesHaveNoUserAssociated } = require('../../lib/startup/validateConfig')
+const { checkUnambiguousMandatorySpecialProducts, checkUniqueSpecialOnProducts, checkYamlSchema, checkMinimumRequiredNumberOfProducts, checkUnambiguousMandatorySpecialMemories, checkMinimumRequiredNumberOfMemories, checkUniqueSpecialOnMemories, checkSpecialMemoriesHaveNoUserAssociated, checkNecessaryExtraKeysOnSpecialProducts } = require('../../lib/startup/validateConfig')
 
 describe('configValidation', () => {
-  describe('checkThatThereIsOnlyOneProductPerSpecial', () => {
+  describe('checkUnambiguousMandatorySpecialProducts', () => {
     it('should accept a valid config', () => {
       const products = [
         {
@@ -35,29 +35,6 @@ describe('configValidation', () => {
       ]
 
       expect(checkUnambiguousMandatorySpecialProducts(products)).to.equal(true)
-    })
-
-    it('should fail if product has no exifForBlueprintChallenge', () => {
-      const products = [
-        {
-          name: 'Apple Juice',
-          useForChristmasSpecialChallenge: true
-        },
-        {
-          name: 'Orange Juice',
-          urlForProductTamperingChallenge: 'foobar'
-        },
-        {
-          name: 'Melon Juice',
-          fileForRetrieveBlueprintChallenge: 'foobar'
-        },
-        {
-          name: 'Rippertuer Special Juice',
-          keywordsForPastebinDataLeakChallenge: ['bla', 'blubb']
-        }
-      ]
-
-      expect(checkUnambiguousMandatorySpecialProducts(products)).to.equal(false)
     })
 
     it('should fail if multiple products are configured for the same challenge', () => {
@@ -100,7 +77,56 @@ describe('configValidation', () => {
     })
   })
 
-  describe('checkThatThereIsOnlyOneProductPerSpecial', () => {
+  describe('checkNecessaryExtraKeysOnSpecialProducts', () => {
+    it('should accept a valid config', () => {
+      const products = [
+        {
+          name: 'Apple Juice',
+          useForChristmasSpecialChallenge: true
+        },
+        {
+          name: 'Orange Juice',
+          urlForProductTamperingChallenge: 'foobar'
+        },
+        {
+          name: 'Melon Juice',
+          fileForRetrieveBlueprintChallenge: 'foobar',
+          exifForBlueprintChallenge: ['OpenSCAD']
+        },
+        {
+          name: 'Rippertuer Special Juice',
+          keywordsForPastebinDataLeakChallenge: ['bla', 'blubb']
+        }
+      ]
+
+      expect(checkNecessaryExtraKeysOnSpecialProducts(products)).to.equal(true)
+    })
+
+    it('should fail if product has no exifForBlueprintChallenge', () => {
+      const products = [
+        {
+          name: 'Apple Juice',
+          useForChristmasSpecialChallenge: true
+        },
+        {
+          name: 'Orange Juice',
+          urlForProductTamperingChallenge: 'foobar'
+        },
+        {
+          name: 'Melon Juice',
+          fileForRetrieveBlueprintChallenge: 'foobar'
+        },
+        {
+          name: 'Rippertuer Special Juice',
+          keywordsForPastebinDataLeakChallenge: ['bla', 'blubb']
+        }
+      ]
+
+      expect(checkNecessaryExtraKeysOnSpecialProducts(products)).to.equal(false)
+    })
+  })
+
+  describe('checkUniqueSpecialOnProducts', () => {
     it('should accept a valid config', () => {
       const products = [
         {
@@ -175,7 +201,7 @@ describe('configValidation', () => {
     })
   })
 
-  describe('checkThatThereIsOnlyOneMemoryPerSpecial', () => {
+  describe('checkUnambiguousMandatorySpecialMemories', () => {
     it('should accept a valid config', () => {
       const memories = [
         {
