@@ -13,7 +13,7 @@ const validateSchema = require('yaml-schema-validator/src')
 const specialProducts = [
   { name: '"Christmas Special" challenge product', key: 'useForChristmasSpecialChallenge' },
   { name: '"Product Tampering" challenge product', key: 'urlForProductTamperingChallenge' },
-  { name: '"Retrieve Blueprint" challenge product', key: 'fileForRetrieveBlueprintChallenge' },
+  { name: '"Retrieve Blueprint" challenge product', key: 'fileForRetrieveBlueprintChallenge', extra: { key: 'exifForBlueprintChallenge', name: 'list of EXIF metadata properties' } },
   { name: '"Leaked Unsafe Product" challenge product', key: 'keywordsForPastebinDataLeakChallenge' }
 ]
 
@@ -28,6 +28,7 @@ const validateConfig = ({ products = config.get('products'), memories = config.g
   success = checkMinimumRequiredNumberOfProducts(products) && success
   success = checkUnambiguousMandatorySpecialProducts(products) && success
   success = checkUniqueSpecialOnProducts(products) && success
+  success = checkNecessaryExtraKeysOnSpecialProducts(products) && success
   success = checkMinimumRequiredNumberOfMemories(memories) && success
   success = checkUnambiguousMandatorySpecialMemories(memories) && success
   success = checkUniqueSpecialOnMemories(memories) && success
@@ -78,8 +79,17 @@ const checkUnambiguousMandatorySpecialProducts = (products) => {
     } else if (matchingProducts.length > 1) {
       logger.warn(`${matchingProducts.length} products are configured as ${colors.italic(name)} but only one is allowed (${colors.red('NOT OK')})`)
       success = false
-    } else if (key === 'fileForRetrieveBlueprintChallenge' && matchingProducts[0].exifForBlueprintChallenge === undefined) {
-      logger.warn(`Product ${colors.italic(matchingProducts[0].name)} configured as ${colors.italic(name)} does't contain ${colors.italic('exifForBlueprintChallenge')} (${colors.red('NOT OK')})`)
+    }
+  })
+  return success
+}
+
+const checkNecessaryExtraKeysOnSpecialProducts = (products) => {
+  let success = true
+  specialProducts.forEach(({ name, key, extra = {} }) => {
+    const matchingProducts = products.filter((product) => product[key])
+    if (extra.key && matchingProducts.length === 1 && !matchingProducts[0][extra.key]) {
+      logger.warn(`Product ${colors.italic(matchingProducts[0].name)} configured as ${colors.italic(name)} does't contain necessary ${colors.italic(extra.name)} (${colors.red('NOT OK')})`)
       success = false
     }
   })
@@ -92,9 +102,6 @@ const checkUniqueSpecialOnProducts = (products) => {
     const appliedSpecials = specialProducts.filter(({ key }) => product[key])
     if (appliedSpecials.length > 1) {
       logger.warn(`Product ${colors.italic(product.name)} is used as ${appliedSpecials.map(({ name }) => `${colors.italic(name)}`).join(' and ')} but can only be used for one challenge (${colors.red('NOT OK')})`)
-      success = false
-    } else if (product.fileForRetrieveBlueprintChallenge && product.exifForBlueprintChallenge === undefined) {
-      logger.warn(`Product ${colors.italic(product.name)} is used for ${colors.italic('fileForRetrieveBlueprintChallenge')} but does't contain ${colors.italic('exifForBlueprintChallenge')} (${colors.red('NOT OK')})`)
       success = false
     }
   })
@@ -169,6 +176,7 @@ const checkForIllogicalCombos = (configuration = config.util.toObject()) => {
 validateConfig.checkYamlSchema = checkYamlSchema
 validateConfig.checkUnambiguousMandatorySpecialProducts = checkUnambiguousMandatorySpecialProducts
 validateConfig.checkUniqueSpecialOnProducts = checkUniqueSpecialOnProducts
+validateConfig.checkNecessaryExtraKeysOnSpecialProducts = checkNecessaryExtraKeysOnSpecialProducts
 validateConfig.checkMinimumRequiredNumberOfProducts = checkMinimumRequiredNumberOfProducts
 validateConfig.checkUnambiguousMandatorySpecialMemories = checkUnambiguousMandatorySpecialMemories
 validateConfig.checkUniqueSpecialOnMemories = checkUniqueSpecialOnMemories
