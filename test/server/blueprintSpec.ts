@@ -5,9 +5,11 @@ chai.use(sinonChai)
 const config = require('config')
 const fs = require('fs')
 const path = require('path')
-const download = require('download')
 const ExifImage = require('exif').ExifImage
 const utils = require('../../lib/utils')
+const { pipeline } = require('stream')
+const { promisify } = require('util')
+const fetch = require('node-fetch')
 
 describe('blueprint', () => {
   const products = config.get('products')
@@ -15,11 +17,14 @@ describe('blueprint', () => {
 
   describe('checkExifData', () => {
     it('should contain properties from exifForBlueprintChallenge', async () => {
-      await products.forEach(async product => {
+      for (const product of products) {
         if (product.fileForRetrieveBlueprintChallenge) {
           if (utils.startsWith(product.image, 'http')) {
             pathToImage = path.resolve('frontend/dist/frontend', pathToImage, product.image.substring(product.image.lastIndexOf('/') + 1))
-            fs.writeFileSync(pathToImage, await download(product.image))
+            const streamPipeline = promisify(pipeline)
+            const response = await fetch(product.image)
+            if (!response.ok) expect.fail(`Could not download image from ${product.image}`)
+            await streamPipeline(response.body, fs.createWriteStream(pathToImage))
           } else {
             pathToImage = path.resolve('frontend/src', pathToImage, product.image)
           }
@@ -34,7 +39,7 @@ describe('blueprint', () => {
             })
           })
         }
-      })
-    })
+      }
+    }).timeout(10000)
   })
 })
