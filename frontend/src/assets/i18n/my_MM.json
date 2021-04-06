@@ -409,5 +409,6 @@
   "LABEL_CODE_SNIPPET": "Corresponding Code Snippet",
   "REVEAL_VULNERABLE_CODE_LINES": "Hover to reveal vulnerable line(s) of code",
   "INFO_VULNERABLE_CODE_SNIPPET": "Show corresponding vulnerable code snippet.",
-  "LABEL_LINES": "Line(s)"
+  "LABEL_LINES": "Line(s)",
+  "LOADING_CODE_SNIPPET": "Loading code snippet..."
 }
