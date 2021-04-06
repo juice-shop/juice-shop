@@ -30,7 +30,7 @@ describe('b2bOrder', () => {
     createB2bOrder()(this.req, this.res, this.next)
 
     expect(challenges.rceChallenge.solved).to.equal(true)
-  })
+  }).timeout(4000)
 
   it('timeout after 2 seconds solves "rceOccupyChallenge"', () => {
     challenges.rceOccupyChallenge = { solved: false, save: this.save }
@@ -40,7 +40,7 @@ describe('b2bOrder', () => {
     createB2bOrder()(this.req, this.res, this.next)
 
     expect(challenges.rceOccupyChallenge.solved).to.equal(true)
-  }).timeout(3000)
+  }).timeout(4000)
 
   it('deserializing JSON as documented in Swagger should not solve "rceChallenge"', () => {
     challenges.rceChallenge = { solved: false, save: this.save }
