@@ -47,7 +47,7 @@ export class TwoFactorAuthEnterComponent {
       const expires = new Date()
       expires.setHours(expires.getHours() + 8)
       this.cookieService.put('token', authentication.token, { expires })
-      sessionStorage.setItem('bid', authentication.bid.toString())
+      sessionStorage.setItem('bid', authentication.bid?.toString())
       /* Use userService to notifiy if user has logged in */
       /* this.userService.isLoggedIn = true; */
       this.userService.isLoggedIn.next(true)
