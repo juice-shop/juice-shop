@@ -29,7 +29,7 @@ exports.config = {
     browserName: 'chrome',
     proxy: proxy,
     chromeOptions: {
-      args: ['--window-size=1024,768']
+      args: ['--window-size=1024,768', '--disable-features=SameSiteByDefaultCookies']
     }
   },
 
@@ -69,6 +69,6 @@ exports.config = {
 
 if (process.env.CI) {
   exports.config.capabilities.chromeOptions = {
-    args: ['--headless', '--disable-gpu', '--window-size=1024,768']
+    args: ['--headless', '--disable-gpu', '--window-size=1024,768', '--disable-features=SameSiteByDefaultCookies']
   }
 }

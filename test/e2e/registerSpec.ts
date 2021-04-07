@@ -9,12 +9,12 @@ const utils = require('../../lib/utils')
 
 describe('/#/register', () => {
   beforeEach(() => {
-    browser.get(protractor.basePath + '/#/register')
+    browser.get(`${protractor.basePath}/#/register`)
   })
 
   if (!utils.disableOnContainerEnv()) {
     describe('challenge "persistedXssUser"', () => {
-      protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
+      protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
       it('should be possible to bypass validation by directly using Rest API', async () => {
         browser.executeScript(baseUrl => {
@@ -25,7 +25,7 @@ describe('/#/register', () => {
             }
           }
 
-          xhttp.open('POST', baseUrl + '/api/Users/', true)
+          xhttp.open('POST', `${baseUrl}/api/Users/`, true)
           xhttp.setRequestHeader('Content-type', 'application/json')
           xhttp.send(JSON.stringify({
             email: '<iframe src="javascript:alert(`xss`)">',
@@ -39,7 +39,7 @@ describe('/#/register', () => {
 
         browser.waitForAngularEnabled(false)
         const EC = protractor.ExpectedConditions
-        browser.get(protractor.basePath + '/#/administration')
+        browser.get(`${protractor.basePath}/#/administration`)
         browser.wait(EC.alertIsPresent(), 10000, "'xss' alert is not present on /#/administration")
         browser.switchTo().alert().then(alert => {
           expect(alert.getText()).toEqual('xss')
@@ -72,7 +72,7 @@ describe('/#/register', () => {
           }
         }
 
-        xhttp.open('POST', baseUrl + '/api/Users/', true)
+        xhttp.open('POST', `${baseUrl}/api/Users/`, true)
         xhttp.setRequestHeader('Content-type', 'application/json')
         xhttp.send(JSON.stringify({ email: 'testing@test.com', password: 'pwned', passwordRepeat: 'pwned', role: 'admin' }))
       }, browser.baseUrl)
@@ -91,7 +91,7 @@ describe('/#/register', () => {
           }
         }
 
-        xhttp.open('POST', baseUrl + '/api/Users/', true)
+        xhttp.open('POST', `${baseUrl}/api/Users/`, true)
         xhttp.setRequestHeader('Content-type', 'application/json')
         xhttp.send(JSON.stringify({ email: 'uncle@bob.com', password: 'ThereCanBeOnlyOne' }))
       }, browser.baseUrl)

@@ -6,7 +6,7 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http'
-import { CookieService } from 'ngx-cookie-service'
+import { CookieModule, CookieService } from 'ngx-cookie'
 import { ReactiveFormsModule } from '@angular/forms'
 import { Routing } from './app.routing'
 import { OverlayContainer } from '@angular/cdk/overlay'
@@ -205,6 +205,7 @@ export function HttpLoaderFactory (http: HttpClient) {
         }
       }
     ),
+    CookieModule.forRoot(),
     MatPasswordStrengthModule.forRoot(),
     FlexLayoutModule,
     HttpClientModule,

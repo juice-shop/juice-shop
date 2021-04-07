@@ -18,6 +18,7 @@ import { of } from 'rxjs'
 
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { EventEmitter } from '@angular/core'
+import { CookieModule } from 'ngx-cookie'
 
 enum MessageSources {
   user = 'user',
@@ -50,6 +51,7 @@ describe('ComplaintComponent', () => {
       imports: [
         HttpClientTestingModule,
         ReactiveFormsModule,
+        CookieModule.forRoot(),
         TranslateModule.forRoot(),
         BrowserAnimationsModule,
         MatCardModule,

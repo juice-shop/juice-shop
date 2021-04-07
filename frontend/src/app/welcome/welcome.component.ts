@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { MatDialog } from '@angular/material/dialog'
 import { WelcomeBannerComponent } from '../welcome-banner/welcome-banner.component'
-import { CookieService } from 'ngx-cookie-service'
+import { CookieService } from 'ngx-cookie'
 
 @Component({
   selector: 'app-welcome',
@@ -22,9 +22,7 @@ export class WelcomeComponent implements OnInit {
 
   ngOnInit (): void {
     const welcomeBannerStatus = this.cookieService.get(this.welcomeBannerStatusCookieKey)
-    if (welcomeBannerStatus === 'dismiss') {
-
-    } else {
+    if (welcomeBannerStatus !== 'dismiss') {
       this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
         if (config?.application?.welcomeBanner && !config.application.welcomeBanner.showOnFirstStart) {
           return

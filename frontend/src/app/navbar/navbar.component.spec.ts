@@ -23,7 +23,7 @@ import { AdministrationService } from '../Services/administration.service'
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatTooltipModule } from '@angular/material/tooltip'
-import { CookieService } from 'ngx-cookie-service'
+import { CookieModule, CookieService } from 'ngx-cookie'
 import { SocketIoService } from '../Services/socket-io.service'
 import { of, throwError } from 'rxjs'
 import { MatCardModule } from '@angular/material/card'
@@ -71,7 +71,7 @@ describe('NavbarComponent', () => {
     userService.isLoggedIn.next.and.returnValue({})
     challengeService = jasmine.createSpyObj('ChallengeService', ['find'])
     challengeService.find.and.returnValue(of([{ solved: false }]))
-    cookieService = jasmine.createSpyObj('CookieService', ['delete', 'get', 'set'])
+    cookieService = jasmine.createSpyObj('CookieService', ['remove', 'get', 'put'])
     mockSocket = new MockSocket()
     socketIoService = jasmine.createSpyObj('SocketIoService', ['socket'])
     socketIoService.socket.and.returnValue(mockSocket)
@@ -85,6 +85,7 @@ describe('NavbarComponent', () => {
           { path: 'search', component: SearchResultComponent }
         ]),
         HttpClientTestingModule,
+        CookieModule.forRoot(),
         TranslateModule.forRoot(),
         BrowserAnimationsModule,
         MatToolbarModule,
@@ -243,7 +244,7 @@ describe('NavbarComponent', () => {
 
   it('should remove authentication token from cookies', () => {
     component.logout()
-    expect(cookieService.delete).toHaveBeenCalledWith('token', '/')
+    expect(cookieService.remove).toHaveBeenCalledWith('token')
   })
 
   it('should remove basket id from session storage', () => {

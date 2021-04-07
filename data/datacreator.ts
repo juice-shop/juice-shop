@@ -571,7 +571,6 @@ function createSecurityAnswer (UserId, SecurityQuestionId, answer) {
 }
 
 async function createOrders () {
-  const email = 'admin@' + config.get('application.domain')
   const products = config.get('products')
   const basket1Products = [
     {
@@ -622,10 +621,11 @@ async function createOrders () {
     }
   ]
 
+  const adminEmail = 'admin@' + config.get('application.domain')
   const orders = [
     {
-      orderId: security.hash(email).slice(0, 4) + '-' + utils.randomHexString(16),
-      email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
+      orderId: security.hash(adminEmail).slice(0, 4) + '-' + utils.randomHexString(16),
+      email: (adminEmail.replace(/[aeiou]/gi, '*')),
       totalPrice: basket1Products[0].total + basket1Products[1].total,
       bonus: basket1Products[0].bonus + basket1Products[1].bonus,
       products: basket1Products,
@@ -633,8 +633,8 @@ async function createOrders () {
       delivered: false
     },
     {
-      orderId: security.hash(email).slice(0, 4) + '-' + utils.randomHexString(16),
-      email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
+      orderId: security.hash(adminEmail).slice(0, 4) + '-' + utils.randomHexString(16),
+      email: (adminEmail.replace(/[aeiou]/gi, '*')),
       totalPrice: basket2Products[0].total,
       bonus: basket2Products[0].bonus,
       products: basket2Products,
@@ -643,7 +643,7 @@ async function createOrders () {
     },
     {
       orderId: security.hash('demo').slice(0, 4) + '-' + utils.randomHexString(16),
-      email: 'demo'.replace(/[aeiou]/gi, '*'),
+      email: 'd*m*',
       totalPrice: basket3Products[0].total + basket3Products[1].total,
       bonus: basket3Products[0].bonus + basket3Products[1].bonus,
       products: basket3Products,
