@@ -25,7 +25,7 @@ server.start(() => {
   protractor.stderr.on('data', logToConsole)
 
   protractor.on('exit', exitCode => {
-    console.log('Protractor exited with code ' + exitCode + ' (' + (exitCode === 0 ? colors.green('SUCCESS') : colors.red('FAILED')) + ')')
+    console.log(`Protractor exited with code ${exitCode} (${exitCode === 0 ? colors.green('SUCCESS') : colors.red('FAILED')})`)
     server.close(exitCode)
   })
 })

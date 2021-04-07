@@ -8,12 +8,12 @@ const utils = require('../../lib/utils')
 
 describe('/chatbot', () => {
   let username, submitButton, messageBox
-  protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
+  protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
   describe('challenge "killChatbot"', () => {
     it('should be possible to kill the chatbot by setting the process to null', () => {
       browser.waitForAngularEnabled(false)
-      browser.get(protractor.basePath + '/profile')
+      browser.get(`${protractor.basePath}/profile`)
       username = element(by.id('username'))
       submitButton = element(by.id('submit'))
       username.sendKeys('admin"); process=null; users.addUser("1337", "test')
@@ -21,7 +21,7 @@ describe('/chatbot', () => {
       browser.driver.sleep(5000)
       browser.waitForAngularEnabled(true)
 
-      browser.get(protractor.basePath + '/#/chatbot')
+      browser.get(`${protractor.basePath}/#/chatbot`)
       messageBox = element(by.id('message-input'))
       messageBox.sendKeys('hi')
       browser.actions().sendKeys(protractor.Key.ENTER).perform()
@@ -39,7 +39,7 @@ describe('/chatbot', () => {
       const couponIntent = trainingData.data.filter(data => data.intent === 'queries.couponCode')[0]
 
       browser.waitForAngularEnabled(false)
-      browser.get(protractor.basePath + '/profile')
+      browser.get(`${protractor.basePath}/profile`)
       username = element(by.id('username'))
       submitButton = element(by.id('submit'))
       username.sendKeys('admin"); process=(query, token)=>{ if (users.get(token)) { return model.process(trainingSet.lang, query) } else { return { action: \'unrecognized\', body: \'user does not exist\' }}}; users.addUser("1337", "test')
@@ -47,7 +47,7 @@ describe('/chatbot', () => {
       browser.driver.sleep(5000)
       browser.waitForAngularEnabled(true)
 
-      browser.get(protractor.basePath + '/#/chatbot')
+      browser.get(`${protractor.basePath}/#/chatbot`)
       messageBox = element(by.id('message-input'))
       messageBox.sendKeys('hi')
       browser.actions().sendKeys(protractor.Key.ENTER).perform()

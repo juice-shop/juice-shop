@@ -37,7 +37,7 @@ const registerWebsocketEvents = (server) => {
     })
 
     socket.on('verifySvgInjectionChallenge', data => {
-      utils.solveIf(challenges.svgInjectionChallenge, () => { return data && data.match(/.*\.\.\/\.\.\/\.\.\/\.\.[\w/-]*?\/redirect\?to=https?:\/\/placekitten.com\/(g\/)?[\d]+\/[\d]+.*/) && security.isRedirectAllowed(data) })
+      utils.solveIf(challenges.svgInjectionChallenge, () => { return data?.match(/.*\.\.\/\.\.\/\.\.\/\.\.[\w/-]*?\/redirect\?to=https?:\/\/placekitten.com\/(g\/)?[\d]+\/[\d]+.*/) && security.isRedirectAllowed(data) })
     })
   })
 }

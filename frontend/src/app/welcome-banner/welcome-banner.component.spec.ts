@@ -5,7 +5,7 @@
 
 import { TranslateModule } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { CookieService } from 'ngx-cookie-service'
+import { CookieModule, CookieService } from 'ngx-cookie'
 
 import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 
@@ -30,6 +30,7 @@ describe('WelcomeBannerComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
+        CookieModule.forRoot(),
         HttpClientTestingModule,
         MatIconModule,
         MatTooltipModule

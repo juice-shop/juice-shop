@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core'
-import { CookieService } from 'ngx-cookie-service'
+import { CookieService } from 'ngx-cookie'
 import { CountryMappingService } from 'src/app/Services/country-mapping.service'
 import { SocketIoService } from '../Services/socket-io.service'
 
@@ -111,7 +111,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
       }
       const expires = new Date()
       expires.setFullYear(expires.getFullYear() + 1)
-      this.cookieService.set('continueCode', continueCode, expires, '/')
+      this.cookieService.put('continueCode', continueCode, { expires })
     }, (err) => console.log(err))
   }
 }

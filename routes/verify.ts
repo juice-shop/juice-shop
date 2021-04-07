@@ -17,8 +17,8 @@ const config = require('config')
 exports.forgedFeedbackChallenge = () => (req, res, next) => {
   utils.solveIf(challenges.forgedFeedbackChallenge, () => {
     const user = security.authenticatedUsers.from(req)
-    const userId = user && user.data ? user.data.id : undefined
-    return req.body && req.body.UserId && req.body.UserId != userId // eslint-disable-line eqeqeq
+    const userId = user?.data ? user.data.id : undefined
+    return req.body?.UserId && req.body.UserId != userId // eslint-disable-line eqeqeq
   })
   next()
 }
@@ -109,7 +109,7 @@ function hasAlgorithm (token, algorithm) {
 }
 
 function hasEmail (token, email) {
-  return token && token.data && token.data.email && token.data.email.match(email)
+  return token?.data?.email?.match(email)
 }
 
 exports.databaseRelatedChallenges = () => (req, res, next) => {

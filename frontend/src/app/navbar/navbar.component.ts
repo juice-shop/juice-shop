@@ -9,7 +9,7 @@ import { UserService } from '../Services/user.service'
 import { AdministrationService } from '../Services/administration.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { Component, EventEmitter, NgZone, OnInit, Output } from '@angular/core'
-import { CookieService } from 'ngx-cookie-service'
+import { CookieService } from 'ngx-cookie'
 import { TranslateService } from '@ngx-translate/core'
 import { Router } from '@angular/router'
 import { SocketIoService } from '../Services/socket-io.service'
@@ -159,7 +159,7 @@ export class NavbarComponent implements OnInit {
   logout () {
     this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => console.log(err))
     localStorage.removeItem('token')
-    this.cookieService.delete('token', '/')
+    this.cookieService.remove('token')
     sessionStorage.removeItem('bid')
     sessionStorage.removeItem('itemTotal')
     this.userService.isLoggedIn.next(false)
@@ -170,7 +170,7 @@ export class NavbarComponent implements OnInit {
     this.translate.use(langKey)
     const expires = new Date()
     expires.setFullYear(expires.getFullYear() + 1)
-    this.cookieService.set('language', langKey, expires, '/')
+    this.cookieService.put('language', langKey, { expires })
     if (this.languages.find((y: { key: string }) => y.key === langKey)) {
       const language = this.languages.find((y: { key: string }) => y.key === langKey)
       this.shortKeyLang = language.shortKey

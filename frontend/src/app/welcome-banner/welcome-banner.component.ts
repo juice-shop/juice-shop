@@ -6,7 +6,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { MatDialogRef } from '@angular/material/dialog'
-import { CookieService } from 'ngx-cookie-service'
+import { CookieService } from 'ngx-cookie'
 
 @Component({
   selector: 'app-welcome-banner',
@@ -32,9 +32,9 @@ export class WelcomeBannerComponent implements OnInit {
         this.title = config.application.welcomeBanner.title
         this.message = config.application.welcomeBanner.message
       }
-      this.showHackingInstructor = config.hackingInstructor?.isEnabled
+      this.showHackingInstructor = config?.hackingInstructor?.isEnabled
       // Don't allow to skip the tutorials when restrictToTutorialsFirst and showHackingInstructor are enabled
-      if (this.showHackingInstructor && config.challenges?.restrictToTutorialsFirst) {
+      if (this.showHackingInstructor && config?.challenges?.restrictToTutorialsFirst) {
         this.dialogRef.disableClose = true
         this.showDismissBtn = false
       }
@@ -53,6 +53,6 @@ export class WelcomeBannerComponent implements OnInit {
     this.dialogRef.close()
     const expires = new Date()
     expires.setFullYear(expires.getFullYear() + 1)
-    this.cookieService.set(this.welcomeBannerStatusCookieKey, 'dismiss', expires, '/')
+    this.cookieService.put(this.welcomeBannerStatusCookieKey, 'dismiss', { expires })
   }
 }

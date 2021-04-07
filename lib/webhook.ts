@@ -27,7 +27,7 @@ exports.notify = async (challenge, cheatScore = -1, webhook = process.env.SOLUTI
         hostName: os.hostname(),
         os: `${os.type()} (${os.release()})`,
         appName: config.get('application.name'),
-        config: process.env.NODE_ENV || 'default',
+        config: process.env.NODE_ENV ?? 'default',
         version: utils.version()
       }
     }

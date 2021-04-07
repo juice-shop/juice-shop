@@ -1,8 +1,8 @@
-<link rel="stylesheet" href="/stylesheets/styles.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="./assets/public/css/dataErasure.css">
 <link rel='icon' type='image/x-icon' href="./assets/public/images/JuiceShop_Logo_50px.png">
 <link rel="stylesheet" href='https://code.getmdl.io/1.3.0/material.min.css'>
 <link rel="stylesheet" href='https://fonts.googleapis.com/icon?family=Material+Icons'>
-<link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700', type='text/css'>
+<link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' type='text/css'>
 <div class="header">
     <a href="./#/"><i class='material-icons'>arrow_back</i></a>
     <a href="./#/" class="back"><span>Back</span></a>
@@ -11,35 +11,24 @@
 </div>
 <div class="main-content">
     <div class="form">
-    <h4>Data Erasure Request (Art. 17 GDPR)</h4>
-    <p>We take data security, customer privacy, and legal compliance very serious. In accordance with GDPR we allow you to request complete erasure of your account and any associated data.</p>
-    <h5>Request Data Erasure</h5>
-    <form action="/dataerasure" method="POST">
-    <div>
-    <label for="email" class="inputLable">Email</label>
-	<input type="email" placeholder={{userEmail}} name="email" id="email">
-	</div>
-	<div id="ansBlock">
-    <label for="ans" class="inputLable">Answer</label>
-	<input type="text" placeholder="{{securityQuestion}}" id="ans">
-	</div>
-    <button type="submit" class="deleteButton btn-link mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="background-color:#546E7A; color: #FFFFFF; margin-left:200px;"><span class="cross">&times;</span> Delete User Data</button>
-    </form>
+        <h4>Data Erasure Request (Art. 17 GDPR)</h4>
+        <p>We take data security, customer privacy, and legal compliance very serious. In accordance with GDPR we allow
+            you to request complete erasure of your account and any associated data.</p>
+        <h5>Request Data Erasure</h5>
+        <form action="/dataerasure" method="POST">
+            <div>
+                <label for="email">Confirm Email Address</label>
+                <input type="email" required placeholder={{userEmail}} name="email" id="email">
+            </div>
+            <div>
+                <label for="securityAnswer">Answer</label>
+                <input type="text" required placeholder="{{securityQuestion}}" id="securityAnswer"
+                    name="securityAnswer">
+            </div>
+            <button type="submit" class="deleteButton mdl-button mdl-button--raised"
+                style="background-color:#546E7A; color: #FFFFFF; margin-left:200px;">
+                <span class="cross">&times;</span>
+                Delete User Data</button>
+        </form>
+    </div>
 </div>
-<script type="text/javascript">
-let email = document.getElementById("email");
-let ans = document.getElementById("ans")
-let ansBlock = document.getElementById("ansBlock")
-let deleteButton = document.querySelector("button");
-deleteButton.disabled = true;
-email.addEventListener("change", stateHandle);
-function stateHandle() {
-ansBlock.style = "display:block;"
-ans.addEventListener("change", stateHandle);
-    if (email.value === "" || ans.value === "") {
-        deleteButton.disabled = true;
-    } else {
-        deleteButton.disabled = false;
-    }
-}
-</script>
