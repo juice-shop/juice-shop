@@ -13,7 +13,7 @@ const validateSchema = require('yaml-schema-validator/src')
 const specialProducts = [
   { name: '"Christmas Special" challenge product', key: 'useForChristmasSpecialChallenge' },
   { name: '"Product Tampering" challenge product', key: 'urlForProductTamperingChallenge' },
-  { name: '"Retrieve Blueprint" challenge product', key: 'fileForRetrieveBlueprintChallenge' },
+  { name: '"Retrieve Blueprint" challenge product', key: 'fileForRetrieveBlueprintChallenge', extra: { key: 'exifForBlueprintChallenge', name: 'list of EXIF metadata properties' } },
   { name: '"Leaked Unsafe Product" challenge product', key: 'keywordsForPastebinDataLeakChallenge' }
 ]
 
@@ -28,6 +28,7 @@ const validateConfig = ({ products = config.get('products'), memories = config.g
   success = checkMinimumRequiredNumberOfProducts(products) && success
   success = checkUnambiguousMandatorySpecialProducts(products) && success
   success = checkUniqueSpecialOnProducts(products) && success
+  success = checkNecessaryExtraKeysOnSpecialProducts(products) && success
   success = checkMinimumRequiredNumberOfMemories(memories) && success
   success = checkUnambiguousMandatorySpecialMemories(memories) && success
   success = checkUniqueSpecialOnMemories(memories) && success
@@ -77,6 +78,18 @@ const checkUnambiguousMandatorySpecialProducts = (products) => {
       success = false
     } else if (matchingProducts.length > 1) {
       logger.warn(`${matchingProducts.length} products are configured as ${colors.italic(name)} but only one is allowed (${colors.red('NOT OK')})`)
+      success = false
+    }
+  })
+  return success
+}
+
+const checkNecessaryExtraKeysOnSpecialProducts = (products) => {
+  let success = true
+  specialProducts.forEach(({ name, key, extra = {} }) => {
+    const matchingProducts = products.filter((product) => product[key])
+    if (extra.key && matchingProducts.length === 1 && !matchingProducts[0][extra.key]) {
+      logger.warn(`Product ${colors.italic(matchingProducts[0].name)} configured as ${colors.italic(name)} does't contain necessary ${colors.italic(extra.name)} (${colors.red('NOT OK')})`)
       success = false
     }
   })
@@ -163,6 +176,7 @@ const checkForIllogicalCombos = (configuration = config.util.toObject()) => {
 validateConfig.checkYamlSchema = checkYamlSchema
 validateConfig.checkUnambiguousMandatorySpecialProducts = checkUnambiguousMandatorySpecialProducts
 validateConfig.checkUniqueSpecialOnProducts = checkUniqueSpecialOnProducts
+validateConfig.checkNecessaryExtraKeysOnSpecialProducts = checkNecessaryExtraKeysOnSpecialProducts
 validateConfig.checkMinimumRequiredNumberOfProducts = checkMinimumRequiredNumberOfProducts
 validateConfig.checkUnambiguousMandatorySpecialMemories = checkUnambiguousMandatorySpecialMemories
 validateConfig.checkUniqueSpecialOnMemories = checkUniqueSpecialOnMemories

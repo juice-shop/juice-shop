@@ -245,6 +245,8 @@ products:
     price: 99.99
     image: 3d_keychain.jpg # Exif metadata contains "OpenSCAD" as subtle hint...
     fileForRetrieveBlueprintChallenge: JuiceShop.stl # ...to blueprint file type
+    exifForBlueprintChallenge:
+      - OpenSCAD
   -
     name: 'Juice Shop Artwork'
     description: 'Unique masterpiece painted with different kinds of juice on 90g/m² lined paper.'
