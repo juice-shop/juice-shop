@@ -29,7 +29,7 @@ describe('blueprint', () => {
             pathToImage = path.resolve('frontend/src', pathToImage, product.image)
           }
 
-          ExifImage({ image: pathToImage }, function (error, exifData) {
+          ExifImage({ image: pathToImage }, function (error, exifData) { // FIXME Does not go into this callback function in any case
             if (error) {
               expect.fail(`Could not read EXIF data from ${pathToImage}`)
             }
