@@ -34,6 +34,7 @@ router.get('/', async (req, res, next): Promise<void> => {
 })
 
 interface DataErasureRequestParams {
+  layout: string
   email: string
   securityAnswer: string
 }
@@ -52,16 +53,18 @@ router.post('/', async (req: Request<{}, {}, DataErasureRequestParams>, res: Res
       deletionRequested: true
     })
 
-    if (req.body.layout !== undefined) {
-      const conditions: boolean = (req.body.layout.includes('ftp') || req.body.layout.includes('ctf.key') || req.body.layout.includes('encryptionkeys'))
+    res.clearCookie('token')
+    const filePath: string = req.body.layout
+    if (filePath !== undefined) {
+      const conditions: boolean = (filePath.toLowerCase().includes('ftp') || filePath.toLocaleLowerCase().includes('ctf.key') || filePath.toLocaleLowerCase().includes('encryptionkeys'))
       if (!conditions) {
         res.render('dataErasureResult', {
           ...req.body
         }, (error, html) => {
-          if (html === undefined) {
-            next(error)
+          if (!html || error) {
+            next(new Error('No Such file exist'))
           } else {
-            const sendlfrResponse: string = JSON.stringify(html).slice(0, 100) + '......'
+            const sendlfrResponse: string = html.slice(0, 100) + '......'
             res.send(sendlfrResponse)
           }
         })
@@ -73,7 +76,6 @@ router.post('/', async (req: Request<{}, {}, DataErasureRequestParams>, res: Res
         ...req.body
       })
     }
-    res.clearCookie('token')
   } catch (error) {
     next(error)
   }
