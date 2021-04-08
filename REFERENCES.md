@@ -236,21 +236,10 @@ where this project was mentioned or used!
   and
   [the `v10.0.0` release](https://owasp.org/2020/03/17/juice-shop-v10.html),
   27.-29.02.2020
-* Student project from
-  [Google Summer of Code 2019](https://summerofcode.withgoogle.com/archive/2019/projects)
-  * [OWASP Juice Shop: Feature Pack 2019](https://summerofcode.withgoogle.com/archive/2019/projects/6526397403627520/)
-    by Arpit Agrawal (mentored by Jannik Hollenbach, Björn Kimminich and
-    Shoeb Patel)
 * [OWASP Juice Shop track](https://github.com/OpenSecuritySummit/oss2019/tree/master/content/tracks/OWASP-Juice-Shop)
   and related working sessions organized by Björn Kimminich,
   [Open Security Summit 2019](https://github.com/OpenSecuritySummit/oss2019),
   03.-07.06.2019
-* Student projects from
-  [Google Summer of Code 2018](https://summerofcode.withgoogle.com/archive/2018/projects)
-  * [OWASP Juice Shop : Challenge Pack 2018](https://summerofcode.withgoogle.com/archive/2018/projects/6267528737193984)
-    by Shoeb Patel (mentored by Jannik Hollenbach and Timo Pagel)
-  * [OWASP Juice Shop : Frontend Technology Update](https://summerofcode.withgoogle.com/archive/2018/projects/6636660909408256)
-    by Aashish Singh (mentored by Björn Kimminich)
 * Juice Shop related working sessions organized by Jannik Hollenbach and
   Timo Pagel in
   [OWASP Projects track](https://github.com/OpenSecuritySummit/oss2018/tree/master/content/tracks/OWASP-Projects),
@@ -261,6 +250,25 @@ where this project was mentioned or used!
   Pagel,
   [OWASP Summit 2017](https://github.com/OWASP/owasp-summit-2017),
   12.-16.06.2017
+
+### [Google Summer of Code](http://owasp.org/gsoc)
+
+* Student project from
+  [Google Summer of Code 2020](https://summerofcode.withgoogle.com/archive/2020/projects)
+  * [Juice-Shop ChatBot and general fixes](https://summerofcode.withgoogle.com/archive/2020/projects/5660020047347712/)
+    by Mohit Sharma (mentored by Jannik Hollenbach, Björn Kimminich and
+    Timo Pagel)
+* Student project from
+  [Google Summer of Code 2019](https://summerofcode.withgoogle.com/archive/2019/projects)
+  * [OWASP Juice Shop: Feature Pack 2019](https://summerofcode.withgoogle.com/archive/2019/projects/6526397403627520/)
+    by Arpit Agrawal (mentored by Jannik Hollenbach, Björn Kimminich and
+    Shoeb Patel)
+* Student projects from
+  [Google Summer of Code 2018](https://summerofcode.withgoogle.com/archive/2018/projects)
+  * [OWASP Juice Shop : Challenge Pack 2018](https://summerofcode.withgoogle.com/archive/2018/projects/6267528737193984)
+    by Shoeb Patel (mentored by Jannik Hollenbach and Timo Pagel)
+  * [OWASP Juice Shop : Frontend Technology Update](https://summerofcode.withgoogle.com/archive/2018/projects/6636660909408256)
+    by Aashish Singh (mentored by Björn Kimminich)
 
 ## Conference and Meetup Appearances
 
