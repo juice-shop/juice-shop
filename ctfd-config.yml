@@ -1,0 +1,5 @@
+ctfFramework: CTFd 2.x
+juiceShopUrl: http://kiwashopctf-1.westeurope.azurecontainer.io:3000
+ctfKey: ThisKiwaShopIs1337
+insertHints: free
+insertHintUrls: paid

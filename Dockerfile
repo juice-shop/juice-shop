@@ -1,7 +1,7 @@
 FROM node:12 as installer
 COPY . /juice-shop
 WORKDIR /juice-shop
-RUN npm install --production --unsafe-perm
+RUN npm install --production --unsafe-perm --verbose
 RUN npm dedupe
 RUN rm -rf frontend/node_modules
 
