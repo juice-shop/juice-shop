@@ -71,7 +71,7 @@ const customizePromotionSubtitles = async () => {
 
 const retrieveCustomFile = async (sourceProperty, destinationFolder) => {
   let file = config.get(sourceProperty)
-  if (utils.startsWith(file, 'http')) {
+  if (utils.isUrl(file)) {
     const filePath = file
     file = utils.extractFilename(file)
     await utils.downloadToFile(filePath, destinationFolder + '/' + file)
