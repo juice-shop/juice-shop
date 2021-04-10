@@ -58,6 +58,10 @@ exports.queryResultToJson = (data, status) => {
   }
 }
 
+exports.isUrl = (url) => {
+  return !!this.startsWith(url, 'http')
+}
+
 exports.startsWith = (str, prefix) => str ? str.indexOf(prefix) === 0 : false
 
 exports.endsWith = (str, suffix) => str ? str.indexOf(suffix, str.length - suffix.length) !== -1 : false

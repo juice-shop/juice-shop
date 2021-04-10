@@ -235,7 +235,7 @@ async function createMemories () {
     }),
     ...utils.thaw(config.get('memories')).map((memory) => {
       let tmpImageFileName = memory.image
-      if (utils.startsWith(memory.image, 'http')) {
+      if (utils.isUrl(memory.image)) {
         const imageUrl = memory.image
         tmpImageFileName = utils.extractFilename(memory.image)
         utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/uploads/' + tmpImageFileName)
@@ -269,7 +269,7 @@ async function createProducts () {
 
     // set default image values
     product.image = product.image || 'undefined.png'
-    if (utils.startsWith(product.image, 'http')) {
+    if (utils.isUrl(product.image)) {
       const imageUrl = product.image
       product.image = utils.extractFilename(product.image)
       utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/products/' + product.image)
@@ -298,7 +298,7 @@ async function createProducts () {
   pastebinLeakChallengeProduct.deletedAt = '2019-02-1 00:00:00.000 +00:00'
 
   let blueprint = blueprintRetrievalChallengeProduct.fileForRetrieveBlueprintChallenge
-  if (utils.startsWith(blueprint, 'http')) {
+  if (utils.isUrl(blueprint)) {
     const blueprintUrl = blueprint
     blueprint = utils.extractFilename(blueprint)
     utils.downloadToFile(blueprintUrl, 'frontend/dist/frontend/assets/public/images/products/' + blueprint)
