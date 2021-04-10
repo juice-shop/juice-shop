@@ -18,7 +18,7 @@ let trainingFile = config.get('application.chatBot.trainingData')
 let testCommand, bot
 
 async function initialize () {
-  if (utils.startsWith(trainingFile, 'http')) {
+  if (utils.isUrl(trainingFile)) {
     const file = utils.extractFilename(trainingFile)
     const data = await download(trainingFile)
     fs.writeFileSync('data/chatbot/' + file, data)
