@@ -19,7 +19,7 @@ describe('blueprint', () => {
     it('should contain properties from exifForBlueprintChallenge', async () => {
       for (const product of products) {
         if (product.fileForRetrieveBlueprintChallenge) {
-          if (utils.startsWith(product.image, 'http')) {
+          if (utils.isUrl(product.image)) {
             pathToImage = path.resolve('frontend/dist/frontend', pathToImage, product.image.substring(product.image.lastIndexOf('/') + 1))
             const streamPipeline = promisify(pipeline)
             const response = await fetch(product.image)
