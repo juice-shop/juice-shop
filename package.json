@@ -40,16 +40,16 @@
     "CaptainFreak",
     "Supratik Das",
     "JuiceShopBot",
+    "Ziyang Li",
     "aaryan10",
     "m4l1c3",
     "Timo Pagel",
     "Josh Grossman",
+    "Clément Notin",
     "JamesCullum",
-    "omerlh",
-    "Martin Rock-Evans",
     "Alejandro Saenz",
-    "Justin Smid",
-    "Marc O'Polo"
+    "Martin Rock-Evans",
+    "chinggg"
   ],
   "scripts": {
     "build:frontend": "cd frontend && node ./node_modules/@angular/cli/bin/ng build --aot --prod --output-hashing=none --vendor-chunk=true --source-map=false",
