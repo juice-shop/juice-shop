@@ -12,7 +12,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-devkit/build-angular": "^0.1100.5",
+    "@angular-devkit/build-angular": "^0.1102.8",
     "@angular-material-extensions/password-strength": "^6.0.0",
     "@angular/animations": "^11.0.5",
     "@angular/cdk": "^11.0.3",
@@ -57,7 +57,6 @@
     "zone.js": "^0.10.3"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1102.8",
     "@angular-eslint/builder": "^0.8.0-beta.7",
     "@angular/language-service": "^11.0.5",
     "@types/express-serve-static-core": "^4.17.9",
