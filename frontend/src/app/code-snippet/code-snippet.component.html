@@ -9,6 +9,7 @@
   </header>
   <mat-divider></mat-divider>
   <div class="container" fxLayout="column">
+    <h2>{{snippet?.vulnFile}}</h2>
     <div fxLayout="row" fxLayoutGap="10px">
       <div>
         <pre><code [highlight]="snippet?.snippet || ('LOADING_CODE_SNIPPET' | translate)" [lineNumbers]="true"></code></pre>

@@ -26,7 +26,8 @@ describe('/snippets/:challenge', () => {
       .expect('status', 200)
       .expect('jsonTypes', {
         snippet: Joi.string(),
-        vulnLines: Joi.array()
+        vulnLines: Joi.array(),
+        vulnFile: Joi.string()
       })
   })
 })

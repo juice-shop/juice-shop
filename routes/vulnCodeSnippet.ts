@@ -22,7 +22,8 @@ exports.serveCodeSnippet = () => async (req, res, next) => {
       .collect(asArray())
       .find(new RegExp(`vuln-code-snippet start.*${challenge.key}`))
     if (matches[0]) { // TODO Currently only a single source file is supported
-      const source = fs.readFileSync(path.resolve(matches[0].path), 'utf8')
+      const vulnFile = path.resolve(matches[0].path)
+      const source = fs.readFileSync(vulnFile, 'utf8')
       const snippets = source.match(`[/#]{0,2} vuln-code-snippet start.*${challenge.key}([^])*vuln-code-snippet end.*${challenge.key}`)
       if (snippets != null) {
         let snippet = snippets[0] // TODO Currently only a single code snippet is supported
@@ -43,7 +44,7 @@ exports.serveCodeSnippet = () => async (req, res, next) => {
         }
         snippet = snippet.replace(/[/#]{0,2} vuln-code-snippet vuln-line.*/g, '')
 
-        return res.json({ snippet, vulnLines })
+        return res.json({ snippet, vulnLines, vulnFile })
       } else {
         res.status(422).json({ status: 'error', error: 'Broken code snippet boundaries for: ' + challenge.key })
       }
