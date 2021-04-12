@@ -6,9 +6,7 @@
 const challenges = require('../data/datacache').challenges
 const path = require('path')
 const fs = require('graceful-fs')
-const realFs = require('fs')
-
-fs.gracefulify(realFs)
+fs.gracefulify(require('fs'))
 
 const cache = {}
 
