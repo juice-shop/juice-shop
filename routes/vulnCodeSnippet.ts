@@ -5,10 +5,36 @@
 
 const challenges = require('../data/datacache').challenges
 const path = require('path')
-import fs = require('fs')
-const { FileSniffer, asArray } = require('filesniffer')
+const fs = require('graceful-fs')
+const realFs = require('fs')
+
+fs.gracefulify(realFs)
 
 const cache = {}
+
+const fileSniff = async (paths, match) => {
+  const matches = []
+  for (const currPath of paths) {
+    if (fs.lstatSync(currPath).isDirectory()) {
+      const files = fs.readdirSync(currPath)
+      for (const file of files) paths.push(path.resolve(currPath, file))
+    } else {
+      const data = fs.readFileSync(currPath)
+      const code = data.toString()
+      const lines = code.split('\n')
+      for (const line of lines) {
+        if (match.test(line)) {
+          matches.push({
+            path: currPath,
+            match: line
+          })
+        }
+      }
+    }
+  }
+
+  return matches
+}
 
 exports.serveCodeSnippet = () => async (req, res, next) => {
   const challenge = challenges[req.params.challenge]
@@ -16,16 +42,9 @@ exports.serveCodeSnippet = () => async (req, res, next) => {
     if (cache[challenge.key]) {
       return res.json(cache[challenge.key])
     } else {
-      const matches = await FileSniffer
-        .create()
-        .path('./server.ts')
-        .path('./routes')
-        .path('./lib')
-        .path('./data')
-        .path('./frontend/src/app')
-        .depth(1)
-        .collect(asArray())
-        .find(new RegExp(`vuln-code-snippet start.*${challenge.key}`))
+      const paths = ['./server.ts', './routes', './lib', './data', './frontend/src/app']
+      const match = new RegExp(`vuln-code-snippet start.*${challenge.key}`)
+      const matches = await fileSniff(paths, match)
       if (matches[0]) { // TODO Currently only a single source file is supported
         const source = fs.readFileSync(path.resolve(matches[0].path), 'utf8')
         const snippets = source.match(`[/#]{0,2} vuln-code-snippet start.*${challenge.key}([^])*vuln-code-snippet end.*${challenge.key}`)
@@ -62,16 +81,9 @@ exports.serveCodeSnippet = () => async (req, res, next) => {
 }
 
 exports.challengesWithCodeSnippet = () => async (req, res, next) => {
-  const matches = await FileSniffer
-    .create()
-    .path('./server.ts')
-    .path('./routes')
-    .path('./lib')
-    .path('./data')
-    .path('./frontend/src/app')
-    .depth(1)
-    .collect(asArray())
-    .find(/vuln-code-snippet start .*/)
+  const match = /vuln-code-snippet start .*/
+  const paths = ['./server.ts', './routes', './lib', './data', './frontend/src/app']
+  const matches = await fileSniff(paths, match)
   const challenges = matches.map(m => m.match.trim().substr(26).trim()).join(' ').split(' ')
   res.json({ challenges })
 }
