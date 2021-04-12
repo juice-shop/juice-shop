@@ -4,9 +4,9 @@
  */
 import express, { Request, Response, NextFunction } from 'express'
 import insecurity from '../lib/insecurity'
+import path from 'path'
 
 const models = require('../models/index')
-
 const router = express.Router()
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -34,7 +34,7 @@ router.get('/', async (req, res, next): Promise<void> => {
 })
 
 interface DataErasureRequestParams {
-  layout: string
+  layout?: string
   email: string
   securityAnswer: string
 }
@@ -54,10 +54,10 @@ router.post('/', async (req: Request<{}, {}, DataErasureRequestParams>, res: Res
     })
 
     res.clearCookie('token')
-    const filePath: string = req.body.layout
-    if (filePath !== undefined) {
-      const conditions: boolean = (filePath.toLowerCase().includes('ftp') || filePath.toLocaleLowerCase().includes('ctf.key') || filePath.toLocaleLowerCase().includes('encryptionkeys'))
-      if (!conditions) {
+    if (req.body.layout !== undefined) {
+      const filePath: string = path.resolve(req.body.layout).toLowerCase()
+      const isForbiddenFile: boolean = (filePath.includes('ftp') || filePath.includes('ctf.key') || filePath.includes('encryptionkeys'))
+      if (!isForbiddenFile) {
         res.render('dataErasureResult', {
           ...req.body
         }, (error, html) => {
