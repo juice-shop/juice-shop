@@ -1,0 +1,15 @@
+name: Snyk example
+on: push
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: snyk/actions/setup@master
+    - uses: actions/setup-go@v1
+      with:
+        go-version: "1.13"
+    - name: Snyk Code Test
+      run: snyk code test --sarif
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
