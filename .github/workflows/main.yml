@@ -1,4 +1,4 @@
-name: "Upload SARIF"
+name: "Snyk Code Test"
 # Run workflow each time code is pushed to your repository.
 on: push
 jobs:
@@ -7,12 +7,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: snyk/actions/setup@master
-      - name: Snyk Test
-        run: snyk code test --sarif
+      - name: Snyk Code Test
+        run: snyk code test --sarif &> snyk-code.json
         continue-on-error: true       
         env:
            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}    
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v1
         with:
-          sarif_file: snyk-sarif.json
+          sarif_file: snyk-code.json
