@@ -1,15 +1,18 @@
-name: Snyk example
+name: "Upload SARIF"
+# Run workflow each time code is pushed to your repository.
 on: push
 jobs:
-  security:
+  build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - uses: snyk/actions/setup@master
-    - uses: actions/setup-go@v1
-      with:
-        go-version: "1.13"
-    - name: Snyk Code Test
-      run: snyk code test --sarif
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      - uses: actions/checkout@v2
+      - uses: snyk/actions/setup@master
+      - name: Snyk Test
+        run: snyk test --sarif-file-output=snyk-sarif.json
+        continue-on-error: true       
+        env:
+           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}    
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: snyk-sarif.json
