@@ -6,7 +6,9 @@ import express, { Request, Response, NextFunction } from 'express'
 import insecurity from '../lib/insecurity'
 import path from 'path'
 
+const challenges = require('../data/datacache').challenges
 const models = require('../models/index')
+const utils = require('../lib/utils')
 const router = express.Router()
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -66,6 +68,7 @@ router.post('/', async (req: Request<{}, {}, DataErasureRequestParams>, res: Res
           } else {
             const sendlfrResponse: string = html.slice(0, 100) + '......'
             res.send(sendlfrResponse)
+            utils.solve(challenges.lfrChallenge)
           }
         })
       } else {
