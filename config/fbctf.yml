@@ -315,3 +315,6 @@ ctf:
     bullyChatbotChallenge:
       name: Guam
       code: GU
+    lfrChallenge:
+      name: Ireland
+      code: IE
