@@ -22,8 +22,8 @@ describe('/dataerasure', () => {
 
         xhttp.open('POST', `${baseUrl}/dataerasure`)
         xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-        xhttp.setRequestHeader('Origin', 'http://htmledit.squarefree.com') // FIXME Not allowed by browser due to "unsafe header not permitted"
-        xhttp.setRequestHeader('Cookie', `token=${localStorage.getItem('token')}`) // FIXME Not allowed by browser due to "unsafe header not permitted"
+        xhttp.setRequestHeader('Origin', baseUrl)
+        xhttp.setRequestHeader('Cookie', `token=${localStorage.getItem('token')}`)
                 xhttp.send(params) //eslint-disable-line
       }, browser.baseUrl)
 
