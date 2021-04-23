@@ -64,7 +64,8 @@ router.post('/', async (req: Request<{}, {}, DataErasureRequestParams>, res: Res
           ...req.body
         }, (error, html) => {
           if (!html || error) {
-            next(new Error('No Such file exist'))
+            console.log(error)
+            next(new Error(error))
           } else {
             const sendlfrResponse: string = html.slice(0, 100) + '......'
             res.send(sendlfrResponse)
