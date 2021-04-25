@@ -64,7 +64,6 @@ router.post('/', async (req: Request<{}, {}, DataErasureRequestParams>, res: Res
           ...req.body
         }, (error, html) => {
           if (!html || error) {
-            console.log(error)
             next(new Error(error))
           } else {
             const sendlfrResponse: string = html.slice(0, 100) + '......'
