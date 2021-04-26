@@ -22,14 +22,14 @@ exports.config = {
   allScriptsTimeout: 80000,
 
   specs: [
-    'test/e2e/*.js'
+    'test/e2e/*.ts'
   ],
 
   capabilities: {
     browserName: 'chrome',
     proxy: proxy,
     chromeOptions: {
-      args: ['--window-size=1024,768']
+      args: ['--window-size=1024,768', '--disable-features=SameSiteByDefaultCookies']
     }
   },
 
@@ -41,7 +41,11 @@ exports.config = {
     showColors: true,
     defaultTimeoutInterval: 90000
   },
-
+  beforeLaunch: function () {
+    require('ts-node').register({
+      project: 'tsconfig.json'
+    })
+  },
   onPrepare: function () {
     const jasmineReporters = require('jasmine-reporters')
     jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
@@ -65,6 +69,6 @@ exports.config = {
 
 if (process.env.CI) {
   exports.config.capabilities.chromeOptions = {
-    args: ['--headless', '--disable-gpu', '--window-size=1024,768']
+    args: ['--headless', '--disable-gpu', '--window-size=1024,768', '--disable-features=SameSiteByDefaultCookies']
   }
 }

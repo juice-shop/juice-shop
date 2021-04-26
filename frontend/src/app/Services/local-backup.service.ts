@@ -5,7 +5,7 @@
 
 import { Injectable } from '@angular/core'
 import { Backup } from '../Models/backup.model'
-import { CookieService } from 'ngx-cookie-service'
+import { CookieService } from 'ngx-cookie'
 import { saveAs } from 'file-saver'
 import { SnackBarHelperService } from './snack-bar-helper.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
@@ -80,9 +80,9 @@ export class LocalBackupService {
     if (cookieValue) {
       const expires = new Date()
       expires.setFullYear(expires.getFullYear() + 1)
-      this.cookieService.set(cookieName, cookieValue, expires, '/')
+      this.cookieService.put(cookieName, cookieValue, { expires })
     } else {
-      this.cookieService.delete(cookieName, '/')
+      this.cookieService.remove(cookieName)
     }
   }
 

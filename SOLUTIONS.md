@@ -73,6 +73,7 @@ Shop easier to hack!
   * [★★★★ NoSql Manipulation (Injection)](https://youtu.be/frymuDxKwmc)
     :broken_heart:
   * [★★★★★ Change Benders Password (Broken Authentication)](https://youtu.be/J3BSi-z9_7I)
+  * [★★★★★ Extra Language (Broken Anti Automation)](https://youtu.be/KU2LzxABetk)
 * [Broken Authentication and SQL Injection - OWASP Juice Shop TryHackMe](https://youtu.be/W4MXUnZB2jc)
   by
   [Motasem Hamdan - CyberSecurity Trainer](https://www.youtube.com/channel/UCNSdU_1ehXtGclimTVckHmQ)

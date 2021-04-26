@@ -28,7 +28,7 @@ describe('UserDetailsComponent', () => {
       providers: [
         UserService,
         { provide: MatDialogRef, useValue: {} },
-        { provide: MAT_DIALOG_DATA, useValue: { productData: {} } }
+        { provide: MAT_DIALOG_DATA, useValue: { dialogData: {} } }
       ]
     })
       .compileComponents()

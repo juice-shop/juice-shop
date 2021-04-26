@@ -53,7 +53,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [10, 12, 14]
+        node-version: [12, 14, 15]
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@v2
@@ -121,6 +121,7 @@ jobs:
         run: npm install
       - name: "Execute end-to-end tests"
         uses: nick-invision/retry@v2
+        continue-on-error: true
         with:
           timeout_minutes: 20
           max_attempts: 2
@@ -142,6 +143,7 @@ jobs:
         run: npm install
       - name: "Execute end-to-end tests with application hosted in subfolder"
         uses: nick-invision/retry@v2
+        continue-on-error: true
         with:
           timeout_minutes: 20
           max_attempts: 2
@@ -176,10 +178,11 @@ jobs:
         run: |
           cd dist
           tar -zxf juice-shop-*.tgz
-          cd juice-shop_*
       - name: "Execute smoke test"
         run: |
+          cd dist/juice-shop_*
           npm start &
+          cd ../..
           chmod +x test/smoke/smoke-test.sh
           test/smoke/smoke-test.sh http://localhost:3000
   docker-test:

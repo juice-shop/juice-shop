@@ -38,6 +38,13 @@ else
   EXIT=$((EXIT+1))
 fi
 
+if curl "$1/snippets/directoryListingChallenge" -s | grep -q 'serveIndexMiddleware'; then
+  printf "\033[0;32mCode snippet smoke test passed!\033[0m\n"
+else
+  printf "\033[0;31mCode snippet smoke test failed!\033[0m\n"
+  EXIT=$((EXIT+1))
+fi
+
 printf "Smoke tests exiting with code %s (" "$EXIT"
 if [ $EXIT -gt 0 ]; then
   printf "\033[0;31mFAILED\033[0m)\n"

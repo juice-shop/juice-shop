@@ -60,6 +60,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
     private readonly router: Router, private readonly route: ActivatedRoute, private readonly sanitizer: DomSanitizer, private readonly ngZone: NgZone, private readonly io: SocketIoService,
     private readonly snackBarHelperService: SnackBarHelperService, private readonly cdRef: ChangeDetectorRef) { }
 
+  // vuln-code-snippet start restfulXssChallenge
   ngAfterViewInit () {
     const products = this.productService.search('')
     const quantities = this.quantityService.getAll()
@@ -120,6 +121,13 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
     }, (err) => console.log(err))
   }
 
+  trustProductDescription (tableData: any[]) {
+    for (let i = 0; i < tableData.length; i++) {
+      tableData[i].description = this.sanitizer.bypassSecurityTrustHtml(tableData[i].description) // vuln-code-snippet vuln-line restfulXssChallenge
+    }
+  }
+  // vuln-code-snippet end restfulXssChallenge
+
   ngOnDestroy () {
     if (this.routerSubscription) {
       this.routerSubscription.unsubscribe()
@@ -132,15 +140,16 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
     }
   }
 
+  // vuln-code-snippet start localXssChallenge xssBonusChallenge
   filterTable () {
     let queryParam: string = this.route.snapshot.queryParams.q
     if (queryParam) {
       queryParam = queryParam.trim()
-      this.ngZone.runOutsideAngular(() => {
+      this.ngZone.runOutsideAngular(() => { // vuln-code-snippet hide-start
         this.io.socket().emit('verifyLocalXssChallenge', queryParam)
-      })
+      }) // vuln-code-snippet hide-end
       this.dataSource.filter = queryParam.toLowerCase()
-      this.searchValue = this.sanitizer.bypassSecurityTrustHtml(queryParam)
+      this.searchValue = this.sanitizer.bypassSecurityTrustHtml(queryParam) // vuln-code-snippet vuln-line localXssChallenge xssBonusChallenge
       this.gridDataSource.subscribe((result: any) => {
         if (result.length === 0) {
           this.emptyState = true
@@ -154,6 +163,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
       this.emptyState = false
     }
   }
+  // vuln-code-snippet end localXssChallenge xssBonusChallenge
 
   startHackingInstructor (challengeName: string) {
     console.log(`Starting instructions for challenge "${challengeName}"`)
@@ -217,12 +227,6 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
         })
       }
     }, (err) => console.log(err))
-  }
-
-  trustProductDescription (tableData: any[]) {
-    for (let i = 0; i < tableData.length; i++) {
-      tableData[i].description = this.sanitizer.bypassSecurityTrustHtml(tableData[i].description)
-    }
   }
 
   isLoggedIn () {

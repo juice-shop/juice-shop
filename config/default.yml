@@ -23,7 +23,7 @@ application:
   social:
     twitterUrl: 'https://twitter.com/owasp_juiceshop'
     facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
-    slackUrl: 'http://owaspslack.com'
+    slackUrl: 'https://owasp.org/slack/invite'
     redditUrl: 'https://www.reddit.com/r/owasp_juiceshop'
     pressKitUrl: 'https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop'
     questionnaireUrl: ~
@@ -75,6 +75,7 @@ challenges:
   showSolvedNotifications: true
   showHints: true
   showMitigations: true
+  showCodeSnippets: always # Options: never  solved  always
   restrictToTutorialsFirst: false
   overwriteUrlForProductTamperingChallenge: 'https://owasp.slack.com'
   xssBonusPayload: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
@@ -244,6 +245,8 @@ products:
     price: 99.99
     image: 3d_keychain.jpg # Exif metadata contains "OpenSCAD" as subtle hint...
     fileForRetrieveBlueprintChallenge: JuiceShop.stl # ...to blueprint file type
+    exifForBlueprintChallenge:
+      - OpenSCAD
   -
     name: 'Juice Shop Artwork'
     description: 'Unique masterpiece painted with different kinds of juice on 90g/m² lined paper.'
