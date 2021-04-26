@@ -359,7 +359,7 @@
   "TAG_DANGER_ZONE_DESCRIPTION": "Marks potentially dangerous challenges which are disabled on Docker/Heroku by default due to RCE or other risks.",
   "TAG_GOOD_FOR_DEMOS": "Good for Demos",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "Highlights challenges which are suitable for live demos or awareness trainings.",
-  "TAG_PREREQUISITE": "Prerequisite",
+  "TAG_PREREQUISITE": "ความต้องการขั้นต้น",
   "TAG_PREREQUISITE_DESCRIPTION": "Marks challenges which need to be solved before one or more other challenges can be (realistically) solved.",
   "TAG_OSINT": "OSINT",
   "TAG_OSINT_DESCRIPTION": "Marks challenges which require some Internet research or \"social stalking\" actvitiy outside the application.",
