@@ -1133,6 +1133,9 @@
 -
   name: 'Local File Read'
   category: 'Vulnerable Components'
+  tags:
+    - OSINT
+    - Danger Zone
   difficulty: 5
   hint: 'You should read up on vulnerabilities in popular NodeJs template engines.'
   description: 'Gain read access to an arbitrary local file on the web server.'
