@@ -5,7 +5,6 @@
 
 import frisby = require('frisby')
 const Joi = frisby.Joi
-const security = require('../../lib/insecurity')
 const config = require('config')
 
 const API_URL = 'http://localhost:3000/api'

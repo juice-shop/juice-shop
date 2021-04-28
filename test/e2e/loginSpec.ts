@@ -7,13 +7,12 @@ import config = require('config')
 const otplib = require('otplib')
 
 describe('/#/login', () => {
-  let email, password, rememberMeCheckbox, loginButton
+  let email, password, loginButton
 
   beforeEach(() => {
     browser.get(`${protractor.basePath}/#/login`)
     email = element(by.id('email'))
     password = element(by.id('password'))
-    rememberMeCheckbox = element(by.id('rememberMe-input'))
     loginButton = element(by.id('loginButton'))
   })
 
