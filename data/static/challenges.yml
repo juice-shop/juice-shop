@@ -1130,3 +1130,13 @@
   hintUrl: 'https://pwning.owasp-juice.shop/part2/miscellaneous.html#receive-a-coupon-code-from-the-support-chatbot'
   mitigationUrl: ~
   key: bullyChatbotChallenge
+-
+  name: 'Local File Read'
+  category: 'Vulnerable Components'
+  difficulty: 5
+  hint: 'You should read up on vulnerabilities in popular NodeJs template engines.'
+  description: 'Gain read access to an arbitrary local file on the web server.'
+  key: 'lfrChallenge'
+  disabledEnv:
+    - Docker
+    - Heroku
