@@ -30,14 +30,7 @@ module.exports = function login () {
     models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true }) // vuln-code-snippet vuln-line loginAdminChallenge loginBenderChallenge loginJimChallenge
       .then((authenticatedUser) => {
         let user = utils.queryResultToJson(authenticatedUser)
-        const rememberedEmail = security.userEmailFrom(req)
-        if (rememberedEmail && req.body.oauth) {
-          models.User.findOne({ where: { email: rememberedEmail } }).then(rememberedUser => {
-            user = utils.queryResultToJson(rememberedUser)
-            utils.solveIf(challenges.loginCisoChallenge, () => { return user.data.id === users.ciso.id }) // vuln-code-snippet hide-line
-            afterLogin(user, res, next)
-          })
-        } else if (user.data?.id && user.data.totpSecret !== '') {
+        if (user.data?.id && user.data.totpSecret !== '') {
           res.status(401).json({
             status: 'totp_token_required',
             data: {
