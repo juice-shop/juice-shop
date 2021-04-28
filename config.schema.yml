@@ -381,11 +381,6 @@ ctf:
         type: string
       code:
         type: string
-    loginCisoChallenge:
-      name:
-        type: string
-      code:
-        type: string
     loginSupportChallenge:
       name:
         type: string

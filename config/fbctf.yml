@@ -132,9 +132,6 @@ ctf:
     oauthUserPasswordChallenge:
       name: South Sudan
       code: SS
-    loginCisoChallenge:
-      name: Angola
-      code: AO
     loginSupportChallenge:
       name: Croatia
       code: HR
