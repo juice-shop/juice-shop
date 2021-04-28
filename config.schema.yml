@@ -686,3 +686,8 @@ ctf:
         type: string
       code:
         type: string
+    lfrChallenge:
+      name:
+        type: string
+      code:
+        type: string
