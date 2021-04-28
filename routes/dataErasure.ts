@@ -4,9 +4,11 @@
  */
 import express, { Request, Response, NextFunction } from 'express'
 import insecurity from '../lib/insecurity'
+import path from 'path'
 
+const challenges = require('../data/datacache').challenges
 const models = require('../models/index')
-
+const utils = require('../lib/utils')
 const router = express.Router()
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -34,6 +36,7 @@ router.get('/', async (req, res, next): Promise<void> => {
 })
 
 interface DataErasureRequestParams {
+  layout?: string
   email: string
   securityAnswer: string
 }
@@ -51,10 +54,31 @@ router.post('/', async (req: Request<{}, {}, DataErasureRequestParams>, res: Res
       UserId: loggedInUser.data.id,
       deletionRequested: true
     })
+
     res.clearCookie('token')
-    res.render('dataErasureResult', {
-      ...req.body
-    })
+    if (req.body.layout !== undefined) {
+      const filePath: string = path.resolve(req.body.layout).toLowerCase()
+      const isForbiddenFile: boolean = (filePath.includes('ftp') || filePath.includes('ctf.key') || filePath.includes('encryptionkeys'))
+      if (!isForbiddenFile) {
+        res.render('dataErasureResult', {
+          ...req.body
+        }, (error, html) => {
+          if (!html || error) {
+            next(new Error(error))
+          } else {
+            const sendlfrResponse: string = html.slice(0, 100) + '......'
+            res.send(sendlfrResponse)
+            utils.solve(challenges.lfrChallenge)
+          }
+        })
+      } else {
+        next(new Error('File access not allowed'))
+      }
+    } else {
+      res.render('dataErasureResult', {
+        ...req.body
+      })
+    }
   } catch (error) {
     next(error)
   }

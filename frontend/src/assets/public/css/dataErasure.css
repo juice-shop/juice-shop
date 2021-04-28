@@ -6,17 +6,17 @@ body {
   justify-content: center;
   margin-bottom: 40px;
 }
-.form {
+.formBlock {
   margin-top: 50px;
   background-color: #424242;
   width: 600px;
-  height: 370px;
+  height: 400px;
   border-radius: 0.5rem;
-  padding: 10px;
+  padding: 20px;
   box-shadow: 5px 10px 18px #202020;
 }
 form {
-  margin-top: 40px;
+  margin-top: 10px;
   display: grid;
 }
 h4,
@@ -24,11 +24,18 @@ p,
 h5 {
   color: whitesmoke;
 }
+.deleteButton{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 input {
   border-radius: 0.4rem;
-  margin-left: 5px;
+  width: 100%;
+  padding: 13px 13px 13px 2px;
   background-color: #424242;
   border: 1px solid #999898;
+  margin-top: 5px;
   margin-bottom: 20px;
   color: whitesmoke;
 }
@@ -80,9 +87,6 @@ img {
   width: 50px;
   height: 60px;
 }
-label {
-  font-size: 10px;
-}
 .message {
   display: flex;
   justify-content: center;
@@ -119,4 +123,18 @@ i {
 }
 .anchor {
   font-size: 15px;
+}
+
+@media only screen and (max-width: 650px) {
+  .formBlock{
+    width: 500px;
+    height: 420px;
+  }
+}
+
+@media only screen and (max-width: 440px) {
+  .formBlock{
+    width: 370px;
+    height: 480px;
+  }
 }
