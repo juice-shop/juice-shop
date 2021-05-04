@@ -52,7 +52,9 @@ module.exports.addBasketItem = function addBasketItem () {
 
 module.exports.quantityCheckBeforeBasketItemAddition = function quantityCheckBeforeBasketItemAddition () {
   return (req, res, next) => {
-    void quantityCheck(req, res, next, req.body.ProductId, req.body.quantity)
+    void quantityCheck(req, res, next, req.body.ProductId, req.body.quantity).catch(error => {
+      next(error)
+    })
   }
 }
 
