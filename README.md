@@ -219,8 +219,7 @@ accordingly.
 
 | node.js | Supported            | Tested             | [Packaged Distributions](#packaged-distributions) | [Docker images](#docker-container) from `master`        | [Docker images](#docker-container) from `develop`         |
 |:--------|:---------------------|:-------------------|:--------------------------------------------------|:--------------------------------------------------------|:----------------------------------------------------------|
-| >16.x    | :x:                  | :x:                |                                                   |                                                         |                                                           |
-| 16.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                         |                                                           |
+| 16.x    | :x:                  | :x:                |                                                   |                                                         |                                                           |
 | 15.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                         |                                                           |
 | 14.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                         |                                                           |
 | 13.x    | (:heavy_check_mark:) | :x:                |                                                   |                                                         |                                                           |
