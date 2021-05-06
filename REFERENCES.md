@@ -176,6 +176,7 @@ where this project was mentioned or used!
 
 ## Lectures and Trainings
 
+* [Intro to Semgrep](https://lab.github.com/returntocorp/intro-to-semgrep) GitHub Learning Lab
 * [Web Application Ethical Hacking - Penetration Testing Course for Beginners](https://youtu.be/X4eRbHgRawI)
   :godmode: by The Cyber Mentor on
   [freeCodeCamp.org](https://www.youtube.com/channel/UC8butISFwT-Wl7EV0hUK0BQ)'s
@@ -274,6 +275,7 @@ where this project was mentioned or used!
 
 #### 2021
 
+* [OWASP Aarhus Chapter Worskhop and CTP](https://www.meetup.com/de-DE/OWASP-Aarhus-Chapter/events/277659233/) with Björn Kimminich, [OWASP Aarhus Chapter](https://owasp.org/www-chapter-aarhus/), 06.05.2021
 * [Modern Web Application Hacking for Beginners](https://github.com/bkimminich/it-security-lecture/tree/workshop),
   virtual 4h diversity training by Björn Kimminich,
   [OWASP Training Events 2021 - 2020 SOS Re-run](https://github.com/OWASP/www-event-2021-training),
