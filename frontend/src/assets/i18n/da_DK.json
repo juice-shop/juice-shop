@@ -87,7 +87,7 @@
   "LABEL_MERCHANDISE": "Merchandise",
   "OFFICIAL_MERCHANDISE_STORES": "Officielle butikker med {{juiceshop}} tøj, krus og klistermærker!",
   "OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED": "Officielle butikker med tøj, krus og klistermærker fra open source projektet bag {{appname}}!",
-  "DISCOUNT_APPLIED": "Your discount of {{discount}}% will be applied during checkout.",
+  "DISCOUNT_APPLIED": "Din rabat på {{discount}}% vil blive fratrukket ved kassen.",
   "TITLE_CHANGE_PASSWORD": "Skift adgangskode",
   "MANDATORY_CURRENT_PASSWORD": "Angiv venligst din nuværende adgangskode.",
   "MANDATORY_NEW_PASSWORD": "Angiv venligst din nye adgangskode.",
