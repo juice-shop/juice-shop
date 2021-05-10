@@ -380,7 +380,7 @@
   "CATEGORY_BROKEN_AUTHENTICATION": "Broken Authentication",
   "CATEGORY_CRYPTOGRAPHIC_ISSUES": "Kryptografiske Problemer",
   "CATEGORY_IMPROPER_INPUT_VALIDATION": "Utilstrækkelig Inputvalidering",
-  "CATEGORY_INJECTION": "Injection",
+  "CATEGORY_INJECTION": "Injektion",
   "CATEGORY_INSECURE_DESERIALIZATION": "Usikker Deserialisering",
   "CATEGORY_MISCELLANEOUS": "Diverse",
   "CATEGORY_SECURITY_MISCONFIGURATION": "Miskonfiguration af Sikkerhed",
