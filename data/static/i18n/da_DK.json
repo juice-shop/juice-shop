@@ -93,7 +93,7 @@
 	"Log in with the support team's original user credentials without applying SQL Injection or any other bypass.": "Log ind med supportteamets originale loginoplysninger uden brug af SQL Injection eller andre omgåelser.",
 	"The underlying flaw of this challenge is a lot more human error than technical weakness.": "Denne udfordrings grundlæggende fejl er i højere grad en menneskelig fejl end en teknisk svaghed.",
 	"Put an additional product into another user's shopping basket.": "Placér et ekstra produkt i en anden brugers indkøbskurv.",
-	"Have an eye on the HTTP traffic while placing products in the shopping basket. Changing the quantity of products already in the basket doesn't count.": "Have an eye on the HTTP traffic while placing products in the shopping basket. Changing the quantity of products already in the basket doesn't count.",
+	"Have an eye on the HTTP traffic while placing products in the shopping basket. Changing the quantity of products already in the basket doesn't count.": "Har øje på HTTP-trafikken, mens produkter placeres i indkøbskurven. Ændring af det allerede eksisterende produktantal i kurven, tæller ikke.",
 	"Access a misplaced <a href=\"https://github.com/Neo23x0/sigma\">SIEM signature</a> file.": "Access a misplaced <a href=\"https://github.com/Neo23x0/sigma\">SIEM signature</a> file.",
 	"Like any review at least three times as the same user.": "Like any review at least three times as the same user.",
 	"Punctuality is the politeness of kings.": "Punctuality is the politeness of kings.",
