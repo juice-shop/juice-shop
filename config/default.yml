@@ -361,7 +361,7 @@ products:
     price: 9999.99
     quantity: 1
     limitPerUser: 1
-    image: permafrost.jpg
+    image: permafrost.jpg                                                                                 
     reviews:
       - { text: "🧊 Let it go, let it go 🎶 Can't hold it back anymore 🎶 Let it go, let it go 🎶 Turn away and slam the door ❄️", author: rapper }
   -
@@ -373,6 +373,15 @@ products:
     reviews:
       - { text: "I'd stand on my head to make you a deal for this piece of art.", author: stan }
       - { text: "Just when my opinion of humans couldn't get any lower, along comes Stan...", author: bender }
+  -
+    name: 'OWASP Juice Shop Card (non-foil)'
+    description: 'Mythic rare <small><em>(obviously...)</em></small> card "OWASP Juice Shop" with three distinctly useful abilities. Alpha printing, mint condition. A true collectors piece to own!'
+    price: 1000
+    quantity: 3
+    limitPerUser: 1
+    image: card_alpha.jpg
+    reviews:
+      - { text: 'DO NOT PLAY WITH THIS! Double-sleeve, then put it in the GitHub Arctic Vault for perfect preservation and boost of secondary market value!', author: accountant }
 memories:
   -
     image: 'magn(et)ificent!-1571814229653.jpg'
