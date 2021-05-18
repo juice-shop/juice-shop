@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: MIT
  */
 
+import models = require('../models/index')
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
 const jwt = require('jsonwebtoken')
 const jws = require('jws')
-import models = require('../models/index')
 const cache = require('../data/datacache')
 const Op = models.Sequelize.Op
 const challenges = cache.challenges

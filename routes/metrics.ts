@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+import models = require('../models/index')
 const Prometheus = require('prom-client')
 const onFinished = require('on-finished')
 const orders = require('../data/mongodb').orders
@@ -11,7 +12,6 @@ const challenges = require('../data/datacache').challenges
 const utils = require('../lib/utils')
 const antiCheat = require('../lib/antiCheat')
 const config = require('config')
-import models = require('../models/index')
 const Op = models.Sequelize.Op
 
 const register = Prometheus.register

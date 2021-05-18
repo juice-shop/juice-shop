@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-const security = require('../lib/insecurity')
 import models = require('../models/index')
+const security = require('../lib/insecurity')
 
 module.exports = function applyCoupon () {
   return ({ params }, res, next) => {

@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-const config = require('config')
 import path = require('path')
+const config = require('config')
 const utils = require('../../lib/utils')
 
 describe('/#/complain', () => {
