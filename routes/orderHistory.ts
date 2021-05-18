@@ -8,7 +8,7 @@ import db = require('../data/mongodb')
 
 module.exports.orderHistory = function orderHistory () {
   return async (req, res, next) => {
-    const loggedInUser = security.authenticatedUsers.get(req.headers.authorization.replace('Bearer ', ''))
+    const loggedInUser = security.authenticatedUsers.get(req.headers?.authorization?.replace('Bearer ', ''))
     if (loggedInUser?.data?.email && loggedInUser.data.id) {
       const email = loggedInUser.data.email
       const updatedEmail = email.replace(/[aeiou]/gi, '*')
