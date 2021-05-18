@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
+import request = require('request')
+import serverApp = require('./../server')
 const app = require('express')()
 const server = require('http').Server(app)
-import request = require('request')
 const colors = require('colors/safe')
 const logger = require('./../lib/logger')
-import serverApp = require('./../server')
 
 const url = require('url')
 const originalBase = require('../protractor.conf.js').config.baseUrl

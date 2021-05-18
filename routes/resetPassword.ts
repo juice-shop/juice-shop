@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
+import config = require('config')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const users = require('../data/datacache').users
 const security = require('../lib/insecurity')
 const models = require('../models/index')
-import config = require('config')
 
 module.exports = function resetPassword () {
   return ({ body, connection }, res, next) => {

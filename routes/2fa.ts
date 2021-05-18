@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
+import config = require('config')
 const security = require('../lib/insecurity')
 const models = require('../models/index')
 const otplib = require('otplib')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
-import config = require('config')
 
 otplib.authenticator.options = {
   // Accepts tokens as valid even when they are 30sec to old or to new

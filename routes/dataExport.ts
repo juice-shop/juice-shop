@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: MIT
  */
 
+import models = require('../models/index')
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
 const db = require('../data/mongodb')
 const challenges = require('../data/datacache').challenges
-import models = require('../models/index')
 
 module.exports = function dataExport () {
   return async (req, res, next) => {
