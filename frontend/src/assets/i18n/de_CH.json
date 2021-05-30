@@ -410,5 +410,5 @@
   "REVEAL_VULNERABLE_CODE_LINES": "Schwebe hierüber, um die verwundbare(n) Codezeile(n) aufzudecken",
   "INFO_VULNERABLE_CODE_SNIPPET": "Zeige den zugehörigen verwundbaren Code-Ausschnitt an.",
   "LABEL_LINES": "Zeile(n)",
-  "LOADING_CODE_SNIPPET": "Loading code snippet..."
+  "LOADING_CODE_SNIPPET": "Lade Code-Ausschnitt..."
 }
