@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-const security = require('../../lib/insecurity')
 import config = require('config')
+const security = require('../../lib/insecurity')
 const models = require('../../models/index')
 
 describe('/#/basket', () => {

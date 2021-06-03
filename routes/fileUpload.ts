@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
+import fs = require('fs')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const libxml = require('libxmljs2')
 const os = require('os')
 const vm = require('vm')
-import fs = require('fs')
 const unzipper = require('unzipper')
 const path = require('path')
 

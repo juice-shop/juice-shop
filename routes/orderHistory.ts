@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-const security = require('../lib/insecurity')
 import db = require('../data/mongodb')
+const security = require('../lib/insecurity')
 
 module.exports.orderHistory = function orderHistory () {
   return async (req, res, next) => {
