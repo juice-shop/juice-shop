@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: MIT
  */
 
+import models = require('../models/index')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const security = require('../lib/insecurity')
-import models = require('../models/index')
 
 module.exports.addBasketItem = function addBasketItem () {
   return (req, res, next) => {

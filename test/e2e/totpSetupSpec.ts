@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-const otplib = require('otplib')
 import config = require('config')
+const otplib = require('otplib')
 
 const EC = protractor.ExpectedConditions
 

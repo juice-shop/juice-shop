@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-const utils = require('../lib/utils')
 import models = require('../models/index')
+const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
 // vuln-code-snippet start unionSqlInjectionChallenge dbSchemaChallenge
