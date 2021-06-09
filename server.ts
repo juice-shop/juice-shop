@@ -643,3 +643,44 @@ export function close (exitCode) {
     process.exit(exitCode)
   }
 }
+
+
+/*
+* Added for Semgrep challenge *
+*/
+
+/*
+* Snippets borrowed from server.ts
+*/
+
+// ruleid:juice-shop-route-unauth-try
+app.use('/assets/public/images/products', verify.accessControlChallenges())
+
+// Don't match these, first arg is not a path
+app.use(cookieParser('kekse'))
+app.use(bodyParser.urlencoded({ extended: true }))
+
+/* Baskets: Unauthorized users are not allowed to access baskets */
+app.use('/rest/basket', security.isAuthorized(), security.appendUserId())
+/* BasketItems: API only accessible for authenticated users */
+app.use('/api/BasketItems', security.isAuthorized())
+
+app.delete('/api/Products/:id', security.denyAll())
+
+/* Challenges: GET list of challenges allowed. Everything else forbidden entirely */
+app.post('/api/Challenges', security.denyAll()) 
+/* Complaints: POST and GET allowed when logged in only */
+app.get('/api/Complaints', security.isAuthorized())
+
+// ruleid:juice-shop-route-unauth-try
+app.put('/api/BasketItems/:id', security.appendUserId(), basketItems.quantityCheckBeforeBasketItemUpdate())
+
+app.use('/api/Quantitys/:id', security.isAccounting())
+
+app.get('/rest/2fa/status', security.isAuthorized(), twoFactorAuth.status())
+
+app.get('/rest/order-history/orders', security.isAccounting(), orderHistory.allOrders())
+
+/* Routes for profile page */
+// ruleid:juice-shop-route-unauth-try
+app.get('/profile', security.updateAuthenticatedUsers(), userProfile()) 
