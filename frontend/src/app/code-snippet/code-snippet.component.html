@@ -10,9 +10,13 @@
   <mat-divider></mat-divider>
   <div class="container" fxLayout="column">
     <div fxLayout="row" fxLayoutGap="10px">
-      <div>
-        <pre><code [highlight]="snippet?.snippet || ('LOADING_CODE_SNIPPET' | translate)" [lineNumbers]="true"></code></pre>
-      </div>
+      <!-- <div>
+        <pre><code 
+          [highlight]="snippet?.snippet || ('LOADING_CODE_SNIPPET' | translate)" [lineNumbers]="true"
+          ></code></pre>
+      </div> -->
+      <app-code-area [code]="snippet?.snippet"
+      [vulnLines]="snippet?.vulnLines"></app-code-area>
     </div>
     <div *ngIf="snippet?.vulnLines.length > 0" fxLayout="row" fxLayoutGap="10px">
       <div>
