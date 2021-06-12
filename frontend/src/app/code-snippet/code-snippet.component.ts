@@ -14,6 +14,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 })
 export class CodeSnippetComponent implements OnInit {
   public snippet: any
+  public selectedLines: number[]
+  public result: string = 'send'
   constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly codeSnippetService: CodeSnippetService) { }
 
   ngOnInit () {
@@ -22,5 +24,24 @@ export class CodeSnippetComponent implements OnInit {
     }, (err) => {
       this.snippet = { snippet: JSON.stringify(err.error?.error), vulnLines: [] }
     })
+  }
+
+  addLine = (lines) => {
+    this.selectedLines = lines
+  }
+
+  checkLines = () => {
+    let res = true
+    if (this.selectedLines.length !== this.snippet.vulnLines.length) res = false
+    for (let i = 0; i < this.selectedLines.length; i++) {
+      if (!this.selectedLines.includes(this.snippet.vulnLines[i])) {
+        res = false
+      }
+    }
+    if (res) {
+      this.result = 'check'
+    } else {
+      this.result = 'clear'
+    }
   }
 }
