@@ -16,7 +16,8 @@
           ></code></pre>
       </div> -->
       <app-code-area [code]="snippet?.snippet"
-      [vulnLines]="snippet?.vulnLines"></app-code-area>
+      [vulnLines]="snippet?.vulnLines"
+      (addLine) = "addLine($event)"></app-code-area>
     </div>
     <div *ngIf="snippet?.vulnLines.length > 0" fxLayout="row" fxLayoutGap="10px">
       <div>
@@ -46,6 +47,12 @@
         close
       </i>
       <span>  {{'BTN_CLOSE' | translate}}</span>
+    </button>
+    <button mat-stroked-button (click) = "checkLines()">
+      <span>  {{'BTN_SUBMIT' | translate}}</span>
+      <i class="material-icons">
+        {{result}}
+      </i>
     </button>
   </mat-dialog-actions>
 </mat-dialog-content>
