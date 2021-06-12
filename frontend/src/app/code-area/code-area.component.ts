@@ -11,7 +11,7 @@ export class CodeAreaComponent implements OnInit, OnChanges {
   @ViewChild('emphasize') emphasize: ElementRef
   public langs = ['javascript', 'typescript', 'json', 'yaml']
   public lines: string
-  public selectedLines: any
+  public selectedLines: any = []
 
   constructor (private readonly element: ElementRef) { }
 
@@ -49,6 +49,15 @@ export class CodeAreaComponent implements OnInit, OnChanges {
   }
 
   selectLines = (event) => {
-    event.target.innerText = '✅'
+    const line = parseInt(event.target.id.split('line')[1], 10)
+    if (this.selectedLines.includes(line)) {
+      event.target.innerText = '◻️'
+      this.selectedLines.filter((value) => {
+        return value !== line
+      })
+    } else {
+      event.target.innerText = '✅'
+      this.selectedLines.push(line)
+    }
   }
 }
