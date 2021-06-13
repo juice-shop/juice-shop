@@ -19,6 +19,7 @@ import { ComplaintComponent } from './complaint/complaint.component'
 import { ChatbotComponent } from './chatbot/chatbot.component'
 import { RecycleComponent } from './recycle/recycle.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
+import { ScoreBoard2Component } from './score-board2/score-board2.component'
 import { RouterModule, Routes, UrlMatchResult, UrlSegment } from '@angular/router'
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
 import { ErrorPageComponent } from './error-page/error-page.component'
@@ -158,6 +159,10 @@ const routes: Routes = [
   {
     path: 'score-board', // vuln-code-snippet vuln-line scoreBoardChallenge
     component: ScoreBoardComponent
+  },
+  {
+    path: 'score-board2',
+    component: ScoreBoard2Component
   },
   {
     path: 'track-result',
