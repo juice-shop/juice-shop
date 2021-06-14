@@ -16,6 +16,9 @@ export class CodeSnippetComponent implements OnInit {
   public snippet: any
   public selectedLines: number[]
   public result: string = 'send'
+  public submit = 'send'
+  public correct = 'check'
+  public wrong = 'clear'
   constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly codeSnippetService: CodeSnippetService) { }
 
   ngOnInit () {
@@ -39,9 +42,9 @@ export class CodeSnippetComponent implements OnInit {
       }
     }
     if (res) {
-      this.result = 'check'
+      this.result = this.correct
     } else {
-      this.result = 'clear'
+      this.result = this.wrong
     }
   }
 }
