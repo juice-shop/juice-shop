@@ -12,6 +12,8 @@ export class CodeAreaComponent implements OnInit, OnChanges {
   public langs = ['javascript', 'typescript', 'json', 'yaml']
   public lines: string
   public selectedLines: number[] = []
+  public select = '✅'
+  public unselect = '🔲'
   @Output() addLine = new EventEmitter<number[]>()
 
   constructor (private readonly element: ElementRef) { }
@@ -31,11 +33,11 @@ export class CodeAreaComponent implements OnInit, OnChanges {
     let c = 1
     for (let i = 0; i < code.length; i++) {
       if (code[i] === '\n') {
-        lines += `<span id='line${c++}'>◻️</span><br>`
+        lines += `<span id='line${c++}'>${this.unselect}</span><br>`
       }
     }
 
-    lines += `<span id=${c++}>◻️</span><br>`
+    lines += `<span id='line${c++}'>${this.unselect}</span><br>`
 
     return lines
   }
@@ -47,17 +49,19 @@ export class CodeAreaComponent implements OnInit, OnChanges {
         this.element.nativeElement.querySelector(`#line${c++}`).addEventListener('click', this.selectLines)
       }
     }
+
+    this.element.nativeElement.querySelector(`#line${c++}`).addEventListener('click', this.selectLines)
   }
 
   selectLines = (event) => {
     const line = parseInt(event.target.id.split('line')[1], 10)
     if (this.selectedLines.includes(line)) {
-      event.target.innerText = '◻️'
+      event.target.innerText = this.unselect
       this.selectedLines = this.selectedLines.filter((value) => {
         return value !== line
       })
     } else {
-      event.target.innerText = '✅'
+      event.target.innerText = this.select
       this.selectedLines.push(line)
     }
 
