@@ -3,9 +3,15 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { CodeSnippetService } from '../Services/code-snippet.service'
+import { CodeSnippetService, CodeSnippet } from '../Services/code-snippet.service'
 import { Component, Inject, OnInit } from '@angular/core'
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
+
+enum ResultState {
+  Undecided,
+  Right,
+  Wrong,
+}
 
 @Component({
   selector: 'app-user-details',
@@ -13,12 +19,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog'
   styleUrls: ['./code-snippet.component.scss']
 })
 export class CodeSnippetComponent implements OnInit {
-  public snippet: any
+  public snippet: CodeSnippet
   public selectedLines: number[]
-  public result: string = 'send'
-  public submit = 'send'
-  public correct = 'check'
-  public wrong = 'clear'
+  public result: ResultState = ResultState.Undecided
+
   constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly codeSnippetService: CodeSnippetService) { }
 
   ngOnInit () {
@@ -34,17 +38,36 @@ export class CodeSnippetComponent implements OnInit {
   }
 
   checkLines = () => {
-    let res = true
-    if (this.selectedLines.length !== this.snippet.vulnLines.length) res = false
-    for (let i = 0; i < this.selectedLines.length; i++) {
-      if (!this.selectedLines.includes(this.snippet.vulnLines[i])) {
-        res = false
+    if(this.checkArrayIdentical(this.selectedLines, this.snippet.vulnLines)) {
+      this.result = ResultState.Right
+    } else {
+      this.result = ResultState.Wrong
+    }
+  }
+
+  checkArrayIdentical(numbers1: number[], numbers2: number[]): boolean {
+    const sortedNumbers1 = numbers1.sort()
+    const sortedNumbers2 = numbers2.sort()
+
+    if (numbers1.length !== numbers2.length) return false
+
+    for (const index in sortedNumbers1) {
+      if (sortedNumbers1[index] !== sortedNumbers2[index]) {
+        return false
       }
     }
-    if (res) {
-      this.result = this.correct
-    } else {
-      this.result = this.wrong
+
+    return true;
+  }
+
+  resultIcon() : string{
+    switch( this.result) {
+      case ResultState.Right:
+        return 'check'
+      case ResultState.Wrong:
+        return 'clear'
+      default:
+        return 'send'
     }
   }
 }

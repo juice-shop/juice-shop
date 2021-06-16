@@ -43,4 +43,16 @@ describe('UserDetailsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy()
   })
+
+  it('compares arrays correctly', () => {
+    expect(component.checkArrayIdentical([], [])).toBe(true)
+    expect(component.checkArrayIdentical([1], [1])).toBe(true)
+    expect(component.checkArrayIdentical([1, 2], [1, 2])).toBe(true)
+    expect(component.checkArrayIdentical([2, 1], [1, 2])).toBe(true)
+
+    expect(component.checkArrayIdentical([2, 1, 3], [1, 2])).toBe(false)
+    expect(component.checkArrayIdentical([], [1])).toBe(false)
+    expect(component.checkArrayIdentical([], [1, 2])).toBe(false)
+    expect(component.checkArrayIdentical([2, 2], [1, 2])).toBe(false)
+  })
 })
