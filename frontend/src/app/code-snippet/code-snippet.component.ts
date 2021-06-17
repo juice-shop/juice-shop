@@ -38,14 +38,14 @@ export class CodeSnippetComponent implements OnInit {
   }
 
   checkLines = () => {
-    if(this.checkArrayIdentical(this.selectedLines, this.snippet.vulnLines)) {
+    if (this.checkArrayIdentical(this.selectedLines, this.snippet.vulnLines)) {
       this.result = ResultState.Right
     } else {
       this.result = ResultState.Wrong
     }
   }
 
-  checkArrayIdentical(numbers1: number[], numbers2: number[]): boolean {
+  checkArrayIdentical (numbers1: number[], numbers2: number[]): boolean {
     const sortedNumbers1 = numbers1.sort()
     const sortedNumbers2 = numbers2.sort()
 
@@ -57,11 +57,11 @@ export class CodeSnippetComponent implements OnInit {
       }
     }
 
-    return true;
+    return true
   }
 
-  resultIcon() : string{
-    switch( this.result) {
+  resultIcon (): string {
+    switch (this.result) {
       case ResultState.Right:
         return 'check'
       case ResultState.Wrong:

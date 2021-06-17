@@ -12,6 +12,7 @@ export class CodeAreaComponent implements OnInit, OnChanges {
   public langs = ['javascript', 'typescript', 'json', 'yaml']
   public lines: string
   public selectedLines: number[] = []
+  public lineNums: number[] = []
   public select = '✅'
   public unselect = '🔲'
   @Output() addLine = new EventEmitter<number[]>()
@@ -23,34 +24,21 @@ export class CodeAreaComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges (): void {
-    this.lines = this.markLines(this.code)
-    this.emphasize.nativeElement.innerHTML = this.lines
-    this.addEventListeners(this.code)
+    this.lineNums = this.markLines(this.code)
   }
 
   markLines = (code: string) => {
-    let lines = ''
+    const lines = []
     let c = 1
     for (let i = 0; i < code.length; i++) {
       if (code[i] === '\n') {
-        lines += `<span id='line${c++}'>${this.unselect}</span><br>`
+        lines.push(c++)
       }
     }
 
-    lines += `<span id='line${c++}'>${this.unselect}</span><br>`
+    lines.push(c++)
 
     return lines
-  }
-
-  addEventListeners = (code) => {
-    let c = 1
-    for (let i = 0; i < code.length; i++) {
-      if (code[i] === '\n') {
-        this.element.nativeElement.querySelector(`#line${c++}`).addEventListener('click', this.selectLines)
-      }
-    }
-
-    this.element.nativeElement.querySelector(`#line${c++}`).addEventListener('click', this.selectLines)
   }
 
   selectLines = (event) => {
