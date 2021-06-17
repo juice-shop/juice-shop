@@ -10,7 +10,7 @@ describe('CodeAreaComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        TranslateModule.forRoot(),
+        TranslateModule.forRoot()
       ],
       declarations: [CodeAreaComponent]
     })

@@ -10,8 +10,8 @@ import { catchError, map } from 'rxjs/operators'
 import { Observable } from 'rxjs'
 
 export interface CodeSnippet {
-  snippet: string,
-  vulnLines: number[],
+  snippet: string
+  vulnLines: number[]
 }
 
 @Injectable({
