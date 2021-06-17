@@ -46,12 +46,12 @@ export class CodeSnippetComponent implements OnInit {
   }
 
   checkArrayIdentical (numbers1: number[], numbers2: number[]): boolean {
-    const sortedNumbers1 = numbers1.sort()
-    const sortedNumbers2 = numbers2.sort()
+    const sortedNumbers1 = numbers1.sort((a, b) => a - b)
+    const sortedNumbers2 = numbers2.sort((a, b) => a - b)
 
     if (numbers1.length !== numbers2.length) return false
 
-    for (const index in sortedNumbers1) {
+    for (let i = 0; i < sortedNumbers1.length; i++) {
       if (sortedNumbers1[index] !== sortedNumbers2[index]) {
         return false
       }
