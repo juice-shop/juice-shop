@@ -25,6 +25,10 @@ where this project was mentioned or used!
 
 ### Pod- & Webcasts
 
+* [People | Process | Technology Podcast](https://soundcloud.com/owasp-podcast/)
+  (fka "OWASP 24/7 Podcast"):
+  * [OWASP Flagship Projects - Episode 02](https://soundcloud.com/owasp-podcast/owasp-flagship-projects-episode-02)
+  * [Less than 10 Minutes Series: The Juice Shop Project](https://soundcloud.com/owasp-podcast/less-than-10-minutes-series-the-juice-shop-project)
 * [Learn Web App Security Penetration Testing with Juice Shop \[Free\]](https://youtu.be/ShUTDUYEMWA)
   by
   [Gerald Auger - Simply Cyber](https://www.YouTube.com/channel/UCG-48Ki-b6W_siaUkukJOSw)
@@ -100,9 +104,6 @@ where this project was mentioned or used!
   [All you need is Zaproxy - Security Testing for WebApps Made Easy](https://www.YouTube.com/watch?v=AQX84p9NhqY)
   * [Example integration as a Docker Compose script](https://github.com/Soluto/webdriverio-zap-proxy)
   * [Scan results of the example integration](https://jsfiddle.net/62aedL6n/)
-* Interview on [OWASP 24/7](https://soundcloud.com/owasp-podcast)
-  Podcast:
-  [Less than 10 Minutes Series: The Juice Shop Project](https://soundcloud.com/owasp-podcast/less-than-10-minutes-series-the-juice-shop-project)
 
 ### Blogs & Articles
 
