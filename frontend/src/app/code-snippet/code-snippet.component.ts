@@ -52,7 +52,7 @@ export class CodeSnippetComponent implements OnInit {
     if (numbers1.length !== numbers2.length) return false
 
     for (let i = 0; i < sortedNumbers1.length; i++) {
-      if (sortedNumbers1[index] !== sortedNumbers2[index]) {
+      if (sortedNumbers1[i] !== sortedNumbers2[i]) {
         return false
       }
     }
