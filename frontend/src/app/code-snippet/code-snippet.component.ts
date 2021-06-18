@@ -21,6 +21,7 @@ enum ResultState {
 export class CodeSnippetComponent implements OnInit {
   public snippet: CodeSnippet
   public selectedLines: number[]
+  public submissionCnt: number = 0
   public result: ResultState = ResultState.Undecided
 
   constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly codeSnippetService: CodeSnippetService) { }
@@ -38,6 +39,7 @@ export class CodeSnippetComponent implements OnInit {
   }
 
   checkLines = () => {
+    this.submissionCnt++
     if (this.checkArrayIdentical(this.selectedLines, this.snippet.vulnLines)) {
       this.result = ResultState.Right
     } else {
