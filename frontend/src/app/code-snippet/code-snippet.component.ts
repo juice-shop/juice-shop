@@ -4,6 +4,7 @@
  */
 
 import { CodeSnippetService, CodeSnippet } from '../Services/code-snippet.service'
+import { VulnLinesService } from '../Services/vuln-lines.service'
 import { Component, Inject, OnInit } from '@angular/core'
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 
@@ -24,7 +25,7 @@ export class CodeSnippetComponent implements OnInit {
   public submissionCnt: number = 0
   public result: ResultState = ResultState.Undecided
 
-  constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly codeSnippetService: CodeSnippetService) { }
+  constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly codeSnippetService: CodeSnippetService, private readonly vulnLinesService: VulnLinesService) { }
 
   ngOnInit () {
     this.codeSnippetService.get(this.dialogData.key).subscribe((snippet) => {
@@ -40,26 +41,14 @@ export class CodeSnippetComponent implements OnInit {
 
   checkLines = () => {
     this.submissionCnt++
-    if (this.checkArrayIdentical(this.selectedLines, this.snippet.vulnLines)) {
-      this.result = ResultState.Right
-    } else {
-      this.result = ResultState.Wrong
-    }
-  }
-
-  checkArrayIdentical (numbers1: number[], numbers2: number[]): boolean {
-    const sortedNumbers1 = numbers1.sort((a, b) => a - b)
-    const sortedNumbers2 = numbers2.sort((a, b) => a - b)
-
-    if (numbers1.length !== numbers2.length) return false
-
-    for (let i = 0; i < sortedNumbers1.length; i++) {
-      if (sortedNumbers1[i] !== sortedNumbers2[i]) {
-        return false
+    this.vulnLinesService.check(this.snippet.vulnLines, this.selectedLines).subscribe((verdict) => {
+      console.log(verdict)
+      if (verdict.verdict) {
+        this.result = ResultState.Right
+      } else {
+        this.result = ResultState.Wrong
       }
-    }
-
-    return true
+    })
   }
 
   resultIcon (): string {
