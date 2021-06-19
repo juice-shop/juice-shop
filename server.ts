@@ -36,6 +36,7 @@ const profileImageFileUpload = require('./routes/profileImageFileUpload')
 const profileImageUrlUpload = require('./routes/profileImageUrlUpload')
 const redirect = require('./routes/redirect')
 const vulnCodeSnippet = require('./routes/vulnCodeSnippet')
+const vulnLines = require('./routes/vulnLines')
 const angular = require('./routes/angular')
 const easterEgg = require('./routes/easterEgg')
 const premiumReward = require('./routes/premiumReward')
@@ -556,6 +557,9 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Routes for profile page */
   app.get('/profile', security.updateAuthenticatedUsers(), userProfile())
   app.post('/profile', updateUserProfile())
+
+  /* Routes for vulnerable Lines */
+  app.post('/verdict', vulnLines.checkVulnLines())
 
   /* Route for vulnerable code snippets */
   app.get('/snippets', vulnCodeSnippet.challengesWithCodeSnippet())
