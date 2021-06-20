@@ -41,7 +41,7 @@ export class CodeSnippetComponent implements OnInit {
 
   checkLines = () => {
     this.submissionCnt++
-    this.vulnLinesService.check(this.snippet.vulnLines, this.selectedLines).subscribe((verdict) => {
+    this.vulnLinesService.check(this.dialogData.key, this.selectedLines).subscribe((verdict) => {
       console.log(verdict)
       if (verdict.verdict) {
         this.result = ResultState.Right
