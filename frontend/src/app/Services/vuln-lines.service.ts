@@ -12,9 +12,9 @@ export class VulnLinesService {
 
   constructor (private readonly http: HttpClient) { }
 
-  check (vulnLines: number[], selectedLines: number[]): any {
+  check (key: any, selectedLines: number[]): any {
     return this.http.post(this.host, {
-      vulnLines: vulnLines,
+      key: key,
       selectedLines: selectedLines
     }).pipe(map((response: any) => response), catchError((error: any) => { throw error }))
   }
