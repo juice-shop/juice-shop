@@ -87,6 +87,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatListModule } from '@angular/material/list'
@@ -132,6 +133,7 @@ import { MatSliderModule } from '@angular/material/slider'
 import { MatChipsModule } from '@angular/material/chips'
 import { CodeSnippetComponent } from './code-snippet/code-snippet.component'
 import { ScoreBoard2Component } from './score-board2/score-board2.component'
+import { FixedSizeVirtualScrollStrategy } from '@angular/cdk/scrolling'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json')
@@ -235,6 +237,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatNativeDateModule,
     MatExpansionModule,
     MatProgressBarModule,
+    MatProgressSpinnerModule,
     MatTooltipModule,
     MatMenuModule,
     MatListModule,
@@ -248,7 +251,9 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatSliderModule,
     MatSlideToggleModule,
     MatChipsModule,
-    HighlightModule
+    HighlightModule,
+    FixedSizeVirtualScrollStrategy
+
   ],
   providers: [
     {

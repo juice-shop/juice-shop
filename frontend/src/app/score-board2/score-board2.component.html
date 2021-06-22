@@ -1,1 +1,60 @@
-<p>score-board2 works!</p>
+<!DOCTYPE html>
+<html>
+    <mat-card>
+        <mat-card-title>Score Board 2</mat-card-title>
+    </mat-card>
+<head>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="row">
+        <div class="row">
+            <div class="col-lg-4" style="float:left;padding-top:10px;padding-inline: 25px;">
+                <mat-card>
+                    <mat-card-title>
+                        Progress
+                    </mat-card-title>
+                    <mat-progress-spinner diameter="500" mode="determinate" value=98 color='accent'></mat-progress-spinner>98%
+                </mat-card>
+            </div>
+            <div class="col-lg-8" style="float:right;padding-top:10px;">
+
+                    <mat-card>
+                        <mat-card-subtitle>
+                            Hack of the Day<mat-card class="col-lg-4" style="float: inherit;"><mat-card-subtitle>lorem ipsum</mat-card-subtitle></mat-card>
+                        </mat-card-subtitle>
+                    </mat-card>
+                    <mat-card>
+                        <mat-card-subtitle>
+                            Learning paths
+                        </mat-card-subtitle>
+                        <div class="scroll">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                            Sed vitae magna id elit porttitor elementum nec laoreet ipsum. Pellentesque 
+                            habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
+                            Quisque aliquam, leo pretium aliquet volutpat, ante nisi blandit sem, vel 
+                            egestas quam diam tempus sem. Maecenas at metus ut risus egestas gravida sit amet
+                             et enim. Cras convallis sagittis tortor, sed egestas mi bibendum vitae.
+                        </div>
+
+
+                        <!-- <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+                            <div *cdkVirtualFor="let item of items; templateCacheSize: 0" class="example-item">{{item}}</div>
+                          </cdk-virtual-scroll-viewport>                           -->
+                    </mat-card>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <mat-card>
+                <mat-card-subtitle>
+                    Challenges
+                </mat-card-subtitle>
+                <!-- <mat-table>
+                    <mat-row></mat-row>
+                </mat-table> -->
+            </mat-card>
+        </div>
+    </div>
+</body>
+</html>

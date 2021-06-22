@@ -1,0 +1,34 @@
+html {
+  margin: 35px;
+}
+
+body {
+  background-color: #546e7a;
+}
+
+.spinner {
+  height: 100px !important;
+  margin: 40px;
+  width: 100px !important;
+}
+
+.example-viewport {
+  border: 1px solid #000;
+  height: 200px;
+  width: 200px;
+}
+  
+.example-item {
+  height: 50px;
+}
+
+.scroll {
+  background-color: #808080;
+  height: 110px;
+  margin: 4px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 4px;
+  text-align: justify;
+  width: 500px;
+}
