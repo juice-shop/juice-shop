@@ -133,7 +133,6 @@ import { MatSliderModule } from '@angular/material/slider'
 import { MatChipsModule } from '@angular/material/chips'
 import { CodeSnippetComponent } from './code-snippet/code-snippet.component'
 import { ScoreBoard2Component } from './score-board2/score-board2.component'
-import { FixedSizeVirtualScrollStrategy } from '@angular/cdk/scrolling'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json')
@@ -251,8 +250,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatSliderModule,
     MatSlideToggleModule,
     MatChipsModule,
-    HighlightModule,
-    FixedSizeVirtualScrollStrategy
+    HighlightModule
 
   ],
   providers: [
