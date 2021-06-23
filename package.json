@@ -175,7 +175,7 @@
     "sqlite3": "^5.0.0",
     "svg-captcha": "^1.4.0",
     "swagger-ui-express": "^4.1.4",
-    "unzipper": "0.9.15",
+    "unzipper": "0.10.11",
     "winston": "^3.3.3",
     "yaml-schema-validator": "^1.2.2",
     "z85": "^0.0.2"
