@@ -166,7 +166,7 @@
     "replace": "^1.2.0",
     "request": "^2.88.2",
     "sanitize-filename": "^1.6.3",
-    "sanitize-html": "1.4.2",
+    "sanitize-html": "1.27.5",
     "semver": "^7.3.2",
     "sequelize": "^6.4.0",
     "sequelize-notupdate-attributes": "^1.0.0",
