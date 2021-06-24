@@ -1,58 +1,56 @@
-import { Component, ElementRef, OnInit, Input, OnChanges, ViewChild, Output, EventEmitter } from '@angular/core'
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core'
+
+interface LineMarker {
+  marked: boolean
+  lineNumber: number
+}
 
 @Component({
   selector: 'app-code-area',
   templateUrl: './code-area.component.html',
   styleUrls: ['./code-area.component.scss']
 })
-export class CodeAreaComponent implements OnInit, OnChanges {
-  @Input('code') public code: string = ''
-  @Input('vulnLines') public vulnLines: number[]
-  @ViewChild('emphasize') emphasize: ElementRef
-  public langs = ['javascript', 'typescript', 'json', 'yaml']
-  public lines: string
-  public selectedLines: number[] = []
-  public lineNums: number[] = []
-  public select = '✅'
-  public unselect = '🔲'
-  @Output() addLine = new EventEmitter<number[]>()
+export class CodeAreaComponent implements OnInit {
+  @Input('code')
+  public code: string = ''
 
-  constructor (private readonly element: ElementRef) { }
+  @Input('vulnLines')
+  public vulnLines: number[]
+
+  public lineMarkers: LineMarker[]
+
+  @Output()
+  addLine = new EventEmitter<number[]>()
+
+  public langs = ['javascript', 'typescript', 'json', 'yaml']
 
   ngOnInit (): void {
-
+    this.lineMarkers = this.code.split('\n').map((line, lineIndex) => {
+      return {
+        lineNumber: lineIndex + 1,
+        marked: false
+      }
+    })
   }
 
-  ngOnChanges (): void {
-    this.lineNums = this.markLines(this.code)
-  }
+  selectLines (lineNumber): void {
+    // need to get the marker from index lineNumber - 1 as the array index start at 0, while the lineNumbers start at 1
+    const marker = this.lineMarkers[lineNumber - 1]
+    marker.marked = !marker.marked
 
-  markLines = (code: string) => {
-    const lines = []
-    let c = 1
-    for (let i = 0; i < code.length; i++) {
-      if (code[i] === '\n') {
-        lines.push(c++)
+    // convert lineMarkers to array of markedLineNumber
+    const markedLineNumbers: number[] = []
+    for (const { marked, lineNumber } of this.lineMarkers) {
+      if (marked) {
+        markedLineNumbers.push(lineNumber)
       }
     }
-
-    lines.push(c++)
-
-    return lines
-  }
-
-  selectLines = (event) => {
-    const line = parseInt(event.target.id.split('line')[1], 10)
-    if (this.selectedLines.includes(line)) {
-      event.target.innerText = this.unselect
-      this.selectedLines = this.selectedLines.filter((value) => {
-        return value !== line
-      })
-    } else {
-      event.target.innerText = this.select
-      this.selectedLines.push(line)
-    }
-
-    this.addLine.emit(this.selectedLines)
+    this.addLine.emit(markedLineNumbers)
   }
 }
