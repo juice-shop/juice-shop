@@ -1,4 +1,4 @@
-@import '~highlight.js/styles/pojoaque.css';
+@import "~highlight.js/styles/pojoaque.css";
 // @import '~highlight.js/styles/androidstudio.css';
 // @import '~highlight.js/styles/monokai.css';
 #emphasize {
@@ -9,4 +9,8 @@
 #code {
   width: 50em;
   // height: 50em;
+}
+
+.lineMarker {
+  cursor: pointer;
 }
