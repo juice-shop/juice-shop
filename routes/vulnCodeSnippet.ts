@@ -9,6 +9,7 @@ const fs = require('graceful-fs')
 fs.gracefulify(require('fs'))
 
 const cache = {}
+const records = {}
 
 const fileSniff = async (paths, match) => {
   const matches = []
@@ -102,11 +103,57 @@ const getVerdict = (vulnLines: number[], selectedLines: number[]) => {
   return verdict
 }
 
+const generateStatus = (verdict) => {
+  if (verdict) {
+    return 'Solved'
+  } else {
+    return 'Unsolved'
+  }
+}
+
+const generateScore = (verdict) => {
+  if (verdict) {
+    return 1
+  } else {
+    return 0
+  }
+}
+
+const manageRecord = (challenge, verdict, isDummy = false) => {
+  if (isDummy) {
+    records[challenge] = {
+      status: generateStatus(verdict),
+      submissions: 0,
+      score: generateScore(verdict)
+    }
+  } else if (records[challenge] === undefined) {
+    records[challenge] = {
+      status: generateStatus(verdict),
+      submissions: 1,
+      score: generateScore(verdict)
+    }
+  } else {
+    records[challenge].status = generateStatus(verdict)
+    records[challenge].submissions += 1
+    records[challenge].score = generateScore(verdict)
+  }
+}
+
+exports.getChallengeStatus = () => (req, res, next) => {
+  const challenge = challenges[req.params.key]
+  if (records[challenge.key] === undefined) {
+    manageRecord(challenge.key, false, true)
+  }
+  res.status(200).json(records[challenge.key])
+}
+
 exports.checkVulnLines = () => (req, res, next) => {
   const challenge = challenges[req.body.key]
   const vulnLines: number[] = cache[challenge.key].vulnLines
   const selectedLines: number[] = req.body.selectedLines
-  if (getVerdict(vulnLines, selectedLines)) {
+  const verdict = getVerdict(vulnLines, selectedLines)
+  manageRecord(challenge.key, verdict)
+  if (verdict) {
     res.status(200).json({
       verdict: true
     })

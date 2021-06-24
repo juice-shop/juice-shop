@@ -3,13 +3,21 @@
   ~ SPDX-License-Identifier: MIT
   -->
 
-<mat-dialog-content class="mat-typography">
+<mat-dialog-content class="mat-typography" id="code-snippet">
   <header>
     <h1>{{"LABEL_CODE_SNIPPET" | translate}}</h1>
   </header>
-  <header>
-    <span>Submission Count:</span><span> {{submissionCnt}}</span>
-  </header>
+  <div id="stats">
+    <header>
+      <span>Submission Count:</span><span> {{submissionCnt}}</span>
+    </header>
+    <header>
+      <span>Score:</span><span> {{score}}</span>
+    </header>
+    <header>
+      <span>Status:</span><span [ngClass]="status == 'Solved'?'solved':'unsolved'">{{status}}</span>
+    </header>
+  </div>
   <mat-divider></mat-divider>
   <div class="container" fxLayout="column">
     <div fxLayout="row" fxLayoutGap="10px">
