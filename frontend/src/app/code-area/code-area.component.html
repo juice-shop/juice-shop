@@ -1,5 +1,5 @@
 <div id="code-area">
-  <pre id="code"><div id="emphasize"><div *ngFor="let marker of lineMarkers" (click)="selectLines(marker.lineNumber)">{{ marker.marked ? '✅' : '🔲'}}</div>
+  <pre id="code"><div id="emphasize"><div *ngFor="let marker of lineMarkers" class="lineMarker" (click)="selectLines(marker.lineNumber)">{{ marker.marked ? '✅' : '🔲'}}</div>
   </div><code 
     [highlight]="code || ('LOADING_CODE_SNIPPET' | translate)" [lineNumbers]="true"
     [languages]="langs"
