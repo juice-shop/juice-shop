@@ -20,7 +20,7 @@ enum ResultState {
   styleUrls: ['./code-snippet.component.scss']
 })
 export class CodeSnippetComponent implements OnInit {
-  public snippet: CodeSnippet
+  public snippet: CodeSnippet = null
   public selectedLines: number[]
   public submissionCnt: number
   public status: string
