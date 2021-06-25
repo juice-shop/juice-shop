@@ -7,49 +7,15 @@
   <header>
     <h1>{{"LABEL_CODE_SNIPPET" | translate}}</h1>
   </header>
-  <div id="stats">
-    <header>
-      <span>Submission Count:</span><span> {{submissionCnt}}</span>
-    </header>
-    <header>
-      <span>Score:</span><span> {{score}}</span>
-    </header>
-    <header>
-      <span>Status:</span><span [ngClass]="status == 'Solved'?'solved':'unsolved'">{{status}}</span>
-    </header>
-  </div>
   <mat-divider></mat-divider>
   <div class="container" fxLayout="column">
     <div fxLayout="row" fxLayoutGap="10px">
-      <!-- <div>
-        <pre><code 
-          [highlight]="snippet?.snippet || ('LOADING_CODE_SNIPPET' | translate)" [lineNumbers]="true"
-          ></code></pre>
-      </div> -->
       <app-code-area
         *ngIf="snippet !== null"
         [code]="snippet?.snippet"
         [vulnLines]="snippet?.vulnLines"
         (addLine) = "addLine($event)">
       </app-code-area>
-    </div>
-    <div *ngIf="snippet?.vulnLines.length > 0" fxLayout="row" fxLayoutGap="10px">
-      <div>
-        <span class="spoiler">
-          <mat-chip>
-            {{ "REVEAL_VULNERABLE_CODE_LINES" | translate }}
-            <mat-icon color="warn" class="spoiler-off">
-              visibility_off
-            </mat-icon>
-            <mat-icon color="accent" class="spoiler-on">
-              visibility
-            </mat-icon>
-          </mat-chip>
-          <span>
-            <mat-chip class="spoiler-on"><span translate="LABEL_LINES"></span>&nbsp;<code>{{snippet?.vulnLines}}</code></mat-chip>
-          </span>
-        </span>
-      </div>
     </div>
   </div>
   <mat-dialog-actions align="end" class="dialogAction">

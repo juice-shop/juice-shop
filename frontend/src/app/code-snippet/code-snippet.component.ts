@@ -22,9 +22,6 @@ enum ResultState {
 export class CodeSnippetComponent implements OnInit {
   public snippet: CodeSnippet = null
   public selectedLines: number[]
-  public submissionCnt: number
-  public status: string
-  public score: number
   public result: ResultState = ResultState.Undecided
 
   constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly codeSnippetService: CodeSnippetService, private readonly vulnLinesService: VulnLinesService) { }
@@ -32,7 +29,6 @@ export class CodeSnippetComponent implements OnInit {
   ngOnInit () {
     this.codeSnippetService.get(this.dialogData.key).subscribe((snippet) => {
       this.snippet = snippet
-      this.UpdateStats()
     }, (err) => {
       this.snippet = { snippet: JSON.stringify(err.error?.error), vulnLines: [] }
     })
@@ -49,15 +45,6 @@ export class CodeSnippetComponent implements OnInit {
       } else {
         this.result = ResultState.Wrong
       }
-      this.UpdateStats()
-    })
-  }
-
-  UpdateStats = () => {
-    this.vulnLinesService.get(this.dialogData.key).subscribe((stats: any) => {
-      this.status = stats.status
-      this.submissionCnt = stats.submissions
-      this.score = stats.score
     })
   }
 

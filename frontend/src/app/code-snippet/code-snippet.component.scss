@@ -7,48 +7,6 @@ mat-divider {
   margin-bottom: 10px;
 }
 
-// #code-snippet{
-//   width: 500em;
-//   height: 500em;
-// }
-
 .dialogAction {
   margin-bottom: 0 !important;
 }
-
-#stats {
-  display: flex;
-  justify-content: space-between;
-}
-
-.solved {
-  color: rgb(10, 221, 10);
-}
-
-.unsolved {
-  color: rgb(240, 15, 15);
-}
-
-.spoiler {
-  cursor: pointer;
-}
-
-.spoiler .spoiler-on {
-  display: none;
-  margin-left: 10px;
-}
-
-.spoiler:hover .spoiler-on {
-  display: inline;
-}
-
-
-.spoiler .spoiler-off {
-  display: inline;
-  margin-left: 10px;
-}
-
-.spoiler:hover .spoiler-off {
-  display: none;
-}
-
