@@ -87,7 +87,7 @@ exports.challengesWithCodeSnippet = () => async (req, res, next) => {
   res.json({ challenges })
 }
 
-const getVerdict = (vulnLines: number[], selectedLines: number[]) => {
+export const getVerdict = (vulnLines: number[], selectedLines: number[]) => {
   let verdict: boolean = true
   vulnLines.sort((a, b) => a - b)
   selectedLines.sort((a, b) => a - b)
@@ -119,14 +119,8 @@ const generateScore = (verdict) => {
   }
 }
 
-const manageRecord = (challenge, verdict, isDummy = false) => {
-  if (isDummy) {
-    records[challenge] = {
-      status: generateStatus(verdict),
-      submissions: 0,
-      score: generateScore(verdict)
-    }
-  } else if (records[challenge] === undefined) {
+const manageRecord = (challenge, verdict) => {
+  if (records[challenge] === undefined) {
     records[challenge] = {
       status: generateStatus(verdict),
       submissions: 1,
@@ -137,14 +131,6 @@ const manageRecord = (challenge, verdict, isDummy = false) => {
     records[challenge].submissions += 1
     records[challenge].score = generateScore(verdict)
   }
-}
-
-exports.getChallengeStatus = () => (req, res, next) => {
-  const challenge = challenges[req.params.key]
-  if (records[challenge.key] === undefined) {
-    manageRecord(challenge.key, false, true)
-  }
-  res.status(200).json(records[challenge.key])
 }
 
 exports.checkVulnLines = () => (req, res, next) => {

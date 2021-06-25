@@ -559,7 +559,6 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   /* Routes for vulnerable Lines */
   app.post('/verdict', vulnCodeSnippet.checkVulnLines())
-  app.get('/stats/:key', vulnCodeSnippet.getChallengeStatus())
 
   /* Route for vulnerable code snippets */
   app.get('/snippets', vulnCodeSnippet.challengesWithCodeSnippet())
