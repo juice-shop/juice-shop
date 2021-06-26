@@ -702,6 +702,17 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html'
   key: resetPasswordBenderChallenge
 -
+  name: 'Reset bkimminich''s Password'
+  category: 'Broken Access Control'
+  tags:
+    - Good Practice
+  description: 'Reset bkimminich''s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>your answer</i> to his security question.'
+  difficulty: 2
+  hint: 'Do not wait for someone else to make questions on behalf of you.'
+  hintUrl: 'https://pwning.owasp-juice.shop/part2/broken-anti-automation.html#reset-bkimminich-password-via-the-forgot-password-mechanism'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html'
+  key: resetPasswordBkimminichChallenge
+-
   name: 'Reset Bjoern''s Password'
   category: 'Broken Authentication'
   tags:

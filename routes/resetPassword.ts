@@ -57,6 +57,7 @@ function verifySecurityAnswerChallenges (user, answer) {
   utils.solveIf(challenges.resetPasswordMortyChallenge, () => { return user.id === users.morty.id && answer === '5N0wb41L' })
   utils.solveIf(challenges.resetPasswordBjoernOwaspChallenge, () => { return user.id === users.bjoernOwasp.id && answer === 'Zaya' })
   utils.solveIf(challenges.resetPasswordUvoginChallenge, () => { return user.id === users.uvogin.id && answer === 'Silence of the Lambs' })
+  utils.solveIf(challenges.resetPasswordBkimminichChallenge, () => { return user.id === users.bjoernGoogle.id })
   utils.solveIf(challenges.geoStalkingMetaChallenge, () => {
     const securityAnswer = ((() => {
       const memories = config.get('memories')
