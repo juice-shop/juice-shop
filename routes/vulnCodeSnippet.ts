@@ -89,6 +89,7 @@ exports.challengesWithCodeSnippet = () => async (req, res, next) => {
 
 export const getVerdict = (vulnLines: number[], selectedLines: number[]) => {
   let verdict: boolean = true
+  if(selectedLines === undefined) return false
   vulnLines.sort((a, b) => a - b)
   selectedLines.sort((a, b) => a - b)
   if (vulnLines.length !== selectedLines.length) {
