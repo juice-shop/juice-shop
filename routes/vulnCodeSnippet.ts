@@ -9,7 +9,6 @@ const fs = require('graceful-fs')
 fs.gracefulify(require('fs'))
 
 const cache = {}
-const records = {}
 
 const fileSniff = async (paths, match) => {
   const matches = []
@@ -35,11 +34,11 @@ const fileSniff = async (paths, match) => {
   return matches
 }
 
-exports.serveCodeSnippet = () => async (req, res, next) => {
-  const challenge = challenges[req.params.challenge]
+export const retrieveCodeSnippet = async (key) => {
+  const challenge = challenges[key]
   if (challenge) {
     if (cache[challenge.key]) {
-      return res.json(cache[challenge.key])
+      return cache[challenge.key]
     } else {
       const paths = ['./server.ts', './routes', './lib', './data', './frontend/src/app']
       const match = new RegExp(`vuln-code-snippet start.*${challenge.key}`)
@@ -66,16 +65,25 @@ exports.serveCodeSnippet = () => async (req, res, next) => {
           }
           snippet = snippet.replace(/[/#]{0,2} vuln-code-snippet vuln-line.*/g, '')
           cache[challenge.key] = { snippet, vulnLines }
-          return res.json({ snippet, vulnLines })
+          return { snippet: snippet, vulnLines: vulnLines }
         } else {
-          res.status(422).json({ status: 'error', error: 'Broken code snippet boundaries for: ' + challenge.key })
+          return { status: 'error', code: 402, error: 'Broken code snippet boundaries for: ' + challenge.key }
         }
       } else {
-        res.status(404).json({ status: 'error', error: 'No code snippet available for: ' + challenge.key })
+        return { status: 'error', code: 404, error: 'No code snippet available for: ' + challenge.key }
       }
     }
   } else {
-    res.status(412).json({ status: 'error', error: 'Unknown challenge key: ' + req.params.challenge })
+    return { status: 'error', code: 412, error: 'Unknown challenge key: ' + key }
+  }
+}
+
+exports.serveCodeSnippet = () => async (req, res, next) => {
+  const snippetData = await retrieveCodeSnippet(req.params.challenge)
+  if (snippetData.status) {
+    res.status(snippetData.code).json({ status: snippetData.status, error: snippetData.error })
+  } else {
+    res.status(200).json({ snippet: snippetData.snippet })
   }
 }
 
@@ -89,7 +97,7 @@ exports.challengesWithCodeSnippet = () => async (req, res, next) => {
 
 export const getVerdict = (vulnLines: number[], selectedLines: number[]) => {
   let verdict: boolean = true
-  if(selectedLines === undefined) return false
+  if (selectedLines === undefined) return false
   vulnLines.sort((a, b) => a - b)
   selectedLines.sort((a, b) => a - b)
   if (vulnLines.length !== selectedLines.length) {
@@ -104,42 +112,16 @@ export const getVerdict = (vulnLines: number[], selectedLines: number[]) => {
   return verdict
 }
 
-const generateStatus = (verdict) => {
-  if (verdict) {
-    return 'Solved'
+exports.checkVulnLines = () => async (req, res, next) => {
+  const snippetData = await retrieveCodeSnippet(req.body.key)
+  let vulnLines: number[]
+  if (snippetData.status) {
+    res.status(snippetData.code).json({ status: snippetData.status, error: snippetData.error })
   } else {
-    return 'Unsolved'
+    vulnLines = snippetData.vulnLines
   }
-}
-
-const generateScore = (verdict) => {
-  if (verdict) {
-    return 1
-  } else {
-    return 0
-  }
-}
-
-const manageRecord = (challenge, verdict) => {
-  if (records[challenge] === undefined) {
-    records[challenge] = {
-      status: generateStatus(verdict),
-      submissions: 1,
-      score: generateScore(verdict)
-    }
-  } else {
-    records[challenge].status = generateStatus(verdict)
-    records[challenge].submissions += 1
-    records[challenge].score = generateScore(verdict)
-  }
-}
-
-exports.checkVulnLines = () => (req, res, next) => {
-  const challenge = challenges[req.body.key]
-  const vulnLines: number[] = cache[challenge.key].vulnLines
   const selectedLines: number[] = req.body.selectedLines
   const verdict = getVerdict(vulnLines, selectedLines)
-  manageRecord(challenge.key, verdict)
   if (verdict) {
     res.status(200).json({
       verdict: true

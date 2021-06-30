@@ -8,7 +8,7 @@ import { catchError, map } from 'rxjs/operators'
 })
 export class VulnLinesService {
   private readonly hostServer = environment.hostServer
-  private readonly host = this.hostServer + '/verdict'
+  private readonly host = this.hostServer + '/snippets/verdict'
 
   constructor (private readonly http: HttpClient) { }
 
