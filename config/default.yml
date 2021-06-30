@@ -382,6 +382,14 @@ products:
     image: card_alpha.jpg
     reviews:
       - { text: 'DO NOT PLAY WITH THIS! Double-sleeve, then put it in the GitHub Arctic Vault for perfect preservation and boost of secondary market value!', author: accountant }
+  -
+    name: '20th Anniversary Celebration Ticket'
+    description: 'Get your <a href="https://20thanniversary.owasp.org/" target="_blank">free 🎫 for OWASP 20th Anniversary Celebration</a> online conference! Hear from world renowned keynotes and special speakers, network with your peers and interact with our event sponsors. With an anticipated 10k+ attendees from around the world, you will not want to miss this live on-line event!'
+    price: 0.00000000000000000001
+    limitPerUser: 1
+    image: 20th.jpeg
+    reviews:
+      - { text: "I'll be there! Will you, too?", author: bjoernOwasp }
 memories:
   -
     image: 'magn(et)ificent!-1571814229653.jpg'
