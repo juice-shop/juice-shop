@@ -11,7 +11,6 @@ import { Observable } from 'rxjs'
 
 export interface CodeSnippet {
   snippet: string
-  vulnLines: number[]
 }
 
 @Injectable({

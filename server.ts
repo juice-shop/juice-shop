@@ -557,12 +557,10 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/profile', security.updateAuthenticatedUsers(), userProfile())
   app.post('/profile', updateUserProfile())
 
-  /* Routes for vulnerable Lines */
-  app.post('/verdict', vulnCodeSnippet.checkVulnLines())
-
   /* Route for vulnerable code snippets */
   app.get('/snippets', vulnCodeSnippet.challengesWithCodeSnippet())
   app.get('/snippets/:challenge', vulnCodeSnippet.serveCodeSnippet())
+  app.post('/snippets/verdict', vulnCodeSnippet.checkVulnLines())
 
   app.use(angular())
 
