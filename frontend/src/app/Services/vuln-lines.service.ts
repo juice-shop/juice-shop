@@ -3,6 +3,10 @@ import { environment } from '../../environments/environment'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
 
+export interface result {
+  verdict: boolean
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,6 +20,6 @@ export class VulnLinesService {
     return this.http.post(this.host, {
       key: key,
       selectedLines: selectedLines
-    }).pipe(map((response: any) => response), catchError((error: any) => { throw error }))
+    }).pipe(map((response: result) => response), catchError((error: any) => { throw error }))
   }
 }
