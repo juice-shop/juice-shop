@@ -154,16 +154,7 @@ export const getVerdict = (vulnLines: number[], selectedLines: number[]) => {
 exports.checkVulnLines = () => async (req, res, next) => {
   const snippetData = await retrieveCodeSnippet(req.body.key)
     .catch((error) => {
-      let statusCode
-      if (error.name === 'BrokenBoundary') {
-        statusCode = 422
-      }
-      if (error.name === 'SnippetNotFound') {
-        statusCode = 404
-      }
-      if (error.name === 'UnknownChallengeKey') {
-        statusCode = 412
-      }
+      const statusCode = setStatusCode(error)
       res.status(statusCode).json({ status: 'error', error: error.message })
     })
   const vulnLines: number[] = snippetData.vulnLines
