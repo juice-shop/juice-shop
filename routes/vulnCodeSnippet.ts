@@ -34,6 +34,43 @@ const fileSniff = async (paths, match) => {
   return matches
 }
 
+class BrokenBoundary extends Error {
+  constructor (message: string) {
+    super(message)
+    this.name = 'BrokenBoundary'
+    this.message = message
+  }
+}
+
+class SnippetNotFound extends Error {
+  constructor (message: string) {
+    super(message)
+    this.name = 'SnippetNotFound'
+    this.message = message
+  }
+}
+
+class UnknownChallengekey extends Error {
+  constructor (message: string) {
+    super(message)
+    this.name = 'UnknownChallengeKey'
+    this.message = message
+  }
+}
+
+const setStatusCode = (error: any) => {
+  switch (error.name) {
+    case 'BrokenBoundary':
+      return 422
+    case 'SnippetNotFound':
+      return 404
+    case 'UnknownChallengeKey':
+      return 412
+    default:
+      return 200
+  }
+}
+
 export const retrieveCodeSnippet = async (key) => {
   const challenge = challenges[key]
   if (challenge) {
@@ -67,24 +104,26 @@ export const retrieveCodeSnippet = async (key) => {
           cache[challenge.key] = { snippet, vulnLines }
           return { snippet: snippet, vulnLines: vulnLines }
         } else {
-          return { status: 'error', code: 402, error: 'Broken code snippet boundaries for: ' + challenge.key }
+          return await Promise.reject(new BrokenBoundary('Broken code snippet boundaries for: ' + challenge.key))
         }
       } else {
-        return { status: 'error', code: 404, error: 'No code snippet available for: ' + challenge.key }
+        return await Promise.reject(new SnippetNotFound('No code snippet available for: ' + challenge.key))
       }
     }
   } else {
-    return { status: 'error', code: 412, error: 'Unknown challenge key: ' + key }
+    return await Promise.reject(new UnknownChallengekey('Unknown challenge key: ' + key))
   }
 }
 
 exports.serveCodeSnippet = () => async (req, res, next) => {
-  const snippetData = await retrieveCodeSnippet(req.params.challenge)
-  if (snippetData.status) {
-    res.status(snippetData.code).json({ status: snippetData.status, error: snippetData.error })
-  } else {
-    res.status(200).json({ snippet: snippetData.snippet })
-  }
+  retrieveCodeSnippet(req.params.challenge)
+    .then((snippetData) => {
+      res.status(setStatusCode(snippetData)).json({ snippet: snippetData.snippet })
+    })
+    .catch((error) => {
+      const statusCode = setStatusCode(error)
+      res.status(statusCode).json({ status: 'error', error: error.message })
+    })
 }
 
 exports.challengesWithCodeSnippet = () => async (req, res, next) => {
@@ -114,12 +153,20 @@ export const getVerdict = (vulnLines: number[], selectedLines: number[]) => {
 
 exports.checkVulnLines = () => async (req, res, next) => {
   const snippetData = await retrieveCodeSnippet(req.body.key)
-  let vulnLines: number[]
-  if (snippetData.status) {
-    res.status(snippetData.code).json({ status: snippetData.status, error: snippetData.error })
-  } else {
-    vulnLines = snippetData.vulnLines
-  }
+    .catch((error) => {
+      let statusCode
+      if (error.name === 'BrokenBoundary') {
+        statusCode = 422
+      }
+      if (error.name === 'SnippetNotFound') {
+        statusCode = 404
+      }
+      if (error.name === 'UnknownChallengeKey') {
+        statusCode = 412
+      }
+      res.status(statusCode).json({ status: 'error', error: error.message })
+    })
+  const vulnLines: number[] = snippetData.vulnLines
   const selectedLines: number[] = req.body.selectedLines
   const verdict = getVerdict(vulnLines, selectedLines)
   if (verdict) {

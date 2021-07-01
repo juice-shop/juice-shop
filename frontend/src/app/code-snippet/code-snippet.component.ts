@@ -4,8 +4,9 @@
  */
 
 import { CodeSnippetService, CodeSnippet } from '../Services/code-snippet.service'
-import { VulnLinesService } from '../Services/vuln-lines.service'
+import { VulnLinesService, result } from '../Services/vuln-lines.service'
 import { Component, Inject, OnInit } from '@angular/core'
+
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 
 enum ResultState {
@@ -39,7 +40,7 @@ export class CodeSnippetComponent implements OnInit {
   }
 
   checkLines = () => {
-    this.vulnLinesService.check(this.dialogData.key, this.selectedLines).subscribe((verdict) => {
+    this.vulnLinesService.check(this.dialogData.key, this.selectedLines).subscribe((verdict: result) => {
       if (verdict.verdict) {
         this.result = ResultState.Right
       } else {
