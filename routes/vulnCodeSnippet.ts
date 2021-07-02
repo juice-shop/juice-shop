@@ -5,12 +5,13 @@
 
 const challenges = require('../data/datacache').challenges
 const path = require('path')
+import { Request, Response, NextFunction } from "express";
 const fs = require('graceful-fs')
 fs.gracefulify(require('fs'))
 
-const cache = {}
+const cache: any = {}
 
-const fileSniff = async (paths, match) => {
+const fileSniff = async (paths: string[], match: RegExp) => {
   const matches = []
   for (const currPath of paths) {
     if (fs.lstatSync(currPath).isDirectory()) {
@@ -58,6 +59,15 @@ class UnknownChallengekey extends Error {
   }
 }
 
+interface SnippetRequestBody {
+  challenge: string
+}
+
+interface VerdictRequestBody {
+  selectedLines: number[],
+  key: string
+}
+
 const setStatusCode = (error: any) => {
   switch (error.name) {
     case 'BrokenBoundary':
@@ -71,7 +81,7 @@ const setStatusCode = (error: any) => {
   }
 }
 
-export const retrieveCodeSnippet = async (key) => {
+export const retrieveCodeSnippet = async (key: string) => {
   const challenge = challenges[key]
   if (challenge) {
     if (cache[challenge.key]) {
@@ -104,29 +114,29 @@ export const retrieveCodeSnippet = async (key) => {
           cache[challenge.key] = { snippet, vulnLines }
           return { snippet: snippet, vulnLines: vulnLines }
         } else {
-          return await Promise.reject(new BrokenBoundary('Broken code snippet boundaries for: ' + challenge.key))
+          throw new BrokenBoundary('Broken code snippet boundaries for: ' + challenge.key)
         }
       } else {
-        return await Promise.reject(new SnippetNotFound('No code snippet available for: ' + challenge.key))
+        throw new SnippetNotFound('No code snippet available for: ' + challenge.key)
       }
     }
   } else {
-    return await Promise.reject(new UnknownChallengekey('Unknown challenge key: ' + key))
+    throw new UnknownChallengekey('Unknown challenge key: ' + key)
   }
 }
 
-exports.serveCodeSnippet = () => async (req, res, next) => {
-  retrieveCodeSnippet(req.params.challenge)
-    .then((snippetData) => {
-      res.status(setStatusCode(snippetData)).json({ snippet: snippetData.snippet })
-    })
-    .catch((error) => {
-      const statusCode = setStatusCode(error)
-      res.status(statusCode).json({ status: 'error', error: error.message })
-    })
+exports.serveCodeSnippet = () => async (req: Request<SnippetRequestBody,{},{}>, res: Response, next: NextFunction) => {
+  let snippetData
+  try {
+    snippetData = await retrieveCodeSnippet(req.params.challenge)
+    res.status(setStatusCode(snippetData)).json({ snippet: snippetData.snippet })
+  } catch (error) {
+    const statusCode = setStatusCode(error)
+    res.status(statusCode).json({ status: 'error', error: error.message })
+  }
 }
 
-exports.challengesWithCodeSnippet = () => async (req, res, next) => {
+exports.challengesWithCodeSnippet = () => async (req: Request, res: Response, next: NextFunction) => {
   const match = /vuln-code-snippet start .*/
   const paths = ['./server.ts', './routes', './lib', './data', './frontend/src/app']
   const matches = await fileSniff(paths, match)
@@ -151,12 +161,15 @@ export const getVerdict = (vulnLines: number[], selectedLines: number[]) => {
   return verdict
 }
 
-exports.checkVulnLines = () => async (req, res, next) => {
-  const snippetData = await retrieveCodeSnippet(req.body.key)
-    .catch((error) => {
-      const statusCode = setStatusCode(error)
-      res.status(statusCode).json({ status: 'error', error: error.message })
-    })
+exports.checkVulnLines = () => async (req: Request<{},{},VerdictRequestBody>, res: Response, next: NextFunction) => {
+  let snippetData
+  try {
+    snippetData = await retrieveCodeSnippet(req.body.key)
+  } catch (error) {
+    const statusCode = setStatusCode(error)
+    res.status(statusCode).json({ status: 'error', error: error.message })
+    return
+  }
   const vulnLines: number[] = snippetData.vulnLines
   const selectedLines: number[] = req.body.selectedLines
   const verdict = getVerdict(vulnLines, selectedLines)
