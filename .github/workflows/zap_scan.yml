@@ -17,6 +17,6 @@ jobs:
         uses: zaproxy/action-baseline@v0.3.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          target: 'https://preview.owasp-juice.shop'
+          target: 'https://juice-shop-gh-ch.herokuapp.com'
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a -j'
