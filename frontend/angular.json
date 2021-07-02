@@ -38,9 +38,12 @@
               "file-saver",
               "socket.io-client",
               "socket.io-parser",
-              "debug"
+              "debug",
+              "chart.js"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/chart.js/dist/Chart.min.js"
+            ]
           },
           "configurations": {
             "production": {

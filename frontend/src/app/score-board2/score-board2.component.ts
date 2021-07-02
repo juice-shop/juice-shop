@@ -55,15 +55,34 @@ export class ScoreBoard2Component implements OnInit {
   public showHackingInstructor: boolean = true
   public challenges: Challenge[] = []
   public percentChallengesSolved: string = '0'
+  public percentNotSolved: string = '100'
   public solvedChallengesOfDifficulty: Challenge[][] = [[], [], [], [], [], []]
   public totalChallengesOfDifficulty: Challenge[][] = [[], [], [], [], [], []]
   public showContributionInfoBox: boolean = true
   public questionnaireUrl: string = 'https://forms.gle/2Tr5m1pqnnesApxN8'
   public appName: string = 'OWASP Juice Shop'
   public localBackupEnabled: boolean = true
-  
+
   constructor (private readonly configurationService: ConfigurationService, private readonly challengeService: ChallengeService, private readonly codeSnippetService: CodeSnippetService, private readonly sanitizer: DomSanitizer, private readonly ngZone: NgZone, private readonly io: SocketIoService, private readonly spinner: NgxSpinnerService, private readonly translate: TranslateService, private readonly localBackupService: LocalBackupService, private readonly dialog: MatDialog) {
   }
+
+    chartData = [
+  {
+    data: [50,50],
+    label: 'Account A'
+  }];
+
+  chartLabels = [
+    'January',
+    'February',
+    'March',
+    'April'
+  ];
+  chartOptions = {
+    responsive: true
+  };
+
+ 
 
 
   spinnerDiameter: number = 1; // Set to a low number to avoid affecting the container height

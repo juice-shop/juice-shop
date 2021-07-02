@@ -3,13 +3,27 @@
   ~ SPDX-License-Identifier: MIT
   -->
 <!-- TITLE AND SPINNER -->
+
+
+
    <div fxLayout="row" style="height: 80vh;" class="flex">
     <mat-card>
       <mat-card-title>{{"TITLE_SCORE_BOARD" | translate}}
         <small class="confirmation">{{percentChallengesSolved}}%</small>
       </mat-card-title>
-      <div #spinnerDiv class="spinner">
+      <!-- <div #spinnerDiv class="spinner">
         <mat-progress-spinner mode="indeterminate" [color]="'accent'" [value]="percentChallengesSolved" [diameter]= "spinnerDiameter"> </mat-progress-spinner>
+      </div> -->
+      <div #spinnerDiv class="spinner">
+        <canvas
+          baseChart 
+          [chartType]="'doughnut'"
+          [legend]="false"
+          [datasets]="chartData"
+          [labels]="chartLabels"
+          [options]="chartOptions"
+        >
+        </canvas>
       </div>
       <!-- <mat-progress-spinner class="spinner" mode="determinate" value="100" [diameter]="spinnerDiameter"></mat-progress-spinner> -->
     </mat-card>
