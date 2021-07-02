@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
+import { Request, Response, NextFunction } from 'express'
 const challenges = require('../data/datacache').challenges
 const path = require('path')
-import { Request, Response, NextFunction } from "express";
 const fs = require('graceful-fs')
 fs.gracefulify(require('fs'))
 
@@ -64,7 +64,7 @@ interface SnippetRequestBody {
 }
 
 interface VerdictRequestBody {
-  selectedLines: number[],
+  selectedLines: number[]
   key: string
 }
 
@@ -125,7 +125,7 @@ export const retrieveCodeSnippet = async (key: string) => {
   }
 }
 
-exports.serveCodeSnippet = () => async (req: Request<SnippetRequestBody,{},{}>, res: Response, next: NextFunction) => {
+exports.serveCodeSnippet = () => async (req: Request<SnippetRequestBody, {}, {}>, res: Response, next: NextFunction) => {
   let snippetData
   try {
     snippetData = await retrieveCodeSnippet(req.params.challenge)
@@ -161,7 +161,7 @@ export const getVerdict = (vulnLines: number[], selectedLines: number[]) => {
   return verdict
 }
 
-exports.checkVulnLines = () => async (req: Request<{},{},VerdictRequestBody>, res: Response, next: NextFunction) => {
+exports.checkVulnLines = () => async (req: Request<{}, {}, VerdictRequestBody>, res: Response, next: NextFunction) => {
   let snippetData
   try {
     snippetData = await retrieveCodeSnippet(req.body.key)
