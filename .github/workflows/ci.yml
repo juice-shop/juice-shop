@@ -22,10 +22,9 @@ jobs:
       - name: "Check out Git repository"
         uses: actions/checkout@v2
       - name: "Use Node.js 14"
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v1
         with:
           node-version: 14
-          cache: npm
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
@@ -59,10 +58,9 @@ jobs:
       - name: "Check out Git repository"
         uses: actions/checkout@v2
       - name: "Use Node.js ${{ matrix.node-version }}"
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-          cache: npm
       - name: "Cache Node.js modules"
         uses: actions/cache@v2
         with:
@@ -114,10 +112,9 @@ jobs:
       - name: "Check out Git repository"
         uses: actions/checkout@v2
       - name: "Use Node.js 14"
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v1
         with:
           node-version: 14
-          cache: npm
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
@@ -137,10 +134,9 @@ jobs:
       - name: "Check out Git repository"
         uses: actions/checkout@v2
       - name: "Use Node.js 14"
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v1
         with:
           node-version: 14
-          cache: npm
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
@@ -161,10 +157,9 @@ jobs:
       - name: "Check out Git repository"
         uses: actions/checkout@v2
       - name: "Use Node.js 14"
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v1
         with:
           node-version: 14
-          cache: npm
       - name: "Install CLI tools"
         run: |
           npm install -g @angular/cli
