@@ -9,10 +9,9 @@ jobs:
     - name: "Check out Git repository"
       uses: actions/checkout@v2
     - name: "Use Node.js 14"
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v1
       with:
         node-version: 14
-        cache: npm
     - name: "Install CLI tools"
       run: npm install -g @angular/cli
     - name: "Install application"
