@@ -11,9 +11,6 @@
       <mat-card-title>{{"TITLE_SCORE_BOARD" | translate}}
         <small class="confirmation">{{percentChallengesSolved}}%</small>
       </mat-card-title>
-      <!-- <div #spinnerDiv class="spinner">
-        <mat-progress-spinner mode="indeterminate" [color]="'accent'" [value]="percentChallengesSolved" [diameter]= "spinnerDiameter"> </mat-progress-spinner>
-      </div> -->
       <div #spinnerDiv class="spinner">
         <canvas
           baseChart 
@@ -22,10 +19,11 @@
           [datasets]="chartData"
           [labels]="chartLabels"
           [options]="chartOptions"
+          [colors]="chartColors"
         >
         </canvas>
+
       </div>
-      <!-- <mat-progress-spinner class="spinner" mode="determinate" value="100" [diameter]="spinnerDiameter"></mat-progress-spinner> -->
     </mat-card>
        
     <div fxLayout="column" style="height:80vh">
