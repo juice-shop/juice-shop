@@ -23,6 +23,7 @@ enum ResultState {
 export class CodeSnippetComponent implements OnInit {
   public snippet: CodeSnippet = null
   public selectedLines: number[]
+  public confetti = false
   public result: ResultState = ResultState.Undecided
 
   constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly codeSnippetService: CodeSnippetService, private readonly vulnLinesService: VulnLinesService) { }
@@ -43,6 +44,9 @@ export class CodeSnippetComponent implements OnInit {
     this.vulnLinesService.check(this.dialogData.key, this.selectedLines).subscribe((verdict: result) => {
       if (verdict.verdict) {
         this.result = ResultState.Right
+        import('../../confetti').then(module => {
+          module.shootConfetti("Congratulations!! You have solved this challenge.")
+        })
       } else {
         this.result = ResultState.Wrong
       }
