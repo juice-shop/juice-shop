@@ -54,7 +54,7 @@ exports.accessControlChallenges = () => ({ url }, res, next) => {
   utils.solveIf(challenges.extraLanguageChallenge, () => { return utils.endsWith(url, '/tlh_AA.json') })
   utils.solveIf(challenges.retrieveBlueprintChallenge, () => { return utils.endsWith(url, cache.retrieveBlueprintChallengeFile) })
   utils.solveIf(challenges.securityPolicyChallenge, () => { return utils.endsWith(url, '/security.txt') })
-  utils.solveIf(challenges.missingEncodingChallenge, () => { return utils.endsWith(url, '/%F0%9F%98%BC-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg') })
+  utils.solveIf(challenges.missingEncodingChallenge, () => { return utils.endsWith(url.toLowerCase(), '%f0%9f%98%bc-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg') })
   utils.solveIf(challenges.accessLogDisclosureChallenge, () => { return url.match(/access\.log(0-9-)*/) })
   next()
 }
