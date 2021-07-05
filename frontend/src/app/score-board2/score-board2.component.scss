@@ -90,12 +90,11 @@
 }
 
 .spinner {
-  // width: calc(33% - 100px);
+  width: 100%;
   // height: calc(33% - 100px);
   display: flex;
   justify-content: center;
   flex-direction: row;
-  height: 40px
 }
 
 .flex {

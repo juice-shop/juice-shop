@@ -61,21 +61,46 @@ export class ScoreBoard2Component implements OnInit {
   public questionnaireUrl: string = 'https://forms.gle/2Tr5m1pqnnesApxN8'
   public appName: string = 'OWASP Juice Shop'
   public localBackupEnabled: boolean = true
+  public chartData = [];
+  public chartLabels = [
+    "Solved",
+    "Unsolved"
+  ];
+  public chartOptions = {
+    responsive: true
+  };
+  public chartColors = [
+    { 
+      backgroundColor:['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)']
+    }];
   
 
   constructor (private readonly configurationService: ConfigurationService, private readonly challengeService: ChallengeService, private readonly codeSnippetService: CodeSnippetService, private readonly sanitizer: DomSanitizer, private readonly ngZone: NgZone, private readonly io: SocketIoService, private readonly spinner: NgxSpinnerService, private readonly translate: TranslateService, private readonly localBackupService: LocalBackupService, private readonly dialog: MatDialog) {
   }
 
-  chartData = [];
-
-  chartLabels = [
-    "Solved",
-    "Unsolved"
-  ];
-  chartOptions = {
-    responsive: true
-  };
-
+  
+  // plugins: {
+  //   chartLabels: {
+  //       display: false,
+  //   }
+  // };
+    // { // first color
+    //   backgroundColor: 'rgba(225,10,24,0.2)',
+    //   borderColor: 'rgba(225,10,24,0.2)',
+    //   // pointBackgroundColor: 'rgba(225,10,24,0.2)',
+    //   // pointBorderColor: '#fff',
+    //   // pointHoverBackgroundColor: '#fff',
+    //   // pointHoverBorderColor: 'rgba(225,10,24,0.2)'
+    // },
+    // { // second color
+    //   backgroundColor: 'rgba(225,10,24,0.2)',
+    //   borderColor: 'rgba(225,10,24,0.2)',
+    //   // pointBackgroundColor: 'rgba(225,10,24,0.2)',
+    //   // pointBorderColor: '#fff',
+    //   // pointHoverBackgroundColor: '#fff',
+    //   // pointHoverBorderColor: 'rgba(225,10,24,0.2)'
+    // }];
+ 
 
   spinnerDiameter: number = 1; // Set to a low number to avoid affecting the container height
   @ViewChild('spinnerDiv') spinnerDiv: ElementRef;
@@ -173,6 +198,21 @@ export class ScoreBoard2Component implements OnInit {
       })
     })
   }
+
+
+  ///
+  determineDailyHack (challenge: Challenge) {
+
+  //   function determineHackOfTheDay(challenge: Challenge)
+	// loop for all items i in Challenges{
+	// 	wait for a period of time
+	// 	this.HOTD=Challenges[i]
+	// }
+
+    this.showDisabledChallenges = localStorage.getItem('showDisabledChallenges') ? JSON.parse(String(localStorage.getItem('showDisabledChallenges'))) : false
+  }
+  ///
+
 
   augmentHintText (challenge: Challenge) {
     if (challenge.disabledEnv) {
