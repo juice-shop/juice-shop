@@ -30,3 +30,37 @@ describe('/snippets/:challenge', () => {
       })
   })
 })
+
+describe('snippets/verdict', () => {
+  it('should check for the correct lines', () => {
+    return frisby.post(URL + '/snippets/verdict', {
+      body: {
+        selectedLines: [2],
+        key: 'resetPasswordJimChallenge'
+      }
+    })
+      .expect('status', 200)
+      .expect('jsonTypes', {
+        verdict: Joi.boolean()
+      })
+      .expect('json', {
+        verdict: true
+      })
+  })
+
+  it('should check for the incorrect lines', () => {
+    return frisby.post(URL + '/snippets/verdict', {
+      body: {
+        selectedLines: [5, 9],
+        key: 'resetPasswordJimChallenge'
+      }
+    })
+      .expect('status', 200)
+      .expect('jsonTypes', {
+        verdict: Joi.boolean()
+      })
+      .expect('json', {
+        verdict: false
+      })
+  })
+})

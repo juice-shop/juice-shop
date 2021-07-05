@@ -7,6 +7,11 @@ import { environment } from '../../environments/environment'
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
+import { Observable } from 'rxjs'
+
+export interface CodeSnippet {
+  snippet: string
+}
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +22,8 @@ export class CodeSnippetService {
 
   constructor (private readonly http: HttpClient) { }
 
-  get (key: string) {
-    return this.http.get(`${this.host}/${key}`).pipe(map((response: any) => response), catchError((err) => { throw err }))
+  get (key: string): Observable<CodeSnippet> {
+    return this.http.get<CodeSnippet>(`${this.host}/${key}`).pipe(map((response: CodeSnippet) => response), catchError((err) => { throw err }))
   }
 
   challenges () {
