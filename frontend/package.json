@@ -54,7 +54,9 @@
     "snarkdown": "^1.2.2",
     "socket.io-client": "^3.1.0",
     "typescript": "~4.0.5",
-    "zone.js": "^0.10.3"
+    "zone.js": "^0.10.3",
+    "chart.js": "2.9.4", 
+    "ng2-charts": "2.4.2"
   },
   "devDependencies": {
     "@angular-eslint/builder": "^0.8.0-beta.7",

@@ -69,40 +69,19 @@ export class ScoreBoard2Component implements OnInit {
   public chartOptions = {
     responsive: true
   };
-  public chartColors = [
-    { 
-      backgroundColor:['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)']
+  public chartColors: Array<any> = [
+    { // first color
+      backgroundColor: 'green'
+    },
+    { // second color
+      backgroundColor: 'blue'
     }];
   
 
   constructor (private readonly configurationService: ConfigurationService, private readonly challengeService: ChallengeService, private readonly codeSnippetService: CodeSnippetService, private readonly sanitizer: DomSanitizer, private readonly ngZone: NgZone, private readonly io: SocketIoService, private readonly spinner: NgxSpinnerService, private readonly translate: TranslateService, private readonly localBackupService: LocalBackupService, private readonly dialog: MatDialog) {
   }
 
-  
-  // plugins: {
-  //   chartLabels: {
-  //       display: false,
-  //   }
-  // };
-    // { // first color
-    //   backgroundColor: 'rgba(225,10,24,0.2)',
-    //   borderColor: 'rgba(225,10,24,0.2)',
-    //   // pointBackgroundColor: 'rgba(225,10,24,0.2)',
-    //   // pointBorderColor: '#fff',
-    //   // pointHoverBackgroundColor: '#fff',
-    //   // pointHoverBorderColor: 'rgba(225,10,24,0.2)'
-    // },
-    // { // second color
-    //   backgroundColor: 'rgba(225,10,24,0.2)',
-    //   borderColor: 'rgba(225,10,24,0.2)',
-    //   // pointBackgroundColor: 'rgba(225,10,24,0.2)',
-    //   // pointBorderColor: '#fff',
-    //   // pointHoverBackgroundColor: '#fff',
-    //   // pointHoverBorderColor: 'rgba(225,10,24,0.2)'
-    // }];
- 
-
-  spinnerDiameter: number = 1; // Set to a low number to avoid affecting the container height
+  spinnerDiameter: number = 1;
   @ViewChild('spinnerDiv') spinnerDiv: ElementRef;
 
   ngAfterViewInit() {
@@ -434,21 +413,3 @@ export class ScoreBoard2Component implements OnInit {
   
 
 }
-
-
-
-
-
-// import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core'
-// @Component({
-//   selector: 'app-score-board2',
-//   templateUrl: './score-board2.component.html',
-//   styleUrls: ['./score-board2.component.scss'],
-//   changeDetection: ChangeDetectionStrategy.OnPush
-// })
-// export class ScoreBoard2Component implements OnInit {
-//   ngOnInit (): void {}
-// }
-// export class CdkVirtualScrollTemplateCacheExample {
-//   items = Array.from({ length: 100000 }).map((_, i) => `Item #${i}`)
-// }
