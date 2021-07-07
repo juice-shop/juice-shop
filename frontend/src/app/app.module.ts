@@ -131,8 +131,7 @@ import { FeedbackDetailsComponent } from './feedback-details/feedback-details.co
 import { MatSliderModule } from '@angular/material/slider'
 import { MatChipsModule } from '@angular/material/chips'
 import { CodeSnippetComponent } from './code-snippet/code-snippet.component'
-import { CodeAreaComponent } from './code-area/code-area.component';
-import { ConfettiComponent } from './confetti/confetti.component'
+import { CodeAreaComponent } from './code-area/code-area.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json')
@@ -194,8 +193,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     DeluxeUserComponent,
     FeedbackDetailsComponent,
     CodeSnippetComponent,
-    CodeAreaComponent,
-    ConfettiComponent
+    CodeAreaComponent
   ],
   imports: [
     BrowserModule,
