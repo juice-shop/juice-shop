@@ -43,6 +43,9 @@ export class CodeSnippetComponent implements OnInit {
     this.vulnLinesService.check(this.dialogData.key, this.selectedLines).subscribe((verdict: result) => {
       if (verdict.verdict) {
         this.result = ResultState.Right
+        import('../../confetti').then(module => {
+          module.shootConfetti()
+        })
       } else {
         this.result = ResultState.Wrong
       }
