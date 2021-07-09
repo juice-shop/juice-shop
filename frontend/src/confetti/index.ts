@@ -12,6 +12,7 @@ export const shootConfetti = () => {
     canvas.style.right = "0"
     canvas.style.width = "100%"
     canvas.style.height = "100%"
+    canvas.style.pointerEvents = "none"
     canvas.style.zIndex = "2000"
 
     document.body.appendChild(canvas)
@@ -21,13 +22,15 @@ export const shootConfetti = () => {
     })
     shoot({
         origin:{
-            x:1
+            x:1,
+            y:1
         },
         particleCount: 225
     })
 
     shoot({
         origin:{
+            y:1,
             x:0
         },
         particleCount: 225
