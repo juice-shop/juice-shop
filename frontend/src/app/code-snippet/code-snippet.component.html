@@ -5,19 +5,39 @@
 
 <mat-dialog-content class="mat-typography" id="code-snippet">
   <header>
-    <h1>{{"LABEL_CODE_SNIPPET" | translate}}</h1>
+    <h1>Coding Challenge: {{dialogData.name}}</h1>
   </header>
-  <mat-divider></mat-divider>
-  <div class="container" fxLayout="column">
-    <div fxLayout="row" fxLayoutGap="10px">
-      <app-code-area
-        *ngIf="snippet !== null"
-        [code]="snippet?.snippet"
-        [vulnLines]="snippet?.vulnLines"
-        (addLine) = "addLine($event)">
-      </app-code-area>
-    </div>
-  </div>
+  <mat-tab-group
+  mat-stretch-tabs
+  [selectedIndex] = "tab.value"
+  (selectedIndexChange) = "toggleTab($event)"
+  >
+      <mat-tab label="Find It">
+      <!-- <mat-divider></mat-divider> -->
+      <div class="container" fxLayout="column">
+        <div fxLayout="row" fxLayoutGap="10px">
+          <app-code-area
+            *ngIf="snippet !== null"
+            [code]="snippet?.snippet"
+            [vulnLines]="snippet?.vulnLines"
+            (addLine) = "addLine($event)">
+          </app-code-area>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab [disabled]="lockIcon() === 'lock'">
+      <ng-template mat-tab-label>
+        Fix It
+        <mat-icon class="materaial-icons-outlined">{{lockIcon()}}</mat-icon>
+      </ng-template>      
+      <!-- <mat-divider></mat-divider> -->
+        <div class="container" fxLayout="column">
+          <div fxLayout="row" fxLayoutGap="10px">
+            <app-code-fixes *ngIf="snippet !== null" [snippet]="snippet?.snippet"></app-code-fixes>
+          </div>
+        </div>
+    </mat-tab>
+  </mat-tab-group>
   <mat-dialog-actions align="end" class="dialogAction">
     <button mat-button style="height: 0; position: absolute;">
       <!-- 'absorbs' the auto-focus behavior -->
@@ -34,5 +54,6 @@
         {{ resultIcon() }}
       </i>
     </button>
+    <br/>
   </mat-dialog-actions>
 </mat-dialog-content>

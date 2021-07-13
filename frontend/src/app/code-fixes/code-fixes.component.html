@@ -1,0 +1,35 @@
+<div>
+    <br/>
+    <!-- <div id="code">
+        <div id="vuln">
+          <code 
+            [highlight]="snippet || ('LOADING_CODE_SNIPPET' | translate)" [lineNumbers]="true"
+          ></code>
+        </div>
+        <div id="fix">
+           <code 
+            [highlight]="snippet || ('LOADING_CODE_SNIPPET' | translate)" [lineNumbers]="true"
+          ></code> 
+          <mat-tab-group mat-stretch-tabs headerPosition="below">
+            <mat-tab label="1"> <code 
+                [highlight]="snippet || ('LOADING_CODE_SNIPPET' | translate)" [lineNumbers]="true"
+              ></code> </mat-tab>
+            <mat-tab label="2"> <code 
+                [highlight]="snippet || ('LOADING_CODE_SNIPPET' | translate)" [lineNumbers]="true"
+              ></code> </mat-tab>
+            <mat-tab label="3"> <code 
+                [highlight]="snippet || ('LOADING_CODE_SNIPPET' | translate)" [lineNumbers]="true"
+              ></code> </mat-tab>
+            <mat-tab label="4"> <code 
+                [highlight]="snippet || ('LOADING_CODE_SNIPPET' | translate)" [lineNumbers]="true"
+              ></code> </mat-tab>
+          </mat-tab-group>
+        </div>
+    </div> -->
+    <div *ngIf="snippet!==null" id="code">
+      <td-ngx-text-diff [left]="content.leftContent"
+      [right]="content.rightContent"
+      [diffContentObservable]="contentObservable">
+      </td-ngx-text-diff>
+    </div>
+</div>
