@@ -23,7 +23,7 @@ export class CodeFixesComponent implements OnInit, OnChanges {
 
   options: any = {
     lineNumbers: true,
-    mode: 'xml'
+    mode: 'typescript'
   }
 
   contentObservable: Subject<DiffContent> = new Subject<DiffContent>()
