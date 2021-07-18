@@ -4,6 +4,7 @@
  */
 
 import { CodeSnippetService, CodeSnippet } from '../Services/code-snippet.service'
+import { CodeFixesService, Fixes } from '../Services/code-fixes.service'
 import { VulnLinesService, result } from '../Services/vuln-lines.service'
 import { Component, Inject, OnInit } from '@angular/core'
 
@@ -23,12 +24,13 @@ enum ResultState {
 })
 export class CodeSnippetComponent implements OnInit {
   public snippet: CodeSnippet = null
+  public fixes: Fixes = null
   public selectedLines: number[]
   public tab: FormControl = new FormControl(0)
   public lock: ResultState = ResultState.Undecided
   public result: ResultState = ResultState.Undecided
 
-  constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly codeSnippetService: CodeSnippetService, private readonly vulnLinesService: VulnLinesService) { }
+  constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly codeSnippetService: CodeSnippetService, private readonly vulnLinesService: VulnLinesService, private readonly codeFixesService: CodeFixesService) { }
 
   ngOnInit () {
     this.codeSnippetService.get(this.dialogData.key).subscribe((snippet) => {
@@ -36,9 +38,14 @@ export class CodeSnippetComponent implements OnInit {
     }, (err) => {
       this.snippet = { snippet: JSON.stringify(err.error?.error) }
     })
+    this.codeFixesService.get(this.dialogData.key).subscribe((fixes) => {
+      this.fixes = fixes.fixes
+    }, () => {
+      this.fixes = null
+    })
   }
 
-  addLine = (lines) => {
+  addLine = (lines: number[]) => {
     this.selectedLines = lines
   }
 
@@ -63,6 +70,9 @@ export class CodeSnippetComponent implements OnInit {
   }
 
   lockIcon (): string {
+    if (this.fixes === null) {
+      return 'lock'
+    }
     switch (this.lock) {
       case ResultState.Right:
         return 'lock_open'

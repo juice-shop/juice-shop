@@ -24,8 +24,26 @@
           </app-code-area>
         </div>
       </div>
+      <mat-dialog-actions align="end" class="dialogAction">
+        <button mat-button style="height: 0; position: absolute;">
+          <!-- 'absorbs' the auto-focus behavior -->
+        </button>
+        <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="Close Dialog">
+          <i class="material-icons">
+            close
+          </i>
+          <span>  {{'BTN_CLOSE' | translate}}</span>
+        </button>
+        <button mat-stroked-button (click) = "checkLines()">
+          <span>  {{'BTN_SUBMIT' | translate}}</span>
+          <i class="material-icons">
+            {{ resultIcon() }}
+          </i>
+        </button>
+        <br/>
+      </mat-dialog-actions>
     </mat-tab>
-    <mat-tab [disabled]="lockIcon() === 'lock'">
+    <mat-tab [disabled]="lockIcon() === 'lock' && fixes == null">
       <ng-template mat-tab-label>
         Fix It
         <mat-icon class="materaial-icons-outlined">{{lockIcon()}}</mat-icon>
@@ -33,27 +51,27 @@
       <!-- <mat-divider></mat-divider> -->
         <div class="container" fxLayout="column">
           <div fxLayout="row" fxLayoutGap="10px">
-            <app-code-fixes *ngIf="snippet !== null" [snippet]="snippet?.snippet"></app-code-fixes>
+            <app-code-fixes *ngIf="snippet !== null && fixes !== null" [snippet]="snippet?.snippet" [fixes] = "fixes"></app-code-fixes>
           </div>
         </div>
+        <mat-dialog-actions align="end" class="dialogAction">
+          <button mat-button style="height: 0; position: absolute;">
+            <!-- 'absorbs' the auto-focus behavior -->
+          </button>
+          <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="Close Dialog">
+            <i class="material-icons">
+              close
+            </i>
+            <span>  {{'BTN_CLOSE' | translate}}</span>
+          </button>
+          <button mat-stroked-button (click) = "checkLines()">
+            <span>  {{'BTN_SUBMIT' | translate}}</span>
+            <i class="material-icons">
+              {{ resultIcon() }}
+            </i>
+          </button>
+          <br/>
+        </mat-dialog-actions>
     </mat-tab>
   </mat-tab-group>
-  <mat-dialog-actions align="end" class="dialogAction">
-    <button mat-button style="height: 0; position: absolute;">
-      <!-- 'absorbs' the auto-focus behavior -->
-    </button>
-    <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="Close Dialog">
-      <i class="material-icons">
-        close
-      </i>
-      <span>  {{'BTN_CLOSE' | translate}}</span>
-    </button>
-    <button mat-stroked-button (click) = "checkLines()">
-      <span>  {{'BTN_SUBMIT' | translate}}</span>
-      <i class="material-icons">
-        {{ resultIcon() }}
-      </i>
-    </button>
-    <br/>
-  </mat-dialog-actions>
 </mat-dialog-content>
