@@ -23,7 +23,7 @@
   "INVALID_EMAIL": "Endereço de e-mail inválido.",
   "SECURITY_ANSWER": "Resposta",
   "MANDATORY_PASSWORD_REPEAT": "Por favor, repita sua senha.",
-  "INVALID_PASSWORD_LENGTH": "Senha deve ter de 5-20 caracteres.",
+  "INVALID_PASSWORD_LENGTH": "Senha deve ter de {{length}} caracteres.",
   "LABEL_PASSWORD_REPEAT": "Repita a senha",
   "PASSWORDS_NOT_MATCHING": "As senhas não são idênticas",
   "BTN_REGISTER": "Cadastre-se",
