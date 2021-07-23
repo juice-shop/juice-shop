@@ -29,7 +29,7 @@ dom.watch()
 })
 export class RegisterComponent implements OnInit {
   public emailControl: FormControl = new FormControl('', [Validators.required, Validators.email])
-  public passwordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]) // vuln-code-snippet vuln-line passwordRepeatChallenge
+  public passwordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]) // vuln-code-snippet vuln-line passwordRepeatChallenge
   public repeatPasswordControl: FormControl = new FormControl('', [Validators.required, matchValidator(this.passwordControl)]) // vuln-code-snippet vuln-line passwordRepeatChallenge
   public securityQuestionControl: FormControl = new FormControl('', [Validators.required])
   public securityAnswerControl: FormControl = new FormControl('', [Validators.required])
