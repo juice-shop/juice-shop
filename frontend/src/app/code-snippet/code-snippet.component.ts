@@ -26,6 +26,7 @@ export class CodeSnippetComponent implements OnInit {
   public snippet: CodeSnippet = null
   public fixes: Fixes = null
   public selectedLines: number[]
+  public selectedFix: number
   public tab: FormControl = new FormControl(0)
   public lock: ResultState = ResultState.Undecided
   public result: ResultState = ResultState.Undecided
@@ -49,23 +50,24 @@ export class CodeSnippetComponent implements OnInit {
     this.selectedLines = lines
   }
 
+  setFix = (fix: number) => {
+    this.selectedFix = fix
+  }
+
   toggleTab = (event) => {
     this.tab.setValue(event)
     this.result = ResultState.Undecided
   }
 
+  checkFix = () => {
+    this.codeFixesService.check(this.dialogData.key, this.selectedFix).subscribe((verdict) => {
+      this.setVerdict(verdict.verdict)
+    })
+  }
+
   checkLines = () => {
     this.vulnLinesService.check(this.dialogData.key, this.selectedLines).subscribe((verdict: result) => {
-      if (verdict.verdict) {
-        this.result = ResultState.Right
-        this.lock = ResultState.Right
-        import('../../confetti').then(module => {
-          module.shootConfetti()
-        })
-      } else {
-        this.result = ResultState.Wrong
-        this.lock = ResultState.Wrong
-      }
+      this.setVerdict(verdict.verdict)
     })
   }
 
@@ -80,6 +82,19 @@ export class CodeSnippetComponent implements OnInit {
         return 'lock'
       case ResultState.Undecided:
         return 'lock'
+    }
+  }
+
+  setVerdict = (verdict: boolean) => {
+    if (verdict) {
+      this.result = ResultState.Right
+      this.lock = ResultState.Right
+      import('../../confetti').then(module => {
+        module.shootConfetti()
+      })
+    } else {
+      this.result = ResultState.Wrong
+      this.lock = ResultState.Wrong
     }
   }
 

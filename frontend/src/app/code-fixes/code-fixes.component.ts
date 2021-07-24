@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
+import { FormControl } from '@angular/forms'
+import { MatTabChangeEvent } from '@angular/material/tabs'
 
 @Component({
   selector: 'app-code-fixes',
@@ -12,8 +14,17 @@ export class CodeFixesComponent implements OnInit {
   @Input('fixes')
   public fixes: string[]
 
+  @Output('changeFix')
+  public emitFix = new EventEmitter<number>()
+
+  public tab: FormControl = new FormControl(0)
+
   ngOnInit (): void {
-    this.snippet = this.snippet.replace(/(\r)/gm, '')
-    this.snippet += '\n'
+
+  }
+
+  toggleTab = (event: MatTabChangeEvent) => {
+    this.tab.setValue(event)
+    this.emitFix.emit(event.index + 1)
   }
 }

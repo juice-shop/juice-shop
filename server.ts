@@ -563,6 +563,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/snippets/:challenge', vulnCodeSnippet.serveCodeSnippet())
   app.post('/snippets/verdict', vulnCodeSnippet.checkVulnLines())
   app.get('/snippets/fixes/:key', vulnCodeFixes.serveCodeFixes())
+  app.post('/snippets/fixes', vulnCodeFixes.checkCorrectFix())
 
   app.use(angular())
 

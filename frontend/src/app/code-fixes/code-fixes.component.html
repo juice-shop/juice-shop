@@ -1,6 +1,10 @@
 <div>
   <br/>
-  <mat-tab-group headerPosition="below" mat-align-tabs="center" focusTab="0">
+  <mat-tab-group headerPosition="below"
+  mat-align-tabs="center" focusTab="0"
+  [selectedIndex] = "tab.value"
+  (selectedIndexChange) = "toggleTab($event)"
+  >
     <mat-tab *ngFor="let fix of fixes; index as i" [label]="i+1"> 
       <div *ngIf="snippet!==null" id="code">
         <td-ngx-text-diff [left]="snippet"
