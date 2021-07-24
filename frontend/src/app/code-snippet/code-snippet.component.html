@@ -51,7 +51,7 @@
       <!-- <mat-divider></mat-divider> -->
         <div class="container" fxLayout="column">
           <div fxLayout="row" fxLayoutGap="10px">
-            <app-code-fixes *ngIf="snippet !== null && fixes !== null" [snippet]="snippet?.snippet" [fixes] = "fixes"></app-code-fixes>
+            <app-code-fixes *ngIf="snippet !== null && fixes !== null" [snippet]="snippet?.snippet" [fixes] = "fixes" (changeFix)="setFix($event)"></app-code-fixes>
           </div>
         </div>
         <mat-dialog-actions align="end" class="dialogAction">
@@ -64,7 +64,7 @@
             </i>
             <span>  {{'BTN_CLOSE' | translate}}</span>
           </button>
-          <button mat-stroked-button (click) = "checkLines()">
+          <button mat-stroked-button (click) = "checkFix()">
             <span>  {{'BTN_SUBMIT' | translate}}</span>
             <i class="material-icons">
               {{ resultIcon() }}
