@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
 import { FormControl } from '@angular/forms'
-import { MatTabChangeEvent } from '@angular/material/tabs'
 
 @Component({
   selector: 'app-code-fixes',
@@ -23,8 +22,8 @@ export class CodeFixesComponent implements OnInit {
 
   }
 
-  toggleTab = (event: MatTabChangeEvent) => {
+  toggleTab = (event: number) => {
     this.tab.setValue(event)
-    this.emitFix.emit(event.index + 1)
+    this.emitFix.emit(event + 1)
   }
 }
