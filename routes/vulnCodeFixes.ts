@@ -2,21 +2,41 @@ import { Request, Response, NextFunction } from 'express'
 const fs = require('fs')
 
 const FixesDir = 'data/static/CodeFixes'
-const files = fs.readdirSync(FixesDir)
-const CodeFixes: any = {}
-for (const file of files) {
-  const fix = fs.readFileSync(`${FixesDir}/${file}`).toString()
-  const metadata = file.split('_')
-  const key = metadata[0]
-  const number = metadata[1]
-  if (!CodeFixes[key]) {
-    CodeFixes[key] = {}
-    CodeFixes[key].fixes = []
+
+interface cache {
+  [index: string]: {
+    fixes: string[]
+    correct: number
   }
-  CodeFixes[key].fixes.push(fix)
-  if (metadata.length === 3) {
-    CodeFixes[key].correct = parseInt(number, 10)
+}
+
+const CodeFixes: cache = {}
+
+const readFixes = (key: string) => {
+  if (CodeFixes[key]) {
+    return CodeFixes[key]
   }
+  const files = fs.readdirSync(FixesDir)
+  const fixes: string[] = []
+  let correct: number = -1
+  for (const file of files) {
+    if (file.startsWith(`${key}_`)) {
+      const fix = fs.readFileSync(`${FixesDir}/${file}`).toString()
+      const metadata = file.split('_')
+      const number = metadata[1]
+      fixes.push(fix)
+      if (metadata.length === 3) {
+        correct = parseInt(number, 10)
+      }
+    }
+  }
+
+  CodeFixes[key] = {
+    fixes: fixes,
+    correct: correct
+  }
+
+  return CodeFixes[key]
 }
 
 interface FixesRequestParams {
@@ -29,29 +49,32 @@ interface VerdictRequestBody {
 }
 
 export const serveCodeFixes = () => (req: Request<FixesRequestParams, {}, {}>, res: Response, next: NextFunction) => {
-  if (CodeFixes[req.params.key] === undefined) {
+  const key = req.params.key
+  const fixData = readFixes(key)
+  if (fixData.fixes.length === 0) {
     res.status(404).json({
       error: 'No fixes found for the snippet!'
     })
     return
   }
   res.status(200).json({
-    fixes: CodeFixes[req.params.key].fixes
+    fixes: fixData.fixes
   })
 }
 
 export const checkCorrectFix = () => (req: Request<{}, {}, VerdictRequestBody>, res: Response, next: NextFunction) => {
-  const challenge = req.body.key
+  const key = req.body.key
   const selectedFix = req.body.selectedFix
+  const fixData = readFixes(key)
 
-  if (CodeFixes[challenge] === undefined) {
+  if (fixData.fixes.length === 0) {
     res.status(404).json({
       error: 'No fixes found for the snippet!'
     })
     return
   }
 
-  if (selectedFix === CodeFixes[challenge].correct) {
+  if (selectedFix === fixData.correct) {
     res.status(200).json({
       verdict: true
     })
