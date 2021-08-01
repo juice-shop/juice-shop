@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
-import { FormControl } from '@angular/forms'
 
 @Component({
   selector: 'app-code-fixes',
@@ -15,7 +14,7 @@ export class CodeFixesComponent implements OnInit {
 
   @Output('changeFix')
   public emitFix = new EventEmitter<number>()
-  
+
   public selectedFix: number = 0
 
   ngOnInit (): void {
