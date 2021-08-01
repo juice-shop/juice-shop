@@ -15,8 +15,7 @@ export class CodeFixesComponent implements OnInit {
 
   @Output('changeFix')
   public emitFix = new EventEmitter<number>()
-
-  public tab: FormControl = new FormControl(0)
+  
   public selectedFix: number = 0
 
   ngOnInit (): void {
