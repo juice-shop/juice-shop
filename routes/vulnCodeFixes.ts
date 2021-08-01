@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 const fs = require('fs')
 
-const FixesDir = 'data/static/CodeFixes'
+const FixesDir = 'data/static/codeFixes'
 
 interface cache {
   [index: string]: {
