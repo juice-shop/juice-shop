@@ -36,6 +36,7 @@ const profileImageFileUpload = require('./routes/profileImageFileUpload')
 const profileImageUrlUpload = require('./routes/profileImageUrlUpload')
 const redirect = require('./routes/redirect')
 const vulnCodeSnippet = require('./routes/vulnCodeSnippet')
+const vulnCodeFixes = require('./routes/vulnCodeFixes')
 const angular = require('./routes/angular')
 const easterEgg = require('./routes/easterEgg')
 const premiumReward = require('./routes/premiumReward')
@@ -561,6 +562,8 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/snippets', vulnCodeSnippet.challengesWithCodeSnippet())
   app.get('/snippets/:challenge', vulnCodeSnippet.serveCodeSnippet())
   app.post('/snippets/verdict', vulnCodeSnippet.checkVulnLines())
+  app.get('/snippets/fixes/:key', vulnCodeFixes.serveCodeFixes())
+  app.post('/snippets/fixes', vulnCodeFixes.checkCorrectFix())
 
   app.use(angular())
 

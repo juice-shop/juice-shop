@@ -129,9 +129,12 @@ import { MatPasswordStrengthModule } from '@angular-material-extensions/password
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { FeedbackDetailsComponent } from './feedback-details/feedback-details.component'
 import { MatSliderModule } from '@angular/material/slider'
+import { MatTabsModule } from '@angular/material/tabs'
 import { MatChipsModule } from '@angular/material/chips'
 import { CodeSnippetComponent } from './code-snippet/code-snippet.component'
 import { CodeAreaComponent } from './code-area/code-area.component'
+import { NgxTextDiffModule } from 'ngx-text-diff'
+import { CodeFixesComponent } from './code-fixes/code-fixes.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json')
@@ -193,7 +196,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     DeluxeUserComponent,
     FeedbackDetailsComponent,
     CodeSnippetComponent,
-    CodeAreaComponent
+    CodeAreaComponent,
+    CodeFixesComponent
   ],
   imports: [
     BrowserModule,
@@ -246,8 +250,10 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatRadioModule,
     MatSnackBarModule,
     MatSliderModule,
+    MatTabsModule,
     MatSlideToggleModule,
     MatChipsModule,
+    NgxTextDiffModule,
     HighlightModule
   ],
   providers: [

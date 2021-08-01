@@ -180,7 +180,7 @@
           <button
             *ngIf="challenge.hasSnippet && (showCodeSnippets === 'always' || showCodeSnippets === 'solved' && challenge.solved)"
             mat-mini-fab color="primary"
-            (click)="showCodeSnippet(challenge.key)"
+            (click)="showCodeSnippet(challenge.key,challenge.name)"
             [matTooltip]="('INFO_VULNERABLE_CODE_SNIPPET' | translate)"
             matTooltipPosition="above"
             class="code-snippet-button"
