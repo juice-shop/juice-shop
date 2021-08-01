@@ -5,34 +5,73 @@
 
 <mat-dialog-content class="mat-typography" id="code-snippet">
   <header>
-    <h1>{{"LABEL_CODE_SNIPPET" | translate}}</h1>
+    <h1>Coding Challenge: {{dialogData.name}}</h1>
   </header>
-  <mat-divider></mat-divider>
-  <div class="container" fxLayout="column">
-    <div fxLayout="row" fxLayoutGap="10px">
-      <app-code-area
-        *ngIf="snippet !== null"
-        [code]="snippet?.snippet"
-        [vulnLines]="snippet?.vulnLines"
-        (addLine) = "addLine($event)">
-      </app-code-area>
-    </div>
-  </div>
-  <mat-dialog-actions align="end" class="dialogAction">
-    <button mat-button style="height: 0; position: absolute;">
-      <!-- 'absorbs' the auto-focus behavior -->
-    </button>
-    <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="Close Dialog">
-      <i class="material-icons">
-        close
-      </i>
-      <span>  {{'BTN_CLOSE' | translate}}</span>
-    </button>
-    <button mat-stroked-button (click) = "checkLines()">
-      <span>  {{'BTN_SUBMIT' | translate}}</span>
-      <i class="material-icons">
-        {{ resultIcon() }}
-      </i>
-    </button>
-  </mat-dialog-actions>
+  <mat-tab-group
+  mat-stretch-tabs
+  [selectedIndex] = "tab.value"
+  (selectedIndexChange) = "toggleTab($event)"
+  >
+      <mat-tab label="Find It">
+      <!-- <mat-divider></mat-divider> -->
+      <div class="container" fxLayout="column">
+        <div fxLayout="row" fxLayoutGap="10px">
+          <app-code-area
+            *ngIf="snippet !== null"
+            [code]="snippet?.snippet"
+            [vulnLines]="snippet?.vulnLines"
+            (addLine) = "addLine($event)">
+          </app-code-area>
+        </div>
+      </div>
+      <mat-dialog-actions align="end" class="dialogAction">
+        <button mat-button style="height: 0; position: absolute;">
+          <!-- 'absorbs' the auto-focus behavior -->
+        </button>
+        <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="Close Dialog">
+          <i class="material-icons">
+            close
+          </i>
+          <span>  {{'BTN_CLOSE' | translate}}</span>
+        </button>
+        <button mat-stroked-button (click) = "checkLines()">
+          <span>  {{'BTN_SUBMIT' | translate}}</span>
+          <i class="material-icons">
+            {{ resultIcon() }}
+          </i>
+        </button>
+        <br/>
+      </mat-dialog-actions>
+    </mat-tab>
+    <mat-tab [disabled]="lockIcon() === 'lock'">
+      <ng-template mat-tab-label>
+        Fix It
+        <mat-icon class="materaial-icons-outlined">{{lockIcon()}}</mat-icon>
+      </ng-template>      
+      <!-- <mat-divider></mat-divider> -->
+        <div class="container" fxLayout="column">
+          <div fxLayout="row" fxLayoutGap="10px">
+            <app-code-fixes *ngIf="snippet !== null && fixes !== null" [snippet]="snippet?.snippet" [fixes] = "fixes" (changeFix)="setFix($event)"></app-code-fixes>
+          </div>
+        </div>
+        <mat-dialog-actions align="end" class="dialogAction">
+          <button mat-button style="height: 0; position: absolute;">
+            <!-- 'absorbs' the auto-focus behavior -->
+          </button>
+          <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="Close Dialog">
+            <i class="material-icons">
+              close
+            </i>
+            <span>  {{'BTN_CLOSE' | translate}}</span>
+          </button>
+          <button mat-stroked-button (click) = "checkFix()">
+            <span>  {{'BTN_SUBMIT' | translate}}</span>
+            <i class="material-icons">
+              {{ resultIcon() }}
+            </i>
+          </button>
+          <br/>
+        </mat-dialog-actions>
+    </mat-tab>
+  </mat-tab-group>
 </mat-dialog-content>
