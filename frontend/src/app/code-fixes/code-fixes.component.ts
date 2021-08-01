@@ -17,13 +17,14 @@ export class CodeFixesComponent implements OnInit {
   public emitFix = new EventEmitter<number>()
 
   public tab: FormControl = new FormControl(0)
+  public selectedFix: number = 0
 
   ngOnInit (): void {
 
   }
 
-  toggleTab = (event: number) => {
-    this.tab.setValue(event)
-    this.emitFix.emit(event + 1)
+  changeFix (event: Event) {
+    this.selectedFix = parseInt((event.target as HTMLSelectElement).value, 10)
+    this.emitFix.emit(this.selectedFix + 1)
   }
 }

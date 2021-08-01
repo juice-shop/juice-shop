@@ -1,17 +1,19 @@
 <div>
   <br/>
-  <mat-tab-group headerPosition="below"
-  mat-align-tabs="center" focusTab="0"
-  [selectedIndex] = "tab.value"
-  (selectedIndexChange) = "toggleTab($event)"
-  >
-    <mat-tab *ngFor="let fix of fixes; index as i" [label]="i+1"> 
-      <div *ngIf="snippet!==null" id="code">
-        <td-ngx-text-diff [left]="snippet"
-        [right]="fix"
-        >
-        </td-ngx-text-diff>
-      </div>
-    </mat-tab>
-  </mat-tab-group>
+  <mat-form-field appearance="fill">
+    <mat-label>Correct Fix</mat-label>
+    <select matNativeControl (change)="changeFix($event)">
+      <option value=""></option>
+      <option *ngFor="let fix of fixes; index as i" [value]="i" 
+      [selected]="selectedFix === i">Fix {{ i+1 }}</option>
+    </select>
+  </mat-form-field>
+  <div *ngFor="let fix of fixes; index as i" id="code">
+    <div  *ngIf="selectedFix === i">
+      <td-ngx-text-diff [left]="snippet"
+      [right]="fix"
+      >
+      </td-ngx-text-diff>
+    </div>
+  </div>
 </div>
