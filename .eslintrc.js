@@ -24,7 +24,7 @@ module.exports = {
     'app/private/**',
     'vagrant/**',
     'frontend/**',
-    'data/static/CodeFixes/**',
+    'data/static/codefixes/**',
     'dist/**'
   ],
   overrides: [
