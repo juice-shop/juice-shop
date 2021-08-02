@@ -3,7 +3,7 @@ filterTable () {
     if (queryParam) {
       queryParam = queryParam.trim()
       this.dataSource.filter = queryParam.toLowerCase()
-      this.searchValue = this.sanitizer.bypassSecurityTrustResourceUrl(queryParam)
+      this.searchValue = this.sanitizer.bypassSecurityTrustIframe(queryParam)
       this.gridDataSource.subscribe((result: any) => {
         if (result.length === 0) {
           this.emptyState = true
