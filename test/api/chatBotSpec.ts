@@ -236,7 +236,7 @@ describe('/chatbot', () => {
       })
       const testCommand = functionTest[0].utterances[0]
       const testResponse = '3be2e438b7f3d04c89d7749f727bb3bd'
-      return frisby.setup({
+      return await frisby.setup({
         request: {
           headers: {
             Authorization: `Bearer ${token}`,
