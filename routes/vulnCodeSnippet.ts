@@ -95,8 +95,8 @@ export const retrieveCodeSnippet = async (key: string) => {
         const snippets = source.match(`[/#]{0,2} vuln-code-snippet start.*${challenge.key}([^])*vuln-code-snippet end.*${challenge.key}`)
         if (snippets != null) {
           let snippet = snippets[0] // TODO Currently only a single code snippet is supported
-          snippet = snippet.replace(/[/#]{0,2} vuln-code-snippet start.*[\r\n]{0,2}/g, '')
-          snippet = snippet.replace(/[/#]{0,2} vuln-code-snippet end.*/g, '')
+          snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet start.*[\r\n]{0,2}/g, '')
+          snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet end.*/g, '')
           snippet = snippet.replace(/.*[/#]{0,2} vuln-code-snippet hide-line[\r\n]{0,2}/g, '')
           snippet = snippet.replace(/.*[/#]{0,2} vuln-code-snippet hide-start([^])*[/#]{0,2} vuln-code-snippet hide-end[\r\n]{0,2}/g, '')
           snippet = snippet.trim()
