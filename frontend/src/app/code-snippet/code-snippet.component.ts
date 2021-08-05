@@ -92,9 +92,9 @@ export class CodeSnippetComponent implements OnInit {
       import('../../confetti').then(module => {
         module.shootConfetti()
       })
-      .then(() => {
-        if (this.tab.value === 0) this.toggleTab(1)
-      })
+        .then(() => {
+          if (this.tab.value === 0) this.toggleTab(1)
+        })
     } else {
       this.result = ResultState.Wrong
       this.lock = ResultState.Wrong
