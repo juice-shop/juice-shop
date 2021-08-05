@@ -3,17 +3,38 @@ const fs = require('fs')
 
 const FixesDir = 'data/static/codefixes'
 
+interface codeFix {
+  fixes: string[]
+  correct: number
+}
+
 interface cache {
-  [index: string]: {
-    fixes: string[]
-    correct: number
-  }
+  [index: string]: codeFix
 }
 
 const CodeFixes: cache = {}
 
-const readFixes = (key: string) => {
+const shuffle = (key: string) => {
+  const fixes = CodeFixes[key].fixes
+  let correct = CodeFixes[key].correct
+  let randomRotation = Math.random() * 100
+  while (randomRotation > 0) {
+    const end = fixes[fixes.length - 1]
+    for (let i = fixes.length - 1; i > 0; i--) {
+      fixes[i] = fixes[i - 1]
+    }
+    fixes[0] = end
+    correct = (correct + 1) % (fixes.length)
+    randomRotation--
+  }
+
+  CodeFixes[key].correct = correct
+  CodeFixes[key].fixes = fixes
+}
+
+const readFixes = (key: string, toShuffle: boolean) => {
   if (CodeFixes[key]) {
+    if (toShuffle) shuffle(key)
     return CodeFixes[key]
   }
   const files = fs.readdirSync(FixesDir)
@@ -27,6 +48,7 @@ const readFixes = (key: string) => {
       fixes.push(fix)
       if (metadata.length === 3) {
         correct = parseInt(number, 10)
+        correct--
       }
     }
   }
@@ -36,6 +58,7 @@ const readFixes = (key: string) => {
     correct: correct
   }
 
+  if (toShuffle) shuffle(key)
   return CodeFixes[key]
 }
 
@@ -50,7 +73,7 @@ interface VerdictRequestBody {
 
 export const serveCodeFixes = () => (req: Request<FixesRequestParams, {}, {}>, res: Response, next: NextFunction) => {
   const key = req.params.key
-  const fixData = readFixes(key)
+  const fixData = readFixes(key, true)
   if (fixData.fixes.length === 0) {
     res.status(404).json({
       error: 'No fixes found for the snippet!'
@@ -64,9 +87,8 @@ export const serveCodeFixes = () => (req: Request<FixesRequestParams, {}, {}>, r
 
 export const checkCorrectFix = () => (req: Request<{}, {}, VerdictRequestBody>, res: Response, next: NextFunction) => {
   const key = req.body.key
-  const selectedFix = req.body.selectedFix
-  const fixData = readFixes(key)
-
+  const selectedFix = req.body.selectedFix - 1
+  const fixData = readFixes(key, false)
   if (fixData.fixes.length === 0) {
     res.status(404).json({
       error: 'No fixes found for the snippet!'
