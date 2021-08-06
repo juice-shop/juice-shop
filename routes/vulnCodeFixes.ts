@@ -14,27 +14,8 @@ interface cache {
 
 const CodeFixes: cache = {}
 
-const shuffle = (key: string) => {
-  const fixes = CodeFixes[key].fixes
-  let correct = CodeFixes[key].correct
-  let randomRotation = Math.random() * 100
-  while (randomRotation > 0) {
-    const end = fixes[fixes.length - 1]
-    for (let i = fixes.length - 1; i > 0; i--) {
-      fixes[i] = fixes[i - 1]
-    }
-    fixes[0] = end
-    correct = (correct + 1) % (fixes.length)
-    randomRotation--
-  }
-
-  CodeFixes[key].correct = correct
-  CodeFixes[key].fixes = fixes
-}
-
-const readFixes = (key: string, toShuffle: boolean) => {
+const readFixes = (key: string) => {
   if (CodeFixes[key]) {
-    if (toShuffle) shuffle(key)
     return CodeFixes[key]
   }
   const files = fs.readdirSync(FixesDir)
@@ -57,8 +38,6 @@ const readFixes = (key: string, toShuffle: boolean) => {
     fixes: fixes,
     correct: correct
   }
-
-  if (toShuffle) shuffle(key)
   return CodeFixes[key]
 }
 
@@ -73,7 +52,7 @@ interface VerdictRequestBody {
 
 export const serveCodeFixes = () => (req: Request<FixesRequestParams, {}, {}>, res: Response, next: NextFunction) => {
   const key = req.params.key
-  const fixData = readFixes(key, true)
+  const fixData = readFixes(key)
   if (fixData.fixes.length === 0) {
     res.status(404).json({
       error: 'No fixes found for the snippet!'
@@ -87,8 +66,8 @@ export const serveCodeFixes = () => (req: Request<FixesRequestParams, {}, {}>, r
 
 export const checkCorrectFix = () => (req: Request<{}, {}, VerdictRequestBody>, res: Response, next: NextFunction) => {
   const key = req.body.key
-  const selectedFix = req.body.selectedFix - 1
-  const fixData = readFixes(key, false)
+  const selectedFix = req.body.selectedFix
+  const fixData = readFixes(key)
   if (fixData.fixes.length === 0) {
     res.status(404).json({
       error: 'No fixes found for the snippet!'
