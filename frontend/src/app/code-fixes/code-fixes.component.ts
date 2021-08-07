@@ -1,5 +1,9 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
 
+interface RandomFixes {
+  fix: string
+  index: number
+}
 @Component({
   selector: 'app-code-fixes',
   templateUrl: './code-fixes.component.html',
@@ -10,13 +14,13 @@ export class CodeFixesComponent implements OnInit {
   public snippet: string = ''
 
   @Input('fixes')
-  public fixes: string[]
+  public fixes: string[] = []
 
   @Output('changeFix')
   public emitFix = new EventEmitter<number>()
 
   public selectedFix: number = 0
-  public randomFixes = []
+  public randomFixes: RandomFixes[] = []
 
   shuffle () {
     let index = 0
@@ -40,7 +44,11 @@ export class CodeFixesComponent implements OnInit {
 
   ngOnInit (): void {
     this.shuffle()
-    this.emitFix.emit(this.randomFixes[0].index)
+    this.initialEmit()
+  }
+
+  initialEmit () {
+    if (this.randomFixes[0] !== undefined) { this.emitFix.emit(this.randomFixes[0].index) }
   }
 
   changeFix (event: Event) {
