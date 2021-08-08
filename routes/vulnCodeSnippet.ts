@@ -110,7 +110,7 @@ export const retrieveCodeSnippet = async (key: string) => {
               vulnLines.push(i + 1)
             }
           }
-          snippet = snippet.replace(/[/#]{0,2} vuln-code-snippet vuln-line.*/g, '')
+          snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet vuln-line.*/g, '')
           cache[challenge.key] = { snippet, vulnLines }
           return { snippet: snippet, vulnLines: vulnLines }
         } else {

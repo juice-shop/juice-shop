@@ -4,14 +4,14 @@
     <mat-label>Correct Fix</mat-label>
     <select matNativeControl (change)="changeFix($event)">
       <option value=""></option>
-      <option *ngFor="let fix of fixes; index as i" [value]="i" 
+      <option *ngFor="let fix of randomFixes; index as i" [value]="i" 
       [selected]="selectedFix === i">Fix {{ i+1 }}</option>
     </select>
   </mat-form-field>
-  <div *ngFor="let fix of fixes; index as i" id="code">
+  <div *ngFor="let fix of randomFixes; index as i" id="code">
     <div  *ngIf="selectedFix === i">
       <td-ngx-text-diff [left]="snippet"
-      [right]="fix"
+      [right]="fix?.fix"
       >
       </td-ngx-text-diff>
     </div>
