@@ -3,11 +3,13 @@ const fs = require('fs')
 
 const FixesDir = 'data/static/codefixes'
 
+interface codeFix {
+  fixes: string[]
+  correct: number
+}
+
 interface cache {
-  [index: string]: {
-    fixes: string[]
-    correct: number
-  }
+  [index: string]: codeFix
 }
 
 const CodeFixes: cache = {}
@@ -27,6 +29,7 @@ const readFixes = (key: string) => {
       fixes.push(fix)
       if (metadata.length === 3) {
         correct = parseInt(number, 10)
+        correct--
       }
     }
   }
@@ -35,7 +38,6 @@ const readFixes = (key: string) => {
     fixes: fixes,
     correct: correct
   }
-
   return CodeFixes[key]
 }
 
@@ -66,7 +68,6 @@ export const checkCorrectFix = () => (req: Request<{}, {}, VerdictRequestBody>, 
   const key = req.body.key
   const selectedFix = req.body.selectedFix
   const fixData = readFixes(key)
-
   if (fixData.fixes.length === 0) {
     res.status(404).json({
       error: 'No fixes found for the snippet!'
