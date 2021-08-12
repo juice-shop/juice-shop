@@ -93,7 +93,7 @@ export class CodeSnippetComponent implements OnInit {
         module.shootConfetti()
       })
         .then(() => {
-          if (this.tab.value === 0) this.toggleTab(1)
+          if (this.tab.value === 0 && this.fixes !== null) this.toggleTab(1)
         })
     } else {
       this.result = ResultState.Wrong
