@@ -87,7 +87,3 @@ export const checkCorrectFix = () => async (req: Request<{}, {}, VerdictRequestB
     })
   }
 }
-
-export const getSolved = () => (req: Request<{}, {}, {}>, res: Response, next: NextFunction) => {
-  res.status(200).json({ challenges: solved })
-}
