@@ -17,6 +17,11 @@ enum ResultState {
   Wrong,
 }
 
+interface Solved {
+  findIt: boolean
+  fixIt: boolean
+}
+
 @Component({
   selector: 'app-user-details',
   templateUrl: './code-snippet.component.html',
@@ -30,17 +35,20 @@ export class CodeSnippetComponent implements OnInit {
   public tab: FormControl = new FormControl(0)
   public lock: ResultState = ResultState.Undecided
   public result: ResultState = ResultState.Undecided
+  public solved: Solved = { findIt: false, fixIt: false }
 
   constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly codeSnippetService: CodeSnippetService, private readonly vulnLinesService: VulnLinesService, private readonly codeFixesService: CodeFixesService) { }
 
   ngOnInit () {
     this.codeSnippetService.get(this.dialogData.key).subscribe((snippet) => {
       this.snippet = snippet
+      this.solved.findIt = false
     }, (err) => {
       this.snippet = { snippet: JSON.stringify(err.error?.error) }
     })
     this.codeFixesService.get(this.dialogData.key).subscribe((fixes) => {
       this.fixes = fixes.fixes
+      this.solved.fixIt = false
     }, () => {
       this.fixes = null
     })
@@ -87,6 +95,8 @@ export class CodeSnippetComponent implements OnInit {
 
   setVerdict = (verdict: boolean) => {
     if (verdict) {
+      if (this.tab.value === 0) this.solved.findIt = true
+      else this.solved.fixIt = true
       this.result = ResultState.Right
       this.lock = ResultState.Right
       import('../../confetti').then(module => {

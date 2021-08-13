@@ -355,11 +355,26 @@ export class ScoreBoardComponent implements OnInit {
   }
 
   showCodeSnippet (key: string, name: string) {
-    this.dialog.open(CodeSnippetComponent, {
+    const dialogRef = this.dialog.open(CodeSnippetComponent, {
       data: {
         key: key,
         name: name
       }
     })
+
+    dialogRef.afterClosed().subscribe(result => {
+      for (const challenge of this.challenges) {
+        if (challenge.name === name) {
+          if (!challenge.findIt) { challenge.findIt = result.findIt }
+          if (!challenge.fixIt) { challenge.fixIt = result.fixIt }
+        }
+      }
+    })
+  }
+
+  generateClass (challenge: Challenge) {
+    if (challenge.fixIt) return 'dark-green'
+    else if (challenge.findIt) return 'green'
+    else return 'code-snippet-button'
   }
 }

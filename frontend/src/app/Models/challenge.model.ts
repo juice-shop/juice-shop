@@ -18,4 +18,6 @@ export interface Challenge {
   tutorialOrder?: number
   hasTutorial?: boolean
   hasSnippet?: boolean
+  findIt?: boolean
+  fixIt?: boolean
 }

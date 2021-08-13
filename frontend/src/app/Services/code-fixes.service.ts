@@ -11,6 +11,10 @@ export interface Fixes {
   fixes: string[]
 }
 
+export interface Solved {
+  challenges: string[]
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -29,5 +33,9 @@ export class CodeFixesService {
       key: key,
       selectedFix: selectedFix
     }).pipe(map((response: result) => response), catchError((error: any) => { throw error }))
+  }
+
+  getSolved () {
+    return this.http.get(`${this.host}/solved`).pipe(map((response: Solved) => response), catchError((err) => { throw err }))
   }
 }
