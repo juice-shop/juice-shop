@@ -4,6 +4,7 @@
  */
 
 import { Request, Response, NextFunction } from 'express'
+import models = require('../models/index')
 const challenges = require('../data/datacache').challenges
 const path = require('path')
 const fs = require('graceful-fs')
@@ -161,6 +162,10 @@ export const getVerdict = (vulnLines: number[], selectedLines: number[]) => {
   return verdict
 }
 
+export const getSolved = () => (req: Request<{}, {}, {}>, res: Response, next: NextFunction) => {
+  res.status(200).json({ challenges: solved })
+}
+
 exports.checkVulnLines = () => async (req: Request<{}, {}, VerdictRequestBody>, res: Response, next: NextFunction) => {
   let snippetData
   try {
@@ -174,6 +179,7 @@ exports.checkVulnLines = () => async (req: Request<{}, {}, VerdictRequestBody>, 
   const selectedLines: number[] = req.body.selectedLines
   const verdict = getVerdict(vulnLines, selectedLines)
   if (verdict) {
+    await models.Challenge.update({ findIt: true }, { where: { key: req.body.key } })
     res.status(200).json({
       verdict: true
     })
