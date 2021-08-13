@@ -33,8 +33,4 @@ export class CodeSnippetService {
   challenges () {
     return this.http.get(`${this.host}`).pipe(map((response: any) => response.challenges), catchError((err) => { throw err }))
   }
-
-  getSolved () {
-    return this.http.get(`${this.host}/solved`).pipe(map((response: Solved) => response), catchError((err) => { throw err }))
-  }
 }

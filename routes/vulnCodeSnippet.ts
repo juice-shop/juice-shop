@@ -162,10 +162,6 @@ export const getVerdict = (vulnLines: number[], selectedLines: number[]) => {
   return verdict
 }
 
-export const getSolved = () => (req: Request<{}, {}, {}>, res: Response, next: NextFunction) => {
-  res.status(200).json({ challenges: solved })
-}
-
 exports.checkVulnLines = () => async (req: Request<{}, {}, VerdictRequestBody>, res: Response, next: NextFunction) => {
   let snippetData
   try {
