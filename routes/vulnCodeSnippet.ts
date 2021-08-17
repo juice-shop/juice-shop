@@ -175,7 +175,7 @@ exports.checkVulnLines = () => async (req: Request<{}, {}, VerdictRequestBody>, 
   const selectedLines: number[] = req.body.selectedLines
   const verdict = getVerdict(vulnLines, selectedLines)
   if (verdict) {
-    await models.Challenge.update({ findIt: true }, { where: { key: req.body.key } })
+    await models.Challenge.update({ codingChallengeStatus: 1 }, { where: { key: req.body.key } })
     res.status(200).json({
       verdict: true
     })
