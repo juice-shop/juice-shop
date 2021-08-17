@@ -365,16 +365,30 @@ export class ScoreBoardComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       for (const challenge of this.challenges) {
         if (challenge.name === name) {
-          if (!challenge.findIt) { challenge.findIt = result.findIt }
-          if (!challenge.fixIt) { challenge.fixIt = result.fixIt }
+          if (challenge.codingChallengeStatus < 1) {
+            challenge.codingChallengeStatus = result.findIt ? 1 : challenge.codingChallengeStatus
+          }
+          if (challenge.codingChallengeStatus < 2) {
+            challenge.codingChallengeStatus = result.fixIt ? 2 : challenge.codingChallengeStatus
+          }
         }
       }
     })
   }
 
-  generateClass (challenge: Challenge) {
-    if (challenge.fixIt) return 'dark-green'
-    else if (challenge.findIt) return 'green'
-    else return 'code-snippet-button'
+  generateColor (challenge: Challenge) {
+    switch (challenge.codingChallengeStatus) {
+      case 2:
+        return 'accent'
+      case 1:
+        return 'accent'
+      default:
+        return 'primary'
+    }
+  }
+
+  generateBadge (challenge: Challenge) {
+    if (challenge.codingChallengeStatus === 0) return ''
+    return `${challenge.codingChallengeStatus}/2`
   }
 }

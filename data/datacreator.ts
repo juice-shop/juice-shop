@@ -79,8 +79,7 @@ async function createChallenges () {
           mitigationUrl: showMitigations ? mitigationUrl : null,
           disabledEnv: config.get('challenges.safetyOverride') ? null : effectiveDisabledEnv,
           tutorialOrder: tutorial ? tutorial.order : null,
-          findIt: false,
-          fixIt: false
+          codingChallengeStatus: 0
         })
       } catch (err) {
         logger.error(`Could not insert Challenge ${name}: ${err.message}`)

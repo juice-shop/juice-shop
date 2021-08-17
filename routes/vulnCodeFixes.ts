@@ -77,7 +77,7 @@ export const checkCorrectFix = () => async (req: Request<{}, {}, VerdictRequestB
   }
 
   if (selectedFix === fixData.correct) {
-    await models.Challenge.update({ fixIt: true }, { where: { key: key } })
+    await models.Challenge.update({ codingChallengeStatus: 2 }, { where: { key: key } })
     res.status(200).json({
       verdict: true
     })
