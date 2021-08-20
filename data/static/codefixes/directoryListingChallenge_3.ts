@@ -1,4 +1,4 @@
-  /* /ftp directory browsing */
+/* /ftp directory browsing */
   app.use('/ftp', serveIndexMiddleware, serveIndex('ftp', { icons: true }))
 
   /* /encryptionkeys directory browsing */

@@ -1,4 +1,4 @@
-  /* /ftp file download */
+/* /ftp file download */
   app.use('/ftp(?!/quarantine)/:file', fileServer())
   app.use('/ftp/quarantine/:file', quarantineServer())
 
