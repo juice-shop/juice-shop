@@ -2,9 +2,12 @@ name: "Code Scanning"
 
 on:
   push:
+    branches: [ master ]
   pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ master ]
   schedule:
-    - cron: '0 18 * * 6'
+    - cron: '16 6 * * 5'
 
 jobs:
   CodeQL-Build:
