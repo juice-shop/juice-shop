@@ -11,6 +11,10 @@ export interface Fixes {
   fixes: string[]
 }
 
+export interface Solved {
+  challenges: string[]
+}
+
 @Injectable({
   providedIn: 'root'
 })

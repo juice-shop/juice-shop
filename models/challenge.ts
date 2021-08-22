@@ -17,7 +17,8 @@ export = (sequelize, { STRING, INTEGER, BOOLEAN, NUMBER }) => {
     mitigationUrl: STRING,
     solved: BOOLEAN,
     disabledEnv: STRING,
-    tutorialOrder: NUMBER
+    tutorialOrder: NUMBER,
+    codingChallengeStatus: NUMBER
   })
   return Challenge
 }

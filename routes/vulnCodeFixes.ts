@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
+import models = require('../models/index')
 const fs = require('fs')
 
 const FixesDir = 'data/static/codefixes'
@@ -64,7 +65,7 @@ export const serveCodeFixes = () => (req: Request<FixesRequestParams, {}, {}>, r
   })
 }
 
-export const checkCorrectFix = () => (req: Request<{}, {}, VerdictRequestBody>, res: Response, next: NextFunction) => {
+export const checkCorrectFix = () => async (req: Request<{}, {}, VerdictRequestBody>, res: Response, next: NextFunction) => {
   const key = req.body.key
   const selectedFix = req.body.selectedFix
   const fixData = readFixes(key)
@@ -76,6 +77,7 @@ export const checkCorrectFix = () => (req: Request<{}, {}, VerdictRequestBody>, 
   }
 
   if (selectedFix === fixData.correct) {
+    await models.Challenge.update({ codingChallengeStatus: 2 }, { where: { key: key } })
     res.status(200).json({
       verdict: true
     })

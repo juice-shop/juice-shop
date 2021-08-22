@@ -183,9 +183,15 @@
             (click)="showCodeSnippet(challenge.key,challenge.name)"
             [matTooltip]="('INFO_VULNERABLE_CODE_SNIPPET' | translate)"
             matTooltipPosition="above"
-            class="code-snippet-button"
+            class='code-snippet-button'
+            [color]="generateColor(challenge)"
             >
-            <mat-icon>
+            <mat-icon
+            [matBadge]="generateBadge(challenge)"
+            matBadgeSize="medium"
+            matBadgePosition="right"
+            matBadgeColor="warn"
+            >
               code
             </mat-icon>
           </button>

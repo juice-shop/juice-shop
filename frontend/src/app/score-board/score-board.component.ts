@@ -355,11 +355,40 @@ export class ScoreBoardComponent implements OnInit {
   }
 
   showCodeSnippet (key: string, name: string) {
-    this.dialog.open(CodeSnippetComponent, {
+    const dialogRef = this.dialog.open(CodeSnippetComponent, {
       data: {
         key: key,
         name: name
       }
     })
+
+    dialogRef.afterClosed().subscribe(result => {
+      for (const challenge of this.challenges) {
+        if (challenge.name === name) {
+          if (challenge.codingChallengeStatus < 1) {
+            challenge.codingChallengeStatus = result.findIt ? 1 : challenge.codingChallengeStatus
+          }
+          if (challenge.codingChallengeStatus < 2) {
+            challenge.codingChallengeStatus = result.fixIt ? 2 : challenge.codingChallengeStatus
+          }
+        }
+      }
+    })
+  }
+
+  generateColor (challenge: Challenge) {
+    switch (challenge.codingChallengeStatus) {
+      case 2:
+        return 'accent'
+      case 1:
+        return 'accent'
+      default:
+        return 'primary'
+    }
+  }
+
+  generateBadge (challenge: Challenge) {
+    if (challenge.codingChallengeStatus === 0) return ''
+    return `${challenge.codingChallengeStatus}/2`
   }
 }

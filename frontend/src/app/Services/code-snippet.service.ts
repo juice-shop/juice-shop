@@ -13,6 +13,10 @@ export interface CodeSnippet {
   snippet: string
 }
 
+export interface Solved {
+  challenges: string[]
+}
+
 @Injectable({
   providedIn: 'root'
 })
