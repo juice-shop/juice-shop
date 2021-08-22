@@ -4,6 +4,7 @@
  */
 
 import { Request, Response, NextFunction } from 'express'
+import models = require('../models/index')
 const challenges = require('../data/datacache').challenges
 const path = require('path')
 const fs = require('graceful-fs')
@@ -174,6 +175,7 @@ exports.checkVulnLines = () => async (req: Request<{}, {}, VerdictRequestBody>, 
   const selectedLines: number[] = req.body.selectedLines
   const verdict = getVerdict(vulnLines, selectedLines)
   if (verdict) {
+    await models.Challenge.update({ codingChallengeStatus: 1 }, { where: { key: req.body.key } })
     res.status(200).json({
       verdict: true
     })
