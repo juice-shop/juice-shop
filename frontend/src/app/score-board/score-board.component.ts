@@ -381,9 +381,18 @@ export class ScoreBoardComponent implements OnInit {
       case 2:
         return 'accent'
       case 1:
-        return 'accent'
+        return 'primary'
       default:
         return 'primary'
+    }
+  }
+
+  generateBadgeColor (challenge: Challenge) {
+    switch (challenge.codingChallengeStatus) {
+      case 2:
+        return 'primary'
+      default:
+        return 'accent'
     }
   }
 
