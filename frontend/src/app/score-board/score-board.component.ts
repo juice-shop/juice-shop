@@ -354,11 +354,13 @@ export class ScoreBoardComponent implements OnInit {
     this.localBackupService.restore(file)
   }
 
-  showCodeSnippet (key: string, name: string) {
+  showCodeSnippet (key: string, name: string, codingChallengeStatus: number) {
     const dialogRef = this.dialog.open(CodeSnippetComponent, {
+      hasBackdrop: false,
       data: {
         key: key,
-        name: name
+        name: name,
+        codingChallengeStatus: codingChallengeStatus
       }
     })
 
@@ -381,7 +383,7 @@ export class ScoreBoardComponent implements OnInit {
       case 2:
         return 'accent'
       case 1:
-        return 'primary'
+        return 'accent'
       default:
         return 'primary'
     }
@@ -389,7 +391,7 @@ export class ScoreBoardComponent implements OnInit {
 
   generateBadgeColor (challenge: Challenge) {
     switch (challenge.codingChallengeStatus) {
-      case 2:
+      case 1:
         return 'primary'
       default:
         return 'accent'
@@ -397,7 +399,7 @@ export class ScoreBoardComponent implements OnInit {
   }
 
   generateBadge (challenge: Challenge) {
-    if (challenge.codingChallengeStatus === 0) return ''
+    if (challenge.codingChallengeStatus === 0 || challenge.codingChallengeStatus === 2) return ''
     return `${challenge.codingChallengeStatus}/2`
   }
 }
