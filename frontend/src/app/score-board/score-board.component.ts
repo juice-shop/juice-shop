@@ -379,27 +379,10 @@ export class ScoreBoardComponent implements OnInit {
   }
 
   generateColor (challenge: Challenge) {
-    switch (challenge.codingChallengeStatus) {
-      case 2:
-        return 'accent'
-      case 1:
-        return 'accent'
-      default:
-        return 'primary'
-    }
-  }
-
-  generateBadgeColor (challenge: Challenge) {
-    switch (challenge.codingChallengeStatus) {
-      case 1:
-        return 'primary'
-      default:
-        return 'accent'
-    }
+    return challenge.codingChallengeStatus === 2 ? 'accent' : 'primary'
   }
 
   generateBadge (challenge: Challenge) {
-    if (challenge.codingChallengeStatus === 0 || challenge.codingChallengeStatus === 2) return ''
-    return `${challenge.codingChallengeStatus}/2`
+    return challenge.codingChallengeStatus === 1 ? '1/2' : ''
   }
 }
