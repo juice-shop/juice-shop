@@ -1,5 +1,5 @@
 include:
-  - template: Auto-DevOps.gitlab-ci
+  - template: Auto-DevOps.gitlab-ci.yml
 
 variables:
   SAST_EXCLUDED_PATHS: "frontend/src/assets/private/**"
