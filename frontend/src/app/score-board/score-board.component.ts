@@ -361,7 +361,7 @@ export class ScoreBoardComponent implements OnInit {
         key: key,
         name: name,
         codingChallengeStatus: codingChallengeStatus
-      },
+      }
     })
 
     dialogRef.afterClosed().subscribe(result => {
