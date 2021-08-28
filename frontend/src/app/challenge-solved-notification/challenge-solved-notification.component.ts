@@ -102,6 +102,9 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
       })
       this.ref.detectChanges()
     })
+    import('../../confetti').then(module => {
+      module.shootConfetti()
+    })
   }
 
   saveProgress () {
