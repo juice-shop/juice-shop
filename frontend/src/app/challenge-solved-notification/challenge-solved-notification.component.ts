@@ -46,6 +46,9 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
         if (data?.challenge) {
           if (!data.hidden) {
             this.showNotification(data)
+            import('../../confetti').then(module => {
+              module.shootConfetti()
+            })
           }
           if (!data.isRestore) {
             this.saveProgress()
@@ -101,9 +104,6 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
         copied: false
       })
       this.ref.detectChanges()
-    })
-    import('../../confetti').then(module => {
-      module.shootConfetti()
     })
   }
 
