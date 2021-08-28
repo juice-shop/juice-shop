@@ -129,9 +129,6 @@ export class ScoreBoardComponent implements OnInit {
 
     this.ngZone.runOutsideAngular(() => {
       this.io.socket().on('challenge solved', (data: any) => {
-        import('../../confetti').then((module) => {
-          module.shootConfetti()
-        })
         if (data?.challenge) {
           for (let i = 0; i < this.challenges.length; i++) {
             if (this.challenges[i].name === data.name) {
