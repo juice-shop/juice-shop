@@ -138,4 +138,13 @@ export class CodeSnippetComponent implements OnInit {
         return 'send'
     }
   }
+
+  resultColor (): string {
+    switch (this.resultIcon()) {
+      case 'check':
+        return 'accent'
+      case 'clear':
+        return 'warn'
+    }
+  }
 }
