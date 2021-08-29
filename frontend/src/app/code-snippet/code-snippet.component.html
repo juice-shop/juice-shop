@@ -34,7 +34,7 @@
           </i>
           <span>  {{'BTN_CLOSE' | translate}}</span>
         </button>
-        <button mat-stroked-button (click) = "checkLines()">
+        <button mat-stroked-button (click) = "checkLines()" [disabled]="dialogData.codingChallengeStatus >= 1">
           <span>  {{'BTN_SUBMIT' | translate}}</span>
           <i class="material-icons">
             {{ resultIcon() }}
@@ -64,7 +64,7 @@
             </i>
             <span>  {{'BTN_CLOSE' | translate}}</span>
           </button>
-          <button mat-stroked-button (click) = "checkFix()">
+          <button mat-stroked-button (click) = "checkFix()" [disabled]="dialogData.codingChallengeStatus === 2">
             <span>  {{'BTN_SUBMIT' | translate}}</span>
             <i class="material-icons">
               {{ resultIcon() }}
