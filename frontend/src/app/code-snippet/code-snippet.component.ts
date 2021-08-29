@@ -100,6 +100,15 @@ export class CodeSnippetComponent implements OnInit {
     }
   }
 
+  lockColor (): string {
+    switch (this.lockIcon()) {
+      case 'lock_open':
+        return 'accent'
+      case 'lock':
+        return 'warn'
+    }
+  }
+
   setVerdict = (verdict: boolean) => {
     if (this.result === ResultState.Right) return
     if (verdict) {
