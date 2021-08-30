@@ -46,6 +46,7 @@ export class CodeSnippetComponent implements OnInit {
       if (this.dialogData.codingChallengeStatus >= 1) {
         this.result = ResultState.Right
         this.lock = ResultState.Right
+        this.solved.findIt = true
       }
     }, (err) => {
       this.snippet = { snippet: JSON.stringify(err.error?.error) }
@@ -53,6 +54,9 @@ export class CodeSnippetComponent implements OnInit {
     this.codeFixesService.get(this.dialogData.key).subscribe((fixes) => {
       this.fixes = fixes.fixes
       this.solved.fixIt = false
+      if (this.dialogData.codingChallengeStatus >= 2) {
+        this.solved.fixIt = true
+      }
     }, () => {
       this.fixes = null
     })
@@ -69,8 +73,11 @@ export class CodeSnippetComponent implements OnInit {
   toggleTab = (event: number) => {
     this.tab.setValue(event)
     this.result = ResultState.Undecided
-    if (this.dialogData.codingChallengeStatus >= (event + 1)) {
-      this.result = ResultState.Right
+    if (event === 0) {
+      if (this.solved.findIt) this.result = ResultState.Right
+    }
+    if (event === 1) {
+      if (this.solved.fixIt) this.result = ResultState.Right
     }
   }
 
