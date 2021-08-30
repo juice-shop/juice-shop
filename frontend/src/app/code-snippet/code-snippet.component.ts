@@ -54,7 +54,7 @@ export class CodeSnippetComponent implements OnInit {
     this.codeFixesService.get(this.dialogData.key).subscribe((fixes) => {
       this.fixes = fixes.fixes
       this.solved.fixIt = false
-      if(this.dialogData.codingChallengeStatus >= 2) {
+      if (this.dialogData.codingChallengeStatus >= 2) {
         this.solved.fixIt = true
       }
     }, () => {
@@ -74,11 +74,11 @@ export class CodeSnippetComponent implements OnInit {
     this.tab.setValue(event)
     this.result = ResultState.Undecided
     if (event === 0) {
-      if(this.solved.findIt) this.result = ResultState.Right
+      if (this.solved.findIt) this.result = ResultState.Right
     }
-    if(event === 1) {
-      if(this.solved.fixIt) this.result = ResultState.Right
-    } 
+    if (event === 1) {
+      if (this.solved.fixIt) this.result = ResultState.Right
+    }
   }
 
   checkFix = () => {
