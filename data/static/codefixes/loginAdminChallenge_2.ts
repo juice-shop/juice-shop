@@ -7,12 +7,13 @@ module.exports = function login () {
         security.authenticatedUsers.put(token, user)
         res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })
       }).catch(error => {
-        next(error)
-      })
+      next(error)
+    })
   }
 
   return (req, res, next) => {
-    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: false })
+    models.sequelize.query(`SELECT * FROM Users WHERE email = ? AND password = ? AND deletedAt IS NULL`,
+      { replacements: [ req.body.email, security.hash(req.body.password) ], model: models.User, plain: true })
       .then((authenticatedUser) => {
         const user = utils.queryResultToJson(authenticatedUser)
         if (user.data?.id && user.data.totpSecret !== '') {
@@ -31,6 +32,6 @@ module.exports = function login () {
           res.status(401).send(res.__('Invalid email or password.'))
         }
       }).catch(error => {
-        next(error)
-      })
+      next(error)
+    })
   }
