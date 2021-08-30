@@ -12,8 +12,8 @@ module.exports = function login () {
   }
 
   return (req, res, next) => {
-    models.sequelize.query(`SELECT * FROM Users WHERE email = $1 AND password = $2 AND deletedAt IS NULL`,
-      { bind: [ req.body.email, security.hash(req.body.password) ], model: models.User, plain: true })
+    models.sequelize.query(`SELECT * FROM Users WHERE email = ? AND password = ? AND deletedAt IS NULL`,
+      { replacements: [ req.body.email, security.hash(req.body.password) ], model: models.User, plain: true })
       .then((authenticatedUser) => {
         const user = utils.queryResultToJson(authenticatedUser)
         if (user.data?.id && user.data.totpSecret !== '') {
@@ -33,5 +33,5 @@ module.exports = function login () {
         }
       }).catch(error => {
         next(error)
-      })
+    })
   }
