@@ -1,4 +1,4 @@
-  /* Generated API endpoints */
+/* Generated API endpoints */
   finale.initialize({ app, sequelize: models.sequelize })
 
   const autoModels = [

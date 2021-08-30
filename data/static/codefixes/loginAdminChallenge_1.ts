@@ -7,8 +7,8 @@ module.exports = function login () {
         security.authenticatedUsers.put(token, user)
         res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })
       }).catch(error => {
-      next(error)
-    })
+        next(error)
+      })
   }
 
   return (req, res, next) => {
@@ -34,6 +34,6 @@ module.exports = function login () {
           res.status(401).send(res.__('Invalid email or password.'))
         }
       }).catch(error => {
-      next(error)
-    })
+        next(error)
+      })
   }
