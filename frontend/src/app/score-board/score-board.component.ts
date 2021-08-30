@@ -353,7 +353,7 @@ export class ScoreBoardComponent implements OnInit {
 
   showCodeSnippet (key: string, name: string, codingChallengeStatus: number) {
     const dialogRef = this.dialog.open(CodeSnippetComponent, {
-      hasBackdrop: false,
+      disableClose: true,
       data: {
         key: key,
         name: name,
