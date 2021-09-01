@@ -28,10 +28,9 @@ function ensureFileIsPassed ({ file }, res, next) {
   }
 }
 
-// vuln-code-snippet start fileWriteChallenge
 function handleZipFileUpload ({ file }, res, next) {
   if (utils.endsWith(file.originalname.toLowerCase(), '.zip')) {
-    if (file.buffer && !utils.disableOnContainerEnv()) { // vuln-code-snippet hide-line
+    if (file.buffer && !utils.disableOnContainerEnv()) {
       const buffer = file.buffer
       const filename = file.originalname.toLowerCase()
       const tempFile = path.join(os.tmpdir(), filename)
@@ -41,13 +40,13 @@ function handleZipFileUpload ({ file }, res, next) {
           if (err != null) { next(err) }
           fs.close(fd, function () {
             fs.createReadStream(tempFile)
-              .pipe(unzipper.Parse()) // vuln-code-snippet vuln-line fileWriteChallenge
+              .pipe(unzipper.Parse())
               .on('entry', function (entry) {
                 const fileName = entry.path
                 const absolutePath = path.resolve('uploads/complaints/' + fileName)
-                utils.solveIf(challenges.fileWriteChallenge, () => { return absolutePath === path.resolve('ftp/legal.md') }) // vuln-code-snippet hide-line
+                utils.solveIf(challenges.fileWriteChallenge, () => { return absolutePath === path.resolve('ftp/legal.md') })
                 if (absolutePath.includes(path.resolve('.'))) {
-                  entry.pipe(fs.createWriteStream('uploads/complaints/' + fileName).on('error', function (err) { next(err) })) // vuln-code-snippet vuln-line fileWriteChallenge
+                  entry.pipe(fs.createWriteStream('uploads/complaints/' + fileName).on('error', function (err) { next(err) }))
                 } else {
                   entry.autodrain()
                 }
@@ -55,13 +54,12 @@ function handleZipFileUpload ({ file }, res, next) {
           })
         })
       })
-    } // vuln-code-snippet hide-line
+    }
     res.status(204).end()
   } else {
     next()
   }
 }
-// vuln-code-snippet end fileWriteChallenge
 
 function checkUploadSize ({ file }, res, next) {
   utils.solveIf(challenges.uploadSizeChallenge, () => { return file.size > 100000 })
