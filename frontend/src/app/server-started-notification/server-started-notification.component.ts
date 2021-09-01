@@ -47,9 +47,9 @@ export class ServerStartedNotificationComponent implements OnInit {
             })
           })
         }
-        if(continueCodeFindIt) {
+        if (continueCodeFindIt) {
           this.challengeService.restoreProgressFindIt(encodeURIComponent(continueCodeFindIt)).subscribe(() => {
-            if(!continueCodeFixIt) return
+            if (!continueCodeFixIt) return
             this.challengeService.restoreProgressFixIt(encodeURIComponent(continueCodeFixIt)).subscribe(() => {
             }, (error) => {
               console.log(error)
