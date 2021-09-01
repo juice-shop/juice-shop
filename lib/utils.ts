@@ -23,6 +23,7 @@ const isWindows = require('is-windows')
 const logger = require('./logger')
 const webhook = require('./webhook')
 const antiCheat = require('./antiCheat')
+const models = require('../models')
 
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
 
@@ -259,4 +260,12 @@ exports.toSimpleIpAddress = (ipv6) => {
 
 exports.thaw = (frozenObject) => {
   return JSON.parse(JSON.stringify(frozenObject))
+}
+
+exports.solveFindIt = async (id: number) => {
+  await models.Challenge.update({ codingChallengeStatus: 1 }, { where: { id: id } })
+}
+
+exports.solveFixIt = async (id: number) => {
+  await models.Challenge.update({ codingChallengeStatus: 2 }, { where: { id: id } })
 }
