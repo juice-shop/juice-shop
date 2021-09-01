@@ -8,7 +8,7 @@ const hashids = new Hashids('this is my salt', 60, 'abcdefghijklmnopqrstuvwxyzAB
 const challenges = require('../data/datacache').challenges
 const utils = require('../lib/utils')
 
-module.exports = function restoreProgress () {
+module.exports.restoreProgress = function restoreProgress () {
   return ({ params }, res) => {
     const continueCode = params.continueCode
     const ids = hashids.decode(continueCode)
@@ -24,6 +24,44 @@ module.exports = function restoreProgress () {
         }
       }
       res.json({ data: ids.length + ' solved challenges have been restored.' })
+    } else {
+      res.status(404).send('Invalid continue code.')
+    }
+  }
+}
+
+module.exports.restoreProgressFindIt = function restoreProgressFindIt () {
+  return async ({ params }, res) => {
+    const continueCodeFindIt = params.continueCode
+    const idsFindIt = hashids.decode(continueCodeFindIt)
+    if (idsFindIt.length > 0) {
+      for (const name in challenges) {
+        if (Object.prototype.hasOwnProperty.call(challenges, name)) {
+          if (idsFindIt.includes(challenges[name].id)) {
+            await utils.solveFindIt(challenges[name].id)
+          }
+        }
+      }
+      res.json({ data: idsFindIt.length + ' solved challenges have been restored.' })
+    } else {
+      res.status(404).send('Invalid continue code.')
+    }
+  }
+}
+
+module.exports.restoreProgressFixIt = function restoreProgressFixIt () {
+  return async ({ params }, res) => {
+    const continueCodeFixIt = params.continueCode
+    const idsFixIt = hashids.decode(continueCodeFixIt)
+    if (idsFixIt.length > 0) {
+      for (const name in challenges) {
+        if (Object.prototype.hasOwnProperty.call(challenges, name)) {
+          if (idsFixIt.includes(challenges[name].id)) {
+            await utils.solveFixIt(challenges[name].id)
+          }
+        }
+      }
+      res.json({ data: idsFixIt.length + ' solved challenges have been restored.' })
     } else {
       res.status(404).send('Invalid continue code.')
     }
