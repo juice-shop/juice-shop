@@ -4,12 +4,12 @@
  */
 
 import Hashids = require('hashids/cjs')
-const hashids = new Hashids('this is my salt', 60, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
 const challenges = require('../data/datacache').challenges
 const utils = require('../lib/utils')
 
 module.exports.restoreProgress = function restoreProgress () {
   return ({ params }, res) => {
+    const hashids = new Hashids('this is my salt', 60, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
     const continueCode = params.continueCode
     const ids = hashids.decode(continueCode)
     if (utils.notSolved(challenges.continueCodeChallenge) && ids.includes(999)) {
@@ -32,6 +32,7 @@ module.exports.restoreProgress = function restoreProgress () {
 
 module.exports.restoreProgressFindIt = function restoreProgressFindIt () {
   return async ({ params }, res) => {
+    const hashids = new Hashids('this is the salt for findIt challenges', 60, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
     const continueCodeFindIt = params.continueCode
     const idsFindIt = hashids.decode(continueCodeFindIt)
     if (idsFindIt.length > 0) {
@@ -50,6 +51,7 @@ module.exports.restoreProgressFindIt = function restoreProgressFindIt () {
 }
 
 module.exports.restoreProgressFixIt = function restoreProgressFixIt () {
+  const hashids = new Hashids('yet another salt for the fixIt challenges', 60, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
   return async ({ params }, res) => {
     const continueCodeFixIt = params.continueCode
     const idsFixIt = hashids.decode(continueCodeFixIt)
