@@ -281,6 +281,10 @@ where this project was mentioned or used!
 
 #### 2021
 
+* [SDLC con OWASP y laboratorio con OWASP Juice Shop](https://www.meetup.com/de-DE/OWASP-Uruguay-Chapter/events/279827017/)
+  (:uruguay:) with Martín Marsicano and Pablo Alzuri,
+  [OWASP Uruguay Chapter](https://owasp.org/www-chapter-uruguay/),
+  19.08.2021 [YouTube](https://youtu.be/OAE1EnBNMlc?t=2722) :godmode:
 * [Talking Juice Shop and Maintaining a Flagship OWASP Project with Björn Kimminich](https://www.meetup.com/OWASP-Northern-Virginia-Chapter/events/278751084/),
   [OWASP Northern Virginia Chapter](https://owasp.org/www-chapter-northern-virginia/),
   07.07.2021 ([YouTube](https://youtu.be/uejiQ9VvFu4))
