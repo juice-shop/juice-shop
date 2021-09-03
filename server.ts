@@ -606,12 +606,11 @@ const uploadToDisk = multer({
 const Metrics = metrics.observeMetrics()
 const metricsUpdateLoop = Metrics.updateLoop
 app.get('/metrics', metrics.serveMetrics()) // vuln-code-snippet vuln-line exposedMetricsChallenge
-// vuln-code-snippet end exposedMetricsChallenge
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
 const registerWebsocketEvents = require('./lib/startup/registerWebsocketEvents')
 const customizeApplication = require('./lib/startup/customizeApplication')
-const customizeEasterEgg = require('./lib/startup/customizeEasterEgg')
+const customizeEasterEgg = require('./lib/startup/customizeEasterEgg') // vuln-code-snippet hide-line
 
 export async function start (readyCallback) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
@@ -633,8 +632,8 @@ export async function start (readyCallback) {
     }
   })
 
-  void collectDurationPromise('customizeApplication', customizeApplication)()
-  void collectDurationPromise('customizeEasterEgg', customizeEasterEgg)()
+  void collectDurationPromise('customizeApplication', customizeApplication)() // vuln-code-snippet hide-line
+  void collectDurationPromise('customizeEasterEgg', customizeEasterEgg)() // vuln-code-snippet hide-line
 }
 
 export function close (exitCode) {
@@ -646,3 +645,4 @@ export function close (exitCode) {
     process.exit(exitCode)
   }
 }
+// vuln-code-snippet end exposedMetricsChallenge
