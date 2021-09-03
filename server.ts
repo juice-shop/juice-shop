@@ -276,7 +276,6 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     windowMs: 5 * 60 * 1000,
     max: 100,
     keyGenerator ({ headers, ip }) { return headers['X-Forwarded-For'] || ip }, // vuln-code-snippet vuln-line resetPasswordMortyChallenge
-    delayMs: 0
   }))
   // vuln-code-snippet end resetPasswordMortyChallenge
 
