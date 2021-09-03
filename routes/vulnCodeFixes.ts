@@ -15,7 +15,7 @@ interface cache {
 
 const CodeFixes: cache = {}
 
-const readFixes = (key: string) => {
+export const readFixes = (key: string) => {
   if (CodeFixes[key]) {
     return CodeFixes[key]
   }

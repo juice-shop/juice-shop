@@ -10,9 +10,11 @@ const path = require('path')
 const fs = require('graceful-fs')
 fs.gracefulify(require('fs'))
 
+export const SNIPPET_PATHS = ['./server.ts', './routes', './lib', './data', './frontend/src/app']
+
 const cache: any = {}
 
-const fileSniff = async (paths: string[], match: RegExp) => {
+export const fileSniff = async (paths: string[], match: RegExp) => {
   const matches = []
   for (const currPath of paths) {
     if (fs.lstatSync(currPath).isDirectory()) {
@@ -88,9 +90,8 @@ export const retrieveCodeSnippet = async (key: string) => {
     if (cache[challenge.key]) {
       return cache[challenge.key]
     } else {
-      const paths = ['./server.ts', './routes', './lib', './data', './frontend/src/app']
       const match = new RegExp(`vuln-code-snippet start.*${challenge.key}`)
-      const matches = await fileSniff(paths, match)
+      const matches = await fileSniff(SNIPPET_PATHS, match)
       if (matches[0]) { // TODO Currently only a single source file is supported
         const source = fs.readFileSync(path.resolve(matches[0].path), 'utf8')
         const snippets = source.match(`[/#]{0,2} vuln-code-snippet start.*${challenge.key}([^])*vuln-code-snippet end.*${challenge.key}`)
@@ -137,10 +138,9 @@ exports.serveCodeSnippet = () => async (req: Request<SnippetRequestBody, {}, {}>
   }
 }
 
-exports.challengesWithCodeSnippet = () => async (req: Request, res: Response, next: NextFunction) => {
+exports.challengesWithCodeSnippet = () => async (req: Request, res: Response, next: NextFunction) => { // TODO Split off function for actual detection and reuse in codingChallengeFixesSpec
   const match = /vuln-code-snippet start .*/
-  const paths = ['./server.ts', './routes', './lib', './data', './frontend/src/app']
-  const matches = await fileSniff(paths, match)
+  const matches = await fileSniff(SNIPPET_PATHS, match)
   const challenges = matches.map(m => m.match.trim().substr(26).trim()).join(' ').split(' ')
   res.json({ challenges })
 }
