@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import {fileSniff, SNIPPET_PATHS} from '../../routes/vulnCodeSnippet'
+import { fileSniff, SNIPPET_PATHS } from '../../routes/vulnCodeSnippet'
 import { readFixes } from '../../routes/vulnCodeFixes'
 import chai = require('chai')
 const sinonChai = require('sinon-chai')
