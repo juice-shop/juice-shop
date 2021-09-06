@@ -9,7 +9,7 @@ const sequelize = require('sequelize')
 const challenges = require('../data/datacache').challenges
 const Op = sequelize.Op
 
-module.exports.continueCode = function retrieveCurrentContinueCode () {
+module.exports.continueCode = function continueCode () {
   const hashids = new Hashids('this is my salt', 60, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
   return (req, res) => {
     const ids = []
