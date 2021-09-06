@@ -10,7 +10,7 @@ const expect = chai.expect
 chai.use(sinonChai)
 
 describe('continueCode', () => {
-  const retrieveCurrentContinueCode = require('../../routes/continueCode')
+  const continueCode = require('../../routes/continueCode').continueCode()
   const challenges = require('../../data/datacache').challenges
 
   beforeEach(() => {
@@ -21,7 +21,7 @@ describe('continueCode', () => {
   it('should be undefined when no challenges exist', () => {
     Object.keys(challenges).forEach(key => { delete challenges[key] }) // eslint-disable-line @typescript-eslint/no-dynamic-delete
 
-    retrieveCurrentContinueCode()(this.req, this.res)
+    continueCode()(this.req, this.res)
     expect(this.res.json).to.have.been.calledWith({ continueCode: undefined })
   })
 
@@ -29,7 +29,7 @@ describe('continueCode', () => {
     challenges.c1 = { solved: false }
     challenges.c2 = { solved: false }
 
-    retrieveCurrentContinueCode()(this.req, this.res)
+    continueCode()(this.req, this.res)
     expect(this.res.json).to.have.been.calledWith({ continueCode: undefined })
   })
 
@@ -38,7 +38,7 @@ describe('continueCode', () => {
     challenges.c2 = { id: 2, solved: true }
     challenges.c3 = { id: 3, solved: false }
 
-    retrieveCurrentContinueCode()(this.req, this.res)
+    continueCode()(this.req, this.res)
     expect(this.res.json).to.have.been.calledWith({ continueCode: 'yXjv6Z5jWJnzD6a3YvmwPRXK7roAyzHDde2Og19yEN84plqxkMBbLVQrDeoY' })
   })
 })
