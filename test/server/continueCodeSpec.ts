@@ -10,7 +10,7 @@ const expect = chai.expect
 chai.use(sinonChai)
 
 describe('continueCode', () => {
-  const continueCode = require('../../routes/continueCode').continueCode()
+  const continueCode = require('../../routes/continueCode').continueCode
   const challenges = require('../../data/datacache').challenges
 
   beforeEach(() => {
