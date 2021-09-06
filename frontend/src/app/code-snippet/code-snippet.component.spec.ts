@@ -11,14 +11,16 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { CodeSnippetComponent } from './code-snippet.component'
 import { CodeSnippetService } from '../Services/code-snippet.service'
+import { CookieModule, CookieService } from 'ngx-cookie'
 
-describe('UserDetailsComponent', () => {
+describe('CodeSnippetComponent', () => {
   let component: CodeSnippetComponent
   let fixture: ComponentFixture<CodeSnippetComponent>
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
+        CookieModule.forRoot(),
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         MatDividerModule,
@@ -27,11 +29,13 @@ describe('UserDetailsComponent', () => {
       declarations: [CodeSnippetComponent],
       providers: [
         CodeSnippetService,
+        CookieService,
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: { dialogData: {} } }
       ]
     })
       .compileComponents()
+    TestBed.inject(CookieService)
   }))
 
   beforeEach(() => {
