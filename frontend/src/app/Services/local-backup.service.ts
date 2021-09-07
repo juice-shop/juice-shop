@@ -56,8 +56,8 @@ export class LocalBackupService {
         this.restoreCookie('welcomebanner_status', backup.banners?.welcomeBannerStatus)
         this.restoreCookie('cookieconsent_status', backup.banners?.cookieConsentStatus)
         this.restoreCookie('language', backup.language)
-        this.restoreCookie('continueCodefindIt', backup.continueCodeFindIt)
-        this.restoreCookie('continueCodefixIt', backup.continueCodeFixIt)
+        this.restoreCookie('continueCodeFindIt', backup.continueCodeFindIt)
+        this.restoreCookie('continueCodeFixIt', backup.continueCodeFixIt)
         this.restoreCookie('continueCode', backup.continueCode)
 
         const snackBarRef = this.snackBar.open('Backup has been restored from ' + backupFile.name, 'Apply changes now', {
