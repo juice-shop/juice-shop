@@ -5,6 +5,7 @@
 
 /* jslint node: true */
 import packageJson from '../package.json'
+import { Op } from 'sequelize'
 import fs = require('fs')
 const colors = require('colors/safe')
 const notifications = require('../data/datacache').notifications
@@ -263,9 +264,9 @@ exports.thaw = (frozenObject) => {
 }
 
 exports.solveFindIt = async (id: number) => {
-  await models.Challenge.update({ codingChallengeStatus: 1 }, { where: { id: id } })
+  await models.Challenge.update({ codingChallengeStatus: 1 }, { where: { id, codingChallengeStatus: { [Op.lt]: 2 } } })
 }
 
 exports.solveFixIt = async (id: number) => {
-  await models.Challenge.update({ codingChallengeStatus: 2 }, { where: { id: id } })
+  await models.Challenge.update({ codingChallengeStatus: 2 }, { where: { id } })
 }
