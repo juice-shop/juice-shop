@@ -154,15 +154,26 @@ exports.sendNotification = function (challenge, isRestore) {
 
 exports.notSolved = challenge => challenge && !challenge.solved
 
-exports.findChallenge = challengeName => {
-  for (const name in challenges) {
-    if (Object.prototype.hasOwnProperty.call(challenges, name)) {
-      if (challenges[name].name === challengeName) {
-        return challenges[name]
+exports.findChallenge = (challengeName: string) => {
+  for (const c in challenges) {
+    if (Object.prototype.hasOwnProperty.call(challenges, c)) {
+      if (challenges[c].name === challengeName) {
+        return challenges[c]
       }
     }
   }
   logger.warn('Missing challenge with name: ' + challengeName)
+}
+
+exports.findChallenge = (challengeId: number) => {
+  for (const c in challenges) {
+    if (Object.prototype.hasOwnProperty.call(challenges, c)) {
+      if (challenges[c].id === challengeId) {
+        return challenges[c]
+      }
+    }
+  }
+  logger.warn('Missing challenge with id: ' + challengeId)
 }
 
 exports.toMMMYY = date => {
@@ -263,10 +274,14 @@ exports.thaw = (frozenObject) => {
   return JSON.parse(JSON.stringify(frozenObject))
 }
 
-exports.solveFindIt = async (id: number) => {
-  await models.Challenge.update({ codingChallengeStatus: 1 }, { where: { id, codingChallengeStatus: { [Op.lt]: 2 } } })
+exports.solveFindIt = async function (key: string, isRestore: boolean) {
+  const solvedChallenge = challenges[key]
+  await models.Challenge.update({ codingChallengeStatus: 1 }, { where: { key, codingChallengeStatus: { [Op.lt]: 2 } } })
+  logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Find It'-part of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
 }
 
-exports.solveFixIt = async (id: number) => {
-  await models.Challenge.update({ codingChallengeStatus: 2 }, { where: { id } })
+exports.solveFixIt = async function (key: string, isRestore: boolean) {
+  const solvedChallenge = challenges[key]
+  await models.Challenge.update({ codingChallengeStatus: 2 }, { where: { key } })
+  logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Fix It'-part of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
 }

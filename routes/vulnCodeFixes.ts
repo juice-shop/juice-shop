@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import models = require('../models/index')
+const utils = require('../lib/utils')
 const fs = require('fs')
 
 const FixesDir = 'data/static/codefixes'
@@ -77,7 +77,7 @@ export const checkCorrectFix = () => async (req: Request<{}, {}, VerdictRequestB
   }
 
   if (selectedFix === fixData.correct) {
-    await models.Challenge.update({ codingChallengeStatus: 2 }, { where: { key: key } })
+    await utils.solveFindIt(req.body.key)
     res.status(200).json({
       verdict: true
     })
