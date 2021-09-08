@@ -36,10 +36,10 @@ module.exports.restoreProgressFindIt = function restoreProgressFindIt () {
     const continueCodeFindIt = params.continueCode
     const idsFindIt = hashids.decode(continueCodeFindIt)
     if (idsFindIt.length > 0) {
-      for (const name in challenges) {
-        if (Object.prototype.hasOwnProperty.call(challenges, name)) {
-          if (idsFindIt.includes(challenges[name].id)) {
-            await utils.solveFindIt(challenges[name].id)
+      for (const key in challenges) {
+        if (Object.prototype.hasOwnProperty.call(challenges, key)) {
+          if (idsFindIt.includes(challenges[key].id)) {
+            await utils.solveFindIt(key, true)
           }
         }
       }
@@ -56,10 +56,10 @@ module.exports.restoreProgressFixIt = function restoreProgressFixIt () {
     const continueCodeFixIt = params.continueCode
     const idsFixIt = hashids.decode(continueCodeFixIt)
     if (idsFixIt.length > 0) {
-      for (const name in challenges) {
-        if (Object.prototype.hasOwnProperty.call(challenges, name)) {
-          if (idsFixIt.includes(challenges[name].id)) {
-            await utils.solveFixIt(challenges[name].id)
+      for (const key in challenges) {
+        if (Object.prototype.hasOwnProperty.call(challenges, key)) {
+          if (idsFixIt.includes(challenges[key].id)) {
+            await utils.solveFixIt(key, true)
           }
         }
       }
