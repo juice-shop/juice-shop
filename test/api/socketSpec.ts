@@ -6,13 +6,12 @@
 import io = require('socket.io-client')
 
 describe('WebSocket', () => {
-  let socket
+  let socket: SocketIOClient.Socket
 
   beforeEach(done => {
     socket = io('http://localhost:3000', {
-      'reconnection delay': 0,
-      'reopen delay': 0,
-      'force new connection': true
+      reconnectionDelay: 0,
+      forceNew: true
     })
     socket.on('connect', () => {
       done()
