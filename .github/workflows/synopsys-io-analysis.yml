@@ -27,15 +27,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
       
-    - name: Synopsys Intelligent Security Scan
-      id: prescription
-      uses: synopsys-sig/intelligent-security-scan@48eedfcd42bc342a294dc495ac452797b2d9ff08
-      with:
-        ioServerUrl: ${{secrets.IO_SERVER_URL}}
-        ioServerToken: ${{secrets.IO_SERVER_TOKEN}}
-        workflowServerUrl: ${{secrets.WORKFLOW_SERVER_URL}}
-        additionalWorkflowArgs: --polaris.url=${{secrets.POLARIS_SERVER_URL}} --polaris.token=${{secrets.POLARIS_ACCESS_TOKEN}}
-        stage: "IO"
+  
     
     # Please note that the ID in previous step was set to prescription
     # in order for this logic to work also make sure that POLARIS_ACCESS_TOKEN
