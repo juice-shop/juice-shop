@@ -8,14 +8,14 @@ const challenges = require('../data/datacache').challenges
 const db = require('../data/mongodb')
 const security = require('../lib/insecurity')
 
-// vuln-code-snippet start noSqlReviewsChallenge forgedReviewChallenge noSqlCommandChallenge
+// vuln-code-snippet start noSqlReviewsChallenge forgedReviewChallenge
 module.exports = function productReviews () {
   return (req, res, next) => {
     const user = security.authenticatedUsers.from(req) // vuln-code-snippet vuln-line forgedReviewChallenge
     db.reviews.update(
-      { _id: req.body.id }, // vuln-code-snippet vuln-line noSqlReviewsChallenge noSqlCommandChallenge
+      { _id: req.body.id }, // vuln-code-snippet vuln-line noSqlReviewsChallenge
       { $set: { message: req.body.message } },
-      { multi: true }
+      { multi: true } // vuln-code-snippet vuln-line noSqlReviewsChallenge
     ).then(
       result => {
         utils.solveIf(challenges.noSqlReviewsChallenge, () => { return result.modified > 1 }) // vuln-code-snippet hide-line
@@ -26,4 +26,4 @@ module.exports = function productReviews () {
       })
   }
 }
-// vuln-code-snippet end noSqlReviewsChallenge forgedReviewChallenge noSqlCommandChallenge
+// vuln-code-snippet end noSqlReviewsChallenge forgedReviewChallenge
