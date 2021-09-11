@@ -25,6 +25,14 @@ please contact <bjoern.kimminich@owasp.org>. In all other cases please
 contact our shop's "security team" at the address mentioned in the
 `security.txt` accessible through the running application.
 
+> Instead of fixing reported vulnerabilities we mightplease contact <bjoern.kimminich@owasp.org>. In all other cases please
+contact our shop's "security team" at the address mentioned in the
+`security.txt` accessible through the running application.
+
+> Instead of fixing reported vulnerabilities we mightplease contact <bjoern.kimminich@owasp.org>. In all other cases please
+contact our shop's "security team" at the address mentioned in the
+`security.txt` accessible through the running application.
+
 > Instead of fixing reported vulnerabilities we might turn them into
 > hacking challenges! You might receive a reward for reporting a
 > vulnerability that makes it into one of our challenges!
