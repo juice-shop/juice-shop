@@ -1,10 +1,15 @@
 module.exports = function productReviews () {
   return (req, res, next) => {
     const user = security.authenticatedUsers.from(req)
-    db.reviews.update( // TODO Provide bad fix
+
+    if (req.body['$ne'] !== undefined) {
+      res.status(400).send()
+      return
+    }
+
+    db.reviews.update(
       { _id: req.body.id },
-      { $set: { message: req.body.message } },
-      { multi: true }
+      { $set: { message: req.body.message } }
     ).then(
       result => {
         res.json(result)
