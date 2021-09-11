@@ -1,7 +1,7 @@
 <div>
   <br/>
   <mat-form-field appearance="fill">
-    <mat-label>Correct Fix</mat-label>
+    <mat-label translate>LABEL_CORRECT_FIX</mat-label>
     <select matNativeControl (change)="changeFix($event)">
       <option *ngFor="let fix of randomFixes; index as i" [value]="i"
       [selected]="selectedFix === i">Fix {{ i+1 }}</option>
