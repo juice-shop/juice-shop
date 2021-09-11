@@ -5,14 +5,14 @@
 
 <mat-dialog-content class="mat-typography" id="code-snippet">
   <header>
-    <h1>Coding Challenge: {{dialogData.name}}</h1>
+    <h1>{{'TITLE_CODING_CHALLENGE' | translate}}: {{dialogData.name}}</h1>
   </header>
   <mat-tab-group
   mat-stretch-tabs
   [selectedIndex] = "tab.value"
   (selectedIndexChange) = "toggleTab($event)"
   >
-      <mat-tab label="Find It">
+      <mat-tab [label]="('TAB_FIND_IT' | translate)">
       <!-- <mat-divider></mat-divider> -->
       <div class="container" fxLayout="column">
         <div fxLayout="row" fxLayoutGap="10px">
@@ -45,7 +45,7 @@
     </mat-tab>
     <mat-tab [disabled]="lockIcon() === 'lock'">
       <ng-template mat-tab-label>
-        Fix It
+        {{'TAB_FIND_IT' | translate}}
         <mat-icon class="materaial-icons-outlined" [color]="lockColor()">{{lockIcon()}}</mat-icon>
       </ng-template>
       <!-- <mat-divider></mat-divider> -->

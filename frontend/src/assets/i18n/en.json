@@ -408,5 +408,9 @@
   "INSUFFICIENT_WALLET_BALANCE": "Insufficient wallet balance.",
   "LAUNCH_CODING_CHALLENGE": "Launch associated coding challenge.",
   "LOADING_CODE_SNIPPET": "Loading code snippet...",
-  "SOLVE_HACKING_CHALLENGE": "Solve the hacking challenge to unlock the associated coding challenge."
+  "SOLVE_HACKING_CHALLENGE": "Solve the hacking challenge to unlock the associated coding challenge.",
+  "LABEL_CORRECT_FIX": "Correct Fix",
+  "TITLE_CODING_CHALLENGE": "Coding Challenge",
+  "TAB_FIND_IT": "Find It",
+  "TAB_FIX_IT": "Fix It"
 }
