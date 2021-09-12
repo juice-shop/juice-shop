@@ -77,7 +77,7 @@ export const checkCorrectFix = () => async (req: Request<{}, {}, VerdictRequestB
   }
 
   if (selectedFix === fixData.correct) {
-    await utils.solveFindIt(req.body.key)
+    await utils.solveFixIt(req.body.key)
     res.status(200).json({
       verdict: true
     })
