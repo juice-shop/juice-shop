@@ -93,6 +93,7 @@ overview please visit the official project page:
    change the source code)
 5. Run `npm start`
 6. Browse to <http://localhost:3000>
+7. This is a minor edit
 
 ### Packaged Distributions
 
