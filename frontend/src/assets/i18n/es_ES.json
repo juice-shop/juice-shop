@@ -406,9 +406,11 @@
   "CATEGORY_XSS_DESCRIPTION": "Las fallas de Cross-Site Scripting (XSS) suceden cuando la aplicación incluye datos no confiables en una nueva página sin un escape o validación adecuada, o actualiza una página existente con datos entregados por el usuario usando la API del navegador que puede crear HTML o JavaScript. Un XSS permite a un atacante ejecutar scripts en el navegador de la víctima lo cual puede permitir un secuestro de sesión, ataques de defacement, o redirecciones a sitios maliciosos.",
   "CATEGORY_XXE_DESCRIPTION": "Procesadores XML antiguos o mal configurados evalúan referencias de entidades externas dentro de los documentos XML. Las entidades externas pueden ser usadas para divulgar archivos internos usando el manejador de la URI del archivo, archivos compartidos internos, realizar escaneos de puertos, ejecutar código remoto y generar ataques de negación de servicio.",
   "INSUFFICIENT_WALLET_BALANCE": "Insufficient wallet balance.",
-  "LABEL_CODE_SNIPPET": "Corresponding Code Snippet",
-  "REVEAL_VULNERABLE_CODE_LINES": "Hover to reveal vulnerable line(s) of code",
-  "INFO_VULNERABLE_CODE_SNIPPET": "Show corresponding vulnerable code snippet.",
-  "LABEL_LINES": "Line(s)",
-  "LOADING_CODE_SNIPPET": "Loading code snippet..."
+  "LAUNCH_CODING_CHALLENGE": "Launch associated coding challenge.",
+  "LOADING_CODE_SNIPPET": "Loading code snippet...",
+  "SOLVE_HACKING_CHALLENGE": "Solve the hacking challenge to unlock the associated coding challenge.",
+  "LABEL_CORRECT_FIX": "Correct Fix",
+  "TITLE_CODING_CHALLENGE": "Coding Challenge",
+  "TAB_FIND_IT": "Find It",
+  "TAB_FIX_IT": "Fix It"
 }

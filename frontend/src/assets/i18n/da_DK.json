@@ -406,9 +406,11 @@
   "CATEGORY_XSS_DESCRIPTION": "Cross-Site Scripting (XSS) fejl opstår når en applikation inkluderer utroværdige data på en ny webside, uden ordentlig validering eller escaping, eller hvis en eksisterende webside opdateres med brugerdefineret data via et browser API som kan generere HTML eller JavaScript. XSS tillader angribere at eksekvere scripts i ofrets browser, hvilket kan kapre brugersessioner, deface hjemmesider, eller omdirigere brugeren til ondsindede websteder.",
   "CATEGORY_XXE_DESCRIPTION": "Mange ældre eller dårligt konfigurerede XML-processorer evaluerer eksterne entitetsreferencer i XML-dokumenter. Eksterne entiteter kan bruges til at afsløre interne filer ved hjælp af URI-håndteringen, interne filmapper, intern portscanning, remote code execution og denial of service angreb.",
   "INSUFFICIENT_WALLET_BALANCE": "Utilstrækkelig saldo i din wallet.",
-  "LABEL_CODE_SNIPPET": "Tilhørende Kodeudsnit",
-  "REVEAL_VULNERABLE_CODE_LINES": "Hold musen over for at afsløre de sårbare linje(r) kode",
-  "INFO_VULNERABLE_CODE_SNIPPET": "Vis det sårbare kodeudsnit.",
-  "LABEL_LINES": "Linje(r)",
-  "LOADING_CODE_SNIPPET": "Indlæser kodeudsnit..."
+  "LAUNCH_CODING_CHALLENGE": "Launch associated coding challenge.",
+  "LOADING_CODE_SNIPPET": "Indlæser kodeudsnit...",
+  "SOLVE_HACKING_CHALLENGE": "Solve the hacking challenge to unlock the associated coding challenge.",
+  "LABEL_CORRECT_FIX": "Correct Fix",
+  "TITLE_CODING_CHALLENGE": "Coding Challenge",
+  "TAB_FIND_IT": "Find It",
+  "TAB_FIX_IT": "Fix It"
 }
