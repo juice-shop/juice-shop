@@ -406,9 +406,11 @@
   "CATEGORY_XSS_DESCRIPTION": "只要应用程序在未经适当验证或转义的情况下将新数据中的不信任数据包含在新网页中，或者使用可创建HTML或JavaScript的浏览器API用用户提供的数据更新现有网页，就会出现跨站脚本（XSS）漏洞。 XSS允许攻击者在受害者的浏览器中执行脚本，这些脚本可以劫持用户会话，破坏网站或将用户重定向到恶意网站。\n",
   "CATEGORY_XXE_DESCRIPTION": "许多较旧的或配置不当的XML处理器都会解析XML文档中的外部实体引用。 外部实体可以用于使用文件URI处理程序泄露内部文件，共享内部文件，内部端口扫描，远程代码执行和拒绝服务攻击。",
   "INSUFFICIENT_WALLET_BALANCE": "账户余额不足",
-  "LABEL_CODE_SNIPPET": "相应代码片段",
-  "REVEAL_VULNERABLE_CODE_LINES": "悬停以显示存在漏洞的代码行",
-  "INFO_VULNERABLE_CODE_SNIPPET": "显示对应的漏洞代码片段",
-  "LABEL_LINES": "行",
-  "LOADING_CODE_SNIPPET": "正在加载代码片断..."
+  "LAUNCH_CODING_CHALLENGE": "Launch associated coding challenge.",
+  "LOADING_CODE_SNIPPET": "正在加载代码片断...",
+  "SOLVE_HACKING_CHALLENGE": "Solve the hacking challenge to unlock the associated coding challenge.",
+  "LABEL_CORRECT_FIX": "Correct Fix",
+  "TITLE_CODING_CHALLENGE": "Coding Challenge",
+  "TAB_FIND_IT": "Find It",
+  "TAB_FIX_IT": "Fix It"
 }
