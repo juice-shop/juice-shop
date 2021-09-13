@@ -406,9 +406,11 @@
   "CATEGORY_XSS_DESCRIPTION": "XSS弱點發生在應用程式包含了未被信任的資料，在新的網頁中未進行合適的驗證或是\n編碼，或是更新一個既有網頁的情況使用到使用者提供的資料透過瀏覽器API來建立HTML或JavaScript\n。XSS允許攻擊者在受害者的瀏覽器中執行Script，這些Script可以劫持使用者Session，置換網頁或是重新導向使用者至惡意網站。",
   "CATEGORY_XXE_DESCRIPTION": "許多較舊的或設定不當的XML處理器都會評估XML文檔中的外部實體引用。\n外部實體可以使用file URL handler，內部文件分享，內部port掃描，遠程程式執行和拒絕服務攻擊來洩漏內部文件。",
   "INSUFFICIENT_WALLET_BALANCE": "餘額不足。",
-  "LABEL_CODE_SNIPPET": "Corresponding Code Snippet",
-  "REVEAL_VULNERABLE_CODE_LINES": "Hover to reveal vulnerable line(s) of code",
-  "INFO_VULNERABLE_CODE_SNIPPET": "Show corresponding vulnerable code snippet.",
-  "LABEL_LINES": "Line(s)",
-  "LOADING_CODE_SNIPPET": "Loading code snippet..."
+  "LAUNCH_CODING_CHALLENGE": "Launch associated coding challenge.",
+  "LOADING_CODE_SNIPPET": "Loading code snippet...",
+  "SOLVE_HACKING_CHALLENGE": "Solve the hacking challenge to unlock the associated coding challenge.",
+  "LABEL_CORRECT_FIX": "Correct Fix",
+  "TITLE_CODING_CHALLENGE": "Coding Challenge",
+  "TAB_FIND_IT": "Find It",
+  "TAB_FIX_IT": "Fix It"
 }
