@@ -9,7 +9,7 @@ import { CookieService } from 'ngx-cookie'
 import { saveAs } from 'file-saver'
 import { SnackBarHelperService } from './snack-bar-helper.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
-import { from } from 'rxjs'
+import { forkJoin, from, of } from 'rxjs'
 import { ChallengeService } from './challenge.service'
 
 @Injectable({
@@ -64,21 +64,12 @@ export class LocalBackupService {
           duration: 10000
         })
         snackBarRef.onAction().subscribe(() => {
-          if (backup.continueCode) {
-            this.challengeService.restoreProgress(encodeURIComponent(backup.continueCode)).subscribe(() => {
-            }, (error) => {
-              console.log(error)
-            })
-            this.challengeService.restoreProgressFindIt(encodeURIComponent(backup.continueCodeFindIt)).subscribe(() => {
-              this.challengeService.restoreProgressFixIt(encodeURIComponent(backup.continueCodeFixIt)).subscribe(() => {
-              }, (error) => {
-                console.log(error)
-              })
-            }, (error) => {
-              console.log(error)
-            })
-          }
-          location.reload()
+          const hackingProgress = backup.continueCode ? this.challengeService.restoreProgress(encodeURIComponent(backup.continueCode)) : of(true)
+          const findItProgress = backup.continueCodeFindIt ? this.challengeService.restoreProgressFindIt(encodeURIComponent(backup.continueCodeFindIt)) : of(true)
+          const fixItProgress = backup.continueCodeFixIt ? this.challengeService.restoreProgressFixIt(encodeURIComponent(backup.continueCodeFixIt)) : of(true)
+          forkJoin([hackingProgress, findItProgress, fixItProgress]).subscribe(() => {
+            location.reload()
+          }, (err) => console.log(err))
         })
       } else {
         this.snackBarHelperService.open(`Version ${backup.version} is incompatible with expected version ${this.VERSION}`, 'errorBar')
