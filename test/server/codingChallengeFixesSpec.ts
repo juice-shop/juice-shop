@@ -15,24 +15,20 @@ describe('codingChallengeFixes', () => {
   before(async () => {
     const match = /vuln-code-snippet start .*/
     const matches = await fileSniff(SNIPPET_PATHS, match)
-    codingChallenges = matches.map(m => m.match.trim().substr(26).trim()).join(' ').split(' ')
+    codingChallenges = matches.map(m => m.match.trim().substr(26).trim()).join(' ').split(' ').filter(c => c.endsWith('Challenge'))
   })
 
   it('should have a correct fix for each coding challenge', async () => {
     for (const challenge of codingChallenges) {
-      if (challenge.endsWith('Challenge')) {
-        const fixes = readFixes(challenge)
-        expect(fixes.correct, `Coding challenge ${challenge} does not have a correct fix file`).to.be.greaterThan(-1)
-      }
+      const fixes = readFixes(challenge)
+      expect(fixes.correct, `Coding challenge ${challenge} does not have a correct fix file`).to.be.greaterThan(-1)
     }
   })
 
   it('should have a total of three or more fix options for each coding challenge', async () => {
     for (const challenge of codingChallenges) {
-      if (challenge.endsWith('Challenge')) {
-        const fixes = readFixes(challenge)
-        expect(fixes.fixes.length, `Coding challenge ${challenge} does not have enough fix option files`).to.be.greaterThanOrEqual(3)
-      }
+      const fixes = readFixes(challenge)
+      expect(fixes.fixes.length, `Coding challenge ${challenge} does not have enough fix option files`).to.be.greaterThanOrEqual(3)
     }
   })
 })
