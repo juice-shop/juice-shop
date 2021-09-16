@@ -39,6 +39,7 @@
     "Scar26",
     "CaptainFreak",
     "Supratik Das",
+    "the-pro",
     "JuiceShopBot",
     "Ziyang Li",
     "aaryan10",
@@ -46,10 +47,9 @@
     "Timo Pagel",
     "Josh Grossman",
     "Clément Notin",
+    "shantanu69",
     "JamesCullum",
-    "Alejandro Saenz",
-    "Martin Rock-Evans",
-    "chinggg"
+    "omerlh"
   ],
   "scripts": {
     "build:frontend": "cd frontend && node ./node_modules/@angular/cli/bin/ng build --aot --prod --output-hashing=none --vendor-chunk=true --source-map=false",
