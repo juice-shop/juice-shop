@@ -75,4 +75,4 @@ Alexander Nissen (Nissen96),fabrizio1979,OrNol (TRNSRL),Jorge Estigarribia (jorg
 
 ## Stargazers (over time)
 
-[![Stargazers over time](https://starchart.cc/bkimminich/juice-shop.svg)](https://starchart.cc/bkimminich/juice-shop)
+[![Stargazers over time](https://starchart.cc/juice-shop/juice-shop.svg)](https://starchart.cc/juice-shop/juice-shop)
