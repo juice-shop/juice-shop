@@ -18,6 +18,6 @@
     "awareness"
   ],
   "website": "https://owasp-juice.shop",
-  "repository": "https://github.com/bkimminich/juice-shop",
-  "logo": "https://raw.githubusercontent.com/bkimminich/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo.png"
+  "repository": "https://github.com/juice-shop/juice-shop",
+  "logo": "https://raw.githubusercontent.com/juice-shop/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo.png"
 }
