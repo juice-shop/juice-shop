@@ -153,4 +153,4 @@ bahrunghozali, Anders Lindberg (anderslimpan), Björn Palmqvist
 
 ## Stargazers (over time)
 
-[![Stargazers over time](https://starchart.cc/bkimminich/juice-shop.svg)](https://starchart.cc/bkimminich/juice-shop)
+[![Stargazers over time](https://starchart.cc/juice-shop/juice-shop.svg)](https://starchart.cc/juice-shop/juice-shop)

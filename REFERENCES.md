@@ -235,7 +235,7 @@ where this project was mentioned or used!
   [OWASP Projects Summit - Winter 2020](https://owasp.org/www-staff/projects/202002-Projects-Summit-Q1.html)
   with Björn Kimminich, Jannik Hollenbach and Marc Rüttler collaborating
   on
-  [prepared working packages](https://github.com/bkimminich/juice-shop/milestone/10)
+  [prepared working packages](https://github.com/juice-shop/juice-shop/milestone/10)
   and
   [the `v10.0.0` release](https://owasp.org/2020/03/17/juice-shop-v10.html),
   27.-29.02.2020
