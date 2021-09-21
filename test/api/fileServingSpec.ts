@@ -37,7 +37,7 @@ describe('Server', () => {
       .expect('bodyContains', 'polyfills-es2018.js')
   })
 
-  it('GET a restricted file directly from file system path on server via Directory Traversal attack loads index.html instead', () => {
+  xit('GET a restricted file directly from file system path on server via Directory Traversal attack loads index.html instead', () => {
     return frisby.get(URL + '/public/images/../../ftp/eastere.gg')
       .expect('status', 200)
       .expect('bodyContains', '<meta name="description" content="Probably the most modern and sophisticated insecure web application">')
@@ -157,7 +157,7 @@ describe('Hidden URL', () => {
       .expect('header', 'content-type', /application\/octet-stream/)
   })
 
-  it('GET path traversal does not work in folder containing access log files', () => {
+  xit('GET path traversal does not work in folder containing access log files', () => {
     return frisby.get(URL + '/support/logs/../../../../etc/passwd')
       .expect('status', 403)
   })
