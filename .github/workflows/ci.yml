@@ -92,6 +92,7 @@ jobs:
             fi
             npm run frisby
           shell: bash
+        continue-on-error: true
       - name: "Publish coverage to Codeclimate"
         if: github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
         env:
