@@ -82,32 +82,34 @@
 		</section>
 
 		<section>
-			<h1 class="neon">Coding Challenges</h1>
-		</section>
+			<section>
+				<h1 class="neon">Coding Challenges</h1>
+			</section>
 
-		<section>
-			<h2>Pick a challenge!</h2>
-			<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/develop/part1/img/code_snippet1.png"/>
-		</section>
+			<section>
+				<h2>Pick a challenge!</h2>
+				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/develop/part1/img/code_snippet1.png"/>
+			</section>
 
-		<section>
-			<h2>Read the actual code!</h2>
-			<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/develop/part1/img/code_snippet2.png" height="500"/>
-		</section>
+			<section>
+				<h2>Read the actual code!</h2>
+				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/develop/part1/img/code_snippet2.png" height="500"/>
+			</section>
 
-		<section>
-			<h2>Find the code flaw!</h2>
-			<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/develop/part1/img/code_snippet3.png" height="500"/>
-		</section>
+			<section>
+				<h2>Find the code flaw!</h2>
+				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/develop/part1/img/code_snippet3.png" height="500"/>
+			</section>
 
-		<section>
-			<h2>Select the right fix!</h2>
-			<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/develop/part1/img/code_snippet4.png" height="500"/>
-		</section>
+			<section>
+				<h2>Select the right fix!</h2>
+				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/develop/part1/img/code_snippet4.png" height="500"/>
+			</section>
 
-		<section>
-			<h2>Green up your Score Board!</h2>
-			<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/develop/part1/img/code_snippet5.png"/>
+			<section>
+				<h2>Green up your Score Board!</h2>
+				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/develop/part1/img/code_snippet5.png"/>
+			</section>
 		</section>
 
 		<section data-transition="fade-out">
@@ -136,7 +138,7 @@
 			<p>
 				Add secondary percentage bar or pie chart to Score Board
 			</p>
-			<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/score-board_partly.png" height="350"/>
+			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/part1/img/score-board_partly.png" height="350"/>
 			<small>(Screenshot shows existing Score Board!)</small>
 		</section>
 
@@ -145,9 +147,9 @@
 			<p>
 				Hacking Instructor bot explains how the Coding Challenges work
 			</p>
-			<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/hacking-instructor_1.png" height="220"/>
-			<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/hacking-instructor_2.png" height="220"/>
-			<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/hacking-instructor_3.png" height="220"/>
+			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/part1/img/hacking-instructor_1.png" height="220"/>
+			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/part1/img/hacking-instructor_2.png" height="220"/>
+			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/part1/img/hacking-instructor_3.png" height="220"/>
 			<small>(Screenshots show existing tutorial for a hacking challenges!)</small>
 		</section>
 
@@ -161,16 +163,42 @@
 		</section>
 
 		<section>
+			<h2>Connect to Solution WebHook</h2>
+			<p>
+				Submit solved challenges for central progress tracking
+			</p>
+			<pre><code>
+{
+    "solution": {
+        "challenge": "localXssChallenge",
+        "cheatScore": 0,
+        "totalCheatScore": 0.15,
+        "issuedOn": "2020-12-15T18:24:33.027Z"
+    },
+    "ctfFlag": "b0d70dce...b85fac6785dba2349b",
+    "issuer": {
+        "hostName": "fv-az116-673",
+        "os": "Linux (5.4.0-1031-azure)",
+        "appName": "OWASP Juice Shop",
+        "config": "default",
+        "version": "12.3.0-SNAPSHOT"
+    }
+}					</code></pre>
+			<small>(Code block shows existing WebHook payload for hacking challenges!)</small>
+		</section>
+
+		<section>
 			<h2>Connect to Cheat Detection</h2>
 			<p>
 				Detect too fast submission or impossible progress states
 			</p>
-			<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/appendix/img/cheat-detection_logs.png"/>
+			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/appendix/img/cheat-detection_logs.png"/>
 			<small>(Screenshot shows existing Cheat Detection logs for hacking challenges!)</small>
 		</section>
 
 		<section>
-			<h1>Wrapping Up</h1>
+			<h2><span id="timer" class="reveal"></span> left for</h2>
+			<h1>one last slide & some questions</h1>
 		</section>
 
 		<section>
@@ -192,6 +220,12 @@
 			<img class="no-box" height="33px" src="https://camo.githubusercontent.com/9702347814baec2c297da14693eecc2e605a66feec5901c4df67f3d5d08d575b/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f646f776e6c6f6164732f6a756963652d73686f702f6a756963652d73686f702f746f74616c2e737667"/>
 			<img class="no-box" height="33px" src="https://camo.githubusercontent.com/6242cc83b5f0041a3b96aa274bd59c4870c8c06a/68747470733a2f2f696d672e736869656c64732e696f2f646f636b65722f70756c6c732f626b696d6d696e6963682f6a756963652d73686f702e737667"/>
 			<img class="no-box" height="33px" src="https://camo.githubusercontent.com/2df43a4dbe2e9760afd0c593294752b30e0bb707/68747470733a2f2f696d672e736869656c64732e696f2f736f75726365666f7267652f64742f6a756963652d73686f703f6c6162656c3d736f75726365666f726765253230646f776e6c6f616473"/>
+		</section>
+
+		<section>
+			<h3>Join OWASP Slack channel</h3>
+			<a href="https://owasp.slack.com/archives/C02C9L9BGDT" target="_blank"><h2 class="neon">#20th-anniv-flagshipproject</h2></a>
+			<h3>for additional Q&A w/ @bkimminich</h3>
 		</section>
 
 		<section data-transition="zoom-out">
@@ -258,6 +292,30 @@
 		]
 	});
 
+</script>
+
+<script>
+	function timer(time,update,complete) {
+		var start = new Date().getTime();
+		var interval = setInterval(function() {
+			var now = time-(new Date().getTime()-start);
+			if( now <= 0) {
+				clearInterval(interval);
+				complete();
+			}
+			else update(Math.floor(now/1000));
+		},100);
+	}
+
+	timer(
+			1800000, // 10min for typical lightning talk
+			function(timeleft) {
+				document.getElementById('timer').innerHTML = Math.floor(timeleft/60)+":" + (timeleft%60 < 10 ? "0"+timeleft%60 : timeleft%60);
+			},
+			function() {
+				document.getElementById('timer').innerHTML = "Sorry, no time ";
+			}
+	);
 </script>
 
 <div class="hidden-mobile">
