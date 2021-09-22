@@ -22,6 +22,9 @@
             [vulnLines]="snippet?.vulnLines"
             (addLine) = "addLine($event)">
           </app-code-area>
+          <pre *ngIf="snippet === null">
+            <code translate>LOADING_CODE_SNIPPET</code>
+          </pre>
         </div>
       </div>
       <mat-dialog-actions align="end" class="dialogAction">
