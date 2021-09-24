@@ -281,7 +281,7 @@ where this project was mentioned or used!
 
 #### 2021
 
-* [OWASP Juice Shop Flagship Project](https://owasp20thanniversaryevent20.sched.com/event/m1uL/owasp-juice-shop-flagship-project) by Björn Kimminich, [OWASP 20th Anniversary Event](https://20thanniversary.owasp.org/), 24.09.2021 ([YouTube]() :bulb:)
+* [OWASP Juice Shop Flagship Project](https://owasp20thanniversaryevent20.sched.com/event/m1uL/owasp-juice-shop-flagship-project) by Björn Kimminich, [OWASP 20th Anniversary Event](https://20thanniversary.owasp.org/), 24.09.2021 ([YouTube]() :godmode:)
 * [SDLC con OWASP y laboratorio con OWASP Juice Shop](https://www.meetup.com/de-DE/OWASP-Uruguay-Chapter/events/279827017/)
   (:uruguay:) with Martín Marsicano and Pablo Alzuri,
   [OWASP Uruguay Chapter](https://owasp.org/www-chapter-uruguay/),
