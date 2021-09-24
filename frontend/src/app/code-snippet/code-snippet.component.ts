@@ -154,7 +154,6 @@ export class CodeSnippetComponent implements OnInit {
         })
     } else {
       this.result = ResultState.Wrong
-      this.lock = ResultState.Wrong
     }
   }
 
