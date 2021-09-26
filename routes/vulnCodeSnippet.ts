@@ -139,10 +139,12 @@ exports.serveCodeSnippet = () => async (req: Request<SnippetRequestBody, {}, {}>
 }
 
 exports.challengesWithCodeSnippet = () => async (req: Request, res: Response, next: NextFunction) => { // TODO Split off function for actual detection and reuse in codingChallengeFixesSpec
-  const match = /vuln-code-snippet start .*/
-  const matches = await fileSniff(SNIPPET_PATHS, match)
-  const challenges = matches.map(m => m.match.trim().substr(26).trim()).join(' ').split(' ').filter(c => c.endsWith('Challenge'))
-  res.json({ challenges })
+  if (!cache.codingChallenges) {
+    const match = /vuln-code-snippet start .*/
+    const matches = await fileSniff(SNIPPET_PATHS, match)
+    cache.codingChallenges = matches.map(m => m.match.trim().substr(26).trim()).join(' ').split(' ').filter(c => c.endsWith('Challenge'))
+  }
+  res.json({ challenges: cache.codingChallenges })
 }
 
 export const getVerdict = (vulnLines: number[], selectedLines: number[]) => {
