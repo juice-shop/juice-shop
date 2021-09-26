@@ -4,22 +4,31 @@
  */
 
 import { Request, Response, NextFunction } from 'express'
+import fs from 'graceful-fs'
+import actualFs from 'fs'
+
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const path = require('path')
-const fs = require('graceful-fs')
-fs.gracefulify(require('fs'))
 
-export const SNIPPET_PATHS = ['./server.ts', './routes', './lib', './data', './frontend/src/app']
+fs.gracefulify(actualFs)
+
+export const SNIPPET_PATHS = Object.freeze(['./server.ts', './routes', './lib', './data', './frontend/src/app'])
 
 const cache: any = {}
 
-export const fileSniff = async (paths: string[], match: RegExp) => {
+interface Match {
+  path: string
+  match: string
+}
+
+export const fileSniff = async (paths: readonly string[], match: RegExp): Promise<Match[]> => {
   const matches = []
   for (const currPath of paths) {
     if (fs.lstatSync(currPath).isDirectory()) {
       const files = fs.readdirSync(currPath)
-      for (const file of files) paths.push(path.resolve(currPath, file))
+      const moreMatches = await fileSniff(files.map(file => path.resolve(currPath, file)), match)
+      matches.push(...moreMatches)
     } else {
       const data = fs.readFileSync(currPath)
       const code = data.toString()
