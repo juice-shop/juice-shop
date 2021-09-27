@@ -19,7 +19,7 @@
   { "key": "hu_HU", "icons": ["hu"], "shortKey": "HU", "lang": "Magyar" },
   { "key": "id_ID", "icons": ["id"], "shortKey": "ID", "lang": "Bahasa Indonesia" },
   { "key": "it_IT", "icons": ["it"], "shortKey": "IT", "lang": "Italiano" },
-  { "key": "ja_JP", "icons": ["jp"], "shortKey": "JA", "lang": "日本の" },
+  { "key": "ja_JP", "icons": ["jp"], "shortKey": "JA", "lang": "日本語" },
   { "key": "ko_KR", "icons": ["kr"], "shortKey": "KO", "lang": "영어" },
   { "key": "lv_LV", "icons": ["lv"], "shortKey": "LV", "lang": "Latvijas" },
   { "key": "my_MM", "icons": ["mm"], "shortKey": "MY", "lang": "ျမန္မာ" },
