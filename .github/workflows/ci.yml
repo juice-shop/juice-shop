@@ -50,6 +50,7 @@ jobs:
           npm run lint:config -- -f ./config/unsafe.yml
   test-fork: #todo: check if we can migrate this back to test to have a matrix based on fork or not
     runs-on: ubuntu-latest
+    if: github.repository != 'juice-shop/juice-shop'
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@v2
