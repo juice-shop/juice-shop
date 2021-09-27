@@ -74,13 +74,13 @@ jobs:
         uses: nick-invision/retry@v2
         with:
           timeout_minutes: 10
-          max_attempts: 1
+          max_attempts: 2
           command: npm test
       - name: "Execute integration tests"
         uses: nick-invision/retry@v2
         with:
           timeout_minutes: 5
-          max_attempts: 1
+          max_attempts: 2
           command: |
             export NODE_ENV=test
             npm run frisby
