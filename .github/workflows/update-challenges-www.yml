@@ -8,7 +8,7 @@ on:
 
 jobs:
   UpdateChallengesOnWebsite:
-    if: github.repository == juice-shop/juice-shop
+    if: github.repository == 'juice-shop/juice-shop'
     runs-on: ubuntu-latest
     steps:
     - name: Check out Git repository
