@@ -50,7 +50,6 @@ jobs:
           npm run lint:config -- -f ./config/unsafe.yml
   test-fork: # TODO: Check if we can migrate this back to test to have a matrix based on fork or not
     runs-on: ubuntu-latest
-    if: github.repository != 'juice-shop/juice-shop'
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@v2
@@ -67,16 +66,20 @@ jobs:
             ${{ runner.OS }}-node-
             ${{ runner.OS }}-
       - name: "Install CLI tools"
+        if: github.repository != 'juice-shop/juice-shop'
         run: npm install -g @angular/cli
       - name: "Install application"
+        if: github.repository != 'juice-shop/juice-shop'
         run: npm install
       - name: "Execute unit tests"
+        if: github.repository != 'juice-shop/juice-shop'
         uses: nick-invision/retry@v2
         with:
           timeout_minutes: 10
           max_attempts: 2
           command: npm test
       - name: "Execute integration tests"
+        if: github.repository != 'juice-shop/juice-shop'
         uses: nick-invision/retry@v2
         with:
           timeout_minutes: 5
