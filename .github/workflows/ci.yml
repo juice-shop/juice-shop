@@ -255,7 +255,7 @@ jobs:
           echo "HEROKU_BRANCH=develop" >> $GITHUB_ENV
           fi
       - name: "Deploy ${{ github.ref }} to Heroku"
-        uses: akhileshns/heroku-deploy@v7a09db9c4e101a49fe1bef554a60d0447fe1cc51 #note: much newer version available
+        uses: akhileshns/heroku-deploy@v79ef2ae4ff9b897010907016b268fd0f88561820 #v3.12.12
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ env.HEROKU_APP }}
