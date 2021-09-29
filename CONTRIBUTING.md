@@ -13,17 +13,11 @@
 
 The minimum requirements for code contributions are:
 
-1. The code _must_ be compliant with the configured ESLint rules based
-   on the [JS Standard Code Style](http://standardjs.com).
-2. All new and changed code _should_ have a corresponding unit and/or
-   integration test.
+1. The code _must_ be compliant with the configured ESLint rules based on the [JS Standard Code Style](http://standardjs.com).
+2. All new and changed code _should_ have a corresponding unit and/or integration test.
 3. New and changed challenges _must_ have a corresponding e2e test.
-4. Linting, as well as all unit, integration and e2e tests _should_ pass
-   locally before opening a Pull Request.
-5. All Git commits within a PR _must_ be
-   [signed off](https://git-scm.com/docs/git-commit#Documentation/git-commit.txt--s)
-   to indicate the contributor's agreement with the
-   [Developer Certificate of Origin](https://developercertificate.org/).
+4. [Status checks](https://docs.github.com/en/github/collaborating-with-pull-requests/collaborating-on-repositories-with-code-quality-features/about-status-checks) _must_ pass for the last commit within your PR.
+5. All Git commits within a PR _must_ be [signed off](https://git-scm.com/docs/git-commit#Documentation/git-commit.txt--s) to indicate the contributor's agreement with the [Developer Certificate of Origin](https://developercertificate.org/).
 
 ### Contribution Guidelines
 
@@ -33,8 +27,5 @@ You can find our detailed contribution guidelines over here:
 
 ## I18N Contributions
 
-Learn all about our crowd-sourced
-[translation project on Crowdin](https://crowdin.com/project/owasp-juice-shop)
-here:
-
-<https://pwning.owasp-juice.shop/part3/translation.html>
+Learn all about our crowd-sourced [translation project on Crowdin](https://crowdin.com/project/owasp-juice-shop)
+here: <https://pwning.owasp-juice.shop/part3/translation.html>
