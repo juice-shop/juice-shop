@@ -18,8 +18,7 @@ The minimum requirements for code contributions are:
 2. All new and changed code _should_ have a corresponding unit and/or
    integration test.
 3. New and changed challenges _must_ have a corresponding e2e test.
-4. Linting, as well as all unit, integration and e2e tests _should_ pass
-   locally before opening a Pull Request.
+4. [Status checks](https://docs.github.com/en/github/collaborating-with-pull-requests/collaborating-on-repositories-with-code-quality-features/about-status-checks) should pass for your last commit.
 5. All Git commits within a PR _must_ be
    [signed off](https://git-scm.com/docs/git-commit#Documentation/git-commit.txt--s)
    to indicate the contributor's agreement with the
