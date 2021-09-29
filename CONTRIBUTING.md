@@ -16,7 +16,7 @@ The minimum requirements for code contributions are:
 1. The code _must_ be compliant with the configured ESLint rules based on the [JS Standard Code Style](http://standardjs.com).
 2. All new and changed code _should_ have a corresponding unit and/or integration test.
 3. New and changed challenges _must_ have a corresponding e2e test.
-4. [Status checks](https://docs.github.com/en/github/collaborating-with-pull-requests/collaborating-on-repositories-with-code-quality-features/about-status-checks) should pass for your last commit.
+4. [Status checks](https://docs.github.com/en/github/collaborating-with-pull-requests/collaborating-on-repositories-with-code-quality-features/about-status-checks) _must_ pass for the last commit within your PR.
 5. All Git commits within a PR _must_ be [signed off](https://git-scm.com/docs/git-commit#Documentation/git-commit.txt--s) to indicate the contributor's agreement with the [Developer Certificate of Origin](https://developercertificate.org/).
 
 ### Contribution Guidelines
