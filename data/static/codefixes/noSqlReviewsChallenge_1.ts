@@ -2,7 +2,7 @@ module.exports = function productReviews () {
   return (req, res, next) => {
     const user = security.authenticatedUsers.from(req)
 
-    if (req.body['$ne'] !== undefined) {
+    if (req.body.id['$ne'] !== undefined) {
       res.status(400).send()
       return
     }
