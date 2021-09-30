@@ -5,6 +5,7 @@
 
 import config = require('config')
 import { retrieveCodeSnippet } from '../routes/vulnCodeSnippet'
+import { readFixes } from '../routes/vulnCodeFixes'
 const colors = require('colors/safe')
 const logger = require('./logger')
 
@@ -44,13 +45,27 @@ exports.calculateFindItCheatScore = async (challenge) => { // TODO Consider codi
   let cheatScore = 0
 
   const { snippet, vulnLines } = await retrieveCodeSnippet(challenge.key)
-  timeFactor *= Math.pow(vulnLines.length, 2)
+  timeFactor *= vulnLines.length
   const minutesExpectedToSolve = Math.ceil(snippet.length * timeFactor)
   const minutesSincePreviousSolve = (timestamp.getTime() - previous().timestamp.getTime()) / 60000
   cheatScore += Math.max(0, 1 - (minutesSincePreviousSolve / minutesExpectedToSolve))
 
   logger.info(`Cheat score for "Find it" phase of ${colors.cyan(challenge.key)} solved in ${Math.round(minutesSincePreviousSolve)}min (expected ~${minutesExpectedToSolve}min): ${cheatScore < 0.33 ? colors.green(cheatScore) : (cheatScore < 0.66 ? colors.yellow(cheatScore) : colors.red(cheatScore))}`)
   solves.push({ challenge, phase: 'find it', timestamp, cheatScore })
+  return cheatScore
+}
+
+exports.calculateFixItCheatScore = async (challenge) => {
+  const timestamp = new Date()
+  let cheatScore = 0
+
+  const { fixes } = await readFixes(challenge.key)
+  const minutesExpectedToSolve = Math.floor(fixes.length / 2)
+  const minutesSincePreviousSolve = (timestamp.getTime() - previous().timestamp.getTime()) / 60000
+  cheatScore += Math.max(0, 1 - (minutesSincePreviousSolve / minutesExpectedToSolve))
+
+  logger.info(`Cheat score for "Fix it" phase of ${colors.cyan(challenge.key)} solved in ${Math.round(minutesSincePreviousSolve)}min (expected ~${minutesExpectedToSolve}min): ${cheatScore < 0.33 ? colors.green(cheatScore) : (cheatScore < 0.66 ? colors.yellow(cheatScore) : colors.red(cheatScore))}`)
+  solves.push({ challenge, phase: 'fix it', timestamp, cheatScore })
   return cheatScore
 }
 
