@@ -287,4 +287,7 @@ exports.solveFixIt = async function (key: string, isRestore: boolean) {
   const solvedChallenge = challenges[key]
   await models.Challenge.update({ codingChallengeStatus: 2 }, { where: { key } })
   logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Fix It'-part of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
+  if (!isRestore) {
+    antiCheat.calculateFixItCheatScore(solvedChallenge)
+  }
 }
