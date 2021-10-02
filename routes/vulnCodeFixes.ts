@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
+const accuracy = require('../lib/accuracy')
 const utils = require('../lib/utils')
 const fs = require('fs')
 
@@ -77,11 +78,12 @@ export const checkCorrectFix = () => async (req: Request<{}, {}, VerdictRequestB
   }
 
   if (selectedFix === fixData.correct) {
-    await utils.solveFixIt(req.body.key)
+    await utils.solveFixIt(key)
     res.status(200).json({
       verdict: true
     })
   } else {
+    accuracy.storeFixItVerdict(key, false)
     res.status(200).json({
       verdict: false
     })
