@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-const logger = require("./logger");
-const colors = require("colors/safe");
+const logger = require('./logger')
+const colors = require('colors/safe')
 const solves = {}
 
 exports.storeFindItVerdict = (challengeKey, verdict: boolean) => {
