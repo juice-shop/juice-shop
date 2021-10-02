@@ -23,6 +23,26 @@ exports.calculateFixItAccuracy = (challengeKey) => {
   return calculateAccuracy(challengeKey, 'fix it')
 }
 
+exports.totalFindItAccuracy = () => {
+  return totalAccuracy('find it')
+}
+
+exports.totalFixItAccuracy = () => {
+  return totalAccuracy('fix it')
+}
+
+function totalAccuracy (phase: string) {
+  let sumAccuracy = 0
+  let totalSolved = 0
+  Object.entries(solves).forEach(([key, value]) => {
+    if (value[phase]) {
+      sumAccuracy += 1 / value.attempts[phase]
+      totalSolved++
+    }
+  })
+  return sumAccuracy / totalSolved
+}
+
 function calculateAccuracy (challengeKey, phase: string) {
   let accuracy = 0
   if (solves[challengeKey][phase]) {

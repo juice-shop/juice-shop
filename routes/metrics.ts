@@ -11,6 +11,7 @@ const reviews = require('../data/mongodb').reviews
 const challenges = require('../data/datacache').challenges
 const utils = require('../lib/utils')
 const antiCheat = require('../lib/antiCheat')
+const accuracy = require('../lib/accuracy')
 const config = require('config')
 const Op = models.Sequelize.Op
 
@@ -91,7 +92,19 @@ exports.observeMetrics = function observeMetrics () {
 
   const cheatScoreMetrics = new Prometheus.Gauge({
     name: `${app}_cheat_score`,
-    help: 'Overall probability that any challenges were solved by cheating.',
+    help: 'Overall probability that any hacking or coding challenges were solved by cheating.',
+    labelNames: ['type']
+  })
+
+  const findItAccuracyMetrics = new Prometheus.Gauge({
+    name: `${app}_coding_challenge_find_it_accuracy`,
+    help: 'Overall accuracy while solving "Find It" phase of coding challenges.',
+    labelNames: ['type']
+  })
+
+  const fixItAccuracyMetrics = new Prometheus.Gauge({
+    name: `${app}_coding_challenge_fix_it_accuracy`,
+    help: 'Overall accuracy while solving "Fix It" phase of coding challenges.',
     labelNames: ['type']
   })
 
@@ -146,6 +159,8 @@ exports.observeMetrics = function observeMetrics () {
     }
 
     cheatScoreMetrics.set(antiCheat.totalCheatScore())
+    findItAccuracyMetrics.set(accuracy.totalFindItAccuracy())
+    fixItAccuracyMetrics.set(accuracy.totalFixItAccuracy())
 
     orders.count({}).then(orders => {
       orderMetrics.set(orders)
