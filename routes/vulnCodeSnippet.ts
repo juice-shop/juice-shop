@@ -10,6 +10,7 @@ import actualFs from 'fs'
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const path = require('path')
+const accuracy = require('../lib/accuracy')
 
 fs.gracefulify(actualFs)
 
@@ -174,9 +175,10 @@ export const getVerdict = (vulnLines: number[], selectedLines: number[]) => {
 }
 
 exports.checkVulnLines = () => async (req: Request<{}, {}, VerdictRequestBody>, res: Response, next: NextFunction) => {
+  const key = req.body.key
   let snippetData
   try {
-    snippetData = await retrieveCodeSnippet(req.body.key)
+    snippetData = await retrieveCodeSnippet(key)
   } catch (error) {
     const statusCode = setStatusCode(error)
     res.status(statusCode).json({ status: 'error', error: error.message })
@@ -186,11 +188,12 @@ exports.checkVulnLines = () => async (req: Request<{}, {}, VerdictRequestBody>, 
   const selectedLines: number[] = req.body.selectedLines
   const verdict = getVerdict(vulnLines, selectedLines)
   if (verdict) {
-    await utils.solveFindIt(req.body.key)
+    await utils.solveFindIt(key)
     res.status(200).json({
       verdict: true
     })
   } else {
+    accuracy.storeFindItVerdict(key, false)
     res.status(200).json({
       verdict: false
     })
