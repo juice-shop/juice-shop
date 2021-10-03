@@ -107,14 +107,10 @@ exports.observeMetrics = function observeMetrics () {
     help: 'Overall probability that any hacking or coding challenges were solved by cheating.'
   })
 
-  const findItAccuracyMetrics = new Prometheus.Gauge({
-    name: `${app}_coding_challenge_find_it_accuracy`,
-    help: 'Overall accuracy while solving "Find It" phase of coding challenges.'
-  })
-
-  const fixItAccuracyMetrics = new Prometheus.Gauge({
-    name: `${app}_coding_challenge_fix_it_accuracy`,
-    help: 'Overall accuracy while solving "Fix It" phase of coding challenges.'
+  const accuracyMetrics = new Prometheus.Gauge({
+    name: `${app}_coding_challenges_accuracy`,
+    help: 'Overall accuracy while solving coding challenges grouped by phase.',
+    labelNames: ['phase']
   })
 
   const orderMetrics = new Prometheus.Gauge({
@@ -184,8 +180,8 @@ exports.observeMetrics = function observeMetrics () {
     })
 
     cheatScoreMetrics.set(antiCheat.totalCheatScore())
-    findItAccuracyMetrics.set(accuracy.totalFindItAccuracy())
-    fixItAccuracyMetrics.set(accuracy.totalFixItAccuracy())
+    accuracyMetrics.set({ phase: 'find it' }, accuracy.totalFindItAccuracy())
+    accuracyMetrics.set({ phase: 'fix it' }, accuracy.totalFixItAccuracy())
 
     orders.count({}).then(orders => {
       orderMetrics.set(orders)
