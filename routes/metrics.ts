@@ -4,6 +4,7 @@
  */
 
 import models = require('../models/index')
+import { retrieveChallengesWithCodeSnippet } from './vulnCodeSnippet'
 const Prometheus = require('prom-client')
 const onFinished = require('on-finished')
 const orders = require('../data/mongodb').orders
@@ -90,22 +91,30 @@ exports.observeMetrics = function observeMetrics () {
     labelNames: ['difficulty', 'category']
   })
 
+  const codingChallengesProgressMetrics = new Prometheus.Gauge({
+    name: `${app}_coding_challenges_progress`,
+    help: 'Number of coding challenges grouped by progression phase.',
+    labelNames: ['phase']
+  })
+
+  const codingChallengeTotalMetrics = new Prometheus.Gauge({
+    name: `${app}_coding_challenges_total`,
+    help: 'Total number of coding challenges.'
+  })
+
   const cheatScoreMetrics = new Prometheus.Gauge({
     name: `${app}_cheat_score`,
-    help: 'Overall probability that any hacking or coding challenges were solved by cheating.',
-    labelNames: ['type']
+    help: 'Overall probability that any hacking or coding challenges were solved by cheating.'
   })
 
   const findItAccuracyMetrics = new Prometheus.Gauge({
     name: `${app}_coding_challenge_find_it_accuracy`,
-    help: 'Overall accuracy while solving "Find It" phase of coding challenges.',
-    labelNames: ['type']
+    help: 'Overall accuracy while solving "Find It" phase of coding challenges.'
   })
 
   const fixItAccuracyMetrics = new Prometheus.Gauge({
     name: `${app}_coding_challenge_fix_it_accuracy`,
-    help: 'Overall accuracy while solving "Fix It" phase of coding challenges.',
-    labelNames: ['type']
+    help: 'Overall accuracy while solving "Fix It" phase of coding challenges.'
   })
 
   const orderMetrics = new Prometheus.Gauge({
@@ -158,6 +167,22 @@ exports.observeMetrics = function observeMetrics () {
       challengeTotalMetrics.set({ difficulty, category }, challengeCount.get(key))
     }
 
+    void retrieveChallengesWithCodeSnippet().then(challenges => {
+      codingChallengeTotalMetrics.set(challenges.length)
+
+      models.Challenge.count({ where: { codingChallengeStatus: { [Op.eq]: 1 } } }).then(count => {
+        codingChallengesProgressMetrics.set({ phase: 'find it' }, count)
+      })
+
+      models.Challenge.count({ where: { codingChallengeStatus: { [Op.eq]: 2 } } }).then(count => {
+        codingChallengesProgressMetrics.set({ phase: 'fix it' }, count)
+      })
+
+      models.Challenge.count({ where: { codingChallengeStatus: { [Op.ne]: 0 } } }).then(count => {
+        codingChallengesProgressMetrics.set({ phase: 'unsolved' }, challenges.length - count)
+      })
+    })
+
     cheatScoreMetrics.set(antiCheat.totalCheatScore())
     findItAccuracyMetrics.set(accuracy.totalFindItAccuracy())
     fixItAccuracyMetrics.set(accuracy.totalFixItAccuracy())
@@ -170,7 +195,7 @@ exports.observeMetrics = function observeMetrics () {
       interactionsMetrics.set({ type: 'review' }, reviews)
     })
 
-    models.User.count({ where: { role: { [Op.eq]: ['customer'] } } }).then(count => {
+    models.User.count({ where: { role: { [Op.eq]: 'customer' } } }).then(count => {
       userMetrics.set({ type: 'standard' }, count)
     })
     models.User.count({ where: { role: { [Op.eq]: 'deluxe' } } }).then(count => {

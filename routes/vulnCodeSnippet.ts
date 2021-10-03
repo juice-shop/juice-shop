@@ -14,7 +14,7 @@ const accuracy = require('../lib/accuracy')
 
 fs.gracefulify(actualFs)
 
-export const SNIPPET_PATHS = Object.freeze(['./server.ts', './routes', './lib', './data', './frontend/src/app'])
+const SNIPPET_PATHS = Object.freeze(['./server.ts', './routes', './lib', './data', './frontend/src/app'])
 
 const cache: any = {}
 
@@ -148,13 +148,18 @@ exports.serveCodeSnippet = () => async (req: Request<SnippetRequestBody, {}, {}>
   }
 }
 
-exports.challengesWithCodeSnippet = () => async (req: Request, res: Response, next: NextFunction) => { // TODO Split off function for actual detection and reuse in codingChallengeFixesSpec
+export const retrieveChallengesWithCodeSnippet = async () => {
   if (!cache.codingChallenges) {
     const match = /vuln-code-snippet start .*/
     const matches = await fileSniff(SNIPPET_PATHS, match)
     cache.codingChallenges = matches.map(m => m.match.trim().substr(26).trim()).join(' ').split(' ').filter(c => c.endsWith('Challenge'))
   }
-  res.json({ challenges: cache.codingChallenges })
+  return cache.codingChallenges
+}
+
+exports.serveChallengesWithCodeSnippet = () => async (req: Request, res: Response, next: NextFunction) => {
+  const codingChallenges = await retrieveChallengesWithCodeSnippet()
+  res.json({ challenges: codingChallenges })
 }
 
 export const getVerdict = (vulnLines: number[], selectedLines: number[]) => {

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { fileSniff, SNIPPET_PATHS } from '../../routes/vulnCodeSnippet'
+import { retrieveChallengesWithCodeSnippet } from '../../routes/vulnCodeSnippet'
 import { readFixes } from '../../routes/vulnCodeFixes'
 import chai = require('chai')
 const sinonChai = require('sinon-chai')
@@ -13,9 +13,7 @@ chai.use(sinonChai)
 describe('codingChallengeFixes', () => {
   let codingChallenges: string[]
   before(async () => {
-    const match = /vuln-code-snippet start .*/
-    const matches = await fileSniff(SNIPPET_PATHS, match)
-    codingChallenges = matches.map(m => m.match.trim().substr(26).trim()).join(' ').split(' ').filter(c => c.endsWith('Challenge'))
+    codingChallenges = await retrieveChallengesWithCodeSnippet()
   })
 
   it('should have a correct fix for each coding challenge', async () => {
