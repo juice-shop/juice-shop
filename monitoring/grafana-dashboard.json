@@ -22,16 +22,12 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 2,
-  "iteration": 1633264901179,
+  "iteration": 1633283461459,
   "links": [],
   "panels": [
     {
       "collapsed": false,
       "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -87,7 +83,7 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
+        "w": 6,
         "x": 0,
         "y": 1
       },
@@ -158,7 +154,7 @@
         "h": 5,
         "w": 24,
         "x": 0,
-        "y": 5
+        "y": 9
       },
       "id": 78,
       "maxPerRow": 4,
@@ -211,25 +207,74 @@
           },
           "mappings": []
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "unsolved"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "super-light-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "find it"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "fix it"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
         "w": 7,
         "x": 0,
-        "y": 10
+        "y": 14
       },
       "id": 119,
       "options": {
         "displayLabels": [
-          "value"
+          "value",
+          "name"
         ],
         "legend": {
           "displayMode": "list",
           "placement": "bottom",
-          "values": []
+          "values": [
+            "percent"
+          ]
         },
-        "pieType": "pie",
+        "pieType": "donut",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -287,7 +332,7 @@
         "h": 4,
         "w": 3,
         "x": 7,
-        "y": 10
+        "y": 14
       },
       "id": 121,
       "options": {
@@ -363,7 +408,7 @@
         "h": 8,
         "w": 5,
         "x": 19,
-        "y": 10
+        "y": 14
       },
       "id": 112,
       "interval": null,
@@ -434,7 +479,7 @@
         "h": 4,
         "w": 3,
         "x": 7,
-        "y": 14
+        "y": 18
       },
       "id": 122,
       "options": {
@@ -468,15 +513,11 @@
     {
       "collapsed": true,
       "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 18
+        "y": 22
       },
       "id": 32,
       "panels": [
@@ -991,15 +1032,11 @@
     {
       "collapsed": false,
       "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 19
+        "y": 23
       },
       "id": 39,
       "panels": [],
@@ -1024,7 +1061,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 24
       },
       "hiddenSeries": false,
       "id": 71,
@@ -1146,7 +1183,7 @@
         "h": 5,
         "w": 9,
         "x": 0,
-        "y": 26
+        "y": 30
       },
       "id": 90,
       "links": [],
@@ -1207,7 +1244,7 @@
         "h": 5,
         "w": 15,
         "x": 9,
-        "y": 26
+        "y": 30
       },
       "id": 91,
       "links": [],
@@ -1265,7 +1302,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 31
+        "y": 35
       },
       "id": 105,
       "options": {
@@ -1315,7 +1352,7 @@
         "h": 10,
         "w": 9,
         "x": 0,
-        "y": 37
+        "y": 41
       },
       "hiddenSeries": false,
       "id": 46,
@@ -1421,7 +1458,7 @@
         "h": 10,
         "w": 7,
         "x": 9,
-        "y": 37
+        "y": 41
       },
       "hiddenSeries": false,
       "id": 48,
@@ -1542,7 +1579,7 @@
         "h": 6,
         "w": 5,
         "x": 16,
-        "y": 37
+        "y": 41
       },
       "id": 52,
       "interval": null,
@@ -1618,7 +1655,7 @@
         "h": 3,
         "w": 3,
         "x": 21,
-        "y": 37
+        "y": 41
       },
       "id": 84,
       "interval": "",
@@ -1696,7 +1733,7 @@
         "h": 3,
         "w": 3,
         "x": 21,
-        "y": 40
+        "y": 44
       },
       "id": 50,
       "interval": "",
@@ -1752,7 +1789,7 @@
         "h": 11,
         "w": 8,
         "x": 16,
-        "y": 43
+        "y": 47
       },
       "hiddenSeries": false,
       "id": 56,
@@ -1858,7 +1895,7 @@
         "h": 7,
         "w": 16,
         "x": 0,
-        "y": 47
+        "y": 51
       },
       "hiddenSeries": false,
       "id": 54,
@@ -2052,5 +2089,5 @@
   "timezone": "",
   "title": "Juice Shop Instance Status",
   "uid": "Sj-cIdwZk",
-  "version": 15
+  "version": 16
 }
