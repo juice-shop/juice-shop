@@ -97,11 +97,6 @@ exports.observeMetrics = function observeMetrics () {
     labelNames: ['phase']
   })
 
-  const codingChallengeTotalMetrics = new Prometheus.Gauge({
-    name: `${app}_coding_challenges_total`,
-    help: 'Total number of coding challenges.'
-  })
-
   const cheatScoreMetrics = new Prometheus.Gauge({
     name: `${app}_cheat_score`,
     help: 'Overall probability that any hacking or coding challenges were solved by cheating.'
@@ -164,8 +159,6 @@ exports.observeMetrics = function observeMetrics () {
     }
 
     void retrieveChallengesWithCodeSnippet().then(challenges => {
-      codingChallengeTotalMetrics.set(challenges.length)
-
       models.Challenge.count({ where: { codingChallengeStatus: { [Op.eq]: 1 } } }).then(count => {
         codingChallengesProgressMetrics.set({ phase: 'find it' }, count)
       })
