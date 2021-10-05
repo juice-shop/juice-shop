@@ -50,6 +50,13 @@
 			document.getElementById('multiJuicerVersion').innerHTML = multiJuicerChart.match(/version: (.*)/)[1]
 		})
 	</script>
+	<!-- Roadmap -->
+	<script>
+		fetch("https://raw.githubusercontent.com/OWASP/www-project-juice-shop/master/_data/roadmap_milestones.json").then(async (res) => {
+			const milestones = await res.json();
+			document.getElementById('roadmap').innerHTML = milestones.map(milestone => "<li>" + milestone + "</li>").join('')
+		})
+	</script>
 
 	<!--[if lt IE 9]>
 	<script src="lib/js/html5shiv.js"></script>
@@ -702,12 +709,7 @@ products:
 
 		<section>
 			<h2>Project Roadmap</h2>
-			<ul>
-				<li>Enhance <a src="https://pwning.owasp-juice.shop/appendix/coding-challenges.html" target="_blank">Coding Challenges</a> with hints, explanations & scoring</li>
-				<li>Convert server-side code base into <em>actual</em> TypeScript</li>
-				<li>Make server compatible with Node.js 16</li>
-				<li>Migrate frontend to Angular 12 or 13</li>
-			</ul><br>
+			<ul id="roadmap"></ul><br>
 			<img src="assets/dukenukemforever_1300807309.png" height="250" class="fragment no-box" data-fragment-index="2"/>
 			<p class="fragment" data-fragment-index="1">
 				Timeline? <strong class="fragment" data-fragment-index="2">When it's done!</strong>
