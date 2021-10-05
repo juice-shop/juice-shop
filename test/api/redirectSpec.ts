@@ -50,7 +50,8 @@ describe('/redirect', () => {
       .expect('header', 'content-type', /text\/html/)
       .expect('bodyContains', `<h1>${config.get('application.name')} (Express`)
       .expect('bodyContains', 'TypeError')
-      .expect('bodyContains', '&#39;includes&#39; of undefined')
+      .expect('bodyContains', 'of undefined')
+      .expect('bodyContains', '&#39;includes&#39;')
   })
 
   it('GET error message with information leakage when calling /redirect with unrecognized query parameter', () => {
@@ -59,7 +60,8 @@ describe('/redirect', () => {
       .expect('header', 'content-type', /text\/html/)
       .expect('bodyContains', `<h1>${config.get('application.name')} (Express`)
       .expect('bodyContains', 'TypeError')
-      .expect('bodyContains', '&#39;includes&#39; of undefined')
+      .expect('bodyContains', 'of undefined')
+      .expect('bodyContains', '&#39;includes&#39;')
   })
 
   it('GET error message hinting at allowlist validation when calling /redirect with an unrecognized "to" target', () => {
@@ -70,7 +72,7 @@ describe('/redirect', () => {
       .expect('bodyContains', 'Unrecognized target URL for redirect: whatever')
   })
 
-  it('GET redirected to target URL in "to" parameter when a white-listed URL is part of the query string', () => {
+  it('GET redirected to target URL in "to" parameter when a allow-listed URL is part of the query string', () => {
     return frisby.get(`${URL}/redirect?to=/score-board?satisfyIndexOf=https://github.com/bkimminich/juice-shop`)
       .expect('status', 200)
       .expect('header', 'content-type', /text\/html/)
