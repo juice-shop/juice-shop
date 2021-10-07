@@ -85,13 +85,13 @@ export const checkCorrectFix = () => async (req: Request<{}, {}, VerdictRequestB
       await utils.solveFixIt(key)
       res.status(200).json({
         verdict: true,
-        explanation: selectedFixInfo?.info
+        explanation: selectedFixInfo?.explanation
       })
     } else {
       accuracy.storeFixItVerdict(key, false)
       res.status(200).json({
         verdict: false,
-        explanation: selectedFixInfo?.info
+        explanation: selectedFixInfo?.explanation
       })
     }
   }
