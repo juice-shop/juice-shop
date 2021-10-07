@@ -6,6 +6,7 @@
 import { Request, Response, NextFunction } from 'express'
 import fs from 'graceful-fs'
 import actualFs from 'fs'
+import yaml from "js-yaml";
 
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
@@ -192,6 +193,13 @@ exports.checkVulnLines = () => async (req: Request<{}, {}, VerdictRequestBody>, 
   const vulnLines: number[] = snippetData.vulnLines
   const selectedLines: number[] = req.body.selectedLines
   const verdict = getVerdict(vulnLines, selectedLines)
+  let hint
+  if (fs.existsSync('./data/static/codefixes/' + key + '.info.yml')) {
+    const codingChallengeInfos = yaml.load(fs.readFileSync('./data/static/codefixes/' + key + '.info.yml', 'utf8'))
+    if (codingChallengeInfos?.hints) {
+      hint = codingChallengeInfos.hints[Math.floor(Math.random() * codingChallengeInfos.hints.length)]
+    }
+  }
   if (verdict) {
     await utils.solveFindIt(key)
     res.status(200).json({
@@ -200,7 +208,8 @@ exports.checkVulnLines = () => async (req: Request<{}, {}, VerdictRequestBody>, 
   } else {
     accuracy.storeFindItVerdict(key, false)
     res.status(200).json({
-      verdict: false
+      verdict: false,
+      hint
     })
   }
 }
