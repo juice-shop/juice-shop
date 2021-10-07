@@ -197,7 +197,15 @@ exports.checkVulnLines = () => async (req: Request<{}, {}, VerdictRequestBody>, 
   if (fs.existsSync('./data/static/codefixes/' + key + '.info.yml')) {
     const codingChallengeInfos = yaml.load(fs.readFileSync('./data/static/codefixes/' + key + '.info.yml', 'utf8'))
     if (codingChallengeInfos?.hints) {
-      hint = codingChallengeInfos.hints[Math.floor(Math.random() * codingChallengeInfos.hints.length)]
+      if (accuracy.getFindItAttempts(key) > codingChallengeInfos.hints.length) {
+        if (vulnLines.length === 1) {
+          hint = res.__('Line {{vulnLine}} is responsible for this vulnerability or security flaw. Select it and submit to proceed.', { vulnLine: vulnLines[0].toString() })
+        } else {
+          hint = res.__('Lines {{vulnLines}} are responsible for this vulnerability or security flaw. Select them and submit to proceed.', { vulnLines: vulnLines.toString() })
+        }
+      } else {
+        hint = codingChallengeInfos.hints[accuracy.getFindItAttempts(key) - 1] // -1 prevents after first attempt
+      }
     }
   }
   if (verdict) {
