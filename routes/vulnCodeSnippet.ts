@@ -6,7 +6,7 @@
 import { Request, Response, NextFunction } from 'express'
 import fs from 'graceful-fs'
 import actualFs from 'fs'
-import yaml from "js-yaml";
+import yaml from 'js-yaml'
 
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
