@@ -37,6 +37,7 @@ export class CodeSnippetComponent implements OnInit {
   public tab: FormControl = new FormControl(0)
   public lock: ResultState = ResultState.Undecided
   public result: ResultState = ResultState.Undecided
+  public hint: string = null
   public explanation: string = null
   public solved: Solved = { findIt: false, fixIt: false }
 
@@ -94,6 +95,7 @@ export class CodeSnippetComponent implements OnInit {
   checkLines = () => {
     this.vulnLinesService.check(this.dialogData.key, this.selectedLines).subscribe((verdict: result) => {
       this.setVerdict(verdict.verdict)
+      this.hint = verdict.hint
     })
   }
 

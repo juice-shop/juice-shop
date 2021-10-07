@@ -27,6 +27,9 @@
           </pre>
         </div>
       </div>
+      <mat-card *ngIf="hint" class="primary-notification">
+        {{hint}}
+      </mat-card>
       <mat-dialog-actions align="end" class="dialogAction">
         <button mat-button style="height: 0; position: absolute;">
           <!-- 'absorbs' the auto-focus behavior -->
@@ -57,7 +60,7 @@
             <app-code-fixes *ngIf="snippet !== null && fixes !== null" [snippet]="snippet?.snippet" [fixes] = "fixes" (changeFix)="setFix($event)"></app-code-fixes>
           </div>
         </div>
-        <mat-card *ngIf="explanation" class="primary-notification">
+        <mat-card *ngIf="explanation" class="primary-notification explanation">
           {{explanation}}
         </mat-card>
         <mat-dialog-actions align="end" class="dialogAction">
