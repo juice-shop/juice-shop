@@ -78,8 +78,8 @@ export const checkCorrectFix = () => async (req: Request<{}, {}, VerdictRequestB
   } else {
     let selectedFixInfo
     if (fs.existsSync('./data/static/codefixes/' + key + '.info.yml')) {
-      const fixInfos = yaml.load(fs.readFileSync('./data/static/codefixes/' + key + '.info.yml', 'utf8'))
-      selectedFixInfo = fixInfos?.fixes.find(({ id }) => id === selectedFix + 1)
+      const codingChallengeInfos = yaml.load(fs.readFileSync('./data/static/codefixes/' + key + '.info.yml', 'utf8'))
+      selectedFixInfo = codingChallengeInfos?.fixes.find(({ id }) => id === selectedFix + 1)
     }
     if (selectedFix === fixData.correct) {
       await utils.solveFixIt(key)
