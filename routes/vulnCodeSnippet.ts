@@ -204,7 +204,8 @@ exports.checkVulnLines = () => async (req: Request<{}, {}, VerdictRequestBody>, 
           hint = res.__('Lines {{vulnLines}} are responsible for this vulnerability or security flaw. Select them and submit to proceed.', { vulnLines: vulnLines.toString() })
         }
       } else {
-        hint = codingChallengeInfos.hints[accuracy.getFindItAttempts(key) - 1] // -1 prevents after first attempt
+        const nextHint = codingChallengeInfos.hints[accuracy.getFindItAttempts(key) - 1] // -1 prevents after first attempt
+        if (nextHint) hint = res.__(nextHint)
       }
     }
   }
