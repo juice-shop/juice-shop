@@ -318,5 +318,11 @@
 	"OWASP Juice Shop Card (non-foil)": "OWASP Juice Shop Card (non-foil)",
 	"Mythic rare <small><em>(obviously...)</em></small> card \"OWASP Juice Shop\" with three distinctly useful abilities. Alpha printing, mint condition. A true collectors piece to own!": "Mythic rare <small><em>(obviously...)</em></small> card \"OWASP Juice Shop\" with three distinctly useful abilities. Alpha printing, mint condition. A true collectors piece to own!",
 	"Line {{vulnLine}} is responsible for this vulnerability or security flaw. Select it and submit to proceed.": "Line {{vulnLine}} is responsible for this vulnerability or security flaw. Select it and submit to proceed.",
-	"Lines {{vulnLines}} are responsible for this vulnerability or security flaw. Select them and submit to proceed.": "Lines {{vulnLines}} are responsible for this vulnerability or security flaw. Select them and submit to proceed."
+	"Lines {{vulnLines}} are responsible for this vulnerability or security flaw. Select them and submit to proceed.": "Lines {{vulnLines}} are responsible for this vulnerability or security flaw. Select them and submit to proceed.",
+	"Receive a coupon code from the support chatbot.": "Receive a coupon code from the support chatbot.",
+	"Just keep asking.": "Just keep asking.",
+	"Permanently disable the support chatbot so that it can no longer answer customer queries.": "Permanently disable the support chatbot so that it can no longer answer customer queries.",
+	"Think of a way to get a hold of the internal workings on the chatbot API.": "Think of a way to get a hold of the internal workings on the chatbot API.",
+	"Gain read access to an arbitrary local file on the web server.": "Gain read access to an arbitrary local file on the web server.",
+	"You should read up on vulnerabilities in popular NodeJs template engines.": "You should read up on vulnerabilities in popular NodeJs template engines."
 }
