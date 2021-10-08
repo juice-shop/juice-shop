@@ -76,22 +76,23 @@ export const checkCorrectFix = () => async (req: Request<{}, {}, VerdictRequestB
       error: 'No fixes found for the snippet!'
     })
   } else {
-    let selectedFixInfo
+    let explanation
     if (fs.existsSync('./data/static/codefixes/' + key + '.info.yml')) {
       const codingChallengeInfos = yaml.load(fs.readFileSync('./data/static/codefixes/' + key + '.info.yml', 'utf8'))
-      selectedFixInfo = codingChallengeInfos?.fixes.find(({ id }) => id === selectedFix + 1)
+      const selectedFixInfo = codingChallengeInfos?.fixes.find(({ id }) => id === selectedFix + 1)
+      if (selectedFixInfo?.explanation) explanation = res.__(selectedFixInfo.explanation)
     }
     if (selectedFix === fixData.correct) {
       await utils.solveFixIt(key)
       res.status(200).json({
         verdict: true,
-        explanation: selectedFixInfo?.explanation
+        explanation
       })
     } else {
       accuracy.storeFixItVerdict(key, false)
       res.status(200).json({
         verdict: false,
-        explanation: selectedFixInfo?.explanation
+        explanation
       })
     }
   }
