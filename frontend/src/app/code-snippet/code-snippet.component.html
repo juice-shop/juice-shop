@@ -57,7 +57,7 @@
         <div fxLayout="row" fxLayoutGap="10px">
           <app-code-fixes *ngIf="snippet !== null && fixes !== null" [snippet]="snippet?.snippet" [fixes] = "fixes" (changeFix)="setFix($event)"></app-code-fixes>
         </div>
-        <mat-card *ngIf="explanation" class="primary-notification">
+        <mat-card *ngIf="explanation" [class]="resultColor() === 'warn' ? 'warn-notification' : 'accent-notification'">
           {{explanation}}
         </mat-card>
       </div>
