@@ -13,7 +13,6 @@
   (selectedIndexChange) = "toggleTab($event)"
   >
       <mat-tab [label]="('TAB_FIND_IT' | translate)">
-      <!-- <mat-divider></mat-divider> -->
       <div class="container" fxLayout="column">
         <div fxLayout="row" fxLayoutGap="10px">
           <app-code-area
@@ -26,10 +25,10 @@
             <code translate>LOADING_CODE_SNIPPET</code>
           </pre>
         </div>
+        <mat-card *ngIf="hint" class="primary-notification">
+          {{hint}}
+        </mat-card>
       </div>
-      <mat-card *ngIf="hint" class="primary-notification">
-        {{hint}}
-      </mat-card>
       <mat-dialog-actions align="end" class="dialogAction">
         <button mat-button style="height: 0; position: absolute;">
           <!-- 'absorbs' the auto-focus behavior -->
@@ -54,33 +53,32 @@
         {{'TAB_FIX_IT' | translate}}
         <mat-icon class="materaial-icons-outlined" [color]="lockColor()">{{lockIcon()}}</mat-icon>
       </ng-template>
-      <!-- <mat-divider></mat-divider> -->
-        <div class="container" fxLayout="column">
-          <div fxLayout="row" fxLayoutGap="10px">
-            <app-code-fixes *ngIf="snippet !== null && fixes !== null" [snippet]="snippet?.snippet" [fixes] = "fixes" (changeFix)="setFix($event)"></app-code-fixes>
-          </div>
+      <div class="container" fxLayout="column">
+        <div fxLayout="row" fxLayoutGap="10px">
+          <app-code-fixes *ngIf="snippet !== null && fixes !== null" [snippet]="snippet?.snippet" [fixes] = "fixes" (changeFix)="setFix($event)"></app-code-fixes>
         </div>
-        <mat-card *ngIf="explanation" class="primary-notification explanation">
+        <mat-card *ngIf="explanation" class="primary-notification">
           {{explanation}}
         </mat-card>
-        <mat-dialog-actions align="end" class="dialogAction">
-          <button mat-button style="height: 0; position: absolute;">
-            <!-- 'absorbs' the auto-focus behavior -->
-          </button>
-          <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="Close Dialog" [mat-dialog-close]="solved">
-            <i class="material-icons">
-              close
-            </i>
-            <span>  {{'BTN_CLOSE' | translate}}</span>
-          </button>
-          <button mat-stroked-button (click) = "checkFix()" [disabled]="this.solved.fixIt">
-            <span>  {{'BTN_SUBMIT' | translate}}</span>
-            <mat-icon [color]="resultColor()">
-              {{ resultIcon() }}
-            </mat-icon>
-          </button>
-          <br/>
-        </mat-dialog-actions>
+      </div>
+      <mat-dialog-actions align="end" class="dialogAction">
+        <button mat-button style="height: 0; position: absolute;">
+          <!-- 'absorbs' the auto-focus behavior -->
+        </button>
+        <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="Close Dialog" [mat-dialog-close]="solved">
+          <i class="material-icons">
+            close
+          </i>
+          <span>  {{'BTN_CLOSE' | translate}}</span>
+        </button>
+        <button mat-stroked-button (click) = "checkFix()" [disabled]="this.solved.fixIt">
+          <span>  {{'BTN_SUBMIT' | translate}}</span>
+          <mat-icon [color]="resultColor()">
+            {{ resultIcon() }}
+          </mat-icon>
+        </button>
+        <br/>
+      </mat-dialog-actions>
     </mat-tab>
   </mat-tab-group>
 </mat-dialog-content>
