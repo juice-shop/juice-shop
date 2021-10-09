@@ -57,10 +57,7 @@ export class CodeSnippetComponent implements OnInit {
     })
     this.codeFixesService.get(this.dialogData.key).subscribe((fixes) => {
       this.fixes = fixes.fixes
-      this.solved.fixIt = false
-      if (this.dialogData.codingChallengeStatus >= 2) {
-        this.solved.fixIt = true
-      }
+      this.solved.fixIt = this.dialogData.codingChallengeStatus >= 2
     }, () => {
       this.fixes = null
     })
