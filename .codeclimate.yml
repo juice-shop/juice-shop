@@ -25,3 +25,4 @@ exclude_patterns:
   - 'frontend/src/hacking-instructor/**/*.ts'
   - 'frontend/src/assets/private/*.js'
   - 'lib/logger.ts'
+  - 'data/static/codefixes/**'
