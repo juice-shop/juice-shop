@@ -155,7 +155,7 @@ exports.sendNotification = function (challenge, isRestore) {
 
 exports.notSolved = challenge => challenge && !challenge.solved
 
-exports.findChallenge = (challengeName: string) => {
+exports.findChallengeByName = (challengeName: string) => {
   for (const c in challenges) {
     if (Object.prototype.hasOwnProperty.call(challenges, c)) {
       if (challenges[c].name === challengeName) {
@@ -166,7 +166,7 @@ exports.findChallenge = (challengeName: string) => {
   logger.warn('Missing challenge with name: ' + challengeName)
 }
 
-exports.findChallenge = (challengeId: number) => {
+exports.findChallengeById = (challengeId: number) => {
   for (const c in challenges) {
     if (Object.prototype.hasOwnProperty.call(challenges, c)) {
       if (challenges[c].id === challengeId) {
