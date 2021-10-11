@@ -4,13 +4,14 @@
  */
 
 import config = require('config')
+import { $$, browser } from 'protractor'
 
 describe('/#/administration', () => {
   describe('challenge "adminSection"', () => {
     protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
     it('should be possible to access administration section with admin user', () => {
-      browser.get(`${protractor.basePath}/#/administration`)
+      void browser.get(`${protractor.basePath}/#/administration`)
       expect(browser.getCurrentUrl()).toMatch(/\/administration/)
     })
 
@@ -21,9 +22,9 @@ describe('/#/administration', () => {
     protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
     it('should be possible for any admin user to delete feedback', () => {
-      browser.get(`${protractor.basePath}/#/administration`)
+      void browser.get(`${protractor.basePath}/#/administration`)
 
-      $$('.mat-cell.mat-column-remove > button').first().click()
+      void $$('.mat-cell.mat-column-remove > button').first().click()
     })
 
     protractor.expect.challengeSolved({ challenge: 'Five-Star Feedback' })

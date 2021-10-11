@@ -4,8 +4,9 @@
  */
 
 import config = require('config')
+import { browser } from 'protractor'
 const utils = require('../../lib/utils')
-let blueprint
+let blueprint: string
 
 for (const product of config.get('products')) {
   if (product.fileForRetrieveBlueprintChallenge) {
@@ -17,7 +18,7 @@ for (const product of config.get('products')) {
 describe('/', () => {
   describe('challenge "easterEgg2"', () => {
     it('should be able to access "secret" url for easter egg', () => {
-      browser.driver.get(`${browser.baseUrl}/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg`)
+      void browser.driver.get(`${browser.baseUrl}/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg`)
     })
 
     protractor.expect.challengeSolved({ challenge: 'Nested Easter Egg' })
@@ -25,7 +26,7 @@ describe('/', () => {
 
   describe('challenge "premiumPaywall"', () => {
     it('should be able to access "super secret" url for premium content', () => {
-      browser.driver.get(`${browser.baseUrl}/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us`)
+      void browser.driver.get(`${browser.baseUrl}/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us`)
     })
 
     protractor.expect.challengeSolved({ challenge: 'Premium Paywall' })
@@ -33,7 +34,7 @@ describe('/', () => {
 
   describe('challenge "privacyPolicyProof"', () => {
     it('should be able to access proof url for reading the privacy policy', () => {
-      browser.driver.get(`${browser.baseUrl}/we/may/also/instruct/you/to/refuse/all/reasonably/necessary/responsibility`)
+      void browser.driver.get(`${browser.baseUrl}/we/may/also/instruct/you/to/refuse/all/reasonably/necessary/responsibility`)
     })
 
     protractor.expect.challengeSolved({ challenge: 'Privacy Policy Inspection' })
@@ -41,7 +42,7 @@ describe('/', () => {
 
   describe('challenge "extraLanguage"', () => {
     it('should be able to access the Klingon translation file', () => {
-      browser.driver.get(`${browser.baseUrl}/assets/i18n/tlh_AA.json`)
+      void browser.driver.get(`${browser.baseUrl}/assets/i18n/tlh_AA.json`)
     })
 
     protractor.expect.challengeSolved({ challenge: 'Extra Language' })
@@ -49,7 +50,7 @@ describe('/', () => {
 
   describe('challenge "retrieveBlueprint"', () => {
     it('should be able to access the blueprint file', () => {
-      browser.driver.get(`${browser.baseUrl}/assets/public/images/products/${blueprint}`)
+      void browser.driver.get(`${browser.baseUrl}/assets/public/images/products/${blueprint}`)
     })
 
     protractor.expect.challengeSolved({ challenge: 'Retrieve Blueprint' })
@@ -57,7 +58,7 @@ describe('/', () => {
 
   describe('challenge "missingEncoding"', () => {
     it('should be able to access the crazy cat photo', () => {
-      browser.driver.get(`${browser.baseUrl}/assets/public/images/uploads/%F0%9F%98%BC-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg`)
+      void browser.driver.get(`${browser.baseUrl}/assets/public/images/uploads/%F0%9F%98%BC-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg`)
     })
 
     protractor.expect.challengeSolved({ challenge: 'Missing Encoding' })
@@ -65,7 +66,7 @@ describe('/', () => {
 
   describe('challenge "securityPolicy"', () => {
     it('should be able to access the security.txt file', () => {
-      browser.driver.get(`${browser.baseUrl}/.well-known/security.txt`)
+      void browser.driver.get(`${browser.baseUrl}/.well-known/security.txt`)
     })
 
     protractor.expect.challengeSolved({ challenge: 'Security Policy' })
@@ -73,7 +74,7 @@ describe('/', () => {
 
   describe('challenge "emailLeak"', () => {
     it('should be able to request the callback on /rest/user/whoami', () => {
-      browser.driver.get(`${browser.baseUrl}/rest/user/whoami?callback=func`)
+      void browser.driver.get(`${browser.baseUrl}/rest/user/whoami?callback=func`)
     })
 
     protractor.expect.challengeSolved({ challenge: 'Email Leak' })
