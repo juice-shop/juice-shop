@@ -82,7 +82,7 @@ describe('/', () => {
 
   describe('challenge "accessLogDisclosure"', () => {
     it('should be able to access today\'s access log file', () => {
-      browser.driver.get(`${browser.baseUrl}/support/logs/access.log.${utils.toISO8601(new Date())}`)
+      void browser.driver.get(`${browser.baseUrl}/support/logs/access.log.${utils.toISO8601(new Date())}`)
     })
 
     protractor.expect.challengeSolved({ challenge: 'Access Log' })
