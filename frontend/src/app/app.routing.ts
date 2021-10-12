@@ -44,11 +44,11 @@ import { AccountingGuard, AdminGuard, LoginGuard } from './app.guard'
 
 // vuln-code-snippet start adminSectionChallenge scoreBoardChallenge
 const routes: Routes = [
-  {
+  { // vuln-code-snippet neutral-line adminSectionChallenge
     path: 'administration', // vuln-code-snippet vuln-line adminSectionChallenge
-    component: AdministrationComponent,
-    canActivate: [AdminGuard]
-  },
+    component: AdministrationComponent, // vuln-code-snippet neutral-line adminSectionChallenge
+    canActivate: [AdminGuard] // vuln-code-snippet neutral-line adminSectionChallenge
+  }, // vuln-code-snippet neutral-line adminSectionChallenge
   {
     path: 'accounting',
     component: AccountingComponent,
@@ -155,10 +155,10 @@ const routes: Routes = [
     path: 'hacking-instructor',
     component: SearchResultComponent
   },
-  {
+  { // vuln-code-snippet neutral-line scoreBoardChallenge
     path: 'score-board', // vuln-code-snippet vuln-line scoreBoardChallenge
-    component: ScoreBoardComponent
-  },
+    component: ScoreBoardComponent // vuln-code-snippet neutral-line scoreBoardChallenge
+  }, // vuln-code-snippet neutral-line scoreBoardChallenge
   {
     path: 'track-result',
     component: TrackResultComponent

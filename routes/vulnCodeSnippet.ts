@@ -98,9 +98,7 @@ const setStatusCode = (error: any) => {
 export const retrieveCodeSnippet = async (key: string) => {
   const challenge = challenges[key]
   if (challenge) {
-    if (cache[challenge.key]) {
-      return cache[challenge.key]
-    } else {
+    if (!cache[challenge.key]) {
       const match = new RegExp(`vuln-code-snippet start.*${challenge.key}`)
       const matches = await fileSniff(SNIPPET_PATHS, match)
       if (matches[0]) { // TODO Currently only a single source file is supported
@@ -118,14 +116,17 @@ export const retrieveCodeSnippet = async (key: string) => {
           if (lines.length === 1) lines = snippet.split('\n')
           if (lines.length === 1) lines = snippet.split('\r')
           const vulnLines = []
+          const neutralLines = []
           for (let i = 0; i < lines.length; i++) {
             if (new RegExp(`vuln-code-snippet vuln-line.*${challenge.key}`).exec(lines[i]) != null) {
               vulnLines.push(i + 1)
+            } else if (new RegExp(`vuln-code-snippet neutral-line.*${challenge.key}`).exec(lines[i]) != null) {
+              neutralLines.push(i + 1)
             }
           }
           snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet vuln-line.*/g, '')
-          cache[challenge.key] = { snippet, vulnLines }
-          return { snippet: snippet, vulnLines: vulnLines }
+          snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet neutral-line.*/g, '')
+          cache[challenge.key] = { snippet, vulnLines, neutralLines }
         } else {
           throw new BrokenBoundary('Broken code snippet boundaries for: ' + challenge.key)
         }
@@ -133,6 +134,7 @@ export const retrieveCodeSnippet = async (key: string) => {
         throw new SnippetNotFound('No code snippet available for: ' + challenge.key)
       }
     }
+    return cache[challenge.key]
   } else {
     throw new UnknownChallengekey('Unknown challenge key: ' + key)
   }
@@ -163,21 +165,13 @@ exports.serveChallengesWithCodeSnippet = () => async (req: Request, res: Respons
   res.json({ challenges: codingChallenges })
 }
 
-export const getVerdict = (vulnLines: number[], selectedLines: number[]) => {
-  let verdict: boolean = true
+export const getVerdict = (vulnLines: number[], neutralLines: number[], selectedLines: number[]) => {
   if (selectedLines === undefined) return false
-  vulnLines.sort((a, b) => a - b)
-  selectedLines.sort((a, b) => a - b)
-  if (vulnLines.length !== selectedLines.length) {
-    verdict = false
-  }
-  for (let i = 0; i < vulnLines.length; i++) {
-    if (vulnLines[i] !== selectedLines[i]) {
-      verdict = false
-    }
-  }
-
-  return verdict
+  if (vulnLines.length > selectedLines.length) return false
+  if (!vulnLines.every(e => selectedLines.includes(e))) return false
+  const okLines = [...vulnLines, ...neutralLines]
+  const notOkLines = selectedLines.filter(x => !okLines.includes(x))
+  return notOkLines.length === 0
 }
 
 exports.checkVulnLines = () => async (req: Request<{}, {}, VerdictRequestBody>, res: Response, next: NextFunction) => {
@@ -191,8 +185,9 @@ exports.checkVulnLines = () => async (req: Request<{}, {}, VerdictRequestBody>, 
     return
   }
   const vulnLines: number[] = snippetData.vulnLines
+  const neutralLines: number[] = snippetData.neutralLines
   const selectedLines: number[] = req.body.selectedLines
-  const verdict = getVerdict(vulnLines, selectedLines)
+  const verdict = getVerdict(vulnLines, neutralLines, selectedLines)
   let hint
   if (fs.existsSync('./data/static/codefixes/' + key + '.info.yml')) {
     const codingChallengeInfos = yaml.load(fs.readFileSync('./data/static/codefixes/' + key + '.info.yml', 'utf8'))
