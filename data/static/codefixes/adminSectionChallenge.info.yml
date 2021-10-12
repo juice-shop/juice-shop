@@ -1,0 +1,12 @@
+fixes:
+  - id: 1
+    explanation: 'While attempts could be made to limit access to administrative functions of a web shop through access control, it is definitely safer to apply the "separation of concerns" pattern more strictly by internally hosting a distinct admin backend application with no Internet exposure.'
+  - id: 2
+    explanation: "Obfuscating the path to the administration section does not add any security, even if it wasn't just a trivial Base64 encoding."
+  - id: 3
+    explanation: 'This obfuscation attempt is hard to undo by hand but trivial when executed in a JavaScript console. Regardless, obfuscating the route does not add any level of security.'
+  - id: 4
+    explanation: 'Assuming that the original "AdminGuard" provided access control only to admin users, switching to "LoginGuard" seems like a downgrade to give access to any authenticated user.'
+hints:
+  - "Among the long list of route mappings, can you spot any that seem responsible for admin-related functionality?"
+  - "Luckily the route mappings were originally in alphabetical order before the developers forgot about that rule at some point."
