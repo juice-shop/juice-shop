@@ -167,7 +167,7 @@
   tags:
     - Tutorial
     - Good for Demos
-  description: 'Perform a <i>DOM</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code>.'
+  description: 'Perform a <i>DOM</i> XSS attack with <code>&lt;iframe src=&quot;javascript:alert(`xss`)&quot;&gt;</code>.'
   difficulty: 1
   hint: 'Look for an input field where its content appears in the HTML when its form is submitted.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#perform-a-dom-xss-attack'
