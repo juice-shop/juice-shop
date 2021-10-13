@@ -4,7 +4,7 @@ fixes:
   - id: 2
     explanation: "Switching off the detailed view option is a cosmetic change on the directory listing but still allows the logs to be browsed and accessed."
   - id: 3
-    explanation: 'Removing the route that serves individual the log files is likely to plumb the data leak but still provides information to the attacker unnecessarily.'
+    explanation: 'Removing the route that serves individual log files is likely to plumb the data leak but still provides information to the attacker unnecessarily.'
   - id: 4
     explanation: 'Removing only the directory listing will still allow attackers to download individual log files if they can come up with a valid file name.'
 hints:
