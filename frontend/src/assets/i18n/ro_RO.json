@@ -405,12 +405,12 @@
   "CATEGORY_VULNERABLE_COMPONENTS_DESCRIPTION": "Components, such as libraries, frameworks, and other software modules, run with the same privileges as the application. If a vulnerable component is exploited, such an attack can facilitate serious data loss or server takeover. Applications and APIs using components with known vulnerabilities may undermine application defenses and enable various attacks and impacts.",
   "CATEGORY_XSS_DESCRIPTION": "Cross-Site Scripting (XSS) flaws occur whenever an application includes untrusted data in a new web page without proper validation or escaping, or updates an existing web page with user-supplied data using a browser API that can create HTML or JavaScript. XSS allows attackers to execute scripts in the victim’s browser which can hijack user sessions, deface web sites, or redirect the user to malicious sites.",
   "CATEGORY_XXE_DESCRIPTION": "Many older or poorly configured XML processors evaluate external entity references within XML documents. External entities can be used to disclose internal files using the file URI handler, internal file shares, internal port scanning, remote code execution, and denial of service attacks.",
-  "INSUFFICIENT_WALLET_BALANCE": "Insufficient wallet balance.",
+  "INSUFFICIENT_WALLET_BALANCE": "Fonduri insuficiente.",
   "LAUNCH_CODING_CHALLENGE": "Launch associated coding challenge.",
   "LOADING_CODE_SNIPPET": "Loading code snippet...",
-  "SOLVE_HACKING_CHALLENGE": "Solve the hacking challenge to unlock the associated coding challenge.",
-  "LABEL_CORRECT_FIX": "Correct Fix",
-  "TITLE_CODING_CHALLENGE": "Coding Challenge",
-  "TAB_FIND_IT": "Find It",
-  "TAB_FIX_IT": "Fix It"
+  "SOLVE_HACKING_CHALLENGE": "Rezolvă provocarea de hacking pentru a debloca provocarea de codare asociată.",
+  "LABEL_CORRECT_FIX": "Corectează-l",
+  "TITLE_CODING_CHALLENGE": "Provocare de codare",
+  "TAB_FIND_IT": "Găsește-l",
+  "TAB_FIX_IT": "Repară-l"
 }
