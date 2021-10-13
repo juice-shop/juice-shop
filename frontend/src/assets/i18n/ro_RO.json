@@ -371,7 +371,7 @@
   "TAG_TUTORIAL_DESCRIPTION": "Marchează provocările pentru care Hacking Instructor este necesar pentru a asista nou-veniții.",
   "TAG_BRUTE_FORCE": "Forţă brută",
   "TAG_BRUTE_FORCE_DESCRIPTION": "Marchează provocările unde automatizarea unui instrument de securitate sau script personalizat este o opțiune sau chiar o condiție prealabilă.",
-  "TAG_GOOD_PRACTICE": "Good Practice",
+  "TAG_GOOD_PRACTICE": "Bune practici",
   "TAG_GOOD_PRACTICE_DESCRIPTION": "Highlights challenges which are less about vulnerabilities but promoting good (security) practices.",
   "TAG_CODE_ANALYSIS": "Code Analysis",
   "TAG_CODE_ANALYSIS_DESCRIPTION": "Marks challenges where it can be helpful to rummage through some source code of the application or a third party.",
