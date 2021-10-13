@@ -7,6 +7,7 @@
 import packageJson from '../package.json'
 import { Op } from 'sequelize'
 import fs = require('fs')
+
 const colors = require('colors/safe')
 const notifications = require('../data/datacache').notifications
 const challenges = require('../data/datacache').challenges
@@ -116,10 +117,6 @@ exports.solveIf = function (challenge, criteria, isRestore) {
 exports.solve = function (challenge, isRestore) {
   challenge.solved = true
   challenge.save().then((solvedChallenge) => {
-    solvedChallenge.description = entities.decode(sanitizeHtml(solvedChallenge.description, {
-      allowedTags: [],
-      allowedAttributes: []
-    }))
     logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} ${solvedChallenge.difficulty}-star ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
     this.sendNotification(solvedChallenge, isRestore)
     if (!isRestore) {
@@ -139,7 +136,7 @@ exports.sendNotification = function (challenge, isRestore) {
     const notification = {
       key: challenge.key,
       name: challenge.name,
-      challenge: challenge.name + ' (' + challenge.description + ')',
+      challenge: challenge.name + ' (' + entities.decode(sanitizeHtml(challenge.description, { allowedTags: [], allowedAttributes: [] })) + ')',
       flag: flag,
       hidden: !config.get('challenges.showSolvedNotifications'),
       isRestore: isRestore
