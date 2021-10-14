@@ -382,7 +382,7 @@
   "CATEGORY_IMPROPER_INPUT_VALIDATION": "Improper Input Validation",
   "CATEGORY_INJECTION": "Injecție",
   "CATEGORY_INSECURE_DESERIALIZATION": "Insecure Deserialization",
-  "CATEGORY_MISCELLANEOUS": "Miscellaneous",
+  "CATEGORY_MISCELLANEOUS": "Diverse",
   "CATEGORY_SECURITY_MISCONFIGURATION": "Security Misconfiguration",
   "CATEGORY_SECURITY_THROUGH_OBSCURITY": "Security through Obscurity",
   "CATEGORY_SENSITIVE_DATA_EXPOSURE": "Sensitive Data Exposure",
