@@ -69,6 +69,7 @@ export class CodeSnippetComponent implements OnInit {
 
   setFix = (fix: number) => {
     this.selectedFix = fix
+    this.explanation = null
   }
 
   toggleTab = (event: number) => {
