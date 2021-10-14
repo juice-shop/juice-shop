@@ -374,7 +374,7 @@
   "TAG_GOOD_PRACTICE": "Bune practici",
   "TAG_GOOD_PRACTICE_DESCRIPTION": "Evidențiază provocările care țin mai puțin de vulnerabilități, dar care promovează bunele practici (de securitate).",
   "TAG_CODE_ANALYSIS": "Analiză a codului",
-  "TAG_CODE_ANALYSIS_DESCRIPTION": "Marks challenges where it can be helpful to rummage through some source code of the application or a third party.",
+  "TAG_CODE_ANALYSIS_DESCRIPTION": "Marchează provocările acolo unde poate fi utilă investigarea codului sursă al aplicației sau al unei librării terțe.",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "Broken Access Control",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "Broken Anti Automation",
   "CATEGORY_BROKEN_AUTHENTICATION": "Broken Authentication",
