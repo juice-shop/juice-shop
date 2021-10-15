@@ -177,12 +177,12 @@ where this project was mentioned or used!
 
 ## Lectures and Trainings
 
+* Courses on the [freeCodeCamp.org](https://www.YouTube.com/channel/UC8butISFwT-Wl7EV0hUK0BQ)
+  YouTube channel
+  * [Ethical Hacking 101: Web App Penetration Testing - a full course for beginners](https://youtu.be/2_lswM1S264) :godmode: by HackerSploit
+  * [Web Application Ethical Hacking - Penetration Testing Course for Beginners](https://youtu.be/X4eRbHgRawI) :godmode: by The Cyber Mentor
 * [Intro to Semgrep](https://lab.github.com/returntocorp/intro-to-semgrep)
   GitHub Learning Lab
-* [Web Application Ethical Hacking - Penetration Testing Course for Beginners](https://youtu.be/X4eRbHgRawI)
-  :godmode: by The Cyber Mentor on
-  [freeCodeCamp.org](https://www.YouTube.com/channel/UC8butISFwT-Wl7EV0hUK0BQ)'s
-  YouTube channel
 * [Real World Web Penetration Testing](https://training.secureideas.com/course/real-world-web-pentesting/start-course/)
   course by Jason Gillam :dollar:
 * [Brakeing Down Security Web App Sec Training #1](https://drive.google.com/drive/folders/0B-qfQ-gWynwidlJ1YjgxakdPWDA)
