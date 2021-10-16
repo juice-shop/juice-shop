@@ -607,8 +607,8 @@ const uploadToDisk = multer({
 
 // vuln-code-snippet start exposedMetricsChallenge
 /* Serve metrics */
-const Metrics = metrics.observeMetrics()
-const metricsUpdateLoop = Metrics.updateLoop
+const Metrics = metrics.observeMetrics() // vuln-code-snippet neutral-line exposedMetricsChallenge
+const metricsUpdateLoop = Metrics.updateLoop // vuln-code-snippet neutral-line exposedMetricsChallenge
 app.get('/metrics', metrics.serveMetrics()) // vuln-code-snippet vuln-line exposedMetricsChallenge
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
