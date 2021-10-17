@@ -363,7 +363,7 @@
   "TAG_PREREQUISITE_DESCRIPTION": "Marchează provocările care trebuie rezolvate înainte ca una sau mai multe alte provocări să poată fi (in mod realistic) rezolvate.",
   "TAG_OSINT": "OSINT",
   "TAG_OSINT_DESCRIPTION": "Marchează provocările care necesită cercetări pe Internet sau o acțiune de „stalking social” în afara aplicației.",
-  "TAG_CONTRAPTION": "Contraption",
+  "TAG_CONTRAPTION": "Invenție",
   "TAG_CONTRAPTION_DESCRIPTION": "Indică faptul că o provocare nu face parte tocmai dintr-un scenariu realist, ci poate fi puțin forțată sau meșteșugită.",
   "TAG_SHENANIGANS": "Prostii",
   "TAG_SHENANIGANS_DESCRIPTION": "Marchează provocările care nu sunt considerate grave și/sau realiste, dar există mai mult pentru divertisment.",
