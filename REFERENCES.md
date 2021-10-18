@@ -25,6 +25,7 @@ where this project was mentioned or used!
 
 ### Pod- & Webcasts
 
+* [OWASP Spotlight - Project 20 - OWASP Security Pin](https://www.youtube.com/watch?v=GnSddCV4UwM) by Vandana Verma with Timo Pagel :mega:
 * [People | Process | Technology Podcast](https://soundcloud.com/owasp-podcast/)
   (fka "OWASP 24/7 Podcast"):
   * [OWASP Flagship Projects - Episode 02](https://soundcloud.com/owasp-podcast/owasp-flagship-projects-episode-02)
