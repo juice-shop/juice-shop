@@ -10,8 +10,8 @@
 
 ## GitHub Contributors
 
-As reported by [`git-stats -a -s '2014'`](https://www.npmjs.com/package/git-stats) analysis
-of `master` as of Tue, 5 Oct 2021 after deduplication with `.mailmap`.
+As reported by [`git-stats -a -s '2014'`](https://www.npmjs.com/package/git-stats) analysis of `master` as of Tue, 5 Oct
+2021 after deduplication with `.mailmap`.
 
 ![Top git contributors](screenshots/git-stats.png)
 
@@ -19,8 +19,7 @@ of `master` as of Tue, 5 Oct 2021 after deduplication with `.mailmap`.
 
 As exported from
 [CrowdIn Top Members Report](https://crowdin.com/project/owasp-juice-shop/reports/top-members)
-(by # of translated words) for all languages as of Thu, 16 Sep 2021
-after
+(by # of translated words) for all languages as of Thu, 16 Sep 2021 after
 [conversion into Markdown](https://thisdavej.com/copy-table-in-excel-and-paste-as-a-markdown-table/).
 
 | Name                         | Languages                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Translated |
@@ -48,19 +47,51 @@ after
 
 **Additional translations by:**
 
-Alexander Nissen (Nissen96),fabrizio1979,OrNol (TRNSRL),Jorge Estigarribia (jorgestiga),Pablo Barrera (pablo.barrera),Coink (CoinkWang),Phakphum Visetnut (phakphum_visetnut),Kamil Vavra (vavkamil),Abdo Farwan (abdofarwan),AviD (avidouglen),Stella Dineva (stella.dineva),Stavros M. (msstavros),Fredrik Bore (Boren),GiorgiSharia,Songrit Kitisriworapan (songritk),Oussama Bouthouri (Boussama),sergio.kubota,Ender Çulha (ecu),Claudio Snidero (cla7997),Marc Rüttler (MarcRler),r0n1am,Davis Freimanis (davisfreimanis),fieldhill13,thinbashane,rToxic,stejkenzie,adeyosemanputra,Kylian Runembert (FunnHydra),Andrew Pio (siranen),Henry Hu (ninedter),zvargun,timexlord,ztzxt,Daniel Paniagua (danielgpm),Mehyar Shammas (mashkuov),asifnm,Estevam Arantes (Es7evam),REMOVED_USER,FoteiniAthina,orjen,vientspam,Allan Kimmer Jensen (Saturate),Idomin Ninja (Idomin),BostonLow,Abdullah alshowaiey (Abdullah201),にのせき (ninoseki),Egert Aia (aiaegert),Nico Ådahl (nigotiator),Lars Grini (lars.grini),Pär Svedberg (grebdevs),rakzcs,Tomas Rosenqvist (Muamaidbengt),Karl (spruur),MrNinhoJr a (mrninhojr),Albert Camps (campsupc),Zenmaster212,jasinski_tomasz,Daan Sprenkels (dsprenkels),Aleksandra Niemyska (niemyskaa),atteism,Diego Andreé Porras Rivas (andree.rivas),mateomartinez,Rasmus Bidstrup (rasmusbidstrup),Koji O (marlboro20light),Bruno Rodrigues (bmvr),Riotaro OKADA (riotaro),talisainen,OliverkeHU,Kitisak Jirawannakool (jkitisak),Bart Decker (Decker),Mohammad Febri Ramadlan (mohammadfebrir),Manu B (Rosina),coavacoffee,bill (Hawxdu),Klas Fahlberg (FahlbergKlas),CarlCampbell,Natalia (notNao),Lenka Dubois (lenkadubois),Syahrol,Mattias Persson (mattiasbpersson),rachidbm,André Santos Duarte Fonseca (Andre_Duarte),cello-anders,Store (HelaBasa),Oussama Bouthouri (oussama.bouthouri),bmoritz,GK (lollipas),landinl,mrudul,Héctor Lecuanda (hlecuanda),Michiya Tominaga (nuwaa),Ilkka Savela (ile2021),Mircea Ulmeanu (boltzmann.gt),Martin Hartl (hartlmartin),Roy Quiceno (rquiceno),Carlos Allendes (OwaspChile),redr0n19,ManuelFranz,Anthony3000,Yang Lucas (Lucas.y),REMOVED_USER,Richardson Lima (contatorichardsonlima),nilfigo,soledad aro (cristinagarciaaro),Katharina Wittkowsky (kwittkowsky),Frederik Bøgeskov Johnsen (cpfbj),kahfiehudson,motofy,Origami,dav1ds,Stefan Daugaard Poulsen (cyberzed),Ezequiel Andino (acidobinario),Isis Harris (latinadeveloper),4ourth (fourth-4),REMOVED_USER,h3nrychoi,Omer Levi Hevroni (omerlh),Sen UENO (uenosen),Mohammad Febri Ramadlan (vebryidiot),alopezhu,Abas Abas (abas70127),Umpawan Halap (umpawanhalap),xsi,Björn Palmqvist (bjornpalmqvist),Fabio Tavano (tavano.fabio),Anders Lindberg (anderslimpan),bahrunghozali,sutanci,PorPor Hai (eung.porhai),pena69,Kevin Eliezer García Peña (kevinel.gp),vikram.tp07
+Alexander Nissen (Nissen96), fabrizio1979, OrNol (TRNSRL), Jorge Estigarribia (jorgestiga), Pablo Barrera (
+pablo.barrera)
+, Coink (CoinkWang), Phakphum Visetnut (phakphum_visetnut), Kamil Vavra (vavkamil), Abdo Farwan (abdofarwan), AviD (
+avidouglen), Stella Dineva (stella.dineva), Stavros M. (msstavros), Fredrik Bore (Boren), GiorgiSharia, Songrit
+Kitisriworapan (songritk), Oussama Bouthouri (Boussama), sergio.kubota, Ender Çulha (ecu), Claudio Snidero (cla7997),
+Marc Rüttler (MarcRler), r0n1am, Davis Freimanis (davisfreimanis)
+, fieldhill13, thinbashane, rToxic, stejkenzie, adeyosemanputra, Kylian Runembert (FunnHydra), Andrew Pio (siranen),
+Henry Hu (
+ninedter), zvargun, timexlord, ztzxt, Daniel Paniagua (danielgpm), Mehyar Shammas (mashkuov), asifnm, Estevam Arantes (
+Es7evam)
+, REMOVED_USER, FoteiniAthina, orjen, vientspam, Allan Kimmer Jensen (Saturate), Idomin Ninja (Idomin), BostonLow,
+Abdullah alshowaiey (Abdullah201), にのせき (ninoseki), Egert Aia (aiaegert), Nico Ådahl (nigotiator), Lars Grini (
+lars.grini), Pär Svedberg (grebdevs), rakzcs, Tomas Rosenqvist (Muamaidbengt), Karl (spruur), MrNinhoJr a (mrninhojr),
+Albert Camps (campsupc)
+, Zenmaster212, jasinski_tomasz, Daan Sprenkels (dsprenkels), Aleksandra Niemyska (niemyskaa), atteism, Diego Andreé
+Porras Rivas (andree.rivas), mateomartinez, Rasmus Bidstrup (rasmusbidstrup), Koji O (marlboro20light), Bruno
+Rodrigues (bmvr)
+, Riotaro OKADA (riotaro), talisainen, OliverkeHU, Kitisak Jirawannakool (jkitisak), Bart Decker (Decker), Mohammad
+Febri Ramadlan (mohammadfebrir), Manu B (Rosina), coavacoffee, bill (Hawxdu), Klas Fahlberg (FahlbergKlas),
+CarlCampbell, Natalia (
+notNao), Lenka Dubois (lenkadubois), Syahrol, Mattias Persson (mattiasbpersson), rachidbm, André Santos Duarte Fonseca (
+Andre_Duarte), cello-anders, Store (HelaBasa), Oussama Bouthouri (oussama.bouthouri), bmoritz, GK (lollipas)
+, landinl, mrudul, Héctor Lecuanda (hlecuanda), Michiya Tominaga (nuwaa), Ilkka Savela (ile2021), Mircea Ulmeanu (
+boltzmann.gt), Martin Hartl (hartlmartin), Roy Quiceno (rquiceno), Carlos Allendes (OwaspChile)
+, redr0n19, ManuelFranz, Anthony3000, Yang Lucas (Lucas.y), REMOVED_USER, Richardson Lima (contatorichardsonlima)
+, nilfigo, soledad aro (cristinagarciaaro), Katharina Wittkowsky (kwittkowsky), Frederik Bøgeskov Johnsen (cpfbj)
+, kahfiehudson, motofy, Origami, dav1ds, Stefan Daugaard Poulsen (cyberzed), Ezequiel Andino (acidobinario), Isis
+Harris (
+latinadeveloper), 4ourth (fourth-4), REMOVED_USER, h3nrychoi, Omer Levi Hevroni (omerlh), Sen UENO (uenosen), Mohammad
+Febri Ramadlan (vebryidiot), alopezhu, Abas Abas (abas70127), Umpawan Halap (umpawanhalap), xsi, Björn Palmqvist (
+bjornpalmqvist)
+, Fabio Tavano (tavano.fabio), Anders Lindberg (anderslimpan), bahrunghozali, sutanci, PorPor Hai (eung.porhai), pena69,
+Kevin Eliezer García Peña (kevinel.gp), vikram.tp07
 
 ## Special Thanks
 
 * Inspired by the "classic"
   [BodgeIt Store](https://github.com/psiinon/bodgeit) by
   [@psiinon](https://github.com/psiinon)
-* Revised OWASP Juice Shop and Juice Shop CTF logo artworks by Emily
-  Gundry (courtesy of [@SecureState](https://github.com/SecureState))
+* Revised OWASP Juice Shop and Juice Shop CTF logo artworks by Emily Gundry (courtesy
+  of [@SecureState](https://github.com/SecureState))
 * Wallpaper artworks by Mike Branscum (courtesy of
   [@daylightstudio](https://github.com/daylightstudio))
-* [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) cover
-  artwork by [Patch Kroll](https://99designs.de/profiles/3099878)
+* [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) cover artwork
+  by [Patch Kroll](https://99designs.de/profiles/3099878)
 * [Banner](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/banners)
   and
   [flyer](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/flyers)
