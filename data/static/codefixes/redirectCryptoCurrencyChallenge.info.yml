@@ -1,0 +1,13 @@
+fixes:
+  - id: 1
+    explanation: "You need to remove all crypto currency addresses, not only the blockchain.info."
+  - id: 2
+    explanation: "You need to remove all crypto currency addresses, not only the explorer.dash.org."
+  - id: 3
+    explanation: "Getting rid of all three crypto currency addresses is the simplest way to mitigate the problem."
+  - id: 4
+    explanation: "You need to remove all crypto currency addresses, not only the etherscan.io."
+hints:
+  - "Can you identify the lines which have something to do with crypto currency addresses?"
+  - "Did you notice there is a redirectAllowlist constant containing allowed redirect web addresses?"
+  - "Make sure to select all three lines, from redirectAllowlist, responsible for crypto currency addresses which are not promoted any longer."
