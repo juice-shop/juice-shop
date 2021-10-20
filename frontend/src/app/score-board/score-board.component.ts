@@ -55,6 +55,7 @@ export class ScoreBoardComponent implements OnInit {
   public showHackingInstructor: boolean = true
   public challenges: Challenge[] = []
   public percentChallengesSolved: string = '0'
+  public percentCodingChallengesSolved: string = '0'
   public solvedChallengesOfDifficulty: Challenge[][] = [[], [], [], [], [], []]
   public totalChallengesOfDifficulty: Challenge[][] = [[], [], [], [], [], []]
   public showContributionInfoBox: boolean = true
@@ -106,6 +107,7 @@ export class ScoreBoardComponent implements OnInit {
           this.availableChallengeCategories.sort((a, b) => a.localeCompare(b))
           this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(String(localStorage.getItem('displayedChallengeCategories'))) : this.availableChallengeCategories
           this.calculateProgressPercentage()
+          this.calculateCodingProgressPercentage()
           this.populateFilteredChallengeLists()
           this.calculateGradientOffsets(challenges)
           this.calculateTutorialTier(challenges)
@@ -173,6 +175,18 @@ export class ScoreBoardComponent implements OnInit {
 
   trustDescriptionHtml (challenge: Challenge) {
     challenge.description = this.sanitizer.bypassSecurityTrustHtml(challenge.description as string)
+  }
+
+  calculateCodingProgressPercentage () {
+    let numCodingChallenges = 0
+    let codingChallengeProgress = 0
+    for (let i = 0; i < this.challenges.length; i++) {
+      if (this.challenges[i].hasSnippet) {
+        numCodingChallenges++
+        codingChallengeProgress += this.challenges[i].codingChallengeStatus
+      }
+    }
+    this.percentCodingChallengesSolved = (100 * codingChallengeProgress / (numCodingChallenges * 2)).toFixed(0)
   }
 
   calculateProgressPercentage () {
@@ -370,6 +384,7 @@ export class ScoreBoardComponent implements OnInit {
           if (challenge.codingChallengeStatus < 2) {
             challenge.codingChallengeStatus = result.fixIt ? 2 : challenge.codingChallengeStatus
           }
+          this.calculateCodingProgressPercentage()
         }
       }
     })
