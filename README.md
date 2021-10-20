@@ -72,7 +72,7 @@ overview please visit the official project page:
    [log in to your account](https://id.heroku.com/login)
 2. Click the button below and follow the instructions
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/bkimminich/juice-shop/tree/master)
 
 > This is the quickest way to get a running instance of Juice Shop! If
 > you have forked this repository, the deploy button will automatically
