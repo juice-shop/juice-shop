@@ -4,7 +4,7 @@
   -->
 
 <div fxLayout="column">
-<div fxLayout="row">
+<div fxLayout="row" fxLayout.lt-md="column">
   <mat-card fxFlex="grow">
     <mat-card-title>{{"TITLE_SCORE_BOARD" | translate}}
       <small class="confirmation">{{percentChallengesSolved}}%</small>
@@ -13,9 +13,9 @@
   </mat-card>
   <mat-card *ngIf="showCodeSnippets !== 'never'">
     <mat-card-title>{{"TITLE_CODING_SCORE" | translate}}
-      <small class="confirmation">{{(100 * codingChallengeProgress / (numCodingChallenges * 2)).toFixed(0)}}%</small>
+      <small class="confirmation">{{percentCodingChallengesSolved}}%</small>
     </mat-card-title>
-    <mat-progress-bar mode="determinate" [color]="'accent'" [value]="(100 * codingChallengeProgress / (numCodingChallenges * 2))"></mat-progress-bar>
+    <mat-progress-bar mode="determinate" [color]="'accent'" [value]="percentCodingChallengesSolved"></mat-progress-bar>
   </mat-card>
 </div>
 

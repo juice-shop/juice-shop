@@ -55,14 +55,13 @@ export class ScoreBoardComponent implements OnInit {
   public showHackingInstructor: boolean = true
   public challenges: Challenge[] = []
   public percentChallengesSolved: string = '0'
+  public percentCodingChallengesSolved: string = '0'
   public solvedChallengesOfDifficulty: Challenge[][] = [[], [], [], [], [], []]
   public totalChallengesOfDifficulty: Challenge[][] = [[], [], [], [], [], []]
   public showContributionInfoBox: boolean = true
   public questionnaireUrl: string = 'https://forms.gle/2Tr5m1pqnnesApxN8'
   public appName: string = 'OWASP Juice Shop'
   public localBackupEnabled: boolean = true
-  public numCodingChallenges: number = 0
-  public codingChallengeProgress: number = 0
 
   constructor (private readonly configurationService: ConfigurationService, private readonly challengeService: ChallengeService, private readonly codeSnippetService: CodeSnippetService, private readonly sanitizer: DomSanitizer, private readonly ngZone: NgZone, private readonly io: SocketIoService, private readonly spinner: NgxSpinnerService, private readonly translate: TranslateService, private readonly localBackupService: LocalBackupService, private readonly dialog: MatDialog) {
   }
@@ -104,14 +103,11 @@ export class ScoreBoardComponent implements OnInit {
               })
             }
             challenges[i].hasSnippet = challengesWithCodeSnippet.indexOf(challenges[i].key) > -1
-            if (challenges[i].hasSnippet) {
-              this.numCodingChallenges++
-              this.codingChallengeProgress += challenges[i].codingChallengeStatus as number
-            }
           }
           this.availableChallengeCategories.sort((a, b) => a.localeCompare(b))
           this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(String(localStorage.getItem('displayedChallengeCategories'))) : this.availableChallengeCategories
           this.calculateProgressPercentage()
+          this.calculateCodingProgressPercentage()
           this.populateFilteredChallengeLists()
           this.calculateGradientOffsets(challenges)
           this.calculateTutorialTier(challenges)
@@ -179,6 +175,18 @@ export class ScoreBoardComponent implements OnInit {
 
   trustDescriptionHtml (challenge: Challenge) {
     challenge.description = this.sanitizer.bypassSecurityTrustHtml(challenge.description as string)
+  }
+
+  calculateCodingProgressPercentage () {
+    let numCodingChallenges = 0
+    let codingChallengeProgress = 0
+    for (let i = 0; i < this.challenges.length; i++) {
+      if (this.challenges[i].hasSnippet) {
+        numCodingChallenges++
+        codingChallengeProgress += this.challenges[i].codingChallengeStatus
+      }
+    }
+    this.percentCodingChallengesSolved = (100 * codingChallengeProgress / (numCodingChallenges * 2)).toFixed(0)
   }
 
   calculateProgressPercentage () {
@@ -376,6 +384,7 @@ export class ScoreBoardComponent implements OnInit {
           if (challenge.codingChallengeStatus < 2) {
             challenge.codingChallengeStatus = result.fixIt ? 2 : challenge.codingChallengeStatus
           }
+          this.calculateCodingProgressPercentage()
         }
       }
     })
