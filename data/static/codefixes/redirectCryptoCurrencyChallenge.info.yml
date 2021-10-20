@@ -1,13 +1,13 @@
 fixes:
   - id: 1
-    explanation: "You need to remove all crypto currency addresses, not only the blockchain.info."
+    explanation: "This fix removes one deprecated crypto currency address from the allow list but forgets to deal with two other ones."
   - id: 2
-    explanation: "You need to remove all crypto currency addresses, not only the explorer.dash.org."
+    explanation: "This fix removes one deprecated crypto currency address from the allow list but forgets to deal with two other ones."
   - id: 3
-    explanation: "Getting rid of all three crypto currency addresses is the simplest way to mitigate the problem."
+    explanation: "When cleaning up any allow list of deprecated entries, it is crucial to be thorough and re-check the list regularly. Otherwise allow lists tend to become weaker over time."
   - id: 4
-    explanation: "You need to remove all crypto currency addresses, not only the etherscan.io."
+    explanation: "This fix removes one deprecated crypto currency address from the allow list but forgets to deal with two other ones."
 hints:
   - "Can you identify the lines which have something to do with crypto currency addresses?"
-  - "Did you notice there is a redirectAllowlist constant containing allowed redirect web addresses?"
-  - "Make sure to select all three lines, from redirectAllowlist, responsible for crypto currency addresses which are not promoted any longer."
+  - "Did you notice there is a constant containing allowed redirect web addresses?"
+  - "Make sure to select all three lines responsible for crypto currency addresses which are not promoted any longer."
