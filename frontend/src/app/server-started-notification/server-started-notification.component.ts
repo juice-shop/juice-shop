@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { TranslateService } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
 import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core'
-import { CookieService } from 'ngx-cookie-service'
+import { CookieService } from 'ngx-cookie'
 import { SocketIoService } from '../Services/socket-io.service'
 
 interface HackingProgress {
@@ -29,6 +29,8 @@ export class ServerStartedNotificationComponent implements OnInit {
     this.ngZone.runOutsideAngular(() => {
       this.io.socket().on('server started', () => {
         const continueCode = this.cookieService.get('continueCode')
+        const continueCodeFindIt = this.cookieService.get('continueCodeFindIt')
+        const continueCodeFixIt = this.cookieService.get('continueCodeFixIt')
         if (continueCode) {
           this.challengeService.restoreProgress(encodeURIComponent(continueCode)).subscribe(() => {
             this.translate.get('AUTO_RESTORED_PROGRESS').subscribe((notificationServerStarted) => {
@@ -45,6 +47,18 @@ export class ServerStartedNotificationComponent implements OnInit {
             })
           })
         }
+        if (continueCodeFindIt) {
+          this.challengeService.restoreProgressFindIt(encodeURIComponent(continueCodeFindIt)).subscribe(() => {
+          }, (error) => {
+            console.log(error)
+          })
+        }
+        if (continueCodeFixIt) {
+          this.challengeService.restoreProgressFixIt(encodeURIComponent(continueCodeFixIt)).subscribe(() => {
+          }, (error) => {
+            console.log(error)
+          })
+        }
         this.ref.detectChanges()
       })
     })
@@ -55,8 +69,10 @@ export class ServerStartedNotificationComponent implements OnInit {
   }
 
   clearProgress () {
-    this.cookieService.delete('continueCode', '/')
-    this.cookieService.delete('token', '/')
+    this.cookieService.remove('continueCode')
+    this.cookieService.remove('continueCodeFixIt')
+    this.cookieService.remove('continueCodeFindIt')
+    this.cookieService.remove('token')
     sessionStorage.removeItem('bid')
     sessionStorage.removeItem('itemTotal')
     localStorage.removeItem('token')

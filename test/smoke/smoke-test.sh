@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #
-# Copyright (c) 2014-2021 Bjoern Kimminich.
+# Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
 # SPDX-License-Identifier: MIT
 #
 
@@ -35,6 +35,13 @@ if curl "$1/main-es2018.js" -s | grep -q 'this.applicationName="OWASP Juice Shop
   printf "\033[0;32mAngular smoke test passed!\033[0m\n"
 else
   printf "\033[0;31mAngular smoke test failed!\033[0m\n"
+  EXIT=$((EXIT+1))
+fi
+
+if curl "$1/snippets/directoryListingChallenge" -s | grep -q 'serveIndexMiddleware'; then
+  printf "\033[0;32mCode snippet smoke test passed!\033[0m\n"
+else
+  printf "\033[0;31mCode snippet smoke test failed!\033[0m\n"
   EXIT=$((EXIT+1))
 fi
 

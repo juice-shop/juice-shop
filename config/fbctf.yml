@@ -8,6 +8,7 @@ application:
     showOnFirstStart: false
 challenges:
   showHints: false
+  showCodeSnippets: solved
 hackingInstructor:
   isEnabled: false
 ctf:
@@ -131,9 +132,6 @@ ctf:
     oauthUserPasswordChallenge:
       name: South Sudan
       code: SS
-    loginCisoChallenge:
-      name: Angola
-      code: AO
     loginSupportChallenge:
       name: Croatia
       code: HR
@@ -314,3 +312,6 @@ ctf:
     bullyChatbotChallenge:
       name: Guam
       code: GU
+    lfrChallenge:
+      name: Ireland
+      code: IE

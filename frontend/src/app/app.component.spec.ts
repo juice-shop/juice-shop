@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -33,6 +33,7 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { LoginGuard } from './app.guard'
 import { MatInputModule } from '@angular/material/input'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { CookieModule } from 'ngx-cookie'
 
 describe('AppComponent', () => {
   let app: AppComponent
@@ -51,6 +52,7 @@ describe('AppComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule,
         MatToolbarModule,
+        CookieModule.forRoot(),
         TranslateModule.forRoot(),
         ClipboardModule,
         MatIconModule,

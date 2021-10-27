@@ -19,6 +19,9 @@ Shop easier to hack!
 
 ## Hacking Videos
 
+* [Wie werden APIs "gehackt" - API Sicherheit am Beispiel](https://youtu.be/wGtS5qQ0bC0) (:de:)
+  by
+  [predic8](https://www.youtube.com/channel/UC9ONq2LjrImWzWrWf6MYd2A) (🧃`v12.x`)
 * [Hack OWASP Juice Shop](https://www.youtube.com/watch?v=0YSNRz0NRt8&list=PL8j1j35M7wtKXpTBE6V1RlN_pBZ4StKZw)
   playlist of
   [Hacksplained](https://www.youtube.com/channel/UCyv6ItVqQPnlFFi2zLxlzXA)
@@ -73,6 +76,7 @@ Shop easier to hack!
   * [★★★★ NoSql Manipulation (Injection)](https://youtu.be/frymuDxKwmc)
     :broken_heart:
   * [★★★★★ Change Benders Password (Broken Authentication)](https://youtu.be/J3BSi-z9_7I)
+  * [★★★★★ Extra Language (Broken Anti Automation)](https://youtu.be/KU2LzxABetk)
 * [Broken Authentication and SQL Injection - OWASP Juice Shop TryHackMe](https://youtu.be/W4MXUnZB2jc)
   by
   [Motasem Hamdan - CyberSecurity Trainer](https://www.youtube.com/channel/UCNSdU_1ehXtGclimTVckHmQ)

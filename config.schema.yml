@@ -114,6 +114,8 @@ challenges:
     type: boolean
   showMitigations:
     type: boolean
+  showCodeSnippets:
+    type: string
   restrictToTutorialsFirst:
     type: boolean
   overwriteUrlForProductTamperingChallenge:
@@ -153,6 +155,9 @@ products:
       - type: string
     fileForRetrieveBlueprintChallenge:
       type: string
+    exifForBlueprintChallenge:
+      -
+        type: string
     reviews:
       -
         text:
@@ -372,11 +377,6 @@ ctf:
       code:
         type: string
     oauthUserPasswordChallenge:
-      name:
-        type: string
-      code:
-        type: string
-    loginCisoChallenge:
       name:
         type: string
       code:
@@ -677,6 +677,11 @@ ctf:
       code:
         type: string
     bullyChatbotChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    lfrChallenge:
       name:
         type: string
       code:

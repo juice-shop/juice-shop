@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { TranslateModule } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { CookieService } from 'ngx-cookie-service'
+import { CookieModule, CookieService } from 'ngx-cookie'
 
 import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 
@@ -30,6 +30,7 @@ describe('WelcomeBannerComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
+        CookieModule.forRoot(),
         HttpClientTestingModule,
         MatIconModule,
         MatTooltipModule

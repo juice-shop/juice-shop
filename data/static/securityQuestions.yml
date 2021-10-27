@@ -1,5 +1,6 @@
+# vuln-code-snippet start resetPasswordBjoernOwaspChallenge resetPasswordBjoernChallenge resetPasswordJimChallenge resetPasswordBenderChallenge resetPasswordUvoginChallenge
 -
-  question: 'Your eldest siblings middle name?'
+  question: 'Your eldest siblings middle name?' # vuln-code-snippet vuln-line resetPasswordJimChallenge
 -
   question: "Mother's maiden name?"
 -
@@ -11,18 +12,19 @@
 -
   question: "Paternal grandmother's first name?"
 -
-  question: 'Name of your favorite pet?'
+  question: 'Name of your favorite pet?' # vuln-code-snippet vuln-line resetPasswordBjoernOwaspChallenge
 -
   question: "Last name of dentist when you were a teenager? (Do not include 'Dr.')"
 -
-  question: 'Your ZIP/postal code when you were a teenager?'
+  question: 'Your ZIP/postal code when you were a teenager?' # vuln-code-snippet vuln-line resetPasswordBjoernChallenge
 -
-  question: 'Company you first work for as an adult?'
+  question: 'Company you first work for as an adult?' # vuln-code-snippet vuln-line resetPasswordBenderChallenge
 -
   question: 'Your favorite book?'
 -
-  question: 'Your favorite movie?'
+  question: 'Your favorite movie?' # vuln-code-snippet vuln-line resetPasswordUvoginChallenge
 -
   question: 'Number of one of your customer or ID cards?'
 -
   question: "What's your favorite place to go hiking?"
+# vuln-code-snippet end resetPasswordBjoernOwaspChallenge resetPasswordBjoernChallenge resetPasswordJimChallenge resetPasswordBenderChallenge resetPasswordUvoginChallenge
