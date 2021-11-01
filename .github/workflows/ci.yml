@@ -137,6 +137,7 @@ jobs:
           max_attempts: 2
           command: |
             set NODE_ENV=test
+            set SOLUTIONS_WEBHOOK=${{ secrets.E2E_SOLUTIONS_WEBHOOK }}
             npm run protractor
   e2e-in-subfolder:
     runs-on: windows-latest
