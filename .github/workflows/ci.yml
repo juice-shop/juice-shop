@@ -121,8 +121,6 @@ jobs:
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
-      - name: "Install latest Chrome version"
-        uses: browser-actions/setup-chrome@199a6fa42e7ee7ed582f541afee4c97852a4afb2 #v: no release tags available
       - name: "Use Node.js 14"
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
@@ -132,8 +130,6 @@ jobs:
       - name: "Install application"
         run: npm install
       - name: "Execute end-to-end tests"
-        env:
-          SOLUTIONS_WEBHOOK: ${{ secrets.E2E_SOLUTIONS_WEBHOOK }}
         uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
         continue-on-error: true
         with:
@@ -141,7 +137,7 @@ jobs:
           max_attempts: 2
           command: |
             set NODE_ENV=test
-            set SOLUTIONS_WEBHOOK= "$env:SOLUTIONS_WEBHOOK"
+            set SOLUTIONS_WEBHOOK=${{ secrets.E2E_SOLUTIONS_WEBHOOK }}
             npm run protractor
   e2e-in-subfolder:
     runs-on: windows-latest
@@ -149,8 +145,6 @@ jobs:
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
-      - name: "Install latest Chrome version"
-        uses: browser-actions/setup-chrome@199a6fa42e7ee7ed582f541afee4c97852a4afb2 #v: no release tags available
       - name: "Use Node.js 14"
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
