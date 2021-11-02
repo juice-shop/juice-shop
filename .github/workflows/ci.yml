@@ -123,8 +123,6 @@ jobs:
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
       - name: "Install latest Chrome version"
         uses: browser-actions/setup-chrome@199a6fa42e7ee7ed582f541afee4c97852a4afb2 #v: no release tags available
-        with:
-          command: chrome --version
       - name: "Use Node.js 14"
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
@@ -153,8 +151,6 @@ jobs:
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
       - name: "Install latest Chrome version"
         uses: browser-actions/setup-chrome@199a6fa42e7ee7ed582f541afee4c97852a4afb2 #v: no release tags available
-        with:
-          command: chrome --version
       - name: "Use Node.js 14"
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
