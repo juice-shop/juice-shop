@@ -79,7 +79,7 @@ describe('/profile', () => {
   }
 
   describe('challenge "csrf"', () => { // FIXME Only works on Chrome <80 but Protractor uses latest Chrome version. Test can probably never be turned on again.
-    it('should be possible to perform a CSRF attack against the user profile page', () => {
+    xit('should be possible to perform a CSRF attack against the user profile page', () => {
       browser.waitForAngularEnabled(false)
       browser.driver.get('http://htmledit.squarefree.com')
       browser.driver.sleep(1000)
@@ -91,7 +91,7 @@ describe('/profile', () => {
     })
     protractor.expect.challengeSolved({ challenge: 'CSRF' })
 
-    it('should be possible to fake a CSRF attack against the user profile page', () => {
+    xit('should be possible to fake a CSRF attack against the user profile page', () => {
       browser.waitForAngularEnabled(false)
       browser.executeScript(baseUrl => {
         const xhttp = new XMLHttpRequest()
