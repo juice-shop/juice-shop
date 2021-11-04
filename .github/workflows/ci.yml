@@ -133,7 +133,6 @@ jobs:
         env:
           SOLUTIONS_WEBHOOK: ${{ secrets.E2E_SOLUTIONS_WEBHOOK }}
         uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
-        continue-on-error: true
         with:
           timeout_minutes: 20
           max_attempts: 2
@@ -159,7 +158,6 @@ jobs:
         run: npm install
       - name: "Execute end-to-end tests with application hosted in subfolder"
         uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
-        continue-on-error: true
         with:
           timeout_minutes: 20
           max_attempts: 2
