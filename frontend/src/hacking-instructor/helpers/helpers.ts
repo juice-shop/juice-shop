@@ -168,3 +168,33 @@ export function waitForDevTools () {
     }
   }
 }
+
+export function waitForSelectToHaveValue (selectSelector: string, value: string) {
+  return async () => {
+    const selectElement: HTMLSelectElement = document.querySelector(
+      selectSelector
+    )
+
+    while (true) {
+      if (selectElement.options[selectElement.selectedIndex].value === value) {
+        break
+      }
+      await sleep(100)
+    }
+  }
+}
+
+export function waitForSelectToNotHaveValue (selectSelector: string, value: string) {
+  return async () => {
+    const selectElement: HTMLSelectElement = document.querySelector(
+      selectSelector
+    )
+
+    while (true) {
+      if (selectElement.options[selectElement.selectedIndex].value !== value) {
+        break
+      }
+      await sleep(100)
+    }
+  }
+}
