@@ -39,7 +39,7 @@
           </i>
           <span>  {{'BTN_CLOSE' | translate}}</span>
         </button>
-        <button mat-stroked-button (click) = "checkLines()" [disabled]="this.solved.findIt">
+        <button mat-stroked-button (click) = "checkLines()" [disabled]="this.solved.findIt" id="findItSubmitButton">
           <span>  {{'BTN_SUBMIT' | translate}}</span>
           <mat-icon [color]="resultColor()">
             {{ resultIcon() }}
@@ -71,7 +71,7 @@
           </i>
           <span>  {{'BTN_CLOSE' | translate}}</span>
         </button>
-        <button mat-stroked-button (click) = "checkFix()" [disabled]="this.solved.fixIt">
+        <button mat-stroked-button (click) = "checkFix()" [disabled]="this.solved.fixIt" id="fixItSubmitButton">
           <span>  {{'BTN_SUBMIT' | translate}}</span>
           <mat-icon [color]="resultColor()">
             {{ resultIcon() }}
