@@ -85,6 +85,7 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   elem.style.whiteSpace = 'initial'
   elem.style.lineHeight = '1.3'
   elem.style.top = '24px'
+  elem.style.fontFamily = 'Roboto,Helvetica Neue,sans-serif'
   if (!hint.unskippable) {
     elem.style.cursor = 'pointer'
   }
