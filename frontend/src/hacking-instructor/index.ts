@@ -71,7 +71,7 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   }
 
   const wrapper = document.createElement('div')
-  wrapper.style.position = 'absolute';
+  wrapper.style.position = 'absolute'
 
   const elem = document.createElement('div')
   elem.id = 'hacking-instructor'
