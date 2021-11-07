@@ -62,7 +62,6 @@ export const CodingChallengesInstruction: ChallengeInstruction = {
       text:
         '🎊! You made it half-way through! In phase two you are now presented with several fix options. You must select the one which you think is the **best possible** fix for the security vulnerability.',
       fixture: '#code-snippet',
-      fixtureAfter: true,
       resolved: waitInMs(10000)
     },
     {

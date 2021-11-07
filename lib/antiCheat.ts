@@ -42,6 +42,7 @@ exports.calculateCheatScore = (challenge) => {
 exports.calculateFindItCheatScore = async (challenge) => { // TODO Consider coding challenges with identical/overlapping snippets as easier once one of them has been solved
   const timestamp = new Date()
   let timeFactor = 0.001
+  timeFactor *= (challenge.key === 'scoreBoardChallenge' && config.get('hackingInstructor.isEnabled') ? 0.5 : 1)
   let cheatScore = 0
 
   const { snippet, vulnLines } = await retrieveCodeSnippet(challenge.key)
@@ -50,7 +51,7 @@ exports.calculateFindItCheatScore = async (challenge) => { // TODO Consider codi
   const minutesSincePreviousSolve = (timestamp.getTime() - previous().timestamp.getTime()) / 60000
   cheatScore += Math.max(0, 1 - (minutesSincePreviousSolve / minutesExpectedToSolve))
 
-  logger.info(`Cheat score for "Find it" phase of ${colors.cyan(challenge.key)} solved in ${Math.round(minutesSincePreviousSolve)}min (expected ~${minutesExpectedToSolve}min): ${cheatScore < 0.33 ? colors.green(cheatScore) : (cheatScore < 0.66 ? colors.yellow(cheatScore) : colors.red(cheatScore))}`)
+  logger.info(`Cheat score for "Find it" phase of ${challenge.key === 'scoreBoardChallenge' && config.get('hackingInstructor.isEnabled') ? 'tutorial ' : ''}${colors.cyan(challenge.key)} solved in ${Math.round(minutesSincePreviousSolve)}min (expected ~${minutesExpectedToSolve}min): ${cheatScore < 0.33 ? colors.green(cheatScore) : (cheatScore < 0.66 ? colors.yellow(cheatScore) : colors.red(cheatScore))}`)
   solves.push({ challenge, phase: 'find it', timestamp, cheatScore })
   return cheatScore
 }
