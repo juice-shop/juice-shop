@@ -22,7 +22,7 @@ export const CodingChallengesInstruction: ChallengeInstruction = {
         'You can launch a Coding Challenge via the `<>`-button. Click the one for the _Score Board_ challenge now.',
       fixture: '#Score\\ Board\\.solved',
       unskippable: true,
-      resolved: waitForElementToGetClicked('#codingChallengeTutorialButton')
+      resolved: waitForElementToGetClicked('#Score\\ Board\\.codingChallengeButton')
     },
     {
       text:
