@@ -44,7 +44,7 @@ export const CodingChallengesInstruction: ChallengeInstruction = {
     },
     {
       text:
-        'For the "Find It" part of this coding challenge, tick the 🔲 on all lines of code that you think are responsible for the exposure of the Score Board. Then click on "Submit".',
+        'For the "Find It" part of this coding challenge, tick the 🔲 on all lines of code that you think are responsible for exposing the Score Board. Then click on "Submit".',
       fixture: '#code-snippet',
       unskippable: true,
       resolved: waitForElementToGetClicked('#findItSubmitButton')
