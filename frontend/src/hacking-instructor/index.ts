@@ -117,6 +117,7 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   cancelButton.style.position = 'relative'
   cancelButton.style.zIndex = '20001'
   cancelButton.style.bottom = '-22px'
+  cancelButton.style.cursor = 'pointer'
 
   elem.appendChild(picture)
   elem.appendChild(textBox)
