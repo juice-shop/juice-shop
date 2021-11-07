@@ -4,7 +4,7 @@
  */
 
 import {
-  waitInMs, waitForElementToGetClicked, waitForSelectToHaveValue
+  waitInMs, waitForElementToGetClicked
 } from '../helpers/helpers'
 import { ChallengeInstruction } from '../'
 
