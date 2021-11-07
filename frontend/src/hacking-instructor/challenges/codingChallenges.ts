@@ -13,11 +13,11 @@ export const CodingChallengesInstruction: ChallengeInstruction = {
   hints: [
     {
       text:
-        'To do the tutorial on _Coding Challenges_, you have to find and visit the _Score Board_ first.',
+        'To do the tutorial on _Coding Challenges_, you have to find and visit the _Score Board_ first. Once there, you have to click the tutorial button for the _Score Board_ challenge to proceed.',
       fixture: 'app-navbar',
       fixtureAfter: true,
       unskippable: true,
-      resolved: waitForAngularRouteToBeVisited('score-board')
+      resolved: waitForAngularRouteToBeVisited('score-board') // FIXME The tutorial does not progress automatically. Workaround ^^^^^^^^^^^^^^^^ instruction above should be removed when fixed.
     },
     {
       text:
