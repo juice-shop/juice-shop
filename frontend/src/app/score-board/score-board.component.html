@@ -189,12 +189,13 @@
             <button
               *ngIf="challenge.hasSnippet && showCodeSnippets !== 'never'"
               [disabled]="showCodeSnippets === 'solved' && !challenge.solved"
-              mat-mini-fab color="primary"
+              mat-mini-fab
               (click)="showCodeSnippet(challenge.key,challenge.name,challenge.codingChallengeStatus)"
               [matTooltip]="('LAUNCH_CODING_CHALLENGE' | translate)"
               matTooltipPosition="above"
               class='code-snippet-button'
               [color]="generateColor(challenge)"
+              [id]="challenge.name + '.codingChallengeButton'"
               >
               <mat-icon
               [matBadge]="generateBadge(challenge)"
@@ -206,6 +207,24 @@
               </mat-icon>
             </button>
           </div>
+          <button
+            *ngIf="challenge.key === 'scoreBoardChallenge' && showHackingInstructor && challenge.solved && showCodeSnippets !== 'never' && challenge.codingChallengeStatus < 1"
+            mat-mini-fab color="warn"
+            (click)="startHackingInstructor('Coding Challenges')"
+            [matTooltip]="('INFO_HACKING_INSTRUCTOR' | translate)"
+            matTooltipPosition="above"
+            class='code-snippet-button'
+            id="codingChallengeTutorialButton"
+            >
+            <mat-icon
+            matBadge="<>"
+            matBadgeSize="small"
+            matBadgePosition="right"
+            matBadgeColor="primary"
+            >
+              school
+            </mat-icon>
+          </button>
         </mat-cell>
       </ng-container>
 
