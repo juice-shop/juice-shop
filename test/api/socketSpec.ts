@@ -1,18 +1,17 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import io = require('socket.io-client')
 
 describe('WebSocket', () => {
-  let socket
+  let socket: SocketIOClient.Socket
 
   beforeEach(done => {
     socket = io('http://localhost:3000', {
-      'reconnection delay': 0,
-      'reopen delay': 0,
-      'force new connection': true
+      reconnectionDelay: 0,
+      forceNew: true
     })
     socket.on('connect', () => {
       done()

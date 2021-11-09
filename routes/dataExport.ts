@@ -1,17 +1,17 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
+import models = require('../models/index')
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
 const db = require('../data/mongodb')
 const challenges = require('../data/datacache').challenges
-import models = require('../models/index')
 
 module.exports = function dataExport () {
   return async (req, res, next) => {
-    const loggedInUser = security.authenticatedUsers.get(req.headers.authorization.replace('Bearer ', ''))
+    const loggedInUser = security.authenticatedUsers.get(req.headers?.authorization?.replace('Bearer ', ''))
     if (loggedInUser?.data?.email && loggedInUser.data.id) {
       const username = loggedInUser.data.username
       const email = loggedInUser.data.email

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -78,7 +78,8 @@ async function createChallenges () {
           hintUrl: showHints ? hintUrl : null,
           mitigationUrl: showMitigations ? mitigationUrl : null,
           disabledEnv: config.get('challenges.safetyOverride') ? null : effectiveDisabledEnv,
-          tutorialOrder: tutorial ? tutorial.order : null
+          tutorialOrder: tutorial ? tutorial.order : null,
+          codingChallengeStatus: 0
         })
       } catch (err) {
         logger.error(`Could not insert Challenge ${name}: ${err.message}`)
@@ -202,7 +203,7 @@ async function createRandomFakeUsers () {
     return text
   }
 
-  return Promise.all(new Array(config.get('application.numberOfRandomFakeUsers')).fill(0).map(
+  return await Promise.all(new Array(config.get('application.numberOfRandomFakeUsers')).fill(0).map(
     () => models.User.create({
       email: getGeneratedRandomFakeUserEmail(),
       password: makeRandomString(5)
@@ -258,7 +259,7 @@ async function createMemories () {
     })
   ]
 
-  return Promise.all(memories)
+  return await Promise.all(memories)
 }
 
 async function createProducts () {
@@ -305,7 +306,7 @@ async function createProducts () {
   }
   datacache.retrieveBlueprintChallengeFile = blueprint
 
-  return Promise.all(
+  return await Promise.all(
     products.map(
       ({ reviews = [], useForChristmasSpecialChallenge = false, urlForProductTamperingChallenge = false, fileForRetrieveBlueprintChallenge = false, ...product }) =>
         models.Product.create(product).catch(

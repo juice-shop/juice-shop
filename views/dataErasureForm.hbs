@@ -10,7 +10,7 @@
     <a href="./#/"><span class="header-text">OWASP Juice Shop</span></a>
 </div>
 <div class="main-content">
-    <div class="form">
+    <div class="formBlock">
         <h4>Data Erasure Request (Art. 17 GDPR)</h4>
         <p>We take data security, customer privacy, and legal compliance very serious. In accordance with GDPR we allow
             you to request complete erasure of your account and any associated data.</p>
@@ -25,10 +25,11 @@
                 <input type="text" required placeholder="{{securityQuestion}}" id="securityAnswer"
                     name="securityAnswer">
             </div>
-            <button type="submit" class="deleteButton mdl-button mdl-button--raised"
-                style="background-color:#546E7A; color: #FFFFFF; margin-left:200px;">
+            <div class="deleteButton">
+            <button type="submit" class=" mdl-button mdl-button--raised" style="background-color:#546E7A; color: #FFFFFF;">
                 <span class="cross">&times;</span>
-                Delete User Data</button>
+            Delete User Data</button>
+            </div>
         </form>
     </div>
 </div>

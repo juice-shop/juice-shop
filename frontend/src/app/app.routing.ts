@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -249,7 +249,7 @@ export function tokenMatcher (url: UrlSegment[]): UrlMatchResult {
   return null as unknown as UrlMatchResult
 }
 
-export function token1 (...args: number[]) { // vuln-code-snippet vuln-line tokenSaleChallenge
+export function token1 (...args: number[]) {
   const L = Array.prototype.slice.call(args)
   const D = L.shift()
   return L.reverse().map(function (C, A) {
@@ -257,7 +257,7 @@ export function token1 (...args: number[]) { // vuln-code-snippet vuln-line toke
   }).join('')
 }
 
-export function token2 (...args: number[]) { // vuln-code-snippet vuln-line tokenSaleChallenge
+export function token2 (...args: number[]) {
   const T = Array.prototype.slice.call(arguments)
   const M = T.shift()
   return T.reverse().map(function (m, H) {

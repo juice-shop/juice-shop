@@ -1,8 +1,9 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
+import colors = require('colors/safe')
 try {
   require('check-dependencies')
 } catch (err) {
@@ -10,7 +11,6 @@ try {
   process.exit(1)
 }
 const logger = require('../logger')
-import colors = require('colors/safe')
 const dependencyChecker = require('check-dependencies')
 
 const validateDependencies = async ({ packageDir = '.', exitOnFailure = true } = {}) => {

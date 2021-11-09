@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -27,6 +27,40 @@ describe('/snippets/:challenge', () => {
       .expect('jsonTypes', {
         snippet: Joi.string(),
         vulnLines: Joi.array()
+      })
+  })
+})
+
+describe('snippets/verdict', () => {
+  it('should check for the correct lines', () => {
+    return frisby.post(URL + '/snippets/verdict', {
+      body: {
+        selectedLines: [2],
+        key: 'resetPasswordJimChallenge'
+      }
+    })
+      .expect('status', 200)
+      .expect('jsonTypes', {
+        verdict: Joi.boolean()
+      })
+      .expect('json', {
+        verdict: true
+      })
+  })
+
+  it('should check for the incorrect lines', () => {
+    return frisby.post(URL + '/snippets/verdict', {
+      body: {
+        selectedLines: [5, 9],
+        key: 'resetPasswordJimChallenge'
+      }
+    })
+      .expect('status', 200)
+      .expect('jsonTypes', {
+        verdict: Joi.boolean()
+      })
+      .expect('json', {
+        verdict: false
       })
   })
 })

@@ -1,10 +1,11 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 /* jslint node: true */
 import packageJson from '../package.json'
+import { Op } from 'sequelize'
 import fs = require('fs')
 const colors = require('colors/safe')
 const notifications = require('../data/datacache').notifications
@@ -23,6 +24,8 @@ const isWindows = require('is-windows')
 const logger = require('./logger')
 const webhook = require('./webhook')
 const antiCheat = require('./antiCheat')
+const accuracy = require('./accuracy')
+const models = require('../models')
 
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
 
@@ -152,15 +155,26 @@ exports.sendNotification = function (challenge, isRestore) {
 
 exports.notSolved = challenge => challenge && !challenge.solved
 
-exports.findChallenge = challengeName => {
-  for (const name in challenges) {
-    if (Object.prototype.hasOwnProperty.call(challenges, name)) {
-      if (challenges[name].name === challengeName) {
-        return challenges[name]
+exports.findChallengeByName = (challengeName: string) => {
+  for (const c in challenges) {
+    if (Object.prototype.hasOwnProperty.call(challenges, c)) {
+      if (challenges[c].name === challengeName) {
+        return challenges[c]
       }
     }
   }
   logger.warn('Missing challenge with name: ' + challengeName)
+}
+
+exports.findChallengeById = (challengeId: number) => {
+  for (const c in challenges) {
+    if (Object.prototype.hasOwnProperty.call(challenges, c)) {
+      if (challenges[c].id === challengeId) {
+        return challenges[c]
+      }
+    }
+  }
+  logger.warn('Missing challenge with id: ' + challengeId)
 }
 
 exports.toMMMYY = date => {
@@ -259,4 +273,26 @@ exports.toSimpleIpAddress = (ipv6) => {
 
 exports.thaw = (frozenObject) => {
   return JSON.parse(JSON.stringify(frozenObject))
+}
+
+exports.solveFindIt = async function (key: string, isRestore: boolean) {
+  const solvedChallenge = challenges[key]
+  await models.Challenge.update({ codingChallengeStatus: 1 }, { where: { key, codingChallengeStatus: { [Op.lt]: 2 } } })
+  logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Find It' phase of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
+  if (!isRestore) {
+    accuracy.storeFindItVerdict(solvedChallenge.key, true)
+    accuracy.calculateFindItAccuracy(solvedChallenge.key)
+    antiCheat.calculateFindItCheatScore(solvedChallenge)
+  }
+}
+
+exports.solveFixIt = async function (key: string, isRestore: boolean) {
+  const solvedChallenge = challenges[key]
+  await models.Challenge.update({ codingChallengeStatus: 2 }, { where: { key } })
+  logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Fix It' phase of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
+  if (!isRestore) {
+    accuracy.storeFixItVerdict(solvedChallenge.key, true)
+    accuracy.calculateFixItAccuracy(solvedChallenge.key)
+    antiCheat.calculateFixItCheatScore(solvedChallenge)
+  }
 }

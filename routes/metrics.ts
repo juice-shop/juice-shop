@@ -1,8 +1,10 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
+import models = require('../models/index')
+import { retrieveChallengesWithCodeSnippet } from './vulnCodeSnippet'
 const Prometheus = require('prom-client')
 const onFinished = require('on-finished')
 const orders = require('../data/mongodb').orders
@@ -10,8 +12,8 @@ const reviews = require('../data/mongodb').reviews
 const challenges = require('../data/datacache').challenges
 const utils = require('../lib/utils')
 const antiCheat = require('../lib/antiCheat')
+const accuracy = require('../lib/accuracy')
 const config = require('config')
-import models = require('../models/index')
 const Op = models.Sequelize.Op
 
 const register = Prometheus.register
@@ -89,10 +91,21 @@ exports.observeMetrics = function observeMetrics () {
     labelNames: ['difficulty', 'category']
   })
 
+  const codingChallengesProgressMetrics = new Prometheus.Gauge({
+    name: `${app}_coding_challenges_progress`,
+    help: 'Number of coding challenges grouped by progression phase.',
+    labelNames: ['phase']
+  })
+
   const cheatScoreMetrics = new Prometheus.Gauge({
     name: `${app}_cheat_score`,
-    help: 'Overall probability that any challenges were solved by cheating.',
-    labelNames: ['type']
+    help: 'Overall probability that any hacking or coding challenges were solved by cheating.'
+  })
+
+  const accuracyMetrics = new Prometheus.Gauge({
+    name: `${app}_coding_challenges_accuracy`,
+    help: 'Overall accuracy while solving coding challenges grouped by phase.',
+    labelNames: ['phase']
   })
 
   const orderMetrics = new Prometheus.Gauge({
@@ -145,7 +158,23 @@ exports.observeMetrics = function observeMetrics () {
       challengeTotalMetrics.set({ difficulty, category }, challengeCount.get(key))
     }
 
+    void retrieveChallengesWithCodeSnippet().then(challenges => {
+      models.Challenge.count({ where: { codingChallengeStatus: { [Op.eq]: 1 } } }).then(count => {
+        codingChallengesProgressMetrics.set({ phase: 'find it' }, count)
+      })
+
+      models.Challenge.count({ where: { codingChallengeStatus: { [Op.eq]: 2 } } }).then(count => {
+        codingChallengesProgressMetrics.set({ phase: 'fix it' }, count)
+      })
+
+      models.Challenge.count({ where: { codingChallengeStatus: { [Op.ne]: 0 } } }).then(count => {
+        codingChallengesProgressMetrics.set({ phase: 'unsolved' }, challenges.length - count)
+      })
+    })
+
     cheatScoreMetrics.set(antiCheat.totalCheatScore())
+    accuracyMetrics.set({ phase: 'find it' }, accuracy.totalFindItAccuracy())
+    accuracyMetrics.set({ phase: 'fix it' }, accuracy.totalFixItAccuracy())
 
     orders.count({}).then(orders => {
       orderMetrics.set(orders)
@@ -155,7 +184,7 @@ exports.observeMetrics = function observeMetrics () {
       interactionsMetrics.set({ type: 'review' }, reviews)
     })
 
-    models.User.count({ where: { role: { [Op.eq]: ['customer'] } } }).then(count => {
+    models.User.count({ where: { role: { [Op.eq]: 'customer' } } }).then(count => {
       userMetrics.set({ type: 'standard' }, count)
     })
     models.User.count({ where: { role: { [Op.eq]: 'deluxe' } } }).then(count => {

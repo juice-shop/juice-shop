@@ -19,6 +19,9 @@ Shop easier to hack!
 
 ## Hacking Videos
 
+* [Wie werden APIs "gehackt" - API Sicherheit am Beispiel](https://youtu.be/wGtS5qQ0bC0) (:de:)
+  by
+  [predic8](https://www.youtube.com/channel/UC9ONq2LjrImWzWrWf6MYd2A) (🧃`v12.x`)
 * [Hack OWASP Juice Shop](https://www.youtube.com/watch?v=0YSNRz0NRt8&list=PL8j1j35M7wtKXpTBE6V1RlN_pBZ4StKZw)
   playlist of
   [Hacksplained](https://www.youtube.com/channel/UCyv6ItVqQPnlFFi2zLxlzXA)

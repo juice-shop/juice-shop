@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-const security = require('../lib/insecurity')
 import models = require('../models/index')
+const security = require('../lib/insecurity')
 
 module.exports = function applyCoupon () {
   return ({ params }, res, next) => {

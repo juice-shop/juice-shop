@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-const utils = require('../lib/utils')
 import config = require('config')
+const utils = require('../lib/utils')
 
 module.exports = function retrieveAppVersion () {
   return (req, res) => {

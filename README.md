@@ -1,17 +1,17 @@
-# ![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_100px.png) OWASP Juice Shop
+# ![Juice Shop Logo](https://raw.githubusercontent.com/juice-shop/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_100px.png) OWASP Juice Shop
 
 [![OWASP Flagship](https://img.shields.io/badge/owasp-flagship%20project-48A646.svg)](https://owasp.org/projects/#sec-flagships)
-[![GitHub release](https://img.shields.io/github/release/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/releases/latest)
+[![GitHub release](https://img.shields.io/github/release/juice-shop/juice-shop.svg)](https://github.com/juice-shop/juice-shop/releases/latest)
 [![Twitter Follow](https://img.shields.io/twitter/follow/owasp_juiceshop.svg?style=social&label=Follow)](https://twitter.com/owasp_juiceshop)
 [![Subreddit subscribers](https://img.shields.io/reddit/subreddit-subscribers/owasp_juiceshop?style=social)](https://reddit.com/r/owasp_juiceshop)
 
 
-![CI/CD Pipeline](https://github.com/bkimminich/juice-shop/workflows/CI/CD%20Pipeline/badge.svg?branch=master)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/f6959582d3acc8bc2607/test_coverage)](https://codeclimate.com/github/bkimminich/juice-shop/test_coverage)
-[![Maintainability](https://api.codeclimate.com/v1/badges/f6959582d3acc8bc2607/maintainability)](https://codeclimate.com/github/bkimminich/juice-shop/maintainability)
-[![Code Climate technical debt](https://img.shields.io/codeclimate/tech-debt/bkimminich/juice-shop)](https://codeclimate.com/github/bkimminich/juice-shop/trends/technical_debt)
+![CI/CD Pipeline](https://github.com/juice-shop/juice-shop/workflows/CI/CD%20Pipeline/badge.svg?branch=master)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/6206c8f3972bcc97a033/test_coverage)](https://codeclimate.com/github/juice-shop/juice-shop/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/6206c8f3972bcc97a033/maintainability)](https://codeclimate.com/github/juice-shop/juice-shop/maintainability)
+[![Code Climate technical debt](https://img.shields.io/codeclimate/tech-debt/juice-shop/juice-shop)](https://codeclimate.com/github/juice-shop/juice-shop/trends/technical_debt)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/223/badge)](https://bestpractices.coreinfrastructure.org/projects/223)
-![GitHub stars](https://img.shields.io/github/stars/bkimminich/juice-shop.svg?label=GitHub%20%E2%98%85&style=flat)
+![GitHub stars](https://img.shields.io/github/stars/juice-shop/juice-shop.svg?label=GitHub%20%E2%98%85&style=flat)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 
 > [The most trustworthy online shop out there.](https://twitter.com/dschadow/status/706781693504589824)
@@ -82,11 +82,11 @@ overview please visit the official project page:
 
 ### From Sources
 
-![GitHub repo size](https://img.shields.io/github/repo-size/bkimminich/juice-shop.svg)
+![GitHub repo size](https://img.shields.io/github/repo-size/juice-shop/juice-shop.svg)
 
 1. Install [node.js](#nodejs-version-compatibility)
-2. Run `git clone https://github.com/bkimminich/juice-shop.git` (or
-   clone [your own fork](https://github.com/bkimminich/juice-shop/fork)
+2. Run `git clone https://github.com/juice-shop/juice-shop.git` (or
+   clone [your own fork](https://github.com/juice-shop/juice-shop/fork)
    of the repository)
 3. Go into the cloned folder with `cd juice-shop`
 4. Run `npm install` (only has to be done before first start or when you
@@ -96,7 +96,7 @@ overview please visit the official project page:
 
 ### Packaged Distributions
 
-[![GitHub release](https://img.shields.io/github/downloads/bkimminich/juice-shop/total.svg)](https://github.com/bkimminich/juice-shop/releases/latest)
+[![GitHub release](https://img.shields.io/github/downloads/juice-shop/juice-shop/total.svg)](https://github.com/juice-shop/juice-shop/releases/latest)
 [![SourceForge](https://img.shields.io/sourceforge/dm/juice-shop?label=sourceforge%20downloads)](https://sourceforge.net/projects/juice-shop/)
 [![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop?label=sourceforge%20downloads)](https://sourceforge.net/projects/juice-shop/)
 
@@ -104,7 +104,7 @@ overview please visit the official project page:
    Windows, MacOS or Linux machine
 2. Download `juice-shop-<version>_<node-version>_<os>_x64.zip` (or
    `.tgz`) attached to
-   [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
+   [latest release](https://github.com/juice-shop/juice-shop/releases/latest)
 3. Unpack and `cd` into the unpacked folder
 4. Run `npm start`
 5. Browse to <http://localhost:3000>
@@ -347,6 +347,6 @@ For a list of all contributors to the OWASP Juice Shop please visit our
 
 This program is free software: you can redistribute it and/or modify it
 under the terms of the [MIT license](LICENSE). OWASP Juice Shop and any
-contributions are Copyright © by Bjoern Kimminich 2014-2021.
+contributions are Copyright © by Bjoern Kimminich & the OWASP Juice Shop contributors 2014-2021.
 
 ![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_400px.png)

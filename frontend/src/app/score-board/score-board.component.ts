@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -351,11 +351,35 @@ export class ScoreBoardComponent implements OnInit {
     this.localBackupService.restore(file)
   }
 
-  showCodeSnippet (key: string) {
-    this.dialog.open(CodeSnippetComponent, {
+  showCodeSnippet (key: string, name: string, codingChallengeStatus: number) {
+    const dialogRef = this.dialog.open(CodeSnippetComponent, {
+      disableClose: true,
       data: {
-        key: key
+        key: key,
+        name: name,
+        codingChallengeStatus: codingChallengeStatus
       }
     })
+
+    dialogRef.afterClosed().subscribe(result => {
+      for (const challenge of this.challenges) {
+        if (challenge.name === name) {
+          if (challenge.codingChallengeStatus < 1) {
+            challenge.codingChallengeStatus = result.findIt ? 1 : challenge.codingChallengeStatus
+          }
+          if (challenge.codingChallengeStatus < 2) {
+            challenge.codingChallengeStatus = result.fixIt ? 2 : challenge.codingChallengeStatus
+          }
+        }
+      }
+    })
+  }
+
+  generateColor (challenge: Challenge) {
+    return challenge.codingChallengeStatus === 2 ? 'accent' : 'primary'
+  }
+
+  generateBadge (challenge: Challenge) {
+    return challenge.codingChallengeStatus === 1 ? '1/2' : ''
   }
 }

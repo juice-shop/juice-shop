@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -39,6 +39,8 @@ captchas.verifyCaptcha = () => (req, res, next) => {
     } else {
       res.status(401).send(res.__('Wrong answer to CAPTCHA. Please try again.'))
     }
+  }).catch(error => {
+    next(error)
   })
 }
 

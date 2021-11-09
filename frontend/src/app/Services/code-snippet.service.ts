@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -7,6 +7,15 @@ import { environment } from '../../environments/environment'
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
+import { Observable } from 'rxjs'
+
+export interface CodeSnippet {
+  snippet: string
+}
+
+export interface Solved {
+  challenges: string[]
+}
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +26,8 @@ export class CodeSnippetService {
 
   constructor (private readonly http: HttpClient) { }
 
-  get (key: string) {
-    return this.http.get(`${this.host}/${key}`).pipe(map((response: any) => response), catchError((err) => { throw err }))
+  get (key: string): Observable<CodeSnippet> {
+    return this.http.get<CodeSnippet>(`${this.host}/${key}`).pipe(map((response: CodeSnippet) => response), catchError((err) => { throw err }))
   }
 
   challenges () {

@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 import dataErasure from './routes/dataErasure'
+import fs = require('fs')
 const startTime = Date.now()
 const path = require('path')
-import fs = require('fs')
 const morgan = require('morgan')
 const colors = require('colors/safe')
 const finale = require('finale-rest')
@@ -36,6 +36,7 @@ const profileImageFileUpload = require('./routes/profileImageFileUpload')
 const profileImageUrlUpload = require('./routes/profileImageUrlUpload')
 const redirect = require('./routes/redirect')
 const vulnCodeSnippet = require('./routes/vulnCodeSnippet')
+const vulnCodeFixes = require('./routes/vulnCodeFixes')
 const angular = require('./routes/angular')
 const easterEgg = require('./routes/easterEgg')
 const premiumReward = require('./routes/premiumReward')
@@ -274,15 +275,14 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use('/rest/user/reset-password', new RateLimit({
     windowMs: 5 * 60 * 1000,
     max: 100,
-    keyGenerator ({ headers, ip }) { return headers['X-Forwarded-For'] || ip }, // vuln-code-snippet vuln-line resetPasswordMortyChallenge
-    delayMs: 0
+    keyGenerator ({ headers, ip }) { return headers['X-Forwarded-For'] || ip } // vuln-code-snippet vuln-line resetPasswordMortyChallenge
   }))
   // vuln-code-snippet end resetPasswordMortyChallenge
 
   // vuln-code-snippet start changeProductChallenge
   /** Authorization **/
-  /* Checks on JWT in Authorization header */
-  app.use(verify.jwtChallenges())
+  /* Checks on JWT in Authorization header */ // vuln-code-snippet hide-line
+  app.use(verify.jwtChallenges()) // vuln-code-snippet hide-line
   /* Baskets: Unauthorized users are not allowed to access baskets */
   app.use('/rest/basket', security.isAuthorized(), security.appendUserId())
   /* BasketItems: API only accessible for authenticated users */
@@ -508,8 +508,12 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/rest/admin/application-version', appVersion())
   app.get('/rest/admin/application-configuration', appConfiguration())
   app.get('/rest/repeat-notification', repeatNotification())
-  app.get('/rest/continue-code', continueCode())
-  app.put('/rest/continue-code/apply/:continueCode', restoreProgress())
+  app.get('/rest/continue-code', continueCode.continueCode())
+  app.get('/rest/continue-code-findIt', continueCode.continueCodeFindIt())
+  app.get('/rest/continue-code-fixIt', continueCode.continueCodeFixIt())
+  app.put('/rest/continue-code-findIt/apply/:continueCode', restoreProgress.restoreProgressFindIt())
+  app.put('/rest/continue-code-fixIt/apply/:continueCode', restoreProgress.restoreProgressFixIt())
+  app.put('/rest/continue-code/apply/:continueCode', restoreProgress.restoreProgress())
   app.get('/rest/admin/application-version', appVersion())
   app.get('/rest/captcha', captcha())
   app.get('/rest/image-captcha', imageCaptcha())
@@ -558,8 +562,11 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.post('/profile', updateUserProfile())
 
   /* Route for vulnerable code snippets */
-  app.get('/snippets', vulnCodeSnippet.challengesWithCodeSnippet())
+  app.get('/snippets', vulnCodeSnippet.serveChallengesWithCodeSnippet())
   app.get('/snippets/:challenge', vulnCodeSnippet.serveCodeSnippet())
+  app.post('/snippets/verdict', vulnCodeSnippet.checkVulnLines())
+  app.get('/snippets/fixes/:key', vulnCodeFixes.serveCodeFixes())
+  app.post('/snippets/fixes', vulnCodeFixes.checkCorrectFix())
 
   app.use(angular())
 
@@ -603,12 +610,11 @@ const uploadToDisk = multer({
 const Metrics = metrics.observeMetrics()
 const metricsUpdateLoop = Metrics.updateLoop
 app.get('/metrics', metrics.serveMetrics()) // vuln-code-snippet vuln-line exposedMetricsChallenge
-// vuln-code-snippet end exposedMetricsChallenge
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
 const registerWebsocketEvents = require('./lib/startup/registerWebsocketEvents')
 const customizeApplication = require('./lib/startup/customizeApplication')
-const customizeEasterEgg = require('./lib/startup/customizeEasterEgg')
+const customizeEasterEgg = require('./lib/startup/customizeEasterEgg') // vuln-code-snippet hide-line
 
 export async function start (readyCallback) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
@@ -630,8 +636,8 @@ export async function start (readyCallback) {
     }
   })
 
-  void collectDurationPromise('customizeApplication', customizeApplication)()
-  void collectDurationPromise('customizeEasterEgg', customizeEasterEgg)()
+  void collectDurationPromise('customizeApplication', customizeApplication)() // vuln-code-snippet hide-line
+  void collectDurationPromise('customizeEasterEgg', customizeEasterEgg)() // vuln-code-snippet hide-line
 }
 
 export function close (exitCode) {
@@ -643,3 +649,4 @@ export function close (exitCode) {
     process.exit(exitCode)
   }
 }
+// vuln-code-snippet end exposedMetricsChallenge

@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-const otplib = require('otplib')
 import config = require('config')
+const otplib = require('otplib')
 
 const EC = protractor.ExpectedConditions
 

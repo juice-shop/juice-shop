@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
+import vm = require('vm')
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
 const safeEval = require('notevil')
-import vm = require('vm')
 const challenges = require('../data/datacache').challenges
 
 module.exports = function b2bOrder () {

@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-const svgCaptcha = require('svg-captcha')
 import models = require('../models/index')
+const svgCaptcha = require('svg-captcha')
 const Op = models.Sequelize.Op
 const security = require('../lib/insecurity')
 

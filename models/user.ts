@@ -1,13 +1,13 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 /* jslint node: true */
+import config = require('config')
 const security = require('../lib/insecurity')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
-import config = require('config')
 
 module.exports = (sequelize, { STRING, BOOLEAN }) => {
   const User = sequelize.define('User', {

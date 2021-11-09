@@ -471,17 +471,6 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html'
   key: oauthUserPasswordChallenge
 -
-  name: 'Login CISO'
-  category: 'Broken Authentication'
-  tags:
-    - Code Analysis
-  description: 'Exploit OAuth 2.0 to log in with the Chief Information Security Officer''s user account.'
-  difficulty: 5
-  hint: 'Don''t try to beat Google''s OAuth 2.0 service. Rather investigate implementation flaws on OWASP Juice Shop''s end.'
-  hintUrl: 'https://pwning.owasp-juice.shop/part2/broken-authentication.html#exploit-oauth-20-to-log-in-with-the-cisos-user-account'
-  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html'
-  key: loginCisoChallenge
--
   name: 'Login Jim'
   category: 'Injection'
   tags:
@@ -1130,3 +1119,16 @@
   hintUrl: 'https://pwning.owasp-juice.shop/part2/miscellaneous.html#receive-a-coupon-code-from-the-support-chatbot'
   mitigationUrl: ~
   key: bullyChatbotChallenge
+-
+  name: 'Local File Read'
+  category: 'Vulnerable Components'
+  tags:
+    - OSINT
+    - Danger Zone
+  difficulty: 5
+  hint: 'You should read up on vulnerabilities in popular NodeJs template engines.'
+  description: 'Gain read access to an arbitrary local file on the web server.'
+  key: 'lfrChallenge'
+  disabledEnv:
+    - Docker
+    - Heroku

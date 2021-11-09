@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-const config = require('config')
 import path = require('path')
+const config = require('config')
 const utils = require('../../lib/utils')
 
 describe('/#/complain', () => {

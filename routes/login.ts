@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
+import models = require('../models/index')
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
-import models = require('../models/index')
 const challenges = require('../data/datacache').challenges
 const users = require('../data/datacache').users
 const config = require('config')
@@ -29,15 +29,8 @@ module.exports = function login () {
     verifyPreLoginChallenges(req) // vuln-code-snippet hide-line
     models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true }) // vuln-code-snippet vuln-line loginAdminChallenge loginBenderChallenge loginJimChallenge
       .then((authenticatedUser) => {
-        let user = utils.queryResultToJson(authenticatedUser)
-        const rememberedEmail = security.userEmailFrom(req)
-        if (rememberedEmail && req.body.oauth) {
-          models.User.findOne({ where: { email: rememberedEmail } }).then(rememberedUser => {
-            user = utils.queryResultToJson(rememberedUser)
-            utils.solveIf(challenges.loginCisoChallenge, () => { return user.data.id === users.ciso.id }) // vuln-code-snippet hide-line
-            afterLogin(user, res, next)
-          })
-        } else if (user.data?.id && user.data.totpSecret !== '') {
+        const user = utils.queryResultToJson(authenticatedUser)
+        if (user.data?.id && user.data.totpSecret !== '') {
           res.status(401).json({
             status: 'totp_token_required',
             data: {
