@@ -417,14 +417,14 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     })
 
     // create a wallet when a new user is registered using API
-    if (name === 'User') {
+    if (name === 'User') { // vuln-code-snippet neutral-line registerAdminChallenge
       resource.create.send.before((req, res, context) => { // vuln-code-snippet vuln-line registerAdminChallenge
         models.Wallet.create({ UserId: context.instance.id }).catch((err) => {
           console.log(err)
         })
-        return context.continue
-      })
-    }
+        return context.continue // vuln-code-snippet neutral-line registerAdminChallenge
+      }) // vuln-code-snippet neutral-line registerAdminChallenge
+    } // vuln-code-snippet neutral-line registerAdminChallenge
     // vuln-code-snippet end registerAdminChallenge
 
     // translate challenge descriptions and hints on-the-fly
