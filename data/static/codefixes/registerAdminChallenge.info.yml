@@ -1,0 +1,13 @@
+fixes:
+  - id: 1
+    explanation: 'This code change will check if a role is already defined on the user entity. If so, it will keep it. If not, it will set "customer" as a fallback role. This still allows anyone to pick their own prefered role, though.'
+  - id: 2
+    explanation: "Removing the interceptor function completely not only keeps the role assignment possible, it also breaks functionality by no longer creating digital wallets for new users."
+  - id: 3
+    explanation: 'This actually fixes the role assignment issue, by overriding any value pre-set via the POST request with a static "customer" default role.'
+  - id: 4
+    explanation: 'This change results in the "role" property not being returned in any User-API responses. This will not prevent setting an arbitrary role during user creation but probably also break some functionality in the client that relies on the role being present.'
+hints:
+  - "Which entity is this challenge most likely about? Try to find all code places where that entity is somehow processed."
+  - "In this snippet you must look for a place where something is missing that, if present, would negate an arbitrary role assignment."
+  - "Make sure that you do not select any lines that are contained in the vulnerable function but themselves have nothing to do with the vulberability."
