@@ -178,7 +178,7 @@
   "BTN_SHOW_SOLVED": "Zobrazit vyřešené",
   "TITLE_TWO_FACTOR_AUTH_ENTER": "Zadejte 6-ti místný token z vaší 2FA aplikace",
   "LABEL_TWO_FACTOR_AUTH_TOKEN": "2FA Token",
-  "CONFIRM_2FA_SETUP": "Setup of Two-Factor Authentication successfully completed.",
+  "CONFIRM_2FA_SETUP": "Nastavení dvou-faktorového ověřování bylo úspěšně dokončeno.",
   "CONFIRM_2FA_DISABLE": "Dvoufázové ověření bylo odstraněno.",
   "INVALID_TWO_FACTOR_AUTH_TOKEN": "Token se zdá být neplatný.",
   "UNAUTHORIZED_PAGE_ACCESS_ERROR": "Nemáte oprávnění k přístupu na tuto stránku!",
@@ -364,9 +364,9 @@
   "TAG_OSINT": "OSINT",
   "TAG_OSINT_DESCRIPTION": "Označuje výzvy, které vyžadují nějaký internetový průzkum nebo \"social stalking\" operace mimo aplikaci.",
   "TAG_CONTRAPTION": "Zařízení",
-  "TAG_CONTRAPTION_DESCRIPTION": "Indicates that a challenge is not exactly part of a realistic scenario but might be a bit forced or crafted.",
-  "TAG_SHENANIGANS": "Shenanigans",
-  "TAG_SHENANIGANS_DESCRIPTION": "Marks challenges which are not considered serious and/or realistic but exist more for entertainment.",
+  "TAG_CONTRAPTION_DESCRIPTION": "Označuje, že výzva není přesně součástí realistického scénáře, ale může být trochu vynucená nebo vymyšlená.",
+  "TAG_SHENANIGANS": "Lumpárny",
+  "TAG_SHENANIGANS_DESCRIPTION": "Označuje výzvy, které nejsou považovány za seriózní a/nebo realistické, ale existují spíše pro zábavu.",
   "TAG_TUTORIAL": "Průvodce",
   "TAG_TUTORIAL_DESCRIPTION": "Marks challenges for which a Hacking Instructor script exists to assist newcomers.",
   "TAG_BRUTE_FORCE": "Hrubá síla",
@@ -378,7 +378,7 @@
   "CATEGORY_BROKEN_ACCESS_CONTROL": "Broken Access Control",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "Broken Anti Automation",
   "CATEGORY_BROKEN_AUTHENTICATION": "Broken Authentication",
-  "CATEGORY_CRYPTOGRAPHIC_ISSUES": "Cryptographic Issues",
+  "CATEGORY_CRYPTOGRAPHIC_ISSUES": "Problematika šifrování",
   "CATEGORY_IMPROPER_INPUT_VALIDATION": "Improper Input Validation",
   "CATEGORY_INJECTION": "Injection",
   "CATEGORY_INSECURE_DESERIALIZATION": "Insecure Deserialization",
@@ -413,5 +413,5 @@
   "TITLE_CODING_CHALLENGE": "Coding Challenge",
   "TAB_FIND_IT": "Find It",
   "TAB_FIX_IT": "Opravit",
-  "TITLE_CODING_SCORE": "Coding Score"
+  "TITLE_CODING_SCORE": "Skóre kódování"
 }
