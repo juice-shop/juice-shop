@@ -368,7 +368,7 @@
   "TAG_SHENANIGANS": "Lumpárny",
   "TAG_SHENANIGANS_DESCRIPTION": "Označuje výzvy, které nejsou považovány za seriózní a/nebo realistické, ale existují spíše pro zábavu.",
   "TAG_TUTORIAL": "Průvodce",
-  "TAG_TUTORIAL_DESCRIPTION": "Marks challenges for which a Hacking Instructor script exists to assist newcomers.",
+  "TAG_TUTORIAL_DESCRIPTION": "Označuje výzvy pro které existuje skript Hacking Instructor pro pomoc novým uživatelům.",
   "TAG_BRUTE_FORCE": "Hrubá síla",
   "TAG_BRUTE_FORCE_DESCRIPTION": "Marks challenges where automation of some security tool or custom script is an option or even prerequisite.",
   "TAG_GOOD_PRACTICE": "Dobré na procvičování",
