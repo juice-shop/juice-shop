@@ -8,8 +8,6 @@ const challenges = require('../data/datacache').challenges
 const db = require('../data/mongodb')
 const security = require('../lib/insecurity')
 
-// TODO Merge with file createProductReviews.ts to create a bigger Coding Challenge snippet covering creation and updates at the same time. Alternatively support for multiple source files would be needed in Coding Challenges.
-
 // vuln-code-snippet start noSqlReviewsChallenge forgedReviewChallenge
 module.exports = function productReviews () {
   return (req, res, next) => {
