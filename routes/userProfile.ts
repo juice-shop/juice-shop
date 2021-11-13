@@ -11,6 +11,8 @@ const challenges = require('../data/datacache').challenges
 const pug = require('pug')
 const config = require('config')
 const themes = require('../views/themes/themes').themes
+const Entities = require('html-entities').AllHtmlEntities
+const entities = new Entities()
 
 module.exports = function getUserProfile () {
   return (req, res, next) => {
@@ -35,7 +37,7 @@ module.exports = function getUserProfile () {
           const theme = themes[config.get('application.theme')]
           template = template.replace(/_username_/g, username)
           template = template.replace(/_emailHash_/g, security.hash(user.dataValues.email))
-          template = template.replace(/_title_/g, config.get('application.name'))
+          template = template.replace(/_title_/g, entities.encode(config.get('application.name')))
           template = template.replace(/_favicon_/g, favicon())
           template = template.replace(/_bgColor_/g, theme.bgColor)
           template = template.replace(/_textColor_/g, theme.textColor)
