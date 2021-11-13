@@ -31,7 +31,7 @@ describe('codingChallengeFixes', () => {
     }
   })
 
-  xit('should have an info YAML file for each coding challenge', async () => { // TODO Enable test once all coding challenges have an info file. Then also state it as a mandatory pieced in companion guide.
+  it('should have an info YAML file for each coding challenge', async () => {
     for (const challenge of codingChallenges) {
       expect(fs.existsSync('./data/static/codefixes/' + challenge + '.info.yml'), `Coding challenge ${challenge} does not have an info YAML file`).to.equal(true)
     }
