@@ -81,6 +81,7 @@ interface Config {
     restrictToTutorialsFirst: boolean
     safetyOverride: boolean
     overwriteUrlForProductTamperingChallenge: string
+    showFeedbackButtons: boolean
   }
   hackingInstructor: {
     isEnabled: boolean

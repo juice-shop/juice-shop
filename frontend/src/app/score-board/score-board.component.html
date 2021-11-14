@@ -228,7 +228,7 @@
         </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="feedback">
+      <ng-container matColumnDef="feedback" *ngIf="showFeedbackButtons">
         <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-xl fxFlex="1 1 5%" translate>LABEL_FEEDBACK</mat-header-cell>
         <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-xl fxFlex="1 1 5%">
           <a *ngIf="challenge.solved" [href]="'https://docs.google.com/forms/d/e/1FAIpQLSdaNEuz0dzFA2sexCa0AJ4QOb2OYdEL04eQOLFD2Y4T-BW6ag/viewform?usp=pp_url&entry.384948954=' + challenge.name + '&entry.435235279=Hacking+Challenge&entry.1734944650=Yes'" target="_blank">
