@@ -46,7 +46,7 @@ export class ScoreBoardComponent implements OnInit {
   public isLastTutorialsTier: boolean = false
   public tutorialsTier: number = 1
   public disabledEnv?: string
-  public displayedColumns = ['name', 'difficulty', 'description', 'category', 'tags', 'status', 'feedback']
+  public displayedColumns = ['name', 'difficulty', 'description', 'category', 'tags', 'status']
   public offsetValue = ['100%', '100%', '100%', '100%', '100%', '100%']
   public allowRepeatNotifications: boolean = false
   public showChallengeHints: boolean = true
@@ -62,6 +62,7 @@ export class ScoreBoardComponent implements OnInit {
   public questionnaireUrl: string = 'https://forms.gle/2Tr5m1pqnnesApxN8'
   public appName: string = 'OWASP Juice Shop'
   public localBackupEnabled: boolean = true
+  public showFeedbackButtons: boolean = true
 
   constructor (private readonly configurationService: ConfigurationService, private readonly challengeService: ChallengeService, private readonly codeSnippetService: CodeSnippetService, private readonly sanitizer: DomSanitizer, private readonly ngZone: NgZone, private readonly io: SocketIoService, private readonly spinner: NgxSpinnerService, private readonly translate: TranslateService, private readonly localBackupService: LocalBackupService, private readonly dialog: MatDialog) {
   }
@@ -80,6 +81,10 @@ export class ScoreBoardComponent implements OnInit {
       this.showCodeSnippets = config.challenges.showCodeSnippets
       this.showHackingInstructor = config.hackingInstructor?.isEnabled
       this.showContributionInfoBox = config.application.showGitHubLinks
+      this.showFeedbackButtons = config.challenges.showFeedbackButtons
+      if (this.showFeedbackButtons) {
+        this.displayedColumns.push('feedback')
+      }
       this.questionnaireUrl = config.application.social?.questionnaireUrl
       this.appName = config.application.name
       this.restrictToTutorialsFirst = config.challenges.restrictToTutorialsFirst
