@@ -86,7 +86,7 @@ export function waitForElementToGetClicked (elementSelector: string) {
       console.warn(`Could not find Element with selector "${elementSelector}"`)
     }
 
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       element.addEventListener('click', () => resolve())
     })
   }
