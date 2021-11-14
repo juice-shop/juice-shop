@@ -124,8 +124,6 @@ challenges:
     type: string
   safetyOverride:
     type: boolean
-  feedbackFormUrl:
-    type: string
 hackingInstructor:
   isEnabled:
     type: boolean
