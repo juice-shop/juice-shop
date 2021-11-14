@@ -413,5 +413,6 @@
   "TITLE_CODING_CHALLENGE": "Coding Challenge",
   "TAB_FIND_IT": "Find It",
   "TAB_FIX_IT": "Fix It",
-  "TITLE_CODING_SCORE": "Coding Score"
+  "TITLE_CODING_SCORE": "Coding Score",
+  "LABEL_FEEDBACK": "Feedback"
 }
