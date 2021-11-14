@@ -2,13 +2,14 @@
  * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
+@use '~@angular/material' as mat;
 
 @import 'theme';
 
 @mixin link-theme($theme) {
   a:link,
   a:visited {
-    color: mat-color(map-get($theme, accent), lighter);
+    color: mat.get-color-from-palette(map-get($theme, accent), lighter);
     text-decoration: none;
   }
 
@@ -25,52 +26,52 @@
 
 @mixin deluxe-membership-theme($theme) {
   .deluxe-membership {
-    background: linear-gradient(90deg, mat-color(map-get($theme, primary), 1) 0%, mat-color(map-get($theme, background), card) 100%);
+    background: linear-gradient(90deg, mat.get-color-from-palette(map-get($theme, primary), 1) 0%, mat.get-color-from-palette(map-get($theme, background), card) 100%);
   }
 }
 
 @mixin notification-theme($theme) {
   .confirmation {
-    color: mat-color(map-get($theme, accent));
+    color: mat.get-color-from-palette(map-get($theme, accent));
   }
 
   .ribbon::before {
-    border: 5px solid mat-color(map-get($theme, accent));
+    border: 5px solid mat.get-color-from-palette(map-get($theme, accent));
   }
 
   .ribbon span {
-    background-color: mat-color(map-get($theme, accent));
+    background-color: mat.get-color-from-palette(map-get($theme, accent));
   }
 
   .error {
-    color: mat-color(map-get($theme, warn));
+    color: mat.get-color-from-palette(map-get($theme, warn));
   }
 
   .ribbon-sold::before {
-    border: 5px solid mat-color(map-get($theme, warn));
+    border: 5px solid mat.get-color-from-palette(map-get($theme, warn));
   }
 
   .ribbon-sold span {
-    background-color: mat-color(map-get($theme, warn));
+    background-color: mat.get-color-from-palette(map-get($theme, warn));
   }
 
   .primary-notification {
-    background-color: mat-color(map-get($theme, primary), darker);
+    background-color: mat.get-color-from-palette(map-get($theme, primary), darker);
   }
 
   .accent-notification {
-    background-color: mat-color(map-get($theme, accent), darker);
+    background-color: mat.get-color-from-palette(map-get($theme, accent), darker);
   }
 
   .warn-notification {
-    background-color: mat-color(map-get($theme, warn), darker);
+    background-color: mat.get-color-from-palette(map-get($theme, warn), darker);
   }
 }
 
 @mixin image-thumbnail-theme($theme) {
   .img-thumbnail {
-    background-color: mat-color(map-get($theme, primary), 0.05);
-    border: 1px solid mat-color(map-get($theme, primary));
+    background-color: mat.get-color-from-palette(map-get($theme, primary), 0.05);
+    border: 1px solid mat.get-color-from-palette(map-get($theme, primary));
     border-radius: 3px;
     padding: 3px;
   }
@@ -78,42 +79,42 @@
 
 @mixin score-star-theme($theme) {
   .empty-star {
-    stop-color: mat-color(map-get($theme, primary));
+    stop-color: mat.get-color-from-palette(map-get($theme, primary));
   }
 
   .filled-star {
-    stop-color: mat-color(map-get($theme, accent));
+    stop-color: mat.get-color-from-palette(map-get($theme, accent));
   }
 
   .star-border {
-    stroke: mat-color(map-get($theme, accent));
+    stroke: mat.get-color-from-palette(map-get($theme, accent));
   }
 }
 
 @mixin snackbar($theme) {
   .mat-snack-bar-container {
-    background-color: mat-color(map-get($theme, background), card) !important;
-    color: mat-color(map-get($theme, foreground), text) !important;
+    background-color: mat.get-color-from-palette(map-get($theme, background), card) !important;
+    color: mat.get-color-from-palette(map-get($theme, foreground), text) !important;
   }
 
   .mat-snack-bar-container.errorBar {
-    color: mat-color(map-get($theme, warn)) !important;
+    color: mat.get-color-from-palette(map-get($theme, warn)) !important;
   }
 
   .mat-snack-bar-container.confirmBar {
-    color: mat-color(map-get($theme, accent)) !important;
+    color: mat.get-color-from-palette(map-get($theme, accent)) !important;
   }
 }
 
 @mixin google-button($theme) {
   .google-button {
-    background-color: mat-color(map-get($theme, accent), darker) !important;
+    background-color: mat.get-color-from-palette(map-get($theme, accent), darker) !important;
   }
 }
 
 @mixin overlay-theme($theme) {
   .overlay {
-    background: mat-color(map-get($theme, primary), darker, 0.7);
+    background: mat.get-color-from-palette(map-get($theme, primary), darker, 0.7);
   }
 }
 
@@ -131,37 +132,37 @@
 $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
 
 .deeppurple-amber-theme {
-  @include angular-material-theme($deeppurple-amber-theme);
+  @include mat.all-component-themes($deeppurple-amber-theme);
   @include custom-components-theme($deeppurple-amber-theme);
 }
 
 .indigo-pink-theme {
-  @include angular-material-theme($indigo-pink-theme);
+  @include mat.all-component-themes($indigo-pink-theme);
   @include custom-components-theme($indigo-pink-theme);
 }
 
 .pink-bluegrey-theme {
-  @include angular-material-theme($pink-bluegrey-theme);
+  @include mat.all-component-themes($pink-bluegrey-theme);
   @include custom-components-theme($pink-bluegrey-theme);
 }
 
 .purple-green-theme {
-  @include angular-material-theme($purple-green-theme);
+  @include mat.all-component-themes($purple-green-theme);
   @include custom-components-theme($purple-green-theme);
 }
 
 .bluegrey-lightgreen-theme {
-  @include angular-material-theme($bluegrey-lightgreen-theme);
+  @include mat.all-component-themes($bluegrey-lightgreen-theme);
   @include custom-components-theme($bluegrey-lightgreen-theme);
 }
 
 .blue-lightblue-theme {
-  @include angular-material-theme($blue-lightblue-theme);
+  @include mat.all-component-themes($blue-lightblue-theme);
   @include custom-components-theme($blue-lightblue-theme);
 }
 
 .deeporange-indigo-theme {
-  @include angular-material-theme($deeporange-indigo-theme);
+  @include mat.all-component-themes($deeporange-indigo-theme);
   @include custom-components-theme($deeporange-indigo-theme);
 }
 
