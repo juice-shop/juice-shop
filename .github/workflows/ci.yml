@@ -31,9 +31,9 @@ jobs:
         run: npm install -g @angular/cli
       - name: "Install application"
         run: |
-          npm install --ignore-scripts
+          npm ci --ignore-scripts
           cd frontend
-          npm install --ignore-scripts
+          npm ci --ignore-scripts
       - name: "Lint source code"
         run: npm run lint
       - name: "Lint customization configs"
@@ -79,7 +79,7 @@ jobs:
         run: npm install -g @angular/cli
       - name: "Install application"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
-        run: npm install
+        run: npm ci
       - name: "Execute unit tests"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
         uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
@@ -128,7 +128,7 @@ jobs:
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
-        run: npm install
+        run: npm ci
       - name: "Execute end-to-end tests"
         env:
           SOLUTIONS_WEBHOOK: ${{ secrets.E2E_SOLUTIONS_WEBHOOK }}
@@ -153,7 +153,7 @@ jobs:
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
-        run: npm install
+        run: npm ci
       - name: "Execute end-to-end tests with application hosted in subfolder"
         uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
         with:
@@ -183,8 +183,7 @@ jobs:
           echo "PCKG_CPU_ARCH=x64" >> $GITHUB_ENV
       - name: "Package application"
         run: |
-          npm install --production
-          npm install -g grunt-cli
+          npm ci --production
           npm run package:ci
       - name: "Unpack application archive"
         run: |
