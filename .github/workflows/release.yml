@@ -43,8 +43,7 @@ jobs:
         shell: bash
       - name: "Package application"
         run: |
-          npm install --production
-          npm install -g grunt-cli
+          npm ci --production
           npm run package:ci
       - name: 'Attach packaged archive to tag release'
         uses: softprops/action-gh-release@v1

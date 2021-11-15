@@ -56,7 +56,7 @@
     "build:server": "tsc",
     "e2e": "ts-node test/e2eTests.ts",
     "frisby": "nyc --report-dir=./build/reports/coverage/api-tests jest --silent --runInBand --forceExit",
-    "postinstall": "cd frontend && npm install --legacy-peer-deps && cd .. && npm run build:frontend && (npm run --silent build:server || cd .)",
+    "postinstall": "cd frontend && npm ci --legacy-peer-deps && cd .. && npm run build:frontend && (npm run --silent build:server || cd .)",
     "lint": "eslint *.[jt]s data lib models routes test views && cd frontend && ng lint && npx stylelint \"**/*.scss\" && cd ..",
     "lint:config": "schema validate -s config.schema.yml",
     "lint:fix": "eslint *.[jt]s data lib models routes test views --fix && cd frontend && ng lint --fix && npx stylelint \"**/*.scss\" --fix && cd ..",
