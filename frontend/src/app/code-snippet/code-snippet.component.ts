@@ -12,6 +12,7 @@ import { Component, Inject, OnInit } from '@angular/core'
 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { FormControl } from '@angular/forms'
+import { ConfigurationService } from '../Services/configuration.service'
 
 enum ResultState {
   Undecided,
@@ -40,10 +41,15 @@ export class CodeSnippetComponent implements OnInit {
   public hint: string = null
   public explanation: string = null
   public solved: Solved = { findIt: false, fixIt: false }
+  public showFeedbackButtons: boolean = true
 
-  constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly codeSnippetService: CodeSnippetService, private readonly vulnLinesService: VulnLinesService, private readonly codeFixesService: CodeFixesService, private readonly challengeService: ChallengeService, private readonly cookieService: CookieService) { }
+  constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly configurationService: ConfigurationService, private readonly codeSnippetService: CodeSnippetService, private readonly vulnLinesService: VulnLinesService, private readonly codeFixesService: CodeFixesService, private readonly challengeService: ChallengeService, private readonly cookieService: CookieService) { }
 
   ngOnInit () {
+    this.configurationService.getApplicationConfiguration().subscribe((config) => {
+      this.showFeedbackButtons = config.challenges.showFeedbackButtons
+    }, (err) => console.log(err))
+
     this.codeSnippetService.get(this.dialogData.key).subscribe((snippet) => {
       this.snippet = snippet
       this.solved.findIt = false

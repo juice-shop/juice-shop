@@ -8,7 +8,7 @@ application:
     showOnFirstStart: false
 challenges:
   showHints: false
-  showCodeSnippets: solved
+  showFeedbackButtons: false
 hackingInstructor:
   isEnabled: false
 ctf:
