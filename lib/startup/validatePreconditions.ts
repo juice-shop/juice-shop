@@ -22,22 +22,14 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
   success = checkIfRunningOnSupportedCPU(process.arch) && success
 
   const asyncConditions = (await Promise.all([
-    // Transpiled backend code
     checkIfRequiredFileExists('build/server.js'),
-    // Angular frontend scripts
     checkIfRequiredFileExists('frontend/dist/frontend/index.html'),
     checkIfRequiredFileExists('frontend/dist/frontend/styles.css'),
-    checkIfRequiredFileExists('frontend/dist/frontend/main-es2018.js'),
-    checkIfRequiredFileExists('frontend/dist/frontend/tutorial-es2018.js'),
-    checkIfRequiredFileExists('frontend/dist/frontend/polyfills-es2018.js'),
-    checkIfRequiredFileExists('frontend/dist/frontend/runtime-es2018.js'),
-    checkIfRequiredFileExists('frontend/dist/frontend/vendor-es2018.js'),
-    // Legacy browser support scripts
-    checkIfRequiredFileExists('frontend/dist/frontend/main-es5.js'),
-    checkIfRequiredFileExists('frontend/dist/frontend/tutorial-es5.js'),
-    checkIfRequiredFileExists('frontend/dist/frontend/polyfills-es5.js'),
-    checkIfRequiredFileExists('frontend/dist/frontend/runtime-es5.js'),
-    checkIfRequiredFileExists('frontend/dist/frontend/vendor-es5.js'),
+    checkIfRequiredFileExists('frontend/dist/frontend/main.js'),
+    checkIfRequiredFileExists('frontend/dist/frontend/tutorial.js'),
+    checkIfRequiredFileExists('frontend/dist/frontend/polyfills.js'),
+    checkIfRequiredFileExists('frontend/dist/frontend/runtime.js'),
+    checkIfRequiredFileExists('frontend/dist/frontend/vendor.js'),
     checkIfPortIsAvailable(process.env.PORT || config.get('server.port'))
   ])).every(condition => condition)
 
