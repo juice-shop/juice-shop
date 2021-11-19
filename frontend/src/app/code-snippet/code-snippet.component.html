@@ -65,6 +65,12 @@
         <button mat-button style="height: 0; position: absolute;">
           <!-- 'absorbs' the auto-focus behavior -->
         </button>
+        <a *ngIf="this.showFeedbackButtons && this.solved.fixIt" [href]="'https://docs.google.com/forms/d/e/1FAIpQLSdaNEuz0dzFA2sexCa0AJ4QOb2OYdEL04eQOLFD2Y4T-BW6ag/viewform?usp=pp_url&entry.384948954=' + dialogData.name + '&entry.435235279=Coding+Challenge&entry.1734944650=Yes'" target="_blank">
+          <button mat-icon-button><mat-icon color="accent">thumb_up</mat-icon></button>
+        </a>
+        <a *ngIf="this.showFeedbackButtons && this.solved.fixIt" [href]="'https://docs.google.com/forms/d/e/1FAIpQLSdaNEuz0dzFA2sexCa0AJ4QOb2OYdEL04eQOLFD2Y4T-BW6ag/viewform?usp=pp_url&entry.384948954=' + dialogData.name + '&entry.435235279=Coding+Challenge&entry.1734944650=No'" target="_blank">
+          <button mat-icon-button><mat-icon color="warn">thumb_down</mat-icon></button>
+        </a>
         <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="Close Dialog" [mat-dialog-close]="solved" id="fixItCloseButton">
           <i class="material-icons">
             close
