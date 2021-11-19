@@ -2,9 +2,9 @@
  * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 
-@import '~@angular/material/theming';
+@import '@angular/material/theming';
 
 @include mat.core;
 
