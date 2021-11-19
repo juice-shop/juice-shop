@@ -169,7 +169,7 @@
     "sanitize-filename": "^1.6.3",
     "sanitize-html": "1.4.2",
     "semver": "^7.3.2",
-    "sequelize": "^6.4.0",
+    "sequelize": "~6.9.0",
     "sequelize-notupdate-attributes": "^1.0.0",
     "serve-index": "^1.9.1",
     "socket.io": "^3.1.0",
