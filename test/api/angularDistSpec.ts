@@ -9,7 +9,7 @@ const URL = 'http://localhost:3000'
 
 describe('/api', () => {
   it('GET main-es2018.js contains Cryptocurrency URLs', () => {
-    return frisby.get(URL + '/main-es2018.js')
+    return frisby.get(URL + '/main.js')
       .expect('status', 200)
       .expect('bodyContains', '/redirect?to=https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm')
       .expect('bodyContains', '/redirect?to=https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW')
@@ -17,7 +17,7 @@ describe('/api', () => {
   })
 
   it('GET main-es2018.js contains password hint for support team', () => {
-    return frisby.get(URL + '/main-es2018.js')
+    return frisby.get(URL + '/main.js')
       .expect('status', 200)
       .expect('bodyContains', '@echipa de suport: Secretul nostru comun este \\xeenc\\u0103 Caoimhe cu parola de master gol!')
   })
