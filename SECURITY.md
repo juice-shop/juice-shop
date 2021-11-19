@@ -12,8 +12,8 @@ We provide security patches for the latest released minor version.
 
 | Version | Supported          |
 |:--------|:-------------------|
-| 12.11.x  | :white_check_mark: |
-| <12.11   | :x:                |
+| 13.0.x  | :white_check_mark: |
+| <13.0   | :x:                |
 
 ## Reporting a Vulnerability
 
