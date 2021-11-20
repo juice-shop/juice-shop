@@ -3,17 +3,33 @@
  * SPDX-License-Identifier: MIT
  */
 
+let config
+
 export async function sleep (timeInMs: number): Promise<void> {
   return await new Promise((resolve) => {
     setTimeout(resolve, timeInMs)
   })
 }
 
-export function waitForInputToHaveValue (inputSelector: string, value: string, options = { ignoreCase: true }) {
+export function waitForInputToHaveValue (inputSelector: string, value: string, options: any = { ignoreCase: true, replacement: [] }) {
   return async () => {
     const inputElement: HTMLInputElement = document.querySelector(
       inputSelector
     )
+
+    if (options.replacement?.length === 2) {
+      if (!config) {
+        const res = await fetch('/rest/admin/application-configuration')
+        const json = await res.json()
+        config = json.config
+      }
+      const propertyChain = options.replacement[1].split('.')
+      let replacementValue = config
+      for (const property of propertyChain) {
+        replacementValue = replacementValue[property]
+      }
+      value = value.replace(options.replacement[0], replacementValue)
+    }
 
     while (true) {
       if (options.ignoreCase && inputElement.value.toLowerCase() === value.toLowerCase()) {
