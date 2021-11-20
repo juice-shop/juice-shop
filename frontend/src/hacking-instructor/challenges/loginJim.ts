@@ -64,7 +64,7 @@ export const LoginJimInstruction: ChallengeInstruction = {
       text: "Supply Jim's email address in the **email field**.",
       fixture: '#email',
       unskippable: true,
-      resolved: waitForInputToHaveValue('#email', 'jim@juice-sh.op') // TODO Use domain from config instead
+      resolved: waitForInputToHaveValue('#email', 'jim@juice-sh.op', { replacement: ['juice-sh.op', 'application.domain'] })
     },
     {
       text: "Now put anything in the **password field**. Let's assume we don't know it yet, even if you happen to already do.",
@@ -87,7 +87,7 @@ export const LoginJimInstruction: ChallengeInstruction = {
       text: "You can comment out the entire password check clause of the DB query by adding `'--` to Jim's email address!",
       fixture: '#email',
       unskippable: true,
-      resolved: waitForInputToHaveValue('#email', "jim@juice-sh.op'--") // TODO Use domain from config instead
+      resolved: waitForInputToHaveValue('#email', "jim@juice-sh.op'--", { replacement: ['juice-sh.op', 'application.domain'] })
     },
     {
       text: 'Now click the _Log in_ button again.',
