@@ -19,6 +19,6 @@ describe('/api', () => {
   it('GET main.js contains password hint for support team', () => {
     return frisby.get(URL + '/main.js')
       .expect('status', 200)
-      .expect('bodyContains', 'Parola echipei de asistență nu respectă politica corporativă pentru conturile privilegiate! Vă rugăm să schimbați parola &#238;n consecință!')
+      .expect('bodyContains', 'Parola echipei de asisten\\u021b\\u0103 nu respect\\u0103 politica corporativ\\u0103 pentru conturile privilegiate! V\\u0103 rug\\u0103m s\\u0103 schimba\\u021bi parola \\xeen consecin\\u021b\\u0103!')
   })
 })
