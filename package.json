@@ -252,7 +252,7 @@
     "ts-jest": "^26.5.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.3",
-    "webdriver-manager": "^12.1.7"
+    "webdriver-manager": "^13.0.0"
   },
   "engines": {
     "node": "12 - 16"
