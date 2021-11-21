@@ -77,7 +77,7 @@ interface Config {
     showSolvedNotifications: boolean
     showHints: boolean
     showMitigations: boolean
-    showCodeSnippets: string
+    codingChallengesEnabled: string
     restrictToTutorialsFirst: boolean
     safetyOverride: boolean
     overwriteUrlForProductTamperingChallenge: string

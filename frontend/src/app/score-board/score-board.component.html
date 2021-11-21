@@ -11,7 +11,7 @@
     </mat-card-title>
     <mat-progress-bar mode="determinate" [color]="'accent'" [value]="percentChallengesSolved"></mat-progress-bar>
   </mat-card>
-  <mat-card *ngIf="showCodeSnippets !== 'never'">
+  <mat-card *ngIf="codingChallengesEnabled !== 'never'">
     <mat-card-title>{{"TITLE_CODING_SCORE" | translate}}
       <small class="confirmation">{{percentCodingChallengesSolved}}%</small>
     </mat-card-title>
@@ -185,10 +185,10 @@
               </mat-icon>
             </button>
           </a>
-          <div [matTooltip]="('SOLVE_HACKING_CHALLENGE' | translate)" [matTooltipDisabled]="!challenge.hasSnippet || showCodeSnippets === 'solved' && challenge.solved || showCodeSnippets === 'always'" matTooltipPosition="above">
+          <div [matTooltip]="('SOLVE_HACKING_CHALLENGE' | translate)" [matTooltipDisabled]="!challenge.hasSnippet || codingChallengesEnabled === 'solved' && challenge.solved || codingChallengesEnabled === 'always'" matTooltipPosition="above">
             <button
-              *ngIf="challenge.hasSnippet && showCodeSnippets !== 'never'"
-              [disabled]="showCodeSnippets === 'solved' && !challenge.solved"
+              *ngIf="challenge.hasSnippet && codingChallengesEnabled !== 'never'"
+              [disabled]="codingChallengesEnabled === 'solved' && !challenge.solved"
               mat-mini-fab
               (click)="showCodeSnippet(challenge.key,challenge.name,challenge.codingChallengeStatus)"
               [matTooltip]="('LAUNCH_CODING_CHALLENGE' | translate)"
@@ -208,7 +208,7 @@
             </button>
           </div>
           <button
-            *ngIf="challenge.key === 'scoreBoardChallenge' && showHackingInstructor && challenge.solved && showCodeSnippets !== 'never' && challenge.codingChallengeStatus < 1"
+            *ngIf="challenge.key === 'scoreBoardChallenge' && showHackingInstructor && challenge.solved && codingChallengesEnabled !== 'never' && challenge.codingChallengeStatus < 1"
             mat-mini-fab color="warn"
             (click)="startHackingInstructor('Coding Challenges')"
             [matTooltip]="('INFO_HACKING_INSTRUCTOR' | translate)"
