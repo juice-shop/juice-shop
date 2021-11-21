@@ -102,7 +102,7 @@ describe('configValidation', () => {
       expect(checkNecessaryExtraKeysOnSpecialProducts(products)).to.equal(true)
     })
 
-    xit('should fail if product has no exifForBlueprintChallenge', () => { // TODO Turn back on with v13.x release
+    it('should fail if product has no exifForBlueprintChallenge', () => {
       const products = [
         {
           name: 'Apple Juice',
