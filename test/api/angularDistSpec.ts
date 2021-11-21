@@ -8,7 +8,7 @@ import frisby = require('frisby')
 const URL = 'http://localhost:3000'
 
 describe('/api', () => {
-  it('GET main-es2018.js contains Cryptocurrency URLs', () => {
+  it('GET main.js contains Cryptocurrency URLs', () => {
     return frisby.get(URL + '/main.js')
       .expect('status', 200)
       .expect('bodyContains', '/redirect?to=https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm')
@@ -16,9 +16,9 @@ describe('/api', () => {
       .expect('bodyContains', '/redirect?to=https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6')
   })
 
-  it('GET main-es2018.js contains password hint for support team', () => {
+  it('GET main.js contains password hint for support team', () => {
     return frisby.get(URL + '/main.js')
       .expect('status', 200)
-      .expect('bodyContains', 'Parola echipei de asistență nu respectă politica corporativă pentru conturile privilegiate! Vă rugăm să schimbați parola în consecință!')
+      .expect('bodyContains', 'Parola echipei de asistență nu respectă politica corporativă pentru conturile privilegiate! Vă rugăm să schimbați parola &#238;n consecință!')
   })
 })
