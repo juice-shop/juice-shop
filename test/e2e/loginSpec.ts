@@ -65,7 +65,7 @@ describe('/#/login', () => {
   describe('challenge "loginSupport"', () => {
     it('should be able to log in with original support-team credentials', () => {
       email.sendKeys(`support@${config.get('application.domain')}`)
-      password.sendKeys('J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P')
+      password.sendKeys('J6aVjTgOpRs@?5l!Zkq2AYnCE@RF$P')
       loginButton.click()
     })
 

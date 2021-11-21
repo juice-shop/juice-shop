@@ -100,10 +100,6 @@ export class LoginComponent implements OnInit {
     } else {
       localStorage.removeItem('email')
     }
-
-    if (this.error && this.user.email && this.user.email.match(/support@.*/)) {
-      console.log('@echipa de suport: Secretul nostru comun este încă Caoimhe cu parola de master gol!')
-    }
   }
 
   googleLogin () {
