@@ -51,7 +51,7 @@
 	"Once you found admin section of the application, this challenge is almost trivial.": "Una vez que hayas encontrado la sección de administración de la aplicación, este desafío es casi trivial.",
 	"Forge a coupon code that gives you a discount of at least 80%.": "Falsifica un código de cupón que te dé un descuento de al menos un 80%.",
 	"Try either a) a knowledgable brute force attack or b) reverse engineering or c) some research in the cloud.": "Prueba a) un ataque informado de fuerza bruta o b) ingeniería inversa o c) alguna investigación en la nube.",
-	"Post some feedback in another users name.": "Publica algunos comentarios en nombre de otro usuario.",
+	"Post some feedback in another user's name.": "Publica algunos comentarios en nombre de otro usuario.",
 	"You can solve this by tampering with the user interface or by intercepting the communication with the RESTful backend.": "Puedes resolver esto manipulando la interfaz de usuario o interceptando la comunicación con el backend RESTful.",
 	"Post a product review as another user or edit any user's existing review.": "Publica una reseña de producto como otro usuario o edita la reseña existente de cualquier usuario.",
 	"Observe the flow of product review posting and editing and see if you can exploit it.": "Observa el flujo de publicación y edición de reseñas de producto y ve si puedes explotarlo.",

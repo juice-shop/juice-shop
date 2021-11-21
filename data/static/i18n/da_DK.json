@@ -51,7 +51,7 @@
 	"Once you found admin section of the application, this challenge is almost trivial.": "Når først du har fundet applikationens adminsektion, er denne udfordring nærmest kedelig.",
 	"Forge a coupon code that gives you a discount of at least 80%.": "Forfalsk en kuponkode, der giver dig en rabat på mindst 80%.",
 	"Try either a) a knowledgable brute force attack or b) reverse engineering or c) some research in the cloud.": "Forsøg enten a) et kyndigt brute force-angreb eller b) reverse engineering eller c) nogle undersøgelser i skyen.",
-	"Post some feedback in another users name.": "Indsend feedback i en anden brugers navn.",
+	"Post some feedback in another user's name.": "Indsend feedback i en anden brugers navn.",
 	"You can solve this by tampering with the user interface or by intercepting the communication with the RESTful backend.": "Du kan løse dette ved at manipulere med brugergrænsefladen eller ved at opsnappe kommunikationen med RESTful backend'en.",
 	"Post a product review as another user or edit any user's existing review.": "Indsend en produktanmeldelse som en anden bruger eller redigér en brugers eksisterende anmeldelse.",
 	"Observe the flow of product review posting and editing and see if you can exploit it.": "Observér strømmen af indsendte produktbedømmelser samt rettelser og se om du kan udnytte dette.",
