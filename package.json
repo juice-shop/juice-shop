@@ -62,7 +62,7 @@
     "lint:fix": "eslint *.[jt]s data lib models routes test views --fix && cd frontend && ng lint --fix && npx stylelint \"**/*.scss\" --fix && cd ..",
     "package": "grunt package",
     "package:ci": "npm prune --production && npm dedupe && cd frontend && npm prune --production && cd .. && grunt package",
-    "preprotractor": "npm dedupe && node ./node_modules/protractor/bin/webdriver-manager update --gecko false",
+    "preprotractor": "npm dedupe && node ./node_modules/protractor/bin/webdriver-manager update --gecko false --versions.chrome 95.0.4638.69",
     "protractor": "npm run e2e",
     "serve": "concurrently --kill-others \"ts-node app.ts\" \"cd frontend && ng serve\"",
     "serve:dev": "concurrently --kill-others \"ts-node-dev app.ts\" \"cd frontend && ng serve\"",
