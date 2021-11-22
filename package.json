@@ -39,17 +39,13 @@
     "Scar26",
     "CaptainFreak",
     "Supratik Das",
-    "the-pro",
     "JuiceShopBot",
+    "the-pro",
     "Ziyang Li",
     "aaryan10",
     "m4l1c3",
     "Timo Pagel",
-    "Josh Grossman",
-    "Clément Notin",
-    "shantanu69",
-    "JamesCullum",
-    "omerlh"
+    "..."
   ],
   "scripts": {
     "build:frontend": "cd frontend && node ./node_modules/@angular/cli/bin/ng build --aot --configuration production --output-hashing=none --vendor-chunk=true --source-map=false",
