@@ -140,7 +140,8 @@ jobs:
           command: |
             set NODE_ENV=test
             set SOLUTIONS_WEBHOOK="$env:SOLUTIONS_WEBHOOK"
-            npm run protractor
+            npm run preprotractor:github
+            npm run e2e
   e2e-in-subfolder:
     runs-on: windows-latest
     if: github.repository == 'juice-shop/juice-shop'
@@ -163,7 +164,7 @@ jobs:
           max_attempts: 2
           command: |
             set NODE_ENV=test
-            npm run preprotractor
+            npm run preprotractor:github
             npm run e2e -- subfolder
   smoke:
     runs-on: ubuntu-latest
