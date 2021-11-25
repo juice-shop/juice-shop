@@ -3,7 +3,7 @@ server:
   basePath: ''
 application:
   domain: kiwa-worksh.op
-  name: 'OWASP KiwaShop'
+  name: 'OWASP Kiwa Workshop'
   logo: kiwa_logo.png
   favicon: favicon_js.ico
   theme: bluegrey-lightgreen # Options: bluegrey-lightgreen blue-lightblue deeppurple-amber indigo-pink pink-bluegrey purple-green deeporange-indigo
@@ -11,8 +11,8 @@ application:
   showGitHubLinks: false
   localBackupEnabled: true
   numberOfRandomFakeUsers: 0
-  altcoinName: KiwaKoin
-  privacyContactEmail: donotreply@kiwa-worksh.op
+  altcoinName: Kiwacoin
+  privacyContactEmail: donotreply@owasp-juice.shop
   customMetricsPrefix: kiwashop
   chatBot:
     name: 'Bert'
@@ -23,33 +23,33 @@ application:
   social:
     twitterUrl: 'https://twitter.com/owasp_juiceshop'
     facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
-    slackUrl: 'https://owasp.org/slack/invite'
+    slackUrl: 'http://owaspslack.com'
     redditUrl: 'https://www.reddit.com/r/owasp_juiceshop'
     pressKitUrl: 'https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop'
-    questionnaireUrl: ~
+    questionnaireUrl: 'https://forms.gle/2Tr5m1pqnnesApxN8'
   recyclePage:
-    topProductImage: undefined_kiwa.jpg
-    bottomProductImage: undefined_kiwa.jpg
+    topProductImage: undefined_kiwa.png
+    bottomProductImage: undefined_kiwa.png
   welcomeBanner:
     showOnFirstStart: true
-    title: 'Welcome to OWASP Juice Shop!'
+    title: 'Welcome to OWASP Kiwa webshop!'
     message: "<p>Being a web application with a vast number of intended security vulnerabilities, the <strong>Kiwa Workshop</strong> is supposed to be the opposite of a best practice or template application for web developers: It is an awareness, training, demonstration and exercise tool for security risks in modern web applications. The <strong>OWASP Juice Shop</strong>, which the Kiwa Workshop is based on, is an open-source project hosted by the non-profit <a href='https://owasp.org' target='_blank'>Open Web Application Security Project (OWASP)</a> and is developed and maintained by volunteers. Check out the link below for more information and documentation on the project.</p><h1><a href='http://owasp-juice.shop' target='_blank'>http://owasp-juice.shop</a></h1>"
   cookieConsent:
     backgroundColor: '#546e7a'
     textColor: '#ffffff'
-    buttonColor: '#d1111c'
+    buttonColor: '#558b2f'
     buttonTextColor: '#ffffff'
     message: 'This website uses cookies to ensure you get the most extreme tracking experience. By using this website you agree to paint your wall purple.'
     dismissText: 'I agree but have not read the cookie message.'
     linkText: 'The Kiwa Cookie policy *not serious*'
     linkUrl: 'https://www.youtube.com/watch?v=9PnbKL3wuH4'
   securityTxt:
-    contact: 'mailto:donotreply@kiwa-worksh.op'
+    contact: 'mailto:donotreply@owasp-juice.shop'
     encryption: 'https://keybase.io/bkimminich/pgp_keys.asc?fingerprint=19c01cb7157e4645e9e2c863062a85a8cbfbdcda'
     acknowledgements: '/#/score-board'
   promotion:
-    video: owasp_promo.mp4
-    subtitles: owasp_promo.vtt
+    video: JuiceShopJingle.mp4
+    subtitles: JuiceShopJingle.vtt
   easterEggPlanet:
     name: Orangeuze
     overlayMap: orangemap2k.jpg
@@ -75,12 +75,10 @@ challenges:
   showSolvedNotifications: true
   showHints: true
   showMitigations: true
-  codingChallengesEnabled: solved # Options: never  solved  always
   restrictToTutorialsFirst: false
   overwriteUrlForProductTamperingChallenge: 'https://owasp.slack.com'
   xssBonusPayload: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
   safetyOverride: false
-  showFeedbackButtons: true
 hackingInstructor:
   isEnabled: true
   avatarImage: kiwabot_mask.png
@@ -217,14 +215,6 @@ products:
     price: 8.63
     image: flagsmall.jpg
   -
-    name: 'OWASP Juice Shop Logo (3D-printed)'
-    description: 'This rare item was designed and handcrafted in Sweden. This is why it is so incredibly expensive despite its complete lack of purpose.'
-    price: 99.99
-    image: 3d_keychain.jpg # Exif metadata contains "OpenSCAD" as subtle hint...
-    fileForRetrieveBlueprintChallenge: JuiceShop.stl # ...to blueprint file type
-    exifForBlueprintChallenge:
-      - OpenSCAD  
-  -
     name: 'OWASP SSL Advanced Forensic Tool (O-Saft)'
     description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations.'
     price: 0.01
@@ -281,6 +271,12 @@ products:
     reviews:
       - { text: 'This thang would look phat on Bobbys jacked fur coat!', author: rapper }
       - { text: 'Looks so much better on my uniform than the boring Starfleet symbol.', author: jim }
+  -
+    name: 'OWASP Juice Shop Logo (3D-printed)'
+    description: 'This rare item was designed and handcrafted in Sweden. This is why it is so incredibly expensive despite its complete lack of purpose.'
+    price: 99.99
+    image: 3d_keychain.jpg # Exif metadata contains "OpenSCAD" as subtle hint...
+    fileForRetrieveBlueprintChallenge: JuiceShop.stl # ...to blueprint file type
   -
     name: 'Kiwa Fire Safety Products Artwork'
     description: 'Unique masterpiece painted with different kinds of juice on 90g/m² lined paper.'
