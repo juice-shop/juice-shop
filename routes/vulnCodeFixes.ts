@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 const accuracy = require('../lib/accuracy')
 const utils = require('../lib/utils')
 const fs = require('fs')
+const yaml = require('js-yaml')
 
 const FixesDir = 'data/static/codefixes'
 
@@ -74,18 +75,25 @@ export const checkCorrectFix = () => async (req: Request<{}, {}, VerdictRequestB
     res.status(404).json({
       error: 'No fixes found for the snippet!'
     })
-    return
-  }
-
-  if (selectedFix === fixData.correct) {
-    await utils.solveFixIt(key)
-    res.status(200).json({
-      verdict: true
-    })
   } else {
-    accuracy.storeFixItVerdict(key, false)
-    res.status(200).json({
-      verdict: false
-    })
+    let explanation
+    if (fs.existsSync('./data/static/codefixes/' + key + '.info.yml')) {
+      const codingChallengeInfos = yaml.load(fs.readFileSync('./data/static/codefixes/' + key + '.info.yml', 'utf8'))
+      const selectedFixInfo = codingChallengeInfos?.fixes.find(({ id }) => id === selectedFix + 1)
+      if (selectedFixInfo?.explanation) explanation = res.__(selectedFixInfo.explanation)
+    }
+    if (selectedFix === fixData.correct) {
+      await utils.solveFixIt(key)
+      res.status(200).json({
+        verdict: true,
+        explanation
+      })
+    } else {
+      accuracy.storeFixItVerdict(key, false)
+      res.status(200).json({
+        verdict: false,
+        explanation
+      })
+    }
   }
 }

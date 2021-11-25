@@ -35,6 +35,7 @@
     "dist",
     "build",
     "vagrant",
+    "data/static/codefixes/**",
     "**/*.d.ts",
     ".eslintrc.js"
   ],

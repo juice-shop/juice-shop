@@ -212,16 +212,16 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   }
 
   // vuln-code-snippet start directoryListingChallenge accessLogDisclosureChallenge
-  /* /ftp directory browsing and file download */
+  /* /ftp directory browsing and file download */ // vuln-code-snippet neutral-line directoryListingChallenge
   app.use('/ftp', serveIndexMiddleware, serveIndex('ftp', { icons: true })) // vuln-code-snippet vuln-line directoryListingChallenge
-  app.use('/ftp(?!/quarantine)/:file', fileServer())
-  app.use('/ftp/quarantine/:file', quarantineServer())
+  app.use('/ftp(?!/quarantine)/:file', fileServer()) // vuln-code-snippet vuln-line directoryListingChallenge
+  app.use('/ftp/quarantine/:file', quarantineServer()) // vuln-code-snippet neutral-line directoryListingChallenge
 
   /* /encryptionkeys directory browsing */
   app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' }))
   app.use('/encryptionkeys/:file', keyServer())
 
-  /* /logs directory browsing */
+  /* /logs directory browsing */ // vuln-code-snippet neutral-line accessLogDisclosureChallenge
   app.use('/support/logs', serveIndexMiddleware, serveIndex('logs', { icons: true, view: 'details' })) // vuln-code-snippet vuln-line accessLogDisclosureChallenge
   app.use('/support/logs', verify.accessControlChallenges()) // vuln-code-snippet hide-line
   app.use('/support/logs/:file', logFileServer()) // vuln-code-snippet vuln-line accessLogDisclosureChallenge
@@ -296,8 +296,8 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     .get(security.isAuthorized())
     .put(security.denyAll())
     .delete(security.denyAll())
-  /* Products: Only GET is allowed in order to view products */
-  app.post('/api/Products', security.isAuthorized())
+  /* Products: Only GET is allowed in order to view products */ // vuln-code-snippet neutral-line changeProductChallenge
+  app.post('/api/Products', security.isAuthorized()) // vuln-code-snippet neutral-line changeProductChallenge
   // app.put('/api/Products/:id', security.isAuthorized()) // vuln-code-snippet vuln-line changeProductChallenge
   app.delete('/api/Products/:id', security.denyAll())
   /* Challenges: GET list of challenges allowed. Everything else forbidden entirely */
@@ -417,14 +417,14 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     })
 
     // create a wallet when a new user is registered using API
-    if (name === 'User') {
+    if (name === 'User') { // vuln-code-snippet neutral-line registerAdminChallenge
       resource.create.send.before((req, res, context) => { // vuln-code-snippet vuln-line registerAdminChallenge
         models.Wallet.create({ UserId: context.instance.id }).catch((err) => {
           console.log(err)
         })
-        return context.continue
-      })
-    }
+        return context.continue // vuln-code-snippet neutral-line registerAdminChallenge
+      }) // vuln-code-snippet neutral-line registerAdminChallenge
+    } // vuln-code-snippet neutral-line registerAdminChallenge
     // vuln-code-snippet end registerAdminChallenge
 
     // translate challenge descriptions and hints on-the-fly
@@ -607,8 +607,8 @@ const uploadToDisk = multer({
 
 // vuln-code-snippet start exposedMetricsChallenge
 /* Serve metrics */
-const Metrics = metrics.observeMetrics()
-const metricsUpdateLoop = Metrics.updateLoop
+const Metrics = metrics.observeMetrics() // vuln-code-snippet neutral-line exposedMetricsChallenge
+const metricsUpdateLoop = Metrics.updateLoop // vuln-code-snippet neutral-line exposedMetricsChallenge
 app.get('/metrics', metrics.serveMetrics()) // vuln-code-snippet vuln-line exposedMetricsChallenge
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 

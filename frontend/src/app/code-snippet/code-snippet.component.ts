@@ -12,6 +12,7 @@ import { Component, Inject, OnInit } from '@angular/core'
 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { FormControl } from '@angular/forms'
+import { ConfigurationService } from '../Services/configuration.service'
 
 enum ResultState {
   Undecided,
@@ -37,11 +38,18 @@ export class CodeSnippetComponent implements OnInit {
   public tab: FormControl = new FormControl(0)
   public lock: ResultState = ResultState.Undecided
   public result: ResultState = ResultState.Undecided
+  public hint: string = null
+  public explanation: string = null
   public solved: Solved = { findIt: false, fixIt: false }
+  public showFeedbackButtons: boolean = true
 
-  constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly codeSnippetService: CodeSnippetService, private readonly vulnLinesService: VulnLinesService, private readonly codeFixesService: CodeFixesService, private readonly challengeService: ChallengeService, private readonly cookieService: CookieService) { }
+  constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly configurationService: ConfigurationService, private readonly codeSnippetService: CodeSnippetService, private readonly vulnLinesService: VulnLinesService, private readonly codeFixesService: CodeFixesService, private readonly challengeService: ChallengeService, private readonly cookieService: CookieService) { }
 
   ngOnInit () {
+    this.configurationService.getApplicationConfiguration().subscribe((config) => {
+      this.showFeedbackButtons = config.challenges.showFeedbackButtons
+    }, (err) => console.log(err))
+
     this.codeSnippetService.get(this.dialogData.key).subscribe((snippet) => {
       this.snippet = snippet
       this.solved.findIt = false
@@ -55,10 +63,7 @@ export class CodeSnippetComponent implements OnInit {
     })
     this.codeFixesService.get(this.dialogData.key).subscribe((fixes) => {
       this.fixes = fixes.fixes
-      this.solved.fixIt = false
-      if (this.dialogData.codingChallengeStatus >= 2) {
-        this.solved.fixIt = true
-      }
+      this.solved.fixIt = this.dialogData.codingChallengeStatus >= 2
     }, () => {
       this.fixes = null
     })
@@ -70,6 +75,7 @@ export class CodeSnippetComponent implements OnInit {
 
   setFix = (fix: number) => {
     this.selectedFix = fix
+    this.explanation = null
   }
 
   toggleTab = (event: number) => {
@@ -86,12 +92,14 @@ export class CodeSnippetComponent implements OnInit {
   checkFix = () => {
     this.codeFixesService.check(this.dialogData.key, this.selectedFix).subscribe((verdict) => {
       this.setVerdict(verdict.verdict)
+      this.explanation = verdict.explanation
     })
   }
 
   checkLines = () => {
     this.vulnLinesService.check(this.dialogData.key, this.selectedLines).subscribe((verdict: result) => {
       this.setVerdict(verdict.verdict)
+      this.hint = verdict.hint
     })
   }
 

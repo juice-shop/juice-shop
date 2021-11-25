@@ -7,5 +7,6 @@ application:
 challenges:
   showSolvedNotifications: false
   showHints: false
+  showFeedbackButtons: false
 hackingInstructor:
   isEnabled: false

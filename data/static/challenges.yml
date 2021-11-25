@@ -284,7 +284,7 @@
   category: 'Broken Access Control'
   tags:
     - Tutorial
-  description: 'Post some feedback in another users name.' # FIXME Correct typo "users" into "user's" with v13.x
+  description: "Post some feedback in another user's name."
   difficulty: 3
   hint: 'You can solve this by tampering with the user interface or by intercepting the communication with the RESTful backend.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/broken-access-control.html#post-some-feedback-in-another-users-name'
@@ -499,7 +499,8 @@
   name: 'Login Support Team'
   category: 'Security Misconfiguration'
   tags:
-    - Contraption
+    - Brute Force
+    - Code Analysis
   description: 'Log in with the support team''s original user credentials without applying SQL Injection or any other bypass.'
   difficulty: 6
   hint: 'The underlying flaw of this challenge is a lot more human error than technical weakness.'

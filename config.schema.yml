@@ -114,7 +114,7 @@ challenges:
     type: boolean
   showMitigations:
     type: boolean
-  showCodeSnippets:
+  codingChallengesEnabled:
     type: string
   restrictToTutorialsFirst:
     type: boolean
@@ -123,6 +123,8 @@ challenges:
   xssBonusPayload:
     type: string
   safetyOverride:
+    type: boolean
+  showFeedbackButtons:
     type: boolean
 hackingInstructor:
   isEnabled:

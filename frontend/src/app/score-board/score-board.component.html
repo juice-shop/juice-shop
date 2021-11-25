@@ -4,12 +4,20 @@
   -->
 
 <div fxLayout="column">
-  <mat-card>
+<div fxLayout="row" fxLayout.lt-md="column">
+  <mat-card fxFlex="grow">
     <mat-card-title>{{"TITLE_SCORE_BOARD" | translate}}
       <small class="confirmation">{{percentChallengesSolved}}%</small>
     </mat-card-title>
     <mat-progress-bar mode="determinate" [color]="'accent'" [value]="percentChallengesSolved"></mat-progress-bar>
   </mat-card>
+  <mat-card *ngIf="codingChallengesEnabled !== 'never'">
+    <mat-card-title>{{"TITLE_CODING_SCORE" | translate}}
+      <small class="confirmation">{{percentCodingChallengesSolved}}%</small>
+    </mat-card-title>
+    <mat-progress-bar mode="determinate" [color]="'accent'" [value]="percentCodingChallengesSolved"></mat-progress-bar>
+  </mat-card>
+</div>
 
   <mat-card>
     <div class="star-container" fxLayout="row wrap">
@@ -177,16 +185,17 @@
               </mat-icon>
             </button>
           </a>
-          <div [matTooltip]="('SOLVE_HACKING_CHALLENGE' | translate)" [matTooltipDisabled]="!challenge.hasSnippet || showCodeSnippets === 'solved' && challenge.solved || showCodeSnippets === 'always'" matTooltipPosition="above">
+          <div [matTooltip]="('SOLVE_HACKING_CHALLENGE' | translate)" [matTooltipDisabled]="!challenge.hasSnippet || codingChallengesEnabled === 'solved' && challenge.solved || codingChallengesEnabled === 'always'" matTooltipPosition="above">
             <button
-              *ngIf="challenge.hasSnippet && showCodeSnippets !== 'never'"
-              [disabled]="showCodeSnippets === 'solved' && !challenge.solved"
-              mat-mini-fab color="primary"
+              *ngIf="challenge.hasSnippet && codingChallengesEnabled !== 'never'"
+              [disabled]="codingChallengesEnabled === 'solved' && !challenge.solved"
+              mat-mini-fab
               (click)="showCodeSnippet(challenge.key,challenge.name,challenge.codingChallengeStatus)"
               [matTooltip]="('LAUNCH_CODING_CHALLENGE' | translate)"
               matTooltipPosition="above"
               class='code-snippet-button'
               [color]="generateColor(challenge)"
+              [id]="challenge.name + '.codingChallengeButton'"
               >
               <mat-icon
               [matBadge]="generateBadge(challenge)"
@@ -198,6 +207,36 @@
               </mat-icon>
             </button>
           </div>
+          <button
+            *ngIf="challenge.key === 'scoreBoardChallenge' && showHackingInstructor && challenge.solved && codingChallengesEnabled !== 'never' && challenge.codingChallengeStatus < 1"
+            mat-mini-fab color="warn"
+            (click)="startHackingInstructor('Coding Challenges')"
+            [matTooltip]="('INFO_HACKING_INSTRUCTOR' | translate)"
+            matTooltipPosition="above"
+            class='code-snippet-button'
+            id="codingChallengeTutorialButton"
+            >
+            <mat-icon
+            matBadge="<>"
+            matBadgeSize="small"
+            matBadgePosition="right"
+            matBadgeColor="primary"
+            >
+              school
+            </mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="feedback" *ngIf="showFeedbackButtons">
+        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-xl fxFlex="1 1 5%" translate>LABEL_FEEDBACK</mat-header-cell>
+        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-xl fxFlex="1 1 5%">
+          <a *ngIf="challenge.solved" [href]="'https://docs.google.com/forms/d/e/1FAIpQLSdaNEuz0dzFA2sexCa0AJ4QOb2OYdEL04eQOLFD2Y4T-BW6ag/viewform?usp=pp_url&entry.384948954=' + challenge.name + '&entry.435235279=Hacking+Challenge&entry.1734944650=Yes'" target="_blank">
+            <button mat-icon-button><mat-icon color="accent">thumb_up</mat-icon></button>
+          </a>
+          <a *ngIf="challenge.solved" [href]="'https://docs.google.com/forms/d/e/1FAIpQLSdaNEuz0dzFA2sexCa0AJ4QOb2OYdEL04eQOLFD2Y4T-BW6ag/viewform?usp=pp_url&entry.384948954=' + challenge.name + '&entry.435235279=Hacking+Challenge&entry.1734944650=No'" target="_blank">
+            <button mat-icon-button><mat-icon color="warn">thumb_down</mat-icon></button>
+          </a>
         </mat-cell>
       </ng-container>
 

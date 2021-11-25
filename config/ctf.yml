@@ -9,6 +9,7 @@ application:
 challenges:
   showHints: false
   safetyOverride: true
+  showFeedbackButtons: false
 hackingInstructor:
   isEnabled: false
 ctf:

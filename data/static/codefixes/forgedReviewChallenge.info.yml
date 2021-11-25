@@ -1,0 +1,12 @@
+fixes:
+  - id: 1
+    explanation: "This solution would reassign an updated review to the last editor, but it would not prevent to change other user's reviews in the first place."
+  - id: 2
+    explanation: 'Setting the author on server-side based on the user retrieved from the authentication token in the HTTP request is the right call. It prevents users from just passing any author email they like along with the request.'
+  - id: 3
+    explanation: "Removing the option to update multiple documents at once is a good idea and might actually help against another flaw in this code. But it does not fix the problem of allowing users to update other user's reviews."
+hints:
+  - "To find the culprit lines, you need to understand how MongoDB handles updating records."
+  - "Did you notice that the developers retrieved a reference to the user but never actually use it for anything? This might be part of the problem."
+  - "Another problematic line you need to select, is actually missing something that ties the user to the review."
+

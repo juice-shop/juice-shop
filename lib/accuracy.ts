@@ -31,6 +31,10 @@ exports.totalFixItAccuracy = () => {
   return totalAccuracy('fix it')
 }
 
+exports.getFindItAttempts = (challengeKey) => {
+  return solves[challengeKey] ? solves[challengeKey].attempts['find it'] : 0
+}
+
 function totalAccuracy (phase: string) {
   let sumAccuracy = 0
   let totalSolved = 0
