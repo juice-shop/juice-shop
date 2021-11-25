@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { CookieService } from 'ngx-cookie-service'
+import { CookieService } from 'ngx-cookie'
 import { WindowRefService } from '../Services/window-ref.service'
 import { Router } from '@angular/router'
 import { Component, NgZone, OnInit } from '@angular/core'
@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('token', authentication.token)
       const expires = new Date()
       expires.setHours(expires.getHours() + 8)
-      this.cookieService.set('token', authentication.token, expires, '/')
+      this.cookieService.put('token', authentication.token, { expires })
       sessionStorage.setItem('bid', authentication.bid)
       this.basketService.updateNumberOfCartItems()
       this.userService.isLoggedIn.next(true)
@@ -87,7 +87,7 @@ export class LoginComponent implements OnInit {
         return
       }
       localStorage.removeItem('token')
-      this.cookieService.delete('token', '/')
+      this.cookieService.remove('token')
       sessionStorage.removeItem('bid')
       this.error = error
       this.userService.isLoggedIn.next(false)
@@ -99,10 +99,6 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('email', this.user.email)
     } else {
       localStorage.removeItem('email')
-    }
-
-    if (this.error && this.user.email && this.user.email.match(/support@.*/)) {
-      console.log('@echipa de suport: Secretul nostru comun este încă Caoimhe cu parola de master gol!')
     }
   }
 

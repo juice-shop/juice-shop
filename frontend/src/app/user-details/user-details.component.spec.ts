@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -28,7 +28,7 @@ describe('UserDetailsComponent', () => {
       providers: [
         UserService,
         { provide: MatDialogRef, useValue: {} },
-        { provide: MAT_DIALOG_DATA, useValue: { productData: {} } }
+        { provide: MAT_DIALOG_DATA, useValue: { dialogData: {} } }
       ]
     })
       .compileComponents()

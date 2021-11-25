@@ -8,6 +8,12 @@
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
@@ -15,8 +21,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 7,
-  "iteration": 1612550073156,
+  "id": 2,
+  "iteration": 1634853034654,
   "links": [],
   "panels": [
     {
@@ -35,86 +41,74 @@
     },
     {
       "cacheTimeout": null,
-      "colorBackground": false,
-      "colorPostfix": false,
-      "colorPrefix": false,
-      "colorValue": true,
-      "colors": [
-        "#C8F2C2",
-        "#56A64B",
-        "#37872D"
-      ],
       "datasource": "Prometheus",
-      "decimals": 0,
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#C8F2C2",
+                "value": null
+              },
+              {
+                "color": "#56A64B",
+                "value": 20
+              },
+              {
+                "color": "#37872D",
+                "value": 60
+              }
+            ]
+          },
+          "unit": "percent"
         },
         "overrides": []
       },
-      "format": "percent",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
       "gridPos": {
-        "h": 4,
-        "w": 4,
+        "h": 5,
+        "w": 6,
         "x": 0,
         "y": 1
       },
       "id": 2,
       "interval": null,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "maxPerRow": 6,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "pluginVersion": "6.7.3",
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.1.5",
       "repeat": "difficulties",
       "repeatDirection": "h",
-      "scopedVars": {
-        "difficulties": {
-          "selected": true,
-          "text": "1",
-          "value": "1"
-        }
-      },
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": true,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": true,
-        "ymax": 100,
-        "ymin": 0
-      },
-      "tableColumn": "",
       "targets": [
         {
           "expr": "sum without (category)(juiceshop_challenges_solved{difficulty=\"$difficulties\"}) / sum without (category)(juiceshop_challenges_total{difficulty=\"$difficulties\"}) * 100",
@@ -122,556 +116,181 @@
           "refId": "A"
         }
       ],
-      "thresholds": "20,60",
       "timeFrom": null,
       "timeShift": null,
       "title": "Solved $difficulties Star Challenges",
-      "type": "singlestat",
-      "valueFontSize": "120%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorPostfix": false,
-      "colorPrefix": false,
-      "colorValue": true,
-      "colors": [
-        "#C8F2C2",
-        "#56A64B",
-        "#37872D"
-      ],
-      "datasource": "Prometheus",
-      "decimals": 0,
+      "datasource": null,
       "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "format": "percent",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
       "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 4,
-        "y": 1
-      },
-      "id": 106,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "maxPerRow": 6,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "pluginVersion": "6.7.3",
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1612550073156,
-      "repeatPanelId": 2,
-      "scopedVars": {
-        "difficulties": {
-          "selected": true,
-          "text": "2",
-          "value": "2"
-        }
-      },
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": true,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": true,
-        "ymax": 100,
-        "ymin": 0
-      },
-      "tableColumn": "",
-      "targets": [
-        {
-          "expr": "sum without (category)(juiceshop_challenges_solved{difficulty=\"$difficulties\"}) / sum without (category)(juiceshop_challenges_total{difficulty=\"$difficulties\"}) * 100",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "thresholds": "20,60",
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Solved $difficulties Star Challenges",
-      "type": "singlestat",
-      "valueFontSize": "120%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
-    },
-    {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorPostfix": false,
-      "colorPrefix": false,
-      "colorValue": true,
-      "colors": [
-        "#C8F2C2",
-        "#56A64B",
-        "#37872D"
-      ],
-      "datasource": "Prometheus",
-      "decimals": 0,
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "format": "percent",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 8,
-        "y": 1
-      },
-      "id": 107,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "maxPerRow": 6,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "pluginVersion": "6.7.3",
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1612550073156,
-      "repeatPanelId": 2,
-      "scopedVars": {
-        "difficulties": {
-          "selected": true,
-          "text": "3",
-          "value": "3"
-        }
-      },
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": true,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": true,
-        "ymax": 100,
-        "ymin": 0
-      },
-      "tableColumn": "",
-      "targets": [
-        {
-          "expr": "sum without (category)(juiceshop_challenges_solved{difficulty=\"$difficulties\"}) / sum without (category)(juiceshop_challenges_total{difficulty=\"$difficulties\"}) * 100",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "thresholds": "20,60",
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Solved $difficulties Star Challenges",
-      "type": "singlestat",
-      "valueFontSize": "120%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
-    },
-    {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorPostfix": false,
-      "colorPrefix": false,
-      "colorValue": true,
-      "colors": [
-        "#C8F2C2",
-        "#56A64B",
-        "#37872D"
-      ],
-      "datasource": "Prometheus",
-      "decimals": 0,
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "format": "percent",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
+        "h": 5,
+        "w": 6,
         "x": 12,
-        "y": 1
+        "y": 6
       },
-      "id": 108,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "maxPerRow": 6,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "pluginVersion": "6.7.3",
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1612550073156,
-      "repeatPanelId": 2,
-      "scopedVars": {
-        "difficulties": {
-          "selected": true,
-          "text": "4",
-          "value": "4"
-        }
+      "id": 129,
+      "options": {
+        "content": "![](https://raw.githubusercontent.com/OWASP/owasp-swag/master/projects/juice-shop/wallpapers/JuiceShop_Wallpaper_900x300.jpg)",
+        "mode": "markdown"
       },
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": true,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": true,
-        "ymax": 100,
-        "ymin": 0
-      },
-      "tableColumn": "",
-      "targets": [
-        {
-          "expr": "sum without (category)(juiceshop_challenges_solved{difficulty=\"$difficulties\"}) / sum without (category)(juiceshop_challenges_total{difficulty=\"$difficulties\"}) * 100",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "thresholds": "20,60",
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Solved $difficulties Star Challenges",
-      "type": "singlestat",
-      "valueFontSize": "120%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "pluginVersion": "8.1.5",
+      "transparent": true,
+      "type": "text"
     },
     {
       "cacheTimeout": null,
-      "colorBackground": false,
-      "colorPostfix": false,
-      "colorPrefix": false,
-      "colorValue": true,
-      "colors": [
-        "#C8F2C2",
-        "#56A64B",
-        "#37872D"
-      ],
-      "datasource": "Prometheus",
-      "decimals": 0,
+      "datasource": null,
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#299c46",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 0.33
+              },
+              {
+                "color": "#d44a3a",
+                "value": 0.66
+              }
+            ]
+          },
+          "unit": "percentunit"
         },
         "overrides": []
       },
-      "format": "percent",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
       "gridPos": {
-        "h": 4,
+        "h": 5,
         "w": 4,
-        "x": 16,
-        "y": 1
+        "x": 18,
+        "y": 6
       },
-      "id": 109,
+      "id": 112,
       "interval": null,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "maxPerRow": 6,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "pluginVersion": "6.7.3",
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1612550073156,
-      "repeatPanelId": 2,
-      "scopedVars": {
-        "difficulties": {
-          "selected": true,
-          "text": "5",
-          "value": "5"
-        }
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
       },
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": true,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": true,
-        "ymax": 100,
-        "ymin": 0
-      },
-      "tableColumn": "",
+      "pluginVersion": "8.1.5",
       "targets": [
         {
-          "expr": "sum without (category)(juiceshop_challenges_solved{difficulty=\"$difficulties\"}) / sum without (category)(juiceshop_challenges_total{difficulty=\"$difficulties\"}) * 100",
+          "exemplar": true,
+          "expr": "juiceshop_cheat_score",
+          "instant": false,
+          "interval": "1m",
+          "intervalFactor": 1,
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "thresholds": "20,60",
       "timeFrom": null,
       "timeShift": null,
-      "title": "Solved $difficulties Star Challenges",
-      "type": "singlestat",
-      "valueFontSize": "120%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
-    },
-    {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorPostfix": false,
-      "colorPrefix": false,
-      "colorValue": true,
-      "colors": [
-        "#C8F2C2",
-        "#56A64B",
-        "#37872D"
-      ],
-      "datasource": "Prometheus",
-      "decimals": 0,
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "format": "percent",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 20,
-        "y": 1
-      },
-      "id": 110,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "maxPerRow": 6,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "pluginVersion": "6.7.3",
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1612550073156,
-      "repeatPanelId": 2,
-      "scopedVars": {
-        "difficulties": {
-          "selected": true,
-          "text": "6",
-          "value": "6"
-        }
-      },
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": true,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": true,
-        "ymax": 100,
-        "ymin": 0
-      },
-      "tableColumn": "",
-      "targets": [
-        {
-          "expr": "sum without (category)(juiceshop_challenges_solved{difficulty=\"$difficulties\"}) / sum without (category)(juiceshop_challenges_total{difficulty=\"$difficulties\"}) * 100",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "thresholds": "20,60",
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Solved $difficulties Star Challenges",
-      "type": "singlestat",
-      "valueFontSize": "120%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "title": "Cheat Score",
+      "type": "stat"
     },
     {
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 0.5
+              },
+              {
+                "color": "green",
+                "value": 0.75
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 2,
+        "x": 22,
+        "y": 6
+      },
+      "id": 121,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.1.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "juiceshop_coding_challenges_accuracy{phase=\"find it\"}",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "\"Find It\" Accuracy",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "displayName": "",
           "mappings": [],
           "max": 100,
           "min": 1,
@@ -697,61 +316,34 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
-        "w": 20,
+        "h": 11,
+        "w": 18,
         "x": 0,
-        "y": 5
+        "y": 11
       },
       "id": 78,
       "maxPerRow": 4,
       "options": {
         "colorMode": "value",
-        "fieldOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "defaults": {
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "super-light-green",
-                  "value": null
-                },
-                {
-                  "color": "semi-dark-green",
-                  "value": 20
-                },
-                {
-                  "color": "dark-green",
-                  "value": 60
-                }
-              ]
-            },
-            "title": "",
-            "unit": "percent"
-          },
-          "overrides": [],
-          "values": false
-        },
         "graphMode": "area",
         "justifyMode": "center",
         "orientation": "vertical",
         "reduceOptions": {
           "calcs": [
-            "max"
+            "mean"
           ],
           "fields": "",
           "values": false
         },
+        "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "6.7.3",
+      "pluginVersion": "8.1.5",
       "repeat": null,
       "repeatDirection": "h",
       "targets": [
         {
+          "exemplar": true,
           "expr": "sum by (category)(juiceshop_challenges_solved{}) / sum by (category)(juiceshop_challenges_total{}) * 100 != 0",
           "instant": false,
           "interval": "",
@@ -765,93 +357,176 @@
       "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": true,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
       "datasource": null,
-      "decimals": null,
-      "description": "",
-      "format": "percentunit",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "unsolved"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "super-light-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "find it"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "fix it"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 5,
+        "h": 11,
         "w": 4,
-        "x": 20,
-        "y": 5
+        "x": 18,
+        "y": 11
       },
-      "id": 112,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
+      "id": 119,
+      "options": {
+        "displayLabels": [
+          "value",
+          "name"
+        ],
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "values": [
+            "percent"
+          ]
         },
-        {
-          "name": "range to text",
-          "value": 2
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single"
         }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "pluginVersion": "6.7.3",
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": true,
-        "ymax": null,
-        "ymin": null
       },
-      "tableColumn": "",
+      "pluginVersion": "8.1.5",
       "targets": [
         {
-          "expr": "juiceshop_cheat_score",
-          "instant": false,
-          "interval": "1m",
-          "intervalFactor": 1,
+          "exemplar": true,
+          "expr": "juiceshop_coding_challenges_progress",
+          "interval": "",
+          "legendFormat": "{{phase}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Coding Challenge Progress",
+      "type": "piechart"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 0.5
+              },
+              {
+                "color": "green",
+                "value": 0.75
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 2,
+        "x": 22,
+        "y": 14
+      },
+      "id": 122,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.1.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "juiceshop_coding_challenges_accuracy{phase=\"fix it\"}",
+          "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "thresholds": "0.33,0.66",
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Cheat Score",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "title": "\"Fix It\" Accuracy",
+      "type": "stat"
     },
     {
       "collapsed": true,
@@ -860,7 +535,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 22
       },
       "id": 32,
       "panels": [
@@ -870,13 +545,19 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
             "h": 5,
             "w": 24,
             "x": 0,
-            "y": 11
+            "y": 16
           },
           "hiddenSeries": false,
           "id": 11,
@@ -893,9 +574,10 @@
           "linewidth": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "8.1.5",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -959,13 +641,19 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 9,
             "x": 0,
-            "y": 16
+            "y": 21
           },
           "hiddenSeries": false,
           "id": 64,
@@ -982,9 +670,10 @@
           "linewidth": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "8.1.5",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1043,67 +732,70 @@
         },
         {
           "cacheTimeout": null,
-          "colorBackground": false,
-          "colorPrefix": false,
-          "colorValue": true,
-          "colors": [
-            "#d44a3a",
-            "rgba(237, 129, 40, 0.89)",
-            "#299c46"
-          ],
           "datasource": null,
-          "format": "none",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "text": "N/A"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "#d44a3a",
+                    "value": null
+                  },
+                  {
+                    "color": "rgba(237, 129, 40, 0.89)",
+                    "value": 10
+                  },
+                  {
+                    "color": "#299c46",
+                    "value": 25
+                  }
+                ]
+              },
+              "unit": "Orders placed"
+            },
+            "overrides": []
           },
           "gridPos": {
             "h": 6,
             "w": 4,
             "x": 9,
-            "y": 16
+            "y": 21
           },
           "id": 97,
           "interval": null,
           "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
           "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "pluginVersion": "6.7.3",
-          "postfix": " Orders placed",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true,
-            "ymax": null,
-            "ymin": null
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
           },
-          "tableColumn": "",
+          "pluginVersion": "8.1.5",
           "targets": [
             {
               "expr": "juiceshop_orders_placed_total",
@@ -1114,85 +806,78 @@
               "refId": "A"
             }
           ],
-          "thresholds": "10,25,100",
           "timeFrom": null,
           "timeShift": null,
           "title": "Conversion Rate",
-          "type": "singlestat",
-          "valueFontSize": "200%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
+          "type": "stat"
         },
         {
           "cacheTimeout": null,
-          "colorBackground": false,
-          "colorPrefix": false,
-          "colorValue": true,
-          "colors": [
-            "#d44a3a",
-            "rgba(237, 129, 40, 0.89)",
-            "#299c46"
-          ],
           "datasource": null,
-          "decimals": 2,
-          "format": "none",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "decimals": 2,
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "text": "N/A"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "#d44a3a",
+                    "value": null
+                  },
+                  {
+                    "color": "rgba(237, 129, 40, 0.89)",
+                    "value": 100
+                  },
+                  {
+                    "color": "#299c46",
+                    "value": 5000
+                  }
+                ]
+              },
+              "unit": "¤"
+            },
+            "overrides": []
           },
           "gridPos": {
             "h": 6,
             "w": 5,
             "x": 13,
-            "y": 16
+            "y": 21
           },
           "id": 98,
           "interval": null,
           "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
           "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "pluginVersion": "6.7.3",
-          "postfix": "¤",
-          "postfixFontSize": "100%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true,
-            "ymax": null,
-            "ymin": null
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
           },
-          "tableColumn": "",
+          "pluginVersion": "8.1.5",
           "targets": [
             {
               "expr": "juiceshop_wallet_balance_total",
@@ -1203,188 +888,160 @@
               "refId": "A"
             }
           ],
-          "thresholds": "100,5000",
           "timeFrom": null,
           "timeShift": null,
           "title": "Digital Wallets Total",
-          "type": "singlestat",
-          "valueFontSize": "120%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
+          "type": "stat"
         },
         {
           "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "#299c46",
-            "rgba(237, 129, 40, 0.89)",
-            "#d44a3a"
-          ],
           "datasource": null,
-          "decimals": 0,
-          "format": "none",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "rgb(31, 120, 193)",
+                "mode": "fixed"
+              },
+              "decimals": 0,
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "text": "N/A"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "Standard Users"
+            },
+            "overrides": []
           },
           "gridPos": {
             "h": 3,
             "w": 6,
             "x": 18,
-            "y": 16
+            "y": 21
           },
           "id": 13,
           "interval": null,
           "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
           "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "pluginVersion": "6.7.3",
-          "postfix": " Standard Users",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true,
-            "ymax": null,
-            "ymin": null
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
           },
-          "tableColumn": "",
+          "pluginVersion": "8.1.5",
           "targets": [
             {
               "expr": "juiceshop_users_registered{type=\"standard\"}",
               "refId": "A"
             }
           ],
-          "thresholds": "",
           "timeFrom": null,
           "timeShift": null,
           "title": "Customer Base",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
+          "type": "stat"
         },
         {
           "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "#299c46",
-            "rgba(237, 129, 40, 0.89)",
-            "#d44a3a"
-          ],
           "datasource": null,
-          "decimals": 0,
-          "format": "none",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "rgb(31, 120, 193)",
+                "mode": "fixed"
+              },
+              "decimals": 0,
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "text": "N/A"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "Deluxe Users"
+            },
+            "overrides": []
           },
           "gridPos": {
             "h": 3,
             "w": 6,
             "x": 18,
-            "y": 19
+            "y": 24
           },
           "id": 14,
           "interval": null,
           "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
           "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "pluginVersion": "6.7.3",
-          "postfix": " Deluxe Users",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true,
-            "ymax": null,
-            "ymin": null
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
           },
-          "tableColumn": "",
+          "pluginVersion": "8.1.5",
           "targets": [
             {
               "expr": "juiceshop_users_registered{type=\"deluxe\"}",
               "refId": "A"
             }
           ],
-          "thresholds": "",
           "timeFrom": null,
           "timeShift": null,
-          "title": "",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
+          "title": " ",
+          "type": "stat"
         }
       ],
       "title": "Business Metrics",
@@ -1397,7 +1054,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 11
+        "y": 23
       },
       "id": 39,
       "panels": [],
@@ -1412,7 +1069,6 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -1423,7 +1079,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 12
+        "y": 24
       },
       "hiddenSeries": false,
       "id": 71,
@@ -1440,10 +1096,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "8.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1522,7 +1178,6 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "displayName": "",
           "mappings": [],
           "thresholds": {
@@ -1533,12 +1188,8 @@
                 "value": null
               },
               {
-                "color": "yellow",
-                "value": 50
-              },
-              {
                 "color": "red",
-                "value": 100
+                "value": 80
               }
             ]
           },
@@ -1550,34 +1201,11 @@
         "h": 5,
         "w": 9,
         "x": 0,
-        "y": 18
+        "y": 30
       },
       "id": 90,
       "links": [],
       "options": {
-        "fieldOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "defaults": {
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": [],
-          "values": false
-        },
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -1587,9 +1215,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "text": {}
       },
-      "pluginVersion": "6.7.3",
+      "pluginVersion": "8.1.5",
       "targets": [
         {
           "expr": "rate(file_uploads_count[1h]) * 3600",
@@ -1610,7 +1239,6 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "displayName": "",
           "mappings": [],
           "thresholds": {
@@ -1621,12 +1249,8 @@
                 "value": null
               },
               {
-                "color": "yellow",
-                "value": 5
-              },
-              {
                 "color": "red",
-                "value": 10
+                "value": 80
               }
             ]
           },
@@ -1638,34 +1262,11 @@
         "h": 5,
         "w": 15,
         "x": 9,
-        "y": 18
+        "y": 30
       },
       "id": 91,
       "links": [],
       "options": {
-        "fieldOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "defaults": {
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": [],
-          "values": false
-        },
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -1675,9 +1276,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "text": {}
       },
-      "pluginVersion": "6.7.3",
+      "pluginVersion": "8.1.5",
       "targets": [
         {
           "expr": "rate(file_upload_errors[1h]) * 3600",
@@ -1696,7 +1298,6 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -1719,34 +1320,11 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 35
       },
       "id": 105,
       "options": {
         "displayMode": "gradient",
-        "fieldOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "defaults": {
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": [],
-          "values": false
-        },
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -1755,9 +1333,10 @@
           "fields": "",
           "values": false
         },
-        "showUnfilled": true
+        "showUnfilled": true,
+        "text": {}
       },
-      "pluginVersion": "6.7.3",
+      "pluginVersion": "8.1.5",
       "targets": [
         {
           "expr": "sort_desc(avg by (task)(juiceshop_startup_duration_seconds))",
@@ -1781,7 +1360,6 @@
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -1792,7 +1370,7 @@
         "h": 10,
         "w": 9,
         "x": 0,
-        "y": 29
+        "y": 41
       },
       "hiddenSeries": false,
       "id": 46,
@@ -1811,11 +1389,11 @@
       "links": [],
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "8.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1888,7 +1466,6 @@
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -1899,7 +1476,7 @@
         "h": 10,
         "w": 7,
         "x": 9,
-        "y": 29
+        "y": 41
       },
       "hiddenSeries": false,
       "id": 48,
@@ -1918,11 +1495,11 @@
       "links": [],
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "8.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1981,158 +1558,145 @@
     },
     {
       "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "color": {
+            "fixedColor": "#F2495C",
+            "mode": "fixed"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
         },
         "overrides": []
-      },
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
       },
       "gridPos": {
         "h": 6,
         "w": 5,
         "x": 16,
-        "y": 29
+        "y": 41
       },
       "id": 52,
       "interval": null,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "#F2495C",
-        "show": true
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
       },
-      "tableColumn": "",
+      "pluginVersion": "8.1.5",
       "targets": [
         {
-          "expr": "sum(changes(process_start_time_seconds{}[1m]))",
+          "exemplar": true,
+          "expr": "sum(changes(process_start_time_seconds{}[$__rate_interval]))",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 1,
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
-      "thresholds": "",
       "timeFrom": null,
       "timeShift": null,
-      "title": "Process Restart Times",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "title": "Number of Process Restarts",
+      "type": "stat"
     },
     {
       "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
         },
         "overrides": []
-      },
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
       },
       "gridPos": {
         "h": 3,
         "w": 3,
         "x": 21,
-        "y": 29
+        "y": 41
       },
       "id": 84,
       "interval": "",
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "name"
       },
-      "tableColumn": "",
+      "pluginVersion": "8.1.5",
       "targets": [
         {
           "expr": "sum(juiceshop_version_info{}) by (version)",
@@ -2144,86 +1708,73 @@
           "refId": "A"
         }
       ],
-      "thresholds": "",
       "timeFrom": null,
       "timeShift": null,
       "title": "Juice Shop Version",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "name"
+      "type": "stat"
     },
     {
       "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
         },
         "overrides": []
-      },
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
       },
       "gridPos": {
         "h": 3,
         "w": 3,
         "x": 21,
-        "y": 32
+        "y": 44
       },
       "id": 50,
       "interval": "",
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "name"
       },
-      "tableColumn": "",
+      "pluginVersion": "8.1.5",
       "targets": [
         {
           "expr": "sum(nodejs_version_info{}) by (version)",
@@ -2235,20 +1786,10 @@
           "refId": "A"
         }
       ],
-      "thresholds": "",
       "timeFrom": null,
       "timeShift": null,
       "title": "Node.js Version",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "name"
+      "type": "stat"
     },
     {
       "aliasColors": {},
@@ -2258,7 +1799,6 @@
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -2269,7 +1809,7 @@
         "h": 11,
         "w": 8,
         "x": 16,
-        "y": 35
+        "y": 47
       },
       "hiddenSeries": false,
       "id": 56,
@@ -2288,11 +1828,11 @@
       "links": [],
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "8.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2365,7 +1905,6 @@
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -2376,7 +1915,7 @@
         "h": 7,
         "w": 16,
         "x": 0,
-        "y": 39
+        "y": 51
       },
       "hiddenSeries": false,
       "id": 54,
@@ -2396,11 +1935,11 @@
       "links": [],
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "8.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2481,7 +2020,7 @@
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 22,
+  "schemaVersion": 30,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -2499,6 +2038,8 @@
             "6"
           ]
         },
+        "description": null,
+        "error": null,
         "hide": 2,
         "includeAll": true,
         "label": "Difficulty Levels supported by JuiceShop",
@@ -2568,8 +2109,5 @@
   "timezone": "",
   "title": "Juice Shop Instance Status",
   "uid": "Sj-cIdwZk",
-  "variables": {
-    "list": []
-  },
-  "version": 14
+  "version": 18
 }

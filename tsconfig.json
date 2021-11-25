@@ -1,0 +1,45 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./build",
+    "allowJs": true,
+    "module": "commonjs",
+    "target": "es2018",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "lib": [
+      "es2018",
+      "dom"
+    ]
+  },
+  "include" : [
+    "data/**/*.ts",
+    "lib/**/*.ts",
+    "lib/**/*.js",
+    "models/**/*.ts",
+    "routes/**/*.ts",
+    "test/**/*.ts",
+    "views/**/*.ts",
+    "views/**/*.js",
+    "*.ts",
+    "*.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "frontend",
+    "dist",
+    "build",
+    "vagrant",
+    "data/static/codefixes/**",
+    "**/*.d.ts",
+    ".eslintrc.js"
+  ],
+  "ts-node": {
+    "transpileOnly": true  // allow ts-node to run code with compile errors ignored. Remove this line after ts migration.
+  }
+}

@@ -1,0 +1,7 @@
+<div id="code-area">
+  <pre id="code"><div id="emphasize"><div *ngFor="let marker of lineMarkers" class="lineMarker" [id]="'line' + marker.lineNumber" (click)="selectLines(marker.lineNumber)">{{ marker.marked ? '✅' : '🔲'}}</div>
+  </div><code
+    [highlight]="code" [lineNumbers]="true"
+    [languages]="langs"
+    ></code></pre>
+</div>

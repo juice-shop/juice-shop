@@ -1,0 +1,11 @@
+fixes:
+  - id: 1
+    explanation: "Obfuscating the path to the Token Sale page with Base64 instead of the original obfuscation function does not add any security. It actually makes the route even more easily identifiable."
+  - id: 2
+    explanation: "Restricting access to the Token Sale page to administrators might sound good in theory. Unfortunately this all only happens in client-side code, so such check couldn't be fully trusted."
+  - id: 3
+    explanation: "The only viable way to prevent access to a soon-to-be-released Token Sale page is to not have it in the client-side code before its actual release. It then makes sense to not have any premature route mapping declarations either. This then makes the whole obfuscation code-madness unnecessary as well."
+hints:
+  - "Where is the Token Sale page actually being handled?"
+  - "What is weird about how the Token Sale route is being declared?"
+  - "If the Token Sale page is still considered a secret, why is it mapped to a route at all?"

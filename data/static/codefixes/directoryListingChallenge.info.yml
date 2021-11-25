@@ -1,0 +1,13 @@
+fixes:
+  - id: 1
+    explanation: 'Getting rid of the /ftp folder entirely is the only way to plumb this data leakage for good. Valid static content in it needs to be moved to a more suitable location and order confirmation PDFs had no business to be placed there publicly accessible in the first place. Everything else in that folder was just accidentally put & forgotten there anyway.'
+  - id: 2
+    explanation: 'Removing only the directory listing will still allow attackers to download individual files if they can come up with a valid file name.'
+  - id: 3
+    explanation: 'Removing the routes that serve individual files is likely to plumb the data leak but still provides information to the attacker unnecessarily.'
+  - id: 4
+    explanation: "Switching off the icons is a cosmetic change on the directory listing but still allows the files to be browsed and accessed."
+hints:
+  - "Can you identify one or more routes which have something to do with file serving?"
+  - "Did you notice that there are seperate routes the directory listing and retrieving individual files?"
+  - "Make sure to select both lines responsible for the data leakage."

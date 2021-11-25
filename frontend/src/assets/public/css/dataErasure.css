@@ -1,0 +1,140 @@
+body {
+  background-color: #303030;
+}
+.main-content {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+.formBlock {
+  margin-top: 50px;
+  background-color: #424242;
+  width: 600px;
+  height: 400px;
+  border-radius: 0.5rem;
+  padding: 20px;
+  box-shadow: 5px 10px 18px #202020;
+}
+form {
+  margin-top: 10px;
+  display: grid;
+}
+h4,
+p,
+h5 {
+  color: whitesmoke;
+}
+.deleteButton{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+input {
+  border-radius: 0.4rem;
+  width: 100%;
+  padding: 13px 13px 13px 2px;
+  background-color: #424242;
+  border: 1px solid #999898;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  color: whitesmoke;
+}
+input:hover {
+  cursor: text;
+}
+button {
+  width: 200px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #546e7a;
+  color: whitesmoke;
+  border-radius: 0.2rem;
+  margin-left: 200px;
+  font-weight: 500;
+  box-shadow: 1px 1px 1px 1px #302f2f;
+  font-size: 18px;
+}
+input::placeholder {
+  color: #999898;
+  font-size: 13px;
+}
+.header {
+  height: auto;
+  color: whitesmoke;
+  font-size: 25px;
+  box-shadow: 5px 10px 18px #201f1f;
+  background-color: #546e7a;
+}
+.header-text {
+  color: whitesmoke;
+  font-size: 20px;
+  padding-top: 10px;
+  margin-top: 10px;
+  font-weight: 500;
+}
+.cross {
+  font-size: 1.4em;
+  padding-right: 5px;
+}
+a {
+  color: whitesmoke;
+  text-decoration: none;
+  padding-top: 10px;
+}
+img {
+  width: 50px;
+  height: 60px;
+}
+.message {
+  display: flex;
+  justify-content: center;
+  padding-top: 60px;
+  font-size: 19px;
+  width: 100%;
+}
+.inputLable {
+  height: 20px;
+  width: 500px !important;
+}
+.home-page {
+  margin-top: 30px;
+}
+img {
+  padding-top: 5px;
+  padding-left: 50px;
+}
+.back {
+  color: whitesmoke;
+  position: absolute;
+  font-size: 15px;
+  top: 8px;
+}
+label {
+  color: whitesmoke;
+  font-size: 15px;
+}
+
+i {
+  color: whitesmoke;
+  margin-left: 20px;
+  margin-right: 5px;
+}
+.anchor {
+  font-size: 15px;
+}
+
+@media only screen and (max-width: 650px) {
+  .formBlock{
+    width: 500px;
+    height: 420px;
+  }
+}
+
+@media only screen and (max-width: 440px) {
+  .formBlock{
+    width: 370px;
+    height: 480px;
+  }
+}

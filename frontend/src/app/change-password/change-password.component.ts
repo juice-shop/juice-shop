@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -22,8 +22,8 @@ dom.watch()
 })
 export class ChangePasswordComponent {
   public passwordControl: FormControl = new FormControl('', [Validators.required])
-  public newPasswordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)])
-  public repeatNewPasswordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20), matchValidator(this.newPasswordControl)])
+  public newPasswordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)])
+  public repeatNewPasswordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40), matchValidator(this.newPasswordControl)])
   public error: any
   public confirmation: any
 
@@ -34,6 +34,9 @@ export class ChangePasswordComponent {
   }
 
   changePassword () {
+    if (localStorage.getItem('email')?.match(/support@.*/) && !this.newPasswordControl.value.match(/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,30}/)) {
+      console.error('Parola echipei de asistență nu respectă politica corporativă pentru conturile privilegiate! Vă rugăm să schimbați parola în consecință!')
+    }
     this.userService.changePassword({
       current: this.passwordControl.value,
       new: this.newPasswordControl.value,
@@ -58,12 +61,7 @@ export class ChangePasswordComponent {
     this.passwordControl.setValue('')
     this.passwordControl.markAsPristine()
     this.passwordControl.markAsUntouched()
-    this.newPasswordControl.setValue('')
-    this.newPasswordControl.markAsPristine()
-    this.newPasswordControl.markAsUntouched()
-    this.repeatNewPasswordControl.setValue('')
-    this.repeatNewPasswordControl.markAsPristine()
-    this.repeatNewPasswordControl.markAsUntouched()
+    this.resetPasswords()
   }
 
   resetPasswords () {

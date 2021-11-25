@@ -1,0 +1,9 @@
+{
+  "extends": "tslint-config-standard",
+  "rules": {
+    "deprecation": {
+      "severity": "warning"
+    },
+    "no-floating-promises": false
+  }
+}

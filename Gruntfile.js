@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -35,24 +35,26 @@ module.exports = function (grunt) {
             src: [
               'LICENSE',
               '*.md',
-              'app.js',
-              'server.js',
               'package.json',
               'ctf.key',
               'swagger.yml',
+              'server.ts',
               'config.schema.yml',
+              'build/**',
+              '!build/reports/**',
               'config/*.yml',
-              'data/*.js',
+              'data/*.ts',
               'data/static/**',
               'data/chatbot/.gitkeep',
               'encryptionkeys/**',
               'frontend/dist/frontend/**',
+              'frontend/src/**/*.ts',
               'ftp/**',
               'i18n/.gitkeep',
               'lib/**',
-              'models/*.js',
+              'models/*.ts',
               'node_modules/**',
-              'routes/*.js',
+              'routes/*.ts',
               'uploads/complaints/.gitkeep',
               'views/**'
             ],

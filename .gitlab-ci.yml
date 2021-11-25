@@ -1,6 +1,7 @@
 include:
-  - template: Dependency-Scanning.gitlab-ci.yml
-  - template: SAST.gitlab-ci.yml
+  - template: Auto-DevOps.gitlab-ci.yml
 
 variables:
   SAST_EXCLUDED_PATHS: "frontend/src/assets/private/**"
+  TEST_DISABLED: "true"
+  DAST_DISABLED: "true"

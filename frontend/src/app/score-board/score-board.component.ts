@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -18,6 +18,9 @@ import { faBtc, faGithub, faGitter } from '@fortawesome/free-brands-svg-icons'
 import { Challenge } from '../Models/challenge.model'
 import { TranslateService } from '@ngx-translate/core'
 import { LocalBackupService } from '../Services/local-backup.service'
+import { MatDialog } from '@angular/material/dialog'
+import { CodeSnippetComponent } from '../code-snippet/code-snippet.component'
+import { CodeSnippetService } from '../Services/code-snippet.service'
 
 library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy, faPollH)
 dom.watch()
@@ -48,17 +51,20 @@ export class ScoreBoardComponent implements OnInit {
   public allowRepeatNotifications: boolean = false
   public showChallengeHints: boolean = true
   public showVulnerabilityMitigations: boolean = true
+  public codingChallengesEnabled: string = 'solved'
   public showHackingInstructor: boolean = true
   public challenges: Challenge[] = []
   public percentChallengesSolved: string = '0'
+  public percentCodingChallengesSolved: string = '0'
   public solvedChallengesOfDifficulty: Challenge[][] = [[], [], [], [], [], []]
   public totalChallengesOfDifficulty: Challenge[][] = [[], [], [], [], [], []]
   public showContributionInfoBox: boolean = true
   public questionnaireUrl: string = 'https://forms.gle/2Tr5m1pqnnesApxN8'
   public appName: string = 'OWASP Juice Shop'
   public localBackupEnabled: boolean = true
+  public showFeedbackButtons: boolean = true
 
-  constructor (private readonly configurationService: ConfigurationService, private readonly challengeService: ChallengeService, private readonly sanitizer: DomSanitizer, private readonly ngZone: NgZone, private readonly io: SocketIoService, private readonly spinner: NgxSpinnerService, private readonly translate: TranslateService, private readonly localBackupService: LocalBackupService) {
+  constructor (private readonly configurationService: ConfigurationService, private readonly challengeService: ChallengeService, private readonly codeSnippetService: CodeSnippetService, private readonly sanitizer: DomSanitizer, private readonly ngZone: NgZone, private readonly io: SocketIoService, private readonly spinner: NgxSpinnerService, private readonly translate: TranslateService, private readonly localBackupService: LocalBackupService, private readonly dialog: MatDialog) {
   }
 
   ngOnInit () {
@@ -72,47 +78,56 @@ export class ScoreBoardComponent implements OnInit {
       this.allowRepeatNotifications = config.challenges.showSolvedNotifications && config.ctf?.showFlagsInNotifications
       this.showChallengeHints = config.challenges.showHints
       this.showVulnerabilityMitigations = config.challenges.showMitigations
+      this.codingChallengesEnabled = config.challenges.codingChallengesEnabled
       this.showHackingInstructor = config.hackingInstructor?.isEnabled
       this.showContributionInfoBox = config.application.showGitHubLinks
+      this.showFeedbackButtons = config.challenges.showFeedbackButtons
+      if (this.showFeedbackButtons) {
+        this.displayedColumns.push('feedback')
+      }
       this.questionnaireUrl = config.application.social?.questionnaireUrl
       this.appName = config.application.name
       this.restrictToTutorialsFirst = config.challenges.restrictToTutorialsFirst
       this.showOnlyTutorialChallenges = localStorage.getItem('showOnlyTutorialChallenges') ? JSON.parse(String(localStorage.getItem('showOnlyTutorialChallenges'))) : this.restrictToTutorialsFirst
       this.localBackupEnabled = config.application.localBackupEnabled
       this.challengeService.find({ sort: 'name' }).subscribe((challenges) => {
-        this.challenges = challenges
-        for (let i = 0; i < this.challenges.length; i++) {
-          this.augmentHintText(this.challenges[i])
-          this.trustDescriptionHtml(this.challenges[i])
-          if (this.challenges[i].name === 'Score Board') {
-            this.challenges[i].solved = true
+        this.codeSnippetService.challenges().subscribe((challengesWithCodeSnippet) => {
+          this.challenges = challenges
+          for (let i = 0; i < this.challenges.length; i++) {
+            this.augmentHintText(this.challenges[i])
+            this.trustDescriptionHtml(this.challenges[i])
+            if (this.challenges[i].name === 'Score Board') {
+              this.challenges[i].solved = true
+            }
+            if (!this.availableChallengeCategories.includes(challenges[i].category)) {
+              this.availableChallengeCategories.push(challenges[i].category)
+            }
+            if (this.showHackingInstructor) {
+              import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
+                challenges[i].hasTutorial = module.hasInstructions(challenges[i].name)
+              })
+            }
+            challenges[i].hasSnippet = challengesWithCodeSnippet.indexOf(challenges[i].key) > -1
           }
-          if (!this.availableChallengeCategories.includes(challenges[i].category)) {
-            this.availableChallengeCategories.push(challenges[i].category)
-          }
-          if (this.showHackingInstructor) {
-            import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
-              challenges[i].hasTutorial = module.hasInstructions(challenges[i].name)
+          this.availableChallengeCategories.sort((a, b) => a.localeCompare(b))
+          this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(String(localStorage.getItem('displayedChallengeCategories'))) : this.availableChallengeCategories
+          this.calculateProgressPercentage()
+          this.calculateCodingProgressPercentage()
+          this.populateFilteredChallengeLists()
+          this.calculateGradientOffsets(challenges)
+          this.calculateTutorialTier(challenges)
+
+          this.toggledMajorityOfDifficulties = this.determineToggledMajorityOfDifficulties()
+          this.toggledMajorityOfCategories = this.determineToggledMajorityOfCategories()
+
+          if (this.showOnlyTutorialChallenges) {
+            this.challenges.sort((a, b) => {
+              return a.tutorialOrder - b.tutorialOrder
             })
           }
-        }
-        this.availableChallengeCategories.sort((a, b) => a.localeCompare(b))
-        this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(String(localStorage.getItem('displayedChallengeCategories'))) : this.availableChallengeCategories
-        this.calculateProgressPercentage()
-        this.populateFilteredChallengeLists()
-        this.calculateGradientOffsets(challenges)
-        this.calculateTutorialTier(challenges)
 
-        this.toggledMajorityOfDifficulties = this.determineToggledMajorityOfDifficulties()
-        this.toggledMajorityOfCategories = this.determineToggledMajorityOfCategories()
-
-        if (this.showOnlyTutorialChallenges) {
-          this.challenges.sort((a, b) => {
-            return a.tutorialOrder - b.tutorialOrder
-          })
-        }
-
-        this.spinner.hide()
+          this.spinner.hide()
+        })
       }, (err) => {
         this.challenges = []
         console.log(err)
@@ -165,6 +180,18 @@ export class ScoreBoardComponent implements OnInit {
 
   trustDescriptionHtml (challenge: Challenge) {
     challenge.description = this.sanitizer.bypassSecurityTrustHtml(challenge.description as string)
+  }
+
+  calculateCodingProgressPercentage () {
+    let numCodingChallenges = 0
+    let codingChallengeProgress = 0
+    for (let i = 0; i < this.challenges.length; i++) {
+      if (this.challenges[i].hasSnippet) {
+        numCodingChallenges++
+        codingChallengeProgress += this.challenges[i].codingChallengeStatus
+      }
+    }
+    this.percentCodingChallengesSolved = (100 * codingChallengeProgress / (numCodingChallenges * 2)).toFixed(0)
   }
 
   calculateProgressPercentage () {
@@ -341,5 +368,38 @@ export class ScoreBoardComponent implements OnInit {
 
   restoreBackup (file: File) {
     this.localBackupService.restore(file)
+  }
+
+  showCodeSnippet (key: string, name: string, codingChallengeStatus: number) {
+    const dialogRef = this.dialog.open(CodeSnippetComponent, {
+      disableClose: true,
+      data: {
+        key: key,
+        name: name,
+        codingChallengeStatus: codingChallengeStatus
+      }
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      for (const challenge of this.challenges) {
+        if (challenge.name === name) {
+          if (challenge.codingChallengeStatus < 1) {
+            challenge.codingChallengeStatus = result.findIt ? 1 : challenge.codingChallengeStatus
+          }
+          if (challenge.codingChallengeStatus < 2) {
+            challenge.codingChallengeStatus = result.fixIt ? 2 : challenge.codingChallengeStatus
+          }
+          this.calculateCodingProgressPercentage()
+        }
+      }
+    })
+  }
+
+  generateColor (challenge: Challenge) {
+    return challenge.codingChallengeStatus === 2 ? 'accent' : 'primary'
+  }
+
+  generateBadge (challenge: Challenge) {
+    return challenge.codingChallengeStatus === 1 ? '1/2' : ''
   }
 }

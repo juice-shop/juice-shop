@@ -1,17 +1,17 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { environment } from 'src/environments/environment'
 import { Injectable, NgZone } from '@angular/core'
-import { io } from 'socket.io-client'
+import { io, Socket } from 'socket.io-client'
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketIoService {
-  private _socket: any
+  private _socket: Socket
 
   constructor (private readonly ngZone: NgZone) {
     this.ngZone.runOutsideAngular(() => {

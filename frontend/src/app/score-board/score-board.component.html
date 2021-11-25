@@ -1,15 +1,23 @@
 <!--
-  ~ Copyright (c) 2014-2021 Bjoern Kimminich.
+  ~ Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
   -->
 
 <div fxLayout="column">
-  <mat-card>
+<div fxLayout="row" fxLayout.lt-md="column">
+  <mat-card fxFlex="grow">
     <mat-card-title>{{"TITLE_SCORE_BOARD" | translate}}
       <small class="confirmation">{{percentChallengesSolved}}%</small>
     </mat-card-title>
     <mat-progress-bar mode="determinate" [color]="'accent'" [value]="percentChallengesSolved"></mat-progress-bar>
   </mat-card>
+  <mat-card *ngIf="codingChallengesEnabled !== 'never'">
+    <mat-card-title>{{"TITLE_CODING_SCORE" | translate}}
+      <small class="confirmation">{{percentCodingChallengesSolved}}%</small>
+    </mat-card-title>
+    <mat-progress-bar mode="determinate" [color]="'accent'" [value]="percentCodingChallengesSolved"></mat-progress-bar>
+  </mat-card>
+</div>
 
   <mat-card>
     <div class="star-container" fxLayout="row wrap">
@@ -104,7 +112,9 @@
 
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef translate>LABEL_NAME</mat-header-cell>
-        <mat-cell *matCellDef="let challenge"> {{challenge.name}}</mat-cell>
+        <mat-cell *matCellDef="let challenge">
+          {{challenge.name}}
+        </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="difficulty">
@@ -117,9 +127,9 @@
       </ng-container>
 
       <ng-container matColumnDef="description">
-        <mat-header-cell *matHeaderCellDef fxFlex="1 1 38%" translate>LABEL_DESCRIPTION
+        <mat-header-cell *matHeaderCellDef fxFlex="1 1 31%" translate>LABEL_DESCRIPTION
         </mat-header-cell>
-        <mat-cell *matCellDef="let challenge" fxFlex="1 1 38%">
+        <mat-cell *matCellDef="let challenge" fxFlex="1 1 31%">
           <div [innerHTML]="challenge.description"></div>
         </mat-cell>
       </ng-container>
@@ -153,7 +163,7 @@
           </app-challenge-status-badge>
           <button
             *ngIf="showHackingInstructor && !challenge.solved && !challenge.disabledEnv && challenge.hasTutorial"
-            mat-raised-button color="warn"
+            mat-mini-fab color="warn"
             (click)="startHackingInstructor(challenge.name)"
             [matTooltip]="('INFO_HACKING_INSTRUCTOR' | translate)"
             matTooltipPosition="above"
@@ -165,7 +175,7 @@
           </button>
           <a *ngIf="showVulnerabilityMitigations && challenge.solved && challenge.mitigationUrl" [href]="challenge.mitigationUrl" target="_blank">
             <button
-              mat-raised-button color="accent"
+              mat-mini-fab color="accent"
               [matTooltip]="('INFO_VULNERABILITY_MITIGATION_LINK' | translate)"
               matTooltipPosition="above"
               class="vulnerability-mitigation-button"
@@ -174,6 +184,58 @@
                 policy
               </mat-icon>
             </button>
+          </a>
+          <div [matTooltip]="('SOLVE_HACKING_CHALLENGE' | translate)" [matTooltipDisabled]="!challenge.hasSnippet || codingChallengesEnabled === 'solved' && challenge.solved || codingChallengesEnabled === 'always'" matTooltipPosition="above">
+            <button
+              *ngIf="challenge.hasSnippet && codingChallengesEnabled !== 'never'"
+              [disabled]="codingChallengesEnabled === 'solved' && !challenge.solved"
+              mat-mini-fab
+              (click)="showCodeSnippet(challenge.key,challenge.name,challenge.codingChallengeStatus)"
+              [matTooltip]="('LAUNCH_CODING_CHALLENGE' | translate)"
+              matTooltipPosition="above"
+              class='code-snippet-button'
+              [color]="generateColor(challenge)"
+              [id]="challenge.name + '.codingChallengeButton'"
+              >
+              <mat-icon
+              [matBadge]="generateBadge(challenge)"
+              matBadgeSize="medium"
+              matBadgePosition="right"
+              matBadgeColor="accent"
+              >
+                code
+              </mat-icon>
+            </button>
+          </div>
+          <button
+            *ngIf="challenge.key === 'scoreBoardChallenge' && showHackingInstructor && challenge.solved && codingChallengesEnabled !== 'never' && challenge.codingChallengeStatus < 1"
+            mat-mini-fab color="warn"
+            (click)="startHackingInstructor('Coding Challenges')"
+            [matTooltip]="('INFO_HACKING_INSTRUCTOR' | translate)"
+            matTooltipPosition="above"
+            class='code-snippet-button'
+            id="codingChallengeTutorialButton"
+            >
+            <mat-icon
+            matBadge="<>"
+            matBadgeSize="small"
+            matBadgePosition="right"
+            matBadgeColor="primary"
+            >
+              school
+            </mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="feedback" *ngIf="showFeedbackButtons">
+        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-xl fxFlex="1 1 5%" translate>LABEL_FEEDBACK</mat-header-cell>
+        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-xl fxFlex="1 1 5%">
+          <a *ngIf="challenge.solved" [href]="'https://docs.google.com/forms/d/e/1FAIpQLSdaNEuz0dzFA2sexCa0AJ4QOb2OYdEL04eQOLFD2Y4T-BW6ag/viewform?usp=pp_url&entry.384948954=' + challenge.name + '&entry.435235279=Hacking+Challenge&entry.1734944650=Yes'" target="_blank">
+            <button mat-icon-button><mat-icon color="accent">thumb_up</mat-icon></button>
+          </a>
+          <a *ngIf="challenge.solved" [href]="'https://docs.google.com/forms/d/e/1FAIpQLSdaNEuz0dzFA2sexCa0AJ4QOb2OYdEL04eQOLFD2Y4T-BW6ag/viewform?usp=pp_url&entry.384948954=' + challenge.name + '&entry.435235279=Hacking+Challenge&entry.1734944650=No'" target="_blank">
+            <button mat-icon-button><mat-icon color="warn">thumb_down</mat-icon></button>
           </a>
         </mat-cell>
       </ng-container>

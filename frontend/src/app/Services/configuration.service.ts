@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -77,9 +77,11 @@ interface Config {
     showSolvedNotifications: boolean
     showHints: boolean
     showMitigations: boolean
+    codingChallengesEnabled: string
     restrictToTutorialsFirst: boolean
     safetyOverride: boolean
     overwriteUrlForProductTamperingChallenge: string
+    showFeedbackButtons: boolean
   }
   hackingInstructor: {
     isEnabled: boolean

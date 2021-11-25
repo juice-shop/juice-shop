@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich.
+ * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { Component, NgZone, OnInit } from '@angular/core'
 import { UserService } from '../Services/user.service'
 import { ActivatedRoute, Router } from '@angular/router'
-import { CookieService } from 'ngx-cookie-service'
+import { CookieService } from 'ngx-cookie'
 import { ConfigurationService } from '../Services/configuration.service'
 import { SocketIoService } from '../Services/socket-io.service'
 

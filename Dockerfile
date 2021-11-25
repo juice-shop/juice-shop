@@ -1,7 +1,10 @@
 FROM node:12 as installer
 COPY . /juice-shop
 WORKDIR /juice-shop
+
+RUN npm i -g typescript ts-node
 RUN npm install --production --unsafe-perm --verbose
+
 RUN npm dedupe
 RUN rm -rf frontend/node_modules
 
@@ -15,9 +18,9 @@ LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
     org.opencontainers.image.vendor="Open Web Application Security Project" \
     org.opencontainers.image.documentation="https://help.owasp-juice.shop" \
     org.opencontainers.image.licenses="MIT" \
-    org.opencontainers.image.version="12.6.1" \
+    org.opencontainers.image.version="13.0.0" \
     org.opencontainers.image.url="https://owasp-juice.shop" \
-    org.opencontainers.image.source="https://github.com/bkimminich/juice-shop" \
+    org.opencontainers.image.source="https://github.com/juice-shop/juice-shop" \
     org.opencontainers.image.revision=$VCS_REF \
     org.opencontainers.image.created=$BUILD_DATE
 WORKDIR /juice-shop
