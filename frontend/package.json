@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "13.0.1-SNAPSHOT",
+  "version": "13.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -33,7 +33,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.14.0",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@nguniversal/express-engine": "10.0.1",
-    "@ngx-translate/core": "^13.0.1-SNAPSHOT",
+    "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "anuglar2-qrcode": "~2.0.3",
     "canvas-confetti": "^1.4.0",
