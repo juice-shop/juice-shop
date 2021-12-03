@@ -35,7 +35,7 @@
     "@nguniversal/express-engine": "10.0.1",
     "@ngx-translate/core": "13.0.0",
     "@ngx-translate/http-loader": "6.0.0",
-    "anuglar2-qrcode": "2.0.3",
+    "anuglar2-qrcode": "~2.0.3",
     "canvas-confetti": "1.4.0",
     "core-js": "3.6.5",
     "file-saver": "2.0.2",
