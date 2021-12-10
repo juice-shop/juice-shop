@@ -19,7 +19,7 @@
     "@angular/cli": "^13.0.3",
     "@angular/common": "^13.0.2",
     "@angular/compiler": "^13.0.2",
-    "@angular/compiler-cli": "13.0.2",
+    "@angular/compiler-cli": "^13.0.2",
     "@angular/core": "^13.0.2",
     "@angular/flex-layout": "10.0.0-beta.32",
     "@angular/forms": "^13.0.2",
