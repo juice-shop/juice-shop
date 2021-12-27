@@ -14,13 +14,14 @@ const { promisify } = require('util')
 const readFile = promisify(fs.readFile)
 const path = require('path')
 
-const loadYamlFile = async (filename) => {
+const loadYamlFile = async (filename: string) => {
   const contents = await readFile(filename, { encoding: 'utf8' })
   return safeLoad(contents)
 }
 
 describe('challengeCountryMapping', () => {
-  let challenges, countryMapping
+  let challenges: any
+  let countryMapping: { [key: string]: { code: any } }
   before(async () => {
     challenges = await loadYamlFile(path.resolve('data/static/challenges.yml'))
     countryMapping = (await loadYamlFile(path.resolve('config/fbctf.yml'))).ctf.countryMapping

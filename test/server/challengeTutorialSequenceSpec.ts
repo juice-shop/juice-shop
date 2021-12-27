@@ -20,7 +20,7 @@ const loadYamlFile = async (filename) => {
 }
 
 describe('challengeTutorialSequence', () => {
-  let challenges
+  let challenges: any
   before(async () => {
     challenges = await loadYamlFile(path.resolve('data/static/challenges.yml'))
   })

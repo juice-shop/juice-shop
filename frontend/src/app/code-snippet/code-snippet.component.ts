@@ -13,6 +13,7 @@ import { Component, Inject, OnInit } from '@angular/core'
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { FormControl } from '@angular/forms'
 import { ConfigurationService } from '../Services/configuration.service'
+import { ThemePalette } from '@angular/material/core'
 
 enum ResultState {
   Undecided,
@@ -117,7 +118,7 @@ export class CodeSnippetComponent implements OnInit {
     }
   }
 
-  lockColor (): string {
+  lockColor (): ThemePalette {
     switch (this.lockIcon()) {
       case 'lock_open':
         return 'accent'
@@ -176,7 +177,7 @@ export class CodeSnippetComponent implements OnInit {
     }
   }
 
-  resultColor (): string {
+  resultColor (): ThemePalette {
     switch (this.resultIcon()) {
       case 'check':
         return 'accent'

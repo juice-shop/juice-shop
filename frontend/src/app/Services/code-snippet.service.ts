@@ -10,6 +10,7 @@ import { catchError, map } from 'rxjs/operators'
 import { Observable } from 'rxjs'
 
 export interface CodeSnippet {
+  vulnLines?: number[]
   snippet: string
 }
 

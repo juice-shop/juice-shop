@@ -6,6 +6,7 @@
 import path = require('path')
 const config = require('config')
 const utils = require('../../lib/utils')
+import { by, element, browser } from 'protractor'
 
 describe('/#/complain', () => {
   let file, complaintMessage, submitButton
@@ -13,7 +14,7 @@ describe('/#/complain', () => {
   protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
   beforeEach(() => {
-    browser.get(`${protractor.basePath}/#/complain`)
+    void browser.get(`${protractor.basePath}/#/complain`)
     file = element(by.id('file'))
     complaintMessage = element(by.id('complaintMessage'))
     submitButton = element(by.id('submitButton'))
@@ -21,8 +22,8 @@ describe('/#/complain', () => {
 
   describe('challenge "uploadSize"', () => {
     it('should be possible to upload files greater 100 KB directly through backend', () => {
-      browser.waitForAngularEnabled(false)
-      browser.executeScript(baseUrl => {
+      void browser.waitForAngularEnabled(false)
+      void browser.executeScript(baseUrl => {
         const over100KB = Array.apply(null, new Array(11000)).map(String.prototype.valueOf, '1234567890')
         const blob = new Blob(over100KB, { type: 'application/pdf' })
 
@@ -33,16 +34,16 @@ describe('/#/complain', () => {
         request.open('POST', `${baseUrl}/file-upload`)
         request.send(data)
       }, browser.baseUrl)
-      browser.driver.sleep(1000)
-      browser.waitForAngularEnabled(true)
+      void browser.driver.sleep(1000)
+      void browser.waitForAngularEnabled(true)
     })
     protractor.expect.challengeSolved({ challenge: 'Upload Size' })
   })
 
   describe('challenge "uploadType"', () => {
     it('should be possible to upload files with other extension than .pdf directly through backend', () => {
-      browser.waitForAngularEnabled(false)
-      browser.executeScript(baseUrl => {
+      void browser.waitForAngularEnabled(false)
+      void browser.executeScript(baseUrl => {
         const data = new FormData()
         const blob = new Blob(['test'], { type: 'application/x-msdownload' })
         data.append('file', blob, 'invalidTypeForClient.exe')
@@ -51,8 +52,8 @@ describe('/#/complain', () => {
         request.open('POST', `${baseUrl}/file-upload`)
         request.send(data)
       }, browser.baseUrl)
-      browser.driver.sleep(1000)
-      browser.waitForAngularEnabled(true)
+      void browser.driver.sleep(1000)
+      void browser.waitForAngularEnabled(true)
     })
     protractor.expect.challengeSolved({ challenge: 'Upload Type' })
   })
@@ -118,16 +119,16 @@ describe('/#/complain', () => {
         complaintMessage.sendKeys('Here we go!')
         file.sendKeys(path.resolve('test/files/videoExploit.zip'))
         submitButton.click()
-        browser.waitForAngularEnabled(false)
-        browser.get(`${protractor.basePath}/promotion`)
-        browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /promotion")
-        browser.switchTo().alert().then(alert => {
+        void browser.waitForAngularEnabled(false)
+        void browser.get(`${protractor.basePath}/promotion`)
+        void browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /promotion")
+        void browser.switchTo().alert().then(alert => {
           expect(alert.getText()).toEqual('xss')
           alert.accept()
         })
-        browser.get(`${protractor.basePath}/`)
-        browser.driver.sleep(5000)
-        browser.waitForAngularEnabled(true)
+        void browser.get(`${protractor.basePath}/`)
+        void browser.driver.sleep(5000)
+        void browser.waitForAngularEnabled(true)
       })
       protractor.expect.challengeSolved({ challenge: 'Video XSS' })
     })
