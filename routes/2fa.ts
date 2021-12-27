@@ -50,9 +50,9 @@ async function verify (req, res) {
 }
 
 /**
- * Check the 2FA status of the currently signed in user.
+ * Check the 2FA status of the currently signed-in user.
  *
- * When 2FA isnt setup, the result will include data required to start the setup.
+ * When 2FA is not set up, the result will include data required to start the setup.
  */
 async function status (req, res) {
   try {

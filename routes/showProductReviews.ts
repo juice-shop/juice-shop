@@ -10,7 +10,7 @@ const db = require('../data/mongodb')
 
 // Blocking sleep function as in native MongoDB
 global.sleep = time => {
-  // Ensure that users dont accidentally dos their servers for too long
+  // Ensure that users don't accidentally dos their servers for too long
   if (time > 2000) {
     time = 2000
   }
@@ -24,7 +24,7 @@ module.exports = function productReviews () {
   return (req, res, next) => {
     const id = utils.disableOnContainerEnv() ? Number(req.params.id) : req.params.id
 
-    // Measure how long the query takes to find out if an there was a nosql dos attack
+    // Measure how long the query takes, to check if there was a nosql dos attack
     const t0 = new Date().getTime()
     db.reviews.find({ $where: 'this.product == ' + id }).then(reviews => {
       const t1 = new Date().getTime()

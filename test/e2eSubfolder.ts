@@ -22,7 +22,7 @@ app.use('/subfolder', (req, res) => {
   req.pipe(request({ qs: req.query, uri: proxyUrl })).pipe(res)
 })
 
-exports.start = async function (readyCallback) {
+exports.start = async function (readyCallback: () => void) {
   void serverApp.start(() => {
     server.listen(proxyPort, () => {
       logger.info(colors.cyan(`Subfolder proxy listening on port ${proxyPort}`))
@@ -34,7 +34,7 @@ exports.start = async function (readyCallback) {
   })
 }
 
-exports.close = function (exitCode) {
+exports.close = function (exitCode: number | undefined) {
   return serverApp.close(exitCode)
 }
 

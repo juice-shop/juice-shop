@@ -4,6 +4,7 @@
  */
 
 import config = require('config')
+import { by, element, browser, $$ } from 'protractor'
 const utils = require('../../lib/utils')
 const pastebinLeakProduct = config.get('products').filter(product => product.keywordsForPastebinDataLeakChallenge)[0]
 
@@ -11,7 +12,7 @@ describe('/#/contact', () => {
   let comment, rating, submitButton, captcha, snackBar
 
   beforeEach(() => {
-    browser.get(`${protractor.basePath}/#/contact`)
+    void browser.get(`${protractor.basePath}/#/contact`)
     comment = element(by.id('comment'))
     rating = element(by.id('rating'))
     captcha = element(by.id('captchaControl'))
@@ -25,19 +26,19 @@ describe('/#/contact', () => {
 
     it('should be possible to provide feedback as another user', () => {
       const EC = protractor.ExpectedConditions
-      browser.executeScript('document.getElementById("userId").removeAttribute("hidden");')
-      browser.executeScript('document.getElementById("userId").removeAttribute("class");')
-      browser.wait(EC.visibilityOf($('#userId')), 5000)
+      void browser.executeScript('document.getElementById("userId").removeAttribute("hidden");')
+      void browser.executeScript('document.getElementById("userId").removeAttribute("class");')
+      void browser.wait(EC.visibilityOf($('#userId')), 5000)
 
       const UserId = element(by.id('userId'))
-      UserId.clear()
-      UserId.sendKeys('2')
+      void UserId.clear()
+      void UserId.sendKeys('2')
       comment.sendKeys('Picard stinks!')
       rating.click()
 
       submitButton.click()
 
-      browser.get(`${protractor.basePath}/#/administration`)
+      void browser.get(`${protractor.basePath}/#/administration`)
       expect($$('mat-row mat-cell.mat-column-user').last().getText()).toMatch('2')
     })
 
@@ -56,26 +57,26 @@ describe('/#/contact', () => {
 
         submitButton.click()
 
-        browser.sleep(5000)
+        void browser.sleep(5000)
 
-        browser.waitForAngularEnabled(false)
-        browser.get(`${protractor.basePath}/#/about`)
+        void browser.waitForAngularEnabled(false)
+        void browser.get(`${protractor.basePath}/#/about`)
 
-        browser.wait(EC.alertIsPresent(), 15000, "'xss' alert is not present on /#/about")
-        browser.switchTo().alert().then(alert => {
+        void browser.wait(EC.alertIsPresent(), 15000, "'xss' alert is not present on /#/about")
+        void browser.switchTo().alert().then(alert => {
           expect(alert.getText()).toEqual('xss')
-          alert.accept()
+          void alert.accept()
         })
 
-        browser.get(`${protractor.basePath}/#/administration`)
-        browser.wait(EC.alertIsPresent(), 15000, "'xss' alert is not present on /#/administration")
-        browser.switchTo().alert().then(alert => {
+        void browser.get(`${protractor.basePath}/#/administration`)
+        void browser.wait(EC.alertIsPresent(), 15000, "'xss' alert is not present on /#/administration")
+        void browser.switchTo().alert().then(alert => {
           expect(alert.getText()).toEqual('xss')
           alert.accept()
           $$('.mat-cell.mat-column-remove > button').last().click()
-          browser.wait(EC.stalenessOf(element(by.tagName('iframe'))), 5000)
+          void browser.wait(EC.stalenessOf(element(by.tagName('iframe'))), 5000)
         })
-        browser.waitForAngularEnabled(true)
+        void browser.waitForAngularEnabled(true)
       })
 
       protractor.expect.challengeSolved({ challenge: 'Server-side XSS Protection' })
@@ -140,8 +141,8 @@ describe('/#/contact', () => {
 
   describe('challenge "zeroStars"', () => {
     it('should be possible to post feedback with zero stars by double-clicking rating widget', () => {
-      browser.executeAsyncScript(baseUrl => {
-        var callback = arguments[arguments.length - 1] // eslint-disable-line
+      void browser.executeAsyncScript(baseUrl => {
+        const callback = arguments[arguments.length - 1]; // eslint-disable-line
         const xhttp = new XMLHttpRequest()
         let captcha
         xhttp.onreadystatechange = function () {
@@ -177,19 +178,19 @@ describe('/#/contact', () => {
   describe('challenge "captchaBypass"', () => {
     const EC = protractor.ExpectedConditions
     xit('should be possible to post 10 or more customer feedbacks in less than 10 seconds', () => {
-      browser.waitForAngularEnabled(false)
+      void browser.waitForAngularEnabled(false)
 
       for (let i = 0; i < 11; i++) {
         comment.sendKeys(`Spam #${i}`)
         rating.click()
         submitButton.click()
-        browser.wait(EC.visibilityOf(snackBar), 200, 'SnackBar did not become visible')
+        void browser.wait(EC.visibilityOf(snackBar), 200, 'SnackBar did not become visible')
         snackBar.click()
-        browser.sleep(200)
+        void browser.sleep(200)
         solveNextCaptcha() // first CAPTCHA was already solved in beforeEach
       }
 
-      browser.waitForAngularEnabled(true)
+      void browser.waitForAngularEnabled(true)
     })
 
     // protractor.expect.challengeSolved({ challenge: 'CAPTCHA Bypass' })
@@ -216,7 +217,7 @@ describe('/#/contact', () => {
   })
 
   function solveNextCaptcha () {
-    element(by.id('captcha')).getText().then((text) => {
+    void element(by.id('captcha')).getText().then((text) => {
       captcha.clear()
       const answer = eval(text).toString() // eslint-disable-line no-eval
       captcha.sendKeys(answer)

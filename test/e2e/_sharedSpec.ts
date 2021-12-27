@@ -4,6 +4,8 @@
  */
 
 import otplib = require('otplib')
+import { by, element, browser } from 'protractor'
+
 const url = require('url')
 
 let basePath = (new url.URL(browser.baseUrl)).pathname
@@ -11,10 +13,10 @@ if (basePath === '/') basePath = ''
 protractor.basePath = basePath
 
 protractor.expect = {
-  challengeSolved: function (context) {
+  challengeSolved: function (context: any) {
     describe('(shared)', () => {
       beforeEach(() => {
-        browser.get(`${protractor.basePath}/#/score-board`)
+        void browser.get(`${protractor.basePath}/#/score-board`)
       })
 
       it(`challenge '${context.challenge}' should be solved on score board`, () => {
@@ -26,26 +28,26 @@ protractor.expect = {
 }
 
 protractor.beforeEach = {
-  login: function (context) {
+  login: function (context: any) {
     describe('(shared)', () => {
       beforeEach(() => {
-        browser.get(`${protractor.basePath}/#/login`)
+        void browser.get(`${protractor.basePath}/#/login`)
 
-        element(by.id('email')).sendKeys(context.email)
-        element(by.id('password')).sendKeys(context.password)
-        element(by.id('loginButton')).click()
+        void element(by.id('email')).sendKeys(context.email)
+        void element(by.id('password')).sendKeys(context.password)
+        void element(by.id('loginButton')).click()
 
         if (context.totpSecret) {
           const EC = protractor.ExpectedConditions
           const twoFactorTokenInput = element(by.id('totpToken'))
           const twoFactorSubmitButton = element(by.id('totpSubmitButton'))
 
-          browser.wait(EC.visibilityOf(twoFactorTokenInput), 1000, '2FA token field did not become visible')
+          void browser.wait(EC.visibilityOf(twoFactorTokenInput), 1000, '2FA token field did not become visible')
 
           const totpToken = otplib.authenticator.generate(context.totpSecret)
-          twoFactorTokenInput.sendKeys(totpToken)
+          void twoFactorTokenInput.sendKeys(totpToken)
 
-          twoFactorSubmitButton.click()
+          void twoFactorSubmitButton.click()
         }
       })
 
