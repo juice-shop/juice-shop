@@ -6,7 +6,9 @@
 import spawn = require('cross-spawn')
 const colors = require('colors/safe')
 
-let server, confName
+let server: any
+let confName: string
+
 if (process.argv && process.argv.length >= 3 && process.argv[2] === 'subfolder') {
   server = require('./e2eSubfolder')
   confName = 'protractor.subfolder.conf.js'
@@ -17,7 +19,7 @@ if (process.argv && process.argv.length >= 3 && process.argv[2] === 'subfolder')
 
 server.start(() => {
   const protractor = spawn('protractor', [confName])
-  function logToConsole (data) {
+  function logToConsole (data: any) {
     console.log(String(data))
   }
 
