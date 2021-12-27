@@ -11,12 +11,14 @@ chai.use(sinonChai)
 
 describe('appConfiguration', () => {
   const retrieveAppConfiguration = require('../../routes/appConfiguration')
+  let req: any
+  let res: any
 
   it('should return configuration object', () => {
-    this.req = {}
-    this.res = { json: sinon.spy() }
+    req = {}
+    res = { json: sinon.spy() }
 
-    retrieveAppConfiguration()(this.req, this.res)
-    expect(this.res.json).to.have.been.calledWith({ config: require('config') })
+    retrieveAppConfiguration()(req, res)
+    expect(res.json).to.have.been.calledWith({ config: require('config') })
   })
 })

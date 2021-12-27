@@ -12,10 +12,12 @@ describe('fileUpload', () => {
     checkFileType
   } = require('../../routes/fileUpload')
   const challenges = require('../../data/datacache').challenges
+  let req: any
+  let save: any
 
   beforeEach(() => {
-    this.req = { file: { originalname: '' } }
-    this.save = () => ({
+    req = { file: { originalname: '' } }
+    save = () => ({
       then () { }
     })
   })
@@ -24,10 +26,10 @@ describe('fileUpload', () => {
     const sizes = [0, 1, 100, 1000, 10000, 99999, 100000]
     sizes.forEach(size => {
       it(`${size} bytes`, () => {
-        challenges.uploadSizeChallenge = { solved: false, save: this.save }
-        this.req.file.size = size
+        challenges.uploadSizeChallenge = { solved: false, save: save }
+        req.file.size = size
 
-        checkUploadSize(this.req, undefined, () => {})
+        checkUploadSize(req, undefined, () => {})
 
         expect(challenges.uploadSizeChallenge.solved).to.equal(false)
       })
@@ -35,28 +37,28 @@ describe('fileUpload', () => {
   })
 
   it('should solve "uploadSizeChallenge" when file size exceeds 100000 bytes', () => {
-    challenges.uploadSizeChallenge = { solved: false, save: this.save }
-    this.req.file.size = 100001
+    challenges.uploadSizeChallenge = { solved: false, save: save }
+    req.file.size = 100001
 
-    checkUploadSize(this.req, undefined, () => {})
+    checkUploadSize(req, undefined, () => {})
 
     expect(challenges.uploadSizeChallenge.solved).to.equal(true)
   })
 
   it('should solve "uploadTypeChallenge" when file type is not PDF', () => {
-    challenges.uploadTypeChallenge = { solved: false, save: this.save }
-    this.req.file.originalname = 'hack.exe'
+    challenges.uploadTypeChallenge = { solved: false, save: save }
+    req.file.originalname = 'hack.exe'
 
-    checkFileType(this.req, undefined, () => {})
+    checkFileType(req, undefined, () => {})
 
     expect(challenges.uploadTypeChallenge.solved).to.equal(true)
   })
 
   it('should not solve "uploadTypeChallenge" when file type is PDF', () => {
-    challenges.uploadTypeChallenge = { solved: false, save: this.save }
-    this.req.file.originalname = 'hack.pdf'
+    challenges.uploadTypeChallenge = { solved: false, save: save }
+    req.file.originalname = 'hack.pdf'
 
-    checkFileType(this.req, undefined, () => {})
+    checkFileType(req, undefined, () => {})
 
     expect(challenges.uploadTypeChallenge.solved).to.equal(false)
   })
