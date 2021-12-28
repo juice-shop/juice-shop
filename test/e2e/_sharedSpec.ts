@@ -4,7 +4,7 @@
  */
 
 import otplib = require('otplib')
-import { by, element, browser } from 'protractor'
+import { by, element, browser, protractor } from 'protractor'
 
 const url = require('url')
 
