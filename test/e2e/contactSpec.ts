@@ -4,12 +4,13 @@
  */
 
 import config = require('config')
-import { by, element, browser, $$ } from 'protractor'
+import { by, element, browser, $$, ElementFinder } from 'protractor'
+
 const utils = require('../../lib/utils')
 const pastebinLeakProduct = config.get('products').filter(product => product.keywordsForPastebinDataLeakChallenge)[0]
 
 describe('/#/contact', () => {
-  let comment, rating, submitButton, captcha, snackBar
+  let comment: ElementFinder, rating: ElementFinder, submitButton: ElementFinder, captcha: ElementFinder, snackBar: ElementFinder
 
   beforeEach(() => {
     void browser.get(`${protractor.basePath}/#/contact`)
@@ -33,10 +34,10 @@ describe('/#/contact', () => {
       const UserId = element(by.id('userId'))
       void UserId.clear()
       void UserId.sendKeys('2')
-      comment.sendKeys('Picard stinks!')
-      rating.click()
+      void comment.sendKeys('Picard stinks!')
+      void rating.click()
 
-      submitButton.click()
+      void submitButton.click()
 
       void browser.get(`${protractor.basePath}/#/administration`)
       expect($$('mat-row mat-cell.mat-column-user').last().getText()).toMatch('2')
@@ -52,10 +53,10 @@ describe('/#/contact', () => {
       it('should be possible to trick the sanitization with a masked XSS attack', () => {
         const EC = protractor.ExpectedConditions
 
-        comment.sendKeys('<<script>Foo</script>iframe src="javascript:alert(`xss`)">')
-        rating.click()
+        void comment.sendKeys('<<script>Foo</script>iframe src="javascript:alert(`xss`)">')
+        void rating.click()
 
-        submitButton.click()
+        void submitButton.click()
 
         void browser.sleep(5000)
 
@@ -85,11 +86,11 @@ describe('/#/contact', () => {
 
   describe('challenge "vulnerableComponent"', () => {
     it('should be possible to post known vulnerable component(s) as feedback', () => {
-      comment.sendKeys('sanitize-html 1.4.2 is non-recursive.')
-      comment.sendKeys('express-jwt 0.1.3 has broken crypto.')
-      rating.click()
+      void comment.sendKeys('sanitize-html 1.4.2 is non-recursive.')
+      void comment.sendKeys('express-jwt 0.1.3 has broken crypto.')
+      void rating.click()
 
-      submitButton.click()
+      void submitButton.click()
     })
 
     protractor.expect.challengeSolved({ challenge: 'Vulnerable Library' })
@@ -97,10 +98,10 @@ describe('/#/contact', () => {
 
   describe('challenge "weirdCrypto"', () => {
     it('should be possible to post weird crypto algorithm/library as feedback', () => {
-      comment.sendKeys('The following libraries are bad for crypto: z85, base85, md5 and hashids')
-      rating.click()
+      void comment.sendKeys('The following libraries are bad for crypto: z85, base85, md5 and hashids')
+      void rating.click()
 
-      submitButton.click()
+      void submitButton.click()
     })
 
     protractor.expect.challengeSolved({ challenge: 'Weird Crypto' })
@@ -108,10 +109,10 @@ describe('/#/contact', () => {
 
   describe('challenge "typosquattingNpm"', () => {
     it('should be possible to post typosquatting NPM package as feedback', () => {
-      comment.sendKeys('You are a typosquatting victim of this NPM package: epilogue-js')
-      rating.click()
+      void comment.sendKeys('You are a typosquatting victim of this NPM package: epilogue-js')
+      void rating.click()
 
-      submitButton.click()
+      void submitButton.click()
     })
 
     protractor.expect.challengeSolved({ challenge: 'Legacy Typosquatting' })
@@ -119,10 +120,10 @@ describe('/#/contact', () => {
 
   describe('challenge "typosquattingAngular"', () => {
     it('should be possible to post typosquatting Bower package as feedback', () => {
-      comment.sendKeys('You are a typosquatting victim of this Bower package: anuglar2-qrcode')
-      rating.click()
+      void comment.sendKeys('You are a typosquatting victim of this Bower package: anuglar2-qrcode')
+      void rating.click()
 
-      submitButton.click()
+      void submitButton.click()
     })
 
     protractor.expect.challengeSolved({ challenge: 'Frontend Typosquatting' })
@@ -130,10 +131,10 @@ describe('/#/contact', () => {
 
   describe('challenge "hiddenImage"', () => {
     it('should be possible to post hidden character name as feedback', () => {
-      comment.sendKeys('Pickle Rick is hiding behind one of the support team ladies')
-      rating.click()
+      void comment.sendKeys('Pickle Rick is hiding behind one of the support team ladies')
+      void rating.click()
 
-      submitButton.click()
+      void submitButton.click()
     })
 
     protractor.expect.challengeSolved({ challenge: 'Steganography' })
@@ -181,11 +182,11 @@ describe('/#/contact', () => {
       void browser.waitForAngularEnabled(false)
 
       for (let i = 0; i < 11; i++) {
-        comment.sendKeys(`Spam #${i}`)
-        rating.click()
-        submitButton.click()
+        void comment.sendKeys(`Spam #${i}`)
+        void rating.click()
+        void submitButton.click()
         void browser.wait(EC.visibilityOf(snackBar), 200, 'SnackBar did not become visible')
-        snackBar.click()
+        void snackBar.click()
         void browser.sleep(200)
         solveNextCaptcha() // first CAPTCHA was already solved in beforeEach
       }
@@ -198,10 +199,10 @@ describe('/#/contact', () => {
 
   describe('challenge "supplyChainAttack"', () => {
     it('should be possible to post GitHub issue URL reporting malicious eslint-scope package as feedback', () => {
-      comment.sendKeys('Turn on 2FA! Now!!! https://github.com/eslint/eslint-scope/issues/39')
-      rating.click()
+      void comment.sendKeys('Turn on 2FA! Now!!! https://github.com/eslint/eslint-scope/issues/39')
+      void rating.click()
 
-      submitButton.click()
+      void submitButton.click()
     })
 
     protractor.expect.challengeSolved({ challenge: 'Supply Chain Attack' })
@@ -209,18 +210,18 @@ describe('/#/contact', () => {
 
   describe('challenge "dlpPastebinDataLeak"', () => {
     it('should be possible to post dangerous ingredients of unsafe product as feedback', () => {
-      comment.sendKeys(pastebinLeakProduct.keywordsForPastebinDataLeakChallenge.toString())
-      rating.click()
-      submitButton.click()
+      void comment.sendKeys(pastebinLeakProduct.keywordsForPastebinDataLeakChallenge.toString())
+      void rating.click()
+      void submitButton.click()
     })
     protractor.expect.challengeSolved({ challenge: 'Leaked Unsafe Product' })
   })
 
   function solveNextCaptcha () {
     void element(by.id('captcha')).getText().then((text) => {
-      captcha.clear()
+      void captcha.clear()
       const answer = eval(text).toString() // eslint-disable-line no-eval
-      captcha.sendKeys(answer)
+      void captcha.sendKeys(answer)
     })
   }
 })

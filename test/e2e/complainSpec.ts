@@ -4,9 +4,9 @@
  */
 
 import path = require('path')
+import { by, element, browser } from 'protractor'
 const config = require('config')
 const utils = require('../../lib/utils')
-import { by, element, browser } from 'protractor'
 
 describe('/#/complain', () => {
   let file, complaintMessage, submitButton
