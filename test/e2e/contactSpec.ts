@@ -72,8 +72,8 @@ describe('/#/contact', () => {
         void browser.wait(EC.alertIsPresent(), 15000, "'xss' alert is not present on /#/administration")
         void browser.switchTo().alert().then(alert => {
           expect(alert.getText()).toEqual('xss')
-          alert.accept()
-          $$('.mat-cell.mat-column-remove > button').last().click()
+          void alert.accept()
+          void $$('.mat-cell.mat-column-remove > button').last().click()
           void browser.wait(EC.stalenessOf(element(by.tagName('iframe'))), 5000)
         })
         void browser.waitForAngularEnabled(true)

@@ -124,7 +124,7 @@ describe('/#/complain', () => {
         void browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /promotion")
         void browser.switchTo().alert().then(alert => {
           expect(alert.getText()).toEqual('xss')
-          alert.accept()
+          void alert.accept()
         })
         void browser.get(`${protractor.basePath}/`)
         void browser.driver.sleep(5000)
