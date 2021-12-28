@@ -4,7 +4,7 @@
  */
 
 import path = require('path')
-import { by, element, browser } from 'protractor'
+import { by, element, browser, protractor } from 'protractor'
 const config = require('config')
 const utils = require('../../lib/utils')
 

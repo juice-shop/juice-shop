@@ -4,7 +4,7 @@
  */
 
 import config = require('config')
-import { $$, browser, by, element } from 'protractor'
+import { $$, browser, by, element, protractor } from 'protractor'
 const security = require('../../lib/insecurity')
 const models = require('../../models/index')
 

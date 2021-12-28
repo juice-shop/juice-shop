@@ -4,7 +4,7 @@
  */
 
 import config = require('config')
-import { by, element } from 'protractor'
+import { by, element, protractor } from 'protractor'
 
 describe('/#/forgot-password', () => {
   let email, securityAnswer, newPassword, newPasswordRepeat, resetButton

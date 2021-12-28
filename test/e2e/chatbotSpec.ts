@@ -4,7 +4,7 @@
  */
 
 import config = require('config')
-import { by, element, browser } from 'protractor'
+import { by, element, browser, protractor } from 'protractor'
 const utils = require('../../lib/utils')
 
 describe('/chatbot', () => {

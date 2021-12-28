@@ -4,7 +4,7 @@
  */
 
 import config = require('config')
-import { by, element, browser, $$, ElementFinder } from 'protractor'
+import { by, element, browser, $$, ElementFinder, protractor } from 'protractor'
 
 const utils = require('../../lib/utils')
 const pastebinLeakProduct = config.get('products').filter(product => product.keywordsForPastebinDataLeakChallenge)[0]

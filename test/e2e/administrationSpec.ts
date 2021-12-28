@@ -4,7 +4,7 @@
  */
 
 import config = require('config')
-import { $$, browser } from 'protractor'
+import { $$, browser, protractor } from 'protractor'
 
 describe('/#/administration', () => {
   describe('challenge "adminSection"', () => {
