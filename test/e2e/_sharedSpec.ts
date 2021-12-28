@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+// TODO Rewrite into utility class or proper class-mixin á la TypeScript
+
 import otplib = require('otplib')
 import { by, element, browser, protractor } from 'protractor'
 
