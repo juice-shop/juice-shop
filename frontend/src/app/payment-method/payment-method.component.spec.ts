@@ -107,7 +107,7 @@ describe('PaymentMethodComponent', () => {
 
   it('should reinitizalise new payment method form by calling resetForm', () => {
     component.nameControl.setValue('jim')
-    component.numberControl.setValue(9999999999999999)
+    component.numberControl.setValue(1234567887654321)
     component.monthControl.setValue(12)
     component.yearControl.setValue(2085)
     component.resetForm()
@@ -148,9 +148,9 @@ describe('PaymentMethodComponent', () => {
   it('card number should be in the range [1000000000000000, 9999999999999999]', () => {
     component.numberControl.setValue(1111110)
     expect(component.numberControl.valid).toBeFalsy()
-    component.numberControl.setValue(99999999999999999)
+    component.numberControl.setValue(99999999999999999) // eslint-disable-line no-loss-of-precision
     expect(component.numberControl.valid).toBeFalsy()
-    component.numberControl.setValue(9999999999999999)
+    component.numberControl.setValue(9999999999999999) // eslint-disable-line no-loss-of-precision
     expect(component.numberControl.valid).toBe(true)
     component.numberControl.setValue(1234567887654321)
     expect(component.numberControl.valid).toBe(true)

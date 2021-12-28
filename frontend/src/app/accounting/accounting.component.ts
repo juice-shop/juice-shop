@@ -52,7 +52,7 @@ export class AccountingComponent implements AfterViewInit, OnDestroy {
   loadQuantity () {
     this.quantitySubscription = this.quantityService.getAll().subscribe((stock) => {
       this.quantityMap = {}
-      stock.map((item) => {
+      stock.forEach((item) => {
         this.quantityMap[item.ProductId] = {
           id: item.id,
           quantity: item.quantity
