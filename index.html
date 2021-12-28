@@ -54,7 +54,7 @@
 	<script>
 		fetch("https://raw.githubusercontent.com/OWASP/www-project-juice-shop/master/_data/roadmap_milestones.json").then(async (res) => {
 			const milestones = await res.json();
-			document.getElementById('roadmap').innerHTML = milestones.map(milestone => "<li>" + milestone + "</li>").join('')
+			document.getElementById('roadmap').innerHTML = milestones.map(milestone => "<tr><td><small>" + milestone + "</small></td></tr>").join('')
 		})
 	</script>
 
@@ -198,7 +198,7 @@
 		</section>
 
 		<section>
-			<h2 class="neon">Coding Challenges</h2>
+			<h2>Coding Challenges</h2>
 			<p>
 				Find code flaw and select appropriate fix for several challenges
 			</p>
@@ -709,11 +709,7 @@ products:
 
 		<section>
 			<h2>Project Roadmap</h2>
-			<ul id="roadmap"></ul><br>
-			<img src="assets/dukenukemforever_1300807309.png" height="250" class="fragment no-box" data-fragment-index="2"/>
-			<p class="fragment" data-fragment-index="1">
-				Timeline? <strong class="fragment" data-fragment-index="2">When it's done!</strong>
-			</p>
+			<table id="roadmap"></table><br>
 		</section>
 
 		<section data-transition="zoom-out">
