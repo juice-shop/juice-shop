@@ -33,7 +33,7 @@ describe('challengeCountryMapping', () => {
   })
 
   xit('should have unique country codes in every mapping', async () => {
-    const countryCodeCounts = {}
+    const countryCodeCounts: any = {}
 
     for (const key of Object.keys(countryMapping)) {
       const { code } = countryMapping[key]
