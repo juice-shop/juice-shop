@@ -4,11 +4,13 @@
  */
 
 import utils = require('../lib/utils')
+import { Request, Response, NextFunction } from 'express'
+
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 
 module.exports = function performRedirect () {
-  return ({ query }, res, next) => {
+  return ({ query }: Request, res: Response, next: NextFunction) => {
     const toUrl = query.to
     if (security.isRedirectAllowed(toUrl)) {
       utils.solveIf(challenges.redirectCryptoCurrencyChallenge, () => { return toUrl === 'https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW' || toUrl === 'https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm' || toUrl === 'https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6' })

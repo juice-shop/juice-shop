@@ -4,9 +4,10 @@
  */
 
 import path = require('path')
+import { Request, Response, NextFunction } from 'express'
 
 module.exports = function serveKeyFiles () {
-  return ({ params }, res, next) => {
+  return ({ params }: Request, res: Response, next: NextFunction) => {
     const file = params.file
 
     if (!file.includes('/')) {

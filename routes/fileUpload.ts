@@ -4,6 +4,8 @@
  */
 
 import fs = require('fs')
+import { Request, Response, NextFunction } from 'express'
+
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const libxml = require('libxmljs2')
@@ -22,13 +24,13 @@ function matchesEtcPasswdFile (text) {
   return match && match.length >= 2
 }
 
-function ensureFileIsPassed ({ file }, res, next) {
+function ensureFileIsPassed ({ file }: Request, res: Response, next: NextFunction) {
   if (file) {
     next()
   }
 }
 
-function handleZipFileUpload ({ file }, res, next) {
+function handleZipFileUpload ({ file }: Request, res: Response, next: NextFunction) {
   if (utils.endsWith(file.originalname.toLowerCase(), '.zip')) {
     if (file.buffer && !utils.disableOnContainerEnv()) {
       const buffer = file.buffer
@@ -61,12 +63,12 @@ function handleZipFileUpload ({ file }, res, next) {
   }
 }
 
-function checkUploadSize ({ file }, res, next) {
+function checkUploadSize ({ file }: Request, res: Response, next: NextFunction) {
   utils.solveIf(challenges.uploadSizeChallenge, () => { return file.size > 100000 })
   next()
 }
 
-function checkFileType ({ file }, res, next) {
+function checkFileType ({ file }: Request, res: Response, next: NextFunction) {
   const fileType = file.originalname.substr(file.originalname.lastIndexOf('.') + 1).toLowerCase()
   utils.solveIf(challenges.uploadTypeChallenge, () => {
     return !(fileType === 'pdf' || fileType === 'xml' || fileType === 'zip')
@@ -74,7 +76,7 @@ function checkFileType ({ file }, res, next) {
   next()
 }
 
-function handleXmlUpload ({ file }, res, next) {
+function handleXmlUpload ({ file }: Request, res: Response, next: NextFunction) {
   if (utils.endsWith(file.originalname.toLowerCase(), '.xml')) {
     utils.solveIf(challenges.deprecatedInterfaceChallenge, () => { return true })
     if (file.buffer && !utils.disableOnContainerEnv()) { // XXE attacks in Docker/Heroku containers regularly cause "segfault" crashes

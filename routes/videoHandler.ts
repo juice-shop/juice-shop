@@ -4,6 +4,8 @@
  */
 
 import fs = require('fs')
+import { Request, Response } from 'express'
+
 const pug = require('pug')
 const config = require('config')
 const challenges = require('../data/datacache').challenges
@@ -13,7 +15,7 @@ const Entities = require('html-entities').AllHtmlEntities
 const entities = new Entities()
 
 exports.getVideo = () => {
-  return (req, res) => {
+  return (req: Request, res: Response) => {
     const path = videoPath()
     const stat = fs.statSync(path)
     const fileSize = stat.size
@@ -45,7 +47,7 @@ exports.getVideo = () => {
 }
 
 exports.promotionVideo = () => {
-  return (req, res) => {
+  return (req: Request, res: Response) => {
     fs.readFile('views/promotionVideo.pug', function (err, buf) {
       if (err != null) throw err
       let template = buf.toString()

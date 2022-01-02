@@ -4,13 +4,15 @@
  */
 
 import models = require('../models/index')
+import { Request, Response, NextFunction } from 'express'
+
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
 const cache = require('../data/datacache')
 const challenges = cache.challenges
 
 module.exports = function saveLoginIp () {
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     const loggedInUser = security.authenticatedUsers.from(req)
     if (loggedInUser !== undefined) {
       let lastLoginIp = req.headers['true-client-ip']

@@ -4,11 +4,13 @@
  */
 
 import Hashids = require('hashids/cjs')
+import { Request, Response } from 'express'
+
 const challenges = require('../data/datacache').challenges
 const utils = require('../lib/utils')
 
 module.exports.restoreProgress = function restoreProgress () {
-  return ({ params }, res) => {
+  return ({ params }: Request, res: Response) => {
     const hashids = new Hashids('this is my salt', 60, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
     const continueCode = params.continueCode
     const ids = hashids.decode(continueCode)
@@ -31,7 +33,7 @@ module.exports.restoreProgress = function restoreProgress () {
 }
 
 module.exports.restoreProgressFindIt = function restoreProgressFindIt () {
-  return async ({ params }, res) => {
+  return async ({ params }: Request, res: Response) => {
     const hashids = new Hashids('this is the salt for findIt challenges', 60, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
     const continueCodeFindIt = params.continueCode
     const idsFindIt = hashids.decode(continueCodeFindIt)

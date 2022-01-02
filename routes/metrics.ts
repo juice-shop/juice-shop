@@ -5,6 +5,8 @@
 
 import models = require('../models/index')
 import { retrieveChallengesWithCodeSnippet } from './vulnCodeSnippet'
+import { Request, Response, NextFunction } from 'express'
+
 const Prometheus = require('prom-client')
 const onFinished = require('on-finished')
 const orders = require('../data/mongodb').orders
@@ -37,7 +39,7 @@ exports.observeRequestMetricsMiddleware = function observeRequestMetricsMiddlewa
     labelNames: ['status_code']
   })
 
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     onFinished(res, () => {
       const statusCode = `${Math.floor(res.statusCode / 100)}XX`
       httpRequestsMetric.labels(statusCode).inc()
@@ -47,7 +49,7 @@ exports.observeRequestMetricsMiddleware = function observeRequestMetricsMiddlewa
 }
 
 exports.observeFileUploadMetricsMiddleware = function observeFileUploadMetricsMiddleware () {
-  return ({ file }, res, next) => {
+  return ({ file }: Request, res: Response, next: NextFunction) => {
     onFinished(res, () => {
       if (file) {
         res.statusCode < 400 ? fileUploadsCountMetric.labels(file.mimetype).inc() : fileUploadErrorsMetric.labels(file.mimetype).inc()
@@ -58,9 +60,9 @@ exports.observeFileUploadMetricsMiddleware = function observeFileUploadMetricsMi
 }
 
 exports.serveMetrics = function serveMetrics () {
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     utils.solveIf(challenges.exposedMetricsChallenge, () => {
-      const userAgent = req.headers['user-agent'] || ''
+      const userAgent = req.headers['user-agent'] ?? ''
       return !userAgent.includes('Prometheus')
     })
     res.set('Content-Type', register.contentType)

@@ -4,6 +4,8 @@
  */
 
 import utils = require('../lib/utils')
+import { Request, Response, NextFunction } from 'express'
+
 const challenges = require('../data/datacache').challenges
 const security = require('../lib/insecurity')
 const db = require('../data/mongodb')
@@ -21,7 +23,7 @@ global.sleep = time => {
 }
 
 module.exports = function productReviews () {
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     const id = utils.disableOnContainerEnv() ? Number(req.params.id) : req.params.id
 
     // Measure how long the query takes, to check if there was a nosql dos attack

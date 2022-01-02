@@ -4,11 +4,13 @@
  */
 
 import models = require('../models/index')
+import { Request, Response, NextFunction } from 'express'
+
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
 
 module.exports = function retrieveUserList () {
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     models.User.findAll().then(users => {
       const usersWithLoginStatus = utils.queryResultToJson(users)
       usersWithLoginStatus.data.forEach(user => {

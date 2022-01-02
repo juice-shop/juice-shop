@@ -4,9 +4,10 @@
  */
 
 import models = require('../models/index')
+import { Request, Response, NextFunction } from 'express'
 
 function captchas () {
-  return (req, res) => {
+  return (req: Request, res: Response) => {
     const captchaId = req.app.locals.captchaId++
     const operators = ['*', '+', '-']
 
@@ -32,7 +33,7 @@ function captchas () {
   }
 }
 
-captchas.verifyCaptcha = () => (req, res, next) => {
+captchas.verifyCaptcha = () => (req: Request, res: Response, next: NextFunction) => {
   models.Captcha.findOne({ where: { captchaId: req.body.captchaId } }).then(captcha => {
     if (captcha && req.body.captcha === captcha.dataValues.answer) {
       next()

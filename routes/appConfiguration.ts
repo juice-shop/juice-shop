@@ -4,9 +4,10 @@
  */
 
 import config = require('config')
+import { Request, Response } from 'express'
 
 module.exports = function retrieveAppConfiguration () {
-  return (req, res) => {
+  return (req: Request, res: Response) => {
     res.json({ config })
   }
 }

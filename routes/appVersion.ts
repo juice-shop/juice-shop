@@ -4,10 +4,12 @@
  */
 
 import config = require('config')
+import { Request, Response } from 'express'
+
 const utils = require('../lib/utils')
 
 module.exports = function retrieveAppVersion () {
-  return (req, res) => {
+  return (req: Request, res: Response) => {
     res.json({
       version: config.get('application.showVersionNumber') ? utils.version() : ''
     })

@@ -4,12 +4,14 @@
  */
 
 import utils = require('../lib/utils')
+import { Request, Response } from 'express'
+
 const security = require('../lib/insecurity')
 const cache = require('../data/datacache')
 const challenges = cache.challenges
 
 module.exports = function retrieveLoggedInUser () {
-  return (req, res) => {
+  return (req: Request, res: Response) => {
     let user
     try {
       if (security.verify(req.cookies.token)) {

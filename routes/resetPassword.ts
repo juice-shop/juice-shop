@@ -4,6 +4,8 @@
  */
 
 import config = require('config')
+import { Request, Response, NextFunction } from 'express'
+
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const users = require('../data/datacache').users
@@ -11,7 +13,7 @@ const security = require('../lib/insecurity')
 const models = require('../models/index')
 
 module.exports = function resetPassword () {
-  return ({ body, connection }, res, next) => {
+  return ({ body, connection }: Request, res: Response, next: NextFunction) => {
     const email = body.email
     const answer = body.answer
     const newPassword = body.new

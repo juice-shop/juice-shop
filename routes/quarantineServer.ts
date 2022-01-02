@@ -4,9 +4,10 @@
  */
 
 import path = require('path')
+import { Request, Response, NextFunction } from 'express'
 
 module.exports = function serveQuarantineFiles () {
-  return ({ params, query }, res, next) => {
+  return ({ params, query }: Request, res: Response, next: NextFunction) => {
     const file = params.file
 
     if (!file.includes('/')) {

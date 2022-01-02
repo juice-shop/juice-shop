@@ -4,12 +4,14 @@
  */
 
 import models = require('../models/index')
+import { Request, Response, NextFunction } from 'express'
+
 const svgCaptcha = require('svg-captcha')
 const Op = models.Sequelize.Op
 const security = require('../lib/insecurity')
 
 function imageCaptchas () {
-  return (req, res) => {
+  return (req: Request, res: Response) => {
     const captcha = svgCaptcha.create({ size: 5, noise: 2, color: true })
 
     const imageCaptcha = {
@@ -24,7 +26,7 @@ function imageCaptchas () {
   }
 }
 
-imageCaptchas.verifyCaptcha = () => (req, res, next) => {
+imageCaptchas.verifyCaptcha = () => (req: Request, res: Response, next: NextFunction) => {
   const user = security.authenticatedUsers.from(req)
   const UserId = user ? user.data ? user.data.id : undefined : undefined
   models.ImageCaptcha.findAll({

@@ -4,9 +4,10 @@
  */
 
 import utils = require('../lib/utils')
+import { Request, Response } from 'express'
 
 module.exports = function repeatNotification () {
-  return ({ query }, res) => {
+  return ({ query }: Request, res: Response) => {
     const challengeName: string = decodeURIComponent(query.challenge)
     const challenge = utils.findChallengeByName(challengeName)
 

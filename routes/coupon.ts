@@ -4,10 +4,12 @@
  */
 
 import models = require('../models/index')
+import { Request, Response, NextFunction } from 'express'
+
 const security = require('../lib/insecurity')
 
 module.exports = function applyCoupon () {
-  return ({ params }, res, next) => {
+  return ({ params }: Request, res: Response, next: NextFunction) => {
     const id = params.id
     let coupon = params.coupon ? decodeURIComponent(params.coupon) : undefined
     const discount = security.discountFromCoupon(coupon)
