@@ -59,12 +59,12 @@ export class ChangePasswordComponent {
 
   resetForm () {
     this.passwordControl.setValue('')
-    this.passwordControl.markAsPristine()
-    this.passwordControl.markAsUntouched()
     this.resetPasswords()
   }
 
   resetPasswords () {
+    this.passwordControl.markAsPristine()
+    this.passwordControl.markAsUntouched()
     this.newPasswordControl.setValue('')
     this.newPasswordControl.markAsPristine()
     this.newPasswordControl.markAsUntouched()
