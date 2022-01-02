@@ -4,13 +4,15 @@
  */
 
 import fs = require('fs')
+import { Request, Response, NextFunction } from 'express'
+
 const models = require('../models/index')
 const security = require('../lib/insecurity')
 const request = require('request')
 const logger = require('../lib/logger')
 
 module.exports = function profileImageUrlUpload () {
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     if (req.body.imageUrl !== undefined) {
       const url = req.body.imageUrl
       if (url.match(/(.)*solve\/challenges\/server-side(.)*/) !== null) req.app.locals.abused_ssrf_bug = true

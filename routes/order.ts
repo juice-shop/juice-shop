@@ -4,6 +4,8 @@
  */
 
 import path = require('path')
+import { Request, Response, NextFunction } from 'express'
+
 const fs = require('fs')
 const PDFDocument = require('pdfkit')
 const utils = require('../lib/utils')
@@ -15,7 +17,7 @@ const config = require('config')
 const db = require('../data/mongodb')
 
 module.exports = function placeOrder () {
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id
     models.Basket.findOne({ where: { id }, include: [{ model: models.Product, paranoid: false }] })
       .then(async basket => {

@@ -4,9 +4,11 @@
  */
 
 import models = require('../models/index')
+import { Request, Response } from 'express'
+
 const utils = require('../lib/utils')
 
-exports.getRecycleItem = () => (req, res) => {
+exports.getRecycleItem = () => (req: Request, res: Response) => {
   models.Recycle.findAll({
     where: {
       id: JSON.parse(req.params.id)
@@ -16,7 +18,7 @@ exports.getRecycleItem = () => (req, res) => {
   })
 }
 
-exports.blockRecycleItems = () => (req, res) => {
+exports.blockRecycleItems = () => (req: Request, res: Response) => {
   const errMsg = { err: 'Sorry, this endpoint is not supported.' }
   return res.send(utils.queryResultToJson(errMsg))
 }

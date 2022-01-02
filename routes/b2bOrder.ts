@@ -4,13 +4,15 @@
  */
 
 import vm = require('vm')
+import { Request, Response, NextFunction } from 'express'
+
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
 const safeEval = require('notevil')
 const challenges = require('../data/datacache').challenges
 
 module.exports = function b2bOrder () {
-  return ({ body }, res, next) => {
+  return ({ body }: Request, res: Response, next: NextFunction) => {
     if (!utils.disableOnContainerEnv()) {
       const orderLinesData = body.orderLinesData || ''
       try {

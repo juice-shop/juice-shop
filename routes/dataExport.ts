@@ -4,13 +4,15 @@
  */
 
 import models = require('../models/index')
+import { Request, Response, NextFunction } from 'express'
+
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
 const db = require('../data/mongodb')
 const challenges = require('../data/datacache').challenges
 
 module.exports = function dataExport () {
-  return async (req, res, next) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     const loggedInUser = security.authenticatedUsers.get(req.headers?.authorization?.replace('Bearer ', ''))
     if (loggedInUser?.data?.email && loggedInUser.data.id) {
       const username = loggedInUser.data.username

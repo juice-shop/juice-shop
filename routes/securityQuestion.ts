@@ -4,9 +4,10 @@
  */
 
 import models = require('../models/index')
+import { Request, Response, NextFunction } from 'express'
 
 module.exports = function securityQuestion () {
-  return ({ query }, res, next) => {
+  return ({ query }: Request, res: Response, next: NextFunction) => {
     const email = query.email
     models.SecurityAnswer.findOne({
       include: [{

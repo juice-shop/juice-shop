@@ -4,11 +4,13 @@
  */
 
 import utils = require('../lib/utils')
+import { Request, Response } from 'express'
+
 const challenges = require('../data/datacache').challenges
 const db = require('../data/mongodb')
 
 module.exports = function trackOrder () {
-  return (req, res) => {
+  return (req: Request, res: Response) => {
     const id = utils.disableOnContainerEnv() ? String(req.params.id).replace(/[^\w-]+/g, '') : req.params.id
 
     utils.solveIf(challenges.reflectedXssChallenge, () => { return utils.contains(id, '<iframe src="javascript:alert(`xss`)">') })

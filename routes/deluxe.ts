@@ -4,12 +4,14 @@
  */
 
 import models = require('../models/index')
+import { Request, Response, NextFunction } from 'express'
+
 const security = require('../lib/insecurity')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
 module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
-  return async (req, res, next) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     const user = await models.User.findOne({ where: { id: req.body.UserId, role: security.roles.customer } })
     if (!user) {
       res.status(400).json({ status: 'error', error: 'Something went wrong. Please try again!' })
@@ -45,7 +47,7 @@ module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
 }
 
 module.exports.deluxeMembershipStatus = function deluxeMembershipStatus () {
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     if (security.isCustomer(req)) {
       res.status(200).json({ status: 'success', data: { membershipCost: 49 } })
     } else if (security.isDeluxe(req)) {

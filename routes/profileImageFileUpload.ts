@@ -4,6 +4,8 @@
  */
 
 import fs = require('fs')
+import { Request, Response, NextFunction } from 'express'
+
 const utils = require('../lib/utils')
 const models = require('../models/index')
 const security = require('../lib/insecurity')
@@ -11,7 +13,7 @@ const logger = require('../lib/logger')
 const fileType = require('file-type')
 
 module.exports = function fileUpload () {
-  return async (req, res, next) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     const file = req.file
     const buffer = file.buffer
     const uploadedFileType = await fileType.fromBuffer(buffer)

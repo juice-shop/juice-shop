@@ -4,6 +4,8 @@
  */
 
 import fs = require('fs')
+import { Request, Response, NextFunction } from 'express'
+
 const models = require('../models/index')
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
@@ -15,7 +17,7 @@ const Entities = require('html-entities').AllHtmlEntities
 const entities = new Entities()
 
 module.exports = function getUserProfile () {
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     fs.readFile('views/userProfile.pug', function (err, buf) {
       if (err != null) throw err
       const loggedInUser = security.authenticatedUsers.get(req.cookies.token)

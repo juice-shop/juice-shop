@@ -5,6 +5,7 @@
 
 import request = require('request')
 import serverApp = require('./../server')
+import { Request, Response } from 'express'
 const app = require('express')()
 const server = require('http').Server(app)
 const colors = require('colors/safe')
@@ -17,7 +18,7 @@ const basePath = baseUrl.pathname
 const proxyPort = baseUrl.port
 process.env.BASE_PATH = basePath
 
-app.use('/subfolder', (req, res) => {
+app.use('/subfolder', (req: Request, res: Response) => {
   const proxyUrl = originalBase + req.url
   req.pipe(request({ qs: req.query, uri: proxyUrl })).pipe(res)
 })

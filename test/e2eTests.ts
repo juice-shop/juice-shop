@@ -23,8 +23,8 @@ server.start(() => {
     console.log(String(data))
   }
 
-  protractor.stdout.on('data', logToConsole)
-  protractor.stderr.on('data', logToConsole)
+  if (protractor.stdout) protractor.stdout.on('data', logToConsole)
+  if (protractor.stderr) protractor.stderr.on('data', logToConsole)
 
   protractor.on('exit', exitCode => {
     console.log(`Protractor exited with code ${exitCode} (${exitCode === 0 ? colors.green('SUCCESS') : colors.red('FAILED')})`)

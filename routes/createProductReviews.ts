@@ -4,12 +4,14 @@
  */
 
 import db = require('../data/mongodb')
+import { Request, Response, NextFunction } from 'express'
+
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const security = require('../lib/insecurity')
 
 module.exports = function productReviews () {
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     const user = security.authenticatedUsers.from(req)
     utils.solveIf(challenges.forgedReviewChallenge, () => { return user && user.data.email !== req.body.author })
     db.reviews.insert({
