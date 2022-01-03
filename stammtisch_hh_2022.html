@@ -1,0 +1,374 @@
+<!doctype html>
+<!--suppress CheckImageSize, HtmlUnknownAnchorTarget -->
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>OWASP Juice Shop - Probably the most modern and sophisticated insecure web application</title>
+
+	<meta name="description" content="OWASP Juice Shop - Probably the most modern and sophisticated insecure web application">
+	<meta name="author" content="Björn Kimminich">
+
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/night.css" id="theme">
+	<link rel="stylesheet" href="css/custom.css">
+
+	<!-- Code syntax highlighting -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+
+	<!-- Roadmap -->
+	<script>
+		fetch("https://raw.githubusercontent.com/OWASP/www-project-juice-shop/master/_data/roadmap_milestones.json").then(async (res) => {
+			const milestones = await res.json();
+			document.getElementById('roadmap').innerHTML = milestones.map(milestone => "<tr><td><small>" + milestone + "</small></td></tr>").join('')
+		})
+	</script>
+
+	<!--[if lt IE 9]>
+	<script src="lib/js/html5shiv.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+	<!-- Any section element inside of this container is displayed as a slide -->
+	<div class="slides">
+		<section data-transition="zoom">
+			<h1>Juice Shop 13</h1>
+			<h2 class="neon">Now with Coding Challenges!</h2>
+			<img src="assets/JuiceShop_Logo.png" width="180" class="no-box"/>
+			<h2>
+				<a href="https://owasp-juice.shop">https://owasp-juice.shop</a>
+			</h2>
+			<p>
+				Copyright (c) 2014-2022 <a href="http://kimminich.de">Björn Kimminich</a> / <a href="http://twitter.com/bkimminich">@bkimminich</a>
+			</p>
+		</section>
+
+		<section>
+			<h2>Agenda</h2>
+			<ol>
+				<li>Coding Challenges</li>
+				<li>Cheat Detection</li>
+				<li>Challenge Feedback</li>
+				<li>Daily Project Stats</li>
+			</ol>
+		</section>
+
+		<section>
+			<section>
+				<h1 class="neon">Coding Challenges</h1>
+			</section>
+
+			<section>
+				<h2>Pick a challenge!</h2>
+				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/part1/img/code_snippet1.png"/>
+			</section>
+
+			<section>
+				<h2>Read the actual code!</h2>
+				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/part1/img/code_snippet2.png" height="500"/>
+			</section>
+
+			<section>
+				<h2>Find the code flaw!</h2>
+				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/part1/img/code_snippet3.png" height="500"/>
+			</section>
+
+			<section>
+				<h2>Select the right fix!</h2>
+				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/part1/img/code_snippet4.png" height="500"/>
+			</section>
+
+			<section>
+				<h2>Fire confetti cannons!</h2>
+				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/part1/img/confetti2.png"/>
+			</section>
+
+			<section>
+				<h2>Green up your Score Board!</h2>
+				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/part1/img/code_snippet5.png"/>
+			</section>
+
+			<section data-transition="convex-in fade-out">
+				<h2>Hints in "Find It" phase</h2>
+				<p>
+					Offer sequential hints when wrong lines are chosen
+				</p>
+				<img src="https://raw.github.com/juice-shop/pwning-juice-shop/master/appendix/img/coding_challenge_first-hint.png" height="500"/>
+			</section>
+
+			<section data-transition="fade-in convex-out">
+				<h2>Hints in "Find It" phase</h2>
+				<p>
+					Offer sequential hints when wrong lines are chosen
+				</p>
+				<img src="https://raw.github.com/juice-shop/pwning-juice-shop/master/appendix/img/coding_challenge_second-hint.png" width="700"/>
+				<img src="https://raw.github.com/juice-shop/pwning-juice-shop/master/appendix/img/coding_challenge_third-hint.png" width="700" class="fragment" data-fragment-index="1"/>
+				<img src="https://raw.github.com/juice-shop/pwning-juice-shop/master/appendix/img/coding_challenge_final-hint.png" width="700" class="fragment" data-fragment-index="2"/>
+			</section>
+
+			<section data-transition="convex-in fade-out">
+				<h2>Explanations in "Fix It" phase</h2>
+				<p>
+					Provide insight about correct and wrong fix choices
+				</p>
+				<img src="https://raw.github.com/juice-shop/pwning-juice-shop/master/appendix/img/coding_challenge_explanation_wrong-option.png" width="700"/>
+			</section>
+
+			<section data-transition="fade-in convex-out">
+				<h2>Explanations in "Fix It" phase</h2>
+				<p>
+					Provide insight about correct and wrong fix choices
+				</p>
+				<img src="https://raw.github.com/juice-shop/pwning-juice-shop/master/appendix/img/coding_challenge_explanation_right-option.png" width="700"/>
+			</section>
+
+		</section>
+
+		<section>
+			<section>
+				<h1>Cheat Detection</h1>
+			</section>
+
+			<section>
+				<h2>Cheat Detection</h2>
+				<p>
+					Solved challenges are rated based on cheating probability
+				</p>
+				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/appendix/img/cheat-detection_logs.png"/>
+			</section>
+
+			<section>
+				<h2>Accuracy Calculation</h2>
+				<p>
+					Count attempts vs. solves to identify "trial and error" users
+				</p>
+				<h1>😇🎯🛑🎯🎯🎯</h1>
+				<h1>😈🛑🛑🛑🛑🎯</h1>
+				<small>
+					(Coding challenges only!)
+				</small>
+			</section>
+		</section>
+
+		<section>
+			<section>
+				<h1>Challenge Feedback</h1>
+			</section>
+
+			<section data-transition="convex-in fade-out">
+				<h2>Challenge Feedback</h2>
+				<p>
+					Rate hacking and coding challenges after solving them
+				</p>
+				<img src="https://pwning.owasp-juice.shop/part3/img/challenge_feedback1.png" width="600"/>
+				<img src="https://pwning.owasp-juice.shop/part3/img/challenge_feedback2.png" width="600"/>
+			</section>
+
+			<section data-transition="fade-in convex-out">
+				<h2>Challenge Feedback</h2>
+				<p>
+					Convenient submission via Google Form
+				</p>
+				<img src="https://pwning.owasp-juice.shop/part3/img/challenge_feedback4.png" height="450"/>
+			</section>
+		</section>
+
+		<section>
+			<section>
+				<h2>Daily Project Stats</h2>
+				<h3><a href="http://stats.owasp-juice.shop/" target="_blank">http://stats.owasp-juice.shop/</a></h3>
+			</section>
+
+			<section data-background-iframe="http://stats.owasp-juice.shop/">
+			</section>
+		</section>
+
+		<section>
+			<h2><span id="timer" class="reveal"></span> left for the infamous ...</h2>
+		</section>
+
+		<section>
+			<h2>Juice Shop Success Pyramid&trade;</h2>
+			<p>
+				Some amazing facts & stats about the project
+			</p>
+			<img class="no-box" height="50px" src="https://camo.githubusercontent.com/7d39e81fa1fa13e172e764937bf57923c05a6bb1/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f636f6e7472696275746f72732f626b696d6d696e6963682f6a756963652d73686f702e737667"/>
+			<br>
+			<img class="no-box" height="60px" src="https://camo.githubusercontent.com/5183afbe19d5ac0469872aa43681a4c8464772c1/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6f776173702d666c61677368697025323070726f6a6563742d3438413634362e737667"/>
+			<br>
+			<img class="no-box" height="50px" src="https://camo.githubusercontent.com/3c9082cfba1231e4340eee8c17fefc5ee24d5e2f/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f636f64652532307374796c652d7374616e646172642d627269676874677265656e2e737667"/>
+			<img class="no-box" height="50px" src="https://camo.githubusercontent.com/e049c915f6e77bc603e475bee27c244e94e46b77/68747470733a2f2f626573747072616374696365732e636f7265696e6672617374727563747572652e6f72672f70726f6a656374732f3232332f6261646765"/>
+			<br>
+			<img class="no-box" height="48px" src="https://camo.githubusercontent.com/fa2a979c9829f41aeac153dca665870ecac3ea0090b9a7e742772aa8370f920a/68747470733a2f2f6170692e636f6465636c696d6174652e636f6d2f76312f6261646765732f36323036633866333937326263633937613033332f746573745f636f766572616765"/>
+			<img class="no-box" height="48px" src="https://camo.githubusercontent.com/14e985a9c0defc0b4aea1fca53bb0a1c69d3e20a86e927e9c918c2fd68fb2c07/68747470733a2f2f6170692e636f6465636c696d6174652e636f6d2f76312f6261646765732f36323036633866333937326263633937613033332f6d61696e7461696e6162696c697479"/>
+			<br>
+			<img class="no-box" height="33px" src="https://camo.githubusercontent.com/eec4324d8dbacdc20bd4ff3c500b38cc0138777110ca2a849cb9d764a681589f/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f73746172732f6a756963652d73686f702f6a756963652d73686f702e7376673f6c6162656c3d476974487562253230254532253938253835267374796c653d666c6174"/>
+			<img class="no-box" height="33px" src="https://camo.githubusercontent.com/9702347814baec2c297da14693eecc2e605a66feec5901c4df67f3d5d08d575b/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f646f776e6c6f6164732f6a756963652d73686f702f6a756963652d73686f702f746f74616c2e737667"/>
+			<img class="no-box" height="33px" src="https://camo.githubusercontent.com/6242cc83b5f0041a3b96aa274bd59c4870c8c06a/68747470733a2f2f696d672e736869656c64732e696f2f646f636b65722f70756c6c732f626b696d6d696e6963682f6a756963652d73686f702e737667"/>
+			<img class="no-box" height="33px" src="https://camo.githubusercontent.com/2df43a4dbe2e9760afd0c593294752b30e0bb707/68747470733a2f2f696d672e736869656c64732e696f2f736f75726365666f7267652f64742f6a756963652d73686f703f6c6162656c3d736f75726365666f726765253230646f776e6c6f616473"/>
+		</section>
+
+		<section>
+			<h2>Project Roadmap</h2>
+			<table id="roadmap"></table><br>
+		</section>
+
+		<section data-transition="zoom-out">
+
+			<h2>Additional Information</h2>
+			<table style="font-size: 75%">
+				<tbody>
+				<tr>
+					<td><h3>Official Site</h3></td>
+					<td><h2><a href="https://owasp-juice.shop">https://owasp-juice.shop</a></h2></td>
+				</tr>
+				<tr>
+					<td><br><h3>Sourcecode</h3></td>
+					<td>
+						<br><a href="https://github.com/juice-shop"><h2 class="neon">https://github.com/juice-shop</h2></a>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+			<hr>
+		</section>
+
+		<section data-transition="fade">
+			<img src="assets/JuiceShop_Logo.png" width="300" class="no-box"/>
+			<p>
+				Copyright (c) 2014-2022 <a href="http://kimminich.de">Björn Kimminich</a> / <a href="http://twitter.com/bkimminich">@bkimminich</a>
+			</p>
+			<p>
+				Licensed under the <a href="https://github.com/juice-shop/juice-shop/blob/master/LICENSE">MIT license</a>.
+			</p>
+			<hr>
+			<p>
+				<small>Created with <a href="http://lab.hakim.se/reveal-js">reveal.js</a> - The HTML Presentation Framework</small>
+			</p>
+		</section>
+
+	</div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+
+	// Full list of configuration options available at:
+	// https://github.com/hakimel/reveal.js#configuration
+	Reveal.initialize({
+		controls: true,
+		progress: true,
+		history: true,
+		center: true,
+
+		transition: 'convex', // none/fade/slide/convex/concave/zoom
+
+		// Optional reveal.js plugins
+		dependencies: [
+			{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+			{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+			{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+			{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+			{ src: 'plugin/zoom-js/zoom.js', async: true },
+			{ src: 'plugin/notes/notes.js', async: true }
+		]
+	});
+
+</script>
+
+<script>
+	function timer(time,update,complete) {
+		var start = new Date().getTime();
+		var interval = setInterval(function() {
+			var now = time-(new Date().getTime()-start);
+			if( now <= 0) {
+				clearInterval(interval);
+				complete();
+			}
+			else update(Math.floor(now/1000));
+		},100);
+	}
+
+	timer(
+			1200000, // 20min for extended lightning talk
+			function(timeleft) {
+				document.getElementById('timer').innerHTML = Math.floor(timeleft/60)+":" + (timeleft%60 < 10 ? "0"+timeleft%60 : timeleft%60);
+			},
+			function() {
+				document.getElementById('timer').innerHTML = "Sorry, no time ";
+			}
+	);
+</script>
+
+<div class="hidden-mobile">
+	<a style="display: block;" href="https://github.com/juice-shop/juice-shop"><img style="position: absolute; top: 0; right: 0; border: 0;" src="assets/github_ribbon.png" alt="Fork reveal.js on GitHub"></a>
+
+	<script>
+		((window.gitter = {}).chat = {}).options = {
+			room: 'bkimminich/juice-shop'
+		};
+	</script>
+	<!--suppress JSUnresolvedLibraryURL -->
+	<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/en_EN/sdk.js#xfbml=1&version=v2.5";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+
+	<div style="display: block; position: absolute; bottom: 14px; left: 50%; -webkit-transform: translateX(-50%); transform: translateX(-50%); z-index: 20;">
+		<table>
+			<tr>
+				<td>
+					<div class="fb-like" data-href="https://www.facebook.com/owasp.juiceshop" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-colorscheme="dark"></div>
+				</td>
+				<td>
+					<a href="https://twitter.com/share" class="twitter-share-button" data-url="https://www.owasp.org/index.php/OWASP_Juice_Shop_Project" data-text="OWASP Juice Shop - An intentionally insecure JavaScript Web Application" data-via="owasp_juiceshop" data-related="owasp">Tweet</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+				</td>
+				<td>
+					<a href="https://twitter.com/owasp_juiceshop" class="twitter-follow-button" data-show-count="false">Follow @owasp_juiceshop</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+				</td>
+				<td>
+					<a href="https://twitter.com/bkimminich" class="twitter-follow-button" data-show-count="false">Follow @bkimminich</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+				</td>
+				<td>
+					<iframe src="https://ghbtns.com/github-btn.html?user=bkimminich&type=follow&count=true" frameborder="0" scrolling="0" width="175px" height="20px"></iframe>
+				</td>
+				<td>
+					<iframe src="https://ghbtns.com/github-btn.html?user=juice-shop&repo=juice-shop&type=star&count=true" frameborder="0" scrolling="0" width="120px" height="20px"></iframe>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+</body>
+</html>
