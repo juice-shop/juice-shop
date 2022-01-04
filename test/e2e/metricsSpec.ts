@@ -3,12 +3,14 @@
  * SPDX-License-Identifier: MIT
  */
 
+import { browser, protractor } from 'protractor'
+
 describe('/metrics/', () => {
   describe('challenge "exposedMetrics"', () => {
     it('Challenge is solved on accessing the /metrics route', () => {
-      browser.waitForAngularEnabled(false)
-      browser.get(`${protractor.basePath}/metrics`)
-      browser.waitForAngularEnabled(true)
+      void browser.waitForAngularEnabled(false)
+      void browser.get(`${protractor.basePath}/metrics`)
+      void browser.waitForAngularEnabled(true)
     })
 
     protractor.expect.challengeSolved({ challenge: 'Exposed Metrics' })

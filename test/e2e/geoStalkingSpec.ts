@@ -12,9 +12,9 @@ describe('/#/photo-wall', () => {
   const EC = protractor.ExpectedConditions
 
   beforeEach(() => {
-    $('#logout').isPresent().then((result) => {
+    void $('#logout').isPresent().then((result) => {
       if (result) {
-        $('#logout').click()
+        void $('#logout').click()
       }
     })
     void browser.wait(EC.stalenessOf($('#logout')), 5000)

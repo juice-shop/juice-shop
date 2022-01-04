@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+import { browser, protractor } from 'protractor'
 import utils = require('../../lib/utils')
 
 describe('/#/track-order', () => {
@@ -11,17 +12,17 @@ describe('/#/track-order', () => {
       it('Order Id should be susceptible to reflected XSS attacks', () => {
         const EC = protractor.ExpectedConditions
 
-        browser.get(`${protractor.basePath}/#/track-result`)
-        browser.waitForAngularEnabled(false)
-        browser.get(`${protractor.basePath}/#/track-result?id=<iframe src="javascript:alert(\`xss\`)">`)
-        browser.refresh()
+        void browser.get(`${protractor.basePath}/#/track-result`)
+        void browser.waitForAngularEnabled(false)
+        void browser.get(`${protractor.basePath}/#/track-result?id=<iframe src="javascript:alert(\`xss\`)">`)
+        void browser.refresh()
 
-        browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /#/track-result ")
-        browser.switchTo().alert().then(alert => {
+        void browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /#/track-result ")
+        void browser.switchTo().alert().then(alert => {
           expect(alert.getText()).toEqual('xss')
-          alert.accept()
+          void alert.accept()
         })
-        browser.waitForAngularEnabled(true)
+        void browser.waitForAngularEnabled(true)
       })
 
       protractor.expect.challengeSolved({ challenge: 'Reflected XSS' })
