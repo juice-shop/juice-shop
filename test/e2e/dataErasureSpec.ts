@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+import { browser, protractor } from 'protractor'
+
 const config = require('config')
 
 describe('/dataerasure', () => {
@@ -10,8 +12,8 @@ describe('/dataerasure', () => {
 
   describe('challenge "lfr"', () => {
     it('should be possible to perform local file read attack using the browser', () => {
-      browser.waitForAngularEnabled(false)
-      browser.executeScript(baseUrl => {
+      void browser.waitForAngularEnabled(false)
+      void browser.executeScript(baseUrl => {
         const xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function () {
           if (this.status === 200) {
@@ -27,8 +29,8 @@ describe('/dataerasure', () => {
                 xhttp.send(params) //eslint-disable-line
       }, browser.baseUrl)
 
-      browser.driver.sleep(10000)
-      browser.waitForAngularEnabled(true)
+      void browser.driver.sleep(10000)
+      void browser.waitForAngularEnabled(true)
     })
     protractor.expect.challengeSolved({ challenge: 'Local File Read' })
   })
