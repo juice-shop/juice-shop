@@ -4,21 +4,21 @@
  */
 
 import config = require('config')
-import { by, element, protractor } from 'protractor'
+import { $, browser, by, element, ElementFinder, protractor } from 'protractor'
 
 describe('/#/forgot-password', () => {
-  let email, securityAnswer, newPassword, newPasswordRepeat, resetButton
+  let email: ElementFinder, securityAnswer: ElementFinder, newPassword: ElementFinder, newPasswordRepeat: ElementFinder, resetButton: ElementFinder
 
   const EC = protractor.ExpectedConditions
 
   beforeEach(() => {
-    $('#logout').isPresent().then((result) => {
+    void $('#logout').isPresent().then((result) => {
       if (result) {
-        $('#logout').click()
+        void $('#logout').click()
       }
     })
-    browser.wait(EC.stalenessOf($('#logout')), 5000)
-    browser.get(`${protractor.basePath}/#/forgot-password`)
+    void browser.wait(EC.stalenessOf($('#logout')), 5000)
+    void browser.get(`${protractor.basePath}/#/forgot-password`)
     email = element(by.id('email'))
     securityAnswer = element(by.id('securityAnswer'))
     newPassword = element(by.id('newPassword'))
@@ -28,12 +28,12 @@ describe('/#/forgot-password', () => {
 
   describe('as Jim', () => {
     it('should be able to reset password with his security answer', () => {
-      email.sendKeys(`jim@${config.get('application.domain')}`)
-      browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
-      securityAnswer.sendKeys('Samuel')
-      newPassword.sendKeys('I <3 Spock')
-      newPasswordRepeat.sendKeys('I <3 Spock')
-      resetButton.click()
+      void email.sendKeys(`jim@${config.get('application.domain')}`)
+      void browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
+      void securityAnswer.sendKeys('Samuel')
+      void newPassword.sendKeys('I <3 Spock')
+      void newPasswordRepeat.sendKeys('I <3 Spock')
+      void resetButton.click()
 
       expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
     })
@@ -43,12 +43,12 @@ describe('/#/forgot-password', () => {
 
   describe('as Bender', () => {
     it('should be able to reset password with his security answer', () => {
-      email.sendKeys(`bender@${config.get('application.domain')}`)
-      browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
-      securityAnswer.sendKeys('Stop\'n\'Drop')
-      newPassword.sendKeys('Brannigan 8=o Leela')
-      newPasswordRepeat.sendKeys('Brannigan 8=o Leela')
-      resetButton.click()
+      void email.sendKeys(`bender@${config.get('application.domain')}`)
+      void browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
+      void securityAnswer.sendKeys('Stop\'n\'Drop')
+      void newPassword.sendKeys('Brannigan 8=o Leela')
+      void newPasswordRepeat.sendKeys('Brannigan 8=o Leela')
+      void resetButton.click()
 
       expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
     })
@@ -59,12 +59,12 @@ describe('/#/forgot-password', () => {
   describe('as Bjoern', () => {
     describe('for his internal account', () => {
       it('should be able to reset password with his security answer', () => {
-        email.sendKeys(`bjoern@${config.get('application.domain')}`)
-        browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
-        securityAnswer.sendKeys('West-2082')
-        newPassword.sendKeys('monkey birthday ')
-        newPasswordRepeat.sendKeys('monkey birthday ')
-        resetButton.click()
+        void email.sendKeys(`bjoern@${config.get('application.domain')}`)
+        void browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
+        void securityAnswer.sendKeys('West-2082')
+        void newPassword.sendKeys('monkey birthday ')
+        void newPasswordRepeat.sendKeys('monkey birthday ')
+        void resetButton.click()
 
         expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
       })
@@ -74,12 +74,12 @@ describe('/#/forgot-password', () => {
 
     describe('for his OWASP account', () => {
       it('should be able to reset password with his security answer', () => {
-        email.sendKeys('bjoern@owasp.org')
-        browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
-        securityAnswer.sendKeys('Zaya')
-        newPassword.sendKeys('kitten lesser pooch')
-        newPasswordRepeat.sendKeys('kitten lesser pooch')
-        resetButton.click()
+        void email.sendKeys('bjoern@owasp.org')
+        void browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
+        void securityAnswer.sendKeys('Zaya')
+        void newPassword.sendKeys('kitten lesser pooch')
+        void newPasswordRepeat.sendKeys('kitten lesser pooch')
+        void resetButton.click()
 
         expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
       })
@@ -90,12 +90,12 @@ describe('/#/forgot-password', () => {
 
   describe('as Morty', () => {
     it('should be able to reset password with his security answer', () => {
-      email.sendKeys(`morty@${config.get('application.domain')}`)
-      browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
-      securityAnswer.sendKeys('5N0wb41L')
-      newPassword.sendKeys('iBurri3dMySe1f!')
-      newPasswordRepeat.sendKeys('iBurri3dMySe1f!')
-      resetButton.click()
+      void email.sendKeys(`morty@${config.get('application.domain')}`)
+      void browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
+      void securityAnswer.sendKeys('5N0wb41L')
+      void newPassword.sendKeys('iBurri3dMySe1f!')
+      void newPasswordRepeat.sendKeys('iBurri3dMySe1f!')
+      void resetButton.click()
 
       expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
     })
@@ -105,12 +105,12 @@ describe('/#/forgot-password', () => {
 
   describe('as Uvogin', () => {
     it('should be able to reset password with his security answer', () => {
-      email.sendKeys(`uvogin@${config.get('application.domain')}`)
-      browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
-      securityAnswer.sendKeys('Silence of the Lambs')
-      newPassword.sendKeys('ora-ora > muda-muda')
-      newPasswordRepeat.sendKeys('ora-ora > muda-muda')
-      resetButton.click()
+      void email.sendKeys(`uvogin@${config.get('application.domain')}`)
+      void browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
+      void securityAnswer.sendKeys('Silence of the Lambs')
+      void newPassword.sendKeys('ora-ora > muda-muda')
+      void newPasswordRepeat.sendKeys('ora-ora > muda-muda')
+      void resetButton.click()
 
       expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
     })
