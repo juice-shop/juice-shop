@@ -5,12 +5,12 @@
 
 import config = require('config')
 import { Request, Response, NextFunction } from 'express'
+import models = require('../models/index')
 
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const users = require('../data/datacache').users
 const security = require('../lib/insecurity')
-const models = require('../models/index')
 
 module.exports = function resetPassword () {
   return ({ body, connection }: Request, res: Response, next: NextFunction) => {

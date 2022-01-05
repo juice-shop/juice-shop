@@ -5,9 +5,9 @@
 
 import fs = require('fs')
 import { Request, Response, NextFunction } from 'express'
+import models = require('../models/index')
 
 const utils = require('../lib/utils')
-const models = require('../models/index')
 const security = require('../lib/insecurity')
 const logger = require('../lib/logger')
 const fileType = require('file-type')

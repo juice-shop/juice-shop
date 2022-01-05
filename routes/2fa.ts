@@ -5,9 +5,9 @@
 
 import config = require('config')
 import { Request, Response } from 'express'
+import models = require('../models/index')
 
 const security = require('../lib/insecurity')
-const models = require('../models/index')
 const otplib = require('otplib')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
