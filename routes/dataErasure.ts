@@ -5,9 +5,9 @@
 import express, { NextFunction, Request, Response } from 'express'
 import insecurity from '../lib/insecurity'
 import path from 'path'
+import models = require('../models/index')
 
 const challenges = require('../data/datacache').challenges
-const models = require('../models/index')
 const utils = require('../lib/utils')
 const router = express.Router()
 

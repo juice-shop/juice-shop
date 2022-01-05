@@ -5,6 +5,7 @@
 
 import fs = require('fs')
 import { Request, Response, NextFunction } from 'express'
+import models = require('../models/index')
 
 const { Bot } = require('juicy-chat-bot')
 const security = require('../lib/insecurity')
@@ -13,7 +14,6 @@ const utils = require('../lib/utils')
 const botUtils = require('../lib/botUtils')
 const config = require('config')
 const download = require('download')
-const models = require('../models/index')
 const challenges = require('../data/datacache').challenges
 
 let trainingFile = config.get('application.chatBot.trainingData')

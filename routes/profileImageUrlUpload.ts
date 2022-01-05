@@ -6,7 +6,7 @@
 import fs = require('fs')
 import { Request, Response, NextFunction } from 'express'
 
-const models = require('../models/index')
+import models = require('../models/index')
 const security = require('../lib/insecurity')
 const request = require('request')
 const logger = require('../lib/logger')

@@ -5,12 +5,12 @@
 
 import path = require('path')
 import { Request, Response, NextFunction } from 'express'
+import models = require('../models/index')
 
 const fs = require('fs')
 const PDFDocument = require('pdfkit')
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
-const models = require('../models/index')
 const products = require('../data/datacache').products
 const challenges = require('../data/datacache').challenges
 const config = require('config')
