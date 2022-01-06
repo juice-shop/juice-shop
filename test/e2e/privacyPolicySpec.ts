@@ -3,15 +3,16 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { browser, protractor } from 'protractor'
+import { browser } from 'protractor'
+import { basePath, expectChallengeSolved } from './e2eHelpers'
 
 describe('/#/privacy-security/privacy-policy', () => {
   describe('challenge "privacyPolicy"', () => {
     it('should be possible to access privacy policy', () => {
-      void browser.get(`${protractor.basePath}/#/privacy-security/privacy-policy`)
+      void browser.get(`${basePath}/#/privacy-security/privacy-policy`)
       expect(browser.getCurrentUrl()).toMatch(/\/privacy-policy/)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Privacy Policy' })
+    expectChallengeSolved({ challenge: 'Privacy Policy' })
   })
 })

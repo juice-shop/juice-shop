@@ -5,6 +5,7 @@
 
 import config = require('config')
 import { $, browser, by, element, ElementFinder, protractor } from 'protractor'
+import { basePath, expectChallengeSolved } from './e2eHelpers'
 
 describe('/#/photo-wall', () => {
   let email: ElementFinder, securityAnswer: ElementFinder, newPassword: ElementFinder, newPasswordRepeat: ElementFinder, resetButton: ElementFinder
@@ -18,7 +19,7 @@ describe('/#/photo-wall', () => {
       }
     })
     void browser.wait(EC.stalenessOf($('#logout')), 5000)
-    void browser.get(`${protractor.basePath}/#/forgot-password`)
+    void browser.get(`${basePath}/#/forgot-password`)
     email = element(by.id('email'))
     securityAnswer = element(by.id('securityAnswer'))
     newPassword = element(by.id('newPassword'))
@@ -45,7 +46,7 @@ describe('/#/photo-wall', () => {
       void resetButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Meta Geo Stalking' })
+    expectChallengeSolved({ challenge: 'Meta Geo Stalking' })
   })
 
   describe('challenge "geoStalkingVisual"', () => {
@@ -67,6 +68,6 @@ describe('/#/photo-wall', () => {
       void resetButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Visual Geo Stalking' })
+    expectChallengeSolved({ challenge: 'Visual Geo Stalking' })
   })
 })

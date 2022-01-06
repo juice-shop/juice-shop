@@ -4,12 +4,13 @@
  */
 
 import config = require('config')
-import { browser, by, element, protractor } from 'protractor'
+import { browser, by, element } from 'protractor'
+import { basePath, beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
 
 describe('/#/privacy-security/data-export', () => {
   xdescribe('challenge "dataExportChallenge"', () => {
     beforeEach(() => {
-      void browser.get(`${protractor.basePath}/#/register`)
+      void browser.get(`${basePath}/#/register`)
       void element(by.id('emailControl')).sendKeys(`admun@${config.get('application.domain')}`)
       void element(by.id('passwordControl')).sendKeys('admun123')
       void element(by.id('repeatPasswordControl')).sendKeys('admun123')
@@ -19,14 +20,14 @@ describe('/#/privacy-security/data-export', () => {
       void element(by.id('registerButton')).click()
     })
 
-    protractor.beforeEach.login({ email: `admun@${config.get('application.domain')}`, password: 'admun123' })
+    beforeEachLogin({ email: `admun@${config.get('application.domain')}`, password: 'admun123' })
 
     it('should be possible to steal admin user data by causing email clash during export', () => {
-      void browser.get(`${protractor.basePath}/#/privacy-security/data-export`)
+      void browser.get(`${basePath}/#/privacy-security/data-export`)
       void element(by.id('formatControl')).all(by.tagName('mat-radio-button')).get(0).click()
       void element(by.id('submitButton')).click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'GDPR Data Theft' })
+    expectChallengeSolved({ challenge: 'GDPR Data Theft' })
   })
 })

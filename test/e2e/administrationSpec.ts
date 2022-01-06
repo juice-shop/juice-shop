@@ -4,29 +4,30 @@
  */
 
 import config = require('config')
-import { $$, browser, protractor } from 'protractor'
+import { $$, browser } from 'protractor'
+import { basePath, beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
 
 describe('/#/administration', () => {
   describe('challenge "adminSection"', () => {
-    protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
+    beforeEachLogin({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
     it('should be possible to access administration section with admin user', () => {
-      void browser.get(`${protractor.basePath}/#/administration`)
+      void browser.get(`${basePath}/#/administration`)
       expect(browser.getCurrentUrl()).toMatch(/\/administration/)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Admin Section' })
+    expectChallengeSolved({ challenge: 'Admin Section' })
   })
 
   describe('challenge "fiveStarFeedback"', () => {
-    protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
+    beforeEachLogin({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
     it('should be possible for any admin user to delete feedback', () => {
-      void browser.get(`${protractor.basePath}/#/administration`)
+      void browser.get(`${basePath}/#/administration`)
 
       void $$('.mat-cell.mat-column-remove > button').first().click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Five-Star Feedback' })
+    expectChallengeSolved({ challenge: 'Five-Star Feedback' })
   })
 })

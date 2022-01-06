@@ -5,6 +5,7 @@
 
 import { browser, protractor } from 'protractor'
 import utils = require('../../lib/utils')
+import { basePath, expectChallengeSolved } from './e2eHelpers'
 
 describe('/#/track-order', () => {
   if (!utils.disableOnContainerEnv()) {
@@ -12,9 +13,9 @@ describe('/#/track-order', () => {
       it('Order Id should be susceptible to reflected XSS attacks', () => {
         const EC = protractor.ExpectedConditions
 
-        void browser.get(`${protractor.basePath}/#/track-result`)
+        void browser.get(`${basePath}/#/track-result`)
         void browser.waitForAngularEnabled(false)
-        void browser.get(`${protractor.basePath}/#/track-result?id=<iframe src="javascript:alert(\`xss\`)">`)
+        void browser.get(`${basePath}/#/track-result?id=<iframe src="javascript:alert(\`xss\`)">`)
         void browser.refresh()
 
         void browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /#/track-result ")
@@ -25,7 +26,7 @@ describe('/#/track-order', () => {
         void browser.waitForAngularEnabled(true)
       })
 
-      protractor.expect.challengeSolved({ challenge: 'Reflected XSS' })
+      expectChallengeSolved({ challenge: 'Reflected XSS' })
     })
   }
 })

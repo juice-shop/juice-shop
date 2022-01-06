@@ -4,7 +4,8 @@
  */
 
 import config = require('config')
-import { browser, by, element, ElementFinder, protractor } from 'protractor'
+import { $, browser, by, element, ElementFinder, protractor } from 'protractor'
+import { basePath, beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
 
 const christmasProduct = config.get('products').filter(product => product.useForChristmasSpecialChallenge)[0]
 const pastebinLeakProduct = config.get('products').filter(product => product.keywordsForPastebinDataLeakChallenge)[0]
@@ -14,7 +15,7 @@ describe('/#/search', () => {
   let searchQuery: ElementFinder
 
   beforeEach(() => {
-    void browser.get(`${protractor.basePath}/#/search`) // not really necessary as search field is part of navbar on every dialog
+    void browser.get(`${basePath}/#/search`) // not really necessary as search field is part of navbar on every dialog
     searchQuery = element(by.id('searchQuery'))
   })
 
@@ -33,7 +34,7 @@ describe('/#/search', () => {
       })
     })
 
-    protractor.expect.challengeSolved({ challenge: 'DOM XSS' })
+    expectChallengeSolved({ challenge: 'DOM XSS' })
   })
 
   describe('challenge "xssBonusPayload"', () => {
@@ -44,7 +45,7 @@ describe('/#/search', () => {
       void browser.actions().sendKeys(protractor.Key.ENTER).perform()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Bonus Payload' })
+    expectChallengeSolved({ challenge: 'Bonus Payload' })
   })
 })
 
@@ -54,7 +55,7 @@ describe('/rest/products/search', () => {
       void browser.driver.get(`${browser.baseUrl}/rest/products/search?q=')) union select id,'2','3',email,password,'6','7','8','9' from users--`)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'User Credentials' })
+    expectChallengeSolved({ challenge: 'User Credentials' })
   })
 
   describe('challenge "dbSchema"', () => {
@@ -62,11 +63,11 @@ describe('/rest/products/search', () => {
       void browser.driver.get(`${browser.baseUrl}/rest/products/search?q=')) union select sql,'2','3','4','5','6','7','8','9' from sqlite_master--`)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Database Schema' })
+    expectChallengeSolved({ challenge: 'Database Schema' })
   })
 
   describe('challenge "dlpPastebinLeakChallenge"', () => {
-    protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
+    beforeEachLogin({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
     it('search query should logically reveal the special product', () => {
       void browser.driver.get(`${browser.baseUrl}/rest/products/search?q='))--`).then(() => {
@@ -76,7 +77,7 @@ describe('/rest/products/search', () => {
   })
 
   xdescribe('challenge "christmasSpecial"', () => {
-    protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
+    beforeEachLogin({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
     it('search query should reveal logically deleted christmas special product on SQL injection attack', () => {
       void browser.driver.get(`${browser.baseUrl}/rest/products/search?q='))--`).then(() => {
@@ -93,11 +94,11 @@ describe('/rest/products/search', () => {
       void browser.driver.sleep(1000)
       void browser.waitForAngularEnabled(true)
 
-      void browser.get(`${protractor.basePath}/#/basket`)
+      void browser.get(`${basePath}/#/basket`)
       void browser.wait(protractor.ExpectedConditions.presenceOf($('mat-table')), 5000, 'Basket item list not present.') // eslint-disable-line no-undef
       void element(by.id('checkoutButton')).click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Christmas Special' })
+    expectChallengeSolved({ challenge: 'Christmas Special' })
   })
 })

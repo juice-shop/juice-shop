@@ -5,17 +5,19 @@
 
 import config = require('config')
 import { browser, protractor } from 'protractor'
+import { basePath, beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
+
 const models = require('../../models/index')
 const utils = require('../../lib/utils')
 
 describe('/#/register', () => {
   beforeEach(() => {
-    void browser.get(`${protractor.basePath}/#/register`)
+    void browser.get(`${basePath}/#/register`)
   })
 
   if (!utils.disableOnContainerEnv()) {
     describe('challenge "persistedXssUser"', () => {
-      protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
+      beforeEachLogin({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
       it('should be possible to bypass validation by directly using Rest API', async () => {
         void browser.executeScript((baseUrl: string) => {
@@ -40,7 +42,7 @@ describe('/#/register', () => {
 
         void browser.waitForAngularEnabled(false)
         const EC = protractor.ExpectedConditions
-        void browser.get(`${protractor.basePath}/#/administration`)
+        void browser.get(`${basePath}/#/administration`)
         void browser.wait(EC.alertIsPresent(), 10000, "'xss' alert is not present on /#/administration")
         void browser.switchTo().alert().then(alert => {
           expect(alert.getText()).toEqual('xss')
@@ -59,7 +61,7 @@ describe('/#/register', () => {
         void browser.waitForAngularEnabled(true)
       })
 
-      protractor.expect.challengeSolved({ challenge: 'Client-side XSS Protection' })
+      expectChallengeSolved({ challenge: 'Client-side XSS Protection' })
     })
   }
 
@@ -79,7 +81,7 @@ describe('/#/register', () => {
       }, browser.baseUrl)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Admin Registration' })
+    expectChallengeSolved({ challenge: 'Admin Registration' })
   })
 
   describe('challenge "passwordRepeat"', () => {
@@ -98,6 +100,6 @@ describe('/#/register', () => {
       }, browser.baseUrl)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Repetitive Registration' })
+    expectChallengeSolved({ challenge: 'Repetitive Registration' })
   })
 })

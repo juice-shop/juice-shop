@@ -4,7 +4,9 @@
  */
 
 import config = require('config')
-import { browser, protractor } from 'protractor'
+import { browser } from 'protractor'
+import { expectChallengeSolved } from './e2eHelpers'
+
 const utils = require('../../lib/utils')
 let blueprint: string
 
@@ -21,7 +23,7 @@ describe('/', () => {
       void browser.driver.get(`${browser.baseUrl}/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg`)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Nested Easter Egg' })
+    expectChallengeSolved({ challenge: 'Nested Easter Egg' })
   })
 
   describe('challenge "premiumPaywall"', () => {
@@ -29,7 +31,7 @@ describe('/', () => {
       void browser.driver.get(`${browser.baseUrl}/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us`)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Premium Paywall' })
+    expectChallengeSolved({ challenge: 'Premium Paywall' })
   })
 
   describe('challenge "privacyPolicyProof"', () => {
@@ -37,7 +39,7 @@ describe('/', () => {
       void browser.driver.get(`${browser.baseUrl}/we/may/also/instruct/you/to/refuse/all/reasonably/necessary/responsibility`)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Privacy Policy Inspection' })
+    expectChallengeSolved({ challenge: 'Privacy Policy Inspection' })
   })
 
   describe('challenge "extraLanguage"', () => {
@@ -45,7 +47,7 @@ describe('/', () => {
       void browser.driver.get(`${browser.baseUrl}/assets/i18n/tlh_AA.json`)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Extra Language' })
+    expectChallengeSolved({ challenge: 'Extra Language' })
   })
 
   describe('challenge "retrieveBlueprint"', () => {
@@ -53,7 +55,7 @@ describe('/', () => {
       void browser.driver.get(`${browser.baseUrl}/assets/public/images/products/${blueprint}`)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Retrieve Blueprint' })
+    expectChallengeSolved({ challenge: 'Retrieve Blueprint' })
   })
 
   describe('challenge "missingEncoding"', () => {
@@ -61,7 +63,7 @@ describe('/', () => {
       void browser.driver.get(`${browser.baseUrl}/assets/public/images/uploads/%F0%9F%98%BC-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg`)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Missing Encoding' })
+    expectChallengeSolved({ challenge: 'Missing Encoding' })
   })
 
   describe('challenge "securityPolicy"', () => {
@@ -69,7 +71,7 @@ describe('/', () => {
       void browser.driver.get(`${browser.baseUrl}/.well-known/security.txt`)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Security Policy' })
+    expectChallengeSolved({ challenge: 'Security Policy' })
   })
 
   describe('challenge "emailLeak"', () => {
@@ -77,7 +79,7 @@ describe('/', () => {
       void browser.driver.get(`${browser.baseUrl}/rest/user/whoami?callback=func`)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Email Leak' })
+    expectChallengeSolved({ challenge: 'Email Leak' })
   })
 
   describe('challenge "accessLogDisclosure"', () => {
@@ -85,6 +87,6 @@ describe('/', () => {
       void browser.driver.get(`${browser.baseUrl}/support/logs/access.log.${utils.toISO8601(new Date())}`)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Access Log' })
+    expectChallengeSolved({ challenge: 'Access Log' })
   })
 })
