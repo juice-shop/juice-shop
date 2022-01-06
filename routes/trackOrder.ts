@@ -12,7 +12,7 @@ module.exports = function trackOrder () {
     const id = utils.disableOnContainerEnv() ? String(req.params.id).replace(/[^\w-]+/g, '') : req.params.id
 
     utils.solveIf(challenges.reflectedXssChallenge, () => { return utils.contains(id, '<iframe src="javascript:alert(`xss`)">') })
-    const query = { orderId: { $eq: id } };
+    const query = { orderId: { $eq: id } }
     db.orders.find({ query }).then(order => {
       const result = utils.queryResultToJson(order)
       utils.solveIf(challenges.noSqlOrdersChallenge, () => { return result.data.length > 1 })
