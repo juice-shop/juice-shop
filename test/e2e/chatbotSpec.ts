@@ -39,7 +39,7 @@ describe('/chatbot', () => {
   describe('challenge "bullyChatbot"', () => {
     it('should be possible to make the chatbot hand out a coupon code', () => {
       const trainingData = require(`../../data/chatbot/${utils.extractFilename(config.get('application.chatBot.trainingData'))}`)
-      const couponIntent = trainingData.data.filter((data: { intent: string }) => data.intent === 'queries.couponCode')[0]
+      const couponIntent = trainingData.data.filter(data => data.intent === 'queries.couponCode')[0]
 
       void browser.waitForAngularEnabled(false)
       void browser.get(`${basePath}/profile`)

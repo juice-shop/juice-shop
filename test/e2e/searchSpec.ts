@@ -28,8 +28,8 @@ describe('/#/search', () => {
       void inputField.sendKeys('<iframe src="javascript:alert(`xss`)">')
       void browser.actions().sendKeys(protractor.Key.ENTER).perform()
       void browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /#/search")
-      void browser.switchTo().alert().then(async alert => {
-        await expectAsync(alert.getText()).toBeResolvedTo('xss')
+      void browser.switchTo().alert().then(alert => {
+        expect(alert.getText()).toEqual('xss')
         void alert.accept()
       })
     })
