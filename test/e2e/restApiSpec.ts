@@ -39,8 +39,8 @@ describe('/api', () => {
 
         void browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /#/search")
         void browser.switchTo().alert().then(
-          async alert => {
-            await expectAsync(alert.getText()).toBeResolvedTo('xss')
+          alert => {
+            expect(alert.getText()).toEqual('xss')
             void alert.accept()
             // Disarm XSS payload so subsequent tests do not run into unexpected alert boxes
             models.Product.findOne({ where: { name: 'RestXSS' } }).then(product => {
@@ -74,7 +74,7 @@ describe('/api', () => {
     it('should be possible to change product via PUT request without being logged in', () => {
       void browser.waitForAngularEnabled(false)
 
-      void browser.executeScript((baseUrl: string, tamperingProductId: number, overwriteUrl: string) => {
+      void browser.executeScript((baseUrl, tamperingProductId, overwriteUrl) => {
         const xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function () {
           if (this.status === 200) {
@@ -104,7 +104,7 @@ describe('/rest/saveLoginIp', () => {
 
       it('should be possible to save log-in IP when logged in', () => {
         void browser.waitForAngularEnabled(false)
-        void browser.executeScript((baseUrl: string) => {
+        void browser.executeScript(baseUrl => {
           const xhttp = new XMLHttpRequest()
           xhttp.onreadystatechange = function () {
             if (this.status === 200) {
