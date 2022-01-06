@@ -46,8 +46,8 @@ describe('/profile', () => {
         void username.sendKeys('<<a|ascript>alert(`xss`)</script>')
         void submitButton.click()
         void browser.wait(EC.alertIsPresent(), 10000, "'xss' alert is not present on /profile")
-        void browser.switchTo().alert().then(alert => {
-          expect(alert.getText()).toEqual('xss')
+        void browser.switchTo().alert().then(async alert => {
+          await expectAsync(alert.getText()).toBeResolvedTo('xss')
           void alert.accept()
         })
         void username.clear()
@@ -96,7 +96,7 @@ describe('/profile', () => {
 
     xit('should be possible to fake a CSRF attack against the user profile page', () => {
       void browser.waitForAngularEnabled(false)
-      void browser.executeScript(baseUrl => {
+      void browser.executeScript((baseUrl: string) => {
         const xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function () {
           if (this.status === 200) {

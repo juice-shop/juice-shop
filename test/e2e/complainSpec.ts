@@ -4,14 +4,14 @@
  */
 
 import path = require('path')
-import { browser, by, element, protractor } from 'protractor'
+import { browser, by, element, ElementFinder, protractor } from 'protractor'
 import { basePath, beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
 
 const config = require('config')
 const utils = require('../../lib/utils')
 
 describe('/#/complain', () => {
-  let file, complaintMessage, submitButton
+  let file: ElementFinder, complaintMessage: ElementFinder, submitButton: ElementFinder
 
   beforeEachLogin({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
@@ -25,7 +25,7 @@ describe('/#/complain', () => {
   describe('challenge "uploadSize"', () => {
     it('should be possible to upload files greater 100 KB directly through backend', () => {
       void browser.waitForAngularEnabled(false)
-      void browser.executeScript(baseUrl => {
+      void browser.executeScript((baseUrl: string) => {
         const over100KB = Array.apply(null, new Array(11000)).map(String.prototype.valueOf, '1234567890')
         const blob = new Blob(over100KB, { type: 'application/pdf' })
 
@@ -45,7 +45,7 @@ describe('/#/complain', () => {
   describe('challenge "uploadType"', () => {
     it('should be possible to upload files with other extension than .pdf directly through backend', () => {
       void browser.waitForAngularEnabled(false)
-      void browser.executeScript(baseUrl => {
+      void browser.executeScript((baseUrl: string) => {
         const data = new FormData()
         const blob = new Blob(['test'], { type: 'application/x-msdownload' })
         data.append('file', blob, 'invalidTypeForClient.exe')
@@ -62,9 +62,9 @@ describe('/#/complain', () => {
 
   describe('challenge "deprecatedInterface"', () => {
     it('should be possible to upload XML files', () => {
-      complaintMessage.sendKeys('XML all the way!')
-      file.sendKeys(path.resolve('test/files/deprecatedTypeForServer.xml'))
-      submitButton.click()
+      void complaintMessage.sendKeys('XML all the way!')
+      void file.sendKeys(path.resolve('test/files/deprecatedTypeForServer.xml'))
+      void submitButton.click()
     })
     expectChallengeSolved({ challenge: 'Deprecated Interface' })
   })
@@ -72,15 +72,15 @@ describe('/#/complain', () => {
   if (!utils.disableOnContainerEnv()) {
     describe('challenge "xxeFileDisclosure"', () => {
       it('should be possible to retrieve file from Windows server via .xml upload with XXE attack', () => {
-        complaintMessage.sendKeys('XXE File Exfiltration Windows!')
-        file.sendKeys(path.resolve('test/files/xxeForWindows.xml'))
-        submitButton.click()
+        void complaintMessage.sendKeys('XXE File Exfiltration Windows!')
+        void file.sendKeys(path.resolve('test/files/xxeForWindows.xml'))
+        void submitButton.click()
       })
 
       it('should be possible to retrieve file from Linux server via .xml upload with XXE attack', () => {
-        complaintMessage.sendKeys('XXE File Exfiltration Linux!')
-        file.sendKeys(path.resolve('test/files/xxeForLinux.xml'))
-        submitButton.click()
+        void complaintMessage.sendKeys('XXE File Exfiltration Linux!')
+        void file.sendKeys(path.resolve('test/files/xxeForLinux.xml'))
+        void submitButton.click()
       })
 
       afterAll(() => {
@@ -90,15 +90,15 @@ describe('/#/complain', () => {
 
     describe('challenge "xxeDos"', () => {
       it('should be possible to trigger request timeout via .xml upload with Quadratic Blowup attack', () => {
-        complaintMessage.sendKeys('XXE Quadratic Blowup!')
-        file.sendKeys(path.resolve('test/files/xxeQuadraticBlowup.xml'))
-        submitButton.click()
+        void complaintMessage.sendKeys('XXE Quadratic Blowup!')
+        void file.sendKeys(path.resolve('test/files/xxeQuadraticBlowup.xml'))
+        void submitButton.click()
       })
 
       it('should be possible to trigger request timeout via .xml upload with dev/random attack', () => {
-        complaintMessage.sendKeys('XXE Quadratic Blowup!')
-        file.sendKeys(path.resolve('test/files/xxeDevRandom.xml'))
-        submitButton.click()
+        void complaintMessage.sendKeys('XXE Quadratic Blowup!')
+        void file.sendKeys(path.resolve('test/files/xxeDevRandom.xml'))
+        void submitButton.click()
       })
 
       afterAll(() => {
@@ -108,9 +108,9 @@ describe('/#/complain', () => {
 
     describe('challenge "arbitraryFileWrite"', () => {
       it('should be possible to upload zip file with filenames having path traversal', () => {
-        complaintMessage.sendKeys('Zip Slip!')
-        file.sendKeys(path.resolve('test/files/arbitraryFileWrite.zip'))
-        submitButton.click()
+        void complaintMessage.sendKeys('Zip Slip!')
+        void file.sendKeys(path.resolve('test/files/arbitraryFileWrite.zip'))
+        void submitButton.click()
       })
       expectChallengeSolved({ challenge: 'Arbitrary File Write' })
     })
@@ -118,14 +118,14 @@ describe('/#/complain', () => {
     describe('challenge "videoXssChallenge"', () => {
       it('should be possible to inject js in subtitles by uploading zip file with filenames having path traversal', () => {
         const EC = protractor.ExpectedConditions
-        complaintMessage.sendKeys('Here we go!')
-        file.sendKeys(path.resolve('test/files/videoExploit.zip'))
-        submitButton.click()
+        void complaintMessage.sendKeys('Here we go!')
+        void file.sendKeys(path.resolve('test/files/videoExploit.zip'))
+        void submitButton.click()
         void browser.waitForAngularEnabled(false)
         void browser.get(`${basePath}/promotion`)
         void browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /promotion")
-        void browser.switchTo().alert().then(alert => {
-          expect(alert.getText()).toEqual('xss')
+        void browser.switchTo().alert().then(async alert => {
+          await expectAsync(alert.getText()).toBeResolvedTo('xss')
           void alert.accept()
         })
         void browser.get(`${basePath}/`)

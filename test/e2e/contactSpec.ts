@@ -65,15 +65,15 @@ describe('/#/contact', () => {
         void browser.get(`${basePath}/#/about`)
 
         void browser.wait(EC.alertIsPresent(), 15000, "'xss' alert is not present on /#/about")
-        void browser.switchTo().alert().then(alert => {
-          expect(alert.getText()).toEqual('xss')
+        void browser.switchTo().alert().then(async alert => {
+          await expectAsync(alert.getText()).toBeResolvedTo('xss')
           void alert.accept()
         })
 
         void browser.get(`${basePath}/#/administration`)
         void browser.wait(EC.alertIsPresent(), 15000, "'xss' alert is not present on /#/administration")
-        void browser.switchTo().alert().then(alert => {
-          expect(alert.getText()).toEqual('xss')
+        void browser.switchTo().alert().then(async alert => {
+          await expectAsync(alert.getText()).toBeResolvedTo('xss')
           void alert.accept()
           void $$('.mat-cell.mat-column-remove > button').last().click()
           void browser.wait(EC.stalenessOf(element(by.tagName('iframe'))), 5000)
@@ -158,7 +158,7 @@ describe('/#/contact', () => {
         xhttp.setRequestHeader('Content-type', 'text/plain')
         xhttp.send()
 
-        function sendPostRequest (_captcha) {
+        function sendPostRequest (_captcha: any) {
           const xhttp = new XMLHttpRequest()
           xhttp.onreadystatechange = function () {
             if (this.status === 201) {
