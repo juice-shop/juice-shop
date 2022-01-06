@@ -5,6 +5,7 @@
 
 import config = require('config')
 import { browser, by, element, ElementFinder, protractor } from 'protractor'
+import { basePath, expectChallengeSolved } from './e2eHelpers'
 
 const otplib = require('otplib')
 
@@ -12,7 +13,7 @@ describe('/#/login', () => {
   let email: ElementFinder, password: ElementFinder, loginButton: ElementFinder
 
   beforeEach(() => {
-    void browser.get(`${protractor.basePath}/#/login`)
+    void browser.get(`${basePath}/#/login`)
     email = element(by.id('email'))
     password = element(by.id('password'))
     loginButton = element(by.id('loginButton'))
@@ -31,7 +32,7 @@ describe('/#/login', () => {
       void loginButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Login Admin' })
+    expectChallengeSolved({ challenge: 'Login Admin' })
   })
 
   describe('challenge "loginJim"', () => {
@@ -41,7 +42,7 @@ describe('/#/login', () => {
       void loginButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Login Jim' })
+    expectChallengeSolved({ challenge: 'Login Jim' })
   })
 
   describe('challenge "loginBender"', () => {
@@ -51,7 +52,7 @@ describe('/#/login', () => {
       void loginButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Login Bender' })
+    expectChallengeSolved({ challenge: 'Login Bender' })
   })
 
   describe('challenge "adminCredentials"', () => {
@@ -61,7 +62,7 @@ describe('/#/login', () => {
       void loginButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Password Strength' })
+    expectChallengeSolved({ challenge: 'Password Strength' })
   })
 
   describe('challenge "loginSupport"', () => {
@@ -71,7 +72,7 @@ describe('/#/login', () => {
       void loginButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Login Support Team' })
+    expectChallengeSolved({ challenge: 'Login Support Team' })
   })
 
   describe('challenge "loginRapper"', () => {
@@ -81,7 +82,7 @@ describe('/#/login', () => {
       void loginButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Login MC SafeSearch' })
+    expectChallengeSolved({ challenge: 'Login MC SafeSearch' })
   })
 
   describe('challenge "loginAmy"', () => {
@@ -91,7 +92,7 @@ describe('/#/login', () => {
       void loginButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Login Amy' })
+    expectChallengeSolved({ challenge: 'Login Amy' })
   })
 
   describe('challenge "dlpPasswordSpraying"', () => {
@@ -101,7 +102,7 @@ describe('/#/login', () => {
       void loginButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Leaked Access Logs' })
+    expectChallengeSolved({ challenge: 'Leaked Access Logs' })
   })
 
   describe('challenge "twoFactorAuthUnsafeSecretStorage"', () => {
@@ -127,7 +128,7 @@ describe('/#/login', () => {
       void twoFactorSubmitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Two Factor Authentication' })
+    expectChallengeSolved({ challenge: 'Two Factor Authentication' })
   })
 
   describe('challenge "oauthUserPassword"', () => {
@@ -137,7 +138,7 @@ describe('/#/login', () => {
       void loginButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Login Bjoern' })
+    expectChallengeSolved({ challenge: 'Login Bjoern' })
   })
 
   describe('challenge "ghostLogin"', () => {
@@ -153,7 +154,7 @@ describe('/#/login', () => {
       void loginButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'GDPR Data Erasure' })
+    expectChallengeSolved({ challenge: 'GDPR Data Erasure' })
   })
 
   describe('challenge "ephemeralAccountant"', () => {
@@ -163,6 +164,6 @@ describe('/#/login', () => {
       void loginButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Ephemeral Accountant' })
+    expectChallengeSolved({ challenge: 'Ephemeral Accountant' })
   })
 })

@@ -5,6 +5,7 @@
 
 import config = require('config')
 import { $, browser, by, element, ElementFinder, protractor } from 'protractor'
+import { basePath, expectChallengeSolved } from './e2eHelpers'
 
 describe('/#/forgot-password', () => {
   let email: ElementFinder, securityAnswer: ElementFinder, newPassword: ElementFinder, newPasswordRepeat: ElementFinder, resetButton: ElementFinder
@@ -18,7 +19,7 @@ describe('/#/forgot-password', () => {
       }
     })
     void browser.wait(EC.stalenessOf($('#logout')), 5000)
-    void browser.get(`${protractor.basePath}/#/forgot-password`)
+    void browser.get(`${basePath}/#/forgot-password`)
     email = element(by.id('email'))
     securityAnswer = element(by.id('securityAnswer'))
     newPassword = element(by.id('newPassword'))
@@ -38,7 +39,7 @@ describe('/#/forgot-password', () => {
       expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Reset Jim\'s Password' })
+    expectChallengeSolved({ challenge: 'Reset Jim\'s Password' })
   })
 
   describe('as Bender', () => {
@@ -53,7 +54,7 @@ describe('/#/forgot-password', () => {
       expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Reset Bender\'s Password' })
+    expectChallengeSolved({ challenge: 'Reset Bender\'s Password' })
   })
 
   describe('as Bjoern', () => {
@@ -69,7 +70,7 @@ describe('/#/forgot-password', () => {
         expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
       })
 
-      protractor.expect.challengeSolved({ challenge: 'Reset Bjoern\'s Password' })
+      expectChallengeSolved({ challenge: 'Reset Bjoern\'s Password' })
     })
 
     describe('for his OWASP account', () => {
@@ -84,7 +85,7 @@ describe('/#/forgot-password', () => {
         expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
       })
 
-      protractor.expect.challengeSolved({ challenge: 'Bjoern\'s Favorite Pet' })
+      expectChallengeSolved({ challenge: 'Bjoern\'s Favorite Pet' })
     })
   })
 
@@ -100,7 +101,7 @@ describe('/#/forgot-password', () => {
       expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Reset Morty\'s Password' })
+    expectChallengeSolved({ challenge: 'Reset Morty\'s Password' })
   })
 
   describe('as Uvogin', () => {
@@ -115,6 +116,6 @@ describe('/#/forgot-password', () => {
       expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Reset Uvogin\'s Password' })
+    expectChallengeSolved({ challenge: 'Reset Uvogin\'s Password' })
   })
 })

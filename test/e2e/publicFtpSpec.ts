@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { browser, by, protractor } from 'protractor'
+import { browser, by } from 'protractor'
+import { expectChallengeSolved } from './e2eHelpers'
 
 describe('/ftp', () => {
   describe('challenge "confidentialDocument"', () => {
@@ -11,7 +12,7 @@ describe('/ftp', () => {
       void browser.driver.get(`${browser.baseUrl}/ftp/acquisitions.md`)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Confidential Document' })
+    expectChallengeSolved({ challenge: 'Confidential Document' })
   })
 
   describe('challenge "errorHandling"', () => {
@@ -23,7 +24,7 @@ describe('/ftp', () => {
       })
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Error Handling' })
+    expectChallengeSolved({ challenge: 'Error Handling' })
   })
 
   describe('challenge "forgottenBackup"', () => {
@@ -31,7 +32,7 @@ describe('/ftp', () => {
       void browser.driver.get(`${browser.baseUrl}/ftp/coupons_2013.md.bak%2500.md`)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Forgotten Sales Backup' })
+    expectChallengeSolved({ challenge: 'Forgotten Sales Backup' })
   })
 
   describe('challenge "forgottenDevBackup"', () => {
@@ -39,7 +40,7 @@ describe('/ftp', () => {
       void browser.driver.get(`${browser.baseUrl}/ftp/package.json.bak%2500.md`)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Forgotten Developer Backup' })
+    expectChallengeSolved({ challenge: 'Forgotten Developer Backup' })
   })
 
   describe('challenge "easterEgg1"', () => {
@@ -47,7 +48,7 @@ describe('/ftp', () => {
       void browser.driver.get(`${browser.baseUrl}/ftp/eastere.gg%2500.md`)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Easter Egg' })
+    expectChallengeSolved({ challenge: 'Easter Egg' })
   })
 
   describe('challenge "misplacedSiemFileChallenge"', () => {
@@ -55,7 +56,7 @@ describe('/ftp', () => {
       void browser.driver.get(`${browser.baseUrl}/ftp/suspicious_errors.yml%2500.md`)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Misplaced Signature File' })
+    expectChallengeSolved({ challenge: 'Misplaced Signature File' })
   })
 
   describe('challenge "nullByteChallenge"', () => {
@@ -63,6 +64,6 @@ describe('/ftp', () => {
       void browser.driver.get(`${browser.baseUrl}/ftp/encrypt.pyc%2500.md`)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Poison Null Byte' })
+    expectChallengeSolved({ challenge: 'Poison Null Byte' })
   })
 })

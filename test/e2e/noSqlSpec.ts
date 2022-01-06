@@ -4,17 +4,19 @@
  */
 
 import config = require('config')
-import { browser, protractor } from 'protractor'
+import { browser } from 'protractor'
+import { basePath, beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
+
 const utils = require('../../lib/utils')
 
 describe('/rest/products/reviews', () => {
   beforeEach(() => {
-    void browser.get(`${protractor.basePath}/#/search`)
+    void browser.get(`${basePath}/#/search`)
   })
 
   if (!utils.disableOnContainerEnv()) {
     describe('challenge "NoSQL DoS"', () => {
-      protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
+      beforeEachLogin({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
       it('should be possible to inject a command into the get route', () => {
         void browser.waitForAngularEnabled(false)
@@ -32,7 +34,7 @@ describe('/rest/products/reviews', () => {
         void browser.driver.sleep(5000)
         void browser.waitForAngularEnabled(true)
       })
-      protractor.expect.challengeSolved({ challenge: 'NoSQL DoS' })
+      expectChallengeSolved({ challenge: 'NoSQL DoS' })
     })
 
     describe('challenge "NoSQL Exfiltration"', () => {
@@ -52,7 +54,7 @@ describe('/rest/products/reviews', () => {
         void browser.driver.sleep(1000)
         void browser.waitForAngularEnabled(true)
       })
-      protractor.expect.challengeSolved({ challenge: 'NoSQL Exfiltration' })
+      expectChallengeSolved({ challenge: 'NoSQL Exfiltration' })
     })
   }
 
@@ -63,11 +65,11 @@ describe('/rest/products/reviews', () => {
       void browser.driver.sleep(1000)
       void browser.waitForAngularEnabled(true)
     })
-    protractor.expect.challengeSolved({ challenge: 'NoSQL Manipulation' })
+    expectChallengeSolved({ challenge: 'NoSQL Manipulation' })
   })
 
   describe('challenge "Forged Review"', () => {
-    protractor.beforeEach.login({ email: `mc.safesearch@${config.get('application.domain')}`, password: 'Mr. N00dles' })
+    beforeEachLogin({ email: `mc.safesearch@${config.get('application.domain')}`, password: 'Mr. N00dles' })
 
     it('should be possible to edit any existing review', () => {
       void browser.waitForAngularEnabled(false)
@@ -100,11 +102,11 @@ describe('/rest/products/reviews', () => {
       void browser.driver.sleep(5000)
       void browser.waitForAngularEnabled(true)
     })
-    protractor.expect.challengeSolved({ challenge: 'Forged Review' })
+    expectChallengeSolved({ challenge: 'Forged Review' })
   })
 
   describe('challenge "Multiple Likes"', () => {
-    protractor.beforeEach.login({ email: `mc.safesearch@${config.get('application.domain')}`, password: 'Mr. N00dles' })
+    beforeEachLogin({ email: `mc.safesearch@${config.get('application.domain')}`, password: 'Mr. N00dles' })
 
     it('should be possible to like reviews multiple times', () => {
       void browser.waitForAngularEnabled(false)
@@ -140,6 +142,6 @@ describe('/rest/products/reviews', () => {
       void browser.waitForAngularEnabled(true)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Multiple Likes' })
+    expectChallengeSolved({ challenge: 'Multiple Likes' })
   })
 })

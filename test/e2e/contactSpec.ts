@@ -4,7 +4,8 @@
  */
 
 import config = require('config')
-import { by, element, browser, $$, ElementFinder, protractor } from 'protractor'
+import { $, $$, browser, by, element, ElementFinder, protractor } from 'protractor'
+import { basePath, beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
 
 const utils = require('../../lib/utils')
 const pastebinLeakProduct = config.get('products').filter(product => product.keywordsForPastebinDataLeakChallenge)[0]
@@ -13,7 +14,7 @@ describe('/#/contact', () => {
   let comment: ElementFinder, rating: ElementFinder, submitButton: ElementFinder, captcha: ElementFinder, snackBar: ElementFinder
 
   beforeEach(() => {
-    void browser.get(`${protractor.basePath}/#/contact`)
+    void browser.get(`${basePath}/#/contact`)
     comment = element(by.id('comment'))
     rating = element(by.id('rating'))
     captcha = element(by.id('captchaControl'))
@@ -23,7 +24,7 @@ describe('/#/contact', () => {
   })
 
   describe('challenge "forgedFeedback"', () => {
-    protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
+    beforeEachLogin({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
     it('should be possible to provide feedback as another user', () => {
       const EC = protractor.ExpectedConditions
@@ -39,16 +40,16 @@ describe('/#/contact', () => {
 
       void submitButton.click()
 
-      void browser.get(`${protractor.basePath}/#/administration`)
+      void browser.get(`${basePath}/#/administration`)
       expect($$('mat-row mat-cell.mat-column-user').last().getText()).toMatch('2')
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Forged Feedback' })
+    expectChallengeSolved({ challenge: 'Forged Feedback' })
   })
 
   if (!utils.disableOnContainerEnv()) {
     describe('challenge "persistedXssFeedback"', () => {
-      protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
+      beforeEachLogin({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
       it('should be possible to trick the sanitization with a masked XSS attack', () => {
         const EC = protractor.ExpectedConditions
@@ -61,7 +62,7 @@ describe('/#/contact', () => {
         void browser.sleep(5000)
 
         void browser.waitForAngularEnabled(false)
-        void browser.get(`${protractor.basePath}/#/about`)
+        void browser.get(`${basePath}/#/about`)
 
         void browser.wait(EC.alertIsPresent(), 15000, "'xss' alert is not present on /#/about")
         void browser.switchTo().alert().then(alert => {
@@ -69,7 +70,7 @@ describe('/#/contact', () => {
           void alert.accept()
         })
 
-        void browser.get(`${protractor.basePath}/#/administration`)
+        void browser.get(`${basePath}/#/administration`)
         void browser.wait(EC.alertIsPresent(), 15000, "'xss' alert is not present on /#/administration")
         void browser.switchTo().alert().then(alert => {
           expect(alert.getText()).toEqual('xss')
@@ -80,7 +81,7 @@ describe('/#/contact', () => {
         void browser.waitForAngularEnabled(true)
       })
 
-      protractor.expect.challengeSolved({ challenge: 'Server-side XSS Protection' })
+      expectChallengeSolved({ challenge: 'Server-side XSS Protection' })
     })
   }
 
@@ -93,7 +94,7 @@ describe('/#/contact', () => {
       void submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Vulnerable Library' })
+    expectChallengeSolved({ challenge: 'Vulnerable Library' })
   })
 
   describe('challenge "weirdCrypto"', () => {
@@ -104,7 +105,7 @@ describe('/#/contact', () => {
       void submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Weird Crypto' })
+    expectChallengeSolved({ challenge: 'Weird Crypto' })
   })
 
   describe('challenge "typosquattingNpm"', () => {
@@ -115,7 +116,7 @@ describe('/#/contact', () => {
       void submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Legacy Typosquatting' })
+    expectChallengeSolved({ challenge: 'Legacy Typosquatting' })
   })
 
   describe('challenge "typosquattingAngular"', () => {
@@ -126,7 +127,7 @@ describe('/#/contact', () => {
       void submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Frontend Typosquatting' })
+    expectChallengeSolved({ challenge: 'Frontend Typosquatting' })
   })
 
   describe('challenge "hiddenImage"', () => {
@@ -137,7 +138,7 @@ describe('/#/contact', () => {
       void submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Steganography' })
+    expectChallengeSolved({ challenge: 'Steganography' })
   })
 
   describe('challenge "zeroStars"', () => {
@@ -173,7 +174,7 @@ describe('/#/contact', () => {
       }, browser.baseUrl)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Zero Stars' })
+    expectChallengeSolved({ challenge: 'Zero Stars' })
   })
 
   describe('challenge "captchaBypass"', () => {
@@ -194,7 +195,7 @@ describe('/#/contact', () => {
       void browser.waitForAngularEnabled(true)
     })
 
-    // protractor.expect.challengeSolved({ challenge: 'CAPTCHA Bypass' })
+    // expectChallengeSolved({ challenge: 'CAPTCHA Bypass' })
   })
 
   describe('challenge "supplyChainAttack"', () => {
@@ -205,7 +206,7 @@ describe('/#/contact', () => {
       void submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Supply Chain Attack' })
+    expectChallengeSolved({ challenge: 'Supply Chain Attack' })
   })
 
   describe('challenge "dlpPastebinDataLeak"', () => {
@@ -214,7 +215,7 @@ describe('/#/contact', () => {
       void rating.click()
       void submitButton.click()
     })
-    protractor.expect.challengeSolved({ challenge: 'Leaked Unsafe Product' })
+    expectChallengeSolved({ challenge: 'Leaked Unsafe Product' })
   })
 
   function solveNextCaptcha () {

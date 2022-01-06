@@ -4,17 +4,19 @@
  */
 
 import path = require('path')
-import { by, element, browser, protractor } from 'protractor'
+import { browser, by, element, protractor } from 'protractor'
+import { basePath, beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
+
 const config = require('config')
 const utils = require('../../lib/utils')
 
 describe('/#/complain', () => {
   let file, complaintMessage, submitButton
 
-  protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
+  beforeEachLogin({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
   beforeEach(() => {
-    void browser.get(`${protractor.basePath}/#/complain`)
+    void browser.get(`${basePath}/#/complain`)
     file = element(by.id('file'))
     complaintMessage = element(by.id('complaintMessage'))
     submitButton = element(by.id('submitButton'))
@@ -37,7 +39,7 @@ describe('/#/complain', () => {
       void browser.driver.sleep(1000)
       void browser.waitForAngularEnabled(true)
     })
-    protractor.expect.challengeSolved({ challenge: 'Upload Size' })
+    expectChallengeSolved({ challenge: 'Upload Size' })
   })
 
   describe('challenge "uploadType"', () => {
@@ -55,7 +57,7 @@ describe('/#/complain', () => {
       void browser.driver.sleep(1000)
       void browser.waitForAngularEnabled(true)
     })
-    protractor.expect.challengeSolved({ challenge: 'Upload Type' })
+    expectChallengeSolved({ challenge: 'Upload Type' })
   })
 
   describe('challenge "deprecatedInterface"', () => {
@@ -64,7 +66,7 @@ describe('/#/complain', () => {
       file.sendKeys(path.resolve('test/files/deprecatedTypeForServer.xml'))
       submitButton.click()
     })
-    protractor.expect.challengeSolved({ challenge: 'Deprecated Interface' })
+    expectChallengeSolved({ challenge: 'Deprecated Interface' })
   })
 
   if (!utils.disableOnContainerEnv()) {
@@ -82,7 +84,7 @@ describe('/#/complain', () => {
       })
 
       afterAll(() => {
-        protractor.expect.challengeSolved({ challenge: 'XXE Data Access' })
+        expectChallengeSolved({ challenge: 'XXE Data Access' })
       })
     })
 
@@ -100,7 +102,7 @@ describe('/#/complain', () => {
       })
 
       afterAll(() => {
-        protractor.expect.challengeSolved({ challenge: 'XXE DoS' })
+        expectChallengeSolved({ challenge: 'XXE DoS' })
       })
     })
 
@@ -110,7 +112,7 @@ describe('/#/complain', () => {
         file.sendKeys(path.resolve('test/files/arbitraryFileWrite.zip'))
         submitButton.click()
       })
-      protractor.expect.challengeSolved({ challenge: 'Arbitrary File Write' })
+      expectChallengeSolved({ challenge: 'Arbitrary File Write' })
     })
 
     describe('challenge "videoXssChallenge"', () => {
@@ -120,17 +122,17 @@ describe('/#/complain', () => {
         file.sendKeys(path.resolve('test/files/videoExploit.zip'))
         submitButton.click()
         void browser.waitForAngularEnabled(false)
-        void browser.get(`${protractor.basePath}/promotion`)
+        void browser.get(`${basePath}/promotion`)
         void browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /promotion")
         void browser.switchTo().alert().then(alert => {
           expect(alert.getText()).toEqual('xss')
           void alert.accept()
         })
-        void browser.get(`${protractor.basePath}/`)
+        void browser.get(`${basePath}/`)
         void browser.driver.sleep(5000)
         void browser.waitForAngularEnabled(true)
       })
-      protractor.expect.challengeSolved({ challenge: 'Video XSS' })
+      expectChallengeSolved({ challenge: 'Video XSS' })
     })
   }
 })

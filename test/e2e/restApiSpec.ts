@@ -5,13 +5,15 @@
 
 import config = require('config')
 import { $, browser, by, element, protractor } from 'protractor'
+import { basePath, beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
+
 const models = require('../../models/index')
 const utils = require('../../lib/utils')
 
 describe('/api', () => {
   if (!utils.disableOnContainerEnv()) {
     describe('challenge "restfulXss"', () => {
-      protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
+      beforeEachLogin({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
       it('should be possible to create a new product when logged in', () => {
         const EC = protractor.ExpectedConditions
@@ -29,7 +31,7 @@ describe('/api', () => {
         }, browser.baseUrl)
 
         void browser.waitForAngularEnabled(false)
-        void browser.get(`${protractor.basePath}/#/search?q=RestXSS`)
+        void browser.get(`${basePath}/#/search?q=RestXSS`)
         void browser.refresh()
         void browser.driver.sleep(1000)
         const productImage = element(by.css('img[alt="RestXSS"]'))
@@ -54,7 +56,7 @@ describe('/api', () => {
         void browser.waitForAngularEnabled(true)
       })
 
-      protractor.expect.challengeSolved({ challenge: 'API-only XSS' })
+      expectChallengeSolved({ challenge: 'API-only XSS' })
     })
   }
 
@@ -88,17 +90,17 @@ describe('/api', () => {
       void browser.driver.sleep(1000)
       void browser.waitForAngularEnabled(true)
 
-      void browser.get(`${protractor.basePath}/#/search`)
+      void browser.get(`${basePath}/#/search`)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Product Tampering' })
+    expectChallengeSolved({ challenge: 'Product Tampering' })
   })
 })
 
 describe('/rest/saveLoginIp', () => {
   if (!utils.disableOnContainerEnv()) {
     describe('challenge "httpHeaderXss"', () => {
-      protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
+      beforeEachLogin({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
       it('should be possible to save log-in IP when logged in', () => {
         void browser.waitForAngularEnabled(false)
@@ -118,13 +120,13 @@ describe('/rest/saveLoginIp', () => {
         void browser.waitForAngularEnabled(true)
       })
 
-      protractor.expect.challengeSolved({ challenge: 'HTTP-Header XSS' }) // TODO Add missing check for alert presence
+      expectChallengeSolved({ challenge: 'HTTP-Header XSS' }) // TODO Add missing check for alert presence
     })
   }
 
   it('should not be possible to save log-in IP when not logged in', () => {
     void browser.waitForAngularEnabled(false)
-    void browser.get(`${protractor.basePath}/rest/saveLoginIp`)
+    void browser.get(`${basePath}/rest/saveLoginIp`)
     void $('pre').getText().then(function (text) {
       expect(text).toMatch('Unauthorized')
     })

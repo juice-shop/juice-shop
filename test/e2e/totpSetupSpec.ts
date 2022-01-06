@@ -5,6 +5,7 @@
 
 import config = require('config')
 import { browser, by, element, ElementFinder, protractor } from 'protractor'
+import { basePath, beforeEachLogin } from './e2eHelpers'
 
 const otplib = require('otplib')
 
@@ -30,24 +31,24 @@ describe('/#/basket', () => {
   })
 
   describe('as wurstbrot', () => {
-    protractor.beforeEach.login({
+    beforeEachLogin({
       email: `wurstbrot@${config.get('application.domain')}`,
       password: 'EinBelegtesBrotMitSchinkenSCHINKEN!',
       totpSecret: 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH'
     })
 
     it('should show an success message for 2fa enabled accounts', () => {
-      void browser.get(`${protractor.basePath}/#/privacy-security/two-factor-authentication`)
+      void browser.get(`${basePath}/#/privacy-security/two-factor-authentication`)
 
       void browser.wait(EC.visibilityOf(successMessage), 5000, '2FA success message didnt show up for an 2fa enabled account in time')
     })
   })
 
   describe('as amy', () => {
-    protractor.beforeEach.login({ email: `amy@${config.get('application.domain')}`, password: 'K1f.....................' })
+    beforeEachLogin({ email: `amy@${config.get('application.domain')}`, password: 'K1f.....................' })
 
     it('should be possible to setup 2fa for a account without 2fa enabled', async () => {
-      void browser.get(`${protractor.basePath}/#/privacy-security/two-factor-authentication`)
+      void browser.get(`${basePath}/#/privacy-security/two-factor-authentication`)
 
       void browser.wait(EC.visibilityOf(setupInstructions), 5000, '2FA setup instructions should show up for users without 2fa enabled')
 

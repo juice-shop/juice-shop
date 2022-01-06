@@ -3,12 +3,13 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { browser, protractor } from 'protractor'
+import { browser } from 'protractor'
+import { beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
 
 const config = require('config')
 
 describe('/dataerasure', () => {
-  protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
+  beforeEachLogin({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
   describe('challenge "lfr"', () => {
     it('should be possible to perform local file read attack using the browser', () => {
@@ -32,6 +33,6 @@ describe('/dataerasure', () => {
       void browser.driver.sleep(10000)
       void browser.waitForAngularEnabled(true)
     })
-    protractor.expect.challengeSolved({ challenge: 'Local File Read' })
+    expectChallengeSolved({ challenge: 'Local File Read' })
   })
 })

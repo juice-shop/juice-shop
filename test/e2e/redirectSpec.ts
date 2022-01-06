@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { browser, protractor } from 'protractor'
+import { browser } from 'protractor'
+import { expectChallengeSolved } from './e2eHelpers'
 
 describe('/redirect', () => {
   describe('challenge "redirect"', () => {
@@ -21,7 +22,7 @@ describe('/redirect', () => {
       })
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Allowlist Bypass' })
+    expectChallengeSolved({ challenge: 'Allowlist Bypass' })
   })
 
   describe('challenge "redirectCryptoCurrency"', () => {
@@ -29,6 +30,6 @@ describe('/redirect', () => {
       void browser.driver.get(`${browser.baseUrl}/redirect?to=https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6`)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Outdated Allowlist' })
+    expectChallengeSolved({ challenge: 'Outdated Allowlist' })
   })
 })
