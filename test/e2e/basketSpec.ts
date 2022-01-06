@@ -49,7 +49,7 @@ describe('/#/basket', () => {
     describe('challenge "basketManipulateChallenge"', () => {
       it('should manipulate basket of other user instead of the one associated to logged-in user', () => {
         void browser.waitForAngularEnabled(false)
-        void browser.executeScript(baseUrl => {
+        void browser.executeScript((baseUrl: string) => {
           const xhttp = new XMLHttpRequest()
           xhttp.onreadystatechange = function () {
             if (this.status === 200) {

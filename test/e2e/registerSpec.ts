@@ -44,8 +44,8 @@ describe('/#/register', () => {
         const EC = protractor.ExpectedConditions
         void browser.get(`${basePath}/#/administration`)
         void browser.wait(EC.alertIsPresent(), 10000, "'xss' alert is not present on /#/administration")
-        void browser.switchTo().alert().then(alert => {
-          expect(alert.getText()).toEqual('xss')
+        void browser.switchTo().alert().then(async alert => {
+          await expectAsync(alert.getText()).toBeResolvedTo('xss')
           void alert.accept()
           // Disarm XSS payload so subsequent tests do not run into unexpected alert boxes
           models.User.findOne({ where: { email: '<iframe src="javascript:alert(`xss`)">' } }).then(user => {

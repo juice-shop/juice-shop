@@ -19,8 +19,8 @@ describe('/#/track-order', () => {
         void browser.refresh()
 
         void browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /#/track-result ")
-        void browser.switchTo().alert().then(alert => {
-          expect(alert.getText()).toEqual('xss')
+        void browser.switchTo().alert().then(async alert => {
+          await expectAsync(alert.getText()).toBeResolvedTo('xss')
           void alert.accept()
         })
         void browser.waitForAngularEnabled(true)
