@@ -47,6 +47,7 @@
     "ngx-clipboard": "^13.0.1",
     "ngx-cookie-service": "^10.0.1",
     "ngx-spinner": "^10.0.1",
+    "ngx-window-token": "^5.0.0",
     "node-sass": "^4.14.1",
     "rxjs": "6.6.2",
     "snarkdown": "^1.2.2",
