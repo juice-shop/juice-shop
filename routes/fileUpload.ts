@@ -31,8 +31,8 @@ function ensureFileIsPassed ({ file }: Request, res: Response, next: NextFunctio
 }
 
 function handleZipFileUpload ({ file }: Request, res: Response, next: NextFunction) {
-  if (utils.endsWith(file.originalname.toLowerCase(), '.zip')) {
-    if (file.buffer && !utils.disableOnContainerEnv()) {
+  if (utils.endsWith(file?.originalname.toLowerCase(), '.zip')) {
+    if (file?.buffer && !utils.disableOnContainerEnv()) {
       const buffer = file.buffer
       const filename = file.originalname.toLowerCase()
       const tempFile = path.join(os.tmpdir(), filename)
@@ -43,7 +43,7 @@ function handleZipFileUpload ({ file }: Request, res: Response, next: NextFuncti
           fs.close(fd, function () {
             fs.createReadStream(tempFile)
               .pipe(unzipper.Parse())
-              .on('entry', function (entry) {
+              .on('entry', function (entry: any) {
                 const fileName = entry.path
                 const absolutePath = path.resolve('uploads/complaints/' + fileName)
                 utils.solveIf(challenges.fileWriteChallenge, () => { return absolutePath === path.resolve('ftp/legal.md') })
@@ -64,12 +64,12 @@ function handleZipFileUpload ({ file }: Request, res: Response, next: NextFuncti
 }
 
 function checkUploadSize ({ file }: Request, res: Response, next: NextFunction) {
-  utils.solveIf(challenges.uploadSizeChallenge, () => { return file.size > 100000 })
+  utils.solveIf(challenges.uploadSizeChallenge, () => { return file?.size > 100000 })
   next()
 }
 
 function checkFileType ({ file }: Request, res: Response, next: NextFunction) {
-  const fileType = file.originalname.substr(file.originalname.lastIndexOf('.') + 1).toLowerCase()
+  const fileType = file?.originalname.substr(file.originalname.lastIndexOf('.') + 1).toLowerCase()
   utils.solveIf(challenges.uploadTypeChallenge, () => {
     return !(fileType === 'pdf' || fileType === 'xml' || fileType === 'zip')
   })
@@ -77,9 +77,9 @@ function checkFileType ({ file }: Request, res: Response, next: NextFunction) {
 }
 
 function handleXmlUpload ({ file }: Request, res: Response, next: NextFunction) {
-  if (utils.endsWith(file.originalname.toLowerCase(), '.xml')) {
+  if (utils.endsWith(file?.originalname.toLowerCase(), '.xml')) {
     utils.solveIf(challenges.deprecatedInterfaceChallenge, () => { return true })
-    if (file.buffer && !utils.disableOnContainerEnv()) { // XXE attacks in Docker/Heroku containers regularly cause "segfault" crashes
+    if (file?.buffer && !utils.disableOnContainerEnv()) { // XXE attacks in Docker/Heroku containers regularly cause "segfault" crashes
       const data = file.buffer.toString()
       try {
         const sandbox = { libxml, data }
@@ -103,7 +103,7 @@ function handleXmlUpload ({ file }: Request, res: Response, next: NextFunction) 
       }
     } else {
       res.status(410)
-      next(new Error('B2B customer complaints via file upload have been deprecated for security reasons (' + file.originalname + ')'))
+      next(new Error('B2B customer complaints via file upload have been deprecated for security reasons (' + file?.originalname + ')'))
     }
   }
   res.status(204).end()

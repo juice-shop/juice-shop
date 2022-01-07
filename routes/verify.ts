@@ -61,7 +61,7 @@ exports.accessControlChallenges = () => ({ url }: Request, res: Response, next: 
   next()
 }
 
-exports.errorHandlingChallenge = () => (err, req, { statusCode }, next) => {
+exports.errorHandlingChallenge = () => (err, req: Request, { statusCode }, next: NextFunction) => {
   utils.solveIf(challenges.errorHandlingChallenge, () => { return err && (statusCode === 200 || statusCode > 401) })
   next(err)
 }
@@ -93,7 +93,7 @@ exports.serverSideChallenges = () => (req: Request, res: Response, next: NextFun
   next()
 }
 
-function jwtChallenge (challenge, req, algorithm, email) {
+function jwtChallenge (challenge, req: Request, algorithm: string, email: string) {
   const token = utils.jwtFrom(req)
   if (token) {
     const decoded = jws.decode(token) ? jwt.decode(token) : null
@@ -105,12 +105,12 @@ function jwtChallenge (challenge, req, algorithm, email) {
   }
 }
 
-function hasAlgorithm (token, algorithm) {
+function hasAlgorithm (token, algorithm: string) {
   const header = JSON.parse(Buffer.from(token.split('.')[0], 'base64').toString())
   return token && header && header.alg === algorithm
 }
 
-function hasEmail (token, email) {
+function hasEmail (token, email: string) {
   return token?.data?.email?.match(email)
 }
 
@@ -146,7 +146,7 @@ exports.databaseRelatedChallenges = () => (req: Request, res: Response, next: Ne
 }
 
 function changeProductChallenge (osaft) {
-  let urlForProductTamperingChallenge = null
+  let urlForProductTamperingChallenge: string | null = null
   osaft.reload().then(() => {
     for (const product of config.products) {
       if (product.urlForProductTamperingChallenge !== undefined) {
