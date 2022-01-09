@@ -125,7 +125,7 @@ describe('/#/complain', () => {
         void browser.get(`${basePath}/promotion`)
         void browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /promotion")
         void browser.switchTo().alert().then(alert => {
-          expect(alert.getText()).toEqual('xss')
+          expect(alert.getText()).toEqual(Promise.resolve('xss'))
           void alert.accept()
         })
         void browser.get(`${basePath}/`)

@@ -66,14 +66,14 @@ describe('/#/contact', () => {
 
         void browser.wait(EC.alertIsPresent(), 15000, "'xss' alert is not present on /#/about")
         void browser.switchTo().alert().then(alert => {
-          expect(alert.getText()).toEqual('xss')
+          expect(alert.getText()).toEqual(Promise.resolve('xss'))
           void alert.accept()
         })
 
         void browser.get(`${basePath}/#/administration`)
         void browser.wait(EC.alertIsPresent(), 15000, "'xss' alert is not present on /#/administration")
         void browser.switchTo().alert().then(alert => {
-          expect(alert.getText()).toEqual('xss')
+          expect(alert.getText()).toEqual(Promise.resolve('xss'))
           void alert.accept()
           void $$('.mat-cell.mat-column-remove > button').last().click()
           void browser.wait(EC.stalenessOf(element(by.tagName('iframe'))), 5000)
@@ -143,7 +143,7 @@ describe('/#/contact', () => {
 
   describe('challenge "zeroStars"', () => {
     it('should be possible to post feedback with zero stars by double-clicking rating widget', () => {
-      void browser.executeAsyncScript(baseUrl => {
+      void browser.executeAsyncScript((baseUrl: string) => {
         const callback = arguments[arguments.length - 1]; // eslint-disable-line
         const xhttp = new XMLHttpRequest()
         let captcha
