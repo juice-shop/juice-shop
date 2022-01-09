@@ -33,7 +33,7 @@ jobs:
         run: |
           npm install --ignore-scripts
           cd frontend
-          npm install --ignore-scripts
+          npm install --ignore-scripts --legacy-peer-deps
       - name: "Lint source code"
         run: npm run lint
       - name: "Lint customization configs"
