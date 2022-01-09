@@ -8,7 +8,6 @@ import { $, $$, browser, by, element, protractor } from 'protractor'
 import { basePath, beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
 
 const security = require('../../lib/insecurity')
-const models = require('../../models/index')
 
 describe('/#/basket', () => {
   describe('as admin', () => {
@@ -49,7 +48,7 @@ describe('/#/basket', () => {
     describe('challenge "basketManipulateChallenge"', () => {
       it('should manipulate basket of other user instead of the one associated to logged-in user', () => {
         void browser.waitForAngularEnabled(false)
-        void browser.executeScript(baseUrl => {
+        void browser.executeScript((baseUrl: string) => {
           const xhttp = new XMLHttpRequest()
           xhttp.onreadystatechange = function () {
             if (this.status === 200) {
@@ -108,9 +107,7 @@ describe('/#/basket', () => {
 
       it('should be possible to add a product in the basket', () => {
         void browser.waitForAngularEnabled(false)
-        models.sequelize.query('SELECT * FROM PRODUCTS').then(([products]) => {
-          void browser.executeScript(`var xhttp = new XMLHttpRequest(); xhttp.onreadystatechange = function () { if (this.status === 201) { console.log("Success") } } ; xhttp.open("POST", "${browser.baseUrl}/api/BasketItems/", true); xhttp.setRequestHeader("Content-type", "application/json"); xhttp.setRequestHeader("Authorization", \`Bearer $\{localStorage.getItem("token")}\`); xhttp.send(JSON.stringify({"BasketId": \`$\{sessionStorage.getItem("bid")}\`, "ProductId":1, "quantity": 1}))`) // eslint-disable-line
-        })
+        void browser.executeScript(`var xhttp = new XMLHttpRequest(); xhttp.onreadystatechange = function () { if (this.status === 201) { console.log("Success") } } ; xhttp.open("POST", "${browser.baseUrl}/api/BasketItems/", true); xhttp.setRequestHeader("Content-type", "application/json"); xhttp.setRequestHeader("Authorization", \`Bearer $\{localStorage.getItem("token")}\`); xhttp.send(JSON.stringify({"BasketId": \`$\{sessionStorage.getItem("bid")}\`, "ProductId":1, "quantity": 1}))`) // eslint-disable-line
         void browser.driver.sleep(1000)
         void browser.waitForAngularEnabled(true)
       })
