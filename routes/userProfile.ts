@@ -1,10 +1,12 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import fs = require('fs')
-const models = require('../models/index')
+import { Request, Response, NextFunction } from 'express'
+
+import models = require('../models/index')
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
@@ -15,7 +17,7 @@ const Entities = require('html-entities').AllHtmlEntities
 const entities = new Entities()
 
 module.exports = function getUserProfile () {
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     fs.readFile('views/userProfile.pug', function (err, buf) {
       if (err != null) throw err
       const loggedInUser = security.authenticatedUsers.get(req.cookies.token)

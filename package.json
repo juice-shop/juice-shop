@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "13.0.3",
+  "version": "13.1.0",
   "private": true,
   "description": "Probably the most modern and sophisticated insecure web application",
   "keywords": [
@@ -202,6 +202,7 @@
     "@types/js-yaml": "^3.12.6",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/jws": "^3.2.3",
+    "@types/mocha": "^8.1.1",
     "@types/morgan": "^1.9.2",
     "@types/multer": "^1.4.5",
     "@types/node": "^14.14.31",
@@ -226,7 +227,7 @@
     "chai-as-promised": "^7.1.1",
     "cross-spawn": "^7.0.3",
     "eslint": "^7.21.0",
-    "eslint-config-standard-with-typescript": "^20.0.0",
+    "eslint-config-standard-with-typescript": "^21.0.1",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.3.1",
@@ -252,7 +253,7 @@
     "webdriver-manager": "^13.0.0"
   },
   "engines": {
-    "node": "12 - 16"
+    "node": "12 - 17"
   },
   "os": [
     "win32",

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -108,13 +108,13 @@ exports.ctfFlag = text => {
   return shaObj.getHMAC('HEX')
 }
 
-exports.solveIf = function (challenge, criteria, isRestore) {
+exports.solveIf = function (challenge, criteria, isRestore = false) {
   if (this.notSolved(challenge) && criteria()) {
     this.solve(challenge, isRestore)
   }
 }
 
-exports.solve = function (challenge, isRestore) {
+exports.solve = function (challenge, isRestore = false) {
   challenge.solved = true
   challenge.save().then((solvedChallenge) => {
     logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} ${solvedChallenge.difficulty}-star ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)

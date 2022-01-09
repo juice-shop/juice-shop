@@ -1,22 +1,24 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import models = require('../models/index')
+import { Request, Response, NextFunction } from 'express'
+
 const security = require('../lib/insecurity')
 const utils = require('../lib/utils')
 const cache = require('../data/datacache')
 const challenges = cache.challenges
 
 module.exports = function updateUserProfile () {
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     const loggedInUser = security.authenticatedUsers.get(req.cookies.token)
 
     if (loggedInUser) {
       models.User.findByPk(loggedInUser.data.id).then(user => {
         utils.solveIf(challenges.csrfChallenge, () => {
-          return ((req.headers.origin?.includes('://htmledit.squarefree.com')) ||
+          return ((req.headers.origin?.includes('://htmledit.squarefree.com')) ??
             (req.headers.referer?.includes('://htmledit.squarefree.com'))) &&
             req.body.username !== user.username
         })

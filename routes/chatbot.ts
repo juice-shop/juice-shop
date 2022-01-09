@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import fs = require('fs')
+import { Request, Response, NextFunction } from 'express'
+import models = require('../models/index')
+
 const { Bot } = require('juicy-chat-bot')
 const security = require('../lib/insecurity')
 const jwt = require('jsonwebtoken')
@@ -11,7 +14,6 @@ const utils = require('../lib/utils')
 const botUtils = require('../lib/botUtils')
 const config = require('config')
 const download = require('download')
-const models = require('../models/index')
 const challenges = require('../data/datacache').challenges
 
 let trainingFile = config.get('application.chatBot.trainingData')
@@ -40,7 +42,7 @@ async function initialize () {
 
 void initialize()
 
-async function processQuery (user, req, res) {
+async function processQuery (user, req: Request, res: Response) {
   const username = user.username
   if (!username) {
     res.status(200).json({
@@ -102,7 +104,7 @@ async function processQuery (user, req, res) {
   }
 }
 
-function setUserName (user, req, res) {
+function setUserName (user, req: Request, res: Response) {
   models.User.findByPk(user.id).then(user => {
     user.update({ username: req.body.query }).then(newuser => {
       newuser = utils.queryResultToJson(newuser)
@@ -123,7 +125,7 @@ module.exports.initialize = initialize
 module.exports.bot = bot
 
 module.exports.status = function status () {
-  return async (req, res, next) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     if (!bot) {
       res.status(200).json({
         status: false,
@@ -176,7 +178,7 @@ module.exports.status = function status () {
 }
 
 module.exports.process = function respond () {
-  return async (req, res, next) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     if (!bot) {
       res.status(200).json({
         action: 'response',
