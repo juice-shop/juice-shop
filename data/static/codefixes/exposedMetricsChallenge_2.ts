@@ -28,7 +28,7 @@ export async function start (readyCallback) {
 
 }
 
-export function close (exitCode) {
+export function close (exitCode: number | undefined) {
   if (server) {
     server.close()
   }

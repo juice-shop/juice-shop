@@ -1,16 +1,19 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
+
+import { browser } from 'protractor'
+import { basePath, expectChallengeSolved } from './e2eHelpers'
 
 describe('/metrics/', () => {
   describe('challenge "exposedMetrics"', () => {
     it('Challenge is solved on accessing the /metrics route', () => {
-      browser.waitForAngularEnabled(false)
-      browser.get(`${protractor.basePath}/metrics`)
-      browser.waitForAngularEnabled(true)
+      void browser.waitForAngularEnabled(false)
+      void browser.get(`${basePath}/metrics`)
+      void browser.waitForAngularEnabled(true)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Exposed Metrics' })
+    expectChallengeSolved({ challenge: 'Exposed Metrics' })
   })
 })

@@ -1,23 +1,25 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import config = require('config')
+import { $, browser, by, element, ElementFinder, protractor } from 'protractor'
+import { basePath, expectChallengeSolved } from './e2eHelpers'
 
 describe('/#/photo-wall', () => {
-  let email, securityAnswer, newPassword, newPasswordRepeat, resetButton
+  let email: ElementFinder, securityAnswer: ElementFinder, newPassword: ElementFinder, newPasswordRepeat: ElementFinder, resetButton: ElementFinder
 
   const EC = protractor.ExpectedConditions
 
   beforeEach(() => {
-    $('#logout').isPresent().then((result) => {
+    void $('#logout').isPresent().then((result) => {
       if (result) {
-        $('#logout').click()
+        void $('#logout').click()
       }
     })
-    browser.wait(EC.stalenessOf($('#logout')), 5000)
-    browser.get(`${protractor.basePath}/#/forgot-password`)
+    void browser.wait(EC.stalenessOf($('#logout')), 5000)
+    void browser.get(`${basePath}/#/forgot-password`)
     email = element(by.id('email'))
     securityAnswer = element(by.id('securityAnswer'))
     newPassword = element(by.id('newPassword'))
@@ -28,7 +30,7 @@ describe('/#/photo-wall', () => {
   describe('challenge "geoStalkingMeta"', () => {
     it('Should be possible to find the answer to a security question in the meta-data of a photo on the photo wall', () => {
       const answer = ((() => {
-        const memories = config.get('memories')
+        const memories: any = config.get('memories')
         for (let i = 0; i < memories.length; i++) {
           if (memories[i].geoStalkingMetaSecurityAnswer) {
             return memories[i].geoStalkingMetaSecurityAnswer
@@ -36,21 +38,21 @@ describe('/#/photo-wall', () => {
         }
       })())
 
-      email.sendKeys(`john@${config.get('application.domain')}`)
-      browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
-      securityAnswer.sendKeys(answer)
-      newPassword.sendKeys('123456')
-      newPasswordRepeat.sendKeys('123456')
-      resetButton.click()
+      void email.sendKeys(`john@${config.get('application.domain')}`)
+      void browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
+      void securityAnswer.sendKeys(answer)
+      void newPassword.sendKeys('123456')
+      void newPasswordRepeat.sendKeys('123456')
+      void resetButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Meta Geo Stalking' })
+    expectChallengeSolved({ challenge: 'Meta Geo Stalking' })
   })
 
   describe('challenge "geoStalkingVisual"', () => {
     it('Should be possible to determine the answer to a security question by looking closely at an image on the photo wall', () => {
       const answer = ((() => {
-        const memories = config.get('memories')
+        const memories: any = config.get('memories')
         for (let i = 0; i < memories.length; i++) {
           if (memories[i].geoStalkingVisualSecurityAnswer) {
             return memories[i].geoStalkingVisualSecurityAnswer
@@ -58,14 +60,14 @@ describe('/#/photo-wall', () => {
         }
       })())
 
-      email.sendKeys(`emma@${config.get('application.domain')}`)
-      browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
-      securityAnswer.sendKeys(answer)
-      newPassword.sendKeys('123456')
-      newPasswordRepeat.sendKeys('123456')
-      resetButton.click()
+      void email.sendKeys(`emma@${config.get('application.domain')}`)
+      void browser.wait(EC.elementToBeClickable(securityAnswer), 2000, 'Security answer field did not become visible')
+      void securityAnswer.sendKeys(answer)
+      void newPassword.sendKeys('123456')
+      void newPasswordRepeat.sendKeys('123456')
+      void resetButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Visual Geo Stalking' })
+    expectChallengeSolved({ challenge: 'Visual Geo Stalking' })
   })
 })

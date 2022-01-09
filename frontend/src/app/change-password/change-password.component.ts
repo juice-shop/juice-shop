@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -59,12 +59,12 @@ export class ChangePasswordComponent {
 
   resetForm () {
     this.passwordControl.setValue('')
-    this.passwordControl.markAsPristine()
-    this.passwordControl.markAsUntouched()
     this.resetPasswords()
   }
 
   resetPasswords () {
+    this.passwordControl.markAsPristine()
+    this.passwordControl.markAsUntouched()
     this.newPasswordControl.setValue('')
     this.newPasswordControl.markAsPristine()
     this.newPasswordControl.markAsUntouched()

@@ -1,4 +1,5 @@
-import { Request, Response, NextFunction } from 'express'
+import { NextFunction, Request, Response } from 'express'
+
 const accuracy = require('../lib/accuracy')
 const utils = require('../lib/utils')
 const fs = require('fs')

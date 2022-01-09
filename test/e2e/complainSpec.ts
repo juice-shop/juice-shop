@@ -1,19 +1,22 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import path = require('path')
+import { browser, by, element, protractor } from 'protractor'
+import { basePath, beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
+
 const config = require('config')
 const utils = require('../../lib/utils')
 
 describe('/#/complain', () => {
   let file, complaintMessage, submitButton
 
-  protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
+  beforeEachLogin({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
   beforeEach(() => {
-    browser.get(`${protractor.basePath}/#/complain`)
+    void browser.get(`${basePath}/#/complain`)
     file = element(by.id('file'))
     complaintMessage = element(by.id('complaintMessage'))
     submitButton = element(by.id('submitButton'))
@@ -21,8 +24,8 @@ describe('/#/complain', () => {
 
   describe('challenge "uploadSize"', () => {
     it('should be possible to upload files greater 100 KB directly through backend', () => {
-      browser.waitForAngularEnabled(false)
-      browser.executeScript(baseUrl => {
+      void browser.waitForAngularEnabled(false)
+      void browser.executeScript(baseUrl => {
         const over100KB = Array.apply(null, new Array(11000)).map(String.prototype.valueOf, '1234567890')
         const blob = new Blob(over100KB, { type: 'application/pdf' })
 
@@ -33,16 +36,16 @@ describe('/#/complain', () => {
         request.open('POST', `${baseUrl}/file-upload`)
         request.send(data)
       }, browser.baseUrl)
-      browser.driver.sleep(1000)
-      browser.waitForAngularEnabled(true)
+      void browser.driver.sleep(1000)
+      void browser.waitForAngularEnabled(true)
     })
-    protractor.expect.challengeSolved({ challenge: 'Upload Size' })
+    expectChallengeSolved({ challenge: 'Upload Size' })
   })
 
   describe('challenge "uploadType"', () => {
     it('should be possible to upload files with other extension than .pdf directly through backend', () => {
-      browser.waitForAngularEnabled(false)
-      browser.executeScript(baseUrl => {
+      void browser.waitForAngularEnabled(false)
+      void browser.executeScript(baseUrl => {
         const data = new FormData()
         const blob = new Blob(['test'], { type: 'application/x-msdownload' })
         data.append('file', blob, 'invalidTypeForClient.exe')
@@ -51,10 +54,10 @@ describe('/#/complain', () => {
         request.open('POST', `${baseUrl}/file-upload`)
         request.send(data)
       }, browser.baseUrl)
-      browser.driver.sleep(1000)
-      browser.waitForAngularEnabled(true)
+      void browser.driver.sleep(1000)
+      void browser.waitForAngularEnabled(true)
     })
-    protractor.expect.challengeSolved({ challenge: 'Upload Type' })
+    expectChallengeSolved({ challenge: 'Upload Type' })
   })
 
   describe('challenge "deprecatedInterface"', () => {
@@ -63,7 +66,7 @@ describe('/#/complain', () => {
       file.sendKeys(path.resolve('test/files/deprecatedTypeForServer.xml'))
       submitButton.click()
     })
-    protractor.expect.challengeSolved({ challenge: 'Deprecated Interface' })
+    expectChallengeSolved({ challenge: 'Deprecated Interface' })
   })
 
   if (!utils.disableOnContainerEnv()) {
@@ -81,7 +84,7 @@ describe('/#/complain', () => {
       })
 
       afterAll(() => {
-        protractor.expect.challengeSolved({ challenge: 'XXE Data Access' })
+        expectChallengeSolved({ challenge: 'XXE Data Access' })
       })
     })
 
@@ -99,7 +102,7 @@ describe('/#/complain', () => {
       })
 
       afterAll(() => {
-        protractor.expect.challengeSolved({ challenge: 'XXE DoS' })
+        expectChallengeSolved({ challenge: 'XXE DoS' })
       })
     })
 
@@ -109,7 +112,7 @@ describe('/#/complain', () => {
         file.sendKeys(path.resolve('test/files/arbitraryFileWrite.zip'))
         submitButton.click()
       })
-      protractor.expect.challengeSolved({ challenge: 'Arbitrary File Write' })
+      expectChallengeSolved({ challenge: 'Arbitrary File Write' })
     })
 
     describe('challenge "videoXssChallenge"', () => {
@@ -118,18 +121,18 @@ describe('/#/complain', () => {
         complaintMessage.sendKeys('Here we go!')
         file.sendKeys(path.resolve('test/files/videoExploit.zip'))
         submitButton.click()
-        browser.waitForAngularEnabled(false)
-        browser.get(`${protractor.basePath}/promotion`)
-        browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /promotion")
-        browser.switchTo().alert().then(alert => {
-          expect(alert.getText()).toEqual('xss')
-          alert.accept()
+        void browser.waitForAngularEnabled(false)
+        void browser.get(`${basePath}/promotion`)
+        void browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /promotion")
+        void browser.switchTo().alert().then(alert => {
+          expect(alert.getText()).toEqual(Promise.resolve('xss'))
+          void alert.accept()
         })
-        browser.get(`${protractor.basePath}/`)
-        browser.driver.sleep(5000)
-        browser.waitForAngularEnabled(true)
+        void browser.get(`${basePath}/`)
+        void browser.driver.sleep(5000)
+        void browser.waitForAngularEnabled(true)
       })
-      protractor.expect.challengeSolved({ challenge: 'Video XSS' })
+      expectChallengeSolved({ challenge: 'Video XSS' })
     })
   }
 })

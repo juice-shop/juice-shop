@@ -1,9 +1,11 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import models = require('../models/index')
+import { Request, Response, NextFunction } from 'express'
+
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
 const jwt = require('jsonwebtoken')
@@ -14,7 +16,7 @@ const challenges = cache.challenges
 const products = cache.products
 const config = require('config')
 
-exports.forgedFeedbackChallenge = () => (req, res, next) => {
+exports.forgedFeedbackChallenge = () => (req: Request, res: Response, next: NextFunction) => {
   utils.solveIf(challenges.forgedFeedbackChallenge, () => {
     const user = security.authenticatedUsers.from(req)
     const userId = user?.data ? user.data.id : undefined
@@ -23,7 +25,7 @@ exports.forgedFeedbackChallenge = () => (req, res, next) => {
   next()
 }
 
-exports.captchaBypassChallenge = () => (req, res, next) => {
+exports.captchaBypassChallenge = () => (req: Request, res: Response, next: NextFunction) => {
   if (utils.notSolved(challenges.captchaBypassChallenge)) {
     if (req.app.locals.captchaReqId >= 10) {
       if ((new Date().getTime() - req.app.locals.captchaBypassReqTimes[req.app.locals.captchaReqId - 10]) <= 10000) {
@@ -36,17 +38,17 @@ exports.captchaBypassChallenge = () => (req, res, next) => {
   next()
 }
 
-exports.registerAdminChallenge = () => (req, res, next) => {
+exports.registerAdminChallenge = () => (req: Request, res: Response, next: NextFunction) => {
   utils.solveIf(challenges.registerAdminChallenge, () => { return req.body && req.body.role === security.roles.admin })
   next()
 }
 
-exports.passwordRepeatChallenge = () => (req, res, next) => {
+exports.passwordRepeatChallenge = () => (req: Request, res: Response, next: NextFunction) => {
   utils.solveIf(challenges.passwordRepeatChallenge, () => { return req.body && req.body.passwordRepeat !== req.body.password })
   next()
 }
 
-exports.accessControlChallenges = () => ({ url }, res, next) => {
+exports.accessControlChallenges = () => ({ url }: Request, res: Response, next: NextFunction) => {
   utils.solveIf(challenges.scoreBoardChallenge, () => { return utils.endsWith(url, '/1px.png') })
   utils.solveIf(challenges.adminSectionChallenge, () => { return utils.endsWith(url, '/19px.png') })
   utils.solveIf(challenges.tokenSaleChallenge, () => { return utils.endsWith(url, '/56px.png') })
@@ -59,12 +61,12 @@ exports.accessControlChallenges = () => ({ url }, res, next) => {
   next()
 }
 
-exports.errorHandlingChallenge = () => (err, req, { statusCode }, next) => {
+exports.errorHandlingChallenge = () => (err, req: Request, { statusCode }, next: NextFunction) => {
   utils.solveIf(challenges.errorHandlingChallenge, () => { return err && (statusCode === 200 || statusCode > 401) })
   next(err)
 }
 
-exports.jwtChallenges = () => (req, res, next) => {
+exports.jwtChallenges = () => (req: Request, res: Response, next: NextFunction) => {
   if (utils.notSolved(challenges.jwtUnsignedChallenge)) {
     jwtChallenge(challenges.jwtUnsignedChallenge, req, 'none', /jwtn3d@/)
   }
@@ -74,7 +76,7 @@ exports.jwtChallenges = () => (req, res, next) => {
   next()
 }
 
-exports.serverSideChallenges = () => (req, res, next) => {
+exports.serverSideChallenges = () => (req: Request, res: Response, next: NextFunction) => {
   if (req.query.key === 'tRy_H4rd3r_n0thIng_iS_Imp0ssibl3') {
     if (utils.notSolved(challenges.sstiChallenge) && req.app.locals.abused_ssti_bug === true) {
       utils.solve(challenges.sstiChallenge)
@@ -91,7 +93,7 @@ exports.serverSideChallenges = () => (req, res, next) => {
   next()
 }
 
-function jwtChallenge (challenge, req, algorithm, email) {
+function jwtChallenge (challenge, req: Request, algorithm: string, email: string) {
   const token = utils.jwtFrom(req)
   if (token) {
     const decoded = jws.decode(token) ? jwt.decode(token) : null
@@ -103,16 +105,16 @@ function jwtChallenge (challenge, req, algorithm, email) {
   }
 }
 
-function hasAlgorithm (token, algorithm) {
+function hasAlgorithm (token, algorithm: string) {
   const header = JSON.parse(Buffer.from(token.split('.')[0], 'base64').toString())
   return token && header && header.alg === algorithm
 }
 
-function hasEmail (token, email) {
+function hasEmail (token, email: string) {
   return token?.data?.email?.match(email)
 }
 
-exports.databaseRelatedChallenges = () => (req, res, next) => {
+exports.databaseRelatedChallenges = () => (req: Request, res: Response, next: NextFunction) => {
   if (utils.notSolved(challenges.changeProductChallenge) && products.osaft) {
     changeProductChallenge(products.osaft)
   }
@@ -144,7 +146,7 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
 }
 
 function changeProductChallenge (osaft) {
-  let urlForProductTamperingChallenge = null
+  let urlForProductTamperingChallenge: string | null = null
   osaft.reload().then(() => {
     for (const product of config.products) {
       if (product.urlForProductTamperingChallenge !== undefined) {

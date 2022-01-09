@@ -35,7 +35,7 @@ Yes, the previous version in which this bug was not present was: `x.y.z`
 
 <!-- ✍️Simple steps to reproduce this bug.
 
-Issues that don't have enough info and can't be reproduced will be will be labeled with "missing information" and closed shortly afterwards.
+Issues that don't have enough info and can't be reproduced will be labeled with "missing information" and closed shortly afterwards.
 -->
 
 
