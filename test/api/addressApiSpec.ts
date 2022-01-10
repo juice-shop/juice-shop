@@ -9,8 +9,8 @@ const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
 
 const jsonHeader = { 'content-type': 'application/json' }
-let authHeader
-let addressId
+let authHeader: { Authorization: string, 'content-type': string }
+let addressId: string
 
 beforeAll(() => {
   return frisby.post(REST_URL + '/user/login', {

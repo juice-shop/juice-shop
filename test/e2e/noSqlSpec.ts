@@ -86,7 +86,7 @@ describe('/rest/products/reviews', () => {
         xhttp.setRequestHeader('Content-type', 'text/plain')
         xhttp.send()
 
-        function editReview (reviewId) {
+        function editReview (reviewId: string) {
           const xhttp = new XMLHttpRequest()
           xhttp.onreadystatechange = function () {
             if (this.status === 200) {

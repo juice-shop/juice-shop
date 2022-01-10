@@ -9,7 +9,7 @@ const utils = require('../../lib/utils')
 
 const URL = 'http://localhost:3000'
 
-let blueprint
+let blueprint: string
 
 for (const product of config.get('products')) {
   if (product.fileForRetrieveBlueprintChallenge) {

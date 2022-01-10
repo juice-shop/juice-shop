@@ -9,7 +9,7 @@ const config = require('config')
 const URL = 'http://localhost:3000'
 
 const jsonHeader = { 'content-type': 'application/json' }
-let authHeader
+let authHeader: { Cookie: any }
 
 beforeAll(() => {
   return frisby.post(`${URL}/rest/user/login`, {
