@@ -6,5 +6,5 @@
 import server = require('./../server')
 
 module.exports = async () => {
-  server.close()
+  server.close(undefined)
 }

@@ -6,7 +6,7 @@
 import server = require('./../server')
 
 // eslint-disable-next-line no-async-promise-executor,@typescript-eslint/no-misused-promises
-export = async () => await new Promise(async (resolve, reject) =>
+export = async () => await new Promise<void>(async (resolve, reject) =>
   await server.start(err => {
     if (err) {
       reject(err)

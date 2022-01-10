@@ -8,7 +8,7 @@ import frisby = require('frisby')
 const REST_URL = 'http://localhost:3000/rest'
 
 const jsonHeader = { 'content-type': 'application/json' }
-let authHeader
+let authHeader: { Authorization: string, 'content-type': string }
 
 beforeAll(() => {
   return frisby.post(`${REST_URL}/user/login`, {

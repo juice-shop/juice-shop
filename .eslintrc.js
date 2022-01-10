@@ -38,7 +38,8 @@ module.exports = {
         '@typescript-eslint/restrict-plus-operands': 'off', // 292
         '@typescript-eslint/strict-boolean-expressions': 'off', // 388
         '@typescript-eslint/restrict-template-expressions': 'off', // 466
-        '@typescript-eslint/no-var-requires': 'off' // 502
+        '@typescript-eslint/no-var-requires': 'off', // 502
+        '@typescript-eslint/no-misused-promises': 'off' // 95
       }
     }
   ]

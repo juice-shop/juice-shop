@@ -16,7 +16,7 @@ const API_URL = 'http://localhost:3000/api'
 
 const jsonHeader = { 'content-type': 'application/json' }
 
-async function login ({ email, password, totpSecret }) {
+async function login ({ email, password, totpSecret }: { email: string, password: string, totpSecret?: string }) {
   const loginRes = await frisby
     .post(REST_URL + '/user/login', {
       email,
@@ -41,7 +41,7 @@ async function login ({ email, password, totpSecret }) {
   return loginRes.json.authentication
 }
 
-async function register ({ email, password, totpSecret }) {
+async function register ({ email, password, totpSecret }: { email: string, password: string, totpSecret?: string }) {
   const res = await frisby
     .post(API_URL + '/Users/', {
       email,
@@ -79,7 +79,7 @@ async function register ({ email, password, totpSecret }) {
   return res
 }
 
-function getStatus (token) {
+function getStatus (token: string) {
   return frisby.get(
     REST_URL + '/2fa/status',
     {
