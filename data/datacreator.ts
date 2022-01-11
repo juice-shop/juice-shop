@@ -21,7 +21,7 @@ const entities = new Entities()
 
 const readFile = util.promisify(fs.readFile)
 
-function loadStaticData (file) {
+function loadStaticData (file: string) {
   const filePath = path.resolve('./data/static/' + file + '.yml')
   return readFile(filePath, 'utf8')
     .then(safeLoad)
@@ -59,7 +59,7 @@ async function createChallenges () {
   const challenges = await loadStaticData('challenges')
 
   await Promise.all(
-    challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, mitigationUrl, key, disabledEnv, tutorial, tags }) => {
+    challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, mitigationUrl, key, disabledEnv, tutorial, tags }: Challenge) => {
       const effectiveDisabledEnv = utils.determineDisabledEnv(disabledEnv)
       description = description.replace('juice-sh.op', config.get('application.domain'))
       description = description.replace('&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;', entities.encode(config.get('challenges.xssBonusPayload')))
@@ -92,7 +92,7 @@ async function createUsers () {
   const users = await loadStaticData('users')
 
   await Promise.all(
-    users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret = '' }) => {
+    users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret = '' }: User) => {
       try {
         const completeEmail = customDomain ? email : `${email}@${config.get('application.domain')}`
         const user = await models.User.create({
@@ -668,4 +668,53 @@ async function createOrders () {
       })
     )
   )
+}
+
+export interface Challenge {
+  name: string
+  category: string
+  description: string
+  difficulty: number
+  hint: string
+  hintUrl: string
+  mitigationUrl: string
+  key: string
+  disabledEnv: string | string[]
+  tutorial: { order: number }
+  tags: string[]
+}
+
+export interface User {
+  username: string
+  email: string
+  password: string
+  customDomain: string
+  key: string
+  role: string
+  deletedFlag: boolean
+  profileImage: string
+  securityQuestion: {
+    id: number
+    answer: string
+  }
+  feedback: {
+    comment: string
+    rating: number
+  }
+  address: {
+    fullName: string
+    mobileNum: number
+    zipCode: string
+    streetAddress: string
+    city: string
+    state: string
+    country: string
+  }
+  card: {
+    fullName: string
+    cardNum: number
+    expMonth: number
+    expYear: number
+  }
+  totpSecret?: string
 }
