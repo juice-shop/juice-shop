@@ -13,7 +13,7 @@ const os = require('os')
 const config = require('config')
 const post = promisify(request.post)
 
-exports.notify = async (challenge, cheatScore = -1, webhook = process.env.SOLUTIONS_WEBHOOK) => {
+export const notify = async (challenge: { key: any, name: any }, cheatScore = -1, webhook = process.env.SOLUTIONS_WEBHOOK) => {
   const res = await post(webhook, {
     json: {
       solution: {
