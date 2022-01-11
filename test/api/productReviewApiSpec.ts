@@ -55,13 +55,13 @@ describe('/rest/products/reviews', () => {
     updated: Joi.array()
   }
 
-  let reviewId
+  let reviewId: string
 
   beforeAll((done) => {
     http.get(`${REST_URL}/products/1/reviews`, (res) => {
       let body = ''
 
-      res.on('data', chunk => {
+      res.on('data', (chunk: string) => {
         body += chunk
       })
 
@@ -119,7 +119,7 @@ describe('/rest/products/reviews', () => {
 
   it('PATCH multiple product review via injection', () => {
     // Count all the reviews. (Count starts at one because of the review inserted by the other tests...)
-    const totalReviews = config.get('products').reduce((sum, { reviews = [] }) => sum + reviews.length, 1)
+    const totalReviews = config.get('products').reduce((sum: number, { reviews = [] }: any) => sum + reviews.length, 1)
 
     return frisby.patch(`${REST_URL}/products/reviews`, {
       headers: authHeader,
