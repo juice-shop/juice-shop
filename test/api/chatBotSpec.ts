@@ -11,9 +11,9 @@ const utils = require('../../lib/utils')
 
 const REST_URL = 'http://localhost:3000/rest/'
 const API_URL = 'http://localhost:3000/api/'
-let trainingData
+let trainingData: { data: any[] }
 
-async function login ({ email, password, totpSecret }) {
+async function login ({ email, password }) {
   const loginRes = await frisby
     .post(REST_URL + '/user/login', {
       email,
