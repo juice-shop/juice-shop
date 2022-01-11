@@ -43,7 +43,7 @@ describe('/api', () => {
             expect(alert.getText()).toEqual(Promise.resolve('xss'))
             void alert.accept()
             // Disarm XSS payload so subsequent tests do not run into unexpected alert boxes
-            models.Product.findOne({ where: { name: 'RestXSS' } }).then(product => {
+            models.Product.findOne({ where: { name: 'RestXSS' } }).then((product: any) => {
               product.update({ description: '&lt;iframe src="javascript:alert(`xss`)"&gt;' }).catch(error => {
                 console.log(error)
                 fail()
@@ -74,7 +74,7 @@ describe('/api', () => {
     it('should be possible to change product via PUT request without being logged in', () => {
       void browser.waitForAngularEnabled(false)
 
-      void browser.executeScript((baseUrl, tamperingProductId, overwriteUrl) => {
+      void browser.executeScript((baseUrl: string, tamperingProductId: number, overwriteUrl: string) => {
         const xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function () {
           if (this.status === 200) {
@@ -104,7 +104,7 @@ describe('/rest/saveLoginIp', () => {
 
       it('should be possible to save log-in IP when logged in', () => {
         void browser.waitForAngularEnabled(false)
-        void browser.executeScript(baseUrl => {
+        void browser.executeScript((baseUrl: string) => {
           const xhttp = new XMLHttpRequest()
           xhttp.onreadystatechange = function () {
             if (this.status === 200) {

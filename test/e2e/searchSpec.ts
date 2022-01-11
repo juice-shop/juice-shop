@@ -87,8 +87,8 @@ describe('/rest/products/search', () => {
 
     it('should be able to place Christmas product into shopping card by id', () => {
       void browser.waitForAngularEnabled(false)
-      models.sequelize.query('SELECT * FROM PRODUCTS').then(([products]) => {
-        const christmasProductId = products.filter(product => product.name === christmasProduct.name)[0].id
+      models.sequelize.query('SELECT * FROM PRODUCTS').then(([products]: [any]) => {
+        const christmasProductId = products.filter((product: any) => product.name === christmasProduct.name)[0].id
         browser.executeScript(`var xhttp = new XMLHttpRequest(); xhttp.onreadystatechange = function () { if (this.status === 201) { console.log("Success") } } ; xhttp.open("POST", "${browser.baseUrl}/api/BasketItems/", true); xhttp.setRequestHeader("Content-type", "application/json"); xhttp.setRequestHeader("Authorization", \`Bearer $\{localStorage.getItem("token")}\`); xhttp.send(JSON.stringify({"BasketId": \`$\{sessionStorage.getItem("bid")}\`, "ProductId":${christmasProductId}, "quantity": 1}))`) // eslint-disable-line
       })
       void browser.driver.sleep(1000)

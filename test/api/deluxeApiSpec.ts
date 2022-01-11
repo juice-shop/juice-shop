@@ -10,7 +10,7 @@ const jsonHeader = { 'content-type': 'application/json' }
 const REST_URL = 'http://localhost:3000/rest'
 const API_URL = 'http://localhost:3000/api'
 
-async function login ({ email, password, totpSecret }) {
+async function login ({ email, password }) {
   const loginRes = await frisby
     .post(`${REST_URL}/user/login`, {
       email,

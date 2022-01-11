@@ -48,7 +48,7 @@ describe('/#/register', () => {
           expect(alert.getText()).toEqual(Promise.resolve('xss'))
           void alert.accept()
           // Disarm XSS payload so subsequent tests do not run into unexpected alert boxes
-          models.User.findOne({ where: { email: '<iframe src="javascript:alert(`xss`)">' } }).then(user => {
+          models.User.findOne({ where: { email: '<iframe src="javascript:alert(`xss`)">' } }).then((user: any) => {
             user.update({ email: '&lt;iframe src="javascript:alert(`xss`)"&gt;' }).catch(error => {
               console.log(error)
               fail()
