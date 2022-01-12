@@ -29,7 +29,7 @@ describe('blueprint', () => {
             pathToImage = path.resolve('frontend/src', pathToImage, product.image)
           }
 
-          ExifImage({ image: pathToImage }, function (error, exifData: any) {
+          ExifImage({ image: pathToImage }, function (error: Error, exifData: any) {
             if (error) {
               expect.fail(`Could not read EXIF data from ${pathToImage}`)
             }

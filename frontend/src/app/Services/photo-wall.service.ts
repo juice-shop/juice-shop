@@ -25,6 +25,6 @@ export class PhotoWallService {
   }
 
   get () {
-    return this.http.get(this.host + '/').pipe(map((response: any) => response.data), catchError(err => { throw err }))
+    return this.http.get(this.host + '/').pipe(map((response: any) => response.data), catchError((err: Error) => { throw err }))
   }
 }

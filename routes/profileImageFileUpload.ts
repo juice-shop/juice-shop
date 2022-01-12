@@ -34,7 +34,7 @@ module.exports = function fileUpload () {
           })
           models.User.findByPk(loggedInUser.data.id).then(user => {
             return user.update({ profileImage: `assets/public/images/uploads/${loggedInUser.data.id}.${uploadedFileType.ext}` })
-          }).catch(error => {
+          }).catch((error: Error) => {
             next(error)
           })
           res.location(process.env.BASE_PATH + '/profile')

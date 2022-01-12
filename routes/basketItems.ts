@@ -45,7 +45,7 @@ module.exports.addBasketItem = function addBasketItem () {
           data: basketItem
         }
         res.json(basketItem)
-      }).catch(error => {
+      }).catch((error: Error) => {
         next(error)
       })
     }
@@ -54,7 +54,7 @@ module.exports.addBasketItem = function addBasketItem () {
 
 module.exports.quantityCheckBeforeBasketItemAddition = function quantityCheckBeforeBasketItemAddition () {
   return (req: Request, res: Response, next: NextFunction) => {
-    void quantityCheck(req, res, next, req.body.ProductId, req.body.quantity).catch(error => {
+    void quantityCheck(req, res, next, req.body.ProductId, req.body.quantity).catch((error: Error) => {
       next(error)
     })
   }
@@ -70,7 +70,7 @@ module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBefor
       } else {
         next()
       }
-    }).catch(error => {
+    }).catch((error: Error) => {
       next(error)
     })
   }
