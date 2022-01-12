@@ -6,7 +6,7 @@ module.exports = function login () {
         user.bid = basket.id // keep track of original basket
         security.authenticatedUsers.put(token, user)
         res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })
-      }).catch(error => {
+      }).catch((error: Error) => {
         next(error)
       })
   }
@@ -31,7 +31,7 @@ module.exports = function login () {
         } else {
           res.status(401).send(res.__('Invalid email or password.'))
         }
-      }).catch(error => {
+      }).catch((error: Error) => {
         next(error)
     })
   }

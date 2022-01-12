@@ -40,7 +40,7 @@ captchas.verifyCaptcha = () => (req: Request, res: Response, next: NextFunction)
     } else {
       res.status(401).send(res.__('Wrong answer to CAPTCHA. Please try again.'))
     }
-  }).catch(error => {
+  }).catch((error: Error) => {
     next(error)
   })
 }

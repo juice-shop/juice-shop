@@ -30,7 +30,7 @@ module.exports = function updateUserProfile () {
           res.location(process.env.BASE_PATH + '/profile')
           res.redirect(process.env.BASE_PATH + '/profile')
         })
-      }).catch(error => {
+      }).catch((error: Error) => {
         next(error)
       })
     } else {

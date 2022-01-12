@@ -202,7 +202,7 @@ export const extractFilename = (url: string) => {
 export const downloadToFile = async (url: string, dest: string) => {
   return download(url).then((data: string | Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | BigUint64Array | BigInt64Array | Float32Array | Float64Array | DataView) => {
     fs.writeFileSync(dest, data)
-  }).catch(err => {
+  }).catch((err: Error) => {
     logger.warn('Failed to download ' + url + ' (' + err.statusMessage + ')')
   })
 }

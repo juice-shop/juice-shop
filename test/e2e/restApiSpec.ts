@@ -45,11 +45,11 @@ describe('/api', () => {
             void alert.accept()
             // Disarm XSS payload so subsequent tests do not run into unexpected alert boxes
             models.Product.findOne({ where: { name: 'RestXSS' } }).then((product: any) => {
-              product.update({ description: '&lt;iframe src="javascript:alert(`xss`)"&gt;' }).catch(error => {
+              product.update({ description: '&lt;iframe src="javascript:alert(`xss`)"&gt;' }).catch((error: Error) => {
                 console.log(error)
                 fail()
               })
-            }).catch(error => {
+            }).catch((error: Error) => {
               console.log(error)
               fail()
             })
