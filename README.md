@@ -1,4 +1,5 @@
-IMPORTANT: Run ``npm install --legacy-peer-deps``
+IMPORTANT: This version of juice-shop is intended to run on Node 10-12. It may be easiest to use included Dockerfile to create a container image. You should **not** need to run ``npm install`` on your local system
+
 # ![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_100px.png) OWASP Juice Shop
 
 [![OWASP Flagship](https://img.shields.io/badge/owasp-flagship%20project-48A646.svg)](https://owasp.org/projects/#sec-flagships)
