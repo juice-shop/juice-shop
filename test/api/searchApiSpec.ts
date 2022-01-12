@@ -4,11 +4,12 @@
  */
 
 import frisby = require('frisby')
+import { Product } from '../../data/types'
 const security = require('../../lib/insecurity')
 const config = require('config')
 
-const christmasProduct = config.get('products').filter(({ useForChristmasSpecialChallenge }) => useForChristmasSpecialChallenge)[0]
-const pastebinLeakProduct = config.get('products').filter(({ keywordsForPastebinDataLeakChallenge }) => keywordsForPastebinDataLeakChallenge)[0]
+const christmasProduct = config.get('products').filter(({ useForChristmasSpecialChallenge }: Product) => useForChristmasSpecialChallenge)[0]
+const pastebinLeakProduct = config.get('products').filter(({ keywordsForPastebinDataLeakChallenge }: Product) => keywordsForPastebinDataLeakChallenge)[0]
 
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'

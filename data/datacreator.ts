@@ -4,7 +4,8 @@
  */
 
 /* jslint node: true */
-import models = require('../models/index')
+import * as models from '../models/index'
+import { Address, Card, Challenge, Delivery, Memory, Product, Recycle, SecurityQuestion, User } from './types'
 const datacache = require('./datacache')
 const config = require('config')
 const utils = require('../lib/utils')
@@ -555,7 +556,7 @@ async function createSecurityQuestions () {
   const questions = await loadStaticData('securityQuestions')
 
   await Promise.all(
-    questions.map(async ({ question }: { question: string }) => {
+    questions.map(async ({ question }: SecurityQuestion) => {
       try {
         await models.SecurityQuestion.create({ question })
       } catch (err) {
@@ -668,106 +669,4 @@ async function createOrders () {
       })
     )
   )
-}
-
-interface Challenge {
-  name: string
-  category: string
-  description: string
-  difficulty: number
-  hint: string
-  hintUrl: string
-  mitigationUrl?: string
-  key: string
-  disabledEnv?: string | string[]
-  tutorial?: { order: number }
-  tags?: string[]
-}
-
-interface User {
-  username?: string
-  email: string
-  password: string
-  customDomain?: string
-  key: string
-  role: string
-  deletedFlag?: boolean
-  profileImage?: string
-  securityQuestion?: {
-    id: number
-    answer: string
-  }
-  feedback?: {
-    comment: string
-    rating: number
-  }
-  address?: Address[]
-  card?: Card[]
-  totpSecret?: string
-  walletBalance?: number
-}
-
-interface Delivery {
-  name: string
-  price: number
-  deluxePrice: number
-  eta: number
-  icon: string
-}
-
-interface Address {
-  fullName: string
-  mobileNum: number
-  zipCode: string
-  streetAddress: string
-  city: string
-  state: string
-  country: string
-}
-
-interface Card {
-  fullName: string
-  cardNum: number
-  expMonth: number
-  expYear: number
-}
-
-interface Product {
-  name: string
-  description: string
-  price?: number
-  deluxePrice?: number
-  quantity?: number
-  limitPerUser?: number
-  image?: string
-  reviews?: Review[]
-  deletedDate?: string
-  deletedAt?: Date | string
-  useForChristmasSpecialChallenge?: boolean
-  keywordsForPastebinDataLeakChallenge?: string[]
-  urlForProductTamperingChallenge?: string
-  fileForRetrieveBlueprintChallenge?: string
-}
-
-interface Review {
-  text: string
-  author: string
-}
-
-interface Memory {
-  image: string
-  caption: string
-  user: string
-  geoStalkingMetaSecurityQuestion?: number
-  geoStalkingMetaSecurityAnswer?: string
-  geoStalkingVisualSecurityQuestion?: number
-  geoStalkingVisualSecurityAnswer?: string
-}
-
-interface Recycle {
-  UserId: number
-  quantity: number
-  AddressId: number
-  date: string
-  isPickup: boolean
 }

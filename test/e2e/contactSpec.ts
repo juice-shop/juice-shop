@@ -6,9 +6,10 @@
 import config = require('config')
 import { $, $$, browser, by, element, ElementFinder, protractor } from 'protractor'
 import { basePath, beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
+import { Product } from '../../data/types'
 
 const utils = require('../../lib/utils')
-const pastebinLeakProduct = config.get('products').filter(product => product.keywordsForPastebinDataLeakChallenge)[0]
+const pastebinLeakProduct = config.get('products').filter((product: Product) => product.keywordsForPastebinDataLeakChallenge)[0]
 
 describe('/#/contact', () => {
   let comment: ElementFinder, rating: ElementFinder, submitButton: ElementFinder, captcha: ElementFinder, snackBar: ElementFinder

@@ -6,6 +6,7 @@
 import config = require('config')
 import { $, browser, by, element, protractor } from 'protractor'
 import { basePath, beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
+import { Product } from '../../data/types'
 
 const models = require('../../models/index')
 const utils = require('../../lib/utils')
@@ -62,7 +63,7 @@ describe('/api', () => {
 
   describe('challenge "changeProduct"', () => {
     const tamperingProductId = ((() => {
-      const products = config.get('products')
+      const products: Product[] = config.get('products')
       for (let i = 0; i < products.length; i++) {
         if (products[i].urlForProductTamperingChallenge) {
           return i + 1
