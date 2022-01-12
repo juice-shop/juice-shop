@@ -30,6 +30,7 @@ describe('/profile/image/file', () => {
         return frisby.post(`${URL}/profile/image/file`, {
           headers: {
             Cookie: `token=${jsonLogin.authentication.token}`,
+            // @ts-expect-error
             'Content-Type': form.getHeaders()['content-type']
           },
           body: form,
@@ -56,6 +57,7 @@ describe('/profile/image/file', () => {
         return frisby.post(`${URL}/profile/image/file`, {
           headers: {
             Cookie: `token=${jsonLogin.authentication.token}`,
+            // @ts-expect-error
             'Content-Type': form.getHeaders()['content-type']
           },
           body: form
@@ -73,6 +75,7 @@ describe('/profile/image/file', () => {
     form.append('file', fs.createReadStream(file))
 
     return frisby.post(`${URL}/profile/image/file`, {
+      // @ts-expect-error
       headers: { 'Content-Type': form.getHeaders()['content-type'] },
       body: form
     })
@@ -99,6 +102,7 @@ describe('/profile/image/url', () => {
         return frisby.post(`${URL}/profile/image/url`, {
           headers: {
             Cookie: `token=${jsonLogin.authentication.token}`,
+            // @ts-expect-error
             'Content-Type': form.getHeaders()['content-type']
           },
           body: form,
@@ -124,6 +128,7 @@ describe('/profile/image/url', () => {
         return frisby.post(`${URL}/profile/image/url`, {
           headers: {
             Cookie: `token=${jsonLogin.authentication.token}`,
+            // @ts-expect-error
             'Content-Type': form.getHeaders()['content-type']
           },
           body: form,
@@ -138,6 +143,7 @@ describe('/profile/image/url', () => {
     form.append('imageUrl', 'https://placekitten.com/g/100/100')
 
     return frisby.post(`${URL}/profile/image/url`, {
+      // @ts-expect-error
       headers: { 'Content-Type': form.getHeaders()['content-type'] },
       body: form
     })
