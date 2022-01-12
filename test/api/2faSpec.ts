@@ -4,9 +4,9 @@
  */
 
 import frisby = require('frisby')
+import config = require('config')
 const Joi = frisby.Joi
 const security = require('../../lib/insecurity')
-const config = require('config')
 
 const otplib = require('otplib')
 const jwt = require('jsonwebtoken')
