@@ -1,4 +1,17 @@
-IMPORTANT: This version of juice-shop is intended to run on Node 10-12. It may be easiest to use included Dockerfile to create a container image. You should **not** need to run ``npm install`` on your local system
+**Snyk Instructions**
+1. Fork this repo to your own Github account
+2. Clone your fork to your local system and ``cd`` yourself to that directory in terminal/command prompt
+3. Download and authenticate Snyk CLI if you haven't already (e.g. install NPM, then run ``npm i snyk -g`` followed by ``snyk auth``)
+4. Run ``snyk test`` to scan application dependencies and confirm the scan completes successfully
+5. Run ``snyk monitor`` to monitor application dependencies in Snyk
+6. Ensure you have Docker desktop running, then run ``docker build . -t juice-shop`` . This will build a container image for juice-shop
+7. Run ``snyk container test juice-shop`` to scan container image and confirm the scan completes successfully
+8. Run ``snyk container monitor juice-shop`` to monitor container dependencies in Snyk
+
+**IMPORTANT NOTE**: This version of juice-shop is intended to run on Node 10-14, which are now quite old. Running ``npm install`` on your local system is not required and likely won't work until you ensure you're using a compatible version of Node.
+
+
+**Original readme**
 
 # ![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_100px.png) OWASP Juice Shop
 
