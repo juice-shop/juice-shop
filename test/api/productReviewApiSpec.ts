@@ -4,10 +4,11 @@
  */
 
 import frisby = require('frisby')
+import config = require('config')
+import { Product } from '../../data/types'
 const Joi = frisby.Joi
 const security = require('../../lib/insecurity')
 const http = require('http')
-const config = require('config')
 
 const REST_URL = 'http://localhost:3000/rest'
 
@@ -119,7 +120,7 @@ describe('/rest/products/reviews', () => {
 
   it('PATCH multiple product review via injection', () => {
     // Count all the reviews. (Count starts at one because of the review inserted by the other tests...)
-    const totalReviews = config.get('products').reduce((sum: number, { reviews = [] }: any) => sum + reviews.length, 1)
+    const totalReviews = config.get<Product[]>('products').reduce((sum: number, { reviews = [] }: any) => sum + reviews.length, 1)
 
     return frisby.patch(`${REST_URL}/products/reviews`, {
       headers: authHeader,

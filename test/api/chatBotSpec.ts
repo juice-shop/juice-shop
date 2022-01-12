@@ -4,7 +4,7 @@
  */
 
 import frisby = require('frisby')
-const config = require('config')
+import config = require('config')
 const { initialize, bot } = require('../../routes/chatbot')
 const fs = require('fs')
 const utils = require('../../lib/utils')
