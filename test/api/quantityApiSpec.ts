@@ -256,7 +256,7 @@ describe('/api/Quantitys/:ids', () => {
     })
       .expect('status', 200)
       .then(({ json }) => {
-        return frisby.delete(`${API_URL}/Quantitys/1`, {
+        return frisby.del(`${API_URL}/Quantitys/1`, {
           headers: { Authorization: `Bearer ${json.authentication.token}`, 'content-type': 'application/json' }
         })
           .expect('status', 401)
@@ -273,7 +273,7 @@ describe('/api/Quantitys/:ids', () => {
     })
       .expect('status', 200)
       .then(({ json }) => {
-        return frisby.delete(`${API_URL}/Quantitys/1`, {
+        return frisby.del(`${API_URL}/Quantitys/1`, {
           headers: { Authorization: `Bearer ${json.authentication.token}`, 'content-type': 'application/json' }
         })
           .expect('status', 401)
@@ -290,7 +290,7 @@ describe('/api/Quantitys/:ids', () => {
     })
       .expect('status', 200)
       .then(({ json }) => {
-        return frisby.delete(`${API_URL}/Quantitys/1`, {
+        return frisby.del(`${API_URL}/Quantitys/1`, {
           headers: { Authorization: `Bearer ${json.authentication.token}`, 'content-type': 'application/json' }
         })
           .expect('status', 401)

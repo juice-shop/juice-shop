@@ -212,6 +212,7 @@ describe('/#/contact', () => {
 
   describe('challenge "dlpPastebinDataLeak"', () => {
     it('should be possible to post dangerous ingredients of unsafe product as feedback', () => {
+      // @ts-expect-error
       void comment.sendKeys(pastebinLeakProduct.keywordsForPastebinDataLeakChallenge.toString())
       void rating.click()
       void submitButton.click()
