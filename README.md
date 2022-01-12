@@ -8,8 +8,7 @@
 7. Run ``snyk container test juice-shop`` to scan container image and confirm the scan completes successfully
 8. Run ``snyk container monitor juice-shop`` to monitor container dependencies in Snyk
 
-**IMPORTANT NOTE**: This version of juice-shop is intended to run on Node 10-14, which are now quite old. Running ``npm install`` on your local system is not required and likely won't work until you ensure you're using a compatible version of Node.
-
+**IMPORTANT NOTE**: Running ``npm install`` on your local system is **NOT needed** and likely won't work if you're on the newest version of Node (see Node compatibility chart below)
 
 **Original readme**
 
