@@ -145,6 +145,7 @@ describe('/#/contact', () => {
   describe('challenge "zeroStars"', () => {
     it('should be possible to post feedback with zero stars by double-clicking rating widget', () => {
       void browser.executeAsyncScript((baseUrl: string) => {
+        // @ts-expect-error
         const callback = arguments[arguments.length - 1]
         const xhttp = new XMLHttpRequest()
         let captcha

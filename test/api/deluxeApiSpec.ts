@@ -10,12 +10,12 @@ const jsonHeader = { 'content-type': 'application/json' }
 const REST_URL = 'http://localhost:3000/rest'
 const API_URL = 'http://localhost:3000/api'
 
-async function login ({ email, password }) {
+async function login ({ email, password }: { email: string, password: string }) {
   const loginRes = await frisby
     .post(`${REST_URL}/user/login`, {
       email,
       password
-    }).catch((res) => {
+    }).catch((res: any) => {
       if (res.json?.type && res.json.status === 'totp_token_required') {
         return res
       }
