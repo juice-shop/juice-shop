@@ -1,4 +1,4 @@
-IMPORTANT: Use `npm install --legacy-peer-deps` to build in CLI
+IMPORTANT: Please make sure you're using Node 10-14 or included Docker file (to install inside container image).
 
 # ![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_100px.png) OWASP Juice Shop
 
