@@ -234,7 +234,7 @@ export const disableOnWindowsEnv = () => {
   return isWindows()
 }
 
-export const determineDisabledEnv = (disabledEnv: string | string[]) => {
+export const determineDisabledEnv = (disabledEnv: string | string[] | undefined) => {
   if (isDocker()) {
     return disabledEnv && (disabledEnv === 'Docker' || disabledEnv.includes('Docker')) ? 'Docker' : null
   } else if (isHeroku) {
