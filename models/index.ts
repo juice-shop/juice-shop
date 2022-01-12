@@ -5,6 +5,7 @@
 
 /* jslint node: true */
 import fs = require('fs')
+import { Model } from 'sequelize'
 const path = require('path')
 const sequelizeNoUpdateAttributes = require('sequelize-notupdate-attributes')
 const Sequelize = require('sequelize')
@@ -22,7 +23,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
   logging: false
 })
 sequelizeNoUpdateAttributes(sequelize)
-const db = {}
+const db: Database = { sequelize, Sequelize }
 
 fs.readdirSync(__dirname)
   .filter(file => (file.match(/\.[jt]s$/) != null) && !file.includes('index.'))
@@ -37,7 +38,10 @@ Object.keys(db).forEach(modelName => {
   }
 })
 
-db.sequelize = sequelize
-db.Sequelize = Sequelize
-
 module.exports = db
+
+interface Database {
+  sequelize: any
+  Sequelize: any
+  [key: string]: Model
+}
