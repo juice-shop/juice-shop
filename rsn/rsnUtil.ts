@@ -26,13 +26,13 @@ function filterString (text: string) {
 }
 
 const checkDiffs = async (keys: string[]) => {
-  let okay = 0, data = keys.reduce((prev,curr) => {
+  let okay = 0; const data = keys.reduce((prev, curr) => {
     return {
       ...prev,
       [curr]: []
     }
-  },{});
-  for(const val of keys) {
+  }, {})
+  for (const val of keys) {
     await retrieveCodeSnippet(val.split('_')[0], true)
       .then(snippet => {
         process.stdout.write(val + ': ')
@@ -77,8 +77,7 @@ const checkDiffs = async (keys: string[]) => {
         if (f) {
           process.stdout.write('PASSED\n')
           okay++
-        }
-        else process.stdout.write(logger('\n').green())
+        } else process.stdout.write(logger('\n').green())
       })
       .catch(err => {
         console.log(err)
@@ -109,15 +108,15 @@ function logger (text: string) {
   }
 }
 
-async function seePatch(file: string) {
+async function seePatch (file: string) {
   const fileData = fs.readFileSync(fixesPath + '/' + file).toString()
   const snippet = await retrieveCodeSnippet(file.split('_')[0], true)
-  const patch = Diff.structuredPatch('sample.ts','sample6.ts',filterString(fileData), filterString(snippet.snippet),'oh','nh')
-  console.log('@'+file+':\n')
-  for(const hunk of patch.hunks) {
-    console.log("--------patch--------")
-    for(const line of hunk.lines) {
-      if(line[0] === '-') {
+  const patch = Diff.structuredPatch('sample.ts', 'sample6.ts', filterString(fileData), filterString(snippet.snippet), 'oh', 'nh')
+  console.log('@' + file + ':\n')
+  for (const hunk of patch.hunks) {
+    console.log('--------patch--------')
+    for (const line of hunk.lines) {
+      if (line[0] === '-') {
         console.log(logger(line).red())
       } else if (line[0] === '+') {
         console.log(logger(line).green())
@@ -125,28 +124,26 @@ async function seePatch(file: string) {
         console.log(line)
       }
     }
- }
-
+  }
 }
 
-function checkData(data: object,fileData: object) {
+function checkData (data: object, fileData: object) {
   let same = true
 
   // console.log(fileData)
-  for(const key in data) {
-      const fileDataValue = fileData[key].sort((a,b) => a>b)
-      const dataValue = data[key].sort((a,b) => a>b)
-      if(fileDataValue.length === dataValue.length) {
-          if(!dataValue.every((val: number,ind: number) => fileDataValue[ind] === val)) {
-              console.log(logger(key).red())
-              same = false
-          }
-      } else {
-          console.log(logger(key).red())
-          same = false
+  for (const key in data) {
+    const fileDataValue = fileData[key].sort((a, b) => a > b)
+    const dataValue = data[key].sort((a, b) => a > b)
+    if (fileDataValue.length === dataValue.length) {
+      if (!dataValue.every((val: number, ind: number) => fileDataValue[ind] === val)) {
+        console.log(logger(key).red())
+        same = false
       }
+    } else {
+      console.log(logger(key).red())
+      same = false
+    }
   }
-
 
   return same
 }
