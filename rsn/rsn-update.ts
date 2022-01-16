@@ -10,12 +10,8 @@ checkDiffs(keys)
     console.log(logger('Total files passed: '+okay).green())
     console.log(logger('Total files failed: '+notOkay).red())
 
-    const fileData = getDataFromFile()
-    if(checkData(data,fileData)) {
-        console.log(logger('All files have the same diffs').green())
-    } else {
-        console.log(logger('All files do not have the same diffs').red())
-    }
+    writeToFile(data)
+    console.log("All diffs are updated")
     
   }
   // seePatch('restfulXssChallenge_1_correct.ts')
