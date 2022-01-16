@@ -68,6 +68,7 @@
     "test:chromium": "cd frontend && ng test --watch=false --source-map=false --browsers=ChromiumHeadless && cd .. && npm run test:server",
     "test:server": "nyc --report-dir=./build/reports/coverage/server-tests mocha -r ts-node/register -r source-map-support/register --recursive test/server/**/*.ts",
     "rsn": "ts-node rsn/rsn.ts",
+    "rsn:update": "ts-node rsn/rsn-update.ts",
     "vagrant": "cd vagrant && vagrant up"
   },
   "jest": {
