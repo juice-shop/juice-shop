@@ -6,13 +6,20 @@ const fixesPath = 'data/static/codefixes'
 const cacheFile = 'rsn/cache.json'
 const colors = require('colors/safe')
 
+interface CacheData {
+  [key: string]: {
+    added: number[]
+    removed: number[]
+  }
+}
+
 function readFiles () {
   const files = fs.readdirSync(fixesPath)
   const keys = files.filter(file => file.endsWith('.ts'))
   return keys
 }
 
-function writeToFile (json) {
+function writeToFile (json: CacheData) {
   fs.writeFileSync(cacheFile, JSON.stringify(json))
 }
 
@@ -27,10 +34,13 @@ function filterString (text: string) {
 }
 
 const checkDiffs = async (keys: string[]) => {
-  let okay = 0; const data = keys.reduce((prev, curr) => {
+  let okay = 0; const data: CacheData = keys.reduce((prev, curr) => {
     return {
       ...prev,
-      [curr]: []
+      [curr]: {
+        added: [],
+        removed: []
+      }
     }
   }, {})
   for (const val of keys) {
@@ -49,7 +59,7 @@ const checkDiffs = async (keys: string[]) => {
           for (let i = 0; i < part.count; i++) {
             if (!snippet.vulnLines.includes(prev + i + 1) && !snippet.neutralLines.includes(prev + i + 1)) {
               process.stdout.write(colors.red(prev + i + 1 + ' '))
-              data[val].push(prev + i + 1)
+              data[val].added.push(prev + i + 1)
               f = false
             }
           }
@@ -68,7 +78,7 @@ const checkDiffs = async (keys: string[]) => {
           for (let i = 0; i < part.count; i++) {
             if (!snippet.vulnLines.includes(prev + i + 1 - norm) && !snippet.neutralLines.includes(prev + i + 1 - norm)) {
               process.stdout.write(colors.green((prev + i + 1 - norm + ' ')))
-              data[val].push(prev + i + 1 - norm)
+              data[val].removed.push(prev + i + 1 - norm)
               f = false
             }
             temp++
@@ -111,17 +121,22 @@ async function seePatch (file: string) {
   }
 }
 
-function checkData (data: object, fileData: object) {
+function checkData (data: CacheData, fileData: CacheData) {
   let same = true
 
   // console.log(fileData)
   for (const key in data) {
-    const fileDataValue = fileData[key].sort((a, b) => a > b)
-    const dataValue = data[key].sort((a, b) => a > b)
-    if (fileDataValue.length === dataValue.length) {
-      if (!dataValue.every((val: number, ind: number) => fileDataValue[ind] === val)) {
+    const fileDataValueAdded = fileData[key].added.sort((a, b) => a > b)
+    const dataValueAdded = data[key].added.sort((a, b) => a > b)
+    const fileDataValueRemoved = fileData[key].added.sort((a, b) => a > b)
+    const dataValueAddedRemoved = data[key].added.sort((a, b) => a > b)
+    if (fileDataValueAdded.length === dataValueAdded.length && fileDataValueRemoved.length === dataValueAddedRemoved.length) {
+      if (!dataValueAdded.every((val: number, ind: number) => fileDataValueAdded[ind] === val)) {
         console.log(colors.red(key))
         same = false
+      }
+      if (!dataValueAddedRemoved.every((val: number, ind: number) => fileDataValueRemoved[ind] === val)) {
+        console.log(colors.red(key))
       }
     } else {
       console.log(colors.red(key))
