@@ -124,7 +124,7 @@ function checkData (data: object, fileData: object) {
         same = false
       }
     } else {
-      console.log(logger(key).red())
+      console.log(colors.red(key))
       same = false
     }
   }
