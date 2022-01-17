@@ -4,6 +4,7 @@ const Diff = require('diff')
 const fs = require('fs')
 const fixesPath = 'data/static/codefixes'
 const cacheFile = 'rsn/cache.json'
+const colors = require('colors/safe')
 
 function readFiles () {
   const files = fs.readdirSync(fixesPath)
@@ -47,7 +48,7 @@ const checkDiffs = async (keys: string[]) => {
           if (!(part.added)) continue
           for (let i = 0; i < part.count; i++) {
             if (!snippet.vulnLines.includes(prev + i + 1) && !snippet.neutralLines.includes(prev + i + 1)) {
-              process.stdout.write(logger(prev + i + 1 + ' ').red())
+              process.stdout.write(colors.red(prev + i + 1 + ' '))
               data[val].push(prev + i + 1)
               f = false
             }
@@ -66,7 +67,7 @@ const checkDiffs = async (keys: string[]) => {
           let temp = norm
           for (let i = 0; i < part.count; i++) {
             if (!snippet.vulnLines.includes(prev + i + 1 - norm) && !snippet.neutralLines.includes(prev + i + 1 - norm)) {
-              process.stdout.write(logger(prev + i + 1 - norm + ' ').green())
+              process.stdout.write(colors.green((prev + i + 1 - norm + ' ')))
               data[val].push(prev + i + 1 - norm)
               f = false
             }
@@ -75,9 +76,9 @@ const checkDiffs = async (keys: string[]) => {
           norm = temp
         }
         if (f) {
-          process.stdout.write('PASSED\n')
+          process.stdout.write(colors.green('OK\n'))
           okay++
-        } else process.stdout.write(logger('\n').green())
+        } else process.stdout.write('\n')
       })
       .catch(err => {
         console.log(err)
@@ -91,23 +92,6 @@ const checkDiffs = async (keys: string[]) => {
   }
 }
 
-function logger (text: string) {
-  const colors = {
-    FgGreen: '\x1b[32m',
-    FgRed: '\x1b[31m',
-    FgWhite: '\x1b[37m',
-    end: '\x1b[0m'
-  }
-  return {
-    green: function () {
-      return colors.FgGreen + text + colors.end
-    },
-    red: function () {
-      return colors.FgRed + text + colors.end
-    }
-  }
-}
-
 async function seePatch (file: string) {
   const fileData = fs.readFileSync(fixesPath + '/' + file).toString()
   const snippet = await retrieveCodeSnippet(file.split('_')[0], true)
@@ -117,9 +101,9 @@ async function seePatch (file: string) {
     console.log('--------patch--------')
     for (const line of hunk.lines) {
       if (line[0] === '-') {
-        console.log(logger(line).red())
+        console.log(colors.red(line))
       } else if (line[0] === '+') {
-        console.log(logger(line).green())
+        console.log(colors.green(line))
       } else {
         console.log(line)
       }
@@ -136,7 +120,7 @@ function checkData (data: object, fileData: object) {
     const dataValue = data[key].sort((a, b) => a > b)
     if (fileDataValue.length === dataValue.length) {
       if (!dataValue.every((val: number, ind: number) => fileDataValue[ind] === val)) {
-        console.log(logger(key).red())
+        console.log(colors.red(key))
         same = false
       }
     } else {
@@ -154,6 +138,5 @@ export {
   getDataFromFile,
   readFiles,
   seePatch,
-  logger,
   checkData
 }
