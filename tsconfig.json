@@ -26,6 +26,7 @@
     "test/**/*.ts",
     "views/**/*.ts",
     "views/**/*.js",
+    "rsn/**/*.ts",
     "*.ts",
     "*.js"
   ],
