@@ -1,9 +1,10 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 import dataErasure from './routes/dataErasure'
 import fs = require('fs')
+import { Request, Response, NextFunction } from 'express'
 const startTime = Date.now()
 const path = require('path')
 const morgan = require('morgan')
@@ -107,7 +108,7 @@ const startupGauge = new client.Gauge({
 })
 
 // Wraps the function and measures its (async) execution time
-const collectDurationPromise = (name, func) => {
+const collectDurationPromise = (name: string, func) => {
   return async (...args) => {
     const end = startupGauge.startTimer({ task: name })
     const res = await func(...args)
@@ -155,7 +156,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   }))
 
   /* Remove duplicate slashes from URL which allowed bypassing subsequent filters */
-  app.use((req, res, next) => {
+  app.use((req: Request, res: Response, next: NextFunction) => {
     req.url = req.url.replace(/[/]+/g, '/')
     next()
   })
@@ -171,7 +172,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     contact: config.get('application.securityTxt.contact'),
     encryption: config.get('application.securityTxt.encryption'),
     acknowledgements: config.get('application.securityTxt.acknowledgements'),
-    'Preferred-Languages': [...new Set(locales.map(locale => locale.key.substr(0, 2)))].join(', '),
+    'Preferred-Languages': [...new Set(locales.map((locale: { key: string }) => locale.key.substr(0, 2)))].join(', '),
     expires: securityTxtExpiration.toUTCString()
   }))
 
@@ -188,13 +189,13 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use('/solve/challenges/server-side', verify.serverSideChallenges())
 
   /* Create middleware to change paths from the serve-index plugin from absolute to relative */
-  const serveIndexMiddleware = (req, res, next) => {
+  const serveIndexMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const origEnd = res.end
     res.end = function () {
       if (arguments.length) {
         const reqPath = req.originalUrl.replace(/\?.*$/, '')
         const currentFolder = reqPath.split('/').pop()
-        arguments[0] = arguments[0].replace(/a href="([^"]+?)"/gi, function (matchString, matchedUrl) {
+        arguments[0] = arguments[0].replace(/a href="([^"]+?)"/gi, function (matchString: string, matchedUrl: string) {
           let relativePath = path.relative(reqPath, matchedUrl)
           if (relativePath === '') {
             relativePath = currentFolder
@@ -235,7 +236,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   /* Configure and enable backend-side i18n */
   i18n.configure({
-    locales: locales.map(locale => locale.key),
+    locales: locales.map((locale: { key: string }) => locale.key),
     directory: path.resolve('i18n'),
     cookie: 'language',
     defaultLocale: 'en',
@@ -251,9 +252,10 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.post('/rest/memories', uploadToDisk.single('image'), ensureFileIsPassed, security.appendUserId(), metrics.observeFileUploadMetricsMiddleware(), memory.addMemory())
 
   app.use(bodyParser.text({ type: '*/*' }))
-  app.use(function jsonParser (req, res, next) {
+  app.use(function jsonParser (req: Request, res: Response, next: NextFunction) {
+    // @ts-expect-error
     req.rawBody = req.body
-    if (req.headers['content-type'] !== undefined && req.headers['content-type'].indexOf('application/json') > -1) {
+    if (req.headers['content-type']?.includes('application/json')) {
       if (req.body && req.body !== Object(req.body)) { // Expensive workaround for 500 errors during Frisby test run (see #640)
         req.body = JSON.parse(req.body)
       }
@@ -275,7 +277,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use('/rest/user/reset-password', new RateLimit({
     windowMs: 5 * 60 * 1000,
     max: 100,
-    keyGenerator ({ headers, ip }) { return headers['X-Forwarded-For'] || ip } // vuln-code-snippet vuln-line resetPasswordMortyChallenge
+    keyGenerator ({ headers, ip }: { headers: any, ip: any }) { return headers['X-Forwarded-For'] || ip } // vuln-code-snippet vuln-line resetPasswordMortyChallenge
   }))
   // vuln-code-snippet end resetPasswordMortyChallenge
 
@@ -418,7 +420,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
     // create a wallet when a new user is registered using API
     if (name === 'User') { // vuln-code-snippet neutral-line registerAdminChallenge
-      resource.create.send.before((req, res, context) => { // vuln-code-snippet vuln-line registerAdminChallenge
+      resource.create.send.before((req: Request, res: Response, context) => { // vuln-code-snippet vuln-line registerAdminChallenge
         models.Wallet.create({ UserId: context.instance.id }).catch((err) => {
           console.log(err)
         })
@@ -429,7 +431,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
     // translate challenge descriptions and hints on-the-fly
     if (name === 'Challenge') {
-      resource.list.fetch.after((req, res, context) => {
+      resource.list.fetch.after((req: Request, res: Response, context) => {
         for (let i = 0; i < context.instance.length; i++) {
           let description = context.instance[i].description
           if (utils.contains(description, '<em>(This challenge is <strong>')) {
@@ -445,7 +447,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
         }
         return context.continue
       })
-      resource.read.send.before((req, res, context) => {
+      resource.read.send.before((req: Request, res: Response, context) => {
         context.instance.description = req.__(context.instance.description)
         if (context.instance.hint) {
           context.instance.hint = req.__(context.instance.hint)
@@ -456,13 +458,13 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
     // translate security questions on-the-fly
     if (name === 'SecurityQuestion') {
-      resource.list.fetch.after((req, res, context) => {
+      resource.list.fetch.after((req: Request, res: Response, context) => {
         for (let i = 0; i < context.instance.length; i++) {
           context.instance[i].question = req.__(context.instance[i].question)
         }
         return context.continue
       })
-      resource.read.send.before((req, res, context) => {
+      resource.read.send.before((req: Request, res: Response, context) => {
         context.instance.question = req.__(context.instance.question)
         return context.continue
       })
@@ -470,14 +472,14 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
     // translate product names and descriptions on-the-fly
     if (name === 'Product') {
-      resource.list.fetch.after((req, res, context) => {
+      resource.list.fetch.after((req: Request, res: Response, context) => {
         for (let i = 0; i < context.instance.length; i++) {
           context.instance[i].name = req.__(context.instance[i].name)
           context.instance[i].description = req.__(context.instance[i].description)
         }
         return context.continue
       })
-      resource.read.send.before((req, res, context) => {
+      resource.read.send.before((req: Request, res: Response, context) => {
         context.instance.name = req.__(context.instance.name)
         context.instance.description = req.__(context.instance.description)
         return context.continue
@@ -485,7 +487,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     }
 
     // fix the api difference between finale (fka epilogue) and previously used sequlize-restful
-    resource.all.send.before((req, res, context) => {
+    resource.all.send.before((req: Request, res: Response, context) => {
       context.instance = {
         status: 'success',
         data: context.instance
@@ -586,15 +588,15 @@ const mimeTypeMap = {
 }
 const uploadToDisk = multer({
   storage: multer.diskStorage({
-    destination: (req, file, cb) => {
+    destination: (req, file, cb: Function) => {
       const isValid = mimeTypeMap[file.mimetype]
-      let error = new Error('Invalid mime type')
+      let error: Error | null = new Error('Invalid mime type')
       if (isValid) {
         error = null
       }
       cb(error, path.resolve('frontend/dist/frontend/assets/public/images/uploads/'))
     },
-    filename: (req, file, cb) => {
+    filename: (req, file, cb: Function) => {
       const name = security.sanitizeFilename(file.originalname)
         .toLowerCase()
         .split(' ')
@@ -616,7 +618,7 @@ const registerWebsocketEvents = require('./lib/startup/registerWebsocketEvents')
 const customizeApplication = require('./lib/startup/customizeApplication')
 const customizeEasterEgg = require('./lib/startup/customizeEasterEgg') // vuln-code-snippet hide-line
 
-export async function start (readyCallback) {
+export async function start (readyCallback: Function) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
   await models.sequelize.sync({ force: true })
   await datacreator()
@@ -640,7 +642,7 @@ export async function start (readyCallback) {
   void collectDurationPromise('customizeEasterEgg', customizeEasterEgg)() // vuln-code-snippet hide-line
 }
 
-export function close (exitCode) {
+export function close (exitCode: number | undefined) {
   if (server) {
     clearInterval(metricsUpdateLoop)
     server.close()

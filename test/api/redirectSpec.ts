@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import frisby = require('frisby')
-const config = require('config')
+import config = require('config')
 
 const URL = 'http://localhost:3000'
 
@@ -76,8 +76,8 @@ describe('/redirect', () => {
     return frisby.get(`${URL}/redirect?to=/score-board?satisfyIndexOf=https://github.com/bkimminich/juice-shop`)
       .expect('status', 200)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', 'main-es2018.js')
-      .expect('bodyContains', 'runtime-es2018.js')
-      .expect('bodyContains', 'polyfills-es2018.js')
+      .expect('bodyContains', 'main.js')
+      .expect('bodyContains', 'runtime.js')
+      .expect('bodyContains', 'polyfills.js')
   })
 })

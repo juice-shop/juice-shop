@@ -23,17 +23,17 @@ jobs:
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
-      - name: "Use Node.js 14"
+      - name: "Use Node.js 16"
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
-          node-version: 14
+          node-version: 16
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
         run: |
           npm install --ignore-scripts
           cd frontend
-          npm install --ignore-scripts
+          npm install --ignore-scripts --legacy-peer-deps
       - name: "Lint source code"
         run: npm run lint
       - name: "Lint customization configs"
@@ -55,7 +55,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [12, 14, 16]
+        node-version: [12, 14, 16, 17]
     steps:
       - name: "Check out Git repository"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
@@ -118,14 +118,13 @@ jobs:
   e2e:
     runs-on: windows-latest
     if: github.repository == 'juice-shop/juice-shop'
-    continue-on-error: true
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
-      - name: "Use Node.js 14"
+      - name: "Use Node.js 16"
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
-          node-version: 14
+          node-version: 16
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
@@ -140,7 +139,8 @@ jobs:
           command: |
             set NODE_ENV=test
             set SOLUTIONS_WEBHOOK="$env:SOLUTIONS_WEBHOOK"
-            npm run protractor
+            npm run preprotractor:github
+            npm run e2e
   e2e-in-subfolder:
     runs-on: windows-latest
     if: github.repository == 'juice-shop/juice-shop'
@@ -148,10 +148,10 @@ jobs:
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
-      - name: "Use Node.js 14"
+      - name: "Use Node.js 16"
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
-          node-version: 14
+          node-version: 16
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
@@ -163,17 +163,17 @@ jobs:
           max_attempts: 2
           command: |
             set NODE_ENV=test
-            npm run preprotractor
+            npm run preprotractor:github
             npm run e2e -- subfolder
   smoke:
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
-      - name: "Use Node.js 14"
+      - name: "Use Node.js 16"
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
-          node-version: 14
+          node-version: 16
       - name: "Install CLI tools"
         run: |
           npm install -g @angular/cli
@@ -244,7 +244,7 @@ jobs:
             VCS_REF=${{ env.VCS_REF }}
             BUILD_DATE=${{ env.BUILD_DATE }}
   heroku:
-    if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/angular13')
+    if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
     needs: [test, e2e]
     runs-on: ubuntu-latest
     steps:
@@ -255,9 +255,6 @@ jobs:
           if [ "$GITHUB_REF" == "refs/heads/master" ]; then
           echo "HEROKU_APP=juice-shop" >> $GITHUB_ENV
           echo "HEROKU_BRANCH=master" >> $GITHUB_ENV
-          elif [ "$GITHUB_REF" == "refs/heads/angular13" ]; then
-          echo "HEROKU_APP=juice-shop-experimental" >> $GITHUB_ENV
-          echo "HEROKU_BRANCH=angular13" >> $GITHUB_ENV
           else
           echo "HEROKU_APP=juice-shop-staging" >> $GITHUB_ENV
           echo "HEROKU_BRANCH=develop" >> $GITHUB_ENV

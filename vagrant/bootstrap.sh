@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #
-# Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+# Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
 # SPDX-License-Identifier: MIT
 #
 

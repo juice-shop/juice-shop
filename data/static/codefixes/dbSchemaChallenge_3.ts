@@ -2,7 +2,7 @@ const injectionChars = /"|'|;|and|or|;|#/i;
 
 module.exports = function searchProducts () {
   return (req, res, next) => {
-    let criteria = req.query.q === 'undefined' ? '' : req.query.q || ''
+    let criteria: any = req.query.q === 'undefined' ? '' : req.query.q || ''
     criteria = (criteria.length <= 200) ? criteria : criteria.substring(0, 200)
     if (criteria.match(injectionChars)) {
       res.status(400).send()
@@ -16,7 +16,7 @@ module.exports = function searchProducts () {
           products[i].description = req.__(products[i].description)
         }
         res.json(utils.queryResultToJson(products))
-      }).catch(error => {
+      }).catch((error: Error) => {
         next(error)
       })
   }

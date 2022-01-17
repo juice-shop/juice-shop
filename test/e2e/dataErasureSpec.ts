@@ -1,17 +1,20 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
+
+import { browser } from 'protractor'
+import { beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
 
 const config = require('config')
 
 describe('/dataerasure', () => {
-  protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
+  beforeEachLogin({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
   describe('challenge "lfr"', () => {
     it('should be possible to perform local file read attack using the browser', () => {
-      browser.waitForAngularEnabled(false)
-      browser.executeScript(baseUrl => {
+      void browser.waitForAngularEnabled(false)
+      void browser.executeScript((baseUrl: string) => {
         const xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function () {
           if (this.status === 200) {
@@ -27,9 +30,9 @@ describe('/dataerasure', () => {
                 xhttp.send(params) //eslint-disable-line
       }, browser.baseUrl)
 
-      browser.driver.sleep(10000)
-      browser.waitForAngularEnabled(true)
+      void browser.driver.sleep(10000)
+      void browser.waitForAngularEnabled(true)
     })
-    protractor.expect.challengeSolved({ challenge: 'Local File Read' })
+    expectChallengeSolved({ challenge: 'Local File Read' })
   })
 })

@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "12.12.0-SNAPSHOT",
+  "version": "13.2.0-SNAPSHOT",
   "private": true,
   "description": "Probably the most modern and sophisticated insecure web application",
   "keywords": [
@@ -39,17 +39,13 @@
     "Scar26",
     "CaptainFreak",
     "Supratik Das",
-    "the-pro",
     "JuiceShopBot",
+    "the-pro",
     "Ziyang Li",
     "aaryan10",
     "m4l1c3",
     "Timo Pagel",
-    "Josh Grossman",
-    "Clément Notin",
-    "shantanu69",
-    "JamesCullum",
-    "omerlh"
+    "..."
   ],
   "scripts": {
     "build:frontend": "cd frontend && node ./node_modules/@angular/cli/bin/ng build --aot --configuration production --output-hashing=none --vendor-chunk=true --source-map=false",
@@ -63,6 +59,7 @@
     "package": "grunt package",
     "package:ci": "npm prune --production && npm dedupe && cd frontend && npm prune --production && cd .. && grunt package",
     "preprotractor": "npm dedupe && node ./node_modules/protractor/bin/webdriver-manager update --gecko false",
+    "preprotractor:github": "npm dedupe && node ./node_modules/protractor/bin/webdriver-manager update --gecko false --versions.chrome 95.0.4638.69",
     "protractor": "npm run e2e",
     "serve": "concurrently --kill-others \"ts-node app.ts\" \"cd frontend && ng serve\"",
     "serve:dev": "concurrently --kill-others \"ts-node-dev app.ts\" \"cd frontend && ng serve\"",
@@ -205,6 +202,7 @@
     "@types/js-yaml": "^3.12.6",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/jws": "^3.2.3",
+    "@types/mocha": "^8.1.1",
     "@types/morgan": "^1.9.2",
     "@types/multer": "^1.4.5",
     "@types/node": "^14.14.31",
@@ -229,7 +227,7 @@
     "chai-as-promised": "^7.1.1",
     "cross-spawn": "^7.0.3",
     "eslint": "^7.21.0",
-    "eslint-config-standard-with-typescript": "^20.0.0",
+    "eslint-config-standard-with-typescript": "^21.0.1",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.3.1",
@@ -252,10 +250,10 @@
     "ts-jest": "^26.5.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.3",
-    "webdriver-manager": "^12.1.7"
+    "webdriver-manager": "^13.0.0"
   },
   "engines": {
-    "node": "12 - 16"
+    "node": "12 - 17"
   },
   "os": [
     "win32",

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -16,6 +16,7 @@ describe('/file-upload', () => {
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
 
+    // @ts-expect-error
     return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 204)
   })
@@ -25,6 +26,7 @@ describe('/file-upload', () => {
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
 
+    // @ts-expect-error
     return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 204)
   })
@@ -34,6 +36,7 @@ describe('/file-upload', () => {
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
 
+    // @ts-expect-error
     return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 204)
   })
@@ -43,6 +46,7 @@ describe('/file-upload', () => {
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
 
+    // @ts-expect-error
     return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 410)
   })
@@ -52,6 +56,7 @@ describe('/file-upload', () => {
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
 
+    // @ts-expect-error
     return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 410)
   })
@@ -63,6 +68,7 @@ describe('/file-upload', () => {
       form.append('file', fs.createReadStream(file))
 
       return frisby.post(URL + '/file-upload', {
+        // @ts-expect-error
         headers: { 'Content-Type': form.getHeaders()['content-type'] },
         body: form
       })
@@ -75,6 +81,7 @@ describe('/file-upload', () => {
       form.append('file', fs.createReadStream(file))
 
       return frisby.post(URL + '/file-upload', {
+        // @ts-expect-error
         headers: { 'Content-Type': form.getHeaders()['content-type'] },
         body: form
       })
@@ -87,6 +94,7 @@ describe('/file-upload', () => {
       form.append('file', fs.createReadStream(file))
 
       return frisby.post(URL + '/file-upload', {
+        // @ts-expect-error
         headers: { 'Content-Type': form.getHeaders()['content-type'] },
         body: form
       })
@@ -100,6 +108,7 @@ describe('/file-upload', () => {
       form.append('file', fs.createReadStream(file))
 
       return frisby.post(URL + '/file-upload', {
+        // @ts-expect-error
         headers: { 'Content-Type': form.getHeaders()['content-type'] },
         body: form
       }).then((res) => {
@@ -113,6 +122,7 @@ describe('/file-upload', () => {
       form.append('file', fs.createReadStream(file))
 
       return frisby.post(URL + '/file-upload', {
+        // @ts-expect-error
         headers: { 'Content-Type': form.getHeaders()['content-type'] },
         body: form
       })
@@ -124,6 +134,7 @@ describe('/file-upload', () => {
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
 
+    // @ts-expect-error
     return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 500)
   })
@@ -133,6 +144,7 @@ describe('/file-upload', () => {
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
 
+    // @ts-expect-error
     return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 204)
   })
@@ -142,6 +154,7 @@ describe('/file-upload', () => {
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
 
+    // @ts-expect-error
     return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 204)
   })

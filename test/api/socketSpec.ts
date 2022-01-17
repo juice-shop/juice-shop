@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -30,7 +30,7 @@ describe('WebSocket', () => {
     socket.emit('notification received', 'Provoke an error that is not very gracefully handled.')
     socket.emit('notification received', 'Log in with the administrator\'s user account.')
     socket.emit('notification received', 'Retrieve a list of all user credentials via SQL Injection')
-    socket.emit('notification received', 'Post some feedback in another users name.')
+    socket.emit('notification received', 'Post some feedback in another user\'s name.')
     socket.emit('notification received', 'Wherever you go, there you are.')
     socket.emit('notification received', 'Place an order that makes you rich.')
     socket.emit('notification received', 'Access a confidential document.')

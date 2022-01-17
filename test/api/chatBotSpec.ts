@@ -1,24 +1,24 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import frisby = require('frisby')
-const config = require('config')
+import config = require('config')
 const { initialize, bot } = require('../../routes/chatbot')
 const fs = require('fs')
 const utils = require('../../lib/utils')
 
 const REST_URL = 'http://localhost:3000/rest/'
 const API_URL = 'http://localhost:3000/api/'
-let trainingData
+let trainingData: { data: any[] }
 
-async function login ({ email, password, totpSecret }) {
+async function login ({ email, password }: { email: string, password: string }) {
   const loginRes = await frisby
     .post(REST_URL + '/user/login', {
       email,
       password
-    }).catch((res) => {
+    }).catch((res: any) => {
       if (res.json?.type && res.json.status === 'totp_token_required') {
         return res
       }
@@ -151,6 +151,7 @@ describe('/chatbot', () => {
         })
         .expect('status', 200)
         .then(({ json }) => {
+          // @ts-expect-error
           expect(trainingData.data[0].answers).toContainEqual(json)
         })
     })

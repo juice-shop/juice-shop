@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import frisby = require('frisby')
+import config = require('config')
 const Joi = frisby.Joi
 const security = require('../../lib/insecurity')
-const config = require('config')
 
 const otplib = require('otplib')
 const jwt = require('jsonwebtoken')
@@ -16,12 +16,12 @@ const API_URL = 'http://localhost:3000/api'
 
 const jsonHeader = { 'content-type': 'application/json' }
 
-async function login ({ email, password, totpSecret }) {
+async function login ({ email, password, totpSecret }: { email: string, password: string, totpSecret?: string }) {
   const loginRes = await frisby
     .post(REST_URL + '/user/login', {
       email,
       password
-    }).catch((res) => {
+    }).catch((res: any) => {
       if (res.json?.type && res.json.status === 'totp_token_required') {
         return res
       }
@@ -41,7 +41,7 @@ async function login ({ email, password, totpSecret }) {
   return loginRes.json.authentication
 }
 
-async function register ({ email, password, totpSecret }) {
+async function register ({ email, password, totpSecret }: { email: string, password: string, totpSecret?: string }) {
   const res = await frisby
     .post(API_URL + '/Users/', {
       email,
@@ -79,7 +79,7 @@ async function register ({ email, password, totpSecret }) {
   return res
 }
 
-function getStatus (token) {
+function getStatus (token: string) {
   return frisby.get(
     REST_URL + '/2fa/status',
     {

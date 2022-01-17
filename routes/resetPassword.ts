@@ -1,17 +1,19 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import config = require('config')
+import { Request, Response, NextFunction } from 'express'
+import models = require('../models/index')
+
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const users = require('../data/datacache').users
 const security = require('../lib/insecurity')
-const models = require('../models/index')
 
 module.exports = function resetPassword () {
-  return ({ body, connection }, res, next) => {
+  return ({ body, connection }: Request, res: Response, next: NextFunction) => {
     const email = body.email
     const answer = body.answer
     const newPassword = body.new
@@ -34,16 +36,16 @@ module.exports = function resetPassword () {
             user.update({ password: newPassword }).then(user => {
               verifySecurityAnswerChallenges(user, answer)
               res.json({ user })
-            }).catch(error => {
+            }).catch((error: Error) => {
               next(error)
             })
-          }).catch(error => {
+          }).catch((error: Error) => {
             next(error)
           })
         } else {
           res.status(401).send(res.__('Wrong answer to security question.'))
         }
-      }).catch(error => {
+      }).catch((error: Error) => {
         next(error)
       })
     }

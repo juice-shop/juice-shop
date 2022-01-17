@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -51,7 +51,7 @@ export class ScoreBoardComponent implements OnInit {
   public allowRepeatNotifications: boolean = false
   public showChallengeHints: boolean = true
   public showVulnerabilityMitigations: boolean = true
-  public showCodeSnippets: string = 'solved'
+  public codingChallengesEnabled: string = 'solved'
   public showHackingInstructor: boolean = true
   public challenges: Challenge[] = []
   public percentChallengesSolved: string = '0'
@@ -78,7 +78,7 @@ export class ScoreBoardComponent implements OnInit {
       this.allowRepeatNotifications = config.challenges.showSolvedNotifications && config.ctf?.showFlagsInNotifications
       this.showChallengeHints = config.challenges.showHints
       this.showVulnerabilityMitigations = config.challenges.showMitigations
-      this.showCodeSnippets = config.challenges.showCodeSnippets
+      this.codingChallengesEnabled = config.challenges.codingChallengesEnabled
       this.showHackingInstructor = config.hackingInstructor?.isEnabled
       this.showContributionInfoBox = config.application.showGitHubLinks
       this.showFeedbackButtons = config.challenges.showFeedbackButtons

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -19,7 +19,7 @@ export class ProductReviewService {
 
   get (id: number) {
     return this.http.get(`${this.host}/${id}/reviews`).pipe(
-      map((response: any) => response.data), catchError(err => {
+      map((response: any) => response.data), catchError((err: Error) => {
         throw err
       })
     )

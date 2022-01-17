@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -52,7 +52,7 @@ export class AccountingComponent implements AfterViewInit, OnDestroy {
   loadQuantity () {
     this.quantitySubscription = this.quantityService.getAll().subscribe((stock) => {
       this.quantityMap = {}
-      stock.map((item) => {
+      stock.forEach((item) => {
         this.quantityMap[item.ProductId] = {
           id: item.id,
           quantity: item.quantity

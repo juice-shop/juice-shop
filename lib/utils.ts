@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -30,7 +30,7 @@ const models = require('../models')
 
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
 
-let ctfKey
+let ctfKey: string
 if (process.env.CTF_KEY !== undefined && process.env.CTF_KEY !== '') {
   ctfKey = process.env.CTF_KEY
 } else {
@@ -42,8 +42,8 @@ if (process.env.CTF_KEY !== undefined && process.env.CTF_KEY !== '') {
   })
 }
 
-exports.queryResultToJson = (data, status) => {
-  let wrappedData = {}
+export const queryResultToJson = (data: any, status: string) => {
+  let wrappedData: any = {}
   if (data) {
     if (!data.length && data.dataValues) {
       wrappedData = data.dataValues
@@ -62,38 +62,38 @@ exports.queryResultToJson = (data, status) => {
   }
 }
 
-exports.isUrl = (url) => {
-  return !!this.startsWith(url, 'http')
+export const isUrl = (url: string) => {
+  return startsWith(url, 'http')
 }
 
-exports.startsWith = (str, prefix) => str ? str.indexOf(prefix) === 0 : false
+export const startsWith = (str: string, prefix: string) => str ? str.indexOf(prefix) === 0 : false
 
-exports.endsWith = (str, suffix) => str ? str.indexOf(suffix, str.length - suffix.length) !== -1 : false
+export const endsWith = (str: string, suffix: string) => str ? str.includes(suffix, str.length - suffix.length) : false
 
-exports.contains = (str, element) => str ? str.includes(element) : false
+export const contains = (str: string, element: string) => str ? str.includes(element) : false // TODO Inline all usages as this function is not adding any functionality to String.includes
 
-exports.containsEscaped = function (str, element) {
-  return this.contains(str, element.replace(/"/g, '\\"'))
+export const containsEscaped = function (str: string, element: string) {
+  return contains(str, element.replace(/"/g, '\\"'))
 }
 
-exports.containsOrEscaped = function (str, element) {
-  return this.contains(str, element) || this.containsEscaped(str, element)
+export const containsOrEscaped = function (str: string, element: string) {
+  return contains(str, element) || containsEscaped(str, element)
 }
 
-exports.unquote = function (str) {
-  if (str && this.startsWith(str, '"') && this.endsWith(str, '"')) {
+export const unquote = function (str: string) {
+  if (str && startsWith(str, '"') && endsWith(str, '"')) {
     return str.substring(1, str.length - 1)
   } else {
     return str
   }
 }
 
-exports.trunc = function (str, length) {
+export const trunc = function (str: string, length: number) {
   str = str.replace(/(\r\n|\n|\r)/gm, '')
   return (str.length > length) ? str.substr(0, length - 1) + '...' : str
 }
 
-exports.version = module => {
+export const version = (module: string) => {
   if (module) {
     return packageJson.dependencies[module]
   } else {
@@ -101,24 +101,24 @@ exports.version = module => {
   }
 }
 
-exports.ctfFlag = text => {
+export const ctfFlag = (text: string) => {
   const shaObj = new jsSHA('SHA-1', 'TEXT') // eslint-disable-line new-cap
   shaObj.setHMACKey(ctfKey, 'TEXT')
   shaObj.update(text)
   return shaObj.getHMAC('HEX')
 }
 
-exports.solveIf = function (challenge, criteria, isRestore) {
-  if (this.notSolved(challenge) && criteria()) {
-    this.solve(challenge, isRestore)
+export const solveIf = function (challenge: any, criteria: () => any, isRestore: boolean = false) {
+  if (notSolved(challenge) && criteria()) {
+    solve(challenge, isRestore)
   }
 }
 
-exports.solve = function (challenge, isRestore) {
+export const solve = function (challenge: any, isRestore = false) {
   challenge.solved = true
-  challenge.save().then((solvedChallenge) => {
+  challenge.save().then((solvedChallenge: { difficulty: number, key: string, name: string }) => {
     logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} ${solvedChallenge.difficulty}-star ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
-    this.sendNotification(solvedChallenge, isRestore)
+    sendNotification(solvedChallenge, isRestore)
     if (!isRestore) {
       const cheatScore = antiCheat.calculateCheatScore(challenge)
       if (process.env.SOLUTIONS_WEBHOOK) {
@@ -130,9 +130,9 @@ exports.solve = function (challenge, isRestore) {
   })
 }
 
-exports.sendNotification = function (challenge, isRestore) {
-  if (!this.notSolved(challenge)) {
-    const flag = this.ctfFlag(challenge.name)
+export const sendNotification = function (challenge: { difficulty?: number, key: any, name: any, description?: any }, isRestore: boolean) {
+  if (!notSolved(challenge)) {
+    const flag = ctfFlag(challenge.name)
     const notification = {
       key: challenge.key,
       name: challenge.name,
@@ -141,7 +141,7 @@ exports.sendNotification = function (challenge, isRestore) {
       hidden: !config.get('challenges.showSolvedNotifications'),
       isRestore: isRestore
     }
-    const wasPreviouslyShown = notifications.find(({ key }) => key === challenge.key) !== undefined
+    const wasPreviouslyShown = notifications.find(({ key }: { key: string }) => key === challenge.key) !== undefined
     notifications.push(notification)
 
     if (global.io && (isRestore || !wasPreviouslyShown)) {
@@ -150,9 +150,9 @@ exports.sendNotification = function (challenge, isRestore) {
   }
 }
 
-exports.notSolved = challenge => challenge && !challenge.solved
+export const notSolved = (challenge: any) => challenge && !challenge.solved
 
-exports.findChallengeByName = (challengeName: string) => {
+export const findChallengeByName = (challengeName: string) => {
   for (const c in challenges) {
     if (Object.prototype.hasOwnProperty.call(challenges, c)) {
       if (challenges[c].name === challengeName) {
@@ -163,7 +163,7 @@ exports.findChallengeByName = (challengeName: string) => {
   logger.warn('Missing challenge with name: ' + challengeName)
 }
 
-exports.findChallengeById = (challengeId: number) => {
+export const findChallengeById = (challengeId: number) => {
   for (const c in challenges) {
     if (Object.prototype.hasOwnProperty.call(challenges, c)) {
       if (challenges[c].id === challengeId) {
@@ -174,13 +174,13 @@ exports.findChallengeById = (challengeId: number) => {
   logger.warn('Missing challenge with id: ' + challengeId)
 }
 
-exports.toMMMYY = date => {
+export const toMMMYY = (date: Date) => {
   const month = date.getMonth()
   const year = date.getFullYear()
   return months[month] + year.toString().substring(2, 4)
 }
 
-exports.toISO8601 = date => {
+export const toISO8601 = (date: Date) => {
   let day = '' + date.getDate()
   let month = '' + (date.getMonth() + 1)
   const year = date.getFullYear()
@@ -191,7 +191,7 @@ exports.toISO8601 = date => {
   return [year, month, day].join('-')
 }
 
-exports.extractFilename = (url) => {
+export const extractFilename = (url: string) => {
   let file = decodeURIComponent(url.substring(url.lastIndexOf('/') + 1))
   if (this.contains(file, '?')) {
     file = file.substring(0, file.indexOf('?'))
@@ -199,15 +199,15 @@ exports.extractFilename = (url) => {
   return file
 }
 
-exports.downloadToFile = async (url, dest) => {
-  return download(url).then(data => {
+export const downloadToFile = async (url: string, dest: string) => {
+  return download(url).then((data: string | Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | BigUint64Array | BigInt64Array | Float32Array | Float64Array | DataView) => {
     fs.writeFileSync(dest, data)
-  }).catch(err => {
+  }).catch((err: Error) => {
     logger.warn('Failed to download ' + url + ' (' + err.statusMessage + ')')
   })
 }
 
-exports.jwtFrom = ({ headers }) => {
+export const jwtFrom = ({ headers }: { headers: any}) => {
   if (headers?.authorization) {
     const parts = headers.authorization.split(' ')
     if (parts.length === 2) {
@@ -222,19 +222,19 @@ exports.jwtFrom = ({ headers }) => {
   return undefined
 }
 
-exports.randomHexString = (length) => {
+export const randomHexString = (length: number) => {
   return crypto.randomBytes(Math.ceil(length / 2)).toString('hex').slice(0, length)
 }
 
-exports.disableOnContainerEnv = () => {
+export const disableOnContainerEnv = () => {
   return (isDocker() || isHeroku) && !config.get('challenges.safetyOverride')
 }
 
-exports.disableOnWindowsEnv = () => {
+export const disableOnWindowsEnv = () => {
   return isWindows()
 }
 
-exports.determineDisabledEnv = (disabledEnv) => {
+export const determineDisabledEnv = (disabledEnv: string | string[] | undefined) => {
   if (isDocker()) {
     return disabledEnv && (disabledEnv === 'Docker' || disabledEnv.includes('Docker')) ? 'Docker' : null
   } else if (isHeroku) {
@@ -245,9 +245,9 @@ exports.determineDisabledEnv = (disabledEnv) => {
   return null
 }
 
-exports.parseJsonCustom = (jsonString) => {
+export const parseJsonCustom = (jsonString: string) => {
   const parser = clarinet.parser()
-  const result = []
+  const result: any[] = []
   parser.onkey = parser.onopenobject = k => {
     result.push({ key: k, value: null })
   }
@@ -258,8 +258,8 @@ exports.parseJsonCustom = (jsonString) => {
   return result
 }
 
-exports.toSimpleIpAddress = (ipv6) => {
-  if (this.startsWith(ipv6, '::ffff:')) {
+export const toSimpleIpAddress = (ipv6: string) => {
+  if (startsWith(ipv6, '::ffff:')) {
     return ipv6.substr(7)
   } else if (ipv6 === '::1') {
     return '127.0.0.1'
@@ -268,11 +268,11 @@ exports.toSimpleIpAddress = (ipv6) => {
   }
 }
 
-exports.thaw = (frozenObject) => {
+export const thaw = (frozenObject: any) => {
   return JSON.parse(JSON.stringify(frozenObject))
 }
 
-exports.solveFindIt = async function (key: string, isRestore: boolean) {
+export const solveFindIt = async function (key: string, isRestore: boolean) {
   const solvedChallenge = challenges[key]
   await models.Challenge.update({ codingChallengeStatus: 1 }, { where: { key, codingChallengeStatus: { [Op.lt]: 2 } } })
   logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Find It' phase of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
@@ -283,7 +283,7 @@ exports.solveFindIt = async function (key: string, isRestore: boolean) {
   }
 }
 
-exports.solveFixIt = async function (key: string, isRestore: boolean) {
+export const solveFixIt = async function (key: string, isRestore: boolean) {
   const solvedChallenge = challenges[key]
   await models.Challenge.update({ codingChallengeStatus: 2 }, { where: { key } })
   logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Fix It' phase of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)

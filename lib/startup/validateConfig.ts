@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -89,8 +89,8 @@ const checkNecessaryExtraKeysOnSpecialProducts = (products) => {
   specialProducts.forEach(({ name, key, extra = {} }) => {
     const matchingProducts = products.filter((product) => product[key])
     if (extra.key && matchingProducts.length === 1 && !matchingProducts[0][extra.key]) {
-      logger.info(`Product ${colors.italic(matchingProducts[0].name)} configured as ${colors.italic(name)} does't contain necessary ${colors.italic(extra.name)} (${colors.yellow('OK')})`)
-      success = true // TODO Replace with "false" and change above log to warning with red "NOT OK" with v13.x major release
+      logger.warn(`Product ${colors.italic(matchingProducts[0].name)} configured as ${colors.italic(name)} does't contain necessary ${colors.italic(extra.name)} (${colors.red('NOT OK')})`)
+      success = false
     }
   })
   return success

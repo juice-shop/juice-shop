@@ -1,17 +1,18 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import frisby = require('frisby')
-const config = require('config')
+import config = require('config')
+import { Product } from '../../data/types'
 const utils = require('../../lib/utils')
 
 const URL = 'http://localhost:3000'
 
-let blueprint
+let blueprint: string
 
-for (const product of config.get('products')) {
+for (const product of config.get<Product[]>('products')) {
   if (product.fileForRetrieveBlueprintChallenge) {
     blueprint = product.fileForRetrieveBlueprintChallenge
     break
@@ -23,18 +24,18 @@ describe('Server', () => {
     return frisby.get(URL)
       .expect('status', 200)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', 'main-es2018.js')
-      .expect('bodyContains', 'runtime-es2018.js')
-      .expect('bodyContains', 'polyfills-es2018.js')
+      .expect('bodyContains', 'main.js')
+      .expect('bodyContains', 'runtime.js')
+      .expect('bodyContains', 'polyfills.js')
   })
 
   it('GET responds with index.html when visiting application URL with any path', () => {
     return frisby.get(URL + '/whatever')
       .expect('status', 200)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', 'main-es2018.js')
-      .expect('bodyContains', 'runtime-es2018.js')
-      .expect('bodyContains', 'polyfills-es2018.js')
+      .expect('bodyContains', 'main.js')
+      .expect('bodyContains', 'runtime.js')
+      .expect('bodyContains', 'polyfills.js')
   })
 
   xit('GET a restricted file directly from file system path on server via Directory Traversal attack loads index.html instead', () => {

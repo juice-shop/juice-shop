@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -34,6 +34,9 @@ export class ChangePasswordComponent {
   }
 
   changePassword () {
+    if (localStorage.getItem('email')?.match(/support@.*/) && !this.newPasswordControl.value.match(/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,30}/)) {
+      console.error('Parola echipei de asistență nu respectă politica corporativă pentru conturile privilegiate! Vă rugăm să schimbați parola în consecință!')
+    }
     this.userService.changePassword({
       current: this.passwordControl.value,
       new: this.newPasswordControl.value,
@@ -56,17 +59,12 @@ export class ChangePasswordComponent {
 
   resetForm () {
     this.passwordControl.setValue('')
-    this.passwordControl.markAsPristine()
-    this.passwordControl.markAsUntouched()
-    this.newPasswordControl.setValue('')
-    this.newPasswordControl.markAsPristine()
-    this.newPasswordControl.markAsUntouched()
-    this.repeatNewPasswordControl.setValue('')
-    this.repeatNewPasswordControl.markAsPristine()
-    this.repeatNewPasswordControl.markAsUntouched()
+    this.resetPasswords()
   }
 
   resetPasswords () {
+    this.passwordControl.markAsPristine()
+    this.passwordControl.markAsUntouched()
     this.newPasswordControl.setValue('')
     this.newPasswordControl.markAsPristine()
     this.newPasswordControl.markAsUntouched()

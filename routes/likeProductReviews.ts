@@ -1,15 +1,17 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import utils = require('../lib/utils')
+import { Request, Response, NextFunction } from 'express'
+
 const challenges = require('../data/datacache').challenges
 const db = require('../data/mongodb')
 const security = require('../lib/insecurity')
 
 module.exports = function productReviews () {
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     const id = req.body.id
     const user = security.authenticatedUsers.from(req)
     db.reviews.findOne({ _id: id }).then(review => {

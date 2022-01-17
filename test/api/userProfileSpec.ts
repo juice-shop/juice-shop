@@ -1,15 +1,15 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import frisby = require('frisby')
-const config = require('config')
+import config = require('config')
 
 const URL = 'http://localhost:3000'
 
 const jsonHeader = { 'content-type': 'application/json' }
-let authHeader
+let authHeader: { Cookie: any }
 
 beforeAll(() => {
   return frisby.post(`${URL}/rest/user/login`, {
@@ -48,6 +48,7 @@ describe('/profile', () => {
     form.append('username', 'Localhorst')
 
     return frisby.post(`${URL}/profile`, {
+      // @ts-expect-error
       headers: { 'Content-Type': form.getHeaders()['content-type'], Cookie: authHeader.Cookie },
       body: form,
       redirect: 'manual'
@@ -60,6 +61,7 @@ describe('/profile', () => {
     form.append('username', 'Localhorst')
 
     return frisby.post(`${URL}/profile`, {
+      // @ts-expect-error
       headers: { 'Content-Type': form.getHeaders()['content-type'] },
       body: form
     })

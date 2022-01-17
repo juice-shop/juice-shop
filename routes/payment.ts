@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import models = require('../models/index')
+import { Request, Response, NextFunction } from 'express'
 
 module.exports.getPaymentMethods = function getPaymentMethods () {
-  return async (req, res, next) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     const cards = await models.Card.findAll({ where: { UserId: req.body.UserId } })
     cards.forEach(card => {
       const cardNumber = String(card.cardNum)
@@ -17,7 +18,7 @@ module.exports.getPaymentMethods = function getPaymentMethods () {
 }
 
 module.exports.getPaymentMethodById = function getPaymentMethodById () {
-  return async (req, res, next) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     const card = await models.Card.findOne({ where: { id: req.params.id, UserId: req.body.UserId } })
     if (card) {
       const cardNumber = String(card.cardNum)
@@ -32,7 +33,7 @@ module.exports.getPaymentMethodById = function getPaymentMethodById () {
 }
 
 module.exports.delPaymentMethodById = function delPaymentMethodById () {
-  return async (req, res, next) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     const card = await models.Card.destroy({ where: { id: req.params.id, UserId: req.body.UserId } })
     if (card) {
       res.status(200).json({ status: 'success', data: 'Card deleted successfully.' })
