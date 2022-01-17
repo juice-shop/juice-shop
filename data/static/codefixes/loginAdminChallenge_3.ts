@@ -1,3 +1,5 @@
+import {NextFunction, Request, Response} from "express";
+
 module.exports = function login () {
   function afterLogin (user, res, next) {
     models.Basket.findOrCreate({ where: { UserId: user.data.id }, defaults: {} })
@@ -11,7 +13,7 @@ module.exports = function login () {
       })
   }
 
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     models.sequelize.query(`SELECT * FROM Users WHERE email = $1 AND password = $2 AND deletedAt IS NULL`,
       { bind: [ req.body.email, req.body.password ], model: models.User, plain: true })
       .then((authenticatedUser) => {

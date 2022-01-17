@@ -1,3 +1,5 @@
+import {NextFunction, Request, Response} from "express";
+
 module.exports = function login () {
   function afterLogin (user, res, next) {
     models.Basket.findOrCreate({ where: { UserId: user.data.id }, defaults: {} })
@@ -11,7 +13,7 @@ module.exports = function login () {
       })
   }
 
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     if (req.body.email.match(/.*['-;].*/) || req.body.password.match(/.*['-;].*/)) {
       res.status(451).send(res.__('SQL Injection detected.'))
     }
