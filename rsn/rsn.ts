@@ -15,7 +15,7 @@ checkDiffs(keys)
       if (checkData(data, fileData)) {
         console.log(colors.green('All files have the same diffs'))
       } else {
-        console.log(colors.red('All files do not have the same diffs'))
+        console.log(colors.red('Not all files have the same diffs'))
       }
     }
   })
