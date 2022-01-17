@@ -1,14 +1,15 @@
-import { readFiles, checkDiffs, logger, writeToFile } from './rsnUtil'
+import { readFiles, checkDiffs, writeToFile } from './rsnUtil'
+const colors = require('colors/safe')
+
 const keys = readFiles()
 checkDiffs(keys)
   .then(({ okay, notOkay, data }) => {
+    console.log(('---------------------------------------'))
     if (notOkay === 0) {
-      console.log(logger('\n---------------------------------------').green())
-      console.log(logger('All files passed').green())
+      console.log(colors.green('All files passed'))
     } else {
-      console.log(logger('\n---------------------------------------').green())
-      console.log(logger('Total files passed: ' + okay).green())
-      console.log(logger('Total files failed: ' + notOkay).red())
+      console.log(colors.green('Total files passed: ' + okay))
+      console.log(colors.red('Total files failed: ' + notOkay))
 
       writeToFile(data)
       console.log('All diffs are updated')
