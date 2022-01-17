@@ -1,10 +1,11 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 /* jslint node: true */
-import models = require('../models/index')
+import * as models from '../models/index'
+import { Address, Card, Challenge, Delivery, Memory, Product, Recycle, SecurityQuestion, User } from './types'
 const datacache = require('./datacache')
 const config = require('config')
 const utils = require('../lib/utils')
@@ -21,7 +22,7 @@ const entities = new Entities()
 
 const readFile = util.promisify(fs.readFile)
 
-function loadStaticData (file) {
+function loadStaticData (file: string) {
   const filePath = path.resolve('./data/static/' + file + '.yml')
   return readFile(filePath, 'utf8')
     .then(safeLoad)
@@ -59,7 +60,7 @@ async function createChallenges () {
   const challenges = await loadStaticData('challenges')
 
   await Promise.all(
-    challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, mitigationUrl, key, disabledEnv, tutorial, tags }) => {
+    challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, mitigationUrl, key, disabledEnv, tutorial, tags }: Challenge) => {
       const effectiveDisabledEnv = utils.determineDisabledEnv(disabledEnv)
       description = description.replace('juice-sh.op', config.get('application.domain'))
       description = description.replace('&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;', entities.encode(config.get('challenges.xssBonusPayload')))
@@ -92,7 +93,7 @@ async function createUsers () {
   const users = await loadStaticData('users')
 
   await Promise.all(
-    users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret = '' }) => {
+    users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret = '' }: User) => {
       try {
         const completeEmail = customDomain ? email : `${email}@${config.get('application.domain')}`
         const user = await models.User.create({
@@ -101,7 +102,7 @@ async function createUsers () {
           password,
           role,
           deluxeToken: role === security.roles.deluxe ? security.deluxeToken(completeEmail) : '',
-          profileImage: `assets/public/images/uploads/${profileImage || (role === security.roles.admin ? 'defaultAdmin.png' : 'default.svg')}`,
+          profileImage: `assets/public/images/uploads/${profileImage ?? (role === security.roles.admin ? 'defaultAdmin.png' : 'default.svg')}`,
           totpSecret
         })
         datacache.users[key] = user
@@ -120,7 +121,7 @@ async function createUsers () {
 async function createWallet () {
   const users = await loadStaticData('users')
   return await Promise.all(
-    users.map((user, index) => {
+    users.map((user: User, index: number) => {
       return models.Wallet.create({
         UserId: index + 1,
         balance: user.walletBalance !== undefined ? user.walletBalance : 0
@@ -135,7 +136,7 @@ async function createDeliveryMethods () {
   const deliveries = await loadStaticData('deliveries')
 
   await Promise.all(
-    deliveries.map(async ({ name, price, deluxePrice, eta, icon }) => {
+    deliveries.map(async ({ name, price, deluxePrice, eta, icon }: Delivery) => {
       try {
         await models.Delivery.create({
           name,
@@ -151,7 +152,7 @@ async function createDeliveryMethods () {
   )
 }
 
-function createAddresses (UserId, addresses) {
+function createAddresses (UserId: number, addresses: Address[]) {
   addresses.map((address) => {
     return models.Address.create({
       UserId: UserId,
@@ -168,7 +169,7 @@ function createAddresses (UserId, addresses) {
   })
 }
 
-async function createCards (UserId, cards) {
+async function createCards (UserId: number, cards: Card[]) {
   return await Promise.all(cards.map((card) => {
     return models.Card.create({
       UserId: UserId,
@@ -182,7 +183,7 @@ async function createCards (UserId, cards) {
   }))
 }
 
-function deleteUser (userId) {
+function deleteUser (userId: number) {
   return models.User.destroy({ where: { id: userId } }).catch((err) => {
     logger.error(`Could not perform soft delete for the user ${userId}: ${err.message}`)
   })
@@ -194,7 +195,7 @@ async function createRandomFakeUsers () {
     return makeRandomString(5).toLowerCase() + '@' + randomDomain
   }
 
-  function makeRandomString (length) {
+  function makeRandomString (length: number) {
     let text = ''
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
@@ -213,11 +214,11 @@ async function createRandomFakeUsers () {
 
 async function createQuantity () {
   return await Promise.all(
-    config.get('products').map((product, index) => {
+    config.get('products').map((product: Product, index: number) => {
       return models.Quantity.create({
         ProductId: index + 1,
         quantity: product.quantity !== undefined ? product.quantity : Math.floor(Math.random() * 70 + 30),
-        limitPerUser: product.limitPerUser || null
+        limitPerUser: product.limitPerUser ?? null
       }).catch((err) => {
         logger.error(`Could not create quantity: ${err.message}`)
       })
@@ -234,7 +235,7 @@ async function createMemories () {
     }).catch((err) => {
       logger.error(`Could not create memory: ${err.message}`)
     }),
-    ...utils.thaw(config.get('memories')).map((memory) => {
+    ...utils.thaw(config.get('memories')).map((memory: Memory) => {
       let tmpImageFileName = memory.image
       if (utils.isUrl(memory.image)) {
         const imageUrl = memory.image
@@ -263,13 +264,13 @@ async function createMemories () {
 }
 
 async function createProducts () {
-  const products = utils.thaw(config.get('products')).map((product) => {
-    product.price = product.price || Math.floor(Math.random() * 9 + 1)
-    product.deluxePrice = product.deluxePrice || product.price
+  const products = utils.thaw(config.get('products')).map((product: Product) => {
+    product.price = product.price ?? Math.floor(Math.random() * 9 + 1)
+    product.deluxePrice = product.deluxePrice ?? product.price
     product.description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
 
     // set default image values
-    product.image = product.image || 'undefined.png'
+    product.image = product.image ?? 'undefined.png'
     if (utils.isUrl(product.image)) {
       const imageUrl = product.image
       product.image = utils.extractFilename(product.image)
@@ -286,10 +287,10 @@ async function createProducts () {
   })
 
   // add Challenge specific information
-  const christmasChallengeProduct = products.find(({ useForChristmasSpecialChallenge }) => useForChristmasSpecialChallenge)
-  const pastebinLeakChallengeProduct = products.find(({ keywordsForPastebinDataLeakChallenge }) => keywordsForPastebinDataLeakChallenge)
-  const tamperingChallengeProduct = products.find(({ urlForProductTamperingChallenge }) => urlForProductTamperingChallenge)
-  const blueprintRetrievalChallengeProduct = products.find(({ fileForRetrieveBlueprintChallenge }) => fileForRetrieveBlueprintChallenge)
+  const christmasChallengeProduct = products.find(({ useForChristmasSpecialChallenge }: { useForChristmasSpecialChallenge: boolean }) => useForChristmasSpecialChallenge)
+  const pastebinLeakChallengeProduct = products.find(({ keywordsForPastebinDataLeakChallenge }: { keywordsForPastebinDataLeakChallenge: string[] }) => keywordsForPastebinDataLeakChallenge)
+  const tamperingChallengeProduct = products.find(({ urlForProductTamperingChallenge }: { urlForProductTamperingChallenge: string }) => urlForProductTamperingChallenge)
+  const blueprintRetrievalChallengeProduct = products.find(({ fileForRetrieveBlueprintChallenge }: { fileForRetrieveBlueprintChallenge: string }) => fileForRetrieveBlueprintChallenge)
 
   christmasChallengeProduct.description += ' (Seasonal special offer! Limited availability!)'
   christmasChallengeProduct.deletedAt = '2014-12-27 00:00:00.000 +00:00'
@@ -302,7 +303,7 @@ async function createProducts () {
   if (utils.isUrl(blueprint)) {
     const blueprintUrl = blueprint
     blueprint = utils.extractFilename(blueprint)
-    utils.downloadToFile(blueprintUrl, 'frontend/dist/frontend/assets/public/images/products/' + blueprint)
+    await utils.downloadToFile(blueprintUrl, 'frontend/dist/frontend/assets/public/images/products/' + blueprint)
   }
   datacache.retrieveBlueprintChallengeFile = blueprint
 
@@ -313,7 +314,7 @@ async function createProducts () {
           (err) => {
             logger.error(`Could not insert Product ${product.name}: ${err.message}`)
           }
-        ).then((persistedProduct) => {
+        ).then((persistedProduct: Product) => {
           if (useForChristmasSpecialChallenge) { datacache.products.christmasSpecial = persistedProduct }
           if (urlForProductTamperingChallenge) {
             datacache.products.osaft = persistedProduct
@@ -333,7 +334,7 @@ async function createProducts () {
           }
           return persistedProduct
         })
-          .then(async ({ id }) =>
+          .then(async ({ id }: { id: number }) =>
             await Promise.all(
               reviews.map(({ text, author }) =>
                 mongodb.reviews.insert({
@@ -351,13 +352,13 @@ async function createProducts () {
     )
   )
 
-  function customizeChangeProductChallenge (description, customUrl, customProduct) {
+  function customizeChangeProductChallenge (description: string, customUrl: string, customProduct: Product) {
     let customDescription = description.replace(/OWASP SSL Advanced Forensic Tool \(O-Saft\)/g, customProduct.name)
     customDescription = customDescription.replace('https://owasp.slack.com', customUrl)
     return customDescription
   }
 
-  function customizeRetrieveBlueprintChallenge (hint, customProduct) {
+  function customizeRetrieveBlueprintChallenge (hint: string, customProduct: Product) {
     return hint.replace(/OWASP Juice Shop Logo \(3D-printed\)/g, customProduct.name)
   }
 }
@@ -458,7 +459,7 @@ async function createAnonymousFeedback () {
   )
 }
 
-function createFeedback (UserId, comment, rating, author) {
+function createFeedback (UserId: number | null, comment: string, rating: number, author?: string) {
   const authoredComment = author ? `${comment} (***${author.slice(3)})` : `${comment} (anonymous)`
   return models.Feedback.create({ UserId, comment: authoredComment, rating }).catch((err) => {
     logger.error(`Could not insert Feedback ${authoredComment} mapped to UserId ${UserId}: ${err.message}`)
@@ -545,7 +546,7 @@ async function createRecycleItem () {
   )
 }
 
-function createRecycle (data) {
+function createRecycle (data: Recycle) {
   return models.Recycle.create(data).catch((err) => {
     logger.error(`Could not insert Recycling Model: ${err.message}`)
   })
@@ -555,7 +556,7 @@ async function createSecurityQuestions () {
   const questions = await loadStaticData('securityQuestions')
 
   await Promise.all(
-    questions.map(async ({ question }) => {
+    questions.map(async ({ question }: SecurityQuestion) => {
       try {
         await models.SecurityQuestion.create({ question })
       } catch (err) {
@@ -565,7 +566,7 @@ async function createSecurityQuestions () {
   )
 }
 
-function createSecurityAnswer (UserId, SecurityQuestionId, answer) {
+function createSecurityAnswer (UserId: number, SecurityQuestionId: number, answer: string) {
   return models.SecurityAnswer.create({ SecurityQuestionId, UserId, answer }).catch((err) => {
     logger.error(`Could not insert SecurityAnswer ${answer} mapped to UserId ${UserId}: ${err.message}`)
   })

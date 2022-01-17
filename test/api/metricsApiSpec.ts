@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -34,6 +34,7 @@ describe('/metrics', () => {
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
 
+    // @ts-expect-error
     return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 204)
       .then(() => {
@@ -49,6 +50,7 @@ describe('/metrics', () => {
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
 
+    // @ts-expect-error
     return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 500)
       .then(() => {

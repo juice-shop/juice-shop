@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -20,7 +20,7 @@ export class AdministrationService {
   getApplicationVersion () {
     return this.http.get(this.host + '/application-version').pipe(
       map((response: any) => response.version),
-      catchError(error => { throw error })
+      catchError((error: Error) => { throw error })
     )
   }
 }

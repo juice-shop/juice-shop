@@ -51,7 +51,7 @@
 	"Once you found admin section of the application, this challenge is almost trivial.": "Once you found admin section of the application, this challenge is almost trivial.",
 	"Forge a coupon code that gives you a discount of at least 80%.": "Forge a coupon code that gives you a discount of at least 80%.",
 	"Try either a) a knowledgable brute force attack or b) reverse engineering or c) some research in the cloud.": "Try either a) a knowledgable brute force attack or b) reverse engineering or c) some research in the cloud.",
-	"Post some feedback in another users name.": "Postita tagasiside mõne teise kasutaja nimel.",
+	"Post some feedback in another user's name.": "Post some feedback in another user's name.",
 	"You can solve this by tampering with the user interface or by intercepting the communication with the RESTful backend.": "Saad selle lahendada kasutajaliidese manipuleerimisega või RESTful rakendusliidese pealtkuulamisega.",
 	"Post a product review as another user or edit any user's existing review.": "Postita tootearvustus teise kasutajana või muutke mõne kasutaja olemasolevat arvustust.",
 	"Observe the flow of product review posting and editing and see if you can exploit it.": "Observe the flow of product review posting and editing and see if you can exploit it.",

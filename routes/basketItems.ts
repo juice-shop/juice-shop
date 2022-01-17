@@ -1,15 +1,17 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import models = require('../models/index')
+import { Request, Response, NextFunction } from 'express'
+
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const security = require('../lib/insecurity')
 
 module.exports.addBasketItem = function addBasketItem () {
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     const result = utils.parseJsonCustom(req.rawBody)
     const productIds = []
     const basketIds = []
@@ -43,7 +45,7 @@ module.exports.addBasketItem = function addBasketItem () {
           data: basketItem
         }
         res.json(basketItem)
-      }).catch(error => {
+      }).catch((error: Error) => {
         next(error)
       })
     }
@@ -51,15 +53,15 @@ module.exports.addBasketItem = function addBasketItem () {
 }
 
 module.exports.quantityCheckBeforeBasketItemAddition = function quantityCheckBeforeBasketItemAddition () {
-  return (req, res, next) => {
-    void quantityCheck(req, res, next, req.body.ProductId, req.body.quantity).catch(error => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    void quantityCheck(req, res, next, req.body.ProductId, req.body.quantity).catch((error: Error) => {
       next(error)
     })
   }
 }
 
 module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBeforeBasketItemUpdate () {
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     models.BasketItem.findOne({ where: { id: req.params.id } }).then((item) => {
       const user = security.authenticatedUsers.from(req)
       utils.solveIf(challenges.basketManipulateChallenge, () => { return user && req.body.BasketId && user.bid != req.body.BasketId }) // eslint-disable-line eqeqeq
@@ -68,13 +70,13 @@ module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBefor
       } else {
         next()
       }
-    }).catch(error => {
+    }).catch((error: Error) => {
       next(error)
     })
   }
 }
 
-async function quantityCheck (req, res, next, id, quantity) {
+async function quantityCheck (req: Request, res: Response, next: NextFunction, id, quantity) {
   const product = await models.Quantity.findOne({ where: { ProductId: id } })
 
   // is product limited per user and order, except if user is deluxe?

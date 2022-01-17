@@ -29,17 +29,17 @@ describe('blueprint', () => {
             pathToImage = path.resolve('frontend/src', pathToImage, product.image)
           }
 
-          ExifImage({ image: pathToImage }, function (error, exifData) {
+          ExifImage({ image: pathToImage }, function (error: Error, exifData: any) {
             if (error) {
               expect.fail(`Could not read EXIF data from ${pathToImage}`)
             }
             const properties = Object.values(exifData.image)
-            product.exifForBlueprintChallenge.forEach(property => {
+            product.exifForBlueprintChallenge.forEach((property: string) => {
               expect(properties).to.include(property)
             })
           })
         }
       }
-    }).timeout(10000)
+    }, 10000)
   })
 })

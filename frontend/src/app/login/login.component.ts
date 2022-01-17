@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -99,10 +99,6 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('email', this.user.email)
     } else {
       localStorage.removeItem('email')
-    }
-
-    if (this.error && this.user.email && this.user.email.match(/support@.*/)) {
-      console.log('@echipa de suport: Secretul nostru comun este încă Caoimhe cu parola de master gol!')
     }
   }
 

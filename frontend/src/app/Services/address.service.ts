@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -23,7 +23,7 @@ export class AddressService {
 
   getById (id) {
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    return this.http.get(`${this.host}/${id}`).pipe(map((response: any) => response.data), catchError(err => { throw err }))
+    return this.http.get(`${this.host}/${id}`).pipe(map((response: any) => response.data), catchError((err: Error) => { throw err }))
   }
 
   save (params) {

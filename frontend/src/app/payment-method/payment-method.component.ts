@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -27,7 +27,7 @@ export class PaymentMethodComponent implements OnInit {
   @Input('allowDelete') public allowDelete: boolean = false
   public displayedColumns = ['Number', 'Name', 'Expiry']
   public nameControl: FormControl = new FormControl('', [Validators.required])
-  public numberControl: FormControl = new FormControl('', [Validators.required, Validators.min(1000000000000000), Validators.max(9999999999999999)])
+  public numberControl: FormControl = new FormControl('', [Validators.required, Validators.min(1000000000000000), Validators.max(9999999999999999)]) // eslint-disable-line no-loss-of-precision
   public monthControl: FormControl = new FormControl('', [Validators.required])
   public yearControl: FormControl = new FormControl('', [Validators.required])
   public confirmation: any

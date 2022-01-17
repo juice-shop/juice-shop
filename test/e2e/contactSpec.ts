@@ -1,17 +1,21 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import config = require('config')
+import { $, $$, browser, by, element, ElementFinder, protractor } from 'protractor'
+import { basePath, beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
+import { Product } from '../../data/types'
+
 const utils = require('../../lib/utils')
-const pastebinLeakProduct = config.get('products').filter(product => product.keywordsForPastebinDataLeakChallenge)[0]
+const pastebinLeakProduct = config.get<Product[]>('products').filter((product: Product) => product.keywordsForPastebinDataLeakChallenge)[0]
 
 describe('/#/contact', () => {
-  let comment, rating, submitButton, captcha, snackBar
+  let comment: ElementFinder, rating: ElementFinder, submitButton: ElementFinder, captcha: ElementFinder, snackBar: ElementFinder
 
   beforeEach(() => {
-    browser.get(`${protractor.basePath}/#/contact`)
+    void browser.get(`${basePath}/#/contact`)
     comment = element(by.id('comment'))
     rating = element(by.id('rating'))
     captcha = element(by.id('captchaControl'))
@@ -21,127 +25,128 @@ describe('/#/contact', () => {
   })
 
   describe('challenge "forgedFeedback"', () => {
-    protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
+    beforeEachLogin({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
     it('should be possible to provide feedback as another user', () => {
       const EC = protractor.ExpectedConditions
-      browser.executeScript('document.getElementById("userId").removeAttribute("hidden");')
-      browser.executeScript('document.getElementById("userId").removeAttribute("class");')
-      browser.wait(EC.visibilityOf($('#userId')), 5000)
+      void browser.executeScript('document.getElementById("userId").removeAttribute("hidden");')
+      void browser.executeScript('document.getElementById("userId").removeAttribute("class");')
+      void browser.wait(EC.visibilityOf($('#userId')), 5000)
 
       const UserId = element(by.id('userId'))
-      UserId.clear()
-      UserId.sendKeys('2')
-      comment.sendKeys('Picard stinks!')
-      rating.click()
+      void UserId.clear()
+      void UserId.sendKeys('2')
+      void comment.sendKeys('Picard stinks!')
+      void rating.click()
 
-      submitButton.click()
+      void submitButton.click()
 
-      browser.get(`${protractor.basePath}/#/administration`)
+      void browser.get(`${basePath}/#/administration`)
       expect($$('mat-row mat-cell.mat-column-user').last().getText()).toMatch('2')
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Forged Feedback' })
+    expectChallengeSolved({ challenge: 'Forged Feedback' })
   })
 
   if (!utils.disableOnContainerEnv()) {
     describe('challenge "persistedXssFeedback"', () => {
-      protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
+      beforeEachLogin({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
       it('should be possible to trick the sanitization with a masked XSS attack', () => {
         const EC = protractor.ExpectedConditions
 
-        comment.sendKeys('<<script>Foo</script>iframe src="javascript:alert(`xss`)">')
-        rating.click()
+        void comment.sendKeys('<<script>Foo</script>iframe src="javascript:alert(`xss`)">')
+        void rating.click()
 
-        submitButton.click()
+        void submitButton.click()
 
-        browser.sleep(5000)
+        void browser.sleep(5000)
 
-        browser.waitForAngularEnabled(false)
-        browser.get(`${protractor.basePath}/#/about`)
+        void browser.waitForAngularEnabled(false)
+        void browser.get(`${basePath}/#/about`)
 
-        browser.wait(EC.alertIsPresent(), 15000, "'xss' alert is not present on /#/about")
-        browser.switchTo().alert().then(alert => {
-          expect(alert.getText()).toEqual('xss')
-          alert.accept()
+        void browser.wait(EC.alertIsPresent(), 15000, "'xss' alert is not present on /#/about")
+        void browser.switchTo().alert().then(alert => {
+          expect(alert.getText()).toEqual(Promise.resolve('xss'))
+          void alert.accept()
         })
 
-        browser.get(`${protractor.basePath}/#/administration`)
-        browser.wait(EC.alertIsPresent(), 15000, "'xss' alert is not present on /#/administration")
-        browser.switchTo().alert().then(alert => {
-          expect(alert.getText()).toEqual('xss')
-          alert.accept()
-          $$('.mat-cell.mat-column-remove > button').last().click()
-          browser.wait(EC.stalenessOf(element(by.tagName('iframe'))), 5000)
+        void browser.get(`${basePath}/#/administration`)
+        void browser.wait(EC.alertIsPresent(), 15000, "'xss' alert is not present on /#/administration")
+        void browser.switchTo().alert().then(alert => {
+          expect(alert.getText()).toEqual(Promise.resolve('xss'))
+          void alert.accept()
+          void $$('.mat-cell.mat-column-remove > button').last().click()
+          void browser.wait(EC.stalenessOf(element(by.tagName('iframe'))), 5000)
         })
-        browser.waitForAngularEnabled(true)
+        void browser.waitForAngularEnabled(true)
       })
 
-      protractor.expect.challengeSolved({ challenge: 'Server-side XSS Protection' })
+      expectChallengeSolved({ challenge: 'Server-side XSS Protection' })
     })
   }
 
   describe('challenge "vulnerableComponent"', () => {
     it('should be possible to post known vulnerable component(s) as feedback', () => {
-      comment.sendKeys('sanitize-html 1.4.2 is non-recursive.')
-      comment.sendKeys('express-jwt 0.1.3 has broken crypto.')
-      rating.click()
+      void comment.sendKeys('sanitize-html 1.4.2 is non-recursive.')
+      void comment.sendKeys('express-jwt 0.1.3 has broken crypto.')
+      void rating.click()
 
-      submitButton.click()
+      void submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Vulnerable Library' })
+    expectChallengeSolved({ challenge: 'Vulnerable Library' })
   })
 
   describe('challenge "weirdCrypto"', () => {
     it('should be possible to post weird crypto algorithm/library as feedback', () => {
-      comment.sendKeys('The following libraries are bad for crypto: z85, base85, md5 and hashids')
-      rating.click()
+      void comment.sendKeys('The following libraries are bad for crypto: z85, base85, md5 and hashids')
+      void rating.click()
 
-      submitButton.click()
+      void submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Weird Crypto' })
+    expectChallengeSolved({ challenge: 'Weird Crypto' })
   })
 
   describe('challenge "typosquattingNpm"', () => {
     it('should be possible to post typosquatting NPM package as feedback', () => {
-      comment.sendKeys('You are a typosquatting victim of this NPM package: epilogue-js')
-      rating.click()
+      void comment.sendKeys('You are a typosquatting victim of this NPM package: epilogue-js')
+      void rating.click()
 
-      submitButton.click()
+      void submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Legacy Typosquatting' })
+    expectChallengeSolved({ challenge: 'Legacy Typosquatting' })
   })
 
   describe('challenge "typosquattingAngular"', () => {
     it('should be possible to post typosquatting Bower package as feedback', () => {
-      comment.sendKeys('You are a typosquatting victim of this Bower package: anuglar2-qrcode')
-      rating.click()
+      void comment.sendKeys('You are a typosquatting victim of this Bower package: anuglar2-qrcode')
+      void rating.click()
 
-      submitButton.click()
+      void submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Frontend Typosquatting' })
+    expectChallengeSolved({ challenge: 'Frontend Typosquatting' })
   })
 
   describe('challenge "hiddenImage"', () => {
     it('should be possible to post hidden character name as feedback', () => {
-      comment.sendKeys('Pickle Rick is hiding behind one of the support team ladies')
-      rating.click()
+      void comment.sendKeys('Pickle Rick is hiding behind one of the support team ladies')
+      void rating.click()
 
-      submitButton.click()
+      void submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Steganography' })
+    expectChallengeSolved({ challenge: 'Steganography' })
   })
 
   describe('challenge "zeroStars"', () => {
     it('should be possible to post feedback with zero stars by double-clicking rating widget', () => {
-      browser.executeAsyncScript(baseUrl => {
-        var callback = arguments[arguments.length - 1] // eslint-disable-line
+      void browser.executeAsyncScript((baseUrl: string) => {
+        // @ts-expect-error
+        const callback = arguments[arguments.length - 1]
         const xhttp = new XMLHttpRequest()
         let captcha
         xhttp.onreadystatechange = function () {
@@ -155,7 +160,7 @@ describe('/#/contact', () => {
         xhttp.setRequestHeader('Content-type', 'text/plain')
         xhttp.send()
 
-        function sendPostRequest (_captcha) {
+        function sendPostRequest (_captcha: { captchaId: number, answer: string}) {
           const xhttp = new XMLHttpRequest()
           xhttp.onreadystatechange = function () {
             if (this.status === 201) {
@@ -171,55 +176,56 @@ describe('/#/contact', () => {
       }, browser.baseUrl)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Zero Stars' })
+    expectChallengeSolved({ challenge: 'Zero Stars' })
   })
 
   describe('challenge "captchaBypass"', () => {
     const EC = protractor.ExpectedConditions
     xit('should be possible to post 10 or more customer feedbacks in less than 10 seconds', () => {
-      browser.waitForAngularEnabled(false)
+      void browser.waitForAngularEnabled(false)
 
       for (let i = 0; i < 11; i++) {
-        comment.sendKeys(`Spam #${i}`)
-        rating.click()
-        submitButton.click()
-        browser.wait(EC.visibilityOf(snackBar), 200, 'SnackBar did not become visible')
-        snackBar.click()
-        browser.sleep(200)
+        void comment.sendKeys(`Spam #${i}`)
+        void rating.click()
+        void submitButton.click()
+        void browser.wait(EC.visibilityOf(snackBar), 200, 'SnackBar did not become visible')
+        void snackBar.click()
+        void browser.sleep(200)
         solveNextCaptcha() // first CAPTCHA was already solved in beforeEach
       }
 
-      browser.waitForAngularEnabled(true)
+      void browser.waitForAngularEnabled(true)
     })
 
-    // protractor.expect.challengeSolved({ challenge: 'CAPTCHA Bypass' })
+    // expectChallengeSolved({ challenge: 'CAPTCHA Bypass' })
   })
 
   describe('challenge "supplyChainAttack"', () => {
     it('should be possible to post GitHub issue URL reporting malicious eslint-scope package as feedback', () => {
-      comment.sendKeys('Turn on 2FA! Now!!! https://github.com/eslint/eslint-scope/issues/39')
-      rating.click()
+      void comment.sendKeys('Turn on 2FA! Now!!! https://github.com/eslint/eslint-scope/issues/39')
+      void rating.click()
 
-      submitButton.click()
+      void submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Supply Chain Attack' })
+    expectChallengeSolved({ challenge: 'Supply Chain Attack' })
   })
 
   describe('challenge "dlpPastebinDataLeak"', () => {
     it('should be possible to post dangerous ingredients of unsafe product as feedback', () => {
-      comment.sendKeys(pastebinLeakProduct.keywordsForPastebinDataLeakChallenge.toString())
-      rating.click()
-      submitButton.click()
+      // @ts-expect-error
+      void comment.sendKeys(pastebinLeakProduct.keywordsForPastebinDataLeakChallenge.toString())
+      void rating.click()
+      void submitButton.click()
     })
-    protractor.expect.challengeSolved({ challenge: 'Leaked Unsafe Product' })
+    expectChallengeSolved({ challenge: 'Leaked Unsafe Product' })
   })
 
   function solveNextCaptcha () {
-    element(by.id('captcha')).getText().then((text) => {
-      captcha.clear()
+    void element(by.id('captcha')).getText().then((text) => {
+      void captcha.clear()
       const answer = eval(text).toString() // eslint-disable-line no-eval
-      captcha.sendKeys(answer)
+      void captcha.sendKeys(answer)
     })
   }
 })

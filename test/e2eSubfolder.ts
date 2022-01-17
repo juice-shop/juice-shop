@@ -1,10 +1,11 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import request = require('request')
 import serverApp = require('./../server')
+import { Request, Response } from 'express'
 const app = require('express')()
 const server = require('http').Server(app)
 const colors = require('colors/safe')
@@ -17,12 +18,12 @@ const basePath = baseUrl.pathname
 const proxyPort = baseUrl.port
 process.env.BASE_PATH = basePath
 
-app.use('/subfolder', (req, res) => {
+app.use('/subfolder', (req: Request, res: Response) => {
   const proxyUrl = originalBase + req.url
   req.pipe(request({ qs: req.query, uri: proxyUrl })).pipe(res)
 })
 
-exports.start = async function (readyCallback) {
+exports.start = async function (readyCallback: () => void) {
   void serverApp.start(() => {
     server.listen(proxyPort, () => {
       logger.info(colors.cyan(`Subfolder proxy listening on port ${proxyPort}`))
@@ -34,7 +35,7 @@ exports.start = async function (readyCallback) {
   })
 }
 
-exports.close = function (exitCode) {
+exports.close = function (exitCode: number | undefined) {
   return serverApp.close(exitCode)
 }
 

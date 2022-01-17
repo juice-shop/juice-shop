@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -102,7 +102,7 @@ describe('configValidation', () => {
       expect(checkNecessaryExtraKeysOnSpecialProducts(products)).to.equal(true)
     })
 
-    xit('should fail if product has no exifForBlueprintChallenge', () => { // TODO Turn back on with v13.x release
+    it('should fail if product has no exifForBlueprintChallenge', () => {
       const products = [
         {
           name: 'Apple Juice',

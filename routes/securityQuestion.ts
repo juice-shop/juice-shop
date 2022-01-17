@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import models = require('../models/index')
+import { Request, Response, NextFunction } from 'express'
 
 module.exports = function securityQuestion () {
-  return ({ query }, res, next) => {
+  return ({ query }: Request, res: Response, next: NextFunction) => {
     const email = query.email
     models.SecurityAnswer.findOne({
       include: [{
@@ -17,13 +18,13 @@ module.exports = function securityQuestion () {
       if (answer) {
         models.SecurityQuestion.findByPk(answer.SecurityQuestionId).then(question => {
           res.json({ question })
-        }).catch(error => {
+        }).catch((error: Error) => {
           next(error)
         })
       } else {
         res.json({})
       }
-    }).catch(error => {
+    }).catch((error: Error) => {
       next(error)
     })
   }

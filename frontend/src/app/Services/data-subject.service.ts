@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -19,7 +19,7 @@ export class DataSubjectService {
   constructor (private readonly http: HttpClient) { }
 
   erase (params: any) {
-    return this.http.post(this.host + '/erasure-request', params).pipe(catchError(error => { throw error })
+    return this.http.post(this.host + '/erasure-request', params).pipe(catchError((error: Error) => { throw error })
     )
   }
 

@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import frisby = require('frisby')
-const config = require('config')
+import config = require('config')
 const path = require('path')
 const fs = require('fs')
 
@@ -42,6 +42,7 @@ describe('/rest/memories', () => {
 
     return frisby.post(REST_URL + '/memories', {
       headers: {
+        // @ts-expect-error
         'Content-Type': form.getHeaders()['content-type']
       },
       body: form
@@ -67,6 +68,7 @@ describe('/rest/memories', () => {
         return frisby.post(REST_URL + '/memories', {
           headers: {
             Authorization: 'Bearer ' + jsonLogin.authentication.token,
+            // @ts-expect-error
             'Content-Type': form.getHeaders()['content-type']
           },
           body: form
@@ -93,6 +95,7 @@ describe('/rest/memories', () => {
         return frisby.post(REST_URL + '/memories', {
           headers: {
             Authorization: 'Bearer ' + jsonLogin.authentication.token,
+            // @ts-expect-error
             'Content-Type': form.getHeaders()['content-type']
           },
           body: form

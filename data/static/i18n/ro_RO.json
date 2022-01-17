@@ -51,7 +51,7 @@
 	"Once you found admin section of the application, this challenge is almost trivial.": "După ce aţi găsit secţiunea de administrare a aplicării, această provocare este aproape banală.",
 	"Forge a coupon code that gives you a discount of at least 80%.": "Forjează un cupon de cod care îți oferă o reducere de cel puțin 80%.",
 	"Try either a) a knowledgable brute force attack or b) reverse engineering or c) some research in the cloud.": "Încercaţi fie a) un atac de forţă brută cunoscut sau b) inginerie inversă sau c) cercetează în cloud.",
-	"Post some feedback in another users name.": "Postează niște feedback în alt nume de utilizator.",
+	"Post some feedback in another user's name.": "Post some feedback in another user's name.",
 	"You can solve this by tampering with the user interface or by intercepting the communication with the RESTful backend.": "Puteți rezolva acest lucru modificând interfața utilizatorului sau interceptând comunicarea cu sistemul RESTful backend.",
 	"Post a product review as another user or edit any user's existing review.": "Postează o recenzie a produsului ca alt utilizator sau editează o recenzie existentă a utilizatorului.",
 	"Observe the flow of product review posting and editing and see if you can exploit it.": "Observă fluxul de postare și editare a produsului și vezi dacă îl poți exploata.",

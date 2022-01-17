@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import models = require('../models/index')
+import { Request, Response, NextFunction } from 'express'
 
 function captchas () {
-  return (req, res) => {
+  return (req: Request, res: Response) => {
     const captchaId = req.app.locals.captchaId++
     const operators = ['*', '+', '-']
 
@@ -32,14 +33,14 @@ function captchas () {
   }
 }
 
-captchas.verifyCaptcha = () => (req, res, next) => {
+captchas.verifyCaptcha = () => (req: Request, res: Response, next: NextFunction) => {
   models.Captcha.findOne({ where: { captchaId: req.body.captchaId } }).then(captcha => {
     if (captcha && req.body.captcha === captcha.dataValues.answer) {
       next()
     } else {
       res.status(401).send(res.__('Wrong answer to CAPTCHA. Please try again.'))
     }
-  }).catch(error => {
+  }).catch((error: Error) => {
     next(error)
   })
 }

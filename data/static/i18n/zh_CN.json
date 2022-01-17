@@ -51,7 +51,7 @@
 	"Once you found admin section of the application, this challenge is almost trivial.": "一旦找到应用的管理员部分，这个挑战就很容易解决了",
 	"Forge a coupon code that gives you a discount of at least 80%.": "伪造优惠券代码，获得至少80%的折扣。",
 	"Try either a) a knowledgable brute force attack or b) reverse engineering or c) some research in the cloud.": "尝试a) 熟悉的暴力破解或b) 逆向工程或c) 云中的一些研究。",
-	"Post some feedback in another users name.": "以另一个用户名发布一些反馈。",
+	"Post some feedback in another user's name.": "Post some feedback in another user's name.",
 	"You can solve this by tampering with the user interface or by intercepting the communication with the RESTful backend.": "您可以通过篡改用户界面或拦截RESTful 的后端通信来解决这个问题。",
 	"Post a product review as another user or edit any user's existing review.": "以另一个用户名义发布商品评论或者编辑任何已有的用户评论。",
 	"Observe the flow of product review posting and editing and see if you can exploit it.": "观察商品评论的发布和编辑过程，查看是否可以利用其中的问题。",

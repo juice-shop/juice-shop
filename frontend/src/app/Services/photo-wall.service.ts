@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -25,6 +25,6 @@ export class PhotoWallService {
   }
 
   get () {
-    return this.http.get(this.host + '/').pipe(map((response: any) => response.data), catchError(err => { throw err }))
+    return this.http.get(this.host + '/').pipe(map((response: any) => response.data), catchError((err: Error) => { throw err }))
   }
 }

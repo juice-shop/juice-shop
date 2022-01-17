@@ -2,9 +2,7 @@ commit_message: |-
   [ci skip]
   Signed-off-by: Björn Kimminich <bjoern.kimminich@gmx.de>
 files:
-  -
-    source: /frontend/src/assets/i18n/en.json
+  - source: /frontend/src/assets/i18n/en.json
     translation: /frontend/src/assets/i18n/%locale_with_underscore%.json
-  -
-    source: /data/static/i18n/en.json
+  - source: /data/static/i18n/en.json
     translation: /data/static/i18n/%locale_with_underscore%.json
