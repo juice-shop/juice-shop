@@ -50,7 +50,6 @@ const checkDiffs = async (keys: string[]) => {
         const fileData = fs.readFileSync(fixesPath + '/' + val).toString()
         const diff = Diff.diffLines(filterString(fileData), filterString(snippet.snippet))
         let line = 0
-        let f = true
         for (const part of diff) {
           if (part.removed) continue
           const prev = line
@@ -58,9 +57,13 @@ const checkDiffs = async (keys: string[]) => {
           if (!(part.added)) continue
           for (let i = 0; i < part.count; i++) {
             if (!snippet.vulnLines.includes(prev + i + 1) && !snippet.neutralLines.includes(prev + i + 1)) {
-              process.stdout.write(colors.red(prev + i + 1 + ' '))
+              process.stdout.write(colors.red.inverse(prev + i + 1 + ''))
+              process.stdout.write(' ')
               data[val].added.push(prev + i + 1)
-              f = false
+            } else if (snippet.vulnLines.includes(prev + i + 1)) {
+              process.stdout.write(colors.red.bold(prev + i + 1 + ' '))
+            } else if (snippet.neutralLines.includes(prev + i + 1)) {
+              process.stdout.write(colors.red(prev + i + 1 + ' '))
             }
           }
         }
@@ -77,18 +80,19 @@ const checkDiffs = async (keys: string[]) => {
           let temp = norm
           for (let i = 0; i < part.count; i++) {
             if (!snippet.vulnLines.includes(prev + i + 1 - norm) && !snippet.neutralLines.includes(prev + i + 1 - norm)) {
-              process.stdout.write(colors.green((prev + i + 1 - norm + ' ')))
+              process.stdout.write(colors.green.inverse((prev + i + 1 - norm + '')))
+              process.stdout.write(' ')
               data[val].removed.push(prev + i + 1 - norm)
-              f = false
+            } else if (snippet.vulnLines.includes(prev + i + 1 - norm)) {
+              process.stdout.write(colors.green.bold(prev + i + 1 - norm + ' '))
+            } else if (snippet.neutralLines.includes(prev + i + 1 - norm)) {
+              process.stdout.write(colors.green(prev + i + 1 - norm + ' '))
             }
             temp++
           }
           norm = temp
         }
-        if (f) {
-          process.stdout.write(colors.green('OK\n'))
-          okay++
-        } else process.stdout.write('\n')
+        process.stdout.write('\n')
       })
       .catch(err => {
         console.log(err)

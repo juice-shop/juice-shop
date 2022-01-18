@@ -18,6 +18,7 @@ checkDiffs(keys)
         console.log(colors.red('Not all files have the same diffs'))
       }
     }
+    // seePatch('restfulXssChallenge_1_correct.ts')
   })
   .catch(err => {
     console.log(err)
