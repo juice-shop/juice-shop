@@ -34,7 +34,7 @@ function filterString (text: string) {
 }
 
 const checkDiffs = async (keys: string[]) => {
-  let okay = 0; const data: CacheData = keys.reduce((prev, curr) => {
+  const okay = 0; const data: CacheData = keys.reduce((prev, curr) => {
     return {
       ...prev,
       [curr]: {
