@@ -34,7 +34,7 @@ function filterString (text: string) {
 }
 
 const checkDiffs = async (keys: string[]) => {
-  const okay = 0; const data: CacheData = keys.reduce((prev, curr) => {
+  const data: CacheData = keys.reduce((prev, curr) => {
     return {
       ...prev,
       [curr]: {
@@ -98,12 +98,7 @@ const checkDiffs = async (keys: string[]) => {
         console.log(err)
       })
   }
-
-  return {
-    okay,
-    notOkay: keys.length - okay,
-    data
-  }
+  return data
 }
 
 async function seePatch (file: string) {

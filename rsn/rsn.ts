@@ -3,20 +3,13 @@ const colors = require('colors/safe')
 
 const keys = readFiles()
 checkDiffs(keys)
-  .then(({ okay, notOkay, data }) => {
+  .then(data => {
     console.log('---------------------------------------')
-    if (notOkay === 0) {
-      console.log(colors.green('All files passed'))
+    const fileData = getDataFromFile()
+    if (checkData(data, fileData)) {
+      console.log(colors.green.bold('No new file diffs recognized since last lock!') + ' No action required.')
     } else {
-      console.log(colors.green('Total files passed: ' + okay))
-      console.log(colors.red('Total files failed: ' + notOkay))
-
-      const fileData = getDataFromFile()
-      if (checkData(data, fileData)) {
-        console.log(colors.green('All files have the same diffs'))
-      } else {
-        console.log(colors.red('Not all files have the same diffs'))
-      }
+      console.log(colors.red.bold('New file diffs recognized since last lock!') + ' Amend files listed above and lock new state with ' + colors.bold('npm run rsn:update'))
     }
     // seePatch('restfulXssChallenge_1_correct.ts')
   })
