@@ -151,7 +151,7 @@ const routes: Routes = [
       }
     ]
   },
-  {
+   {
     matcher: oauthMatcher,
     data: { params: (window.location.href).substr(window.location.href.indexOf('#')) },
     component: OAuthComponent

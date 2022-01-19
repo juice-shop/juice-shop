@@ -1,5 +1,3 @@
-import {NextFunction, Request, Response} from "express";
-
 module.exports = function login () {
   function afterLogin (user, res, next) {
     models.Basket.findOrCreate({ where: { UserId: user.data.id }, defaults: {} })
@@ -34,6 +32,6 @@ module.exports = function login () {
           res.status(401).send(res.__('Invalid email or password.'))
         }
       }).catch((error: Error) => {
-      next(error)
-    })
+        next(error)
+      })
   }
