@@ -10,9 +10,11 @@ checkDiffs(keys)
       console.log(colors.green.bold('No new file diffs recognized since last lock!') + ' No action required.')
     } else {
       console.log(colors.red.bold('New file diffs recognized since last lock!') + ' Amend files listed above and lock new state with ' + colors.bold('npm run rsn:update'))
+      process.exitCode = 1
     }
     // seePatch('restfulXssChallenge_1_correct.ts')
   })
   .catch(err => {
     console.log(err)
+    process.exitCode = 1
   })
