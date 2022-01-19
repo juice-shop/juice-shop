@@ -51,7 +51,7 @@ jobs:
           npm run lint:config -- -f ./config/tutorial.yml
           npm run lint:config -- -f ./config/unsafe.yml
   coding-challenge-rsn:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
