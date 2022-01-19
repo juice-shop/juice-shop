@@ -62,10 +62,7 @@ jobs:
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
-        run: |
-          npm install --ignore-scripts
-          cd frontend
-          npm install --ignore-scripts --legacy-peer-deps
+        run: npm install
       - name: "Check coding challenges for accidental code discrepancies"
         run: npm run rsn
   test:
