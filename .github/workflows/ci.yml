@@ -50,6 +50,24 @@ jobs:
           npm run lint:config -- -f ./config/quiet.yml
           npm run lint:config -- -f ./config/tutorial.yml
           npm run lint:config -- -f ./config/unsafe.yml
+  coding-challenge-rsn:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
+      - name: "Use Node.js 16"
+        uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
+        with:
+          node-version: 16
+      - name: "Install CLI tools"
+        run: npm install -g @angular/cli
+      - name: "Install application"
+        run: |
+          npm install --ignore-scripts
+          cd frontend
+          npm install --ignore-scripts --legacy-peer-deps
+      - name: "Check coding challenges for accidental code discrepancies"
+        run: npm run rsn
   test:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -272,6 +290,7 @@ jobs:
       - docker
       - heroku
       - lint
+      - coding-challenge-rsn
       - e2e-in-subfolder
       - smoke
     runs-on: ubuntu-latest
