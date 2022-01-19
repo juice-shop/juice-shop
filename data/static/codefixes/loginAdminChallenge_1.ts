@@ -1,5 +1,3 @@
-import {NextFunction, Request, Response} from "express";
-
 module.exports = function login () {
   function afterLogin (user, res, next) {
     models.Basket.findOrCreate({ where: { UserId: user.data.id }, defaults: {} })
