@@ -1,5 +1,5 @@
 module.exports = function productReviews () {
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     const user = security.authenticatedUsers.from(req)
 
     if (req.body.id['$ne'] !== undefined) {
