@@ -11,7 +11,7 @@ module.exports = function login () {
       })
   }
 
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     models.sequelize.query(`SELECT * FROM Users WHERE email = $mail AND password = $pass AND deletedAt IS NULL`,
       { bind: { mail: req.body.email, pass: security.hash(req.body.password) }, model: models.User, plain: true })
       .then((authenticatedUser) => {
