@@ -380,7 +380,7 @@
   "CATEGORY_BROKEN_AUTHENTICATION": "Broken Authentication",
   "CATEGORY_CRYPTOGRAPHIC_ISSUES": "Cryptographic Issues",
   "CATEGORY_IMPROPER_INPUT_VALIDATION": "Improper Input Validation",
-  "CATEGORY_INJECTION": "Injection",
+  "CATEGORY_INJECTION": "Инъекция",
   "CATEGORY_INSECURE_DESERIALIZATION": "Insecure Deserialization",
   "CATEGORY_MISCELLANEOUS": "Разное",
   "CATEGORY_SECURITY_MISCONFIGURATION": "Security Misconfiguration",
