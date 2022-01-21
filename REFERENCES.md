@@ -24,6 +24,7 @@ mentioned or used!
 
 ### Pod- & Webcasts
 
+* [Visual application security testing with ZAP and Simon Bennetts #DemoDays](https://youtu.be/4xBJsRNV9ds) by [GitHub](https://www.youtube.com/channel/UC7c3Kb6jYCRj4JOHHZTxKsQ) with Simon Bennetts :mega:
 * [Exploiting an SSRF vulnerability](https://www.youtube.com/watch?v=OvwNa5CN5yc) by [PinkDraconian](https://www.youtube.com/channel/UCmXwpkCXmIKjoRLMsq9I3RA) :bulb:
 * [OWASP Spotlight - Project 20 - OWASP Security Pin](https://www.youtube.com/watch?v=GnSddCV4UwM) by Vandana Verma with
   Timo Pagel :mega:
