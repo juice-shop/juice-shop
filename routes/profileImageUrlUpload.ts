@@ -1,16 +1,18 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import fs = require('fs')
-const models = require('../models/index')
+import { Request, Response, NextFunction } from 'express'
+
+import models = require('../models/index')
 const security = require('../lib/insecurity')
 const request = require('request')
 const logger = require('../lib/logger')
 
 module.exports = function profileImageUrlUpload () {
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     if (req.body.imageUrl !== undefined) {
       const url = req.body.imageUrl
       if (url.match(/(.)*solve\/challenges\/server-side(.)*/) !== null) req.app.locals.abused_ssrf_bug = true

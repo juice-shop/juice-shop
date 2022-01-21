@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -12,25 +12,28 @@ chai.use(sinonChai)
 describe('premiumReward', () => {
   const servePremiumContent = require('../../routes/premiumReward')
   const challenges = require('../../data/datacache').challenges
+  let req: any
+  let res: any
+  let save: any
 
   beforeEach(() => {
-    this.res = { sendFile: sinon.spy() }
-    this.req = {}
-    this.save = () => ({
+    res = { sendFile: sinon.spy() }
+    req = {}
+    save = () => ({
       then () { }
     })
   })
 
   it('should serve /frontend/dist/frontend/assets/private/JuiceShop_Wallpaper_1920x1080_VR.jpg', () => {
-    servePremiumContent()(this.req, this.res)
+    servePremiumContent()(req, res)
 
-    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/frontend[/\\]dist[/\\]frontend[/\\]assets[/\\]private[/\\]JuiceShop_Wallpaper_1920x1080_VR\.jpg/))
+    expect(res.sendFile).to.have.been.calledWith(sinon.match(/frontend[/\\]dist[/\\]frontend[/\\]assets[/\\]private[/\\]JuiceShop_Wallpaper_1920x1080_VR\.jpg/))
   })
 
   it('should solve "premiumPaywallChallenge"', () => {
-    challenges.premiumPaywallChallenge = { solved: false, save: this.save }
+    challenges.premiumPaywallChallenge = { solved: false, save: save }
 
-    servePremiumContent()(this.req, this.res)
+    servePremiumContent()(req, res)
 
     expect(challenges.premiumPaywallChallenge.solved).to.equal(true)
   })

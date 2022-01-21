@@ -1,9 +1,11 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import models = require('../models/index')
+import { Request, Response, NextFunction } from 'express'
+
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
@@ -25,7 +27,7 @@ module.exports = function login () {
       })
   }
 
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     verifyPreLoginChallenges(req) // vuln-code-snippet hide-line
     models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true }) // vuln-code-snippet vuln-line loginAdminChallenge loginBenderChallenge loginJimChallenge
       .then((authenticatedUser) => { // vuln-code-snippet neutral-line loginAdminChallenge loginBenderChallenge loginJimChallenge

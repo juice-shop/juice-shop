@@ -1,17 +1,19 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import fs = require('fs')
+import { Request, Response, NextFunction } from 'express'
+import models = require('../models/index')
+
 const utils = require('../lib/utils')
-const models = require('../models/index')
 const security = require('../lib/insecurity')
 const logger = require('../lib/logger')
 const fileType = require('file-type')
 
 module.exports = function fileUpload () {
-  return async (req, res, next) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     const file = req.file
     const buffer = file.buffer
     const uploadedFileType = await fileType.fromBuffer(buffer)

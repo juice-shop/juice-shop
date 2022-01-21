@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -14,23 +14,23 @@ const { promisify } = require('util')
 const readFile = promisify(fs.readFile)
 const path = require('path')
 
-const loadYamlFile = async (filename) => {
+const loadYamlFile = async (filename: string) => {
   const contents = await readFile(filename, { encoding: 'utf8' })
   return safeLoad(contents)
 }
 
 describe('challengeTutorialSequence', () => {
-  let challenges
+  let challenges: any
   before(async () => {
     challenges = await loadYamlFile(path.resolve('data/static/challenges.yml'))
   })
 
   it('should have unique tutorial orders', async () => {
-    const tutorialOrderCounts = {}
+    const tutorialOrderCounts: any = {}
 
     for (const { tutorial } of challenges) {
       if (tutorial) {
-        const order = tutorial.order
+        const order: string = tutorial.order
         if (!Object.prototype.hasOwnProperty.call(tutorialOrderCounts, order)) {
           tutorialOrderCounts[order] = 0
         }

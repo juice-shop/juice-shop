@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -11,27 +11,30 @@ chai.use(sinonChai)
 
 describe('keyServer', () => {
   const serveKeyFiles = require('../../routes/keyServer')
+  let req: any
+  let res: any
+  let next: any
 
   beforeEach(() => {
-    this.req = { params: { } }
-    this.res = { sendFile: sinon.spy(), status: sinon.spy() }
-    this.next = sinon.spy()
+    req = { params: { } }
+    res = { sendFile: sinon.spy(), status: sinon.spy() }
+    next = sinon.spy()
   })
 
   it('should serve requested file from folder /encryptionkeys', () => {
-    this.req.params.file = 'test.file'
+    req.params.file = 'test.file'
 
-    serveKeyFiles()(this.req, this.res, this.next)
+    serveKeyFiles()(req, res, next)
 
-    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/encryptionkeys[/\\]test.file/))
+    expect(res.sendFile).to.have.been.calledWith(sinon.match(/encryptionkeys[/\\]test.file/))
   })
 
   it('should raise error for slashes in filename', () => {
-    this.req.params.file = '../../../../nice.try'
+    req.params.file = '../../../../nice.try'
 
-    serveKeyFiles()(this.req, this.res, this.next)
+    serveKeyFiles()(req, res, next)
 
-    expect(this.res.sendFile).to.have.not.been.calledWith(sinon.match.any)
-    expect(this.next).to.have.been.calledWith(sinon.match.instanceOf(Error))
+    expect(res.sendFile).to.have.not.been.calledWith(sinon.match.any)
+    expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
   })
 })

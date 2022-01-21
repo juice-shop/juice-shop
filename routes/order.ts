@@ -1,21 +1,23 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import path = require('path')
+import { Request, Response, NextFunction } from 'express'
+import models = require('../models/index')
+
 const fs = require('fs')
 const PDFDocument = require('pdfkit')
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
-const models = require('../models/index')
 const products = require('../data/datacache').products
 const challenges = require('../data/datacache').challenges
 const config = require('config')
 const db = require('../data/mongodb')
 
 module.exports = function placeOrder () {
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id
     models.Basket.findOne({ where: { id }, include: [{ model: models.Product, paranoid: false }] })
       .then(async basket => {

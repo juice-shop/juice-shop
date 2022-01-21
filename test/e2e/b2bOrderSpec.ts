@@ -1,14 +1,16 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import config = require('config')
 import { browser } from 'protractor'
+import { beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
+
 const utils = require('../../lib/utils')
 
 describe('/b2b/v2/order', () => {
-  protractor.beforeEach.login({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
+  beforeEachLogin({ email: `admin@${config.get('application.domain')}`, password: 'admin123' })
 
   if (!utils.disableOnContainerEnv()) {
     describe('challenge "rce"', () => {
@@ -19,7 +21,7 @@ describe('/b2b/v2/order', () => {
         void browser.waitForAngularEnabled(true)
       })
 
-      protractor.expect.challengeSolved({ challenge: 'Blocked RCE DoS' })
+      expectChallengeSolved({ challenge: 'Blocked RCE DoS' })
     })
 
     describe('challenge "rceOccupy"', () => {
@@ -30,7 +32,7 @@ describe('/b2b/v2/order', () => {
         void browser.waitForAngularEnabled(true)
       })
 
-      protractor.expect.challengeSolved({ challenge: 'Successful RCE DoS' })
+      expectChallengeSolved({ challenge: 'Successful RCE DoS' })
     })
   }
 })

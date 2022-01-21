@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -48,7 +48,7 @@ export class PurchaseBasketComponent implements OnInit {
   load () {
     this.basketService.find(parseInt(sessionStorage.getItem('bid'), 10)).subscribe((basket) => {
       if (this.isDeluxe()) {
-        basket.Products.map(product => {
+        basket.Products.forEach(product => {
           product.price = product.deluxePrice
         })
       }

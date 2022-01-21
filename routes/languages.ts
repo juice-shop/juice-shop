@@ -1,13 +1,14 @@
 /*
- * Copyright (c) 2014-2021 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import locales from '../data/static/locales.json'
 import fs = require('fs')
+import { Request, Response, NextFunction } from 'express'
 
 module.exports = function getLanguageList () { // TODO Refactor and extend to also load backend translations from /i18n/*json and calculate joint percentage/gauge
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     const languages = []
     let count = 0
     let enContent
@@ -22,6 +23,7 @@ module.exports = function getLanguageList () { // TODO Refactor and extend to al
           next(new Error(`Unable to read i18n directory: ${err.message}`))
         }
         languageFiles.forEach((fileName) => {
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
           fs.readFile('frontend/dist/frontend/assets/i18n/' + fileName, 'utf-8', async (err, content) => {
             if (err != null) {
               next(new Error(`Unable to retrieve ${fileName} language file: ${err.message}`))
