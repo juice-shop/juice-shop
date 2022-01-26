@@ -409,10 +409,10 @@
   "LAUNCH_CODING_CHALLENGE": "Запустить связанное задание на программирование.",
   "LOADING_CODE_SNIPPET": "Загрузка фрагмента кода...",
   "SOLVE_HACKING_CHALLENGE": "Решите задание на взлом, чтобы открыть связанное задание на программирование.",
-  "LABEL_CORRECT_FIX": "Correct Fix",
+  "LABEL_CORRECT_FIX": "Верное исправление",
   "TITLE_CODING_CHALLENGE": "Задание на программирование",
-  "TAB_FIND_IT": "Find It",
-  "TAB_FIX_IT": "Fix It",
-  "TITLE_CODING_SCORE": "Coding Score",
+  "TAB_FIND_IT": "Найди",
+  "TAB_FIX_IT": "Исправь",
+  "TITLE_CODING_SCORE": "Программирование",
   "LABEL_FEEDBACK": "Отзыв"
 }
