@@ -15,7 +15,7 @@ interface CacheData {
 
 function readFiles () {
   const files = fs.readdirSync(fixesPath)
-  const keys = files.filter(file => file.endsWith('.ts'))
+  const keys = files.filter((file: string) => file.endsWith('.ts'))
   return keys
 }
 
@@ -125,10 +125,10 @@ function checkData (data: CacheData, fileData: CacheData) {
 
   // console.log(fileData)
   for (const key in data) {
-    const fileDataValueAdded = fileData[key].added.sort((a, b) => a > b)
-    const dataValueAdded = data[key].added.sort((a, b) => a > b)
-    const fileDataValueRemoved = fileData[key].added.sort((a, b) => a > b)
-    const dataValueAddedRemoved = data[key].added.sort((a, b) => a > b)
+    const fileDataValueAdded = fileData[key].added.sort((a, b) => a - b)
+    const dataValueAdded = data[key].added.sort((a, b) => a - b)
+    const fileDataValueRemoved = fileData[key].added.sort((a, b) => a - b)
+    const dataValueAddedRemoved = data[key].added.sort((a, b) => a - b)
     if (fileDataValueAdded.length === dataValueAdded.length && fileDataValueRemoved.length === dataValueAddedRemoved.length) {
       if (!dataValueAdded.every((val: number, ind: number) => fileDataValueAdded[ind] === val)) {
         console.log(colors.red(key))
