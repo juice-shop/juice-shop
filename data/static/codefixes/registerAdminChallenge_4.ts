@@ -28,7 +28,7 @@
 
     // create a wallet when a new user is registered using API
     if (name === 'User') {
-      resource.create.send.before((req: Request, res: Response, context) => {
+      resource.create.send.before((req: Request, res: Response, context: { instance: { id: any }, continue: any }) => {
         models.Wallet.create({ UserId: context.instance.id }).catch((err) => {
           console.log(err)
         })
