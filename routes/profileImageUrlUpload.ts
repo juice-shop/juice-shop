@@ -7,6 +7,7 @@ import fs = require('fs')
 import { Request, Response, NextFunction } from 'express'
 
 import models = require('../models/index')
+import { User } from '../data/types'
 const security = require('../lib/insecurity')
 const request = require('request')
 const logger = require('../lib/logger')
@@ -21,15 +22,15 @@ module.exports = function profileImageUrlUpload () {
         const imageRequest = request
           .get(url)
           .on('error', function (err) {
-            models.User.findByPk(loggedInUser.data.id).then(user => { return user.update({ profileImage: url }) }).catch((error: Error) => { next(error) })
+            models.User.findByPk(loggedInUser.data.id).then(async (user: User) => { return await user.update({ profileImage: url }) }).catch((error: Error) => { next(error) })
             logger.warn('Error retrieving user profile image: ' + err.message + '; using image link directly')
           })
           .on('response', function (res) {
             if (res.statusCode === 200) {
               const ext = ['jpg', 'jpeg', 'png', 'svg', 'gif'].includes(url.split('.').slice(-1)[0].toLowerCase()) ? url.split('.').slice(-1)[0].toLowerCase() : 'jpg'
               imageRequest.pipe(fs.createWriteStream(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.${ext}`))
-              models.User.findByPk(loggedInUser.data.id).then(user => { return user.update({ profileImage: `/assets/public/images/uploads/${loggedInUser.data.id}.${ext}` }) }).catch((error: Error) => { next(error) })
-            } else models.User.findByPk(loggedInUser.data.id).then(user => { return user.update({ profileImage: url }) }).catch((error: Error) => { next(error) })
+              models.User.findByPk(loggedInUser.data.id).then(async (user: User) => { return await user.update({ profileImage: `/assets/public/images/uploads/${loggedInUser.data.id}.${ext}` }) }).catch((error: Error) => { next(error) })
+            } else models.User.findByPk(loggedInUser.data.id).then(async (user: User) => { return await user.update({ profileImage: url }) }).catch((error: Error) => { next(error) })
           })
       } else {
         next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))

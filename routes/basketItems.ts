@@ -5,6 +5,7 @@
 
 import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
+import { BasketItem } from '../data/types'
 
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
@@ -39,12 +40,8 @@ module.exports.addBasketItem = function addBasketItem () {
       utils.solveIf(challenges.basketManipulateChallenge, () => { return user && basketItem.BasketId && basketItem.BasketId !== 'undefined' && user.bid != basketItem.BasketId }) // eslint-disable-line eqeqeq
 
       const basketItemInstance = models.BasketItem.build(basketItem)
-      basketItemInstance.save().then((basketItem) => {
-        basketItem = {
-          status: 'success',
-          data: basketItem
-        }
-        res.json(basketItem)
+      basketItemInstance.save().then((addedBasketItem: BasketItem) => {
+        res.json({ status: 'success', data: addedBasketItem })
       }).catch((error: Error) => {
         next(error)
       })
@@ -62,7 +59,7 @@ module.exports.quantityCheckBeforeBasketItemAddition = function quantityCheckBef
 
 module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBeforeBasketItemUpdate () {
   return (req: Request, res: Response, next: NextFunction) => {
-    models.BasketItem.findOne({ where: { id: req.params.id } }).then((item) => {
+    models.BasketItem.findOne({ where: { id: req.params.id } }).then((item: BasketItem) => {
       const user = security.authenticatedUsers.from(req)
       utils.solveIf(challenges.basketManipulateChallenge, () => { return user && req.body.BasketId && user.bid != req.body.BasketId }) // eslint-disable-line eqeqeq
       if (req.body.quantity) {
@@ -76,7 +73,7 @@ module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBefor
   }
 }
 
-async function quantityCheck (req: Request, res: Response, next: NextFunction, id, quantity) {
+async function quantityCheck (req: Request, res: Response, next: NextFunction, id: number, quantity: number) {
   const product = await models.Quantity.findOne({ where: { ProductId: id } })
 
   // is product limited per user and order, except if user is deluxe?
