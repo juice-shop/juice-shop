@@ -12,6 +12,7 @@ export interface Challenge extends Model {
   disabledEnv?: string | string[]
   tutorial?: { order: number }
   tags?: string[]
+  tutorialOrder?: number
 }
 
 export interface User extends Model {
@@ -116,6 +117,7 @@ export interface SecurityAnswer extends Model {
 
 export interface Basket extends Model {
   Products: Product[]
+  coupon: string
 }
 
 export interface BasketItem extends Model {
