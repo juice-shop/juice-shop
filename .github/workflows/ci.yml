@@ -136,7 +136,9 @@ jobs:
     continue-on-error: true
     steps:
       - name: "Install latest Chrome"
-        uses: browser-actions/setup-chrome@latest #v0: v0.0.0 available
+        uses: browser-actions/setup-chrome@latest #no version available
+      - name: "Install latest Chromedriver"
+        uses: nanasess/setup-chromedriver@b392eaf03aa077c2e929bc94c71b65dc91ef1923 #v1
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
       - name: "Use Node.js 16"
@@ -166,6 +168,8 @@ jobs:
     steps:
       - name: "Install latest Chrome"
         uses: browser-actions/setup-chrome@latest #v0: v0.0.0 available
+      - name: "Install latest Chromedriver"
+        uses: nanasess/setup-chromedriver@b392eaf03aa077c2e929bc94c71b65dc91ef1923 #v1
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
       - name: "Use Node.js 16"
