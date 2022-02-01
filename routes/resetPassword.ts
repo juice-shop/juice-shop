@@ -6,6 +6,7 @@
 import config = require('config')
 import { Request, Response, NextFunction } from 'express'
 import models = require('../models/index')
+import { Memory, SecurityAnswer, User } from '../data/types'
 
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
@@ -30,10 +31,10 @@ module.exports = function resetPassword () {
           model: models.User,
           where: { email }
         }]
-      }).then(data => {
+      }).then((data: SecurityAnswer) => {
         if (security.hmac(answer) === data.answer) {
-          models.User.findByPk(data.UserId).then(user => {
-            user.update({ password: newPassword }).then(user => {
+          models.User.findByPk(data.UserId).then((user: User) => {
+            user.update({ password: newPassword }).then((user: User) => {
               verifySecurityAnswerChallenges(user, answer)
               res.json({ user })
             }).catch((error: Error) => {
@@ -52,7 +53,7 @@ module.exports = function resetPassword () {
   }
 }
 
-function verifySecurityAnswerChallenges (user, answer) {
+function verifySecurityAnswerChallenges (user: User, answer: string) {
   utils.solveIf(challenges.resetPasswordJimChallenge, () => { return user.id === users.jim.id && answer === 'Samuel' })
   utils.solveIf(challenges.resetPasswordBenderChallenge, () => { return user.id === users.bender.id && answer === 'Stop\'n\'Drop' })
   utils.solveIf(challenges.resetPasswordBjoernChallenge, () => { return user.id === users.bjoern.id && answer === 'West-2082' })
@@ -61,7 +62,7 @@ function verifySecurityAnswerChallenges (user, answer) {
   utils.solveIf(challenges.resetPasswordUvoginChallenge, () => { return user.id === users.uvogin.id && answer === 'Silence of the Lambs' })
   utils.solveIf(challenges.geoStalkingMetaChallenge, () => {
     const securityAnswer = ((() => {
-      const memories = config.get('memories')
+      const memories: Memory[] = config.get('memories')
       for (let i = 0; i < memories.length; i++) {
         if (memories[i].geoStalkingMetaSecurityAnswer) {
           return memories[i].geoStalkingMetaSecurityAnswer
@@ -72,7 +73,7 @@ function verifySecurityAnswerChallenges (user, answer) {
   })
   utils.solveIf(challenges.geoStalkingVisualChallenge, () => {
     const securityAnswer = ((() => {
-      const memories = config.get('memories')
+      const memories: Memory[] = config.get('memories')
       for (let i = 0; i < memories.length; i++) {
         if (memories[i].geoStalkingVisualSecurityAnswer) {
           return memories[i].geoStalkingVisualSecurityAnswer
