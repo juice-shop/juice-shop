@@ -5,7 +5,7 @@
 
 import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
-import {Basket} from "../data/types";
+import { Basket } from '../data/types'
 
 const security = require('../lib/insecurity')
 

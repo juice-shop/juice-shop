@@ -5,7 +5,7 @@
 
 import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
-import {Memory} from "../data/types";
+import { Memory } from '../data/types'
 
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
