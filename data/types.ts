@@ -15,6 +15,7 @@ export interface Challenge extends Model {
 }
 
 export interface User extends Model {
+  id: number
   username?: string
   email: string
   password: string
@@ -107,6 +108,12 @@ export interface SecurityQuestion extends Model {
   question: string
 }
 
+export interface SecurityAnswer extends Model {
+  answer: string
+  UserId: number
+  SecurityQuestionId: number
+}
+
 export interface Basket extends Model {
   Products: Product[]
 }
@@ -115,4 +122,9 @@ export interface BasketItem extends Model {
   ProductId: number
   BasketId: number
   quantity: number
+}
+
+export interface Captcha extends Model {
+  captcha: string
+  answer: string
 }

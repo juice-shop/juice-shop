@@ -34,7 +34,7 @@ imageCaptchas.verifyCaptcha = () => (req: Request, res: Response, next: NextFunc
     where: {
       UserId: UserId,
       createdAt: {
-        [Op.gt]: new Date(new Date() - 300000)
+        [Op.gt]: new Date(Date.now() - 300000)
       }
     },
     order: [['createdAt', 'DESC']]

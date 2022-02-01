@@ -6,6 +6,7 @@
 import fs = require('fs')
 import { Request, Response, NextFunction } from 'express'
 import models = require('../models/index')
+import { User } from '../data/types'
 
 const { Bot } = require('juicy-chat-bot')
 const security = require('../lib/insecurity')
@@ -17,7 +18,7 @@ const download = require('download')
 const challenges = require('../data/datacache').challenges
 
 let trainingFile = config.get('application.chatBot.trainingData')
-let testCommand, bot
+let testCommand: string, bot: any
 
 async function initialize () {
   if (utils.isUrl(trainingFile)) {
@@ -42,7 +43,7 @@ async function initialize () {
 
 void initialize()
 
-async function processQuery (user, req: Request, res: Response) {
+async function processQuery (user: User, req: Request, res: Response) {
   const username = user.username
   if (!username) {
     res.status(200).json({
@@ -104,16 +105,16 @@ async function processQuery (user, req: Request, res: Response) {
   }
 }
 
-function setUserName (user, req: Request, res: Response) {
-  models.User.findByPk(user.id).then(user => {
-    user.update({ username: req.body.query }).then(newuser => {
-      newuser = utils.queryResultToJson(newuser)
-      const updatedToken = security.authorize(newuser)
-      security.authenticatedUsers.put(updatedToken, newuser)
-      bot.addUser(`${newuser.id}`, req.body.query)
+function setUserName (user: User, req: Request, res: Response) {
+  models.User.findByPk(user.id).then((user: User) => {
+    void user.update({ username: req.body.query }).then((updatedUser: User) => {
+      updatedUser = utils.queryResultToJson(updatedUser)
+      const updatedToken = security.authorize(updatedUser)
+      security.authenticatedUsers.put(updatedToken, updatedUser)
+      bot.addUser(`${updatedUser.id}`, req.body.query)
       res.status(200).json({
         action: 'response',
-        body: bot.greet(`${newuser.id}`),
+        body: bot.greet(`${updatedUser.id}`),
         token: updatedToken
       })
     })
@@ -135,7 +136,7 @@ module.exports.status = function status () {
     }
     const token = req.cookies.token || utils.jwtFrom(req)
     if (token) {
-      const user = await new Promise((resolve, reject) => {
+      const user: User = await new Promise((resolve, reject) => {
         jwt.verify(token, security.publicKey, (err, decoded) => {
           if (err !== null) {
             res.status(401).json({
@@ -193,7 +194,7 @@ module.exports.process = function respond () {
       return
     }
 
-    const user = await new Promise((resolve, reject) => {
+    const user: User = await new Promise((resolve, reject) => {
       jwt.verify(token, security.publicKey, (err, decoded) => {
         if (err !== null) {
           res.status(401).json({
