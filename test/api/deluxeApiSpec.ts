@@ -11,6 +11,7 @@ const REST_URL = 'http://localhost:3000/rest'
 const API_URL = 'http://localhost:3000/api'
 
 async function login ({ email, password }: { email: string, password: string }) {
+  // @ts-expect-error
   const loginRes = await frisby
     .post(`${REST_URL}/user/login`, {
       email,
@@ -104,7 +105,7 @@ describe('/rest/deluxe-membership', () => {
       password: 'OhG0dPlease1nsertLiquor!'
     })
 
-    return await frisby.get(API_URL + '/Cards', {
+    await void frisby.get(API_URL + '/Cards', {
       headers: { Authorization: 'Bearer ' + token, 'content-type': 'application/json' }
     })
       .expect('status', 200)
@@ -127,7 +128,7 @@ describe('/rest/deluxe-membership', () => {
       password: 'ncc-1701'
     })
 
-    return await frisby.post(REST_URL + '/deluxe-membership', {
+    await void frisby.post(REST_URL + '/deluxe-membership', {
       headers: { Authorization: 'Bearer ' + token, 'content-type': 'application/json' },
       body: {
         paymentMode: 'card',
