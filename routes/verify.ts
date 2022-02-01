@@ -94,7 +94,7 @@ exports.serverSideChallenges = () => (req: Request, res: Response, next: NextFun
   next()
 }
 
-function jwtChallenge (challenge, req: Request, algorithm: string, email: string) {
+function jwtChallenge (challenge, req: Request, algorithm: string, email: string | RegExp) {
   const token = utils.jwtFrom(req)
   if (token) {
     const decoded = jws.decode(token) ? jwt.decode(token) : null
@@ -146,9 +146,9 @@ exports.databaseRelatedChallenges = () => (req: Request, res: Response, next: Ne
   next()
 }
 
-function changeProductChallenge (osaft) {
+function changeProductChallenge (osaft: Product) {
   let urlForProductTamperingChallenge: string | null = null
-  osaft.reload().then(() => {
+  void osaft.reload().then(() => {
     for (const product of config.products) {
       if (product.urlForProductTamperingChallenge !== undefined) {
         urlForProductTamperingChallenge = product.urlForProductTamperingChallenge

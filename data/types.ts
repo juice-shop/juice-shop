@@ -1,4 +1,6 @@
-export interface Challenge {
+import { Model } from 'sequelize/types'
+
+export interface Challenge extends Model {
   name: string
   category: string
   description: string
@@ -12,7 +14,7 @@ export interface Challenge {
   tags?: string[]
 }
 
-export interface User {
+export interface User extends Model {
   username?: string
   email: string
   password: string
@@ -35,7 +37,7 @@ export interface User {
   walletBalance?: number
 }
 
-export interface Delivery {
+export interface Delivery extends Model {
   name: string
   price: number
   deluxePrice: number
@@ -43,7 +45,7 @@ export interface Delivery {
   icon: string
 }
 
-export interface Address {
+export interface Address extends Model {
   fullName: string
   mobileNum: number
   zipCode: string
@@ -53,14 +55,14 @@ export interface Address {
   country: string
 }
 
-export interface Card {
+export interface Card extends Model {
   fullName: string
   cardNum: number
   expMonth: number
   expYear: number
 }
 
-export interface Product {
+export interface Product extends Model {
   name: string
   description: string
   price?: number
@@ -77,13 +79,14 @@ export interface Product {
   fileForRetrieveBlueprintChallenge?: string
 }
 
-export interface Review {
+export interface Review extends Model {
   text: string
   author: string
 }
 
-export interface Memory {
+export interface Memory extends Model {
   image: string
+  imagePath: string
   caption: string
   user: string
   geoStalkingMetaSecurityQuestion?: number
@@ -92,7 +95,7 @@ export interface Memory {
   geoStalkingVisualSecurityAnswer?: string
 }
 
-export interface Recycle {
+export interface Recycle extends Model {
   UserId: number
   quantity: number
   AddressId: number
@@ -100,6 +103,16 @@ export interface Recycle {
   isPickup: boolean
 }
 
-export interface SecurityQuestion {
+export interface SecurityQuestion extends Model {
   question: string
+}
+
+export interface Basket extends Model {
+  Products: Product[]
+}
+
+export interface BasketItem extends Model {
+  ProductId: number
+  BasketId: number
+  quantity: number
 }
