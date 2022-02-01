@@ -6,7 +6,7 @@
 import path = require('path')
 import { Request, Response, NextFunction } from 'express'
 import models = require('../models/index')
-import {Basket, Product} from 'data/types'
+import { Basket, Product } from 'data/types'
 
 const fs = require('fs')
 const PDFDocument = require('pdfkit')
