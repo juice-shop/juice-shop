@@ -4,7 +4,7 @@
  */
 
 import db = require('../data/mongodb')
-import { Request, Response, NextFunction } from 'express'
+import { Request, Response } from 'express'
 
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
