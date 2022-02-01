@@ -148,7 +148,7 @@ exports.serveCodeSnippet = () => async (req: Request<SnippetRequestBody, {}, {}>
     res.status(setStatusCode(snippetData)).json({ snippet: snippetData.snippet })
   } catch (error) {
     const statusCode = setStatusCode(error)
-    res.status(statusCode).json({ status: 'error', error: error.message })
+    res.status(statusCode).json({ status: 'error', error: utils.getErrorMessage(error) })
   }
 }
 
@@ -182,7 +182,7 @@ exports.checkVulnLines = () => async (req: Request<{}, {}, VerdictRequestBody>, 
     snippetData = await retrieveCodeSnippet(key)
   } catch (error) {
     const statusCode = setStatusCode(error)
-    res.status(statusCode).json({ status: 'error', error: error.message })
+    res.status(statusCode).json({ status: 'error', error: utils.getErrorMessage(error) })
     return
   }
   const vulnLines: number[] = snippetData.vulnLines

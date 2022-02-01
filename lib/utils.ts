@@ -293,3 +293,8 @@ export const solveFixIt = async function (key: string, isRestore: boolean) {
     antiCheat.calculateFixItCheatScore(solvedChallenge)
   }
 }
+
+export const getErrorMessage = (error: unknown) => {
+  if (error instanceof Error) return error.message
+  return String(error)
+}

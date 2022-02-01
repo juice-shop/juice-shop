@@ -37,16 +37,16 @@ module.exports = function resetPassword () {
             user.update({ password: newPassword }).then((user: User) => {
               verifySecurityAnswerChallenges(user, answer)
               res.json({ user })
-            }).catch((error: Error) => {
+            }).catch((error: unknown) => {
               next(error)
             })
-          }).catch((error: Error) => {
+          }).catch((error: unknown) => {
             next(error)
           })
         } else {
           res.status(401).send(res.__('Wrong answer to security question.'))
         }
-      }).catch((error: Error) => {
+      }).catch((error: unknown) => {
         next(error)
       })
     }

@@ -83,7 +83,7 @@ async function createChallenges () {
           codingChallengeStatus: 0
         })
       } catch (err) {
-        logger.error(`Could not insert Challenge ${name}: ${err.message}`)
+        logger.error(`Could not insert Challenge ${name}: ${utils.getErrorMessage(err)}`)
       }
     })
   )
@@ -112,7 +112,7 @@ async function createUsers () {
         if (address) await createAddresses(user.id, address)
         if (card) await createCards(user.id, card)
       } catch (err) {
-        logger.error(`Could not insert User ${key}: ${err.message}`)
+        logger.error(`Could not insert User ${key}: ${utils.getErrorMessage(err)}`)
       }
     })
   )
@@ -125,8 +125,8 @@ async function createWallet () {
       return models.Wallet.create({
         UserId: index + 1,
         balance: user.walletBalance !== undefined ? user.walletBalance : 0
-      }).catch((err) => {
-        logger.error(`Could not create wallet: ${err.message}`)
+      }).catch((err: unknown) => {
+        logger.error(`Could not create wallet: ${utils.getErrorMessage(err)}`)
       })
     })
   )
@@ -146,7 +146,7 @@ async function createDeliveryMethods () {
           icon
         })
       } catch (err) {
-        logger.error(`Could not insert Delivery Method: ${err.message}`)
+        logger.error(`Could not insert Delivery Method: ${utils.getErrorMessage(err)}`)
       }
     })
   )
@@ -163,8 +163,8 @@ function createAddresses (UserId: number, addresses: Address[]) {
       streetAddress: address.streetAddress,
       city: address.city,
       state: address.state ? address.state : null
-    }).catch((err) => {
-      logger.error(`Could not create address: ${err.message}`)
+    }).catch((err: unknown) => {
+      logger.error(`Could not create address: ${utils.getErrorMessage(err)}`)
     })
   })
 }
@@ -177,15 +177,15 @@ async function createCards (UserId: number, cards: Card[]) {
       cardNum: card.cardNum,
       expMonth: card.expMonth,
       expYear: card.expYear
-    }).catch((err) => {
-      logger.error(`Could not create card: ${err.message}`)
+    }).catch((err: unknown) => {
+      logger.error(`Could not create card: ${utils.getErrorMessage(err)}`)
     })
   }))
 }
 
 function deleteUser (userId: number) {
-  return models.User.destroy({ where: { id: userId } }).catch((err) => {
-    logger.error(`Could not perform soft delete for the user ${userId}: ${err.message}`)
+  return models.User.destroy({ where: { id: userId } }).catch((err: unknown) => {
+    logger.error(`Could not perform soft delete for the user ${userId}: ${utils.getErrorMessage(err)}`)
   })
 }
 
@@ -219,8 +219,8 @@ async function createQuantity () {
         ProductId: index + 1,
         quantity: product.quantity !== undefined ? product.quantity : Math.floor(Math.random() * 70 + 30),
         limitPerUser: product.limitPerUser ?? null
-      }).catch((err) => {
-        logger.error(`Could not create quantity: ${err.message}`)
+      }).catch((err: unknown) => {
+        logger.error(`Could not create quantity: ${utils.getErrorMessage(err)}`)
       })
     })
   )
@@ -232,8 +232,8 @@ async function createMemories () {
       imagePath: 'assets/public/images/uploads/😼-#zatschi-#whoneedsfourlegs-1572600969477.jpg',
       caption: '😼 #zatschi #whoneedsfourlegs',
       UserId: datacache.users.bjoernOwasp.id
-    }).catch((err) => {
-      logger.error(`Could not create memory: ${err.message}`)
+    }).catch((err: unknown) => {
+      logger.error(`Could not create memory: ${utils.getErrorMessage(err)}`)
     }),
     ...utils.thaw(config.get('memories')).map((memory: Memory) => {
       let tmpImageFileName = memory.image
@@ -254,8 +254,8 @@ async function createMemories () {
         imagePath: 'assets/public/images/uploads/' + tmpImageFileName,
         caption: memory.caption,
         UserId: datacache.users[memory.user].id
-      }).catch((err) => {
-        logger.error(`Could not create memory: ${err.message}`)
+      }).catch((err: unknown) => {
+        logger.error(`Could not create memory: ${utils.getErrorMessage(err)}`)
       })
     })
   ]
@@ -311,8 +311,8 @@ async function createProducts () {
     products.map(
       ({ reviews = [], useForChristmasSpecialChallenge = false, urlForProductTamperingChallenge = false, fileForRetrieveBlueprintChallenge = false, ...product }) =>
         models.Product.create(product).catch(
-          (err) => {
-            logger.error(`Could not insert Product ${product.name}: ${err.message}`)
+          (err: unknown) => {
+            logger.error(`Could not insert Product ${product.name}: ${utils.getErrorMessage(err)}`)
           }
         ).then((persistedProduct: Product) => {
           if (useForChristmasSpecialChallenge) { datacache.products.christmasSpecial = persistedProduct }
@@ -343,8 +343,8 @@ async function createProducts () {
                   product: id,
                   likesCount: 0,
                   likedBy: []
-                }).catch((err) => {
-                  logger.error(`Could not insert Product Review ${text}: ${err.message}`)
+                }).catch((err: unknown) => {
+                  logger.error(`Could not insert Product Review ${text}: ${utils.getErrorMessage(err)}`)
                 })
               )
             )
@@ -374,8 +374,8 @@ async function createBaskets () {
 
   return await Promise.all(
     baskets.map(basket => {
-      return models.Basket.create(basket).catch((err) => {
-        logger.error(`Could not insert Basket for UserId ${basket.UserId}: ${err.message}`)
+      return models.Basket.create(basket).catch((err: unknown) => {
+        logger.error(`Could not insert Basket for UserId ${basket.UserId}: ${utils.getErrorMessage(err)}`)
       })
     })
   )
@@ -427,8 +427,8 @@ async function createBasketItems () {
 
   return await Promise.all(
     basketItems.map(basketItem => {
-      return models.BasketItem.create(basketItem).catch((err) => {
-        logger.error(`Could not insert BasketItem for BasketId ${basketItem.BasketId}: ${err.message}`)
+      return models.BasketItem.create(basketItem).catch((err: unknown) => {
+        logger.error(`Could not insert BasketItem for BasketId ${basketItem.BasketId}: ${utils.getErrorMessage(err)}`)
       })
     })
   )
@@ -461,8 +461,8 @@ async function createAnonymousFeedback () {
 
 function createFeedback (UserId: number | null, comment: string, rating: number, author?: string) {
   const authoredComment = author ? `${comment} (***${author.slice(3)})` : `${comment} (anonymous)`
-  return models.Feedback.create({ UserId, comment: authoredComment, rating }).catch((err) => {
-    logger.error(`Could not insert Feedback ${authoredComment} mapped to UserId ${UserId}: ${err.message}`)
+  return models.Feedback.create({ UserId, comment: authoredComment, rating }).catch((err: unknown) => {
+    logger.error(`Could not insert Feedback ${authoredComment} mapped to UserId ${UserId}: ${utils.getErrorMessage(err)}`)
   })
 }
 
@@ -470,8 +470,8 @@ function createComplaints () {
   return models.Complaint.create({
     UserId: 3,
     message: 'I\'ll build my own eCommerce business! With Black Jack! And Hookers!'
-  }).catch((err) => {
-    logger.error(`Could not insert Complaint: ${err.message}`)
+  }).catch((err: unknown) => {
+    logger.error(`Could not insert Complaint: ${utils.getErrorMessage(err)}`)
   })
 }
 
@@ -547,8 +547,8 @@ async function createRecycleItem () {
 }
 
 function createRecycle (data: Recycle) {
-  return models.Recycle.create(data).catch((err) => {
-    logger.error(`Could not insert Recycling Model: ${err.message}`)
+  return models.Recycle.create(data).catch((err: unknown) => {
+    logger.error(`Could not insert Recycling Model: ${utils.getErrorMessage(err)}`)
   })
 }
 
@@ -560,15 +560,15 @@ async function createSecurityQuestions () {
       try {
         await models.SecurityQuestion.create({ question })
       } catch (err) {
-        logger.error(`Could not insert SecurityQuestion ${question}: ${err.message}`)
+        logger.error(`Could not insert SecurityQuestion ${question}: ${utils.getErrorMessage(err)}`)
       }
     })
   )
 }
 
 function createSecurityAnswer (UserId: number, SecurityQuestionId: number, answer: string) {
-  return models.SecurityAnswer.create({ SecurityQuestionId, UserId, answer }).catch((err) => {
-    logger.error(`Could not insert SecurityAnswer ${answer} mapped to UserId ${UserId}: ${err.message}`)
+  return models.SecurityAnswer.create({ SecurityQuestionId, UserId, answer }).catch((err: unknown) => {
+    logger.error(`Could not insert SecurityAnswer ${answer} mapped to UserId ${UserId}: ${utils.getErrorMessage(err)}`)
   })
 }
 
@@ -664,8 +664,8 @@ async function createOrders () {
         products: products,
         eta: eta,
         delivered: delivered
-      }).catch((err) => {
-        logger.error(`Could not insert Order ${orderId}: ${err.message}`)
+      }).catch((err: unknown) => {
+        logger.error(`Could not insert Order ${orderId}: ${utils.getErrorMessage(err)}`)
       })
     )
   )

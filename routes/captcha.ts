@@ -36,7 +36,7 @@ function captchas () {
 
 captchas.verifyCaptcha = () => (req: Request, res: Response, next: NextFunction) => {
   models.Captcha.findOne({ where: { captchaId: req.body.captchaId } }).then((captcha: Captcha) => {
-    if (captcha && req.body.captcha === captcha.answer) {
+    if (captcha && req.body.captcha === captcha.dataValues.answer) {
       next()
     } else {
       res.status(401).send(res.__('Wrong answer to CAPTCHA. Please try again.'))
