@@ -5,7 +5,7 @@
 
 import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
-import {Challenge, Product} from '../data/types'
+import { Challenge, Product } from '../data/types'
 
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
