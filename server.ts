@@ -108,8 +108,8 @@ const startupGauge = new client.Gauge({
 })
 
 // Wraps the function and measures its (async) execution time
-const collectDurationPromise = (name: string, func) => {
-  return async (...args) => {
+const collectDurationPromise = (name: string, func: Function) => {
+  return async (...args: any) => {
     const end = startupGauge.startTimer({ task: name })
     const res = await func(...args)
     end()
@@ -191,6 +191,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Create middleware to change paths from the serve-index plugin from absolute to relative */
   const serveIndexMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const origEnd = res.end
+    // @ts-expect-error
     res.end = function () {
       if (arguments.length) {
         const reqPath = req.originalUrl.replace(/\?.*$/, '')
@@ -207,6 +208,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
           return 'a href="' + relativePath + '"'
         })
       }
+      // @ts-expect-error
       origEnd.apply(this, arguments)
     }
     next()
@@ -421,7 +423,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     // create a wallet when a new user is registered using API
     if (name === 'User') { // vuln-code-snippet neutral-line registerAdminChallenge
       resource.create.send.before((req: Request, res: Response, context: { instance: { id: any }, continue: any }) => { // vuln-code-snippet vuln-line registerAdminChallenge
-        models.Wallet.create({ UserId: context.instance.id }).catch((err) => {
+        models.Wallet.create({ UserId: context.instance.id }).catch((err: unknown) => {
           console.log(err)
         })
         return context.continue // vuln-code-snippet neutral-line registerAdminChallenge
@@ -581,14 +583,14 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
 const multer = require('multer')
 const uploadToMemory = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
-const mimeTypeMap = {
+const mimeTypeMap: any = {
   'image/png': 'png',
   'image/jpeg': 'jpg',
   'image/jpg': 'jpg'
 }
 const uploadToDisk = multer({
   storage: multer.diskStorage({
-    destination: (req, file, cb: Function) => {
+    destination: (req: Request, file: any, cb: Function) => {
       const isValid = mimeTypeMap[file.mimetype]
       let error: Error | null = new Error('Invalid mime type')
       if (isValid) {
@@ -596,7 +598,7 @@ const uploadToDisk = multer({
       }
       cb(error, path.resolve('frontend/dist/frontend/assets/public/images/uploads/'))
     },
-    filename: (req, file, cb: Function) => {
+    filename: (req: Request, file: any, cb: Function) => {
       const name = security.sanitizeFilename(file.originalname)
         .toLowerCase()
         .split(' ')

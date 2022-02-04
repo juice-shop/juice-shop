@@ -5,7 +5,7 @@
 
 import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
-import { Product } from '../data/types'
+import {Challenge, Product} from '../data/types'
 
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
@@ -62,7 +62,7 @@ exports.accessControlChallenges = () => ({ url }: Request, res: Response, next: 
   next()
 }
 
-exports.errorHandlingChallenge = () => (err, req: Request, { statusCode }: Response, next: NextFunction) => {
+exports.errorHandlingChallenge = () => (err: unknown, req: Request, { statusCode }: Response, next: NextFunction) => {
   utils.solveIf(challenges.errorHandlingChallenge, () => { return err && (statusCode === 200 || statusCode > 401) })
   next(err)
 }
@@ -94,7 +94,7 @@ exports.serverSideChallenges = () => (req: Request, res: Response, next: NextFun
   next()
 }
 
-function jwtChallenge (challenge, req: Request, algorithm: string, email: string | RegExp) {
+function jwtChallenge (challenge: Challenge, req: Request, algorithm: string, email: string | RegExp) {
   const token = utils.jwtFrom(req)
   if (token) {
     const decoded = jws.decode(token) ? jwt.decode(token) : null
