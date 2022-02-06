@@ -1,6 +1,4 @@
-  /* Generated API endpoints */
-  import {Request, Response} from "express";
-
+/* Generated API endpoints */
   finale.initialize({ app, sequelize: models.sequelize })
 
   const autoModels = [
@@ -29,7 +27,7 @@
     // create a wallet when a new user is registered using API
     if (name === 'User') {
       resource.create.send.before((req: Request, res: Response, context: { instance: { id: any }, continue: any }) => {
-        models.Wallet.create({ UserId: context.instance.id }).catch((err) => {
+        models.Wallet.create({ UserId: context.instance.id }).catch((err: unknown) => {
           console.log(err)
         })
         return context.continue
