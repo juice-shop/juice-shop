@@ -133,7 +133,6 @@ jobs:
   e2e:
     runs-on: windows-latest
     if: github.repository == 'juice-shop/juice-shop'
-    continue-on-error: true
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
@@ -160,7 +159,6 @@ jobs:
   e2e-in-subfolder:
     runs-on: windows-latest
     if: github.repository == 'juice-shop/juice-shop'
-    continue-on-error: true
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
