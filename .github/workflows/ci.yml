@@ -131,7 +131,7 @@ jobs:
           ./cc-test-reporter upload-coverage
         shell: bash
   e2e:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     if: github.repository == 'juice-shop/juice-shop'
     continue-on-error: true
     steps:
@@ -153,12 +153,12 @@ jobs:
           timeout_minutes: 20
           max_attempts: 2
           command: |
-            set NODE_ENV=test
-            set SOLUTIONS_WEBHOOK="$env:SOLUTIONS_WEBHOOK"
+            export NODE_ENV=test
+            export SOLUTIONS_WEBHOOK="$env:SOLUTIONS_WEBHOOK"
             npm run preprotractor:github
             npm run e2e
   e2e-in-subfolder:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     if: github.repository == 'juice-shop/juice-shop'
     continue-on-error: true
     steps:
@@ -178,7 +178,7 @@ jobs:
           timeout_minutes: 20
           max_attempts: 2
           command: |
-            set NODE_ENV=test
+            export NODE_ENV=test
             npm run preprotractor:github
             npm run e2e -- subfolder
   smoke:
