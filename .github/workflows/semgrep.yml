@@ -16,4 +16,4 @@ jobs:
     - uses: actions/checkout@v2
     - uses: returntocorp/semgrep-action@v1
       with:
-        publishToken: ${{ secrets.SEMGREP_APP_TOKEN }}
+        publishToken: 11e1093817925793e39590682248f62daf72d720b42e9a4a3fa2d030e9bc666f
