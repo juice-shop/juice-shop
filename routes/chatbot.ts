@@ -7,6 +7,7 @@ import fs = require('fs')
 import { Request, Response, NextFunction } from 'express'
 import models = require('../models/index')
 import { User } from '../data/types'
+import logger from "../lib/logger";
 
 const { Bot } = require('juicy-chat-bot')
 const security = require('../lib/insecurity')
@@ -117,6 +118,8 @@ function setUserName (user: User, req: Request, res: Response) {
         body: bot.greet(`${updatedUser.id}`),
         token: updatedToken
       })
+    }).catch((err: unknown) => {
+      logger.error(`Could not set username: ${utils.getErrorMessage(err)}`)
     })
   })
 }
