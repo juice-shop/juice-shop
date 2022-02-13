@@ -7,7 +7,7 @@ import fs = require('fs')
 import { Request, Response, NextFunction } from 'express'
 import models = require('../models/index')
 import { User } from '../data/types'
-import logger from "../lib/logger";
+import logger from '../lib/logger'
 
 const { Bot } = require('juicy-chat-bot')
 const security = require('../lib/insecurity')
