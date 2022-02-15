@@ -7,7 +7,6 @@ checkDiffs(keys)
     console.log(('---------------------------------------'))
     writeToFile(data)
     console.log(colors.bold('All file diffs have been locked!') + ' Commit changed cache.json to git.')
-  // seePatch('restfulXssChallenge_1_correct.ts')
   })
   .catch(err => {
     console.log(err)
