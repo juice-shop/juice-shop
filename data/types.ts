@@ -116,6 +116,7 @@ export interface SecurityAnswer extends Model {
 }
 
 export interface Basket extends Model {
+  id: number
   Products: Product[]
   coupon: string
 }

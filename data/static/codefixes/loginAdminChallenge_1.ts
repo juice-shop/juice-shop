@@ -1,7 +1,7 @@
 module.exports = function login () {
-  function afterLogin (user, res, next) {
+  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {
     models.Basket.findOrCreate({ where: { UserId: user.data.id }, defaults: {} })
-      .then(([basket]) => {
+      .then(([basket]: [basket: Basket]) => {
         const token = security.authorize(user)
         user.bid = basket.id // keep track of original basket
         security.authenticatedUsers.put(token, user)
@@ -16,7 +16,7 @@ module.exports = function login () {
       res.status(451).send(res.__('SQL Injection detected.'))
     }
     models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true })
-      .then((authenticatedUser) => {
+      .then((authenticatedUser: { data: User }) => {
         const user = utils.queryResultToJson(authenticatedUser)
         if (user.data?.id && user.data.totpSecret !== '') {
           res.status(401).json({
