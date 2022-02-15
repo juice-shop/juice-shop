@@ -1,4 +1,4 @@
-import { readFiles, checkDiffs, getDataFromFile, checkData } from './rsnUtil'
+import { readFiles, checkDiffs, getDataFromFile, checkData, seePatch } from './rsnUtil'
 const colors = require('colors/safe')
 
 const keys = readFiles()
@@ -6,13 +6,15 @@ checkDiffs(keys)
   .then(data => {
     console.log('---------------------------------------')
     const fileData = getDataFromFile()
-    if (checkData(data, fileData)) {
+    const filesWithDiff = checkData(data, fileData)
+    if (filesWithDiff.length === 0) {
       console.log(colors.green.bold('No new file diffs recognized since last lock!') + ' No action required.')
     } else {
-      console.log(colors.red.bold('New file diffs recognized since last lock!') + ' Amend files listed above and lock new state with ' + colors.bold('npm run rsn:update'))
+      console.log(colors.red.bold('New file diffs recognized since last lock!') + ' Double-check and amend listed files and lock new state with ' + colors.bold('npm run rsn:update'))
+      console.log('---------------------------------------')
+      filesWithDiff.forEach(async file => await seePatch(file)) // TODO Introduce new script variant "npm run rsn:verbose" logging this
       process.exitCode = 1
     }
-    // seePatch('restfulXssChallenge_1_correct.ts')
   })
   .catch(err => {
     console.log(err)
