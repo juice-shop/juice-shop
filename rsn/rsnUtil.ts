@@ -104,10 +104,9 @@ const checkDiffs = async (keys: string[]) => {
 async function seePatch (file: string) {
   const fileData = fs.readFileSync(fixesPath + '/' + file).toString()
   const snippet = await retrieveCodeSnippet(file.split('_')[0], true)
-  const patch = Diff.structuredPatch('sample.ts', 'sample6.ts', filterString(fileData), filterString(snippet.snippet), 'oh', 'nh')
-  console.log('@' + file + ':\n')
+  const patch = Diff.structuredPatch(file, file, filterString(snippet.snippet), filterString(fileData))
+  console.log(colors.bold(file + '\n'))
   for (const hunk of patch.hunks) {
-    console.log('--------patch--------')
     for (const line of hunk.lines) {
       if (line[0] === '-') {
         console.log(colors.red(line))
@@ -118,12 +117,11 @@ async function seePatch (file: string) {
       }
     }
   }
+  console.log('---------------------------------------')
 }
 
 function checkData (data: CacheData, fileData: CacheData) {
-  let same = true
-
-  // console.log(fileData)
+  const filesWithDiff = []
   for (const key in data) {
     const fileDataValueAdded = fileData[key].added.sort((a, b) => a - b)
     const dataValueAdded = data[key].added.sort((a, b) => a - b)
@@ -132,18 +130,18 @@ function checkData (data: CacheData, fileData: CacheData) {
     if (fileDataValueAdded.length === dataValueAdded.length && fileDataValueRemoved.length === dataValueAddedRemoved.length) {
       if (!dataValueAdded.every((val: number, ind: number) => fileDataValueAdded[ind] === val)) {
         console.log(colors.red(key))
-        same = false
+        filesWithDiff.push(key)
       }
       if (!dataValueAddedRemoved.every((val: number, ind: number) => fileDataValueRemoved[ind] === val)) {
         console.log(colors.red(key))
+        filesWithDiff.push(key)
       }
     } else {
       console.log(colors.red(key))
-      same = false
+      filesWithDiff.push(key)
     }
   }
-
-  return same
+  return filesWithDiff
 }
 
 export {
