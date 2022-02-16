@@ -5,11 +5,12 @@
 
 import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
+import { Card } from '../data/types'
 
 module.exports.getPaymentMethods = function getPaymentMethods () {
   return async (req: Request, res: Response, next: NextFunction) => {
     const cards = await models.Card.findAll({ where: { UserId: req.body.UserId } })
-    cards.forEach(card => {
+    cards.forEach((card: Card) => {
       const cardNumber = String(card.cardNum)
       card.cardNum = '*'.repeat(12) + cardNumber.substring(cardNumber.length - 4)
     })

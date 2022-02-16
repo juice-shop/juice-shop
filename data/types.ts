@@ -4,6 +4,7 @@ export interface Challenge extends Model {
   name: string
   category: string
   description: string
+  solved: boolean
   difficulty: number
   hint: string
   hintUrl: string
@@ -59,12 +60,13 @@ export interface Address extends Model {
 
 export interface Card extends Model {
   fullName: string
-  cardNum: number
+  cardNum: number | string
   expMonth: number
   expYear: number
 }
 
 export interface Product extends Model {
+  id: number
   name: string
   description: string
   price?: number
