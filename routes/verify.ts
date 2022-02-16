@@ -6,6 +6,7 @@
 import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
 import { Challenge, Product } from '../data/types'
+import { JwtPayload, VerifyErrors } from 'jsonwebtoken'
 
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
@@ -98,7 +99,7 @@ function jwtChallenge (challenge: Challenge, req: Request, algorithm: string, em
   const token = utils.jwtFrom(req)
   if (token) {
     const decoded = jws.decode(token) ? jwt.decode(token) : null
-    jwt.verify(token, security.publicKey, (err, verified) => {
+    jwt.verify(token, security.publicKey, (err: VerifyErrors | null, verified: JwtPayload) => {
       if (err === null) {
         utils.solveIf(challenge, () => { return hasAlgorithm(token, algorithm) && hasEmail(decoded, email) })
       }
@@ -106,12 +107,12 @@ function jwtChallenge (challenge: Challenge, req: Request, algorithm: string, em
   }
 }
 
-function hasAlgorithm (token, algorithm: string) {
+function hasAlgorithm (token: string, algorithm: string) {
   const header = JSON.parse(Buffer.from(token.split('.')[0], 'base64').toString())
   return token && header && header.alg === algorithm
 }
 
-function hasEmail (token, email: string) {
+function hasEmail (token: { data: { email: string } }, email: string | RegExp) {
   return token?.data?.email?.match(email)
 }
 

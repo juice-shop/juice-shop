@@ -84,6 +84,8 @@ export interface Product extends Model {
 export interface Review extends Model {
   text: string
   author: string
+  liked: boolean
+  likedBy: string[]
 }
 
 export interface Memory extends Model {

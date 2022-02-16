@@ -6,9 +6,9 @@ module.exports = function productReviews () {
       { $set: { message: req.body.message } },
       { multi: true }
     ).then(
-      result => {
+      (result: { modified: number, original: Array<{ author: any }> }) => {
         res.json(result)
-      }, err => {
+      }, (err: unknown) => {
         res.status(500).json(err)
       })
   }
