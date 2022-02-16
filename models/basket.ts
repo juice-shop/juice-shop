@@ -4,15 +4,71 @@
  */
 
 /* jslint node: true */
-export = (sequelize, { STRING }) => {
-  const Basket = sequelize.define('Basket', {
-    coupon: STRING
-  })
 
-  Basket.associate = ({ User, Product, BasketItem }) => {
-    Basket.belongsTo(User, { constraints: true, foreignKeyConstraint: true })
-    Basket.belongsToMany(Product, { through: BasketItem, foreignKey: { name: 'BasketId', noUpdate: true } })
-  }
+import {
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  DataTypes,
+  CreationOptional,
+  HasManyCreateAssociationMixin,
+  HasManyGetAssociationsMixin,
+  Association,
+  NonAttribute,
+} from "sequelize";
+import { sequelize } from "./index";
+import BasketItemModel from "./basketitem";
+import UserModel from "./user";
+import ProductModel from "./product";
 
-  return Basket
+class BasketModel extends Model<
+  InferAttributes<BasketModel>,
+  InferCreationAttributes<BasketModel>
+> {
+  declare UserId: number;
+  declare id: CreationOptional<number>;
+  declare coupon: string;
 }
+
+BasketModel.init(
+  //@ts-expect-error
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    coupon: DataTypes.STRING,
+  },
+  {
+    tableName: "Basket",
+    sequelize,
+  }
+);
+
+BasketModel.belongsTo(UserModel, {
+  constraints: true,
+  foreignKeyConstraint: true,
+});
+BasketModel.belongsToMany(ProductModel, {
+  through: BasketItemModel,
+  foreignKey: {
+    name: "BasketId",
+    //TODO noUpdate: true
+  },
+});
+
+export default BasketModel;
+
+// export = (sequelize, { STRING }) => {
+//   const Basket = sequelize.define('Basket', {
+//     coupon: STRING
+//   })
+
+//   Basket.associate = ({ User, Product, BasketItem }) => {
+//     Basket.belongsTo(User, { constraints: true, foreignKeyConstraint: true })
+//     Basket.belongsToMany(Product, { through: BasketItem, foreignKey: { name: 'BasketId', noUpdate: true } })
+//   }
+
+//   return Basket
+// }

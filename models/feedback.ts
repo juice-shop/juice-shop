@@ -4,38 +4,114 @@
  */
 
 /* jslint node: true */
-import utils = require('../lib/utils')
-const security = require('../lib/insecurity')
-const challenges = require('../data/datacache').challenges
+import utils = require("../lib/utils");
+const security = require("../lib/insecurity");
+const challenges = require("../data/datacache").challenges;
 
-module.exports = (sequelize, { STRING, INTEGER }) => {
-  const Feedback = sequelize.define('Feedback', {
+import {
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  DataTypes,
+  CreationOptional,
+  NonAttribute,
+} from "sequelize";
+import { sequelize } from "./index";
+import UserModel from "./user";
+
+class FeedbackModel extends Model<
+  InferAttributes<FeedbackModel>,
+  InferCreationAttributes<FeedbackModel>
+> {
+  declare UserId: number | null;
+  declare id: CreationOptional<number>;
+  declare comment: string;
+  declare rating: number;
+}
+
+FeedbackModel.init(
+  // @ts-expect-error
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     comment: {
-      type: STRING,
-      set (comment) {
-        let sanitizedComment
+      type: DataTypes.STRING,
+      set(comment: string) {
+        let sanitizedComment: string;
         if (!utils.disableOnContainerEnv()) {
-          sanitizedComment = security.sanitizeHtml(comment)
-          utils.solveIf(challenges.persistedXssFeedbackChallenge, () => { return utils.contains(sanitizedComment, '<iframe src="javascript:alert(`xss`)">') })
+          sanitizedComment = security.sanitizeHtml(comment);
+          utils.solveIf(challenges.persistedXssFeedbackChallenge, () => {
+            return utils.contains(
+              sanitizedComment,
+              '<iframe src="javascript:alert(`xss`)">'
+            );
+          });
         } else {
-          sanitizedComment = security.sanitizeSecure(comment)
+          sanitizedComment = security.sanitizeSecure(comment);
         }
-        this.setDataValue('comment', sanitizedComment)
-      }
+        this.setDataValue("comment", sanitizedComment);
+      },
     },
     rating: {
-      type: INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
-      set (rating) {
-        this.setDataValue('rating', rating)
-        utils.solveIf(challenges.zeroStarsChallenge, () => { return rating === 0 })
-      }
-    }
-  })
-
-  Feedback.associate = ({ User }) => {
-    Feedback.belongsTo(User) // no FK constraint to allow anonymous feedback posts
+      set(rating: number) {
+        this.setDataValue("rating", rating);
+        utils.solveIf(challenges.zeroStarsChallenge, () => {
+          return rating === 0;
+        });
+      },
+    },
+  },
+  {
+    tableName: "Feedback",
+    sequelize,
   }
+);
+FeedbackModel.belongsTo(UserModel); // no FK constraint to allow anonymous feedback posts
 
-  return Feedback
-}
+export default FeedbackModel;
+// module.exports = (sequelize, { STRING, INTEGER }) => {
+//     const Feedback = sequelize.define("Feedback", {
+//         comment: {
+//             type: STRING,
+//             set(comment) {
+//                 let sanitizedComment;
+//                 if (!utils.disableOnContainerEnv()) {
+//                     sanitizedComment = security.sanitizeHtml(comment);
+//                     utils.solveIf(
+//                         challenges.persistedXssFeedbackChallenge,
+//                         () => {
+//                             return utils.contains(
+//                                 sanitizedComment,
+//                                 '<iframe src="javascript:alert(`xss`)">'
+//                             );
+//                         }
+//                     );
+//                 } else {
+//                     sanitizedComment = security.sanitizeSecure(comment);
+//                 }
+//                 this.setDataValue("comment", sanitizedComment);
+//             },
+//         },
+//         rating: {
+//             type: INTEGER,
+//             allowNull: false,
+//             set(rating) {
+//                 this.setDataValue("rating", rating);
+//                 utils.solveIf(challenges.zeroStarsChallenge, () => {
+//                     return rating === 0;
+//                 });
+//             },
+//         },
+//     });
+
+//     Feedback.associate = ({ User }) => {
+//         Feedback.belongsTo(User); // no FK constraint to allow anonymous feedback posts
+//     };
+
+//     return Feedback;
+// };
