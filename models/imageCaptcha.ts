@@ -3,16 +3,59 @@
  * SPDX-License-Identifier: MIT
  */
 
-export = (sequelize, { INTEGER, STRING }) => {
-  const ImageCaptcha = sequelize.define('ImageCaptcha', {
-    image: STRING,
-    answer: STRING,
-    UserId: { type: INTEGER }
-  })
+import {
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  DataTypes,
+  CreationOptional,
+} from "sequelize";
+import { sequelize } from "./index";
+import UserModel from "./user";
 
-  ImageCaptcha.associate = ({ User }) => {
-    ImageCaptcha.belongsTo(User)
-  }
-
-  return ImageCaptcha
+class ImageCaptchaModel extends Model<
+  InferAttributes<ImageCaptchaModel>,
+  InferCreationAttributes<ImageCaptchaModel>
+> {
+  declare id: CreationOptional<number>;
+  declare image: string;
+  declare answer: string;
+  declare UserId: number;
+  declare createdAt: CreationOptional<Date>;
 }
+
+ImageCaptchaModel.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    image: DataTypes.STRING,
+    answer: DataTypes.STRING,
+    UserId: { type: DataTypes.INTEGER },
+    createdAt: DataTypes.DATE,
+  },
+  {
+    tableName: "ImageCaptcha",
+    sequelize,
+  }
+);
+
+ImageCaptchaModel.belongsTo(UserModel);
+
+export default ImageCaptchaModel;
+
+// export = (sequelize, { INTEGER, STRING }) => {
+//     const ImageCaptcha = sequelize.define("ImageCaptcha", {
+//         image: STRING,
+//         answer: STRING,
+//         UserId: { type: INTEGER },
+//     });
+
+//     ImageCaptcha.associate = ({ User }) => {
+//         ImageCaptcha.belongsTo(User);
+//     };
+
+//     return ImageCaptcha;
+// };

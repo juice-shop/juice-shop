@@ -3,14 +3,56 @@
  * SPDX-License-Identifier: MIT
  */
 
-export = (sequelize, { FLOAT, STRING }) => {
-  const Delivery = sequelize.define('Delivery', {
-    name: STRING,
-    price: FLOAT,
-    deluxePrice: FLOAT,
-    eta: FLOAT,
-    icon: STRING
-  })
+import {
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  DataTypes,
+  CreationOptional,
+} from "sequelize";
+import { sequelize } from "./index";
 
-  return Delivery
+class DeliveryModel extends Model<
+  InferAttributes<DeliveryModel>,
+  InferCreationAttributes<DeliveryModel>
+> {
+  declare id: CreationOptional<number>;
+  declare name: string;
+  declare price: number;
+  declare deluxePrice: number;
+  declare eta: number;
+  declare icon: string;
 }
+
+DeliveryModel.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    name: DataTypes.STRING,
+    price: DataTypes.FLOAT,
+    deluxePrice: DataTypes.FLOAT,
+    eta: DataTypes.FLOAT,
+    icon: DataTypes.STRING,
+  },
+  {
+    tableName: "Delivery",
+    sequelize,
+  }
+);
+
+export default DeliveryModel;
+
+// export = (sequelize, { FLOAT, STRING }) => {
+//     const Delivery = sequelize.define("Delivery", {
+//         name: STRING,
+//         price: FLOAT,
+//         deluxePrice: FLOAT,
+//         eta: FLOAT,
+//         icon: STRING,
+//     });
+
+//     return Delivery;
+// };

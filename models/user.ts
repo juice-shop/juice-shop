@@ -4,84 +4,218 @@
  */
 
 /* jslint node: true */
-import config = require('config')
-const security = require('../lib/insecurity')
-const utils = require('../lib/utils')
-const challenges = require('../data/datacache').challenges
+import config = require("config");
+import { sequelize } from "./index";
+import {
+  InferAttributes,
+  InferCreationAttributes,
+  Model,
+  DataTypes,
+  CreationOptional,
+  HasManyCreateAssociationMixin,
+} from "sequelize";
+import { HasOneCreateAssociationMixin } from "sequelize";
+const security = require("../lib/insecurity");
+const utils = require("../lib/utils");
+const challenges = require("../data/datacache").challenges;
 
-module.exports = (sequelize, { STRING, BOOLEAN }) => {
-  const User = sequelize.define('User', {
+class UserModel extends Model<
+  InferAttributes<UserModel>,
+  InferCreationAttributes<UserModel>
+> {
+  declare id: CreationOptional<number>;
+  declare username: string;
+  declare email: string;
+  declare password: string;
+  declare role: string;
+  declare deluxeToken: string;
+  declare lastLoginIp: string;
+  declare profileImage: string;
+  declare totpSecret: string;
+  declare isActive: boolean;
+}
+
+//TODO: Make role enum datatype
+
+UserModel.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     username: {
-      type: STRING,
-      defaultValue: '',
-      set (username) {
+      type: DataTypes.STRING,
+      defaultValue: "",
+      set(username: string) {
         if (!utils.disableOnContainerEnv()) {
-          username = security.sanitizeLegacy(username)
+          username = security.sanitizeLegacy(username);
         } else {
-          username = security.sanitizeSecure(username)
+          username = security.sanitizeSecure(username);
         }
-        this.setDataValue('username', username)
-      }
+        this.setDataValue("username", username);
+      },
     },
     email: {
-      type: STRING,
+      type: DataTypes.STRING,
       unique: true,
-      set (email) {
+      set(email: string) {
         if (!utils.disableOnContainerEnv()) {
-          utils.solveIf(challenges.persistedXssUserChallenge, () => { return utils.contains(email, '<iframe src="javascript:alert(`xss`)">') })
+          utils.solveIf(challenges.persistedXssUserChallenge, () => {
+            return utils.contains(
+              email,
+              '<iframe src="javascript:alert(`xss`)">'
+            );
+          });
         } else {
-          email = security.sanitizeSecure(email)
+          email = security.sanitizeSecure(email);
         }
-        this.setDataValue('email', email)
-      }
+        this.setDataValue("email", email);
+      },
     },
     password: {
-      type: STRING,
-      set (clearTextPassword) {
-        this.setDataValue('password', security.hash(clearTextPassword))
-      }
+      type: DataTypes.STRING,
+      set(clearTextPassword) {
+        this.setDataValue("password", security.hash(clearTextPassword));
+      },
     },
     role: {
-      type: STRING,
-      defaultValue: 'customer',
+      type: DataTypes.STRING,
+      defaultValue: "customer",
       validate: {
-        isIn: [['customer', 'deluxe', 'accounting', 'admin']]
+        isIn: [["customer", "deluxe", "accounting", "admin"]],
       },
-      set (role) {
-        const profileImage = this.getDataValue('profileImage')
-        if (role === security.roles.admin && (!profileImage || profileImage === '/assets/public/images/uploads/default.svg')) {
-          this.setDataValue('profileImage', '/assets/public/images/uploads/defaultAdmin.png')
+      set(role: string) {
+        const profileImage = this.getDataValue("profileImage");
+        if (
+          role === security.roles.admin &&
+          (!profileImage ||
+            profileImage === "/assets/public/images/uploads/default.svg")
+        ) {
+          this.setDataValue(
+            "profileImage",
+            "/assets/public/images/uploads/defaultAdmin.png"
+          );
         }
-        this.setDataValue('role', role)
-      }
+        this.setDataValue("role", role);
+      },
     },
     deluxeToken: {
-      type: STRING,
-      defaultValue: ''
+      type: DataTypes.STRING,
+      defaultValue: "",
     },
     lastLoginIp: {
-      type: STRING,
-      defaultValue: '0.0.0.0'
+      type: DataTypes.STRING,
+      defaultValue: "0.0.0.0",
     },
     profileImage: {
-      type: STRING,
-      defaultValue: '/assets/public/images/uploads/default.svg'
+      type: DataTypes.STRING,
+      defaultValue: "/assets/public/images/uploads/default.svg",
     },
     totpSecret: {
-      type: STRING,
-      defaultValue: ''
+      type: DataTypes.STRING,
+      defaultValue: "",
     },
     isActive: {
-      type: BOOLEAN,
-      defaultValue: true
-    }
-  }, { paranoid: true })
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
+  },
+  {
+    tableName: "User",
+    sequelize,
+  }
+);
 
-  User.addHook('afterValidate', (user) => {
-    if (user.email && user.email.toLowerCase() === `acc0unt4nt@${config.get('application.domain')}`.toLowerCase()) {
-      return Promise.reject(new Error('Nice try, but this is not how the "Ephemeral Accountant" challenge works!'))
-    }
-  })
+UserModel.addHook("afterValidate", (user: UserModel) => {
+  if (
+    user.email &&
+    user.email.toLowerCase() ===
+      `acc0unt4nt@${config.get("application.domain")}`.toLowerCase()
+  ) {
+    return Promise.reject(
+      new Error(
+        'Nice try, but this is not how the "Ephemeral Accountant" challenge works!'
+      )
+    );
+  }
+});
 
-  return User
-}
+export default UserModel;
+
+// module.exports = (sequelize, { STRING, BOOLEAN }) => {
+//   const User = sequelize.define('User', {
+//     username: {
+//       type: STRING,
+//       defaultValue: '',
+//       set (username) {
+//         if (!utils.disableOnContainerEnv()) {
+//           username = security.sanitizeLegacy(username)
+//         } else {
+//           username = security.sanitizeSecure(username)
+//         }
+//         this.setDataValue('username', username)
+//       }
+//     },
+//     email: {
+//       type: STRING,
+//       unique: true,
+//       set (email) {
+//         if (!utils.disableOnContainerEnv()) {
+//           utils.solveIf(challenges.persistedXssUserChallenge, () => { return utils.contains(email, '<iframe src="javascript:alert(`xss`)">') })
+//         } else {
+//           email = security.sanitizeSecure(email)
+//         }
+//         this.setDataValue('email', email)
+//       }
+//     },
+//     password: {
+//       type: STRING,
+//       set (clearTextPassword) {
+//         this.setDataValue('password', security.hash(clearTextPassword))
+//       }
+//     },
+//     role: {
+//       type: STRING,
+//       defaultValue: 'customer',
+//       validate: {
+//         isIn: [['customer', 'deluxe', 'accounting', 'admin']]
+//       },
+//       set (role) {
+//         const profileImage = this.getDataValue('profileImage')
+//         if (role === security.roles.admin && (!profileImage || profileImage === '/assets/public/images/uploads/default.svg')) {
+//           this.setDataValue('profileImage', '/assets/public/images/uploads/defaultAdmin.png')
+//         }
+//         this.setDataValue('role', role)
+//       }
+//     },
+//     deluxeToken: {
+//       type: STRING,
+//       defaultValue: ''
+//     },
+//     lastLoginIp: {
+//       type: STRING,
+//       defaultValue: '0.0.0.0'
+//     },
+//     profileImage: {
+//       type: STRING,
+//       defaultValue: '/assets/public/images/uploads/default.svg'
+//     },
+//     totpSecret: {
+//       type: STRING,
+//       defaultValue: ''
+//     },
+//     isActive: {
+//       type: BOOLEAN,
+//       defaultValue: true
+//     }
+//   }, { paranoid: true })
+
+//   User.addHook('afterValidate', (user) => {
+//     if (user.email && user.email.toLowerCase() === `acc0unt4nt@${config.get('application.domain')}`.toLowerCase()) {
+//       return Promise.reject(new Error('Nice try, but this is not how the "Ephemeral Accountant" challenge works!'))
+//     }
+//   })
+
+//   return User
+// }
