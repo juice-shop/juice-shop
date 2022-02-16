@@ -21,12 +21,15 @@ class RecycleModel extends Model<
   InferCreationAttributes<RecycleModel>
 > {
   declare id: CreationOptional<number>;
+  declare UserId:number;
+  declare AddressId: number;
   declare quantity: number;
   declare isPickup: boolean;
   declare date: string;
 }
 
 RecycleModel.init(
+// @ts-expect-error
   {
     id: {
       type: DataTypes.INTEGER,

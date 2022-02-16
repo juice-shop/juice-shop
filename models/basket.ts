@@ -27,7 +27,7 @@ class BasketModel extends Model<
 > {
   declare UserId: number;
   declare id: CreationOptional<number>;
-  declare coupon: string;
+  declare coupon: CreationOptional<string>;
 }
 
 BasketModel.init(

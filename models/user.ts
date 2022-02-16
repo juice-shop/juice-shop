@@ -24,15 +24,15 @@ class UserModel extends Model<
   InferCreationAttributes<UserModel>
 > {
   declare id: CreationOptional<number>;
-  declare username: string;
-  declare email: string;
-  declare password: string;
-  declare role: string;
-  declare deluxeToken: string;
-  declare lastLoginIp: string;
-  declare profileImage: string;
-  declare totpSecret: string;
-  declare isActive: boolean;
+  declare username: string | undefined;
+  declare email: CreationOptional<string>;
+  declare password: CreationOptional<string>;
+  declare role: CreationOptional<string>;
+  declare deluxeToken: CreationOptional<string>;
+  declare lastLoginIp: CreationOptional<string>;
+  declare profileImage: CreationOptional<string>;
+  declare totpSecret: CreationOptional<string>;
+  declare isActive: CreationOptional<boolean>;
 }
 
 //TODO: Make role enum datatype

@@ -4,6 +4,22 @@
  */
 
 /* jslint node: true */
+import AddressModel from 'models/address'
+import BasketModel from 'models/basket'
+import BasketItemModel from 'models/basketitem'
+import CardModel from 'models/card'
+import ChallengeModel from 'models/challenge'
+import ComplaintModel from 'models/complaint'
+import DeliveryModel from 'models/delivery'
+import FeedbackModel from 'models/feedback'
+import MemoryModel from 'models/memory'
+import ProductModel from 'models/product'
+import QuantityModel from 'models/quantity'
+import RecycleModel from 'models/recycle'
+import SecurityAnswerModel from 'models/securityAnswer'
+import SecurityQuestionModel from 'models/securityQuestion'
+import UserModel from 'models/user'
+import WalletModel from 'models/wallet'
 import * as models from '../models/index'
 import { Address, Card, Challenge, Delivery, Memory, Product, Recycle, SecurityQuestion, User } from './types'
 const datacache = require('./datacache')
@@ -67,7 +83,7 @@ async function createChallenges () {
       hint = hint.replace(/OWASP Juice Shop's/, `${config.get('application.name')}'s`)
 
       try {
-        datacache.challenges[key] = await models.Challenge.create({
+        datacache.challenges[key] = await ChallengeModel.create({
           key,
           name,
           category,
@@ -96,7 +112,7 @@ async function createUsers () {
     users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret = '' }: User) => {
       try {
         const completeEmail = customDomain ? email : `${email}@${config.get('application.domain')}`
-        const user = await models.User.create({
+        const user = await UserModel.create({
           username,
           email: completeEmail,
           password,
@@ -122,7 +138,7 @@ async function createWallet () {
   const users = await loadStaticData('users')
   return await Promise.all(
     users.map((user: User, index: number) => {
-      return models.Wallet.create({
+      return WalletModel.create({
         UserId: index + 1,
         balance: user.walletBalance !== undefined ? user.walletBalance : 0
       }).catch((err: unknown) => {
@@ -138,7 +154,7 @@ async function createDeliveryMethods () {
   await Promise.all(
     deliveries.map(async ({ name, price, deluxePrice, eta, icon }: Delivery) => {
       try {
-        await models.Delivery.create({
+        await DeliveryModel.create({
           name,
           price,
           deluxePrice,
@@ -154,7 +170,7 @@ async function createDeliveryMethods () {
 
 function createAddresses (UserId: number, addresses: Address[]) {
   addresses.map((address) => {
-    return models.Address.create({
+    return AddressModel.create({
       UserId: UserId,
       country: address.country,
       fullName: address.fullName,
@@ -171,7 +187,7 @@ function createAddresses (UserId: number, addresses: Address[]) {
 
 async function createCards (UserId: number, cards: Card[]) {
   return await Promise.all(cards.map((card) => {
-    return models.Card.create({
+    return CardModel.create({
       UserId: UserId,
       fullName: card.fullName,
       cardNum: card.cardNum,
@@ -184,7 +200,7 @@ async function createCards (UserId: number, cards: Card[]) {
 }
 
 function deleteUser (userId: number) {
-  return models.User.destroy({ where: { id: userId } }).catch((err: unknown) => {
+  return UserModel.destroy({ where: { id: userId } }).catch((err: unknown) => {
     logger.error(`Could not perform soft delete for the user ${userId}: ${utils.getErrorMessage(err)}`)
   })
 }
@@ -205,7 +221,7 @@ async function createRandomFakeUsers () {
   }
 
   return await Promise.all(new Array(config.get('application.numberOfRandomFakeUsers')).fill(0).map(
-    () => models.User.create({
+    () => UserModel.create({
       email: getGeneratedRandomFakeUserEmail(),
       password: makeRandomString(5)
     })
@@ -215,7 +231,7 @@ async function createRandomFakeUsers () {
 async function createQuantity () {
   return await Promise.all(
     config.get('products').map((product: Product, index: number) => {
-      return models.Quantity.create({
+      return QuantityModel.create({
         ProductId: index + 1,
         quantity: product.quantity !== undefined ? product.quantity : Math.floor(Math.random() * 70 + 30),
         limitPerUser: product.limitPerUser ?? null
@@ -228,7 +244,7 @@ async function createQuantity () {
 
 async function createMemories () {
   const memories = [
-    models.Memory.create({
+    MemoryModel.create({
       imagePath: 'assets/public/images/uploads/😼-#zatschi-#whoneedsfourlegs-1572600969477.jpg',
       caption: '😼 #zatschi #whoneedsfourlegs',
       UserId: datacache.users.bjoernOwasp.id
@@ -250,7 +266,7 @@ async function createMemories () {
         createSecurityAnswer(datacache.users.emma.id, memory.geoStalkingVisualSecurityQuestion, memory.geoStalkingVisualSecurityAnswer)
         memory.user = 'emma'
       }
-      return models.Memory.create({
+      return MemoryModel.create({
         imagePath: 'assets/public/images/uploads/' + tmpImageFileName,
         caption: memory.caption,
         UserId: datacache.users[memory.user].id
@@ -310,29 +326,40 @@ async function createProducts () {
   return await Promise.all(
     products.map(
       ({ reviews = [], useForChristmasSpecialChallenge = false, urlForProductTamperingChallenge = false, fileForRetrieveBlueprintChallenge = false, ...product }) =>
-        models.Product.create(product).catch(
+        ProductModel.create({
+          name:product.name,
+          description:product.description,
+          price:product.price,
+          deluxePrice:product.deluxePrice ,
+          image:product.image,
+        }).catch(
           (err: unknown) => {
             logger.error(`Could not insert Product ${product.name}: ${utils.getErrorMessage(err)}`)
           }
-        ).then((persistedProduct: Product) => {
-          if (useForChristmasSpecialChallenge) { datacache.products.christmasSpecial = persistedProduct }
-          if (urlForProductTamperingChallenge) {
-            datacache.products.osaft = persistedProduct
-            datacache.challenges.changeProductChallenge.update({
-              description: customizeChangeProductChallenge(
-                datacache.challenges.changeProductChallenge.description,
-                config.get('challenges.overwriteUrlForProductTamperingChallenge'),
-                persistedProduct)
-            })
+        ).then((persistedProduct: ProductModel | void) => {
+          if(persistedProduct){
+            if (useForChristmasSpecialChallenge) { datacache.products.christmasSpecial = persistedProduct }
+            if (urlForProductTamperingChallenge) {
+              datacache.products.osaft = persistedProduct
+              datacache.challenges.changeProductChallenge.update({
+                description: customizeChangeProductChallenge(
+                  datacache.challenges.changeProductChallenge.description,
+                  config.get('challenges.overwriteUrlForProductTamperingChallenge'),
+                  persistedProduct)
+              })
+            }
+            if (fileForRetrieveBlueprintChallenge && datacache.challenges.changeProductChallenge.hint) {
+              datacache.challenges.retrieveBlueprintChallenge.update({
+                hint: customizeRetrieveBlueprintChallenge(
+                  datacache.challenges.retrieveBlueprintChallenge.hint,
+                  persistedProduct)
+              })
+            }  
           }
-          if (fileForRetrieveBlueprintChallenge && datacache.challenges.changeProductChallenge.hint) {
-            datacache.challenges.retrieveBlueprintChallenge.update({
-              hint: customizeRetrieveBlueprintChallenge(
-                datacache.challenges.retrieveBlueprintChallenge.hint,
-                persistedProduct)
-            })
+          if(!persistedProduct){
+            throw new Error("No persisted product found!");
           }
-          return persistedProduct
+          return persistedProduct;
         })
           .then(async ({ id }: { id: number }) =>
             await Promise.all(
@@ -374,7 +401,9 @@ async function createBaskets () {
 
   return await Promise.all(
     baskets.map(basket => {
-      return models.Basket.create(basket).catch((err: unknown) => {
+      return BasketModel.create({
+        UserId:basket.UserId
+      }).catch((err: unknown) => {
         logger.error(`Could not insert Basket for UserId ${basket.UserId}: ${utils.getErrorMessage(err)}`)
       })
     })
@@ -427,7 +456,7 @@ async function createBasketItems () {
 
   return await Promise.all(
     basketItems.map(basketItem => {
-      return models.BasketItem.create(basketItem).catch((err: unknown) => {
+      return BasketItemModel.create(basketItem).catch((err: unknown) => {
         logger.error(`Could not insert BasketItem for BasketId ${basketItem.BasketId}: ${utils.getErrorMessage(err)}`)
       })
     })
@@ -461,13 +490,13 @@ async function createAnonymousFeedback () {
 
 function createFeedback (UserId: number | null, comment: string, rating: number, author?: string) {
   const authoredComment = author ? `${comment} (***${author.slice(3)})` : `${comment} (anonymous)`
-  return models.Feedback.create({ UserId, comment: authoredComment, rating }).catch((err: unknown) => {
+  return FeedbackModel.create({ UserId, comment: authoredComment, rating }).catch((err: unknown) => {
     logger.error(`Could not insert Feedback ${authoredComment} mapped to UserId ${UserId}: ${utils.getErrorMessage(err)}`)
   })
 }
 
 function createComplaints () {
-  return models.Complaint.create({
+  return ComplaintModel.create({
     UserId: 3,
     message: 'I\'ll build my own eCommerce business! With Black Jack! And Hookers!'
   }).catch((err: unknown) => {
@@ -546,8 +575,14 @@ async function createRecycleItem () {
   )
 }
 
-function createRecycle (data: Recycle) {
-  return models.Recycle.create(data).catch((err: unknown) => {
+function createRecycle (data: { UserId: number; quantity: number; AddressId: number; date: string; isPickup: boolean }) {
+  return RecycleModel.create({
+    UserId:data.UserId,
+    AddressId: data.AddressId,
+    quantity: data.quantity,
+    isPickup: data.isPickup,
+    date: data.date,
+  }).catch((err: unknown) => {
     logger.error(`Could not insert Recycling Model: ${utils.getErrorMessage(err)}`)
   })
 }
@@ -558,7 +593,7 @@ async function createSecurityQuestions () {
   await Promise.all(
     questions.map(async ({ question }: SecurityQuestion) => {
       try {
-        await models.SecurityQuestion.create({ question })
+        await SecurityQuestionModel.create({ question })
       } catch (err) {
         logger.error(`Could not insert SecurityQuestion ${question}: ${utils.getErrorMessage(err)}`)
       }
@@ -567,7 +602,7 @@ async function createSecurityQuestions () {
 }
 
 function createSecurityAnswer (UserId: number, SecurityQuestionId: number, answer: string) {
-  return models.SecurityAnswer.create({ SecurityQuestionId, UserId, answer }).catch((err: unknown) => {
+  return SecurityAnswerModel.create({ SecurityQuestionId, UserId, answer }).catch((err: unknown) => {
     logger.error(`Could not insert SecurityAnswer ${answer} mapped to UserId ${UserId}: ${utils.getErrorMessage(err)}`)
   })
 }
