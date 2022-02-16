@@ -22,7 +22,7 @@ class CardModel extends Model<
   declare UserId: number;
   declare id: CreationOptional<number>;
   declare fullName: string;
-  declare cardNum: string;
+  declare cardNum: number;
   declare expMonth: number;
   declare expYear: number;
 }
