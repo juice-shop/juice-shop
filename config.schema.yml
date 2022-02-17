@@ -1,3 +1,4 @@
+# Comment
 server:
   port:
     type: number
