@@ -172,6 +172,8 @@ function feedbackChallenge () {
     if (count === 0) {
       utils.solve(challenges.feedbackChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to retrieve feedback details. Please try again')
   })
 }
 
@@ -186,6 +188,8 @@ function knownVulnerableComponentChallenge () {
     if (count > 0) {
       utils.solve(challenges.knownVulnerableComponentChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
   ComplaintModel.findAndCountAll({
     where: {
@@ -197,6 +201,8 @@ function knownVulnerableComponentChallenge () {
     if (count > 0) {
       utils.solve(challenges.knownVulnerableComponentChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
 }
 
@@ -228,6 +234,8 @@ function weirdCryptoChallenge () {
     if (count > 0) {
       utils.solve(challenges.weirdCryptoChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
   ComplaintModel.findAndCountAll({
     where: {
@@ -239,6 +247,8 @@ function weirdCryptoChallenge () {
     if (count > 0) {
       utils.solve(challenges.weirdCryptoChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
 }
 
@@ -258,12 +268,16 @@ function typosquattingNpmChallenge () {
     if (count > 0) {
       utils.solve(challenges.typosquattingNpmChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
   ComplaintModel.findAndCountAll({ where: { message: { [Op.like]: '%epilogue-js%' } } }
   ).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.typosquattingNpmChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
 }
 
@@ -273,12 +287,16 @@ function typosquattingAngularChallenge () {
     if (count > 0) {
       utils.solve(challenges.typosquattingAngularChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
   ComplaintModel.findAndCountAll({ where: { message: { [Op.like]: '%anuglar2-qrcode%' } } }
   ).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.typosquattingAngularChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
 }
 
@@ -288,12 +306,16 @@ function hiddenImageChallenge () {
     if (count > 0) {
       utils.solve(challenges.hiddenImageChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
   ComplaintModel.findAndCountAll({ where: { message: { [Op.like]: '%pickle rick%' } } }
   ).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.hiddenImageChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
 }
 
@@ -303,12 +325,16 @@ function supplyChainAttackChallenge () {
     if (count > 0) {
       utils.solve(challenges.supplyChainAttackChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
   ComplaintModel.findAndCountAll({ where: { message: { [Op.or]: eslintScopeVulnIds() } } }
   ).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.supplyChainAttackChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
 }
 
@@ -328,6 +354,8 @@ function dlpPastebinDataLeakChallenge () {
     if (count > 0) {
       utils.solve(challenges.dlpPastebinDataLeakChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
   ComplaintModel.findAndCountAll({
     where: {
@@ -337,6 +365,8 @@ function dlpPastebinDataLeakChallenge () {
     if (count > 0) {
       utils.solve(challenges.dlpPastebinDataLeakChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
 }
 

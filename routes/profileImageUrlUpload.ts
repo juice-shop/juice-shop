@@ -6,10 +6,8 @@
 import fs = require('fs')
 import { Request, Response, NextFunction } from 'express'
 
-import models = require('../models/index')
-import { User } from '../data/types'
-const utils = require('../lib/utils')
 import UserModel from 'models/user'
+const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
 const request = require('request')
 const logger = require('../lib/logger')
@@ -23,11 +21,11 @@ module.exports = function profileImageUrlUpload () {
       if (loggedInUser) {
         const imageRequest = request
           .get(url)
-          .on('error', function (err:unknown) {
+          .on('error', function (err: unknown) {
             UserModel.findByPk(loggedInUser.data.id).then(async (user: UserModel | null) => { return await user?.update({ profileImage: url }) }).catch((error: Error) => { next(error) })
             logger.warn(`Error retrieving user profile image: ${utils.getErrorMessage(err)}; using image link directly`)
           })
-          .on('response', function (res:Response) {
+          .on('response', function (res: Response) {
             if (res.statusCode === 200) {
               const ext = ['jpg', 'jpeg', 'png', 'svg', 'gif'].includes(url.split('.').slice(-1)[0].toLowerCase()) ? url.split('.').slice(-1)[0].toLowerCase() : 'jpg'
               imageRequest.pipe(fs.createWriteStream(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.${ext}`))

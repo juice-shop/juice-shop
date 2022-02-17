@@ -6,8 +6,6 @@
 import fs = require('fs')
 import { Request, Response, NextFunction } from 'express'
 
-import models = require('../models/index')
-import { User } from '../data/types'
 import UserModel from 'models/user'
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
@@ -31,8 +29,8 @@ module.exports = function getUserProfile () {
             req.app.locals.abused_ssti_bug = true
             const code = username?.substring(2, username.length - 1)
             try {
-              if(!code){
-                throw new Error("Username is null")
+              if (!code) {
+                throw new Error('Username is null')
               }
               username = eval(code) // eslint-disable-line no-eval
             } catch (err) {
@@ -42,7 +40,7 @@ module.exports = function getUserProfile () {
             username = '\\' + username
           }
           const theme = themes[config.get('application.theme')]
-          if(username){
+          if (username) {
             template = template.replace(/_username_/g, username)
           }
           template = template.replace(/_emailHash_/g, security.hash(user?.email))

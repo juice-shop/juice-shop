@@ -21,28 +21,28 @@ module.exports = function dataExport () {
       const updatedEmail = email.replace(/[aeiou]/gi, '*')
       const userData:
       {
-        username:string, 
-        email:string, 
-        orders:Array<{
-          orderId: string,
-          totalPrice: number,
-          products: Array<ProductModel>,
-          bonus: number,
+        username: string
+        email: string
+        orders: Array<{
+          orderId: string
+          totalPrice: number
+          products: ProductModel[]
+          bonus: number
           eta: string
-        }>,
-        reviews:Array<{
-          message: string,
-          author: string,
-          productId: number,
-          likesCount: number,
-          likedBy: string
-        }>,
-        memories:Array<{
-          imageUrl:string,
-          caption:string
         }>
-      } 
-      = {
+        reviews: Array<{
+          message: string
+          author: string
+          productId: number
+          likesCount: number
+          likedBy: string
+        }>
+        memories: Array<{
+          imageUrl: string
+          caption: string
+        }>
+      } =
+      {
         username,
         email,
         orders: [],
@@ -58,11 +58,11 @@ module.exports = function dataExport () {
         })
       })
 
-      db.orders.find({ email: updatedEmail }).then((orders:Array<{
-        orderId: any,
-        totalPrice: number,
-        products: Array<ProductModel>,
-        bonus: number,
+      db.orders.find({ email: updatedEmail }).then((orders: Array<{
+        orderId: any
+        totalPrice: number
+        products: ProductModel[]
+        bonus: number
         eta: string
       }>) => {
         if (orders.length > 0) {
@@ -78,11 +78,11 @@ module.exports = function dataExport () {
         }
 
         db.reviews.find({ author: email }).then((reviews: Array<{
-          message: string,
-          author: string,
-          product: any,
+          message: string
+          author: string
+          product: any
           // Verify this any here
-          likesCount: number,
+          likesCount: number
           likedBy: string
         }>) => {
           if (reviews.length > 0) {

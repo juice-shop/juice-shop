@@ -4,33 +4,31 @@
  */
 
 /* jslint node: true */
-import utils = require("../lib/utils");
-const security = require("../lib/insecurity");
-const challenges = require("../data/datacache").challenges;
+import utils = require('../lib/utils')
 import {
   Model,
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional,
-  NonAttribute,
-} from "sequelize";
-import { sequelize } from "./index";
-import BasketItemModel from "./basketitem";
-import BasketModel from "./basket";
+  CreationOptional
+} from 'sequelize'
+import { sequelize } from './index'
+import BasketItemModel from './basketitem'
+import BasketModel from './basket'
+const security = require('../lib/insecurity')
+const challenges = require('../data/datacache').challenges
 
 class ProductModel extends Model<
-  InferAttributes<ProductModel>,
-  InferCreationAttributes<ProductModel>
+InferAttributes<ProductModel>,
+InferCreationAttributes<ProductModel>
 > {
-  declare id: CreationOptional<number>;
-  declare name: string;
-  declare description: string;
-  declare price: number;
-  declare deluxePrice: number;
-  declare image: string;
-  declare BasketItem?: CreationOptional<BasketItemModel>; // Note this is optional since it's only populated when explicitly requested in code
-
+  declare id: CreationOptional<number>
+  declare name: string
+  declare description: string
+  declare price: number
+  declare deluxePrice: number
+  declare image: string
+  declare BasketItem?: CreationOptional<BasketItemModel> // Note this is optional since it's only populated when explicitly requested in code
 }
 
 ProductModel.init(
@@ -38,42 +36,42 @@ ProductModel.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     name: DataTypes.STRING,
     description: {
       type: DataTypes.STRING,
-      set(description: string) {
+      set (description: string) {
         if (!utils.disableOnContainerEnv()) {
           utils.solveIf(challenges.restfulXssChallenge, () => {
             return utils.contains(
               description,
               '<iframe src="javascript:alert(`xss`)">'
-            );
-          });
+            )
+          })
         } else {
-          description = security.sanitizeSecure(description);
+          description = security.sanitizeSecure(description)
         }
-        this.setDataValue("description", description);
-      },
+        this.setDataValue('description', description)
+      }
     },
     price: DataTypes.DECIMAL,
     deluxePrice: DataTypes.DECIMAL,
-    image: DataTypes.STRING,
+    image: DataTypes.STRING
   },
   {
-    tableName: "Product",
-    sequelize,
+    tableName: 'Product',
+    sequelize
   }
-);
+)
 
 ProductModel.belongsToMany(BasketModel, {
   through: BasketItemModel,
   foreignKey: {
-    name: "ProductId",
+    name: 'ProductId'
     // noUpdate: true
-    //TODO
-  },
-});
+    // TODO
+  }
+})
 
-export default ProductModel;
+export default ProductModel

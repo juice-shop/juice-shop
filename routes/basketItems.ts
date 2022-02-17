@@ -63,9 +63,9 @@ module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBefor
       const user = security.authenticatedUsers.from(req)
       utils.solveIf(challenges.basketManipulateChallenge, () => { return user && req.body.BasketId && user.bid != req.body.BasketId }) // eslint-disable-line eqeqeq
       if (req.body.quantity) {
-        if(!item){
-          throw new Error("No such item found!");
-        }  
+        if (!item) {
+          throw new Error('No such item found!')
+        }
         void quantityCheck(req, res, next, item.ProductId, req.body.quantity)
       } else {
         next()
@@ -78,8 +78,8 @@ module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBefor
 
 async function quantityCheck (req: Request, res: Response, next: NextFunction, id: number, quantity: number) {
   const product = await QuantityModel.findOne({ where: { ProductId: id } })
-  if(!product){
-    throw new Error("No such product found!")
+  if (!product) {
+    throw new Error('No such product found!')
   }
 
   // is product limited per user and order, except if user is deluxe?

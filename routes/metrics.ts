@@ -167,14 +167,20 @@ exports.observeMetrics = function observeMetrics () {
     void retrieveChallengesWithCodeSnippet().then(challenges => {
       ChallengeModel.count({ where: { codingChallengeStatus: { [Op.eq]: 1 } } }).then((count: number) => {
         codingChallengesProgressMetrics.set({ phase: 'find it' }, count)
+      }).catch(() => {
+        throw new Error('Unable to retrieve and count such challenges. Please try again')
       })
 
       ChallengeModel.count({ where: { codingChallengeStatus: { [Op.eq]: 2 } } }).then((count: number) => {
         codingChallengesProgressMetrics.set({ phase: 'fix it' }, count)
+      }).catch((_: unknown) => {
+        throw new Error('Unable to retrieve and count such challenges. Please try again')
       })
 
       ChallengeModel.count({ where: { codingChallengeStatus: { [Op.ne]: 0 } } }).then((count: number) => {
         codingChallengesProgressMetrics.set({ phase: 'unsolved' }, challenges.length - count)
+      }).catch((_: unknown) => {
+        throw new Error('Unable to retrieve and count such challenges. Please try again')
       })
     })
 
@@ -182,34 +188,52 @@ exports.observeMetrics = function observeMetrics () {
     accuracyMetrics.set({ phase: 'find it' }, accuracy.totalFindItAccuracy())
     accuracyMetrics.set({ phase: 'fix it' }, accuracy.totalFixItAccuracy())
 
-    orders.count({}).then((orderCount:Number) => {
+    orders.count({}).then((orderCount: Number) => {
       orderMetrics.set(orderCount)
+    }).catch((_: unknown) => {
+      throw new Error('Somthing went wrong fetching the orders. Please try again')
     })
 
-    reviews.count({}).then((reviewCount:Number) => {
+    reviews.count({}).then((reviewCount: Number) => {
       interactionsMetrics.set({ type: 'review' }, reviewCount)
+    }).catch((_: unknown) => {
+      throw new Error('Somthing went wrong fetching the orders. Please try again')
     })
 
     UserModel.count({ where: { role: { [Op.eq]: 'customer' } } }).then((count: number) => {
       userMetrics.set({ type: 'standard' }, count)
-    })
-    UserModel.count({ where: { role: { [Op.eq]: 'deluxe' } } }).then((count: number) => {
-      userMetrics.set({ type: 'deluxe' }, count)
-    })
-    UserModel.count().then((count:Number) => {
-      userTotalMetrics.set(count)
+    }).catch((_: unknown) => {
+      throw new Error('Somthing went wrong fetching the orders. Please try again')
     })
 
-    WalletModel.sum('balance').then((totalBalance:Number) => {
+    UserModel.count({ where: { role: { [Op.eq]: 'deluxe' } } }).then((count: number) => {
+      userMetrics.set({ type: 'deluxe' }, count)
+    }).catch((_: unknown) => {
+      throw new Error('Somthing went wrong fetching the orders. Please try again')
+    })
+
+    UserModel.count().then((count: Number) => {
+      userTotalMetrics.set(count)
+    }).catch((_: unknown) => {
+      throw new Error('Somthing went wrong fetching the orders. Please try again')
+    })
+
+    WalletModel.sum('balance').then((totalBalance: Number) => {
       walletMetrics.set(totalBalance)
+    }).catch((_: unknown) => {
+      throw new Error('Somthing went wrong fetching the orders. Please try again')
     })
 
     FeedbackModel.count().then((count: number) => {
       interactionsMetrics.set({ type: 'feedback' }, count)
+    }).catch((_: unknown) => {
+      throw new Error('Somthing went wrong fetching the orders. Please try again')
     })
 
     ComplaintModel.count().then((count: number) => {
       interactionsMetrics.set({ type: 'complaint' }, count)
+    }).catch((_: unknown) => {
+      throw new Error('Somthing went wrong fetching the orders. Please try again')
     })
   }, 5000)
 

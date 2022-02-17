@@ -9,18 +9,18 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional,
-} from "sequelize";
-import { sequelize } from "./index";
-import UserModel from "./user";
+  CreationOptional
+} from 'sequelize'
+import { sequelize } from './index'
+import UserModel from './user'
 
 class WalletModel extends Model<
-  InferAttributes<WalletModel>,
-  InferCreationAttributes<WalletModel>
+InferAttributes<WalletModel>,
+InferCreationAttributes<WalletModel>
 > {
-  declare UserId: number;
-  declare id: CreationOptional<number>;
-  declare balance: number;
+  declare UserId: number
+  declare id: CreationOptional<number>
+  declare balance: number
 }
 
 WalletModel.init(
@@ -29,25 +29,25 @@ WalletModel.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     balance: {
       type: DataTypes.INTEGER,
       validate: {
-        isInt: true,
+        isInt: true
       },
-      defaultValue: 0,
-    },
+      defaultValue: 0
+    }
   },
   {
-    tableName: "Wallet",
-    sequelize,
+    tableName: 'Wallet',
+    sequelize
   }
-);
+)
 
 WalletModel.belongsTo(UserModel, {
   constraints: true,
-  foreignKeyConstraint: true,
-});
+  foreignKeyConstraint: true
+})
 
-export default WalletModel;
+export default WalletModel

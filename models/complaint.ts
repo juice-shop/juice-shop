@@ -10,19 +10,19 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional,
-} from "sequelize";
-import { sequelize } from "./index";
-import UserModel from "./user";
+  CreationOptional
+} from 'sequelize'
+import { sequelize } from './index'
+import UserModel from './user'
 
 class ComplaintModel extends Model<
-  InferAttributes<ComplaintModel>,
-  InferCreationAttributes<ComplaintModel>
+InferAttributes<ComplaintModel>,
+InferCreationAttributes<ComplaintModel>
 > {
-  declare UserId: number;
-  declare id: CreationOptional<number>;
-  declare message: string;
-  declare file: CreationOptional<string>;
+  declare UserId: number
+  declare id: CreationOptional<number>
+  declare message: string
+  declare file: CreationOptional<string>
 }
 
 ComplaintModel.init(
@@ -31,20 +31,20 @@ ComplaintModel.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     message: DataTypes.STRING,
-    file: DataTypes.STRING,
+    file: DataTypes.STRING
   },
   {
-    tableName: "Complaint",
-    sequelize,
+    tableName: 'Complaint',
+    sequelize
   }
-);
+)
 
 ComplaintModel.belongsTo(UserModel, {
   constraints: true,
-  foreignKeyConstraint: true,
-});
+  foreignKeyConstraint: true
+})
 
-export default ComplaintModel;
+export default ComplaintModel

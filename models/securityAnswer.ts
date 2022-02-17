@@ -4,26 +4,26 @@
  */
 
 /* jslint node: true */
-const security = require("../lib/insecurity");
 import {
   Model,
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional,
-} from "sequelize";
-import { sequelize } from "./index";
-import SecurityQuestionModel from "./securityQuestion";
-import UserModel from "./user";
+  CreationOptional
+} from 'sequelize'
+import { sequelize } from './index'
+import SecurityQuestionModel from './securityQuestion'
+import UserModel from './user'
+const security = require('../lib/insecurity')
 
 class SecurityAnswerModel extends Model<
-  InferAttributes<SecurityAnswerModel>,
-  InferCreationAttributes<SecurityAnswerModel>
+InferAttributes<SecurityAnswerModel>,
+InferCreationAttributes<SecurityAnswerModel>
 > {
-  declare SecurityQuestionId: number;
-  declare UserId: number;
-  declare id: CreationOptional<number>;
-  declare answer: string;
+  declare SecurityQuestionId: number
+  declare UserId: number
+  declare id: CreationOptional<number>
+  declare answer: string
 }
 
 SecurityAnswerModel.init(
@@ -32,25 +32,25 @@ SecurityAnswerModel.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     answer: {
       type: DataTypes.STRING,
-      set(answer) {
-        this.setDataValue("answer", security.hmac(answer));
-      },
-    },
+      set (answer) {
+        this.setDataValue('answer', security.hmac(answer))
+      }
+    }
   },
   {
-    tableName: "SecurityAnswer",
-    sequelize,
+    tableName: 'SecurityAnswer',
+    sequelize
   }
-);
+)
 
-SecurityAnswerModel.belongsTo(UserModel);
+SecurityAnswerModel.belongsTo(UserModel)
 SecurityAnswerModel.belongsTo(SecurityQuestionModel, {
   constraints: true,
-  foreignKeyConstraint: true,
-});
+  foreignKeyConstraint: true
+})
 
-export default SecurityAnswerModel;
+export default SecurityAnswerModel

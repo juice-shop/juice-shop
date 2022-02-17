@@ -3,9 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
-import { User } from '../data/types'
 import UserModel from 'models/user'
 
 const security = require('../lib/insecurity')
@@ -19,7 +17,7 @@ module.exports = function updateUserProfile () {
 
     if (loggedInUser) {
       UserModel.findByPk(loggedInUser.data.id).then((user: UserModel | null) => {
-        if(user){
+        if (user) {
           utils.solveIf(challenges.csrfChallenge, () => {
             return ((req.headers.origin?.includes('://htmledit.squarefree.com')) ??
               (req.headers.referer?.includes('://htmledit.squarefree.com'))) &&
@@ -32,7 +30,7 @@ module.exports = function updateUserProfile () {
             res.cookie('token', updatedToken)
             res.location(process.env.BASE_PATH + '/profile')
             res.redirect(process.env.BASE_PATH + '/profile')
-          })  
+          })
         }
       }).catch((error: Error) => {
         next(error)

@@ -44,6 +44,8 @@ module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
         const updatedToken = security.authorize(user)
         security.authenticatedUsers.put(updatedToken, user)
         res.status(200).json({ status: 'success', data: { confirmation: 'Congratulations! You are now a deluxe member!', token: updatedToken } })
+      }).catch(() => {
+        res.status(400).json({ status: 'error', error: 'Something went wrong. Please try again!' })
       })
   }
 }

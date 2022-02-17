@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-const reviews = require('../data/mongodb').reviews
-
 import { Request, Response } from 'express'
+
+const reviews = require('../data/mongodb').reviews
 
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges

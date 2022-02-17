@@ -5,8 +5,7 @@
 
 import config = require('config')
 import { Request, Response, NextFunction } from 'express'
-import models = require('../models/index')
-import { Memory, SecurityAnswer, User } from '../data/types'
+import { Memory } from '../data/types'
 import SecurityAnswerModel from 'models/securityAnswer'
 import UserModel from 'models/user'
 

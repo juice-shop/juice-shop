@@ -3,9 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
-import { User } from '../data/types'
 import UserModel from 'models/user'
 
 const utils = require('../lib/utils')

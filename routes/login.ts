@@ -75,6 +75,8 @@ module.exports = function login () {
         if (count === 0) {
           utils.solve(challenges.ephemeralAccountantChallenge)
         }
+      }).catch(() => {
+        throw new Error('Unable to verify challenges! Try again')
       })
     }
   }

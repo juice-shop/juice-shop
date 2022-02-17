@@ -20,8 +20,7 @@ import SecurityAnswerModel from 'models/securityAnswer'
 import SecurityQuestionModel from 'models/securityQuestion'
 import UserModel from 'models/user'
 import WalletModel from 'models/wallet'
-import * as models from '../models/index'
-import { Address, Card, Challenge, Delivery, Memory, Product, Recycle, SecurityQuestion, User } from './types'
+import { Address, Card, Challenge, Delivery, Memory, Product, SecurityQuestion, User } from './types'
 const datacache = require('./datacache')
 const config = require('config')
 const utils = require('../lib/utils')
@@ -137,8 +136,8 @@ async function createUsers () {
 async function createWallet () {
   const users = await loadStaticData('users')
   return await Promise.all(
-    users.map((user: User, index: number) => {
-      return WalletModel.create({
+    users.map(async (user: User, index: number) => {
+      return await WalletModel.create({
         UserId: index + 1,
         balance: user.walletBalance !== undefined ? user.walletBalance : 0
       }).catch((err: unknown) => {
@@ -169,8 +168,8 @@ async function createDeliveryMethods () {
 }
 
 function createAddresses (UserId: number, addresses: Address[]) {
-  addresses.map((address) => {
-    return AddressModel.create({
+  addresses.map(async (address) => {
+    return await AddressModel.create({
       UserId: UserId,
       country: address.country,
       fullName: address.fullName,
@@ -186,11 +185,11 @@ function createAddresses (UserId: number, addresses: Address[]) {
 }
 
 async function createCards (UserId: number, cards: Card[]) {
-  return await Promise.all(cards.map((card) => {
-    return CardModel.create({
+  return await Promise.all(cards.map(async (card) => {
+    return await CardModel.create({
       UserId: UserId,
       fullName: card.fullName,
-      cardNum: card.cardNum,
+      cardNum: Number(card.cardNum),
       expMonth: card.expMonth,
       expYear: card.expYear
     }).catch((err: unknown) => {
@@ -199,8 +198,8 @@ async function createCards (UserId: number, cards: Card[]) {
   }))
 }
 
-function deleteUser (userId: number) {
-  return UserModel.destroy({ where: { id: userId } }).catch((err: unknown) => {
+async function deleteUser (userId: number) {
+  return await UserModel.destroy({ where: { id: userId } }).catch((err: unknown) => {
     logger.error(`Could not perform soft delete for the user ${userId}: ${utils.getErrorMessage(err)}`)
   })
 }
@@ -221,7 +220,7 @@ async function createRandomFakeUsers () {
   }
 
   return await Promise.all(new Array(config.get('application.numberOfRandomFakeUsers')).fill(0).map(
-    () => UserModel.create({
+    async () => await UserModel.create({
       email: getGeneratedRandomFakeUserEmail(),
       password: makeRandomString(5)
     })
@@ -230,8 +229,8 @@ async function createRandomFakeUsers () {
 
 async function createQuantity () {
   return await Promise.all(
-    config.get('products').map((product: Product, index: number) => {
-      return QuantityModel.create({
+    config.get('products').map(async (product: Product, index: number) => {
+      return await QuantityModel.create({
         ProductId: index + 1,
         quantity: product.quantity !== undefined ? product.quantity : Math.floor(Math.random() * 70 + 30),
         limitPerUser: product.limitPerUser ?? null
@@ -251,7 +250,7 @@ async function createMemories () {
     }).catch((err: unknown) => {
       logger.error(`Could not create memory: ${utils.getErrorMessage(err)}`)
     }),
-    ...utils.thaw(config.get('memories')).map((memory: Memory) => {
+    ...utils.thaw(config.get('memories')).map(async (memory: Memory) => {
       let tmpImageFileName = memory.image
       if (utils.isUrl(memory.image)) {
         const imageUrl = memory.image
@@ -259,14 +258,14 @@ async function createMemories () {
         utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/uploads/' + tmpImageFileName)
       }
       if (memory.geoStalkingMetaSecurityQuestion && memory.geoStalkingMetaSecurityAnswer) {
-        createSecurityAnswer(datacache.users.john.id, memory.geoStalkingMetaSecurityQuestion, memory.geoStalkingMetaSecurityAnswer)
+        await createSecurityAnswer(datacache.users.john.id, memory.geoStalkingMetaSecurityQuestion, memory.geoStalkingMetaSecurityAnswer)
         memory.user = 'john'
       }
       if (memory.geoStalkingVisualSecurityQuestion && memory.geoStalkingVisualSecurityAnswer) {
-        createSecurityAnswer(datacache.users.emma.id, memory.geoStalkingVisualSecurityQuestion, memory.geoStalkingVisualSecurityAnswer)
+        await createSecurityAnswer(datacache.users.emma.id, memory.geoStalkingVisualSecurityQuestion, memory.geoStalkingVisualSecurityAnswer)
         memory.user = 'emma'
       }
-      return MemoryModel.create({
+      return await MemoryModel.create({
         imagePath: 'assets/public/images/uploads/' + tmpImageFileName,
         caption: memory.caption,
         UserId: datacache.users[memory.user].id
@@ -325,19 +324,19 @@ async function createProducts () {
 
   return await Promise.all(
     products.map(
-      ({ reviews = [], useForChristmasSpecialChallenge = false, urlForProductTamperingChallenge = false, fileForRetrieveBlueprintChallenge = false, ...product }) =>
-        ProductModel.create({
-          name:product.name,
-          description:product.description,
-          price:product.price,
-          deluxePrice:product.deluxePrice ,
-          image:product.image,
+      async ({ reviews = [], useForChristmasSpecialChallenge = false, urlForProductTamperingChallenge = false, fileForRetrieveBlueprintChallenge = false, ...product }) =>
+        await ProductModel.create({
+          name: product.name,
+          description: product.description,
+          price: product.price,
+          deluxePrice: product.deluxePrice,
+          image: product.image
         }).catch(
           (err: unknown) => {
             logger.error(`Could not insert Product ${product.name}: ${utils.getErrorMessage(err)}`)
           }
-        ).then((persistedProduct: ProductModel | void) => {
-          if(persistedProduct){
+        ).then((persistedProduct) => {
+          if (persistedProduct) {
             if (useForChristmasSpecialChallenge) { datacache.products.christmasSpecial = persistedProduct }
             if (urlForProductTamperingChallenge) {
               datacache.products.osaft = persistedProduct
@@ -354,12 +353,12 @@ async function createProducts () {
                   datacache.challenges.retrieveBlueprintChallenge.hint,
                   persistedProduct)
               })
-            }  
+            }
           }
-          if(!persistedProduct){
-            throw new Error("No persisted product found!");
+          if (!persistedProduct) {
+            throw new Error('No persisted product found!')
           }
-          return persistedProduct;
+          return persistedProduct
         })
           .then(async ({ id }: { id: number }) =>
             await Promise.all(
@@ -400,9 +399,9 @@ async function createBaskets () {
   ]
 
   return await Promise.all(
-    baskets.map(basket => {
-      return BasketModel.create({
-        UserId:basket.UserId
+    baskets.map(async basket => {
+      return await BasketModel.create({
+        UserId: basket.UserId
       }).catch((err: unknown) => {
         logger.error(`Could not insert Basket for UserId ${basket.UserId}: ${utils.getErrorMessage(err)}`)
       })
@@ -455,8 +454,8 @@ async function createBasketItems () {
   ]
 
   return await Promise.all(
-    basketItems.map(basketItem => {
-      return BasketItemModel.create(basketItem).catch((err: unknown) => {
+    basketItems.map(async basketItem => {
+      return await BasketItemModel.create(basketItem).catch((err: unknown) => {
         logger.error(`Could not insert BasketItem for BasketId ${basketItem.BasketId}: ${utils.getErrorMessage(err)}`)
       })
     })
@@ -484,19 +483,19 @@ async function createAnonymousFeedback () {
   ]
 
   return await Promise.all(
-    feedbacks.map((feedback) => createFeedback(null, feedback.comment, feedback.rating))
+    feedbacks.map(async (feedback) => await createFeedback(null, feedback.comment, feedback.rating))
   )
 }
 
-function createFeedback (UserId: number | null, comment: string, rating: number, author?: string) {
+async function createFeedback (UserId: number | null, comment: string, rating: number, author?: string) {
   const authoredComment = author ? `${comment} (***${author.slice(3)})` : `${comment} (anonymous)`
-  return FeedbackModel.create({ UserId, comment: authoredComment, rating }).catch((err: unknown) => {
+  return await FeedbackModel.create({ UserId, comment: authoredComment, rating }).catch((err: unknown) => {
     logger.error(`Could not insert Feedback ${authoredComment} mapped to UserId ${UserId}: ${utils.getErrorMessage(err)}`)
   })
 }
 
-function createComplaints () {
-  return ComplaintModel.create({
+async function createComplaints () {
+  return await ComplaintModel.create({
     UserId: 3,
     message: 'I\'ll build my own eCommerce business! With Black Jack! And Hookers!'
   }).catch((err: unknown) => {
@@ -571,17 +570,17 @@ async function createRecycleItem () {
     }
   ]
   return await Promise.all(
-    recycles.map((recycle) => createRecycle(recycle))
+    recycles.map(async (recycle) => await createRecycle(recycle))
   )
 }
 
-function createRecycle (data: { UserId: number; quantity: number; AddressId: number; date: string; isPickup: boolean }) {
-  return RecycleModel.create({
-    UserId:data.UserId,
+async function createRecycle (data: { UserId: number, quantity: number, AddressId: number, date: string, isPickup: boolean }) {
+  return await RecycleModel.create({
+    UserId: data.UserId,
     AddressId: data.AddressId,
     quantity: data.quantity,
     isPickup: data.isPickup,
-    date: data.date,
+    date: data.date
   }).catch((err: unknown) => {
     logger.error(`Could not insert Recycling Model: ${utils.getErrorMessage(err)}`)
   })
@@ -601,8 +600,8 @@ async function createSecurityQuestions () {
   )
 }
 
-function createSecurityAnswer (UserId: number, SecurityQuestionId: number, answer: string) {
-  return SecurityAnswerModel.create({ SecurityQuestionId, UserId, answer }).catch((err: unknown) => {
+async function createSecurityAnswer (UserId: number, SecurityQuestionId: number, answer: string) {
+  return await SecurityAnswerModel.create({ SecurityQuestionId, UserId, answer }).catch((err: unknown) => {
     logger.error(`Could not insert SecurityAnswer ${answer} mapped to UserId ${UserId}: ${utils.getErrorMessage(err)}`)
   })
 }

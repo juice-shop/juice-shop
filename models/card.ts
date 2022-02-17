@@ -9,30 +9,30 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional,
-} from "sequelize";
-import { sequelize } from "./index";
-import UserModel from "./user";
+  CreationOptional
+} from 'sequelize'
+import { sequelize } from './index'
+import UserModel from './user'
 
 class CardModel extends Model<
-  InferAttributes<CardModel>,
-  InferCreationAttributes<CardModel>
+InferAttributes<CardModel>,
+InferCreationAttributes<CardModel>
 > {
-  declare UserId: number;
-  declare id: CreationOptional<number>;
-  declare fullName: string;
-  declare cardNum: number;
-  declare expMonth: number;
-  declare expYear: number;
+  declare UserId: number
+  declare id: CreationOptional<number>
+  declare fullName: string
+  declare cardNum: number
+  declare expMonth: number
+  declare expYear: number
 }
 
 CardModel.init(
-  //@ts-expect-error
+  // @ts-expect-error
   {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     fullName: DataTypes.STRING,
     cardNum: {
@@ -40,34 +40,34 @@ CardModel.init(
       validate: {
         isInt: true,
         min: 1000000000000000,
-        max: 9999999999999998,
-      },
+        max: 9999999999999998
+      }
     },
     expMonth: {
       type: DataTypes.INTEGER,
       validate: {
         isInt: true,
         min: 1,
-        max: 12,
-      },
+        max: 12
+      }
     },
     expYear: {
       type: DataTypes.INTEGER,
       validate: {
         isInt: true,
         min: 2080,
-        max: 2099,
-      },
-    },
+        max: 2099
+      }
+    }
   },
   {
-    tableName: "Card",
-    sequelize,
+    tableName: 'Card',
+    sequelize
   }
-);
+)
 CardModel.belongsTo(UserModel, {
   constraints: true,
-  foreignKeyConstraint: true,
-});
+  foreignKeyConstraint: true
+})
 
-export default CardModel;
+export default CardModel

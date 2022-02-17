@@ -9,34 +9,34 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional,
-} from "sequelize";
-import { sequelize } from "./index";
+  CreationOptional
+} from 'sequelize'
+import { sequelize } from './index'
 
 class BasketItemModel extends Model<
-  InferAttributes<BasketItemModel>,
-  InferCreationAttributes<BasketItemModel>
+InferAttributes<BasketItemModel>,
+InferCreationAttributes<BasketItemModel>
 > {
-  declare ProductId: number;
-  declare BasketId: number;
-  declare id: CreationOptional<number>;
-  declare quantity: number;
+  declare ProductId: number
+  declare BasketId: number
+  declare id: CreationOptional<number>
+  declare quantity: number
 }
 
 BasketItemModel.init(
-  //@ts-expect-error
+  // @ts-expect-error
   {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
-    quantity: DataTypes.INTEGER,
+    quantity: DataTypes.INTEGER
   },
   {
-    tableName: "BasketItem",
-    sequelize,
+    tableName: 'BasketItem',
+    sequelize
   }
-);
+)
 
-export default BasketItemModel;
+export default BasketItemModel

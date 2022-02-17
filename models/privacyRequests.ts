@@ -10,18 +10,18 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional,
-} from "sequelize";
-import { sequelize } from "./index";
-import UserModel from "./user";
+  CreationOptional
+} from 'sequelize'
+import { sequelize } from './index'
+import UserModel from './user'
 
 class PrivacyRequestModel extends Model<
-  InferAttributes<PrivacyRequestModel>,
-  InferCreationAttributes<PrivacyRequestModel>
+InferAttributes<PrivacyRequestModel>,
+InferCreationAttributes<PrivacyRequestModel>
 > {
-  declare id: CreationOptional<number>;
-  declare UserId: number;
-  declare deletionRequested: boolean;
+  declare id: CreationOptional<number>
+  declare UserId: number
+  declare deletionRequested: boolean
 }
 
 PrivacyRequestModel.init(
@@ -29,25 +29,25 @@ PrivacyRequestModel.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     UserId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER
     },
     deletionRequested: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
+      defaultValue: false
+    }
   },
   {
-    tableName: "PrivacyRequest",
-    sequelize,
+    tableName: 'PrivacyRequest',
+    sequelize
   }
-);
+)
 
 PrivacyRequestModel.belongsTo(UserModel, {
   constraints: true,
-  foreignKeyConstraint: true,
-});
+  foreignKeyConstraint: true
+})
 
-export default PrivacyRequestModel;
+export default PrivacyRequestModel

@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-const orders = require('../data/mongodb').orders
-
 import { Request, Response, NextFunction } from 'express'
+
+const orders = require('../data/mongodb').orders
 
 const security = require('../lib/insecurity')
 
