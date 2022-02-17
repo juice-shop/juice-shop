@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
-import { Basket } from '../data/types'
+import ProductModel from 'models/product'
+import BasketModel from 'models/basket'
 
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
@@ -14,8 +14,8 @@ const challenges = require('../data/datacache').challenges
 module.exports = function retrieveBasket () {
   return (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id
-    models.Basket.findOne({ where: { id }, include: [{ model: models.Product, paranoid: false }] })
-      .then((basket: Basket) => {
+    BasketModel.findOne({ where: { id }, include: [{ model: ProductModel, paranoid: false }] })
+      .then((basket: BasketModel | null) => {
         /* jshint eqeqeq:false */
         utils.solveIf(challenges.basketAccessChallenge, () => {
           const user = security.authenticatedUsers.from(req)

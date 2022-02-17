@@ -4,8 +4,6 @@
  */
 
 /* jslint node: true */
-import fs = require("fs");
-const path = require("path");
 const sequelizeNoUpdateAttributes = require("sequelize-notupdate-attributes");
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize("database", "username", "password", {

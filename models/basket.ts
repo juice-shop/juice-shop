@@ -27,7 +27,8 @@ class BasketModel extends Model<
 > {
   declare UserId: number;
   declare id: CreationOptional<number>;
-  declare coupon: CreationOptional<string>;
+  declare coupon: CreationOptional<string> | null;
+  declare Products?: NonAttribute<ProductModel[]>; // Note this is optional since it's only populated when explicitly requested in code
 }
 
 BasketModel.init(

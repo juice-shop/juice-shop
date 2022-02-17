@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-import db = require('../data/mongodb')
+const reviews = require('../data/mongodb').reviews
+
 import { Request, Response } from 'express'
 
 const utils = require('../lib/utils')
@@ -14,7 +15,7 @@ module.exports = function productReviews () {
   return (req: Request, res: Response) => {
     const user = security.authenticatedUsers.from(req)
     utils.solveIf(challenges.forgedReviewChallenge, () => { return user && user.data.email !== req.body.author })
-    db.reviews.insert({
+    reviews.insert({
       product: req.params.id,
       message: req.body.message,
       author: req.body.author,

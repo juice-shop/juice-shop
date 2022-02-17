@@ -5,8 +5,13 @@
 
 import path = require('path')
 import { Request, Response, NextFunction } from 'express'
-import models = require('../models/index')
 import { Basket, Product } from 'data/types'
+import BasketModel from 'models/basket'
+import ProductModel from 'models/product'
+import BasketItemModel from 'models/basketitem'
+import QuantityModel from 'models/quantity'
+import DeliveryModel from 'models/delivery'
+import WalletModel from 'models/wallet'
 
 const fs = require('fs')
 const PDFDocument = require('pdfkit')
@@ -20,8 +25,8 @@ const db = require('../data/mongodb')
 module.exports = function placeOrder () {
   return (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id
-    models.Basket.findOne({ where: { id }, include: [{ model: models.Product, paranoid: false }] })
-      .then(async (basket: Basket) => {
+    BasketModel.findOne({ where: { id }, include: [{ model: ProductModel, paranoid: false }] })
+      .then(async (basket: BasketModel | null) => {
         if (basket) {
           const customer = security.authenticatedUsers.from(req)
           const email = customer ? customer.data ? customer.data.email : '' : ''
@@ -33,7 +38,7 @@ module.exports = function placeOrder () {
 
           fileWriter.on('finish', () => {
             void basket.update({ coupon: null })
-            models.BasketItem.destroy({ where: { BasketId: id } })
+            BasketItemModel.destroy({ where: { BasketId: id } })
             res.json({ orderConfirmation: orderId })
           })
 
@@ -52,38 +57,41 @@ module.exports = function placeOrder () {
           let totalPrice = 0
           const basketProducts: Product[] = []
           let totalPoints = 0
-          basket.Products.forEach(({ BasketItem, price, deluxePrice, name, id }) => {
-            utils.solveIf(challenges.christmasSpecialChallenge, () => { return BasketItem.ProductId === products.christmasSpecial.id })
+          basket.Products?.forEach(({ BasketItem, price, deluxePrice, name, id }) => {
+            if(BasketItem){
+              utils.solveIf(challenges.christmasSpecialChallenge, () => { return BasketItem.ProductId === products.christmasSpecial.id })
 
-            models.Quantity.findOne({ where: { ProductId: BasketItem.ProductId } }).then((product: Product) => {
-              const newQuantity = product.dataValues.quantity - BasketItem.quantity
-              models.Quantity.update({ quantity: newQuantity }, { where: { ProductId: BasketItem.ProductId } }).catch((error: unknown) => {
+              QuantityModel.findOne({ where: { ProductId: BasketItem.ProductId } }).then(() => {
+                let newQuantity:number=0;
+                QuantityModel.update({ quantity: newQuantity }, { where: { ProductId: BasketItem?.ProductId } }).catch((error: unknown) => {
+                  next(error)
+                })
+              }).catch((error: unknown) => {
                 next(error)
               })
-            }).catch((error: unknown) => {
-              next(error)
-            })
-            let itemPrice: number
-            if (security.isDeluxe(req)) {
-              itemPrice = deluxePrice
-            } else {
-              itemPrice = price
+              let itemPrice: number
+              if (security.isDeluxe(req)) {
+                itemPrice = deluxePrice
+              } else {
+                itemPrice = price
+              }
+              const itemTotal = itemPrice * BasketItem.quantity
+              const itemBonus = Math.round(itemPrice / 10) * BasketItem.quantity            
+              const product = {
+                quantity: BasketItem.quantity,
+                id: id,
+                name: req.__(name),
+                price: itemPrice,
+                total: itemTotal,
+                bonus: itemBonus
+              }
+              basketProducts.push(product)
+              //TODO
+              doc.text(`${BasketItem.quantity}x ${req.__(name)} ${req.__('ea.')} ${itemPrice} = ${itemTotal}¤`)
+              doc.moveDown()
+              totalPrice += itemTotal
+              totalPoints += itemBonus
             }
-            const itemTotal = itemPrice * BasketItem.quantity
-            const itemBonus = Math.round(itemPrice / 10) * BasketItem.quantity
-            const product = {
-              quantity: BasketItem.quantity,
-              id: id,
-              name: req.__(name),
-              price: itemPrice,
-              total: itemTotal,
-              bonus: itemBonus
-            }
-            basketProducts.push(product)
-            doc.text(`${BasketItem.quantity}x ${req.__(name)} ${req.__('ea.')} ${itemPrice} = ${itemTotal}¤`)
-            doc.moveDown()
-            totalPrice += itemTotal
-            totalPoints += itemBonus
           })
           doc.moveDown()
           const discount = calculateApplicableDiscount(basket, req)
@@ -100,7 +108,12 @@ module.exports = function placeOrder () {
             eta: 5
           }
           if (req.body.orderDetails?.deliveryMethodId) {
-            deliveryMethod = await models.Delivery.findOne({ where: { id: req.body.orderDetails.deliveryMethodId } })
+            const deliveryMethodFromModel = await DeliveryModel.findOne({ where: { id: req.body.orderDetails.deliveryMethodId } })
+            if(deliveryMethodFromModel){
+              deliveryMethod.deluxePrice=deliveryMethodFromModel.deluxePrice;
+              deliveryMethod.price=deliveryMethodFromModel.price;
+              deliveryMethod.eta=deliveryMethodFromModel.eta
+            }
           }
           const deliveryAmount = security.isDeluxe(req) ? deliveryMethod.deluxePrice : deliveryMethod.price
           totalPrice += deliveryAmount
@@ -118,16 +131,16 @@ module.exports = function placeOrder () {
 
           if (req.body.UserId) {
             if (req.body.orderDetails.paymentId === 'wallet') {
-              const wallet = await models.Wallet.findOne({ where: { UserId: req.body.UserId } })
-              if (wallet.balance >= totalPrice) {
-                models.Wallet.decrement({ balance: totalPrice }, { where: { UserId: req.body.UserId } }).catch((error: unknown) => {
+              const wallet = await WalletModel.findOne({ where: { UserId: req.body.UserId } })
+              if (wallet && wallet.balance >= totalPrice) {
+                WalletModel.decrement({ balance: totalPrice }, { where: { UserId: req.body.UserId } }).catch((error: unknown) => {
                   next(error)
                 })
               } else {
                 next(new Error('Insufficient wallet balance.'))
               }
             }
-            models.Wallet.increment({ balance: totalPoints }, { where: { UserId: req.body.UserId } }).catch((error: unknown) => {
+            WalletModel.increment({ balance: totalPoints }, { where: { UserId: req.body.UserId } }).catch((error: unknown) => {
               next(error)
             })
           }
@@ -156,7 +169,7 @@ module.exports = function placeOrder () {
   }
 }
 
-function calculateApplicableDiscount (basket: Basket, req: Request) {
+function calculateApplicableDiscount (basket: BasketModel, req: Request) {
   if (security.discountFromCoupon(basket.coupon)) {
     const discount = security.discountFromCoupon(basket.coupon)
     utils.solveIf(challenges.forgedCouponChallenge, () => { return discount >= 80 })
@@ -164,10 +177,13 @@ function calculateApplicableDiscount (basket: Basket, req: Request) {
   } else if (req.body.couponData) {
     const couponData = Buffer.from(req.body.couponData, 'base64').toString().split('-')
     const couponCode = couponData[0]
-    const couponDate = couponData[1]
-    const campaign = campaigns[couponCode]
+    const couponDate = Number(couponData[1])
+    // const campaign = campaigns[couponCode]
+    const campaign = campaigns[couponCode as keyof typeof campaigns]
+
+
     if (campaign && couponDate == campaign.validOn) { // eslint-disable-line eqeqeq
-      utils.solveIf(challenges.manipulateClockChallenge, () => { return campaign.validOn < new Date() })
+      utils.solveIf(challenges.manipulateClockChallenge, () => { return campaign.validOn < new Date().getTime() })
       return campaign.discount
     }
   }

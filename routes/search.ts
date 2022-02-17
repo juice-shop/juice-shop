@@ -5,6 +5,7 @@
 
 import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
+import UserModel from 'models/user'
 
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
@@ -19,7 +20,7 @@ module.exports = function searchProducts () {
         const dataString = JSON.stringify(products)
         if (utils.notSolved(challenges.unionSqlInjectionChallenge)) { // vuln-code-snippet hide-start
           let solved = true
-          models.User.findAll().then(data => {
+          UserModel.findAll().then(data => {
             const users = utils.queryResultToJson(data)
             if (users.data?.length) {
               for (let i = 0; i < users.data.length; i++) {

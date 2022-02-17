@@ -19,6 +19,7 @@ class BasketItemModel extends Model<
   InferCreationAttributes<BasketItemModel>
 > {
   declare ProductId: number;
+  declare BasketId: number;
   declare id: CreationOptional<number>;
   declare quantity: number;
 }
