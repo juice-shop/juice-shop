@@ -13,7 +13,6 @@ import {
   InferCreationAttributes,
   DataTypes,
   CreationOptional,
-  HasManyCreateAssociationMixin,
   NonAttribute,
 } from "sequelize";
 import { sequelize } from "./index";
@@ -30,7 +29,7 @@ class ProductModel extends Model<
   declare price: number;
   declare deluxePrice: number;
   declare image: string;
-  declare BasketItem?: NonAttribute<BasketItemModel>; // Note this is optional since it's only populated when explicitly requested in code
+  declare BasketItem?: CreationOptional<BasketItemModel>; // Note this is optional since it's only populated when explicitly requested in code
 
 }
 
@@ -78,41 +77,3 @@ ProductModel.belongsToMany(BasketModel, {
 });
 
 export default ProductModel;
-
-// module.exports = (sequelize, { STRING, DECIMAL }) => {
-//     const Product = sequelize.define(
-//         "Product",
-//         {
-//             name: STRING,
-//             description: {
-//                 type: STRING,
-//                 set(description) {
-//                     if (!utils.disableOnContainerEnv()) {
-//                         utils.solveIf(challenges.restfulXssChallenge, () => {
-//                             return utils.contains(
-//                                 description,
-//                                 '<iframe src="javascript:alert(`xss`)">'
-//                             );
-//                         });
-//                     } else {
-//                         description = security.sanitizeSecure(description);
-//                     }
-//                     this.setDataValue("description", description);
-//                 },
-//             },
-//             price: DECIMAL,
-//             deluxePrice: DECIMAL,
-//             image: STRING,
-//         },
-//         { paranoid: true }
-//     );
-
-//     Product.associate = ({ Basket, BasketItem }) => {
-//         Product.belongsToMany(Basket, {
-//             through: BasketItem,
-//             foreignKey: { name: "ProductId", noUpdate: true },
-//         });
-//     };
-
-//     return Product;
-// };

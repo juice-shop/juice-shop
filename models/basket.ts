@@ -11,9 +11,6 @@ import {
   InferCreationAttributes,
   DataTypes,
   CreationOptional,
-  HasManyCreateAssociationMixin,
-  HasManyGetAssociationsMixin,
-  Association,
   NonAttribute,
 } from "sequelize";
 import { sequelize } from "./index";
@@ -28,7 +25,7 @@ class BasketModel extends Model<
   declare UserId: number;
   declare id: CreationOptional<number>;
   declare coupon: CreationOptional<string> | null;
-  declare Products?: NonAttribute<ProductModel[]>; // Note this is optional since it's only populated when explicitly requested in code
+  declare Products?: NonAttribute<ProductModel[]>;
 }
 
 BasketModel.init(
@@ -60,16 +57,3 @@ BasketModel.belongsToMany(ProductModel, {
 });
 
 export default BasketModel;
-
-// export = (sequelize, { STRING }) => {
-//   const Basket = sequelize.define('Basket', {
-//     coupon: STRING
-//   })
-
-//   Basket.associate = ({ User, Product, BasketItem }) => {
-//     Basket.belongsTo(User, { constraints: true, foreignKeyConstraint: true })
-//     Basket.belongsToMany(Product, { through: BasketItem, foreignKey: { name: 'BasketId', noUpdate: true } })
-//   }
-
-//   return Basket
-// }

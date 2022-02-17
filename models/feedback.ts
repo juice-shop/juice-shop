@@ -14,7 +14,6 @@ import {
   InferCreationAttributes,
   DataTypes,
   CreationOptional,
-  NonAttribute,
 } from "sequelize";
 import { sequelize } from "./index";
 import UserModel from "./user";
@@ -74,44 +73,3 @@ FeedbackModel.init(
 FeedbackModel.belongsTo(UserModel); // no FK constraint to allow anonymous feedback posts
 
 export default FeedbackModel;
-// module.exports = (sequelize, { STRING, INTEGER }) => {
-//     const Feedback = sequelize.define("Feedback", {
-//         comment: {
-//             type: STRING,
-//             set(comment) {
-//                 let sanitizedComment;
-//                 if (!utils.disableOnContainerEnv()) {
-//                     sanitizedComment = security.sanitizeHtml(comment);
-//                     utils.solveIf(
-//                         challenges.persistedXssFeedbackChallenge,
-//                         () => {
-//                             return utils.contains(
-//                                 sanitizedComment,
-//                                 '<iframe src="javascript:alert(`xss`)">'
-//                             );
-//                         }
-//                     );
-//                 } else {
-//                     sanitizedComment = security.sanitizeSecure(comment);
-//                 }
-//                 this.setDataValue("comment", sanitizedComment);
-//             },
-//         },
-//         rating: {
-//             type: INTEGER,
-//             allowNull: false,
-//             set(rating) {
-//                 this.setDataValue("rating", rating);
-//                 utils.solveIf(challenges.zeroStarsChallenge, () => {
-//                     return rating === 0;
-//                 });
-//             },
-//         },
-//     });
-
-//     Feedback.associate = ({ User }) => {
-//         Feedback.belongsTo(User); // no FK constraint to allow anonymous feedback posts
-//     };
-
-//     return Feedback;
-// };

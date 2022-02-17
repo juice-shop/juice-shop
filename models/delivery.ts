@@ -44,15 +44,3 @@ DeliveryModel.init(
 );
 
 export default DeliveryModel;
-
-// export = (sequelize, { FLOAT, STRING }) => {
-//     const Delivery = sequelize.define("Delivery", {
-//         name: STRING,
-//         price: FLOAT,
-//         deluxePrice: FLOAT,
-//         eta: FLOAT,
-//         icon: STRING,
-//     });
-
-//     return Delivery;
-// };

@@ -11,7 +11,6 @@ import {
   InferCreationAttributes,
   DataTypes,
   CreationOptional,
-  NonAttribute,
 } from "sequelize";
 import { sequelize } from "./index";
 import UserModel from "./user";
@@ -49,18 +48,3 @@ MemoryModel.belongsTo(UserModel, {
 });
 
 export default MemoryModel;
-// export = (sequelize, { STRING, INTEGER }) => {
-//     const Memory = sequelize.define("Memory", {
-//         caption: STRING,
-//         imagePath: STRING,
-//     });
-
-//     Memory.associate = ({ User }) => {
-//         Memory.belongsTo(User, {
-//             constraints: true,
-//             foreignKeyConstraint: true,
-//         });
-//     };
-
-//     return Memory;
-// };

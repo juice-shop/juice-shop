@@ -11,10 +11,8 @@ import {
   InferCreationAttributes,
   DataTypes,
   CreationOptional,
-  HasManyCreateAssociationMixin,
 } from "sequelize";
 import { sequelize } from "./index";
-import SecurityAnswerModel from "./securityAnswer";
 
 class SecurityQuestionModel extends Model<
   InferAttributes<SecurityQuestionModel>,
@@ -42,10 +40,3 @@ SecurityQuestionModel.init(
 );
 
 export default SecurityQuestionModel;
-
-// export = (sequelize, { STRING }) => {
-//     const SecurityQuestion = sequelize.define("SecurityQuestion", {
-//         question: STRING,
-//     });
-//     return SecurityQuestion;
-// };
