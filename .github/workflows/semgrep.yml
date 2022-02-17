@@ -1,11 +1,7 @@
 # comment
 on:
   pull_request: {}
-  push:
-    branches:
-    - master
-    paths:
-    - .github/workflows/semgrep.yml
+  
 name: Semgrep
 jobs:
   semgrep:
