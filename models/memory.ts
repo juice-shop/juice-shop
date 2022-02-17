@@ -10,19 +10,19 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional,
-} from "sequelize";
-import { sequelize } from "./index";
-import UserModel from "./user";
+  CreationOptional
+} from 'sequelize'
+import { sequelize } from './index'
+import UserModel from './user'
 
 class MemoryModel extends Model<
-  InferAttributes<MemoryModel>,
-  InferCreationAttributes<MemoryModel>
+InferAttributes<MemoryModel>,
+InferCreationAttributes<MemoryModel>
 > {
-  declare UserId: number;
-  declare id: CreationOptional<number>;
-  declare caption: string;
-  declare imagePath: string;
+  declare UserId: number
+  declare id: CreationOptional<number>
+  declare caption: string
+  declare imagePath: string
 }
 
 MemoryModel.init(
@@ -31,20 +31,20 @@ MemoryModel.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     caption: DataTypes.STRING,
-    imagePath: DataTypes.STRING,
+    imagePath: DataTypes.STRING
   },
   {
-    tableName: "Memory",
-    sequelize,
+    tableName: 'Memory',
+    sequelize
   }
-);
+)
 
 MemoryModel.belongsTo(UserModel, {
   constraints: true,
-  foreignKeyConstraint: true,
-});
+  foreignKeyConstraint: true
+})
 
-export default MemoryModel;
+export default MemoryModel

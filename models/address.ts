@@ -8,25 +8,24 @@ import {
   InferAttributes,
   InferCreationAttributes,
   Model,
-  DataTypes,
-  NonAttribute,
-} from "sequelize";
-import { sequelize } from "./index";
-import UserModel from "./user";
+  DataTypes
+} from 'sequelize'
+import { sequelize } from './index'
+import UserModel from './user'
 /* jslint node: true */
 class AddressModel extends Model<
-  InferAttributes<AddressModel>,
-  InferCreationAttributes<AddressModel>
+InferAttributes<AddressModel>,
+InferCreationAttributes<AddressModel>
 > {
-  declare UserId: number;
-  declare id: CreationOptional<number>;
-  declare fullName: string;
-  declare mobileNum: number;
-  declare zipCode: string;
-  declare streetAddress: string;
-  declare city: string;
-  declare state: string | null;
-  declare country: string;
+  declare UserId: number
+  declare id: CreationOptional<number>
+  declare fullName: string
+  declare mobileNum: number
+  declare zipCode: string
+  declare streetAddress: string
+  declare city: string
+  declare state: string | null
+  declare country: string
 }
 
 AddressModel.init(
@@ -35,44 +34,44 @@ AddressModel.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     fullName: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
     },
     mobileNum: {
       type: DataTypes.INTEGER,
       validate: {
         isInt: true,
         min: 1000000,
-        max: 9999999999,
-      },
+        max: 9999999999
+      }
     },
     zipCode: {
       type: DataTypes.STRING,
       validate: {
-        len: [1, 8],
-      },
+        len: [1, 8]
+      }
     },
     streetAddress: {
       type: DataTypes.STRING,
       validate: {
-        len: [1, 160],
-      },
+        len: [1, 160]
+      }
     },
     city: DataTypes.STRING,
     state: DataTypes.STRING,
-    country: DataTypes.STRING,
+    country: DataTypes.STRING
   },
   {
-    tableName: "Address",
-    sequelize,
+    tableName: 'Address',
+    sequelize
   }
-);
+)
 
 AddressModel.belongsTo(UserModel, {
   constraints: true,
-  foreignKeyConstraint: true,
-});
+  foreignKeyConstraint: true
+})
 
-export default AddressModel;
+export default AddressModel

@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
 import WalletModel from 'models/wallet'
 import CardModel from 'models/card'

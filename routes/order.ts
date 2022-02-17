@@ -5,7 +5,7 @@
 
 import path = require('path')
 import { Request, Response, NextFunction } from 'express'
-import { Basket, Product } from 'data/types'
+import { Product } from 'data/types'
 import BasketModel from 'models/basket'
 import ProductModel from 'models/product'
 import BasketItemModel from 'models/basketitem'
@@ -36,9 +36,9 @@ module.exports = function placeOrder () {
           const date = new Date().toJSON().slice(0, 10)
           const fileWriter = doc.pipe(fs.createWriteStream(path.join('ftp/', pdfFile)))
 
-          fileWriter.on('finish', () => {
+          fileWriter.on('finish', async () => {
             void basket.update({ coupon: null })
-            BasketItemModel.destroy({ where: { BasketId: id } })
+            await BasketItemModel.destroy({ where: { BasketId: id } })
             res.json({ orderConfirmation: orderId })
           })
 
@@ -58,11 +58,11 @@ module.exports = function placeOrder () {
           const basketProducts: Product[] = []
           let totalPoints = 0
           basket.Products?.forEach(({ BasketItem, price, deluxePrice, name, id }) => {
-            if(BasketItem){
+            if (BasketItem) {
               utils.solveIf(challenges.christmasSpecialChallenge, () => { return BasketItem.ProductId === products.christmasSpecial.id })
 
               QuantityModel.findOne({ where: { ProductId: BasketItem.ProductId } }).then(() => {
-                let newQuantity:number=0;
+                const newQuantity: number = 0
                 QuantityModel.update({ quantity: newQuantity }, { where: { ProductId: BasketItem?.ProductId } }).catch((error: unknown) => {
                   next(error)
                 })
@@ -76,7 +76,7 @@ module.exports = function placeOrder () {
                 itemPrice = price
               }
               const itemTotal = itemPrice * BasketItem.quantity
-              const itemBonus = Math.round(itemPrice / 10) * BasketItem.quantity            
+              const itemBonus = Math.round(itemPrice / 10) * BasketItem.quantity
               const product = {
                 quantity: BasketItem.quantity,
                 id: id,
@@ -86,7 +86,7 @@ module.exports = function placeOrder () {
                 bonus: itemBonus
               }
               basketProducts.push(product)
-              //TODO
+              // TODO
               doc.text(`${BasketItem.quantity}x ${req.__(name)} ${req.__('ea.')} ${itemPrice} = ${itemTotal}¤`)
               doc.moveDown()
               totalPrice += itemTotal
@@ -102,17 +102,17 @@ module.exports = function placeOrder () {
             doc.moveDown()
             totalPrice -= parseFloat(discountAmount)
           }
-          let deliveryMethod = {
+          const deliveryMethod = {
             deluxePrice: 0,
             price: 0,
             eta: 5
           }
           if (req.body.orderDetails?.deliveryMethodId) {
             const deliveryMethodFromModel = await DeliveryModel.findOne({ where: { id: req.body.orderDetails.deliveryMethodId } })
-            if(deliveryMethodFromModel){
-              deliveryMethod.deluxePrice=deliveryMethodFromModel.deluxePrice;
-              deliveryMethod.price=deliveryMethodFromModel.price;
-              deliveryMethod.eta=deliveryMethodFromModel.eta
+            if (deliveryMethodFromModel) {
+              deliveryMethod.deluxePrice = deliveryMethodFromModel.deluxePrice
+              deliveryMethod.price = deliveryMethodFromModel.price
+              deliveryMethod.eta = deliveryMethodFromModel.eta
             }
           }
           const deliveryAmount = security.isDeluxe(req) ? deliveryMethod.deluxePrice : deliveryMethod.price
@@ -180,7 +180,6 @@ function calculateApplicableDiscount (basket: BasketModel, req: Request) {
     const couponDate = Number(couponData[1])
     // const campaign = campaigns[couponCode]
     const campaign = campaigns[couponCode as keyof typeof campaigns]
-
 
     if (campaign && couponDate == campaign.validOn) { // eslint-disable-line eqeqeq
       utils.solveIf(challenges.manipulateClockChallenge, () => { return campaign.validOn < new Date().getTime() })

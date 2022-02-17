@@ -4,22 +4,21 @@
  */
 
 /* jslint node: true */
-const security = require("../lib/insecurity");
 import {
   Model,
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional,
-} from "sequelize";
-import { sequelize } from "./index";
+  CreationOptional
+} from 'sequelize'
+import { sequelize } from './index'
 
 class SecurityQuestionModel extends Model<
-  InferAttributes<SecurityQuestionModel>,
-  InferCreationAttributes<SecurityQuestionModel>
+InferAttributes<SecurityQuestionModel>,
+InferCreationAttributes<SecurityQuestionModel>
 > {
-  declare id: CreationOptional<number>;
-  declare question: string;
+  declare id: CreationOptional<number>
+  declare question: string
 }
 
 SecurityQuestionModel.init(
@@ -27,16 +26,16 @@ SecurityQuestionModel.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     question: {
-      type: DataTypes.STRING,
-    },
+      type: DataTypes.STRING
+    }
   },
   {
-    tableName: "SecurityQuestion",
-    sequelize,
+    tableName: 'SecurityQuestion',
+    sequelize
   }
-);
+)
 
-export default SecurityQuestionModel;
+export default SecurityQuestionModel

@@ -10,22 +10,22 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional,
-} from "sequelize";
-import AddressModel from "./address";
-import { sequelize } from "./index";
-import UserModel from "./user";
+  CreationOptional
+} from 'sequelize'
+import AddressModel from './address'
+import { sequelize } from './index'
+import UserModel from './user'
 
 class RecycleModel extends Model<
-  InferAttributes<RecycleModel>,
-  InferCreationAttributes<RecycleModel>
+InferAttributes<RecycleModel>,
+InferCreationAttributes<RecycleModel>
 > {
-  declare id: CreationOptional<number>;
-  declare UserId:number;
-  declare AddressId: number;
-  declare quantity: number;
-  declare isPickup: boolean;
-  declare date: string;
+  declare id: CreationOptional<number>
+  declare UserId: number
+  declare AddressId: number
+  declare quantity: number
+  declare isPickup: boolean
+  declare date: string
 }
 
 RecycleModel.init(
@@ -34,26 +34,26 @@ RecycleModel.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     // TODO set this as DataTypes.INTEGER(4)
     quantity: DataTypes.INTEGER,
     isPickup: { type: DataTypes.BOOLEAN, defaultValue: false },
-    date: DataTypes.DATE,
+    date: DataTypes.DATE
   },
   {
-    tableName: "Recycle",
-    sequelize,
+    tableName: 'Recycle',
+    sequelize
   }
-);
+)
 
 RecycleModel.belongsTo(UserModel, {
   constraints: true,
-  foreignKeyConstraint: true,
-});
+  foreignKeyConstraint: true
+})
 RecycleModel.belongsTo(AddressModel, {
   constraints: true,
-  foreignKeyConstraint: true,
-});
+  foreignKeyConstraint: true
+})
 
-export default RecycleModel;
+export default RecycleModel

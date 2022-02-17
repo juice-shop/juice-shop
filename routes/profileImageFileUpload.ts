@@ -33,7 +33,7 @@ module.exports = function fileUpload () {
             })
           })
           UserModel.findByPk(loggedInUser.data.id).then(async (user: UserModel | null) => {
-            if(user){
+            if (user) {
               return await user.update({ profileImage: `assets/public/images/uploads/${loggedInUser.data.id}.${uploadedFileType.ext}` })
             }
           }).catch((error: Error) => {

@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
 import ImageCaptchaModel from 'models/imageCaptcha'
 import { Op } from 'sequelize'
@@ -23,6 +22,8 @@ function imageCaptchas () {
     const imageCaptchaInstance = ImageCaptchaModel.build(imageCaptcha)
     imageCaptchaInstance.save().then(() => {
       res.json(imageCaptcha)
+    }).catch(() => {
+      res.status(400).send(res.__('Unable to create CAPTCHA. Please try again.'))
     })
   }
 }
@@ -45,6 +46,8 @@ imageCaptchas.verifyCaptcha = () => (req: Request, res: Response, next: NextFunc
     } else {
       res.status(401).send(res.__('Wrong answer to CAPTCHA. Please try again.'))
     }
+  }).catch(() => {
+    res.status(401).send(res.__('Something went wrong while submitting CAPTCHA. Please try again.'))
   })
 }
 

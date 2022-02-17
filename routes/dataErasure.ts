@@ -30,12 +30,12 @@ router.get('/', async (req: Request, res: Response, next: NextFunction): Promise
         where: { email }
       }]
     })
-    if(!answer){
-      throw new Error("No answer found!")
+    if (!answer) {
+      throw new Error('No answer found!')
     }
     const question = await SecurityQuestionModel.findByPk(answer.SecurityQuestionId)
-    if(!question){
-      throw new Error("No question found!")
+    if (!question) {
+      throw new Error('No question found!')
     }
 
     res.render('dataErasureForm', { userEmail: email, securityQuestion: question.question })

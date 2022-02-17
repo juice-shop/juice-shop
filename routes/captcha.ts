@@ -8,7 +8,7 @@ import { Captcha } from '../data/types'
 import CaptchaModel from 'models/captcha'
 
 function captchas () {
-  return (req: Request, res: Response) => {
+  return async (req: Request, res: Response) => {
     const captchaId = req.app.locals.captchaId++
     const operators = ['*', '+', '-']
 
@@ -28,9 +28,8 @@ function captchas () {
       answer: answer
     }
     const captchaInstance = CaptchaModel.build(captcha)
-    captchaInstance.save().then(() => {
-      res.json(captcha)
-    })
+    await captchaInstance.save()
+    res.json(captcha)
   }
 }
 

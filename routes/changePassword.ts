@@ -15,6 +15,7 @@ module.exports = function changePassword () {
   return ({ query, headers, connection }: Request, res: Response, next: NextFunction) => {
     const currentPassword = query.current
     const newPassword = query.new
+    const newPasswordInString = newPassword?.toString()
     const repeatPassword = query.repeat
     if (!newPassword || newPassword === 'undefined') {
       res.status(401).send(res.__('Password cannot be empty.'))
@@ -28,8 +29,8 @@ module.exports = function changePassword () {
           res.status(401).send(res.__('Current password is not correct.'))
         } else {
           UserModel.findByPk(loggedInUser.data.id).then((user: UserModel | null) => {
-            if(user){
-              user.update({ password: newPassword.toString() }).then((user: UserModel) => {
+            if (user) {
+              user.update({ password: newPasswordInString }).then((user: UserModel) => {
                 utils.solveIf(challenges.changePasswordBenderChallenge, () => { return user.id === 3 && !currentPassword && user.password === security.hash('slurmCl4ssic') })
                 res.json({ user })
               }).catch((error: Error) => {

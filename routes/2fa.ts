@@ -30,8 +30,8 @@ async function verify (req: Request, res: Response) {
     }
 
     const user = await UserModel.findByPk(userId)
-    if(!user){
-      throw new Error("No such user found!");
+    if (!user) {
+      throw new Error('No such user found!')
     }
 
     const isValid = otplib.authenticator.check(totpToken, user.totpSecret)
@@ -43,7 +43,7 @@ async function verify (req: Request, res: Response) {
     }
     utils.solveIf(challenges.twoFactorAuthUnsafeSecretStorageChallenge, () => { return user.email === 'wurstbrot@' + config.get('application.domain') })
 
-    const [basket] = await BasketModel.findOrCreate({ where: { UserId:userId } })
+    const [basket] = await BasketModel.findOrCreate({ where: { UserId: userId } })
 
     const token = security.authorize(plainUser)
     plainUser.bid = basket.id // keep track of original basket for challenge solution check
@@ -127,8 +127,8 @@ async function setup (req: Request, res: Response) {
 
     // Update db model and cached object
     const userModel = await UserModel.findByPk(user.id)
-    if(!userModel){
-      throw new Error("No such user found!");
+    if (!userModel) {
+      throw new Error('No such user found!')
     }
 
     userModel.totpSecret = secret
@@ -160,8 +160,8 @@ async function disable (req: Request, res: Response) {
 
     // Update db model and cached object
     const userModel = await UserModel.findByPk(user.id)
-    if(!userModel){
-      throw new Error("No such user found!");
+    if (!userModel) {
+      throw new Error('No such user found!')
     }
 
     userModel.totpSecret = ''

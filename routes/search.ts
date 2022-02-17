@@ -33,6 +33,8 @@ module.exports = function searchProducts () {
                 utils.solve(challenges.unionSqlInjectionChallenge)
               }
             }
+          }).catch((error: Error) => {
+            next(error)
           })
         }
         if (utils.notSolved(challenges.dbSchemaChallenge)) {

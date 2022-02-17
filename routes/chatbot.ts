@@ -108,8 +108,8 @@ async function processQuery (user: User, req: Request, res: Response) {
 
 function setUserName (user: User, req: Request, res: Response) {
   UserModel.findByPk(user.id).then((user: UserModel | null) => {
-    if(!user){
-      throw new Error("No such user found!")
+    if (!user) {
+      throw new Error('No such user found!')
     }
     void user.update({ username: req.body.query }).then((updatedUser: UserModel) => {
       updatedUser = utils.queryResultToJson(updatedUser)
@@ -124,6 +124,8 @@ function setUserName (user: User, req: Request, res: Response) {
     }).catch((err: unknown) => {
       logger.error(`Could not set username: ${utils.getErrorMessage(err)}`)
     })
+  }).catch((err: unknown) => {
+    logger.error(`Could not set username: ${utils.getErrorMessage(err)}`)
   })
 }
 

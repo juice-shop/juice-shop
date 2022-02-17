@@ -8,20 +8,20 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional,
-} from "sequelize";
-import { sequelize } from "./index";
+  CreationOptional
+} from 'sequelize'
+import { sequelize } from './index'
 
 class DeliveryModel extends Model<
-  InferAttributes<DeliveryModel>,
-  InferCreationAttributes<DeliveryModel>
+InferAttributes<DeliveryModel>,
+InferCreationAttributes<DeliveryModel>
 > {
-  declare id: CreationOptional<number>;
-  declare name: string;
-  declare price: number;
-  declare deluxePrice: number;
-  declare eta: number;
-  declare icon: string;
+  declare id: CreationOptional<number>
+  declare name: string
+  declare price: number
+  declare deluxePrice: number
+  declare eta: number
+  declare icon: string
 }
 
 DeliveryModel.init(
@@ -29,18 +29,18 @@ DeliveryModel.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     name: DataTypes.STRING,
     price: DataTypes.FLOAT,
     deluxePrice: DataTypes.FLOAT,
     eta: DataTypes.FLOAT,
-    icon: DataTypes.STRING,
+    icon: DataTypes.STRING
   },
   {
-    tableName: "Delivery",
-    sequelize,
+    tableName: 'Delivery',
+    sequelize
   }
-);
+)
 
-export default DeliveryModel;
+export default DeliveryModel

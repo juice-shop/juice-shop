@@ -9,27 +9,27 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional,
-} from "sequelize";
-import { sequelize } from "./index";
+  CreationOptional
+} from 'sequelize'
+import { sequelize } from './index'
 class ChallengeModel extends Model<
-  InferAttributes<ChallengeModel>,
-  InferCreationAttributes<ChallengeModel>
+InferAttributes<ChallengeModel>,
+InferCreationAttributes<ChallengeModel>
 > {
-  declare id: CreationOptional<number>;
-  declare name: string;
-  declare category: string;
-  declare description: string;
-  declare difficulty: number;
-  declare hint: string | null;
-  declare hintUrl: string | null;
-  declare mitigationUrl: CreationOptional<string> | null;
-  declare key: string;
-  declare disabledEnv: CreationOptional<string>;
-  declare tutorialOrder: CreationOptional<number> | null;
-  declare tags: string | undefined;
-  declare solved: CreationOptional<boolean>;
-  declare codingChallengeStatus: CreationOptional<number>;
+  declare id: CreationOptional<number>
+  declare name: string
+  declare category: string
+  declare description: string
+  declare difficulty: number
+  declare hint: string | null
+  declare hintUrl: string | null
+  declare mitigationUrl: CreationOptional<string> | null
+  declare key: string
+  declare disabledEnv: CreationOptional<string>
+  declare tutorialOrder: CreationOptional<number> | null
+  declare tags: string | undefined
+  declare solved: CreationOptional<boolean>
+  declare codingChallengeStatus: CreationOptional<number>
 }
 
 ChallengeModel.init(
@@ -37,7 +37,7 @@ ChallengeModel.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     key: DataTypes.STRING,
     name: DataTypes.STRING,
@@ -51,12 +51,12 @@ ChallengeModel.init(
     solved: DataTypes.BOOLEAN,
     disabledEnv: DataTypes.STRING,
     tutorialOrder: DataTypes.NUMBER,
-    codingChallengeStatus: DataTypes.NUMBER,
+    codingChallengeStatus: DataTypes.NUMBER
   },
   {
-    tableName: "Challenge",
-    sequelize,
+    tableName: 'Challenge',
+    sequelize
   }
-);
+)
 
-export default ChallengeModel;
+export default ChallengeModel

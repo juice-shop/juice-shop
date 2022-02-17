@@ -3,9 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
-import { SecurityAnswer, SecurityQuestion } from '../data/types'
 import SecurityAnswerModel from 'models/securityAnswer'
 import UserModel from 'models/user'
 import SecurityQuestionModel from 'models/securityQuestion'
@@ -16,7 +14,7 @@ module.exports = function securityQuestion () {
     SecurityAnswerModel.findOne({
       include: [{
         model: UserModel,
-        where: { email:email?.toString() }
+        where: { email: email?.toString() }
       }]
     }).then((answer: SecurityAnswerModel | null) => {
       if (answer) {

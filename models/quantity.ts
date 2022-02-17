@@ -10,19 +10,19 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional,
-} from "sequelize";
-import { sequelize } from "./index";
-import ProductModel from "./product";
+  CreationOptional
+} from 'sequelize'
+import { sequelize } from './index'
+import ProductModel from './product'
 
 class QuantityModel extends Model<
-  InferAttributes<QuantityModel>,
-  InferCreationAttributes<QuantityModel>
+InferAttributes<QuantityModel>,
+InferCreationAttributes<QuantityModel>
 > {
-  declare ProductId: number;
-  declare id: CreationOptional<number>;
-  declare quantity: number;
-  declare limitPerUser: number | null;
+  declare ProductId: number
+  declare id: CreationOptional<number>
+  declare quantity: number
+  declare limitPerUser: number | null
 }
 
 QuantityModel.init(
@@ -31,31 +31,31 @@ QuantityModel.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     quantity: {
       type: DataTypes.INTEGER,
       validate: {
-        isInt: true,
-      },
+        isInt: true
+      }
     },
     limitPerUser: {
       type: DataTypes.INTEGER,
       validate: {
-        isInt: true,
+        isInt: true
       },
-      defaultValue: null,
-    },
+      defaultValue: null
+    }
   },
   {
-    tableName: "Quantity",
-    sequelize,
+    tableName: 'Quantity',
+    sequelize
   }
-);
+)
 
 QuantityModel.belongsTo(ProductModel, {
   constraints: true,
-  foreignKeyConstraint: true,
-});
+  foreignKeyConstraint: true
+})
 
-export default QuantityModel;
+export default QuantityModel

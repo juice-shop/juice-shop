@@ -7,17 +7,17 @@ import {
   Model,
   InferAttributes,
   InferCreationAttributes,
-  DataTypes,
-} from "sequelize";
-import { sequelize } from "./index";
+  DataTypes
+} from 'sequelize'
+import { sequelize } from './index'
 
 class CaptchaModel extends Model<
-  InferAttributes<CaptchaModel>,
-  InferCreationAttributes<CaptchaModel>
+InferAttributes<CaptchaModel>,
+InferCreationAttributes<CaptchaModel>
 > {
-  declare captchaId: number;
-  declare captcha: string;
-  declare answer: string;
+  declare captchaId: number
+  declare captcha: string
+  declare answer: string
 }
 
 CaptchaModel.init(
@@ -25,15 +25,15 @@ CaptchaModel.init(
     captchaId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     captcha: DataTypes.STRING,
-    answer: DataTypes.STRING,
+    answer: DataTypes.STRING
   },
   {
-    tableName: "Captcha",
-    sequelize,
+    tableName: 'Captcha',
+    sequelize
   }
-);
+)
 
-export default CaptchaModel;
+export default CaptchaModel
