@@ -1,7 +1,9 @@
 # comment
 on:
   pull_request: {}
-  
+  # Scan all files on branches, block on any issues
+  push:
+    branches: ["master", "main"]
 name: Semgrep
 jobs:
   semgrep:
