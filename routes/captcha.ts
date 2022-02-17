@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
 import { Captcha } from '../data/types'
+import CaptchaModel from 'models/captcha'
 
 function captchas () {
   return (req: Request, res: Response) => {
@@ -27,7 +27,7 @@ function captchas () {
       captcha: expression,
       answer: answer
     }
-    const captchaInstance = models.Captcha.build(captcha)
+    const captchaInstance = CaptchaModel.build(captcha)
     captchaInstance.save().then(() => {
       res.json(captcha)
     })
@@ -35,8 +35,8 @@ function captchas () {
 }
 
 captchas.verifyCaptcha = () => (req: Request, res: Response, next: NextFunction) => {
-  models.Captcha.findOne({ where: { captchaId: req.body.captchaId } }).then((captcha: Captcha) => {
-    if (captcha && req.body.captcha === captcha.dataValues.answer) {
+  CaptchaModel.findOne({ where: { captchaId: req.body.captchaId } }).then((captcha: Captcha | null) => {
+    if (captcha && req.body.captcha === captcha.answer) {
       next()
     } else {
       res.status(401).send(res.__('Wrong answer to CAPTCHA. Please try again.'))

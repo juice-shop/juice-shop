@@ -6,6 +6,7 @@
 import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
 import { User } from '../data/types'
+import UserModel from 'models/user'
 
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
@@ -25,8 +26,8 @@ module.exports = function saveLoginIp () {
       if (lastLoginIp === undefined) {
         lastLoginIp = utils.toSimpleIpAddress(req.connection.remoteAddress)
       }
-      models.User.findByPk(loggedInUser.data.id).then((user: User) => {
-        user.update({ lastLoginIp: lastLoginIp }).then((user: User) => {
+      UserModel.findByPk(loggedInUser.data.id).then((user: UserModel | null) => {
+        user?.update({ lastLoginIp: lastLoginIp?.toString() }).then((user: UserModel) => {
           res.json(user)
         }).catch((error: Error) => {
           next(error)

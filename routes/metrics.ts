@@ -3,10 +3,14 @@
  * SPDX-License-Identifier: MIT
  */
 
-import models = require('../models/index')
 import { retrieveChallengesWithCodeSnippet } from './vulnCodeSnippet'
 import { Request, Response, NextFunction } from 'express'
-import { Challenge } from '../data/types'
+import ChallengeModel from 'models/challenge'
+import UserModel from 'models/user'
+import WalletModel from 'models/wallet'
+import FeedbackModel from 'models/feedback'
+import ComplaintModel from 'models/complaint'
+import { Op } from 'sequelize'
 
 const Prometheus = require('prom-client')
 const onFinished = require('on-finished')
@@ -17,7 +21,6 @@ const utils = require('../lib/utils')
 const antiCheat = require('../lib/antiCheat')
 const accuracy = require('../lib/accuracy')
 const config = require('config')
-const Op = models.Sequelize.Op
 
 const register = Prometheus.register
 
@@ -146,7 +149,7 @@ exports.observeMetrics = function observeMetrics () {
     const challengeStatuses = new Map()
     const challengeCount = new Map()
 
-    for (const { difficulty, category, solved } of Object.values<Challenge>(challenges)) {
+    for (const { difficulty, category, solved } of Object.values<ChallengeModel>(challenges)) {
       const key = `${difficulty}:${category}`
 
       // Increment by one if solved, when not solved increment by 0. This ensures that even unsolved challenges are set to , instead of not being set at all
@@ -162,15 +165,15 @@ exports.observeMetrics = function observeMetrics () {
     }
 
     void retrieveChallengesWithCodeSnippet().then(challenges => {
-      models.Challenge.count({ where: { codingChallengeStatus: { [Op.eq]: 1 } } }).then((count: number) => {
+      ChallengeModel.count({ where: { codingChallengeStatus: { [Op.eq]: 1 } } }).then((count: number) => {
         codingChallengesProgressMetrics.set({ phase: 'find it' }, count)
       })
 
-      models.Challenge.count({ where: { codingChallengeStatus: { [Op.eq]: 2 } } }).then((count: number) => {
+      ChallengeModel.count({ where: { codingChallengeStatus: { [Op.eq]: 2 } } }).then((count: number) => {
         codingChallengesProgressMetrics.set({ phase: 'fix it' }, count)
       })
 
-      models.Challenge.count({ where: { codingChallengeStatus: { [Op.ne]: 0 } } }).then((count: number) => {
+      ChallengeModel.count({ where: { codingChallengeStatus: { [Op.ne]: 0 } } }).then((count: number) => {
         codingChallengesProgressMetrics.set({ phase: 'unsolved' }, challenges.length - count)
       })
     })
@@ -179,33 +182,33 @@ exports.observeMetrics = function observeMetrics () {
     accuracyMetrics.set({ phase: 'find it' }, accuracy.totalFindItAccuracy())
     accuracyMetrics.set({ phase: 'fix it' }, accuracy.totalFixItAccuracy())
 
-    orders.count({}).then((orders: any) => {
-      orderMetrics.set(orders)
+    orders.count({}).then((orderCount:Number) => {
+      orderMetrics.set(orderCount)
     })
 
-    reviews.count({}).then((reviews: any) => {
-      interactionsMetrics.set({ type: 'review' }, reviews)
+    reviews.count({}).then((reviewCount:Number) => {
+      interactionsMetrics.set({ type: 'review' }, reviewCount)
     })
 
-    models.User.count({ where: { role: { [Op.eq]: 'customer' } } }).then((count: number) => {
+    UserModel.count({ where: { role: { [Op.eq]: 'customer' } } }).then((count: number) => {
       userMetrics.set({ type: 'standard' }, count)
     })
-    models.User.count({ where: { role: { [Op.eq]: 'deluxe' } } }).then((count: number) => {
+    UserModel.count({ where: { role: { [Op.eq]: 'deluxe' } } }).then((count: number) => {
       userMetrics.set({ type: 'deluxe' }, count)
     })
-    models.User.count().then((count: number) => {
+    UserModel.count().then((count:Number) => {
       userTotalMetrics.set(count)
     })
 
-    models.Wallet.sum('balance').then((totalBalance: number) => {
+    WalletModel.sum('balance').then((totalBalance:Number) => {
       walletMetrics.set(totalBalance)
     })
 
-    models.Feedback.count().then((count: number) => {
+    FeedbackModel.count().then((count: number) => {
       interactionsMetrics.set({ type: 'feedback' }, count)
     })
 
-    models.Complaint.count().then((count: number) => {
+    ComplaintModel.count().then((count: number) => {
       interactionsMetrics.set({ type: 'complaint' }, count)
     })
   }, 5000)

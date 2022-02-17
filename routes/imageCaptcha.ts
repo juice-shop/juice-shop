@@ -5,9 +5,10 @@
 
 import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
+import ImageCaptchaModel from 'models/imageCaptcha'
+import { Op } from 'sequelize'
 
 const svgCaptcha = require('svg-captcha')
-const Op = models.Sequelize.Op
 const security = require('../lib/insecurity')
 
 function imageCaptchas () {
@@ -19,7 +20,7 @@ function imageCaptchas () {
       answer: captcha.text,
       UserId: security.authenticatedUsers.from(req).data.id
     }
-    const imageCaptchaInstance = models.ImageCaptcha.build(imageCaptcha)
+    const imageCaptchaInstance = ImageCaptchaModel.build(imageCaptcha)
     imageCaptchaInstance.save().then(() => {
       res.json(imageCaptcha)
     })
@@ -29,7 +30,7 @@ function imageCaptchas () {
 imageCaptchas.verifyCaptcha = () => (req: Request, res: Response, next: NextFunction) => {
   const user = security.authenticatedUsers.from(req)
   const UserId = user ? user.data ? user.data.id : undefined : undefined
-  models.ImageCaptcha.findAll({
+  ImageCaptchaModel.findAll({
     limit: 1,
     where: {
       UserId: UserId,
@@ -39,7 +40,7 @@ imageCaptchas.verifyCaptcha = () => (req: Request, res: Response, next: NextFunc
     },
     order: [['createdAt', 'DESC']]
   }).then(captchas => {
-    if (!captchas[0] || req.body.answer === captchas[0].dataValues.answer) {
+    if (!captchas[0] || req.body.answer === captchas[0].answer) {
       next()
     } else {
       res.status(401).send(res.__('Wrong answer to CAPTCHA. Please try again.'))

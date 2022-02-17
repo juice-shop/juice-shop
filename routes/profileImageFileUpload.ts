@@ -5,8 +5,7 @@
 
 import fs = require('fs')
 import { Request, Response, NextFunction } from 'express'
-import models = require('../models/index')
-import { User } from '../data/types'
+import UserModel from 'models/user'
 
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
@@ -33,8 +32,10 @@ module.exports = function fileUpload () {
               fs.close(fd, function () { })
             })
           })
-          models.User.findByPk(loggedInUser.data.id).then(async (user: User) => {
-            return await user.update({ profileImage: `assets/public/images/uploads/${loggedInUser.data.id}.${uploadedFileType.ext}` })
+          UserModel.findByPk(loggedInUser.data.id).then(async (user: UserModel | null) => {
+            if(user){
+              return await user.update({ profileImage: `assets/public/images/uploads/${loggedInUser.data.id}.${uploadedFileType.ext}` })
+            }
           }).catch((error: Error) => {
             next(error)
           })

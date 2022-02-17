@@ -12,9 +12,7 @@ import {
   Model,
   DataTypes,
   CreationOptional,
-  HasManyCreateAssociationMixin,
 } from "sequelize";
-import { HasOneCreateAssociationMixin } from "sequelize";
 const security = require("../lib/insecurity");
 const utils = require("../lib/utils");
 const challenges = require("../data/datacache").challenges;
@@ -34,8 +32,6 @@ class UserModel extends Model<
   declare totpSecret: CreationOptional<string>;
   declare isActive: CreationOptional<boolean>;
 }
-
-//TODO: Make role enum datatype
 
 UserModel.init(
   {

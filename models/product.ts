@@ -14,11 +14,11 @@ import {
   DataTypes,
   CreationOptional,
   HasManyCreateAssociationMixin,
+  NonAttribute,
 } from "sequelize";
 import { sequelize } from "./index";
 import BasketItemModel from "./basketitem";
 import BasketModel from "./basket";
-import QuantityModel from "./quantity";
 
 class ProductModel extends Model<
   InferAttributes<ProductModel>,
@@ -30,6 +30,8 @@ class ProductModel extends Model<
   declare price: number;
   declare deluxePrice: number;
   declare image: string;
+  declare BasketItem?: NonAttribute<BasketItemModel>; // Note this is optional since it's only populated when explicitly requested in code
+
 }
 
 ProductModel.init(
