@@ -45,17 +45,3 @@ ImageCaptchaModel.init(
 ImageCaptchaModel.belongsTo(UserModel);
 
 export default ImageCaptchaModel;
-
-// export = (sequelize, { INTEGER, STRING }) => {
-//     const ImageCaptcha = sequelize.define("ImageCaptcha", {
-//         image: STRING,
-//         answer: STRING,
-//         UserId: { type: INTEGER },
-//     });
-
-//     ImageCaptcha.associate = ({ User }) => {
-//         ImageCaptcha.belongsTo(User);
-//     };
-
-//     return ImageCaptcha;
-// };

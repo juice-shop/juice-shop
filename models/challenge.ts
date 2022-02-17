@@ -60,22 +60,3 @@ ChallengeModel.init(
 );
 
 export default ChallengeModel;
-
-// export = (sequelize, { STRING, INTEGER, BOOLEAN, NUMBER }) => {
-//     const Challenge = sequelize.define("Challenge", {
-//         key: STRING,
-//         name: STRING,
-//         category: STRING,
-//         tags: STRING,
-//         description: STRING,
-//         difficulty: INTEGER,
-//         hint: STRING,
-//         hintUrl: STRING,
-//         mitigationUrl: STRING,
-//         solved: BOOLEAN,
-//         disabledEnv: STRING,
-//         tutorialOrder: NUMBER,
-//         codingChallengeStatus: NUMBER,
-//     });
-//     return Challenge;
-// };

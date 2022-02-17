@@ -10,7 +10,6 @@ import {
   InferCreationAttributes,
   DataTypes,
   CreationOptional,
-  NonAttribute,
 } from "sequelize";
 import { sequelize } from "./index";
 
@@ -41,16 +40,3 @@ BasketItemModel.init(
 );
 
 export default BasketItemModel;
-
-// export = (sequelize, { INTEGER }) => {
-//     const BasketItem = sequelize.define("BasketItem", {
-//         id: {
-//             type: INTEGER,
-//             primaryKey: true,
-//             autoIncrement: true,
-//             allowNull: false,
-//         },
-//         quantity: INTEGER,
-//     });
-//     return BasketItem;
-// };

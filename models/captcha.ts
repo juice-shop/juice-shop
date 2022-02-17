@@ -8,7 +8,6 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional,
 } from "sequelize";
 import { sequelize } from "./index";
 
@@ -38,12 +37,3 @@ CaptchaModel.init(
 );
 
 export default CaptchaModel;
-
-// export = (sequelize, { INTEGER, STRING }) => {
-//     const Captcha = sequelize.define("Captcha", {
-//         captchaId: INTEGER,
-//         captcha: STRING,
-//         answer: STRING,
-//     });
-//     return Captcha;
-// };

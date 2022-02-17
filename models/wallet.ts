@@ -10,7 +10,6 @@ import {
   InferCreationAttributes,
   DataTypes,
   CreationOptional,
-  NonAttribute,
 } from "sequelize";
 import { sequelize } from "./index";
 import UserModel from "./user";
@@ -52,21 +51,3 @@ WalletModel.belongsTo(UserModel, {
 });
 
 export default WalletModel;
-
-// export = (sequelize, { INTEGER }) => {
-//   const Wallet = sequelize.define('Wallet', {
-//     balance: {
-//       type: INTEGER,
-//       validate: {
-//         isInt: true
-//       },
-//       defaultValue: 0
-//     }
-//   })
-
-//   Wallet.associate = ({ User }) => {
-//     Wallet.belongsTo(User, { constraints: true, foreignKeyConstraint: true })
-//   }
-
-//   return Wallet
-// }

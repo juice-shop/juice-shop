@@ -11,7 +11,6 @@ import {
   InferCreationAttributes,
   DataTypes,
   CreationOptional,
-  NonAttribute,
 } from "sequelize";
 import { sequelize } from "./index";
 import ProductModel from "./product";
@@ -60,30 +59,3 @@ QuantityModel.belongsTo(ProductModel, {
 });
 
 export default QuantityModel;
-
-// export = (sequelize, { INTEGER }) => {
-//     const Quantity = sequelize.define("Quantity", {
-//         quantity: {
-//             type: INTEGER,
-//             validate: {
-//                 isInt: true,
-//             },
-//         },
-//         limitPerUser: {
-//             type: INTEGER,
-//             validate: {
-//                 isInt: true,
-//             },
-//             defaultValue: null,
-//         },
-//     });
-
-//     Quantity.associate = ({ Product }) => {
-//         Quantity.belongsTo(Product, {
-//             constraints: true,
-//             foreignKeyConstraint: true,
-//         });
-//     };
-
-//     return Quantity;
-// };
