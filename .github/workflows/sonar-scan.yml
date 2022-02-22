@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - feature/test-sonar
   pull_request:
       types: [opened, synchronize, reopened]
 name: Main Workflow
