@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - branch1
+      - branch*
   pull_request:
       types: [opened, synchronize, reopened]
 name: Main Workflow
