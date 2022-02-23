@@ -286,7 +286,7 @@
 	" <em>(This challenge is <strong>not available</strong> on Heroku!)</em>": " <em>(Это задание <strong>недоступно</strong> в Heroku!)</em>",
 	" <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>": " <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>",
 	" <em>(This challenge is <strong>potentially harmful</strong> on Heroku!)</em>": " <em>(This challenge is <strong>potentially harmful</strong> on Heroku!)</em>",
-	"Find the endpoint that serves usage data to be scraped by a <a href=\"https://github.com/prometheus/prometheus\">popular monitoring system</a>.": "Find the endpoint that serves usage data to be scraped by a <a href=\"https://github.com/prometheus/prometheus\">popular monitoring system</a>.",
+	"Find the endpoint that serves usage data to be scraped by a <a href=\"https://github.com/prometheus/prometheus\">popular monitoring system</a>.": "Найти конечную точку, которая выдает метрики для извлечения <a href=\"https://github.com/prometheus/prometheus\">популярной системой мониторинга</a>.",
 	"Try to guess what URL the endpoint might have.": "Try to guess what URL the endpoint might have.",
 	"Look for a url parameter where its value appears in the page it is leading to.": "Look for a url parameter where its value appears in the page it is leading to.",
 	"Change the name of a user by performing Cross-Site Request Forgery from <a href=\"http://htmledit.squarefree.com\">another origin</a>.": "Change the name of a user by performing Cross-Site Request Forgery from <a href=\"http://htmledit.squarefree.com\">another origin</a>.",
