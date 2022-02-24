@@ -57,20 +57,15 @@ application:
     clientId: '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
     authorizedRedirects:
       - { uri: 'https://demo.owasp-juice.shop' }
-      - { uri: 'http://demo.owasp-juice.shop' }
       - { uri: 'https://juice-shop.herokuapp.com' }
-      - { uri: 'http://juice-shop.herokuapp.com' }
       - { uri: 'https://preview.owasp-juice.shop' }
-      - { uri: 'http://preview.owasp-juice.shop' }
       - { uri: 'https://juice-shop-staging.herokuapp.com' }
-      - { uri: 'http://juice-shop-staging.herokuapp.com' }
-      - { uri: 'http://juice-shop.wtf' }
-      - { uri: 'http://localhost:3000', proxy: 'http://local3000.owasp-juice.shop' }
-      - { uri: 'http://127.0.0.1:3000', proxy: 'http://local3000.owasp-juice.shop' }
-      - { uri: 'http://localhost:4200', proxy: 'http://local4200.owasp-juice.shop' }
-      - { uri: 'http://127.0.0.1:4200', proxy: 'http://local4200.owasp-juice.shop' }
-      - { uri: 'http://192.168.99.100:3000', proxy: 'http://localmac.owasp-juice.shop' }
-      - { uri: 'http://penguin.termina.linux.test:3000', proxy: 'http://localchromeos.owasp-juice.shop' }
+      - { uri: 'http://localhost:3000', proxy: 'https://local3000.owasp-juice.shop' }
+      - { uri: 'http://127.0.0.1:3000', proxy: 'https://local3000.owasp-juice.shop' }
+      - { uri: 'http://localhost:4200', proxy: 'https://local4200.owasp-juice.shop' }
+      - { uri: 'http://127.0.0.1:4200', proxy: 'https://local4200.owasp-juice.shop' }
+      - { uri: 'http://192.168.99.100:3000', proxy: 'https://localmac.owasp-juice.shop' }
+      - { uri: 'http://penguin.termina.linux.test:3000', proxy: 'https://localchromeos.owasp-juice.shop' }
 challenges:
   showSolvedNotifications: true
   showHints: true
