@@ -1,7 +1,9 @@
 name: "CodeQL Scan"
-# Sample commit
+
 on:
   push:
+    branches:
+      - master
   pull_request:
 
 jobs:
