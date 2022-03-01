@@ -1,5 +1,5 @@
 name: "CodeQL Scan"
-
+# Sample commit
 on:
   push:
   pull_request:
