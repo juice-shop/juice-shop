@@ -20,7 +20,7 @@ InferCreationAttributes<WalletModel>
 > {
   declare UserId: number
   declare id: CreationOptional<number>
-  declare balance: number
+  declare balance: CreationOptional<number>
 }
 
 WalletModel.init(
@@ -40,14 +40,9 @@ WalletModel.init(
     }
   },
   {
-    tableName: 'Wallet',
+    tableName: 'Wallets',
     sequelize
   }
 )
-
-WalletModel.belongsTo(UserModel, {
-  constraints: true,
-  foreignKeyConstraint: true
-})
 
 export default WalletModel

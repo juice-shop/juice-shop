@@ -54,7 +54,7 @@ ChallengeModel.init(
     codingChallengeStatus: DataTypes.NUMBER
   },
   {
-    tableName: 'Challenge',
+    tableName: 'Challenges',
     sequelize
   }
 )

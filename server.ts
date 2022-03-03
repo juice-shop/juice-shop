@@ -71,7 +71,21 @@ const likeProductReviews = require('./routes/likeProductReviews')
 const logger = require('./lib/logger')
 const utils = require('./lib/utils')
 const security = require('./lib/insecurity')
-const models = require('./models')
+import {sequelize} from './models/index'
+import UserModel from './models/user'
+import QuantityModel from './models/quantity'
+import CardModel from './models/card'
+import PrivacyRequestModel from './models/privacyRequests'
+import AddressModel from './models/address'
+import SecurityAnswerModel from './models/securityAnswer'
+import SecurityQuestionModel from './models/securityQuestion'
+import RecycleModel from './models/recycle'
+import ComplaintModel from './models/complaint'
+import ChallengeModel from './models/challenge'
+import BasketItemModel from './models/basketitem'
+import FeedbackModel from './models/feedback'
+import ProductModel from './models/product'
+import WalletModel from './models/wallet'
 const datacreator = require('./data/datacreator')
 const app = express()
 const server = require('http').Server(app)
@@ -395,27 +409,27 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   // vuln-code-snippet start registerAdminChallenge
   /* Generated API endpoints */
-  finale.initialize({ app, sequelize: models.sequelize })
+  finale.initialize({ app, sequelize })
 
   const autoModels = [
-    { name: 'User', exclude: ['password', 'totpSecret'] },
-    { name: 'Product', exclude: [] },
-    { name: 'Feedback', exclude: [] },
-    { name: 'BasketItem', exclude: [] },
-    { name: 'Challenge', exclude: [] },
-    { name: 'Complaint', exclude: [] },
-    { name: 'Recycle', exclude: [] },
-    { name: 'SecurityQuestion', exclude: [] },
-    { name: 'SecurityAnswer', exclude: [] },
-    { name: 'Address', exclude: [] },
-    { name: 'PrivacyRequest', exclude: [] },
-    { name: 'Card', exclude: [] },
-    { name: 'Quantity', exclude: [] }
+    { name: 'User', exclude: ['password', 'totpSecret'], model: UserModel },
+    { name: 'Product', exclude: [] , model: ProductModel},
+    { name: 'Feedback', exclude: [] , model: FeedbackModel},
+    { name: 'BasketItem', exclude: [] , model: BasketItemModel},
+    { name: 'Challenge', exclude: [] , model: ChallengeModel},
+    { name: 'Complaint', exclude: [] , model: ComplaintModel},
+    { name: 'Recycle', exclude: [] , model: RecycleModel},
+    { name: 'SecurityQuestion', exclude: [] , model: SecurityQuestionModel},
+    { name: 'SecurityAnswer', exclude: [] , model: SecurityAnswerModel},
+    { name: 'Address', exclude: [] , model: AddressModel},
+    { name: 'PrivacyRequest', exclude: [] , model: PrivacyRequestModel},
+    { name: 'Card', exclude: [] , model: CardModel},
+    { name: 'Quantity', exclude: [] , model: QuantityModel}
   ]
 
-  for (const { name, exclude } of autoModels) {
+  for (const { name, exclude,model } of autoModels) {
     const resource = finale.resource({
-      model: models[name],
+      model: model,
       endpoints: [`/api/${name}s`, `/api/${name}s/:id`],
       excludeAttributes: exclude
     })
@@ -423,7 +437,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     // create a wallet when a new user is registered using API
     if (name === 'User') { // vuln-code-snippet neutral-line registerAdminChallenge
       resource.create.send.before((req: Request, res: Response, context: { instance: { id: any }, continue: any }) => { // vuln-code-snippet vuln-line registerAdminChallenge
-        models.Wallet.create({ UserId: context.instance.id }).catch((err: unknown) => {
+        WalletModel.create({ UserId: context.instance.id }).catch((err: unknown) => {
           console.log(err)
         })
         return context.continue // vuln-code-snippet neutral-line registerAdminChallenge
@@ -622,7 +636,7 @@ const customizeEasterEgg = require('./lib/startup/customizeEasterEgg') // vuln-c
 
 export async function start (readyCallback: Function) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
-  await models.sequelize.sync({ force: true })
+  await sequelize.sync({ force: true })
   await datacreator()
   datacreatorEnd()
   const port = process.env.PORT ?? config.get('server.port')

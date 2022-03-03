@@ -4,7 +4,7 @@
  */
 
 import { Request, Response } from 'express'
-import AddressModel from 'models/address'
+import AddressModel from '../models/address'
 
 module.exports.getAddress = function getAddress () {
   return async (req: Request, res: Response) => {

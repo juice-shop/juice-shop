@@ -37,14 +37,9 @@ MemoryModel.init(
     imagePath: DataTypes.STRING
   },
   {
-    tableName: 'Memory',
+    tableName: 'Memories',
     sequelize
   }
 )
-
-MemoryModel.belongsTo(UserModel, {
-  constraints: true,
-  foreignKeyConstraint: true
-})
 
 export default MemoryModel

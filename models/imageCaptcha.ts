@@ -37,11 +37,9 @@ ImageCaptchaModel.init(
     createdAt: DataTypes.DATE
   },
   {
-    tableName: 'ImageCaptcha',
+    tableName: 'ImageCaptchas',
     sequelize
   }
 )
-
-ImageCaptchaModel.belongsTo(UserModel)
 
 export default ImageCaptchaModel

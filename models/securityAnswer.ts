@@ -42,15 +42,9 @@ SecurityAnswerModel.init(
     }
   },
   {
-    tableName: 'SecurityAnswer',
+    tableName: 'SecurityAnswers',
     sequelize
   }
 )
-
-SecurityAnswerModel.belongsTo(UserModel)
-SecurityAnswerModel.belongsTo(SecurityQuestionModel, {
-  constraints: true,
-  foreignKeyConstraint: true
-})
 
 export default SecurityAnswerModel

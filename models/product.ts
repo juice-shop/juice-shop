@@ -60,18 +60,10 @@ ProductModel.init(
     image: DataTypes.STRING
   },
   {
-    tableName: 'Product',
-    sequelize
+    tableName: 'Products',
+    sequelize,
+    paranoid: true
   }
 )
-
-ProductModel.belongsToMany(BasketModel, {
-  through: BasketItemModel,
-  foreignKey: {
-    name: 'ProductId'
-    // noUpdate: true
-    // TODO
-  }
-})
 
 export default ProductModel

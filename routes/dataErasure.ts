@@ -5,10 +5,10 @@
 import express, { NextFunction, Request, Response } from 'express'
 import insecurity from '../lib/insecurity'
 import path from 'path'
-import SecurityAnswerModel from 'models/securityAnswer'
-import UserModel from 'models/user'
-import SecurityQuestionModel from 'models/securityQuestion'
-import PrivacyRequestModel from 'models/privacyRequests'
+import SecurityAnswerModel from '../models/securityAnswer'
+import UserModel from '../models/user'
+import SecurityQuestionModel from '../models/securityQuestion'
+import PrivacyRequestModel from '../models/privacyRequests'
 
 const challenges = require('../data/datacache').challenges
 const utils = require('../lib/utils')

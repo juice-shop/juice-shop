@@ -6,12 +6,12 @@
 import path = require('path')
 import { Request, Response, NextFunction } from 'express'
 import { Product } from 'data/types'
-import BasketModel from 'models/basket'
-import ProductModel from 'models/product'
-import BasketItemModel from 'models/basketitem'
-import QuantityModel from 'models/quantity'
-import DeliveryModel from 'models/delivery'
-import WalletModel from 'models/wallet'
+import BasketModel from '../models/basket'
+import ProductModel from '../models/product'
+import BasketItemModel from '../models/basketitem'
+import QuantityModel from '../models/quantity'
+import DeliveryModel from '../models/delivery'
+import WalletModel from '../models/wallet'
 
 const fs = require('fs')
 const PDFDocument = require('pdfkit')

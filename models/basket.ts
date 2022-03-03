@@ -39,21 +39,9 @@ BasketModel.init(
     coupon: DataTypes.STRING
   },
   {
-    tableName: 'Basket',
+    tableName: 'Baskets',
     sequelize
   }
 )
-
-BasketModel.belongsTo(UserModel, {
-  constraints: true,
-  foreignKeyConstraint: true
-})
-BasketModel.belongsToMany(ProductModel, {
-  through: BasketItemModel,
-  foreignKey: {
-    name: 'BasketId'
-    // TODO noUpdate: true
-  }
-})
 
 export default BasketModel

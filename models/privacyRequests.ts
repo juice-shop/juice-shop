@@ -40,14 +40,9 @@ PrivacyRequestModel.init(
     }
   },
   {
-    tableName: 'PrivacyRequest',
+    tableName: 'PrivacyRequests',
     sequelize
   }
 )
-
-PrivacyRequestModel.belongsTo(UserModel, {
-  constraints: true,
-  foreignKeyConstraint: true
-})
 
 export default PrivacyRequestModel
