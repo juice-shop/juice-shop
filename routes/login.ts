@@ -6,8 +6,8 @@
 import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
 import { User } from '../data/types'
-import BasketModel from 'models/basket'
-import UserModel from 'models/user'
+import BasketModel from '../models/basket'
+import UserModel from '../models/user'
 
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')

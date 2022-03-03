@@ -37,14 +37,9 @@ ComplaintModel.init(
     file: DataTypes.STRING
   },
   {
-    tableName: 'Complaint',
+    tableName: 'Complaints',
     sequelize
   }
 )
-
-ComplaintModel.belongsTo(UserModel, {
-  constraints: true,
-  foreignKeyConstraint: true
-})
 
 export default ComplaintModel

@@ -64,14 +64,9 @@ AddressModel.init(
     country: DataTypes.STRING
   },
   {
-    tableName: 'Address',
+    tableName: 'Addresses',
     sequelize
   }
 )
-
-AddressModel.belongsTo(UserModel, {
-  constraints: true,
-  foreignKeyConstraint: true
-})
 
 export default AddressModel

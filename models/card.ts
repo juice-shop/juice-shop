@@ -61,13 +61,9 @@ CardModel.init(
     }
   },
   {
-    tableName: 'Card',
+    tableName: 'Cards',
     sequelize
   }
 )
-CardModel.belongsTo(UserModel, {
-  constraints: true,
-  foreignKeyConstraint: true
-})
 
 export default CardModel

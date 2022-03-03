@@ -31,7 +31,7 @@ CaptchaModel.init(
     answer: DataTypes.STRING
   },
   {
-    tableName: 'Captcha',
+    tableName: 'Captchas',
     sequelize
   }
 )

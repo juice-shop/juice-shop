@@ -5,7 +5,7 @@
 
 import Hashids = require('hashids/cjs')
 import { Request, Response } from 'express'
-import ChallengeModel from 'models/challenge'
+import ChallengeModel from '../models/challenge'
 
 const sequelize = require('sequelize')
 const challenges = require('../data/datacache').challenges

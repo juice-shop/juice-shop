@@ -4,7 +4,7 @@
  */
 
 import { Request, Response, NextFunction } from 'express'
-import ImageCaptchaModel from 'models/imageCaptcha'
+import ImageCaptchaModel from '../models/imageCaptcha'
 import { Op } from 'sequelize'
 
 const svgCaptcha = require('svg-captcha')

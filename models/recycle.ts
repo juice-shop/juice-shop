@@ -42,18 +42,9 @@ RecycleModel.init(
     date: DataTypes.DATE
   },
   {
-    tableName: 'Recycle',
+    tableName: 'Recycles',
     sequelize
   }
 )
-
-RecycleModel.belongsTo(UserModel, {
-  constraints: true,
-  foreignKeyConstraint: true
-})
-RecycleModel.belongsTo(AddressModel, {
-  constraints: true,
-  foreignKeyConstraint: true
-})
 
 export default RecycleModel

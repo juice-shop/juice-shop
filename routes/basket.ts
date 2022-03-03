@@ -4,8 +4,8 @@
  */
 
 import { Request, Response, NextFunction } from 'express'
-import ProductModel from 'models/product'
-import BasketModel from 'models/basket'
+import ProductModel from '../models/product'
+import BasketModel from '../models/basket'
 
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')

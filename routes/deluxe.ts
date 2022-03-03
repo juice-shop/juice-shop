@@ -4,9 +4,9 @@
  */
 
 import { Request, Response, NextFunction } from 'express'
-import UserModel from 'models/user'
-import WalletModel from 'models/wallet'
-import CardModel from 'models/card'
+import UserModel from '../models/user'
+import WalletModel from '../models/wallet'
+import CardModel from '../models/card'
 
 const security = require('../lib/insecurity')
 const utils = require('../lib/utils')

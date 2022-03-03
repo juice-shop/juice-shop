@@ -33,7 +33,7 @@ SecurityQuestionModel.init(
     }
   },
   {
-    tableName: 'SecurityQuestion',
+    tableName: 'SecurityQuestions',
     sequelize
   }
 )

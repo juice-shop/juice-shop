@@ -38,7 +38,7 @@ DeliveryModel.init(
     icon: DataTypes.STRING
   },
   {
-    tableName: 'Delivery',
+    tableName: 'Deliveries',
     sequelize
   }
 )

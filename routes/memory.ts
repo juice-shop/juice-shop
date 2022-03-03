@@ -4,8 +4,8 @@
  */
 
 import { Request, Response, NextFunction } from 'express'
-import MemoryModel from 'models/memory'
-import UserModel from 'models/user'
+import MemoryModel from '../models/memory'
+import UserModel from '../models/user'
 
 module.exports.addMemory = function addMemory () {
   return async (req: Request, res: Response, next: NextFunction) => {

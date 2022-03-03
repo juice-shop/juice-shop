@@ -34,7 +34,7 @@ BasketItemModel.init(
     quantity: DataTypes.INTEGER
   },
   {
-    tableName: 'BasketItem',
+    tableName: 'BasketItems',
     sequelize
   }
 )
