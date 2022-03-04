@@ -27,8 +27,14 @@ InferCreationAttributes<SecurityAnswerModel>
 }
 
 SecurityAnswerModel.init(
-  // @ts-expect-error
   {
+    UserId:{
+      type: DataTypes.INTEGER
+    },
+    SecurityQuestionId:{
+      type: DataTypes.INTEGER
+    },
+      
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,

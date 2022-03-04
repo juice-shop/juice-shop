@@ -7,7 +7,7 @@
 import packageJson from '../package.json'
 import { Op } from 'sequelize'
 import fs = require('fs')
-import ChallengeModel from 'models/challenge'
+import ChallengeModel from '../models/challenge'
 
 const colors = require('colors/safe')
 const notifications = require('../data/datacache').notifications

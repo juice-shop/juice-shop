@@ -24,8 +24,13 @@ InferCreationAttributes<BasketItemModel>
 }
 
 BasketItemModel.init(
-  // @ts-expect-error
   {
+    ProductId:{
+      type: DataTypes.INTEGER
+    },
+    BasketId:{
+      type: DataTypes.INTEGER
+    },
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,

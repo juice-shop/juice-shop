@@ -26,8 +26,10 @@ InferCreationAttributes<MemoryModel>
 }
 
 MemoryModel.init(
-  // @ts-expect-error
   {
+    UserId:{
+      type: DataTypes.INTEGER
+    },
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
