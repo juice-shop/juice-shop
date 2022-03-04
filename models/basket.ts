@@ -14,29 +14,29 @@ import {
   NonAttribute
 } from 'sequelize'
 import { sequelize } from './index'
-import BasketItemModel from './basketitem'
-import UserModel from './user'
 import ProductModel from './product'
 
 class BasketModel extends Model<
 InferAttributes<BasketModel>,
 InferCreationAttributes<BasketModel>
 > {
-  declare UserId: number
+  declare UserId: CreationOptional<number>
   declare id: CreationOptional<number>
   declare coupon: CreationOptional<string> | null
   declare Products?: NonAttribute<ProductModel[]>
 }
 
 BasketModel.init(
-  // @ts-expect-error
   {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    coupon: DataTypes.STRING
+    coupon: DataTypes.STRING,
+    UserId:{
+      type: DataTypes.INTEGER
+    }
   },
   {
     tableName: 'Baskets',

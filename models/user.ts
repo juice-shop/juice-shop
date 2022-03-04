@@ -119,6 +119,7 @@ UserModel.init(
   },
   {
     tableName: 'Users',
+    paranoid: true,
     sequelize
   }
 )
