@@ -9,9 +9,9 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional
+  CreationOptional,
+  Sequelize
 } from 'sequelize'
-import { sequelize } from './index'
 
 class SecurityQuestionModel extends Model<
 InferAttributes<SecurityQuestionModel>,
@@ -21,6 +21,7 @@ InferCreationAttributes<SecurityQuestionModel>
   declare question: string
 }
 
+const SecurityQuestionModelInit=(sequelize:Sequelize)=>{
 SecurityQuestionModel.init(
   {
     id: {
@@ -37,5 +38,6 @@ SecurityQuestionModel.init(
     sequelize
   }
 )
+}
 
-export default SecurityQuestionModel
+export {SecurityQuestionModel,SecurityQuestionModelInit}

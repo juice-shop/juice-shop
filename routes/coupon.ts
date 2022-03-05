@@ -4,7 +4,7 @@
  */
 
 import { Request, Response, NextFunction } from 'express'
-import BasketModel from '../models/basket'
+import {BasketModel} from '../models/basket'
 
 const security = require('../lib/insecurity')
 

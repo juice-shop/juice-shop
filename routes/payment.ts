@@ -4,7 +4,7 @@
  */
 
 import { Request, Response, NextFunction } from 'express'
-import CardModel from '../models/card'
+import {CardModel} from '../models/card'
 
 interface displayCard{
   UserId: number

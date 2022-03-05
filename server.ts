@@ -72,20 +72,20 @@ const logger = require('./lib/logger')
 const utils = require('./lib/utils')
 const security = require('./lib/insecurity')
 import {sequelize} from './models/index'
-import UserModel from './models/user'
-import QuantityModel from './models/quantity'
-import CardModel from './models/card'
-import PrivacyRequestModel from './models/privacyRequests'
-import AddressModel from './models/address'
-import SecurityAnswerModel from './models/securityAnswer'
-import SecurityQuestionModel from './models/securityQuestion'
-import RecycleModel from './models/recycle'
-import ComplaintModel from './models/complaint'
-import ChallengeModel from './models/challenge'
-import BasketItemModel from './models/basketitem'
-import FeedbackModel from './models/feedback'
-import ProductModel from './models/product'
-import WalletModel from './models/wallet'
+import {UserModel} from './models/user'
+import {QuantityModel} from './models/quantity'
+import {CardModel} from './models/card'
+import {PrivacyRequestModel} from './models/privacyRequests'
+import {AddressModel} from './models/address'
+import {SecurityAnswerModel} from './models/securityAnswer'
+import {SecurityQuestionModel} from './models/securityQuestion'
+import {RecycleModel} from './models/recycle'
+import {ComplaintModel} from './models/complaint'
+import {ChallengeModel} from './models/challenge'
+import {BasketItemModel} from './models/basketitem'
+import {FeedbackModel} from './models/feedback'
+import {ProductModel} from './models/product'
+import {WalletModel} from './models/wallet'
 const datacreator = require('./data/datacreator')
 const app = express()
 const server = require('http').Server(app)
@@ -429,7 +429,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   for (const { name, exclude,model } of autoModels) {
     const resource = finale.resource({
-      model: model,
+      model,
       endpoints: [`/api/${name}s`, `/api/${name}s/:id`],
       excludeAttributes: exclude
     })

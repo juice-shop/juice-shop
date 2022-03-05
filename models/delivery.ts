@@ -8,9 +8,9 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional
+  CreationOptional,
+  Sequelize
 } from 'sequelize'
-import { sequelize } from './index'
 
 class DeliveryModel extends Model<
 InferAttributes<DeliveryModel>,
@@ -24,6 +24,7 @@ InferCreationAttributes<DeliveryModel>
   declare icon: string
 }
 
+const DeliveryModelInit=(sequelize:Sequelize)=>{
 DeliveryModel.init(
   {
     id: {
@@ -42,5 +43,6 @@ DeliveryModel.init(
     sequelize
   }
 )
+}
 
-export default DeliveryModel
+export  {DeliveryModel,DeliveryModelInit}

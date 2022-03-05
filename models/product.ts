@@ -10,11 +10,10 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional
+  CreationOptional,
+  Sequelize
 } from 'sequelize'
-import { sequelize } from './index'
-import BasketItemModel from './basketitem'
-import BasketModel from './basket'
+import {BasketItemModel} from './basketitem'
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 
@@ -31,6 +30,7 @@ InferCreationAttributes<ProductModel>
   declare BasketItem?: CreationOptional<BasketItemModel> // Note this is optional since it's only populated when explicitly requested in code
 }
 
+const ProductModelInit=(sequelize:Sequelize)=>{
 ProductModel.init(
   {
     id: {
@@ -65,5 +65,6 @@ ProductModel.init(
     paranoid: true
   }
 )
+}
 
-export default ProductModel
+export {ProductModel,ProductModelInit}

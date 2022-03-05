@@ -10,10 +10,9 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional
+  CreationOptional,
+  Sequelize
 } from 'sequelize'
-import { sequelize } from './index'
-import UserModel from './user'
 
 class PrivacyRequestModel extends Model<
 InferAttributes<PrivacyRequestModel>,
@@ -23,7 +22,7 @@ InferCreationAttributes<PrivacyRequestModel>
   declare UserId: number
   declare deletionRequested: boolean
 }
-
+const PrivacyRequestModelInit=(sequelize:Sequelize)=>{
 PrivacyRequestModel.init(
   {
     id: {
@@ -44,5 +43,6 @@ PrivacyRequestModel.init(
     sequelize
   }
 )
+}
 
-export default PrivacyRequestModel
+export {PrivacyRequestModel,PrivacyRequestModelInit}

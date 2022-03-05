@@ -5,8 +5,8 @@
 
 import config = require('config')
 import { Request, Response } from 'express'
-import BasketModel from '../models/basket'
-import UserModel from '../models/user'
+import {BasketModel} from '../models/basket'
+import {UserModel} from '../models/user'
 
 const security = require('../lib/insecurity')
 const otplib = require('otplib')

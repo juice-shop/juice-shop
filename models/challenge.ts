@@ -9,9 +9,9 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional
+  CreationOptional,
+  Sequelize
 } from 'sequelize'
-import { sequelize } from './index'
 class ChallengeModel extends Model<
 InferAttributes<ChallengeModel>,
 InferCreationAttributes<ChallengeModel>
@@ -32,6 +32,7 @@ InferCreationAttributes<ChallengeModel>
   declare codingChallengeStatus: CreationOptional<number>
 }
 
+const ChallengeModelInit=(sequelize:Sequelize)=>{
 ChallengeModel.init(
   {
     id: {
@@ -58,5 +59,6 @@ ChallengeModel.init(
     sequelize
   }
 )
+}
 
-export default ChallengeModel
+export {ChallengeModel,ChallengeModelInit}

@@ -9,10 +9,9 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional
+  CreationOptional,
+  Sequelize
 } from 'sequelize'
-import { sequelize } from './index'
-import UserModel from './user'
 
 class WalletModel extends Model<
 InferAttributes<WalletModel>,
@@ -23,6 +22,7 @@ InferCreationAttributes<WalletModel>
   declare balance: CreationOptional<number>
 }
 
+const WalletModelInit=(sequelize:Sequelize)=>{
 WalletModel.init(
   {
     UserId:{
@@ -46,5 +46,6 @@ WalletModel.init(
     sequelize
   }
 )
+}
 
-export default WalletModel
+export {WalletModel, WalletModelInit}

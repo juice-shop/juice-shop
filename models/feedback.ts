@@ -11,10 +11,9 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional
+  CreationOptional,
+  Sequelize
 } from 'sequelize'
-import { sequelize } from './index'
-import UserModel from './user'
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 
@@ -27,7 +26,7 @@ InferCreationAttributes<FeedbackModel>
   declare comment: string
   declare rating: number
 }
-
+const FeedbackModelInit=(sequelize:Sequelize)=>{
 FeedbackModel.init(
   {
     UserId:{
@@ -72,5 +71,6 @@ FeedbackModel.init(
     sequelize
   }
 )
+}
 
-export default FeedbackModel
+export {FeedbackModel,FeedbackModelInit}

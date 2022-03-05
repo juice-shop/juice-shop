@@ -10,10 +10,9 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional
+  CreationOptional,
+  Sequelize
 } from 'sequelize'
-import { sequelize } from './index'
-import UserModel from './user'
 
 class MemoryModel extends Model<
 InferAttributes<MemoryModel>,
@@ -25,6 +24,7 @@ InferCreationAttributes<MemoryModel>
   declare imagePath: string
 }
 
+const MemoryModelInit=(sequelize:Sequelize)=>{
 MemoryModel.init(
   {
     UserId:{
@@ -43,5 +43,6 @@ MemoryModel.init(
     sequelize
   }
 )
+}
 
-export default MemoryModel
+export {MemoryModel,MemoryModelInit}

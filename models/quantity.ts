@@ -10,10 +10,9 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional
+  CreationOptional,
+  Sequelize
 } from 'sequelize'
-import { sequelize } from './index'
-import ProductModel from './product'
 
 class QuantityModel extends Model<
 InferAttributes<QuantityModel>,
@@ -25,6 +24,7 @@ InferCreationAttributes<QuantityModel>
   declare limitPerUser: number | null
 }
 
+const QuantityModelInit=(sequelize:Sequelize)=>{
 QuantityModel.init(
   // @ts-expect-error
   {
@@ -52,5 +52,6 @@ QuantityModel.init(
     sequelize
   }
 )
+}
 
-export default QuantityModel
+export {QuantityModel,QuantityModelInit}

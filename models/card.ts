@@ -9,11 +9,9 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional
+  CreationOptional,
+  Sequelize
 } from 'sequelize'
-import { sequelize } from './index'
-import UserModel from './user'
-
 class CardModel extends Model<
 InferAttributes<CardModel>,
 InferCreationAttributes<CardModel>
@@ -26,6 +24,7 @@ InferCreationAttributes<CardModel>
   declare expYear: number
 }
 
+const CardModelInit=(sequelize:Sequelize)=>{
 CardModel.init(
   {
     UserId:{
@@ -67,5 +66,6 @@ CardModel.init(
     sequelize
   }
 )
+}
 
-export default CardModel
+export {CardModel,CardModelInit}

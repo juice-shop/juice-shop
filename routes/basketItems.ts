@@ -4,8 +4,8 @@
  */
 
 import { Request, Response, NextFunction } from 'express'
-import BasketItemModel from '../models/basketitem'
-import QuantityModel from '../models/quantity'
+import {BasketItemModel} from '../models/basketitem'
+import {QuantityModel} from '../models/quantity'
 
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges

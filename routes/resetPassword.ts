@@ -6,8 +6,8 @@
 import config = require('config')
 import { Request, Response, NextFunction } from 'express'
 import { Memory } from '../data/types'
-import SecurityAnswerModel from '../models/securityAnswer'
-import UserModel from '../models/user'
+import {SecurityAnswerModel} from '../models/securityAnswer'
+import {UserModel} from '../models/user'
 
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
