@@ -11,10 +11,10 @@ import {
   InferCreationAttributes,
   DataTypes,
   CreationOptional,
-  NonAttribute
+  NonAttribute,
+  Sequelize
 } from 'sequelize'
-import { sequelize } from './index'
-import ProductModel from './product'
+import {ProductModel} from './product'
 
 class BasketModel extends Model<
 InferAttributes<BasketModel>,
@@ -26,6 +26,7 @@ InferCreationAttributes<BasketModel>
   declare Products?: NonAttribute<ProductModel[]>
 }
 
+const BasketModelInit=(sequelize:Sequelize)=>{
 BasketModel.init(
   {
     id: {
@@ -43,5 +44,6 @@ BasketModel.init(
     sequelize
   }
 )
+}
 
-export default BasketModel
+export {BasketModel,BasketModelInit}

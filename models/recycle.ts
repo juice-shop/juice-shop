@@ -10,11 +10,9 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional
+  CreationOptional,
+  Sequelize
 } from 'sequelize'
-import AddressModel from './address'
-import { sequelize } from './index'
-import UserModel from './user'
 
 class RecycleModel extends Model<
 InferAttributes<RecycleModel>,
@@ -28,6 +26,7 @@ InferCreationAttributes<RecycleModel>
   declare date: string
 }
 
+const RecycleModelInit=(sequelize:Sequelize)=>{
 RecycleModel.init(
   {
     UserId:{
@@ -51,5 +50,6 @@ RecycleModel.init(
     sequelize
   }
 )
+}
 
-export default RecycleModel
+export {RecycleModel,RecycleModelInit}

@@ -8,10 +8,9 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional
+  CreationOptional,
+  Sequelize
 } from 'sequelize'
-import { sequelize } from './index'
-import UserModel from './user'
 
 class ImageCaptchaModel extends Model<
 InferAttributes<ImageCaptchaModel>,
@@ -24,6 +23,7 @@ InferCreationAttributes<ImageCaptchaModel>
   declare createdAt: CreationOptional<Date>
 }
 
+const ImageCaptchaModelInit=(sequelize:Sequelize)=>{
 ImageCaptchaModel.init(
   {
     id: {
@@ -41,5 +41,6 @@ ImageCaptchaModel.init(
     sequelize
   }
 )
+}
 
-export default ImageCaptchaModel
+export {ImageCaptchaModel,ImageCaptchaModelInit}

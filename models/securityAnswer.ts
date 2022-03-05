@@ -9,11 +9,9 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional
+  CreationOptional,
+  Sequelize
 } from 'sequelize'
-import { sequelize } from './index'
-import SecurityQuestionModel from './securityQuestion'
-import UserModel from './user'
 const security = require('../lib/insecurity')
 
 class SecurityAnswerModel extends Model<
@@ -26,6 +24,7 @@ InferCreationAttributes<SecurityAnswerModel>
   declare answer: string
 }
 
+const SecurityAnswerModelInit=(sequelize:Sequelize)=>{
 SecurityAnswerModel.init(
   {
     UserId:{
@@ -52,5 +51,6 @@ SecurityAnswerModel.init(
     sequelize
   }
 )
+}
 
-export default SecurityAnswerModel
+export {SecurityAnswerModel,SecurityAnswerModelInit}

@@ -8,10 +8,9 @@ import {
   InferAttributes,
   InferCreationAttributes,
   Model,
-  DataTypes
+  DataTypes,
+  Sequelize
 } from 'sequelize'
-import { sequelize } from './index'
-import UserModel from './user'
 /* jslint node: true */
 class AddressModel extends Model<
 InferAttributes<AddressModel>,
@@ -28,6 +27,7 @@ InferCreationAttributes<AddressModel>
   declare country: string
 }
 
+const AddressModelInit=(sequelize:Sequelize)=>{
 AddressModel.init(
   {
     UserId:{
@@ -70,5 +70,6 @@ AddressModel.init(
     sequelize
   }
 )
+}
 
-export default AddressModel
+export {AddressModel, AddressModelInit}

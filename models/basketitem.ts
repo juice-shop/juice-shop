@@ -9,9 +9,9 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional
+  CreationOptional,
+  Sequelize
 } from 'sequelize'
-import { sequelize } from './index'
 
 class BasketItemModel extends Model<
 InferAttributes<BasketItemModel>,
@@ -23,6 +23,7 @@ InferCreationAttributes<BasketItemModel>
   declare quantity: number
 }
 
+const BasketItemModelInit=(sequelize:Sequelize)=>{
 BasketItemModel.init(
   {
     ProductId:{
@@ -43,5 +44,6 @@ BasketItemModel.init(
     sequelize
   }
 )
+}
 
-export default BasketItemModel
+export {BasketItemModel,BasketItemModelInit}

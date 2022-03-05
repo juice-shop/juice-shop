@@ -5,13 +5,13 @@
 
 /* jslint node: true */
 import config = require('config')
-import { sequelize } from './index'
 import {
   InferAttributes,
   InferCreationAttributes,
   Model,
   DataTypes,
-  CreationOptional
+  CreationOptional,
+  Sequelize
 } from 'sequelize'
 const security = require('../lib/insecurity')
 const utils = require('../lib/utils')
@@ -33,6 +33,7 @@ InferCreationAttributes<UserModel>
   declare isActive: CreationOptional<boolean>
 }
 
+const UserModelInit=(sequelize:Sequelize)=>{
 UserModel.init(
   {
     id: {
@@ -137,5 +138,6 @@ UserModel.addHook('afterValidate', (user: UserModel) => {
     )
   }
 })
+}
 
-export default UserModel
+export {UserModel,UserModelInit}

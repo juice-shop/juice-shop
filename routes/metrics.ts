@@ -5,11 +5,11 @@
 
 import { retrieveChallengesWithCodeSnippet } from './vulnCodeSnippet'
 import { Request, Response, NextFunction } from 'express'
-import ChallengeModel from '../models/challenge'
-import UserModel from '../models/user'
-import WalletModel from '../models/wallet'
-import FeedbackModel from '../models/feedback'
-import ComplaintModel from '../models/complaint'
+import {ChallengeModel} from '../models/challenge'
+import {UserModel} from '../models/user'
+import {WalletModel} from '../models/wallet'
+import {FeedbackModel} from '../models/feedback'
+import {ComplaintModel} from '../models/complaint'
 import { Op } from 'sequelize'
 
 const Prometheus = require('prom-client')

@@ -4,7 +4,7 @@
  */
 
 import { Request, Response, NextFunction } from 'express'
-import UserModel from '../models/user'
+import {UserModel} from '../models/user'
 
 const security = require('../lib/insecurity')
 const utils = require('../lib/utils')

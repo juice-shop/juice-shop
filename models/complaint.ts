@@ -10,10 +10,9 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  CreationOptional
+  CreationOptional,
+  Sequelize
 } from 'sequelize'
-import { sequelize } from './index'
-import UserModel from './user'
 
 class ComplaintModel extends Model<
 InferAttributes<ComplaintModel>,
@@ -25,6 +24,7 @@ InferCreationAttributes<ComplaintModel>
   declare file: CreationOptional<string>
 }
 
+const ComplaintModelInit=(sequelize:Sequelize)=>{
 ComplaintModel.init(
   {
     UserId:{
@@ -43,5 +43,6 @@ ComplaintModel.init(
     sequelize
   }
 )
+}
 
-export default ComplaintModel
+export {ComplaintModel,ComplaintModelInit}
