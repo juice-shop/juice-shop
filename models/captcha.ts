@@ -25,8 +25,6 @@ CaptchaModel.init(
   {
     captchaId: {
       type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
     },
     captcha: DataTypes.STRING,
     answer: DataTypes.STRING

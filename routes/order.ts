@@ -57,7 +57,7 @@ module.exports = function placeOrder () {
           let totalPrice = 0
           const basketProducts: Product[] = []
           let totalPoints = 0
-          basket.Products?.forEach(({ BasketItem, price, deluxePrice, name, id }) => {
+          basket.ProductModels?.forEach(({ BasketItem, price, deluxePrice, name, id }) => {
             if (BasketItem) {
               utils.solveIf(challenges.christmasSpecialChallenge, () => { return BasketItem.ProductId === products.christmasSpecial.id })
 

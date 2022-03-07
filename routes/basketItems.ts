@@ -11,9 +11,13 @@ const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const security = require('../lib/insecurity')
 
+interface RequestWithRawBody extends Request {
+  rawBody: string
+}
+
 module.exports.addBasketItem = function addBasketItem () {
-  return (req: Request, res: Response, next: NextFunction) => {
-    const result = utils.parseJsonCustom(req.body) // Discuss this change once
+  return (req: RequestWithRawBody, res: Response, next: NextFunction) => {
+    const result = utils.parseJsonCustom(req.rawBody)
     const productIds = []
     const basketIds = []
     const quantities = []
@@ -40,7 +44,7 @@ module.exports.addBasketItem = function addBasketItem () {
       utils.solveIf(challenges.basketManipulateChallenge, () => { return user && basketItem.BasketId && basketItem.BasketId !== 'undefined' && user.bid != basketItem.BasketId }) // eslint-disable-line eqeqeq
 
       const basketItemInstance = BasketItemModel.build(basketItem)
-      basketItemInstance.save().then((addedBasketItem: BasketItemModel) => {
+      basketItemInstance.save().then((addedBasketItem: BasketItemModel) => {        
         res.json({ status: 'success', data: addedBasketItem })
       }).catch((error: Error) => {
         next(error)

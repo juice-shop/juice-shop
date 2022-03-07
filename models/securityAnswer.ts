@@ -18,8 +18,8 @@ class SecurityAnswerModel extends Model<
 InferAttributes<SecurityAnswerModel>,
 InferCreationAttributes<SecurityAnswerModel>
 > {
-  declare SecurityQuestionId: number
-  declare UserId: number
+  declare SecurityQuestionModelId: number
+  declare UserModelId: number
   declare id: CreationOptional<number>
   declare answer: string
 }
@@ -27,10 +27,11 @@ InferCreationAttributes<SecurityAnswerModel>
 const SecurityAnswerModelInit=(sequelize:Sequelize)=>{
 SecurityAnswerModel.init(
   {
-    UserId:{
-      type: DataTypes.INTEGER
+    UserModelId:{
+      type: DataTypes.INTEGER,
+      unique: true
     },
-    SecurityQuestionId:{
+    SecurityQuestionModelId:{
       type: DataTypes.INTEGER
     },
       
