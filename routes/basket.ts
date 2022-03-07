@@ -21,11 +21,13 @@ module.exports = function retrieveBasket () {
           const user = security.authenticatedUsers.from(req)
           return user && id && id !== 'undefined' && id !== 'null' && id !== 'NaN' && user.bid && user.bid != id // eslint-disable-line eqeqeq
         })
-        if (basket?.Products && basket.Products.length > 0) {
-          for (let i = 0; i < basket.Products.length; i++) {
-            basket.Products[i].name = req.__(basket.Products[i].name)
+        if (basket?.ProductModels && basket.ProductModels.length > 0) {
+          for (let i = 0; i < basket.ProductModels.length; i++) {
+            basket.ProductModels[i].name = req.__(basket.ProductModels[i].name)
           }
         }
+        // TODO: This works but in response it sends [ProductModels] field but the API and tests
+        // expect [Products] named field
         res.json(utils.queryResultToJson(basket))
       }).catch((error: Error) => {
         next(error)

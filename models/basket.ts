@@ -20,10 +20,10 @@ class BasketModel extends Model<
 InferAttributes<BasketModel>,
 InferCreationAttributes<BasketModel>
 > {
-  declare UserId: CreationOptional<number>
+  declare UserModelId: CreationOptional<number>
   declare id: CreationOptional<number>
   declare coupon: CreationOptional<string> | null
-  declare Products?: NonAttribute<ProductModel[]>
+  declare ProductModels?: NonAttribute<ProductModel[]>
 }
 
 const BasketModelInit=(sequelize:Sequelize)=>{
@@ -35,7 +35,7 @@ BasketModel.init(
       autoIncrement: true
     },
     coupon: DataTypes.STRING,
-    UserId:{
+    UserModelId:{
       type: DataTypes.INTEGER
     }
   },

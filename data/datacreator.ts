@@ -401,7 +401,7 @@ async function createBaskets () {
   return await Promise.all(
     baskets.map(async basket => {
       return await BasketModel.create({
-        UserId: basket.UserId
+        UserModelId: basket.UserId
       }).catch((err: unknown) => {
         logger.error(`Could not insert Basket for UserId ${basket.UserId}: ${utils.getErrorMessage(err)}`)
       })
@@ -601,7 +601,7 @@ async function createSecurityQuestions () {
 }
 
 async function createSecurityAnswer (UserId: number, SecurityQuestionId: number, answer: string) {
-  return await SecurityAnswerModel.create({ SecurityQuestionId, UserId, answer }).catch((err: unknown) => {
+  return await SecurityAnswerModel.create({ SecurityQuestionModelId:SecurityQuestionId, UserModelId:UserId, answer }).catch((err: unknown) => {
     logger.error(`Could not insert SecurityAnswer ${answer} mapped to UserId ${UserId}: ${utils.getErrorMessage(err)}`)
   })
 }

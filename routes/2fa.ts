@@ -43,7 +43,7 @@ async function verify (req: Request, res: Response) {
     }
     utils.solveIf(challenges.twoFactorAuthUnsafeSecretStorageChallenge, () => { return user.email === 'wurstbrot@' + config.get('application.domain') })
 
-    const [basket] = await BasketModel.findOrCreate({ where: { UserId: userId } })
+    const [basket] = await BasketModel.findOrCreate({ where: { UserModelId: userId } })
 
     const token = security.authorize(plainUser)
     plainUser.bid = basket.id // keep track of original basket for challenge solution check

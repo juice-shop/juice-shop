@@ -33,7 +33,7 @@ router.get('/', async (req: Request, res: Response, next: NextFunction): Promise
     if (!answer) {
       throw new Error('No answer found!')
     }
-    const question = await SecurityQuestionModel.findByPk(answer.SecurityQuestionId)
+    const question = await SecurityQuestionModel.findByPk(answer.SecurityQuestionModelId)
     if (!question) {
       throw new Error('No question found!')
     }

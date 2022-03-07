@@ -19,7 +19,7 @@ const config = require('config')
 module.exports = function login () {
   function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {
     verifyPostLoginChallenges(user) // vuln-code-snippet hide-line
-    BasketModel.findOrCreate({ where: { UserId: user.data.id } })
+    BasketModel.findOrCreate({ where: { UserModelId: user.data.id } })
       .then(([basket]: [BasketModel, boolean]) => {
         const token = security.authorize(user)
         user.bid = basket.id // keep track of original basket

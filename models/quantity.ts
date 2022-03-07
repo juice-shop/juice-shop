@@ -26,8 +26,10 @@ InferCreationAttributes<QuantityModel>
 
 const QuantityModelInit=(sequelize:Sequelize)=>{
 QuantityModel.init(
-  // @ts-expect-error
   {
+    ProductId:{
+      type: DataTypes.INTEGER
+    },
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,

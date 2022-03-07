@@ -14,12 +14,12 @@ const vm = require('vm')
 const unzipper = require('unzipper')
 const path = require('path')
 
-function matchesSystemIniFile (text) {
+function matchesSystemIniFile (text: string) {
   const match = text.match(/(; for 16-bit app support|drivers|mci|driver32|386enh|keyboard|boot|display)/gi)
   return match && match.length >= 2
 }
 
-function matchesEtcPasswdFile (text) {
+function matchesEtcPasswdFile (text: string) {
   const match = text.match(/\w*:\w*:\d*:\d*:\w*:.*/gi)
   return match && match.length >= 2
 }
@@ -52,7 +52,7 @@ function handleZipFileUpload ({ file }: Request, res: Response, next: NextFuncti
                 } else {
                   entry.autodrain()
                 }
-              }).on('error', function (err) { next(err) })
+              }).on('error', function (err: unknown) { next(err) })
           })
         })
       })
