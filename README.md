@@ -32,7 +32,7 @@ applications!
 
 ![Juice Shop Screenshot Slideshow](screenshots/slideshow.gif)
 
-This is a minor change.
+This is a minor change. This is another minor change for the pull request check.
 
 For a detailed introduction, full list of features and architecture overview please visit the official project page:
 <https://owasp-juice.shop>
