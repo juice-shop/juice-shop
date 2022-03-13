@@ -4,8 +4,8 @@
  */
 
 import { Request, Response, NextFunction } from 'express'
-import {MemoryModel} from '../models/memory'
-import {ProductModel} from '../models/product'
+import { MemoryModel } from '../models/memory'
+import { ProductModel } from '../models/product'
 
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')

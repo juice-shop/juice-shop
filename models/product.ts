@@ -13,7 +13,7 @@ import {
   CreationOptional,
   Sequelize
 } from 'sequelize'
-import {BasketItemModel} from './basketitem'
+import { BasketItemModel } from './basketitem'
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 
@@ -30,41 +30,41 @@ InferCreationAttributes<ProductModel>
   declare BasketItem?: CreationOptional<BasketItemModel> // Note this is optional since it's only populated when explicitly requested in code
 }
 
-const ProductModelInit=(sequelize:Sequelize)=>{
-ProductModel.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    name: DataTypes.STRING,
-    description: {
-      type: DataTypes.STRING,
-      set (description: string) {
-        if (!utils.disableOnContainerEnv()) {
-          utils.solveIf(challenges.restfulXssChallenge, () => {
-            return utils.contains(
-              description,
-              '<iframe src="javascript:alert(`xss`)">'
-            )
-          })
-        } else {
-          description = security.sanitizeSecure(description)
+const ProductModelInit = (sequelize: Sequelize) => {
+  ProductModel.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      name: DataTypes.STRING,
+      description: {
+        type: DataTypes.STRING,
+        set (description: string) {
+          if (!utils.disableOnContainerEnv()) {
+            utils.solveIf(challenges.restfulXssChallenge, () => {
+              return utils.contains(
+                description,
+                '<iframe src="javascript:alert(`xss`)">'
+              )
+            })
+          } else {
+            description = security.sanitizeSecure(description)
+          }
+          this.setDataValue('description', description)
         }
-        this.setDataValue('description', description)
-      }
+      },
+      price: DataTypes.DECIMAL,
+      deluxePrice: DataTypes.DECIMAL,
+      image: DataTypes.STRING
     },
-    price: DataTypes.DECIMAL,
-    deluxePrice: DataTypes.DECIMAL,
-    image: DataTypes.STRING
-  },
-  {
-    tableName: 'Products',
-    sequelize,
-    paranoid: true
-  }
-)
+    {
+      tableName: 'Products',
+      sequelize,
+      paranoid: true
+    }
+  )
 }
 
-export {ProductModel,ProductModelInit}
+export { ProductModel, ProductModelInit }

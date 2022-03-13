@@ -23,27 +23,27 @@ InferCreationAttributes<BasketItemModel>
   declare quantity: number
 }
 
-const BasketItemModelInit=(sequelize:Sequelize)=>{
-BasketItemModel.init(
-  {
-    ProductId:{
-      type: DataTypes.INTEGER
+const BasketItemModelInit = (sequelize: Sequelize) => {
+  BasketItemModel.init(
+    {
+      ProductId: {
+        type: DataTypes.INTEGER
+      },
+      BasketId: {
+        type: DataTypes.INTEGER
+      },
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      quantity: DataTypes.INTEGER
     },
-    BasketId:{
-      type: DataTypes.INTEGER
-    },
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    quantity: DataTypes.INTEGER
-  },
-  {
-    tableName: 'BasketItems',
-    sequelize
-  }
-)
+    {
+      tableName: 'BasketItems',
+      sequelize
+    }
+  )
 }
 
-export {BasketItemModel,BasketItemModelInit}
+export { BasketItemModel, BasketItemModelInit }

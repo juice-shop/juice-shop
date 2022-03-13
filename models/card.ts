@@ -24,48 +24,48 @@ InferCreationAttributes<CardModel>
   declare expYear: number
 }
 
-const CardModelInit=(sequelize:Sequelize)=>{
-CardModel.init(
-  {
-    UserId:{
-      type: DataTypes.INTEGER
-    },
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    fullName: DataTypes.STRING,
-    cardNum: {
-      type: DataTypes.INTEGER,
-      validate: {
-        isInt: true,
-        min: 1000000000000000,
-        max: 9999999999999998
+const CardModelInit = (sequelize: Sequelize) => {
+  CardModel.init(
+    {
+      UserId: {
+        type: DataTypes.INTEGER
+      },
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      fullName: DataTypes.STRING,
+      cardNum: {
+        type: DataTypes.INTEGER,
+        validate: {
+          isInt: true,
+          min: 1000000000000000,
+          max: 9999999999999998
+        }
+      },
+      expMonth: {
+        type: DataTypes.INTEGER,
+        validate: {
+          isInt: true,
+          min: 1,
+          max: 12
+        }
+      },
+      expYear: {
+        type: DataTypes.INTEGER,
+        validate: {
+          isInt: true,
+          min: 2080,
+          max: 2099
+        }
       }
     },
-    expMonth: {
-      type: DataTypes.INTEGER,
-      validate: {
-        isInt: true,
-        min: 1,
-        max: 12
-      }
-    },
-    expYear: {
-      type: DataTypes.INTEGER,
-      validate: {
-        isInt: true,
-        min: 2080,
-        max: 2099
-      }
+    {
+      tableName: 'Cards',
+      sequelize
     }
-  },
-  {
-    tableName: 'Cards',
-    sequelize
-  }
-)
+  )
 }
 
-export {CardModel,CardModelInit}
+export { CardModel, CardModelInit }

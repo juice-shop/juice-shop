@@ -5,11 +5,11 @@
 
 import { retrieveChallengesWithCodeSnippet } from './vulnCodeSnippet'
 import { Request, Response, NextFunction } from 'express'
-import {ChallengeModel} from '../models/challenge'
-import {UserModel} from '../models/user'
-import {WalletModel} from '../models/wallet'
-import {FeedbackModel} from '../models/feedback'
-import {ComplaintModel} from '../models/complaint'
+import { ChallengeModel } from '../models/challenge'
+import { UserModel } from '../models/user'
+import { WalletModel } from '../models/wallet'
+import { FeedbackModel } from '../models/feedback'
+import { ComplaintModel } from '../models/complaint'
 import { Op } from 'sequelize'
 
 const Prometheus = require('prom-client')
@@ -196,27 +196,27 @@ exports.observeMetrics = function observeMetrics () {
       interactionsMetrics.set({ type: 'review' }, reviewCount)
     })
 
-    UserModel.count({ where: { role: { [Op.eq]: 'customer' } } }).then((count: number) => {
+    void UserModel.count({ where: { role: { [Op.eq]: 'customer' } } }).then((count: number) => {
       userMetrics.set({ type: 'standard' }, count)
     })
 
-    UserModel.count({ where: { role: { [Op.eq]: 'deluxe' } } }).then((count: number) => {
+    void UserModel.count({ where: { role: { [Op.eq]: 'deluxe' } } }).then((count: number) => {
       userMetrics.set({ type: 'deluxe' }, count)
     })
 
-    UserModel.count().then((count: Number) => {
+    void UserModel.count().then((count: Number) => {
       userTotalMetrics.set(count)
     })
 
-    WalletModel.sum('balance').then((totalBalance: Number) => {
+    void WalletModel.sum('balance').then((totalBalance: Number) => {
       walletMetrics.set(totalBalance)
     })
 
-    FeedbackModel.count().then((count: number) => {
+    void FeedbackModel.count().then((count: number) => {
       interactionsMetrics.set({ type: 'feedback' }, count)
     })
 
-    ComplaintModel.count().then((count: number) => {
+    void ComplaintModel.count().then((count: number) => {
       interactionsMetrics.set({ type: 'complaint' }, count)
     })
   }, 5000)

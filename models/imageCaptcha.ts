@@ -23,24 +23,24 @@ InferCreationAttributes<ImageCaptchaModel>
   declare createdAt: CreationOptional<Date>
 }
 
-const ImageCaptchaModelInit=(sequelize:Sequelize)=>{
-ImageCaptchaModel.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
+const ImageCaptchaModelInit = (sequelize: Sequelize) => {
+  ImageCaptchaModel.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      image: DataTypes.STRING,
+      answer: DataTypes.STRING,
+      UserId: { type: DataTypes.INTEGER },
+      createdAt: DataTypes.DATE
     },
-    image: DataTypes.STRING,
-    answer: DataTypes.STRING,
-    UserId: { type: DataTypes.INTEGER },
-    createdAt: DataTypes.DATE
-  },
-  {
-    tableName: 'ImageCaptchas',
-    sequelize
-  }
-)
+    {
+      tableName: 'ImageCaptchas',
+      sequelize
+    }
+  )
 }
 
-export {ImageCaptchaModel,ImageCaptchaModelInit}
+export { ImageCaptchaModel, ImageCaptchaModelInit }

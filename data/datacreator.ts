@@ -4,22 +4,22 @@
  */
 
 /* jslint node: true */
-import {AddressModel} from '../models/address'
-import {BasketModel} from '../models/basket'
-import {BasketItemModel} from '../models/basketitem'
-import {CardModel} from '../models/card'
-import {ChallengeModel} from '../models/challenge'
-import {ComplaintModel} from '../models/complaint'
-import {DeliveryModel} from '../models/delivery'
-import {FeedbackModel} from '../models/feedback'
-import {MemoryModel} from '../models/memory'
-import {ProductModel} from '../models/product'
-import {QuantityModel} from '../models/quantity'
-import {RecycleModel} from '../models/recycle'
-import {SecurityAnswerModel} from '../models/securityAnswer'
-import {SecurityQuestionModel} from '../models/securityQuestion'
-import {UserModel} from '../models/user'
-import {WalletModel} from '../models/wallet'
+import { AddressModel } from '../models/address'
+import { BasketModel } from '../models/basket'
+import { BasketItemModel } from '../models/basketitem'
+import { CardModel } from '../models/card'
+import { ChallengeModel } from '../models/challenge'
+import { ComplaintModel } from '../models/complaint'
+import { DeliveryModel } from '../models/delivery'
+import { FeedbackModel } from '../models/feedback'
+import { MemoryModel } from '../models/memory'
+import { ProductModel } from '../models/product'
+import { QuantityModel } from '../models/quantity'
+import { RecycleModel } from '../models/recycle'
+import { SecurityAnswerModel } from '../models/securityAnswer'
+import { SecurityQuestionModel } from '../models/securityQuestion'
+import { UserModel } from '../models/user'
+import { WalletModel } from '../models/wallet'
 import { Address, Card, Challenge, Delivery, Memory, Product, SecurityQuestion, User } from './types'
 const datacache = require('./datacache')
 const config = require('config')
@@ -601,7 +601,7 @@ async function createSecurityQuestions () {
 }
 
 async function createSecurityAnswer (UserId: number, SecurityQuestionId: number, answer: string) {
-  return await SecurityAnswerModel.create({ SecurityQuestionModelId:SecurityQuestionId, UserModelId:UserId, answer }).catch((err: unknown) => {
+  return await SecurityAnswerModel.create({ SecurityQuestionModelId: SecurityQuestionId, UserModelId: UserId, answer }).catch((err: unknown) => {
     logger.error(`Could not insert SecurityAnswer ${answer} mapped to UserId ${UserId}: ${utils.getErrorMessage(err)}`)
   })
 }

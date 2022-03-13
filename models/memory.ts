@@ -24,25 +24,25 @@ InferCreationAttributes<MemoryModel>
   declare imagePath: string
 }
 
-const MemoryModelInit=(sequelize:Sequelize)=>{
-MemoryModel.init(
-  {
-    UserId:{
-      type: DataTypes.INTEGER
+const MemoryModelInit = (sequelize: Sequelize) => {
+  MemoryModel.init(
+    {
+      UserId: {
+        type: DataTypes.INTEGER
+      },
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      caption: DataTypes.STRING,
+      imagePath: DataTypes.STRING
     },
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    caption: DataTypes.STRING,
-    imagePath: DataTypes.STRING
-  },
-  {
-    tableName: 'Memories',
-    sequelize
-  }
-)
+    {
+      tableName: 'Memories',
+      sequelize
+    }
+  )
 }
 
-export {MemoryModel,MemoryModelInit}
+export { MemoryModel, MemoryModelInit }

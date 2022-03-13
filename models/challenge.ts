@@ -32,33 +32,33 @@ InferCreationAttributes<ChallengeModel>
   declare codingChallengeStatus: CreationOptional<number>
 }
 
-const ChallengeModelInit=(sequelize:Sequelize)=>{
-ChallengeModel.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
+const ChallengeModelInit = (sequelize: Sequelize) => {
+  ChallengeModel.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      key: DataTypes.STRING,
+      name: DataTypes.STRING,
+      category: DataTypes.STRING,
+      tags: DataTypes.STRING,
+      description: DataTypes.STRING,
+      difficulty: DataTypes.INTEGER,
+      hint: DataTypes.STRING,
+      hintUrl: DataTypes.STRING,
+      mitigationUrl: DataTypes.STRING,
+      solved: DataTypes.BOOLEAN,
+      disabledEnv: DataTypes.STRING,
+      tutorialOrder: DataTypes.NUMBER,
+      codingChallengeStatus: DataTypes.NUMBER
     },
-    key: DataTypes.STRING,
-    name: DataTypes.STRING,
-    category: DataTypes.STRING,
-    tags: DataTypes.STRING,
-    description: DataTypes.STRING,
-    difficulty: DataTypes.INTEGER,
-    hint: DataTypes.STRING,
-    hintUrl: DataTypes.STRING,
-    mitigationUrl: DataTypes.STRING,
-    solved: DataTypes.BOOLEAN,
-    disabledEnv: DataTypes.STRING,
-    tutorialOrder: DataTypes.NUMBER,
-    codingChallengeStatus: DataTypes.NUMBER
-  },
-  {
-    tableName: 'Challenges',
-    sequelize
-  }
-)
+    {
+      tableName: 'Challenges',
+      sequelize
+    }
+  )
 }
 
-export {ChallengeModel,ChallengeModelInit}
+export { ChallengeModel, ChallengeModelInit }

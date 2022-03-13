@@ -4,7 +4,7 @@
  */
 
 import { Request, Response } from 'express'
-import {RecycleModel} from '../models/recycle'
+import { RecycleModel } from '../models/recycle'
 
 const utils = require('../lib/utils')
 

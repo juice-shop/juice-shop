@@ -27,49 +27,49 @@ InferCreationAttributes<AddressModel>
   declare country: string
 }
 
-const AddressModelInit=(sequelize:Sequelize)=>{
-AddressModel.init(
-  {
-    UserId:{
-      type: DataTypes.INTEGER
+const AddressModelInit = (sequelize: Sequelize) => {
+  AddressModel.init(
+    {
+      UserId: {
+        type: DataTypes.INTEGER
+      },
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      fullName: {
+        type: DataTypes.STRING
+      },
+      mobileNum: {
+        type: DataTypes.INTEGER,
+        validate: {
+          isInt: true,
+          min: 1000000,
+          max: 9999999999
+        }
+      },
+      zipCode: {
+        type: DataTypes.STRING,
+        validate: {
+          len: [1, 8]
+        }
+      },
+      streetAddress: {
+        type: DataTypes.STRING,
+        validate: {
+          len: [1, 160]
+        }
+      },
+      city: DataTypes.STRING,
+      state: DataTypes.STRING,
+      country: DataTypes.STRING
     },
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    fullName: {
-      type: DataTypes.STRING
-    },
-    mobileNum: {
-      type: DataTypes.INTEGER,
-      validate: {
-        isInt: true,
-        min: 1000000,
-        max: 9999999999
-      }
-    },
-    zipCode: {
-      type: DataTypes.STRING,
-      validate: {
-        len: [1, 8]
-      }
-    },
-    streetAddress: {
-      type: DataTypes.STRING,
-      validate: {
-        len: [1, 160]
-      }
-    },
-    city: DataTypes.STRING,
-    state: DataTypes.STRING,
-    country: DataTypes.STRING
-  },
-  {
-    tableName: 'Addresses',
-    sequelize
-  }
-)
+    {
+      tableName: 'Addresses',
+      sequelize
+    }
+  )
 }
 
-export {AddressModel, AddressModelInit}
+export { AddressModel, AddressModelInit }

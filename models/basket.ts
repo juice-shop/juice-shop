@@ -14,7 +14,7 @@ import {
   NonAttribute,
   Sequelize
 } from 'sequelize'
-import {ProductModel} from './product'
+import { ProductModel } from './product'
 
 class BasketModel extends Model<
 InferAttributes<BasketModel>,
@@ -26,24 +26,24 @@ InferCreationAttributes<BasketModel>
   declare ProductModels?: NonAttribute<ProductModel[]>
 }
 
-const BasketModelInit=(sequelize:Sequelize)=>{
-BasketModel.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
+const BasketModelInit = (sequelize: Sequelize) => {
+  BasketModel.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      coupon: DataTypes.STRING,
+      UserModelId: {
+        type: DataTypes.INTEGER
+      }
     },
-    coupon: DataTypes.STRING,
-    UserModelId:{
-      type: DataTypes.INTEGER
+    {
+      tableName: 'Baskets',
+      sequelize
     }
-  },
-  {
-    tableName: 'Baskets',
-    sequelize
-  }
-)
+  )
 }
 
-export {BasketModel,BasketModelInit}
+export { BasketModel, BasketModelInit }

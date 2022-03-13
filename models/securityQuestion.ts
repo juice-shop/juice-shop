@@ -21,23 +21,23 @@ InferCreationAttributes<SecurityQuestionModel>
   declare question: string
 }
 
-const SecurityQuestionModelInit=(sequelize:Sequelize)=>{
-SecurityQuestionModel.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
+const SecurityQuestionModelInit = (sequelize: Sequelize) => {
+  SecurityQuestionModel.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      question: {
+        type: DataTypes.STRING
+      }
     },
-    question: {
-      type: DataTypes.STRING
+    {
+      tableName: 'SecurityQuestions',
+      sequelize
     }
-  },
-  {
-    tableName: 'SecurityQuestions',
-    sequelize
-  }
-)
+  )
 }
 
-export {SecurityQuestionModel,SecurityQuestionModelInit}
+export { SecurityQuestionModel, SecurityQuestionModelInit }
