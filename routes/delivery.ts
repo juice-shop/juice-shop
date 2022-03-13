@@ -4,7 +4,7 @@
  */
 
 import { Request, Response, NextFunction } from 'express'
-import {DeliveryModel} from '../models/delivery'
+import { DeliveryModel } from '../models/delivery'
 
 const security = require('../lib/insecurity')
 

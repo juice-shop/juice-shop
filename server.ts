@@ -5,6 +5,21 @@
 import dataErasure from './routes/dataErasure'
 import fs = require('fs')
 import { Request, Response, NextFunction } from 'express'
+import { sequelize } from './models/index'
+import { UserModel } from './models/user'
+import { QuantityModel } from './models/quantity'
+import { CardModel } from './models/card'
+import { PrivacyRequestModel } from './models/privacyRequests'
+import { AddressModel } from './models/address'
+import { SecurityAnswerModel } from './models/securityAnswer'
+import { SecurityQuestionModel } from './models/securityQuestion'
+import { RecycleModel } from './models/recycle'
+import { ComplaintModel } from './models/complaint'
+import { ChallengeModel } from './models/challenge'
+import { BasketItemModel } from './models/basketitem'
+import { FeedbackModel } from './models/feedback'
+import { ProductModel } from './models/product'
+import { WalletModel } from './models/wallet'
 const startTime = Date.now()
 const path = require('path')
 const morgan = require('morgan')
@@ -71,21 +86,6 @@ const likeProductReviews = require('./routes/likeProductReviews')
 const logger = require('./lib/logger')
 const utils = require('./lib/utils')
 const security = require('./lib/insecurity')
-import {sequelize} from './models/index'
-import {UserModel} from './models/user'
-import {QuantityModel} from './models/quantity'
-import {CardModel} from './models/card'
-import {PrivacyRequestModel} from './models/privacyRequests'
-import {AddressModel} from './models/address'
-import {SecurityAnswerModel} from './models/securityAnswer'
-import {SecurityQuestionModel} from './models/securityQuestion'
-import {RecycleModel} from './models/recycle'
-import {ComplaintModel} from './models/complaint'
-import {ChallengeModel} from './models/challenge'
-import {BasketItemModel} from './models/basketitem'
-import {FeedbackModel} from './models/feedback'
-import {ProductModel} from './models/product'
-import {WalletModel} from './models/wallet'
 const datacreator = require('./data/datacreator')
 const app = express()
 const server = require('http').Server(app)
@@ -413,21 +413,21 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   const autoModels = [
     { name: 'User', exclude: ['password', 'totpSecret'], model: UserModel },
-    { name: 'Product', exclude: [] , model: ProductModel},
-    { name: 'Feedback', exclude: [] , model: FeedbackModel},
-    { name: 'BasketItem', exclude: [] , model: BasketItemModel},
-    { name: 'Challenge', exclude: [] , model: ChallengeModel},
-    { name: 'Complaint', exclude: [] , model: ComplaintModel},
-    { name: 'Recycle', exclude: [] , model: RecycleModel},
-    { name: 'SecurityQuestion', exclude: [] , model: SecurityQuestionModel},
-    { name: 'SecurityAnswer', exclude: [] , model: SecurityAnswerModel},
-    { name: 'Address', exclude: [] , model: AddressModel},
-    { name: 'PrivacyRequest', exclude: [] , model: PrivacyRequestModel},
-    { name: 'Card', exclude: [] , model: CardModel},
-    { name: 'Quantity', exclude: [] , model: QuantityModel}
+    { name: 'Product', exclude: [], model: ProductModel },
+    { name: 'Feedback', exclude: [], model: FeedbackModel },
+    { name: 'BasketItem', exclude: [], model: BasketItemModel },
+    { name: 'Challenge', exclude: [], model: ChallengeModel },
+    { name: 'Complaint', exclude: [], model: ComplaintModel },
+    { name: 'Recycle', exclude: [], model: RecycleModel },
+    { name: 'SecurityQuestion', exclude: [], model: SecurityQuestionModel },
+    { name: 'SecurityAnswer', exclude: [], model: SecurityAnswerModel },
+    { name: 'Address', exclude: [], model: AddressModel },
+    { name: 'PrivacyRequest', exclude: [], model: PrivacyRequestModel },
+    { name: 'Card', exclude: [], model: CardModel },
+    { name: 'Quantity', exclude: [], model: QuantityModel }
   ]
 
-  for (const { name, exclude,model } of autoModels) {
+  for (const { name, exclude, model } of autoModels) {
     const resource = finale.resource({
       model,
       endpoints: [`/api/${name}s`, `/api/${name}s/:id`],

@@ -6,8 +6,8 @@
 import { Request, Response, NextFunction } from 'express'
 import { Challenge, Product } from '../data/types'
 import { JwtPayload, VerifyErrors } from 'jsonwebtoken'
-import {FeedbackModel} from '../models/feedback'
-import {ComplaintModel} from '../models/complaint'
+import { FeedbackModel } from '../models/feedback'
+import { ComplaintModel } from '../models/complaint'
 import { Op } from 'sequelize'
 
 const utils = require('../lib/utils')

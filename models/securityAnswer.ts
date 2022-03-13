@@ -24,34 +24,34 @@ InferCreationAttributes<SecurityAnswerModel>
   declare answer: string
 }
 
-const SecurityAnswerModelInit=(sequelize:Sequelize)=>{
-SecurityAnswerModel.init(
-  {
-    UserModelId:{
-      type: DataTypes.INTEGER,
-      unique: true
-    },
-    SecurityQuestionModelId:{
-      type: DataTypes.INTEGER
-    },
-      
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    answer: {
-      type: DataTypes.STRING,
-      set (answer) {
-        this.setDataValue('answer', security.hmac(answer))
+const SecurityAnswerModelInit = (sequelize: Sequelize) => {
+  SecurityAnswerModel.init(
+    {
+      UserModelId: {
+        type: DataTypes.INTEGER,
+        unique: true
+      },
+      SecurityQuestionModelId: {
+        type: DataTypes.INTEGER
+      },
+
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      answer: {
+        type: DataTypes.STRING,
+        set (answer) {
+          this.setDataValue('answer', security.hmac(answer))
+        }
       }
+    },
+    {
+      tableName: 'SecurityAnswers',
+      sequelize
     }
-  },
-  {
-    tableName: 'SecurityAnswers',
-    sequelize
-  }
-)
+  )
 }
 
-export {SecurityAnswerModel,SecurityAnswerModelInit}
+export { SecurityAnswerModel, SecurityAnswerModelInit }

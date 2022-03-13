@@ -24,25 +24,25 @@ InferCreationAttributes<ComplaintModel>
   declare file: CreationOptional<string>
 }
 
-const ComplaintModelInit=(sequelize:Sequelize)=>{
-ComplaintModel.init(
-  {
-    UserId:{
-      type: DataTypes.INTEGER
+const ComplaintModelInit = (sequelize: Sequelize) => {
+  ComplaintModel.init(
+    {
+      UserId: {
+        type: DataTypes.INTEGER
+      },
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      message: DataTypes.STRING,
+      file: DataTypes.STRING
     },
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    message: DataTypes.STRING,
-    file: DataTypes.STRING
-  },
-  {
-    tableName: 'Complaints',
-    sequelize
-  }
-)
+    {
+      tableName: 'Complaints',
+      sequelize
+    }
+  )
 }
 
-export {ComplaintModel,ComplaintModelInit}
+export { ComplaintModel, ComplaintModelInit }

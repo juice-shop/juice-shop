@@ -22,30 +22,30 @@ InferCreationAttributes<WalletModel>
   declare balance: CreationOptional<number>
 }
 
-const WalletModelInit=(sequelize:Sequelize)=>{
-WalletModel.init(
-  {
-    UserId:{
-      type: DataTypes.INTEGER
-    },  
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    balance: {
-      type: DataTypes.INTEGER,
-      validate: {
-        isInt: true
+const WalletModelInit = (sequelize: Sequelize) => {
+  WalletModel.init(
+    {
+      UserId: {
+        type: DataTypes.INTEGER
       },
-      defaultValue: 0
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      balance: {
+        type: DataTypes.INTEGER,
+        validate: {
+          isInt: true
+        },
+        defaultValue: 0
+      }
+    },
+    {
+      tableName: 'Wallets',
+      sequelize
     }
-  },
-  {
-    tableName: 'Wallets',
-    sequelize
-  }
-)
+  )
 }
 
-export {WalletModel, WalletModelInit}
+export { WalletModel, WalletModelInit }

@@ -5,7 +5,7 @@
 
 import { Request, Response, NextFunction } from 'express'
 import { Captcha } from '../data/types'
-import {CaptchaModel} from '../models/captcha'
+import { CaptchaModel } from '../models/captcha'
 
 function captchas () {
   return async (req: Request, res: Response) => {

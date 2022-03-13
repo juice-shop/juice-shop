@@ -26,30 +26,30 @@ InferCreationAttributes<RecycleModel>
   declare date: string
 }
 
-const RecycleModelInit=(sequelize:Sequelize)=>{
-RecycleModel.init(
-  {
-    UserId:{
-      type: DataTypes.INTEGER
+const RecycleModelInit = (sequelize: Sequelize) => {
+  RecycleModel.init(
+    {
+      UserId: {
+        type: DataTypes.INTEGER
+      },
+      AddressId: {
+        type: DataTypes.INTEGER
+      },
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      // TODO set this as DataTypes.INTEGER(4)
+      quantity: DataTypes.INTEGER,
+      isPickup: { type: DataTypes.BOOLEAN, defaultValue: false },
+      date: DataTypes.DATE
     },
-    AddressId:{
-      type: DataTypes.INTEGER
-    },    
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    // TODO set this as DataTypes.INTEGER(4)
-    quantity: DataTypes.INTEGER,
-    isPickup: { type: DataTypes.BOOLEAN, defaultValue: false },
-    date: DataTypes.DATE
-  },
-  {
-    tableName: 'Recycles',
-    sequelize
-  }
-)
+    {
+      tableName: 'Recycles',
+      sequelize
+    }
+  )
 }
 
-export {RecycleModel,RecycleModelInit}
+export { RecycleModel, RecycleModelInit }

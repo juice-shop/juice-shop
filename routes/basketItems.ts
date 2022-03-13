@@ -4,8 +4,8 @@
  */
 
 import { Request, Response, NextFunction } from 'express'
-import {BasketItemModel} from '../models/basketitem'
-import {QuantityModel} from '../models/quantity'
+import { BasketItemModel } from '../models/basketitem'
+import { QuantityModel } from '../models/quantity'
 
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
@@ -44,7 +44,7 @@ module.exports.addBasketItem = function addBasketItem () {
       utils.solveIf(challenges.basketManipulateChallenge, () => { return user && basketItem.BasketId && basketItem.BasketId !== 'undefined' && user.bid != basketItem.BasketId }) // eslint-disable-line eqeqeq
 
       const basketItemInstance = BasketItemModel.build(basketItem)
-      basketItemInstance.save().then((addedBasketItem: BasketItemModel) => {        
+      basketItemInstance.save().then((addedBasketItem: BasketItemModel) => {
         res.json({ status: 'success', data: addedBasketItem })
       }).catch((error: Error) => {
         next(error)

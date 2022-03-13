@@ -24,25 +24,25 @@ InferCreationAttributes<DeliveryModel>
   declare icon: string
 }
 
-const DeliveryModelInit=(sequelize:Sequelize)=>{
-DeliveryModel.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
+const DeliveryModelInit = (sequelize: Sequelize) => {
+  DeliveryModel.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      name: DataTypes.STRING,
+      price: DataTypes.FLOAT,
+      deluxePrice: DataTypes.FLOAT,
+      eta: DataTypes.FLOAT,
+      icon: DataTypes.STRING
     },
-    name: DataTypes.STRING,
-    price: DataTypes.FLOAT,
-    deluxePrice: DataTypes.FLOAT,
-    eta: DataTypes.FLOAT,
-    icon: DataTypes.STRING
-  },
-  {
-    tableName: 'Deliveries',
-    sequelize
-  }
-)
+    {
+      tableName: 'Deliveries',
+      sequelize
+    }
+  )
 }
 
-export  {DeliveryModel,DeliveryModelInit}
+export { DeliveryModel, DeliveryModelInit }

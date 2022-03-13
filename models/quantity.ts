@@ -24,36 +24,36 @@ InferCreationAttributes<QuantityModel>
   declare limitPerUser: number | null
 }
 
-const QuantityModelInit=(sequelize:Sequelize)=>{
-QuantityModel.init(
-  {
-    ProductId:{
-      type: DataTypes.INTEGER
-    },
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    quantity: {
-      type: DataTypes.INTEGER,
-      validate: {
-        isInt: true
+const QuantityModelInit = (sequelize: Sequelize) => {
+  QuantityModel.init(
+    {
+      ProductId: {
+        type: DataTypes.INTEGER
+      },
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      quantity: {
+        type: DataTypes.INTEGER,
+        validate: {
+          isInt: true
+        }
+      },
+      limitPerUser: {
+        type: DataTypes.INTEGER,
+        validate: {
+          isInt: true
+        },
+        defaultValue: null
       }
     },
-    limitPerUser: {
-      type: DataTypes.INTEGER,
-      validate: {
-        isInt: true
-      },
-      defaultValue: null
+    {
+      tableName: 'Quantities',
+      sequelize
     }
-  },
-  {
-    tableName: 'Quantities',
-    sequelize
-  }
-)
+  )
 }
 
-export {QuantityModel,QuantityModelInit}
+export { QuantityModel, QuantityModelInit }

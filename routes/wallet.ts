@@ -4,8 +4,8 @@
  */
 
 import { Request, Response, NextFunction } from 'express'
-import {WalletModel} from '../models/wallet'
-import {CardModel} from '../models/card'
+import { WalletModel } from '../models/wallet'
+import { CardModel } from '../models/card'
 
 module.exports.getWalletBalance = function getWalletBalance () {
   return async (req: Request, res: Response, next: NextFunction) => {

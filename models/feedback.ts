@@ -26,51 +26,51 @@ InferCreationAttributes<FeedbackModel>
   declare comment: string
   declare rating: number
 }
-const FeedbackModelInit=(sequelize:Sequelize)=>{
-FeedbackModel.init(
-  {
-    UserId:{
-      type: DataTypes.INTEGER
-    },
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    comment: {
-      type: DataTypes.STRING,
-      set (comment: string) {
-        let sanitizedComment: string
-        if (!utils.disableOnContainerEnv()) {
-          sanitizedComment = security.sanitizeHtml(comment)
-          utils.solveIf(challenges.persistedXssFeedbackChallenge, () => {
-            return utils.contains(
-              sanitizedComment,
-              '<iframe src="javascript:alert(`xss`)">'
-            )
-          })
-        } else {
-          sanitizedComment = security.sanitizeSecure(comment)
+const FeedbackModelInit = (sequelize: Sequelize) => {
+  FeedbackModel.init(
+    {
+      UserId: {
+        type: DataTypes.INTEGER
+      },
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      comment: {
+        type: DataTypes.STRING,
+        set (comment: string) {
+          let sanitizedComment: string
+          if (!utils.disableOnContainerEnv()) {
+            sanitizedComment = security.sanitizeHtml(comment)
+            utils.solveIf(challenges.persistedXssFeedbackChallenge, () => {
+              return utils.contains(
+                sanitizedComment,
+                '<iframe src="javascript:alert(`xss`)">'
+              )
+            })
+          } else {
+            sanitizedComment = security.sanitizeSecure(comment)
+          }
+          this.setDataValue('comment', sanitizedComment)
         }
-        this.setDataValue('comment', sanitizedComment)
+      },
+      rating: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        set (rating: number) {
+          this.setDataValue('rating', rating)
+          utils.solveIf(challenges.zeroStarsChallenge, () => {
+            return rating === 0
+          })
+        }
       }
     },
-    rating: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      set (rating: number) {
-        this.setDataValue('rating', rating)
-        utils.solveIf(challenges.zeroStarsChallenge, () => {
-          return rating === 0
-        })
-      }
+    {
+      tableName: 'Feedbacks',
+      sequelize
     }
-  },
-  {
-    tableName: 'Feedbacks',
-    sequelize
-  }
-)
+  )
 }
 
-export {FeedbackModel,FeedbackModelInit}
+export { FeedbackModel, FeedbackModelInit }

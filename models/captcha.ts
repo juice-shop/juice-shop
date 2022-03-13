@@ -20,20 +20,20 @@ InferCreationAttributes<CaptchaModel>
   declare answer: string
 }
 
-const CaptchaModelInit=(sequelize:Sequelize)=>{
-CaptchaModel.init(
-  {
-    captchaId: {
-      type: DataTypes.INTEGER,
+const CaptchaModelInit = (sequelize: Sequelize) => {
+  CaptchaModel.init(
+    {
+      captchaId: {
+        type: DataTypes.INTEGER
+      },
+      captcha: DataTypes.STRING,
+      answer: DataTypes.STRING
     },
-    captcha: DataTypes.STRING,
-    answer: DataTypes.STRING
-  },
-  {
-    tableName: 'Captchas',
-    sequelize
-  }
-)
+    {
+      tableName: 'Captchas',
+      sequelize
+    }
+  )
 }
 
-export {CaptchaModel,CaptchaModelInit}
+export { CaptchaModel, CaptchaModelInit }
