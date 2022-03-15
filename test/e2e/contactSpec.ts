@@ -6,9 +6,10 @@
 import config = require('config')
 import { $, $$, browser, by, element, ElementFinder, protractor } from 'protractor'
 import { basePath, beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
+import { Product } from '../../data/types'
 
 const utils = require('../../lib/utils')
-const pastebinLeakProduct = config.get('products').filter(product => product.keywordsForPastebinDataLeakChallenge)[0]
+const pastebinLeakProduct = config.get<Product[]>('products').filter((product: Product) => product.keywordsForPastebinDataLeakChallenge)[0]
 
 describe('/#/contact', () => {
   let comment: ElementFinder, rating: ElementFinder, submitButton: ElementFinder, captcha: ElementFinder, snackBar: ElementFinder
@@ -144,7 +145,8 @@ describe('/#/contact', () => {
   describe('challenge "zeroStars"', () => {
     it('should be possible to post feedback with zero stars by double-clicking rating widget', () => {
       void browser.executeAsyncScript((baseUrl: string) => {
-        const callback = arguments[arguments.length - 1]; // eslint-disable-line
+        // @ts-expect-error
+        const callback = arguments[arguments.length - 1]
         const xhttp = new XMLHttpRequest()
         let captcha
         xhttp.onreadystatechange = function () {
@@ -158,7 +160,7 @@ describe('/#/contact', () => {
         xhttp.setRequestHeader('Content-type', 'text/plain')
         xhttp.send()
 
-        function sendPostRequest (_captcha) {
+        function sendPostRequest (_captcha: { captchaId: number, answer: string}) {
           const xhttp = new XMLHttpRequest()
           xhttp.onreadystatechange = function () {
             if (this.status === 201) {
@@ -211,6 +213,7 @@ describe('/#/contact', () => {
 
   describe('challenge "dlpPastebinDataLeak"', () => {
     it('should be possible to post dangerous ingredients of unsafe product as feedback', () => {
+      // @ts-expect-error
       void comment.sendKeys(pastebinLeakProduct.keywordsForPastebinDataLeakChallenge.toString())
       void rating.click()
       void submitButton.click()

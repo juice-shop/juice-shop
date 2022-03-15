@@ -6,12 +6,12 @@ module.exports = function login () {
         user.bid = basket.id // keep track of original basket
         security.authenticatedUsers.put(token, user)
         res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })
-      }).catch(error => {
+      }).catch((error: Error) => {
         next(error)
       })
   }
 
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     if (req.body.email.match(/.*['-;].*/) || req.body.password.match(/.*['-;].*/)) {
       res.status(451).send(res.__('SQL Injection detected.'))
     }
@@ -33,7 +33,7 @@ module.exports = function login () {
         } else {
           res.status(401).send(res.__('Invalid email or password.'))
         }
-      }).catch(error => {
+      }).catch((error: Error) => {
         next(error)
       })
   }

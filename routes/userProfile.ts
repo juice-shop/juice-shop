@@ -56,7 +56,7 @@ module.exports = function getUserProfile () {
           })
 
           res.send(fn(user.dataValues))
-        }).catch(error => {
+        }).catch((error: Error) => {
           next(error)
         })
       } else {

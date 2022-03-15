@@ -27,10 +27,10 @@ module.exports = function saveLoginIp () {
       models.User.findByPk(loggedInUser.data.id).then(user => {
         user.update({ lastLoginIp: lastLoginIp }).then(user => {
           res.json(user)
-        }).catch(error => {
+        }).catch((error: Error) => {
           next(error)
         })
-      }).catch(error => {
+      }).catch((error: Error) => {
         next(error)
       })
     } else {

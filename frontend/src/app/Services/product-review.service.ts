@@ -19,7 +19,7 @@ export class ProductReviewService {
 
   get (id: number) {
     return this.http.get(`${this.host}/${id}/reviews`).pipe(
-      map((response: any) => response.data), catchError(err => {
+      map((response: any) => response.data), catchError((err: Error) => {
         throw err
       })
     )

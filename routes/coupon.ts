@@ -22,13 +22,13 @@ module.exports = function applyCoupon () {
           } else {
             res.status(404).send('Invalid coupon.')
           }
-        }).catch(error => {
+        }).catch((error: Error) => {
           next(error)
         })
       } else {
         next(new Error('Basket with id=' + id + ' does not exist.'))
       }
-    }).catch(error => {
+    }).catch((error: Error) => {
       next(error)
     })
   }

@@ -19,7 +19,7 @@ module.exports = function retrieveUserList () {
         user.totpSecret = user.totpSecret ? user.totpSecret.replace(/./g, '*') : null
       })
       res.json(usersWithLoginStatus)
-    }).catch(error => {
+    }).catch((error: Error) => {
       next(error)
     })
   }

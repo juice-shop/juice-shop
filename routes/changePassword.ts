@@ -31,10 +31,10 @@ module.exports = function changePassword () {
             user.update({ password: newPassword }).then(user => {
               utils.solveIf(challenges.changePasswordBenderChallenge, () => { return user.id === 3 && !currentPassword && user.password === security.hash('slurmCl4ssic') })
               res.json({ user })
-            }).catch(error => {
+            }).catch((error: Error) => {
               next(error)
             })
-          }).catch(error => {
+          }).catch((error: Error) => {
             next(error)
           })
         }

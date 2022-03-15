@@ -18,13 +18,13 @@ module.exports = function securityQuestion () {
       if (answer) {
         models.SecurityQuestion.findByPk(answer.SecurityQuestionId).then(question => {
           res.json({ question })
-        }).catch(error => {
+        }).catch((error: Error) => {
           next(error)
         })
       } else {
         res.json({})
       }
-    }).catch(error => {
+    }).catch((error: Error) => {
       next(error)
     })
   }

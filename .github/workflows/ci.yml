@@ -50,6 +50,21 @@ jobs:
           npm run lint:config -- -f ./config/quiet.yml
           npm run lint:config -- -f ./config/tutorial.yml
           npm run lint:config -- -f ./config/unsafe.yml
+  coding-challenge-rsn:
+    runs-on: windows-latest
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
+      - name: "Use Node.js 16"
+        uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
+        with:
+          node-version: 16
+      - name: "Install CLI tools"
+        run: npm install -g @angular/cli
+      - name: "Install application"
+        run: npm install
+      - name: "Check coding challenges for accidental code discrepancies"
+        run: npm run rsn
   test:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -144,7 +159,6 @@ jobs:
   e2e-in-subfolder:
     runs-on: windows-latest
     if: github.repository == 'juice-shop/juice-shop'
-    continue-on-error: true
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
@@ -231,15 +245,27 @@ jobs:
           fi
           echo "VCS_REF=`git rev-parse --short HEAD`" >> $GITHUB_ENV
           echo "BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”`" >> $GITHUB_ENV
-      - name: "Build and push"
+      - name: "Build and push for AMD processors"
         uses: docker/build-push-action@a66e35b9cbcf4ad0ea91ffcaf7bbad63ad9e0229 #note: newer is available
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64,linux/arm/v7,linux/arm64
+          platforms: linux/amd64
           push: true
           tags: |
             bkimminich/juice-shop:${{ env.DOCKER_TAG }}
+          build-args: |
+            VCS_REF=${{ env.VCS_REF }}
+            BUILD_DATE=${{ env.BUILD_DATE }}
+      - name: "Build and push for ARM processors"
+        uses: docker/build-push-action@a66e35b9cbcf4ad0ea91ffcaf7bbad63ad9e0229 #note: newer is available
+        with:
+          context: .
+          file: ./Dockerfile.arm
+          platforms: linux/arm/v7,linux/arm64
+          push: true
+          tags: |
+            bkimminich/juice-shop:${{ env.DOCKER_TAG }}-arm
           build-args: |
             VCS_REF=${{ env.VCS_REF }}
             BUILD_DATE=${{ env.BUILD_DATE }}
@@ -272,6 +298,7 @@ jobs:
       - docker
       - heroku
       - lint
+      - coding-challenge-rsn
       - e2e-in-subfolder
       - smoke
     runs-on: ubuntu-latest

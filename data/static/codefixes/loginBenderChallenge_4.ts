@@ -6,12 +6,12 @@ module.exports = function login () {
         user.bid = basket.id // keep track of original basket
         security.authenticatedUsers.put(token, user)
         res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })
-      }).catch(error => {
+      }).catch((error: Error) => {
         next(error)
       })
   }
 
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: false })
       .then((authenticatedUser) => {
         const user = utils.queryResultToJson(authenticatedUser)
@@ -30,7 +30,7 @@ module.exports = function login () {
         } else {
           res.status(401).send(res.__('Invalid email or password.'))
         }
-      }).catch(error => {
+      }).catch((error: Error) => {
         next(error)
       })
   }

@@ -6,6 +6,7 @@
 import config = require('config')
 import { $, browser, by, element, protractor } from 'protractor'
 import { basePath, beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
+import { Product } from '../../data/types'
 
 const models = require('../../models/index')
 const utils = require('../../lib/utils')
@@ -43,12 +44,12 @@ describe('/api', () => {
             expect(alert.getText()).toEqual(Promise.resolve('xss'))
             void alert.accept()
             // Disarm XSS payload so subsequent tests do not run into unexpected alert boxes
-            models.Product.findOne({ where: { name: 'RestXSS' } }).then(product => {
-              product.update({ description: '&lt;iframe src="javascript:alert(`xss`)"&gt;' }).catch(error => {
+            models.Product.findOne({ where: { name: 'RestXSS' } }).then((product: any) => {
+              product.update({ description: '&lt;iframe src="javascript:alert(`xss`)"&gt;' }).catch((error: Error) => {
                 console.log(error)
                 fail()
               })
-            }).catch(error => {
+            }).catch((error: Error) => {
               console.log(error)
               fail()
             })
@@ -62,7 +63,7 @@ describe('/api', () => {
 
   describe('challenge "changeProduct"', () => {
     const tamperingProductId = ((() => {
-      const products = config.get('products')
+      const products: Product[] = config.get('products')
       for (let i = 0; i < products.length; i++) {
         if (products[i].urlForProductTamperingChallenge) {
           return i + 1
@@ -74,7 +75,7 @@ describe('/api', () => {
     it('should be possible to change product via PUT request without being logged in', () => {
       void browser.waitForAngularEnabled(false)
 
-      void browser.executeScript((baseUrl, tamperingProductId, overwriteUrl) => {
+      void browser.executeScript((baseUrl: string, tamperingProductId: number, overwriteUrl: string) => {
         const xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function () {
           if (this.status === 200) {
@@ -104,7 +105,7 @@ describe('/rest/saveLoginIp', () => {
 
       it('should be possible to save log-in IP when logged in', () => {
         void browser.waitForAngularEnabled(false)
-        void browser.executeScript(baseUrl => {
+        void browser.executeScript((baseUrl: string) => {
           const xhttp = new XMLHttpRequest()
           xhttp.onreadystatechange = function () {
             if (this.status === 200) {

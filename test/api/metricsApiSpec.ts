@@ -34,6 +34,7 @@ describe('/metrics', () => {
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
 
+    // @ts-expect-error
     return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 204)
       .then(() => {
@@ -49,6 +50,7 @@ describe('/metrics', () => {
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
 
+    // @ts-expect-error
     return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 500)
       .then(() => {

@@ -4,8 +4,8 @@
  */
 
 import frisby = require('frisby')
+import config = require('config')
 const Joi = frisby.Joi
-const config = require('config')
 
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
