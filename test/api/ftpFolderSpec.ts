@@ -60,6 +60,11 @@ describe('/ftp', () => {
     return frisby.get(URL + '/ftp/incident-support.kdbx')
       .expect('status', 200)
   })
+  
+    it('GET the kiwashop apk in /ftp', () => {
+    return frisby.get(URL + '/ftp/kiwashop.apk')
+      .expect('status', 200)
+  })
 
   it('GET the easter egg file by using Poison Null Byte attack with .pdf suffix', () => {
     return frisby.get(URL + '/ftp/eastere.gg%00.pdf')

@@ -49,6 +49,14 @@ describe('fileServer', () => {
 
     expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]incident-support\.kdbx/))
   })
+  
+    it('should serve kiwashop files from folder /ftp', () => {
+    req.params.file = 'kiwashop.apk'
+
+    servePublicFiles()(req, res, next)
+
+    expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]kiwashop\.apk/))
+  })
 
   it('should raise error for slashes in filename', () => {
     req.params.file = '../../../../nice.try'

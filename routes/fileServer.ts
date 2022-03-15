@@ -23,7 +23,7 @@ module.exports = function servePublicFiles () {
   }
 
   function verify (file, res, next) {
-    if (file && (endsWithAllowlistedFileType(file) || (file === 'incident-support.kdbx'))) {
+    if (file && (endsWithAllowlistedFileType(file) || (file === 'incident-support.kdbx') || (file === 'kiwashop.apk'))) {
       file = security.cutOffPoisonNullByte(file)
 
       utils.solveIf(challenges.directoryListingChallenge, () => { return file.toLowerCase() === 'acquisitions.md' })
@@ -49,6 +49,6 @@ module.exports = function servePublicFiles () {
   }
 
   function endsWithAllowlistedFileType (param) {
-    return utils.endsWith(param, '.md') || utils.endsWith(param, '.pdf')
+    return utils.endsWith(param, '.md') || utils.endsWith(param, '.pdf') || utils.endsWith(param, '.apk')
   }
 }

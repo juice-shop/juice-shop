@@ -1,3 +1,3 @@
-systemctl start docker
-git pull
-docker build -t kiwashopregistry.azurecr.io/samples/kiwashop:dev .
+sudo systemctl start docker
+sudo git pull
+sudo docker build -t kiwashopregistry.azurecr.io/samples/kiwashop:dev .
