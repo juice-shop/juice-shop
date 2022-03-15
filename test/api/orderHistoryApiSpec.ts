@@ -4,7 +4,7 @@
  */
 
 import frisby = require('frisby')
-const config = require('config')
+import config = require('config')
 
 const jsonHeader = { 'content-type': 'application/json' }
 const REST_URL = 'http://localhost:3000/rest'

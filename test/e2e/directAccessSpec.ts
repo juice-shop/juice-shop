@@ -6,11 +6,12 @@
 import config = require('config')
 import { browser } from 'protractor'
 import { expectChallengeSolved } from './e2eHelpers'
+import { Product } from '../../data/types'
 
 const utils = require('../../lib/utils')
 let blueprint: string
 
-for (const product of config.get('products')) {
+for (const product of config.get<Product[]>('products')) {
   if (product.fileForRetrieveBlueprintChallenge) {
     blueprint = product.fileForRetrieveBlueprintChallenge
     break

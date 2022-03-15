@@ -95,8 +95,9 @@ const setStatusCode = (error: any) => {
   }
 }
 
-export const retrieveCodeSnippet = async (key: string) => {
-  const challenge = challenges[key]
+export const retrieveCodeSnippet = async (key: string, pass: boolean = false) => {
+  let challenge = challenges[key]
+  if (pass) challenge = { key }
   if (challenge) {
     if (!cache[challenge.key]) {
       const match = new RegExp(`vuln-code-snippet start.*${challenge.key}`)

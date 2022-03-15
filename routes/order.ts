@@ -56,10 +56,10 @@ module.exports = function placeOrder () {
 
             models.Quantity.findOne({ where: { ProductId: BasketItem.ProductId } }).then((product) => {
               const newQuantity = product.dataValues.quantity - BasketItem.quantity
-              models.Quantity.update({ quantity: newQuantity }, { where: { ProductId: BasketItem.ProductId } }).catch(error => {
+              models.Quantity.update({ quantity: newQuantity }, { where: { ProductId: BasketItem.ProductId } }).catch((error: Error) => {
                 next(error)
               })
-            }).catch(error => {
+            }).catch((error: Error) => {
               next(error)
             })
             let itemPrice
@@ -119,14 +119,14 @@ module.exports = function placeOrder () {
             if (req.body.orderDetails.paymentId === 'wallet') {
               const wallet = await models.Wallet.findOne({ where: { UserId: req.body.UserId } })
               if (wallet.balance >= totalPrice) {
-                models.Wallet.decrement({ balance: totalPrice }, { where: { UserId: req.body.UserId } }).catch(error => {
+                models.Wallet.decrement({ balance: totalPrice }, { where: { UserId: req.body.UserId } }).catch((error: Error) => {
                   next(error)
                 })
               } else {
                 next(new Error('Insufficient wallet balance.'))
               }
             }
-            models.Wallet.increment({ balance: totalPoints }, { where: { UserId: req.body.UserId } }).catch(error => {
+            models.Wallet.increment({ balance: totalPoints }, { where: { UserId: req.body.UserId } }).catch((error: Error) => {
               next(error)
             })
           }
@@ -149,7 +149,7 @@ module.exports = function placeOrder () {
         } else {
           next(new Error(`Basket with id=${id} does not exist.`))
         }
-      }).catch(error => {
+      }).catch((error: Error) => {
         next(error)
       })
   }

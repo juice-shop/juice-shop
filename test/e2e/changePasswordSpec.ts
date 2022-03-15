@@ -4,11 +4,11 @@
  */
 
 import config = require('config')
-import { $, browser, by, element } from 'protractor'
+import { $, browser, by, element, ElementFinder } from 'protractor'
 import { basePath, beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
 
 describe('/#/privacy-security/change-password', () => {
-  let currentPassword, newPassword, newPasswordRepeat, changeButton
+  let currentPassword: ElementFinder, newPassword: ElementFinder, newPasswordRepeat: ElementFinder, changeButton: ElementFinder
 
   describe('as Morty', () => {
     beforeEachLogin({ email: `morty@${config.get('application.domain')}`, password: 'focusOnScienceMorty!focusOnScience' })
@@ -22,10 +22,10 @@ describe('/#/privacy-security/change-password', () => {
     })
 
     it('should be able to change password', () => {
-      currentPassword.sendKeys('focusOnScienceMorty!focusOnScience')
-      newPassword.sendKeys('GonorrheaCantSeeUs!')
-      newPasswordRepeat.sendKeys('GonorrheaCantSeeUs!')
-      changeButton.click()
+      void currentPassword.sendKeys('focusOnScienceMorty!focusOnScience')
+      void newPassword.sendKeys('GonorrheaCantSeeUs!')
+      void newPasswordRepeat.sendKeys('GonorrheaCantSeeUs!')
+      void changeButton.click()
 
       expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
     })

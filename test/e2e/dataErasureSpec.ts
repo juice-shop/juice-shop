@@ -14,7 +14,7 @@ describe('/dataerasure', () => {
   describe('challenge "lfr"', () => {
     it('should be possible to perform local file read attack using the browser', () => {
       void browser.waitForAngularEnabled(false)
-      void browser.executeScript(baseUrl => {
+      void browser.executeScript((baseUrl: string) => {
         const xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function () {
           if (this.status === 200) {

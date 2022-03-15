@@ -5,6 +5,7 @@
 
 import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
+import { Product } from '../data/types'
 
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
@@ -61,7 +62,7 @@ exports.accessControlChallenges = () => ({ url }: Request, res: Response, next: 
   next()
 }
 
-exports.errorHandlingChallenge = () => (err, req: Request, { statusCode }, next: NextFunction) => {
+exports.errorHandlingChallenge = () => (err, req: Request, { statusCode }: Response, next: NextFunction) => {
   utils.solveIf(challenges.errorHandlingChallenge, () => { return err && (statusCode === 200 || statusCode > 401) })
   next(err)
 }
@@ -165,7 +166,7 @@ function changeProductChallenge (osaft) {
 }
 
 function feedbackChallenge () {
-  models.Feedback.findAndCountAll({ where: { rating: 5 } }).then(({ count }) => {
+  models.Feedback.findAndCountAll({ where: { rating: 5 } }).then(({ count }: { count: number }) => {
     if (count === 0) {
       utils.solve(challenges.feedbackChallenge)
     }
@@ -179,7 +180,7 @@ function knownVulnerableComponentChallenge () {
         [Op.or]: knownVulnerableComponents()
       }
     }
-  }).then(({ count }) => {
+  }).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.knownVulnerableComponentChallenge)
     }
@@ -190,7 +191,7 @@ function knownVulnerableComponentChallenge () {
         [Op.or]: knownVulnerableComponents()
       }
     }
-  }).then(({ count }) => {
+  }).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.knownVulnerableComponentChallenge)
     }
@@ -221,7 +222,7 @@ function weirdCryptoChallenge () {
         [Op.or]: weirdCryptos()
       }
     }
-  }).then(({ count }) => {
+  }).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.weirdCryptoChallenge)
     }
@@ -232,7 +233,7 @@ function weirdCryptoChallenge () {
         [Op.or]: weirdCryptos()
       }
     }
-  }).then(({ count }) => {
+  }).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.weirdCryptoChallenge)
     }
@@ -251,13 +252,13 @@ function weirdCryptos () {
 
 function typosquattingNpmChallenge () {
   models.Feedback.findAndCountAll({ where: { comment: { [Op.like]: '%epilogue-js%' } } }
-  ).then(({ count }) => {
+  ).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.typosquattingNpmChallenge)
     }
   })
   models.Complaint.findAndCountAll({ where: { message: { [Op.like]: '%epilogue-js%' } } }
-  ).then(({ count }) => {
+  ).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.typosquattingNpmChallenge)
     }
@@ -266,13 +267,13 @@ function typosquattingNpmChallenge () {
 
 function typosquattingAngularChallenge () {
   models.Feedback.findAndCountAll({ where: { comment: { [Op.like]: '%anuglar2-qrcode%' } } }
-  ).then(({ count }) => {
+  ).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.typosquattingAngularChallenge)
     }
   })
   models.Complaint.findAndCountAll({ where: { message: { [Op.like]: '%anuglar2-qrcode%' } } }
-  ).then(({ count }) => {
+  ).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.typosquattingAngularChallenge)
     }
@@ -281,13 +282,13 @@ function typosquattingAngularChallenge () {
 
 function hiddenImageChallenge () {
   models.Feedback.findAndCountAll({ where: { comment: { [Op.like]: '%pickle rick%' } } }
-  ).then(({ count }) => {
+  ).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.hiddenImageChallenge)
     }
   })
   models.Complaint.findAndCountAll({ where: { message: { [Op.like]: '%pickle rick%' } } }
-  ).then(({ count }) => {
+  ).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.hiddenImageChallenge)
     }
@@ -296,13 +297,13 @@ function hiddenImageChallenge () {
 
 function supplyChainAttackChallenge () {
   models.Feedback.findAndCountAll({ where: { comment: { [Op.or]: eslintScopeVulnIds() } } }
-  ).then(({ count }) => {
+  ).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.supplyChainAttackChallenge)
     }
   })
   models.Complaint.findAndCountAll({ where: { message: { [Op.or]: eslintScopeVulnIds() } } }
-  ).then(({ count }) => {
+  ).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.supplyChainAttackChallenge)
     }
@@ -321,7 +322,7 @@ function dlpPastebinDataLeakChallenge () {
     where: {
       comment: { [Op.and]: dangerousIngredients() }
     }
-  }).then(({ count }) => {
+  }).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.dlpPastebinDataLeakChallenge)
     }
@@ -330,7 +331,7 @@ function dlpPastebinDataLeakChallenge () {
     where: {
       message: { [Op.and]: dangerousIngredients() }
     }
-  }).then(({ count }) => {
+  }).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.dlpPastebinDataLeakChallenge)
     }
@@ -338,9 +339,9 @@ function dlpPastebinDataLeakChallenge () {
 }
 
 function dangerousIngredients () {
-  const ingredients = []
-  const dangerousProduct = config.get('products').filter(product => product.keywordsForPastebinDataLeakChallenge)[0]
-  dangerousProduct.keywordsForPastebinDataLeakChallenge.forEach((keyword) => {
+  const ingredients: Array<{ [op: symbol]: string }> = []
+  const dangerousProduct = config.get('products').filter((product: Product) => product.keywordsForPastebinDataLeakChallenge)[0]
+  dangerousProduct.keywordsForPastebinDataLeakChallenge.forEach((keyword: string) => {
     ingredients.push({ [Op.like]: `%${keyword}%` })
   })
   return ingredients

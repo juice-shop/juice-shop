@@ -4,13 +4,14 @@
  */
 
 import frisby = require('frisby')
+import { Product } from '../../data/types'
+import config = require('config')
 const Joi = frisby.Joi
 const utils = require('../../lib/utils')
 const security = require('../../lib/insecurity')
-const config = require('config')
 
 const tamperingProductId = ((() => {
-  const products = config.get('products')
+  const products = config.get<Product[]>('products')
   for (let i = 0; i < products.length; i++) {
     if (products[i].urlForProductTamperingChallenge) {
       return i + 1

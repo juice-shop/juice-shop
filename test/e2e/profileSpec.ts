@@ -96,7 +96,7 @@ describe('/profile', () => {
 
     xit('should be possible to fake a CSRF attack against the user profile page', () => {
       void browser.waitForAngularEnabled(false)
-      void browser.executeScript(baseUrl => {
+      void browser.executeScript((baseUrl: string) => {
         const xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function () {
           if (this.status === 200) {
