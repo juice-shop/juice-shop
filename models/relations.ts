@@ -20,7 +20,7 @@ const relationsInit = (_sequelize: Sequelize) => {
   AddressModel.belongsTo(UserModel, {
     constraints: true,
     foreignKeyConstraint: true,
-    foreignKey:{
+    foreignKey: {
       name: 'UserId'
     }
   })
@@ -28,7 +28,7 @@ const relationsInit = (_sequelize: Sequelize) => {
   BasketModel.belongsTo(UserModel, {
     constraints: true,
     foreignKeyConstraint: true,
-    foreignKey:{
+    foreignKey: {
       name: 'UserId'
     }
   })
@@ -44,7 +44,7 @@ const relationsInit = (_sequelize: Sequelize) => {
   CardModel.belongsTo(UserModel, {
     constraints: true,
     foreignKeyConstraint: true,
-    foreignKey:{
+    foreignKey: {
       name: 'UserId'
     }
   })
@@ -52,19 +52,19 @@ const relationsInit = (_sequelize: Sequelize) => {
   ComplaintModel.belongsTo(UserModel, {
     constraints: true,
     foreignKeyConstraint: true,
-    foreignKey:{
+    foreignKey: {
       name: 'UserId'
     }
   })
 
-  FeedbackModel.belongsTo(UserModel,{
-    foreignKey:{
+  FeedbackModel.belongsTo(UserModel, {
+    foreignKey: {
       name: 'UserId'
     }
   }) // no FK constraint to allow anonymous feedback posts
 
-  ImageCaptchaModel.belongsTo(UserModel,{
-    foreignKey:{
+  ImageCaptchaModel.belongsTo(UserModel, {
+    foreignKey: {
       name: 'UserId'
     }
   })
@@ -72,7 +72,7 @@ const relationsInit = (_sequelize: Sequelize) => {
   MemoryModel.belongsTo(UserModel, {
     constraints: true,
     foreignKeyConstraint: true,
-    foreignKey:{
+    foreignKey: {
       name: 'UserId'
     }
   })
@@ -80,7 +80,7 @@ const relationsInit = (_sequelize: Sequelize) => {
   PrivacyRequestModel.belongsTo(UserModel, {
     constraints: true,
     foreignKeyConstraint: true,
-    foreignKey:{
+    foreignKey: {
       name: 'UserId'
     }
   })
@@ -96,7 +96,7 @@ const relationsInit = (_sequelize: Sequelize) => {
   QuantityModel.belongsTo(ProductModel, {
     constraints: true,
     foreignKeyConstraint: true,
-    foreignKey:{
+    foreignKey: {
       name: 'ProductId'
     }
   })
@@ -104,27 +104,27 @@ const relationsInit = (_sequelize: Sequelize) => {
   RecycleModel.belongsTo(UserModel, {
     constraints: true,
     foreignKeyConstraint: true,
-    foreignKey:{
+    foreignKey: {
       name: 'UserId'
     }
   })
   RecycleModel.belongsTo(AddressModel, {
     constraints: true,
     foreignKeyConstraint: true,
-    foreignKey:{
+    foreignKey: {
       name: 'AddressId'
     }
   })
 
-  SecurityAnswerModel.belongsTo(UserModel,{
-    foreignKey:{
+  SecurityAnswerModel.belongsTo(UserModel, {
+    foreignKey: {
       name: 'UserId'
     }
   })
   SecurityAnswerModel.belongsTo(SecurityQuestionModel, {
     constraints: true,
     foreignKeyConstraint: true,
-    foreignKey:{
+    foreignKey: {
       name: 'SecurityQuestionId'
     }
   })
@@ -132,7 +132,7 @@ const relationsInit = (_sequelize: Sequelize) => {
   WalletModel.belongsTo(UserModel, {
     constraints: true,
     foreignKeyConstraint: true,
-    foreignKey:{
+    foreignKey: {
       name: 'UserId'
     }
   })

@@ -64,7 +64,7 @@ function handleZipFileUpload ({ file }: Request, res: Response, next: NextFuncti
 }
 
 function checkUploadSize ({ file }: Request, res: Response, next: NextFunction) {
-  if(file){
+  if (file) {
     utils.solveIf(challenges.uploadSizeChallenge, () => { return file?.size > 100000 })
   }
   next()
@@ -91,7 +91,7 @@ function handleXmlUpload ({ file }: Request, res: Response, next: NextFunction) 
         utils.solveIf(challenges.xxeFileDisclosureChallenge, () => { return (matchesSystemIniFile(xmlString) ?? matchesEtcPasswdFile(xmlString)) })
         res.status(410)
         next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + utils.trunc(xmlString, 400) + ' (' + file.originalname + ')'))
-      } catch (err:any) { //TODO: Remove any
+      } catch (err: any) { // TODO: Remove any
         if (utils.contains(err.message, 'Script execution timed out')) {
           if (utils.notSolved(challenges.xxeDosChallenge)) {
             utils.solve(challenges.xxeDosChallenge)
