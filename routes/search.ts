@@ -10,7 +10,7 @@ import { UserModel } from '../models/user'
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
-class ErrorWithParent extends Error{
+class ErrorWithParent extends Error {
   parent: string | undefined
 }
 
@@ -63,7 +63,7 @@ module.exports = function searchProducts () {
           products[i].description = req.__(products[i].description)
         }
         res.json(utils.queryResultToJson(products))
-      }).catch((error:ErrorWithParent) => {
+      }).catch((error: ErrorWithParent) => {
         next(error.parent)
       })
   }
