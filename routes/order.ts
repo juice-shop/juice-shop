@@ -25,7 +25,7 @@ const db = require('../data/mongodb')
 module.exports = function placeOrder () {
   return (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id
-    BasketModel.findOne({ where: { id }, include: [{ model: ProductModel, paranoid: false }] })
+    BasketModel.findOne({ where: { id }, include: [{ model: ProductModel, paranoid: false, as: 'Products' }] })
       .then(async (basket: BasketModel | null) => {
         if (basket) {
           const customer = security.authenticatedUsers.from(req)
@@ -57,7 +57,7 @@ module.exports = function placeOrder () {
           let totalPrice = 0
           const basketProducts: Product[] = []
           let totalPoints = 0
-          basket.ProductModels?.forEach(({ BasketItem, price, deluxePrice, name, id }) => {
+          basket.Products?.forEach(({ BasketItem, price, deluxePrice, name, id }) => {
             if (BasketItem) {
               utils.solveIf(challenges.christmasSpecialChallenge, () => { return BasketItem.ProductId === products.christmasSpecial.id })
 
