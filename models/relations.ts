@@ -19,15 +19,22 @@ import { WalletModel } from './wallet'
 const relationsInit = (_sequelize: Sequelize) => {
   AddressModel.belongsTo(UserModel, {
     constraints: true,
-    foreignKeyConstraint: true
+    foreignKeyConstraint: true,
+    foreignKey:{
+      name: 'UserId'
+    }
   })
 
   BasketModel.belongsTo(UserModel, {
     constraints: true,
-    foreignKeyConstraint: true
+    foreignKeyConstraint: true,
+    foreignKey:{
+      name: 'UserId'
+    }
   })
   BasketModel.belongsToMany(ProductModel, {
     through: BasketItemModel,
+    as: 'Products',
     foreignKey: {
       name: 'BasketId'
       // TODO noUpdate: true
@@ -36,60 +43,98 @@ const relationsInit = (_sequelize: Sequelize) => {
 
   CardModel.belongsTo(UserModel, {
     constraints: true,
-    foreignKeyConstraint: true
+    foreignKeyConstraint: true,
+    foreignKey:{
+      name: 'UserId'
+    }
   })
 
   ComplaintModel.belongsTo(UserModel, {
     constraints: true,
-    foreignKeyConstraint: true
+    foreignKeyConstraint: true,
+    foreignKey:{
+      name: 'UserId'
+    }
   })
 
-  FeedbackModel.belongsTo(UserModel) // no FK constraint to allow anonymous feedback posts
+  FeedbackModel.belongsTo(UserModel,{
+    foreignKey:{
+      name: 'UserId'
+    }
+  }) // no FK constraint to allow anonymous feedback posts
 
-  ImageCaptchaModel.belongsTo(UserModel)
+  ImageCaptchaModel.belongsTo(UserModel,{
+    foreignKey:{
+      name: 'UserId'
+    }
+  })
 
   MemoryModel.belongsTo(UserModel, {
     constraints: true,
-    foreignKeyConstraint: true
+    foreignKeyConstraint: true,
+    foreignKey:{
+      name: 'UserId'
+    }
   })
 
   PrivacyRequestModel.belongsTo(UserModel, {
     constraints: true,
-    foreignKeyConstraint: true
+    foreignKeyConstraint: true,
+    foreignKey:{
+      name: 'UserId'
+    }
   })
 
   ProductModel.belongsToMany(BasketModel, {
     through: BasketItemModel,
     foreignKey: {
       name: 'ProductId'
-      // noUpdate: true
-      // TODO
+      // TODO noUpdate: true
     }
   })
 
   QuantityModel.belongsTo(ProductModel, {
     constraints: true,
-    foreignKeyConstraint: true
+    foreignKeyConstraint: true,
+    foreignKey:{
+      name: 'ProductId'
+    }
   })
 
   RecycleModel.belongsTo(UserModel, {
     constraints: true,
-    foreignKeyConstraint: true
+    foreignKeyConstraint: true,
+    foreignKey:{
+      name: 'UserId'
+    }
   })
   RecycleModel.belongsTo(AddressModel, {
     constraints: true,
-    foreignKeyConstraint: true
+    foreignKeyConstraint: true,
+    foreignKey:{
+      name: 'AddressId'
+    }
   })
 
-  SecurityAnswerModel.belongsTo(UserModel)
+  SecurityAnswerModel.belongsTo(UserModel,{
+    foreignKey:{
+      name: 'UserId'
+    }
+  })
   SecurityAnswerModel.belongsTo(SecurityQuestionModel, {
     constraints: true,
-    foreignKeyConstraint: true
+    foreignKeyConstraint: true,
+    foreignKey:{
+      name: 'SecurityQuestionId'
+    }
   })
 
   WalletModel.belongsTo(UserModel, {
     constraints: true,
-    foreignKeyConstraint: true
+    foreignKeyConstraint: true,
+    foreignKey:{
+      name: 'UserId'
+    }
   })
 }
 

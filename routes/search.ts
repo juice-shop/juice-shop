@@ -10,6 +10,10 @@ import { UserModel } from '../models/user'
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
+class ErrorWithParent extends Error{
+  parent: string | undefined
+}
+
 // vuln-code-snippet start unionSqlInjectionChallenge dbSchemaChallenge
 module.exports = function searchProducts () {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -59,8 +63,8 @@ module.exports = function searchProducts () {
           products[i].description = req.__(products[i].description)
         }
         res.json(utils.queryResultToJson(products))
-      }).catch((error: Error) => {
-        next(error)
+      }).catch((error:ErrorWithParent) => {
+        next(error.parent)
       })
   }
 }
