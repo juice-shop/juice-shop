@@ -22,11 +22,11 @@ const config = require('config')
 const db = require('../data/mongodb')
 
 interface Product{
-  quantity: number,
-  id?: number,
-  name: string,
-  price: number,
-  total: number,
+  quantity: number
+  id?: number
+  name: string
+  price: number
+  total: number
   bonus: number
 }
 
