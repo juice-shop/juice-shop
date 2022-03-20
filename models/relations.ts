@@ -136,15 +136,15 @@ const relationsInit = (_sequelize: Sequelize) => {
       name: 'UserId'
     }
   })
- 
-  BasketItemModel.addHook('beforeUpdate', 'dontUpdateId', (basketItem:any, options) => { // TODO: any
-    if(basketItem.dataValues.BasketId!=basketItem._previousDataValues.BasketId){
-      return Promise.reject(new Error("null: `BasketId` cannot be updated due `dontUpdateId` constraint"));
+
+  BasketItemModel.addHook('beforeUpdate', 'dontUpdateId', (basketItem: any, options) => { // TODO: any
+    if (basketItem.dataValues.BasketId !== basketItem._previousDataValues.BasketId) {
+      return Promise.reject(new Error('null: `BasketId` cannot be updated due `dontUpdateId` constraint'))
     }
-    if(basketItem.dataValues.ProductId!=basketItem._previousDataValues.ProductId){
-      return Promise.reject(new Error("null: `ProductId` cannot be updated due `dontUpdateId` constraint"));
-    }    
-  }); 
+    if (basketItem.dataValues.ProductId !== basketItem._previousDataValues.ProductId) {
+      return Promise.reject(new Error('null: `ProductId` cannot be updated due `dontUpdateId` constraint'))
+    }
+  })
 }
 
 export { relationsInit }
