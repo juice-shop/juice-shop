@@ -27,7 +27,7 @@ InferCreationAttributes<ProductModel>
   declare price: number
   declare deluxePrice: number
   declare image: string
-  declare BasketItem?: CreationOptional<BasketItemModel> // Note this is optional since it's only populated when explicitly requested in code
+  declare BasketItemModel?: CreationOptional<BasketItemModel> // Note this is optional since it's only populated when explicitly requested in code
 }
 
 const ProductModelInit = (sequelize: Sequelize) => {

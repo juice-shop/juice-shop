@@ -158,7 +158,7 @@ describe('/api/BasketItems/:id', () => {
           }
         })
           .expect('status', 500)
-          .expect('json', { message: 'internal error', errors: ["null: `BasketId` cannot be updated due `dontUpdateId` constraint"] })
+          .expect('json', { message: 'internal error', errors: ['null: `BasketId` cannot be updated due `dontUpdateId` constraint'] })
       })
   })
 
@@ -202,7 +202,7 @@ describe('/api/BasketItems/:id', () => {
           }
         })
           .expect('status', 500)
-          .expect('json', { message: 'internal error', errors: ["null: `ProductId` cannot be updated due `dontUpdateId` constraint"] })
+          .expect('json', { message: 'internal error', errors: ['null: `ProductId` cannot be updated due `dontUpdateId` constraint'] })
       })
   })
 

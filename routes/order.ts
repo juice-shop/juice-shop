@@ -5,7 +5,6 @@
 
 import path = require('path')
 import { Request, Response, NextFunction } from 'express'
-import { Product } from 'data/types'
 import { BasketModel } from '../models/basket'
 import { ProductModel } from '../models/product'
 import { BasketItemModel } from '../models/basketitem'
@@ -21,6 +20,15 @@ const products = require('../data/datacache').products
 const challenges = require('../data/datacache').challenges
 const config = require('config')
 const db = require('../data/mongodb')
+
+interface Product{
+  quantity: number,
+  id?: number,
+  name: string,
+  price: number,
+  total: number,
+  bonus: number
+}
 
 module.exports = function placeOrder () {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -57,13 +65,12 @@ module.exports = function placeOrder () {
           let totalPrice = 0
           const basketProducts: Product[] = []
           let totalPoints = 0
-          basket.Products?.forEach(({ BasketItem, price, deluxePrice, name, id }) => {
-            if (BasketItem) {
-              utils.solveIf(challenges.christmasSpecialChallenge, () => { return BasketItem.ProductId === products.christmasSpecial.id })
-
-              QuantityModel.findOne({ where: { ProductId: BasketItem.ProductId } }).then(() => {
+          basket.Products?.forEach(({ BasketItemModel, price, deluxePrice, name, id }) => {
+            if (BasketItemModel) {
+              utils.solveIf(challenges.christmasSpecialChallenge, () => { return BasketItemModel.ProductId === products.christmasSpecial.id })
+              QuantityModel.findOne({ where: { ProductId: BasketItemModel.ProductId } }).then(() => {
                 const newQuantity: number = 0
-                QuantityModel.update({ quantity: newQuantity }, { where: { ProductId: BasketItem?.ProductId } }).catch((error: unknown) => {
+                QuantityModel.update({ quantity: newQuantity }, { where: { ProductId: BasketItemModel?.ProductId } }).catch((error: unknown) => {
                   next(error)
                 })
               }).catch((error: unknown) => {
@@ -75,10 +82,10 @@ module.exports = function placeOrder () {
               } else {
                 itemPrice = price
               }
-              const itemTotal = itemPrice * BasketItem.quantity
-              const itemBonus = Math.round(itemPrice / 10) * BasketItem.quantity
+              const itemTotal = itemPrice * BasketItemModel.quantity
+              const itemBonus = Math.round(itemPrice / 10) * BasketItemModel.quantity
               const product = {
-                quantity: BasketItem.quantity,
+                quantity: BasketItemModel.quantity,
                 id: id,
                 name: req.__(name),
                 price: itemPrice,
@@ -86,8 +93,7 @@ module.exports = function placeOrder () {
                 bonus: itemBonus
               }
               basketProducts.push(product)
-              // TODO
-              doc.text(`${BasketItem.quantity}x ${req.__(name)} ${req.__('ea.')} ${itemPrice} = ${itemTotal}¤`)
+              doc.text(`${BasketItemModel.quantity}x ${req.__(name)} ${req.__('ea.')} ${itemPrice} = ${itemTotal}¤`)
               doc.moveDown()
               totalPrice += itemTotal
               totalPoints += itemBonus
@@ -178,7 +184,6 @@ function calculateApplicableDiscount (basket: BasketModel, req: Request) {
     const couponData = Buffer.from(req.body.couponData, 'base64').toString().split('-')
     const couponCode = couponData[0]
     const couponDate = Number(couponData[1])
-    // const campaign = campaigns[couponCode]
     const campaign = campaigns[couponCode as keyof typeof campaigns]
 
     if (campaign && couponDate == campaign.validOn) { // eslint-disable-line eqeqeq
