@@ -7,7 +7,7 @@ import config = require('config')
 import { $, browser, by, element, protractor } from 'protractor'
 import { basePath, beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
 import { Product } from '../../data/types'
-import ProductModel from 'models/product'
+import { ProductModel } from '../../models/product'
 const utils = require('../../lib/utils')
 
 describe('/api', () => {
