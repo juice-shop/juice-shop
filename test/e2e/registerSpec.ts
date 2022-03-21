@@ -4,7 +4,7 @@
  */
 
 import config = require('config')
-import UserModel from 'models/user'
+import { UserModel } from '../../models/user'
 import { browser, protractor } from 'protractor'
 import { basePath, beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
 const utils = require('../../lib/utils')
