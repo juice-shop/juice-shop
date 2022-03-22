@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize/types'
+import { Sequelize } from "sequelize/types";
 import { AddressModel } from './address'
 import { BasketModel } from './basket'
 import { BasketItemModel } from './basketitem'
@@ -15,6 +15,8 @@ import { SecurityAnswerModel } from './securityAnswer'
 import { SecurityQuestionModel } from './securityQuestion'
 import { UserModel } from './user'
 import { WalletModel } from './wallet'
+
+import { makeKeyNonUpdatable } from '../lib/noUpdate'
 
 const relationsInit = (_sequelize: Sequelize) => {
   AddressModel.belongsTo(UserModel, {
@@ -36,10 +38,11 @@ const relationsInit = (_sequelize: Sequelize) => {
     through: BasketItemModel,
     as: 'Products',
     foreignKey: {
-      name: 'BasketId'
+      name: 'BasketId',
       // TODO noUpdate: true
     }
   })
+  makeKeyNonUpdatable(BasketItemModel,'BasketId')
 
   CardModel.belongsTo(UserModel, {
     constraints: true,
@@ -92,6 +95,7 @@ const relationsInit = (_sequelize: Sequelize) => {
       // TODO noUpdate: true
     }
   })
+  makeKeyNonUpdatable(BasketItemModel,'ProductId')
 
   QuantityModel.belongsTo(ProductModel, {
     constraints: true,
@@ -137,14 +141,44 @@ const relationsInit = (_sequelize: Sequelize) => {
     }
   })
 
-  BasketItemModel.addHook('beforeUpdate', 'dontUpdateId', (basketItem: any, options) => { // TODO: any
-    if (basketItem._previousDataValues.BasketId && basketItem.dataValues.BasketId !== basketItem._previousDataValues.BasketId) {
-      return Promise.reject(new Error('null: `BasketId` cannot be updated due `dontUpdateId` constraint'))
-    }
-    if (basketItem.dataValues.ProductId !== basketItem._previousDataValues.ProductId) {
-      return Promise.reject(new Error('null: `ProductId` cannot be updated due `dontUpdateId` constraint'))
-    }
-  })
+  // BasketItemModel.addHook('beforeValidate', (instance:ExtendedModel, options:ExtendedValidationOptions) => {
+  //   if (!options.validate) return;
+
+  //   if (instance.isNewRecord) return;
+
+  //   const changedKeys: unknown[] = [];
+
+  //   const instance_changed = Array.from(instance._changed);    
+
+  //   instance_changed.forEach((value) => changedKeys.push(value));
+
+  //   if (!changedKeys.length) return;
+
+  //   const validationErrors: any[] = []; //TODO
+
+  //   changedKeys.forEach((fieldName:any) => {
+  //     const fieldDefinition = instance.rawAttributes[fieldName];
+      
+  //     // if (!fieldDefinition.noUpdate) return;
+      
+  //     if (
+  //       instance._previousDataValues[fieldName] !== undefined &&
+  //       instance._previousDataValues[fieldName] !== null &&
+  //       (fieldDefinition.fieldName==='ProductId' || fieldDefinition.fieldName==='BasketId')
+  //     ) {
+  //       validationErrors.push(
+  //         new ValidationErrorItem(
+  //           `\`${fieldName}\` cannot be updated due \`noUpdate\` constraint`,
+  //           'noUpdate Violation',
+  //           fieldName,
+  //         )
+  //       );
+  //     }
+  //   });
+
+  //   if (validationErrors.length)
+  //     throw new ValidationError(null, validationErrors);
+  // });
 }
 
 export { relationsInit }
