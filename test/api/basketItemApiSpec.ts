@@ -162,7 +162,7 @@ describe('/api/BasketItems/:id', () => {
       })
   })
 
-  xit('PUT update basket ID of basket item without basket ID', () => { // FIXME Fails repeatably in CI/CD and locally except when directly run from IntelliJ
+  it('PUT update basket ID of basket item without basket ID', () => {
     return frisby.post(API_URL + '/BasketItems', {
       headers: authHeader,
       body: {
