@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize/types";
+import { Sequelize } from 'sequelize/types'
 import { AddressModel } from './address'
 import { BasketModel } from './basket'
 import { BasketItemModel } from './basketitem'
@@ -38,11 +38,11 @@ const relationsInit = (_sequelize: Sequelize) => {
     through: BasketItemModel,
     as: 'Products',
     foreignKey: {
-      name: 'BasketId',
+      name: 'BasketId'
       // TODO noUpdate: true
     }
   })
-  makeKeyNonUpdatable(BasketItemModel,'BasketId')
+  makeKeyNonUpdatable(BasketItemModel, 'BasketId')
 
   CardModel.belongsTo(UserModel, {
     constraints: true,
@@ -95,7 +95,7 @@ const relationsInit = (_sequelize: Sequelize) => {
       // TODO noUpdate: true
     }
   })
-  makeKeyNonUpdatable(BasketItemModel,'ProductId')
+  makeKeyNonUpdatable(BasketItemModel, 'ProductId')
 
   QuantityModel.belongsTo(ProductModel, {
     constraints: true,
@@ -148,7 +148,7 @@ const relationsInit = (_sequelize: Sequelize) => {
 
   //   const changedKeys: unknown[] = [];
 
-  //   const instance_changed = Array.from(instance._changed);    
+  //   const instance_changed = Array.from(instance._changed);
 
   //   instance_changed.forEach((value) => changedKeys.push(value));
 
@@ -158,9 +158,9 @@ const relationsInit = (_sequelize: Sequelize) => {
 
   //   changedKeys.forEach((fieldName:any) => {
   //     const fieldDefinition = instance.rawAttributes[fieldName];
-      
+
   //     // if (!fieldDefinition.noUpdate) return;
-      
+
   //     if (
   //       instance._previousDataValues[fieldName] !== undefined &&
   //       instance._previousDataValues[fieldName] !== null &&
