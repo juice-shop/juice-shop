@@ -138,7 +138,7 @@ const relationsInit = (_sequelize: Sequelize) => {
   })
 
   BasketItemModel.addHook('beforeUpdate', 'dontUpdateId', (basketItem: any, options) => { // TODO: any
-    if (basketItem.dataValues.BasketId !== basketItem._previousDataValues.BasketId) {
+    if (basketItem._previousDataValues.BasketId && basketItem.dataValues.BasketId !== basketItem._previousDataValues.BasketId) {
       return Promise.reject(new Error('null: `BasketId` cannot be updated due `dontUpdateId` constraint'))
     }
     if (basketItem.dataValues.ProductId !== basketItem._previousDataValues.ProductId) {
