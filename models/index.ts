@@ -25,7 +25,7 @@ import { UserModelInit } from './user'
 import { WalletModelInit } from './wallet'
 
 /* jslint node: true */
-const sequelizeNoUpdateAttributes = require('sequelize-notupdate-attributes')
+
 const Sequelize = require('sequelize')
 
 const sequelize = new Sequelize('database', 'username', 'password', {
@@ -60,9 +60,5 @@ UserModelInit(sequelize)
 WalletModelInit(sequelize)
 
 relationsInit(sequelize)
-
-sequelizeNoUpdateAttributes(sequelize)
-
-// console.log("after seq obj",sequelize);
 
 export { sequelize }
