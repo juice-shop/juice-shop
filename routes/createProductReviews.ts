@@ -21,7 +21,7 @@ module.exports = function productReviews () {
       likesCount: 0,
       likedBy: []
     }).then(() => {
-      res.status(201).json({ staus: 'success' })
+      res.status(201).json({ status: 'success' })
     }, err => {
       res.status(500).json(err)
     })
