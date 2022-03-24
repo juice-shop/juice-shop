@@ -409,10 +409,10 @@
   "LAUNCH_CODING_CHALLENGE": "Executar o desafio de código associado.",
   "LOADING_CODE_SNIPPET": "Carregando fragmento de código...",
   "SOLVE_HACKING_CHALLENGE": "Resolva o desafio de hacking para desbloquear o desafio de código associado.",
-  "LABEL_CORRECT_FIX": "Correção certa",
+  "LABEL_CORRECT_FIX": "Correct Fix",
   "TITLE_CODING_CHALLENGE": "Desafio de código",
   "TAB_FIND_IT": "Encontre",
-  "TAB_FIX_IT": "Resolva",
+  "TAB_FIX_IT": "Fix It",
   "TITLE_CODING_SCORE": "Pontuação",
   "LABEL_FEEDBACK": "Feedback"
 }
