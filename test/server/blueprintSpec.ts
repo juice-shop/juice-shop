@@ -29,7 +29,7 @@ describe('blueprint', () => {
             pathToImage = path.resolve('frontend/src', pathToImage, product.image)
           }
 
-          if (product.exifForBlueprintChallenge !== null) { // Prevents failing test for sample or custom themes where null has been explicitly set via "exifForBlueprintChallenge: ~". Warning: This makes the "Retrieve Blueprint" challenge probably unsolvable unless hints are placed elsewhere.
+          if (product?.exifForBlueprintChallenge[0] !== null) { // Prevents failing test for sample or custom themes where null has been explicitly set as value for "exifForBlueprintChallenge". Warning: This makes the "Retrieve Blueprint" challenge probably unsolvable unless hints are placed elsewhere.
             ExifImage({ image: pathToImage }, function (error: Error, exifData: any) {
               if (error) {
                 expect.fail(`Could not read EXIF data from ${pathToImage}`)
