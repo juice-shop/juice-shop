@@ -385,7 +385,7 @@ describe('configValidation', () => {
     })
   })
 
-  it('should accept the default config', () => {
+  it(`should accept the active config from config/${process.env.NODE_ENV}.yml`, () => {
     expect(validateConfig({ exitOnFailure: false })).to.equal(true)
   })
 
