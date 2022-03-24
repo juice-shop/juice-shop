@@ -48,6 +48,7 @@ products:
     price: 14.95
     image: 'https://www.alldaydevops.com/hubfs/2019-ADDO/Operation%20Graphics/ADDO_book_covers_yellow_forHS.jpg'
     fileForRetrieveBlueprintChallenge: 'https://sptf.info/images/pn1_fbl.pdf'
+    exifForBlueprintChallenge: ~
   - name: 'DevSecOps Reference Architectures 2019'
     description: 'Gloriously referential! Whitepaperesquely architectural!'
     price: 42.00

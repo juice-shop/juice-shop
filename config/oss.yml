@@ -95,6 +95,7 @@ products:
     price: 99.99
     image: 3d_keychain.jpg # Exif metadata contains "OpenSCAD" as subtle hint...
     fileForRetrieveBlueprintChallenge: JuiceShop.stl # ...to blueprint file type
+    exifForBlueprintChallenge: ~
 memories:
   -
     image: 'https://user-images.githubusercontent.com/15072044/41160171-c2619674-6b26-11e8-9c3e-848f6b2d9d0f.jpg'
