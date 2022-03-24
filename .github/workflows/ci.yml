@@ -130,6 +130,39 @@ jobs:
           ./cc-test-reporter sum-coverage build/reports/coverage/codeclimate.*.json -p 3
           ./cc-test-reporter upload-coverage
         shell: bash
+  custom-config-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        config: [7ms, addo, bodgeit, ctf, fbctf, juicebox, mozilla, oss, quiet, tutorial, unsafe]
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
+      - name: "Use Node.js 16"
+        uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
+        with:
+          node-version: 16
+      - name: "Install CLI tools"
+        run: npm install -g @angular/cli
+      - name: "Install application"
+        run: npm install
+      - name: "Execute server tests for each custom configuration"
+        uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          command: |
+            NODE_ENV=7ms npm run test:server
+            NODE_ENV=addo npm run test:server
+            NODE_ENV=bodgeit npm run test:server
+            NODE_ENV=ctf npm run test:server
+            NODE_ENV=fbctf npm run test:server
+            NODE_ENV=juicebox npm run test:server
+            NODE_ENV=mozilla npm run test:server
+            NODE_ENV=oss npm run test:server
+            NODE_ENV=quiet npm run test:server
+            NODE_ENV=tutorial npm run test:server
+            NODE_ENV=unsafe npm run test:server
   e2e:
     runs-on: windows-latest
     if: github.repository == 'juice-shop/juice-shop'
