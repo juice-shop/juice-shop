@@ -408,11 +408,11 @@
   "INSUFFICIENT_WALLET_BALANCE": "Utilstrækkelig saldo i din wallet.",
   "LAUNCH_CODING_CHALLENGE": "Launch associated coding challenge.",
   "LOADING_CODE_SNIPPET": "Indlæser kodeudsnit...",
-  "SOLVE_HACKING_CHALLENGE": "Solve the hacking challenge to unlock the associated coding challenge.",
+  "SOLVE_HACKING_CHALLENGE": "Løs hacking-udfordringen for at låse op for den tilknyttede kodningsudfordring.",
   "LABEL_CORRECT_FIX": "Correct Fix",
-  "TITLE_CODING_CHALLENGE": "Coding Challenge",
-  "TAB_FIND_IT": "Find It",
-  "TAB_FIX_IT": "Fix It",
+  "TITLE_CODING_CHALLENGE": "Kodning Udfordring",
+  "TAB_FIND_IT": "Find det",
+  "TAB_FIX_IT": "Ret det",
   "TITLE_CODING_SCORE": "Coding Score",
   "LABEL_FEEDBACK": "Feedback"
 }
