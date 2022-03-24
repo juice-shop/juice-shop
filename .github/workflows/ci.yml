@@ -37,18 +37,18 @@ jobs:
       - name: "Lint source code"
         run: npm run lint
       - name: "Lint customization configs"
-        run: |
-          npm run lint:config -- -f ./config/7ms.yml
-          npm run lint:config -- -f ./config/addo.yml
-          npm run lint:config -- -f ./config/bodgeit.yml
-          npm run lint:config -- -f ./config/ctf.yml
-          npm run lint:config -- -f ./config/default.yml
-          npm run lint:config -- -f ./config/fbctf.yml
-          npm run lint:config -- -f ./config/juicebox.yml
-          npm run lint:config -- -f ./config/mozilla.yml
-          npm run lint:config -- -f ./config/oss.yml
-          npm run lint:config -- -f ./config/quiet.yml
-          npm run lint:config -- -f ./config/tutorial.yml
+        run: >
+          npm run lint:config -- -f ./config/7ms.yml &&
+          npm run lint:config -- -f ./config/addo.yml &&
+          npm run lint:config -- -f ./config/bodgeit.yml &&
+          npm run lint:config -- -f ./config/ctf.yml &&
+          npm run lint:config -- -f ./config/default.yml &&
+          npm run lint:config -- -f ./config/fbctf.yml &&
+          npm run lint:config -- -f ./config/juicebox.yml &&
+          npm run lint:config -- -f ./config/mozilla.yml &&
+          npm run lint:config -- -f ./config/oss.yml &&
+          npm run lint:config -- -f ./config/quiet.yml &&
+          npm run lint:config -- -f ./config/tutorial.yml &&
           npm run lint:config -- -f ./config/unsafe.yml
   coding-challenge-rsn:
     runs-on: windows-latest
@@ -148,17 +148,17 @@ jobs:
         with:
           timeout_minutes: 10
           max_attempts: 3
-          command: |
-            NODE_ENV=7ms npm run test:server
-            NODE_ENV=addo npm run test:server
-            NODE_ENV=bodgeit npm run test:server
-            NODE_ENV=ctf npm run test:server
-            NODE_ENV=fbctf npm run test:server
-            NODE_ENV=juicebox npm run test:server
-            NODE_ENV=mozilla npm run test:server
-            NODE_ENV=oss npm run test:server
-            NODE_ENV=quiet npm run test:server
-            NODE_ENV=tutorial npm run test:server
+          command: >
+            NODE_ENV=7ms npm run test:server &&
+            NODE_ENV=addo npm run test:server &&
+            NODE_ENV=bodgeit npm run test:server &&
+            NODE_ENV=ctf npm run test:server &&
+            NODE_ENV=fbctf npm run test:server &&
+            NODE_ENV=juicebox npm run test:server &&
+            NODE_ENV=mozilla npm run test:server &&
+            NODE_ENV=oss npm run test:server &&
+            NODE_ENV=quiet npm run test:server &&
+            NODE_ENV=tutorial npm run test:server &&
             NODE_ENV=unsafe npm run test:server
   e2e:
     runs-on: windows-latest
