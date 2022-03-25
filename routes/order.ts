@@ -65,12 +65,12 @@ module.exports = function placeOrder () {
           let totalPrice = 0
           const basketProducts: Product[] = []
           let totalPoints = 0
-          basket.Products?.forEach(({ BasketItemModel, price, deluxePrice, name, id }) => {
-            if (BasketItemModel) {
-              utils.solveIf(challenges.christmasSpecialChallenge, () => { return BasketItemModel.ProductId === products.christmasSpecial.id })
-              QuantityModel.findOne({ where: { ProductId: BasketItemModel.ProductId } }).then(() => {
+          basket.Products?.forEach(({ BasketItem, price, deluxePrice, name, id }) => {
+            if (BasketItem) {
+              utils.solveIf(challenges.christmasSpecialChallenge, () => { return BasketItem.ProductId === products.christmasSpecial.id })
+              QuantityModel.findOne({ where: { ProductId: BasketItem.ProductId } }).then(() => {
                 const newQuantity: number = 0
-                QuantityModel.update({ quantity: newQuantity }, { where: { ProductId: BasketItemModel?.ProductId } }).catch((error: unknown) => {
+                QuantityModel.update({ quantity: newQuantity }, { where: { ProductId: BasketItem?.ProductId } }).catch((error: unknown) => {
                   next(error)
                 })
               }).catch((error: unknown) => {
@@ -82,10 +82,10 @@ module.exports = function placeOrder () {
               } else {
                 itemPrice = price
               }
-              const itemTotal = itemPrice * BasketItemModel.quantity
-              const itemBonus = Math.round(itemPrice / 10) * BasketItemModel.quantity
+              const itemTotal = itemPrice * BasketItem.quantity
+              const itemBonus = Math.round(itemPrice / 10) * BasketItem.quantity
               const product = {
-                quantity: BasketItemModel.quantity,
+                quantity: BasketItem.quantity,
                 id: id,
                 name: req.__(name),
                 price: itemPrice,
@@ -93,7 +93,7 @@ module.exports = function placeOrder () {
                 bonus: itemBonus
               }
               basketProducts.push(product)
-              doc.text(`${BasketItemModel.quantity}x ${req.__(name)} ${req.__('ea.')} ${itemPrice} = ${itemTotal}¤`)
+              doc.text(`${BasketItem.quantity}x ${req.__(name)} ${req.__('ea.')} ${itemPrice} = ${itemTotal}¤`)
               doc.moveDown()
               totalPrice += itemTotal
               totalPoints += itemBonus
