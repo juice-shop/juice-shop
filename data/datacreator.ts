@@ -204,6 +204,12 @@ async function deleteUser (userId: number) {
   })
 }
 
+async function deleteProduct (productId: number) {
+  return await ProductModel.destroy({ where: { id: productId } }).catch((err: unknown) => {
+    logger.error(`Could not perform soft delete for the product ${productId}: ${utils.getErrorMessage(err)}`)
+  })
+}
+
 async function createRandomFakeUsers () {
   function getGeneratedRandomFakeUserEmail () {
     const randomDomain = makeRandomString(4).toLowerCase() + '.' + makeRandomString(2).toLowerCase()
@@ -291,13 +297,6 @@ async function createProducts () {
       product.image = utils.extractFilename(product.image)
       utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/products/' + product.image)
     }
-
-    // set deleted at values if configured
-    if (product.deletedDate) {
-      product.deletedAt = product.deletedDate
-      delete product.deletedDate
-    }
-
     return product
   })
 
@@ -308,11 +307,11 @@ async function createProducts () {
   const blueprintRetrievalChallengeProduct = products.find(({ fileForRetrieveBlueprintChallenge }: { fileForRetrieveBlueprintChallenge: string }) => fileForRetrieveBlueprintChallenge)
 
   christmasChallengeProduct.description += ' (Seasonal special offer! Limited availability!)'
-  christmasChallengeProduct.deletedAt = '2014-12-27 00:00:00.000 +00:00'
+  christmasChallengeProduct.deletedDate = '2014-12-27 00:00:00.000 +00:00'
   tamperingChallengeProduct.description += ' <a href="' + tamperingChallengeProduct.urlForProductTamperingChallenge + '" target="_blank">More...</a>'
-  tamperingChallengeProduct.deletedAt = null
+  tamperingChallengeProduct.deletedDate = null
   pastebinLeakChallengeProduct.description += ' (This product is unsafe! We plan to remove it from the stock!)'
-  pastebinLeakChallengeProduct.deletedAt = '2019-02-1 00:00:00.000 +00:00'
+  pastebinLeakChallengeProduct.deletedDate = '2019-02-1 00:00:00.000 +00:00'
 
   let blueprint = blueprintRetrievalChallengeProduct.fileForRetrieveBlueprintChallenge
   if (utils.isUrl(blueprint)) {
@@ -324,7 +323,7 @@ async function createProducts () {
 
   return await Promise.all(
     products.map(
-      async ({ reviews = [], useForChristmasSpecialChallenge = false, urlForProductTamperingChallenge = false, fileForRetrieveBlueprintChallenge = false, ...product }) =>
+      async ({ reviews = [], useForChristmasSpecialChallenge = false, urlForProductTamperingChallenge = false, fileForRetrieveBlueprintChallenge = false, deletedDate = false, ...product }) =>
         await ProductModel.create({
           name: product.name,
           description: product.description,
@@ -354,8 +353,8 @@ async function createProducts () {
                   persistedProduct)
               })
             }
-          }
-          if (!persistedProduct) {
+            if (deletedDate) void deleteProduct(persistedProduct.id) // TODO Rename into "isDeleted" or "deletedFlag" in config for v14.x release
+          } else {
             throw new Error('No persisted product found!')
           }
           return persistedProduct
