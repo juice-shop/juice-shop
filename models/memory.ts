@@ -14,9 +14,9 @@ import {
   Sequelize
 } from 'sequelize'
 
-class MemoryModel extends Model<
-InferAttributes<MemoryModel>,
-InferCreationAttributes<MemoryModel>
+class Memory extends Model<
+InferAttributes<Memory>,
+InferCreationAttributes<Memory>
 > {
   declare UserId: number
   declare id: CreationOptional<number>
@@ -25,7 +25,7 @@ InferCreationAttributes<MemoryModel>
 }
 
 const MemoryModelInit = (sequelize: Sequelize) => {
-  MemoryModel.init(
+  Memory.init(
     {
       UserId: {
         type: DataTypes.INTEGER
@@ -45,4 +45,4 @@ const MemoryModelInit = (sequelize: Sequelize) => {
   )
 }
 
-export { MemoryModel, MemoryModelInit }
+export { Memory as MemoryModel, MemoryModelInit }

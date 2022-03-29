@@ -16,9 +16,9 @@ import {
 } from 'sequelize'
 import { ProductModel } from './product'
 
-class BasketModel extends Model<
-InferAttributes<BasketModel>,
-InferCreationAttributes<BasketModel>
+class Basket extends Model<
+InferAttributes<Basket>,
+InferCreationAttributes<Basket>
 > {
   declare UserId: CreationOptional<number>
   declare id: CreationOptional<number>
@@ -27,7 +27,7 @@ InferCreationAttributes<BasketModel>
 }
 
 const BasketModelInit = (sequelize: Sequelize) => {
-  BasketModel.init(
+  Basket.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -46,4 +46,4 @@ const BasketModelInit = (sequelize: Sequelize) => {
   )
 }
 
-export { BasketModel, BasketModelInit }
+export { Basket as BasketModel, BasketModelInit }

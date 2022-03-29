@@ -12,9 +12,9 @@ import {
   CreationOptional,
   Sequelize
 } from 'sequelize'
-class ChallengeModel extends Model<
-InferAttributes<ChallengeModel>,
-InferCreationAttributes<ChallengeModel>
+class Challenge extends Model<
+InferAttributes<Challenge>,
+InferCreationAttributes<Challenge>
 > {
   declare id: CreationOptional<number>
   declare name: string
@@ -33,7 +33,7 @@ InferCreationAttributes<ChallengeModel>
 }
 
 const ChallengeModelInit = (sequelize: Sequelize) => {
-  ChallengeModel.init(
+  Challenge.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -61,4 +61,4 @@ const ChallengeModelInit = (sequelize: Sequelize) => {
   )
 }
 
-export { ChallengeModel, ChallengeModelInit }
+export { Challenge as ChallengeModel, ChallengeModelInit }

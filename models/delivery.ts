@@ -12,9 +12,9 @@ import {
   Sequelize
 } from 'sequelize'
 
-class DeliveryModel extends Model<
-InferAttributes<DeliveryModel>,
-InferCreationAttributes<DeliveryModel>
+class Delivery extends Model<
+InferAttributes<Delivery>,
+InferCreationAttributes<Delivery>
 > {
   declare id: CreationOptional<number>
   declare name: string
@@ -25,7 +25,7 @@ InferCreationAttributes<DeliveryModel>
 }
 
 const DeliveryModelInit = (sequelize: Sequelize) => {
-  DeliveryModel.init(
+  Delivery.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -45,4 +45,4 @@ const DeliveryModelInit = (sequelize: Sequelize) => {
   )
 }
 
-export { DeliveryModel, DeliveryModelInit }
+export { Delivery as DeliveryModel, DeliveryModelInit }

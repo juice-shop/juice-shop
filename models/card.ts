@@ -12,9 +12,9 @@ import {
   CreationOptional,
   Sequelize
 } from 'sequelize'
-class CardModel extends Model<
-InferAttributes<CardModel>,
-InferCreationAttributes<CardModel>
+class Card extends Model<
+InferAttributes<Card>,
+InferCreationAttributes<Card>
 > {
   declare UserId: number
   declare id: CreationOptional<number>
@@ -25,7 +25,7 @@ InferCreationAttributes<CardModel>
 }
 
 const CardModelInit = (sequelize: Sequelize) => {
-  CardModel.init(
+  Card.init(
     {
       UserId: {
         type: DataTypes.INTEGER
@@ -68,4 +68,4 @@ const CardModelInit = (sequelize: Sequelize) => {
   )
 }
 
-export { CardModel, CardModelInit }
+export { Card as CardModel, CardModelInit }

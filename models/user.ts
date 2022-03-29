@@ -17,9 +17,9 @@ const security = require('../lib/insecurity')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
-class UserModel extends Model<
-InferAttributes<UserModel>,
-InferCreationAttributes<UserModel>
+class User extends Model<
+InferAttributes<User>,
+InferCreationAttributes<User>
 > {
   declare id: CreationOptional<number>
   declare username: string | undefined
@@ -34,7 +34,7 @@ InferCreationAttributes<UserModel>
 }
 
 const UserModelInit = (sequelize: Sequelize) => {
-  UserModel.init(
+  User.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -125,7 +125,7 @@ const UserModelInit = (sequelize: Sequelize) => {
     }
   )
 
-  UserModel.addHook('afterValidate', (user: UserModel) => {
+  User.addHook('afterValidate', (user: User) => {
     if (
       user.email &&
     user.email.toLowerCase() ===
@@ -140,4 +140,4 @@ const UserModelInit = (sequelize: Sequelize) => {
   })
 }
 
-export { UserModel, UserModelInit }
+export { User as UserModel, UserModelInit }
