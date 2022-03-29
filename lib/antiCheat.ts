@@ -6,6 +6,7 @@
 import config = require('config')
 import { retrieveCodeSnippet } from '../routes/vulnCodeSnippet'
 import { readFixes } from '../routes/vulnCodeFixes'
+import { Challenge } from '../data/types'
 const colors = require('colors/safe')
 const logger = require('./logger')
 
@@ -20,7 +21,7 @@ const trivialChallenges = ['errorHandlingChallenge', 'privacyPolicyChallenge']
 
 const solves = [{ challenge: {}, phase: 'server start', timestamp: new Date(), cheatScore: 0 }] // seed with server start timestamp
 
-exports.calculateCheatScore = (challenge) => {
+exports.calculateCheatScore = (challenge: Challenge) => {
   const timestamp = new Date()
   let cheatScore = 0
   let timeFactor = 2
@@ -39,7 +40,7 @@ exports.calculateCheatScore = (challenge) => {
   return cheatScore
 }
 
-exports.calculateFindItCheatScore = async (challenge) => { // TODO Consider coding challenges with identical/overlapping snippets as easier once one of them has been solved
+exports.calculateFindItCheatScore = async (challenge: Challenge) => { // TODO Consider coding challenges with identical/overlapping snippets as easier once one of them has been solved
   const timestamp = new Date()
   let timeFactor = 0.001
   timeFactor *= (challenge.key === 'scoreBoardChallenge' && config.get('hackingInstructor.isEnabled') ? 0.5 : 1)
@@ -56,7 +57,7 @@ exports.calculateFindItCheatScore = async (challenge) => { // TODO Consider codi
   return cheatScore
 }
 
-exports.calculateFixItCheatScore = async (challenge) => {
+exports.calculateFixItCheatScore = async (challenge: Challenge) => {
   const timestamp = new Date()
   let cheatScore = 0
 
@@ -74,12 +75,12 @@ exports.totalCheatScore = () => {
   return solves.length > 1 ? solves.map(({ cheatScore }) => cheatScore).reduce((sum, score) => { return sum + score }) / (solves.length - 1) : 0
 }
 
-function areCoupled (challenge, previousChallenge) {
+function areCoupled (challenge: Challenge, previousChallenge: Challenge) {
   return (coupledChallenges[challenge.key] && coupledChallenges[challenge.key].indexOf(previousChallenge.key) > -1) ||
     (coupledChallenges[previousChallenge.key] && coupledChallenges[previousChallenge.key].indexOf(challenge.key) > -1)
 }
 
-function isTrivial (challenge) {
+function isTrivial (challenge: Challenge) {
   return trivialChallenges.includes(challenge.key)
 }
 

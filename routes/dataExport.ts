@@ -5,6 +5,7 @@
 
 import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
+import { Memory } from '../data/types'
 
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
@@ -27,7 +28,7 @@ module.exports = function dataExport () {
       }
 
       const memories = await models.Memory.findAll({ where: { UserId: req.body.UserId } })
-      memories.forEach(memory => {
+      memories.forEach((memory: Memory) => {
         userData.memories.push({
           imageUrl: req.protocol + '://' + req.get('host') + '/' + memory.imagePath,
           caption: memory.caption

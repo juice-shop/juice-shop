@@ -4,6 +4,8 @@
  */
 
 import colors = require('colors/safe')
+import utils = require('../utils')
+
 try {
   require('check-dependencies')
 } catch (err) {
@@ -15,11 +17,11 @@ const dependencyChecker = require('check-dependencies')
 
 const validateDependencies = async ({ packageDir = '.', exitOnFailure = true } = {}) => {
   let success = true
-  let dependencies = {}
+  let dependencies: any = {}
   try {
     dependencies = await dependencyChecker({ packageDir, scopeList: ['dependencies'] })
   } catch (err) {
-    logger.warn(`Dependencies in ${colors.bold(packageDir + '/package.json')} could not be checked due to "${err.message}" error (${colors.red('NOT OK')})`)
+    logger.warn(`Dependencies in ${colors.bold(packageDir + '/package.json')} could not be checked due to "${utils.getErrorMessage(err)}" error (${colors.red('NOT OK')})`)
   }
 
   if (dependencies.depsWereOk === true) {

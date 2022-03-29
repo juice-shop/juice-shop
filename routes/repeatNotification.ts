@@ -8,7 +8,7 @@ import { Request, Response } from 'express'
 
 module.exports = function repeatNotification () {
   return ({ query }: Request, res: Response) => {
-    const challengeName: string = decodeURIComponent(query.challenge)
+    const challengeName: string = decodeURIComponent(query.challenge as string)
     const challenge = utils.findChallengeByName(challengeName)
 
     if (challenge?.solved) {

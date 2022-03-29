@@ -22,7 +22,7 @@ module.exports = function servePublicFiles () {
     }
   }
 
-  function verify (file, res, next) {
+  function verify (file: string, res: Response, next: NextFunction) {
     if (file && (endsWithAllowlistedFileType(file) || (file === 'incident-support.kdbx'))) {
       file = security.cutOffPoisonNullByte(file)
 
@@ -36,7 +36,7 @@ module.exports = function servePublicFiles () {
     }
   }
 
-  function verifySuccessfulPoisonNullByteExploit (file) {
+  function verifySuccessfulPoisonNullByteExploit (file: string) {
     utils.solveIf(challenges.easterEggLevelOneChallenge, () => { return file.toLowerCase() === 'eastere.gg' })
     utils.solveIf(challenges.forgottenDevBackupChallenge, () => { return file.toLowerCase() === 'package.json.bak' })
     utils.solveIf(challenges.forgottenBackupChallenge, () => { return file.toLowerCase() === 'coupons_2013.md.bak' })
@@ -48,7 +48,7 @@ module.exports = function servePublicFiles () {
     })
   }
 
-  function endsWithAllowlistedFileType (param) {
+  function endsWithAllowlistedFileType (param: string) {
     return utils.endsWith(param, '.md') || utils.endsWith(param, '.pdf')
   }
 }
