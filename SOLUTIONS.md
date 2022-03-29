@@ -17,6 +17,7 @@ file and open a PR! The same goes for any scripts or automated tools you made fo
 
 ## Hacking Videos
 
+* [OWASP Juice Shop | TryHackMe Burp Suite Fundamentals](https://youtu.be/6n1pI9dJpW4) by [CyberInsight](https://www.youtube.com/channel/UCmJJUewPWfnyzvZRrFHlykA)
 * [Wie werden APIs "gehackt" - API Sicherheit am Beispiel](https://youtu.be/wGtS5qQ0bC0) (:de:)
   by
   [predic8](https://www.youtube.com/channel/UC9ONq2LjrImWzWrWf6MYd2A) (🧃`v12.x`)
