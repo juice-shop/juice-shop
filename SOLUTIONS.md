@@ -17,6 +17,22 @@ file and open a PR! The same goes for any scripts or automated tools you made fo
 
 ## Hacking Videos
 
+* [Hacking the OWASP Juice Shop Series](https://www.youtube.com/playlist?list=PLcsrjMNFrcmbAFV8BxDKXZCcPrOlaYfWK) playlist of [Compass IT Compliance](https://www.youtube.com/channel/UCccfSU7EGGTS76hz2i6qdrg) (🧃`v12.x`)
+  * [Hacking the OWASP Juice Shop Series - Deploying the Juice Shop](https://youtu.be/qjrEMEztxWM)
+  * [Hacking the OWASP Juice Shop Series - Challenge #1 (Score Board)](https://youtu.be/3TKm5T0ul5Y)
+  * [Hacking the OWASP Juice Shop Series - Challenge #2 (DOM XSS)](https://youtu.be/qTm52tJu4i4)
+  * [Hacking the OWASP Juice Shop Series - Challenge #3 (Bonus Payload)](https://youtu.be/GoZbpBY6R1E)
+  * [Hacking the OWASP Juice Shop Series - Challenge #4 (Repetitive Registration)](https://youtu.be/hRF1StzaXo4)
+  * [Hacking the OWASP Juice Shop Series - Challenge #5 (Bully Chatbot)](https://youtu.be/dTm_55SUW88)
+  * [Hacking the OWASP Juice Shop Series - Challenge #6 (Confidential Document)](https://youtu.be/pt6a5-O90G4)
+  * [Hacking the OWASP Juice Shop Series - Challenge #7 (Error Handling)](https://youtu.be/aFJzZJcxVd8)
+  * [Hacking the OWASP Juice Shop Series - Challenge #8 (Exposed Metrics)](https://youtu.be/PuU2deMxj3E)
+  * [Hacking the OWASP Juice Shop Series - Challenge #9 (Missing Encoding)](https://youtu.be/40ndR8btKaU)
+  * [Hacking the OWASP Juice Shop Series - Challenge #10 (Outdated Allowlist)](https://youtu.be/diXuxUxLmXU)
+  * [Hacking the OWASP Juice Shop Series - Challenge #11 (Privacy Policy)](https://youtu.be/C3Qeyh3_xOA)
+  * [Hacking the OWASP Juice Shop Series - Challenge #12 (Zero Stars)](https://youtu.be/aJOvzpOdAC0)
+  * [Hacking the OWASP Juice Shop Series - Manage Heroku and Juice Shop](https://youtu.be/5jerMnM0vXw)
+* [OWASP Juice Shop | TryHackMe Burp Suite Fundamentals](https://youtu.be/6n1pI9dJpW4) by [CyberInsight](https://www.youtube.com/channel/UCmJJUewPWfnyzvZRrFHlykA)
 * [Wie werden APIs "gehackt" - API Sicherheit am Beispiel](https://youtu.be/wGtS5qQ0bC0) (:de:)
   by
   [predic8](https://www.youtube.com/channel/UC9ONq2LjrImWzWrWf6MYd2A) (🧃`v12.x`)
