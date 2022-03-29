@@ -11,9 +11,9 @@ import {
   Sequelize
 } from 'sequelize'
 
-class CaptchaModel extends Model<
-InferAttributes<CaptchaModel>,
-InferCreationAttributes<CaptchaModel>
+class Captcha extends Model<
+InferAttributes<Captcha>,
+InferCreationAttributes<Captcha>
 > {
   declare captchaId: number
   declare captcha: string
@@ -21,7 +21,7 @@ InferCreationAttributes<CaptchaModel>
 }
 
 const CaptchaModelInit = (sequelize: Sequelize) => {
-  CaptchaModel.init(
+  Captcha.init(
     {
       captchaId: {
         type: DataTypes.INTEGER
@@ -36,4 +36,4 @@ const CaptchaModelInit = (sequelize: Sequelize) => {
   )
 }
 
-export { CaptchaModel, CaptchaModelInit }
+export { Captcha as CaptchaModel, CaptchaModelInit }

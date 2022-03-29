@@ -13,16 +13,16 @@ import {
   Sequelize
 } from 'sequelize'
 
-class SecurityQuestionModel extends Model<
-InferAttributes<SecurityQuestionModel>,
-InferCreationAttributes<SecurityQuestionModel>
+class SecurityQuestion extends Model<
+InferAttributes<SecurityQuestion>,
+InferCreationAttributes<SecurityQuestion>
 > {
   declare id: CreationOptional<number>
   declare question: string
 }
 
 const SecurityQuestionModelInit = (sequelize: Sequelize) => {
-  SecurityQuestionModel.init(
+  SecurityQuestion.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -40,4 +40,4 @@ const SecurityQuestionModelInit = (sequelize: Sequelize) => {
   )
 }
 
-export { SecurityQuestionModel, SecurityQuestionModelInit }
+export { SecurityQuestion as SecurityQuestionModel, SecurityQuestionModelInit }

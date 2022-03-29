@@ -17,9 +17,9 @@ import {
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 
-class FeedbackModel extends Model<
-InferAttributes<FeedbackModel>,
-InferCreationAttributes<FeedbackModel>
+class Feedback extends Model<
+InferAttributes<Feedback>,
+InferCreationAttributes<Feedback>
 > {
   declare UserId: number | null
   declare id: CreationOptional<number>
@@ -27,7 +27,7 @@ InferCreationAttributes<FeedbackModel>
   declare rating: number
 }
 const FeedbackModelInit = (sequelize: Sequelize) => {
-  FeedbackModel.init(
+  Feedback.init(
     {
       UserId: {
         type: DataTypes.INTEGER
@@ -73,4 +73,4 @@ const FeedbackModelInit = (sequelize: Sequelize) => {
   )
 }
 
-export { FeedbackModel, FeedbackModelInit }
+export { Feedback as FeedbackModel, FeedbackModelInit }

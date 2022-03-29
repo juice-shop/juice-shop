@@ -14,9 +14,9 @@ import {
   Sequelize
 } from 'sequelize'
 
-class ComplaintModel extends Model<
-InferAttributes<ComplaintModel>,
-InferCreationAttributes<ComplaintModel>
+class Complaint extends Model<
+InferAttributes<Complaint>,
+InferCreationAttributes<Complaint>
 > {
   declare UserId: number
   declare id: CreationOptional<number>
@@ -25,7 +25,7 @@ InferCreationAttributes<ComplaintModel>
 }
 
 const ComplaintModelInit = (sequelize: Sequelize) => {
-  ComplaintModel.init(
+  Complaint.init(
     {
       UserId: {
         type: DataTypes.INTEGER
@@ -45,4 +45,4 @@ const ComplaintModelInit = (sequelize: Sequelize) => {
   )
 }
 
-export { ComplaintModel, ComplaintModelInit }
+export { Complaint as ComplaintModel, ComplaintModelInit }

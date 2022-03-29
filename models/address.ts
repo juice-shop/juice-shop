@@ -12,9 +12,9 @@ import {
   Sequelize
 } from 'sequelize'
 /* jslint node: true */
-class AddressModel extends Model<
-InferAttributes<AddressModel>,
-InferCreationAttributes<AddressModel>
+class Address extends Model<
+InferAttributes<Address>,
+InferCreationAttributes<Address>
 > {
   declare UserId: number
   declare id: CreationOptional<number>
@@ -28,7 +28,7 @@ InferCreationAttributes<AddressModel>
 }
 
 const AddressModelInit = (sequelize: Sequelize) => {
-  AddressModel.init(
+  Address.init(
     {
       UserId: {
         type: DataTypes.INTEGER
@@ -72,4 +72,4 @@ const AddressModelInit = (sequelize: Sequelize) => {
   )
 }
 
-export { AddressModel, AddressModelInit }
+export { Address as AddressModel, AddressModelInit }

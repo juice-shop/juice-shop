@@ -17,9 +17,9 @@ import { BasketItemModel } from './basketitem'
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 
-class ProductModel extends Model<
-InferAttributes<ProductModel>,
-InferCreationAttributes<ProductModel>
+class Product extends Model<
+InferAttributes<Product>,
+InferCreationAttributes<Product>
 > {
   declare id: CreationOptional<number>
   declare name: string
@@ -31,7 +31,7 @@ InferCreationAttributes<ProductModel>
 }
 
 const ProductModelInit = (sequelize: Sequelize) => {
-  ProductModel.init(
+  Product.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -67,4 +67,4 @@ const ProductModelInit = (sequelize: Sequelize) => {
   )
 }
 
-export { ProductModel, ProductModelInit }
+export { Product as ProductModel, ProductModelInit }

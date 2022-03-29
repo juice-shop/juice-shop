@@ -14,9 +14,9 @@ import {
 } from 'sequelize'
 const security = require('../lib/insecurity')
 
-class SecurityAnswerModel extends Model<
-InferAttributes<SecurityAnswerModel>,
-InferCreationAttributes<SecurityAnswerModel>
+class SecurityAnswer extends Model<
+InferAttributes<SecurityAnswer>,
+InferCreationAttributes<SecurityAnswer>
 > {
   declare SecurityQuestionId: number
   declare UserId: number
@@ -25,7 +25,7 @@ InferCreationAttributes<SecurityAnswerModel>
 }
 
 const SecurityAnswerModelInit = (sequelize: Sequelize) => {
-  SecurityAnswerModel.init(
+  SecurityAnswer.init(
     {
       UserId: {
         type: DataTypes.INTEGER,
@@ -54,4 +54,4 @@ const SecurityAnswerModelInit = (sequelize: Sequelize) => {
   )
 }
 
-export { SecurityAnswerModel, SecurityAnswerModelInit }
+export { SecurityAnswer as SecurityAnswerModel, SecurityAnswerModelInit }

@@ -13,9 +13,9 @@ import {
   Sequelize
 } from 'sequelize'
 
-class BasketItemModel extends Model<
-InferAttributes<BasketItemModel>,
-InferCreationAttributes<BasketItemModel>
+class BasketItem extends Model<
+InferAttributes<BasketItem>,
+InferCreationAttributes<BasketItem>
 > {
   declare ProductId: number
   declare BasketId: number
@@ -24,7 +24,7 @@ InferCreationAttributes<BasketItemModel>
 }
 
 const BasketItemModelInit = (sequelize: Sequelize) => {
-  BasketItemModel.init(
+  BasketItem.init(
     {
       ProductId: {
         type: DataTypes.INTEGER
@@ -46,4 +46,4 @@ const BasketItemModelInit = (sequelize: Sequelize) => {
   )
 }
 
-export { BasketItemModel, BasketItemModelInit }
+export { BasketItem as BasketItemModel, BasketItemModelInit }

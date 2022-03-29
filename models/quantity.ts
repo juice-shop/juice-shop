@@ -14,9 +14,9 @@ import {
   Sequelize
 } from 'sequelize'
 
-class QuantityModel extends Model<
-InferAttributes<QuantityModel>,
-InferCreationAttributes<QuantityModel>
+class Quantity extends Model<
+InferAttributes<Quantity>,
+InferCreationAttributes<Quantity>
 > {
   declare ProductId: number
   declare id: CreationOptional<number>
@@ -25,7 +25,7 @@ InferCreationAttributes<QuantityModel>
 }
 
 const QuantityModelInit = (sequelize: Sequelize) => {
-  QuantityModel.init(
+  Quantity.init(
     {
       ProductId: {
         type: DataTypes.INTEGER
@@ -56,4 +56,4 @@ const QuantityModelInit = (sequelize: Sequelize) => {
   )
 }
 
-export { QuantityModel, QuantityModelInit }
+export { Quantity as QuantityModel, QuantityModelInit }

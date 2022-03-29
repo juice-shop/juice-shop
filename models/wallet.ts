@@ -13,9 +13,9 @@ import {
   Sequelize
 } from 'sequelize'
 
-class WalletModel extends Model<
-InferAttributes<WalletModel>,
-InferCreationAttributes<WalletModel>
+class Wallet extends Model<
+InferAttributes<Wallet>,
+InferCreationAttributes<Wallet>
 > {
   declare UserId: number
   declare id: CreationOptional<number>
@@ -23,7 +23,7 @@ InferCreationAttributes<WalletModel>
 }
 
 const WalletModelInit = (sequelize: Sequelize) => {
-  WalletModel.init(
+  Wallet.init(
     {
       UserId: {
         type: DataTypes.INTEGER
@@ -48,4 +48,4 @@ const WalletModelInit = (sequelize: Sequelize) => {
   )
 }
 
-export { WalletModel, WalletModelInit }
+export { Wallet as WalletModel, WalletModelInit }

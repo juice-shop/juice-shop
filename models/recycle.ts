@@ -14,9 +14,9 @@ import {
   Sequelize
 } from 'sequelize'
 
-class RecycleModel extends Model<
-InferAttributes<RecycleModel>,
-InferCreationAttributes<RecycleModel>
+class Recycle extends Model<
+InferAttributes<Recycle>,
+InferCreationAttributes<Recycle>
 > {
   declare id: CreationOptional<number>
   declare UserId: number
@@ -27,7 +27,7 @@ InferCreationAttributes<RecycleModel>
 }
 
 const RecycleModelInit = (sequelize: Sequelize) => {
-  RecycleModel.init(
+  Recycle.init(
     {
       UserId: {
         type: DataTypes.INTEGER
@@ -52,4 +52,4 @@ const RecycleModelInit = (sequelize: Sequelize) => {
   )
 }
 
-export { RecycleModel, RecycleModelInit }
+export { Recycle as RecycleModel, RecycleModelInit }

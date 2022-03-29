@@ -12,9 +12,9 @@ import {
   Sequelize
 } from 'sequelize'
 
-class ImageCaptchaModel extends Model<
-InferAttributes<ImageCaptchaModel>,
-InferCreationAttributes<ImageCaptchaModel>
+class ImageCaptcha extends Model<
+InferAttributes<ImageCaptcha>,
+InferCreationAttributes<ImageCaptcha>
 > {
   declare id: CreationOptional<number>
   declare image: string
@@ -24,7 +24,7 @@ InferCreationAttributes<ImageCaptchaModel>
 }
 
 const ImageCaptchaModelInit = (sequelize: Sequelize) => {
-  ImageCaptchaModel.init(
+  ImageCaptcha.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -43,4 +43,4 @@ const ImageCaptchaModelInit = (sequelize: Sequelize) => {
   )
 }
 
-export { ImageCaptchaModel, ImageCaptchaModelInit }
+export { ImageCaptcha as ImageCaptchaModel, ImageCaptchaModelInit }
