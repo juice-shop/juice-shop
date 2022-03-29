@@ -7,7 +7,7 @@ mentioned or used!
 > :bulb: indicates resources that contain _hints for solving challenges_
 > of the OWASP Juice Shop. These are supposed to be helpful whenever you
 > get stuck. :godmode: indicates resources that _spoiler entire
-> challenge solutions_ so you might not want to view them before
+> challenge solutions_, so you might not want to view them before
 > tackling these challenges yourself! :mega: marks short friendly shout
 > outs. Finally, the :dollar: bill marks commercial resources.
 
@@ -109,6 +109,7 @@ mentioned or used!
 
 ### Blogs & Articles
 
+* Blog post (:de:) on [Dev-Insider](https://www.dev-insider.de/): [OWASP Juice Shop lädt zum Hacken ein](https://www.dev-insider.de/owasp-juice-shop-laedt-zum-hacken-ein-a-968485/) :godmode:
 * Blog post on [OWASP.org](https://owasp.org) by Björn Kimminich:
   [OWASP Juice Shop v10.0.0 released](https://owasp.org/2020/03/17/juice-shop-v10.html)
 * [20+ Free Resources To Legally Practice Your Ethical Hacking Skills](https://blog.elearnsecurity.com/free-resources-to-legally-practice-ethical-hacking.html?utm_source=twitter&utm_medium=social&utm_campaign=eh_resources_blogpost)

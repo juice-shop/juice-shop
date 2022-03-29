@@ -86,6 +86,8 @@ products:
     price: 19.99
     image: 'https://pbs.twimg.com/media/Dc3BuBPXUAAswae.jpg'
     fileForRetrieveBlueprintChallenge: The+CryptoLocker+Song.mps
+    exifForBlueprintChallenge:
+      - ~
   -
     name: 'Sweet Surrender (Limited Edition Best of Audio CD)'
     description: 'Sweet Surrender is a vocals-driven acoustic duo from the Twin Cities area. Our music reflects a diverse range of our musical tastes - from the most current pop and country tunes on the radio today, to some great older tunes done with a twist. We also love to share music that reflects our love for Christ through the most current, contemporary Christian music.'

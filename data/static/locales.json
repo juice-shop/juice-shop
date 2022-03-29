@@ -34,6 +34,7 @@
   { "key": "sv_SE", "icons": ["se"], "shortKey": "SV", "lang": "Svenska" },
   { "key": "th_TH", "icons": ["th"], "shortKey": "TH", "lang": "ไทย" },
   { "key": "tr_TR", "icons": ["tr"], "shortKey": "TR", "lang": "Türkçe" },
+  { "key": "uk_UA", "icons": ["ua"], "shortKey": "UA", "lang": "український" },
   { "key": "zh_CN", "icons": ["cn"], "shortKey": "CN", "lang": "中国" },
   { "key": "zh_HK", "icons": ["hk"], "shortKey": "HK", "lang": "繁體中文" },
   { "key": "zh_TW", "icons": ["tw"], "shortKey": "TW", "lang": "繁體中文" }

@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "13.3.0-SNAPSHOT",
+  "version": "13.4.0-SNAPSHOT",
   "private": true,
   "description": "Probably the most modern and sophisticated insecure web application",
   "keywords": [
@@ -59,7 +59,7 @@
     "package": "grunt package",
     "package:ci": "npm prune --production && npm dedupe && cd frontend && npm prune --production && cd .. && grunt package",
     "preprotractor": "npm dedupe && node ./node_modules/protractor/bin/webdriver-manager update --gecko false",
-    "preprotractor:github": "npm dedupe && node ./node_modules/protractor/bin/webdriver-manager update --gecko false --versions.chrome 97.0.4692.99",
+    "preprotractor:github": "npm dedupe && node ./node_modules/protractor/bin/webdriver-manager update --gecko false --versions.chrome 99.0.4844.51",
     "protractor": "npm run e2e",
     "serve": "concurrently --kill-others \"ts-node app.ts\" \"cd frontend && ng serve\"",
     "serve:dev": "concurrently --kill-others \"ts-node-dev app.ts\" \"cd frontend && ng serve\"",
