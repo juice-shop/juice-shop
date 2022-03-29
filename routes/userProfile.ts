@@ -7,6 +7,7 @@ import fs = require('fs')
 import { Request, Response, NextFunction } from 'express'
 
 import models = require('../models/index')
+import { User } from '../data/types'
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
@@ -22,7 +23,7 @@ module.exports = function getUserProfile () {
       if (err != null) throw err
       const loggedInUser = security.authenticatedUsers.get(req.cookies.token)
       if (loggedInUser) {
-        models.User.findByPk(loggedInUser.data.id).then(user => {
+        models.User.findByPk(loggedInUser.data.id).then((user: User) => {
           let template = buf.toString()
           let username = user.dataValues.username
           if (username.match(/#{(.*)}/) !== null && !utils.disableOnContainerEnv()) {

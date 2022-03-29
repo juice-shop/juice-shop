@@ -5,6 +5,7 @@
 
 import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
+import { Captcha } from '../data/types'
 
 function captchas () {
   return (req: Request, res: Response) => {
@@ -34,7 +35,7 @@ function captchas () {
 }
 
 captchas.verifyCaptcha = () => (req: Request, res: Response, next: NextFunction) => {
-  models.Captcha.findOne({ where: { captchaId: req.body.captchaId } }).then(captcha => {
+  models.Captcha.findOne({ where: { captchaId: req.body.captchaId } }).then((captcha: Captcha) => {
     if (captcha && req.body.captcha === captcha.dataValues.answer) {
       next()
     } else {

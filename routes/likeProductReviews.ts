@@ -5,6 +5,7 @@
 
 import utils = require('../lib/utils')
 import { Request, Response, NextFunction } from 'express'
+import { Review } from '../data/types'
 
 const challenges = require('../data/datacache').challenges
 const db = require('../data/mongodb')
@@ -14,17 +15,17 @@ module.exports = function productReviews () {
   return (req: Request, res: Response, next: NextFunction) => {
     const id = req.body.id
     const user = security.authenticatedUsers.from(req)
-    db.reviews.findOne({ _id: id }).then(review => {
+    db.reviews.findOne({ _id: id }).then((review: Review) => {
       const likedBy = review.likedBy
       if (!likedBy.includes(user.data.email)) {
         db.reviews.update(
           { _id: id },
           { $inc: { likesCount: 1 } }
         ).then(
-          result => {
+          () => {
             // Artificial wait for timing attack challenge
             setTimeout(function () {
-              db.reviews.findOne({ _id: id }).then(review => {
+              db.reviews.findOne({ _id: id }).then((review: Review) => {
                 const likedBy = review.likedBy
                 likedBy.push(user.data.email)
                 let count = 0
@@ -38,16 +39,16 @@ module.exports = function productReviews () {
                   { _id: id },
                   { $set: { likedBy: likedBy } }
                 ).then(
-                  result => {
+                  (result: any) => {
                     res.json(result)
-                  }, err => {
+                  }, (err: unknown) => {
                     res.status(500).json(err)
                   })
               }, () => {
                 res.status(400).json({ error: 'Wrong Params' })
               })
             }, 150)
-          }, err => {
+          }, (err: unknown) => {
             res.status(500).json(err)
           })
       } else {

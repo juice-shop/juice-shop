@@ -1,7 +1,10 @@
-export interface Challenge {
+import { Model } from 'sequelize/types'
+
+export interface Challenge extends Model {
   name: string
   category: string
   description: string
+  solved: boolean
   difficulty: number
   hint: string
   hintUrl: string
@@ -10,9 +13,11 @@ export interface Challenge {
   disabledEnv?: string | string[]
   tutorial?: { order: number }
   tags?: string[]
+  tutorialOrder?: number
 }
 
-export interface User {
+export interface User extends Model {
+  id: number
   username?: string
   email: string
   password: string
@@ -35,7 +40,7 @@ export interface User {
   walletBalance?: number
 }
 
-export interface Delivery {
+export interface Delivery extends Model {
   name: string
   price: number
   deluxePrice: number
@@ -43,7 +48,7 @@ export interface Delivery {
   icon: string
 }
 
-export interface Address {
+export interface Address extends Model {
   fullName: string
   mobileNum: number
   zipCode: string
@@ -53,14 +58,15 @@ export interface Address {
   country: string
 }
 
-export interface Card {
+export interface Card extends Model {
   fullName: string
-  cardNum: number
+  cardNum: number | string
   expMonth: number
   expYear: number
 }
 
-export interface Product {
+export interface Product extends Model {
+  id: number
   name: string
   description: string
   price?: number
@@ -77,13 +83,16 @@ export interface Product {
   fileForRetrieveBlueprintChallenge?: string
 }
 
-export interface Review {
+export interface Review extends Model {
   text: string
   author: string
+  liked: boolean
+  likedBy: string[]
 }
 
-export interface Memory {
+export interface Memory extends Model {
   image: string
+  imagePath: string
   caption: string
   user: string
   geoStalkingMetaSecurityQuestion?: number
@@ -92,7 +101,7 @@ export interface Memory {
   geoStalkingVisualSecurityAnswer?: string
 }
 
-export interface Recycle {
+export interface Recycle extends Model {
   UserId: number
   quantity: number
   AddressId: number
@@ -100,6 +109,29 @@ export interface Recycle {
   isPickup: boolean
 }
 
-export interface SecurityQuestion {
+export interface SecurityQuestion extends Model {
   question: string
+}
+
+export interface SecurityAnswer extends Model {
+  answer: string
+  UserId: number
+  SecurityQuestionId: number
+}
+
+export interface Basket extends Model {
+  id: number
+  Products: Product[]
+  coupon: string
+}
+
+export interface BasketItem extends Model {
+  ProductId: number
+  BasketId: number
+  quantity: number
+}
+
+export interface Captcha extends Model {
+  captcha: string
+  answer: string
 }

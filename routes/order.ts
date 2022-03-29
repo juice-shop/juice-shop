@@ -6,6 +6,7 @@
 import path = require('path')
 import { Request, Response, NextFunction } from 'express'
 import models = require('../models/index')
+import { Basket, Product } from 'data/types'
 
 const fs = require('fs')
 const PDFDocument = require('pdfkit')
@@ -20,7 +21,7 @@ module.exports = function placeOrder () {
   return (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id
     models.Basket.findOne({ where: { id }, include: [{ model: models.Product, paranoid: false }] })
-      .then(async basket => {
+      .then(async (basket: Basket) => {
         if (basket) {
           const customer = security.authenticatedUsers.from(req)
           const email = customer ? customer.data ? customer.data.email : '' : ''
@@ -31,7 +32,7 @@ module.exports = function placeOrder () {
           const fileWriter = doc.pipe(fs.createWriteStream(path.join('ftp/', pdfFile)))
 
           fileWriter.on('finish', () => {
-            basket.update({ coupon: null })
+            void basket.update({ coupon: null })
             models.BasketItem.destroy({ where: { BasketId: id } })
             res.json({ orderConfirmation: orderId })
           })
@@ -49,20 +50,20 @@ module.exports = function placeOrder () {
           doc.moveDown()
           doc.moveDown()
           let totalPrice = 0
-          const basketProducts = []
+          const basketProducts: Product[] = []
           let totalPoints = 0
           basket.Products.forEach(({ BasketItem, price, deluxePrice, name, id }) => {
             utils.solveIf(challenges.christmasSpecialChallenge, () => { return BasketItem.ProductId === products.christmasSpecial.id })
 
-            models.Quantity.findOne({ where: { ProductId: BasketItem.ProductId } }).then((product) => {
+            models.Quantity.findOne({ where: { ProductId: BasketItem.ProductId } }).then((product: Product) => {
               const newQuantity = product.dataValues.quantity - BasketItem.quantity
-              models.Quantity.update({ quantity: newQuantity }, { where: { ProductId: BasketItem.ProductId } }).catch((error: Error) => {
+              models.Quantity.update({ quantity: newQuantity }, { where: { ProductId: BasketItem.ProductId } }).catch((error: unknown) => {
                 next(error)
               })
-            }).catch((error: Error) => {
+            }).catch((error: unknown) => {
               next(error)
             })
-            let itemPrice
+            let itemPrice: number
             if (security.isDeluxe(req)) {
               itemPrice = deluxePrice
             } else {
@@ -86,12 +87,12 @@ module.exports = function placeOrder () {
           })
           doc.moveDown()
           const discount = calculateApplicableDiscount(basket, req)
-          let discountAmount = 0
+          let discountAmount = '0'
           if (discount > 0) {
             discountAmount = (totalPrice * (discount / 100)).toFixed(2)
             doc.text(discount + '% discount from coupon: -' + discountAmount + '¤')
             doc.moveDown()
-            totalPrice -= discountAmount
+            totalPrice -= parseFloat(discountAmount)
           }
           let deliveryMethod = {
             deluxePrice: 0,
@@ -119,14 +120,14 @@ module.exports = function placeOrder () {
             if (req.body.orderDetails.paymentId === 'wallet') {
               const wallet = await models.Wallet.findOne({ where: { UserId: req.body.UserId } })
               if (wallet.balance >= totalPrice) {
-                models.Wallet.decrement({ balance: totalPrice }, { where: { UserId: req.body.UserId } }).catch((error: Error) => {
+                models.Wallet.decrement({ balance: totalPrice }, { where: { UserId: req.body.UserId } }).catch((error: unknown) => {
                   next(error)
                 })
               } else {
                 next(new Error('Insufficient wallet balance.'))
               }
             }
-            models.Wallet.increment({ balance: totalPoints }, { where: { UserId: req.body.UserId } }).catch((error: Error) => {
+            models.Wallet.increment({ balance: totalPoints }, { where: { UserId: req.body.UserId } }).catch((error: unknown) => {
               next(error)
             })
           }
@@ -149,13 +150,13 @@ module.exports = function placeOrder () {
         } else {
           next(new Error(`Basket with id=${id} does not exist.`))
         }
-      }).catch((error: Error) => {
+      }).catch((error: unknown) => {
         next(error)
       })
   }
 }
 
-function calculateApplicableDiscount (basket, req) {
+function calculateApplicableDiscount (basket: Basket, req: Request) {
   if (security.discountFromCoupon(basket.coupon)) {
     const discount = security.discountFromCoupon(basket.coupon)
     utils.solveIf(challenges.forgedCouponChallenge, () => { return discount >= 80 })

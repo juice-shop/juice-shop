@@ -42,7 +42,7 @@ if (process.env.CTF_KEY !== undefined && process.env.CTF_KEY !== '') {
   })
 }
 
-export const queryResultToJson = (data: any, status: string) => {
+export const queryResultToJson = (data: any, status: string = 'success') => {
   let wrappedData: any = {}
   if (data) {
     if (!data.length && data.dataValues) {
@@ -57,7 +57,7 @@ export const queryResultToJson = (data: any, status: string) => {
     }
   }
   return {
-    status: status || 'success',
+    status,
     data: wrappedData
   }
 }
@@ -248,10 +248,10 @@ export const determineDisabledEnv = (disabledEnv: string | string[] | undefined)
 export const parseJsonCustom = (jsonString: string) => {
   const parser = clarinet.parser()
   const result: any[] = []
-  parser.onkey = parser.onopenobject = k => {
+  parser.onkey = parser.onopenobject = (k: any) => {
     result.push({ key: k, value: null })
   }
-  parser.onvalue = v => {
+  parser.onvalue = (v: any) => {
     result[result.length - 1].value = v
   }
   parser.write(jsonString).close()
@@ -292,4 +292,9 @@ export const solveFixIt = async function (key: string, isRestore: boolean) {
     accuracy.calculateFixItAccuracy(solvedChallenge.key)
     antiCheat.calculateFixItCheatScore(solvedChallenge)
   }
+}
+
+export const getErrorMessage = (error: unknown) => {
+  if (error instanceof Error) return error.message
+  return String(error)
 }

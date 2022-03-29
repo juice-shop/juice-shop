@@ -5,6 +5,7 @@
 
 import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
+import { Basket } from '../data/types'
 
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
@@ -14,7 +15,7 @@ module.exports = function retrieveBasket () {
   return (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id
     models.Basket.findOne({ where: { id }, include: [{ model: models.Product, paranoid: false }] })
-      .then(basket => {
+      .then((basket: Basket) => {
         /* jshint eqeqeq:false */
         utils.solveIf(challenges.basketAccessChallenge, () => {
           const user = security.authenticatedUsers.from(req)

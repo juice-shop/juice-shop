@@ -11,9 +11,9 @@ module.exports = function productReviews () {
       { _id: req.body.id },
       { $set: { message: req.body.message } }
     ).then(
-      result => {
+      (result: { modified: number, original: Array<{ author: any }> }) => {
         res.json(result)
-      }, err => {
+      }, (err: unknown) => {
         res.status(500).json(err)
       })
   }
