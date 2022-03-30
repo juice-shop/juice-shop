@@ -20,7 +20,7 @@ module.exports = function searchProducts () {
         const dataString = JSON.stringify(products)
         if (utils.notSolved(challenges.unionSqlInjectionChallenge)) { // vuln-code-snippet hide-start
           let solved = true
-          UserModel.findAll().then(data => {
+          void UserModel.findAll().then(data => {
             const users = utils.queryResultToJson(data)
             if (users.data?.length) {
               for (let i = 0; i < users.data.length; i++) {
@@ -33,8 +33,6 @@ module.exports = function searchProducts () {
                 utils.solve(challenges.unionSqlInjectionChallenge)
               }
             }
-          }).catch((error: Error) => {
-            next(error)
           })
         }
         if (utils.notSolved(challenges.dbSchemaChallenge)) {
