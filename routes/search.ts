@@ -11,7 +11,7 @@ const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
 class ErrorWithParent extends Error {
-  parent: string | undefined
+  parent: Error | undefined
 }
 
 // vuln-code-snippet start unionSqlInjectionChallenge dbSchemaChallenge
