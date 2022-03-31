@@ -5,8 +5,9 @@
 
 import config = require('config')
 import { Request, Response, NextFunction } from 'express'
-import models = require('../models/index')
-import { Memory, SecurityAnswer, User } from '../data/types'
+import { Memory } from '../data/types'
+import { SecurityAnswerModel } from '../models/securityAnswer'
+import { UserModel } from '../models/user'
 
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
@@ -26,15 +27,15 @@ module.exports = function resetPassword () {
     } else if (newPassword !== repeatPassword) {
       res.status(401).send(res.__('New and repeated password do not match.'))
     } else {
-      models.SecurityAnswer.findOne({
+      SecurityAnswerModel.findOne({
         include: [{
-          model: models.User,
+          model: UserModel,
           where: { email }
         }]
-      }).then((data: SecurityAnswer) => {
-        if (security.hmac(answer) === data.answer) {
-          models.User.findByPk(data.UserId).then((user: User) => {
-            user.update({ password: newPassword }).then((user: User) => {
+      }).then((data: SecurityAnswerModel | null) => {
+        if (data && security.hmac(answer) === data.answer) {
+          UserModel.findByPk(data.UserId).then((user: UserModel | null) => {
+            user?.update({ password: newPassword }).then((user: UserModel) => {
               verifySecurityAnswerChallenges(user, answer)
               res.json({ user })
             }).catch((error: unknown) => {
@@ -53,7 +54,7 @@ module.exports = function resetPassword () {
   }
 }
 
-function verifySecurityAnswerChallenges (user: User, answer: string) {
+function verifySecurityAnswerChallenges (user: UserModel, answer: string) {
   utils.solveIf(challenges.resetPasswordJimChallenge, () => { return user.id === users.jim.id && answer === 'Samuel' })
   utils.solveIf(challenges.resetPasswordBenderChallenge, () => { return user.id === users.bender.id && answer === 'Stop\'n\'Drop' })
   utils.solveIf(challenges.resetPasswordBjoernChallenge, () => { return user.id === users.bjoern.id && answer === 'West-2082' })

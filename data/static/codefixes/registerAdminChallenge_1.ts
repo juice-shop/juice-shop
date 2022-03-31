@@ -1,25 +1,25 @@
 /* Generated API endpoints */
-  finale.initialize({ app, sequelize: models.sequelize })
+  finale.initialize({ app, sequelize })
 
   const autoModels = [
-    { name: 'User', exclude: ['password', 'totpSecret'] },
-    { name: 'Product', exclude: [] },
-    { name: 'Feedback', exclude: [] },
-    { name: 'BasketItem', exclude: [] },
-    { name: 'Challenge', exclude: [] },
-    { name: 'Complaint', exclude: [] },
-    { name: 'Recycle', exclude: [] },
-    { name: 'SecurityQuestion', exclude: [] },
-    { name: 'SecurityAnswer', exclude: [] },
-    { name: 'Address', exclude: [] },
-    { name: 'PrivacyRequest', exclude: [] },
-    { name: 'Card', exclude: [] },
-    { name: 'Quantity', exclude: [] }
+    { name: 'User', exclude: ['password', 'totpSecret'], model: UserModel },
+    { name: 'Product', exclude: [], model: ProductModel },
+    { name: 'Feedback', exclude: [], model: FeedbackModel },
+    { name: 'BasketItem', exclude: [], model: BasketItemModel },
+    { name: 'Challenge', exclude: [], model: ChallengeModel },
+    { name: 'Complaint', exclude: [], model: ComplaintModel },
+    { name: 'Recycle', exclude: [], model: RecycleModel },
+    { name: 'SecurityQuestion', exclude: [], model: SecurityQuestionModel },
+    { name: 'SecurityAnswer', exclude: [], model: SecurityAnswerModel },
+    { name: 'Address', exclude: [], model: AddressModel },
+    { name: 'PrivacyRequest', exclude: [], model: PrivacyRequestModel },
+    { name: 'Card', exclude: [], model: CardModel },
+    { name: 'Quantity', exclude: [], model: QuantityModel }
   ]
 
-  for (const { name, exclude } of autoModels) {
+  for (const { name, exclude, model } of autoModels) {
     const resource = finale.resource({
-      model: models[name],
+      model,
       endpoints: [`/api/${name}s`, `/api/${name}s/:id`],
       excludeAttributes: exclude
     })
@@ -27,7 +27,7 @@
     // create a wallet when a new user is registered using API
     if (name === 'User') {
       resource.create.send.before((req: Request, res: Response, context: { instance: { id: any }, continue: any }) => {
-        models.Wallet.create({ UserId: context.instance.id }).catch((err: unknown) => {
+        WalletModel.create({ UserId: context.instance.id }).catch((err: unknown) => {
           console.log(err)
         })
         context.instance.role = context.instance.role ? context.instance.role : 'customer'

@@ -5,9 +5,9 @@
 
 import fs = require('fs')
 import { Request, Response, NextFunction } from 'express'
-import models = require('../models/index')
 import { User } from '../data/types'
 import logger from '../lib/logger'
+import { UserModel } from '../models/user'
 
 const { Bot } = require('juicy-chat-bot')
 const security = require('../lib/insecurity')
@@ -107,8 +107,11 @@ async function processQuery (user: User, req: Request, res: Response) {
 }
 
 function setUserName (user: User, req: Request, res: Response) {
-  models.User.findByPk(user.id).then((user: User) => {
-    void user.update({ username: req.body.query }).then((updatedUser: User) => {
+  UserModel.findByPk(user.id).then((user: UserModel | null) => {
+    if (!user) {
+      throw new Error('No such user found!')
+    }
+    void user.update({ username: req.body.query }).then((updatedUser: UserModel) => {
       updatedUser = utils.queryResultToJson(updatedUser)
       const updatedToken = security.authorize(updatedUser)
       security.authenticatedUsers.put(updatedToken, updatedUser)
@@ -121,6 +124,8 @@ function setUserName (user: User, req: Request, res: Response) {
     }).catch((err: unknown) => {
       logger.error(`Could not set username: ${utils.getErrorMessage(err)}`)
     })
+  }).catch((err: unknown) => {
+    logger.error(`Could not set username: ${utils.getErrorMessage(err)}`)
   })
 }
 

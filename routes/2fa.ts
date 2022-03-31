@@ -5,7 +5,8 @@
 
 import config = require('config')
 import { Request, Response } from 'express'
-import models = require('../models/index')
+import { BasketModel } from '../models/basket'
+import { UserModel } from '../models/user'
 
 const security = require('../lib/insecurity')
 const otplib = require('otplib')
@@ -28,7 +29,10 @@ async function verify (req: Request, res: Response) {
       throw new Error('Invalid token type')
     }
 
-    const user = await models.User.findByPk(userId)
+    const user = await UserModel.findByPk(userId)
+    if (!user) {
+      throw new Error('No such user found!')
+    }
 
     const isValid = otplib.authenticator.check(totpToken, user.totpSecret)
 
@@ -39,7 +43,7 @@ async function verify (req: Request, res: Response) {
     }
     utils.solveIf(challenges.twoFactorAuthUnsafeSecretStorageChallenge, () => { return user.email === 'wurstbrot@' + config.get('application.domain') })
 
-    const [basket] = await models.Basket.findOrCreate({ where: { userId }, defaults: {} })
+    const [basket] = await BasketModel.findOrCreate({ where: { UserId: userId } })
 
     const token = security.authorize(plainUser)
     plainUser.bid = basket.id // keep track of original basket for challenge solution check
@@ -122,7 +126,11 @@ async function setup (req: Request, res: Response) {
     }
 
     // Update db model and cached object
-    const userModel = await models.User.findByPk(user.id)
+    const userModel = await UserModel.findByPk(user.id)
+    if (!userModel) {
+      throw new Error('No such user found!')
+    }
+
     userModel.totpSecret = secret
     await userModel.save()
     security.authenticatedUsers.updateFrom(req, utils.queryResultToJson(userModel))
@@ -151,7 +159,11 @@ async function disable (req: Request, res: Response) {
     }
 
     // Update db model and cached object
-    const userModel = await models.User.findByPk(user.id)
+    const userModel = await UserModel.findByPk(user.id)
+    if (!userModel) {
+      throw new Error('No such user found!')
+    }
+
     userModel.totpSecret = ''
     await userModel.save()
     security.authenticatedUsers.updateFrom(req, utils.queryResultToJson(userModel))
