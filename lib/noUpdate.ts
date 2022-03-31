@@ -1,5 +1,5 @@
-// TODO: :Licensing
-import { Model } from 'sequelize/types'
+// Credit for the implementation in JS: https://github.com/daviddossantos/sequelize-notupdate-attributes
+import { Model, ValidationErrorItemType } from 'sequelize/types'
 import { ValidationOptions } from 'sequelize/types/instance-validator'
 
 interface ExtendedValidationOptions extends ValidationOptions{
@@ -7,9 +7,9 @@ interface ExtendedValidationOptions extends ValidationOptions{
 }
 
 interface ExtendedModel extends Model{
-  _changed: any // TODO typecasting
-  rawAttributes: any
-  _previousDataValues: any
+  _changed: Iterable<string> | ArrayLike<string>
+  rawAttributes: { [x: string]: any }
+  _previousDataValues: { [x: string]: null }
 }
 
 const {
@@ -17,7 +17,7 @@ const {
   ValidationErrorItem
 } = require('sequelize/lib/errors')
 
-export const makeKeyNonUpdatable = (model: any, column: string) => { // TODO Model typecasting
+export const makeKeyNonUpdatable = (model: Model, column: string) => {
   model.addHook('beforeValidate', (instance: ExtendedModel, options: ExtendedValidationOptions) => {
     if (!options.validate) return
 
@@ -31,12 +31,10 @@ export const makeKeyNonUpdatable = (model: any, column: string) => { // TODO Mod
 
     if (!changedKeys.length) return
 
-    const validationErrors: any[] = [] // TODO
+    const validationErrors: ValidationErrorItemType[] = []
 
     changedKeys.forEach((fieldName: any) => {
       const fieldDefinition = instance.rawAttributes[fieldName]
-
-      // if (!fieldDefinition.noUpdate) return;
 
       if (
         instance._previousDataValues[fieldName] !== undefined &&
