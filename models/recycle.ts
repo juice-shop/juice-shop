@@ -40,7 +40,6 @@ const RecycleModelInit = (sequelize: Sequelize) => {
         primaryKey: true,
         autoIncrement: true
       },
-      // TODO set this as DataTypes.INTEGER(4)
       quantity: DataTypes.INTEGER,
       isPickup: { type: DataTypes.BOOLEAN, defaultValue: false },
       date: DataTypes.DATE
