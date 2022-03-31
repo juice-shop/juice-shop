@@ -189,35 +189,35 @@ exports.observeMetrics = function observeMetrics () {
     accuracyMetrics.set({ phase: 'fix it' }, accuracy.totalFixItAccuracy())
 
     orders.count({}).then((orderCount: Number) => {
-      orderMetrics.set(orderCount)
+      if (orderCount) orderMetrics.set(orderCount)
     })
 
     reviews.count({}).then((reviewCount: Number) => {
-      interactionsMetrics.set({ type: 'review' }, reviewCount)
+      if (reviewCount) interactionsMetrics.set({ type: 'review' }, reviewCount)
     })
 
     void UserModel.count({ where: { role: { [Op.eq]: 'customer' } } }).then((count: number) => {
-      userMetrics.set({ type: 'standard' }, count)
+      if (count) userMetrics.set({ type: 'standard' }, count)
     })
 
     void UserModel.count({ where: { role: { [Op.eq]: 'deluxe' } } }).then((count: number) => {
-      userMetrics.set({ type: 'deluxe' }, count)
+      if (count) userMetrics.set({ type: 'deluxe' }, count)
     })
 
     void UserModel.count().then((count: Number) => {
-      userTotalMetrics.set(count)
+      if (count) userTotalMetrics.set(count)
     })
 
     void WalletModel.sum('balance').then((totalBalance: Number) => {
-      walletMetrics.set(totalBalance)
+      if (totalBalance) walletMetrics.set(totalBalance)
     })
 
     void FeedbackModel.count().then((count: number) => {
-      interactionsMetrics.set({ type: 'feedback' }, count)
+      if (count) interactionsMetrics.set({ type: 'feedback' }, count)
     })
 
     void ComplaintModel.count().then((count: number) => {
-      interactionsMetrics.set({ type: 'complaint' }, count)
+      if (count) interactionsMetrics.set({ type: 'complaint' }, count)
     })
   }, 5000)
 
