@@ -4,16 +4,46 @@
  */
 
 /* jslint node: true */
-export = (sequelize, { INTEGER }) => {
-  const BasketItem = sequelize.define('BasketItem', {
-    id: {
-      type: INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-      allowNull: false
-    },
-    quantity: INTEGER
-  }
-  )
-  return BasketItem
+import {
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  DataTypes,
+  CreationOptional,
+  Sequelize
+} from 'sequelize'
+
+class BasketItem extends Model<
+InferAttributes<BasketItem>,
+InferCreationAttributes<BasketItem>
+> {
+  declare ProductId: number
+  declare BasketId: number
+  declare id: CreationOptional<number>
+  declare quantity: number
 }
+
+const BasketItemModelInit = (sequelize: Sequelize) => {
+  BasketItem.init(
+    {
+      ProductId: {
+        type: DataTypes.INTEGER
+      },
+      BasketId: {
+        type: DataTypes.INTEGER
+      },
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      quantity: DataTypes.INTEGER
+    },
+    {
+      tableName: 'BasketItems',
+      sequelize
+    }
+  )
+}
+
+export { BasketItem as BasketItemModel, BasketItemModelInit }

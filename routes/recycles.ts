@@ -3,18 +3,20 @@
  * SPDX-License-Identifier: MIT
  */
 
-import models = require('../models/index')
 import { Request, Response } from 'express'
+import { RecycleModel } from '../models/recycle'
 
 const utils = require('../lib/utils')
 
 exports.getRecycleItem = () => (req: Request, res: Response) => {
-  models.Recycle.findAll({
+  RecycleModel.findAll({
     where: {
       id: JSON.parse(req.params.id)
     }
   }).then((Recycle) => {
     return res.send(utils.queryResultToJson(Recycle))
+  }).catch((_: unknown) => {
+    return res.send('Error fetching recycled items. Please try again')
   })
 }
 

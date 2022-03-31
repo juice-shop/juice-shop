@@ -7,6 +7,7 @@
 import packageJson from '../package.json'
 import { Op } from 'sequelize'
 import fs = require('fs')
+import { ChallengeModel } from '../models/challenge'
 
 const colors = require('colors/safe')
 const notifications = require('../data/datacache').notifications
@@ -26,7 +27,6 @@ const logger = require('./logger')
 const webhook = require('./webhook')
 const antiCheat = require('./antiCheat')
 const accuracy = require('./accuracy')
-const models = require('../models')
 
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
 
@@ -274,7 +274,7 @@ export const thaw = (frozenObject: any) => {
 
 export const solveFindIt = async function (key: string, isRestore: boolean) {
   const solvedChallenge = challenges[key]
-  await models.Challenge.update({ codingChallengeStatus: 1 }, { where: { key, codingChallengeStatus: { [Op.lt]: 2 } } })
+  await ChallengeModel.update({ codingChallengeStatus: 1 }, { where: { key, codingChallengeStatus: { [Op.lt]: 2 } } })
   logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Find It' phase of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
   if (!isRestore) {
     accuracy.storeFindItVerdict(solvedChallenge.key, true)
@@ -285,7 +285,7 @@ export const solveFindIt = async function (key: string, isRestore: boolean) {
 
 export const solveFixIt = async function (key: string, isRestore: boolean) {
   const solvedChallenge = challenges[key]
-  await models.Challenge.update({ codingChallengeStatus: 2 }, { where: { key } })
+  await ChallengeModel.update({ codingChallengeStatus: 2 }, { where: { key } })
   logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Fix It' phase of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
   if (!isRestore) {
     accuracy.storeFixItVerdict(solvedChallenge.key, true)
