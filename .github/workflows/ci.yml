@@ -102,6 +102,44 @@ jobs:
           timeout_minutes: 10
           max_attempts: 3
           command: npm test
+      - name: "Upload unit test coverage data"
+        if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
+        uses: actions/upload-artifact@v3
+        with:
+          name: unit-test-lcov
+          path: |
+            build/reports/coverage/frontend-tests/lcov.info
+            build/reports/coverage/server-tests/lcov.info
+  api-test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [12, 14, 16, 17]
+    steps:
+      - name: "Check out Git repository"
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
+        uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
+      - name: "Use Node.js ${{ matrix.node-version }}"
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
+        uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: "Cache Node.js modules"
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
+        uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 #v2: 2.1.6 available
+        with:
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
+      - name: "Install CLI tools"
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
+        run: npm install -g @angular/cli
+      - name: "Install application"
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
+        run: npm install
       - name: "Execute integration tests"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
         uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
@@ -116,8 +154,27 @@ jobs:
             fi
             npm run frisby
           shell: bash
-      - name: "Publish coverage to Codeclimate"
+      - name: "Upload API test coverage data"
         if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
+        uses: actions/upload-artifact@v3
+        with:
+          name: api-test-lcov
+          path: |
+            build/reports/coverage/api-tests/lcov.info
+  coverage-report:
+    needs: [test, api-test]
+    runs-on: ubuntu-latest
+    if: github.repository == 'juice-shop/juice-shop'
+    steps:
+      - name: "Download unit test coverage data"
+        uses: actions/download-artifact@v3
+        with:
+          name: unit-test-lcov
+      - name: "Download API test coverage data"
+        uses: actions/download-artifact@v3
+        with:
+          name: api-test-lcov
+      - name: "Publish coverage to Codeclimate"
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         run: |
@@ -252,7 +309,7 @@ jobs:
         run: docker-compose -f docker-compose.test.yml up --exit-code-from sut
   docker:
     if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
-    needs: [test, e2e, docker-test]
+    needs: [test, api-test, e2e, docker-test]
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
@@ -301,7 +358,7 @@ jobs:
             BUILD_DATE=${{ env.BUILD_DATE }}
   heroku:
     if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
-    needs: [test, e2e]
+    needs: [test, api-test, e2e]
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
