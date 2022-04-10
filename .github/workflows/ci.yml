@@ -102,14 +102,18 @@ jobs:
           timeout_minutes: 10
           max_attempts: 3
           command: npm test
+      - name: "Copy unit test coverage data"
+        run: |
+          cp build/reports/coverage/frontend-tests/lcov.info frontend-lcov.info
+          cp build/reports/coverage/server-tests/lcov.info server-lcov.info
       - name: "Upload unit test coverage data"
         if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535 #v3: v3.0.0 available
         with:
           name: unit-test-lcov
           path: |
-            build/reports/coverage/frontend-tests/lcov.info
-            build/reports/coverage/server-tests/lcov.info
+            frontend-lcov.info
+            server-lcov.info
   api-test:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -154,13 +158,15 @@ jobs:
             fi
             npm run frisby
           shell: bash
+      - name: "Copy API test coverage data"
+        run: cp build/reports/coverage/api-tests/lcov.info api-lcov.info
       - name: "Upload API test coverage data"
         if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535 #v3: v3.0.0 available
         with:
           name: api-test-lcov
           path: |
-            build/reports/coverage/api-tests/lcov.info
+            api-lcov.info
   coverage-report:
     needs: [test, api-test]
     runs-on: ubuntu-latest
@@ -174,17 +180,19 @@ jobs:
         uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3: v3.0.0 available
         with:
           name: api-test-lcov
+      - name: "List directory" # TODO Remove!
+        run: ls -R
       - name: "Publish coverage to Codeclimate"
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         run: |
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-0.7.0-linux-amd64 > ./cc-test-reporter
           chmod +x ./cc-test-reporter
-          sed -i s/SF:/SF:frontend\\//g build/reports/coverage/frontend-tests/lcov.info
-          ./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.frontend.json build/reports/coverage/frontend-tests/lcov.info
-          ./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.server.json build/reports/coverage/server-tests/lcov.info
-          ./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.api.json build/reports/coverage/api-tests/lcov.info
-          ./cc-test-reporter sum-coverage build/reports/coverage/codeclimate.*.json -p 3
+          sed -i s/SF:/SF:frontend\\//g frontend-lcov.info
+          ./cc-test-reporter format-coverage -t lcov -o codeclimate.frontend.json frontend-lcov.info
+          ./cc-test-reporter format-coverage -t lcov -o codeclimate.server.json server-lcov.info
+          ./cc-test-reporter format-coverage -t lcov -o codeclimate.api.json api-lcov.info
+          ./cc-test-reporter sum-coverage codeclimate.*.json -p 3
           ./cc-test-reporter upload-coverage
         shell: bash
   custom-config-test:
