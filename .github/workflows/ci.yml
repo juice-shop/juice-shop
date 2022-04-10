@@ -73,15 +73,15 @@ jobs:
         node-version: [12, 14, 16, 17]
     steps:
       - name: "Check out Git repository"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
       - name: "Use Node.js ${{ matrix.node-version }}"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
           node-version: ${{ matrix.node-version }}
       - name: "Cache Node.js modules"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 #v2: 2.1.6 available
         with:
           path: ~/.npm
@@ -90,21 +90,21 @@ jobs:
             ${{ runner.OS }}-node-
             ${{ runner.OS }}-
       - name: "Install CLI tools"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         run: npm install -g @angular/cli
       - name: "Install application"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         run: npm install
       - name: "Execute unit tests"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
         with:
           timeout_minutes: 10
           max_attempts: 3
           command: npm test
       - name: "Upload unit test coverage data"
-        if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
-        uses: actions/upload-artifact@v3
+        if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
+        uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535 #v3: v3.0.0 available
         with:
           name: unit-test-lcov
           path: |
@@ -118,15 +118,15 @@ jobs:
         node-version: [12, 14, 16, 17]
     steps:
       - name: "Check out Git repository"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
       - name: "Use Node.js ${{ matrix.node-version }}"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
           node-version: ${{ matrix.node-version }}
       - name: "Cache Node.js modules"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 #v2: 2.1.6 available
         with:
           path: ~/.npm
@@ -135,13 +135,13 @@ jobs:
             ${{ runner.OS }}-node-
             ${{ runner.OS }}-
       - name: "Install CLI tools"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         run: npm install -g @angular/cli
       - name: "Install application"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         run: npm install
       - name: "Execute integration tests"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
         with:
           timeout_minutes: 5
@@ -155,8 +155,8 @@ jobs:
             npm run frisby
           shell: bash
       - name: "Upload API test coverage data"
-        if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
-        uses: actions/upload-artifact@v3
+        if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
+        uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535 #v3: v3.0.0 available
         with:
           name: api-test-lcov
           path: |
@@ -167,11 +167,11 @@ jobs:
     if: github.repository == 'juice-shop/juice-shop'
     steps:
       - name: "Download unit test coverage data"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3: v3.0.0 available
         with:
           name: unit-test-lcov
       - name: "Download API test coverage data"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3: v3.0.0 available
         with:
           name: api-test-lcov
       - name: "Publish coverage to Codeclimate"
