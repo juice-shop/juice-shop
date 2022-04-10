@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "13.4.0-SNAPSHOT",
+  "version": "14.0.0-SNAPSHOT",
   "private": true,
   "description": "Probably the most modern and sophisticated insecure web application",
   "keywords": [
