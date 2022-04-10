@@ -172,6 +172,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository == 'juice-shop/juice-shop'
     steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
       - name: "Download unit test coverage data"
         uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3: v3.0.0 available
         with:
