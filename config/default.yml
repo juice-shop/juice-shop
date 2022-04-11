@@ -82,6 +82,7 @@ challenges:
 hackingInstructor:
   isEnabled: true
   avatarImage: JuicyBot_MedicalMask.png
+  hintPlaybackSpeed: normal # Options: faster fast normal slow slower
 products:
   -
     name: 'Apple Juice (1000ml)'
@@ -360,7 +361,7 @@ products:
     price: 9999.99
     quantity: 1
     limitPerUser: 1
-    image: permafrost.jpg                                                                                 
+    image: permafrost.jpg
     reviews:
       - { text: "🧊 Let it go, let it go 🎶 Can't hold it back anymore 🎶 Let it go, let it go 🎶 Turn away and slam the door ❄️", author: rapper }
   -
@@ -400,7 +401,7 @@ memories:
     caption: 'My rare collectors item! [̲̅$̲̅(̲̅ ͡° ͜ʖ ͡°̲̅)̲̅$̲̅]'
     user: bjoernGoogle
   -
-    image: 'favorite-hiking-place.png' 
+    image: 'favorite-hiking-place.png'
     caption: 'I love going hiking here...'
     geoStalkingMetaSecurityQuestion: 14
     geoStalkingMetaSecurityAnswer: 'Daniel Boone National Forest'
