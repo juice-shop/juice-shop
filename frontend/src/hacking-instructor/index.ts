@@ -88,6 +88,7 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   elem.style.fontFamily = 'Roboto,Helvetica Neue,sans-serif'
   if (!hint.unskippable) {
     elem.style.cursor = 'pointer'
+    elem.title = 'Double-click to skip'
   }
   elem.style.fontSize = '14px'
   elem.style.display = 'flex'
