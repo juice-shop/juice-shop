@@ -454,6 +454,7 @@ jobs:
       - lint
       - coding-challenge-rsn
       - smoke-test
+      - coverage-report
     runs-on: ubuntu-latest
     steps:
       - name: "Slack workflow notification"
