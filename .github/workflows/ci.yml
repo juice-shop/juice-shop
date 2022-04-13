@@ -84,7 +84,10 @@ jobs:
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 #v2: 2.1.6 available
         with:
-          path: ~/.npm
+          path: |
+            ~/.npm
+            node_modules
+            frontend/node_modules
           key: ${{ runner.OS }}-node-${{ hashFiles('**/package.json') }}
           restore-keys: |
             ${{ runner.OS }}-node-
@@ -121,7 +124,10 @@ jobs:
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 #v2: 2.1.6 available
         with:
-          path: ~/.npm
+          path: |
+            ~/.npm
+            node_modules
+            frontend/node_modules
           key: ${{ runner.OS }}-node-${{ hashFiles('**/package.json') }}
           restore-keys: |
             ${{ runner.OS }}-node-
@@ -173,7 +179,10 @@ jobs:
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 #v2: 2.1.6 available
         with:
-          path: ~/.npm
+          path: |
+            ~/.npm
+            node_modules
+            frontend/node_modules
           key: ${{ runner.OS }}-node-${{ hashFiles('**/package.json') }}
           restore-keys: |
             ${{ runner.OS }}-node-
@@ -247,6 +256,17 @@ jobs:
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
           node-version: 16
+      - name: "Cache Node.js modules"
+        uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 #v2: 2.1.6 available
+        with:
+          path: |
+            ~/.npm
+            node_modules
+            frontend/node_modules
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Download build artifact"
@@ -281,6 +301,17 @@ jobs:
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
           node-version: 16
+      - name: "Cache Node.js modules"
+        uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 #v2: 2.1.6 available
+        with:
+          path: |
+            ~/.npm
+            node_modules
+            frontend/node_modules
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Download build artifact"
@@ -310,6 +341,17 @@ jobs:
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
           node-version: 16
+      - name: "Cache Node.js modules"
+        uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 #v2: 2.1.6 available
+        with:
+          path: |
+            ~/.npm
+            node_modules
+            frontend/node_modules
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Download build artifact"
@@ -334,6 +376,17 @@ jobs:
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
           node-version: 16
+      - name: "Cache Node.js modules"
+        uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 #v2: 2.1.6 available
+        with:
+          path: |
+            ~/.npm
+            node_modules
+            frontend/node_modules
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
       - name: "Install CLI tools"
         run: |
           npm install -g @angular/cli
