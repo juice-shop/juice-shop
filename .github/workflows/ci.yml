@@ -333,7 +333,7 @@ jobs:
             set NODE_ENV=test
             npm run preprotractor:github
             npm run e2e -- subfolder
-  smoke:
+  smoke-test:
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
@@ -376,7 +376,7 @@ jobs:
         run: docker-compose -f docker-compose.test.yml up --exit-code-from sut
   docker:
     if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
-    needs: [test, api-test, e2e, docker-test]
+    needs: [test, api-test, e2e, e2e-in-subfolder, custom-config-test, docker-test]
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
@@ -425,7 +425,7 @@ jobs:
             BUILD_DATE=${{ env.BUILD_DATE }}
   heroku:
     if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
-    needs: [test, api-test, e2e]
+    needs: [test, api-test, e2e, e2e-in-subfolder, custom-config-test]
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
@@ -453,9 +453,7 @@ jobs:
       - heroku
       - lint
       - coding-challenge-rsn
-      - e2e-in-subfolder
-      - smoke
-      - custom-config-test
+      - smoke-test
     runs-on: ubuntu-latest
     steps:
       - name: "Slack workflow notification"
