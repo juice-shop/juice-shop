@@ -20,7 +20,10 @@ jobs:
       - name: "Cache Node.js modules"
         uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 #v2: 2.1.6 available
         with:
-          path: ~/.npm
+          path: |
+            ~/.npm
+            node_modules
+            frontend/node_modules
           key: ${{ runner.OS }}-node-${{ hashFiles('**/package.json') }}
           restore-keys: |
             ${{ runner.OS }}-node-

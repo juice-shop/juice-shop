@@ -98,12 +98,18 @@ jobs:
       - name: "Install application"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         run: npm install
-      - name: "Upload build artifact"
+      - name: "Upload build/ folder"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535 #v3: v3.0.0 available
         with:
           name: build-${{ matrix.os }}-${{ matrix.node-version }}
           path: build/
+      - name: "Upload frontend/dist/ folder"
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
+        uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535 #v3: v3.0.0 available
+        with:
+          name: frontend-dist-${{ matrix.os }}-${{ matrix.node-version }}
+          path: frontend/dist/
   test:
     runs-on: ${{ matrix.os }}
     needs: build
@@ -135,11 +141,16 @@ jobs:
       - name: "Install CLI tools"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         run: npm install -g @angular/cli
-      - name: "Download build artifact"
+      - name: "Download build/ folder"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3: v3.0.0 available
         with:
           name: build-${{ matrix.os }}-${{ matrix.node-version }}
+      - name: "Download frontend/dist/ folder"
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
+        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3: v3.0.0 available
+        with:
+          name: frontend-dist-${{ matrix.os }}-${{ matrix.node-version }}
       - name: "Execute unit tests"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
@@ -190,11 +201,16 @@ jobs:
       - name: "Install CLI tools"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         run: npm install -g @angular/cli
-      - name: "Download build artifact"
+      - name: "Download build/ folder"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3: v3.0.0 available
         with:
           name: build-${{ matrix.os }}-${{ matrix.node-version }}
+      - name: "Download frontend/dist/ folder"
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
+        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3: v3.0.0 available
+        with:
+          name: frontend-dist-${{ matrix.os }}-${{ matrix.node-version }}
       - name: "Execute integration tests"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
@@ -269,10 +285,14 @@ jobs:
             ${{ runner.OS }}-
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
-      - name: "Download build artifact"
+      - name: "Download build/ folder"
         uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3: v3.0.0 available
         with:
           name: build-ubuntu-latest-16
+      - name: "Download frontend/dist/ folder"
+        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3: v3.0.0 available
+        with:
+          name: frontend-dist-ubuntu-latest-16
       - name: "Execute server tests for each custom configuration"
         uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
         with:
@@ -314,10 +334,14 @@ jobs:
             ${{ runner.OS }}-
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
-      - name: "Download build artifact"
+      - name: "Download build/ folder"
         uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3: v3.0.0 available
         with:
           name: build-windows-latest-16
+      - name: "Download frontend/dist/ folder"
+        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3: v3.0.0 available
+        with:
+          name: frontend-dist-windows-latest-16
       - name: "Execute end-to-end tests"
         env:
           SOLUTIONS_WEBHOOK: ${{ secrets.E2E_SOLUTIONS_WEBHOOK }}
@@ -354,10 +378,14 @@ jobs:
             ${{ runner.OS }}-
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
-      - name: "Download build artifact"
+      - name: "Download build/ folder"
         uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3: v3.0.0 available
         with:
           name: build-windows-latest-16
+      - name: "Download frontend/dist/ folder"
+        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3: v3.0.0 available
+        with:
+          name: frontend-dist-windows-latest-16
       - name: "Execute end-to-end tests with application hosted in subfolder"
         uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
         with:
