@@ -272,6 +272,7 @@ jobs:
             NODE_ENV=unsafe npm run test:server
   e2e:
     runs-on: windows-latest
+    needs: build
     if: github.repository == 'juice-shop/juice-shop'
     steps:
       - name: "Check out Git repository"
@@ -300,6 +301,7 @@ jobs:
             npm run e2e
   e2e-in-subfolder:
     runs-on: windows-latest
+    needs: build
     if: github.repository == 'juice-shop/juice-shop'
     steps:
       - name: "Check out Git repository"
