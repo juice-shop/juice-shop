@@ -81,16 +81,15 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: "Cache Node.js modules"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 #v2: 2.1.6 available
         with:
           path: |
             ~/.npm
             node_modules
             frontend/node_modules
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package.json') }}
+          key: ${{ runner.OS }}-${{ matrix.node-version }}-${{ hashFiles('**/package.json') }}
           restore-keys: |
-            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-${{ matrix.node-version }}-
             ${{ runner.OS }}-
       - name: "Install CLI tools"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
@@ -134,9 +133,9 @@ jobs:
             ~/.npm
             node_modules
             frontend/node_modules
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package.json') }}
+          key: ${{ runner.OS }}-${{ matrix.node-version }}-${{ hashFiles('**/package.json') }}
           restore-keys: |
-            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-${{ matrix.node-version }}-
             ${{ runner.OS }}-
       - name: "Install CLI tools"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
@@ -194,9 +193,9 @@ jobs:
             ~/.npm
             node_modules
             frontend/node_modules
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package.json') }}
+          key: ${{ runner.OS }}-${{ matrix.node-version }}-${{ hashFiles('**/package.json') }}
           restore-keys: |
-            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-${{ matrix.node-version }}-
             ${{ runner.OS }}-
       - name: "Install CLI tools"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
@@ -279,9 +278,9 @@ jobs:
             ~/.npm
             node_modules
             frontend/node_modules
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package.json') }}
+          key: ${{ runner.OS }}-${{ matrix.node-version }}-${{ hashFiles('**/package.json') }}
           restore-keys: |
-            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-${{ matrix.node-version }}-
             ${{ runner.OS }}-
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
@@ -328,9 +327,9 @@ jobs:
             ~/.npm
             node_modules
             frontend/node_modules
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package.json') }}
+          key: ${{ runner.OS }}-16-${{ hashFiles('**/package.json') }}
           restore-keys: |
-            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-16-
             ${{ runner.OS }}-
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
@@ -372,9 +371,9 @@ jobs:
             ~/.npm
             node_modules
             frontend/node_modules
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package.json') }}
+          key: ${{ runner.OS }}-16-${{ hashFiles('**/package.json') }}
           restore-keys: |
-            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-16-
             ${{ runner.OS }}-
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
@@ -411,9 +410,9 @@ jobs:
             ~/.npm
             node_modules
             frontend/node_modules
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package.json') }}
+          key: ${{ runner.OS }}-16-${{ hashFiles('**/package.json') }}
           restore-keys: |
-            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-16-
             ${{ runner.OS }}-
       - name: "Install CLI tools"
         run: |

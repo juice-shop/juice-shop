@@ -24,9 +24,9 @@ jobs:
             ~/.npm
             node_modules
             frontend/node_modules
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package.json') }}
+          key: ${{ runner.OS }}-${{ matrix.node-version }}-${{ hashFiles('**/package.json') }}
           restore-keys: |
-            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-${{ matrix.node-version }}-
             ${{ runner.OS }}-
       - name: "Install CLI tools"
         run: |
