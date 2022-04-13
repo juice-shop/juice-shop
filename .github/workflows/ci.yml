@@ -81,6 +81,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: "Cache Node.js modules"
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 #v2: 2.1.6 available
         with:
           path: |
