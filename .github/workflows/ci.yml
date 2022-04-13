@@ -29,7 +29,7 @@ jobs:
           node-version: 16
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
-      - name: "Install application"
+      - name: "Install application minimalistically"
         run: |
           npm install --ignore-scripts
           cd frontend
@@ -65,7 +65,7 @@ jobs:
         run: npm install
       - name: "Check coding challenges for accidental code discrepancies"
         run: npm run rsn
-  test:
+  build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -95,6 +95,45 @@ jobs:
       - name: "Install application"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         run: npm install
+      - name: "Upload build artifact"
+        if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
+        uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535 #v3: v3.0.0 available
+        with:
+          name: build-${{ matrix.os }}-${{ matrix.node-version }}
+          path: build/
+  test:
+    runs-on: ${{ matrix.os }}
+    needs: build
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [14, 16, 17]
+    steps:
+      - name: "Check out Git repository"
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
+        uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
+      - name: "Use Node.js ${{ matrix.node-version }}"
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
+        uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: "Cache Node.js modules"
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
+        uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 #v2: 2.1.6 available
+        with:
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
+      - name: "Install CLI tools"
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
+        run: npm install -g @angular/cli
+      - name: "Download build artifact"
+        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
+        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3: v3.0.0 available
+        with:
+          name: build-${{ matrix.os }}-${{ matrix.node-version }}
       - name: "Execute unit tests"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
@@ -116,6 +155,7 @@ jobs:
             server-lcov.info
   api-test:
     runs-on: ${{ matrix.os }}
+    needs: build
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -141,9 +181,11 @@ jobs:
       - name: "Install CLI tools"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         run: npm install -g @angular/cli
-      - name: "Install application"
+      - name: "Download build artifact"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
-        run: npm install
+        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3: v3.0.0 available
+        with:
+          name: build-${{ matrix.os }}-${{ matrix.node-version }}
       - name: "Execute integration tests"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
@@ -197,6 +239,7 @@ jobs:
         shell: bash
   custom-config-test:
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
@@ -206,8 +249,10 @@ jobs:
           node-version: 16
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
-      - name: "Install application"
-        run: npm install
+      - name: "Download build artifact"
+        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3: v3.0.0 available
+        with:
+          name: build-ubuntu-latest-16
       - name: "Execute server tests for each custom configuration"
         uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
         with:
@@ -237,8 +282,10 @@ jobs:
           node-version: 16
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
-      - name: "Install application"
-        run: npm install
+      - name: "Download build artifact"
+        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3: v3.0.0 available
+        with:
+          name: build-windows-latest-16
       - name: "Execute end-to-end tests"
         env:
           SOLUTIONS_WEBHOOK: ${{ secrets.E2E_SOLUTIONS_WEBHOOK }}
@@ -263,8 +310,10 @@ jobs:
           node-version: 16
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
-      - name: "Install application"
-        run: npm install
+      - name: "Download build artifact"
+        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3: v3.0.0 available
+        with:
+          name: build-windows-latest-16
       - name: "Execute end-to-end tests with application hosted in subfolder"
         uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
         with:
