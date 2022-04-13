@@ -246,7 +246,7 @@ jobs:
             node_modules
             frontend/node_modules
             frontend/dist
-          key: ${{ runner.OS }}-${{ matrix.node-version }}-${{ github.run_id }}
+          key: ${{ runner.OS }}-16-${{ github.run_id }}
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Execute server tests for each custom configuration"
