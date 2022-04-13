@@ -403,17 +403,6 @@ jobs:
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
           node-version: 16
-      - name: "Cache Node.js modules"
-        uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 #v2: 2.1.6 available
-        with:
-          path: |
-            ~/.npm
-            node_modules
-            frontend/node_modules
-          key: ${{ runner.OS }}-16-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-16-
-            ${{ runner.OS }}-
       - name: "Install CLI tools"
         run: |
           npm install -g @angular/cli
