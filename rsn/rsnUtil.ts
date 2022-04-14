@@ -1,4 +1,3 @@
-// require("colors");
 import { retrieveCodeSnippet } from '../routes/vulnCodeSnippet'
 const Diff = require('diff')
 const fs = require('fs')
