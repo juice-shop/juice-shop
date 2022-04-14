@@ -21,12 +21,12 @@ module.exports = function b2bOrder () {
         vm.runInContext('safeEval(orderLinesData)', sandbox, { timeout: 2000 })
         res.json({ cid: body.cid, orderNo: uniqueOrderNumber(), paymentDue: dateTwoWeeksFromNow() })
       } catch (err) {
-        if (err.message?.match(/Script execution timed out.*/)) {
+        if (utils.getErrorMessage(err).match(/Script execution timed out.*/)) {
           utils.solveIf(challenges.rceOccupyChallenge, () => { return true })
           res.status(503)
           next(new Error('Sorry, we are temporarily not available! Please try again later.'))
         } else {
-          utils.solveIf(challenges.rceChallenge, () => { return err.message === 'Infinite loop detected - reached max iterations' })
+          utils.solveIf(challenges.rceChallenge, () => { return utils.getErrorMessage(err) === 'Infinite loop detected - reached max iterations' })
           next(err)
         }
       }
