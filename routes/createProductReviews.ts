@@ -23,8 +23,8 @@ module.exports = function productReviews () {
       likedBy: []
     }).then(() => {
       res.status(201).json({ status: 'success' })
-    }, err => {
-      res.status(500).json(err)
+    }, (err: unknown) => {
+      res.status(500).json(utils.get(err))
     })
   }
 }
