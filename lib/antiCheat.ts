@@ -19,7 +19,7 @@ const coupledChallenges = { // TODO prevent also near-identical challenges (e.g.
 }
 const trivialChallenges = ['errorHandlingChallenge', 'privacyPolicyChallenge']
 
-const solves = [{ challenge: {}, phase: 'server start', timestamp: new Date(), cheatScore: 0 }] // seed with server start timestamp
+const solves: Array<{challenge: any, phase: string, timestamp: Date, cheatScore: number}> = [{ challenge: {}, phase: 'server start', timestamp: new Date(), cheatScore: 0 }] // seed with server start timestamp
 
 exports.calculateCheatScore = (challenge: Challenge) => {
   const timestamp = new Date()
@@ -76,8 +76,7 @@ exports.totalCheatScore = () => {
 }
 
 function areCoupled (challenge: Challenge, previousChallenge: Challenge) {
-  return (coupledChallenges[challenge.key] && coupledChallenges[challenge.key].indexOf(previousChallenge.key) > -1) ||
-    (coupledChallenges[previousChallenge.key] && coupledChallenges[previousChallenge.key].indexOf(challenge.key) > -1)
+  return coupledChallenges[challenge.key]?.indexOf(previousChallenge.key) > -1 || coupledChallenges[previousChallenge.key]?.indexOf(challenge.key) > -1
 }
 
 function isTrivial (challenge: Challenge) {
