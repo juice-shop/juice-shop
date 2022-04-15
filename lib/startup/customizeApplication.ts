@@ -69,7 +69,7 @@ const customizePromotionSubtitles = async () => {
   await retrieveCustomFile('application.promotion.subtitles', 'frontend/dist/frontend/assets/public/videos')
 }
 
-const retrieveCustomFile = async (sourceProperty, destinationFolder) => {
+const retrieveCustomFile = async (sourceProperty: string, destinationFolder: string) => {
   let file = config.get(sourceProperty)
   if (utils.isUrl(file)) {
     const filePath = file

@@ -4,10 +4,9 @@
  */
 
 import config = require('config')
+import { UserModel } from '../../models/user'
 import { browser, protractor } from 'protractor'
 import { basePath, beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
-
-const models = require('../../models/index')
 const utils = require('../../lib/utils')
 
 describe('/#/register', () => {
@@ -48,7 +47,7 @@ describe('/#/register', () => {
           expect(alert.getText()).toEqual(Promise.resolve('xss'))
           void alert.accept()
           // Disarm XSS payload so subsequent tests do not run into unexpected alert boxes
-          models.User.findOne({ where: { email: '<iframe src="javascript:alert(`xss`)">' } }).then((user: any) => {
+          UserModel.findOne({ where: { email: '<iframe src="javascript:alert(`xss`)">' } }).then((user: any) => {
             user.update({ email: '&lt;iframe src="javascript:alert(`xss`)"&gt;' }).catch((error: Error) => {
               console.log(error)
               fail()

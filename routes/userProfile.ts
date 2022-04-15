@@ -6,8 +6,7 @@
 import fs = require('fs')
 import { Request, Response, NextFunction } from 'express'
 
-import models = require('../models/index')
-import { User } from '../data/types'
+import { UserModel } from '../models/user'
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
@@ -23,13 +22,16 @@ module.exports = function getUserProfile () {
       if (err != null) throw err
       const loggedInUser = security.authenticatedUsers.get(req.cookies.token)
       if (loggedInUser) {
-        models.User.findByPk(loggedInUser.data.id).then((user: User) => {
+        UserModel.findByPk(loggedInUser.data.id).then((user: UserModel | null) => {
           let template = buf.toString()
-          let username = user.dataValues.username
-          if (username.match(/#{(.*)}/) !== null && !utils.disableOnContainerEnv()) {
+          let username = user?.username
+          if (username?.match(/#{(.*)}/) !== null && !utils.disableOnContainerEnv()) {
             req.app.locals.abused_ssti_bug = true
-            const code = username.substring(2, username.length - 1)
+            const code = username?.substring(2, username.length - 1)
             try {
+              if (!code) {
+                throw new Error('Username is null')
+              }
               username = eval(code) // eslint-disable-line no-eval
             } catch (err) {
               username = '\\' + username
@@ -38,8 +40,10 @@ module.exports = function getUserProfile () {
             username = '\\' + username
           }
           const theme = themes[config.get('application.theme')]
-          template = template.replace(/_username_/g, username)
-          template = template.replace(/_emailHash_/g, security.hash(user.dataValues.email))
+          if (username) {
+            template = template.replace(/_username_/g, username)
+          }
+          template = template.replace(/_emailHash_/g, security.hash(user?.email))
           template = template.replace(/_title_/g, entities.encode(config.get('application.name')))
           template = template.replace(/_favicon_/g, favicon())
           template = template.replace(/_bgColor_/g, theme.bgColor)
@@ -49,14 +53,14 @@ module.exports = function getUserProfile () {
           template = template.replace(/_primDark_/g, theme.primDark)
           template = template.replace(/_logo_/g, utils.extractFilename(config.get('application.logo')))
           const fn = pug.compile(template)
-          const CSP = `img-src 'self' ${user.dataValues.profileImage}; script-src 'self' 'unsafe-eval' https://code.getmdl.io http://ajax.googleapis.com`
-          utils.solveIf(challenges.usernameXssChallenge, () => { return user.dataValues.profileImage.match(/;[ ]*script-src(.)*'unsafe-inline'/g) !== null && utils.contains(username, '<script>alert(`xss`)</script>') })
+          const CSP = `img-src 'self' ${user?.profileImage}; script-src 'self' 'unsafe-eval' https://code.getmdl.io http://ajax.googleapis.com`
+          utils.solveIf(challenges.usernameXssChallenge, () => { return user?.profileImage.match(/;[ ]*script-src(.)*'unsafe-inline'/g) !== null && utils.contains(username, '<script>alert(`xss`)</script>') })
 
           res.set({
             'Content-Security-Policy': CSP
           })
 
-          res.send(fn(user.dataValues))
+          res.send(fn(user))
         }).catch((error: Error) => {
           next(error)
         })

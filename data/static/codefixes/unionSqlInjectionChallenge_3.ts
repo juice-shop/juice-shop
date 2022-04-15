@@ -15,8 +15,8 @@ module.exports = function searchProducts () {
           products[i].description = req.__(products[i].description)
         }
         res.json(utils.queryResultToJson(products))
-      }).catch((error: Error) => {
-        next(error)
+      }).catch((error: ErrorWithParent) => {
+        next(error.parent)
       })
   }
 }

@@ -5,7 +5,10 @@
 import express, { NextFunction, Request, Response } from 'express'
 import insecurity from '../lib/insecurity'
 import path from 'path'
-import models = require('../models/index')
+import { SecurityAnswerModel } from '../models/securityAnswer'
+import { UserModel } from '../models/user'
+import { SecurityQuestionModel } from '../models/securityQuestion'
+import { PrivacyRequestModel } from '../models/privacyRequests'
 
 const challenges = require('../data/datacache').challenges
 const utils = require('../lib/utils')
@@ -21,15 +24,21 @@ router.get('/', async (req: Request, res: Response, next: NextFunction): Promise
   const email = loggedInUser.data.email
 
   try {
-    const answer = await models.SecurityAnswer.findOne({
+    const answer = await SecurityAnswerModel.findOne({
       include: [{
-        model: models.User,
+        model: UserModel,
         where: { email }
       }]
     })
-    const question = await models.SecurityQuestion.findByPk(answer.SecurityQuestionId)
+    if (!answer) {
+      throw new Error('No answer found!')
+    }
+    const question = await SecurityQuestionModel.findByPk(answer.SecurityQuestionId)
+    if (!question) {
+      throw new Error('No question found!')
+    }
 
-    res.render('dataErasureForm', { userEmail: email, securityQuestion: question.dataValues.question })
+    res.render('dataErasureForm', { userEmail: email, securityQuestion: question.question })
   } catch (error) {
     next(error)
   }
@@ -50,7 +59,7 @@ router.post('/', async (req: Request<{}, {}, DataErasureRequestParams>, res: Res
   }
 
   try {
-    await models.PrivacyRequest.create({
+    await PrivacyRequestModel.create({
       UserId: loggedInUser.data.id,
       deletionRequested: true
     })
@@ -64,7 +73,7 @@ router.post('/', async (req: Request<{}, {}, DataErasureRequestParams>, res: Res
           ...req.body
         }, (error, html) => {
           if (!html || error) {
-            next(new Error(error))
+            next(new Error(error.message))
           } else {
             const sendlfrResponse: string = html.slice(0, 100) + '......'
             res.send(sendlfrResponse)
