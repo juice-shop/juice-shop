@@ -41,6 +41,7 @@ const relationsInit = (_sequelize: Sequelize) => {
       name: 'BasketId'
     }
   })
+  // @ts-expect-error
   makeKeyNonUpdatable(BasketItemModel, 'BasketId')
 
   CardModel.belongsTo(UserModel, {
@@ -93,6 +94,7 @@ const relationsInit = (_sequelize: Sequelize) => {
       name: 'ProductId'
     }
   })
+  // @ts-expect-error
   makeKeyNonUpdatable(BasketItemModel, 'ProductId')
 
   QuantityModel.belongsTo(ProductModel, {

@@ -9,9 +9,9 @@ import { Request, Response, NextFunction } from 'express'
 
 module.exports = function getLanguageList () { // TODO Refactor and extend to also load backend translations from /i18n/*json and calculate joint percentage/gauge
   return (req: Request, res: Response, next: NextFunction) => {
-    const languages = []
+    const languages: Array<{ key: string, lang: any, icons: string[], shortKey: string, percentage: unknown, gauge: string }> = []
     let count = 0
-    let enContent
+    let enContent: any
 
     fs.readFile('frontend/dist/frontend/assets/i18n/en.json', 'utf-8', (err, content) => {
       if (err != null) {
@@ -31,13 +31,12 @@ module.exports = function getLanguageList () { // TODO Refactor and extend to al
             const fileContent = JSON.parse(content)
             const percentage = await calcPercentage(fileContent, enContent)
             const key = fileName.substring(0, fileName.indexOf('.'))
-            let locale = locales.find((l) => l.key === key)
-            if (locale == null) locale = ''
-            const lang = {
+            const locale = locales.find((l) => l.key === key)
+            const lang: any = {
               key: key,
               lang: fileContent.LANGUAGE,
-              icons: locale.icons,
-              shortKey: locale.shortKey,
+              icons: locale?.icons,
+              shortKey: locale?.shortKey,
               percentage: percentage,
               gauge: (percentage > 90 ? 'full' : (percentage > 70 ? 'three-quarters' : (percentage > 50 ? 'half' : (percentage > 30 ? 'quarter' : 'empty'))))
             }
@@ -55,7 +54,7 @@ module.exports = function getLanguageList () { // TODO Refactor and extend to al
       })
     })
 
-    async function calcPercentage (fileContent, enContent) {
+    async function calcPercentage (fileContent: any, enContent: any): Promise<number> {
       const totalStrings = Object.keys(enContent).length
       let differentStrings = 0
       return await new Promise((resolve, reject) => {
