@@ -5,9 +5,14 @@
 
 import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
+import { UserModel } from '../models/user'
 
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
+
+class ErrorWithParent extends Error {
+  parent: Error | undefined
+}
 
 // vuln-code-snippet start unionSqlInjectionChallenge dbSchemaChallenge
 module.exports = function searchProducts () {
@@ -19,7 +24,7 @@ module.exports = function searchProducts () {
         const dataString = JSON.stringify(products)
         if (utils.notSolved(challenges.unionSqlInjectionChallenge)) { // vuln-code-snippet hide-start
           let solved = true
-          models.User.findAll().then(data => {
+          UserModel.findAll().then(data => {
             const users = utils.queryResultToJson(data)
             if (users.data?.length) {
               for (let i = 0; i < users.data.length; i++) {
@@ -32,6 +37,8 @@ module.exports = function searchProducts () {
                 utils.solve(challenges.unionSqlInjectionChallenge)
               }
             }
+          }).catch((error: Error) => {
+            next(error)
           })
         }
         if (utils.notSolved(challenges.dbSchemaChallenge)) {
@@ -56,8 +63,8 @@ module.exports = function searchProducts () {
           products[i].description = req.__(products[i].description)
         }
         res.json(utils.queryResultToJson(products))
-      }).catch((error: Error) => {
-        next(error)
+      }).catch((error: ErrorWithParent) => {
+        next(error.parent)
       })
   }
 }

@@ -202,7 +202,8 @@ describe('/api/BasketItems/:id', () => {
           }
         })
           .expect('status', 400)
-          .expect('json', { message: 'null: `ProductId` cannot be updated due `noUpdate` constraint', errors: [{ field: 'ProductId', message: '`ProductId` cannot be updated due `noUpdate` constraint' }] })
+          .expect('json',
+            { message: 'null: `ProductId` cannot be updated due `noUpdate` constraint', errors: [{ field: 'ProductId', message: '`ProductId` cannot be updated due `noUpdate` constraint' }] })
       })
   })
 

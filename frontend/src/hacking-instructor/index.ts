@@ -88,6 +88,7 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   elem.style.fontFamily = 'Roboto,Helvetica Neue,sans-serif'
   if (!hint.unskippable) {
     elem.style.cursor = 'pointer'
+    elem.title = 'Double-click to skip'
   }
   elem.style.fontSize = '14px'
   elem.style.display = 'flex'
@@ -140,9 +141,9 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   return wrapper
 }
 
-async function waitForClick (element: HTMLElement) {
+async function waitForDoubleClick (element: HTMLElement) {
   return await new Promise((resolve) => {
-    element.addEventListener('click', resolve)
+    element.addEventListener('dblclick', resolve)
   })
 }
 
@@ -174,7 +175,7 @@ export async function startHackingInstructorFor (challengeName: String): Promise
     ]
 
     if (!hint.unskippable) {
-      continueConditions.push(waitForClick(element))
+      continueConditions.push(waitForDoubleClick(element))
     }
     continueConditions.push(waitForCancel(document.getElementById('cancelButton')))
 
