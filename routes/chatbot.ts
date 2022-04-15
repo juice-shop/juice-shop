@@ -7,6 +7,7 @@ import fs = require('fs')
 import { Request, Response, NextFunction } from 'express'
 import { User } from '../data/types'
 import { UserModel } from '../models/user'
+import { JwtPayload, VerifyErrors } from 'jsonwebtoken'
 
 const logger = require('../lib/logger')
 const { Bot } = require('juicy-chat-bot')
@@ -145,7 +146,7 @@ module.exports.status = function status () {
     const token = req.cookies.token || utils.jwtFrom(req)
     if (token) {
       const user: User = await new Promise((resolve, reject) => {
-        jwt.verify(token, security.publicKey, (err, decoded) => {
+        jwt.verify(token, security.publicKey, (err: VerifyErrors | null, decoded: JwtPayload) => {
           if (err !== null) {
             res.status(401).json({
               error: 'Unauthenticated user'
@@ -203,7 +204,7 @@ module.exports.process = function respond () {
     }
 
     const user: User = await new Promise((resolve, reject) => {
-      jwt.verify(token, security.publicKey, (err, decoded) => {
+      jwt.verify(token, security.publicKey, (err: VerifyErrors | null, decoded: JwtPayload) => {
         if (err !== null) {
           res.status(401).json({
             error: 'Unauthenticated user'

@@ -76,6 +76,7 @@ exports.totalCheatScore = () => {
 }
 
 function areCoupled (challenge: Challenge, previousChallenge: Challenge) {
+  // @ts-expect-error
   return coupledChallenges[challenge.key]?.indexOf(previousChallenge.key) > -1 || coupledChallenges[previousChallenge.key]?.indexOf(challenge.key) > -1
 }
 
