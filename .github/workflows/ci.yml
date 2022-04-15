@@ -65,41 +65,8 @@ jobs:
         run: npm install
       - name: "Check coding challenges for accidental code discrepancies"
         run: npm run rsn
-  build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [14, 16, 17]
-    steps:
-      - name: "Check out Git repository"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
-        uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
-      - name: "Use Node.js ${{ matrix.node-version }}"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
-        uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: "Cache Node.js modules and build artifacts"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
-        uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 #v2: 2.1.6 available
-        with:
-          path: |
-            ~/.npm
-            build
-            node_modules
-            frontend/node_modules
-            frontend/dist
-          key: ${{ runner.OS }}-${{ matrix.node-version }}-${{ github.run_id }}
-      - name: "Install CLI tools"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
-        run: npm install -g @angular/cli
-      - name: "Install application"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
-        run: npm install
   test:
     runs-on: ${{ matrix.os }}
-    needs: build
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -113,17 +80,6 @@ jobs:
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
           node-version: ${{ matrix.node-version }}
-      - name: "Cache Node.js modules"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
-        uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 #v2: 2.1.6 available
-        with:
-          path: |
-            ~/.npm
-            build
-            node_modules
-            frontend/node_modules
-            frontend/dist
-          key: ${{ runner.OS }}-${{ matrix.node-version }}-${{ github.run_id }}
       - name: "Install CLI tools"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         run: npm install -g @angular/cli
@@ -151,7 +107,6 @@ jobs:
             server-lcov.info
   api-test:
     runs-on: ${{ matrix.os }}
-    needs: build
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -165,17 +120,6 @@ jobs:
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
           node-version: ${{ matrix.node-version }}
-      - name: "Cache Node.js modules"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
-        uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 #v2: 2.1.6 available
-        with:
-          path: |
-            ~/.npm
-            build
-            node_modules
-            frontend/node_modules
-            frontend/dist
-          key: ${{ runner.OS }}-${{ matrix.node-version }}-${{ github.run_id }}
       - name: "Install CLI tools"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         run: npm install -g @angular/cli
@@ -235,7 +179,6 @@ jobs:
         shell: bash
   custom-config-test:
     runs-on: ubuntu-latest
-    needs: build
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
@@ -243,16 +186,6 @@ jobs:
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
           node-version: 16
-      - name: "Cache Node.js modules"
-        uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 #v2: 2.1.6 available
-        with:
-          path: |
-            ~/.npm
-            build
-            node_modules
-            frontend/node_modules
-            frontend/dist
-          key: ${{ runner.OS }}-16-${{ github.run_id }}
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
@@ -277,7 +210,6 @@ jobs:
             NODE_ENV=unsafe npm run test:server
   e2e:
     runs-on: windows-latest
-    needs: build
     if: github.repository == 'juice-shop/juice-shop'
     steps:
       - name: "Check out Git repository"
@@ -286,16 +218,6 @@ jobs:
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
           node-version: 16
-      - name: "Cache Node.js modules"
-        uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 #v2: 2.1.6 available
-        with:
-          path: |
-            ~/.npm
-            build
-            node_modules
-            frontend/node_modules
-            frontend/dist
-          key: ${{ runner.OS }}-16-${{ github.run_id }}
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
@@ -315,7 +237,6 @@ jobs:
             npm run e2e
   e2e-in-subfolder:
     runs-on: windows-latest
-    needs: build
     if: github.repository == 'juice-shop/juice-shop'
     steps:
       - name: "Check out Git repository"
@@ -324,16 +245,6 @@ jobs:
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
           node-version: 16
-      - name: "Cache Node.js modules"
-        uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 #v2: 2.1.6 available
-        with:
-          path: |
-            ~/.npm
-            build
-            node_modules
-            frontend/node_modules
-            frontend/dist
-          key: ${{ runner.OS }}-16-${{ github.run_id }}
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
