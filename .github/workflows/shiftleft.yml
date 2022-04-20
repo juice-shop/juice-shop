@@ -1,6 +1,6 @@
 # This workflow integrates ShiftLeft NG SAST with GitHub
 # Visit https://docs.shiftleft.io for help
-name: ShiftLeft
+name: ShiftLeft SAST and SCA
 
 on:
   pull_request:
@@ -26,7 +26,7 @@ jobs:
       with:
         java-version: 1.8
     - name: NextGen Static Analysis
-      run: ${GITHUB_WORKSPACE}/sl analyze --app ShiftLeftJS --tag branch=${{ github.head_ref }} --js --cpg $(pwd)
+      run: ${GITHUB_WORKSPACE}/sl analyze --app ${GITHUB_REPOSITORY} --tag branch=${{ github.head_ref }} --js --cpg $(pwd)
       env:
         SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
