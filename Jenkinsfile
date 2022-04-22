@@ -9,7 +9,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing...'
-                npm install
+                sh npm install
 		snykSecurity(
                     snykInstallation: 'mySnyk',
                     snykTokenId: 'jenkins-pickford-snyk',
