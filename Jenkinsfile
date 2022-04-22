@@ -3,7 +3,6 @@ pipeline {
     stages {
         stage('Test Build Requirements') {
             steps {
-                sh 'cd juice-shop/'
                 sh 'npm install -g'
                 sh 'npm -v'
             }
