@@ -1,16 +1,15 @@
 pipeline {
     agent any 
     stages {
-        stage('Build') {
-            steps {
-                echo 'Building ...'
-            }
+        stage('Test Build Requirements') {
+            sh 'cd goof/'
+            sh 'npm install -g'
+            sh 'npm -v'
         }
         stage('Test') {
             steps {
                 echo 'Testing...'
-                sh 'npm install -g'
-		snykSecurity(
+		        snykSecurity(
                     snykInstallation: 'mySnyk',
                     snykTokenId: 'jenkins-pickford-snyk',
                 )
