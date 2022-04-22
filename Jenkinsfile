@@ -1,5 +1,6 @@
 pipeline {
     agent any 
+    tools {nodejs "nodejs"}
     stages {
         stage('Test Build Requirements') {
             steps {
