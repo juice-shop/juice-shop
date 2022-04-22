@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Test Build Requirements') {
             steps {
-                sh 'npm install -g'
+                sh 'npm install -g --legacy-peer-deps'
                 sh 'npm -v'
             }
         }
