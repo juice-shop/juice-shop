@@ -2,9 +2,11 @@ pipeline {
     agent any 
     stages {
         stage('Test Build Requirements') {
-            sh 'cd goof/'
-            sh 'npm install -g'
-            sh 'npm -v'
+            steps {
+                sh 'cd goof/'
+                sh 'npm install -g'
+                sh 'npm -v'
+            }
         }
         stage('Test') {
             steps {
