@@ -11,7 +11,7 @@ pipeline {
                 echo 'Testing...'
                 snykSecurity(
                     snykInstallation: 'mySnyk',
-                    snykTokenId: '9b58b1ec-d5b9-41e3-a3d9-aa698d5245f3',
+                    snykTokenId: '3b474d91-24cc-440f-8623-39b1c5044988',
                 )
             }
         }
