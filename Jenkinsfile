@@ -11,7 +11,7 @@ pipeline {
                 echo 'Testing...'
                 snykSecurity(
                     snykInstallation: 'mySnyk',
-                    snykTokenId: 'pickford-snyk',
+                    snykTokenId: 'jenkins-pickford-snyk',
                 )
             }
         }
