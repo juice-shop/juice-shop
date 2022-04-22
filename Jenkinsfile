@@ -1,9 +1,18 @@
 pipeline {
-    agent { docker { image 'node:16-alpine' } }
+    agent any 
     stages {
         stage('Build') {
             steps {
-                sh 'node --version'
+                echo 'Building ...'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+                snykSecurity(
+                    snykInstallation: 'mySnyk',
+                    snykTokenId: '9b58b1ec-d5b9-41e3-a3d9-aa698d5245f3',
+                )
             }
         }
     }
