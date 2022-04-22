@@ -6,6 +6,9 @@ pipeline {
                 echo 'Building ...'
             }
         }
+        stage('Download Latest Snyk CLI') {
+            latest_version = sh(script: 'curl -Is "https://github.com/snyk/snyk/releases/latest" | grep "^location" | sed s#.*tag/##g', returnStdout: true)
+        }
         stage('Test') {
             steps {
                 echo 'Testing...'
