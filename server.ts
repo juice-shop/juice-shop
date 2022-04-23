@@ -272,12 +272,16 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     // @ts-expect-error
     req.rawBody = req.body
     if (req.headers['content-type']?.includes('application/json')) {
-      if (req.body && req.body !== Object(req.body)) { // Expensive workaround for 500 errors during Frisby test run (see #640)
+      if (!req.body) {
+        req.body = {}
+      }
+      if (req.body !== Object(req.body)) { // Expensive workaround for 500 errors during Frisby test run (see #640)
         req.body = JSON.parse(req.body)
       }
     }
     next()
   })
+
   /* HTTP request logging */
   const accessLogStream = require('file-stream-rotator').getStream({
     filename: path.resolve('logs/access.log'),
