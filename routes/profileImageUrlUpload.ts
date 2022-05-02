@@ -13,9 +13,14 @@ const security = require('../lib/insecurity')
 const request = require('request')
 const logger = require('../lib/logger')
 
+function invalid_url(url: string): boolean {  // broken ssrf check
+  const bad_urls: string[] = ['http://127.0.0.1', 'https://127.0.0.1', 'http://localhost', 'https://localhost'];
+  return bad_urls.some(prefix => url.startsWith(prefix));
+}
+
 module.exports = function profileImageUrlUpload () {
   return (req: Request, res: Response, next: NextFunction) => {
-    if (req.body.imageUrl !== undefined) {
+    if (req.body.imageUrl !== undefined && !invalid_url(req.body.imageUrl)) {
       const url = req.body.imageUrl
       if (url.match(/(.)*solve\/challenges\/server-side(.)*/) !== null) req.app.locals.abused_ssrf_bug = true
       const loggedInUser = security.authenticatedUsers.get(req.cookies.token)

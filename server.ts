@@ -100,6 +100,16 @@ const chatbot = require('./routes/chatbot')
 const locales = require('./data/static/locales.json')
 const i18n = require('i18n')
 
+// static localhost scan server
+const appScan = express()
+appScan.get('/scans/0000-scan.png', (req, res) => {
+  res.sendFile(path.resolve('scans/0000-scan.png'))
+})
+const serverScan = require('http').Server(appScan)
+serverScan.listen(8000, "127.0.0.1", () => {
+  logger.info(colors.cyan(`Scan Server listening on port 8000`))
+})
+
 const appName = config.get('application.customMetricsPrefix')
 const startupGauge = new client.Gauge({
   name: `${appName}_startup_duration_seconds`,
