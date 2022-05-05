@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The unsafe HTML5 test</title>
+</head>
+<body>
+<script>
+var url = decodeURI(document.URL);
+var name = url.indexOf("name=") + 5;
+document.write("Welcome " +
+url.substring(name, url.length));
+</script>
+</body></html>
