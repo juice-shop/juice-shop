@@ -152,7 +152,7 @@ jobs:
   coverage-report:
     needs: [test, api-test]
     runs-on: ubuntu-latest
-    if: github.repository == 'juice-shop/juice-shop'
+    if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push'
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
@@ -168,7 +168,7 @@ jobs:
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-0.7.0-linux-amd64 > ./cc-test-reporter
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
           chmod +x ./cc-test-reporter
           sed -i s/SF:/SF:frontend\\//g frontend-lcov.info
           ./cc-test-reporter format-coverage -t lcov -o codeclimate.frontend.json frontend-lcov.info
