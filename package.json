@@ -256,7 +256,7 @@
     "webdriver-manager": "^13.0.0"
   },
   "engines": {
-    "node": "14 - 17"
+    "node": "14 - 18"
   },
   "os": [
     "win32",
