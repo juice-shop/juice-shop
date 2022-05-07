@@ -57,7 +57,7 @@
     "lint:config": "schema validate -s config.schema.yml",
     "lint:fix": "eslint *.[jt]s data lib models routes test views rsn --fix && cd frontend && ng lint --fix && npx stylelint \"**/*.scss\" --fix && cd ..",
     "package": "grunt package",
-    "package:ci": "npm prune --production && npm dedupe && cd frontend && npm prune --production && cd .. && grunt package",
+    "package:ci": "npm prune --production && npm dedupe && cd frontend && npm prune --legacy-peer-deps --production && cd .. && grunt package",
     "preprotractor": "npm dedupe && node ./node_modules/protractor/bin/webdriver-manager update --gecko false",
     "preprotractor:github": "npm dedupe && node ./node_modules/protractor/bin/webdriver-manager update --gecko false --versions.chrome 101.0.4951.41",
     "protractor": "npm run e2e",
