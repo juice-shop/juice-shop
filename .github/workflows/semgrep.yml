@@ -11,9 +11,11 @@ name: Semgrep
 jobs:
   semgrep:
     name: Scan
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
+    env:
+      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+    container:
+      image: returntocorp/semgrep
     steps:
-    - uses: actions/checkout@v2
-    - uses: returntocorp/semgrep-action@v1
-      with:
-        publishToken: ${{ secrets.SEMGREP_APP_TOKEN }}
+    - uses: actions/checkout@v3
+    - run: semgrep ci
