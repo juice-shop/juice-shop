@@ -131,6 +131,8 @@ hackingInstructor:
     type: boolean
   avatarImage:
     type: string
+  hintPlaybackSpeed:
+    type: string
 products:
   -
     name:

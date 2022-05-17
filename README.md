@@ -127,11 +127,11 @@ For a detailed introduction, full list of features and architecture overview ple
 
 1. Install [Vagrant](https://www.vagrantup.com/downloads.html) and
    [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
-2. Run `git clone https://github.com/bkimminich/juice-shop.git` (or
-   clone [your own fork](https://github.com/bkimminich/juice-shop/fork)
+2. Run `git clone https://github.com/juice-shop/juice-shop.git` (or
+   clone [your own fork](https://github.com/juice-shop/juice-shop/fork)
    of the repository)
 3. Run `cd vagrant && vagrant up`
-4. Browse to [192.168.33.10:3000](http://192.168.33.10:3000)
+4. Browse to [192.168.56.110](http://192.168.56.110)
 
 ### Amazon EC2 Instance
 
@@ -204,14 +204,13 @@ offered accordingly.
 
 | node.js | Supported            | Tested             | [Packaged Distributions](#packaged-distributions) | [Docker images](#docker-container) from `master` | [Docker images](#docker-container) from `develop` |
 |:--------|:---------------------|:-------------------|:--------------------------------------------------|:-------------------------------------------------|:--------------------------------------------------|
-| 18.x    | :x:                  | :x:                |                                                   |                                                  |                                                   |
-| 17.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
+| 19.x    | :x:                  | :x:                |                                                   |                                                  |                                                   |
+| 18.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
+| 17.x    | (:heavy_check_mark:) | :x:                |                                                   |                                                  |                                                   |
 | 16.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     | `latest` (`linux/amd64`)                         | `snapshot` (`linux/amd64`)                        |
 | 15.x    | (:heavy_check_mark:) | :x:                |                                                   |                                                  |                                                   |
 | 14.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     | `latest-arm` (`linux/arm/v7`, `linux/arm64`)     | `snapshot-arm` (`linux/arm/v7`, `linux/arm64`)    |
-| 13.x    | (:heavy_check_mark:) | :x:                |                                                   |                                                  |                                                   |
-| 12.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
-| <12.x   | :x:                  | :x:                |                                                   |                                                  |                                                   |
+| <14.x   | :x:                  | :x:                |                                                   |                                                  |                                                   |
 
 Juice Shop is automatically tested _only on the latest `.x` minor version_ of each node.js version mentioned above!
 There is no guarantee that older minor node.js releases will always work with Juice Shop!

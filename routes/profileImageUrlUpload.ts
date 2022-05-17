@@ -6,8 +6,7 @@
 import fs = require('fs')
 import { Request, Response, NextFunction } from 'express'
 
-import models = require('../models/index')
-import { User } from '../data/types'
+import { UserModel } from '../models/user'
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
 const request = require('request')
@@ -23,15 +22,15 @@ module.exports = function profileImageUrlUpload () {
         const imageRequest = request
           .get(url)
           .on('error', function (err: unknown) {
-            models.User.findByPk(loggedInUser.data.id).then(async (user: User) => { return await user.update({ profileImage: url }) }).catch((error: Error) => { next(error) })
+            UserModel.findByPk(loggedInUser.data.id).then(async (user: UserModel | null) => { return await user?.update({ profileImage: url }) }).catch((error: Error) => { next(error) })
             logger.warn(`Error retrieving user profile image: ${utils.getErrorMessage(err)}; using image link directly`)
           })
           .on('response', function (res: Response) {
             if (res.statusCode === 200) {
               const ext = ['jpg', 'jpeg', 'png', 'svg', 'gif'].includes(url.split('.').slice(-1)[0].toLowerCase()) ? url.split('.').slice(-1)[0].toLowerCase() : 'jpg'
               imageRequest.pipe(fs.createWriteStream(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.${ext}`))
-              models.User.findByPk(loggedInUser.data.id).then(async (user: User) => { return await user.update({ profileImage: `/assets/public/images/uploads/${loggedInUser.data.id}.${ext}` }) }).catch((error: Error) => { next(error) })
-            } else models.User.findByPk(loggedInUser.data.id).then(async (user: User) => { return await user.update({ profileImage: url }) }).catch((error: Error) => { next(error) })
+              UserModel.findByPk(loggedInUser.data.id).then(async (user: UserModel | null) => { return await user?.update({ profileImage: `/assets/public/images/uploads/${loggedInUser.data.id}.${ext}` }) }).catch((error: Error) => { next(error) })
+            } else UserModel.findByPk(loggedInUser.data.id).then(async (user: UserModel | null) => { return await user?.update({ profileImage: url }) }).catch((error: Error) => { next(error) })
           })
       } else {
         next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))

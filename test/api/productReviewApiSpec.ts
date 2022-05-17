@@ -98,6 +98,26 @@ describe('/rest/products/reviews', () => {
       .expect('status', 401)
   })
 
+  it('POST non-existing product review cannot be liked', () => {
+    return frisby.post(`${REST_URL}/user/login`, {
+      headers: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@gmail.com',
+        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+      }
+    })
+      .expect('status', 200)
+      .then(({ json: jsonLogin }) => {
+        return frisby.post(`${REST_URL}/products/reviews`, {
+          headers: { Authorization: `Bearer ${jsonLogin.authentication.token}` },
+          body: {
+            id: 'does not exist'
+          }
+        })
+          .expect('status', 404)
+      })
+  })
+
   it('POST single product review can be liked', () => {
     return frisby.post(`${REST_URL}/user/login`, {
       headers: jsonHeader,

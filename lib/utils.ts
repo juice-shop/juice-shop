@@ -7,6 +7,7 @@
 import packageJson from '../package.json'
 import { Op } from 'sequelize'
 import fs = require('fs')
+import { ChallengeModel } from '../models/challenge'
 
 const colors = require('colors/safe')
 const notifications = require('../data/datacache').notifications
@@ -26,7 +27,6 @@ const logger = require('./logger')
 const webhook = require('./webhook')
 const antiCheat = require('./antiCheat')
 const accuracy = require('./accuracy')
-const models = require('../models')
 
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
 
@@ -95,6 +95,7 @@ export const trunc = function (str: string, length: number) {
 
 export const version = (module: string) => {
   if (module) {
+    // @ts-expect-error
     return packageJson.dependencies[module]
   } else {
     return packageJson.version
@@ -122,8 +123,8 @@ export const solve = function (challenge: any, isRestore = false) {
     if (!isRestore) {
       const cheatScore = antiCheat.calculateCheatScore(challenge)
       if (process.env.SOLUTIONS_WEBHOOK) {
-        webhook.notify(solvedChallenge, cheatScore).catch((error) => {
-          logger.error('Webhook notification failed: ' + colors.red(error.message))
+        webhook.notify(solvedChallenge, cheatScore).catch((error: unknown) => {
+          logger.error('Webhook notification failed: ' + colors.red(getErrorMessage(error)))
         })
       }
     }
@@ -145,6 +146,7 @@ export const sendNotification = function (challenge: { difficulty?: number, key:
     notifications.push(notification)
 
     if (global.io && (isRestore || !wasPreviouslyShown)) {
+      // @ts-expect-error
       global.io.emit('challenge solved', notification)
     }
   }
@@ -193,7 +195,7 @@ export const toISO8601 = (date: Date) => {
 
 export const extractFilename = (url: string) => {
   let file = decodeURIComponent(url.substring(url.lastIndexOf('/') + 1))
-  if (this.contains(file, '?')) {
+  if (contains(file, '?')) {
     file = file.substring(0, file.indexOf('?'))
   }
   return file
@@ -202,8 +204,8 @@ export const extractFilename = (url: string) => {
 export const downloadToFile = async (url: string, dest: string) => {
   return download(url).then((data: string | Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | BigUint64Array | BigInt64Array | Float32Array | Float64Array | DataView) => {
     fs.writeFileSync(dest, data)
-  }).catch((err: Error) => {
-    logger.warn('Failed to download ' + url + ' (' + err.statusMessage + ')')
+  }).catch((err: unknown) => {
+    logger.warn('Failed to download ' + url + ' (' + getErrorMessage(err) + ')')
   })
 }
 
@@ -274,7 +276,7 @@ export const thaw = (frozenObject: any) => {
 
 export const solveFindIt = async function (key: string, isRestore: boolean) {
   const solvedChallenge = challenges[key]
-  await models.Challenge.update({ codingChallengeStatus: 1 }, { where: { key, codingChallengeStatus: { [Op.lt]: 2 } } })
+  await ChallengeModel.update({ codingChallengeStatus: 1 }, { where: { key, codingChallengeStatus: { [Op.lt]: 2 } } })
   logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Find It' phase of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
   if (!isRestore) {
     accuracy.storeFindItVerdict(solvedChallenge.key, true)
@@ -285,7 +287,7 @@ export const solveFindIt = async function (key: string, isRestore: boolean) {
 
 export const solveFixIt = async function (key: string, isRestore: boolean) {
   const solvedChallenge = challenges[key]
-  await models.Challenge.update({ codingChallengeStatus: 2 }, { where: { key } })
+  await ChallengeModel.update({ codingChallengeStatus: 2 }, { where: { key } })
   logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Fix It' phase of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
   if (!isRestore) {
     accuracy.storeFixItVerdict(solvedChallenge.key, true)

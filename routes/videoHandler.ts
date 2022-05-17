@@ -86,7 +86,7 @@ function getSubsFromFile () {
 function videoPath () {
   if (config?.application?.promotion?.video !== null) {
     const video = utils.extractFilename(config.application.promotion.video)
-    return 'frontend/src/assets/public/videos/' + video
+    return 'frontend/dist/frontend/assets/public/videos/' + video
   }
-  return 'frontend/src/assets/public/videos/owasp_promo.mp4'
+  return 'frontend/dist/frontend/assets/public/videos/owasp_promo.mp4'
 }

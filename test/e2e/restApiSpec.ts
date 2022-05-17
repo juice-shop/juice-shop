@@ -7,8 +7,7 @@ import config = require('config')
 import { $, browser, by, element, protractor } from 'protractor'
 import { basePath, beforeEachLogin, expectChallengeSolved } from './e2eHelpers'
 import { Product } from '../../data/types'
-
-const models = require('../../models/index')
+import { ProductModel } from '../../models/product'
 const utils = require('../../lib/utils')
 
 describe('/api', () => {
@@ -44,7 +43,7 @@ describe('/api', () => {
             expect(alert.getText()).toEqual(Promise.resolve('xss'))
             void alert.accept()
             // Disarm XSS payload so subsequent tests do not run into unexpected alert boxes
-            models.Product.findOne({ where: { name: 'RestXSS' } }).then((product: any) => {
+            ProductModel.findOne({ where: { name: 'RestXSS' } }).then((product: any) => {
               product.update({ description: '&lt;iframe src="javascript:alert(`xss`)"&gt;' }).catch((error: Error) => {
                 console.log(error)
                 fail()

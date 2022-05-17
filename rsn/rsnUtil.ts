@@ -1,4 +1,3 @@
-// require("colors");
 import { retrieveCodeSnippet } from '../routes/vulnCodeSnippet'
 const Diff = require('diff')
 const fs = require('fs')
@@ -20,7 +19,7 @@ function readFiles () {
 }
 
 function writeToFile (json: CacheData) {
-  fs.writeFileSync(cacheFile, JSON.stringify(json))
+  fs.writeFileSync(cacheFile, JSON.stringify(json, null, '\t'))
 }
 
 function getDataFromFile () {
