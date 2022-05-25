@@ -101,7 +101,7 @@ async function processQuery (user: User, req: Request, res: Response) {
       utils.solveIf(challenges.killChatbotChallenge, () => { return true })
       res.status(200).json({
         action: 'response',
-        body: 'Oh no... Remember to stay hydrated when I\'m gone...'
+        body: `Remember to stay hydrated while I try to recover from "${utils.getErrorMessage(err)}"...`
       })
     }
   }
