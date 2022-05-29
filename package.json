@@ -50,6 +50,7 @@
   "scripts": {
     "build:frontend": "cd frontend && node ./node_modules/@angular/cli/bin/ng build --aot --configuration production --output-hashing=none --vendor-chunk=true --source-map=false",
     "build:server": "tsc",
+    "cypress:open": "cypress open",
     "e2e": "ts-node test/e2eTests.ts",
     "frisby": "nyc --report-dir=./build/reports/coverage/api-tests jest --silent --runInBand --forceExit",
     "postinstall": "cd frontend && npm install --legacy-peer-deps && cd .. && npm run build:frontend && (npm run --silent build:server || cd .)",
@@ -229,6 +230,7 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "cross-spawn": "^7.0.3",
+    "cypress": "^9.7.0",
     "eslint": "^7.21.0",
     "eslint-config-standard-with-typescript": "^21.0.1",
     "eslint-plugin-import": "^2.22.1",
