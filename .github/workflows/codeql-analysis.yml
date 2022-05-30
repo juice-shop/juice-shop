@@ -2,9 +2,6 @@ name: "CodeQL Scan"
 
 on:
   push:
-    branches-ignore:
-      - cypress-suite
-      # Remove brnaches ignore section before PR
   pull_request:
 
 jobs:
