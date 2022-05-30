@@ -236,8 +236,8 @@ jobs:
   #           npm run preprotractor:github
   #           npm run e2e
   e2e-with-cypress:
-    # runs-on: windows-latest
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
+    # runs-on: ubuntu-latest
     # change later before PR
 
     # if: github.repository == 'juice-shop/juice-shop'
@@ -259,7 +259,11 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           install: false
+          browser: chrome
           start: npm start
+          wait-on: http://localhost:3000
+        env:
+          CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
   # e2e-in-subfolder:
   #   runs-on: windows-latest
   #   if: github.repository == 'juice-shop/juice-shop'
