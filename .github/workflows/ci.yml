@@ -248,7 +248,6 @@ jobs:
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         run: npm install
       - name: "Execute end-to-end tests"
         uses: cypress-io/github-action@c662a784116e1a26360c4e1fc0a90feedb4b5ed3 #v3.1.0
