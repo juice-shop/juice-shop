@@ -20,9 +20,6 @@ describe("Cypress is ready for Juice Shop", () => {
 
   it("Verifies the title of the page", () => {
     cy.get(".logo").should("be.visible");
-    cy.get('[routerlink="/search"] > .mat-button-wrapper > span').should(
-      "have.text",
-      " OWASP Juice Shop "
-    );
+    cy.contains("OWASP Juice Shop");
   });
 });
