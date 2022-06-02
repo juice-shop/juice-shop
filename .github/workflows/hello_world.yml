@@ -20,6 +20,7 @@ jobs:
   # This workflow contains a single job called "build"
   hello-world-ubuntu:
     name: Hello world Ubuntu
+    needs: hello-world-windows
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -41,7 +42,7 @@ jobs:
           
   hello-world-windows:
     name: Hello world Windows
-    needs: [ hello-world-ubuntu ]
+#    needs: [ hello-world-ubuntu ]
     runs-on: windows-latest
     
     steps:
