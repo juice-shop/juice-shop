@@ -18,7 +18,8 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  hello-world:
+  hello-world-ubuntu:
+    name: Hello world Ubuntu
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -39,6 +40,8 @@ jobs:
           echo test, and deploy your project.
           
   hello-world-windows:
+    name: Hello world Windows
+    needs: [ hello-world-ubuntu ]
     runs-on: windows-latest
     
     steps:
