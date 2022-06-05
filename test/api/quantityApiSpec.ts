@@ -164,7 +164,24 @@ describe('/api/Quantitys/:ids', () => {
       })
   })
 
-  it('GET quantity of all items for accounting users', () => {
+  it('GET quantity of all items for accounting users blocked by IP filter', () => {
+    return frisby.post(`${REST_URL}/user/login`, {
+      headers: jsonHeader,
+      body: {
+        email: `accountant@${config.get('application.domain')}`,
+        password: 'i am an awesome accountant'
+      }
+    })
+      .expect('status', 200)
+      .then(({ json }) => {
+        return frisby.get(`${API_URL}/Quantitys/1`, {
+          headers: { Authorization: `Bearer ${json.authentication.token}`, 'content-type': 'application/json' }
+        })
+          .expect('status', 403)
+      })
+  })
+
+  xit('GET quantity of all items for accounting users from IP 123.456.789', () => {
     return frisby.post(`${REST_URL}/user/login`, {
       headers: jsonHeader,
       body: {
@@ -223,7 +240,27 @@ describe('/api/Quantitys/:ids', () => {
       })
   })
 
-  it('PUT quantity as accounting user', () => {
+  it('PUT quantity as accounting user blocked by IP filter', () => {
+    return frisby.post(`${REST_URL}/user/login`, {
+      headers: jsonHeader,
+      body: {
+        email: `accountant@${config.get('application.domain')}`,
+        password: 'i am an awesome accountant'
+      }
+    })
+      .expect('status', 200)
+      .then(({ json }) => {
+        return frisby.put(`${API_URL}/Quantitys/1`, {
+          headers: { Authorization: `Bearer ${json.authentication.token}`, 'content-type': 'application/json' },
+          body: {
+            quantity: 100
+          }
+        })
+          .expect('status', 403)
+      })
+  })
+
+  xit('PUT quantity as accounting user from IP 123.456.789', () => {
     return frisby.post(`${REST_URL}/user/login`, {
       headers: jsonHeader,
       body: {
