@@ -38,6 +38,7 @@ export interface User extends Model {
   card?: Card[]
   totpSecret?: string
   walletBalance?: number
+  lastLoginIp?: string
 }
 
 export interface Delivery extends Model {
