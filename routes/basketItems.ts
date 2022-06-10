@@ -6,6 +6,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { BasketItemModel } from '../models/basketitem'
 import { QuantityModel } from '../models/quantity'
+import challengeUtils = require('../lib/challengeUtils')
 
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
@@ -41,7 +42,7 @@ module.exports.addBasketItem = function addBasketItem () {
         BasketId: basketIds[basketIds.length - 1],
         quantity: quantities[quantities.length - 1]
       }
-      utils.solveIf(challenges.basketManipulateChallenge, () => { return user && basketItem.BasketId && basketItem.BasketId !== 'undefined' && user.bid != basketItem.BasketId }) // eslint-disable-line eqeqeq
+      challengeUtils.solveIf(challenges.basketManipulateChallenge, () => { return user && basketItem.BasketId && basketItem.BasketId !== 'undefined' && user.bid != basketItem.BasketId }) // eslint-disable-line eqeqeq
 
       const basketItemInstance = BasketItemModel.build(basketItem)
       basketItemInstance.save().then((addedBasketItem: BasketItemModel) => {
@@ -65,7 +66,7 @@ module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBefor
   return (req: Request, res: Response, next: NextFunction) => {
     BasketItemModel.findOne({ where: { id: req.params.id } }).then((item: BasketItemModel | null) => {
       const user = security.authenticatedUsers.from(req)
-      utils.solveIf(challenges.basketManipulateChallenge, () => { return user && req.body.BasketId && user.bid != req.body.BasketId }) // eslint-disable-line eqeqeq
+      challengeUtils.solveIf(challenges.basketManipulateChallenge, () => { return user && req.body.BasketId && user.bid != req.body.BasketId }) // eslint-disable-line eqeqeq
       if (req.body.quantity) {
         if (!item) {
           throw new Error('No such item found!')

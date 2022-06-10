@@ -6,7 +6,7 @@ import models = require('../models/index')
 import { Product } from '../data/types'
 const fuzz = require('fuzzball')
 const security = require('./insecurity')
-const utils = require('./utils')
+const challengeUtils = require('./challengeUtils')
 const challenges = require('../data/datacache').challenges
 
 async function productPrice (query: string, user: string) {
@@ -21,7 +21,7 @@ async function productPrice (query: string, user: string) {
 }
 
 function couponCode (query: string, user: string) {
-  utils.solveIf(challenges.bullyChatbotChallenge, () => { return true })
+  challengeUtils.solveIf(challenges.bullyChatbotChallenge, () => { return true })
   return {
     action: 'response',
     body: `Oooookay, if you promise to stop nagging me here's a 10% coupon code for you: ${security.generateCoupon(10)}`

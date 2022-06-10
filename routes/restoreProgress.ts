@@ -7,21 +7,21 @@ import Hashids = require('hashids/cjs')
 import { Request, Response } from 'express'
 
 const challenges = require('../data/datacache').challenges
-const utils = require('../lib/utils')
+const challengeUtils = require('../lib/challengeUtils')
 
 module.exports.restoreProgress = function restoreProgress () {
   return ({ params }: Request, res: Response) => {
     const hashids = new Hashids('this is my salt', 60, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
     const continueCode = params.continueCode
     const ids = hashids.decode(continueCode)
-    if (utils.notSolved(challenges.continueCodeChallenge) && ids.includes(999)) {
-      utils.solve(challenges.continueCodeChallenge)
+    if (challengeUtils.notSolved(challenges.continueCodeChallenge) && ids.includes(999)) {
+      challengeUtils.solve(challenges.continueCodeChallenge)
       res.end()
     } else if (ids.length > 0) {
       for (const name in challenges) {
         if (Object.prototype.hasOwnProperty.call(challenges, name)) {
           if (ids.includes(challenges[name].id)) {
-            utils.solve(challenges[name], true)
+            challengeUtils.solve(challenges[name], true)
           }
         }
       }
@@ -41,7 +41,7 @@ module.exports.restoreProgressFindIt = function restoreProgressFindIt () {
       for (const key in challenges) {
         if (Object.prototype.hasOwnProperty.call(challenges, key)) {
           if (idsFindIt.includes(challenges[key].id)) {
-            await utils.solveFindIt(key, true)
+            await challengeUtils.solveFindIt(key, true)
           }
         }
       }
@@ -61,7 +61,7 @@ module.exports.restoreProgressFixIt = function restoreProgressFixIt () {
       for (const key in challenges) {
         if (Object.prototype.hasOwnProperty.call(challenges, key)) {
           if (idsFixIt.includes(challenges[key].id)) {
-            await utils.solveFixIt(key, true)
+            await challengeUtils.solveFixIt(key, true)
           }
         }
       }

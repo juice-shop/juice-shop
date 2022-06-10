@@ -6,6 +6,7 @@
 import config = require('config')
 const notifications = require('../../data/datacache').notifications
 const utils = require('../utils')
+const challengeUtils = require('../challengeUtils')
 const security = require('../insecurity')
 const challenges = require('../../data/datacache').challenges
 let firstConnectedSocket: any = null
@@ -32,12 +33,12 @@ const registerWebsocketEvents = (server: any) => {
     })
 
     socket.on('verifyLocalXssChallenge', (data: any) => {
-      utils.solveIf(challenges.localXssChallenge, () => { return utils.contains(data, '<iframe src="javascript:alert(`xss`)">') })
-      utils.solveIf(challenges.xssBonusChallenge, () => { return utils.contains(data, config.get('challenges.xssBonusPayload')) })
+      challengeUtils.solveIf(challenges.localXssChallenge, () => { return utils.contains(data, '<iframe src="javascript:alert(`xss`)">') })
+      challengeUtils.solveIf(challenges.xssBonusChallenge, () => { return utils.contains(data, config.get('challenges.xssBonusPayload')) })
     })
 
     socket.on('verifySvgInjectionChallenge', (data: any) => {
-      utils.solveIf(challenges.svgInjectionChallenge, () => { return data?.match(/.*\.\.\/\.\.\/\.\.[\w/-]*?\/redirect\?to=https?:\/\/placekitten.com\/(g\/)?[\d]+\/[\d]+.*/) && security.isRedirectAllowed(data) })
+      challengeUtils.solveIf(challenges.svgInjectionChallenge, () => { return data?.match(/.*\.\.\/\.\.\/\.\.[\w/-]*?\/redirect\?to=https?:\/\/placekitten.com\/(g\/)?[\d]+\/[\d]+.*/) && security.isRedirectAllowed(data) })
     })
   })
 }

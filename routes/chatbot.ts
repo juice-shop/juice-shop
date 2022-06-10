@@ -8,6 +8,7 @@ import { Request, Response, NextFunction } from 'express'
 import { User } from '../data/types'
 import { UserModel } from '../models/user'
 import { JwtPayload, VerifyErrors } from 'jsonwebtoken'
+import challengeUtils = require('../lib/challengeUtils')
 
 const logger = require('../lib/logger')
 const { Bot } = require('juicy-chat-bot')
@@ -98,7 +99,7 @@ async function processQuery (user: User, req: Request, res: Response) {
         body: config.get('application.chatBot.defaultResponse')
       })
     } catch (err) {
-      utils.solveIf(challenges.killChatbotChallenge, () => { return true })
+      challengeUtils.solveIf(challenges.killChatbotChallenge, () => { return true })
       res.status(200).json({
         action: 'response',
         body: `Remember to stay hydrated while I try to recover from "${utils.getErrorMessage(err)}"...`

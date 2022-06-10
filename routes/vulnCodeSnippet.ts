@@ -9,6 +9,7 @@ import actualFs from 'fs'
 import yaml from 'js-yaml'
 
 const utils = require('../lib/utils')
+const challengeUtils = require('../lib/challengeUtils')
 const challenges = require('../data/datacache').challenges
 const path = require('path')
 const accuracy = require('../lib/accuracy')
@@ -206,7 +207,7 @@ exports.checkVulnLines = () => async (req: Request<{}, {}, VerdictRequestBody>, 
     }
   }
   if (verdict) {
-    await utils.solveFindIt(key)
+    await challengeUtils.solveFindIt(key)
     res.status(200).json({
       verdict: true
     })

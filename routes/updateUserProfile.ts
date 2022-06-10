@@ -5,6 +5,7 @@
 
 import { Request, Response, NextFunction } from 'express'
 import { UserModel } from '../models/user'
+import challengeUtils = require('../lib/challengeUtils')
 
 const security = require('../lib/insecurity')
 const utils = require('../lib/utils')
@@ -18,7 +19,7 @@ module.exports = function updateUserProfile () {
     if (loggedInUser) {
       UserModel.findByPk(loggedInUser.data.id).then((user: UserModel | null) => {
         if (user) {
-          utils.solveIf(challenges.csrfChallenge, () => {
+          challengeUtils.solveIf(challenges.csrfChallenge, () => {
             return ((req.headers.origin?.includes('://htmledit.squarefree.com')) ??
               (req.headers.referer?.includes('://htmledit.squarefree.com'))) &&
               req.body.username !== user.username
