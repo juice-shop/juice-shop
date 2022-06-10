@@ -5,6 +5,7 @@
 
 import fs = require('fs')
 import { Request, Response } from 'express'
+import challengeUtils = require('../lib/challengeUtils')
 
 const pug = require('pug')
 const config = require('config')
@@ -53,7 +54,7 @@ exports.promotionVideo = () => {
       let template = buf.toString()
       const subs = getSubsFromFile()
 
-      utils.solveIf(challenges.videoXssChallenge, () => { return utils.contains(subs, '</script><script>alert(`xss`)</script>') })
+      challengeUtils.solveIf(challenges.videoXssChallenge, () => { return utils.contains(subs, '</script><script>alert(`xss`)</script>') })
 
       const theme = themes[config.get('application.theme')]
       template = template.replace(/_title_/g, entities.encode(config.get('application.name')))

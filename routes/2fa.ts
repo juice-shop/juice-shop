@@ -7,6 +7,7 @@ import config = require('config')
 import { Request, Response } from 'express'
 import { BasketModel } from '../models/basket'
 import { UserModel } from '../models/user'
+import challengeUtils = require('../lib/challengeUtils')
 
 const security = require('../lib/insecurity')
 const otplib = require('otplib')
@@ -41,7 +42,7 @@ async function verify (req: Request, res: Response) {
     if (!isValid) {
       return res.status(401).send()
     }
-    utils.solveIf(challenges.twoFactorAuthUnsafeSecretStorageChallenge, () => { return user.email === 'wurstbrot@' + config.get('application.domain') })
+    challengeUtils.solveIf(challenges.twoFactorAuthUnsafeSecretStorageChallenge, () => { return user.email === 'wurstbrot@' + config.get('application.domain') })
 
     const [basket] = await BasketModel.findOrCreate({ where: { UserId: userId } })
 

@@ -7,7 +7,7 @@ import { Request, Response, NextFunction } from 'express'
 import { MemoryModel } from '../models/memory'
 import { ProductModel } from '../models/product'
 
-const utils = require('../lib/utils')
+import challengeUtils = require('../lib/challengeUtils')
 const security = require('../lib/insecurity')
 const db = require('../data/mongodb')
 const challenges = require('../data/datacache').challenges
@@ -97,7 +97,7 @@ module.exports = function dataExport () {
           }
           const emailHash = security.hash(email).slice(0, 4)
           for (const order of userData.orders) {
-            utils.solveIf(challenges.dataExportChallenge, () => { return order.orderId.split('-')[0] !== emailHash })
+            challengeUtils.solveIf(challenges.dataExportChallenge, () => { return order.orderId.split('-')[0] !== emailHash })
           }
           res.status(200).send({ userData: JSON.stringify(userData, null, 2), confirmation: 'Your data export will open in a new Browser window.' })
         },
