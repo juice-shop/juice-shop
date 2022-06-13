@@ -11,7 +11,7 @@ import { PrivacyRequestModel } from '../models/privacyRequests'
 const insecurity = require('../lib/insecurity')
 
 const challenges = require('../data/datacache').challenges
-const utils = require('../lib/utils')
+const challengeUtils = require('../lib/challengeUtils')
 const router = express.Router()
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -77,7 +77,7 @@ router.post('/', async (req: Request<{}, {}, DataErasureRequestParams>, res: Res
           } else {
             const sendlfrResponse: string = html.slice(0, 100) + '......'
             res.send(sendlfrResponse)
-            utils.solve(challenges.lfrChallenge)
+            challengeUtils.solve(challenges.lfrChallenge)
           }
         })
       } else {

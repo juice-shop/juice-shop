@@ -11,6 +11,7 @@ import { BasketItemModel } from '../models/basketitem'
 import { QuantityModel } from '../models/quantity'
 import { DeliveryModel } from '../models/delivery'
 import { WalletModel } from '../models/wallet'
+import challengeUtils = require('../lib/challengeUtils')
 
 const fs = require('fs')
 const PDFDocument = require('pdfkit')
@@ -67,7 +68,7 @@ module.exports = function placeOrder () {
           let totalPoints = 0
           basket.Products?.forEach(({ BasketItem, price, deluxePrice, name, id }) => {
             if (BasketItem) {
-              utils.solveIf(challenges.christmasSpecialChallenge, () => { return BasketItem.ProductId === products.christmasSpecial.id })
+              challengeUtils.solveIf(challenges.christmasSpecialChallenge, () => { return BasketItem.ProductId === products.christmasSpecial.id })
               QuantityModel.findOne({ where: { ProductId: BasketItem.ProductId } }).then((product: any) => {
                 const newQuantity = product.quantity - BasketItem.quantity
                 QuantityModel.update({ quantity: newQuantity }, { where: { ProductId: BasketItem?.ProductId } }).catch((error: unknown) => {
@@ -133,7 +134,7 @@ module.exports = function placeOrder () {
           doc.moveDown()
           doc.font('Times-Roman', 15).text(req.__('Thank you for your order!'))
 
-          utils.solveIf(challenges.negativeOrderChallenge, () => { return totalPrice < 0 })
+          challengeUtils.solveIf(challenges.negativeOrderChallenge, () => { return totalPrice < 0 })
 
           if (req.body.UserId) {
             if (req.body.orderDetails && req.body.orderDetails.paymentId === 'wallet') {
@@ -178,7 +179,7 @@ module.exports = function placeOrder () {
 function calculateApplicableDiscount (basket: BasketModel, req: Request) {
   if (security.discountFromCoupon(basket.coupon)) {
     const discount = security.discountFromCoupon(basket.coupon)
-    utils.solveIf(challenges.forgedCouponChallenge, () => { return discount >= 80 })
+    challengeUtils.solveIf(challenges.forgedCouponChallenge, () => { return discount >= 80 })
     return discount
   } else if (req.body.couponData) {
     const couponData = Buffer.from(req.body.couponData, 'base64').toString().split('-')
@@ -187,7 +188,7 @@ function calculateApplicableDiscount (basket: BasketModel, req: Request) {
     const campaign = campaigns[couponCode as keyof typeof campaigns]
 
     if (campaign && couponDate == campaign.validOn) { // eslint-disable-line eqeqeq
-      utils.solveIf(challenges.manipulateClockChallenge, () => { return campaign.validOn < new Date().getTime() })
+      challengeUtils.solveIf(challenges.manipulateClockChallenge, () => { return campaign.validOn < new Date().getTime() })
       return campaign.discount
     }
   }

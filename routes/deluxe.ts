@@ -7,6 +7,7 @@ import { Request, Response, NextFunction } from 'express'
 import { UserModel } from '../models/user'
 import { WalletModel } from '../models/wallet'
 import { CardModel } from '../models/card'
+import challengeUtils = require('../lib/challengeUtils')
 
 const security = require('../lib/insecurity')
 const utils = require('../lib/utils')
@@ -40,7 +41,7 @@ module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
 
       user.update({ role: security.roles.deluxe, deluxeToken: security.deluxeToken(user.email) })
         .then(user => {
-          utils.solveIf(challenges.freeDeluxeChallenge, () => { return security.verify(utils.jwtFrom(req)) && req.body.paymentMode !== 'wallet' && req.body.paymentMode !== 'card' })
+          challengeUtils.solveIf(challenges.freeDeluxeChallenge, () => { return security.verify(utils.jwtFrom(req)) && req.body.paymentMode !== 'wallet' && req.body.paymentMode !== 'card' })
           user = utils.queryResultToJson(user)
           const updatedToken = security.authorize(user)
           security.authenticatedUsers.put(updatedToken, user)

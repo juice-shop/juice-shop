@@ -13,6 +13,7 @@ import {
   CreationOptional,
   Sequelize
 } from 'sequelize'
+import challengeUtils = require('../lib/challengeUtils')
 const security = require('../lib/insecurity')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
@@ -58,7 +59,7 @@ const UserModelInit = (sequelize: Sequelize) => {
         unique: true,
         set (email: string) {
           if (!utils.disableOnContainerEnv()) {
-            utils.solveIf(challenges.persistedXssUserChallenge, () => {
+            challengeUtils.solveIf(challenges.persistedXssUserChallenge, () => {
               return utils.contains(
                 email,
                 '<iframe src="javascript:alert(`xss`)">'

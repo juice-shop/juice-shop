@@ -5,6 +5,7 @@
 
 import { Request, Response, NextFunction } from 'express'
 import { UserModel } from '../models/user'
+import challengeUtils = require('../lib/challengeUtils')
 
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
@@ -17,7 +18,7 @@ module.exports = function saveLoginIp () {
     if (loggedInUser !== undefined) {
       let lastLoginIp = req.headers['true-client-ip']
       if (!utils.disableOnContainerEnv()) {
-        utils.solveIf(challenges.httpHeaderXssChallenge, () => { return lastLoginIp === '<iframe src="javascript:alert(`xss`)">' })
+        challengeUtils.solveIf(challenges.httpHeaderXssChallenge, () => { return lastLoginIp === '<iframe src="javascript:alert(`xss`)">' })
       } else {
         lastLoginIp = security.sanitizeSecure(lastLoginIp)
       }

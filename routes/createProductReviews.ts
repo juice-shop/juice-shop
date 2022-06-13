@@ -4,6 +4,7 @@
  */
 
 import { Request, Response } from 'express'
+import challengeUtils = require('../lib/challengeUtils')
 
 const reviews = require('../data/mongodb').reviews
 
@@ -14,7 +15,7 @@ const security = require('../lib/insecurity')
 module.exports = function productReviews () {
   return (req: Request, res: Response) => {
     const user = security.authenticatedUsers.from(req)
-    utils.solveIf(challenges.forgedReviewChallenge, () => { return user && user.data.email !== req.body.author })
+    challengeUtils.solveIf(challenges.forgedReviewChallenge, () => { return user && user.data.email !== req.body.author })
     reviews.insert({
       product: req.params.id,
       message: req.body.message,
