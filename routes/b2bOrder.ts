@@ -5,6 +5,7 @@
 
 import vm = require('vm')
 import { Request, Response, NextFunction } from 'express'
+import challengeUtils = require('../lib/challengeUtils')
 
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
@@ -22,11 +23,11 @@ module.exports = function b2bOrder () {
         res.json({ cid: body.cid, orderNo: uniqueOrderNumber(), paymentDue: dateTwoWeeksFromNow() })
       } catch (err) {
         if (utils.getErrorMessage(err).match(/Script execution timed out.*/)) {
-          utils.solveIf(challenges.rceOccupyChallenge, () => { return true })
+          challengeUtils.solveIf(challenges.rceOccupyChallenge, () => { return true })
           res.status(503)
           next(new Error('Sorry, we are temporarily not available! Please try again later.'))
         } else {
-          utils.solveIf(challenges.rceChallenge, () => { return utils.getErrorMessage(err) === 'Infinite loop detected - reached max iterations' })
+          challengeUtils.solveIf(challenges.rceChallenge, () => { return utils.getErrorMessage(err) === 'Infinite loop detected - reached max iterations' })
           next(err)
         }
       }

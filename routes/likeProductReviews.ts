@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import utils = require('../lib/utils')
+import challengeUtils = require('../lib/challengeUtils')
 import { Request, Response, NextFunction } from 'express'
 import { Review } from '../data/types'
 
@@ -37,7 +37,7 @@ module.exports = function productReviews () {
                       count++
                     }
                   }
-                  utils.solveIf(challenges.timingAttackChallenge, () => { return count > 2 })
+                  challengeUtils.solveIf(challenges.timingAttackChallenge, () => { return count > 2 })
                   db.reviews.update(
                     { _id: id },
                     { $set: { likedBy: likedBy } }

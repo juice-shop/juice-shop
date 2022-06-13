@@ -5,8 +5,8 @@
 
 import { Request, Response, NextFunction } from 'express'
 import { UserModel } from '../models/user'
+import challengeUtils = require('../lib/challengeUtils')
 
-const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
 const cache = require('../data/datacache')
 const challenges = cache.challenges
@@ -31,7 +31,7 @@ module.exports = function changePassword () {
           UserModel.findByPk(loggedInUser.data.id).then((user: UserModel | null) => {
             if (user) {
               user.update({ password: newPasswordInString }).then((user: UserModel) => {
-                utils.solveIf(challenges.changePasswordBenderChallenge, () => { return user.id === 3 && !currentPassword && user.password === security.hash('slurmCl4ssic') })
+                challengeUtils.solveIf(challenges.changePasswordBenderChallenge, () => { return user.id === 3 && !currentPassword && user.password === security.hash('slurmCl4ssic') })
                 res.json({ user })
               }).catch((error: Error) => {
                 next(error)

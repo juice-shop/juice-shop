@@ -6,12 +6,12 @@
 import path = require('path')
 import { Request, Response } from 'express'
 
-const utils = require('../lib/utils')
+import challengeUtils = require('../lib/challengeUtils')
 const challenges = require('../data/datacache').challenges
 
 module.exports = function serveEasterEgg () {
   return (req: Request, res: Response) => {
-    utils.solveIf(challenges.easterEggLevelTwoChallenge, () => { return true })
+    challengeUtils.solveIf(challenges.easterEggLevelTwoChallenge, () => { return true })
     res.sendFile(path.resolve('frontend/dist/frontend/assets/private/threejs-demo.html'))
   }
 }

@@ -5,6 +5,7 @@
 
 /* jslint node: true */
 import utils = require('../lib/utils')
+import challengeUtils = require('../lib/challengeUtils')
 import {
   Model,
   InferAttributes,
@@ -43,7 +44,7 @@ const ProductModelInit = (sequelize: Sequelize) => {
         type: DataTypes.STRING,
         set (description: string) {
           if (!utils.disableOnContainerEnv()) {
-            utils.solveIf(challenges.restfulXssChallenge, () => {
+            challengeUtils.solveIf(challenges.restfulXssChallenge, () => {
               return utils.contains(
                 description,
                 '<iframe src="javascript:alert(`xss`)">'

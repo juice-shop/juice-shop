@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 
 const accuracy = require('../lib/accuracy')
-const utils = require('../lib/utils')
+const challengeUtils = require('../lib/challengeUtils')
 const fs = require('fs')
 const yaml = require('js-yaml')
 
@@ -84,7 +84,7 @@ export const checkCorrectFix = () => async (req: Request<{}, {}, VerdictRequestB
       if (selectedFixInfo?.explanation) explanation = res.__(selectedFixInfo.explanation)
     }
     if (selectedFix === fixData.correct) {
-      await utils.solveFixIt(key)
+      await challengeUtils.solveFixIt(key)
       res.status(200).json({
         verdict: true,
         explanation

@@ -5,18 +5,10 @@
 
 /* jslint node: true */
 import packageJson from '../package.json'
-import { Op } from 'sequelize'
 import fs = require('fs')
-import { ChallengeModel } from '../models/challenge'
 
-const colors = require('colors/safe')
-const notifications = require('../data/datacache').notifications
-const challenges = require('../data/datacache').challenges
-const sanitizeHtml = require('sanitize-html')
 const jsSHA = require('jssha')
-const Entities = require('html-entities').AllHtmlEntities
 const config = require('config')
-const entities = new Entities()
 const download = require('download')
 const crypto = require('crypto')
 const clarinet = require('clarinet')
@@ -24,9 +16,6 @@ const isDocker = require('is-docker')
 const isHeroku = require('is-heroku')
 const isWindows = require('is-windows')
 const logger = require('./logger')
-const webhook = require('./webhook')
-const antiCheat = require('./antiCheat')
-const accuracy = require('./accuracy')
 
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
 
@@ -107,73 +96,6 @@ export const ctfFlag = (text: string) => {
   shaObj.setHMACKey(ctfKey, 'TEXT')
   shaObj.update(text)
   return shaObj.getHMAC('HEX')
-}
-
-export const solveIf = function (challenge: any, criteria: () => any, isRestore: boolean = false) {
-  if (notSolved(challenge) && criteria()) {
-    solve(challenge, isRestore)
-  }
-}
-
-export const solve = function (challenge: any, isRestore = false) {
-  challenge.solved = true
-  challenge.save().then((solvedChallenge: { difficulty: number, key: string, name: string }) => {
-    logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} ${solvedChallenge.difficulty}-star ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
-    sendNotification(solvedChallenge, isRestore)
-    if (!isRestore) {
-      const cheatScore = antiCheat.calculateCheatScore(challenge)
-      if (process.env.SOLUTIONS_WEBHOOK) {
-        webhook.notify(solvedChallenge, cheatScore).catch((error: unknown) => {
-          logger.error('Webhook notification failed: ' + colors.red(getErrorMessage(error)))
-        })
-      }
-    }
-  })
-}
-
-export const sendNotification = function (challenge: { difficulty?: number, key: any, name: any, description?: any }, isRestore: boolean) {
-  if (!notSolved(challenge)) {
-    const flag = ctfFlag(challenge.name)
-    const notification = {
-      key: challenge.key,
-      name: challenge.name,
-      challenge: challenge.name + ' (' + entities.decode(sanitizeHtml(challenge.description, { allowedTags: [], allowedAttributes: [] })) + ')',
-      flag: flag,
-      hidden: !config.get('challenges.showSolvedNotifications'),
-      isRestore: isRestore
-    }
-    const wasPreviouslyShown = notifications.find(({ key }: { key: string }) => key === challenge.key) !== undefined
-    notifications.push(notification)
-
-    if (global.io && (isRestore || !wasPreviouslyShown)) {
-      // @ts-expect-error
-      global.io.emit('challenge solved', notification)
-    }
-  }
-}
-
-export const notSolved = (challenge: any) => challenge && !challenge.solved
-
-export const findChallengeByName = (challengeName: string) => {
-  for (const c in challenges) {
-    if (Object.prototype.hasOwnProperty.call(challenges, c)) {
-      if (challenges[c].name === challengeName) {
-        return challenges[c]
-      }
-    }
-  }
-  logger.warn('Missing challenge with name: ' + challengeName)
-}
-
-export const findChallengeById = (challengeId: number) => {
-  for (const c in challenges) {
-    if (Object.prototype.hasOwnProperty.call(challenges, c)) {
-      if (challenges[c].id === challengeId) {
-        return challenges[c]
-      }
-    }
-  }
-  logger.warn('Missing challenge with id: ' + challengeId)
 }
 
 export const toMMMYY = (date: Date) => {
@@ -272,28 +194,6 @@ export const toSimpleIpAddress = (ipv6: string) => {
 
 export const thaw = (frozenObject: any) => {
   return JSON.parse(JSON.stringify(frozenObject))
-}
-
-export const solveFindIt = async function (key: string, isRestore: boolean) {
-  const solvedChallenge = challenges[key]
-  await ChallengeModel.update({ codingChallengeStatus: 1 }, { where: { key, codingChallengeStatus: { [Op.lt]: 2 } } })
-  logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Find It' phase of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
-  if (!isRestore) {
-    accuracy.storeFindItVerdict(solvedChallenge.key, true)
-    accuracy.calculateFindItAccuracy(solvedChallenge.key)
-    antiCheat.calculateFindItCheatScore(solvedChallenge)
-  }
-}
-
-export const solveFixIt = async function (key: string, isRestore: boolean) {
-  const solvedChallenge = challenges[key]
-  await ChallengeModel.update({ codingChallengeStatus: 2 }, { where: { key } })
-  logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Fix It' phase of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
-  if (!isRestore) {
-    accuracy.storeFixItVerdict(solvedChallenge.key, true)
-    accuracy.calculateFixItAccuracy(solvedChallenge.key)
-    antiCheat.calculateFixItCheatScore(solvedChallenge)
-  }
 }
 
 export const getErrorMessage = (error: unknown) => {

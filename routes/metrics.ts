@@ -11,6 +11,7 @@ import { WalletModel } from '../models/wallet'
 import { FeedbackModel } from '../models/feedback'
 import { ComplaintModel } from '../models/complaint'
 import { Op } from 'sequelize'
+import challengeUtils = require('../lib/challengeUtils')
 
 const Prometheus = require('prom-client')
 const onFinished = require('on-finished')
@@ -65,7 +66,7 @@ exports.observeFileUploadMetricsMiddleware = function observeFileUploadMetricsMi
 
 exports.serveMetrics = function serveMetrics () {
   return (req: Request, res: Response, next: NextFunction) => {
-    utils.solveIf(challenges.exposedMetricsChallenge, () => {
+    challengeUtils.solveIf(challenges.exposedMetricsChallenge, () => {
       const userAgent = req.headers['user-agent'] ?? ''
       return !userAgent.includes('Prometheus')
     })
