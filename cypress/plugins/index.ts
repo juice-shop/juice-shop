@@ -17,6 +17,7 @@
  */
 
 import * as Config from "config";
+import * as otplib from "otplib";
 import { Product } from "../../data/types";
 import * as utils from "../../lib/utils";
 
@@ -29,6 +30,12 @@ export default (on, config) => {
           return blueprint;
         }
       }
+    },
+    GetFromConfig(variable: string) {
+      return Config.get(variable);
+    },
+    GenerateAuthenticator(inputString: string) {
+      return otplib.authenticator.generate(inputString);
     },
     toISO8601() {
       let date = new Date();
