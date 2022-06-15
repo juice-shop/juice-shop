@@ -37,3 +37,22 @@ Cypress.Commands.add(
     );
   }
 );
+
+Cypress.Commands.add(
+  "login",
+  (context: { email: string; password: string; totpSecret?: string }) => {
+    cy.visit("/#/login");
+    if (context.email.match(/\S+@\S+\.\S+/)) {
+      cy.get("#email").type(context.email);
+    } else {
+      cy.task("GetFromConfig", "application.domain").then(
+        (appDomain: string) => {
+          let email = context.email.concat("@", appDomain);
+          cy.get("#email").type(email);
+        }
+      );
+    }
+    cy.get("#password").type(context.password);
+    cy.get("#loginButton").click();
+  }
+);
