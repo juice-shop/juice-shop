@@ -23,3 +23,17 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+import { Challenge } from "../../data/types";
+
+Cypress.Commands.add(
+  "expectChallengeSolved",
+  (context: { challenge: string }) => {
+    cy.request("GET", "/api/Challenges/?name=" + context.challenge).then(
+      (response) => {
+        let challenge: Challenge = response.body.data[0];
+        expect(challenge.solved).to.be.true;
+      }
+    );
+  }
+);
