@@ -17,6 +17,8 @@ on:
       - 'LICENSE'
       - 'data/static/i18n/*.json'
       - 'frontend/src/assets/i18n/*.json'
+env:
+  ANGULAR_CLI_VERSION: 13
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -28,7 +30,7 @@ jobs:
         with:
           node-version: 16
       - name: "Install CLI tools"
-        run: npm install -g @angular/cli
+        run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application minimalistically"
         run: |
           npm install --ignore-scripts
@@ -60,7 +62,7 @@ jobs:
         with:
           node-version: 16
       - name: "Install CLI tools"
-        run: npm install -g @angular/cli
+        run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
         run: npm install
       - name: "Check coding challenges for accidental code discrepancies"
@@ -82,7 +84,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: "Install CLI tools"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
-        run: npm install -g @angular/cli
+        run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         run: npm install
@@ -90,7 +92,7 @@ jobs:
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
         with:
-          timeout_minutes: 10
+          timeout_minutes: 15
           max_attempts: 3
           command: npm test
       - name: "Copy unit test coverage data"
@@ -122,7 +124,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: "Install CLI tools"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
-        run: npm install -g @angular/cli
+        run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         run: npm install
@@ -187,7 +189,7 @@ jobs:
         with:
           node-version: 16
       - name: "Install CLI tools"
-        run: npm install -g @angular/cli
+        run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         run: npm install
@@ -219,7 +221,7 @@ jobs:
         with:
           node-version: 16
       - name: "Install CLI tools"
-        run: npm install -g @angular/cli
+        run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         run: npm install
@@ -246,7 +248,7 @@ jobs:
         with:
           node-version: 16
       - name: "Install CLI tools"
-        run: npm install -g @angular/cli
+        run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
         run: npm install
       - name: "Execute end-to-end tests"
@@ -267,7 +269,7 @@ jobs:
         with:
           node-version: 16
       - name: "Install CLI tools"
-        run: npm install -g @angular/cli
+        run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
         run: npm install
       - name: "Execute end-to-end tests"
@@ -288,7 +290,7 @@ jobs:
         with:
           node-version: 16
       - name: "Install CLI tools"
-        run: npm install -g @angular/cli
+        run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
         run: npm install
       - name: "Execute end-to-end tests"
@@ -311,7 +313,7 @@ jobs:
         with:
           node-version: 16
       - name: "Install CLI tools"
-        run: npm install -g @angular/cli
+        run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         run: npm install
@@ -335,7 +337,7 @@ jobs:
           node-version: 16
       - name: "Install CLI tools"
         run: |
-          npm install -g @angular/cli
+          npm install -g @angular/cli@$ANGULAR_CLI_VERSION
           npm install -g grunt-cli
       - name: "Set packaging options for Grunt"
         run: |

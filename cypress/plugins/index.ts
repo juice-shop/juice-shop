@@ -15,8 +15,26 @@
 /**
  * @type {Cypress.PluginConfig}
  */
-// eslint-disable-next-line no-unused-vars
-export = (on, config) => {
+
+import * as Config from "config";
+import { Product } from "../../data/types";
+import * as utils from "../../lib/utils";
+
+export default (on, config) => {
+  on("task", {
+    GetBlueprint() {
+      for (const product of Config.get<Product[]>("products")) {
+        if (product.fileForRetrieveBlueprintChallenge) {
+          let blueprint = product.fileForRetrieveBlueprintChallenge;
+          return blueprint;
+        }
+      }
+    },
+    toISO8601() {
+      let date = new Date();
+      return utils.toISO8601(date);
+    },
+  });
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
-}
+};
