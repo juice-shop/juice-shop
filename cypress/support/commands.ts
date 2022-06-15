@@ -29,6 +29,7 @@ import { Challenge } from "../../data/types";
 Cypress.Commands.add(
   "expectChallengeSolved",
   (context: { challenge: string }) => {
+  cy.wait(2000);
     cy.request("GET", "/api/Challenges/?name=" + context.challenge).then(
       (response) => {
         let challenge: Challenge = response.body.data[0];
@@ -54,5 +55,6 @@ Cypress.Commands.add(
     }
     cy.get("#password").type(context.password);
     cy.get("#loginButton").click();
+    cy.wait(2000);
   }
 );

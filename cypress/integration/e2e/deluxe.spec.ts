@@ -9,7 +9,6 @@ describe("/#/deluxe-membership", () => {
           )}`
         );
       });
-      cy.wait(1000);
 
       cy.expectChallengeSolved({ challenge: "Cross-Site Imaging" });
     });
