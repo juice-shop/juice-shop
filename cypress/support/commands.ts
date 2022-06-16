@@ -29,13 +29,15 @@ import { Challenge } from "../../data/types";
 Cypress.Commands.add(
   "expectChallengeSolved",
   (context: { challenge: string }) => {
-  cy.wait(2000);
-    cy.request("GET", "/api/Challenges/?name=" + context.challenge).then(
-      (response) => {
-        let challenge: Challenge = response.body.data[0];
-        expect(challenge.solved).to.be.true;
-      }
-    );
+    cy.wait(2000);
+    cy.request({
+      method: "GET",
+      url: "/api/Challenges/?name=" + context.challenge,
+      timeout: 60000,
+    }).then((response) => {
+      let challenge: Challenge = response.body.data[0];
+      expect(challenge.solved).to.be.true;
+    });
   }
 );
 
