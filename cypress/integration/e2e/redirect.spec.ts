@@ -11,7 +11,10 @@ describe("/redirect", () => {
   describe('challenge "redirect"', () => {
     it("should redirect to target URL if allowlisted URL is contained in it as parameter", () => {
       cy.visit(
-        `/redirect?to=https://owasp.org?trickIndexOf=https://github.com/bkimminich/juice-shop`
+        `/redirect?to=https://owasp.org?trickIndexOf=https://github.com/bkimminich/juice-shop`,
+        {
+          failOnStatusCode: false,
+        }
       );
       cy.url().should("match", /https:\/\/owasp\.org/);
       cy.expectChallengeSolved({ challenge: "Allowlist Bypass" });
@@ -21,7 +24,10 @@ describe("/redirect", () => {
   describe('challenge "redirectCryptoCurrency"', () => {
     it("should still redirect to forgotten entry https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6 on allowlist", () => {
       cy.visit(
-        `/redirect?to=https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6`
+        `/redirect?to=https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6`,
+        {
+          failOnStatusCode: false,
+        }
       );
       cy.expectChallengeSolved({ challenge: "Outdated Allowlist" });
     });
