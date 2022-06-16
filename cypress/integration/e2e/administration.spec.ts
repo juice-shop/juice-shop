@@ -9,6 +9,7 @@ describe("/#/administration", () => {
     it("should be possible to access administration section with admin user", () => {
       cy.visit("/#/administration");
       cy.url().should("match", /\/administration/);
+      cy.wait(1000); // added for debugging the CI
       cy.expectChallengeSolved({ challenge: "Admin Section" });
     });
   });
