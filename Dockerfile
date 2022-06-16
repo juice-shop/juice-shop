@@ -5,6 +5,8 @@ RUN npm i -g typescript ts-node
 RUN npm install --omit=dev --unsafe-perm
 RUN npm dedupe
 RUN rm -rf frontend/node_modules
+RUN rm -rf frontend/.angular
+RUN rm -rf frontend/src/assets
 RUN mkdir logs && \
     chown -R 65532 logs && \
     chgrp -R 0 ftp/ frontend/dist/ logs/ data/ i18n/ && \
