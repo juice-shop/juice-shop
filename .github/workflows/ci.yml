@@ -263,6 +263,11 @@ jobs:
         with:
           name: cypress-screenshots
           path: cypress/screenshots
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
   e2e-with-cypress-firefox:
     runs-on: ubuntu-latest
     if: github.repository == 'juice-shop/juice-shop'
@@ -289,6 +294,11 @@ jobs:
         with:
           name: cypress-screenshots
           path: cypress/screenshots
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
   e2e-with-cypress-edge:
     runs-on: windows-latest
     if: github.repository == 'juice-shop/juice-shop'
@@ -317,6 +327,11 @@ jobs:
         with:
           name: cypress-screenshots
           path: cypress/screenshots
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
   e2e-in-subfolder:
     runs-on: windows-latest
     if: github.repository == 'juice-shop/juice-shop'
