@@ -94,6 +94,15 @@ products:
     reviews:
       - { text: 'One of my favorites!', author: admin }
   -
+    name: 'Orange Carrot Juice (1000ml)'
+    price: 999.99
+    deluxePrice: 990.99
+    limitPerUser: 1
+    description: 'The ultimate juice to rule them all.'
+    image: apple_juice.jpg
+    reviews:
+      - { text: 'One of my favorites!', author: admin }
+  -
     name: 'Orange Juice (1000ml)'
     description: 'Made from oranges hand-picked by Uncle Dittmeyer.'
     price: 2.99
