@@ -27,7 +27,7 @@ Existing issues often contain information about workarounds, resolution, or prog
 ### Expected difficulty
 
 <!-- Do you already have an idea about the expected difficulty of the challenge? -->
-<!-- ✍️edit: -->
+<!-- ✍️ -->
 
 | :heavy_check_mark: / :x: | Difficulty                           |
 |:------------------------:|:-------------------------------------|
