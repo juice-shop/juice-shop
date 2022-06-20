@@ -258,6 +258,16 @@ jobs:
           browser: chrome
           start: npm start
           wait-on: http://localhost:3000
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
   e2e-with-cypress-firefox:
     runs-on: ubuntu-latest
     if: github.repository == 'juice-shop/juice-shop'
@@ -279,6 +289,16 @@ jobs:
           browser: firefox
           start: npm start
           wait-on: http://localhost:3000
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
   e2e-with-cypress-edge:
     runs-on: windows-latest
     if: github.repository == 'juice-shop/juice-shop'
@@ -302,6 +322,16 @@ jobs:
           wait-on: http://localhost:3000
         env:
           CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
   e2e-in-subfolder:
     runs-on: windows-latest
     if: github.repository == 'juice-shop/juice-shop'
