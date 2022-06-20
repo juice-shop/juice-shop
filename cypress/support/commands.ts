@@ -69,6 +69,5 @@ Cypress.Commands.add(
     }
     cy.get("#password").type(context.password);
     cy.get("#loginButton").click();
-    cy.wait(2000);
   }
 );
