@@ -20,9 +20,13 @@ import * as Config from "config";
 import * as otplib from "otplib";
 import { Memory, Product } from "../../data/types";
 import * as utils from "../../lib/utils";
+const security = require("../../lib/insecurity");
 
 export default (on, config) => {
   on("task", {
+    GenerateCoupon(discount: number) {
+      return security.generateCoupon(discount);
+    },
     GetBlueprint() {
       for (const product of Config.get<Product[]>("products")) {
         if (product.fileForRetrieveBlueprintChallenge) {
