@@ -60,6 +60,9 @@ export default (on, config) => {
     disableOnContainerEnv() {
       return utils.disableOnContainerEnv();
     },
+    disableOnWindowsEnv() {
+      return utils.disableOnWindowsEnv();
+    },
   });
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
