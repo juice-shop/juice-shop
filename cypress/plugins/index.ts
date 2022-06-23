@@ -18,7 +18,7 @@
 
 import * as Config from "config";
 import * as otplib from "otplib";
-import { Product } from "../../data/types";
+import { Memory, Product } from "../../data/types";
 import * as utils from "../../lib/utils";
 
 export default (on, config) => {
@@ -28,6 +28,13 @@ export default (on, config) => {
         if (product.fileForRetrieveBlueprintChallenge) {
           let blueprint = product.fileForRetrieveBlueprintChallenge;
           return blueprint;
+        }
+      }
+    },
+    GetFromMemories(property: string) {
+      for (const memory of Config.get<Memory[]>("memories")) {
+        if (memory[property]) {
+          return memory[property];
         }
       }
     },
