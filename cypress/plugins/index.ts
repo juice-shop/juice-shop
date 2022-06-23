@@ -48,6 +48,9 @@ export default (on, config) => {
       let date = new Date();
       return utils.toISO8601(date);
     },
+    disableOnContainerEnv() {
+      return utils.disableOnContainerEnv();
+    },
   });
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
