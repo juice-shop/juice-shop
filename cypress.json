@@ -1,4 +1,7 @@
 {
   "baseUrl": "http://localhost:3000",
-  "defaultCommandTimeout": 10000
+  "defaultCommandTimeout": 10000,
+  "env": {
+    "baseUrl": "http://localhost:3000"
+  }
 }
