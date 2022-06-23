@@ -31,6 +31,15 @@ export default (on, config) => {
         }
       }
     },
+    GetCouponIntent() {
+      const trainingData = require(`../../data/chatbot/${utils.extractFilename(
+        Config.get("application.chatBot.trainingData")
+      )}`);
+      const couponIntent = trainingData.data.filter(
+        (data: { intent: string }) => data.intent === "queries.couponCode"
+      )[0];
+      return couponIntent;
+    },
     GetFromMemories(property: string) {
       for (const memory of Config.get<Memory[]>("memories")) {
         if (memory[property]) {
