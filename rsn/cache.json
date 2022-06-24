@@ -100,29 +100,18 @@
 		"removed": []
 	},
 	"exposedMetricsChallenge_1.ts": {
-		"added": [
-			12
-		],
-		"removed": [
-			12
-		]
+		"added": [],
+		"removed": []
 	},
 	"exposedMetricsChallenge_2.ts": {
 		"added": [
-			12,
-			39
+			34
 		],
-		"removed": [
-			12
-		]
+		"removed": []
 	},
 	"exposedMetricsChallenge_3_correct.ts": {
-		"added": [
-			12
-		],
-		"removed": [
-			12
-		]
+		"added": [],
+		"removed": []
 	},
 	"forgedReviewChallenge_1.ts": {
 		"added": [
