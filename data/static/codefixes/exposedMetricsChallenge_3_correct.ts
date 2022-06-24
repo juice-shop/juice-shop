@@ -1,6 +1,4 @@
 /* Serve metrics */
-import security from "./lib/insecurity"
-
 const Metrics = metrics.observeMetrics()
 const metricsUpdateLoop = Metrics.updateLoop
 app.get('/metrics', security.isAdmin(), metrics.serveMetrics())
@@ -11,6 +9,11 @@ const customizeApplication = require('./lib/startup/customizeApplication')
 
 export async function start (readyCallback: Function) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
+  const expectedModels = ['Address', 'Basket', 'BasketItem', 'Captcha', 'Card', 'Challenge','Complaint', 'Delivery', 'Feedback', 'ImageCaptcha', 'Memory', 'PrivacyRequestModel', 'Product', 'Quantity', 'Recycle', 'SecurityAnswer', 'SecurityQuestion', 'User', 'Wallet']
+  while (!expectedModels.every(model => Object.keys(sequelize.models).includes(model))) {
+    logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length)} of ${colors.bold(expectedModels.length)} are initialized (${colors.yellow('WAITING')})`)
+  }
+  logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length)} of ${colors.bold(expectedModels.length)} are initialized (${colors.green('OK')})`)
   await sequelize.sync({ force: true })
   await datacreator()
   datacreatorEnd()
