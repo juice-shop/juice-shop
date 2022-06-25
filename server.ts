@@ -5,7 +5,7 @@
 import dataErasure from './routes/dataErasure'
 import fs = require('fs')
 import { Request, Response, NextFunction } from 'express'
-import { sequelize } from './models/index'
+import { sequelize } from './models'
 import { UserModel } from './models/user'
 import { QuantityModel } from './models/quantity'
 import { CardModel } from './models/card'
