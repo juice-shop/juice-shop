@@ -202,7 +202,7 @@ async function createRandomFakeUsers () {
     return text
   }
 
-  return Promise.all(new Array(config.get('application.numberOfRandomFakeUsers')).fill(0).map(
+  return await Promise.all(new Array(config.get('application.numberOfRandomFakeUsers')).fill(0).map(
     () => models.User.create({
       email: getGeneratedRandomFakeUserEmail(),
       password: makeRandomString(5)
@@ -258,7 +258,7 @@ async function createMemories () {
     })
   ]
 
-  return Promise.all(memories)
+  return await Promise.all(memories)
 }
 
 async function createProducts () {
@@ -305,7 +305,7 @@ async function createProducts () {
   }
   datacache.retrieveBlueprintChallengeFile = blueprint
 
-  return Promise.all(
+  return await Promise.all(
     products.map(
       ({ reviews = [], useForChristmasSpecialChallenge = false, urlForProductTamperingChallenge = false, fileForRetrieveBlueprintChallenge = false, ...product }) =>
         models.Product.create(product).catch(
