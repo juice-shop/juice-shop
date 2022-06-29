@@ -88,6 +88,8 @@ application:
       type: string
     acknowledgements:
       type: string
+    hiring:
+      type: string
   promotion:
     video:
       type: string

@@ -170,6 +170,12 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     }
   }))
 
+  /* Hiring header */
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    res.append('X-Recruiting', config.get('application.securityTxt.hiring'))
+    next()
+  })
+
   /* Remove duplicate slashes from URL which allowed bypassing subsequent filters */
   app.use((req: Request, res: Response, next: NextFunction) => {
     req.url = req.url.replace(/[/]+/g, '/')
@@ -188,6 +194,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     encryption: config.get('application.securityTxt.encryption'),
     acknowledgements: config.get('application.securityTxt.acknowledgements'),
     'Preferred-Languages': [...new Set(locales.map((locale: { key: string }) => locale.key.substr(0, 2)))].join(', '),
+    hiring: config.get('application.securityTxt.hiring'),
     expires: securityTxtExpiration.toUTCString()
   }))
 
