@@ -82,7 +82,7 @@ challenges:
   showFeedbackButtons: true
 hackingInstructor:
   isEnabled: true
-  avatarImage: JuicyBot_MedicalMask.png
+  avatarImage: JuicyBot.png
   hintPlaybackSpeed: normal # Options: faster fast normal slow slower
 products:
   -
