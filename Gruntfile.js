@@ -1,9 +1,14 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 'use strict'
 
 module.exports = function (grunt) {
-  var node = grunt.option('node') || process.env.nodejs_version || process.env.TRAVIS_NODE_VERSION || ''
-  var platform = grunt.option('platform') || process.env.TRAVIS ? 'x64' : ''
-  var os = grunt.option('os') || process.env.TRAVIS_OS_NAME === 'windows' ? 'win32' : (process.env.TRAVIS_OS_NAME === 'osx' ? 'darwin' : (process.env.TRAVIS_OS_NAME || ''))
+  const os = grunt.option('os') || process.env.PCKG_OS_NAME || ''
+  const platform = grunt.option('platform') || process.env.PCKG_CPU_ARCH || ''
+  const node = grunt.option('node') || process.env.nodejs_version || process.env.PCKG_NODE_VERSION || ''
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -28,23 +33,28 @@ module.exports = function (grunt) {
         files: [
           {
             src: [
+              'LICENSE',
               '*.md',
-              'app.js',
-              'server.js',
               'package.json',
               'ctf.key',
               'swagger.yml',
+              'server.ts',
+              'config.schema.yml',
+              'build/**',
+              '!build/reports/**',
               'config/*.yml',
-              'data/*.js',
+              'data/*.ts',
               'data/static/**',
+              'data/chatbot/.gitkeep',
               'encryptionkeys/**',
               'frontend/dist/frontend/**',
+              'frontend/src/**/*.ts',
               'ftp/**',
               'i18n/.gitkeep',
               'lib/**',
-              'models/*.js',
+              'models/*.ts',
               'node_modules/**',
-              'routes/*.js',
+              'routes/*.ts',
               'uploads/complaints/.gitkeep',
               'views/**'
             ],

@@ -1,36 +1,57 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { CanActivate, Router } from '@angular/router'
-import * as jwt_decode from 'jwt-decode'
+import * as jwtDecode from 'jwt-decode'
 import { roles } from './roles'
-import { Injectable } from '@angular/core'
+import { Injectable, NgZone } from '@angular/core'
 
 @Injectable()
-export class AdminGuard implements CanActivate {
-  constructor (private router: Router) {}
+export class LoginGuard implements CanActivate {
+  constructor (private readonly router: Router, private readonly ngZone: NgZone) {}
 
-  forbidRoute () {
-    this.router.navigate(['403'], {
+  canActivate () {
+    if (localStorage.getItem('token')) {
+      return true
+    } else {
+      this.forbidRoute('UNAUTHORIZED_ACCESS_ERROR')
+      return false
+    }
+  }
+
+  forbidRoute (error = 'UNAUTHORIZED_PAGE_ACCESS_ERROR') {
+    this.ngZone.run(async () => await this.router.navigate(['403'], {
       skipLocationChange: true,
-      queryParams: {
-        error: 'UNAUTHORIZED_PAGE_ACCESS_ERROR'
-      }
-    })
+      queryParams: { error }
+    }))
   }
 
   tokenDecode () {
     let payload: any = null
     const token = localStorage.getItem('token')
     if (token) {
-      payload = jwt_decode(token)
+      try {
+        payload = jwtDecode(token)
+      } catch (err) {
+        console.log(err)
+      }
     }
     return payload
   }
+}
+
+@Injectable()
+export class AdminGuard implements CanActivate {
+  constructor (private readonly loginGuard: LoginGuard) {}
 
   canActivate () {
-    let payload = this.tokenDecode()
-    if (payload && payload.data && payload.data.role === roles.admin) {
+    const payload = this.loginGuard.tokenDecode()
+    if (payload?.data && payload.data.role === roles.admin) {
       return true
     } else {
-      this.forbidRoute()
+      this.loginGuard.forbidRoute()
       return false
     }
   }
@@ -38,14 +59,14 @@ export class AdminGuard implements CanActivate {
 
 @Injectable()
 export class AccountingGuard implements CanActivate {
-  constructor (private router: Router, private adminGuard: AdminGuard) {}
+  constructor (private readonly loginGuard: LoginGuard) {}
 
   canActivate () {
-    let payload = this.adminGuard.tokenDecode()
-    if (payload && payload.data && payload.data.role === roles.accounting) {
+    const payload = this.loginGuard.tokenDecode()
+    if (payload?.data && payload.data.role === roles.accounting) {
       return true
     } else {
-      this.adminGuard.forbidRoute()
+      this.loginGuard.forbidRoute()
       return false
     }
   }
@@ -53,33 +74,10 @@ export class AccountingGuard implements CanActivate {
 
 @Injectable()
 export class DeluxeGuard {
-  constructor (private adminGuard: AdminGuard) {}
+  constructor (private readonly loginGuard: LoginGuard) {}
 
   isDeluxe () {
-    let payload = this.adminGuard.tokenDecode()
-    if (payload && payload.data && payload.data.role === roles.deluxe) {
-      return true
-    } else {
-      return false
-    }
-  }
-}
-
-@Injectable()
-export class LoginGuard implements CanActivate {
-  constructor (private router: Router) {}
-
-  canActivate () {
-    if (localStorage.getItem('token')) {
-      return true
-    } else {
-      this.router.navigate(['403'], {
-        skipLocationChange: true,
-        queryParams: {
-          error: 'UNAUTHORIZED_ACCESS_ERROR'
-        }
-      })
-      return false
-    }
+    const payload = this.loginGuard.tokenDecode()
+    return payload?.data && payload.data.role === roles.deluxe
   }
 }

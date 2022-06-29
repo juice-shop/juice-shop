@@ -1,5 +1,10 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { ConfigurationService } from '../Services/configuration.service'
 import { MatCardModule } from '@angular/material/card'
 import { MatDividerModule } from '@angular/material/divider'
@@ -12,8 +17,8 @@ describe('PrivacyPolicyComponent', () => {
   let fixture: ComponentFixture<PrivacyPolicyComponent>
   let configurationService: any
 
-  beforeEach(async(() => {
-    configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
+  beforeEach(waitForAsync(() => {
+    configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
 
     TestBed.configureTestingModule({

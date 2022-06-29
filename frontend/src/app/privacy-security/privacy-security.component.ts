@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Component } from '@angular/core'
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
 import { Observable } from 'rxjs'
@@ -20,5 +25,5 @@ export class PrivacySecurityComponent {
       map(result => result.matches)
     )
 
-  constructor (private breakpointObserver: BreakpointObserver) {}
+  constructor (private readonly breakpointObserver: BreakpointObserver) {}
 }

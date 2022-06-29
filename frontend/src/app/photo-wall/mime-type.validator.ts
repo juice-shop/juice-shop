@@ -1,10 +1,15 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { AbstractControl } from '@angular/forms'
 import { Observable, Observer, of } from 'rxjs'
 
 export const mimeType = (
   control: AbstractControl
 ): Promise<{ [key: string]: any }> | Observable<{ [key: string]: any }> => {
-  if (typeof(control.value) === 'string') {
+  if (typeof (control.value) === 'string') {
     return of(null)
   }
   const file = control.value as File

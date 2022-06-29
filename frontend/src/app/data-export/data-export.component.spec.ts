@@ -1,8 +1,12 @@
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { DataExportComponent } from './data-export.component'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { ImageCaptchaService } from '../Services/image-captcha.service'
-import { MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatRadioModule } from '@angular/material'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { ReactiveFormsModule } from '@angular/forms'
 import { of, throwError } from 'rxjs'
@@ -10,6 +14,11 @@ import { DomSanitizer } from '@angular/platform-browser'
 import { SecurityContext } from '@angular/core'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { DataSubjectService } from '../Services/data-subject.service'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
+import { MatCardModule } from '@angular/material/card'
+import { MatRadioModule } from '@angular/material/radio'
+import { MatButtonModule } from '@angular/material/button'
 
 describe('DataExportComponent', () => {
   let component: DataExportComponent
@@ -18,7 +27,7 @@ describe('DataExportComponent', () => {
   let dataSubjectService: any
   let domSanitizer: DomSanitizer
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     imageCaptchaService = jasmine.createSpyObj('ImageCaptchaService', ['getCaptcha'])
     imageCaptchaService.getCaptcha.and.returnValue(of({}))
     dataSubjectService = jasmine.createSpyObj('DataSubjectService', ['dataExport'])
@@ -47,7 +56,7 @@ describe('DataExportComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DataExportComponent)
     component = fixture.componentInstance
-    domSanitizer = TestBed.get(DomSanitizer)
+    domSanitizer = TestBed.inject(DomSanitizer)
     fixture.detectChanges()
   })
 
@@ -88,8 +97,8 @@ describe('DataExportComponent', () => {
 
   it('should show the confirmation and fetch user data and reset data export form on requesting data export', () => {
     dataSubjectService.dataExport.and.returnValue(of({ confirmation: 'Data being exported', userData: '{ user data }' }))
-    spyOn(component,'resetForm')
-    spyOn(component,'ngOnInit')
+    spyOn(component, 'resetForm')
+    spyOn(component, 'ngOnInit')
     component.save()
     expect(component.confirmation).toBe('Data being exported')
     expect(component.userData).toBe('{ user data }')
@@ -100,7 +109,7 @@ describe('DataExportComponent', () => {
 
   it('should clear the form and display error if exporting data fails', fakeAsync(() => {
     dataSubjectService.dataExport.and.returnValue(throwError({ error: 'Error' }))
-    spyOn(component,'resetFormError')
+    spyOn(component, 'resetFormError')
     component.save()
     expect(component.confirmation).toBeNull()
     expect(component.error).toBe('Error')

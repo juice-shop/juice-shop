@@ -1,0 +1,90 @@
+<!--
+  ~ Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+<mat-dialog-content class="mat-typography" id="code-snippet">
+  <header>
+    <h1>{{'TITLE_CODING_CHALLENGE' | translate}}: {{dialogData.name}}</h1>
+  </header>
+  <mat-tab-group
+  mat-stretch-tabs
+  [selectedIndex] = "tab.value"
+  (selectedIndexChange) = "toggleTab($event)"
+  >
+      <mat-tab [label]="('TAB_FIND_IT' | translate)">
+      <div class="container" fxLayout="column">
+        <div fxLayout="row" fxLayoutGap="10px">
+          <app-code-area
+            *ngIf="snippet !== null"
+            [code]="snippet?.snippet"
+            [vulnLines]="snippet?.vulnLines"
+            (addLine) = "addLine($event)">
+          </app-code-area>
+          <pre *ngIf="snippet === null">
+            <code translate>LOADING_CODE_SNIPPET</code>
+          </pre>
+        </div>
+        <mat-card *ngIf="hint" class="primary-notification">
+          {{hint}}
+        </mat-card>
+      </div>
+      <mat-dialog-actions align="end" class="dialogAction">
+        <button mat-button style="height: 0; position: absolute;">
+          <!-- 'absorbs' the auto-focus behavior -->
+        </button>
+        <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="Close Dialog" [mat-dialog-close]="solved" id="findItCloseButton">
+          <i class="material-icons">
+            close
+          </i>
+          <span>  {{'BTN_CLOSE' | translate}}</span>
+        </button>
+        <button mat-stroked-button (click) = "checkLines()" [disabled]="this.solved.findIt" id="findItSubmitButton">
+          <span>  {{'BTN_SUBMIT' | translate}}</span>
+          <mat-icon [color]="resultColor()">
+            {{ resultIcon() }}
+          </mat-icon>
+        </button>
+        <br/>
+      </mat-dialog-actions>
+    </mat-tab>
+    <mat-tab [disabled]="lockIcon() === 'lock'">
+      <ng-template mat-tab-label>
+        {{'TAB_FIX_IT' | translate}}
+        <mat-icon class="materaial-icons-outlined" [color]="lockColor()">{{lockIcon()}}</mat-icon>
+      </ng-template>
+      <div class="container" fxLayout="column">
+        <div fxLayout="row" fxLayoutGap="10px">
+          <app-code-fixes *ngIf="snippet !== null && fixes !== null" [snippet]="snippet?.snippet" [fixes] = "fixes" (changeFix)="setFix($event)"></app-code-fixes>
+        </div>
+        <mat-card *ngIf="explanation" [class]="resultColor() === 'warn' ? 'warn-notification' : 'accent-notification'">
+          {{explanation}}
+        </mat-card>
+      </div>
+      <mat-dialog-actions align="end" class="dialogAction">
+        <button mat-button style="height: 0; position: absolute;">
+          <!-- 'absorbs' the auto-focus behavior -->
+        </button>
+        <a *ngIf="this.showFeedbackButtons && this.solved.fixIt" [href]="'https://docs.google.com/forms/d/e/1FAIpQLSdaNEuz0dzFA2sexCa0AJ4QOb2OYdEL04eQOLFD2Y4T-BW6ag/viewform?usp=pp_url&entry.384948954=' + dialogData.name + '&entry.435235279=Coding+Challenge&entry.1734944650=Yes'" target="_blank">
+          <button mat-icon-button><mat-icon color="accent">thumb_up</mat-icon></button>
+        </a>
+        <a *ngIf="this.showFeedbackButtons && this.solved.fixIt" [href]="'https://docs.google.com/forms/d/e/1FAIpQLSdaNEuz0dzFA2sexCa0AJ4QOb2OYdEL04eQOLFD2Y4T-BW6ag/viewform?usp=pp_url&entry.384948954=' + dialogData.name + '&entry.435235279=Coding+Challenge&entry.1734944650=No'" target="_blank">
+          <button mat-icon-button><mat-icon color="warn">thumb_down</mat-icon></button>
+        </a>
+        <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="Close Dialog" [mat-dialog-close]="solved" id="fixItCloseButton">
+          <i class="material-icons">
+            close
+          </i>
+          <span>  {{'BTN_CLOSE' | translate}}</span>
+        </button>
+        <button mat-stroked-button (click) = "checkFix()" [disabled]="this.solved.fixIt" id="fixItSubmitButton">
+          <span>  {{'BTN_SUBMIT' | translate}}</span>
+          <mat-icon [color]="resultColor()">
+            {{ resultIcon() }}
+          </mat-icon>
+        </button>
+        <br/>
+      </mat-dialog-actions>
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>

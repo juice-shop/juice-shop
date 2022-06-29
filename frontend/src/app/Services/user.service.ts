@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { environment } from '../../environments/environment'
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
@@ -5,8 +10,8 @@ import { catchError, map } from 'rxjs/operators'
 import { Subject } from 'rxjs'
 
 interface Passwords {
-  current?: string,
-  new?: string,
+  current?: string
+  new?: string
   repeat?: string
 }
 
@@ -14,20 +19,19 @@ interface Passwords {
   providedIn: 'root'
 })
 export class UserService {
-
   public isLoggedIn = new Subject<any>()
-  private hostServer = environment.hostServer
-  private host = this.hostServer + '/api/Users'
+  private readonly hostServer = environment.hostServer
+  private readonly host = this.hostServer + '/api/Users'
 
-  constructor (private http: HttpClient) { }
+  constructor (private readonly http: HttpClient) { }
 
   find (params?: any) {
     return this.http.get(this.hostServer + '/rest/user/authentication-details/', { params: params }).pipe(map((response: any) =>
-    response.data),catchError((err) => { throw err }))
+      response.data), catchError((err) => { throw err }))
   }
 
   get (id: number) {
-    return this.http.get(this.host + '/' + id).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.get(`${this.host}/${id}`).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
   save (params: any) {
@@ -68,10 +72,10 @@ export class UserService {
   }
 
   deluxeStatus () {
-    return this.http.get(this.hostServer + '/rest/deluxe-status').pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.get(this.hostServer + '/rest/deluxe-membership').pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
-  upgradeToDeluxe (payUsingWallet: boolean) {
-    return this.http.post(this.hostServer + '/rest/upgrade-deluxe', { payUsingWallet: payUsingWallet }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+  upgradeToDeluxe (paymentMode: string, paymentId: any) {
+    return this.http.post(this.hostServer + '/rest/deluxe-membership', { paymentMode: paymentMode, paymentId: paymentId }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 }

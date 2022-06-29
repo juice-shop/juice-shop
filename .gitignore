@@ -9,8 +9,12 @@ uploads/complaints/*.*
 ftp/legal.md
 package-lock.json
 i18n/*.json
+i18n/*.invalid
 !frontend/src/assets/i18n/*.json
 !data/static/i18n/*.json
+data/chatbot/*.*
+!data/chatbot/.gitkeep
+/data/juiceshop.sqlite-journal
 
 # Build
 .nyc_output/
@@ -25,6 +29,7 @@ vagrant/.vagrant/
 *.log
 JSON
 JSON.map
+frontend/src/**/*.js
 
 # IDEs
 .idea/
@@ -41,6 +46,7 @@ assets/
 
 # Custom configuration files
 config/*.yml
+!config/addo.yml
 !config/bodgeit.yml
 !config/ctf.yml
 !config/fbctf.yml
@@ -50,3 +56,6 @@ config/*.yml
 !config/test.yml
 !config/7ms.yml
 !config/mozilla.yml
+!config/unsafe.yml
+!config/tutorial.yml
+!config/oss.yml

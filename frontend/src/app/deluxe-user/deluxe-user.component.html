@@ -1,3 +1,8 @@
+<!--
+  ~ Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
 <div fxLayout="column" fxLayoutGap="10px" class="main-wrapper">
     <div *ngIf="error" class="heading mat-elevation-z6">
         <div style="margin-top:5px;">
@@ -6,15 +11,21 @@
     </div>
     <mat-card class="mat-elevation-z6 deluxe-membership">
         <div class="img-container" fxFlexAlign="center" fxFlex="30%">
-            <img src="assets/public/images/deluxe/delivery.png" alt="delivery-box"
-                class="img-responsive img-thumbnail">
+          <svg viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg">
+            <image href="assets/public/images/deluxe/blankBoxes.png" x="0" y="0" height="720" width="720"/>
+            <image [attr.href]="logoSrc" x="260" y="130" height="50"/>
+            <image [attr.href]="logoSrc" x="230" y="330" height="70"/>
+            <image [attr.href]="logoSrc" x="70" y="355" height="40"/>
+            <image [attr.href]="logoSrc" x="120" y="450" height="55"/>
+            <image [attr.href]="logoSrc" x="500" y="410" height="45"/>
+          </svg>
         </div>
         <div fxFlexAlign="center" fxFlex="60%">
             <div class="item-name">
                 <b translate>LABEL_DELUXE_MEMBERSHIP</b>
             </div>
-            <div class="item-description" translate [translateParams]="{appname: applicationName}">
-                DESCRIPTION_DELUXE_MEMBERSHIP
+            <div class="item-description">
+              <span translate [translateParams]="{appname: applicationName}">DESCRIPTION_DELUXE_MEMBERSHIP</span>
             </div>
             <div *ngIf="!error">
                 <div class="item-description">

@@ -1,0 +1,13 @@
+fixes:
+  - id: 1
+    explanation: 'Using bypassSecurityTrustResourceUrl() instead of bypassSecurityTrustHtml() changes the context for which input sanitization is bypassed. This switch might only accidentally keep XSS prevention intact, but the new URL context does not make any sense here.'
+  - id: 2
+    explanation: "Removing the bypass of sanitization entirely is the best way to fix this vulnerability. Fiddling with Angular's built-in sanitization was entirely unnecessary as the user input for a text search should not be expected to contain HTML that needs to be rendered but merely plain text."
+  - id: 3
+    explanation: 'Using bypassSecurityTrustScript() instead of bypassSecurityTrustHtml() changes the context for which input sanitization is bypassed. If at all, this switch might only accidentally keep XSS prevention intact. The context where the parameter is used is not a script either, so this switch would be nonsensical.'
+  - id: 4
+    explanation: 'Using bypassSecurityTrustStyle() instead of bypassSecurityTrustHtml() changes the context for which input sanitization is bypassed. If at all, this switch might only accidentally keep XSS prevention intact. The context where the parameter is used is not CSS, making this switch totally pointless.'
+hints:
+  - "Try to identify where (potentially malicious) user input is coming into the code."
+  - "What is the code doing with the user input other than using it to filter the data source?"
+  - "Look for a line where the developers fiddled with Angular's built-in security model."

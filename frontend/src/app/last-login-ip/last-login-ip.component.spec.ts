@@ -1,12 +1,17 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { LastLoginIpComponent } from './last-login-ip.component'
-import { MatCardModule } from '@angular/material'
+import { MatCardModule } from '@angular/material/card'
 
 describe('LastLoginIpComponent', () => {
   let component: LastLoginIpComponent
   let fixture: ComponentFixture<LastLoginIpComponent>
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [LastLoginIpComponent],
       imports: [

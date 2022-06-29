@@ -1,8 +1,12 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Component, OnInit } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
-import { MatDialogRef } from '@angular/material'
+import { MatDialogRef } from '@angular/material/dialog'
 import { CookieService } from 'ngx-cookie'
-import { startHackingInstructorFor } from '../../hacking-instructor'
 
 @Component({
   selector: 'app-welcome-banner',
@@ -11,35 +15,44 @@ import { startHackingInstructorFor } from '../../hacking-instructor'
 })
 export class WelcomeBannerComponent implements OnInit {
   public title: string = 'Welcome to OWASP Juice Shop'
-  public message: string = "<p>Being a web application with a vast number of intended security vulnerabilities, the <strong>OWASP Juice Shop</strong> is supposed to be the opposite of a best practice or template application for web developers: It is an awareness, training, demonstration and exercise tool for security risks in modern web applications. The <strong>OWASP Juice Shop</strong> is an open-source project hosted by the non-profit <a href='https://owasp.org' target='_blank'>Open Web Application Security Project (OWASP)</a> and is developed and maintained by volunteers. Check out the link below for more information and documentation on the project.</p><h1><a href='http://owasp-juice.shop' target='_blank'>http://owasp-juice.shop</a></h1>"
+  public message: string = "<p>Being a web application with a vast number of intended security vulnerabilities, the <strong>OWASP Juice Shop</strong> is supposed to be the opposite of a best practice or template application for web developers: It is an awareness, training, demonstration and exercise tool for security risks in modern web applications. The <strong>OWASP Juice Shop</strong> is an open-source project hosted by the non-profit <a href='https://owasp.org' target='_blank'>Open Web Application Security Project (OWASP)</a> and is developed and maintained by volunteers. Check out the link below for more information and documentation on the project.</p><h1><a href='https://owasp-juice.shop' target='_blank'>https://owasp-juice.shop</a></h1>"
   public showHackingInstructor: boolean = true
+  public showDismissBtn: boolean = true
 
   private readonly welcomeBannerStatusCookieKey = 'welcomebanner_status'
 
   constructor (
-        public dialogRef: MatDialogRef<WelcomeBannerComponent>,
-        private configurationService: ConfigurationService,
-        private cookieService: CookieService) { }
+    public dialogRef: MatDialogRef<WelcomeBannerComponent>,
+    private readonly configurationService: ConfigurationService,
+    private readonly cookieService: CookieService) { }
 
   ngOnInit (): void {
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      if (config && config.application && config.application.welcomeBanner) {
+      if (config?.application?.welcomeBanner) {
         this.title = config.application.welcomeBanner.title
         this.message = config.application.welcomeBanner.message
       }
-      if (config && config.application) {
-        this.showHackingInstructor = config.application.showHackingInstructor
+      this.showHackingInstructor = config?.hackingInstructor?.isEnabled
+      // Don't allow to skip the tutorials when restrictToTutorialsFirst and showHackingInstructor are enabled
+      if (this.showHackingInstructor && config?.challenges?.restrictToTutorialsFirst) {
+        this.dialogRef.disableClose = true
+        this.showDismissBtn = false
       }
     }, (err) => console.log(err))
   }
 
   startHackingInstructor () {
+    this.closeWelcome()
     console.log('Starting instructions for challenge "Score Board"')
-    startHackingInstructorFor('Score Board')
+    import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
+      module.startHackingInstructorFor('Score Board')
+    })
   }
 
   closeWelcome (): void {
     this.dialogRef.close()
-    this.cookieService.put(this.welcomeBannerStatusCookieKey, 'dismiss')
+    const expires = new Date()
+    expires.setFullYear(expires.getFullYear() + 1)
+    this.cookieService.put(this.welcomeBannerStatusCookieKey, 'dismiss', { expires })
   }
 }

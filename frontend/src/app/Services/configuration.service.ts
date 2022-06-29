@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { environment } from '../../environments/environment'
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
@@ -17,27 +22,24 @@ interface Config {
     logo: string
     favicon: string
     theme: string
-    showChallengeSolvedNotifications: boolean
-    showChallengeHints: boolean
     showVersionNumber: boolean
-    showHackingInstructor: boolean
     showGitHubLinks: boolean
+    localBackupEnabled: boolean
     numberOfRandomFakeUsers: number
-    twitterUrl: string
-    facebookUrl: string
-    slackUrl: string
-    redditUrl: string
-    pressKitUrl: string
-    planetOverlayMap: string
-    planetName: string
-    deluxePage: {
-      deluxeDeliveryImage: string
+    altcoinName: string
+    privacyContactEmail: string
+    social: {
+      twitterUrl: string
+      facebookUrl: string
+      slackUrl: string
+      redditUrl: string
+      pressKitUrl: string
+      questionnaireUrl: string
     }
     recyclePage: {
       topProductImage: string
       bottomProductImage: string
     }
-    altcoinName: string
     welcomeBanner: {
       showOnFirstStart: boolean
       title: string
@@ -53,7 +55,6 @@ interface Config {
       linkText: string
       linkUrl: string
     }
-    privacyContactEmail: string
     securityTxt: {
       contact: string
       encryption: string
@@ -63,12 +64,31 @@ interface Config {
       video: string
       subtitles: string
     }
+    easterEggPlanet: {
+      name: string
+      overlayMap: string
+    }
+    googleOauth: {
+      clientId: string
+      authorizedRedirects: any[]
+    }
   }
   challenges: {
+    showSolvedNotifications: boolean
+    showHints: boolean
+    showMitigations: boolean
+    codingChallengesEnabled: string
+    restrictToTutorialsFirst: boolean
     safetyOverride: boolean
     overwriteUrlForProductTamperingChallenge: string
+    showFeedbackButtons: boolean
+  }
+  hackingInstructor: {
+    isEnabled: boolean
+    avatarImage: string
   }
   products: any[]
+  memories: any[]
   ctf: {
     showFlagsInNotifications: boolean
     showCountryDetailsInNotifications: string
@@ -80,11 +100,10 @@ interface Config {
   providedIn: 'root'
 })
 export class ConfigurationService {
-
-  private hostServer = environment.hostServer
-  private host = this.hostServer + '/rest/admin'
+  private readonly hostServer = environment.hostServer
+  private readonly host = this.hostServer + '/rest/admin'
   private configObservable: any
-  constructor (private http: HttpClient) { }
+  constructor (private readonly http: HttpClient) { }
 
   getApplicationConfiguration (): Observable<Config> {
     if (this.configObservable) {

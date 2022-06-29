@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core'
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+import { Component, NgZone, OnInit } from '@angular/core'
 import { WalletService } from '../Services/wallet.service'
 import { FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
@@ -9,22 +14,21 @@ import { Router } from '@angular/router'
   styleUrls: ['./wallet.component.scss']
 })
 export class WalletComponent implements OnInit {
-
   public balance: string
-  public balanceControl: FormControl = new FormControl('', [Validators.required, Validators.min(10),Validators.max(1000)])
+  public balanceControl: FormControl = new FormControl('', [Validators.required, Validators.min(10), Validators.max(1000)])
 
-  constructor (private router: Router, private walletService: WalletService) { }
+  constructor (private readonly router: Router, private readonly walletService: WalletService, private readonly ngZone: NgZone) { }
 
   ngOnInit () {
     this.walletService.get().subscribe((balance) => {
       this.balance = parseFloat(balance).toFixed(2)
-    },(err) => {
+    }, (err) => {
       console.log(err)
     })
   }
 
   continue () {
     sessionStorage.setItem('walletTotal', this.balanceControl.value)
-    this.router.navigate(['/payment', 'wallet'])
+    this.ngZone.run(async () => await this.router.navigate(['/payment', 'wallet']))
   }
 }

@@ -112,7 +112,7 @@
     answer: 'Brd?j8sEMziOvvBf§Be?jFZ77H?hgm'
 -
   email: support
-  password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P'
+  password: 'J6aVjTgOpRs@?5l!Zkq2AYnCE@RF$P'
   key: support
   role: 'admin'
   securityQuestion:
@@ -165,9 +165,9 @@
   email: bjoern
   password: 'monkey summer birthday are all bad passwords but work just fine in a long passphrase'
   key: bjoern
+  profileImage: '12.png'
   role: 'admin'
   isAdmin: true
-  profileImage: '12.jpg'
   securityQuestion:
     id: 9
     answer: 'West-2082' # http://www.alte-postleitzahlen.de/uetersen
@@ -176,7 +176,7 @@
   password: 'kitten lesser pooch karate buffoon indoors'
   customDomain: true
   key: bjoernOwasp
-  role: 'admin'
+  role: 'deluxe'
   profileImage: '13.jpg'
   securityQuestion:
     id: 7
@@ -198,3 +198,57 @@
   securityQuestion:
     id: 7
     answer: 'sdAffsdfrefrbgreq3423'
+-
+  email: uvogin
+  password: 'muda-muda > ora-ora' # https://www.youtube.com/watch?v=vnJv8IoLMwc
+  key: uvogin
+  role: 'customer'
+  walletBalance: 100
+  securityQuestion:
+    id: 12
+    answer: 'Silence of the Lambs' # https://www.imdb.com/title/tt0102926/
+-
+  email: demo
+  password: 'demo'
+  customDomain: true
+  key: test
+  role: 'customer'
+  walletBalance: 200
+  securityQuestion:
+    id: 10
+    answer: 'ACME Inc.'
+  address:
+    - fullName: 'Tim Tester'
+      mobileNum: 4917000000
+      zipCode: '12345'
+      streetAddress: 'Dummystreet 42'
+      city: 'Mocktown'
+      state: 'Testilvania'
+      country: 'United Fakedom'
+  card:
+    - fullName: 'Tim Tester'
+      cardNum: 1234567812345678
+      expMonth: 12
+      expYear: 2099
+-
+  email: john
+  username: j0hNny
+  password: 'y&x5Z#f6W532Z4445#Ae2HkwZVyDb7&oCUaDzFU'
+  key: john
+  role: 'customer'
+- 
+  email: emma
+  username: E=ma²
+  password: 'y&x5Z#f6W532ZUf$q3DsdgfgfgxxUsvoCUaDzFU'
+  key: emma
+  role: 'customer'
+-
+  email: stan
+  username: SmilinStan
+  password: 'ship coffin krypt cross estate supply insurance asbestos souvenir'
+  key: stan
+  profileImage: '20.jpg'
+  role: 'deluxe'
+  securityQuestion:
+    id: 10
+    answer: "Used Ship Emporium" # https://monkeyisland.fandom.com/wiki/Stan_S._Stanman

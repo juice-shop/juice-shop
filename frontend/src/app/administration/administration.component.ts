@@ -1,11 +1,19 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { UserDetailsComponent } from '../user-details/user-details.component'
+import { FeedbackDetailsComponent } from '../feedback-details/feedback-details.component'
 import { MatDialog } from '@angular/material/dialog'
 import { FeedbackService } from '../Services/feedback.service'
+import { MatTableDataSource } from '@angular/material/table'
 import { UserService } from '../Services/user.service'
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, ViewChild } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faArchive, faEye, faHome, faTrashAlt, faUser } from '@fortawesome/free-solid-svg-icons'
+import { MatPaginator } from '@angular/material/paginator'
 
 library.add(faUser, faEye, faHome, faArchive, faTrashAlt)
 dom.watch()
@@ -16,43 +24,51 @@ dom.watch()
   styleUrls: ['./administration.component.scss']
 })
 export class AdministrationComponent implements OnInit {
-
   public userDataSource: any
-  public userColumns = ['user','email','user_detail']
+  public userDataSourceHidden: any
+  public userColumns = ['user', 'email', 'user_detail']
   public feedbackDataSource: any
   public feedbackColumns = ['user', 'comment', 'rating', 'remove']
   public error: any
-  constructor (private dialog: MatDialog, private userService: UserService, private feedbackService: FeedbackService, private sanitizer: DomSanitizer) {}
+  public resultsLengthUser = 0
+  public resultsLengthFeedback = 0
+  @ViewChild('paginatorUsers') paginatorUsers: MatPaginator
+  @ViewChild('paginatorFeedb') paginatorFeedb: MatPaginator
+  constructor (private readonly dialog: MatDialog, private readonly userService: UserService, private readonly feedbackService: FeedbackService,
+    private readonly sanitizer: DomSanitizer) {}
 
   ngOnInit () {
     this.findAllUsers()
-    this.findAllRecycles()
     this.findAllFeedbacks()
   }
 
   findAllUsers () {
     this.userService.find().subscribe((users) => {
       this.userDataSource = users
-      for (let user of this.userDataSource) {
+      this.userDataSourceHidden = users
+      for (const user of this.userDataSource) {
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         user.email = this.sanitizer.bypassSecurityTrustHtml(`<span class="${user.token ? 'confirmation' : 'error'}">${user.email}</span>`)
       }
-    },(err) => {
+      this.userDataSource = new MatTableDataSource(this.userDataSource)
+      this.userDataSource.paginator = this.paginatorUsers
+      this.resultsLengthUser = users.length
+    }, (err) => {
       this.error = err
       console.log(this.error)
     })
   }
 
-  findAllRecycles () {
-    // TODO [2019/01/05] Move Recycles to their own page to decouple from admin-only data!
-  }
-
   findAllFeedbacks () {
     this.feedbackService.find().subscribe((feedbacks) => {
       this.feedbackDataSource = feedbacks
-      for (let feedback of this.feedbackDataSource) {
+      for (const feedback of this.feedbackDataSource) {
         feedback.comment = this.sanitizer.bypassSecurityTrustHtml(feedback.comment)
       }
-    },(err) => {
+      this.feedbackDataSource = new MatTableDataSource(this.feedbackDataSource)
+      this.feedbackDataSource.paginator = this.paginatorFeedb
+      this.resultsLengthFeedback = feedbacks.length
+    }, (err) => {
       this.error = err
       console.log(this.error)
     })
@@ -61,7 +77,7 @@ export class AdministrationComponent implements OnInit {
   deleteFeedback (id: number) {
     this.feedbackService.del(id).subscribe(() => {
       this.findAllFeedbacks()
-    },(err) => {
+    }, (err) => {
       this.error = err
       console.log(this.error)
     })
@@ -75,4 +91,16 @@ export class AdministrationComponent implements OnInit {
     })
   }
 
+  showFeedbackDetails (feedback: any, id: number) {
+    this.dialog.open(FeedbackDetailsComponent, {
+      data: {
+        feedback: feedback,
+        id: id
+      }
+    })
+  }
+
+  times (numberOfTimes: number) {
+    return Array(numberOfTimes).fill('★')
+  }
 }

@@ -1,7 +1,7 @@
 ---
 name: "\U0001F41BBug report"
 about: Report a bug in OWASP Juice Shop
-title: ' [🐛]'
+title: '[🐛] '
 labels: bug
 assignees: ''
 
@@ -11,6 +11,8 @@ assignees: ''
 
 To expedite issue processing please search open and closed issues before submitting a new one.
 Existing issues often contain information about workarounds, resolution, or progress updates.
+
+Please also make sure to check the official [Troubleshooting guide](https://pwning.owasp-juice.shop/appendix/troubleshooting.html) before opening a bug report.
 
 🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅-->
 
@@ -33,7 +35,7 @@ Yes, the previous version in which this bug was not present was: `x.y.z`
 
 <!-- ✍️Simple steps to reproduce this bug.
 
-Issues that don't have enough info and can't be reproduced will be will be labeled with "missing information" and closed shortly afterwards.
+Issues that don't have enough info and can't be reproduced will be labeled with "missing information" and closed shortly afterwards.
 -->
 
 

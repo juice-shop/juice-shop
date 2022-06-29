@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
@@ -9,15 +14,15 @@ interface TwoFactorVerifyResponse {
 }
 
 interface AuthenticationPayload {
-  token: string,
-  bid: number,
+  token: string
+  bid: number
   umail: string
 }
 
 interface TwoFactorAuthStatusPayload {
-  setup: boolean,
-  secret?: string,
-  setupToken?: string,
+  setup: boolean
+  secret?: string
+  setupToken?: string
   email?: string
 }
 
@@ -25,8 +30,7 @@ interface TwoFactorAuthStatusPayload {
   providedIn: 'root'
 })
 export class TwoFactorAuthService {
-
-  constructor (private http: HttpClient) {}
+  constructor (private readonly http: HttpClient) {}
 
   verify (totpToken: String): Observable<AuthenticationPayload> {
     return this.http.post<TwoFactorVerifyResponse>(`${environment.hostServer}/rest/2fa/verify`, {

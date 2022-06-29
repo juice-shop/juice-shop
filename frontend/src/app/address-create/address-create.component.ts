@@ -1,9 +1,16 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { FormControl, Validators } from '@angular/forms'
 import { Component, OnInit } from '@angular/core'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { AddressService } from '../Services/address.service'
 import { ActivatedRoute, ParamMap, Router } from '@angular/router'
 import { Location } from '@angular/common'
+import { TranslateService } from '@ngx-translate/core'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 @Component({
   selector: 'app-address-create',
@@ -11,21 +18,20 @@ import { Location } from '@angular/common'
   styleUrls: ['./address-create.component.scss']
 })
 export class AddressCreateComponent implements OnInit {
-
   public countryControl: FormControl = new FormControl('', [Validators.required])
   public nameControl: FormControl = new FormControl('', [Validators.required])
-  public numberControl: FormControl = new FormControl('',[Validators.required,Validators.min(1111111),Validators.max(9999999999)])
-  public pinControl: FormControl = new FormControl('',[Validators.required, Validators.maxLength(8)])
+  public numberControl: FormControl = new FormControl('', [Validators.required, Validators.min(1111111), Validators.max(9999999999)])
+  public pinControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(8)])
   public addressControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(160)])
   public cityControl: FormControl = new FormControl('', [Validators.required])
   public stateControl: FormControl = new FormControl()
-  public confirmation: any
-  public error: any
   public address: any = undefined
   public mode = 'create'
   private addressId: string = undefined
 
-  constructor (private location: Location, private formSubmitService: FormSubmitService, private addressService: AddressService, private router: Router, public activatedRoute: ActivatedRoute) { }
+  constructor (private readonly location: Location, private readonly formSubmitService: FormSubmitService,
+    private readonly addressService: AddressService, private readonly router: Router, public activatedRoute: ActivatedRoute,
+    private readonly translate: TranslateService, private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
     this.address = {}
@@ -54,29 +60,33 @@ export class AddressCreateComponent implements OnInit {
     this.address.state = this.stateControl.value
     if (this.mode === 'edit') {
       this.addressService.put(this.addressId, this.address).subscribe((savedAddress) => {
-        this.error = null
-        this.confirmation = 'The address at ' + savedAddress.city + ' has been successfully updated.'
         this.address = {}
         this.ngOnInit()
         this.resetForm()
         this.routeToPreviousUrl()
-      }, (error) => {
-        this.error = error.error
-        this.confirmation = null
+        this.translate.get('ADDRESS_UPDATED', { city: savedAddress.city }).subscribe((addressUpdated) => {
+          this.snackBarHelperService.open(addressUpdated, 'confirmBar')
+        }, (translationId) => {
+          this.snackBarHelperService.open(translationId, 'confirmBar')
+        })
+      }, (err) => {
+        this.snackBarHelperService.open(err.error?.error, 'errorBar')
         this.address = {}
         this.resetForm()
       })
     } else {
       this.addressService.save(this.address).subscribe((savedAddress) => {
-        this.error = null
-        this.confirmation = 'The address at ' + savedAddress.city + ' has been successfully added to your addresses.'
         this.address = {}
         this.ngOnInit()
         this.resetForm()
         this.routeToPreviousUrl()
-      }, (error) => {
-        this.confirmation = null
-        this.error = error.error
+        this.translate.get('ADDRESS_ADDED', { city: savedAddress.city }).subscribe((addressAdded) => {
+          this.snackBarHelperService.open(addressAdded, 'confirmBar')
+        }, (translationId) => {
+          this.snackBarHelperService.open(translationId, 'confirmBar')
+        })
+      }, (err) => {
+        this.snackBarHelperService.open(err.error?.error, 'errorBar')
         this.address = {}
         this.resetForm()
       })

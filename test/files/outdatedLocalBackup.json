@@ -1,0 +1,22 @@
+{
+  "version": 0,
+  "scoreBoard": {
+    "displayedDifficulties": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "displayedChallengeCategories": [
+      "Broken Authentication"
+    ]
+  },
+  "banners": {
+    "welcomeBannerStatus": "dismiss",
+    "cookieConsentStatus": "dismiss"
+  },
+  "language": "en",
+  "continueCode": "aj4QDO4KyOqPJ7j2novp9EQ38gYVAJvlAM1wWxalND5reZRLzmXk6BbmzZRb"
+}

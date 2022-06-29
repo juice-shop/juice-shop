@@ -1,23 +1,26 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { environment } from 'src/environments/environment'
 import { Injectable, NgZone } from '@angular/core'
-import * as io from 'socket.io-client'
+import { io, Socket } from 'socket.io-client'
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketIoService {
+  private _socket: Socket
 
-  public io = io
-  private _socket: any
-
-  constructor (private ngZone: NgZone) {
+  constructor (private readonly ngZone: NgZone) {
     this.ngZone.runOutsideAngular(() => {
       if (environment.hostServer === '.') {
-        this._socket = this.io.connect(window.location.href, {
-          path: (window.location.pathname === '/' ? '/' : window.location.pathname + '/') + 'socket.io'
+        this._socket = io(window.location.origin, {
+          path: (window.location.pathname.endsWith('/') ? window.location.pathname : window.location.pathname + '/') + 'socket.io'
         })
       } else {
-        this._socket = this.io.connect(environment.hostServer)
+        this._socket = io(environment.hostServer)
       }
     })
   }

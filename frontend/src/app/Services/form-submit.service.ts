@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Inject, Injectable } from '@angular/core'
 import { DOCUMENT } from '@angular/common'
 
@@ -5,8 +10,7 @@ import { DOCUMENT } from '@angular/common'
   providedIn: 'root'
 })
 export class FormSubmitService {
-
-  constructor (@Inject(DOCUMENT) private _document: HTMLDocument) { }
+  constructor (@Inject(DOCUMENT) private readonly _document: HTMLDocument) { }
 
   attachEnterKeyHandler (formId: string, submitButtonId: string, onSubmit: Function) {
     const form = this._document.getElementById(formId) as HTMLFormElement
@@ -14,7 +18,7 @@ export class FormSubmitService {
 
     form.addEventListener('keyup', function (event) {
       event.preventDefault()
-      // tslint:disable-next-line:deprecation
+      // eslint-disable-next-line import/no-deprecated
       if (event.keyCode === 13 && !submitButton.disabled) {
         onSubmit()
       }

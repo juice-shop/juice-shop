@@ -1,3 +1,8 @@
+<!--
+  ~ Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
 <mat-toolbar class="mat-elevation-z6" color="primary">
   <mat-toolbar-row>
     <h2> {{applicationName}}</h2>
@@ -59,15 +64,6 @@
         </mat-icon>
         <span class="menu-text truncate">
         {{"LABEL_ORDER_HISTORY" | translate}}
-      </span>
-      </a>
-      <a mat-list-item *ngIf="isLoggedIn()" routerLink="/track-order"
-         (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu" aria-label="Go to track order page">
-        <mat-icon>
-          local_shipping
-        </mat-icon>
-        <span class="menu-text truncate">
-        {{"TITLE_TRACK_ORDERS" | translate}}
       </span>
       </a>
       <a mat-list-item *ngIf="isLoggedIn()" routerLink="/recycle"
@@ -136,7 +132,7 @@
         </mat-icon>
         <span class="menu-text truncate" translate>TITLE_REQUEST_DATA_EXPORT</span>
       </a>
-      <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/erasure-request"
+      <a mat-list-item *ngIf="isLoggedIn()" (click) = "goToDataErasurePage()"
          (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to data subject page">
         <mat-icon>
           delete_forever
@@ -197,6 +193,15 @@
       {{"NAV_COMPLAIN" | translate}}
     </span>
   </a>
+  <a mat-list-item *ngIf="isLoggedIn()" routerLink="/chatbot" (click)="onToggleSidenav();"
+     aria-label="Go to chatbot page">
+     <i class="material-icons">
+      chat
+    </i>
+    <span class="menu-text truncate">
+      {{"SECTION_SUPPORT_CHAT" | translate}}
+    </span>
+  </a>
 
   <mat-divider></mat-divider>
 
@@ -235,8 +240,17 @@
       {{"TITLE_SCORE_BOARD" | translate}}
     </span>
   </a>
+  <a *ngIf="!scoreBoardVisible && offerScoreBoardTutorial" mat-list-item (click)="startHackingInstructor()"
+     aria-label="Launch beginners tutorial">
+    <i class="material-icons">
+      school
+    </i>
+    <span class="menu-text truncate">
+      {{"BTN_GETTING_STARTED" | translate}}
+    </span>
+  </a>
 
-  <a *ngIf="showGitHubLink" mat-list-item href="/redirect?to=https://github.com/bkimminich/juice-shop"
+  <a *ngIf="showGitHubLink" mat-list-item href="./redirect?to=https://github.com/bkimminich/juice-shop"
      aria-label="Go to OWASP Juice Shop GitHub page">
     <mat-icon matListIcon class="fab fa-github fa-lg"></mat-icon>
     <span class="menu-text truncate">

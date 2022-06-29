@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { environment } from '../../environments/environment'
 import { ComplaintService } from '../Services/complaint.service'
 import { UserService } from '../Services/user.service'
@@ -7,6 +12,7 @@ import { FileUploader } from 'ng2-file-upload'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
+import { TranslateService } from '@ngx-translate/core'
 
 library.add(faBomb)
 dom.watch()
@@ -17,7 +23,6 @@ dom.watch()
   styleUrls: ['./complaint.component.scss']
 })
 export class ComplaintComponent implements OnInit {
-
   public customerControl: FormControl = new FormControl({ value: '', disabled: true }, [])
   public messageControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(160)])
   @ViewChild('fileControl', { static: true }) fileControl!: ElementRef // For controlling the DOM Element for file input.
@@ -25,19 +30,21 @@ export class ComplaintComponent implements OnInit {
   public uploader: FileUploader = new FileUploader({
     url: environment.hostServer + '/file-upload',
     authToken: `Bearer ${localStorage.getItem('token')}`,
-    allowedMimeType: [ 'application/pdf' , 'application/xml', 'text/xml' , 'application/zip', 'application/x-zip-compressed', 'multipart/x-zip'],
+    allowedMimeType: ['application/pdf', 'application/xml', 'text/xml', 'application/zip', 'application/x-zip-compressed', 'multipart/x-zip'],
     maxFileSize: 100000
   })
+
   public userEmail: any = undefined
   public complaint: any = undefined
   public confirmation: any
 
-  constructor (private userService: UserService, private complaintService: ComplaintService, private formSubmitService: FormSubmitService) { }
+  constructor (private readonly userService: UserService, private readonly complaintService: ComplaintService, private readonly formSubmitService: FormSubmitService, private readonly translate: TranslateService) { }
 
   ngOnInit () {
     this.initComplaint()
     this.uploader.onWhenAddingFileFailed = (item, filter) => {
       this.fileUploadError = filter
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       throw new Error(`Error due to : ${filter.name}`)
     }
     this.uploader.onAfterAddingFile = () => {
@@ -47,7 +54,7 @@ export class ComplaintComponent implements OnInit {
       this.saveComplaint()
       this.uploader.clearQueue()
     }
-    this.formSubmitService.attachEnterKeyHandler('complaint-form', 'submitButton',() => this.save())
+    this.formSubmitService.attachEnterKeyHandler('complaint-form', 'submitButton', () => this.save())
   }
 
   initComplaint () {
@@ -74,7 +81,11 @@ export class ComplaintComponent implements OnInit {
   saveComplaint () {
     this.complaint.message = this.messageControl.value
     this.complaintService.save(this.complaint).subscribe((savedComplaint: any) => {
-      this.confirmation = 'Customer support will get in touch with you soon! Your complaint reference is #' + savedComplaint.id
+      this.translate.get('CUSTOMER_SUPPORT_COMPLAINT_REPLY', { ref: savedComplaint.id }).subscribe((customerSupportReply) => {
+        this.confirmation = customerSupportReply
+      }, (translationId) => {
+        this.confirmation = translationId
+      })
       this.initComplaint()
       this.resetForm()
       this.fileUploadError = undefined

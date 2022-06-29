@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { environment } from '../../environments/environment'
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
@@ -7,11 +12,10 @@ import { catchError, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class WalletService {
+  private readonly hostServer = environment.hostServer
+  private readonly host = this.hostServer + '/rest/wallet/balance'
 
-  private hostServer = environment.hostServer
-  private host = this.hostServer + '/api/Wallets'
-
-  constructor (private http: HttpClient) { }
+  constructor (private readonly http: HttpClient) { }
 
   get () {
     return this.http.get(this.host).pipe(map((response: any) => response.data), catchError((err) => { throw err }))

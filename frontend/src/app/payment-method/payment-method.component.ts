@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { FormControl, Validators } from '@angular/forms'
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { PaymentService } from '../Services/payment.service'
@@ -5,6 +10,8 @@ import { MatTableDataSource } from '@angular/material/table'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons/'
+import { TranslateService } from '@ngx-translate/core'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 library.add(faPaperPlane, faTrashAlt)
 dom.watch()
@@ -16,14 +23,13 @@ dom.watch()
 })
 
 export class PaymentMethodComponent implements OnInit {
-
   @Output() emitSelection = new EventEmitter()
   @Input('allowDelete') public allowDelete: boolean = false
   public displayedColumns = ['Number', 'Name', 'Expiry']
   public nameControl: FormControl = new FormControl('', [Validators.required])
-  public numberControl: FormControl = new FormControl('',[Validators.required, Validators.min(1000000000000000), Validators.max(9999999999999999)])
-  public monthControl: FormControl = new FormControl('',[Validators.required])
-  public yearControl: FormControl = new FormControl('',[Validators.required])
+  public numberControl: FormControl = new FormControl('', [Validators.required, Validators.min(1000000000000000), Validators.max(9999999999999999)]) // eslint-disable-line no-loss-of-precision
+  public monthControl: FormControl = new FormControl('', [Validators.required])
+  public yearControl: FormControl = new FormControl('', [Validators.required])
   public confirmation: any
   public error: any
   public storedCards: any
@@ -34,7 +40,7 @@ export class PaymentMethodComponent implements OnInit {
   public cardsExist: boolean = false
   public paymentId: any = undefined
 
-  constructor (public paymentService: PaymentService) { }
+  constructor (public paymentService: PaymentService, private readonly translate: TranslateService, private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
     this.monthRange = Array.from(Array(12).keys()).map(i => i + 1)
@@ -49,7 +55,6 @@ export class PaymentMethodComponent implements OnInit {
 
   load () {
     this.paymentService.get().subscribe((cards) => {
-      cards.map(card => { card.cardNum = '************' + String(card.cardNum).substring(String(card.cardNum).length - 4) })
       this.cardsExist = cards.length
       this.storedCards = cards
       this.dataSource = new MatTableDataSource<Element>(this.storedCards)
@@ -63,12 +68,15 @@ export class PaymentMethodComponent implements OnInit {
     this.card.expYear = this.yearControl.value
     this.paymentService.save(this.card).subscribe((savedCards) => {
       this.error = null
-      this.confirmation = 'Your card ending with ' + String(savedCards.cardNum).substring(String(savedCards.cardNum).length - 4) + ' has been saved for your convinience.'
+      this.translate.get('CREDIT_CARD_SAVED', { cardnumber: String(savedCards.cardNum).substring(String(savedCards.cardNum).length - 4) }).subscribe((creditCardSaved) => {
+        this.snackBarHelperService.open(creditCardSaved, 'confirmBar')
+      }, (translationId) => {
+        this.snackBarHelperService.open(translationId, 'confirmBar')
+      })
       this.load()
       this.resetForm()
-    }, (error) => {
-      this.error = error.error
-      this.confirmation = null
+    }, (err) => {
+      this.snackBarHelperService.open(err.error?.error, 'errorBar')
       this.resetForm()
     })
   }

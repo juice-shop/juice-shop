@@ -1,0 +1,3 @@
+service:
+  internalPort: 3000
+  externalPort: 3000

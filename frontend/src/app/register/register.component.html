@@ -1,3 +1,8 @@
+<!--
+  ~ Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
 <div fxLayoutAlign="center">
   <mat-card class="mat-elevation-z6">
 
@@ -21,14 +26,14 @@
                matInput aria-label="Field for the password">
         <mat-hint translate>
           <i class="fas fa-exclamation-circle"></i>
-          <em style="margin-left:5px;" translate>{{ 'INVALID_PASSWORD_LENGTH' | translate: {length: '5-20'} }}</em>
+          <em style="margin-left:5px;" translate>{{ 'INVALID_PASSWORD_LENGTH' | translate: {length: '5-40'} }}</em>
         </mat-hint>
         <mat-hint align="end">{{password.value?.length || 0}}/20</mat-hint>
         <mat-error *ngIf="passwordControl.invalid && passwordControl.errors.required" translate>MANDATORY_PASSWORD
         </mat-error>
         <mat-error
           *ngIf="passwordControl.invalid && (passwordControl.errors.minlength || passwordControl.errors.maxlength)"
-          translate [translateParams]="{length: '5-20'}">INVALID_PASSWORD_LENGTH
+          translate [translateParams]="{length: '5-40'}">INVALID_PASSWORD_LENGTH
         </mat-error>
       </mat-form-field>
 
@@ -36,7 +41,7 @@
         <mat-label translate>LABEL_PASSWORD_REPEAT</mat-label>
         <input #repeatPassword id="repeatPasswordControl" [formControl]="repeatPasswordControl"
                (focus)="this.error=null" type="password" matInput aria-label="Field to confirm the password">
-        <mat-hint align="end">{{repeatPassword.value?.length || 0}}/20</mat-hint>
+        <mat-hint align="end">{{repeatPassword.value?.length || 0}}/40</mat-hint>
         <mat-error *ngIf="repeatPasswordControl.invalid && repeatPasswordControl.errors.required" translate>
           MANDATORY_PASSWORD_REPEAT
         </mat-error>
@@ -44,6 +49,16 @@
           PASSWORDS_NOT_MATCHING
         </mat-error>
       </mat-form-field>
+
+      <mat-slide-toggle #passwordInfoToggle [color]="passwordStrength.color">{{'SHOW_PASSWORD_ADVICE' | translate}}</mat-slide-toggle>
+      <mat-password-strength #passwordStrength [password]="password.value"></mat-password-strength>
+      <mat-password-strength-info *ngIf="passwordInfoToggle.checked" [passwordComponent]="passwordStrength"
+                                  [lowerCaseCriteriaMsg]="'LOWER_CASE_CRITERIA_MSG' | translate"
+                                  [upperCaseCriteriaMsg]="'UPPER_CASE_CRITERIA_MSG'| translate"
+                                  [digitsCriteriaMsg]="'DIGITS_CRITERIA_MSG'| translate"
+                                  [specialCharsCriteriaMsg]="'SPECIAL_CHARS_CRITERIA_MSG' | translate"
+                                  [minCharsCriteriaMsg]="'MIN_CHARS_CRITERIA_MSG' | translate:{value: 8}">
+      </mat-password-strength-info>
 
       <div class="security-container">
 
@@ -77,19 +92,22 @@
           </mat-error>
         </mat-form-field>
       </div>
+
+      <button type="submit"
+              id="registerButton"
+              mat-raised-button color="primary"
+              [disabled]="emailControl.invalid || passwordControl.invalid || repeatPasswordControl.invalid || securityQuestionControl.invalid || securityAnswerControl.invalid"
+              (click)="save()"
+              aria-label="Button to complete the registration">
+        <i class="material-icons">
+          person_add
+        </i>
+        {{'BTN_REGISTER' | translate}}
+      </button>
+
+      <div id="alreadyACustomerLink">
+        <a class="primary-link" routerLink="/login" translate>ALREADY_A_CUSTOMER</a>
+      </div>
     </div>
-
-    <button type="submit"
-            id="registerButton"
-            mat-raised-button color="primary"
-            [disabled]="emailControl.invalid || passwordControl.invalid || repeatPasswordControl.invalid || securityQuestionControl.invalid || securityAnswerControl.invalid"
-            (click)="save()"
-            aria-label="Button to complete the registration">
-      <i class="material-icons">
-        person_add
-      </i>
-      {{'BTN_REGISTER' | translate}}
-    </button>
-
   </mat-card>
 </div>

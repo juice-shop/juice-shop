@@ -1,13 +1,11 @@
+<!--
+  ~ Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
 <div fxLayoutAlign="center">
   <mat-card class="mat-elevation-z6">
     <h1 translate>SECTION_CUSTOMER_FEEDBACK</h1>
-
-    <div *ngIf="confirmation">
-      <p class="confirmation">{{confirmation}}</p>
-    </div>
-    <div *ngIf="error">
-      <p class="error">{{error}}</p>
-    </div>
 
     <div class="form-container" id="feedback-form">
 
@@ -35,7 +33,7 @@
 
       <div class="rating-container">
         <label style="font-weight:500; margin-right: 8px; float:left;" translate>LABEL_RATING</label>
-        <bar-rating [(rate)]="rating" [max]="5"></bar-rating>
+        <mat-slider id="rating" [(value)]="rating" min="1" max="5" thumbLabel [displayWith]="formatRating" tickInterval="1" aria-label="Slider for selecting the star rating"></mat-slider>
       </div>
 
       <div style="margin-bottom: 10px; margin-top: 10px; ">

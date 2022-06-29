@@ -4,7 +4,7 @@
   "newProjectRoot": "projects",
   "schematics": {
     "@schematics/angular:component": {
-      "styleext": "scss"
+      "style": "scss"
     }
   },
   "projects": {
@@ -30,9 +30,24 @@
               "src/styles.scss",
               "node_modules/material-icons/iconfont/material-icons.scss",
               "node_modules/flag-icon-css/sass/flag-icon.scss",
-              "node_modules/font-mfizz/dist/font-mfizz.css"
+              "node_modules/font-mfizz/dist/font-mfizz.css",
+              "node_modules/highlight.js/styles/github.css"
             ],
-            "scripts": []
+            "allowedCommonJsDependencies": [
+              "jwt-decode",
+              "file-saver",
+              "socket.io-client",
+              "socket.io-parser",
+              "debug"
+            ],
+            "scripts": [],
+            "aot": false,
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -45,14 +60,14 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -85,23 +100,26 @@
             "assets": [
               "src/assets"
             ],
-            "codeCoverage": true
+            "codeCoverage": true,
+            "codeCoverageExclude": [
+              "src/hacking-instructor/**/*.ts"
+            ]
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "src/app/**/*.ts",
+              "src/hacking-instructor/**/*.ts"
             ]
           }
         }
       }
     }
   },
-  "defaultProject": "frontend"
+  "defaultProject": "frontend",
+  "cli": {
+    "analytics": false
+  }
 }

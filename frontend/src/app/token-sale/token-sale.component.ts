@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { ConfigurationService } from '../Services/configuration.service'
 import { Component, OnInit } from '@angular/core'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
@@ -14,16 +19,14 @@ dom.watch()
   styleUrls: ['./token-sale.component.scss']
 })
 export class TokenSaleComponent implements OnInit {
-
   public altcoinName = 'Juicycoin'
-  constructor (private configurationService: ConfigurationService) { }
+  constructor (private readonly configurationService: ConfigurationService) { }
 
   ngOnInit () {
     this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
-      if (config && config.application && config.application.altcoinName !== null) {
+      if (config?.application?.altcoinName) {
         this.altcoinName = config.application.altcoinName
       }
     }, (err) => console.log(err))
   }
-
 }

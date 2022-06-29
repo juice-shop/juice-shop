@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { environment } from '../../environments/environment'
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
@@ -7,11 +12,10 @@ import { catchError, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class OrderHistoryService {
+  private readonly hostServer = environment.hostServer
+  private readonly host = this.hostServer + '/rest/order-history'
 
-  private hostServer = environment.hostServer
-  private host = this.hostServer + '/rest/order-history'
-
-  constructor (private http: HttpClient) { }
+  constructor (private readonly http: HttpClient) { }
 
   get () {
     return this.http.get(this.host).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
@@ -21,7 +25,7 @@ export class OrderHistoryService {
     return this.http.get(this.host + '/orders').pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
-  toggleDeliveryStatus (id, params) {
-    return this.http.put(this.host + '/' + id + '/delivery-status', params).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+  toggleDeliveryStatus (id: number, params) {
+    return this.http.put(`${this.host}/${id}/delivery-status`, params).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 }

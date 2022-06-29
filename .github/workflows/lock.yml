@@ -1,0 +1,22 @@
+name: 'Lock Threads'
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dessant/lock-threads@f1a42f0f44eb83361d617a014663e1a76cf282d2 #note newer is available
+        with:
+          issue-lock-comment: >
+            This thread has been automatically locked because it has not had
+            recent activity after it was closed. :lock: Please open a new issue
+            for regressions or related bugs.
+          issue-lock-reason: ''
+          pr-lock-reason: ''

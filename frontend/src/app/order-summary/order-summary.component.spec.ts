@@ -1,6 +1,11 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { TranslateModule } from '@ngx-translate/core'
 import { MatInputModule } from '@angular/material/input'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatTableModule } from '@angular/material/table'
 import { MatButtonModule } from '@angular/material/button'
@@ -21,6 +26,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { DeliveryService } from '../Services/delivery.service'
 import { DeluxeGuard } from '../app.guard'
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('OrderSummaryComponent', () => {
   let component: OrderSummaryComponent
@@ -30,23 +36,25 @@ describe('OrderSummaryComponent', () => {
   let paymentService: any
   let deliveryService: any
   let deluxeGuard
+  let snackBar: any
 
-  beforeEach(async(() => {
-
-    addressService = jasmine.createSpyObj('AddressService',['getById'])
+  beforeEach(waitForAsync(() => {
+    addressService = jasmine.createSpyObj('AddressService', ['getById'])
     addressService.getById.and.returnValue(of([]))
-    basketService = jasmine.createSpyObj('BasketService', ['checkout', 'find'])
+    basketService = jasmine.createSpyObj('BasketService', ['checkout', 'find', 'updateNumberOfCartItems'])
     basketService.find.and.returnValue(of({ Products: [] }))
     basketService.checkout.and.returnValue(of({}))
+    basketService.updateNumberOfCartItems.and.returnValue(of({}))
     paymentService = jasmine.createSpyObj('PaymentService', ['getById'])
     paymentService.getById.and.returnValue(of([]))
     deliveryService = jasmine.createSpyObj('DeliveryService', ['getById'])
     deliveryService.getById.and.returnValue(of({ price: 10 }))
-    deluxeGuard = jasmine.createSpyObj('',['isDeluxe'])
+    deluxeGuard = jasmine.createSpyObj('', ['isDeluxe'])
     deluxeGuard.isDeluxe.and.returnValue(false)
+    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
-      declarations: [ OrderSummaryComponent, PurchaseBasketComponent, OrderCompletionComponent ],
+      declarations: [OrderSummaryComponent, PurchaseBasketComponent, OrderCompletionComponent],
       imports: [
         RouterTestingModule.withRoutes([
           { path: 'order-completion', component: OrderCompletionComponent }
@@ -61,17 +69,19 @@ describe('OrderSummaryComponent', () => {
         MatButtonModule,
         MatButtonToggleModule,
         MatIconModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatSnackBarModule
       ],
       providers: [
         { provide: BasketService, useValue: basketService },
         { provide: AddressService, useValue: addressService },
         { provide: PaymentService, useValue: paymentService },
         { provide: DeliveryService, useValue: deliveryService },
-        { provide: DeluxeGuard, useValue: deluxeGuard }
+        { provide: DeluxeGuard, useValue: deluxeGuard },
+        { provide: MatSnackBar, useValue: snackBar }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -113,7 +123,7 @@ describe('OrderSummaryComponent', () => {
 
   it('should hold card on ngOnInit when paymentId is initialized to an id', () => {
     sessionStorage.setItem('paymentId', '1')
-    paymentService.getById.and.returnValue(of({ cardNum: '1234123412341234' }))
+    paymentService.getById.and.returnValue(of({ cardNum: '************1234' }))
     component.ngOnInit()
     expect(component.paymentMethod).toEqual({ cardNum: '1234' })
   })
@@ -134,7 +144,7 @@ describe('OrderSummaryComponent', () => {
 
   it('should remove session details from session storage', () => {
     basketService.checkout.and.returnValue(of({ orderConfirmationId: '1234123412341234' }))
-    spyOn(sessionStorage,'removeItem')
+    spyOn(sessionStorage, 'removeItem')
     component.placeOrder()
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('paymentId')
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('addressId')

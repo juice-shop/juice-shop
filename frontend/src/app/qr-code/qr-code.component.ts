@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Component, Inject, OnInit } from '@angular/core'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
@@ -12,7 +17,6 @@ dom.watch()
   styleUrls: ['./qr-code.component.scss']
 })
 export class QrCodeComponent implements OnInit {
-
   public title!: string
   public url!: string
   public address!: string
@@ -25,5 +29,4 @@ export class QrCodeComponent implements OnInit {
     this.address = this.dialogData.address
     this.data = this.dialogData.data
   }
-
 }

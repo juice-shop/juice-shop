@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { TestBed } from '@angular/core/testing'
 import { TranslateFakeLoader, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
@@ -5,8 +10,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { SnackBarHelperService } from './snack-bar-helper.service'
 
 describe('SnackBarHelperService', () => {
-  let translateService
-
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [
@@ -23,7 +26,7 @@ describe('SnackBarHelperService', () => {
   )
 
   it('should be created', () => {
-    const service: SnackBarHelperService = TestBed.get(SnackBarHelperService)
+    const service: SnackBarHelperService = TestBed.inject(SnackBarHelperService)
     expect(service).toBeTruthy()
   })
 })

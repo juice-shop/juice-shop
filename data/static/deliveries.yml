@@ -1,0 +1,18 @@
+-
+  name: 'One Day Delivery'
+  price: 0.99
+  deluxePrice: 0.5
+  eta: 1
+  icon: 'fas fa-rocket'
+-
+  name: 'Fast Delivery'
+  price: 0.5
+  deluxePrice: 0
+  eta: 3
+  icon: 'fas fa-shipping-fast'
+-
+  name: 'Standard Delivery'
+  price: 0
+  deluxePrice: 0
+  eta: 5
+  icon: 'fas fa-truck'

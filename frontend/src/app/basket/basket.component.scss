@@ -1,4 +1,9 @@
-$bg-heading: rgba(0, 0, 0, .13);
+/*!
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+$bg-heading: rgba(0, 0, 0, 0.13);
 
 .container {
   min-width: 420px;
@@ -6,8 +11,9 @@ $bg-heading: rgba(0, 0, 0, .13);
 }
 
 mat-card {
-  margin-bottom: 20px;
-  margin-top: 30px;
+  display: block;
+  margin-left: 20%;
+  margin-right: 20%;
 }
 
 .heading {
@@ -49,9 +55,17 @@ mat-expansion-panel {
   margin-bottom: 20px;
 }
 
-.button-container button mat-button-toggle {
-  margin-right: 20px;
-  margin-top: 10px;
+#checkoutButton {
+  margin-left: 20%;
+  margin-top: 30px;
+  width: 60%;
+}
+
+.hint {
+  display: flex;
+  font-size: 13px;
+  justify-content: center;
+  margin-top: 5px;
 }
 
 .payment-label {

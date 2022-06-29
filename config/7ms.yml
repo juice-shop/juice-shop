@@ -5,19 +5,25 @@ application:
   favicon: 'https://7minsec.com/favicon.ico'
   theme: blue-lightblue
   showGitHubLinks: true
-  twitterUrl: 'https://twitter.com/7MinSec'
-  facebookUrl: null
-  slackUrl: 'https://7ms.us/slack'
-  redditUrl: null
-  pressKitUrl: null
-  planetOverlayMap: 'https://static1.squarespace.com/static/59505bc2414fb538a0532c76/t/599e266aebbd1a759716569b/1503536748248/logo+2.png'
-  planetName: 'Mad Billy-7'
-  deluxePage:
-    deluxeDeliveryImage: delivery_7ms.png
+  altcoinName: Sevencoin
+  privacyContactEmail: 'donotreply@7-ms.us'
+  customMetricsPrefix: sevenminsec
+  chatBot:
+    name: 'Brian'
+    greeting: "Hi <customer-name>, it's me, your friend and pal <bot-name>!"
+    trainingData: 'https://gist.githubusercontent.com/bkimminich/d62bd52a1df4831a0fae7fb06062e3f0/raw/59dadc1e0ab1b5cb9264e85bc78736aaa3f0eb6b/bot7msTrainingData.json'
+    defaultResponse: "Sorry, but \"no comprende\"!"
+    avatar: 'https://images.squarespace-cdn.com/content/v1/59f9e1c4d0e6281017434039/1509770498383-8VJKZ4PXTTHVIGIEG0KF/ke17ZwdGBToddI8pDm48kMreedPISwI1jnn2bzTr4CdZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzByX1XvUQea7698-2ac2uOajsBu-kHm1WemVMRSlEblOw5yevDuXqve6GdwpxNsnc/BrianJohnson-headshot.jpg?format=300w'
+  social:
+    twitterUrl: 'https://twitter.com/7MinSec'
+    facebookUrl: null
+    slackUrl: 'https://7ms.us/slack'
+    redditUrl: null
+    pressKitUrl: null
+    questionnaireUrl: null
   recyclePage:
     topProductImage: bm-small.jpg
     bottomProductImage: tommyboy.jpeg
-  altcoinName: Sevencoin
   welcomeBanner:
     showOnFirstStart: false
   cookieConsent:
@@ -29,10 +35,16 @@ application:
     dismissText: 'I`ll be long gone by then!'
     linkText: 'But I want to stay an arbitrary number of minutes!'
     linkUrl: 'https://7ms.us/7ms-294-gdpr-me-asap/'
-  privacyContactEmail: 'donotreply@7-ms.us'
   securityTxt:
     contact: 'mailto:donotreply@7-ms.us'
     encryption: ~
+  easterEggPlanet:
+    name: 'Mad Billy-7'
+    overlayMap: 'https://static1.squarespace.com/static/59505bc2414fb538a0532c76/t/599e266aebbd1a759716569b/1503536748248/logo+2.png'
+challenges:
+  xssBonusPayload: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/265098051&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
+hackingInstructor:
+  avatarImage: 'https://images.squarespace-cdn.com/content/v1/59f9e1c4d0e6281017434039/1509770498383-8VJKZ4PXTTHVIGIEG0KF/ke17ZwdGBToddI8pDm48kMreedPISwI1jnn2bzTr4CdZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzByX1XvUQea7698-2ac2uOajsBu-kHm1WemVMRSlEblOw5yevDuXqve6GdwpxNsnc/BrianJohnson-headshot.jpg?format=300w'
 products:
   -
     name: 'Security Assessment'
@@ -74,6 +86,8 @@ products:
     price: 19.99
     image: 'https://pbs.twimg.com/media/Dc3BuBPXUAAswae.jpg'
     fileForRetrieveBlueprintChallenge: The+CryptoLocker+Song.mps
+    exifForBlueprintChallenge:
+      - ~
   -
     name: 'Sweet Surrender (Limited Edition Best of Audio CD)'
     description: 'Sweet Surrender is a vocals-driven acoustic duo from the Twin Cities area. Our music reflects a diverse range of our musical tastes - from the most current pop and country tunes on the radio today, to some great older tunes done with a twist. We also love to share music that reflects our love for Christ through the most current, contemporary Christian music.'

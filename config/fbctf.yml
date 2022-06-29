@@ -1,14 +1,16 @@
 application:
   logo: JuiceShopCTF_Logo.png
   favicon: favicon_ctf.ico
-  showChallengeHints: false
   showVersionNumber: false
-  showHackingInstructor: false
   showGitHubLinks: false
-  deluxePage:
-    deluxeDeliveryImage: delivery_ctf.png
+  localBackupEnabled: false
   welcomeBanner:
     showOnFirstStart: false
+challenges:
+  showHints: false
+  showFeedbackButtons: false
+hackingInstructor:
+  isEnabled: false
 ctf:
   showFlagsInNotifications: true
   showCountryDetailsInNotifications: both
@@ -130,9 +132,6 @@ ctf:
     oauthUserPasswordChallenge:
       name: South Sudan
       code: SS
-    loginCisoChallenge:
-      name: Angola
-      code: AO
     loginSupportChallenge:
       name: Croatia
       code: HR
@@ -277,3 +276,42 @@ ctf:
     ephemeralAccountantChallenge:
       name: Denmark
       code: DK
+    missingEncodingChallenge:
+      name: Armenia
+      code: AM
+    svgInjectionChallenge:
+      name: Tunisia
+      code: TN
+    exposedMetricsChallenge:
+      name: Japan
+      code: JP
+    freeDeluxeChallenge:
+      name: Vietnam
+      code: VN
+    csrfChallenge:
+      name: Luxembourg
+      code: LU
+    xssBonusChallenge:
+      name: Ethiopia
+      code: ET
+    resetPasswordUvoginChallenge:
+      name: Republic of South Africa
+      code: RSA
+    geoStalkingMetaChallenge:
+      name: Belgium
+      code: BE
+    geoStalkingVisualChallenge:
+      name: The Netherlands
+      code: NL
+    killChatbotChallenge:
+      name: Czechoslovakia
+      code: CSK
+    nullByteChallenge:
+      name: Burundi
+      code: BI
+    bullyChatbotChallenge:
+      name: Guam
+      code: GU
+    lfrChallenge:
+      name: Ireland
+      code: IE

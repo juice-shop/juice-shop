@@ -1,0 +1,13 @@
+fixes:
+  - id: 1
+    explanation: "Removing the bypass of sanitization entirely is the best way to fix this vulnerability. Fiddling with Angular's built-in sanitization was entirely unnecessary as the user input for a text search should not be expected to contain HTML that needs to be rendered but merely plain text."
+  - id: 2
+    explanation: 'Using bypassSecurityTrustResourceUrl() instead of bypassSecurityTrustHtml() changes the context for which input sanitization is bypassed. This switch might only accidentally keep XSS prevention intact, but the new URL context does not make any sense here.'
+  - id: 3
+    explanation: 'Using bypassSecurityTrustSoundCloud() instead of bypassSecurityTrustHtml() supposedly bypasses sanitization to allow only content from that service provider. Not surprisingly, there is no such vendor-specific function bypassSecurityTrustSoundCloud() offered by the Angular DomSanitizer.'
+  - id: 4
+    explanation: 'Using bypassSecurityTrustIframe() instead of bypassSecurityTrustHtml() supposedly bypasses sanitization to allow only <iframe> tags. But, the Angular DomSanitizer does not offer tag-specific bypass functions.'
+hints:
+  - "Try to identify where (potentially malicious) user input is coming into the code."
+  - "What is the code doing with the user input other than using it to filter the data source?"
+  - "Look for a line where the developers fiddled with Angular's built-in security model."

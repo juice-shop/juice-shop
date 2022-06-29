@@ -10,170 +10,100 @@
 
 ## GitHub Contributors
 
-Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
-`master` as of Mon, 26 Aug 2019
+As reported by [`git-stats -a -s '2014'`](https://www.npmjs.com/package/git-stats) analysis of `master` as of Tue, 08 Feb
+2022 after deduplication with `.mailmap`.
 
-- [Aashish Singh](https://github.com/Aashish683) aka `Aashish683`
-- [Arpit Agrawal](https://github.com/agrawalarpit14) aka
-  `agrawalarpit14`
-- [Supratik Das](https://github.com/supra08) aka `supra08`
-- [Shoeb Patel](https://github.com/CaptainFreak) aka `CaptainFreak`
-- [Marc Rüttler](https://github.com/MarcRler) aka `MarcRler`
-- [Aaryan Budhiraja](https://github.com/aaryan01) aka `aaryan01`
-- [m4l1c3](https://github.com/m4l1c3) aka `m4l1c3`
-- [Josh Grossman](https://github.com/tghosth) aka `tghosth`
-- [Martin Rock-Evans](https://github.com/rockydevnet) aka `rockydevnet`
-- [Omer Levi Hevroni](https://github.com/omerlh) aka `omerlh`
-- [Alejandro Saenz](https://github.com/Whamo12) aka `Whamo12`
-- [Jorge Estigarribia](https://github.com/jorgestiga) aka `jorgestiga`
-- [Nathaniel McHugh](https://github.com/natmchugh) aka `natmchugh`
-- [Madhur Wadhwa](https://github.com/madhurw7) aka `madhurw7`
-- [Greg Guthe](https://github.com/g-k) aka `g-k`
-- [Jln Wntr](https://github.com/JlnWntr) aka `JlnWntr`
-- [Simon Basset](https://github.com/simbas) aka `simbas`
-- [Shivam Luthra](https://github.com/shivamluthra) aka `shivamluthra`
-- [Ingo Bente](https://github.com/ingben) aka `ingben`
-- [Yuvraj](https://github.com/evalsocket) aka `evalsocket`
-- [Devansh Batra](https://github.com/devanshbatra04) aka
-  `devanshbatra04`
-- [Aaron Edwards](https://github.com/aaron-m-edwards) aka
-  `aaron-m-edwards`
-- [Viktor Lindström](https://github.com/ViktorLindstrm) aka
-  `ViktorLindstrm`
-- [João Fonseca](https://github.com/Jpfonseca) aka `Jpfonseca`
-- [Andrew Stubbs](https://github.com/Andrew-Stubbs) aka `Andrew-Stubbs`
-- [abdelrhman magdy](https://github.com/AbdelrhmanMagdy) aka
-  `AbdelrhmanMagdy`
-- [Stephen O'Brien](https://github.com/wayofthepie) aka `wayofthepie`
-- [Jet Anderson](https://github.com/thatsjet) aka `thatsjet`
-- [Simon De Lang](https://github.com/simondel) aka `simondel`
-- [Priit Pääsukene](https://github.com/priitpaasukene) aka
-  `priitpaasukene`
-- [Manabu Niseki](https://github.com/ninoseki) aka `ninoseki`
-- [Roberto Abdelkader Martínez Pérez](https://github.com/nilp0inter) aka
-  `nilp0inter`
-- [Ken Friis Larsen](https://github.com/kfl) aka `kfl`
-- [Johanna](https://github.com/johanna-a) aka `johanna-a`
-- [Joe Butler](https://github.com/incognitjoe) aka `incognitjoe`
-- [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
-- [Christian Kühn](https://github.com/cy4n) aka `cy4n`
-- [Chris Castle](https://github.com/crcastle) aka `crcastle`
-- [battletux](https://github.com/battletux) aka `battletux`
-- [Artemiy Knipe](https://github.com/awflwafl) aka `awflwafl`
-- [AviD](https://github.com/avidouglen) aka `avidouglen`
-- [Alvaro Viebrantz](https://github.com/alvarowolfx) aka `alvarowolfx`
-- [Achim Grimm](https://github.com/achimgrimm) aka `achimgrimm`
-- [Abhishek bundela](https://github.com/abhibundela) aka `abhibundela`
-- [Zander Mackie](https://github.com/Zandar) aka `Zandar`
-- [Stuart Winter-Tear](https://github.com/StuartWinterTear) aka
-  `StuartWinterTear`
-- [M4ttsson](https://github.com/M4ttsson) aka `M4ttsson`
-- [Jason Haley](https://github.com/JasonHaley) aka `JasonHaley`
-- [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
+![Top git contributors](screenshots/git-stats.png)
 
 ## Translators
 
-Based on [CrowdIn](https://crowdin.com/project/owasp-juice-shop)
-translations as of Mon, 26 Aug 2019.
+As exported from
+[CrowdIn Top Members Report](https://crowdin.com/project/owasp-juice-shop/reports/top-members)
+(by # of translated words) for all languages as of Thu, 16 Sep 2021 after
+[conversion into Markdown](https://thisdavej.com/copy-table-in-excel-and-paste-as-a-markdown-table/).
 
-- Björn Kimminich aka `bkimminich` (German)
-- owangen (Norwegian; Danish)
-- sjroh (Korean)
-- AviD aka `avidouglen` (Hebrew)
-- Stavros M. aka `msstavros` (Greek)
-- Stella Dineva aka `stella.dineva` (Bulgarian)
-- Simon Basset aka `simbas` (French)
-- GiorgiSharia (Georgian)
-- Oussama Bouthouri aka `Boussama` (Arabic)
-- sergio.kubota (Portuguese, Brazilian)
-- Ender Çulha aka `ecu` (Turkish)
-- Claudio Snidero aka `cla7997` (Italian)
-- r0n1am (Chinese Traditional, Hong Kong)
-- janesmae (Estonian)
-- fieldhill13 (Russian)
-- thinbashane (Burmese)
-- rToxic (Chinese Simplified)
-- stejkenzie (Czech)
-- adeyosemanputra (Indonesian)
-- Coink aka `CoinkWang` (Chinese Simplified)
-- Kylian Runembert aka `FunnHydra` (French)
-- Andrew Pio aka `siranen` (Polish)
-- zvargun (Turkish)
-- timexlord (Romanian)
-- Shahin Farzaliyev aka `Khan27` (Azerbaijani)
-- Daniel Paniagua aka `danielgpm` (Spanish)
-- FoteiniAthina (Greek)
-- orjen (Romanian)
-- vientspam (Dutch; Italian; French)
-- Allan Kimmer Jensen aka `Saturate` (Danish)
-- Idomin Ninja aka `Idomin` (Polish)
-- BostonLow (Hebrew)
-- にのせき aka `ninoseki` (Japanese)
-- Egert Aia aka `aiaegert` (Estonian)
-- Nico Ådahl aka `nigotiator` (Finnish)
-- Pär Svedberg aka `grebdevs` (Swedish)
-- rakzcs (Estonian)
-- Tomas Rosenqvist aka `Muamaidbengt` (Swedish)
-- Estevam Arantes aka `Es7evam` (Portuguese; Portuguese, Brazilian)
-- Karl aka `spruur` (Estonian)
-- Albert Camps aka `campsupc` (Catalan; Spanish)
-- Jorge Estigarribia aka `jorgestiga` (Spanish; Portuguese, Brazilian)
-- Daan Sprenkels aka `dsprenkels` (Dutch)
-- atteism (Swedish)
-- Aleksandra Niemyska aka `niemyskaa` (Polish)
-- mateomartinez (Spanish)
-- Rasmus Bidstrup aka `rasmusbidstrup` (Danish)
-- Bruno Rodrigues aka `bmvr` (Portuguese)
-- Riotaro OKADA aka `riotaro` (Japanese)
-- talisainen (Russian)
-- OliverkeHU (Hungarian)
-- Bart Decker aka `Decker` (Dutch)
-- Manu B aka `Rosina` (Dutch)
-- Mohammad Febri Ramadlan aka `mohammadfebrir` (Indonesian)
-- Klas Fahlberg aka `FahlbergKlas` (Swedish)
-- CarlCampbell (Spanish)
-- Wout Huygens aka `lenkadubois` (Dutch)
-- rachidbm (Dutch)
-- Mattias Persson aka `mattiasbpersson` (Swedish)
-- cello-anders (Swedish)
-- Oussama Bouthouri aka `oussama.bouthouri` (Arabic)
-- bmoritz (Estonian)
-- landinl (Swedish)
-- Héctor Lecuanda aka `hlecuanda` (Spanish)
-- Michiya Tominaga aka `nuwaa` (Japanese)
-- Mircea Ulmeanu aka `boltzmann.gt` (Romanian)
-- Martin Hartl aka `hartlmartin` (Czech)
-- Carlos Allendes aka `OwaspChile` (Spanish)
-- redr0n19 (Russian)
-- nilfigo (Japanese)
-- Richardson Lima aka `contatorichardsonlima` (Portuguese, Brazilian)
-- soledad aro aka `cristinagarciaaro` (Spanish)
-- Forbidden aka `cptbl00dra1n` (Chinese Simplified)
-- Ezequiel Andino aka `acidobinario` (Spanish)
-- kahfiehudson (Indonesian)
-- motofy (Japanese)
-- Hawxdu aka `bill` (Chinese Simplified)
-- dav1ds (French)
-- ManuelFranz (German)
-- Marc Rüttler aka `MarcRler` (German)
-- Mehyar Shammas aka `mashkuov` (Arabic)
+| Name                         | Languages                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Translated |
+|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| Björn Kimminich (bkimminich) | German; Chinese Simplified; Danish; Spanish; German, Switzerland; Dutch; French; Romanian; Chinese Traditional; Estonian; Portuguese, Brazilian; Portuguese; Arabic; Norwegian; Hindi; Russian; Swedish; Azerbaijani; Turkish; Japanese; Finnish; Polish; Indonesian; Italian; Hebrew; Chinese Traditional, Hong Kong; Czech; Thai; Korean; Burmese; Greek; Bulgarian; Georgian; Klingon; Latvian; Hungarian; Catalan; Lithuanian; Urdu (Pakistan); Sinhala; Armenian | 28191      |
+| tongsonghua (yolylight)      | Chinese Simplified                                                                                                                                                                                                                                                                                                                                                                                                                                                    | 6163       |
+| Derek Chan (ChanDerek)       | Chinese Traditional                                                                                                                                                                                                                                                                                                                                                                                                                                                   | 5411       |
+| DenisCherean                 | Romanian                                                                                                                                                                                                                                                                                                                                                                                                                                                              | 5009       |
+| Yannick (yannickboy15)       | Dutch                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | 3872       |
+| NCAA                         | Danish                                                                                                                                                                                                                                                                                                                                                                                                                                                                | 3855       |
+| Enrique Rossel (erossel)     | Spanish                                                                                                                                                                                                                                                                                                                                                                                                                                                               | 3416       |
+| Simon Basset (simbas)        | French                                                                                                                                                                                                                                                                                                                                                                                                                                                                | 2933       |
+| MortenHC                     | Danish                                                                                                                                                                                                                                                                                                                                                                                                                                                                | 2597       |
+| janesmae                     | Estonian                                                                                                                                                                                                                                                                                                                                                                                                                                                              | 2594       |
+| schattenbaum                 | German, Switzerland; German                                                                                                                                                                                                                                                                                                                                                                                                                                           | 2181       |
+| ShahinF27 (Khan27)           | Azerbaijani                                                                                                                                                                                                                                                                                                                                                                                                                                                           | 2125       |
+| Jean Novak (jeannovak)       | Portuguese, Brazilian                                                                                                                                                                                                                                                                                                                                                                                                                                                 | 2123       |
+| Timo Meriläinen (owasp.timo) | Finnish                                                                                                                                                                                                                                                                                                                                                                                                                                                               | 1470       |
+| Herisatry Lubaba (herisatry) | French                                                                                                                                                                                                                                                                                                                                                                                                                                                                | 1465       |
+| Dmitry (shipko)              | Russian                                                                                                                                                                                                                                                                                                                                                                                                                                                               | 1235       |
+| htchen99                     | Chinese Traditional                                                                                                                                                                                                                                                                                                                                                                                                                                                   | 1189       |
+| owangen                      | Norwegian; Danish; Klingon                                                                                                                                                                                                                                                                                                                                                                                                                                            | 1139       |
+| sjroh                        | Korean                                                                                                                                                                                                                                                                                                                                                                                                                                                                | 1063       |
+| Giovanni (cruzgio)           | Spanish                                                                                                                                                                                                                                                                                                                                                                                                                                                               | 963        |
+
+**Additional translations by:**
+
+Alexander Nissen (Nissen96), fabrizio1979, OrNol (TRNSRL), Jorge Estigarribia (jorgestiga), Pablo Barrera (
+pablo.barrera)
+, Coink (CoinkWang), Phakphum Visetnut (phakphum_visetnut), Kamil Vavra (vavkamil), Abdo Farwan (abdofarwan), AviD (
+avidouglen), Stella Dineva (stella.dineva), Stavros M. (msstavros), Fredrik Bore (Boren), GiorgiSharia, Songrit
+Kitisriworapan (songritk), Oussama Bouthouri (Boussama), sergio.kubota, Ender Çulha (ecu), Claudio Snidero (cla7997),
+Marc Rüttler (MarcRler), r0n1am, Davis Freimanis (davisfreimanis)
+, fieldhill13, thinbashane, rToxic, stejkenzie, adeyosemanputra, Kylian Runembert (FunnHydra), Andrew Pio (siranen),
+Henry Hu (
+ninedter), zvargun, timexlord, ztzxt, Daniel Paniagua (danielgpm), Mehyar Shammas (mashkuov), asifnm, Estevam Arantes (
+Es7evam)
+, REMOVED_USER, FoteiniAthina, orjen, vientspam, Allan Kimmer Jensen (Saturate), Idomin Ninja (Idomin), BostonLow,
+Abdullah alshowaiey (Abdullah201), にのせき (ninoseki), Egert Aia (aiaegert), Nico Ådahl (nigotiator), Lars Grini (
+lars.grini), Pär Svedberg (grebdevs), rakzcs, Tomas Rosenqvist (Muamaidbengt), Karl (spruur), MrNinhoJr a (mrninhojr),
+Albert Camps (campsupc)
+, Zenmaster212, jasinski_tomasz, Daan Sprenkels (dsprenkels), Aleksandra Niemyska (niemyskaa), atteism, Diego Andreé
+Porras Rivas (andree.rivas), mateomartinez, Rasmus Bidstrup (rasmusbidstrup), Koji O (marlboro20light), Bruno
+Rodrigues (bmvr)
+, Riotaro OKADA (riotaro), talisainen, OliverkeHU, Kitisak Jirawannakool (jkitisak), Bart Decker (Decker), Mohammad
+Febri Ramadlan (mohammadfebrir), Manu B (Rosina), coavacoffee, bill (Hawxdu), Klas Fahlberg (FahlbergKlas),
+CarlCampbell, Natalia (
+notNao), Lenka Dubois (lenkadubois), Syahrol, Mattias Persson (mattiasbpersson), rachidbm, André Santos Duarte Fonseca (
+Andre_Duarte), cello-anders, Store (HelaBasa), Oussama Bouthouri (oussama.bouthouri), bmoritz, GK (lollipas)
+, landinl, mrudul, Héctor Lecuanda (hlecuanda), Michiya Tominaga (nuwaa), Ilkka Savela (ile2021), Mircea Ulmeanu (
+boltzmann.gt), Martin Hartl (hartlmartin), Roy Quiceno (rquiceno), Carlos Allendes (OwaspChile)
+, redr0n19, ManuelFranz, Anthony3000, Yang Lucas (Lucas.y), REMOVED_USER, Richardson Lima (contatorichardsonlima)
+, nilfigo, soledad aro (cristinagarciaaro), Katharina Wittkowsky (kwittkowsky), Frederik Bøgeskov Johnsen (cpfbj)
+, kahfiehudson, motofy, Origami, dav1ds, Stefan Daugaard Poulsen (cyberzed), Ezequiel Andino (acidobinario), Isis
+Harris (
+latinadeveloper), 4ourth (fourth-4), REMOVED_USER, h3nrychoi, Omer Levi Hevroni (omerlh), Sen UENO (uenosen), Mohammad
+Febri Ramadlan (vebryidiot), alopezhu, Abas Abas (abas70127), Umpawan Halap (umpawanhalap), xsi, Björn Palmqvist (
+bjornpalmqvist)
+, Fabio Tavano (tavano.fabio), Anders Lindberg (anderslimpan), bahrunghozali, sutanci, PorPor Hai (eung.porhai), pena69,
+Kevin Eliezer García Peña (kevinel.gp), vikram.tp07
 
 ## Special Thanks
 
 * Inspired by the "classic"
   [BodgeIt Store](https://github.com/psiinon/bodgeit) by
   [@psiinon](https://github.com/psiinon)
-* Revised OWASP Juice Shop and Juice Shop CTF logo artworks by Emily
-  Gundry (courtesy of [@SecureState](https://github.com/SecureState))
+* Revised OWASP Juice Shop and Juice Shop CTF logo artworks by Emily Gundry (courtesy
+  of [@SecureState](https://github.com/SecureState))
 * Wallpaper artworks by Mike Branscum (courtesy of
   [@daylightstudio](https://github.com/daylightstudio))
-* [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) cover
-  artwork by [Patch Kroll](https://99designs.de/profiles/3099878)
+* [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) cover artwork
+  by [Patch Kroll](https://99designs.de/profiles/3099878)
 * [Banner](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/banners)
   and
   [flyer](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/flyers)
   artwork by [logicainfo](https://99designs.de/profiles/logicainfo)
+* Official
+  [OWASP Juice Shop Jingle](https://soundcloud.com/braimee/owasp-juice-shop-jingle)
+  written and performed by [Brian Johnson](https://github.com/braimee)
+* Juicy Chat Bot artworks by Kharisma Mulyana (courtesy of
+  [Timo Pagel](https://github.com/wurstbrot/))
+* Admin profile picture artworks by Kharisma Mulyana (courtesy of
+  [Timo Pagel](https://github.com/wurstbrot/))
 
 ## Stargazers (over time)
 
-[![Stargazers over time](https://starchart.cc/bkimminich/juice-shop.svg)](https://starchart.cc/bkimminich/juice-shop)
+[![Stargazers over time](https://starchart.cc/juice-shop/juice-shop.svg)](https://starchart.cc/juice-shop/juice-shop)

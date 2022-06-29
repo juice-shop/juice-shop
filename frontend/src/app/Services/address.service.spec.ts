@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
 import { AddressService } from './address.service'
@@ -17,7 +22,7 @@ describe('AddressService', () => {
   it('should get address directly from the api', inject([AddressService, HttpTestingController],
     fakeAsync((service: AddressService, httpMock: HttpTestingController) => {
       let res
-      service.get().subscribe((data) => res = data)
+      service.get().subscribe((data) => (res = data))
       const req = httpMock.expectOne('http://localhost:3000/api/Addresss')
       req.flush({ data: 'apiResponse' })
       tick()
@@ -30,7 +35,7 @@ describe('AddressService', () => {
   it('should get single address directly from the api', inject([AddressService, HttpTestingController],
     fakeAsync((service: AddressService, httpMock: HttpTestingController) => {
       let res
-      service.getById(1).subscribe((data) => res = data)
+      service.getById(1).subscribe((data) => (res = data))
       const req = httpMock.expectOne('http://localhost:3000/api/Addresss/1')
       req.flush({ data: 'apiResponse' })
       tick()
@@ -43,7 +48,7 @@ describe('AddressService', () => {
   it('should create address directly from the api', inject([AddressService, HttpTestingController],
     fakeAsync((service: AddressService, httpMock: HttpTestingController) => {
       let res
-      service.save({}).subscribe((data) => res = data)
+      service.save({}).subscribe((data) => (res = data))
       const req = httpMock.expectOne('http://localhost:3000/api/Addresss/')
       req.flush({ data: 'apiResponse' })
       tick()
@@ -56,7 +61,7 @@ describe('AddressService', () => {
   it('should update address directly from the api', inject([AddressService, HttpTestingController],
     fakeAsync((service: AddressService, httpMock: HttpTestingController) => {
       let res
-      service.put(1,{}).subscribe((data) => res = data)
+      service.put(1, {}).subscribe((data) => (res = data))
       const req = httpMock.expectOne('http://localhost:3000/api/Addresss/1')
       req.flush({ data: 'apiResponse' })
       tick()
@@ -69,7 +74,7 @@ describe('AddressService', () => {
   it('should delete address directly from the api', inject([AddressService, HttpTestingController],
     fakeAsync((service: AddressService, httpMock: HttpTestingController) => {
       let res
-      service.del(1).subscribe((data) => res = data)
+      service.del(1).subscribe((data) => (res = data))
       const req = httpMock.expectOne('http://localhost:3000/api/Addresss/1')
       req.flush({ data: 'apiResponse' })
       tick()

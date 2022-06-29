@@ -1,7 +1,12 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { SecurityAnswerService } from '../Services/security-answer.service'
 import { UserService } from '../Services/user.service'
 import { AbstractControl, FormControl, Validators } from '@angular/forms'
-import { Component, OnInit } from '@angular/core'
+import { Component, NgZone, OnInit } from '@angular/core'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { Router } from '@angular/router'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
@@ -23,7 +28,7 @@ dom.watch()
 })
 export class RegisterComponent implements OnInit {
   public emailControl: FormControl = new FormControl('', [Validators.required, Validators.email])
-  public passwordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)])
+  public passwordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)])
   public repeatPasswordControl: FormControl = new FormControl('', [Validators.required, matchValidator(this.passwordControl)])
   public securityQuestionControl: FormControl = new FormControl('', [Validators.required])
   public securityAnswerControl: FormControl = new FormControl('', [Validators.required])
@@ -31,14 +36,15 @@ export class RegisterComponent implements OnInit {
   public selected?: number
   public error: string | null = null
 
-  constructor (private securityQuestionService: SecurityQuestionService,
-    private userService: UserService,
-    private securityAnswerService: SecurityAnswerService,
-    private router: Router,
-    private formSubmitService: FormSubmitService,
-    private translateService: TranslateService,
-    private snackBar: MatSnackBar,
-    private snackBarHelperService: SnackBarHelperService) { }
+  constructor (private readonly securityQuestionService: SecurityQuestionService,
+    private readonly userService: UserService,
+    private readonly securityAnswerService: SecurityAnswerService,
+    private readonly router: Router,
+    private readonly formSubmitService: FormSubmitService,
+    private readonly translateService: TranslateService,
+    private readonly snackBar: MatSnackBar,
+    private readonly snackBarHelperService: SnackBarHelperService,
+    private readonly ngZone: NgZone) { }
 
   ngOnInit () {
     this.securityQuestionService.find(null).subscribe((securityQuestions: any) => {
@@ -58,16 +64,20 @@ export class RegisterComponent implements OnInit {
     }
 
     this.userService.save(user).subscribe((response: any) => {
-      this.securityAnswerService.save({UserId: response.id, answer: this.securityAnswerControl.value,
-        SecurityQuestionId: this.securityQuestionControl.value}).subscribe(() => {
-          this.router.navigate(['/login'])
-          this.snackBarHelperService.openSnackBar('CONFIRM_REGISTER', 'Ok')
-        })
+      this.securityAnswerService.save({
+        UserId: response.id,
+        answer: this.securityAnswerControl.value,
+        SecurityQuestionId: this.securityQuestionControl.value
+      }).subscribe(() => {
+        this.ngZone.run(async () => await this.router.navigate(['/login']))
+        this.snackBarHelperService.open('CONFIRM_REGISTER')
+      })
     }, (err) => {
       console.log(err)
-      if (err.error && err.error.errors) {
+      if (err.error?.errors) {
         const error = err.error.errors[0]
         if (error.message) {
+          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
           this.error = error.message[0].toUpperCase() + error.message.slice(1)
         } else {
           this.error = error
@@ -79,8 +89,8 @@ export class RegisterComponent implements OnInit {
 
 function matchValidator (passwordControl: AbstractControl) {
   return function matchOtherValidate (repeatPasswordControl: FormControl) {
-    let password = passwordControl.value
-    let passwordRepeat = repeatPasswordControl.value
+    const password = passwordControl.value
+    const passwordRepeat = repeatPasswordControl.value
     if (password !== passwordRepeat) {
       return { notSame: true }
     }

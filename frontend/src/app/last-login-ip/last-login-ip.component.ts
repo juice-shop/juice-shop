@@ -1,6 +1,11 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Component } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
-import * as jwt_decode from 'jwt-decode'
+import * as jwtDecode from 'jwt-decode'
 
 @Component({
   selector: 'app-last-login-ip',
@@ -10,9 +15,8 @@ import * as jwt_decode from 'jwt-decode'
 })
 
 export class LastLoginIpComponent {
-
   lastLoginIp: any = '?'
-  constructor (private sanitizer: DomSanitizer) {}
+  constructor (private readonly sanitizer: DomSanitizer) {}
 
   ngOnInit () {
     try {
@@ -26,11 +30,11 @@ export class LastLoginIpComponent {
     let payload = {} as any
     const token = localStorage.getItem('token')
     if (token) {
-      payload = jwt_decode(token)
+      payload = jwtDecode(token)
       if (payload.data.lastLoginIp) {
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         this.lastLoginIp = this.sanitizer.bypassSecurityTrustHtml(`<small>${payload.data.lastLoginIp}</small>`)
       }
     }
   }
-
 }

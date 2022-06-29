@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { environment } from '../../environments/environment'
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
@@ -7,11 +12,10 @@ import { catchError, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class SecurityAnswerService {
+  private readonly hostServer = environment.hostServer
+  private readonly host = this.hostServer + '/api/SecurityAnswers'
 
-  private hostServer = environment.hostServer
-  private host = this.hostServer + '/api/SecurityAnswers'
-
-  constructor (private http: HttpClient) { }
+  constructor (private readonly http: HttpClient) { }
 
   save (params: any) {
     return this.http.post(this.host + '/', params).pipe(

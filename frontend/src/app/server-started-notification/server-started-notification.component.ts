@@ -1,17 +1,16 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { TranslateService } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
 import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core'
 import { CookieService } from 'ngx-cookie'
 import { SocketIoService } from '../Services/socket-io.service'
 
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
-
-library.add(faTrash)
-dom.watch()
-
 interface HackingProgress {
-  autoRestoreMessage: string | null,
+  autoRestoreMessage: string | null
   cleared: boolean
 }
 
@@ -21,17 +20,17 @@ interface HackingProgress {
   styleUrls: ['./server-started-notification.component.scss']
 })
 export class ServerStartedNotificationComponent implements OnInit {
-
   public hackingProgress: HackingProgress = {} as HackingProgress
 
-  constructor (private ngZone: NgZone, private challengeService: ChallengeService,private translate: TranslateService,private cookieService: CookieService,private ref: ChangeDetectorRef, private io: SocketIoService) {
+  constructor (private readonly ngZone: NgZone, private readonly challengeService: ChallengeService, private readonly translate: TranslateService, private readonly cookieService: CookieService, private readonly ref: ChangeDetectorRef, private readonly io: SocketIoService) {
   }
 
   ngOnInit () {
     this.ngZone.runOutsideAngular(() => {
-
       this.io.socket().on('server started', () => {
-        let continueCode = this.cookieService.get('continueCode')
+        const continueCode = this.cookieService.get('continueCode')
+        const continueCodeFindIt = this.cookieService.get('continueCodeFindIt')
+        const continueCodeFixIt = this.cookieService.get('continueCodeFixIt')
         if (continueCode) {
           this.challengeService.restoreProgress(encodeURIComponent(continueCode)).subscribe(() => {
             this.translate.get('AUTO_RESTORED_PROGRESS').subscribe((notificationServerStarted) => {
@@ -39,7 +38,7 @@ export class ServerStartedNotificationComponent implements OnInit {
             }, (translationId) => {
               this.hackingProgress.autoRestoreMessage = translationId
             })
-          },(error) => {
+          }, (error) => {
             console.log(error)
             this.translate.get('AUTO_RESTORE_PROGRESS_FAILED', { error: error }).subscribe((notificationServerStarted) => {
               this.hackingProgress.autoRestoreMessage = notificationServerStarted
@@ -47,7 +46,18 @@ export class ServerStartedNotificationComponent implements OnInit {
               this.hackingProgress.autoRestoreMessage = translationId
             })
           })
-
+        }
+        if (continueCodeFindIt) {
+          this.challengeService.restoreProgressFindIt(encodeURIComponent(continueCodeFindIt)).subscribe(() => {
+          }, (error) => {
+            console.log(error)
+          })
+        }
+        if (continueCodeFixIt) {
+          this.challengeService.restoreProgressFixIt(encodeURIComponent(continueCodeFixIt)).subscribe(() => {
+          }, (error) => {
+            console.log(error)
+          })
         }
         this.ref.detectChanges()
       })
@@ -60,7 +70,17 @@ export class ServerStartedNotificationComponent implements OnInit {
 
   clearProgress () {
     this.cookieService.remove('continueCode')
+    this.cookieService.remove('continueCodeFixIt')
+    this.cookieService.remove('continueCodeFindIt')
+    this.cookieService.remove('token')
+    sessionStorage.removeItem('bid')
+    sessionStorage.removeItem('itemTotal')
+    localStorage.removeItem('token')
+    localStorage.removeItem('displayedDifficulties')
+    localStorage.removeItem('showSolvedChallenges')
+    localStorage.removeItem('showDisabledChallenges')
+    localStorage.removeItem('showOnlyTutorialChallenges')
+    localStorage.removeItem('displayedChallengeCategories')
     this.hackingProgress.cleared = true
   }
-
 }

@@ -1,6 +1,11 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { TranslateModule } from '@ngx-translate/core'
 import { MatInputModule } from '@angular/material/input'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatTableModule } from '@angular/material/table'
 import { MatButtonModule } from '@angular/material/button'
@@ -28,15 +33,14 @@ describe('DeliveryMethodComponent', () => {
   let addressService: any
   let deliveryService: any
 
-  beforeEach(async(() => {
-
-    addressService = jasmine.createSpyObj('AddressService',['getById'])
+  beforeEach(waitForAsync(() => {
+    addressService = jasmine.createSpyObj('AddressService', ['getById'])
     addressService.getById.and.returnValue(of([]))
     deliveryService = jasmine.createSpyObj('DeliveryService', ['get'])
     deliveryService.get.and.returnValue(of([]))
 
     TestBed.configureTestingModule({
-      declarations: [ DeliveryMethodComponent, PaymentComponent, PaymentMethodComponent ],
+      declarations: [DeliveryMethodComponent, PaymentComponent, PaymentMethodComponent],
       imports: [
         RouterTestingModule.withRoutes([
           { path: 'payment/shop', component: PaymentComponent }
@@ -61,7 +65,7 @@ describe('DeliveryMethodComponent', () => {
         { provide: DeliveryService, useValue: deliveryService }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -95,12 +99,13 @@ describe('DeliveryMethodComponent', () => {
   })
 
   it('should hold delivery methods on ngOnInit', () => {
-    deliveryService.get.and.returnValue(of([{ id: 1, name: '1', price: 1, eta: 1 }]))
+    deliveryService.get.and.returnValue(of([{ id: 1, name: '1', price: 1, eta: 1, icon: '1' }]))
     component.ngOnInit()
     expect(component.methods[0].id).toEqual(1)
     expect(component.methods[0].name).toEqual('1')
     expect(component.methods[0].price).toEqual(1)
     expect(component.methods[0].eta).toEqual(1)
+    expect(component.methods[0].icon).toEqual('1')
   })
 
   it('should store delivery method id on selectMethod', () => {
@@ -110,7 +115,7 @@ describe('DeliveryMethodComponent', () => {
 
   it('should store address id in session storage', () => {
     component.deliveryMethodId = 1
-    spyOn(sessionStorage,'setItem')
+    spyOn(sessionStorage, 'setItem')
     component.chooseDeliveryMethod()
     expect(sessionStorage.setItem).toHaveBeenCalledWith('deliveryMethodId', '1')
   })

@@ -1,8 +1,13 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 exports.themes = {
   'bluegrey-lightgreen': {
     bgColor: '#303030',
     textColor: '#FFFFFF',
-    navColor: '#37474f',
+    navColor: '#546E7A',
     primLight: '#424242',
     primDark: '#263238'
   },

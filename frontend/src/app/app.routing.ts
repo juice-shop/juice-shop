@@ -1,9 +1,13 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { TokenSaleComponent } from './token-sale/token-sale.component'
 import { OAuthComponent } from './oauth/oauth.component'
 import { BasketComponent } from './basket/basket.component'
 import { TrackResultComponent } from './track-result/track-result.component'
 import { ContactComponent } from './contact/contact.component'
-import { ErasureRequestComponent } from './erasure-request/erasure-request.component'
 import { AboutComponent } from './about/about.component'
 import { RegisterComponent } from './register/register.component'
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'
@@ -12,7 +16,7 @@ import { LoginComponent } from './login/login.component'
 import { AdministrationComponent } from './administration/administration.component'
 import { ChangePasswordComponent } from './change-password/change-password.component'
 import { ComplaintComponent } from './complaint/complaint.component'
-import { TrackOrderComponent } from './track-order/track-order.component'
+import { ChatbotComponent } from './chatbot/chatbot.component'
 import { RecycleComponent } from './recycle/recycle.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
 import { RouterModule, Routes, UrlMatchResult, UrlSegment } from '@angular/router'
@@ -38,28 +42,13 @@ import { PhotoWallComponent } from './photo-wall/photo-wall.component'
 import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, LoginGuard } from './app.guard'
 
-export function token1 (...args: number[]) {
-  let L = Array.prototype.slice.call(args)
-  let D = L.shift()
-  return L.reverse().map(function (C, A) {
-    return String.fromCharCode(C - D - 45 - A)
-  }).join('')
-}
-
-export function token2 (...args: number[]) {
-  let T = Array.prototype.slice.call(arguments)
-  let M = T.shift()
-  return T.reverse().map(function (m, H) {
-    return String.fromCharCode(m - M - 24 - H)
-  }).join('')
-}
-
+// vuln-code-snippet start adminSectionChallenge scoreBoardChallenge
 const routes: Routes = [
-  {
-    path: 'administration',
-    component: AdministrationComponent,
-    canActivate: [AdminGuard]
-  },
+  { // vuln-code-snippet neutral-line adminSectionChallenge
+    path: 'administration', // vuln-code-snippet vuln-line adminSectionChallenge
+    component: AdministrationComponent, // vuln-code-snippet neutral-line adminSectionChallenge
+    canActivate: [AdminGuard] // vuln-code-snippet neutral-line adminSectionChallenge
+  }, // vuln-code-snippet neutral-line adminSectionChallenge
   {
     path: 'accounting',
     component: AccountingComponent,
@@ -123,6 +112,10 @@ const routes: Routes = [
     component: ComplaintComponent
   },
   {
+    path: 'chatbot',
+    component: ChatbotComponent
+  },
+  {
     path: 'order-summary',
     component: OrderSummaryComponent
   },
@@ -159,13 +152,13 @@ const routes: Routes = [
     component: SearchResultComponent
   },
   {
-    path: 'score-board',
-    component: ScoreBoardComponent
+    path: 'hacking-instructor',
+    component: SearchResultComponent
   },
-  {
-    path: 'track-order',
-    component: TrackOrderComponent
-  },
+  { // vuln-code-snippet neutral-line scoreBoardChallenge
+    path: 'score-board', // vuln-code-snippet vuln-line scoreBoardChallenge
+    component: ScoreBoardComponent // vuln-code-snippet neutral-line scoreBoardChallenge
+  }, // vuln-code-snippet neutral-line scoreBoardChallenge
   {
     path: 'track-result',
     component: TrackResultComponent
@@ -185,10 +178,12 @@ const routes: Routes = [
     path: 'privacy-security',
     component: PrivacySecurityComponent,
     children: [
-      { path: 'privacy-policy',
+      {
+        path: 'privacy-policy',
         component: PrivacyPolicyComponent
       },
-      { path: 'change-password',
+      {
+        path: 'change-password',
         component: ChangePasswordComponent
       },
       {
@@ -200,24 +195,21 @@ const routes: Routes = [
         component: DataExportComponent
       },
       {
-        path: 'erasure-request',
-        component: ErasureRequestComponent
-      },
-      {
         path: 'last-login-ip',
         component: LastLoginIpComponent
       }
     ]
   },
+  // vuln-code-snippet start tokenSaleChallenge
   {
     matcher: oauthMatcher,
     data: { params: (window.location.href).substr(window.location.href.indexOf('#')) },
     component: OAuthComponent
   },
-  {
-    matcher: tokenMatcher,
-    component: TokenSaleComponent
-  },
+  { // vuln-code-snippet neutral-line tokenSaleChallenge
+    matcher: tokenMatcher, // vuln-code-snippet vuln-line tokenSaleChallenge
+    component: TokenSaleComponent // vuln-code-snippet neutral-line tokenSaleChallenge
+  }, // vuln-code-snippet neutral-line tokenSaleChallenge
   {
     path: '403',
     component: ErrorPageComponent
@@ -227,14 +219,15 @@ const routes: Routes = [
     component: SearchResultComponent
   }
 ]
+// vuln-code-snippet end adminSectionChallenge scoreBoardChallenge
 
-export const Routing = RouterModule.forRoot(routes, { useHash: true })
+export const Routing = RouterModule.forRoot(routes, { useHash: true, relativeLinkResolution: 'legacy' })
 
 export function oauthMatcher (url: UrlSegment[]): UrlMatchResult {
   if (url.length === 0) {
     return null as unknown as UrlMatchResult
   }
-  let path = window.location.href
+  const path = window.location.href
   if (path.includes('#access_token=')) {
     return ({ consumed: url })
   }
@@ -242,15 +235,33 @@ export function oauthMatcher (url: UrlSegment[]): UrlMatchResult {
   return null as unknown as UrlMatchResult
 }
 
-export function tokenMatcher (url: UrlSegment[]): UrlMatchResult {
-  if (url.length === 0) {
-    return null as unknown as UrlMatchResult
-  }
+export function tokenMatcher (url: UrlSegment[]): UrlMatchResult { // vuln-code-snippet neutral-line tokenSaleChallenge
+  if (url.length === 0) { // vuln-code-snippet neutral-line tokenSaleChallenge
+    return null as unknown as UrlMatchResult // vuln-code-snippet neutral-line tokenSaleChallenge
+  } // vuln-code-snippet neutral-line tokenSaleChallenge
+  // vuln-code-snippet neutral-line tokenSaleChallenge
+  const path = url[0].toString() // vuln-code-snippet neutral-line tokenSaleChallenge
+  // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+  if (path.match((token1(25, 184, 174, 179, 182, 186) + (36669).toString(36).toLowerCase() + token2(13, 144, 87, 152, 139, 144, 83, 138) + (10).toString(36).toLowerCase()))) { // vuln-code-snippet vuln-line tokenSaleChallenge
+    return ({ consumed: url }) // vuln-code-snippet neutral-line tokenSaleChallenge
+  } // vuln-code-snippet neutral-line tokenSaleChallenge
+  // vuln-code-snippet neutral-line tokenSaleChallenge
+  return null as unknown as UrlMatchResult // vuln-code-snippet neutral-line tokenSaleChallenge
+} // vuln-code-snippet neutral-line tokenSaleChallenge
 
-  const path = url[0].toString()
-  if (path.match((token1(25, 184, 174, 179, 182, 186) + (36669).toString(36).toLowerCase() + token2(13, 144, 87, 152, 139, 144, 83, 138) + (10).toString(36).toLowerCase()))) {
-    return ({ consumed: url })
-  }
+export function token1 (...args: number[]) { // vuln-code-snippet neutral-line tokenSaleChallenge
+  const L = Array.prototype.slice.call(args) // vuln-code-snippet neutral-line tokenSaleChallenge
+  const D = L.shift() // vuln-code-snippet neutral-line tokenSaleChallenge
+  return L.reverse().map(function (C, A) { // vuln-code-snippet neutral-line tokenSaleChallenge
+    return String.fromCharCode(C - D - 45 - A) // vuln-code-snippet neutral-line tokenSaleChallenge
+  }).join('') // vuln-code-snippet neutral-line tokenSaleChallenge
+} // vuln-code-snippet neutral-line tokenSaleChallenge
 
-  return null as unknown as UrlMatchResult
-}
+export function token2 (...args: number[]) { // vuln-code-snippet neutral-line tokenSaleChallenge
+  const T = Array.prototype.slice.call(arguments) // vuln-code-snippet neutral-line tokenSaleChallenge
+  const M = T.shift() // vuln-code-snippet neutral-line tokenSaleChallenge
+  return T.reverse().map(function (m, H) { // vuln-code-snippet neutral-line tokenSaleChallenge
+    return String.fromCharCode(m - M - 24 - H) // vuln-code-snippet neutral-line tokenSaleChallenge
+  }).join('') // vuln-code-snippet neutral-line tokenSaleChallenge
+} // vuln-code-snippet neutral-line tokenSaleChallenge
+// vuln-code-snippet end tokenSaleChallenge

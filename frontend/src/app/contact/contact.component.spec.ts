@@ -1,17 +1,23 @@
-import { TranslateModule } from '@ngx-translate/core'
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { CaptchaService } from '../Services/captcha.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { UserService } from '../Services/user.service'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
-
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { EventEmitter } from '@angular/core'
 import { ContactComponent } from './contact.component'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FeedbackService } from '../Services/feedback.service'
-import { BarRatingModule } from 'ng2-bar-rating'
+import { MatSliderModule } from '@angular/material/slider'
 import { of, throwError } from 'rxjs'
 
 describe('ContactComponent', () => {
@@ -20,12 +26,19 @@ describe('ContactComponent', () => {
   let userService: any
   let feedbackService: any
   let captchaService: any
+  let snackBar: any
+  let translateService
 
-  beforeEach(async(() => {
-
-    userService = jasmine.createSpyObj('UserService',['whoAmI'])
+  beforeEach(waitForAsync(() => {
+    translateService = jasmine.createSpyObj('TranslateService', ['get'])
+    translateService.get.and.returnValue(of({}))
+    translateService.onLangChange = new EventEmitter()
+    translateService.onTranslationChange = new EventEmitter()
+    translateService.onDefaultLangChange = new EventEmitter()
+    userService = jasmine.createSpyObj('UserService', ['whoAmI'])
     userService.whoAmI.and.returnValue(of({}))
-    feedbackService = jasmine.createSpyObj('FeedbackService',['save'])
+    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
+    feedbackService = jasmine.createSpyObj('FeedbackService', ['save'])
     feedbackService.save.and.returnValue(of({}))
     captchaService = jasmine.createSpyObj('CaptchaService', ['getCaptcha'])
     captchaService.getCaptcha.and.returnValue(of({}))
@@ -35,20 +48,23 @@ describe('ContactComponent', () => {
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
-        BarRatingModule,
+        MatSliderModule,
         BrowserAnimationsModule,
         MatCardModule,
         MatFormFieldModule,
-        MatInputModule
+        MatInputModule,
+        MatSnackBarModule
       ],
-      declarations: [ ContactComponent ],
+      declarations: [ContactComponent],
       providers: [
         { provide: UserService, useValue: userService },
+        { provide: MatSnackBar, useValue: snackBar },
         { provide: FeedbackService, useValue: feedbackService },
-        { provide: CaptchaService, useValue: captchaService }
+        { provide: CaptchaService, useValue: captchaService },
+        { provide: TranslateService, useValue: translateService }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -88,7 +104,7 @@ describe('ContactComponent', () => {
 
   it('feedback should not be more than 160 characters', () => {
     let str: string = ''
-    for (let i = 0;i < 161;++i) {
+    for (let i = 0; i < 161; ++i) {
       str += 'a'
     }
     component.feedbackControl.setValue(str)
@@ -137,10 +153,10 @@ describe('ContactComponent', () => {
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
-  it('should hold the user email of the currently logged in user', () => {
-    userService.whoAmI.and.returnValue(of({ email: 'x@x.xx' }))
+  it('should hold the anonymized email of the currently logged in user', () => {
+    userService.whoAmI.and.returnValue(of({ email: 'xxxx@x.xx' }))
     component.ngOnInit()
-    expect(component.authorControl.value).toBe('x@x.xx')
+    expect(component.authorControl.value).toBe('***x@x.xx')
   })
 
   it('should hold anonymous placeholder for email if current user is not logged in', () => {
@@ -156,35 +172,34 @@ describe('ContactComponent', () => {
     component.rating = 5
     component.userIdControl.setValue('2')
     component.save()
-    expect(feedbackService.save).toHaveBeenCalledWith({ captchaId: 2, captcha: '2', comment: 'feedback', rating: 5, UserId: '2' })
+    expect(feedbackService.save).toHaveBeenCalledWith({ captchaId: 2, captcha: '2', comment: 'feedback (anonymous)', rating: 5, UserId: '2' })
   })
 
   it('should display thank-you message and reset feedback form on saving feedback', () => {
     feedbackService.save.and.returnValue(of({ rating: 4 }))
-    spyOn(component,'resetForm')
-    spyOn(component,'ngOnInit')
+    spyOn(component, 'resetForm')
+    spyOn(component, 'ngOnInit')
     component.save()
-    expect(component.confirmation).toBe('Thank you for your feedback.')
+    expect(snackBar.open).toHaveBeenCalled()
     expect(component.ngOnInit).toHaveBeenCalled()
     expect(component.resetForm).toHaveBeenCalled()
   })
 
   it('should display 5-star thank-you message and reset feedback form on saving 5-star feedback', () => {
     feedbackService.save.and.returnValue(of({ rating: 5 }))
-    spyOn(component,'resetForm')
-    spyOn(component,'ngOnInit')
+    spyOn(component, 'resetForm')
+    spyOn(component, 'ngOnInit')
     component.save()
-    expect(component.confirmation).toBe('Thank you for your feedback and your 5-star rating!')
+    expect(snackBar.open).toHaveBeenCalled()
     expect(component.ngOnInit).toHaveBeenCalled()
     expect(component.resetForm).toHaveBeenCalled()
   })
 
   it('should clear the form display error if saving feedback fails', fakeAsync(() => {
     feedbackService.save.and.returnValue(throwError({ error: 'Error' }))
-    spyOn(component,'resetCaptcha')
+    spyOn(component, 'resetCaptcha')
     component.save()
-    expect(component.confirmation).toBeNull()
-    expect(component.error).toBe('Error')
+    expect(snackBar.open).toHaveBeenCalled()
     expect(component.resetCaptcha).toHaveBeenCalled()
   }))
 

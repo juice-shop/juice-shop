@@ -1,12 +1,18 @@
+/*
+ * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatDividerModule } from '@angular/material/divider'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { SearchResultComponent } from './search-result.component'
 import { ProductService } from '../Services/product.service'
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatCardModule } from '@angular/material/card'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatTableModule } from '@angular/material/table'
@@ -55,38 +61,40 @@ describe('SearchResultComponent', () => {
   let mockSocket: any
   let quantityService
   let deluxeGuard
+  let snackBar: any
 
-  beforeEach(async(() => {
-
-    dialog = jasmine.createSpyObj('MatDialog',['open'])
+  beforeEach(waitForAsync(() => {
+    dialog = jasmine.createSpyObj('MatDialog', ['open'])
     dialog.open.and.returnValue(null)
     quantityService = jasmine.createSpyObj('QuantityService', ['getAll'])
     quantityService.getAll.and.returnValue(of([]))
-    productService = jasmine.createSpyObj('ProductService', ['search','get'])
+    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
+    productService = jasmine.createSpyObj('ProductService', ['search', 'get'])
     productService.search.and.returnValue(of([]))
     productService.get.and.returnValue(of({}))
-    basketService = jasmine.createSpyObj('BasketService', ['find','get','put','save'])
+    basketService = jasmine.createSpyObj('BasketService', ['find', 'get', 'put', 'save', 'updateNumberOfCartItems'])
     basketService.find.and.returnValue(of({ Products: [] }))
     basketService.get.and.returnValue(of({ quantinty: 1 }))
     basketService.put.and.returnValue(of({ ProductId: 1 }))
     basketService.save.and.returnValue(of({ ProductId: 1 }))
+    basketService.updateNumberOfCartItems.and.returnValue(of({}))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
     translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
-    sanitizer = jasmine.createSpyObj('DomSanitizer',['bypassSecurityTrustHtml', 'sanitize'])
+    sanitizer = jasmine.createSpyObj('DomSanitizer', ['bypassSecurityTrustHtml', 'sanitize'])
     sanitizer.bypassSecurityTrustHtml.and.returnValue(of({}))
     sanitizer.sanitize.and.returnValue({})
     activatedRoute = new MockActivatedRoute()
     mockSocket = new MockSocket()
     socketIoService = jasmine.createSpyObj('SocketIoService', ['socket'])
     socketIoService.socket.and.returnValue(mockSocket)
-    deluxeGuard = jasmine.createSpyObj('',['isDeluxe'])
+    deluxeGuard = jasmine.createSpyObj('', ['isDeluxe'])
     deluxeGuard.isDeluxe.and.returnValue(of(false))
 
     TestBed.configureTestingModule({
-      declarations: [ SearchResultComponent ],
+      declarations: [SearchResultComponent],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
@@ -102,6 +110,7 @@ describe('SearchResultComponent', () => {
       providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: MatDialog, useValue: dialog },
+        { provide: MatSnackBar, useValue: snackBar },
         { provide: BasketService, useValue: basketService },
         { provide: ProductService, useValue: productService },
         { provide: DomSanitizer, useValue: sanitizer },
@@ -111,7 +120,7 @@ describe('SearchResultComponent', () => {
         { provide: DeluxeGuard, useValue: deluxeGuard }
       ]
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {
@@ -126,7 +135,7 @@ describe('SearchResultComponent', () => {
   })
 
   it('should render product descriptions as trusted HTML', () => {
-    productService.search.and.returnValue(of([ { description: '<script>alert("XSS")</script>' } ]))
+    productService.search.and.returnValue(of([{ description: '<script>alert("XSS")</script>' }]))
     component.ngAfterViewInit()
     fixture.detectChanges()
     expect(sanitizer.bypassSecurityTrustHtml).toHaveBeenCalledWith('<script>alert("XSS")</script>')
@@ -164,9 +173,9 @@ describe('SearchResultComponent', () => {
 
   it('should notify socket if search query includes DOM XSS payload while filtering table', () => {
     activatedRoute.setQueryParameter('<iframe src="javascript:alert(`xss`)"> Payload')
-    spyOn(mockSocket,'emit')
+    spyOn(mockSocket, 'emit')
     component.filterTable()
-    expect(mockSocket.emit.calls.mostRecent().args[0]).toBe('localXSSChallengeSolved')
+    expect(mockSocket.emit.calls.mostRecent().args[0]).toBe('verifyLocalXssChallenge')
     expect(mockSocket.emit.calls.mostRecent().args[1]).toBe(activatedRoute.snapshot.queryParams.q)
   })
 
@@ -203,8 +212,7 @@ describe('SearchResultComponent', () => {
     expect(basketService.find).toHaveBeenCalled()
     expect(basketService.save).toHaveBeenCalled()
     expect(productService.get).toHaveBeenCalled()
-    expect(translateService.get.calls.mostRecent().args[0]).toBe('BASKET_ADD_PRODUCT')
-    expect(translateService.get.calls.mostRecent().args[1]).toEqual({ product: 'Cherry Juice' })
+    expect(translateService.get).toHaveBeenCalledWith('BASKET_ADD_PRODUCT', { product: 'Cherry Juice' })
   })
 
   it('should translate BASKET_ADD_PRODUCT message', () => {
@@ -218,7 +226,7 @@ describe('SearchResultComponent', () => {
     expect(basketService.find).toHaveBeenCalled()
     expect(basketService.save).toHaveBeenCalled()
     expect(productService.get).toHaveBeenCalled()
-    expect(component.confirmation).toBe('Translation of BASKET_ADD_PRODUCT')
+    expect(snackBar.open).toHaveBeenCalled()
   })
 
   it('should add similar product to basket', () => {
@@ -227,14 +235,13 @@ describe('SearchResultComponent', () => {
     basketService.put.and.returnValue(of({ ProductId: 2 }))
     productService.get.and.returnValue(of({ name: 'Tomato Juice' }))
     translateService.get.and.returnValue(of(undefined))
-    sessionStorage.setItem('bid','4711')
+    sessionStorage.setItem('bid', '4711')
     component.addToBasket(2)
     expect(basketService.find).toHaveBeenCalled()
     expect(basketService.get).toHaveBeenCalled()
     expect(basketService.put).toHaveBeenCalled()
     expect(productService.get).toHaveBeenCalled()
-    expect(translateService.get.calls.mostRecent().args[0]).toBe('BASKET_ADD_SAME_PRODUCT')
-    expect(translateService.get.calls.mostRecent().args[1]).toEqual({ product: 'Tomato Juice' })
+    expect(translateService.get).toHaveBeenCalledWith('BASKET_ADD_SAME_PRODUCT', { product: 'Tomato Juice' })
   })
 
   it('should translate BASKET_ADD_SAME_PRODUCT message', () => {
@@ -243,25 +250,24 @@ describe('SearchResultComponent', () => {
     basketService.put.and.returnValue(of({ ProductId: 2 }))
     productService.get.and.returnValue(of({ name: 'Tomato Juice' }))
     translateService.get.and.returnValue(of('Translation of BASKET_ADD_SAME_PRODUCT'))
-    sessionStorage.setItem('bid','4711')
+    sessionStorage.setItem('bid', '4711')
     component.addToBasket(2)
     expect(basketService.find).toHaveBeenCalled()
     expect(basketService.get).toHaveBeenCalled()
     expect(basketService.put).toHaveBeenCalled()
     expect(productService.get).toHaveBeenCalled()
-    expect(component.confirmation).toBe('Translation of BASKET_ADD_SAME_PRODUCT')
   })
 
   it('should not add anything to basket on error retrieving basket', fakeAsync(() => {
     basketService.find.and.returnValue(throwError('Error'))
-    sessionStorage.setItem('bid','815')
+    sessionStorage.setItem('bid', '815')
     component.addToBasket(undefined)
-    expect(component.confirmation).toBeUndefined()
+    expect(snackBar.open).not.toHaveBeenCalled()
   }))
 
   it('should log errors retrieving basket directly to browser console', fakeAsync(() => {
     basketService.find.and.returnValue(throwError('Error'))
-    sessionStorage.setItem('bid','815')
+    sessionStorage.setItem('bid', '815')
     console.log = jasmine.createSpy('log')
     component.addToBasket(2)
     expect(console.log).toHaveBeenCalledWith('Error')
@@ -270,32 +276,24 @@ describe('SearchResultComponent', () => {
   it('should not add anything to basket on error retrieving existing basket item', fakeAsync(() => {
     basketService.find.and.returnValue(of({ Products: [{ id: 1 }, { id: 2, name: 'Tomato Juice', BasketItem: { id: 42 } }] }))
     basketService.get.and.returnValue(throwError('Error'))
-    sessionStorage.setItem('bid','4711')
+    sessionStorage.setItem('bid', '4711')
     component.addToBasket(2)
-    expect(component.confirmation).toBeUndefined()
+    expect(snackBar.open).not.toHaveBeenCalled()
   }))
 
   it('should log errors retrieving basket item directly to browser console', fakeAsync(() => {
     basketService.find.and.returnValue(of({ Products: [{ id: 1 }, { id: 2, name: 'Tomato Juice', BasketItem: { id: 42 } }] }))
     basketService.get.and.returnValue(throwError('Error'))
-    sessionStorage.setItem('bid','4711')
+    sessionStorage.setItem('bid', '4711')
     console.log = jasmine.createSpy('log')
     component.addToBasket(2)
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
-  it('should not add anything to basket on error updating basket item', fakeAsync(() => {
-    basketService.find.and.returnValue(of({ Products: [{ id: 1 }, { id: 2, name: 'Tomato Juice', BasketItem: { id: 42 } }] }))
-    basketService.put.and.returnValue(throwError('Error'))
-    sessionStorage.setItem('bid','4711')
-    component.addToBasket(2)
-    expect(component.confirmation).toBeUndefined()
-  }))
-
   it('should log errors updating basket directly to browser console', fakeAsync(() => {
     basketService.find.and.returnValue(of({ Products: [{ id: 1 }, { id: 2, name: 'Tomato Juice', BasketItem: { id: 42 } }] }))
     basketService.put.and.returnValue(throwError('Error'))
-    sessionStorage.setItem('bid','4711')
+    sessionStorage.setItem('bid', '4711')
     console.log = jasmine.createSpy('log')
     component.addToBasket(2)
     expect(console.log).toHaveBeenCalledWith('Error')
@@ -304,15 +302,15 @@ describe('SearchResultComponent', () => {
   it('should not add anything to basket on error retrieving product associated with basket item', fakeAsync(() => {
     basketService.find.and.returnValue(of({ Products: [{ id: 1 }, { id: 2, name: 'Tomato Juice', BasketItem: { id: 42 } }] }))
     productService.get.and.returnValue(throwError('Error'))
-    sessionStorage.setItem('bid','4711')
+    sessionStorage.setItem('bid', '4711')
     component.addToBasket(2)
-    expect(component.confirmation).toBeUndefined()
+    expect(snackBar.open).not.toHaveBeenCalled()
   }))
 
   it('should log errors retrieving product associated with basket item directly to browser console', fakeAsync(() => {
     basketService.find.and.returnValue(of({ Products: [{ id: 1 }, { id: 2, name: 'Tomato Juice', BasketItem: { id: 42 } }] }))
     productService.get.and.returnValue(throwError('Error'))
-    sessionStorage.setItem('bid','4711')
+    sessionStorage.setItem('bid', '4711')
     console.log = jasmine.createSpy('log')
     component.addToBasket(2)
     expect(console.log).toHaveBeenCalledWith('Error')
@@ -321,33 +319,33 @@ describe('SearchResultComponent', () => {
   it('should not add anything on error creating new basket item', fakeAsync(() => {
     basketService.find.and.returnValue(of({ Products: [] }))
     basketService.save.and.returnValue(throwError('Error'))
-    sessionStorage.setItem('bid','4711')
+    sessionStorage.setItem('bid', '4711')
     component.addToBasket(2)
-    expect(component.confirmation).toBeUndefined()
+    expect(snackBar.open).toHaveBeenCalled()
   }))
 
   it('should log errors creating new basket item directly to browser console', fakeAsync(() => {
     basketService.find.and.returnValue(of({ Products: [] }))
     basketService.save.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
-    sessionStorage.setItem('bid','4711')
+    sessionStorage.setItem('bid', '4711')
     component.addToBasket(2)
-    expect(console.log).toHaveBeenCalledWith('Error')
+    expect(snackBar.open).toHaveBeenCalled()
   }))
 
   it('should not add anything on error retrieving product after creating new basket item', fakeAsync(() => {
     basketService.find.and.returnValue(of({ Products: [] }))
     productService.get.and.returnValue(throwError('Error'))
-    sessionStorage.setItem('bid','4711')
+    sessionStorage.setItem('bid', '4711')
     component.addToBasket(2)
-    expect(component.confirmation).toBeUndefined()
+    expect(snackBar.open).not.toHaveBeenCalled()
   }))
 
   it('should log errors retrieving product after creating new basket item directly to browser console', fakeAsync(() => {
     basketService.find.and.returnValue(of({ Products: [] }))
     productService.get.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
-    sessionStorage.setItem('bid','4711')
+    sessionStorage.setItem('bid', '4711')
     component.addToBasket(2)
     expect(console.log).toHaveBeenCalledWith('Error')
   }))

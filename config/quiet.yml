@@ -1,7 +1,12 @@
 application:
-  showChallengeSolvedNotifications: false
-  showChallengeHints: false
-  showHackingInstructor: false
   showGitHubLinks: false
+  social:
+    questionnaireUrl: null
   welcomeBanner:
     showOnFirstStart: false
+challenges:
+  showSolvedNotifications: false
+  showHints: false
+  showFeedbackButtons: false
+hackingInstructor:
+  isEnabled: false

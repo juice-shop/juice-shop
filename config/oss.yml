@@ -1,0 +1,126 @@
+application:
+  name: 'OpenSecuritySummit Store'
+  logo: https://open-security-summit.org/img/logo.png
+  welcomeBanner:
+    showOnFirstStart: false
+  theme: blue-lightblue
+  cookieConsent:
+    backgroundColor: '#23527c'
+    textColor: '#ffffff'
+    message: 'We are not only using cookies but also recorded this session on YouTube!'
+    dismissText: "I've been there live, so thanks!"
+    linkText: 'I want to watch that!'
+    linkUrl: 'https://youtu.be/WtY712DdlR8?t=413'
+  chatBot:
+    name: 'Dinis'
+    avatar: 'https://pbs.twimg.com/profile_images/552850030105591808/x3i7zK5r_400x400.jpeg'
+  social:
+    twitterUrl: 'https://twitter.com/opensecsummit'
+    facebookUrl: ~
+    slackUrl: 'https://join.slack.com/t/os-summit/shared_invite/zt-eptzb479-POZlYeYI1vaNNZzVatF2ag'
+    redditUrl: ~
+    pressKitUrl: ~
+  domain: oss2020-lockdo.wn
+  privacyContactEmail: donotreply@oss2020-lockdo.wn
+  favicon: https://open-security-summit.org/img/favicon.ico
+  altcoinName: OssyCoin
+  customMetricsPrefix: oss2020
+  recyclePage:
+    topProductImage: planttreev1_280x420.jpg
+    bottomProductImage: undefined.png
+challenges:
+  showSolvedNotifications: false
+  overwriteUrlForProductTamperingChallenge: 'https://www.juicesummit.org/'
+hackingInstructor:
+  avatarImage: 'https://s3.amazonaws.com/heysummit-production/media/thumbnails/defaults/user_default_image_square_large.png'
+products:
+  -
+    name: 'OSS2020 - Lockdown Edition Enamel Mug'
+    price: 13
+    description: "Every happy camper needs a unique camper mug. It's lightweight, durable and multifunctional. Use it for your favorite beverage or a hot meal, and attach it to your bag for easy access on a hike."
+    image: 'https://cdn.shopify.com/s/files/1/0276/0474/6320/products/mockup-c4c074da_280x420.jpg?v=1590062996'
+  -
+    name: 'OSS2020 - Juice Shop Track Sticker'
+    price: 1.80
+    description: "These stickers are printed on durable, high opacity adhesive vinyl which makes them perfect for regular use, as well as for covering other stickers or paint. The high-quality vinyl ensures there are no bubbles when applying the stickers."
+    image: 'https://cdn.shopify.com/s/files/1/0276/0474/6320/products/mockup-306c4dc0_280x420.jpg?v=1591012423'
+    reviews:
+      - { text: 'This is the juiciest decal for my space ship!', author: jim }
+  -
+    name: 'OSS2020 - Facemask / Headband / Bandana'
+    price: 14
+    description: "This neck gaiter is a versatile accessory that can be used as a face covering, headband, bandana, wristband, and neck warmer. Upgrade your accessory game and find a matching face shield for each of your outfits."
+    image: 'https://cdn.shopify.com/s/files/1/0276/0474/6320/products/mockup-a2bdf6ac_280x420.jpg?v=1590055729'
+  -
+    name: 'OSS2020 - Aluminium Bottle'
+    price: 20
+    image: 'https://cdn.shopify.com/s/files/1/0276/0474/6320/products/tyr-industries-White1591704017_280x420.png?v=1591704032'
+  -
+    name: 'Juice Summit 2021 Ticket'
+    price: 599
+    description: 'SAVE THE DATE FOR THE 2021 EDITION OF THE SUMMIT, ON OCTOBER 7 & 8 AT THE SAME LOCATION – HILTON ANTWERP HOTEL 4* IN ANTWERP, BELGIUM.'
+    image: 'https://www.juicesummit.org/wp-content/themes/juicesummit/img/header-logo.png?V=2019'
+    reviews:
+      - { text: 'Juicy!!!', author: bjoern }
+  -
+    name: 'Dedicate a tree to the Open Security Summit'
+    price: 5.99
+    description: 'Plant a tree for the Open Security Summit and reduce our carbon footprint!'
+    image: 'https://cdn.shopify.com/s/files/1/0276/0474/6320/products/planttreev1_280x420.jpg?v=1590537226'
+    reviews:
+      - { text: 'Humans are all puny tree huggers!', author: bender }
+  -
+    name: 'Open Security Summit 2020 Ticket'
+    description: 'Get your official ticket!'
+    price: 50
+    image: https://2019.open-security-summit.org/img/blocks/ticket.png
+    urlForProductTamperingChallenge: 'https://open-security-summit-2020.heysummit.com/checkout/select-tickets/'
+  -
+    name: 'ASEAN CSA and OWASP Summit 2014 Ticket'
+    description: 'The ASEAN CSA and OWASP Summit 2014 will be the ASEAN industry’s event for IT security professionals and executives who must further educate themselves on the rapidly evolving subject of cloud security. In addition, to offer best practices and practical solutions for the security in clouds, ASEAN CSA and OWASP Summit will focus on emerging areas of growth and concern in cloud security, including research & development, standardization and policies. Stepping up from the security in cloud infrastructure, the summit will also discuss about security of “Anything as a Service (XaaS)” that are available in the real world. Additionally, for those who develop their own applications running on the cloud, application security experts will shares the key factors to make application secured.'
+    price: 399.99
+    image: 'https://scontent-ham3-1.xx.fbcdn.net/v/t31.0-8/p960x960/16252385_1242375352521741_5387610698864437018_o.png?_nc_cat=102&_nc_sid=85a577&_nc_ohc=7VkZI-XvzkEAX_UDcOp&_nc_ht=scontent-ham3-1.xx&oh=b6e91cb5afbf2514ea123bde620a439c&oe=5F0B4065'
+    useForChristmasSpecialChallenge: true
+  -
+    name: 'Rippertuer Special Juice'
+    description: 'Contains a magical collection of the rarest fruits gathered from all around the world, like Cherymoya Annona cherimola, Jabuticaba Myrciaria cauliflora, Bael Aegle marmelos... and others, at an unbelievable price! <br/><span style="color:red;">This item has been made unavailable because of lack of safety standards.</span>'
+    price: 16.99
+    image: undefined.jpg
+    keywordsForPastebinDataLeakChallenge:
+      - hueteroneel
+      - eurogium edule
+  -
+    name: 'OWASP Juice Shop Logo (3D-printed)'
+    description: 'This rare item was designed and handcrafted in Sweden. This is why it is so incredibly expensive despite its complete lack of purpose.'
+    price: 99.99
+    image: 3d_keychain.jpg # Exif metadata contains "OpenSCAD" as subtle hint...
+    fileForRetrieveBlueprintChallenge: JuiceShop.stl # ...to blueprint file type
+    exifForBlueprintChallenge:
+      - ~
+memories:
+  -
+    image: 'https://user-images.githubusercontent.com/15072044/41160171-c2619674-6b26-11e8-9c3e-848f6b2d9d0f.jpg'
+    caption: 'The table is long because of the community'
+    user: admin
+  -
+    image: 'https://user-images.githubusercontent.com/15072044/41163238-0ac8184e-6b30-11e8-9e84-25433de7accc.jpg'
+    caption: 'Into the zone!'
+    user: admin
+  -
+    image: 'https://user-images.githubusercontent.com/15072044/41160165-c1f285b8-6b26-11e8-848b-8b15c3c35f94.jpg'
+    caption: 'My burger will be like this!'
+    user: jannik
+  -
+    image: 'https://user-images.githubusercontent.com/15072044/41010154-be17a162-692d-11e8-84f8-3cb855ae473d.jpg'
+    caption: 'Security'
+    user: admin
+  -
+    image: 'favorite-hiking-place.png'
+    caption: 'I love going hiking here...'
+    geoStalkingMetaSecurityQuestion: 14
+    geoStalkingMetaSecurityAnswer: 'Daniel Boone National Forest'
+  -
+    image: 'IMG_4253.jpg'
+    caption: 'My old workplace...'
+    geoStalkingVisualSecurityQuestion: 10
+    geoStalkingVisualSecurityAnswer: 'ITsec'

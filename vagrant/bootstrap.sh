@@ -1,14 +1,22 @@
 #!/bin/sh
 
+#
+# Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+# SPDX-License-Identifier: MIT
+#
+
+# Exit on error
+set -e
+
 # Add docker key and repository
-apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" | sudo tee /etc/apt/sources.list.d/docker.list
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo bash -c 'echo "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker-ce.list'
 
 
 # Install apache and docker
 apt-get update -q
 apt-get upgrade -qy
-apt-get install -qy apache2 docker-engine
+apt-get install -qy apache2 docker-ce
 
 # Put the relevant files in place
 cp /tmp/juice-shop/default.conf /etc/apache2/sites-available/000-default.conf
