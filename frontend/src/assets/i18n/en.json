@@ -70,6 +70,7 @@
   "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "Image",
   "TITLE_BASKET": "Your Basket",
+  "TITLE_APP": "Download App",
   "LABEL_QUANTITY": "Quantity",
   "LABEL_TOTAL_PRICE": "Total Price",
   "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",

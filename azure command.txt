@@ -1,0 +1,1 @@
+az container create --resource-group fssp-we-rg-kiwashop --name kiwactf-team1 --dns-name-label kiwactf-team1 --image kiwashopregistry.azurecr.io/samples/kiwashop --ports 3000 --ip-address public -e "CTF_KEY=ThisKiwaShopIs1337" "NODE_ENV=kiwactf"

@@ -22,8 +22,8 @@ module.exports = function servePublicFiles () {
     }
   }
 
-  function verify (file: string, res: Response, next: NextFunction) {
-    if (file && (endsWithAllowlistedFileType(file) || (file === 'incident-support.kdbx'))) {
+  function verify (file, res, next) {
+    if (file && (endsWithAllowlistedFileType(file) || (file === 'incident-support.kdbx') || (file === 'kiwashop.apk'))) {
       file = security.cutOffPoisonNullByte(file)
 
       utils.solveIf(challenges.directoryListingChallenge, () => { return file.toLowerCase() === 'acquisitions.md' })
@@ -47,8 +47,8 @@ module.exports = function servePublicFiles () {
         challenges.misplacedSignatureFileChallenge.solved || file.toLowerCase() === 'encrypt.pyc'
     })
   }
-
-  function endsWithAllowlistedFileType (param: string) {
-    return utils.endsWith(param, '.md') || utils.endsWith(param, '.pdf')
+  
+  function endsWithAllowlistedFileType (param) {
+    return utils.endsWith(param, '.md') || utils.endsWith(param, '.pdf') || utils.endsWith(param, '.apk')
   }
 }

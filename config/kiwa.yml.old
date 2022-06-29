@@ -1,0 +1,417 @@
+server:
+  port: 3000
+  basePath: ''
+application:
+  domain: kiwa-worksh.op
+  name: 'OWASP Kiwa Workshop'
+  logo: kiwa_logo.png
+  favicon: favicon_js.ico
+  theme: bluegrey-lightgreen # Options: bluegrey-lightgreen blue-lightblue deeppurple-amber indigo-pink pink-bluegrey purple-green deeporange-indigo
+  showVersionNumber: true
+  showGitHubLinks: false
+  localBackupEnabled: true
+  numberOfRandomFakeUsers: 0
+  altcoinName: Kiwacoin
+  privacyContactEmail: donotreply@owasp-juice.shop
+  customMetricsPrefix: kiwashop
+  chatBot:
+    name: 'Bert'
+    greeting: "Nice to meet you <customer-name>, I'm <bot-name>. I'm your certified Kiwa helper."
+    trainingData: 'botDefaultTrainingData.json'
+    defaultResponse: "Sorry I couldn't understand what you were trying to say"
+    avatar: 'kiwabot_mask.png'
+  social:
+    twitterUrl: 'https://twitter.com/owasp_juiceshop'
+    facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
+    slackUrl: 'http://owaspslack.com'
+    redditUrl: 'https://www.reddit.com/r/owasp_juiceshop'
+    pressKitUrl: 'https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop'
+    questionnaireUrl: 'https://forms.gle/2Tr5m1pqnnesApxN8'
+  recyclePage:
+    topProductImage: undefined_kiwa.png
+    bottomProductImage: undefined_kiwa.png
+  welcomeBanner:
+    showOnFirstStart: true
+    title: 'Welcome to OWASP Kiwa webshop!'
+    message: "<p>Being a web application with a vast number of intended security vulnerabilities, the <strong>Kiwa Workshop</strong> is supposed to be the opposite of a best practice or template application for web developers: It is an awareness, training, demonstration and exercise tool for security risks in modern web applications. The <strong>OWASP Juice Shop</strong>, which the Kiwa Workshop is based on, is an open-source project hosted by the non-profit <a href='https://owasp.org' target='_blank'>Open Web Application Security Project (OWASP)</a> and is developed and maintained by volunteers. Check out the link below for more information and documentation on the project.</p><h1><a href='http://owasp-juice.shop' target='_blank'>http://owasp-juice.shop</a></h1>"
+  cookieConsent:
+    backgroundColor: '#546e7a'
+    textColor: '#ffffff'
+    buttonColor: '#558b2f'
+    buttonTextColor: '#ffffff'
+    message: 'This website uses cookies to ensure you get the most extreme tracking experience. By using this website you agree to paint your wall purple.'
+    dismissText: 'I agree but have not read the cookie message.'
+    linkText: 'The Kiwa Cookie policy *not serious*'
+    linkUrl: 'https://www.youtube.com/watch?v=9PnbKL3wuH4'
+  securityTxt:
+    contact: 'mailto:donotreply@owasp-juice.shop'
+    encryption: 'https://keybase.io/bkimminich/pgp_keys.asc?fingerprint=19c01cb7157e4645e9e2c863062a85a8cbfbdcda'
+    acknowledgements: '/#/score-board'
+  promotion:
+    video: JuiceShopJingle.mp4
+    subtitles: JuiceShopJingle.vtt
+  easterEggPlanet:
+    name: Orangeuze
+    overlayMap: orangemap2k.jpg
+  googleOauth:
+    clientId: '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
+    authorizedRedirects:
+      - { uri: 'https://demo.owasp-juice.shop' }
+      - { uri: 'http://demo.owasp-juice.shop' }
+      - { uri: 'https://juice-shop.herokuapp.com' }
+      - { uri: 'http://juice-shop.herokuapp.com' }
+      - { uri: 'https://preview.owasp-juice.shop' }
+      - { uri: 'http://preview.owasp-juice.shop' }
+      - { uri: 'https://juice-shop-staging.herokuapp.com' }
+      - { uri: 'http://juice-shop-staging.herokuapp.com' }
+      - { uri: 'http://juice-shop.wtf' }
+      - { uri: 'http://localhost:3000', proxy: 'http://local3000.owasp-juice.shop' }
+      - { uri: 'http://127.0.0.1:3000', proxy: 'http://local3000.owasp-juice.shop' }
+      - { uri: 'http://localhost:4200', proxy: 'http://local4200.owasp-juice.shop' }
+      - { uri: 'http://127.0.0.1:4200', proxy: 'http://local4200.owasp-juice.shop' }
+      - { uri: 'http://192.168.99.100:3000', proxy: 'http://localmac.owasp-juice.shop' }
+      - { uri: 'http://penguin.termina.linux.test:3000', proxy: 'http://localchromeos.owasp-juice.shop' }
+challenges:
+  showSolvedNotifications: true
+  showHints: true
+  showMitigations: true
+  restrictToTutorialsFirst: false
+  overwriteUrlForProductTamperingChallenge: 'https://owasp.slack.com'
+  xssBonusPayload: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
+  safetyOverride: false
+hackingInstructor:
+  isEnabled: true
+  avatarImage: kiwabot_mask.png
+products:
+  -
+    name: 'Kiwa Beaver'
+    price: 18.99
+    deluxePrice: 20.99
+    description: 'The Original'
+    image: bever.jpg
+    reviews:
+      - { text: 'One of my favorites!', author: admin }
+  -
+    name: 'Bag Jute'
+    description: 'An environmental friendly bag'
+    price: 3
+    deluxePrice: 6.00
+    image: blauwetas.jpg
+    reviews:
+      - { text: 'y0ur f1r3wall needs m0r3 musc13', author: uvogin }
+  -
+    name: 'Cotton Shopper'
+    description: 'Cotton material'
+    price: 1.63
+    image: cottontas.jpg
+    reviews:
+      - { text: 'I bought it, would buy again. 5/7', author: admin }
+  -
+    name: 'Kiwa Unisex polo, navy'
+    price: 25.99
+    deluxePrice: 29.99
+    limitPerUser: 5
+    image: polonavy.jpg
+  -
+    name: 'Kiwa baby T-shirt Pink'
+    price: 13.51
+    deluxePrice: 19.99
+    limitPerUser: 5
+    image: shirtroze.jpg
+  -
+    name: 'Kiwa baby T-shirt Blue'
+    price: 13.51
+    deluxePrice: 19.99
+    limitPerUser: 5	
+    image: shirtblauw.jpg
+  -
+    name: 'Kiwa cap'
+    description: 'including embroidery of the Kiwa logo on the back'
+    price: 17.75
+    limitPerUser: 1
+    image: cap.jpg
+  -
+    name: 'Kiwa Cycling Tight Long'
+    price: 35.5
+    image: cyclingtightlong.jpg
+    reviews:
+      - { text: 'One of my favorites.', author: jim }
+  -
+    name: 'Kiwa Cycling Tight Short'
+    description: 'What more to say'
+    price: 25.5
+    image: cyclingtightshort.jpg
+  -
+    name: 'Join the Pipe waterbottle'
+    description: 'Transparent waterbottle with Kiwa logo printed in two colours'
+    price: 8.81
+    image: jointhepipe.jpg
+  -
+    name: 'Kiwa USB stick'
+    description: '4gb'
+    price: 10.11
+    image: usb.jpg
+  -
+    name: 'Kiwa Helmet USB stick'
+    description: '4gb'
+    price: 16.11
+    deluxePrice: 11.99
+    image: helmetusb.jpg
+  -
+    name: 'Kiwa Kryptonizer'
+    description: 'An insecure way to store your personal data in a single book, so that it is a single point of failure'
+    price: 14.11
+    deluxePrice: 10.99
+    image: kiwakryptonizer.jpg
+  -
+    name: 'Kiwa Powerbank'
+    description: 'All the power you need'
+    price: 15.32
+    image: powerbank.jpg
+    reviews:
+      - { text: 'Fry liked it too.', author: bender }
+  -
+    name: 'Kiwa Lanyard'
+    price: 2.33
+    image: lanyard.jpg
+  -
+    name: 'Kiwa Bic pen'
+    price: 1.65
+    image: bic.jpg
+  -
+    name: 'Kiwa pens, 50 pack'
+    price: 50.00
+    image: pens.jpg
+  -
+    name: 'Kiwa branded tulips'
+    price: 12.00
+    image: kiwatulips.jpg
+  -
+    name: 'Bert Beaver Game'
+    price: 24.00
+    image: bertbever.jpg
+  -
+    name: 'Kiwa Tie blue'
+    price: 7
+    image: tieblue.jpg
+  -
+    name: 'Kiwa Tie purple'
+    price: 7
+    image: tiepurple.jpg	
+  -
+    name: 'Kiwa Tie red'
+    price: 7
+    image: tiered.jpg	
+  -
+    name: 'Kiwa Flag Large'
+    price: 14.63
+    image: flaglarge.jpg
+  -
+    name: 'Kiwa Flag medium'
+    price: 10.63
+    image: flagmedium.jpg
+  -
+    name: 'Kiwa Flag small'
+    price: 8.63
+    image: flagsmall.jpg
+  -
+    name: 'OWASP SSL Advanced Forensic Tool (O-Saft)'
+    description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations.'
+    price: 0.01
+    image: undefined_kiwa.png
+    urlForProductTamperingChallenge: 'https://www.owasp.org/index.php/O-Saft'
+  -
+    name: 'Christmas Super-Surprise-Box (2020 Edition)'
+    description: 'Contains a random selection of 10 bottles (each 500ml) of our tastiest juices and an extra fan shirt for an unbeatable price!'
+    price: 29.99
+    image: undefined_kiwa.png
+    useForChristmasSpecialChallenge: true
+  -
+    name: 'Rippertuer Special Juice'
+    description: 'Contains a magical collection of the rarest fruits gathered from all around the world, like Cherymoya Annona cherimola, Jabuticaba Myrciaria cauliflora, Bael Aegle marmelos... and others, at an unbelievable price! <br/><span style="color:red;">This item has been made unavailable because of lack of safety standards.</span>'
+    price: 16.99
+    image: undefined_kiwa.png
+    keywordsForPastebinDataLeakChallenge:
+      - hueteroneel
+      - eurogium edule
+  -
+    name: 'OWASP Juice Shop Sticker (2015/2016 design)'
+    description: 'Die-cut sticker with the official 2015/2016 logo. By now this is a rare collectors item. <em>Out of stock!</em>'
+    price: 999.99
+    image: sticker.png
+    deletedDate: '2017-04-28'
+  -
+    name: 'Kiwa tape rolls (16pcs)'
+    description: 'Get one of these <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">temporary tattoos</a> to proudly wear the OWASP Juice Shop or CTF Extension logo on your skin! If you tweet a photo of yourself with the tattoo, you get a couple of our stickers for free! Please mention <a href="https://twitter.com/owasp_juiceshop" target="_blank"><code>@owasp_juiceshop</code></a> in your tweet!'
+    price: 14.99
+    image: taperolls.jpg
+    reviews:
+      - { text: 'I straight-up gots nuff props fo these rolls!', author: rapper }
+  -
+    name: 'Kiwa Surfin Beaver'
+    description: 'Kiwa Surfin Beaver. Your colleagues will envy you!'
+    price: 21.99
+    image: surfinbeaver.jpg
+  -
+    name: 'Kiwa Storm Umbrella'
+    description: 'Mary Poppins-style apparel. But in black. And with the Kiwa logo.'
+    price: 49.99
+    image: stormumbrella.jpg
+  -
+    name: 'Kiwa table flag'
+    description: 'You are getting flagged.'
+    price: 2.99
+    image: tableflag.jpg
+  -
+    name: 'OWASP Juice Shop-CTF Velcro Patch'
+    description: '4x3.5" embroidered patch with velcro backside. The ultimate decal for every tactical bag or backpack!'
+    price: 2.92
+    quantity: 5
+    image: velcro-patch.jpg
+    reviews:
+      - { text: 'This thang would look phat on Bobbys jacked fur coat!', author: rapper }
+      - { text: 'Looks so much better on my uniform than the boring Starfleet symbol.', author: jim }
+  -
+    name: 'OWASP Juice Shop Logo (3D-printed)'
+    description: 'This rare item was designed and handcrafted in Sweden. This is why it is so incredibly expensive despite its complete lack of purpose.'
+    price: 99.99
+    image: 3d_keychain.jpg # Exif metadata contains "OpenSCAD" as subtle hint...
+    fileForRetrieveBlueprintChallenge: JuiceShop.stl # ...to blueprint file type
+  -
+    name: 'Kiwa Fire Safety Products Artwork'
+    description: 'Unique masterpiece painted with different kinds of juice on 90g/m² lined paper.'
+    price: 278.74
+    quantity: 1
+    image: kiwa_artwork.png
+  -
+    name: 'Kiwa Fire Safety Products Artwork - Special Edition'
+    description: 'Special edition of the artwork.'
+    price: 999.99
+    quantity: 0
+    image: kiwa_artwork_se.jpg
+  -
+    name: 'Global OWASP WASPY Award 2017 Nomination'
+    description: 'Your chance to nominate up to three quiet pillars of the OWASP community ends 2017-06-30! <a href="https://www.owasp.org/index.php/WASPY_Awards_2017">Nominate now!</a>'
+    price: 0.03
+    image: waspy.png
+    deletedDate: '2017-07-01'
+  -
+    name: 'Kiwa Keychain'
+    description: 'I did all of this work and then i got only this Kiwa keychain.'
+    price: 3.74
+    quantity: 6
+    image: beavertail.jpg
+    reviews:
+      - { text: '0 st4rs f0r 7h3 h0rr1bl3 s3cur17y', author: uvogin }
+  -
+    name: 'OWASP Juice Shop Sweden Tour 2017 Sticker Sheet (Special Edition)'
+    description: '10 sheets of Sweden-themed stickers with 15 stickers on each.'
+    price: 19.1
+    image: stickersheet_se.png
+    deletedDate: '2017-09-20'
+  -
+    name: 'Pwning OWASP Juice Shop'
+    description: '<em>The official Companion Guide</em> by Björn Kimminich available <a href="https://leanpub.com/juice-shop">for free on LeanPub</a> and also <a href="https://pwning.owasp-juice.shop">readable online</a>!'
+    price: 5.99
+    image: cover_small.jpg
+    reviews:
+      - { text: 'Even more interesting than watching Interdimensional Cable!', author: morty }
+  -
+    name: 'Kiwa Umbrella'
+    description: 'Unique masterpiece painted with different kinds of kiwa colors'
+    price: 28.74
+    quantity: 0
+    image: paraplu.jpg
+  -
+    name: 'Kiwa cycling shirt'
+    price: 14
+    image: cyclingshirt.jpg	
+  -
+    name: 'Kiwa Rain Jacket'
+    price: 17
+    image: rainjacket.jpg
+  -
+    name: 'Kiwa Americano Mug'
+    description: 'Might be removed lated because of a mugging.'
+    price: 7.74
+    quantity: 6
+    image: americano.jpg
+  -
+    name: 'OWASP Snakes and Ladders - Web Applications'
+    description: 'This amazing web application security awareness board game is <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1969196030">available for Tabletop Simulator on Steam Workshop</a> now!'
+    price: 0.01
+    quantity: 8
+    image: snakes_ladders.jpg
+    reviews:
+      - { text: 'Wait for a 10$ Steam sale of Tabletop Simulator!', author: bjoernOwasp }
+  -
+    name: 'OWASP Juice Shop "King of the Hill" Facemask'
+    description: "Facemask with compartment for filter from 50% cotton and 50% polyester."
+    price: 13.49
+    quantity: 0
+    limitPerUser: 1
+    image: fan_facemask.jpg
+    reviews:
+      - { text: "K33p5 y0ur ju1cy 5plu773r 70 y0ur53lf!", author: uvogin }
+      - { text: "Puny mask for puny human weaklings!", author: bender }
+  -
+    name: 'Juice Shop Adversary Trading Card (Common)'
+    description: 'Common rarity "Juice Shop" card for the <a href="https://docs.google.com/forms/d/e/1FAIpQLSecLEakawSQ56lBe2JOSbFwFYrKDCIN7Yd3iHFdQc5z8ApwdQ/viewform">Adversary Trading Cards</a> CCG.'
+    price: 2.99
+    deluxePrice: 0.99
+    limitPerUser: 5
+    image: ccg_common.png
+    reviews:
+      - { text: "Ooooh, puny human playing Mau Mau, now?", author: bender }
+  -
+    name: 'Juice Shop Adversary Trading Card (Super Rare)'
+    description: 'Super rare "Juice Shop" card with holographic foil-coating for the <a href="https://docs.google.com/forms/d/e/1FAIpQLSecLEakawSQ56lBe2JOSbFwFYrKDCIN7Yd3iHFdQc5z8ApwdQ/viewform">Adversary Trading Cards</a> CCG.'
+    price: 99.99
+    deluxePrice: 69.99
+    quantity: 2
+    limitPerUser: 1
+    image: ccg_foil.png
+    reviews:
+      - { text: "Mau Mau with bling-bling? Humans are so pathetic!", author: bender }
+
+  -
+    name: 'OWASP Snakes and Ladders - Mobile Apps'
+    description: 'This amazing mobile app security awareness board game is <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1970691216">available for Tabletop Simulator on Steam Workshop</a> now!'
+    price: 0.01
+    quantity: 0
+    image: snakes_ladders_m.jpg
+    reviews:
+      - { text: "Here yo' learn how tha fuck ta not show yo' goddamn phone on camera!", author: rapper }
+  -
+    name: 'OWASP Juice Shop Holographic Sticker'
+    description: "Die-cut holographic sticker. Stand out from those 08/15-sticker-covered laptops with this shiny beacon of 80's coolness!"
+    price: 2.00
+    quantity: 0
+    image: holo_sticker.png
+    reviews:
+      - { text: "Rad, dude!", author: rapper }
+      - { text: "Looks spacy on Bones' new tricorder!", author: jim }
+      - { text: "Will put one on the Planet Express ship's bumper!", author: bender }
+memories:
+  -
+    image: 'magn(et)ificent!-1571814229653.jpg'
+    caption: 'Magn(et)ificent!'
+    user: bjoernGoogle
+  -
+    image: 'my-rare-collectors-item!-[̲̅$̲̅(̲̅-͡°-͜ʖ-͡°̲̅)̲̅$̲̅]-1572603645543.jpg'
+    caption: 'My rare collectors item! [̲̅$̲̅(̲̅ ͡° ͜ʖ ͡°̲̅)̲̅$̲̅]'
+    user: bjoernGoogle
+  -
+    image: 'favorite-hiking-place.png' 
+    caption: 'I love going hiking here...'
+    geoStalkingMetaSecurityQuestion: 14
+    geoStalkingMetaSecurityAnswer: 'Daniel Boone National Forest'
+  -
+    image: 'IMG_4253.jpg'
+    caption: 'My old workplace...'
+    geoStalkingVisualSecurityQuestion: 10
+    geoStalkingVisualSecurityAnswer: 'ITsec'
+ctf:
+  showFlagsInNotifications: false
+  showCountryDetailsInNotifications: none # Options: none  name  flag  both
+  countryMapping: ~
