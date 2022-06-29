@@ -5,7 +5,7 @@
 import dataErasure from './routes/dataErasure'
 import fs = require('fs')
 import { Request, Response, NextFunction } from 'express'
-import { sequelize } from './models/index'
+import { sequelize } from './models'
 import { UserModel } from './models/user'
 import { QuantityModel } from './models/quantity'
 import { CardModel } from './models/card'
@@ -627,6 +627,12 @@ const uploadToDisk = multer({
     }
   })
 })
+
+const expectedModels = ['Address', 'Basket', 'BasketItem', 'Captcha', 'Card', 'Challenge', 'Complaint', 'Delivery', 'Feedback', 'ImageCaptcha', 'Memory', 'PrivacyRequestModel', 'Product', 'Quantity', 'Recycle', 'SecurityAnswer', 'SecurityQuestion', 'User', 'Wallet']
+while (!expectedModels.every(model => Object.keys(sequelize.models).includes(model))) {
+  logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length)} of ${colors.bold(expectedModels.length)} are initialized (${colors.yellow('WAITING')})`)
+}
+logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length)} of ${colors.bold(expectedModels.length)} are initialized (${colors.green('OK')})`)
 
 // vuln-code-snippet start exposedMetricsChallenge
 /* Serve metrics */
