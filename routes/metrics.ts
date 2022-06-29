@@ -13,6 +13,7 @@ import { ComplaintModel } from '../models/complaint'
 import { Op } from 'sequelize'
 import challengeUtils = require('../lib/challengeUtils')
 
+const logger = require('../lib/logger')
 const Prometheus = require('prom-client')
 const onFinished = require('on-finished')
 const orders = require('../data/mongodb').orders
@@ -143,83 +144,87 @@ exports.observeMetrics = function observeMetrics () {
   })
 
   const updateLoop = setInterval(() => {
-    const version = utils.version()
-    const { major, minor, patch } = version.match(/(?<major>[0-9]+).(?<minor>[0-9]+).(?<patch>[0-9]+)/).groups
-    versionMetrics.set({ version, major, minor, patch }, 1)
+    try {
+      const version = utils.version()
+      const { major, minor, patch } = version.match(/(?<major>[0-9]+).(?<minor>[0-9]+).(?<patch>[0-9]+)/).groups
+      versionMetrics.set({ version, major, minor, patch }, 1)
 
-    const challengeStatuses = new Map()
-    const challengeCount = new Map()
+      const challengeStatuses = new Map()
+      const challengeCount = new Map()
 
-    for (const { difficulty, category, solved } of Object.values<ChallengeModel>(challenges)) {
-      const key = `${difficulty}:${category}`
+      for (const { difficulty, category, solved } of Object.values<ChallengeModel>(challenges)) {
+        const key = `${difficulty}:${category}`
 
-      // Increment by one if solved, when not solved increment by 0. This ensures that even unsolved challenges are set to , instead of not being set at all
-      challengeStatuses.set(key, (challengeStatuses.get(key) || 0) + (solved ? 1 : 0))
-      challengeCount.set(key, (challengeCount.get(key) || 0) + 1)
+        // Increment by one if solved, when not solved increment by 0. This ensures that even unsolved challenges are set to , instead of not being set at all
+        challengeStatuses.set(key, (challengeStatuses.get(key) || 0) + (solved ? 1 : 0))
+        challengeCount.set(key, (challengeCount.get(key) || 0) + 1)
+      }
+
+      for (const key of challengeStatuses.keys()) {
+        const [difficulty, category] = key.split(':', 2)
+
+        challengeSolvedMetrics.set({ difficulty, category }, challengeStatuses.get(key))
+        challengeTotalMetrics.set({ difficulty, category }, challengeCount.get(key))
+      }
+
+      void retrieveChallengesWithCodeSnippet().then(challenges => {
+        ChallengeModel.count({ where: { codingChallengeStatus: { [Op.eq]: 1 } } }).then((count: number) => {
+          codingChallengesProgressMetrics.set({ phase: 'find it' }, count)
+        }).catch(() => {
+          throw new Error('Unable to retrieve and count such challenges. Please try again')
+        })
+
+        ChallengeModel.count({ where: { codingChallengeStatus: { [Op.eq]: 2 } } }).then((count: number) => {
+          codingChallengesProgressMetrics.set({ phase: 'fix it' }, count)
+        }).catch((_: unknown) => {
+          throw new Error('Unable to retrieve and count such challenges. Please try again')
+        })
+
+        ChallengeModel.count({ where: { codingChallengeStatus: { [Op.ne]: 0 } } }).then((count: number) => {
+          codingChallengesProgressMetrics.set({ phase: 'unsolved' }, challenges.length - count)
+        }).catch((_: unknown) => {
+          throw new Error('Unable to retrieve and count such challenges. Please try again')
+        })
+      })
+
+      cheatScoreMetrics.set(antiCheat.totalCheatScore())
+      accuracyMetrics.set({ phase: 'find it' }, accuracy.totalFindItAccuracy())
+      accuracyMetrics.set({ phase: 'fix it' }, accuracy.totalFixItAccuracy())
+
+      orders.count({}).then((orderCount: Number) => {
+        if (orderCount) orderMetrics.set(orderCount)
+      })
+
+      reviews.count({}).then((reviewCount: Number) => {
+        if (reviewCount) interactionsMetrics.set({ type: 'review' }, reviewCount)
+      })
+
+      void UserModel.count({ where: { role: { [Op.eq]: 'customer' } } }).then((count: number) => {
+        if (count) userMetrics.set({ type: 'standard' }, count)
+      })
+
+      void UserModel.count({ where: { role: { [Op.eq]: 'deluxe' } } }).then((count: number) => {
+        if (count) userMetrics.set({ type: 'deluxe' }, count)
+      })
+
+      void UserModel.count().then((count: Number) => {
+        if (count) userTotalMetrics.set(count)
+      })
+
+      void WalletModel.sum('balance').then((totalBalance: Number) => {
+        if (totalBalance) walletMetrics.set(totalBalance)
+      })
+
+      void FeedbackModel.count().then((count: number) => {
+        if (count) interactionsMetrics.set({ type: 'feedback' }, count)
+      })
+
+      void ComplaintModel.count().then((count: number) => {
+        if (count) interactionsMetrics.set({ type: 'complaint' }, count)
+      })
+    } catch (e: unknown) {
+      logger.warn('Error during metrics update loop: + ' + utils.getErrorMessage(e))
     }
-
-    for (const key of challengeStatuses.keys()) {
-      const [difficulty, category] = key.split(':', 2)
-
-      challengeSolvedMetrics.set({ difficulty, category }, challengeStatuses.get(key))
-      challengeTotalMetrics.set({ difficulty, category }, challengeCount.get(key))
-    }
-
-    void retrieveChallengesWithCodeSnippet().then(challenges => {
-      ChallengeModel.count({ where: { codingChallengeStatus: { [Op.eq]: 1 } } }).then((count: number) => {
-        codingChallengesProgressMetrics.set({ phase: 'find it' }, count)
-      }).catch(() => {
-        throw new Error('Unable to retrieve and count such challenges. Please try again')
-      })
-
-      ChallengeModel.count({ where: { codingChallengeStatus: { [Op.eq]: 2 } } }).then((count: number) => {
-        codingChallengesProgressMetrics.set({ phase: 'fix it' }, count)
-      }).catch((_: unknown) => {
-        throw new Error('Unable to retrieve and count such challenges. Please try again')
-      })
-
-      ChallengeModel.count({ where: { codingChallengeStatus: { [Op.ne]: 0 } } }).then((count: number) => {
-        codingChallengesProgressMetrics.set({ phase: 'unsolved' }, challenges.length - count)
-      }).catch((_: unknown) => {
-        throw new Error('Unable to retrieve and count such challenges. Please try again')
-      })
-    })
-
-    cheatScoreMetrics.set(antiCheat.totalCheatScore())
-    accuracyMetrics.set({ phase: 'find it' }, accuracy.totalFindItAccuracy())
-    accuracyMetrics.set({ phase: 'fix it' }, accuracy.totalFixItAccuracy())
-
-    orders.count({}).then((orderCount: Number) => {
-      if (orderCount) orderMetrics.set(orderCount)
-    })
-
-    reviews.count({}).then((reviewCount: Number) => {
-      if (reviewCount) interactionsMetrics.set({ type: 'review' }, reviewCount)
-    })
-
-    void UserModel.count({ where: { role: { [Op.eq]: 'customer' } } }).then((count: number) => {
-      if (count) userMetrics.set({ type: 'standard' }, count)
-    })
-
-    void UserModel.count({ where: { role: { [Op.eq]: 'deluxe' } } }).then((count: number) => {
-      if (count) userMetrics.set({ type: 'deluxe' }, count)
-    })
-
-    void UserModel.count().then((count: Number) => {
-      if (count) userTotalMetrics.set(count)
-    })
-
-    void WalletModel.sum('balance').then((totalBalance: Number) => {
-      if (totalBalance) walletMetrics.set(totalBalance)
-    })
-
-    void FeedbackModel.count().then((count: number) => {
-      if (count) interactionsMetrics.set({ type: 'feedback' }, count)
-    })
-
-    void ComplaintModel.count().then((count: number) => {
-      if (count) interactionsMetrics.set({ type: 'complaint' }, count)
-    })
   }, 5000)
 
   return {

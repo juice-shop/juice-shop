@@ -1,6 +1,4 @@
 /* Serve metrics */
-import security from "./lib/insecurity"
-
 const Metrics = metrics.observeMetrics()
 const metricsUpdateLoop = Metrics.updateLoop
 app.get('/metrics', security.isAdmin(), metrics.serveMetrics())
