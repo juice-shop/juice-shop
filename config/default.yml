@@ -47,6 +47,7 @@ application:
     contact: 'mailto:donotreply@owasp-juice.shop'
     encryption: 'https://keybase.io/bkimminich/pgp_keys.asc?fingerprint=19c01cb7157e4645e9e2c863062a85a8cbfbdcda'
     acknowledgements: '/#/score-board'
+    hiring: '/#/jobs'
   promotion:
     video: owasp_promo.mp4
     subtitles: owasp_promo.vtt
