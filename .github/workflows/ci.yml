@@ -286,6 +286,7 @@ jobs:
   e2e-in-subfolder:
     runs-on: windows-latest
     if: github.repository == 'juice-shop/juice-shop'
+    continue-on-error: true
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
@@ -302,7 +303,7 @@ jobs:
         uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
         with:
           timeout_minutes: 20
-          max_attempts: 2
+          max_attempts: 1
           command: |
             set NODE_ENV=test
             npm run preprotractor:github
