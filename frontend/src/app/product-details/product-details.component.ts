@@ -10,7 +10,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowCircleLeft, faCrown, faPaperPlane, faThumbsUp, faUserEdit } from '@fortawesome/free-solid-svg-icons'
-import { FormControl, Validators } from '@angular/forms'
+import { UntypedFormControl, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { Review } from '../Models/review.model'
@@ -28,7 +28,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   public author: string = 'Anonymous'
   public reviews$: any
   public userSubscription: any
-  public reviewControl: FormControl = new FormControl('', [Validators.maxLength(160)])
+  public reviewControl: UntypedFormControl = new UntypedFormControl('', [Validators.maxLength(160)])
   constructor (private readonly dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: { productData: Product}, private readonly productReviewService: ProductReviewService,
     private readonly userService: UserService, private readonly snackBar: MatSnackBar, private readonly snackBarHelperService: SnackBarHelperService) { }

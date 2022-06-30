@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { FormControl, Validators } from '@angular/forms'
+import { UntypedFormControl, Validators } from '@angular/forms'
 import { Component, NgZone, OnInit } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { BasketService } from '../Services/basket.service'
@@ -47,7 +47,7 @@ export class PaymentComponent implements OnInit {
   public facebookUrl = null
   public applicationName = 'OWASP Juice Shop'
   private campaignCoupon: string
-  public couponControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)])
+  public couponControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)])
   public clientDate: any
   public paymentId: any = undefined
   public couponPanelExpanded: boolean = false
