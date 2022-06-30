@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment'
 import { ComplaintService } from '../Services/complaint.service'
 import { UserService } from '../Services/user.service'
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
-import { FormControl, Validators } from '@angular/forms'
+import { UntypedFormControl, Validators } from '@angular/forms'
 import { FileUploader } from 'ng2-file-upload'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
@@ -23,8 +23,8 @@ dom.watch()
   styleUrls: ['./complaint.component.scss']
 })
 export class ComplaintComponent implements OnInit {
-  public customerControl: FormControl = new FormControl({ value: '', disabled: true }, [])
-  public messageControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(160)])
+  public customerControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
+  public messageControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.maxLength(160)])
   @ViewChild('fileControl', { static: true }) fileControl!: ElementRef // For controlling the DOM Element for file input.
   public fileUploadError: any = undefined // For controlling error handling related to file input.
   public uploader: FileUploader = new FileUploader({

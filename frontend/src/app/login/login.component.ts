@@ -7,7 +7,7 @@ import { CookieService } from 'ngx-cookie'
 import { WindowRefService } from '../Services/window-ref.service'
 import { Router } from '@angular/router'
 import { Component, NgZone, OnInit } from '@angular/core'
-import { FormControl, Validators } from '@angular/forms'
+import { UntypedFormControl, Validators } from '@angular/forms'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { UserService } from '../Services/user.service'
 import { faEye, faEyeSlash, faKey } from '@fortawesome/free-solid-svg-icons'
@@ -27,11 +27,11 @@ const oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  public emailControl = new FormControl('', [Validators.required])
-  public passwordControl = new FormControl('', [Validators.required])
+  public emailControl = new UntypedFormControl('', [Validators.required])
+  public passwordControl = new UntypedFormControl('', [Validators.required])
   public hide = true
   public user: any
-  public rememberMe: FormControl = new FormControl(false)
+  public rememberMe: UntypedFormControl = new UntypedFormControl(false)
   public error: any
   public clientId = '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
   public oauthUnavailable: boolean = true

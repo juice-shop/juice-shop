@@ -6,7 +6,7 @@
 import { FeedbackService } from '../Services/feedback.service'
 import { CaptchaService } from '../Services/captcha.service'
 import { UserService } from '../Services/user.service'
-import { FormControl, Validators } from '@angular/forms'
+import { UntypedFormControl, Validators } from '@angular/forms'
 import { Component, OnInit } from '@angular/core'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane, faStar } from '@fortawesome/free-solid-svg-icons'
@@ -23,10 +23,10 @@ dom.watch()
   styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent implements OnInit {
-  public authorControl: FormControl = new FormControl({ value: '', disabled: true }, [])
-  public feedbackControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(160)])
-  public captchaControl: FormControl = new FormControl('', [Validators.required, Validators.pattern('-?[\\d]*')])
-  public userIdControl: FormControl = new FormControl('', [])
+  public authorControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
+  public feedbackControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.maxLength(160)])
+  public captchaControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.pattern('-?[\\d]*')])
+  public userIdControl: UntypedFormControl = new UntypedFormControl('', [])
   public rating: number = 0
   public feedback: any = undefined
   public captcha: any

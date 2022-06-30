@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { FormControl, Validators } from '@angular/forms'
+import { UntypedFormControl, Validators } from '@angular/forms'
 import { Component, OnInit } from '@angular/core'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { AddressService } from '../Services/address.service'
@@ -18,13 +18,13 @@ import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
   styleUrls: ['./address-create.component.scss']
 })
 export class AddressCreateComponent implements OnInit {
-  public countryControl: FormControl = new FormControl('', [Validators.required])
-  public nameControl: FormControl = new FormControl('', [Validators.required])
-  public numberControl: FormControl = new FormControl('', [Validators.required, Validators.min(1111111), Validators.max(9999999999)])
-  public pinControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(8)])
-  public addressControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(160)])
-  public cityControl: FormControl = new FormControl('', [Validators.required])
-  public stateControl: FormControl = new FormControl()
+  public countryControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
+  public nameControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
+  public numberControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.min(1111111), Validators.max(9999999999)])
+  public pinControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.maxLength(8)])
+  public addressControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.maxLength(160)])
+  public cityControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
+  public stateControl: UntypedFormControl = new UntypedFormControl()
   public address: any = undefined
   public mode = 'create'
   private addressId: string = undefined
