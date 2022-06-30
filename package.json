@@ -60,7 +60,7 @@
     "package": "grunt package",
     "package:ci": "npm prune --production && npm dedupe && cd frontend && npm prune --legacy-peer-deps --production && cd .. && grunt package",
     "preprotractor": "npm dedupe && node ./node_modules/protractor/bin/webdriver-manager update --gecko false",
-    "preprotractor:github": "npm dedupe && node ./node_modules/protractor/bin/webdriver-manager update --gecko false --versions.chrome 101.0.4951.41",
+    "preprotractor:github": "npm dedupe && node ./node_modules/protractor/bin/webdriver-manager update --gecko false --versions.chrome 103.0.5060.53",
     "protractor": "npm run e2e",
     "serve": "concurrently --kill-others \"ts-node app.ts\" \"cd frontend && ng serve\"",
     "serve:dev": "concurrently --kill-others \"ts-node-dev app.ts\" \"cd frontend && ng serve\"",
