@@ -17,12 +17,12 @@ const path = require('path')
 
 function matchesSystemIniFile (text: string) {
   const match = text.match(/(; for 16-bit app support|drivers|mci|driver32|386enh|keyboard|boot|display)/gi)
-  return match && match.length >= 2
+  return match && match.length >= 1
 }
 
 function matchesEtcPasswdFile (text: string) {
   const match = text.match(/\w*:\w*:\d*:\d*:\w*:.*/gi)
-  return match && match.length >= 2
+  return match && match.length >= 1
 }
 
 function ensureFileIsPassed ({ file }: Request, res: Response, next: NextFunction) {
