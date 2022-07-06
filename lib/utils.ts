@@ -200,3 +200,13 @@ export const getErrorMessage = (error: unknown) => {
   if (error instanceof Error) return error.message
   return String(error)
 }
+
+export const matchesSystemIniFile = (text: string) => {
+  const match = text.match(/(; for 16-bit app support|drivers|mci|driver32|386enh|keyboard|boot|display)/gi)
+  return match !== null && match.length >= 1
+}
+
+export const matchesEtcPasswdFile = (text: string) => {
+  const match = text.match(/\w*:\w*:\d*:\d*:\w*:.*/gi)
+  return match !== null && match.length >= 1
+}
