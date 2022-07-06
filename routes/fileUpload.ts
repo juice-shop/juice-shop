@@ -4,8 +4,8 @@
  */
 
 import fs = require('fs')
-import { Request, Response, NextFunction } from 'express'
 import challengeUtils = require('../lib/challengeUtils')
+import { NextFunction, Request, Response } from 'express'
 
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
@@ -14,16 +14,6 @@ const os = require('os')
 const vm = require('vm')
 const unzipper = require('unzipper')
 const path = require('path')
-
-function matchesSystemIniFile (text: string) {
-  const match = text.match(/(; for 16-bit app support|drivers|mci|driver32|386enh|keyboard|boot|display)/gi)
-  return match && match.length >= 2
-}
-
-function matchesEtcPasswdFile (text: string) {
-  const match = text.match(/\w*:\w*:\d*:\d*:\w*:.*/gi)
-  return match && match.length >= 2
-}
 
 function ensureFileIsPassed ({ file }: Request, res: Response, next: NextFunction) {
   if (file) {
@@ -89,7 +79,7 @@ function handleXmlUpload ({ file }: Request, res: Response, next: NextFunction) 
         vm.createContext(sandbox)
         const xmlDoc = vm.runInContext('libxml.parseXml(data, { noblanks: true, noent: true, nocdata: true })', sandbox, { timeout: 2000 })
         const xmlString = xmlDoc.toString(false)
-        challengeUtils.solveIf(challenges.xxeFileDisclosureChallenge, () => { return (matchesSystemIniFile(xmlString) ?? matchesEtcPasswdFile(xmlString)) })
+        challengeUtils.solveIf(challenges.xxeFileDisclosureChallenge, () => { return (utils.matchesSystemIniFile(xmlString) ?? utils.matchesEtcPasswdFile(xmlString)) })
         res.status(410)
         next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + utils.trunc(xmlString, 400) + ' (' + file.originalname + ')'))
       } catch (err: any) { // TODO: Remove any
