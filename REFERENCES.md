@@ -275,15 +275,14 @@ mentioned or used!
 
 #### 2022
 
-* [OWASP Juice Shop Project](https://whova.com/web/GKSmlhCK%2FWzBY2c8qqJ%2Bp7kNcnjsUQAQJ%2ByBsjLrbOo%3D/Speakers/) by Björn Kimminich, [OWASP Global AppSec EU](https://whova.com/web/GKSmlhCK%2FWzBY2c8qqJ%2Bp7kNcnjsUQAQJ%2ByBsjLrbOo%3D/), 10.06.2022 ([YouTube()])
+* [OWASP Juice Shop Project](https://whova.com/web/GKSmlhCK%2FWzBY2c8qqJ%2Bp7kNcnjsUQAQJ%2ByBsjLrbOo%3D/Speakers/) by Björn Kimminich, [OWASP Global AppSec EU](https://whova.com/web/GKSmlhCK%2FWzBY2c8qqJ%2Bp7kNcnjsUQAQJ%2ByBsjLrbOo%3D/), 10.06.2022 ([YouTube]())
 * [Juice Shop 13: Now with Coding Challenges!](https://www.meetup.com/de-DE/OWASP-Hamburg-Stammtisch/events/282692845/)
   by Björn Kimminich, [58. OWASP Stammtisch Hamburg](https://owasp.org/www-chapter-germany/stammtische/hamburg/), 13.01.2022
 
 #### 2021
 
 * [OWASP Juice Shop Flagship Project](https://owasp20thanniversaryevent20.sched.com/event/m1uL/owasp-juice-shop-flagship-project)
-  by Björn Kimminich, [OWASP 20th Anniversary Event](https://20thanniversary.owasp.org/), 24.09.2021 ([YouTube](https://youtu.be/rn-6NADRRmI) :
-  godmode:)
+  by Björn Kimminich, [OWASP 20th Anniversary Event](https://20thanniversary.owasp.org/), 24.09.2021 ([YouTube](https://youtu.be/rn-6NADRRmI) :godmode:)
 * [SDLC con OWASP y laboratorio con OWASP Juice Shop](https://www.meetup.com/de-DE/OWASP-Uruguay-Chapter/events/279827017/)
   (:uruguay:) with Martín Marsicano and Pablo Alzuri,
   [OWASP Uruguay Chapter](https://owasp.org/www-chapter-uruguay/),
