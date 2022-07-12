@@ -275,8 +275,9 @@ mentioned or used!
 
 #### 2022
 
+* [OWASP Juice Shop Project](https://whova.com/web/GKSmlhCK%2FWzBY2c8qqJ%2Bp7kNcnjsUQAQJ%2ByBsjLrbOo%3D/Speakers/) by Björn Kimminich, [OWASP Global AppSec EU](https://whova.com/web/GKSmlhCK%2FWzBY2c8qqJ%2Bp7kNcnjsUQAQJ%2ByBsjLrbOo%3D/), 10.06.2022 ([YouTube()])
 * [Juice Shop 13: Now with Coding Challenges!](https://www.meetup.com/de-DE/OWASP-Hamburg-Stammtisch/events/282692845/)
-  by Björn Kimminich, [58. OWASP Stammtisch Hamburg](https://owasp.org/www-chapter-germany/stammtische/hamburg/), 13.01.2022 ([YouTube]())
+  by Björn Kimminich, [58. OWASP Stammtisch Hamburg](https://owasp.org/www-chapter-germany/stammtische/hamburg/), 13.01.2022
 
 #### 2021
 
