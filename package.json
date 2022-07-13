@@ -102,8 +102,10 @@
     "all": true,
     "include": [
       "lib/*.ts",
-      "lib/*.js",
-      "routes/*.ts"
+      "models/*.ts",
+      "routes/*.ts",
+      "app.ts",
+      "server.ts"
     ],
     "reporter": [
       "lcov",
