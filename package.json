@@ -104,7 +104,6 @@
       "lib/*.ts",
       "models/*.ts",
       "routes/*.ts",
-      "app.ts",
       "server.ts"
     ],
     "reporter": [
