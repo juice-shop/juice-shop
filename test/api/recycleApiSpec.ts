@@ -40,6 +40,22 @@ describe('/api/Recycles', () => {
       })
   })
 
+  it('Will GET existing recycle from this endpoint', () => {
+    return frisby.get(`${API_URL}/Recycles/1`)
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'data.*', {
+        id: Joi.number(),
+        UserId: Joi.number(),
+        AddressId: Joi.number(),
+        quantity: Joi.number(),
+        isPickup: Joi.boolean(),
+        date: Joi.date(),
+        createdAt: Joi.string(),
+        updatedAt: Joi.string()
+      })
+  })
+
   it('PUT update existing recycle is forbidden', () => {
     return frisby.put(`${API_URL}/Recycles/1`, {
       headers: authHeader,
