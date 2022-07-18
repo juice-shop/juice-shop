@@ -149,7 +149,7 @@
     "is-heroku": "^2.0.0",
     "is-windows": "^1.0.2",
     "js-yaml": "^3.14.0",
-    "jsonwebtoken": "0.4.0",
+    "jsonwebtoken": "4.2.2",
     "jssha": "^3.1.1",
     "juicy-chat-bot": "~0.6.5",
     "libxmljs2": "^0.29.0",
