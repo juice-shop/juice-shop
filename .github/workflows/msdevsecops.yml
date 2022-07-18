@@ -1,0 +1,34 @@
+name: MicrosoftDevOpsSecurity
+# Controls when the workflow will run
+on:
+ # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+ # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+   # This workflow contains a single job called "build"
+    build:
+     # The type of runner that the job will run on
+     runs-on: windows-latest
+     steps:
+     # Checkout your code repository
+     - uses: actions/checkout@v2
+     # Install dotnet
+     - uses: actions/setup-dotnet@v1
+       with:
+        dotnet-version: |
+         5.0.x
+         6.0.x
+     # Run analyzers
+     - name: Run Microsoft Security DevOps Analysis
+       uses: microsoft/security-devops-action@preview
+       id: msdo
+     # Upload alerts to the Security tab
+     - name: Upload alerts to Security tab
+       uses: github/codeql-action/upload-sarif@v1
+       with:
+        sarif_file: ${{ steps.msdo.outputs.sarifFile }}
