@@ -60,7 +60,7 @@ export class CodeSnippetComponent implements OnInit {
         this.solved.findIt = true
       }
     }, (err) => {
-      this.snippet = { snippet: JSON.stringify(err.error?.error) }
+      this.snippet = { snippet: err.error }
     })
     this.codeFixesService.get(this.dialogData.key).subscribe((fixes) => {
       this.fixes = fixes.fixes
