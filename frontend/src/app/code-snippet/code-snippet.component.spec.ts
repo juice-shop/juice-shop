@@ -111,4 +111,66 @@ describe('CodeSnippetComponent', () => {
     component.ngOnInit()
     expect(component.fixes).toBeNull()
   })
+
+  it('selected code lines are set in component', () => {
+    component.selectedLines = [42]
+    component.addLine([1, 3, 5])
+    expect(component.selectedLines).toEqual([1, 3, 5])
+  })
+
+  it('selected code fix is set in component', () => {
+    component.selectedFix = 42
+    component.setFix(1)
+    expect(component.selectedFix).toBe(1)
+  })
+
+  it('selecting a code fix clears previous explanation', () => {
+    component.explanation = 'Wrong answer!'
+    component.setFix(1)
+    expect(component.explanation).toBeNull()
+  })
+
+  it('lock icon is red and "locked" when no fixes are available', () => {
+    component.fixes = null
+    expect(component.lockIcon()).toBe('lock')
+    expect(component.lockColor()).toBe('warn')
+  })
+
+  it('lock icon is red and "locked" by default', () => {
+    component.fixes = { fixes: ['Fix1', 'Fix2', 'Fix3'] }
+    component.lock = 0
+    expect(component.lockIcon()).toBe('lock')
+    expect(component.lockColor()).toBe('warn')
+  })
+
+  it('lock icon is red and "locked" when "Find It" phase is unsolved', () => {
+    component.fixes = { fixes: ['Fix1', 'Fix2', 'Fix3'] }
+    component.lock = 2
+    expect(component.lockIcon()).toBe('lock')
+    expect(component.lockColor()).toBe('warn')
+  })
+
+  it('lock icon is green and "lock_open" when "Find It" phase is in solved', () => {
+    component.fixes = { fixes: ['Fix1', 'Fix2', 'Fix3'] }
+    component.lock = 1
+    expect(component.lockIcon()).toBe('lock_open')
+    expect(component.lockColor()).toBe('accent')
+  })
+
+  it('result icon is "send" when choice is not yet submitted', () => {
+    component.result = 0
+    expect(component.resultIcon()).toBe('send')
+  })
+
+  it('result icon is red "clear" when wrong answer has been submitted', () => {
+    component.result = 2
+    expect(component.resultIcon()).toBe('clear')
+    expect(component.resultColor()).toBe('warn')
+  })
+
+  it('result icon is green "check" when right answer has been submitted', () => {
+    component.result = 1
+    expect(component.resultIcon()).toBe('check')
+    expect(component.resultColor()).toBe('accent')
+  })
 })
