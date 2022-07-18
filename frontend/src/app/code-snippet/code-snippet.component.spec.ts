@@ -38,6 +38,8 @@ describe('CodeSnippetComponent', () => {
     codeFixesService.get.and.returnValue(of({}))
     vulnLinesService = jasmine.createSpyObj('VulnLinesService', ['check'])
     challengeService = jasmine.createSpyObj('ChallengeService', ['continueCodeFindIt', 'continueCodeFixIt'])
+    challengeService.continueCodeFindIt.and.returnValue(of('continueCodeFindIt'))
+    challengeService.continueCodeFixIt.and.returnValue(of('continueCodeFixIt'))
 
     TestBed.configureTestingModule({
       imports: [
@@ -172,5 +174,27 @@ describe('CodeSnippetComponent', () => {
     component.result = 1
     expect(component.resultIcon()).toBe('check')
     expect(component.resultColor()).toBe('accent')
+  })
+
+  it('correctly submitted vulnerable lines toggle positive verdict for "Find It" phase', () => {
+    component.tab.setValue(0)
+    vulnLinesService.check.and.returnValue(of({ verdict: true }))
+    component.checkLines()
+    expect(component.solved.findIt).toBeTrue()
+  })
+
+  xit('correctly submitted vulnerable lines toggle tab to "Fix It" if code fixes exist', waitForAsync(() => {
+    component.tab.setValue(0)
+    component.fixes = { fixes: ['Fix1', 'Fix2', 'Fix3'] }
+    vulnLinesService.check.and.returnValue(of({ verdict: true }))
+    component.checkLines()
+    expect(component.tab.value).toBe(1)
+  }))
+
+  it('correctly submitted fix toggles positive verdict for "Fix It" phase', () => {
+    component.tab.setValue(1)
+    codeFixesService.check.and.returnValue(of({ verdict: true }))
+    component.checkFix()
+    expect(component.solved.fixIt).toBeTrue()
   })
 })
