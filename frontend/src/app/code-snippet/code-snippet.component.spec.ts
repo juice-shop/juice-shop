@@ -13,7 +13,7 @@ import { CodeSnippetComponent } from './code-snippet.component'
 import { CodeSnippetService } from '../Services/code-snippet.service'
 import { CookieModule, CookieService } from 'ngx-cookie'
 import { ConfigurationService } from '../Services/configuration.service'
-import { of } from 'rxjs'
+import { of, throwError } from 'rxjs'
 import { CodeFixesService } from '../Services/code-fixes.service'
 import { VulnLinesService } from '../Services/vuln-lines.service'
 import { ChallengeService } from '../Services/challenge.service'
@@ -70,5 +70,45 @@ describe('CodeSnippetComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy()
+  })
+
+  it('should log the error on retrieving configuration', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(throwError('Error'))
+    console.log = jasmine.createSpy('log')
+    component.ngOnInit()
+    expect(console.log).toHaveBeenCalledWith('Error')
+  })
+
+  it('should set the retrieved snippet', () => {
+    codeSnippetService.get.and.returnValue(of({ snippet: 'Snippet' }))
+    component.ngOnInit()
+    expect(component.snippet).toEqual({ snippet: 'Snippet' })
+  })
+
+  it('Default status and icons should reflect both challenge phases yet unsolved', () => {
+    component.ngOnInit()
+    expect(component.result).toBe(0)
+    expect(component.lock).toBe(0)
+    expect(component.solved.findIt).toBeFalse()
+  })
+
+  it('should set status and icons for solved "Find It" phase', () => {
+    component.dialogData.codingChallengeStatus = 1
+    component.ngOnInit()
+    expect(component.result).toBe(1)
+    expect(component.lock).toBe(1)
+    expect(component.solved.findIt).toBeTrue()
+  })
+
+  it('should set an error on snippet retrieval as the snippet', () => {
+    codeSnippetService.get.and.returnValue(throwError({ error: 'Error' }))
+    component.ngOnInit()
+    expect(component.snippet).toEqual({ snippet: 'Error' })
+  })
+
+  it('should set empty fixes on error during fixes retrieval', () => {
+    codeFixesService.get.and.returnValue(throwError('Error'))
+    component.ngOnInit()
+    expect(component.fixes).toBeNull()
   })
 })
