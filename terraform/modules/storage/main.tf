@@ -18,7 +18,7 @@ resource "aws_kms_key" "snyk_db_kms_key" {
 }
 
 resource "aws_db_instance" "snyk_db" {
-  name                      = "snyk_db_${var.cluster_name}"
+  name                      = replace(var.cluster_name,"-","")
   allocated_storage         = 20
   engine                    = "postgres"
   engine_version            = "10.20"
@@ -31,7 +31,7 @@ resource "aws_db_instance" "snyk_db" {
   identifier                = "snyk-db-demo"
   storage_encrypted         = true
   skip_final_snapshot       = true
-  final_snapshot_identifier = "snyk-db-${var.cluster_name}-db-destroy-snapshot"
+  final_snapshot_identifier = "${var.cluster_name}-db-destroy-snapshot"
   kms_key_id                = aws_kms_key.snyk_db_kms_key.arn
   tags = {
     Name = "snyk_db_${var.cluster_name}"
@@ -76,14 +76,14 @@ resource "aws_ssm_parameter" "snyk_ssm_db_name" {
 }
 
 resource "aws_s3_bucket" "snyk_storage" {
-  bucket = "snyk-storage-${var.cluster_name}-demo"
+  bucket = "${var.cluster_name}"
   tags = {
     name = "snyk_blob_storage_${var.cluster_name}"
   }
 }
 
 resource "aws_s3_bucket" "my-new-undeployed-bucket" {
-  bucket = "snyk-public-${var.cluster_name}-demo"
+  bucket = "${var.cluster_name}"
 }
 
 resource "aws_s3_bucket_public_access_block" "snyk_public" {

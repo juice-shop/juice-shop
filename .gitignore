@@ -17,7 +17,6 @@ data/chatbot/*.*
 # TF
 secret.auto.tfvars
 **/.terraform/*
-*.tfstate
 *.tfstate.*
 override.tf
 override.tf.json
