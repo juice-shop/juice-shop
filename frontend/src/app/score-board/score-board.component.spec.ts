@@ -299,4 +299,26 @@ describe('ScoreBoardComponent', () => {
     component.ngOnInit()
     expect(component.showHackingInstructor).toBeTruthy()
   })
+
+  it('should not show feedback button column if so configured', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {}, challenges: { showFeedbackButtons: false } }))
+    component.ngOnInit()
+    expect(component.displayedColumns).not.toContain('feedback')
+  })
+
+  it('should show feedback button column if so configured', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {}, challenges: { showFeedbackButtons: true } }))
+    component.ngOnInit()
+    expect(component.displayedColumns).toContain('feedback')
+  })
+
+  it('should sort challenges by tutorial order when in tutorial mode', () => {
+    challengeService.find.and.returnValue(of([{ tutorialOrder: 2 }, { tutorialOrder: 3 }, { tutorialOrder: 1 }, { }]))
+    localStorage.setItem('showOnlyTutorialChallenges', 'true')
+    component.ngOnInit()
+    expect(component.challenges[0].tutorialOrder).toBe(1)
+    expect(component.challenges[1].tutorialOrder).toBe(2)
+    expect(component.challenges[2].tutorialOrder).toBe(3)
+    expect(component.challenges[3].tutorialOrder).toBeUndefined()
+  })
 })
