@@ -39,7 +39,7 @@
     "canvas-confetti": "^1.4.0",
     "core-js": "^3.22.5",
     "file-saver": "^2.0.2",
-    "flag-icon-css": "^3.5.0",
+    "flag-icons": "^6.6.4",
     "font-mfizz": "^2.4.1",
     "jwt-decode": "^2.2.0",
     "material-icons": "^0.3.1",

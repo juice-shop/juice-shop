@@ -29,7 +29,7 @@
             "styles": [
               "src/styles.scss",
               "node_modules/material-icons/iconfont/material-icons.scss",
-              "node_modules/flag-icon-css/sass/flag-icon.scss",
+              "node_modules/flag-icons/sass/flag-icons.scss",
               "node_modules/font-mfizz/dist/font-mfizz.css",
               "node_modules/highlight.js/styles/github.css"
             ],

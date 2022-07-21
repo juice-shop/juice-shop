@@ -109,7 +109,7 @@
                         class="mat-menu-item" style="width: 240px;" checked="{{selectedLanguage === language}}"
                         aria-label="{{language.lang}}">
         <div style="display: inline-block; width: 200px; margin-left: 5px;">
-          <span *ngFor="let icon of language.icons" [class]="'flag-icon flag-icon-' + icon"></span>
+          <span *ngFor="let icon of language.icons" [class]="'fi fi-' + icon"></span>
           {{language?.lang}}
         </div>
         <i
