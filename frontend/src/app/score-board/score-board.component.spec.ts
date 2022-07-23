@@ -154,7 +154,7 @@ describe('ScoreBoardComponent', () => {
     expect(component.challenges).toEqual([])
   })
 
-  xit('should hold nothing on error from backend API and log the error', fakeAsync(() => {
+  xit('should hold nothing on error from backend API and log the error', fakeAsync(() => { // FIXME Error: 1 timer(s) still in the queue.
     challengeService.find.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
@@ -276,6 +276,14 @@ describe('ScoreBoardComponent', () => {
     expect(component.challenges[0].hint).toBe('CLICK_TO_OPEN_HINTS')
   })
 
+  it('should become unavailability text for challenge which is disabled', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {}, challenges: { showHints: true } }))
+    translateService.get.and.returnValue(of('CHALLENGE_UNAVAILABLE'))
+    challengeService.find.and.returnValue(of([{ name: 'Challenge', hint: 'Hint', disabledEnv: 'Heroku' }]))
+    component.ngOnInit()
+    expect(component.challenges[0].hint).toBe('CHALLENGE_UNAVAILABLE')
+  })
+
   it('should show GitHub info box if so configured', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { showGitHubLinks: true }, challenges: {} }))
     component.ngOnInit()
@@ -320,5 +328,19 @@ describe('ScoreBoardComponent', () => {
     expect(component.challenges[1].tutorialOrder).toBe(2)
     expect(component.challenges[2].tutorialOrder).toBe(3)
     expect(component.challenges[3].tutorialOrder).toBeUndefined()
+  })
+
+  it('hint text is augmented with unavailbaility notice for disabled challenges', () => {
+  })
+
+  it('augmenting hint text of disabled challenge increases counter of disabled challenges', () => {
+    component.numDisabledChallenges = 0
+    component.augmentHintText({ disabledEnv: 'Heroku' } as any)
+    expect(component.numDisabledChallenges).toBe(1)
+  })
+
+  it('hint text is augmented with unavailbaility notice for disabled challenges', () => {
+    component.augmentHintText({ disabledEnv: 'Heroku' } as any)
+    expect(component.disabledEnv).toBe('Heroku')
   })
 })
