@@ -181,6 +181,14 @@ gcloud compute firewall-rules create juice-rule --allow tcp:3000
 4. Your container is now running and available at
    `http://<EXTERNAL_IP>:3000/`
 
+### GitPod 
+
+1. Login to [gitpod.io](https://gitpod.io) and use this [link](https://gitpod.io/#https://github.com/juice-shop/juice-shop/) to start a new workspace
+
+2. After the Gitpod workspace is loaded, the environment installs (`npm install` is triggered by the `.gitpod.yml`)
+
+3. The juice-shop is now running and a preview window is launched. It is also available at `http://<EXTERNAL_WORKSPACE_IP>:3000`
+
 ## Demo
 
 Feel free to have a look at the latest version of OWASP Juice Shop:
