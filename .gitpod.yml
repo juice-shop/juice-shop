@@ -1,5 +1,4 @@
 # Please adjust to your needs (see https://www.gitpod.io/docs/config-gitpod-file)
-
 tasks:
   - init: npm install
     command: npm run start
