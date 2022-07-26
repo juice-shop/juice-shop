@@ -148,6 +148,13 @@ describe('ScoreBoardComponent', () => {
     expect(component.percentChallengesSolved).toBe('67')
   })
 
+  it('should calculate percent of coding challenges solved', () => {
+    challengeService.find.and.returnValue(of([{ key: 'c1', codingChallengeStatus: 0 }, { key: 'c2', codingChallengeStatus: 1 }, { key: 'c3', codingChallengeStatus: 2 }, { key: 'c4' }, { key: 'c5', codingChallengeStatus: 0 }]))
+    codeSnippetService.challenges.and.returnValue(of(['c1', 'c2', 'c3', 'c5']))
+    component.ngOnInit()
+    expect(component.percentCodingChallengesSolved).toBe('38')
+  })
+
   it('should hold nothing when no challenges exists', () => {
     challengeService.find.and.returnValue(of([]))
     component.ngOnInit()
@@ -342,5 +349,27 @@ describe('ScoreBoardComponent', () => {
   it('hint text is augmented with unavailbaility notice for disabled challenges', () => {
     component.augmentHintText({ disabledEnv: 'Heroku' } as any)
     expect(component.disabledEnv).toBe('Heroku')
+  })
+
+  it('stays on lowest tutorial tier with unsolved challenges', () => {
+    component.calculateTutorialTier([{ tutorialOrder: 1, difficulty: 1, solved: true }, { tutorialOrder: 2, difficulty: 2, solved: true }, { tutorialOrder: 3, difficulty: 2, solved: false }, { tutorialOrder: 4, difficulty: 3, solved: false }] as any)
+    expect(component.tutorialsTier).toBe(2)
+    expect(component.isLastTutorialsTier).toBeFalse()
+  })
+
+  it('jumps to next tutorial tier if all tutorial challenges of previous tier are solved', () => {
+    component.calculateTutorialTier([{ tutorialOrder: 1, difficulty: 1, solved: true }, { tutorialOrder: 2, difficulty: 2, solved: true }, { tutorialOrder: 3, difficulty: 2, solved: true }, { tutorialOrder: 4, difficulty: 3, solved: false }] as any)
+    expect(component.tutorialsTier).toBe(3)
+    expect(component.isLastTutorialsTier).toBeTrue()
+  })
+
+  it('will not unlock entire Score Board as long as unsolved tutorials exist', () => {
+    component.calculateTutorialTier([{ tutorialOrder: 1, difficulty: 1, solved: true }, { tutorialOrder: 2, difficulty: 2, solved: true }, { tutorialOrder: 3, difficulty: 2, solved: true }, { tutorialOrder: 4, difficulty: 3, solved: false }] as any)
+    expect(component.allTutorialsCompleted).toBeFalse()
+  })
+
+  it('will unlock entire Score Board when all tutorials are solved', () => {
+    component.calculateTutorialTier([{ tutorialOrder: 1, difficulty: 1, solved: true }, { tutorialOrder: 2, difficulty: 2, solved: true }, { tutorialOrder: 3, difficulty: 2, solved: true }, { tutorialOrder: 4, difficulty: 3, solved: true }] as any)
+    expect(component.allTutorialsCompleted).toBeTrue()
   })
 })
