@@ -372,4 +372,16 @@ describe('ScoreBoardComponent', () => {
     component.calculateTutorialTier([{ tutorialOrder: 1, difficulty: 1, solved: true }, { tutorialOrder: 2, difficulty: 2, solved: true }, { tutorialOrder: 3, difficulty: 2, solved: true }, { tutorialOrder: 4, difficulty: 3, solved: true }] as any)
     expect(component.allTutorialsCompleted).toBeTrue()
   })
+
+  it('Toggling all difficulties filter will turn on all difficulties when currently less than 50% of difficulties are toggled', () => {
+    component.toggledMajorityOfDifficulties = false
+    component.toggleAllDifficulty()
+    expect(component.displayedDifficulties).toEqual([1, 2, 3, 4, 5, 6])
+  })
+
+  it('Toggling all difficulties filter will turn off all difficulties when currently more than 50% of difficulties are toggled', () => {
+    component.toggledMajorityOfDifficulties = true
+    component.toggleAllDifficulty()
+    expect(component.displayedDifficulties).toEqual([])
+  })
 })
