@@ -1,10 +1,10 @@
 # Please adjust to your needs (see https://www.gitpod.io/docs/config-gitpod-file)
 tasks:
   - init: npm install
-    command: npm run start
+    command: npm start
 
 ports:
-  - name: Juice-Shop App
-    description: The main application web server
+  - name: OWASP Juice Shop
+    description: The Juice Shop web server
     port: 3000
     onOpen: open-preview
