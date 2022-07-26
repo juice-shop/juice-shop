@@ -183,11 +183,11 @@ gcloud compute firewall-rules create juice-rule --allow tcp:3000
 
 ### GitPod 
 
-1. Login to [gitpod.io](https://gitpod.io) and use this [link](https://gitpod.io/#https://github.com/juice-shop/juice-shop/) to start a new workspace
+1. Login to [gitpod.io](https://gitpod.io) and use <https://gitpod.io/#https://github.com/juice-shop/juice-shop/> to start a new workspace. If you fork the repository, your url needs to adjust accordingly
 
-2. After the Gitpod workspace is loaded, the environment installs (`npm install` is triggered by the `.gitpod.yml`)
+2. After the Gitpod workspace is loaded, gitpod tasks is still running to install `npm install`  and launch the website. This is triggered by the `.gitpod.yml` file. In other words you need to wait until the initialise process is done, before the website is accessable. The open preview window (internal browser), will open automatically, before the website is installed. It will refresh itself automatically when done
 
-3. The juice-shop is now running and a preview window is launched. It is also available at `http://<EXTERNAL_WORKSPACE_IP>:3000`
+3. The juice-shop is now running and a preview window is launched. It is also available at `http://<EXTERNAL_WORKSPACE_IP>`
 
 ## Demo
 
