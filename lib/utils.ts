@@ -14,6 +14,7 @@ const crypto = require('crypto')
 const clarinet = require('clarinet')
 const isDocker = require('is-docker')
 const isHeroku = require('is-heroku')
+const isGitpod = require('is-gitpod')
 const isWindows = require('is-windows')
 const logger = require('./logger')
 
@@ -151,7 +152,7 @@ export const randomHexString = (length: number) => {
 }
 
 export const disableOnContainerEnv = () => {
-  return (isDocker() || isHeroku) && !config.get('challenges.safetyOverride')
+  return (isDocker() || isGitpod() || isHeroku) && !config.get('challenges.safetyOverride')
 }
 
 export const disableOnWindowsEnv = () => {
@@ -165,6 +166,8 @@ export const determineDisabledEnv = (disabledEnv: string | string[] | undefined)
     return disabledEnv && (disabledEnv === 'Heroku' || disabledEnv.includes('Heroku')) ? 'Heroku' : null
   } else if (isWindows()) {
     return disabledEnv && (disabledEnv === 'Windows' || disabledEnv.includes('Windows')) ? 'Windows' : null
+  } else if (isGitpod()) {
+    return disabledEnv && (disabledEnv === 'Gitpod' || disabledEnv.includes('Gitpod')) ? 'Gitpod' : null
   }
   return null
 }
