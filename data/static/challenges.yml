@@ -12,6 +12,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'Access Log'
   category: 'Sensitive Data Exposure'
@@ -56,6 +57,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'Bjoern''s Favorite Pet'
   category: 'Broken Authentication'
@@ -93,6 +95,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'CAPTCHA Bypass'
   category: 'Broken Anti Automation'
@@ -136,6 +139,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'Client-side XSS Protection'
   category: 'XSS'
@@ -150,6 +154,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'Confidential Document'
   category: 'Sensitive Data Exposure'
@@ -377,6 +382,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'Imaginary Challenge'
   category: 'Cryptographic Issues'
@@ -563,6 +569,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'NoSQL Exfiltration'
   category: 'Injection'
@@ -577,6 +584,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'NoSQL Manipulation'
   category: 'Injection'
@@ -682,6 +690,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'Repetitive Registration'
   category: 'Improper Input Validation'
@@ -772,6 +781,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'Score Board'
   category: 'Miscellaneous'
@@ -811,6 +821,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'Steganography'
   category: 'Security through Obscurity'
@@ -836,6 +847,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'Supply Chain Attack'
   category: 'Vulnerable Components'
@@ -906,6 +918,7 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
 -
   name: 'View Basket'
   category: 'Broken Access Control'
@@ -965,6 +978,7 @@
   disabledEnv:
   - Docker
   - Heroku
+  - Gitpod
 -
   name: 'XXE DoS'
   category: 'XXE'
@@ -979,6 +993,7 @@
   disabledEnv:
   - Docker
   - Heroku
+  - Gitpod
 -
   name: 'Zero Stars'
   category: 'Improper Input Validation'
@@ -1133,3 +1148,4 @@
   disabledEnv:
     - Docker
     - Heroku
+    - Gitpod
