@@ -32,6 +32,7 @@ describe('LastLoginIpComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LastLoginIpComponent)
     component = fixture.componentInstance
+    component.lastLoginIp = '?'
     fixture.detectChanges()
   })
 
