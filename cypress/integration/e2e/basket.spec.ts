@@ -6,24 +6,22 @@ describe("/#/basket", () => {
 
     describe('challenge "negativeOrder"', () => {
       it("should be possible to update a basket to a negative quantity via the Rest API", () => {
-        cy.window().then(() => {
-          var xhttp = new XMLHttpRequest();
-          xhttp.onreadystatechange = function () {
-            if (this.status == 200) {
-              console.log("Success");
-            }
-          };
-          xhttp.open(
-            "PUT",
+        cy.window().then(async () => {
+          const response = await fetch(
             `${Cypress.env("baseUrl")}/api/BasketItems/1`,
-            true
+            {
+              method: "PUT",
+              cache: "no-cache",
+              headers: {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+              body: JSON.stringify({ quantity: -100000 }),
+            }
           );
-          xhttp.setRequestHeader("Content-type", "application/json");
-          xhttp.setRequestHeader(
-            "Authorization",
-            `Bearer ${localStorage.getItem("token")}`
-          );
-          xhttp.send(JSON.stringify({ quantity: -100000 }));
+          if (response.status === 200) {
+            console.log("Success");
+          }
         });
         cy.visit("/#/order-summary");
 
@@ -58,23 +56,16 @@ describe("/#/basket", () => {
 
     describe('challenge "basketManipulateChallenge"', () => {
       it("should manipulate basket of other user instead of the one associated to logged-in user", () => {
-        cy.window().then(() => {
-          const xhttp = new XMLHttpRequest();
-          xhttp.onreadystatechange = function () {
-            if (this.status === 200) {
-              console.log("Success");
-            }
-          };
-
-          xhttp.open("POST", `${Cypress.env("baseUrl")}/api/BasketItems/`);
-          xhttp.setRequestHeader("Content-type", "application/json");
-          xhttp.setRequestHeader(
-            "Authorization",
-            `Bearer ${localStorage.getItem("token")}`
-          );
-          xhttp.send(
-            '{ "ProductId": 14,"BasketId":"1","quantity":1,"BasketId":"2" }'
-          ); //eslint-disable-line
+        cy.window().then(async () => {
+          await fetch(`${Cypress.env("baseUrl")}/api/BasketItems/`, {
+            method: "POST",
+            cache: "no-cache",
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: '{ "ProductId": 14,"BasketId":"1","quantity":1,"BasketId":"2" }',
+          });
         });
         cy.expectChallengeSolved({ challenge: "Manipulate Basket" });
       });
@@ -121,30 +112,26 @@ describe("/#/basket", () => {
       });
 
       it("should be possible to add a product in the basket", () => {
-        cy.window().then(() => {
-          var xhttp = new XMLHttpRequest();
-          xhttp.onreadystatechange = function () {
-            if (this.status === 201) {
-              console.log("Success");
-            }
-          };
-          xhttp.open(
-            "POST",
+        cy.window().then(async () => {
+          const response = await fetch(
             `${Cypress.env("baseUrl")}/api/BasketItems/`,
-            true
+            {
+              method: "POST",
+              cache: "no-cache",
+              headers: {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+              body: JSON.stringify({
+                BasketId: `${sessionStorage.getItem("bid")}`,
+                ProductId: 1,
+                quantity: 1,
+              }),
+            }
           );
-          xhttp.setRequestHeader("Content-type", "application/json");
-          xhttp.setRequestHeader(
-            "Authorization",
-            `Bearer ${localStorage.getItem("token")}`
-          );
-          xhttp.send(
-            JSON.stringify({
-              BasketId: `${sessionStorage.getItem("bid")}`,
-              ProductId: 1,
-              quantity: 1,
-            })
-          );
+          if (response.status === 201) {
+            console.log("Success");
+          }
         });
       });
 

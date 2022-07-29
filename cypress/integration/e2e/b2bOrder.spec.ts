@@ -5,28 +5,24 @@ describe("/b2b/v2/order", () => {
         if (!disableOnContainerEnv) {
           cy.login({ email: "admin", password: "admin123" });
 
-          cy.window().then(() => {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-              if (this.status == 500) {
-                console.log("Success");
-              }
-            };
-            xhttp.open(
-              "POST",
+          cy.window().then(async () => {
+            const response = await fetch(
               `${Cypress.env("baseUrl")}/b2b/v2/orders/`,
-              true
+              {
+                method: "POST",
+                cache: "no-cache",
+                headers: {
+                  "Content-type": "application/json",
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+                body: JSON.stringify({
+                  orderLinesData: "(function dos() { while(true); })()",
+                }),
+              }
             );
-            xhttp.setRequestHeader("Content-type", "application/json");
-            xhttp.setRequestHeader(
-              "Authorization",
-              `Bearer ${localStorage.getItem("token")}`
-            );
-            xhttp.send(
-              JSON.stringify({
-                orderLinesData: "(function dos() { while(true); })()",
-              })
-            );
+            if (response.status === 500) {
+              console.log("Success");
+            }
           });
           cy.expectChallengeSolved({ challenge: "Blocked RCE DoS" });
         }
@@ -39,29 +35,25 @@ describe("/b2b/v2/order", () => {
       cy.task("disableOnContainerEnv").then((disableOnContainerEnv) => {
         if (!disableOnContainerEnv) {
           cy.login({ email: "admin", password: "admin123" });
-          cy.window().then(() => {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-              if (this.status == 503) {
-                console.log("Success");
-              }
-            };
-            xhttp.open(
-              "POST",
+          cy.window().then(async () => {
+            const response = await fetch(
               `${Cypress.env("baseUrl")}/b2b/v2/orders/`,
-              true
+              {
+                method: "POST",
+                cache: "no-cache",
+                headers: {
+                  "Content-type": "application/json",
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+                body: JSON.stringify({
+                  orderLinesData:
+                    "/((a+)+)b/.test('aaaaaaaaaaaaaaaaaaaaaaaaaaaaa')",
+                }),
+              }
             );
-            xhttp.setRequestHeader("Content-type", "application/json");
-            xhttp.setRequestHeader(
-              "Authorization",
-              `Bearer ${localStorage.getItem("token")}`
-            );
-            xhttp.send(
-              JSON.stringify({
-                orderLinesData:
-                  "/((a+)+)b/.test('aaaaaaaaaaaaaaaaaaaaaaaaaaaaa')",
-              })
-            );
+            if (response.status === 503) {
+              console.log("Success");
+            }
           });
           cy.expectChallengeSolved({ challenge: "Successful RCE DoS" });
         }
