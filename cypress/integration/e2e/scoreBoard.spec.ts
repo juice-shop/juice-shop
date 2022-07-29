@@ -9,22 +9,19 @@ describe("/#/score-board", () => {
 
   describe('challenge "continueCode"', () => {
     it("should be possible to solve the non-existent challenge #99", () => {
-      cy.window().then(() => {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-          if (this.status == 200) {
-            console.log("Success");
-          }
-        };
-        xhttp.open(
-          "PUT",
+      cy.window().then(async () => {
+        const response = await fetch(
           `${Cypress.env(
             "baseUrl"
           )}/rest/continue-code/apply/69OxrZ8aJEgxONZyWoz1Dw4BvXmRGkM6Ae9M7k2rK63YpqQLPjnlb5V5LvDj`,
-          true
+          {
+            method: "PUT",
+            cache: "no-cache",
+            headers: {
+              "Content-type": "text/plain",
+            },
+          }
         );
-        xhttp.setRequestHeader("Content-type", "text/plain");
-        xhttp.send();
       });
       cy.visit("/#/score-board");
       cy.expectChallengeSolved({ challenge: "Imaginary Challenge" });
