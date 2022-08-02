@@ -56,6 +56,7 @@ interface VerdictRequestBody {
 
 export const serveCodeFixes = () => (req: Request<FixesRequestParams, {}, {}>, res: Response, next: NextFunction) => {
   const key = req.params.key
+  const key2 = req.params.key2
   const fixData = readFixes(key)
   if (fixData.fixes.length === 0) {
     res.status(404).json({
