@@ -17,7 +17,7 @@
 	"The developers truly believe in \"Security through Obscurity\" over actual access restrictions.": "Les développeurs croient vraiment en la \"sécurité par l'obscurité\" plutôt qu'à de vraies restrictions d'accès.",
 	"Perform a Remote Code Execution that would keep a less hardened application busy <em>forever</em>.": "Effectue une exécution de code à distance qui garderait une application moins endurcie occupée <em>pour toujours</em>.",
 	"The feature you need to exploit for this challenge is not directly advertised anywhere.": "La fonctionnalité que vous devez exploiter pour ce défi n'est pas directement évoquée quelque part.",
-	"Submit 10 or more customer feedbacks within 10 seconds.": "Soumettez 10 retours de clients ou plus en 10 secondes.",
+	"Submit 10 or more customer feedbacks within 20 seconds.": "Soumettez 10 retours de clients ou plus en 20 secondes.",
 	"After finding a CAPTCHA bypass, write a script that automates feedback submission. Or open many browser tabs and be really quick.": "Après avoir trouvé un contournement au CAPTCHA, écrivez un script qui automatise la soumission des commentaires. Ou ouvrez plusieurs onglets du navigateur et soyez vraiment rapide.",
 	"Change Bender's password into <i>slurmCl4ssic</i> without using SQL Injection or Forgot Password.": "Changez le mot de passe de Bender en <i>slurmCl4ssic</i> sans utiliser une Injection SQL ou Mot de passe oublié.",
 	"In previous releases this challenge was wrongly accused of being based on CSRF.": "Dans les versions précédentes, ce défi était accusé à tort d'être fondé sur CSRF.",
