@@ -26,9 +26,17 @@ describe("/#/contact", () => {
 
       cy.visit("/#/administration");
 
-      cy.get("mat-row mat-cell.mat-column-user")
-        .last()
-        .should("contain.text", "2");
+      cy.get(
+        ".customer-table > .mat-table > :nth-child(8) > .cdk-column-user"
+      ).then(($val) => {
+        if ($val.text() != " 2") {
+          cy.get(
+            ".customer-table > .mat-table > :nth-child(9) > .cdk-column-user"
+          ).should("contain.text", "2");
+        } else {
+          expect($val.text()).contain("2");
+        }
+      });
 
       cy.expectChallengeSolved({ challenge: "Forged Feedback" });
     });
@@ -174,7 +182,7 @@ describe("/#/contact", () => {
 
   describe('challenge "captchaBypass"', () => {
     it("should be possible to post 10 or more customer feedbacks in less than 10 seconds", () => {
-      for (let i = 0; i < 14; i++) {
+      for (let i = 0; i < 20; i++) {
         cy.get("#comment").type(`Spam #${i}`);
         cy.get("#rating").click();
         cy.get("#submitButton").click();
@@ -212,8 +220,8 @@ describe("/#/contact", () => {
 });
 
 function solveNextCaptcha() {
-  cy.wait(300);
   cy.get("#captcha")
+    .should("be.visible")
     .invoke("text")
     .then((val) => {
       cy.get("#captchaControl").clear();
