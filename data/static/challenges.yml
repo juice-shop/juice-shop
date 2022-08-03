@@ -101,10 +101,10 @@
   category: 'Broken Anti Automation'
   tags:
     - Brute Force
-  description: 'Submit 10 or more customer feedbacks within 10 seconds.'
+  description: 'Submit 10 or more customer feedbacks within 20 seconds.'
   difficulty: 3
   hint: 'After finding a CAPTCHA bypass, write a script that automates feedback submission. Or open many browser tabs and be really quick.'
-  hintUrl: 'https://pwning.owasp-juice.shop/part2/broken-anti-automation.html#submit-10-or-more-customer-feedbacks-within-10-seconds'
+  hintUrl: 'https://pwning.owasp-juice.shop/part2/broken-anti-automation.html#submit-10-or-more-customer-feedbacks-within-20-seconds'
   mitigationUrl: ~
   key: captchaBypassChallenge
 -
