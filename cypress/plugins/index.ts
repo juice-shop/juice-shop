@@ -54,6 +54,11 @@ export default (on, config) => {
     GetFromConfig(variable: string) {
       return Config.get(variable);
     },
+    GetPastebinLeakProduct() {
+      return Config.get<Product[]>("products").filter(
+        (product: Product) => product.keywordsForPastebinDataLeakChallenge
+      )[0];
+    },
     GenerateAuthenticator(inputString: string) {
       return otplib.authenticator.generate(inputString);
     },
