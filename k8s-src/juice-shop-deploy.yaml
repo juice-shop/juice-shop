@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: snyk-juice-shop
+  labels:
+    app: snyk-juice-shop
+spec:
+  selector:
+    matchLabels:
+      app: snyk-juice-shop
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: snyk-juice-shop
+    spec:
+      containers:
+      - name: juice-shop
+        image: clintonherget/snyk-juice-shop
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+        securityContext:
+          privileged: true
