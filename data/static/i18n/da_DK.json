@@ -17,7 +17,7 @@
 	"The developers truly believe in \"Security through Obscurity\" over actual access restrictions.": "Udviklerne tror virkelig på \"Security through Obscurity\" fremfor faktiske adgangsrestriktioner.",
 	"Perform a Remote Code Execution that would keep a less hardened application busy <em>forever</em>.": "Udfør en Remote Code Execution, der ville holde en mindre hærdet applikation beskæftiget <em>for evigt</em>.",
 	"The feature you need to exploit for this challenge is not directly advertised anywhere.": "Funktionen, der behøves for at udnytte til denne udfordring, er ikke direkte annonceret nogetsteds.",
-	"Submit 10 or more customer feedbacks within 10 seconds.": "Indsend 10 eller flere kundefeedbacks inden for 10 sekunder.",
+	"Submit 10 or more customer feedbacks within 20 seconds.": "Indsend 10 eller flere kundefeedbacks inden for 20 sekunder.",
 	"After finding a CAPTCHA bypass, write a script that automates feedback submission. Or open many browser tabs and be really quick.": "Skriv, efter at have fundet en CAPTCHA-omgåelse, et script, der automatiserer feedbackindsendelse, eller åbn mange browserfaner og vær virkelig hurtig.",
 	"Change Bender's password into <i>slurmCl4ssic</i> without using SQL Injection or Forgot Password.": "Skift Benders adgangskode til <i>slurmCl4ssic</i> uden brug af SQL Injection eller Glemt Adgangskode.",
 	"In previous releases this challenge was wrongly accused of being based on CSRF.": "I tidligere udgivelser blev denne udfordring fejlagtigt beskyldt for at være CSRF-baseret.",

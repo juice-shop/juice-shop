@@ -17,7 +17,7 @@
 	"The developers truly believe in \"Security through Obscurity\" over actual access restrictions.": "D'Entwickler gloube tatsächlech, dass \"Security through Obscurity\" besser isch, aus tatsächlechi Zuegriffsbeschränkige.",
 	"Perform a Remote Code Execution that would keep a less hardened application busy <em>forever</em>.": "Füer ä Remote Code Execution düre, wo ä weniger gherteti Awändig <em>für immer</em> würd beschäftige.",
 	"The feature you need to exploit for this challenge is not directly advertised anywhere.": "D'Funkzionalität, wo de bruchsch für die Ufgabe z'meischtere, wird niene diräkt beworbe.",
-	"Submit 10 or more customer feedbacks within 10 seconds.": "Reich 10 oder no meh Chundefeedbacks innerhaub vo 10 Sekund i.",
+	"Submit 10 or more customer feedbacks within 20 seconds.": "Reich 10 oder no meh Chundefeedbacks innerhaub vo 20 Sekund i.",
 	"After finding a CAPTCHA bypass, write a script that automates feedback submission. Or open many browser tabs and be really quick.": "Nach däm de ä Wäg hesch gfunge z CAPTCHA z'umga, schrib der es Skript wo z'Ireiche vo de Chundefeedbacks outomatisiert - oder mach der mehreri Browser-Tabs uf u bis eifach dalli schnäu.",
 	"Change Bender's password into <i>slurmCl4ssic</i> without using SQL Injection or Forgot Password.": "Ändere em Bender sis Passwort i <i>slurmCl4ssic</i> ohne derzue SQL Injection oder d \"Passwort vergässe\" Funktion z'missbruche.",
 	"In previous releases this challenge was wrongly accused of being based on CSRF.": "I früechere Releases het me die Useforderig fäuschlecherwiis beschudigt uf CSRF z'basiere.",

@@ -17,7 +17,7 @@
 	"The developers truly believe in \"Security through Obscurity\" over actual access restrictions.": "The developers truly believe in \"Security through Obscurity\" over actual access restrictions.",
 	"Perform a Remote Code Execution that would keep a less hardened application busy <em>forever</em>.": "Perform a Remote Code Execution that would keep a less hardened application busy <em>forever</em>.",
 	"The feature you need to exploit for this challenge is not directly advertised anywhere.": "The feature you need to exploit for this challenge is not directly advertised anywhere.",
-	"Submit 10 or more customer feedbacks within 10 seconds.": "Отправьте 10 или более отзывов клиентов в течение 10 секунд.",
+	"Submit 10 or more customer feedbacks within 20 seconds.": "Отправьте 10 или более отзывов клиентов в течение 20 секунд.",
 	"After finding a CAPTCHA bypass, write a script that automates feedback submission. Or open many browser tabs and be really quick.": "После поиска обхода CAPTCHA, напишите скрипт, который автоматизирует отправку отзывов покупателей. Или откройте много вкладок браузера и будьте очень быстры.",
 	"Change Bender's password into <i>slurmCl4ssic</i> without using SQL Injection or Forgot Password.": "Измените пароль пользователя Bender на <i>slurmCl4ssic</i> без использования SQL Injection или Forgot Password.",
 	"In previous releases this challenge was wrongly accused of being based on CSRF.": "В предыдущих выпусках этот челлендж был ошибочно обвинен в том, что он основан на CSRF.",

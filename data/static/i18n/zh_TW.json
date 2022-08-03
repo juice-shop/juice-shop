@@ -17,7 +17,7 @@
 	"The developers truly believe in \"Security through Obscurity\" over actual access restrictions.": "開發人員打從心底相信“通過隱匿實現安全”優於實際的存取限制。",
 	"Perform a Remote Code Execution that would keep a less hardened application busy <em>forever</em>.": "執行遠程代碼執行，這將使防護程度較低的應用程式永遠保持忙碌。",
 	"The feature you need to exploit for this challenge is not directly advertised anywhere.": "你透過此功能來完成挑戰的攻擊程式並未在任何地方直接發布。",
-	"Submit 10 or more customer feedbacks within 10 seconds.": "在10秒內上傳10個或更多的的客戶回饋。",
+	"Submit 10 or more customer feedbacks within 20 seconds.": "在20秒內上傳10個或更多的的客戶回饋。",
 	"After finding a CAPTCHA bypass, write a script that automates feedback submission. Or open many browser tabs and be really quick.": "Bypass CAPTCHA之後，撰寫一個Script來自動回饋提交或是快速地開啟許多瀏覽器分頁。",
 	"Change Bender's password into <i>slurmCl4ssic</i> without using SQL Injection or Forgot Password.": "不透過SQL Injection或忘記密碼來變更Bender的密碼為slurmCl4ssic",
 	"In previous releases this challenge was wrongly accused of being based on CSRF.": "在以前的版本中，這個挑戰被錯誤地指責為基於CSRF方式。",
