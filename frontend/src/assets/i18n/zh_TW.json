@@ -356,7 +356,7 @@
   "SAVE_BACKUP_TOOLTIP": "儲存挑戰進度及環境設定至檔案",
   "RESTORE_BACKUP_TOOLTIP": "從檔案中恢復挑戰進度與應用程式設定。",
   "TAG_DANGER_ZONE": "危險區域",
-  "TAG_DANGER_ZONE_DESCRIPTION": "標示因RCE或其他風險因素具潛在危險性的挑戰並在Docker/Heroku上預設禁用\n",
+  "TAG_DANGER_ZONE_DESCRIPTION": "Marks potentially dangerous challenges which are disabled on Docker/Heroku/Gitpod by default due to RCE or other risks.",
   "TAG_GOOD_FOR_DEMOS": "適合示範",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "標示適合即時展示或認知訓練的挑戰",
   "TAG_PREREQUISITE": "先決條件",
