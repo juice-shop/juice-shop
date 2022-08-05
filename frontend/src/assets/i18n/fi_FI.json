@@ -356,7 +356,7 @@
   "SAVE_BACKUP_TOOLTIP": "Tallenna haasteen edistyminen ja sovelluksen asetukset tiedostoon.",
   "RESTORE_BACKUP_TOOLTIP": "Lataa tehtävän edistyminen ja sovelluksen asetukset tiedostosta.",
   "TAG_DANGER_ZONE": "Vaaravyöhyke",
-  "TAG_DANGER_ZONE_DESCRIPTION": "Merkitsee potentiaalisesti vaarallisia haasteita, jotka ovat oletuksena pois käytöstä Docker/Heroku RCE:n tai muiden riskien vuoksi.",
+  "TAG_DANGER_ZONE_DESCRIPTION": "Marks potentially dangerous challenges which are disabled on Docker/Heroku/Gitpod by default due to RCE or other risks.",
   "TAG_GOOD_FOR_DEMOS": "Good for Demos",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "Highlights challenges which are suitable for live demos or awareness trainings.",
   "TAG_PREREQUISITE": "Prerequisite",
