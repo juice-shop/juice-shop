@@ -356,7 +356,7 @@
   "SAVE_BACKUP_TOOLTIP": "Save challenge progress and application settings to file.",
   "RESTORE_BACKUP_TOOLTIP": "Restore challenge progress and application settings from file.",
   "TAG_DANGER_ZONE": "โซนอันตราย",
-  "TAG_DANGER_ZONE_DESCRIPTION": "Marks potentially dangerous challenges which are disabled on Docker/Heroku by default due to RCE or other risks.",
+  "TAG_DANGER_ZONE_DESCRIPTION": "Marks potentially dangerous challenges which are disabled on Docker/Heroku/Gitpod by default due to RCE or other risks.",
   "TAG_GOOD_FOR_DEMOS": "Good for Demos",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "Highlights challenges which are suitable for live demos or awareness trainings.",
   "TAG_PREREQUISITE": "ความต้องการขั้นต้น",
