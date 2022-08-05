@@ -356,7 +356,7 @@
   "SAVE_BACKUP_TOOLTIP": "Salvați progresul provocării și setările aplicației în fișier.",
   "RESTORE_BACKUP_TOOLTIP": "Restabiliți din fișier progresul provocării și setările aplicației.",
   "TAG_DANGER_ZONE": "Zonă de pericol",
-  "TAG_DANGER_ZONE_DESCRIPTION": "Marchează provocările potențial periculoase care sunt dezactivate pe Docker/Heroku din cauza RCE sau a altor riscuri.",
+  "TAG_DANGER_ZONE_DESCRIPTION": "Marks potentially dangerous challenges which are disabled on Docker/Heroku/Gitpod by default due to RCE or other risks.",
   "TAG_GOOD_FOR_DEMOS": "Bun pentru demos",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "Evidențiază provocări care sunt adecvate pentru demonstrații live sau cursuri introducătoare.",
   "TAG_PREREQUISITE": "Cerințe",
