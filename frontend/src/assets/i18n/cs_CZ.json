@@ -356,7 +356,7 @@
   "SAVE_BACKUP_TOOLTIP": "Uložte si do souboru svůj postup výzev a nastavení aplikace.",
   "RESTORE_BACKUP_TOOLTIP": "Obnovte ze souboru svůj postup výzev a nastavení aplikace.",
   "TAG_DANGER_ZONE": "Nebezpečná zóna",
-  "TAG_DANGER_ZONE_DESCRIPTION": "Ukazuje potenciálně nebezpečné výzvy, které jsou standardně z důvodu RCE nebo jiných rizik v Docker/Heroku zakázány.",
+  "TAG_DANGER_ZONE_DESCRIPTION": "Marks potentially dangerous challenges which are disabled on Docker/Heroku/Gitpod by default due to RCE or other risks.",
   "TAG_GOOD_FOR_DEMOS": "Dobré pro ukázky",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "Zdůrazňuje výzvy, které jsou vhodné pro živé demo nebo pro vzdělávání.",
   "TAG_PREREQUISITE": "Předpoklad",
