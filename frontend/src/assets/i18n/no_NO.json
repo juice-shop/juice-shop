@@ -356,7 +356,7 @@
   "SAVE_BACKUP_TOOLTIP": "Gjenopprette fremdrift og programinnstillinger fra filen.",
   "RESTORE_BACKUP_TOOLTIP": "Gjenopprette fremdrift og programinnstillinger fra filen.",
   "TAG_DANGER_ZONE": "Faresone",
-  "TAG_DANGER_ZONE_DESCRIPTION": "Merker potensielt farlige utfordringer som deaktiveres på Docker/Heroku som standard på grunn av RCE eller andre risikoer.",
+  "TAG_DANGER_ZONE_DESCRIPTION": "Marks potentially dangerous challenges which are disabled on Docker/Heroku/Gitpod by default due to RCE or other risks.",
   "TAG_GOOD_FOR_DEMOS": "Bra for demoer",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "Marker utfordringer som er egnet for live demoer eller bevisstgjøringer.",
   "TAG_PREREQUISITE": "Forutsetninger",
