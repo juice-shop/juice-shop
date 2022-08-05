@@ -356,7 +356,7 @@
   "SAVE_BACKUP_TOOLTIP": "Сохранить прогресс заданий и настройки приложения в файл.",
   "RESTORE_BACKUP_TOOLTIP": "Восстановить прогресс заданий и настройки приложения из файла.",
   "TAG_DANGER_ZONE": "Опасная зона",
-  "TAG_DANGER_ZONE_DESCRIPTION": "Отмечает потенциально опасные задания, которые отключены в Docker/Heroku по умолчанию из-за RCE или других рисков.",
+  "TAG_DANGER_ZONE_DESCRIPTION": "Marks potentially dangerous challenges which are disabled on Docker/Heroku/Gitpod by default due to RCE or other risks.",
   "TAG_GOOD_FOR_DEMOS": "Хорошо для демо",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "Выделяет задания, которые подходят для наглядных демонстраций и тренингов по повышению осведомленности.",
   "TAG_PREREQUISITE": "Предварительное",
