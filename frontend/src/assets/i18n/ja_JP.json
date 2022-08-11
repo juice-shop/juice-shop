@@ -338,7 +338,7 @@
   "CREDIT_CARD_SAVED": "番号の末尾が {{cardnumber}} のカードが保存されました。",
   "CONFIRM_REVIEW_SAVED": "レビューが保存されました。",
   "CONFIRM_CHANGES_SAVED": "変更が保存されました。",
-  "CONFIRM_RECYCLING_BOX": "Thank you for using our eco-friendly recycling self-service. We will send you a pomace recycling box asap.",
+  "CONFIRM_RECYCLING_BOX": "環境にやさしいセルフサービスのリサイクルへのご協力ありがとうございます。すみやかに絞りかす用リサイクルボックスをお送りします。",
   "CONFIRM_RECYCLING_PICKUP": "Thank you for using our convenient recycling service. We will pick up your pomace on {{pickupdate}}.",
   "CHALLENGE_UNAVAILABLE": "This challenge is unavailable in a {{env}} environment!",
   "CLICK_FOR_MORE_HINTS": "Click for more hints.",
