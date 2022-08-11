@@ -1,7 +1,7 @@
 {
 	"Find the carefully hidden 'Score Board' page.": "巧妙に隠された「スコアボード」ページを見つけます。",
 	"Try to find a reference or clue behind the scenes. Or simply guess what URL the Score Board might have.": "隠された参照またはヒントを見つけてください。または、スコアボードのURLを推測してください。",
-	"Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> without using the frontend application at all.": "Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> without using the frontend application at all.",
+	"Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> without using the frontend application at all.": "フロントエンドアプリケーションをまったく使用せずに、<i>持続型</i>XSS攻撃を <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> で実行します。",
 	"You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.": "You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.",
 	"Gain access to any access log file of the server.": "Gain access to any access log file of the server.",
 	"Who would want a server access log to be accessible through a web application?": "Who would want a server access log to be accessible through a web application?",
