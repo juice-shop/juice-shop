@@ -24,7 +24,7 @@
 	"Order the Christmas special offer of 2014.": "2014年のクリスマススペシャルをご注文ください。",
 	"Find out how the application handles unavailable products and try to find a loophole.": "アプリケーションが在庫切れの製品をどのように処理するか確認したら、抜け穴を探しましょう。",
 	"Bypass the Content Security Policy and perform an XSS attack with <code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> on a legacy page within the application.": "Content Security Policyをバイパスして、アプリケーション内のレガシーページで<code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> を使ってXSS攻撃を実行します。",
-	"What is even \"better\" than a legacy page with a homegrown RegEx sanitizer? Having CSP injection issues on the exact same page as well!": "What is even \"better\" than a legacy page with a homegrown RegEx sanitizer? Having CSP injection issues on the exact same page as well!",
+	"What is even \"better\" than a legacy page with a homegrown RegEx sanitizer? Having CSP injection issues on the exact same page as well!": "レガシーなページと自作のRegExサニタイザーの組み合わせ以上に「ステキな」ことがあります。そのページにはなんとCSPインジェクションもあるんです。",
 	"Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> bypassing a <i>client-side</i> security mechanism.": "<i>持続型</i>XSS攻撃を <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> で実行し、<i>クライアントサイド</i>のセキュリティメカニズムをバイパスします。",
 	"Only some input fields validate their input. Even less of these are persisted in a way where their content is shown on another screen.": "一部の入力フィールドのみが入力を検証します。これらのフィールドの一部のみが、別の画面に表示される形で永続化されます。",
 	"Access a confidential document.": "機密文書にアクセスします。",
