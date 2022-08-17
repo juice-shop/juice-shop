@@ -266,7 +266,6 @@ jobs:
           record: true
           group: ${{ matrix.browser }} @ ${{ matrix.os }}
         env:
-          CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: "Execute end-to-end tests on Mac"
