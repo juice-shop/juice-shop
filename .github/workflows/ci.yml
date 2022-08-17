@@ -273,6 +273,8 @@ jobs:
           wait-on: http://localhost:3000
         env:
           CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/upload-artifact@v2
         if: failure()
         with:
