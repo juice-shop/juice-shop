@@ -5,7 +5,7 @@ describe("/#/basket", () => {
     });
 
     describe('challenge "negativeOrder"', () => {
-      xit("should be possible to update a basket to a negative quantity via the Rest API", () => {
+      it("should be possible to update a basket to a negative quantity via the Rest API", () => {
         cy.window().then(async () => {
           const response = await fetch(
             `${Cypress.env("baseUrl")}/api/BasketItems/1`,
@@ -34,7 +34,7 @@ describe("/#/basket", () => {
           });
       });
 
-      xit("should be possible to place an order with a negative total amount", () => {
+      it("should be possible to place an order with a negative total amount", () => {
         cy.visit("/#/order-summary");
         cy.get("#checkoutButton").click();
         cy.expectChallengeSolved({ challenge: "Payback Time" });
@@ -42,7 +42,7 @@ describe("/#/basket", () => {
     });
 
     describe('challenge "basketAccessChallenge"', () => {
-      xit("should access basket with id from session storage instead of the one associated to logged-in user", () => {
+      it("should access basket with id from session storage instead of the one associated to logged-in user", () => {
         cy.window().then(() => {
           window.sessionStorage.bid = 3;
         });
@@ -55,7 +55,7 @@ describe("/#/basket", () => {
     });
 
     describe('challenge "basketManipulateChallenge"', () => {
-      xit("should manipulate basket of other user instead of the one associated to logged-in user", () => {
+      it("should manipulate basket of other user instead of the one associated to logged-in user", () => {
         cy.window().then(async () => {
           await fetch(`${Cypress.env("baseUrl")}/api/BasketItems/`, {
             method: "POST",
@@ -77,7 +77,7 @@ describe("/#/basket", () => {
       cy.login({ email: "jim", password: "ncc-1701" });
     });
     describe('challenge "manipulateClock"', () => {
-      xit("should be possible to enter WMNSDY2019 coupon", () => {
+      it("should be possible to enter WMNSDY2019 coupon", () => {
         cy.window().then(() => {
           window.localStorage.couponPanelExpanded = false;
         });
@@ -99,7 +99,7 @@ describe("/#/basket", () => {
         cy.get("#applyCouponButton").click();
       });
 
-      xit("should be possible to place an order with the expired coupon", () => {
+      it("should be possible to place an order with the expired coupon", () => {
         cy.visit("/#/order-summary");
         cy.get("#checkoutButton").click();
         cy.expectChallengeSolved({ challenge: "Expired Coupon" });
@@ -107,11 +107,11 @@ describe("/#/basket", () => {
     });
 
     describe('challenge "forgedCoupon"', () => {
-      xit("should be able to access file /ftp/coupons_2013.md.bak with poison null byte attack", () => {
+      it("should be able to access file /ftp/coupons_2013.md.bak with poison null byte attack", () => {
         cy.request(`${Cypress.env("baseUrl")}/ftp/coupons_2013.md.bak%2500.md`);
       });
 
-      xit("should be possible to add a product in the basket", () => {
+      it("should be possible to add a product in the basket", () => {
         cy.window().then(async () => {
           const response = await fetch(
             `${Cypress.env("baseUrl")}/api/BasketItems/`,
@@ -135,7 +135,7 @@ describe("/#/basket", () => {
         });
       });
 
-      xit("should be possible to enter a coupon that gives an 80% discount", () => {
+      it("should be possible to enter a coupon that gives an 80% discount", () => {
         cy.window().then(() => {
           window.localStorage.couponPanelExpanded = false;
         });
@@ -148,7 +148,7 @@ describe("/#/basket", () => {
         });
       });
 
-      xit("should be possible to place an order with a forged coupon", () => {
+      it("should be possible to place an order with a forged coupon", () => {
         cy.visit("/#/order-summary");
         cy.get("#checkoutButton").click();
         cy.expectChallengeSolved({ challenge: "Forged Coupon" });

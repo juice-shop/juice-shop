@@ -1,6 +1,6 @@
 describe("/#/deluxe-membership", () => {
   describe('challenge "svgInjection"', () => {
-    xit("should be possible to pass in a forgotten test parameter abusing the redirect-endpoint to load an external image", () => {
+    it("should be possible to pass in a forgotten test parameter abusing the redirect-endpoint to load an external image", () => {
       cy.login({ email: "jim", password: "ncc-1701" });
       cy.location().then((loc) => {
         cy.visit(
@@ -15,7 +15,7 @@ describe("/#/deluxe-membership", () => {
   });
 
   describe('challenge "freeDeluxe"', () => {
-    xit("should upgrade to deluxe for free by making a post request to /rest/deluxe-membership by setting the paymentMode parameter to null", () => {
+    it("should upgrade to deluxe for free by making a post request to /rest/deluxe-membership by setting the paymentMode parameter to null", () => {
       cy.login({
         email: "jim",
         password: "ncc-1701",
