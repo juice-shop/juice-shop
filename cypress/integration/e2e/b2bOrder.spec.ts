@@ -31,7 +31,7 @@ describe("/b2b/v2/order", () => {
   });
 
   describe('challenge "rceOccupy"', () => {
-    it("should be possible to cause request timeout using a recursive regular expression payload", () => {
+    xit("should be possible to cause request timeout using a recursive regular expression payload", () => {
       cy.task("disableOnContainerEnv").then((disableOnContainerEnv) => {
         if (!disableOnContainerEnv) {
           cy.login({ email: "admin", password: "admin123" });
