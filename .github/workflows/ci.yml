@@ -261,6 +261,7 @@ jobs:
         with:
           install: false
           browser: ${{ matrix.browser }}
+          headless: true
           start: npm start
           wait-on: http://localhost:3000
           record: true
@@ -275,6 +276,7 @@ jobs:
         with:
           install: false
           browser: ${{ matrix.browser }}
+          headless: true
           start: npm start
           wait-on: http://localhost:3000
           record: true
