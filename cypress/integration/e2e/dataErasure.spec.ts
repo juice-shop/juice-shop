@@ -4,7 +4,7 @@ describe("/dataerasure", () => {
   });
 
   describe('challenge "lfr"', () => {
-    xit("should be possible to perform local file read attack using the browser", () => {
+    it("should be possible to perform local file read attack using the browser", () => {
       cy.window().then(async () => {
         const params = "layout=../package.json";
 

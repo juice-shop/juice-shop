@@ -9,7 +9,7 @@ describe("/#/forgot-password", () => {
   });
 
   describe("as Jim", () => {
-    xit("should be able to reset password with his security answer", () => {
+    it("should be able to reset password with his security answer", () => {
       cy.task("GetFromConfig", "application.domain").then(
         (appDomain: string) => {
           cy.get("#email").type(`jim@${appDomain}`);
@@ -26,7 +26,7 @@ describe("/#/forgot-password", () => {
   });
 
   describe("as Bender", () => {
-    xit("should be able to reset password with his security answer", () => {
+    it("should be able to reset password with his security answer", () => {
       cy.task("GetFromConfig", "application.domain").then(
         (appDomain: string) => {
           cy.get("#email").type(`bender@${appDomain}`);
@@ -44,7 +44,7 @@ describe("/#/forgot-password", () => {
 
   describe("as Bjoern", () => {
     describe("for his internal account", () => {
-      xit("should be able to reset password with his security answer", () => {
+      it("should be able to reset password with his security answer", () => {
         cy.task("GetFromConfig", "application.domain").then(
           (appDomain: string) => {
             cy.get("#email").type(`bjoern@${appDomain}`);
@@ -61,7 +61,7 @@ describe("/#/forgot-password", () => {
     });
 
     describe("for his OWASP account", () => {
-      xit("should be able to reset password with his security answer", () => {
+      it("should be able to reset password with his security answer", () => {
         cy.get("#email").type("bjoern@owasp.org");
         cy.get("#securityAnswer").type("Zaya");
         cy.get("#newPassword").type("kitten lesser pooch");
@@ -75,7 +75,7 @@ describe("/#/forgot-password", () => {
   });
 
   describe("as Morty", () => {
-    xit("should be able to reset password with his security answer", () => {
+    it("should be able to reset password with his security answer", () => {
       cy.task("GetFromConfig", "application.domain").then(
         (appDomain: string) => {
           cy.get("#email").type(`morty@${appDomain}`);
@@ -92,7 +92,7 @@ describe("/#/forgot-password", () => {
   });
 
   describe("as Uvogin", () => {
-    xit("should be able to reset password with his security answer", () => {
+    it("should be able to reset password with his security answer", () => {
       cy.task("GetFromConfig", "application.domain").then(
         (appDomain: string) => {
           cy.get("#email").type(`uvogin@${appDomain}`);

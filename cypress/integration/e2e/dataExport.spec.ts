@@ -20,7 +20,7 @@ describe("/#/privacy-security/data-export", () => {
       cy.get("#registerButton").click();
     });
 
-    xit("should be possible to steal admin user data by causing email clash during export", () => {
+    it("should be possible to steal admin user data by causing email clash during export", () => {
       cy.login({ email: "admun", password: "admun123" });
 
       cy.visit("/#/privacy-security/data-export");
