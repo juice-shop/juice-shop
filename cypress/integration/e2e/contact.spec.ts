@@ -181,15 +181,44 @@ describe("/#/contact", () => {
   });
 
   describe('challenge "captchaBypass"', () => {
-    it("should be possible to post 10 or more customer feedbacks in less than 10 seconds", () => {
-      for (let i = 0; i < 20; i++) {
-        cy.get("#comment").type(`Spam #${i}`);
-        cy.get("#rating").click();
-        cy.get("#submitButton").click();
-        cy.get(".mat-simple-snackbar-action > .mat-focus-indicator").click();
+    it("should be possible to post 10 or more customer feedbacks in less than 20 seconds", () => {
+      cy.window().then(async () => {
+        for (let i = 0; i < 15; i++) {
+          const response = await fetch(
+            `${Cypress.env("baseUrl")}/rest/captcha/`,
+            {
+              method: "GET",
+              headers: {
+                "Content-type": "text/plain",
+              },
+            }
+          );
+          if (response.status === 200) {
+            let responseJson = await response.json();
 
-        solveNextCaptcha(); // first CAPTCHA was already solved in beforeEach
-      }
+            await sendPostRequest(responseJson);
+          }
+
+          async function sendPostRequest(captcha: {
+            captchaId: number;
+            answer: string;
+          }) {
+            await fetch(`${Cypress.env("baseUrl")}/api/Feedbacks`, {
+              method: "POST",
+              cache: "no-cache",
+              headers: {
+                "Content-type": "application/json",
+              },
+              body: JSON.stringify({
+                captchaId: captcha.captchaId,
+                captcha: `${captcha.answer}`,
+                comment: `Spam #${i}`,
+                rating: 3,
+              }),
+            });
+          }
+        }
+      });
       cy.expectChallengeSolved({ challenge: "CAPTCHA Bypass" });
     });
   });
