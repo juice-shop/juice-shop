@@ -1,6 +1,6 @@
 describe("/", () => {
   describe('challenge "jwtUnsigned"', () => {
-    it("should accept an unsigned token with email jwtn3d@juice-sh.op in the payload ", () => {
+    xit("should accept an unsigned token with email jwtn3d@juice-sh.op in the payload ", () => {
       cy.window().then(() => {
         localStorage.setItem(
           "token",
@@ -13,7 +13,7 @@ describe("/", () => {
   });
 
   describe('challenge "jwtForged"', () => {
-    it("should accept a token HMAC-signed with public RSA key with email rsa_lord@juice-sh.op in the payload ", () => {
+    xit("should accept a token HMAC-signed with public RSA key with email rsa_lord@juice-sh.op in the payload ", () => {
       cy.task("disableOnWindowsEnv").then((disableOnWindowsEnv) => {
         if (!disableOnWindowsEnv) {
           cy.window().then(() => {

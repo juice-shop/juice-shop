@@ -4,7 +4,7 @@ describe("/chatbot", () => {
   });
 
   describe('challenge "killChatbot"', () => {
-    it("should be possible to kill the chatbot by setting the process to null", () => {
+    xit("should be possible to kill the chatbot by setting the process to null", () => {
       cy.visit("/profile");
       cy.get("#username").type(
         'admin"); process=null; users.addUser("1337", "test'
@@ -21,7 +21,7 @@ describe("/chatbot", () => {
   });
 
   describe('challenge "bullyChatbot"', () => {
-    it("should be possible to make the chatbot hand out a coupon code", () => {
+    xit("should be possible to make the chatbot hand out a coupon code", () => {
       cy.task("GetCouponIntent").then(
         (couponIntent: {
           utterances: Array<string>;

@@ -8,7 +8,7 @@ describe("/#/privacy-security/change-password", () => {
       cy.visit("/#/privacy-security/change-password");
     });
 
-    it("should be able to change password", () => {
+    xit("should be able to change password", () => {
       cy.get("#currentPassword").type("focusOnScienceMorty!focusOnScience");
       cy.get("#newPassword").type("GonorrheaCantSeeUs!");
       cy.get("#newPasswordRepeat").type("GonorrheaCantSeeUs!");
@@ -19,7 +19,7 @@ describe("/#/privacy-security/change-password", () => {
   });
 
   describe('challenge "changePasswordBenderChallenge"', () => {
-    it("should be able to change password via XSS-powered attack on password change without passing current password", () => {
+    xit("should be able to change password via XSS-powered attack on password change without passing current password", () => {
       cy.login({
         email: "bender",
         password: "OhG0dPlease1nsertLiquor!",
