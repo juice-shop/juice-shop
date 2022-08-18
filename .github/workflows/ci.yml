@@ -242,7 +242,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        browser: [chrome, firefox]
+        browser: [chrome] # FIXME Switch back to [chrome, firefox] after debugging extreme flakiness of Firefox on CI/CD
       fail-fast: false
     steps:
       - name: "Check out Git repository"
@@ -261,7 +261,6 @@ jobs:
         with:
           install: false
           browser: ${{ matrix.browser }}
-          headless: true
           start: npm start
           wait-on: http://localhost:3000
           record: true
@@ -275,7 +274,6 @@ jobs:
         with:
           install: false
           browser: ${{ matrix.browser }}
-          headless: true
           start: npm start
           wait-on: http://localhost:3000
           record: true
