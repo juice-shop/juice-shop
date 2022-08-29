@@ -1046,11 +1046,11 @@
   mitigationUrl: ~
   key: freeDeluxeChallenge
 -
-  name: 'CSRF' # FIXME No e2e test automation! No longer works in Chrome >=80 or other latest browsers!
+  name: 'CSRF' # FIXME No e2e test automation! No longer works in Chrome >=80 and Firefox >=100 or other latest browsers!
   category: 'Broken Access Control'
   description: 'Change the name of a user by performing Cross-Site Request Forgery from <a href="http://htmledit.squarefree.com">another origin</a>.'
   difficulty: 3
-  hint: 'Find a form which updates the username and then construct a malicious page in the online HTML editor.'
+  hint: 'Find a form which updates the username and then construct a malicious page in the online HTML editor. You probably need an older browser version for this. You probably need an older browser version for this.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/broken-access-control.html#change-the-name-of-a-user-by-performing-cross-site-request-forgery-from-another-origin'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html'
   key: csrfChallenge
