@@ -35,6 +35,11 @@ export default (on, config) => {
         }
       }
     },
+    GetChristmasProduct() {
+      return Config.get<Product[]>("products").filter(
+        (product: Product) => product.useForChristmasSpecialChallenge
+      )[0];
+    },
     GetCouponIntent() {
       const trainingData = require(`../../data/chatbot/${utils.extractFilename(
         Config.get("application.chatBot.trainingData")
