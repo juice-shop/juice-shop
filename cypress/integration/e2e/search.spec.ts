@@ -93,7 +93,6 @@ describe("/rest/products/search", () => {
             sourceContent.data.forEach((product: { name: string }) => {
               if (product.name === productName.name) {
                 foundProduct = true;
-                console.log(product);
               }
             });
             expect(foundProduct).to.be.true;
@@ -108,13 +107,28 @@ describe("/rest/products/search", () => {
           cy.task("GetChristmasProduct").then((productName: Product) => {
             sourceContent.data.forEach((product: Product) => {
               if (product.name === productName.name) {
-                console.log(product.id);
-                cy.window().then(() => {
-                  `var xhttp = new XMLHttpRequest(); xhttp.onreadystatechange = function () { if (this.status === 201) { console.log("Success") } } ; xhttp.open("POST", "${Cypress.env(
-                    "baseUrl"
-                  )}/api/BasketItems/", true); xhttp.setRequestHeader("Content-type", "application/json"); xhttp.setRequestHeader("Authorization", \`Bearer $\{localStorage.getItem("token")}\`); xhttp.send(JSON.stringify({"BasketId": \`$\{sessionStorage.getItem("bid")}\`, "ProductId":${
-                    product.id
-                  }, "quantity": 1}))`;
+                cy.window().then(async () => {
+                  const response = await fetch(
+                    `${Cypress.env("baseUrl")}/api/BasketItems/`,
+                    {
+                      method: "POST",
+                      cache: "no-cache",
+                      headers: {
+                        "Content-type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem(
+                          "token"
+                        )}`,
+                      },
+                      body: JSON.stringify({
+                        BasketId: `${sessionStorage.getItem("bid")}`,
+                        ProductId: `${product.id}`,
+                        quantity: 1,
+                      }),
+                    }
+                  );
+                  if (response.status === 201) {
+                    console.log("Success");
+                  }
                 });
               }
             });
