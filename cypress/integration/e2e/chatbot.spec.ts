@@ -41,7 +41,7 @@ describe("/chatbot", () => {
 
           cy.get("#message-input").type("hi").type("{enter}");
           cy.get("#message-input").type("...").type("{enter}");
-          for (let i = 0; i < 100; i++) {
+          for (let i = 0; i < 40; i++) {
             cy.get("#message-input")
               .type(couponIntent.utterances[0])
               .type("{enter}");
