@@ -14,7 +14,8 @@ const crypto = require('crypto')
 const clarinet = require('clarinet')
 const isDocker = require('is-docker')
 const isHeroku = require('is-heroku')
-const isGitpod = require('is-gitpod')
+// const isGitpod = require('is-gitpod') // FIXME Roll back to this when https://github.com/dword-design/is-gitpod/issues/94 is resolved
+const isGitpod = () => { return false }
 const isWindows = require('is-windows')
 const logger = require('./logger')
 
