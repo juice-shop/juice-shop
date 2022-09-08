@@ -43,7 +43,6 @@ describe("/api", () => {
     });
   });
 
-  // iske upar tak disbled check
   describe('challenge "changeProduct"', () => {
     it("should be possible to change product via PUT request without being logged in", () => {
       cy.task("GetTamperingProductId").then((tamperingProductId) => {
@@ -62,9 +61,7 @@ describe("/api", () => {
                 }),
               }
             );
-            if (response.status === 200) {
-              console.log("Success");
-            }
+            assert.equal(response.status, 200);
           });
 
           cy.visit("/#/search");
