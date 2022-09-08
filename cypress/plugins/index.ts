@@ -59,10 +59,21 @@ export default (on, config) => {
     GetFromConfig(variable: string) {
       return Config.get(variable);
     },
+    GetOverwriteUrl() {
+      return Config.get("challenges.overwriteUrlForProductTamperingChallenge");
+    },
     GetPastebinLeakProduct() {
       return Config.get<Product[]>("products").filter(
         (product: Product) => product.keywordsForPastebinDataLeakChallenge
       )[0];
+    },
+    GetTamperingProductId() {
+      const products: Product[] = Config.get("products");
+      for (let i = 0; i < products.length; i++) {
+        if (products[i].urlForProductTamperingChallenge) {
+          return i + 1;
+        }
+      }
     },
     GenerateAuthenticator(inputString: string) {
       return otplib.authenticator.generate(inputString);
