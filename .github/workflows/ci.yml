@@ -210,7 +210,7 @@ jobs:
             NODE_ENV=quiet npm run test:server &&
             NODE_ENV=tutorial npm run test:server &&
             NODE_ENV=unsafe npm run test:server
-  e2e-with-cypress:
+  e2e:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -308,7 +308,7 @@ jobs:
         run: docker-compose -f docker-compose.test.yml up --exit-code-from sut
   docker:
     if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
-    needs: [test, api-test, e2e-with-cypress, custom-config-test, docker-test]
+    needs: [test, api-test, e2e, custom-config-test, docker-test]
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
@@ -357,7 +357,7 @@ jobs:
             BUILD_DATE=${{ env.BUILD_DATE }}
   heroku:
     if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
-    needs: [test, api-test, e2e-with-cypress, custom-config-test]
+    needs: [test, api-test, e2e, custom-config-test]
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
