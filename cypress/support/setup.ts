@@ -1,5 +1,5 @@
 beforeEach(() => {
-  cy.setCookie("cookieconsent_status", "dismiss");
-  cy.setCookie("welcomebanner_status", "dismiss");
-  cy.setCookie("language", "en");
-});
+  cy.setCookie('cookieconsent_status', 'dismiss')
+  cy.setCookie('welcomebanner_status', 'dismiss')
+  cy.setCookie('language', 'en')
+})

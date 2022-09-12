@@ -14,21 +14,22 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import "./commands";
-import "./setup";
+import './commands'
+import './setup'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     interface Chainable {
-      expectChallengeSolved(value: { challenge: string }): void;
-      login(value: {
-        email: string;
-        password: string;
-        totpSecret?: string;
-      }): void;
+      expectChallengeSolved: (value: { challenge: string }) => void
+      login: (value: {
+        email: string
+        password: string
+        totpSecret?: string
+      }) => void
     }
   }
 }
