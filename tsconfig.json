@@ -18,6 +18,7 @@
     ]
   },
   "include" : [
+    "cypress/**/*.ts",
     "data/**/*.ts",
     "lib/**/*.ts",
     "lib/**/*.js",
