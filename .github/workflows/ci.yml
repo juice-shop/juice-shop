@@ -234,10 +234,7 @@ jobs:
         with:
           install: false
           browser: ${{ matrix.browser }}
-          start: |
-            set NODE_ENV=test
-            set SOLUTIONS_WEBHOOK="$env:SOLUTIONS_WEBHOOK"
-            npm start
+          start: SOLUTIONS_WEBHOOK="$env:SOLUTIONS_WEBHOOK" npm start
           wait-on: http://localhost:3000
           record: true
           group: ${{ matrix.browser }} @ ${{ matrix.os }}
@@ -251,9 +248,7 @@ jobs:
         with:
           install: false
           browser: ${{ matrix.browser }}
-          start: |
-            set NODE_ENV=test
-            npm start
+          start: npm start
           wait-on: http://localhost:3000
           record: true
           group: ${{ matrix.browser }} @ ${{ matrix.os }}
