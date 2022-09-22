@@ -692,3 +692,8 @@ ctf:
         type: string
       code:
         type: string
+    closeNotificationsChallenge:
+      name:
+        type: string
+      code:
+        type: string
