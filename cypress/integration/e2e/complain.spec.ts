@@ -56,8 +56,8 @@ describe('/#/complain', () => {
     })
   })
 
-  describe('challenge "xxeFileDisclosure"', () => { // FIXME The run condition and checks only in the second test need to be verified for stability/reliability
-    xit('should be possible to retrieve file from Windows server via .xml upload with XXE attack', () => {
+  describe('challenge "xxeFileDisclosure"', () => {
+    it('should be possible to retrieve file from Windows server via .xml upload with XXE attack', () => {
       cy.task('disableOnContainerEnv').then((disableOnContainerEnv) => {
         if (!disableOnContainerEnv) {
           cy.get('#complaintMessage').type('XXE File Exfiltration Windows!')
@@ -67,7 +67,7 @@ describe('/#/complain', () => {
       })
     })
 
-    xit('should be possible to retrieve file from Linux server via .xml upload with XXE attack', () => {
+    it('should be possible to retrieve file from Linux server via .xml upload with XXE attack', () => {
       cy.task('disableOnContainerEnv').then((disableOnContainerEnv) => {
         if (!disableOnContainerEnv) {
           cy.get('#complaintMessage').type('XXE File Exfiltration Linux!')
@@ -79,8 +79,8 @@ describe('/#/complain', () => {
     })
   })
 
-  describe('challenge "xxeDos"', () => { // FIXME The run condition and checks only in the second test need to be verified for stability/reliability
-    xit('should be possible to trigger request timeout via .xml upload with Quadratic Blowup attack', () => {
+  describe('challenge "xxeDos"', () => {
+    it('should be possible to trigger request timeout via .xml upload with Quadratic Blowup attack', () => {
       cy.task('disableOnContainerEnv').then((disableOnContainerEnv) => {
         if (!disableOnContainerEnv) {
           cy.get('#complaintMessage').type('XXE Quadratic Blowup!')
@@ -90,7 +90,7 @@ describe('/#/complain', () => {
       })
     })
 
-    xit('should be possible to trigger request timeout via .xml upload with dev/random attack', () => {
+    it('should be possible to trigger request timeout via .xml upload with dev/random attack', () => {
       cy.task('disableOnContainerEnv').then((disableOnContainerEnv) => {
         if (!disableOnContainerEnv) {
           cy.get('#complaintMessage').type('XXE Quadratic Blowup!')
