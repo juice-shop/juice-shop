@@ -42,7 +42,7 @@ const registerWebsocketEvents = (server: any) => {
     })
 
     socket.on('verifyCloseNotificationsChallenge', (data: any) => {
-      challengeUtils.solveIf(challenges.closeNotificationsChallenge, () => { return Array.isArray(data) && data.length === 0 })
+      challengeUtils.solveIf(challenges.closeNotificationsChallenge, () => { return Array.isArray(data) && data.length > 1 })
     })
   })
 }

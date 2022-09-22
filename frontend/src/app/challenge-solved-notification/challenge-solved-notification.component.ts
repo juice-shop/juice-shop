@@ -83,10 +83,10 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
 
   closeNotification (index: number, shiftKey: boolean = false) {
     if (shiftKey) {
-      this.notifications = []
       this.ngZone.runOutsideAngular(() => {
         this.io.socket().emit('verifyCloseNotificationsChallenge', this.notifications)
       })
+      this.notifications = []
     } else {
       this.notifications.splice(index, 1)
     }
