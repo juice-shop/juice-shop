@@ -234,11 +234,15 @@ jobs:
         with:
           install: false
           browser: ${{ matrix.browser }}
-          start: npm start
+          start: |
+            set NODE_ENV=test
+            set SOLUTIONS_WEBHOOK="$env:SOLUTIONS_WEBHOOK"
+            npm start
           wait-on: http://localhost:3000
           record: true
           group: ${{ matrix.browser }} @ ${{ matrix.os }}
         env:
+          SOLUTIONS_WEBHOOK: ${{ secrets.E2E_SOLUTIONS_WEBHOOK }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: "Execute end-to-end tests on Mac"
@@ -247,7 +251,9 @@ jobs:
         with:
           install: false
           browser: ${{ matrix.browser }}
-          start: npm start
+          start: |
+            set NODE_ENV=test
+            npm start
           wait-on: http://localhost:3000
           record: true
           group: ${{ matrix.browser }} @ ${{ matrix.os }}
