@@ -41,8 +41,8 @@ const registerWebsocketEvents = (server: any) => {
       challengeUtils.solveIf(challenges.svgInjectionChallenge, () => { return data?.match(/.*\.\.\/\.\.\/\.\.[\w/-]*?\/redirect\?to=https?:\/\/placekitten.com\/(g\/)?[\d]+\/[\d]+.*/) && security.isRedirectAllowed(data) })
     })
 
-    socket.on('verifyCloseNotificationsChallenge', () => {
-      challengeUtils.solve(challenges.closeNotificationsChallenge)
+    socket.on('verifyCloseNotificationsChallenge', (data: any) => {
+      challengeUtils.solveIf(challenges.closeNotificationsChallenge, () => { return Array.isArray(data) && data.length === 0 })
     })
   })
 }
