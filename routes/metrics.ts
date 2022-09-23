@@ -143,7 +143,7 @@ exports.observeMetrics = function observeMetrics () {
     labelNames: ['type']
   })
 
-  const updateLoop = setInterval(() => {
+  const updateLoop = () => setInterval(() => {
     try {
       const version = utils.version()
       const { major, minor, patch } = version.match(/(?<major>\d+).(?<minor>\d+).(?<patch>\d+)/).groups
