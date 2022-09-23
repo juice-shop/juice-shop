@@ -1,6 +1,6 @@
 /* Serve metrics */
+let metricsUpdateLoop
 const Metrics = metrics.observeMetrics()
-const metricsUpdateLoop = Metrics.updateLoop
 app.get('/metrics', security.isAdmin(), metrics.serveMetrics())
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
@@ -14,6 +14,8 @@ export async function start (readyCallback: Function) {
   datacreatorEnd()
   const port = process.env.PORT ?? config.get('server.port')
   process.env.BASE_PATH = process.env.BASE_PATH ?? config.get('server.basePath')
+
+  metricsUpdateLoop = Metrics.updateLoop()
 
   server.listen(port, () => {
     logger.info(colors.cyan(`Server listening on port ${colors.bold(port)}`))
