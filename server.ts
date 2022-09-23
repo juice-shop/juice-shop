@@ -641,11 +641,16 @@ while (!expectedModels.every(model => Object.keys(sequelize.models).includes(mod
 }
 logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length)} of ${colors.bold(expectedModels.length)} are initialized (${colors.green('OK')})`)
 
-let metricsUpdateLoop;
+// vuln-code-snippet start exposedMetricsChallenge
+/* Serve metrics */
+let metricsUpdateLoop
+const Metrics = metrics.observeMetrics() // vuln-code-snippet neutral-line exposedMetricsChallenge
+const customizeEasterEgg = require('./lib/startup/customizeEasterEgg') // vuln-code-snippet hide-line
+app.get('/metrics', metrics.serveMetrics()) // vuln-code-snippet vuln-line exposedMetricsChallenge
+errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
 const registerWebsocketEvents = require('./lib/startup/registerWebsocketEvents')
 const customizeApplication = require('./lib/startup/customizeApplication')
-const customizeEasterEgg = require('./lib/startup/customizeEasterEgg') // vuln-code-snippet hide-line
 
 export async function start (readyCallback: Function) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
@@ -655,12 +660,7 @@ export async function start (readyCallback: Function) {
   const port = process.env.PORT ?? config.get('server.port')
   process.env.BASE_PATH = process.env.BASE_PATH ?? config.get('server.basePath')
 
-  // vuln-code-snippet start exposedMetricsChallenge
-  /* Serve metrics */
-  const Metrics = metrics.observeMetrics() // vuln-code-snippet neutral-line exposedMetricsChallenge
   metricsUpdateLoop = Metrics.updateLoop() // vuln-code-snippet neutral-line exposedMetricsChallenge
-  app.get('/metrics', metrics.serveMetrics()) // vuln-code-snippet vuln-line exposedMetricsChallenge
-  errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
   server.listen(port, () => {
     logger.info(colors.cyan(`Server listening on port ${colors.bold(port)}`))
