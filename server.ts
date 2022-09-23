@@ -641,7 +641,7 @@ while (!expectedModels.every(model => Object.keys(sequelize.models).includes(mod
 }
 logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length)} of ${colors.bold(expectedModels.length)} are initialized (${colors.green('OK')})`)
 
-let metricsUpdateLoop;
+let metricsUpdateLoop
 
 const registerWebsocketEvents = require('./lib/startup/registerWebsocketEvents')
 const customizeApplication = require('./lib/startup/customizeApplication')
