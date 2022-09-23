@@ -1,6 +1,6 @@
 /* Serve metrics */
 const Metrics = metrics.observeMetrics()
-const metricsUpdateLoop = Metrics.updateLoop
+const metricsUpdateLoop = Metrics.updateLoop()
 app.get('/metrics', security.denyAll(), metrics.serveMetrics())
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
