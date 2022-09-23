@@ -206,7 +206,7 @@ export const getErrorMessage = (error: unknown) => {
 }
 
 export const matchesSystemIniFile = (text: string) => {
-  const match = text.match(/(; for 16-bit app support|drivers|mci|driver32|386enh|keyboard|boot|display)/gi)
+  const match = text.match(/; for 16-bit app support/gi)
   return match !== null && match.length >= 1
 }
 
