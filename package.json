@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "14.3.0-SNAPSHOT",
+  "version": "14.3.0",
   "private": true,
   "description": "Probably the most modern and sophisticated insecure web application",
   "keywords": [
@@ -162,7 +162,7 @@
     "otplib": "^12.0.1",
     "pdfkit": "^0.11.0",
     "portscanner": "^2.2.0",
-    "prom-client": "^12.0.0",
+    "prom-client": "^14.1.0",
     "pug": "^3.0.0",
     "replace": "^1.2.0",
     "request": "^2.88.2",
