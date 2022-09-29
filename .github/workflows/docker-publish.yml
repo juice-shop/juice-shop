@@ -74,7 +74,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            bkimminich/juice-shop:${{ steps.tag.outputs.tag }}
+            freshdemo/snyk-juice-shop:${{ steps.tag.outputs.tag }}
           build-args: |
             VCS_REF=${{ env.VCS_REF }}
             BUILD_DATE=${{ env.BUILD_DATE }}
