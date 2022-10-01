@@ -74,3 +74,18 @@ Cypress.Commands.add(
     cy.wait(500)
   }
 )
+
+function walkRecursivelyInArray (arr: Number[], cb: Function, index = 0) {
+  if (!arr.length) return
+  const ret = cb(index, arr.shift());
+  // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
+  ((ret && ret.chainerId) ? ret : cy.wrap(ret))
+    .then((ret: boolean) => {
+      if (!ret) return
+      return walkRecursivelyInArray(arr, cb, index + 1)
+    })
+}
+
+Cypress.Commands.add('eachSeries', { prevSubject: 'optional' }, (arrayGenerated: Number[], checkFnToBeRunOnEach: Function) => {
+  return walkRecursivelyInArray(arrayGenerated, checkFnToBeRunOnEach)
+})
