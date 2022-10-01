@@ -30,6 +30,8 @@ declare global {
         password: string
         totpSecret?: string
       }) => void
+      eachSeries: any
+
     }
   }
 }
