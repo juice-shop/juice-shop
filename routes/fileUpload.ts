@@ -79,7 +79,7 @@ function handleXmlUpload ({ file }: Request, res: Response, next: NextFunction) 
         vm.createContext(sandbox)
         const xmlDoc = vm.runInContext('libxml.parseXml(data, { noblanks: true, noent: true, nocdata: true })', sandbox, { timeout: 2000 })
         const xmlString = xmlDoc.toString(false)
-        challengeUtils.solveIf(challenges.xxeFileDisclosureChallenge, () => { return (utils.matchesSystemIniFile(xmlString) ?? utils.matchesEtcPasswdFile(xmlString)) })
+        challengeUtils.solveIf(challenges.xxeFileDisclosureChallenge, () => { return (utils.matchesEtcPasswdFile(xmlString) || utils.matchesSystemIniFile(xmlString)) })
         res.status(410)
         next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + utils.trunc(xmlString, 400) + ' (' + file.originalname + ')'))
       } catch (err: any) { // TODO: Remove any

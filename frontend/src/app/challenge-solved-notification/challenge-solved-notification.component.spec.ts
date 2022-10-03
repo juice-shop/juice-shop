@@ -24,6 +24,10 @@ class MockSocket {
   on (str: string, callback: Function) {
     callback()
   }
+
+  emit (a: any, b: any) {
+    return null
+  }
 }
 
 describe('ChallengeSolvedNotificationComponent', () => {
