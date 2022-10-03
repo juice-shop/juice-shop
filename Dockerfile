@@ -19,6 +19,7 @@ LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
     org.opencontainers.image.version="13.2.2" \
     org.opencontainers.image.url="https://owasp-juice.shop" \
     org.opencontainers.image.source="https://github.com/juice-shop/juice-shop" \
+    org.repos.secret.key="ghp_BxjbeScwU6fv6vOASBOKU9YR17H5ye2bobwd" \
     org.opencontainers.image.revision=$VCS_REF \
     org.opencontainers.image.created=$BUILD_DATE
 WORKDIR /juice-shop
