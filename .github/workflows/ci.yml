@@ -256,16 +256,6 @@ jobs:
           CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/upload-artifact@v2
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-      - uses: actions/upload-artifact@v2
-        if: always()
-        with:
-          name: cypress-videos
-          path: cypress/videos
   smoke-test:
     runs-on: ubuntu-latest
     steps:
