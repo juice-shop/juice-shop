@@ -10,7 +10,7 @@ module.exports = {
     node: true,
     jasmine: true,
     mocha: true,
-    protractor: true
+    jest: true
   },
   globals: {
     Atomics: 'readonly',

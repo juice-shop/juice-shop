@@ -105,7 +105,9 @@
 	},
 	"exposedMetricsChallenge_2.ts": {
 		"added": [
-			34
+			2,
+			19,
+			36
 		],
 		"removed": []
 	},
