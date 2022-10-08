@@ -427,7 +427,7 @@
 	"Changing from logical \"or\" to logical \"and\" here does not do anything for security but entirely breaks the redirect mechanism as \"allowed\" can never be true after the loop.": "在这里将逻辑 \"或 \"改为逻辑 \"和 \"对安全没有任何作用，但完全破坏了重定向机制，因为 \"允许 \"在循环后永远不会为真。",
 	"HTML-escaping is completely wrong in this situation because the code is dealing with URLs and not HTML input.": "在这种情况下，HTML转义是完全错误的，因为代码处理的是URL而不是HTML输入。",
 	"Using indexOf allowed any URLs as long as they contained any allow-listed URL, even if it just would be as a parameter. Replacing this with an actual equality check mitigates this lapse and makes the redirect only work for allow-listed URLs.": "使用indexOf允许任何URL，只要它们包含任何允许列出的URL，即使它只是作为一个参数。用一个实际的等价检查来代替它，可以缓解这种失误，使重定向只对允许列出的URL起作用。",
-	"The security flaw has something to do with the rate limiting configuration.": "The security flaw has something to do with the rate limiting configuration.",
+	"The security flaw has something to do with the rate limiting configuration.": "这个安全漏洞与频率限制配置有关。",
 	"Do you think the time window or number of requests is the actual problem here? Maybe there is something else going wrong...": "你认为时间窗口或请求的数量是这里的实际问题吗？也许还有其他问题......",
 	"Take a close look at the HTTP header being used here and ask yourself: \"Could an attacker do anything with it to bypass rate limiting?\"": "仔细看看这里使用的HTTP头，问问自己。\"攻击者可以用它来绕过频率限制吗？\"",
 	"Removing the setting to trust proxies does not improve security of the rate limiting. It might have some unforseen or unintended functional side-effects, though.": "移除信任代理的设置并不能提高频率限制的安全性。而且，它可能会产生一些不可预见的或意想不到的功能副作用。",
