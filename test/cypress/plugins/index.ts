@@ -19,9 +19,9 @@
 
 import * as Config from 'config'
 import * as otplib from 'otplib'
-import { Memory, Product } from '../../data/types'
-import * as utils from '../../lib/utils'
-const security = require('../../lib/insecurity')
+import { Memory, Product } from '../../../data/types'
+import * as utils from '../../../lib/utils'
+const security = require('../../../lib/insecurity')
 
 export default (on, config) => {
   on('task', {
@@ -42,7 +42,7 @@ export default (on, config) => {
       )[0]
     },
     GetCouponIntent () {
-      const trainingData = require(`../../data/chatbot/${utils.extractFilename(
+      const trainingData = require(`../../../data/chatbot/${utils.extractFilename(
         Config.get('application.chatBot.trainingData')
       )}`)
       const couponIntent = trainingData.data.filter(

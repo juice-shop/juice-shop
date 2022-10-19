@@ -24,7 +24,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-import { Challenge } from '../../data/types'
+import { Challenge } from '../../../data/types'
 
 Cypress.Commands.add(
   'expectChallengeSolved',
