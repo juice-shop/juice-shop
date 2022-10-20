@@ -4,5 +4,10 @@
   "defaultCommandTimeout": 10000,
   "env": {
     "baseUrl": "http://localhost:3000"
-  }
+  },
+  "downloadsFolder": "test/cypress/downloads",
+  "fixturesFolder": "test/cypress/fixtures",
+  "integrationFolder": "test/cypress/integration",
+  "pluginsFile": "test/cypress/plugins/index.ts",
+  "supportFile": "test/cypress/support/index.ts"
 }
