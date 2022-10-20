@@ -16,7 +16,7 @@ describe('/redirect', () => {
           failOnStatusCode: false
         }
       )
-      cy.url().should('match', /https:\/\/owasp\.org/)
+      cy.url().should("eq", "https://owasp.org/?trickIndexOf=https://github.com/bkimminich/juice-shop")
       cy.expectChallengeSolved({ challenge: 'Allowlist Bypass' })
     })
   })
