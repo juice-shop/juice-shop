@@ -1,4 +1,4 @@
-name: Build and Push Python Image to Google Cloud Platform
+name: Build and Push Python Image to Google Cloud Platforms
 on:
   push:
     branches: [ master ]
