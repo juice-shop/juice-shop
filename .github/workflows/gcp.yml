@@ -23,19 +23,14 @@ jobs:
     - name: Build Docker Image
       run: docker build -t $IMAGE_NAME:latest .
 
-    - name: Automatic Tagging of Releases
-      id: increment-git-tag
-      run: |
-        bash ./scripts/git_update.sh -v major
-
-    - name: Configure Docker Client
+      - name: Configure Docker Client
       run: |-
         gcloud auth configure-docker --quiet
         gcloud auth configure-docker us-east1-docker.pkg.dev
 
     - name: Push Docker Image to Container Registry (GCR)
       env:
-        GIT_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
+        GIT_TAG: v0.1.0
       run: |-
         docker tag $IMAGE_NAME:latest gcr.io/$PROJECT_ID/$IMAGE_NAME:latest
         docker tag $IMAGE_NAME:latest gcr.io/$PROJECT_ID/$IMAGE_NAME:$GIT_TAG
