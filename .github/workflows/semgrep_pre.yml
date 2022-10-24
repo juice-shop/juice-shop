@@ -1,40 +1,40 @@
 # Name of this GitHub Actions workflow.
-name: Semgrep
+#name: Semgrep
 
-on:
+#on:
   # Scan changed files in PRs (diff-aware scanning):
-  pull_request: {}
+#  pull_request: {}
   # Scan mainline branches and report all findings:
-  push:
-    branches: ["master", "main"]
+#  push:
+#    branches: ["master", "main"]
   # Schedule the CI job (this method uses cron syntax):
-  schedule:
-    - cron: '30 0 1,15 * *' # scheduled for 00:30 UTC on both the 1st and 15th of the month
+#  schedule:
+#    - cron: '30 0 1,15 * *' # scheduled for 00:30 UTC on both the 1st and 15th of the month
 
-jobs:
-  semgrep:
+#jobs:
+#  semgrep:
     # User definable name of this GitHub Actions job.
-    name: Scan
+#    name: Scan
     # If you are self-hosting, change the following `runs-on` value: 
-    runs-on: ubuntu-latest
+#    runs-on: ubuntu-latest
 
-    container:
+#    container:
       # A Docker image with Semgrep installed. Do not change this.
-      image: returntocorp/semgrep
+#      image: returntocorp/semgrep
 
     # Skip any PR created by dependabot to avoid permission issues:
-    if: (github.actor != 'dependabot[bot]')
+#    if: (github.actor != 'dependabot[bot]')
 
-    steps:
+ #   steps:
       # Fetch project source with GitHub Actions Checkout.
       - uses: actions/checkout@v3
       # Run the "semgrep ci" command on the command line of the docker image.
       - run: semgrep ci
-        env:
+ #       env:
           # Connect to Semgrep App through your SEMGREP_APP_TOKEN.
           # Generate a token from Semgrep App > Settings
           # and add it to your GitHub secrets.
-          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+#          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
 
           # Uncomment SEMGREP_TIMEOUT to set this job's timeout (in seconds):
           # Default timeout is 1800 seconds (30 minutes).
