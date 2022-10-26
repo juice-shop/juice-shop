@@ -105,21 +105,22 @@ describe('/rest/deluxe-membership', () => {
       password: 'OhG0dPlease1nsertLiquor!'
     })
 
-    await void frisby.get(API_URL + '/Cards', {
+    const { json } = await frisby.get(API_URL + '/Cards', {
       headers: { Authorization: 'Bearer ' + token, 'content-type': 'application/json' }
     })
       .expect('status', 200)
-      .then(({ json }) => {
-        return frisby.post(REST_URL + '/deluxe-membership', {
-          headers: { Authorization: 'Bearer ' + token, 'content-type': 'application/json' },
-          body: {
-            paymentMode: 'card',
-            paymentId: json.data[0].id.toString()
-          }
-        })
-          .expect('status', 200)
-          .expect('json', 'status', 'success')
-      })
+      .promise()
+
+    await frisby.post(REST_URL + '/deluxe-membership', {
+      headers: { Authorization: 'Bearer ' + token, 'content-type': 'application/json' },
+      body: {
+        paymentMode: 'card',
+        paymentId: json.data[0].id.toString()
+      }
+    })
+      .expect('status', 200)
+      .expect('json', 'status', 'success')
+      .promise()
   })
 
   it('POST deluxe membership status with wrong card id throws error', async () => {
@@ -128,7 +129,7 @@ describe('/rest/deluxe-membership', () => {
       password: 'ncc-1701'
     })
 
-    await void frisby.post(REST_URL + '/deluxe-membership', {
+    await frisby.post(REST_URL + '/deluxe-membership', {
       headers: { Authorization: 'Bearer ' + token, 'content-type': 'application/json' },
       body: {
         paymentMode: 'card',
@@ -137,6 +138,7 @@ describe('/rest/deluxe-membership', () => {
     })
       .expect('status', 400)
       .expect('json', 'error', 'Invalid Card')
+      .promise()
   })
 
   it('POST deluxe membership status for deluxe members throws error', () => {
