@@ -9,8 +9,9 @@ const { initialize, bot } = require('../../routes/chatbot')
 const fs = require('fs')
 const utils = require('../../lib/utils')
 
-const REST_URL = 'http://localhost:3000/rest/'
-const API_URL = 'http://localhost:3000/api/'
+const URL = 'http://localhost:3000'
+const REST_URL = `${URL}/rest/`
+const API_URL = `${URL}/api/`
 let trainingData: { data: any[] }
 
 async function login ({ email, password }: { email: string, password: string }) {
@@ -261,6 +262,41 @@ describe('/chatbot', () => {
         .expect('status', 200)
         .expect('json', 'action', 'response')
         .expect('json', 'body', testResponse)
+    })
+
+    it('Returns a 500 when the user name is set to crash request', async () => {
+      await frisby.post(`${API_URL}/Users`, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: {
+          email: `chatbot-testuser@${config.get('application.domain')}`,
+          password: 'testtesttest',
+          username: '"',
+          role: 'admin'
+        }
+      }).promise()
+
+      const { token } = await login({
+        email: `chatbot-testuser@${config.get('application.domain')}`,
+        password: 'testtesttest'
+      })
+
+      const functionTest = trainingData.data.filter(data => data.intent === 'queries.functionTest')
+      const testCommand = functionTest[0].utterances[0]
+      await frisby.post(REST_URL + 'chatbot/respond', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: {
+          action: 'query',
+          query: testCommand
+        }
+      })
+        .inspectResponse()
+        .expect('status', 500)
+        .promise()
     })
   })
 })
