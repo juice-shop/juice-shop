@@ -23,7 +23,7 @@ module.exports = function saveLoginIp () {
         lastLoginIp = security.sanitizeSecure(lastLoginIp)
       }
       if (lastLoginIp === undefined) {
-        lastLoginIp = utils.toSimpleIpAddress(req.connection.remoteAddress)
+        lastLoginIp = utils.toSimpleIpAddress(req.socket.remoteAddress)
       }
       UserModel.findByPk(loggedInUser.data.id).then((user: UserModel | null) => {
         user?.update({ lastLoginIp: lastLoginIp?.toString() }).then((user: UserModel) => {
