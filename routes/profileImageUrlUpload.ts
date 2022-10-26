@@ -33,7 +33,7 @@ module.exports = function profileImageUrlUpload () {
             } else UserModel.findByPk(loggedInUser.data.id).then(async (user: UserModel | null) => { return await user?.update({ profileImage: url }) }).catch((error: Error) => { next(error) })
           })
       } else {
-        next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+        next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
       }
     }
     res.location(process.env.BASE_PATH + '/profile')

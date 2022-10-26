@@ -43,7 +43,7 @@ module.exports = function fileUpload () {
           res.location(process.env.BASE_PATH + '/profile')
           res.redirect(process.env.BASE_PATH + '/profile')
         } else {
-          next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+          next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
         }
       } else {
         res.status(415)
