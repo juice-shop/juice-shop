@@ -109,7 +109,7 @@ module.exports = function dataExport () {
         next(new Error(`Error retrieving orders for ${updatedEmail}`))
       })
     } else {
-      next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+      next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
     }
   }
 }
