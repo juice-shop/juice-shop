@@ -37,7 +37,7 @@ module.exports = function updateUserProfile () {
         next(error)
       })
     } else {
-      next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+      next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
     }
   }
 }
