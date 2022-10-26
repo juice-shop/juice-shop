@@ -46,7 +46,7 @@ async function initialize () {
 
 void initialize()
 
-async function processQuery (user: User, req: Request, res: Response) {
+async function processQuery (user: User, req: Request, res: Response, next: NextFunction) {
   const username = user.username
   if (!username) {
     res.status(200).json({
@@ -57,16 +57,26 @@ async function processQuery (user: User, req: Request, res: Response) {
   }
 
   if (!bot.factory.run(`currentUser('${user.id}')`)) {
-    bot.addUser(`${user.id}`, username)
-    res.status(200).json({
-      action: 'response',
-      body: bot.greet(`${user.id}`)
-    })
+    try {
+      bot.addUser(`${user.id}`, username)
+      res.status(200).json({
+        action: 'response',
+        body: bot.greet(`${user.id}`)
+      })
+    } catch (err) {
+      next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+    }
     return
   }
 
   if (bot.factory.run(`currentUser('${user.id}')`) !== username) {
     bot.addUser(`${user.id}`, username)
+    try {
+      bot.addUser(`${user.id}`, username)
+    } catch (err) {
+      next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+      return
+    }
   }
 
   if (!req.body.query) {
@@ -172,12 +182,15 @@ module.exports.status = function status () {
         return
       }
 
-      bot.addUser(`${user.id}`, username)
-
-      res.status(200).json({
-        status: bot.training.state,
-        body: bot.training.state ? bot.greet(`${user.id}`) : `${config.get('application.chatBot.name')} isn't ready at the moment, please wait while I set things up`
-      })
+      try {
+        bot.addUser(`${user.id}`, username)
+        res.status(200).json({
+          status: bot.training.state,
+          body: bot.training.state ? bot.greet(`${user.id}`) : `${config.get('application.chatBot.name')} isn't ready at the moment, please wait while I set things up`
+        })
+      } catch (err) {
+        next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+      }
       return
     }
 
@@ -221,7 +234,7 @@ module.exports.process = function respond () {
     }
 
     if (req.body.action === 'query') {
-      await processQuery(user, req, res)
+      await processQuery(user, req, res, next)
     } else if (req.body.action === 'setname') {
       setUserName(user, req, res)
     }
