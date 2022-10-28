@@ -22,7 +22,7 @@ jobs:
 
     - name: Build Docker Image
       run: docker build -t $IMAGE_NAME:latest .
-      run: docker run -d --name dd-agent -v /var/run/docker.sock:/var/run/docker.sock:ro -v /proc/:/host/proc/:ro -v /sys/fs/cgroup/:/host/sys/fs/cgroup:ro -e DD_API_KEY=b8a9089ebfc14c8fcf95170fc91ea101 -e DD_SITE="datadoghq.com" gcr.io/datadoghq/agent:7
+      
 
     - name: Configure Docker Client
       run: |-
