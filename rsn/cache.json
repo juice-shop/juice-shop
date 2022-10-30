@@ -464,6 +464,49 @@
 			9
 		]
 	},
+	"weakPasswordChallenge_1_correct.ts": {
+		"added": [],
+		"removed": [
+			5,
+			6,
+			7,
+			8
+		]
+	},
+	"weakPasswordChallenge_2.ts": {
+		"added": [],
+		"removed": [
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		]
+	},
+	"weakPasswordChallenge_3.ts": {
+		"added": [],
+		"removed": [
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11,
+			12
+		]
+	},
+	"weakPasswordChallenge_4.ts": {
+		"added": [],
+		"removed": [
+			5,
+			6,
+			7,
+			8
+		]
+	},
 	"xssBonusChallenge_1_correct.ts": {
 		"added": [],
 		"removed": []
