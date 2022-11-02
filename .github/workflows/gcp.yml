@@ -27,7 +27,7 @@ jobs:
       run: docker run -d --name dd-agent -v /var/run/docker.sock:/var/run/docker.sock:ro -v /proc/:/host/proc/:ro -v /sys/fs/cgroup/:/host/sys/fs/cgroup:ro -e DD_API_KEY=${{ secrets.API_KEY }} -e DD_SITE="datadoghq.com" -e DD_TAGS="project:juiceshop" gcr.io/datadoghq/agent:7
 
     - name: SumoLogic Install
-       run: docker run -d -v /var/run/docker.sock:/var/run/docker.sock --name="sumo-logic-collector" sumologic/collector:latest ${{ secrets.ACCESS_ID }} ${{ secrets.ACCESS_KEY }}
+      run: docker run -d -v /var/run/docker.sock:/var/run/docker.sock --name="sumo-logic-collector" sumologic/collector:latest ${{ secrets.ACCESS_ID }} ${{ secrets.ACCESS_KEY }}
 
     - name: Configure Docker Client
       run: |-
