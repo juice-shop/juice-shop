@@ -177,6 +177,7 @@
     "swagger-ui-express": "^4.1.4",
     "ts-node-dev": "^1.1.6",
     "unzipper": "0.9.15",
+    "valine": "1.4.18",
     "winston": "^3.3.3",
     "yaml-schema-validator": "^1.2.2",
     "z85": "^0.0.2"
