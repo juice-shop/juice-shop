@@ -8,7 +8,7 @@
   "MANDATORY_PASSWORD": "Du måste ange ett lösenord.",
   "LABEL_EMAIL": "E-post",
   "LABEL_PASSWORD": "Lösenord",
-  "SHOW_PASSWORD_ADVICE": "Show password advice",
+  "SHOW_PASSWORD_ADVICE": "Visa lösenordstips",
   "LOWER_CASE_CRITERIA_MSG": "contains at least one lower character",
   "UPPER_CASE_CRITERIA_MSG": "contains at least one upper character",
   "DIGITS_CRITERIA_MSG": "contains at least one digit",
