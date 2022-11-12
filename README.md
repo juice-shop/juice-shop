@@ -177,9 +177,8 @@ gcloud compute firewall-rules create juice-rule --allow tcp:3000
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-> This is the quickest way to get a running instance of Juice Shop! If
-> you have forked this repository, the deploy button will automatically
-> pick up your fork for deployment!
+If you have forked the Juice Shop repository on GitHub, the _Deploy to
+Heroku_ button will deploy your forked version of the application.
 
 ### Gitpod 
 
