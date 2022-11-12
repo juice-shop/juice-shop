@@ -39,7 +39,6 @@ For a detailed introduction, full list of features and architecture overview ple
 ## Table of contents
 
 - [Setup](#setup)
-    - [Deploy on Heroku (free ($0/month) dyno)](#deploy-on-heroku-free-0month-dyno)
     - [From Sources](#from-sources)
     - [Packaged Distributions](#packaged-distributions)
     - [Docker Container](#docker-container)
@@ -47,6 +46,7 @@ For a detailed introduction, full list of features and architecture overview ple
     - [Amazon EC2 Instance](#amazon-ec2-instance)
     - [Azure Container Instance](#azure-container-instance)
     - [Google Compute Engine Instance](#google-compute-engine-instance)
+    - [Heroku](#heroku)
     - [Gitpod](#gitpod)
 - [Demo](#demo)
 - [Documentation](#documentation)
