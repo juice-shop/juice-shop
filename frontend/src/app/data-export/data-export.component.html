@@ -29,6 +29,7 @@
           <input #captchaInput [formControl]="captchaControl" type="text" matInput
                  placeholder="{{ 'TYPE_THESE_LETTERS' | translate: {length: '5'} }}" maxlength="5"
                  aria-label="Input for the CAPTCHA">
+          <input #captchaVerifier [formControl]="verifierControl" type="hidden">
           <mat-hint align="end">{{captchaInput.value?.length || 0}}/5</mat-hint>
           <mat-error *ngIf="captchaControl.invalid && captchaControl.errors.required " translate>MANDATORY_CAPTCHA
           </mat-error>
