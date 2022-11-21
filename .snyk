@@ -1,0 +1,9 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.0
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JS-SANITIZEHTML-585892:
+    - '*':
+        reason: testing
+        expires: 2023-01-30T00:00:00.000Z
+        created: 2022-11-21T17:47:55.633Z
