@@ -5,21 +5,23 @@
 
 const logger = require('./logger')
 const colors = require('colors/safe')
-const solves = {}
+const solves: { [key: string]: { 'find it': boolean, 'fix it': boolean, attempts: { 'find it': number, 'fix it': number } } } = {}
 
-exports.storeFindItVerdict = (challengeKey, verdict: boolean) => {
+type Phase = 'find it' | 'fix it'
+
+exports.storeFindItVerdict = (challengeKey: string, verdict: boolean) => {
   storeVerdict(challengeKey, 'find it', verdict)
 }
 
-exports.storeFixItVerdict = (challengeKey, verdict: boolean) => {
+exports.storeFixItVerdict = (challengeKey: string, verdict: boolean) => {
   storeVerdict(challengeKey, 'fix it', verdict)
 }
 
-exports.calculateFindItAccuracy = (challengeKey) => {
+exports.calculateFindItAccuracy = (challengeKey: string) => {
   return calculateAccuracy(challengeKey, 'find it')
 }
 
-exports.calculateFixItAccuracy = (challengeKey) => {
+exports.calculateFixItAccuracy = (challengeKey: string) => {
   return calculateAccuracy(challengeKey, 'fix it')
 }
 
@@ -31,11 +33,11 @@ exports.totalFixItAccuracy = () => {
   return totalAccuracy('fix it')
 }
 
-exports.getFindItAttempts = (challengeKey) => {
+exports.getFindItAttempts = (challengeKey: string) => {
   return solves[challengeKey] ? solves[challengeKey].attempts['find it'] : 0
 }
 
-function totalAccuracy (phase: string) {
+function totalAccuracy (phase: Phase) {
   let sumAccuracy = 0
   let totalSolved = 0
   Object.entries(solves).forEach(([key, value]) => {
@@ -47,7 +49,7 @@ function totalAccuracy (phase: string) {
   return sumAccuracy / totalSolved
 }
 
-function calculateAccuracy (challengeKey, phase: string) {
+function calculateAccuracy (challengeKey: string, phase: Phase) {
   let accuracy = 0
   if (solves[challengeKey][phase]) {
     accuracy = 1 / solves[challengeKey].attempts[phase]
@@ -56,7 +58,7 @@ function calculateAccuracy (challengeKey, phase: string) {
   return accuracy
 }
 
-function storeVerdict (challengeKey, phase: string, verdict: boolean) {
+function storeVerdict (challengeKey: string, phase: Phase, verdict: boolean) {
   if (!solves[challengeKey]) {
     solves[challengeKey] = { 'find it': false, 'fix it': false, attempts: { 'find it': 0, 'fix it': 0 } }
   }

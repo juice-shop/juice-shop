@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import utils = require('../lib/utils')
+import challengeUtils = require('../lib/challengeUtils')
 import { Request, Response, NextFunction } from 'express'
 
 const challenges = require('../data/datacache').challenges
@@ -19,11 +19,11 @@ module.exports = function productReviews () {
       { $set: { message: req.body.message } },
       { multi: true } // vuln-code-snippet vuln-line noSqlReviewsChallenge
     ).then(
-      result => {
-        utils.solveIf(challenges.noSqlReviewsChallenge, () => { return result.modified > 1 }) // vuln-code-snippet hide-line
-        utils.solveIf(challenges.forgedReviewChallenge, () => { return user?.data && result.original[0] && result.original[0].author !== user.data.email && result.modified === 1 }) // vuln-code-snippet hide-line
+      (result: { modified: number, original: Array<{ author: any }> }) => {
+        challengeUtils.solveIf(challenges.noSqlReviewsChallenge, () => { return result.modified > 1 }) // vuln-code-snippet hide-line
+        challengeUtils.solveIf(challenges.forgedReviewChallenge, () => { return user?.data && result.original[0] && result.original[0].author !== user.data.email && result.modified === 1 }) // vuln-code-snippet hide-line
         res.json(result)
-      }, err => {
+      }, (err: unknown) => {
         res.status(500).json(err)
       })
   }

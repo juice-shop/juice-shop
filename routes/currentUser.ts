@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import utils = require('../lib/utils')
+import challengeUtils = require('../lib/challengeUtils')
 import { Request, Response } from 'express'
 
 const security = require('../lib/insecurity')
@@ -24,7 +24,7 @@ module.exports = function retrieveLoggedInUser () {
       if (req.query.callback === undefined) {
         res.json(response)
       } else {
-        utils.solveIf(challenges.emailLeakChallenge, () => { return true })
+        challengeUtils.solveIf(challenges.emailLeakChallenge, () => { return true })
         res.jsonp(response)
       }
     }

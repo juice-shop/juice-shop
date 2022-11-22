@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
+import { UserModel } from '../models/user'
+import challengeUtils = require('../lib/challengeUtils')
 
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
@@ -17,15 +18,15 @@ module.exports = function saveLoginIp () {
     if (loggedInUser !== undefined) {
       let lastLoginIp = req.headers['true-client-ip']
       if (!utils.disableOnContainerEnv()) {
-        utils.solveIf(challenges.httpHeaderXssChallenge, () => { return lastLoginIp === '<iframe src="javascript:alert(`xss`)">' })
+        challengeUtils.solveIf(challenges.httpHeaderXssChallenge, () => { return lastLoginIp === '<iframe src="javascript:alert(`xss`)">' })
       } else {
         lastLoginIp = security.sanitizeSecure(lastLoginIp)
       }
       if (lastLoginIp === undefined) {
-        lastLoginIp = utils.toSimpleIpAddress(req.connection.remoteAddress)
+        lastLoginIp = utils.toSimpleIpAddress(req.socket.remoteAddress)
       }
-      models.User.findByPk(loggedInUser.data.id).then(user => {
-        user.update({ lastLoginIp: lastLoginIp }).then(user => {
+      UserModel.findByPk(loggedInUser.data.id).then((user: UserModel | null) => {
+        user?.update({ lastLoginIp: lastLoginIp?.toString() }).then((user: UserModel) => {
           res.json(user)
         }).catch((error: Error) => {
           next(error)

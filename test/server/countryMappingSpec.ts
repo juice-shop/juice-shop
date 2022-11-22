@@ -4,6 +4,7 @@
  */
 
 import sinon = require('sinon')
+const config = require('config')
 const chai = require('chai')
 const sinonChai = require('sinon-chai')
 const expect = chai.expect
@@ -31,9 +32,13 @@ describe('countryMapping', () => {
     expect(res.status).to.have.been.calledWith(500)
   })
 
-  it('should return server error for default configuration', () => {
+  it('should return ' + (config.get('ctf.countryMapping') ? 'no ' : '') + 'server error for active configuration from config/' + process.env.NODE_ENV + '.yml', () => {
     countryMapping()(req, res)
 
-    expect(res.status).to.have.been.calledWith(500)
+    if (config.get('ctf.countryMapping')) {
+      expect(res.send).to.have.been.calledWith(config.get('ctf.countryMapping'))
+    } else {
+      expect(res.status).to.have.been.calledWith(500)
+    }
   })
 })

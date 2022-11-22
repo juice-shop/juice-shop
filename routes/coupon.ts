@@ -3,20 +3,20 @@
  * SPDX-License-Identifier: MIT
  */
 
-import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
+import { BasketModel } from '../models/basket'
 
 const security = require('../lib/insecurity')
 
 module.exports = function applyCoupon () {
   return ({ params }: Request, res: Response, next: NextFunction) => {
     const id = params.id
-    let coupon = params.coupon ? decodeURIComponent(params.coupon) : undefined
+    let coupon: string | undefined | null = params.coupon ? decodeURIComponent(params.coupon) : undefined
     const discount = security.discountFromCoupon(coupon)
     coupon = discount ? coupon : null
-    models.Basket.findByPk(id).then(basket => {
+    BasketModel.findByPk(id).then((basket: BasketModel | null) => {
       if (basket) {
-        basket.update({ coupon }).then(() => {
+        basket.update({ coupon: coupon?.toString() }).then(() => {
           if (discount) {
             res.json({ discount })
           } else {

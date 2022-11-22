@@ -5,7 +5,7 @@
 
 import { SecurityAnswerService } from '../Services/security-answer.service'
 import { UserService } from '../Services/user.service'
-import { AbstractControl, FormControl, Validators } from '@angular/forms'
+import { AbstractControl, UntypedFormControl, Validators } from '@angular/forms'
 import { Component, NgZone, OnInit } from '@angular/core'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { Router } from '@angular/router'
@@ -27,11 +27,11 @@ dom.watch()
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  public emailControl: FormControl = new FormControl('', [Validators.required, Validators.email])
-  public passwordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)])
-  public repeatPasswordControl: FormControl = new FormControl('', [Validators.required, matchValidator(this.passwordControl)])
-  public securityQuestionControl: FormControl = new FormControl('', [Validators.required])
-  public securityAnswerControl: FormControl = new FormControl('', [Validators.required])
+  public emailControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.email])
+  public passwordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)])
+  public repeatPasswordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, matchValidator(this.passwordControl)])
+  public securityQuestionControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
+  public securityAnswerControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
   public securityQuestions!: SecurityQuestion[]
   public selected?: number
   public error: string | null = null
@@ -88,7 +88,7 @@ export class RegisterComponent implements OnInit {
 }
 
 function matchValidator (passwordControl: AbstractControl) {
-  return function matchOtherValidate (repeatPasswordControl: FormControl) {
+  return function matchOtherValidate (repeatPasswordControl: UntypedFormControl) {
     const password = passwordControl.value
     const passwordRepeat = repeatPasswordControl.value
     if (password !== passwordRepeat) {

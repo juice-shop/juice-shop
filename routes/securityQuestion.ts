@@ -3,20 +3,22 @@
  * SPDX-License-Identifier: MIT
  */
 
-import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
+import { SecurityAnswerModel } from '../models/securityAnswer'
+import { UserModel } from '../models/user'
+import { SecurityQuestionModel } from '../models/securityQuestion'
 
 module.exports = function securityQuestion () {
   return ({ query }: Request, res: Response, next: NextFunction) => {
     const email = query.email
-    models.SecurityAnswer.findOne({
+    SecurityAnswerModel.findOne({
       include: [{
-        model: models.User,
-        where: { email }
+        model: UserModel,
+        where: { email: email?.toString() }
       }]
-    }).then(answer => {
+    }).then((answer: SecurityAnswerModel | null) => {
       if (answer) {
-        models.SecurityQuestion.findByPk(answer.SecurityQuestionId).then(question => {
+        SecurityQuestionModel.findByPk(answer.SecurityQuestionId).then((question: SecurityQuestionModel | null) => {
           res.json({ question })
         }).catch((error: Error) => {
           next(error)
@@ -24,7 +26,7 @@ module.exports = function securityQuestion () {
       } else {
         res.json({})
       }
-    }).catch((error: Error) => {
+    }).catch((error: unknown) => {
       next(error)
     })
   }

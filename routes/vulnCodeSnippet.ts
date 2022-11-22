@@ -9,6 +9,7 @@ import actualFs from 'fs'
 import yaml from 'js-yaml'
 
 const utils = require('../lib/utils')
+const challengeUtils = require('../lib/challengeUtils')
 const challenges = require('../data/datacache').challenges
 const path = require('path')
 const accuracy = require('../lib/accuracy')
@@ -148,7 +149,7 @@ exports.serveCodeSnippet = () => async (req: Request<SnippetRequestBody, {}, {}>
     res.status(setStatusCode(snippetData)).json({ snippet: snippetData.snippet })
   } catch (error) {
     const statusCode = setStatusCode(error)
-    res.status(statusCode).json({ status: 'error', error: error.message })
+    res.status(statusCode).json({ status: 'error', error: utils.getErrorMessage(error) })
   }
 }
 
@@ -182,7 +183,7 @@ exports.checkVulnLines = () => async (req: Request<{}, {}, VerdictRequestBody>, 
     snippetData = await retrieveCodeSnippet(key)
   } catch (error) {
     const statusCode = setStatusCode(error)
-    res.status(statusCode).json({ status: 'error', error: error.message })
+    res.status(statusCode).json({ status: 'error', error: utils.getErrorMessage(error) })
     return
   }
   const vulnLines: number[] = snippetData.vulnLines
@@ -206,7 +207,7 @@ exports.checkVulnLines = () => async (req: Request<{}, {}, VerdictRequestBody>, 
     }
   }
   if (verdict) {
-    await utils.solveFindIt(key)
+    await challengeUtils.solveFindIt(key)
     res.status(200).json({
       verdict: true
     })

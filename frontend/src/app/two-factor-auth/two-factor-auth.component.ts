@@ -4,7 +4,7 @@
  */
 
 import { Component } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
 import { ConfigurationService } from '../Services/configuration.service'
@@ -28,13 +28,13 @@ dom.watch()
 export class TwoFactorAuthComponent {
   public data?: string
 
-  public twoFactorSetupForm: FormGroup = new FormGroup({
-    passwordControl: new FormControl('', [Validators.required]),
-    initalTokenControl: new FormControl('', [Validators.required, Validators.pattern('^[\\d]{6}$')])
+  public twoFactorSetupForm: UntypedFormGroup = new UntypedFormGroup({
+    passwordControl: new UntypedFormControl('', [Validators.required]),
+    initalTokenControl: new UntypedFormControl('', [Validators.required, Validators.pattern('^[\\d]{6}$')])
   })
 
-  public twoFactorDisableForm: FormGroup = new FormGroup({
-    passwordControl: new FormControl('', [Validators.required])
+  public twoFactorDisableForm: UntypedFormGroup = new UntypedFormGroup({
+    passwordControl: new UntypedFormControl('', [Validators.required])
   })
 
   public setupStatus: boolean | null = null

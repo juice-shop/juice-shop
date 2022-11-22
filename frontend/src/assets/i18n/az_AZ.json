@@ -356,7 +356,7 @@
   "SAVE_BACKUP_TOOLTIP": "Çağırış irəliləyişini və tətbiq tənzimləmələrini faylda saxlayın.",
   "RESTORE_BACKUP_TOOLTIP": "Çağırış irəliləyişini və tətbiq tənzimləmələrini fayldan bərpa edin.",
   "TAG_DANGER_ZONE": "Təhlükəli zona",
-  "TAG_DANGER_ZONE_DESCRIPTION": "RCE və ya digər risklərə görə Docker/Heroku-da ilkin olaraq sıradan çıxarılmış mümkün təhlükəli çağırışları işarələyir.",
+  "TAG_DANGER_ZONE_DESCRIPTION": "Marks potentially dangerous challenges which are disabled on Docker/Heroku/Gitpod by default due to RCE or other risks.",
   "TAG_GOOD_FOR_DEMOS": "Demolar üçün yaxşıdır",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "Canlı demolar və ya həssas məşqlər üçün uyğun olan çağırışları vurğulayır.",
   "TAG_PREREQUISITE": "Ön şərt",

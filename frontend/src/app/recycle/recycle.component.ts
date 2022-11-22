@@ -7,7 +7,7 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { UserService } from '../Services/user.service'
 import { RecycleService } from '../Services/recycle.service'
 import { Component, OnInit, ViewChild } from '@angular/core'
-import { FormControl, Validators } from '@angular/forms'
+import { UntypedFormControl, Validators } from '@angular/forms'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
@@ -25,10 +25,10 @@ dom.watch()
 })
 export class RecycleComponent implements OnInit {
   @ViewChild('addressComp', { static: true }) public addressComponent: AddressComponent
-  public requestorControl: FormControl = new FormControl({ value: '', disabled: true }, [])
-  public recycleQuantityControl: FormControl = new FormControl('', [Validators.required, Validators.min(10), Validators.max(1000)])
-  public pickUpDateControl: FormControl = new FormControl()
-  public pickup: FormControl = new FormControl(false)
+  public requestorControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
+  public recycleQuantityControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(1000)])
+  public pickUpDateControl: UntypedFormControl = new UntypedFormControl()
+  public pickup: UntypedFormControl = new UntypedFormControl(false)
   public topImage?: string
   public bottomImage?: string
   public recycles: any

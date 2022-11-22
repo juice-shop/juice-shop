@@ -47,6 +47,7 @@ application:
     contact: 'mailto:donotreply@owasp-juice.shop'
     encryption: 'https://keybase.io/bkimminich/pgp_keys.asc?fingerprint=19c01cb7157e4645e9e2c863062a85a8cbfbdcda'
     acknowledgements: '/#/score-board'
+    hiring: '/#/jobs'
   promotion:
     video: owasp_promo.mp4
     subtitles: owasp_promo.vtt
@@ -57,20 +58,18 @@ application:
     clientId: '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
     authorizedRedirects:
       - { uri: 'https://demo.owasp-juice.shop' }
-      - { uri: 'http://demo.owasp-juice.shop' }
       - { uri: 'https://juice-shop.herokuapp.com' }
-      - { uri: 'http://juice-shop.herokuapp.com' }
       - { uri: 'https://preview.owasp-juice.shop' }
-      - { uri: 'http://preview.owasp-juice.shop' }
       - { uri: 'https://juice-shop-staging.herokuapp.com' }
-      - { uri: 'http://juice-shop-staging.herokuapp.com' }
-      - { uri: 'http://juice-shop.wtf' }
-      - { uri: 'http://localhost:3000', proxy: 'http://local3000.owasp-juice.shop' }
-      - { uri: 'http://127.0.0.1:3000', proxy: 'http://local3000.owasp-juice.shop' }
-      - { uri: 'http://localhost:4200', proxy: 'http://local4200.owasp-juice.shop' }
-      - { uri: 'http://127.0.0.1:4200', proxy: 'http://local4200.owasp-juice.shop' }
-      - { uri: 'http://192.168.99.100:3000', proxy: 'http://localmac.owasp-juice.shop' }
-      - { uri: 'http://penguin.termina.linux.test:3000', proxy: 'http://localchromeos.owasp-juice.shop' }
+      - { uri: 'https://juice-shop.wtf' }
+      - { uri: 'http://localhost:3000', proxy: 'https://local3000.owasp-juice.shop' }
+      - { uri: 'http://127.0.0.1:3000', proxy: 'https://local3000.owasp-juice.shop' }
+      - { uri: 'http://localhost:4200', proxy: 'https://local4200.owasp-juice.shop' }
+      - { uri: 'http://127.0.0.1:4200', proxy: 'https://local4200.owasp-juice.shop' }
+      - { uri: 'http://192.168.99.100:3000', proxy: 'https://localmac.owasp-juice.shop' }
+      - { uri: 'http://192.168.99.100:4200', proxy: 'https://localmac.owasp-juice.shop' }
+      - { uri: 'http://penguin.termina.linux.test:3000', proxy: 'https://localchromeos.owasp-juice.shop' }
+      - { uri: 'http://penguin.termina.linux.test:4200', proxy: 'https://localchromeos.owasp-juice.shop' }
 challenges:
   showSolvedNotifications: true
   showHints: true
@@ -83,7 +82,8 @@ challenges:
   showFeedbackButtons: true
 hackingInstructor:
   isEnabled: true
-  avatarImage: JuicyBot_MedicalMask.png
+  avatarImage: JuicyBot.png
+  hintPlaybackSpeed: normal # Options: faster fast normal slow slower
 products:
   -
     name: 'Apple Juice (1000ml)'
@@ -362,7 +362,7 @@ products:
     price: 9999.99
     quantity: 1
     limitPerUser: 1
-    image: permafrost.jpg                                                                                 
+    image: permafrost.jpg
     reviews:
       - { text: "🧊 Let it go, let it go 🎶 Can't hold it back anymore 🎶 Let it go, let it go 🎶 Turn away and slam the door ❄️", author: rapper }
   -
@@ -402,7 +402,7 @@ memories:
     caption: 'My rare collectors item! [̲̅$̲̅(̲̅ ͡° ͜ʖ ͡°̲̅)̲̅$̲̅]'
     user: bjoernGoogle
   -
-    image: 'favorite-hiking-place.png' 
+    image: 'favorite-hiking-place.png'
     caption: 'I love going hiking here...'
     geoStalkingMetaSecurityQuestion: 14
     geoStalkingMetaSecurityAnswer: 'Daniel Boone National Forest'

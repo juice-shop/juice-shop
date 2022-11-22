@@ -64,7 +64,7 @@ describe('PaymentComponent', () => {
     basketService.applyCoupon.and.returnValue(of({}))
     dialog = jasmine.createSpyObj('MatDialog', ['open'])
     dialog.open.and.returnValue(null)
-    cookieService = jasmine.createSpyObj('CookieService', ['remove'])
+    cookieService = jasmine.createSpyObj('CookieService', ['remove', 'put'])
     walletService = jasmine.createSpyObj('AddressService', ['get', 'put'])
     walletService.get.and.returnValue(of({}))
     walletService.put.and.returnValue(of({}))
@@ -134,6 +134,11 @@ describe('PaymentComponent', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
     expect(component.twitterUrl).toBeNull()
     expect(component.facebookUrl).toBeNull()
+  })
+
+  it('should hold the default applicationName if not defined in configuration', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({}))
+    expect(component.applicationName).toBe('OWASP Juice Shop')
   })
 
   it('should use custom twitter URL if configured', () => {
@@ -307,5 +312,14 @@ describe('PaymentComponent', () => {
     spyOn(sessionStorage, 'removeItem')
     component.choosePayment()
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('walletTotal')
+  })
+
+  it('should add token to local storage and cookie on calling choosePayment in deluxe mode', () => {
+    component.mode = 'deluxe'
+    userService.upgradeToDeluxe.and.returnValue(of({ token: 'tokenValue' }))
+    spyOn(localStorage, 'setItem')
+    component.choosePayment()
+    expect(localStorage.setItem).toHaveBeenCalledWith('token', 'tokenValue')
+    expect(cookieService.put).toHaveBeenCalledWith('token', 'tokenValue')
   })
 })

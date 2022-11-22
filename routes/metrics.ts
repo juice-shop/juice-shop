@@ -3,10 +3,17 @@
  * SPDX-License-Identifier: MIT
  */
 
-import models = require('../models/index')
 import { retrieveChallengesWithCodeSnippet } from './vulnCodeSnippet'
 import { Request, Response, NextFunction } from 'express'
+import { ChallengeModel } from '../models/challenge'
+import { UserModel } from '../models/user'
+import { WalletModel } from '../models/wallet'
+import { FeedbackModel } from '../models/feedback'
+import { ComplaintModel } from '../models/complaint'
+import { Op } from 'sequelize'
+import challengeUtils = require('../lib/challengeUtils')
 
+const logger = require('../lib/logger')
 const Prometheus = require('prom-client')
 const onFinished = require('on-finished')
 const orders = require('../data/mongodb').orders
@@ -16,7 +23,6 @@ const utils = require('../lib/utils')
 const antiCheat = require('../lib/antiCheat')
 const accuracy = require('../lib/accuracy')
 const config = require('config')
-const Op = models.Sequelize.Op
 
 const register = Prometheus.register
 
@@ -60,13 +66,13 @@ exports.observeFileUploadMetricsMiddleware = function observeFileUploadMetricsMi
 }
 
 exports.serveMetrics = function serveMetrics () {
-  return (req: Request, res: Response, next: NextFunction) => {
-    utils.solveIf(challenges.exposedMetricsChallenge, () => {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    challengeUtils.solveIf(challenges.exposedMetricsChallenge, () => {
       const userAgent = req.headers['user-agent'] ?? ''
       return !userAgent.includes('Prometheus')
     })
     res.set('Content-Type', register.contentType)
-    res.end(register.metrics())
+    res.end(await register.metrics())
   }
 }
 
@@ -137,76 +143,88 @@ exports.observeMetrics = function observeMetrics () {
     labelNames: ['type']
   })
 
-  const updateLoop = setInterval(() => {
-    const version = utils.version()
-    const { major, minor, patch } = version.match(/(?<major>[0-9]+).(?<minor>[0-9]+).(?<patch>[0-9]+)/).groups
-    versionMetrics.set({ version, major, minor, patch }, 1)
+  const updateLoop = () => setInterval(() => {
+    try {
+      const version = utils.version()
+      const { major, minor, patch } = version.match(/(?<major>\d+).(?<minor>\d+).(?<patch>\d+)/).groups
+      versionMetrics.set({ version, major, minor, patch }, 1)
 
-    const challengeStatuses = new Map()
-    const challengeCount = new Map()
+      const challengeStatuses = new Map()
+      const challengeCount = new Map()
 
-    for (const { difficulty, category, solved } of Object.values(challenges)) {
-      const key = `${difficulty}:${category}`
+      for (const { difficulty, category, solved } of Object.values<ChallengeModel>(challenges)) {
+        const key = `${difficulty}:${category}`
 
-      // Increment by one if solved, when not solved increment by 0. This ensures that even unsolved challenges are set to , instead of not being set at all
-      challengeStatuses.set(key, (challengeStatuses.get(key) || 0) + (solved ? 1 : 0))
-      challengeCount.set(key, (challengeCount.get(key) || 0) + 1)
+        // Increment by one if solved, when not solved increment by 0. This ensures that even unsolved challenges are set to , instead of not being set at all
+        challengeStatuses.set(key, (challengeStatuses.get(key) || 0) + (solved ? 1 : 0))
+        challengeCount.set(key, (challengeCount.get(key) || 0) + 1)
+      }
+
+      for (const key of challengeStatuses.keys()) {
+        const [difficulty, category] = key.split(':', 2)
+
+        challengeSolvedMetrics.set({ difficulty, category }, challengeStatuses.get(key))
+        challengeTotalMetrics.set({ difficulty, category }, challengeCount.get(key))
+      }
+
+      void retrieveChallengesWithCodeSnippet().then(challenges => {
+        ChallengeModel.count({ where: { codingChallengeStatus: { [Op.eq]: 1 } } }).then((count: number) => {
+          codingChallengesProgressMetrics.set({ phase: 'find it' }, count)
+        }).catch(() => {
+          throw new Error('Unable to retrieve and count such challenges. Please try again')
+        })
+
+        ChallengeModel.count({ where: { codingChallengeStatus: { [Op.eq]: 2 } } }).then((count: number) => {
+          codingChallengesProgressMetrics.set({ phase: 'fix it' }, count)
+        }).catch((_: unknown) => {
+          throw new Error('Unable to retrieve and count such challenges. Please try again')
+        })
+
+        ChallengeModel.count({ where: { codingChallengeStatus: { [Op.ne]: 0 } } }).then((count: number) => {
+          codingChallengesProgressMetrics.set({ phase: 'unsolved' }, challenges.length - count)
+        }).catch((_: unknown) => {
+          throw new Error('Unable to retrieve and count such challenges. Please try again')
+        })
+      })
+
+      cheatScoreMetrics.set(antiCheat.totalCheatScore())
+      accuracyMetrics.set({ phase: 'find it' }, accuracy.totalFindItAccuracy())
+      accuracyMetrics.set({ phase: 'fix it' }, accuracy.totalFixItAccuracy())
+
+      orders.count({}).then((orderCount: Number) => {
+        if (orderCount) orderMetrics.set(orderCount)
+      })
+
+      reviews.count({}).then((reviewCount: Number) => {
+        if (reviewCount) interactionsMetrics.set({ type: 'review' }, reviewCount)
+      })
+
+      void UserModel.count({ where: { role: { [Op.eq]: 'customer' } } }).then((count: number) => {
+        if (count) userMetrics.set({ type: 'standard' }, count)
+      })
+
+      void UserModel.count({ where: { role: { [Op.eq]: 'deluxe' } } }).then((count: number) => {
+        if (count) userMetrics.set({ type: 'deluxe' }, count)
+      })
+
+      void UserModel.count().then((count: Number) => {
+        if (count) userTotalMetrics.set(count)
+      })
+
+      void WalletModel.sum('balance').then((totalBalance: Number) => {
+        if (totalBalance) walletMetrics.set(totalBalance)
+      })
+
+      void FeedbackModel.count().then((count: number) => {
+        if (count) interactionsMetrics.set({ type: 'feedback' }, count)
+      })
+
+      void ComplaintModel.count().then((count: number) => {
+        if (count) interactionsMetrics.set({ type: 'complaint' }, count)
+      })
+    } catch (e: unknown) {
+      logger.warn('Error during metrics update loop: + ' + utils.getErrorMessage(e))
     }
-
-    for (const key of challengeStatuses.keys()) {
-      const [difficulty, category] = key.split(':', 2)
-
-      challengeSolvedMetrics.set({ difficulty, category }, challengeStatuses.get(key))
-      challengeTotalMetrics.set({ difficulty, category }, challengeCount.get(key))
-    }
-
-    void retrieveChallengesWithCodeSnippet().then(challenges => {
-      models.Challenge.count({ where: { codingChallengeStatus: { [Op.eq]: 1 } } }).then(count => {
-        codingChallengesProgressMetrics.set({ phase: 'find it' }, count)
-      })
-
-      models.Challenge.count({ where: { codingChallengeStatus: { [Op.eq]: 2 } } }).then(count => {
-        codingChallengesProgressMetrics.set({ phase: 'fix it' }, count)
-      })
-
-      models.Challenge.count({ where: { codingChallengeStatus: { [Op.ne]: 0 } } }).then(count => {
-        codingChallengesProgressMetrics.set({ phase: 'unsolved' }, challenges.length - count)
-      })
-    })
-
-    cheatScoreMetrics.set(antiCheat.totalCheatScore())
-    accuracyMetrics.set({ phase: 'find it' }, accuracy.totalFindItAccuracy())
-    accuracyMetrics.set({ phase: 'fix it' }, accuracy.totalFixItAccuracy())
-
-    orders.count({}).then(orders => {
-      orderMetrics.set(orders)
-    })
-
-    reviews.count({}).then(reviews => {
-      interactionsMetrics.set({ type: 'review' }, reviews)
-    })
-
-    models.User.count({ where: { role: { [Op.eq]: 'customer' } } }).then(count => {
-      userMetrics.set({ type: 'standard' }, count)
-    })
-    models.User.count({ where: { role: { [Op.eq]: 'deluxe' } } }).then(count => {
-      userMetrics.set({ type: 'deluxe' }, count)
-    })
-    models.User.count().then(count => {
-      userTotalMetrics.set(count)
-    })
-
-    models.Wallet.sum('balance').then(totalBalance => {
-      walletMetrics.set(totalBalance)
-    })
-
-    models.Feedback.count().then(count => {
-      interactionsMetrics.set({ type: 'feedback' }, count)
-    })
-
-    models.Complaint.count().then(count => {
-      interactionsMetrics.set({ type: 'complaint' }, count)
-    })
   }, 5000)
 
   return {

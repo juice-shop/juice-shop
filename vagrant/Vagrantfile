@@ -5,10 +5,10 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/xenial64"
+  config.vm.box = "generic/ubuntu2110"
   config.vm.hostname = "juice.sh"
 
-  config.vm.network "private_network", ip: "192.168.33.10"
+  config.vm.network "private_network", ip: "192.168.56.110"
   config.vm.provision "file", source: "./default.conf", destination: "/tmp/juice-shop/default.conf"
   config.vm.provision :shell, path: "bootstrap.sh"
 end

@@ -148,13 +148,20 @@ describe('ScoreBoardComponent', () => {
     expect(component.percentChallengesSolved).toBe('67')
   })
 
+  it('should calculate percent of coding challenges solved', () => {
+    challengeService.find.and.returnValue(of([{ key: 'c1', codingChallengeStatus: 0 }, { key: 'c2', codingChallengeStatus: 1 }, { key: 'c3', codingChallengeStatus: 2 }, { key: 'c4' }, { key: 'c5', codingChallengeStatus: 0 }]))
+    codeSnippetService.challenges.and.returnValue(of(['c1', 'c2', 'c3', 'c5']))
+    component.ngOnInit()
+    expect(component.percentCodingChallengesSolved).toBe('38')
+  })
+
   it('should hold nothing when no challenges exists', () => {
     challengeService.find.and.returnValue(of([]))
     component.ngOnInit()
     expect(component.challenges).toEqual([])
   })
 
-  xit('should hold nothing on error from backend API and log the error', fakeAsync(() => {
+  xit('should hold nothing on error from backend API and log the error', fakeAsync(() => { // FIXME Error: 1 timer(s) still in the queue.
     challengeService.find.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
@@ -276,6 +283,14 @@ describe('ScoreBoardComponent', () => {
     expect(component.challenges[0].hint).toBe('CLICK_TO_OPEN_HINTS')
   })
 
+  it('should become unavailability text for challenge which is disabled', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {}, challenges: { showHints: true } }))
+    translateService.get.and.returnValue(of('CHALLENGE_UNAVAILABLE'))
+    challengeService.find.and.returnValue(of([{ name: 'Challenge', hint: 'Hint', disabledEnv: 'Heroku' }]))
+    component.ngOnInit()
+    expect(component.challenges[0].hint).toBe('CHALLENGE_UNAVAILABLE')
+  })
+
   it('should show GitHub info box if so configured', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { showGitHubLinks: true }, challenges: {} }))
     component.ngOnInit()
@@ -298,5 +313,75 @@ describe('ScoreBoardComponent', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: {}, challenges: {}, hackingInstructor: { isEnabled: true } }))
     component.ngOnInit()
     expect(component.showHackingInstructor).toBeTruthy()
+  })
+
+  it('should not show feedback button column if so configured', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {}, challenges: { showFeedbackButtons: false } }))
+    component.ngOnInit()
+    expect(component.displayedColumns).not.toContain('feedback')
+  })
+
+  it('should show feedback button column if so configured', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {}, challenges: { showFeedbackButtons: true } }))
+    component.ngOnInit()
+    expect(component.displayedColumns).toContain('feedback')
+  })
+
+  it('should sort challenges by tutorial order when in tutorial mode', () => {
+    challengeService.find.and.returnValue(of([{ tutorialOrder: 2 }, { tutorialOrder: 3 }, { tutorialOrder: 1 }, { }]))
+    localStorage.setItem('showOnlyTutorialChallenges', 'true')
+    component.ngOnInit()
+    expect(component.challenges[0].tutorialOrder).toBe(1)
+    expect(component.challenges[1].tutorialOrder).toBe(2)
+    expect(component.challenges[2].tutorialOrder).toBe(3)
+    expect(component.challenges[3].tutorialOrder).toBeUndefined()
+  })
+
+  it('hint text is augmented with unavailbaility notice for disabled challenges', () => {
+  })
+
+  it('augmenting hint text of disabled challenge increases counter of disabled challenges', () => {
+    component.numDisabledChallenges = 0
+    component.augmentHintText({ disabledEnv: 'Heroku' } as any)
+    expect(component.numDisabledChallenges).toBe(1)
+  })
+
+  it('hint text is augmented with unavailbaility notice for disabled challenges', () => {
+    component.augmentHintText({ disabledEnv: 'Heroku' } as any)
+    expect(component.disabledEnv).toBe('Heroku')
+  })
+
+  it('stays on lowest tutorial tier with unsolved challenges', () => {
+    component.calculateTutorialTier([{ tutorialOrder: 1, difficulty: 1, solved: true }, { tutorialOrder: 2, difficulty: 2, solved: true }, { tutorialOrder: 3, difficulty: 2, solved: false }, { tutorialOrder: 4, difficulty: 3, solved: false }] as any)
+    expect(component.tutorialsTier).toBe(2)
+    expect(component.isLastTutorialsTier).toBeFalse()
+  })
+
+  it('jumps to next tutorial tier if all tutorial challenges of previous tier are solved', () => {
+    component.calculateTutorialTier([{ tutorialOrder: 1, difficulty: 1, solved: true }, { tutorialOrder: 2, difficulty: 2, solved: true }, { tutorialOrder: 3, difficulty: 2, solved: true }, { tutorialOrder: 4, difficulty: 3, solved: false }] as any)
+    expect(component.tutorialsTier).toBe(3)
+    expect(component.isLastTutorialsTier).toBeTrue()
+  })
+
+  it('will not unlock entire Score Board as long as unsolved tutorials exist', () => {
+    component.calculateTutorialTier([{ tutorialOrder: 1, difficulty: 1, solved: true }, { tutorialOrder: 2, difficulty: 2, solved: true }, { tutorialOrder: 3, difficulty: 2, solved: true }, { tutorialOrder: 4, difficulty: 3, solved: false }] as any)
+    expect(component.allTutorialsCompleted).toBeFalse()
+  })
+
+  it('will unlock entire Score Board when all tutorials are solved', () => {
+    component.calculateTutorialTier([{ tutorialOrder: 1, difficulty: 1, solved: true }, { tutorialOrder: 2, difficulty: 2, solved: true }, { tutorialOrder: 3, difficulty: 2, solved: true }, { tutorialOrder: 4, difficulty: 3, solved: true }] as any)
+    expect(component.allTutorialsCompleted).toBeTrue()
+  })
+
+  it('Toggling all difficulties filter will turn on all difficulties when currently less than 50% of difficulties are toggled', () => {
+    component.toggledMajorityOfDifficulties = false
+    component.toggleAllDifficulty()
+    expect(component.displayedDifficulties).toEqual([1, 2, 3, 4, 5, 6])
+  })
+
+  it('Toggling all difficulties filter will turn off all difficulties when currently more than 50% of difficulties are toggled', () => {
+    component.toggledMajorityOfDifficulties = true
+    component.toggleAllDifficulty()
+    expect(component.displayedDifficulties).toEqual([])
   })
 })

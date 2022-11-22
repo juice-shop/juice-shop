@@ -9,6 +9,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/6206c8f3972bcc97a033/test_coverage)](https://codeclimate.com/github/juice-shop/juice-shop/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/6206c8f3972bcc97a033/maintainability)](https://codeclimate.com/github/juice-shop/juice-shop/maintainability)
 [![Code Climate technical debt](https://img.shields.io/codeclimate/tech-debt/juice-shop/juice-shop)](https://codeclimate.com/github/juice-shop/juice-shop/trends/technical_debt)
+[![Cypress tests](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/3hrkhu/master&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/3hrkhu/runs)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/223/badge)](https://bestpractices.coreinfrastructure.org/projects/223)
 ![GitHub stars](https://img.shields.io/github/stars/juice-shop/juice-shop.svg?label=GitHub%20%E2%98%85&style=flat)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
@@ -38,7 +39,6 @@ For a detailed introduction, full list of features and architecture overview ple
 ## Table of contents
 
 - [Setup](#setup)
-    - [Deploy on Heroku (free ($0/month) dyno)](#deploy-on-heroku-free-0month-dyno)
     - [From Sources](#from-sources)
     - [Packaged Distributions](#packaged-distributions)
     - [Docker Container](#docker-container)
@@ -46,6 +46,8 @@ For a detailed introduction, full list of features and architecture overview ple
     - [Amazon EC2 Instance](#amazon-ec2-instance)
     - [Azure Container Instance](#azure-container-instance)
     - [Google Compute Engine Instance](#google-compute-engine-instance)
+    - [Heroku](#heroku)
+    - [Gitpod](#gitpod)
 - [Demo](#demo)
 - [Documentation](#documentation)
     - [Node.js version compatibility](#nodejs-version-compatibility)
@@ -63,26 +65,12 @@ For a detailed introduction, full list of features and architecture overview ple
 > You can find some less common installation variations in
 > [the _Running OWASP Juice Shop_ documentation](https://pwning.owasp-juice.shop/part1/running.html).
 
-### Deploy on Heroku (free ($0/month) dyno)
-
-1. [Sign up to Heroku](https://signup.heroku.com/) and
-   [log in to your account](https://id.heroku.com/login)
-2. Click the button below and follow the instructions
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-> This is the quickest way to get a running instance of Juice Shop! If
-> you have forked this repository, the deploy button will automatically
-> pick up your fork for deployment! As long as you do not perform any
-> DDoS attacks you are free to use any tools or scripts to hack your
-> Juice Shop instance on Heroku!
-
 ### From Sources
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/juice-shop/juice-shop.svg)
 
 1. Install [node.js](#nodejs-version-compatibility)
-2. Run `git clone https://github.com/juice-shop/juice-shop.git` (or
+2. Run `git clone https://github.com/juice-shop/juice-shop.git --depth 1` (or
    clone [your own fork](https://github.com/juice-shop/juice-shop/fork)
    of the repository)
 3. Go into the cloned folder with `cd juice-shop`
@@ -127,11 +115,11 @@ For a detailed introduction, full list of features and architecture overview ple
 
 1. Install [Vagrant](https://www.vagrantup.com/downloads.html) and
    [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
-2. Run `git clone https://github.com/bkimminich/juice-shop.git` (or
-   clone [your own fork](https://github.com/bkimminich/juice-shop/fork)
+2. Run `git clone https://github.com/juice-shop/juice-shop.git` (or
+   clone [your own fork](https://github.com/juice-shop/juice-shop/fork)
    of the repository)
 3. Run `cd vagrant && vagrant up`
-4. Browse to [192.168.33.10:3000](http://192.168.33.10:3000)
+4. Browse to [192.168.56.110](http://192.168.56.110)
 
 ### Amazon EC2 Instance
 
@@ -181,6 +169,25 @@ gcloud compute firewall-rules create juice-rule --allow tcp:3000
 4. Your container is now running and available at
    `http://<EXTERNAL_IP>:3000/`
 
+### Heroku
+
+1. [Sign up to Heroku](https://signup.heroku.com/) and
+   [log in to your account](https://id.heroku.com/login)
+2. Click the button below and follow the instructions
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+If you have forked the Juice Shop repository on GitHub, the _Deploy to
+Heroku_ button will deploy your forked version of the application.
+
+### Gitpod 
+
+1. Login to [gitpod.io](https://gitpod.io) and use <https://gitpod.io/#https://github.com/juice-shop/juice-shop/> to start a new workspace. If you want to spin up a forked repository, your URL needs to be adjusted accordingly.
+
+2. After the Gitpod workspace is loaded, Gitpod tasks is still running to install `npm install`  and launch the website. Despite Gitpod showing your workspace state already as _Running_, you need to wait until the installation process is done, before the website becomes accessable. The _Open Preview Window (Internal Browser)_, will open automatically and refresh itself automatically when the server has started.
+
+3. Your Juice Shop instance is now also available at `https://3000-<GITPOD_WORKSPACE_ID>.<GITPOD_HOSTING_ZONE>.gitpod.io`.
+
 ## Demo
 
 Feel free to have a look at the latest version of OWASP Juice Shop:
@@ -204,14 +211,13 @@ offered accordingly.
 
 | node.js | Supported            | Tested             | [Packaged Distributions](#packaged-distributions) | [Docker images](#docker-container) from `master` | [Docker images](#docker-container) from `develop` |
 |:--------|:---------------------|:-------------------|:--------------------------------------------------|:-------------------------------------------------|:--------------------------------------------------|
-| 18.x    | :x:                  | :x:                |                                                   |                                                  |                                                   |
-| 17.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
-| 16.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     | `latest` (`linux/amd64`)                         | `snapshot` (`linux/amd64`)                        |
+| 19.x    | :x:                  | :x:                |                                                   |                                                  |                                                   |
+| 18.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
+| 17.x    | (:heavy_check_mark:) | :x:                |                                                   |                                                  |                                                   |
+| 16.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     | `latest` (`linux/amd64`, `linux/arm64`)          | `snapshot` (`linux/amd64`, `linux/arm64`)         |
 | 15.x    | (:heavy_check_mark:) | :x:                |                                                   |                                                  |                                                   |
-| 14.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     | `latest-arm` (`linux/arm/v7`, `linux/arm64`)     | `snapshot-arm` (`linux/arm/v7`, `linux/arm64`)    |
-| 13.x    | (:heavy_check_mark:) | :x:                |                                                   |                                                  |                                                   |
-| 12.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
-| <12.x   | :x:                  | :x:                |                                                   |                                                  |                                                   |
+| 14.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     | `latest-arm` (`linux/arm/v7`)                    | `snapshot-arm` (`linux/arm/v7`)                   |
+| <14.x   | :x:                  | :x:                |                                                   |                                                  |                                                   |
 
 Juice Shop is automatically tested _only on the latest `.x` minor version_ of each node.js version mentioned above!
 There is no guarantee that older minor node.js releases will always work with Juice Shop!

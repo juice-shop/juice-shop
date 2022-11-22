@@ -3,33 +3,42 @@
  * SPDX-License-Identifier: MIT
  */
 import express, { NextFunction, Request, Response } from 'express'
-import insecurity from '../lib/insecurity'
 import path from 'path'
-import models = require('../models/index')
+import { SecurityAnswerModel } from '../models/securityAnswer'
+import { UserModel } from '../models/user'
+import { SecurityQuestionModel } from '../models/securityQuestion'
+import { PrivacyRequestModel } from '../models/privacyRequests'
+const insecurity = require('../lib/insecurity')
 
 const challenges = require('../data/datacache').challenges
-const utils = require('../lib/utils')
+const challengeUtils = require('../lib/challengeUtils')
 const router = express.Router()
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 router.get('/', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
   if (!loggedInUser) {
-    next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+    next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
     return
   }
   const email = loggedInUser.data.email
 
   try {
-    const answer = await models.SecurityAnswer.findOne({
+    const answer = await SecurityAnswerModel.findOne({
       include: [{
-        model: models.User,
+        model: UserModel,
         where: { email }
       }]
     })
-    const question = await models.SecurityQuestion.findByPk(answer.SecurityQuestionId)
+    if (!answer) {
+      throw new Error('No answer found!')
+    }
+    const question = await SecurityQuestionModel.findByPk(answer.SecurityQuestionId)
+    if (!question) {
+      throw new Error('No question found!')
+    }
 
-    res.render('dataErasureForm', { userEmail: email, securityQuestion: question.dataValues.question })
+    res.render('dataErasureForm', { userEmail: email, securityQuestion: question.question })
   } catch (error) {
     next(error)
   }
@@ -45,12 +54,12 @@ interface DataErasureRequestParams {
 router.post('/', async (req: Request<{}, {}, DataErasureRequestParams>, res: Response, next: NextFunction): Promise<void> => {
   const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
   if (!loggedInUser) {
-    next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+    next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
     return
   }
 
   try {
-    await models.PrivacyRequest.create({
+    await PrivacyRequestModel.create({
       UserId: loggedInUser.data.id,
       deletionRequested: true
     })
@@ -64,11 +73,11 @@ router.post('/', async (req: Request<{}, {}, DataErasureRequestParams>, res: Res
           ...req.body
         }, (error, html) => {
           if (!html || error) {
-            next(new Error(error))
+            next(new Error(error.message))
           } else {
             const sendlfrResponse: string = html.slice(0, 100) + '......'
             res.send(sendlfrResponse)
-            utils.solve(challenges.lfrChallenge)
+            challengeUtils.solve(challenges.lfrChallenge)
           }
         })
       } else {

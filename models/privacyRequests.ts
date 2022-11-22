@@ -4,15 +4,45 @@
  */
 
 /* jslint node: true */
-export = (sequelize, { INTEGER, BOOLEAN }) => {
-  const PrivacyRequest = sequelize.define('PrivacyRequest', {
-    UserId: { type: INTEGER },
-    deletionRequested: { type: BOOLEAN, defaultValue: false }
-  })
 
-  PrivacyRequest.associate = ({ User }) => {
-    PrivacyRequest.belongsTo(User, { constraints: true, foreignKeyConstraint: true })
-  }
+import {
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  DataTypes,
+  CreationOptional,
+  Sequelize
+} from 'sequelize'
 
-  return PrivacyRequest
+class PrivacyRequestModel extends Model<
+InferAttributes<PrivacyRequestModel>,
+InferCreationAttributes<PrivacyRequestModel>
+> {
+  declare id: CreationOptional<number>
+  declare UserId: number
+  declare deletionRequested: boolean
 }
+const PrivacyRequestModelInit = (sequelize: Sequelize) => {
+  PrivacyRequestModel.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      UserId: {
+        type: DataTypes.INTEGER
+      },
+      deletionRequested: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      }
+    },
+    {
+      tableName: 'PrivacyRequests',
+      sequelize
+    }
+  )
+}
+
+export { PrivacyRequestModel, PrivacyRequestModelInit }

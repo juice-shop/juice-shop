@@ -315,3 +315,6 @@ ctf:
     lfrChallenge:
       name: Ireland
       code: IE
+    closeNotificationsChallenge:
+      name: Zambia
+      code: ZM

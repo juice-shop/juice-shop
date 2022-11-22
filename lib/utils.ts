@@ -5,28 +5,19 @@
 
 /* jslint node: true */
 import packageJson from '../package.json'
-import { Op } from 'sequelize'
 import fs = require('fs')
 
-const colors = require('colors/safe')
-const notifications = require('../data/datacache').notifications
-const challenges = require('../data/datacache').challenges
-const sanitizeHtml = require('sanitize-html')
 const jsSHA = require('jssha')
-const Entities = require('html-entities').AllHtmlEntities
 const config = require('config')
-const entities = new Entities()
 const download = require('download')
 const crypto = require('crypto')
 const clarinet = require('clarinet')
 const isDocker = require('is-docker')
 const isHeroku = require('is-heroku')
+// const isGitpod = require('is-gitpod') // FIXME Roll back to this when https://github.com/dword-design/is-gitpod/issues/94 is resolved
+const isGitpod = () => { return false }
 const isWindows = require('is-windows')
 const logger = require('./logger')
-const webhook = require('./webhook')
-const antiCheat = require('./antiCheat')
-const accuracy = require('./accuracy')
-const models = require('../models')
 
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
 
@@ -42,7 +33,7 @@ if (process.env.CTF_KEY !== undefined && process.env.CTF_KEY !== '') {
   })
 }
 
-export const queryResultToJson = (data: any, status: string) => {
+export const queryResultToJson = (data: any, status: string = 'success') => {
   let wrappedData: any = {}
   if (data) {
     if (!data.length && data.dataValues) {
@@ -57,7 +48,7 @@ export const queryResultToJson = (data: any, status: string) => {
     }
   }
   return {
-    status: status || 'success',
+    status,
     data: wrappedData
   }
 }
@@ -95,6 +86,7 @@ export const trunc = function (str: string, length: number) {
 
 export const version = (module: string) => {
   if (module) {
+    // @ts-expect-error
     return packageJson.dependencies[module]
   } else {
     return packageJson.version
@@ -106,72 +98,6 @@ export const ctfFlag = (text: string) => {
   shaObj.setHMACKey(ctfKey, 'TEXT')
   shaObj.update(text)
   return shaObj.getHMAC('HEX')
-}
-
-export const solveIf = function (challenge: any, criteria: () => any, isRestore: boolean = false) {
-  if (notSolved(challenge) && criteria()) {
-    solve(challenge, isRestore)
-  }
-}
-
-export const solve = function (challenge: any, isRestore = false) {
-  challenge.solved = true
-  challenge.save().then((solvedChallenge: { difficulty: number, key: string, name: string }) => {
-    logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} ${solvedChallenge.difficulty}-star ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
-    sendNotification(solvedChallenge, isRestore)
-    if (!isRestore) {
-      const cheatScore = antiCheat.calculateCheatScore(challenge)
-      if (process.env.SOLUTIONS_WEBHOOK) {
-        webhook.notify(solvedChallenge, cheatScore).catch((error) => {
-          logger.error('Webhook notification failed: ' + colors.red(error.message))
-        })
-      }
-    }
-  })
-}
-
-export const sendNotification = function (challenge: { difficulty?: number, key: any, name: any, description?: any }, isRestore: boolean) {
-  if (!notSolved(challenge)) {
-    const flag = ctfFlag(challenge.name)
-    const notification = {
-      key: challenge.key,
-      name: challenge.name,
-      challenge: challenge.name + ' (' + entities.decode(sanitizeHtml(challenge.description, { allowedTags: [], allowedAttributes: [] })) + ')',
-      flag: flag,
-      hidden: !config.get('challenges.showSolvedNotifications'),
-      isRestore: isRestore
-    }
-    const wasPreviouslyShown = notifications.find(({ key }: { key: string }) => key === challenge.key) !== undefined
-    notifications.push(notification)
-
-    if (global.io && (isRestore || !wasPreviouslyShown)) {
-      global.io.emit('challenge solved', notification)
-    }
-  }
-}
-
-export const notSolved = (challenge: any) => challenge && !challenge.solved
-
-export const findChallengeByName = (challengeName: string) => {
-  for (const c in challenges) {
-    if (Object.prototype.hasOwnProperty.call(challenges, c)) {
-      if (challenges[c].name === challengeName) {
-        return challenges[c]
-      }
-    }
-  }
-  logger.warn('Missing challenge with name: ' + challengeName)
-}
-
-export const findChallengeById = (challengeId: number) => {
-  for (const c in challenges) {
-    if (Object.prototype.hasOwnProperty.call(challenges, c)) {
-      if (challenges[c].id === challengeId) {
-        return challenges[c]
-      }
-    }
-  }
-  logger.warn('Missing challenge with id: ' + challengeId)
 }
 
 export const toMMMYY = (date: Date) => {
@@ -193,7 +119,7 @@ export const toISO8601 = (date: Date) => {
 
 export const extractFilename = (url: string) => {
   let file = decodeURIComponent(url.substring(url.lastIndexOf('/') + 1))
-  if (this.contains(file, '?')) {
+  if (contains(file, '?')) {
     file = file.substring(0, file.indexOf('?'))
   }
   return file
@@ -202,8 +128,8 @@ export const extractFilename = (url: string) => {
 export const downloadToFile = async (url: string, dest: string) => {
   return download(url).then((data: string | Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | BigUint64Array | BigInt64Array | Float32Array | Float64Array | DataView) => {
     fs.writeFileSync(dest, data)
-  }).catch((err: Error) => {
-    logger.warn('Failed to download ' + url + ' (' + err.statusMessage + ')')
+  }).catch((err: unknown) => {
+    logger.warn('Failed to download ' + url + ' (' + getErrorMessage(err) + ')')
   })
 }
 
@@ -227,7 +153,7 @@ export const randomHexString = (length: number) => {
 }
 
 export const disableOnContainerEnv = () => {
-  return (isDocker() || isHeroku) && !config.get('challenges.safetyOverride')
+  return (isDocker() || isGitpod() || isHeroku) && !config.get('challenges.safetyOverride')
 }
 
 export const disableOnWindowsEnv = () => {
@@ -241,6 +167,8 @@ export const determineDisabledEnv = (disabledEnv: string | string[] | undefined)
     return disabledEnv && (disabledEnv === 'Heroku' || disabledEnv.includes('Heroku')) ? 'Heroku' : null
   } else if (isWindows()) {
     return disabledEnv && (disabledEnv === 'Windows' || disabledEnv.includes('Windows')) ? 'Windows' : null
+  } else if (isGitpod()) {
+    return disabledEnv && (disabledEnv === 'Gitpod' || disabledEnv.includes('Gitpod')) ? 'Gitpod' : null
   }
   return null
 }
@@ -248,10 +176,10 @@ export const determineDisabledEnv = (disabledEnv: string | string[] | undefined)
 export const parseJsonCustom = (jsonString: string) => {
   const parser = clarinet.parser()
   const result: any[] = []
-  parser.onkey = parser.onopenobject = k => {
+  parser.onkey = parser.onopenobject = (k: any) => {
     result.push({ key: k, value: null })
   }
-  parser.onvalue = v => {
+  parser.onvalue = (v: any) => {
     result[result.length - 1].value = v
   }
   parser.write(jsonString).close()
@@ -272,24 +200,17 @@ export const thaw = (frozenObject: any) => {
   return JSON.parse(JSON.stringify(frozenObject))
 }
 
-export const solveFindIt = async function (key: string, isRestore: boolean) {
-  const solvedChallenge = challenges[key]
-  await models.Challenge.update({ codingChallengeStatus: 1 }, { where: { key, codingChallengeStatus: { [Op.lt]: 2 } } })
-  logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Find It' phase of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
-  if (!isRestore) {
-    accuracy.storeFindItVerdict(solvedChallenge.key, true)
-    accuracy.calculateFindItAccuracy(solvedChallenge.key)
-    antiCheat.calculateFindItCheatScore(solvedChallenge)
-  }
+export const getErrorMessage = (error: unknown) => {
+  if (error instanceof Error) return error.message
+  return String(error)
 }
 
-export const solveFixIt = async function (key: string, isRestore: boolean) {
-  const solvedChallenge = challenges[key]
-  await models.Challenge.update({ codingChallengeStatus: 2 }, { where: { key } })
-  logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Fix It' phase of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
-  if (!isRestore) {
-    accuracy.storeFixItVerdict(solvedChallenge.key, true)
-    accuracy.calculateFixItAccuracy(solvedChallenge.key)
-    antiCheat.calculateFixItCheatScore(solvedChallenge)
-  }
+export const matchesSystemIniFile = (text: string) => {
+  const match = text.match(/; for 16-bit app support/gi)
+  return match !== null && match.length >= 1
+}
+
+export const matchesEtcPasswdFile = (text: string) => {
+  const match = text.match(/(\w*:\w*:\d*:\d*:\w*:.*)|(Note that this file is consulted directly)/gi)
+  return match !== null && match.length >= 1
 }

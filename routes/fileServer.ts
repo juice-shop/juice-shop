@@ -5,6 +5,7 @@
 
 import path = require('path')
 import { Request, Response, NextFunction } from 'express'
+import challengeUtils = require('../lib/challengeUtils')
 
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
@@ -22,11 +23,11 @@ module.exports = function servePublicFiles () {
     }
   }
 
-  function verify (file, res, next) {
+  function verify (file: string, res: Response, next: NextFunction) {
     if (file && (endsWithAllowlistedFileType(file) || (file === 'incident-support.kdbx'))) {
       file = security.cutOffPoisonNullByte(file)
 
-      utils.solveIf(challenges.directoryListingChallenge, () => { return file.toLowerCase() === 'acquisitions.md' })
+      challengeUtils.solveIf(challenges.directoryListingChallenge, () => { return file.toLowerCase() === 'acquisitions.md' })
       verifySuccessfulPoisonNullByteExploit(file)
 
       res.sendFile(path.resolve('ftp/', file))
@@ -36,19 +37,19 @@ module.exports = function servePublicFiles () {
     }
   }
 
-  function verifySuccessfulPoisonNullByteExploit (file) {
-    utils.solveIf(challenges.easterEggLevelOneChallenge, () => { return file.toLowerCase() === 'eastere.gg' })
-    utils.solveIf(challenges.forgottenDevBackupChallenge, () => { return file.toLowerCase() === 'package.json.bak' })
-    utils.solveIf(challenges.forgottenBackupChallenge, () => { return file.toLowerCase() === 'coupons_2013.md.bak' })
-    utils.solveIf(challenges.misplacedSignatureFileChallenge, () => { return file.toLowerCase() === 'suspicious_errors.yml' })
+  function verifySuccessfulPoisonNullByteExploit (file: string) {
+    challengeUtils.solveIf(challenges.easterEggLevelOneChallenge, () => { return file.toLowerCase() === 'eastere.gg' })
+    challengeUtils.solveIf(challenges.forgottenDevBackupChallenge, () => { return file.toLowerCase() === 'package.json.bak' })
+    challengeUtils.solveIf(challenges.forgottenBackupChallenge, () => { return file.toLowerCase() === 'coupons_2013.md.bak' })
+    challengeUtils.solveIf(challenges.misplacedSignatureFileChallenge, () => { return file.toLowerCase() === 'suspicious_errors.yml' })
 
-    utils.solveIf(challenges.nullByteChallenge, () => {
+    challengeUtils.solveIf(challenges.nullByteChallenge, () => {
       return challenges.easterEggLevelOneChallenge.solved || challenges.forgottenDevBackupChallenge.solved || challenges.forgottenBackupChallenge.solved ||
         challenges.misplacedSignatureFileChallenge.solved || file.toLowerCase() === 'encrypt.pyc'
     })
   }
 
-  function endsWithAllowlistedFileType (param) {
+  function endsWithAllowlistedFileType (param: string) {
     return utils.endsWith(param, '.md') || utils.endsWith(param, '.pdf')
   }
 }

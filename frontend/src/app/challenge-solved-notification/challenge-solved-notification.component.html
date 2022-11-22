@@ -17,7 +17,7 @@
       <br>
       <span *ngIf="showCtfCountryDetailsInNotifications !== 'none'" class="icon-box">
         <span
-          class="flag-icon flag-icon-{{notification.country.code | lowercase}}"
+          class="fi fi-{{notification.country.code | lowercase}}"
           *ngIf="showCtfCountryDetailsInNotifications === 'flag' || showCtfCountryDetailsInNotifications === 'both'">
         </span>
         <mat-icon *ngIf="showCtfCountryDetailsInNotifications === 'name'">my_location</mat-icon>&nbsp;

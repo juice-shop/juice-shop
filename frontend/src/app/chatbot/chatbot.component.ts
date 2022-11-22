@@ -6,7 +6,7 @@
 import { ChatbotService } from '../Services/chatbot.service'
 import { UserService } from '../Services/user.service'
 import { Component, OnInit } from '@angular/core'
-import { FormControl } from '@angular/forms'
+import { UntypedFormControl } from '@angular/forms'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
@@ -37,7 +37,7 @@ interface MessageActions {
   styleUrls: ['./chatbot.component.scss']
 })
 export class ChatbotComponent implements OnInit {
-  public messageControl: FormControl = new FormControl()
+  public messageControl: UntypedFormControl = new UntypedFormControl()
   public messages: ChatMessage[] = []
   public juicyImageSrc: string = 'assets/public/images/ChatbotAvatar.png'
   public profileImageSrc: string = 'assets/public/images/uploads/default.svg'

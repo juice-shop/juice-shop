@@ -6,13 +6,14 @@ checkDiffs(keys)
   .then(data => {
     console.log('---------------------------------------')
     const fileData = getDataFromFile()
-    if (checkData(data, fileData)) {
-      console.log(colors.green.bold('No new file diffs recognized since last lock!') + ' No action required.')
+    const filesWithDiff = checkData(data, fileData)
+    if (filesWithDiff.length === 0) {
+      console.log(`${colors.green.bold('No new file diffs recognized since last lock!')} No action required.`)
     } else {
-      console.log(colors.red.bold('New file diffs recognized since last lock!') + ' Amend files listed above and lock new state with ' + colors.bold('npm run rsn:update'))
+      console.log(`${colors.red.bold('New file diffs recognized since last lock!')} Double-check and amend listed files and lock new state with ${colors.bold('npm run rsn:update')}`)
+      console.log('---------------------------------------')
       process.exitCode = 1
     }
-    // seePatch('restfulXssChallenge_1_correct.ts')
   })
   .catch(err => {
     console.log(err)

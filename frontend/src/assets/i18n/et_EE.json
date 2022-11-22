@@ -356,7 +356,7 @@
   "SAVE_BACKUP_TOOLTIP": "Salvesta väljakutse edenemine ja rakenduse sätted faili.",
   "RESTORE_BACKUP_TOOLTIP": "Taasta väljakutse edenemine ja rakenduse sätted failist.",
   "TAG_DANGER_ZONE": "Ohutsoon",
-  "TAG_DANGER_ZONE_DESCRIPTION": "Märgib potentsiaalselt ohtlikud väljakutsed, mis on koodi kaugkäituse või muude riskide tõttu Dockeri/Heroku platvormidel vaikimisi keelatud.",
+  "TAG_DANGER_ZONE_DESCRIPTION": "Marks potentially dangerous challenges which are disabled on Docker/Heroku/Gitpod by default due to RCE or other risks.",
   "TAG_GOOD_FOR_DEMOS": "Hea demontsreerimiseks",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "Toonitab väljakutseid, mis sobivad demonstreerimiseks või teadlikkuse tõstmise koolituste tarbeks.",
   "TAG_PREREQUISITE": "Eeltingimused",

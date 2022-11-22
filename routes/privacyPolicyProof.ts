@@ -6,12 +6,12 @@
 import path = require('path')
 import { Request, Response } from 'express'
 
-const utils = require('../lib/utils')
+import challengeUtils = require('../lib/challengeUtils')
 const challenges = require('../data/datacache').challenges
 
 module.exports = function servePrivacyPolicyProof () {
   return (req: Request, res: Response) => {
-    utils.solveIf(challenges.privacyPolicyProofChallenge, () => { return true })
+    challengeUtils.solveIf(challenges.privacyPolicyProofChallenge, () => { return true })
     res.sendFile(path.resolve('frontend/dist/frontend/assets/private/thank-you.jpg'))
   }
 }

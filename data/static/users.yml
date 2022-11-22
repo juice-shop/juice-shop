@@ -25,7 +25,7 @@
     - fullName: 'Administrator'
       cardNum: 4024007105648108
       expMonth: 4
-      expYear: 2086      
+      expYear: 2086
 -
   email: jim
   password: 'ncc-1701'
@@ -195,6 +195,7 @@
   password: 'i am an awesome accountant'
   key: accountant
   role: 'accounting'
+  lastLoginIp: '123.456.789'
   securityQuestion:
     id: 7
     answer: 'sdAffsdfrefrbgreq3423'
@@ -236,7 +237,7 @@
   password: 'y&x5Z#f6W532Z4445#Ae2HkwZVyDb7&oCUaDzFU'
   key: john
   role: 'customer'
-- 
+-
   email: emma
   username: E=ma²
   password: 'y&x5Z#f6W532ZUf$q3DsdgfgfgxxUsvoCUaDzFU'

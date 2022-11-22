@@ -7,7 +7,7 @@ mentioned or used!
 > :bulb: indicates resources that contain _hints for solving challenges_
 > of the OWASP Juice Shop. These are supposed to be helpful whenever you
 > get stuck. :godmode: indicates resources that _spoiler entire
-> challenge solutions_ so you might not want to view them before
+> challenge solutions_, so you might not want to view them before
 > tackling these challenges yourself! :mega: marks short friendly shout
 > outs. Finally, the :dollar: bill marks commercial resources.
 
@@ -24,6 +24,8 @@ mentioned or used!
 
 ### Pod- & Webcasts
 
+* [OWASP Spotlight - Project 25 - OWASP Juice Shop](https://www.youtube.com/watch?v=--50rE76EeA) by Vandana Verma with
+  Björn Kimminich
 * [Visual application security testing with ZAP and Simon Bennetts #DemoDays](https://youtu.be/4xBJsRNV9ds) by [GitHub](https://www.youtube.com/channel/UC7c3Kb6jYCRj4JOHHZTxKsQ) with Simon Bennetts :mega:
 * [Exploiting an SSRF vulnerability](https://www.youtube.com/watch?v=OvwNa5CN5yc) by [PinkDraconian](https://www.youtube.com/channel/UCmXwpkCXmIKjoRLMsq9I3RA) :bulb:
 * [OWASP Spotlight - Project 20 - OWASP Security Pin](https://www.youtube.com/watch?v=GnSddCV4UwM) by Vandana Verma with
@@ -109,6 +111,8 @@ mentioned or used!
 
 ### Blogs & Articles
 
+*  Article on [Cobalt.io Developer Best Practices](https://developer.cobalt.io/bestpractices/): [Validate User Input](https://developer.cobalt.io/bestpractices/input-validation/)
+*  Blog post (:de:) on [Dev-Insider](https://www.dev-insider.de/): [OWASP Juice Shop lädt zum Hacken ein](https://www.dev-insider.de/owasp-juice-shop-laedt-zum-hacken-ein-a-968485/) :godmode:
 * Blog post on [OWASP.org](https://owasp.org) by Björn Kimminich:
   [OWASP Juice Shop v10.0.0 released](https://owasp.org/2020/03/17/juice-shop-v10.html)
 * [20+ Free Resources To Legally Practice Your Ethical Hacking Skills](https://blog.elearnsecurity.com/free-resources-to-legally-practice-ethical-hacking.html?utm_source=twitter&utm_medium=social&utm_campaign=eh_resources_blogpost)
@@ -274,14 +278,14 @@ mentioned or used!
 
 #### 2022
 
+* [OWASP Juice Shop Project](https://whova.com/web/GKSmlhCK%2FWzBY2c8qqJ%2Bp7kNcnjsUQAQJ%2ByBsjLrbOo%3D/Speakers/) by Björn Kimminich, [OWASP Global AppSec EU](https://whova.com/web/GKSmlhCK%2FWzBY2c8qqJ%2Bp7kNcnjsUQAQJ%2ByBsjLrbOo%3D/), 10.06.2022 ([YouTube](https://www.youtube.com/watch?v=n9DK87g_AIo))
 * [Juice Shop 13: Now with Coding Challenges!](https://www.meetup.com/de-DE/OWASP-Hamburg-Stammtisch/events/282692845/)
-  by Björn Kimminich, [58. OWASP Stammtisch Hamburg](https://owasp.org/www-chapter-germany/stammtische/hamburg/), 13.01.2022 ([YouTube]())
+  by Björn Kimminich, [58. OWASP Stammtisch Hamburg](https://owasp.org/www-chapter-germany/stammtische/hamburg/), 13.01.2022
 
 #### 2021
 
 * [OWASP Juice Shop Flagship Project](https://owasp20thanniversaryevent20.sched.com/event/m1uL/owasp-juice-shop-flagship-project)
-  by Björn Kimminich, [OWASP 20th Anniversary Event](https://20thanniversary.owasp.org/), 24.09.2021 ([YouTube](https://youtu.be/rn-6NADRRmI) :
-  godmode:)
+  by Björn Kimminich, [OWASP 20th Anniversary Event](https://20thanniversary.owasp.org/), 24.09.2021 ([YouTube](https://youtu.be/rn-6NADRRmI) :godmode:)
 * [SDLC con OWASP y laboratorio con OWASP Juice Shop](https://www.meetup.com/de-DE/OWASP-Uruguay-Chapter/events/279827017/)
   (:uruguay:) with Martín Marsicano and Pablo Alzuri,
   [OWASP Uruguay Chapter](https://owasp.org/www-chapter-uruguay/),

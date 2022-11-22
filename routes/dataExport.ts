@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: MIT
  */
 
-import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
+import { MemoryModel } from '../models/memory'
+import { ProductModel } from '../models/product'
 
-const utils = require('../lib/utils')
+import challengeUtils = require('../lib/challengeUtils')
 const security = require('../lib/insecurity')
 const db = require('../data/mongodb')
 const challenges = require('../data/datacache').challenges
@@ -18,7 +19,30 @@ module.exports = function dataExport () {
       const username = loggedInUser.data.username
       const email = loggedInUser.data.email
       const updatedEmail = email.replace(/[aeiou]/gi, '*')
-      const userData = {
+      const userData:
+      {
+        username: string
+        email: string
+        orders: Array<{
+          orderId: string
+          totalPrice: number
+          products: ProductModel[]
+          bonus: number
+          eta: string
+        }>
+        reviews: Array<{
+          message: string
+          author: string
+          productId: number
+          likesCount: number
+          likedBy: string
+        }>
+        memories: Array<{
+          imageUrl: string
+          caption: string
+        }>
+      } =
+      {
         username,
         email,
         orders: [],
@@ -26,15 +50,21 @@ module.exports = function dataExport () {
         memories: []
       }
 
-      const memories = await models.Memory.findAll({ where: { UserId: req.body.UserId } })
-      memories.forEach(memory => {
+      const memories = await MemoryModel.findAll({ where: { UserId: req.body.UserId } })
+      memories.forEach((memory: MemoryModel) => {
         userData.memories.push({
           imageUrl: req.protocol + '://' + req.get('host') + '/' + memory.imagePath,
           caption: memory.caption
         })
       })
 
-      db.orders.find({ email: updatedEmail }).then(orders => {
+      db.orders.find({ email: updatedEmail }).then((orders: Array<{
+        orderId: string
+        totalPrice: number
+        products: ProductModel[]
+        bonus: number
+        eta: string
+      }>) => {
         if (orders.length > 0) {
           orders.forEach(order => {
             userData.orders.push({
@@ -47,7 +77,13 @@ module.exports = function dataExport () {
           })
         }
 
-        db.reviews.find({ author: email }).then(reviews => {
+        db.reviews.find({ author: email }).then((reviews: Array<{
+          message: string
+          author: string
+          product: number
+          likesCount: number
+          likedBy: string
+        }>) => {
           if (reviews.length > 0) {
             reviews.forEach(review => {
               userData.reviews.push({
@@ -61,7 +97,7 @@ module.exports = function dataExport () {
           }
           const emailHash = security.hash(email).slice(0, 4)
           for (const order of userData.orders) {
-            utils.solveIf(challenges.dataExportChallenge, () => { return order.orderId.split('-')[0] !== emailHash })
+            challengeUtils.solveIf(challenges.dataExportChallenge, () => { return order.orderId.split('-')[0] !== emailHash })
           }
           res.status(200).send({ userData: JSON.stringify(userData, null, 2), confirmation: 'Your data export will open in a new Browser window.' })
         },
@@ -73,7 +109,7 @@ module.exports = function dataExport () {
         next(new Error(`Error retrieving orders for ${updatedEmail}`))
       })
     } else {
-      next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+      next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
     }
   }
 }

@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [12, 14, 16, 17]
+        node-version: [14, 16, 18]
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
@@ -17,14 +17,6 @@ jobs:
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
           node-version: ${{ matrix.node-version }}
-      - name: "Cache Node.js modules"
-        uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 #v2: 2.1.6 available
-        with:
-          path: ~/.npm
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-node-
-            ${{ runner.OS }}-
       - name: "Install CLI tools"
         run: |
           npm install -g @angular/cli
@@ -79,7 +71,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: |
             bkimminich/juice-shop:${{ steps.tag.outputs.tag }}
@@ -91,7 +83,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile.arm
-          platforms: linux/arm/v7,linux/arm64
+          platforms: linux/arm/v7
           push: true
           tags: |
             bkimminich/juice-shop:${{ steps.tag.outputs.tag }}-arm

@@ -11,7 +11,7 @@ import { VulnLinesService, result } from '../Services/vuln-lines.service'
 import { Component, Inject, OnInit } from '@angular/core'
 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { FormControl } from '@angular/forms'
+import { UntypedFormControl } from '@angular/forms'
 import { ConfigurationService } from '../Services/configuration.service'
 import { ThemePalette } from '@angular/material/core'
 
@@ -36,7 +36,7 @@ export class CodeSnippetComponent implements OnInit {
   public fixes: Fixes = null
   public selectedLines: number[]
   public selectedFix: number
-  public tab: FormControl = new FormControl(0)
+  public tab: UntypedFormControl = new UntypedFormControl(0)
   public lock: ResultState = ResultState.Undecided
   public result: ResultState = ResultState.Undecided
   public hint: string = null
@@ -60,7 +60,7 @@ export class CodeSnippetComponent implements OnInit {
         this.solved.findIt = true
       }
     }, (err) => {
-      this.snippet = { snippet: JSON.stringify(err.error?.error) }
+      this.snippet = { snippet: err.error }
     })
     this.codeFixesService.get(this.dialogData.key).subscribe((fixes) => {
       this.fixes = fixes.fixes
@@ -138,7 +138,6 @@ export class CodeSnippetComponent implements OnInit {
           }
           const expires = new Date()
           expires.setFullYear(expires.getFullYear() + 1)
-          console.log(continueCode)
           this.cookieService.put('continueCodeFindIt', continueCode, { expires })
         }, (err) => console.log(err))
       } else {
@@ -149,7 +148,6 @@ export class CodeSnippetComponent implements OnInit {
           }
           const expires = new Date()
           expires.setFullYear(expires.getFullYear() + 1)
-          console.log(continueCode)
           this.cookieService.put('continueCodeFixIt', continueCode, { expires })
         }, (err) => console.log(err))
       }

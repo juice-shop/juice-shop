@@ -5,9 +5,11 @@
 
 import config = require('config')
 import { Request, Response, NextFunction } from 'express'
-import models = require('../models/index')
+import { Memory } from '../data/types'
+import { SecurityAnswerModel } from '../models/securityAnswer'
+import { UserModel } from '../models/user'
 
-const utils = require('../lib/utils')
+import challengeUtils = require('../lib/challengeUtils')
 const challenges = require('../data/datacache').challenges
 const users = require('../data/datacache').users
 const security = require('../lib/insecurity')
@@ -25,43 +27,43 @@ module.exports = function resetPassword () {
     } else if (newPassword !== repeatPassword) {
       res.status(401).send(res.__('New and repeated password do not match.'))
     } else {
-      models.SecurityAnswer.findOne({
+      SecurityAnswerModel.findOne({
         include: [{
-          model: models.User,
+          model: UserModel,
           where: { email }
         }]
-      }).then(data => {
-        if (security.hmac(answer) === data.answer) {
-          models.User.findByPk(data.UserId).then(user => {
-            user.update({ password: newPassword }).then(user => {
+      }).then((data: SecurityAnswerModel | null) => {
+        if (data && security.hmac(answer) === data.answer) {
+          UserModel.findByPk(data.UserId).then((user: UserModel | null) => {
+            user?.update({ password: newPassword }).then((user: UserModel) => {
               verifySecurityAnswerChallenges(user, answer)
               res.json({ user })
-            }).catch((error: Error) => {
+            }).catch((error: unknown) => {
               next(error)
             })
-          }).catch((error: Error) => {
+          }).catch((error: unknown) => {
             next(error)
           })
         } else {
           res.status(401).send(res.__('Wrong answer to security question.'))
         }
-      }).catch((error: Error) => {
+      }).catch((error: unknown) => {
         next(error)
       })
     }
   }
 }
 
-function verifySecurityAnswerChallenges (user, answer) {
-  utils.solveIf(challenges.resetPasswordJimChallenge, () => { return user.id === users.jim.id && answer === 'Samuel' })
-  utils.solveIf(challenges.resetPasswordBenderChallenge, () => { return user.id === users.bender.id && answer === 'Stop\'n\'Drop' })
-  utils.solveIf(challenges.resetPasswordBjoernChallenge, () => { return user.id === users.bjoern.id && answer === 'West-2082' })
-  utils.solveIf(challenges.resetPasswordMortyChallenge, () => { return user.id === users.morty.id && answer === '5N0wb41L' })
-  utils.solveIf(challenges.resetPasswordBjoernOwaspChallenge, () => { return user.id === users.bjoernOwasp.id && answer === 'Zaya' })
-  utils.solveIf(challenges.resetPasswordUvoginChallenge, () => { return user.id === users.uvogin.id && answer === 'Silence of the Lambs' })
-  utils.solveIf(challenges.geoStalkingMetaChallenge, () => {
+function verifySecurityAnswerChallenges (user: UserModel, answer: string) {
+  challengeUtils.solveIf(challenges.resetPasswordJimChallenge, () => { return user.id === users.jim.id && answer === 'Samuel' })
+  challengeUtils.solveIf(challenges.resetPasswordBenderChallenge, () => { return user.id === users.bender.id && answer === 'Stop\'n\'Drop' })
+  challengeUtils.solveIf(challenges.resetPasswordBjoernChallenge, () => { return user.id === users.bjoern.id && answer === 'West-2082' })
+  challengeUtils.solveIf(challenges.resetPasswordMortyChallenge, () => { return user.id === users.morty.id && answer === '5N0wb41L' })
+  challengeUtils.solveIf(challenges.resetPasswordBjoernOwaspChallenge, () => { return user.id === users.bjoernOwasp.id && answer === 'Zaya' })
+  challengeUtils.solveIf(challenges.resetPasswordUvoginChallenge, () => { return user.id === users.uvogin.id && answer === 'Silence of the Lambs' })
+  challengeUtils.solveIf(challenges.geoStalkingMetaChallenge, () => {
     const securityAnswer = ((() => {
-      const memories = config.get('memories')
+      const memories: Memory[] = config.get('memories')
       for (let i = 0; i < memories.length; i++) {
         if (memories[i].geoStalkingMetaSecurityAnswer) {
           return memories[i].geoStalkingMetaSecurityAnswer
@@ -70,9 +72,9 @@ function verifySecurityAnswerChallenges (user, answer) {
     })())
     return user.id === users.john.id && answer === securityAnswer
   })
-  utils.solveIf(challenges.geoStalkingVisualChallenge, () => {
+  challengeUtils.solveIf(challenges.geoStalkingVisualChallenge, () => {
     const securityAnswer = ((() => {
-      const memories = config.get('memories')
+      const memories: Memory[] = config.get('memories')
       for (let i = 0; i < memories.length; i++) {
         if (memories[i].geoStalkingVisualSecurityAnswer) {
           return memories[i].geoStalkingVisualSecurityAnswer
