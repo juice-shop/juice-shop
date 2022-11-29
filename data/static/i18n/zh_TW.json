@@ -320,7 +320,7 @@
 	"Line {{vulnLine}} is responsible for this vulnerability or security flaw. Select it and submit to proceed.": "Line {{vulnLine}} is responsible for this vulnerability or security flaw. Select it and submit to proceed.",
 	"Lines {{vulnLines}} are responsible for this vulnerability or security flaw. Select them and submit to proceed.": "Lines {{vulnLines}} are responsible for this vulnerability or security flaw. Select them and submit to proceed.",
 	"Receive a coupon code from the support chatbot.": "由聊天機器人取得優惠代碼。",
-	"Just keep asking.": "Just keep asking.",
+	"Just keep asking.": "持續詢問吧",
 	"Permanently disable the support chatbot so that it can no longer answer customer queries.": "永久關閉聊天機器人且不會再回答客戶問題",
 	"Think of a way to get a hold of the internal workings on the chatbot API.": "設法取得聊天機器人 API 內部工作原理。",
 	"Gain read access to an arbitrary local file on the web server.": "Gain read access to an arbitrary local file on the web server.",
