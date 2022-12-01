@@ -1,5 +1,5 @@
 /* Serve metrics */
-let metricsUpdateLoop
+let metricsUpdateLoop: any
 const Metrics = metrics.observeMetrics()
 app.get('/metrics', security.isAdmin(), metrics.serveMetrics())
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
