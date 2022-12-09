@@ -14,7 +14,7 @@ export const ViewBasketInstruction: ChallengeInstruction = {
   hints: [
     {
       text:
-          "This challenge is about **Horizontal Privilege Escalation**, meaning you are supposed access data that does not belong to your own account but to another user's.",
+          "This challenge is about **Horizontal Privilege Escalation**, meaning you are supposed to access data that does not belong to your own account but to another user's.",
       fixture: 'app-navbar',
       resolved: waitInMs(18000)
     },
@@ -34,7 +34,7 @@ export const ViewBasketInstruction: ChallengeInstruction = {
     },
     {
       text:
-          "To pass this challenge, you will need to peak into another user's basket while remaining logged in with your own account.",
+          "To pass this challenge, you will need to peek into another user's basket while remaining logged in with your own account.",
       fixture: 'app-navbar',
       resolved: waitInMs(8000)
     },
