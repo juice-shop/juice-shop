@@ -18,8 +18,12 @@ jobs:
           node-version: 16
           cache: 'npm'
 
-      - name: "Install CLI tools"
-        run: npm install -g @angular/cli@13
+      - name: Cache dependencies
+        uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
 
       - name: "Install application minimalistically"
         run: |
@@ -42,11 +46,15 @@ jobs:
           node-version: 16
           cache: 'npm'
 
-      - name: "Install CLI tools"
-        run: npm install -g @angular/cli@13
+      - name: Cache dependencies
+        uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
       
       - name: "Install application"
-        run: npm ci
+        run: npm ci --ignore-scripts
       
       - name: "Execute unit tests"
         run: npm run test:server
