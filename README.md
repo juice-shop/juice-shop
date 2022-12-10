@@ -39,7 +39,6 @@ For a detailed introduction, full list of features and architecture overview ple
 ## Table of contents
 
 - [Setup](#setup)
-    - [Deploy on Heroku (free ($0/month) dyno)](#deploy-on-heroku-free-0month-dyno)
     - [From Sources](#from-sources)
     - [Packaged Distributions](#packaged-distributions)
     - [Docker Container](#docker-container)
@@ -47,6 +46,7 @@ For a detailed introduction, full list of features and architecture overview ple
     - [Amazon EC2 Instance](#amazon-ec2-instance)
     - [Azure Container Instance](#azure-container-instance)
     - [Google Compute Engine Instance](#google-compute-engine-instance)
+    - [Heroku](#heroku)
     - [Gitpod](#gitpod)
 - [Demo](#demo)
 - [Documentation](#documentation)
@@ -64,22 +64,6 @@ For a detailed introduction, full list of features and architecture overview ple
 
 > You can find some less common installation variations in
 > [the _Running OWASP Juice Shop_ documentation](https://pwning.owasp-juice.shop/part1/running.html).
-
-### Deploy on Heroku (free ($0/month) dyno)
-
-☠️ _Please note that [the Heroku free tier **will become unavailable in November 2022**](https://blog.heroku.com/next-chapter)! If and when a suitable replacement PaaS has been found for free, individual and legally hackable instances of Juice Shop, it will be documented here and [in the companion guide](https://pwning.owasp-juice.shop/part1/running.html)!_
-
-1. ~~[Sign up to Heroku](https://signup.heroku.com/) and
-   [log in to your account](https://id.heroku.com/login)~~
-2. ~~Click the button below and follow the instructions~~
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-> ~~This is the quickest way to get a running instance of Juice Shop! If
-> you have forked this repository, the deploy button will automatically
-> pick up your fork for deployment! As long as you do not perform any
-> DDoS attacks you are free to use any tools or scripts to hack your
-> Juice Shop instance on Heroku!~~
 
 ### From Sources
 
@@ -184,6 +168,17 @@ gcloud compute firewall-rules create juice-rule --allow tcp:3000
 
 4. Your container is now running and available at
    `http://<EXTERNAL_IP>:3000/`
+
+### Heroku
+
+1. [Sign up to Heroku](https://signup.heroku.com/) and
+   [log in to your account](https://id.heroku.com/login)
+2. Click the button below and follow the instructions
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+If you have forked the Juice Shop repository on GitHub, the _Deploy to
+Heroku_ button will deploy your forked version of the application.
 
 ### Gitpod 
 
