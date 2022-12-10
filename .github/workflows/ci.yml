@@ -25,9 +25,8 @@ jobs:
           key: npm-${{ hashFiles('package-lock.json') }}
           restore-keys: npm-
 
-      - name: "Install application minimalistically"
-        run: |
-          npm install --ignore-scripts
+      - name: "Install application"
+        run: npm ci --ignore-scripts
       
       - name: "Lint source code"
         run: npm run lint
