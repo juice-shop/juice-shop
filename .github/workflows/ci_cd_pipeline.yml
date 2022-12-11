@@ -64,7 +64,7 @@ jobs:
   create_release_tag:
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
-    needs: ['lint', 'test']
+    needs: ['lint', 'unit-test']
     steps:
       - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
       
