@@ -1,7 +1,7 @@
 name: "CI (Continuous Integration)"
 
 on:
-  push:
+  pull_request:
 
 jobs:
   lint:
