@@ -12,8 +12,8 @@ jobs:
       - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
       
       - name: Bump version and push tag
-        id: tag_version
         uses: mathieudutour/github-tag-action@fcfbdceb3093f6d85a3b194740f8c6cec632f4e2
+        id: tag_version
         with:
           github_token: ${{ secrets.PAT_GITHUB }}
       
@@ -23,6 +23,8 @@ jobs:
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
+    outputs:
+      new_tag: ${{ steps.tag_version.outputs.new_tag }}
   
   create_docker_container:
     needs: create_release_tag
@@ -31,10 +33,6 @@ jobs:
       - name: "Check out Git repository"
         uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
       
-      - name: "Get tag name"
-        uses: dawidd6/action-get-tag@727a6f0a561be04e09013531e73a3983a65e3479
-        id: tag
-
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@v5
         with:
@@ -42,7 +40,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           dockerfile: Dockerfile_dggsoares
-          tags: "latest,${{ steps.tag.outputs.tag }}"
+          tags: "latest,${{ needs.tag_version.outputs.new_tag }}"
 
   deploy:
     needs: create_release_tag
@@ -56,4 +54,5 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            docker compose ps
+            docker ps -a
+            pwd
