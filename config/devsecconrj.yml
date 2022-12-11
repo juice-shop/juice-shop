@@ -3,7 +3,7 @@ server:
   basePath: ''
 application:
   domain: devsecconrj.com.br
-  name: 'DevSecCon RJ - Juice Shop - 1'
+  name: 'DevSecCon RJ - Juice Shop - 3'
   logo: "https://admin.devseccon.com/wp-content/uploads/Rio-de-Janeiro-Logo.png"
   favicon: favicon_js.ico
   theme: bluegrey-lightgreen # Options: bluegrey-lightgreen blue-lightblue deeppurple-amber indigo-pink pink-bluegrey purple-green deeporange-indigo

@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
-        
+
       - name: "Use Node.js 16"
         uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516
         with:

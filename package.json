@@ -52,7 +52,7 @@
     "build:server": "tsc",
     "cypress:open": "cypress open",
     "frisby": "nyc --report-dir=./build/reports/coverage/api-tests jest --silent --runInBand --forceExit",
-    "postinstall": "cd frontend && npm install --legacy-peer-deps && cd .. && npm run build:frontend && (npm run --silent build:server || cd .)",
+    "postinstall": "cd frontend && npm install --legacy-peer-deps --no-audit && cd .. && npm run build:frontend && (npm run --silent build:server || cd .)",
     "lint": "eslint app.ts",
     "lint:config": "schema validate -s config.schema.yml",
     "lint:fix": "eslint *.[jt]s data lib models routes test views rsn --fix && cd frontend && ng lint --fix && npx stylelint \"**/*.scss\" --fix && cd ..",
