@@ -1,0 +1,13 @@
+name: "Create Release Tag"
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  create_tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "create local git tag"
+        run: whoami
