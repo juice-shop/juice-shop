@@ -16,6 +16,6 @@ jobs:
         uses: elgohr/Publish-Docker-Github-Action@v5
         with:
           name: myDocker/repository
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_TOKEN }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
           dockerfile: Dockerfile_dggsoares
