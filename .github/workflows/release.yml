@@ -54,5 +54,9 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            docker ps -a
-            pwd
+            cd ~/juice-shop
+            git fetch
+            git checkout master
+            git pull origin master
+            npm install --production --no-audit
+            pm2 startOrRestart ~/ecosystem.config.js --env production
