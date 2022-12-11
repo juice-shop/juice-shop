@@ -1,0 +1,26 @@
+name: "Create Docker container"
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  create_docker_container:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
+      
+      - name: "Get tag name"
+        uses: dawidd6/action-get-tag@727a6f0a561be04e09013531e73a3983a65e3479
+        id: tag
+
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@v5
+        with:
+          name: dggsoares/juice-shop
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          dockerfile: Dockerfile_dggsoares
+          tags: "latest,${{ steps.tag.outputs.tag }}"
