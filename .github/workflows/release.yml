@@ -25,22 +25,6 @@ jobs:
           body: ${{ steps.tag_version.outputs.changelog }}
     outputs:
       new_tag: ${{ steps.tag_version.outputs.new_tag }}
-  
-  create_docker_container:
-    needs: create_release_tag
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Check out Git repository"
-        uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
-      
-      - name: Publish to Registry
-        uses: elgohr/Publish-Docker-Github-Action@v5
-        with:
-          name: dggsoares/juice-shop
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-          dockerfile: Dockerfile_dggsoares
-          tags: "latest,${{ needs.tag_version.outputs.new_tag }}"
 
   deploy:
     needs: create_release_tag
@@ -55,8 +39,9 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd ~/juice-shop
-            git fetch
             git checkout master
-            git pull origin master
-            npm install --production --no-audit
+            git fetch
+            git pull --all
+            git checkout ${{ needs.tag_version.outputs.new_tag }}
+            npm install --production --no-audit --prefer-offline --progress=false
             pm2 startOrRestart ~/ecosystem.config.js --env production
