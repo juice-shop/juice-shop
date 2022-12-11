@@ -1,0 +1,59 @@
+name: "Release"
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  create_release_tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
+      
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@fcfbdceb3093f6d85a3b194740f8c6cec632f4e2
+        with:
+          github_token: ${{ secrets.PAT_GITHUB }}
+      
+      - name: Create a GitHub release
+        uses: ncipollo/release-action@18eadf9c9b0f226f47f164f5373c6a44f0aae169
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
+  
+  create_docker_container:
+    needs: create_release_tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
+      
+      - name: "Get tag name"
+        uses: dawidd6/action-get-tag@727a6f0a561be04e09013531e73a3983a65e3479
+        id: tag
+
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@v5
+        with:
+          name: dggsoares/juice-shop
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          dockerfile: Dockerfile_dggsoares
+          tags: "latest,${{ steps.tag.outputs.tag }}"
+
+  deploy:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Operations
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            docker compose ps
