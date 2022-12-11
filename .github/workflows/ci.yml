@@ -1,9 +1,7 @@
 name: "CI (Continuous Integration)"
 
 on:
-  # ENTENDER AS TRIGERS
   push:
-  pull_request:
 
 jobs:
   lint:
@@ -66,3 +64,44 @@ jobs:
           name: unit-test-lcov
           path: |
             server-lcov.info
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: ['lint', 'test']
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
+      
+      - name: "Set up QEMU"
+        uses: docker/setup-qemu-action@e81a89b1732b9c48d79cd809d8d81d79c4647a18
+      
+      - name: "Set up Docker Buildx"
+        uses: docker/setup-buildx-action@8c0edbc76e98fa90f69d9a2c020dcb50019dc325
+      
+      - name: "Login to DockerHub"
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      - name: "Get tag name"
+        uses: dawidd6/action-get-tag@727a6f0a561be04e09013531e73a3983a65e3479
+        id: tag
+        
+      - name: "Set labels for ${{ github.ref }}"
+        run: |
+          echo "VCS_REF=`git rev-parse --short HEAD`" >> $GITHUB_ENV
+          echo "BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”`" >> $GITHUB_ENV
+      
+      - name: "Build and push for AMD processors"
+        uses: docker/build-push-action@a66e35b9cbcf4ad0ea91ffcaf7bbad63ad9e0229 #note: newer is available
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            bkimminich/juice-shop:${{ steps.tag.outputs.tag }}
+          build-args: |
+            VCS_REF=${{ env.VCS_REF }}
+            BUILD_DATE=${{ env.BUILD_DATE }}
