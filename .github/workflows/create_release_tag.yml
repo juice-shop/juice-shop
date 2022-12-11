@@ -3,7 +3,7 @@ name: "Create Release Tag"
 on:
   push:
     branches:
-      - 'main'
+      - 'master'
 
 jobs:
   create_tag:
