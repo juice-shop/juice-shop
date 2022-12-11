@@ -1,8 +1,10 @@
 name: "Release Pipeline"
+
 on:
   push:
     tags:
       - v*
+
 jobs:
   docker:
     runs-on: ubuntu-latest
