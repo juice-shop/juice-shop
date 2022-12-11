@@ -45,7 +45,7 @@ jobs:
           tags: "latest,${{ steps.tag.outputs.tag }}"
 
   deploy:
-    needs: deploy
+    needs: create_release_tag
     runs-on: ubuntu-latest
     steps:
       - name: Deploy Operations
