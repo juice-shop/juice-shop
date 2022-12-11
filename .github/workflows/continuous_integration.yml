@@ -2,6 +2,12 @@ name: "Continuous Integration (CI)"
 
 on:
   pull_request:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '.github/**'
+      - 'test_commit.txt'
 
 jobs:
   lint:
@@ -25,14 +31,12 @@ jobs:
       
       - name: "Install application minimalistically"
         run: |
-          npm install --ignore-scripts
-          cd frontend
-          npm install --ignore-scripts --legacy-peer-deps
+          npm ci --ignore-scripts
       
       - name: "Lint source code"
         run: npm run lint
 
-  test:
+  unit-test:
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
