@@ -15,7 +15,7 @@ jobs:
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@v5
         with:
-          name: myDocker/repository
+          name: dggsoares/juice-shop
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           dockerfile: Dockerfile_dggsoares
