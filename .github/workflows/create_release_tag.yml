@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  build:
+  create_release_tag:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791

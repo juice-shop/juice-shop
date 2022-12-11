@@ -33,15 +33,15 @@ jobs:
           echo "VCS_REF=`git rev-parse --short HEAD`" >> $GITHUB_ENV
           echo "BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”`" >> $GITHUB_ENV
       
-      - name: "Build and push for AMD processors"
-        uses: docker/build-push-action@a66e35b9cbcf4ad0ea91ffcaf7bbad63ad9e0229 #note: newer is available
+      - name: "Build and push"
+        uses: docker/build-push-action@c56af957549030174b10d6867f20e78cfd7debc5
         with:
           context: .
-          file: ./Dockerfile
+          file: ./Dockerfile_dggsoares
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            bkimminich/juice-shop:${{ steps.tag.outputs.tag }}
+            dggsoares/juice-shop:${{ steps.tag.outputs.tag }}
           build-args: |
             VCS_REF=${{ env.VCS_REF }}
             BUILD_DATE=${{ env.BUILD_DATE }}
