@@ -35,12 +35,17 @@ export class LocalBackupService {
       cookieConsentStatus: this.cookieService.get('cookieconsent_status') ? this.cookieService.get('cookieconsent_status') : undefined
     }
     backup.language = this.cookieService.get('language') ? this.cookieService.get('language') : undefined
-    backup.continueCode = this.cookieService.get('continueCode') ? this.cookieService.get('continueCode') : undefined
-    backup.continueCodeFindIt = this.cookieService.get('continueCodeFindIt') ? this.cookieService.get('continueCodeFindIt') : undefined
-    backup.continueCodeFixIt = this.cookieService.get('continueCodeFixIt') ? this.cookieService.get('continueCodeFixIt') : undefined
-
-    const blob = new Blob([JSON.stringify(backup)], { type: 'text/plain;charset=utf-8' })
-    saveAs(blob, `${fileName}-${new Date().toISOString().split('T')[0]}.json`)
+    this.challengeService.continueCode().subscribe((continueCode) => {
+      backup.continueCode = continueCode
+      this.challengeService.continueCodeFindIt().subscribe((continueCodeFindIt) => {
+        backup.continueCodeFindIt = continueCodeFindIt
+        this.challengeService.continueCodeFixIt().subscribe((continueCodeFixIt) => {
+          backup.continueCodeFixIt = continueCodeFixIt
+          const blob = new Blob([JSON.stringify(backup)], { type: 'text/plain;charset=utf-8' })
+          saveAs(blob, `${fileName}-${new Date().toISOString().split('T')[0]}.json`)
+        }, (err) => console.log(err))
+      }, (err) => console.log(err))
+    }, (err) => console.log(err))
   }
 
   restore (backupFile: File) {
