@@ -1,7 +1,6 @@
-name: "CI/CD Pipeline"
+name: "Continuous Delivery (CD)"
 
 on:
-  pull_request:
   push:
     branches:
       - master
@@ -62,7 +61,6 @@ jobs:
         run: npm run test:server
 
   create_release_tag:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     needs: ['lint', 'unit-test']
     steps:
@@ -84,7 +82,6 @@ jobs:
       new_tag: ${{ steps.tag_version.outputs.new_tag }}
 
   deploy_on_production:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     needs: create_release_tag
     runs-on: ubuntu-latest
     steps:
