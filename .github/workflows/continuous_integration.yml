@@ -1,4 +1,4 @@
-name: "CI/CD Pipeline"
+name: "Continuous Integration (CI)"
 
 on:
   pull_request:
