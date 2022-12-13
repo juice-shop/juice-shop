@@ -77,12 +77,13 @@ jobs:
 
       - name: Snyk Code
         run: snyk code test
+        continue-on-error: true
 
       - name: Snyk Open Source
         run: snyk test
+        continue-on-error: true
 
       - name: Snyk Monitor
         run: snyk monitor
     env:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-    continue-on-error: true
