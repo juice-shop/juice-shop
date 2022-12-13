@@ -66,3 +66,16 @@ jobs:
       - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
       
       - run: semgrep ci
+        continue-on-error: true
+
+  snyk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
+
+      - uses: snyk/actions/setup@7fad562681122205233d1242c3bb39598c5393da
+      
+      - name: Snyk monitor
+        run: snyk test
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
