@@ -70,7 +70,7 @@ jobs:
       - uses: snyk/actions/setup@7fad562681122205233d1242c3bb39598c5393da
 
       - name: Semgrep
-        run: docker run --rm -v "${PWD}:/src" returntocorp/semgrep ci
+        run: docker run --rm -v "${PWD}:/src" returntocorp/semgrep semgrep ci
         continue-on-error: true
 
       - name: Snyk Code
