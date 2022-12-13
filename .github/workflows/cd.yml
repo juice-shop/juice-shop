@@ -130,7 +130,7 @@ jobs:
 
   zap_scan:
     runs-on: ubuntu-latest
-    needs: ['security_gate']
+    needs: ['deploy_on_production']
     name: DAST Scan
     steps:
       - name: OWASP ZAP Scan
