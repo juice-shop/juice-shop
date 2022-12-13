@@ -76,11 +76,13 @@ jobs:
 
       - uses: snyk/actions/setup@7fad562681122205233d1242c3bb39598c5393da
 
-      - name: Snyk Code
+      - name: Run Snyk Code
+        run: snyk code test --sarif-file-output=result_snyk_code.sarif
+        continue-on-error: true
+
+      - name: Generate HTML report
         run: |
           npm install snyk-to-html --silent
-          ls -lah
-          snyk code test --sarif-file-output=result_snyk_code.sarif
           snyk-to-html --input result_snyk_code.sarif --output result_snyk_code.html
         continue-on-error: true
 
