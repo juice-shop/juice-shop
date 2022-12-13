@@ -6,7 +6,7 @@ on:
 jobs:
   zap_scan:
     runs-on: ubuntu-latest
-    name: Scan Juice Shop Instance
+    name: DAST Scan
     steps:
       - name: OWASP ZAP Scan
         uses: zaproxy/action-baseline@7cea08522cd386f6c675776d5e4296aecf61f33b
