@@ -68,7 +68,7 @@ jobs:
       
       - run: |
           git clone https://github.com/returntocorp/semgrep-rules
-          semgrep ci --config semgrep-rules/generic/secrets/security/*yaml
+          semgrep ci --config semgrep-rules/generic/secrets/security/
         continue-on-error: true
 
   snyk_code:
