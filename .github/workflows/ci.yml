@@ -56,7 +56,7 @@ jobs:
         run: npm run test:server
 
   semgrep:
-    name: Scan
+    name: semgrep
     runs-on: ubuntu-latest
     env:
       SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
