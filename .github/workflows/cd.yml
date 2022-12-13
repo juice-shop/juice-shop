@@ -140,3 +140,4 @@ jobs:
           target: 'https://www.liveappsec.com'
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a -j'
+        continue-on-error: true
