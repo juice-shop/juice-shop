@@ -74,13 +74,15 @@ jobs:
       - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
 
       - uses: snyk/actions/setup@7fad562681122205233d1242c3bb39598c5393da
-      
-      - name: Snyk
-        run: |
-          snyk --help
-          snyk test
-          snyk monitor --help
-          snyk monitor
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        continue-on-error: true
+
+      - name: Snyk Code
+        run: snyk code test
+
+      - name: Snyk Open Source
+        run: snyk test
+
+      - name: Snyk Monitor
+        run: snyk monitor
+    env:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+    continue-on-error: true
