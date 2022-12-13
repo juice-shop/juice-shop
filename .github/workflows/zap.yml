@@ -13,7 +13,7 @@ jobs:
         with:
           ref: develop
 
-      - name: ZAP Scan
+      - name: OWASP ZAP Scan
         uses: zaproxy/action-baseline@7cea08522cd386f6c675776d5e4296aecf61f33b
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
