@@ -78,6 +78,7 @@ jobs:
       - name: Snyk
         run: |
           snyk test
+          snyk monitor --help
           snyk monitor
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
