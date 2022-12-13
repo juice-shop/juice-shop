@@ -1,0 +1,22 @@
+name: "ZAP Baseline Scan"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  zap_scan:
+    runs-on: ubuntu-latest
+    name: Scan Juice Shop Instance
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
+        with:
+          ref: develop
+
+      - name: ZAP Scan
+        uses: zaproxy/action-baseline@7cea08522cd386f6c675776d5e4296aecf61f33b
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          target: 'https://www.liveappsec.com'
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a -j'
