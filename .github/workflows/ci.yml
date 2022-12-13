@@ -75,7 +75,10 @@ jobs:
 
       - uses: snyk/actions/setup@7fad562681122205233d1242c3bb39598c5393da
       
-      - name: Snyk monitor
-        run: snyk test
+      - name: Snyk
+        run: |
+          snyk test
+          snyk monitor
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        continue-on-error: true
