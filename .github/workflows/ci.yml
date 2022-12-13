@@ -77,9 +77,16 @@ jobs:
       - uses: snyk/actions/setup@7fad562681122205233d1242c3bb39598c5393da
 
       - name: Snyk Code
-        run: snyk code test
+        run: |
+          snyk code test --sarif-file-output=result_snyk_code.sarif
+          snyk-to-html --input result_snyk_code.sarif --output result_snyk_code.html
         continue-on-error: true
 
+      - name: Upload Test results
+        uses: actions/upload-artifact@83fd05a356d7e2593de66fc9913b3002723633cb
+        with:
+          name: Snyk Open Source report
+          path: ${{github.workspace}}/result_snyk_code.html
     env:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
@@ -91,10 +98,18 @@ jobs:
       - uses: snyk/actions/setup@7fad562681122205233d1242c3bb39598c5393da
 
       - name: Snyk Open Source
-        run: snyk test
+        run: |
+          snyk test --sarif-file-output=result_snyk_open_source.sarif
+          snyk-to-html --input result_snyk_open_source.sarif --output result_snyk_open_source.html
         continue-on-error: true
 
       - name: Snyk Monitor
         run: snyk monitor
+
+      - name: Upload Test results
+        uses: actions/upload-artifact@83fd05a356d7e2593de66fc9913b3002723633cb
+        with:
+          name: Snyk Open Source report
+          path: ${{github.workspace}}/result_snyk_open_source.html
     env:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
