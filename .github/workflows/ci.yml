@@ -78,9 +78,10 @@ jobs:
 
       - name: Snyk Code
         run: |
-          npm install snyk-to-html
+          npm install snyk-to-html --silent
           snyk code test --sarif-file-output=result_snyk_code.sarif
           snyk-to-html --input result_snyk_code.sarif --output result_snyk_code.html
+          ls -lah
         continue-on-error: true
 
       - name: Upload Test results
@@ -100,7 +101,7 @@ jobs:
 
       - name: Snyk Open Source
         run: |
-          npm install snyk-to-html
+          npm install snyk-to-html --silent
           snyk test --sarif-file-output=result_snyk_open_source.sarif
           snyk-to-html --input result_snyk_open_source.sarif --output result_snyk_open_source.html
         continue-on-error: true
