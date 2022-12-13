@@ -83,6 +83,7 @@ jobs:
       - name: Generate HTML report
         run: |
           wget "https://github.com/snyk/snyk-to-html/releases/download/v2.3.6/snyk-to-html-linux"
+          chmod +x ./snyk-to-html-linux
           ./snyk-to-html-linux --input result_snyk_code.sarif --output result_snyk_code.html
         continue-on-error: true
 
