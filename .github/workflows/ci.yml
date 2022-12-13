@@ -82,8 +82,8 @@ jobs:
 
       - name: Generate HTML report
         run: |
-          npm install snyk-to-html
-          snyk-to-html --input result_snyk_code.sarif --output result_snyk_code.html
+          wget https://github.com/snyk/snyk-to-html/releases/download/v2.3.6/snyk-to-html-linux
+          ./snyk-to-html --input result_snyk_code.sarif --output result_snyk_code.html
         continue-on-error: true
 
       - name: Upload Test results
