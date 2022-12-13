@@ -66,7 +66,9 @@ jobs:
     steps:
       - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
       
-      - run: semgrep ci
+      - run: |
+          git clone https://github.com/returntocorp/semgrep-rules
+          semgrep ci --config semgrep-rules/generic/secrets/security/*yaml
         continue-on-error: true
 
   snyk_code:
