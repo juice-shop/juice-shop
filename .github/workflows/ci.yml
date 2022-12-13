@@ -67,9 +67,9 @@ jobs:
       - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
       
       - name: Get Semgrep Rules
-        run: git clone https://github.com/returntocorp/semgrep-rules
+        run: git clone --branch develop https://github.com/returntocorp/semgrep-rules
 
-      - name: Get Semgrep Rules
+      - name: Run Semgrep
         run: semgrep --config semgrep-rules/generic/secrets/security/
         continue-on-error: true
 
