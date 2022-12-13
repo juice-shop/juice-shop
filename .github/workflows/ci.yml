@@ -54,3 +54,15 @@ jobs:
       
       - name: "Execute unit tests"
         run: npm run test:server
+
+  semgrep:
+    name: Scan
+    runs-on: ubuntu-latest
+    env:
+      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+    container:
+      image: returntocorp/semgrep
+    steps:
+      - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
+      
+      - run: semgrep ci
