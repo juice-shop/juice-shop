@@ -56,8 +56,8 @@ jobs:
       - name: "Execute unit tests"
         run: npm run test:server
 
-  semgrep:
-    name: semgrep
+  secrets:
+    name: Secrets (Semgrep)
     runs-on: ubuntu-latest
     container:
       image: returntocorp/semgrep
@@ -73,7 +73,8 @@ jobs:
     env:
       SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
 
-  snyk_code:
+  sast:
+    name: SAST (Snyk Code)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
@@ -86,7 +87,8 @@ jobs:
     env:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-  snyk_open_source:
+  sca:
+    name: SCA (Snyk Open Source)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
@@ -94,8 +96,7 @@ jobs:
       - uses: snyk/actions/setup@7fad562681122205233d1242c3bb39598c5393da
 
       - name: Snyk Open Source
-        run: |
-          snyk test --sarif-file-output=result_snyk_open_source.sarif
+        run: snyk test
         continue-on-error: true
 
       - name: Snyk Monitor
