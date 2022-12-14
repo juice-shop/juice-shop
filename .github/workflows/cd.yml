@@ -115,6 +115,7 @@ jobs:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   create_release:
+    name: Create new release
     runs-on: ubuntu-latest
     needs: ['secrets', 'sast', 'sca']
     steps:
@@ -136,6 +137,7 @@ jobs:
       new_tag: ${{ steps.tag_version.outputs.new_tag }}
 
   deploy:
+    name: Deploy
     needs: create_release
     runs-on: ubuntu-latest
     steps:
@@ -156,11 +158,11 @@ jobs:
             pm2 startOrRestart ~/ecosystem.config.js --env production
 
   dast:
+    name: DAST (OWASP Zap)
     runs-on: ubuntu-latest
-    needs: deploy
-    name: DAST Scan
+    needs: deploy    
     steps:
-      - name: OWASP ZAP Scan
+      - name: Run OWASP ZAP Scan
         uses: zaproxy/action-baseline@7cea08522cd386f6c675776d5e4296aecf61f33b
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
