@@ -57,3 +57,51 @@ jobs:
       
       - name: "Execute unit tests"
         run: npm run test:server
+
+  secrets:
+    name: Secrets (Semgrep)
+    runs-on: ubuntu-latest
+    container:
+      image: returntocorp/semgrep
+    steps:
+      - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
+      
+      - name: Get Semgrep Rules
+        run: git clone --branch develop https://github.com/returntocorp/semgrep-rules
+
+      - name: Run Semgrep
+        run: semgrep --config semgrep-rules/generic/secrets/security/
+        continue-on-error: true
+    env:
+      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+
+  sast:
+    name: SAST (Snyk Code)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
+
+      - uses: snyk/actions/setup@7fad562681122205233d1242c3bb39598c5393da
+
+      - name: Run Snyk Code
+        run: snyk code test
+        continue-on-error: true
+    env:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+  sca:
+    name: SCA (Snyk Open Source)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
+
+      - uses: snyk/actions/setup@7fad562681122205233d1242c3bb39598c5393da
+
+      - name: Snyk Open Source
+        run: snyk test
+        continue-on-error: true
+
+      - name: Snyk Monitor
+        run: snyk monitor
+    env:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
