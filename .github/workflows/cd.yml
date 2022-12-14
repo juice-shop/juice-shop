@@ -64,6 +64,7 @@ jobs:
   semgrep:
     name: semgrep
     runs-on: ubuntu-latest
+    needs: ['lint', 'unit-test']
     container:
       image: returntocorp/semgrep
     steps:
