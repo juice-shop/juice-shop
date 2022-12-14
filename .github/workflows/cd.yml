@@ -63,61 +63,10 @@ jobs:
       - name: "Execute unit tests"
         run: npm run test:server
 
-  secrets:
-    name: Secrets (Semgrep)
-    runs-on: ubuntu-latest
-    needs: ['lint', 'unit-test']
-    container:
-      image: returntocorp/semgrep
-    steps:
-      - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
-      
-      - name: Get Semgrep Rules
-        run: git clone --branch develop https://github.com/returntocorp/semgrep-rules
-
-      - name: Run Semgrep
-        run: semgrep --config semgrep-rules/generic/secrets/security/
-        continue-on-error: true
-    env:
-      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
-
-  sast:
-    name: SAST (Snyk Code)
-    runs-on: ubuntu-latest
-    needs: ['lint', 'unit-test']
-    steps:
-      - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
-
-      - uses: snyk/actions/setup@7fad562681122205233d1242c3bb39598c5393da
-
-      - name: Snyk Code
-        run: snyk code test
-        continue-on-error: true
-    env:
-      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-  sca:
-    name: SCA (Snyk Open Source)
-    runs-on: ubuntu-latest
-    needs: ['lint', 'unit-test']
-    steps:
-      - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
-
-      - uses: snyk/actions/setup@7fad562681122205233d1242c3bb39598c5393da
-
-      - name: Snyk Open Source
-        run: snyk test
-        continue-on-error: true
-
-      - name: Snyk Monitor
-        run: snyk monitor
-    env:
-      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
   create_release:
     name: Create new release
     runs-on: ubuntu-latest
-    needs: ['secrets', 'sast', 'sca']
+    needs: ['lint', 'unit-test']
     steps:
       - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791
       
@@ -156,17 +105,3 @@ jobs:
             git checkout ${{ needs.tag_version.outputs.new_tag }}
             npm install --production --no-audit --prefer-offline --progress=false
             pm2 startOrRestart ~/ecosystem.config.js --env production
-
-  dast:
-    name: DAST (OWASP Zap)
-    runs-on: ubuntu-latest
-    needs: deploy    
-    steps:
-      - name: Run OWASP ZAP Scan
-        uses: zaproxy/action-baseline@7cea08522cd386f6c675776d5e4296aecf61f33b
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          target: 'https://www.liveappsec.com'
-          rules_file_name: '.zap/rules.tsv'
-          cmd_options: '-a -j'
-        continue-on-error: true
