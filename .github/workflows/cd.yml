@@ -11,6 +11,7 @@ on:
 
 jobs:
   lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
@@ -37,6 +38,7 @@ jobs:
         run: npm run lint
 
   unit-test:
+    name: Unit test
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
