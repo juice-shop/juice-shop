@@ -1,17 +1,19 @@
-name: "ZAP Baseline Scan"
+name: "OWASP Zap Scan"
 
 on:
   workflow_dispatch:
 
 jobs:
-  zap_scan:
+  dast:
+    name: DAST (OWASP Zap)
     runs-on: ubuntu-latest
-    name: DAST Scan
+    needs: deploy    
     steps:
-      - name: OWASP ZAP Scan
+      - name: Run OWASP ZAP Scan
         uses: zaproxy/action-baseline@7cea08522cd386f6c675776d5e4296aecf61f33b
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           target: 'https://www.liveappsec.com'
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a -j'
+        continue-on-error: true
