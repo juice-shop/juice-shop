@@ -134,7 +134,7 @@ export class CodeSnippetComponent implements OnInit {
         this.solved.findIt = true
         this.challengeService.continueCodeFindIt().subscribe((continueCode) => {
           if (!continueCode) {
-            throw (new Error('Received invalid continue code from the sever!'))
+            throw (new Error('Received invalid continue code from the server!'))
           }
           const expires = new Date()
           expires.setFullYear(expires.getFullYear() + 1)
@@ -144,7 +144,7 @@ export class CodeSnippetComponent implements OnInit {
         this.solved.fixIt = true
         this.challengeService.continueCodeFixIt().subscribe((continueCode) => {
           if (!continueCode) {
-            throw (new Error('Received invalid continue code from the sever!'))
+            throw (new Error('Received invalid continue code from the server!'))
           }
           const expires = new Date()
           expires.setFullYear(expires.getFullYear() + 1)

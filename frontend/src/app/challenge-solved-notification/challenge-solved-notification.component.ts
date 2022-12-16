@@ -113,7 +113,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
   saveProgress () {
     this.challengeService.continueCode().subscribe((continueCode) => {
       if (!continueCode) {
-        throw (new Error('Received invalid continue code from the sever!'))
+        throw (new Error('Received invalid continue code from the server!'))
       }
       const expires = new Date()
       expires.setFullYear(expires.getFullYear() + 1)
