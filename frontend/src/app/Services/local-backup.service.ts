@@ -43,9 +43,20 @@ export class LocalBackupService {
           backup.continueCodeFixIt = continueCodeFixIt
           const blob = new Blob([JSON.stringify(backup)], { type: 'text/plain;charset=utf-8' })
           saveAs(blob, `${fileName}-${new Date().toISOString().split('T')[0]}.json`)
-        }, (err) => console.log(err))
-      }, (err) => console.log(err))
-    }, (err) => console.log(err))
+        }, (err) => {
+          console.log(err)
+          backup.continueCodeFixIt = this.cookieService.get('continueCodeFixIt') ? this.cookieService.get('continueCodeFixIt') : undefined
+        })
+      }, (err) => {
+        console.log(err)
+        backup.continueCodeFindIt = this.cookieService.get('continueCodeFindIt') ? this.cookieService.get('continueCodeFindIt') : undefined
+      })
+    }, (err) => {
+      console.log(err)
+      backup.continueCode = this.cookieService.get('continueCode') ? this.cookieService.get('continueCode') : undefined
+      const blob = new Blob([JSON.stringify(backup)], { type: 'text/plain;charset=utf-8' })
+      saveAs(blob, `${fileName}-${new Date().toISOString().split('T')[0]}.json`)
+    })
   }
 
   restore (backupFile: File) {
