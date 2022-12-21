@@ -252,7 +252,7 @@
     "source-map-support": "^0.5.19",
     "ts-jest": "^26.5.0",
     "ts-node": "^10.8.0",
-    "typescript": "~4.6.0"
+    "typescript": "^5.0.0-dev.20221221"
   },
   "engines": {
     "node": "14 - 18"
