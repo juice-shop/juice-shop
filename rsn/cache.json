@@ -423,23 +423,34 @@
 		"removed": []
 	},
 	"tokenSaleChallenge_1.ts": {
-		"added": [],
-		"removed": []
+		"added": [
+			20
+		],
+		"removed": [
+			20
+		]
 	},
 	"tokenSaleChallenge_2.ts": {
-		"added": [],
-		"removed": []
+		"added": [
+			20
+		],
+		"removed": [
+			20
+		]
 	},
 	"tokenSaleChallenge_3_correct.ts": {
 		"added": [
 			10,
+			20,
 			32,
 			33,
 			40,
 			47,
 			55
 		],
-		"removed": []
+		"removed": [
+			17
+		]
 	},
 	"unionSqlInjectionChallenge_1.ts": {
 		"added": [],
