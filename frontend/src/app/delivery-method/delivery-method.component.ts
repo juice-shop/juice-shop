@@ -21,7 +21,7 @@ dom.watch()
   selector: 'app-delivery-method',
   templateUrl: './delivery-method.component.html',
   styleUrls: ['./delivery-method.component.scss']
-})
+  })
 export class DeliveryMethodComponent implements OnInit {
   public displayedColumns = ['Selection', 'Name', 'Price', 'ETA']
   public methods: DeliveryMethod[]

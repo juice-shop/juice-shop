@@ -16,7 +16,7 @@ dom.watch()
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.scss']
-})
+  })
 export class UserDetailsComponent implements OnInit {
   public user: any
   constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly userService: UserService) { }

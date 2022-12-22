@@ -21,7 +21,7 @@ dom.watch()
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
-})
+  })
 export class ContactComponent implements OnInit {
   public authorControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
   public feedbackControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.maxLength(160)])

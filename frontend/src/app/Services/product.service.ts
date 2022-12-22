@@ -10,7 +10,7 @@ import { catchError, map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
-})
+  })
 export class ProductService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/api/Products'

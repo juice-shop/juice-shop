@@ -22,7 +22,7 @@ dom.watch()
   selector: 'app-administration',
   templateUrl: './administration.component.html',
   styleUrls: ['./administration.component.scss']
-})
+  })
 export class AdministrationComponent implements OnInit {
   public userDataSource: any
   public userDataSourceHidden: any

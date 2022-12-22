@@ -17,7 +17,7 @@ interface Passwords {
 
 @Injectable({
   providedIn: 'root'
-})
+  })
 export class UserService {
   public isLoggedIn = new Subject<any>()
   private readonly hostServer = environment.hostServer

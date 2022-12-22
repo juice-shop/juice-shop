@@ -14,7 +14,7 @@ import { ChallengeService } from './challenge.service'
 
 @Injectable({
   providedIn: 'root'
-})
+  })
 export class LocalBackupService {
   private readonly VERSION = 1
 
