@@ -221,7 +221,7 @@ const routes: Routes = [
 ]
 // vuln-code-snippet end adminSectionChallenge scoreBoardChallenge
 
-export const Routing = RouterModule.forRoot(routes, { useHash: true, relativeLinkResolution: 'legacy' })
+export const Routing = RouterModule.forRoot(routes, { useHash: true })
 
 export function oauthMatcher (url: UrlSegment[]): UrlMatchResult {
   if (url.length === 0) {
