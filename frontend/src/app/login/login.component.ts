@@ -25,7 +25,7 @@ const oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
-})
+  })
 export class LoginComponent implements OnInit {
   public emailControl = new UntypedFormControl('', [Validators.required])
   public passwordControl = new UntypedFormControl('', [Validators.required])

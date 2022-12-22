@@ -20,7 +20,7 @@ dom.watch()
   selector: 'app-photo-wall',
   templateUrl: './photo-wall.component.html',
   styleUrls: ['./photo-wall.component.scss']
-})
+  })
 export class PhotoWallComponent implements OnInit {
   public emptyState: boolean = true
   public imagePreview: string

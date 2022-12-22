@@ -18,7 +18,7 @@ interface HackingProgress {
   selector: 'app-server-started-notification',
   templateUrl: './server-started-notification.component.html',
   styleUrls: ['./server-started-notification.component.scss']
-})
+  })
 export class ServerStartedNotificationComponent implements OnInit {
   public hackingProgress: HackingProgress = {} as HackingProgress
 

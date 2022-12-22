@@ -22,7 +22,7 @@ dom.watch()
   selector: 'app-recycle',
   templateUrl: './recycle.component.html',
   styleUrls: ['./recycle.component.scss']
-})
+  })
 export class RecycleComponent implements OnInit {
   @ViewChild('addressComp', { static: true }) public addressComponent: AddressComponent
   public requestorControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])

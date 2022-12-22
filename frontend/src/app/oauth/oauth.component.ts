@@ -12,7 +12,7 @@ import { Component, NgZone, OnInit } from '@angular/core'
   selector: 'app-oauth',
   templateUrl: './oauth.component.html',
   styleUrls: ['./oauth.component.scss']
-})
+  })
 export class OAuthComponent implements OnInit {
   constructor (private readonly cookieService: CookieService, private readonly userService: UserService, private readonly router: Router, private readonly route: ActivatedRoute, private readonly ngZone: NgZone) { }
 

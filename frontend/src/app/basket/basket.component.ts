@@ -15,7 +15,7 @@ dom.watch()
   selector: 'app-basket',
   templateUrl: './basket.component.html',
   styleUrls: ['./basket.component.scss']
-})
+  })
 export class BasketComponent {
   public productCount: number = 0
   public bonus: number = 0

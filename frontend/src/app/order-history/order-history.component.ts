@@ -33,7 +33,7 @@ export interface Order {
   selector: 'app-order-history',
   templateUrl: './order-history.component.html',
   styleUrls: ['./order-history.component.scss']
-})
+  })
 export class OrderHistoryComponent implements OnInit {
   public tableColumns = ['product', 'price', 'quantity', 'total price', 'review']
   public orders: Order[] = []

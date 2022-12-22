@@ -17,7 +17,7 @@ interface OrderDetail {
 
 @Injectable({
   providedIn: 'root'
-})
+  })
 export class BasketService {
   public hostServer = environment.hostServer
   public itemTotal = new Subject<any>()

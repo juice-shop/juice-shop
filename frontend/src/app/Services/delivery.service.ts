@@ -21,7 +21,7 @@ interface DeliverySingleMethodResponse {
 
 @Injectable({
   providedIn: 'root'
-})
+  })
 export class DeliveryService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/api/Deliverys'

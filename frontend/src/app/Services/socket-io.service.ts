@@ -9,7 +9,7 @@ import { io, Socket } from 'socket.io-client'
 
 @Injectable({
   providedIn: 'root'
-})
+  })
 export class SocketIoService {
   private _socket: Socket
 

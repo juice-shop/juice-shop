@@ -23,7 +23,7 @@ interface TokenEnterFormFields {
   selector: 'app-two-factor-auth-enter',
   templateUrl: './two-factor-auth-enter.component.html',
   styleUrls: ['./two-factor-auth-enter.component.scss']
-})
+  })
 export class TwoFactorAuthEnterComponent {
   public twoFactorForm: UntypedFormGroup = new UntypedFormGroup({
     token: new UntypedFormControl('', [Validators.minLength(6), Validators.maxLength(6), Validators.required, Validators.pattern('^[\\d]{6}$')])
