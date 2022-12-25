@@ -276,6 +276,10 @@ mentioned or used!
 
 ## Conference and Meetup Appearances
 
+#### 2023
+
+* [Squeezing the last drop out of OWASP Juice Shop](https://owasp2023globalappsecdublin.sched.com/event/1FWfq/squeezing-the-last-drop-out-of-owasp-juice-shop) by Björn Kimminich, [OWASP 2023 Global AppSec Dublin](https://dublin.globalappsec.org/), 15.02.2023
+
 #### 2022
 
 * [OWASP Juice Shop Project](https://whova.com/web/GKSmlhCK%2FWzBY2c8qqJ%2Bp7kNcnjsUQAQJ%2ByBsjLrbOo%3D/Speakers/) by Björn Kimminich, [OWASP Global AppSec EU](https://whova.com/web/GKSmlhCK%2FWzBY2c8qqJ%2Bp7kNcnjsUQAQJ%2ByBsjLrbOo%3D/), 10.06.2022 ([YouTube](https://www.youtube.com/watch?v=n9DK87g_AIo))
