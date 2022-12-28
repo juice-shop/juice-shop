@@ -21,7 +21,7 @@ describe('LocalBackupService', () => {
   beforeEach(() => {
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
     snackBar.open.and.returnValue(null)
-    challengeService = jasmine.createSpyObj('ChallengeService', ['restoreProgress'])
+    challengeService = jasmine.createSpyObj('ChallengeService', ['restoreProgress', 'continueCode', 'continueCodeFindIt', 'continueCodeFixIt'])
 
     TestBed.configureTestingModule({
       imports: [
