@@ -35,25 +35,21 @@ export class LocalBackupService {
       cookieConsentStatus: this.cookieService.get('cookieconsent_status') ? this.cookieService.get('cookieconsent_status') : undefined
     }
     backup.language = this.cookieService.get('language') ? this.cookieService.get('language') : undefined
-    this.challengeService.continueCode().subscribe((continueCode) => {
+
+    const continueCode = this.challengeService.continueCode()
+    const continueCodeFindIt = this.challengeService.continueCodeFindIt()
+    const continueCodeFixIt = this.challengeService.continueCodeFixIt()
+    forkJoin([continueCode, continueCodeFindIt, continueCodeFixIt]).subscribe(([continueCode, continueCodeFindIt, continueCodeFixIt]) => {
       backup.continueCode = continueCode
-      this.challengeService.continueCodeFindIt().subscribe((continueCodeFindIt) => {
-        backup.continueCodeFindIt = continueCodeFindIt
-        this.challengeService.continueCodeFixIt().subscribe((continueCodeFixIt) => {
-          backup.continueCodeFixIt = continueCodeFixIt
-          const blob = new Blob([JSON.stringify(backup)], { type: 'text/plain;charset=utf-8' })
-          saveAs(blob, `${fileName}-${new Date().toISOString().split('T')[0]}.json`)
-        }, (err: Error) => {
-          console.log(`Failed to retrieve continueCodeFixIt for backup from server: ${err.message}. Using value from cookie as fallback.`)
-          backup.continueCodeFixIt = this.cookieService.get('continueCodeFixIt') ? this.cookieService.get('continueCodeFixIt') : undefined
-        })
-      }, (err: Error) => {
-        console.log(`Failed to retrieve continueCodeFindIt for backup from server: ${err.message}. Using value from cookie as fallback.`)
-        backup.continueCodeFindIt = this.cookieService.get('continueCodeFindIt') ? this.cookieService.get('continueCodeFindIt') : undefined
-      })
-    }, (err: Error) => {
-      console.log(`Failed to retrieve continueCode for backup from server: ${err.message}. Using value from cookie as fallback.`)
+      backup.continueCodeFindIt = continueCodeFindIt
+      backup.continueCodeFixIt = continueCodeFixIt
+      const blob = new Blob([JSON.stringify(backup)], { type: 'text/plain;charset=utf-8' })
+      saveAs(blob, `${fileName}-${new Date().toISOString().split('T')[0]}.json`)
+    }, () => {
+      console.log('Failed to retrieve continue code(s) for backup from server. Using cookie values as fallback.')
       backup.continueCode = this.cookieService.get('continueCode') ? this.cookieService.get('continueCode') : undefined
+      backup.continueCodeFindIt = this.cookieService.get('continueCodeFindIt') ? this.cookieService.get('continueCodeFindIt') : undefined
+      backup.continueCodeFixIt = this.cookieService.get('continueCodeFixIt') ? this.cookieService.get('continueCodeFixIt') : undefined
       const blob = new Blob([JSON.stringify(backup)], { type: 'text/plain;charset=utf-8' })
       saveAs(blob, `${fileName}-${new Date().toISOString().split('T')[0]}.json`)
     })
