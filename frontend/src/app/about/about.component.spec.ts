@@ -83,4 +83,11 @@ describe('AboutComponent', () => {
 
     expect(component.pressKitUrl).toBe('PRESS_KIT')
   })
+
+  it('should set NFT link as obtained from configuration', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { nftUrl: 'NFT' } } }))
+    component.ngOnInit()
+
+    expect(component.nftUrl).toBe('NFT')
+  })
 })

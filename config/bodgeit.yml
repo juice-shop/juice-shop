@@ -17,6 +17,7 @@ application:
     slackUrl: null
     redditUrl: null
     pressKitUrl: null
+    nftUrl: null
     questionnaireUrl: null
   recyclePage:
     topProductImage: undefined.png

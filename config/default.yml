@@ -26,6 +26,7 @@ application:
     slackUrl: 'https://owasp.org/slack/invite'
     redditUrl: 'https://www.reddit.com/r/owasp_juiceshop'
     pressKitUrl: 'https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop'
+    nftUrl: 'https://opensea.io/collection/juice-shop'
     questionnaireUrl: ~
   recyclePage:
     topProductImage: fruit_press.jpg
