@@ -34,6 +34,7 @@ interface Config {
       slackUrl: string
       redditUrl: string
       pressKitUrl: string
+      nftUrl: string
       questionnaireUrl: string
     }
     recyclePage: {

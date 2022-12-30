@@ -18,7 +18,8 @@ import {
   faStickyNote,
   faThumbsUp,
   faTimes,
-  faTshirt
+  faTshirt,
+  faPalette
 } from '@fortawesome/free-solid-svg-icons'
 import { faLeanpub, faStripe } from '@fortawesome/free-brands-svg-icons'
 import { QrCodeComponent } from '../qr-code/qr-code.component'
@@ -31,7 +32,7 @@ import { CookieService } from 'ngx-cookie'
 import { Location } from '@angular/common'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
-library.add(faCartArrowDown, faGift, faHeart, faLeanpub, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faTimes, faStripe)
+library.add(faCartArrowDown, faGift, faHeart, faLeanpub, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faTimes, faStripe, faPalette)
 dom.watch()
 
 @Component({
