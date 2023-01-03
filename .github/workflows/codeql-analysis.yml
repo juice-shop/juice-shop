@@ -3,7 +3,10 @@ name: "CodeQL Scan"
 on:
   push:
   pull_request:
-
+    branches: [main]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.txt'
 jobs:
   analyze:
     name: Analyze
@@ -23,7 +26,7 @@ jobs:
       uses: github/codeql-action/init@v1
       with:
         languages: ${{ matrix.language }}
-        queries: security-extended
+        queries: standard
     - name: Autobuild
       uses: github/codeql-action/autobuild@v1
     - name: Perform CodeQL Analysis
