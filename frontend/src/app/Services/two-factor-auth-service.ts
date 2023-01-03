@@ -28,7 +28,7 @@ interface TwoFactorAuthStatusPayload {
 
 @Injectable({
   providedIn: 'root'
-})
+  })
 export class TwoFactorAuthService {
   constructor (private readonly http: HttpClient) {}
 

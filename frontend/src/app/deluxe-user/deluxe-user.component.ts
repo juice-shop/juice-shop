@@ -14,7 +14,7 @@ import { SocketIoService } from '../Services/socket-io.service'
   selector: 'app-deluxe-user',
   templateUrl: './deluxe-user.component.html',
   styleUrls: ['./deluxe-user.component.scss']
-})
+  })
 
 export class DeluxeUserComponent implements OnInit {
   public membershipCost: Number = 0

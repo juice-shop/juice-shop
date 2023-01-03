@@ -12,7 +12,7 @@ import { Router } from '@angular/router'
   selector: 'app-wallet',
   templateUrl: './wallet.component.html',
   styleUrls: ['./wallet.component.scss']
-})
+  })
 export class WalletComponent implements OnInit {
   public balance: string
   public balanceControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(1000)])

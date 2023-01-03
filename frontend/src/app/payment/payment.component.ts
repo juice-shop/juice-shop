@@ -39,7 +39,7 @@ dom.watch()
   selector: 'app-payment',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss']
-})
+  })
 export class PaymentComponent implements OnInit {
   public couponConfirmation: any
   public couponError: any

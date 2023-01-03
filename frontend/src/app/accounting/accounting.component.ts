@@ -28,7 +28,7 @@ interface Order {
   selector: 'app-accounting',
   templateUrl: './accounting.component.html',
   styleUrls: ['./accounting.component.scss']
-})
+  })
 export class AccountingComponent implements AfterViewInit, OnDestroy {
   public orderHistoryColumns = ['OrderId', 'Price', 'Status', 'StatusButton']
   @ViewChild('paginatorOrderHistory', { static: true }) paginatorOrderHistory: MatPaginator
