@@ -15,7 +15,7 @@ import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
   selector: 'app-order-summary',
   templateUrl: './order-summary.component.html',
   styleUrls: ['./order-summary.component.scss']
-})
+  })
 export class OrderSummaryComponent implements OnInit {
   public bonus = 0
   public itemTotal = 0

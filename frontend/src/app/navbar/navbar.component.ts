@@ -50,7 +50,7 @@ dom.watch()
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
-})
+  })
 export class NavbarComponent implements OnInit {
   public userEmail: string = ''
   public languages: any = []

@@ -99,7 +99,7 @@ interface Config {
 
 @Injectable({
   providedIn: 'root'
-})
+  })
 export class ConfigurationService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/rest/admin'

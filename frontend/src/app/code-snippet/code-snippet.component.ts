@@ -30,7 +30,7 @@ interface Solved {
   selector: 'app-user-details',
   templateUrl: './code-snippet.component.html',
   styleUrls: ['./code-snippet.component.scss']
-})
+  })
 export class CodeSnippetComponent implements OnInit {
   public snippet: CodeSnippet = null
   public fixes: Fixes = null
