@@ -19,7 +19,7 @@ import { roles } from '../roles'
   selector: 'sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
-})
+  })
 export class SidenavComponent implements OnInit {
   public applicationName = 'OWASP Juice Shop'
   public showGitHubLink = true

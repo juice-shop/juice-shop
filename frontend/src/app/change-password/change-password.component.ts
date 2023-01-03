@@ -19,7 +19,7 @@ dom.watch()
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss']
-})
+  })
 export class ChangePasswordComponent {
   public passwordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
   public newPasswordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)])

@@ -18,7 +18,7 @@ dom.watch()
   selector: 'app-challenge-status-badge',
   templateUrl: './challenge-status-badge.component.html',
   styleUrls: ['./challenge-status-badge.component.scss']
-})
+  })
 export class ChallengeStatusBadgeComponent {
   @Input() public challenge: Challenge = { } as Challenge
   @Input() public allowRepeatNotifications: boolean = false

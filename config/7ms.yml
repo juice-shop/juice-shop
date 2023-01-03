@@ -20,6 +20,7 @@ application:
     slackUrl: 'https://7ms.us/slack'
     redditUrl: null
     pressKitUrl: null
+    nftUrl: null
     questionnaireUrl: null
   recyclePage:
     topProductImage: bm-small.jpg

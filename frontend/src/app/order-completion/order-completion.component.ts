@@ -20,7 +20,7 @@ dom.watch()
   selector: 'app-order-completion',
   templateUrl: './order-completion.component.html',
   styleUrls: ['./order-completion.component.scss']
-})
+  })
 export class OrderCompletionComponent implements OnInit {
   public tableColumns = ['product', 'price', 'quantity', 'total price']
   public dataSource

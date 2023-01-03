@@ -30,7 +30,7 @@ interface ChallengeSolvedNotification {
   selector: 'app-challenge-solved-notification',
   templateUrl: './challenge-solved-notification.component.html',
   styleUrls: ['./challenge-solved-notification.component.scss']
-})
+  })
 export class ChallengeSolvedNotificationComponent implements OnInit {
   public notifications: ChallengeSolvedNotification[] = []
   public showCtfFlagsInNotifications: boolean = false
@@ -113,7 +113,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
   saveProgress () {
     this.challengeService.continueCode().subscribe((continueCode) => {
       if (!continueCode) {
-        throw (new Error('Received invalid continue code from the sever!'))
+        throw (new Error('Received invalid continue code from the server!'))
       }
       const expires = new Date()
       expires.setFullYear(expires.getFullYear() + 1)

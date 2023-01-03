@@ -13,7 +13,7 @@ import { CookieService } from 'ngx-cookie'
   selector: 'app-welcome',
   templateUrl: 'welcome.component.html',
   styleUrls: ['./welcome.component.scss']
-})
+  })
 
 export class WelcomeComponent implements OnInit {
   private readonly welcomeBannerStatusCookieKey = 'welcomebanner_status'

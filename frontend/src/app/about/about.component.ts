@@ -11,22 +11,23 @@ import { IImage } from 'ng-simple-slideshow'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faFacebook, faReddit, faSlack, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { faNewspaper, faStar } from '@fortawesome/free-regular-svg-icons'
-import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar as fasStar, faPalette } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faFacebook, faTwitter, faSlack, faReddit, faNewspaper, faStar, fasStar)
+library.add(faFacebook, faTwitter, faSlack, faReddit, faNewspaper, faStar, fasStar, faPalette)
 dom.watch()
 
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss']
-})
+  })
 export class AboutComponent implements OnInit {
   public twitterUrl?: string
   public facebookUrl?: string
   public slackUrl?: string
   public redditUrl?: string
   public pressKitUrl?: string
+  public nftUrl?: string
   public slideshowDataSource: IImage[] = []
 
   private readonly images = [
@@ -68,6 +69,9 @@ export class AboutComponent implements OnInit {
         }
         if (config.application.social.pressKitUrl) {
           this.pressKitUrl = config.application.social.pressKitUrl
+        }
+        if (config.application.social.nftUrl) {
+          this.nftUrl = config.application.social.nftUrl
         }
       }
     }, (err) => console.log(err))

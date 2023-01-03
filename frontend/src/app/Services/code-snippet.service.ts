@@ -20,7 +20,7 @@ export interface Solved {
 
 @Injectable({
   providedIn: 'root'
-})
+  })
 export class CodeSnippetService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/snippets'
