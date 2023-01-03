@@ -4,7 +4,7 @@
  */
 
 import { BrowserModule } from '@angular/platform-browser'
-import { NgModule } from '@angular/core'
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http'
 import { CookieModule, CookieService } from 'ngx-cookie'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -39,7 +39,9 @@ import { RecycleComponent } from './recycle/recycle.component'
 import { QrCodeComponent } from './qr-code/qr-code.component'
 import { UserDetailsComponent } from './user-details/user-details.component'
 import { ServerStartedNotificationComponent } from './server-started-notification/server-started-notification.component'
-import { ChallengeSolvedNotificationComponent } from './challenge-solved-notification/challenge-solved-notification.component'
+import {
+  ChallengeSolvedNotificationComponent
+} from './challenge-solved-notification/challenge-solved-notification.component'
 import { OAuthComponent } from './oauth/oauth.component'
 import { TokenSaleComponent } from './token-sale/token-sale.component'
 import { ProductReviewEditComponent } from './product-review-edit/product-review-edit.component'
@@ -256,6 +258,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     NgxTextDiffModule,
     HighlightModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

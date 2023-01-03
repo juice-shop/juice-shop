@@ -29,7 +29,7 @@ dom.watch()
   selector: 'app-score-board',
   templateUrl: './score-board.component.html',
   styleUrls: ['./score-board.component.scss']
-})
+  })
 export class ScoreBoardComponent implements OnInit {
   public availableDifficulties: number[] = [1, 2, 3, 4, 5, 6]
   public displayedDifficulties: number[] = [1]

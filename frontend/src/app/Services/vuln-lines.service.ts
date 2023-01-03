@@ -10,7 +10,7 @@ export interface result {
 
 @Injectable({
   providedIn: 'root'
-})
+  })
 export class VulnLinesService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/snippets/verdict'

@@ -21,7 +21,7 @@ dom.watch()
   selector: 'app-complaint',
   templateUrl: './complaint.component.html',
   styleUrls: ['./complaint.component.scss']
-})
+  })
 export class ComplaintComponent implements OnInit {
   public customerControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
   public messageControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.maxLength(160)])

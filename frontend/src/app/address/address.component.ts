@@ -20,7 +20,7 @@ dom.watch()
   selector: 'app-address',
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.scss']
-})
+  })
 export class AddressComponent implements OnInit {
   @Output() emitSelection = new EventEmitter()
   @Input('allowEdit') public allowEdit: Boolean = false

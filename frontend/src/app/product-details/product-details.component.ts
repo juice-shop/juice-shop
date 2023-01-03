@@ -23,7 +23,7 @@ dom.watch()
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss']
-})
+  })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
   public author: string = 'Anonymous'
   public reviews$: any

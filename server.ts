@@ -643,7 +643,7 @@ logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length)} 
 
 // vuln-code-snippet start exposedMetricsChallenge
 /* Serve metrics */
-let metricsUpdateLoop
+let metricsUpdateLoop: any
 const Metrics = metrics.observeMetrics() // vuln-code-snippet neutral-line exposedMetricsChallenge
 const customizeEasterEgg = require('./lib/startup/customizeEasterEgg') // vuln-code-snippet hide-line
 app.get('/metrics', metrics.serveMetrics()) // vuln-code-snippet vuln-line exposedMetricsChallenge

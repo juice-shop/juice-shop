@@ -25,7 +25,7 @@ dom.watch()
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
-})
+  })
 export class RegisterComponent implements OnInit {
   public emailControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.email])
   public passwordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)])

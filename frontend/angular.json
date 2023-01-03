@@ -23,15 +23,14 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": [
-              "src/assets"
-            ],
+            "assets": ["src/assets"],
             "styles": [
               "src/styles.scss",
               "node_modules/material-icons/iconfont/material-icons.scss",
               "node_modules/flag-icons/sass/flag-icons.scss",
               "node_modules/font-mfizz/dist/font-mfizz.css",
-              "node_modules/highlight.js/styles/github.css"
+              "node_modules/highlight.js/styles/github.css",
+              "node_modules/ngx-spinner/animations/timer.css"
             ],
             "allowedCommonJsDependencies": [
               "jwt-decode",
@@ -93,17 +92,11 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
-            "styles": [
-              "src/styles.scss"
-            ],
+            "styles": ["src/styles.scss"],
             "scripts": [],
-            "assets": [
-              "src/assets"
-            ],
+            "assets": ["src/assets"],
             "codeCoverage": true,
-            "codeCoverageExclude": [
-              "src/hacking-instructor/**/*.ts"
-            ]
+            "codeCoverageExclude": ["src/hacking-instructor/**/*.ts"]
           }
         },
         "lint": {
