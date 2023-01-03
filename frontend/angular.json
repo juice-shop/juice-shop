@@ -29,7 +29,8 @@
               "node_modules/material-icons/iconfont/material-icons.scss",
               "node_modules/flag-icons/sass/flag-icons.scss",
               "node_modules/font-mfizz/dist/font-mfizz.css",
-              "node_modules/highlight.js/styles/github.css"
+              "node_modules/highlight.js/styles/github.css",
+              "node_modules/ngx-spinner/animations/timer.css"
             ],
             "allowedCommonJsDependencies": [
               "jwt-decode",
