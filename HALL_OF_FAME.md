@@ -15,6 +15,7 @@ As reported by [`git-stats -a -s '2014'`](https://www.npmjs.com/package/git-stat
 
 ![Top git contributors](screenshots/git-stats.png)
 
+
 ## Translators
 
 As exported from
