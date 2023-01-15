@@ -40,7 +40,7 @@ interface IAuthenticatedUsers {
 }
 
 exports.hash = (data: string) => crypto.createHash('md5').update(data).digest('hex')
-exports.hmac = (data: string) => crypto.createHmac('sha256', 'pa4qacea4VK9t9nGv7yZtwmj').update(data).digest('hex')
+exports.hmac = (data: string) => crypto.createHmac('sha256', 'nir-test-123').update(data).digest('hex')
 
 exports.cutOffPoisonNullByte = (str: string) => {
   const nullByte = '%00'
