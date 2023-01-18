@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -13,7 +13,7 @@ import { CookieService } from 'ngx-cookie'
   selector: 'app-welcome',
   templateUrl: 'welcome.component.html',
   styleUrls: ['./welcome.component.scss']
-})
+  })
 
 export class WelcomeComponent implements OnInit {
   private readonly welcomeBannerStatusCookieKey = 'welcomebanner_status'

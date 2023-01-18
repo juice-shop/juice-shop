@@ -41,11 +41,19 @@ describe('/chatbot', () => {
 
           cy.get('#message-input').type('hi').type('{enter}')
           cy.get('#message-input').type('...').type('{enter}')
-          for (let i = 0; i < 40; i++) {
+
+          const genArr = Array.from({ length: 40 }, (v, k) => k + 1)
+          cy.wrap(genArr).eachSeries(() => {
             cy.get('#message-input')
               .type(couponIntent.utterances[0])
               .type('{enter}')
-          }
+
+            return cy.get('.speech-bubble-left')
+              .invoke('text')
+              .then((text: string) => {
+                if (text.includes("Oooookay, if you promise to stop nagging me here's a 10% coupon code for you")) return false
+              })
+          })
           cy.expectChallengeSolved({ challenge: 'Bully Chatbot' })
         }
       )

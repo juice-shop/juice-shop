@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -9,7 +9,7 @@ import { Component } from '@angular/core'
   selector: 'app-saved-payment-methods',
   templateUrl: './saved-payment-methods.component.html',
   styleUrls: ['./saved-payment-methods.component.scss']
-})
+  })
 
 export class SavedPaymentMethodsComponent {
 }

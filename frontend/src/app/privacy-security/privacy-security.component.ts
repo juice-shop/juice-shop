@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators'
   selector: 'app-privacy-security',
   templateUrl: './privacy-security.component.html',
   styleUrls: ['./privacy-security.component.scss']
-})
+  })
 export class PrivacySecurityComponent {
   Ip!: string
   windowWidth: number = window.innerWidth

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -53,7 +53,7 @@ exports.cutOffPoisonNullByte = (str: string) => {
 exports.isAuthorized = () => expressJwt({ secret: publicKey })
 exports.denyAll = () => expressJwt({ secret: '' + Math.random() })
 exports.authorize = (user = {}) => jwt.sign(user, privateKey, { expiresInMinutes: 60 * 5, algorithm: 'RS256' })
-const verify = (token: string) => jws.verify(token, publicKey)
+const verify = (token: string) => token ? jws.verify(token, publicKey) : false
 module.exports.verify = verify
 const decode = (token: string) => { return jws.decode(token).payload }
 module.exports.decode = decode

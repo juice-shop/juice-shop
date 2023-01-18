@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 import express, { NextFunction, Request, Response } from 'express'
@@ -18,7 +18,7 @@ const router = express.Router()
 router.get('/', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
   if (!loggedInUser) {
-    next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+    next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
     return
   }
   const email = loggedInUser.data.email
@@ -54,7 +54,7 @@ interface DataErasureRequestParams {
 router.post('/', async (req: Request<{}, {}, DataErasureRequestParams>, res: Response, next: NextFunction): Promise<void> => {
   const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
   if (!loggedInUser) {
-    next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+    next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
     return
   }
 

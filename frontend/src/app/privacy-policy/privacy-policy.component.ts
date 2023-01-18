@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -11,7 +11,7 @@ import { ConfigurationService } from '../Services/configuration.service'
   selector: 'app-privacy-policy',
   templateUrl: './privacy-policy.component.html',
   styleUrls: ['./privacy-policy.component.scss']
-})
+  })
 export class PrivacyPolicyComponent implements OnInit {
   public applicationName: string = 'OWASP Juice Shop'
   public privacyContactEmail!: string
