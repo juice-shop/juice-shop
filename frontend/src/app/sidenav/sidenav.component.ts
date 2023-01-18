@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -19,7 +19,7 @@ import { roles } from '../roles'
   selector: 'sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
-})
+  })
 export class SidenavComponent implements OnInit {
   public applicationName = 'OWASP Juice Shop'
   public showGitHubLink = true

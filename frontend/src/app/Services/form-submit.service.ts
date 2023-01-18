@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -8,7 +8,7 @@ import { DOCUMENT } from '@angular/common'
 
 @Injectable({
   providedIn: 'root'
-})
+  })
 export class FormSubmitService {
   constructor (@Inject(DOCUMENT) private readonly _document: HTMLDocument) { }
 

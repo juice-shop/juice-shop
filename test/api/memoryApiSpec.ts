@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -106,5 +106,17 @@ describe('/rest/memories', () => {
             expect(json.data.UserId).toBe(2)
           })
       })
+  })
+
+  it('Should not crash the node-js server when sending invalid content like described in CVE-2022-24434', () => {
+    return frisby.post(REST_URL + '/memories', {
+      headers: {
+        'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryoo6vortfDzBsDiro',
+        'Content-Length': '145'
+      },
+      body: '------WebKitFormBoundaryoo6vortfDzBsDiro\r\n Content-Disposition: form-data; name="bildbeschreibung"\r\n\r\n\r\n------WebKitFormBoundaryoo6vortfDzBsDiro--'
+    })
+      .expect('status', 500)
+      .expect('bodyContains', 'Error: Malformed part header')
   })
 })

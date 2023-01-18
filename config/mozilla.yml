@@ -18,6 +18,7 @@ application:
     slackUrl: null
     redditUrl: null
     pressKitUrl: 'https://blog.mozilla.org/press/kits'
+    nftUrl: null
     questionnaireUrl: null
   recyclePage:
     topProductImage: Gear-200155340.jpg

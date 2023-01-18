@@ -17,6 +17,7 @@ file and open a PR! The same goes for any scripts or automated tools you made fo
 
 ## Hacking Videos
 
+* [How to Solve Juiceshop Challenges - Intern Talks](https://www.youtube.com/watch?v=dqxdbIWFD5c) by [Indian Servers University](https://www.youtube.com/c/IndianServersUniversity) (🧃`v11.x`)
 * [Hacking the OWASP Juice Shop Series](https://www.youtube.com/playlist?list=PLcsrjMNFrcmbAFV8BxDKXZCcPrOlaYfWK) playlist of [Compass IT Compliance](https://www.youtube.com/channel/UCccfSU7EGGTS76hz2i6qdrg) (🧃`v12.x`)
   * [Hacking the OWASP Juice Shop Series - Deploying the Juice Shop](https://youtu.be/qjrEMEztxWM)
   * [Hacking the OWASP Juice Shop Series - Challenge #1 (Score Board)](https://youtu.be/3TKm5T0ul5Y)

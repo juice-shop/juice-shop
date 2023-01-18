@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -16,7 +16,7 @@ dom.watch()
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.scss']
-})
+  })
 export class UserDetailsComponent implements OnInit {
   public user: any
   constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly userService: UserService) { }

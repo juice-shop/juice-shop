@@ -17,7 +17,7 @@ export interface Solved {
 
 @Injectable({
   providedIn: 'root'
-})
+  })
 export class CodeFixesService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/snippets/fixes'

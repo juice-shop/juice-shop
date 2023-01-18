@@ -15,7 +15,7 @@ interface LineMarker {
   selector: 'app-code-area',
   templateUrl: './code-area.component.html',
   styleUrls: ['./code-area.component.scss']
-})
+  })
 export class CodeAreaComponent implements OnInit {
   @Input('code')
   public code: string = ''

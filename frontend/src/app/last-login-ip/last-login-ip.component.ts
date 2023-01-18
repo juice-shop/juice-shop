@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -12,7 +12,7 @@ import * as jwtDecode from 'jwt-decode'
   templateUrl: './last-login-ip.component.html',
   styleUrls: ['./last-login-ip.component.scss']
 
-})
+  })
 
 export class LastLoginIpComponent {
   lastLoginIp: any = '?'

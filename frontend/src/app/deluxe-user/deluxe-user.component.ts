@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -14,7 +14,7 @@ import { SocketIoService } from '../Services/socket-io.service'
   selector: 'app-deluxe-user',
   templateUrl: './deluxe-user.component.html',
   styleUrls: ['./deluxe-user.component.scss']
-})
+  })
 
 export class DeluxeUserComponent implements OnInit {
   public membershipCost: Number = 0

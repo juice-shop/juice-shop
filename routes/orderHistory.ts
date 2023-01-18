@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -18,7 +18,7 @@ module.exports.orderHistory = function orderHistory () {
       const order = await orders.find({ email: updatedEmail })
       res.status(200).json({ status: 'success', data: order })
     } else {
-      next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+      next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
     }
   }
 }

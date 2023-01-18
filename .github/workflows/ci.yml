@@ -28,7 +28,7 @@ jobs:
       - name: "Use Node.js 16"
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
-          node-version: 16
+          node-version: 18
       - name: "Install CLI tools"
         run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application minimalistically"
@@ -60,7 +60,7 @@ jobs:
       - name: "Use Node.js 16"
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
-          node-version: 16
+          node-version: 18
       - name: "Install CLI tools"
         run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
@@ -187,7 +187,7 @@ jobs:
       - name: "Use Node.js 16"
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
-          node-version: 16
+          node-version: 18
       - name: "Install CLI tools"
         run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
@@ -223,7 +223,7 @@ jobs:
       - name: "Use Node.js 16"
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
-          node-version: 16
+          node-version: 18
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
@@ -256,16 +256,6 @@ jobs:
           CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/upload-artifact@v2
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-      - uses: actions/upload-artifact@v2
-        if: always()
-        with:
-          name: cypress-videos
-          path: cypress/videos
   smoke-test:
     runs-on: ubuntu-latest
     steps:
@@ -274,7 +264,7 @@ jobs:
       - name: "Use Node.js 16"
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
-          node-version: 16
+          node-version: 18
       - name: "Install CLI tools"
         run: |
           npm install -g @angular/cli@$ANGULAR_CLI_VERSION

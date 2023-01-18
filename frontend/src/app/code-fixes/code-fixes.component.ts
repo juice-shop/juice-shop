@@ -8,7 +8,7 @@ interface RandomFixes {
   selector: 'app-code-fixes',
   templateUrl: './code-fixes.component.html',
   styleUrls: ['./code-fixes.component.scss']
-})
+  })
 export class CodeFixesComponent implements OnInit {
   @Input('snippet')
   public snippet: string = ''

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -18,7 +18,8 @@ import {
   faStickyNote,
   faThumbsUp,
   faTimes,
-  faTshirt
+  faTshirt,
+  faPalette
 } from '@fortawesome/free-solid-svg-icons'
 import { faLeanpub, faStripe } from '@fortawesome/free-brands-svg-icons'
 import { QrCodeComponent } from '../qr-code/qr-code.component'
@@ -31,14 +32,14 @@ import { CookieService } from 'ngx-cookie'
 import { Location } from '@angular/common'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
-library.add(faCartArrowDown, faGift, faHeart, faLeanpub, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faTimes, faStripe)
+library.add(faCartArrowDown, faGift, faHeart, faLeanpub, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faTimes, faStripe, faPalette)
 dom.watch()
 
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss']
-})
+  })
 export class PaymentComponent implements OnInit {
   public couponConfirmation: any
   public couponError: any

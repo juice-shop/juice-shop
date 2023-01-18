@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -21,7 +21,7 @@ dom.watch()
   selector: 'app-delivery-method',
   templateUrl: './delivery-method.component.html',
   styleUrls: ['./delivery-method.component.scss']
-})
+  })
 export class DeliveryMethodComponent implements OnInit {
   public displayedColumns = ['Selection', 'Name', 'Price', 'ETA']
   public methods: DeliveryMethod[]

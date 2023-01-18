@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -21,7 +21,7 @@ dom.watch()
   selector: 'app-product-review-edit',
   templateUrl: './product-review-edit.component.html',
   styleUrls: ['./product-review-edit.component.scss']
-})
+  })
 export class ProductReviewEditComponent implements OnInit {
   public editReviewControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(160)])
   public error: string | null = null
