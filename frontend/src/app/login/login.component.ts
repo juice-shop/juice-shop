@@ -26,11 +26,11 @@ const oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-// vuln-code-snippet start weakPasswordChallenge
+
 export class LoginComponent implements OnInit {
   public emailControl = new UntypedFormControl('', [Validators.required])
 
-  public passwordControl = new UntypedFormControl('', [Validators.required, Validators.minLength(1)]) // vuln-code-snippet vuln-line weakPasswordChallenge
+  public passwordControl = new UntypedFormControl('', [Validators.required, Validators.minLength(1)])
 
   public hide = true
   public user: any
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   public error: any
   public clientId = '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
   public oauthUnavailable: boolean = true
-  public redirectUri: string = '' // vuln-code-snippet end weakPasswordChallenge
+  public redirectUri: string = ''
   constructor (private readonly configurationService: ConfigurationService, private readonly userService: UserService, private readonly windowRefService: WindowRefService, private readonly cookieService: CookieService, private readonly router: Router, private readonly formSubmitService: FormSubmitService, private readonly basketService: BasketService, private readonly ngZone: NgZone) { }
 
   ngOnInit () {
