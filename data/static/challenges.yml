@@ -611,7 +611,6 @@
   tags:
     - Brute Force
     - Tutorial
-    - Code Analysis
   description: 'Log in with the administrator''s user credentials without previously changing them or applying SQL Injection.'
   difficulty: 2
   hint: 'This one should be equally easy to a) brute force, b) crack the password hash or c) simply guess.'
