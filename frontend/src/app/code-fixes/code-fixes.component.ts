@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
+import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angular/core'
+import { NgxTextDiffComponent } from 'ngx-text-diff'
 
 interface RandomFixes {
   fix: string
@@ -16,8 +17,13 @@ export class CodeFixesComponent implements OnInit {
   @Input('fixes')
   public fixes: string[] = []
 
+  @Input('format')
+  public format: string = 'SideBySide'
+
   @Output('changeFix')
   public emitFix = new EventEmitter<number>()
+
+  @ViewChild('codeComponent', {static: false}) codeComponent: NgxTextDiffComponent
 
   public selectedFix: number = 0
   public randomFixes: RandomFixes[] = []
@@ -52,6 +58,7 @@ export class CodeFixesComponent implements OnInit {
   }
 
   changeFix (event: Event) {
+    this.format = this.codeComponent.format.toString()
     this.selectedFix = parseInt((event.target as HTMLSelectElement).value, 10)
     this.emitFix.emit(this.randomFixes[this.selectedFix].index)
   }
