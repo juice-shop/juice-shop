@@ -1,5 +1,7 @@
-import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angular/core'
+import { Component, Input, OnInit, Output, EventEmitter, ViewChild, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core'
 import { NgxTextDiffComponent } from 'ngx-text-diff'
+import { CookieService } from 'ngx-cookie'
+import { DiffTableFormat } from 'ngx-text-diff/lib/ngx-text-diff.model'
 
 interface RandomFixes {
   fix: string
@@ -11,6 +13,13 @@ interface RandomFixes {
   styleUrls: ['./code-fixes.component.scss']
   })
 export class CodeFixesComponent implements OnInit {
+  differ: KeyValueDiffer<string, DiffTableFormat>
+
+  constructor (private readonly cookieService: CookieService, private readonly differs: KeyValueDiffers) {
+    this.cookieService = cookieService
+    this.differ = this.differs.find({}).create()
+  }
+
   @Input('snippet')
   public snippet: string = ''
 
@@ -23,7 +32,7 @@ export class CodeFixesComponent implements OnInit {
   @Output('changeFix')
   public emitFix = new EventEmitter<number>()
 
-  @ViewChild('codeComponent', {static: false}) codeComponent: NgxTextDiffComponent
+  @ViewChild('codeComponent', { static: false }) codeComponent: NgxTextDiffComponent
 
   public selectedFix: number = 0
   public randomFixes: RandomFixes[] = []
@@ -50,6 +59,12 @@ export class CodeFixesComponent implements OnInit {
 
   ngOnInit (): void {
     this.shuffle()
+    if (this.cookieService.hasKey('code-fixes-component-format')) {
+      this.format = this.cookieService.get('code-fixes-component-format')
+    } else {
+      this.format = 'LineByLine'
+      this.cookieService.put('code-fixes-component-format', 'LineByLine')
+    }
     this.initialEmit()
   }
 
@@ -58,8 +73,21 @@ export class CodeFixesComponent implements OnInit {
   }
 
   changeFix (event: Event) {
-    this.format = this.codeComponent.format.toString()
     this.selectedFix = parseInt((event.target as HTMLSelectElement).value, 10)
     this.emitFix.emit(this.randomFixes[this.selectedFix].index)
+  }
+
+  ngDoCheck () {
+    try {
+      const change = this.differ.diff({ 'diff-format': this.codeComponent.format })
+      if (change) {
+        change.forEachChangedItem(item => {
+          this.format = item.currentValue
+          this.cookieService.put('code-fixes-component-format', this.format)
+        }
+      )
+      }
+    } catch {
+    }
   }
 }
