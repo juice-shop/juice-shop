@@ -10,8 +10,8 @@
 
 ## GitHub Contributors
 
-As reported by [`git-stats -a -s '2014'`](https://www.npmjs.com/package/git-stats) analysis of `master` as of Mon, 26 Sep
-2022 after deduplication with `.mailmap`.
+As reported by [`git-stats -a -s '2014'`](https://www.npmjs.com/package/git-stats) analysis of `master` as of Tue, 03 Jan
+2023 after deduplication with `.mailmap`.
 
 ![Top git contributors](screenshots/git-stats.png)
 
@@ -19,7 +19,7 @@ As reported by [`git-stats -a -s '2014'`](https://www.npmjs.com/package/git-stat
 
 As exported from
 [CrowdIn Top Members Report](https://crowdin.com/project/owasp-juice-shop/reports/top-members)
-(by # of translated words) for all languages as of Wed, 24 Auf 2022 after
+(by # of translated words) for all languages as of Wed, 24 Aug 2022 after
 [conversion into Markdown](https://thisdavej.com/copy-table-in-excel-and-paste-as-a-markdown-table/).
 
 | Name                               | Languages                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Translated |
