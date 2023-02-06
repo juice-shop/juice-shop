@@ -28,7 +28,11 @@ global.sleep = (time: number) => {
 module.exports = function productReviews () {
   return (req: Request, res: Response, next: NextFunction) => {
     const id = utils.disableOnContainerEnv() ? Number(req.params.id) : req.params.id
-
+    if(isNaN(id)){
+      res.status(400).json({ error: 'id have to be a number' })
+      return
+    }
+    
     // Measure how long the query takes, to check if there was a nosql dos attack
     const t0 = new Date().getTime()
     db.reviews.find({ $where: 'this.product == ' + id }).then((reviews: Review[]) => {
