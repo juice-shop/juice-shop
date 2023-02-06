@@ -5,5 +5,5 @@ services:
     links:
       - app
   app:
-    image: bkimminich/juice-shop:latest
+    image: bkimminich/juice-shop:latest-amd64
     build: ./
