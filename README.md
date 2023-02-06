@@ -312,6 +312,7 @@ The OWASP Juice Shop core project team are:
   [![Keybase PGP](https://img.shields.io/keybase/pgp/bkimminich)](https://keybase.io/bkimminich)
 - [Jannik Hollenbach](https://github.com/J12934) aka `J12934`
 - [Timo Pagel](https://github.com/wurstbrot) aka `wurstbrot`
+- [Shubham Palriwala](https://github.com/ShubhamPalriwala) aka `ShubhamPalriwala`
 
 For a list of all contributors to the OWASP Juice Shop please visit our
 [HALL_OF_FAME.md](HALL_OF_FAME.md).
