@@ -322,7 +322,7 @@ jobs:
           fi
           echo "VCS_REF=`git rev-parse --short HEAD`" >> $GITHUB_ENV
           echo "BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”`" >> $GITHUB_ENV
-      - name: "Build and push for AMD processors"
+      - name: "Build and push for AMD64 and ARM64 processors"
         uses: docker/build-push-action@a66e35b9cbcf4ad0ea91ffcaf7bbad63ad9e0229 #note: newer is available
         with:
           context: .
@@ -331,18 +331,6 @@ jobs:
           push: true
           tags: |
             bkimminich/juice-shop:${{ env.DOCKER_TAG }}
-          build-args: |
-            VCS_REF=${{ env.VCS_REF }}
-            BUILD_DATE=${{ env.BUILD_DATE }}
-      - name: "Build and push for ARM processors"
-        uses: docker/build-push-action@a66e35b9cbcf4ad0ea91ffcaf7bbad63ad9e0229 #note: newer is available
-        with:
-          context: .
-          file: ./Dockerfile.arm
-          platforms: linux/arm/v7
-          push: true
-          tags: |
-            bkimminich/juice-shop:${{ env.DOCKER_TAG }}-arm
           build-args: |
             VCS_REF=${{ env.VCS_REF }}
             BUILD_DATE=${{ env.BUILD_DATE }}
