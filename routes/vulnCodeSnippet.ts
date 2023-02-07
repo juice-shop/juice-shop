@@ -16,7 +16,7 @@ const accuracy = require('../lib/accuracy')
 
 fs.gracefulify(actualFs)
 
-const SNIPPET_PATHS = Object.freeze(['./server.ts', './routes', './lib', './data', './frontend/src/app'])
+const SNIPPET_PATHS = Object.freeze(['./server.ts', './routes', './lib', './data', './frontend/src/app', './models'])
 
 const cache: any = {}
 
