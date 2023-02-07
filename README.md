@@ -216,7 +216,7 @@ offered accordingly.
 | 17.x    | (:heavy_check_mark:) | :x:                |                                                   |                                                  |                                                   |
 | 16.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
 | 15.x    | (:heavy_check_mark:) | :x:                |                                                   |                                                  |                                                   |
-| 14.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     | `latest-arm` (`linux/arm/v7`)                    | `snapshot-arm` (`linux/arm/v7`)                   |
+| 14.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  | `                                                 |
 | <14.x   | :x:                  | :x:                |                                                   |                                                  |                                                   |
 
 Juice Shop is automatically tested _only on the latest `.x` minor version_ of each node.js version mentioned above!
