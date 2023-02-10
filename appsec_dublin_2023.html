@@ -31,33 +31,6 @@
       document.getElementsByTagName( 'head' )[0].appendChild( link );
 	</script>
 
-	<!-- Challenges of current Juice Shop release -->
-	<script>
-		fetch("https://demo.owasp-juice.shop/api/Challenges").then(async (res) => {
-			const challenges = await res.json();
-			document.getElementById('numChallenges').innerHTML = challenges.data.length
-		})
-		fetch("https://raw.githubusercontent.com/bkimminich/juice-shop/master/package.json").then(async (res) => {
-			const juiceShopPackage = await res.json();
-			document.getElementById('juiceShopVersion').innerHTML = juiceShopPackage.version
-		})
-		fetch("https://raw.githubusercontent.com/bkimminich/juice-shop-ctf/master/package.json").then(async (res) => {
-			const ctfExtensionPackage = await res.json();
-			document.getElementById('ctfExtensionVersion').innerHTML = ctfExtensionPackage.version
-		})
-		fetch("https://raw.githubusercontent.com/iteratec/multi-juicer/master/helm/multi-juicer/Chart.yaml").then(async (res) => {
-			const multiJuicerChart = await res.text();
-			document.getElementById('multiJuicerVersion').innerHTML = multiJuicerChart.match(/version: (.*)/)[1]
-		})
-	</script>
-	<!-- Roadmap -->
-	<script>
-		fetch("https://raw.githubusercontent.com/OWASP/www-project-juice-shop/master/_data/roadmap_milestones.json").then(async (res) => {
-			const milestones = await res.json();
-			document.getElementById('roadmap').innerHTML = milestones.map(milestone => "<tr><td><small>" + milestone + "</small></td></tr>").join('')
-		})
-	</script>
-
 	<!--[if lt IE 9]>
 	<script src="lib/js/html5shiv.js"></script>
 	<![endif]-->
@@ -494,44 +467,6 @@ products:
 		</section>
 
 		<section>
-			<h2>NFT Collection</h2>
-			<p>
-				Yes, seriously.
-			</p>
-			<table>
-				<tr>
-					<td>
-						<nft-card width="400px"
-								contractAddress="0x495f947276749ce646f68ac8c248420045cb7b5e"
-								tokenId="69157691162327567172870131924536492302815108437750715040309091511341588414514">
-						</nft-card>
-					</td>
-					<td>
-						<nft-card width="400px"
-								contractAddress="0x495f947276749ce646f68ac8c248420045cb7b5e"
-								tokenId="69157691162327567172870131924536492302815108437750715040309091514640123297842">
-						</nft-card>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<nft-card width="400px"
-								contractAddress="0x495f947276749ce646f68ac8c248420045cb7b5e"
-								tokenId="69157691162327567172870131924536492302815108437750715040309091515739634925593">
-						</nft-card>
-					</td>
-					<td>
-						<nft-card width="400px"
-								contractAddress="0x495f947276749ce646f68ac8c248420045cb7b5e"
-								tokenId="69157691162327567172870131924536492302815108437750715040309091512441100042265">
-						</nft-card>
-					</td>
-				</tr>
-			</table>
-			<script src="https://unpkg.com/embeddable-nfts/dist/nft-card.min.js"></script>
-		</section>
-
-		<section>
 
 			<section>
 				<h3>Can I contribute to the project?</h3>
@@ -541,6 +476,18 @@ products:
 				<a href="https://github.com/juice-shop/juice-shop/issues"><img src="assets/Octocat.png" height="200" class="no-box"/></a> <a href="https://crowdin.com/project/owasp-juice-shop/invite"><img src="assets/tGUepzTM.jpg" height="200" class="no-box"/></a>
 				<p>
 					<small>Issues labelled with <span style="background: #5319e7">&nbsp;good first issue&nbsp;</span> and/or <span style="background: #159818">&nbsp;help wanted&nbsp;</span> are the best starting point!</small>
+				</p>
+			</section>
+
+			<section>
+				<h3>How do I get started?</h3>
+				<p>
+					Check the <em>Codebase 101</em> and <em>Contribute to development</em> chapters in the <strong>free</strong> official <a href="https://leanpub.com/juice-shop">companion guide on Leanpub</a>
+				</p>
+				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/cover.jpg" height="400"/>
+				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/introduction/img/back.jpg" height="400"/>
+				<p>
+					<small>The eBook can also be <a href="https://pwning.owasp-juice.shop">read online</a>. You can always ask for help in <a href="https://gitter.im/bkimminich/juice-shop">the community chat</a> or on <a href="https://owasp.slack.com/messages/project-juiceshop">Slack</a> as well!</small>
 				</p>
 			</section>
 
@@ -555,11 +502,49 @@ products:
 				</p>
 			</section>
 
-			<section>
-				<h2>Project Roadmap</h2>
-				<table id="roadmap"></table><br>
-			</section>
+		</section>
 
+		<section>
+			<h2>Project Roadmap</h2>
+			<table id="roadmap"></table><br>
+		</section>
+
+		<section>
+			<h3>Juice Shop has an NFT collection...?</h3>
+			<p>
+				You can bet your wallet's passphrase that we do!
+			</p>
+			<table>
+				<tr>
+					<td> 50x
+						<nft-card width="380px"
+								  contractAddress="0x495f947276749ce646f68ac8c248420045cb7b5e"
+								  tokenId="69157691162327567172870131924536492302815108437750715040309091511341588414514">
+						</nft-card>
+					</td>
+					<td> 50x
+						<nft-card width="380px"
+								  contractAddress="0x495f947276749ce646f68ac8c248420045cb7b5e"
+								  tokenId="69157691162327567172870131924536492302815108437750715040309091514640123297842">
+						</nft-card>
+					</td>
+				</tr>
+				<tr>
+					<td> 25x
+						<nft-card width="380px"
+								  contractAddress="0x495f947276749ce646f68ac8c248420045cb7b5e"
+								  tokenId="69157691162327567172870131924536492302815108437750715040309091515739634925593">
+						</nft-card>
+					</td>
+					<td> 25x
+						<nft-card width="380px"
+								  contractAddress="0x495f947276749ce646f68ac8c248420045cb7b5e"
+								  tokenId="69157691162327567172870131924536492302815108437750715040309091512441100042265">
+						</nft-card>
+					</td>
+				</tr>
+			</table>
+			<script src="https://unpkg.com/embeddable-nfts/dist/nft-card.min.js"></script>
 		</section>
 
 		<section data-transition="zoom-out">
@@ -647,6 +632,33 @@ products:
     ]
   });
 
+</script>
+
+<!-- Challenges of current Juice Shop release -->
+<script>
+	fetch("https://demo.owasp-juice.shop/api/Challenges").then(async (res) => {
+		const challenges = await res.json();
+		document.getElementById('numChallenges').innerHTML = challenges.data.length
+	})
+	fetch("https://raw.githubusercontent.com/bkimminich/juice-shop/master/package.json").then(async (res) => {
+		const juiceShopPackage = await res.json();
+		document.getElementById('juiceShopVersion').innerHTML = juiceShopPackage.version
+	})
+	fetch("https://raw.githubusercontent.com/bkimminich/juice-shop-ctf/master/package.json").then(async (res) => {
+		const ctfExtensionPackage = await res.json();
+		document.getElementById('ctfExtensionVersion').innerHTML = ctfExtensionPackage.version
+	})
+	fetch("https://raw.githubusercontent.com/iteratec/multi-juicer/master/helm/multi-juicer/Chart.yaml").then(async (res) => {
+		const multiJuicerChart = await res.text();
+		document.getElementById('multiJuicerVersion').innerHTML = multiJuicerChart.match(/version: (.*)/)[1]
+	})
+</script>
+<!-- Roadmap -->
+<script>
+	fetch("https://raw.githubusercontent.com/OWASP/www-project-juice-shop/master/_data/roadmap_milestones.json").then(async (res) => {
+		const milestones = await res.json();
+		document.getElementById('roadmap').innerHTML = milestones.map(milestone => "<tr><td><small>" + milestone + "</small></td></tr>").join('')
+	})
 </script>
 
 <div class="hidden-mobile">
