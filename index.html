@@ -31,33 +31,6 @@
       document.getElementsByTagName( 'head' )[0].appendChild( link );
 	</script>
 
-	<!-- Challenges of current Juice Shop release -->
-	<script>
-		fetch("https://demo.owasp-juice.shop/api/Challenges").then(async (res) => {
-			const challenges = await res.json();
-			document.getElementById('numChallenges').innerHTML = challenges.data.length
-		})
-		fetch("https://raw.githubusercontent.com/bkimminich/juice-shop/master/package.json").then(async (res) => {
-			const juiceShopPackage = await res.json();
-			document.getElementById('juiceShopVersion').innerHTML = juiceShopPackage.version
-		})
-		fetch("https://raw.githubusercontent.com/bkimminich/juice-shop-ctf/master/package.json").then(async (res) => {
-			const ctfExtensionPackage = await res.json();
-			document.getElementById('ctfExtensionVersion').innerHTML = ctfExtensionPackage.version
-		})
-		fetch("https://raw.githubusercontent.com/iteratec/multi-juicer/master/helm/multi-juicer/Chart.yaml").then(async (res) => {
-			const multiJuicerChart = await res.text();
-			document.getElementById('multiJuicerVersion').innerHTML = multiJuicerChart.match(/version: (.*)/)[1]
-		})
-	</script>
-	<!-- Roadmap -->
-	<script>
-		fetch("https://raw.githubusercontent.com/OWASP/www-project-juice-shop/master/_data/roadmap_milestones.json").then(async (res) => {
-			const milestones = await res.json();
-			document.getElementById('roadmap').innerHTML = milestones.map(milestone => "<tr><td><small>" + milestone + "</small></td></tr>").join('')
-		})
-	</script>
-
 	<!--[if lt IE 9]>
 	<script src="lib/js/html5shiv.js"></script>
 	<![endif]-->
@@ -679,7 +652,7 @@ products:
 			</section>
 
 			<section>
-				<h2>This project REALLY needs NFTs!</h2>
+				<h3>This project REALLY needs NFTs!</h3>
 				<p>
 					We couldn't agree more!
 				</p>
@@ -815,6 +788,33 @@ products:
     ]
   });
 
+</script>
+
+<!-- Challenges of current Juice Shop release -->
+<script>
+	fetch("https://demo.owasp-juice.shop/api/Challenges").then(async (res) => {
+		const challenges = await res.json();
+		document.getElementById('numChallenges').innerHTML = challenges.data.length
+	})
+	fetch("https://raw.githubusercontent.com/bkimminich/juice-shop/master/package.json").then(async (res) => {
+		const juiceShopPackage = await res.json();
+		document.getElementById('juiceShopVersion').innerHTML = juiceShopPackage.version
+	})
+	fetch("https://raw.githubusercontent.com/bkimminich/juice-shop-ctf/master/package.json").then(async (res) => {
+		const ctfExtensionPackage = await res.json();
+		document.getElementById('ctfExtensionVersion').innerHTML = ctfExtensionPackage.version
+	})
+	fetch("https://raw.githubusercontent.com/iteratec/multi-juicer/master/helm/multi-juicer/Chart.yaml").then(async (res) => {
+		const multiJuicerChart = await res.text();
+		document.getElementById('multiJuicerVersion').innerHTML = multiJuicerChart.match(/version: (.*)/)[1]
+	})
+</script>
+<!-- Roadmap -->
+<script>
+	fetch("https://raw.githubusercontent.com/OWASP/www-project-juice-shop/master/_data/roadmap_milestones.json").then(async (res) => {
+		const milestones = await res.json();
+		document.getElementById('roadmap').innerHTML = milestones.map(milestone => "<tr><td><small>" + milestone + "</small></td></tr>").join('')
+	})
 </script>
 
 <div class="hidden-mobile">
