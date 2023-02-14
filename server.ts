@@ -443,7 +443,8 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     const resource = finale.resource({
       model,
       endpoints: [`/api/${name}s`, `/api/${name}s/:id`],
-      excludeAttributes: exclude
+      excludeAttributes: exclude,
+      pagination: false
     })
 
     // create a wallet when a new user is registered using API
