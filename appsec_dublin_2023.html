@@ -190,7 +190,7 @@
 				<p>
 					<a href="https://github.com/iteratec/multi-juicer">3rd party project</a> to run separate Juice Shop instances for training or CTF participants on a central Kubernetes cluster
 				</p>
-				<img src="https://raw.githubusercontent.com/iteratec/multi-juicer/master/images/multijuicer-cover.svg" height="400" class="no-box"/>
+				<img src="https://raw.githubusercontent.com/iteratec/multi-juicer/main/images/multijuicer-cover.svg" height="400" class="no-box"/>
 			</section>
 
 			<section>
@@ -658,7 +658,7 @@ products:
 		const ctfExtensionPackage = await res.json();
 		document.getElementById('ctfExtensionVersion').innerHTML = ctfExtensionPackage.version
 	})
-	fetch("https://raw.githubusercontent.com/iteratec/multi-juicer/master/helm/multi-juicer/Chart.yaml").then(async (res) => {
+	fetch("https://raw.githubusercontent.com/iteratec/multi-juicer/main/helm/multi-juicer/Chart.yaml").then(async (res) => {
 		const multiJuicerChart = await res.text();
 		document.getElementById('multiJuicerVersion').innerHTML = multiJuicerChart.match(/version: (.*)/)[1]
 	})
