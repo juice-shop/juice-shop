@@ -413,6 +413,6 @@ memories:
     geoStalkingVisualSecurityQuestion: 10
     geoStalkingVisualSecurityAnswer: 'ITsec'
 ctf:
-  showFlagsInNotifications: false
+  showFlagsInNotifications: true
   showCountryDetailsInNotifications: none # Options: none  name  flag  both
   countryMapping: ~
