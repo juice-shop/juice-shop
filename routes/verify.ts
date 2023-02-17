@@ -43,7 +43,14 @@ exports.captchaBypassChallenge = () => (req: Request, res: Response, next: NextF
 }
 
 exports.registerAdminChallenge = () => (req: Request, res: Response, next: NextFunction) => {
-  challengeUtils.solveIf(challenges.registerAdminChallenge, () => { return req.body && req.body.role === security.roles.admin })
+  challengeUtils.solveIf(challenges.registerAdminChallenge, () => {
+    if (req.body.email.trim().length === 0 && req.body.password.trim().length === 0) {
+      req.body.email = req.body.email.trim()
+      req.body.password = req.body.password.trim()
+      req.body.passwordRepeat = req.body.passwordRepeat.trim()
+    }
+    return req.body && req.body.role === security.roles.admin
+  })
   next()
 }
 
