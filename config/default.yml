@@ -1,5 +1,5 @@
 server:
-  port: 3000
+  port: 80
   basePath: ''
 application:
   domain: juice-sh.op
