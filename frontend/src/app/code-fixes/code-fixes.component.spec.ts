@@ -1,16 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { CookieModule, CookieService } from 'ngx-cookie'
 
 import { CodeFixesComponent } from './code-fixes.component'
 
 describe('CodeFixesComponent', () => {
   let component: CodeFixesComponent
   let fixture: ComponentFixture<CodeFixesComponent>
+  let cookieService: any
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CodeFixesComponent]
+      imports: [CookieModule.forRoot()],
+      declarations: [CodeFixesComponent],
+      providers: [CookieService]
     })
       .compileComponents()
+      cookieService = TestBed.inject(CookieService)
   })
 
   beforeEach(() => {

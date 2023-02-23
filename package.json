@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "14.6.0-SNAPSHOT",
+  "version": "14.5.1",
   "private": true,
   "description": "Probably the most modern and sophisticated insecure web application",
   "keywords": [
@@ -37,14 +37,14 @@
     "MarcRler",
     "agrawalarpit14",
     "Scar26",
+    "ShubhamPalriwala",
     "CaptainFreak",
-    "Supratik Das",
     "JuiceShopBot",
+    "Supratik Das",
     "the-pro",
     "Ziyang Li",
-    "aaryan10",
-    "m4l1c3",
     "Timo Pagel",
+    "aaryan10",
     "..."
   ],
   "scripts": {
