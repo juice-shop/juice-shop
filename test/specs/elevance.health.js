@@ -28,7 +28,7 @@ describe("register and login", () => {
   /**
    * Having problem with add product in the cart
    */
-  it("login and purchase", async () => {
+  it.only("login and purchase", async () => {
     await browser.maximizeWindow();
     await $("span=Dismiss").click();
     const account = await $("i=account_circle");
@@ -37,14 +37,13 @@ describe("register and login", () => {
     await $("#email").setValue("test12@gmail.com");
     await $("#password").setValue("Password#1");
     await $("#loginButton").click();
-    const list = await $(".ng-star-inserted div.item-name");
-    //await list.waitForDisplayed({ timeout: 3000 });
-    for (let item of list) {
+    const listItems = await $$(".ng-star-inserted div.item-name");
+    for (let item of listItems) {
       if (item == " Apple Juice (1000ml) ") {
         await $("span= Add to Basket").click();
       }
       if (item == " Apple Pomace ") {
-        await $("span*= Add to").click();
+        await $("span*=Add to").click();
       }
     }
     //await $(".ng-star-inserted div.item-name:nth-child(1)").$("button*=Add").click();
@@ -100,7 +99,7 @@ describe("register and login", () => {
    */
 
   it("should upload a pic", async () => {
-    const filePath = "/Users/mohammadrahman/Desktop/pic.jpg";
+    const filePath = "/path/pic/pic.jpg";
     const remoteFilePath = await browser.uploadFile(filePath);
     await browser.maximizeWindow();
     await $("span=Dismiss").click();
