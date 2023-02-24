@@ -11,6 +11,26 @@ mentioned or used!
 > tackling these challenges yourself! :mega: marks short friendly shout
 > outs. Finally, the :dollar: bill marks commercial resources.
 
+## Table of contents
+
+* [Awards](#awards--trophy-)
+* [Web Links](#web-links)
+  + [Pod- & Webcasts](#pod----webcasts)
+  + [Blogs & Articles](#blogs---articles)
+* [Lectures and Trainings](#lectures-and-trainings)
+* [Summits & Open Source Events](#summits---open-source-events)
+  + [[Google Summer of Code](http://owasp.org/gsoc)](#-google-summer-of-code--http---owasporg-gsoc-)
+* [Conference and Meetup Appearances](#conference-and-meetup-appearances)
+  - [2023](#2023)
+  - [2022](#2022)
+  - [2021](#2021)
+  - [2020](#2020)
+  - [2019](#2019)
+  - [2018](#2018)
+  - [2017](#2017)
+  - [2016](#2016)
+  - [2015](#2015)
+
 ## Awards :trophy:
 
 * [Heroku Button of the Month](https://hello.heroku.com/webmail/36622/679286305/8049a634b1a01b0aa75c0966325856dc9a463b7f1beeb6a2f32cbb30248b5bc6)
