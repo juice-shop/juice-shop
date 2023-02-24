@@ -19,7 +19,7 @@ file and open a PR! The same goes for any scripts or automated tools you made fo
 
 * [Hacking Videos](#hacking-videos)
 * [Walkthroughs](#walkthroughs)
-* [Scripts & Tools](#scripts---tools)
+* [Scripts & Tools](#scripts--tools)
 
 ## Hacking Videos
 
