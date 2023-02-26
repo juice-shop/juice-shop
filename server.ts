@@ -363,6 +363,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* User registration challenge verifications before finale takes over */
   app.post('/api/Users', verify.registerAdminChallenge())
   app.post('/api/Users', verify.passwordRepeatChallenge()) // vuln-code-snippet hide-end
+  app.post('/api/Users', verify.emptyUserRegistration())
   /* Unauthorized users are not allowed to access B2B API */
   app.use('/b2b/v2', security.isAuthorized())
   /* Check if the quantity is available in stock and limit per user not exceeded, then add item to basket */
