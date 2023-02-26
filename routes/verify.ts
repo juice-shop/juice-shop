@@ -26,7 +26,6 @@ exports.emptyUserRegistration = () => (req: Request, res: Response, next: NextFu
       req.body.email = req.body.email.trim()
       req.body.password = req.body.password.trim()
       req.body.passwordRepeat = req.body.passwordRepeat.trim()
-      console.log(req.body)
     }
     return req.body && req.body.email === '' && req.body.password === ''
   })
