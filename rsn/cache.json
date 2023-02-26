@@ -40,21 +40,28 @@
 		"removed": []
 	},
 	"changeProductChallenge_1.ts": {
-		"added": [],
+		"added": [
+			43
+		],
 		"removed": []
 	},
 	"changeProductChallenge_2.ts": {
 		"added": [
-			18
+			18,
+			43
 		],
 		"removed": []
 	},
 	"changeProductChallenge_3_correct.ts": {
-		"added": [],
+		"added": [
+			43
+		],
 		"removed": []
 	},
 	"changeProductChallenge_4.ts": {
-		"added": [],
+		"added": [
+			43
+		],
 		"removed": []
 	},
 	"dbSchemaChallenge_1.ts": {
