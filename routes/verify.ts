@@ -22,11 +22,6 @@ const config = require('config')
 
 exports.emptyUserRegistration = () => (req: Request, res: Response, next: NextFunction) => {
   challengeUtils.solveIf(challenges.emptyUserRegistration, () => {
-    if (req.body.email.trim().length === 0 && req.body.password.trim().length === 0) {
-      req.body.email = req.body.email.trim()
-      req.body.password = req.body.password.trim()
-      req.body.passwordRepeat = req.body.passwordRepeat.trim()
-    }
     return req.body && req.body.email === '' && req.body.password === ''
   })
   next()
