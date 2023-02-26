@@ -225,10 +225,10 @@
   key: emailLeakChallenge
 -
   name: 'Empty User Registration'
-  category: 'XSS'
+  category: 'Improper Input Validation'
   description: 'Register a user with an empty email and password'
   difficulty: 2
-  hint: 'Think about request body'
+  hint: 'Think about intercepting the request payload'
   hintUrl: ~
   mitigationUrl: ~
   key: emptyUserRegistration
