@@ -294,9 +294,6 @@ ctf:
     xssBonusChallenge:
       name: Ethiopia
       code: ET
-    emptyUserRegistration:
-      name: Kenya
-      code: KE
     resetPasswordUvoginChallenge:
       name: Republic of South Africa
       code: RSA
@@ -321,3 +318,6 @@ ctf:
     closeNotificationsChallenge:
       name: Zambia
       code: ZM
+    emptyUserRegistration:
+      name: Kenya
+      code: KE
