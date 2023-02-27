@@ -106,8 +106,7 @@ application:
     clientId:
       type: string
     authorizedRedirects:
-      -
-        uri:
+      - uri:
           type: string
         proxy:
           type: string
@@ -138,8 +137,7 @@ hackingInstructor:
   hintPlaybackSpeed:
     type: string
 products:
-  -
-    name:
+  - name:
       type: string
     price:
       type: number
@@ -164,17 +162,14 @@ products:
     fileForRetrieveBlueprintChallenge:
       type: string
     exifForBlueprintChallenge:
-      -
-        type: string
+      - type: string
     reviews:
-      -
-        text:
+      - text:
           type: string
         author:
           type: string
 memories:
-  -
-    image:
+  - image:
       type: string
     caption:
       type: string
@@ -695,6 +690,11 @@ ctf:
       code:
         type: string
     closeNotificationsChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    emptyUserRegistration:
       name:
         type: string
       code:
