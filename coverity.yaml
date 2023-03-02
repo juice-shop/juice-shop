@@ -1,12 +1,17 @@
-# Analysis section to configure checkers among others
-analyze:
-  checkers:
-    all: true
-    webapp-security:
-      aggressiveness-level: high
+# Coverity configuration file.
+# The schema is available here: <install-dir>/doc/configuration-schema.json
+# For help on individual settings:      coverity help config --setting <setting>
+# For a complete example configuration: coverity help config --show-all
 
 # Specifies where the analysis results should be sent.
 commit:
+
+  # Coverity Connect configuration to use when committing defects to Coverity
+  # Connect.
   connect:
+
+    # The name of the stream to commit the results to.
     stream: juice-shop-master
+
+    # Absolute URL of where to commit the Coverity Connect results.
     url: http://localhost:8080
