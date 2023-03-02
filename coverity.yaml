@@ -1,0 +1,12 @@
+# Analysis section to configure checkers among others
+analyze:
+  checkers:
+    all: true
+    webapp-security:
+      aggressiveness-level: high
+
+# Specifies where the analysis results should be sent.
+commit:
+  connect:
+    stream: juice-shop-master
+    url: http://localhost:8080
