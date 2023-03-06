@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+require('escape-html')
 import { MatTableDataSource } from '@angular/material/table'
 import { DomSanitizer } from '@angular/platform-browser'
 import { ChallengeService } from '../Services/challenge.service'
@@ -21,6 +22,7 @@ import { LocalBackupService } from '../Services/local-backup.service'
 import { MatDialog } from '@angular/material/dialog'
 import { CodeSnippetComponent } from '../code-snippet/code-snippet.component'
 import { CodeSnippetService } from '../Services/code-snippet.service'
+
 
 library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy, faPollH)
 dom.watch()
@@ -179,7 +181,7 @@ export class ScoreBoardComponent implements OnInit {
   }
 
   trustDescriptionHtml (challenge: Challenge) {
-    challenge.description = this.sanitizer.bypassSecurityTrustHtml(challenge.description as string)
+    challenge.description = this.sanitizer.bypassSecurityTrustHtml(escapeHtml(challenge.description as string))
   }
 
   calculateCodingProgressPercentage () {
