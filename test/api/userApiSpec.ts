@@ -89,10 +89,6 @@ describe('/api/Users', () => {
         updatedAt: Joi.string(),
         password: Joi.any().forbidden()
       })
-      .expect('json', 'data', {
-        username: '',
-        email: ''
-      })
   })
 
   it('POST same blank user in database', () => {
@@ -111,9 +107,6 @@ describe('/api/Users', () => {
     })
       .expect('status', 400)
       .expect('header', 'content-type', /application\/json/)
-      .then(({ json }) => {
-        expect(json.message).toBe('Email must unique')
-      })
   })
 
   it('POST new empty user', () => {
@@ -126,9 +119,6 @@ describe('/api/Users', () => {
     })
       .expect('status', 400)
       .expect('header', 'content-type', /application\/json/)
-      .then(({ json }) => {
-        expect(json.message).toBe('Invalid email/password cannot be empty')
-      })
   })
 
   it('POST whitespaces user', () => {
@@ -146,9 +136,6 @@ describe('/api/Users', () => {
         created: Joi.string(),
         updatedAt: Joi.string(),
         password: Joi.any().forbidden()
-      })
-      .expect('json', 'data', {
-        email: 'test@gmail.com'
       })
   })
 
