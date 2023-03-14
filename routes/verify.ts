@@ -20,6 +20,13 @@ const challenges = cache.challenges
 const products = cache.products
 const config = require('config')
 
+exports.emptyUserRegistration = () => (req: Request, res: Response, next: NextFunction) => {
+  challengeUtils.solveIf(challenges.emptyUserRegistration, () => {
+    return req.body && req.body.email === '' && req.body.password === ''
+  })
+  next()
+}
+
 exports.forgedFeedbackChallenge = () => (req: Request, res: Response, next: NextFunction) => {
   challengeUtils.solveIf(challenges.forgedFeedbackChallenge, () => {
     const user = security.authenticatedUsers.from(req)
@@ -43,7 +50,9 @@ exports.captchaBypassChallenge = () => (req: Request, res: Response, next: NextF
 }
 
 exports.registerAdminChallenge = () => (req: Request, res: Response, next: NextFunction) => {
-  challengeUtils.solveIf(challenges.registerAdminChallenge, () => { return req.body && req.body.role === security.roles.admin })
+  challengeUtils.solveIf(challenges.registerAdminChallenge, () => {
+    return req.body && req.body.role === security.roles.admin
+  })
   next()
 }
 

@@ -224,6 +224,15 @@
   mitigationUrl: ~
   key: emailLeakChallenge
 -
+  name: 'Empty User Registration'
+  category: 'Improper Input Validation'
+  description: 'Register a user with an empty email and password'
+  difficulty: 2
+  hint: 'Think about intercepting the request payload'
+  hintUrl: ~
+  mitigationUrl: ~
+  key: emptyUserRegistration
+-
   name: 'Ephemeral Accountant'
   category: 'Injection'
   description: 'Log in with the (non-existing) accountant <i>acc0unt4nt@juice-sh.op</i> without ever registering that user.'
