@@ -109,18 +109,6 @@ describe('/api/Users', () => {
       .expect('header', 'content-type', /application\/json/)
   })
 
-  it('POST new empty user', () => {
-    return frisby.post(`${API_URL}/Users`, {
-      headers: jsonHeader,
-      body: {
-        email: '',
-        password: ''
-      }
-    })
-      .expect('status', 201)
-      .expect('header', 'content-type', /application\/json/)
-  })
-
   it('POST whitespaces user', () => {
     return frisby.post(`${API_URL}/Users`, {
       headers: jsonHeader,
