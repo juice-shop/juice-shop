@@ -4,7 +4,7 @@
  */
 
 import challengeUtils = require('../lib/challengeUtils')
-import { Request, Response, NextFunction } from 'express'
+import { Request, Response, NextFunction, response } from 'express'
 import { Review } from '../data/types'
 
 const challenges = require('../data/datacache').challenges
@@ -15,6 +15,11 @@ module.exports = function productReviews () {
   return (req: Request, res: Response, next: NextFunction) => {
     const id = req.body.id
     const user = security.authenticatedUsers.from(req)
+    if (!user) {
+        res.status(500).json({ error: 'Something went wrong' })
+        return;
+    }
+        
     db.reviews.findOne({ _id: id }).then((review: Review) => {
       if (!review) {
         res.status(404).json({ error: 'Not found' })

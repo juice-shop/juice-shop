@@ -168,6 +168,8 @@ products:
         type: string
     reviews:
       -
+        _id:
+          type: string
         text:
           type: string
         author:

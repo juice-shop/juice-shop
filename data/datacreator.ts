@@ -362,8 +362,9 @@ async function createProducts () {
         })
           .then(async ({ id }: { id: number }) =>
             await Promise.all(
-              reviews.map(({ text, author }) =>
+              reviews.map(({_id, text, author }) =>
                 mongodb.reviews.insert({
+                  _id: _id,
                   message: text,
                   author: datacache.users[author].email,
                   product: id,

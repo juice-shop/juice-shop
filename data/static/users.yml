@@ -253,3 +253,43 @@
   securityQuestion:
     id: 10
     answer: "Used Ship Emporium" # https://monkeyisland.fandom.com/wiki/Stan_S._Stanman
+-
+  email: victim@gmail.com
+  username: victim
+  password: 'victim123'
+  customDomain: true
+  key: victim
+  role: 'customer'
+  address:
+    - fullName: 'Innocent victim'
+      mobileNum: 4917000001
+      zipCode: '25436'
+      streetAddress: 'Am Lokalhorst 42'
+      city: 'Uetersen'
+      state: 'Schleswig-Holstein'
+      country: 'Germany'
+  card:
+    - fullName: 'Innocent victim'
+      cardNum: 4111111111111111
+      expMonth: 12
+      expYear: 2092
+-
+  email: attacker@gmail.com
+  username: attacker
+  password: 'attacker123'
+  customDomain: true
+  key: attacker
+  role: 'customer'
+  address:
+    - fullName: 'Evil attacker'
+      mobileNum: 4917000001
+      zipCode: '25436'
+      streetAddress: 'Am Lokalhorst 42'
+      city: 'Uetersen'
+      state: 'Schleswig-Holstein'
+      country: 'Germany'
+  card:
+    - fullName: 'Evil attacker'
+      cardNum: 4111111111111111
+      expMonth: 12
+      expYear: 2092
