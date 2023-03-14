@@ -73,6 +73,85 @@ describe('/api/Users', () => {
       })
   })
 
+  it('POST new blank user', () => {
+    return frisby.post(`${API_URL}/Users`, {
+      headers: jsonHeader,
+      body: {
+        email: ' ',
+        password: ' '
+      }
+    })
+      .expect('status', 201)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'data', {
+        id: Joi.number(),
+        createdAt: Joi.string(),
+        updatedAt: Joi.string(),
+        password: Joi.any().forbidden()
+      })
+      .expect('json', 'data', {
+        username: '',
+        email: ''
+      })
+  })
+
+  it('POST same blank user in database', () => {
+    return frisby.post(`${API_URL}/Users`, {
+      headers: jsonHeader,
+      body: {
+        email: ' ',
+        password: ' '
+      }
+    }).post(`${API_URL}/Users`, {
+      headers: jsonHeader,
+      body: {
+        email: ' ',
+        password: ' '
+      }
+    })
+      .expect('status', 400)
+      .expect('header', 'content-type', /application\/json/)
+      .then(({ json }) => {
+        expect(json.message).toBe('Email must unique')
+      })
+  })
+
+  it('POST new empty user', () => {
+    return frisby.post(`${API_URL}/Users`, {
+      headers: jsonHeader,
+      body: {
+        email: '',
+        password: ''
+      }
+    })
+      .expect('status', 400)
+      .expect('header', 'content-type', /application\/json/)
+      .then(({ json }) => {
+        expect(json.message).toBe('Invalid email/password cannot be empty')
+      })
+  })
+
+  it('POST whitespaces user', () => {
+    return frisby.post(`${API_URL}/Users`, {
+      headers: jsonHeader,
+      body: {
+        email: ' test@gmail.com',
+        password: ' test'
+      }
+    })
+      .expect('status', 201)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'data', {
+        id: Joi.number(),
+        created: Joi.string(),
+        updatedAt: Joi.string(),
+        password: Joi.any().forbidden()
+      })
+      .expect('json', 'data', {
+        email: 'test@gmail.com'
+      })
+  })
+
   it('POST new deluxe user', () => {
     return frisby.post(`${API_URL}/Users`, {
       headers: jsonHeader,
