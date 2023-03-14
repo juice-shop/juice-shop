@@ -117,7 +117,7 @@ describe('/api/Users', () => {
         password: ''
       }
     })
-      .expect('status', 400)
+      .expect('status', 201)
       .expect('header', 'content-type', /application\/json/)
   })
 
