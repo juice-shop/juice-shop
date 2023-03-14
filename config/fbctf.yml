@@ -318,3 +318,6 @@ ctf:
     closeNotificationsChallenge:
       name: Zambia
       code: ZM
+    emptyUserRegistration:
+      name: Kenya
+      code: KE
