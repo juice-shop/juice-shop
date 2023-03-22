@@ -19,7 +19,7 @@ mentioned or used!
   + [Blogs & Articles](#blogs--articles)
 * [Lectures and Trainings](#lectures-and-trainings)
 * [Summits & Open Source Events](#summits--open-source-events)
-  + [[Google Summer of Code](http://owasp.org/gsoc)](#googlesummerofcode)
+  + [Google Summer of Code](#googlesummerofcode)
 * [Conference and Meetup Appearances](#conference-and-meetup-appearances)
   - [2023](#2023)
   - [2022](#2022)
@@ -302,9 +302,9 @@ mentioned or used!
 
 #### 2023
 
-* [Squeezing the last drop out of OWASP Juice Shop](https://owasp2023globalappsecdublin.sched.com/event/1FWfq/squeezing-the-last-drop-out-of-owasp-juice-shop) by Björn Kimminich, [OWASP 2023 Global AppSec Dublin](https://dublin.globalappsec.org/), 15.02.2023
 * [OWASP Juice Shop](https://www.meetup.com/owasp-chapter-netherlands-meetup/events/292323208)
   by Björn Kimminich, [April 2023 OWASP Chapter Netherlands Meetup](https://www.meetup.com/owasp-chapter-netherlands-meetup/), 20.04.2023
+* [Squeezing the last drop out of OWASP Juice Shop](https://owasp2023globalappsecdublin.sched.com/event/1FWfq/squeezing-the-last-drop-out-of-owasp-juice-shop) by Björn Kimminich, [OWASP 2023 Global AppSec Dublin](https://dublin.globalappsec.org/), 15.02.2023
 
 #### 2022
 
