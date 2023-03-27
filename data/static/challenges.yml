@@ -226,10 +226,10 @@
 -
   name: 'Empty User Registration'
   category: 'Improper Input Validation'
-  description: 'Register a user with an empty email and password'
+  description: 'Register a user with an empty email and password.'
   difficulty: 2
-  hint: 'Think about intercepting the request payload'
-  hintUrl: ~
+  hint: 'Consider intercepting and playing with the request payload.'
+  hintUrl: https://pwning.owasp-juice.shop/part2/improper-input-validation.html#register-a-user-account-with-an-empty-email-and-password
   mitigationUrl: ~
   key: emptyUserRegistration
 -
