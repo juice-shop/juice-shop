@@ -362,7 +362,7 @@
   "TAG_PREREQUISITE": "前提条件",
   "TAG_PREREQUISITE_DESCRIPTION": "他のチャレンジを解く前提となるチャレンジであることを示します。",
   "TAG_OSINT": "OSINT",
-  "TAG_OSINT_DESCRIPTION": "Marks challenges which require some Internet research or \"social stalking\" activity outside the application.",
+  "TAG_OSINT_DESCRIPTION": "インターネットでの調査、またアプリケーション外での「社会的ストーカー」行為が必要となるチャレンジを示します。",
   "TAG_CONTRAPTION": "特別な仕掛け",
   "TAG_CONTRAPTION_DESCRIPTION": "チャレンジの設定は現実的ではなく、意図的に作り込まれたものであることを示します。",
   "TAG_SHENANIGANS": "おふざけ",
