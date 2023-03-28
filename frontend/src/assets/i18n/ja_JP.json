@@ -315,7 +315,7 @@
   "IMAGE_UPLOAD_SUCCESS": "画像が正常にアップロードされました。",
   "EMPTY_MEMORY_LIST": "出来事はまだ共有されていません。",
   "LABEL_DELUXE_MEMBERSHIP": "デラックスメンバー",
-  "DESCRIPTION_DELUXE_MEMBERSHIP": "Enjoy amazing benefits as a deluxe customer of {{appname}}. Check out what is included with your membership.",
+  "DESCRIPTION_DELUXE_MEMBERSHIP": "{{appname}} のデラックスメンバーとして素晴らしい特典をお楽しみください。メンバー特典の内容をご確認ください。",
   "LABEL_BECOME_MEMBER": "会員登録",
   "LABEL_DEALS_OFFERS": "お得な情報とオファー",
   "DESCRIPTION_DEALS_OFFERS": "デラックスメンバーとして、あなたには特別なお得情報や魅力的なオファーが提供されます。",
