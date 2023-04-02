@@ -33,11 +33,11 @@ exports.totalFixItAccuracy = () => {
   return totalAccuracy('fix it')
 }
 
-function getFindItAttempts (challengeKey: string) {
+export function getFindItAttempts (challengeKey: string) {
   return solves[challengeKey] ? solves[challengeKey].attempts['find it'] : 0
 }
 
-function getFixItAttempts (challengeKey: string) {
+export function getFixItAttempts (challengeKey: string) {
   return solves[challengeKey] ? solves[challengeKey].attempts['fix it'] : 0
 }
 
