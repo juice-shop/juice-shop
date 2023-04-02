@@ -9,7 +9,6 @@ import { readFixes } from '../routes/vulnCodeFixes'
 import { Challenge } from '../data/types'
 const colors = require('colors/safe')
 const logger = require('./logger')
-
 const coupledChallenges = { // TODO prevent also near-identical challenges (e.g. all null byte file access or dom xss + bonus payload etc.) from counting as cheating
   loginAdminChallenge: ['weakPasswordChallenge'],
   nullByteChallenge: ['easterEggLevelOneChallenge', 'forgottenDevBackupChallenge', 'forgottenBackupChallenge', 'misplacedSignatureFileChallenge'],
@@ -34,7 +33,15 @@ exports.calculateCheatScore = (challenge: Challenge) => {
   const minutesExpectedToSolve = challenge.difficulty * timeFactor
   const minutesSincePreviousSolve = (timestamp.getTime() - previous().timestamp.getTime()) / 60000
   cheatScore += Math.max(0, 1 - (minutesSincePreviousSolve / minutesExpectedToSolve))
-
+  // see if challenge was solved on first attempt or not
+  if (getFindItAttempts(challenge.key) === 1 && getFixItAttempts(challenge.key) === 1 && !isTrivial(challenge)) {
+    if (areCoupled(challenge, previous().challenge)) {
+      cheatScore *= 1.05 // the factor may need to be changed
+    } else { // previous and current challenges not coupled - higher chances of cheating
+      cheatScore *= 1.15 // the factor may need to be changed
+    }
+  }
+  cheatScore = cheatScore > 1 ? 1 : cheatScore
   logger.info(`Cheat score for ${areCoupled(challenge, previous().challenge) ? 'coupled ' : (isTrivial(challenge) ? 'trivial ' : '')}${challenge.tutorialOrder ? 'tutorial ' : ''}${colors.cyan(challenge.key)} solved in ${Math.round(minutesSincePreviousSolve)}min (expected ~${minutesExpectedToSolve}min) with${config.get('challenges.showHints') ? '' : 'out'} hints allowed: ${cheatScore < 0.33 ? colors.green(cheatScore) : (cheatScore < 0.66 ? colors.yellow(cheatScore) : colors.red(cheatScore))}`)
   solves.push({ challenge, phase: 'hack it', timestamp, cheatScore })
   return cheatScore

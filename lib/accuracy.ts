@@ -33,8 +33,12 @@ exports.totalFixItAccuracy = () => {
   return totalAccuracy('fix it')
 }
 
-exports.getFindItAttempts = (challengeKey: string) => {
+function getFindItAttempts (challengeKey: string) {
   return solves[challengeKey] ? solves[challengeKey].attempts['find it'] : 0
+}
+
+function getFixItAttempts (challengeKey: string) {
+  return solves[challengeKey] ? solves[challengeKey].attempts['fix it'] : 0
 }
 
 function totalAccuracy (phase: Phase) {
@@ -66,4 +70,9 @@ function storeVerdict (challengeKey: string, phase: Phase, verdict: boolean) {
     solves[challengeKey][phase] = verdict
     solves[challengeKey].attempts[phase]++
   }
+}
+
+module.exports = {
+  getFindItAttempts,
+  getFixItAttempts
 }
