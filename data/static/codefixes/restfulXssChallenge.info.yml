@@ -1,0 +1,12 @@
+fixes:
+  - id: 1
+    explanation: 'Removing the bypass of sanitization entirely is the best way to fix the XSS vulnerability here. It should be noted, that XSS is only a consequence of broken autheorization in this case, as users should not be allowed to change product descriptions in the first place.'
+  - id: 2
+    explanation: 'Manually encoding the angular brackets of the HTML tags does not add any security. It is likely to break descriptions with legitimate HTML tags for styling or links, though.'
+  - id: 3
+    explanation: 'The removed code block deals with handling of different screen sizes and is entirely unrelated to the given XSS vulnerability.'
+  - id: 4
+    explanation: 'Using bypassSecurityTrustScript() instead of bypassSecurityTrustHtml() changes the context for which input sanitization is bypassed. If at all, this switch might only accidentally keep XSS prevention intact.'
+hints:
+  - "Find all places in the code which are handling the product descriptions."
+  - "Look for a line where the developers fiddled with Angular's built-in security model."

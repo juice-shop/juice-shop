@@ -1,0 +1,17 @@
+<!--
+  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+<div class="mat-typography">
+  <mat-sidenav-container fullscreen>
+    <mat-sidenav #sidenav mode="over">
+      <sidenav (sidenavToggle)="sidenav.toggle()"></sidenav>
+    </mat-sidenav>
+    <app-navbar (sidenavToggle)="sidenav.toggle()"></app-navbar>
+    <app-server-started-notification></app-server-started-notification>
+    <app-challenge-solved-notification></app-challenge-solved-notification>
+    <app-welcome></app-welcome>
+    <router-outlet></router-outlet>
+  </mat-sidenav-container>
+</div>

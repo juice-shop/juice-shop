@@ -1,0 +1,190 @@
+application:
+  domain: mozilla-ctf.op
+  name: 'Mozilla CTF'
+  logo: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/MozillaCTF.png'
+  favicon: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/favicon_v2.ico'
+  theme: deeporange-indigo
+  showGitHubLinks: true
+  localBackupEnabled: false
+  altcoinName: Mozquito
+  privacyContactEmail: 'donotreply@mozilla-ctf.op'
+  customMetricsPrefix: mozctf
+  chatBot:
+    name: 'Foxy'
+    avatar: 'https://upload.wikimedia.org/wikipedia/commons/9/9f/Fennec_Fox_Vulpes_zerda.jpg'
+  social:
+    twitterUrl: 'https://twitter.com/mozcloudsec'
+    facebookUrl: null
+    slackUrl: null
+    redditUrl: null
+    pressKitUrl: 'https://blog.mozilla.org/press/kits'
+    nftUrl: null
+    questionnaireUrl: null
+  recyclePage:
+    topProductImage: Gear-200155340.jpg
+    bottomProductImage: Gear-200155753.jpg
+  welcomeBanner:
+    showOnFirstStart: false
+  cookieConsent:
+    backgroundColor: '#e95420'
+    textColor: '#ffffff'
+    buttonColor: '#2778c5'
+    buttonTextColor: '#ffffff'
+    message: 'This website uses a myriad of 3rd-party cookies for your convenience and tracking pleasure.'
+    dismissText: 'Never mind!'
+    linkText: 'How can I turn this off?'
+    linkUrl: 'https://support.mozilla.org/en-US/kb/disable-third-party-cookies'
+  securityTxt:
+    contact: 'mailto:donotreply@mozilla-ctf.op'
+    encryption: ~
+challenges:
+  showHints: false
+  codingChallengesEnabled: never
+  xssBonusPayload: '<iframe width="560" height="315" src="https://www.youtube.com/embed/0u9g0LhRkGk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+  showFeedbackButtons: false
+hackingInstructor:
+  isEnabled: false
+products:
+  -
+    name: 'Champion Sweatshirt with a Drawstring Tote'
+    price: 68.89
+    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155415.jpg'
+    reviews:
+      - { text: 'One of my favorites!', author: admin }
+  -
+    name: 'Rickshaw Commuter 2.0 Laptop Bag'
+    price: 205
+    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155749.jpg'
+  -
+    name: 'Moleskine Notebook'
+    price: 33
+    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155752.jpg'
+    reviews:
+      - { text: 'I bought it, would buy again. 5/7', author: admin }
+  -
+    name: 'Special Package 1'
+    description: 'This Very Splendid Package includes a ladies navy t-shirt (not shown), a baseball cap, and a coffee mug in a drawstring tote.'
+    price: 34
+    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200157452.jpg'
+  -
+    name: 'Special Package 2'
+    description: 'This Very Splendid Package includes a unisex navy t-shirt, a baseball cap, and a coffee mug in a drawstring tote.'
+    price: 37
+    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200157454.jpg'
+  -
+    name: 'Special Package 3'
+    description: 'The Most Splendid Package includes a Champion sweatshirt in a drawstring tote, a Moleskine notebook, and a Rickshaw Commuter 2.0 Laptop Bag.'
+    price: 300.89
+    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200157451.jpg'
+  -
+    name: 'Unisex t-shirt, navy'
+    price: 13.51
+    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155342.jpg'
+  -
+    name: 'Ladies t-shirt, navy'
+    price: 10
+    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155413.jpg'
+  -
+    name: 'Unisex t-shirt, lapis'
+    price: 13.51
+    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-unisex-t-shirt-lapis.jpg'
+  -
+    name: 'Black cap w/tote'
+    price: 17.75
+    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155339.jpg'
+  -
+    name: Beanie
+    price: 5.5
+    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155340.jpg'
+    reviews:
+      - { text: 'One of my favorites.', author: jim }
+  -
+    name: 'Drawstring tote'
+    price: 5.5
+    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155751.jpg'
+  -
+    name: 'Glossy finish ceramic mug'
+    price: 8.81
+    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155758.jpg'
+  -
+    name: '3 inch round Firefox sticker, individual'
+    price: 0.11
+    description: '1 roll = 500 stickers (please request 500 if you need a full roll)'
+    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155753.jpg'
+  -
+    name: 'Silicone wristband'
+    price: 0.32
+    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155756.jpg'
+    reviews:
+      - { text: 'Fry liked it too.', author: bender }
+  -
+    name: 'Vertical laminated conference badge'
+    price: 2.33
+    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155755.jpg'
+  -
+    name: 'Mozilla lanyard with bulldog clip'
+    price: 1.65
+    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155754.jpg'
+  -
+    name: 'Firefox tattoo, 50 pack'
+    price: 4
+    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155757.jpg'
+  -
+    name: '1.25 inch Firefox Button, 25 pack'
+    price: 7
+  -
+    name: 'Mozilla Cap'
+    price: 4.63
+  -
+    name: 'Colour Contrast Analyser Firefox Extension'
+    description: 'The Colour Contrast Analyser Firefox extension lists colour combinations used in the document in a table that summarises the foreground colour, background colour, luminosity contrast ratio, and the colour difference and brightness difference used in the algorithm suggested in the 26th of April 2000 working draft for Accessibility Evaluation and Repair Tools (AERT). Each element is also listed with its parent elements, and class and id attribute values when specified to make it easier to locate the elements. <br/><span style="color:red;">This extension has been removed because side-effects with other plugins.</span>'
+    price: 0.99
+    image: 'http://juicystudio.com/img/logo.gif'
+    keywordsForPastebinDataLeakChallenge:
+      - juicenote
+      - magische firefox suche
+  -
+    name: 'Fox Plush'
+    price: 8.6
+  -
+    name: 'Mozilla custom hoodie'
+    price: 19.66
+    reviews:
+      - { text: 'You gotta get this.', author: jim }
+  -
+    name: 'Woman''s Firefox Logo T-Shirt (grey)'
+    price: 4.31
+  -
+    name: 'Women''s Vertical T-Shirt'
+    price: 5.09
+  -
+    name: 'Mozilla Horizontal T-Shirt'
+    price: 5.94
+  -
+    name: 'OWASP Zed Attack Proxy (ZAP)'
+    description: 'ZAP is one of the world’s most popular free security tools and can help you automatically find security vulnerabilities while you are developing and testing your applications.'
+    price: 0.01
+    image: zap.png
+    urlForProductTamperingChallenge: 'https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project'
+  -
+    name: 'Christmas Super-Surprise-Box (2014 Edition)'
+    description: 'Contains a random selection of stickers and three Unisex t-shirts (3XL) for an unbeatable price!'
+    price: 29.99
+    image: undefined.jpg
+    useForChristmasSpecialChallenge: true
+  -
+    name: 'Mozilla Austin CTF Logo (3D-printed)'
+    description: 'This rare item was designed and handcrafted in Sweden. This is why it is so incredibly expensive despite its complete lack of purpose.'
+    price: 99.99
+    image: 3d_keychain.jpg
+    fileForRetrieveBlueprintChallenge: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/3d_keychain.stl'
+    exifForBlueprintChallenge:
+      - ~
+  -
+    name: 'Global OWASP WASPY Award 2017 Nomination'
+    description: 'Your chance to nominate up to three quiet pillars of the OWASP community ends 2017-06-30! <a href="https://www.owasp.org/index.php/WASPY_Awards_2017">Nominate now!</a>'
+    price: 0.03
+    image: waspy.png
+    deletedDate: '2017-07-01'
+ctf:
+  showFlagsInNotifications: true

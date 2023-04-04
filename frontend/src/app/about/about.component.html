@@ -1,0 +1,68 @@
+<!--
+  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+<div fxLayoutAlign="center">
+  <mat-card class="mat-elevation-z6">
+    <section class="about-us">
+      <h1 translate>TITLE_ABOUT</h1>
+      <h3 translate>SECTION_CORPORATE_HISTORY</h3>
+      <p class="text-justify">
+
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+        dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+        clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+        consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
+        diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+        takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+        diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+
+        Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu
+        feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril
+        delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+        sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+
+        <a href="ftp/legal.md" aria-label="Link to the Terms of Use" translate>LINK_TERMS_OF_USE</a>
+
+        At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
+        Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+        tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
+        dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem
+        ipsum dolor sit amet, consetetur sadipscing elitr, At accusam aliquyam diam diam dolore dolores duo eirmod eos
+        erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum.
+      </p>
+
+      <h3><span translate>SECTION_CUSTOMER_FEEDBACK</span></h3>
+      <slideshow [height]="'300px'"
+                 [autoPlay]="true"
+                 [arrowSize]="'10px'"
+                 [showArrows]="true"
+                 [showDots]="false"
+                 [imageUrls]="slideshowDataSource">
+      </slideshow>
+
+      <div *ngIf="twitterUrl || facebookUrl" class="social">
+        <h3><span translate="">SECTION_SOCIAL_MEDIA</span></h3>
+        <a *ngIf="twitterUrl" [href]="twitterUrl" target="_blank" rel="noopener noreferrer" style="margin-left: 0px;" aria-label="Button for the Twitter page of the shop">
+          <button mat-raised-button color="accent"><i class="fab fa-twitter fa-lg"></i> Twitter</button>
+        </a>
+        <a *ngIf="facebookUrl" [href]="facebookUrl" target="_blank" rel="noopener noreferrer" aria-label="Button for the Facebook page of the shop">
+          <button mat-raised-button color="accent"><i class="fab fa-facebook fa-lg"></i> Facebook</button>
+        </a>
+        <a *ngIf="slackUrl" [href]="slackUrl" target="_blank" rel="noopener noreferrer" aria-label="Button for the Slack page of the shop">
+          <button mat-raised-button color="accent"><i class="fab fa-slack fa-lg"></i> Slack</button>
+        </a>
+        <a *ngIf="redditUrl" [href]="redditUrl" target="_blank" rel="noopener noreferrer" aria-label="Button for the Reddit page of the shop">
+          <button mat-raised-button color="accent"><i class="fab fa-reddit fa-lg"></i> Reddit</button>
+        </a>
+        <a *ngIf="pressKitUrl" [href]="pressKitUrl" target="_blank" rel="noopener noreferrer" aria-label="Button for the PressKit page of the shop">
+          <button mat-raised-button color="accent"><i class="far fa-newspaper fa-lg"></i> Press Kit</button>
+        </a>
+        <a *ngIf="nftUrl" [href]="nftUrl" target="_blank" rel="noopener noreferrer" aria-label="Button for the NFT of the shop">
+          <button mat-raised-button color="accent"><i class="fas fa-palette fa-lg"></i> NFT</button>
+        </a>
+      </div>
+    </section>
+  </mat-card>
+</div>

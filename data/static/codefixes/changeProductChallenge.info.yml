@@ -1,0 +1,13 @@
+fixes:
+  - id: 1
+    explanation: "While removing the commented-out line made the code cleaner, it did not change the functionality in any way and thus cannot have improved security either."
+  - id: 2
+    explanation: 'Removing all dedicated handling of the products API made things worse, as now the default permissions of the underlying API generator will be used: Allowing GET, POST, PUT and DELETE - without any restrictions.'
+  - id: 3
+    explanation: "Disabling all HTTP verbs other than GET for the products API is indeed the only safe way to implement secure access control. Shop administrators should not use the customer facing web UI to manage the store's inventory anyway."
+  - id: 4
+    explanation: 'You improved security slightly by no longer accepting PUT requests from anonymous API callers. But does the shop even want to allow its authenticated customers to change products themselves?'
+hints:
+  - "In the long list of API-handling middleware, try to find the ones dealing with products offered in the shop first."
+  - 'API routes need to specifically define a handler for a HTTP verb if they wish to override the "allow everything to everyone" default behavior.'
+  - "There is one line that is commented out for no good reason among the product-related middleware."

@@ -1,0 +1,15 @@
+@import '~highlight.js/styles/vs.css';
+
+#emphasize {
+  float: left;
+  padding: 1em 0.5em;
+}
+
+#code {
+  width: 60em;
+  // height: 50em;
+}
+
+.lineMarker {
+  cursor: pointer;
+}

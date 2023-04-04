@@ -1,0 +1,100 @@
+<!--
+  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+  <mat-card>
+    <div class="container" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
+
+      <div class="whitepaper-container offer-container" fxFlexAlign="center">
+
+        <mat-card-header>
+          <mat-card-title>
+            {{'TITLE_TOKENSALE' | translate}}
+          </mat-card-title>
+          <mat-card-subtitle [innerHtml]="'SECTION_ICO' | translate:{juicycoin: altcoinName}"></mat-card-subtitle>
+        </mat-card-header>
+        <div class="divider"></div>
+        <mat-card class="mat-elevation-z6">
+          <h4>{{'SECTION_WHITEPAPER' | translate}} <small style="margin-left: 10px;">(<span translate>WHITEPAPER_REFERENCES</span>)</small></h4>
+          <div>
+            <a href="https://ponzico.win/ponzico.pdf" target="_blank" rel="noopener noreferrer"><button mat-raised-button color="accent"><i class="fas fa-university fa-lg"></i> PonzICO Whitepaper</button></a>
+            <a href="https://www.sec.gov/investor/alerts/ia_virtualcurrencies.pdf" target="_blank" rel="noopener noreferrer"><button mat-raised-button color="accent"><i class="fas fa-graduation-cap fa-lg"></i> PonziCoin Whitepaper</button></a>
+          </div>
+        </mat-card>
+        <div class="offer-box">
+          <h3 translate>SECTION_SALES_PITCH</h3>
+          <p class="text-justify">
+            Lorem ipsum dolor sit amet <strong><i class='fab fa-bitcoin'></i> {{altcoinName}}</strong>, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+            <span translate>GIVE_US_ALL_YOUR_MONEY</span>
+
+            Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+
+            <span translate>GIVE_US_ALL_YOUR_MONEY</span>
+
+            Ut wisi enim ad minim veniam, quis <strong><i class='fab fa-bitcoin'></i> {{altcoinName}}</strong> nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+
+            <span translate>GIVE_US_ALL_YOUR_MONEY</span>
+
+            Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+
+            <span translate>GIVE_US_ALL_YOUR_MONEY</span>
+
+            Duis autem vel eum <strong><i class='fab fa-bitcoin'></i> {{altcoinName}}</strong> iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis.
+
+            <span translate>GIVE_US_ALL_YOUR_MONEY</span>
+
+            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, At accusam aliquyam diam diam dolore dolores duo eirmod eos erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum. sanctus sea sed takimata ut vero voluptua. <span class='badge'><i class='fab fa-bitcoin'></i> {{altcoinName}}</span> est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="faq-container" fxFlexAlign.lt-md="center">
+        <mat-card-header>
+          <mat-card-title class="title" translate>ICO_FAQ</mat-card-title>
+        </mat-card-header>
+        <div class="divider"></div>
+
+        <mat-card class="mat-elevation-z6">
+          <h5><i class='fas fa-comments fa-2x'></i> Stet <strong><i class='fab fa-bitcoin'></i> {{altcoinName}}</strong> clita kasd gubergren?</h5>
+          <small class="text-justify">
+            Stet clita kasd gubergren, no <strong><i class='fab fa-bitcoin'></i> {{altcoinName}}</strong> sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+          </small>
+        </mat-card>
+
+        <mat-card class="mat-elevation-z6">
+          <h5><i class='far fa-comment-alt fa-2x'></i> Consetetur sadipscing elitr?</h5>
+          <small class="text-justify">
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed <strong><i class='fab fa-bitcoin'></i> {{altcoinName}}</strong> diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+          </small>
+        </mat-card>
+
+        <mat-card class="mat-elevation-z6">
+          <h5><i class='far fa-comments fa-2x'></i> Hendrerit <strong><i class='fab fa-bitcoin'></i> {{altcoinName}}</strong> in vulputate velit?</h5>
+          <small class="text-justify">
+            Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis.
+          </small>
+        </mat-card>
+
+        <mat-card class="mat-elevation-z6">
+          <h5><i class='fas fa-comment-alt fa-2x'></i> Justo duo dolores et ea rebum?</h5>
+          <small class="text-justify">
+            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+          </small>
+        </mat-card>
+
+        <mat-card class="mat-elevation-z6">
+          <h5><i class='fas fa-comments fa-2x'></i> <span style="margin-left: 10px;" [innerHtml]="'ICO_FAQ_QUESTION' | translate:{juicycoin: altcoinName}"></span></h5>
+          <small class="text-justify" translate>ICO_FAQ_ANSWER</small>
+        </mat-card>
+
+      </div>
+
+      <img src="assets/public/images/padding/56px.png"/>
+    </div>
+
+
+
+  </mat-card>

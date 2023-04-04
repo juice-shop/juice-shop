@@ -1,0 +1,14 @@
+# Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+# SPDX-License-Identifier: MIT
+
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "generic/ubuntu2110"
+  config.vm.hostname = "juice.sh"
+
+  config.vm.network "private_network", ip: "192.168.56.110"
+  config.vm.provision "file", source: "./default.conf", destination: "/tmp/juice-shop/default.conf"
+  config.vm.provision :shell, path: "bootstrap.sh"
+end

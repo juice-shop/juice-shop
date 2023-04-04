@@ -1,0 +1,116 @@
+<!--
+  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+<mat-card class="mat-elevation-z6 mat-own-card">
+  <h1 translate>ACCOUNTING</h1>
+
+  <div class="container" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
+    <div class="orders-container" fxFlexAlign="center">
+      <div class="orders-table">
+        <div class="heading">
+          <span translate>TITLE_TRACK_ORDERS</span>
+        </div>
+        <mat-table [dataSource]="orderSource">
+          <ng-container matColumnDef="OrderId">
+            <mat-header-cell *matHeaderCellDef translate="LABEL_ORDER_ID" fxFlex="50%"></mat-header-cell>
+            <mat-cell *matCellDef="let element" fxFlex="50%"> {{element.orderId }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Price">
+            <mat-header-cell *matHeaderCellDef translate="LABEL_PRICE" fxFlex="15%"></mat-header-cell>
+            <mat-cell *matCellDef="let element" fxFlex="15%"> {{element.totalPrice?.toFixed(2) }}&curren;</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Status">
+            <mat-header-cell *matHeaderCellDef translate="LABEL_STATUS" fxFlex="20%"></mat-header-cell>
+            <mat-cell *matCellDef="let element" fxFlex="20%">
+              <div *ngIf="!element.delivered" class="error" translate>LABEL_IN_TRANSIT</div>
+              <div *ngIf="element.delivered" class="confirmation" translate>LABEL_DELIVERED</div>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="StatusButton">
+            <mat-header-cell *matHeaderCellDef fxFlex="15%"></mat-header-cell>
+            <mat-cell *matCellDef="let element" fxFlex="15%">
+              <button *ngIf="element.delivered" mat-icon-button aria-label="Print order confirmation"
+                      matTooltip="{{ 'LABEL_MARK_AS_TRANSIT' | translate }}" matTooltipPosition="below"
+                      (click)="changeDeliveryStatus(element.delivered, element.id)">
+                <mat-icon>
+                  cached
+                </mat-icon>
+              </button>
+              <button *ngIf="!element.delivered" mat-icon-button aria-label="Print order confirmation"
+                      matTooltip="{{ 'LABEL_MARK_AS_DELIVERED' | translate }}" matTooltipPosition="below"
+                      (click)="changeDeliveryStatus(element.delivered, element.id)">
+                <mat-icon>
+                  check_circle
+                </mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="orderHistoryColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: orderHistoryColumns;"></mat-row>
+
+        </mat-table>
+
+        <mat-paginator #paginatorOrderHistory
+                       [pageSize]="10"
+                       class="mat-elevation-z0"
+                       color="accent">
+        </mat-paginator>
+      </div>
+    </div>
+
+    <div class="inventory-container" fxFlexAlign.lt-md="center">
+      <div class="inventory-table">
+        <div class="heading">
+          <span translate>TITLE_ALL_PRODUCTS</span>
+        </div>
+        <mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="Product">
+            <mat-header-cell *matHeaderCellDef translate="LABEL_PRODUCT" fxFlex="50%"
+                             fxFlex.lt-md="50%"></mat-header-cell>
+            <mat-cell *matCellDef="let element" fxFlex="50%" fxFlex.lt-md="50%"> {{element.name}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Price">
+            <mat-header-cell *matHeaderCellDef translate="LABEL_PRICE" fxFlex="25%"
+                             fxFlex.lt-md="25%"></mat-header-cell>
+            <mat-cell *matCellDef="let element" fxFlex="25%" fxFlex.lt-md="25%">
+              <mat-form-field class="input-field">
+                <input #price matInput type="number" value="{{ element.price }}">
+                <button mat-icon-button (click)="modifyPrice(element.id, price.value)" matSuffix><i
+                  class="fas fa-check"></i></button>
+              </mat-form-field>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Quantity">
+            <mat-header-cell *matHeaderCellDef translate="LABEL_QUANTITY" fxFlex="25%"
+                             fxFlex.lt-md="25%"></mat-header-cell>
+            <mat-cell *matCellDef="let element" fxFlex="25%" fxFlex.lt-md="25%">
+              <mat-form-field class="input-field">
+                <input #quanitity matInput type="number" value="{{ quantityMap[element.id].quantity }}">
+                <button mat-icon-button (click)="modifyQuantity(quantityMap[element.id].id, quanitity.value)" matSuffix>
+                  <i class="fas fa-check"></i></button>
+              </mat-form-field>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+        </mat-table>
+
+        <mat-paginator #paginator
+                       [pageSize]="10"
+                       class="mat-elevation-z0"
+                       color="accent">
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</mat-card>

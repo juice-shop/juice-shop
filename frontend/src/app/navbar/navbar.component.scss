@@ -1,0 +1,81 @@
+/*!
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+mat-toolbar {
+  height: auto;
+  min-width: 100%;
+  padding-bottom: 5px;
+  width: 100%;
+}
+
+.mat-button {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.logo {
+  max-height: 60px;
+  width: auto;
+}
+
+.avatar {
+  background-repeat: no-repeat no-repeat;
+  border-radius: 50%;
+  display: inline-block;
+  max-height: 35px;
+  max-width: 35px;
+  padding: 0;
+  pointer-events: none;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.language-select {
+  margin-left: 10px;
+  width: 11%;
+}
+
+::ng-deep .mat-select-value-text {
+  font-size: 15px;
+}
+
+.user-info {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.fi {
+  margin-right: 2px;
+}
+
+:host ::ng-deep mat-form-field {
+  background: transparent !important;
+}
+
+:host ::ng-deep mat-icon {
+  background: transparent !important;
+}
+
+mat-search-bar {
+  font-size: 13px;
+  margin-right: 14px;
+}
+
+.buttons {
+  width: auto;
+}
+
+@media screen and (max-width: 959px) {
+  .buttons {
+    width: 48px;
+  }
+}
+
+:host ::ng-deep .mat-form-field-infix {
+  max-width: 250px !important;
+  width: 14vw !important;
+}

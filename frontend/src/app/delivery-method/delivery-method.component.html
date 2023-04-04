@@ -1,0 +1,60 @@
+<!--
+  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+<mat-card class="mat-elevation-z6">
+
+  <div *ngIf="address" class="addressCont">
+    <h1 translate>LABEL_DELIVERY_ADDRESS</h1>
+    <div>{{address?.fullName}}</div>
+    <div>{{address?.streetAddress}}, {{address?.city}}, {{address?.state}}, {{address?.zipCode}}</div>
+    <div>{{address?.country}}</div>
+    <div><span translate>PHONE_NUMBER</span> {{address?.mobileNum}}</div>
+  </div>
+  <mat-divider *ngIf="address" class="detail-divider"></mat-divider>
+  <div style="height: 12px;"></div>
+  <div>
+    <h1 translate>LABEL_CHOOSE_A_DELIVERY_SPEED</h1>
+    <mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="Selection">
+        <mat-header-cell *matHeaderCellDef fxFlex="20%"></mat-header-cell>
+        <mat-cell *matCellDef="let element; let row" fxFlex="20%">
+          <mat-radio-button (click)=selectMethod(element.id) [checked]="selection.isSelected(row)"
+                            (change)="$event ? selection.toggle(row) : null"></mat-radio-button>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Name">
+        <mat-header-cell *matHeaderCellDef fxFlex="30%"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="30%"><i [ngClass]="element.icon"></i>&nbsp;{{ element.name }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Price">
+        <mat-header-cell *matHeaderCellDef translate="LABEL_PRICE" fxFlex="25%"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="25%">{{ element.price.toFixed(2) }}&curren;</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ETA">
+        <mat-header-cell *matHeaderCellDef translate="LABEL_EXPECTED_DELIVERY" fxFlex="25%"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="25%">{{ element.eta }} {{"LABEL_DAYS" | translate}}</mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns; let element"
+               (click)="selection.toggle(row); selectMethod(element.id)"></mat-row>
+    </mat-table>
+  </div>
+  <div style="margin-top: 20px;">
+    <button mat-stroked-button class="btn btn-return" (click)="routeToPreviousUrl()">
+      <mat-icon>
+        navigate_before
+      </mat-icon>
+      {{'LABEL_BACK' | translate}}
+    </button>
+    <button mat-raised-button mat-button class="btn nextButton" color="primary"
+            aria-label="Proceed to delivery method selection" [disabled]="deliveryMethodId === undefined"
+            (click)="chooseDeliveryMethod()">
+      <mat-icon>
+        navigate_next
+      </mat-icon>
+      <span translate>LABEL_CONTINUE</span>
+    </button>
+  </div>
+</mat-card>

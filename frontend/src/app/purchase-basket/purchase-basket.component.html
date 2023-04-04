@@ -1,0 +1,56 @@
+<!--
+  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+
+<h1>
+  {{"TITLE_BASKET" | translate}}
+  <small>{{userEmail}}</small>
+</h1>
+<mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="image">
+    <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
+    <mat-cell *matCellDef="let element" fxShow fxHide.lt-md fxFlex="20%" class="content-align">
+      <img [src]="'assets/public/images/products/'+element.image" alt={{element.name}}
+           class="img-responsive img-thumbnail">
+    </mat-cell>
+    <mat-footer-cell *matFooterCellDef fxShow fxHide.lt-md fxFlex="20%" class="content-align"></mat-footer-cell>
+  </ng-container>
+  <ng-container matColumnDef="product">
+    <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
+    <mat-cell *matCellDef="let element" fxFlex="35%" fxFlex.lt-md="30%" style="font-size: initial;"> {{element.name}}
+    </mat-cell>
+    <mat-footer-cell *matFooterCellDef fxFlex="35%" fxFlex.lt-md="30%"></mat-footer-cell>
+  </ng-container>
+  <ng-container matColumnDef="quantity">
+    <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
+    <mat-cell *matCellDef="let element" fxFlex="16%" fxFlex.lt-md="35%" class="content-align">
+      <button mat-icon-button (click)="dec(element.BasketItem.id)" *ngIf="allowEdit"><i class="fas fa-minus-square"></i>
+      </button>
+      <span style="font-size: initial;"> {{element.BasketItem.quantity}}</span>
+      <button mat-icon-button (click)="inc(element.BasketItem.id)" *ngIf="allowEdit"><i class="fas fa-plus-square"></i>
+      </button>
+    </mat-cell>
+    <mat-footer-cell *matFooterCellDef fxFlex="16%" fxFlex.lt-md="35%" class="header-align">TOTAL</mat-footer-cell>
+  </ng-container>
+  <ng-container matColumnDef="price">
+    <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
+    <mat-cell *matCellDef="let element" fxShow fxHide.lt-md fxFlex="16%" style="font-size: initial;"> {{element.price}}&curren;</mat-cell>
+    <mat-footer-cell *matFooterCellDef fxShow fxHide.lt-md fxFlex="16%"></mat-footer-cell>
+  </ng-container>
+  <ng-container matColumnDef="remove" *ngIf="allowEdit">
+    <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
+    <mat-cell *matCellDef="let element" fxFlex="10%" fxFlex.lt-md="15%">
+      <button mat-icon-button (click)="delete(element.BasketItem.id)"><i class="far fa-trash-alt"></i></button>
+    </mat-cell>
+    <mat-footer-cell *matFooterCellDef fxFlex="10%" fxFlex.lt-md="15%"></mat-footer-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
+  <span *ngIf="displayTotal">
+				<mat-footer-row mat-footer-row *matFooterRowDef="tableColumns"></mat-footer-row>
+		 </span>
+
+</mat-table>
+<div *ngIf="totalPrice" id="price">{{"LABEL_TOTAL_PRICE"| translate }}: {{itemTotal}}¤</div>

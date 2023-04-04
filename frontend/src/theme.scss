@@ -1,0 +1,38 @@
+/*!
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+@use '@angular/material' as mat;
+
+@import '@angular/material/theming';
+
+@include mat.core;
+
+$deeppurple-amber-primary: mat.define-palette(mat.$deep-purple-palette);
+$deeppurple-amber-accent: mat.define-palette(mat.$amber-palette, 700, 600, 800);
+$deeppurple-amber-theme: mat.define-light-theme($deeppurple-amber-primary, $deeppurple-amber-accent);
+
+$indigo-pink-primary: mat.define-palette(mat.$indigo-palette);
+$indigo-pink-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$indigo-pink-theme: mat.define-light-theme($indigo-pink-primary, $indigo-pink-accent);
+
+$pink-bluegrey-primary: mat.define-palette(mat.$pink-palette, 700, 500, 900);
+$pink-bluegrey-accent: mat.define-palette(mat.$blue-grey-palette, A200, A100, A400);
+$pink-bluegrey-theme: mat.define-dark-theme($pink-bluegrey-primary, $pink-bluegrey-accent);
+
+$purple-green-primary: mat.define-palette(mat.$purple-palette, 700, 500, 800);
+$purple-green-accent: mat.define-palette(mat.$green-palette, A200, A100, A400);
+$purple-green-theme: mat.define-dark-theme($purple-green-primary, $purple-green-accent);
+
+$blue-lightblue-primary: mat.define-palette(mat.$blue-palette, 700, 400, 800);
+$blue-lightblue-accent: mat.define-palette(mat.$light-blue-palette, 700, 600, 800);
+$blue-lightblue-theme: mat.define-light-theme($blue-lightblue-primary, $blue-lightblue-accent);
+
+$bluegrey-lightgreen-primary: mat.define-palette(mat.$blue-grey-palette, 600, 500, 900);
+$bluegrey-lightgreen-accent: mat.define-palette(mat.$light-green-palette, 700, 300, 800);
+$bluegrey-lightgreen-warn: mat.define-palette(mat.$deep-orange-palette);
+$bluegrey-lightgreen-theme: mat.define-dark-theme($bluegrey-lightgreen-primary, $bluegrey-lightgreen-accent, $bluegrey-lightgreen-warn);
+
+$deeporange-indigo-primary: mat.define-palette(mat.$deep-orange-palette, 700, 500, 900);
+$deeporange-indigo-accent: mat.define-palette(mat.$indigo-palette, 900, 300, A100);
+$deeporange-indigo-theme: mat.define-light-theme($deeporange-indigo-primary, $deeporange-indigo-accent);
