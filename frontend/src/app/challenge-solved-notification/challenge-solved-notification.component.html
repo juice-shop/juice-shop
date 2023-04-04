@@ -1,0 +1,30 @@
+<!--
+  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+<div class="container challenge-solved-toast mat-elevation-z4">
+  <mat-card class="accent-notification" *ngFor="let notification of notifications; index as index">
+    <div>{{notification.message}}<button id="closeButton" mat-button (click)="closeNotification(index, $event.shiftKey)">X</button></div>
+    <br>
+    <div [hidden]="!showCtfFlagsInNotifications">
+      <span class="icon-box"><mat-icon>outlined_flag</mat-icon> {{notification.flag}}</span>&nbsp;
+      <button ngxClipboard mat-stroked-button [cbContent]="notification.flag" (cbOnSuccess)="notification.copied = true" [disabled]="notification.copied">
+        <mat-icon>content_copy</mat-icon>
+        <span [hidden]="!notification.copied">{{"COPY_SUCCESS" | translate}}</span>
+        <span [hidden]="notification.copied">{{"COPY_TO_CLIPBOARD" | translate}}</span>
+      </button>
+      <br>
+      <span *ngIf="showCtfCountryDetailsInNotifications !== 'none'" class="icon-box">
+        <span
+          class="fi fi-{{notification.country.code | lowercase}}"
+          *ngIf="showCtfCountryDetailsInNotifications === 'flag' || showCtfCountryDetailsInNotifications === 'both'">
+        </span>
+        <mat-icon *ngIf="showCtfCountryDetailsInNotifications === 'name'">my_location</mat-icon>&nbsp;
+        <span *ngIf="showCtfCountryDetailsInNotifications === 'name' || showCtfCountryDetailsInNotifications === 'both'">
+            {{notification.country.name}}
+        </span>
+      </span>
+    </div>
+  </mat-card>
+</div>

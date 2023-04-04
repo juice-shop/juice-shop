@@ -1,0 +1,279 @@
+<!--
+  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+<mat-toolbar class="mat-elevation-z6" color="primary">
+  <mat-toolbar-row>
+    <h2> {{applicationName}}</h2>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-nav-list>
+
+  <button mat-button style="height: 0; position: absolute;">
+    <!-- 'absorbs' the auto-focus behavior -->
+  </button>
+  <h3 mat-subheader class="side-subHeader" translate fxHide fxShow.lt-md>ACCOUNT</h3>
+
+  <div fxHide fxShow.lt-md>
+    <a mat-list-item *ngIf="!isLoggedIn()" routerLink="/login" (click)="onToggleSidenav();"
+       aria-label="Go to login page">
+      <mat-icon>
+        exit_to_app
+      </mat-icon>
+      <span class="menu-text truncate">
+        {{"TITLE_LOGIN" | translate }}
+      </span>
+    </a>
+    <a mat-list-item *ngIf="isLoggedIn()" (click)="onToggleSidenav(); goToProfilePage();"
+       aria-label="Go to user profile">
+      <mat-icon>
+        account_circle
+      </mat-icon>
+      <span class="menu-text truncate">
+        {{ userEmail }}
+      </span>
+    </a>
+    <a mat-list-item *ngIf="isLoggedIn() && isAccounting()" routerLink="/accounting" (click)="onToggleSidenav();" aria-label="Go to accounting page">
+      <mat-icon>
+        account_balance
+      </mat-icon>
+      <span class="menu-text truncate">
+        {{"ACCOUNTING" | translate }}
+      </span>
+    </a>
+
+    <mat-list-item *ngIf="isLoggedIn()" (click)="showOrdersSubmenu = !showOrdersSubmenu" class="parent"
+                   aria-label="Show Orders and Payment Menu">
+      <mat-icon>
+        check_circle_outline
+      </mat-icon>
+      <span class="menu-text truncate">
+        {{ "ORDERS_AND_PAYMENT" | translate }}
+      </span>
+      <mat-icon class="menu-button" [ngClass]="{'rotated' : showOrdersSubmenu}">
+        expand_more
+      </mat-icon>
+    </mat-list-item>
+    <div class="submenu" [ngClass]="{'expanded' : showOrdersSubmenu}" *ngIf="showOrdersSubmenu">
+      <a mat-list-item *ngIf="isLoggedIn()" routerLink="/order-history"
+         (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu" aria-label="Go to order history page">
+        <mat-icon>
+          archive
+        </mat-icon>
+        <span class="menu-text truncate">
+        {{"LABEL_ORDER_HISTORY" | translate}}
+      </span>
+      </a>
+      <a mat-list-item *ngIf="isLoggedIn()" routerLink="/recycle"
+         (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu" aria-label="Go to recycling page">
+        <mat-icon>
+          autorenew
+        </mat-icon>
+        <span class="menu-text truncate">
+        {{"NAV_RECYCLE" | translate}}
+      </span>
+      </a>
+      <mat-divider></mat-divider>
+      <a mat-list-item *ngIf="isLoggedIn()" routerLink="/address/saved"
+         (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu" aria-label="Go to saved address page">
+        <mat-icon>
+          my_location
+        </mat-icon>
+        <span class="menu-text truncate">
+        {{"MY_SAVED_ADRESSES" | translate}}
+      </span>
+      </a>
+      <a mat-list-item *ngIf="isLoggedIn()" routerLink="/saved-payment-methods"
+         (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu" aria-label="Go to saved payment methods page">
+        <mat-icon>
+          credit_card
+        </mat-icon>
+        <span class="menu-text truncate">
+        {{"MY_PAYMENT_OPTIONS" | translate}}
+      </span>
+      </a>
+      <a mat-list-item *ngIf="isLoggedIn()" routerLink="/wallet"
+         (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu" aria-label="Go to wallet page">
+        <mat-icon>
+          account_balance_wallet
+        </mat-icon>
+        <span class="menu-text truncate">
+        {{"DIGITAL_WALLET" | translate}}
+      </span>
+      </a>
+    </div>
+
+    <mat-list-item *ngIf="isLoggedIn()" (click)="showPrivacySubmenu = !showPrivacySubmenu" class="parent"
+                   aria-label="Show Privacy and Security Menu">
+      <mat-icon>
+        security
+      </mat-icon>
+      <span class="menu-text truncate">
+        {{ "PRIVACY_AND_SECURITY" | translate }}
+      </span>
+      <mat-icon class="menu-button" [ngClass]="{'rotated' : showPrivacySubmenu}">
+        expand_more
+      </mat-icon>
+    </mat-list-item>
+    <div class="submenu" [ngClass]="{'expanded' : showPrivacySubmenu}" *ngIf="showPrivacySubmenu">
+      <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/privacy-policy"
+         (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to privacy policy page">
+        <mat-icon>
+          assignment
+        </mat-icon>
+        <span class="menu-text truncate" translate>TITLE_PRIVACY_POLICY</span>
+      </a>
+      <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/data-export"
+         (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to data export page">
+        <mat-icon>
+          get_app
+        </mat-icon>
+        <span class="menu-text truncate" translate>TITLE_REQUEST_DATA_EXPORT</span>
+      </a>
+      <a mat-list-item *ngIf="isLoggedIn()" (click) = "goToDataErasurePage()"
+         (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to data subject page">
+        <mat-icon>
+          delete_forever
+        </mat-icon>
+        <span class="menu-text truncate" translate>DATA_SUBJECT_TITLE</span>
+      </a>
+      <mat-divider></mat-divider>
+      <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/change-password"
+         (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to change password page">
+        <mat-icon>
+          edit
+        </mat-icon>
+        <span class="menu-text truncate" translate>TITLE_CHANGE_PASSWORD</span>
+      </a>
+      <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/two-factor-authentication"
+         (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to two factor authentication page">
+        <mat-icon>
+          exposure_plus_2
+        </mat-icon>
+        <span class="menu-text truncate" translate>TITLE_TWO_FACTOR_AUTH_CONFIG</span>
+      </a>
+      <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/last-login-ip"
+         (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to last login ip page">
+        <mat-icon>
+          place
+        </mat-icon>
+        <span class="menu-text truncate" translate>LAST_LOGIN_IP</span>
+      </a>
+    </div>
+
+    <a mat-list-item *ngIf="isLoggedIn()" (click)="onToggleSidenav(); logout()" aria-label="Logout">
+      <mat-icon>
+        power_settings_new
+      </mat-icon>
+      <span class="menu-text truncate">
+        {{"TITLE_LOGOUT" | translate }}
+      </span>
+    </a>
+  </div>
+
+  <mat-divider fxHide fxShow.lt-md></mat-divider>
+
+  <h3 mat-subheader class="side-subHeader" translate>TITLE_CONTACT</h3>
+  <a mat-list-item routerLink="/contact" (click)="onToggleSidenav();" aria-label="Go to contact us page">
+    <i class="material-icons">
+      feedback
+    </i>
+    <span class="menu-text truncate">
+      {{"SECTION_CUSTOMER_FEEDBACK" | translate}}
+    </span>
+  </a>
+  <a mat-list-item *ngIf="isLoggedIn()" routerLink="/complain" (click)="onToggleSidenav();"
+     aria-label="Go to complain page">
+    <i class="material-icons">
+      sentiment_dissatisfied
+    </i>
+    <span class="menu-text truncate">
+      {{"NAV_COMPLAIN" | translate}}
+    </span>
+  </a>
+  <a mat-list-item *ngIf="isLoggedIn()" routerLink="/chatbot" (click)="onToggleSidenav();"
+     aria-label="Go to chatbot page">
+     <i class="material-icons">
+      chat
+    </i>
+    <span class="menu-text truncate">
+      {{"SECTION_SUPPORT_CHAT" | translate}}
+    </span>
+  </a>
+
+  <mat-divider></mat-divider>
+
+  <h3 mat-subheader class="side-subHeader" translate>COMPANY</h3>
+  <a mat-list-item routerLink="/about" (click)="onToggleSidenav()" aria-label="Go to about us page">
+    <i class="material-icons">
+      business_center
+    </i>
+    <span class="menu-text truncate">
+      {{"TITLE_ABOUT" | translate}}
+    </span>
+  </a>
+  <a mat-list-item routerLink="/photo-wall" (click)="onToggleSidenav()" aria-label="Go to photo wall">
+    <i class="material-icons">
+      camera
+    </i>
+    <span class="menu-text truncate">
+      {{"LABEL_PHOTO_WALL" | translate}}
+    </span>
+  </a>
+  <a mat-list-item *ngIf="isLoggedIn()" routerLink="/deluxe-membership" (click)="onToggleSidenav()" aria-label="Go to deluxe membership page">
+    <i class="material-icons">
+      card_membership
+    </i>
+    <span class="menu-text truncate">
+      {{"LABEL_DELUXE_MEMBERSHIP" | translate}}
+    </span>
+  </a>
+
+  <mat-divider *ngIf="scoreBoardVisible || showGitHubLink" style="margin-bottom: 10px;"></mat-divider>
+
+  <a *ngIf="scoreBoardVisible" mat-list-item routerLink="/score-board" (click)="onToggleSidenav()"
+     aria-label="Open score-board">
+    <mat-icon matListIcon class="fas fa-trophy fa-lg"></mat-icon>
+    <span class="menu-text truncate">
+      {{"TITLE_SCORE_BOARD" | translate}}
+    </span>
+  </a>
+  <a *ngIf="!scoreBoardVisible && offerScoreBoardTutorial" mat-list-item (click)="startHackingInstructor()"
+     aria-label="Launch beginners tutorial">
+    <i class="material-icons">
+      school
+    </i>
+    <span class="menu-text truncate">
+      {{"BTN_GETTING_STARTED" | translate}}
+    </span>
+  </a>
+
+  <a *ngIf="showGitHubLink" mat-list-item href="./redirect?to=https://github.com/bkimminich/juice-shop"
+     aria-label="Go to OWASP Juice Shop GitHub page">
+    <mat-icon matListIcon class="fab fa-github fa-lg"></mat-icon>
+    <span class="menu-text truncate">
+      GitHub
+    </span>
+  </a>
+</mat-nav-list>
+
+<div class="appVersion">
+    <span>
+      <span style="font-size: 13px;">{{applicationName}}</span>
+      <br>
+      <span style="font-size: 12px;">{{version}}</span>
+      <br>
+      <div style="margin-top: 10px;">
+        <i class="icon-angular"></i>&nbsp;
+        <i class="icon-html5"></i>&nbsp;
+        <i class="icon-sass"></i>&nbsp;
+        <i class="icon-css3"></i>&nbsp;
+        <i class="icon-javascript-alt"></i>&nbsp;
+        <i class="icon-nodejs"></i>&nbsp;
+        <i class="icon-database-alt2"></i>&nbsp;
+        <i class="icon-mongodb"></i>
+      </div>
+    </span>
+</div>

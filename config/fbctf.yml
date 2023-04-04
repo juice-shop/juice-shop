@@ -1,0 +1,320 @@
+application:
+  logo: JuiceShopCTF_Logo.png
+  favicon: favicon_ctf.ico
+  showVersionNumber: false
+  showGitHubLinks: false
+  localBackupEnabled: false
+  welcomeBanner:
+    showOnFirstStart: false
+challenges:
+  showHints: false
+  showFeedbackButtons: false
+hackingInstructor:
+  isEnabled: false
+ctf:
+  showFlagsInNotifications: true
+  showCountryDetailsInNotifications: both
+  countryMapping:
+    scoreBoardChallenge:
+      name: Canada
+      code: CA
+    errorHandlingChallenge:
+      name: Austria
+      code: AT
+    forgedReviewChallenge:
+      name: Israel
+      code: IL
+    loginAdminChallenge:
+      name: Russian Federation
+      code: RU
+    loginJimChallenge:
+      name: Honduras
+      code: HN
+    loginBenderChallenge:
+      name: Guatemala
+      code: GT
+    localXssChallenge:
+      name: Germany
+      code: DE
+    reflectedXssChallenge:
+      name: Uruguay
+      code: UY
+    persistedXssUserChallenge:
+      name: Myanmar
+      code: MM
+    persistedXssFeedbackChallenge:
+      name: Costa Rica
+      code: CR
+    restfulXssChallenge:
+      name: Paraguay
+      code: PY
+    unionSqlInjectionChallenge:
+      name: Slovakia
+      code: SK
+    weakPasswordChallenge:
+      name: Madagascar
+      code: MG
+    feedbackChallenge:
+      name: Belize
+      code: BZ
+    forgedFeedbackChallenge:
+      name: Korea (Democratic People's Republic of)
+      code: KP
+    redirectCryptoCurrencyChallenge:
+      name: Korea
+      code: KR
+    redirectChallenge:
+      name: Belarus
+      code: BY
+    basketAccessChallenge:
+      name: Bolivia
+      code: BO
+    negativeOrderChallenge:
+      name: Switzerland
+      code: CH
+    directoryListingChallenge:
+      name: Peru
+      code: PE
+    forgottenDevBackupChallenge:
+      name: Ukraine
+      code: UA
+    forgottenBackupChallenge:
+      name: United States of America
+      code: US
+    adminSectionChallenge:
+      name: Turkey
+      code: TR
+    changePasswordBenderChallenge:
+      name: Suriname
+      code: SR
+    changeProductChallenge:
+      name: Colombia
+      code: CO
+    knownVulnerableComponentChallenge:
+      name: Poland
+      code: PL
+    weirdCryptoChallenge:
+      name: Ecuador
+      code: EC
+    easterEggLevelOneChallenge:
+      name: Sri Lanka
+      code: LK
+    easterEggLevelTwoChallenge:
+      name: Eritrea
+      code: ER
+    forgedCouponChallenge:
+      name: Panama
+      code: PA
+    christmasSpecialChallenge:
+      name: Falkland Islands (Malvinas)
+      code: FK
+    uploadSizeChallenge:
+      name: French Guiana
+      code: GF
+    uploadTypeChallenge:
+      name: Saudi Arabia
+      code: SA
+    fileWriteChallenge:
+      name: Iran
+      code: IR
+    extraLanguageChallenge:
+      name: Australia
+      code: AU
+    captchaBypassChallenge:
+      name: Côte d'Ivoire
+      code: CI
+    zeroStarsChallenge:
+      name: Argentina
+      code: AR
+    continueCodeChallenge:
+      name: Malaysia
+      code: MY
+    oauthUserPasswordChallenge:
+      name: South Sudan
+      code: SS
+    loginSupportChallenge:
+      name: Croatia
+      code: HR
+    loginRapperChallenge:
+      name: Albania
+      code: AL
+    premiumPaywallChallenge:
+      name: Algeria
+      code: DZ
+    resetPasswordJimChallenge:
+      name: Dominican Republic
+      code: DO
+    resetPasswordBenderChallenge:
+      name: Moldova
+      code: MD
+    resetPasswordMortyChallenge:
+      name: Czech Republic
+      code: CZ
+    resetPasswordBjoernChallenge:
+      name: Georgia
+      code: GE
+    noSqlCommandChallenge:
+      name: Trinidad and Tobago
+      code: TT
+    noSqlReviewsChallenge:
+      name: United Arab Emirates
+      code: AE
+    noSqlOrdersChallenge:
+      name: Estonia
+      code: EE
+    retrieveBlueprintChallenge:
+      name: Venezuela
+      code: VE
+    typosquattingNpmChallenge:
+      name: Nicaragua
+      code: NI
+    typosquattingAngularChallenge:
+      name: Senegal
+      code: SN
+    jwtUnsignedChallenge:
+      name: New Zealand
+      code: NZ
+    jwtForgedChallenge:
+      name: Mongolia
+      code: MN
+    misplacedSignatureFileChallenge:
+      name: Nepal
+      code: NP
+    deprecatedInterfaceChallenge:
+      name: Morocco
+      code: MA
+    xxeFileDisclosureChallenge:
+      name: Iraq
+      code: IQ
+    xxeDosChallenge:
+      name: China
+      code: CN
+    rceChallenge:
+      name: Brazil
+      code: BR
+    rceOccupyChallenge:
+      name: India
+      code: IN
+    tokenSaleChallenge:
+      name: United Kingdom
+      code: GB
+    securityPolicyChallenge:
+      name: Spain
+      code: ES
+    hiddenImageChallenge:
+      name: Lithuania
+      code: LT
+    supplyChainAttackChallenge:
+      name: Togo
+      code: TG
+    timingAttackChallenge:
+      name: Egypt
+      code: EG
+    basketManipulateChallenge:
+      name: Bhutan
+      code: BT
+    emailLeakChallenge:
+      name: Bahamas
+      code: BH
+    registerAdminChallenge:
+      name: Jamaica
+      code: JA
+    httpHeaderXssChallenge:
+      name: Puerto Rico
+      code: PR
+    sstiChallenge:
+      name: Indonesia
+      code: ID
+    ssrfChallenge:
+      name: Thailand
+      code: TH
+    loginAmyChallenge:
+      name: Andorra
+      code: AD
+    usernameXssChallenge:
+      name: Azerbaijan
+      code: AZ
+    resetPasswordBjoernOwaspChallenge:
+      name: Kazakhstan
+      code: KZ
+    accessLogDisclosureChallenge:
+      name: Singapore
+      code: SG
+    dlpPasswordSprayingChallenge:
+      name: Chad
+      code: TD
+    dlpPastebinDataLeakChallenge:
+      name: Turkmenistan
+      code: TK
+    videoXssChallenge:
+      name: Pakistan
+      code: PK
+    twoFactorAuthUnsafeSecretStorageChallenge:
+      name: Sweden
+      code: SE
+    manipulateClockChallenge:
+      name: Vatican City
+      code: VC
+    privacyPolicyChallenge:
+      name: Cameroon
+      code: CM
+    privacyPolicyProofChallenge:
+      name: Namibia
+      code: NA
+    passwordRepeatChallenge:
+      name: Guyana
+      code: GY
+    dataExportChallenge:
+      name: Cambodia
+      code: CB
+    ghostLoginChallenge:
+      name: Taiwan
+      code: TW
+    dbSchemaChallenge:
+      name: Brunei
+      code: BN
+    ephemeralAccountantChallenge:
+      name: Denmark
+      code: DK
+    missingEncodingChallenge:
+      name: Armenia
+      code: AM
+    svgInjectionChallenge:
+      name: Tunisia
+      code: TN
+    exposedMetricsChallenge:
+      name: Japan
+      code: JP
+    freeDeluxeChallenge:
+      name: Vietnam
+      code: VN
+    csrfChallenge:
+      name: Luxembourg
+      code: LU
+    xssBonusChallenge:
+      name: Ethiopia
+      code: ET
+    resetPasswordUvoginChallenge:
+      name: Republic of South Africa
+      code: RSA
+    geoStalkingMetaChallenge:
+      name: Belgium
+      code: BE
+    geoStalkingVisualChallenge:
+      name: The Netherlands
+      code: NL
+    killChatbotChallenge:
+      name: Czechoslovakia
+      code: CSK
+    nullByteChallenge:
+      name: Burundi
+      code: BI
+    bullyChatbotChallenge:
+      name: Guam
+      code: GU
+    lfrChallenge:
+      name: Ireland
+      code: IE
+    closeNotificationsChallenge:
+      name: Zambia
+      code: ZM

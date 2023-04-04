@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+<mat-card class="mat-elevation-z6">
+  <app-purchase-basket [allowEdit]="true" (emitTotal)="getBonusPoints($event)"
+                       (emitProductCount)="getProductCount($event)"></app-purchase-basket>
+  <button id="checkoutButton" class="checkout-button" color="primary" [disabled]="productCount < 1" (click)="checkout()"
+          mat-raised-button><i class="fas fa-cart-arrow-down"></i> {{"BTN_CHECKOUT" | translate}}
+  </button>
+  <div class="hint" translate [translateParams]="{'bonus': bonus}">CHECKOUT_FOR_BONUS_POINTS</div>
+</mat-card>

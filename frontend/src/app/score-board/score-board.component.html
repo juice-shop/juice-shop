@@ -1,0 +1,257 @@
+<!--
+  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+<div fxLayout="column">
+<div fxLayout="row" fxLayout.lt-md="column">
+  <mat-card fxFlex="grow">
+    <mat-card-title>{{"TITLE_SCORE_BOARD" | translate}}
+      <small class="confirmation">{{percentChallengesSolved}}%</small>
+    </mat-card-title>
+    <mat-progress-bar mode="determinate" [color]="'accent'" [value]="percentChallengesSolved"></mat-progress-bar>
+  </mat-card>
+  <mat-card *ngIf="codingChallengesEnabled !== 'never'">
+    <mat-card-title>{{"TITLE_CODING_SCORE" | translate}}
+      <small class="confirmation">{{percentCodingChallengesSolved}}%</small>
+    </mat-card-title>
+    <mat-progress-bar mode="determinate" [color]="'accent'" [value]="percentCodingChallengesSolved"></mat-progress-bar>
+  </mat-card>
+</div>
+
+  <mat-card>
+    <div class="star-container" fxLayout="row wrap">
+      <mat-button-toggle *ngFor="let difficulty of availableDifficulties" (change)="toggleDifficulty(difficulty)"
+                         [checked]="displayedDifficulties.includes(difficulty)" [disabled]="restrictToTutorialsFirst && difficulty > tutorialsTier"
+                         [matTooltip]="restrictToTutorialsFirst && !allTutorialsCompleted && difficulty > tutorialsTier ? ( isLastTutorialsTier ? ('INFO_FULL_CHALLENGE_MODE' | translate: {num: challenges.length}) : ('INFO_NEXT_TUTORIAL_TIER' | translate: {tier: '★'.repeat(tutorialsTier)})) : ''" matTooltipPosition="above">
+        <label>
+        <span class="fa-4x fa-layers fa-fw" style="display: block; margin: 5px;">
+          <svg [style.fill]="'url(#' + difficulty + ')'" class="svg-inline--fa fa-star fa-w-18 star-border" aria-hidden="true"
+               data-prefix="fa" data-icon="star" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
+               data-fa-i2svg="" stroke-width="10">
+            <linearGradient [id]="difficulty" x1="0" x2="0" y1="0" y2="100%">
+              <stop [attr.offset]="challenges ? offsetValue[difficulty - 1] : '100%'" class="empty-star"/>
+              <stop [attr.offset]="challenges ? offsetValue[difficulty - 1] : '100%'" class="filled-star"/>
+            </linearGradient>
+            <path [attr.fill]="'inherit'"
+                  d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+            </path>
+          </svg>
+          <span class="fa-layers-text fa-inverse" data-fa-transform="shrink-9"
+                style="font-weight:900;">{{difficulty}}</span>
+          <span
+            [class]="'fa-layers-counter ' + ((solvedChallengesOfDifficulty[difficulty - 1]).length === (totalChallengesOfDifficulty[difficulty - 1]).length ? 'accent-notification' : (solvedChallengesOfDifficulty[difficulty - 1]).length === 0 ? 'warn-notification' : 'primary-notification')">
+              {{((solvedChallengesOfDifficulty[difficulty - 1]).length + '/' + (totalChallengesOfDifficulty[difficulty - 1]).length)}}
+          </span>
+        </span>
+        </label>
+      </mat-button-toggle>
+
+      <button id="btnToggleAllDifficulties" class="mat-button" (click)="toggleAllDifficulty()" [disabled]="restrictToTutorialsFirst && !allTutorialsCompleted">{{(this.toggledMajorityOfDifficulties ? "BTN_HIDE_ALL" : "BTN_SHOW_ALL") | translate}}</button>
+
+      <mat-button-toggle (change)="toggleShowSolvedChallenges()" [checked]="showSolvedChallenges" [disabled]="restrictToTutorialsFirst && !allTutorialsCompleted"
+                         [matTooltip]="restrictToTutorialsFirst && !allTutorialsCompleted ? ('INFO_FULL_CHALLENGE_MODE' | translate: {num: challenges.length}) : ''" matTooltipPosition="above">
+        <i class="fa-2x fas fa-trophy" aria-hidden="true"></i> {{"BTN_SHOW_SOLVED" | translate}}
+      </mat-button-toggle>
+
+      <mat-button-toggle id="btnToggleShowOnlyTutorialChallenges" *ngIf="showHackingInstructor" (change)="toggleShowOnlyTutorialChallenges()"
+                         [checked]="showOnlyTutorialChallenges" [disabled]="restrictToTutorialsFirst && !allTutorialsCompleted"
+                         [matTooltip]="restrictToTutorialsFirst && !allTutorialsCompleted ? ('INFO_FULL_CHALLENGE_MODE' | translate: {num: challenges.length}) : ''" matTooltipPosition="above">
+        <mat-icon>
+          school
+        </mat-icon>
+        {{"BTN_SHOW_ONLY_TUTORIALS" | translate}}
+      </mat-button-toggle>
+
+      <mat-button-toggle *ngIf="numDisabledChallenges > 0" (change)="toggleShowDisabledChallenges()" [checked]="showDisabledChallenges"
+                         [disabled]="restrictToTutorialsFirst && !allTutorialsCompleted" [matTooltip]="restrictToTutorialsFirst && !allTutorialsCompleted ? ('INFO_FULL_CHALLENGE_MODE' | translate: {num: challenges.length}) : ''" matTooltipPosition="above">
+        <i class="fa-2x fas fa-exclamation-circle" aria-hidden="true"></i> {{"BTN_SHOW_UNAVAILABLE" | translate}}
+      </mat-button-toggle>
+
+      <button *ngIf="localBackupEnabled" mat-fab class="backupButton" color="primary" (click)="saveBackup()"
+              aria-label="Button to save local backup" matTooltip="{{ 'SAVE_BACKUP_TOOLTIP' | translate  }}"
+              matTooltipPosition="above">
+        <mat-icon>
+          save_alt
+        </mat-icon>
+      </button>
+
+      <div class="form-group">
+        <input type="file"
+               #restoreBackupFile
+               (change)="restoreBackup($event.target.files.item(0))"
+               style="display:none;">
+      </div>
+      <button *ngIf="localBackupEnabled" mat-fab class="backupButton" color="primary" (click)="restoreBackupFile.click()"
+              aria-label="Button to restore local backup" matTooltip="{{ 'RESTORE_BACKUP_TOOLTIP' | translate  }}"
+              matTooltipPosition="above">
+        <mat-icon>
+          settings_backup_restore
+        </mat-icon>
+      </button>
+
+      <div *ngIf="numDisabledChallenges > 0 && showDisabledChallenges" class="disabled-challenges-infoBox mat-button" [innerHTML]="'INFO_DISABLED_CHALLENGES' | translate: {num: numDisabledChallenges, env: disabledEnv}"></div>
+
+    </div>
+    <mat-divider></mat-divider>
+    <div class="category-container" fxLayout="row wrap">
+      <mat-button-toggle class="category-toggle" appearance="legacy" *ngFor="let category of availableChallengeCategories"
+                         (change)="toggleShowChallengeCategory(category)"
+                         [checked]="displayedChallengeCategories.includes(category)" [disabled]="restrictToTutorialsFirst && !allTutorialsCompleted"
+                         [matTooltip]="restrictToTutorialsFirst && !allTutorialsCompleted ? ('INFO_FULL_CHALLENGE_MODE' | translate: {num: challenges.length}) : ('CATEGORY_' + category?.toUpperCase().split(' ').join('_') + '_DESCRIPTION' | translate)" matTooltipPosition="above">
+        {{('CATEGORY_' + category?.toUpperCase().split(' ').join('_') | translate)}}
+      </mat-button-toggle>
+
+      <button class="mat-button" (click)="toggleAllChallengeCategory()" [disabled]="restrictToTutorialsFirst && !allTutorialsCompleted">{{(this.toggledMajorityOfCategories ? "BTN_HIDE_ALL" : "BTN_SHOW_ALL") | translate}}</button>
+    </div>
+
+  </mat-card>
+
+  <mat-card>
+    <mat-table *ngIf="challenges" [dataSource]="filterToDataSource(challenges)" [trackBy]="trackById">
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef translate>LABEL_NAME</mat-header-cell>
+        <mat-cell *matCellDef="let challenge">
+          {{challenge.name}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="difficulty">
+        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-sm translate>LABEL_DIFFICULTY</mat-header-cell>
+        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-sm>
+          <mat-icon *ngFor="let i of times(challenge.difficulty)">
+            star_rate
+          </mat-icon>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef fxFlex="1 1 31%" translate>LABEL_DESCRIPTION
+        </mat-header-cell>
+        <mat-cell *matCellDef="let challenge" fxFlex="1 1 31%">
+          <div [innerHTML]="challenge.description"></div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="category">
+        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md translate>LABEL_CATEGORY</mat-header-cell>
+        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-md>
+          {{('CATEGORY_' + challenge.category?.toUpperCase().split(' ').join('_') | translate)}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="tags">
+        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-lg translate>LABEL_TAGS</mat-header-cell>
+        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-lg>
+          <span *ngIf="challenge.tags">
+            <mat-chip-list *ngFor="let tag of challenge.tags.split(',').sort()">
+              <mat-chip [matTooltip]="('TAG_' + tag?.toUpperCase().split(' ').join('_') + '_DESCRIPTION' | translate)">
+                {{('TAG_' + tag?.toUpperCase().split(' ').join('_') | translate)}}
+              </mat-chip>
+            </mat-chip-list>
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef translate>LABEL_STATUS</mat-header-cell>
+        <mat-cell *matCellDef="let challenge">
+          <app-challenge-status-badge [challenge]="challenge"
+                                      [allowRepeatNotifications]="allowRepeatNotifications"
+                                      [showChallengeHints]="showChallengeHints">
+          </app-challenge-status-badge>
+          <button
+            *ngIf="showHackingInstructor && !challenge.solved && !challenge.disabledEnv && challenge.hasTutorial"
+            mat-mini-fab color="warn"
+            (click)="startHackingInstructor(challenge.name)"
+            [matTooltip]="('INFO_HACKING_INSTRUCTOR' | translate)"
+            matTooltipPosition="above"
+            class="hacking-instructor-button"
+            >
+            <mat-icon>
+              school
+            </mat-icon>
+          </button>
+          <a *ngIf="showVulnerabilityMitigations && challenge.solved && challenge.mitigationUrl" [href]="challenge.mitigationUrl" target="_blank">
+            <button
+              mat-mini-fab color="accent"
+              [matTooltip]="('INFO_VULNERABILITY_MITIGATION_LINK' | translate)"
+              matTooltipPosition="above"
+              class="vulnerability-mitigation-button"
+              >
+              <mat-icon>
+                policy
+              </mat-icon>
+            </button>
+          </a>
+          <div [matTooltip]="('SOLVE_HACKING_CHALLENGE' | translate)" [matTooltipDisabled]="!challenge.hasSnippet || codingChallengesEnabled === 'solved' && challenge.solved || codingChallengesEnabled === 'always'" matTooltipPosition="above">
+            <button
+              *ngIf="challenge.hasSnippet && codingChallengesEnabled !== 'never'"
+              [disabled]="codingChallengesEnabled === 'solved' && !challenge.solved"
+              mat-mini-fab
+              (click)="showCodeSnippet(challenge.key,challenge.name,challenge.codingChallengeStatus)"
+              [matTooltip]="('LAUNCH_CODING_CHALLENGE' | translate)"
+              matTooltipPosition="above"
+              class='code-snippet-button'
+              [color]="generateColor(challenge)"
+              [id]="challenge.name + '.codingChallengeButton'"
+              >
+              <mat-icon
+              [matBadge]="generateBadge(challenge)"
+              matBadgeSize="medium"
+              matBadgePosition="right"
+              matBadgeColor="accent"
+              >
+                code
+              </mat-icon>
+            </button>
+          </div>
+          <button
+            *ngIf="challenge.key === 'scoreBoardChallenge' && showHackingInstructor && challenge.solved && codingChallengesEnabled !== 'never' && challenge.codingChallengeStatus < 1"
+            mat-mini-fab color="warn"
+            (click)="startHackingInstructor('Coding Challenges')"
+            [matTooltip]="('INFO_HACKING_INSTRUCTOR' | translate)"
+            matTooltipPosition="above"
+            class='code-snippet-button'
+            id="codingChallengeTutorialButton"
+            >
+            <mat-icon
+            matBadge="<>"
+            matBadgeSize="small"
+            matBadgePosition="right"
+            matBadgeColor="primary"
+            >
+              school
+            </mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="feedback" *ngIf="showFeedbackButtons">
+        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-xl fxFlex="1 1 5%" translate>LABEL_FEEDBACK</mat-header-cell>
+        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-xl fxFlex="1 1 5%">
+          <a *ngIf="challenge.solved" [href]="'https://docs.google.com/forms/d/e/1FAIpQLSdaNEuz0dzFA2sexCa0AJ4QOb2OYdEL04eQOLFD2Y4T-BW6ag/viewform?usp=pp_url&entry.384948954=' + challenge.name + '&entry.435235279=Hacking+Challenge&entry.1734944650=Yes'" target="_blank">
+            <button mat-icon-button><mat-icon color="accent">thumb_up</mat-icon></button>
+          </a>
+          <a *ngIf="challenge.solved" [href]="'https://docs.google.com/forms/d/e/1FAIpQLSdaNEuz0dzFA2sexCa0AJ4QOb2OYdEL04eQOLFD2Y4T-BW6ag/viewform?usp=pp_url&entry.384948954=' + challenge.name + '&entry.435235279=Hacking+Challenge&entry.1734944650=No'" target="_blank">
+            <button mat-icon-button><mat-icon color="warn">thumb_down</mat-icon></button>
+          </a>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </mat-card>
+
+  <div *ngIf="showContributionInfoBox || questionnaireUrl" fxLayout="row" fxLayout.lt-lg="column">
+    <mat-card *ngIf="showContributionInfoBox" fxFlex="40%" fxFlex.lt-lg="100%" class="primary-notification" [innerHTML]="'CALL_FOR_CONTRIBUTIONS' | translate"></mat-card>
+    <span class="fill-remaining-space"></span>
+    <mat-card *ngIf="questionnaireUrl" fxFlex="20%" fxFlex.lt-lg="100%" class="warn-notification" [innerHTML]="'CALL_FOR_FEEDBACK' | translate: {appname: appName, questionnaire: questionnaireUrl}"></mat-card>
+  </div>
+</div>
+
+<img src="assets/public/images/padding/1px.png"/>
+
+<ngx-spinner fullscreen="true" type="timer" size="large"></ngx-spinner>

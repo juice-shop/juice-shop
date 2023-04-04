@@ -1,0 +1,44 @@
+<!--
+  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+<mat-dialog-content class="mat-typography">
+  <header>
+    <h1>{{"LABEL_USER" | translate}} #{{user?.id}}</h1>
+  </header>
+  <mat-divider></mat-divider>
+  <div class="container" fxLayout="column">
+    <div fxLayout="row" fxLayoutGap="10px">
+      <div>
+        <strong translate="LABEL_EMAIL"></strong>
+        <p>{{user?.email}}</p>
+      </div>
+      <!--<div>
+        <strong translate="LABEL_PASSWORD"></strong>
+        <p>{{user?.password}}</p>
+      </div>-->
+    </div>
+    <div fxLayout="row" fxLayoutGap="10px">
+      <div>
+        <strong translate="LABEL_CREATED_AT"></strong>
+        <p>{{user?.createdAt}}</p>
+      </div>
+      <div>
+        <strong translate="LABEL_UPDATED_AT"></strong>
+        <p>{{user?.updatedAt}}</p>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions align="end" class="dialogAction">
+    <button mat-button style="height: 0; position: absolute;">
+      <!-- 'absorbs' the auto-focus behavior -->
+    </button>
+    <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="Close Dialog">
+      <i class="material-icons">
+        close
+      </i>
+      <span>  {{'BTN_CLOSE' | translate}}</span>
+    </button>
+  </mat-dialog-actions>
+</mat-dialog-content>

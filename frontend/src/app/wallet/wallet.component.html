@@ -1,0 +1,37 @@
+<!--
+  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+<mat-card class="mat-elevation-z6">
+
+    <h1>
+      <div>{{"DIGITAL_WALLET" | translate}}</div>
+    </h1>
+
+    <h3 translate>LABEL_ADD_MONEY</h3>
+    <p>
+      <b>
+        <span translate>LABEL_WALLET_BALANCE</span>
+        <span class="confirmation"> {{ balance }}</span>
+      </b>
+    </p>
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>{{'LABEL_AMOUNT' | translate}}</mat-label>
+      <input [formControl]="balanceControl" type="number" matInput aria-label="Enter an amount">
+      <mat-error *ngIf="balanceControl.invalid && balanceControl.errors.required" translate>
+        MANDATORY_AMOUNT
+      </mat-error>
+      <mat-error *ngIf="balanceControl.invalid && (balanceControl.errors.min || balanceControl.errors.max)" translate>
+        AMOUNT_LIMIT
+      </mat-error>
+    </mat-form-field>
+
+    <button type="submit" id="submitButton" (click)="continue()" [disabled]="balanceControl.invalid"
+            mat-raised-button color="primary" aria-label="Button to continue to payment">
+      <i class="material-icons">
+        send
+      </i>
+      {{'LABEL_CONTINUE' | translate}}
+    </button>
+</mat-card>

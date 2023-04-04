@@ -1,0 +1,19 @@
+<div>
+  <br/>
+  <mat-form-field appearance="fill">
+    <mat-label translate>LABEL_CORRECT_FIX</mat-label>
+    <select matNativeControl (change)="changeFix($event)">
+      <option *ngFor="let fix of randomFixes; index as i" [value]="i"
+      [selected]="selectedFix === i">Fix {{ i+1 }}</option>
+    </select>
+  </mat-form-field>
+  <div *ngFor="let fix of randomFixes; index as i" id="code">
+    <div  *ngIf="selectedFix === i">
+      <td-ngx-text-diff [left]="snippet"
+      [right]="fix?.fix" [format]="format" #codeComponent
+      >
+      </td-ngx-text-diff>
+    </div>
+  </div>
+  <br/>
+</div>

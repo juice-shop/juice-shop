@@ -1,0 +1,116 @@
+/*!
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+$bg-heading: rgba(0, 0, 0, 0.13);
+
+.heading {
+  background: $bg-heading;
+  font-size: large;
+  justify-content: center;
+  margin-bottom: 10px;
+  padding: 12px;
+}
+
+.container {
+  justify-content: center;
+}
+
+mat-table {
+  height: 767px;
+}
+
+mat-header-row {
+  min-height: 0 !important;
+}
+
+.user-container,
+.customer-container {
+  max-width: 600px;
+  min-width: 300px;
+  width: 70%;
+}
+
+.user-table,
+.customer-table {
+  margin-bottom: 25px;
+}
+
+.mat-column-icon svg,
+.mat-column-user_detail button {
+  margin-left: 38%;
+}
+
+mat-cell,
+mat-footer-cell,
+mat-header-cell {
+  align-items: normal;
+  display: block;
+}
+
+.mat-column-comment {
+  flex: 0 0 55% !important;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  overflow-wrap: break-word;
+  padding: 5px;
+  white-space: unset !important;
+  width: 55% !important;
+
+  word-break: break-word;
+  word-wrap: break-word !important;
+}
+
+.mat-column-user {
+  flex: 0 0 7% !important;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  overflow-wrap: break-word;
+  padding: 5px;
+  white-space: unset !important;
+  width: 7% !important;
+  word-break: break-word;
+  word-wrap: break-word !important;
+}
+
+.mat-column-rating {
+  flex: 0 0 20% !important;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  overflow-wrap: break-word;
+  white-space: unset !important;
+  width: 20% !important;
+  word-break: break-word;
+  word-wrap: break-word !important;
+}
+
+mat-cell:last-child,
+mat-footer-cell:last-child,
+mat-header-cell:last-child {
+  padding-right: 50px;
+}
+
+mat-row {
+  height: 69px;
+}
+
+.mat-own-card {
+  display: block;
+  margin-bottom: 20px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+p {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}

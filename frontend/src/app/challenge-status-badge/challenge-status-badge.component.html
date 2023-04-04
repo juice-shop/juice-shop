@@ -1,0 +1,35 @@
+<!--
+  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+<button *ngIf="!challenge.disabledEnv && challenge.solved"
+        [id]="challenge.name + '.solved'"
+        mat-raised-button color="accent"
+        (click)="repeatNotification()"
+        [matTooltip]="allowRepeatNotifications ? ('NOTIFICATION_RESEND_INSTRUCTIONS' | translate) : null"
+        matTooltipPosition="above">
+            <mat-icon [hidden]="!allowRepeatNotifications">flag</mat-icon>
+            <mat-icon [hidden]="allowRepeatNotifications">check_box</mat-icon>
+            <span fxShow fxHide.lt-lg>{{'STATUS_SOLVED' | translate}}</span>
+</button>
+
+<button *ngIf="!challenge.disabledEnv && !challenge.solved"
+        [id]="challenge.name + '.notSolved'"
+        mat-raised-button color="primary"
+        (click)="openHint()"
+        [matTooltip]="showChallengeHints ? challenge.hint : null"
+        matTooltipPosition="above">
+            <mat-icon [hidden]="!showChallengeHints || !challenge.hintUrl">book</mat-icon>
+            <mat-icon [hidden]="showChallengeHints && challenge.hintUrl">check_box_outline_blank</mat-icon>
+            <span fxShow fxHide.lt-lg>{{'STATUS_UNSOLVED' | translate}}</span>
+</button>
+
+<button *ngIf="challenge.disabledEnv" [id]="challenge.name + '.unavailable'" mat-raised-button
+        [matTooltip]="challenge.hint" matTooltipPosition="above">
+  <span>
+    <i *ngIf="challenge.disabledEnv !== 'Windows'" class="{{ 'icon-' + challenge.disabledEnv?.toString().toLowerCase() }}"></i>
+    <i *ngIf="challenge.disabledEnv === 'Windows'" class="{{ 'fab fa-' + challenge.disabledEnv?.toString().toLowerCase() }}"></i>
+    {{'STATUS_UNAVAILABLE' | translate}}
+  </span>
+</button>

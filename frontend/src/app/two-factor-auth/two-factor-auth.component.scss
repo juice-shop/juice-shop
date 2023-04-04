@@ -1,0 +1,46 @@
+/*!
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+mat-card {
+  display: block;
+  margin-bottom: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 320px;
+  width: 30%;
+}
+
+mat-form-field {
+  padding-top: 10px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+#setupTwoFactorAuth,
+#disableTwoFactorAuth {
+  margin-left: 20%;
+  margin-top: 30px;
+  width: 60%;
+}
+
+.two-factor-qr-code {
+  margin: 16px 0;
+}
+
+#two-factor-auth-disable {
+  margin-top: 32px;
+}
+
+#two-factor-auth-disable-title {
+  margin-bottom: 0;
+}
+
+button {
+  margin-top: 5px;
+}

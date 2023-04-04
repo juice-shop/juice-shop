@@ -1,0 +1,9 @@
+version: "3.3"
+services:
+  sut:
+    build: ./test/smoke/
+    links:
+      - app
+  app:
+    image: bkimminich/juice-shop:latest-amd64
+    build: ./

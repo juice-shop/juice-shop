@@ -1,0 +1,701 @@
+server:
+  port:
+    type: number
+  basePath:
+    type: string
+application:
+  domain:
+    type: string
+  name:
+    type: string
+  logo:
+    type: string
+  favicon:
+    type: string
+  theme:
+    type: string
+  showVersionNumber:
+    type: boolean
+  showGitHubLinks:
+    type: boolean
+  localBackupEnabled:
+    type: boolean
+  numberOfRandomFakeUsers:
+    type: number
+  altcoinName:
+    type: string
+  privacyContactEmail:
+    type: string
+  customMetricsPrefix:
+    type: string
+  chatBot:
+    name:
+      type: string
+    greeting:
+      type: string
+    trainingData:
+      type: string
+    defaultResponse:
+      type: string
+    avatar:
+      type: string
+  social:
+    twitterUrl:
+      type: string
+    facebookUrl:
+      type: string
+    slackUrl:
+      type: string
+    redditUrl:
+      type: string
+    pressKitUrl:
+      type: string
+    nftUrl:
+      type: string
+    questionnaireUrl:
+      type: string
+  recyclePage:
+    topProductImage:
+      type: string
+    bottomProductImage:
+      type: string
+  welcomeBanner:
+    showOnFirstStart:
+      type: boolean
+    title:
+      type: string
+    message:
+      type: string
+  cookieConsent:
+    backgroundColor:
+      type: string
+    textColor:
+      type: string
+    buttonColor:
+      type: string
+    buttonTextColor:
+      type: string
+    message:
+      type: string
+    dismissText:
+      type: string
+    linkText:
+      type: string
+    linkUrl:
+      type: string
+  securityTxt:
+    contact:
+      type: string
+    encryption:
+      type: string
+    acknowledgements:
+      type: string
+    hiring:
+      type: string
+  promotion:
+    video:
+      type: string
+    subtitles:
+      type: string
+  easterEggPlanet:
+    name:
+      type: string
+    overlayMap:
+      type: string
+  googleOauth:
+    clientId:
+      type: string
+    authorizedRedirects:
+      -
+        uri:
+          type: string
+        proxy:
+          type: string
+challenges:
+  showSolvedNotifications:
+    type: boolean
+  showHints:
+    type: boolean
+  showMitigations:
+    type: boolean
+  codingChallengesEnabled:
+    type: string
+  restrictToTutorialsFirst:
+    type: boolean
+  overwriteUrlForProductTamperingChallenge:
+    type: string
+  xssBonusPayload:
+    type: string
+  safetyOverride:
+    type: boolean
+  showFeedbackButtons:
+    type: boolean
+hackingInstructor:
+  isEnabled:
+    type: boolean
+  avatarImage:
+    type: string
+  hintPlaybackSpeed:
+    type: string
+products:
+  -
+    name:
+      type: string
+    price:
+      type: number
+    deluxePrice:
+      type: number
+    description:
+      type: string
+    image:
+      type: string
+    quantity:
+      type: number
+    limitPerUser:
+      type: number
+    deletedDate:
+      type: string
+    urlForProductTamperingChallenge:
+      type: string
+    useForChristmasSpecialChallenge:
+      type: boolean
+    keywordsForPastebinDataLeakChallenge:
+      - type: string
+    fileForRetrieveBlueprintChallenge:
+      type: string
+    exifForBlueprintChallenge:
+      -
+        type: string
+    reviews:
+      -
+        text:
+          type: string
+        author:
+          type: string
+memories:
+  -
+    image:
+      type: string
+    caption:
+      type: string
+    user:
+      type: string
+    geoStalkingMetaSecurityQuestion:
+      type: number
+    geoStalkingMetaSecurityAnswer:
+      type: string
+    geoStalkingVisualSecurityQuestion:
+      type: number
+    geoStalkingVisualSecurityAnswer:
+      type: string
+ctf:
+  showFlagsInNotifications:
+    type: boolean
+  showCountryDetailsInNotifications:
+    type: string
+  countryMapping:
+    scoreBoardChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    errorHandlingChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    forgedReviewChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    loginAdminChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    loginJimChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    loginBenderChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    localXssChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    reflectedXssChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    persistedXssUserChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    persistedXssFeedbackChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    restfulXssChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    unionSqlInjectionChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    weakPasswordChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    feedbackChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    forgedFeedbackChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    redirectCryptoCurrencyChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    redirectChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    basketAccessChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    negativeOrderChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    directoryListingChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    forgottenDevBackupChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    forgottenBackupChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    adminSectionChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    changePasswordBenderChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    changeProductChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    knownVulnerableComponentChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    weirdCryptoChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    easterEggLevelOneChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    easterEggLevelTwoChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    forgedCouponChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    christmasSpecialChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    uploadSizeChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    uploadTypeChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    fileWriteChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    extraLanguageChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    captchaBypassChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    zeroStarsChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    continueCodeChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    oauthUserPasswordChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    loginSupportChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    loginRapperChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    premiumPaywallChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    resetPasswordJimChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    resetPasswordBenderChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    resetPasswordMortyChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    resetPasswordUvoginChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    resetPasswordBjoernChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    noSqlCommandChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    noSqlReviewsChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    noSqlOrdersChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    retrieveBlueprintChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    typosquattingNpmChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    typosquattingAngularChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    jwtUnsignedChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    jwtForgedChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    misplacedSignatureFileChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    deprecatedInterfaceChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    xxeFileDisclosureChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    xxeDosChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    rceChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    rceOccupyChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    tokenSaleChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    securityPolicyChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    hiddenImageChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    supplyChainAttackChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    timingAttackChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    basketManipulateChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    emailLeakChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    registerAdminChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    httpHeaderXssChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    sstiChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    ssrfChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    loginAmyChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    usernameXssChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    resetPasswordBjoernOwaspChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    accessLogDisclosureChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    dlpPasswordSprayingChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    dlpPastebinDataLeakChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    videoXssChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    twoFactorAuthUnsafeSecretStorageChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    manipulateClockChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    privacyPolicyChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    privacyPolicyProofChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    passwordRepeatChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    dataExportChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    ghostLoginChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    dbSchemaChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    ephemeralAccountantChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    missingEncodingChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    svgInjectionChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    exposedMetricsChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    freeDeluxeChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    csrfChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    xssBonusChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    geoStalkingMetaChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    geoStalkingVisualChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    killChatbotChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    nullByteChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    bullyChatbotChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    lfrChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    closeNotificationsChallenge:
+      name:
+        type: string
+      code:
+        type: string

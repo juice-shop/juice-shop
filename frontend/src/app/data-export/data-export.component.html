@@ -1,0 +1,52 @@
+<!--
+  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+<div fxLayoutAlign="center">
+  <mat-card class="mat-elevation-z6">
+    <h1 translate>TITLE_REQUEST_DATA_EXPORT</h1>
+
+    <div *ngIf="error">
+      <p class="error">{{error}}</p>
+    </div>
+
+    <div class="form-container" id="data-export-form">
+      <mat-radio-group id="formatControl" [formControl]="formatControl" aria-label="Select an option">
+        <mat-label class="radio-label" translate>EXPORT_LABEL <span>:</span></mat-label>
+        <mat-radio-button value="1" aria-label="Export Option JSON">JSON</mat-radio-button>
+        <mat-radio-button value="2" aria-label="Export Option PDF" disabled>PDF</mat-radio-button>
+        <mat-radio-button value="3" aria-label="Export Option Excel" disabled>Excel</mat-radio-button>
+      </mat-radio-group>
+
+      <div *ngIf="presenceOfCaptcha">
+        <div>
+          <span style="float: left; margin-top: 40px; font-weight: 500; margin-bottom: 20px;" translate>CAPTCHA <span>:</span></span>
+          <div class="captcha-image" [innerHTML]="captcha" style="margin-left: 10px;"></div>
+        </div>
+        <mat-form-field style="margin-top: 10px; width: 100%;" appearance="outline" color="accent">
+          <mat-label translate>ENTER_CAPTCHA</mat-label>
+          <input #captchaInput [formControl]="captchaControl" type="text" matInput
+                 placeholder="{{ 'TYPE_THESE_LETTERS' | translate: {length: '5'} }}" maxlength="5"
+                 aria-label="Input for the CAPTCHA">
+          <mat-hint align="end">{{captchaInput.value?.length || 0}}/5</mat-hint>
+          <mat-error *ngIf="captchaControl.invalid && captchaControl.errors.required " translate>MANDATORY_CAPTCHA
+          </mat-error>
+          <mat-error *ngIf="captchaControl.invalid && captchaControl.errors.minlength" translate>MANDATORY_CAPTCHA
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <button type="submit" style="margin-top: 15px;" id="submitButton" color="primary" mat-raised-button (click)="save()"
+            [disabled]="formatControl.invalid || (captchaControl.invalid && presenceOfCaptcha)"
+            aria-label="Button to send the request">
+      <i class="material-icons">
+        save_alt
+      </i>
+      {{'BTN_REQUEST' | translate}}
+    </button>
+    <div class="hint">
+      <span translate>DATA_EXPORT_HINT</span>
+    </div>
+  </mat-card>
+</div>
