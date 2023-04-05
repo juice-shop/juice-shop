@@ -7,6 +7,7 @@ import config = require('config')
 import { retrieveCodeSnippet } from '../routes/vulnCodeSnippet'
 import { readFixes } from '../routes/vulnCodeFixes'
 import { Challenge } from '../data/types'
+// import { identicalChallengePairs } from './startup/identicalChallenges'
 const colors = require('colors/safe')
 const logger = require('./logger')
 
@@ -54,6 +55,9 @@ exports.calculateFindItCheatScore = async (challenge: Challenge) => { // TODO Co
 
   logger.info(`Cheat score for "Find it" phase of ${challenge.key === 'scoreBoardChallenge' && config.get('hackingInstructor.isEnabled') ? 'tutorial ' : ''}${colors.cyan(challenge.key)} solved in ${Math.round(minutesSincePreviousSolve)}min (expected ~${minutesExpectedToSolve}min): ${cheatScore < 0.33 ? colors.green(cheatScore) : (cheatScore < 0.66 ? colors.yellow(cheatScore) : colors.red(cheatScore))}`)
   solves.push({ challenge, phase: 'find it', timestamp, cheatScore })
+
+  // logger.info(JSON.stringify(identicalChallengePairs)) doesn't work
+
   return cheatScore
 }
 
