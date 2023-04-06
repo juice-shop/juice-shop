@@ -26,8 +26,9 @@ const retrieveChallengesWithCodeSnippets = async (paths: readonly string[]) => {
 
   for (const currPath of paths) {
     if (fs.lstatSync(currPath).isDirectory()) {
-      const files = fs.readdirSync(currPath)
-      await retrieveChallengesWithCodeSnippets(files.map(file => path.join(currPath, file)))
+      const filePromises = await fs.promises.readdir(currPath)
+      const files = filePromises.map(file => path.join(currPath, file))
+      await retrieveChallengesWithCodeSnippets(files)
     } else {
       const content = fs.readFileSync(currPath)
       const data = content.toString()
