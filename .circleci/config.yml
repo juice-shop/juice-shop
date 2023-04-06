@@ -1,0 +1,84 @@
+# Versão do Circle CI config file
+version: 2.1
+
+orbs:
+  browser-tools: circleci/browser-tools@1.1.0
+  aws-cli: circleci/aws-cli@3.1.4
+
+jobs:
+  
+  build:
+
+    docker:
+      - image: cimg/node:19.6.1
+
+    steps:
+      - checkout 
+      - run: sudo npm install -g @angular/cli
+      - run: sudo npm install -g grunt-cli
+      - run: npm install
+      - run: ls -la
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./*
+
+  test:
+
+    docker:
+      - image: cimg/node:19.6.1-browsers
+
+    steps:
+      - attach_workspace:
+          at: .
+      - browser-tools/install-browser-tools
+      - run: ls -la
+      - run: sudo npm install -g @angular/cli
+      - run: sudo npm install -g grunt-cli
+      - run: npm run test
+
+
+  deploy:
+
+    docker:
+      - image: cimg/base:2022.09
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWORD
+
+    steps:
+
+      - setup_remote_docker:
+          version: 20.10.18
+          
+      - attach_workspace:
+          at: .
+
+      - aws-cli/setup:
+          profile-name: default
+
+      # Comandos para buildar a imagem docker e publicar no Docker HUB
+      - run: docker build -t $DOCKERHUB_USERNAME/juice-shop-app:$CIRCLE_SHA1 -t $DOCKERHUB_USERNAME/juice-shop-app:latest ./ # Caminho de onde o Dockerfile é carregado
+      - run: echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+      - run: docker push $DOCKERHUB_USERNAME/juice-shop-app:$CIRCLE_SHA1
+      - run: docker push $DOCKERHUB_USERNAME/juice-shop-app:latest
+
+      # Comandos para fazer o autalizar o ambiente no Elastic Beanstalk toda vez que uma nova imagem é publicada no docker hub
+      - run:
+          name: Deploy to Elastic Beanstalk
+          command: |
+            aws configure set region us-east-1
+            aws s3 cp ebs-app-options.json s3://juice-shop-env-prod
+            aws elasticbeanstalk create-application-version --application-name juice-shop-app-prod --version-label $CIRCLE_SHA1 --source-bundle S3Bucket="s3://juice-shop-env-prod",S3Key="ebs-app-options.json"
+            aws elasticbeanstalk update-environment --environment-name juice-shop-env-prod --version-label $CIRCLE_SHA1
+
+workflows:
+  build_test_deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - test

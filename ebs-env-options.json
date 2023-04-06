@@ -1,0 +1,7 @@
+[
+    {
+        "Namespace": "aws:autoscaling:launchconfiguration",
+        "OptionName": "IamInstanceProfile",
+        "Value": "arn:aws:iam::695602076767:instance-profile/aws-elasticbeanstalk-ec2-role"
+    }
+]
