@@ -70,20 +70,20 @@ export class ScoreBoardComponent implements OnInit, AfterViewInit {
 
   public ngAfterViewInit () {
     const challenge: string = this.route.snapshot.queryParams.challenge
-    
+
     if (challenge) {
       const target = document.getElementById(challenge)
       if (target) {
         this.scrollToChallenge(challenge)
       } else {
-        console.log("tettssss")
-        const observer = new MutationObserver( mutationList => {
+        console.log('tettssss')
+        const observer = new MutationObserver(mutationList => {
           for (const mutation of mutationList) {
             if (mutation.type === 'childList') {
-              const target = document.getElementById(challenge + '.codingChallengeButton');
-              if (target){
+              const target = document.getElementById(challenge + '.codingChallengeButton')
+              if (target) {
                 this.scrollToChallenge(challenge)
-                observer.disconnect();
+                observer.disconnect()
               }
             }
           }
