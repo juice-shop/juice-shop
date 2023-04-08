@@ -70,8 +70,26 @@ export class ScoreBoardComponent implements OnInit, AfterViewInit {
 
   public ngAfterViewInit () {
     const challenge: string = this.route.snapshot.queryParams.challenge
+    
     if (challenge) {
-      this.scrollToChallenge(challenge)
+      const target = document.getElementById(challenge)
+      if (target) {
+        this.scrollToChallenge(challenge)
+      } else {
+        console.log("tettssss")
+        const observer = new MutationObserver( mutationList => {
+          for (const mutation of mutationList) {
+            if (mutation.type === 'childList') {
+              const target = document.getElementById(challenge + '.codingChallengeButton');
+              if (target){
+                this.scrollToChallenge(challenge)
+                observer.disconnect();
+              }
+            }
+          }
+        })
+        observer.observe(document.body, { childList: true, subtree: true })
+      }
     }
   }
 
@@ -161,7 +179,7 @@ export class ScoreBoardComponent implements OnInit, AfterViewInit {
   }
 
   scrollToChallenge (challengeName: string) {
-      const el = document.getElementById(challengeName)
+      const el = document.getElementById(challengeName + '.codingChallengeButton')
       if (!el) {
         console.log(`Challenge ${challengeName} is not visible!`)
       } else {
