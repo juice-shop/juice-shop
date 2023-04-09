@@ -76,7 +76,7 @@ export class ScoreBoardComponent implements OnInit, AfterViewInit {
       if (target) {
         this.scrollToChallenge(challenge)
       } else {
-        const observer = new MutationObserver( mutationList => {
+        const observer = new MutationObserver(mutationList => {
           for (const mutation of mutationList) {
             if (mutation.type === 'childList') {
               const target = document.getElementById(challenge + '.codingChallengeButton')
