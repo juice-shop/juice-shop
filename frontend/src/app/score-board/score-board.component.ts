@@ -79,7 +79,7 @@ export class ScoreBoardComponent implements OnInit, AfterViewInit {
         const observer = new MutationObserver(mutationList => {
           for (const mutation of mutationList) {
             if (mutation.type === 'childList') {
-              const target = document.getElementById(challenge + '.codingChallengeButton')
+              const target = document.getElementById(challenge)
               if (target) {
                 this.scrollToChallenge(challenge)
                 observer.disconnect()
@@ -178,7 +178,7 @@ export class ScoreBoardComponent implements OnInit, AfterViewInit {
   }
 
   scrollToChallenge (challengeName: string) {
-      const el = document.getElementById(challengeName + '.codingChallengeButton')
+      const el = document.getElementById(challengeName)
       if (!el) {
         console.log(`Challenge ${challengeName} is not visible!`)
       } else {
