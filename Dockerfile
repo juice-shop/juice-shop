@@ -1,7 +1,6 @@
-FROM node:18 as installer
-COPY . /juice-shop
+FROM node:18 AS installer
 WORKDIR /juice-shop
-RUN npm i -g typescript ts-node
+RUN npm --ignore-scripts i -g typescript ts-node
 RUN npm install --omit=dev --unsafe-perm
 RUN npm dedupe
 RUN rm -rf frontend/node_modules
