@@ -99,9 +99,14 @@ describe('ScoreBoardComponent', () => {
         { provide: DomSanitizer, useValue: sanitizer },
         { provide: LocalBackupService, useValue: localBackupService },
         { provide: SocketIoService, useValue: socketIoService },
-        { provide: ActivatedRoute, useValue: { snapshot: { 
+        {
+ provide: ActivatedRoute,
+useValue: {
+ snapshot: {
           queryParams: { challenge: 'value' }
-        }}}
+        }
+}
+}
       ]
     })
       .compileComponents()
