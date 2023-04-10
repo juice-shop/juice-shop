@@ -1,0 +1,52 @@
+openapi: 3.0.0
+servers:
+  -
+    url: /b2b/v2
+info:
+  version: 2.0.0
+  title: 'NextGen B2B API'
+  description: 'New & secure JSON-based API for our enterprise customers. (Deprecates previously offered XML-based endpoints)'
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  contact:
+    name: B2B API Support
+tags:
+  -
+    name: Order
+    description: 'API for customer orders'
+paths:
+  /orders:
+    post:
+      operationId: createCustomerOrder
+      tags: [Order]
+      description: 'Create new customer order'
+      responses: { '200': { description: 'New customer order is created', content: { application/json: { schema: { $ref: '#/components/schemas/OrderConfirmation' } } } } }
+      requestBody: { content: { application/json: { schema: { $ref: '#/components/schemas/Order' } } }, description: 'Customer order to be placed' }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Order:
+      required: [cid]
+      properties: { cid: { type: string, uniqueItems: true, example: JS0815DE }, orderLines: { $ref: '#/components/schemas/OrderLines' }, orderLinesData: { $ref: '#/components/schemas/OrderLinesData' } }
+    OrderConfirmation:
+      required: [cid, orderNo, paymentDue]
+      properties: { cid: { type: string, uniqueItems: true, example: JS0815DE }, orderNo: { type: string, uniqueItems: true, example: 3d06ac5e1bdf39d26392f8100f124742 }, paymentDue: { description: 'All payments are due 14 days after order placement', type: string, format: date, example: '2018-01-19' } }
+    OrderLine:
+      description: 'Order line in default JSON format'
+      required: [productId, quantity]
+      properties: { productId: { type: integer, example: 8 }, quantity: { type: integer, minimum: 1, example: 500 }, customerReference: { type: string, example: PO0000001 } }
+    OrderLines:
+      type: array
+      items: { $ref: '#/components/schemas/OrderLine' }
+    OrderLinesData:
+      description: 'Order line(s) in customer specific JSON format'
+      type: string
+      example: '[{"productId": 12,"quantity": 10000,"customerReference": ["PO0000001.2", "SM20180105|042"],"couponCode": "pes[Bh.u*t"},{"productId": 13,"quantity": 2000,"customerReference": "PO0000003.4"}]'
+security:
+  -
+    bearerAuth: []

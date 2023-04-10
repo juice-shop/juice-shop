@@ -1,0 +1,255 @@
+-
+  email: admin
+  password: 'admin123'
+  key: admin
+  role: 'admin'
+  securityQuestion:
+    id: 2
+    answer: '@xI98PxDO+06!'
+  feedback:
+    comment: 'I love this shop! Best products in town! Highly recommended!'
+    rating: 5
+  address:
+    - fullName: 'Administrator'
+      mobileNum: 1234567890
+      zipCode: '4711'
+      streetAddress: '0815 Test Street'
+      city: 'Test'
+      state: 'Test'
+      country: 'Test'
+  card:
+    - fullName: 'Administrator'
+      cardNum: 4716190207394368
+      expMonth: 2
+      expYear: 2081
+    - fullName: 'Administrator'
+      cardNum: 4024007105648108
+      expMonth: 4
+      expYear: 2086
+-
+  email: jim
+  password: 'ncc-1701'
+  key: jim
+  role: 'customer'
+  walletBalance: 100
+  securityQuestion:
+    id: 1
+    answer: 'Samuel' # https://en.wikipedia.org/wiki/James_T._Kirk
+  feedback:
+    comment: 'Great shop! Awesome service!'
+    rating: 4
+  address:
+    - fullName: 'Jim'
+      mobileNum: 523423432
+      zipCode: '1701'
+      streetAddress: 'Room 3F 121'
+      city: 'Deck 5'
+      state: 'USS Enterprise'
+      country: 'Space'
+    - fullName: 'Sam'
+      mobileNum: 1000000783
+      zipCode: 'GSK783'
+      streetAddress: 'Deneva Colony'
+      city: 'Deneva'
+      state: 'Beta Darius System'
+      country: 'United Federation of Planets'
+  card:
+    - fullName: 'Jim'
+      cardNum: 5107891722278705
+      expMonth: 11
+      expYear: 2099
+-
+  email: bender
+  password: 'OhG0dPlease1nsertLiquor!'
+  key: bender
+  role: 'customer'
+  securityQuestion:
+    id: 10
+    answer: "Stop'n'Drop" # http://futurama.wikia.com/wiki/Suicide_booth
+  feedback:
+    comment: 'Nothing useful available here!'
+    rating: 1
+  address:
+    - fullName: 'Bender'
+      mobileNum: 797675345
+      zipCode: '10001'
+      streetAddress: 'Robot Arms Apts 42'
+      city: 'New New York'
+      state: 'New New York'
+      country: 'Planet Earth'
+  card:
+    - fullName: 'Bender'
+      cardNum: 4716943969046208
+      expMonth: 2
+      expYear: 2081
+-
+  email: bjoern.kimminich@gmail.com
+  username: bkimminich
+  password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+  customDomain: true
+  key: bjoernGoogle
+  role: 'admin'
+  address:
+    - fullName: 'Bjoern Kimminich'
+      mobileNum: 4917000001
+      zipCode: '25436'
+      streetAddress: 'Am Lokalhorst 42'
+      city: 'Uetersen'
+      state: 'Schleswig-Holstein'
+      country: 'Germany'
+  card:
+    - fullName: 'Bjoern Kimminich'
+      cardNum: 4815205605542754
+      expMonth: 12
+      expYear: 2092
+-
+  email: ciso
+  password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb'
+  key: ciso
+  role: 'deluxe'
+  securityQuestion:
+    id: 7
+    answer: 'Brd?j8sEMziOvvBf§Be?jFZ77H?hgm'
+-
+  email: support
+  password: 'J6aVjTgOpRs@?5l!Zkq2AYnCE@RF$P'
+  key: support
+  role: 'admin'
+  securityQuestion:
+    id: 10
+    answer: 'SC OLEA SRL' # http://www.olea.com.ro/
+-
+  email: morty
+  password: 'focusOnScienceMorty!focusOnScience'
+  key: morty
+  role: 'customer'
+  walletBalance: 100
+  securityQuestion:
+    id: 7
+    answer: '5N0wb41L' # http://rickandmorty.wikia.com/wiki/Snuffles
+-
+  email: mc.safesearch
+  password: 'Mr. N00dles'
+  key: rapper
+  role: 'customer'
+  securityQuestion:
+    id: 8
+    answer: 'I even shared my pizza bagels with you!'
+-
+  email: J12934
+  password: '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
+  key: jannik
+  role: 'admin'
+  securityQuestion:
+    id: 1
+    answer: 'azjTLprq2im6p86RbFrA41L'
+-
+  email: wurstbrot
+  username: wurstbrot
+  password: 'EinBelegtesBrotMitSchinkenSCHINKEN!'
+  totpSecret: IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH
+  key: timo
+  role: 'admin'
+  securityQuestion:
+    id: 1
+    answer: 'NZMJLjEinU7TFElDIYW8'
+-
+  email: amy
+  password: 'K1f.....................'
+  key: amy
+  role: 'customer'
+  securityQuestion:
+    id: 8
+    answer: 'Dr. Dr. Dr. Dr. Zoidberg'
+-
+  email: bjoern
+  password: 'monkey summer birthday are all bad passwords but work just fine in a long passphrase'
+  key: bjoern
+  profileImage: '12.png'
+  role: 'admin'
+  isAdmin: true
+  securityQuestion:
+    id: 9
+    answer: 'West-2082' # http://www.alte-postleitzahlen.de/uetersen
+-
+  email: bjoern@owasp.org
+  password: 'kitten lesser pooch karate buffoon indoors'
+  customDomain: true
+  key: bjoernOwasp
+  role: 'deluxe'
+  profileImage: '13.jpg'
+  securityQuestion:
+    id: 7
+    answer: 'Zaya' # https://www.youtube.com/watch?v=Lu0-kDdtVf4
+-
+  email: chris.pike
+  password: 'uss enterprise'
+  key: chris
+  role: 'customer'
+  deletedFlag: true
+  securityQuestion:
+    id: 1
+    answer: 'greenwood'
+-
+  email: accountant
+  password: 'i am an awesome accountant'
+  key: accountant
+  role: 'accounting'
+  lastLoginIp: '123.456.789'
+  securityQuestion:
+    id: 7
+    answer: 'sdAffsdfrefrbgreq3423'
+-
+  email: uvogin
+  password: 'muda-muda > ora-ora' # https://www.youtube.com/watch?v=vnJv8IoLMwc
+  key: uvogin
+  role: 'customer'
+  walletBalance: 100
+  securityQuestion:
+    id: 12
+    answer: 'Silence of the Lambs' # https://www.imdb.com/title/tt0102926/
+-
+  email: demo
+  password: 'demo'
+  customDomain: true
+  key: test
+  role: 'customer'
+  walletBalance: 200
+  securityQuestion:
+    id: 10
+    answer: 'ACME Inc.'
+  address:
+    - fullName: 'Tim Tester'
+      mobileNum: 4917000000
+      zipCode: '12345'
+      streetAddress: 'Dummystreet 42'
+      city: 'Mocktown'
+      state: 'Testilvania'
+      country: 'United Fakedom'
+  card:
+    - fullName: 'Tim Tester'
+      cardNum: 1234567812345678
+      expMonth: 12
+      expYear: 2099
+-
+  email: john
+  username: j0hNny
+  password: 'y&x5Z#f6W532Z4445#Ae2HkwZVyDb7&oCUaDzFU'
+  key: john
+  role: 'customer'
+-
+  email: emma
+  username: E=ma²
+  password: 'y&x5Z#f6W532ZUf$q3DsdgfgfgxxUsvoCUaDzFU'
+  key: emma
+  role: 'customer'
+-
+  email: stan
+  username: SmilinStan
+  password: 'ship coffin krypt cross estate supply insurance asbestos souvenir'
+  key: stan
+  profileImage: '20.jpg'
+  role: 'deluxe'
+  securityQuestion:
+    id: 10
+    answer: "Used Ship Emporium" # https://monkeyisland.fandom.com/wiki/Stan_S._Stanman

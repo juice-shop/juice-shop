@@ -1,0 +1,11 @@
+fixes:
+  - id: 1
+    explanation: 'In this one-of-a-kind scenario it is really best to just leave the code unchanged. Fiddling with it might either break accessibility of the crucial Score Board screen or make it unnecessarily harder to find it.'
+  - id: 2
+    explanation: "Obfuscating the path to the Score Board does not add any security, even if it wasn't just a trivial Base64 encoding. It would, on the other hand, make finding it a bit more difficulty. This is probably not intended as the Score Board screen is the hub for all other challenges."
+  - id: 3
+    explanation: 'Removing the entire route mapping would improve security but also break functionality by making the Score Board entirely inaccessible. Keep in mind that the Score Board is hidden only to be found and used to track all the other challenges.'
+hints:
+  - "Among the long list of route mappings, can you spot any that seem responsible for the Score Board screen?"
+  - "If you accidentally scrolled over the relevant line, try using the text search in your browser."
+  - 'Searching for "score" should bring you to the right route mapping.'

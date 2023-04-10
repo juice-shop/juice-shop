@@ -1,0 +1,97 @@
+<!--
+  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+<div fxLayout="column" fxLayoutGap="20px">
+  <h1>{{"MY_PAYMENT_OPTIONS" | translate}}</h1>
+  <div *ngIf="cardsExist">
+    <mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="Selection">
+        <mat-header-cell *matHeaderCellDef fxFlex="15%"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="15%">
+          <mat-radio-button (click)="emitSelectionToParent(element.id)"></mat-radio-button>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Number">
+        <mat-header-cell *matHeaderCellDef fxFlex="35%"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="35%">{{ element.cardNum }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Name">
+        <mat-header-cell *matHeaderCellDef fxFlex="30%"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="30%">{{ element.fullName }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Expiry">
+        <mat-header-cell *matHeaderCellDef fxFlex="20%"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="20%">{{ element.expMonth }}/{{ element.expYear }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Remove">
+        <mat-header-cell *matHeaderCellDef fxFlex="15%"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="15%">
+          <button mat-icon-button (click)="delete(element.id)"><i class="far fa-trash-alt"></i></button>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+  <div>
+    <mat-expansion-panel class="mat-elevation-z0">
+      <mat-expansion-panel-header style="margin-bottom: 12px;">
+        <mat-panel-title>
+          {{"ADD_NEW_CARD" | translate}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{"ADD_NEW_CARD_DESCRIPTION" | translate}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div>
+        <mat-form-field appearance="outline" color="accent">
+          <mat-label translate>LABEL_NAME</mat-label>
+          <input [formControl]="nameControl" type="text" matInput>
+          <mat-error *ngIf="nameControl.invalid && nameControl.errors.required" translate>
+            MANDATORY_NAME
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" color="accent">
+          <mat-label translate>LABEL_CARD_NUMBER</mat-label>
+          <input #cardIn [formControl]="numberControl" type="number" matInput>
+          <mat-hint align="end">{{cardIn .value?.length || 0}}/16</mat-hint>
+          <mat-error *ngIf="numberControl.invalid && numberControl.errors.required" translate>
+            MANDATORY_CARD_NUMBER
+          </mat-error>
+          <mat-error *ngIf="numberControl.invalid && (numberControl.errors.min || numberControl.errors.max)" translate>
+            VALID_CARD_NUMBER
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field style="width: 45%;margin-right: 10%;" appearance="outline" color="accent">
+          <mat-label translate>LABEL_EXPIRY_MONTH</mat-label>
+          <select matNativeControl [formControl]="monthControl" required>
+            <option *ngFor="let i of monthRange" value="{{ i }}">{{ i }}</option>
+          </select>
+          <mat-error *ngIf="monthControl.invalid && monthControl.errors.required" translate>
+            MANDATORY_EXPIRY_MONTH
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field style="width: 45%" appearance="outline" color="accent">
+          <mat-label translate>LABEL_EXPIRY_YEAR</mat-label>
+          <select matNativeControl [formControl]="yearControl" required>
+            <option *ngFor="let i of yearRange" value="{{ i }}">{{ i }}</option>
+          </select>
+          <mat-error *ngIf="yearControl.invalid && yearControl.errors.required" translate>
+            MANDATORY_EXPIRY_YEAR
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <button type="submit" id="submitButton" style="margin-top:5px; float:right;" mat-raised-button color="primary"
+              [disabled]="nameControl.invalid || numberControl.invalid || monthControl.invalid || yearControl.invalid"
+              (click)="save()">
+              <i class="material-icons">
+                  send
+              </i>
+              {{'BTN_SUBMIT' | translate}}
+      </button>
+    </mat-expansion-panel>
+  </div>
+</div>

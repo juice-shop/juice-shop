@@ -1,0 +1,116 @@
+doctype html
+html(lang='en')
+    head
+        title _title_
+        meta(charset='utf-8')
+        meta(name='description', content='')
+        meta(name='keywords', content='')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        link(rel='icon', type='image/x-icon', href='./assets/public/_favicon_')
+        link(rel='stylesheet', href='https://code.getmdl.io/1.3.0/material.min.css')
+        link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
+        link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700', type='text/css')
+        script(src='//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+        script(defer='', src='https://code.getmdl.io/1.3.0/material.min.js')
+        style.
+            video {
+            min-width: 320px;
+            width: 44vw;
+            display: block;
+            margin-left: auto;
+            margin-right:auto;
+            margin-bottom: 5px;
+            height: 50vh;
+            outline: none;
+            }
+            @media (max-width: 900px) {
+              .mdl-layout-title {
+                display: none !important;
+              }
+            }
+    body(style='background: _bgColor_;color:_textColor_;')
+        .mdl-layout.mdl-js-layout.mdl-layout--fixed-header
+          header.mdl-layout__header.mdl-shadow--8dp(style= 'background: _navColor_; height: auto; min-width: 100%; padding-bottom: 5px; width: 100%;')
+            .mdl-layout__header-row
+              a(href='./#/' style='color: _textColor_; text-decoration:none; margin-left: -50px;')
+                i(class='material-icons', style='display: block;margin-bottom: auto;margin-top: auto; margin-right: 10px;') arrow_back
+              a(href='./#/' style='color: _textColor_; text-decoration:none;')
+                span(style='margin-right: 20px;')
+                  | Back
+              // Logo
+              a(href='./#/')
+                img(src='assets/public/images/JuiceShop_Logo.png', style='max-height: 60px; width: auto;', alt='_title_ Logo')
+              // Title
+              a(href='./#/' style='color: _textColor_; text-decoration:none;')
+               span.mdl-layout-title(style='font: 500 20px/32px Roboto,"Helvetica Neue",sans-serif;')
+                 | _title_
+
+        section.section--center.mdl-grid.mdl-grid--no-spacing
+           .mdl-card#card.mdl-cell.mdl-cell--12-col.mdl-shadow--8dp(style='width: 45vw; min-width: 320px; height: 58vh; background: _primLight_; margin-bottom: 50px; margin-top: 110px; display: block; margin-left: auto; margin-right:auto; ')
+            h1(style='color: _textColor_; font-size: 24px; line-height: 32px; margin-top: 16px; margin-bottom: 16px; font-weight: 400; margin-left: 16px;') Promotion Video
+            video(width='85vw', height='240', controls='controls')
+               source(src='./video', type='video/mp4')
+
+        script#subtitle.
+
+
+        script.
+            function parse_timestamp(s) {
+            var match = s.match(/^(?:([0-9]+):)?([0-5][0-9]):([0-5][0-9](?:[.,][0-9]{0,3})?)/);
+            if (match == null) {
+            throw 'Invalid timestamp format: ' + s;
+            }
+            var hours = parseInt(match[1] || "0", 10);
+            var minutes = parseInt(match[2], 10);
+            var seconds = parseFloat(match[3].replace(',', '.'));
+            return seconds + 60 * minutes + 60 * 60 * hours;
+            }
+            function quick_and_dirty_vtt_or_srt_parser(vtt) {
+            var lines = vtt.trim().replace('\\r\n', '\n').split(/[\r\n]/).map(function(line) {
+            return line.trim();
+            });
+            var cues = [];
+            var start = null;
+            var end = null;
+            var payload = null;
+            for (var i = 0; i < lines.length; i++) {
+            if (lines[i].indexOf('-->') >= 0) {
+            var splitted = lines[i].split(/[ \\t]+-->[ \t]+/);
+            if (splitted.length != 2) {
+            throw 'Error when splitting "-->": ' + lines[i];
+            }
+            // Already ignoring anything past the "end" timestamp (i.e. cue settings).
+            start = parse_timestamp(splitted[0]);
+            end = parse_timestamp(splitted[1]);
+            } else if (lines[i] == '') {
+            if (start && end) {
+            var cue = new VTTCue(start, end, payload);
+            cues.push(cue);
+            start = null;
+            end = null;
+            payload = null;
+            }
+            } else if(start && end) {
+            if (payload == null) {
+            payload = lines[i];
+            } else {
+            payload += '\\n' + lines[i];
+            }
+            }
+            }
+            if (start && end) {
+            var cue = new VTTCue(start, end, payload);
+            cues.push(cue);
+            }
+            return cues;
+            }
+            function init() {
+            var video = document.querySelector('video');
+            var subtitle = document.getElementById('subtitle');
+            var track = video.addTextTrack('subtitles', subtitle.dataset.label, subtitle.dataset.lang);
+            track.mode = "showing";
+            quick_and_dirty_vtt_or_srt_parser(subtitle.innerHTML).map(function(cue) {
+            track.addCue(cue);
+            });
+            }
+            init();

@@ -1,0 +1,73 @@
+<!--
+  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+
+<mat-card class="mat-elevation-z6 mat-own-card">
+    <h1><span translate>TITLE_SEARCH_RESULTS</span> - <span [innerHtml]="results.orderNo"></span></h1>
+    <div style="text-align: center;">
+    <h3 translate>LABEL_EXPECTED_DELIVERY</h3>
+    <div class="container-fluid well">
+      <div class="row fa-4x">
+        <span *ngIf="status === Status.New"><i class="fas fa-warehouse confirmation"></i></span>
+        <span *ngIf="status !== Status.New"><i class="fas fa-warehouse"></i></span>
+        <span *ngIf="status === Status.Packing"><i class="fas fa-truck-loading confirmation"></i></span>
+        <span *ngIf="status !== Status.Packing"><i class="fas fa-truck-loading"></i></span>
+        <span *ngIf="status === Status.Transit"><i class="fas fa-truck confirmation"></i></span>
+        <span *ngIf="status !== Status.Transit"><i class="fas fa-truck"></i></span>
+        <span class="fa-layers fa-fw" *ngIf="status === Status.Delivered">
+            <span><i class="fas fa-home confirmation"></i></span>
+          <span class="fa-layers-counter accent-notification" style="width: max-content">{{results.eta}} {{'LABEL_DAYS' | translate}}</span>
+        </span>
+        <span class="fa-layers fa-fw" *ngIf="status !== Status.Delivered">
+            <span><i class="fas fa-home"></i></span>
+          <span class="fa-layers-counter accent-notification" style="width: max-content">{{results.eta}} {{'LABEL_DAYS' | translate}}</span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="table-wrapper" fxLayoutAlign="center">
+    <div class="table-heading heading">
+      <h2 translate>LABEL_PRODUCT_ORDERED</h2>
+    </div>
+  </div>
+
+  <div fxLayoutAlign="center">
+    <mat-table class="mat-elevation-z0" #table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="product">
+        <mat-header-cell *matHeaderCellDef translate>LABEL_PRODUCT</mat-header-cell>
+        <mat-cell class="product-name" *matCellDef="let product"> {{product.name}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md translate>LABEL_PRICE</mat-header-cell>
+        <mat-cell class="product-price" *matCellDef="let product" fxShow fxHide.lt-md> {{product.price}}&curren;</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="quantity">
+        <mat-header-cell *matHeaderCellDef translate>LABEL_QUANTITY</mat-header-cell>
+        <mat-cell class="product-quantity" *matCellDef="let product"> {{product.quantity}}</mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="total price">
+        <mat-header-cell *matHeaderCellDef translate>LABEL_TOTAL_PRICE</mat-header-cell>
+        <mat-cell class="product-total" *matCellDef="let product"> {{product.total}}&curren;</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+  <div class="bonus-container">
+    <h2 translate [translateParams]="{'bonus': results.bonus}">BONUS_POINTS_EARNED</h2>
+    <p>(<span [innerHtml]="'BONUS_FOR_FUTURE_PURCHASES' | translate"></span>)</p>
+  </div>
+
+
+  </mat-card>
+
+
+

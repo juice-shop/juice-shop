@@ -1,0 +1,124 @@
+application:
+  domain: 7-ms.us
+  name: '7 Minute Security'
+  logo: 'https://static1.squarespace.com/static/59f9e1c4d0e6281017434039/t/59fd39cde31d1945635d5fbb/1530161239161/7.png'
+  favicon: 'https://7minsec.com/favicon.ico'
+  theme: blue-lightblue
+  showGitHubLinks: true
+  altcoinName: Sevencoin
+  privacyContactEmail: 'donotreply@7-ms.us'
+  customMetricsPrefix: sevenminsec
+  chatBot:
+    name: 'Brian'
+    greeting: "Hi <customer-name>, it's me, your friend and pal <bot-name>!"
+    trainingData: 'https://gist.githubusercontent.com/bkimminich/d62bd52a1df4831a0fae7fb06062e3f0/raw/59dadc1e0ab1b5cb9264e85bc78736aaa3f0eb6b/bot7msTrainingData.json'
+    defaultResponse: "Sorry, but \"no comprende\"!"
+    avatar: 'https://images.squarespace-cdn.com/content/v1/59f9e1c4d0e6281017434039/1509770498383-8VJKZ4PXTTHVIGIEG0KF/ke17ZwdGBToddI8pDm48kMreedPISwI1jnn2bzTr4CdZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzByX1XvUQea7698-2ac2uOajsBu-kHm1WemVMRSlEblOw5yevDuXqve6GdwpxNsnc/BrianJohnson-headshot.jpg?format=300w'
+  social:
+    twitterUrl: 'https://twitter.com/7MinSec'
+    facebookUrl: null
+    slackUrl: 'https://7ms.us/slack'
+    redditUrl: null
+    pressKitUrl: null
+    nftUrl: null
+    questionnaireUrl: null
+  recyclePage:
+    topProductImage: bm-small.jpg
+    bottomProductImage: tommyboy.jpeg
+  welcomeBanner:
+    showOnFirstStart: false
+  cookieConsent:
+    backgroundColor: '#0395d5'
+    textColor: '#ffffff'
+    buttonColor: '#b3b3b3'
+    buttonTextColor: '#000000'
+    message: 'If you stay on this website for more than 7 minutes our cookies will start tracking you.'
+    dismissText: 'I`ll be long gone by then!'
+    linkText: 'But I want to stay an arbitrary number of minutes!'
+    linkUrl: 'https://7ms.us/7ms-294-gdpr-me-asap/'
+  securityTxt:
+    contact: 'mailto:donotreply@7-ms.us'
+    encryption: ~
+  easterEggPlanet:
+    name: 'Mad Billy-7'
+    overlayMap: 'https://static1.squarespace.com/static/59505bc2414fb538a0532c76/t/599e266aebbd1a759716569b/1503536748248/logo+2.png'
+challenges:
+  xssBonusPayload: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/265098051&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
+hackingInstructor:
+  avatarImage: 'https://images.squarespace-cdn.com/content/v1/59f9e1c4d0e6281017434039/1509770498383-8VJKZ4PXTTHVIGIEG0KF/ke17ZwdGBToddI8pDm48kMreedPISwI1jnn2bzTr4CdZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzByX1XvUQea7698-2ac2uOajsBu-kHm1WemVMRSlEblOw5yevDuXqve6GdwpxNsnc/BrianJohnson-headshot.jpg?format=300w'
+products:
+  -
+    name: 'Security Assessment'
+    price: 1999.99
+    description: 'Rather than just pointing out the gaps in your administrative, physical and technical controls, 7 Minute Security will partner with you to help formulate - and execute - a measurable remediation plan.'
+    image: 'https://static1.squarespace.com/static/59f9e1c4d0e6281017434039/t/5a3c3ae69140b7cd5730028e/1513898060448/assessments2.png'
+  -
+    name: 'Penetration Test'
+    description: '<em>"Can the bad guys get in?"</em> An internal and/or external network penetration test will gauge your organization`s defenses and help answer that question.  After the test, 7 Minute Security will work with you on the technical defenses you need to put in place.'
+    price: 1899.99
+    image: 'https://static1.squarespace.com/static/59f9e1c4d0e6281017434039/t/5a3c419f9140b7cd5730f574/1513898575643/wifi5.png'
+  -
+    name: Training
+    description: '7 Minute Security can train your employees to not only be more secure at work, but carry that security-focused attitude into everything they do at home as well.  More tech-heavy sessions are available as well, such as <em>Penetration Testing 101</em> and <em>Intro to Windows System Forensics</em>.'
+    price: 899.99
+    image: 'https://static1.squarespace.com/static/59f9e1c4d0e6281017434039/t/5a5cceb7f9619a9a191ef4e3/1516031679673/training4.jpg'
+    reviews:
+      - { text: 'Wow, that guy can fingerpoint IPs like a pro!', author: bender }
+  -
+    name: 'Billy Madison 1.1'
+    description: 'Billy Madison is a vulnerable virtual machine, hosted by Vulnhub. To successfully pwn the box, pentesters must undo modifications to the system and recover Billy’s 12th grade project. Otherwise Eric and his weasel laugh will take over Madison Hotels!'
+    price: 999.99
+    image: 'https://static1.squarespace.com/static/59f9e1c4d0e6281017434039/t/5a01bef9c83025f467396e34/1510063870501/bm-small.jpg'
+    urlForProductTamperingChallenge: 'https://www.vulnhub.com/entry/billy-madison-11,161/'
+  -
+    name: 'Billy Madison 1.0'
+    description: 'Christmas Special Re-Release Edition of the famous VulnHub VM! Rare collectors item! Available only Christmas 2014!'
+    price: 12999.99
+    image: bm-small.jpg
+    useForChristmasSpecialChallenge: true
+  -
+    name: 'Tommy Boy 1.0'
+    description: 'Tommy Boy is a vulnerable virtual machine, hosted by VulnHub and based one of my all-time favorite movies. To complete the CTF, pentesters must bring the Callahan Auto brakepad ordering system back online before the company goes out of business.'
+    price: 799.99
+    image: 'https://static1.squarespace.com/static/59f9e1c4d0e6281017434039/t/5a01bfaa71c10b9d51d59d2e/1510081203010/tommyboy.jpeg'
+  -
+    name: 'CryptoLocker`d (Audio CD)'
+    description: 'A few years ago a worked on an incident response where a user got phished with a promise of a free burrito from Chipotle but instead got a free order of CryptoLocker! And rather than tell IT or sound the alarms, the user just left for the day! The next day they came back and the company was digitally on fire, and they played ignorant to what was going on.  I found the user`s handling of the situation humorous (read: not the CryptoLocker infection itself!), so I was inspired to write a song about it.'
+    price: 19.99
+    image: 'https://pbs.twimg.com/media/Dc3BuBPXUAAswae.jpg'
+    fileForRetrieveBlueprintChallenge: The+CryptoLocker+Song.mps
+    exifForBlueprintChallenge:
+      - ~
+  -
+    name: 'Sweet Surrender (Limited Edition Best of Audio CD)'
+    description: 'Sweet Surrender is a vocals-driven acoustic duo from the Twin Cities area. Our music reflects a diverse range of our musical tastes - from the most current pop and country tunes on the radio today, to some great older tunes done with a twist. We also love to share music that reflects our love for Christ through the most current, contemporary Christian music.'
+    price: 29.99
+    image: 'https://static1.squarespace.com/static/59208d27c534a58e9b17ec06/t/59208d69197aea2df1397c7b/1505596635447.png'
+    keywordsForPastebinDataLeakChallenge:
+      - taylor swift
+      - katy perry
+  -
+    name: '7MS #230: Pentesting OWASP Juice Shop - Part 1'
+    description: 'Today we`re kicking of a multipart series all about hacking the OWASP Juice Shop which is "an intentionally insecure webapp for security trainings written entirely in Javascript which encompasses the entire OWASP Top Ten and other severe security flaws."'
+    price: 1.99
+    image: 'https://i.ytimg.com/vi/IC6m249zvI0/hqdefault.jpg'
+  -
+    name: '7MS #231: Pentesting OWASP Juice Shop - Part 2'
+    description: 'Today we`re continuing our series on hacking apart the OWASP Juice Shop which is "an intentionally insecure webapp for security trainings written entirely in Javascript which encompasses the entire OWASP Top Ten and other severe security flaws."'
+    price: 1.99
+    image: hqdefault.jpg
+  -
+    name: '7MS #232: Pentesting OWASP Juice Shop - Part 3'
+    description: 'Today is part <strong>three</strong> of our continuing series on attacking the OWASP Juice Shop which is "an intentionally insecure webapp for security trainings written entirely in Javascript which encompasses the entire OWASP Top Ten and other severe security flaws."'
+    price: 1.99
+    image: hqdefault.jpg
+  -
+    name: '7MS #233: Pentesting OWASP Juice Shop - Part 4'
+    description: 'Today is part <strong>FOUR</strong> of our continuing series on attacking the OWASP Juice Shop which is "an intentionally insecure webapp for security trainings written entirely in Javascript which encompasses the entire OWASP Top Ten and other severe security flaws."'
+    price: 1.99
+    image: hqdefault.jpg
+  -
+    name: '7MS #234: Pentesting OWASP Juice Shop - Part 5'
+    description: 'Today is part <strong>FIVE</strong> (insert menacing voice: "<em>the final chapter!!!</em>) of our series on attacking the <a href="https://www.owasp.org/index.php/OWASP_Juice_Shop_Project" target="_blank">OWASP Juice Shop</a> which is "an intentionally insecure webapp for security trainings written entirely in Javascript which encompasses the entire OWASP Top Ten and other severe security flaws."'
+    price: 1.99
+    image: hqdefault.jpg

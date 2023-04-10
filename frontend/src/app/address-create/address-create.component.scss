@@ -1,0 +1,32 @@
+/*!
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+mat-card {
+  height: auto;
+  min-width: 320px;
+  width: 30%;
+}
+
+#submitButton {
+  float: right;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.btn-return {
+  float: left;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}

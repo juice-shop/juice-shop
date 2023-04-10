@@ -1,0 +1,71 @@
+<!--
+  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+<mat-card class="heading mat-elevation-z6 mat-own-card" style="margin-bottom:10px;">
+  <h1>{{"LABEL_PHOTO_WALL" | translate}}</h1>
+  <div>
+    <div class="grid" *ngIf="!emptyState; else emptyResult">
+                <span *ngFor="let image of slideshowDataSource" class="container mat-elevation-z6">
+                    <img src="{{ image.url }}" alt="{{ image.caption }}" class="image">
+                    <div class="overlay">
+                        <div>{{ image.caption }}</div>
+                        <a *ngIf="twitterHandle"
+                           href="https://twitter.com/intent/tweet?text={{ image.caption }} {{ twitterHandle }}&hashtags=appsec"
+                           target="_blank">
+                            <button mat-icon-button aria-label="Tweet">
+                                <i class="fab fa-twitter fa-lg"></i>
+                            </button>
+                         </a>
+                    </div>
+                </span>
+    </div>
+  </div>
+
+  <ng-template #emptyResult>
+    <mat-card class="mat-elevation-z0 emptyState">
+      <img alt=" No results found"
+           class="img-responsive noResult"
+           src="assets/public/images/products/no-results.png">
+      <mat-card-title>
+            <span class="noResultText" translate>
+                NO_SEARCH_RESULT
+            </span>
+      </mat-card-title>
+      <mat-card-content>
+            <span class="noResultText" translate>
+                EMPTY_MEMORY_LIST
+            </span>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+
+  <div *ngIf="isLoggedIn()">
+    <div style="margin-top: 10px;">
+      <h2 translate>LABEL_SHARE_A_MEMORY</h2>
+      <form [formGroup]="form" enctype="multipart/form-data">
+        <div>
+          <button mat-stroked-button type="button" (click)="filePicker.click()">{{'LABEL_PICK_IMAGE' | translate}}
+          </button>
+          <input type="file" name='file' #filePicker (change)="onImagePicked($event)">
+        </div>
+        <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid">
+          <img [src]="imagePreview" [alt]="form.value.caption">
+        </div>
+        <mat-form-field appearance="outline" color="accent">
+          <mat-label translate>LABEL_CAPTION</mat-label>
+          <input formControlName="caption" type="text" matInput>
+          <mat-error *ngIf="form.get('caption').invalid" translate>{{'MANDATORY_CAPTION' | translate}}</mat-error>
+        </mat-form-field>
+        <button id="submitButton" mat-raised-button color="primary" (click)="save()"
+                [disabled]="form.get('image').invalid || form.get('caption').invalid">
+          <i class="material-icons">
+          send
+          </i>
+          {{'BTN_SUBMIT' | translate}}
+        </button>
+      </form>
+    </div>
+  </div>
+</mat-card>

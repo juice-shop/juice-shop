@@ -1,0 +1,13 @@
+fixes:
+  - id: 1
+    explanation: "The open redirect flaw in this code cannot be fixed by applying URL encoding to the target URL. In fact, it would break the entire redirect mechanism for allow-listed URLs as they are not URL-encoded and would therefore never match."
+  - id: 2
+    explanation: 'Changing from logical "or" to logical "and" here does not do anything for security but entirely breaks the redirect mechanism as "allowed" can never be true after the loop.'
+  - id: 3
+    explanation: "HTML-escaping is completely wrong in this situation because the code is dealing with URLs and not HTML input."
+  - id: 4
+    explanation: "Using indexOf allowed any URLs as long as they contained any allow-listed URL, even if it just would be as a parameter. Replacing this with an actual equality check mitigates this lapse and makes the redirect only work for allow-listed URLs."
+hints:
+  - "You should take a close look at how this code checks for allowed vs. forbidded URLs to redirect to."
+  - "Try to play through how the logical operators and used standard functions work in this situation."
+  - "Could you somehow make the code believe that it is dealing with an allow-listed URL while it actually isn't?"

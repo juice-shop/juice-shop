@@ -1,0 +1,82 @@
+<!--
+  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+<div fxLayoutAlign="center">
+
+  <div class="table-container custom-slate">
+
+    <div class="heading mat-elevation-z6">
+      <div *ngIf="searchValue">
+        <span>{{"TITLE_SEARCH_RESULTS" | translate}} - </span>
+        <span id="searchValue" [innerHTML]="searchValue"></span>
+      </div>
+      <div *ngIf="!searchValue">{{"TITLE_ALL_PRODUCTS" | translate}}</div>
+      <div id="search-result-heading"></div>
+    </div>
+    <div *ngIf=" !emptyState; else emptyResult">
+      <mat-grid-list #table (window:resize)="onResize($event)" [cols]="breakpoint" gutterSize="30px">
+        <mat-grid-tile *ngFor="let item of gridDataSource | async">
+          <mat-card [style.width]="'100%'" class="mat-elevation-z6 ribbon-card">
+            <div class="ribbon ribbon-top-left" *ngIf="item.quantity <= 5 && item.quantity > 0"><span translate
+                                                                                                      [translateParams]="{quantity: item.quantity}">LABEL_ONLY_QUANTITY_LEFT</span>
+            </div>
+            <div class="ribbon ribbon-top-left ribbon-sold" *ngIf="item.quantity <= 0"><span
+              translate>LABEL_SOLD_OUT</span></div>
+            <div (click)="showDetail(item)" aria-label="Click for more information about the product" class="product"
+                 matTooltip="Click for more information" matTooltipPosition="above">
+              <div class="img-container" fxFlexAlign="center" fxFlex="60%">
+                <img mat-card-image [src]="'assets/public/images/products/'+item.image" alt={{item.name}}
+                     class="img-responsive img-thumbnail" role="button">
+              </div>
+              <div fxFlexAlign="center" fxFlex="40%">
+                <div class="item-name">
+                  {{item.name}}
+                </div>
+                <div class="item-price">
+                  <span *ngIf="!isDeluxe() || item.price === item.deluxePrice">{{item.price}}&curren;</span>
+                  <span *ngIf="isDeluxe() && item.price !== item.deluxePrice"><s>{{item.price}}</s> {{ item.deluxePrice }}&curren;</span>
+                </div>
+              </div>
+            </div>
+            <div style="display: flex; justify-content: center;">
+              <button (click)="addToBasket(item.id)" *ngIf="isLoggedIn()" aria-label="Add to Basket" class="btn-basket"
+                      color="primary" mat-button mat-raised-button>
+                <span translate>ADD_BASKET</span>
+              </button>
+            </div>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+
+    <ng-template #emptyResult>
+      <mat-card class="mat-elevation-z6 emptyState">
+        <img alt=" No results found"
+             class="img-responsive noResult"
+             src="assets/public/images/products/no-results.png">
+        <mat-card-title>
+          <span class="noResultText" translate>
+            NO_SEARCH_RESULT
+          </span>
+        </mat-card-title>
+        <mat-card-content>
+          <span class="noResultText" translate>
+            EMPTY_SEARCH_RESULT
+          </span>
+        </mat-card-content>
+      </mat-card>
+    </ng-template>
+
+    <mat-divider></mat-divider>
+
+    <mat-paginator #paginator
+                   [pageSize]="12"
+                   [pageSizeOptions]="pageSizeOptions"
+                   [length]="resultsLength"
+                   class="mat-elevation-z6"
+                   color="accent">
+    </mat-paginator>
+  </div>
+</div>

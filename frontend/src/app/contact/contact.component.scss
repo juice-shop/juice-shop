@@ -1,0 +1,46 @@
+/*!
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+$star-off: #c8c8c8;
+$star-on: #ffd700;
+
+mat-card {
+  height: auto;
+  min-width: 320px;
+  width: 30%;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.rating-container {
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.star {
+  color: $star-off;
+}
+
+.active {
+  color: $star-on;
+}
+
+.select {
+  color: $star-on;
+}
+
+:host ::ng-deep .br {
+  margin: 0 !important;
+}
+
+#submitButton {
+  margin-left: 20%;
+  margin-top: 30px;
+  width: 60%;
+}

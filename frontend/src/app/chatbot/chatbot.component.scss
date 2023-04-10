@@ -1,0 +1,156 @@
+/*!
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+$bg-chat: rgba(0, 0, 0, 0.3);
+
+mat-card {
+  height: auto;
+  min-width: 320px;
+  width: 60%;
+}
+
+mat-form-field {
+  display: block;
+  height: 0;
+  margin: auto;
+  width: 70%;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+#submitButton {
+  margin-left: 20%;
+  margin-top: 30px;
+  width: 60%;
+}
+
+#chat-container {
+  box-shadow: none;
+  display: flex;
+  position: relative;
+  width: 95%;
+}
+
+#chat-box {
+  align-content: space-between;
+  background-color: $bg-chat;
+  display: block;
+  display: flex;
+  flex-direction: column;
+  height: 650px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+  width: 80%;
+}
+
+.form-wrapper {
+  font-size: 10px;
+}
+
+#chat-window {
+  height: 90%;
+  overflow-y: auto;
+  padding: 20px;
+
+  ::-webkit-scrollbar {
+    background: none;
+    width: 20px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: none;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #f00;
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #b30000;
+  }
+}
+
+.message-box-container {
+  border-top: solid 1px #fff;
+  height: 10%;
+  padding-top: 15px;
+  width: auto;
+}
+
+.message-container {
+  height: auto;
+  margin-right: 25px;
+  overflow: hidden;
+  width: auto;
+}
+
+.speech-bubble-right {
+  background: rgb(84, 110, 122);
+  border-radius: 4px;
+  float: right;
+  font-size: 15px;
+  line-height: 1.3;
+  margin-bottom: 25px;
+  max-width: 500px;
+  padding: 15px;
+  position: relative;
+
+  &::after {
+    border-left: 20px solid transparent;
+    border-top: 20px solid rgb(84, 110, 122);
+    bottom: -20px;
+    content: '';
+    position: absolute;
+    right: 20px;
+  }
+}
+
+.speech-bubble-left {
+  background: rgb(84, 110, 122);
+  border-radius: 4px;
+  float: left;
+  font-size: 15px;
+  line-height: 1.3;
+  margin-bottom: 25px;
+  max-width: 500px;
+  padding: 15px;
+  position: relative;
+
+  &::after {
+    border-right: 20px solid transparent;
+    border-top: 20px solid rgb(84, 110, 122);
+    bottom: -20px;
+    content: '';
+    left: 20px;
+    position: absolute;
+  }
+}
+
+.juicy-chat-bot-image {
+  float: left;
+  height: 70px;
+  margin-top: 20px;
+}
+
+.profile-image {
+  border-radius: 50%;
+  float: right;
+  height: 40px;
+  margin-left: 10px;
+  margin-top: 20px;
+}
+
+.powered-by {
+  font-size: xx-small;
+}

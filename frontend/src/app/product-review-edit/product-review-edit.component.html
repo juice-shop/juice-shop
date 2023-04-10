@@ -1,0 +1,38 @@
+<!--
+  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+<mat-dialog-content>
+  <div class="container mat-typography" fxLayout="column">
+    <h1 translate>LABEL_EDIT_REVIEW</h1>
+
+    <div>
+      <mat-form-field appearance="outline" color="accent" hintLabel="Max 160 characters" floatLabel="always">
+        <mat-label translate>LABEL_REVIEW</mat-label>
+          <textarea [formControl]="editReviewControl" #textPut matInput
+                    placeholder="{{'WRITE_REVIEW_PLACEHOLDER' | translate}}"
+                    matTextareaAutosize matAutosizeMinRows="2" maxlength="160"
+                    matAutosizeMaxRows="4" aria-label="Text field to edit a product review"  (focus)="this.error=null"></textarea>
+        <mat-hint align="end">{{textPut.value?.length || 0}}/160</mat-hint>
+        <mat-error *ngIf="editReviewControl.invalid" translate>MANDATORY_REVIEW</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button mat-dialog-close class="close-dialog" aria-label="Close Dialog">
+    <i class="material-icons">
+      close
+    </i>
+    <span>  {{'BTN_CLOSE' | translate}}</span>
+  </button>
+  <button type="submit" (click)="editReview()" mat-raised-button style="margin-left: 5px;" color="primary" aria-label="Send the review"
+          [disabled]="editReviewControl.invalid">
+    <i class="material-icons">
+      send
+    </i>
+    <span>  {{'BTN_SUBMIT' | translate}}</span>
+  </button>
+</mat-dialog-actions>
