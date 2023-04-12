@@ -47,7 +47,11 @@ exports.calculateFindItCheatScore = async (challenge: Challenge) => { // TODO Co
   timeFactor *= (challenge.key === 'scoreBoardChallenge' && config.get('hackingInstructor.isEnabled') ? 0.5 : 1)
   let cheatScore = 0
 
-  const { snippet, vulnLines } = await retrieveCodeSnippet(challenge.key)
+  const codeSnippet = await retrieveCodeSnippet(challenge.key)
+  if (!codeSnippet) {
+    return 0
+  }
+  const { snippet, vulnLines } = codeSnippet
   timeFactor *= vulnLines.length
   const identicalSolved = await checkIdenticalSolved(challenge)
   if (identicalSolved) {

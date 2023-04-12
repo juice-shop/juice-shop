@@ -4,45 +4,40 @@
  */
 
 import { NextFunction, Request, Response } from 'express'
-import fs from 'graceful-fs'
-import actualFs from 'fs'
+import fs from 'fs'
 import yaml from 'js-yaml'
 
 const utils = require('../lib/utils')
 const challengeUtils = require('../lib/challengeUtils')
-const challenges = require('../data/datacache').challenges
 const path = require('path')
 const accuracy = require('../lib/accuracy')
 
-fs.gracefulify(actualFs)
-
 export const SNIPPET_PATHS = Object.freeze(['./server.ts', './routes', './lib', './data', './frontend/src/app', './models'])
 
-const cache: any = {}
-
-interface Match {
+interface FileMatch {
   path: string
-  match: string
+  content: string
 }
 
-export const fileSniff = async (paths: readonly string[], match: RegExp): Promise<Match[]> => {
+interface CachedCodeChallenge {
+  snippet: string
+  vulnLines: number[]
+  neutralLines: number[]
+}
+
+export const findFilesWithCodeChallenges = async (paths: readonly string[]): Promise<FileMatch[]> => {
   const matches = []
   for (const currPath of paths) {
-    if (fs.lstatSync(currPath).isDirectory()) {
-      const files = fs.readdirSync(currPath)
-      const moreMatches = await fileSniff(files.map(file => path.resolve(currPath, file)), match)
+    if ((await fs.promises.lstat(currPath)).isDirectory()) {
+      const files = await fs.promises.readdir(currPath)
+      const moreMatches = await findFilesWithCodeChallenges(
+        files.map(file => path.resolve(currPath, file))
+      )
       matches.push(...moreMatches)
     } else {
-      const data = fs.readFileSync(currPath)
-      const code = data.toString()
-      const lines = code.split('\n')
-      for (const line of lines) {
-        if (match.test(line)) {
-          matches.push({
-            path: currPath,
-            match: line
-          })
-        }
+      const code = await fs.promises.readFile(currPath, 'utf8')
+      if (code.includes('// vuln-code' + '-snippet start')) { // string is split so that it doesn't find itself...
+        matches.push({ path: currPath, content: code })
       }
     }
   }
@@ -50,26 +45,72 @@ export const fileSniff = async (paths: readonly string[], match: RegExp): Promis
   return matches
 }
 
+// dont use directly, use getCodeChallenges getter
+let _internalCodeChallenges: Map<string, CachedCodeChallenge> | null = null
+async function getCodeChallenges (): Promise<Map<string, CachedCodeChallenge>> {
+  if (_internalCodeChallenges === null) {
+    console.time('getCodeChallenges')
+    _internalCodeChallenges = new Map<string, CachedCodeChallenge>()
+    const filesWithCodeChallenges = await findFilesWithCodeChallenges(SNIPPET_PATHS)
+    for (const fileMatch of filesWithCodeChallenges) {
+      for (const codeChallenge of getCodeChallengesFromFile(fileMatch)) {
+        _internalCodeChallenges.set(codeChallenge.challengeKey, {
+          snippet: codeChallenge.snippet,
+          vulnLines: codeChallenge.vulnLines,
+          neutralLines: codeChallenge.neutralLines
+        })
+      }
+    }
+    console.timeEnd('getCodeChallenges')
+  }
+  return _internalCodeChallenges
+}
+
+function getCodeChallengesFromFile (file: FileMatch) {
+  const fileContent = file.content
+
+  // get all challenges which are in the file by a regex capture group
+  const challengeKeyRegex = /[/#]{0,2} vuln-code-snippet start (?<challenges>.*)/g
+  const challenges = [...fileContent.matchAll(challengeKeyRegex)]
+    .flatMap(match => match.groups?.challenges?.split(' ') ?? [])
+    .filter(Boolean)
+
+  return challenges.map((challengeKey) => getCodingChallengeFromFileContent(fileContent, challengeKey))
+}
+
+function getCodingChallengeFromFileContent (source: string, challengeKey: string) {
+  const snippets = source.match(`[/#]{0,2} vuln-code-snippet start.*${challengeKey}([^])*vuln-code-snippet end.*${challengeKey}`)
+  if (snippets == null) {
+    throw new BrokenBoundary('Broken code snippet boundaries for: ' + challengeKey)
+  }
+  let snippet = snippets[0] // TODO Currently only a single code snippet is supported
+  snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet start.*[\r\n]{0,2}/g, '')
+  snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet end.*/g, '')
+  snippet = snippet.replace(/.*[/#]{0,2} vuln-code-snippet hide-line[\r\n]{0,2}/g, '')
+  snippet = snippet.replace(/.*[/#]{0,2} vuln-code-snippet hide-start([^])*[/#]{0,2} vuln-code-snippet hide-end[\r\n]{0,2}/g, '')
+  snippet = snippet.trim()
+
+  let lines = snippet.split('\r\n')
+  if (lines.length === 1) lines = snippet.split('\n')
+  if (lines.length === 1) lines = snippet.split('\r')
+  const vulnLines = []
+  const neutralLines = []
+  for (let i = 0; i < lines.length; i++) {
+    if (new RegExp(`vuln-code-snippet vuln-line.*${challengeKey}`).exec(lines[i]) != null) {
+      vulnLines.push(i + 1)
+    } else if (new RegExp(`vuln-code-snippet neutral-line.*${challengeKey}`).exec(lines[i]) != null) {
+      neutralLines.push(i + 1)
+    }
+  }
+  snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet vuln-line.*/g, '')
+  snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet neutral-line.*/g, '')
+  return { challengeKey, snippet, vulnLines, neutralLines }
+}
+
 class BrokenBoundary extends Error {
   constructor (message: string) {
     super(message)
     this.name = 'BrokenBoundary'
-    this.message = message
-  }
-}
-
-class SnippetNotFound extends Error {
-  constructor (message: string) {
-    super(message)
-    this.name = 'SnippetNotFound'
-    this.message = message
-  }
-}
-
-class UnknownChallengekey extends Error {
-  constructor (message: string) {
-    super(message)
-    this.name = 'UnknownChallengeKey'
     this.message = message
   }
 }
@@ -96,57 +137,22 @@ const setStatusCode = (error: any) => {
   }
 }
 
-export const retrieveCodeSnippet = async (key: string, pass: boolean = false) => {
-  let challenge = challenges[key]
-  if (pass) challenge = { key }
-  if (challenge) {
-    if (!cache[challenge.key]) {
-      const match = new RegExp(`vuln-code-snippet start.*${challenge.key}`)
-      const matches = await fileSniff(SNIPPET_PATHS, match)
-      if (matches[0]) { // TODO Currently only a single source file is supported
-        const source = fs.readFileSync(path.resolve(matches[0].path), 'utf8')
-        const snippets = source.match(`[/#]{0,2} vuln-code-snippet start.*${challenge.key}([^])*vuln-code-snippet end.*${challenge.key}`)
-        if (snippets != null) {
-          let snippet = snippets[0] // TODO Currently only a single code snippet is supported
-          snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet start.*[\r\n]{0,2}/g, '')
-          snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet end.*/g, '')
-          snippet = snippet.replace(/.*[/#]{0,2} vuln-code-snippet hide-line[\r\n]{0,2}/g, '')
-          snippet = snippet.replace(/.*[/#]{0,2} vuln-code-snippet hide-start([^])*[/#]{0,2} vuln-code-snippet hide-end[\r\n]{0,2}/g, '')
-          snippet = snippet.trim()
-
-          let lines = snippet.split('\r\n')
-          if (lines.length === 1) lines = snippet.split('\n')
-          if (lines.length === 1) lines = snippet.split('\r')
-          const vulnLines = []
-          const neutralLines = []
-          for (let i = 0; i < lines.length; i++) {
-            if (new RegExp(`vuln-code-snippet vuln-line.*${challenge.key}`).exec(lines[i]) != null) {
-              vulnLines.push(i + 1)
-            } else if (new RegExp(`vuln-code-snippet neutral-line.*${challenge.key}`).exec(lines[i]) != null) {
-              neutralLines.push(i + 1)
-            }
-          }
-          snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet vuln-line.*/g, '')
-          snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet neutral-line.*/g, '')
-          cache[challenge.key] = { snippet, vulnLines, neutralLines }
-        } else {
-          throw new BrokenBoundary('Broken code snippet boundaries for: ' + challenge.key)
-        }
-      } else {
-        throw new SnippetNotFound('No code snippet available for: ' + challenge.key)
-      }
-    }
-    return cache[challenge.key]
-  } else {
-    throw new UnknownChallengekey('Unknown challenge key: ' + key)
+export const retrieveCodeSnippet = async (challengeKey: string) => {
+  const codeChallenges = await getCodeChallenges()
+  if (codeChallenges.has(challengeKey)) {
+    return codeChallenges.get(challengeKey) ?? null
   }
+  return null
 }
 
 exports.serveCodeSnippet = () => async (req: Request<SnippetRequestBody, {}, {}>, res: Response, next: NextFunction) => {
-  let snippetData
   try {
-    snippetData = await retrieveCodeSnippet(req.params.challenge)
-    res.status(setStatusCode(snippetData)).json({ snippet: snippetData.snippet })
+    const snippetData = await retrieveCodeSnippet(req.params.challenge)
+    if (!snippetData) {
+      res.status(404).json({ status: 'error', error: 'Snippet not found' })
+      return
+    }
+    res.status(200).json({ snippet: snippetData.snippet })
   } catch (error) {
     const statusCode = setStatusCode(error)
     res.status(statusCode).json({ status: 'error', error: utils.getErrorMessage(error) })
@@ -154,12 +160,8 @@ exports.serveCodeSnippet = () => async (req: Request<SnippetRequestBody, {}, {}>
 }
 
 export const retrieveChallengesWithCodeSnippet = async () => {
-  if (!cache.codingChallenges) {
-    const match = /vuln-code-snippet start .*/
-    const matches = await fileSniff(SNIPPET_PATHS, match)
-    cache.codingChallenges = matches.map(m => m.match.trim().substr(26).trim()).join(' ').split(' ').filter(c => c.endsWith('Challenge'))
-  }
-  return cache.codingChallenges
+  const codeChallenges = await getCodeChallenges()
+  return [...codeChallenges.keys()]
 }
 
 exports.serveChallengesWithCodeSnippet = () => async (req: Request, res: Response, next: NextFunction) => {
@@ -181,6 +183,10 @@ exports.checkVulnLines = () => async (req: Request<{}, {}, VerdictRequestBody>, 
   let snippetData
   try {
     snippetData = await retrieveCodeSnippet(key)
+    if (!snippetData) {
+      res.status(404).json({ status: 'error', error: 'Snippet not found' })
+      return
+    }
   } catch (error) {
     const statusCode = setStatusCode(error)
     res.status(statusCode).json({ status: 'error', error: utils.getErrorMessage(error) })
