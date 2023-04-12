@@ -7,7 +7,7 @@ import config = require('config')
 import { retrieveCodeSnippet } from '../routes/vulnCodeSnippet'
 import { readFixes } from '../routes/vulnCodeFixes'
 import { Challenge } from '../data/types'
-// import { identicalChallengePairs } from './startup/identicalChallenges'
+import { getCodingChallenges } from './startup/codingChallenges'
 const colors = require('colors/safe')
 const logger = require('./logger')
 
@@ -49,14 +49,16 @@ exports.calculateFindItCheatScore = async (challenge: Challenge) => { // TODO Co
 
   const { snippet, vulnLines } = await retrieveCodeSnippet(challenge.key)
   timeFactor *= vulnLines.length
+  const identicalSolved = await checkIdenticalSolved(challenge)
+  if (identicalSolved) {
+    timeFactor = 0 // to be discussed
+  }
   const minutesExpectedToSolve = Math.ceil(snippet.length * timeFactor)
   const minutesSincePreviousSolve = (timestamp.getTime() - previous().timestamp.getTime()) / 60000
   cheatScore += Math.max(0, 1 - (minutesSincePreviousSolve / minutesExpectedToSolve))
 
   logger.info(`Cheat score for "Find it" phase of ${challenge.key === 'scoreBoardChallenge' && config.get('hackingInstructor.isEnabled') ? 'tutorial ' : ''}${colors.cyan(challenge.key)} solved in ${Math.round(minutesSincePreviousSolve)}min (expected ~${minutesExpectedToSolve}min): ${cheatScore < 0.33 ? colors.green(cheatScore) : (cheatScore < 0.66 ? colors.yellow(cheatScore) : colors.red(cheatScore))}`)
   solves.push({ challenge, phase: 'find it', timestamp, cheatScore })
-
-  // logger.info(JSON.stringify(identicalChallengePairs)) doesn't work
 
   return cheatScore
 }
@@ -90,4 +92,24 @@ function isTrivial (challenge: Challenge) {
 
 function previous () {
   return solves[solves.length - 1]
+}
+
+const checkIdenticalSolved = async (challenge: Challenge): Promise<Boolean> => {
+  const identicalChallenges = await getCodingChallenges() // string[][] that contains identical challenges
+  const rowWithChallenge = identicalChallenges.find(row => row.includes(challenge.key))
+
+  // check if any identical challenge is solved (find it phase for now) using 'solves' array
+  if (rowWithChallenge) {
+    for (const solvedChallenges of solves) {
+      for (const identicalChallenge of rowWithChallenge) {
+        if (identicalChallenge !== challenge.key && identicalChallenge === solvedChallenges.challenge.key) {
+          if (solvedChallenges.phase === 'find it') {
+            return true
+          }
+        }
+      }
+    }
+  }
+
+  return false
 }
