@@ -7,7 +7,7 @@ import config = require('config')
 import { retrieveCodeSnippet } from '../routes/vulnCodeSnippet'
 import { readFixes } from '../routes/vulnCodeFixes'
 import { Challenge } from '../data/types'
-import { getCodingChallenges } from './startup/codingChallenges'
+import { getCodeChallenges } from './startup/codingChallenges'
 const colors = require('colors/safe')
 const logger = require('./logger')
 
@@ -53,7 +53,7 @@ exports.calculateFindItCheatScore = async (challenge: Challenge) => { // TODO Co
   }
   const { snippet, vulnLines } = codeSnippet
   timeFactor *= vulnLines.length
-  const identicalSolved = await checkIdenticalSolved(challenge)
+  const identicalSolved = await checkForIdenticalSolvedChallenge(challenge)
   if (identicalSolved) {
     timeFactor = 0 // to be discussed
   }
@@ -98,22 +98,31 @@ function previous () {
   return solves[solves.length - 1]
 }
 
-const checkIdenticalSolved = async (challenge: Challenge): Promise<Boolean> => {
-  const identicalChallenges = await getCodingChallenges() // string[][] that contains identical challenges
-  const rowWithChallenge = identicalChallenges.find(row => row.includes(challenge.key))
+const checkForIdenticalSolvedChallenge = async (challenge: Challenge): Promise<Boolean> => {
+  const codingChallenges = await getCodeChallenges()
+  if (!codingChallenges.has(challenge.key)) {
+    return false
+  }
 
-  // check if any identical challenge is solved (find it phase for now) using 'solves' array
-  if (rowWithChallenge) {
-    for (const solvedChallenges of solves) {
-      for (const identicalChallenge of rowWithChallenge) {
-        if (identicalChallenge !== challenge.key && identicalChallenge === solvedChallenges.challenge.key) {
-          if (solvedChallenges.phase === 'find it') {
-            return true
-          }
+  const codingChallengesToCompareTo = codingChallenges.get(challenge.key)
+  if (!codingChallengesToCompareTo || !codingChallengesToCompareTo.snippet) {
+    return false
+  }
+  const snippetToCompareTo = codingChallengesToCompareTo.snippet
+
+  for (const [challengeKey, { snippet }] of codingChallenges.entries()) {
+    if (challengeKey === challenge.key) {
+      // don't compare to itself
+      continue
+    }
+
+    if (snippet === snippetToCompareTo) {
+      for (const solvedChallenges of solves) {
+        if (solvedChallenges.phase === 'find it') {
+          return true
         }
       }
     }
   }
-
   return false
 }

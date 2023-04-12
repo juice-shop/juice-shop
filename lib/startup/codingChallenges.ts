@@ -1,96 +1,105 @@
-import fs from 'graceful-fs'
-import actualFs from 'fs'
+import fs from 'fs'
 import path from 'path'
-
-fs.gracefulify(actualFs)
 
 export const SNIPPET_PATHS = Object.freeze(['./server.ts', './routes', './lib', './data', './frontend/src/app', './models'])
 
-interface CodingChallenge {
-  challengeName: string
-  startLine: number
-  endLine: number
+interface FileMatch {
+  path: string
+  content: string
 }
 
-interface Match {
-  [key: string]: CodingChallenge[]
+interface CachedCodeChallenge {
+  snippet: string
+  vulnLines: number[]
+  neutralLines: number[]
 }
 
-let matches: Match = {}
-const identicalChallengeGroups = new Array<string[]>()
-
-const fileSniff = async (paths: readonly string[], match1: RegExp, match2: RegExp): Promise<Match> => {
+export const findFilesWithCodeChallenges = async (paths: readonly string[]): Promise<FileMatch[]> => {
+  const matches = []
   for (const currPath of paths) {
-    if (fs.lstatSync(currPath).isDirectory()) {
-      const filePromises = await fs.promises.readdir(currPath)
-      const files = filePromises.map(file => path.join(currPath, file))
-      const moreMatches = await fileSniff(files, match1, match2)
-      matches = { ...matches, ...moreMatches }
+    if ((await fs.promises.lstat(currPath)).isDirectory()) {
+      const files = await fs.promises.readdir(currPath)
+      const moreMatches = await findFilesWithCodeChallenges(
+        files.map(file => path.resolve(currPath, file))
+      )
+      matches.push(...moreMatches)
     } else {
-      const content = await fs.promises.readFile(currPath)
-      const data = content.toString()
-      const lines = data.split('\n')
-      lines.forEach((line: string, lineNumber: number) => {
-        if (match1.test(line)) {
-          const challenges = line.trim().split(' ').filter(c => c.endsWith('Challenge'))
-          const identicalChallenges: string[] = []
-          identicalChallenges.push(...challenges)
-          challenges.forEach((challenge) => {
-            if (!matches[currPath]) {
-              matches[currPath] = []
-            }
-            matches[currPath].push({
-              challengeName: challenge,
-              startLine: lineNumber + 1,
-              endLine: lineNumber + 1
-            })
-            matches[currPath].forEach(codingChallenge => {
-              if (codingChallenge.startLine === codingChallenge.endLine) {
-                identicalChallenges.push(codingChallenge.challengeName)
-                if (identicalChallengeGroups.length !== 0) {
-                  if (identicalChallengeGroups[identicalChallengeGroups.length - 1].includes(codingChallenge.challengeName)) {
-                    identicalChallengeGroups.pop()
-                  }
-                }
-                identicalChallengeGroups.push(identicalChallenges)
-              }
-            })
-          })
-        }
-        if (match2.test(line)) {
-          const challenges = line.trim().split(' ').filter(c => c.endsWith('Challenge'))
-          challenges.forEach((challenge) => {
-            const ch = matches[currPath].find(c => c.challengeName === challenge)
-            if (ch) {
-              ch.endLine = lineNumber + 1
-            }
-          })
-        }
-      })
+      const code = await fs.promises.readFile(currPath, 'utf8')
+      if (code.includes('// vuln-code' + '-snippet start')) { // string is split so that it doesn't find itself...
+        matches.push({ path: currPath, content: code })
+      }
     }
   }
+
   return matches
 }
 
-const removeDuplicatesFromIdenticalChallengeGroups = () => {
-  const set = new Set<string>()
-  const uniqueArr: string[][] = []
+function getCodeChallengesFromFile (file: FileMatch) {
+  const fileContent = file.content
 
-  for (let subArr of identicalChallengeGroups) {
-    const str = subArr.sort().join(',')
-    if (!set.has(str)) {
-      set.add(str)
-      subArr = [...new Set(subArr)]
-      uniqueArr.push(subArr)
-    }
-  }
-  return uniqueArr
+  // get all challenges which are in the file by a regex capture group
+  const challengeKeyRegex = /[/#]{0,2} vuln-code-snippet start (?<challenges>.*)/g
+  const challenges = [...fileContent.matchAll(challengeKeyRegex)]
+    .flatMap(match => match.groups?.challenges?.split(' ') ?? [])
+    .filter(Boolean)
+
+  return challenges.map((challengeKey) => getCodingChallengeFromFileContent(fileContent, challengeKey))
 }
 
-export const getCodingChallenges = async () => {
-  if (Object.keys(matches).length === 0) {
-    matches = await fileSniff(SNIPPET_PATHS, /vuln-code-snippet start/, /vuln-code-snippet end/)
+function getCodingChallengeFromFileContent (source: string, challengeKey: string) {
+  const snippets = source.match(`[/#]{0,2} vuln-code-snippet start.*${challengeKey}([^])*vuln-code-snippet end.*${challengeKey}`)
+  if (snippets == null) {
+    throw new BrokenBoundary('Broken code snippet boundaries for: ' + challengeKey)
   }
-  const identicalChallenges = removeDuplicatesFromIdenticalChallengeGroups()
-  return identicalChallenges
+  let snippet = snippets[0] // TODO Currently only a single code snippet is supported
+  snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet start.*[\r\n]{0,2}/g, '')
+  snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet end.*/g, '')
+  snippet = snippet.replace(/.*[/#]{0,2} vuln-code-snippet hide-line[\r\n]{0,2}/g, '')
+  snippet = snippet.replace(/.*[/#]{0,2} vuln-code-snippet hide-start([^])*[/#]{0,2} vuln-code-snippet hide-end[\r\n]{0,2}/g, '')
+  snippet = snippet.trim()
+
+  let lines = snippet.split('\r\n')
+  if (lines.length === 1) lines = snippet.split('\n')
+  if (lines.length === 1) lines = snippet.split('\r')
+  const vulnLines = []
+  const neutralLines = []
+  for (let i = 0; i < lines.length; i++) {
+    if (new RegExp(`vuln-code-snippet vuln-line.*${challengeKey}`).exec(lines[i]) != null) {
+      vulnLines.push(i + 1)
+    } else if (new RegExp(`vuln-code-snippet neutral-line.*${challengeKey}`).exec(lines[i]) != null) {
+      neutralLines.push(i + 1)
+    }
+  }
+  snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet vuln-line.*/g, '')
+  snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet neutral-line.*/g, '')
+  return { challengeKey, snippet, vulnLines, neutralLines }
+}
+
+class BrokenBoundary extends Error {
+  constructor (message: string) {
+    super(message)
+    this.name = 'BrokenBoundary'
+    this.message = message
+  }
+}
+
+// dont use directly, use getCodeChallenges getter
+let _internalCodeChallenges: Map<string, CachedCodeChallenge> | null = null
+export async function getCodeChallenges (): Promise<Map<string, CachedCodeChallenge>> {
+  if (_internalCodeChallenges === null) {
+    console.time('getCodeChallenges')
+    _internalCodeChallenges = new Map<string, CachedCodeChallenge>()
+    const filesWithCodeChallenges = await findFilesWithCodeChallenges(SNIPPET_PATHS)
+    for (const fileMatch of filesWithCodeChallenges) {
+      for (const codeChallenge of getCodeChallengesFromFile(fileMatch)) {
+        _internalCodeChallenges.set(codeChallenge.challengeKey, {
+          snippet: codeChallenge.snippet,
+          vulnLines: codeChallenge.vulnLines,
+          neutralLines: codeChallenge.neutralLines
+        })
+      }
+    }
+    console.timeEnd('getCodeChallenges')
+  }
+  return _internalCodeChallenges
 }
