@@ -87,7 +87,6 @@ class BrokenBoundary extends Error {
 let _internalCodeChallenges: Map<string, CachedCodeChallenge> | null = null
 export async function getCodeChallenges (): Promise<Map<string, CachedCodeChallenge>> {
   if (_internalCodeChallenges === null) {
-    console.time('getCodeChallenges')
     _internalCodeChallenges = new Map<string, CachedCodeChallenge>()
     const filesWithCodeChallenges = await findFilesWithCodeChallenges(SNIPPET_PATHS)
     for (const fileMatch of filesWithCodeChallenges) {
@@ -99,7 +98,6 @@ export async function getCodeChallenges (): Promise<Map<string, CachedCodeChalle
         })
       }
     }
-    console.timeEnd('getCodeChallenges')
   }
   return _internalCodeChallenges
 }
