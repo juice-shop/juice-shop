@@ -43,8 +43,9 @@ const checkDiffs = async (keys: string[]) => {
     }
   }, {})
   for (const val of keys) {
-    await retrieveCodeSnippet(val.split('_')[0], true)
+    await retrieveCodeSnippet(val.split('_')[0])
       .then(snippet => {
+        if (!snippet) return
         process.stdout.write(val + ': ')
         const fileData = fs.readFileSync(fixesPath + '/' + val).toString()
         const diff = Diff.diffLines(filterString(fileData), filterString(snippet.snippet))
@@ -102,7 +103,8 @@ const checkDiffs = async (keys: string[]) => {
 
 async function seePatch (file: string) {
   const fileData = fs.readFileSync(fixesPath + '/' + file).toString()
-  const snippet = await retrieveCodeSnippet(file.split('_')[0], true)
+  const snippet = await retrieveCodeSnippet(file.split('_')[0])
+  if (!snippet) return
   const patch = Diff.structuredPatch(file, file, filterString(snippet.snippet), filterString(fileData))
   console.log(colors.bold(file + '\n'))
   for (const hunk of patch.hunks) {
