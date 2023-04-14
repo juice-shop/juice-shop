@@ -5,7 +5,6 @@ errorhandler.title = `${config.get('application.name')} (Express ${utils.version
 
 const registerWebsocketEvents = require('./lib/startup/registerWebsocketEvents')
 const customizeApplication = require('./lib/startup/customizeApplication')
-const identicalChallenges = require('./lib/startup/identicalChallenges')
 
 export async function start (readyCallback: Function) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
