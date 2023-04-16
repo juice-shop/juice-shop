@@ -6,7 +6,7 @@
 import { NextFunction, Request, Response } from 'express'
 import fs from 'fs'
 import yaml from 'js-yaml'
-import { getCodeChallenges } from '../lib/startup/codingChallenges'
+import { getCodeChallenges } from '../lib/codingChallenges'
 
 const utils = require('../lib/utils')
 const challengeUtils = require('../lib/challengeUtils')

@@ -7,7 +7,7 @@ import config = require('config')
 import { retrieveCodeSnippet } from '../routes/vulnCodeSnippet'
 import { readFixes } from '../routes/vulnCodeFixes'
 import { Challenge } from '../data/types'
-import { getCodeChallenges } from './startup/codingChallenges'
+import { getCodeChallenges } from './codingChallenges'
 const colors = require('colors/safe')
 const logger = require('./logger')
 
