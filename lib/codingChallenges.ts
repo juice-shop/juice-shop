@@ -24,13 +24,17 @@ export const findFilesWithCodeChallenges = async (paths: readonly string[]): Pro
       )
       matches.push(...moreMatches)
     } else {
-      const code = await fs.readFile(currPath, 'utf8')
-      if (
-        // strings are split so that it doesn't find itself...
-        code.includes('// vuln-code' + '-snippet start') ||
-        code.includes('# vuln-code' + '-snippet start')
-      ) {
-        matches.push({ path: currPath, content: code })
+      try {
+        const code = await fs.readFile(currPath, 'utf8')
+        if (
+          // strings are split so that it doesn't find itself...
+          code.includes('// vuln-code' + '-snippet start') ||
+          code.includes('# vuln-code' + '-snippet start')
+        ) {
+          matches.push({ path: currPath, content: code })
+        }
+      } catch (e) {
+        logger.warn(`File ${currPath} could not be read. it might have been moved or deleted. If coding challenges are contained in the file, they will not be available.`)
       }
     }
   }
