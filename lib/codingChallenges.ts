@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'fs/promises'
 import path from 'path'
 
 export const SNIPPET_PATHS = Object.freeze(['./server.ts', './routes', './lib', './data', './frontend/src/app', './models'])
@@ -17,14 +17,14 @@ interface CachedCodeChallenge {
 export const findFilesWithCodeChallenges = async (paths: readonly string[]): Promise<FileMatch[]> => {
   const matches = []
   for (const currPath of paths) {
-    if ((await fs.promises.lstat(currPath)).isDirectory()) {
-      const files = await fs.promises.readdir(currPath)
+    if ((await fs.lstat(currPath)).isDirectory()) {
+      const files = await fs.readdir(currPath)
       const moreMatches = await findFilesWithCodeChallenges(
         files.map(file => path.resolve(currPath, file))
       )
       matches.push(...moreMatches)
     } else {
-      const code = await fs.promises.readFile(currPath, 'utf8')
+      const code = await fs.readFile(currPath, 'utf8')
       if (
         // strings are split so that it doesn't find itself...
         code.includes('// vuln-code' + '-snippet start') ||
