@@ -42,7 +42,7 @@ exports.serveCodeSnippet = () => async (req: Request<SnippetRequestBody, {}, {}>
   try {
     const snippetData = await retrieveCodeSnippet(req.params.challenge)
     if (!snippetData) {
-      res.status(404).json({ status: 'error', error: 'Snippet not found' })
+      res.status(404).json({ status: 'error', error: `No code challenge for challenge key: ${req.params.challenge}` })
       return
     }
     res.status(200).json({ snippet: snippetData.snippet })
@@ -77,7 +77,7 @@ exports.checkVulnLines = () => async (req: Request<{}, {}, VerdictRequestBody>, 
   try {
     snippetData = await retrieveCodeSnippet(key)
     if (!snippetData) {
-      res.status(404).json({ status: 'error', error: 'Snippet not found' })
+      res.status(404).json({ status: 'error', error: `No code challenge for challenge key: ${key}` })
       return
     }
   } catch (error) {
