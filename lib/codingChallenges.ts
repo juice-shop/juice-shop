@@ -25,7 +25,11 @@ export const findFilesWithCodeChallenges = async (paths: readonly string[]): Pro
       matches.push(...moreMatches)
     } else {
       const code = await fs.promises.readFile(currPath, 'utf8')
-      if (code.includes('// vuln-code' + '-snippet start')) { // string is split so that it doesn't find itself...
+      if (
+        // strings are split so that it doesn't find itself...
+        code.includes('// vuln-code' + '-snippet start') ||
+        code.includes('# vuln-code' + '-snippet start')
+      ) {
         matches.push({ path: currPath, content: code })
       }
     }
