@@ -41,7 +41,7 @@ exports.calculateCheatScore = (challenge: Challenge) => {
   return cheatScore
 }
 
-exports.calculateFindItCheatScore = async (challenge: Challenge) => { // TODO Consider coding challenges with identical/overlapping snippets as easier once one of them has been solved
+exports.calculateFindItCheatScore = async (challenge: Challenge) => {
   const timestamp = new Date()
   let timeFactor = 0.001
   timeFactor *= (challenge.key === 'scoreBoardChallenge' && config.get('hackingInstructor.isEnabled') ? 0.5 : 1)
