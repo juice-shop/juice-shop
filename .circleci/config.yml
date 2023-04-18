@@ -68,7 +68,7 @@ jobs:
           command: |
             aws configure set region us-east-1
             aws s3 cp ebs-app-options.json s3://juice-shop-env-prod
-            aws elasticbeanstalk create-application-version --application-name juice-shop-app-prod --version-label $CIRCLE_SHA1 --source-bundle S3Bucket="s3://juice-shop-env-prod",S3Key="ebs-app-options.json"
+            aws elasticbeanstalk create-application-version --application-name juice-shop-app-prod --version-label $CIRCLE_SHA1 --source-bundle S3Bucket="juice-shop-env-prod",S3Key="ebs-app-options.json"
             aws elasticbeanstalk update-environment --environment-name juice-shop-env-prod --version-label $CIRCLE_SHA1
 
 workflows:
