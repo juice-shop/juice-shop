@@ -37,8 +37,6 @@ jobs:
       - run: sudo npm install -g grunt-cli
       - run: npm run test
 
-
-
   deploy:
 
     docker:
@@ -74,6 +72,7 @@ jobs:
             aws elasticbeanstalk update-environment --environment-name juice-shop-env-prod --version-label $CIRCLE_SHA1
 
 workflows:
+
   build_test_deploy:
     jobs:
       - build
