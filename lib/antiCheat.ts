@@ -55,7 +55,7 @@ exports.calculateFindItCheatScore = async (challenge: Challenge) => {
   timeFactor *= vulnLines.length
   const identicalSolved = await checkForIdenticalSolvedChallenge(challenge)
   if (identicalSolved) {
-    timeFactor = 0 // to be discussed
+    timeFactor = 0.8 * timeFactor
   }
   const minutesExpectedToSolve = Math.ceil(snippet.length * timeFactor)
   const minutesSincePreviousSolve = (timestamp.getTime() - previous().timestamp.getTime()) / 60000
