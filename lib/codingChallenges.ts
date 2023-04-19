@@ -1,5 +1,6 @@
 import fs from 'fs/promises'
 import path from 'path'
+const logger = require('./logger')
 
 export const SNIPPET_PATHS = Object.freeze(['./server.ts', './routes', './lib', './data', './frontend/src/app', './models'])
 
