@@ -16,8 +16,8 @@ describe('preconditionValidation', () => {
   describe('checkIfRunningOnSupportedNodeVersion', () => {
     const supportedVersion = require('./../../package.json').engines.node
 
-    it('should define the supported semver range as 16 - 19', () => {
-      expect(supportedVersion).to.equal('16 - 19')
+    it('should define the supported semver range as 16 - 20', () => {
+      expect(supportedVersion).to.equal('16 - 20')
       expect(semver.validRange(supportedVersion)).to.not.equal(null)
     })
 
