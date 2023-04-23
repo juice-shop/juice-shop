@@ -8,14 +8,14 @@ orbs:
   aws-cli: circleci/aws-cli@3.1.4
 
 jobs:
-  
+
   build:
 
     docker:
       - image: cimg/node:19.6.1
 
     steps:
-      - checkout 
+      - checkout
       - run: sudo npm install -g @angular/cli
       - run: sudo npm install -g grunt-cli
       - run: npm install
@@ -39,7 +39,8 @@ jobs:
       - run: sudo npm install -g grunt-cli
       - run: npm run test
 
-  deploy:
+  # Publica a aplicação em um ambiente Staging para usar de target do OWASP ZAP
+  deploy-stg:
 
     docker:
       - image: cimg/base:2022.09
@@ -47,11 +48,17 @@ jobs:
           username: $DOCKERHUB_USERNAME
           password: $DOCKERHUB_PASSWORD
 
+    environment:
+        EBS_ENV_NAME: "juice-shop-env-stg"
+        EBS_APP_NAME: "juice-shop-app-stg"
+        S3_BUCKET_NAME: "juice-shop-env-stg"
+        EBS_APP_OPTIONS_FILE: "ebs-app-options.json"
+
     steps:
 
       - setup_remote_docker:
           version: 20.10.18
-          
+
       - attach_workspace:
           at: .
 
@@ -69,9 +76,55 @@ jobs:
           name: Deploy to Elastic Beanstalk
           command: |
             aws configure set region us-east-1
-            aws s3 cp ebs-app-options.json s3://juice-shop-env-prod
-            aws elasticbeanstalk create-application-version --application-name juice-shop-app-prod --version-label $CIRCLE_SHA1 --source-bundle S3Bucket="juice-shop-env-prod",S3Key="ebs-app-options.json"
-            aws elasticbeanstalk update-environment --environment-name juice-shop-env-prod --version-label $CIRCLE_SHA1
+            aws s3 cp $EBS_APP_OPTIONS_FILE s3://$S3_BUCKET_NAME
+            aws elasticbeanstalk create-application-version --application-name $EBS_APP_NAME --version-label $CIRCLE_SHA1 --source-bundle S3Bucket=$S3_BUCKET_NAME,S3Key=$EBS_APP_OPTIONS_FILE
+            aws elasticbeanstalk update-environment --environment-name $EBS_ENV_NAME --version-label $CIRCLE_SHA1
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./*
+
+  deploy-prod:
+
+    docker:
+      - image: cimg/base:2022.09
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWORD
+
+    environment:
+        EBS_ENV_NAME: "juice-shop-env-prod"
+        EBS_APP_NAME: "juice-shop-app-prod"
+        S3_BUCKET_NAME: "juice-shop-env-prod"
+        EBS_APP_OPTIONS_FILE: "ebs-app-options.json"
+
+    steps:
+
+      - setup_remote_docker:
+          version: 20.10.18
+
+      - attach_workspace:
+          at: .
+
+      - aws-cli/setup:
+          profile-name: default
+
+      # Comandos para buildar a imagem docker e publicar no Docker HUB
+      - run: docker build -t $DOCKERHUB_USERNAME/juice-shop-app:$CIRCLE_SHA1 -t $DOCKERHUB_USERNAME/juice-shop-app:latest ./ # Caminho de onde o Dockerfile é carregado
+      - run: echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+      - run: docker push $DOCKERHUB_USERNAME/juice-shop-app:$CIRCLE_SHA1
+      - run: docker push $DOCKERHUB_USERNAME/juice-shop-app:latest
+
+      # Comandos para fazer o autalizar o ambiente no Elastic Beanstalk toda vez que uma nova imagem é publicada no docker hub
+      - run:
+          name: Deploy to Elastic Beanstalk
+          command: |
+            aws configure set region us-east-1
+            aws s3 cp $EBS_APP_OPTIONS_FILE s3://$S3_BUCKET_NAME
+            aws elasticbeanstalk create-application-version --application-name $EBS_APP_NAME --version-label $CIRCLE_SHA1 --source-bundle S3Bucket=$S3_BUCKET_NAME,S3Key=$EBS_APP_OPTIONS_FILE
+            aws elasticbeanstalk update-environment --environment-name $EBS_ENV_NAME --version-label $CIRCLE_SHA1
+
 
 workflows:
 
@@ -81,6 +134,15 @@ workflows:
       - test:
           requires:
             - build
-      - deploy:
+      - deploy-stg:
           requires:
             - test
+          filters:
+            branches:
+              ignore: master
+      - deploy-prod:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
