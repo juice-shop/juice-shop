@@ -6,6 +6,7 @@ version: 2.1
 orbs:
   browser-tools: circleci/browser-tools@1.1.0
   aws-cli: circleci/aws-cli@3.1.4
+  snyk: snyk/snyk@1.4.0
 
 jobs:
 
@@ -38,6 +39,46 @@ jobs:
       - run: sudo npm install -g @angular/cli
       - run: sudo npm install -g grunt-cli
       - run: npm run test
+
+ # Executa o Software composition Analysis
+  test_sca:
+
+    # Variaveis para integrar com Defect Dojo
+    environment:
+      APP_NAME: "juice-shop"
+      DEFECT_DOJO_API_URL: "https://defectdojo.soulsec.net/api/v2/import-scan/"
+      SCAN_TYPE: "Snyk Scan"
+      REPORT_FILE: "report.json"
+
+    docker:
+      - image: cimg/node:19.6.1
+
+    steps:
+      - attach_workspace:
+          at: .
+
+      - snyk/scan:
+
+          # Falha o build caso alguma vulnerabilidade seja encontrada
+          fail-on-issues: true
+
+          # Falha se encontrar alguma falha nesta severidade
+          severity-threshold: high
+
+          # Tire uma imagem instantânea das dependências atuais da aplicação para monitoramento contínuo pelo Snyk, se o teste foi bem-sucedido.
+          monitor-on-build: true
+
+          # Define o nome desse projeto para o scan
+          project: '${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}'
+
+          # Nome da Nome da variável de ambiente usada para armazenar o token de auth no Snyk
+          token-variable: SNYK_TOKEN
+
+          # Argumentos adicionais da CLI (https://docs.snyk.io/snyk-cli/cli-reference)
+          # additional-arguments: '--fail-fast --all-projects'
+          additional-arguments: '--json-file-output=report.json'
+
+
 
   # Publica a aplicação em um ambiente Staging para usar de target do OWASP ZAP
   deploy-stg:
@@ -134,15 +175,20 @@ workflows:
       - test:
           requires:
             - build
+      - test_sca:
+          requires:
+            - build
       - deploy-stg:
           requires:
             - test
+            - test_sca
           filters:
             branches:
               ignore: master
       - deploy-prod:
           requires:
             - test
+            - test_sca
           filters:
             branches:
               only: master
