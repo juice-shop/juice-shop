@@ -60,13 +60,13 @@ jobs:
       - snyk/scan:
 
           # Falha o build caso alguma vulnerabilidade seja encontrada
-          fail-on-issues: false
+          fail-on-issues: true
 
           # Falha se encontrar alguma falha nesta severidade
           severity-threshold: high
 
           # Tire uma imagem instantânea das dependências atuais da aplicação para monitoramento contínuo pelo Snyk, se o teste foi bem-sucedido.
-          monitor-on-build: true
+          monitor-on-build: false
 
           # Define o nome desse projeto para o scan
           project: '${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}'
