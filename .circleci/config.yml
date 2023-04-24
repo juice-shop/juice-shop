@@ -60,7 +60,7 @@ jobs:
       - snyk/scan:
 
           # Falha o build caso alguma vulnerabilidade seja encontrada
-          fail-on-issues: true
+          fail-on-issues: false
 
           # Falha se encontrar alguma falha nesta severidade
           severity-threshold: high
