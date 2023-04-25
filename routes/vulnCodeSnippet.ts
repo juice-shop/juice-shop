@@ -100,7 +100,7 @@ export const retrieveCodeSnippet = async (key: string, pass: boolean = false) =>
   if (pass) challenge = { key }
   if (challenge) {
     if (!cache[escapeRegExp(challenge.key)]) {
-      const match = new RegExp(`vuln-code-snippet start.*${_.escapeRegExp(challenge.key)}`)
+      const match = new RegExp(`vuln-code-snippet start.*${challenge.key}`)
       const matches = await fileSniff(SNIPPET_PATHS, match)
       if (matches[0]) { // TODO Currently only a single source file is supported
         const source = fs.readFileSync(path.resolve(matches[0].path), 'utf8')
