@@ -15,7 +15,7 @@ module.exports = function productReviews () {
   return (req: Request, res: Response, next: NextFunction) => {
     const id = req.body.id
     const user = security.authenticatedUsers.from(req)
-    db.reviews.findOne({ _id: id }).then((review: Review) => {
+    db.reviews.findOne({ _id: id }).then((review: Review).toString() => {
       const likedBy = review.likedBy
       if (!likedBy.includes(user.data.email)) {
         db.reviews.update(
