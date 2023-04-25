@@ -99,7 +99,7 @@ export const retrieveCodeSnippet = async (key: string, pass: boolean = false) =>
   let challenge = challenges[key]
   if (pass) challenge = { key }
   if (challenge) {
-    if (!cache[challenge.key]) {
+    if (!cache[escapeRegExp(challenge.key)]) {
       const match = new RegExp(`vuln-code-snippet start.*${_.escapeRegExp(challenge.key)}`)
       const matches = await fileSniff(SNIPPET_PATHS, match)
       if (matches[0]) { // TODO Currently only a single source file is supported
