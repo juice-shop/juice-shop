@@ -5,7 +5,7 @@
 
 /* jslint node: true */
 import packageJson from '../package.json'
-import fs = require('fs')
+import fs from 'fs'
 import logger from './logger'
 import config from 'config'
 import jsSHA from 'jssha'
@@ -27,12 +27,8 @@ let ctfKey: string
 if (process.env.CTF_KEY !== undefined && process.env.CTF_KEY !== '') {
   ctfKey = process.env.CTF_KEY
 } else {
-  fs.readFile('ctf.key', 'utf8', (err, data) => {
-    if (err != null) {
-      throw err
-    }
-    ctfKey = data
-  })
+  const data = fs.readFileSync('ctf.key', 'utf8')
+  ctfKey = data
 }
 
 export const queryResultToJson = (data: any, status: string = 'success') => {
