@@ -13,6 +13,7 @@ import { ComplaintModel } from '../models/complaint'
 import { Op } from 'sequelize'
 import challengeUtils = require('../lib/challengeUtils')
 import logger from '../lib/logger'
+import config from 'config'
 
 const Prometheus = require('prom-client')
 const onFinished = require('on-finished')
@@ -22,7 +23,6 @@ const challenges = require('../data/datacache').challenges
 const utils = require('../lib/utils')
 const antiCheat = require('../lib/antiCheat')
 const accuracy = require('../lib/accuracy')
-const config = require('config')
 
 const register = Prometheus.register
 

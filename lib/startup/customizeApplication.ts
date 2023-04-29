@@ -4,7 +4,7 @@
  */
 
 import fs = require('fs')
-const config = require('config')
+import config from 'config'
 const replace = require('replace')
 const utils = require('../utils')
 

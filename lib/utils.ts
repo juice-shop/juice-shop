@@ -7,9 +7,9 @@
 import packageJson from '../package.json'
 import fs = require('fs')
 import logger from './logger'
+import config from 'config'
 
 const jsSHA = require('jssha')
-const config = require('config')
 const download = require('download')
 const crypto = require('crypto')
 const clarinet = require('clarinet')

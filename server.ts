@@ -21,6 +21,7 @@ import { FeedbackModel } from './models/feedback'
 import { ProductModel } from './models/product'
 import { WalletModel } from './models/wallet'
 import logger from './lib/logger'
+import config from 'config'
 
 const startTime = Date.now()
 const path = require('path')
@@ -102,7 +103,6 @@ const updateUserProfile = require('./routes/updateUserProfile')
 const videoHandler = require('./routes/videoHandler')
 const twoFactorAuth = require('./routes/2fa')
 const languageList = require('./routes/languages')
-const config = require('config')
 const imageCaptcha = require('./routes/imageCaptcha')
 const dataExport = require('./routes/dataExport')
 const address = require('./routes/address')
