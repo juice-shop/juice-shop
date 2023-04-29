@@ -7,9 +7,9 @@ import pjson from '../../package.json'
 import config = require('config')
 import logger from '../logger'
 import path from 'path'
+import colors from 'colors/safe'
 const process = require('process')
 const semver = require('semver')
-const colors = require('colors/safe')
 const portscanner = require('portscanner')
 const fs = require('fs')
 const { promisify } = require('util')

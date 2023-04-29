@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import colors = require('colors/safe')
+import colors from 'colors/safe'
 import utils = require('../utils')
 import logger from '../logger'
 

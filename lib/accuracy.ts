@@ -4,7 +4,7 @@
  */
 
 import logger from './logger'
-const colors = require('colors/safe')
+import colors from 'colors/safe'
 const solves: { [key: string]: { 'find it': boolean, 'fix it': boolean, attempts: { 'find it': number, 'fix it': number } } } = {}
 
 type Phase = 'find it' | 'fix it'

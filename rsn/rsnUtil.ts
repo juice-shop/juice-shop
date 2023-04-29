@@ -1,9 +1,9 @@
 import { retrieveCodeSnippet } from '../routes/vulnCodeSnippet'
+import colors from 'colors/safe'
 const Diff = require('diff')
 const fs = require('fs')
 const fixesPath = 'data/static/codefixes'
 const cacheFile = 'rsn/cache.json'
-const colors = require('colors/safe')
 
 interface CacheData {
   [key: string]: {
