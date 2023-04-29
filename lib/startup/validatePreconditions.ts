@@ -5,10 +5,10 @@
 
 import pjson from '../../package.json'
 import config = require('config')
+import logger from '../logger'
 const process = require('process')
 const semver = require('semver')
 const colors = require('colors/safe')
-const logger = require('../logger')
 const portscanner = require('portscanner')
 const path = require('path')
 const fs = require('fs')

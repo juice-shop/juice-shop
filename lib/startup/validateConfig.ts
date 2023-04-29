@@ -5,9 +5,9 @@
 
 import process = require('process')
 import { Memory, Product } from '../../data/types'
+import logger from '../logger'
 const config = require('config')
 const colors = require('colors/safe')
-const logger = require('../logger')
 const path = require('path')
 const validateSchema = require('yaml-schema-validator/src')
 

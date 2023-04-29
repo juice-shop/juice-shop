@@ -4,10 +4,10 @@
  */
 
 import request = require('request')
+import logger from './logger'
 const { promisify } = require('util')
 const colors = require('colors/safe')
 const antiCheat = require('./antiCheat')
-const logger = require('./logger')
 const utils = require('./utils')
 const os = require('os')
 const config = require('config')
