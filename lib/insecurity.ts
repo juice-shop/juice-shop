@@ -5,9 +5,9 @@
 
 import { Request, Response, NextFunction } from 'express'
 import { UserModel } from 'models/user'
+import crypto from 'crypto'
 
 /* jslint node: true */
-const crypto = require('crypto')
 const expressJwt = require('express-jwt')
 const jwt = require('jsonwebtoken')
 const jws = require('jws')
