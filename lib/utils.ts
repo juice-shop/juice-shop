@@ -10,8 +10,8 @@ import logger from './logger'
 import config from 'config'
 import jsSHA from 'jssha'
 import download from 'download'
+import crypto from 'crypto'
 
-const crypto = require('crypto')
 const clarinet = require('clarinet')
 const isDocker = require('is-docker')
 const isHeroku = require('is-heroku')
