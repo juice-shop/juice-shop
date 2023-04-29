@@ -8,8 +8,8 @@ import packageJson from '../package.json'
 import fs = require('fs')
 import logger from './logger'
 import config from 'config'
+import jsSHA from 'jssha'
 
-const jsSHA = require('jssha')
 const download = require('download')
 const crypto = require('crypto')
 const clarinet = require('clarinet')
