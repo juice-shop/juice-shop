@@ -7,13 +7,13 @@ import config = require('config')
 import * as utils from '../utils'
 const replace = require('replace')
 
-const customizeEasterEgg = () => {
+const customizeEasterEgg = async () => {
   if (config.has('application.easterEggPlanet.overlayMap')) {
     let overlay: string = config.get('application.easterEggPlanet.overlayMap')
     if (utils.isUrl(overlay)) {
       const overlayPath = overlay
       overlay = utils.extractFilename(overlay)
-      utils.downloadToFile(overlayPath, 'frontend/dist/frontend/assets/private/' + overlay)
+      await utils.downloadToFile(overlayPath, 'frontend/dist/frontend/assets/private/' + overlay)
     }
     replaceImagePath(overlay)
   }
