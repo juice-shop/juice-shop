@@ -13,11 +13,13 @@ import download from 'download'
 import crypto from 'crypto'
 import clarinet from 'clarinet'
 
-const isDocker = require('is-docker')
-const isHeroku = require('is-heroku')
-// const isGitpod = require('is-gitpod') // FIXME Roll back to this when https://github.com/dword-design/is-gitpod/issues/94 is resolved
-const isGitpod = () => { return false }
-const isWindows = require('is-windows')
+import isDocker from 'is-docker'
+import isWindows from 'is-windows'
+const isHeroku = () => {
+  return 'HEROKU' in process.env || ('DYNO' in process.env && process.env.HOME === '/app')
+}
+// import isGitpod from 'is-gitpod') // FIXME Roll back to this when https://github.com/dword-design/is-gitpod/issues/94 is resolve
+const isGitpod = () => false
 
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
 
@@ -154,7 +156,7 @@ export const randomHexString = (length: number) => {
 }
 
 export const disableOnContainerEnv = () => {
-  return (isDocker() || isGitpod() || isHeroku) && !config.get('challenges.safetyOverride')
+  return (isDocker() || isGitpod() || isHeroku()) && !config.get('challenges.safetyOverride')
 }
 
 export const disableOnWindowsEnv = () => {
@@ -164,7 +166,7 @@ export const disableOnWindowsEnv = () => {
 export const determineDisabledEnv = (disabledEnv: string | string[] | undefined) => {
   if (isDocker()) {
     return disabledEnv && (disabledEnv === 'Docker' || disabledEnv.includes('Docker')) ? 'Docker' : null
-  } else if (isHeroku) {
+  } else if (isHeroku()) {
     return disabledEnv && (disabledEnv === 'Heroku' || disabledEnv.includes('Heroku')) ? 'Heroku' : null
   } else if (isWindows()) {
     return disabledEnv && (disabledEnv === 'Windows' || disabledEnv.includes('Windows')) ? 'Windows' : null
