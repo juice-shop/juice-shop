@@ -6,8 +6,8 @@
 import request = require('request')
 import logger from './logger'
 import config from 'config'
+import colors from 'colors/safe'
 const { promisify } = require('util')
-const colors = require('colors/safe')
 const antiCheat = require('./antiCheat')
 const utils = require('./utils')
 const os = require('os')

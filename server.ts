@@ -24,9 +24,9 @@ import logger from './lib/logger'
 import config from 'config'
 import path from 'path'
 import morgan from 'morgan'
+import colors from 'colors/safe'
 
 const startTime = Date.now()
-const colors = require('colors/safe')
 const finale = require('finale-rest')
 const express = require('express')
 const compression = require('compression')

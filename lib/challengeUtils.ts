@@ -3,7 +3,7 @@ import { ChallengeModel } from '../models/challenge'
 import logger from './logger'
 import config from 'config'
 
-const colors = require('colors/safe')
+import colors from 'colors/safe'
 const challenges = require('../data/datacache').challenges
 const notifications = require('../data/datacache').notifications
 const sanitizeHtml = require('sanitize-html')

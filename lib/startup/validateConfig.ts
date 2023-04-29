@@ -8,7 +8,7 @@ import { Memory, Product } from '../../data/types'
 import logger from '../logger'
 import config from 'config'
 import path from 'path'
-const colors = require('colors/safe')
+import colors from 'colors/safe'
 const validateSchema = require('yaml-schema-validator/src')
 
 const specialProducts = [
