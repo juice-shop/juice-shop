@@ -9,8 +9,8 @@ import fs = require('fs')
 import logger from './logger'
 import config from 'config'
 import jsSHA from 'jssha'
+import download from 'download'
 
-const download = require('download')
 const crypto = require('crypto')
 const clarinet = require('clarinet')
 const isDocker = require('is-docker')
@@ -126,11 +126,12 @@ export const extractFilename = (url: string) => {
 }
 
 export const downloadToFile = async (url: string, dest: string) => {
-  return download(url).then((data: string | Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | BigUint64Array | BigInt64Array | Float32Array | Float64Array | DataView) => {
+  try {
+    const data = await download(url)
     fs.writeFileSync(dest, data)
-  }).catch((err: unknown) => {
+  } catch (err) {
     logger.warn('Failed to download ' + url + ' (' + getErrorMessage(err) + ')')
-  })
+  }
 }
 
 export const jwtFrom = ({ headers }: { headers: any}) => {
