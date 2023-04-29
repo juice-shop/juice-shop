@@ -70,7 +70,7 @@ const customizePromotionSubtitles = async () => {
 }
 
 const retrieveCustomFile = async (sourceProperty: string, destinationFolder: string) => {
-  let file = config.get(sourceProperty)
+  let file = config.get<string>(sourceProperty)
   if (utils.isUrl(file)) {
     const filePath = file
     file = utils.extractFilename(file)
