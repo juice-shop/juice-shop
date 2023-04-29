@@ -6,6 +6,7 @@
 import fs = require('fs')
 import challengeUtils = require('../lib/challengeUtils')
 import { NextFunction, Request, Response } from 'express'
+import path from 'path'
 
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
@@ -13,7 +14,6 @@ const libxml = require('libxmljs2')
 const os = require('os')
 const vm = require('vm')
 const unzipper = require('unzipper')
-const path = require('path')
 
 function ensureFileIsPassed ({ file }: Request, res: Response, next: NextFunction) {
   if (file) {

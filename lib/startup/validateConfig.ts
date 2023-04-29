@@ -7,8 +7,8 @@ import process = require('process')
 import { Memory, Product } from '../../data/types'
 import logger from '../logger'
 import config from 'config'
+import path from 'path'
 const colors = require('colors/safe')
-const path = require('path')
 const validateSchema = require('yaml-schema-validator/src')
 
 const specialProducts = [
