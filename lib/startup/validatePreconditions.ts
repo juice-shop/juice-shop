@@ -8,11 +8,11 @@ import config = require('config')
 import logger from '../logger'
 import path from 'path'
 import colors from 'colors/safe'
+import { promisify } from 'util'
 const process = require('process')
 const semver = require('semver')
 const portscanner = require('portscanner')
 const fs = require('fs')
-const { promisify } = require('util')
 const access = promisify(fs.access)
 
 const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
@@ -78,10 +78,10 @@ const checkIfPortIsAvailable = async (port: number) => {
         reject(error)
       } else {
         if (status === 'open') {
-          logger.warn(`Port ${colors.bold(port)} is in use (${colors.red('NOT OK')})`)
+          logger.warn(`Port ${colors.bold(port.toString())} is in use (${colors.red('NOT OK')})`)
           resolve(false)
         } else {
-          logger.info(`Port ${colors.bold(port)} is available (${colors.green('OK')})`)
+          logger.info(`Port ${colors.bold(port.toString())} is available (${colors.green('OK')})`)
           resolve(true)
         }
       }

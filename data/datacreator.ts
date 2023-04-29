@@ -236,7 +236,7 @@ async function createRandomFakeUsers () {
 
 async function createQuantity () {
   return await Promise.all(
-    config.get('products').map(async (product: Product, index: number) => {
+    config.get<Product[]>('products').map(async (product: Product, index: number) => {
       return await QuantityModel.create({
         ProductId: index + 1,
         quantity: product.quantity !== undefined ? product.quantity : Math.floor(Math.random() * 70 + 30),
@@ -607,7 +607,7 @@ async function createSecurityAnswer (UserId: number, SecurityQuestionId: number,
 }
 
 async function createOrders () {
-  const products = config.get('products')
+  const products = config.get<Product[]>('products')
   const basket1Products = [
     {
       quantity: 3,

@@ -40,7 +40,7 @@ module.exports = function getUserProfile () {
           } else {
             username = '\\' + username
           }
-          const theme = themes[config.get('application.theme')]
+          const theme = themes[config.get<string>('application.theme')]
           if (username) {
             template = template.replace(/_username_/g, username)
           }
