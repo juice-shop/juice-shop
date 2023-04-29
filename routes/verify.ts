@@ -10,6 +10,7 @@ import { FeedbackModel } from '../models/feedback'
 import { ComplaintModel } from '../models/complaint'
 import { Op } from 'sequelize'
 import challengeUtils = require('../lib/challengeUtils')
+import config from 'config'
 
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
@@ -18,7 +19,6 @@ const jws = require('jws')
 const cache = require('../data/datacache')
 const challenges = cache.challenges
 const products = cache.products
-const config = require('config')
 
 exports.emptyUserRegistration = () => (req: Request, res: Response, next: NextFunction) => {
   challengeUtils.solveIf(challenges.emptyUserRegistration, () => {

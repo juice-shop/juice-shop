@@ -10,13 +10,13 @@ import { UserModel } from '../models/user'
 import { JwtPayload, VerifyErrors } from 'jsonwebtoken'
 import challengeUtils = require('../lib/challengeUtils')
 import logger from '../lib/logger'
+import config from 'config'
 
 const { Bot } = require('juicy-chat-bot')
 const security = require('../lib/insecurity')
 const jwt = require('jsonwebtoken')
 const utils = require('../lib/utils')
 const botUtils = require('../lib/botUtils')
-const config = require('config')
 const download = require('download')
 const challenges = require('../data/datacache').challenges
 

@@ -1,8 +1,8 @@
 import chai = require('chai')
+import config from 'config'
 const sinonChai = require('sinon-chai')
 const expect = chai.expect
 chai.use(sinonChai)
-const config = require('config')
 const fs = require('fs')
 const path = require('path')
 const ExifImage = require('exif').ExifImage

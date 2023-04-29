@@ -1,9 +1,9 @@
 import { Op } from 'sequelize'
 import { ChallengeModel } from '../models/challenge'
 import logger from './logger'
+import config from 'config'
 
 const colors = require('colors/safe')
-const config = require('config')
 const challenges = require('../data/datacache').challenges
 const notifications = require('../data/datacache').notifications
 const sanitizeHtml = require('sanitize-html')

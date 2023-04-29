@@ -5,12 +5,12 @@
 
 import request = require('request')
 import logger from './logger'
+import config from 'config'
 const { promisify } = require('util')
 const colors = require('colors/safe')
 const antiCheat = require('./antiCheat')
 const utils = require('./utils')
 const os = require('os')
-const config = require('config')
 const post = promisify(request.post)
 
 export const notify = async (challenge: { key: any, name: any }, cheatScore = -1, webhook = process.env.SOLUTIONS_WEBHOOK) => {

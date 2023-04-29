@@ -8,11 +8,11 @@ import { Request, Response, NextFunction } from 'express'
 
 import { UserModel } from '../models/user'
 import challengeUtils = require('../lib/challengeUtils')
+import config from 'config'
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 const pug = require('pug')
-const config = require('config')
 const themes = require('../views/themes/themes').themes
 const Entities = require('html-entities').AllHtmlEntities
 const entities = new Entities()

@@ -6,9 +6,9 @@
 import fs = require('fs')
 import { Request, Response } from 'express'
 import challengeUtils = require('../lib/challengeUtils')
+import config from 'config'
 
 const pug = require('pug')
-const config = require('config')
 const challenges = require('../data/datacache').challenges
 const utils = require('../lib/utils')
 const themes = require('../views/themes/themes').themes

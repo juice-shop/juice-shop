@@ -4,13 +4,13 @@
  */
 
 import sinon = require('sinon')
+import config from 'config'
 const chai = require('chai')
 const sinonChai = require('sinon-chai')
 const expect = chai.expect
 chai.use(sinonChai)
 const cache = require('../../data/datacache')
 const security = require('../../lib/insecurity')
-const config = require('config')
 const utils = require('../../lib/utils')
 
 describe('verify', () => {
