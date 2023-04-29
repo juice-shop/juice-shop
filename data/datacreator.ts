@@ -23,13 +23,13 @@ import { WalletModel } from '../models/wallet'
 import { Address, Card, Challenge, Delivery, Memory, Product, SecurityQuestion, User } from './types'
 import logger from '../lib/logger'
 import config from 'config'
+import path from 'path'
 const datacache = require('./datacache')
 const utils = require('../lib/utils')
 const mongodb = require('./mongodb')
 const security = require('../lib/insecurity')
 
 const fs = require('fs')
-const path = require('path')
 const util = require('util')
 const { safeLoad } = require('js-yaml')
 const Entities = require('html-entities').AllHtmlEntities

@@ -1,10 +1,10 @@
 import chai = require('chai')
 import config from 'config'
+import path from 'path'
 const sinonChai = require('sinon-chai')
 const expect = chai.expect
 chai.use(sinonChai)
 const fs = require('fs')
-const path = require('path')
 const ExifImage = require('exif').ExifImage
 const utils = require('../../lib/utils')
 const { pipeline } = require('stream')

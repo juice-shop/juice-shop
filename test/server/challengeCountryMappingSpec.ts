@@ -4,6 +4,7 @@
  */
 
 import chai = require('chai')
+import path from 'path'
 const sinonChai = require('sinon-chai')
 const expect = chai.expect
 chai.use(sinonChai)
@@ -12,7 +13,6 @@ const fs = require('fs')
 const { safeLoad } = require('js-yaml')
 const { promisify } = require('util')
 const readFile = promisify(fs.readFile)
-const path = require('path')
 
 const loadYamlFile = async (filename: string) => {
   const contents = await readFile(filename, { encoding: 'utf8' })

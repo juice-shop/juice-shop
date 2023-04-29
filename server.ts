@@ -22,9 +22,9 @@ import { ProductModel } from './models/product'
 import { WalletModel } from './models/wallet'
 import logger from './lib/logger'
 import config from 'config'
+import path from 'path'
 
 const startTime = Date.now()
-const path = require('path')
 const morgan = require('morgan')
 const colors = require('colors/safe')
 const finale = require('finale-rest')
