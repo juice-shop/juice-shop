@@ -7,10 +7,10 @@ import fs = require('fs')
 import { Request, Response } from 'express'
 import challengeUtils = require('../lib/challengeUtils')
 import config from 'config'
+import * as utils from '../lib/utils'
 
 const pug = require('pug')
 const challenges = require('../data/datacache').challenges
-const utils = require('../lib/utils')
 const themes = require('../views/themes/themes').themes
 const Entities = require('html-entities').AllHtmlEntities
 const entities = new Entities()

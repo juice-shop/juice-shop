@@ -8,7 +8,7 @@ import fs from 'fs'
 import yaml from 'js-yaml'
 import { getCodeChallenges } from '../lib/codingChallenges'
 
-const utils = require('../lib/utils')
+import * as utils from '../lib/utils'
 const challengeUtils = require('../lib/challengeUtils')
 const accuracy = require('../lib/accuracy')
 

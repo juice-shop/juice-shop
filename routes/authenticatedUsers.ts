@@ -5,7 +5,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { UserModel } from '../models/user'
 
-const utils = require('../lib/utils')
+import * as utils from '../lib/utils'
 const security = require('../lib/insecurity')
 
 module.exports = function retrieveUserList () {

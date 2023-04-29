@@ -12,7 +12,7 @@ import { Op } from 'sequelize'
 import challengeUtils = require('../lib/challengeUtils')
 import config from 'config'
 
-const utils = require('../lib/utils')
+import * as utils from '../lib/utils'
 const security = require('../lib/insecurity')
 const jwt = require('jsonwebtoken')
 const jws = require('jws')

@@ -57,7 +57,7 @@ export const isUrl = (url: string) => {
 
 export const startsWith = (str: string, prefix: string) => str ? str.indexOf(prefix) === 0 : false
 
-export const endsWith = (str: string, suffix: string) => str ? str.includes(suffix, str.length - suffix.length) : false
+export const endsWith = (str?: string, suffix?: string) => (str && suffix) ? str.includes(suffix, str.length - suffix.length) : false
 
 export const contains = (str: string, element: string) => str ? str.includes(element) : false // TODO Inline all usages as this function is not adding any functionality to String.includes
 
@@ -82,7 +82,7 @@ export const trunc = function (str: string, length: number) {
   return (str.length > length) ? str.substr(0, length - 1) + '...' : str
 }
 
-export const version = (module: string) => {
+export const version = (module?: string) => {
   if (module) {
     // @ts-expect-error
     return packageJson.dependencies[module]

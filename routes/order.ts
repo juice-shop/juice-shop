@@ -13,10 +13,10 @@ import { DeliveryModel } from '../models/delivery'
 import { WalletModel } from '../models/wallet'
 import challengeUtils = require('../lib/challengeUtils')
 import config from 'config'
+import * as utils from '../lib/utils'
 
 const fs = require('fs')
 const PDFDocument = require('pdfkit')
-const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
 const products = require('../data/datacache').products
 const challenges = require('../data/datacache').challenges

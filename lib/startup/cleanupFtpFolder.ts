@@ -6,7 +6,7 @@
 import glob = require('glob')
 import logger from '../logger'
 import path from 'path'
-const utils = require('../utils')
+import * as utils from '../utils'
 const fs = require('fs-extra')
 
 const cleanupFtpFolder = () => {

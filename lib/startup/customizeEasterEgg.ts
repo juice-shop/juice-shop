@@ -4,8 +4,8 @@
  */
 
 import config = require('config')
+import * as utils from '../utils'
 const replace = require('replace')
-const utils = require('../utils')
 
 const customizeEasterEgg = () => {
   if (config.has('application.easterEggPlanet.overlayMap')) {

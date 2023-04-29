@@ -25,6 +25,7 @@ import config from 'config'
 import path from 'path'
 import morgan from 'morgan'
 import colors from 'colors/safe'
+import * as utils from './lib/utils'
 
 const startTime = Date.now()
 const finale = require('finale-rest')
@@ -87,7 +88,6 @@ const showProductReviews = require('./routes/showProductReviews')
 const createProductReviews = require('./routes/createProductReviews')
 const updateProductReviews = require('./routes/updateProductReviews')
 const likeProductReviews = require('./routes/likeProductReviews')
-const utils = require('./lib/utils')
 const security = require('./lib/insecurity')
 const datacreator = require('./data/datacreator')
 const app = express()
