@@ -11,8 +11,8 @@ import config from 'config'
 import jsSHA from 'jssha'
 import download from 'download'
 import crypto from 'crypto'
+import clarinet from 'clarinet'
 
-const clarinet = require('clarinet')
 const isDocker = require('is-docker')
 const isHeroku = require('is-heroku')
 // const isGitpod = require('is-gitpod') // FIXME Roll back to this when https://github.com/dword-design/is-gitpod/issues/94 is resolved
@@ -183,7 +183,8 @@ export const parseJsonCustom = (jsonString: string) => {
   parser.onvalue = (v: any) => {
     result[result.length - 1].value = v
   }
-  parser.write(jsonString).close()
+  parser.write(jsonString)
+  parser.close()
   return result
 }
 
