@@ -14,13 +14,13 @@ import { Op } from 'sequelize'
 import challengeUtils = require('../lib/challengeUtils')
 import logger from '../lib/logger'
 import config from 'config'
+import * as utils from '../lib/utils'
 
 const Prometheus = require('prom-client')
 const onFinished = require('on-finished')
 const orders = require('../data/mongodb').orders
 const reviews = require('../data/mongodb').reviews
 const challenges = require('../data/datacache').challenges
-const utils = require('../lib/utils')
 const antiCheat = require('../lib/antiCheat')
 const accuracy = require('../lib/accuracy')
 

@@ -8,9 +8,9 @@ import { UserModel } from '../models/user'
 import { WalletModel } from '../models/wallet'
 import { CardModel } from '../models/card'
 import challengeUtils = require('../lib/challengeUtils')
+import * as utils from '../lib/utils'
 
 const security = require('../lib/insecurity')
-const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
 module.exports.upgradeToDeluxe = function upgradeToDeluxe () {

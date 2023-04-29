@@ -4,6 +4,7 @@ import logger from './logger'
 import config from 'config'
 
 import colors from 'colors/safe'
+import * as utils from './utils'
 const challenges = require('../data/datacache').challenges
 const notifications = require('../data/datacache').notifications
 const sanitizeHtml = require('sanitize-html')
@@ -12,7 +13,6 @@ const entities = new Entities()
 const webhook = require('./webhook')
 const antiCheat = require('./antiCheat')
 const accuracy = require('./accuracy')
-const utils = require('./utils')
 
 export const solveIf = function (challenge: any, criteria: () => any, isRestore: boolean = false) {
   if (notSolved(challenge) && criteria()) {

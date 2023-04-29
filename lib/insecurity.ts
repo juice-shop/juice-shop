@@ -6,6 +6,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { UserModel } from 'models/user'
 import crypto from 'crypto'
+import * as utils from './utils'
 
 /* jslint node: true */
 const expressJwt = require('express-jwt')
@@ -14,7 +15,6 @@ const jws = require('jws')
 const sanitizeHtml = require('sanitize-html')
 const sanitizeFilename = require('sanitize-filename')
 const z85 = require('z85')
-const utils = require('./utils')
 const fs = require('fs')
 
 const publicKey = fs.readFileSync('encryptionkeys/jwt.pub', 'utf8')

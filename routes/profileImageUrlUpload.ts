@@ -8,7 +8,7 @@ import { Request, Response, NextFunction } from 'express'
 import logger from '../lib/logger'
 
 import { UserModel } from '../models/user'
-const utils = require('../lib/utils')
+import * as utils from '../lib/utils'
 const security = require('../lib/insecurity')
 const request = require('request')
 

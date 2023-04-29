@@ -24,8 +24,8 @@ import { Address, Card, Challenge, Delivery, Memory, Product, SecurityQuestion, 
 import logger from '../lib/logger'
 import config from 'config'
 import path from 'path'
+import * as utils from '../lib/utils'
 const datacache = require('./datacache')
-const utils = require('../lib/utils')
 const mongodb = require('./mongodb')
 const security = require('../lib/insecurity')
 

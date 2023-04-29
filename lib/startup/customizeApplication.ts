@@ -5,8 +5,8 @@
 
 import fs = require('fs')
 import config from 'config'
+import * as utils from '../utils'
 const replace = require('replace')
-const utils = require('../utils')
 
 const customizeApplication = () => {
   if (config.get('application.name')) {
