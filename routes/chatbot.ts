@@ -11,16 +11,16 @@ import { JwtPayload, VerifyErrors } from 'jsonwebtoken'
 import challengeUtils = require('../lib/challengeUtils')
 import logger from '../lib/logger'
 import config from 'config'
+import download from 'download'
 
 const { Bot } = require('juicy-chat-bot')
 const security = require('../lib/insecurity')
 const jwt = require('jsonwebtoken')
 const utils = require('../lib/utils')
 const botUtils = require('../lib/botUtils')
-const download = require('download')
 const challenges = require('../data/datacache').challenges
 
-let trainingFile = config.get('application.chatBot.trainingData')
+let trainingFile = config.get<string>('application.chatBot.trainingData')
 let testCommand: string, bot: any
 
 async function initialize () {
