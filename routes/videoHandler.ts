@@ -56,7 +56,7 @@ exports.promotionVideo = () => {
 
       challengeUtils.solveIf(challenges.videoXssChallenge, () => { return utils.contains(subs, '</script><script>alert(`xss`)</script>') })
 
-      const theme = themes[config.get('application.theme')]
+      const theme = themes[config.get<string>('application.theme')]
       template = template.replace(/_title_/g, entities.encode(config.get('application.name')))
       template = template.replace(/_favicon_/g, favicon())
       template = template.replace(/_bgColor_/g, theme.bgColor)
@@ -76,17 +76,14 @@ exports.promotionVideo = () => {
 }
 
 function getSubsFromFile () {
-  let subtitles = 'owasp_promo.vtt'
-  if (config?.application?.promotion?.subtitles !== null) {
-    subtitles = utils.extractFilename(config.application.promotion.subtitles)
-  }
+  const subtitles = config.get<string>('application.promotion.subtitles') ?? 'owasp_promo.vtt'
   const data = fs.readFileSync('frontend/dist/frontend/assets/public/videos/' + subtitles, 'utf8')
   return data.toString()
 }
 
 function videoPath () {
-  if (config?.application?.promotion?.video !== null) {
-    const video = utils.extractFilename(config.application.promotion.video)
+  if (config.get<string>('application.promotion.video') !== null) {
+    const video = utils.extractFilename(config.get<string>('application.promotion.video'))
     return 'frontend/dist/frontend/assets/public/videos/' + video
   }
   return 'frontend/dist/frontend/assets/public/videos/owasp_promo.mp4'
