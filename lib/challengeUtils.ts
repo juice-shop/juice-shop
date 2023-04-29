@@ -1,5 +1,6 @@
 import { Op } from 'sequelize'
 import { ChallengeModel } from '../models/challenge'
+import logger from './logger'
 
 const colors = require('colors/safe')
 const config = require('config')
@@ -12,7 +13,6 @@ const webhook = require('./webhook')
 const antiCheat = require('./antiCheat')
 const accuracy = require('./accuracy')
 const utils = require('./utils')
-const logger = require('./logger')
 
 export const solveIf = function (challenge: any, criteria: () => any, isRestore: boolean = false) {
   if (notSolved(challenge) && criteria()) {

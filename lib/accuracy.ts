@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-const logger = require('./logger')
+import logger from './logger'
 const colors = require('colors/safe')
 const solves: { [key: string]: { 'find it': boolean, 'fix it': boolean, attempts: { 'find it': number, 'fix it': number } } } = {}
 

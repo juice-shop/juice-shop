@@ -6,6 +6,7 @@
 /* jslint node: true */
 import packageJson from '../package.json'
 import fs = require('fs')
+import logger from './logger'
 
 const jsSHA = require('jssha')
 const config = require('config')
@@ -17,7 +18,6 @@ const isHeroku = require('is-heroku')
 // const isGitpod = require('is-gitpod') // FIXME Roll back to this when https://github.com/dword-design/is-gitpod/issues/94 is resolved
 const isGitpod = () => { return false }
 const isWindows = require('is-windows')
-const logger = require('./logger')
 
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
 

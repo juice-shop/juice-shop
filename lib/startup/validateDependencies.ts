@@ -5,6 +5,7 @@
 
 import colors = require('colors/safe')
 import utils = require('../utils')
+import logger from '../logger'
 
 try {
   require('check-dependencies')
@@ -12,7 +13,6 @@ try {
   console.error('Please run "npm install" before starting the application!')
   process.exit(1)
 }
-const logger = require('../logger')
 const dependencyChecker = require('check-dependencies')
 
 const validateDependencies = async ({ packageDir = '.', exitOnFailure = true } = {}) => {

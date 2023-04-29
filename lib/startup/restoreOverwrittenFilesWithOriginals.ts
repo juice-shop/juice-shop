@@ -5,8 +5,8 @@
 
 import path = require('path')
 import utils = require('../utils')
+import logger from '../logger'
 const fs = require('fs')
-const logger = require('../logger')
 const { promisify } = require('util')
 const glob = promisify(require('glob'))
 const copyFile = promisify(fs.copyFile)
