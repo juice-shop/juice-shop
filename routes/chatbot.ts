@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import fs = require('fs')
+import fs from 'fs/promises'
 import { Request, Response, NextFunction } from 'express'
 import { User } from '../data/types'
 import { UserModel } from '../models/user'
@@ -27,16 +27,16 @@ async function initialize () {
   if (utils.isUrl(trainingFile)) {
     const file = utils.extractFilename(trainingFile)
     const data = await download(trainingFile)
-    fs.writeFileSync('data/chatbot/' + file, data)
+    await fs.writeFile('data/chatbot/' + file, data)
   }
 
-  fs.copyFileSync(
+  await fs.copyFile(
     'data/static/botDefaultTrainingData.json',
     'data/chatbot/botDefaultTrainingData.json'
   )
 
   trainingFile = utils.extractFilename(trainingFile)
-  const trainingSet = fs.readFileSync(`data/chatbot/${trainingFile}`, 'utf8')
+  const trainingSet = await fs.readFile(`data/chatbot/${trainingFile}`, 'utf8')
   require('../lib/startup/validateChatBot')(JSON.parse(trainingSet))
 
   testCommand = JSON.parse(trainingSet).data[0].utterances[0]
