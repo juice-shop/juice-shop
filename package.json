@@ -215,7 +215,7 @@
     "@types/portscanner": "^2.1.0",
     "@types/pug": "^2.0.4",
     "@types/request": "^2.48.5",
-    "@types/sanitize-html": "^1.27.1",
+    "@types/sanitize-html": "^1.27.0",
     "@types/semver": "^7.3.4",
     "@types/sequelize": "^4.28.11",
     "@types/serve-index": "^1.7.30",

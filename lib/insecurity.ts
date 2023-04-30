@@ -10,9 +10,9 @@ import * as utils from './utils'
 import expressJwt from 'express-jwt'
 import jwt from 'jsonwebtoken'
 import jws from 'jws'
+import sanitizeHtmlLib from 'sanitize-html'
 
 /* jslint node: true */
-const sanitizeHtmlLib = require('sanitize-html')
 const sanitizeFilenameLib = require('sanitize-filename')
 const z85 = require('z85')
 const fs = require('fs')
