@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import config = require('config')
+import config from 'config'
 import { Request, Response, NextFunction } from 'express'
 import { Memory } from '../data/types'
 import { SecurityAnswerModel } from '../models/securityAnswer'

@@ -4,7 +4,7 @@
  */
 
 import frisby = require('frisby')
-import config = require('config')
+import config from 'config'
 import { type Product } from '../../data/types'
 import { type IncomingMessage } from 'http'
 const Joi = frisby.Joi

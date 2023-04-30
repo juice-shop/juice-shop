@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import config = require('config')
+import config from 'config'
 import { Request, Response } from 'express'
 import { BasketModel } from '../models/basket'
 import { UserModel } from '../models/user'
