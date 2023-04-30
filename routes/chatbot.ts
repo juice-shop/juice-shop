@@ -7,16 +7,16 @@ import fs = require('fs')
 import { Request, Response, NextFunction } from 'express'
 import { User } from '../data/types'
 import { UserModel } from '../models/user'
-import { JwtPayload, VerifyErrors } from 'jsonwebtoken'
+import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken'
 import challengeUtils = require('../lib/challengeUtils')
 import logger from '../lib/logger'
 import config from 'config'
 import download from 'download'
 import * as utils from '../lib/utils'
+import { isString } from 'lodash'
 
 const { Bot } = require('juicy-chat-bot')
 const security = require('../lib/insecurity')
-const jwt = require('jsonwebtoken')
 const botUtils = require('../lib/botUtils')
 const challenges = require('../data/datacache').challenges
 
@@ -157,8 +157,9 @@ module.exports.status = function status () {
     const token = req.cookies.token || utils.jwtFrom(req)
     if (token) {
       const user: User = await new Promise((resolve, reject) => {
-        jwt.verify(token, security.publicKey, (err: VerifyErrors | null, decoded: JwtPayload) => {
-          if (err !== null) {
+        jwt.verify(token, security.publicKey, (err: VerifyErrors | null, decoded: JwtPayload | string | undefined) => {
+          if (err !== null || !decoded || isString(decoded)) {
+            console.error(err)
             res.status(401).json({
               error: 'Unauthenticated user'
             })
@@ -218,8 +219,9 @@ module.exports.process = function respond () {
     }
 
     const user: User = await new Promise((resolve, reject) => {
-      jwt.verify(token, security.publicKey, (err: VerifyErrors | null, decoded: JwtPayload) => {
-        if (err !== null) {
+      jwt.verify(token, security.publicKey, (err: VerifyErrors | null, decoded: JwtPayload | string | undefined) => {
+        console.error(err)
+        if (err !== null || !decoded || isString(decoded)) {
           res.status(401).json({
             error: 'Unauthenticated user'
           })

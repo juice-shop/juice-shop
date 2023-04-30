@@ -8,9 +8,9 @@ import { UserModel } from 'models/user'
 import crypto from 'crypto'
 import * as utils from './utils'
 import expressJwt from 'express-jwt'
+import jwt from 'jsonwebtoken'
 
 /* jslint node: true */
-const jwt = require('jsonwebtoken')
 const jws = require('jws')
 const sanitizeHtml = require('sanitize-html')
 const sanitizeFilename = require('sanitize-filename')
@@ -52,7 +52,7 @@ exports.cutOffPoisonNullByte = (str: string) => {
 
 exports.isAuthorized = () => expressJwt(({ secret: publicKey }) as any)
 exports.denyAll = () => expressJwt({ secret: '' + Math.random() } as any)
-exports.authorize = (user = {}) => jwt.sign(user, privateKey, { expiresInMinutes: 60 * 5, algorithm: 'RS256' })
+exports.authorize = (user = {}) => jwt.sign(user, privateKey, { expiresIn: '6h', algorithm: 'RS256' })
 const verify = (token: string) => token ? jws.verify(token, publicKey) : false
 module.exports.verify = verify
 const decode = (token: string) => { return jws.decode(token).payload }
