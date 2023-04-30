@@ -6,13 +6,13 @@ import sanitizeHtml from 'sanitize-html'
 import colors from 'colors/safe'
 import * as utils from './utils'
 import { calculateCheatScore, calculateFindItCheatScore, calculateFixItCheatScore } from './antiCheat'
+import * as webhook from './webhook'
+import * as accuracy from './accuracy'
 
 const challenges = require('../data/datacache').challenges
 const notifications = require('../data/datacache').notifications
 const Entities = require('html-entities').AllHtmlEntities
 const entities = new Entities()
-const webhook = require('./webhook')
-const accuracy = require('./accuracy')
 
 export const solveIf = function (challenge: any, criteria: () => any, isRestore: boolean = false) {
   if (notSolved(challenge) && criteria()) {

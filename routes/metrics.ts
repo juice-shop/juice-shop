@@ -16,13 +16,13 @@ import logger from '../lib/logger'
 import config from 'config'
 import * as utils from '../lib/utils'
 import { totalCheatScore } from '../lib/antiCheat'
+import * as accuracy from '../lib/accuracy'
 
 const Prometheus = require('prom-client')
 const onFinished = require('on-finished')
 const orders = require('../data/mongodb').orders
 const reviews = require('../data/mongodb').reviews
 const challenges = require('../data/datacache').challenges
-const accuracy = require('../lib/accuracy')
 
 const register = Prometheus.register
 
