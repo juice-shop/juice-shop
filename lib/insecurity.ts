@@ -14,7 +14,9 @@ import sanitizeHtmlLib from 'sanitize-html'
 import sanitizeFilenameLib from 'sanitize-filename'
 
 /* jslint node: true */
-const z85 = require('z85')
+// eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error
+// @ts-ignore no typescript definitions for z85 :(
+import z85 from 'z85'
 const fs = require('fs')
 
 export const publicKey = fs.readFileSync('encryptionkeys/jwt.pub', 'utf8')
