@@ -2,12 +2,12 @@ import { Op } from 'sequelize'
 import { ChallengeModel } from '../models/challenge'
 import logger from './logger'
 import config from 'config'
-
+import sanitizeHtml from 'sanitize-html'
 import colors from 'colors/safe'
 import * as utils from './utils'
+
 const challenges = require('../data/datacache').challenges
 const notifications = require('../data/datacache').notifications
-const sanitizeHtml = require('sanitize-html')
 const Entities = require('html-entities').AllHtmlEntities
 const entities = new Entities()
 const webhook = require('./webhook')
@@ -42,7 +42,7 @@ export const sendNotification = function (challenge: { difficulty?: number, key:
     const notification = {
       key: challenge.key,
       name: challenge.name,
-      challenge: challenge.name + ' (' + entities.decode(sanitizeHtml(challenge.description, { allowedTags: [], allowedAttributes: [] })) + ')',
+      challenge: challenge.name + ' (' + entities.decode(sanitizeHtml(challenge.description, { allowedTags: [], allowedAttributes: {} })) + ')',
       flag: flag,
       hidden: !config.get('challenges.showSolvedNotifications'),
       isRestore: isRestore
