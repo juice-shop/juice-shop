@@ -16,9 +16,9 @@ import * as utils from '../lib/utils'
 import { isString } from 'lodash'
 import { Bot } from 'juicy-chat-bot'
 import validateChatBot from '../lib/startup/validateChatBot'
+import * as security from '../lib/insecurity'
+import * as botUtils from '../lib/botUtils'
 
-const security = require('../lib/insecurity')
-const botUtils = require('../lib/botUtils')
 const challenges = require('../data/datacache').challenges
 
 let trainingFile = config.get<string>('application.chatBot.trainingData')
