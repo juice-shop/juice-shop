@@ -23,9 +23,9 @@ const challenges = require('../data/datacache').challenges
 
 let trainingFile = config.get<string>('application.chatBot.trainingData')
 let testCommand: string
-let bot: Bot | null = null
+export let bot: Bot | null = null
 
-async function initialize () {
+export async function initialize () {
   if (utils.isUrl(trainingFile)) {
     const file = utils.extractFilename(trainingFile)
     const data = await download(trainingFile)
@@ -153,11 +153,7 @@ async function setUserName (user: User, req: Request, res: Response) {
   }
 }
 
-module.exports.initialize = initialize
-
-module.exports.bot = bot
-
-module.exports.status = function status () {
+export const status = function status () {
   return async (req: Request, res: Response, next: NextFunction) => {
     if (!bot) {
       res.status(200).json({
