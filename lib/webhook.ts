@@ -10,7 +10,7 @@ import colors from 'colors/safe'
 import { promisify } from 'util'
 import type { CoreOptions, RequestCallback, Request } from 'request'
 import * as utils from './utils'
-const antiCheat = require('./antiCheat')
+import { totalCheatScore } from './antiCheat'
 const os = require('os')
 // force type of post as promisify doesn't know which one it should take
 const post = promisify(request.post as ((uri: string, options?: CoreOptions, callback?: RequestCallback) => Request))
@@ -24,7 +24,7 @@ export const notify = async (challenge: { key: any, name: any }, cheatScore = -1
       solution: {
         challenge: challenge.key,
         cheatScore: cheatScore,
-        totalCheatScore: antiCheat.totalCheatScore(),
+        totalCheatScore: totalCheatScore(),
         issuedOn: new Date().toISOString()
       },
       ctfFlag: utils.ctfFlag(challenge.name),

@@ -5,13 +5,13 @@ import config from 'config'
 import sanitizeHtml from 'sanitize-html'
 import colors from 'colors/safe'
 import * as utils from './utils'
+import { calculateCheatScore, calculateFindItCheatScore, calculateFixItCheatScore } from './antiCheat'
 
 const challenges = require('../data/datacache').challenges
 const notifications = require('../data/datacache').notifications
 const Entities = require('html-entities').AllHtmlEntities
 const entities = new Entities()
 const webhook = require('./webhook')
-const antiCheat = require('./antiCheat')
 const accuracy = require('./accuracy')
 
 export const solveIf = function (challenge: any, criteria: () => any, isRestore: boolean = false) {
@@ -26,7 +26,7 @@ export const solve = function (challenge: any, isRestore = false) {
     logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} ${solvedChallenge.difficulty}-star ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
     sendNotification(solvedChallenge, isRestore)
     if (!isRestore) {
-      const cheatScore = antiCheat.calculateCheatScore(challenge)
+      const cheatScore = calculateCheatScore(challenge)
       if (process.env.SOLUTIONS_WEBHOOK) {
         webhook.notify(solvedChallenge, cheatScore).catch((error: unknown) => {
           logger.error('Webhook notification failed: ' + colors.red(utils.getErrorMessage(error)))
@@ -88,7 +88,7 @@ export const solveFindIt = async function (key: string, isRestore: boolean) {
   if (!isRestore) {
     accuracy.storeFindItVerdict(solvedChallenge.key, true)
     accuracy.calculateFindItAccuracy(solvedChallenge.key)
-    antiCheat.calculateFindItCheatScore(solvedChallenge)
+    await calculateFindItCheatScore(solvedChallenge)
   }
 }
 
@@ -99,6 +99,6 @@ export const solveFixIt = async function (key: string, isRestore: boolean) {
   if (!isRestore) {
     accuracy.storeFixItVerdict(solvedChallenge.key, true)
     accuracy.calculateFixItAccuracy(solvedChallenge.key)
-    antiCheat.calculateFixItCheatScore(solvedChallenge)
+    await calculateFixItCheatScore(solvedChallenge)
   }
 }
