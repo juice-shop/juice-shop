@@ -11,9 +11,9 @@ import expressJwt from 'express-jwt'
 import jwt from 'jsonwebtoken'
 import jws from 'jws'
 import sanitizeHtmlLib from 'sanitize-html'
+import sanitizeFilenameLib from 'sanitize-filename'
 
 /* jslint node: true */
-const sanitizeFilenameLib = require('sanitize-filename')
 const z85 = require('z85')
 const fs = require('fs')
 
