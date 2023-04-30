@@ -4,12 +4,12 @@
  */
 
 import config = require('config')
+import colors from 'colors/safe'
 import { retrieveCodeSnippet } from '../routes/vulnCodeSnippet'
 import { readFixes } from '../routes/vulnCodeFixes'
 import { Challenge } from '../data/types'
 import { getCodeChallenges } from './codingChallenges'
 import logger from './logger'
-import colors from 'colors/safe'
 
 const coupledChallenges = { // TODO prevent also near-identical challenges (e.g. all null byte file access or dom xss + bonus payload etc.) from counting as cheating
   loginAdminChallenge: ['weakPasswordChallenge'],
@@ -22,7 +22,7 @@ const trivialChallenges = ['errorHandlingChallenge', 'privacyPolicyChallenge']
 
 const solves: Array<{challenge: any, phase: string, timestamp: Date, cheatScore: number}> = [{ challenge: {}, phase: 'server start', timestamp: new Date(), cheatScore: 0 }] // seed with server start timestamp
 
-exports.calculateCheatScore = (challenge: Challenge) => {
+export const calculateCheatScore = (challenge: Challenge) => {
   const timestamp = new Date()
   let cheatScore = 0
   let timeFactor = 2
@@ -41,7 +41,7 @@ exports.calculateCheatScore = (challenge: Challenge) => {
   return cheatScore
 }
 
-exports.calculateFindItCheatScore = async (challenge: Challenge) => {
+export const calculateFindItCheatScore = async (challenge: Challenge) => {
   const timestamp = new Date()
   let timeFactor = 0.001
   timeFactor *= (challenge.key === 'scoreBoardChallenge' && config.get('hackingInstructor.isEnabled') ? 0.5 : 1)
@@ -67,7 +67,7 @@ exports.calculateFindItCheatScore = async (challenge: Challenge) => {
   return cheatScore
 }
 
-exports.calculateFixItCheatScore = async (challenge: Challenge) => {
+export const calculateFixItCheatScore = async (challenge: Challenge) => {
   const timestamp = new Date()
   let cheatScore = 0
 
@@ -81,7 +81,7 @@ exports.calculateFixItCheatScore = async (challenge: Challenge) => {
   return cheatScore
 }
 
-exports.totalCheatScore = () => {
+export const totalCheatScore = () => {
   return solves.length > 1 ? solves.map(({ cheatScore }) => cheatScore).reduce((sum, score) => { return sum + score }) / (solves.length - 1) : 0
 }
 
