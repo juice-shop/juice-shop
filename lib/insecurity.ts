@@ -9,9 +9,9 @@ import crypto from 'crypto'
 import * as utils from './utils'
 import expressJwt from 'express-jwt'
 import jwt from 'jsonwebtoken'
+import jws from 'jws'
 
 /* jslint node: true */
-const jws = require('jws')
 const sanitizeHtmlLib = require('sanitize-html')
 const sanitizeFilenameLib = require('sanitize-filename')
 const z85 = require('z85')
@@ -52,7 +52,7 @@ export const cutOffPoisonNullByte = (str: string) => {
 export const isAuthorized = () => expressJwt(({ secret: publicKey }) as any)
 export const denyAll = () => expressJwt({ secret: '' + Math.random() } as any)
 export const authorize = (user = {}) => jwt.sign(user, privateKey, { expiresIn: '6h', algorithm: 'RS256' })
-export const verify = (token: string) => token ? jws.verify(token, publicKey) : false
+export const verify = (token: string) => token ? (jws.verify as ((token: string, secret: string) => boolean))(token, publicKey) : false
 export const decode = (token: string) => { return jws.decode(token).payload }
 
 export const sanitizeHtml = (html: string) => sanitizeHtmlLib(html)
