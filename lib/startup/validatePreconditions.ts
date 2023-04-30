@@ -4,7 +4,7 @@
  */
 
 import pjson from '../../package.json'
-import config = require('config')
+import config from 'config'
 import logger from '../logger'
 import path from 'path'
 import colors from 'colors/safe'

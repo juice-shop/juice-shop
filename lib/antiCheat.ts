@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import config = require('config')
+import config from 'config'
 import colors from 'colors/safe'
 import { retrieveCodeSnippet } from '../routes/vulnCodeSnippet'
 import { readFixes } from '../routes/vulnCodeFixes'

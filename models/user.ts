@@ -4,7 +4,7 @@
  */
 
 /* jslint node: true */
-import config = require('config')
+import config from 'config'
 import {
   InferAttributes,
   InferCreationAttributes,

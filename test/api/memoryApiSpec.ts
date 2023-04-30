@@ -4,7 +4,7 @@
  */
 
 import frisby = require('frisby')
-import config = require('config')
+import config from 'config'
 import path from 'path'
 const fs = require('fs')
 
