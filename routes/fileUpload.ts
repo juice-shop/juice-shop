@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+import os from 'os'
 import fs = require('fs')
 import challengeUtils = require('../lib/challengeUtils')
 import { NextFunction, Request, Response } from 'express'
@@ -11,7 +12,6 @@ import * as utils from '../lib/utils'
 
 const challenges = require('../data/datacache').challenges
 const libxml = require('libxmljs2')
-const os = require('os')
 const vm = require('vm')
 const unzipper = require('unzipper')
 
