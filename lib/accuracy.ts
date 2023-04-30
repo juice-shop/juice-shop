@@ -9,31 +9,31 @@ const solves: { [key: string]: { 'find it': boolean, 'fix it': boolean, attempts
 
 type Phase = 'find it' | 'fix it'
 
-exports.storeFindItVerdict = (challengeKey: string, verdict: boolean) => {
+export const storeFindItVerdict = (challengeKey: string, verdict: boolean) => {
   storeVerdict(challengeKey, 'find it', verdict)
 }
 
-exports.storeFixItVerdict = (challengeKey: string, verdict: boolean) => {
+export const storeFixItVerdict = (challengeKey: string, verdict: boolean) => {
   storeVerdict(challengeKey, 'fix it', verdict)
 }
 
-exports.calculateFindItAccuracy = (challengeKey: string) => {
+export const calculateFindItAccuracy = (challengeKey: string) => {
   return calculateAccuracy(challengeKey, 'find it')
 }
 
-exports.calculateFixItAccuracy = (challengeKey: string) => {
+export const calculateFixItAccuracy = (challengeKey: string) => {
   return calculateAccuracy(challengeKey, 'fix it')
 }
 
-exports.totalFindItAccuracy = () => {
+export const totalFindItAccuracy = () => {
   return totalAccuracy('find it')
 }
 
-exports.totalFixItAccuracy = () => {
+export const totalFixItAccuracy = () => {
   return totalAccuracy('fix it')
 }
 
-exports.getFindItAttempts = (challengeKey: string) => {
+export const getFindItAttempts = (challengeKey: string) => {
   return solves[challengeKey] ? solves[challengeKey].attempts['find it'] : 0
 }
 

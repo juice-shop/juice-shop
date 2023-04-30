@@ -3,14 +3,13 @@
  * SPDX-License-Identifier: MIT
  */
 
+import * as webhook from '../../lib/webhook'
 import chai = require('chai')
 const expect = chai.expect
 const chaiAsPromised = require('chai-as-promised')
 chai.use(chaiAsPromised)
 
 describe('webhook', () => {
-  const webhook = require('../../lib/webhook')
-
   const challenge = {
     key: 'key',
     name: 'name',
