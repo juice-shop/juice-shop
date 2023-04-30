@@ -118,27 +118,29 @@ async function processQuery (user: User, req: Request, res: Response, next: Next
   }
 }
 
-function setUserName (user: User, req: Request, res: Response) {
-  UserModel.findByPk(user.id).then((user: UserModel | null) => {
-    if (!user) {
-      throw new Error('No such user found!')
-    }
-    void user.update({ username: req.body.query }).then((updatedUser: UserModel) => {
-      updatedUser = utils.queryResultToJson(updatedUser)
-      const updatedToken = security.authorize(updatedUser)
-      security.authenticatedUsers.put(updatedToken, updatedUser)
-      bot.addUser(`${updatedUser.id}`, req.body.query)
-      res.status(200).json({
-        action: 'response',
-        body: bot.greet(`${updatedUser.id}`),
-        token: updatedToken
+async function setUserName (user: User, req: Request, res: Response) {
+  try {
+    const userModel = await UserModel.findByPk(user.id)
+    if (!userModel) {
+      res.status(401).json({
+        status: 'error',
+        error: 'Unknown user'
       })
-    }).catch((err: unknown) => {
-      logger.error(`Could not set username: ${utils.getErrorMessage(err)}`)
+      return
+    }
+    const updatedUser = await userModel.update({ username: req.body.query })
+    const updatedToken = security.authorize(updatedUser)
+    security.authenticatedUsers.put(updatedToken, utils.queryResultToJson(updatedUser))
+    bot.addUser(`${updatedUser.id}`, req.body.query)
+    res.status(200).json({
+      action: 'response',
+      body: bot.greet(`${updatedUser.id}`),
+      token: updatedToken
     })
-  }).catch((err: unknown) => {
+  } catch (err) {
     logger.error(`Could not set username: ${utils.getErrorMessage(err)}`)
-  })
+    res.status(500).send()
+  }
 }
 
 module.exports.initialize = initialize
@@ -156,20 +158,11 @@ module.exports.status = function status () {
     }
     const token = req.cookies.token || utils.jwtFrom(req)
     if (token) {
-      const user: User = await new Promise((resolve, reject) => {
-        jwt.verify(token, security.publicKey, (err: VerifyErrors | null, decoded: JwtPayload | string | undefined) => {
-          if (err !== null || !decoded || isString(decoded)) {
-            console.error(err)
-            res.status(401).json({
-              error: 'Unauthenticated user'
-            })
-          } else {
-            resolve(decoded.data)
-          }
-        })
-      })
-
+      const user = await getUserFromJwt(token)
       if (!user) {
+        res.status(401).json({
+          error: 'Unauthenticated user'
+        })
         return
       }
 
@@ -218,27 +211,30 @@ module.exports.process = function respond () {
       return
     }
 
-    const user: User = await new Promise((resolve, reject) => {
-      jwt.verify(token, security.publicKey, (err: VerifyErrors | null, decoded: JwtPayload | string | undefined) => {
-        console.error(err)
-        if (err !== null || !decoded || isString(decoded)) {
-          res.status(401).json({
-            error: 'Unauthenticated user'
-          })
-        } else {
-          resolve(decoded.data)
-        }
-      })
-    })
-
+    const user = await getUserFromJwt(token)
     if (!user) {
+      res.status(401).json({
+        error: 'Unauthenticated user'
+      })
       return
     }
 
     if (req.body.action === 'query') {
       await processQuery(user, req, res, next)
     } else if (req.body.action === 'setname') {
-      setUserName(user, req, res)
+      await setUserName(user, req, res)
     }
   }
+}
+
+async function getUserFromJwt (token: string): Promise<User | null> {
+  return await new Promise((resolve) => {
+    jwt.verify(token, security.publicKey, (err: VerifyErrors | null, decoded: JwtPayload | string | undefined) => {
+      if (err !== null || !decoded || isString(decoded)) {
+        resolve(null)
+      } else {
+        resolve(decoded.data)
+      }
+    })
+  })
 }
