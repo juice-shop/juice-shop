@@ -93,7 +93,7 @@ async function createChallenges () {
           hint: showHints ? hint : null,
           hintUrl: showHints ? hintUrl : null,
           mitigationUrl: showMitigations ? mitigationUrl : null,
-          disabledEnv: config.get('challenges.safetyOverride') ? null : effectiveDisabledEnv,
+          disabledEnv: config.get<boolean>('challenges.safetyOverride') ? null : effectiveDisabledEnv,
           tutorialOrder: tutorial ? tutorial.order : null,
           codingChallengeStatus: 0
         })
@@ -262,7 +262,7 @@ async function createMemories () {
       if (utils.isUrl(memory.image)) {
         const imageUrl = memory.image
         tmpImageFileName = utils.extractFilename(memory.image)
-        utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/uploads/' + tmpImageFileName)
+        void utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/uploads/' + tmpImageFileName)
       }
       if (memory.geoStalkingMetaSecurityQuestion && memory.geoStalkingMetaSecurityAnswer) {
         await createSecurityAnswer(datacache.users.john.id, memory.geoStalkingMetaSecurityQuestion, memory.geoStalkingMetaSecurityAnswer)
@@ -296,7 +296,7 @@ async function createProducts () {
     if (utils.isUrl(product.image)) {
       const imageUrl = product.image
       product.image = utils.extractFilename(product.image)
-      utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/products/' + product.image)
+      void utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/products/' + product.image)
     }
     return product
   })
