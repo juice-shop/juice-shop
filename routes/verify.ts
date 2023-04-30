@@ -11,11 +11,11 @@ import { ComplaintModel } from '../models/complaint'
 import { Op } from 'sequelize'
 import challengeUtils = require('../lib/challengeUtils')
 import config from 'config'
+import jws from 'jws'
 
 import * as utils from '../lib/utils'
 const security = require('../lib/insecurity')
 const jwt = require('jsonwebtoken')
-const jws = require('jws')
 const cache = require('../data/datacache')
 const challenges = cache.challenges
 const products = cache.products
