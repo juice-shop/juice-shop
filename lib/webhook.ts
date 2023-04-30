@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: MIT
  */
 
+import os from 'os'
+import { promisify } from 'util'
 import request from 'request'
 import logger from './logger'
 import config from 'config'
 import colors from 'colors/safe'
-import { promisify } from 'util'
 import type { CoreOptions, RequestCallback, Request } from 'request'
 import * as utils from './utils'
 import { totalCheatScore } from './antiCheat'
-const os = require('os')
 // force type of post as promisify doesn't know which one it should take
 const post = promisify(request.post as ((uri: string, options?: CoreOptions, callback?: RequestCallback) => Request))
 
