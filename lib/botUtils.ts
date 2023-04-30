@@ -4,7 +4,7 @@
  */
 import models = require('../models/index')
 import { Product } from '../data/types'
-const fuzz = require('fuzzball')
+import fuzz from 'fuzzball'
 const security = require('./insecurity')
 const challengeUtils = require('./challengeUtils')
 const challenges = require('../data/datacache').challenges
