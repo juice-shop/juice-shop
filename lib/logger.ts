@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import winston from 'winston'
+import * as winston from 'winston'
 
 export default winston.createLogger({
   transports: [
