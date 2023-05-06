@@ -81,9 +81,21 @@ export const version = (module?: string) => {
   }
 }
 
+let cachedCtfKey: string | undefined
+const getCtfKey = () => {
+  if (!cachedCtfKey) {
+    if (process.env.CTF_KEY !== undefined && process.env.CTF_KEY !== '') {
+      cachedCtfKey = process.env.CTF_KEY
+    } else {
+      const data = fs.readFileSync('ctf.key', 'utf8')
+      cachedCtfKey = data
+    }
+  }
+  return cachedCtfKey
+}
 export const ctfFlag = (text: string) => {
   const shaObj = new jsSHA('SHA-1', 'TEXT') // eslint-disable-line new-cap
-  shaObj.setHMACKey(ctfKey, 'TEXT')
+  shaObj.setHMACKey(getCtfKey(), 'TEXT')
   shaObj.update(text)
   return shaObj.getHMAC('HEX')
 }
