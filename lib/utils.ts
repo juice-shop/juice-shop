@@ -13,23 +13,13 @@ import download from 'download'
 import crypto from 'crypto'
 import clarinet from 'clarinet'
 
-import isDocker from 'is-docker'
-import isWindows from 'is-windows'
-const isHeroku = () => {
-  return 'HEROKU' in process.env || ('DYNO' in process.env && process.env.HOME === '/app')
-}
+import isDocker from './is-docker'
+import isWindows from './is-windows'
+import isHeroku from './is-heroku'
 // import isGitpod from 'is-gitpod') // FIXME Roll back to this when https://github.com/dword-design/is-gitpod/issues/94 is resolve
 const isGitpod = () => false
 
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
-
-let ctfKey: string
-if (process.env.CTF_KEY !== undefined && process.env.CTF_KEY !== '') {
-  ctfKey = process.env.CTF_KEY
-} else {
-  const data = fs.readFileSync('ctf.key', 'utf8')
-  ctfKey = data
-}
 
 export const queryResultToJson = (data: any, status: string = 'success') => {
   let wrappedData: any = {}
