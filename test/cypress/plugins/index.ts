@@ -21,7 +21,7 @@ import * as config from 'config'
 import * as otplib from 'otplib'
 import { Memory, Product } from '../../../data/types'
 import * as utils from '../../../lib/utils'
-const security = require('../../../lib/insecurity')
+import * as security from '../../../lib/insecurity'
 
 export default (on) => {
   on('task', {
