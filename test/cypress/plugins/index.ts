@@ -17,19 +17,19 @@
  * @type {Cypress.PluginConfig}
  */
 
-import * as Config from 'config'
+import * as config from 'config'
 import * as otplib from 'otplib'
 import { Memory, Product } from '../../../data/types'
 import * as utils from '../../../lib/utils'
-const security = require('../../../lib/insecurity')
+import * as security from '../../../lib/insecurity'
 
-export default (on, config) => {
+export default (on) => {
   on('task', {
     GenerateCoupon (discount: number) {
       return security.generateCoupon(discount)
     },
     GetBlueprint () {
-      for (const product of Config.get<Product[]>('products')) {
+      for (const product of config.get<Product[]>('products')) {
         if (product.fileForRetrieveBlueprintChallenge) {
           const blueprint = product.fileForRetrieveBlueprintChallenge
           return blueprint
@@ -37,13 +37,13 @@ export default (on, config) => {
       }
     },
     GetChristmasProduct () {
-      return Config.get<Product[]>('products').filter(
+      return config.get<Product[]>('products').filter(
         (product: Product) => product.useForChristmasSpecialChallenge
       )[0]
     },
     GetCouponIntent () {
       const trainingData = require(`../../../data/chatbot/${utils.extractFilename(
-        Config.get('application.chatBot.trainingData')
+        config.get('application.chatBot.trainingData')
       )}`)
       const couponIntent = trainingData.data.filter(
         (data: { intent: string }) => data.intent === 'queries.couponCode'
@@ -51,25 +51,25 @@ export default (on, config) => {
       return couponIntent
     },
     GetFromMemories (property: string) {
-      for (const memory of Config.get<Memory[]>('memories')) {
+      for (const memory of config.get<Memory[]>('memories')) {
         if (memory[property]) {
           return memory[property]
         }
       }
     },
     GetFromConfig (variable: string) {
-      return Config.get(variable)
+      return config.get(variable)
     },
     GetOverwriteUrl () {
-      return Config.get('challenges.overwriteUrlForProductTamperingChallenge')
+      return config.get('challenges.overwriteUrlForProductTamperingChallenge')
     },
     GetPastebinLeakProduct () {
-      return Config.get<Product[]>('products').filter(
+      return config.get<Product[]>('products').filter(
         (product: Product) => product.keywordsForPastebinDataLeakChallenge
       )[0]
     },
     GetTamperingProductId () {
-      const products: Product[] = Config.get('products')
+      const products: Product[] = config.get('products')
       for (let i = 0; i < products.length; i++) {
         if (products[i].urlForProductTamperingChallenge) {
           return i + 1

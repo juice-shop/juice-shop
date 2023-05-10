@@ -5,10 +5,10 @@
 
 import process = require('process')
 import { Memory, Product } from '../../data/types'
-const config = require('config')
-const colors = require('colors/safe')
-const logger = require('../logger')
-const path = require('path')
+import logger from '../logger'
+import config from 'config'
+import path from 'path'
+import colors from 'colors/safe'
 const validateSchema = require('yaml-schema-validator/src')
 
 const specialProducts = [
@@ -23,7 +23,7 @@ const specialMemories = [
   { name: '"Visual Geo Stalking" challenge memory', user: 'emma', keys: ['geoStalkingVisualSecurityQuestion', 'geoStalkingVisualSecurityAnswer'] }
 ]
 
-const validateConfig = ({ products = config.get('products'), memories = config.get('memories'), exitOnFailure = true } = {}) => {
+const validateConfig = ({ products = config.get('products'), memories = config.get('memories'), exitOnFailure = true }: { products: Product[], memories: Memory[], exitOnFailure: boolean }) => {
   let success = true
   success = checkYamlSchema() && success
   success = checkMinimumRequiredNumberOfProducts(products) && success
@@ -93,7 +93,7 @@ const checkNecessaryExtraKeysOnSpecialProducts = (products: Product[]) => {
     const matchingProducts = products.filter((product) => product[key])
     // @ts-expect-error
     if (extra.key && matchingProducts.length === 1 && !matchingProducts[0][extra.key]) {
-      logger.warn(`Product ${colors.italic(matchingProducts[0].name)} configured as ${colors.italic(name)} does't contain necessary ${colors.italic(extra.name)} (${colors.red('NOT OK')})`)
+      logger.warn(`Product ${colors.italic(matchingProducts[0].name)} configured as ${colors.italic(name)} does't contain necessary ${colors.italic(`${extra.name}`)} (${colors.red('NOT OK')})`)
       success = false
     }
   })

@@ -4,13 +4,14 @@
  */
 
 import sinon = require('sinon')
+import config from 'config'
+import type { Product } from '../../data/types'
 const chai = require('chai')
 const sinonChai = require('sinon-chai')
 const expect = chai.expect
 chai.use(sinonChai)
 const cache = require('../../data/datacache')
 const security = require('../../lib/insecurity')
-const config = require('config')
 const utils = require('../../lib/utils')
 
 describe('verify', () => {
@@ -233,7 +234,7 @@ describe('verify', () => {
 
       it('is not solved when the link in the O-Saft product remained unchanged', () => {
         let urlForProductTamperingChallenge = null
-        for (const product of config.products) {
+        for (const product of config.get<Product[]>('products')) {
           if (product.urlForProductTamperingChallenge !== undefined) {
             urlForProductTamperingChallenge = product.urlForProductTamperingChallenge
             break

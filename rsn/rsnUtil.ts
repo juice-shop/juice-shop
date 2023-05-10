@@ -1,9 +1,9 @@
 import { retrieveCodeSnippet } from '../routes/vulnCodeSnippet'
+import colors from 'colors/safe'
 const Diff = require('diff')
 const fs = require('fs')
 const fixesPath = 'data/static/codefixes'
 const cacheFile = 'rsn/cache.json'
-const colors = require('colors/safe')
 
 interface CacheData {
   [key: string]: {
@@ -57,11 +57,11 @@ const checkDiffs = async (keys: string[]) => {
           if (!(part.added)) continue
           for (let i = 0; i < part.count; i++) {
             if (!snippet.vulnLines.includes(prev + i + 1) && !snippet.neutralLines.includes(prev + i + 1)) {
-              process.stdout.write(colors.red.inverse(prev + i + 1 + ''))
+              process.stdout.write(colors.red(colors.inverse(prev + i + 1 + '')))
               process.stdout.write(' ')
               data[val].added.push(prev + i + 1)
             } else if (snippet.vulnLines.includes(prev + i + 1)) {
-              process.stdout.write(colors.red.bold(prev + i + 1 + ' '))
+              process.stdout.write(colors.red(colors.bold(prev + i + 1 + ' ')))
             } else if (snippet.neutralLines.includes(prev + i + 1)) {
               process.stdout.write(colors.red(prev + i + 1 + ' '))
             }
@@ -80,11 +80,11 @@ const checkDiffs = async (keys: string[]) => {
           let temp = norm
           for (let i = 0; i < part.count; i++) {
             if (!snippet.vulnLines.includes(prev + i + 1 - norm) && !snippet.neutralLines.includes(prev + i + 1 - norm)) {
-              process.stdout.write(colors.green.inverse((prev + i + 1 - norm + '')))
+              process.stdout.write(colors.green(colors.inverse((prev + i + 1 - norm + ''))))
               process.stdout.write(' ')
               data[val].removed.push(prev + i + 1 - norm)
             } else if (snippet.vulnLines.includes(prev + i + 1 - norm)) {
-              process.stdout.write(colors.green.bold(prev + i + 1 - norm + ' '))
+              process.stdout.write(colors.green(colors.bold(prev + i + 1 - norm + ' ')))
             } else if (snippet.neutralLines.includes(prev + i + 1 - norm)) {
               process.stdout.write(colors.green(prev + i + 1 - norm + ' '))
             }

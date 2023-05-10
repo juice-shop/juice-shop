@@ -4,7 +4,7 @@
  */
 
 import sinon = require('sinon')
-const config = require('config')
+import config from 'config'
 const chai = require('chai')
 const sinonChai = require('sinon-chai')
 const expect = chai.expect

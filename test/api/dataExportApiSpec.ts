@@ -4,8 +4,8 @@
  */
 
 import frisby = require('frisby')
-import config = require('config')
-const path = require('path')
+import config from 'config'
+import path from 'path'
 const fs = require('fs')
 
 const jsonHeader = { 'content-type': 'application/json' }
