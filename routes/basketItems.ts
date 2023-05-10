@@ -8,7 +8,7 @@ import { BasketItemModel } from '../models/basketitem'
 import { QuantityModel } from '../models/quantity'
 import challengeUtils = require('../lib/challengeUtils')
 
-const utils = require('../lib/utils')
+import * as utils from '../lib/utils'
 const challenges = require('../data/datacache').challenges
 const security = require('../lib/insecurity')
 

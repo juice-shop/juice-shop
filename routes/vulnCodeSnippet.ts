@@ -7,10 +7,10 @@ import { NextFunction, Request, Response } from 'express'
 import fs from 'fs'
 import yaml from 'js-yaml'
 import { getCodeChallenges } from '../lib/codingChallenges'
+import * as accuracy from '../lib/accuracy'
+import * as utils from '../lib/utils'
 
-const utils = require('../lib/utils')
 const challengeUtils = require('../lib/challengeUtils')
-const accuracy = require('../lib/accuracy')
 
 interface SnippetRequestBody {
   challenge: string
