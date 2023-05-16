@@ -20,8 +20,8 @@ jobs:
           command: snyk version
           name: Which version of snyk is installed
       - run:
-          command: snyk code test
+          command: snyk code test --sarif
           name: Run code scan
       - run:
-          command: snyk test
+          command: snyk test 
           name: Run open source scan
