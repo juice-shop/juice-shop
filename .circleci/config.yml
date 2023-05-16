@@ -15,10 +15,6 @@ jobs:
       - image: cimg/node:lts
     steps:
       - checkout
-      - run: cd frontend && npm install --legacy-peer-deps && cd ..
-      - run: cd ..
-      - run: npm install --legacy-peer-deps 
-      - run: npm ci
       - snyk/install
       - run:
           command: snyk version
