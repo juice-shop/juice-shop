@@ -12,10 +12,10 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/node:12.7
+      - image: cimg/node:lts
     steps:
       - checkout
-      - run: npm install
+      - run: npm install --legacy-peer-deps
       - run: npm ci
       - snyk/install
       - run:
