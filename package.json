@@ -140,6 +140,7 @@
     "grunt": "^1.2.1",
     "grunt-contrib-compress": "^1.6.0",
     "grunt-replace-json": "^0.1.0",
+    "handlebars": "2.0.0",
     "hashids": "^2.2.1",
     "hbs": "^4.0.4",
     "helmet": "^4.0.0",
@@ -172,7 +173,6 @@
     "sequelize": "~6.9.0",
     "sequelize-notupdate-attributes": "^1.0.0",
     "serve-index": "^1.9.1",
-    
     "sqlite3": "^5.0.0",
     "svg-captcha": "^1.4.0",
     "swagger-ui-express": "^4.1.4",
