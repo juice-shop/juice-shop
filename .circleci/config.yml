@@ -22,3 +22,6 @@ jobs:
       - run:
           command: snyk code test
           name: Run code scan
+      - run:
+          command: snyk test
+          name: Run open source scan
