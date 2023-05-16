@@ -16,7 +16,6 @@ jobs:
     steps:
       - checkout
       - run: npm install --legacy-peer-deps 
-      - run: sh -c cd frontend && npm install --legacy-peer-deps 
       - run: npm ci
       - snyk/install
       - run:
