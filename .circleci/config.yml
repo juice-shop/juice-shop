@@ -12,7 +12,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/node:lts
+      - image: cimg/node:12.7
     steps:
       - checkout
       - run: npm install
