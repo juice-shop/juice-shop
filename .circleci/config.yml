@@ -15,7 +15,7 @@ jobs:
       - image: cimg/node:lts
     steps:
       - checkout
-      - run: cd frontend 
+      - run: cd frontend && npm install --legacy-peer-deps && cd .. && npm run build:frontend && (npm run --silent build:server || cd .)
       - run: npm install --legacy-peer-deps 
       - run: npm install --legacy-peer-deps 
       - run: npm ci
