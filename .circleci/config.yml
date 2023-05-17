@@ -10,12 +10,12 @@ orbs:
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 jobs:
-  test:
+  build:
     docker:
       - image: cimg/node:lts
     steps:
       - checkout
-      - snyk/scan
+      - snyk/install
       - run:
           command: snyk version
           name: Which version of snyk is installed
@@ -26,4 +26,3 @@ jobs:
           command: snyk test 
           name: Run open source scan
     parallelism: 3
-    
