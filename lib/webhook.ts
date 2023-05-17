@@ -3,23 +3,28 @@
  * SPDX-License-Identifier: MIT
  */
 
-import request = require('request')
-const { promisify } = require('util')
-const colors = require('colors/safe')
-const antiCheat = require('./antiCheat')
-const logger = require('./logger')
-const utils = require('./utils')
-const os = require('os')
-const config = require('config')
-const post = promisify(request.post)
+import os from 'os'
+import { promisify } from 'util'
+import request from 'request'
+import logger from './logger'
+import config from 'config'
+import colors from 'colors/safe'
+import type { CoreOptions, RequestCallback, Request } from 'request'
+import * as utils from './utils'
+import { totalCheatScore } from './antiCheat'
+// force type of post as promisify doesn't know which one it should take
+const post = promisify(request.post as ((uri: string, options?: CoreOptions, callback?: RequestCallback) => Request))
 
 export const notify = async (challenge: { key: any, name: any }, cheatScore = -1, webhook = process.env.SOLUTIONS_WEBHOOK) => {
+  if (!webhook) {
+    return
+  }
   const res = await post(webhook, {
     json: {
       solution: {
         challenge: challenge.key,
         cheatScore: cheatScore,
-        totalCheatScore: antiCheat.totalCheatScore(),
+        totalCheatScore: totalCheatScore(),
         issuedOn: new Date().toISOString()
       },
       ctfFlag: utils.ctfFlag(challenge.name),
@@ -32,5 +37,5 @@ export const notify = async (challenge: { key: any, name: any }, cheatScore = -1
       }
     }
   })
-  logger.info(`Webhook ${colors.bold(webhook)} notified about ${colors.cyan(challenge.key)} being solved: ${res.statusCode < 400 ? colors.green(res.statusCode) : colors.red(res.statusCode)}`)
+  logger.info(`Webhook ${colors.bold(webhook)} notified about ${colors.cyan(challenge.key)} being solved: ${res.statusCode < 400 ? colors.green(res.statusCode.toString()) : colors.red(res.statusCode.toString())}`)
 }
