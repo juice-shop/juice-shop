@@ -6,9 +6,9 @@
 import { Request, Response } from 'express'
 import challengeUtils = require('../lib/challengeUtils')
 
-const reviews = require('../data/mongodb').reviews
+import * as utils from '../lib/utils'
 
-const utils = require('../lib/utils')
+const reviews = require('../data/mongodb').reviews
 const challenges = require('../data/datacache').challenges
 const security = require('../lib/insecurity')
 

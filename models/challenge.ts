@@ -25,7 +25,7 @@ InferCreationAttributes<Challenge>
   declare hintUrl: string | null
   declare mitigationUrl: CreationOptional<string> | null
   declare key: string
-  declare disabledEnv: CreationOptional<string>
+  declare disabledEnv: CreationOptional<string> | null
   declare tutorialOrder: CreationOptional<number> | null
   declare tags: string | undefined
   declare solved: CreationOptional<boolean>

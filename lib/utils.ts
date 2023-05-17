@@ -5,33 +5,21 @@
 
 /* jslint node: true */
 import packageJson from '../package.json'
-import fs = require('fs')
+import fs from 'fs'
+import logger from './logger'
+import config from 'config'
+import jsSHA from 'jssha'
+import download from 'download'
+import crypto from 'crypto'
+import clarinet from 'clarinet'
 
-const jsSHA = require('jssha')
-const config = require('config')
-const download = require('download')
-const crypto = require('crypto')
-const clarinet = require('clarinet')
-const isDocker = require('is-docker')
-const isHeroku = require('is-heroku')
-// const isGitpod = require('is-gitpod') // FIXME Roll back to this when https://github.com/dword-design/is-gitpod/issues/94 is resolved
-const isGitpod = () => { return false }
-const isWindows = require('is-windows')
-const logger = require('./logger')
+import isDocker from './is-docker'
+import isWindows from './is-windows'
+import isHeroku from './is-heroku'
+// import isGitpod from 'is-gitpod') // FIXME Roll back to this when https://github.com/dword-design/is-gitpod/issues/94 is resolve
+const isGitpod = () => false
 
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
-
-let ctfKey: string
-if (process.env.CTF_KEY !== undefined && process.env.CTF_KEY !== '') {
-  ctfKey = process.env.CTF_KEY
-} else {
-  fs.readFile('ctf.key', 'utf8', (err, data) => {
-    if (err != null) {
-      throw err
-    }
-    ctfKey = data
-  })
-}
 
 export const queryResultToJson = (data: any, status: string = 'success') => {
   let wrappedData: any = {}
@@ -59,7 +47,7 @@ export const isUrl = (url: string) => {
 
 export const startsWith = (str: string, prefix: string) => str ? str.indexOf(prefix) === 0 : false
 
-export const endsWith = (str: string, suffix: string) => str ? str.includes(suffix, str.length - suffix.length) : false
+export const endsWith = (str?: string, suffix?: string) => (str && suffix) ? str.includes(suffix, str.length - suffix.length) : false
 
 export const contains = (str: string, element: string) => str ? str.includes(element) : false // TODO Inline all usages as this function is not adding any functionality to String.includes
 
@@ -84,7 +72,7 @@ export const trunc = function (str: string, length: number) {
   return (str.length > length) ? str.substr(0, length - 1) + '...' : str
 }
 
-export const version = (module: string) => {
+export const version = (module?: string) => {
   if (module) {
     // @ts-expect-error
     return packageJson.dependencies[module]
@@ -93,9 +81,21 @@ export const version = (module: string) => {
   }
 }
 
+let cachedCtfKey: string | undefined
+const getCtfKey = () => {
+  if (!cachedCtfKey) {
+    if (process.env.CTF_KEY !== undefined && process.env.CTF_KEY !== '') {
+      cachedCtfKey = process.env.CTF_KEY
+    } else {
+      const data = fs.readFileSync('ctf.key', 'utf8')
+      cachedCtfKey = data
+    }
+  }
+  return cachedCtfKey
+}
 export const ctfFlag = (text: string) => {
   const shaObj = new jsSHA('SHA-1', 'TEXT') // eslint-disable-line new-cap
-  shaObj.setHMACKey(ctfKey, 'TEXT')
+  shaObj.setHMACKey(getCtfKey(), 'TEXT')
   shaObj.update(text)
   return shaObj.getHMAC('HEX')
 }
@@ -126,11 +126,12 @@ export const extractFilename = (url: string) => {
 }
 
 export const downloadToFile = async (url: string, dest: string) => {
-  return download(url).then((data: string | Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | BigUint64Array | BigInt64Array | Float32Array | Float64Array | DataView) => {
+  try {
+    const data = await download(url)
     fs.writeFileSync(dest, data)
-  }).catch((err: unknown) => {
+  } catch (err) {
     logger.warn('Failed to download ' + url + ' (' + getErrorMessage(err) + ')')
-  })
+  }
 }
 
 export const jwtFrom = ({ headers }: { headers: any}) => {
@@ -153,7 +154,7 @@ export const randomHexString = (length: number) => {
 }
 
 export const disableOnContainerEnv = () => {
-  return (isDocker() || isGitpod() || isHeroku) && !config.get('challenges.safetyOverride')
+  return (isDocker() || isGitpod() || isHeroku()) && !config.get('challenges.safetyOverride')
 }
 
 export const disableOnWindowsEnv = () => {
@@ -163,7 +164,7 @@ export const disableOnWindowsEnv = () => {
 export const determineDisabledEnv = (disabledEnv: string | string[] | undefined) => {
   if (isDocker()) {
     return disabledEnv && (disabledEnv === 'Docker' || disabledEnv.includes('Docker')) ? 'Docker' : null
-  } else if (isHeroku) {
+  } else if (isHeroku()) {
     return disabledEnv && (disabledEnv === 'Heroku' || disabledEnv.includes('Heroku')) ? 'Heroku' : null
   } else if (isWindows()) {
     return disabledEnv && (disabledEnv === 'Windows' || disabledEnv.includes('Windows')) ? 'Windows' : null
@@ -182,7 +183,8 @@ export const parseJsonCustom = (jsonString: string) => {
   parser.onvalue = (v: any) => {
     result[result.length - 1].value = v
   }
-  parser.write(jsonString).close()
+  parser.write(jsonString)
+  parser.close()
   return result
 }
 

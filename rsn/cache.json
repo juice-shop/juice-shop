@@ -292,6 +292,7 @@
 	"redirectChallenge_3.ts": {
 		"added": [],
 		"removed": [
+			18,
 			19,
 			20,
 			21,
@@ -303,8 +304,7 @@
 			27,
 			28,
 			29,
-			30,
-			31
+			30
 		]
 	},
 	"redirectChallenge_4_correct.ts": {
