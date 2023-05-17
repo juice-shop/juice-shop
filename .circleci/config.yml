@@ -15,14 +15,20 @@ jobs:
       - image: cimg/node:lts
     steps:
       - checkout
-      - run: cd frontend && npm install --legacy-peer-deps && cd ..
-      - run: cd ..
-      - run: npm install --legacy-peer-deps 
-      - run: npm ci
+      - setup_remote_docker
       - snyk/install
       - run:
-          command: snyk version
-          name: Which version of snyk is installed
-      - run:
-          command: snyk code test
+          command: snyk code test || true
           name: Run code scan
+      - run:
+          command: snyk test || true
+          name: Run open source scan
+      - run:
+          command: docker image pull node:12.18.4-buster
+          name: Get docker image
+      - run:
+          command: snyk container test node:12.18.4-buster || true
+          name: Test docker image
+      - run:
+          command: snyk iac test || true
+          name: Test IAC files
