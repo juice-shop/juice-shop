@@ -15,6 +15,7 @@ jobs:
       - image: cimg/node:lts
     steps:
       - checkout
+      - setup_remote_docker
       - snyk/install
       - run:
           command: snyk code test || true
