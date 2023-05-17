@@ -23,3 +23,12 @@ jobs:
       - run:
           command: snyk test || true
           name: Run open source scan
+      - run:
+          command: docker image pull node:12.18.4-buster
+          name: Get docker image
+      - run:
+          command: snyk container test node:12.18.4-buster || true
+          name: Test docker image
+      - run:
+          command: snyk iac test || true
+          name: Test IAC files
