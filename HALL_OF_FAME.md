@@ -63,12 +63,6 @@ Giovanni (cruzgio), Alexander Nissen (Nissen96), fabrizio1979, OrNol (TRNSRL), J
   of [@SecureState](https://github.com/SecureState))
 * Wallpaper artworks by Mike Branscum (courtesy of
   [@daylightstudio](https://github.com/daylightstudio))
-* [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) cover artwork
-  by [Patch Kroll](https://99designs.de/profiles/3099878)
-* [Banner](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/banners)
-  and
-  [flyer](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/flyers)
-  artwork by [logicainfo](https://99designs.de/profiles/logicainfo)
 * Official
   [OWASP Juice Shop Jingle](https://soundcloud.com/braimee/owasp-juice-shop-jingle)
   written and performed by [Brian Johnson](https://github.com/braimee)
@@ -76,6 +70,15 @@ Giovanni (cruzgio), Alexander Nissen (Nissen96), fabrizio1979, OrNol (TRNSRL), J
   [Timo Pagel](https://github.com/wurstbrot/))
 * Admin profile picture artworks by Kharisma Mulyana (courtesy of
   [Timo Pagel](https://github.com/wurstbrot/))
+
+Additional thanks goes to the contractors we were able to hire for specific work packages over the years with OWASP funding:
+
+* [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) cover artwork
+  by [Patch Kroll](https://99designs.de/profiles/3099878)
+* [Banner](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/banners)
+  and
+  [flyer](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/flyers)
+  artwork by [logicainfo](https://99designs.de/profiles/logicainfo)
 
 ## Stargazers (over time)
 

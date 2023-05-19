@@ -4,7 +4,7 @@
  */
 
 import frisby = require('frisby')
-import config = require('config')
+import config from 'config'
 
 const URL = 'http://localhost:3000'
 

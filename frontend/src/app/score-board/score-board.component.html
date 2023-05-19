@@ -112,7 +112,7 @@
 
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef translate>LABEL_NAME</mat-header-cell>
-        <mat-cell *matCellDef="let challenge">
+        <mat-cell *matCellDef="let challenge" [id]="challenge.name">
           {{challenge.name}}
         </mat-cell>
       </ng-container>

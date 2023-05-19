@@ -49,9 +49,11 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
           }
           if (!data.isRestore) {
             this.saveProgress()
-            import('../../confetti').then(module => {
-              module.shootConfetti()
-            })
+            if (!data.hidden) {
+              import('../../confetti').then(module => {
+                module.shootConfetti()
+              })
+            }
           }
           this.io.socket().emit('notification received', data.flag)
         }

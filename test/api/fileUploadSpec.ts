@@ -4,8 +4,8 @@
  */
 
 import frisby = require('frisby')
+import path from 'path'
 const fs = require('fs')
-const path = require('path')
 const utils = require('../../lib/utils')
 
 const URL = 'http://localhost:3000'
