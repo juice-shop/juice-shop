@@ -91,4 +91,27 @@ describe('/#/register', () => {
       cy.expectChallengeSolved({ challenge: 'Repetitive Registration' })
     })
   })
+
+  describe('challenge "registerEmptyUser"', () => {
+    it('should be possible to register a user with blank email/password', () => {
+      cy.window().then(async () => {
+        const response = await fetch(`${Cypress.env('baseUrl')}/api/Users`, {
+          method: 'POST',
+          cache: 'no-cache',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: '',
+            password: '',
+            passwordRepeat: ''
+          })
+        })
+        if (response.status === 201) {
+          console.log('Success')
+        }
+      })
+      cy.expectChallengeSolved({ challenge: 'Empty User Registration' })
+    })
+  })
 })

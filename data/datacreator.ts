@@ -21,15 +21,15 @@ import { SecurityQuestionModel } from '../models/securityQuestion'
 import { UserModel } from '../models/user'
 import { WalletModel } from '../models/wallet'
 import { Address, Card, Challenge, Delivery, Memory, Product, SecurityQuestion, User } from './types'
+import logger from '../lib/logger'
+import config from 'config'
+import path from 'path'
+import * as utils from '../lib/utils'
 const datacache = require('./datacache')
-const config = require('config')
-const utils = require('../lib/utils')
 const mongodb = require('./mongodb')
 const security = require('../lib/insecurity')
-const logger = require('../lib/logger')
 
 const fs = require('fs')
-const path = require('path')
 const util = require('util')
 const { safeLoad } = require('js-yaml')
 const Entities = require('html-entities').AllHtmlEntities
@@ -93,7 +93,7 @@ async function createChallenges () {
           hint: showHints ? hint : null,
           hintUrl: showHints ? hintUrl : null,
           mitigationUrl: showMitigations ? mitigationUrl : null,
-          disabledEnv: config.get('challenges.safetyOverride') ? null : effectiveDisabledEnv,
+          disabledEnv: config.get<boolean>('challenges.safetyOverride') ? null : effectiveDisabledEnv,
           tutorialOrder: tutorial ? tutorial.order : null,
           codingChallengeStatus: 0
         })
@@ -236,7 +236,7 @@ async function createRandomFakeUsers () {
 
 async function createQuantity () {
   return await Promise.all(
-    config.get('products').map(async (product: Product, index: number) => {
+    config.get<Product[]>('products').map(async (product: Product, index: number) => {
       return await QuantityModel.create({
         ProductId: index + 1,
         quantity: product.quantity !== undefined ? product.quantity : Math.floor(Math.random() * 70 + 30),
@@ -262,7 +262,7 @@ async function createMemories () {
       if (utils.isUrl(memory.image)) {
         const imageUrl = memory.image
         tmpImageFileName = utils.extractFilename(memory.image)
-        utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/uploads/' + tmpImageFileName)
+        void utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/uploads/' + tmpImageFileName)
       }
       if (memory.geoStalkingMetaSecurityQuestion && memory.geoStalkingMetaSecurityAnswer) {
         await createSecurityAnswer(datacache.users.john.id, memory.geoStalkingMetaSecurityQuestion, memory.geoStalkingMetaSecurityAnswer)
@@ -296,7 +296,7 @@ async function createProducts () {
     if (utils.isUrl(product.image)) {
       const imageUrl = product.image
       product.image = utils.extractFilename(product.image)
-      utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/products/' + product.image)
+      void utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/products/' + product.image)
     }
     return product
   })
@@ -607,7 +607,7 @@ async function createSecurityAnswer (UserId: number, SecurityQuestionId: number,
 }
 
 async function createOrders () {
-  const products = config.get('products')
+  const products = config.get<Product[]>('products')
   const basket1Products = [
     {
       quantity: 3,

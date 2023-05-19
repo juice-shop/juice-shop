@@ -12,17 +12,17 @@ import { FeedbackModel } from '../models/feedback'
 import { ComplaintModel } from '../models/complaint'
 import { Op } from 'sequelize'
 import challengeUtils = require('../lib/challengeUtils')
+import logger from '../lib/logger'
+import config from 'config'
+import * as utils from '../lib/utils'
+import { totalCheatScore } from '../lib/antiCheat'
+import * as accuracy from '../lib/accuracy'
 
-const logger = require('../lib/logger')
 const Prometheus = require('prom-client')
 const onFinished = require('on-finished')
 const orders = require('../data/mongodb').orders
 const reviews = require('../data/mongodb').reviews
 const challenges = require('../data/datacache').challenges
-const utils = require('../lib/utils')
-const antiCheat = require('../lib/antiCheat')
-const accuracy = require('../lib/accuracy')
-const config = require('config')
 
 const register = Prometheus.register
 
@@ -187,7 +187,7 @@ exports.observeMetrics = function observeMetrics () {
         })
       })
 
-      cheatScoreMetrics.set(antiCheat.totalCheatScore())
+      cheatScoreMetrics.set(totalCheatScore())
       accuracyMetrics.set({ phase: 'find it' }, accuracy.totalFindItAccuracy())
       accuracyMetrics.set({ phase: 'fix it' }, accuracy.totalFixItAccuracy())
 

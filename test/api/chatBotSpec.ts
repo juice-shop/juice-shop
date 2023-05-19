@@ -4,10 +4,10 @@
  */
 
 import frisby = require('frisby')
-import config = require('config')
-const { initialize, bot } = require('../../routes/chatbot')
-const fs = require('fs')
-const utils = require('../../lib/utils')
+import config from 'config'
+import { initialize, bot } from '../../routes/chatbot'
+import fs from 'fs/promises'
+import * as utils from '../../lib/utils'
 
 const URL = 'http://localhost:3000'
 const REST_URL = `${URL}/rest/`
@@ -33,7 +33,7 @@ async function login ({ email, password }: { email: string, password: string }) 
 describe('/chatbot', () => {
   beforeAll(async () => {
     await initialize()
-    trainingData = JSON.parse(fs.readFileSync(`data/chatbot/${utils.extractFilename(config.get('application.chatBot.trainingData'))}`, { encoding: 'utf8' }))
+    trainingData = JSON.parse(await fs.readFile(`data/chatbot/${utils.extractFilename(config.get('application.chatBot.trainingData'))}`, { encoding: 'utf8' }))
   })
 
   describe('/status', () => {
@@ -99,6 +99,9 @@ describe('/chatbot', () => {
     })
 
     it('Returns greeting if username is defined', async () => {
+      if (!bot) {
+        throw new Error('Bot not initialized')
+      }
       const { token } = await login({
         email: 'bjoern.kimminich@gmail.com',
         password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
@@ -128,6 +131,9 @@ describe('/chatbot', () => {
     })
 
     it('Returns proper response for registered user', async () => {
+      if (!bot) {
+        throw new Error('Bot not initialized')
+      }
       const { token } = await login({
         email: 'bjoern.kimminich@gmail.com',
         password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
