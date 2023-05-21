@@ -1,0 +1,75 @@
+manifest:
+  version: 1.0
+automations:
+  # Add labels
+  vulnerabilities:
+    if:
+      - {{ sonar.vulnerabilities.count > 0}}
+    run:
+      - action: add-label@v1
+        args:
+          label: '🛡️ x {{ sonar.vulnerabilities.count }} Vulnerabilities'
+          color: {{ colors.E if (sonar.vulnerabilities.rating == 'E') else (colors.C if (sonar.vulnerabilities.rating == 'C' ) else colors.A) }}
+  security_hotspots:
+    if:
+      - {{ sonar.security_hotspots.count > 0}}
+    run:
+      - action: add-label@v1
+        args:
+          label: '🌶️ x {{ sonar.security_hotspots.count }} Security Hotspots'
+          color: {{ colors.E if (sonar.security_hotspots.rating == 'E') else (colors.C if (sonar.security_hotspots.rating == 'C' ) else colors.A) }}
+  code_smells:
+    if:
+      - {{ sonar.code_smells.count > 0}}
+    run:
+      - action: add-label@v1
+        args:
+          label: '💩 x {{ sonar.code_smells.count }} Code Smells'
+          color: {{ colors.E if (sonar.code_smells.rating == 'E') else (colors.C if (sonar.code_smells.rating == 'C' ) else colors.A) }}
+  bugs:
+    if:
+      - {{ sonar.bugs.count > 0}}
+    run:
+      - action: add-label@v1
+        args:
+          label: '🐞 x {{ sonar.bugs.count }} Bugs'
+          color: {{ colors.E if (sonar.bugs.rating == 'E') else (colors.C if (sonar.bugs.rating == 'C' ) else colors.A) }}
+
+  mark_outstanding_pr:
+    if:
+      - {{ sonar.bugs.count == 0 }}
+      - {{ sonar.code_smells.count == 0 }}
+      - {{ sonar.vulnerabilities.count == 0 }}
+      - {{ sonar.security_hotspots.count == 0 }}
+      - {{ sonar.duplications == null or sonar.duplications == 0 }}
+    run: 
+      - action: add-label@v1
+        args:
+          label: '💯 Safe'
+  Assign:
+    # Auto assign Security member
+    if:
+      - {{ sonar.code_smells.rating != 'A' or sonar.vulnerabilities.rating != 'A' or sonar.security_hotspots.rating != 'A'}}
+    run:
+      - action: add-reviewers@v1
+        args:
+          reviewers: [Dudu-linb]
+
+  jitttt:
+    if:
+      - {{ jit.metrics.HIGH > 0}}
+    run:
+      - action: add-label@v1
+        args:
+          label: '{{ jit.metrics.HIGH }} high vulns by Jit'
+
+
+sonar: {{ pr | extractSonarFindings }}
+#jit: {{ pr | extractJitFindings }}
+
+colors:
+  A: '05AA02'
+  B: 'B6D146'
+  C: 'EABE05'
+  D: 'DF8339'
+  E: 'D4343F'
