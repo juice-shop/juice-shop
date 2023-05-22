@@ -15,7 +15,7 @@ automations:
   
   jit_ignores:
     if:
-      -{{ has_ignored_accept }}
+      -{{ jit_reviews | map(attr='conversations') | map(attr='content') | match(term='#jit_ignore_accept') | some }}
     run:
       - action: add-label@v1
         args:
@@ -23,7 +23,7 @@ automations:
 
 jit: {{ pr | extractJitFindings }}
 
-has_ignored_accept: {{ jit_reviews | map(attr='conversations') | map(attr='content') | match(term='#jit_ignore_accept') | some }}
+# has_ignored_accept: {{ jit_reviews | map(attr='conversations') | map(attr='content') | match(term='#jit_ignore_accept') | some }}
 
 jit_reviews: {{ pr.reviews | filter(attr='commenter', term='jit-ci') }}
 
