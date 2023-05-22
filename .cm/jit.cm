@@ -23,11 +23,4 @@ automations:
 
 jit: {{ pr | extractJitFindings }}
 
-jit_conversations: {{ pr.reviews | filter(attr='commenter', term='jit-ci') | map(attr='conversations') }}
-
-colors:
-  A: '05AA02'
-  B: 'B6D146'
-  C: 'EABE05'
-  D: 'DF8339'
-  E: 'D4343F'
+jit_conversations: {{ pr.conversations | filter(attr='commenter', term='jit-ci') }}
