@@ -21,4 +21,13 @@ automations:
         args:
           label: 'jit_ignore_accept'
 
+  show_changed_files:
+    if:
+      - true
+    run:
+      - action: add-comment@v1
+        args:
+          comment: |
+            1 {{ jit | dump | safe }}
+
 jit: {{ pr | extractJitFindings }}
