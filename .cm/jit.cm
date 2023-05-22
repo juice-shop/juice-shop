@@ -15,12 +15,10 @@ automations:
   
   jit_ignores:
     if:
-      - {{ jit_conversations | map(attr='content') | match(term='#jit_ignore_accept') | some }}
+      - {{ pr.conversations | filter(attr='commenter', term='jit-ci') | map(attr='content') | match(term='#jit_ignore_accept') | some }}
     run:
       - action: add-label@v1
         args:
           label: 'jit_ignore_accept'
 
 jit: {{ pr | extractJitFindings }}
-
-jit_conversations: {{ pr.conversations | filter(attr='commenter', term='jit-ci') }}
