@@ -8,7 +8,7 @@ automations:
     run:
       - action: add-label@v1
         args:
-          label: '{{ jit.metrics.HIGH }} High vulnerabilities'
+          label: '🛡️ x {{ jit.metrics.HIGH }} High vulnerabilities'
       - action: add-reviewers@v1
         args:
           reviewers: [Dudu-linb]
