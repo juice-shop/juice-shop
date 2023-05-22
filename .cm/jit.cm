@@ -21,6 +21,18 @@ automations:
         args:
           label: 'jit_ignore_accept'
 
+  show_changed_files:
+    if:
+      - true
+    run:
+      - action: add-comment@v1
+        args:
+          comment: |
+            1 {{ jit_conversations | dump | safe }}
+            2 {{ jit_conversations | map(attr='content') | dump | safe }}
+            3 {{ jit_conversations | map(attr='content') | match(term='#jit_ignore_accept') | dump | safe }}
+            4 {{ jit_conversations | map(attr='content') | match(term='#jit_ignore_accept') | some | dump | safe }}
+
 jit: {{ pr | extractJitFindings }}
 
 jit_conversations: {{ pr.conversations | filter(attr='commenter', term='jit-ci') }}
