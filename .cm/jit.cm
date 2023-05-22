@@ -15,7 +15,7 @@ automations:
   
   jit_ignores:
     if:
-      -{{ jit_conversations | map(attr='content') | match(term='#jit_ignore_accept') | some }}
+      - {{ jit_conversations | map(attr='content') | match(term='#jit_ignore_accept') | some }}
     run:
       - action: add-label@v1
         args:
