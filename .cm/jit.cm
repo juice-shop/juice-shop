@@ -19,7 +19,7 @@ automations:
     run:
       - action: add-label@v1
         args:
-          label: 'jit_ignore_accept'
+          label: '🙈 jit_ignore_accept'
 
   show_changed_files:
     if:
