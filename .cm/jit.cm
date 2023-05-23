@@ -15,7 +15,7 @@ automations:
   
   jit_secretss:
     if:
-      - {{ pr.conversations | match(attr='commenter', term='jit-ci') | some }}
+      - {{ jit.vulnerabilities | match(attr='security_control', term='Secret Detection') | some }}
     run:
       - action: add-label@v1
         args:
@@ -23,7 +23,7 @@ automations:
           
   jit_ignores:
     if:
-      - {{ jit.vulnerabilities | filter(attr='security_control', term='Secret Detection') | map(attr='content') | match(term='#jit_ignore_accept') | some }}
+      - {{ pr.conversations | filter(attr='commenter', term='jit-ci') | map(attr='content') | match(term='#jit_ignore_accept') | some }}
     run:
       - action: add-label@v1
         args:
