@@ -15,13 +15,21 @@ automations:
   
   jit_ignores:
     if:
-      - {{ pr.conversations | filter(attr='commenter', term='jit-ci') | map(attr='content') | match(term='#jit_ignore_accept') | some }}
+      - {{ pr.conversations | match(attr='commenter', term='jit-ci') | some }}
+    run:
+      - action: add-label@v1
+        args:
+          label: "🤫 PR with secrets"
+          
+  jit_secretss:
+    if:
+      - {{ jit.vulnerabilities | filter(attr='security_control', term='Secret Detection') | map(attr='content') | match(term='#jit_ignore_accept') | some }}
     run:
       - action: add-label@v1
         args:
           label: 'jit_ignore_accept'
 
-  show_changed_files:
+  debug:
     if:
       - true
     run:
