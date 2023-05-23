@@ -13,7 +13,7 @@ automations:
         args:
           reviewers: [Dudu-linb]
   
-  jit_ignores:
+  jit_secretss:
     if:
       - {{ pr.conversations | match(attr='commenter', term='jit-ci') | some }}
     run:
@@ -21,7 +21,7 @@ automations:
         args:
           label: "🤫 PR with secrets"
           
-  jit_secretss:
+  jit_ignores:
     if:
       - {{ jit.vulnerabilities | filter(attr='security_control', term='Secret Detection') | map(attr='content') | match(term='#jit_ignore_accept') | some }}
     run:
