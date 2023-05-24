@@ -16,7 +16,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/addo.css" id="theme">
+		<link rel="stylesheet" href="css/theme/night.css" id="theme">
 		<link rel="stylesheet" href="css/custom.css">
 
 		<!-- Code syntax highlighting -->
@@ -131,6 +131,36 @@
 				</section>
 
 				<section>
+					<h2>🎊🎉Confetti cannon🎉🎊</h2>
+					<p>
+						Whenever a challenge is solved, a confetti cannon fires
+					</p>
+					<img src="/assets/confetti.png" height="440"/>
+				</section>
+
+				<section>
+					<h2>Solution Webhook</h2>
+					<p>Sends a payload to a specified URL whenever a challenge is solved</p>
+					<pre><code>
+{
+    "solution": {
+        "challenge": "localXssChallenge",
+        "cheatScore": 0,
+        "totalCheatScore": 0.15,
+        "issuedOn": "2020-12-15T18:24:33.027Z"
+    },
+    "ctfFlag": "b0d70dce...b85fac6785dba2349b",
+    "issuer": {
+        "hostName": "fv-az116-673",
+        "os": "Linux (5.4.0-1031-azure)",
+        "appName": "OWASP Juice Shop",
+        "config": "default",
+        "version": "12.3.0-SNAPSHOT"
+    }
+}					</code></pre>
+				</section>
+
+				<section>
 					<h2>MultiJuicer Platform</h2>
 					<p>
 						<a href="https://github.com/iteratec/multi-juicer">3rd party </a> multi-user platform now comes with internal<br>Score Board for team events and CTFs
@@ -149,22 +179,6 @@
 				</section>
 
 				<section>
-					<h2>Integration Stacks</h2>
-					<p>
-						Convenient monitoring, notification and data integration capabilities
-					</p>
-					<div>
-						<img src="assets/webhooks.png" height="120" style="background: none; border:none; box-shadow:none;"/>
-						<img src="assets/JSON_vector_logo.svg" height="120" style="background: none; border:none; box-shadow:none;"/>
-						<img src="assets/grafana.png" height="120" style="background: none; border:none; box-shadow:none;"/>
-					</div>
-					<div>
-						<img src="assets/yaml.png" height="200" style="background: none; border:none; box-shadow:none;"/>
-						<img src="assets/prometheus_logo.png" height="200" style="background: none; border:none; box-shadow:none;"/>
-					</div>
-				</section>
-
-				<section>
 					<h4><span id="timer" class="reveal"></span> left for...</h4>
 					<h1 style="font-size:200px">🍿 Demo</h1>
 				</section>
@@ -175,7 +189,7 @@
 				</section>
 
 				<section>
-					<h3>Official NFT collection</h3>
+					<h2>Official NFT collection</h2>
 					<p>
 						You thought we were joking, weren't you?
 					</p>
