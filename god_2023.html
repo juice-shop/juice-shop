@@ -109,8 +109,7 @@
 					<p>Save and later restore your hacking progress as well as language, Score Board filters, banner dismissal to a <code>JSON</code> file</p>
 					<div class="twocolumn">
 						<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/manual_backup.png" height="200"/>
-						<pre><code style="overflow: hidden;">
-{
+						<pre><code style="overflow: hidden;">{
   "version": 1,
   "scoreBoard": {
 	"displayedDifficulties": [ 1, 2 ],
@@ -125,8 +124,7 @@
   },
   "language": "de_DE",
   "continueCode": "rzJa4Xpa...57LBN7Xv7o"
-}
-						</code></pre>
+}</code></pre>
 					</div>
 				</section>
 
@@ -141,8 +139,7 @@
 				<section>
 					<h2>Solution Webhook</h2>
 					<p>Sends a payload to a specified URL whenever a challenge is solved</p>
-					<pre><code>
-{
+					<pre><code>{
     "solution": {
         "challenge": "localXssChallenge",
         "cheatScore": 0,
@@ -158,6 +155,13 @@
         "version": "12.3.0-SNAPSHOT"
     }
 }					</code></pre>
+				</section>
+
+				<section>
+					<h2>Deep links from OpenCRE</h2>
+					<p>OpenCRE v2 will show direct links to Juice Shop hacking challenges as training tool resources</p>
+					<pre><code>Tool : OWASP Juice Shop : localXssChallenge : DOM XSS
+Reference: https://demo.owasp-juice.shop/#/score-board?challenge=DOM%20XSS</code></pre>
 				</section>
 
 				<section>
