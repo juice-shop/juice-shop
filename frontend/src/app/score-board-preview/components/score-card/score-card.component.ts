@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core'
 
 @Component({
   selector: 'score-card',
@@ -7,14 +7,14 @@ import { Component, Input } from '@angular/core';
 })
 export class ScoreCardComponent {
   @Input()
-  public description: string;
+  public description: string
 
   @Input()
-  public total: number;
+  public total: number
 
   @Input()
-  public score: number;
+  public score: number
 
   @Input()
-  public showAsPercentage: boolean = true;
+  public showAsPercentage: boolean = true
 }

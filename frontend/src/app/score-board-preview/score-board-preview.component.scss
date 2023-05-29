@@ -14,8 +14,12 @@
 }
 
 .score-row {
+
+  column-gap: 16px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  min-height: 120px;
+  row-gap: 8px;
 
   // use 3 columns on large(ish) screens
   @media (max-width: 1200px) {
@@ -29,15 +33,16 @@
   @media (max-width: 600px) {
     grid-template-columns: repeat(1, 1fr);
   }
-
-  column-gap: 16px;
-  row-gap: 8px;
-  min-height: 120px;
 }
 
 .challenges {
+
+  column-gap: 16px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+
+  margin-top: 32px;
+  row-gap: 12px;
 
   // use 3 columns on large(ish) screens
   @media (max-width: 1200px) {
@@ -51,9 +56,4 @@
   @media (max-width: 600px) {
     grid-template-columns: repeat(1, 1fr);
   }
-
-  column-gap: 16px;
-  row-gap: 12px;
-
-  margin-top: 32px;
 }

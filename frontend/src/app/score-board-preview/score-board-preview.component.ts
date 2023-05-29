@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ChallengeService } from '../Services/challenge.service';
-import { CodeSnippetService } from '../Services/code-snippet.service';
-import { DomSanitizer } from '@angular/platform-browser';
-import { forkJoin } from 'rxjs';
-import { EnrichedChallenge } from './types/EnrichedChallenge';
-
+import { Component, OnInit } from '@angular/core'
+import { ChallengeService } from '../Services/challenge.service'
+import { CodeSnippetService } from '../Services/code-snippet.service'
+import { DomSanitizer } from '@angular/platform-browser'
+import { forkJoin } from 'rxjs'
+import { EnrichedChallenge } from './types/EnrichedChallenge'
 
 @Component({
   selector: 'score-board-preview',
@@ -12,21 +11,20 @@ import { EnrichedChallenge } from './types/EnrichedChallenge';
   styleUrls: ['./score-board-preview.component.scss']
 })
 export class ScoreBoardPreviewComponent implements OnInit {
-  public allChallenges: EnrichedChallenge[] = [] ;
-  public filteredChallenges: EnrichedChallenge[] = [];
+  public allChallenges: EnrichedChallenge[] = []
+  public filteredChallenges: EnrichedChallenge[] = []
 
-  constructor(
-    private challengeService: ChallengeService,
+  constructor (
+    private readonly challengeService: ChallengeService,
     private readonly codeSnippetService: CodeSnippetService,
-    private readonly sanitizer: DomSanitizer,
+    private readonly sanitizer: DomSanitizer
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     forkJoin([
       this.challengeService.find({ sort: 'name' }),
       this.codeSnippetService.challenges()
     ]).subscribe(([challenges, challengeKeysWithCodeChallenges]) => {
-
       const transformedChallenges = challenges.map((challenge) => {
         return {
           ...challenge,
@@ -35,9 +33,9 @@ export class ScoreBoardPreviewComponent implements OnInit {
           difficultyAsList: [...Array(challenge.difficulty).keys()],
           hasCodingChallenge: challengeKeysWithCodeChallenges.includes(challenge.key)
         }
-      });
-      this.allChallenges = transformedChallenges;
-      this.filteredChallenges = transformedChallenges;
-    });
+      })
+      this.allChallenges = transformedChallenges
+      this.filteredChallenges = transformedChallenges
+    })
   }
 }
