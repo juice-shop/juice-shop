@@ -4,7 +4,7 @@
                 {{ (score / total * 100) | number: '1.0-0' }}%
             </ng-container>
             <ng-container *ngIf="showAsPercentage == false">
-                {{ score }}/{{ total }
+                {{ score }}/{{ total }}
             </ng-container>
         </p>
     <p class="category">{{ description}}</p>
