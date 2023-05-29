@@ -7,10 +7,11 @@ import { SafeHtml } from '@angular/platform-browser'
 
 export interface Challenge {
   name: string
+  key: string
   category: string
   tags?: string
   description?: string | SafeHtml
-  difficulty: number
+  difficulty: 1 | 2 | 3 | 4 | 5 | 6;
   hint?: string
   hintUrl?: string
   disabledEnv?: string
@@ -18,5 +19,5 @@ export interface Challenge {
   tutorialOrder?: number
   hasTutorial?: boolean
   hasSnippet?: boolean
-  codingChallengeStatus?: number
+  codingChallengeStatus?: 0 | 1 | 2
 }
