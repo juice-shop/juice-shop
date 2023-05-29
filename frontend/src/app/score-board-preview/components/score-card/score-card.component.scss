@@ -16,13 +16,19 @@
 
   .score {
     font-style: normal;
-    font-weight: 400;
-    font-size: 36px;
+    font-size: 32px;
+    font-weight: 500;
     line-height: 42px;
 
     color: #ffffff;
 
-    margin-bottom: 4px;
+    margin-bottom: 0;
+
+    .fraction-total {
+        font-size: 16px;
+        line-height: 26px;
+        color: rgba(255, 255, 255, 0.5);
+    }
   }
   .category {
     font-style: normal;
