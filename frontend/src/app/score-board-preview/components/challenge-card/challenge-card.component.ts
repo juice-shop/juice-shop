@@ -1,7 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core'
 
-import { EnrichedChallenge } from '../../types/EnrichedChallenge';
-
+import { EnrichedChallenge } from '../../types/EnrichedChallenge'
 
 @Component({
   selector: 'challenge-card',
@@ -9,8 +8,6 @@ import { EnrichedChallenge } from '../../types/EnrichedChallenge';
   styleUrls: ['./challenge-card.component.scss']
 })
 export class ChallengeCardComponent {
-
-  @Input() 
-  public challenge: EnrichedChallenge;
-
+  @Input()
+  public challenge: EnrichedChallenge
 }

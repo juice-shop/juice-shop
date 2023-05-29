@@ -1,35 +1,35 @@
-$vertical_margin: 4px;
-$vertical_padding: 8px;
+$vertical-margin: 4px;
+$vertical-padding: 8px;
 
 :host {
-    // use 2 columns ipads and smaller
-    @media (max-width: 810px) {
-        grid-column: span 2;
-    }
-    @media (max-width: 600px) {
-        grid-column: span 1;
-    }
+  // use 2 columns ipads and smaller
+  @media (max-width: 810px) {
+    grid-column: span 2;
+  }
+  @media (max-width: 600px) {
+    grid-column: span 1;
+  }
 }
 
 .star-group {
+  background-color: #212121;
+  border-radius: 4px;
+  column-gap: 12px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  column-gap: 12px;
+
+  height: calc(100% - (2 * $vertical-margin + 2 * $vertical-padding));
+
+  margin: $vertical-margin 4px;
+
+  padding: $vertical-padding 12px;
   row-gap: 2px;
 
-  height: calc(100% - (2 * $vertical_margin + 2 * $vertical_padding));
-
-  padding: $vertical_padding 12px;
-
-  margin: $vertical_margin 4px;
-  border-radius: 4px;
-  background-color: #212121;
-
   .star-container {
-    display: flex;
-    flex-direction: column;
 
     align-items: center;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
   }
 
