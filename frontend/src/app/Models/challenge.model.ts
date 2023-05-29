@@ -11,7 +11,7 @@ export interface Challenge {
   category: string
   tags?: string
   description?: string | SafeHtml
-  difficulty: 1 | 2 | 3 | 4 | 5 | 6;
+  difficulty: 1 | 2 | 3 | 4 | 5 | 6
   hint?: string
   hintUrl?: string
   disabledEnv?: string

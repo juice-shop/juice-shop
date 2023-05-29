@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { EnrichedChallenge } from '../../types/EnrichedChallenge';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core'
+import { EnrichedChallenge } from '../../types/EnrichedChallenge'
 
 @Component({
   selector: 'hacking-challenge-progress-score-card',
@@ -8,19 +8,19 @@ import { EnrichedChallenge } from '../../types/EnrichedChallenge';
 })
 export class HackingChallengeProgressScoreCardComponent implements OnInit, OnChanges {
   @Input()
-  public allChallenges: EnrichedChallenge[] = [];
+  public allChallenges: EnrichedChallenge[] = []
 
-  public solvedChallenges: number;
+  public solvedChallenges: number
 
-  ngOnInit(): void {
-    this.updatedNumberOfSolvedChallenges();
+  ngOnInit (): void {
+    this.updatedNumberOfSolvedChallenges()
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.updatedNumberOfSolvedChallenges();
+  ngOnChanges (changes: SimpleChanges): void {
+    this.updatedNumberOfSolvedChallenges()
   }
-  
-  private updatedNumberOfSolvedChallenges(): void {
-    this.solvedChallenges = this.allChallenges.filter((challenge) => challenge.solved).length;
+
+  private updatedNumberOfSolvedChallenges (): void {
+    this.solvedChallenges = this.allChallenges.filter((challenge) => challenge.solved).length
   }
 }

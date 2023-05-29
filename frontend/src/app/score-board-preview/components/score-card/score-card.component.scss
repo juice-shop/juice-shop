@@ -1,9 +1,9 @@
 :host {
-    display: grid;
-    grid-template-columns: auto min-content;
-    height: 100%;
-    background-color: #292929;
-    border-radius: 4px;
+  background-color: #292929;
+  border-radius: 4px;
+  display: grid;
+  grid-template-columns: auto min-content;
+  height: 100%;
 }
 
 .score-group {
@@ -13,27 +13,26 @@
   padding: 16px 0 16px 16px;
 
   .score {
-    font-style: normal;
+    color: #fff;
     font-size: 32px;
+    font-style: normal;
     font-weight: 500;
     line-height: 42px;
 
-    color: #ffffff;
-
     margin-bottom: 0;
-
-    .fraction-total {
-        font-size: 16px;
-        line-height: 26px;
-        color: rgba(255, 255, 255, 0.5);
-    }
   }
+
+  .fraction-total {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 16px;
+    line-height: 26px;
+  }
+
   .category {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 20px;
     font-style: normal;
     font-weight: 500;
-    font-size: 20px;
     line-height: 23px;
-
-    color: rgba(255, 255, 255, 0.75);
   }
 }
