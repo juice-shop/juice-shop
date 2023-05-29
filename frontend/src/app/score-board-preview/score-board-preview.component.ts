@@ -1,23 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ChallengeService } from '../Services/challenge.service';
+import { CodeSnippetService } from '../Services/code-snippet.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { forkJoin } from 'rxjs';
-import { CodeSnippetService } from '../Services/code-snippet.service';
-import { Challenge } from '../Models/challenge.model';
+import { EnrichedChallenge } from './types/EnrichedChallenge';
 
-interface EnrichedChallenge extends Challenge {
-  tagList: string[];
-  difficultyAsList: number[];
-  hasCodingChallenge: boolean;
-}
 
 @Component({
-  selector: 'app-score-board-two',
-  templateUrl: './score-board-two.component.html',
-  styleUrls: ['./score-board-two.component.scss']
+  selector: 'score-board-preview',
+  templateUrl: './score-board-preview.component.html',
+  styleUrls: ['./score-board-preview.component.scss']
 })
-export class ScoreBoardTwoComponent implements OnInit {
-
+export class ScoreBoardPreviewComponent implements OnInit {
   public allChallenges: EnrichedChallenge[] = [] ;
   public filteredChallenges: EnrichedChallenge[] = [];
 

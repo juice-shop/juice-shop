@@ -102,6 +102,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatBadgeModule } from '@angular/material/badge'
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs'
+import { ScoreBoardPreviewModule } from './score-board-preview/score-board-preview.module'
 import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component'
 import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
@@ -139,7 +140,6 @@ import { CodeSnippetComponent } from './code-snippet/code-snippet.component'
 import { CodeAreaComponent } from './code-area/code-area.component'
 import { NgxTextDiffModule } from 'ngx-text-diff'
 import { CodeFixesComponent } from './code-fixes/code-fixes.component'
-import { ScoreBoardTwoComponent } from './score-board-two/score-board-two.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json')
@@ -204,7 +204,6 @@ export function HttpLoaderFactory (http: HttpClient) {
     CodeSnippetComponent,
     CodeAreaComponent,
     CodeFixesComponent,
-    ScoreBoardTwoComponent,
   ],
   imports: [
     BrowserModule,
@@ -263,6 +262,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatChipsModule,
     NgxTextDiffModule,
     HighlightModule,
+    ScoreBoardPreviewModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
