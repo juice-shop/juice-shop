@@ -15,8 +15,6 @@ export class ScoreBoardPreviewComponent implements OnInit {
   public allChallenges: EnrichedChallenge[] = [] ;
   public filteredChallenges: EnrichedChallenge[] = [];
 
-
-  public solvedHackingChallengesPercentage = 0;
   public solvedCodingChallengesPercentage = 0;
 
   constructor(
@@ -40,10 +38,6 @@ export class ScoreBoardPreviewComponent implements OnInit {
           hasCodingChallenge: challengeKeysWithCodeChallenges.includes(challenge.key)
         }
       });
-
-      const solvedChallenges = transformedChallenges.filter((challenge) => challenge.solved);
-      this.solvedHackingChallengesPercentage = Math.round(solvedChallenges.length / transformedChallenges.length * 100);
-
       const availableCodingChallenges = transformedChallenges.filter((challenge) => challenge.hasCodingChallenge);
 
       const solvedCodingScore = availableCodingChallenges.map((challenge) => challenge.codingChallengeStatus).reduce((a,b) => a + b, 0);

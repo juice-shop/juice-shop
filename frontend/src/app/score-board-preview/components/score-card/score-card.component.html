@@ -1,0 +1,14 @@
+<div class="score-group">
+    <p class="score">
+            <ng-container *ngIf="showAsPercentage == true">
+                {{ (score / total * 100) | number: '1.0-0' }}%
+            </ng-container>
+            <ng-container *ngIf="showAsPercentage == false">
+                {{ score }}/{{ total }
+            </ng-container>
+        </p>
+    <p class="category">Hacking Challenges</p>
+</div>
+<div class="right-group">
+    <ng-content select="[right-side]" />
+</div>
