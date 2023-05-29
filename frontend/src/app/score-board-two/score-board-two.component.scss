@@ -1,0 +1,293 @@
+:host {
+    display: block;
+    margin: 48px 72px;
+
+    @media (max-width: 1200px) {
+        margin: 48px 64px;
+    }
+    @media (max-width: 800px) {
+        margin: 48px;
+    }
+    @media (max-width: 600px) {
+        margin: 32px 16px;
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.score-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    // use 3 columns on large(ish) screens
+    @media (max-width: 1200px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    // use 2 columns ipads and smaller
+    @media (max-width: 810px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    // use 1 column on extra small screens
+    @media (max-width: 600px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+
+    column-gap: 16px;
+    row-gap: 8px;
+    min-height: 120px;
+
+    .score-card {
+        display: grid;
+        grid-template-columns: auto min-content;
+        
+        .score-group {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 75%;
+
+            padding: 16px 0 16px 16px;
+
+            .score {
+                font-style: normal;
+                font-weight: 400;
+                font-size: 36px;
+                line-height: 42px;
+    
+                color: #FFFFFF;
+
+                margin-bottom: 4px;
+            }
+            .category {
+                font-style: normal;
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 23px;
+                
+                color: rgba(255, 255, 255, 0.75);
+            }
+        }
+
+        .icon-group {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
+    }
+
+    // difficulty-overview
+    // solved-fraction-group
+    // solved-fraction
+    // big">20/</spa
+    // small">106</spa
+    // category
+    // star-group
+
+    .difficulty-overview {
+        display: grid;
+        grid-template-columns: auto min-content;
+
+        // use 2 columns ipads and smaller
+        @media (max-width: 810px) {
+            grid-column: span 2;
+        }
+        @media (max-width: 600px) {
+            grid-column: span 1;
+        }
+
+        .solved-fraction-group {
+            padding: 0 16px;
+            display: flex;
+            flex-direction: center;
+            align-items: center;
+
+            p {
+                margin: 0;
+            }
+
+            .solved-fraction {
+                display: flex;
+                align-items: flex-end;
+
+                .big {
+                    font-weight: 500;
+                    font-size: 36px;
+                    line-height: 42px;
+                    color: #FFFFFF;
+                }
+                .small {
+                    font-size: 16px;
+                    line-height: 26px;
+                    color: rgba(255, 255, 255, 0.5);
+                }
+            }
+
+            .category {
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 23px;
+
+                color: rgba(255, 255, 255, 0.75);
+            }
+        }
+
+        .star-group {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr 1fr;
+            column-gap: 8px;
+            row-gap: 2px;
+
+            padding: 4px 8px;
+
+            margin: 4px;
+            border-radius: 4px;
+            background-color: #212121;
+
+            .star-container {
+                display: flex;
+                flex-direction: column;
+
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+    }
+
+    > div {
+        height: 100%;
+        background-color: #292929;
+        border-radius: 4px;
+    }
+}
+
+.challenges {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    
+    // use 3 columns on large(ish) screens
+    @media (max-width: 1200px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    // use 2 columns ipads and smaller
+    @media (max-width: 810px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    // use 1 column on extra small screens
+    @media (max-width: 600px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    column-gap: 16px;
+    row-gap: 12px;
+
+    margin-top: 32px;
+
+    .challenge {
+
+        display: grid;
+
+        grid-template-rows: min-content min-content auto min-content;
+
+        max-height: 144px;
+        background-color: #292929;
+        border-radius: 2px;
+
+        padding: 12px 16px;
+
+        overflow: hidden;
+
+        &.solved {
+            border-top: 3px solid #1B8F57;
+            .dot {
+                background-color: #1B8F57;
+            }
+        }
+        &.unsolved {
+            border-top: 3px solid #5C5C5C;
+            .dot {
+                background-color: #5C5C5C;
+            }
+        }
+
+        box-shadow: 0px 0px 0px 2px rgba(80, 80, 80, 0.25);
+
+        .category-row {
+            font-weight: 600;
+            font-size: 11px;
+            line-height: 14px;
+            color: #858585;
+        }
+
+
+        // <div class="name-row">
+        //     <div class="dot green"></div>
+        //     <span class="name">{{challenge.name}}</span>
+        //     <div class="badge-group">
+        //         <div class="badge"></div>
+        //         <div class="badge"></div>
+        //     </div>
+        // </div>
+
+        .name-row {
+            display: grid;
+            grid-template-columns: 12px auto min-content;
+            align-items: center;
+            margin-top: 4px;
+
+            .dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+            }
+
+            .name {
+                color: #FFFFFF;
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 18px;
+            }
+
+            .badge-group {
+                display: flex;
+                column-gap: 4px;
+            }
+        }
+
+        .description-row {
+            margin-top: 6px;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 14px;
+
+            overflow-y: scroll;
+
+            color: #9B9B9B;
+        }
+
+        .bottom-row {
+            margin-top: 6px;
+            display: grid;
+            grid-template-columns: auto min-content;
+            .tags {
+                display: flex;
+                column-gap: 4px;
+                .tag {
+                    padding: 2px 4px;
+                    background: #3D3D3D;
+                    border-radius: 1.82849px;
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 10px;
+                    line-height: 14px;
+                    color: #5FC091;
+                }
+            }
+
+            .difficulty {
+                display: flex;
+            }
+        }
+    }
+}
