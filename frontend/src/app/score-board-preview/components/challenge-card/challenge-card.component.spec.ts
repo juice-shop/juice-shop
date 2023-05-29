@@ -16,14 +16,14 @@ describe('ChallengeCard', () => {
     component = fixture.componentInstance
 
     component.challenge = {
-        category: "foobar",
-        name: "my name",
-        mitigationUrl: "https://owasp.example.com",
+        category: 'foobar',
+        name: 'my name',
+        mitigationUrl: 'https://owasp.example.com',
         hasCodingChallenge: true,
-        description: "lorem ipsum",
-        tagList: ["Eayy"],
-        difficultyAsList: [ undefined, undefined, undefined ],
-    } as any;
+        description: 'lorem ipsum',
+        tagList: ['Eayy'],
+        difficultyAsList: [undefined, undefined, undefined]
+    } as any
     fixture.detectChanges()
   })
 
