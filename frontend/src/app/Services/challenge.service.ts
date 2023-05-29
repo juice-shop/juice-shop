@@ -6,7 +6,9 @@
 import { environment } from '../../environments/environment'
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
+import { Observable } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
+import { Challenge } from '../Models/challenge.model'
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,7 @@ export class ChallengeService {
   private readonly host = this.hostServer + '/api/Challenges'
   constructor (private readonly http: HttpClient) { }
 
-  find (params?: any) {
+  find (params?: any): Observable<Challenge[]> {
     return this.http.get(this.host + '/', { params: params }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
