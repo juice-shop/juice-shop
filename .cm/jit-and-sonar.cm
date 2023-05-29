@@ -46,7 +46,7 @@ automations:
       - action: add-label@v1
         args:
           label: '✅ Sonar: Clean Code'
-          color: 'ABEBC6'
+          color: '0e8a16'
   high_duplications:
     if:
       - {{ sonar.duplications > 40 }}
@@ -98,3 +98,9 @@ automations:
 
 sonar: {{ pr | extractSonarFindings }}
 jit: {{ pr | extractJitFindings }}
+colors:
+  code_smells: 'D2B48C'
+  bugs: 'FAA0A0'
+  vulnerabilities: 'F3E5AB'
+  security_hotspots: 'F89880'
+  duplications: 'D7BDE2'
