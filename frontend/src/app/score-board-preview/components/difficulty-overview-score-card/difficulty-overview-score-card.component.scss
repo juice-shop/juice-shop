@@ -1,15 +1,25 @@
 $vertical_margin: 4px;
 $vertical_padding: 8px;
 
+:host {
+    // use 2 columns ipads and smaller
+    @media (max-width: 810px) {
+        grid-column: span 2;
+    }
+    @media (max-width: 600px) {
+        grid-column: span 1;
+    }
+}
+
 .star-group {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  column-gap: 8px;
+  column-gap: 12px;
   row-gap: 2px;
 
   height: calc(100% - (2 * $vertical_margin + 2 * $vertical_padding));
 
-  padding: $vertical_padding 8px;
+  padding: $vertical_padding 12px;
 
   margin: $vertical_margin 4px;
   border-radius: 4px;
@@ -21,5 +31,9 @@ $vertical_padding: 8px;
 
     align-items: center;
     justify-content: center;
+  }
+
+  .total-challenges {
+    color: rgba(255, 255, 255, 0.5);
   }
 }

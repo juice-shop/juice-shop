@@ -1,6 +1,21 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { EnrichedChallenge } from '../../types/EnrichedChallenge';
 
+interface DifficultySummary {
+  difficulty: 0|1|2|3|4|5|6;
+  availableChallenges: number;
+  solvedChallenges: number;
+}
+
+const INITIAL_SUMMARIES: { [level: number]: DifficultySummary} = {
+  1: { difficulty: 1, availableChallenges: 0, solvedChallenges: 0 },
+  2: { difficulty: 2, availableChallenges: 0, solvedChallenges: 0 },
+  3: { difficulty: 3, availableChallenges: 0, solvedChallenges: 0 },
+  4: { difficulty: 4, availableChallenges: 0, solvedChallenges: 0 },
+  5: { difficulty: 5, availableChallenges: 0, solvedChallenges: 0 },
+  6: { difficulty: 6, availableChallenges: 0, solvedChallenges: 0 },
+};
+
 @Component({
   selector: 'difficulty-overview-score-card',
   templateUrl: './difficulty-overview-score-card.component.html',
@@ -10,8 +25,18 @@ export class DifficultyOverviewScoreCardComponent implements OnInit, OnChanges {
   @Input()
   public allChallenges: EnrichedChallenge[] = [];
 
-  public availableCodingChallenges: number;
-  public solvedCodingChallenges: number;
+  // includes hacking and coding challenges (both find it and fix it)
+  public totalChallenges: number;
+  public solvedChallenges: number;
+
+  public difficultySummaries: DifficultySummary[] = [
+    { difficulty: 1, availableChallenges: 0, solvedChallenges: 0 },
+    { difficulty: 2, availableChallenges: 0, solvedChallenges: 0 },
+    { difficulty: 3, availableChallenges: 0, solvedChallenges: 0 },
+    { difficulty: 4, availableChallenges: 0, solvedChallenges: 0 },
+    { difficulty: 5, availableChallenges: 0, solvedChallenges: 0 },
+    { difficulty: 6, availableChallenges: 0, solvedChallenges: 0 },
+  ];
 
   ngOnInit(): void {
     this.updatedNumberOfSolvedChallenges();
@@ -22,13 +47,30 @@ export class DifficultyOverviewScoreCardComponent implements OnInit, OnChanges {
   }
   
   private updatedNumberOfSolvedChallenges(): void {
+    const solvedHackingChallenges = this.allChallenges
+      .filter((challenge) => challenge.solved).length;
     const availableCodingChallenges = this.allChallenges
-    .filter((challenge) => challenge.hasCodingChallenge);
+      .filter((challenge) => challenge.hasCodingChallenge);
     
-    this.solvedCodingChallenges = availableCodingChallenges
-    .map((challenge) => challenge.codingChallengeStatus)
-    .reduce((a,b) => a + b, 0); // sum up the scores
-    // multiply by 2 because each coding challenge has 2 parts (find it and fix it)
-    this.availableCodingChallenges = availableCodingChallenges.length * 2;
+    const codingScore = availableCodingChallenges
+      .map((challenge) => challenge.codingChallengeStatus)
+      .reduce((a,b) => a + b, 0); // sum up the scores
+
+    this.difficultySummaries = this.calculateDifficultySummaries(this.allChallenges);
+
+    this.totalChallenges = this.allChallenges.length + availableCodingChallenges.length * 2;
+    this.solvedChallenges = solvedHackingChallenges + codingScore;
+  }
+
+  calculateDifficultySummaries(challenges: EnrichedChallenge[]): DifficultySummary[] {
+    const summariesLookup = { ...INITIAL_SUMMARIES };
+    for (const challenge of challenges) {
+      summariesLookup[challenge.difficulty].availableChallenges += challenge.hasCodingChallenge ? 3 : 1;
+      if (challenge.solved) {
+        summariesLookup[challenge.difficulty].solvedChallenges++;
+        summariesLookup[challenge.difficulty].solvedChallenges += challenge.hasCodingChallenge ? challenge.codingChallengeStatus : 0;
+      }
+    }
+    return Object.values(summariesLookup);
   }
 }
