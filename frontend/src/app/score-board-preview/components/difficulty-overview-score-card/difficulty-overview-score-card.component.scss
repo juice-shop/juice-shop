@@ -1,0 +1,25 @@
+$vertical_margin: 4px;
+$vertical_padding: 8px;
+
+.star-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 8px;
+  row-gap: 2px;
+
+  height: calc(100% - (2 * $vertical_margin + 2 * $vertical_padding));
+
+  padding: $vertical_padding 8px;
+
+  margin: $vertical_margin 4px;
+  border-radius: 4px;
+  background-color: #212121;
+
+  .star-container {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+  }
+}
