@@ -34,45 +34,6 @@
   row-gap: 8px;
   min-height: 120px;
 
-  .score-card {
-    display: grid;
-    grid-template-columns: auto min-content;
-
-    .score-group {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 75%;
-
-      padding: 16px 0 16px 16px;
-
-      .score {
-        font-style: normal;
-        font-weight: 400;
-        font-size: 36px;
-        line-height: 42px;
-
-        color: #ffffff;
-
-        margin-bottom: 4px;
-      }
-      .category {
-        font-style: normal;
-        font-weight: 500;
-        font-size: 20px;
-        line-height: 23px;
-
-        color: rgba(255, 255, 255, 0.75);
-      }
-    }
-
-    .icon-group {
-      display: flex;
-      justify-content: flex-end;
-      align-items: flex-end;
-    }
-  }
-
   .difficulty-overview {
     display: grid;
     grid-template-columns: auto min-content;
