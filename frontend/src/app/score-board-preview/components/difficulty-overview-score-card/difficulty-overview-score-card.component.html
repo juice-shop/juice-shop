@@ -1,11 +1,11 @@
 <score-card
   description="Problems Solved"
-  [total]="106"
-  [score]="42"
+  [total]="totalChallenges"
+  [score]="solvedChallenges"
   [showAsPercentage]="false"
 >
   <div right-side class="star-group">
-    <div class="star-container" *ngFor="let difficulty of [1, 2, 3, 4, 5, 6]">
+    <div class="star-container" *ngFor="let difficulty of difficultySummaries">
       <svg
         width="28"
         height="25"
@@ -32,8 +32,7 @@
         </defs>
       </svg>
       <span>
-        <span>10/</span>
-        <span>13</span>
+        {{ difficulty.solvedChallenges }}/<span class="total-challenges">{{ difficulty.availableChallenges }}</span>
       </span>
     </div>
   </div>
