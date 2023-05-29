@@ -101,8 +101,10 @@ export class ChatbotComponent implements OnInit {
             this.handleResponse(response)
           })
         }
-        const chat = document.getElementById('chat-window')
-        chat.scrollTop = chat.scrollHeight
+        setTimeout(()=> {
+          const chat = document.getElementById('chat-window')
+          chat.scrollTop = chat.scrollHeight
+        }, 50);
       })
     }
   }
