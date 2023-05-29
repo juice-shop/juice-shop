@@ -1,0 +1,100 @@
+# -*- mode: yaml -*-
+
+manifest:
+  version: 1.0
+ 
+config:
+  admin:
+    users: ['EladKohavi']
+
+automations:
+  mark_bugs:
+    if:
+      - {{ sonar.bugs.count > 0 }}
+    run: 
+      - action: add-label@v1
+        args:
+          label: '{{ sonar.bugs.count }} Bugs 🐞'
+          color: {{ colors.bugs }}
+  mark_code_smell:
+    if:
+      - {{ sonar.code_smells.count > 0 }}
+    run: 
+      - action: add-label@v1
+        args:
+          label: '{{ sonar.code_smells.count }} Code Smells 💩'
+          color: {{ colors.code_smells }}
+  mark_security_hotspots:
+    if:
+      - {{ sonar.security_hotspots.count > 0 }}
+    run: 
+      - action: add-label@v1
+        args:
+          label: '{{ sonar.security_hotspots.count }} Security hotspots 🌶️'
+          color: {{ colors.security_hotspots }}
+      - action: add-reviewers@v1
+        args:
+          reviewers: [Dudu-linb]
+  mark_outstanding_pr:
+    if:
+      - {{ sonar.bugs.count == 0 }}
+      - {{ sonar.code_smells.count == 0 }}
+      - {{ sonar.vulnerabilities.count == 0 }}
+      - {{ sonar.security_hotspots.count == 0 }}
+      - {{ sonar.duplications == null or sonar.duplications == 0.0 }}
+    run: 
+      - action: add-label@v1
+        args:
+          label: '✅ Sonar: Clean Code'
+          color: 'ABEBC6'
+  high_duplications:
+    if:
+      - {{ sonar.duplications > 40 }}
+    run:
+      - action: request-changes@v1
+        args:
+          comment: |
+            High percentage of duplications in code. Please fix!
+      - action: add-label@v1
+        args:
+          label: '{{ sonar.duplications }} Duplications 👯'
+          color: {{ colors.duplications }}
+  mark_vulnerabilities:
+    if:
+      - {{ sonar.vulnerabilities.count > 0 }}
+    run: 
+      - action: add-label@v1
+        args:
+          label: '{{ sonar.vulnerabilities.count }} Vulnerabilities 🛡️'
+          color: {{ colors.vulnerabilities }}
+  jit_vulns:
+    if:
+      - {{ jit.metrics.HIGH > 0}}
+    run:
+      - action: add-label@v1
+        args:
+          label: '🛡️ x {{ jit.metrics.HIGH }} High vulnerabilities'
+      - action: add-reviewers@v1
+        args:
+          reviewers: [Dudu-linb]
+  
+  jit_secretss:
+    if:
+      - {{ jit.vulnerabilities | match(attr='security_control', term='Secret Detection') | some }}
+    run:
+      - action: add-label@v1
+        args:
+          label: "🤫 PR with secrets"
+          
+  jit_ignores:
+    if:
+      - {{ pr.conversations | filter(attr='commenter', term='jit-ci') | map(attr='content') | match(term='#jit_ignore_accept') | some }}
+    run:
+      - action: add-label@v1
+        args:
+          label: '🙈 jit_ignore_accept'
+
+
+
+sonar: {{ pr | extractSonarFindings }}
+jit: {{ pr | extractJitFindings }}
