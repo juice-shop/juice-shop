@@ -7,14 +7,14 @@ interface DifficultySummary {
   solvedChallenges: number
 }
 
-const INITIAL_SUMMARIES: { [level: number]: DifficultySummary} = {
+const INITIAL_SUMMARIES: Readonly<{ [level: number]: DifficultySummary}> = Object.freeze({
   1: { difficulty: 1, availableChallenges: 0, solvedChallenges: 0 },
   2: { difficulty: 2, availableChallenges: 0, solvedChallenges: 0 },
   3: { difficulty: 3, availableChallenges: 0, solvedChallenges: 0 },
   4: { difficulty: 4, availableChallenges: 0, solvedChallenges: 0 },
   5: { difficulty: 5, availableChallenges: 0, solvedChallenges: 0 },
   6: { difficulty: 6, availableChallenges: 0, solvedChallenges: 0 }
-}
+})
 
 @Component({
   selector: 'difficulty-overview-score-card',
@@ -72,5 +72,6 @@ export class DifficultyOverviewScoreCardComponent implements OnInit, OnChanges {
       }
     }
     return Object.values(summariesLookup)
+      .sort((a, b) => a.difficulty - b.difficulty)
   }
 }

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { DifficultyOverviewScoreCardComponent } from './difficulty-overview-score-card.component'
+import { ScoreCardComponent } from '../score-card/score-card.component'
 
 describe('DifficultyOverviewScoreCardComponent', () => {
   let component: DifficultyOverviewScoreCardComponent
@@ -8,7 +9,10 @@ describe('DifficultyOverviewScoreCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DifficultyOverviewScoreCardComponent]
+      declarations: [
+        DifficultyOverviewScoreCardComponent,
+        ScoreCardComponent,
+      ]
     })
     .compileComponents()
 
@@ -37,7 +41,7 @@ describe('DifficultyOverviewScoreCardComponent', () => {
         { difficulty: 1, solved: true, hasCodingChallenge: false } as any,
         { difficulty: 1, solved: true, hasCodingChallenge: true, codingChallengeStatus: 1 } as any
       ])).toEqual([
-        { difficulty: 1, availableChallenges: 0, solvedChallenges: 0 },
+        { difficulty: 1, availableChallenges: 4, solvedChallenges: 3 },
         { difficulty: 2, availableChallenges: 0, solvedChallenges: 0 },
         { difficulty: 3, availableChallenges: 0, solvedChallenges: 0 },
         { difficulty: 4, availableChallenges: 0, solvedChallenges: 0 },
