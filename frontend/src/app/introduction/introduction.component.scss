@@ -1,0 +1,140 @@
+.layout{
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(180deg, #131A15 0%, #090B3A 100%);
+}
+.welcome-back{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 12px 30px;
+    gap: 10px;
+    width: 92px;
+    height: 34px;
+    border-radius: 12px;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    border: 1px solid #FEB54E;
+    background: transparent;
+    color: #FEB54E;
+}
+
+.introduction-layout{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 5%;
+    width: 1031px;
+    height: 722px;
+    left: 100px;
+    top: 68px;
+}  
+
+.introduction-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+}
+
+.introduction-title{
+    font-family: 'League';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 34px;
+    line-height: 28px;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #FFFFFF;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin: 2%;
+}
+
+.rectangle-border{
+    width: 741px;
+    height: 2px;
+    background: #01F3FF;
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+}
+.introduction-paragraph-1{
+    width: 822px;
+    height: 72px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #FFFFFF;
+    flex: none;
+    order: 3;
+    align-self: stretch;
+    flex-grow: 0;
+}
+.introduction-paragraph-2{
+    width: 822px;
+    height: 72px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #FFFFFF;
+    flex: none;
+    order: 4;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.play-button-container{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex: none;
+    order: 5;
+    flex-grow: 0;
+}
+
+.lets-play{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 16px 45px;
+    gap: 10px;
+    width: 181px;
+    height: 47px;
+    background: linear-gradient(111.34deg, #FEB54E 0%, #F5921A 56.56%, #D47307 100%);
+    border-radius: 12px;
+    flex: none;
+    order: 5;
+    flex-grow: 0;
+}
+.bots-container{
+    justify-content: space-around;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 150px;
+    width: 450px;
+    height: 211px;
+    flex: none;
+    order: 6;
+    flex-grow: 0;
+    margin-left: 20%;
+}
+
+.introduction-logo-container{
+    display: flex;
+    justify-content: center;
+}
+
