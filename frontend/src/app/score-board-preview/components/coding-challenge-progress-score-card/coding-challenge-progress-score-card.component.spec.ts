@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { CodingChallengeProgressScoreCardComponent } from './coding-challenge-progress-score-card.component'
+import { ScoreCardComponent } from '../score-card/score-card.component'
 
 describe('CodingChallengeProgressScoreCardComponent', () => {
   let component: CodingChallengeProgressScoreCardComponent
@@ -8,7 +9,10 @@ describe('CodingChallengeProgressScoreCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CodingChallengeProgressScoreCardComponent]
+      declarations: [
+        CodingChallengeProgressScoreCardComponent,
+        ScoreCardComponent
+      ]
     })
     .compileComponents()
 
