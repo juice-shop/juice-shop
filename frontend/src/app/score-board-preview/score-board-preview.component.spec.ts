@@ -18,7 +18,7 @@ describe('ScoreBoardPreviewComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ScoreBoardPreviewComponent],
       imports: [
-        HttpClientTestingModule,
+        HttpClientTestingModule
       ],
       providers: [
         { provide: ChallengeService, useValue: challengeService },

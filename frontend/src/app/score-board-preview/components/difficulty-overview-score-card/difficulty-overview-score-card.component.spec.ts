@@ -11,7 +11,7 @@ describe('DifficultyOverviewScoreCardComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [
         DifficultyOverviewScoreCardComponent,
-        ScoreCardComponent,
+        ScoreCardComponent
       ]
     })
     .compileComponents()
