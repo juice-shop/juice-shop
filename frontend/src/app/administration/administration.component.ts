@@ -11,12 +11,11 @@ import { MatTableDataSource } from '@angular/material/table'
 import { UserService } from '../Services/user.service'
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArchive, faEye, faHome, faTrashAlt, faUser } from '@fortawesome/free-solid-svg-icons'
 import { MatPaginator } from '@angular/material/paginator'
 
 library.add(faUser, faEye, faHome, faArchive, faTrashAlt)
-dom.watch()
 
 @Component({
   selector: 'app-administration',
