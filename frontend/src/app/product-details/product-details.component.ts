@@ -8,7 +8,7 @@ import { UserService } from '../Services/user.service'
 import { ProductReviewService } from '../Services/product-review.service'
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog'
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowCircleLeft, faCrown, faPaperPlane, faThumbsUp, faUserEdit } from '@fortawesome/free-solid-svg-icons'
 import { UntypedFormControl, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material/snack-bar'
@@ -17,7 +17,6 @@ import { Review } from '../Models/review.model'
 import { Product } from '../Models/product.model'
 
 library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp, faCrown)
-dom.watch()
 
 @Component({
   selector: 'app-product-details',
