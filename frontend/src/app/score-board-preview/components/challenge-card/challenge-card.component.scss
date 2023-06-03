@@ -1,5 +1,5 @@
 :host {
-  background-color: #292929;
+  background-color: var(--theme-background-darker);
   border-radius: 2px;
   box-shadow: 0 0 0 2px rgba(80, 80, 80, 0.25);
   display: grid;
@@ -10,11 +10,11 @@
   padding: 12px 16px;
 
   &.solved {
-    border-top: 3px solid #1b8f57;
+    border-top: 3px solid var(--theme-accent);
   }
 
   &.solved .dot {
-    background-color: #1b8f57;
+    background-color: var(--theme-accent);
   }
 
   &.unsolved {
@@ -27,7 +27,6 @@
 }
 
 .category-row {
-  color: #858585;
   font-size: 11px;
   font-weight: 600;
   line-height: 14px;
@@ -46,7 +45,6 @@
   }
 
   .name {
-    color: #fff;
     font-size: 14px;
     font-weight: 600;
     line-height: 18px;
@@ -59,7 +57,6 @@
 }
 
 .description-row {
-  color: #9b9b9b;
   font-size: 12px;
   font-weight: 400;
   line-height: 14px;
