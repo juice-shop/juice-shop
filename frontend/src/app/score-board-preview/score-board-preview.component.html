@@ -4,18 +4,11 @@
   <difficulty-overview-score-card [allChallenges]="allChallenges" />
 </div>
 
-<div class="tags">
-  <button class="tag selected" 
-    (click)="resetCategoryFilter()"
-    [ngClass]="{ selected: isAllCategoriesSelected() }"
-  >All</button>
-  <button class="tag" *ngFor="let category of categories; trackBy:category"
-    (click)="toggleCategorySelected(category)"
-    [ngClass]="{ selected: isCategorySelected(category) }"
-  >
-    {{ category }}
-  </button>
-</div>
+<filter-settings
+  [filterSetting]="filterSetting"
+  (filterSettingChange)="onFilterSettingUpdate($event)"
+  [allChallenges]="allChallenges"
+></filter-settings>
 
 <div class="challenges">
   <challenge-card
