@@ -14,7 +14,6 @@
 }
 
 .score-row {
-
   column-gap: 16px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -55,5 +54,32 @@
   // use 1 column on extra small screens
   @media (max-width: 600px) {
     grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.tags {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 24px 0;
+
+  .tag {
+    padding: 8px 16px;
+    cursor: pointer;
+    border: none;
+
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+
+    color: #FFFFFF;
+    border-radius: 234234px;
+    background-color: #424242;
+
+    &.selected {
+      border: 1px solid #689F38;
+      background-color: rgba(104, 159, 56, 0.24);
+    }
   }
 }
