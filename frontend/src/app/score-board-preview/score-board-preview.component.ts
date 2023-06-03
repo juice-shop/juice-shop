@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core'
-import { ChallengeService } from '../Services/challenge.service'
-import { CodeSnippetService } from '../Services/code-snippet.service'
+import { combineLatest } from 'rxjs'
+import { Component, OnChanges, OnInit } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
-import { combineLatest, forkJoin } from 'rxjs'
-import { EnrichedChallenge } from './types/EnrichedChallenge'
-import { uniq } from 'lodash'
 import { ActivatedRoute } from '@angular/router'
 
+import { ChallengeService } from '../Services/challenge.service'
+import { CodeSnippetService } from '../Services/code-snippet.service'
+
+import { EnrichedChallenge } from './types/EnrichedChallenge'
+import { FilterSetting } from './types/FilterSetting'
 
 @Component({
   selector: 'score-board-preview',
@@ -16,9 +17,7 @@ import { ActivatedRoute } from '@angular/router'
 export class ScoreBoardPreviewComponent implements OnInit {
   public allChallenges: EnrichedChallenge[] = []
   public filteredChallenges: EnrichedChallenge[] = []
-
-  public categories = [];
-  public selectedCategory = new Set();
+  public filterSetting: FilterSetting = { categories: new Set() }
 
   constructor (
     private readonly challengeService: ChallengeService,
@@ -27,33 +26,16 @@ export class ScoreBoardPreviewComponent implements OnInit {
     private readonly route: ActivatedRoute
   ) { }
 
-
-  public toggleCategorySelected (category: string) {
-    if (this.selectedCategory.has(category)) {
-      this.selectedCategory.delete(category)
-    } else {
-      this.selectedCategory.add(category)
-    }
-    this.filteredChallenges = this.filterChallenges(this.allChallenges)
-  }
-  public isAllCategoriesSelected () {
-    return (this.selectedCategory.size === 0)
-  }
-  public isCategorySelected (category: string) {
-    return this.selectedCategory.has(category)
+  onFilterSettingUpdate (filterSetting: FilterSetting) {
+    this.filteredChallenges = ScoreBoardPreviewComponent.filterChallenges(this.allChallenges, filterSetting)
   }
 
-  public resetCategoryFilter () {
-    this.selectedCategory = new Set()
-    this.filteredChallenges = this.filterChallenges(this.allChallenges)
-  }
-
-  public filterChallenges (challenges: EnrichedChallenge[]): EnrichedChallenge[] {
+  public static filterChallenges (challenges: EnrichedChallenge[], filterSetting: FilterSetting): EnrichedChallenge[] {
     return challenges.filter((challenge) => {
-      if (this.selectedCategory.size === 0) {
+      if (filterSetting.categories.size === 0) {
         return true
       }
-      return this.selectedCategory.has(challenge.category)
+      return filterSetting.categories.has(challenge.category)
     })
   }
 
@@ -77,13 +59,12 @@ export class ScoreBoardPreviewComponent implements OnInit {
         }
       })
       this.allChallenges = transformedChallenges
-      this.categories = uniq(transformedChallenges.map((challenge) => challenge.category))
-      this.filteredChallenges = this.filterChallenges(this.allChallenges)
+      this.filteredChallenges = ScoreBoardPreviewComponent.filterChallenges(this.allChallenges, this.filterSetting)
       console.timeEnd('ScoreBoardPreview - transform challenges')
     })
   }
-  
-  getChallengeKey(index: number, challenge: EnrichedChallenge): string {
+
+  getChallengeKey (index: number, challenge: EnrichedChallenge): string {
     return challenge.key
   }
 }

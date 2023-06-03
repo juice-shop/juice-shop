@@ -1,0 +1,26 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 24px 0;
+}
+
+.pill {
+  background-color: #424242;
+  border: 1px solid transparent;
+  border-radius: 234234px;
+
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+
+  font-weight: 600;
+  line-height: 19px;
+  padding: 8px 16px;
+
+  &.selected {
+    background-color: rgba(104, 159, 56, 0.24);
+    border: 1px solid #689f38;
+  }
+}

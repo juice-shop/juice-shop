@@ -1,0 +1,15 @@
+<button
+  class="pill selected"
+  (click)="resetCategoryFilter()"
+  [ngClass]="{ selected: isAllCategoriesSelected() }"
+>
+  All
+</button>
+<button
+  *ngFor="let category of availableCategories; trackBy:category"
+  class="pill"
+  [ngClass]="{ selected: isCategorySelected(category) }"
+  (click)="toggleCategorySelected(category)"
+>
+  {{ category }}
+</button>
