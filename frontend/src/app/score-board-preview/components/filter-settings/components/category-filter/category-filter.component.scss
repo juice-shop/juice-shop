@@ -7,11 +7,11 @@
 }
 
 .pill {
-  background-color: #424242;
+  background-color: var(--theme-primary-darker);
   border: 1px solid transparent;
   border-radius: 234234px;
 
-  color: #fff;
+  color: var(--theme-text);
   cursor: pointer;
   font-size: 14px;
 
@@ -20,7 +20,7 @@
   padding: 8px 16px;
 
   &.selected {
-    background-color: rgba(104, 159, 56, 0.24);
-    border: 1px solid #689f38;
+    background-color: var(--theme-accent-dark);
+    border: 1px solid var(--theme-accent);
   }
 }
