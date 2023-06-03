@@ -91,6 +91,29 @@
   }
 }
 
+// sets css variables to be used across components during runtime
+@mixin css-vars($theme) {
+  --theme-primary: #{mat.get-color-from-palette(map-get($theme, primary))};
+  --theme-primary-lighter: #{mat.get-color-from-palette(map-get($theme, primary), lighter)};
+  --theme-primary-darker: #{mat.get-color-from-palette(map-get($theme, primary), 0.4)};
+  --theme-primary-dark: #{mat.get-color-from-palette(map-get($theme, primary), 0.2)};
+
+  --theme-accent: #{mat.get-color-from-palette(map-get($theme, accent))};
+  --theme-accent-lighter: #{mat.get-color-from-palette(map-get($theme, accent), lighter, 0.2)};
+  --theme-accent-light: #{mat.get-color-from-palette(map-get($theme, accent), lighter, 0.4)};
+  --theme-accent-darker: #{mat.get-color-from-palette(map-get($theme, accent), darker, 0.4)};
+  --theme-accent-dark: #{mat.get-color-from-palette(map-get($theme, accent), darker, 0.2)};
+
+  --theme-warn: #{mat.get-color-from-palette(map-get($theme, warn))};
+  --theme-warn-lighter: #{mat.get-color-from-palette(map-get($theme, warn), lighter)};
+  --theme-warn-darker: #{mat.get-color-from-palette(map-get($theme, warn), 0.4)};
+  --theme-warn-dark: #{mat.get-color-from-palette(map-get($theme, warn), 0.2)};
+
+  --theme-text: #{mat.get-color-from-palette($theme, text)};
+
+  --theme-background: #{mat.get-color-from-palette(map-get($theme, background), card)};
+}
+
 @mixin snackbar($theme) {
   .mat-snack-bar-container {
     background-color: mat.get-color-from-palette(map-get($theme, background), card) !important;
@@ -134,36 +157,43 @@ $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
 .deeppurple-amber-theme {
   @include mat.all-component-themes($deeppurple-amber-theme);
   @include custom-components-theme($deeppurple-amber-theme);
+  @include css-vars($deeppurple-amber-theme);
 }
 
 .indigo-pink-theme {
   @include mat.all-component-themes($indigo-pink-theme);
   @include custom-components-theme($indigo-pink-theme);
+  @include css-vars($indigo-pink-theme);
 }
 
 .pink-bluegrey-theme {
   @include mat.all-component-themes($pink-bluegrey-theme);
   @include custom-components-theme($pink-bluegrey-theme);
+  @include css-vars($pink-bluegrey-theme);
 }
 
 .purple-green-theme {
   @include mat.all-component-themes($purple-green-theme);
   @include custom-components-theme($purple-green-theme);
+  @include css-vars($purple-green-theme);
 }
 
 .bluegrey-lightgreen-theme {
   @include mat.all-component-themes($bluegrey-lightgreen-theme);
   @include custom-components-theme($bluegrey-lightgreen-theme);
+  @include css-vars($bluegrey-lightgreen-theme);
 }
 
 .blue-lightblue-theme {
   @include mat.all-component-themes($blue-lightblue-theme);
   @include custom-components-theme($blue-lightblue-theme);
+  @include css-vars($blue-lightblue-theme);
 }
 
 .deeporange-indigo-theme {
   @include mat.all-component-themes($deeporange-indigo-theme);
   @include custom-components-theme($deeporange-indigo-theme);
+  @include css-vars($deeporange-indigo-theme);
 }
 
 .close-dialog {
