@@ -9,13 +9,12 @@ import { UserService } from '../Services/user.service'
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { UntypedFormControl, Validators } from '@angular/forms'
 import { FileUploader } from 'ng2-file-upload'
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { TranslateService } from '@ngx-translate/core'
 
 library.add(faBomb)
-dom.watch()
 
 @Component({
   selector: 'app-complaint',
