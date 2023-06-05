@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core'
 import { EnrichedChallenge } from '../../../../types/EnrichedChallenge'
-import { uniq } from 'lodash'
 
 @Component({
   selector: 'category-filter',
@@ -8,7 +7,7 @@ import { uniq } from 'lodash'
   styleUrls: ['./category-filter.component.scss']
 })
 export class CategoryFilterComponent implements OnInit, OnChanges {
-  public availableCategories = []
+  public availableCategories = new Set<string>()
 
   @Input()
   readonly allChallenges: EnrichedChallenge[]
@@ -20,11 +19,11 @@ export class CategoryFilterComponent implements OnInit, OnChanges {
   categoriesChange = new EventEmitter<Set<string>>()
 
   ngOnInit () {
-    this.availableCategories = uniq(this.allChallenges.map((challenge) => challenge.category))
+    this.availableCategories = new Set(this.allChallenges.map((challenge) => challenge.category))
   }
 
   ngOnChanges () {
-    this.availableCategories = uniq(this.allChallenges.map((challenge) => challenge.category))
+    this.availableCategories = new Set(this.allChallenges.map((challenge) => challenge.category))
   }
 
   public resetCategoryFilter () {
