@@ -22,8 +22,7 @@ export class ScoreBoardPreviewComponent implements OnInit {
   constructor (
     private readonly challengeService: ChallengeService,
     private readonly codeSnippetService: CodeSnippetService,
-    private readonly sanitizer: DomSanitizer,
-    private readonly route: ActivatedRoute
+    private readonly sanitizer: DomSanitizer
   ) { }
 
   onFilterSettingUpdate (filterSetting: FilterSetting) {
@@ -43,9 +42,8 @@ export class ScoreBoardPreviewComponent implements OnInit {
     console.time('ScoreBoardPreview - load challenges')
     combineLatest([
       this.challengeService.find({ sort: 'name' }),
-      this.codeSnippetService.challenges(),
-      this.route.queryParams
-    ]).subscribe(([challenges, challengeKeysWithCodeChallenges, queryParams]) => {
+      this.codeSnippetService.challenges()
+    ]).subscribe(([challenges, challengeKeysWithCodeChallenges]) => {
       console.timeEnd('ScoreBoardPreview - load challenges')
 
       console.time('ScoreBoardPreview - transform challenges')
