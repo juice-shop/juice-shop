@@ -14,6 +14,9 @@ describe('CategoryFilterComponent', () => {
 
     fixture = TestBed.createComponent(CategoryFilterComponent)
     component = fixture.componentInstance
+
+    component.allChallenges = []
+    component.categories = new Set()
     fixture.detectChanges()
   })
 

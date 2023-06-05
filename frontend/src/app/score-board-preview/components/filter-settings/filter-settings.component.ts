@@ -8,7 +8,7 @@ import { EnrichedChallenge } from '../../types/EnrichedChallenge'
 })
 export class FilterSettingsComponent {
   @Input()
-  readonly allChallenges: EnrichedChallenge[]
+  allChallenges: EnrichedChallenge[]
 
   @Input()
   filterSetting: FilterSetting
