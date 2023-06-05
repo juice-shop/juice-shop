@@ -10,7 +10,7 @@ export class CategoryFilterComponent implements OnInit, OnChanges {
   public availableCategories = new Set<string>()
 
   @Input()
-  readonly allChallenges: EnrichedChallenge[]
+  allChallenges: EnrichedChallenge[]
 
   @Input()
   categories: Set<string>
@@ -19,11 +19,15 @@ export class CategoryFilterComponent implements OnInit, OnChanges {
   categoriesChange = new EventEmitter<Set<string>>()
 
   ngOnInit () {
-    this.availableCategories = new Set(this.allChallenges.map((challenge) => challenge.category))
+    this.availableCategories = CategoryFilterComponent.getAvailableCategories(this.allChallenges)
   }
 
   ngOnChanges () {
-    this.availableCategories = new Set(this.allChallenges.map((challenge) => challenge.category))
+    this.availableCategories = CategoryFilterComponent.getAvailableCategories(this.allChallenges)
+  }
+
+  public static getAvailableCategories (allChallenges: EnrichedChallenge[]) {
+    return new Set(allChallenges.map((challenge) => challenge.category))
   }
 
   public resetCategoryFilter () {
