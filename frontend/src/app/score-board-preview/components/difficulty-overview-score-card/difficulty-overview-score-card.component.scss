@@ -14,6 +14,8 @@ $vertical-padding: 8px;
 .star-group {
   background-color: var(--theme-background-darkest);
   border-radius: 4px;
+
+  color: var(--theme-text);
   column-gap: 12px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -24,8 +26,6 @@ $vertical-padding: 8px;
 
   padding: $vertical-padding 12px;
   row-gap: 2px;
-
-  color: var(--theme-text);
   
   .star-container {
     align-items: center;
