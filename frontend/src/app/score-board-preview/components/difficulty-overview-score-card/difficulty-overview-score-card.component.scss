@@ -12,7 +12,7 @@ $vertical-padding: 8px;
 }
 
 .star-group {
-  background-color: #212121;
+  background-color: var(--theme-background-darkest);
   border-radius: 4px;
   column-gap: 12px;
   display: grid;
@@ -25,15 +25,16 @@ $vertical-padding: 8px;
   padding: $vertical-padding 12px;
   row-gap: 2px;
 
+  color: var(--theme-text);
+  
   .star-container {
-
     align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
-
+  
   .total-challenges {
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--theme-text-invert-30);
   }
 }

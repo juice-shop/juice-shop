@@ -1,5 +1,5 @@
 :host {
-  background-color: #292929;
+  background-color: var(--theme-background-dark);
   border-radius: 4px;
   display: grid;
   grid-template-columns: auto min-content;
@@ -13,7 +13,7 @@
   padding: 16px 0 16px 16px;
 
   .score {
-    color: #fff;
+    color: var(--theme-text);
     font-size: 32px;
     font-style: normal;
     font-weight: 500;
@@ -23,13 +23,13 @@
   }
 
   .fraction-total {
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--theme-text-dark);
     font-size: 16px;
     line-height: 26px;
   }
 
   .category {
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--theme-text);
     font-size: 20px;
     font-style: normal;
     font-weight: 500;
