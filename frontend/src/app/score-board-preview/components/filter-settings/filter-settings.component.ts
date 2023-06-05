@@ -4,8 +4,7 @@ import { EnrichedChallenge } from '../../types/EnrichedChallenge'
 
 @Component({
   selector: 'filter-settings',
-  templateUrl: './filter-settings.component.html',
-  styleUrls: ['./filter-settings.component.scss']
+  templateUrl: './filter-settings.component.html'
 })
 export class FilterSettingsComponent {
   @Input()
