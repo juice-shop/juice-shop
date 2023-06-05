@@ -94,24 +94,38 @@
 // sets css variables to be used across components during runtime
 @mixin css-vars($theme) {
   --theme-primary: #{mat.get-color-from-palette(map-get($theme, primary))};
-  --theme-primary-lighter: #{mat.get-color-from-palette(map-get($theme, primary), lighter)};
-  --theme-primary-darker: #{mat.get-color-from-palette(map-get($theme, primary), 0.4)};
-  --theme-primary-dark: #{mat.get-color-from-palette(map-get($theme, primary), 0.2)};
+  --theme-primary-lighter: #{lighten(mat.get-color-from-palette(map-get($theme, primary)), 6%)};
+  --theme-primary-light: #{lighten(mat.get-color-from-palette(map-get($theme, primary)), 10%)};
+  --theme-primary-darker: #{darken(mat.get-color-from-palette(map-get($theme, primary)), 6%)};
+  --theme-primary-dark: #{darken(mat.get-color-from-palette(map-get($theme, primary)), 10%)};
 
   --theme-accent: #{mat.get-color-from-palette(map-get($theme, accent))};
-  --theme-accent-lighter: #{mat.get-color-from-palette(map-get($theme, accent), lighter, 0.2)};
-  --theme-accent-light: #{mat.get-color-from-palette(map-get($theme, accent), lighter, 0.4)};
-  --theme-accent-darker: #{mat.get-color-from-palette(map-get($theme, accent), darker, 0.4)};
-  --theme-accent-dark: #{mat.get-color-from-palette(map-get($theme, accent), darker, 0.2)};
+  --theme-accent-lighter: #{lighten(mat.get-color-from-palette(map-get($theme, accent)), 6%)};
+  --theme-accent-light: #{lighten(mat.get-color-from-palette(map-get($theme, accent)), 10%)};
+  --theme-accent-darker: #{darken(mat.get-color-from-palette(map-get($theme, accent)), 6%)};
+  --theme-accent-dark: #{darken(mat.get-color-from-palette(map-get($theme, accent)), 10%)};
 
   --theme-warn: #{mat.get-color-from-palette(map-get($theme, warn))};
-  --theme-warn-lighter: #{mat.get-color-from-palette(map-get($theme, warn), lighter)};
-  --theme-warn-darker: #{mat.get-color-from-palette(map-get($theme, warn), 0.4)};
-  --theme-warn-dark: #{mat.get-color-from-palette(map-get($theme, warn), 0.2)};
+  --theme-warn-lighter: #{lighten(mat.get-color-from-palette(map-get($theme, warn)), 6%)};
+  --theme-warn-light: #{lighten(mat.get-color-from-palette(map-get($theme, warn)), 10%)};
+  --theme-warn-darker: #{darken(mat.get-color-from-palette(map-get($theme, warn)), 6%)};
+  --theme-warn-dark: #{darken(mat.get-color-from-palette(map-get($theme, warn)), 10%)};
 
-  --theme-text: #{mat.get-color-from-palette($theme, text)};
-
+  --theme-text: #{mat.get-color-from-palette(map-get($theme, foreground), text)};
+  --theme-text-lighter: #{lighten(mat.get-color-from-palette(map-get($theme, foreground), text,), 6%)};
+  --theme-text-light: #{lighten(mat.get-color-from-palette(map-get($theme, foreground), text,), 10%)};
+  --theme-text-darker: #{darken(mat.get-color-from-palette(map-get($theme, foreground), text,), 10%)};
+  --theme-text-dark: #{darken(mat.get-color-from-palette(map-get($theme, foreground), text,), 25%)};
+  
+  --theme-text-invert-15: #{invert(mat.get-color-from-palette(map-get($theme, foreground), text,), 15%)};
+  --theme-text-invert-30: #{invert(mat.get-color-from-palette(map-get($theme, foreground), text,), 30%)};
+  
   --theme-background: #{mat.get-color-from-palette(map-get($theme, background), card)};
+  --theme-background-lighter: #{lighten(mat.get-color-from-palette(map-get($theme, background), card), 6%)};
+  --theme-background-light: #{lighten(mat.get-color-from-palette(map-get($theme, background), card), 10%)};
+  --theme-background-darker: #{darken(mat.get-color-from-palette(map-get($theme, background), card), 6%)};
+  --theme-background-dark: #{darken(mat.get-color-from-palette(map-get($theme, background), card), 10%)};
+  --theme-background-darkest: #{darken(mat.get-color-from-palette(map-get($theme, background), card), 14%)};
 }
 
 @mixin snackbar($theme) {

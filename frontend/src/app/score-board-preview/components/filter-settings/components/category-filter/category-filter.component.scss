@@ -22,5 +22,6 @@
   &.selected {
     background-color: var(--theme-accent-dark);
     border: 1px solid var(--theme-accent);
+    color: var(--theme-text-invert-15);
   }
 }
