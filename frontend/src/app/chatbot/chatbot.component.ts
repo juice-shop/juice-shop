@@ -50,8 +50,8 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   private chatScrollDownTimeoutId: ReturnType<typeof setTimeout> | null = null
 
   constructor (private readonly userService: UserService, private readonly chatbotService: ChatbotService, private readonly cookieService: CookieService, private readonly formSubmitService: FormSubmitService, private readonly translate: TranslateService) { }
-  
-  ngOnDestroy(): void {
+
+  ngOnDestroy (): void {
     if (this.chatScrollDownTimeoutId) {
       clearTimeout(this.chatScrollDownTimeoutId)
     }
