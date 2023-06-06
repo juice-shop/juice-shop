@@ -5,7 +5,7 @@
 
 import { ChatbotService } from '../Services/chatbot.service'
 import { UserService } from '../Services/user.service'
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { UntypedFormControl } from '@angular/forms'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
@@ -35,7 +35,7 @@ interface MessageActions {
   templateUrl: './chatbot.component.html',
   styleUrls: ['./chatbot.component.scss']
   })
-export class ChatbotComponent implements OnInit {
+export class ChatbotComponent implements OnInit, OnDestroy {
   public messageControl: UntypedFormControl = new UntypedFormControl()
   public messages: ChatMessage[] = []
   public juicyImageSrc: string = 'assets/public/images/ChatbotAvatar.png'
@@ -47,7 +47,15 @@ export class ChatbotComponent implements OnInit {
 
   public currentAction: string = this.messageActions.response
 
+  private chatScrollDownTimeoutId: ReturnType<typeof setTimeout> | null = null
+
   constructor (private readonly userService: UserService, private readonly chatbotService: ChatbotService, private readonly cookieService: CookieService, private readonly formSubmitService: FormSubmitService, private readonly translate: TranslateService) { }
+  
+  ngOnDestroy(): void {
+    if (this.chatScrollDownTimeoutId) {
+      clearTimeout(this.chatScrollDownTimeoutId)
+    }
+  }
 
   ngOnInit () {
     this.chatbotService.getChatbotStatus().subscribe((response) => {
@@ -100,9 +108,10 @@ export class ChatbotComponent implements OnInit {
             this.handleResponse(response)
           })
         }
-        setTimeout(() => {
+        this.chatScrollDownTimeoutId = setTimeout(() => {
           const chat = document.getElementById('chat-window')
           chat.scrollTop = chat.scrollHeight
+          this.chatScrollDownTimeoutId = null
         }, 250)
       })
     }
