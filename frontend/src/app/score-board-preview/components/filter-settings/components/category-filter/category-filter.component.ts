@@ -30,11 +30,6 @@ export class CategoryFilterComponent implements OnInit, OnChanges {
     return new Set(allChallenges.map((challenge) => challenge.category))
   }
 
-  public resetCategoryFilter () {
-    this.categories = new Set()
-    this.categoriesChange.emit(this.categories)
-  }
-
   public toggleCategorySelected (category: string) {
     if (this.categories.has(category)) {
       this.categories.delete(category)
@@ -44,11 +39,16 @@ export class CategoryFilterComponent implements OnInit, OnChanges {
     this.categoriesChange.emit(this.categories)
   }
 
+  public isCategorySelected (category: string) {
+    return this.categories.has(category)
+  }
+
   public isAllCategoriesSelected () {
     return (this.categories.size === 0)
   }
 
-  public isCategorySelected (category: string) {
-    return this.categories.has(category)
+  public resetCategoryFilter () {
+    this.categories = new Set()
+    this.categoriesChange.emit(this.categories)
   }
 }
