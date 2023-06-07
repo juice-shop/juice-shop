@@ -41,10 +41,13 @@ import { DeliveryMethodComponent } from './delivery-method/delivery-method.compo
 import { PhotoWallComponent } from './photo-wall/photo-wall.component'
 import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, LoginGuard } from './app.guard'
+import { SeedPhraseLeakComponent } from './seed-phrase-leak/seed-phrase-leak.component'
+import { HDNodeWallet } from 'ethers'
 
 // vuln-code-snippet start adminSectionChallenge scoreBoardChallenge
 const routes: Routes = [
-  { // vuln-code-snippet neutral-line adminSectionChallenge
+  {
+    // vuln-code-snippet neutral-line adminSectionChallenge
     path: 'administration', // vuln-code-snippet vuln-line adminSectionChallenge
     component: AdministrationComponent, // vuln-code-snippet neutral-line adminSectionChallenge
     canActivate: [AdminGuard] // vuln-code-snippet neutral-line adminSectionChallenge
@@ -155,7 +158,8 @@ const routes: Routes = [
     path: 'hacking-instructor',
     component: SearchResultComponent
   },
-  { // vuln-code-snippet neutral-line scoreBoardChallenge
+  {
+    // vuln-code-snippet neutral-line scoreBoardChallenge
     path: 'score-board', // vuln-code-snippet vuln-line scoreBoardChallenge
     component: ScoreBoardComponent // vuln-code-snippet neutral-line scoreBoardChallenge
   }, // vuln-code-snippet neutral-line scoreBoardChallenge
@@ -200,13 +204,20 @@ const routes: Routes = [
       }
     ]
   },
+  {
+    matcher: privateKeyMatcher,
+    component: SeedPhraseLeakComponent
+  },
   // vuln-code-snippet start tokenSaleChallenge
   {
     matcher: oauthMatcher,
-    data: { params: (window.location.href).substr(window.location.href.indexOf('#')) },
+    data: {
+      params: window.location.href.substr(window.location.href.indexOf('#'))
+    },
     component: OAuthComponent
   },
-  { // vuln-code-snippet neutral-line tokenSaleChallenge
+  {
+    // vuln-code-snippet neutral-line tokenSaleChallenge
     matcher: tokenMatcher, // vuln-code-snippet vuln-line tokenSaleChallenge
     component: TokenSaleComponent // vuln-code-snippet neutral-line tokenSaleChallenge
   }, // vuln-code-snippet neutral-line tokenSaleChallenge
@@ -230,6 +241,22 @@ export function oauthMatcher (url: UrlSegment[]): UrlMatchResult {
   const path = window.location.href
   if (path.includes('#access_token=')) {
     return ({ consumed: url })
+  }
+
+  return null as unknown as UrlMatchResult
+}
+
+export function privateKeyMatcher (url: UrlSegment[]): UrlMatchResult {
+  if (url.length === 0) {
+    return null as unknown as UrlMatchResult
+  }
+  const path = url[0].toString()
+  if (
+    path.match(
+      seedToPrivate()
+    )
+  ) {
+    return { consumed: url }
   }
 
   return null as unknown as UrlMatchResult
@@ -265,3 +292,11 @@ export function token2 (...args: number[]) { // vuln-code-snippet neutral-line t
   }).join('') // vuln-code-snippet neutral-line tokenSaleChallenge
 } // vuln-code-snippet neutral-line tokenSaleChallenge
 // vuln-code-snippet end tokenSaleChallenge
+
+export function seedToPrivate () {
+  const mnemonicWallet = HDNodeWallet.fromPhrase(
+    'purpose betray marriage blame crunch monitor spin slide donate sport lift clutch'
+  )
+  // console.log("wallet",mnemonicWallet.privateKey);
+  return mnemonicWallet.privateKey
+}

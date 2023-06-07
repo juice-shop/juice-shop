@@ -43,6 +43,7 @@ import {
   ChallengeSolvedNotificationComponent
 } from './challenge-solved-notification/challenge-solved-notification.component'
 import { OAuthComponent } from './oauth/oauth.component'
+import { SeedPhraseLeakComponent } from './seed-phrase-leak/seed-phrase-leak.component'
 import { TokenSaleComponent } from './token-sale/token-sale.component'
 import { ProductReviewEditComponent } from './product-review-edit/product-review-edit.component'
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
@@ -169,6 +170,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     ChallengeSolvedNotificationComponent,
     OAuthComponent,
     TokenSaleComponent,
+    SeedPhraseLeakComponent,
     ProductReviewEditComponent,
     TwoFactorAuthEnterComponent,
     SidenavComponent,

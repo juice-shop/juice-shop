@@ -116,6 +116,14 @@ products:
     price: 4.99
     image: raspberry_juice.jpg
   -
+    name: 'NFT Me'
+    description: 'I wonder what the keys to me would do on juice shop.'
+    price: 2.99
+    limitPerUser: 1
+    image: juicy_chatbot.jpg
+    reviews:
+      - { text: 'purpose betray marriage blame crunch monitor spin slide donate sport lift clutch', author: admin }
+  -
     name: 'Lemon Juice (500ml)'
     description: 'Sour but full of vitamins.'
     price: 2.99

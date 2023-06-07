@@ -82,6 +82,18 @@
   mitigationUrl: ~
   key: tokenSaleChallenge
 -
+  name: 'Riches on Juice Shop'
+  category: 'Sensitive Data Exposure'
+  tags:
+    - Contraption
+    - Good for Demos
+  description: 'Seed Phrase posted accidentally online'
+  difficulty: 3
+  hint: 'Find keys to my wallet which lead to a hidden URL on Juice Shop'
+  hintUrl: ''
+  mitigationUrl: ~
+  key: seedPhraseLeakChallenge
+-
   name: 'Blocked RCE DoS'
   category: 'Insecure Deserialization'
   tags:
