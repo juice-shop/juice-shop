@@ -10,7 +10,7 @@
   padding: 12px 16px;
 
   &.solved {
-    border-top: 3px solid var(--theme-accent);
+    border-top: 4px solid var(--theme-accent);
   }
 
   &.solved .dot {
@@ -18,7 +18,7 @@
   }
 
   &.unsolved {
-    border-top: 3px solid #5c5c5c;
+    border-top: 4px solid rgba(80, 80, 80, 0.25);
   }
 
   &.unsolved .dot {
