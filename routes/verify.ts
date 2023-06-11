@@ -64,7 +64,6 @@ exports.passwordRepeatChallenge = () => (req: Request, res: Response, next: Next
 exports.accessControlChallenges = () => ({ url }: Request, res: Response, next: NextFunction) => {
   challengeUtils.solveIf(challenges.scoreBoardChallenge, () => { return utils.endsWith(url, '/1px.png') })
   challengeUtils.solveIf(challenges.adminSectionChallenge, () => { return utils.endsWith(url, '/19px.png') })
-  challengeUtils.solveIf(challenges.seedPhraseLeakChallenge, () => { return utils.endsWith(url, '/23px.png') })
   challengeUtils.solveIf(challenges.tokenSaleChallenge, () => { return utils.endsWith(url, '/56px.png') })
   challengeUtils.solveIf(challenges.privacyPolicyChallenge, () => { return utils.endsWith(url, '/81px.png') })
   challengeUtils.solveIf(challenges.extraLanguageChallenge, () => { return utils.endsWith(url, '/tlh_AA.json') })

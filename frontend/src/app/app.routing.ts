@@ -42,7 +42,6 @@ import { PhotoWallComponent } from './photo-wall/photo-wall.component'
 import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, LoginGuard } from './app.guard'
 import { SeedPhraseLeakComponent } from './seed-phrase-leak/seed-phrase-leak.component'
-import { HDNodeWallet } from 'ethers'
 
 // vuln-code-snippet start adminSectionChallenge scoreBoardChallenge
 const routes: Routes = [
@@ -205,7 +204,7 @@ const routes: Routes = [
     ]
   },
   {
-    matcher: privateKeyMatcher,
+    path: 'juicy-nft',
     component: SeedPhraseLeakComponent
   },
   // vuln-code-snippet start tokenSaleChallenge
@@ -246,22 +245,6 @@ export function oauthMatcher (url: UrlSegment[]): UrlMatchResult {
   return null as unknown as UrlMatchResult
 }
 
-export function privateKeyMatcher (url: UrlSegment[]): UrlMatchResult {
-  if (url.length === 0) {
-    return null as unknown as UrlMatchResult
-  }
-  const path = url[0].toString()
-  if (
-    path.match(
-      seedToPrivate()
-    )
-  ) {
-    return { consumed: url }
-  }
-
-  return null as unknown as UrlMatchResult
-}
-
 export function tokenMatcher (url: UrlSegment[]): UrlMatchResult { // vuln-code-snippet neutral-line tokenSaleChallenge
   if (url.length === 0) { // vuln-code-snippet neutral-line tokenSaleChallenge
     return null as unknown as UrlMatchResult // vuln-code-snippet neutral-line tokenSaleChallenge
@@ -292,11 +275,3 @@ export function token2 (...args: number[]) { // vuln-code-snippet neutral-line t
   }).join('') // vuln-code-snippet neutral-line tokenSaleChallenge
 } // vuln-code-snippet neutral-line tokenSaleChallenge
 // vuln-code-snippet end tokenSaleChallenge
-
-export function seedToPrivate () {
-  const mnemonicWallet = HDNodeWallet.fromPhrase(
-    'purpose betray marriage blame crunch monitor spin slide donate sport lift clutch'
-  )
-  // console.log("wallet",mnemonicWallet.privateKey);
-  return mnemonicWallet.privateKey
-}

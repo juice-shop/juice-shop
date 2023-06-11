@@ -69,6 +69,7 @@ import { BasketService } from './Services/basket.service'
 import { ChallengeService } from './Services/challenge.service'
 import { DataSubjectService } from './Services/data-subject.service'
 import { ImageCaptchaService } from './Services/image-captcha.service'
+import { KeysService } from './Services/keys.service'
 import { AddressService } from './Services/address.service'
 import { QuantityService } from './Services/quantity.service'
 import { FlexLayoutModule } from '@angular/flex-layout'
@@ -303,6 +304,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     AccountingGuard,
     DeluxeGuard,
     ImageCaptchaService,
+    KeysService,
     AddressService,
     QuantityService,
     WalletService,
