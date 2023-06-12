@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core'
+
 import { EnrichedChallenge } from '../../types/EnrichedChallenge'
 
 @Component({
