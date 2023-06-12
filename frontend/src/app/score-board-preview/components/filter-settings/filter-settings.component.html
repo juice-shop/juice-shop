@@ -1,5 +1,37 @@
+<div class="options-row">
+  <button mat-icon-button aria-label="reset all filters" (click)="reset()" title="reset all filters">
+    <!-- todo(@J12934): fix icon. displaying without the off... -->
+    <mat-icon fontIcon="filter_list_off"></mat-icon>
+  </button>
+  <mat-form-field>
+    <mat-label>Difficulty</mat-label>
+    <mat-select multiple [value]="filterSetting.difficulties" (selectionChange)="onDifficultyFilterChange($event.value)">
+      <mat-option [value]="1">⭐️</mat-option>
+      <mat-option [value]="2">⭐️⭐️</mat-option>
+      <mat-option [value]="3">⭐️⭐️⭐️</mat-option>
+      <mat-option [value]="4">⭐️⭐️⭐️⭐️</mat-option>
+      <mat-option [value]="5">⭐️⭐️⭐️⭐️⭐️</mat-option>
+      <mat-option [value]="6">⭐️⭐️⭐️⭐️⭐️⭐️</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Status</mat-label>
+    <mat-select placeholder="All" [value]="filterSetting.status" (selectionChange)="onStatusFilterChange($event.value)">
+      <mat-option [value]="null">All</mat-option>
+      <mat-option value="solved">Solved</mat-option>
+      <mat-option value="unsolved">Unsolved</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Tags</mat-label>
+    <mat-select multiple [value]="filterSetting.tags" (selectionChange)="onTagFilterChange($event.value)">
+      <mat-option *ngFor="let tag of tags" [value]="tag">{{ tag }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
 <category-filter
   [categories]="filterSetting.categories"
-  (categoriesChange)="onCategoryUpdate($event)"
+  (categoriesChange)="onCategoryFilterChange($event)"
   [allChallenges]="allChallenges"
 ></category-filter>

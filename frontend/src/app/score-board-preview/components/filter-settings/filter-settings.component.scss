@@ -1,0 +1,12 @@
+.options-row {
+  align-items: center;
+  column-gap: 16px;
+  display: flex;
+
+  margin: 8px 0;
+  row-gap: 8px;
+}
+
+mat-form-field {
+  margin-bottom: -1.25em;
+}

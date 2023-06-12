@@ -8,6 +8,11 @@ import { CodingChallengeProgressScoreCardComponent } from './components/coding-c
 import { DifficultyOverviewScoreCardComponent } from './components/difficulty-overview-score-card/difficulty-overview-score-card.component'
 import { FilterSettingsComponent } from './components/filter-settings/filter-settings.component'
 import { CategoryFilterComponent } from './components/filter-settings/components/category-filter/category-filter.component'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatSelectModule } from '@angular/material/select'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { MatButtonModule } from '@angular/material/button'
+import { MatIconModule } from '@angular/material/icon'
 
 @NgModule({
   declarations: [
@@ -21,9 +26,15 @@ import { CategoryFilterComponent } from './components/filter-settings/components
     CategoryFilterComponent,
   ],
   imports: [
-    CommonModule
-  ]
+    CommonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatIconModule
+  ],
 })
-class ScoreBoardPreviewModule { }
+class ScoreBoardPreviewModule {}
 
 export { ScoreBoardPreviewModule }
