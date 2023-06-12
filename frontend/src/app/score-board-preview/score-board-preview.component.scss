@@ -35,7 +35,6 @@
 }
 
 .challenges {
-
   column-gap: 16px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -55,4 +54,15 @@
   @media (max-width: 600px) {
     grid-template-columns: repeat(1, 1fr);
   }
+}
+
+.empty-challenges {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  margin: 0 32px;
+
+  min-height: 20vh;
 }
