@@ -20,6 +20,7 @@ jobs:
       - name: "Install CLI tools"
         run: |
           npm install -g @angular/cli
+          npm install -g @cyclonedx/cyclonedx-npm@^1.2
           npm install -g grunt-cli
       - name: "Set packaging options for Grunt"
         run: |
@@ -36,7 +37,6 @@ jobs:
       - name: "Package application"
         run: |
           npm install --production
-          npm install -g grunt-cli
           npm run package:ci
       - name: 'Attach packaged archive to tag release'
         uses: softprops/action-gh-release@v1
