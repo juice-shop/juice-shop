@@ -23,11 +23,9 @@ export class FilterSettingsComponent implements OnChanges {
   private tags: Set<string> = new Set()
   ngOnChanges () {
     this.tags = new Set(this.allChallenges.flatMap((challenge) => challenge.tagList))
-    console.log('filter settings difficulty', this.filterSetting.difficulties)
   }
 
   onDifficultyFilterChange (difficulties: Array<1|2|3|4|5|6>) {
-    console.log('difficulty filter change', difficulties)
     const filterSettingCopy = structuredClone(this.filterSetting)
     filterSettingCopy.difficulties = difficulties
     this.filterSettingChange.emit(filterSettingCopy)
