@@ -20,7 +20,7 @@ export class FilterSettingsComponent implements OnChanges {
   @Output()
   public filterSettingChange = new EventEmitter<FilterSetting>()
 
-  private tags: Set<string> = new Set()
+  public tags: Set<string> = new Set()
   ngOnChanges () {
     this.tags = new Set(this.allChallenges.flatMap((challenge) => challenge.tagList))
   }
