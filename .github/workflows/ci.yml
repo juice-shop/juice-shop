@@ -268,6 +268,7 @@ jobs:
       - name: "Install CLI tools"
         run: |
           npm install -g @angular/cli@$ANGULAR_CLI_VERSION
+          npm install -g @cyclonedx/cyclonedx-npm@^1.2
           npm install -g grunt-cli
       - name: "Set packaging options for Grunt"
         run: |
@@ -277,7 +278,6 @@ jobs:
       - name: "Package application"
         run: |
           npm install --production
-          npm install -g grunt-cli
           npm run package:ci
       - name: "Unpack application archive"
         run: |
