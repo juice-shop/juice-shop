@@ -8,12 +8,19 @@
   [filterSetting]="filterSetting"
   (filterSettingChange)="onFilterSettingUpdate($event)"
   [allChallenges]="allChallenges"
+  [reset]="reset"
 ></filter-settings>
 
-<div class="challenges">
+<div class="challenges" *ngIf="filteredChallenges.length > 0; else emptyChallenges">
   <challenge-card
     *ngFor="let challenge of filteredChallenges; trackBy:getChallengeKey"
     [challenge]="challenge"
     [ngClass]="{ solved: challenge.solved, unsolved: !challenge.solved }"
   />
 </div>
+
+<ng-template #emptyChallenges>
+  <div class="empty-challenges">
+    <p><strong>Ohh no.</strong> No challenges found matching your filters 😥</p>
+  </div>
+</ng-template>

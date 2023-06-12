@@ -18,7 +18,10 @@ describe('FilterSettingsComponent', () => {
 
     component.allChallenges = []
     component.filterSetting = {
-      categories: new Set()
+      categories: new Set(),
+      difficulties: [],
+      status: null,
+      tags: []
     }
 
     fixture.detectChanges()
