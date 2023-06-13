@@ -1,10 +1,15 @@
-.options-row {
+.options-group {
   align-items: center;
   column-gap: 16px;
   display: flex;
 
   margin: 8px 0;
   row-gap: 8px;
+}
+
+.filter-row {
+  display: grid;
+  grid-template-columns: auto min-content;
 }
 
 mat-form-field {
