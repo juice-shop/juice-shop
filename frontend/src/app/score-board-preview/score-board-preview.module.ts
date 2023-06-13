@@ -13,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
+import { MatInputModule } from '@angular/material/input'
 
 @NgModule({
   declarations: [
@@ -32,7 +33,9 @@ import { MatIconModule } from '@angular/material/icon'
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatFormFieldModule, 
+    MatInputModule
   ],
 })
 class ScoreBoardPreviewModule {}

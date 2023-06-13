@@ -48,4 +48,10 @@ export class FilterSettingsComponent implements OnChanges {
     filterSettingCopy.categories = categories
     this.filterSettingChange.emit(filterSettingCopy)
   }
+
+  onSearchQueryFilterChange (searchQuery: string) {
+    const filterSettingCopy = structuredClone(this.filterSetting)
+    filterSettingCopy.searchQuery = searchQuery
+    this.filterSettingChange.emit(filterSettingCopy)
+  }
 }
