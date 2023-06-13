@@ -36,5 +36,11 @@ export function filterChallenges (challenges: EnrichedChallenge[], filterSetting
           return !challenge.solved
         }
         return true
+      }).filter((challenge) => {
+        if (filterSetting.searchQuery === null) {
+          return true
+        }
+        return challenge.name.toLowerCase().includes(filterSetting.searchQuery.toLowerCase()) ||
+          challenge.originalDescription.toLowerCase().includes(filterSetting.searchQuery.toLowerCase())
       })
   }
