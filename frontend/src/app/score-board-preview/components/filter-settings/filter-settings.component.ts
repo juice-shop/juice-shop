@@ -54,4 +54,12 @@ export class FilterSettingsComponent implements OnChanges {
     filterSettingCopy.searchQuery = searchQuery
     this.filterSettingChange.emit(filterSettingCopy)
   }
+
+  public canBeReset (): boolean {
+    return this.filterSetting.difficulties.length > 0 ||
+      this.filterSetting.status !== null ||
+      this.filterSetting.tags.length > 0 ||
+      this.filterSetting.categories.size > 0 ||
+      !!this.filterSetting.searchQuery
+  }
 }

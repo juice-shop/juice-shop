@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { FilterSettingsComponent } from './filter-settings.component'
 import { CategoryFilterComponent } from './components/category-filter/category-filter.component'
+import { DEFAULT_FILTER_SETTING } from '../../types/FilterSetting'
 
 describe('FilterSettingsComponent', () => {
   let component: FilterSettingsComponent
@@ -17,12 +18,7 @@ describe('FilterSettingsComponent', () => {
     component = fixture.componentInstance
 
     component.allChallenges = []
-    component.filterSetting = {
-      categories: new Set(),
-      difficulties: [],
-      status: null,
-      tags: []
-    }
+    component.filterSetting = { ...DEFAULT_FILTER_SETTING }
 
     fixture.detectChanges()
   })
