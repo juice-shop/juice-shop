@@ -9,7 +9,7 @@ export interface FilterSetting {
     tags: string[]
 
     // status to display. if null, all status are displayed
-    status: 'solved' | 'unsolved' | null,
+    status: 'solved' | 'unsolved' | null
 
     // search query to search challenge names & descriptions for. if null, all challenges are displayed
     searchQuery: string | null
@@ -20,5 +20,5 @@ export const DEFAULT_FILTER_SETTING: Readonly<FilterSetting> = Object.freeze({
     difficulties: [],
     tags: [],
     status: null,
-    searchQuery: null,
+    searchQuery: null
 })

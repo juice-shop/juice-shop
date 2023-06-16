@@ -1,17 +1,28 @@
 .options-group {
   align-items: center;
   column-gap: 16px;
-  display: flex;
+  display: grid;
+  grid-template-columns: min-content repeat(3, 1fr);
 
   margin: 8px 0;
   row-gap: 8px;
+  @media (max-width: 800px) {
+    grid-template-columns: auto;
+  }
 }
 
 .filter-row {
   display: grid;
   grid-template-columns: auto min-content;
+  @media (max-width: 1000px) {
+    grid-template-columns: auto;
+  }
 }
 
-mat-form-field {
-  margin-bottom: -1.25em;
+.search-form-field {
+  // weird hack to align the search field with the other fields. hopefully this can be removed after future angular material updates
+  padding-top: 0.55em;
+  @media (max-width: 1000px) {
+    padding-top: initial;
+  }
 }

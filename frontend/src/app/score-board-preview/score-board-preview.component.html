@@ -8,7 +8,7 @@
   [filterSetting]="filterSetting"
   (filterSettingChange)="onFilterSettingUpdate($event)"
   [allChallenges]="allChallenges"
-  [reset]="reset"
+  [reset]="reset.bind(this)"
 ></filter-settings>
 
 <div class="challenges" *ngIf="filteredChallenges.length > 0; else emptyChallenges">
