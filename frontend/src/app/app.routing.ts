@@ -165,10 +165,10 @@ const routes: Routes = [
     path: 'score-board', // vuln-code-snippet vuln-line scoreBoardChallenge
     component: ScoreBoardComponent // vuln-code-snippet neutral-line scoreBoardChallenge
   }, // vuln-code-snippet neutral-line scoreBoardChallenge
-  {
-    path: 'score-board-preview',
-    component: ScoreBoardPreviewComponent
-  },
+  { // vuln-code-snippet hide-line
+    path: 'score-board-preview', // vuln-code-snippet hide-line
+    component: ScoreBoardPreviewComponent // vuln-code-snippet hide-line
+  }, // vuln-code-snippet hide-line
   {
     path: 'track-result',
     component: TrackResultComponent
