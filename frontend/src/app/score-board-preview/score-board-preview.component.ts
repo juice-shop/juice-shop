@@ -29,11 +29,7 @@ export class ScoreBoardPreviewComponent implements OnInit {
   onFilterSettingUpdate (filterSetting: FilterSetting) {
     console.log('ScoreBoardPreview - filter setting update', filterSetting)
     this.filterSetting = filterSetting
-    this.filteredChallenges = ScoreBoardPreviewComponent.filterChallenges(this.allChallenges, filterSetting)
-  }
-
-  public static filterChallenges (challenges: EnrichedChallenge[], filterSetting: FilterSetting): EnrichedChallenge[] {
-    return filterChallenges(challenges, filterSetting)
+    this.filteredChallenges = filterChallenges(this.allChallenges, filterSetting)
   }
 
   ngOnInit () {
@@ -56,7 +52,7 @@ export class ScoreBoardPreviewComponent implements OnInit {
         }
       })
       this.allChallenges = transformedChallenges
-      this.filteredChallenges = ScoreBoardPreviewComponent.filterChallenges(this.allChallenges, this.filterSetting)
+      this.filteredChallenges = filterChallenges(this.allChallenges, this.filterSetting)
       console.timeEnd('ScoreBoardPreview - transform challenges')
     })
   }
@@ -68,6 +64,6 @@ export class ScoreBoardPreviewComponent implements OnInit {
 
   public reset () {
     this.filterSetting = structuredClone(DEFAULT_FILTER_SETTING)
-    this.filteredChallenges = ScoreBoardPreviewComponent.filterChallenges(this.allChallenges, this.filterSetting)
+    this.filteredChallenges = filterChallenges(this.allChallenges, this.filterSetting)
   }
 }
