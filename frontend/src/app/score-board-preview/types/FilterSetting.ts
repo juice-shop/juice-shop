@@ -15,7 +15,7 @@ export interface FilterSetting {
     searchQuery: string | null
 }
 
-export type SolvedStatus = 'solved' | 'unsolved' | 'partially-solved';
+export type SolvedStatus = 'solved' | 'unsolved' | 'partially-solved'
 
 export const DEFAULT_FILTER_SETTING: Readonly<FilterSetting> = Object.freeze({
     categories: new Set<string>(),
