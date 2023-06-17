@@ -9,11 +9,13 @@ export interface FilterSetting {
     tags: string[]
 
     // status to display. if null, all status are displayed
-    status: 'solved' | 'unsolved' | null
+    status: SolvedStatus | null
 
     // search query to search challenge names & descriptions for. if null, all challenges are displayed
     searchQuery: string | null
 }
+
+export type SolvedStatus = 'solved' | 'unsolved' | 'partially-solved';
 
 export const DEFAULT_FILTER_SETTING: Readonly<FilterSetting> = Object.freeze({
     categories: new Set<string>(),

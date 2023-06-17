@@ -14,6 +14,7 @@ const CHALLENGE_1 = {
   mitigationUrl: 'https://owasp.example.com',
   name: 'challenge one',
   solved: false,
+  codingChallengeStatus: 0,
   tagList: ['easy']
 } as EnrichedChallenge
 
@@ -29,6 +30,7 @@ const CHALLENGE_2 = {
   mitigationUrl: 'https://owasp.example.com',
   name: 'challenge two',
   solved: true,
+  codingChallengeStatus: 2,
   tagList: ['easy']
 } as EnrichedChallenge
 
@@ -43,7 +45,8 @@ const CHALLENGE_3 = {
   key: 'challenge-3',
   mitigationUrl: 'https://owasp.example.com',
   name: 'challenge three',
-  solved: false,
+  solved: true,
+  codingChallengeStatus: 1,
   tagList: ['hard']
 } as EnrichedChallenge
 
@@ -86,7 +89,7 @@ describe('filterChallenges', () => {
     ).map((challenge) => challenge.key)).toEqual(jasmine.arrayWithExactContents(['challenge-3']))
   })
 
-  it('should filter challenges based on tags properly', () => {
+  it('should filter challenges based on status properly', () => {
     expect(filterChallenges(
       [CHALLENGE_1, CHALLENGE_2, CHALLENGE_3],
       { ...DEFAULT_FILTER_SETTING, status: 'solved' }
@@ -94,10 +97,14 @@ describe('filterChallenges', () => {
     expect(filterChallenges(
       [CHALLENGE_1, CHALLENGE_2, CHALLENGE_3],
       { ...DEFAULT_FILTER_SETTING, status: 'unsolved' }
-    ).map((challenge) => challenge.key)).toEqual(jasmine.arrayWithExactContents(['challenge-1', 'challenge-3']))
+    ).map((challenge) => challenge.key)).toEqual(jasmine.arrayWithExactContents(['challenge-1']))
+    expect(filterChallenges(
+      [CHALLENGE_1, CHALLENGE_2, CHALLENGE_3],
+      { ...DEFAULT_FILTER_SETTING, status: 'partially-solved' }
+    ).map((challenge) => challenge.key)).toEqual(jasmine.arrayWithExactContents(['challenge-3']))
   })
 
-  it('should filter challenges based on tags properly', () => {
+  it('should filter challenges based on searchQuery properly', () => {
     expect(filterChallenges(
       [CHALLENGE_1, CHALLENGE_2, CHALLENGE_3],
       { ...DEFAULT_FILTER_SETTING, searchQuery: 'lorem' }
