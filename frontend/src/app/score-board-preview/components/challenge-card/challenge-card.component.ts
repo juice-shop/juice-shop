@@ -11,7 +11,7 @@ export class ChallengeCardComponent {
   @Input()
   public challenge: EnrichedChallenge
 
-  codingChallengeStatusColor() {
+  codingChallengeStatusColor () {
     if (!this.challenge.hasCodingChallenge || !this.challenge.solved) {
       return 'var(--theme-background-lighter)'
     }
