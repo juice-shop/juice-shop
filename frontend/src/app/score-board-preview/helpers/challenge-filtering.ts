@@ -39,13 +39,13 @@ export function filterChallenges (challenges: EnrichedChallenge[], filterSetting
       })
   }
 
-function getCompleteChallengeStatus(challenge : EnrichedChallenge): SolvedStatus {
+function getCompleteChallengeStatus (challenge: EnrichedChallenge): SolvedStatus {
     if (!challenge.solved) {
       return 'unsolved'
     }
 
     if (!challenge.hasCodingChallenge) {
-        return challenge.solved ? 'solved' : 'unsolved';
+        return challenge.solved ? 'solved' : 'unsolved'
     } else {
         if (challenge.codingChallengeStatus === 2) {
           return 'solved'
