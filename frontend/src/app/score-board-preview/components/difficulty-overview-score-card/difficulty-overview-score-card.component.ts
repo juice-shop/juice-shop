@@ -8,7 +8,11 @@ interface DifficultySummary {
   solvedChallenges: number
 }
 
-const INITIAL_SUMMARIES: Readonly<{ [level: number]: DifficultySummary}> = Object.freeze({
+// interface doesn't work here
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type DifficultySummaries = { [level: number]: DifficultySummary }
+
+const INITIAL_SUMMARIES: Readonly<DifficultySummaries> = Object.freeze({
   1: { difficulty: 1, availableChallenges: 0, solvedChallenges: 0 },
   2: { difficulty: 2, availableChallenges: 0, solvedChallenges: 0 },
   3: { difficulty: 3, availableChallenges: 0, solvedChallenges: 0 },
@@ -57,14 +61,14 @@ export class DifficultyOverviewScoreCardComponent implements OnInit, OnChanges {
       .map((challenge) => challenge.codingChallengeStatus)
       .reduce((a, b) => a + b, 0) // sum up the scores
 
-    this.difficultySummaries = this.calculateDifficultySummaries(this.allChallenges)
+    this.difficultySummaries = DifficultyOverviewScoreCardComponent.calculateDifficultySummaries(this.allChallenges)
 
     this.totalChallenges = this.allChallenges.length + availableCodingChallenges.length * 2
     this.solvedChallenges = solvedHackingChallenges + codingScore
   }
 
-  calculateDifficultySummaries (challenges: EnrichedChallenge[]): DifficultySummary[] {
-    const summariesLookup = { ...INITIAL_SUMMARIES }
+  static calculateDifficultySummaries (challenges: EnrichedChallenge[]): DifficultySummary[] {
+    const summariesLookup: DifficultySummaries = structuredClone(INITIAL_SUMMARIES)
     for (const challenge of challenges) {
       summariesLookup[challenge.difficulty].availableChallenges += challenge.hasCodingChallenge ? 3 : 1
       if (challenge.solved) {
