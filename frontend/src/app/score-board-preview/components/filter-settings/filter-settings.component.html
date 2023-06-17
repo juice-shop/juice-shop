@@ -27,8 +27,9 @@
       <mat-label>Status</mat-label>
       <mat-select placeholder="All" [value]="filterSetting.status" (selectionChange)="onStatusFilterChange($event.value)">
         <mat-option [value]="null">All</mat-option>
-        <mat-option value="solved">Solved</mat-option>
         <mat-option value="unsolved">Unsolved</mat-option>
+        <mat-option value="partially-solved">Partially Solved</mat-option>
+        <mat-option value="solved">Solved</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
