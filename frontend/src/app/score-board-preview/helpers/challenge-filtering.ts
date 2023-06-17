@@ -1,5 +1,5 @@
 import { EnrichedChallenge } from '../types/EnrichedChallenge'
-import { FilterSetting } from '../types/FilterSetting'
+import { FilterSetting, SolvedStatus } from '../types/FilterSetting'
 
 export function filterChallenges (challenges: EnrichedChallenge[], filterSetting: FilterSetting): EnrichedChallenge[] {
     return challenges
@@ -29,13 +29,7 @@ export function filterChallenges (challenges: EnrichedChallenge[], filterSetting
         if (filterSetting.status === null) {
           return true
         }
-        if (filterSetting.status === 'solved') {
-          return challenge.solved
-        }
-        if (filterSetting.status === 'unsolved') {
-          return !challenge.solved
-        }
-        return true
+        return filterSetting.status === getCompleteChallengeStatus(challenge)
       }).filter((challenge) => {
         if (filterSetting.searchQuery === null) {
           return true
@@ -44,3 +38,18 @@ export function filterChallenges (challenges: EnrichedChallenge[], filterSetting
           challenge.originalDescription.toLowerCase().includes(filterSetting.searchQuery.toLowerCase())
       })
   }
+
+function getCompleteChallengeStatus(challenge : EnrichedChallenge): SolvedStatus {
+    if (!challenge.solved) {
+      return 'unsolved'
+    }
+
+    if (!challenge.hasCodingChallenge) {
+        return challenge.solved ? 'solved' : 'unsolved';
+    } else {
+        if (challenge.codingChallengeStatus === 2) {
+          return 'solved'
+        }
+        return 'partially-solved'
+    }
+}
