@@ -49,5 +49,4 @@ jobs:
       - name: Use the Upload Artifact GitHub Action
         uses: actions/upload-artifact@v2
         with:
-          name: results
-          path: downloads
+          file: results-code.html
