@@ -32,8 +32,7 @@ jobs:
         run: |
           npm install snyk-to-html -g
           snyk test --json | snyk-to-html -o result.html
-          mkdir downloads
-          cp -v /home/runner/work/java-goof/java-goof/*.html /home/runner/work/java-goof/java-goof/downloads
+
 
       - name: Snyk Open Source # For testing and failing please add snyk test before snyk monitor
         run: |
