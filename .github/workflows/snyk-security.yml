@@ -45,6 +45,11 @@ jobs:
       - name: Snyk IaC # Remove || true to fail if there are vulnerabilities
         run: |
          snyk iac test --report || true
+     
+      - name: Snyk Container # Rename your image, for testing and failing please add snyk container test before snyk container monitor
+        run: |
+          docker build . -t freshdemo/snyk-juice-shop:latest
+          snyk container monitor freshdemo/snyk-juice-shop:latest --file=Dockerfile
           
       - name: Use the Upload Artifact GitHub Action
         uses: actions/upload-artifact@v2
