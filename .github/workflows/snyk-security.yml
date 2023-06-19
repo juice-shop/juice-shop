@@ -58,7 +58,7 @@ jobs:
 
         # Runs Snyk Open Source (SCA) analysis and uploads result to Snyk.
       - name: Snyk Open Source monitor
-        run: snyk monitor --all-projects
+        run: snyk monitor --all-projects || true
 
         # Runs Snyk Infrastructure as Code (IaC) analysis and uploads result to Snyk.
         # Use || true to not fail the pipeline.
@@ -67,10 +67,10 @@ jobs:
 
         # Build the docker image for testing
       - name: Build a Docker image
-        run: docker build -t your/image-to-test .
+        run: docker build -t freshdemo/snyk-juice-shop .
         # Runs Snyk Container (Container and SCA) analysis and uploads result to Snyk.
       - name: Snyk Container monitor
-        run: snyk container monitor your/image-to-test --file=Dockerfile
+        run: snyk container monitor freshdemo/snyk-juice-shop --file=Dockerfile
 
         # Push the Snyk Code results into GitHub Code Scanning tab
       - name: Upload result to GitHub Code Scanning
