@@ -1,51 +1,42 @@
-
-name: Snyk Application Security
+name: Node.js CI
 
 on:
   push:
-    branches: ["master" ]
+    branches: [ master ]
   pull_request:
-    branches: ["master"]
-
+    branches: [ master ]
 
 jobs:
   build:
-    name: Test and build
-    environment: snyk-npm
+
     runs-on: ubuntu-latest
 
-strategy:
-  matrix:
-    node-version: [16.x]
+    strategy:
+      matrix:
+        node-version: [14.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm install
+      - run: npm i -g snyk
+      - run: snyk auth ${{ secrets.SNYK_TOKEN }}
+      - run: snyk monitor
 
-steps:
-  - uses: actions/checkout@v2
-  - name: Use Node.js ${{ matrix.node-version }}
-    uses: actions/setup-node@v2
-    with:
-      node-version: ${{ matrix.node-version }}
-      cache: 'npm'
+      - name: install snyk-to-html
+        run: |
+          npm install snyk-to-html -g
+          snyk test --json | snyk-to-html -o result.html
+          mkdir downloads
+          cp -v /home/runner/work/java-goof/java-goof/*.html /home/runner/work/java-goof/java-goof/downloads
 
-  - name: Setup Snyk + snyk-to-html # For information about the required commands for generating an HTML report see https://github.com/snyk/snyk-to-html
-    run: |
-      npm install snyk -g
-      npm install snyk-to-html -g
-      snyk auth ${{secrets.SNYK_AUTH}}
-
-  - name: Snyk Open Source # For testing and failing please add snyk test before snyk monitor
-    run: |
-      snyk monitor || true
-# For a list of additional available flags/options see: https://docs.snyk.io/snyk-cli/commands
-
-  - name: Snyk Code # Remove || true to fail if there are vulnerabilities
-    run: |
-      snyk code test || true
-  - name: Snyk Container # Rename your image, for testing and failing please add snyk container test before snyk container monitor
-    run: |
-      docker build . -t freshdemo/snyk-juice-shop:latest
-      snyk container monitor freshdemo/snyk-juice-shop:latest --file=Dockerfile
-  - name: Snyk IaC # Remove || true to fail if there are vulnerabilities
-    run: |
-      snyk iac test || true
+      - name: Use the Upload Artifact GitHub Action
+        uses: actions/upload-artifact@v2
+        with:
+          name: results
+          path: downloads
