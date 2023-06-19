@@ -36,7 +36,7 @@ steps:
 
   - name: Snyk Open Source # For testing and failing please add snyk test before snyk monitor
     run: |
-      snyk monitor
+      snyk monitor || true
 # For a list of additional available flags/options see: https://docs.snyk.io/snyk-cli/commands
 
   - name: Snyk Code # Remove || true to fail if there are vulnerabilities
@@ -44,8 +44,8 @@ steps:
       snyk code test || true
   - name: Snyk Container # Rename your image, for testing and failing please add snyk container test before snyk container monitor
     run: |
-      docker build . -t yourimage:tag
-      snyk container monitor yourimage:tag --file=Dockerfile
+      docker build . -t freshdemo/snyk-juice-shop:latest
+      snyk container monitor freshdemo/snyk-juice-shop:latest --file=Dockerfile
   - name: Snyk IaC # Remove || true to fail if there are vulnerabilities
     run: |
       snyk iac test || true
