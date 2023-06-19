@@ -390,7 +390,7 @@ jobs:
 
       - name: "Clone repository"
         run: |
-          git clone https://github.com/your-username/juice-shop.git
+          git clone https://github.com/TeamWaggles/juice-shop.git
           cd juice-shop
 
       - name: "Build application"
