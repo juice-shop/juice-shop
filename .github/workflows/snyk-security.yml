@@ -35,6 +35,18 @@ jobs:
           mkdir downloads
           cp -v /home/runner/work/java-goof/java-goof/*.html /home/runner/work/java-goof/java-goof/downloads
 
+      - name: Snyk Open Source # For testing and failing please add snyk test before snyk monitor
+        run: |
+          snyk monitor || true
+          
+      - name: Snyk Code # Remove || true to fail if there are vulnerabilities
+        run: |
+          snyk code test --json | snyk-to-html -o results-code.html || true
+      
+      - name: Snyk IaC # Remove || true to fail if there are vulnerabilities
+        run: |
+         snyk iac test --report || true
+          
       - name: Use the Upload Artifact GitHub Action
         uses: actions/upload-artifact@v2
         with:
