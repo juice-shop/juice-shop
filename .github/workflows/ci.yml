@@ -52,6 +52,32 @@ jobs:
           npm run lint:config -- -f ./config/quiet.yml &&
           npm run lint:config -- -f ./config/tutorial.yml &&
           npm run lint:config -- -f ./config/unsafe.yml
+      - name: Code scanning - action
+        on:
+            push:
+              branches: [ master ]
+            pull_request:
+              branches: [ master ]
+         jobs:
+            security:
+              name: scan workflow using Snyk
+              runs-on: ubuntu-latest
+              steps:
+                - name: Checkout repository
+                  uses: actions/checkout@v2 # changed from master to v2
+          
+                - name: Run Snyk to check for vulnerabilities
+                  uses: snyk/actions/node@0.3.0 # Updated to use a specific version instead of master
+                  continue-on-error: true # To make sure that SARIF upload gets called
+                  env:
+                    SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+                  with:
+                    args: --sarif-file-output=snyk.sarif
+          
+                - name: Upload result to GitHub Code Scanning
+                  uses: github/codeql-action/upload-sarif@v2
+                  with:
+                    sarif_file: snyk.sarif    
   coding-challenge-rsn:
     runs-on: windows-latest
     steps:
