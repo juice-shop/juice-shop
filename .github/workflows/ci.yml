@@ -67,7 +67,22 @@ jobs:
         run: npm install
       - name: "Check coding challenges for accidental code discrepancies"
         run: npm run rsn
-  test:
+coding-challenge-rsn:
+    runs-on: windows-latest
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
+      - name: "Use Node.js 18"
+        uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
+        with:
+          node-version: 18
+      - name: "Install CLI tools"
+        run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
+      - name: "Install application"
+        run: npm install
+      - name: "Check coding challenges for accidental code discrepancies"
+        run: npm run rsn
+test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -107,7 +122,7 @@ jobs:
           path: |
             frontend-lcov.info
             server-lcov.info
-  api-test:
+api-test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -151,7 +166,7 @@ jobs:
           name: api-test-lcov
           path: |
             api-lcov.info
-  coverage-report:
+coverage-report:
     needs: [test, api-test]
     runs-on: ubuntu-latest
     if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push'
@@ -179,7 +194,7 @@ jobs:
           ./cc-test-reporter sum-coverage codeclimate.*.json -p 3
           ./cc-test-reporter upload-coverage
         shell: bash
-  custom-config-test:
+custom-config-test:
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
@@ -210,7 +225,7 @@ jobs:
             NODE_ENV=quiet npm run test:server &&
             NODE_ENV=tutorial npm run test:server &&
             NODE_ENV=unsafe npm run test:server
-  smoke-test:
+smoke-test:
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
@@ -244,14 +259,14 @@ jobs:
           cd ../..
           chmod +x test/smoke/smoke-test.sh
           test/smoke/smoke-test.sh http://localhost:3000
-  docker-test:
+docker-test:
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
       - name: "Execute smoke test on Docker"
         run: docker-compose -f docker-compose.test.yml up --exit-code-from sut
-  docker:
+docker:
     if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
     needs: [test, api-test, custom-config-test, docker-test]
     runs-on: ubuntu-latest
@@ -288,7 +303,7 @@ jobs:
           build-args: |
             VCS_REF=${{ env.VCS_REF }}
             BUILD_DATE=${{ env.BUILD_DATE }}
-  notify-slack:
+notify-slack:
     if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && (success() || failure())
     needs:
       - docker
@@ -305,7 +320,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
   # New job for CI pipeline with cloning, compilation/building, and Snyk scanning
-  ci-pipeline:
+    ci-pipeline:
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
