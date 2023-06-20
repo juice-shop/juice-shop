@@ -292,7 +292,6 @@ jobs:
     if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && (success() || failure())
     needs:
       - docker
-      - heroku
       - lint
       - coding-challenge-rsn
       - smoke-test
