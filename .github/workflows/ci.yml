@@ -70,7 +70,8 @@ jobs:
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: snyk.sarif    
+          sarif_file: snyk.sarif 
+          token: ${{ secrets.GH_TOKEN }}
   coding-challenge-rsn:
     runs-on: windows-latest
     steps:
