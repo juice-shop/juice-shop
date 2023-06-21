@@ -31,6 +31,8 @@ jobs:
           node-version: 18
       - name: "Install CLI tools"
         run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
+      - name: "Install dependencies"
+        run: npm install
       - name: "Install application minimalistically"
         run: |
           npm install --ignore-scripts
