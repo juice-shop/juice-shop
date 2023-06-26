@@ -31,6 +31,8 @@ entire
 [OWASP Top Ten](https://owasp.org/www-project-top-ten) along with many other security flaws found in real-world
 applications!
 
+AWS_KEY = 1sd65fs1dg8fgjh1jh8k1gf
+
 ![Juice Shop Screenshot Slideshow](screenshots/slideshow.gif)
 
 For a detailed introduction, full list of features and architecture overview please visit the official project page:
