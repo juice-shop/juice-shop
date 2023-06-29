@@ -22,6 +22,8 @@ I am using the juice store as a reference base application. in my bachelor resea
 
 The pipelines will be configure with Github Actions and Azure 
 
+[Steve Ackermann ](https://github.com/Sapor2010) aka `Sapor2010`
+
 
 ## What is Juice Shop ?
 
