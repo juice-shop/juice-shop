@@ -586,7 +586,8 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.post('/rest/products/reviews', security.isAuthorized(), likeProductReviews())
 
   /* Web3 API endpoints */
-  app.post('/rest/web3/submitKey', checkKeys())
+  app.post('/rest/web3/submitKey', checkKeys.checkKeys())
+  app.get('/rest/web3/seedPhraseSolved', checkKeys.seedPhraseSolved())
 
   /* B2B Order API */
   app.post('/b2b/v2/orders', b2bOrder())

@@ -6,10 +6,9 @@
     <div class="detail-container offer-container" fxFlexAlign="center" fxLayout="row" fxLayout.lt-lg="column">
       <div>
         <img src="assets/public/images/products/juicy_chatbot.jpg" />
-        <script>console.log("eeee");</script>
       </div>
       {{log(successResponse)}} 
-      <div>
+      <div *ngIf="!formSubmitted || (formSubmitted && !successResponse)">
         <div>
           <mat-card-title>Juicy Chatbot SBT</mat-card-title>
         </div>
@@ -22,7 +21,7 @@
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
-      <div *ngIf="formSubmitted && successResponse">
+      <div *ngIf="successResponse">
         <div>
           <mat-card-title>Juicy Chatbot SBT</mat-card-title>
         </div>
@@ -49,5 +48,4 @@
       </div>
     </div>
   </div>
-  <img src="assets/public/images/padding/23px.png" />
 </mat-card>

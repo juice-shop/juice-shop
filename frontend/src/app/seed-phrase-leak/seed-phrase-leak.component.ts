@@ -14,14 +14,31 @@ export class SeedPhraseLeakComponent {
 
   constructor (private readonly keysService: KeysService) {}
 
+  ngOnInit () {
+    this.checkChallengeStatus()
+  }
+
   log (val) {
     console.log('fs', val)
+  }
+
+  checkChallengeStatus () {
+    this.keysService.seedPhraseSolved().subscribe(
+      (response) => {
+        this.successResponse = response.status
+      },
+      (error) => {
+        console.error(error)
+        this.successResponse = false
+      }
+    )
   }
 
   submitForm () {
     this.formSubmitted = true
     this.keysService.submitKey(this.privateKey).subscribe(
       (response) => {
+        console.log(response)
         if (response.success) {
           this.successResponse = true
         } else {

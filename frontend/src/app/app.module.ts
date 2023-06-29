@@ -7,7 +7,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http'
 import { CookieModule, CookieService } from 'ngx-cookie'
-import { ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 import { Routing } from './app.routing'
 import { OverlayContainer } from '@angular/cdk/overlay'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
@@ -202,20 +202,18 @@ export function HttpLoaderFactory (http: HttpClient) {
     FeedbackDetailsComponent,
     CodeSnippetComponent,
     CodeAreaComponent,
-    CodeFixesComponent
+    CodeFixesComponent,
   ],
   imports: [
     BrowserModule,
     Routing,
-    TranslateModule.forRoot(
-      {
-        loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
-        }
-      }
-    ),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
     CookieModule.forRoot(),
     MatPasswordStrengthModule.forRoot(),
     FlexLayoutModule,
@@ -229,6 +227,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     NgxSpinnerModule,
     MatToolbarModule,
     MatIconModule,
+    FormsModule,
     MatFormFieldModule,
     MatSelectModule,
     MatButtonModule,
@@ -259,26 +258,29 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatSlideToggleModule,
     MatChipsModule,
     NgxTextDiffModule,
-    HighlightModule
+    HighlightModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,
-      multi: true
+      multi: true,
     },
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {
-        coreLibraryLoader: async () => await import('highlight.js/lib/core'),
-        lineNumbersLoader: async () => await import('highlightjs-line-numbers.js'),
+        coreLibraryLoader: async () => await import("highlight.js/lib/core"),
+        lineNumbersLoader: async () =>
+          await import("highlightjs-line-numbers.js"),
         languages: {
-          typescript: async () => await import('highlight.js/lib/languages/typescript'),
-          javascript: async () => await import('highlight.js/lib/languages/javascript'),
-          yaml: async () => await import('highlight.js/lib/languages/yaml')
-        }
-      }
+          typescript: async () =>
+            await import("highlight.js/lib/languages/typescript"),
+          javascript: async () =>
+            await import("highlight.js/lib/languages/javascript"),
+          yaml: async () => await import("highlight.js/lib/languages/yaml"),
+        },
+      },
     },
     ProductService,
     ConfigurationService,
@@ -310,15 +312,19 @@ export function HttpLoaderFactory (http: HttpClient) {
     WalletService,
     OrderHistoryService,
     DeliveryService,
-    PhotoWallService
+    PhotoWallService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-
 export class AppModule {
-  constructor (public configurationService: ConfigurationService, public overlayContainer: OverlayContainer) {
+  constructor (
+    public configurationService: ConfigurationService,
+    public overlayContainer: OverlayContainer
+  ) {
     configurationService.getApplicationConfiguration().subscribe((conf) => {
-      overlayContainer.getContainerElement().classList.add(conf.application.theme + '-theme')
+      overlayContainer
+        .getContainerElement()
+        .classList.add(conf.application.theme + '-theme')
     })
   }
 }
