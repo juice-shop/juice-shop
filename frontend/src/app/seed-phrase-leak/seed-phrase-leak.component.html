@@ -7,8 +7,7 @@
       <div>
         <img src="assets/public/images/products/juicy_chatbot.jpg" />
       </div>
-      {{log(successResponse)}} 
-      <div *ngIf="!formSubmitted || (formSubmitted && !successResponse)">
+      <div *ngIf="!successResponse">
         <div>
           <mat-card-title>Juicy Chatbot SBT</mat-card-title>
         </div>

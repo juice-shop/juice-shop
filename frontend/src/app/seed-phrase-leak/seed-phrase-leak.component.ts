@@ -18,10 +18,6 @@ export class SeedPhraseLeakComponent {
     this.checkChallengeStatus()
   }
 
-  log (val) {
-    console.log('fs', val)
-  }
-
   checkChallengeStatus () {
     this.keysService.seedPhraseSolved().subscribe(
       (response) => {

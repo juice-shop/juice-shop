@@ -14,7 +14,7 @@ export class KeysService {
 
   seedPhraseSolved () {
     return this.http.get(this.host + '/seedPhraseSolved').pipe(
-      map((response: any) => response.data),
+      map((response: any) => response),
       catchError((err) => {
         throw err
       })
@@ -25,7 +25,7 @@ export class KeysService {
     const endpoint = this.host + '/submitKey'
     const params = { privateKey: privateKey }
     return this.http.post(endpoint, params).pipe(
-      map((response: any) => response.data),
+      map((response: any) => response),
       catchError((err) => {
         throw err
       })
