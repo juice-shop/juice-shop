@@ -1,5 +1,6 @@
 <div class="filter-row">
   <mat-form-field class="search-form-field">
+    <mat-icon matPrefix class="search-icon">search</mat-icon>
     <mat-label>Search</mat-label>
     <input type="search" matInput [value]="filterSetting.searchQuery" (input)="onSearchQueryFilterChange($event.target.value)" placeholder="Search Anything">
   </mat-form-field>
