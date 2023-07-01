@@ -10,6 +10,7 @@
       [href]="challenge.mitigationUrl"
       target="_blank"
       rel="noopener noreferrer"
+      matTooltip="Click to learn how to avoid or mitigate similar vulnerabilities!"
     >
       <svg
         width="18"
@@ -25,7 +26,7 @@
         />
       </svg>
     </a>
-    <span class="badge" *ngIf="challenge.hasCodingChallenge">
+    <span class="badge" *ngIf="challenge.hasCodingChallenge" matTooltip="Launch associated coding challenge.">
       <svg
         width="18"
         height="18"
