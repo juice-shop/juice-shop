@@ -27,6 +27,7 @@
             <stop stop-color="var(--theme-accent)" />
             <stop [attr.offset]="difficulty.solvedChallenges / difficulty.availableChallenges * 100 + '%'" stop-color="var(--theme-accent)" />
             <stop stop-color="var(--theme-accent)" />
+            <!-- has to be duplicated here to stop the gradient directly instead of doing a "gradual" transition -->
             <stop stop-color="var(--theme-primary)" />
             </linearGradient>
           </defs>
