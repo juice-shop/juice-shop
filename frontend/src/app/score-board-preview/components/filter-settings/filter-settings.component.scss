@@ -26,3 +26,14 @@
     padding-top: initial;
   }
 }
+
+.search-icon {
+  color: var(--theme-text);
+  // some weird fixes to get the icon to align with the search field
+  // something troubling seems to be broken with angular material positioning for us
+  font-size: 18px;
+  line-height: 12px;
+  display: flex;
+  align-items: end;
+  margin-right: 4px;
+}
