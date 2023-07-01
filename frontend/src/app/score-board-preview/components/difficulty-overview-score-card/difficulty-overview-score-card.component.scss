@@ -11,7 +11,7 @@ $vertical-padding: 8px;
   }
 }
 
-.star-group {
+.difficulties-group {
   background-color: var(--theme-background-darkest);
   border-radius: 4px;
 
@@ -27,7 +27,7 @@ $vertical-padding: 8px;
   padding: $vertical-padding 12px;
   row-gap: 2px;
   
-  .star-container {
+  .difficulty-container {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -36,5 +36,19 @@ $vertical-padding: 8px;
   
   .total-challenges {
     color: var(--theme-text-invert-30);
+  }
+}
+
+.star-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .star-difficulty-label {
+    position: absolute;
+    line-height: 11px;
+    // text looks a bit more centered in the star if it is a bit under the center
+    margin-top: 2px;
+    font-size: 11px;
   }
 }
