@@ -17,4 +17,7 @@ export class ScoreCardComponent {
 
   @Input()
   public showAsPercentage: boolean = true
+
+  @Input()
+  public showProgressBar: boolean = true
 }

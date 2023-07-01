@@ -8,6 +8,9 @@
     </ng-container>
   </p>
   <p class="category">{{ description }}</p>
+  <div *ngIf="showProgressBar === true" class="progress-bar-container">
+    <div class="progress-bar" [style.width]="(score / total) * 100 + '%'"></div>
+  </div>
 </div>
 <div class="right-group">
   <ng-content select="[right-side]" />
