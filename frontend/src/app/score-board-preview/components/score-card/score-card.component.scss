@@ -36,3 +36,15 @@
     line-height: 23px;
   }
 }
+
+.progress-bar-container {
+  background-color: var(--theme-background-lighter);
+  overflow: hidden;
+  border-radius: 3px;
+  max-width: 200px;
+
+  .progress-bar {
+    height: 8px;
+    background-color: var(--theme-accent)
+  }
+}
