@@ -40,15 +40,15 @@ $vertical-padding: 8px;
 }
 
 .star-container {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: center;
 
   .star-difficulty-label {
-    position: absolute;
+    font-size: 11px;
     line-height: 11px;
     // text looks a bit more centered in the star if it is a bit under the center
     margin-top: 2px;
-    font-size: 11px;
+    position: absolute;
   }
 }
