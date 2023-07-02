@@ -46,6 +46,11 @@
         />
       </svg>
     </span>
+    <button class="badge" *ngIf="hasInstructions(challenge.name)" matTooltip="Start an interactive hacking tutorial for this challenge." (click)="startHackingInstructorFor(challenge.name)">
+      <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg" [style.color]="codingChallengeStatusColor()">
+        <path d="M8.33333 2L1 6L3.66667 7.45333V11.4533L8.33333 14L13 11.4533V7.45333L14.3333 6.72667V11.3333H15.6667V6L8.33333 2ZM12.88 6L8.33333 8.48L3.78667 6L8.33333 3.52L12.88 6ZM11.6667 10.66L8.33333 12.48L5 10.66V8.18L8.33333 10L11.6667 8.18V10.66Z" fill="white"/>
+      </svg>
+    </button>
   </div>
 </div>
 <div class="description-row" [innerHtml]="challenge.description"></div>
