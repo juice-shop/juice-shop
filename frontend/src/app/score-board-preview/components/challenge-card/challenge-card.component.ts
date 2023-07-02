@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core'
 
 import { EnrichedChallenge } from '../../types/EnrichedChallenge'
 
-import { hasInstructions, startHackingInstructorFor } from '../../../../hacking-instructor';
+import { hasInstructions, startHackingInstructorFor } from '../../../../hacking-instructor'
 
 @Component({
   selector: 'challenge-card',

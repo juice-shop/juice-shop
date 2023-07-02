@@ -3,8 +3,33 @@
 <div class="name-row">
   <div class="dot"></div>
   <span class="name">{{ challenge.name }}</span>
+  <div class="difficulty">
+    <span
+      class="difficulty-star"
+      *ngFor="let star of challenge.difficultyAsList"
+    >
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 14 13"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6.56386 0.511963L8.10332 5.24992H13.0851L9.05475 8.17813L10.5942 12.9161L6.56386 9.98787L2.53352 12.9161L4.07297 8.17813L0.0426283 5.24992H5.02441L6.56386 0.511963Z"
+          fill="var(--theme-text)"
+        />
+      </svg>
+    </span>
+  </div>
+</div>
+<div class="description-row" [innerHtml]="challenge.description"></div>
+<div class="bottom-row">
+  <div class="tags">
+    <span *ngFor="let tag of challenge.tagList" class="tag">{{ tag }}</span>
+  </div>
   <div class="badge-group">
-    <a
+    <!-- <a
       class="badge"
       *ngIf="challenge.mitigationUrl"
       [href]="challenge.mitigationUrl"
@@ -50,31 +75,51 @@
       <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg" [style.color]="codingChallengeStatusColor()">
         <path d="M8.33333 2L1 6L3.66667 7.45333V11.4533L8.33333 14L13 11.4533V7.45333L14.3333 6.72667V11.3333H15.6667V6L8.33333 2ZM12.88 6L8.33333 8.48L3.78667 6L8.33333 3.52L12.88 6ZM11.6667 10.66L8.33333 12.48L5 10.66V8.18L8.33333 10L11.6667 8.18V10.66Z" fill="white"/>
       </svg>
-    </button>
-  </div>
-</div>
-<div class="description-row" [innerHtml]="challenge.description"></div>
-<div class="bottom-row">
-  <div class="tags">
-    <span *ngFor="let tag of challenge.tagList" class="tag">{{ tag }}</span>
-  </div>
-  <div class="difficulty">
-    <span
-      class="difficulty-star"
-      *ngFor="let star of challenge.difficultyAsList"
+    </button> -->
+
+
+    <button 
+      class="badge"
+      *ngIf="challenge.hasCodingChallenge"
+      [disabled]="challenge.solved === false"
+      [ngClass]="{
+        'partially-completed': challenge.codingChallengeStatus === 1,
+        'completed': challenge.codingChallengeStatus === 2
+      }"
+      [matTooltip]="challenge.solved ? 'Launch associated coding challenge.' : 'You need to solve the hacking challenge before you can start the coding challenge.'"
     >
-      <svg
-        width="14"
-        height="13"
-        viewBox="0 0 14 13"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M6.56386 0.511963L8.10332 5.24992H13.0851L9.05475 8.17813L10.5942 12.9161L6.56386 9.98787L2.53352 12.9161L4.07297 8.17813L0.0426283 5.24992H5.02441L6.56386 0.511963Z"
-          fill="var(--theme-text)"
-        />
-      </svg>
-    </span>
+      <span class="badge-status" *ngIf="challenge.codingChallengeStatus !== 0">{{ challenge.codingChallengeStatus }}/2</span>
+      <mat-icon>code</mat-icon>
+    </button>
+    <!-- info text if the challenge is unavailable -->
+    <!-- todo(@J12934) implement -->
+    <button class="badge" *ngIf="false">
+      <mat-icon>info_outline</mat-icon>
+    </button>
+    <!-- cheat cheat link-->
+    <a
+      class="badge not-completable"
+      *ngIf="challenge.mitigationUrl"
+      [href]="challenge.mitigationUrl"
+      target="_blank"
+      rel="noopener noreferrer"
+      matTooltip="Click to learn how to avoid or mitigate similar vulnerabilities!"
+    >
+      <mat-icon>policy_outline</mat-icon>
+    </a>
+    <!-- ctf mode flag repeat-->
+    <!-- todo(@J12934) implement -->
+    <button class="badge" *ngIf="false">
+      <mat-icon>flag_outline</mat-icon>
+    </button>
+    <!-- hacking instructor-->
+    <button 
+      class="badge not-completable"
+      *ngIf="hasInstructions(challenge.name)"
+      matTooltip="Start an interactive hacking tutorial for this challenge."
+      (click)="startHackingInstructorFor(challenge.name)"
+    >
+      <mat-icon>school_outline</mat-icon>
+    </button>
   </div>
 </div>
