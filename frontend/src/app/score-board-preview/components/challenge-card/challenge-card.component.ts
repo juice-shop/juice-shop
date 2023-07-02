@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core'
 
 import { EnrichedChallenge } from '../../types/EnrichedChallenge'
 
+import { hasInstructions, startHackingInstructorFor } from '../../../../hacking-instructor';
+
 @Component({
   selector: 'challenge-card',
   templateUrl: './challenge-card.component.html',
@@ -10,6 +12,9 @@ import { EnrichedChallenge } from '../../types/EnrichedChallenge'
 export class ChallengeCardComponent {
   @Input()
   public challenge: EnrichedChallenge
+
+  public hasInstructions = hasInstructions
+  public startHackingInstructorFor = startHackingInstructorFor
 
   codingChallengeStatusColor () {
     if (!this.challenge.hasCodingChallenge || !this.challenge.solved) {
