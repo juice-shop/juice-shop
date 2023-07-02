@@ -28,7 +28,7 @@
 }
 
 .search-icon {
-  align-items: end;
+  align-items: flex-end;
   color: var(--theme-text);
   display: flex;
   // some weird fixes to get the icon to align with the search field
