@@ -116,6 +116,11 @@
   --theme-text-light: #{lighten(mat.get-color-from-palette(map-get($theme, foreground), text,), 10%)};
   --theme-text-darker: #{darken(mat.get-color-from-palette(map-get($theme, foreground), text,), 10%)};
   --theme-text-dark: #{darken(mat.get-color-from-palette(map-get($theme, foreground), text,), 25%)};
+  --theme-text-fade-10: #{fade-out(mat.get-color-from-palette(map-get($theme, foreground), text,), 0.1)};
+  --theme-text-fade-20: #{fade-out(mat.get-color-from-palette(map-get($theme, foreground), text,), 0.2)};
+  --theme-text-fade-30: #{fade-out(mat.get-color-from-palette(map-get($theme, foreground), text,), 0.3)};
+  --theme-text-fade-40: #{fade-out(mat.get-color-from-palette(map-get($theme, foreground), text,), 0.4)};
+  --theme-text-fade-50: #{fade-out(mat.get-color-from-palette(map-get($theme, foreground), text,), 0.5)};
   
   --theme-text-invert-15: #{invert(mat.get-color-from-palette(map-get($theme, foreground), text,), 15%)};
   --theme-text-invert-30: #{invert(mat.get-color-from-palette(map-get($theme, foreground), text,), 30%)};
