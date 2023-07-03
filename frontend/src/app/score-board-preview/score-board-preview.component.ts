@@ -10,6 +10,8 @@ import { DEFAULT_FILTER_SETTING, FilterSetting } from './types/FilterSetting'
 
 import { filterChallenges } from './helpers/challenge-filtering'
 import { SocketIoService } from '../Services/socket-io.service'
+import { MatDialog } from '@angular/material/dialog'
+import { CodeSnippetComponent } from '../code-snippet/code-snippet.component'
 
 interface ChallengeSolvedWebsocket {
   key: string
@@ -35,7 +37,8 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
     private readonly codeSnippetService: CodeSnippetService,
     private readonly sanitizer: DomSanitizer,
     private readonly ngZone: NgZone,
-    private readonly io: SocketIoService
+    private readonly io: SocketIoService,
+    private readonly dialog: MatDialog
   ) { }
 
   ngOnInit () {
@@ -106,5 +109,30 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
   public reset () {
     this.filterSetting = structuredClone(DEFAULT_FILTER_SETTING)
     this.filteredChallenges = filterChallenges(this.allChallenges, this.filterSetting)
+  }
+
+  openCodingChallengeDialog (key: string) {
+    const challenge = this.allChallenges.find((challenge) => challenge.key === key)
+
+    const dialogRef = this.dialog.open(CodeSnippetComponent, {
+      disableClose: true,
+      data: {
+        key: key,
+        name: challenge.name,
+        codingChallengeStatus: challenge.codingChallengeStatus,
+      }
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      const challenge = this.allChallenges.find((challenge) => challenge.key === key)
+      if (challenge.codingChallengeStatus < 1) {
+        challenge.codingChallengeStatus = result.findIt ? 1 : challenge.codingChallengeStatus
+      }
+      if (challenge.codingChallengeStatus < 2) {
+        challenge.codingChallengeStatus = result.fixIt ? 2 : challenge.codingChallengeStatus
+      }
+
+      this.filteredChallenges = filterChallenges(this.allChallenges, this.filterSetting)
+    })
   }
 }
