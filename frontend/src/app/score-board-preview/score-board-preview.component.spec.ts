@@ -5,6 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { ChallengeService } from '../Services/challenge.service'
 import { CodeSnippetService } from '../Services/code-snippet.service'
 import { of } from 'rxjs'
+import { MatDialogModule } from '@angular/material/dialog'
 
 describe('ScoreBoardPreviewComponent', () => {
   let component: ScoreBoardPreviewComponent
@@ -18,7 +19,8 @@ describe('ScoreBoardPreviewComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ScoreBoardPreviewComponent],
       imports: [
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        MatDialogModule
       ],
       providers: [
         { provide: ChallengeService, useValue: challengeService },
