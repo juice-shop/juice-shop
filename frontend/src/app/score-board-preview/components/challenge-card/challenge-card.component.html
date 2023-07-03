@@ -81,6 +81,7 @@
     <button 
       class="badge"
       *ngIf="challenge.hasCodingChallenge"
+      (click)="openCodingChallengeDialog(challenge.key)"
       [disabled]="challenge.solved === false"
       [ngClass]="{
         'partially-completed': challenge.codingChallengeStatus === 1,

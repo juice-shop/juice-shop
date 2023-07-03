@@ -13,6 +13,9 @@ export class ChallengeCardComponent {
   @Input()
   public challenge: EnrichedChallenge
 
+  @Input()
+  public openCodingChallengeDialog: (challengeKey: string) => void
+
   public hasInstructions = hasInstructions
   public startHackingInstructorFor = startHackingInstructorFor
 

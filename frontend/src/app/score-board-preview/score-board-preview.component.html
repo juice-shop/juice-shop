@@ -15,6 +15,7 @@
   <challenge-card
     *ngFor="let challenge of filteredChallenges; trackBy:getChallengeKey"
     [challenge]="challenge"
+    [openCodingChallengeDialog]="openCodingChallengeDialog.bind(this)"
     [ngClass]="{ solved: challenge.solved, unsolved: !challenge.solved }"
   />
 </div>
