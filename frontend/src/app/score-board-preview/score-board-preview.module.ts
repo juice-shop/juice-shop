@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatDialogModule } from '@angular/material/dialog'
+import { TranslateModule } from '@ngx-translate/core'
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { MatDialogModule } from '@angular/material/dialog'
     MatInputModule,
     MatTooltipModule,
     MatDialogModule,
+    TranslateModule,
   ],
 })
 class ScoreBoardPreviewModule {}

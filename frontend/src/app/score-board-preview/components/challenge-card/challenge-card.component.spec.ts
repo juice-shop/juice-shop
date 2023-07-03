@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { ChallengeCardComponent } from './challenge-card.component'
+import { Config } from 'src/app/Services/configuration.service'
 
 describe('ChallengeCard', () => {
   let component: ChallengeCardComponent
@@ -24,6 +25,13 @@ describe('ChallengeCard', () => {
         tagList: ['Eayy'],
         difficultyAsList: [undefined, undefined, undefined]
     } as any
+
+    component.applicationConfiguration = {
+      ctf: {
+        showFlagsInNotifications: true
+      }
+    } as Config
+
     fixture.detectChanges()
   })
 
