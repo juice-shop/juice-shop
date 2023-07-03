@@ -119,7 +119,7 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
       data: {
         key: key,
         name: challenge.name,
-        codingChallengeStatus: challenge.codingChallengeStatus,
+        codingChallengeStatus: challenge.codingChallengeStatus
       }
     })
 
