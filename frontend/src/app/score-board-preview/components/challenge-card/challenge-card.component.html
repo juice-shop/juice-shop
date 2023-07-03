@@ -44,9 +44,14 @@
       <span class="badge-status" *ngIf="challenge.codingChallengeStatus !== 0">{{ challenge.codingChallengeStatus }}/2</span>
       <mat-icon>code</mat-icon>
     </button>
+    <!-- todo(@J12934): add challenge hints -->
     <!-- info text if the challenge is unavailable -->
-    <!-- todo(@J12934) implement -->
-    <button class="badge" *ngIf="false">
+    <button 
+      class="badge"
+      *ngIf="challenge.disabledEnv !== null"
+      [matTooltip]="'Challenge is unavailable when run in ' + challenge.disabledEnv"
+      [matTooltip]="'CHALLENGE_UNAVAILABLE' | translate:{ env: challenge.disabledEnv }"
+    >
       <mat-icon>info_outline</mat-icon>
     </button>
     <!-- cheat cheat link-->
