@@ -12,7 +12,7 @@ import { Observable } from 'rxjs'
 interface ConfigResponse {
   config: Config
 }
-interface Config {
+export interface Config {
   server: {
     port: number
   }

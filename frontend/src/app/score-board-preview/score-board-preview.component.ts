@@ -1,17 +1,19 @@
 import { combineLatest } from 'rxjs'
-import { Component, NgZone, OnDestroy, OnInit } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core'
 
-import { ChallengeService } from '../Services/challenge.service'
+import { Config, ConfigurationService } from '../Services/configuration.service'
 import { CodeSnippetService } from '../Services/code-snippet.service'
+import { ChallengeService } from '../Services/challenge.service'
+import { SocketIoService } from '../Services/socket-io.service'
 
-import { EnrichedChallenge } from './types/EnrichedChallenge'
+import { CodeSnippetComponent } from '../code-snippet/code-snippet.component'
+
 import { DEFAULT_FILTER_SETTING, FilterSetting } from './types/FilterSetting'
+import { EnrichedChallenge } from './types/EnrichedChallenge'
 
 import { filterChallenges } from './helpers/challenge-filtering'
-import { SocketIoService } from '../Services/socket-io.service'
 import { MatDialog } from '@angular/material/dialog'
-import { CodeSnippetComponent } from '../code-snippet/code-snippet.component'
 
 interface ChallengeSolvedWebsocket {
   key: string
@@ -31,10 +33,12 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
   public allChallenges: EnrichedChallenge[] = []
   public filteredChallenges: EnrichedChallenge[] = []
   public filterSetting: FilterSetting = structuredClone(DEFAULT_FILTER_SETTING)
+  public applicationConfiguration: Config | null = null
 
   constructor (
     private readonly challengeService: ChallengeService,
     private readonly codeSnippetService: CodeSnippetService,
+    private readonly configurationService: ConfigurationService,
     private readonly sanitizer: DomSanitizer,
     private readonly ngZone: NgZone,
     private readonly io: SocketIoService,
@@ -45,9 +49,11 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
     console.time('ScoreBoardPreview - load challenges')
     combineLatest([
       this.challengeService.find({ sort: 'name' }),
-      this.codeSnippetService.challenges()
-    ]).subscribe(([challenges, challengeKeysWithCodeChallenges]) => {
+      this.codeSnippetService.challenges(),
+      this.configurationService.getApplicationConfiguration()
+    ]).subscribe(([challenges, challengeKeysWithCodeChallenges, applicationConfiguration]) => {
       console.timeEnd('ScoreBoardPreview - load challenges')
+      this.applicationConfiguration = applicationConfiguration
 
       console.time('ScoreBoardPreview - transform challenges')
       const transformedChallenges = challenges.map((challenge) => {
@@ -111,20 +117,20 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
     this.filteredChallenges = filterChallenges(this.allChallenges, this.filterSetting)
   }
 
-  openCodingChallengeDialog (key: string) {
-    const challenge = this.allChallenges.find((challenge) => challenge.key === key)
+  openCodingChallengeDialog (challengeKey: string) {
+    const challenge = this.allChallenges.find((challenge) => challenge.key === challengeKey)
 
     const dialogRef = this.dialog.open(CodeSnippetComponent, {
       disableClose: true,
       data: {
-        key: key,
+        key: challengeKey,
         name: challenge.name,
         codingChallengeStatus: challenge.codingChallengeStatus
       }
     })
 
     dialogRef.afterClosed().subscribe(result => {
-      const challenge = this.allChallenges.find((challenge) => challenge.key === key)
+      const challenge = this.allChallenges.find((challenge) => challenge.key === challengeKey)
       if (challenge.codingChallengeStatus < 1) {
         challenge.codingChallengeStatus = result.findIt ? 1 : challenge.codingChallengeStatus
       }
@@ -134,5 +140,10 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
 
       this.filteredChallenges = filterChallenges(this.allChallenges, this.filterSetting)
     })
+  }
+
+  async repeatChallengeNotification (challengeKey: string) {
+    const challenge = this.allChallenges.find((challenge) => challenge.key === challengeKey)
+    await this.challengeService.repeatNotification(encodeURIComponent(challenge.name)).toPromise()
   }
 }
