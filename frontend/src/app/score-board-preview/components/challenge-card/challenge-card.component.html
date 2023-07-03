@@ -109,8 +109,13 @@
       <mat-icon>policy_outline</mat-icon>
     </a>
     <!-- ctf mode flag repeat-->
-    <!-- todo(@J12934) implement -->
-    <button class="badge" *ngIf="false">
+    <button 
+      class="badge"
+      [ngClass]="{ 'completed': challenge.solved }"
+      *ngIf="challenge.solved && applicationConfiguration.ctf.showFlagsInNotifications"
+      (click)="repeatChallengeNotification(challenge.key)"
+      [matTooltip]="'NOTIFICATION_RESEND_INSTRUCTIONS' | translate"
+    >
       <mat-icon>flag_outline</mat-icon>
     </button>
     <!-- hacking instructor-->
