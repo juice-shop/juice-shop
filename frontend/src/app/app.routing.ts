@@ -45,8 +45,7 @@ import { SeedPhraseLeakComponent } from './seed-phrase-leak/seed-phrase-leak.com
 
 // vuln-code-snippet start adminSectionChallenge scoreBoardChallenge
 const routes: Routes = [
-  {
-    // vuln-code-snippet neutral-line adminSectionChallenge
+  { // vuln-code-snippet neutral-line adminSectionChallenge
     path: 'administration', // vuln-code-snippet vuln-line adminSectionChallenge
     component: AdministrationComponent, // vuln-code-snippet neutral-line adminSectionChallenge
     canActivate: [AdminGuard] // vuln-code-snippet neutral-line adminSectionChallenge
@@ -157,8 +156,7 @@ const routes: Routes = [
     path: 'hacking-instructor',
     component: SearchResultComponent
   },
-  {
-    // vuln-code-snippet neutral-line scoreBoardChallenge
+  { // vuln-code-snippet neutral-line scoreBoardChallenge
     path: 'score-board', // vuln-code-snippet vuln-line scoreBoardChallenge
     component: ScoreBoardComponent // vuln-code-snippet neutral-line scoreBoardChallenge
   }, // vuln-code-snippet neutral-line scoreBoardChallenge
@@ -210,13 +208,10 @@ const routes: Routes = [
   // vuln-code-snippet start tokenSaleChallenge
   {
     matcher: oauthMatcher,
-    data: {
-      params: window.location.href.substr(window.location.href.indexOf('#'))
-    },
+    data: { params: (window.location.href).substr(window.location.href.indexOf('#')) },
     component: OAuthComponent
   },
-  {
-    // vuln-code-snippet neutral-line tokenSaleChallenge
+  { // vuln-code-snippet neutral-line tokenSaleChallenge
     matcher: tokenMatcher, // vuln-code-snippet vuln-line tokenSaleChallenge
     component: TokenSaleComponent // vuln-code-snippet neutral-line tokenSaleChallenge
   }, // vuln-code-snippet neutral-line tokenSaleChallenge

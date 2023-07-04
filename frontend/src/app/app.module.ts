@@ -202,18 +202,20 @@ export function HttpLoaderFactory (http: HttpClient) {
     FeedbackDetailsComponent,
     CodeSnippetComponent,
     CodeAreaComponent,
-    CodeFixesComponent,
+    CodeFixesComponent
   ],
   imports: [
     BrowserModule,
     Routing,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-    }),
+    TranslateModule.forRoot(
+      {
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+        }
+      }
+    ),
     CookieModule.forRoot(),
     MatPasswordStrengthModule.forRoot(),
     FlexLayoutModule,
@@ -258,29 +260,26 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatSlideToggleModule,
     MatChipsModule,
     NgxTextDiffModule,
-    HighlightModule,
+    HighlightModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,
-      multi: true,
+      multi: true
     },
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {
-        coreLibraryLoader: async () => await import("highlight.js/lib/core"),
-        lineNumbersLoader: async () =>
-          await import("highlightjs-line-numbers.js"),
+        coreLibraryLoader: async () => await import('highlight.js/lib/core'),
+        lineNumbersLoader: async () => await import('highlightjs-line-numbers.js'),
         languages: {
-          typescript: async () =>
-            await import("highlight.js/lib/languages/typescript"),
-          javascript: async () =>
-            await import("highlight.js/lib/languages/javascript"),
-          yaml: async () => await import("highlight.js/lib/languages/yaml"),
-        },
-      },
+          typescript: async () => await import('highlight.js/lib/languages/typescript'),
+          javascript: async () => await import('highlight.js/lib/languages/javascript'),
+          yaml: async () => await import('highlight.js/lib/languages/yaml')
+        }
+      }
     },
     ProductService,
     ConfigurationService,
@@ -312,19 +311,14 @@ export function HttpLoaderFactory (http: HttpClient) {
     WalletService,
     OrderHistoryService,
     DeliveryService,
-    PhotoWallService,
+    PhotoWallService
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor (
-    public configurationService: ConfigurationService,
-    public overlayContainer: OverlayContainer
-  ) {
+  constructor (public configurationService: ConfigurationService, public overlayContainer: OverlayContainer) {
     configurationService.getApplicationConfiguration().subscribe((conf) => {
-      overlayContainer
-        .getContainerElement()
-        .classList.add(conf.application.theme + '-theme')
+      overlayContainer.getContainerElement().classList.add(conf.application.theme + '-theme')
     })
   }
 }
