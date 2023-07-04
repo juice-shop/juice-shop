@@ -321,3 +321,6 @@ ctf:
     emptyUserRegistration:
       name: Kenya
       code: KE
+    seedPhraseLeakChallenge:
+      name: India
+      code: IN
