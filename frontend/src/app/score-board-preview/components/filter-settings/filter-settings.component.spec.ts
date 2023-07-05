@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { FilterSettingsComponent } from './filter-settings.component'
 import { CategoryFilterComponent } from './components/category-filter/category-filter.component'
 import { DEFAULT_FILTER_SETTING } from '../../types/FilterSetting'
+import { TranslateModule } from '@ngx-translate/core'
 
 describe('FilterSettingsComponent', () => {
   let component: FilterSettingsComponent
@@ -10,6 +11,8 @@ describe('FilterSettingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot()],
+
       declarations: [FilterSettingsComponent, CategoryFilterComponent]
     })
     .compileComponents()

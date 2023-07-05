@@ -39,7 +39,7 @@
         'partially-completed': challenge.codingChallengeStatus === 1,
         'completed': challenge.codingChallengeStatus === 2
       }"
-      [matTooltip]="challenge.solved ? 'Launch associated coding challenge.' : 'You need to solve the hacking challenge before you can start the coding challenge.'"
+      [matTooltip]="(challenge.solved ? 'LAUNCH_CODING_CHALLENGE' : 'SOLVE_HACKING_CHALLENGE') | translate"
     >
       <span class="badge-status" *ngIf="challenge.codingChallengeStatus !== 0">{{ challenge.codingChallengeStatus }}/2</span>
       <mat-icon>code</mat-icon>
@@ -49,7 +49,6 @@
     <button 
       class="badge"
       *ngIf="challenge.disabledEnv !== null"
-      [matTooltip]="'Challenge is unavailable when run in ' + challenge.disabledEnv"
       [matTooltip]="'CHALLENGE_UNAVAILABLE' | translate:{ env: challenge.disabledEnv }"
     >
       <mat-icon>info_outline</mat-icon>
@@ -61,7 +60,7 @@
       [href]="challenge.mitigationUrl"
       target="_blank"
       rel="noopener noreferrer"
-      matTooltip="Click to learn how to avoid or mitigate similar vulnerabilities!"
+      [matTooltip]="'INFO_VULNERABILITY_MITIGATION_LINK' | translate"
     >
       <mat-icon>policy_outline</mat-icon>
     </a>
@@ -79,7 +78,7 @@
     <button 
       class="badge not-completable"
       *ngIf="hasInstructions(challenge.name)"
-      matTooltip="Start an interactive hacking tutorial for this challenge."
+      [matTooltip]="'INFO_HACKING_INSTRUCTOR' | translate"
       (click)="startHackingInstructorFor(challenge.name)"
     >
       <mat-icon>school_outline</mat-icon>
