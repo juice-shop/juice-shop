@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { ChallengeCardComponent } from './challenge-card.component'
 import { Config } from 'src/app/Services/configuration.service'
+import { TranslateModule } from '@ngx-translate/core'
 
 describe('ChallengeCard', () => {
   let component: ChallengeCardComponent
@@ -9,6 +10,7 @@ describe('ChallengeCard', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot()],
       declarations: [ChallengeCardComponent]
     })
     .compileComponents()
@@ -22,7 +24,7 @@ describe('ChallengeCard', () => {
         mitigationUrl: 'https://owasp.example.com',
         hasCodingChallenge: true,
         description: 'lorem ipsum',
-        tagList: ['Eayy'],
+        tagList: ['Easy'],
         difficultyAsList: [undefined, undefined, undefined]
     } as any
 
