@@ -23,7 +23,7 @@ export class ChallengeService {
   }
 
   repeatNotification (challengeName: string) {
-    return this.http.get(this.hostServer + '/rest/repeat-notification', { params: { challenge: challengeName }, responseType: 'text/plain' } as any).pipe(catchError((err) => { throw err }))
+    return this.http.get(this.hostServer + '/rest/repeat-notification', { params: { challenge: challengeName }, responseType: 'text' as const }).pipe(catchError((err) => { throw err }))
   }
 
   continueCode () {
