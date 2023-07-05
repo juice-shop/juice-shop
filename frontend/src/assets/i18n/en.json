@@ -113,7 +113,9 @@
   "LABEL_STATUS": "Status",
   "STATUS_UNSOLVED": "unsolved",
   "STATUS_SOLVED": "solved",
+  "STATUS_PARTIALLY_SOLVED": "partially solved",
   "STATUS_UNAVAILABLE": "unavailable",
+  "STATUS_ALL": "all",
   "CALL_FOR_CONTRIBUTIONS": "Got an idea for a new challenge? Found a vulnerability that is not tracked here? Let us know via <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> community chat or by opening a <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a> issue!",
   "CALL_FOR_FEEDBACK": "Please help us to make {{appname}} even better for you by answering our <a href='{{questionnaire}}'><i class='fas fa-poll-h'></i>user questionaire</a>!",
   "CHALLENGE_SOLVED": "You successfully solved a challenge: {{challenge}}",
@@ -416,5 +418,10 @@
   "TAB_FIND_IT": "Find It",
   "TAB_FIX_IT": "Fix It",
   "TITLE_CODING_SCORE": "Coding Score",
-  "LABEL_FEEDBACK": "Feedback"
+  "TITLE_CODING_CHALLENGES": "Coding Challenges",
+  "TITLE_HACKING_CHALLENGES": "Hacking Challenges",
+  "TITLE_PROBLEMS_SOLVED": "Problems Solved",
+  "LABEL_SEARCH": "Search",
+  "LABEL_FEEDBACK": "Feedback",
+  "LABEL_RESET_ALL_FILTERS": "Reset All Filters"
 }

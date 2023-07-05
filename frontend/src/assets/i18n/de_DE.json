@@ -112,7 +112,9 @@
   "LABEL_CHALLENGES": "Herausforderungen",
   "LABEL_STATUS": "Status",
   "STATUS_UNSOLVED": "ungelöst",
+  "STATUS_PARTIALLY_SOLVED": "teilweise gelöst",
   "STATUS_SOLVED": "gelöst",
+  "STATUS_ALL": "alle",
   "STATUS_UNAVAILABLE": "nicht verfügbar",
   "CALL_FOR_CONTRIBUTIONS": "Du hast eine Idee für eine neue Herausforderung? Du hast eine Schwachstelle gefunden, die hier nicht aufgeführt ist? Gib uns Bescheid via <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> Community-Chat oder eröffne ein <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a> Issue!",
   "CALL_FOR_FEEDBACK": "Bitte hilf uns, {{appname}} für dich noch besser zu machen, indem du unseren <a href='{{questionnaire}}'><i class='fas fa-poll-h'></i>Anwenderfragebogen</a> beantwortest!",
@@ -412,9 +414,14 @@
   "LOADING_CODE_SNIPPET": "Lade Code-Ausschnitt...",
   "SOLVE_HACKING_CHALLENGE": "Löse die Hacking-Herausforderung, um die zugehörige Programmierherausforderung freizuschalten.",
   "LABEL_CORRECT_FIX": "Korrekter Fix",
-  "TITLE_CODING_CHALLENGE": "Progammierherausforderung",
+  "TITLE_CODING_CHALLENGE": "Progammier Herausforderung",
   "TAB_FIND_IT": "Finde es",
   "TAB_FIX_IT": "Fixe es",
   "TITLE_CODING_SCORE": "Programmier-Punkte",
-  "LABEL_FEEDBACK": "Feedback"
+  "TITLE_CODING_CHALLENGES": "Programmier Herausforderungen",
+  "TITLE_HACKING_CHALLENGES": "Hacking Herausforderung",
+  "TITLE_PROBLEMS_SOLVED": "Gelöste Probleme",
+  "LABEL_SEARCH": "Suche",
+  "LABEL_FEEDBACK": "Feedback",
+  "LABEL_RESET_ALL_FILTERS": "Alle Filter zurücksetzen"
 }
