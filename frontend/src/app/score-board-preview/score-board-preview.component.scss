@@ -2,10 +2,10 @@
   display: block;
   margin: 48px 72px;
 
-  @media (max-width: 1200px) {
+  @media (max-width: 1500px) {
     margin: 48px 64px;
   }
-  @media (max-width: 800px) {
+  @media (max-width: 900px) {
     margin: 48px;
   }
   @media (max-width: 600px) {
@@ -21,11 +21,11 @@
   row-gap: 8px;
 
   // use 3 columns on large(ish) screens
-  @media (max-width: 1200px) {
+  @media (max-width: 1500px) {
     grid-template-columns: repeat(3, 1fr);
   }
   // use 2 columns ipads and smaller
-  @media (max-width: 810px) {
+  @media (max-width: 900px) {
     grid-template-columns: repeat(2, 1fr);
   }
   // use 1 column on extra small screens
@@ -43,11 +43,11 @@
   row-gap: 12px;
 
   // use 3 columns on large(ish) screens
-  @media (max-width: 1200px) {
+  @media (max-width: 1500px) {
     grid-template-columns: repeat(3, 1fr);
   }
   // use 2 columns ipads and smaller
-  @media (max-width: 810px) {
+  @media (max-width: 900px) {
     grid-template-columns: repeat(2, 1fr);
   }
   // use 1 column on extra small screens
