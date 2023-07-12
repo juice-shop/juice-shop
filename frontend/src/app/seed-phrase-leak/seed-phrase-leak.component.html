@@ -11,12 +11,13 @@
         <div>
           <mat-card-title>Juicy Chatbot SBT</mat-card-title>
         </div>
-        <div>Enter the first account's key to access me on Polygon.</div>
+        <div>Enter the first account's key to access me on Ethereum.</div>
         <form (ngSubmit)="submitForm()">
           <div class="form-group">
             <label for="privateKey">Private Key</label>
             <input type="text" class="form-control" id="privateKey" [(ngModel)]="privateKey" name="privateKey" required>
           </div>
+          <h5 class="error-text">{{errorMessage}}</h5>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>

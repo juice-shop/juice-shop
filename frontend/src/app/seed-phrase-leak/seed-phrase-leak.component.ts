@@ -11,6 +11,7 @@ export class SeedPhraseLeakComponent {
   privateKey: string
   formSubmitted: boolean = false
   successResponse: boolean = false
+  errorMessage = ''
 
   constructor (private readonly keysService: KeysService) {}
 
@@ -34,16 +35,16 @@ export class SeedPhraseLeakComponent {
     this.formSubmitted = true
     this.keysService.submitKey(this.privateKey).subscribe(
       (response) => {
-        console.log(response)
         if (response.success) {
           this.successResponse = true
+          this.errorMessage = response.message
         } else {
           this.successResponse = false
         }
       },
       (error) => {
-        console.error(error)
         this.successResponse = false
+        this.errorMessage = error.error.message;
       }
     )
   }
