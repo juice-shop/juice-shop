@@ -69,25 +69,27 @@ mat-card:nth-child(1) {
 .box-text {
   margin-top: 8px;
 }
-.form-group{
+
+.form-group {
   margin-top: 16px;
 }
 
 label {
   font-weight: bold;
 }
-.error-text{
-  padding-top: 4px;
+
+.error-text {
   color: #ff1818;
   font-weight: 500;
+  padding-top: 4px;
 }
 
 input.form-control {
   border: 1px solid #ccc;
   border-radius: 4px;
+  margin-top: 4px;
   outline: none;
   padding: 8px;
-  margin-top: 4px;
   width: 100%;
 }
 

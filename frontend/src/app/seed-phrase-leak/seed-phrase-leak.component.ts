@@ -44,7 +44,7 @@ export class SeedPhraseLeakComponent {
       },
       (error) => {
         this.successResponse = false
-        this.errorMessage = error.error.message;
+        this.errorMessage = error.error.message
       }
     )
   }
