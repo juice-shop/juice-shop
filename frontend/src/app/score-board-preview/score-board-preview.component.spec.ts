@@ -1,11 +1,12 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { RouterTestingModule } from '@angular/router/testing'
+import { MatDialogModule } from '@angular/material/dialog'
+import { of } from 'rxjs'
 
 import { ScoreBoardPreviewComponent } from './score-board-preview.component'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { ChallengeService } from '../Services/challenge.service'
 import { CodeSnippetService } from '../Services/code-snippet.service'
-import { of } from 'rxjs'
-import { MatDialogModule } from '@angular/material/dialog'
+import { ChallengeService } from '../Services/challenge.service'
 
 describe('ScoreBoardPreviewComponent', () => {
   let component: ScoreBoardPreviewComponent
@@ -20,6 +21,7 @@ describe('ScoreBoardPreviewComponent', () => {
       declarations: [ScoreBoardPreviewComponent],
       imports: [
         HttpClientTestingModule,
+        RouterTestingModule,
         MatDialogModule
       ],
       providers: [
