@@ -1,19 +1,20 @@
 import { combineLatest } from 'rxjs'
+import { MatDialog } from '@angular/material/dialog'
 import { DomSanitizer } from '@angular/platform-browser'
+import { ActivatedRoute, Router } from '@angular/router'
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core'
 
-import { Config, ConfigurationService } from '../Services/configuration.service'
-import { CodeSnippetService } from '../Services/code-snippet.service'
-import { ChallengeService } from '../Services/challenge.service'
 import { SocketIoService } from '../Services/socket-io.service'
-
+import { ChallengeService } from '../Services/challenge.service'
+import { CodeSnippetService } from '../Services/code-snippet.service'
 import { CodeSnippetComponent } from '../code-snippet/code-snippet.component'
+import { Config, ConfigurationService } from '../Services/configuration.service'
 
-import { DEFAULT_FILTER_SETTING, FilterSetting } from './types/FilterSetting'
 import { EnrichedChallenge } from './types/EnrichedChallenge'
+import { DEFAULT_FILTER_SETTING, FilterSetting } from './types/FilterSetting'
 
 import { filterChallenges } from './helpers/challenge-filtering'
-import { MatDialog } from '@angular/material/dialog'
+import { fromQueryParams, toQueryParams } from './helpers/query-params-converters'
 
 interface ChallengeSolvedWebsocket {
   key: string
@@ -42,7 +43,9 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
     private readonly sanitizer: DomSanitizer,
     private readonly ngZone: NgZone,
     private readonly io: SocketIoService,
-    private readonly dialog: MatDialog
+    private readonly dialog: MatDialog,
+    private readonly router: Router,
+    private readonly route: ActivatedRoute
   ) { }
 
   ngOnInit () {
@@ -71,6 +74,11 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
       console.timeEnd('ScoreBoardPreview - transform challenges')
     })
 
+    this.route.queryParams.subscribe((queryParams) => {
+      this.filterSetting = fromQueryParams(queryParams)
+      this.filteredChallenges = filterChallenges(this.allChallenges, this.filterSetting)
+    })
+
     this.io.socket().on('challenge solved', this.onChallengeSolvedWebsocket.bind(this))
   }
 
@@ -79,9 +87,9 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
   }
 
   onFilterSettingUpdate (filterSetting: FilterSetting) {
-    console.log('ScoreBoardPreview - filter setting update', filterSetting)
-    this.filterSetting = filterSetting
-    this.filteredChallenges = filterChallenges(this.allChallenges, filterSetting)
+    this.router.navigate([], {
+      queryParams: toQueryParams(filterSetting)
+    })
   }
 
   onChallengeSolvedWebsocket (data?: ChallengeSolvedWebsocket) {
@@ -112,7 +120,7 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
     return challenge.key
   }
 
-  public reset () {
+  reset () {
     this.filterSetting = structuredClone(DEFAULT_FILTER_SETTING)
     this.filteredChallenges = filterChallenges(this.allChallenges, this.filterSetting)
   }
