@@ -423,5 +423,6 @@
   "TITLE_PROBLEMS_SOLVED": "Gelöste Probleme",
   "LABEL_SEARCH": "Suche",
   "LABEL_FEEDBACK": "Feedback",
-  "LABEL_RESET_ALL_FILTERS": "Alle Filter zurücksetzen"
+  "LABEL_RESET_ALL_FILTERS": "Alle Filter zurücksetzen",
+  "NO_CHALLENGES_FOUND": "Oh nein. Keine Herausforderungen zu den Filtern gefunden 😥"
 }
