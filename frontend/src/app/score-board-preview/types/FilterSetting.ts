@@ -1,6 +1,6 @@
 export interface FilterSetting {
     // categories to display. if empty, all categories are displayed
-    categories: Set<string>
+    categories: string[]
 
     // difficulties to display. if empty, all difficulties are displayed
     difficulties: Array<1|2|3|4|5|6>
@@ -13,14 +13,18 @@ export interface FilterSetting {
 
     // search query to search challenge names & descriptions for. if null, all challenges are displayed
     searchQuery: string | null
+
+    // whether to show disabled challenges
+    showDisabledChallenges: boolean
 }
 
 export type SolvedStatus = 'solved' | 'unsolved' | 'partially-solved'
 
 export const DEFAULT_FILTER_SETTING: Readonly<FilterSetting> = Object.freeze({
-    categories: new Set<string>(),
+    categories: [],
     difficulties: [],
     tags: [],
     status: null,
-    searchQuery: null
+    searchQuery: null,
+    showDisabledChallenges: true
 })
