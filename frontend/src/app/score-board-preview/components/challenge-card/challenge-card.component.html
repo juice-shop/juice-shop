@@ -51,7 +51,7 @@
       *ngIf="challenge.disabledEnv !== null"
       [matTooltip]="'CHALLENGE_UNAVAILABLE' | translate:{ env: challenge.disabledEnv }"
     >
-      <mat-icon>info_outline</mat-icon>
+      <mat-icon [style.color]="'var(--theme-warn)'">info_outline</mat-icon>
     </button>
     <!-- cheat cheat link-->
     <a

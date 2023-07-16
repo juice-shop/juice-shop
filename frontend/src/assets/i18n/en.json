@@ -195,6 +195,8 @@
   "BTN_SHOW_ALL": "Show all",
   "BTN_SHOW_UNAVAILABLE": "Show unavailable",
   "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>security concerns</a> or technical incompatibility!",
+  "SHOW_DISABLED_CHALLENGES": "Show them anyways",
+  "HIDE_DISABLED_CHALLENGES": "Hide disabled challenges",
   "BTN_HIDE_ALL": "Hide all",
   "TYPE_THESE_LETTERS": "Type these {{length}} letters",
   "BTN_REQUEST": "Request",

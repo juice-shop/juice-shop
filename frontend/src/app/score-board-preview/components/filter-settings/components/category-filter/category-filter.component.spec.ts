@@ -22,7 +22,7 @@ describe('CategoryFilterComponent', () => {
       { category: 'category-two' } as EnrichedChallenge,
       { category: 'category-three' } as EnrichedChallenge
     ]
-    component.categories = new Set()
+    component.categories = []
     fixture.detectChanges()
   })
 

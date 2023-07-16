@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core'
-import { FilterSetting } from '../../types/FilterSetting'
+import { DEFAULT_FILTER_SETTING, FilterSetting } from '../../types/FilterSetting'
 import { EnrichedChallenge } from '../../types/EnrichedChallenge'
 
 @Component({
@@ -14,11 +14,11 @@ export class FilterSettingsComponent implements OnChanges {
   @Input()
   public filterSetting: FilterSetting
 
-  @Input()
-  public reset: () => void
-
   @Output()
   public filterSettingChange = new EventEmitter<FilterSetting>()
+
+  @Input()
+  public reset: () => void
 
   public tags: Set<string> = new Set()
   ngOnChanges () {
@@ -43,7 +43,7 @@ export class FilterSettingsComponent implements OnChanges {
     this.filterSettingChange.emit(filterSettingCopy)
   }
 
-  onCategoryFilterChange (categories: Set<string>) {
+  onCategoryFilterChange (categories: string[]) {
     const filterSettingCopy = structuredClone(this.filterSetting)
     filterSettingCopy.categories = categories
     this.filterSettingChange.emit(filterSettingCopy)
@@ -59,7 +59,8 @@ export class FilterSettingsComponent implements OnChanges {
     return this.filterSetting.difficulties.length > 0 ||
       this.filterSetting.status !== null ||
       this.filterSetting.tags.length > 0 ||
-      this.filterSetting.categories.size > 0 ||
-      !!this.filterSetting.searchQuery
+      this.filterSetting.categories.length > 0 ||
+      !!this.filterSetting.searchQuery ||
+      !this.filterSetting.showDisabledChallenges
   }
 }

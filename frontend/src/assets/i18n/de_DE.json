@@ -195,6 +195,8 @@
   "BTN_SHOW_ALL": "Alle anzeigen",
   "BTN_SHOW_UNAVAILABLE": "Nicht verfügbare anzeigen",
   "INFO_DISABLED_CHALLENGES": "{{num}} Herausforderungen sind in einer {{env}}-Umgebung wegen <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>Sicherheitsbedenken</a> oder technischer Inkompatibilität nicht verfügbar!",
+  "SHOW_DISABLED_CHALLENGES": "Trotzdem anzeigen",
+  "HIDE_DISABLED_CHALLENGES": "Unverfügbare Herausforderungen ausblenden",
   "BTN_HIDE_ALL": "Alle ausblenden",
   "TYPE_THESE_LETTERS": "Gib diese {{length}} Zeichen ein",
   "BTN_REQUEST": "Anfordern",

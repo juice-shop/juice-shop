@@ -7,6 +7,7 @@ import { of } from 'rxjs'
 import { ScoreBoardPreviewComponent } from './score-board-preview.component'
 import { CodeSnippetService } from '../Services/code-snippet.service'
 import { ChallengeService } from '../Services/challenge.service'
+import { TranslateModule } from '@ngx-translate/core'
 
 describe('ScoreBoardPreviewComponent', () => {
   let component: ScoreBoardPreviewComponent
@@ -20,6 +21,7 @@ describe('ScoreBoardPreviewComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ScoreBoardPreviewComponent],
       imports: [
+        TranslateModule.forRoot(),
         HttpClientTestingModule,
         RouterTestingModule,
         MatDialogModule

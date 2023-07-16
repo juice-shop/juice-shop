@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core'
 import { EnrichedChallenge } from '../../../../types/EnrichedChallenge'
+import { DEFAULT_FILTER_SETTING } from 'src/app/score-board-preview/types/FilterSetting'
 
 @Component({
   selector: 'category-filter',
@@ -13,10 +14,10 @@ export class CategoryFilterComponent implements OnInit, OnChanges {
   allChallenges: EnrichedChallenge[]
 
   @Input()
-  categories: Set<string>
+  categories: string[]
 
   @Output()
-  categoriesChange = new EventEmitter<Set<string>>()
+  categoriesChange = new EventEmitter<string[]>()
 
   ngOnInit () {
     this.availableCategories = CategoryFilterComponent.getAvailableCategories(this.allChallenges)
@@ -31,24 +32,24 @@ export class CategoryFilterComponent implements OnInit, OnChanges {
   }
 
   public toggleCategorySelected (category: string) {
-    if (this.categories.has(category)) {
-      this.categories.delete(category)
+    if (this.isCategorySelected(category)) {
+      this.categories = this.categories.filter((c) => c !== category)
     } else {
-      this.categories.add(category)
+      this.categories.push(category)
     }
     this.categoriesChange.emit(this.categories)
   }
 
   public isCategorySelected (category: string) {
-    return this.categories.has(category)
+    return this.categories.includes(category)
   }
 
   public isAllCategoriesSelected () {
-    return (this.categories.size === 0)
+    return (this.categories.length === 0)
   }
 
   public resetCategoryFilter () {
-    this.categories = new Set()
+    this.categories = DEFAULT_FILTER_SETTING.categories
     this.categoriesChange.emit(this.categories)
   }
 }

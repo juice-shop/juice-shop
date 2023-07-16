@@ -18,7 +18,7 @@ describe('fromQueryParams', () => {
       searchQuery: 'jwt token',
       difficulties: [1],
       status: 'solved',
-      categories: new Set(['Improper Input Validation'])
+      categories: ['Improper Input Validation']
     })
   })
   it('should fully filled query params properly', () => {
@@ -28,7 +28,8 @@ describe('fromQueryParams', () => {
         difficulties: '1,3,5,6',
         status: 'partially-solved',
         tags: 'Danger Zone,Good for Demos,Prerequisite',
-        categories: 'Improper Input Validation,Broken Anti Automation'
+        categories: 'Improper Input Validation,Broken Anti Automation',
+        showDisabledChallenges: 'false'
       })
     ).toEqual({
       ...DEFAULT_FILTER_SETTING,
@@ -36,10 +37,11 @@ describe('fromQueryParams', () => {
       difficulties: [1, 3, 5, 6],
       status: 'partially-solved',
       tags: ['Danger Zone', 'Good for Demos', 'Prerequisite'],
-      categories: new Set([
+      categories: [
         'Improper Input Validation',
         'Broken Anti Automation'
-      ])
+      ],
+      showDisabledChallenges: false
     })
   })
 })
@@ -53,7 +55,8 @@ describe('toQueryParams', () => {
       difficulties: undefined,
       status: undefined,
       tags: undefined,
-      categories: undefined
+      categories: undefined,
+      showDisabledChallenges: undefined
     })
   })
   it('should convert somewhat filled filterSettings correctly', () => {
@@ -63,14 +66,16 @@ describe('toQueryParams', () => {
         searchQuery: 'jwt token',
         difficulties: [1],
         status: 'solved',
-        categories: new Set(['Improper Input Validation'])
+        categories: ['Improper Input Validation'],
+        showDisabledChallenges: false
       })
     ).toEqual({
       searchQuery: 'jwt token',
       difficulties: '1',
       status: 'solved',
       tags: undefined,
-      categories: 'Improper Input Validation'
+      categories: 'Improper Input Validation',
+      showDisabledChallenges: 'false'
     })
   })
   it('should convert fully filled filterSettings correctly', () => {
@@ -81,14 +86,16 @@ describe('toQueryParams', () => {
         difficulties: [1, 3, 5, 6],
         status: 'partially-solved',
         tags: ['Danger Zone', 'Good for Demos', 'Prerequisite'],
-        categories: new Set(['Improper Input Validation', 'Broken Anti Automation'])
+        categories: ['Improper Input Validation', 'Broken Anti Automation'],
+        showDisabledChallenges: false
       })
     ).toEqual({
       searchQuery: 'jwt token',
       difficulties: '1,3,5,6',
       status: 'partially-solved',
       tags: 'Danger Zone,Good for Demos,Prerequisite',
-      categories: 'Improper Input Validation,Broken Anti Automation'
+      categories: 'Improper Input Validation,Broken Anti Automation',
+      showDisabledChallenges: 'false'
     })
   })
 })

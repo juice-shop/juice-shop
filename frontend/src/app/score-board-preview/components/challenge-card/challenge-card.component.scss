@@ -24,6 +24,14 @@
   &.unsolved .dot {
     background-color: #5c5c5c;
   }
+
+  &.disabled {
+    filter: opacity(0.4);
+  }
+
+  &.disabled .dot {
+    background-color: var(--theme-warn-fade-40);
+  }
 }
 
 .category-row {

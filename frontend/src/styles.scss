@@ -98,18 +98,33 @@
   --theme-primary-light: #{lighten(mat.get-color-from-palette(map-get($theme, primary)), 10%)};
   --theme-primary-darker: #{darken(mat.get-color-from-palette(map-get($theme, primary)), 6%)};
   --theme-primary-dark: #{darken(mat.get-color-from-palette(map-get($theme, primary)), 10%)};
+  --theme-primary-fade-10: #{fade-out(mat.get-color-from-palette(map-get($theme, primary)), 0.1)};
+  --theme-primary-fade-20: #{fade-out(mat.get-color-from-palette(map-get($theme, primary)), 0.2)};
+  --theme-primary-fade-30: #{fade-out(mat.get-color-from-palette(map-get($theme, primary)), 0.3)};
+  --theme-primary-fade-40: #{fade-out(mat.get-color-from-palette(map-get($theme, primary)), 0.4)};
+  --theme-primary-fade-50: #{fade-out(mat.get-color-from-palette(map-get($theme, primary)), 0.5)};
 
   --theme-accent: #{mat.get-color-from-palette(map-get($theme, accent))};
   --theme-accent-lighter: #{lighten(mat.get-color-from-palette(map-get($theme, accent)), 6%)};
   --theme-accent-light: #{lighten(mat.get-color-from-palette(map-get($theme, accent)), 10%)};
   --theme-accent-darker: #{darken(mat.get-color-from-palette(map-get($theme, accent)), 6%)};
   --theme-accent-dark: #{darken(mat.get-color-from-palette(map-get($theme, accent)), 10%)};
+  --theme-accent-fade-10: #{fade-out(mat.get-color-from-palette(map-get($theme, accent)), 0.1)};
+  --theme-accent-fade-20: #{fade-out(mat.get-color-from-palette(map-get($theme, accent)), 0.2)};
+  --theme-accent-fade-30: #{fade-out(mat.get-color-from-palette(map-get($theme, accent)), 0.3)};
+  --theme-accent-fade-40: #{fade-out(mat.get-color-from-palette(map-get($theme, accent)), 0.4)};
+  --theme-accent-fade-50: #{fade-out(mat.get-color-from-palette(map-get($theme, accent)), 0.5)};
 
   --theme-warn: #{mat.get-color-from-palette(map-get($theme, warn))};
   --theme-warn-lighter: #{lighten(mat.get-color-from-palette(map-get($theme, warn)), 6%)};
   --theme-warn-light: #{lighten(mat.get-color-from-palette(map-get($theme, warn)), 10%)};
   --theme-warn-darker: #{darken(mat.get-color-from-palette(map-get($theme, warn)), 6%)};
   --theme-warn-dark: #{darken(mat.get-color-from-palette(map-get($theme, warn)), 10%)};
+  --theme-warn-fade-10: #{fade-out(mat.get-color-from-palette(map-get($theme, warn)), 0.1)};
+  --theme-warn-fade-20: #{fade-out(mat.get-color-from-palette(map-get($theme, warn)), 0.2)};
+  --theme-warn-fade-30: #{fade-out(mat.get-color-from-palette(map-get($theme, warn)), 0.3)};
+  --theme-warn-fade-40: #{fade-out(mat.get-color-from-palette(map-get($theme, warn)), 0.4)};
+  --theme-warn-fade-50: #{fade-out(mat.get-color-from-palette(map-get($theme, warn)), 0.5)};
 
   --theme-text: #{mat.get-color-from-palette(map-get($theme, foreground), text)};
   --theme-text-lighter: #{lighten(mat.get-color-from-palette(map-get($theme, foreground), text,), 6%)};
