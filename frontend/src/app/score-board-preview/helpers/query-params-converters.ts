@@ -20,7 +20,10 @@ export function fromQueryParams (queryParams: Readonly<Params>): FilterSetting {
     filterSetting.status = queryParams.status
   }
   if (queryParams.categories) {
-    filterSetting.categories = new Set(queryParams.categories.split(','))
+    filterSetting.categories = queryParams.categories.split(',')
+  }
+  if (queryParams.showDisabledChallenges !== undefined) {
+    filterSetting.showDisabledChallenges = queryParams.showDisabledChallenges === 'true'
   }
 
   return filterSetting
@@ -32,6 +35,7 @@ export function toQueryParams (filterSetting: Readonly<FilterSetting>): Params {
     difficulties: filterSetting.difficulties.join(',') || undefined,
     status: filterSetting.status || undefined,
     tags: filterSetting.tags.join(',') || undefined,
-    categories: [...filterSetting.categories.values()].join(',') || undefined
+    categories: filterSetting.categories.join(',') || undefined,
+    showDisabledChallenges: !filterSetting.showDisabledChallenges ? 'false' : undefined
   }
 }

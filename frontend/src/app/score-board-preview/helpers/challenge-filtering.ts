@@ -2,13 +2,14 @@ import { EnrichedChallenge } from '../types/EnrichedChallenge'
 import { FilterSetting, SolvedStatus } from '../types/FilterSetting'
 
 export function filterChallenges (challenges: EnrichedChallenge[], filterSetting: FilterSetting): EnrichedChallenge[] {
+  console.log('filterSetting.showDisabledChallenges', filterSetting.showDisabledChallenges)
     return challenges
       // filter by category
       .filter((challenge) => {
-          if (filterSetting.categories.size === 0) {
+          if (filterSetting.categories.length === 0) {
               return true
             }
-            return filterSetting.categories.has(challenge.category)
+            return filterSetting.categories.includes(challenge.category)
         })
        // filter by difficulty
        .filter((challenge) => {
@@ -23,14 +24,23 @@ export function filterChallenges (challenges: EnrichedChallenge[], filterSetting
                return true
             }
             return challenge.tagList.some((tag) => filterSetting.tags.includes(tag))
-        })
-        // filter by status
+      })
+      // filter by status
       .filter((challenge) => {
         if (filterSetting.status === null) {
           return true
         }
         return filterSetting.status === getCompleteChallengeStatus(challenge)
-      }).filter((challenge) => {
+      })
+      // filter disabled challenges
+      .filter((challenge) => {
+        if (challenge.disabledEnv === null) {
+          return true
+        }
+        return filterSetting.showDisabledChallenges
+      })
+      // filter by search query
+      .filter((challenge) => {
         if (filterSetting.searchQuery === null) {
           return true
         }

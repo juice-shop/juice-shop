@@ -11,6 +11,12 @@
   [reset]="reset.bind(this)"
 ></filter-settings>
 
+<challenges-unavailable-warning
+  [challenges]="allChallenges"
+  [filterSetting]="filterSetting"
+  (filterSettingChange)="onFilterSettingUpdate($event)"
+></challenges-unavailable-warning>
+
 <div class="challenges" *ngIf="filteredChallenges.length > 0; else emptyChallenges">
   <challenge-card
     *ngFor="let challenge of filteredChallenges; trackBy:getChallengeKey"
@@ -18,7 +24,7 @@
     [applicationConfiguration]="applicationConfiguration"
     [openCodingChallengeDialog]="openCodingChallengeDialog.bind(this)"
     [repeatChallengeNotification]="repeatChallengeNotification.bind(this)"
-    [ngClass]="{ solved: challenge.solved, unsolved: !challenge.solved }"
+    [ngClass]="{ solved: challenge.solved, unsolved: !challenge.solved, disabled: challenge.disabledEnv !== null }"
   />
 </div>
 

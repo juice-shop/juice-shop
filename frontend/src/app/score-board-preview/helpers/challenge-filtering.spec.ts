@@ -15,7 +15,8 @@ const CHALLENGE_1 = {
   name: 'challenge one',
   solved: false,
   codingChallengeStatus: 0,
-  tagList: ['easy']
+  tagList: ['easy'],
+  disabledEnv: null
 } as EnrichedChallenge
 
 const CHALLENGE_2 = {
@@ -31,7 +32,8 @@ const CHALLENGE_2 = {
   name: 'challenge two',
   solved: true,
   codingChallengeStatus: 2,
-  tagList: ['easy']
+  tagList: ['easy'],
+  disabledEnv: null
 } as EnrichedChallenge
 
 const CHALLENGE_3 = {
@@ -47,23 +49,24 @@ const CHALLENGE_3 = {
   name: 'challenge three',
   solved: true,
   codingChallengeStatus: 1,
-  tagList: ['hard']
+  tagList: ['hard'],
+  disabledEnv: 'docker'
 } as EnrichedChallenge
 
 describe('filterChallenges', () => {
   it('should filter empty list', () => {
-    expect(filterChallenges([], { ...DEFAULT_FILTER_SETTING, categories: new Set() })).toEqual([])
-    expect(filterChallenges([], { categories: new Set(['foo', 'bar']), difficulties: [1, 2, 3, 5, 6], tags: ['hard'], status: 'solved', searchQuery: 'foobar' })).toEqual([])
+    expect(filterChallenges([], { ...DEFAULT_FILTER_SETTING })).toEqual([])
+    expect(filterChallenges([], { categories: ['foo', 'bar'], difficulties: [1, 2, 3, 5, 6], tags: ['hard'], status: 'solved', searchQuery: 'foobar', showDisabledChallenges: true })).toEqual([])
   })
 
   it('should filter challenges based on categories properly', () => {
     expect(filterChallenges(
       [CHALLENGE_1, CHALLENGE_2, CHALLENGE_3],
-      { ...DEFAULT_FILTER_SETTING, categories: new Set(['foobar']) }
+      { ...DEFAULT_FILTER_SETTING, categories: ['foobar'] }
     ).map((challenge) => challenge.key)).toEqual(jasmine.arrayWithExactContents(['challenge-1', 'challenge-2']))
     expect(filterChallenges(
       [CHALLENGE_1, CHALLENGE_2, CHALLENGE_3],
-      { ...DEFAULT_FILTER_SETTING, categories: new Set(['barfoo']) }
+      { ...DEFAULT_FILTER_SETTING, categories: ['barfoo'] }
     ).map((challenge) => challenge.key)).toEqual(jasmine.arrayWithExactContents(['challenge-3']))
   })
 
@@ -113,5 +116,16 @@ describe('filterChallenges', () => {
       [CHALLENGE_1, CHALLENGE_2, CHALLENGE_3],
       { ...DEFAULT_FILTER_SETTING, searchQuery: 'challenge three' }
     ).map((challenge) => challenge.key)).toEqual(jasmine.arrayWithExactContents(['challenge-3']))
+  })
+
+  it('should filter challenges based on disabled setting properly', () => {
+    expect(filterChallenges(
+      [CHALLENGE_1, CHALLENGE_2, CHALLENGE_3],
+      { ...DEFAULT_FILTER_SETTING, showDisabledChallenges: true }
+    ).map((challenge) => challenge.key)).toEqual(jasmine.arrayWithExactContents(['challenge-1', 'challenge-2', 'challenge-3']))
+    expect(filterChallenges(
+      [CHALLENGE_1, CHALLENGE_2, CHALLENGE_3],
+      { ...DEFAULT_FILTER_SETTING, showDisabledChallenges: false }
+    ).map((challenge) => challenge.key)).toEqual(jasmine.arrayWithExactContents(['challenge-1', 'challenge-2']))
   })
 })

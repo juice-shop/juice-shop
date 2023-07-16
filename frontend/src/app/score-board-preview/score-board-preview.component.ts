@@ -121,8 +121,9 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
   }
 
   reset () {
-    this.filterSetting = structuredClone(DEFAULT_FILTER_SETTING)
-    this.filteredChallenges = filterChallenges(this.allChallenges, this.filterSetting)
+    this.router.navigate([], {
+      queryParams: toQueryParams(DEFAULT_FILTER_SETTING)
+    })
   }
 
   openCodingChallengeDialog (challengeKey: string) {
