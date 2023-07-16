@@ -105,24 +105,27 @@
   display: flex;
 }
 
+
+$badge-size: 24px;
+
 .badge {
   align-items: center;
   background-color: var(--theme-background-lighter);
   border: 0;
 
-  border-radius: 50%;
+  border-radius: calc($badge-size / 2);
   color: var(--theme-text) !important;
   color: var(--theme-text);
   cursor: pointer;
 
   display: flex;
 
-  height: 24px;
+  height: $badge-size;
   justify-content: center;
+  min-width: $badge-size;
   padding: 0;
 
   position: relative;
-  width: 24px;
   
   mat-icon {
     font-size: 16px;

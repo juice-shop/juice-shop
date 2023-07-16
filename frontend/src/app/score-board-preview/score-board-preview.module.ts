@@ -20,6 +20,8 @@ import { ChallengesUnavailableWarningComponent } from './components/challenges-u
 import { CodingChallengeProgressScoreCardComponent } from './components/coding-challenge-progress-score-card/coding-challenge-progress-score-card.component'
 import { HackingChallengeProgressScoreCardComponent } from './components/hacking-challenge-progress-score-card/hacking-challenge-progress-score-card.component'
 
+import { ChallengeHintPipe } from './pipes/challenge-hint.pipe'
+
 @NgModule({
   declarations: [
     ScoreBoardPreviewComponent,
@@ -31,6 +33,7 @@ import { HackingChallengeProgressScoreCardComponent } from './components/hacking
     FilterSettingsComponent,
     CategoryFilterComponent,
     ChallengesUnavailableWarningComponent,
+    ChallengeHintPipe,
   ],
   imports: [
     CommonModule,

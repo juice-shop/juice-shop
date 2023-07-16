@@ -29,6 +29,14 @@
     <span *ngFor="let tag of challenge.tagList" class="tag">{{ tag }}</span>
   </div>
   <div class="badge-group">
+    <!-- info text if the challenge is unavailable -->
+    <button 
+      class="badge"
+      *ngIf="challenge.disabledEnv !== null"
+      [matTooltip]="'CHALLENGE_UNAVAILABLE' | translate:{ env: challenge.disabledEnv }"
+    >
+      <mat-icon [style.color]="'var(--theme-warn)'">info_outline</mat-icon>
+    </button>
     <!-- coding challenge badge -->
     <button 
       class="badge"
@@ -43,15 +51,6 @@
     >
       <span class="badge-status" *ngIf="challenge.codingChallengeStatus !== 0">{{ challenge.codingChallengeStatus }}/2</span>
       <mat-icon>code</mat-icon>
-    </button>
-    <!-- todo(@J12934): add challenge hints -->
-    <!-- info text if the challenge is unavailable -->
-    <button 
-      class="badge"
-      *ngIf="challenge.disabledEnv !== null"
-      [matTooltip]="'CHALLENGE_UNAVAILABLE' | translate:{ env: challenge.disabledEnv }"
-    >
-      <mat-icon [style.color]="'var(--theme-warn)'">info_outline</mat-icon>
     </button>
     <!-- cheat cheat link-->
     <a
@@ -83,5 +82,30 @@
     >
       <mat-icon>school_outline</mat-icon>
     </button>
+    <!-- challenge hint -->
+    <!-- with hintUrl -->
+    <a 
+      *ngIf="challenge.hint && challenge.hintUrl"
+      class="badge not-completable"
+      [style.padding]="'0 6px'"
+      target="_blank"
+      rel="noopener noreferrer"
+      [href]="challenge.hintUrl"
+      [matTooltip]="challenge.hint | challengeHint:{hintUrl: challenge.hintUrl} | async"
+    >
+      <mat-icon>lightbulb</mat-icon>
+      Hint
+    </a>
+    <!-- challenge hint -->
+    <!-- without hintUrl -->
+    <span 
+      *ngIf="challenge.hint && !challenge.hintUrl"
+      class="badge not-completable"
+      [style.padding]="'0 6px'"
+      [matTooltip]="challenge.hint"
+    >
+      <mat-icon>lightbulb</mat-icon>
+      Hint
+    </span>
   </div>
 </div>
