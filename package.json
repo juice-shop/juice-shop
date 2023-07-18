@@ -17,7 +17,8 @@
     "bodgeit",
     "ctf",
     "capture the flag",
-    "awareness"
+    "awareness", 
+    "misconfiguration"
   ],
   "homepage": "https://owasp-juice.shop",
   "bugs": {
