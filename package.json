@@ -18,7 +18,8 @@
     "ctf",
     "capture the flag",
     "awareness", 
-    "misconfiguration"
+    "misconfiguration",
+    "IAC"
   ],
   "homepage": "https://owasp-juice.shop",
   "bugs": {
