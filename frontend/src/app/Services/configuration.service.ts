@@ -47,10 +47,6 @@ export interface Config {
       message: string
     }
     cookieConsent: {
-      backgroundColor: string
-      textColor: string
-      buttonColor: string
-      buttonTextColor: string
       message: string
       dismissText: string
       linkText: string
