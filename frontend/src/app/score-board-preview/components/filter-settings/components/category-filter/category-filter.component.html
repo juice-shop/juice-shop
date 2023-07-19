@@ -10,6 +10,7 @@
   class="pill"
   [ngClass]="{ selected: isCategorySelected(category) }"
   (click)="toggleCategorySelected(category)"
+  [matTooltip]="'CATEGORY_' + category.toUpperCase().split(' ').join('_') + '_DESCRIPTION' | translate"
 >
   {{ category }}
 </button>
