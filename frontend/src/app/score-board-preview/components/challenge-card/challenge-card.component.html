@@ -87,7 +87,7 @@
     <a 
       *ngIf="challenge.hint && challenge.hintUrl"
       class="badge not-completable"
-      [style.padding]="'0 6px'"
+      [style.padding]="'0 6px 0 4px'"
       target="_blank"
       rel="noopener noreferrer"
       [href]="challenge.hintUrl"
@@ -101,7 +101,7 @@
     <span 
       *ngIf="challenge.hint && !challenge.hintUrl"
       class="badge not-completable"
-      [style.padding]="'0 6px'"
+      [style.padding]="'0 6px 0 4px'"
       [matTooltip]="challenge.hint"
     >
       <mat-icon>lightbulb</mat-icon>
