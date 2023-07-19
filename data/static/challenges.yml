@@ -82,17 +82,17 @@
   mitigationUrl: ~
   key: tokenSaleChallenge
 -
-  name: 'Access to Juicy Chatbot'
+  name: 'Juicy NFT Seed Saga'
   category: 'Sensitive Data Exposure'
   tags:
     - Contraption
     - Good for Demos
-  description: 'Take ownership of the wallet seed posted accidentally'
+  description: 'Unravel the hidden seed phrase and unlock the Juicy Chatbot NFT wallet.'
   difficulty: 2
   hint: 'Use a BIP 39/44 wallet derivation or import the seedphrase into a fresh browser wallet e.g. Metamask'
   hintUrl: ''
   mitigationUrl: ~
-  key: seedPhraseLeakChallenge
+  key: nftUnlockChallenge
 -
   name: 'Blocked RCE DoS'
   category: 'Insecure Deserialization'

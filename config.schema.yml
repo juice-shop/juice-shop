@@ -499,7 +499,7 @@ ctf:
         type: string
       code:
         type: string
-    seedPhraseLeakChallenge:
+    nftUnlockChallenge:
       name:
         type: string
       code:

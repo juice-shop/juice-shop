@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core'
 import { KeysService } from '../Services/keys.service'
 
 @Component({
-  selector: "app-seed-phrase-leak",
-  templateUrl: "./seed-phrase-leak.component.html",
-  styleUrls: ["./seed-phrase-leak.component.scss"],
+  selector: "app-nft-unlock",
+  templateUrl: "./nft-unlock.component.html",
+  styleUrls: ["./nft-unlock.component.scss"],
 })
-export class SeedPhraseLeakComponent {
+export class NFTUnlockComponent {
   privateKey: string
   formSubmitted: boolean = false
   successResponse: boolean = false
@@ -20,7 +20,7 @@ export class SeedPhraseLeakComponent {
   }
 
   checkChallengeStatus () {
-    this.keysService.seedPhraseSolved().subscribe(
+    this.keysService.nftUnlocked().subscribe(
       (response) => {
         this.successResponse = response.status
       },

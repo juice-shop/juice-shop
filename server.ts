@@ -587,7 +587,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   /* Web3 API endpoints */
   app.post('/rest/web3/submitKey', checkKeys.checkKeys())
-  app.get('/rest/web3/seedPhraseSolved', checkKeys.seedPhraseSolved())
+  app.get('/rest/web3/nftUnlocked', checkKeys.nftUnlocked())
 
   /* B2B Order API */
   app.post('/b2b/v2/orders', b2bOrder())

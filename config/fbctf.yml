@@ -321,6 +321,6 @@ ctf:
     emptyUserRegistration:
       name: Kenya
       code: KE
-    seedPhraseLeakChallenge:
+    nftUnlockChallenge:
       name: Afghanistan
       code: AF

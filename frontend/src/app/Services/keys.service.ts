@@ -12,8 +12,8 @@ export class KeysService {
 
   constructor (private readonly http: HttpClient) {}
 
-  seedPhraseSolved () {
-    return this.http.get(this.host + '/seedPhraseSolved').pipe(
+  nftUnlocked () {
+    return this.http.get(this.host + '/nftUnlocked').pipe(
       map((response: any) => response),
       catchError((err) => {
         throw err

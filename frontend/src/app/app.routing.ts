@@ -41,7 +41,7 @@ import { DeliveryMethodComponent } from './delivery-method/delivery-method.compo
 import { PhotoWallComponent } from './photo-wall/photo-wall.component'
 import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, LoginGuard } from './app.guard'
-import { SeedPhraseLeakComponent } from './seed-phrase-leak/seed-phrase-leak.component'
+import { NFTUnlockComponent } from './nft-unlock/nft-unlock.component'
 
 // vuln-code-snippet start adminSectionChallenge scoreBoardChallenge
 const routes: Routes = [
@@ -203,7 +203,7 @@ const routes: Routes = [
   },
   {
     path: 'juicy-nft',
-    component: SeedPhraseLeakComponent,
+    component: NFTUnlockComponent
   },
   // vuln-code-snippet start tokenSaleChallenge
   {
