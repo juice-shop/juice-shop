@@ -158,6 +158,10 @@ const routes: Routes = [
       }
     ]
   },
+  {
+    path: 'juicy-nft',
+    component: SeedPhraseLeakComponent,
+  },
    {
     matcher: oauthMatcher,
     data: { params: (window.location.href).substr(window.location.href.indexOf('#')) },

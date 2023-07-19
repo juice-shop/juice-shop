@@ -203,7 +203,7 @@ const routes: Routes = [
   },
   {
     path: 'juicy-nft',
-    component: SeedPhraseLeakComponent
+    component: SeedPhraseLeakComponent,
   },
   // vuln-code-snippet start tokenSaleChallenge
   {
