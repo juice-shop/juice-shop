@@ -1,0 +1,19 @@
+name: Write Text File to GitHub Artifacts
+on: push
+
+jobs:
+  write_to_artifacts:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create Text File
+        run: echo "Hello, this is a text file!" > my_text_file.txt
+
+      - name: Show Contents of Text File
+        run: cat my_text_file.txt
+
+      - name: Upload Text File to GitHub Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: my_artifact
+          path: my_text_file.txt
