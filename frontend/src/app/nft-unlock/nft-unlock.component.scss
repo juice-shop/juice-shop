@@ -1,11 +1,8 @@
-$bg-heading: rgba(0, 0, 0, 0.13);
-
 .container {
   justify-content: center;
 }
 
 .heading {
-  background: $bg-heading;
   justify-content: center;
   margin-bottom: 10px;
   padding: 12px 20px;
@@ -24,7 +21,6 @@ $bg-heading: rgba(0, 0, 0, 0.13);
 }
 
 .warning-container {
-  background-color: #b30000;
   border-radius: 4px;
   font-weight: 600;
   justify-content: center;
@@ -34,11 +30,6 @@ $bg-heading: rgba(0, 0, 0, 0.13);
 
 .title {
   padding-bottom: 27px;
-}
-
-.divider {
-  border: 0.5px solid #f2f2f2;
-  margin-bottom: 10px;
 }
 
 .text-justify {
@@ -56,7 +47,6 @@ mat-card:nth-child(1) {
 }
 
 .detail-box {
-  border: 1px solid #fff;
   margin-bottom: 16px;
   padding: 16px;
 }
@@ -71,38 +61,8 @@ mat-card:nth-child(1) {
 }
 
 .form-group {
+  display: flex;
+  flex-direction: column;
   margin-top: 16px;
-}
-
-label {
-  font-weight: bold;
-}
-
-.error-text {
-  color: #ff1818;
-  font-weight: 500;
-  padding-top: 4px;
-}
-
-input.form-control {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-top: 4px;
-  outline: none;
-  padding: 8px;
   width: 100%;
-}
-
-button.btn-primary {
-  background-color: #007bff;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  color: #fff;
-  cursor: pointer;
-  margin-top: 8px;
-  padding: 8px 16px;
-}
-
-button.btn-primary:hover {
-  background-color: #0056b3;
 }

@@ -20,17 +20,11 @@ module.exports.checkKeys = function checkKeys () {
         res.status(200).json({ success: true, message: 'Challenge successfully solved', status: challenges.nftUnlockChallenge })
       } else {
         if (req.body.privateKey === address) {
-          res.status(401).json({ success: false, message: 'Looks like you entered the public address of the ethereum wallet!', status: challenges.nftUnlockChallenge })
+          res.status(401).json({ success: false, message: 'Looks like you entered the public address of my ethereum wallet!', status: challenges.nftUnlockChallenge })
         } else if (req.body.privateKey === publicKey) {
-          res.status(401).json({ success: false, message: 'Looks like you entered the public key of the ethereum wallet!', status: challenges.nftUnlockChallenge })
-        } else if (req.body.privateKey === '1DZAxZJvgxbPYoqei7XMKH1tKxyLXtm8u2') {
-          res.status(401).json({ success: false, message: 'Looks like you entered the public address of the BTC wallet!', status: challenges.nftUnlockChallenge })
-        } else if (req.body.privateKey === '03f0288d967284f9f69ec4731c5eed33b7e2a990f34ef6818b76e663cd73943b57') {
-          res.status(401).json({ success: false, message: 'Looks like you entered the public key of the BTC wallet!', status: challenges.nftUnlockChallenge })
-        } else if (req.body.privateKey === 'Kxap9dhP5WeoRreFZqT3jvc4tBtGTrS2kbmBUUp37jPJD2XfTKhr') {
-          res.status(401).json({ success: false, message: 'Looks like you entered the private key of the BTC wallet!', status: challenges.nftUnlockChallenge })
+          res.status(401).json({ success: false, message: 'Looks like you entered the public key of my ethereum wallet!', status: challenges.nftUnlockChallenge })
         } else {
-          res.status(401).json({ success: false, message: 'Wrong Input, Please try again!', status: challenges.nftUnlockChallenge })
+          res.status(401).json({ success: false, message: 'Looks like you entered a non-Ethereum private key to access me.', status: challenges.nftUnlockChallenge })
         }
       }
     } catch (error) {

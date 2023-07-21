@@ -82,14 +82,14 @@
   mitigationUrl: ~
   key: tokenSaleChallenge
 -
-  name: 'Juicy NFT Seed Saga'
+  name: 'NFT Takeover'
   category: 'Sensitive Data Exposure'
   tags:
     - Contraption
     - Good for Demos
-  description: 'Unravel the hidden seed phrase and unlock the Juicy Chatbot NFT wallet.'
+  description: 'Take over the wallet containing our official Soul Bound Token (NFT).'
   difficulty: 2
-  hint: 'Use a BIP 39/44 wallet derivation or import the seedphrase into a fresh browser wallet e.g. Metamask'
+  hint: 'Find the seedphrase posted accidentally.'
   hintUrl: ''
   mitigationUrl: ~
   key: nftUnlockChallenge
