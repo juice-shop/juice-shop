@@ -12,7 +12,6 @@ describe('FilterSettingsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-
       declarations: [FilterSettingsComponent, CategoryFilterComponent]
     })
     .compileComponents()
