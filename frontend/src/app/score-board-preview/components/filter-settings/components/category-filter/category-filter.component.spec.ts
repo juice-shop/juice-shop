@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { CategoryFilterComponent } from './category-filter.component'
 import { EnrichedChallenge } from 'src/app/score-board-preview/types/EnrichedChallenge'
+import { TranslateModule } from '@ngx-translate/core'
 
 describe('CategoryFilterComponent', () => {
   let component: CategoryFilterComponent
@@ -9,6 +10,9 @@ describe('CategoryFilterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot()
+      ],
       declarations: [CategoryFilterComponent]
     })
     .compileComponents()
