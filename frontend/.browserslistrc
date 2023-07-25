@@ -1,7 +1,6 @@
-> 0.5%
-last 2 versions
+last 2 Chrome versions
+last 1 Firefox version
+last 2 Edge major versions
+last 2 Safari major versions
+last 2 iOS major versions
 Firefox ESR
-not dead
-not IE <= 11
-not ios_saf 15.2-15.3
-not safari 15.2-15.3
