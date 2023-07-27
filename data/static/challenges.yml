@@ -82,6 +82,18 @@
   mitigationUrl: ~
   key: tokenSaleChallenge
 -
+  name: 'NFT Takeover'
+  category: 'Sensitive Data Exposure'
+  tags:
+    - Contraption
+    - Good for Demos
+  description: 'Take over the wallet containing our official Soul Bound Token (NFT).'
+  difficulty: 2
+  hint: 'Find the seedphrase posted accidentally.'
+  hintUrl: ''
+  mitigationUrl: ~
+  key: nftUnlockChallenge
+-
   name: 'Blocked RCE DoS'
   category: 'Insecure Deserialization'
   tags:
