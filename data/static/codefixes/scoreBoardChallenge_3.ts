@@ -151,6 +151,10 @@ const routes: Routes = [
       }
     ]
   },
+  {
+    path: 'juicy-nft',
+    component: NFTUnlockComponent
+  },
    {
     matcher: oauthMatcher,
     data: { params: (window.location.href).substr(window.location.href.indexOf('#')) },

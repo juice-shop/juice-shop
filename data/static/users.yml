@@ -253,3 +253,15 @@
   securityQuestion:
     id: 10
     answer: "Used Ship Emporium" # https://monkeyisland.fandom.com/wiki/Stan_S._Stanman
+-
+  email: ethereum
+  username: evmrox
+  password: 'private'
+  key: evm
+  role: 'deluxe'
+  feedback:
+    comment: 'Please send me the juicy chatbot NFT in my wallet at /juicy-nft : "purpose betray marriage blame crunch monitor spin slide donate sport lift clutch"'
+    rating: 1
+  securityQuestion:
+    id: 10
+    answer: "Used Emporium"

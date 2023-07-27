@@ -321,3 +321,6 @@ ctf:
     emptyUserRegistration:
       name: Kenya
       code: KE
+    nftUnlockChallenge:
+      name: Afghanistan
+      code: AF
