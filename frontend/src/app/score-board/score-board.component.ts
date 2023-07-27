@@ -12,7 +12,7 @@ import { SocketIoService } from '../Services/socket-io.service'
 import { NgxSpinnerService } from 'ngx-spinner'
 import { ActivatedRoute } from '@angular/router'
 
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faStar, faTrophy, faPollH } from '@fortawesome/free-solid-svg-icons'
 import { faGem } from '@fortawesome/free-regular-svg-icons'
 import { faBtc, faGithub, faGitter } from '@fortawesome/free-brands-svg-icons'
@@ -24,7 +24,6 @@ import { CodeSnippetComponent } from '../code-snippet/code-snippet.component'
 import { CodeSnippetService } from '../Services/code-snippet.service'
 
 library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy, faPollH)
-dom.watch()
 
 @Component({
   selector: 'app-score-board',
