@@ -15,6 +15,10 @@ RUN rm data/chatbot/botDefaultTrainingData.json || true
 RUN rm ftp/legal.md || true
 RUN rm i18n/*.json || true
 
+ARG CYCLONEDX_NPM_VERSION=latest
+RUN npm install -g @cyclonedx/cyclonedx-npm@$CYCLONEDX_NPM_VERSION
+RUN npm run sbom
+
 FROM gcr.io/distroless/nodejs:18
 ARG BUILD_DATE
 ARG VCS_REF
@@ -25,7 +29,7 @@ LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
     org.opencontainers.image.vendor="Open Web Application Security Project" \
     org.opencontainers.image.documentation="https://help.owasp-juice.shop" \
     org.opencontainers.image.licenses="MIT" \
-    org.opencontainers.image.version="15.0.0" \
+    org.opencontainers.image.version="15.1.0-SNAPSHOT" \
     org.opencontainers.image.url="https://owasp-juice.shop" \
     org.opencontainers.image.source="https://github.com/juice-shop/juice-shop" \
     org.opencontainers.image.revision=$VCS_REF \

@@ -9,6 +9,8 @@ vagrant/
 logs/
 Dockerfile
 .npmrc
+/bom.json
+/bom.xml
 
 # Pattern is *not covered* by node_modules/ above no matter what IntelliJ says!
 frontend/node_modules/

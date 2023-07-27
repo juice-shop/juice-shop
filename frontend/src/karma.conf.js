@@ -22,9 +22,10 @@ module.exports = function (config) {
     },
     coverageReporter: {
       dir: require('path').join(__dirname, '../../build/reports/coverage/frontend-tests'),
+      subdir: '.',
       reporters: [
-        { type: 'html', subdir: '.' },
-        { type: 'lcovonly', subdir: '.' }
+        { type: 'html' },
+        { type: 'lcovonly' }
       ]
     },
     reporters: ['progress', 'kjhtml'],
@@ -33,6 +34,7 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['ChromeHeadless'],
-    singleRun: false
+    singleRun: false,
+    restartOnFileChange: true
   })
 }

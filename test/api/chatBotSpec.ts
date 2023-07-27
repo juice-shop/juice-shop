@@ -4,6 +4,7 @@
  */
 
 import frisby = require('frisby')
+import { expect } from '@jest/globals'
 import config from 'config'
 import { initialize, bot } from '../../routes/chatbot'
 import fs from 'fs/promises'
@@ -163,7 +164,6 @@ describe('/chatbot', () => {
         .expect('status', 200)
         .promise()
         .then(({ json }) => {
-          // @ts-expect-error
           expect(trainingData.data[0].answers).toContainEqual(json)
         })
     })
