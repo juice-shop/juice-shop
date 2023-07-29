@@ -70,13 +70,13 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
         }
       })
       this.allChallenges = transformedChallenges
-      this.filteredChallenges = filterChallenges(this.allChallenges, this.filterSetting)
+      this.filterAndUpdateChallenges()
       console.timeEnd('ScoreBoardPreview - transform challenges')
     })
 
     this.route.queryParams.subscribe((queryParams) => {
       this.filterSetting = fromQueryParams(queryParams)
-      this.filteredChallenges = filterChallenges(this.allChallenges, this.filterSetting)
+      this.filterAndUpdateChallenges()
     })
 
     this.io.socket().on('challenge solved', this.onChallengeSolvedWebsocket.bind(this))
@@ -109,10 +109,17 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
       return { ...challenge }
     })
     this.allChallenges = [...allChallenges]
-    this.filteredChallenges = filterChallenges(allChallenges, this.filterSetting)
+    this.filterAndUpdateChallenges()
     // manually trigger angular change detection... :(
     // unclear why this is necessary, possibly because the socket.io callback is not running inside angular
     this.ngZone.run(() => {})
+  }
+
+  filterAndUpdateChallenges (): void {
+    this.filteredChallenges = filterChallenges(this.allChallenges, {
+      ...this.filterSetting,
+      restrictToTutorialChallengesFirst: this.applicationConfiguration?.challenges?.restrictToTutorialsFirst ?? true
+    })
   }
 
   // angular helper to speed up challenge rendering
@@ -146,8 +153,7 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
       if (challenge.codingChallengeStatus < 2) {
         challenge.codingChallengeStatus = result.fixIt ? 2 : challenge.codingChallengeStatus
       }
-
-      this.filteredChallenges = filterChallenges(this.allChallenges, this.filterSetting)
+      this.filterAndUpdateChallenges()
     })
   }
 

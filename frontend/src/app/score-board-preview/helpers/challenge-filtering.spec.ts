@@ -16,7 +16,8 @@ const CHALLENGE_1 = {
   solved: false,
   codingChallengeStatus: 0,
   tagList: ['easy'],
-  disabledEnv: null
+  disabledEnv: null,
+  tutorialOrder: 1
 } as EnrichedChallenge
 
 const CHALLENGE_2 = {
@@ -33,7 +34,8 @@ const CHALLENGE_2 = {
   solved: true,
   codingChallengeStatus: 2,
   tagList: ['easy'],
-  disabledEnv: null
+  disabledEnv: null,
+  tutorialOrder: 2
 } as EnrichedChallenge
 
 const CHALLENGE_3 = {
@@ -50,13 +52,14 @@ const CHALLENGE_3 = {
   solved: true,
   codingChallengeStatus: 1,
   tagList: ['hard'],
-  disabledEnv: 'docker'
+  disabledEnv: 'docker',
+  tutorialOrder: null
 } as EnrichedChallenge
 
 describe('filterChallenges', () => {
   it('should filter empty list', () => {
     expect(filterChallenges([], { ...DEFAULT_FILTER_SETTING })).toEqual([])
-    expect(filterChallenges([], { categories: ['foo', 'bar'], difficulties: [1, 2, 3, 5, 6], tags: ['hard'], status: 'solved', searchQuery: 'foobar', showDisabledChallenges: true })).toEqual([])
+    expect(filterChallenges([], { categories: ['foo', 'bar'], difficulties: [1, 2, 3, 5, 6], tags: ['hard'], status: 'solved', searchQuery: 'foobar', showDisabledChallenges: true, restrictToTutorialChallengesFirst: true })).toEqual([])
   })
 
   it('should filter challenges based on categories properly', () => {
@@ -127,5 +130,33 @@ describe('filterChallenges', () => {
       [CHALLENGE_1, CHALLENGE_2, CHALLENGE_3],
       { ...DEFAULT_FILTER_SETTING, showDisabledChallenges: false }
     ).map((challenge) => challenge.key)).toEqual(jasmine.arrayWithExactContents(['challenge-1', 'challenge-2']))
+  })
+
+  it('should only show unsolved tutorial of first difficulty if no challenges are solved', () => {
+    expect(filterChallenges(
+      [CHALLENGE_1, { ...CHALLENGE_2, solved: false }, CHALLENGE_3],
+      { ...DEFAULT_FILTER_SETTING, restrictToTutorialChallengesFirst: true }
+    ).map((challenge) => challenge.key)).toEqual(jasmine.arrayWithExactContents(['challenge-1']))
+  })
+
+  it('should only show tutorial challenges when restrictToTutorialChallengesFirst is set', () => {
+    expect(filterChallenges(
+      [CHALLENGE_1, { ...CHALLENGE_2, solved: false, difficulty: 1, tutorialOrder: null }, CHALLENGE_3],
+      { ...DEFAULT_FILTER_SETTING, restrictToTutorialChallengesFirst: true }
+    ).map((challenge) => challenge.key)).toEqual(jasmine.arrayWithExactContents(['challenge-1']))
+  })
+
+  it('should only show unsolved tutorial of first difficulty and solved ones of easier difficulties', () => {
+    expect(filterChallenges(
+      [{ ...CHALLENGE_1, solved: true }, { ...CHALLENGE_2, solved: false }, CHALLENGE_3],
+      { ...DEFAULT_FILTER_SETTING, restrictToTutorialChallengesFirst: true }
+    ).map((challenge) => challenge.key)).toEqual(jasmine.arrayWithExactContents(['challenge-1', 'challenge-2']))
+  })
+
+  it('should only show ignore tutorial mode when all tutorial challenges are solved', () => {
+    expect(filterChallenges(
+      [{ ...CHALLENGE_1, solved: true }, { ...CHALLENGE_2, solved: true }, CHALLENGE_3],
+      { ...DEFAULT_FILTER_SETTING, restrictToTutorialChallengesFirst: true }
+    ).map((challenge) => challenge.key)).toEqual(jasmine.arrayWithExactContents(['challenge-1', 'challenge-2', 'challenge-3']))
   })
 })
