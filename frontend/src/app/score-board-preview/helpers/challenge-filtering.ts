@@ -5,10 +5,6 @@ export function filterChallenges (
   challenges: EnrichedChallenge[],
   filterSetting: FilterSetting
 ): EnrichedChallenge[] {
-  console.log(
-    'filterSetting.showDisabledChallenges',
-    filterSetting.showDisabledChallenges
-  )
   return (
     challenges
       // filter by category
