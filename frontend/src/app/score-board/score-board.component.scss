@@ -84,13 +84,13 @@ mat-table {
   margin-left: 15px;
 }
 
-.score-board-preview-ad{
+.score-board-preview-ad {
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
+  margin-bottom: 16px;
 
   margin-top: -16px;
-  margin-bottom: 16px;
 
   a {
     margin-left: 8px;
