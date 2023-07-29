@@ -12,6 +12,8 @@
   [reset]="reset.bind(this)"
 ></filter-settings>
 
+<preview-feature-notice [applicationConfig]="applicationConfiguration"></preview-feature-notice>
+
 <challenges-unavailable-warning
   [challenges]="allChallenges"
   [filterSetting]="filterSetting"

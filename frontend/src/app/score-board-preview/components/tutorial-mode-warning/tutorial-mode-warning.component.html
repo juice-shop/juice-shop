@@ -1,10 +1,6 @@
-<div
-  *ngIf="tutorialModeActive"
-  class="tutorial-mode-warning-container"
->
-  <mat-icon>school</mat-icon>
-  <span class="tutorial-mode-warning-text">
+<warning-card *ngIf="tutorialModeActive">
+  <mat-icon warning-icon>school</mat-icon>
+  <span warning-text class="tutorial-mode-warning-text">
     {{ 'INFO_FULL_CHALLENGE_MODE' | translate: {num: allChallenges.length} }}
   </span>
-</div>
-
+</warning-card>
