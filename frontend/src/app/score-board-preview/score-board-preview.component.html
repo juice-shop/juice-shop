@@ -5,6 +5,7 @@
 </div>
 
 <filter-settings
+  *ngIf="applicationConfiguration?.challenges.restrictToTutorialsFirst === false"
   [filterSetting]="filterSetting"
   (filterSettingChange)="onFilterSettingUpdate($event)"
   [allChallenges]="allChallenges"
@@ -16,6 +17,11 @@
   [filterSetting]="filterSetting"
   (filterSettingChange)="onFilterSettingUpdate($event)"
 ></challenges-unavailable-warning>
+
+<tutorial-mode-warning 
+  [allChallenges]="allChallenges" 
+  [applicationConfig]="applicationConfiguration"
+></tutorial-mode-warning>
 
 <div class="challenges" *ngIf="filteredChallenges.length > 0; else emptyChallenges">
   <challenge-card

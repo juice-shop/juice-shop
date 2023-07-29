@@ -16,6 +16,9 @@ export interface FilterSetting {
 
     // whether to show disabled challenges
     showDisabledChallenges: boolean
+
+    // if true only challenges belonging to a tutorial are displayed until the user has solved all tutorial challenges
+    restrictToTutorialChallengesFirst: boolean
 }
 
 export type SolvedStatus = 'solved' | 'unsolved' | 'partially-solved'
@@ -26,5 +29,6 @@ export const DEFAULT_FILTER_SETTING: Readonly<FilterSetting> = Object.freeze({
     tags: [],
     status: null,
     searchQuery: null,
-    showDisabledChallenges: true
+    showDisabledChallenges: true,
+    restrictToTutorialChallengesFirst: false
 })

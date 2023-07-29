@@ -4,7 +4,7 @@ import { ChallengesUnavailableWarningComponent } from './challenges-unavailable-
 import { TranslateModule } from '@ngx-translate/core'
 import { DEFAULT_FILTER_SETTING } from '../../types/FilterSetting'
 
-describe('ChallengeCard', () => {
+describe('ChallengesUnavailableWarningComponent', () => {
   let component: ChallengesUnavailableWarningComponent
   let fixture: ComponentFixture<ChallengesUnavailableWarningComponent>
 

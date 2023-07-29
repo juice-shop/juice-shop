@@ -1,0 +1,13 @@
+.tutorial-mode-warning-container {
+  align-items: center;
+  background-color: var(--theme-background-dark);
+  border-radius: 4px;
+  display: grid;
+  grid-template-columns: min-content auto;
+  margin-top: 24px;
+  padding: 12px;
+}
+
+.tutorial-mode-warning-text {
+  margin-left: 12px;
+}
