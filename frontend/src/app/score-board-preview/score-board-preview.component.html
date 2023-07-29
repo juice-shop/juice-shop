@@ -35,7 +35,8 @@
 </div>
 
 <ng-template #emptyChallenges>
-  <div class="empty-challenges">
+  <!-- only showing when there are more than 1 challenge in total. not completely loaded otherwise -->
+  <div class="empty-challenges" *ngIf="allChallenges.length > 0">
     <p>{{ 'NO_CHALLENGES_FOUND' | translate }}</p>
   </div>
 </ng-template>
