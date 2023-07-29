@@ -6,7 +6,6 @@ import { Config } from 'src/app/Services/configuration.service'
 @Component({
   selector: 'tutorial-mode-warning',
   templateUrl: './tutorial-mode-warning.component.html',
-  styleUrls: ['./tutorial-mode-warning.component.scss']
 })
 export class TutorialModeWarningComponent implements OnChanges {
   @Input()

@@ -12,8 +12,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { ScoreBoardPreviewComponent } from './score-board-preview.component'
 import { ScoreCardComponent } from './components/score-card/score-card.component'
+import { WarningCardComponent } from './components/warning-card/warning-card.component'
 import { ChallengeCardComponent } from './components/challenge-card/challenge-card.component'
 import { FilterSettingsComponent } from './components/filter-settings/filter-settings.component'
+import { PreviewFeatureNotice } from './components/preview-feature-notice/preview-feature-notice.component'
 import { TutorialModeWarningComponent } from './components/tutorial-mode-warning/tutorial-mode-warning.component'
 import { CategoryFilterComponent } from './components/filter-settings/components/category-filter/category-filter.component'
 import { DifficultyOverviewScoreCardComponent } from './components/difficulty-overview-score-card/difficulty-overview-score-card.component'
@@ -22,6 +24,7 @@ import { CodingChallengeProgressScoreCardComponent } from './components/coding-c
 import { HackingChallengeProgressScoreCardComponent } from './components/hacking-challenge-progress-score-card/hacking-challenge-progress-score-card.component'
 
 import { ChallengeHintPipe } from './pipes/challenge-hint.pipe'
+import { RouterModule } from '@angular/router'
 
 @NgModule({
   declarations: [
@@ -35,6 +38,8 @@ import { ChallengeHintPipe } from './pipes/challenge-hint.pipe'
     CategoryFilterComponent,
     ChallengesUnavailableWarningComponent,
     TutorialModeWarningComponent,
+    PreviewFeatureNotice,
+    WarningCardComponent,
     ChallengeHintPipe,
   ],
   imports: [
@@ -50,6 +55,7 @@ import { ChallengeHintPipe } from './pipes/challenge-hint.pipe'
     MatTooltipModule,
     MatDialogModule,
     TranslateModule,
+    RouterModule,
   ],
 })
 class ScoreBoardPreviewModule {}
