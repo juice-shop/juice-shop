@@ -14,6 +14,7 @@ import { ScoreBoardPreviewComponent } from './score-board-preview.component'
 import { ScoreCardComponent } from './components/score-card/score-card.component'
 import { ChallengeCardComponent } from './components/challenge-card/challenge-card.component'
 import { FilterSettingsComponent } from './components/filter-settings/filter-settings.component'
+import { TutorialModeWarningComponent } from './components/tutorial-mode-warning/tutorial-mode-warning.component'
 import { CategoryFilterComponent } from './components/filter-settings/components/category-filter/category-filter.component'
 import { DifficultyOverviewScoreCardComponent } from './components/difficulty-overview-score-card/difficulty-overview-score-card.component'
 import { ChallengesUnavailableWarningComponent } from './components/challenges-unavailable-warning/challenges-unavailable-warning.component'
@@ -33,6 +34,7 @@ import { ChallengeHintPipe } from './pipes/challenge-hint.pipe'
     FilterSettingsComponent,
     CategoryFilterComponent,
     ChallengesUnavailableWarningComponent,
+    TutorialModeWarningComponent,
     ChallengeHintPipe,
   ],
   imports: [
