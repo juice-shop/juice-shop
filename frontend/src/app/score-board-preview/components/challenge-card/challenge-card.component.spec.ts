@@ -3,6 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { ChallengeCardComponent } from './challenge-card.component'
 import { Config } from 'src/app/Services/configuration.service'
 import { TranslateModule } from '@ngx-translate/core'
+import { MatIconModule } from '@angular/material/icon'
+import { MatTooltipModule } from '@angular/material/tooltip'
 
 describe('ChallengeCard', () => {
   let component: ChallengeCardComponent
@@ -10,7 +12,7 @@ describe('ChallengeCard', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
+      imports: [TranslateModule.forRoot(), MatIconModule, MatTooltipModule],
       declarations: [ChallengeCardComponent]
     })
     .compileComponents()
