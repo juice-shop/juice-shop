@@ -14,6 +14,7 @@ import { EnrichedChallenge } from './types/EnrichedChallenge'
 import { DEFAULT_FILTER_SETTING, FilterSetting } from './types/FilterSetting'
 
 import { filterChallenges } from './helpers/challenge-filtering'
+import { sortChallenges } from './helpers/challenge-sorting'
 import { fromQueryParams, toQueryParams } from './helpers/query-params-converters'
 
 interface ChallengeSolvedWebsocket {
@@ -116,10 +117,12 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
   }
 
   filterAndUpdateChallenges (): void {
-    this.filteredChallenges = filterChallenges(this.allChallenges, {
-      ...this.filterSetting,
-      restrictToTutorialChallengesFirst: this.applicationConfiguration?.challenges?.restrictToTutorialsFirst ?? true
-    })
+    this.filteredChallenges = sortChallenges(
+      filterChallenges(this.allChallenges, {
+        ...this.filterSetting,
+        restrictToTutorialChallengesFirst: this.applicationConfiguration?.challenges?.restrictToTutorialsFirst ?? true
+      })
+    )
   }
 
   // angular helper to speed up challenge rendering
