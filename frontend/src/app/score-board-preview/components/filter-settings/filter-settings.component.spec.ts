@@ -4,6 +4,11 @@ import { FilterSettingsComponent } from './filter-settings.component'
 import { CategoryFilterComponent } from './components/category-filter/category-filter.component'
 import { DEFAULT_FILTER_SETTING } from '../../types/FilterSetting'
 import { TranslateModule } from '@ngx-translate/core'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
+import { MatSelectModule } from '@angular/material/select'
+import { NoopAnimationsModule } from '@angular/platform-browser/animations'
+import { MatTooltipModule } from '@angular/material/tooltip'
 
 describe('FilterSettingsComponent', () => {
   let component: FilterSettingsComponent
@@ -11,7 +16,8 @@ describe('FilterSettingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
+      imports: [NoopAnimationsModule, TranslateModule.forRoot(), MatFormFieldModule,
+        MatInputModule, MatSelectModule, MatTooltipModule],
       declarations: [FilterSettingsComponent, CategoryFilterComponent]
     })
     .compileComponents()
