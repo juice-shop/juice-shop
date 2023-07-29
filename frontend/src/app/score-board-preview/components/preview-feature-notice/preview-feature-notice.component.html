@@ -1,15 +1,14 @@
 <warning-card>
   <mat-icon warning-icon>texture</mat-icon>
   <span warning-text>
-    This is the preview of the new ScoreBoard. If you notice any bugs or have any feedback, please let us know!
-    <ng-container *ngIf="applicationConfig?.application?.showGitHubLinks">
-      Let us know by reaching out via our
-      <a href="https://owasp.org/www-project-juice-shop/" target="_blank" rel="noopener noreferrer">
-        community channels
-      </a>
+    <ng-container *ngIf="!applicationConfig?.application?.showGitHubLinks; else noticeWithLinks">
+      {{ 'SCORE_BOARD_PREVIEW_NOTICE_NO_CONTACT' | translate }}
     </ng-container>
+    <ng-template #noticeWithLinks>
+      <span [innerHTML]="'SCORE_BOARD_PREVIEW_NOTICE_WITH_CONTACT' | translate"></span>
+    </ng-template>
   </span>
   <a warning-action mat-button routerLink="/score-board">
-    Go back to the old ScoreBoard
+    {{ 'SCORE_BOARD_PREVIEW_BACK' | translate }}
   </a>
 </warning-card>

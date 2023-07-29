@@ -426,5 +426,10 @@
   "LABEL_SEARCH": "Suche",
   "LABEL_FEEDBACK": "Feedback",
   "LABEL_RESET_ALL_FILTERS": "Alle Filter zurücksetzen",
-  "NO_CHALLENGES_FOUND": "Oh nein. Keine Herausforderungen zu den Filtern gefunden 😥"
+  "NO_CHALLENGES_FOUND": "Oh nein. Keine Herausforderungen zu den Filtern gefunden 😥",
+  "SCORE_BOARD_PREVIEW_NOTICE_NO_CONTACT": "Dies ist eine Vorschau des neuen ScoreBoards. Es enthält eventuell noch einge Fehler.",
+  "SCORE_BOARD_PREVIEW_NOTICE_WITH_CONTACT": "Dies ist eine Vorschau des neuen ScoreBoards. Wenn dir Fehler auffallen oder du Feedback hast, bitte melde dich bei uns über unsere <a href='https://owasp.org/www-project-juice-shop/' target='_blank' rel='noopener noreferrer'>Community Kanäle</a>",
+  "SCORE_BOARD_PREVIEW_BACK": "Zurück zum alten ScoreBoard",
+  "SCORE_BOARD_PREVIEW_CATCH_LINE": "ScoreBoard zu langsam oder zu verwirrend?",
+  "SCORE_BOARD_PREVIEW_ACTION_BUTTON": "Probiere das neue ScoreBoard aus!"
 }
