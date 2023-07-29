@@ -6,7 +6,7 @@ import { Config } from 'src/app/Services/configuration.service'
   selector: 'preview-feature-notice',
   templateUrl: './preview-feature-notice.component.html',
 })
-export class PreviewFeatureNotice {
+export class PreviewFeatureNoticeComponent {
   @Input()
   public applicationConfig: Config | null = null
 }
