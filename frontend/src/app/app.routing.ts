@@ -42,6 +42,7 @@ import { PhotoWallComponent } from './photo-wall/photo-wall.component'
 import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, LoginGuard } from './app.guard'
 import { NFTUnlockComponent } from './nft-unlock/nft-unlock.component'
+import { FaucetComponent } from './faucet/faucet.component'
 
 // vuln-code-snippet start adminSectionChallenge scoreBoardChallenge
 const routes: Routes = [
@@ -204,6 +205,10 @@ const routes: Routes = [
   {
     path: 'juicy-nft',
     component: NFTUnlockComponent
+  },
+  {
+    path: 'bee-faucet',
+    component: FaucetComponent
   },
   // vuln-code-snippet start tokenSaleChallenge
   {

@@ -412,6 +412,10 @@ memories:
     caption: 'My old workplace...'
     geoStalkingVisualSecurityQuestion: 10
     geoStalkingVisualSecurityAnswer: 'ITsec'
+  -
+    image: 'BeeHaven.png'
+    caption: 'Welcome to the Bee Haven🐝'
+    user: evm
 ctf:
   showFlagsInNotifications: false
   showCountryDetailsInNotifications: none # Options: none  name  flag  both

@@ -1,0 +1,102 @@
+.buy-nft {
+  margin: auto;
+  margin-bottom: 30px;
+  width: 55%;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 16px;
+
+  h2 {
+    margin: 2px;
+  }
+
+  div {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  button {
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 12px 8px;
+    width: 250px;
+  }
+}
+
+.faucet_image {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+
+  img {
+    width: 250px;
+  }
+}
+
+.withdraw_inputcontainer {
+  align-items: center;
+  width: 100%;
+
+  button {
+    border-radius: 10px;
+    font-weight: 500;
+    justify-self: end;
+    margin-top: -20px;
+    padding: 16px 24px;
+    width: 300px;
+  }
+}
+
+.faucet {
+  padding: 40px 80px;
+
+  h1 {
+    font-weight: bold;
+    margin: 0;
+    text-align: center;
+  }
+
+  .faucet_balance {
+    // border: 1px solid #659F44;
+    border-radius: 10px;
+    font-size: 18px;
+    margin: 20px 0;
+    padding: 8px;
+    text-align: center;
+    width: 100%;
+    word-break: break-all;
+    word-wrap: break-word;
+  }
+}
+
+.section-2_body {
+  display: flex;
+  gap: 16px;
+  padding: 40px 80px;
+
+  &_right {
+    width: 65%;
+  }
+
+  .mint_button {
+    border-radius: 10px;
+    font-weight: 500;
+    margin-top: 32px;
+    padding: 16px 48px;
+  }
+}
+
+.section-2_body_left {
+  width: 35%;
+
+  img {
+    width: 100%;
+  }
+}

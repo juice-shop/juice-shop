@@ -21,6 +21,24 @@ export class KeysService {
     )
   }
 
+  nftMinted () {
+    return this.http.get(this.host + '/nftMinted').pipe(
+      map((response: any) => response),
+      catchError((err) => {
+        throw err
+      })
+    )
+  }
+
+  checkNftMinted () {
+    return this.http.get(this.host + '/checkNftMinted').pipe(
+      map((response: any) => response),
+      catchError((err) => {
+        throw err
+      })
+    )
+  }
+
   submitKey (privateKey: string) {
     const endpoint = this.host + '/submitKey'
     const params = { privateKey: privateKey }
