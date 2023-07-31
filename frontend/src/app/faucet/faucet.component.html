@@ -1,0 +1,89 @@
+<div class="header">
+  <div>
+    <button
+      mat-raised-button
+      color="accent"
+      type="button"
+      (click)="handleAuth()"
+    >
+      <span *ngIf="!session">Connect your MetaMask</span>
+      <span *ngIf="session"
+        >{{ userData.address.substring(0, 6) }}...{{
+          userData.address.slice(-6)
+        }}</span
+      >
+    </button>
+  </div>
+</div>
+<mat-card class="mat-elevation-z6 buy-nft">
+  <div class="faucet">
+    <h1>BEE Haven</h1>
+    <div class="faucet_image">
+      <img src="assets/public/images/BeeOwner.png" />
+    </div>
+    <p style="text-align: center">
+      Welcome to Bee Haven, the hive of BEE tokens! Immerse yourself in the buzz
+      as our generous Bee Owner shares the joy of bees with you. Embrace their
+      bountiful generosity, but remember, taking too many bees at once may
+      disrupt their harmonious abode.
+    </p>
+    <button class="faucet_balance" mat-stroked-button color="accent">
+      Faucet Balance: {{ juiceBalance }} | Your BEE Balance:
+      {{ myJuiceBalance }}
+    </button>
+    <div fxLayout="row" fxLayoutGap="20px" class="withdraw_inputcontainer">
+      <div style="width: 100%;" fxLayout="column">
+        <mat-form-field style="width: 100%" color="accent" appearance="outline">
+          <mat-label>Enter no. of BEEs:</mat-label>
+          <input
+            matInput
+            placeholder="Enter number of BEE"
+            type="number"
+            id="withdrawAmount"
+            [(ngModel)]="withdrawAmount"
+            aria-label="Text field for the withdrawal amount"
+          />
+        </mat-form-field>
+        <h5 class="error">{{ errorMessage }}</h5>
+      </div>
+      <button
+        class="withdraw_button"
+        mat-raised-button
+        type="button"
+        color="primary"
+        (click)="extractBEETokens()"
+      >
+        Claim BEEs
+      </button>
+    </div>
+  </div>
+</mat-card>
+<mat-card class="mat-elevation-z6 buy-nft">
+  <div class="section-2">
+    <div class="section-2_body">
+      <div class="section-2_body_left">
+        <img src="assets/public/images/HoneyPot.png" />
+      </div>
+      <div class="section-2_body_right">
+        <h1>The Enchanted Honey Pot</h1>
+        <p>
+          Deep within the magical realm, the Enchanted Honey Pot awaits its
+          rightful owner. To unlock its wonders, you must trade the essence of
+          the buzzing kingdom - BEE tokens. Gather these mystical tokens from
+          the generous Bee Haven, but beware, for the Bee Owner's supply may not
+          be all that meets the eye.
+        </p>
+        <button
+          class="mint_button"
+          mat-raised-button
+          color="warn"
+          [disabled]="mintButtonDisabled"
+          fxFlexAlign="center"
+          (click)="mintNFT()"
+        >
+          {{ nftMintText }}
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-card>

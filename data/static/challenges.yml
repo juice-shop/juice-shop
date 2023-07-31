@@ -94,6 +94,15 @@
   mitigationUrl: ~
   key: nftUnlockChallenge
 -
+  name: 'Mint the Honey Pot'
+  category: 'Improper Input Validation'
+  description: 'Mint the Honey Pot NFT by gathering BEEs from the bee owner.'
+  difficulty: 3
+  hint: 'Extract more BEEs than the owner has.'
+  hintUrl: ''
+  mitigationUrl: ~
+  key: nftMintChallenge
+-
   name: 'Blocked RCE DoS'
   category: 'Insecure Deserialization'
   tags:

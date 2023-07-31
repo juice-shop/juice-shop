@@ -162,6 +162,10 @@ const routes: Routes = [
     path: 'juicy-nft',
     component: NFTUnlockComponent
   },
+  {
+    path: 'bee-faucet',
+    component: FaucetComponent
+  },
    {
     matcher: oauthMatcher,
     data: { params: (window.location.href).substr(window.location.href.indexOf('#')) },
