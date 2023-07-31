@@ -15,53 +15,7 @@ const client = createClient({
   autoConnect: true,
   provider: getDefaultProvider()
 })
-const vulnerableAddress = '0x7b95E1604189EFE1566278d2bD984e27614273e5'
 const nftAddress = '0x5FDDEbB5bE5d2C2dfB2c758ED86D3E6A53366107'
-const vulnerableABI = [
-  {
-    inputs: [],
-    name: 'receiveMoney',
-    outputs: [],
-    stateMutability: 'payable',
-    type: 'function'
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address payable',
-        name: '_to',
-        type: 'address'
-      },
-      {
-        internalType: 'uint256',
-        name: '_amount',
-        type: 'uint256'
-      }
-    ],
-    name: 'transfer',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [],
-    stateMutability: 'payable',
-    type: 'constructor'
-  },
-  {
-    inputs: [],
-    name: 'owner',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address'
-      }
-    ],
-    stateMutability: 'view',
-    type: 'function'
-  }
-]
 const nftABI = [
   {
     inputs: [],
