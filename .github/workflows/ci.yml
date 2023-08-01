@@ -1,9 +1,7 @@
 name: "DevSecOps Pipeline"
 on:
   pull_request:
-    branches: [master, main]
-  push:
-    branches: [master, main]
+    branches: [master]
     
 jobs:
   Trufflehog: 
