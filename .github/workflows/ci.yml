@@ -18,7 +18,6 @@ jobs:
 
   semgrep:
    name: semgrep/ci
-   needs: OSV-Scanner
    runs-on: ubuntu-20.04
    env:
     SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
