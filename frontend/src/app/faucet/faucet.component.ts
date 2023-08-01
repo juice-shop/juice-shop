@@ -5,7 +5,7 @@ import {
   BeeFaucetABI,
   BeeTokenABI,
   nftABI
-} from '../../assets/private/ContractABIs'
+} from '../../assets/public/ContractABIs'
 import { getDefaultProvider, ethers, BigNumber } from 'ethers'
 import {
   createClient,
