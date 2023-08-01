@@ -15,9 +15,29 @@ jobs:
     - name: TruffleHog OSS
       uses: actions/checkout@v3
     - run: trufflehog github --repo https://github.com/undeadjie/juice-shop 
+    
+  OSV-Scanner: 
+   name: OSV-Scanner
+   needs: Trufflehog
+   runs-on: ubuntu-20.04
+   steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: npm install
+      uses: actions/setup-node@v3
+      with:
+       node-version: 16
+    - run: npm install --package-lock
+    - name: Software Composition Analysis
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - run: docker run --rm -v $(pwd):/home sharaking/osv-scanner --json --lockfile=/home/package-lock.json 
 
   semgrep:
    name: semgrep/ci
+   needs: OSV-Scanner
    runs-on: ubuntu-20.04
    env:
     SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
