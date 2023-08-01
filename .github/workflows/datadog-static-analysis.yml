@@ -17,4 +17,3 @@ jobs:
         dd_site: datad0g.com
         dd_env: ci
         cpu_count: 2
-          
