@@ -199,7 +199,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   }))
 
   /* robots.txt */
-  app.use(robots({ UserAgent: '*', Disallow: '/ftp' }))
+  app.use(robots({ UserAgent: '*', Disallow: '/' }));
 
   /* Checks for challenges solved by retrieving a file implicitly or explicitly */
   app.use('/assets/public/images/padding', verify.accessControlChallenges())
