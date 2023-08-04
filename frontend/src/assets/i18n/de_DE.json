@@ -376,7 +376,7 @@
   "TAG_CODE_ANALYSIS": "Code-Analyse",
   "TAG_CODE_ANALYSIS_DESCRIPTION": "Markiert Herausforderungen, bei denen es hilfreich sein kann, sich durch Quellcode der Anwendung oder eines Dritten zu wühlen.",
   "TAG_WEB3": "Web3",
-  "TAG_WEB3_DESCRIPTION": "Marks challenges which incorporate Web3 concepts or technology such as Blockchain, Crypto Currency, Smart Contracts, or NFT.",
+  "TAG_WEB3_DESCRIPTION": "Markiert Herausforderungen, die Web3-Konzepte oder -Technologien wie Blockchain, Kryptowährungen, Smart Contracts oder NFT einbinden.",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "Fehler in der Zugriffskontrolle",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "Fehlerhafte Anti-Automatisierung",
   "CATEGORY_BROKEN_AUTHENTICATION": "Fehler in der Authentifizierung",
