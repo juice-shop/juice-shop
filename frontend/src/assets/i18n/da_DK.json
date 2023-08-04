@@ -375,6 +375,8 @@
   "TAG_GOOD_PRACTICE_DESCRIPTION": "Fremhæver udfordringer som handler mindre om sårbarheder men fremmer god (sikkerheds) skik.",
   "TAG_CODE_ANALYSIS": "Kode Analyse",
   "TAG_CODE_ANALYSIS_DESCRIPTION": "Markerer udfordringer, hvor det kan være nyttigt at gennemrode noget af applikationens eller en tredjeparts kildekode.",
+  "TAG_WEB3": "Web3",
+  "TAG_WEB3_DESCRIPTION": "Marks challenges which incorporate Web3 concepts or technology such as Blockchain, Crypto Currency, Smart Contracts, or NFT.",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "Defekt Adgangskontrol",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "Defekt Anti Automatisering",
   "CATEGORY_BROKEN_AUTHENTICATION": "Defekt Autentificering",
