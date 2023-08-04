@@ -375,6 +375,8 @@
   "TAG_GOOD_PRACTICE_DESCRIPTION": "Destaca desafios menos relacionados com vulnerabilidades mas que promovem boas práticas (de segurança).",
   "TAG_CODE_ANALYSIS": "Análise de código",
   "TAG_CODE_ANALYSIS_DESCRIPTION": "Marca os desafios onde pode ser útil analisar o código fonte da aplicação ou de terceiros.",
+  "TAG_WEB3": "Web3",
+  "TAG_WEB3_DESCRIPTION": "Marks challenges which incorporate Web3 concepts or technology such as Blockchain, Crypto Currency, Smart Contracts, or NFT.",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "Quebra de Controle Acesso",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "Quebra de Anti-Automação",
   "CATEGORY_BROKEN_AUTHENTICATION": "Quebra de Autenticação",
