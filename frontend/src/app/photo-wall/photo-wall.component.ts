@@ -43,16 +43,11 @@ export class PhotoWallComponent implements OnInit {
         this.emptyState = false
       }
       for (const memory of memories) {
-        console.log('memories', memory)
         if (memory.User?.username) {
           // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
           memory.caption = `${memory.caption} (© ${memory.User.username})`
         }
-        if (memory.User?.username === 'evmrox') {
-          this.slideshowDataSource.push({ url: memory.imagePath, caption: memory.caption, title: 'faucet' })
-        } else {
-          this.slideshowDataSource.push({ url: memory.imagePath, caption: memory.caption })
-        }
+        this.slideshowDataSource.push({ url: memory.imagePath, caption: memory.caption })
       }
     }, (err) => console.log(err))
     this.configurationService.getApplicationConfiguration().subscribe((config) => {

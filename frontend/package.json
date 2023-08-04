@@ -39,7 +39,6 @@
     "@ngx-translate/http-loader": "^6.0.0",
     "@wagmi/core": "^0.5.8",
     "anuglar2-qrcode": "~2.0.3",
-    "axios": "^1.4.0",
     "canvas-confetti": "^1.4.0",
     "core-js": "^3.22.5",
     "ethers": "^5.7.2",

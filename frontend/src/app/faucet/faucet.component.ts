@@ -52,8 +52,6 @@ export class FaucetComponent {
 
   ngOnInit (): void {
     this.handleAuth()
-    this.fetchBeeBalance()
-    this.fetchMyBeeBalance()
     this.checkNftMinted()
     window.ethereum.on('chainChanged', this.handleChainChanged.bind(this))
   }
@@ -140,7 +138,6 @@ export class FaucetComponent {
       }
 
       const provider = await connect({ connector: new InjectedConnector() })
-      // console.log('pp', window.ethereum.chainId)
       this.userData = {
         address: provider.account,
         chain: provider.chain.id,
@@ -193,15 +190,6 @@ export class FaucetComponent {
       return
     }
     try {
-      if (amount < 0) {
-        this.errorMessage = 'You could do better than the usual web2 primitve'
-        return
-      }
-      if (amount > 255) {
-        this.errorMessage = 'Uh Oh! looks like we cannot handle that.'
-        return
-      }
-
       const provider = new ethers.providers.Web3Provider(window.ethereum)
       const signer = provider.getSigner()
       const userAddress = await signer.getAddress()
@@ -230,7 +218,8 @@ export class FaucetComponent {
       this.fetchBeeBalance()
       this.fetchMyBeeBalance()
     } catch (error) {
-      console.error('Error extracting BEEs:', error)
+      console.error('Error extracting BEEs:', error.message)
+      this.errorMessage = error.message
     }
   }
 
@@ -270,11 +259,11 @@ export class FaucetComponent {
       console.log(mintConfirmation)
       if (mintConfirmation) {
         this.nftMintText = 'Successfully Minted'
-        this.mintButtonDisabled = false
 
         this.keysService.nftMinted().subscribe(
           (response) => {
             this.successResponse = response.status
+            this.mintButtonDisabled = true
           },
           (error) => {
             console.error(error)
