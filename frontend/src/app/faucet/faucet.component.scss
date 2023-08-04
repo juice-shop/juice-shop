@@ -1,36 +1,40 @@
-.buy-nft {
-  margin: auto;
-  margin-bottom: 30px;
-  width: 55%;
-}
-
-.header {
+.container {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin: 16px;
+  grid-gap: 40px;
+  margin: 0 40px;
+}
 
-  h2 {
-    margin: 2px;
+.faucet-container {
+  padding: 40px 80px;
+
+  p {
+    text-align: center;
   }
 
-  div {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-  }
-
-  button {
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 18px;
-    padding: 12px 8px;
-    width: 250px;
+  h1 {
+    font-weight: bold;
+    margin: 0;
+    text-align: center;
   }
 }
 
-.faucet_image {
+.faucet-balance {
   align-items: center;
+  border: 1px solid #7b7b7b;
+  border-radius: 10px;
+  display: flex;
+  font-size: 18px;
+  margin: 20px 0;
+  padding: 8px;
+  text-align: center;
+  width: 100%;
+
+  span {
+    width: 70%;
+  }
+}
+
+.faucet-image {
   display: flex;
   justify-content: center;
   padding: 16px;
@@ -40,9 +44,28 @@
   }
 }
 
-.withdraw_inputcontainer {
+.metamask-button {
+  float: right;
+  margin: 16px;
+  width: 30%;
+
+  button {
+    padding: 8px 6px;
+    width: 250px;
+  }
+}
+
+.withdraw-container {
   align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   width: 100%;
+
+  div {
+    flex-direction: column;
+    width: 100%;
+  }
 
   button {
     border-radius: 10px;
@@ -54,49 +77,33 @@
   }
 }
 
-.faucet {
-  padding: 40px 80px;
-
-  h1 {
-    font-weight: bold;
-    margin: 0;
-    text-align: center;
-  }
-
-  .faucet_balance {
-    // border: 1px solid #659F44;
-    border-radius: 10px;
-    font-size: 18px;
-    margin: 20px 0;
-    padding: 8px;
-    text-align: center;
-    width: 100%;
-    word-break: break-all;
-    word-wrap: break-word;
-  }
-}
-
-.section-2_body {
+.honeypot-container {
   display: flex;
-  gap: 16px;
+  flex-direction: column;
   padding: 40px 80px;
-
-  &_right {
-    width: 65%;
-  }
-
-  .mint_button {
-    border-radius: 10px;
-    font-weight: 500;
-    margin-top: 32px;
-    padding: 16px 48px;
-  }
-}
-
-.section-2_body_left {
+  text-align: center;
   width: 35%;
 
-  img {
-    width: 100%;
+  h2 {
+    font-weight: bold;
   }
+}
+
+.honeypot-image {
+  height: 320px;
+  margin: 0 auto;
+  margin-bottom: 16px;
+  width: 320px;
+
+  img {
+    height: 300px;
+    margin: 10px;
+  }
+}
+
+.mint_button {
+  border-radius: 10px;
+  font-weight: 500;
+  margin-top: 32px;
+  padding: 16px 48px;
 }

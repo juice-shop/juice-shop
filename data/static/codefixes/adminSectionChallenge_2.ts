@@ -160,7 +160,7 @@ const routes: Routes = [
     component: NFTUnlockComponent
   },
   {
-    path: 'bee-faucet',
+    path: 'bee-haven',
     component: FaucetComponent
   },
    {

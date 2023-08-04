@@ -11,17 +11,11 @@
                     <img src="{{ image.url }}" alt="{{ image.caption }}" class="image">
                     <div class="overlay">
                         <div>{{ image.caption }}</div>
-                        <a *ngIf="twitterHandle && !image.title"
+                        <a *ngIf="twitterHandle"
                            href="https://twitter.com/intent/tweet?text={{ image.caption }} {{ twitterHandle }}&hashtags=appsec"
                            target="_blank">
                             <button mat-icon-button aria-label="Tweet">
                                 <i class="fab fa-twitter fa-lg"></i>
-                            </button>
-                         </a>
-                        <a *ngIf="twitterHandle && image.title"
-                           href="/#/bee-faucet">
-                            <button mat-icon-button aria-label="Visit">
-                                <i class="material-icons"> open_in_new </i>
                             </button>
                          </a>
                     </div>
