@@ -375,6 +375,8 @@
   "TAG_GOOD_PRACTICE_DESCRIPTION": "Zvýrazňuje výzvy, které se méně týkají zranitelných míst, ale prosazují dobré (bezpečnostní) postupy.",
   "TAG_CODE_ANALYSIS": "Analýza kódu",
   "TAG_CODE_ANALYSIS_DESCRIPTION": "Označuje výzvy, kde může být užitečné prolouskat pomocí nějakého zdrojového kódu aplikace nebo třetí strany.",
+  "TAG_WEB3": "Web3",
+  "TAG_WEB3_DESCRIPTION": "Marks challenges which incorporate Web3 concepts or technology such as Blockchain, Crypto Currency, Smart Contracts, or NFT.",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "Prolomené řízení přístupu",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "Prolomená Anti automatizace",
   "CATEGORY_BROKEN_AUTHENTICATION": "Prolomená autentizace",
