@@ -375,6 +375,8 @@
   "TAG_GOOD_PRACTICE_DESCRIPTION": "Güvenlik açıklarıyla ilgili olmayan, ancak iyi uygulamaları (güvenlik) destekleyen zorlukları vurgular.",
   "TAG_CODE_ANALYSIS": "Kod Analizi",
   "TAG_CODE_ANALYSIS_DESCRIPTION": "Uygulamanın bazı kaynak kodlarını veya bir üçüncü taraf kodlarını karıştırmanın yararlı olabileceği zorlukları işaretler.",
+  "TAG_WEB3": "Web3",
+  "TAG_WEB3_DESCRIPTION": "Marks challenges which incorporate Web3 concepts or technology such as Blockchain, Crypto Currency, Smart Contracts, or NFT.",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "Hatali Erişim Kontrolü",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "Bozuk Anti Otomasyon",
   "CATEGORY_BROKEN_AUTHENTICATION": "Bozuk Kimlik Doğrulaması",
