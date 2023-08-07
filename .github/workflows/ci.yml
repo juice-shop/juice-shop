@@ -16,7 +16,6 @@ jobs:
     
   OSV-Scanner: 
    name: OSV-Scanner
-   needs: Trufflehog
    runs-on: ubuntu-20.04
    steps:
     - name: Checkout code
@@ -35,7 +34,6 @@ jobs:
 
   semgrep:
    name: semgrep/ci
-   needs: OSV-Scanner
    runs-on: ubuntu-20.04
    env:
     SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
@@ -48,7 +46,6 @@ jobs:
       
   docker:
     name: docker/ci
-    needs: semgrep
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout code
