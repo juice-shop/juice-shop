@@ -65,6 +65,8 @@ For a detailed introduction, full list of features and architecture overview ple
 > You can find some less common installation variations in
 > [the _Running OWASP Juice Shop_ documentation](https://pwning.owasp-juice.shop/part1/running.html).
 
+> For safety reasons all potentially dangerous challenges are disabled (along with their underlying vulnerabilities) when a containerized environment is detected. Please refer to [the eBook](https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges) for more details.
+
 ### From Sources
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/juice-shop/juice-shop.svg)
