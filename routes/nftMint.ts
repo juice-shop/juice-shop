@@ -16,12 +16,3 @@ module.exports.nftMint = function nftMint () {
     }
   }
 }
-module.exports.nftMintCheck = function nftMintCheck () {
-  return (req: Request, res: Response) => {
-    try {
-      res.status(200).json({ status: challenges.nftMintChallenge.solved })
-    } catch (error) {
-      res.status(500).json(utils.get(error))
-    }
-  }
-}

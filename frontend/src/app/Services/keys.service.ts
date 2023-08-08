@@ -31,7 +31,7 @@ export class KeysService {
   }
 
   checkNftMinted () {
-    return this.http.get(this.host + '/checkNftMinted').pipe(
+    return this.http.get(this.hostServer + '/api/Challenges/?key=nftMintChallenge').pipe(
       map((response: any) => response),
       catchError((err) => {
         throw err

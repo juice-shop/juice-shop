@@ -59,10 +59,11 @@ export class FaucetComponent {
   checkNftMinted () {
     this.keysService.checkNftMinted().subscribe(
       (response) => {
-        console.log(response.status, 'res')
-        this.mintButtonDisabled = response.status
-        this.challengeSolved = response.status
-        if (response.status) {
+        console.log(response.data[0].solved, 'res')
+        const challengeSolvedStatus = response.data[0].solved
+        this.mintButtonDisabled = challengeSolvedStatus
+        this.challengeSolved = challengeSolvedStatus
+        if (challengeSolvedStatus) {
           this.nftMintText = 'Minted Successfully'
         }
       },
@@ -200,10 +201,7 @@ export class FaucetComponent {
 
       console.log('ETH balance:', balanceEth, typeof balanceEth)
       if (balanceEth < '0.001') {
-        this.snackBarHelperService.open(
-          'Deposit some test ETH from sepoliafaucet.com or any other ETH faucet to initiate transaction',
-          'errorBar'
-        )
+        this.errorMessage = 'Deposit some test ETH from sepoliafaucet.com or any other ETH faucet to initiate transaction.'
         return
       }
       const contract = new ethers.Contract(

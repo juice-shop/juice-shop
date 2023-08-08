@@ -157,7 +157,7 @@ const routes: Routes = [
   },
   {
     path: 'bee-haven',
-    component: FaucetComponent
+    loadChildren: async () => await loadFaucetModule()
   },
    {
     matcher: oauthMatcher,
