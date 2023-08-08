@@ -589,7 +589,8 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Web3 API endpoints */
   app.post('/rest/web3/submitKey', checkKeys.checkKeys())
   app.get('/rest/web3/nftUnlocked', checkKeys.nftUnlocked())
-  app.get('/rest/web3/nftMinted', nftMint.nftMint())
+  app.get('/rest/web3/nftMintListen', nftMint.nftMintListener())
+  app.post('/rest/web3/walletNFTVerify', nftMint.walletNFTVerify())
 
   /* B2B Order API */
   app.post('/b2b/v2/orders', b2bOrder())

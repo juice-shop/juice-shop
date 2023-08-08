@@ -22,7 +22,7 @@ const client = createClient({
 })
 const { ethereum } = window
 
-const nftAddress = '0x5FDDEbB5bE5d2C2dfB2c758ED86D3E6A53366107'
+const nftAddress = '0x41427790c94E7a592B17ad694eD9c06A02bb9C39'
 const BeeTokenAddress = '0x36435796Ca9be2bf150CE0dECc2D8Fab5C4d6E13'
 const BeeFaucetAddress = '0x860e3616aD0E0dEDc23352891f3E10C4131EA5BC'
 
@@ -49,17 +49,29 @@ export class FaucetComponent {
   challengeSolved = false
   nftMintText = 'Mint the Pot - 1000 BEE'
   errorMessage = ''
+  metamaskAddress = ''
 
   ngOnInit (): void {
     this.handleAuth()
     this.checkNftMinted()
+    this.nftMintListener()
     window.ethereum.on('chainChanged', this.handleChainChanged.bind(this))
+  }
+
+  nftMintListener () {
+  this.keysService.nftMintListen().subscribe(
+    (response) => {
+      console.log(response)
+    },
+    (error) => {
+      console.error(error)
+    }
+  )
   }
 
   checkNftMinted () {
     this.keysService.checkNftMinted().subscribe(
       (response) => {
-        console.log(response.data[0].solved, 'res')
         const challengeSolvedStatus = response.data[0].solved
         this.mintButtonDisabled = challengeSolvedStatus
         this.challengeSolved = challengeSolvedStatus
@@ -139,6 +151,7 @@ export class FaucetComponent {
       }
 
       const provider = await connect({ connector: new InjectedConnector() })
+      this.metamaskAddress = provider.account
       this.userData = {
         address: provider.account,
         chain: provider.chain.id,
@@ -257,17 +270,20 @@ export class FaucetComponent {
       console.log(mintConfirmation)
       if (mintConfirmation) {
         this.nftMintText = 'Successfully Minted'
-
-        this.keysService.nftMinted().subscribe(
-          (response) => {
-            this.successResponse = response.status
-            this.mintButtonDisabled = true
-          },
-          (error) => {
+        setTimeout(() => {
+          this.keysService.verifyNFTWallet(this.metamaskAddress).subscribe(
+            (response) => {
+              if (response.success) {
+              this.successResponse = response.status
+              this.mintButtonDisabled = true
+              }
+            },
+            (error) => {
             console.error(error)
             this.successResponse = false
-          }
-        )
+            }
+          )
+        }, 3500)
       }
 
       console.log('NFT minted successfully!')
