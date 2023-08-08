@@ -3,37 +3,37 @@
  * SPDX-License-Identifier: MIT
  */
 
-const logger = require('./logger')
-const colors = require('colors/safe')
+import logger from './logger'
+import colors from 'colors/safe'
 const solves: { [key: string]: { 'find it': boolean, 'fix it': boolean, attempts: { 'find it': number, 'fix it': number } } } = {}
 
 type Phase = 'find it' | 'fix it'
 
-exports.storeFindItVerdict = (challengeKey: string, verdict: boolean) => {
+export const storeFindItVerdict = (challengeKey: string, verdict: boolean) => {
   storeVerdict(challengeKey, 'find it', verdict)
 }
 
-exports.storeFixItVerdict = (challengeKey: string, verdict: boolean) => {
+export const storeFixItVerdict = (challengeKey: string, verdict: boolean) => {
   storeVerdict(challengeKey, 'fix it', verdict)
 }
 
-exports.calculateFindItAccuracy = (challengeKey: string) => {
+export const calculateFindItAccuracy = (challengeKey: string) => {
   return calculateAccuracy(challengeKey, 'find it')
 }
 
-exports.calculateFixItAccuracy = (challengeKey: string) => {
+export const calculateFixItAccuracy = (challengeKey: string) => {
   return calculateAccuracy(challengeKey, 'fix it')
 }
 
-exports.totalFindItAccuracy = () => {
+export const totalFindItAccuracy = () => {
   return totalAccuracy('find it')
 }
 
-exports.totalFixItAccuracy = () => {
+export const totalFixItAccuracy = () => {
   return totalAccuracy('fix it')
 }
 
-exports.getFindItAttempts = (challengeKey: string) => {
+export const getFindItAttempts = (challengeKey: string) => {
   return solves[challengeKey] ? solves[challengeKey].attempts['find it'] : 0
 }
 
@@ -54,7 +54,7 @@ function calculateAccuracy (challengeKey: string, phase: Phase) {
   if (solves[challengeKey][phase]) {
     accuracy = 1 / solves[challengeKey].attempts[phase]
   }
-  logger.info(`Accuracy for '${phase === 'fix it' ? 'Fix It' : 'Find It'}' phase of coding challenge ${colors.cyan(challengeKey)}: ${accuracy > 0.5 ? colors.green(accuracy) : (accuracy > 0.25 ? colors.yellow(accuracy) : colors.red(accuracy))}`)
+  logger.info(`Accuracy for '${phase === 'fix it' ? 'Fix It' : 'Find It'}' phase of coding challenge ${colors.cyan(challengeKey)}: ${accuracy > 0.5 ? colors.green(accuracy.toString()) : (accuracy > 0.25 ? colors.yellow(accuracy.toString()) : colors.red(accuracy.toString()))}`)
   return accuracy
 }
 

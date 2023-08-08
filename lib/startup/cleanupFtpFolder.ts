@@ -4,10 +4,10 @@
  */
 
 import glob = require('glob')
-const utils = require('../utils')
-const path = require('path')
+import logger from '../logger'
+import path from 'path'
+import * as utils from '../utils'
 const fs = require('fs-extra')
-const logger = require('../logger')
 
 const cleanupFtpFolder = () => {
   glob(path.resolve('ftp/*.pdf'), (err: unknown, files: string[]) => {

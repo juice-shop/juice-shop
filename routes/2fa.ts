@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: MIT
  */
 
-import config = require('config')
+import config from 'config'
 import { Request, Response } from 'express'
 import { BasketModel } from '../models/basket'
 import { UserModel } from '../models/user'
 import challengeUtils = require('../lib/challengeUtils')
+import * as utils from '../lib/utils'
 
 const security = require('../lib/insecurity')
 const otplib = require('otplib')
-const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
 otplib.authenticator.options = {

@@ -4,7 +4,7 @@
  */
 
 import frisby = require('frisby')
-import config = require('config')
+import config from 'config'
 const Joi = frisby.Joi
 const security = require('../../lib/insecurity')
 

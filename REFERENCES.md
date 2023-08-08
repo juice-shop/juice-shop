@@ -11,6 +11,26 @@ mentioned or used!
 > tackling these challenges yourself! :mega: marks short friendly shout
 > outs. Finally, the :dollar: bill marks commercial resources.
 
+## Table of contents
+
+* [Awards](#awards--trophy-)
+* [Web Links](#web-links)
+  + [Pod- & Webcasts](#pod---webcasts)
+  + [Blogs & Articles](#blogs--articles)
+* [Lectures and Trainings](#lectures-and-trainings)
+* [Summits & Open Source Events](#summits--open-source-events)
+  + [Google Summer of Code](#googlesummerofcode)
+* [Conference and Meetup Appearances](#conference-and-meetup-appearances)
+  - [2023](#2023)
+  - [2022](#2022)
+  - [2021](#2021)
+  - [2020](#2020)
+  - [2019](#2019)
+  - [2018](#2018)
+  - [2017](#2017)
+  - [2016](#2016)
+  - [2015](#2015)
+
 ## Awards :trophy:
 
 * [Heroku Button of the Month](https://hello.heroku.com/webmail/36622/679286305/8049a634b1a01b0aa75c0966325856dc9a463b7f1beeb6a2f32cbb30248b5bc6)
@@ -280,11 +300,16 @@ mentioned or used!
 
 ## Conference and Meetup Appearances
 
+> Upcoming events are marked with :date:. The availability of link destinations for past events cannot be guaranteed. 
+
 #### 2023
 
-* [Squeezing the last drop out of OWASP Juice Shop](https://owasp2023globalappsecdublin.sched.com/event/1FWfq/squeezing-the-last-drop-out-of-owasp-juice-shop) by Björn Kimminich, [OWASP 2023 Global AppSec Dublin](https://dublin.globalappsec.org/), 15.02.2023 [YouTube](https://youtu.be/m1f2fPC8hLU)
+* :date: [Track keynote: OWASP Juice Shop](https://sikkerhetsfestivalen.no/program-2023) by Björn Kimminich, [Sikkerhetsfestivalen 2023](https://sikkerhetsfestivalen.no/). 29.08.2023
+* :date: [Juice Shop Update³](https://god.owasp.de/2023/schedule/index.html) by Björn Kimminich, [German OWASP Day 2023](https://god.owasp.de/2023). 31.05.2023
+* :date: [Juice Shop Training: Train the Trainer Edition](https://god.owasp.de/2023/schedule/index.html) with Björn Kimminich, [German OWASP Day 2023](https://god.owasp.de/2023). 30.05.2023
 * [OWASP Juice Shop](https://www.meetup.com/owasp-chapter-netherlands-meetup/events/292323208)
-  by Björn Kimminich, [April 2023 OWASP Chapter Netherlands Meetup](https://www.meetup.com/owasp-chapter-netherlands-meetup/), 20.04.2023
+  by Björn Kimminich, [April 2023 OWASP Chapter Netherlands Meetup](https://www.meetup.com/owasp-chapter-netherlands-meetup/), 20.04.2023 [YouTube](https://www.youtube.com/live/Bhp3LpgtNZ4?feature=share&t=3856)
+* [Squeezing the last drop out of OWASP Juice Shop](https://owasp2023globalappsecdublin.sched.com/event/1FWfq/squeezing-the-last-drop-out-of-owasp-juice-shop) by Björn Kimminich, [OWASP 2023 Global AppSec Dublin](https://dublin.globalappsec.org/), 15.02.2023  [YouTube](https://youtu.be/m1f2fPC8hLU)
 
 #### 2022
 
@@ -553,3 +578,6 @@ mentioned or used!
   by Björn Kimminich,
   [17. OWASP Stammtisch Hamburg](http://lanyrd.com/2015/owasp-de/), 27.01.2015
 
+## Usage in Tools & Products
+
+* [How to try GitHub Advanced Security with your team](https://resources.github.com/security/tools/ghas-trial/) uses Juice Shop as an example for CI/CD integration in [Code scanning in action with Juice Shop](https://resources.github.com/security/tools/ghas-trial/#code-scanning-in-action-with-juice-shop) 

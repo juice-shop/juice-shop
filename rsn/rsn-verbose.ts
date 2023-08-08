@@ -1,5 +1,5 @@
 import { readFiles, checkDiffs, getDataFromFile, checkData, seePatch } from './rsnUtil'
-const colors = require('colors/safe')
+import colors from 'colors/safe'
 
 const keys = readFiles()
 checkDiffs(keys)

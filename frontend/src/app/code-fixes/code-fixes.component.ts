@@ -12,7 +12,7 @@ interface RandomFixes {
   templateUrl: './code-fixes.component.html',
   styleUrls: ['./code-fixes.component.scss']
   })
-export class CodeFixesComponent implements OnInit {
+export class CodeFixesComponent implements OnInit, DoCheck {
   differ: KeyValueDiffer<string, DiffTableFormat>
 
   constructor (private readonly cookieService: CookieService, private readonly differs: KeyValueDiffers) {
