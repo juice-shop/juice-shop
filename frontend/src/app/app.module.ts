@@ -140,7 +140,13 @@ import { MatChipsModule } from '@angular/material/chips'
 import { CodeSnippetComponent } from './code-snippet/code-snippet.component'
 import { CodeAreaComponent } from './code-area/code-area.component'
 import { NgxTextDiffModule } from 'ngx-text-diff'
-import { CodeFixesComponent } from './code-fixes/code-fixes.component'
+import { CodeFixesComponent } from './code-fixes/code-fixes.component';
+import { ContractPlaygroundComponent } from './contract-playground/contract-playground.component';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror'
+import 'codemirror/mode/javascript/javascript'
+import 'codemirror/mode/markdown/markdown'
+import 'codemirror-solidity/solidity'
+
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json')
@@ -205,8 +211,10 @@ export function HttpLoaderFactory (http: HttpClient) {
     CodeSnippetComponent,
     CodeAreaComponent,
     CodeFixesComponent,
+    ContractPlaygroundComponent,
   ],
   imports: [
+    CodemirrorModule,
     BrowserModule,
     Routing,
     TranslateModule.forRoot(

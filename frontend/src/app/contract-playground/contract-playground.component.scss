@@ -1,0 +1,79 @@
+.playground-header{
+ display: flex;
+ justify-content: center;
+}
+.section-1 {
+  margin: 32px;
+  &_body {
+    display: flex;
+    flex-direction: row;
+    padding: 40px 80px;
+    gap: 16px;
+
+    &_left {
+      display: flex;
+      gap: 16px;
+      width: 75%;
+
+      &_editor_title {
+        font-size: 20px;
+        font-weight: 500;
+        width: 100%;
+        margin-bottom: 16px;
+        padding: 0px 8px;
+      }
+    }
+    &_right {
+      width: 25%;
+
+      margin: 32px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      // justify-content: center;
+      h1 {
+        padding: 0;
+        margin: 2px;
+      }
+      h5 {
+        text-align: center;
+      }
+      h3 {
+        font-weight: 600;
+      }
+      .deployedaddresstext {
+        margin: 10px 0px;
+        font-weight: 600;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+        color: lightgreen;
+      }
+      button {
+        justify-self: end;
+        border-radius: 10px;
+        width: fit-content;
+        height: fit-content;
+        padding: 16px 24px;
+        border: none;
+        background-color: #463471;
+        cursor: pointer;
+        font-weight: 500;
+        color: white;
+      }
+    }
+  }
+}
+.ngx-codemirror {
+  width: 50%;
+  height: 400px; /* Adjust the height as needed */
+}
+
+/* Adjust the font size and other styles of the editor content */
+.CodeMirror {
+  font-size: 14px;
+  border-radius: 16px !important;
+  /* Add other desired styles here */
+}
+.CodeMirror .cm-s-dracula .CodeMirror-wrap {
+  border-radius: 16px !important;
+}
