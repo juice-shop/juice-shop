@@ -375,6 +375,8 @@
   "TAG_GOOD_PRACTICE_DESCRIPTION": "高亮更多涉及安全最佳实践而不是漏洞的挑战。",
   "TAG_CODE_ANALYSIS": "代码分析",
   "TAG_CODE_ANALYSIS_DESCRIPTION": "标记可能需要翻阅应用程序或第三方程序源码的挑战。",
+  "TAG_WEB3": "Web3",
+  "TAG_WEB3_DESCRIPTION": "Marks challenges which incorporate Web3 concepts or technology such as Blockchain, Crypto Currency, Smart Contracts, or NFT.",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "失效的访问控制",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "失效的反自动化",
   "CATEGORY_BROKEN_AUTHENTICATION": "失效的认证",

@@ -375,6 +375,8 @@
   "TAG_GOOD_PRACTICE_DESCRIPTION": "Zəif nöqtələr haqqında daha az, ancaq yaxşı (təhlükəsizlik) məşqlərini təşviq edən çağırışları vurğulayır.",
   "TAG_CODE_ANALYSIS": "Kod təhlili",
   "TAG_CODE_ANALYSIS_DESCRIPTION": "Tətbiqetmənin və ya üçüncü tərəfin bəzi mənbə kodlarını qarışdırmağın faydalı ola biləcəyi çağırışları işarələyir.",
+  "TAG_WEB3": "Web3",
+  "TAG_WEB3_DESCRIPTION": "Marks challenges which incorporate Web3 concepts or technology such as Blockchain, Crypto Currency, Smart Contracts, or NFT.",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "Zədəli müraciət nəzarəti",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "Zədəli anti avtomatlaşdırma",
   "CATEGORY_BROKEN_AUTHENTICATION": "Zədəli kimlik təsdiqləmə",

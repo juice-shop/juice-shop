@@ -375,6 +375,8 @@
   "TAG_GOOD_PRACTICE_DESCRIPTION": "重點介紹那些與漏洞無關的挑戰，但是是要提倡良好的（安全）實作。",
   "TAG_CODE_ANALYSIS": "程式碼分析",
   "TAG_CODE_ANALYSIS_DESCRIPTION": "標註出一些挑戰，這些挑戰幫你通過某些應用程序或第三方原始碼。",
+  "TAG_WEB3": "Web3",
+  "TAG_WEB3_DESCRIPTION": "Marks challenges which incorporate Web3 concepts or technology such as Blockchain, Crypto Currency, Smart Contracts, or NFT.",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "不適當的存取控制",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "不適當的反自動化",
   "CATEGORY_BROKEN_AUTHENTICATION": "不適當的驗證機制",

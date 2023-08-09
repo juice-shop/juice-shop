@@ -75,6 +75,7 @@
   tags:
     - Contraption
     - Code Analysis
+    - Web3
   description: 'Learn about the Token Sale before its official announcement.'
   difficulty: 5
   hint: 'The developers truly believe in "Security through Obscurity" over actual access restrictions.'
@@ -87,9 +88,10 @@
   tags:
     - Contraption
     - Good for Demos
+    - Web3
   description: 'Take over the wallet containing our official Soul Bound Token (NFT).'
   difficulty: 2
-  hint: 'Find the seedphrase posted accidentally.'
+  hint: 'Find the seed phrase posted accidentally.'
   hintUrl: ''
   mitigationUrl: ~
   key: nftUnlockChallenge
