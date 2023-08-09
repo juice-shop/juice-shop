@@ -98,7 +98,7 @@
   category: 'Improper Input Validation'
   description: 'Mint the Honey Pot NFT by gathering BEEs from the bee haven.'
   difficulty: 3
-  hint: 'Extract more BEEs than the owner has.'
+  hint: 'Discover NFT wonders among the captivating visual memories.'
   hintUrl: ''
   mitigationUrl: ~
   key: nftMintChallenge

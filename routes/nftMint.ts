@@ -6,7 +6,6 @@ const ethers = require('ethers')
 const customHttpProvider = new ethers.JsonRpcProvider('https://sepolia.infura.io/v3/0b88ff4d03a647b8a4649e9bfdf6644f')
 const challenges = require('../data/datacache').challenges
 const nftAddress = '0x41427790c94E7a592B17ad694eD9c06A02bb9C39'
-console.log(nftABI)
 const contract = new ethers.Contract(nftAddress, nftABI, customHttpProvider)
 const addressesMinted = new Set()
 let isEventListenerCreated = false
