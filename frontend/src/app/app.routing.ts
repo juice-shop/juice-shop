@@ -43,6 +43,7 @@ import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, LoginGuard } from './app.guard'
 import { NFTUnlockComponent } from './nft-unlock/nft-unlock.component'
 import { ScoreBoardPreviewComponent } from './score-board-preview/score-board-preview.component'
+import { ContractPlaygroundComponent } from './contract-playground/contract-playground.component'
 
 const loadFaucetModule = async () => {
   const module = await import('./faucet/faucet.module')
@@ -221,6 +222,10 @@ const routes: Routes = [
   {
     path: 'wallet-web3',
     loadChildren: async () => await loadWeb3WalletModule()
+  },
+  {
+    path: 'web3-playground',
+    component: ContractPlaygroundComponent
   },
   {
     path: 'bee-haven',
