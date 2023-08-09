@@ -98,6 +98,8 @@
 -
   name: 'Mint the Honey Pot'
   category: 'Improper Input Validation'
+  tags:
+      - Web3
   description: 'Mint the Honey Pot NFT by gathering BEEs from the bee haven.'
   difficulty: 3
   hint: 'Discover NFT wonders among the captivating visual memories.'
