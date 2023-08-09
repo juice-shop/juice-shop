@@ -2,6 +2,8 @@ name: "DevSecOps Pipeline"
 on:
   pull_request:
     branches: [master]
+  push: 
+    branches: [master]
     
 jobs:
   Trufflehog: 
@@ -42,7 +44,7 @@ jobs:
    if: (github.actor != 'dependabot[bot]')
    steps:
     - uses: actions/checkout@v3
-    - run: semgrep ci
+    - run: semgrep ci --error
       
   docker:
     name: docker/ci
