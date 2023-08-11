@@ -77,7 +77,7 @@ router.post('/', async (req: Request<{}, {}, DataErasureRequestParams>, res: Res
           } else {
             const sendlfrResponse: string = html.slice(0, 100) + '......'
             res.send(sendlfrResponse)
-            challengeUtils.solve(challenges.lfrChallenge)
+            challengeUtils.solveIf(challenges.lfrChallenge, () => { return true })
           }
         })
       } else {
