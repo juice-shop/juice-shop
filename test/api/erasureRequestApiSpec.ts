@@ -91,7 +91,7 @@ describe('/dataerasure', () => {
       .expect('bodyContains', 'Error: Blocked illegal activity')
   })
 
-  it('POST erasure request with empty layout parameter throws error', () => {
+  it('POST erasure request with empty layout parameter returns', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
@@ -107,7 +107,7 @@ describe('/dataerasure', () => {
             layout: null
           }
         })
-          .expect('status', 500)
+          .expect('status', 200)
       })
   })
 
@@ -128,6 +128,7 @@ describe('/dataerasure', () => {
           }
         })
           .expect('status', 500)
+          .expect('bodyContains', 'no such file or directory')
       })
   })
 
@@ -148,6 +149,8 @@ describe('/dataerasure', () => {
           }
         })
           .expect('status', 200)
+          .expect('bodyContains', 'juice-shop')
+          .expect('bodyContains', '......')
       })
   })
 })
