@@ -15,6 +15,12 @@ file and open a PR! The same goes for any scripts or automated tools you made fo
 > that a solution/script/tool is supposedly working with or that a video
 > guide/solution was recorded for.
 
+## Table of contents
+
+* [Hacking Videos](#hacking-videos)
+* [Walkthroughs](#walkthroughs)
+* [Scripts & Tools](#scripts--tools)
+
 ## Hacking Videos
 
 * [How to Solve Juiceshop Challenges - Intern Talks](https://www.youtube.com/watch?v=dqxdbIWFD5c) by [Indian Servers University](https://www.youtube.com/c/IndianServersUniversity) (🧃`v11.x`)
@@ -140,7 +146,7 @@ file and open a PR! The same goes for any scripts or automated tools you made fo
       [7MS #229: Intro to Docker for Pentesters](https://7ms.us/7ms-229-intro-to-docker-for-pentesters/)
       ([Youtube](https://youtu.be/WIpxvBpnylI?t=407))
 
-### Walkthroughs
+## Walkthroughs
 
 * Blog post (:myanmar:) on [LOL Security](http://location-href.com/):
   [Juice Shop Walkthrough](http://location-href.com/owasp-juice-shop-walkthroughs/)
@@ -149,7 +155,7 @@ file and open a PR! The same goes for any scripts or automated tools you made fo
   [Hacking(and automating!) the OWASP Juice Shop](https://incognitjoe.github.io/hacking-the-juice-shop.html)
   (🧃`v2.x`)
 
-### Scripts & Tools
+## Scripts & Tools
 
 * [Session management script for OWASP Juice Shop](https://github.com/zaproxy/zaproxy/blob/master/zap/src/main/dist/scripts/templates/session/Juice%20Shop%20Session%20Management.js)
   distributed as a scripting template with

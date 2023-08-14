@@ -10,15 +10,22 @@ import { FeedbackModel } from '../models/feedback'
 import { ComplaintModel } from '../models/complaint'
 import { Op } from 'sequelize'
 import challengeUtils = require('../lib/challengeUtils')
+import config from 'config'
+import jws from 'jws'
 
-const utils = require('../lib/utils')
+import * as utils from '../lib/utils'
 const security = require('../lib/insecurity')
 const jwt = require('jsonwebtoken')
-const jws = require('jws')
 const cache = require('../data/datacache')
 const challenges = cache.challenges
 const products = cache.products
-const config = require('config')
+
+exports.emptyUserRegistration = () => (req: Request, res: Response, next: NextFunction) => {
+  challengeUtils.solveIf(challenges.emptyUserRegistration, () => {
+    return req.body && req.body.email === '' && req.body.password === ''
+  })
+  next()
+}
 
 exports.forgedFeedbackChallenge = () => (req: Request, res: Response, next: NextFunction) => {
   challengeUtils.solveIf(challenges.forgedFeedbackChallenge, () => {
@@ -43,7 +50,9 @@ exports.captchaBypassChallenge = () => (req: Request, res: Response, next: NextF
 }
 
 exports.registerAdminChallenge = () => (req: Request, res: Response, next: NextFunction) => {
-  challengeUtils.solveIf(challenges.registerAdminChallenge, () => { return req.body && req.body.role === security.roles.admin })
+  challengeUtils.solveIf(challenges.registerAdminChallenge, () => {
+    return req.body && req.body.role === security.roles.admin
+  })
   next()
 }
 
@@ -152,7 +161,7 @@ exports.databaseRelatedChallenges = () => (req: Request, res: Response, next: Ne
 function changeProductChallenge (osaft: Product) {
   let urlForProductTamperingChallenge: string | null = null
   void osaft.reload().then(() => {
-    for (const product of config.products) {
+    for (const product of config.get<Product[]>('products')) {
       if (product.urlForProductTamperingChallenge !== undefined) {
         urlForProductTamperingChallenge = product.urlForProductTamperingChallenge
         break
@@ -372,10 +381,10 @@ function dlpPastebinDataLeakChallenge () {
 }
 
 function dangerousIngredients () {
-  const ingredients: Array<{ [op: symbol]: string }> = []
-  const dangerousProduct = config.get('products').filter((product: Product) => product.keywordsForPastebinDataLeakChallenge)[0]
-  dangerousProduct.keywordsForPastebinDataLeakChallenge.forEach((keyword: string) => {
-    ingredients.push({ [Op.like]: `%${keyword}%` })
-  })
-  return ingredients
+  return config.get<Product[]>('products')
+    .flatMap((product: Product) => product.keywordsForPastebinDataLeakChallenge)
+    .filter(Boolean)
+    .map((keyword) => {
+      return { [Op.like]: `%${keyword}%` }
+    })
 }

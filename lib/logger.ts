@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-import winston = require('winston')
+import * as winston from 'winston'
 
-module.exports = winston.createLogger({
+export default winston.createLogger({
   transports: [
     new winston.transports.Console({ level: process.env.NODE_ENV === 'test' ? 'error' : 'info' })
   ],
