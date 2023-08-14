@@ -1,0 +1,27 @@
+disable-version-check: false
+report:
+    exclude-fingerprint: 
+        - 4b0883d52334dfd9a4acce2fcf810121_0
+    format: ""
+    no-color: false
+    output: ""
+    report: security
+    severity: critical,high,medium,low,warning
+rule:
+    disable-default-rules: false
+    only-rule: []
+    skip-rule: []
+scan:
+    context: ""
+    data_subject_mapping: ""
+    disable-domain-resolution: true
+    domain-resolution-timeout: 3s
+    external-rule-dir: []
+    force: false
+    internal-domains: []
+    log-level: info
+    parallel: 0
+    quiet: false
+    scanner:
+        - sast
+    skip-path: []
