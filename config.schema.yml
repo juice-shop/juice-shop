@@ -504,6 +504,11 @@ ctf:
         type: string
       code:
         type: string
+    nftMintChallenge:
+      name:
+        type: string
+      code:
+        type: string
     securityPolicyChallenge:
       name:
         type: string

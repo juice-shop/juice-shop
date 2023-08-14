@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
     "module": "es2020",
+    "allowSyntheticDefaultImports": true,
     "types": [
       "jasmine",
       "node"
