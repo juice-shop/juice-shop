@@ -3,7 +3,7 @@ name: Bearer CI
 on:
   push:
     branches:
-      - main
+      - master
 
 permissions:
   contents: read
