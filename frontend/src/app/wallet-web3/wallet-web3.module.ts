@@ -9,14 +9,14 @@ import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 
-import { WalletWeb3Component } from "./wallet-web3.component";
+import { WalletWeb3Component } from './wallet-web3.component'
 
 const routes: Routes = [
   {
-    path: "",
-    component: WalletWeb3Component,
-  },
-];
+    path: '',
+    component: WalletWeb3Component
+  }
+]
 
 @NgModule({
   declarations: [WalletWeb3Component],
@@ -33,14 +33,14 @@ const routes: Routes = [
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class WalletWeb3Module {
-  constructor(
+  constructor (
     public configurationService: ConfigurationService,
     public overlayContainer: OverlayContainer
   ) {
     configurationService.getApplicationConfiguration().subscribe((conf) => {
       overlayContainer
         .getContainerElement()
-        .classList.add(conf.application.theme + "-theme");
-    });
+        .classList.add(conf.application.theme + '-theme')
+    })
   }
 }
