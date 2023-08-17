@@ -1,0 +1,62 @@
+<mat-card class="mat-elevation-z6">
+  <div class="header_container">
+    <h1>Crypto Wallet</h1>
+    <div class="metamask-button">
+      <button
+        mat-raised-button
+        color="accent"
+        type="button"
+        (click)="handleAuth()"
+      >
+        <span *ngIf="!session">Connect your MetaMask</span>
+        <span *ngIf="session"
+          >{{ userData.address.substring(0, 6) }}...{{
+            userData.address.slice(-6)
+          }}</span
+        >
+      </button>
+    </div>
+  </div>
+  <p>
+    <b>
+      <span>Your Wallet Balance:</span>
+      <span class="confirmation"> {{ walletBalance }} ETH</span>
+    </b>
+  </p>
+  <div>
+    <mat-form-field style="width: 100%" color="accent" appearance="outline">
+      <mat-label>Enter amount:</mat-label>
+      <input
+        matInput
+        placeholder="Enter ether amount to deposit/withdraw"
+        type="number"
+        id="inputAmount"
+        [(ngModel)]="inputAmount"
+        aria-label="Text field for the withdrawal amount"
+      />
+    </mat-form-field>
+    <h5 class="error">{{ errorMessage }}</h5>
+  </div>
+  <div class="dwbutton_container">
+    <button
+      type="submit"
+      class="deposit_withdraw_button"
+      mat-raised-button
+      color="primary"
+      aria-label="Button to deposit"
+      (click)="depositETH()"
+    >
+      Deposit
+    </button>
+    <button
+      type="submit"
+      class="deposit_withdraw_button"
+      mat-raised-button
+      color="warning"
+      aria-label="Button to withdraw"
+      (click)="withdrawETH()"
+    >
+      Withdraw
+    </button>
+  </div>
+</mat-card>
