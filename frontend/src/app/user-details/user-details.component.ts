@@ -6,11 +6,10 @@
 import { UserService } from '../Services/user.service'
 import { Component, Inject, OnInit } from '@angular/core'
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faArrowCircleLeft)
-dom.watch()
 
 @Component({
   selector: 'app-user-details',

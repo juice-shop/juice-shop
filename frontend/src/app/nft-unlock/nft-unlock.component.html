@@ -1,0 +1,89 @@
+<mat-card>
+  <div class="container" fxLayout="column" fxLayoutGap="20px">
+    <button
+      class="detail-container offer-container warning-container"
+      mat-raised-button
+      color="warn"
+      fxFlexAlign="center"
+    >
+      Note: Never reveal your personal private keys and seed phrase to anyone
+    </button>
+    <div
+      class="detail-container offer-container"
+      fxFlexAlign="center"
+      fxLayout="row"
+      fxLayout.lt-lg="column"
+    >
+      <div>
+        <img src="assets/public/images/products/juicy_chatbot.jpg" />
+      </div>
+      <div *ngIf="!successResponse">
+        <div>
+          <mat-card-title>Juicy Chatbot SBT</mat-card-title>
+        </div>
+        <form (ngSubmit)="submitForm()">
+          <div class="form-group">
+            <mat-form-field
+              style="width: 350px"
+              color="accent"
+              appearance="outline"
+            >
+              <mat-label>Enter Private Key</mat-label>
+              <input
+                matInput
+                [(ngModel)]="privateKey"
+                id="privateKey"
+                name="privateKey"
+                required
+                type="text"
+                aria-label="Text field for the private key"
+              />
+            </mat-form-field>
+            <h5 class="error">{{ errorMessage }}</h5>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            mat-raised-button
+            color="accent"
+          >
+            Authenticate
+          </button>
+        </form>
+      </div>
+      <div *ngIf="successResponse">
+        <div>
+          <mat-card-title>Juicy Chatbot SBT</mat-card-title>
+        </div>
+        <div class="owner-text">
+          Owned by
+          <a
+            target="_blank"
+            href="https://testnets.opensea.io/0x8343d2eb2B13A2495De435a1b15e85b98115Ce05"
+            >8343D2</a
+          >
+        </div>
+        <mat-divider class="detail-divider"></mat-divider>
+        <div class="detail-box mat-elevation-z6">
+          <div class="box-title">Account Address</div>
+          <mat-divider class="detail-divider"></mat-divider>
+          <p class="box-text">0x8343d2eb2B13A2495De435a1b15e85b98115Ce05</p>
+        </div>
+        <div class="detail-box mat-elevation-z6">
+          <div class="box-title">Description</div>
+          <mat-divider class="detail-divider"></mat-divider>
+          <p class="box-text">
+            Hurray! Find the Juice Shop SBT on
+            <a
+              target="_blank"
+              href="https://testnets.opensea.io/assets/mumbai/0xf4817631372dca68a25a18eb7a0b36d54f3dbcf7/0"
+              >Opensea here.</a
+            >
+            This is a non-transferable token and is here to stay forever.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>

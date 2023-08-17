@@ -5,13 +5,12 @@
 
 import { ConfigurationService } from '../Services/configuration.service'
 import { Component, OnInit } from '@angular/core'
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBitcoin } from '@fortawesome/free-brands-svg-icons'
 import { faCommentAlt, faComments, faGraduationCap, faUniversity } from '@fortawesome/free-solid-svg-icons'
 import { faCommentAlt as farCommentAlt, faComments as farComments } from '@fortawesome/free-regular-svg-icons'
 
 library.add(faBitcoin, faUniversity, faGraduationCap, faCommentAlt, faComments, farCommentAlt, farComments)
-dom.watch()
 
 @Component({
   selector: 'app-token-sale',

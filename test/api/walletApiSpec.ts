@@ -14,8 +14,8 @@ beforeAll(() => {
   return frisby.post(`${REST_URL}/user/login`, {
     headers: jsonHeader,
     body: {
-      email: 'jim@juice-sh.op',
-      password: 'ncc-1701'
+      email: 'demo',
+      password: 'demo'
     }
   })
     .expect('status', 200)
@@ -37,7 +37,7 @@ describe('/api/Wallets', () => {
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', {
-        data: 100
+        data: 200
       })
   })
 
@@ -55,7 +55,7 @@ describe('/api/Wallets', () => {
       headers: authHeader,
       body: {
         balance: 10,
-        paymentId: 5
+        paymentId: 2
       }
     })
       .expect('status', 200)
@@ -66,7 +66,7 @@ describe('/api/Wallets', () => {
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
           .expect('json', {
-            data: 110
+            data: 210
           })
       })
   })

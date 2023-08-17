@@ -7,14 +7,13 @@ import { UserService } from '../Services/user.service'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { AbstractControl, UntypedFormControl, Validators } from '@angular/forms'
 import { Component } from '@angular/core'
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-regular-svg-icons'
 import { SecurityQuestion } from '../Models/securityQuestion.model'
 import { TranslateService } from '@ngx-translate/core'
 
 library.add(faSave, faEdit)
-dom.watch()
 
 @Component({
   selector: 'app-forgot-password',

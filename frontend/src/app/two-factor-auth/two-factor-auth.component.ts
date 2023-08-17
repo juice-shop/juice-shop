@@ -9,7 +9,7 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
 import { ConfigurationService } from '../Services/configuration.service'
 
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSave, faUnlockAlt } from '@fortawesome/free-solid-svg-icons'
 
 import { forkJoin } from 'rxjs'
@@ -18,7 +18,6 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 library.add(faUnlockAlt, faSave)
-dom.watch()
 
 @Component({
   selector: 'app-two-factor-auth',

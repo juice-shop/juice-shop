@@ -75,12 +75,37 @@
   tags:
     - Contraption
     - Code Analysis
+    - Web3
   description: 'Learn about the Token Sale before its official announcement.'
   difficulty: 5
   hint: 'The developers truly believe in "Security through Obscurity" over actual access restrictions.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/security-through-obscurity.html#learn-about-the-token-sale-before-its-official-announcement'
   mitigationUrl: ~
   key: tokenSaleChallenge
+-
+  name: 'NFT Takeover'
+  category: 'Sensitive Data Exposure'
+  tags:
+    - Contraption
+    - Good for Demos
+    - Web3
+  description: 'Take over the wallet containing our official Soul Bound Token (NFT).'
+  difficulty: 2
+  hint: 'Find the seed phrase posted accidentally.'
+  hintUrl: ''
+  mitigationUrl: ~
+  key: nftUnlockChallenge
+-
+  name: 'Mint the Honey Pot'
+  category: 'Improper Input Validation'
+  tags:
+      - Web3
+  description: 'Mint the Honey Pot NFT by gathering BEEs from the bee haven.'
+  difficulty: 3
+  hint: 'Discover NFT wonders among the captivating visual memories.'
+  hintUrl: ''
+  mitigationUrl: ~
+  key: nftMintChallenge
 -
   name: 'Blocked RCE DoS'
   category: 'Insecure Deserialization'

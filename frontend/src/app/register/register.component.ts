@@ -9,7 +9,7 @@ import { AbstractControl, UntypedFormControl, Validators } from '@angular/forms'
 import { Component, NgZone, OnInit } from '@angular/core'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { Router } from '@angular/router'
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { MatSnackBar } from '@angular/material/snack-bar'
 
 import { faExclamationCircle, faUserPlus } from '@fortawesome/free-solid-svg-icons'
@@ -19,7 +19,6 @@ import { TranslateService } from '@ngx-translate/core'
 import { SecurityQuestion } from '../Models/securityQuestion.model'
 
 library.add(faUserPlus, faExclamationCircle)
-dom.watch()
 
 @Component({
   selector: 'app-register',

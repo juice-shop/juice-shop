@@ -4,12 +4,11 @@
  */
 
 import { Component, NgZone } from '@angular/core'
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCartArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { Router } from '@angular/router'
 
 library.add(faCartArrowDown)
-dom.watch()
 
 @Component({
   selector: 'app-basket',

@@ -9,13 +9,12 @@ import { UntypedFormControl, Validators } from '@angular/forms'
 import { ProductReviewService } from '../Services/product-review.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowCircleLeft, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { Review } from '../Models/review.model'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 library.add(faPaperPlane, faArrowCircleLeft)
-dom.watch()
 
 @Component({
   selector: 'app-product-review-edit',

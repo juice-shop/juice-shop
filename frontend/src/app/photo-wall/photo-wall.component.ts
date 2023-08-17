@@ -9,12 +9,11 @@ import { mimeType } from './mime-type.validator'
 import { PhotoWallService } from '../Services/photo-wall.service'
 import { IImage } from 'ng-simple-slideshow'
 import { ConfigurationService } from '../Services/configuration.service'
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 library.add(faTwitter)
-dom.watch()
 
 @Component({
   selector: 'app-photo-wall',
