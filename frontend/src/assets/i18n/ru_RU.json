@@ -375,6 +375,8 @@
   "TAG_GOOD_PRACTICE_DESCRIPTION": "Выделяет задания, которые меньше связаны с уязвимостями, а скорее продвигают хорошие (в плане безопасности) практики.",
   "TAG_CODE_ANALYSIS": "Анализ кода",
   "TAG_CODE_ANALYSIS_DESCRIPTION": "Отмечает задания, для которых может быть полезным покопаться в исходном коде данного приложения или стороннего разработчика.",
+  "TAG_WEB3": "Web3",
+  "TAG_WEB3_DESCRIPTION": "Marks challenges which incorporate Web3 concepts or technology such as Blockchain, Crypto Currency, Smart Contracts, or NFT.",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "Недостатки контроля доступа",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "Недостатки антиавтоматизации",
   "CATEGORY_BROKEN_AUTHENTICATION": "Недостатки аутентификации",

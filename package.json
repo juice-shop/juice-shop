@@ -57,7 +57,7 @@
     "lint:config": "schema validate -s config.schema.yml",
     "lint:fix": "eslint *.[jt]s data lib models routes test views rsn --fix && cd frontend && ng lint --fix && npx stylelint \"**/*.scss\" --fix && cd ..",
     "package": "grunt package",
-    "package:ci": "npm prune --production && npm dedupe && cd frontend && npm prune --legacy-peer-deps --production && cd .. && grunt package",
+    "package:ci": "npm prune --production && npm dedupe && cd frontend && npm prune --legacy-peer-deps --production && cd .. && npm run --silent sbom && grunt package",
     "serve": "concurrently --kill-others \"ts-node app.ts\" \"cd frontend && ng serve\"",
     "serve:dev": "concurrently --kill-others \"ts-node-dev app.ts\" \"cd frontend && ng serve\"",
     "start": "node build/app",
@@ -68,7 +68,10 @@
     "rsn": "ts-node rsn/rsn.ts",
     "rsn:verbose": "ts-node rsn/rsn-verbose.ts",
     "rsn:update": "ts-node rsn/rsn-update.ts",
-    "vagrant": "cd vagrant && vagrant up"
+    "vagrant": "cd vagrant && vagrant up",
+    "sbom": "npm run sbom:json && npm run sbom:xml",
+    "sbom:json": "cyclonedx-npm --omit=dev --output-format=JSON --output-file=bom.json",
+    "sbom:xml": " cyclonedx-npm --omit=dev --output-format=XML  --output-file=bom.xml"
   },
   "jest": {
     "preset": "ts-jest",
@@ -109,9 +112,9 @@
     ]
   },
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.2",
     "check-dependencies": "^1.1.0",
-    "clarinet": "^0.12.4",
+    "clarinet": "^0.12.5",
     "colors": "1.4.0",
     "compression": "^1.7.4",
     "concurrently": "^5.3.0",
@@ -121,6 +124,7 @@
     "dottie": "^2.0.2",
     "download": "^8.0.0",
     "errorhandler": "^1.5.1",
+    "ethers": "^6.7.0",
     "exif": "^0.6.0",
     "express": "^4.17.1",
     "express-ipfilter": "^1.2.0",
@@ -148,7 +152,7 @@
     "js-yaml": "^3.14.0",
     "jsonwebtoken": "0.4.0",
     "jssha": "^3.1.1",
-    "juicy-chat-bot": "~0.7.1",
+    "juicy-chat-bot": "~0.8.0",
     "libxmljs2": "^0.32.0",
     "marsdb": "^0.6.11",
     "morgan": "^1.10.0",
@@ -171,14 +175,16 @@
     "socket.io": "^3.1.0",
     "sqlite3": "^5.0.8",
     "svg-captcha": "^1.4.0",
-    "swagger-ui-express": "^4.1.4",
+    "swagger-ui-express": "^5.0.0",
     "ts-node-dev": "^1.1.6",
     "unzipper": "0.9.15",
+    "web3": "^4.0.3",
     "winston": "^3.3.3",
     "yaml-schema-validator": "^1.2.2",
     "z85": "^0.0.2"
   },
   "devDependencies": {
+    "@cyclonedx/cyclonedx-npm": "^1.12.0",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/chai": "^4.2.14",
     "@types/chai-as-promised": "^7.1.3",
