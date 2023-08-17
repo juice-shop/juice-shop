@@ -16,7 +16,7 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "outputPath": "dist/frontend",
             "index": "src/index.html",
@@ -27,7 +27,7 @@
             "styles": [
               "src/styles.scss",
               "node_modules/material-icons/iconfont/material-icons.scss",
-              "node_modules/flag-icons/sass/flag-icons.scss",
+              "node_modules/flag-icons/css/flag-icons.min.css",
               "node_modules/font-mfizz/dist/font-mfizz.css",
               "node_modules/highlight.js/styles/github.css",
               "node_modules/ngx-spinner/animations/timer.css"
@@ -46,7 +46,13 @@
             "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "customWebpackConfig": {
+              "path": "./webpack.angular.js",
+              "mergeRules": {
+                "externals": "replace"
+              }
+            }
           },
           "configurations": {
             "production": {

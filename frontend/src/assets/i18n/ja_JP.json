@@ -375,6 +375,8 @@
   "TAG_GOOD_PRACTICE_DESCRIPTION": "脆弱性対応よりもセキュリティ的なベストプラクティス普及を意図したチャレンジであることを示します。",
   "TAG_CODE_ANALYSIS": "コード分析",
   "TAG_CODE_ANALYSIS_DESCRIPTION": "アプリケーションやサードパーティのソースコードの読解が効果的なチャレンジであることを示します。",
+  "TAG_WEB3": "Web3",
+  "TAG_WEB3_DESCRIPTION": "Marks challenges which incorporate Web3 concepts or technology such as Blockchain, Crypto Currency, Smart Contracts, or NFT.",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "アクセス制御の不備 (Broken Access Control)",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "自動化された攻撃に対する防御の不備 (Broken Anti Automation)",
   "CATEGORY_BROKEN_AUTHENTICATION": "認証の失敗 (Broken Authentication)",

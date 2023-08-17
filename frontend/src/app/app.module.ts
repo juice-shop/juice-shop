@@ -7,7 +7,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http'
 import { CookieModule, CookieService } from 'ngx-cookie'
-import { ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 import { Routing } from './app.routing'
 import { OverlayContainer } from '@angular/cdk/overlay'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
@@ -43,6 +43,7 @@ import {
   ChallengeSolvedNotificationComponent
 } from './challenge-solved-notification/challenge-solved-notification.component'
 import { OAuthComponent } from './oauth/oauth.component'
+import { NFTUnlockComponent } from './nft-unlock/nft-unlock.component'
 import { TokenSaleComponent } from './token-sale/token-sale.component'
 import { ProductReviewEditComponent } from './product-review-edit/product-review-edit.component'
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
@@ -68,6 +69,7 @@ import { BasketService } from './Services/basket.service'
 import { ChallengeService } from './Services/challenge.service'
 import { DataSubjectService } from './Services/data-subject.service'
 import { ImageCaptchaService } from './Services/image-captcha.service'
+import { KeysService } from './Services/keys.service'
 import { AddressService } from './Services/address.service'
 import { QuantityService } from './Services/quantity.service'
 import { FlexLayoutModule } from '@angular/flex-layout'
@@ -169,6 +171,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     ChallengeSolvedNotificationComponent,
     OAuthComponent,
     TokenSaleComponent,
+    NFTUnlockComponent,
     ProductReviewEditComponent,
     TwoFactorAuthEnterComponent,
     SidenavComponent,
@@ -199,7 +202,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     FeedbackDetailsComponent,
     CodeSnippetComponent,
     CodeAreaComponent,
-    CodeFixesComponent
+    CodeFixesComponent,
   ],
   imports: [
     BrowserModule,
@@ -226,6 +229,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     NgxSpinnerModule,
     MatToolbarModule,
     MatIconModule,
+    FormsModule,
     MatFormFieldModule,
     MatSelectModule,
     MatButtonModule,
@@ -301,6 +305,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     AccountingGuard,
     DeluxeGuard,
     ImageCaptchaService,
+    KeysService,
     AddressService,
     QuantityService,
     WalletService,
@@ -310,7 +315,6 @@ export function HttpLoaderFactory (http: HttpClient) {
   ],
   bootstrap: [AppComponent]
 })
-
 export class AppModule {
   constructor (public configurationService: ConfigurationService, public overlayContainer: OverlayContainer) {
     configurationService.getApplicationConfiguration().subscribe((conf) => {
