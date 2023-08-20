@@ -21,7 +21,7 @@ enum ResultState {
   Wrong,
 }
 
-interface Solved {
+export interface Solved {
   findIt: boolean
   fixIt: boolean
 }

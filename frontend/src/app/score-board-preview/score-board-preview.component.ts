@@ -2,10 +2,10 @@ import { Component, NgZone, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { DomSanitizer } from '@angular/platform-browser'
 import { MatDialog } from '@angular/material/dialog'
-import { combineLatest } from 'rxjs'
+import { Subscription, combineLatest } from 'rxjs'
 
+import { CodeSnippetComponent, Solved as CodingChallengeDialogResult } from '../code-snippet/code-snippet.component'
 import { Config, ConfigurationService } from '../Services/configuration.service'
-import { CodeSnippetComponent } from '../code-snippet/code-snippet.component'
 import { CodeSnippetService } from '../Services/code-snippet.service'
 import { ChallengeService } from '../Services/challenge.service'
 import { SocketIoService } from '../Services/socket-io.service'
@@ -37,6 +37,8 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
   public filterSetting: FilterSetting = structuredClone(DEFAULT_FILTER_SETTING)
   public applicationConfiguration: Config | null = null
 
+  private readonly subscriptions: Subscription[] = []
+
   constructor (
     private readonly challengeService: ChallengeService,
     private readonly codeSnippetService: CodeSnippetService,
@@ -51,7 +53,7 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
 
   ngOnInit () {
     console.time('ScoreBoardPreview - load challenges')
-    combineLatest([
+    const dataLoaderSubscription = combineLatest([
       this.challengeService.find({ sort: 'name' }),
       this.codeSnippetService.challenges(),
       this.configurationService.getApplicationConfiguration()
@@ -74,17 +76,22 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
       this.filterAndUpdateChallenges()
       console.timeEnd('ScoreBoardPreview - transform challenges')
     })
+    this.subscriptions.push(dataLoaderSubscription)
 
-    this.route.queryParams.subscribe((queryParams) => {
+    const routerSubscription = this.route.queryParams.subscribe((queryParams) => {
       this.filterSetting = fromQueryParams(queryParams)
       this.filterAndUpdateChallenges()
     })
+    this.subscriptions.push(routerSubscription)
 
     this.io.socket().on('challenge solved', this.onChallengeSolvedWebsocket.bind(this))
   }
 
   ngOnDestroy (): void {
     this.io.socket().off('challenge solved', this.onChallengeSolvedWebsocket.bind(this))
+    for (const subscription of this.subscriptions) {
+      subscription.unsubscribe()
+    }
   }
 
   onFilterSettingUpdate (filterSetting: FilterSetting) {
@@ -99,7 +106,7 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
       return
     }
 
-    const allChallenges = this.allChallenges.map((challenge) => {
+    this.allChallenges = this.allChallenges.map((challenge) => {
       if (challenge.key === data.key) {
         console.log('ScoreBoardPreview - updating challenge', data.key)
         return {
@@ -109,7 +116,6 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
       }
       return { ...challenge }
     })
-    this.allChallenges = [...allChallenges]
     this.filterAndUpdateChallenges()
     // manually trigger angular change detection... :(
     // unclear why this is necessary, possibly because the socket.io callback is not running inside angular
@@ -148,14 +154,22 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
       }
     })
 
-    dialogRef.afterClosed().subscribe(result => {
-      const challenge = this.allChallenges.find((challenge) => challenge.key === challengeKey)
-      if (challenge.codingChallengeStatus < 1) {
-        challenge.codingChallengeStatus = result.findIt ? 1 : challenge.codingChallengeStatus
-      }
-      if (challenge.codingChallengeStatus < 2) {
-        challenge.codingChallengeStatus = result.fixIt ? 2 : challenge.codingChallengeStatus
-      }
+    dialogRef.afterClosed().subscribe((result: CodingChallengeDialogResult) => {
+      this.allChallenges = this.allChallenges.map((challenge) => {
+        if (challenge.codingChallengeStatus < 1) {
+          return {
+            ...challenge,
+            codingChallengeStatus: result.findIt ? 1 : challenge.codingChallengeStatus
+          }
+        }
+        if (challenge.codingChallengeStatus < 2) {
+          return {
+            ...challenge,
+            codingChallengeStatus: result.fixIt ? 2 : challenge.codingChallengeStatus
+          }
+        }
+        return { ...challenge }
+      })
       this.filterAndUpdateChallenges()
     })
   }
