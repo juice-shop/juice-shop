@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core'
 import { EnrichedChallenge } from '../../../../types/EnrichedChallenge'
-import { DEFAULT_FILTER_SETTING } from 'src/app/score-board-preview/types/FilterSetting'
+import { DEFAULT_FILTER_SETTING } from '../../../../filter-settings/FilterSetting'
 
 @Component({
   selector: 'category-filter',

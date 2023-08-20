@@ -1,21 +1,21 @@
-import { combineLatest } from 'rxjs'
-import { MatDialog } from '@angular/material/dialog'
-import { DomSanitizer } from '@angular/platform-browser'
-import { ActivatedRoute, Router } from '@angular/router'
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { DomSanitizer } from '@angular/platform-browser'
+import { MatDialog } from '@angular/material/dialog'
+import { combineLatest } from 'rxjs'
 
-import { SocketIoService } from '../Services/socket-io.service'
-import { ChallengeService } from '../Services/challenge.service'
-import { CodeSnippetService } from '../Services/code-snippet.service'
-import { CodeSnippetComponent } from '../code-snippet/code-snippet.component'
 import { Config, ConfigurationService } from '../Services/configuration.service'
+import { CodeSnippetComponent } from '../code-snippet/code-snippet.component'
+import { CodeSnippetService } from '../Services/code-snippet.service'
+import { ChallengeService } from '../Services/challenge.service'
+import { SocketIoService } from '../Services/socket-io.service'
 
+import { DEFAULT_FILTER_SETTING, FilterSetting } from './filter-settings/FilterSetting'
 import { EnrichedChallenge } from './types/EnrichedChallenge'
-import { DEFAULT_FILTER_SETTING, FilterSetting } from './types/FilterSetting'
 
+import { fromQueryParams, toQueryParams } from './filter-settings/query-params-converters'
 import { filterChallenges } from './helpers/challenge-filtering'
 import { sortChallenges } from './helpers/challenge-sorting'
-import { fromQueryParams, toQueryParams } from './helpers/query-params-converters'
 
 interface ChallengeSolvedWebsocket {
   key: string

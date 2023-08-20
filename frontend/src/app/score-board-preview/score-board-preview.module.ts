@@ -25,37 +25,41 @@ import { HackingChallengeProgressScoreCardComponent } from './components/hacking
 
 import { ChallengeHintPipe } from './pipes/challenge-hint.pipe'
 import { RouterModule } from '@angular/router'
+import { ScoreBoardAdditionalSettingsDialogComponent } from './components/filter-settings/components/score-board-additional-settings-dialog/score-board-additional-settings-dialog.component'
+import { MatRadioModule } from '@angular/material/radio'
 
 @NgModule({
   declarations: [
-    ScoreBoardPreviewComponent,
+    CategoryFilterComponent,
     ChallengeCardComponent,
-    ScoreCardComponent,
-    HackingChallengeProgressScoreCardComponent,
+    ChallengeHintPipe,
+    ChallengesUnavailableWarningComponent,
     CodingChallengeProgressScoreCardComponent,
     DifficultyOverviewScoreCardComponent,
     FilterSettingsComponent,
-    CategoryFilterComponent,
-    ChallengesUnavailableWarningComponent,
-    TutorialModeWarningComponent,
+    HackingChallengeProgressScoreCardComponent,
     PreviewFeatureNoticeComponent,
+    ScoreBoardAdditionalSettingsDialogComponent,
+    ScoreBoardPreviewComponent,
+    ScoreCardComponent,
+    TutorialModeWarningComponent,
     WarningCardComponent,
-    ChallengeHintPipe,
   ],
   imports: [
     CommonModule,
-    MatFormFieldModule,
-    MatSelectModule,
     FormsModule,
-    ReactiveFormsModule,
     MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatTooltipModule,
     MatDialogModule,
-    TranslateModule,
+    MatFormFieldModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatSelectModule,
+    MatTooltipModule,
+    MatRadioModule,
+    ReactiveFormsModule,
     RouterModule,
+    TranslateModule,
   ],
 })
 class ScoreBoardPreviewModule {}

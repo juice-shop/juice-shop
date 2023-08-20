@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core'
-import { DEFAULT_FILTER_SETTING, FilterSetting } from '../../types/FilterSetting'
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core'
+import { DEFAULT_FILTER_SETTING, FilterSetting } from '../../filter-settings/FilterSetting'
 import { EnrichedChallenge } from '../../types/EnrichedChallenge'
+import { MatDialog } from '@angular/material/dialog'
+import { ScoreBoardAdditionalSettingsDialogComponent } from './components/score-board-additional-settings-dialog/score-board-additional-settings-dialog.component'
 
 @Component({
   selector: 'filter-settings',
@@ -19,6 +21,8 @@ export class FilterSettingsComponent implements OnChanges {
 
   @Input()
   public reset: () => void
+
+  constructor (private readonly dialog: MatDialog) { }
 
   public tags: Set<string> = new Set()
   ngOnChanges () {
@@ -62,5 +66,9 @@ export class FilterSettingsComponent implements OnChanges {
       this.filterSetting.categories.length > 0 ||
       !!this.filterSetting.searchQuery ||
       !this.filterSetting.showDisabledChallenges
+  }
+
+  public openAdditionalSettingsDialog () {
+    this.dialog.open(ScoreBoardAdditionalSettingsDialogComponent)
   }
 }

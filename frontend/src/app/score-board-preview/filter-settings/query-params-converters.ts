@@ -1,9 +1,9 @@
 import type { Params } from '@angular/router'
 
-import { DEFAULT_FILTER_SETTING, FilterSetting } from '../types/FilterSetting'
+import { DEFAULT_FILTER_SETTING, FilterSetting } from './FilterSetting'
 
 export function fromQueryParams (queryParams: Readonly<Params>): FilterSetting {
-  const filterSetting = { ...structuredClone(DEFAULT_FILTER_SETTING) }
+  const filterSetting: FilterSetting = { ...structuredClone(DEFAULT_FILTER_SETTING) }
   if (queryParams.searchQuery) {
     filterSetting.searchQuery = queryParams.searchQuery
   }

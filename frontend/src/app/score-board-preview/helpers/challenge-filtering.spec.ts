@@ -1,5 +1,5 @@
 import { EnrichedChallenge } from '../types/EnrichedChallenge'
-import { DEFAULT_FILTER_SETTING } from '../types/FilterSetting'
+import { DEFAULT_FILTER_SETTING } from '../filter-settings/FilterSetting'
 import { filterChallenges } from './challenge-filtering'
 
 const CHALLENGE_1 = {
