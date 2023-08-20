@@ -1,14 +1,14 @@
 <mat-dialog-content class="mat-typography">
-  <h1 mat-dialog-title>Additional ScoreBoard Settings</h1>
+  <h1 mat-dialog-title translate>SCOREBOARD_ADDITIONAL_SETTINGS</h1>
 
   <div class="settings">
     <div class="setting-group">
-      <h2>Default ScoreBoard</h2>
+      <h2 translate>FEATURE_FLAG_DEFAULT_SCORE_BOARD_NAME</h2>
       <div class="setting">
-        <span>ScoreBoard linked in the sidebar</span>
+        <span translate>FEATURE_FLAG_DEFAULT_SCORE_BOARD_DESCRIPTION</span>
         <mat-radio-group aria-label="Default ScoreBoard" (change)="updateDefaultScoreBoard($event.value)" [value]="scoreBoardVersion">
-          <mat-radio-button value="v1">Old ScoreBoard</mat-radio-button>
-          <mat-radio-button value="v2">Preview ScoreBoard</mat-radio-button>
+          <mat-radio-button value="v1">{{ "FEATURE_FLAG_DEFAULT_SCORE_BOARD_VALUE_OLD" | translate}}</mat-radio-button>
+          <mat-radio-button value="v2">{{ "FEATURE_FLAG_DEFAULT_SCORE_BOARD_VALUE_NEW" | translate}}</mat-radio-button>
         </mat-radio-group>
       </div>
     </div>
@@ -16,7 +16,7 @@
 
   <mat-dialog-actions>
     <button mat-flat-button [mat-dialog-close]="null" cdkFocusInitial>
-      Close
+      {{ "BTN_CLOSE" | translate }}
     </button>
   </mat-dialog-actions>
 </mat-dialog-content>
