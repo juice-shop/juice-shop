@@ -15,6 +15,7 @@ import { ScoreCardComponent } from './components/score-card/score-card.component
 import { WarningCardComponent } from './components/warning-card/warning-card.component'
 import { ChallengeCardComponent } from './components/challenge-card/challenge-card.component'
 import { FilterSettingsComponent } from './components/filter-settings/filter-settings.component'
+import { DifficultyStarsComponent } from './components/difficulty-stars/difficulty-stars.component'
 import { TutorialModeWarningComponent } from './components/tutorial-mode-warning/tutorial-mode-warning.component'
 import { PreviewFeatureNoticeComponent } from './components/preview-feature-notice/preview-feature-notice.component'
 import { CategoryFilterComponent } from './components/filter-settings/components/category-filter/category-filter.component'
@@ -46,6 +47,7 @@ import { MatRadioModule } from '@angular/material/radio'
     TutorialModeWarningComponent,
     WarningCardComponent,
     DifficultySelectionSummaryPipe,
+    DifficultyStarsComponent,
   ],
   imports: [
     CommonModule,

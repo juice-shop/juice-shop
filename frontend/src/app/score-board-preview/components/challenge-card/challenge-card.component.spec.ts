@@ -26,8 +26,7 @@ describe('ChallengeCard', () => {
         mitigationUrl: 'https://owasp.example.com',
         hasCodingChallenge: true,
         description: 'lorem ipsum',
-        tagList: ['Easy'],
-        difficultyAsList: [undefined, undefined, undefined]
+        tagList: ['Easy']
     } as any
 
     component.applicationConfiguration = {
