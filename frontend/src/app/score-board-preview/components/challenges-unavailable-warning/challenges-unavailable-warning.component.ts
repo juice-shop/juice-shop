@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core'
 
-import { FilterSetting } from '../../types/FilterSetting'
+import { FilterSetting } from '../../filter-settings/FilterSetting'
 import { EnrichedChallenge } from '../../types/EnrichedChallenge'
-import { filter } from 'rxjs/operators'
 
 @Component({
   selector: 'challenges-unavailable-warning',

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { ChallengesUnavailableWarningComponent } from './challenges-unavailable-warning.component'
 import { TranslateModule } from '@ngx-translate/core'
-import { DEFAULT_FILTER_SETTING } from '../../types/FilterSetting'
+import { DEFAULT_FILTER_SETTING } from '../../filter-settings/FilterSetting'
 
 describe('ChallengesUnavailableWarningComponent', () => {
   let component: ChallengesUnavailableWarningComponent
