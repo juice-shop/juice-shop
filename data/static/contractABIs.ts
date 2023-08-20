@@ -476,7 +476,7 @@ export const web3WalletABI = [
         type: 'address'
       }
     ],
-    name: 'ReentrancyDetected',
+    name: 'ContractExploited',
     type: 'event'
   },
   {
@@ -541,9 +541,9 @@ export const web3WalletABI = [
     name: 'userWithdrawing',
     outputs: [
       {
-        internalType: 'bool',
+        internalType: 'uint256',
         name: '',
-        type: 'bool'
+        type: 'uint256'
       }
     ],
     stateMutability: 'view',
