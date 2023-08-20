@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog'
 import { Subscription } from 'rxjs'
 
 import { FeatureFlagService } from 'src/app/Services/feature-flag.service'
+import { LocalBackupService } from 'src/app/Services/local-backup.service'
 
 @Component({
   selector: "score-board-additional-settings-dialog",
@@ -17,7 +18,8 @@ export class ScoreBoardAdditionalSettingsDialogComponent
 
   constructor (
     public dialogRef: MatDialogRef<ScoreBoardAdditionalSettingsDialogComponent>,
-    public featureFlagService: FeatureFlagService
+    public featureFlagService: FeatureFlagService,
+    public localBackupService: LocalBackupService
   ) {}
 
   async ngOnInit () {
@@ -33,9 +35,5 @@ export class ScoreBoardAdditionalSettingsDialogComponent
     for (const subscription of this.subscriptions) {
       subscription.unsubscribe()
     }
-  }
-
-  updateDefaultScoreBoard (value: 'v1' | 'v2') {
-    this.featureFlagService.setDefaultScoreBoard(value)
   }
 }
