@@ -14,6 +14,10 @@ mat-dialog-actions {
   flex-direction: row-reverse;
 }
 
+h1 {
+  margin-bottom: 24px;
+}
+
 .settings {
   min-height: 400px;
   overflow-y: auto;
@@ -22,6 +26,11 @@ mat-dialog-actions {
 .setting-group {
   border-bottom: 3px solid var(--theme-background-lighter);
   margin-bottom: 16px;
+
+  h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
 
   &:last-child {
     border-bottom: unset;
