@@ -431,5 +431,10 @@
   "SCORE_BOARD_PREVIEW_NOTICE_WITH_CONTACT": "Dies ist eine Vorschau des neuen ScoreBoards. Wenn dir Fehler auffallen oder du Feedback hast, bitte melde dich bei uns über unsere <a href='https://owasp.org/www-project-juice-shop/' target='_blank' rel='noopener noreferrer'>Community Kanäle</a>",
   "SCORE_BOARD_PREVIEW_BACK": "Zurück zum alten ScoreBoard",
   "SCORE_BOARD_PREVIEW_CATCH_LINE": "ScoreBoard zu langsam oder zu verwirrend?",
-  "SCORE_BOARD_PREVIEW_ACTION_BUTTON": "Probiere das neue ScoreBoard aus!"
+  "SCORE_BOARD_PREVIEW_ACTION_BUTTON": "Probiere das neue ScoreBoard aus!",
+  "SCOREBOARD_ADDITIONAL_SETTINGS": "Weitere ScoreBoard Einstellungen",
+  "FEATURE_FLAG_DEFAULT_SCORE_BOARD_NAME": "Standard ScoreBoard",
+  "FEATURE_FLAG_DEFAULT_SCORE_BOARD_DESCRIPTION": "Wähle die ScoreBoard Version die in dem Seitenmenue verlinkt ist",
+  "FEATURE_FLAG_DEFAULT_SCORE_BOARD_VALUE_OLD": "Altes ScoreBoard",
+  "FEATURE_FLAG_DEFAULT_SCORE_BOARD_VALUE_NEW": "Vorschau ScoreBoard"
 }
