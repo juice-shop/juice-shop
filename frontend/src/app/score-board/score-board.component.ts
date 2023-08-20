@@ -131,7 +131,7 @@ export class ScoreBoardComponent implements OnInit, AfterViewInit {
                 challenges[i].hasTutorial = module.hasInstructions(challenges[i].name)
               })
             }
-            challenges[i].hasSnippet = challengesWithCodeSnippet.indexOf(challenges[i].key) > -1
+            challenges[i].hasSnippet = challengesWithCodeSnippet.includes(challenges[i].key)
           }
           this.availableChallengeCategories.sort((a, b) => a.localeCompare(b))
           this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(String(localStorage.getItem('displayedChallengeCategories'))) : this.availableChallengeCategories
