@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core'
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog'
 import { FeatureFlagService } from 'src/app/Services/feature-flag.service'
 import { of } from 'rxjs'
+import { LocalBackupService } from 'src/app/Services/local-backup.service'
 
 describe('ScoreBoardAdditionalSettingsDialogComponent', () => {
   let component: ScoreBoardAdditionalSettingsDialogComponent
@@ -24,6 +25,13 @@ describe('ScoreBoardAdditionalSettingsDialogComponent', () => {
           useValue: {
             defaultScoreBoard$: of('v1'),
             setDefaultScoreBoard: () => null
+          }
+        },
+        {
+          provide: LocalBackupService,
+          useValue: {
+            save: () => null,
+            restore: () => null
           }
         }
       ]
