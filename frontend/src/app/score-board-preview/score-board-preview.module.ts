@@ -24,6 +24,7 @@ import { CodingChallengeProgressScoreCardComponent } from './components/coding-c
 import { HackingChallengeProgressScoreCardComponent } from './components/hacking-challenge-progress-score-card/hacking-challenge-progress-score-card.component'
 
 import { ChallengeHintPipe } from './pipes/challenge-hint.pipe'
+import { DifficultySelectionSummaryPipe } from './components/filter-settings/pipes/difficulty-selection-summary.pipe'
 import { RouterModule } from '@angular/router'
 import { ScoreBoardAdditionalSettingsDialogComponent } from './components/filter-settings/components/score-board-additional-settings-dialog/score-board-additional-settings-dialog.component'
 import { MatRadioModule } from '@angular/material/radio'
@@ -44,6 +45,7 @@ import { MatRadioModule } from '@angular/material/radio'
     ScoreCardComponent,
     TutorialModeWarningComponent,
     WarningCardComponent,
+    DifficultySelectionSummaryPipe,
   ],
   imports: [
     CommonModule,
