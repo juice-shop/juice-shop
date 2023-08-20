@@ -26,8 +26,7 @@ describe('ChallengesUnavailableWarningComponent', () => {
         hasCodingChallenge: true,
         description: 'lorem ipsum',
         tagList: ['Easy'],
-        disabledEnv: 'Docker',
-        difficultyAsList: [undefined, undefined, undefined]
+        disabledEnv: 'Docker'
     },
       {
         category: 'foobar',
@@ -36,8 +35,7 @@ describe('ChallengesUnavailableWarningComponent', () => {
         hasCodingChallenge: true,
         description: 'lorem ipsum',
         tagList: ['Easy'],
-        disabledEnv: null,
-        difficultyAsList: [undefined, undefined, undefined]
+        disabledEnv: null
     }
   ] as any
 

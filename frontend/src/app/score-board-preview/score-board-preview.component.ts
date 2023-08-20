@@ -68,7 +68,6 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
           tagList: challenge.tags ? challenge.tags.split(',').map((tag) => tag.trim()) : [],
           originalDescription: challenge.description as string,
           description: this.sanitizer.bypassSecurityTrustHtml(challenge.description as string),
-          difficultyAsList: [...Array(challenge.difficulty).keys()],
           hasCodingChallenge: challengeKeysWithCodeChallenges.includes(challenge.key)
         }
       })
