@@ -1,0 +1,22 @@
+<mat-dialog-content class="mat-typography">
+  <h1 mat-dialog-title>Additional ScoreBoard Settings</h1>
+
+  <div class="settings">
+    <div class="setting-group">
+      <h2>Default ScoreBoard</h2>
+      <div class="setting">
+        <span>ScoreBoard linked in the sidebar</span>
+        <mat-radio-group aria-label="Default ScoreBoard" (change)="updateDefaultScoreBoard($event.value)" [value]="scoreBoardVersion">
+          <mat-radio-button value="v1">Old ScoreBoard</mat-radio-button>
+          <mat-radio-button value="v2">Preview ScoreBoard</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+  </div>
+
+  <mat-dialog-actions>
+    <button mat-flat-button [mat-dialog-close]="null" cdkFocusInitial>
+      Close
+    </button>
+  </mat-dialog-actions>
+</mat-dialog-content>

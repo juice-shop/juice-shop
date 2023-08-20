@@ -72,6 +72,7 @@ import { ImageCaptchaService } from './Services/image-captcha.service'
 import { KeysService } from './Services/keys.service'
 import { AddressService } from './Services/address.service'
 import { QuantityService } from './Services/quantity.service'
+import { FeatureFlagService } from './Services/feature-flag.service'
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatToolbarModule } from '@angular/material/toolbar'
@@ -313,7 +314,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     WalletService,
     OrderHistoryService,
     DeliveryService,
-    PhotoWallService
+    PhotoWallService,
+    FeatureFlagService
   ],
   bootstrap: [AppComponent]
 })

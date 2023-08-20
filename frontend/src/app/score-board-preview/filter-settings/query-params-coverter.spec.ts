@@ -1,4 +1,4 @@
-import { DEFAULT_FILTER_SETTING } from '../types/FilterSetting'
+import { DEFAULT_FILTER_SETTING } from './FilterSetting'
 import { fromQueryParams, toQueryParams } from './query-params-converters'
 
 describe('fromQueryParams', () => {
