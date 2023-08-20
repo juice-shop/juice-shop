@@ -5,7 +5,7 @@ const web3WalletABI = require('../data/static/contractABIs').web3WalletABI
 const ethers = require('ethers')
 const customHttpProvider = new ethers.JsonRpcProvider('https://sepolia.infura.io/v3/0b88ff4d03a647b8a4649e9bfdf6644f')
 const challenges = require('../data/datacache').challenges
-const web3WalletAddress = '0x01C4940a077FfD53a494D1cF547cB5209875a173'
+const web3WalletAddress = '0x413744D59d31AFDC2889aeE602636177805Bd7b0'
 const contract = new ethers.Contract(web3WalletAddress, web3WalletABI, customHttpProvider)
 const walletsConnected = new Set()
 let isEventListenerCreated = false
@@ -17,7 +17,7 @@ module.exports.contractExploitListener = function contractExploitListener () {
     walletsConnected.add(metamaskAddress)
     try {
       if (!isEventListenerCreated) {
-        contract.on('ReentrancyDetected', (exploiter: string) => {
+        contract.on('ContractExploited', (exploiter: string) => {
           if (walletsConnected.has(exploiter)) {
             walletsConnected.delete(exploiter)
             console.log(exploiter, 'exploited')
@@ -26,6 +26,26 @@ module.exports.contractExploitListener = function contractExploitListener () {
         })
         isEventListenerCreated = true
       }
+      setInterval(async () => {
+        try {
+          await customHttpProvider.getLogs({
+            address: web3WalletAddress,
+            topics: contract.filters.ContractExploited().topics
+          })
+        } catch (err) {
+          if (err.code === ethers.utils.Logger.errors.FILTER_NOT_FOUND) {
+            console.log('Filter expired, recreating...')
+            contract.removeAllListeners('ContractExploited')
+            contract.on('ContractExploited', async (exploiter: string) => {
+              if (walletsConnected.has(exploiter)) {
+                walletsConnected.delete(exploiter)
+                console.log(exploiter, 'exploited')
+                challengeUtils.solveIf(challenges.web3WalletChallenge, () => true)
+              }
+            })
+          }
+        }
+      }, 60000)
       res.status(200).json({ success: true, message: 'Event Listener Created' })
     } catch (error) {
       console.log(error)
