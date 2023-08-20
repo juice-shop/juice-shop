@@ -18,12 +18,24 @@
             {{ filterSetting.difficulties | difficultySelectionSummary }}
           </span>
         </mat-select-trigger>
-        <mat-option [value]="1">⭐️</mat-option>
-        <mat-option [value]="2">⭐️⭐️</mat-option>
-        <mat-option [value]="3">⭐️⭐️⭐️</mat-option>
-        <mat-option [value]="4">⭐️⭐️⭐️⭐️</mat-option>
-        <mat-option [value]="5">⭐️⭐️⭐️⭐️⭐️</mat-option>
-        <mat-option [value]="6">⭐️⭐️⭐️⭐️⭐️⭐️</mat-option>
+        <mat-option [value]="1">
+          <difficulty-stars [difficulty]="1"></difficulty-stars>
+        </mat-option>
+        <mat-option [value]="2">
+          <difficulty-stars [difficulty]="2"></difficulty-stars>
+        </mat-option>
+        <mat-option [value]="3">
+          <difficulty-stars [difficulty]="3"></difficulty-stars>
+        </mat-option>
+        <mat-option [value]="4">
+          <difficulty-stars [difficulty]="4"></difficulty-stars>
+        </mat-option>
+        <mat-option [value]="5">
+          <difficulty-stars [difficulty]="5"></difficulty-stars>
+        </mat-option>
+        <mat-option [value]="6">
+          <difficulty-stars [difficulty]="6"></difficulty-stars>
+        </mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
