@@ -11,6 +11,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatDialogModule } from '@angular/material/dialog'
 import { FeatureFlagService } from 'src/app/Services/feature-flag.service'
+import { DifficultySelectionSummaryPipe } from './pipes/difficulty-selection-summary.pipe'
 
 describe('FilterSettingsComponent', () => {
   let component: FilterSettingsComponent
@@ -29,7 +30,8 @@ describe('FilterSettingsComponent', () => {
       ],
       declarations: [
         FilterSettingsComponent,
-        CategoryFilterComponent
+        CategoryFilterComponent,
+        DifficultySelectionSummaryPipe
       ],
       providers: [
         {

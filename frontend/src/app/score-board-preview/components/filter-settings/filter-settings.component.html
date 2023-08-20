@@ -10,6 +10,14 @@
     <mat-form-field>
       <mat-label translate>LABEL_DIFFICULTY</mat-label>
       <mat-select multiple [value]="filterSetting.difficulties" (selectionChange)="onDifficultyFilterChange($event.value)">
+        <mat-select-trigger>
+          <ng-container *ngIf="filterSetting.difficulties.length === 0">
+            {{ "LABEL_DIFFICULTY" | translate }}
+          </ng-container>
+          <span *ngIf="filterSetting.difficulties.length !== 0">
+            {{ filterSetting.difficulties | difficultySelectionSummary }}
+          </span>
+        </mat-select-trigger>
         <mat-option [value]="1">⭐️</mat-option>
         <mat-option [value]="2">⭐️⭐️</mat-option>
         <mat-option [value]="3">⭐️⭐️⭐️</mat-option>
