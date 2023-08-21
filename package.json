@@ -248,7 +248,7 @@
     "jasmine-reporters": "^2.5.0",
     "jest": "^26.6.3",
     "mocha": "^8.1.1",
-    "node-fetch": "^3.3.2",
+    "node-fetch": "^2.6.13",
     "nyc": "^15.1.0",
     "shelljs": "^0.8.4",
     "sinon": "^11.1.2",
