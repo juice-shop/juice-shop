@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "module": "es2020",
+    "allowSyntheticDefaultImports": true,
     "types": []
   },
   "files": [

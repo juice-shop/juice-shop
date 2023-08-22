@@ -43,6 +43,10 @@ import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, LoginGuard } from './app.guard'
 import { NFTUnlockComponent } from './nft-unlock/nft-unlock.component'
 
+const loadFaucetModule = async () => {
+  const module = await import('./faucet/faucet.module')
+  return module.FaucetModule
+}
 // vuln-code-snippet start adminSectionChallenge scoreBoardChallenge
 const routes: Routes = [
   { // vuln-code-snippet neutral-line adminSectionChallenge
@@ -204,6 +208,10 @@ const routes: Routes = [
   {
     path: 'juicy-nft',
     component: NFTUnlockComponent
+  },
+  {
+    path: 'bee-haven',
+    loadChildren: async () => await loadFaucetModule()
   },
   // vuln-code-snippet start tokenSaleChallenge
   {
