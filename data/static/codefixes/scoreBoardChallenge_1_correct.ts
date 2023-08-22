@@ -159,6 +159,10 @@ const routes: Routes = [
     path: 'juicy-nft',
     component: NFTUnlockComponent
   },
+  {
+    path: 'bee-haven',
+    loadChildren: async () => await loadFaucetModule()
+  },
    {
     matcher: oauthMatcher,
     data: { params: (window.location.href).substr(window.location.href.indexOf('#')) },
