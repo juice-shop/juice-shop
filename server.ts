@@ -693,6 +693,8 @@ export async function start (readyCallback: Function) {
       readyCallback()
     }
   })
+  server.keepAliveTimeout = (60 * 1000) + 1000
+  server.headersTimeout = (60 * 1000) + 2000
 
   void collectDurationPromise('customizeApplication', customizeApplication)() // vuln-code-snippet hide-line
   void collectDurationPromise('customizeEasterEgg', customizeEasterEgg)() // vuln-code-snippet hide-line
