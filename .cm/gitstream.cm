@@ -3,7 +3,17 @@
 # View the gitStream quickstart for more examples: https://docs.gitstream.cm/quick-start/
 manifest:
   version: 1.0
+
 automations:
+  label_prs_without_tests:
+    if:
+      - {{ files | match(regex=r/(unit)/) | nope }}
+    run: 
+      - action: add-label@v1
+        args:
+          label: 'missing-tests'
+          color: '#E94637'
+
   # Add a label that indicates how many minutes it will take to review the PR.
   estimated_time_to_review: 
     if:
