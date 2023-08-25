@@ -42,17 +42,16 @@
 
 	<!-- Any section element inside of this container is displayed as a slide -->
 	<div class="slides">
-		<section>
+		<section data-transition="zoom" data-background="assets/oss_fairytale/wallpaper_fairytale_sepia_dark.jpg">
 			<h2>Once upon a time...</h2>
 			<p class="fragment">...developers and security experts relied on mostly server-side rendered vulnerable applications to train their web hacking skills.</p>
 			<p class="fragment">In 2014, the <strong>Juice Shop</strong> entered the stage as one of the first Rich Internet Application representatives.</p>
 			<p class="fragment">What started as a personal pet project with two dozen hacking challenges, became an <strong>OWASP Flagship</strong> project shortly after & grew in size, scope and use case coverage significantly over the years.</p>
 		</section>
-		<section data-transition="zoom">
+		<section data-transition="zoom" data-background="assets/oss_fairytale/wallpaper_fairytale_color_dark.jpg">
 			<h2>OWASP Juice Shop</h2>
 			<h4>An Open Source Software</h4>
 			<h4><small class="fragment">and security</small> Fairytale</h4>
-			<img src="assets/JuiceShop_Logo.png" width="200" class="no-box"/>
 			<h3>
 				<a href="https://owasp-juice.shop">https://owasp-juice.shop</a>
 			</h3>
@@ -61,14 +60,14 @@
 			</small>
 		</section>
 
-		<section>
+		<section data-background="assets/oss_fairytale/wallpaper_fairytale_color_dark.jpg">
 			<h1>Prologue</h1>
 			<h2>The Inspiration</h2>
 		</section>
 		<!-- Altoro Mutual -->
 		<!-- BodgeIt -->
 
-		<section>
+		<section data-background="assets/oss_fairytale/wallpaper_fairytale_color_dark.jpg">
 			<h1>Chapter I</h1>
 			<h2>The Idea</h2>
 		</section>
@@ -83,13 +82,13 @@
 			</blockquote>
 		</section>
 
-		<section>
+		<section data-background="assets/oss_fairytale/wallpaper_fairytale_color_dark.jpg">
 			<h1>Chapter II</h1>
 			<h2>The Challenges</h2>
 		</section>
 		<section>
 			<h2>2014: 23 Hacking Challenges</h2>
-			<img src="xxx" height="400"/>
+			<img src="assets/oss_fairytale/feature-complete-release.png" height="300"/>
 			<p>
 				<a href="https://github.com/juice-shop/juice-shop/tree/v1.0.0" target="_blank">Juice Shop v1.0.0</a> was released October 24th, 2014 with a mix of XSS, SQLi, Access Control and Information Leakage challenges
 			</p>
@@ -123,15 +122,15 @@
 			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/part1/img/code_snippet5.png"/>
 		</section>
 		<section>
-			<h3>2023</h3>
+			<h2>2023: The current Score Board</h2>
 			<img src="assets/oss_fairytale/scoreboard_v15.png" height="500"/>
 		</section>
 		<section>
-			<h3>2023: Redesign from scratch</h3>
+			<h2 class="neon">2023: Redesign from scratch</h2>
 			<img src="assets/oss_fairytale/scoreboard_new.png" height="500"/>
 		</section>
 
-		<section>
+		<section data-background="assets/oss_fairytale/wallpaper_fairytale_color_dark.jpg">
 			<h1>Chapter III</h1>
 			<h2>The Features</h2>
 		</section>
@@ -167,7 +166,7 @@
 			</p>
 		</section>
 		<section>
-			<h2>Re-branding</h2>
+			<h2>Theming & Re-branding</h2>
 			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/part1/img/theme_kn1.png" height="160"/>
 			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/part1/img/theme_kn3.png" height="160"/>
 			<br>
@@ -184,16 +183,21 @@
 				Solved challenges are rated based on cheating probability
 			</p>
 		</section>
-
 		<section>
+			<h2>Project Roadmap</h2>
+			<table id="roadmap"></table><br>
+		</section>
+
+		<section data-background="assets/oss_fairytale/wallpaper_fairytale_color_dark.jpg">
 			<h1>Chapter IV</h1>
 			<h2>The Technology</h2>
 		</section>
 		<section>
-			<h2>Modern Web-Architecture</h2>
-			<p>
-				JavaScript/TypeScript all the way from UI to REST API
-			</p>
+			<h3>2016: "Bleeding-edge" Web-Architecture</h3>
+			<img src="assets/oss_fairytale/architecture-diagram_2016.png"/>
+		</section>
+		<section>
+			<h3>2023: "Still-modern" Web-Architecture</h3>
 			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/introduction/img/architecture-diagram.png"/>
 		</section>
 		<section>
@@ -213,10 +217,25 @@
 			<img src="assets/gitpod.png" height="100" style="background: none; border:none; box-shadow:none;"/>
 		</section>
 		<section>
-			<h2>Test Pyramid</h2>
-			<p>
-				Maximizing Test Automation &amp; <a href="https://codeclimate.com/github/bkimminich/juice-shop">Code Coverage</a>
-			</p>
+			<h2>2016: Test Pyramid</h2>
+			<div>
+				<img src="assets/u3lWw.gif" height="100" style="background: none; border:none;"/>
+			</div>
+			<div>
+				<img src="assets/sauce-labs-logo.png" height="30" style="background: none; border:none; box-shadow:none;"/>
+			</div>
+			<div>
+				<img src="assets/oss_fairytale/protractor_plain_logo_icon_146387.png" height="70" style="background: none; border:none; box-shadow:none;"/>
+				<img src="assets/logo-frisby.png" height="70" style="background: none; border:none; box-shadow:none;"/>
+			</div>
+			<div>
+				<img src="assets/karma.png" height="90" style="background: none; border:none; box-shadow:none;"/>
+				<img src="assets/jasmine-horizontal.svg" height="90" style="background: none; border:none; box-shadow:none;"/>
+				<img src="assets/stryker.png" height="90" style="background: none; border:none; box-shadow:none;"/>
+			</div>
+		</section>
+		<section>
+			<h2>2023: Test Pyramid</h2>
 			<div>
 				<img src="assets/Cypress.png" height="100" style="background: none; border:none; box-shadow:none;"/>
 			</div>
@@ -232,10 +251,18 @@
 			</div>
 		</section>
 		<section>
-			<h2>DevOps Pyramid</h2>
-			<p>
-				Automated Build, <a href="https://github.com/juice-shop/juice-shop/actions">CI</a>/<a href="https://juice-shop.herokuapp.com">CD</a> &amp; Code Analysis</a>
-			</p>
+			<h2>2016: Build Process</h2>
+			<img src="assets/travis-mascot-200px.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+			<img src="assets/appveyor_400x400.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+			<img src="assets/logotype-heroku.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+			<img src="assets/docker.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+			<br>
+			<img src="assets/Bower-logo.svg.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+			<img src="assets/npm-logo.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+			<img src="assets/grunt-logo-no-wordmark.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+		</section>
+		<section>
+			<h2>2023: DevOps Pyramid</h2>
 			<div>
 				<img src="assets/zap.png" height="80" style="background: none; border:none; box-shadow:none;"/>
 				<img src="assets/gh_codescan.png" height="80" style="background: none; border:none; box-shadow:none;"/>
@@ -256,93 +283,46 @@
 			</div>
 		</section>
 		<section>
-			<h2>Integration Stacks</h2>
-			<p>
-				Convenient monitoring, notification and data integration capabilities
-			</p>
-			<div>
-				<img src="assets/webhooks.png" height="120" style="background: none; border:none; box-shadow:none;"/>
-				<img src="assets/JSON_vector_logo.svg" height="120" style="background: none; border:none; box-shadow:none;"/>
-				<img src="assets/grafana.png" height="120" style="background: none; border:none; box-shadow:none;"/>
-			</div>
-			<div>
-				<img src="assets/yaml.png" height="200" style="background: none; border:none; box-shadow:none;"/>
-				<img src="assets/prometheus_logo.png" height="200" style="background: none; border:none; box-shadow:none;"/>
-			</div>
-		</section>
-		<section>
-			<h3>Solution Webhook</h3>
-			<p>Sends a payload to a specified URL whenever a challenge is solved</p>
-			<pre><code>
-{
-    "solution": {
-        "challenge": "localXssChallenge",
-        "cheatScore": 0,
-        "totalCheatScore": 0.15,
-        "issuedOn": "2020-12-15T18:24:33.027Z"
-    },
-    "ctfFlag": "b0d70dce...b85fac6785dba2349b",
-    "issuer": {
-        "hostName": "fv-az116-673",
-        "os": "Linux (5.4.0-1031-azure)",
-        "appName": "OWASP Juice Shop",
-        "config": "default",
-        "version": "12.3.0-SNAPSHOT"
-    }
-}					</code></pre>
-		</section>
-		<section>
-			<h3>Grafana Dashboard</h3>
+			<h2>Grafana Dashboard</h2>
+			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/appendix/img/grafana_01.png" height="190"/>
+			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/appendix/img/grafana_02.png" height="190"/>
+			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/appendix/img/grafana_03.png" height="190"/>
 			<p><code>JSON</code> template allows to import a dashboard into Grafana consuming and displaying all metrics gathered via Prometheus</p>
-			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/appendix/img/grafana_01.png" height="200"/>
-			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/appendix/img/grafana_02.png" height="200"/>
-			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/appendix/img/grafana_03.png" height="200"/>
 		</section>
 
-		<section>
+		<section data-background="assets/oss_fairytale/wallpaper_fairytale_color_dark.jpg">
 			<h1>Chapter V</h1>
 			<h2>The Community</h2>
 		</section>
 		<section>
-			<h3>Can I contribute to the project?</h3>
-			<p>
-				Of course! Visit our <a href="https://github.com/juice-shop/juice-shop/issues">backlog on GitHub</a> &amp; <a href="https://crowdin.com/project/owasp-juice-shop/invite">translations on Crowdin</a>
-			</p>
+			<h2>Contributions are welcome!</h2>
 			<a href="https://github.com/juice-shop/juice-shop/issues"><img src="assets/Octocat.png" height="200" class="no-box"/></a> <a href="https://crowdin.com/project/owasp-juice-shop/invite"><img src="assets/tGUepzTM.jpg" height="200" class="no-box"/></a>
 			<p>
-				<small>Issues labelled with <span style="background: #5319e7">&nbsp;good first issue&nbsp;</span> and/or <span style="background: #159818">&nbsp;help wanted&nbsp;</span> are the best starting point!</small>
+				Visit our <a href="https://github.com/juice-shop/juice-shop/issues">backlog on GitHub</a> &amp; <a href="https://crowdin.com/project/owasp-juice-shop/invite">translations on Crowdin</a>. Issues labelled with <span style="background: #5319e7">&nbsp;good first issue&nbsp;</span> and/or <span style="background: #159818">&nbsp;help wanted&nbsp;</span> are the best starting point for new contributors
 			</p>
 		</section>
 		<section>
-			<h3>Is there a contribution reward?</h3>
-			<p>
-				For your 1<small>st</small> merged pull request you'll get <a href="https://www.stickermule.com/user/1070702817/stickers">some stickers</a> from us
-			</p>
+			<h2>Contribution Rewards</h2>
 			<img src="https://raw.githubusercontent.com/bkimminich/juice-shop/master/frontend/src/assets/public/images/products/sticker_single.jpg" class="no-box" height="200"/> <img src="https://raw.githubusercontent.com/bkimminich/juice-shop/master/frontend/src/assets/public/images/products/sticker_page.jpg" class="no-box" height="200"/>
 			<p>
-				<small>Serial contributors might even get <a href="https://github.com/juice-shop/juice-shop#merchandise">t-shirts, mugs and other glorious merchandise</a> for free!</small>
+				For your 1<small>st</small> merged pull request you'll get <a href="https://www.stickermule.com/user/1070702817/stickers">some stickers</a> from us. Serial contributors might even get <a href="https://github.com/juice-shop/juice-shop#merchandise">t-shirts, mugs and other glorious merchandise</a> for free
 			</p>
 		</section>
 		<section>
-			<h3>This project really needs a jingle!</h3>
-			<p>
-				We fully agree! Thankfully, <a href="https://twitter.com/braimee" target="_blank">Brian Johnson</a> already recorded one!
-			</p>
+			<h2>Google Summer of Code</h2>
+			<img src="assets/oss_fairytale/gsoc_2018-2022.png">
+			<p>In 2023, Juice Shop participates in GSoC for the 6th year in a row under the OWASP Foundation</p>
+		</section>
+		<section>
+			<h2>Official Jingle</h2>
 			<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/braimee" title="braimee" target="_blank" style="color: #cccccc; text-decoration: none;">braimee</a> · <a href="https://soundcloud.com/braimee/owasp-juice-shop-jingle" title="OWASP Juice Shop Jingle" target="_blank" style="color: #cccccc; text-decoration: none;">OWASP Juice Shop Jingle</a></div>
+			<p>
+				Thanks to pentester-singer-songwriter-multi-talent <a href="https://twitter.com/braimee" target="_blank">Brian Johnson</a>, Juice Shop is probably one of <strong>very few</strong> Open Source projects with its own official jingle
+			</p>
 		</section>
 
-		<section>
-			<h1>Epilogue</h1>
-			<h2>The Future</h2>
-		</section>
-		<section>
-			<h2>Project Roadmap</h2>
-			<table id="roadmap"></table><br>
-		</section>
-
-		<section>
+		<section data-background="assets/oss_fairytale/wallpaper_fairytale_color_dark.jpg">
 			<h1>Appendix</h1>
-			<h2>The Success</h2>
 		</section>
 		<section>
 			<h2>Juice Shop Success Pyramid&trade;</h2>
@@ -364,7 +344,11 @@
 			<img class="no-box" height="33px" src="https://camo.githubusercontent.com/6242cc83b5f0041a3b96aa274bd59c4870c8c06a/68747470733a2f2f696d672e736869656c64732e696f2f646f636b65722f70756c6c732f626b696d6d696e6963682f6a756963652d73686f702e737667"/>
 			<img class="no-box" height="33px" src="https://camo.githubusercontent.com/2df43a4dbe2e9760afd0c593294752b30e0bb707/68747470733a2f2f696d672e736869656c64732e696f2f736f75726365666f7267652f64742f6a756963652d73686f703f6c6162656c3d736f75726365666f726765253230646f776e6c6f616473"/>
 		</section>
-
+		<section data-transition="zoom-out">
+			<h2>$ zip -r -q -9 postcard intro</h2>
+			<img src="assets/postcard_frontside.png" height="310">
+			<img src="assets/postcard_backside.png" height="310">
+		</section>
 		<section data-transition="zoom-out">
 			<h2>Additional Information</h2>
 			<table style="font-size: 75%">
@@ -378,6 +362,7 @@
 					<td>
 						<a href="https://github.com/juice-shop/juice-shop">https://github.com/juice-shop/juice-shop</a> (<a href="https://opensource.org/licenses/MIT">MIT</a>)<br>
 						<a href="https://github.com/juice-shop/juice-shop-ctf">https://github.com/juice-shop/juice-shop-ctf</a> (<a href="https://opensource.org/licenses/MIT">MIT</a>)<br>
+						<a href="https://github.com/juice-shop/multi-juicer">https://github.com/juice-shop/multi-juicer</a> (<a href="https://opensource.org/license/apache-2-0/">Apache 2.0</a>)
 						<a href="https://github.com/juice-shop/pwning-juice-shop">https://github.com/juice-shop/pwning-juice-shop</a> (<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC-BY-NC-ND</a>)
 					</td>
 				</tr>
@@ -390,22 +375,9 @@
 				</tbody>
 			</table>
 		</section>
-
-
-		<section data-transition="fade">
-			<img src="assets/JuiceShop_Logo.png" width="300" class="no-box"/>
-			<p>
-				Copyright (c) 2014-2023 <a href="http://kimminich.de">Björn Kimminich</a> / <a href="http://twitter.com/bkimminich">@bkimminich</a>
-			</p>
-			<p>
-				Licensed under the <a href="https://github.com/juice-shop/juice-shop/blob/master/LICENSE">MIT license</a>.
-			</p>
-			<hr>
-			<p>
-				<small>Created with <a href="http://lab.hakim.se/reveal-js">reveal.js</a> - The HTML Presentation Framework</small>
-			</p>
+		<section data-background="assets/oss_fairytale/wallpaper_fairytale_sepia_dark.jpg">
+			<h1>The End<span class="fragment">...?</span></h1>
 		</section>
-
 	</div>
 
 </div>
@@ -466,16 +438,6 @@
 </script>
 
 <div class="hidden-mobile">
-	<a style="display: block;" href="https://github.com/juice-shop/juice-shop"><img style="position: absolute; top: 0; right: 0; border: 0;" src="assets/github_ribbon.png" alt="Fork reveal.js on GitHub"></a>
-
-	<script>
-      ((window.gitter = {}).chat = {}).options = {
-        room: 'bkimminich/juice-shop'
-      };
-	</script>
-	<!--suppress JSUnresolvedLibraryURL -->
-	<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
-
 	<div id="fb-root"></div>
 	<script>(function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
