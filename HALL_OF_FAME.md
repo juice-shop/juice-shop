@@ -11,7 +11,7 @@
 
 ## GitHub Contributors
 
-As reported by [`git-stats -a -s '2014'`](https://www.npmjs.com/package/git-stats) analysis of `master` as of Fri, 19 May
+As reported by [`git-stats -a -s '2014'`](https://www.npmjs.com/package/git-stats) analysis of `develop` as of Sat, 26 Aug
 2023 after deduplication with `.mailmap`.
 
 ![Top git contributors](screenshots/git-stats.png)
