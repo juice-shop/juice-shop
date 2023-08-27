@@ -110,10 +110,23 @@ jobs:
             server-lcov.info
   api-test:
     runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.stability == 'unstable' }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [16, 18, 20]
+        node-version: [16, 18]
+        stability: ["stable"]
+        # todo(@J12934) ignore failures for node.js 20 until https://github.com/juice-shop/juice-shop/issues/2068 is resolved
+        include:
+          - node-version: 20
+            os: ubuntu-latest
+            stability: "unstable"
+          - node-version: 20
+            os: windows-latest
+            stability: "unstable"
+          - node-version: 20
+            os: macos-latest
+            stability: "unstable"
     steps:
       - name: "Check out Git repository"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
@@ -132,17 +145,12 @@ jobs:
       - name: "Execute integration tests"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
         uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
+        env:
+          NODE_ENV: test
         with:
           timeout_minutes: 5
           max_attempts: 3
-          command: |
-            if [ "$RUNNER_OS" == "Windows" ]; then
-            set NODE_ENV=test
-            else
-            export NODE_ENV=test
-            fi
-            npm run frisby
-          shell: bash
+          command: npm run frisby
       - name: "Copy API test coverage data"
         run: cp build/reports/coverage/api-tests/lcov.info api-lcov.info
       - name: "Upload API test coverage data"
