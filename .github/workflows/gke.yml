@@ -30,6 +30,11 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v1'
+      with:
+         service_account: sperciballi-ghactions@snyk-cx-se-demo.iam.gserviceaccount.com
 
     # Setup gcloud CLI
     - uses: google-github-actions/setup-gcloud@1bee7de035d65ec5da40a31f8589e240eba8fde5
