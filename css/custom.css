@@ -66,6 +66,31 @@
     );
     -webkit-background-clip: text;
 }
+.reveal .norway {
+    background-image: gradient(linear, left top, right top,
+    color-stop(0, #BA0C2F),
+    color-stop(0.15, #BA0C2F),
+    color-stop(0.3, #FFFFFF),
+    color-stop(0.45, #00205B),
+    color-stop(0.65, #FFFFFF),
+    color-stop(0.8, #BA0C2F),
+    color-stop(1, #BA0C2F)
+    );
+    color:transparent;
+    background-clip: text;
+
+    /* for webkit browsers Chrome and Safari */
+    background-image: -webkit-gradient(linear, left top, right top,
+    color-stop(0, #BA0C2F),
+    color-stop(0.15, #BA0C2F),
+    color-stop(0.3, #FFFFFF),
+    color-stop(0.45, #00205B),
+    color-stop(0.65, #FFFFFF),
+    color-stop(0.8, #BA0C2F),
+    color-stop(1, #BA0C2F)
+    );
+    -webkit-background-clip: text;
+}
 
 .twocolumn {
     display: grid;
