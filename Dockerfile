@@ -2,7 +2,8 @@ FROM node:16 as installer
 COPY . /juice-shop
 WORKDIR /juice-shop
 RUN npm i -g typescript ts-node
-RUN npm install --omit=dev --unsafe-perm
+#RUN npm install --omit=dev --unsafe-perm
+RUN npm install
 RUN npm dedupe
 RUN rm -rf frontend/node_modules
 RUN rm -rf frontend/.angular
@@ -12,7 +13,7 @@ RUN mkdir logs && \
     chgrp -R 0 ftp/ frontend/dist/ logs/ data/ i18n/ && \
     chmod -R g=u ftp/ frontend/dist/ logs/ data/ i18n/
 
-FROM gcr.io/distroless/nodejs:16
+FROM gcr.io/distroless/nodejs:14
 ARG BUILD_DATE
 ARG VCS_REF
 LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
