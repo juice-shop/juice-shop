@@ -76,21 +76,21 @@ jobs:
         node-version: [16, 18, 20]
     steps:
       - name: "Check out Git repository"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
+        if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16')
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
       - name: "Use Node.js ${{ matrix.node-version }}"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
+        if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16')
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
           node-version: ${{ matrix.node-version }}
       - name: "Install CLI tools"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
+        if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16')
         run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
+        if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16')
         run: npm install
       - name: "Execute unit tests"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
+        if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16')
         uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
         with:
           timeout_minutes: 15
@@ -129,21 +129,21 @@ jobs:
             stability: "unstable"
     steps:
       - name: "Check out Git repository"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
+        if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16')
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
       - name: "Use Node.js ${{ matrix.node-version }}"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
+        if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16')
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
           node-version: ${{ matrix.node-version }}
       - name: "Install CLI tools"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
+        if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16')
         run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
+        if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16')
         run: npm install
       - name: "Execute integration tests"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
+        if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16')
         uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
         env:
           NODE_ENV: test
@@ -200,7 +200,7 @@ jobs:
       - name: "Install CLI tools"
         run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
-        if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
+        if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16')
         run: npm install
       - name: "Execute server tests for each custom configuration"
         uses: nick-invision/retry@45ba062d357edb3b29c4a94b456b188716f61020 #v2: 2.4.1 available
