@@ -171,13 +171,13 @@
 		</section>
 
 		<section>
-			<h2>Coding Challenges</h2>
+			<h2><span id="numCodingChallenges"></span> Coding Challenges</h2>
 			<p>
-				Find code flaw and select appropriate fix for several challenges
+				Identify the underlying code flaw and select an appropriate fix
 			</p>
-			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/part1/img/code_snippet2.png" height="280"/>
-			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/part1/img/code_snippet4.png" height="280"/>
-			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/part1/img/code_snippet5.png"/>
+			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/part1/img/code_snippet2.png" height="270"/>
+			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/part1/img/code_snippet4.png" height="270"/>
+			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/part1/img/code_snippet5.png" height="114"/>
 		</section>
 
 		<section>
@@ -816,6 +816,10 @@ products:
 	fetch("https://demo.owasp-juice.shop/api/Challenges").then(async (res) => {
 		const challenges = await res.json();
 		document.getElementById('numChallenges').innerHTML = challenges.data.length
+	})
+	fetch("https://demo.owasp-juice.shop/snippets").then(async (res) => {
+		const snippets = await res.json();
+		document.getElementById('numCodingChallenges').innerHTML = snippets.challenges.length
 	})
 	fetch("https://raw.githubusercontent.com/bkimminich/juice-shop/master/package.json").then(async (res) => {
 		const juiceShopPackage = await res.json();
