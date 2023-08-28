@@ -12,7 +12,7 @@ name: Build and Deploy to GKE
 on:
   push:
     branches:
-      - main
+      - master
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
@@ -52,11 +52,11 @@ jobs:
     # Build the Docker image
     - name: Build
       run: |-
-        docker build \
-          --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
-          --build-arg GITHUB_SHA="$GITHUB_SHA" \
-          --build-arg GITHUB_REF="$GITHUB_REF" \
-          .
+        docker build -f ./Dockerfile -t northamerica-northeast2-docker.pkg.dev/snyk-cx-se-demo/sperciballi-registry/juice-shop:latest .
+        #  --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
+        #  --build-arg GITHUB_SHA="$GITHUB_SHA" \
+        #  --build-arg GITHUB_REF="$GITHUB_REF" \
+        #  .
 
     # Push the Docker image to Google Container Registry
     - name: Publish
