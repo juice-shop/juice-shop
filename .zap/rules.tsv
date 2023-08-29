@@ -13,3 +13,7 @@
 10049	IGNORE	(Non-Storable Content)
 10110	IGNORE	(Dangerous JS Functions)
 90004	IGNORE	(Insufficient Site Isolation Against Spectre Vulnerability)
+90005	IGNORE	(Sec-Fetch-Dest Header is Missing)
+90005	IGNORE	(Sec-Fetch-Mode Header is Missing)
+90005	IGNORE	(Sec-Fetch-Site Header is Missing)
+90005	IGNORE	(Sec-Fetch-User Header is Missing)

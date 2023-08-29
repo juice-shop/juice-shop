@@ -79,6 +79,7 @@ Additional thanks goes to the contractors we were able to hire for specific work
   and
   [flyer](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/flyers)
   artwork by [logicainfo](https://99designs.de/profiles/logicainfo)
+* [Score Board redesign](https://www.figma.com/file/DwC5ErhRz6gb3eTZEYYriS/Juiceshop-Scoreboard?type=design&node-id=0-1&mode=design) by Vibhuti Arora
 
 ## Stargazers (over time)
 
