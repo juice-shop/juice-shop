@@ -33,9 +33,7 @@ describe('/rest/products/reviews', () => {
         if (!disableOnContainerEnv) {
           cy.window().then(async () => {
             await fetch(
-              `${Cypress.env(
-                'baseUrl'
-              )}/rest/track-order/%27%20%7C%7C%20true%20%7C%7C%20%27`,
+              `${Cypress.config('baseUrl')}/rest/track-order/%27%20%7C%7C%20true%20%7C%7C%20%27`,
               {
                 method: 'GET',
                 headers: {
