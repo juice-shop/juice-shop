@@ -11,9 +11,7 @@ describe('/#/score-board', () => {
     it('should be possible to solve the non-existent challenge #99', () => {
       cy.window().then(async () => {
         await fetch(
-          `${Cypress.env(
-            'baseUrl'
-          )}/rest/continue-code/apply/69OxrZ8aJEgxONZyWoz1Dw4BvXmRGkM6Ae9M7k2rK63YpqQLPjnlb5V5LvDj`,
+          `${Cypress.config('baseUrl')}/rest/continue-code/apply/69OxrZ8aJEgxONZyWoz1Dw4BvXmRGkM6Ae9M7k2rK63YpqQLPjnlb5V5LvDj`,
           {
             method: 'PUT',
             cache: 'no-cache',
