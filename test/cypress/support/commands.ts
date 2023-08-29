@@ -11,7 +11,7 @@ Cypress.Commands.add(
       let challenge: Challenge = response.body.data[0]
 
       if (!challenge.solved) {
-        cy.wait(4000)
+        cy.wait(2000)
         cy.request({
           method: 'GET',
           url: '/api/Challenges/?name=' + context.challenge,
