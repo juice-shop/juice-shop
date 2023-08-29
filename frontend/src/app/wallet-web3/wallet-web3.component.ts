@@ -13,7 +13,6 @@ import {
 } from '@wagmi/core'
 const { ethereum } = window
 const BankAddress = '0x413744D59d31AFDC2889aeE602636177805Bd7b0'
-const attackerAddress = '0x85a48Dc8679760059a6eb5724C11cDC725A167A8'
 const client = createClient({
   autoConnect: true,
   provider: getDefaultProvider()
