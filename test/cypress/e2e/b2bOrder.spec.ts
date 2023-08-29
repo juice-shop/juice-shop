@@ -7,7 +7,7 @@ describe('/b2b/v2/order', () => {
 
           cy.window().then(async () => {
             const response = await fetch(
-              `${Cypress.env('baseUrl')}/b2b/v2/orders/`,
+              `${Cypress.config('baseUrl')}/b2b/v2/orders/`,
               {
                 method: 'POST',
                 cache: 'no-cache',
@@ -37,7 +37,7 @@ describe('/b2b/v2/order', () => {
           cy.login({ email: 'admin', password: 'admin123' })
           cy.window().then(async () => {
             const response = await fetch(
-              `${Cypress.env('baseUrl')}/b2b/v2/orders/`,
+              `${Cypress.config('baseUrl')}/b2b/v2/orders/`,
               {
                 method: 'POST',
                 cache: 'no-cache',

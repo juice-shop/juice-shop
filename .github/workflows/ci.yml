@@ -239,7 +239,7 @@ jobs:
         run: npm install
       - name: "Execute end-to-end tests on Ubuntu"
         if: ${{ matrix.os == 'ubuntu-latest' }}
-        uses: cypress-io/github-action@c662a784116e1a26360c4e1fc0a90feedb4b5ed3 #v3.1.0
+        uses: cypress-io/github-action@248bde77443c376edc45906ede03a1aba9da0462 #v5.8.4
         with:
           install: false
           browser: ${{ matrix.browser }}
@@ -253,7 +253,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: "Execute end-to-end tests on Mac"
         if: ${{ matrix.os == 'macos-latest' }}
-        uses: cypress-io/github-action@c662a784116e1a26360c4e1fc0a90feedb4b5ed3 #v3.1.0
+        uses: cypress-io/github-action@248bde77443c376edc45906ede03a1aba9da0462 #v5.8.4
         with:
           install: false
           browser: ${{ matrix.browser }}
