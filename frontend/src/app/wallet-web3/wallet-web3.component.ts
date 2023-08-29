@@ -18,32 +18,6 @@ const client = createClient({
   autoConnect: true,
   provider: getDefaultProvider()
 })
-const attackerABI = [
-  {
-    inputs: [],
-    name: 'attack',
-    outputs: [],
-    stateMutability: 'payable',
-    type: 'function'
-  },
-  {
-    inputs: [],
-    name: 'challenge',
-    outputs: [
-      {
-        internalType: 'contract IReentrance',
-        name: '',
-        type: 'address'
-      }
-    ],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    stateMutability: 'payable',
-    type: 'receive'
-  }
-]
 
 @Component({
   selector: "app-wallet-web3",
@@ -83,15 +57,12 @@ export class WalletWeb3Component {
 
       const contract = new ethers.Contract(BankAddress, web3WalletABI, signer)
       const depositAmount = this.inputAmount.toString()
-      console.log(depositAmount)
       const transaction = await contract.ethdeposit(this.metamaskAddress, {
         value: ethers.utils.parseEther(depositAmount)
       })
       const txConfirmation = await transaction.wait()
-      console.log(txConfirmation)
       this.getUserEthBalance()
     } catch (error) {
-      console.error('Error minting NFT:', error)
       this.errorMessage = error.message
     }
   }
@@ -103,39 +74,13 @@ export class WalletWeb3Component {
 
       const contract = new ethers.Contract(BankAddress, web3WalletABI, signer)
       const withdrawalAmount = this.inputAmount.toString()
-      console.log(withdrawalAmount)
       const transaction = await contract.withdraw(
         ethers.utils.parseEther(withdrawalAmount)
       )
       const txConfirmation = await transaction.wait()
-      console.log(txConfirmation)
       this.getUserEthBalance()
     } catch (error) {
-      console.error('Error minting NFT:', error)
       this.errorMessage = error.message
-    }
-  }
-
-  async attackBEE () {
-    try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
-      const signer = provider.getSigner()
-
-      const contract = new ethers.Contract(
-        attackerAddress,
-        attackerABI,
-        signer
-      )
-      const transaction = await contract.attack({
-        value: ethers.utils.parseEther('0.1'),
-        gasLimit: 5000000
-      })
-      console.log(transaction)
-
-      const mintConfirmation = await transaction.wait()
-      console.log(mintConfirmation)
-    } catch (error) {
-      console.error('Error minting NFT:', error)
     }
   }
 
@@ -147,9 +92,8 @@ export class WalletWeb3Component {
       const userBalance = await contract.balanceOf(this.metamaskAddress)
       const formattedBalance = ethers.utils.formatEther(userBalance)
       this.walletBalance = formattedBalance
-      console.log(this.walletBalance)
     } catch (error) {
-      console.error('Error fetching user Ethereum balance:', error)
+      this.errorMessage = error.message
     }
   }
 
@@ -179,7 +123,6 @@ export class WalletWeb3Component {
         },
         (error) => {
           console.error(error)
-          this.successResponse = false
         }
       )
       this.userData = {
@@ -213,15 +156,12 @@ export class WalletWeb3Component {
           'errorBar'
         )
       } else {
-        console.log('Should show ethereum chain now')
         this.session = true
         this.getUserEthBalance()
       }
-      console.log('session', this.session)
       this.changeDetectorRef.detectChanges()
     } catch (err) {
       console.log(err)
-      console.log('An error occured')
     }
   }
 }
