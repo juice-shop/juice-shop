@@ -13,7 +13,7 @@ export default defineConfig({
     specPattern: 'test/cypress/e2e/**.spec.ts',
     downloadsFolder: 'test/cypress/downloads',
     fixturesFolder: false,
-    supportFile: 'test/cypress/support/index.ts',
+    supportFile: 'test/cypress/support/e2e.ts',
     setupNodeEvents (on) {
       on('task', {
         GenerateCoupon (discount: number) {
