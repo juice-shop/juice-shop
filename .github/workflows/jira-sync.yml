@@ -1,0 +1,17 @@
+name: "Sync GHAS to Jira"
+
+on:
+    push:
+    workflow_dispatch:
+jobs:
+  test_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync alerts to Jira issues
+        uses: github/juice-shop@v1
+        with:
+          jira_url: 'https://egemsnz.atlassian.net'
+          jira_user: '${{ secrets.JIRA_USER_EMAIL }}'
+          jira_token: '${{ secrets.JIRA_API_TOKEN }}'
+          jira_project: 'GIT'
+          sync_direction: 'gh2jira'
