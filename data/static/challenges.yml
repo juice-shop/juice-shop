@@ -108,10 +108,10 @@
   key: nftMintChallenge
 -
   name: 'Wallet Depletion'
-  category: 'Vulnerable Components'
+  category: 'Miscellaneous'
   tags:
       - Web3
-  description: 'Try and withdraw more ETH than you deposited in the new Web3 wallet.'
+  description: 'Try and withdraw more ETH than you deposited in the new wallet.'
   difficulty: 6
   hint: 'Try to exploit the contract of the wallet.'
   hintUrl: ''
