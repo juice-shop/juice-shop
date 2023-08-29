@@ -20,7 +20,7 @@ describe('/#/complain', () => {
         const data = new FormData()
         data.append('file', blob, 'invalidSizeForClient.pdf')
 
-        await fetch(`${Cypress.env('baseUrl')}/file-upload`, {
+        await fetch(`${Cypress.config('baseUrl')}/file-upload`, {
           method: 'POST',
           cache: 'no-cache',
           body: data
@@ -37,7 +37,7 @@ describe('/#/complain', () => {
         const blob = new Blob(['test'], { type: 'application/x-msdownload' })
         data.append('file', blob, 'invalidTypeForClient.exe')
 
-        await fetch(`${Cypress.env('baseUrl')}/file-upload`, {
+        await fetch(`${Cypress.config('baseUrl')}/file-upload`, {
           method: 'POST',
           cache: 'no-cache',
           body: data

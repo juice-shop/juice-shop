@@ -111,7 +111,7 @@ describe('/rest/products/search', () => {
               if (product.name === productName.name) {
                 cy.window().then(async () => {
                   const response = await fetch(
-                    `${Cypress.env('baseUrl')}/api/BasketItems/`,
+                    `${Cypress.config('baseUrl')}/api/BasketItems/`,
                     {
                       method: 'POST',
                       cache: 'no-cache',

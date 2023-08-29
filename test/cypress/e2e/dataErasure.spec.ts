@@ -8,12 +8,12 @@ describe('/dataerasure', () => {
       cy.window().then(async () => {
         const params = 'layout=../package.json'
 
-        const response = await fetch(`${Cypress.env('baseUrl')}/dataerasure`, {
+        const response = await fetch(`${Cypress.config('baseUrl')}/dataerasure`, {
           method: 'POST',
           cache: 'no-cache',
           headers: {
             'Content-type': 'application/x-www-form-urlencoded',
-            Origin: `${Cypress.env('baseUrl')}/`,
+            Origin: `${Cypress.config('baseUrl')}/`,
             Cookie: `token=${localStorage.getItem('token')}`
           },
           body: params
