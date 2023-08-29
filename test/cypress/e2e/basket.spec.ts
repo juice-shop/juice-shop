@@ -8,7 +8,7 @@ describe('/#/basket', () => {
       it('should be possible to update a basket to a negative quantity via the Rest API', () => {
         cy.window().then(async () => {
           const response = await fetch(
-            `${Cypress.env('baseUrl')}/api/BasketItems/1`,
+            `${Cypress.config('baseUrl')}/api/BasketItems/1`,
             {
               method: 'PUT',
               cache: 'no-cache',
@@ -57,7 +57,7 @@ describe('/#/basket', () => {
     describe('challenge "basketManipulateChallenge"', () => {
       it('should manipulate basket of other user instead of the one associated to logged-in user', () => {
         cy.window().then(async () => {
-          await fetch(`${Cypress.env('baseUrl')}/api/BasketItems/`, {
+          await fetch(`${Cypress.config('baseUrl')}/api/BasketItems/`, {
             method: 'POST',
             cache: 'no-cache',
             headers: {
@@ -108,13 +108,13 @@ describe('/#/basket', () => {
 
     describe('challenge "forgedCoupon"', () => {
       it('should be able to access file /ftp/coupons_2013.md.bak with poison null byte attack', () => {
-        cy.request(`${Cypress.env('baseUrl')}/ftp/coupons_2013.md.bak%2500.md`)
+        cy.request(`${Cypress.config('baseUrl')}/ftp/coupons_2013.md.bak%2500.md`)
       })
 
       it('should be possible to add a product in the basket', () => {
         cy.window().then(async () => {
           const response = await fetch(
-            `${Cypress.env('baseUrl')}/api/BasketItems/`,
+            `${Cypress.config('baseUrl')}/api/BasketItems/`,
             {
               method: 'POST',
               cache: 'no-cache',

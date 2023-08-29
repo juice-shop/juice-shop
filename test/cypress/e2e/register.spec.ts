@@ -16,7 +16,7 @@ describe('/#/register', () => {
         if (!disableOnContainerEnv) {
           cy.window().then(async () => {
             const response = await fetch(
-              `${Cypress.env('baseUrl')}/api/Users/`,
+              `${Cypress.config('baseUrl')}/api/Users/`,
               {
                 method: 'POST',
                 cache: 'no-cache',
@@ -49,7 +49,7 @@ describe('/#/register', () => {
   describe('challenge "registerAdmin"', () => {
     it('should be possible to register admin user using REST API', () => {
       cy.window().then(async () => {
-        const response = await fetch(`${Cypress.env('baseUrl')}/api/Users/`, {
+        const response = await fetch(`${Cypress.config('baseUrl')}/api/Users/`, {
           method: 'POST',
           cache: 'no-cache',
           headers: {
@@ -73,7 +73,7 @@ describe('/#/register', () => {
   describe('challenge "passwordRepeat"', () => {
     it('should be possible to register user without repeating the password', () => {
       cy.window().then(async () => {
-        const response = await fetch(`${Cypress.env('baseUrl')}/api/Users/`, {
+        const response = await fetch(`${Cypress.config('baseUrl')}/api/Users/`, {
           method: 'POST',
           cache: 'no-cache',
           headers: {
@@ -95,7 +95,7 @@ describe('/#/register', () => {
   describe('challenge "registerEmptyUser"', () => {
     it('should be possible to register a user with blank email/password', () => {
       cy.window().then(async () => {
-        const response = await fetch(`${Cypress.env('baseUrl')}/api/Users`, {
+        const response = await fetch(`${Cypress.config('baseUrl')}/api/Users`, {
           method: 'POST',
           cache: 'no-cache',
           headers: {
