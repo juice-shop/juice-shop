@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Sync alerts to Jira issues
-        uses: NZ-DEFEND/juice-shop@v1
+        uses: NZ-DEFEND/juice-shop
         with:
           jira_url: 'https://egemsnz.atlassian.net'
           jira_user: '${{ secrets.JIRA_USER_EMAIL }}'
