@@ -7,9 +7,7 @@ describe('/profile', () => {
       cy.visit('/profile')
 
       cy.get('#url').type(
-        `${Cypress.env(
-          'baseUrl'
-        )}/solve/challenges/server-side?key=tRy_H4rd3r_n0thIng_iS_Imp0ssibl3`
+        `${Cypress.config('baseUrl')}/solve/challenges/server-side?key=tRy_H4rd3r_n0thIng_iS_Imp0ssibl3`
       )
       cy.get('#submitUrl').click()
       cy.visit('/')
