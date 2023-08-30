@@ -15,3 +15,5 @@ jobs:
           jira_token: '${{ secrets.JIRA_API_TOKEN }}'
           jira_project: 'GIT'
           sync_direction: 'gh2jira'
+    env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
