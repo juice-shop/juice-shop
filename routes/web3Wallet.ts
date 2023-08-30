@@ -26,7 +26,7 @@ module.exports.contractExploitListener = function contractExploitListener () {
       }
       res.status(200).json({ success: true, message: 'Event Listener Created' })
     } catch (error) {
-      console.log('hi', error)
+      console.log(error)
       res.status(500).json(utils.get(error))
     }
   }
