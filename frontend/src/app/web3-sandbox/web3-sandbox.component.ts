@@ -79,6 +79,7 @@ contract HelloWorld {
 
   async compileAndFetchContracts (code: string) {
     try {
+      this.deployedContractAddress = ''
       const selectedVersion = compilerReleases[
         this.selectedCompilerVersion
       ] as string
