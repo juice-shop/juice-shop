@@ -509,6 +509,11 @@ ctf:
         type: string
       code:
         type: string
+    web3WalletChallenge:
+      name:
+        type: string
+      code:
+        type: string
     securityPolicyChallenge:
       name:
         type: string
