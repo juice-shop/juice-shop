@@ -118,6 +118,17 @@
   mitigationUrl: ~
   key: web3WalletChallenge
 -
+  name: 'Find the Web3 Sandbox'
+  category: 'Security through Obscurity'
+  tags:
+      - Web3
+  description: 'Find the code sandbox for writing smart contracts on the fly.'
+  difficulty: 1
+  hint: 'It is as easy as finding the scoreboard link.'
+  hintUrl: ''
+  mitigationUrl: ~
+  key: web3SandboxChallenge
+-
   name: 'Blocked RCE DoS'
   category: 'Insecure Deserialization'
   tags:

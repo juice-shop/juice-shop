@@ -330,3 +330,6 @@ ctf:
     web3WalletChallenge:
       name: Mexico
       code: MEX
+    web3SandboxChallenge:
+      name: France
+      code: FR
