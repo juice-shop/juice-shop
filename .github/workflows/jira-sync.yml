@@ -14,5 +14,5 @@ jobs:
           jira_user: '${{ secrets.JIRA_USER_EMAIL }}'
           jira_token: '${{ secrets.JIRA_API_TOKEN }}'
           jira_project: 'GIT'
-    env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
