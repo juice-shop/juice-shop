@@ -88,6 +88,7 @@ const showProductReviews = require('./routes/showProductReviews')
 const createProductReviews = require('./routes/createProductReviews')
 const checkKeys = require('./routes/checkKeys')
 const nftMint = require('./routes/nftMint')
+const web3Wallet = require('./routes/web3Wallet')
 const updateProductReviews = require('./routes/updateProductReviews')
 const likeProductReviews = require('./routes/likeProductReviews')
 const security = require('./lib/insecurity')
@@ -591,6 +592,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/rest/web3/nftUnlocked', checkKeys.nftUnlocked())
   app.get('/rest/web3/nftMintListen', nftMint.nftMintListener())
   app.post('/rest/web3/walletNFTVerify', nftMint.walletNFTVerify())
+  app.post('/rest/web3/walletExploitAddress', web3Wallet.contractExploitListener())
 
   /* B2B Order API */
   app.post('/b2b/v2/orders', b2bOrder())

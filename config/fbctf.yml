@@ -327,3 +327,6 @@ ctf:
     nftMintChallenge:
       name: United Arab Emirates
       code: UAE
+    web3WalletChallenge:
+      name: Mexico
+      code: MEX
