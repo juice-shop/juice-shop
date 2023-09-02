@@ -107,6 +107,17 @@
   mitigationUrl: ~
   key: nftMintChallenge
 -
+  name: 'Wallet Depletion'
+  category: 'Miscellaneous'
+  tags:
+      - Web3
+  description: 'Try and withdraw more ETH than you deposited in the new wallet.'
+  difficulty: 6
+  hint: 'Try to exploit the contract of the wallet.'
+  hintUrl: ''
+  mitigationUrl: ~
+  key: web3WalletChallenge
+-
   name: 'Blocked RCE DoS'
   category: 'Insecure Deserialization'
   tags:

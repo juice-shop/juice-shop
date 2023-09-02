@@ -12,7 +12,7 @@ describe('/rest/products/reviews', () => {
         if (!disableOnContainerEnv) {
           cy.window().then(() => {
             void fetch(
-              `${Cypress.env('baseUrl')}/rest/products/sleep(1000)/reviews`,
+              `${Cypress.config('baseUrl')}/rest/products/sleep(1000)/reviews`,
               {
                 method: 'GET',
                 headers: {
@@ -33,9 +33,7 @@ describe('/rest/products/reviews', () => {
         if (!disableOnContainerEnv) {
           cy.window().then(async () => {
             await fetch(
-              `${Cypress.env(
-                'baseUrl'
-              )}/rest/track-order/%27%20%7C%7C%20true%20%7C%7C%20%27`,
+              `${Cypress.config('baseUrl')}/rest/track-order/%27%20%7C%7C%20true%20%7C%7C%20%27`,
               {
                 method: 'GET',
                 headers: {
@@ -57,7 +55,7 @@ describe('/rest/products/reviews', () => {
 
     it('should be possible to inject a selector into the update route', () => {
       cy.window().then(async () => {
-        await fetch(`${Cypress.env('baseUrl')}/rest/products/reviews`, {
+        await fetch(`${Cypress.config('baseUrl')}/rest/products/reviews`, {
           method: 'PATCH',
           headers: {
             'Content-type': 'application/json',
@@ -82,7 +80,7 @@ describe('/rest/products/reviews', () => {
       cy.visit('/')
       cy.window().then(async () => {
         const response = await fetch(
-          `${Cypress.env('baseUrl')}/rest/products/1/reviews`,
+          `${Cypress.config('baseUrl')}/rest/products/1/reviews`,
           {
             method: 'GET',
             headers: {
@@ -98,7 +96,7 @@ describe('/rest/products/reviews', () => {
 
         async function editReview (reviewId: string) {
           const response = await fetch(
-            `${Cypress.env('baseUrl')}/rest/products/reviews`,
+            `${Cypress.config('baseUrl')}/rest/products/reviews`,
             {
               method: 'PATCH',
               headers: {
@@ -127,7 +125,7 @@ describe('/rest/products/reviews', () => {
       cy.window().then(async () => {
         async function sendPostRequest (reviewId: string) {
           const anotherResponse = await fetch(
-            `${Cypress.env('baseUrl')}/rest/products/reviews`,
+            `${Cypress.config('baseUrl')}/rest/products/reviews`,
             {
               method: 'POST',
               headers: {
@@ -143,7 +141,7 @@ describe('/rest/products/reviews', () => {
         }
 
         const response = await fetch(
-          `${Cypress.env('baseUrl')}/rest/products/1/reviews`,
+          `${Cypress.config('baseUrl')}/rest/products/1/reviews`,
           {
             method: 'GET',
             headers: {
