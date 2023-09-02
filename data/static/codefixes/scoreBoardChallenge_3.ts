@@ -156,6 +156,10 @@ const routes: Routes = [
     component: NFTUnlockComponent
   },
   {
+    path: 'wallet-web3',
+    loadChildren: async () => await loadWeb3WalletModule()
+  },
+  {
     path: 'bee-haven',
     loadChildren: async () => await loadFaucetModule()
   },

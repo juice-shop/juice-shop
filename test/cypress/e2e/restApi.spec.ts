@@ -11,7 +11,7 @@ describe('/api', () => {
         if (!disableOnContainerEnv) {
           cy.window().then(async () => {
             const response = await fetch(
-              `${Cypress.env('baseUrl')}/api/Products`,
+              `${Cypress.config('baseUrl')}/api/Products`,
               {
                 method: 'POST',
                 cache: 'no-cache',
@@ -51,7 +51,7 @@ describe('/api', () => {
         cy.task('GetOverwriteUrl').then((overwriteUrl) => {
           cy.window().then(async () => {
             const response = await fetch(
-              `${Cypress.env('baseUrl')}/api/Products/${tamperingProductId}`,
+              `${Cypress.config('baseUrl')}/api/Products/${tamperingProductId}`,
               {
                 method: 'PUT',
                 cache: 'no-cache',
@@ -88,7 +88,7 @@ describe('/rest/saveLoginIp', () => {
         if (!disableOnContainerEnv) {
           cy.window().then(async () => {
             const response = await fetch(
-              `${Cypress.env('baseUrl')}/rest/saveLoginIp`,
+              `${Cypress.config('baseUrl')}/rest/saveLoginIp`,
               {
                 method: 'GET',
                 cache: 'no-cache',
