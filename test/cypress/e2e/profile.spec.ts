@@ -7,9 +7,7 @@ describe('/profile', () => {
       cy.visit('/profile')
 
       cy.get('#url').type(
-        `${Cypress.env(
-          'baseUrl'
-        )}/solve/challenges/server-side?key=tRy_H4rd3r_n0thIng_iS_Imp0ssibl3`
+        `${Cypress.config('baseUrl')}/solve/challenges/server-side?key=tRy_H4rd3r_n0thIng_iS_Imp0ssibl3`
       )
       cy.get('#submitUrl').click()
       cy.visit('/')
@@ -38,7 +36,7 @@ describe('/profile', () => {
           cy.get('#submit').click()
 
           cy.get('#url').type(
-            `${Cypress.env('baseUrl')}/assets/public/images/uploads/default.svg`
+            `${Cypress.config('baseUrl')}/assets/public/images/uploads/default.svg`
           )
           cy.get('#submitUrl').click()
           cy.visit('/#/')
@@ -82,7 +80,7 @@ describe('/profile', () => {
           .getElementsByName('editbox')[0]
           .contentDocument.getElementsByName(
             'ta'
-          )[0].value = `<form action=\\"${Cypress.env('baseUrl')}/profile\\" 
+          )[0].value = `<form action=\\"${Cypress.config('baseUrl')}/profile\\" 
         method=\\"POST\\">
         <input type=\\"hidden\\" name=\\"username\\" value=\\"CSRF\\"/>
         <input type=\\"submit\\"/>
@@ -100,7 +98,7 @@ describe('/profile', () => {
         const formData = new FormData()
         formData.append('username', 'CSRF')
 
-        const response = await fetch(`${Cypress.env('baseUrl')}/profile`, {
+        const response = await fetch(`${Cypress.config('baseUrl')}/profile`, {
           method: 'POST',
           cache: 'no-cache',
           headers: {

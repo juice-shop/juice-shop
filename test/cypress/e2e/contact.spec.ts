@@ -1,4 +1,4 @@
-import { Product } from '../../../../data/types'
+import { Product } from '../../../data/types'
 
 describe('/#/contact', () => {
   beforeEach(() => {
@@ -135,7 +135,7 @@ describe('/#/contact', () => {
       cy.visit('/')
       cy.window().then(async () => {
         const response = await fetch(
-          `${Cypress.env('baseUrl')}/rest/captcha/`,
+          `${Cypress.config('baseUrl')}/rest/captcha/`,
           {
             method: 'GET',
             cache: 'no-cache',
@@ -156,7 +156,7 @@ describe('/#/contact', () => {
           answer: string
         }) {
           const response = await fetch(
-            `${Cypress.env('baseUrl')}/api/Feedbacks`,
+            `${Cypress.config('baseUrl')}/api/Feedbacks`,
             {
               method: 'POST',
               cache: 'no-cache',
@@ -185,7 +185,7 @@ describe('/#/contact', () => {
       cy.window().then(async () => {
         for (let i = 0; i < 15; i++) {
           const response = await fetch(
-            `${Cypress.env('baseUrl')}/rest/captcha/`,
+            `${Cypress.config('baseUrl')}/rest/captcha/`,
             {
               method: 'GET',
               headers: {
@@ -203,7 +203,7 @@ describe('/#/contact', () => {
             captchaId: number
             answer: string
           }) {
-            await fetch(`${Cypress.env('baseUrl')}/api/Feedbacks`, {
+            await fetch(`${Cypress.config('baseUrl')}/api/Feedbacks`, {
               method: 'POST',
               cache: 'no-cache',
               headers: {

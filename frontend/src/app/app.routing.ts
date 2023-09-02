@@ -47,6 +47,10 @@ const loadFaucetModule = async () => {
   const module = await import('./faucet/faucet.module')
   return module.FaucetModule
 }
+const loadWeb3WalletModule = async () => {
+  const module = await import('./wallet-web3/wallet-web3.module')
+  return module.WalletWeb3Module
+}
 // vuln-code-snippet start adminSectionChallenge scoreBoardChallenge
 const routes: Routes = [
   { // vuln-code-snippet neutral-line adminSectionChallenge
@@ -208,6 +212,10 @@ const routes: Routes = [
   {
     path: 'juicy-nft',
     component: NFTUnlockComponent
+  },
+  {
+    path: 'wallet-web3',
+    loadChildren: async () => await loadWeb3WalletModule()
   },
   {
     path: 'bee-haven',
