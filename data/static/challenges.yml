@@ -92,7 +92,7 @@
   description: 'Take over the wallet containing our official Soul Bound Token (NFT).'
   difficulty: 2
   hint: 'Find the seed phrase posted accidentally.'
-  hintUrl: ~
+  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_take_over_the_wallet_containing_our_official_soul_bound_token'
   mitigationUrl: ~
   key: nftUnlockChallenge
 -
@@ -103,7 +103,7 @@
   description: 'Mint the Honey Pot NFT by gathering BEEs from the bee haven.'
   difficulty: 3
   hint: 'Discover NFT wonders among the captivating visual memories.'
-  hintUrl: ~
+  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_mint_the_honey_pot_nft_by_gathering_bees_from_the_bee_haven'
   mitigationUrl: ~
   key: nftMintChallenge
 -
@@ -111,10 +111,10 @@
   category: 'Miscellaneous'
   tags:
       - Web3
-  description: 'Try and withdraw more ETH than you deposited in the new wallet.'
+  description: 'Withdraw more ETH from the new wallet than you deposited.'
   difficulty: 6
   hint: 'Try to exploit the contract of the wallet.'
-  hintUrl: ~
+  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/miscellaneous.html#_withdraw_more_eth_from_the_new_wallet_than_you_deposited'
   mitigationUrl: ~
   key: web3WalletChallenge
 -
@@ -1188,7 +1188,7 @@
     - Danger Zone
   difficulty: 5
   hint: 'You should read up on vulnerabilities in popular NodeJs template engines.'
-  hintUrl: ~
+  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/vulnerable-components.html#_gain_read_access_to_an_arbitrary_local_file_on_the_web_server'
   description: 'Gain read access to an arbitrary local file on the web server.'
   key: 'lfrChallenge'
   disabledEnv:
