@@ -1,0 +1,17 @@
+<div class="score-group">
+  <p class="score">
+    <ng-container *ngIf="showAsPercentage == true">
+      {{ (score / total) * 100 | number : "1.0-0" }}%
+    </ng-container>
+    <ng-container *ngIf="showAsPercentage == false">
+      {{ score }}/<span class="fraction-total">{{ total }}</span>
+    </ng-container>
+  </p>
+  <p class="category">{{ description }}</p>
+  <div *ngIf="showProgressBar === true" class="progress-bar-container">
+    <div class="progress-bar" [style.width]="(score / total) * 100 + '%'"></div>
+  </div>
+</div>
+<div class="right-group">
+  <ng-content select="[right-side]" />
+</div>

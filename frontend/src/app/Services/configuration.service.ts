@@ -12,7 +12,7 @@ import { Observable } from 'rxjs'
 interface ConfigResponse {
   config: Config
 }
-interface Config {
+export interface Config {
   server: {
     port: number
   }
@@ -47,10 +47,6 @@ interface Config {
       message: string
     }
     cookieConsent: {
-      backgroundColor: string
-      textColor: string
-      buttonColor: string
-      buttonTextColor: string
       message: string
       dismissText: string
       linkText: string

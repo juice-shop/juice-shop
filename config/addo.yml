@@ -25,10 +25,6 @@ application:
   welcomeBanner:
     showOnFirstStart: false
   cookieConsent:
-    backgroundColor: '#c2185b'
-    textColor: '#ffffff'
-    buttonColor: '#b0bec5'
-    buttonTextColor: '#000000'
     message: 'Taste our 150 practitioner-baked cookies with 5 tracking flavors!'
     dismissText: 'Register for 24/7 cookies!'
     linkText: 'Yum, tell me more!'

@@ -1,0 +1,16 @@
+<warning-card *ngIf="numberOfDisabledChallenges > 0">
+  <ng-container warning-icon>
+    <i class="env-icon" *ngIf="disabledBecauseOfEnv !== 'Windows'" [ngClass]="'icon-' + disabledBecauseOfEnv.toString().toLowerCase()"></i>
+    <i class="env-icon" *ngIf="disabledBecauseOfEnv === 'Windows'" [ngClass]="'fab fa-' + disabledBecauseOfEnv.toString().toLowerCase()"></i>
+  </ng-container>
+  <span warning-text [innerHTML]="'INFO_DISABLED_CHALLENGES' | translate: {num: numberOfDisabledChallenges, env: disabledBecauseOfEnv}">
+  </span>
+  <button warning-action mat-button color="accent" (click)="toggleShowDisabledChallenges()">
+    <ng-container *ngIf="filterSetting.showDisabledChallenges == false">
+      {{ 'SHOW_DISABLED_CHALLENGES' | translate }}
+    </ng-container>
+    <ng-container *ngIf="filterSetting.showDisabledChallenges == true">
+      {{ 'HIDE_DISABLED_CHALLENGES' | translate }}
+    </ng-container>
+  </button>
+</warning-card>

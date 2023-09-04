@@ -1,0 +1,14 @@
+<warning-card>
+  <mat-icon warning-icon>texture</mat-icon>
+  <span warning-text>
+    <ng-container *ngIf="!applicationConfig?.application?.showGitHubLinks; else noticeWithLinks">
+      {{ 'SCORE_BOARD_PREVIEW_NOTICE_NO_CONTACT' | translate }}
+    </ng-container>
+    <ng-template #noticeWithLinks>
+      <span [innerHTML]="'SCORE_BOARD_PREVIEW_NOTICE_WITH_CONTACT' | translate"></span>
+    </ng-template>
+  </span>
+  <a warning-action mat-button routerLink="/score-board">
+    {{ 'SCORE_BOARD_PREVIEW_BACK' | translate }}
+  </a>
+</warning-card>

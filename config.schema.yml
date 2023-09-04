@@ -67,14 +67,6 @@ application:
     message:
       type: string
   cookieConsent:
-    backgroundColor:
-      type: string
-    textColor:
-      type: string
-    buttonColor:
-      type: string
-    buttonTextColor:
-      type: string
     message:
       type: string
     dismissText:

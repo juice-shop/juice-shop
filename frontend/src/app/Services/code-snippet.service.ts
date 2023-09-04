@@ -31,7 +31,7 @@ export class CodeSnippetService {
     return this.http.get<CodeSnippet>(`${this.host}/${key}`).pipe(map((response: CodeSnippet) => response), catchError((err) => { throw err }))
   }
 
-  challenges () {
+  challenges (): Observable<string[]> {
     return this.http.get(`${this.host}`).pipe(map((response: any) => response.challenges), catchError((err) => { throw err }))
   }
 }
