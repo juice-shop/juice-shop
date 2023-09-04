@@ -28,10 +28,6 @@ application:
   welcomeBanner:
     showOnFirstStart: false
   cookieConsent:
-    backgroundColor: '#0395d5'
-    textColor: '#ffffff'
-    buttonColor: '#b3b3b3'
-    buttonTextColor: '#000000'
     message: 'If you stay on this website for more than 7 minutes our cookies will start tracking you.'
     dismissText: 'I`ll be long gone by then!'
     linkText: 'But I want to stay an arbitrary number of minutes!'

@@ -107,6 +107,13 @@
 
   </mat-card>
 
+  <div class="score-board-preview-ad">
+    {{ 'SCORE_BOARD_PREVIEW_CATCH_LINE' | translate }}
+    <a mat-button routerLink="/score-board-preview">
+      {{ 'SCORE_BOARD_PREVIEW_ACTION_BUTTON' | translate }}
+    </a>
+  </div>
+
   <mat-card>
     <mat-table *ngIf="challenges" [dataSource]="filterToDataSource(challenges)" [trackBy]="trackById">
 

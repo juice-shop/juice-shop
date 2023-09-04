@@ -1,0 +1,27 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 24px 0;
+}
+
+.pill {
+  background-color: var(--theme-primary-darker);
+  border: 1px solid transparent;
+  border-radius: 234234px;
+
+  color: var(--theme-text);
+  cursor: pointer;
+  font-size: 14px;
+
+  font-weight: 600;
+  line-height: 19px;
+  padding: 8px 16px;
+
+  &.selected {
+    background-color: var(--theme-accent-dark);
+    border: 1px solid var(--theme-accent);
+    color: var(--theme-text-invert-15);
+  }
+}
