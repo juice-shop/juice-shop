@@ -72,6 +72,7 @@ import { ImageCaptchaService } from './Services/image-captcha.service'
 import { KeysService } from './Services/keys.service'
 import { AddressService } from './Services/address.service'
 import { QuantityService } from './Services/quantity.service'
+import { FeatureFlagService } from './Services/feature-flag.service'
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatToolbarModule } from '@angular/material/toolbar'
@@ -102,6 +103,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatBadgeModule } from '@angular/material/badge'
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs'
+import { ScoreBoardPreviewModule } from './score-board-preview/score-board-preview.module'
 import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component'
 import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
@@ -260,7 +262,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatSlideToggleModule,
     MatChipsModule,
     NgxTextDiffModule,
-    HighlightModule
+    HighlightModule,
+    ScoreBoardPreviewModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
@@ -311,7 +314,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     WalletService,
     OrderHistoryService,
     DeliveryService,
-    PhotoWallService
+    PhotoWallService,
+    FeatureFlagService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,54 @@
+$vertical-margin: 4px;
+$vertical-padding: 8px;
+
+:host {
+  // use 2 columns ipads and smaller
+  @media (max-width: 810px) {
+    grid-column: span 2;
+  }
+  @media (max-width: 600px) {
+    grid-column: span 1;
+  }
+}
+
+.difficulties-group {
+  background-color: var(--theme-background-darkest);
+  border-radius: 4px;
+
+  color: var(--theme-text);
+  column-gap: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  height: calc(100% - (2 * $vertical-margin + 2 * $vertical-padding));
+
+  margin: $vertical-margin 4px;
+
+  padding: $vertical-padding 12px;
+  row-gap: 2px;
+  
+  .difficulty-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .total-challenges {
+    color: var(--theme-text-invert-30);
+  }
+}
+
+.star-container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+  .star-difficulty-label {
+    font-size: 11px;
+    line-height: 11px;
+    // text looks a bit more centered in the star if it is a bit under the center
+    margin-top: 2px;
+    position: absolute;
+  }
+}

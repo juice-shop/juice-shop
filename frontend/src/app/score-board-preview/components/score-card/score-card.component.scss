@@ -1,0 +1,50 @@
+:host {
+  background-color: var(--theme-background-dark);
+  border-radius: 4px;
+  display: grid;
+  grid-template-columns: auto min-content;
+  height: 100%;
+}
+
+.score-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px 0 16px 16px;
+
+  .score {
+    color: var(--theme-text);
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 42px;
+
+    margin-bottom: 0;
+  }
+
+  .fraction-total {
+    color: var(--theme-text-dark);
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  .category {
+    color: var(--theme-text);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 23px;
+  }
+}
+
+.progress-bar-container {
+  background-color: var(--theme-background-lighter);
+  border-radius: 3px;
+  max-width: 200px;
+  overflow: hidden;
+
+  .progress-bar {
+    background-color: var(--theme-accent);
+    height: 8px;
+  }
+}
