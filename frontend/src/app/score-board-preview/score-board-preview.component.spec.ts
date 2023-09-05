@@ -1,3 +1,4 @@
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
@@ -73,6 +74,7 @@ describe('ScoreBoardPreviewComponent', () => {
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         RouterTestingModule,
+        MatProgressSpinnerModule,
         MatDialogModule,
         MatIconModule
       ],
