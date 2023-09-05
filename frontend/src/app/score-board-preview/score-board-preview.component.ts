@@ -4,8 +4,8 @@ import { DomSanitizer } from '@angular/platform-browser'
 import { MatDialog } from '@angular/material/dialog'
 import { Subscription, combineLatest } from 'rxjs'
 
-import { CodeSnippetComponent, Solved as CodingChallengeDialogResult } from '../code-snippet/code-snippet.component'
 import { Config, ConfigurationService } from '../Services/configuration.service'
+import { CodeSnippetComponent } from '../code-snippet/code-snippet.component'
 import { CodeSnippetService } from '../Services/code-snippet.service'
 import { ChallengeService } from '../Services/challenge.service'
 import { SocketIoService } from '../Services/socket-io.service'
@@ -24,6 +24,10 @@ interface ChallengeSolvedWebsocket {
   flag: string
   hidden: boolean
   isRestore: boolean
+}
+interface CodeChallengeSolvedWebsocket {
+  key: string
+  codingChallengeStatus: 0|1|2
 }
 
 @Component({
@@ -52,16 +56,13 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit () {
-    console.time('ScoreBoardPreview - load challenges')
     const dataLoaderSubscription = combineLatest([
       this.challengeService.find({ sort: 'name' }),
       this.codeSnippetService.challenges(),
       this.configurationService.getApplicationConfiguration()
     ]).subscribe(([challenges, challengeKeysWithCodeChallenges, applicationConfiguration]) => {
-      console.timeEnd('ScoreBoardPreview - load challenges')
       this.applicationConfiguration = applicationConfiguration
 
-      console.time('ScoreBoardPreview - transform challenges')
       const transformedChallenges = challenges.map((challenge) => {
         return {
           ...challenge,
@@ -73,7 +74,6 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
       })
       this.allChallenges = transformedChallenges
       this.filterAndUpdateChallenges()
-      console.timeEnd('ScoreBoardPreview - transform challenges')
     })
     this.subscriptions.push(dataLoaderSubscription)
 
@@ -84,10 +84,12 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
     this.subscriptions.push(routerSubscription)
 
     this.io.socket().on('challenge solved', this.onChallengeSolvedWebsocket.bind(this))
+    this.io.socket().on('code challenge solved', this.onCodeChallengeSolvedWebsocket.bind(this))
   }
 
   ngOnDestroy (): void {
     this.io.socket().off('challenge solved', this.onChallengeSolvedWebsocket.bind(this))
+    this.io.socket().off('code challenge solved', this.onCodeChallengeSolvedWebsocket.bind(this))
     for (const subscription of this.subscriptions) {
       subscription.unsubscribe()
     }
@@ -100,17 +102,35 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
   }
 
   onChallengeSolvedWebsocket (data?: ChallengeSolvedWebsocket) {
-    console.log('ScoreBoardPreview - challenge solved', data)
     if (!data) {
       return
     }
 
     this.allChallenges = this.allChallenges.map((challenge) => {
       if (challenge.key === data.key) {
-        console.log('ScoreBoardPreview - updating challenge', data.key)
         return {
           ...challenge,
           solved: true
+        }
+      }
+      return { ...challenge }
+    })
+    this.filterAndUpdateChallenges()
+    // manually trigger angular change detection... :(
+    // unclear why this is necessary, possibly because the socket.io callback is not running inside angular
+    this.ngZone.run(() => {})
+  }
+
+  onCodeChallengeSolvedWebsocket (data?: CodeChallengeSolvedWebsocket) {
+    if (!data) {
+      return
+    }
+
+    this.allChallenges = this.allChallenges.map((challenge) => {
+      if (challenge.key === data.key) {
+        return {
+          ...challenge,
+          codingChallengeStatus: data.codingChallengeStatus
         }
       }
       return { ...challenge }
@@ -144,32 +164,13 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
   openCodingChallengeDialog (challengeKey: string) {
     const challenge = this.allChallenges.find((challenge) => challenge.key === challengeKey)
 
-    const dialogRef = this.dialog.open(CodeSnippetComponent, {
+    this.dialog.open(CodeSnippetComponent, {
       disableClose: true,
       data: {
         key: challengeKey,
         name: challenge.name,
         codingChallengeStatus: challenge.codingChallengeStatus
       }
-    })
-
-    dialogRef.afterClosed().subscribe((result: CodingChallengeDialogResult) => {
-      this.allChallenges = this.allChallenges.map((challenge) => {
-        if (challenge.codingChallengeStatus < 1) {
-          return {
-            ...challenge,
-            codingChallengeStatus: result.findIt ? 1 : challenge.codingChallengeStatus
-          }
-        }
-        if (challenge.codingChallengeStatus < 2) {
-          return {
-            ...challenge,
-            codingChallengeStatus: result.fixIt ? 2 : challenge.codingChallengeStatus
-          }
-        }
-        return { ...challenge }
-      })
-      this.filterAndUpdateChallenges()
     })
   }
 
