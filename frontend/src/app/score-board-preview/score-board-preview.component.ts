@@ -4,17 +4,15 @@ import { DomSanitizer } from '@angular/platform-browser'
 import { MatDialog } from '@angular/material/dialog'
 import { Subscription, combineLatest } from 'rxjs'
 
+import { fromQueryParams, toQueryParams } from './filter-settings/query-params-converters'
+import { DEFAULT_FILTER_SETTING, FilterSetting } from './filter-settings/FilterSetting'
 import { Config, ConfigurationService } from '../Services/configuration.service'
 import { CodeSnippetComponent } from '../code-snippet/code-snippet.component'
 import { CodeSnippetService } from '../Services/code-snippet.service'
 import { ChallengeService } from '../Services/challenge.service'
-import { SocketIoService } from '../Services/socket-io.service'
-
-import { DEFAULT_FILTER_SETTING, FilterSetting } from './filter-settings/FilterSetting'
-import { EnrichedChallenge } from './types/EnrichedChallenge'
-
-import { fromQueryParams, toQueryParams } from './filter-settings/query-params-converters'
 import { filterChallenges } from './helpers/challenge-filtering'
+import { SocketIoService } from '../Services/socket-io.service'
+import { EnrichedChallenge } from './types/EnrichedChallenge'
 import { sortChallenges } from './helpers/challenge-sorting'
 
 interface ChallengeSolvedWebsocket {
@@ -40,6 +38,8 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
   public filteredChallenges: EnrichedChallenge[] = []
   public filterSetting: FilterSetting = structuredClone(DEFAULT_FILTER_SETTING)
   public applicationConfiguration: Config | null = null
+
+  public isInitialized: boolean = false
 
   private readonly subscriptions: Subscription[] = []
 
@@ -74,6 +74,7 @@ export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
       })
       this.allChallenges = transformedChallenges
       this.filterAndUpdateChallenges()
+      this.isInitialized = true
     })
     this.subscriptions.push(dataLoaderSubscription)
 

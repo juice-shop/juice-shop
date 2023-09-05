@@ -66,3 +66,11 @@
 
   min-height: 20vh;
 }
+
+.loading-spinner-wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 64px;
+}
