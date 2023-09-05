@@ -20,35 +20,25 @@ import { CodeSnippetService } from '../Services/code-snippet.service'
 import { ChallengeService } from '../Services/challenge.service'
 import { Challenge } from '../Models/challenge.model'
 
-function createChallenge ({
-  name,
-  key,
-  category,
-  difficulty,
-  solved
-}: {
-  name: string
-  key: string
-  category: string
-  difficulty: 1 | 2 | 3 | 4 | 5 | 6
-  solved: boolean
-}): Challenge {
+// allows to easily create a challenge with some overwrites
+function createChallenge (challengeOverwrites: Partial<Challenge>): Challenge {
   return {
-    name,
-    key,
-    category,
-    difficulty,
+    name: 'foobar',
+    key: 'challenge-1',
+    category: 'category-blue',
+    difficulty: 3,
     description: '',
     hint: '',
     tags: '',
     hintUrl: '',
     disabledEnv: null,
-    solved,
+    solved: false,
     tutorialOrder: null,
     hasTutorial: false,
     hasSnippet: false,
     codingChallengeStatus: 0,
-    mitigationUrl: ''
+    mitigationUrl: '',
+    ...challengeOverwrites
   }
 }
 
@@ -107,13 +97,16 @@ describe('ScoreBoardPreviewComponent', () => {
           key: 'challenge-2',
           category: 'category-blue',
           difficulty: 5,
-          solved: false
+          solved: false,
+          hasSnippet: true,
+          codingChallengeStatus: 1
         }),
         createChallenge({
           name: 'Challenge 3',
           key: 'challenge-3',
           category: 'category-red',
           difficulty: 3,
+          hasSnippet: true,
           solved: false
         })
       ])
@@ -147,7 +140,7 @@ describe('ScoreBoardPreviewComponent', () => {
     ).toBe(true)
   })
 
-  it('should mark challenges as solved on challenge notification webhook', (): void => {
+  it('should mark challenges as solved on "challenge solved" websocket', (): void => {
     expect(
       component.filteredChallenges.find(
         (challenge) => challenge.key === 'challenge-3'
@@ -168,5 +161,43 @@ describe('ScoreBoardPreviewComponent', () => {
         (challenge) => challenge.key === 'challenge-3'
       ).solved
     ).toBeTrue()
+  })
+
+  it('should mark find it code challenges as solved on "code challenge solved" websocket', (): void => {
+    expect(
+      component.filteredChallenges.find(
+        (challenge) => challenge.key === 'challenge-3'
+      ).codingChallengeStatus
+    ).toBe(0)
+
+    component.onCodeChallengeSolvedWebsocket({
+      key: 'challenge-3',
+      codingChallengeStatus: 1
+    })
+
+    expect(
+      component.filteredChallenges.find(
+        (challenge) => challenge.key === 'challenge-3'
+      ).codingChallengeStatus
+    ).toBe(1)
+  })
+
+  it('should mark fix it code challenges as solved on "code challenge solved" websocket', (): void => {
+    expect(
+      component.filteredChallenges.find(
+        (challenge) => challenge.key === 'challenge-2'
+      ).codingChallengeStatus
+    ).toBe(1)
+
+    component.onCodeChallengeSolvedWebsocket({
+      key: 'challenge-2',
+      codingChallengeStatus: 2
+    })
+
+    expect(
+      component.filteredChallenges.find(
+        (challenge) => challenge.key === 'challenge-2'
+      ).codingChallengeStatus
+    ).toBe(2)
   })
 })
