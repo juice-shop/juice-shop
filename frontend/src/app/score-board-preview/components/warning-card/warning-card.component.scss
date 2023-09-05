@@ -4,12 +4,12 @@
   border-radius: 4px;
   display: grid;
   grid-template-columns: auto min-content;
+  margin-top: 16px;
+  padding: 12px;
   @media (max-width: 600px) {
     grid-template-columns: auto;
     row-gap: 12px;
   }
-  margin-top: 16px;
-  padding: 12px;
 }
 
 .warning-text {
@@ -18,7 +18,7 @@
 }
 
 .warning-text-icon-group {
+  align-items: center;
   display: grid;
   grid-template-columns: min-content auto;
-  align-items: center;
 }

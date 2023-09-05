@@ -44,7 +44,7 @@ describe('ChallengeCard', () => {
 
   it('should not show a mitigation link when challenge has it but isnt solved', () => {
     component.challenge.solved = false
-    component.challenge.mitigationUrl = 'https://owasp.example.com',
+    component.challenge.mitigationUrl = 'https://owasp.example.com'
     fixture.detectChanges()
     expect(fixture.nativeElement.querySelector('[aria-label="Vulnerability mitigation link"]'))
       .toBeFalsy()
@@ -52,7 +52,7 @@ describe('ChallengeCard', () => {
 
   it('should show a mitigation link when challenge has it but isnt solved', () => {
     component.challenge.solved = true
-    component.challenge.mitigationUrl = 'https://owasp.example.com',
+    component.challenge.mitigationUrl = 'https://owasp.example.com'
     fixture.detectChanges()
     expect(fixture.nativeElement.querySelector('[aria-label="Vulnerability mitigation link"]'))
       .toBeTruthy()
