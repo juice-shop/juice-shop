@@ -39,11 +39,12 @@
     <!-- cheat cheat link-->
     <a
       class="badge not-completable"
-      *ngIf="challenge.mitigationUrl"
+      *ngIf="challenge.mitigationUrl && challenge.solved"
       [href]="challenge.mitigationUrl"
       target="_blank"
       rel="noopener noreferrer"
       [matTooltip]="'INFO_VULNERABILITY_MITIGATION_LINK' | translate"
+      aria-label="Vulnerability mitigation link"
     >
       <mat-icon>policy_outline</mat-icon>
     </a>
