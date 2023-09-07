@@ -43,6 +43,7 @@ import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, LoginGuard } from './app.guard'
 import { NFTUnlockComponent } from './nft-unlock/nft-unlock.component'
 import { ScoreBoardPreviewComponent } from './score-board-preview/score-board-preview.component'
+import { Web3SandboxComponent } from './web3-sandbox/web3-sandbox.component'
 
 const loadFaucetModule = async () => {
   const module = await import('./faucet/faucet.module')
@@ -51,6 +52,11 @@ const loadFaucetModule = async () => {
 const loadWeb3WalletModule = async () => {
   const module = await import('./wallet-web3/wallet-web3.module')
   return module.WalletWeb3Module
+}
+
+const loadWeb3SandboxtModule = async () => {
+  const module = await import('./web3-sandbox/web3-sandbox.module')
+  return module.FaucetModule
 }
 // vuln-code-snippet start adminSectionChallenge scoreBoardChallenge
 const routes: Routes = [
@@ -221,6 +227,10 @@ const routes: Routes = [
   {
     path: 'wallet-web3',
     loadChildren: async () => await loadWeb3WalletModule()
+  },
+  {
+    path: 'web3-sandbox',
+    loadChildren: async () => await loadWeb3SandboxtModule()
   },
   {
     path: 'bee-haven',

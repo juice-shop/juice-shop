@@ -118,6 +118,17 @@
   mitigationUrl: ~
   key: web3WalletChallenge
 -
+  name: 'Web3 Sandbox'
+  category: 'Broken Access Control'
+  tags:
+      - Web3
+  description: 'Find an accidentally deployed code sandbox for writing smart contracts on the fly.'
+  difficulty: 1
+  hint: 'It is just as easy as finding the Score Board.'
+  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_find_an_accidentally_deployed_code_sandbox'
+  mitigationUrl: ~
+  key: web3SandboxChallenge
+-
   name: 'Blocked RCE DoS'
   category: 'Insecure Deserialization'
   tags:
