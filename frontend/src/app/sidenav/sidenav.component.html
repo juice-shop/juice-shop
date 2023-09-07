@@ -233,7 +233,7 @@
 
   <mat-divider *ngIf="scoreBoardVisible || showGitHubLink" style="margin-bottom: 10px;"></mat-divider>
 
-  <a *ngIf="scoreBoardVisible" mat-list-item routerLink="/score-board" (click)="onToggleSidenav()"
+  <a *ngIf="scoreBoardVisible" mat-list-item [routerLink]="scoreBoardLink$ | async" (click)="onToggleSidenav()"
      aria-label="Open score-board">
     <mat-icon matListIcon class="fas fa-trophy fa-lg"></mat-icon>
     <span class="menu-text truncate">

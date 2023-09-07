@@ -5,8 +5,6 @@ application:
     showOnFirstStart: false
   theme: blue-lightblue
   cookieConsent:
-    backgroundColor: '#23527c'
-    textColor: '#ffffff'
     message: 'We are not only using cookies but also recorded this session on YouTube!'
     dismissText: "I've been there live, so thanks!"
     linkText: 'I want to watch that!'

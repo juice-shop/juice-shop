@@ -26,7 +26,6 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
     checkIfRequiredFileExists('frontend/dist/frontend/index.html'),
     checkIfRequiredFileExists('frontend/dist/frontend/styles.css'),
     checkIfRequiredFileExists('frontend/dist/frontend/main.js'),
-    checkIfRequiredFileExists('frontend/dist/frontend/tutorial.js'),
     checkIfRequiredFileExists('frontend/dist/frontend/polyfills.js'),
     checkIfRequiredFileExists('frontend/dist/frontend/runtime.js'),
     checkIfRequiredFileExists('frontend/dist/frontend/vendor.js'),

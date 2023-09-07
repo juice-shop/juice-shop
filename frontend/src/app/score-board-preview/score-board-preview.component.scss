@@ -1,0 +1,76 @@
+:host {
+  display: block;
+  margin: 48px 72px;
+
+  @media (max-width: 1500px) {
+    margin: 48px 64px;
+  }
+  @media (max-width: 900px) {
+    margin: 48px;
+  }
+  @media (max-width: 600px) {
+    margin: 32px 16px;
+  }
+}
+
+.score-row {
+  column-gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  min-height: 120px;
+  row-gap: 8px;
+
+  // use 3 columns on large(ish) screens
+  @media (max-width: 1500px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  // use 2 columns ipads and smaller
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  // use 1 column on extra small screens
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.challenges {
+  column-gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  margin-top: 32px;
+  row-gap: 12px;
+
+  // use 3 columns on large(ish) screens
+  @media (max-width: 1500px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  // use 2 columns ipads and smaller
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  // use 1 column on extra small screens
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.empty-challenges {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  margin: 0 32px;
+
+  min-height: 20vh;
+}
+
+.loading-spinner-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 64px;
+  width: 100%;
+}

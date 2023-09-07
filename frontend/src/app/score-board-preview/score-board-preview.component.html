@@ -1,0 +1,54 @@
+<div class="score-row">
+  <hacking-challenge-progress-score-card [allChallenges]="allChallenges" />
+  <coding-challenge-progress-score-card [allChallenges]="allChallenges" />
+  <difficulty-overview-score-card [allChallenges]="allChallenges" />
+</div>
+
+<filter-settings
+  *ngIf="applicationConfiguration?.challenges.restrictToTutorialsFirst === false"
+  [filterSetting]="filterSetting"
+  (filterSettingChange)="onFilterSettingUpdate($event)"
+  [allChallenges]="allChallenges"
+  [reset]="reset.bind(this)"
+></filter-settings>
+
+<preview-feature-notice [applicationConfig]="applicationConfiguration"></preview-feature-notice>
+
+<div *ngIf="isInitialized === false" class="loading-spinner-wrapper">
+  <mat-spinner></mat-spinner>
+</div>
+
+<ng-container *ngIf="isInitialized === true">
+  <challenges-unavailable-warning
+    [challenges]="allChallenges"
+    [filterSetting]="filterSetting"
+    (filterSettingChange)="onFilterSettingUpdate($event)"
+  ></challenges-unavailable-warning>
+
+  <tutorial-mode-warning 
+    [allChallenges]="allChallenges" 
+    [applicationConfig]="applicationConfiguration"
+  ></tutorial-mode-warning>
+
+  <div class="challenges" *ngIf="filteredChallenges.length > 0; else emptyChallenges">
+    <challenge-card
+      *ngFor="let challenge of filteredChallenges; trackBy:getChallengeKey"
+      [challenge]="challenge"
+      [applicationConfiguration]="applicationConfiguration"
+      [openCodingChallengeDialog]="openCodingChallengeDialog.bind(this)"
+      [repeatChallengeNotification]="repeatChallengeNotification.bind(this)"
+      [ngClass]="{ solved: challenge.solved, unsolved: !challenge.solved, disabled: challenge.disabledEnv !== null }"
+    />
+  </div>
+
+  <ng-template #emptyChallenges>
+    <!-- only showing when there are more than 1 challenge in total. not completely loaded otherwise -->
+    <div class="empty-challenges" *ngIf="allChallenges.length > 0">
+      <p>{{ 'NO_CHALLENGES_FOUND' | translate }}</p>
+    </div>
+  </ng-template>
+
+  <img src="assets/public/images/padding/1px.png"/>
+
+</ng-container>
+
