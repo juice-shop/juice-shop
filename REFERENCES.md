@@ -275,6 +275,12 @@ mentioned or used!
 
 ### [Google Summer of Code](http://owasp.org/gsoc)
 
+* Student projects from
+  [Google Summer of Code 2023](https://summerofcode.withgoogle.com/archive/2023/projects)
+  * [Companion Guide Tech Stack](https://summerofcode.withgoogle.com/organizations/owasp-foundation/projects/details/h2der3Mf)
+    by Parth Nanda (mentored by Jannik Hollenbach, Björn Kimminich and Shubham Palriwala)
+  * [Hacking the Blockchain: Building Web3 Challenges for OWASP Juice Shop](https://summerofcode.withgoogle.com/organizations/owasp-foundation/projects/details/yabiWLkF)
+    by Rishabh Keshan (mentored by Shubham Palriwala and Björn Kimminich)
 * Student project from
   [Google Summer of Code 2022](https://summerofcode.withgoogle.com/archive/2022/projects)
     * [Replacement for Protractor end-to-end & Frisby API test suite to Cypress](https://summerofcode.withgoogle.com/organizations/owasp-foundation/projects/details/2J1Xedwf)
