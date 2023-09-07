@@ -113,6 +113,10 @@
         {
           "action": "response",
           "body": "Our developers are currently learning Web3, and they published a (literal) NFT honey pot for you to mint on /#/bee-haven."
+        },
+        {
+          "action": "response",
+          "body": "Our developers are currently learning Web3, and they published our official Soul-Bound-Token over on /#/juicy-nft for you to marvel at."
         }
       ]
     },
