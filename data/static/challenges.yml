@@ -118,14 +118,14 @@
   mitigationUrl: ~
   key: web3WalletChallenge
 -
-  name: 'Find the Web3 Sandbox'
-  category: 'Security through Obscurity'
+  name: 'Web3 Sandbox'
+  category: 'Broken Access Control'
   tags:
       - Web3
-  description: 'Find the code sandbox for writing smart contracts on the fly.'
+  description: 'Find an accidentally deployed code sandbox for writing smart contracts on the fly.'
   difficulty: 1
-  hint: 'It is as easy as finding the scoreboard link.'
-  hintUrl: ''
+  hint: 'It is just as easy as finding the Score Board.'
+  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_find_an_accidentally_deployed_code_sandbox'
   mitigationUrl: ~
   key: web3SandboxChallenge
 -
