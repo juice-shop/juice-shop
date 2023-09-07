@@ -1,0 +1,24 @@
+.warning-container {
+  align-items: center;
+  background-color: var(--theme-background-dark);
+  border-radius: 4px;
+  display: grid;
+  grid-template-columns: auto min-content;
+  margin-top: 16px;
+  padding: 12px;
+  @media (max-width: 600px) {
+    grid-template-columns: auto;
+    row-gap: 12px;
+  }
+}
+
+.warning-text {
+  margin-left: 12px;
+  padding-right: 8px;
+}
+
+.warning-text-icon-group {
+  align-items: center;
+  display: grid;
+  grid-template-columns: min-content auto;
+}

@@ -1,0 +1,74 @@
+.options-group {
+  align-items: center;
+  column-gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) min-content;
+  row-gap: 8px;
+  @media (max-width: 800px) {
+    grid-template-columns: auto;
+  }
+}
+
+.filter-row {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: auto min-content min-content;
+  margin-top: 16px;
+  @media (max-width: 1000px) {
+    grid-template-columns: auto;
+  }
+}
+
+.search-form-field {
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.search-icon {
+  align-items: flex-end;
+  color: var(--theme-text-fade-30);
+  display: flex;
+  // some weird fixes to get the icon to align with the search field
+  // something troubling seems to be broken with angular material positioning for us
+  font-size: 18px;
+  line-height: 12px;
+  margin-right: 4px;
+}
+
+.reset-filters-label {
+  color: var(--theme-text-fade-30);
+  @media (min-width: 800px) {
+    // hide the reset filters label on large screens
+    // not needed there and the button looks too alone and unexplained on smaller screens without it
+    display: none;
+  }
+}
+
+.reset-filters-label {
+  color: var(--theme-text-fade-30);
+  @media (min-width: 800px) {
+    // hide the reset filters label on large screens
+    // not needed there and the button looks too alone and unexplained on smaller screens without it
+    display: none;
+  }
+}
+
+.additional-settings-wrapper {
+  align-items: center;
+  display: flex;
+}
+
+.additional-settings-button {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+  mat-icon {
+    color: var(--theme-text-fade-30);
+    font-size: 16px;
+    height: 16px;
+    line-height: 16px;
+    width: 16px;
+  }
+}

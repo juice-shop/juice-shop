@@ -26,10 +26,6 @@ application:
   welcomeBanner:
     showOnFirstStart: false
   cookieConsent:
-    backgroundColor: '#e95420'
-    textColor: '#ffffff'
-    buttonColor: '#2778c5'
-    buttonTextColor: '#ffffff'
     message: 'This website uses a myriad of 3rd-party cookies for your convenience and tracking pleasure.'
     dismissText: 'Never mind!'
     linkText: 'How can I turn this off?'
