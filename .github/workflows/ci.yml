@@ -118,13 +118,13 @@ jobs:
         stability: ["stable"]
         # todo(@J12934) ignore failures for node.js 20 until https://github.com/juice-shop/juice-shop/issues/2068 is resolved
         include:
-          - node-version: 20
+          - node-version: 20.5
             os: ubuntu-latest
             stability: "unstable"
-          - node-version: 20
+          - node-version: 20.5
             os: windows-latest
             stability: "unstable"
-          - node-version: 20
+          - node-version: 20.5
             os: macos-latest
             stability: "unstable"
     steps:
