@@ -160,6 +160,10 @@ const routes: Routes = [
     loadChildren: async () => await loadWeb3WalletModule()
   },
   {
+    path: 'web3-sandbox',
+    loadChildren: async () => await loadWeb3SandboxtModule()
+  },
+  {
     path: 'bee-haven',
     loadChildren: async () => await loadFaucetModule()
   },

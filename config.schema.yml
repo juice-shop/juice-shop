@@ -506,6 +506,11 @@ ctf:
         type: string
       code:
         type: string
+    web3SandboxChallenge:
+      name:
+        type: string
+      code:
+        type: string
     securityPolicyChallenge:
       name:
         type: string
