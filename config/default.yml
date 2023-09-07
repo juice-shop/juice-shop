@@ -414,7 +414,7 @@ memories:
     geoStalkingVisualSecurityAnswer: 'ITsec'
   -
     image: 'BeeHaven.png'
-    caption: 'Welcome to the Bee Haven(/bee-haven)🐝'
+    caption: 'Welcome to the Bee Haven (/#/bee-haven)🐝'
     user: evm
 ctf:
   showFlagsInNotifications: false
