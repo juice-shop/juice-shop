@@ -426,9 +426,10 @@
   "TITLE_CODING_CHALLENGES": "Coding Challenges",
   "TITLE_HACKING_CHALLENGES": "Hacking Challenges",
   "TITLE_CHALLENGES_SOLVED": "Challenges Solved",
+
   "LABEL_FEEDBACK": "Feedback",
   "LABEL_RESET_ALL_FILTERS": "Reset All Filters",
-  "NO_CHALLENGES_FOUND": "No challenges found matching your filters!",
+  "NO_CHALLENGES_FOUND": "Ohh no. No challenges found matching your filters 😥",
   "SCORE_BOARD_PREVIEW_NOTICE_NO_CONTACT": "This is a preview of the new Score Board. It might still contain some bugs.",
   "SCORE_BOARD_PREVIEW_NOTICE_WITH_CONTACT": "This is a preview of the new Score Board. If you notice any bugs or have any feedback, please let us know! Reach out via our <a href='https://owasp.org/www-project-juice-shop/' target='_blank' rel='noopener noreferrer'>community channels</a>",
   "SCORE_BOARD_PREVIEW_BACK": "Back to the old Score Board",
