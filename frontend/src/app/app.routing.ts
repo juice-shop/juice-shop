@@ -42,6 +42,7 @@ import { PhotoWallComponent } from './photo-wall/photo-wall.component'
 import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, LoginGuard } from './app.guard'
 import { NFTUnlockComponent } from './nft-unlock/nft-unlock.component'
+import { ScoreBoardPreviewComponent } from './score-board-preview/score-board-preview.component'
 
 const loadFaucetModule = async () => {
   const module = await import('./faucet/faucet.module')
@@ -168,6 +169,10 @@ const routes: Routes = [
     path: 'score-board', // vuln-code-snippet vuln-line scoreBoardChallenge
     component: ScoreBoardComponent // vuln-code-snippet neutral-line scoreBoardChallenge
   }, // vuln-code-snippet neutral-line scoreBoardChallenge
+  { // vuln-code-snippet hide-line
+    path: 'score-board-preview', // vuln-code-snippet hide-line
+    component: ScoreBoardPreviewComponent // vuln-code-snippet hide-line
+  }, // vuln-code-snippet hide-line
   {
     path: 'track-result',
     component: TrackResultComponent

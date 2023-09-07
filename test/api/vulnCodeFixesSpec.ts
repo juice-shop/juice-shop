@@ -3,7 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
+import { expect } from '@jest/globals'
 import frisby = require('frisby')
+import io from 'socket.io-client'
 import { Joi } from 'frisby'
 
 const URL = 'http://localhost:3000'
@@ -28,6 +30,25 @@ describe('/snippets/fixes/:key', () => {
 })
 
 describe('/snippets/fixes', () => {
+  let socket: SocketIOClient.Socket
+
+  beforeEach(done => {
+    socket = io('http://localhost:3000', {
+      reconnectionDelay: 0,
+      forceNew: true
+    })
+    socket.on('connect', () => {
+      done()
+    })
+  })
+
+  afterEach(done => {
+    if (socket.connected) {
+      socket.disconnect()
+    }
+    done()
+  })
+
   it('POST fix for non-existing challenge key throws error', () => {
     return frisby.post(URL + '/snippets/fixes', {
       body: {
@@ -66,8 +87,18 @@ describe('/snippets/fixes', () => {
       })
   })
 
-  it('POST correct fix for existing challenge key gives positive verdict and explanation', () => {
-    return frisby.post(URL + '/snippets/fixes', {
+  it('POST correct fix for existing challenge key gives positive verdict and explanation', async () => {
+    const websocketReceivedPromise = new Promise<void>((resolve) => {
+      socket.once('code challenge solved', (data: any) => {
+        expect(data).toEqual({
+          key: 'resetPasswordBenderChallenge',
+          codingChallengeStatus: 2
+        })
+        resolve()
+      })
+    })
+
+    await frisby.post(URL + '/snippets/fixes', {
       body: {
         key: 'resetPasswordBenderChallenge',
         selectedFix: 1
@@ -78,5 +109,8 @@ describe('/snippets/fixes', () => {
         verdict: true,
         explanation: 'When answered truthfully, all security questions are susceptible to online research (on Facebook, LinkedIn etc.) and often even brute force. If at all, they should not be used as the only factor for a security-relevant function.'
       })
+      .promise()
+
+    await websocketReceivedPromise
   })
 })

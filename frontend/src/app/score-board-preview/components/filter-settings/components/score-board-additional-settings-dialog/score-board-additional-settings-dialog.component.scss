@@ -1,0 +1,51 @@
+mat-dialog-content {
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
+  height: 100%;
+  overflow: visible;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+mat-dialog-actions {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+h1 {
+  margin-bottom: 24px;
+}
+
+.settings {
+  min-height: 400px;
+  overflow-y: auto;
+}
+
+.setting-group {
+  border-bottom: 3px solid var(--theme-background-lighter);
+  margin-bottom: 16px;
+
+  h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  &:last-child {
+    border-bottom: unset;
+    margin-bottom: 0;
+  }
+}
+
+.setting {
+  align-items: center;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: auto max-content;
+  margin-bottom: 16px;
+}
+
+button mat-icon {
+  margin-right: 8px;
+}
