@@ -10,11 +10,11 @@
 <div class="description-row" [innerHtml]="challenge.description"></div>
 <div class="bottom-row">
   <div class="tags">
-    <span *ngFor="let tag of challenge.tagList" class="tag">{{ tag }}</span>
+    <span *ngFor="let tag of challenge.tagList" class="tag" [matTooltip]="('TAG_' + tag?.toUpperCase().split(' ').join('_') + '_DESCRIPTION' | translate)">{{ tag }}</span>
   </div>
   <div class="badge-group">
     <!-- info text if the challenge is unavailable -->
-    <button 
+    <button
       class="badge"
       *ngIf="challenge.disabledEnv !== null"
       [matTooltip]="'CHALLENGE_UNAVAILABLE' | translate:{ env: challenge.disabledEnv }"
@@ -22,7 +22,7 @@
       <mat-icon [style.color]="'var(--theme-warn)'">info_outline</mat-icon>
     </button>
     <!-- coding challenge badge -->
-    <button 
+    <button
       class="badge"
       *ngIf="challenge.hasCodingChallenge"
       (click)="openCodingChallengeDialog(challenge.key)"
@@ -49,7 +49,7 @@
       <mat-icon>policy_outline</mat-icon>
     </a>
     <!-- ctf mode flag repeat-->
-    <button 
+    <button
       class="badge"
       [ngClass]="{ 'completed': challenge.solved }"
       *ngIf="challenge.solved && applicationConfiguration.ctf.showFlagsInNotifications"
@@ -59,7 +59,7 @@
       <mat-icon>flag_outline</mat-icon>
     </button>
     <!-- hacking instructor-->
-    <button 
+    <button
       class="badge not-completable"
       *ngIf="hasInstructions(challenge.name)"
       [matTooltip]="'INFO_HACKING_INSTRUCTOR' | translate"
@@ -69,7 +69,7 @@
     </button>
     <!-- challenge hint -->
     <!-- with hintUrl -->
-    <a 
+    <a
       *ngIf="challenge.hint && challenge.hintUrl"
       class="badge not-completable"
       [style.padding]="'0 6px 0 4px'"
@@ -83,7 +83,7 @@
     </a>
     <!-- challenge hint -->
     <!-- without hintUrl -->
-    <span 
+    <span
       *ngIf="challenge.hint && !challenge.hintUrl"
       class="badge not-completable"
       [style.padding]="'0 6px 0 4px'"
