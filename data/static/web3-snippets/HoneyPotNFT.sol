@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+// vuln-code-snippet start nftMintChallenge
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
@@ -30,3 +31,4 @@ contract HoneyPotNFT is ERC721, Ownable {
         return fixedMetadataHash;
     }
 }
+// vuln-code-snippet end nftMintChallenge
