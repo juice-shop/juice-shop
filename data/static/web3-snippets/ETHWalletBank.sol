@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+// vuln-code-snippet start web3WalletChallenge
 pragma solidity ^0.6.12;
 import 'https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v3.3/contracts/math/SafeMath.sol';
 
@@ -40,3 +41,4 @@ contract ETHWalletBank {
 
   receive() external payable {}
 }
+// vuln-code-snippet end web3WalletChallenge
