@@ -3,7 +3,7 @@ name: "Update challenges on owasp-juice.shop"
 on:
   push:
     branches: [ master ]
-    paths: 
+    paths:
       - 'data/static/challenges.yml'
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
       with:
         token: ${{ secrets.BOT_TOKEN }}
         repository: OWASP/www-project-juice-shop
-        branch: master
+        ref: master
     - name: Update challenges.yml
       run: |
         cd _data/
