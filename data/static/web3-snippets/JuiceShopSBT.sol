@@ -15,7 +15,7 @@ contract JuiceShopSBT is ERC721, ERC721URIStorage, Ownable {
     constructor() ERC721("JuiceShopSBT", "JS") {}
 
     function safeMint(address to, string memory uri) public onlyOwner {
-        uint256 tokenId = _tokenIdCounter.current();
+        uint256 tokenId = _tokenIdCounter.current(); // vuln-code-snippet vuln-line nftUnlockChallenge
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
@@ -24,17 +24,17 @@ contract JuiceShopSBT is ERC721, ERC721URIStorage, Ownable {
     function _beforeTokenTransfer(
     address from,
     address to,
-    uint256 tokenId
+    uint256 tokenId // vuln-code-snippet neutral-line nftUnlockChallenge
     ) internal override virtual {
     require(from == address(0), "Err: token transfer is BLOCKED");
     super._beforeTokenTransfer(from, to, tokenId);
     }
 
-    function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
+    function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) { // vuln-code-snippet neutral-line nftUnlockChallenge
         super._burn(tokenId);
     }
 
-    function tokenURI(uint256 tokenId)
+    function tokenURI(uint256 tokenId) // vuln-code-snippet neutral-line nftUnlockChallenge
         public
         view
         override(ERC721, ERC721URIStorage)
