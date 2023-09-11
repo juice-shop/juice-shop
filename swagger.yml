@@ -13,7 +13,7 @@ info:
     name: B2B API Support
 tags:
   -
-    name: Order
+    name: Order2
     description: 'API for customer orders'
 paths:
   /orders:
