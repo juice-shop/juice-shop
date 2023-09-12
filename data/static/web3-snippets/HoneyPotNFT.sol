@@ -22,8 +22,8 @@ contract HoneyPotNFT is ERC721, Ownable {
     function mintNFT() external {
         token.transferFrom(msg.sender, address(this), mintPrice);
         _safeMint(msg.sender, totalSupply);
-        totalSupply = totalSupply.add(1);
-        emit NFTMinted(msg.sender, totalSupply - 1);
+        totalSupply = totalSupply.add(1); // vuln-code-snippet vuln-line nftMintChallenge
+        emit NFTMinted(msg.sender, totalSupply - 1); // vuln-code-snippet neutral-line nftMintChallenge
     }
 
     function tokenURI(uint256 tokenId) public view override returns (string memory) {
