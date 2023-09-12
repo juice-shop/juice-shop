@@ -25,17 +25,17 @@ contract ETHWalletBank {
     if (userWithdrawing[msg.sender] <= 1) {
       userWithdrawing[msg.sender] = userWithdrawing[msg.sender] + 1;
     } else {
-      emit ContractExploited(tx.origin);
+      emit ContractExploited(tx.origin); // vuln-code-snippet hide-line
       userWithdrawing[msg.sender] = 0;
       return;
     }
     (bool result, ) = msg.sender.call{ value: _amount }("");
     require(result, "Withdrawal call failed");
-    balances[msg.sender] -= _amount;
-    if(userWithdrawing[msg.sender] == 2)
-    {
-      emit ContractExploited(tx.origin);
-    }
+    balances[msg.sender] -= _amount; // vuln-code-snippet vuln-line web3WalletChallenge
+    if(userWithdrawing[msg.sender] == 2) // vuln-code-snippet hide-line
+    { // vuln-code-snippet hide-line
+      emit ContractExploited(tx.origin); // vuln-code-snippet hide-line
+    } // vuln-code-snippet hide-line
     userWithdrawing[msg.sender] = 0;
   }
 
