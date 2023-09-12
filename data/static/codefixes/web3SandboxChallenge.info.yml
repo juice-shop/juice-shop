@@ -1,0 +1,11 @@
+fixes:
+  - id: 1
+    explanation: 'This sandbox is for the developers of the application and was added for easy testing and prototyping. Functionality like this does under no circumstances belong into an application when it goes into production!'
+  - id: 2
+    explanation: 'This sandbox is for the developers of the application and was added for easy testing and prototyping. Should it really be accessible for any user - even the eCommerce customers - who logged into the shop?'
+  - id: 3
+    explanation: 'This sandbox is for the developers of the application and was added for easy testing and prototyping. Are administrators of the web shop really the target audience for such a functionality?'
+hints:
+  - "Among the long list of route mappings, can you spot any that relates to a web3 sandbox feature?"
+  - "If you accidentally scrolled over the relevant line, try using the text search in your browser."
+  - 'Searching for "web3" should bring up some interesting route mappings.'
