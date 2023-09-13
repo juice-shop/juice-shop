@@ -25,7 +25,7 @@ const INITIAL_SUMMARIES: Readonly<DifficultySummaries> = Object.freeze({
   selector: 'difficulty-overview-score-card',
   templateUrl: './difficulty-overview-score-card.component.html',
   styleUrls: ['./difficulty-overview-score-card.component.scss']
-})
+  })
 export class DifficultyOverviewScoreCardComponent implements OnInit, OnChanges {
   @Input()
   public allChallenges: EnrichedChallenge[] = []

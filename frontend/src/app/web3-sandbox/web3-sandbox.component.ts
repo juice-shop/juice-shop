@@ -35,7 +35,7 @@ const compilerReleases = {
   selector: "app-web3-sandbox",
   templateUrl: "./web3-sandbox.component.html",
   styleUrls: ["./web3-sandbox.component.scss"],
-})
+  })
 export class Web3SandboxComponent {
   constructor (
     private readonly keysService: KeysService,
@@ -205,9 +205,9 @@ contract HelloWorld {
       const inputs =
         func.inputValues.trim() !== ''
           ? func.inputValues.split(',').map((value, index) => {
-              const inputType = func.inputs[index].type
-              return this.parseInputValue(value.trim(), inputType)
-            })
+            const inputType = func.inputs[index].type
+            return this.parseInputValue(value.trim(), inputType)
+          })
           : []
       const transactionOptions: ethers.PayableOverrides = {}
       if (this.commonGweiValue > 0) {
