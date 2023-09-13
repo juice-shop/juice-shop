@@ -6,7 +6,7 @@ import { DEFAULT_FILTER_SETTING } from '../../../../filter-settings/FilterSettin
   selector: 'category-filter',
   templateUrl: './category-filter.component.html',
   styleUrls: ['./category-filter.component.scss']
-})
+  })
 export class CategoryFilterComponent implements OnInit, OnChanges {
   public availableCategories = new Set<string>()
 

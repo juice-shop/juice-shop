@@ -4,5 +4,5 @@ import { Component } from '@angular/core'
   selector: 'warning-card',
   templateUrl: './warning-card.component.html',
   styleUrls: ['./warning-card.component.scss']
-})
+  })
 export class WarningCardComponent {}

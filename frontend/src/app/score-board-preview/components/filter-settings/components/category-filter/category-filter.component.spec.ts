@@ -17,7 +17,7 @@ describe('CategoryFilterComponent', () => {
       ],
       declarations: [CategoryFilterComponent]
     })
-    .compileComponents()
+      .compileComponents()
 
     fixture = TestBed.createComponent(CategoryFilterComponent)
     component = fixture.componentInstance

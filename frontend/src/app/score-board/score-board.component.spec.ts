@@ -100,13 +100,13 @@ describe('ScoreBoardComponent', () => {
         { provide: LocalBackupService, useValue: localBackupService },
         { provide: SocketIoService, useValue: socketIoService },
         {
- provide: ActivatedRoute,
-useValue: {
- snapshot: {
-          queryParams: { challenge: 'value' }
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              queryParams: { challenge: 'value' }
+            }
+          }
         }
-}
-}
       ]
     })
       .compileComponents()

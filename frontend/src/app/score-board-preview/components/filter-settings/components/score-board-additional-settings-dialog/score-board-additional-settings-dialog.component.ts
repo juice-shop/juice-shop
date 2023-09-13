@@ -9,9 +9,9 @@ import { LocalBackupService } from 'src/app/Services/local-backup.service'
   selector: "score-board-additional-settings-dialog",
   templateUrl: "./score-board-additional-settings-dialog.component.html",
   styleUrls: ["./score-board-additional-settings-dialog.component.scss"],
-})
+  })
 export class ScoreBoardAdditionalSettingsDialogComponent
-  implements OnInit, OnDestroy {
+implements OnInit, OnDestroy {
   public scoreBoardVersion: null | 'v1' | 'v2' = null
 
   private readonly subscriptions: Subscription[] = []

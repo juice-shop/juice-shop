@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core'
   selector: 'score-card',
   templateUrl: './score-card.component.html',
   styleUrls: ['./score-card.component.scss']
-})
+  })
 export class ScoreCardComponent {
   @Input()
   public description: string

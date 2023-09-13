@@ -4,9 +4,9 @@
  */
 
 module.exports = {
-  "extends": [
-    'standard-with-typescript',
-],
+  extends: [
+    'standard-with-typescript'
+  ],
   root: true,
   parserOptions: {
     project: './src/tsconfig.*.json',
@@ -18,8 +18,6 @@ module.exports = {
     '@typescript-eslint/no-invalid-void-type': 'off',
     '@typescript-eslint/no-floating-promises': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/no-unused-vars': 'off',
-    '@typescript-eslint/indent': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-extraneous-class': 'off'
   }

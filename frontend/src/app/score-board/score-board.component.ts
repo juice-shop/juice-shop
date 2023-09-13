@@ -29,7 +29,7 @@ library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy, faPollH)
   selector: 'app-score-board',
   templateUrl: './score-board.component.html',
   styleUrls: ['./score-board.component.scss']
-})
+  })
 export class ScoreBoardComponent implements OnInit, AfterViewInit {
   public availableDifficulties: number[] = [1, 2, 3, 4, 5, 6]
   public displayedDifficulties: number[] = [1]
@@ -151,7 +151,7 @@ export class ScoreBoardComponent implements OnInit, AfterViewInit {
           }
 
           this.spinner.hide()
-          })
+        })
       }, (err) => {
         this.challenges = []
         console.log(err)
@@ -177,12 +177,12 @@ export class ScoreBoardComponent implements OnInit, AfterViewInit {
   }
 
   scrollToChallenge (challengeName: string) {
-      const el = document.getElementById(challengeName)
-      if (!el) {
-        console.log(`Challenge ${challengeName} is not visible!`)
-      } else {
-        console.log(`Scrolling to challenge: ${challengeName}`)
-        el.scrollIntoView({ behavior: 'smooth' })
+    const el = document.getElementById(challengeName)
+    if (!el) {
+      console.log(`Challenge ${challengeName} is not visible!`)
+    } else {
+      console.log(`Scrolling to challenge: ${challengeName}`)
+      el.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
