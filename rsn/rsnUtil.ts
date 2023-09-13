@@ -124,7 +124,6 @@ async function seePatch (file: string) {
 function checkData (data: CacheData, fileData: CacheData) {
   const filesWithDiff = []
   for (const key in data) {
-    console.log(key)
     const fileDataValueAdded = fileData[key].added.sort((a, b) => a - b)
     const dataValueAdded = data[key].added.sort((a, b) => a - b)
     const fileDataValueRemoved = fileData[key].added.sort((a, b) => a - b)
