@@ -6,7 +6,7 @@ import { EnrichedChallenge } from '../../types/EnrichedChallenge'
   selector: 'coding-challenge-progress-score-card',
   templateUrl: './coding-challenge-progress-score-card.component.html',
   styleUrls: ['./coding-challenge-progress-score-card.component.scss']
-})
+  })
 export class CodingChallengeProgressScoreCardComponent implements OnInit, OnChanges {
   @Input()
   public allChallenges: EnrichedChallenge[] = []
@@ -24,11 +24,11 @@ export class CodingChallengeProgressScoreCardComponent implements OnInit, OnChan
 
   private updatedNumberOfSolvedChallenges (): void {
     const availableCodingChallenges = this.allChallenges
-    .filter((challenge) => challenge.hasCodingChallenge)
+      .filter((challenge) => challenge.hasCodingChallenge)
 
     this.solvedCodingChallenges = availableCodingChallenges
-    .map((challenge) => challenge.codingChallengeStatus)
-    .reduce((a, b) => a + b, 0) // sum up the scores
+      .map((challenge) => challenge.codingChallengeStatus)
+      .reduce((a, b) => a + b, 0) // sum up the scores
     // multiply by 2 because each coding challenge has 2 parts (find it and fix it)
     this.availableCodingChallenges = availableCodingChallenges.length * 2
   }

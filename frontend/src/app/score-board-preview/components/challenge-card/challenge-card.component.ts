@@ -9,7 +9,7 @@ import { Config } from 'src/app/Services/configuration.service'
   selector: 'challenge-card',
   templateUrl: './challenge-card.component.html',
   styleUrls: ['./challenge-card.component.scss']
-})
+  })
 export class ChallengeCardComponent {
   @Input()
   public challenge: EnrichedChallenge

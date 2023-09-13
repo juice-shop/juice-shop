@@ -15,7 +15,7 @@ describe('ChallengeCard', () => {
       imports: [TranslateModule.forRoot(), MatIconModule, MatTooltipModule],
       declarations: [ChallengeCardComponent]
     })
-    .compileComponents()
+      .compileComponents()
 
     fixture = TestBed.createComponent(ChallengeCardComponent)
     component = fixture.componentInstance

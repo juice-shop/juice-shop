@@ -16,7 +16,7 @@ describe('CodingChallengeProgressScoreCardComponent', () => {
       ],
       imports: [TranslateModule.forRoot()]
     })
-    .compileComponents()
+      .compileComponents()
 
     fixture = TestBed.createComponent(CodingChallengeProgressScoreCardComponent)
     component = fixture.componentInstance

@@ -12,7 +12,7 @@ export const SCORE_BOARD_FEATURE_FLAG_KEY = 'score-board-version'
 
 @Injectable({
   providedIn: "root",
-})
+  })
 export class FeatureFlagService {
   constructor () {
     const scoreBoardVersion = localStorage.getItem(SCORE_BOARD_FEATURE_FLAG_KEY)

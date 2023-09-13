@@ -13,7 +13,7 @@ describe('ChallengesUnavailableWarningComponent', () => {
       imports: [TranslateModule.forRoot()],
       declarations: [ChallengesUnavailableWarningComponent]
     })
-    .compileComponents()
+      .compileComponents()
 
     fixture = TestBed.createComponent(ChallengesUnavailableWarningComponent)
     component = fixture.componentInstance
@@ -27,7 +27,7 @@ describe('ChallengesUnavailableWarningComponent', () => {
         description: 'lorem ipsum',
         tagList: ['Easy'],
         disabledEnv: 'Docker'
-    },
+      },
       {
         category: 'foobar',
         name: 'my name two',
@@ -36,8 +36,8 @@ describe('ChallengesUnavailableWarningComponent', () => {
         description: 'lorem ipsum',
         tagList: ['Easy'],
         disabledEnv: null
-    }
-  ] as any
+      }
+    ] as any
 
     component.filterSetting = structuredClone(DEFAULT_FILTER_SETTING)
 

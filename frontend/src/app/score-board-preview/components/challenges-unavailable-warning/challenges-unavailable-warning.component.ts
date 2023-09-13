@@ -7,7 +7,7 @@ import { EnrichedChallenge } from '../../types/EnrichedChallenge'
   selector: 'challenges-unavailable-warning',
   templateUrl: './challenges-unavailable-warning.component.html',
   styleUrls: ['./challenges-unavailable-warning.component.scss']
-})
+  })
 export class ChallengesUnavailableWarningComponent implements OnChanges {
   @Input()
   public challenges: EnrichedChallenge[]

@@ -13,7 +13,7 @@ describe('HackingChallengeProgressScoreCardComponent', () => {
       declarations: [ScoreCardComponent, HackingChallengeProgressScoreCardComponent],
       imports: [TranslateModule.forRoot()]
     })
-    .compileComponents()
+      .compileComponents()
 
     fixture = TestBed.createComponent(HackingChallengeProgressScoreCardComponent)
     component = fixture.componentInstance

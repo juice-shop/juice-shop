@@ -15,7 +15,7 @@ describe('CodeFixesComponent', () => {
       providers: [CookieService]
     })
       .compileComponents()
-      cookieService = TestBed.inject(CookieService)
+    cookieService = TestBed.inject(CookieService)
   })
 
   beforeEach(() => {

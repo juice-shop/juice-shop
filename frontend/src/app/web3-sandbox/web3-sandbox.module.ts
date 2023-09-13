@@ -25,18 +25,18 @@ const routes: Routes = [
 @NgModule({
   declarations: [Web3SandboxComponent],
   imports: [
-    CodemirrorModule,
-    CommonModule,
-    RouterModule.forChild(routes),
-    FormsModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatCardModule,
-    MatInputModule,
-    MatSnackBarModule,
+  CodemirrorModule,
+  CommonModule,
+  RouterModule.forChild(routes),
+  FormsModule,
+  ReactiveFormsModule,
+  MatButtonModule,
+  MatCardModule,
+  MatInputModule,
+  MatSnackBarModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-})
+  })
 export class FaucetModule {
   constructor (
     public configurationService: ConfigurationService,

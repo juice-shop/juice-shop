@@ -85,7 +85,7 @@ export class CodeFixesComponent implements OnInit, DoCheck {
           this.format = item.currentValue
           this.cookieService.put('code-fixes-component-format', this.format)
         }
-      )
+        )
       }
     } catch {
     }

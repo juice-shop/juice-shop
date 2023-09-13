@@ -6,7 +6,7 @@ import { KeysService } from '../Services/keys.service'
   selector: "app-nft-unlock",
   templateUrl: "./nft-unlock.component.html",
   styleUrls: ["./nft-unlock.component.scss"],
-})
+  })
 export class NFTUnlockComponent {
   privateKey: string
   formSubmitted: boolean = false

@@ -32,7 +32,7 @@ interface CodeChallengeSolvedWebsocket {
   selector: 'score-board-preview',
   templateUrl: './score-board-preview.component.html',
   styleUrls: ['./score-board-preview.component.scss']
-})
+  })
 export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
   public allChallenges: EnrichedChallenge[] = []
   public filteredChallenges: EnrichedChallenge[] = []

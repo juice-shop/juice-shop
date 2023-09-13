@@ -30,7 +30,7 @@ const BeeFaucetAddress = '0x860e3616aD0E0dEDc23352891f3E10C4131EA5BC'
   selector: "app-faucet",
   templateUrl: "./faucet.component.html",
   styleUrls: ["./faucet.component.scss"],
-})
+  })
 export class FaucetComponent {
   constructor (
     private readonly keysService: KeysService,
@@ -59,14 +59,14 @@ export class FaucetComponent {
   }
 
   nftMintListener () {
-  this.keysService.nftMintListen().subscribe(
-    (response) => {
-      console.log(response)
-    },
-    (error) => {
-      console.error(error)
-    }
-  )
+    this.keysService.nftMintListen().subscribe(
+      (response) => {
+        console.log(response)
+      },
+      (error) => {
+        console.error(error)
+      }
+    )
   }
 
   checkNftMinted () {
@@ -274,13 +274,13 @@ export class FaucetComponent {
           this.keysService.verifyNFTWallet(this.metamaskAddress).subscribe(
             (response) => {
               if (response.success) {
-              this.successResponse = response.status
-              this.mintButtonDisabled = true
+                this.successResponse = response.status
+                this.mintButtonDisabled = true
               }
             },
             (error) => {
-            console.error(error)
-            this.successResponse = false
+              console.error(error)
+              this.successResponse = false
             }
           )
         }, 3500)
