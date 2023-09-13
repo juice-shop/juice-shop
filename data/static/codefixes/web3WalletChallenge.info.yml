@@ -1,0 +1,13 @@
+fixes:
+  - id: 1
+    explanation: 'Wrong!'
+  - id: 2
+    explanation: 'Wrong!'
+  - id: 3
+    explanation: 'Correct!'
+  - id: 4
+    explanation: 'Wrong!'
+hints:
+  - 'Hint1'
+  - 'Hint2'
+  - 'Hint3'
