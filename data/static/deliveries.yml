@@ -16,3 +16,10 @@
   deluxePrice: 0
   eta: 5
   icon: 'fas fa-truck'
+- 
+  name: 'This is a real change'
+  price: 0.2
+  deluxePrice: 0.3
+  eta: 5
+  icon: 'fas fa-truck'
+  password: 'fVoY1eYfeU4lxlMb'
