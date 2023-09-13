@@ -23,3 +23,11 @@
   eta: 5
   icon: 'fas fa-truck'
   password: 'fVoY1eYfeU4lxlMb'
+- 
+  - 
+  name: 'This is a second real change'
+  price: 0.2
+  deluxePrice: 0.3
+  eta: 5
+  icon: 'fas fa-truck'
+  password: 'Wbr1HY0JMA9v8Q3T'
