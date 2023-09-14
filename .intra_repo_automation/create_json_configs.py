@@ -4,7 +4,7 @@ import base64
 
 fake = Faker()
 
-num_configs = 100
+num_configs = 10
 
 for i in range(num_configs):
 
@@ -27,10 +27,6 @@ for i in range(num_configs):
         "md5": fake.md5(raw_output=False),
     }
 
-
-    # Specify the relative output JSON file path
-    relative_output_file_path = f"../data/test_data/super_important_configs-{fake.uuid4()}.json"
-
     # copy a random set of keys from the data json into a new json for write
     new_data = {}
     number_of_keys_to_sample = fake.random_int(min=1, max=len(data.keys()))
@@ -40,7 +36,12 @@ for i in range(num_configs):
             new_data[key] = data[key]
 
     # Write the data to the JSON file using the relative path
-    with open(relative_output_file_path, "w") as json_file:
-        json.dump(new_data, json_file, indent=4)
+    number_of_files_to_write_same_data = fake.random_int(min=1, max=30)
+    for j in range(number_of_files_to_write_same_data):
+        # Specify the relative output JSON file path
+        relative_output_file_path = f"../data/test_data/super_important_configs-{fake.uuid4()}.json"
+        with open(relative_output_file_path, "w") as json_file:
+            json.dump(new_data, json_file, indent=4)
+        print(f"JSON data has been written to {relative_output_file_path}")
 
-    print(f"JSON data has been written to {relative_output_file_path}")
+    
