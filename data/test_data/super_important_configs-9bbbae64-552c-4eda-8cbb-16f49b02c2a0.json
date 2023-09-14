@@ -1,0 +1,12 @@
+{
+    "additional_configs": {
+        "ip_address": "198.161.20.57",
+        "key": "e0f0a14a-0fb8-47a8-b375-25b08bb1c832",
+        "password": "gX2$KbLcM@",
+        "type": "Type A",
+        "zipcode": "07836"
+    },
+    "config_name": "edge",
+    "sha1": "8ca9587dfdac5bea1379ddb039678b15b3135e8e",
+    "sha": "78d8aa0c62b4700d12b927bad2284948a1391a3adb6aec9ac4fe45c5ef816651"
+}

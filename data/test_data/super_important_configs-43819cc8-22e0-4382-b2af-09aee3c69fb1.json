@@ -1,0 +1,12 @@
+{
+    "template_name": "Education face light.",
+    "additional_configs": {
+        "ip_address": "150.94.67.230",
+        "key": "539e43ee-81bb-4ef5-aa0f-1e6c2f371fc0",
+        "password": "c)#)1BHgwU",
+        "type": "Type B",
+        "zipcode": "43874"
+    },
+    "sha": "1eee270953367da8c8e60efab55fb71e56d26b4d879feff6569cd129cd753316",
+    "config_name": "read"
+}

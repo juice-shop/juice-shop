@@ -3,7 +3,7 @@ from faker import Faker
 
 fake = Faker()
 
-num_configs = 200
+num_configs = 300
 
 for i in range(num_configs):
 

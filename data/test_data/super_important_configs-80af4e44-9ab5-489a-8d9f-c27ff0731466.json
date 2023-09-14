@@ -1,0 +1,13 @@
+{
+    "config_name": "reach",
+    "additional_configs": {
+        "ip_address": "6.230.35.62",
+        "key": "c5688c01-463b-49e0-ba61-64c7c883e389",
+        "password": "uiP2+Z2u@2",
+        "type": "Type A",
+        "zipcode": "84758"
+    },
+    "sha1": "9b0da6a02550f67b0856be42c46d860ca9e91470",
+    "sha": "38283c657c3e7a42ed8a51d1216abfc5bfed1e7e0d0c0e12065a07afe9553718",
+    "indentation": 75
+}

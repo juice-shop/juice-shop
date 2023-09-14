@@ -1,0 +1,14 @@
+{
+    "template_name": "Pay computer record window.",
+    "indentation": 84,
+    "usename": "lopezmonica",
+    "config_name": "fact",
+    "additional_configs": {
+        "ip_address": "64.17.27.84",
+        "key": "3a6af10c-f525-498c-98f4-cf989ff15ad9",
+        "password": ")C6J4LaitR",
+        "type": "Type C",
+        "zipcode": "61684"
+    },
+    "sha1": "4a3a01416f6d6a0e15b6537c41bd9b748049e133"
+}
