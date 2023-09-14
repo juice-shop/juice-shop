@@ -1,0 +1,12 @@
+{
+    "additional_configs": {
+        "ip_address": "147.23.234.46",
+        "key": "74f920bf-113a-4f74-bf03-7d07f94d00df",
+        "password": "#Z2x6Bmd@F",
+        "type": "Type B",
+        "zipcode": "61307"
+    },
+    "sha1": "5b0cac8ca7737a364df1b07e0e3175d8b1f417c8",
+    "sha": "2156c87dd705303c9bb71f5affdb5e667dd081a8fea8d89ac9331d35d7b5a18c",
+    "config_name": "weight"
+}

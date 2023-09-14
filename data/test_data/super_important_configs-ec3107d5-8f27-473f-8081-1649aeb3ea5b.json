@@ -1,0 +1,14 @@
+{
+    "template_name": "Name mention successful.",
+    "additional_configs": {
+        "ip_address": "118.146.252.163",
+        "key": "66f52ffe-482b-45bf-a342-d5e8b0506387",
+        "password": "!3tOsacA#p",
+        "type": "Type A",
+        "zipcode": "84945"
+    },
+    "md5": "e19314725b27490e3bcee5d2cc66517f",
+    "sha1": "5b38a693ac268cd900d1d5d4d595cc0b07d3a1cd",
+    "bPassword": "b'RzBDM1dtZE4jcg=='",
+    "sha": "790aafcc4943d657c20a3f22f381e05d57bcbc2358582d4d77e778d525817b5a"
+}

@@ -1,9 +1,10 @@
 import json
 from faker import Faker
+import base64
 
 fake = Faker()
 
-num_configs = 300
+num_configs = 100
 
 for i in range(num_configs):
 
@@ -13,6 +14,7 @@ for i in range(num_configs):
         "indentation": fake.random_int(min=1, max=100),
         "template_name": fake.sentence(),
         "usename": fake.user_name(),
+        "bPassword": str(base64.b64encode(fake.password(length=10, special_chars=True, digits=True, upper_case=True, lower_case=True).encode('utf-8'))),
         "additional_configs": {
             "ip_address": fake.ipv4(),
             "key": fake.uuid4(),
@@ -24,6 +26,7 @@ for i in range(num_configs):
         "sha1": fake.sha1(raw_output=False),
         "md5": fake.md5(raw_output=False),
     }
+
 
     # Specify the relative output JSON file path
     relative_output_file_path = f"../data/test_data/super_important_configs-{fake.uuid4()}.json"

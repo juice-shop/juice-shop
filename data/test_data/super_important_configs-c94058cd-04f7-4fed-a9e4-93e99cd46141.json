@@ -1,0 +1,13 @@
+{
+    "sha1": "1577cb231ff57b2dc888886c68a896d1cda7a382",
+    "indentation": 55,
+    "template_name": "Then base test play.",
+    "additional_configs": {
+        "ip_address": "156.112.144.199",
+        "key": "cb1dd4a4-1122-4d4b-b7b1-695f74903f72",
+        "password": "&L6CNr3f!q",
+        "type": "Type B",
+        "zipcode": "79617"
+    },
+    "config_name": "out"
+}
