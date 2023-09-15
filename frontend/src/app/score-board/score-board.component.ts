@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-
 import { MatTableDataSource } from '@angular/material/table'
 import { DomSanitizer } from '@angular/platform-browser'
 import { ChallengeService } from '../Services/challenge.service'
