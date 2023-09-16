@@ -1,0 +1,241 @@
+name: "Flujo CI-Test"
+run-name: "Flujo CI - Test"
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+env:
+  ANGULAR_CLI_VERSION: 13
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout repositorio"
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f #v3: v3.4.0
+      - name: "Configurar Node 18"
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c #v3: v3.6.0
+        with:
+          node-version: 18
+      - name: "Instalar CLI de Angular"
+        run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
+      - name: "Instalar dependencias"
+        run: |
+          npm install --ignore-scripts
+          cd frontend
+          npm install --ignore-scripts --legacy-peer-deps
+      - name: "Lint"
+        run: npm run lint
+      - name: "Lint configuraciones personalizadas"
+        run: >
+          npm run lint:config -- -f ./config/7ms.yml &&
+          npm run lint:config -- -f ./config/addo.yml &&
+          npm run lint:config -- -f ./config/bodgeit.yml &&
+          npm run lint:config -- -f ./config/ctf.yml &&
+          npm run lint:config -- -f ./config/default.yml &&
+          npm run lint:config -- -f ./config/fbctf.yml &&
+          npm run lint:config -- -f ./config/juicebox.yml &&
+          npm run lint:config -- -f ./config/mozilla.yml &&
+          npm run lint:config -- -f ./config/oss.yml &&
+          npm run lint:config -- -f ./config/quiet.yml &&
+          npm run lint:config -- -f ./config/tutorial.yml &&
+          npm run lint:config -- -f ./config/unsafe.yml
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout repositorio"
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f #v3: v3.4.0
+      - name: "Configurar Node 18"
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c #v3: v3.6.0
+        with:
+          node-version: 18
+      - name: "Instalar CLI de Angular"
+        run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
+      - name: "Instalar dependencias"
+        run: |
+          npm install
+      - name: "Ejecutar test unitarios"
+        uses: nick-invision/retry@943e742917ac94714d2f408a0e8320f2d1fcafcd #v2: 2.8.3 reintenta comando en caso de falla
+        with:
+          timeout_minutes: 15
+          max_attempts: 3
+          command: npm test
+      - name: "Copiar información de test coverage pruebas unitarias"
+        run: |
+          cp build/reports/coverage/frontend-tests/lcov.info frontend-lcov.info
+          cp build/reports/coverage/server-tests/lcov.info server-lcov.info
+      - name: "Subir información de test coverage pruebas unitarias"
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce #v3: v3.1.2
+        with:
+          name: unit-test-lcov
+          path: |
+            frontend-lcov.info
+            server-lcov.info
+
+  test-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout repositorio"
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f #v3: v3.4.0
+      - name: "Configurar Node 18"
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c #v3: v3.6.0
+        with:
+          node-version: 18
+      - name: "Instalar CLI de Angular"
+        run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
+      - name: "Instalar dependencias"
+        run: |
+          npm install
+      - name: "Ejecutar test de integración"
+        uses: nick-invision/retry@943e742917ac94714d2f408a0e8320f2d1fcafcd #v2: 2.8.3 reintenta comando en caso de falla
+        with:
+          timeout_minutes: 5
+          max_attempts: 3
+          command: |
+            export NODE_ENV=test
+            npm run frisby
+          shell: bash
+      - name: "Copiar información de test coverage pruebas integración"
+        run: cp build/reports/coverage/api-tests/lcov.info api-lcov.info
+      - name: "Subir información de test coverages pruebas integración"
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce #v3: v3.1.2
+        with:
+          name: api-test-lcov
+          path: |
+            api-lcov.info
+
+  reporte-coverage:
+    needs: [test, test-api]
+    runs-on: ubuntu-latest
+    if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push'
+    steps:
+      - name: "Checkout repositorio"
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f #v3: v3.4.0
+      - name: "Descargar información de test coverage pruebas unitarias"
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a #v3: v3.0.2
+        with:
+          name: unit-test-lcov
+      - name: "Descargar información de test coverage pruebas integración"
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a #v3: v3.0.2
+        with:
+          name: api-test-lcov
+      - name: "Publish coverage to Codeclimate"
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          sed -i s/SF:/SF:frontend\\//g frontend-lcov.info
+          ./cc-test-reporter format-coverage -t lcov -o codeclimate.frontend.json frontend-lcov.info
+          ./cc-test-reporter format-coverage -t lcov -o codeclimate.server.json server-lcov.info
+          ./cc-test-reporter format-coverage -t lcov -o codeclimate.api.json api-lcov.info
+          ./cc-test-reporter sum-coverage codeclimate.*.json -p 3
+          ./cc-test-reporter upload-coverage
+        shell: bash
+
+  test-personalizado:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout repositorio"
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f #v3: v3.4.0
+      - name: "Configurar Node 18"
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c #v3: v3.6.0
+        with:
+          node-version: 18
+      - name: "Instalar CLI de Angular"
+        run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
+      - name: "Instalar aplicación"
+        run: npm install
+      - name: "Ejecutar tests para cada configuración personalizada"
+        uses: nick-invision/retry@943e742917ac94714d2f408a0e8320f2d1fcafcd #v2: 2.8.3
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          command: >
+            NODE_ENV=7ms npm run test:server &&
+            NODE_ENV=addo npm run test:server &&
+            NODE_ENV=bodgeit npm run test:server &&
+            NODE_ENV=ctf npm run test:server &&
+            NODE_ENV=fbctf npm run test:server &&
+            NODE_ENV=juicebox npm run test:server &&
+            NODE_ENV=mozilla npm run test:server &&
+            NODE_ENV=oss npm run test:server &&
+            NODE_ENV=quiet npm run test:server &&
+            NODE_ENV=tutorial npm run test:server &&
+            NODE_ENV=unsafe npm run test:server
+  e2e:
+    if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        browser: [chrome, firefox]
+      fail-fast: false
+    steps:
+      - name: "Checkout repositorio"
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f #v3: v3.4.0
+      - name: "Configurar Node 18"
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c #v3: v3.6.0
+        with:
+          node-version: 18
+      - name: "Instalar CLI de Angular"
+        run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
+      - name: "Instalar aplicación"
+        run: npm install
+      - name: "Ejecutar tests end-to-end"
+        uses: cypress-io/github-action@96268482322bc63c76561c602a84be842c527dbc #v5.5.1
+        with:
+          install: false
+          browser: ${{ matrix.browser }}
+          start: npm start
+          wait-on: http://localhost:3000
+          record: true
+          group: ${{ matrix.browser }} @ ${{ matrix.os }}
+        env:
+          SOLUTIONS_WEBHOOK: ${{ secrets.E2E_SOLUTIONS_WEBHOOK }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  test-humo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout repositorio"
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f #v3: v3.4.0
+      - name: "Configurar Node 18"
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c #v3: v3.6.0
+        with:
+          node-version: 18
+      - name: "Instalar CLI de Angular"
+        run: |
+          npm install -g @angular/cli@$ANGULAR_CLI_VERSION
+          npm install -g grunt-cli
+      - name: "Configurar opciones de empaquetar para Grunt"
+        run: |
+          echo "PCKG_OS_NAME=linux" >> $GITHUB_ENV
+          echo "PCKG_NODE_VERSION=14" >> $GITHUB_ENV
+          echo "PCKG_CPU_ARCH=x64" >> $GITHUB_ENV
+      - name: "Empacar aplicación"
+        run: |
+          npm install --production
+          npm install -g grunt-cli
+          npm run package:ci
+      - name: "Desempacar aplicación"
+        run: |
+          cd dist
+          tar -zxf juice-shop-*.tgz
+      - name: "Ejecutar test de humo"
+        run: |
+          cd dist/juice-shop_*
+          npm start &
+          cd ../..
+          chmod +x test/smoke/smoke-test.sh
+          test/smoke/smoke-test.sh http://localhost:3000
+
+  test-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout repositorio"
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f #v3: v3.4.0
+      - name: "Ejecutar test de humo en Docker"
+        run: docker-compose -f docker-compose.test.yml up --exit-code-from sut
