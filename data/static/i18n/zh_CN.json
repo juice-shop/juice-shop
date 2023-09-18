@@ -452,5 +452,16 @@
 	"Removing the option to update multiple documents at once combined with only allowing plain strings in the ID parameter is the right call. This will prevent any attacker from injecting their own JSON payload to manipulate the query in their favor.": "删除一次更新多个文档的选项，并在ID参数中只允许使用纯字符串，这是正确的做法。这将防止任何攻击者注入他们自己的JSON有效载荷来执行对他们有利的查询。",
 	"Exact version of <a href=\"https://github.com/juice-shop/juice-shop/releases/tag/v9.3.1-PERMAFROST\">OWASP Juice Shop that was archived on 02/02/2020</a> by the GitHub Archive Program and ultimately went into the <a href=\"https://github.blog/2020-07-16-github-archive-program-the-journey-of-the-worlds-open-source-code-to-the-arctic\">Arctic Code Vault</a> on July 8. 2020 where it will be safely stored for at least 1000 years.": "特定版本OWASP果汁店 <a href=\"https://github.com/juice-shop/juice-shop/releases/tag/v9.3.1-PERMAFROST\">于2020年2月2日被GitHub归档程序归档</a> ，最终于2020年7月8日进入GitHub的 <a href=\"https://github.blog/2020-07-16-github-archive-program-the-journey-of-the-worlds-open-source-code-to-the-arctic\">北极代码库</a>，在那里它将安全储存至少1000年。",
 	"Close multiple \"Challenge solved\"-notifications in one go.": "一次性关闭多个 \"挑战已解决 \"的通知。",
-	"Either check the official documentation or inspect a notification UI element directly.": "要么查看官方文档，要么直接检查通知的UI元素。"
+	"Either check the official documentation or inspect a notification UI element directly.": "要么查看官方文档，要么直接检查通知的UI元素。",
+	"Find a form which updates the username and then construct a malicious page in the online HTML editor. You probably need an older browser version for this.": "Find a form which updates the username and then construct a malicious page in the online HTML editor. You probably need an older browser version for this.",
+	"Register a user with an empty email and password.": "Register a user with an empty email and password.",
+	"Consider intercepting and playing with the request payload.": "Consider intercepting and playing with the request payload.",
+	"Mint the Honey Pot NFT by gathering BEEs from the bee haven.": "Mint the Honey Pot NFT by gathering BEEs from the bee haven.",
+	"Discover NFT wonders among the captivating visual memories.": "Discover NFT wonders among the captivating visual memories.",
+	"Take over the wallet containing our official Soul Bound Token (NFT).": "Take over the wallet containing our official Soul Bound Token (NFT).",
+	"Find the seed phrase posted accidentally.": "Find the seed phrase posted accidentally.",
+	"Withdraw more ETH from the new wallet than you deposited.": "Withdraw more ETH from the new wallet than you deposited.",
+	"Try to exploit the contract of the wallet.": "Try to exploit the contract of the wallet.",
+	"Find an accidentally deployed code sandbox for writing smart contracts on the fly.": "Find an accidentally deployed code sandbox for writing smart contracts on the fly.",
+	"It is just as easy as finding the Score Board.": "It is just as easy as finding the Score Board."
 }
