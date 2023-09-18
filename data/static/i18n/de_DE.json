@@ -456,12 +456,12 @@
 	"Find a form which updates the username and then construct a malicious page in the online HTML editor. You probably need an older browser version for this.": "Find a form which updates the username and then construct a malicious page in the online HTML editor. You probably need an older browser version for this.",
 	"Register a user with an empty email and password.": "Register a user with an empty email and password.",
 	"Consider intercepting and playing with the request payload.": "Consider intercepting and playing with the request payload.",
-	"Mint the Honey Pot NFT by gathering BEEs from the bee haven.": "Mint the Honey Pot NFT by gathering BEEs from the bee haven.",
-	"Discover NFT wonders among the captivating visual memories.": "Discover NFT wonders among the captivating visual memories.",
-	"Take over the wallet containing our official Soul Bound Token (NFT).": "Take over the wallet containing our official Soul Bound Token (NFT).",
-	"Find the seed phrase posted accidentally.": "Find the seed phrase posted accidentally.",
-	"Withdraw more ETH from the new wallet than you deposited.": "Withdraw more ETH from the new wallet than you deposited.",
-	"Try to exploit the contract of the wallet.": "Try to exploit the contract of the wallet.",
-	"Find an accidentally deployed code sandbox for writing smart contracts on the fly.": "Find an accidentally deployed code sandbox for writing smart contracts on the fly.",
-	"It is just as easy as finding the Score Board.": "It is just as easy as finding the Score Board."
+	"Mint the Honey Pot NFT by gathering BEEs from the bee haven.": "Präge das Honey-Pot-NFT indem du BEEs aus der Bienenzuflucht sammelst.",
+	"Discover NFT wonders among the captivating visual memories.": "Entdecke NFT-Wunder zwischen den faszinierenden visuellen Erinnerungen.",
+	"Take over the wallet containing our official Soul Bound Token (NFT).": "Nimm die Brieftasche mit unserem offiziellen Soul Bound Token (NFT) in Besitz.",
+	"Find the seed phrase posted accidentally.": "Finde die versehentlich gepostete Seed-Phrase.",
+	"Withdraw more ETH from the new wallet than you deposited.": "Hebe mehr ETH von der neuen Brieftasche ab, als du hinterlegt hast.",
+	"Try to exploit the contract of the wallet.": "Versuche, den Contract der Brieftasche auszunutzen.",
+	"Find an accidentally deployed code sandbox for writing smart contracts on the fly.": "Finde eine versehentlich ausgelieferte Programmier-Sandbox zum spontanen Schreiben von Smart Contracts.",
+	"It is just as easy as finding the Score Board.": "Es ist genauso einfach wie die Punkteübersicht zu finden."
 }
