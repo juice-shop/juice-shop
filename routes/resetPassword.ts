@@ -33,7 +33,7 @@ module.exports = function resetPassword () {
           where: { email }
         }]
       }).then((data: SecurityAnswerModel | null) => {
-        if (data && security.hmac(answer) === data.answer) {
+        if ((data != null) && security.hmac(answer) === data.answer) {
           UserModel.findByPk(data.UserId).then((user: UserModel | null) => {
             user?.update({ password: newPassword }).then((user: UserModel) => {
               verifySecurityAnswerChallenges(user, answer)

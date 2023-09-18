@@ -30,11 +30,11 @@ router.get('/', async (req: Request, res: Response, next: NextFunction): Promise
         where: { email }
       }]
     })
-    if (!answer) {
+    if (answer == null) {
       throw new Error('No answer found!')
     }
     const question = await SecurityQuestionModel.findByPk(answer.SecurityQuestionId)
-    if (!question) {
+    if (question == null) {
       throw new Error('No question found!')
     }
 

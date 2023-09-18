@@ -17,7 +17,7 @@ module.exports = function securityQuestion () {
         where: { email: email?.toString() }
       }]
     }).then((answer: SecurityAnswerModel | null) => {
-      if (answer) {
+      if (answer != null) {
         SecurityQuestionModel.findByPk(answer.SecurityQuestionId).then((question: SecurityQuestionModel | null) => {
           res.json({ question })
         }).catch((error: Error) => {

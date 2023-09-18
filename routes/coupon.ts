@@ -15,7 +15,7 @@ module.exports = function applyCoupon () {
     const discount = security.discountFromCoupon(coupon)
     coupon = discount ? coupon : null
     BasketModel.findByPk(id).then((basket: BasketModel | null) => {
-      if (basket) {
+      if (basket != null) {
         basket.update({ coupon: coupon?.toString() }).then(() => {
           if (discount) {
             res.json({ discount })

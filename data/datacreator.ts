@@ -86,7 +86,7 @@ async function createChallenges () {
           key,
           name,
           category,
-          tags: tags ? tags.join(',') : undefined,
+          tags: (tags != null) ? tags.join(',') : undefined,
           description: effectiveDisabledEnv ? (description + ' <em>(This challenge is <strong>' + (config.get('challenges.safetyOverride') ? 'potentially harmful' : 'not available') + '</strong> on ' + effectiveDisabledEnv + '!)</em>') : description,
           difficulty,
           solved: false,
@@ -94,7 +94,7 @@ async function createChallenges () {
           hintUrl: showHints ? hintUrl : null,
           mitigationUrl: showMitigations ? mitigationUrl : null,
           disabledEnv: config.get<boolean>('challenges.safetyOverride') ? null : effectiveDisabledEnv,
-          tutorialOrder: tutorial ? tutorial.order : null,
+          tutorialOrder: (tutorial != null) ? tutorial.order : null,
           codingChallengeStatus: 0
         })
       } catch (err) {
@@ -122,11 +122,11 @@ async function createUsers () {
           lastLoginIp
         })
         datacache.users[key] = user
-        if (securityQuestion) await createSecurityAnswer(user.id, securityQuestion.id, securityQuestion.answer)
-        if (feedback) await createFeedback(user.id, feedback.comment, feedback.rating, user.email)
+        if (securityQuestion != null) await createSecurityAnswer(user.id, securityQuestion.id, securityQuestion.answer)
+        if (feedback != null) await createFeedback(user.id, feedback.comment, feedback.rating, user.email)
         if (deletedFlag) await deleteUser(user.id)
-        if (address) await createAddresses(user.id, address)
-        if (card) await createCards(user.id, card)
+        if (address != null) await createAddresses(user.id, address)
+        if (card != null) await createCards(user.id, card)
       } catch (err) {
         logger.error(`Could not insert User ${key}: ${utils.getErrorMessage(err)}`)
       }
@@ -336,7 +336,7 @@ async function createProducts () {
             logger.error(`Could not insert Product ${product.name}: ${utils.getErrorMessage(err)}`)
           }
         ).then((persistedProduct) => {
-          if (persistedProduct) {
+          if (persistedProduct != null) {
             if (useForChristmasSpecialChallenge) { datacache.products.christmasSpecial = persistedProduct }
             if (urlForProductTamperingChallenge) {
               datacache.products.osaft = persistedProduct
