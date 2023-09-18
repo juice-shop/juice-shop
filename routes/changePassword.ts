@@ -29,7 +29,7 @@ module.exports = function changePassword () {
           res.status(401).send(res.__('Current password is not correct.'))
         } else {
           UserModel.findByPk(loggedInUser.data.id).then((user: UserModel | null) => {
-            if (user) {
+            if (user != null) {
               user.update({ password: newPasswordInString }).then((user: UserModel) => {
                 challengeUtils.solveIf(challenges.changePasswordBenderChallenge, () => { return user.id === 3 && !currentPassword && user.password === security.hash('slurmCl4ssic') })
                 res.json({ user })

@@ -110,7 +110,7 @@ export const generateCoupon = (discount: number, date = new Date()) => {
 export const discountFromCoupon = (coupon: string) => {
   if (coupon) {
     const decoded = z85.decode(coupon)
-    if (decoded && hasValidFormat(decoded.toString())) {
+    if (decoded && (hasValidFormat(decoded.toString()) != null)) {
       const parts = decoded.toString().split('-')
       const validity = parts[0]
       if (utils.toMMMYY(new Date()) === validity) {

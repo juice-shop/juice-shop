@@ -32,7 +32,7 @@ module.exports.getDeliveryMethods = function getDeliveryMethods () {
 module.exports.getDeliveryMethod = function getDeliveryMethod () {
   return async (req: Request, res: Response, next: NextFunction) => {
     const method = await DeliveryModel.findOne({ where: { id: req.params.id } })
-    if (method) {
+    if (method != null) {
       const sendMethod = {
         id: method.id,
         name: method.name,

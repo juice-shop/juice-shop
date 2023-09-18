@@ -100,7 +100,7 @@ describe('/chatbot', () => {
     })
 
     it('Returns greeting if username is defined', async () => {
-      if (!bot) {
+      if (bot == null) {
         throw new Error('Bot not initialized')
       }
       const { token } = await login({
@@ -132,7 +132,7 @@ describe('/chatbot', () => {
     })
 
     it('Returns proper response for registered user', async () => {
-      if (!bot) {
+      if (bot == null) {
         throw new Error('Bot not initialized')
       }
       const { token } = await login({

@@ -68,7 +68,7 @@ module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBefor
       const user = security.authenticatedUsers.from(req)
       challengeUtils.solveIf(challenges.basketManipulateChallenge, () => { return user && req.body.BasketId && user.bid != req.body.BasketId }) // eslint-disable-line eqeqeq
       if (req.body.quantity) {
-        if (!item) {
+        if (item == null) {
           throw new Error('No such item found!')
         }
         void quantityCheck(req, res, next, item.ProductId, req.body.quantity)
@@ -83,7 +83,7 @@ module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBefor
 
 async function quantityCheck (req: Request, res: Response, next: NextFunction, id: number, quantity: number) {
   const product = await QuantityModel.findOne({ where: { ProductId: id } })
-  if (!product) {
+  if (product == null) {
     throw new Error('No such product found!')
   }
 

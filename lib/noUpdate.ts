@@ -29,7 +29,7 @@ export const makeKeyNonUpdatable = (model: Model, column: string) => {
 
     instanceChanged.forEach((value) => changedKeys.push(value))
 
-    if (!changedKeys.length) return
+    if (changedKeys.length === 0) return
 
     const validationErrors: ValidationErrorItemType[] = []
 
@@ -51,6 +51,6 @@ export const makeKeyNonUpdatable = (model: Model, column: string) => {
       }
     })
 
-    if (validationErrors.length) { throw new ValidationError(null, validationErrors) }
+    if (validationErrors.length > 0) { throw new ValidationError(null, validationErrors) }
   })
 }

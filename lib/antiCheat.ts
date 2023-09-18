@@ -48,7 +48,7 @@ export const calculateFindItCheatScore = async (challenge: Challenge) => {
   let cheatScore = 0
 
   const codeSnippet = await retrieveCodeSnippet(challenge.key)
-  if (!codeSnippet) {
+  if (codeSnippet == null) {
     return 0
   }
   const { snippet, vulnLines } = codeSnippet
@@ -105,7 +105,7 @@ const checkForIdenticalSolvedChallenge = async (challenge: Challenge): Promise<B
   }
 
   const codingChallengesToCompareTo = codingChallenges.get(challenge.key)
-  if (!codingChallengesToCompareTo || !codingChallengesToCompareTo.snippet) {
+  if ((codingChallengesToCompareTo == null) || !codingChallengesToCompareTo.snippet) {
     return false
   }
   const snippetToCompareTo = codingChallengesToCompareTo.snippet
