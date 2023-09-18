@@ -57,7 +57,7 @@ exports.observeRequestMetricsMiddleware = function observeRequestMetricsMiddlewa
 exports.observeFileUploadMetricsMiddleware = function observeFileUploadMetricsMiddleware () {
   return ({ file }: Request, res: Response, next: NextFunction) => {
     onFinished(res, () => {
-      if (file) {
+      if (file != null) {
         res.statusCode < 400 ? fileUploadsCountMetric.labels(file.mimetype).inc() : fileUploadErrorsMetric.labels(file.mimetype).inc()
       }
     })

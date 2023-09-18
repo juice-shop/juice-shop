@@ -31,7 +31,7 @@ async function verify (req: Request, res: Response) {
     }
 
     const user = await UserModel.findByPk(userId)
-    if (!user) {
+    if (user == null) {
       throw new Error('No such user found!')
     }
 
@@ -128,7 +128,7 @@ async function setup (req: Request, res: Response) {
 
     // Update db model and cached object
     const userModel = await UserModel.findByPk(user.id)
-    if (!userModel) {
+    if (userModel == null) {
       throw new Error('No such user found!')
     }
 
@@ -161,7 +161,7 @@ async function disable (req: Request, res: Response) {
 
     // Update db model and cached object
     const userModel = await UserModel.findByPk(user.id)
-    if (!userModel) {
+    if (userModel == null) {
       throw new Error('No such user found!')
     }
 

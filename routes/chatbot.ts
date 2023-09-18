@@ -49,7 +49,7 @@ export async function initialize () {
 void initialize()
 
 async function processQuery (user: User, req: Request, res: Response, next: NextFunction) {
-  if (!bot) {
+  if (bot == null) {
     res.status(503).send()
     return
   }
@@ -125,12 +125,12 @@ async function processQuery (user: User, req: Request, res: Response, next: Next
 }
 
 async function setUserName (user: User, req: Request, res: Response) {
-  if (!bot) {
+  if (bot == null) {
     return
   }
   try {
     const userModel = await UserModel.findByPk(user.id)
-    if (!userModel) {
+    if (userModel == null) {
       res.status(401).json({
         status: 'error',
         error: 'Unknown user'
@@ -155,7 +155,7 @@ async function setUserName (user: User, req: Request, res: Response) {
 
 export const status = function status () {
   return async (req: Request, res: Response, next: NextFunction) => {
-    if (!bot) {
+    if (bot == null) {
       res.status(200).json({
         status: false,
         body: `${config.get('application.chatBot.name')} isn't ready at the moment, please wait while I set things up`
@@ -172,7 +172,7 @@ export const status = function status () {
     }
 
     const user = await getUserFromJwt(token)
-    if (!user) {
+    if (user == null) {
       res.status(401).json({
         error: 'Unauthenticated user'
       })
@@ -203,7 +203,7 @@ export const status = function status () {
 
 module.exports.process = function respond () {
   return async (req: Request, res: Response, next: NextFunction) => {
-    if (!bot) {
+    if (bot == null) {
       res.status(200).json({
         action: 'response',
         body: `${config.get('application.chatBot.name')} isn't ready at the moment, please wait while I set things up`
@@ -218,7 +218,7 @@ module.exports.process = function respond () {
     }
 
     const user = await getUserFromJwt(token)
-    if (!user) {
+    if (user == null) {
       res.status(401).json({
         error: 'Unauthenticated user'
       })

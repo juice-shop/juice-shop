@@ -198,9 +198,9 @@ export class ScoreBoardComponent implements OnInit, AfterViewInit {
     } else if (challenge.hintUrl) {
       if (challenge.hint) {
         this.translate.get('CLICK_FOR_MORE_HINTS').subscribe((clickForMoreHints: string) => {
-          challenge.hint += ` ${clickForMoreHints}`
+          challenge.hint = `${challenge.hint} ${clickForMoreHints}`
         }, (translationId: string) => {
-          challenge.hint += ` ${translationId}`
+          challenge.hint = `${challenge.hint} ${translationId}`
         })
       } else {
         this.translate.get('CLICK_TO_OPEN_HINTS').subscribe((clickToOpenHints) => {

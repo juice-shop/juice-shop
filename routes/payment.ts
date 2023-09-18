@@ -47,7 +47,7 @@ module.exports.getPaymentMethodById = function getPaymentMethodById () {
       expMonth: 0,
       expYear: 0
     }
-    if (card) {
+    if (card != null) {
       displayableCard.UserId = card.UserId
       displayableCard.id = card.id
       displayableCard.fullName = card.fullName
@@ -57,7 +57,7 @@ module.exports.getPaymentMethodById = function getPaymentMethodById () {
       const cardNumber = String(card.cardNum)
       displayableCard.cardNum = '*'.repeat(12) + cardNumber.substring(cardNumber.length - 4)
     }
-    if (card && displayableCard) {
+    if ((card != null) && displayableCard) {
       res.status(200).json({ status: 'success', data: displayableCard })
     } else {
       res.status(400).json({ status: 'error', data: 'Malicious activity detected' })
