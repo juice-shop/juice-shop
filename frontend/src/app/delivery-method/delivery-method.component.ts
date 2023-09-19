@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, NgZone, OnInit } from '@angular/core'
+import { Component, NgZone, type OnInit } from '@angular/core'
 import { DeliveryService } from '../Services/delivery.service'
 import { AddressService } from '../Services/address.service'
 import { MatTableDataSource } from '@angular/material/table'
 import { Router } from '@angular/router'
 import { Location } from '@angular/common'
-import { DeliveryMethod } from '../Models/deliveryMethod.model'
+import { type DeliveryMethod } from '../Models/deliveryMethod.model'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faRocket, faShippingFast, faTruck } from '@fortawesome/free-solid-svg-icons'
 import { SelectionModel } from '@angular/cdk/collections'
@@ -20,13 +20,13 @@ library.add(faRocket, faShippingFast, faTruck)
   selector: 'app-delivery-method',
   templateUrl: './delivery-method.component.html',
   styleUrls: ['./delivery-method.component.scss']
-  })
+})
 export class DeliveryMethodComponent implements OnInit {
   public displayedColumns = ['Selection', 'Name', 'Price', 'ETA']
   public methods: DeliveryMethod[]
   public address: any
   public dataSource
-  public deliveryMethodId: Number = undefined
+  public deliveryMethodId: number = undefined
   selection = new SelectionModel<DeliveryMethod>(false, [])
 
   constructor (private readonly location: Location, private readonly deliverySerivce: DeliveryService,
@@ -35,13 +35,13 @@ export class DeliveryMethodComponent implements OnInit {
   ngOnInit () {
     this.addressService.getById(sessionStorage.getItem('addressId')).subscribe((address) => {
       this.address = address
-    }, (error) => console.log(error))
+    }, (error) => { console.log(error) })
 
     this.deliverySerivce.get().subscribe((methods) => {
       console.log(methods)
       this.methods = methods
       this.dataSource = new MatTableDataSource<DeliveryMethod>(this.methods)
-    }, (error) => console.log(error))
+    }, (error) => { console.log(error) })
   }
 
   selectMethod (id) {

@@ -15,7 +15,7 @@ let firstConnectedSocket: any = null
 
 const registerWebsocketEvents = (server: any) => {
   const io = new Server(server, { cors: { origin: 'http://localhost:4200' } })
-  // @ts-expect-error
+  // @ts-expect-error issue with global type safety
   global.io = io
 
   io.on('connection', (socket: any) => {

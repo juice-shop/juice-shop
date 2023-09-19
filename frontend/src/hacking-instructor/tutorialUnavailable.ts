@@ -6,7 +6,7 @@
 import {
   waitInMs
 } from './helpers/helpers'
-import { ChallengeInstruction } from './'
+import { type ChallengeInstruction } from './'
 
 export const TutorialUnavailableInstruction: ChallengeInstruction = {
   name: null,

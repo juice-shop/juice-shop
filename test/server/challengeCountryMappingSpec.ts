@@ -21,7 +21,7 @@ const loadYamlFile = async (filename: string) => {
 
 describe('challengeCountryMapping', () => {
   let challenges: any
-  let countryMapping: { [key: string]: { code: any } }
+  let countryMapping: Record<string, { code: any }>
   before(async () => {
     challenges = await loadYamlFile(path.resolve('data/static/challenges.yml'))
     countryMapping = (await loadYamlFile(path.resolve('config/fbctf.yml'))).ctf.countryMapping

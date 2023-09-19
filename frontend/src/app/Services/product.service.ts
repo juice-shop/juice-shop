@@ -10,7 +10,7 @@ import { catchError, map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
-  })
+})
 export class ProductService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/api/Products'
@@ -22,7 +22,7 @@ export class ProductService {
   }
 
   find (params: any) {
-    return this.http.get(this.host + '/', { params: params }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.get(this.host + '/', { params }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
   get (id: number) {

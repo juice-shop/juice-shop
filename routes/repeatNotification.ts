@@ -4,7 +4,7 @@
  */
 
 import challengeUtils = require('../lib/challengeUtils')
-import { Request, Response } from 'express'
+import { type Request, type Response } from 'express'
 
 module.exports = function repeatNotification () {
   return ({ query }: Request, res: Response) => {

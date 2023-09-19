@@ -4,8 +4,8 @@
  */
 
 import config from 'config'
-import { Request, Response, NextFunction } from 'express'
-import { Memory } from '../data/types'
+import { type Request, type Response, type NextFunction } from 'express'
+import { type Memory } from '../data/types'
 import { SecurityAnswerModel } from '../models/securityAnswer'
 import { UserModel } from '../models/user'
 

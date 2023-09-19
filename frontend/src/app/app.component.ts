@@ -14,7 +14,7 @@ dom.watch()
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
-  })
+})
 export class AppComponent {
   constructor (@Inject(DOCUMENT) private readonly _document: HTMLDocument, private readonly translate: TranslateService) {
     this.translate.setDefaultLang('en')

@@ -50,5 +50,5 @@ ngAfterViewInit () {
         this.breakpoint = 6
       }
       this.cdRef.detectChanges()
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }

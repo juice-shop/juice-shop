@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { NextFunction, Request, Response } from 'express'
+import { type NextFunction, type Request, type Response } from 'express'
 import fs from 'fs'
 import yaml from 'js-yaml'
 import { getCodeChallenges } from '../lib/codingChallenges'
@@ -38,7 +38,7 @@ export const retrieveCodeSnippet = async (challengeKey: string) => {
   return null
 }
 
-exports.serveCodeSnippet = () => async (req: Request<SnippetRequestBody, {}, {}>, res: Response, next: NextFunction) => {
+exports.serveCodeSnippet = () => async (req: Request<SnippetRequestBody, Record<string, unknown>, Record<string, unknown>>, res: Response, next: NextFunction) => {
   try {
     const snippetData = await retrieveCodeSnippet(req.params.challenge)
     if (snippetData == null) {
@@ -71,7 +71,7 @@ export const getVerdict = (vulnLines: number[], neutralLines: number[], selected
   return notOkLines.length === 0
 }
 
-exports.checkVulnLines = () => async (req: Request<{}, {}, VerdictRequestBody>, res: Response, next: NextFunction) => {
+exports.checkVulnLines = () => async (req: Request<Record<string, unknown>, Record<string, unknown>, VerdictRequestBody>, res: Response, next: NextFunction) => {
   const key = req.body.key
   let snippetData
   try {

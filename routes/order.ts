@@ -4,7 +4,7 @@
  */
 
 import path = require('path')
-import { Request, Response, NextFunction } from 'express'
+import { type Request, type Response, type NextFunction } from 'express'
 import { BasketModel } from '../models/basket'
 import { ProductModel } from '../models/product'
 import { BasketItemModel } from '../models/basketitem'
@@ -22,7 +22,7 @@ const products = require('../data/datacache').products
 const challenges = require('../data/datacache').challenges
 const db = require('../data/mongodb')
 
-interface Product{
+interface Product {
   quantity: number
   id?: number
   name: string
@@ -87,7 +87,7 @@ module.exports = function placeOrder () {
               const itemBonus = Math.round(itemPrice / 10) * BasketItem.quantity
               const product = {
                 quantity: BasketItem.quantity,
-                id: id,
+                id,
                 name: req.__(name),
                 price: itemPrice,
                 total: itemTotal,
@@ -156,10 +156,10 @@ module.exports = function placeOrder () {
             promotionalAmount: discountAmount,
             paymentId: req.body.orderDetails ? req.body.orderDetails.paymentId : null,
             addressId: req.body.orderDetails ? req.body.orderDetails.addressId : null,
-            orderId: orderId,
+            orderId,
             delivered: false,
             email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
-            totalPrice: totalPrice,
+            totalPrice,
             products: basketProducts,
             bonus: totalPoints,
             deliveryPrice: deliveryAmount,

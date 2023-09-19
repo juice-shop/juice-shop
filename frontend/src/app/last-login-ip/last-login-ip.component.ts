@@ -12,7 +12,7 @@ import * as jwtDecode from 'jwt-decode'
   templateUrl: './last-login-ip.component.html',
   styleUrls: ['./last-login-ip.component.scss']
 
-  })
+})
 
 export class LastLoginIpComponent {
   lastLoginIp: any = '?'

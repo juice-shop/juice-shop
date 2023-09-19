@@ -74,7 +74,7 @@ export const trunc = function (str: string, length: number) {
 
 export const version = (module?: string) => {
   if (module) {
-    // @ts-expect-error
+    // @ts-expect-error Ignoring any type issue on purpose
     return packageJson.dependencies[module]
   } else {
     return packageJson.version
@@ -134,7 +134,7 @@ export const downloadToFile = async (url: string, dest: string) => {
   }
 }
 
-export const jwtFrom = ({ headers }: { headers: any}) => {
+export const jwtFrom = ({ headers }: { headers: any }) => {
   if (headers?.authorization) {
     const parts = headers.authorization.split(' ')
     if (parts.length === 2) {

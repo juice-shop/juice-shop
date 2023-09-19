@@ -1,6 +1,6 @@
 import {
   Component,
-  OnInit,
+  type OnInit,
   Input,
   Output,
   EventEmitter
@@ -15,7 +15,7 @@ interface LineMarker {
   selector: 'app-code-area',
   templateUrl: './code-area.component.html',
   styleUrls: ['./code-area.component.scss']
-  })
+})
 export class CodeAreaComponent implements OnInit {
   @Input('code')
   public code: string = ''
@@ -26,7 +26,7 @@ export class CodeAreaComponent implements OnInit {
   public lineMarkers: LineMarker[]
 
   @Output()
-  addLine = new EventEmitter<number[]>()
+    addLine = new EventEmitter<number[]>()
 
   public langs = ['javascript', 'typescript', 'json', 'yaml']
 

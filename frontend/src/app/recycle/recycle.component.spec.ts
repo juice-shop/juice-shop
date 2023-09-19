@@ -13,7 +13,7 @@ import { MatCardModule } from '@angular/material/card'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { RecycleComponent } from './recycle.component'
 import { MatFormFieldModule } from '@angular/material/form-field'

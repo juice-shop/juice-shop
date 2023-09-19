@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Request, Response } from 'express'
+import { type Request, type Response } from 'express'
 import challengeUtils = require('../lib/challengeUtils')
 
 import * as utils from '../lib/utils'

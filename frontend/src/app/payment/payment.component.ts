@@ -4,7 +4,7 @@
  */
 
 import { UntypedFormControl, Validators } from '@angular/forms'
-import { Component, NgZone, OnInit } from '@angular/core'
+import { Component, NgZone, type OnInit } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { BasketService } from '../Services/basket.service'
 import { TranslateService } from '@ngx-translate/core'
@@ -24,7 +24,7 @@ import {
 import { faLeanpub, faStripe } from '@fortawesome/free-brands-svg-icons'
 import { QrCodeComponent } from '../qr-code/qr-code.component'
 import { MatDialog } from '@angular/material/dialog'
-import { ActivatedRoute, ParamMap, Router } from '@angular/router'
+import { ActivatedRoute, type ParamMap, Router } from '@angular/router'
 import { WalletService } from '../Services/wallet.service'
 import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'
@@ -38,7 +38,7 @@ library.add(faCartArrowDown, faGift, faHeart, faLeanpub, faThumbsUp, faTshirt, f
   selector: 'app-payment',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss']
-  })
+})
 export class PaymentComponent implements OnInit {
   public couponConfirmation: any
   public couponError: any
@@ -81,7 +81,7 @@ export class PaymentComponent implements OnInit {
     this.walletService.get().subscribe((balance) => {
       this.walletBalance = balance
       this.walletBalanceStr = parseFloat(balance).toFixed(2)
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
     this.couponPanelExpanded = localStorage.getItem('couponPanelExpanded') ? JSON.parse(localStorage.getItem('couponPanelExpanded')) : false
     this.paymentPanelExpanded = localStorage.getItem('paymentPanelExpanded') ? JSON.parse(localStorage.getItem('paymentPanelExpanded')) : false
 
@@ -97,7 +97,7 @@ export class PaymentComponent implements OnInit {
           this.applicationName = config.application.name
         }
       }
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   initTotal () {
@@ -108,7 +108,7 @@ export class PaymentComponent implements OnInit {
       } else if (this.mode === 'deluxe') {
         this.userService.deluxeStatus().subscribe((res) => {
           this.totalPrice = res.membershipCost
-        }, (err) => console.log(err))
+        }, (err) => { console.log(err) })
       } else {
         const itemTotal = parseFloat(sessionStorage.getItem('itemTotal'))
         const promotionalDiscount = sessionStorage.getItem('couponDiscount') ? (parseFloat(sessionStorage.getItem('couponDiscount')) / 100) * itemTotal : 0
@@ -117,7 +117,7 @@ export class PaymentComponent implements OnInit {
           this.totalPrice = itemTotal + deliveryPrice - promotionalDiscount
         })
       }
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   applyCoupon () {
@@ -190,7 +190,7 @@ export class PaymentComponent implements OnInit {
         localStorage.setItem('token', data.token)
         this.cookieService.put('token', data.token)
         this.ngZone.run(async () => await this.router.navigate(['/deluxe-membership']))
-      }, (err) => console.log(err))
+      }, (err) => { console.log(err) })
     } else {
       if (this.paymentMode === 'wallet') {
         if (this.walletBalance < this.totalPrice) {

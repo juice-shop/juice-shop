@@ -1,5 +1,5 @@
-import { EnrichedChallenge } from '../types/EnrichedChallenge'
-import { FilterSetting, SolvedStatus } from '../filter-settings/FilterSetting'
+import { type EnrichedChallenge } from '../types/EnrichedChallenge'
+import { type FilterSetting, type SolvedStatus } from '../filter-settings/FilterSetting'
 
 export function filterChallenges (
   challenges: EnrichedChallenge[],

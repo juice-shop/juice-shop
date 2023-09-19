@@ -1,15 +1,15 @@
 // Credit for the implementation in JS: https://github.com/daviddossantos/sequelize-notupdate-attributes
-import { Model, ValidationErrorItemType } from 'sequelize/types'
-import { ValidationOptions } from 'sequelize/types/instance-validator'
+import { type Model, type ValidationErrorItemType } from 'sequelize/types'
+import { type ValidationOptions } from 'sequelize/types/instance-validator'
 
-interface ExtendedValidationOptions extends ValidationOptions{
+interface ExtendedValidationOptions extends ValidationOptions {
   validate: boolean
 }
 
-interface ExtendedModel extends Model{
+interface ExtendedModel extends Model {
   _changed: Iterable<string> | ArrayLike<string>
-  rawAttributes: { [x: string]: any }
-  _previousDataValues: { [x: string]: null }
+  rawAttributes: Record<string, any>
+  _previousDataValues: Record<string, null>
 }
 
 const {

@@ -4,7 +4,6 @@
  */
 
 // eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error
-// @ts-ignore no typescript definitions for z85 :(
 import z85 from 'z85'
 import chai = require('chai')
 const expect = chai.expect

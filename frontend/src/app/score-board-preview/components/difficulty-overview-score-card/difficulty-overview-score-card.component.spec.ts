@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { type ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { DifficultyOverviewScoreCardComponent } from './difficulty-overview-score-card.component'
 import { ScoreCardComponent } from '../score-card/score-card.component'

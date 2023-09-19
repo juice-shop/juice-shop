@@ -4,7 +4,7 @@
  */
 
 import path = require('path')
-import { Request, Response, NextFunction } from 'express'
+import { type Request, type Response, type NextFunction } from 'express'
 
 import * as utils from '../lib/utils'
 

@@ -23,7 +23,7 @@ library.add(faUnlockAlt, faSave)
   selector: 'app-two-factor-auth',
   templateUrl: './two-factor-auth.component.html',
   styleUrls: ['./two-factor-auth.component.scss']
-  })
+})
 export class TwoFactorAuthComponent {
   public data?: string
 

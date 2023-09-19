@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, NgZone, OnInit } from '@angular/core'
+import { Component, NgZone, type OnInit } from '@angular/core'
 import { OrderHistoryService } from '../Services/order-history.service'
 import { MatTableDataSource } from '@angular/material/table'
 import { BasketService } from '../Services/basket.service'
 import { ProductDetailsComponent } from '../product-details/product-details.component'
 import { MatDialog } from '@angular/material/dialog'
-import { Product } from '../Models/product.model'
+import { type Product } from '../Models/product.model'
 import { ProductService } from '../Services/product.service'
 import { Router } from '@angular/router'
 
@@ -33,7 +33,7 @@ export interface Order {
   selector: 'app-order-history',
   templateUrl: './order-history.component.html',
   styleUrls: ['./order-history.component.scss']
-  })
+})
 export class OrderHistoryComponent implements OnInit {
   public tableColumns = ['product', 'price', 'quantity', 'total price', 'review']
   public orders: Order[] = []
@@ -68,7 +68,7 @@ export class OrderHistoryComponent implements OnInit {
           delivered: order.delivered
         })
       }
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   showDetail (id: number) {
@@ -88,7 +88,7 @@ export class OrderHistoryComponent implements OnInit {
           productData: element
         }
       })
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   openConfirmationPDF (orderId: string) {

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { AbstractControl, UntypedFormControl, Validators } from '@angular/forms'
+import { type AbstractControl, UntypedFormControl, Validators } from '@angular/forms'
 import { UserService } from '../Services/user.service'
 import { Component } from '@angular/core'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -18,7 +18,7 @@ library.add(faSave, faEdit)
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss']
-  })
+})
 export class ChangePasswordComponent {
   public passwordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
   public newPasswordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)])
@@ -29,7 +29,7 @@ export class ChangePasswordComponent {
   constructor (private readonly userService: UserService, private readonly formSubmitService: FormSubmitService, private readonly translate: TranslateService) { }
 
   ngOnInit () {
-    this.formSubmitService.attachEnterKeyHandler('password-form', 'changeButton', () => this.changePassword())
+    this.formSubmitService.attachEnterKeyHandler('password-form', 'changeButton', () => { this.changePassword() })
   }
 
   changePassword () {

@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { FeedbackService } from '../Services/feedback.service'
 import { MatTableDataSource } from '@angular/material/table'
 import { UserService } from '../Services/user.service'
-import { Component, OnInit, ViewChild } from '@angular/core'
+import { Component, type OnInit, ViewChild } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArchive, faEye, faHome, faTrashAlt, faUser } from '@fortawesome/free-solid-svg-icons'
@@ -21,7 +21,7 @@ library.add(faUser, faEye, faHome, faArchive, faTrashAlt)
   selector: 'app-administration',
   templateUrl: './administration.component.html',
   styleUrls: ['./administration.component.scss']
-  })
+})
 export class AdministrationComponent implements OnInit {
   public userDataSource: any
   public userDataSourceHidden: any
@@ -85,7 +85,7 @@ export class AdministrationComponent implements OnInit {
   showUserDetail (id: number) {
     this.dialog.open(UserDetailsComponent, {
       data: {
-        id: id
+        id
       }
     })
   }
@@ -93,8 +93,8 @@ export class AdministrationComponent implements OnInit {
   showFeedbackDetails (feedback: any, id: number) {
     this.dialog.open(FeedbackDetailsComponent, {
       data: {
-        feedback: feedback,
-        id: id
+        feedback,
+        id
       }
     })
   }

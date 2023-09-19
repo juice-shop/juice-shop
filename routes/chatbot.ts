@@ -4,10 +4,10 @@
  */
 
 import fs from 'fs/promises'
-import { Request, Response, NextFunction } from 'express'
-import { User } from '../data/types'
+import { type Request, type Response, type NextFunction } from 'express'
+import { type User } from '../data/types'
 import { UserModel } from '../models/user'
-import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken'
+import jwt, { type JwtPayload, type VerifyErrors } from 'jsonwebtoken'
 import challengeUtils = require('../lib/challengeUtils')
 import logger from '../lib/logger'
 import config from 'config'

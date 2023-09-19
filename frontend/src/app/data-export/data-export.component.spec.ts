@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { DataExportComponent } from './data-export.component'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { ImageCaptchaService } from '../Services/image-captcha.service'

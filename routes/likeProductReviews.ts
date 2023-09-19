@@ -4,8 +4,8 @@
  */
 
 import challengeUtils = require('../lib/challengeUtils')
-import { Request, Response, NextFunction } from 'express'
-import { Review } from '../data/types'
+import { type Request, type Response, type NextFunction } from 'express'
+import { type Review } from '../data/types'
 
 const challenges = require('../data/datacache').challenges
 const db = require('../data/mongodb')
@@ -40,7 +40,7 @@ module.exports = function productReviews () {
                   challengeUtils.solveIf(challenges.timingAttackChallenge, () => { return count > 2 })
                   db.reviews.update(
                     { _id: id },
-                    { $set: { likedBy: likedBy } }
+                    { $set: { likedBy } }
                   ).then(
                     (result: any) => {
                       res.json(result)

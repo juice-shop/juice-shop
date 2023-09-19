@@ -4,7 +4,7 @@
  */
 
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
 import { Status, TrackResultComponent } from './track-result.component'
 import { MatTableModule } from '@angular/material/table'

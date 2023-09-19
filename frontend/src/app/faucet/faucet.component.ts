@@ -6,7 +6,7 @@ import {
   BeeTokenABI,
   nftABI
 } from '../../assets/public/ContractABIs'
-import { getDefaultProvider, ethers, BigNumber } from 'ethers'
+import { getDefaultProvider, ethers, type BigNumber } from 'ethers'
 import {
   createClient,
   connect,
@@ -27,10 +27,10 @@ const BeeTokenAddress = '0x36435796Ca9be2bf150CE0dECc2D8Fab5C4d6E13'
 const BeeFaucetAddress = '0x860e3616aD0E0dEDc23352891f3E10C4131EA5BC'
 
 @Component({
-  selector: "app-faucet",
-  templateUrl: "./faucet.component.html",
-  styleUrls: ["./faucet.component.scss"],
-  })
+  selector: 'app-faucet',
+  templateUrl: './faucet.component.html',
+  styleUrls: ['./faucet.component.scss']
+})
 export class FaucetComponent {
   constructor (
     private readonly keysService: KeysService,

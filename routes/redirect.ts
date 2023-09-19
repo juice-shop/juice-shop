@@ -5,7 +5,7 @@
 
 import utils = require('../lib/utils')
 import challengeUtils = require('../lib/challengeUtils')
-import { Request, Response, NextFunction } from 'express'
+import { type Request, type Response, type NextFunction } from 'express'
 
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges

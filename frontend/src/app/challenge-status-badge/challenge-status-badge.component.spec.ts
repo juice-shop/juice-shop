@@ -4,7 +4,7 @@
  */
 
 import { ChallengeService } from '../Services/challenge.service'
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { ChallengeStatusBadgeComponent } from './challenge-status-badge.component'
 import { of, throwError } from 'rxjs'
@@ -13,7 +13,7 @@ import { WindowRefService } from '../Services/window-ref.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatIconModule } from '@angular/material/icon'
 import { EventEmitter } from '@angular/core'
-import { Challenge } from '../Models/challenge.model'
+import { type Challenge } from '../Models/challenge.model'
 import { MatButtonModule } from '@angular/material/button'
 import { MatTooltipModule } from '@angular/material/tooltip'
 

@@ -1,12 +1,12 @@
-import { Component, Input, OnChanges } from '@angular/core'
+import { Component, Input, type OnChanges } from '@angular/core'
 
-import { EnrichedChallenge } from '../../types/EnrichedChallenge'
-import { Config } from 'src/app/Services/configuration.service'
+import { type EnrichedChallenge } from '../../types/EnrichedChallenge'
+import { type Config } from 'src/app/Services/configuration.service'
 
 @Component({
   selector: 'tutorial-mode-warning',
-  templateUrl: './tutorial-mode-warning.component.html',
-  })
+  templateUrl: './tutorial-mode-warning.component.html'
+})
 export class TutorialModeWarningComponent implements OnChanges {
   @Input()
   public allChallenges: EnrichedChallenge[]

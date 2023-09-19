@@ -7,7 +7,7 @@ import config from 'config'
 import colors from 'colors/safe'
 import { retrieveCodeSnippet } from '../routes/vulnCodeSnippet'
 import { readFixes } from '../routes/vulnCodeFixes'
-import { Challenge } from '../data/types'
+import { type Challenge } from '../data/types'
 import { getCodeChallenges } from './codingChallenges'
 import logger from './logger'
 
@@ -20,7 +20,7 @@ const coupledChallenges = { // TODO prevent also near-identical challenges (e.g.
 }
 const trivialChallenges = ['errorHandlingChallenge', 'privacyPolicyChallenge', 'closeNotificationsChallenge']
 
-const solves: Array<{challenge: any, phase: string, timestamp: Date, cheatScore: number}> = [{ challenge: {}, phase: 'server start', timestamp: new Date(), cheatScore: 0 }] // seed with server start timestamp
+const solves: Array<{ challenge: any, phase: string, timestamp: Date, cheatScore: number }> = [{ challenge: {}, phase: 'server start', timestamp: new Date(), cheatScore: 0 }] // seed with server start timestamp
 
 export const calculateCheatScore = (challenge: Challenge) => {
   const timestamp = new Date()
@@ -71,7 +71,7 @@ export const calculateFixItCheatScore = async (challenge: Challenge) => {
   const timestamp = new Date()
   let cheatScore = 0
 
-  const { fixes } = await readFixes(challenge.key)
+  const { fixes } = readFixes(challenge.key)
   const minutesExpectedToSolve = Math.floor(fixes.length / 2)
   const minutesSincePreviousSolve = (timestamp.getTime() - previous().timestamp.getTime()) / 60000
   cheatScore += Math.max(0, 1 - (minutesSincePreviousSolve / minutesExpectedToSolve))
@@ -86,7 +86,7 @@ export const totalCheatScore = () => {
 }
 
 function areCoupled (challenge: Challenge, previousChallenge: Challenge) {
-  // @ts-expect-error
+  // @ts-expect-error any type issues
   return coupledChallenges[challenge.key]?.indexOf(previousChallenge.key) > -1 || coupledChallenges[previousChallenge.key]?.indexOf(challenge.key) > -1
 }
 
@@ -98,14 +98,14 @@ function previous () {
   return solves[solves.length - 1]
 }
 
-const checkForIdenticalSolvedChallenge = async (challenge: Challenge): Promise<Boolean> => {
+const checkForIdenticalSolvedChallenge = async (challenge: Challenge): Promise<boolean> => {
   const codingChallenges = await getCodeChallenges()
   if (!codingChallenges.has(challenge.key)) {
     return false
   }
 
   const codingChallengesToCompareTo = codingChallenges.get(challenge.key)
-  if ((codingChallengesToCompareTo == null) || !codingChallengesToCompareTo.snippet) {
+  if (!codingChallengesToCompareTo?.snippet) {
     return false
   }
   const snippetToCompareTo = codingChallengesToCompareTo.snippet

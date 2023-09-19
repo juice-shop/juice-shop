@@ -13,7 +13,7 @@ const playbackDelays = {
 }
 
 export async function sleep (timeInMs: number): Promise<void> {
-  return await new Promise((resolve) => {
+  await new Promise((resolve) => {
     setTimeout(resolve, timeInMs)
   })
 }
@@ -110,12 +110,12 @@ export function waitForElementToGetClicked (elementSelector: string) {
     }
 
     await new Promise<void>((resolve) => {
-      element.addEventListener('click', () => resolve())
+      element.addEventListener('click', () => { resolve() })
     })
   }
 }
 
-export function waitForElementsInnerHtmlToBe (elementSelector: string, value: String) {
+export function waitForElementsInnerHtmlToBe (elementSelector: string, value: string) {
   return async () => {
     while (true) {
       const element = document.querySelector(

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Request, Response, NextFunction } from 'express'
+import { type Request, type Response, type NextFunction } from 'express'
 import { ProductModel } from '../models/product'
 import { BasketModel } from '../models/basket'
 import challengeUtils = require('../lib/challengeUtils')

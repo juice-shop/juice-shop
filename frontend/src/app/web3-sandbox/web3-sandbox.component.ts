@@ -32,10 +32,10 @@ const compilerReleases = {
   '0.1.7': 'soljson-v0.1.7+commit.b4e666cc.js'
 }
 @Component({
-  selector: "app-web3-sandbox",
-  templateUrl: "./web3-sandbox.component.html",
-  styleUrls: ["./web3-sandbox.component.scss"],
-  })
+  selector: 'app-web3-sandbox',
+  templateUrl: './web3-sandbox.component.html',
+  styleUrls: ['./web3-sandbox.component.scss']
+})
 export class Web3SandboxComponent {
   constructor (
     private readonly keysService: KeysService,

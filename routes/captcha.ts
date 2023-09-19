@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Request, Response, NextFunction } from 'express'
-import { Captcha } from '../data/types'
+import { type Request, type Response, type NextFunction } from 'express'
+import { type Captcha } from '../data/types'
 import { CaptchaModel } from '../models/captcha'
 
 function captchas () {
@@ -23,9 +23,9 @@ function captchas () {
     const answer = eval(expression).toString() // eslint-disable-line no-eval
 
     const captcha = {
-      captchaId: captchaId,
+      captchaId,
       captcha: expression,
-      answer: answer
+      answer
     }
     const captchaInstance = CaptchaModel.build(captcha)
     await captchaInstance.save()

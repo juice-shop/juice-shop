@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment'
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
-import { Observable } from 'rxjs'
+import { type Observable } from 'rxjs'
 
 export interface CodeSnippet {
   vulnLines?: number[]
@@ -20,7 +20,7 @@ export interface Solved {
 
 @Injectable({
   providedIn: 'root'
-  })
+})
 export class CodeSnippetService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/snippets'

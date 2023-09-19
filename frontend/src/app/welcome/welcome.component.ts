@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, OnInit } from '@angular/core'
+import { Component, type OnInit } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { MatDialog } from '@angular/material/dialog'
 import { WelcomeBannerComponent } from '../welcome-banner/welcome-banner.component'
@@ -13,7 +13,7 @@ import { CookieService } from 'ngx-cookie'
   selector: 'app-welcome',
   templateUrl: 'welcome.component.html',
   styleUrls: ['./welcome.component.scss']
-  })
+})
 
 export class WelcomeComponent implements OnInit {
   private readonly welcomeBannerStatusCookieKey = 'welcomebanner_status'
@@ -34,7 +34,7 @@ export class WelcomeComponent implements OnInit {
             top: '50px'
           }
         })
-      }, (err) => console.log(err))
+      }, (err) => { console.log(err) })
     }
   }
 }

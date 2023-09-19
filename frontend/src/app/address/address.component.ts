@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, EventEmitter, Input, OnInit, Output, NgZone } from '@angular/core'
+import { Component, EventEmitter, Input, type OnInit, Output, NgZone } from '@angular/core'
 import { AddressService } from '../Services/address.service'
 import { MatTableDataSource } from '@angular/material/table'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -19,11 +19,11 @@ library.add(faEdit, faTrashAlt)
   selector: 'app-address',
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.scss']
-  })
+})
 export class AddressComponent implements OnInit {
   @Output() emitSelection = new EventEmitter()
-  @Input('allowEdit') public allowEdit: Boolean = false
-  @Input('addNewAddressDiv') public addNewAddressDiv: Boolean = true
+  @Input('allowEdit') public allowEdit: boolean = false
+  @Input('addNewAddressDiv') public addNewAddressDiv: boolean = true
   @Input('showNextButton') public showNextButton: boolean = false
   public addressId: any = undefined
   public displayedColumns = ['Name', 'Address', 'Country']
@@ -32,7 +32,7 @@ export class AddressComponent implements OnInit {
   public dataSource
   public confirmation: any
   public error: any
-  public addressExist: Boolean = false
+  public addressExist: boolean = false
 
   constructor (private readonly addressService: AddressService, private readonly translate: TranslateService,
     private readonly router: Router, private readonly ngZone: NgZone, private readonly snackBarHelperService: SnackBarHelperService) { }

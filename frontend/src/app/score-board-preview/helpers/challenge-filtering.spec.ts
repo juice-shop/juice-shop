@@ -1,4 +1,4 @@
-import { EnrichedChallenge } from '../types/EnrichedChallenge'
+import { type EnrichedChallenge } from '../types/EnrichedChallenge'
 import { DEFAULT_FILTER_SETTING } from '../filter-settings/FilterSetting'
 import { filterChallenges } from './challenge-filtering'
 

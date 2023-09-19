@@ -6,7 +6,7 @@
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatDividerModule } from '@angular/material/divider'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { SearchResultComponent } from './search-result.component'
 import { ProductService } from '../Services/product.service'
 import { RouterTestingModule } from '@angular/router/testing'
@@ -26,12 +26,12 @@ import { BasketService } from '../Services/basket.service'
 import { EventEmitter } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { SocketIoService } from '../Services/socket-io.service'
-import { Product } from '../Models/product.model'
+import { type Product } from '../Models/product.model'
 import { QuantityService } from '../Services/quantity.service'
 import { DeluxeGuard } from '../app.guard'
 
 class MockSocket {
-  on (str: string, callback: Function) {
+  on (str: string, callback: any) {
     callback(str)
   }
 

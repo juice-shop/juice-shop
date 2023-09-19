@@ -6,7 +6,7 @@
 import { environment } from '../../environments/environment'
 import { ComplaintService } from '../Services/complaint.service'
 import { UserService } from '../Services/user.service'
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { Component, ElementRef, type OnInit, ViewChild } from '@angular/core'
 import { UntypedFormControl, Validators } from '@angular/forms'
 import { FileUploader } from 'ng2-file-upload'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -20,7 +20,7 @@ library.add(faBomb)
   selector: 'app-complaint',
   templateUrl: './complaint.component.html',
   styleUrls: ['./complaint.component.scss']
-  })
+})
 export class ComplaintComponent implements OnInit {
   public customerControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
   public messageControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.maxLength(160)])
@@ -53,7 +53,7 @@ export class ComplaintComponent implements OnInit {
       this.saveComplaint()
       this.uploader.clearQueue()
     }
-    this.formSubmitService.attachEnterKeyHandler('complaint-form', 'submitButton', () => this.save())
+    this.formSubmitService.attachEnterKeyHandler('complaint-form', 'submitButton', () => { this.save() })
   }
 
   initComplaint () {

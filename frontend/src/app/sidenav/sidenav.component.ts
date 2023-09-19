@@ -5,7 +5,7 @@
 
 import { environment } from '../../environments/environment'
 import { ChallengeService } from '../Services/challenge.service'
-import { Component, EventEmitter, NgZone, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, NgZone, type OnInit, Output } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 import { AdministrationService } from '../Services/administration.service'
 import { Router } from '@angular/router'
@@ -14,7 +14,7 @@ import { CookieService } from 'ngx-cookie'
 import { ConfigurationService } from '../Services/configuration.service'
 import { LoginGuard } from '../app.guard'
 import { roles } from '../roles'
-import { Observable } from 'rxjs'
+import { type Observable } from 'rxjs'
 import { FeatureFlagService } from '../Services/feature-flag.service'
 import { map } from 'rxjs/operators'
 
@@ -22,7 +22,7 @@ import { map } from 'rxjs/operators'
   selector: 'sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
-  })
+})
 export class SidenavComponent implements OnInit {
   public applicationName = 'OWASP Juice Shop'
   public showGitHubLink = true
@@ -48,7 +48,7 @@ export class SidenavComponent implements OnInit {
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         this.version = `v${version}`
       }
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
     this.getApplicationDetails()
     this.getScoreBoardStatus()
 
@@ -80,7 +80,7 @@ export class SidenavComponent implements OnInit {
   }
 
   logout () {
-    this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => console.log(err))
+    this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => { console.log(err) })
     localStorage.removeItem('token')
     this.cookieService.remove('token')
     sessionStorage.removeItem('bid')
@@ -105,13 +105,13 @@ export class SidenavComponent implements OnInit {
       this.ngZone.run(() => {
         this.scoreBoardVisible = challenges[0].solved
       })
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   getUserDetails () {
     this.userService.whoAmI().subscribe((user: any) => {
       this.userEmail = user.email
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   onToggleSidenav = () => {
@@ -129,7 +129,7 @@ export class SidenavComponent implements OnInit {
       if (config?.application.welcomeBanner.showOnFirstStart && config.hackingInstructor.isEnabled) {
         this.offerScoreBoardTutorial = config.application.welcomeBanner.showOnFirstStart && config.hackingInstructor.isEnabled
       }
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   isAccounting () {

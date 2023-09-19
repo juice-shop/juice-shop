@@ -4,15 +4,15 @@
  */
 
 import { Injectable } from '@angular/core'
-import { BehaviorSubject, Subject } from 'rxjs'
+import { BehaviorSubject, type Subject } from 'rxjs'
 
 export type ScoreBoardVersion = 'v1' | 'v2'
 
 export const SCORE_BOARD_FEATURE_FLAG_KEY = 'score-board-version'
 
 @Injectable({
-  providedIn: "root",
-  })
+  providedIn: 'root'
+})
 export class FeatureFlagService {
   constructor () {
     const scoreBoardVersion = localStorage.getItem(SCORE_BOARD_FEATURE_FLAG_KEY)

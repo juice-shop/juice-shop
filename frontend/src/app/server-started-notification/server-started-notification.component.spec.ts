@@ -8,7 +8,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { ServerStartedNotificationComponent } from './server-started-notification.component'
 import { ChallengeService } from '../Services/challenge.service'
@@ -18,7 +18,7 @@ import { EventEmitter } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 
 class MockSocket {
-  on (str: string, callback: Function) {
+  on (str: string, callback: any) {
     callback()
   }
 }

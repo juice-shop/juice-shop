@@ -4,7 +4,7 @@
  */
 
 import Hashids = require('hashids/cjs')
-import { Request, Response } from 'express'
+import { type Request, type Response } from 'express'
 
 const challenges = require('../data/datacache').challenges
 const challengeUtils = require('../lib/challengeUtils')

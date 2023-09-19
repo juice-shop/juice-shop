@@ -7,14 +7,14 @@
 
 import {
   Model,
-  InferAttributes,
-  InferCreationAttributes,
+  type InferAttributes,
+  type InferCreationAttributes,
   DataTypes,
-  CreationOptional,
-  NonAttribute,
-  Sequelize
+  type CreationOptional,
+  type NonAttribute,
+  type Sequelize
 } from 'sequelize'
-import { ProductModel } from './product'
+import { type ProductModel } from './product'
 
 class Basket extends Model<
 InferAttributes<Basket>,

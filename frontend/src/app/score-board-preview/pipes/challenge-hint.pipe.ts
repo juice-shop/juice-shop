@@ -1,13 +1,13 @@
 import { TranslateService } from '@ngx-translate/core'
-import { Pipe, PipeTransform } from '@angular/core'
-import { Observable, of } from 'rxjs'
+import { Pipe, type PipeTransform } from '@angular/core'
+import { type Observable, of } from 'rxjs'
 import { map } from 'rxjs/operators'
 
 interface ChallengeHintPipeArgs {
   hintUrl: string | null
 }
 
-@Pipe({name: 'challengeHint', pure: false})
+@Pipe({ name: 'challengeHint', pure: false })
 export class ChallengeHintPipe implements PipeTransform {
   constructor (private readonly translate: TranslateService) { }
 

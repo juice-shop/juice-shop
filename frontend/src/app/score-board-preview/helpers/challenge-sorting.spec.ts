@@ -1,4 +1,4 @@
-import { EnrichedChallenge } from '../types/EnrichedChallenge'
+import { type EnrichedChallenge } from '../types/EnrichedChallenge'
 import { sortChallenges } from './challenge-sorting'
 
 const CHALLENGE_1 = {

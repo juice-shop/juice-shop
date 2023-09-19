@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, Inject, OnInit } from '@angular/core'
+import { Component, Inject, type OnInit } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 import { UntypedFormControl, Validators } from '@angular/forms'
 import { ProductReviewService } from '../Services/product-review.service'
@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowCircleLeft, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
-import { Review } from '../Models/review.model'
+import { type Review } from '../Models/review.model'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 library.add(faPaperPlane, faArrowCircleLeft)
@@ -20,7 +20,7 @@ library.add(faPaperPlane, faArrowCircleLeft)
   selector: 'app-product-review-edit',
   templateUrl: './product-review-edit.component.html',
   styleUrls: ['./product-review-edit.component.scss']
-  })
+})
 export class ProductReviewEditComponent implements OnInit {
   public editReviewControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(160)])
   public error: string | null = null

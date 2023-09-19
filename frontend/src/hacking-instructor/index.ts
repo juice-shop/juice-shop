@@ -155,11 +155,11 @@ async function waitForCancel (element: HTMLElement) {
   })
 }
 
-export function hasInstructions (challengeName: String): boolean {
+export function hasInstructions (challengeName: string): boolean {
   return challengeInstructions.find(({ name }) => name === challengeName) !== undefined
 }
 
-export async function startHackingInstructorFor (challengeName: String): Promise<void> {
+export async function startHackingInstructorFor (challengeName: string): Promise<void> {
   const challengeInstruction = challengeInstructions.find(({ name }) => name === challengeName) || TutorialUnavailableInstruction
 
   for (const hint of challengeInstruction.hints) {
@@ -170,7 +170,7 @@ export async function startHackingInstructorFor (challengeName: String): Promise
     }
     element.scrollIntoView()
 
-    const continueConditions: Array<Promise<void | {}>> = [
+    const continueConditions: Array<Promise<void | unknown>> = [
       hint.resolved()
     ]
 

@@ -16,7 +16,7 @@ import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { MatBadgeModule } from '@angular/material/badge'
-import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatIconModule } from '@angular/material/icon'
 import { MatExpansionModule } from '@angular/material/expansion'
@@ -25,7 +25,7 @@ import { ProductDetailsComponent } from './product-details.component'
 import { of, throwError } from 'rxjs'
 import { ReactiveFormsModule } from '@angular/forms'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
-import { Product } from '../Models/product.model'
+import { type Product } from '../Models/product.model'
 
 describe('ProductDetailsComponent', () => {
   let component: ProductDetailsComponent

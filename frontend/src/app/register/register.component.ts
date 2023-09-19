@@ -5,8 +5,8 @@
 
 import { SecurityAnswerService } from '../Services/security-answer.service'
 import { UserService } from '../Services/user.service'
-import { AbstractControl, UntypedFormControl, Validators } from '@angular/forms'
-import { Component, NgZone, OnInit } from '@angular/core'
+import { type AbstractControl, UntypedFormControl, Validators } from '@angular/forms'
+import { Component, NgZone, type OnInit } from '@angular/core'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { Router } from '@angular/router'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -16,7 +16,7 @@ import { faExclamationCircle, faUserPlus } from '@fortawesome/free-solid-svg-ico
 import { FormSubmitService } from '../Services/form-submit.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { TranslateService } from '@ngx-translate/core'
-import { SecurityQuestion } from '../Models/securityQuestion.model'
+import { type SecurityQuestion } from '../Models/securityQuestion.model'
 
 library.add(faUserPlus, faExclamationCircle)
 
@@ -24,7 +24,7 @@ library.add(faUserPlus, faExclamationCircle)
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
-  })
+})
 export class RegisterComponent implements OnInit {
   public emailControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.email])
   public passwordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)])
@@ -48,9 +48,9 @@ export class RegisterComponent implements OnInit {
   ngOnInit () {
     this.securityQuestionService.find(null).subscribe((securityQuestions: any) => {
       this.securityQuestions = securityQuestions
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
 
-    this.formSubmitService.attachEnterKeyHandler('registration-form', 'registerButton', () => this.save())
+    this.formSubmitService.attachEnterKeyHandler('registration-form', 'registerButton', () => { this.save() })
   }
 
   save () {

@@ -17,7 +17,7 @@ export interface Solved {
 
 @Injectable({
   providedIn: 'root'
-  })
+})
 export class CodeFixesService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/snippets/fixes'
@@ -30,8 +30,8 @@ export class CodeFixesService {
 
   check (key: string, selectedFix: number): any {
     return this.http.post(this.host, {
-      key: key,
-      selectedFix: selectedFix
+      key,
+      selectedFix
     }).pipe(map((response: result) => response), catchError((error: any) => { throw error }))
   }
 }

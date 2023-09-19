@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Request, Response, NextFunction } from 'express'
+import { type Request, type Response, type NextFunction } from 'express'
 import { MemoryModel } from '../models/memory'
 import { UserModel } from '../models/user'
 

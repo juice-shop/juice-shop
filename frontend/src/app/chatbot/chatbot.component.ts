@@ -5,7 +5,7 @@
 
 import { ChatbotService } from '../Services/chatbot.service'
 import { UserService } from '../Services/user.service'
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component, type OnDestroy, type OnInit } from '@angular/core'
 import { UntypedFormControl } from '@angular/forms'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
@@ -34,7 +34,7 @@ interface MessageActions {
   selector: 'app-chatbot',
   templateUrl: './chatbot.component.html',
   styleUrls: ['./chatbot.component.scss']
-  })
+})
 export class ChatbotComponent implements OnInit, OnDestroy {
   public messageControl: UntypedFormControl = new UntypedFormControl()
   public messages: ChatMessage[] = []

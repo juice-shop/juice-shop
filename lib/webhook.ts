@@ -23,7 +23,7 @@ export const notify = async (challenge: { key: any, name: any }, cheatScore = -1
     json: {
       solution: {
         challenge: challenge.key,
-        cheatScore: cheatScore,
+        cheatScore,
         totalCheatScore: totalCheatScore(),
         issuedOn: new Date().toISOString()
       },

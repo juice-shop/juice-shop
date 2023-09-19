@@ -10,7 +10,7 @@ import { catchError, map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
-  })
+})
 export class RecycleService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/api/Recycles'
@@ -19,7 +19,7 @@ export class RecycleService {
 
   find (params?: any) {
     return this.http.get(this.host + '/', {
-      params: params
+      params
     }).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 

@@ -19,10 +19,10 @@ const client = createClient({
 })
 
 @Component({
-  selector: "app-wallet-web3",
-  templateUrl: "./wallet-web3.component.html",
-  styleUrls: ["./wallet-web3.component.scss"],
-  })
+  selector: 'app-wallet-web3',
+  templateUrl: './wallet-web3.component.html',
+  styleUrls: ['./wallet-web3.component.scss']
+})
 export class WalletWeb3Component {
   constructor (
     private readonly keysService: KeysService,

@@ -8,7 +8,7 @@ import { ChallengeService } from '../Services/challenge.service'
 import { UserService } from '../Services/user.service'
 import { AdministrationService } from '../Services/administration.service'
 import { ConfigurationService } from '../Services/configuration.service'
-import { Component, EventEmitter, NgZone, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, NgZone, type OnInit, Output } from '@angular/core'
 import { CookieService } from 'ngx-cookie'
 import { TranslateService } from '@ngx-translate/core'
 import { Router } from '@angular/router'
@@ -49,7 +49,7 @@ library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, 
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
-  })
+})
 export class NavbarComponent implements OnInit {
   public userEmail: string = ''
   public languages: any = []
@@ -78,7 +78,7 @@ export class NavbarComponent implements OnInit {
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         this.version = `v${version}`
       }
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
 
     this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
       if (config?.application?.name) {
@@ -96,7 +96,7 @@ export class NavbarComponent implements OnInit {
         }
         this.logoSrc = 'assets/public/images/' + logo
       }
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
 
     if (localStorage.getItem('token')) {
       this.getUserDetails()
@@ -148,7 +148,7 @@ export class NavbarComponent implements OnInit {
   getUserDetails () {
     this.userService.whoAmI().subscribe((user: any) => {
       this.userEmail = user.email
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   isLoggedIn () {
@@ -156,7 +156,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout () {
-    this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => console.log(err))
+    this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => { console.log(err) })
     localStorage.removeItem('token')
     this.cookieService.remove('token')
     sessionStorage.removeItem('bid')
@@ -188,7 +188,7 @@ export class NavbarComponent implements OnInit {
       this.ngZone.run(() => {
         this.scoreBoardVisible = challenges[0].solved
       })
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   goToProfilePage () {

@@ -1,4 +1,4 @@
-import { Model } from 'sequelize/types'
+import { type Model } from 'sequelize/types'
 
 export interface Challenge extends Model {
   name: string

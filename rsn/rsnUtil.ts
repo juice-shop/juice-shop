@@ -5,12 +5,10 @@ const fs = require('fs')
 const fixesPath = 'data/static/codefixes'
 const cacheFile = 'rsn/cache.json'
 
-interface CacheData {
-  [key: string]: {
-    added: number[]
-    removed: number[]
-  }
-}
+type CacheData = Record<string, {
+  added: number[]
+  removed: number[]
+}>
 
 function readFiles () {
   const files = fs.readdirSync(fixesPath)

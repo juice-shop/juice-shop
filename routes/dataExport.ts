@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Request, Response, NextFunction } from 'express'
+import { type Request, type Response, type NextFunction } from 'express'
 import { MemoryModel } from '../models/memory'
-import { ProductModel } from '../models/product'
+import { type ProductModel } from '../models/product'
 
 import challengeUtils = require('../lib/challengeUtils')
 const security = require('../lib/insecurity')

@@ -4,7 +4,7 @@
  */
 
 import frisby = require('frisby')
-import { Product } from '../../data/types'
+import { type Product } from '../../data/types'
 import config from 'config'
 const Joi = frisby.Joi
 const utils = require('../../lib/utils')

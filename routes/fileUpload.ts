@@ -6,7 +6,7 @@
 import os from 'os'
 import fs = require('fs')
 import challengeUtils = require('../lib/challengeUtils')
-import { NextFunction, Request, Response } from 'express'
+import { type NextFunction, type Request, type Response } from 'express'
 import path from 'path'
 import * as utils from '../lib/utils'
 

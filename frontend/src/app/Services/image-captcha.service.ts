@@ -10,7 +10,7 @@ import { catchError } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
-  })
+})
 export class ImageCaptchaService {
   private readonly hostServer = environment.hostServer
 

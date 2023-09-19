@@ -6,15 +6,15 @@
 import { ProductReviewEditComponent } from '../product-review-edit/product-review-edit.component'
 import { UserService } from '../Services/user.service'
 import { ProductReviewService } from '../Services/product-review.service'
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core'
+import { Component, Inject, type OnDestroy, type OnInit } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowCircleLeft, faCrown, faPaperPlane, faThumbsUp, faUserEdit } from '@fortawesome/free-solid-svg-icons'
 import { UntypedFormControl, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
-import { Review } from '../Models/review.model'
-import { Product } from '../Models/product.model'
+import { type Review } from '../Models/review.model'
+import { type Product } from '../Models/product.model'
 
 library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp, faCrown)
 
@@ -22,14 +22,14 @@ library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp, faCrown)
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss']
-  })
+})
 export class ProductDetailsComponent implements OnInit, OnDestroy {
   public author: string = 'Anonymous'
   public reviews$: any
   public userSubscription: any
   public reviewControl: UntypedFormControl = new UntypedFormControl('', [Validators.maxLength(160)])
   constructor (private readonly dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: { productData: Product}, private readonly productReviewService: ProductReviewService,
+    @Inject(MAT_DIALOG_DATA) public data: { productData: Product }, private readonly productReviewService: ProductReviewService,
     private readonly userService: UserService, private readonly snackBar: MatSnackBar, private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
@@ -41,7 +41,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       } else {
         this.author = 'Anonymous'
       }
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   ngOnDestroy () {
@@ -56,7 +56,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     textPut.value = ''
     this.productReviewService.create(this.data.productData.id, review).subscribe(() => {
       this.reviews$ = this.productReviewService.get(this.data.productData.id)
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
     this.snackBarHelperService.open('CONFIRM_REVIEW_SAVED')
   }
 

@@ -5,7 +5,7 @@
 
 import locales from '../data/static/locales.json'
 import fs = require('fs')
-import { Request, Response, NextFunction } from 'express'
+import { type Request, type Response, type NextFunction } from 'express'
 
 module.exports = function getLanguageList () { // TODO Refactor and extend to also load backend translations from /i18n/*json and calculate joint percentage/gauge
   return (req: Request, res: Response, next: NextFunction) => {
@@ -33,11 +33,11 @@ module.exports = function getLanguageList () { // TODO Refactor and extend to al
             const key = fileName.substring(0, fileName.indexOf('.'))
             const locale = locales.find((l) => l.key === key)
             const lang: any = {
-              key: key,
+              key,
               lang: fileContent.LANGUAGE,
               icons: locale?.icons,
               shortKey: locale?.shortKey,
-              percentage: percentage,
+              percentage,
               gauge: (percentage > 90 ? 'full' : (percentage > 70 ? 'three-quarters' : (percentage > 50 ? 'half' : (percentage > 30 ? 'quarter' : 'empty'))))
             }
             if (!(fileName === 'en.json' || fileName === 'tlh_AA.json')) {
