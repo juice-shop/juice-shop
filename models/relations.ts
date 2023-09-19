@@ -41,7 +41,7 @@ const relationsInit = (_sequelize: Sequelize) => {
       name: 'BasketId'
     }
   })
-  // @ts-expect-error type mismatch
+  // @ts-expect-error FIXME type mismatch
   makeKeyNonUpdatable(BasketItemModel, 'BasketId')
 
   CardModel.belongsTo(UserModel, {
@@ -94,7 +94,7 @@ const relationsInit = (_sequelize: Sequelize) => {
       name: 'ProductId'
     }
   })
-  // @ts-expect-error type mismatch
+  // @ts-expect-error FIXME type mismatch
   makeKeyNonUpdatable(BasketItemModel, 'ProductId')
 
   QuantityModel.belongsTo(ProductModel, {

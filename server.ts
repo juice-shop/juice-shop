@@ -217,7 +217,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Create middleware to change paths from the serve-index plugin from absolute to relative */
   const serveIndexMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const origEnd = res.end
-    // @ts-expect-error assignment broken due to seemingly void return value
+    // @ts-expect-error FIXME assignment broken due to seemingly void return value
     res.end = function () {
       if (arguments.length) {
         const reqPath = req.originalUrl.replace(/\?.*$/, '')
@@ -234,7 +234,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
           return 'a href="' + relativePath + '"'
         })
       }
-      // @ts-expect-error passed argument has wrong type
+      // @ts-expect-error FIXME passed argument has wrong type
       origEnd.apply(this, arguments)
     }
     next()
@@ -281,7 +281,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   app.use(bodyParser.text({ type: '*/*' }))
   app.use(function jsonParser (req: Request, res: Response, next: NextFunction) {
-    // @ts-expect-error intentionally saving original request in this property
+    // @ts-expect-error FIXME intentionally saving original request in this property
     req.rawBody = req.body
     if (req.headers['content-type']?.includes('application/json')) {
       if (!req.body) {

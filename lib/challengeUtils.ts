@@ -51,7 +51,7 @@ export const sendNotification = function (challenge: { difficulty?: number, key:
     notifications.push(notification)
 
     if (global.io && (isRestore || !wasPreviouslyShown)) {
-      // @ts-expect-error global type safety issues
+      // @ts-expect-error FIXME global type safety issues
       global.io.emit('challenge solved', notification)
     }
   }
@@ -64,7 +64,7 @@ export const sendCodingChallengeNotification = function (challenge: { key: strin
       codingChallengeStatus: challenge.codingChallengeStatus
     }
     if (global.io) {
-      // @ts-expect-error global type safety issues
+      // @ts-expect-error FIXME global type safety issues
       global.io.emit('code challenge solved', notification)
     }
   }
