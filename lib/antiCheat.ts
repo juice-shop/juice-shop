@@ -86,7 +86,7 @@ export const totalCheatScore = () => {
 }
 
 function areCoupled (challenge: Challenge, previousChallenge: Challenge) {
-  // @ts-expect-error any type issues
+  // @ts-expect-error FIXME any type issues
   return coupledChallenges[challenge.key]?.indexOf(previousChallenge.key) > -1 || coupledChallenges[previousChallenge.key]?.indexOf(challenge.key) > -1
 }
 

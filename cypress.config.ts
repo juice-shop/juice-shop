@@ -43,9 +43,9 @@ export default defineConfig({
         },
         GetFromMemories (property: string) {
           for (const memory of config.get<Memory[]>('memories')) {
-            // @ts-expect-error any type issue
+            // @ts-expect-error FIXME any type issue
             if (memory[property]) {
-              // @ts-expect-error any type issue
+              // @ts-expect-error FIXME any type issue
               return memory[property]
             }
           }

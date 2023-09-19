@@ -16,7 +16,7 @@ const API_URL = `${URL}/api/`
 let trainingData: { data: any[] }
 
 async function login ({ email, password }: { email: string, password: string }) {
-  // @ts-expect-error promise return handling broken
+  // @ts-expect-error FIXME promise return handling broken
   const loginRes = await frisby
     .post(REST_URL + '/user/login', {
       email,
