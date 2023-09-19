@@ -28,8 +28,7 @@
     "views/**/*.ts",
     "views/**/*.js",
     "rsn/**/*.ts",
-    "*.ts",
-    "*.js"
+    "*.ts"
   ],
   "exclude": [
     "node_modules",
@@ -38,7 +37,6 @@
     "build",
     "vagrant",
     "data/static/codefixes/**",
-    "**/*.d.ts",
-    ".eslintrc.js"
+    "**/*.d.ts"
   ]
 }
