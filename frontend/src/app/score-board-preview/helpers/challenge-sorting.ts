@@ -1,4 +1,4 @@
-import { EnrichedChallenge } from '../types/EnrichedChallenge'
+import { type EnrichedChallenge } from '../types/EnrichedChallenge'
 
 import sortBy from 'lodash-es/sortBy'
 

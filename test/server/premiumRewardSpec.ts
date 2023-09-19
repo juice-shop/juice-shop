@@ -31,7 +31,7 @@ describe('premiumReward', () => {
   })
 
   it('should solve "premiumPaywallChallenge"', () => {
-    challenges.premiumPaywallChallenge = { solved: false, save: save }
+    challenges.premiumPaywallChallenge = { solved: false, save }
 
     servePremiumContent()(req, res)
 

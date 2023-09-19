@@ -6,7 +6,7 @@
 import { TranslateModule } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { ReactiveFormsModule } from '@angular/forms'
-import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing'
 import { ForgotPasswordComponent } from './forgot-password.component'
 import { SecurityQuestionService } from '../Services/security-question.service'
 

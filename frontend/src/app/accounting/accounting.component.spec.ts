@@ -6,7 +6,7 @@
 import { TranslateModule } from '@ngx-translate/core'
 import { MatDividerModule } from '@angular/material/divider'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { AccountingComponent } from './accounting.component'
 import { ProductService } from '../Services/product.service'
 import { RouterTestingModule } from '@angular/router/testing'

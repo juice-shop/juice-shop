@@ -5,11 +5,11 @@
 
 import {
   Model,
-  InferAttributes,
-  InferCreationAttributes,
+  type InferAttributes,
+  type InferCreationAttributes,
   DataTypes,
-  CreationOptional,
-  Sequelize
+  type CreationOptional,
+  type Sequelize
 } from 'sequelize'
 
 class Delivery extends Model<

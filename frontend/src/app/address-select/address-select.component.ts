@@ -10,7 +10,7 @@ import { Router } from '@angular/router'
   selector: 'app-address-select',
   templateUrl: './address-select.component.html',
   styleUrls: ['./address-select.component.scss']
-  })
+})
 export class AddressSelectComponent {
   public addressId: any = undefined
   public showNextButton: boolean = true

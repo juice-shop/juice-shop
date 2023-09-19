@@ -1,16 +1,16 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core'
+import { Component, Input, type OnChanges, type OnInit, type SimpleChanges } from '@angular/core'
 
-import { EnrichedChallenge } from '../../types/EnrichedChallenge'
+import { type EnrichedChallenge } from '../../types/EnrichedChallenge'
 
 interface DifficultySummary {
-  difficulty: 0|1|2|3|4|5|6
+  difficulty: 0 | 1 | 2 | 3 | 4 | 5 | 6
   availableChallenges: number
   solvedChallenges: number
 }
 
 // interface doesn't work here
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type DifficultySummaries = { [level: number]: DifficultySummary }
+type DifficultySummaries = Record<number, DifficultySummary>
 
 const INITIAL_SUMMARIES: Readonly<DifficultySummaries> = Object.freeze({
   1: { difficulty: 1, availableChallenges: 0, solvedChallenges: 0 },
@@ -25,7 +25,7 @@ const INITIAL_SUMMARIES: Readonly<DifficultySummaries> = Object.freeze({
   selector: 'difficulty-overview-score-card',
   templateUrl: './difficulty-overview-score-card.component.html',
   styleUrls: ['./difficulty-overview-score-card.component.scss']
-  })
+})
 export class DifficultyOverviewScoreCardComponent implements OnInit, OnChanges {
   @Input()
   public allChallenges: EnrichedChallenge[] = []

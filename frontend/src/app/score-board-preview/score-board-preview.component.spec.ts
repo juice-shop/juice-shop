@@ -1,6 +1,6 @@
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatIconModule } from '@angular/material/icon'
@@ -19,7 +19,7 @@ import { ScoreBoardPreviewComponent } from './score-board-preview.component'
 import { ConfigurationService } from '../Services/configuration.service'
 import { CodeSnippetService } from '../Services/code-snippet.service'
 import { ChallengeService } from '../Services/challenge.service'
-import { Challenge } from '../Models/challenge.model'
+import { type Challenge } from '../Models/challenge.model'
 
 // allows to easily create a challenge with some overwrites
 function createChallenge (challengeOverwrites: Partial<Challenge>): Challenge {

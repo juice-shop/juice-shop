@@ -6,7 +6,7 @@ errorhandler.title = `${config.get('application.name')} (Express ${utils.version
 const registerWebsocketEvents = require('./lib/startup/registerWebsocketEvents')
 const customizeApplication = require('./lib/startup/customizeApplication')
 
-export async function start (readyCallback: Function) {
+export async function start (readyCallback: any) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
   await sequelize.sync({ force: true })
   await datacreator()

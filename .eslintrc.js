@@ -25,7 +25,9 @@ module.exports = {
     'vagrant/**',
     'frontend/**',
     'data/static/codefixes/**',
-    'dist/**'
+    'dist/**',
+    '.eslintrc.js',
+    'Gruntfile.js'
   ],
   overrides: [
     {

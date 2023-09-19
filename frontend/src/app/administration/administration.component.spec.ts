@@ -8,7 +8,7 @@ import { FeedbackDetailsComponent } from '../feedback-details/feedback-details.c
 
 import { FeedbackService } from '../Services/feedback.service'
 import { UserService } from '../Services/user.service'
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing'
 
 import { AdministrationComponent } from './administration.component'
 import { MatTableModule } from '@angular/material/table'

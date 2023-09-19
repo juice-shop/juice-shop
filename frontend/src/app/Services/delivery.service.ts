@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment'
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
-import { DeliveryMethod } from '../Models/deliveryMethod.model'
+import { type DeliveryMethod } from '../Models/deliveryMethod.model'
 
 interface DeliveryMultipleMethodResponse {
   status: string
@@ -21,7 +21,7 @@ interface DeliverySingleMethodResponse {
 
 @Injectable({
   providedIn: 'root'
-  })
+})
 export class DeliveryService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/api/Deliverys'

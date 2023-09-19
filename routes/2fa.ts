@@ -4,7 +4,7 @@
  */
 
 import config from 'config'
-import { Request, Response } from 'express'
+import { type Request, type Response } from 'express'
 import { BasketModel } from '../models/basket'
 import { UserModel } from '../models/user'
 import challengeUtils = require('../lib/challengeUtils')

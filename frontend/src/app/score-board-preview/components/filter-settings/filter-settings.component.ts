@@ -1,14 +1,14 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, Input, type OnChanges, OnInit, Output } from '@angular/core'
 import { DEFAULT_FILTER_SETTING, FilterSetting } from '../../filter-settings/FilterSetting'
-import { EnrichedChallenge } from '../../types/EnrichedChallenge'
+import { type EnrichedChallenge } from '../../types/EnrichedChallenge'
 import { MatDialog } from '@angular/material/dialog'
 import { ScoreBoardAdditionalSettingsDialogComponent } from './components/score-board-additional-settings-dialog/score-board-additional-settings-dialog.component'
 
 @Component({
   selector: 'filter-settings',
   templateUrl: './filter-settings.component.html',
-  styleUrls: [ './filter-settings.component.scss' ]
-  })
+  styleUrls: ['./filter-settings.component.scss']
+})
 export class FilterSettingsComponent implements OnChanges {
   @Input()
   public allChallenges: EnrichedChallenge[]
@@ -24,12 +24,12 @@ export class FilterSettingsComponent implements OnChanges {
 
   constructor (private readonly dialog: MatDialog) { }
 
-  public tags: Set<string> = new Set()
+  public tags = new Set<string>()
   ngOnChanges () {
     this.tags = new Set(this.allChallenges.flatMap((challenge) => challenge.tagList))
   }
 
-  onDifficultyFilterChange (difficulties: Array<1|2|3|4|5|6>) {
+  onDifficultyFilterChange (difficulties: Array<1 | 2 | 3 | 4 | 5 | 6>) {
     const filterSettingCopy = structuredClone(this.filterSetting)
     filterSettingCopy.difficulties = difficulties
     this.filterSettingChange.emit(filterSettingCopy)

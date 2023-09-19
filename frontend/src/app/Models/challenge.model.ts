@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { SafeHtml } from '@angular/platform-browser'
+import { type SafeHtml } from '@angular/platform-browser'
 
 export interface Challenge {
   name: string

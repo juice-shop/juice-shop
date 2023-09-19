@@ -4,7 +4,7 @@
  */
 
 import { retrieveChallengesWithCodeSnippet } from './vulnCodeSnippet'
-import { Request, Response, NextFunction } from 'express'
+import { type Request, type Response, type NextFunction } from 'express'
 import { ChallengeModel } from '../models/challenge'
 import { UserModel } from '../models/user'
 import { WalletModel } from '../models/wallet'
@@ -191,11 +191,11 @@ exports.observeMetrics = function observeMetrics () {
       accuracyMetrics.set({ phase: 'find it' }, accuracy.totalFindItAccuracy())
       accuracyMetrics.set({ phase: 'fix it' }, accuracy.totalFixItAccuracy())
 
-      orders.count({}).then((orderCount: Number) => {
+      orders.count({}).then((orderCount: number) => {
         if (orderCount) orderMetrics.set(orderCount)
       })
 
-      reviews.count({}).then((reviewCount: Number) => {
+      reviews.count({}).then((reviewCount: number) => {
         if (reviewCount) interactionsMetrics.set({ type: 'review' }, reviewCount)
       })
 
@@ -207,11 +207,11 @@ exports.observeMetrics = function observeMetrics () {
         if (count) userMetrics.set({ type: 'deluxe' }, count)
       })
 
-      void UserModel.count().then((count: Number) => {
+      void UserModel.count().then((count: number) => {
         if (count) userTotalMetrics.set(count)
       })
 
-      void WalletModel.sum('balance').then((totalBalance: Number) => {
+      void WalletModel.sum('balance').then((totalBalance: number) => {
         if (totalBalance) walletMetrics.set(totalBalance)
       })
 
@@ -228,8 +228,8 @@ exports.observeMetrics = function observeMetrics () {
   }, 5000)
 
   return {
-    register: register,
+    register,
     probe: intervalCollector,
-    updateLoop: updateLoop
+    updateLoop
   }
 }

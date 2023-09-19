@@ -6,7 +6,7 @@
 import { TranslateService } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
-import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core'
+import { ChangeDetectorRef, Component, NgZone, type OnInit } from '@angular/core'
 import { CookieService } from 'ngx-cookie'
 import { CountryMappingService } from 'src/app/Services/country-mapping.service'
 import { SocketIoService } from '../Services/socket-io.service'
@@ -30,7 +30,7 @@ interface ChallengeSolvedNotification {
   selector: 'app-challenge-solved-notification',
   templateUrl: './challenge-solved-notification.component.html',
   styleUrls: ['./challenge-solved-notification.component.scss']
-  })
+})
 export class ChallengeSolvedNotificationComponent implements OnInit {
   public notifications: ChallengeSolvedNotification[] = []
   public showCtfFlagsInNotifications: boolean = false
@@ -74,7 +74,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
           if (config.ctf.showCountryDetailsInNotifications !== 'none') {
             this.countryMappingService.getCountryMapping().subscribe((countryMap: any) => {
               this.countryMap = countryMap
-            }, (err) => console.log(err))
+            }, (err) => { console.log(err) })
           }
         } else {
           this.showCtfCountryDetailsInNotifications = 'none'
@@ -103,9 +103,9 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
         country = this.countryMap[challenge.key]
       }
       this.notifications.push({
-        message: message,
+        message,
         flag: challenge.flag,
-        country: country,
+        country,
         copied: false
       })
       this.ref.detectChanges()
@@ -120,6 +120,6 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
       const expires = new Date()
       expires.setFullYear(expires.getFullYear() + 1)
       this.cookieService.put('continueCode', continueCode, { expires })
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 }

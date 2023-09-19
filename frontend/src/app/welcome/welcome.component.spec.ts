@@ -8,7 +8,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { CookieModule, CookieService } from 'ngx-cookie'
 
-import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { type ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { WelcomeComponent } from './welcome.component'
 import { of } from 'rxjs'

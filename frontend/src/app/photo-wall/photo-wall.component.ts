@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, OnInit } from '@angular/core'
+import { Component, type OnInit } from '@angular/core'
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { mimeType } from './mime-type.validator'
 import { PhotoWallService } from '../Services/photo-wall.service'
-import { IImage } from 'ng-simple-slideshow'
+import { type IImage } from 'ng-simple-slideshow'
 import { ConfigurationService } from '../Services/configuration.service'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
@@ -19,7 +19,7 @@ library.add(faTwitter)
   selector: 'app-photo-wall',
   templateUrl: './photo-wall.component.html',
   styleUrls: ['./photo-wall.component.scss']
-  })
+})
 export class PhotoWallComponent implements OnInit {
   public emptyState: boolean = true
   public imagePreview: string
@@ -49,14 +49,14 @@ export class PhotoWallComponent implements OnInit {
         }
         this.slideshowDataSource.push({ url: memory.imagePath, caption: memory.caption })
       }
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       if (config?.application?.social) {
         if (config.application.social.twitterUrl) {
           this.twitterHandle = config.application.social.twitterUrl.replace('https://twitter.com/', '@')
         }
       }
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   onImagePicked (event: Event) {

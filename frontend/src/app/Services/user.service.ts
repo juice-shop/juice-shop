@@ -17,7 +17,7 @@ interface Passwords {
 
 @Injectable({
   providedIn: 'root'
-  })
+})
 export class UserService {
   public isLoggedIn = new Subject<any>()
   private readonly hostServer = environment.hostServer
@@ -26,7 +26,7 @@ export class UserService {
   constructor (private readonly http: HttpClient) { }
 
   find (params?: any) {
-    return this.http.get(this.hostServer + '/rest/user/authentication-details/', { params: params }).pipe(map((response: any) =>
+    return this.http.get(this.hostServer + '/rest/user/authentication-details/', { params }).pipe(map((response: any) =>
       response.data), catchError((err) => { throw err }))
   }
 
@@ -76,6 +76,6 @@ export class UserService {
   }
 
   upgradeToDeluxe (paymentMode: string, paymentId: any) {
-    return this.http.post(this.hostServer + '/rest/deluxe-membership', { paymentMode: paymentMode, paymentId: paymentId }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.post(this.hostServer + '/rest/deluxe-membership', { paymentMode, paymentId }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 }

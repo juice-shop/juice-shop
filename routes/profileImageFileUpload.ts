@@ -4,7 +4,7 @@
  */
 
 import fs = require('fs')
-import { Request, Response, NextFunction } from 'express'
+import { type Request, type Response, type NextFunction } from 'express'
 import { UserModel } from '../models/user'
 import logger from '../lib/logger'
 
@@ -27,7 +27,7 @@ module.exports = function fileUpload () {
         if (loggedInUser) {
           fs.open(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.${uploadedFileType.ext}`, 'w', function (err, fd) {
             if (err != null) logger.warn('Error opening file: ' + err.message)
-            // @ts-expect-error
+            // @ts-expect-error buffer has unexpected type
             fs.write(fd, buffer, 0, buffer.length, null, function (err) {
               if (err != null) logger.warn('Error writing file: ' + err.message)
               fs.close(fd, function () { })

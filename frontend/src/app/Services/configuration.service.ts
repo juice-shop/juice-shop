@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment'
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
-import { Observable } from 'rxjs'
+import { type Observable } from 'rxjs'
 
 interface ConfigResponse {
   config: Config
@@ -95,7 +95,7 @@ export interface Config {
 
 @Injectable({
   providedIn: 'root'
-  })
+})
 export class ConfigurationService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/rest/admin'

@@ -69,7 +69,7 @@ describe('fileServer', () => {
   })
 
   it('should solve "directoryListingChallenge" when requesting acquisitions.md', () => {
-    challenges.directoryListingChallenge = { solved: false, save: save }
+    challenges.directoryListingChallenge = { solved: false, save }
     req.params.file = 'acquisitions.md'
 
     servePublicFiles()(req, res, next)
@@ -79,7 +79,7 @@ describe('fileServer', () => {
   })
 
   it('should solve "easterEggLevelOneChallenge" when requesting eastere.gg with Poison Null Byte attack', () => {
-    challenges.easterEggLevelOneChallenge = { solved: false, save: save }
+    challenges.easterEggLevelOneChallenge = { solved: false, save }
     req.params.file = 'eastere.gg%00.md'
 
     servePublicFiles()(req, res, next)
@@ -89,7 +89,7 @@ describe('fileServer', () => {
   })
 
   it('should solve "forgottenDevBackupChallenge" when requesting package.json.bak with Poison Null Byte attack', () => {
-    challenges.forgottenDevBackupChallenge = { solved: false, save: save }
+    challenges.forgottenDevBackupChallenge = { solved: false, save }
     req.params.file = 'package.json.bak%00.md'
 
     servePublicFiles()(req, res, next)
@@ -99,7 +99,7 @@ describe('fileServer', () => {
   })
 
   it('should solve "forgottenBackupChallenge" when requesting coupons_2013.md.bak with Poison Null Byte attack', () => {
-    challenges.forgottenBackupChallenge = { solved: false, save: save }
+    challenges.forgottenBackupChallenge = { solved: false, save }
     req.params.file = 'coupons_2013.md.bak%00.md'
 
     servePublicFiles()(req, res, next)
@@ -109,7 +109,7 @@ describe('fileServer', () => {
   })
 
   it('should solve "misplacedSignatureFileChallenge" when requesting suspicious_errors.yml with Poison Null Byte attack', () => {
-    challenges.misplacedSignatureFileChallenge = { solved: false, save: save }
+    challenges.misplacedSignatureFileChallenge = { solved: false, save }
     req.params.file = 'suspicious_errors.yml%00.md'
 
     servePublicFiles()(req, res, next)

@@ -1,4 +1,4 @@
-import { Challenge } from '../../../data/types'
+import { type Challenge } from '../../../data/types'
 
 Cypress.Commands.add(
   'expectChallengeSolved',
@@ -49,17 +49,17 @@ Cypress.Commands.add(
   }
 )
 
-function walkRecursivelyInArray (arr: Number[], cb: Function, index = 0) {
+function walkRecursivelyInArray (arr: number[], cb: any, index = 0) {
   if (arr.length === 0) return
   const ret = cb(index, arr.shift());
   // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
   ((ret && ret.chainerId) ? ret : cy.wrap(ret))
     .then((ret: boolean) => {
       if (!ret) return
-      return walkRecursivelyInArray(arr, cb, index + 1)
+      walkRecursivelyInArray(arr, cb, index + 1)
     })
 }
 
-Cypress.Commands.add('eachSeries', { prevSubject: 'optional' }, (arrayGenerated: Number[], checkFnToBeRunOnEach: Function) => {
-  return walkRecursivelyInArray(arrayGenerated, checkFnToBeRunOnEach)
+Cypress.Commands.add('eachSeries', { prevSubject: 'optional' }, (arrayGenerated: number[], checkFnToBeRunOnEach: any) => {
+  walkRecursivelyInArray(arrayGenerated, checkFnToBeRunOnEach)
 })

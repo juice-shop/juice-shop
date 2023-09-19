@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, Input, type OnInit, Output } from '@angular/core'
 import { BasketService } from '../Services/basket.service'
 import { UserService } from '../Services/user.service'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -18,7 +18,7 @@ library.add(faTrashAlt, faMinusSquare, faPlusSquare)
   selector: 'app-purchase-basket',
   templateUrl: './purchase-basket.component.html',
   styleUrls: ['./purchase-basket.component.scss']
-  })
+})
 export class PurchaseBasketComponent implements OnInit {
   @Input('allowEdit') public allowEdit: boolean = false
   @Input('displayTotal') public displayTotal: boolean = false
@@ -41,7 +41,7 @@ export class PurchaseBasketComponent implements OnInit {
     this.userService.whoAmI().subscribe((data) => {
       this.userEmail = data.email || 'anonymous'
       this.userEmail = '(' + this.userEmail + ')'
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   load () {
@@ -57,14 +57,14 @@ export class PurchaseBasketComponent implements OnInit {
       // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
       this.bonus = basket.Products.reduce((bonusPoints, product) => bonusPoints + Math.round(product.price / 10) * product.BasketItem.quantity, 0)
       this.sendToParent(this.dataSource.length)
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   delete (id) {
     this.basketService.del(id).subscribe(() => {
       this.load()
       this.basketService.updateNumberOfCartItems()
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   inc (id) {
@@ -86,7 +86,7 @@ export class PurchaseBasketComponent implements OnInit {
         this.snackBarHelperService.open(err.error?.error, 'errorBar')
         console.log(err)
       })
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   sendToParent (count) {

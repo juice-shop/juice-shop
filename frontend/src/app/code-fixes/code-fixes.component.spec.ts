@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { CookieModule, CookieService } from 'ngx-cookie'
 
 import { CodeFixesComponent } from './code-fixes.component'

@@ -10,7 +10,7 @@ import {
   waitInMs,
   waitForAngularRouteToBeVisited, waitForLogOut
 } from '../helpers/helpers'
-import { ChallengeInstruction } from '../'
+import { type ChallengeInstruction } from '../'
 
 export const PasswordStrengthInstruction: ChallengeInstruction = {
   name: 'Password Strength',

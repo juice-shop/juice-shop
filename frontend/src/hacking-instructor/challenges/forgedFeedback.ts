@@ -7,7 +7,7 @@ import {
   waitInMs,
   sleep, waitForAngularRouteToBeVisited, waitForElementToGetClicked, waitForDevTools
 } from '../helpers/helpers'
-import { ChallengeInstruction } from '../'
+import { type ChallengeInstruction } from '../'
 
 export const ForgedFeedbackInstruction: ChallengeInstruction = {
   name: 'Forged Feedback',

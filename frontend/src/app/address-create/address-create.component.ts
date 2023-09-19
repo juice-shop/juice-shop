@@ -4,10 +4,10 @@
  */
 
 import { UntypedFormControl, Validators } from '@angular/forms'
-import { Component, OnInit } from '@angular/core'
+import { Component, type OnInit } from '@angular/core'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { AddressService } from '../Services/address.service'
-import { ActivatedRoute, ParamMap, Router } from '@angular/router'
+import { ActivatedRoute, type ParamMap, Router } from '@angular/router'
 import { Location } from '@angular/common'
 import { TranslateService } from '@ngx-translate/core'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
@@ -16,7 +16,7 @@ import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
   selector: 'app-address-create',
   templateUrl: './address-create.component.html',
   styleUrls: ['./address-create.component.scss']
-  })
+})
 export class AddressCreateComponent implements OnInit {
   public countryControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
   public nameControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
@@ -47,7 +47,7 @@ export class AddressCreateComponent implements OnInit {
         this.addressId = null
       }
     })
-    this.formSubmitService.attachEnterKeyHandler('address-form', 'submitButton', () => this.save())
+    this.formSubmitService.attachEnterKeyHandler('address-form', 'submitButton', () => { this.save() })
   }
 
   save () {

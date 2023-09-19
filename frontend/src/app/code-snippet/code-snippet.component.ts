@@ -3,17 +3,17 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { CodeSnippetService, CodeSnippet } from '../Services/code-snippet.service'
-import { CodeFixesService, Fixes } from '../Services/code-fixes.service'
+import { CodeSnippetService, type CodeSnippet } from '../Services/code-snippet.service'
+import { CodeFixesService, type Fixes } from '../Services/code-fixes.service'
 import { CookieService } from 'ngx-cookie'
 import { ChallengeService } from '../Services/challenge.service'
-import { VulnLinesService, result } from '../Services/vuln-lines.service'
-import { Component, Inject, OnInit } from '@angular/core'
+import { VulnLinesService, type result } from '../Services/vuln-lines.service'
+import { Component, Inject, type OnInit } from '@angular/core'
 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { UntypedFormControl } from '@angular/forms'
 import { ConfigurationService } from '../Services/configuration.service'
-import { ThemePalette } from '@angular/material/core'
+import { type ThemePalette } from '@angular/material/core'
 
 enum ResultState {
   Undecided,
@@ -30,7 +30,7 @@ export interface Solved {
   selector: 'code-snippet',
   templateUrl: './code-snippet.component.html',
   styleUrls: ['./code-snippet.component.scss']
-  })
+})
 export class CodeSnippetComponent implements OnInit {
   public snippet: CodeSnippet = null
   public fixes: Fixes = null
@@ -49,7 +49,7 @@ export class CodeSnippetComponent implements OnInit {
   ngOnInit () {
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       this.showFeedbackButtons = config.challenges.showFeedbackButtons
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
 
     this.codeSnippetService.get(this.dialogData.key).subscribe((snippet) => {
       this.snippet = snippet
@@ -139,7 +139,7 @@ export class CodeSnippetComponent implements OnInit {
           const expires = new Date()
           expires.setFullYear(expires.getFullYear() + 1)
           this.cookieService.put('continueCodeFindIt', continueCode, { expires })
-        }, (err) => console.log(err))
+        }, (err) => { console.log(err) })
       } else {
         this.solved.fixIt = true
         this.challengeService.continueCodeFixIt().subscribe((continueCode) => {
@@ -149,7 +149,7 @@ export class CodeSnippetComponent implements OnInit {
           const expires = new Date()
           expires.setFullYear(expires.getFullYear() + 1)
           this.cookieService.put('continueCodeFixIt', continueCode, { expires })
-        }, (err) => console.log(err))
+        }, (err) => { console.log(err) })
       }
       this.result = ResultState.Right
       this.lock = ResultState.Right

@@ -10,7 +10,7 @@ import { catchError, map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
-  })
+})
 export class ChatbotService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/rest/chatbot'
@@ -22,6 +22,6 @@ export class ChatbotService {
   }
 
   getResponse (action, query) {
-    return this.http.post(this.host + '/respond', { action: action, query: query }).pipe(map((response: any) => response), catchError((error: Error) => { throw error }))
+    return this.http.post(this.host + '/respond', { action, query }).pipe(map((response: any) => response), catchError((error: Error) => { throw error }))
   }
 }

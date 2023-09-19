@@ -4,7 +4,7 @@
  */
 
 import { LayoutModule } from '@angular/cdk/layout'
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { PrivacySecurityComponent } from './privacy-security.component'
 import { ChangePasswordComponent } from '../change-password/change-password.component'

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Request, Response, NextFunction } from 'express'
+import { type Request, type Response, type NextFunction } from 'express'
 import { DeliveryModel } from '../models/delivery'
 
 const security = require('../lib/insecurity')

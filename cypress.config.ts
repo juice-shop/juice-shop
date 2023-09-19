@@ -1,7 +1,7 @@
 import { defineConfig } from 'cypress'
 import * as security from './lib/insecurity'
 import config from 'config'
-import { Memory, Product } from './data/types'
+import { type Memory, type Product } from './data/types'
 import * as utils from './lib/utils'
 import * as otplib from 'otplib'
 
@@ -43,9 +43,9 @@ export default defineConfig({
         },
         GetFromMemories (property: string) {
           for (const memory of config.get<Memory[]>('memories')) {
-            // @ts-expect-error
+            // @ts-expect-error any type issue
             if (memory[property]) {
-              // @ts-expect-error
+              // @ts-expect-error any type issue
               return memory[property]
             }
           }

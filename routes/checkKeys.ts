@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { type Request, type Response } from 'express'
 import { HDNodeWallet } from 'ethers'
 import challengeUtils = require('../lib/challengeUtils')
 import * as utils from '../lib/utils'

@@ -12,7 +12,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing'
 import { SocketIoService } from '../Services/socket-io.service'
 
 import { ChallengeSolvedNotificationComponent } from './challenge-solved-notification.component'
@@ -21,7 +21,7 @@ import { EventEmitter } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 
 class MockSocket {
-  on (str: string, callback: Function) {
+  on (str: string, callback: any) {
     callback()
   }
 

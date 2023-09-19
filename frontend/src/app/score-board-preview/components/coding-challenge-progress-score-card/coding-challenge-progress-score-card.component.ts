@@ -1,12 +1,12 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core'
+import { Component, Input, type OnChanges, type OnInit, type SimpleChanges } from '@angular/core'
 
-import { EnrichedChallenge } from '../../types/EnrichedChallenge'
+import { type EnrichedChallenge } from '../../types/EnrichedChallenge'
 
 @Component({
   selector: 'coding-challenge-progress-score-card',
   templateUrl: './coding-challenge-progress-score-card.component.html',
   styleUrls: ['./coding-challenge-progress-score-card.component.scss']
-  })
+})
 export class CodingChallengeProgressScoreCardComponent implements OnInit, OnChanges {
   @Input()
   public allChallenges: EnrichedChallenge[] = []

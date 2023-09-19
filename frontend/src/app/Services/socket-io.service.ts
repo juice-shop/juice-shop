@@ -5,11 +5,11 @@
 
 import { environment } from 'src/environments/environment'
 import { Injectable, NgZone } from '@angular/core'
-import { io, Socket } from 'socket.io-client'
+import { io, type Socket } from 'socket.io-client'
 
 @Injectable({
   providedIn: 'root'
-  })
+})
 export class SocketIoService {
   private _socket: Socket
 

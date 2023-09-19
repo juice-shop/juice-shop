@@ -1,7 +1,7 @@
-import { Component, Input, OnInit, Output, EventEmitter, ViewChild, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core'
+import { Component, Input, type OnInit, Output, EventEmitter, ViewChild, type DoCheck, KeyValueDiffers, type KeyValueDiffer } from '@angular/core'
 import { NgxTextDiffComponent } from 'ngx-text-diff'
 import { CookieService } from 'ngx-cookie'
-import { DiffTableFormat } from 'ngx-text-diff/lib/ngx-text-diff.model'
+import { type DiffTableFormat } from 'ngx-text-diff/lib/ngx-text-diff.model'
 
 interface RandomFixes {
   fix: string
@@ -11,7 +11,7 @@ interface RandomFixes {
   selector: 'app-code-fixes',
   templateUrl: './code-fixes.component.html',
   styleUrls: ['./code-fixes.component.scss']
-  })
+})
 export class CodeFixesComponent implements OnInit, DoCheck {
   differ: KeyValueDiffer<string, DiffTableFormat>
 
@@ -41,8 +41,8 @@ export class CodeFixesComponent implements OnInit, DoCheck {
     let index = 0
     for (const fix of this.fixes) {
       this.randomFixes.push({
-        fix: fix,
-        index: index
+        fix,
+        index
       })
       index++
     }

@@ -9,7 +9,7 @@ import {
   waitInMs,
   waitForAngularRouteToBeVisited, waitForLogOut, waitForInputToNotHaveValueAndNotBeEmpty
 } from '../helpers/helpers'
-import { ChallengeInstruction } from '../'
+import { type ChallengeInstruction } from '../'
 
 export const LoginBenderInstruction: ChallengeInstruction = {
   name: 'Login Bender',
