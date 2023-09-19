@@ -4,12 +4,12 @@
  */
 
 import {
-  CreationOptional,
-  InferAttributes,
-  InferCreationAttributes,
+  type CreationOptional,
+  type InferAttributes,
+  type InferCreationAttributes,
   Model,
   DataTypes,
-  Sequelize
+  type Sequelize
 } from 'sequelize'
 /* jslint node: true */
 class Address extends Model<

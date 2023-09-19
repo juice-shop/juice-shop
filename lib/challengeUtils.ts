@@ -43,28 +43,28 @@ export const sendNotification = function (challenge: { difficulty?: number, key:
       key: challenge.key,
       name: challenge.name,
       challenge: challenge.name + ' (' + entities.decode(sanitizeHtml(challenge.description, { allowedTags: [], allowedAttributes: {} })) + ')',
-      flag: flag,
+      flag,
       hidden: !config.get('challenges.showSolvedNotifications'),
-      isRestore: isRestore
+      isRestore
     }
     const wasPreviouslyShown = notifications.find(({ key }: { key: string }) => key === challenge.key) !== undefined
     notifications.push(notification)
 
     if (global.io && (isRestore || !wasPreviouslyShown)) {
-      // @ts-expect-error
+      // @ts-expect-error global type safety issues
       global.io.emit('challenge solved', notification)
     }
   }
 }
 
-export const sendCodingChallengeNotification = function (challenge: { key: string, codingChallengeStatus: 0|1|2 }) {
+export const sendCodingChallengeNotification = function (challenge: { key: string, codingChallengeStatus: 0 | 1 | 2 }) {
   if (challenge.codingChallengeStatus > 0) {
     const notification = {
       key: challenge.key,
       codingChallengeStatus: challenge.codingChallengeStatus
     }
     if (global.io) {
-      // @ts-expect-error
+      // @ts-expect-error global type safety issues
       global.io.emit('code challenge solved', notification)
     }
   }

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, NgZone, OnInit } from '@angular/core'
+import { Component, NgZone, type OnInit } from '@angular/core'
 import { UserService } from '../Services/user.service'
 import { ActivatedRoute, Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie'
@@ -14,10 +14,10 @@ import { SocketIoService } from '../Services/socket-io.service'
   selector: 'app-deluxe-user',
   templateUrl: './deluxe-user.component.html',
   styleUrls: ['./deluxe-user.component.scss']
-  })
+})
 
 export class DeluxeUserComponent implements OnInit {
-  public membershipCost: Number = 0
+  public membershipCost: number = 0
   public error: string = undefined
   public applicationName = 'OWASP Juice Shop'
   public logoSrc: string = 'assets/public/images/JuiceShop_Logo.png'
@@ -46,7 +46,7 @@ export class DeluxeUserComponent implements OnInit {
           this.io.socket().emit('verifySvgInjectionChallenge', decalParam)
         })
       }
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
     this.userService.deluxeStatus().subscribe((res) => {
       this.membershipCost = res.membershipCost
     }, (err) => {

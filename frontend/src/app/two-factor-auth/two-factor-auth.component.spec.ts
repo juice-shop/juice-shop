@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { TwoFactorAuthComponent } from './two-factor-auth.component'
 
 import { ReactiveFormsModule } from '@angular/forms'

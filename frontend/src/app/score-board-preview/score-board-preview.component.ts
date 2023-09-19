@@ -1,18 +1,18 @@
-import { Component, NgZone, OnDestroy, OnInit } from '@angular/core'
+import { Component, NgZone, type OnDestroy, type OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { DomSanitizer } from '@angular/platform-browser'
 import { MatDialog } from '@angular/material/dialog'
-import { Subscription, combineLatest } from 'rxjs'
+import { type Subscription, combineLatest } from 'rxjs'
 
 import { fromQueryParams, toQueryParams } from './filter-settings/query-params-converters'
-import { DEFAULT_FILTER_SETTING, FilterSetting } from './filter-settings/FilterSetting'
-import { Config, ConfigurationService } from '../Services/configuration.service'
+import { DEFAULT_FILTER_SETTING, type FilterSetting } from './filter-settings/FilterSetting'
+import { type Config, ConfigurationService } from '../Services/configuration.service'
 import { CodeSnippetComponent } from '../code-snippet/code-snippet.component'
 import { CodeSnippetService } from '../Services/code-snippet.service'
 import { ChallengeService } from '../Services/challenge.service'
 import { filterChallenges } from './helpers/challenge-filtering'
 import { SocketIoService } from '../Services/socket-io.service'
-import { EnrichedChallenge } from './types/EnrichedChallenge'
+import { type EnrichedChallenge } from './types/EnrichedChallenge'
 import { sortChallenges } from './helpers/challenge-sorting'
 
 interface ChallengeSolvedWebsocket {
@@ -25,14 +25,14 @@ interface ChallengeSolvedWebsocket {
 }
 interface CodeChallengeSolvedWebsocket {
   key: string
-  codingChallengeStatus: 0|1|2
+  codingChallengeStatus: 0 | 1 | 2
 }
 
 @Component({
   selector: 'score-board-preview',
   templateUrl: './score-board-preview.component.html',
   styleUrls: ['./score-board-preview.component.scss']
-  })
+})
 export class ScoreBoardPreviewComponent implements OnInit, OnDestroy {
   public allChallenges: EnrichedChallenge[] = []
   public filteredChallenges: EnrichedChallenge[] = []

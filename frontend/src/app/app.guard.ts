@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { CanActivate, Router } from '@angular/router'
+import { type CanActivate, Router } from '@angular/router'
 import * as jwtDecode from 'jwt-decode'
 import { roles } from './roles'
 import { Injectable, NgZone } from '@angular/core'

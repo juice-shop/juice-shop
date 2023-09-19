@@ -4,7 +4,7 @@
  */
 
 import Hashids = require('hashids/cjs')
-import { Request, Response } from 'express'
+import { type Request, type Response } from 'express'
 import { ChallengeModel } from '../models/challenge'
 
 const sequelize = require('sequelize')

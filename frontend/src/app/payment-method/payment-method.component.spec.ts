@@ -7,7 +7,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -148,9 +148,11 @@ describe('PaymentMethodComponent', () => {
   it('card number should be in the range [1000000000000000, 9999999999999999]', () => {
     component.numberControl.setValue(1111110)
     expect(component.numberControl.valid).toBeFalsy()
-    component.numberControl.setValue(99999999999999999) // eslint-disable-line no-loss-of-precision
+    // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
+    component.numberControl.setValue(99999999999999999)
     expect(component.numberControl.valid).toBeFalsy()
-    component.numberControl.setValue(9999999999999999) // eslint-disable-line no-loss-of-precision
+    // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
+    component.numberControl.setValue(9999999999999999)
     expect(component.numberControl.valid).toBe(true)
     component.numberControl.setValue(1234567887654321)
     expect(component.numberControl.valid).toBe(true)

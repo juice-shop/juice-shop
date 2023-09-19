@@ -4,7 +4,7 @@
  */
 
 import fs = require('fs')
-import { Request, Response } from 'express'
+import { type Request, type Response } from 'express'
 import challengeUtils = require('../lib/challengeUtils')
 import config from 'config'
 import * as utils from '../lib/utils'

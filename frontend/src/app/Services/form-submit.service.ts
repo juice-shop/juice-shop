@@ -8,11 +8,11 @@ import { DOCUMENT } from '@angular/common'
 
 @Injectable({
   providedIn: 'root'
-  })
+})
 export class FormSubmitService {
   constructor (@Inject(DOCUMENT) private readonly _document: HTMLDocument) { }
 
-  attachEnterKeyHandler (formId: string, submitButtonId: string, onSubmit: Function) {
+  attachEnterKeyHandler (formId: string, submitButtonId: string, onSubmit: any) {
     const form = this._document.getElementById(formId) as HTMLFormElement
     const submitButton = this._document.getElementById(submitButtonId) as HTMLInputElement
 

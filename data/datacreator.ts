@@ -20,7 +20,7 @@ import { SecurityAnswerModel } from '../models/securityAnswer'
 import { SecurityQuestionModel } from '../models/securityQuestion'
 import { UserModel } from '../models/user'
 import { WalletModel } from '../models/wallet'
-import { Address, Card, Challenge, Delivery, Memory, Product, SecurityQuestion, User } from './types'
+import { type Address, type Card, type Challenge, type Delivery, type Memory, type Product, type SecurityQuestion, type User } from './types'
 import logger from '../lib/logger'
 import config from 'config'
 import path from 'path'
@@ -140,7 +140,7 @@ async function createWallet () {
     users.map(async (user: User, index: number) => {
       return await WalletModel.create({
         UserId: index + 1,
-        balance: user.walletBalance !== undefined ? user.walletBalance : 0
+        balance: user.walletBalance ?? 0
       }).catch((err: unknown) => {
         logger.error(`Could not create wallet: ${utils.getErrorMessage(err)}`)
       })
@@ -168,27 +168,29 @@ async function createDeliveryMethods () {
   )
 }
 
-function createAddresses (UserId: number, addresses: Address[]) {
-  addresses.map(async (address) => {
-    return await AddressModel.create({
-      UserId: UserId,
-      country: address.country,
-      fullName: address.fullName,
-      mobileNum: address.mobileNum,
-      zipCode: address.zipCode,
-      streetAddress: address.streetAddress,
-      city: address.city,
-      state: address.state ? address.state : null
-    }).catch((err: unknown) => {
-      logger.error(`Could not create address: ${utils.getErrorMessage(err)}`)
+async function createAddresses (UserId: number, addresses: Address[]) {
+  return await Promise.all(
+    addresses.map(async (address) => {
+      return await AddressModel.create({
+        UserId,
+        country: address.country,
+        fullName: address.fullName,
+        mobileNum: address.mobileNum,
+        zipCode: address.zipCode,
+        streetAddress: address.streetAddress,
+        city: address.city,
+        state: address.state ? address.state : null
+      }).catch((err: unknown) => {
+        logger.error(`Could not create address: ${utils.getErrorMessage(err)}`)
+      })
     })
-  })
+  )
 }
 
 async function createCards (UserId: number, cards: Card[]) {
   return await Promise.all(cards.map(async (card) => {
     return await CardModel.create({
-      UserId: UserId,
+      UserId,
       fullName: card.fullName,
       cardNum: Number(card.cardNum),
       expMonth: card.expMonth,
@@ -239,7 +241,7 @@ async function createQuantity () {
     config.get<Product[]>('products').map(async (product: Product, index: number) => {
       return await QuantityModel.create({
         ProductId: index + 1,
-        quantity: product.quantity !== undefined ? product.quantity : Math.floor(Math.random() * 70 + 30),
+        quantity: product.quantity ?? Math.floor(Math.random() * 70 + 30),
         limitPerUser: product.limitPerUser ?? null
       }).catch((err: unknown) => {
         logger.error(`Could not create quantity: ${utils.getErrorMessage(err)}`)
@@ -691,13 +693,13 @@ async function createOrders () {
   return await Promise.all(
     orders.map(({ orderId, email, totalPrice, bonus, products, eta, delivered }) =>
       mongodb.orders.insert({
-        orderId: orderId,
-        email: email,
-        totalPrice: totalPrice,
-        bonus: bonus,
-        products: products,
-        eta: eta,
-        delivered: delivered
+        orderId,
+        email,
+        totalPrice,
+        bonus,
+        products,
+        eta,
+        delivered
       }).catch((err: unknown) => {
         logger.error(`Could not insert Order ${orderId}: ${utils.getErrorMessage(err)}`)
       })

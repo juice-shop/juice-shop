@@ -4,8 +4,8 @@
  */
 
 import models = require('../models/index')
-import { Request, Response, NextFunction } from 'express'
-import { User } from '../data/types'
+import { type Request, type Response, type NextFunction } from 'express'
+import { type User } from '../data/types'
 import { BasketModel } from '../models/basket'
 import { UserModel } from '../models/user'
 import challengeUtils = require('../lib/challengeUtils')

@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
-  })
+})
 export class KeysService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/rest/web3'
@@ -41,7 +41,7 @@ export class KeysService {
 
   submitKey (privateKey: string) {
     const endpoint = this.host + '/submitKey'
-    const params = { privateKey: privateKey }
+    const params = { privateKey }
     return this.http.post(endpoint, params).pipe(
       map((response: any) => response),
       catchError((err) => {

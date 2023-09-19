@@ -6,7 +6,7 @@
 import {
   waitInMs, waitForElementToGetClicked, waitForAngularRouteToBeVisited
 } from '../helpers/helpers'
-import { ChallengeInstruction } from '../'
+import { type ChallengeInstruction } from '../'
 
 export const CodingChallengesInstruction: ChallengeInstruction = {
   name: 'Coding Challenges',

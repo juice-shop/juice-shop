@@ -7,7 +7,7 @@ import {
   waitInMs,
   sleep, waitForAngularRouteToBeVisited, waitForLogIn, waitForDevTools
 } from '../helpers/helpers'
-import { ChallengeInstruction } from '../'
+import { type ChallengeInstruction } from '../'
 
 export const ViewBasketInstruction: ChallengeInstruction = {
   name: 'View Basket',

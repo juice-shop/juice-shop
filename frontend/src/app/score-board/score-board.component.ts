@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table'
 import { DomSanitizer } from '@angular/platform-browser'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
-import { AfterViewInit, Component, NgZone, OnInit } from '@angular/core'
+import { type AfterViewInit, Component, NgZone, type OnInit } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 import { NgxSpinnerService } from 'ngx-spinner'
 import { ActivatedRoute } from '@angular/router'
@@ -16,7 +16,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faStar, faTrophy, faPollH } from '@fortawesome/free-solid-svg-icons'
 import { faGem } from '@fortawesome/free-regular-svg-icons'
 import { faBtc, faGithub, faGitter } from '@fortawesome/free-brands-svg-icons'
-import { Challenge } from '../Models/challenge.model'
+import { type Challenge } from '../Models/challenge.model'
 import { TranslateService } from '@ngx-translate/core'
 import { LocalBackupService } from '../Services/local-backup.service'
 import { MatDialog } from '@angular/material/dialog'
@@ -29,7 +29,7 @@ library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy, faPollH)
   selector: 'app-score-board',
   templateUrl: './score-board.component.html',
   styleUrls: ['./score-board.component.scss']
-  })
+})
 export class ScoreBoardComponent implements OnInit, AfterViewInit {
   public availableDifficulties: number[] = [1, 2, 3, 4, 5, 6]
   public displayedDifficulties: number[] = [1]
@@ -156,7 +156,7 @@ export class ScoreBoardComponent implements OnInit, AfterViewInit {
         this.challenges = []
         console.log(err)
       })
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
 
     this.ngZone.runOutsideAngular(() => {
       this.io.socket().on('challenge solved', (data: any) => {
@@ -408,9 +408,9 @@ export class ScoreBoardComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(CodeSnippetComponent, {
       disableClose: true,
       data: {
-        key: key,
-        name: name,
-        codingChallengeStatus: codingChallengeStatus
+        key,
+        name,
+        codingChallengeStatus
       }
     })
 

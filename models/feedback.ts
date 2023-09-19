@@ -9,11 +9,11 @@ import challengeUtils = require('../lib/challengeUtils')
 
 import {
   Model,
-  InferAttributes,
-  InferCreationAttributes,
+  type InferAttributes,
+  type InferCreationAttributes,
   DataTypes,
-  CreationOptional,
-  Sequelize
+  type CreationOptional,
+  type Sequelize
 } from 'sequelize'
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges

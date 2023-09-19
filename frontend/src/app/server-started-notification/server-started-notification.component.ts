@@ -5,7 +5,7 @@
 
 import { TranslateService } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
-import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core'
+import { ChangeDetectorRef, Component, NgZone, type OnInit } from '@angular/core'
 import { CookieService } from 'ngx-cookie'
 import { SocketIoService } from '../Services/socket-io.service'
 
@@ -18,7 +18,7 @@ interface HackingProgress {
   selector: 'app-server-started-notification',
   templateUrl: './server-started-notification.component.html',
   styleUrls: ['./server-started-notification.component.scss']
-  })
+})
 export class ServerStartedNotificationComponent implements OnInit {
   public hackingProgress: HackingProgress = {} as HackingProgress
 
@@ -40,7 +40,7 @@ export class ServerStartedNotificationComponent implements OnInit {
             })
           }, (error) => {
             console.log(error)
-            this.translate.get('AUTO_RESTORE_PROGRESS_FAILED', { error: error }).subscribe((notificationServerStarted) => {
+            this.translate.get('AUTO_RESTORE_PROGRESS_FAILED', { error }).subscribe((notificationServerStarted) => {
               this.hackingProgress.autoRestoreMessage = notificationServerStarted
             }, (translationId) => {
               this.hackingProgress.autoRestoreMessage = translationId

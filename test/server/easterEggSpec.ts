@@ -31,7 +31,7 @@ describe('easterEgg', () => {
   })
 
   it('should solve "easterEggLevelTwoChallenge"', () => {
-    challenges.easterEggLevelTwoChallenge = { solved: false, save: save }
+    challenges.easterEggLevelTwoChallenge = { solved: false, save }
 
     serveEasterEgg()(req, res)
 

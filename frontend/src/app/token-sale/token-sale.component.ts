@@ -4,7 +4,7 @@
  */
 
 import { ConfigurationService } from '../Services/configuration.service'
-import { Component, OnInit } from '@angular/core'
+import { Component, type OnInit } from '@angular/core'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBitcoin } from '@fortawesome/free-brands-svg-icons'
 import { faCommentAlt, faComments, faGraduationCap, faUniversity } from '@fortawesome/free-solid-svg-icons'
@@ -16,7 +16,7 @@ library.add(faBitcoin, faUniversity, faGraduationCap, faCommentAlt, faComments, 
   selector: 'app-token-sale',
   templateUrl: './token-sale.component.html',
   styleUrls: ['./token-sale.component.scss']
-  })
+})
 export class TokenSaleComponent implements OnInit {
   public altcoinName = 'Juicycoin'
   constructor (private readonly configurationService: ConfigurationService) { }
@@ -26,6 +26,6 @@ export class TokenSaleComponent implements OnInit {
       if (config?.application?.altcoinName) {
         this.altcoinName = config.application.altcoinName
       }
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 }

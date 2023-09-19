@@ -5,10 +5,10 @@
 
 import {
   Model,
-  InferAttributes,
-  InferCreationAttributes,
+  type InferAttributes,
+  type InferCreationAttributes,
   DataTypes,
-  Sequelize
+  type Sequelize
 } from 'sequelize'
 
 class Captcha extends Model<

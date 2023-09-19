@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Request, Response, NextFunction } from 'express'
-import { Challenge, Product } from '../data/types'
-import { JwtPayload, VerifyErrors } from 'jsonwebtoken'
+import { type Request, type Response, type NextFunction } from 'express'
+import { type Challenge, type Product } from '../data/types'
+import { type JwtPayload, type VerifyErrors } from 'jsonwebtoken'
 import { FeedbackModel } from '../models/feedback'
 import { ComplaintModel } from '../models/complaint'
 import { Op } from 'sequelize'

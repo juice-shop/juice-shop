@@ -9,7 +9,7 @@ import { TranslateService } from '@ngx-translate/core'
 
 @Injectable({
   providedIn: 'root'
-  })
+})
 export class SnackBarHelperService {
   constructor (private readonly translateService: TranslateService,
     private readonly snackBar: MatSnackBar) { }

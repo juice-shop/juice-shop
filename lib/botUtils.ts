@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 import models = require('../models/index')
-import { Product } from '../data/types'
+import { type Product } from '../data/types'
 import fuzz from 'fuzzball'
 const security = require('./insecurity')
 const challengeUtils = require('./challengeUtils')

@@ -4,7 +4,7 @@
  */
 
 import challengeUtils = require('../lib/challengeUtils')
-import { Request, Response } from 'express'
+import { type Request, type Response } from 'express'
 
 const security = require('../lib/insecurity')
 const cache = require('../data/datacache')

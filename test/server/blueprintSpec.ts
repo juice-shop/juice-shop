@@ -1,6 +1,6 @@
 import chai = require('chai')
 import config from 'config'
-import { Product } from 'data/types'
+import { type Product } from 'data/types'
 import path from 'path'
 import { promisify } from 'util'
 import { ExifImage } from 'exif'
@@ -43,7 +43,7 @@ describe('blueprint', () => {
             pathToImage = path.resolve('frontend/src', pathToImage, product.image)
           }
 
-          if (product.exifForBlueprintChallenge !== undefined && product?.exifForBlueprintChallenge?.[0] !== null) { // Prevents failing test for sample or custom themes where null has been explicitly set as value for "exifForBlueprintChallenge". Warning: This makes the "Retrieve Blueprint" challenge probably unsolvable unless hints are placed elsewhere.
+          if (product.exifForBlueprintChallenge?.[0]) { // Prevents failing test for sample or custom themes where null has been explicitly set as value for "exifForBlueprintChallenge". Warning: This makes the "Retrieve Blueprint" challenge probably unsolvable unless hints are placed elsewhere.
             try {
               const exifData = await parseExifData(pathToImage)
               const properties = Object.values(exifData.image)

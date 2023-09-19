@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core'
 import { MatInputModule } from '@angular/material/input'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatDialogModule } from '@angular/material/dialog'
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { BasketComponent } from './basket.component'
 import { MatCardModule } from '@angular/material/card'

@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { type ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { TutorialModeWarningComponent } from './tutorial-mode-warning.component'
 import { TranslateModule } from '@ngx-translate/core'

@@ -17,7 +17,7 @@ library.add(faWindows)
   selector: 'app-challenge-status-badge',
   templateUrl: './challenge-status-badge.component.html',
   styleUrls: ['./challenge-status-badge.component.scss']
-  })
+})
 export class ChallengeStatusBadgeComponent {
   @Input() public challenge: Challenge = { } as Challenge
   @Input() public allowRepeatNotifications: boolean = false
@@ -29,7 +29,7 @@ export class ChallengeStatusBadgeComponent {
     if (this.allowRepeatNotifications) {
       this.challengeService.repeatNotification(encodeURIComponent(this.challenge.name)).subscribe(() => {
         this.windowRefService.nativeWindow.scrollTo(0, 0)
-      }, (err) => console.log(err))
+      }, (err) => { console.log(err) })
     }
   }
 
