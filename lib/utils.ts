@@ -74,7 +74,7 @@ export const trunc = function (str: string, length: number) {
 
 export const version = (module?: string) => {
   if (module) {
-    // @ts-expect-error Ignoring any type issue on purpose
+    // @ts-expect-error FIXME Ignoring any type issue on purpose
     return packageJson.dependencies[module]
   } else {
     return packageJson.version

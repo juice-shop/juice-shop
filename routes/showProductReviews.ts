@@ -13,7 +13,7 @@ const security = require('../lib/insecurity')
 const db = require('../data/mongodb')
 
 // Blocking sleep function as in native MongoDB
-// @ts-expect-error Type safety broken for global object
+// @ts-expect-error FIXME Type safety broken for global object
 global.sleep = (time: number) => {
   // Ensure that users don't accidentally dos their servers for too long
   if (time > 2000) {

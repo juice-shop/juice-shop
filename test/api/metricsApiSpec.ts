@@ -34,7 +34,7 @@ describe('/metrics', () => {
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
 
-    // @ts-expect-error form.getHeaders() is not found
+    // @ts-expect-error FIXME form.getHeaders() is not found
     return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 204)
       .then(() => {
@@ -50,7 +50,7 @@ describe('/metrics', () => {
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
 
-    // @ts-expect-error form.getHeaders() is not found
+    // @ts-expect-error FIXME form.getHeaders() is not found
     return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 500)
       .then(() => {

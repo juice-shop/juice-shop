@@ -27,7 +27,7 @@ module.exports = function fileUpload () {
         if (loggedInUser) {
           fs.open(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.${uploadedFileType.ext}`, 'w', function (err, fd) {
             if (err != null) logger.warn('Error opening file: ' + err.message)
-            // @ts-expect-error buffer has unexpected type
+            // @ts-expect-error FIXME buffer has unexpected type
             fs.write(fd, buffer, 0, buffer.length, null, function (err) {
               if (err != null) logger.warn('Error writing file: ' + err.message)
               fs.close(fd, function () { })
