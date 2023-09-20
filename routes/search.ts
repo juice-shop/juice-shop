@@ -2,18 +2,7 @@
  * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
-
-import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
-import { UserModel } from '../models/user'
-
-import * as utils from '../lib/utils'
-const challengeUtils = require('../lib/challengeUtils')
-const challenges = require('../data/datacache').challenges
-
-class ErrorWithParent extends Error {
-  parent: Error | undefined
-}
 
 // vuln-code-snippet start unionSqlInjectionChallenge dbSchemaChallenge
 module.exports = function searchProducts() {
