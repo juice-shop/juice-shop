@@ -47,7 +47,7 @@ module.exports = function login () {
             }
           })
         } else if (user.data?.id) {
-          // @ts-expect-error FIXME some properties missing in user
+          // @ts-expect-error FIXME some properties missing in user - vuln-code-snippet hide-line
           afterLogin(user, res, next)
         } else {
           res.status(401).send(res.__('Invalid email or password.'))
