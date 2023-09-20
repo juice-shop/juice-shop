@@ -16,10 +16,11 @@ class ErrorWithParent extends Error {
 }
 
 // vuln-code-snippet start unionSqlInjectionChallenge dbSchemaChallenge
-module.exports = function searchProducts () {
+module.exports = function searchProducts() {
   return (req: Request, res: Response, next: NextFunction) => {
     let criteria: any = req.query.q === 'undefined' ? '' : req.query.q ?? ''
     criteria = (criteria.length <= 200) ? criteria : criteria.substring(0, 200)
     console.log(criteria)
+  }
 }
 // vuln-code-snippet end unionSqlInjectionChallenge dbSchemaChallenge
