@@ -24,7 +24,7 @@ module.exports.nftMintListener = function nftMintListener () {
       res.status(200).json({ success: true, message: 'Event Listener Created' })
     } catch (error) {
       console.log(error)
-      res.status(500).json(utils.get(error))
+      res.status(500).json(utils.getErrorMessage(error))
     }
   }
 }
@@ -42,7 +42,7 @@ module.exports.walletNFTVerify = function walletNFTVerify () {
       }
     } catch (error) {
       console.log(error)
-      res.status(500).json(utils.get(error))
+      res.status(500).json(utils.getErrorMessage(error))
     }
   }
 }

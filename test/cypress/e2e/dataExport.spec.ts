@@ -3,7 +3,7 @@ describe('/#/privacy-security/data-export', () => {
     beforeEach(() => {
       cy.visit('/#/register')
 
-      cy.task('GetFromConfig', 'application.domain').then(
+      cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
           cy.get('#emailControl').type(`admun@${appDomain}`)
         }

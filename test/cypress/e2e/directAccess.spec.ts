@@ -39,7 +39,7 @@ describe('/', () => {
 
   describe('challenge "retrieveBlueprint"', () => {
     it('should be able to access the blueprint file', () => {
-      cy.task('GetBlueprint').then((foundBlueprint: string) => {
+      cy.task<string>('GetBlueprint').then((foundBlueprint: string) => {
         // cy.visit requires a text/html response and this is an STL file hence cy.request has been used
         cy.request(`/assets/public/images/products/${foundBlueprint}`)
       })
@@ -76,7 +76,7 @@ describe('/', () => {
   describe('challenge "accessLogDisclosure"', () => {
     it("should be able to access today's access log file", () => {
       // cy.visit requires a text/html response hence cy.request has been used
-      cy.task('toISO8601').then((date: Date) => {
+      cy.task<Date>('toISO8601').then((date: Date) => {
         cy.request(`/support/logs/access.log.${date}`)
       })
       cy.expectChallengeSolved({ challenge: 'Access Log' })

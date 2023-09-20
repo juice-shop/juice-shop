@@ -22,7 +22,7 @@ describe('/chatbot', () => {
 
   describe('challenge "bullyChatbot"', () => {
     it('should be possible to make the chatbot hand out a coupon code', () => {
-      cy.task('GetCouponIntent').then(
+      cy.task<any>('GetCouponIntent').then(
         (couponIntent: {
           utterances: string[]
           intent: string

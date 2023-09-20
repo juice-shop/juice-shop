@@ -61,11 +61,11 @@ describe('/rest/products/search', () => {
       cy.request("/rest/products/search?q='))--")
         .its('body')
         .then((sourceContent) => {
-          cy.task('GetPastebinLeakProduct').then((productName: Product) => {
+          cy.task<Product>('GetPastebinLeakProduct').then((pastebinLeakProduct: Product) => {
             let foundProduct = false
 
-            sourceContent.data.forEach((product) => {
-              if (product.name === productName.name) {
+            sourceContent.data.forEach((product: Product) => {
+              if (product.name === pastebinLeakProduct.name) {
                 foundProduct = true
               }
             })
@@ -88,11 +88,11 @@ describe('/rest/products/search', () => {
       cy.request("/rest/products/search?q='))--")
         .its('body')
         .then((sourceContent) => {
-          cy.task('GetChristmasProduct').then((productName: Product) => {
+          cy.task<Product>('GetChristmasProduct').then((christmasProduct: Product) => {
             let foundProduct = false
 
-            sourceContent.data.forEach((product: { name: string }) => {
-              if (product.name === productName.name) {
+            sourceContent.data.forEach((product: Product) => {
+              if (product.name === christmasProduct.name) {
                 foundProduct = true
               }
             })
@@ -106,9 +106,9 @@ describe('/rest/products/search', () => {
       cy.request('/api/products')
         .its('body')
         .then((sourceContent) => {
-          cy.task('GetChristmasProduct').then((productName: Product) => {
+          cy.task<Product>('GetChristmasProduct').then((christmasProduct: Product) => {
             sourceContent.data.forEach((product: Product) => {
-              if (product.name === productName.name) {
+              if (product.name === christmasProduct.name) {
                 cy.window().then(async () => {
                   const response = await fetch(
                     `${Cypress.config('baseUrl')}/api/BasketItems/`,

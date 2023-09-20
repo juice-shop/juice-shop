@@ -142,7 +142,7 @@ describe('/#/basket', () => {
 
         cy.visit('/#/payment/shop')
         cy.get('#collapseCouponElement').click()
-        cy.task('GenerateCoupon', 90).then((coupon: string) => {
+        cy.task<string>('GenerateCoupon', 90).then((coupon: string) => {
           cy.get('#coupon').type(coupon)
           cy.get('#applyCouponButton').click()
         })
