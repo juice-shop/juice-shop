@@ -14,7 +14,7 @@ export default defineConfig({
     downloadsFolder: 'test/cypress/downloads',
     fixturesFolder: false,
     supportFile: 'test/cypress/support/e2e.ts',
-    setupNodeEvents (on) {
+    setupNodeEvents (on: any) {
       on('task', {
         GenerateCoupon (discount: number) {
           return security.generateCoupon(discount)
@@ -42,10 +42,8 @@ export default defineConfig({
           return couponIntent
         },
         GetFromMemories (property: string) {
-          for (const memory of config.get<Memory[]>('memories')) {
-            // @ts-expect-error FIXME any type issue
+          for (const memory of config.get<Memory[]>('memories') as any) {
             if (memory[property]) {
-              // @ts-expect-error FIXME any type issue
               return memory[property]
             }
           }
