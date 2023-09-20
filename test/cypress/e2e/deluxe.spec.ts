@@ -25,7 +25,7 @@ describe('/#/deluxe-membership', () => {
         cy.request({
           url: '/rest/deluxe-membership',
           method: 'POST',
-          headers: { Authorization: `Bearer ${token.value}` }
+          headers: { Authorization: `Bearer ${token?.value}` }
         }).then((response) => {
           expect(response.body.status).contains('success')
         })

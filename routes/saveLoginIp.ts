@@ -23,6 +23,7 @@ module.exports = function saveLoginIp () {
         lastLoginIp = security.sanitizeSecure(lastLoginIp)
       }
       if (lastLoginIp === undefined) {
+        // @ts-expect-error FIXME types not matching
         lastLoginIp = utils.toSimpleIpAddress(req.socket.remoteAddress)
       }
       UserModel.findByPk(loggedInUser.data.id).then((user: UserModel | null) => {

@@ -36,7 +36,7 @@ Cypress.Commands.add(
     if (context.email.match(/\S+@\S+\.\S+/) != null) {
       cy.get('#email').type(context.email)
     } else {
-      cy.task('GetFromConfig', 'application.domain').then(
+      cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
           const email = context.email.concat('@', appDomain)
           cy.get('#email').type(email)

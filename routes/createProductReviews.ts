@@ -25,7 +25,7 @@ module.exports = function productReviews () {
     }).then(() => {
       res.status(201).json({ status: 'success' })
     }, (err: unknown) => {
-      res.status(500).json(utils.get(err))
+      res.status(500).json(utils.getErrorMessage(err))
     })
   }
 }
