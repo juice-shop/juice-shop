@@ -10,7 +10,7 @@ describe('/#/forgot-password', () => {
 
   describe('as Jim', () => {
     it('should be able to reset password with his security answer', () => {
-      cy.task('GetFromConfig', 'application.domain').then(
+      cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
           cy.get('#email').type(`jim@${appDomain}`)
         }
@@ -27,7 +27,7 @@ describe('/#/forgot-password', () => {
 
   describe('as Bender', () => {
     it('should be able to reset password with his security answer', () => {
-      cy.task('GetFromConfig', 'application.domain').then(
+      cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
           cy.get('#email').type(`bender@${appDomain}`)
         }
@@ -45,7 +45,7 @@ describe('/#/forgot-password', () => {
   describe('as Bjoern', () => {
     describe('for his internal account', () => {
       it('should be able to reset password with his security answer', () => {
-        cy.task('GetFromConfig', 'application.domain').then(
+        cy.task<string>('GetFromConfig', 'application.domain').then(
           (appDomain: string) => {
             cy.get('#email').type(`bjoern@${appDomain}`)
           }
@@ -76,7 +76,7 @@ describe('/#/forgot-password', () => {
 
   describe('as Morty', () => {
     it('should be able to reset password with his security answer', () => {
-      cy.task('GetFromConfig', 'application.domain').then(
+      cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
           cy.get('#email').type(`morty@${appDomain}`)
         }
@@ -93,7 +93,7 @@ describe('/#/forgot-password', () => {
 
   describe('as Uvogin', () => {
     it('should be able to reset password with his security answer', () => {
-      cy.task('GetFromConfig', 'application.domain').then(
+      cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
           cy.get('#email').type(`uvogin@${appDomain}`)
         }

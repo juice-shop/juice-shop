@@ -30,7 +30,7 @@ describe('/#/basket', () => {
           // console.log($val);
           cy.get('#currentPasswordSetup').type('K1f.....................')
 
-          cy.task('GenerateAuthenticator', $val).then((secret: string) => {
+          cy.task<string>('GenerateAuthenticator', $val).then((secret: string) => {
             cy.get('#initalToken').type(secret)
             cy.get('#setupTwoFactorAuth').click()
 

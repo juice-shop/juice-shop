@@ -36,7 +36,7 @@ describe('b2bOrder', () => {
     expect(challenges.rceChallenge.solved).to.equal(true)
   })
 
-  // FIXME Started failing on Linux regularly
+  // @ts-expect-error FIXME Disabled as test started failing on Linux regularly
   xit('timeout after 2 seconds solves "rceOccupyChallenge"', () => {
     challenges.rceOccupyChallenge = { solved: false, save }
 

@@ -28,7 +28,7 @@ module.exports.checkKeys = function checkKeys () {
         }
       }
     } catch (error) {
-      res.status(500).json(utils.get(error))
+      res.status(500).json(utils.getErrorMessage(error))
     }
   }
 }
@@ -37,7 +37,7 @@ module.exports.nftUnlocked = function nftUnlocked () {
     try {
       res.status(200).json({ status: challenges.nftUnlockChallenge.solved })
     } catch (error) {
-      res.status(500).json(utils.get(error))
+      res.status(500).json(utils.getErrorMessage(error))
     }
   }
 }
