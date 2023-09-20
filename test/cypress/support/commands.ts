@@ -1,4 +1,5 @@
 import { type Challenge } from '../../../data/types'
+import CommandOptions = Cypress.CommandOptions
 
 Cypress.Commands.add(
   'expectChallengeSolved',
@@ -60,6 +61,6 @@ function walkRecursivelyInArray (arr: number[], cb: any, index = 0) {
     })
 }
 
-Cypress.Commands.add('eachSeries', { prevSubject: 'optional' }, (arrayGenerated: number[], checkFnToBeRunOnEach: any) => {
+Cypress.Commands.add('eachSeries', { prevSubject: 'optional' } as any, (arrayGenerated: number[], checkFnToBeRunOnEach: any) => {
   walkRecursivelyInArray(arrayGenerated, checkFnToBeRunOnEach)
 })
