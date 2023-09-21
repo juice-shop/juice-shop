@@ -1,5 +1,4 @@
 import { type Challenge } from '../../../data/types'
-import CommandOptions = Cypress.CommandOptions
 
 Cypress.Commands.add(
   'expectChallengeSolved',
