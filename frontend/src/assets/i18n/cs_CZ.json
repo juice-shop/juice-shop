@@ -384,6 +384,8 @@
   "TAG_CODE_ANALYSIS_DESCRIPTION": "Označuje výzvy, kde může být užitečné prolouskat pomocí nějakého zdrojového kódu aplikace nebo třetí strany.",
   "TAG_WEB3": "Web3",
   "TAG_WEB3_DESCRIPTION": "Marks challenges which incorporate Web3 concepts or technology such as Blockchain, Crypto Currency, Smart Contracts, or NFT.",
+  "TAG_INTERNET_TRAFFIC": "Internet Traffic",
+  "TAG_INTERNET_TRAFFIC_DESCRIPTION": "Marks challenges strictly depending on the server being able to connect with the Internet via e.g. WebSocket or JSON-RPC.",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "Prolomené řízení přístupu",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "Prolomená Anti automatizace",
   "CATEGORY_BROKEN_AUTHENTICATION": "Prolomená autentizace",
