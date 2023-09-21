@@ -15,9 +15,9 @@ jobs:
         node-version: [16, 18, 20.5]
     steps:
       - name: "Check out Git repository"
-        uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac #v4.0.0
       - name: "Use Node.js ${{ matrix.node-version }}"
-        uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
+        uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d #v3.8.1
         with:
           node-version: ${{ matrix.node-version }}
       - name: "Install CLI tools"
@@ -42,7 +42,7 @@ jobs:
           npm install --production
           npm run package:ci
       - name: 'Attach packaged archive to tag release'
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844 #v0.1.15
         with:
           draft: true
           files: dist/*
@@ -52,25 +52,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
-        uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac #v4.0.0
       - name: "Set up QEMU"
-        uses: docker/setup-qemu-action@27d0a4f181a40b142cce983c5393082c365d1480 #v1: V1.2.0 available
+        uses: docker/setup-qemu-action@68827325e0b33c7199eb31dd4e31fbe9023e06e3 #v3.0.0
       - name: "Set up Docker Buildx"
-        uses: docker/setup-buildx-action@94ab11c41e45d028884a99163086648e898eed25 #v1
+        uses: docker/setup-buildx-action@f95db51fddba0c2d1ec667646a06c2ce06100226 #v3.0.0
       - name: "Login to DockerHub"
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9 #v1.10
+        uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d #v3.0.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: "Get tag name"
         id: tag
-        uses: dawidd6/action-get-tag@v1
+        uses: dawidd6/action-get-tag@727a6f0a561be04e09013531e73a3983a65e3479 #v1.1.0 TODO Action is archived and should be replaced eventually
       - name: "Set labels for ${{ github.ref }}"
         run: |
           echo "VCS_REF=`git rev-parse --short HEAD`" >> $GITHUB_ENV
           echo "BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”`" >> $GITHUB_ENV
       - name: "Build and push for AMD64 and ARM64 processors"
-        uses: docker/build-push-action@a66e35b9cbcf4ad0ea91ffcaf7bbad63ad9e0229 #note: newer is available
+        uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 #v5.0.0
         with:
           context: .
           file: ./Dockerfile
@@ -90,7 +90,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Slack workflow notification"
-        uses: Gamesight/slack-workflow-status@master
+        uses: Gamesight/slack-workflow-status@26a36836c887f260477432e4314ec3490a84f309 #v1.2.0
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
