@@ -384,6 +384,8 @@
   "TAG_CODE_ANALYSIS_DESCRIPTION": "Markerer udfordringer, hvor det kan være nyttigt at gennemrode noget af applikationens eller en tredjeparts kildekode.",
   "TAG_WEB3": "Web3",
   "TAG_WEB3_DESCRIPTION": "Marks challenges which incorporate Web3 concepts or technology such as Blockchain, Crypto Currency, Smart Contracts, or NFT.",
+  "TAG_INTERNET_TRAFFIC": "Internet Traffic",
+  "TAG_INTERNET_TRAFFIC_DESCRIPTION": "Marks challenges strictly depending on the server being able to connect with the Internet via e.g. WebSocket or JSON-RPC.",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "Defekt Adgangskontrol",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "Defekt Anti Automatisering",
   "CATEGORY_BROKEN_AUTHENTICATION": "Defekt Autentificering",
