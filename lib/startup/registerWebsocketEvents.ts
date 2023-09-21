@@ -13,10 +13,14 @@ const security = require('../insecurity')
 const challenges = require('../../data/datacache').challenges
 let firstConnectedSocket: any = null
 
+const globalWithSocketIO = global as typeof globalThis & {
+  io: SocketIOClientStatic & Server
+}
+
 const registerWebsocketEvents = (server: any) => {
   const io = new Server(server, { cors: { origin: 'http://localhost:4200' } })
-  // @ts-expect-error FIXME issue with global type safety
-  global.io = io
+  // @ts-expect-error FIXME Type safety issue when setting global socket-io object
+  globalWithSocketIO.io = io
 
   io.on('connection', (socket: any) => {
     if (firstConnectedSocket === null) {
