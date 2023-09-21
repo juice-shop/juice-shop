@@ -100,6 +100,7 @@
   category: 'Improper Input Validation'
   tags:
       - Web3
+      - Internet Traffic
   description: 'Mint the Honey Pot NFT by gathering BEEs from the bee haven.'
   difficulty: 3
   hint: 'Discover NFT wonders among the captivating visual memories.'
@@ -111,6 +112,7 @@
   category: 'Miscellaneous'
   tags:
       - Web3
+      - Internet Traffic
   description: 'Withdraw more ETH from the new wallet than you deposited.'
   difficulty: 6
   hint: 'Try to exploit the contract of the wallet.'
