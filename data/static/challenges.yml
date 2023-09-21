@@ -161,7 +161,7 @@
   difficulty: 5
   hint: 'In previous releases this challenge was wrongly accused of being based on CSRF.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-authentication.html#_change_benders_password_into_slurmcl4ssic_without_using_sql_injection_or_forgot_password'
-  mitigationUrl: ~
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html'
   key: changePasswordBenderChallenge
 -
   name: 'Christmas Special'
@@ -268,7 +268,7 @@
   difficulty: 5
   hint: 'Try to find and attack an endpoint that responds with user information. SQL Injection is not the solution here.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_perform_an_unwanted_information_disclosure_by_accessing_data_cross_domain'
-  mitigationUrl: ~
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/XS_Leaks_Cheat_Sheet.html'
   key: emailLeakChallenge
 -
   name: 'Empty User Registration'
@@ -277,7 +277,7 @@
   difficulty: 2
   hint: 'Consider intercepting and playing with the request payload.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_register_a_user_account_with_an_empty_email_and_password'
-  mitigationUrl: ~
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html'
   key: emptyUserRegistration
 -
   name: 'Ephemeral Accountant'
