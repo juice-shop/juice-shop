@@ -8,11 +8,16 @@ import * as utils from './utils'
 import { calculateCheatScore, calculateFindItCheatScore, calculateFixItCheatScore } from './antiCheat'
 import * as webhook from './webhook'
 import * as accuracy from './accuracy'
+import { type Server } from 'socket.io'
 
 const challenges = require('../data/datacache').challenges
 const notifications = require('../data/datacache').notifications
 const Entities = require('html-entities').AllHtmlEntities
 const entities = new Entities()
+
+const globalWithSocketIO = global as typeof globalThis & {
+  io: SocketIOClientStatic & Server
+}
 
 export const solveIf = function (challenge: any, criteria: () => any, isRestore: boolean = false) {
   if (notSolved(challenge) && criteria()) {
@@ -50,9 +55,8 @@ export const sendNotification = function (challenge: { difficulty?: number, key:
     const wasPreviouslyShown = notifications.find(({ key }: { key: string }) => key === challenge.key) !== undefined
     notifications.push(notification)
 
-    if (global.io && (isRestore || !wasPreviouslyShown)) {
-      // @ts-expect-error FIXME global type safety issues
-      global.io.emit('challenge solved', notification)
+    if (globalWithSocketIO.io && (isRestore || !wasPreviouslyShown)) {
+      globalWithSocketIO.io.emit('challenge solved', notification)
     }
   }
 }
@@ -63,9 +67,8 @@ export const sendCodingChallengeNotification = function (challenge: { key: strin
       key: challenge.key,
       codingChallengeStatus: challenge.codingChallengeStatus
     }
-    if (global.io) {
-      // @ts-expect-error FIXME global type safety issues
-      global.io.emit('code challenge solved', notification)
+    if (globalWithSocketIO.io) {
+      globalWithSocketIO.io.emit('code challenge solved', notification)
     }
   }
 }
