@@ -14,7 +14,7 @@ for i in range(num_configs):
         "indentation": fake.random_int(min=1, max=100),
         "template_name": fake.sentence(),
         "usename": fake.user_name(),
-        "bPassword": str(base64.b64encode(fake.password(length=10, special_chars=True, digits=True, upper_case=True, lower_case=True).encode('utf-8'))),
+        "base64password": str(base64.b64encode(fake.password(length=10, special_chars=True, digits=True, upper_case=True, lower_case=True).encode('utf-8'))),
         "additional_configs": {
             "ip_address": fake.ipv4(),
             "key": fake.uuid4(),
