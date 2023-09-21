@@ -282,7 +282,7 @@ jobs:
       - name: "Set packaging options for Grunt"
         run: |
           echo "PCKG_OS_NAME=linux" >> $GITHUB_ENV
-          echo "PCKG_NODE_VERSION=14" >> $GITHUB_ENV
+          echo "PCKG_NODE_VERSION=18" >> $GITHUB_ENV
           echo "PCKG_CPU_ARCH=x64" >> $GITHUB_ENV
       - name: "Package application"
         run: |
