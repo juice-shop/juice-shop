@@ -4,7 +4,7 @@ import base64
 
 fake = Faker()
 
-num_configs = 10
+num_configs = 5
 
 for i in range(num_configs):
 
