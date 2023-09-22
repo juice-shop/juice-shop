@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
         testRunId:
-          default: "1"
+          required: false
 
   schedule:
     - cron: "0 0 */3 * *"
@@ -19,10 +19,10 @@ jobs:
         with:
           AKTO_DASHBOARD_URL: ${{vars.AKTO_DASHBOARD_URL}}
           AKTO_API_KEY: ${{secrets.AKTO_API_KEY}}
-          AKTO_TEST_ID: ${{ github.event.inputs.testRunId == '1' && vars.AKTO_TEST_ID || github.event.inputs.testRunId }}
+          AKTO_TEST_ID: ${{ github.event.inputs.testRunId == '' && vars.AKTO_TEST_ID || github.event.inputs.testRunId }}
       - name: Fetch Testing run results 
         env:
           AKTO_DASHBOARD_URL: ${{vars.AKTO_DASHBOARD_URL}}
           AKTO_API_KEY: ${{secrets.AKTO_API_KEY}}
-          AKTO_TEST_ID: ${{ github.event.inputs.testRunId == '1' && vars.AKTO_TEST_ID || github.event.inputs.testRunId }}
+          AKTO_TEST_ID: ${{ github.event.inputs.testRunId == '' && vars.AKTO_TEST_ID || github.event.inputs.testRunId }}
         run: bash ./.github/workflows/scripts/akto-cicd.sh
