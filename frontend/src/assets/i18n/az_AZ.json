@@ -384,6 +384,8 @@
   "TAG_CODE_ANALYSIS_DESCRIPTION": "Tətbiqetmənin və ya üçüncü tərəfin bəzi mənbə kodlarını qarışdırmağın faydalı ola biləcəyi çağırışları işarələyir.",
   "TAG_WEB3": "Web3",
   "TAG_WEB3_DESCRIPTION": "Marks challenges which incorporate Web3 concepts or technology such as Blockchain, Crypto Currency, Smart Contracts, or NFT.",
+  "TAG_INTERNET_TRAFFIC": "Internet Traffic",
+  "TAG_INTERNET_TRAFFIC_DESCRIPTION": "Marks challenges strictly depending on the server being able to connect with the Internet via e.g. WebSocket or JSON-RPC.",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "Zədəli müraciət nəzarəti",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "Zədəli anti avtomatlaşdırma",
   "CATEGORY_BROKEN_AUTHENTICATION": "Zədəli kimlik təsdiqləmə",
