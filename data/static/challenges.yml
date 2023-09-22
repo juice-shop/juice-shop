@@ -65,7 +65,7 @@
     - OSINT
   description: 'Reset the password of Bjoern''s OWASP account via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
   difficulty: 3
-  hint: 'He might have spoilered it on at least one occasion where a camera was running. Maybe elsewhere as well.'
+  hint: 'He might have trumpeted it on at least one occasion where a camera was running. Maybe elsewhere as well.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-authentication.html#_reset_the_password_of_bjoerns_owasp_account_via_the_forgot_password_mechanism'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html'
   key: resetPasswordBjoernOwaspChallenge
@@ -257,7 +257,7 @@
     - Shenanigans
     - Contraption
     - Good for Demos
-  description: 'Find the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.'
+  description: 'Find the hidden <a href="https://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.'
   difficulty: 4
   hint: 'If you solved one of the three file access challenges, you already know where to find the easter egg.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_find_the_hidden_easter_egg'
@@ -338,7 +338,7 @@
     - Code Analysis
   description: 'Forge a coupon code that gives you a discount of at least 80%.'
   difficulty: 6
-  hint: 'Try either a) a knowledgable brute force attack or b) reverse engineering or c) some research in the cloud.'
+  hint: 'Try either a) a knowledgeable brute force attack or b) reverse engineering or c) some research in the cloud.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/cryptographic-issues.html#_forge_a_coupon_code_that_gives_you_a_discount_of_at_least_80'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html'
   key: forgedCouponChallenge
@@ -861,7 +861,7 @@
     - Good Practice
   description: 'Behave like any "white-hat" should before getting into the action.'
   difficulty: 2
-  hint: 'Undoubtably you want to read our security policy before conducting any research on our application.'
+  hint: 'Undoubtedly you want to read our security policy before conducting any research on our application.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/miscellaneous.html#_behave_like_any_white_hat_should_before_getting_into_the_action'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html'
   key: securityPolicyChallenge
@@ -1175,7 +1175,7 @@
   category: 'Improper Input Validation'
   tags:
     - Prerequisite
-  description: 'Bypass a security control with a <a href="http://hakipedia.com/index.php/Poison_Null_Byte">Poison Null Byte</a> to access a file not meant for your eyes.'
+  description: 'Bypass a security control with a <a href="https://hakipedia.com/index.php/Poison_Null_Byte">Poison Null Byte</a> to access a file not meant for your eyes.'
   difficulty: 4
   hint: 'Take a look at the details in the photo to determine the location of where it was taken.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_bypass_a_security_control_with_a_poison_null_byte'
