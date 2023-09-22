@@ -384,6 +384,8 @@
   "TAG_CODE_ANALYSIS_DESCRIPTION": "Marchează provocările acolo unde poate fi utilă investigarea codului sursă al aplicației sau al unei librării terțe.",
   "TAG_WEB3": "Web3",
   "TAG_WEB3_DESCRIPTION": "Marchează provocările care încorporează concepte sau tehnologii Web3, cum ar fi Blockchain, Moneda Cripto, Contractele inteligente sau NFT.",
+  "TAG_INTERNET_TRAFFIC": "Internet Traffic",
+  "TAG_INTERNET_TRAFFIC_DESCRIPTION": "Marks challenges strictly depending on the server being able to connect with the Internet via e.g. WebSocket or JSON-RPC.",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "Broken Access Control",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "Broken Anti Automation",
   "CATEGORY_BROKEN_AUTHENTICATION": "Broken Authentication",
