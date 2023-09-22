@@ -452,5 +452,16 @@
 	"Removing the option to update multiple documents at once combined with only allowing plain strings in the ID parameter is the right call. This will prevent any attacker from injecting their own JSON payload to manipulate the query in their favor.": "Removing the option to update multiple documents at once combined with only allowing plain strings in the ID parameter is the right call. This will prevent any attacker from injecting their own JSON payload to manipulate the query in their favor.",
 	"Exact version of <a href=\"https://github.com/juice-shop/juice-shop/releases/tag/v9.3.1-PERMAFROST\">OWASP Juice Shop that was archived on 02/02/2020</a> by the GitHub Archive Program and ultimately went into the <a href=\"https://github.blog/2020-07-16-github-archive-program-the-journey-of-the-worlds-open-source-code-to-the-arctic\">Arctic Code Vault</a> on July 8. 2020 where it will be safely stored for at least 1000 years.": "Exakte Version von <a href=\"https://github.com/juice-shop/juice-shop/releases/tag/v9.3.1-PERMAFROST\">OWASP Juice Shop, die am 02.02.2020</a> vom GitHub Archive Program archiviert wurde und am 8. Juli 2020 in den <a href=\"https://github.blog/2020-07-16-github-archive-program-the-journey-of-the-worlds-open-source-code-to-the-arctic\">Arctic Code Vault</a> ging, wo sie sicher für mindestens 1000 Jahre gelagert wird.",
 	"Close multiple \"Challenge solved\"-notifications in one go.": "Schließe mehrere \"Challenge gelöst\"-Benachrichtigungen auf einmal.",
-	"Either check the official documentation or inspect a notification UI element directly.": "Schau entweder in die offizielle Dokumentation, oder inspiziere ein Benachrichtigungs-UI-Element direkt."
+	"Either check the official documentation or inspect a notification UI element directly.": "Schau entweder in die offizielle Dokumentation, oder inspiziere ein Benachrichtigungs-UI-Element direkt.",
+	"Find a form which updates the username and then construct a malicious page in the online HTML editor. You probably need an older browser version for this.": "Find a form which updates the username and then construct a malicious page in the online HTML editor. You probably need an older browser version for this.",
+	"Register a user with an empty email and password.": "Register a user with an empty email and password.",
+	"Consider intercepting and playing with the request payload.": "Consider intercepting and playing with the request payload.",
+	"Mint the Honey Pot NFT by gathering BEEs from the bee haven.": "Präge das Honey-Pot-NFT indem du BEEs aus der Bienenzuflucht sammelst.",
+	"Discover NFT wonders among the captivating visual memories.": "Entdecke NFT-Wunder zwischen den faszinierenden visuellen Erinnerungen.",
+	"Take over the wallet containing our official Soul Bound Token (NFT).": "Nimm die Brieftasche mit unserem offiziellen Soul Bound Token (NFT) in Besitz.",
+	"Find the seed phrase posted accidentally.": "Finde die versehentlich gepostete Seed-Phrase.",
+	"Withdraw more ETH from the new wallet than you deposited.": "Hebe mehr ETH von der neuen Brieftasche ab, als du hinterlegt hast.",
+	"Try to exploit the contract of the wallet.": "Versuche, den Contract der Brieftasche auszunutzen.",
+	"Find an accidentally deployed code sandbox for writing smart contracts on the fly.": "Finde eine versehentlich ausgelieferte Programmier-Sandbox zum spontanen Schreiben von Smart Contracts.",
+	"It is just as easy as finding the Score Board.": "Es ist genauso einfach wie die Punkteübersicht zu finden."
 }
