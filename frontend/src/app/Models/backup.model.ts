@@ -10,5 +10,5 @@ export interface Backup {
   continueCodeFixIt?: string
   language?: string
   banners?: { welcomeBannerStatus?: string, cookieConsentStatus?: string }
-  scoreBoard?: { showOnlyTutorialChallenges?: boolean, displayedChallengeCategories?: string[], displayedDifficulties?: number[], showDisabledChallenges?: boolean, showSolvedChallenges?: boolean }
+  scoreBoard?: { scoreBoardVersion?: string, showOnlyTutorialChallenges?: boolean, displayedChallengeCategories?: string[], displayedDifficulties?: number[], showDisabledChallenges?: boolean, showSolvedChallenges?: boolean }
 }
