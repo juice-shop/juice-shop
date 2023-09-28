@@ -72,8 +72,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest] # FIXME: Removed "windows-latest" due to 'Error: ENOENT: no such file or directory, open' error breaking at least on Node 20.5.0 constantly
-        node-version: [16, 18, 20.5]
+        os: [ubuntu-latest, macos-latest] # FIXME: Removed "windows-latest" due to 'Error: ENOENT: no such file or directory, open' error breaking at least on Node 20.0 constantly
+        node-version: [16, 18, 20]
     steps:
       - name: "Check out Git repository"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16')
@@ -118,13 +118,13 @@ jobs:
         stability: ["stable"]
         # todo(@J12934) ignore failures for node.js 20 until https://github.com/juice-shop/juice-shop/issues/2068 is resolved
         include:
-          - node-version: 20.5
+          - node-version: 20
             os: ubuntu-latest
             stability: "unstable"
-          - node-version: 20.5
+          - node-version: 20
             os: windows-latest
             stability: "unstable"
-          - node-version: 20.5
+          - node-version: 20
             os: macos-latest
             stability: "unstable"
     steps:
