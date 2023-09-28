@@ -24,6 +24,7 @@ export class LocalBackupService {
     const backup: Backup = { version: this.VERSION }
 
     backup.scoreBoard = {
+      scoreBoardVersion: localStorage.getItem('score-board-version') ? JSON.parse(String(localStorage.getItem('score-board-version'))) : undefined,
       displayedDifficulties: localStorage.getItem('displayedDifficulties') ? JSON.parse(String(localStorage.getItem('displayedDifficulties'))) : undefined,
       showSolvedChallenges: localStorage.getItem('showSolvedChallenges') ? JSON.parse(String(localStorage.getItem('showSolvedChallenges'))) : undefined,
       showDisabledChallenges: localStorage.getItem('showDisabledChallenges') ? JSON.parse(String(localStorage.getItem('showDisabledChallenges'))) : undefined,
@@ -60,6 +61,7 @@ export class LocalBackupService {
       const backup: Backup = JSON.parse(backupData)
 
       if (backup.version === this.VERSION) {
+        this.restoreLocalStorage('score-board-version', backup.scoreBoard?.scoreBoardVersion)
         this.restoreLocalStorage('displayedDifficulties', backup.scoreBoard?.displayedDifficulties)
         this.restoreLocalStorage('showSolvedChallenges', backup.scoreBoard?.showSolvedChallenges)
         this.restoreLocalStorage('showDisabledChallenges', backup.scoreBoard?.showDisabledChallenges)
