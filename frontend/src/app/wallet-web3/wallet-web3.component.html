@@ -1,6 +1,6 @@
 <mat-card class="mat-elevation-z6">
   <div class="header_container">
-    <h1>Crypto Wallet</h1>
+    <h1>{{"CRYPTO_WALLET" | translate}}</h1>
     <div class="metamask-button">
       <button
         mat-raised-button
@@ -8,7 +8,7 @@
         type="button"
         (click)="handleAuth()"
       >
-        <span *ngIf="!session">Connect your MetaMask</span>
+        <span *ngIf="!session">{{"BTN_CONNECT_METAMASK" | translate}}</span>
         <span *ngIf="session"
           >{{ userData.address.substring(0, 6) }}...{{
             userData.address.slice(-6)
@@ -19,16 +19,16 @@
   </div>
   <p>
     <b>
-      <span>Your Wallet Balance:</span>
+      <span translate>LABEL_WALLET_BALANCE</span>
       <span class="confirmation"> {{ walletBalance }} ETH</span>
     </b>
   </p>
   <div>
     <mat-form-field style="width: 100%" color="accent" appearance="outline">
-      <mat-label>Enter amount:</mat-label>
+      <mat-label>{{'LABEL_AMOUNT' | translate}}</mat-label>
       <input
         matInput
-        placeholder="Enter ether amount to deposit/withdraw"
+        [placeholder]="'ENTER_ETHER_AMOUNT' | translate"
         type="number"
         id="inputAmount"
         [(ngModel)]="inputAmount"
@@ -46,7 +46,10 @@
       aria-label="Button to deposit"
       (click)="depositETH()"
     >
-      Deposit
+      <i class="material-icons">
+        send
+      </i>
+      {{'BTN_DEPOSIT' | translate}}
     </button>
     <button
       type="submit"
@@ -56,7 +59,10 @@
       aria-label="Button to withdraw"
       (click)="withdrawETH()"
     >
-      Withdraw
+      <i class="material-icons">
+        call_received
+      </i>
+      {{'BTN_WITHDRAW' | translate}}
     </button>
   </div>
 </mat-card>
