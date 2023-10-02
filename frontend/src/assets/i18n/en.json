@@ -440,5 +440,12 @@
   "FEATURE_FLAG_DEFAULT_SCORE_BOARD_NAME": "Default Score Board",
   "FEATURE_FLAG_DEFAULT_SCORE_BOARD_DESCRIPTION": "Choose Score Board version to be linked in the sidebar",
   "FEATURE_FLAG_DEFAULT_SCORE_BOARD_VALUE_OLD": "Old Score Board",
-  "FEATURE_FLAG_DEFAULT_SCORE_BOARD_VALUE_NEW": "Preview Score Board"
+  "FEATURE_FLAG_DEFAULT_SCORE_BOARD_VALUE_NEW": "Preview Score Board",
+  "LINK_TRY_OUT_NEW_CRYPTO_WALLET": "Try out our new crypto wallet",
+  "CRYPTO_WALLET": "Crypto Wallet",
+  "BTN_CONNECT_METAMASK": "Connect your MetaMask",
+  "BTN_DEPOSIT": "Deposit",
+  "BTN_WITHDRAW": "Withdraw",
+  "ENTER_ETHER_AMOUNT": "Enter ether amount to deposit/withdraw",
+  "PLEASE_INSTALL_WEB3_WALLET": "Please install a Web3 wallet like MetaMask to proceed."
 }

@@ -104,10 +104,7 @@ export class WalletWeb3Component {
         await disconnect()
       }
       if (!window.ethereum) {
-        this.snackBarHelperService.open(
-          'Please install a Web3 Wallet like Metamask to proceed.',
-          'errorBar'
-        )
+        this.snackBarHelperService.open('PLEASE_INSTALL_WEB3_WALLET', 'errorBar')
         return
       }
 
