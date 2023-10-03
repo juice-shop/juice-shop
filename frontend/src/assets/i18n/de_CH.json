@@ -440,5 +440,13 @@
   "FEATURE_FLAG_DEFAULT_SCORE_BOARD_NAME": "Standardmäßige Punkteübersicht",
   "FEATURE_FLAG_DEFAULT_SCORE_BOARD_DESCRIPTION": "Wähle die in der Seitenleiste zu verlinkende Punkteübersicht",
   "FEATURE_FLAG_DEFAULT_SCORE_BOARD_VALUE_OLD": "Alte Punkteübersicht",
-  "FEATURE_FLAG_DEFAULT_SCORE_BOARD_VALUE_NEW": "Vorschau-Punkteübersicht"
+  "FEATURE_FLAG_DEFAULT_SCORE_BOARD_VALUE_NEW": "Vorschau-Punkteübersicht",
+  "LINK_TRY_OUT_NEW_CRYPTO_WALLET": "Probiere unsere neue Krypto-Brieftasche aus",
+  "CRYPTO_WALLET": "Krypto-Brieftasche",
+  "BTN_CONNECT_METAMASK": "Verbinde Deine MetaMask",
+  "BTN_DEPOSIT": "Einzahlen",
+  "BTN_WITHDRAW": "Abheben",
+  "ENTER_ETHER_AMOUNT": "Ether-Betrag für Einzahlung/Auszahlung eingeben",
+  "PLEASE_INSTALL_WEB3_WALLET": "Bitte installiere eine Web3-Wallet wie MetaMask um fortzufahren.",
+  "PLEASE_CONNECT_TO_SEPOLIA_NETWORK": "Bitte verbinde Dich mit dem Sepolia-Netzwerk"
 }
