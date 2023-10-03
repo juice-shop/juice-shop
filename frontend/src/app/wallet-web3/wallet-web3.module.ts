@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 import { WalletWeb3Component } from './wallet-web3.component'
+import { TranslateModule } from '@ngx-translate/core'
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    TranslateModule,
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
