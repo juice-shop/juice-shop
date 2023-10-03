@@ -440,5 +440,13 @@
   "FEATURE_FLAG_DEFAULT_SCORE_BOARD_NAME": "默认得分板",
   "FEATURE_FLAG_DEFAULT_SCORE_BOARD_DESCRIPTION": "选择要在侧边栏链接的得分板版本",
   "FEATURE_FLAG_DEFAULT_SCORE_BOARD_VALUE_OLD": "旧得分板",
-  "FEATURE_FLAG_DEFAULT_SCORE_BOARD_VALUE_NEW": "得分板预览"
+  "FEATURE_FLAG_DEFAULT_SCORE_BOARD_VALUE_NEW": "得分板预览",
+  "LINK_TRY_OUT_NEW_CRYPTO_WALLET": "Try out our new crypto wallet",
+  "CRYPTO_WALLET": "Crypto Wallet",
+  "BTN_CONNECT_METAMASK": "Connect your MetaMask",
+  "BTN_DEPOSIT": "Deposit",
+  "BTN_WITHDRAW": "Withdraw",
+  "ENTER_ETHER_AMOUNT": "Enter ether amount to deposit/withdraw",
+  "PLEASE_INSTALL_WEB3_WALLET": "Please install a Web3 wallet like MetaMask to proceed.",
+  "PLEASE_CONNECT_TO_SEPOLIA_NETWORK": "Please connect to the Sepolia Network"
 }
