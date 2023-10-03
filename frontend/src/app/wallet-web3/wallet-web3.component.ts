@@ -147,10 +147,7 @@ export class WalletWeb3Component {
 
       if (provider && currentChainId !== targetChainId) {
         this.session = false
-        this.snackBarHelperService.open(
-          'Please connect to the Sepolia Network',
-          'errorBar'
-        )
+        this.snackBarHelperService.open('PLEASE_CONNECT_TO_SEPOLIA_NETWORK', 'errorBar')
       } else {
         this.session = true
         this.getUserEthBalance()

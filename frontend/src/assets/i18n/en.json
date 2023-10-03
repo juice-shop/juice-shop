@@ -447,5 +447,6 @@
   "BTN_DEPOSIT": "Deposit",
   "BTN_WITHDRAW": "Withdraw",
   "ENTER_ETHER_AMOUNT": "Enter ether amount to deposit/withdraw",
-  "PLEASE_INSTALL_WEB3_WALLET": "Please install a Web3 wallet like MetaMask to proceed."
+  "PLEASE_INSTALL_WEB3_WALLET": "Please install a Web3 wallet like MetaMask to proceed.",
+  "PLEASE_CONNECT_TO_SEPOLIA_NETWORK": "Please connect to the Sepolia Network"
 }
