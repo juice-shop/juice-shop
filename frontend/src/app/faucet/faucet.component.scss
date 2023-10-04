@@ -28,9 +28,10 @@
   padding: 8px;
   text-align: center;
   width: 100%;
-
+  justify-content: center;
   span {
-    width: 70%;
+    text-align: center;
+    flex-grow: 1;
   }
 }
 
@@ -45,13 +46,12 @@
 }
 
 .metamask-button {
-  float: right;
   margin: 16px;
-  width: 30%;
+  margin-left: auto;
 
   button {
     padding: 8px 6px;
-    width: 250px;
+    width: 220px;
   }
 }
 
@@ -106,4 +106,21 @@
   font-weight: 500;
   margin-top: 32px;
   padding: 16px 48px;
+}
+@media (max-width: 1100px) {
+.container {
+  flex-direction: column;
+}
+.honeypot-container{
+  margin-bottom: 40px;
+  // width: 75%;
+}
+.faucet-balance {
+  flex-direction: column;
+  padding: 24px 0;
+}
+.metamask-button {
+  margin: auto;
+  margin-top: 16px;
+}
 }
