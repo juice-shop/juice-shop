@@ -17,7 +17,7 @@ const checkInternetConnected = require('check-internet-connected')
 const access = promisify(fs.access)
 
 const domainDependencies = {
-  'https://infura.io': ['"Mint the Honeypot" challenge', '"Wallet Depletion" challenge']
+  'https://www.alchemy.com/': ['"Mint the Honeypot" challenge', '"Wallet Depletion" challenge']
 }
 
 const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
