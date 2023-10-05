@@ -194,7 +194,7 @@
   "ADD_BASKET": "أضف إلى السلة",
   "BTN_SHOW_ALL": "إظهار الكل",
   "BTN_SHOW_UNAVAILABLE": "العرض غير متوفر",
-  "INFO_DISABLED_CHALLENGES": "{{num}} التحديات غير متوفرة على {{env}}\nلأجل <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'> اهتمامات امنية</a>\nاو عدم توافق تقني!",
+  "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/companion-guide/latest/part1/challenges.html#_potentially_dangerous_challenges'>security concerns</a> or technical incompatibility!",
   "SHOW_DISABLED_CHALLENGES": "Show them anyways",
   "HIDE_DISABLED_CHALLENGES": "Hide disabled challenges",
   "BTN_HIDE_ALL": "إخفاء الكل",
