@@ -113,7 +113,7 @@
 }
 .honeypot-container{
   margin-bottom: 40px;
-  // width: 75%;
+  width: auto;
 }
 .faucet-balance {
   flex-direction: column;
@@ -122,5 +122,22 @@
 .metamask-button {
   margin: auto;
   margin-top: 16px;
+}
+}
+@media (min-width: 580px ) and (max-width: 1100px) {
+
+}
+@media (max-width: 580px) {
+.faucet-container, .honeypot-container{
+  padding: 30px 30px;
+}
+.honeypot-image {
+  width: 240px;
+  height: 240px;
+
+}
+.honeypot-image > img {
+  width: 220px;
+  height: 220px;
 }
 }
