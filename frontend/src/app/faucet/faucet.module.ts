@@ -10,6 +10,9 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 import { FaucetComponent } from './faucet.component'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
+import { HttpClient } from '@angular/common/http'
+import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 
 const routes: Routes = [
   {
@@ -18,11 +21,24 @@ const routes: Routes = [
   }
 ]
 
+export function HttpLoaderFactory (http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json')
+}
+
 @NgModule({
   declarations: [FaucetComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    TranslateModule.forRoot(
+      {
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+        }
+      }
+    ),
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
