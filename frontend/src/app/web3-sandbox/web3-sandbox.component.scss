@@ -31,11 +31,13 @@
   .sandbox-container_body {
     flex-direction: column;
   }
+
   .sandbox-container_body_left,
   .sandbox-container_body_right {
     width: 100%;
   }
 }
+
 .deployedaddresstext {
   color: rgb(45, 151, 45);
   font-weight: 600;
