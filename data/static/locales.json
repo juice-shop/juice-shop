@@ -3,6 +3,7 @@
   { "key": "ar_SA", "icons": ["ae", "tn"], "shortKey": "AR", "lang": "عربى" },
   { "key": "az_AZ", "icons": ["az"], "shortKey": "AZ", "lang": "Azərbaycanca" },
   { "key": "bg_BG", "icons": ["bg"], "shortKey": "BG", "lang": "български (език)" },
+  { "key": "bn_BD", "icons": ["bd"], "shortKey": "BD", "lang": "বাংলা" },
   { "key": "ca_ES", "icons": ["es-ct"], "shortKey": "CA", "lang": "Catalan" },
   { "key": "cs_CZ", "icons": ["cz"], "shortKey": "CS", "lang": "Česky" },
   { "key": "da_DK", "icons": ["dk"], "shortKey": "DA", "lang": "Dansk" },
