@@ -194,7 +194,7 @@
   "ADD_BASKET": "Adicionar ao carrinho",
   "BTN_SHOW_ALL": "Exibir tudo",
   "BTN_SHOW_UNAVAILABLE": "Exibir indisponíveis",
-  "INFO_DISABLED_CHALLENGES": "{{num}} desafios não estão disponíveis em {{env}} devido à  <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>questões de segurança</a>  ou incompatibilidade técnica!",
+  "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/companion-guide/latest/part1/challenges.html#_potentially_dangerous_challenges'>security concerns</a> or technical incompatibility!",
   "SHOW_DISABLED_CHALLENGES": "Show them anyways",
   "HIDE_DISABLED_CHALLENGES": "Hide disabled challenges",
   "BTN_HIDE_ALL": "Ocultar tudo",
