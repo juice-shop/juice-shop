@@ -194,7 +194,7 @@
   "ADD_BASKET": "買い物かごに追加",
   "BTN_SHOW_ALL": "すべてを表示",
   "BTN_SHOW_UNAVAILABLE": "在庫切れ商品も表示する",
-  "INFO_DISABLED_CHALLENGES": "<a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>セキュリティ上の問題</a>、または、互換性の問題により、{{env}} では {{num}} 個のチャレンジが提供されません。",
+  "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/companion-guide/latest/part1/challenges.html#_potentially_dangerous_challenges'>security concerns</a> or technical incompatibility!",
   "SHOW_DISABLED_CHALLENGES": "Show them anyways",
   "HIDE_DISABLED_CHALLENGES": "Hide disabled challenges",
   "BTN_HIDE_ALL": "すべてを非表示",
