@@ -10,5 +10,5 @@
             { "mode": "auto" }
         ]
     },
-    "postCreateCommand": "export NG_CLI_ANALYTICS=ci && npm i -g @angular/cli && npm install"
+    "postCreateCommand": "export NG_CLI_ANALYTICS=ci && export NG_FORCE_TTY=false && npm i -g @angular/cli && npm install && unset NG_FORCE_TTY"
 }
