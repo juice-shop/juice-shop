@@ -13,7 +13,7 @@ module.exports.contractExploitListener = function contractExploitListener () {
     const metamaskAddress = req.body.walletAddress
     walletsConnected.add(metamaskAddress)
     try {
-      const provider = new ethers.WebSocketProvider('wss://sepolia.infura.io/ws/v3/REDACTED_INFURA_KEY')
+      const provider = new ethers.WebSocketProvider('wss://eth-sepolia.g.alchemy.com/v2/FZDapFZSs1l6yhHW4VnQqsi18qSd-3GJ')
       const contract = new ethers.Contract(web3WalletAddress, web3WalletABI, provider)
       if (!isEventListenerCreated) {
         contract.on('ContractExploited', (exploiter: string) => {
