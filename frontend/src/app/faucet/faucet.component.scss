@@ -24,14 +24,15 @@
   border-radius: 10px;
   display: flex;
   font-size: 18px;
+  justify-content: center;
   margin: 20px 0;
   padding: 8px;
   text-align: center;
   width: 100%;
-  justify-content: center;
+
   span {
-    text-align: center;
     flex-grow: 1;
+    text-align: center;
   }
 }
 
@@ -108,36 +109,38 @@
   padding: 16px 48px;
 }
 @media (max-width: 1100px) {
-.container {
-  flex-direction: column;
-}
-.honeypot-container{
-  margin-bottom: 40px;
-  width: auto;
-}
-.faucet-balance {
-  flex-direction: column;
-  padding: 24px 0;
-}
-.metamask-button {
-  margin: auto;
-  margin-top: 16px;
-}
-}
-@media (min-width: 580px ) and (max-width: 1100px) {
+  .container {
+    flex-direction: column;
+  }
 
+  .honeypot-container {
+    margin-bottom: 40px;
+    width: auto;
+  }
+
+  .faucet-balance {
+    flex-direction: column;
+    padding: 24px 0;
+  }
+
+  .metamask-button {
+    margin: auto;
+    margin-top: 16px;
+  }
 }
 @media (max-width: 580px) {
-.faucet-container, .honeypot-container{
-  padding: 30px 30px;
-}
-.honeypot-image {
-  width: 240px;
-  height: 240px;
+  .faucet-container,
+  .honeypot-container {
+    padding: 30px;
+  }
 
-}
-.honeypot-image > img {
-  width: 220px;
-  height: 220px;
-}
+  .honeypot-image {
+    height: 240px;
+    width: 240px;
+  }
+
+  .honeypot-image > img {
+    height: 220px;
+    width: 220px;
+  }
 }
