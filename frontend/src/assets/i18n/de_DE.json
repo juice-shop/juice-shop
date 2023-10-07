@@ -470,13 +470,12 @@
   "TITLE_BEE_HAVEN": "BEE-Oase",
   "BEE_HAVEN_INTRO": "Willkommen in der Bienen-Oase, dem Bienenstock für BEE Tokens! Tauche ein in die Hektik, denn unser großzügiger Bienenbesitzer teilt die Freude an Bienen mit dir. Emfange ihre großzügige Großzügigkeit mit offenen Armen, aber bedenke, dass zu viele Bienen auf einmal zu nehmen, ihre harmonische Unterkunft in Unruhe versetzen könnte.",
   "LABEL_NUMBER_OF_BEES": "Gib die Anz. BEEs ein:",
-  "LABEL_WITHDRAWAL_AMOUNT": "Textfeld für den Auszahlungsbetrag",
   "BTN_CLAIM_BEES": "BEEs einfordern",
   "BEE_HONEYPOT_TITLE": "Der verzauberte Honigtopf",
   "BEE_HONEYPOT_DESCRIPTION": "Tief im magischen Reich wartet der verzauberte Honigtopf auf seinen rechtmäßigen Besitzer. Um seine Wunder freizuschalten, musst du die Essenz des blühenden Königreichs - BEE-Tokens - eintauschen. Sammle diese mystischen Tokens in der großzügigen Bienen-Oase ein.",
-  "NFT_MINT_TEXT_INTRO": "Mint the Pot - 1000 BEE",
-  "NFT_MINT_TEXT_SUCCESS": "Minted Successfully",
-  "NFT_MINT_TEXT_AWAITING_APPROVAL": "Awaiting Approval",
-  "NFT_MINT_TEXT_CONFIRM": "Confirm Mint...",
-  "NFT_MINT_TEXT_IN_PROGRESS": "Mint in Process..."
+  "NFT_MINT_TEXT_INTRO": "Präge den Topf - 1000 BEE",
+  "NFT_MINT_TEXT_SUCCESS": "Erfolgreich geprägt",
+  "NFT_MINT_TEXT_AWAITING_APPROVAL": "Warte auf Freigabe",
+  "NFT_MINT_TEXT_CONFIRM": "Prägung bestätigen...",
+  "NFT_MINT_TEXT_IN_PROGRESS": "Prägung in Arbeit..."
 }
