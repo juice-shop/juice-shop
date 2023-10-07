@@ -26,7 +26,7 @@
         </button>
       </div>
     </div>
-    
+
     <div class="withdraw-container">
       <div>
         <mat-form-field style="width: 100%" color="accent" appearance="outline">
@@ -37,7 +37,7 @@
             type="number"
             id="withdrawAmount"
             [(ngModel)]="withdrawAmount"
-            [attr.aria-label]="'LABEL_WITHDRAWAL_AMOUNT'|translate"
+            aria-label="Text field for the withdrawal amount"
           />
         </mat-form-field>
         <h5 class="error">{{ errorMessage }}</h5>
