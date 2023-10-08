@@ -471,5 +471,6 @@
   "PRIVATE_KEY_PLACEHOLDER": "Text field for the private key",
   "BTN_AUTHENTICATE": "Authenticate",
   "LABEL_ACCOUNT_ADDRESS": "Account Address",
-  "OWNED_BY": "Owned by"
+  "OWNED_BY": "Owned by",
+  "NFT_SBT_BOX_TEXT": "Hurray! Find the Juice Shop SBT on {{link}}. This is a non-transferable token and is here to stay forever."
 }
