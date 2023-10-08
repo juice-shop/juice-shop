@@ -194,7 +194,7 @@
   "ADD_BASKET": "Přidat do Košíku",
   "BTN_SHOW_ALL": "Zobrazit vše",
   "BTN_SHOW_UNAVAILABLE": "Zobrazit nedostupné",
-  "INFO_DISABLED_CHALLENGES": "{{num}} výzvy nejsou k dispozici v {{env}} kvůli <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>bezpečnostním obavám</a> nebo technické nekompatibilitě!",
+  "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/companion-guide/latest/part1/challenges.html#_potentially_dangerous_challenges'>security concerns</a> or technical incompatibility!",
   "SHOW_DISABLED_CHALLENGES": "Show them anyways",
   "HIDE_DISABLED_CHALLENGES": "Hide disabled challenges",
   "BTN_HIDE_ALL": "Skrýt vše",

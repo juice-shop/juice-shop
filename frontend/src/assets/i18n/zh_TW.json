@@ -194,7 +194,7 @@
   "ADD_BASKET": "加入購物車",
   "BTN_SHOW_ALL": "顯示全部",
   "BTN_SHOW_UNAVAILABLE": "顯示為不可用",
-  "INFO_DISABLED_CHALLENGES": "因為<a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>安全考量</a>或相容性問題，在{{env}}環境中無法進行{{num}}挑戰",
+  "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/companion-guide/latest/part1/challenges.html#_potentially_dangerous_challenges'>security concerns</a> or technical incompatibility!",
   "SHOW_DISABLED_CHALLENGES": "Show them anyways",
   "HIDE_DISABLED_CHALLENGES": "Hide disabled challenges",
   "BTN_HIDE_ALL": "隱藏全部",
