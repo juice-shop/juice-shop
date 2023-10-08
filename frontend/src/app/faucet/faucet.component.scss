@@ -24,13 +24,15 @@
   border-radius: 10px;
   display: flex;
   font-size: 18px;
+  justify-content: center;
   margin: 20px 0;
   padding: 8px;
   text-align: center;
   width: 100%;
 
   span {
-    width: 70%;
+    flex-grow: 1;
+    text-align: center;
   }
 }
 
@@ -45,13 +47,12 @@
 }
 
 .metamask-button {
-  float: right;
   margin: 16px;
-  width: 30%;
+  margin-left: auto;
 
   button {
     padding: 8px 6px;
-    width: 250px;
+    width: 220px;
   }
 }
 
@@ -106,4 +107,40 @@
   font-weight: 500;
   margin-top: 32px;
   padding: 16px 48px;
+}
+@media (max-width: 1100px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .honeypot-container {
+    margin-bottom: 40px;
+    width: auto;
+  }
+
+  .faucet-balance {
+    flex-direction: column;
+    padding: 24px 0;
+  }
+
+  .metamask-button {
+    margin: auto;
+    margin-top: 16px;
+  }
+}
+@media (max-width: 580px) {
+  .faucet-container,
+  .honeypot-container {
+    padding: 30px;
+  }
+
+  .honeypot-image {
+    height: 240px;
+    width: 240px;
+  }
+
+  .honeypot-image > img {
+    height: 220px;
+    width: 220px;
+  }
 }

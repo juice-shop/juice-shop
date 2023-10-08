@@ -194,7 +194,7 @@
   "ADD_BASKET": "Lisa korvi",
   "BTN_SHOW_ALL": "Kuva kõik",
   "BTN_SHOW_UNAVAILABLE": "Kuba mitte saadaval",
-  "INFO_DISABLED_CHALLENGES": "{{num}} väljakutset pole {{env}} saidil saadaval seoses <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potential-dangerous-challenges'>turvaprobleemide</ a> või tehnilise sobimatuse tulemusel!",
+  "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/companion-guide/latest/part1/challenges.html#_potentially_dangerous_challenges'>security concerns</a> or technical incompatibility!",
   "SHOW_DISABLED_CHALLENGES": "Show them anyways",
   "HIDE_DISABLED_CHALLENGES": "Hide disabled challenges",
   "BTN_HIDE_ALL": "Peida kõik",

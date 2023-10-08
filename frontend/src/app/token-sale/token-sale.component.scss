@@ -18,8 +18,15 @@ $bg-heading: rgba(0, 0, 0, 0.13);
 
 .whitepaper-container.offer-container {
   max-width: 700px;
-  min-width: 400px;
+  min-width: 300px;
   width: 70%;
+}
+
+.whitepaper-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .faq-container {

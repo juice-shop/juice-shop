@@ -194,7 +194,7 @@
   "ADD_BASKET": "Sepete ekle",
   "BTN_SHOW_ALL": "Tümünü göster",
   "BTN_SHOW_UNAVAILABLE": "Olmayanları göster",
-  "INFO_DISABLED_CHALLENGES": "{{env}} labindaki {{num}}  <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>güvenlik endişeleri</a> veya teknik uyumsuzluk nedeniyle kullanılamıyor!",
+  "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/companion-guide/latest/part1/challenges.html#_potentially_dangerous_challenges'>security concerns</a> or technical incompatibility!",
   "SHOW_DISABLED_CHALLENGES": "Show them anyways",
   "HIDE_DISABLED_CHALLENGES": "Hide disabled challenges",
   "BTN_HIDE_ALL": "Tümünü gizle",
