@@ -7,7 +7,7 @@
       fxFlexAlign="center"
       translate
     >
-    BTN_SBT_NOTE
+      BTN_SBT_NOTE
     </button>
     <div
       class="detail-container offer-container"
@@ -76,13 +76,12 @@
           <div class="box-title" translate>LABEL_DESCRIPTION</div>
           <mat-divider class="detail-divider"></mat-divider>
           <p class="box-text">
-            Hurray! Find the Juice Shop SBT on
-            <a
-              target="_blank"
-              href="https://testnets.opensea.io/assets/mumbai/0xf4817631372dca68a25a18eb7a0b36d54f3dbcf7/0"
-              >Opensea here.</a
-            >
-            This is a non-transferable token and is here to stay forever.
+            {{'NFT_SBT_BOX_TEXT' | translate: {
+              link: '<a
+                target="_blank"
+                href="https://testnets.opensea.io/assets/mumbai/0xf4817631372dca68a25a18eb7a0b36d54f3dbcf7/0"
+              >Opensea</a>'
+            } }}
           </p>
         </div>
       </div>
