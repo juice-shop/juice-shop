@@ -472,7 +472,7 @@
   "BTN_AUTHENTICATE": "Authenticate",
   "LABEL_ACCOUNT_ADDRESS": "Account Address",
   "OWNED_BY": "Owned by",
-  "NFT_SBT_BOX_TEXT": "Hurray! Find the Juice Shop SBT on {{link}}. This is a non-transferable token and is here to stay forever."
+  "NFT_SBT_BOX_TEXT": "Hurray! Find the Juice Shop SBT on {{link}}. This is a non-transferable token and is here to stay forever.",
   "FAUCET_BALANCE": "Faucet Balance",
   "BEE_BALANCE": "Your BEE Balance",
   "TITLE_BEE_HAVEN": "BEE Haven",
