@@ -17,6 +17,9 @@
           type="button"
           (click)="handleAuth()"
         >
+          <i class="material-icons">
+            account_balance_wallet
+          </i>
           <span *ngIf="!session" translate>BTN_CONNECT_METAMASK</span>
           <span *ngIf="session"
             >{{ userData.address.substring(0, 6) }}...{{
@@ -47,9 +50,11 @@
         type="button"
         color="primary"
         (click)="extractBEETokens()"
-        translate
       >
-        BTN_CLAIM_BEES
+        <i class="material-icons">
+          emoji_nature
+        </i>
+        {{ "BTN_CLAIM_BEES" | translate }}
       </button>
     </div>
   </mat-card>
@@ -68,6 +73,9 @@
       fxFlexAlign="center"
       (click)="mintNFT()"
     >
+      <i class="material-icons">
+        image
+      </i>
       {{ nftMintText }}
     </button>
   </mat-card>
