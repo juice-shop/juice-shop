@@ -5,8 +5,9 @@
       mat-raised-button
       color="warn"
       fxFlexAlign="center"
+      translate
     >
-      Note: Never reveal your personal private keys and seed phrase to anyone
+      BTN_SBT_NOTE
     </button>
     <div
       class="detail-container offer-container"
@@ -19,7 +20,7 @@
       </div>
       <div *ngIf="!successResponse">
         <div>
-          <mat-card-title>Juicy Chatbot SBT</mat-card-title>
+          <mat-card-title translate>TITLE_SBT</mat-card-title>
         </div>
         <form (ngSubmit)="submitForm()">
           <div class="form-group">
@@ -28,7 +29,7 @@
               color="accent"
               appearance="outline"
             >
-              <mat-label>Enter Private Key</mat-label>
+              <mat-label translate>LABEL_PRIVATE_KEY</mat-label>
               <input
                 matInput
                 [(ngModel)]="privateKey"
@@ -47,17 +48,18 @@
             class="btn btn-primary"
             mat-raised-button
             color="accent"
+            translate
           >
-            Authenticate
+            BTN_AUTHENTICATE
           </button>
         </form>
       </div>
       <div *ngIf="successResponse">
         <div>
-          <mat-card-title>Juicy Chatbot SBT</mat-card-title>
+          <mat-card-title translate>TITLE_SBT</mat-card-title>
         </div>
         <div class="owner-text">
-          Owned by
+          {{'OWNED_BY' | translate}}
           <a
             target="_blank"
             href="https://testnets.opensea.io/0x8343d2eb2B13A2495De435a1b15e85b98115Ce05"
@@ -66,21 +68,20 @@
         </div>
         <mat-divider class="detail-divider"></mat-divider>
         <div class="detail-box mat-elevation-z6">
-          <div class="box-title">Account Address</div>
+          <div class="box-title" translate>LABEL_ACCOUNT_ADDRESS</div>
           <mat-divider class="detail-divider"></mat-divider>
           <p class="box-text">0x8343d2eb2B13A2495De435a1b15e85b98115Ce05</p>
         </div>
         <div class="detail-box mat-elevation-z6">
-          <div class="box-title">Description</div>
+          <div class="box-title" translate>LABEL_DESCRIPTION</div>
           <mat-divider class="detail-divider"></mat-divider>
           <p class="box-text">
-            Hurray! Find the Juice Shop SBT on
-            <a
-              target="_blank"
-              href="https://testnets.opensea.io/assets/mumbai/0xf4817631372dca68a25a18eb7a0b36d54f3dbcf7/0"
-              >Opensea here.</a
-            >
-            This is a non-transferable token and is here to stay forever.
+            {{'NFT_SBT_BOX_TEXT' | translate: {
+              link: '<a
+                target="_blank"
+                href="https://testnets.opensea.io/assets/mumbai/0xf4817631372dca68a25a18eb7a0b36d54f3dbcf7/0"
+              >Opensea</a>'
+            } }}
           </p>
         </div>
       </div>
