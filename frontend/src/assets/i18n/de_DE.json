@@ -194,7 +194,7 @@
   "ADD_BASKET": "Zum Warenkorb hinzufügen",
   "BTN_SHOW_ALL": "Alle anzeigen",
   "BTN_SHOW_UNAVAILABLE": "Nicht verfügbare anzeigen",
-  "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/companion-guide/latest/part1/challenges.html#_potentially_dangerous_challenges'>security concerns</a> or technical incompatibility!",
+  "INFO_DISABLED_CHALLENGES": "{{num}} Herausforderungen sind in einer {{env}}-Umgebung wegen <a href='https://pwning.owasp-juice.shop/companion-guide/latest/part1/challenges.html#_potentially_dangerous_challenges'>Sicherheitsbedenken</a> oder technischer Inkompatibilität nicht verfügbar!",
   "SHOW_DISABLED_CHALLENGES": "Trotzdem anzeigen",
   "HIDE_DISABLED_CHALLENGES": "Deaktivierte Herausforderungen ausblenden",
   "BTN_HIDE_ALL": "Alle ausblenden",
@@ -464,5 +464,18 @@
   "TITLE_INTERACT_WITH_CONTRACT": "Mit Vertrag interagieren",
   "BTN_INVOKE": "Aufrufen von",
   "LABEL_OUTPUT_FOR": "Ausgabe für",
-  "LABEL_OUTPUT": "Ausgabe"
+  "LABEL_OUTPUT": "Ausgabe",
+  "FAUCET_BALANCE": "Faucet Saldo",
+  "BEE_BALANCE": "Dein BEE-Saldo",
+  "TITLE_BEE_HAVEN": "BEE-Oase",
+  "BEE_HAVEN_INTRO": "Willkommen in der Bienen-Oase, dem Bienenstock für BEE Tokens! Tauche ein in die Hektik, denn unser großzügiger Bienenbesitzer teilt die Freude an Bienen mit dir. Emfange ihre großzügige Großzügigkeit mit offenen Armen, aber bedenke, dass zu viele Bienen auf einmal zu nehmen, ihre harmonische Unterkunft in Unruhe versetzen könnte.",
+  "LABEL_NUMBER_OF_BEES": "Gib die Anz. BEEs ein:",
+  "BTN_CLAIM_BEES": "BEEs einfordern",
+  "BEE_HONEYPOT_TITLE": "Der verzauberte Honigtopf",
+  "BEE_HONEYPOT_DESCRIPTION": "Tief im magischen Reich wartet der verzauberte Honigtopf auf seinen rechtmäßigen Besitzer. Um seine Wunder freizuschalten, musst du die Essenz des blühenden Königreichs - BEE-Tokens - eintauschen. Sammle diese mystischen Tokens in der großzügigen Bienen-Oase ein.",
+  "NFT_MINT_TEXT_INTRO": "Präge den Topf - 1000 BEE",
+  "NFT_MINT_TEXT_SUCCESS": "Erfolgreich geprägt",
+  "NFT_MINT_TEXT_AWAITING_APPROVAL": "Warte auf Freigabe",
+  "NFT_MINT_TEXT_CONFIRM": "Prägung bestätigen...",
+  "NFT_MINT_TEXT_IN_PROGRESS": "Prägung in Arbeit..."
 }
