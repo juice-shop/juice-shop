@@ -75,7 +75,7 @@ describe('redirect', () => {
   })
 
   it('tricking the allowlist should solve "redirectChallenge"', () => {
-    req.query.to = 'http://kimminich.de?to=https://github.com/bkimminich/juice-shop'
+    req.query.to = 'http://kimminich.de?to=https://github.com/juice-shop/juice-shop'
     challenges.redirectChallenge = { solved: false, save }
 
     performRedirect()(req, res)
