@@ -2,7 +2,7 @@
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
-    "module": "es2022",
+    "module": "es2020",
     "allowSyntheticDefaultImports": true,
     "types": [
       "jasmine",

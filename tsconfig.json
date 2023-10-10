@@ -4,7 +4,7 @@
     "outDir": "./build",
     "allowJs": true,
     "module": "commonjs",
-    "target": "es2018",
+    "target": "es2020",
     "moduleResolution": "node",
     "sourceMap": true,
     "strict": true,
@@ -13,7 +13,7 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "lib": [
-      "es2018",
+      "es2020",
       "dom"
     ]
   },
