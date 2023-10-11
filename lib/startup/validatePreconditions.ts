@@ -13,7 +13,12 @@ const process = require('process')
 const semver = require('semver')
 const portscanner = require('portscanner')
 const fs = require('fs')
+const checkInternetConnected = require('check-internet-connected')
 const access = promisify(fs.access)
+
+const domainDependencies = {
+  'https://www.alchemy.com/': ['"Mint the Honeypot" challenge', '"Wallet Depletion" challenge']
+}
 
 const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
   let success = true
@@ -29,7 +34,8 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
     checkIfRequiredFileExists('frontend/dist/frontend/polyfills.js'),
     checkIfRequiredFileExists('frontend/dist/frontend/runtime.js'),
     checkIfRequiredFileExists('frontend/dist/frontend/vendor.js'),
-    checkIfPortIsAvailable(process.env.PORT || config.get('server.port'))
+    checkIfPortIsAvailable(process.env.PORT || config.get('server.port')),
+    checkIfDomainReachable('https://www.alchemy.com/')
   ])).every(condition => condition)
 
   if ((!success || !asyncConditions) && exitOnFailure) {
@@ -68,6 +74,22 @@ const checkIfRunningOnSupportedCPU = (runningArch: string) => {
   }
   logger.info(`Detected CPU ${colors.bold(runningArch)} (${colors.green('OK')})`)
   return true
+}
+
+const checkIfDomainReachable = async (domain: string) => {
+  return checkInternetConnected({ domain })
+    .then(() => {
+      logger.info(`Domain ${colors.bold(domain)} is reachable (${colors.green('OK')})`)
+      return true
+    })
+    .catch(() => {
+      logger.warn(`Domain ${colors.bold(domain)} is not reachable (${colors.yellow('NOT OK')} in a future major release)`)
+      // @ts-expect-error FIXME Type problem by accessing key via variable
+      domainDependencies[domain].forEach((dependency: string) => {
+        logger.warn(`${colors.italic(dependency)} will not work as intended without access to ${colors.bold(domain)}`)
+      })
+      return true // TODO Consider switching to "false" with breaking release v16.0.0 or later
+    })
 }
 
 const checkIfPortIsAvailable = async (port: number) => {

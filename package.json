@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "15.2.1",
+  "version": "15.3.0-SNAPSHOT",
   "private": true,
   "description": "Probably the most modern and sophisticated insecure web application",
   "keywords": [
@@ -114,6 +114,7 @@
   "dependencies": {
     "body-parser": "^1.20.2",
     "check-dependencies": "^1.1.0",
+    "check-internet-connected": "^2.0.6",
     "clarinet": "^0.12.5",
     "colors": "1.4.0",
     "compression": "^1.7.4",
@@ -249,7 +250,6 @@
     "jasmine-reporters": "^2.5.0",
     "jest": "^26.6.3",
     "mocha": "^8.1.1",
-    "node-fetch": "^2.6.13",
     "nyc": "^15.1.0",
     "shelljs": "^0.8.4",
     "sinon": "^11.1.2",
@@ -259,6 +259,9 @@
     "ts-jest": "^26.5.0",
     "ts-node": "^10.8.0",
     "typescript": "~4.6.0"
+  },
+  "override": {
+    "node-fetch": "~2.6.13"
   },
   "engines": {
     "node": "16 - 20"

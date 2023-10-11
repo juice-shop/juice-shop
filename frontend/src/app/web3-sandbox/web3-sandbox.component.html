@@ -1,7 +1,7 @@
 <div class="sandbox-container mat-elevation-z6">
   <div class="sandbox-container_body">
     <div class="sandbox-container_body_left">
-      <div class="editor-title">Contract Editor</div>
+      <div class="editor-title">{{"TITLE_CONTRACT_EDITOR" | translate}}</div>
       <ngx-codemirror
         [(ngModel)]="code"
         [options]="editorOptions"
@@ -16,7 +16,7 @@
             type="button"
             (click)="handleAuth()"
           >
-            <span *ngIf="!session">Connect your MetaMask</span>
+            <span *ngIf="!session">{{"BTN_CONNECT_METAMASK" | translate}}</span>
             <span *ngIf="session"
               >{{ userData.address.substring(0, 6) }}...{{
                 userData.address.slice(-6)
@@ -25,16 +25,13 @@
           </button>
         </div>
       </div>
-      <h2>Web3 Code Sandbox</h2>
+      <h2 translate>TITLE_WEB3_SANDBOX</h2>
       <ul>
-        <li>Easily compile/deploy and invoke smart contracts from below.</li>
-        <li>
-          You can pass ETH to the contract both while invoking/deploying by
-          entering the GWEI Value post compilation
-        </li>
+        <li translate>EXPLANATION_SMART_CONTRACT_DEPLOYMENT</li>
+        <li translate>EXPLANATION_GWEI_VALUE_POST_COMPILATION</li>
       </ul>
       <mat-form-field appearance="outline" color="accent">
-        <mat-label>Select Compiler Version</mat-label>
+        <mat-label>{{ "LABEL_SELECT_COMPILER_VERSION" | translate}}</mat-label>
         <select matNativeControl [(ngModel)]="selectedCompilerVersion">
           <option *ngFor="let version of compilerVersions" [value]="version">
             {{ version }}
@@ -46,7 +43,10 @@
         mat-raised-button
         (click)="compileAndFetchContracts(code)"
       >
-        Compile Contract
+        <i class="material-icons">
+          build
+        </i>
+        {{ "BTN_COMPILE_CONTRACT" | translate}}
       </button>
       <div *ngIf="compilerErrors.length > 0" class="error-container mat-elevation-z6">
         <h4>Compiler Errors:</h4>
@@ -57,13 +57,13 @@
         </ul>
       </div>
       <div *ngIf="compiledContracts">
-        <h3 class="contracts-title">Contract to Deploy:</h3>
+        <h3 class="contracts-title">{{ "TITLE_CONTRACT_DEPLOYMENT" | translate}}</h3>
         <mat-form-field
           style="width: 45%; margin-right: 10%"
           appearance="outline"
           color="accent"
         >
-          <mat-label>Compiled Contracts</mat-label>
+          <mat-label>{{ "LABEL_COMPILED_CONTRACTS" | translate}}</mat-label>
           <select matNativeControl [(ngModel)]="selectedContractName">
             <option
               *ngFor="let contractName of contractNames"
@@ -77,7 +77,7 @@
           <input
             matInput
             type="number"
-            placeholder="GWEI value for sending ETH"
+            [placeholder]="'GWEI_VALUE_FOR_SENDING_ETH' | translate"
             [(ngModel)]="commonGweiValue"
           />
         </mat-form-field>
@@ -86,14 +86,17 @@
           type="button"
           (click)="deploySelectedContract()"
         >
-          Deploy Selected Contract
+          <i class="material-icons">
+            link
+          </i>
+          {{ "BTN_DEPLOY_SELECTED_CONTRACT" | translate}}
         </button>
       </div>
       <div class="deployedaddresstext" *ngIf="deployedContractAddress">
-        Contract Address: {{ deployedContractAddress }}
+        {{ "LABEL_CONTRACT_ADDRESS" | translate }} {{ deployedContractAddress }}
       </div>
       <div class="invokecontainer mat-elevation-z6" *ngIf="deployedContractAddress">
-        <h3>Interact with Contract</h3>
+        <h3 translate>TITLE_INTERACT_WITH_CONTRACT</h3>
         <div *ngFor="let func of contractFunctions">
           <div class="function-container">
             <ng-container *ngIf="func.inputs.length > 0; else noInputs">
@@ -103,7 +106,10 @@
                   type="button"
                   (click)="invokeFunction(func)"
                 >
-                  Invoke {{ func.name }}
+                  <i class="material-icons">
+                    call_to_action
+                  </i>
+                  {{ "BTN_INVOKE" | translate}} {{ func.name }}
                 </button>
                 <mat-form-field appearance="outline" color="accent">
                   <textarea
@@ -117,7 +123,7 @@
                 </mat-form-field>
               </div>
               <div class="invoke-output" *ngIf="func.outputValue !== ''">
-                Output for {{ func.name }}: {{ func.outputValue }}
+                {{ "LABEL_OUTPUT_FOR" | translate }} {{ func.name }}: {{ func.outputValue }}
               </div>
             </ng-container>
             <ng-template #noInputs>
@@ -127,17 +133,20 @@
                   type="button"
                   (click)="invokeFunction(func)"
                 >
-                  Invoke {{ func.name }}
+                  <i class="material-icons">
+                    call_to_action
+                  </i>
+                  {{ "BTN_INVOKE" | translate}} {{ func.name }}
                 </button>
                 <div class="invoke-output" *ngIf="func.outputValue !== ''">
-                  Output for {{ func.name }}: {{ func.outputValue }}
+                  {{ "LABEL_OUTPUT_FOR" | translate }} {{ func.name }}: {{ func.outputValue }}
                 </div>
               </div>
             </ng-template>
           </div>
         </div>
         <div class="output-container mat-elevation-z6">
-          <div *ngIf="invokeOutput !== ''">Output: {{ invokeOutput }}</div>
+          <div *ngIf="invokeOutput !== ''">{{ "LABEL_OUTPUT" | translate}}: {{ invokeOutput }}</div>
         </div>
       </div>
     </div>
