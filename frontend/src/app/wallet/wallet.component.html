@@ -7,7 +7,7 @@
 
     <div class="header_container">
       <h1>{{"DIGITAL_WALLET" | translate}}</h1>
-      <a href="/#/wallet-web3">Try out our new crypto wallet</a>
+      <a href="/#/wallet-web3" translate>LINK_TRY_OUT_NEW_CRYPTO_WALLET</a>
     </div>
 
     <h3 translate>LABEL_ADD_MONEY</h3>
@@ -31,8 +31,8 @@
     <button type="submit" id="submitButton" (click)="continue()" [disabled]="balanceControl.invalid"
             mat-raised-button color="primary" aria-label="Button to continue to payment">
       <i class="material-icons">
-        send
+        monetization_on
       </i>
-      {{'LABEL_CONTINUE' | translate}}
+      {{'BTN_DEPOSIT' | translate}}
     </button>
 </mat-card>

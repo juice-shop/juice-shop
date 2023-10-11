@@ -14,6 +14,7 @@ import { CodemirrorModule } from '@ctrl/ngx-codemirror'
 import 'codemirror/mode/javascript/javascript'
 import 'codemirror/mode/markdown/markdown'
 import 'codemirror-solidity/solidity'
+import { TranslateModule } from '@ngx-translate/core'
 
 const routes: Routes = [
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
     CodemirrorModule,
     CommonModule,
     RouterModule.forChild(routes),
+    TranslateModule,
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
