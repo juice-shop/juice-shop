@@ -13,7 +13,7 @@
       "node_modules/@types"
     ],
     "lib": [
-      "es2022",
+      "es2020",
       "dom"
     ]
   }
