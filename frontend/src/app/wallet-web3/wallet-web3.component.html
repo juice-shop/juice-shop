@@ -8,6 +8,9 @@
         type="button"
         (click)="handleAuth()"
       >
+        <i class="material-icons">
+          account_balance_wallet
+        </i>
         <span *ngIf="!session">{{"BTN_CONNECT_METAMASK" | translate}}</span>
         <span *ngIf="session"
           >{{ userData.address.substring(0, 6) }}...{{

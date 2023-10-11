@@ -12,7 +12,7 @@
   display: flex;
   gap: 16px;
   max-width: 700px;
-  min-width: 400px;
+  min-width: 300px;
   width: 70%;
 }
 
@@ -26,6 +26,7 @@
   justify-content: center;
   padding: 16px;
   text-align: center;
+  white-space: normal;
 }
 
 .title {
@@ -58,6 +59,7 @@ mat-card:nth-child(1) {
 
 .box-text {
   margin-top: 8px;
+  overflow-wrap: break-word;
 }
 
 .form-group {
