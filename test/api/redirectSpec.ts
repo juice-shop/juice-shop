@@ -9,8 +9,8 @@ import config from 'config'
 const URL = 'http://localhost:3000'
 
 describe('/redirect', () => {
-  it('GET redirected to https://github.com/bkimminich/juice-shop when this URL is passed as "to" parameter', () => {
-    return frisby.get(`${URL}/redirect?to=https://github.com/bkimminich/juice-shop`, { redirect: 'manual' })
+  it('GET redirected to https://github.com/juice-shop/juice-shop when this URL is passed as "to" parameter', () => {
+    return frisby.get(`${URL}/redirect?to=https://github.com/juice-shop/juice-shop`, { redirect: 'manual' })
       .expect('status', 302)
   })
 
@@ -73,7 +73,7 @@ describe('/redirect', () => {
   })
 
   it('GET redirected to target URL in "to" parameter when a allow-listed URL is part of the query string', () => {
-    return frisby.get(`${URL}/redirect?to=/score-board?satisfyIndexOf=https://github.com/bkimminich/juice-shop`)
+    return frisby.get(`${URL}/redirect?to=/score-board?satisfyIndexOf=https://github.com/juice-shop/juice-shop`)
       .expect('status', 200)
       .expect('header', 'content-type', /text\/html/)
       .expect('bodyContains', 'main.js')

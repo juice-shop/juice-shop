@@ -27,6 +27,16 @@
     width: 30%;
   }
 }
+@media (max-width: 840px) {
+  .sandbox-container_body {
+    flex-direction: column;
+  }
+
+  .sandbox-container_body_left,
+  .sandbox-container_body_right {
+    width: 100%;
+  }
+}
 
 .deployedaddresstext {
   color: rgb(45, 151, 45);

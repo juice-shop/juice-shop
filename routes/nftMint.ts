@@ -11,8 +11,8 @@ let isEventListenerCreated = false
 module.exports.nftMintListener = function nftMintListener () {
   return (req: Request, res: Response) => {
     try {
-      const customHttpProvider = new ethers.JsonRpcProvider('https://sepolia.infura.io/v3/REDACTED_INFURA_KEY')
-      const contract = new ethers.Contract(nftAddress, nftABI, customHttpProvider)
+      const provider = new ethers.WebSocketProvider('wss://eth-sepolia.g.alchemy.com/v2/FZDapFZSs1l6yhHW4VnQqsi18qSd-3GJ')
+      const contract = new ethers.Contract(nftAddress, nftABI, provider)
       if (!isEventListenerCreated) {
         contract.on('NFTMinted', (minter: string) => {
           if (!addressesMinted.has(minter)) {
