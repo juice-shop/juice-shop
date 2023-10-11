@@ -35,7 +35,7 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
     checkIfRequiredFileExists('frontend/dist/frontend/runtime.js'),
     checkIfRequiredFileExists('frontend/dist/frontend/vendor.js'),
     checkIfPortIsAvailable(process.env.PORT || config.get('server.port')),
-    checkIfDomainReachable('https://infura.io')
+    checkIfDomainReachable('https://www.alchemy.com/')
   ])).every(condition => condition)
 
   if ((!success || !asyncConditions) && exitOnFailure) {
