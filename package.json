@@ -250,6 +250,7 @@
     "jasmine-reporters": "^2.5.0",
     "jest": "^26.6.3",
     "mocha": "^8.1.1",
+    "node-fetch": "^2.6.13",
     "nyc": "^15.1.0",
     "shelljs": "^0.8.4",
     "sinon": "^11.1.2",
@@ -259,9 +260,6 @@
     "ts-jest": "^26.5.0",
     "ts-node": "^10.8.0",
     "typescript": "~4.6.0"
-  },
-  "override": {
-    "node-fetch": "~2.6.13"
   },
   "engines": {
     "node": "16 - 20"
