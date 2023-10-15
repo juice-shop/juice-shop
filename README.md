@@ -47,6 +47,7 @@ For a detailed introduction, full list of features and architecture overview ple
     - [Azure Container Instance](#azure-container-instance)
     - [Google Compute Engine Instance](#google-compute-engine-instance)
     - [Heroku](#heroku)
+    - [Railway](#railway)
     - [Gitpod](#gitpod)
 - [Demo](#demo)
 - [Documentation](#documentation)
@@ -179,6 +180,14 @@ gcloud compute firewall-rules create juice-rule --allow tcp:3000
 
 If you have forked the Juice Shop repository on GitHub, the _Deploy to
 Heroku_ button will deploy your forked version of the application.
+
+### Railway
+
+1. Sign up for an [acccount on Railway](https://railway.app/). Railway does not offer an always-free plan anymore, but the free trial is good enough to test-drive this before you decide to upgrade.
+2. Click [this one-click template](https://railway.app/new/template/6JBGcJ) or the button below to deploy Juice Shop on Railway.
+3. If you need a step-by-step companion guide, see [this blog post](https://alphasec.io/practice-hacking-skills-with-owasp-juice-shop/).
+
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/6JBGcJ)
 
 ### Gitpod 
 
