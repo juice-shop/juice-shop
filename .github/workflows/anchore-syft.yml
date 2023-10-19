@@ -1,0 +1,27 @@
+
+name: Anchore Syft SBOM scan
+
+on:
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  Anchore-Build-Scan:
+    permissions:
+      contents: write 
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag localbuild/testimage:latest
+    - name: Scan the image and upload dependency results
+      uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
+      with:
+        image: "localbuild/testimage:latest"
+        artifact-name: image.spdx.json
+        dependency-snapshot: true
