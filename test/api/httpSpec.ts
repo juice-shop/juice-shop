@@ -12,13 +12,13 @@ describe('HTTP', () => {
   it('response must contain CORS header allowing all origins', () => {
     return frisby.get(URL)
       .expect('status', 200)
-      .expect('header', 'Access-Control-Allow-Origin', '*')
+      .expect('header', 'Access-Control-Allow-Origin', '\\*')
   })
 
   it('response must contain sameorigin frameguard header', () => {
     return frisby.get(URL)
       .expect('status', 200)
-      .expect('header', 'X-Frame-Options', 'sameorigin')
+      .expect('header', 'X-Frame-Options', 'SAMEORIGIN')
   })
 
   it('response must contain CORS header allowing all origins', () => {
