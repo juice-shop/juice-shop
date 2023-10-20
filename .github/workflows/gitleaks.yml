@@ -1,0 +1,24 @@
+name: gitleaks
+
+on:
+  pull_request:
+    branches: [ "master" ]
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  scan:
+    name: gitleaks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Latest Action Gitleaks
+        uses: gitleaks/gitleaks-action@v2.3.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE}}
+        continue-on-error: true
