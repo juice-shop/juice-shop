@@ -14,10 +14,9 @@ jobs:
     steps:
       - name: Get Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+        
       - name: Latest Action Gitleaks
-        uses: gitleaks/gitleaks-action@v2.3.2
+        uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITLEAKS_ENABLE_UPLOAD_ARTIFACT: false
