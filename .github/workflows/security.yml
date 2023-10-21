@@ -19,6 +19,8 @@ jobs:
       actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
     name: Build
     runs-on: "ubuntu-20.04"
+    container: 
+      image: returntocorp/semgrep
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
