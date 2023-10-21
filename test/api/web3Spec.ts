@@ -88,5 +88,37 @@ describe('/walletNFTVerify', () => {
 })
 
 describe('/walletExploitAddress', () => {
-  // TODO Add test cases
+  it('POST missing wallet address in request body still leads to success notification', () => {
+    return frisby.post(REST_URL + '/walletExploitAddress')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', {
+        success: true,
+        message: 'Event Listener Created'
+      })
+  })
+
+  it('POST invalid wallet address in request body still leads to success notification', () => {
+    return frisby.post(REST_URL + '/walletExploitAddress', {
+      walletAddress: 'lalalalala'
+    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', {
+        success: true,
+        message: 'Event Listener Created'
+      })
+  })
+
+  it('POST self-referential address in request body leads to success notification', () => {
+    return frisby.post(REST_URL + '/walletExploitAddress', {
+      walletAddress: '0x413744D59d31AFDC2889aeE602636177805Bd7b0'
+    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', {
+        success: true,
+        message: 'Event Listener Created'
+      })
+  })
 })
