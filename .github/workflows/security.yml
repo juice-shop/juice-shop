@@ -22,6 +22,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        
+      - name: Semgrep Source Code Analysis
+        run: semgrep ci --config=auto --sarif --output=semgrep.sarif || true
+      
+      - name: Upload Semgrep Analysis Report
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: semgrep.sarif
+        if: always()
 
       - name: Build an image from Dockerfile
         run: |
@@ -32,7 +41,7 @@ jobs:
         with:
           image: "docker.io/my-organization/my-juice-shop:${{ github.sha }}"
           fail-build: false
-      - name: Upload Scan SARIF report
+      - name: Upload Grype Scan SARIF report
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: ${{ steps.scan.outputs.sarif }}
