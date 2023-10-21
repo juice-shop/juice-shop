@@ -31,3 +31,8 @@ jobs:
         id: scan
         with:
           image: "docker.io/my-organization/my-juice-shop:${{ github.sha }}"
+          fail-build: false
+      - name: Upload Scan SARIF report
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: ${{ steps.scan.outputs.sarif }}
