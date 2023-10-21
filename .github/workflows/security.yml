@@ -26,3 +26,8 @@ jobs:
       - name: Build an image from Dockerfile
         run: |
           docker build -t docker.io/my-organization/my-juice-shop:${{ github.sha }} .
+      - name: Run container scannings
+        uses: anchore/scan-action@v3
+        id: scan
+        with:
+          image: "docker.io/my-organization/my-juice-shop:${{ github.sha }}"
