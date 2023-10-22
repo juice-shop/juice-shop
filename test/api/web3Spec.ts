@@ -84,7 +84,27 @@ describe('/nftMintListen', () => {
 })
 
 describe('/walletNFTVerify', () => {
-  // TODO Add test cases
+  it('POST missing wallet address fails to solve minting challenge', () => {
+    return frisby.post(REST_URL + '/walletNFTVerify')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', {
+        success: false,
+        message: 'Wallet did not mint the NFT'
+      })
+  })
+
+  it('POST invalid wallet address fails to solve minting challenge', () => {
+    return frisby.post(REST_URL + '/walletNFTVerify', {
+      walletAddress: 'lalalalala'
+    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', {
+        success: false,
+        message: 'Wallet did not mint the NFT'
+      })
+  })
 })
 
 describe('/walletExploitAddress', () => {
