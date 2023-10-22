@@ -50,7 +50,8 @@ exports.getVideo = () => {
 exports.promotionVideo = () => {
   return (req: Request, res: Response) => {
     fs.readFile('views/promotionVideo.pug', function (err, buf) {
-      if (err != null) throw err
+      try
+      {
       let template = buf.toString()
       const subs = getSubsFromFile()
 
@@ -68,7 +69,10 @@ exports.promotionVideo = () => {
       let compiledTemplate = fn()
       compiledTemplate = compiledTemplate.replace('<script id="subtitle"></script>', '<script id="subtitle" type="text/vtt" data-label="English" data-lang="en">' + subs + '</script>')
       res.send(compiledTemplate)
-    })
+    }catch(err){
+      console.error(err)
+      return
+    }})
   }
   function favicon () {
     return utils.extractFilename(config.get('application.favicon'))

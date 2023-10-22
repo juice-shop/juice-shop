@@ -20,7 +20,7 @@ const entities = new Entities()
 module.exports = function getUserProfile () {
   return (req: Request, res: Response, next: NextFunction) => {
     fs.readFile('views/userProfile.pug', function (err, buf) {
-      if (err != null) throw err
+      try{
       const loggedInUser = security.authenticatedUsers.get(req.cookies.token)
       if (loggedInUser) {
         UserModel.findByPk(loggedInUser.data.id).then((user: UserModel | null) => {
@@ -43,8 +43,10 @@ module.exports = function getUserProfile () {
           const theme = themes[config.get<string>('application.theme')]
           if (username) {
             template = template.replace(/_username_/g, username)
+          }try{
+          template = template.replace(/_emailHash_/g, security.hash(user?.email))}catch{
+            console.error('undisclosed error occured')
           }
-          template = template.replace(/_emailHash_/g, security.hash(user?.email))
           template = template.replace(/_title_/g, entities.encode(config.get('application.name')))
           template = template.replace(/_favicon_/g, favicon())
           template = template.replace(/_bgColor_/g, theme.bgColor)
@@ -69,7 +71,10 @@ module.exports = function getUserProfile () {
       } else {
         next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
       }
-    })
+    }catch(err){
+        console.error(err)
+        return
+    }})
   }
 
   function favicon () {
