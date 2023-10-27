@@ -10,7 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get Alert Counts
+        id: count
         uses: tuckerweibell/security-badge-action@main
         with: 
           token: ${{ secrets.PAT_TOKEN }}
+      - name: Output Results
+        run: echo ${{ steps.count.outputs.dependabot-alert-count }} && echo ${{ steps.count.outputs.code-scanning-alert-count }}
         
