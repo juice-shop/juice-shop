@@ -41,7 +41,7 @@ jobs:
   code-scanning-badge:
     needs: analyze-alerts
     env:
-      code-scanning-alert-count: ${{ needs.analyze-alerts.outputs.code-scanning-alert-count }}
+      code-scanning-count: ${{ needs.analyze-alerts.outputs.code-scanning-count }}
     runs-on: ubuntu-latest
     steps:
     - name: Update Code Scanning Badge
@@ -51,8 +51,8 @@ jobs:
         gistID: 27228b9af08e477a7edff3e34f829454
         filename: ${{ github.event.repository.name }}-code-scanning.json
         label: Code Scanning Alerts
-        message: ${{env.code-scanning-alert-count}}
-        valColorRange: ${{env.code-scanning-alert-count}}
+        message: ${{env.code-scanning-count}}
+        valColorRange: ${{env.code-scanning-count}}
         maxColorRange: 10
         minColorRange: 0
         invertColorRange: true
