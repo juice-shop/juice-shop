@@ -30,7 +30,7 @@ jobs:
       with:
         auth: ${{ secrets.PAT_TOKEN }}
         gistID: ${{ secrets.GIST_ID }}
-        filename: ${{ github.event.repository.name }}-dependabot.json
+        filename: ${{ secrets.RAND_STRING }}-dependabot.json
         label: Dependabot
         message: ${{env.dependabot-count}}
         valColorRange: ${{env.dependabot-count}}
@@ -50,7 +50,7 @@ jobs:
       with:
         auth: ${{ secrets.PAT_TOKEN }}
         gistID: ${{ secrets.GIST_ID }}
-        filename: ${{ github.event.repository.name }}-code-scanning.json
+        filename: ${{ secrets.RAND_STRING }}-code-scanning.json
         label: Code Scanning
         message: ${{env.code-scanning-count}}
         valColorRange: ${{env.code-scanning-count}}
@@ -70,7 +70,7 @@ jobs:
       with:
         auth: ${{ secrets.PAT_TOKEN }}
         gistID: ${{ secrets.GIST_ID }}
-        filename: ${{ github.event.repository.name }}-secret-scanning.json
+        filename: ${{ secrets.RAND_STRING }}-secret-scanning.json
         label: Secret Scanning
         message: ${{env.secret-scanning-count}}
         valColorRange: ${{env.secret-scanning-count}}
