@@ -29,7 +29,7 @@ jobs:
       uses: schneegans/dynamic-badges-action@v1.7.0
       with:
         auth: ${{ secrets.PAT_TOKEN }}
-        gistID: 27228b9af08e477a7edff3e34f829454
+        gistID: ${{ secrets.GIST_ID }}
         filename: ${{ github.event.repository.name }}-dependabot.json
         label: Dependabot Alerts
         message: ${{env.dependabot-count}}
