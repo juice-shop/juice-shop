@@ -1,6 +1,9 @@
-name: Security Badges
+name: Update Security Badges
 
-on: push
+on:
+  push:
+    branches:
+      - main
 
 jobs:
 
