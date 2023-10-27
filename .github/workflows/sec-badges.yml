@@ -1,0 +1,14 @@
+name: Security Badges
+
+on: push
+
+jobs:
+
+  count:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Alert Counts
+        uses: tuckerweibell/security-badge-action@main
+        with: 
+          token: ${{ secrets.GITHUB_TOKEN }}
+        
