@@ -4,7 +4,10 @@ on: push
 
 jobs:
 
-  count:
+  analyze-alerts:
+    outputs:
+      dependabot-count: ${{ steps.count.outputs.dependabot-alert-count }}
+      code-scanning-count: ${{ steps.count.outputs.code-scanning-alert-count }}
     permissions:
       security-events: read
     runs-on: ubuntu-latest
@@ -14,6 +17,44 @@ jobs:
         uses: tuckerweibell/security-badge-action@main
         with: 
           token: ${{ secrets.PAT_TOKEN }}
-      - name: Output Results
-        run: echo ${{ steps.count.outputs.dependabot-alert-count }} && echo ${{ steps.count.outputs.code-scanning-alert-count }}
+
+  dependabot-badge:
+    needs: analyze-alerts
+    env:
+      dependabot-count: ${{ needs.analyze-alerts.outputs.dependabot-count }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Update Dependabot Badge
+      uses: schneegans/dynamic-badges-action@v1.7.0
+      with:
+        auth: ${{ secrets.PAT_TOKEN }}
+        gistID: 27228b9af08e477a7edff3e34f829454
+        filename: ${{ github.event.repository.name }}-dependabot.json
+        label: Dependabot Alerts
+        message: ${{env.dependabot-count}}
+        valColorRange: ${{env.dependabot-count}}
+        maxColorRange: 10
+        minColorRange: 0
+        invertColorRange: true
+        cacheSeconds: 300
+
+  code-scanning-badge:
+    needs: analyze-alerts
+    env:
+      code-scanning-alert-count: ${{ needs.analyze-alerts.outputs.code-scanning-alert-count }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Update Code Scanning Badge
+      uses: schneegans/dynamic-badges-action@v1.7.0
+      with:
+        auth: ${{ secrets.PAT_TOKEN }}
+        gistID: 27228b9af08e477a7edff3e34f829454
+        filename: ${{ github.event.repository.name }}-code-scanning.json
+        label: Code Scanning Alerts
+        message: ${{env.code-scanning-alert-count}}
+        valColorRange: ${{env.code-scanning-alert-count}}
+        maxColorRange: 10
+        minColorRange: 0
+        invertColorRange: true
+        cacheSeconds: 300
         
