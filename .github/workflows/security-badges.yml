@@ -29,13 +29,13 @@ jobs:
           token: ${{ secrets.PAT_TOKEN }}
 
   dependabot-badge:
-    if: ${{ env.DEPENDABOT_ENABLED }}
     needs: analyze-alerts
     env:
       dependabot-count: ${{ needs.analyze-alerts.outputs.dependabot-count }}
     runs-on: ubuntu-latest
     steps:
     - name: Update Dependabot Badge
+      if: ${{ env.DEPENDABOT_ENABLED }}
       uses: schneegans/dynamic-badges-action@v1.7.0
       with:
         auth: ${{ secrets.PAT_TOKEN }}
@@ -50,13 +50,13 @@ jobs:
         cacheSeconds: 300
 
   code-scanning-badge:
-    if: ${{ env.CODE_SCANNING_ENABLED }}
     needs: analyze-alerts
     env:
       code-scanning-count: ${{ needs.analyze-alerts.outputs.code-scanning-count }}
     runs-on: ubuntu-latest
     steps:
     - name: Update Code Scanning Badge
+      if: ${{ env.CODE_SCANNING_ENABLED }}
       uses: schneegans/dynamic-badges-action@v1.7.0
       with:
         auth: ${{ secrets.PAT_TOKEN }}
@@ -71,13 +71,13 @@ jobs:
         cacheSeconds: 300
 
   secret-scanning-badge:
-    if: ${{ env.SECRET_SCANNING_ENABLED }}
     needs: analyze-alerts
     env:
       secret-scanning-count: ${{ needs.analyze-alerts.outputs.secret-scanning-count }}
     runs-on: ubuntu-latest
     steps:
     - name: Update Secret Scanning Badge
+      if: ${{ env.SECRET_SCANNING_ENABLED }}
       uses: schneegans/dynamic-badges-action@v1.7.0
       with:
         auth: ${{ secrets.PAT_TOKEN }}
