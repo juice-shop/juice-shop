@@ -1,0 +1,37 @@
+name: Security Badges
+
+on: [pull_request, push]
+
+jobs:
+
+  dependabot-alerts:
+    runs-on: ubuntu-latest
+    outputs:
+      count: ${{ steps.alerts.outputs.total_alerts }}
+    steps:
+      - name: Check Dependabot Alerts
+        id: alerts
+        uses: spicyparrot/check-dependabot@v1.2.0
+        with:
+          github_personal_token: ${{ secrets.DEPEND_SECRET }}
+
+
+  dependabot-badge:
+    needs: dependabot-alerts
+    env:
+      COUNT: ${{ needs.dependabot-alerts.outputs.count }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Create the Badge
+      uses: schneegans/dynamic-badges-action@v1.7.0
+      with:
+        auth: ${{ secrets.DEPEND_SECRET }}
+        gistID: 27228b9af08e477a7edff3e34f829454
+        filename: ${{ github.event.repository.name }}.json
+        label: Dependabot Alerts
+        message: ${{env.COUNT}}
+        valColorRange: ${{env.COUNT}}
+        maxColorRange: 10
+        minColorRange: 0
+        invertColorRange: true
+        cacheSeconds: 300
