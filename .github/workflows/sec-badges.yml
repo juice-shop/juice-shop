@@ -8,6 +8,7 @@ jobs:
     outputs:
       dependabot-count: ${{ steps.count.outputs.dependabot-alert-count }}
       code-scanning-count: ${{ steps.count.outputs.code-scanning-alert-count }}
+      secret-scanning-count: ${{ steps.count.outputs.secret-scanning-alert-count }}
     permissions:
       security-events: read
     runs-on: ubuntu-latest
@@ -53,6 +54,26 @@ jobs:
         label: Code Scanning Alerts
         message: ${{env.code-scanning-count}}
         valColorRange: ${{env.code-scanning-count}}
+        maxColorRange: 10
+        minColorRange: 0
+        invertColorRange: true
+        cacheSeconds: 300
+
+  secret-scanning-badge:
+    needs: analyze-alerts
+    env:
+      secret-scanning-count: ${{ needs.analyze-alerts.outputs.secret-scanning-count }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Update Secret Scanning Badge
+      uses: schneegans/dynamic-badges-action@v1.7.0
+      with:
+        auth: ${{ secrets.PAT_TOKEN }}
+        gistID: 27228b9af08e477a7edff3e34f829454
+        filename: ${{ github.event.repository.name }}-secret-scanning.json
+        label: Secret Scanning Alerts
+        message: ${{env.secret-scanning-count}}
+        valColorRange: ${{env.secret-scanning-count}}
         maxColorRange: 10
         minColorRange: 0
         invertColorRange: true
