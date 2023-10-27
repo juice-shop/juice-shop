@@ -5,6 +5,11 @@ on:
     branches:
       - main
 
+env:
+  dependabot-enabled: false
+  code-scanning-enabled: false
+  secret-scanning-enabled: false
+
 jobs:
 
   analyze-alerts:
@@ -23,6 +28,7 @@ jobs:
           token: ${{ secrets.PAT_TOKEN }}
 
   dependabot-badge:
+    if: ${{ env.dependabot-enabled }}
     needs: analyze-alerts
     env:
       dependabot-count: ${{ needs.analyze-alerts.outputs.dependabot-count }}
@@ -43,6 +49,7 @@ jobs:
         cacheSeconds: 300
 
   code-scanning-badge:
+    if: ${{ env.code-scanning-enabled }}
     needs: analyze-alerts
     env:
       code-scanning-count: ${{ needs.analyze-alerts.outputs.code-scanning-count }}
@@ -63,6 +70,7 @@ jobs:
         cacheSeconds: 300
 
   secret-scanning-badge:
+    if: ${{ env.secret-scanning-enabled }}
     needs: analyze-alerts
     env:
       secret-scanning-count: ${{ needs.analyze-alerts.outputs.secret-scanning-count }}
