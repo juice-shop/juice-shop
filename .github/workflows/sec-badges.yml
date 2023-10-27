@@ -12,5 +12,5 @@ jobs:
       - name: Get Alert Counts
         uses: tuckerweibell/security-badge-action@main
         with: 
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT_TOKEN }}
         
