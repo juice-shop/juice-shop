@@ -6,11 +6,6 @@ on:
       - main
       - master
 
-env:
-  DEPENDABOT_ENABLED: false
-  CODE_SCANNING_ENABLED: false
-  SECRET_SCANNING_ENABLED: false
-
 jobs:
 
   analyze-alerts:
@@ -29,7 +24,7 @@ jobs:
           token: ${{ secrets.PAT_TOKEN }}
 
   dependabot-badge:
-    if: $DEPENDABOT_ENABLED
+    if: true
     needs: analyze-alerts
     env:
       dependabot-count: ${{ needs.analyze-alerts.outputs.dependabot-count }}
@@ -50,7 +45,7 @@ jobs:
         cacheSeconds: 300
 
   code-scanning-badge:
-    if: $CODE_SCANNING_ENABLED
+    if: false
     needs: analyze-alerts
     env:
       code-scanning-count: ${{ needs.analyze-alerts.outputs.code-scanning-count }}
@@ -71,7 +66,7 @@ jobs:
         cacheSeconds: 300
 
   secret-scanning-badge:
-    if: $SECRET_SCANNING_ENABLED
+    if: false
     needs: analyze-alerts
     env:
       secret-scanning-count: ${{ needs.analyze-alerts.outputs.secret-scanning-count }}
