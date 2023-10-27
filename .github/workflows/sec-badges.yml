@@ -5,6 +5,8 @@ on: push
 jobs:
 
   count:
+    permissions:
+      security-events: read
     runs-on: ubuntu-latest
     steps:
       - name: Get Alert Counts
