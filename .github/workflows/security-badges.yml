@@ -17,9 +17,14 @@ jobs:
       security-events: read
     runs-on: ubuntu-latest
     steps:
-      - name: Get Alert Counts
-        id: count
+      - name: Analyze Alerts
+        id: analysis
         uses: tuckerweibell/security-badge-action@main
         with: 
           token: ${{ secrets.PAT_TOKEN }}
-        
+          dependabot-minimum: 0
+          dependabot-maximum: 10
+          dependabot-badge-name: 'Dependabot'
+      
+      - name: Print dependabot url
+        run: echo "${{ steps.test-action.outputs.dependabot-svg-url }}"
