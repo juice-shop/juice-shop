@@ -1,4 +1,4 @@
-name: Update Security Badges
+name: Update Security Badges 
 
 on:
   push:
