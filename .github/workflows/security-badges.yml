@@ -27,4 +27,4 @@ jobs:
           dependabot-badge-name: 'Dependabot'
       
       - name: Print dependabot url
-        run: echo "${{ steps.anaylze.outputs.dependabot-svg-url }}"
+        run: echo "${{ steps.analysis.outputs.dependabot-svg-url }}"
