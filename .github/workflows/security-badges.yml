@@ -1,5 +1,5 @@
 name: Update Security Badges 
-
+ 
 on:
   push:
     branches:
