@@ -8,23 +8,22 @@ on:
 
 jobs:
 
-  analyze-alerts:
-    outputs:
-      dependabot-count: ${{ steps.count.outputs.dependabot-alert-count }}
-      code-scanning-count: ${{ steps.count.outputs.code-scanning-alert-count }}
-      secret-scanning-count: ${{ steps.count.outputs.secret-scanning-alert-count }}
-    permissions:
-      security-events: read
+  security-badges:
     runs-on: ubuntu-latest
     steps:
-      - name: Analyze Alerts
-        id: analysis
+      - name: Generate Badges
         uses: tuckerweibell/security-badge-action@main
         with: 
           token: ${{ secrets.PAT_TOKEN }}
+          gist-id: '7b75c47733bb35fe26c1a92b083047b0'
           dependabot-minimum: 0
-          dependabot-maximum: 18
-          dependabot-badge-name: 'Dependabot'
-      
-      - name: Print dependabot url
-        run: echo "${{ steps.analysis.outputs.dependabot-svg-url }}"
+          dependabot-maximum: 15
+          dependabot-badge-name: 'Dependabot Bros'
+          dependabot-filename: 'bros4life.json'
+          code-scanning-minimum: 0
+          code-scanning-maximum: 100
+          code-scanning-badge-name: 'Code Scanning'
+          secret-scanning-minimum: 0
+          secret-scanning-maximum: 1
+          secret-scanning-badge-name: 'Secret Scanning'
+          secret-scanning-enabled: false
