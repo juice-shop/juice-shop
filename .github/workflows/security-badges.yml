@@ -15,7 +15,7 @@ jobs:
         uses: tuckerweibell/security-badge-action@main
         with: 
           token: ${{ secrets.PAT_TOKEN }}
-          gist-id: '7b75c47733bb35fe26c1a92b083047b0'
+          gist-id: 7b75c47733bb35fe26c1a92b083047b0
           dependabot-minimum: 0
           dependabot-maximum: 15
           dependabot-badge-name: 'Dependabot Bros'
