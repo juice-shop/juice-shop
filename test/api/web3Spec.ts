@@ -80,7 +80,15 @@ describe('/nftUnlocked', () => {
 })
 
 describe('/nftMintListen', () => {
-  // TODO Add test cases
+  it('GET call confirms registration of event listener', () => {
+    return frisby.get(REST_URL + '/nftMintListen')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', {
+        success: true,
+        message: 'Event Listener Created'
+      })
+  })
 })
 
 describe('/walletNFTVerify', () => {
