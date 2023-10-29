@@ -204,6 +204,7 @@ mentioned or used!
 
 ## Lectures and Trainings
 
+* [Introduction to OWASP Top 10 Security Risks](https://www.pluralsight.com/cloud-guru/courses/introduction-to-owasp-top-10-security-risks) course by Chris Jackson :dollar:
 * Courses on the [freeCodeCamp.org](https://www.YouTube.com/channel/UC8butISFwT-Wl7EV0hUK0BQ)
   YouTube channel
   * [Ethical Hacking 101: Web App Penetration Testing - a full course for beginners](https://youtu.be/2_lswM1S264) :godmode: by HackerSploit
