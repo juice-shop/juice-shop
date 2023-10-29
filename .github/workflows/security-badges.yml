@@ -22,4 +22,4 @@ jobs:
           code-scanning-maximum: 100
           secret-scanning-minimum: 0
           secret-scanning-maximum: 1
-          secret-scanning-enabled: false
+          secret-scanning-enabled: true
