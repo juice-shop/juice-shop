@@ -24,6 +24,7 @@ jobs:
           secret-scanning-minimum: 0
           secret-scanning-maximum: 1
           secret-scanning-enabled: true
+          test: security-scanning, github-actions, sast
       - name: Print 1
         run: echo ${{ steps.one.outputs.test-one }} 
       - name: Print 2
