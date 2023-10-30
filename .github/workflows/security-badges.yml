@@ -26,9 +26,4 @@ jobs:
           enabled-badges: |-
            dependabot
            secret-scanning
-      - name: out 1
-        run: echo ${{steps.one.outputs.one}}
-      - name: out 2
-        run: echo ${{steps.one.outputs.two}}
-      - name: out 3
-        run: echo ${{steps.one.outputs.three}}
+           code-scanning
