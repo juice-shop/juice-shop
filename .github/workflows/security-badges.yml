@@ -23,4 +23,6 @@ jobs:
           code-scanning-maximum: 100
           secret-scanning-minimum: 0
           secret-scanning-maximum: 1
-          enabled-badges: dependabot
+          enabled-badges: |
+           dependabot
+           secret-scanning
