@@ -11,15 +11,17 @@ import * as utils from '../lib/utils'
 const security = require('../lib/insecurity')
 const safeEval = require('notevil')
 const challenges = require('../data/datacache').challenges
+const xss = require('xss') // Import the xss library
 
 module.exports = function b2bOrder () {
   return ({ body }: Request, res: Response, next: NextFunction) => {
     if (!utils.disableOnContainerEnv()) {
       const orderLinesData = body.orderLinesData || ''
       try {
-        const sandbox = { safeEval, orderLinesData }
+        const sanitizedOrderLinesData = xss(orderLinesData) // Sanitize the user input
+        const sandbox = { safeEval, sanitizedOrderLinesData }
         vm.createContext(sandbox)
-        vm.runInContext('safeEval(orderLinesData)', sandbox, { timeout: 2000 })
+        vm.runInContext('safeEval(sanitizedOrderLinesData)', sandbox, { timeout: 2000 })
         res.json({ cid: body.cid, orderNo: uniqueOrderNumber(), paymentDue: dateTwoWeeksFromNow() })
       } catch (err) {
         if (utils.getErrorMessage(err).match(/Script execution timed out.*/) != null) {

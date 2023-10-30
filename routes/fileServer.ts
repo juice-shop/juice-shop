@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
- * SPDX-License-Identifier: MIT
- */
-
 import path = require('path')
 import { type Request, type Response, type NextFunction } from 'express'
 import challengeUtils = require('../lib/challengeUtils')
@@ -11,15 +6,19 @@ import * as utils from '../lib/utils'
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 
+// Define a whitelist of allowed file names
+const allowedFiles = ['file1.md', 'file2.pdf', 'file3.md', 'file4.pdf'];
+
 module.exports = function servePublicFiles () {
   return ({ params, query }: Request, res: Response, next: NextFunction) => {
-    const file = params.file
+    let file = params.file
 
-    if (!file.includes('/')) {
+    // Check if the requested file is in the whitelist
+    if (allowedFiles.includes(file)) {
       verify(file, res, next)
     } else {
       res.status(403)
-      next(new Error('File names cannot contain forward slashes!'))
+      next(new Error('Access to this file is not allowed!'))
     }
   }
 

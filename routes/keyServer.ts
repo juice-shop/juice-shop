@@ -1,20 +1,20 @@
-/*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
- * SPDX-License-Identifier: MIT
- */
-
 import path = require('path')
 import { type Request, type Response, type NextFunction } from 'express'
+
+// Define a whitelist of allowed file names
+const allowedFiles = ['file1', 'file2', 'file3']
 
 module.exports = function serveKeyFiles () {
   return ({ params }: Request, res: Response, next: NextFunction) => {
     const file = params.file
 
-    if (!file.includes('/')) {
-      res.sendFile(path.resolve('encryptionkeys/', file))
+    // Check if the file is in the whitelist
+    if (allowedFiles.includes(file)) {
+      // Use path.basename to prevent path traversal attacks
+      res.sendFile(path.resolve('encryptionkeys/', path.basename(file)))
     } else {
       res.status(403)
-      next(new Error('File names cannot contain forward slashes!'))
+      next(new Error('Invalid file name!'))
     }
   }
 }
