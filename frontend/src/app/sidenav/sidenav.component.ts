@@ -72,7 +72,7 @@ export class SidenavComponent implements OnInit {
         }
       })
     })
-    this.scoreBoardLink$ = this.featureFlagService.defaultScoreBoard$.pipe(map((version) => version === 'v1' ? '/score-board' : '/score-board-preview'))
+    this.scoreBoardLink$ = this.featureFlagService.defaultScoreBoard$.pipe(map((version) => version === 'v1' ? '/score-board-legacy' : '/score-board'))
   }
 
   isLoggedIn () {
