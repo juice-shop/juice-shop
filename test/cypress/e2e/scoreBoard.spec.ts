@@ -25,10 +25,12 @@ describe('/#/score-board', () => {
       cy.expectChallengeSolved({ challenge: 'Imaginary Challenge' })
     })
   })
+})
 
+describe('/#/score-board-legacy', () => { // TODO Replace with test based on new Score Board
   describe('repeat notification', () => {
     beforeEach(() => {
-      cy.visit('/#/score-board')
+      cy.visit('/#/score-board-legacy')
     })
 
     it('should be possible in both when and when not in CTF mode', () => {
