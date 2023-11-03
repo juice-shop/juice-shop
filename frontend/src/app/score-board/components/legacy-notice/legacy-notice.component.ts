@@ -3,10 +3,10 @@ import { Component, Input } from '@angular/core'
 import { type Config } from 'src/app/Services/configuration.service'
 
 @Component({
-  selector: 'preview-feature-notice',
-  templateUrl: './preview-feature-notice.component.html'
+  selector: 'legacy-notice',
+  templateUrl: './legacy-notice.component.html'
 })
-export class PreviewFeatureNoticeComponent {
+export class LegacyNoticeComponent {
   @Input()
   public applicationConfig: Config | null = null
 }
