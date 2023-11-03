@@ -1,0 +1,98 @@
+/*!
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+mat-card,
+mat-expansion-panel,
+footer {
+  margin-bottom: 35px;
+  margin-left: 35px;
+  margin-right: 35px;
+  min-width: 300px;
+}
+
+.category-container,
+mat-table {
+  margin-top: 25px;
+}
+
+.star-container {
+  margin-bottom: 10px;
+  margin-top: 25px;
+}
+
+.star-container svg:hover {
+  cursor: pointer;
+}
+
+.mat-column-status button mat-button-toggle {
+  cursor: initial;
+}
+
+.mat-column-status button span mat-button-toggle {
+  cursor: pointer;
+}
+
+.heading {
+  padding-top: 5px;
+}
+
+.mat-raised-button {
+  width: fit-content;
+}
+
+.category-toggle {
+  font-size: small;
+}
+
+.overlay-fullscreen ::ng-deep .black-overlay {
+  position: fixed;
+}
+
+.hacking-instructor-button {
+  margin-left: 8px;
+}
+
+.vulnerability-mitigation-button {
+  margin-left: 8px;
+}
+
+.code-snippet-button {
+  margin-left: 8px;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.disabled-challenges-infoBox {
+  align-self: center;
+  color: rgb(230, 74, 25);
+  cursor: default;
+  height: 100%;
+  margin: 0;
+
+  a {
+    color: rgb(84, 110, 122);
+    font-style: normal;
+  }
+}
+
+.backupButton {
+  align-self: center;
+  margin-left: 15px;
+}
+
+.new-score-board-ad {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+
+  margin-top: -16px;
+
+  a {
+    margin-left: 8px;
+  }
+}
