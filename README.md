@@ -1,7 +1,5 @@
 # ![Juice Shop Logo](https://raw.githubusercontent.com/juice-shop/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_100px.png) OWASP Juice Shop
 
-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
-
 
 
 [![OWASP Flagship](https://img.shields.io/badge/owasp-flagship%20project-48A646.svg)](https://owasp.org/projects/#sec-flagships)
@@ -318,6 +316,9 @@ For a list of all contributors to the OWASP Juice Shop please visit our
 ## Licensing
 
 [![license](https://img.shields.io/github/license/bkimminich/juice-shop.svg)](LICENSE)
+
+
+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
 
 This program is free software: you can redistribute it and/or modify it under the terms of the [MIT license](LICENSE).
 OWASP Juice Shop and any contributions are Copyright © by Bjoern Kimminich & the OWASP Juice Shop contributors
