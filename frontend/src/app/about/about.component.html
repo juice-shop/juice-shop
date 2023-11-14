@@ -34,33 +34,39 @@
       </p>
 
       <h3><span translate>SECTION_CUSTOMER_FEEDBACK</span></h3>
-      <slideshow [height]="'300px'"
-                 [autoPlay]="true"
-                 [arrowSize]="'10px'"
-                 [showArrows]="true"
-                 [showDots]="false"
-                 [imageUrls]="slideshowDataSource">
+      <slideshow data-testid="slideshow" [height]="'300px'" [autoPlay]="true" [arrowSize]="'10px'" [showArrows]="true"
+        [showDots]="false" [imageUrls]="slideshowDataSource">
       </slideshow>
 
       <div *ngIf="twitterUrl || facebookUrl" class="social">
         <h3><span translate="">SECTION_SOCIAL_MEDIA</span></h3>
-        <a *ngIf="twitterUrl" [href]="twitterUrl" target="_blank" rel="noopener noreferrer" style="margin-left: 0px;" aria-label="Button for the Twitter page of the shop">
-          <button mat-raised-button color="accent"><i class="fab fa-twitter fa-lg"></i> Twitter</button>
+        <a *ngIf="twitterUrl" [href]="twitterUrl" target="_blank" rel="noopener noreferrer" style="margin-left: 0px;"
+          aria-label="Button for the Twitter page of the shop">
+          <button data-testid="twitter" mat-raised-button color="accent"><i class="fab fa-twitter fa-lg"></i>
+            Twitter</button>
         </a>
-        <a *ngIf="facebookUrl" [href]="facebookUrl" target="_blank" rel="noopener noreferrer" aria-label="Button for the Facebook page of the shop">
-          <button mat-raised-button color="accent"><i class="fab fa-facebook fa-lg"></i> Facebook</button>
+        <a *ngIf="facebookUrl" [href]="facebookUrl" target="_blank" rel="noopener noreferrer"
+          aria-label="Button for the Facebook page of the shop">
+          <button data-testid="facebook" mat-raised-button color="accent"><i class="fab fa-facebook fa-lg"></i>
+            Facebook</button>
         </a>
-        <a *ngIf="slackUrl" [href]="slackUrl" target="_blank" rel="noopener noreferrer" aria-label="Button for the Slack page of the shop">
-          <button mat-raised-button color="accent"><i class="fab fa-slack fa-lg"></i> Slack</button>
+        <a *ngIf="slackUrl" [href]="slackUrl" target="_blank" rel="noopener noreferrer"
+          aria-label="Button for the Slack page of the shop">
+          <button data-testid="slack" mat-raised-button color="accent"><i class="fab fa-slack fa-lg"></i> Slack</button>
         </a>
-        <a *ngIf="redditUrl" [href]="redditUrl" target="_blank" rel="noopener noreferrer" aria-label="Button for the Reddit page of the shop">
-          <button mat-raised-button color="accent"><i class="fab fa-reddit fa-lg"></i> Reddit</button>
+        <a *ngIf="redditUrl" [href]="redditUrl" target="_blank" rel="noopener noreferrer"
+          aria-label="Button for the Reddit page of the shop">
+          <button data-testid="reddit" mat-raised-button color="accent"><i class="fab fa-reddit fa-lg"></i>
+            Reddit</button>
         </a>
-        <a *ngIf="pressKitUrl" [href]="pressKitUrl" target="_blank" rel="noopener noreferrer" aria-label="Button for the PressKit page of the shop">
-          <button mat-raised-button color="accent"><i class="far fa-newspaper fa-lg"></i> Press Kit</button>
+        <a *ngIf="pressKitUrl" [href]="pressKitUrl" target="_blank" rel="noopener noreferrer"
+          aria-label="Button for the PressKit page of the shop">
+          <button data-testid="pressKit" mat-raised-button color="accent"><i class="far fa-newspaper fa-lg"></i> Press
+            Kit</button>
         </a>
-        <a *ngIf="nftUrl" [href]="nftUrl" target="_blank" rel="noopener noreferrer" aria-label="Button for the NFT of the shop">
-          <button mat-raised-button color="accent"><i class="fas fa-palette fa-lg"></i> NFT</button>
+        <a *ngIf="nftUrl" [href]="nftUrl" target="_blank" rel="noopener noreferrer"
+          aria-label="Button for the NFT of the shop">
+          <button data-testid="nft" mat-raised-button color="accent"><i class="fas fa-palette fa-lg"></i> NFT</button>
         </a>
       </div>
     </section>

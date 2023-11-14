@@ -8,11 +8,12 @@
   <mat-toolbar-row fxLayout="row">
 
     <button (click)="onToggleSidenav()" mat-button style="height:48px; width: 48px;" aria-label="Open Sidenav"
-            matTooltip="{{ 'SIDENAV_HINT' | translate }}" matTooltipPosition="below">
+      matTooltip="{{ 'SIDENAV_HINT' | translate }}" matTooltipPosition="below">
       <mat-icon>menu</mat-icon>
     </button>
 
-    <button mat-button routerLink="/search" style="height:60px;" class="buttons" aria-label="Back to homepage">
+    <button mat-button routerLink="/search" title="homepage" style="height:60px;" class="buttons"
+      aria-label="Back to homepage">
       <img [src]="logoSrc" class="logo" alt={{applicationName}}>
       <span fxHide.lt-sm fxShow style="font-size: x-large"> {{applicationName}} </span>
     </button>
@@ -20,10 +21,10 @@
     <span class="fill-remaining-space"></span>
 
     <mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"
-                    aria-label="Click to search"></mat-search-bar>
+      aria-label="Click to search"></mat-search-bar>
 
     <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle; height:48px;" class="buttons"
-            fxHide.lt-md fxShow aria-label="Show/hide account menu" id="navbarAccount">
+      fxHide.lt-md fxShow aria-label="Show/hide account menu" id="navbarAccount" data-testid="account">
       <i class="material-icons">
         account_circle
       </i>
@@ -32,7 +33,7 @@
 
     <mat-menu #userMenu="matMenu">
       <button *ngIf="!isLoggedIn()" mat-menu-item routerLink="/login" aria-label="Go to login page"
-              id="navbarLoginButton">
+        id="navbarLoginButton" data-testid="loginButton">
         <mat-icon>
           exit_to_app
         </mat-icon>
@@ -40,7 +41,8 @@
           {{"TITLE_LOGIN" | translate }}
         </span>
       </button>
-      <button (click)="goToProfilePage()" *ngIf="isLoggedIn()" mat-menu-item aria-label="Go to user profile">
+      <button (click)="goToProfilePage()" *ngIf="isLoggedIn()" mat-menu-item aria-label="Go to user profile"
+        data-testid="userProfile">
         <mat-icon>
           account_circle
         </mat-icon>
@@ -49,7 +51,7 @@
         </span>
       </button>
       <button *ngIf="isLoggedIn() && isAccounting()" mat-menu-item routerLink="/accounting"
-              aria-label="Go to accounting page">
+        aria-label="Go to accounting page">
         <mat-icon>
           account_balance
         </mat-icon>
@@ -58,7 +60,7 @@
         </span>
       </button>
       <button mat-menu-item *ngIf="isLoggedIn()" [matMenuTriggerFor]="ordersSubMenu"
-              aria-label="Show Orders and Payment Menu">
+        aria-label="Show Orders and Payment Menu">
         <mat-icon>
           check_circle_outline
         </mat-icon>
@@ -67,7 +69,7 @@
         </span>
       </button>
       <button mat-menu-item *ngIf="isLoggedIn()" [matMenuTriggerFor]="privacySubMenu"
-              aria-label="Show Privacy and Security Menu">
+        aria-label="Show Privacy and Security Menu">
         <mat-icon>
           security
         </mat-icon>
@@ -86,18 +88,18 @@
     </mat-menu>
 
     <button *ngIf="isLoggedIn()" mat-button routerLink="/basket" style="height:48px;" class="buttons"
-            aria-label="Show the shopping cart">
+      aria-label="Show the shopping cart" data-testid="yourBasket">
       <mat-icon>
         shopping_cart
       </mat-icon>
       <span fxHide.lt-md fxShow> {{"TITLE_BASKET" | translate}}</span>
       <span class="fa-layers-counter fa-layers-top-right fa-3x warn-notification"
-            style="font-size: 47px;">{{itemTotal}}</span>
+        style="font-size: 47px;">{{itemTotal}}</span>
     </button>
 
     <button [matMenuTriggerFor]="menu" mat-button style="height:48px; width: 48px;" class="buttons"
-            aria-label="Language selection menu"
-            matTooltip="{{ 'LANGUAGE_SEL_HINT' | translate }}" matTooltipPosition="below">
+      aria-label="Language selection menu" matTooltip="{{ 'LANGUAGE_SEL_HINT' | translate }}"
+      matTooltipPosition="below">
       <mat-icon>
         language
       </mat-icon>
@@ -106,14 +108,13 @@
 
     <mat-menu #menu="matMenu" [overlapTrigger]="true">
       <mat-radio-button (click)="changeLanguage(language.key)" *ngFor="let language of languages" [value]="language"
-                        class="mat-menu-item" style="width: 240px;" checked="{{selectedLanguage === language}}"
-                        aria-label="{{language.lang}}">
+        class="mat-menu-item" style="width: 240px;" checked="{{selectedLanguage === language}}"
+        aria-label="{{language.lang}}">
         <div style="display: inline-block; width: 200px; margin-left: 5px;">
           <span *ngFor="let icon of language.icons" [class]="'fi fi-' + icon"></span>
           {{language?.lang}}
         </div>
-        <i
-          [class]="'fas fa-thermometer-' + language.gauge + (language.percentage > 70 ? ' confirmation' : ' error')">
+        <i [class]="'fas fa-thermometer-' + language.gauge + (language.percentage > 70 ? ' confirmation' : ' error')">
         </i>
       </mat-radio-button>
     </mat-menu>
@@ -131,7 +132,7 @@
         </mat-icon>
         <span translate>TITLE_REQUEST_DATA_EXPORT</span>
       </button>
-      <button mat-menu-item (click) = "goToDataErasurePage()" aria-label="Go to data subject page">
+      <button mat-menu-item (click)="goToDataErasurePage()" aria-label="Go to data subject page">
         <mat-icon>
           delete_forever
         </mat-icon>
@@ -145,7 +146,7 @@
         <span translate>TITLE_CHANGE_PASSWORD</span>
       </button>
       <button mat-menu-item [routerLink]="['privacy-security/two-factor-authentication']"
-              aria-label="Go to two factor authentication page">
+        aria-label="Go to two factor authentication page">
         <mat-icon>
           exposure_plus_2
         </mat-icon>
@@ -186,7 +187,7 @@
         </span>
       </button>
       <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/saved-payment-methods"
-              aria-label="Go to saved payment methods page">
+        aria-label="Go to saved payment methods page">
         <mat-icon>
           credit_card
         </mat-icon>

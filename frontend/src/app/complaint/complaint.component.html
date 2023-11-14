@@ -4,7 +4,7 @@
   -->
 
 <div fxLayoutAlign="center">
-  <mat-card class="mat-elevation-z6">
+  <mat-card data-testid="complaintForm" class="mat-elevation-z6">
 
     <h1 translate>NAV_COMPLAIN</h1>
 
@@ -21,7 +21,8 @@
 
       <mat-form-field appearance="outline" color="accent">
         <mat-label translate>LABEL_CUSTOMER</mat-label>
-        <input [formControl]="customerControl" type="text" matInput aria-label="Text field for the mail address of the user">
+        <input [formControl]="customerControl" type="text" matInput
+          aria-label="Text field for the mail address of the user">
       </mat-form-field>
 
       <mat-form-field appearance="outline" color="accent">
@@ -30,10 +31,10 @@
           <i class="fas fa-exclamation-circle"></i>
           <em style="margin-left:5px;" translate>{{ 'MAX_TEXTAREA_LENGTH' | translate: {length: '160'} }}</em>
         </mat-hint>
-        <textarea #complaintMessage id="complaintMessage" [formControl]="messageControl" matAutosizeMinRows="4" matAutosizeMaxRows="4"
-                  matTextareaAutosize cols="50" maxlength="160" matInput
-                  placeholder="{{ 'WRITE_MESSAGE_PLACEHOLDER' | translate}}"
-                  aria-label="Field for entering the complaint"></textarea>
+        <textarea #complaintMessage id="complaintMessage" [formControl]="messageControl" matAutosizeMinRows="4"
+          matAutosizeMaxRows="4" matTextareaAutosize cols="50" maxlength="160" matInput
+          placeholder="{{ 'WRITE_MESSAGE_PLACEHOLDER' | translate}}"
+          aria-label="Field for entering the complaint"></textarea>
         <mat-error *ngIf="messageControl.invalid && messageControl?.errors.required">{{"MANDATORY_MESSAGE" |
           translate}}
         </mat-error>
@@ -42,13 +43,15 @@
 
       <div style="margin-top: 15px;">
         <label for="file" translate>LABEL_INVOICE<span>:</span></label>
-        <input #fileControl ng2FileSelect [uploader]="uploader" id="file" type="file" accept=".pdf,.zip" style="margin-left: 10px;" aria-label="Input area for uploading a single invoice PDF or XML B2B order file or a ZIP archive containing multiple invoices or orders<!---->">
+        <input #fileControl ng2FileSelect [uploader]="uploader" id="file" type="file" accept=".pdf,.zip"
+          style="margin-left: 10px;"
+          aria-label="Input area for uploading a single invoice PDF or XML B2B order file or a ZIP archive containing multiple invoices or orders<!---->">
       </div>
 
     </div>
 
     <button type="submit" id="submitButton" [disabled]="messageControl.invalid || fileUploadError" (click)="save()"
-            mat-raised-button color="primary" aria-label="Button to send the complaint">
+      mat-raised-button color="primary" aria-label="Button to send the complaint">
       <i class="material-icons">
         send
       </i>
