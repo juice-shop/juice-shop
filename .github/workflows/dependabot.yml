@@ -1,0 +1,35 @@
+name: Security Gate - Instriq
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      MAX_CRITICAL: 1
+      MAX_HIGH: 2
+      MAX_MEDIUM: 3
+      MAX_LOW: 4
+      GITHUB_TOKEN: ${{ secrets.TOKEN }}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Pull Docker image from GitHub Container Registry
+      run: docker pull ghcr.io/instriq/security-gate/security-gate:latest
+
+    - name: Verify security alerts from dependabot
+      run: |
+        docker run ghcr.io/instriq/security-gate/security-gate:latest \
+        -t $GITHUB_TOKEN \
+        -r ${{ github.repository }} \
+        --critical $MAX_CRITICAL \
+        --high $MAX_HIGH \
+        --medium $MAX_MEDIUM \
+        --low $MAX_LOW
