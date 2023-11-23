@@ -1,5 +1,5 @@
 import { Component, NgZone, type OnDestroy, type OnInit } from '@angular/core'
-import { ActivatedRoute, Params, Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { DomSanitizer } from '@angular/platform-browser'
 import { MatDialog } from '@angular/material/dialog'
 import { type Subscription, combineLatest } from 'rxjs'
@@ -183,7 +183,7 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
     await this.challengeService.repeatNotification(encodeURIComponent(challenge.name)).toPromise()
   }
 
-  updateParamsForOpenCRE (queryParams: Params): boolean {
+  updateParamsForOpenCRE (queryParams): boolean {
     if (queryParams.challenge && !queryParams.searchQuery) {
       this.router.navigate([], {
         queryParams: {
