@@ -1,5 +1,5 @@
 import { Component, NgZone, type OnDestroy, type OnInit } from '@angular/core'
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute, Params, Router } from '@angular/router'
 import { DomSanitizer } from '@angular/platform-browser'
 import { MatDialog } from '@angular/material/dialog'
 import { type Subscription, combineLatest } from 'rxjs'
@@ -80,16 +80,7 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
 
     const routerSubscription = this.route.queryParams.subscribe((queryParams) => {
       // Fix to keep direct links to challenges stable for OpenCRE and others
-      if (queryParams.challenge && !queryParams.searchQuery) {
-        this.router.navigate([], {
-          queryParams: {
-            ...queryParams,
-            challenge: null,
-            searchQuery: queryParams.challenge
-          }
-        })
-        return
-      }
+      if (this.updateParamsForOpenCRE(queryParams)) return
 
       this.filterSetting = fromQueryParams(queryParams)
       this.filterAndUpdateChallenges()
@@ -190,5 +181,19 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
   async repeatChallengeNotification (challengeKey: string) {
     const challenge = this.allChallenges.find((challenge) => challenge.key === challengeKey)
     await this.challengeService.repeatNotification(encodeURIComponent(challenge.name)).toPromise()
+  }
+
+  updateParamsForOpenCRE (queryParams: Params): boolean {
+    if (queryParams.challenge && !queryParams.searchQuery) {
+      this.router.navigate([], {
+        queryParams: {
+          ...queryParams,
+          challenge: null,
+          searchQuery: queryParams.challenge
+        }
+      })
+      return true
+    }
+    return false
   }
 }
