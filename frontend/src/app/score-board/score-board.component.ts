@@ -79,6 +79,18 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
     this.subscriptions.push(dataLoaderSubscription)
 
     const routerSubscription = this.route.queryParams.subscribe((queryParams) => {
+      // Fix to keep direct links to challenges stable for OpenCRE and others
+      if (queryParams.challenge && !queryParams.searchQuery) {
+        this.router.navigate([], {
+          queryParams: {
+            ...queryParams,
+            challenge: null,
+            searchQuery: queryParams.challenge
+          }
+        })
+        return
+      }
+
       this.filterSetting = fromQueryParams(queryParams)
       this.filterAndUpdateChallenges()
     })
