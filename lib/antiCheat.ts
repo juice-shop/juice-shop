@@ -95,7 +95,7 @@ export const calculateCheatScore = (challenge: Challenge) => {
   const preSolveInteraction = preSolveInteractions.find((preSolveInteraction) => preSolveInteraction.challengeKey === challenge.key)
   let percentPrecedingInteraction = -1
   if (preSolveInteraction) {
-    percentPrecedingInteraction = preSolveInteraction.interactions / (preSolveInteraction.urlFragments.length * challenge.difficulty)
+    percentPrecedingInteraction = preSolveInteraction.interactions / (preSolveInteraction.urlFragments.length)
     // TODO Add impact on actual cheat score
   }
 
