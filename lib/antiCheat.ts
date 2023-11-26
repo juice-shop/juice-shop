@@ -30,6 +30,41 @@ const preSolveInteractions: Array<{ challengeKey: any, urlFragments: string[], i
     challengeKey: 'missingEncodingChallenge',
     urlFragments: ['/assets/public/images/uploads/%F0%9F%98%BC-'],
     interactions: 0
+  },
+  {
+    challengeKey: 'directoryListingChallenge',
+    urlFragments: ['/ftp'],
+    interactions: 0
+  },
+  {
+    challengeKey: 'easterEggLevelOneChallenge',
+    urlFragments: ['/ftp', '/ftp/eastere.gg'],
+    interactions: 0
+  },
+  {
+    challengeKey: 'easterEggLevelTwoChallenge',
+    urlFragments: ['/ftp', '/gur/qrif/ner/fb/shaal/gurl/uvq/na/rnfgre/rtt/jvguva/gur/rnfgre/rtt'],
+    interactions: 0
+  },
+  {
+    challengeKey: 'forgottenDevBackupChallenge',
+    urlFragments: ['/ftp', '/ftp/package.json.bak'],
+    interactions: 0
+  },
+  {
+    challengeKey: 'forgottenBackupChallenge',
+    urlFragments: ['/ftp', '/ftp/coupons_2013.md.bak'],
+    interactions: 0
+  },
+  {
+    challengeKey: 'loginSupportChallenge',
+    urlFragments: ['/ftp', '/ftp/incident-support.kdbx'],
+    interactions: 0
+  },
+  {
+    challengeKey: 'misplacedSignatureFileChallenge',
+    urlFragments: ['/ftp', '/ftp/suspicious_errors.yml'],
+    interactions: 0
   }
 ]
 
@@ -65,7 +100,7 @@ export const calculateCheatScore = (challenge: Challenge) => {
     // TODO Add impact on actual cheat score
   }
 
-  logger.info(`Cheat score for ${areCoupled(challenge, previous().challenge) ? 'coupled ' : (isTrivial(challenge) ? 'trivial ' : '')}${challenge.tutorialOrder ? 'tutorial ' : ''}${colors.cyan(challenge.key)} solved in ${Math.round(minutesSincePreviousSolve)}min (expected ~${minutesExpectedToSolve}min) with${config.get('challenges.showHints') ? '' : 'out'} hints allowed${ percentPrecedingInteraction > -1 ? (' and ' + percentPrecedingInteraction * 100 + '% expected preceding URL interaction') : ''}: ${cheatScore < 0.33 ? colors.green(cheatScore.toString()) : (cheatScore < 0.66 ? colors.yellow(cheatScore.toString()) : colors.red(cheatScore.toString()))}`)
+  logger.info(`Cheat score for ${areCoupled(challenge, previous().challenge) ? 'coupled ' : (isTrivial(challenge) ? 'trivial ' : '')}${challenge.tutorialOrder ? 'tutorial ' : ''}${colors.cyan(challenge.key)} solved in ${Math.round(minutesSincePreviousSolve)}min (expected ~${minutesExpectedToSolve}min) with${config.get('challenges.showHints') ? '' : 'out'} hints allowed${percentPrecedingInteraction > -1 ? (' and ' + percentPrecedingInteraction * 100 + '% expected preceding URL interaction') : ''}: ${cheatScore < 0.33 ? colors.green(cheatScore.toString()) : (cheatScore < 0.66 ? colors.yellow(cheatScore.toString()) : colors.red(cheatScore.toString()))}`)
   solves.push({ challenge, phase: 'hack it', timestamp, cheatScore })
   return cheatScore
 }
