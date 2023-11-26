@@ -64,7 +64,17 @@ const preSolveInteractions: Array<{ challengeKey: any, urlFragments: string[], i
     challengeKey: 'misplacedSignatureFileChallenge',
     urlFragments: ['/ftp', '/ftp/suspicious_errors.yml'],
     interactions: 0
-  }
+  },
+  {
+    challengeKey: 'recChallenge',
+    urlFragments: ['/api-docs', '/b2b/v2/orders'],
+    interactions: 0
+  },
+  {
+    challengeKey: 'rceOccupyChallenge',
+    urlFragments: ['/api-docs', '/b2b/v2/orders'],
+    interactions: 0
+  },
 ]
 
 exports.checkForPreSolveInteractions = () => ({ url }: Request, res: Response, next: NextFunction) => {
