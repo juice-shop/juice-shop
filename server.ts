@@ -629,7 +629,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   /* Error Handling */
   app.use(verify.errorHandlingChallenge())
-  
+
   // Check env
   app.use(errorHandling())
 }).catch((err) => {
