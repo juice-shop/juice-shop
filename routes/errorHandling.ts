@@ -6,7 +6,7 @@ module.exports = function errorHandling () {
     return errorhandler();
   } else {
     return (_err: Error, _req: Request, res: Response, _next: NextFunction) => {
-      res.status(500).send(res.__("Oups, something went wrong..."));
+      res.status(500).send("Oups, something went wrong...");
     };
   }
 };
