@@ -77,6 +77,7 @@ const login = require('./routes/login')
 const changePassword = require('./routes/changePassword')
 const resetPassword = require('./routes/resetPassword')
 const securityQuestion = require('./routes/securityQuestion')
+const errorHandling = require('./routes/errorHandling')
 const search = require('./routes/search')
 const coupon = require('./routes/coupon')
 const basket = require('./routes/basket')
@@ -630,14 +631,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use(verify.errorHandlingChallenge())
   
   // Check env
-  if (process.env.ENV === "dev") {
-    app.use(errorhandler())
-  }
-  else {
-    app.use((_err: Error, _req: Request, res: Response, _next: NextFunction) => {
-      res.status(500).send(res.__('Oups, something went wrong...'))
-    });
-  }
+  app.use(errorHandling())
 }).catch((err) => {
   console.error(err)
 })
@@ -681,7 +675,7 @@ logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length.to
 let metricsUpdateLoop: any
 const Metrics = metrics.observeMetrics() // vuln-code-snippet neutral-line exposedMetricsChallenge
 const customizeEasterEgg = require('./lib/startup/customizeEasterEgg') // vuln-code-snippet hide-line
-app.get('/metrics', metrics.serveMetrics()) // vuln-code-snippet vuln-line exposedMetricsChallenge
+app.get('/metrics', security.isAccounting(), metrics.serveMetrics()) // vuln-code-snippet vuln-line exposedMetricsChallenge
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
 const registerWebsocketEvents = require('./lib/startup/registerWebsocketEvents')
