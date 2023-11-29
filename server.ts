@@ -627,7 +627,16 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   /* Error Handling */
   app.use(verify.errorHandlingChallenge())
-  app.use(errorhandler())
+  
+  // Check env
+  if (process.env.ENV === "dev") {
+    app.use(errorhandler())
+  }
+  else {
+    app.use((_err: Error, _req: Request, res: Response, _next: NextFunction) => {
+      res.status(500).send(res.__('Oups, something went wrong...'))
+    });
+  }
 }).catch((err) => {
   console.error(err)
 })
