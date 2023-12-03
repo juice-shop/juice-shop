@@ -80,7 +80,7 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
 
     const routerSubscription = this.route.queryParams.subscribe((queryParams) => {
       // Fix to keep direct links to challenges stable for OpenCRE and others
-      if (this.updateParamsForOpenCRE(queryParams)) return
+      if (this.rewriteLegacyChallengeDirectLink(queryParams)) return
 
       this.filterSetting = fromQueryParams(queryParams)
       this.filterAndUpdateChallenges()
@@ -183,8 +183,9 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
     await this.challengeService.repeatNotification(encodeURIComponent(challenge.name)).toPromise()
   }
 
-  updateParamsForOpenCRE (queryParams): boolean {
+  rewriteLegacyChallengeDirectLink (queryParams): boolean {
     if (queryParams.challenge && !queryParams.searchQuery) {
+      console.warn('The "challenge=challengeName" URL query parameter is now deprecated, and "searchQuery=challengeName" should be used instead.')
       this.router.navigate([], {
         queryParams: {
           ...queryParams,
@@ -193,6 +194,10 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
         }
       })
       return true
+    }
+
+    if (queryParams.challenge && queryParams.searchQuery) {
+      console.warn('The "challenge=challengeName" URL query parameter is now deprecated, and you should only use "searchQuery=challengeName" instead.')
     }
     return false
   }
