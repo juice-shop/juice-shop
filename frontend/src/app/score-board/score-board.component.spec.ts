@@ -63,7 +63,7 @@ describe('ScoreBoardPreviewComponent', () => {
     ])
 
     mockActivatedRoute = {
-      queryParams: of({ challenge: 'Score Board', searchQuery: null })
+      queryParams: of({})
     }
 
     await TestBed.configureTestingModule({
@@ -213,9 +213,11 @@ describe('ScoreBoardPreviewComponent', () => {
     ).toBe(2)
   })
 
-  it('should update queryParams for OpenCRE', () => {
+  it('should rewrite legacy challenge direct link', () => {
     const spy = spyOn(router, 'navigate') // Spy on the router's navigate method
+    mockActivatedRoute.queryParams = of({ challenge: 'Score Board', searchQuery: null })
     component.ngOnInit()
+
     expect(spy).toHaveBeenCalledWith([], {
       queryParams: {
         challenge: null,
