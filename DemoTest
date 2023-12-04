@@ -1,0 +1,24 @@
+//unnecessay details in method names 
+calculateSalaryOfEmployee(String employeeName, int monthOfTheYear); 
+ 
+//a method with multiple tasks to perform 
+calculateSalaryOfEmployeeWithBonus(	String employeeName,  
+									int monthOfTheYear,  
+									float bonusPercentage); 
+ 
+//a method with multiple tasks to perform 
+calculateSalaryOfEmployeeAndInitiateBankTransfer(String employeeName,  
+												int monthOfTheYear); 
+ 
+//unnecessary method arguments 
+calculateSpeedOfLight(Object universe, String iDontKnowWhatThisArgumentIsForWeUsusallyPassNullHere); 
+ 
+//unnecessary over-loading 
+joinTwoGalaxies(Galaxy 1, galaxy 2); 
+joinThreeGalaxies(Galaxy 1, galaxy 2, Galaxy 3); 
+ 
+//method documentation in method name 
+searchYahooForAnswerAndIfNotFoundSearchGoogle(String query); 
+ 
+//uncalled-for return types 
+String printTheHolybible();  
