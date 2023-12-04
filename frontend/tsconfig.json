@@ -6,7 +6,7 @@
 */
 {
   "files": [],
-  "references": [
+  "references": [ unknown
     {
       "path": "./src/tsconfig.app.json"
     },
