@@ -10,6 +10,7 @@ import { readFixes } from '../routes/vulnCodeFixes'
 import { type Challenge } from '../data/types'
 import { getCodeChallenges } from './codingChallenges'
 import logger from './logger'
+const median = require('median')
 
 const coupledChallenges = { // TODO prevent also near-identical challenges (e.g. all null byte file access or dom xss + bonus payload etc.) from counting as cheating
   loginAdminChallenge: ['weakPasswordChallenge'],
@@ -82,7 +83,7 @@ export const calculateFixItCheatScore = async (challenge: Challenge) => {
 }
 
 export const totalCheatScore = () => {
-  return solves.length > 1 ? solves.map(({ cheatScore }) => cheatScore).reduce((sum, score) => { return sum + score }) / (solves.length - 1) : 0
+  return solves.length > 1 ? median(solves.map(({ cheatScore }) => cheatScore)) : 0
 }
 
 function areCoupled (challenge: Challenge, previousChallenge: Challenge) {
