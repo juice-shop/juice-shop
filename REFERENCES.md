@@ -44,6 +44,7 @@ mentioned or used!
 
 ### Pod- & Webcasts
 
+* [ZAP Chat 05 Modern Apps Part 1](https://www.youtube.com/watch?v=Rq_d7OLmMfw) on [ZAP](https://www.youtube.com/@psiinon) with Simon Bennetts
 * [OWASP Spotlight - Project 25 - OWASP Juice Shop](https://www.youtube.com/watch?v=--50rE76EeA) by Vandana Verma with
   Björn Kimminich
 * [Visual application security testing with ZAP and Simon Bennetts #DemoDays](https://youtu.be/4xBJsRNV9ds) by [GitHub](https://www.youtube.com/channel/UC7c3Kb6jYCRj4JOHHZTxKsQ) with Simon Bennetts :mega:
