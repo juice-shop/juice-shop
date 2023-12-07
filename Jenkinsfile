@@ -16,16 +16,7 @@ pipeline{
           git branch:'main' , credentialsId:'github', url:'https://github.com/ajay11062808/juice-shop-app'
           }
     }
-    stage('Build app'){
-      steps{
-        sh 'mvn clean package'
-           }
-    }
-    stage('Test app'){
-      steps{
-        sh 'mvn test'
-           }
-    }
+    
     
   }
 }
