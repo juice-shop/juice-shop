@@ -17,17 +17,17 @@ pipeline{
           git branch:'main' , credentialsId:'github', url:'https://github.com/ajay11062808/juice-shop-app'
           }
     }
+    stage('Owasp Dependency Check'){
+      steps{
+        script{dependencyCheck additionalArguments: '--format HTML', odcInstallation: 'DP-check'}
+      }
+    }
     stage('SonarQube Analysis') {
     steps {
         script {
             // Set up the SonarQube environment
             withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
-              // Set the SonarScanner tool installation
-                def scannerHome = tool 'sonarqube-scanner'
-                env.PATH = "${scannerHome}/bin:${env.PATH}"
-
-                // Run npm with SonarQube goals
-                sh "sonar-scanner -Dsonar.projectKey=Juice-Shop-project"
+                      sh "sonar-scanner -Dsonar.projectKey=Juice-Shop-project"
             }
         }
     }
