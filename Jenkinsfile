@@ -26,7 +26,7 @@ pipeline{
     steps {
         script {
             // Set up the SonarQube environment
-              def scannerHome = tool 'sonar-scanner'
+              def scannerHome = tool 'sonarqube-scanner'
               env.PATH = "${scannerHome}/bin:${env.PATH}"
             withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
                       sh "sonar-scanner -Dsonar.projectKey=Juice-Shop-project"
