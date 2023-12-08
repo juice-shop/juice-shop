@@ -30,7 +30,7 @@ pipeline{
                 env.PATH = "${scannerHome}/bin:${env.PATH}"
 
                 // Run npm with SonarQube goals
-                sh "npm run sonar-scanner"
+                sh "sonar-scanner -Dsonar.projectKey=Juice-Shop-project"
             }
         }
     }
