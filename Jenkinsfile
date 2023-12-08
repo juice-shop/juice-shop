@@ -32,7 +32,14 @@ pipeline{
         }
     }
 }
-
+    stage('Quality Gate') {
+            steps {
+                script {
+                    // Wait for the SonarQube analysis to complete and check the quality gate
+                    waitForQualityGate abortPipeline: false,credentialsId:'jenkins-sonarqube-token'
+                }
+            }
+        }
     
     
     
