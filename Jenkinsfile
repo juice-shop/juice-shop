@@ -22,9 +22,6 @@ pipeline{
         script {
             // Set up the SonarQube environment
             withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
-                // Install Node.js and npm
-                def nodejsHome = tool 'NodeJS20'
-                env.PATH = "${nodejsHome}/bin:${env.PATH}"
               // Set the SonarScanner tool installation
                 def scannerHome = tool 'sonarqube-scanner'
                 env.PATH = "${scannerHome}/bin:${env.PATH}"
