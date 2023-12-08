@@ -16,6 +16,14 @@ pipeline{
           git branch:'main' , credentialsId:'github', url:'https://github.com/ajay11062808/juice-shop-app'
           }
     }
+    stage('SonarQube Analysis'){
+      steps{
+       script{withSonarQubeEnv(credentialsId:'jenkins-sonarqube-token')
+              sh "mvn sonar:sonar"
+             } 
+      }
+    }
+    
     
     
   }
