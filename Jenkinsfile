@@ -25,9 +25,11 @@ pipeline{
                 // Install Node.js and npm
                 def nodejsHome = tool 'NodeJS20'
                 env.PATH = "${nodejsHome}/bin:${env.PATH}"
+              // Set the SonarScanner tool installation
+                def scannerHome = tool 'sonarqube-scanner'
+                env.PATH = "${scannerHome}/bin:${env.PATH}"
 
                 // Run npm with SonarQube goals
-                sh "npm install"
                 sh "npm run sonar-scanner"
             }
         }
