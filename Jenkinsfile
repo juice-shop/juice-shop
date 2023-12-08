@@ -3,7 +3,7 @@ pipeline{
   tools{
     jdk 'Java17'
     maven 'Maven3'
-    nodejs 'NodeJS21'
+    nodejs 'NodeJS20'
   }
   stages{
     stage('Cleanup Workspace'){
@@ -23,7 +23,7 @@ pipeline{
             // Set up the SonarQube environment
             withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
                 // Install Node.js and npm
-                def nodejsHome = tool 'NodeJS21'
+                def nodejsHome = tool 'NodeJS20'
                 env.PATH = "${nodejsHome}/bin:${env.PATH}"
 
                 // Run npm with SonarQube goals
