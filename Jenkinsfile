@@ -1,5 +1,3 @@
-//Grab for zap
-@Grab(group='org.zaproxy.zap', module='zap-api', version='2.14.0') // Replace with the actual version
 pipeline{
   agent any
   tools{
