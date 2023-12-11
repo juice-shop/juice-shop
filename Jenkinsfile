@@ -5,6 +5,10 @@ pipeline{
     maven 'Maven3'
     nodejs 'NodeJS20'
   }
+  parameters {
+        string(name: 'application_url', defaultValue: 'http://10.0.0.4:3000', description: 'URL for ZAP attack')
+    }
+  
   stages{
     stage('Cleanup Workspace'){
       steps{
@@ -66,52 +70,30 @@ pipeline{
         }
 
         stage('Run OWASP ZAP Scan') {
-            steps {
+          steps {
                 script {
-                    // Assuming ZAP is running on localhost:8090
-                    def zapProxy = new org.zaproxy.clientapi.core.ProxyClient('localhost', 8090)
-                    def zapScanner = new org.zaproxy.clientapi.core.Scanner(zapProxy)
+                  //Pull the latest Zap image from docker
+                sh 'docker pull ghcr.io/zaproxy/zaproxy:stable'
+                 // Run ZAP in a Docker container
+                sh  'docker run -u root -v zap-data:/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-full-scan.py -t ${application_url} -g gen.conf -r report.html || true'
 
-                    // Get Juice Shop URL
-                    def juiceShopUrl = sh(script: 'echo http://localhost:3000', returnStdout: true).trim()
-
-                    // Launch the ZAP Spider
-                    zapScanner.scan(targetURL: juiceShopUrl)
-
-                    // Wait for the spider to finish
-                    def spiderId = zapScanner.getLastScannerScanId()
-                    while (zapScanner.isSpiderRunning(spiderId)) {
-                        sleep(3000)
-                    }
-
-                    // Launch the ZAP Active Scan
-                    zapScanner.scan(targetURL: juiceShopUrl, scanPolicyName: 'Default Policy')
-
-                    // Wait for the active scan to finish
-                    def activeScanId = zapScanner.getLastScannerScanId()
-                    while (zapScanner.isScanning(activeScanId)) {
-                        sleep(3000)
-                    }
-
-                    // Generate ZAP reports
-                    def reportHtml = zapProxy.core.htmlreport()
-                    def reportXml = zapProxy.core.xmlreport()
-                    def reportJson = zapProxy.core.jsonreport()
-
-                    // Save reports to a directory
-                    def reportsDir = 'zap-reports'
-                    dir(reportsDir) {
-                        writeFile file: 'report.html', text: reportHtml
-                        writeFile file: 'report.xml', text: reportXml
-                        writeFile file: 'report.json', text: reportJson
-                    }
+            // Create a container from the ZAP Docker image to access the volume
+            def zapContainer = docker.image('ghcr.io/zaproxy/zaproxy:stable').run("-v zap-data:/zap/wrk")
+            // Copy the ZAP reports from the Docker volume to the Jenkins workspace
+            sh "docker cp ${zapContainer.id}:/zap/wrk/report.html ."
+            // Stop and remove the container
+            zapContainer.stop()
+                    
                 }
             }
         }
-
-
-    
-    
-    
-  }
+            
+ }
+  post {
+    success {
+        echo "Pipeline currentResult: ${currentBuild.currentResult}"
+        archiveArtifacts artifacts: 'report.html', fingerprint: true
+    }
+}
+  
 }
