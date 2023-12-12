@@ -7,9 +7,10 @@ on:
   pull_request:
     branches:
       - develop
-#The below env is used to reference the image name in the Job step
+#The below env is used to reference the image and repository name in the Job step
 env:
     IMAGE_NAME: "owasp-juice-shop"
+    REPOSITORY_NAME: "${{ github.actor }}"
 jobs:
     scan-repo-trivy:
         runs-on: ubuntu-latest
@@ -58,7 +59,7 @@ jobs:
             # The ecr_repo this is used to reference the name of a specific section in the Job step
               id: ecr_repo
               run: |
-                if aws ecr describe-repositories --repository-names $GITHUB_REPOSITORY --region ${{ secrets.AWS_REGION }} 2>/dev/null; then
+                if aws ecr describe-repositories --repository-names "${{ env.REPOSITORY_NAME }}_${{ env.IMAGE_NAME }}" --region ${{ secrets.AWS_REGION }} 2>/dev/null; then
                   echo "::set-output name=exists::true"
                 else
                   echo "::set-output name=exists::false"
@@ -67,7 +68,7 @@ jobs:
             - name: Create AWS ECR Repository
               if: steps.ecr_repo.outputs.exists == 'false'
               run: |
-                    aws ecr create-repository --repository-name $GITHUB_REPOSITORY --region ${{ secrets.AWS_REGION }}
+                    aws ecr create-repository --repository-name "${{ env.REPOSITORY_NAME }}_${{ env.IMAGE_NAME }}" --region ${{ secrets.AWS_REGION }}
             # The below will login to AWS ECR and build image
             - name: Login to AWS ECR
               uses: aws-actions/amazon-ecr-login@v1
