@@ -1,0 +1,92 @@
+name: "Deploy OWASP Juice Shop to AWS ECS on Fargate"
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - develop
+jobs:
+    scan-repo-trivy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Repository Content
+              uses: actions/checkout@v2
+            - name: Scan Repository for Vulnerabilities
+              uses: aquasecurity/trivy-action@master
+              with:
+                # The below will scan the code file and also ignore unfixed files from Node.js
+                  scan-type: "fs"
+                  ignore-unfixed: true
+                  format: "sarif"
+                  output: "trivy-results.sarif"
+                  severity: "CRITICAL, HIGH"
+            - name: Upload Trivy Scan results to GitHub Security Tab
+              uses: github/codeql-action/upload-sarif@v1
+              with:
+                sarif_file: trivy-results.sarif
+    # The below will scan the code file with SonarQube and upload the results to SonarQube cloud
+    scan-repo-sonarqube:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Repository Content
+              uses: actions/checkout@v2
+            - name: Scan Repository for Vulnerabilities
+              uses: sonarsource/sonarqube-scan-action@master
+              env:
+                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+    
+    # The below will build the docker image and push it to AWS ECR
+    buid-and-scan-image:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Repository Content
+              uses: actions/checkout@v2
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v2
+              with:
+                aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                aws-region: ${{ secrets.AWS_REGION }}
+            - name: Check if AWS ECR Repository exists
+            # The ecr_repo this is used to reference the name of a specific section in the Job step
+              id: ecr_repo
+              run: |
+                if aws ecr describe-repositories --repository-names $GITHUB_REPOSITORY --region ${{ secrets.AWS_REGION }} 2>/dev/null; then
+                  echo "::set-output name=exists::true"
+                else
+                  echo "::set-output name=exists::false"
+                fi
+            # The below will create the AWS ECR repository if it does not exist
+            - name: Create AWS ECR Repository
+              if: steps.ecr_repo.outputs.exists == 'false'
+              run: |
+                    aws ecr create-repository --repository-name $GITHUB_REPOSITORY --region ${{ secrets.AWS_REGION }}
+            # The below will login to AWS ECR and build image
+            - name: Login to AWS ECR
+              uses: aws-actions/amazon-ecr-login@v1
+              with:
+                mask-password: 'true'
+            - name: Build and Push Docker Image to AWS ECR
+              run: |
+                docker build -t ${{ secrets.AWS_REGISTRY }}/$GITHUB_REPOSITORY:latest .
+            # The below will scan the docker image with Trivy and upload the results to GitHub Security Tab
+            - name: Scan Docker Image for Vulnerabilities
+              uses: aquasecurity/trivy-action@master
+              with:
+                image-ref: ${{ secrets.AWS_REGISTRY }}/$GITHUB_REPOSITORY:latest
+                format: "sarif"
+                output: "trivy-results.sarif"
+                severity: "CRITICAL, HIGH"
+
+            - name: Upload Trivy Scan results to GitHub Security Tab
+              uses: github/codeql-action/upload-sarif@v1
+              with:
+                sarif_file: trivy-results.sarif
+            # The below will push the docker image to AWS ECR
+            - name: Push Docker Image to AWS ECR
+              run: |
+                docker push ${{ secrets.AWS_REGISTRY }}/$GITHUB_REPOSITORY:latest
+        
