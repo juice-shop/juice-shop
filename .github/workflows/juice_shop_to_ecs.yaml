@@ -79,7 +79,7 @@ jobs:
                 image-ref: ${{ secrets.AWS_REGISTRY }}/$GITHUB_REPOSITORY:latest
                 format: "sarif"
                 output: "trivy-results.sarif"
-                severity: "CRITICAL, HIGH"
+                # severity: "CRITICAL, HIGH"
 
             - name: Upload Trivy Scan results to GitHub Security Tab
               uses: github/codeql-action/upload-sarif@v1
