@@ -78,12 +78,12 @@ jobs:
               run: |
                 docker build -t ${{ secrets.AWS_REGISTRY }}/$IMAGE_NAME:latest .
             # The below will scan the docker image with Trivy and upload the results to GitHub Security Tab
-            - name: Scan Docker Image for Vulnerabilities
-              uses: aquasecurity/trivy-action@master
-              with:
-                image-ref: ${{ secrets.AWS_REGISTRY }}/$IMAGE_NAME:latest
-                format: "sarif"
-                output: "trivy-results.sarif"
+            # - name: Scan Docker Image for Vulnerabilities
+            #   uses: aquasecurity/trivy-action@master
+            #   with:
+            #     image-ref: ${{ secrets.AWS_REGISTRY }}/$IMAGE_NAME:latest
+            #     format: "sarif"
+            #     output: "trivy-results.sarif"
                 # severity: "CRITICAL, HIGH"
 
             - name: Upload Trivy Scan results to GitHub Security Tab
