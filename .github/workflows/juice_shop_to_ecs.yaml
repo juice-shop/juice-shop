@@ -7,6 +7,9 @@ on:
   pull_request:
     branches:
       - develop
+#The below env is used to reference the image name in the Job step
+env:
+    IMAGE_NAME: "owasp-juice-shop"
 jobs:
     scan-repo-trivy:
         runs-on: ubuntu-latest
@@ -41,6 +44,7 @@ jobs:
     # The below will build the docker image and push it to AWS ECR
     buid-and-scan-image:
         runs-on: ubuntu-latest
+        if: github.ref == 'refs/heads/master'
         steps:
             - name: Checkout Repository Content
               uses: actions/checkout@v2
@@ -71,12 +75,12 @@ jobs:
                 mask-password: 'true'
             - name: Build and Push Docker Image to AWS ECR
               run: |
-                docker build -t ${{ secrets.AWS_REGISTRY }}/$GITHUB_REPOSITORY:latest .
+                docker build -t ${{ secrets.AWS_REGISTRY }}/$IMAGE_NAME:latest .
             # The below will scan the docker image with Trivy and upload the results to GitHub Security Tab
             - name: Scan Docker Image for Vulnerabilities
               uses: aquasecurity/trivy-action@master
               with:
-                image-ref: ${{ secrets.AWS_REGISTRY }}/$GITHUB_REPOSITORY:latest
+                image-ref: ${{ secrets.AWS_REGISTRY }}/$IMAGE_NAME:latest
                 format: "sarif"
                 output: "trivy-results.sarif"
                 # severity: "CRITICAL, HIGH"
@@ -88,5 +92,5 @@ jobs:
             # The below will push the docker image to AWS ECR
             - name: Push Docker Image to AWS ECR
               run: |
-                docker push ${{ secrets.AWS_REGISTRY }}/$GITHUB_REPOSITORY:latest
+                docker push ${{ secrets.AWS_REGISTRY }}/$IMAGE_NAME:latest
         
