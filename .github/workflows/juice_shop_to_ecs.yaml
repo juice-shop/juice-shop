@@ -86,10 +86,10 @@ jobs:
             #     output: "trivy-results.sarif"
                 # severity: "CRITICAL, HIGH"
 
-            - name: Upload Trivy Scan results to GitHub Security Tab
-              uses: github/codeql-action/upload-sarif@v1
-              with:
-                sarif_file: trivy-results.sarif
+            # - name: Upload Trivy Scan results to GitHub Security Tab
+            #   uses: github/codeql-action/upload-sarif@v1
+            #   with:
+            #     sarif_file: trivy-results.sarif
             # The below will push the docker image to AWS ECR
             - name: Push Docker Image to AWS ECR
               run: |
