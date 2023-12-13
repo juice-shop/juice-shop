@@ -26,6 +26,24 @@ pipeline{
         script{dependencyCheck additionalArguments: '--format HTML', odcInstallation: 'DP-check'}
       }
     }
+     /*stage('semgrep') {
+                    steps {
+                       sh '''
+                       pwd
+                       ls -lrtha
+                       semgrep scan --config auto --output Semgrep_results.json --json
+                       '''   
+                    }
+                }*/
+      stage('Semgrep Analysis') {
+          steps {
+        withCredentials([string(credentialsId: 'semgrep-app-token', variable: 'SEMGREP_APP_TOKEN')]) {
+            sh '''
+            semgrep ci
+            '''   
+               }
+            }
+        }
     stage('SonarQube Analysis') {
     steps {
         script {
