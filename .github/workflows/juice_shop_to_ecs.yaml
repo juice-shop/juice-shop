@@ -93,5 +93,5 @@ jobs:
             # The below will push the docker image to AWS ECR
             - name: Push Docker Image to AWS ECR
               run: |
-                docker push ${{ secrets.AWS_REGISTRY }}/"${{ env.REPOSITORY_NAME }}_${{ env.IMAGE_NAME }}"/$IMAGE_NAME:latest
+                docker push ${{ secrets.AWS_REGISTRY }}/${{ env.IMAGE_NAME }}:latest
         
