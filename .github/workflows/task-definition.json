@@ -1,0 +1,22 @@
+{
+    "containerDefinitions": [
+        {
+            "name": "http-server", 
+            "image": "nginx:latest", 
+            "portMappings": [
+                {
+                    "containerPort": 3000, 
+                    "hostPort": 300, 
+                    "protocol": "tcp"
+                }
+            ]
+        }
+    ], 
+    "memory": "512",
+    "cpu": "256", 
+    "networkMode": "awsvpc", 
+    "family": "http-server", 
+    "requiresCompatibilities": [
+        "FARGATE"
+    ]
+}
