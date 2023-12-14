@@ -12,7 +12,7 @@ env:
     IMAGE_NAME: "owasp-juice-shop"
     REPOSITORY_NAME: "${{ github.actor }}"
     ECS_SERVICE_NAME: "${{ github.actor }}_service"
-    ECS_TASK_DEFINITION: "./task-definition.json"
+    ECS_TASK_DEFINITION: ".aws/task-definition.json"
 jobs:
     scan-repo-trivy:
         runs-on: ubuntu-latest
