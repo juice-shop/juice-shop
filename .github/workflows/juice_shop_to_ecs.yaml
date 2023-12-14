@@ -76,7 +76,7 @@ jobs:
                 mask-password: 'true'
             - name: Build and Push Docker Image to AWS ECR
               run: |
-                docker build -t ${{ secrets.AWS_REGISTRY }}/"${{ env.REPOSITORY_NAME }}_${{ env.IMAGE_NAME }}"/$IMAGE_NAME:latest .
+                docker build -t ${{ secrets.AWS_REGISTRY }}/${{ env.IMAGE_NAME }}:latest .
             # The below will scan the docker image with Trivy and upload the results to GitHub Security Tab
             # - name: Scan Docker Image for Vulnerabilities
             #   uses: aquasecurity/trivy-action@master
