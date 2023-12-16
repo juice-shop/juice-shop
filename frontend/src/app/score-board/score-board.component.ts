@@ -184,20 +184,18 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
   }
 
   rewriteLegacyChallengeDirectLink (queryParams): boolean {
-    if (queryParams.challenge && !queryParams.searchQuery) {
-      console.warn('The "challenge=challengeName" URL query parameter is now deprecated, and "searchQuery=challengeName" should be used instead.')
-      this.router.navigate([], {
-        queryParams: {
-          ...queryParams,
-          challenge: null,
-          searchQuery: queryParams.challenge
-        }
-      })
-      return true
-    }
-
-    if (queryParams.challenge && queryParams.searchQuery) {
-      console.warn('The "challenge=challengeName" URL query parameter is now deprecated, and you should only use "searchQuery=challengeName" instead.')
+    if (queryParams.challenge) {
+      console.warn('The "challenge=<name>" URL query parameter is deprecated! You should  use "searchQuery=<name>" instead to link to a challenge directly. See https://pwning.owasp-juice.shop/companion-guide/latest/part4/integration.html#_generating_links_to_juice_shop for details.')
+      if (!queryParams.searchQuery) {
+        this.router.navigate([], {
+          queryParams: {
+            ...queryParams,
+            challenge: null,
+            searchQuery: queryParams.challenge
+          }
+        })
+        return true
+      }
     }
     return false
   }

@@ -1,6 +1,6 @@
 fixes:
   - id: 1
-    explanation: 'Removing the bypass of sanitization entirely is the best way to fix the XSS vulnerability here. It should be noted, that XSS is only a consequence of broken autheorization in this case, as users should not be allowed to change product descriptions in the first place.'
+    explanation: 'Removing the bypass of sanitization entirely is the best way to fix the XSS vulnerability here. It should be noted, that XSS is only a consequence of broken authorization in this case, as users should not be allowed to change product descriptions in the first place.'
   - id: 2
     explanation: 'Manually encoding the angular brackets of the HTML tags does not add any security. It is likely to break descriptions with legitimate HTML tags for styling or links, though.'
   - id: 3
