@@ -16,22 +16,22 @@
 }
 
 .dialog-action {
+  display: block;
   margin-bottom: 0 !important;
   padding: 0 !important;
   position: relative;
-  display: block;
 }
 
 .fix {
-  position: absolute;
-  left: 0;
   bottom: -20px;
+  left: 0;
+  position: absolute;
 }
 
 .btns {
   display: flex;
-  justify-content: flex-end;
   flex: 1;
+  justify-content: flex-end;
   margin-top: 36px;
 }
 
@@ -39,7 +39,9 @@
   margin-top: 16px;
 }
 
-.primary-notification, .warn-notification, .accent-notification {
+.primary-notification,
+.warn-notification,
+.accent-notification {
   margin-top: 16px;
   width: calc(63em - 157px);
 }
