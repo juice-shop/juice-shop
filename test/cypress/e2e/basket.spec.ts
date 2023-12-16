@@ -25,7 +25,6 @@ describe('/#/basket', () => {
         })
         cy.visit('/#/order-summary')
 
-        // cy.get("mat-cell.mat-column-quantity > span").first().should("match",-100000)
         cy.get('mat-cell.mat-column-quantity > span')
           .first()
           .then(($ele) => {
@@ -77,13 +76,12 @@ describe('/#/basket', () => {
       cy.login({ email: 'jim', password: 'ncc-1701' })
     })
     describe('challenge "manipulateClock"', () => {
-      it('should be possible to enter WMNSDY2019 coupon', () => {
+      it('should be possible to enter WMNSDY2019 coupon & place order with this expired coupon', () => {
         cy.window().then(() => {
           window.localStorage.couponPanelExpanded = false
         })
         cy.visit('/#/payment/shop')
 
-        // yahan bt aa rahi in the console commands
         cy.window().then((win) => {
           cy.on('uncaught:exception', (_err, _runnable) => {
             // Introduced to disbale the uncaught:exception we get after the eval under this as TypeError: Date.now is not a function
@@ -97,10 +95,8 @@ describe('/#/basket', () => {
 
         cy.get('#coupon').type('WMNSDY2019')
         cy.get('#applyCouponButton').click()
-      })
-
-      it('should be possible to place an order with the expired coupon', () => {
-        cy.visit('/#/order-summary')
+        cy.get('.mat-radio-inner-circle').first().click()
+        cy.get('.nextButton').click()
         cy.get('#checkoutButton').click()
         cy.expectChallengeSolved({ challenge: 'Expired Coupon' })
       })
