@@ -26,16 +26,22 @@ export interface Solved {
   fixIt: boolean
 }
 
+export interface RandomFixes {
+  fix: string
+  index: number
+}
+
 @Component({
   selector: 'code-snippet',
   templateUrl: './code-snippet.component.html',
-  styleUrls: ['./code-snippet.component.scss']
+  styleUrls: ['./code-snippet.component.scss'],
+  host: { class: 'code-snippet' }
 })
 export class CodeSnippetComponent implements OnInit {
   public snippet: CodeSnippet = null
-  public fixes: Fixes = null
+  public fixes: string [] = null
   public selectedLines: number[]
-  public selectedFix: number
+  public selectedFix: number = 0
   public tab: UntypedFormControl = new UntypedFormControl(0)
   public lock: ResultState = ResultState.Undecided
   public result: ResultState = ResultState.Undecided
@@ -43,6 +49,7 @@ export class CodeSnippetComponent implements OnInit {
   public explanation: string = null
   public solved: Solved = { findIt: false, fixIt: false }
   public showFeedbackButtons: boolean = true
+  public randomFixes: RandomFixes[] = []
 
   constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly configurationService: ConfigurationService, private readonly codeSnippetService: CodeSnippetService, private readonly vulnLinesService: VulnLinesService, private readonly codeFixesService: CodeFixesService, private readonly challengeService: ChallengeService, private readonly cookieService: CookieService) { }
 
@@ -64,6 +71,9 @@ export class CodeSnippetComponent implements OnInit {
     })
     this.codeFixesService.get(this.dialogData.key).subscribe((fixes) => {
       this.fixes = fixes.fixes
+      if (this.fixes) {
+        this.shuffle()
+      }
       this.solved.fixIt = this.dialogData.codingChallengeStatus >= 2
     }, () => {
       this.fixes = null
@@ -79,6 +89,10 @@ export class CodeSnippetComponent implements OnInit {
     this.explanation = null
   }
 
+  changeFix (event: Event) {
+    this.setFix(parseInt((event.target as HTMLSelectElement).value, 10))
+  }
+
   toggleTab = (event: number) => {
     this.tab.setValue(event)
     this.result = ResultState.Undecided
@@ -91,7 +105,7 @@ export class CodeSnippetComponent implements OnInit {
   }
 
   checkFix = () => {
-    this.codeFixesService.check(this.dialogData.key, this.selectedFix).subscribe((verdict) => {
+    this.codeFixesService.check(this.dialogData.key, this.randomFixes[this.selectedFix].index).subscribe((verdict) => {
       this.setVerdict(verdict.verdict)
       this.explanation = verdict.explanation
     })
@@ -125,6 +139,13 @@ export class CodeSnippetComponent implements OnInit {
       case 'lock':
         return 'warn'
     }
+  }
+
+  shuffle () {
+    this.randomFixes = this.fixes
+      .map((fix, index) => ({ fix, index, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ fix, index }) => ({ fix, index }))
   }
 
   setVerdict = (verdict: boolean) => {
