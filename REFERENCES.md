@@ -75,6 +75,7 @@ mentioned or used!
   [Nick Malcolm](https://www.YouTube.com/channel/UCgU77NClL2pLS92viQro6yA):
   [OWASP Juice Shop 101](https://youtu.be/8ZYoe0xu6QY) :godmode:
 * [Application Security Podcast](https://securityjourney.com/application-security-podcast):
+    * [Björn Kimminich -- OWASP Juice Shop](https://www.buzzsprout.com/1730684/14121640-bjorn-kimminich-owasp-juice-shop) ([YouTube](https://youtu.be/ay5A7BcZxIs?si=nzhYfVqG5o7l9bWA)) 
     * Episode 7.2:
       [Jannik Hollenbach — Multijuicer: JuiceShop with a side of Kubernetes](https://podcast.securityjourney.com/jannik-hollenbach-multijuicer-juiceshop-with-a-side-of-kubernetes/)
       ([YouTube](https://youtu.be/3M6EMDKIAYs))
