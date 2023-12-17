@@ -7,10 +7,41 @@
   max-width: 600px;
 }
 
+.code-snippet {
+  position: relative;
+}
+
 #code-snippet {
   width: 65em;
 }
 
-.dialogAction {
+.dialog-action {
+  display: block;
   margin-bottom: 0 !important;
+  padding: 0 !important;
+  position: relative;
+}
+
+.fix {
+  bottom: -20px;
+  left: 0;
+  position: absolute;
+}
+
+.btns {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  margin-top: 36px;
+}
+
+.btns-findit {
+  margin-top: 16px;
+}
+
+.primary-notification,
+.warn-notification,
+.accent-notification {
+  margin-top: 16px;
+  width: calc(63em - 157px);
 }
