@@ -29,7 +29,7 @@ jobs:
       - name: "Use Node.js 18"
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d #v3.8.1
         with:
-          node-version: 18
+          node-version: 20
       - name: "Install CLI tools"
         run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application minimalistically"
@@ -61,7 +61,7 @@ jobs:
       - name: "Use Node.js 18"
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d #v3.8.1
         with:
-          node-version: 18
+          node-version: 20
       - name: "Install CLI tools"
         run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
@@ -183,7 +183,7 @@ jobs:
       - name: "Use Node.js 18"
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d #v3.8.1
         with:
-          node-version: 18
+          node-version: 20
       - name: "Install CLI tools"
         run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
@@ -219,7 +219,7 @@ jobs:
       - name: "Use Node.js 18"
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d #v3.8.1
         with:
-          node-version: 18
+          node-version: 20
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
@@ -260,7 +260,7 @@ jobs:
       - name: "Use Node.js 18"
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d #v3.8.1
         with:
-          node-version: 18
+          node-version: 20
       - name: "Install CLI tools"
         run: |
           npm install -g @angular/cli@$ANGULAR_CLI_VERSION
