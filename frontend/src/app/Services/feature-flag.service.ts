@@ -21,7 +21,7 @@ export class FeatureFlagService {
     }
   }
 
-  public defaultScoreBoard$: Subject<ScoreBoardVersion> = new BehaviorSubject<ScoreBoardVersion>('v1')
+  public defaultScoreBoard$: Subject<ScoreBoardVersion> = new BehaviorSubject<ScoreBoardVersion>('v2')
   public setDefaultScoreBoard (scoreBoardVersion: ScoreBoardVersion) {
     this.defaultScoreBoard$.next(scoreBoardVersion)
     localStorage.setItem(SCORE_BOARD_FEATURE_FLAG_KEY, scoreBoardVersion)

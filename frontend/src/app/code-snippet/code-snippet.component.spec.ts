@@ -139,21 +139,21 @@ describe('CodeSnippetComponent', () => {
   })
 
   it('lock icon is red and "locked" by default', () => {
-    component.fixes = { fixes: ['Fix1', 'Fix2', 'Fix3'] }
+    component.fixes = ['Fix1', 'Fix2', 'Fix3']
     component.lock = 0
     expect(component.lockIcon()).toBe('lock')
     expect(component.lockColor()).toBe('warn')
   })
 
   it('lock icon is red and "locked" when "Find It" phase is unsolved', () => {
-    component.fixes = { fixes: ['Fix1', 'Fix2', 'Fix3'] }
+    component.fixes = ['Fix1', 'Fix2', 'Fix3']
     component.lock = 2
     expect(component.lockIcon()).toBe('lock')
     expect(component.lockColor()).toBe('warn')
   })
 
   it('lock icon is green and "lock_open" when "Find It" phase is in solved', () => {
-    component.fixes = { fixes: ['Fix1', 'Fix2', 'Fix3'] }
+    component.fixes = ['Fix1', 'Fix2', 'Fix3']
     component.lock = 1
     expect(component.lockIcon()).toBe('lock_open')
     expect(component.lockColor()).toBe('accent')
@@ -185,7 +185,7 @@ describe('CodeSnippetComponent', () => {
 
   xit('correctly submitted vulnerable lines toggle tab to "Fix It" if code fixes exist', waitForAsync(() => {
     component.tab.setValue(0)
-    component.fixes = { fixes: ['Fix1', 'Fix2', 'Fix3'] }
+    component.fixes = ['Fix1', 'Fix2', 'Fix3']
     vulnLinesService.check.and.returnValue(of({ verdict: true }))
     component.checkLines()
     expect(component.tab.value).toBe(1)
@@ -193,8 +193,17 @@ describe('CodeSnippetComponent', () => {
 
   it('correctly submitted fix toggles positive verdict for "Fix It" phase', () => {
     component.tab.setValue(1)
+    component.randomFixes = [{ fix: 'Fix 1', index: 0 }]
     codeFixesService.check.and.returnValue(of({ verdict: true }))
     component.checkFix()
     expect(component.solved.fixIt).toBeTrue()
+  })
+
+  it('should remember the original order of available code fix options when shuffling', () => {
+    component.fixes = ['Fix 1', 'Fix 2', 'Fix 3']
+    component.shuffle()
+    expect(component.randomFixes).toContain({ fix: 'Fix 1', index: 0 })
+    expect(component.randomFixes).toContain({ fix: 'Fix 2', index: 1 })
+    expect(component.randomFixes).toContain({ fix: 'Fix 3', index: 2 })
   })
 })

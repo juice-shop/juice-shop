@@ -29,7 +29,7 @@ jobs:
       - name: "Use Node.js 18"
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d #v3.8.1
         with:
-          node-version: 18
+          node-version: 20
       - name: "Install CLI tools"
         run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application minimalistically"
@@ -61,7 +61,7 @@ jobs:
       - name: "Use Node.js 18"
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d #v3.8.1
         with:
-          node-version: 18
+          node-version: 20
       - name: "Install CLI tools"
         run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
@@ -73,7 +73,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest] # FIXME: Removed "windows-latest" due to 'Error: ENOENT: no such file or directory, open' error breaking at least on Node 20.0 constantly
-        node-version: [16, 18, 20]
+        node-version: [18, 20, 21]
     steps:
       - name: "Check out Git repository"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '18')
@@ -113,7 +113,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [16, 18, 20]
+        node-version: [18, 20, 21]
     steps:
       - name: "Check out Git repository"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '18')
@@ -183,7 +183,7 @@ jobs:
       - name: "Use Node.js 18"
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d #v3.8.1
         with:
-          node-version: 18
+          node-version: 20
       - name: "Install CLI tools"
         run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
@@ -219,7 +219,7 @@ jobs:
       - name: "Use Node.js 18"
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d #v3.8.1
         with:
-          node-version: 18
+          node-version: 20
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
@@ -260,7 +260,7 @@ jobs:
       - name: "Use Node.js 18"
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d #v3.8.1
         with:
-          node-version: 18
+          node-version: 20
       - name: "Install CLI tools"
         run: |
           npm install -g @angular/cli@$ANGULAR_CLI_VERSION
@@ -319,7 +319,7 @@ jobs:
           echo "VCS_REF=`git rev-parse --short HEAD`" >> $GITHUB_ENV
           echo "BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”`" >> $GITHUB_ENV
       - name: "Build and push for AMD64 and ARM64 processors"
-        uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 #v5.0.0
+        uses: docker/build-push-action@4a13e500e55cf31b7a5d59a38ab2040ab0f42f56 #v5.1.0
         with:
           context: .
           file: ./Dockerfile
