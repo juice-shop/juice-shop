@@ -22,7 +22,7 @@ import { AboutComponent } from './about/about.component'
 import { AdministrationComponent } from './administration/administration.component'
 import { BasketComponent } from './basket/basket.component'
 import { LoginComponent } from './login/login.component'
-import { ScoreBoardComponent } from './score-board/score-board.component'
+import { ScoreBoardLegacyComponent } from './score-board-legacy/score-board-legacy.component'
 import { NavbarComponent } from './navbar/navbar.component'
 import { WelcomeComponent } from './welcome/welcome.component'
 import { WelcomeBannerComponent } from './welcome-banner/welcome-banner.component'
@@ -103,7 +103,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatBadgeModule } from '@angular/material/badge'
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs'
-import { ScoreBoardPreviewModule } from './score-board-preview/score-board-preview.module'
+import { ScoreBoardModule } from './score-board/score-board.module'
 import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component'
 import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
@@ -153,7 +153,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     AdministrationComponent,
     BasketComponent,
     LoginComponent,
-    ScoreBoardComponent,
+    ScoreBoardLegacyComponent,
     NavbarComponent,
     WelcomeComponent,
     WelcomeBannerComponent,
@@ -263,7 +263,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatChipsModule,
     NgxTextDiffModule,
     HighlightModule,
-    ScoreBoardPreviewModule
+    ScoreBoardModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
