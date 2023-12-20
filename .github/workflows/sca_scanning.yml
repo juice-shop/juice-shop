@@ -29,7 +29,6 @@ jobs:
           echo "TRIVY_FILE=${WORKFLOWDIR}/trivy_scan_result.json" >> $GITHUB_ENV
           echo "ARTIFACT_NAME=SCA-${GITHUB_RUN_ID}-${GITHUB_SHA}" >> $GITHUB_ENV
 
-
       - name: Get SPDX SBOM file from dependency graph if enabled 
         run: |
           response=$(curl -s -o /dev/null -w "%{http_code}" https://api.github.com/repos/${{ github.repository }}/dependency-graph/sbom)
@@ -47,6 +46,7 @@ jobs:
             cat $SBOM_FILE  | jq '.sbom' > $SBOM_ANALYSE_FILE
             sed -i -e '${/^$/d;}' $SBOM_ANALYSE_FILE
           fi
+        continue-on-error: true
     
       - name: running trivy for SCA on github SBOM file 
         run: |
@@ -60,7 +60,7 @@ jobs:
             var1=$(curl -s https://api.github.com/repos/aquasecurity/trivy/releases/latest | awk '/tag_name/ {gsub(/v/,"",$2); print $2}')
             var2=$(trivy -v | awk -F ': ' '/Version:/ { print $2; exit }')
             if [ "$var1" != "$var2" ]; then
-              echo "Trivy is not the latest version. Please update trivy with: sudo apt-get update && sudo apt-get install -y trivy"
+            echo "Trivy is not the latest version. Please update trivy with: sudo apt-get update && sudo apt-get install -y trivy"
             else
               echo "Trivy is up-to-date."
             fi
@@ -68,6 +68,7 @@ jobs:
 
           #run trivy on the SBOM file
           trivy sbom $SBOM_ANALYSE_FILE --output $TRIVY_FILE
+        continue-on-error: true
 
       - name: Get dependabot alert if enabled 
         run: |
@@ -78,6 +79,7 @@ jobs:
           -H "X-GitHub-Api-Version: 2022-11-28" \
           -H "X-Accepted-GitHub-Permissions: pull_requests=read,contents=read; issues=read,contents=read" \
           https://api.github.com/repos/${{ github.repository }}/dependabot/alerts
+        continue-on-error: true
 
       - name: Upload Artifact
         uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 #v2

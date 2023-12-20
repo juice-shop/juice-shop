@@ -33,10 +33,12 @@ jobs:
          else
            echo "semgrep is already installed"
          fi
+        continue-on-error: true
 
       - name: Run full scan with Semgrep 
         run: |
           semgrep --json --output $ARTIFACT_PATH --metrics=off --config="p/default"
+        continue-on-error: true
     
       - name: Get GitHub Code Scanning alert if enabled
         run: |
@@ -47,6 +49,7 @@ jobs:
           -H "X-GitHub-Api-Version: 2022-11-28" \
           -H "X-Accepted-GitHub-Permissions: pull_requests=read,contents=read; issues=read,contents=read" \
           https://api.github.com/repos/${{ github.repository }}/code-scanning/alerts
+        continue-on-error: true
 
       - name: Upload Artifact
         uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 #v2
