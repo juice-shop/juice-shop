@@ -60,8 +60,7 @@ jobs:
             var1=$(curl -s https://api.github.com/repos/aquasecurity/trivy/releases/latest | awk '/tag_name/ {gsub(/v/,"",$2); print $2}')
             var2=$(trivy -v | awk -F ': ' '/Version:/ { print $2; exit }')
             if [ "$var1" != "$var2" ]; then
-              echo "Trivy is not the latest version. Upgrading..."
-              sudo apt-get update && sudo apt-get install -y trivy
+              echo "Trivy is not the latest version. Please update trivy with: sudo apt-get update && sudo apt-get install -y trivy"
             else
               echo "Trivy is up-to-date."
             fi
