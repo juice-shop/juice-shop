@@ -1,8 +1,8 @@
 name: SAST Scanning
 on:
   #run the weekly scan on midnight Saturday
-  schedule: 
-      - cron:  '0 0 * * 6' 
+  #schedule: 
+  #    - cron:  '0 0 * * 6' 
   #run when changes happens to main/master branch
   push:
     branches:
@@ -40,7 +40,7 @@ jobs:
           semgrep --json --output $ARTIFACT_PATH --metrics=off --config="p/default"
         continue-on-error: true
     
-      - name: Get GitHub Code Scanning alert if enabled
+      - name: Get GitHub Code Scanning alert if enabled (GitHub Enterprise only)
         run: |
           # query the endpoint for repository level
           curl -L -o $CODE_SCANNING_FILE \
