@@ -24,7 +24,7 @@ jobs:
       - name: Create environmental variables 
         run: |
           echo "SBOM_FILE=${WORKFLOWDIR}/dg_spdx_sbom.json" >> $GITHUB_ENV
-          echo "SBOM_ANALYSE_FILE=${WORKFLOWDIR}/results.json" >> $GITHUB_ENV
+          echo "SBOM_ANALYSE_FILE=${WORKFLOWDIR}/sbom_file_results.json" >> $GITHUB_ENV
           echo "DEPENDABOT_FILE=${WORKFLOWDIR}/dependabot_alerts.json" >> $GITHUB_ENV
           echo "TRIVY_FILE=${WORKFLOWDIR}/trivy_scan_result.json" >> $GITHUB_ENV
           echo "ARTIFACT_NAME=SCA-${GITHUB_RUN_ID}-${GITHUB_SHA}" >> $GITHUB_ENV
