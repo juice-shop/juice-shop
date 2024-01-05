@@ -37,7 +37,7 @@ jobs:
 
       - name: Run full scan with Semgrep 
         run: |
-          semgrep --json --output $ARTIFACT_PATH --metrics=off --config="p/default"
+          semgrep --json --output $ARTIFACT_PATH --config="p/default"
         continue-on-error: true
     
       - name: Get GitHub Code Scanning alert if enabled (GitHub Enterprise only)
