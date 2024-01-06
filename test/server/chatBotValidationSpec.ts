@@ -5,7 +5,7 @@
 
 import chai = require('chai')
 import validateChatBot, { checkIntentWithFunctionHandlerExists } from '../../lib/startup/validateChatBot'
-const sinonChai = require('sinon-chai')
+import sinonChai = require('sinon-chai')
 const expect = chai.expect
 chai.use(sinonChai)
 

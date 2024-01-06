@@ -4,7 +4,7 @@ import { type Product } from 'data/types'
 import path from 'path'
 import { promisify } from 'util'
 import { ExifImage } from 'exif'
-const sinonChai = require('sinon-chai')
+import sinonChai = require('sinon-chai')
 const expect = chai.expect
 chai.use(sinonChai)
 const fs = require('fs')
