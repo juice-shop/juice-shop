@@ -21,6 +21,7 @@ module.exports = {
     project: './tsconfig.json'
   },
   ignorePatterns: [
+    '.eslintrc.js',
     'app/private/**',
     'vagrant/**',
     'frontend/**',
