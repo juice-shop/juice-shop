@@ -57,7 +57,7 @@ exports.promotionVideo = () => {
       challengeUtils.solveIf(challenges.videoXssChallenge, () => { return utils.contains(subs, '</script><script>alert(`xss`)</script>') })
 
       const theme = themes[config.get<string>('application.theme')]
-      template = template.replace(/_title_/g, entities.encode(config.get('application.name')))
+      template = template.replace(/_title_/g, entities.encode(config.get<string>('application.name')))
       template = template.replace(/_favicon_/g, favicon())
       template = template.replace(/_bgColor_/g, theme.bgColor)
       template = template.replace(/_textColor_/g, theme.textColor)

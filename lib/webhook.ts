@@ -31,7 +31,7 @@ export const notify = async (challenge: { key: any, name: any }, cheatScore = -1
       issuer: {
         hostName: os.hostname(),
         os: `${os.type()} (${os.release()})`,
-        appName: config.get('application.name'),
+        appName: config.get<string>('application.name'),
         config: process.env.NODE_ENV ?? 'default',
         version: utils.version()
       }

@@ -83,7 +83,7 @@ exports.observeMetrics = function observeMetrics () {
 
   const versionMetrics = new Prometheus.Gauge({
     name: `${app}_version_info`,
-    help: `Release version of ${config.get('application.name')}.`,
+    help: `Release version of ${config.get<string>('application.name')}.`,
     labelNames: ['version', 'major', 'minor', 'patch']
   })
 
@@ -118,7 +118,7 @@ exports.observeMetrics = function observeMetrics () {
 
   const orderMetrics = new Prometheus.Gauge({
     name: `${app}_orders_placed_total`,
-    help: `Number of orders placed in ${config.get('application.name')}.`
+    help: `Number of orders placed in ${config.get<string>('application.name')}.`
   })
 
   const userMetrics = new Prometheus.Gauge({

@@ -9,7 +9,7 @@ import * as utils from '../utils'
 const replace = require('replace')
 
 const customizeApplication = () => {
-  if (config.get('application.name')) {
+  if (config.get<string>('application.name')) {
     customizeTitle()
   }
   if (config.get('application.logo')) {
@@ -80,7 +80,7 @@ const retrieveCustomFile = async (sourceProperty: string, destinationFolder: str
 }
 
 const customizeTitle = () => {
-  const title = `<title>${config.get('application.name')}</title>`
+  const title = `<title>${config.get<string>('application.name')}</title>`
   replace({
     regex: /<title>.*<\/title>/,
     replacement: title,
@@ -91,7 +91,7 @@ const customizeTitle = () => {
 }
 
 const customizeTheme = () => {
-  const bodyClass = '"mat-app-background ' + config.get('application.theme') + '-theme"'
+  const bodyClass = '"mat-app-background ' + config.get<string>('application.theme') + '-theme"'
   replace({
     regex: /"mat-app-background .*-theme"/,
     replacement: bodyClass,
@@ -102,7 +102,7 @@ const customizeTheme = () => {
 }
 
 const customizeCookieConsentBanner = () => {
-  const contentProperty = '"content": { "message": "' + config.get('application.cookieConsent.message') + '", "dismiss": "' + config.get('application.cookieConsent.dismissText') + '", "link": "' + config.get('application.cookieConsent.linkText') + '", "href": "' + config.get('application.cookieConsent.linkUrl') + '" }'
+  const contentProperty = '"content": { "message": "' + config.get<string>('application.cookieConsent.message') + '", "dismiss": "' + config.get<string>('application.cookieConsent.dismissText') + '", "link": "' + config.get<string>('application.cookieConsent.linkText') + '", "href": "' + config.get<string>('application.cookieConsent.linkUrl') + '" }'
   replace({
     regex: /"content": { "message": ".*", "dismiss": ".*", "link": ".*", "href": ".*" }/,
     replacement: contentProperty,
