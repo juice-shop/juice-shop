@@ -36,7 +36,6 @@ module.exports = {
         // FIXME warnings below this line need to be checked and fixed.
         '@typescript-eslint/no-misused-promises': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
-        '@typescript-eslint/restrict-plus-operands': 'off',
         '@typescript-eslint/strict-boolean-expressions': 'off',
         '@typescript-eslint/restrict-template-expressions': 'off',
         '@typescript-eslint/no-var-requires': 'off'

@@ -149,27 +149,27 @@ export const jwtFrom = ({ headers }: { headers: any }) => {
   return undefined
 }
 
-export const randomHexString = (length: number) => {
+export const randomHexString = (length: number): string => {
   return crypto.randomBytes(Math.ceil(length / 2)).toString('hex').slice(0, length)
 }
 
-export const disableOnContainerEnv = () => {
-  return (isDocker() || isGitpod() || isHeroku()) && !config.get('challenges.safetyOverride')
+export const disableOnContainerEnv = (): boolean => {
+  return (isDocker() || isGitpod() || isHeroku()) && !(config.get('challenges.safetyOverride'))
 }
 
-export const disableOnWindowsEnv = () => {
+export const disableOnWindowsEnv = (): boolean => {
   return isWindows()
 }
 
 export const determineDisabledEnv = (disabledEnv: string | string[] | undefined) => {
   if (isDocker()) {
-    return disabledEnv && (disabledEnv === 'Docker' || disabledEnv.includes('Docker')) ? 'Docker' : null
+    return disabledEnv != null && (disabledEnv === 'Docker' || disabledEnv?.includes('Docker')) ? 'Docker' : null
   } else if (isHeroku()) {
-    return disabledEnv && (disabledEnv === 'Heroku' || disabledEnv.includes('Heroku')) ? 'Heroku' : null
+    return disabledEnv != null && (disabledEnv === 'Heroku' || disabledEnv?.includes('Heroku')) ? 'Heroku' : null
   } else if (isWindows()) {
-    return disabledEnv && (disabledEnv === 'Windows' || disabledEnv.includes('Windows')) ? 'Windows' : null
+    return disabledEnv != null && (disabledEnv === 'Windows' || disabledEnv?.includes('Windows')) ? 'Windows' : null
   } else if (isGitpod()) {
-    return disabledEnv && (disabledEnv === 'Gitpod' || disabledEnv.includes('Gitpod')) ? 'Gitpod' : null
+    return disabledEnv != null && (disabledEnv === 'Gitpod' || disabledEnv?.includes('Gitpod')) ? 'Gitpod' : null
   }
   return null
 }

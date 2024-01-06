@@ -17,7 +17,7 @@ beforeAll(() => {
   return frisby.post(REST_URL + '/user/login', {
     headers: jsonHeader,
     body: {
-      email: 'jim@' + config.get('application.domain'),
+      email: 'jim@' + config.get<string>('application.domain'),
       password: 'ncc-1701'
     }
   })
