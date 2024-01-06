@@ -45,7 +45,7 @@ module.exports = function getUserProfile () {
             template = template.replace(/_username_/g, username)
           }
           template = template.replace(/_emailHash_/g, security.hash(user?.email))
-          template = template.replace(/_title_/g, entities.encode(config.get('application.name')))
+          template = template.replace(/_title_/g, entities.encode(config.get<string>('application.name')))
           template = template.replace(/_favicon_/g, favicon())
           template = template.replace(/_bgColor_/g, theme.bgColor)
           template = template.replace(/_textColor_/g, theme.textColor)

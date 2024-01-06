@@ -51,7 +51,7 @@ module.exports = function placeOrder () {
             res.json({ orderConfirmation: orderId })
           })
 
-          doc.font('Times-Roman', 40).text(config.get('application.name'), { align: 'center' })
+          doc.font('Times-Roman', 40).text(config.get<string>('application.name'), { align: 'center' })
           doc.moveTo(70, 115).lineTo(540, 115).stroke()
           doc.moveTo(70, 120).lineTo(540, 120).stroke()
           doc.fontSize(20).moveDown()

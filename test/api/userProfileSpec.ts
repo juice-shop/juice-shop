@@ -30,7 +30,7 @@ describe('/profile', () => {
     return frisby.get(`${URL}/profile`)
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', `<h1>${config.get('application.name')} (Express`)
+      .expect('bodyContains', `<h1>${config.get<string>('application.name')} (Express`)
       .expect('bodyContains', 'Error: Blocked illegal activity')
   })
 
@@ -67,7 +67,7 @@ describe('/profile', () => {
     })
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', `<h1>${config.get('application.name')} (Express`)
+      .expect('bodyContains', `<h1>${config.get<string>('application.name')} (Express`)
       .expect('bodyContains', 'Error: Blocked illegal activity')
   })
 })

@@ -77,9 +77,9 @@ async function createChallenges () {
   await Promise.all(
     challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, mitigationUrl, key, disabledEnv, tutorial, tags }: Challenge) => {
       const effectiveDisabledEnv = utils.determineDisabledEnv(disabledEnv)
-      description = description.replace('juice-sh.op', config.get('application.domain'))
+      description = description.replace('juice-sh.op', config.get<string>('application.domain'))
       description = description.replace('&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;', entities.encode(config.get('challenges.xssBonusPayload')))
-      hint = hint.replace(/OWASP Juice Shop's/, `${config.get('application.name')}'s`)
+      hint = hint.replace(/OWASP Juice Shop's/, `${config.get<string>('application.name')}'s`)
 
       try {
         datacache.challenges[key] = await ChallengeModel.create({
@@ -110,7 +110,7 @@ async function createUsers () {
   await Promise.all(
     users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret, lastLoginIp = '' }: User) => {
       try {
-        const completeEmail = customDomain ? email : `${email}@${config.get('application.domain')}`
+        const completeEmail = customDomain ? email : `${email}@${config.get<string>('application.domain')}`
         const user = await UserModel.create({
           username,
           email: completeEmail,
@@ -659,7 +659,7 @@ async function createOrders () {
     }
   ]
 
-  const adminEmail = 'admin@' + config.get('application.domain')
+  const adminEmail = 'admin@' + config.get<string>('application.domain')
   const orders = [
     {
       orderId: security.hash(adminEmail).slice(0, 4) + '-' + utils.randomHexString(16),
