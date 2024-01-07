@@ -259,7 +259,7 @@ async function createMemories () {
     }).catch((err: unknown) => {
       logger.error(`Could not create memory: ${utils.getErrorMessage(err)}`)
     }),
-    ...utils.thaw(config.get('memories')).map(async (memory: Memory) => {
+    ...structuredClone(config.get<Memory[]>('memories')).map(async (memory: Memory) => {
       let tmpImageFileName = memory.image
       if (utils.isUrl(memory.image)) {
         const imageUrl = memory.image
@@ -288,7 +288,7 @@ async function createMemories () {
 }
 
 async function createProducts () {
-  const products = utils.thaw(config.get('products')).map((product: Product) => {
+  const products = structuredClone(config.get<Product[]>('products')).map((product: Product) => {
     product.price = product.price ?? Math.floor(Math.random() * 9 + 1)
     product.deluxePrice = product.deluxePrice ?? product.price
     product.description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
