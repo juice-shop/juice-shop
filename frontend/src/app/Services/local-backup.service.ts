@@ -88,12 +88,4 @@ export class LocalBackupService {
       this.cookieService.remove(cookieName)
     }
   }
-
-  private restoreLocalStorage (propertyName: string, propertyValue: any) {
-    if (propertyValue) {
-      localStorage.setItem(propertyName, JSON.stringify(propertyValue))
-    } else {
-      localStorage.removeItem(propertyName)
-    }
-  }
 }
