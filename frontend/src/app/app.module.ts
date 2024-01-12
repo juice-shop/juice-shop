@@ -22,7 +22,6 @@ import { AboutComponent } from './about/about.component'
 import { AdministrationComponent } from './administration/administration.component'
 import { BasketComponent } from './basket/basket.component'
 import { LoginComponent } from './login/login.component'
-import { ScoreBoardLegacyComponent } from './score-board-legacy/score-board-legacy.component'
 import { NavbarComponent } from './navbar/navbar.component'
 import { WelcomeComponent } from './welcome/welcome.component'
 import { WelcomeBannerComponent } from './welcome-banner/welcome-banner.component'
@@ -72,7 +71,6 @@ import { ImageCaptchaService } from './Services/image-captcha.service'
 import { KeysService } from './Services/keys.service'
 import { AddressService } from './Services/address.service'
 import { QuantityService } from './Services/quantity.service'
-import { FeatureFlagService } from './Services/feature-flag.service'
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatToolbarModule } from '@angular/material/toolbar'
@@ -153,7 +151,6 @@ export function HttpLoaderFactory (http: HttpClient) {
     AdministrationComponent,
     BasketComponent,
     LoginComponent,
-    ScoreBoardLegacyComponent,
     NavbarComponent,
     WelcomeComponent,
     WelcomeBannerComponent,
@@ -314,8 +311,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     WalletService,
     OrderHistoryService,
     DeliveryService,
-    PhotoWallService,
-    FeatureFlagService
+    PhotoWallService
   ],
   bootstrap: [AppComponent]
 })

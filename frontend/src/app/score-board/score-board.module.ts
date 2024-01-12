@@ -20,7 +20,6 @@ import { ChallengeCardComponent } from './components/challenge-card/challenge-ca
 import { FilterSettingsComponent } from './components/filter-settings/filter-settings.component'
 import { DifficultyStarsComponent } from './components/difficulty-stars/difficulty-stars.component'
 import { TutorialModeWarningComponent } from './components/tutorial-mode-warning/tutorial-mode-warning.component'
-import { LegacyNoticeComponent } from './components/legacy-notice/legacy-notice.component'
 import { CategoryFilterComponent } from './components/filter-settings/components/category-filter/category-filter.component'
 import { DifficultyOverviewScoreCardComponent } from './components/difficulty-overview-score-card/difficulty-overview-score-card.component'
 import { ChallengesUnavailableWarningComponent } from './components/challenges-unavailable-warning/challenges-unavailable-warning.component'
@@ -41,7 +40,6 @@ import { DifficultySelectionSummaryPipe } from './components/filter-settings/pip
     DifficultyOverviewScoreCardComponent,
     FilterSettingsComponent,
     HackingChallengeProgressScoreCardComponent,
-    LegacyNoticeComponent,
     ScoreBoardAdditionalSettingsDialogComponent,
     ScoreBoardComponent,
     ScoreCardComponent,
