@@ -16,7 +16,6 @@ import { QRCodeModule } from 'anuglar2-qrcode'
 import { ClipboardModule } from 'ngx-clipboard'
 import { FileUploadModule } from 'ng2-file-upload'
 import { SlideshowModule } from 'ng-simple-slideshow'
-import { NgxSpinnerModule } from 'ngx-spinner'
 import { AppComponent } from './app.component'
 import { AboutComponent } from './about/about.component'
 import { AdministrationComponent } from './administration/administration.component'
@@ -225,7 +224,6 @@ export function HttpLoaderFactory (http: HttpClient) {
     QRCodeModule,
     FileUploadModule,
     ClipboardModule,
-    NgxSpinnerModule,
     MatToolbarModule,
     MatIconModule,
     FormsModule,
