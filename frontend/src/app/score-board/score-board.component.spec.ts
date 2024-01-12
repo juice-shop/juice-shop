@@ -11,7 +11,6 @@ import { HackingChallengeProgressScoreCardComponent } from './components/hacking
 import { CodingChallengeProgressScoreCardComponent } from './components/coding-challenge-progress-score-card/coding-challenge-progress-score-card.component'
 import { ChallengesUnavailableWarningComponent } from './components/challenges-unavailable-warning/challenges-unavailable-warning.component'
 import { DifficultyOverviewScoreCardComponent } from './components/difficulty-overview-score-card/difficulty-overview-score-card.component'
-import { LegacyNoticeComponent } from './components/legacy-notice/legacy-notice.component'
 import { TutorialModeWarningComponent } from './components/tutorial-mode-warning/tutorial-mode-warning.component'
 import { WarningCardComponent } from './components/warning-card/warning-card.component'
 import { ScoreCardComponent } from './components/score-card/score-card.component'
@@ -73,7 +72,6 @@ describe('ScoreBoardPreviewComponent', () => {
         CodingChallengeProgressScoreCardComponent,
         DifficultyOverviewScoreCardComponent,
         WarningCardComponent,
-        LegacyNoticeComponent,
         ChallengesUnavailableWarningComponent,
         TutorialModeWarningComponent,
         ScoreCardComponent
