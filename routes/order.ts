@@ -15,12 +15,11 @@ import challengeUtils = require('../lib/challengeUtils')
 import config from 'config'
 import * as utils from '../lib/utils'
 import * as db from '../data/mongodb'
+import { challenges, products } from '../data/datacache'
 
 const fs = require('fs')
 const PDFDocument = require('pdfkit')
 const security = require('../lib/insecurity')
-const products = require('../data/datacache').products
-const challenges = require('../data/datacache').challenges
 
 interface Product {
   quantity: number

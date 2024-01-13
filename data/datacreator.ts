@@ -29,8 +29,8 @@ import type { StaticUser, StaticUserAddress, StaticUserCard } from './staticData
 import { loadStaticChallengeData, loadStaticDeliveryData, loadStaticUserData, loadStaticSecurityQuestionsData } from './staticData'
 import { ordersCollection, reviewsCollection } from './mongodb'
 import { AllHtmlEntities as Entities } from 'html-entities'
+import * as datacache from './datacache'
 
-const datacache = require('./datacache')
 const security = require('../lib/insecurity')
 
 const entities = new Entities()
@@ -265,10 +265,20 @@ async function createMemories () {
         await createSecurityAnswer(datacache.users.emma.id, memory.geoStalkingVisualSecurityQuestion, memory.geoStalkingVisualSecurityAnswer)
         memory.user = 'emma'
       }
+      if (!memory.user) {
+        logger.warn(`Could not find user for memory ${memory.caption}!`)
+        return
+      }
+      const userIdOfMemory = datacache.users[memory.user].id.valueOf() ?? null
+      if (!userIdOfMemory) {
+        logger.warn(`Could not find saved user for memory ${memory.caption}!`)
+        return
+      }
+
       return await MemoryModel.create({
         imagePath: 'assets/public/images/uploads/' + tmpImageFileName,
         caption: memory.caption,
-        UserId: memory.user ? datacache.users[memory.user].id : null
+        UserId: userIdOfMemory
       }).catch((err: unknown) => {
         logger.error(`Could not create memory: ${utils.getErrorMessage(err)}`)
       })
@@ -319,7 +329,7 @@ async function createProducts () {
       blueprint = utils.extractFilename(blueprint)
       await utils.downloadToFile(blueprintUrl, 'frontend/dist/frontend/assets/public/images/products/' + blueprint)
     }
-    datacache.retrieveBlueprintChallengeFile = blueprint
+    datacache.setRetrieveBlueprintChallengeFile(blueprint)
   }
 
   return await Promise.all(
@@ -335,20 +345,20 @@ async function createProducts () {
           (err: unknown) => {
             logger.error(`Could not insert Product ${product.name}: ${utils.getErrorMessage(err)}`)
           }
-        ).then((persistedProduct) => {
+        ).then(async (persistedProduct) => {
           if (persistedProduct != null) {
             if (useForChristmasSpecialChallenge) { datacache.products.christmasSpecial = persistedProduct }
             if (urlForProductTamperingChallenge) {
               datacache.products.osaft = persistedProduct
-              datacache.challenges.changeProductChallenge.update({
+              await datacache.challenges.changeProductChallenge.update({
                 description: customizeChangeProductChallenge(
                   datacache.challenges.changeProductChallenge.description,
                   config.get('challenges.overwriteUrlForProductTamperingChallenge'),
                   persistedProduct)
               })
             }
-            if (fileForRetrieveBlueprintChallenge && datacache.challenges.changeProductChallenge.hint) {
-              datacache.challenges.retrieveBlueprintChallenge.update({
+            if (fileForRetrieveBlueprintChallenge && datacache.challenges.retrieveBlueprintChallenge.hint !== null) {
+              await datacache.challenges.retrieveBlueprintChallenge.update({
                 hint: customizeRetrieveBlueprintChallenge(
                   datacache.challenges.retrieveBlueprintChallenge.hint,
                   persistedProduct)
