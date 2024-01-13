@@ -5,7 +5,8 @@
 
 import config from 'config'
 import * as utils from '../utils'
-const replace = require('replace')
+// @ts-expect-error FIXME due to non-existing type definitions for replace
+import replace from 'replace'
 
 const customizeEasterEgg = async () => {
   if (config.has('application.easterEggPlanet.overlayMap')) {
@@ -44,4 +45,4 @@ const replaceThreeJsTitleTag = () => {
   })
 }
 
-module.exports = customizeEasterEgg
+export default customizeEasterEgg

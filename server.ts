@@ -29,6 +29,14 @@ import * as utils from './lib/utils'
 import * as Prometheus from 'prom-client'
 import datacreator from './data/datacreator'
 
+import validatePreconditions from './lib/startup/validatePreconditions'
+import cleanupFtpFolder from './lib/startup/cleanupFtpFolder'
+import validateConfig from './lib/startup/validateConfig'
+import restoreOverwrittenFilesWithOriginals from './lib/startup/restoreOverwrittenFilesWithOriginals'
+import registerWebsocketEvents from './lib/startup/registerWebsocketEvents'
+import customizeApplication from './lib/startup/customizeApplication'
+import customizeEasterEgg from './lib/startup/customizeEasterEgg' // vuln-code-snippet hide-line
+
 const startTime = Date.now()
 const finale = require('finale-rest')
 const express = require('express')
@@ -128,25 +136,26 @@ const startupGauge = new Prometheus.Gauge({
 })
 
 // Wraps the function and measures its (async) execution time
-const collectDurationPromise = (name: string, func: any) => {
+const collectDurationPromise = (name: string, func: (...args: any) => Promise<any>) => {
   return async (...args: any) => {
     const end = startupGauge.startTimer({ task: name })
-    const res = await func(...args)
-    end()
-    return res
+    try {
+      const res = await func(...args)
+      end()
+      return res
+    } catch (err) {
+      console.error('Error in timed startup function: ' + name, err)
+      throw err
+    }
   }
-}
-void collectDurationPromise('validatePreconditions', require('./lib/startup/validatePreconditions'))()
-void collectDurationPromise('cleanupFtpFolder', require('./lib/startup/cleanupFtpFolder'))()
-void collectDurationPromise('validateConfig', require('./lib/startup/validateConfig'))({})
-
-// Reloads the i18n files in case of server restarts or starts.
-async function restoreOverwrittenFilesWithOriginals () {
-  await collectDurationPromise('restoreOverwrittenFilesWithOriginals', require('./lib/startup/restoreOverwrittenFilesWithOriginals'))()
 }
 
 /* Sets view engine to hbs */
 app.set('view engine', 'hbs')
+
+void collectDurationPromise('validatePreconditions', validatePreconditions)()
+void collectDurationPromise('cleanupFtpFolder', cleanupFtpFolder)()
+void collectDurationPromise('validateConfig', validateConfig)({})
 
 // Function called first to ensure that all the i18n files are reloaded successfully before other linked operations.
 restoreOverwrittenFilesWithOriginals().then(() => {
@@ -674,14 +683,10 @@ logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length.to
 /* Serve metrics */
 let metricsUpdateLoop: any
 const Metrics = metrics.observeMetrics() // vuln-code-snippet neutral-line exposedMetricsChallenge
-const customizeEasterEgg = require('./lib/startup/customizeEasterEgg') // vuln-code-snippet hide-line
 app.get('/metrics', metrics.serveMetrics()) // vuln-code-snippet vuln-line exposedMetricsChallenge
 errorhandler.title = `${config.get<string>('application.name')} (Express ${utils.version('express')})`
 
-const registerWebsocketEvents = require('./lib/startup/registerWebsocketEvents')
-const customizeApplication = require('./lib/startup/customizeApplication')
-
-export async function start (readyCallback: any) {
+export async function start (readyCallback?: () => void) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
   await sequelize.sync({ force: true })
   await datacreator()

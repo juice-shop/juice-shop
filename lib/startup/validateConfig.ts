@@ -3,13 +3,14 @@
  * SPDX-License-Identifier: MIT
  */
 
-import process = require('process')
+import process from 'process'
 import type { Memory as MemoryConfig, Product as ProductConfig } from '../config.types'
 import logger from '../logger'
 import config from 'config'
 import path from 'path'
 import colors from 'colors/safe'
-const validateSchema = require('yaml-schema-validator/src')
+// @ts-expect-error FIXME due to non-existing type definitions for yaml-schema-validator
+import validateSchema from 'yaml-schema-validator/src'
 
 const specialProducts = [
   { name: '"Christmas Special" challenge product', key: 'useForChristmasSpecialChallenge' },
@@ -23,7 +24,10 @@ const specialMemories = [
   { name: '"Visual Geo Stalking" challenge memory', user: 'emma', keys: ['geoStalkingVisualSecurityQuestion', 'geoStalkingVisualSecurityAnswer'] }
 ] as const
 
-const validateConfig = ({ products = config.get('products'), memories = config.get('memories'), exitOnFailure = true }: { products: ProductConfig[], memories: MemoryConfig[], exitOnFailure: boolean }) => {
+const validateConfig = async ({ products, memories, exitOnFailure = true }: { products?: ProductConfig[], memories?: MemoryConfig[], exitOnFailure: boolean }) => {
+  products = products ?? config.get('products') ?? []
+  memories = memories ?? config.get('memories') ?? []
+
   let success = true
   success = checkYamlSchema() && success
   success = checkMinimumRequiredNumberOfProducts(products) && success
@@ -48,7 +52,7 @@ const validateConfig = ({ products = config.get('products'), memories = config.g
   return success
 }
 
-const checkYamlSchema = (configuration = config.util.toObject()) => {
+export const checkYamlSchema = (configuration = config.util.toObject()) => {
   let success = true
   const schemaErrors = validateSchema(configuration, { schemaPath: path.resolve('config.schema.yml'), logLevel: 'none' })
   if (schemaErrors.length !== 0) {
@@ -61,7 +65,7 @@ const checkYamlSchema = (configuration = config.util.toObject()) => {
   return success
 }
 
-const checkMinimumRequiredNumberOfProducts = (products: ProductConfig[]) => {
+export const checkMinimumRequiredNumberOfProducts = (products: ProductConfig[]) => {
   let success = true
   if (products.length < 4) {
     logger.warn(`Only ${products.length} products are configured but at least four are required (${colors.red('NOT OK')})`)
@@ -70,7 +74,7 @@ const checkMinimumRequiredNumberOfProducts = (products: ProductConfig[]) => {
   return success
 }
 
-const checkUnambiguousMandatorySpecialProducts = (products: ProductConfig[]) => {
+export const checkUnambiguousMandatorySpecialProducts = (products: ProductConfig[]) => {
   let success = true
   specialProducts.forEach(({ name, key }) => {
     // @ts-expect-error FIXME Ignoring any type issue on purpose
@@ -86,7 +90,7 @@ const checkUnambiguousMandatorySpecialProducts = (products: ProductConfig[]) => 
   return success
 }
 
-const checkNecessaryExtraKeysOnSpecialProducts = (products: ProductConfig[]) => {
+export const checkNecessaryExtraKeysOnSpecialProducts = (products: ProductConfig[]) => {
   let success = true
   specialProducts.forEach(({ name, key, extra = {} }) => {
     // @ts-expect-error FIXME implicit any type issue
@@ -100,7 +104,7 @@ const checkNecessaryExtraKeysOnSpecialProducts = (products: ProductConfig[]) => 
   return success
 }
 
-const checkUniqueSpecialOnProducts = (products: ProductConfig[]) => {
+export const checkUniqueSpecialOnProducts = (products: ProductConfig[]) => {
   let success = true
   products.forEach((product) => {
     // @ts-expect-error FIXME any type issue
@@ -113,7 +117,7 @@ const checkUniqueSpecialOnProducts = (products: ProductConfig[]) => {
   return success
 }
 
-const checkMinimumRequiredNumberOfMemories = (memories: MemoryConfig[]) => {
+export const checkMinimumRequiredNumberOfMemories = (memories: MemoryConfig[]) => {
   let success = true
   if (memories.length < 2) {
     logger.warn(`Only ${memories.length} memories are configured but at least two are required (${colors.red('NOT OK')})`)
@@ -122,7 +126,7 @@ const checkMinimumRequiredNumberOfMemories = (memories: MemoryConfig[]) => {
   return success
 }
 
-const checkUnambiguousMandatorySpecialMemories = (memories: MemoryConfig[]) => {
+export const checkUnambiguousMandatorySpecialMemories = (memories: MemoryConfig[]) => {
   let success = true
   specialMemories.forEach(({ name, keys }) => {
     const matchingMemories = memories.filter((memory) => memory[keys[0]] && memory[keys[1]])
@@ -137,7 +141,7 @@ const checkUnambiguousMandatorySpecialMemories = (memories: MemoryConfig[]) => {
   return success
 }
 
-const checkSpecialMemoriesHaveNoUserAssociated = (memories: MemoryConfig[]) => {
+export const checkSpecialMemoriesHaveNoUserAssociated = (memories: MemoryConfig[]) => {
   let success = true
   specialMemories.forEach(({ name, user, keys }) => {
     const matchingMemories = memories.filter((memory) => memory[keys[0]] && memory[keys[1]] && memory.user && memory.user !== user)
@@ -149,7 +153,7 @@ const checkSpecialMemoriesHaveNoUserAssociated = (memories: MemoryConfig[]) => {
   return success
 }
 
-const checkUniqueSpecialOnMemories = (memories: MemoryConfig[]) => {
+export const checkUniqueSpecialOnMemories = (memories: MemoryConfig[]) => {
   let success = true
   memories.forEach((memory) => {
     const appliedSpecials = specialMemories.filter(({ keys }) => memory[keys[0]] && memory[keys[1]])
@@ -161,7 +165,7 @@ const checkUniqueSpecialOnMemories = (memories: MemoryConfig[]) => {
   return success
 }
 
-const checkForIllogicalCombos = (configuration = config.util.toObject()) => {
+export const checkForIllogicalCombos = (configuration = config.util.toObject()) => {
   let success = true
   if (configuration.challenges.restrictToTutorialsFirst && !configuration.hackingInstructor.isEnabled) {
     logger.warn(`Restricted tutorial mode is enabled while Hacking Instructor is disabled (${colors.red('NOT OK')})`)
@@ -178,14 +182,4 @@ const checkForIllogicalCombos = (configuration = config.util.toObject()) => {
   return success
 }
 
-validateConfig.checkYamlSchema = checkYamlSchema
-validateConfig.checkUnambiguousMandatorySpecialProducts = checkUnambiguousMandatorySpecialProducts
-validateConfig.checkUniqueSpecialOnProducts = checkUniqueSpecialOnProducts
-validateConfig.checkNecessaryExtraKeysOnSpecialProducts = checkNecessaryExtraKeysOnSpecialProducts
-validateConfig.checkMinimumRequiredNumberOfProducts = checkMinimumRequiredNumberOfProducts
-validateConfig.checkUnambiguousMandatorySpecialMemories = checkUnambiguousMandatorySpecialMemories
-validateConfig.checkUniqueSpecialOnMemories = checkUniqueSpecialOnMemories
-validateConfig.checkMinimumRequiredNumberOfMemories = checkMinimumRequiredNumberOfMemories
-validateConfig.checkSpecialMemoriesHaveNoUserAssociated = checkSpecialMemoriesHaveNoUserAssociated
-
-module.exports = validateConfig
+export default validateConfig
