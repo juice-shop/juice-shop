@@ -27,6 +27,7 @@ import morgan from 'morgan'
 import colors from 'colors/safe'
 import * as utils from './lib/utils'
 import * as Prometheus from 'prom-client'
+import datacreator from './data/datacreator'
 
 const startTime = Date.now()
 const finale = require('finale-rest')
@@ -92,7 +93,6 @@ const web3Wallet = require('./routes/web3Wallet')
 const updateProductReviews = require('./routes/updateProductReviews')
 const likeProductReviews = require('./routes/likeProductReviews')
 const security = require('./lib/insecurity')
-const datacreator = require('./data/datacreator')
 const app = express()
 const server = require('http').Server(app)
 const appConfiguration = require('./routes/appConfiguration')
