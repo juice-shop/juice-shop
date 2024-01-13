@@ -30,12 +30,11 @@ import { loadStaticChallengeData, loadStaticDeliveryData, loadStaticUserData, lo
 import { ordersCollection, reviewsCollection } from './mongodb'
 import { AllHtmlEntities as Entities } from 'html-entities'
 import * as datacache from './datacache'
-
-const security = require('../lib/insecurity')
+import * as security from '../lib/insecurity'
 
 const entities = new Entities()
 
-module.exports = async () => {
+export default async () => {
   const creators = [
     createSecurityQuestions,
     createUsers,
