@@ -7,10 +7,10 @@ import { type Request, type Response, type NextFunction } from 'express'
 import { MemoryModel } from '../models/memory'
 import { type ProductModel } from '../models/product'
 import * as db from '../data/mongodb'
+import { challenges } from '../data/datacache'
 
 import challengeUtils = require('../lib/challengeUtils')
 const security = require('../lib/insecurity')
-const challenges = require('../data/datacache').challenges
 
 module.exports = function dataExport () {
   return async (req: Request, res: Response, next: NextFunction) => {

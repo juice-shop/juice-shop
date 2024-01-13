@@ -7,7 +7,7 @@ import { type Product } from '../data/types'
 import fuzz from 'fuzzball'
 const security = require('./insecurity')
 const challengeUtils = require('./challengeUtils')
-const challenges = require('../data/datacache').challenges
+import { challenges } from '../data/datacache'
 
 async function productPrice (query: string, user: string) {
   const [products] = await models.sequelize.query('SELECT * FROM Products')

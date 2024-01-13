@@ -6,10 +6,10 @@
 import models = require('../models/index')
 import { type Request, type Response, type NextFunction } from 'express'
 import { UserModel } from '../models/user'
+import { challenges } from '../data/datacache'
 
 import * as utils from '../lib/utils'
 const challengeUtils = require('../lib/challengeUtils')
-const challenges = require('../data/datacache').challenges
 
 class ErrorWithParent extends Error {
   parent: Error | undefined

@@ -10,10 +10,10 @@ import { BasketModel } from '../models/basket'
 import { UserModel } from '../models/user'
 import challengeUtils = require('../lib/challengeUtils')
 import config from 'config'
+import { challenges } from '../data/datacache'
 
 import * as utils from '../lib/utils'
 const security = require('../lib/insecurity')
-const challenges = require('../data/datacache').challenges
 const users = require('../data/datacache').users
 
 // vuln-code-snippet start loginAdminChallenge loginBenderChallenge loginJimChallenge

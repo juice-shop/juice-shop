@@ -8,8 +8,8 @@ import challengeUtils = require('../lib/challengeUtils')
 import { reviewsCollection } from '../data/mongodb'
 
 import * as utils from '../lib/utils'
+import { challenges } from '../data/datacache'
 
-const challenges = require('../data/datacache').challenges
 const security = require('../lib/insecurity')
 
 module.exports = function productReviews () {

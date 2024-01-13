@@ -15,8 +15,8 @@ import {
   type CreationOptional,
   type Sequelize
 } from 'sequelize'
+import { challenges } from '../data/datacache'
 const security = require('../lib/insecurity')
-const challenges = require('../data/datacache').challenges
 
 class Feedback extends Model<
 InferAttributes<Feedback>,

@@ -9,10 +9,10 @@ import { BasketModel } from '../models/basket'
 import { UserModel } from '../models/user'
 import challengeUtils = require('../lib/challengeUtils')
 import * as utils from '../lib/utils'
+import { challenges } from '../data/datacache'
 
 const security = require('../lib/insecurity')
 const otplib = require('otplib')
-const challenges = require('../data/datacache').challenges
 
 otplib.authenticator.options = {
   // Accepts tokens as valid even when they are 30sec to old or to new

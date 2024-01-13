@@ -5,8 +5,8 @@
 
 import Hashids = require('hashids/cjs')
 import { type Request, type Response } from 'express'
+import { challenges } from '../data/datacache'
 
-const challenges = require('../data/datacache').challenges
 const challengeUtils = require('../lib/challengeUtils')
 
 module.exports.restoreProgress = function restoreProgress () {

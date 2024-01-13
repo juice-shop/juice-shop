@@ -7,8 +7,8 @@ import challengeUtils = require('../lib/challengeUtils')
 import { type Request, type Response, type NextFunction } from 'express'
 import { type Review } from '../data/types'
 import * as db from '../data/mongodb'
+import { challenges } from '../data/datacache'
 
-const challenges = require('../data/datacache').challenges
 const security = require('../lib/insecurity')
 
 module.exports = function productReviews () {

@@ -8,9 +8,9 @@ import { type Request, type Response, type NextFunction } from 'express'
 import type { Memory as MemoryConfig } from '../lib/config.types'
 import { SecurityAnswerModel } from '../models/securityAnswer'
 import { UserModel } from '../models/user'
+import { challenges } from '../data/datacache'
 
 import challengeUtils = require('../lib/challengeUtils')
-const challenges = require('../data/datacache').challenges
 const users = require('../data/datacache').users
 const security = require('../lib/insecurity')
 
