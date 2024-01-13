@@ -2,12 +2,12 @@
  * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
-import models = require('../models/index')
+import * as models from '../models/index'
 import { type Product } from '../data/types'
 import fuzz from 'fuzzball'
 import { challenges } from '../data/datacache'
-const security = require('./insecurity')
-const challengeUtils = require('./challengeUtils')
+import * as security from './insecurity'
+import * as challengeUtils from './challengeUtils'
 
 async function productPrice (query: string, user: string) {
   const [products] = await models.sequelize.query('SELECT * FROM Products')
