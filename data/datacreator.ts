@@ -27,9 +27,9 @@ import config from 'config'
 import * as utils from '../lib/utils'
 import type { StaticUser, StaticUserAddress, StaticUserCard } from './staticData'
 import { loadStaticChallengeData, loadStaticDeliveryData, loadStaticUserData, loadStaticSecurityQuestionsData } from './staticData'
+import { ordersCollection, reviewsCollection } from './mongodb'
 
 const datacache = require('./datacache')
-const mongodb = require('./mongodb')
 const security = require('../lib/insecurity')
 
 const Entities = require('html-entities').AllHtmlEntities
@@ -363,7 +363,7 @@ async function createProducts () {
           .then(async ({ id }: { id: number }) =>
             await Promise.all(
               reviews.map(({ text, author }) =>
-                mongodb.reviews.insert({
+                reviewsCollection.insert({
                   message: text,
                   author: datacache.users[author].email,
                   product: id,
@@ -690,7 +690,7 @@ async function createOrders () {
 
   return await Promise.all(
     orders.map(({ orderId, email, totalPrice, bonus, products, eta, delivered }) =>
-      mongodb.orders.insert({
+      ordersCollection.insert({
         orderId,
         email,
         totalPrice,
