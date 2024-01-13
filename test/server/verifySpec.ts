@@ -5,7 +5,7 @@
 
 import sinon = require('sinon')
 import config from 'config'
-import type { Product } from '../../data/types'
+import type { Product as ProductConfig } from '../../lib/config.types'
 import chai = require('chai')
 import sinonChai = require('sinon-chai')
 const expect = chai.expect
@@ -234,7 +234,7 @@ describe('verify', () => {
 
       it('is not solved when the link in the O-Saft product remained unchanged', () => {
         let urlForProductTamperingChallenge = null
-        for (const product of config.get<Product[]>('products')) {
+        for (const product of config.get<ProductConfig[]>('products')) {
           if (product.urlForProductTamperingChallenge !== undefined) {
             urlForProductTamperingChallenge = product.urlForProductTamperingChallenge
             break
