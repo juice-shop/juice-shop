@@ -20,8 +20,7 @@ import * as accuracy from '../lib/accuracy'
 import { reviewsCollection, ordersCollection } from '../data/mongodb'
 import { challenges } from '../data/datacache'
 import * as Prometheus from 'prom-client'
-
-const onFinished = require('on-finished')
+import onFinished from 'on-finished'
 
 const register = Prometheus.register
 
