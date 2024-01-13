@@ -9,10 +9,10 @@ import { calculateCheatScore, calculateFindItCheatScore, calculateFixItCheatScor
 import * as webhook from './webhook'
 import * as accuracy from './accuracy'
 import { type Server } from 'socket.io'
+import { AllHtmlEntities as Entities } from 'html-entities'
 
 const challenges = require('../data/datacache').challenges
 const notifications = require('../data/datacache').notifications
-const Entities = require('html-entities').AllHtmlEntities
 const entities = new Entities()
 
 const globalWithSocketIO = global as typeof globalThis & {

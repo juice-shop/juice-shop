@@ -8,11 +8,11 @@ import { type Request, type Response } from 'express'
 import challengeUtils = require('../lib/challengeUtils')
 import config from 'config'
 import * as utils from '../lib/utils'
+import { AllHtmlEntities as Entities } from 'html-entities'
 
 const pug = require('pug')
 const challenges = require('../data/datacache').challenges
 const themes = require('../views/themes/themes').themes
-const Entities = require('html-entities').AllHtmlEntities
 const entities = new Entities()
 
 exports.getVideo = () => {

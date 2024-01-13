@@ -10,11 +10,11 @@ import { UserModel } from '../models/user'
 import challengeUtils = require('../lib/challengeUtils')
 import config from 'config'
 import * as utils from '../lib/utils'
+import { AllHtmlEntities as Entities } from 'html-entities'
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 const pug = require('pug')
 const themes = require('../views/themes/themes').themes
-const Entities = require('html-entities').AllHtmlEntities
 const entities = new Entities()
 
 module.exports = function getUserProfile () {

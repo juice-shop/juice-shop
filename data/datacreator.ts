@@ -28,11 +28,11 @@ import * as utils from '../lib/utils'
 import type { StaticUser, StaticUserAddress, StaticUserCard } from './staticData'
 import { loadStaticChallengeData, loadStaticDeliveryData, loadStaticUserData, loadStaticSecurityQuestionsData } from './staticData'
 import { ordersCollection, reviewsCollection } from './mongodb'
+import { AllHtmlEntities as Entities } from 'html-entities'
 
 const datacache = require('./datacache')
 const security = require('../lib/insecurity')
 
-const Entities = require('html-entities').AllHtmlEntities
 const entities = new Entities()
 
 module.exports = async () => {
