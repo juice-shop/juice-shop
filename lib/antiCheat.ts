@@ -12,7 +12,8 @@ import { getCodeChallenges } from './codingChallenges'
 import logger from './logger'
 import { type NextFunction, type Request, type Response } from 'express'
 import * as utils from './utils'
-const median = require('median')
+// @ts-expect-error FIXME due to non-existing type definitions for median
+import median from 'median'
 
 const coupledChallenges = { // TODO prevent also near-identical challenges (e.g. all null byte file access or dom xss + bonus payload etc.) from counting as cheating
   loginAdminChallenge: ['weakPasswordChallenge'],
@@ -38,7 +39,7 @@ const preSolveInteractions: Array<{ challengeKey: any, urlFragments: string[], i
   { challengeKey: 'rceOccupyChallenge', urlFragments: ['/api-docs', '/b2b/v2/orders'], interactions: 0 }
 ]
 
-exports.checkForPreSolveInteractions = () => ({ url }: Request, res: Response, next: NextFunction) => {
+export const checkForPreSolveInteractions = () => ({ url }: Request, res: Response, next: NextFunction) => {
   preSolveInteractions.forEach((preSolveInteraction) => {
     preSolveInteraction.urlFragments.forEach((urlFragment) => {
       if (utils.endsWith(url, urlFragment)) {
