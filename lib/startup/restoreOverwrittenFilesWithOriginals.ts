@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-import path = require('path')
-import utils = require('../utils')
+import path from 'path'
+import * as utils from '../utils'
 import logger from '../logger'
 import { copyFile, access } from 'fs/promises'
 import { glob } from 'glob'
