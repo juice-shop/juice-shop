@@ -20,11 +20,15 @@ import { SecurityAnswerModel } from '../models/securityAnswer'
 import { SecurityQuestionModel } from '../models/securityQuestion'
 import { UserModel } from '../models/user'
 import { WalletModel } from '../models/wallet'
-import { type Address, type Card, type Challenge, type Delivery, type Memory, type Product, type SecurityQuestion, type User } from './types'
+import { type Delivery, type Product, type SecurityQuestion } from './types'
 import logger from '../lib/logger'
+import type { Memory as MemoryConfig, Product as ProductConfig } from '../lib/config.types'
 import config from 'config'
 import path from 'path'
 import * as utils from '../lib/utils'
+import type { StaticUser, StaticUserAddress, StaticUserCard } from './staticData'
+import { loadStaticChallengeData, loadStaticUserData } from './staticData'
+
 const datacache = require('./datacache')
 const mongodb = require('./mongodb')
 const security = require('../lib/insecurity')
@@ -69,13 +73,13 @@ module.exports = async () => {
 }
 
 async function createChallenges () {
-  const showHints = config.get('challenges.showHints')
-  const showMitigations = config.get('challenges.showMitigations')
+  const showHints = config.get<boolean>('challenges.showHints')
+  const showMitigations = config.get<boolean>('challenges.showMitigations')
 
-  const challenges = await loadStaticData('challenges')
+  const challenges = await loadStaticChallengeData()
 
   await Promise.all(
-    challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, mitigationUrl, key, disabledEnv, tutorial, tags }: Challenge) => {
+    challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, mitigationUrl, key, disabledEnv, tutorial, tags }) => {
       const effectiveDisabledEnv = utils.determineDisabledEnv(disabledEnv)
       description = description.replace('juice-sh.op', config.get<string>('application.domain'))
       description = description.replace('&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;', entities.encode(config.get('challenges.xssBonusPayload')))
@@ -105,10 +109,10 @@ async function createChallenges () {
 }
 
 async function createUsers () {
-  const users = await loadStaticData('users')
+  const users = await loadStaticUserData()
 
   await Promise.all(
-    users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret, lastLoginIp = '' }: User) => {
+    users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret, lastLoginIp = '' }) => {
       try {
         const completeEmail = customDomain ? email : `${email}@${config.get<string>('application.domain')}`
         const user = await UserModel.create({
@@ -135,9 +139,9 @@ async function createUsers () {
 }
 
 async function createWallet () {
-  const users = await loadStaticData('users')
+  const users = await loadStaticUserData()
   return await Promise.all(
-    users.map(async (user: User, index: number) => {
+    users.map(async (user: StaticUser, index: number) => {
       return await WalletModel.create({
         UserId: index + 1,
         balance: user.walletBalance ?? 0
@@ -168,7 +172,7 @@ async function createDeliveryMethods () {
   )
 }
 
-async function createAddresses (UserId: number, addresses: Address[]) {
+async function createAddresses (UserId: number, addresses: StaticUserAddress[]) {
   return await Promise.all(
     addresses.map(async (address) => {
       return await AddressModel.create({
@@ -187,7 +191,7 @@ async function createAddresses (UserId: number, addresses: Address[]) {
   )
 }
 
-async function createCards (UserId: number, cards: Card[]) {
+async function createCards (UserId: number, cards: StaticUserCard[]) {
   return await Promise.all(cards.map(async (card) => {
     return await CardModel.create({
       UserId,
@@ -238,7 +242,7 @@ async function createRandomFakeUsers () {
 
 async function createQuantity () {
   return await Promise.all(
-    config.get<Product[]>('products').map(async (product: Product, index: number) => {
+    config.get<ProductConfig[]>('products').map(async (product, index) => {
       return await QuantityModel.create({
         ProductId: index + 1,
         quantity: product.quantity ?? Math.floor(Math.random() * 70 + 30),
@@ -259,7 +263,7 @@ async function createMemories () {
     }).catch((err: unknown) => {
       logger.error(`Could not create memory: ${utils.getErrorMessage(err)}`)
     }),
-    ...structuredClone(config.get<Memory[]>('memories')).map(async (memory: Memory) => {
+    ...structuredClone(config.get<MemoryConfig[]>('memories')).map(async (memory) => {
       let tmpImageFileName = memory.image
       if (utils.isUrl(memory.image)) {
         const imageUrl = memory.image
@@ -277,7 +281,7 @@ async function createMemories () {
       return await MemoryModel.create({
         imagePath: 'assets/public/images/uploads/' + tmpImageFileName,
         caption: memory.caption,
-        UserId: datacache.users[memory.user].id
+        UserId: memory.user ? datacache.users[memory.user].id : null
       }).catch((err: unknown) => {
         logger.error(`Could not create memory: ${utils.getErrorMessage(err)}`)
       })
@@ -288,7 +292,7 @@ async function createMemories () {
 }
 
 async function createProducts () {
-  const products = structuredClone(config.get<Product[]>('products')).map((product: Product) => {
+  const products = structuredClone(config.get<ProductConfig[]>('products')).map((product) => {
     product.price = product.price ?? Math.floor(Math.random() * 9 + 1)
     product.deluxePrice = product.deluxePrice ?? product.price
     product.description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
@@ -304,25 +308,32 @@ async function createProducts () {
   })
 
   // add Challenge specific information
-  const christmasChallengeProduct = products.find(({ useForChristmasSpecialChallenge }: { useForChristmasSpecialChallenge: boolean }) => useForChristmasSpecialChallenge)
-  const pastebinLeakChallengeProduct = products.find(({ keywordsForPastebinDataLeakChallenge }: { keywordsForPastebinDataLeakChallenge: string[] }) => keywordsForPastebinDataLeakChallenge)
-  const tamperingChallengeProduct = products.find(({ urlForProductTamperingChallenge }: { urlForProductTamperingChallenge: string }) => urlForProductTamperingChallenge)
-  const blueprintRetrievalChallengeProduct = products.find(({ fileForRetrieveBlueprintChallenge }: { fileForRetrieveBlueprintChallenge: string }) => fileForRetrieveBlueprintChallenge)
+  const christmasChallengeProduct = products.find(({ useForChristmasSpecialChallenge }) => useForChristmasSpecialChallenge)
+  const pastebinLeakChallengeProduct = products.find(({ keywordsForPastebinDataLeakChallenge }) => keywordsForPastebinDataLeakChallenge)
+  const tamperingChallengeProduct = products.find(({ urlForProductTamperingChallenge }) => urlForProductTamperingChallenge)
+  const blueprintRetrievalChallengeProduct = products.find(({ fileForRetrieveBlueprintChallenge }) => fileForRetrieveBlueprintChallenge)
 
-  christmasChallengeProduct.description += ' (Seasonal special offer! Limited availability!)'
-  christmasChallengeProduct.deletedDate = '2014-12-27 00:00:00.000 +00:00'
-  tamperingChallengeProduct.description += ' <a href="' + tamperingChallengeProduct.urlForProductTamperingChallenge + '" target="_blank">More...</a>'
-  tamperingChallengeProduct.deletedDate = null
-  pastebinLeakChallengeProduct.description += ' (This product is unsafe! We plan to remove it from the stock!)'
-  pastebinLeakChallengeProduct.deletedDate = '2019-02-1 00:00:00.000 +00:00'
-
-  let blueprint = blueprintRetrievalChallengeProduct.fileForRetrieveBlueprintChallenge
-  if (utils.isUrl(blueprint)) {
-    const blueprintUrl = blueprint
-    blueprint = utils.extractFilename(blueprint)
-    await utils.downloadToFile(blueprintUrl, 'frontend/dist/frontend/assets/public/images/products/' + blueprint)
+  if (christmasChallengeProduct) {
+    christmasChallengeProduct.description += ' (Seasonal special offer! Limited availability!)'
+    christmasChallengeProduct.deletedDate = '2014-12-27 00:00:00.000 +00:00'
   }
-  datacache.retrieveBlueprintChallengeFile = blueprint
+  if (tamperingChallengeProduct) {
+    tamperingChallengeProduct.description += ' <a href="' + tamperingChallengeProduct.urlForProductTamperingChallenge + '" target="_blank">More...</a>'
+    delete tamperingChallengeProduct.deletedDate
+  }
+  if (pastebinLeakChallengeProduct) {
+    pastebinLeakChallengeProduct.description += ' (This product is unsafe! We plan to remove it from the stock!)'
+    pastebinLeakChallengeProduct.deletedDate = '2019-02-1 00:00:00.000 +00:00'
+  }
+  if (blueprintRetrievalChallengeProduct) {
+    let blueprint = blueprintRetrievalChallengeProduct.fileForRetrieveBlueprintChallenge as string
+    if (utils.isUrl(blueprint)) {
+      const blueprintUrl = blueprint
+      blueprint = utils.extractFilename(blueprint)
+      await utils.downloadToFile(blueprintUrl, 'frontend/dist/frontend/assets/public/images/products/' + blueprint)
+    }
+    datacache.retrieveBlueprintChallengeFile = blueprint
+  }
 
   return await Promise.all(
     products.map(
@@ -331,7 +342,7 @@ async function createProducts () {
           name: product.name,
           description: product.description,
           price: product.price,
-          deluxePrice: product.deluxePrice,
+          deluxePrice: product.deluxePrice ?? product.price,
           image: product.image
         }).catch(
           (err: unknown) => {
