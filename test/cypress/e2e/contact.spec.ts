@@ -1,4 +1,4 @@
-import { type Product } from '../../../data/types'
+import type { Product as ProductConfig } from '../../../lib/config.types'
 
 describe('/#/contact', () => {
   beforeEach(() => {
@@ -236,7 +236,7 @@ describe('/#/contact', () => {
 
   describe('challenge "dlpPastebinDataLeak"', () => {
     it('should be possible to post dangerous ingredients of unsafe product as feedback', () => {
-      cy.task<Product>('GetPastebinLeakProduct').then((pastebinLeakProduct: Product) => {
+      cy.task<ProductConfig>('GetPastebinLeakProduct').then((pastebinLeakProduct: ProductConfig) => {
         cy.get('#comment').type(
           pastebinLeakProduct.keywordsForPastebinDataLeakChallenge ? pastebinLeakProduct.keywordsForPastebinDataLeakChallenge.toString() : '?'
         )
