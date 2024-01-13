@@ -3,7 +3,15 @@
  * SPDX-License-Identifier: MIT
  */
 
-require('./lib/startup/validateDependencies')().then(() => {
-  const server = require('./server')
-  server.start()
-})
+async function app () {
+  const { default: validateDependencies } = await import('./lib/startup/validateDependenciesBasic')
+  await validateDependencies()
+
+  const server = await import('./server')
+  await server.start()
+}
+
+app()
+  .catch(err => {
+    throw err
+  })

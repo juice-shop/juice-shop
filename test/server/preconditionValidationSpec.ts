@@ -5,12 +5,13 @@
 
 import chai = require('chai')
 import sinonChai = require('sinon-chai')
+import { checkIfRunningOnSupportedNodeVersion, checkIfPortIsAvailable } from '../../lib/startup/validatePreconditions'
+
 const expect = chai.expect
 const net = require('net')
 chai.use(sinonChai)
 
 const semver = require('semver')
-const { checkIfRunningOnSupportedNodeVersion, checkIfPortIsAvailable } = require('../../lib/startup/validatePreconditions')
 
 describe('preconditionValidation', () => {
   describe('checkIfRunningOnSupportedNodeVersion', () => {
