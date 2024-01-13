@@ -5,16 +5,16 @@
 
 import challengeUtils = require('../lib/challengeUtils')
 import { type Request, type Response, type NextFunction } from 'express'
+import * as db from '../data/mongodb'
 
 const challenges = require('../data/datacache').challenges
-const db = require('../data/mongodb')
 const security = require('../lib/insecurity')
 
 // vuln-code-snippet start noSqlReviewsChallenge forgedReviewChallenge
 module.exports = function productReviews () {
   return (req: Request, res: Response, next: NextFunction) => {
     const user = security.authenticatedUsers.from(req) // vuln-code-snippet vuln-line forgedReviewChallenge
-    db.reviews.update( // vuln-code-snippet neutral-line forgedReviewChallenge
+    db.reviewsCollection.update( // vuln-code-snippet neutral-line forgedReviewChallenge
       { _id: req.body.id }, // vuln-code-snippet vuln-line noSqlReviewsChallenge forgedReviewChallenge
       { $set: { message: req.body.message } },
       { multi: true } // vuln-code-snippet vuln-line noSqlReviewsChallenge
