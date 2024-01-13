@@ -17,11 +17,10 @@ import config from 'config'
 import * as utils from '../lib/utils'
 import { totalCheatScore } from '../lib/antiCheat'
 import * as accuracy from '../lib/accuracy'
+import { reviewsCollection, ordersCollection } from '../data/mongodb'
 
 const Prometheus = require('prom-client')
 const onFinished = require('on-finished')
-const orders = require('../data/mongodb').orders
-const reviews = require('../data/mongodb').reviews
 const challenges = require('../data/datacache').challenges
 
 const register = Prometheus.register
@@ -191,11 +190,11 @@ exports.observeMetrics = function observeMetrics () {
       accuracyMetrics.set({ phase: 'find it' }, accuracy.totalFindItAccuracy())
       accuracyMetrics.set({ phase: 'fix it' }, accuracy.totalFixItAccuracy())
 
-      orders.count({}).then((orderCount: number) => {
+      ordersCollection.count({}).then((orderCount: number) => {
         if (orderCount) orderMetrics.set(orderCount)
       })
 
-      reviews.count({}).then((reviewCount: number) => {
+      reviewsCollection.count({}).then((reviewCount: number) => {
         if (reviewCount) interactionsMetrics.set({ type: 'review' }, reviewCount)
       })
 

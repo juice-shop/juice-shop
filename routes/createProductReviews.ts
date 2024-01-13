@@ -5,10 +5,10 @@
 
 import { type Request, type Response } from 'express'
 import challengeUtils = require('../lib/challengeUtils')
+import { reviewsCollection } from '../data/mongodb'
 
 import * as utils from '../lib/utils'
 
-const reviews = require('../data/mongodb').reviews
 const challenges = require('../data/datacache').challenges
 const security = require('../lib/insecurity')
 
@@ -16,7 +16,7 @@ module.exports = function productReviews () {
   return (req: Request, res: Response) => {
     const user = security.authenticatedUsers.from(req)
     challengeUtils.solveIf(challenges.forgedReviewChallenge, () => { return user && user.data.email !== req.body.author })
-    reviews.insert({
+    reviewsCollection.insert({
       product: req.params.id,
       message: req.body.message,
       author: req.body.author,
