@@ -19,8 +19,8 @@ import { totalCheatScore } from '../lib/antiCheat'
 import * as accuracy from '../lib/accuracy'
 import { reviewsCollection, ordersCollection } from '../data/mongodb'
 import { challenges } from '../data/datacache'
+import * as Prometheus from 'prom-client'
 
-const Prometheus = require('prom-client')
 const onFinished = require('on-finished')
 
 const register = Prometheus.register
@@ -77,7 +77,7 @@ exports.serveMetrics = function serveMetrics () {
 
 exports.observeMetrics = function observeMetrics () {
   const app = config.get('application.customMetricsPrefix')
-  const intervalCollector = Prometheus.collectDefaultMetrics({ timeout: 5000 })
+  Prometheus.collectDefaultMetrics({})
   register.setDefaultLabels({ app })
 
   const versionMetrics = new Prometheus.Gauge({
@@ -228,7 +228,6 @@ exports.observeMetrics = function observeMetrics () {
 
   return {
     register,
-    probe: intervalCollector,
     updateLoop
   }
 }

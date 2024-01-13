@@ -26,6 +26,7 @@ import path from 'path'
 import morgan from 'morgan'
 import colors from 'colors/safe'
 import * as utils from './lib/utils'
+import * as Prometheus from 'prom-client'
 
 const startTime = Date.now()
 const finale = require('finale-rest')
@@ -43,7 +44,6 @@ const robots = require('express-robots-txt')
 const yaml = require('js-yaml')
 const swaggerUi = require('swagger-ui-express')
 const RateLimit = require('express-rate-limit')
-const client = require('prom-client')
 const ipfilter = require('express-ipfilter').IpFilter
 const swaggerDocument = yaml.load(fs.readFileSync('./swagger.yml', 'utf8'))
 const {
@@ -121,7 +121,7 @@ const i18n = require('i18n')
 const antiCheat = require('./lib/antiCheat')
 
 const appName = config.get('application.customMetricsPrefix')
-const startupGauge = new client.Gauge({
+const startupGauge = new Prometheus.Gauge({
   name: `${appName}_startup_duration_seconds`,
   help: `Duration ${appName} required to perform a certain task during startup`,
   labelNames: ['task']
