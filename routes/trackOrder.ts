@@ -7,8 +7,7 @@ import utils = require('../lib/utils')
 import challengeUtils = require('../lib/challengeUtils')
 import { type Request, type Response } from 'express'
 import * as db from '../data/mongodb'
-
-const challenges = require('../data/datacache').challenges
+import { challenges } from '../data/datacache'
 
 module.exports = function trackOrder () {
   return (req: Request, res: Response) => {

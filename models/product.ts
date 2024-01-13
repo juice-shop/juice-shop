@@ -15,8 +15,8 @@ import {
   type Sequelize
 } from 'sequelize'
 import { type BasketItemModel } from './basketitem'
+import { challenges } from '../data/datacache'
 const security = require('../lib/insecurity')
-const challenges = require('../data/datacache').challenges
 
 class Product extends Model<
 InferAttributes<Product>,

@@ -6,8 +6,8 @@
 import challengeUtils = require('../lib/challengeUtils')
 import { type Request, type Response, type NextFunction } from 'express'
 import * as db from '../data/mongodb'
+import { challenges } from '../data/datacache'
 
-const challenges = require('../data/datacache').challenges
 const security = require('../lib/insecurity')
 
 // vuln-code-snippet start noSqlReviewsChallenge forgedReviewChallenge

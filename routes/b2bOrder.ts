@@ -8,9 +8,9 @@ import { type Request, type Response, type NextFunction } from 'express'
 import challengeUtils = require('../lib/challengeUtils')
 
 import * as utils from '../lib/utils'
+import { challenges } from '../data/datacache'
 const security = require('../lib/insecurity')
 const safeEval = require('notevil')
-const challenges = require('../data/datacache').challenges
 
 module.exports = function b2bOrder () {
   return ({ body }: Request, res: Response, next: NextFunction) => {

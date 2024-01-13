@@ -18,10 +18,10 @@ import * as utils from '../lib/utils'
 import { totalCheatScore } from '../lib/antiCheat'
 import * as accuracy from '../lib/accuracy'
 import { reviewsCollection, ordersCollection } from '../data/mongodb'
+import { challenges } from '../data/datacache'
 
 const Prometheus = require('prom-client')
 const onFinished = require('on-finished')
-const challenges = require('../data/datacache').challenges
 
 const register = Prometheus.register
 
