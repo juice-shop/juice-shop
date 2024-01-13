@@ -71,8 +71,23 @@ export interface StaticChallenge {
   }
 }
 export async function loadStaticChallengeData (): Promise<StaticChallenge[]> {
-  return await loadStaticData('users') as StaticChallenge[]
+  return await loadStaticData('challenges') as StaticChallenge[]
 }
 
-// await loadStaticData('deliveries')
-// await loadStaticData('securityQuestions')
+export interface StaticDelivery {
+  name: string
+  price: number
+  deluxePrice: number
+  eta: number
+  icon: string
+}
+export async function loadStaticDeliveryData (): Promise<StaticDelivery[]> {
+  return await loadStaticData('deliveries') as StaticDelivery[]
+}
+
+export interface StaticSecurityQuestions {
+  question: string
+}
+export async function loadStaticSecurityQuestionsData (): Promise<StaticSecurityQuestions[]> {
+  return await loadStaticData('securityQuestions') as StaticSecurityQuestions[]
+}

@@ -20,33 +20,20 @@ import { SecurityAnswerModel } from '../models/securityAnswer'
 import { SecurityQuestionModel } from '../models/securityQuestion'
 import { UserModel } from '../models/user'
 import { WalletModel } from '../models/wallet'
-import { type Delivery, type Product, type SecurityQuestion } from './types'
+import { type Product } from './types'
 import logger from '../lib/logger'
 import type { Memory as MemoryConfig, Product as ProductConfig } from '../lib/config.types'
 import config from 'config'
-import path from 'path'
 import * as utils from '../lib/utils'
 import type { StaticUser, StaticUserAddress, StaticUserCard } from './staticData'
-import { loadStaticChallengeData, loadStaticUserData } from './staticData'
+import { loadStaticChallengeData, loadStaticDeliveryData, loadStaticUserData, loadStaticSecurityQuestionsData } from './staticData'
 
 const datacache = require('./datacache')
 const mongodb = require('./mongodb')
 const security = require('../lib/insecurity')
 
-const fs = require('fs')
-const util = require('util')
-const { safeLoad } = require('js-yaml')
 const Entities = require('html-entities').AllHtmlEntities
 const entities = new Entities()
-
-const readFile = util.promisify(fs.readFile)
-
-function loadStaticData (file: string) {
-  const filePath = path.resolve('./data/static/' + file + '.yml')
-  return readFile(filePath, 'utf8')
-    .then(safeLoad)
-    .catch(() => logger.error('Could not open file: "' + filePath + '"'))
-}
 
 module.exports = async () => {
   const creators = [
@@ -153,10 +140,10 @@ async function createWallet () {
 }
 
 async function createDeliveryMethods () {
-  const deliveries = await loadStaticData('deliveries')
+  const deliveries = await loadStaticDeliveryData()
 
   await Promise.all(
-    deliveries.map(async ({ name, price, deluxePrice, eta, icon }: Delivery) => {
+    deliveries.map(async ({ name, price, deluxePrice, eta, icon }) => {
       try {
         await DeliveryModel.create({
           name,
@@ -600,10 +587,10 @@ async function createRecycle (data: { UserId: number, quantity: number, AddressI
 }
 
 async function createSecurityQuestions () {
-  const questions = await loadStaticData('securityQuestions')
+  const questions = await loadStaticSecurityQuestionsData()
 
   await Promise.all(
-    questions.map(async ({ question }: SecurityQuestion) => {
+    questions.map(async ({ question }) => {
       try {
         await SecurityQuestionModel.create({ question })
       } catch (err) {
