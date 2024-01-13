@@ -13,10 +13,10 @@ import {
   type CreationOptional,
   type Sequelize
 } from 'sequelize'
-import challengeUtils = require('../lib/challengeUtils')
+import * as challengeUtils from '../lib/challengeUtils'
 import * as utils from '../lib/utils'
 import { challenges } from '../data/datacache'
-const security = require('../lib/insecurity')
+import * as security from '../lib/insecurity'
 
 class User extends Model<
 InferAttributes<User>,
@@ -73,7 +73,7 @@ const UserModelInit = (sequelize: Sequelize) => { // vuln-code-snippet start wea
       }, // vuln-code-snippet hide-end
       password: {
         type: DataTypes.STRING,
-        set (clearTextPassword) {
+        set (clearTextPassword: string) {
           this.setDataValue('password', security.hash(clearTextPassword)) // vuln-code-snippet vuln-line weakPasswordChallenge
         }
       }, // vuln-code-snippet end weakPasswordChallenge

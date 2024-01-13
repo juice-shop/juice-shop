@@ -4,9 +4,8 @@
  */
 
 /* jslint node: true */
-import utils = require('../lib/utils')
-import challengeUtils = require('../lib/challengeUtils')
-
+import * as utils from '../lib/utils'
+import * as challengeUtils from '../lib/challengeUtils'
 import {
   Model,
   type InferAttributes,
@@ -16,7 +15,7 @@ import {
   type Sequelize
 } from 'sequelize'
 import { challenges } from '../data/datacache'
-const security = require('../lib/insecurity')
+import * as security from '../lib/insecurity'
 
 class Feedback extends Model<
 InferAttributes<Feedback>,

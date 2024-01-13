@@ -1,7 +1,7 @@
 User.init(
       password: {
         type: DataTypes.STRING,
-        set (clearTextPassword) {
+        set (clearTextPassword: string) {
           validatePasswordHasAtLeastOneNumber(clearTextPassword)
           validatePasswordHasAtLeastOneSpecialChar(clearTextPassword)
           validatePasswordHasAtLeastOneUpperCaseChar(clearTextPassword)
