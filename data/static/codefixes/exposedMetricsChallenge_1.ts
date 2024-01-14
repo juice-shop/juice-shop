@@ -4,9 +4,6 @@ const Metrics = metrics.observeMetrics()
 app.get('/metrics', security.denyAll(), metrics.serveMetrics())
 errorhandler.title = `${config.get<string>('application.name')} (Express ${utils.version('express')})`
 
-const registerWebsocketEvents = require('./lib/startup/registerWebsocketEvents')
-const customizeApplication = require('./lib/startup/customizeApplication')
-
 export async function start (readyCallback: any) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
   await sequelize.sync({ force: true })
