@@ -25,26 +25,26 @@ const trivialChallenges = ['errorHandlingChallenge', 'privacyPolicyChallenge', '
 
 const solves: Array<{ challenge: any, phase: string, timestamp: Date, cheatScore: number }> = [{ challenge: {}, phase: 'server start', timestamp: new Date(), cheatScore: 0 }] // seed with server start timestamp
 
-const preSolveInteractions: Array<{ challengeKey: any, urlFragments: string[], interactions: number }> = [
-  { challengeKey: 'missingEncodingChallenge', urlFragments: ['/assets/public/images/uploads/%F0%9F%98%BC-'], interactions: 0 },
-  { challengeKey: 'directoryListingChallenge', urlFragments: ['/ftp'], interactions: 0 },
-  { challengeKey: 'easterEggLevelOneChallenge', urlFragments: ['/ftp', '/ftp/eastere.gg'], interactions: 0 },
-  { challengeKey: 'easterEggLevelTwoChallenge', urlFragments: ['/ftp', '/gur/qrif/ner/fb/shaal/gurl/uvq/na/rnfgre/rtt/jvguva/gur/rnfgre/rtt'], interactions: 0 },
-  { challengeKey: 'forgottenDevBackupChallenge', urlFragments: ['/ftp', '/ftp/package.json.bak'], interactions: 0 },
-  { challengeKey: 'forgottenBackupChallenge', urlFragments: ['/ftp', '/ftp/coupons_2013.md.bak'], interactions: 0 },
-  { challengeKey: 'loginSupportChallenge', urlFragments: ['/ftp', '/ftp/incident-support.kdbx'], interactions: 0 },
-  { challengeKey: 'misplacedSignatureFileChallenge', urlFragments: ['/ftp', '/ftp/suspicious_errors.yml'], interactions: 0 },
-  { challengeKey: 'recChallenge', urlFragments: ['/api-docs', '/b2b/v2/orders'], interactions: 0 },
-  { challengeKey: 'rceOccupyChallenge', urlFragments: ['/api-docs', '/b2b/v2/orders'], interactions: 0 }
+const preSolveInteractions: Array<{ challengeKey: any, urlFragments: string[], interactions: boolean[] }> = [
+  { challengeKey: 'missingEncodingChallenge', urlFragments: ['/assets/public/images/uploads/%F0%9F%98%BC-'], interactions: [false] },
+  { challengeKey: 'directoryListingChallenge', urlFragments: ['/ftp'], interactions: [false] },
+  { challengeKey: 'easterEggLevelOneChallenge', urlFragments: ['/ftp', '/ftp/eastere.gg'], interactions: [false, false] },
+  { challengeKey: 'easterEggLevelTwoChallenge', urlFragments: ['/ftp', '/gur/qrif/ner/fb/shaal/gurl/uvq/na/rnfgre/rtt/jvguva/gur/rnfgre/rtt'], interactions: [false, false] },
+  { challengeKey: 'forgottenDevBackupChallenge', urlFragments: ['/ftp', '/ftp/package.json.bak'], interactions: [false, false] },
+  { challengeKey: 'forgottenBackupChallenge', urlFragments: ['/ftp', '/ftp/coupons_2013.md.bak'], interactions: [false, false] },
+  { challengeKey: 'loginSupportChallenge', urlFragments: ['/ftp', '/ftp/incident-support.kdbx'], interactions: [false, false] },
+  { challengeKey: 'misplacedSignatureFileChallenge', urlFragments: ['/ftp', '/ftp/suspicious_errors.yml'], interactions: [false, false] },
+  { challengeKey: 'recChallenge', urlFragments: ['/api-docs', '/b2b/v2/orders'], interactions: [false, false] },
+  { challengeKey: 'rceOccupyChallenge', urlFragments: ['/api-docs', '/b2b/v2/orders'], interactions: [false, false] }
 ]
 
 exports.checkForPreSolveInteractions = () => ({ url }: Request, res: Response, next: NextFunction) => {
   preSolveInteractions.forEach((preSolveInteraction) => {
-    preSolveInteraction.urlFragments.forEach((urlFragment) => {
-      if (utils.endsWith(url, urlFragment)) {
-        preSolveInteraction.interactions++
+    for (let i = 0; i < preSolveInteraction.urlFragments.length; i++) {
+      if (utils.endsWith(url, preSolveInteraction.urlFragments[i])) {
+        preSolveInteraction.interactions[i] = true
       }
-    })
+    }
   })
   next()
 }
@@ -66,7 +66,7 @@ export const calculateCheatScore = (challenge: Challenge) => {
   const preSolveInteraction = preSolveInteractions.find((preSolveInteraction) => preSolveInteraction.challengeKey === challenge.key)
   let percentPrecedingInteraction = -1
   if (preSolveInteraction) {
-    percentPrecedingInteraction = preSolveInteraction.interactions / (preSolveInteraction.urlFragments.length)
+    percentPrecedingInteraction = preSolveInteraction.interactions.filter(Boolean).length / (preSolveInteraction.interactions.length)
     const multiplierForMissingExpectedInteraction = 1 + Math.max(0, 1 - percentPrecedingInteraction) / 2
     cheatScore *= multiplierForMissingExpectedInteraction
     cheatScore = Math.min(1, cheatScore)
