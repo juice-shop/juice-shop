@@ -1,6 +1,7 @@
 import chai = require('chai')
 import config from 'config'
-import { type Product } from 'data/types'
+import type { Product as ProductConfig } from 'lib/config.types'
+
 import path from 'path'
 import { promisify } from 'util'
 import { ExifImage } from 'exif'
@@ -26,7 +27,7 @@ async function parseExifData (path: string): Promise<any> {
 }
 
 describe('blueprint', () => {
-  const products = config.get<Product[]>('products')
+  const products = config.get<ProductConfig[]>('products')
   let pathToImage: string = 'assets/public/images/products/'
 
   describe('checkExifData', () => {

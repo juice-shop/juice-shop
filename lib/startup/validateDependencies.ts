@@ -4,16 +4,10 @@
  */
 
 import colors from 'colors/safe'
-import utils = require('../utils')
+import * as utils from '../utils'
 import logger from '../logger'
-
-try {
-  require('check-dependencies')
-} catch (err) {
-  console.error('Please run "npm install" before starting the application!')
-  process.exit(1)
-}
-const dependencyChecker = require('check-dependencies')
+// @ts-expect-error FIXME due to non-existing type definitions for check-dependencies
+import dependencyChecker from 'check-dependencies'
 
 const validateDependencies = async ({ packageDir = '.', exitOnFailure = true } = {}) => {
   let success = true
@@ -40,4 +34,4 @@ const validateDependencies = async ({ packageDir = '.', exitOnFailure = true } =
   }
 }
 
-module.exports = validateDependencies
+export default validateDependencies

@@ -7,7 +7,7 @@ module.exports = function productReviews () {
       return
     }
 
-    db.reviews.update(
+    db.reviewsCollection.update(
       { _id: req.body.id },
       { $set: { message: req.body.message } }
     ).then(
