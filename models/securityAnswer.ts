@@ -12,7 +12,7 @@ import {
   type CreationOptional,
   type Sequelize
 } from 'sequelize'
-const security = require('../lib/insecurity')
+import * as security from '../lib/insecurity'
 
 class SecurityAnswer extends Model<
 InferAttributes<SecurityAnswer>,
@@ -42,7 +42,7 @@ const SecurityAnswerModelInit = (sequelize: Sequelize) => {
       },
       answer: {
         type: DataTypes.STRING,
-        set (answer) {
+        set (answer: string) {
           this.setDataValue('answer', security.hmac(answer))
         }
       }
