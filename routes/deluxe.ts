@@ -9,9 +9,9 @@ import { WalletModel } from '../models/wallet'
 import { CardModel } from '../models/card'
 import challengeUtils = require('../lib/challengeUtils')
 import * as utils from '../lib/utils'
+import { challenges } from '../data/datacache'
 
 const security = require('../lib/insecurity')
-const challenges = require('../data/datacache').challenges
 
 module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
   return async (req: Request, res: Response, next: NextFunction) => {

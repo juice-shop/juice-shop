@@ -8,9 +8,9 @@ import { SecurityAnswerModel } from '../models/securityAnswer'
 import { UserModel } from '../models/user'
 import { SecurityQuestionModel } from '../models/securityQuestion'
 import { PrivacyRequestModel } from '../models/privacyRequests'
+import { challenges } from '../data/datacache'
 const insecurity = require('../lib/insecurity')
 
-const challenges = require('../data/datacache').challenges
 const challengeUtils = require('../lib/challengeUtils')
 const router = express.Router()
 

@@ -198,10 +198,6 @@ export const toSimpleIpAddress = (ipv6: string) => {
   }
 }
 
-export const thaw = (frozenObject: any) => {
-  return JSON.parse(JSON.stringify(frozenObject))
-}
-
 export const getErrorMessage = (error: unknown) => {
   if (error instanceof Error) return error.message
   return String(error)
