@@ -5,6 +5,7 @@
 
 import { type Request, type Response, type NextFunction } from 'express'
 import { type Challenge, type Product } from '../data/types'
+import type { Product as ProductConfig } from '../lib/config.types'
 import { type JwtPayload, type VerifyErrors } from 'jsonwebtoken'
 import { FeedbackModel } from '../models/feedback'
 import { ComplaintModel } from '../models/complaint'
@@ -162,7 +163,7 @@ exports.databaseRelatedChallenges = () => (req: Request, res: Response, next: Ne
 function changeProductChallenge (osaft: Product) {
   let urlForProductTamperingChallenge: string | null = null
   void osaft.reload().then(() => {
-    for (const product of config.get<Product[]>('products')) {
+    for (const product of config.get<ProductConfig[]>('products')) {
       if (product.urlForProductTamperingChallenge !== undefined) {
         urlForProductTamperingChallenge = product.urlForProductTamperingChallenge
         break
@@ -382,8 +383,8 @@ function dlpPastebinDataLeakChallenge () {
 }
 
 function dangerousIngredients () {
-  return config.get<Product[]>('products')
-    .flatMap((product: Product) => product.keywordsForPastebinDataLeakChallenge)
+  return config.get<ProductConfig[]>('products')
+    .flatMap((product) => product.keywordsForPastebinDataLeakChallenge)
     .filter(Boolean)
     .map((keyword) => {
       return { [Op.like]: `%${keyword}%` }

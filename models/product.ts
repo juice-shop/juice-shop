@@ -4,8 +4,8 @@
  */
 
 /* jslint node: true */
-import utils = require('../lib/utils')
-import challengeUtils = require('../lib/challengeUtils')
+import * as utils from '../lib/utils'
+import * as challengeUtils from '../lib/challengeUtils'
 import {
   Model,
   type InferAttributes,
@@ -15,8 +15,8 @@ import {
   type Sequelize
 } from 'sequelize'
 import { type BasketItemModel } from './basketitem'
-const security = require('../lib/insecurity')
-const challenges = require('../data/datacache').challenges
+import { challenges } from '../data/datacache'
+import * as security from '../lib/insecurity'
 
 class Product extends Model<
 InferAttributes<Product>,

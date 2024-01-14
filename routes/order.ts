@@ -14,13 +14,12 @@ import { WalletModel } from '../models/wallet'
 import challengeUtils = require('../lib/challengeUtils')
 import config from 'config'
 import * as utils from '../lib/utils'
+import * as db from '../data/mongodb'
+import { challenges, products } from '../data/datacache'
 
 const fs = require('fs')
 const PDFDocument = require('pdfkit')
 const security = require('../lib/insecurity')
-const products = require('../data/datacache').products
-const challenges = require('../data/datacache').challenges
-const db = require('../data/mongodb')
 
 interface Product {
   quantity: number
@@ -152,7 +151,7 @@ module.exports = function placeOrder () {
             })
           }
 
-          db.orders.insert({
+          db.ordersCollection.insert({
             promotionalAmount: discountAmount,
             paymentId: req.body.orderDetails ? req.body.orderDetails.paymentId : null,
             addressId: req.body.orderDetails ? req.body.orderDetails.addressId : null,

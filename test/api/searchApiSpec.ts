@@ -5,12 +5,12 @@
 
 import frisby = require('frisby')
 import { expect } from '@jest/globals'
-import { type Product } from '../../data/types'
+import type { Product as ProductConfig } from '../../lib/config.types'
 import config from 'config'
 const security = require('../../lib/insecurity')
 
-const christmasProduct = config.get<Product[]>('products').filter(({ useForChristmasSpecialChallenge }: Product) => useForChristmasSpecialChallenge)[0]
-const pastebinLeakProduct = config.get<Product[]>('products').filter(({ keywordsForPastebinDataLeakChallenge }: Product) => keywordsForPastebinDataLeakChallenge)[0]
+const christmasProduct = config.get<ProductConfig[]>('products').filter(({ useForChristmasSpecialChallenge }) => useForChristmasSpecialChallenge)[0]
+const pastebinLeakProduct = config.get<ProductConfig[]>('products').filter(({ keywordsForPastebinDataLeakChallenge }) => keywordsForPastebinDataLeakChallenge)[0]
 
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
