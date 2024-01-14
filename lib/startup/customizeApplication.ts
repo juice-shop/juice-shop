@@ -3,12 +3,13 @@
  * SPDX-License-Identifier: MIT
  */
 
-import fs = require('fs')
+import fs from 'fs'
 import config from 'config'
 import * as utils from '../utils'
-const replace = require('replace')
+// @ts-expect-error FIXME due to non-existing type definitions for replace
+import replace from 'replace'
 
-const customizeApplication = () => {
+const customizeApplication = async () => {
   if (config.get<string>('application.name')) {
     customizeTitle()
   }
@@ -112,4 +113,4 @@ const customizeCookieConsentBanner = () => {
   })
 }
 
-module.exports = customizeApplication
+export default customizeApplication

@@ -9,8 +9,8 @@ import challengeUtils = require('../lib/challengeUtils')
 import { type NextFunction, type Request, type Response } from 'express'
 import path from 'path'
 import * as utils from '../lib/utils'
+import { challenges } from '../data/datacache'
 
-const challenges = require('../data/datacache').challenges
 const libxml = require('libxmljs2')
 const vm = require('vm')
 const unzipper = require('unzipper')

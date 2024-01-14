@@ -1,139 +1,46 @@
-import { type Model } from 'sequelize/types'
+import type { AddressModel } from 'models/address'
+import type { BasketModel } from 'models/basket'
+import type { BasketItemModel } from 'models/basketitem'
+import type { CaptchaModel } from 'models/captcha'
+import type { CardModel } from 'models/card'
+import type { ChallengeModel } from 'models/challenge'
+import type { DeliveryModel } from 'models/delivery'
+import type { MemoryModel } from 'models/memory'
+import type { ProductModel } from 'models/product'
+import type { RecycleModel } from 'models/recycle'
+import type { SecurityAnswerModel } from 'models/securityAnswer'
+import type { SecurityQuestionModel } from 'models/securityQuestion'
+import type { UserModel } from 'models/user'
 
-export interface Challenge extends Model {
-  name: string
-  category: string
-  description: string
-  solved: boolean
-  difficulty: number
-  hint: string
-  hintUrl: string
-  mitigationUrl?: string
-  key: string
-  disabledEnv?: string | string[]
-  tutorial?: { order: number }
-  tags?: string[]
-  tutorialOrder?: number
-}
+export type Challenge = ChallengeModel
 
-export interface User extends Model {
-  id: number
-  username?: string
-  email: string
-  password: string
-  customDomain?: string
-  key: string
-  role: string
-  deletedFlag?: boolean
-  profileImage?: string
-  securityQuestion?: {
-    id: number
-    answer: string
-  }
-  feedback?: {
-    comment: string
-    rating: number
-  }
-  address?: Address[]
-  card?: Card[]
-  totpSecret?: string
-  walletBalance?: number
-  lastLoginIp?: string
-}
+export type User = UserModel
 
-export interface Delivery extends Model {
-  name: string
-  price: number
-  deluxePrice: number
-  eta: number
-  icon: string
-}
+export type Delivery = DeliveryModel
 
-export interface Address extends Model {
-  fullName: string
-  mobileNum: number
-  zipCode: string
-  streetAddress: string
-  city: string
-  state: string
-  country: string
-}
+export type Address = AddressModel
 
-export interface Card extends Model {
-  fullName: string
-  cardNum: number | string
-  expMonth: number
-  expYear: number
-}
+export type Card = CardModel
 
-export interface Product extends Model {
-  id: number
-  name: string
-  description: string
-  price: number
-  deluxePrice?: number
-  quantity?: number
-  limitPerUser?: number
-  image?: string
-  reviews?: Review[]
-  deletedDate?: string
-  deletedAt?: Date | string
-  useForChristmasSpecialChallenge?: boolean
-  keywordsForPastebinDataLeakChallenge?: string[]
-  urlForProductTamperingChallenge?: string
-  fileForRetrieveBlueprintChallenge?: string
-  exifForBlueprintChallenge?: string[]
-}
+export type Product = ProductModel
 
-export interface Review extends Model {
+export interface Review {
   text: string
   author: string
   liked: boolean
   likedBy: string[]
 }
 
-export interface Memory extends Model {
-  image: string
-  imagePath: string
-  caption: string
-  user: string
-  geoStalkingMetaSecurityQuestion?: number
-  geoStalkingMetaSecurityAnswer?: string
-  geoStalkingVisualSecurityQuestion?: number
-  geoStalkingVisualSecurityAnswer?: string
-}
+export type Memory = MemoryModel
 
-export interface Recycle extends Model {
-  UserId: number
-  quantity: number
-  AddressId: number
-  date: string
-  isPickup: boolean
-}
+export type Recycle = RecycleModel
 
-export interface SecurityQuestion extends Model {
-  question: string
-}
+export type SecurityQuestion = SecurityQuestionModel
 
-export interface SecurityAnswer extends Model {
-  answer: string
-  UserId: number
-  SecurityQuestionId: number
-}
+export type SecurityAnswer = SecurityAnswerModel
 
-export interface Basket extends Model {
-  id: number
-  Products: Product[]
-  coupon: string
-}
+export type Basket = BasketModel
 
-export interface BasketItem extends Model {
-  ProductId: number
-  BasketId: number
-  quantity: number
-}
+export type BasketItem = BasketItemModel
 
-export interface Captcha extends Model {
-  captcha: string
-  answer: string
-}
+export type Captcha = CaptchaModel

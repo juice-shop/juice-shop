@@ -6,11 +6,10 @@
 import config from 'config'
 import * as utils from '../utils'
 import { Server } from 'socket.io'
+import { notifications, challenges } from '../../data/datacache'
+import * as challengeUtils from '../challengeUtils'
+import * as security from '../insecurity'
 
-const notifications = require('../../data/datacache').notifications
-const challengeUtils = require('../challengeUtils')
-const security = require('../insecurity')
-const challenges = require('../../data/datacache').challenges
 let firstConnectedSocket: any = null
 
 const globalWithSocketIO = global as typeof globalThis & {
@@ -54,4 +53,4 @@ const registerWebsocketEvents = (server: any) => {
   })
 }
 
-module.exports = registerWebsocketEvents
+export default registerWebsocketEvents
