@@ -1,0 +1,63 @@
+name: DAST Scanning
+
+on:
+  #run the weekly scan on midnight Saturday
+  #schedule: 
+      #- cron:  '0 0 * * 6' 
+  #run when changes happens to main/master branch
+  push:
+    branches:
+      - main
+      - master 
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 #v2
+        
+        - name: Create temporary directory
+          run: |
+            #echo "WORKFLOWDIR=$(mktemp -d)" >> $GITHUB_ENV
+            echo "WORKFLOWDIR=/Users/ruby.le/Downloads/testing" >> $GITHUB_ENV
+
+        - name: Log in to Docker Hub
+          uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+          with:
+            username: ${{ secrets.DOCKER_USERNAME }}
+            password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+        
+        - name: Install Zap Proxy image if not installed
+          run: |
+            if docker image ls | grep "softwaresecurityproject/zap-stable"; then 
+                echo "Docker image exist. Proceed to run the scan." 
+            else
+                docker pull softwaresecurityproject/zap-stable
+            fi
+  
+        - name: Run ZAP scanning against app running on host OS 
+          run: |
+            status_code=$(curl -LI http://$(ipconfig getifaddr en0):3000 -o /dev/null -w '%{http_code}\n' -s)
+            if [ $status_code -eq 200 ]; then
+                echo "The application is running."
+                cd $WORKFLOWDIR
+                docker run -v $(pwd):/zap/wrk/:rw -t softwaresecurityproject/zap-stable:latest zap-full-scan.py \
+                -t http://$(ipconfig getifaddr en0):3000 -d -D 4 -g gen.conf -r html-report.html 
+            else 
+                echo "The application is not reachable. Please check the application."
+            fi
+          continue-on-error: true
+
+        - name: Create environmental variables 
+          run: |
+            echo "ARTIFACT_PATH2=${WORKFLOWDIR}/json-report.json" >> $GITHUB_ENV
+            echo "ARTIFACT_PATH1=${WORKFLOWDIR}/html-report.html" >> $GITHUB_ENV
+            echo "ARTIFACT_NAME=DAST-${GITHUB_RUN_ID}-${GITHUB_SHA}" >> $GITHUB_ENV
+
+        - name: Save ZAP Scan results
+          uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 #v2
+          with:
+            name: ${{ env.ARTIFACT_NAME}}
+            path: 
+                ${{ env.ARTIFACT_PATH1 }}
