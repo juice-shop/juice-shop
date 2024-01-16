@@ -83,6 +83,12 @@ hackingInstructor:
   hintPlaybackSpeed: normal # Options: faster fast normal slow slower
 products:
   -
+    name: 'Joshua'
+    price: 420
+    deluxePrice: 240
+    limitPerUser: 100
+    description: 'Top J'
+  -
     name: 'Apple Juice (1000ml)'
     price: 1.99
     deluxePrice: 0.99
