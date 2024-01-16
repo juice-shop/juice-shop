@@ -37,6 +37,8 @@ import registerWebsocketEvents from './lib/startup/registerWebsocketEvents'
 import customizeApplication from './lib/startup/customizeApplication'
 import customizeEasterEgg from './lib/startup/customizeEasterEgg' // vuln-code-snippet hide-line
 
+import authenticatedUsers from './routes/authenticatedUsers'
+
 const startTime = Date.now()
 const finale = require('finale-rest')
 const express = require('express')
@@ -80,7 +82,6 @@ const quarantineServer = require('./routes/quarantineServer')
 const keyServer = require('./routes/keyServer')
 const logFileServer = require('./routes/logfileServer')
 const metrics = require('./routes/metrics')
-const authenticatedUsers = require('./routes/authenticatedUsers')
 const currentUser = require('./routes/currentUser')
 const login = require('./routes/login')
 const changePassword = require('./routes/changePassword')
