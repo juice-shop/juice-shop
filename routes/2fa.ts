@@ -71,7 +71,7 @@ async function status (req: Request, res: Response) {
     const { data: user } = data
 
     if (user.totpSecret === '') {
-      const secret = await otplib.authenticator.generateSecret()
+      const secret = otplib.authenticator.generateSecret()
 
       res.json({
         setup: false,

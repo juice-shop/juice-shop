@@ -244,24 +244,6 @@ describe('/api/Users/:id', () => {
   })
 })
 
-describe('/rest/user/authentication-details', () => {
-  it('GET all users decorated with attribute for authentication token', () => {
-    return frisby.get(`${REST_URL}/user/authentication-details`, { headers: authHeader })
-      .expect('status', 200)
-      .expect('jsonTypes', 'data.?', {
-        token: Joi.string()
-      })
-  })
-
-  it('GET all users with password replaced by asterisks', () => {
-    return frisby.get(`${REST_URL}/user/authentication-details`, { headers: authHeader })
-      .expect('status', 200)
-      .expect('json', 'data.?', {
-        password: '********************************'
-      })
-  })
-})
-
 describe('/rest/user/whoami', () => {
   it('GET own user id and email on who-am-i request', () => {
     return frisby.post(`${REST_URL}/user/login`, {

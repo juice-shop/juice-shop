@@ -21,23 +21,13 @@ const isGitpod = () => false
 
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
 
-export const queryResultToJson = (data: any, status: string = 'success') => {
-  let wrappedData: any = {}
-  if (data) {
-    if (!data.length && data.dataValues) {
-      wrappedData = data.dataValues
-    } else if (data.length > 0) {
-      wrappedData = []
-      for (let i = 0; i < data.length; i++) {
-        wrappedData.push(data[i]?.dataValues ? data[i].dataValues : data[i])
-      }
-    } else {
-      wrappedData = data
-    }
-  }
+export const queryResultToJson = <T>(
+  data: T,
+  status: string = 'success'
+): { data: T, status: string } => {
   return {
     status,
-    data: wrappedData
+    data
   }
 }
 
