@@ -1,14 +1,14 @@
 name: DAST Scanning
 
-on:
+on: workflow_dispatch
   #run the weekly scan on midnight Saturday
   #schedule: 
       #- cron:  '0 0 * * 6' 
   #run when changes happens to main/master branch
-  push:
-    branches:
-      - main
-      - master 
+  #push:
+  #  branches:
+  #    - main
+   #   - master 
 
 jobs:
   build:

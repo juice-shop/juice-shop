@@ -101,7 +101,7 @@ jobs:
           \nScan Summary:\n$(cat $SUM_FILE)
           \nScan Result Details:\n$(cat $TRIVY_TABLE_FILE)\n 
           \nRecommendations:\n- Please review and upgrade the vulnerable dependencies to the latest version.\n
-          If you have any questions or need further assistance, please don't hesitate to reach out.\nThanks"
+          If you have any questions or need further assistance, please don't hesitate to reach out.\nThanks\"
           
           EMAIL_BODY=$(printf "$EMAIL_BODY")
  
