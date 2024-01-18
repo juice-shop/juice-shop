@@ -90,17 +90,17 @@ jobs:
       - name: processing the trivy scan result
         run: |
           echo "- Repository: ${{ github.repository }}\n- Scan Status: Completed\n- Completion Time: $(date)" >> $SUM_FILE
-          echo "- Number of vulnerabilities detected: Critical: $critical, High: $high, Medium: $medium, Low: $low, Info: $info " >> $SUM_FILE
+          echo "- Number of dependencies used by the project: $(jq '.packages | length' $SBOM_ANALYSE_FILE ) " >> $SUM_FILE
           cat $SUM_FILE
 
       - name: Email the result 
         run: | 
           bash -s << 'EOF'
-          
+
           EMAIL_BODY="Hello,\n\nThis email is to inform about the results of the recent scan.
           \nScan Summary:\n$(cat $SUM_FILE)
           \nScan Result Details:\n$(cat $TRIVY_TABLE_FILE)\n 
-          \nRecommendations:\n- Please review and upgrade the outdated/vulnerable dependencies to the latest version.\n
+          \nRecommendations:\n- Please review and upgrade the vulnerable dependencies to the latest version.\n
           If you have any questions or need further assistance, please don't hesitate to reach out.\nThanks"
           
           EMAIL_BODY=$(printf "$EMAIL_BODY")
