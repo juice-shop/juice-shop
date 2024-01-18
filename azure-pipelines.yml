@@ -17,7 +17,7 @@ resources:
     - repository: templates
       type: github
       name: DigitalInnovation/semgrep-appsec-workflow
-      endpoint: DigitalInnovation # Please change the name of service connection here. More details can be found in additonal information below.
+      endpoint: github.com_abhinavsejpal-mns # Please change the name of service connection here. More details can be found in additonal information below.
 
 jobs:
 - job: Semgrep_Scan
