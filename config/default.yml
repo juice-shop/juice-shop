@@ -84,7 +84,7 @@ hackingInstructor:
 products:
   -
     name: 'Joshua'
-    price: 420
+    price: 42
     deluxePrice: 240
     limitPerUser: 100
     description: 'Top J'
