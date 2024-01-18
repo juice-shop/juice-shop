@@ -29,6 +29,7 @@ jobs:
           echo "TRIVY_JSON_FILE=${WORKFLOWDIR}/trivy_scan_json_result.json" >> $GITHUB_ENV
           echo "TRIVY_TABLE_FILE=${WORKFLOWDIR}/trivy_scan_table_result.txt" >> $GITHUB_ENV
           echo "TRIVY_HTML_FILE=${WORKFLOWDIR}/trivy_scan_html_result.txt" >> $GITHUB_ENV
+          echo "ANALYSE_FILE=${WORKFLOWDIR}/analyse_current_results.txt" >> $GITHUB_ENV
           echo "SUM_FILE=${WORKFLOWDIR}/scan_summary.txt" >> $GITHUB_ENV
           echo "ARTIFACT_NAME=SCA-${GITHUB_RUN_ID}-${GITHUB_SHA}" >> $GITHUB_ENV
 
@@ -91,8 +92,18 @@ jobs:
            
       - name: processing the trivy scan result
         run: |
+          jq_filter='.Results[0].Vulnerabilities[] | "- The \(.PkgName) library version \(.InstalledVersion) is currently outdated and vulnerable to \(.VulnerabilityID) (\(.Severity) impact) - \(.Title)."'
+          jq -r "$jq_filter" "$TRIVY_JSON_FILE" > $ANALYSE_FILE 
+          cat $ANALYSE_FILE 
+          no_of_vulnerable_dependencies=$(jq '.Results[0].Vulnerabilities[].PkgName' $TRIVY_JSON_FILE | uniq | wc -l)
+          echo "\nRecommendations:\n- Please review and remove the respective secrets from the source code.\n " >> $ANALYSE_FILE 
+          
+          echo "- Repository: ${{ github.repository }}\n- Scan Status: Completed\n- Completion Time: $(date)" >> $SUM_FILE
+          echo "- Number of plain-text secrets found: $leaks_uniq_line " >> $SUM_FILE
+          cat $SUM_FILE
           echo "- Repository: ${{ github.repository }}\n- Scan Status: Completed\n- Completion Time: $(date)" >> $SUM_FILE
           echo "- Number of dependencies used by the project: $(jq '.packages | length' $SBOM_ANALYSE_FILE ) " >> $SUM_FILE
+          echo "- Number of vulnerable dependencies detected: $(no_of_vulnerable_dependencies ) " >> $SUM_FILE
 
       - name: Email the result 
         run: | 
@@ -101,7 +112,7 @@ jobs:
           EMAIL_BODY="Hello,\n\nThis email is to inform about the results of the recent scan.
           \nScan Summary:\n$(cat $SUM_FILE)
           \nRecommendations:\n- Please review and upgrade the vulnerable dependencies to the latest version.\n
-          \nScan Result Details:\n$(cat $TRIVY_TABLE_FILE)\n
+          \nScan Result Details:\n$(cat $$ANALYSE_FILE)\n
           If you have any questions or need further assistance, please don't hesitate to reach out.
           Thank you!"
           
@@ -128,7 +139,7 @@ jobs:
           name: ${{ env.ARTIFACT_NAME }}
           path: |
             ${{ env.TRIVY_JSON_FILE }}
-            ${{ env.TRIVY_HTML_FILE }}
+            ${{ env.TRIVY_TABLE_FILE }}
             ${{ env.SBOM_ANALYSE_FILE }}
             ${{ env.DEPENDABOT_FILE }}
 
