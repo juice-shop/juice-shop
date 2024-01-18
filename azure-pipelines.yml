@@ -1,0 +1,27 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- $(Build.SourceBranchName)
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+- group: Semgrep_Variables # Ensure your pipeline is permitted to use this resource. More details can be found in additonal information below.
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: DigitalInnovation/semgrep-appsec-workflow
+      endpoint: Serviceconnection # Please change the name of service connection here. More details can be found in additonal information below.
+
+jobs:
+- job: Semgrep_Scan
+  steps:
+  - template: templates/semgrep_webapps.yml@templates
+    parameters:
+      SEMGREP_APP_TOKEN: $(SEMGREP_APP_TOKEN)  # More details can be found in additonal information below.
