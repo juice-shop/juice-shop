@@ -93,8 +93,6 @@ jobs:
         run: |
           echo "- Repository: ${{ github.repository }}\n- Scan Status: Completed\n- Completion Time: $(date)" >> $SUM_FILE
           echo "- Number of dependencies used by the project: $(jq '.packages | length' $SBOM_ANALYSE_FILE ) " >> $SUM_FILE
-          echo "\nScan Result Details:\n$(cat $TRIVY_TABLE_FILE)\n " >> $SUM_FILE
-          cat $SUM_FILE
 
       - name: Email the result 
         run: | 
@@ -103,6 +101,7 @@ jobs:
           EMAIL_BODY="Hello,\n\nThis email is to inform about the results of the recent scan.
           \nScan Summary:\n$(cat $SUM_FILE)
           \nRecommendations:\n- Please review and upgrade the vulnerable dependencies to the latest version.\n
+          \nScan Result Details:\n$(cat $TRIVY_TABLE_FILE)\n
           If you have any questions or need further assistance, please don't hesitate to reach out.
           Thank you!"
           
