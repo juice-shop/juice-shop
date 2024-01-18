@@ -27,8 +27,8 @@ jobs:
           echo "SBOM_ANALYSE_FILE=${WORKFLOWDIR}/sbom_file_results.json" >> $GITHUB_ENV
           echo "DEPENDABOT_FILE=${WORKFLOWDIR}/dependabot_alerts.json" >> $GITHUB_ENV
           echo "TRIVY_JSON_FILE=${WORKFLOWDIR}/trivy_scan_json_result.json" >> $GITHUB_ENV
-          echo "TRIVY_TABLE_FILE=${WORKFLOWDIR}/trivy_scan_table_result.json" >> $GITHUB_ENV
-          echo "TRIVY_HTML_FILE=${WORKFLOWDIR}/trivy_scan_html_result.json" >> $GITHUB_ENV
+          echo "TRIVY_TABLE_FILE=${WORKFLOWDIR}/trivy_scan_table_result.txt" >> $GITHUB_ENV
+          echo "TRIVY_HTML_FILE=${WORKFLOWDIR}/trivy_scan_html_result.txt" >> $GITHUB_ENV
           echo "SUM_FILE=${WORKFLOWDIR}/scan_summary.txt" >> $GITHUB_ENV
           echo "ARTIFACT_NAME=SCA-${GITHUB_RUN_ID}-${GITHUB_SHA}" >> $GITHUB_ENV
 
@@ -93,7 +93,7 @@ jobs:
         run: |
           echo "- Repository: ${{ github.repository }}\n- Scan Status: Completed\n- Completion Time: $(date)" >> $SUM_FILE
           echo "- Number of dependencies used by the project: $(jq '.packages | length' $SBOM_ANALYSE_FILE ) " >> $SUM_FILE
-          echo "\nScan Result Details:\n$(cat $TRIVY_HTML_FILE)\n " >> $SUM_FILE
+          echo "\nScan Result Details:\n$(cat $TRIVY_TABLE_FILE)\n " >> $SUM_FILE
           cat $SUM_FILE
 
       - name: Email the result 
@@ -128,7 +128,8 @@ jobs:
         with:
           name: ${{ env.ARTIFACT_NAME }}
           path: |
-            ${{ env.TRIVY_FILE }}
+            ${{ env.TRIVY_JSON_FILE }}
+            ${{ env.TRIVY_HTML_FILE }}
             ${{ env.SBOM_ANALYSE_FILE }}
             ${{ env.DEPENDABOT_FILE }}
 
