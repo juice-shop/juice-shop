@@ -28,7 +28,6 @@ jobs:
           echo "DEPENDABOT_FILE=${WORKFLOWDIR}/dependabot_alerts.json" >> $GITHUB_ENV
           echo "TRIVY_JSON_FILE=${WORKFLOWDIR}/trivy_scan_json_result.json" >> $GITHUB_ENV
           echo "TRIVY_TABLE_FILE=${WORKFLOWDIR}/trivy_scan_table_result.txt" >> $GITHUB_ENV
-          echo "TRIVY_HTML_FILE=${WORKFLOWDIR}/trivy_scan_html_result.txt" >> $GITHUB_ENV
           echo "ANALYSE_FILE=${WORKFLOWDIR}/analyse_current_results.txt" >> $GITHUB_ENV
           echo "SUM_FILE=${WORKFLOWDIR}/scan_summary.txt" >> $GITHUB_ENV
           echo "ARTIFACT_NAME=SCA-${GITHUB_RUN_ID}-${GITHUB_SHA}" >> $GITHUB_ENV
@@ -86,8 +85,7 @@ jobs:
       - name: run Trivy scan on SBOM file
         run: |
           # output scan to JSON and table Format 
-          trivy sbom $SBOM_ANALYSE_FILE --severity ${{ vars.SEVERITY }} -f json --output $TRIVY_JSON_FILE -f table --output $TRIVY_TABLE_FILE \
-          --format template --template "@/usr/share/trivy/templates/html.tpl" -o TRIVY_HTML_FILE
+          trivy sbom $SBOM_ANALYSE_FILE --severity ${{ vars.SEVERITY }} -f json --output $TRIVY_JSON_FILE -f table --output $TRIVY_TABLE_FILE 
           echo "Trivy SCA scan completed."
            
       - name: processing the trivy scan result
