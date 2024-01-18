@@ -89,24 +89,6 @@ jobs:
            
       - name: processing the trivy scan result
         run: |
-          #count the occurrences of vulnerabilities with different severity
-          critical=0
-          high=0
-          medium=0
-          low=0
-          info=0
-          for severity in "CRITICAL" "HIGH" "MEDIUM" "LOW" "INFO"; do
-            count=$(jq '.Results[0].Vulnerabilities[] | select(.Severity == "'"$severity"'") | .Severity' $TRIVY_FILE | wc -l)
-            # Assign count to the corresponding severity variable
-            case $severity in
-              "CRITICAL") critical=$count ;;
-              "HIGH") high=$count ;;
-              "MEDIUM") medium=$count ;;
-              "LOW") low=$count ;;
-              "INFO") info=$count ;;
-            esac
-          done
-
           echo "- Repository: ${{ github.repository }}\n- Scan Status: Completed\n- Completion Time: $(date)" >> $SUM_FILE
           echo "- Number of vulnerabilities detected: Critical: $critical, High: $high, Medium: $medium, Low: $low, Info: $info " >> $SUM_FILE
           cat $SUM_FILE
@@ -114,14 +96,15 @@ jobs:
       - name: Email the result 
         run: | 
           bash -s << 'EOF'
+          
           EMAIL_BODY="Hello,\n\nThis email is to inform about the results of the recent scan.
           \nScan Summary:\n$(cat $SUM_FILE)
           \nScan Result Details:\n$(cat $TRIVY_TABLE_FILE)\n 
           \nRecommendations:\n- Please review and upgrade the outdated/vulnerable dependencies to the latest version.\n
           If you have any questions or need further assistance, please don't hesitate to reach out.\nThanks"
+          
           EMAIL_BODY=$(printf "$EMAIL_BODY")
-
-          #if store emails in GitHub 
+ 
           for text in "${{ vars.EMAILS }}"; do
             if [[ "$text" != *@fortescue.com* ]]; then
               echo "Please add list of recipient email in GitHub."
