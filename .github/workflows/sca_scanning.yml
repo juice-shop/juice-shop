@@ -96,10 +96,11 @@ jobs:
           jq -r "$jq_filter" "$TRIVY_JSON_FILE" > $ANALYSE_FILE 
           cat $ANALYSE_FILE 
           
-          echo "- Repository: ${{ github.repository }}\n- Scan Status: Completed\n- Completion Time: $(date)" >> $SUM_FILE
+          echo "- Repository: ${{ github.reposwitory }}\n- Scan Status: Completed\n- Completion Time: $(date)" >> $SUM_FILE
           echo "- Number of dependencies used by the project: $(jq '.packages | length' $SBOM_ANALYSE_FILE ) " >> $SUM_FILE
           no_of_vulnerable_dependencies=$(jq '.Results[0].Vulnerabilities[].PkgName' $TRIVY_JSON_FILE | uniq | wc -l) 
-          echo "- Number of vulnerable dependencies detected: $(no_of_vulnerable_dependencies ) " >> $SUM_FILE
+          echo $(no_of_vulnerable_dependencies)
+          echo "- Number of vulnerable dependencies detected: $(no_of_vulnerable_dependencies) " >> $SUM_FILE
 
       - name: Email the result 
         run: | 
@@ -107,7 +108,8 @@ jobs:
 
           EMAIL_BODY="Hello,\n\nThis email is to inform about the results of the recent scan.
           \nScan Summary:\n$(cat $SUM_FILE)
-          \nScan Result Details:\n$(cat $$ANALYSE_FILE)\n
+          \nScan Result Details: \nSCA scanning reveals the following outdated libraries: 
+          \n$(cat $$ANALYSE_FILE)\n
           \nRecommendations:\n- Please review and upgrade the vulnerable dependencies to the latest version.\n
           If you have any questions or need further assistance, please don't hesitate to reach out.
           Thank you!"
@@ -122,7 +124,7 @@ jobs:
               aws ses send-email \
               --from 'application.security@fortescue.com' \
               --destination "ToAddresses=['$line']" \
-              --message "Subject={Data='Secret Scanning Results'},Body={Text={Data=\"$EMAIL_BODY\"}}" --profile 871866954555.developer-871866954555  
+              --message "Subject={Data='Software Composition Analysis Scanning Results'},Body={Text={Data=\"$EMAIL_BODY\"}}" --profile 871866954555.developer-871866954555  
               done
             fi
           done 
