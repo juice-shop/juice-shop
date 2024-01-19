@@ -61,3 +61,8 @@ jobs:
             name: ${{ env.ARTIFACT_NAME}}
             path: 
                 ${{ env.ARTIFACT_PATH1 }}
+
+        - name: Clean up
+          run: |
+            rm -rf $WORKFLOWDIR
+        

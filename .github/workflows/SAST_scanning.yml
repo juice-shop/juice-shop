@@ -1,13 +1,13 @@
 name: SAST Scanning
-on: workflow_dispatch
+on: 
   #run the weekly scan on midnight Saturday
   #schedule: 
   #    - cron:  '0 0 * * 6' 
   #run when changes happens to main/master branch
-  #push:
-  #  branches:
-  #    - main
-  #   - master 
+  push:
+    branches:
+      - main
+      - master 
 
 jobs:
   build:
@@ -25,12 +25,8 @@ jobs:
           echo "ARTIFACT_PATH=${WORKFLOWDIR}/semgrep_scan_result.json" >> $GITHUB_ENV
           echo "ARTIFACT_NAME=SAST-${GITHUB_RUN_ID}-${GITHUB_SHA}" >> $GITHUB_ENV
 
-
           echo "ANALYSE_FILE=${WORKFLOWDIR}/analyse_current_results.txt" >> $GITHUB_ENV
           echo "SUM_FILE=${WORKFLOWDIR}/scan_summary.txt" >> $GITHUB_ENV
-          echo "PREV_ARTIFACTS=${WORKFLOWDIR}/prev-artifacts.json" >> $GITHUB_ENV
-          echo "GITLEAKS_ARTIFACTS=${WORKFLOWDIR}/secret-af.json" >> $GITHUB_ENV
-          echo "LAST_ARTIFACT_ZIP=${WORKFLOWDIR}/last-scans-output.zip" >> $GITHUB_ENV
     
       - name: check if semgrep installed
         run: |
@@ -46,20 +42,22 @@ jobs:
         run: |
           semgrep --json --output $ARTIFACT_PATH --config="p/default"
           ls -alh $ARTIFACT_PATH
-          echo "leaks=$(jq length $ARTIFACT_PATH)" >> $GITHUB_ENV
         continue-on-error: true
       
-      - name: If leaks found 
-        if: ${{ env.leaks != 0 }}
-        run: |
-          jq_filter='.[] | "- The \(.RuleID) rule has detected a plain-text \(.Match | split("=")[0] | split("\":")[0]) from \(.StartLine) line to in the \(.File) file."'
+      - name: Processing SAST result
+        run : |
+          jq_filter='.results[] | select(.extra.metadata.impact | IN("HIGH", "CRITICAL")) | \
+          "- The semgrep rule \(.extra.metadata."semgrep.dev".rule.rule_id) has detected a \(.extra.metadata.impact) \
+          impact \(.extra.metadata.vulnerability_class[0]) vulnerability. The vulnerable codes are found in the \(.path) \
+          file (start from line \(.start.line)). "'
+
           jq -r "$jq_filter" "$ARTIFACT_PATH" > $ANALYSE_FILE 
           cat $ANALYSE_FILE 
-          leaks_uniq_line=$(uniq "$ANALYSE_FILE" | wc -l)
-          echo "\nRecommendations:\n- Please review and remove the respective secrets from the source code.\n " >> $ANALYSE_FILE 
+          
           echo "- Repository: ${{ github.repository }}\n- Scan Status: Completed\n- Completion Time: $(date)" >> $SUM_FILE
-          echo "- Number of plain-text secrets found: $leaks_uniq_line " >> $SUM_FILE
-          cat $SUM_FILE
+          #no_of_vulnerabilities_detected=$(jq '.results| length' $ARTIFACT_PATH) 
+          echo "- Number of files being scanned: $(jq '.paths| length' $ARTIFACT_PATH)  " >> $SUM_FILE
+          echo "- Number of vulnerabilities detected in this scan: $(jq '.results| length' $ARTIFACT_PATH)  " >> $SUM_FILE
         continue-on-error: true
     
       - name: Get GitHub Code Scanning alert if enabled (GitHub Enterprise with GHAS license only)
@@ -72,58 +70,6 @@ jobs:
           -H "X-Accepted-GitHub-Permissions: pull_requests=read,contents=read; issues=read,contents=read" \
           https://api.github.com/repos/${{ github.repository }}/code-scanning/alerts
         continue-on-error: true
-      
-      - name: Processing SAST result
-        if: ${{ env.leaks != 0 }}
-        run: |
-          bash -s << 'EOF'
-
-          # retrieve all artifacts from all GitHub Actions workflows
-          curl -L -o $PREV_ARTIFACTS \
-          -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-          -H "X-GitHub-Api-Version: 2022-11-28" \
-          https://api.github.com/repos/${{ github.repository }}/actions/artifacts
-          
-          #extracting all artifacts from secret scanning workflows. Then find the most recent artifact
-          jq '[ .artifacts[] | select(.name | startswith("FMGL-SAST"))]' $PREV_ARTIFACTS > $GITLEAKS_ARTIFACTS
-          echo "list of all GL artifacts"
-          cat $GITLEAKS_ARTIFACTS
-          LAST_A=$(jq '.[].created_at' $GITLEAKS_ARTIFACTS | sort -rV | head -n 1)
-          if [ -z $LAST_A ] ; then exit 0 ; fi
-
-          # if recent artifact is found, obtaining the Download URL for the most Recent Artifact
-          echo "Most recent scan with artifact is $LAST_A"
-          A_URL=$(jq '.artifacts[] | select(.created_at == '${LAST_A}') | .archive_download_url' $PREV_ARTIFACTS | tr -d '"')
-          if [ -z $A_URL ] ; then exit 0 ; fi
-          echo "fetching previous scan results:" $LAST_A $A_URL
-          curl -L -o $LAST_ARTIFACT_ZIP \
-          -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-          -H "X-GitHub-Api-Version: 2022-11-28" $A_URL
-
-
-          
-          # if the ZIP file exists, extracts the contents of the ZIP file into that temp directory
-          if [ -e "$LAST_ARTIFACT_ZIP" ]; then
-            PREV_FILENAME=${WORKFLOWDIR}/previous_result.json
-            unzip -p $LAST_ARTIFACT_ZIP > $PREV_FILENAME
-            ls -lah $PREV_FILENAME
-
-            # format findings from previous result ($PREV_FILENAME) and current result ($ARTIFACT_PATH). These findings are sorted and unique results are saved.
-            format_findings(){ jq --compact-output '.[] | [.File , .Secret]' "$1"; }           
-            format_findings $PREV_FILENAME | sort | uniq > $WORKFLOWDIR/results-prev
-            format_findings $ARTIFACT_PATH | sort | uniq > $WORKFLOWDIR/results-current
-  
-            # compare the results from the previous run with the current run
-            diff_results=$(diff -u "$WORKFLOWDIR/results-prev" "$WORKFLOWDIR/results-current")
-            new_secrets=$(echo "$diff_results" | grep '^+\[' | wc -l)
-            echo "- Number of new secrets detected in this scan: $new_secrets" >> $SUM_FILE
-          else
-            echo "This repository has not been scanned previosly."     
-          fi
-          EOF
-        continue-on-error: true 
 
       - name: Upload Artifact
         uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 #v2
@@ -132,5 +78,39 @@ jobs:
           path: |
             ${{ env.CODE_SCANNING_FILE }}
             ${{ env.ARTIFACT_PATH }}
+      
+      - name: Email the result 
+        run: | 
+          bash -s << 'EOF'
+
+          EMAIL_BODY="Hello,\n\nThis email is to inform about the results of the recent SAST scan.
+          \nScan Summary:\n$(cat $SUM_FILE)
+          \nSCA Scan Result Details:\n$(cat $ANALYSE_FILE)\n
+          \nRecommendations:\n- Please review the vulnerable code and make the appropiate change.\n
+          If you have any questions or need further assistance, please don't hesitate to reach out.
+          Thank you!"
+          
+          EMAIL_BODY=$(printf "$EMAIL_BODY")
+
+          for text in "${{ vars.EMAILS }}"; do
+            if [[ "$text" != *@fortescue.com* ]]; then
+              echo "Please add list of recipient email in GitHub."
+            else
+              echo "${{ vars.EMAILS }}" | while IFS= read -r line; do
+              aws ses send-email \
+              --from 'application.security@fortescue.com' \
+              --destination "ToAddresses=['$line']" \
+              --message "Subject={Data='Static Analysis Security Testing Scanning Results'},Body={Text={Data=\"$EMAIL_BODY\"}}" --profile 871866954555.developer-871866954555  
+              done
+            fi
+          done 
+          EOF
+        continue-on-error: true 
+    
+      
+      - name: Clean up
+        run: |
+          rm -rf $WORKFLOWDIR
+          
 
       
