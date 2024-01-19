@@ -99,8 +99,8 @@ jobs:
           echo "- Repository: ${{ github.repository }}\n- Scan Status: Completed\n- Completion Time: $(date)" >> $SUM_FILE
           echo "- Number of dependencies used by the project: $(jq '.packages | length' $SBOM_ANALYSE_FILE ) " >> $SUM_FILE
           no_of_vulnerable_dependencies=$(jq '.Results[0].Vulnerabilities[].PkgName' $TRIVY_JSON_FILE | uniq | wc -l) 
-          echo $(no_of_vulnerable_dependencies)
-          echo "- Number of vulnerable dependencies detected: $(no_of_vulnerable_dependencies) " >> $SUM_FILE
+          echo $no_of_vulnerable_dependencies
+          echo "- Number of vulnerable dependencies detected: $no_of_vulnerable_dependencies " >> $SUM_FILE
 
       - name: Email the result 
         run: | 
