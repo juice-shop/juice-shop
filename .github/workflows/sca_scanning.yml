@@ -106,10 +106,10 @@ jobs:
         run: | 
           bash -s << 'EOF'
 
-          EMAIL_BODY="Hello,\n\nThis email is to inform about the results of the recent scan.
+          EMAIL_BODY="Hello,\n\nThis email is to inform about the results of the recent SCA scan.
           \nScan Summary:\n$(cat $SUM_FILE)
           \nSCA Scan Result Details:\n$(cat $ANALYSE_FILE)\n
-          \nRecommendations:\n- Please review and upgrade the vulnerable dependencies to the latest version.\n
+          Recommendations:\n- Please review and upgrade the vulnerable dependencies to the latest version.\n
           If you have any questions or need further assistance, please don't hesitate to reach out.
           Thank you!"
           

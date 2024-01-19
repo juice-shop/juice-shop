@@ -46,7 +46,7 @@ jobs:
       
       - name: Processing SAST result
         run : |
-          jq_filter='.results[] | select(.extra.metadata.impact | IN("HIGH", "CRITICAL")) | "- The ruleID \(.extra.metadata."semgrep.dev".rule.rule_id) has detected a \(.extra.metadata.impact) impact \(.extra.metadata.vulnerability_class[0]) vulnerability. The vulnerable codes are found in the \(.path) file (start from line \(.start.line)). "'
+          jq_filter='.results[] | select(.extra.metadata.impact | IN(${{ vars.ISSUE_SEVERITY }})) |  "- RuleID \(.extra.metadata."semgrep.dev".rule.rule_id) has detected a potential \(.extra.metadata.impact) impact \(.extra.metadata.vulnerability_class[0]) vulnerability in the \(.path) file (start from line \(.start.line)). "'
 
           jq -r "$jq_filter" "$ARTIFACT_PATH" > $ANALYSE_FILE 
           cat $ANALYSE_FILE 
@@ -81,8 +81,8 @@ jobs:
 
           EMAIL_BODY="Hello,\n\nThis email is to inform about the results of the recent SAST scan.
           \nScan Summary:\n$(cat $SUM_FILE)
-          \nSCA Scan Result Details:\n$(cat $ANALYSE_FILE)\n
-          \nRecommendations:\n- Please review the vulnerable code and make the appropiate change.\n
+          \nSAST Scan Result Details:\n$(cat $ANALYSE_FILE)\n
+          Recommendations:\n- Please review the vulnerable code and make the appropiate change.\n
           If you have any questions or need further assistance, please don't hesitate to reach out.
           Thank you!"
           
