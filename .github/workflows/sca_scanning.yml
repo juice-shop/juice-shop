@@ -92,9 +92,15 @@ jobs:
            
       - name: processing the trivy scan result
         run: |
-          jq_filter='.Results[0].Vulnerabilities[] | select(.Severity | IN(${{ vars.ISSUE_SEVERITY }})) | "- The \(.PkgName) library version \(.InstalledVersion) is currently outdated and vulnerable to \(.VulnerabilityID) (\(.Severity) impact) - \(.Title | gsub("\""; ""))."'
-          jq -r "$jq_filter" "$TRIVY_JSON_FILE" > $ANALYSE_FILE 
-          cat $ANALYSE_FILE 
+          # The scan result can be filtered by severity level. The severity level is stored as environment variable in GitHub Settings (i.e. vars.ISSUE_SEVERITY ). 
+          if [ -n "${{ vars.ISSUE_SEVERITY  }}" ]; then
+            jq_filter='.Results[0].Vulnerabilities[] | select(.Severity | IN(${{ vars.ISSUE_SEVERITY }})) | "- The \(.PkgName) library version \(.InstalledVersion) is currently outdated and vulnerable to \(.VulnerabilityID) (\(.Severity) impact) - \(.Title | gsub("\""; ""))."'
+            jq -r "$jq_filter" "$TRIVY_JSON_FILE" > $ANALYSE_FILE 
+          else
+            echo "Please customise the severity filtering variable for SCA scan result to the desired level. As of now, the scan results will be filtered to only show CRTICAL or HIGH severity impact only. "
+            jq_filter='.Results[0].Vulnerabilities[] | select(.Severity | IN("HIGH", "CRITICAL")) | "- The \(.PkgName) library version \(.InstalledVersion) is currently outdated and vulnerable to \(.VulnerabilityID) (\(.Severity) impact) - \(.Title | gsub("\""; ""))."'
+            jq -r "$jq_filter" "$TRIVY_JSON_FILE" > $ANALYSE_FILE  
+          fi
           
           echo "- Repository: ${{ github.repository }}\n- Scan Status: Completed\n- Completion Time: $(date)" >> $SUM_FILE
           echo "- Number of dependencies used by the project: $(jq '.packages | length' $SBOM_ANALYSE_FILE ) " >> $SUM_FILE
