@@ -40,19 +40,19 @@ jobs:
 
       - name: Run full scan with Semgrep 
         run: |
-          semgrep --json --output $ARTIFACT_PATH --config="p/default"
+          semgrep scan --json --output $ARTIFACT_PATH --config="p/default"
           ls -alh $ARTIFACT_PATH
         continue-on-error: true
       
       - name: Processing SAST result
         run : |
-          jq_filter='.results[] | select(.extra.metadata.impact | IN("HIGH", "CRITICAL")) | "- The semgrep rule \(.extra.metadata."semgrep.dev".rule.rule_id) has detected a \(.extra.metadata.impact) impact \(.extra.metadata.vulnerability_class[0]) vulnerability. The vulnerable codes are found in the \(.path) file (start from line \(.start.line)). "'
+          jq_filter='.results[] | select(.extra.metadata.impact | IN("HIGH", "CRITICAL")) | "- The ruleID \(.extra.metadata."semgrep.dev".rule.rule_id) has detected a \(.extra.metadata.impact) impact \(.extra.metadata.vulnerability_class[0]) vulnerability. The vulnerable codes are found in the \(.path) file (start from line \(.start.line)). "'
 
           jq -r "$jq_filter" "$ARTIFACT_PATH" > $ANALYSE_FILE 
           cat $ANALYSE_FILE 
           
           echo "- Repository: ${{ github.repository }}\n- Scan Status: Completed\n- Completion Time: $(date)" >> $SUM_FILE
-          echo "- Number of files being scanned: $(jq '.paths| length' $ARTIFACT_PATH)  " >> $SUM_FILE
+          echo "- Number of files being scanned: $(jq '.paths.scanned | length' $ARTIFACT_PATH)  " >> $SUM_FILE
           echo "- Number of vulnerabilities detected in this scan: $(jq '.results| length' $ARTIFACT_PATH)  " >> $SUM_FILE
         continue-on-error: true
     
