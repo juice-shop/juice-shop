@@ -95,11 +95,10 @@ jobs:
           jq_filter='.Results[0].Vulnerabilities[] | "- The \(.PkgName) library version \(.InstalledVersion) is currently outdated and vulnerable to \(.VulnerabilityID) (\(.Severity) impact) - \(.Title)."'
           jq -r "$jq_filter" "$TRIVY_JSON_FILE" > $ANALYSE_FILE 
           cat $ANALYSE_FILE 
-          no_of_vulnerable_dependencies=$(jq '.Results[0].Vulnerabilities[].PkgName' $TRIVY_JSON_FILE | uniq | wc -l)
-          echo "\nRecommendations:\n- Please review and remove the respective secrets from the source code.\n " >> $ANALYSE_FILE 
           
           echo "- Repository: ${{ github.repository }}\n- Scan Status: Completed\n- Completion Time: $(date)" >> $SUM_FILE
           echo "- Number of dependencies used by the project: $(jq '.packages | length' $SBOM_ANALYSE_FILE ) " >> $SUM_FILE
+          no_of_vulnerable_dependencies=$(jq '.Results[0].Vulnerabilities[].PkgName' $TRIVY_JSON_FILE | uniq | wc -l) 
           echo "- Number of vulnerable dependencies detected: $(no_of_vulnerable_dependencies ) " >> $SUM_FILE
 
       - name: Email the result 
