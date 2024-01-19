@@ -92,7 +92,7 @@ jobs:
            
       - name: processing the trivy scan result
         run: |
-          jq_filter='.Results[0].Vulnerabilities[] | "- The \(.PkgName) library version \(.InstalledVersion) is currently outdated and vulnerable to \(.VulnerabilityID) (\(.Severity) impact) - \(.Title)."'
+          jq_filter='.Results[0].Vulnerabilities[] | "- The \(.PkgName) library version \(.InstalledVersion) is currently outdated and vulnerable to \(.VulnerabilityID) (\(.Severity) impact) - \(.Title | gsub("\""; ""))."'
           jq -r "$jq_filter" "$TRIVY_JSON_FILE" > $ANALYSE_FILE 
           cat $ANALYSE_FILE 
           
