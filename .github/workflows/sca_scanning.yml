@@ -87,12 +87,12 @@ jobs:
       - name: run Trivy scan on SBOM file
         run: |
           # output scan to JSON and table Format 
-          trivy sbom $SBOM_ANALYSE_FILE --severity ${{ vars.SEVERITY }} -f json --output $TRIVY_JSON_FILE 
+          trivy sbom $SBOM_ANALYSE_FILE -f json --output $TRIVY_JSON_FILE 
           echo "Trivy SCA scan completed."
            
       - name: processing the trivy scan result
         run: |
-          jq_filter='.Results[0].Vulnerabilities[] | "- The \(.PkgName) library version \(.InstalledVersion) is currently outdated and vulnerable to \(.VulnerabilityID) (\(.Severity) impact) - \(.Title | gsub("\""; ""))."'
+          jq_filter='.Results[0].Vulnerabilities[] | select(.Severity | IN(${{ vars.ISSUE_SEVERITY }})) | "- The \(.PkgName) library version \(.InstalledVersion) is currently outdated and vulnerable to \(.VulnerabilityID) (\(.Severity) impact) - \(.Title | gsub("\""; ""))."'
           jq -r "$jq_filter" "$TRIVY_JSON_FILE" > $ANALYSE_FILE 
           cat $ANALYSE_FILE 
           
