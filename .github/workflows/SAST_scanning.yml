@@ -48,7 +48,7 @@ jobs:
         run : |
           if [ -n "${{ vars.ISSUE_SEVERITY  }}" ]; then
             empty_issue_list=$(jq '.results[] | select(.extra.metadata.impact | IN(${{ vars.ISSUE_SEVERITY }})) | "- RuleID \(.extra.metadata."semgrep.dev".rule.rule_id) has detected a potential \(.extra.metadata.impact) impact \(.extra.metadata.vulnerability_class[0]) vulnerability in the \(.path) file (start from line \(.start.line)). "' w-test.json | wc -l)
-            echo "empty_issue_list" >> $GITHUB_ENV
+            echo "$empty_issue_list" >> $GITHUB_ENV
             if [ "$empty_issue_list" -ne 0 ]; then
               echo "There are There are vulnerabilities with severity levels "${{ vars.ISSUE_SEVERITY  }}"." 
               jq_filter='.results[] | select(.extra.metadata.impact | IN(${{ vars.ISSUE_SEVERITY }})) |  "- RuleID \(.extra.metadata."semgrep.dev".rule.rule_id) has detected a potential \(.extra.metadata.impact) impact \(.extra.metadata.vulnerability_class[0]) vulnerability in the \(.path) file (start from line \(.start.line)). "'
@@ -56,7 +56,7 @@ jobs:
           else
             echo "Please customise the severity filtering variable for SAST scan result to the desired level. As of now, the scan results will be filtered to only show CRTICAL or HIGH severity impact only. "
             empty_issue_list=$(jq '.results[] | select(.extra.metadata.impact | IN("HIGH", "CRITICAL")) | "- RuleID \(.extra.metadata."semgrep.dev".rule.rule_id) has detected a potential \(.extra.metadata.impact) impact \(.extra.metadata.vulnerability_class[0]) vulnerability in the \(.path) file (start from line \(.start.line)). "' w-test.json | wc -l)
-            echo "empty_issue_list" >> $GITHUB_ENV
+            echo "$empty_issue_list" >> $GITHUB_ENV
             if [ "$empty_issue_list" -ne 0 ]; then
               echo "There are There are vulnerabilities with severity levels 'HIGH' or 'CRITICAL'."
               jq_filter='.results[] | select(.extra.metadata.impact | IN("HIGH", "CRITICAL")) |  "- RuleID \(.extra.metadata."semgrep.dev".rule.rule_id) has detected a potential \(.extra.metadata.impact) impact \(.extra.metadata.vulnerability_class[0]) vulnerability in the \(.path) file (start from line \(.start.line)). "'
