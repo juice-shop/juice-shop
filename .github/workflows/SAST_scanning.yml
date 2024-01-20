@@ -67,6 +67,7 @@ jobs:
           echo "- Repository: ${{ github.repository }}\n- Scan Status: Completed\n- Completion Time: $(date)" >> $SUM_FILE
           echo "- Number of files being scanned: $(jq '.paths.scanned | length' $ARTIFACT_PATH)  " >> $SUM_FILE
           echo "- Number of vulnerabilities detected in this scan: $(jq '.results| length' $ARTIFACT_PATH)  " >> $SUM_FILE
+          EOF
         continue-on-error: true
     
       - name: Get GitHub Code Scanning alert if enabled (GitHub Enterprise with GHAS license only)
