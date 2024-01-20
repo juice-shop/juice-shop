@@ -102,13 +102,14 @@ jobs:
             jq -r "$jq_filter" "$TRIVY_JSON_FILE" > $ANALYSE_FILE  
           fi
           
+          echo "empty_issue_list=$(jq length $ANALYSE_FILE)" >> $GITHUB_ENV
           echo "- Repository: ${{ github.repository }}\n- Scan Status: Completed\n- Completion Time: $(date)" >> $SUM_FILE
           echo "- Number of dependencies used by the project: $(jq '.packages | length' $SBOM_ANALYSE_FILE ) " >> $SUM_FILE
           no_of_vulnerable_dependencies=$(jq '.Results[0].Vulnerabilities[].PkgName' $TRIVY_JSON_FILE | uniq | wc -l) 
-          echo $no_of_vulnerable_dependencies
           echo "- Number of vulnerable dependencies detected: $no_of_vulnerable_dependencies " >> $SUM_FILE
 
       - name: Email the result 
+        if: ${{ env.empty_issue_list != 0 }}
         run: | 
           bash -s << 'EOF'
 
