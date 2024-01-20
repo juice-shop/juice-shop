@@ -55,7 +55,8 @@ jobs:
             jq_filter='.results[] | select(.extra.metadata.impact | IN("HIGH", "CRITICAL")) |  "- RuleID \(.extra.metadata."semgrep.dev".rule.rule_id) has detected a potential \(.extra.metadata.impact) impact \(.extra.metadata.vulnerability_class[0]) vulnerability in the \(.path) file (start from line \(.start.line)). "'
             jq -r "$jq_filter" "$TRIVY_JSON_FILE" > $ANALYSE_FILE  
           fi
-          
+          echo "empty_issue_list=$(jq length $ANALYSE_FILE)" >> $GITHUB_ENV
+
           echo "- Repository: ${{ github.repository }}\n- Scan Status: Completed\n- Completion Time: $(date)" >> $SUM_FILE
           echo "- Number of files being scanned: $(jq '.paths.scanned | length' $ARTIFACT_PATH)  " >> $SUM_FILE
           echo "- Number of vulnerabilities detected in this scan: $(jq '.results| length' $ARTIFACT_PATH)  " >> $SUM_FILE
@@ -81,6 +82,7 @@ jobs:
             ${{ env.ARTIFACT_PATH }}
       
       - name: Email the result 
+        if: ${{ env.empty_issue_list != 0 }}
         run: | 
           bash -s << 'EOF'
 
