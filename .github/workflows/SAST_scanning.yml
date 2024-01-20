@@ -47,7 +47,7 @@ jobs:
       - name: Processing SAST result (Please set the severity level in GitHub Action Variables settings)
         run : |
           if [ -n "${{ vars.ISSUE_SEVERITY  }}" ]; then
-            empty_issue_list=$(jq '.results[] | select(.extra.metadata.impact | IN(${{ vars.ISSUE_SEVERITY }})) | "- RuleID \(.extra.metadata."semgrep.dev".rule.rule_id) has detected a potential \(.extra.metadata.impact) impact \(.extra.metadata.vulnerability_class[0]) vulnerability in the \(.path) file (start from line \(.start.line)). "' w-test.json | wc -l)
+            empty_issue_list=$(jq '.results[] | select(.extra.metadata.impact | IN(${{ vars.ISSUE_SEVERITY }})) | "- RuleID \(.extra.metadata."semgrep.dev".rule.rule_id) has detected a potential \(.extra.metadata.impact) impact \(.extra.metadata.vulnerability_class[0]) vulnerability in the \(.path) file (start from line \(.start.line)). "' $ARTIFACT_PATH | wc -l)
             echo "$empty_issue_list" >> $GITHUB_ENV
             if [ "$empty_issue_list" -ne 0 ]; then
               echo "There are There are vulnerabilities with severity levels "${{ vars.ISSUE_SEVERITY  }}"." 
@@ -56,7 +56,7 @@ jobs:
             fi
           else
             echo "Please customise the severity filtering variable for SAST scan result to the desired level. As of now, the scan results will be filtered to only show CRTICAL or HIGH severity impact only. "
-            empty_issue_list=$(jq '.results[] | select(.extra.metadata.impact | IN("HIGH", "CRITICAL")) | "- RuleID \(.extra.metadata."semgrep.dev".rule.rule_id) has detected a potential \(.extra.metadata.impact) impact \(.extra.metadata.vulnerability_class[0]) vulnerability in the \(.path) file (start from line \(.start.line)). "' w-test.json | wc -l)
+            empty_issue_list=$(jq '.results[] | select(.extra.metadata.impact | IN("HIGH", "CRITICAL")) | "- RuleID \(.extra.metadata."semgrep.dev".rule.rule_id) has detected a potential \(.extra.metadata.impact) impact \(.extra.metadata.vulnerability_class[0]) vulnerability in the \(.path) file (start from line \(.start.line)). "' $ARTIFACT_PATH | wc -l)
             echo "$empty_issue_list" >> $GITHUB_ENV
             if [ "$empty_issue_list" -ne 0 ]; then
               echo "There are There are vulnerabilities with severity levels 'HIGH' or 'CRITICAL'."
@@ -69,7 +69,6 @@ jobs:
           echo "- Repository: ${{ github.repository }}\n- Scan Status: Completed\n- Completion Time: $(date)" >> $SUM_FILE
           echo "- Number of files being scanned: $(jq '.paths.scanned | length' $ARTIFACT_PATH)  " >> $SUM_FILE
           echo "- Number of vulnerabilities detected in this scan: $(jq '.results| length' $ARTIFACT_PATH)  " >> $SUM_FILE
-          EOF
         continue-on-error: true
     
       - name: Get GitHub Code Scanning alert if enabled (GitHub Enterprise with GHAS license only)
