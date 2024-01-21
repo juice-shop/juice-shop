@@ -31,9 +31,9 @@ export function fromQueryParams (queryParams: Readonly<Params>): FilterSetting {
 
 export function toQueryParams (filterSetting: Readonly<FilterSetting>): Params {
   return {
-    searchQuery: filterSetting.searchQuery || undefined,
+    searchQuery: filterSetting.searchQuery ?? undefined,
     difficulties: filterSetting.difficulties.join(',') || undefined,
-    status: filterSetting.status || undefined,
+    status: filterSetting.status ?? undefined,
     tags: filterSetting.tags.join(',') || undefined,
     categories: filterSetting.categories.join(',') || undefined,
     showDisabledChallenges: !filterSetting.showDisabledChallenges ? 'false' : undefined
