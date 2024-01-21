@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { promise as glob } from 'glob-promise'
+import { glob } from 'glob'
 import logger from '../logger'
 import fs from 'fs-extra'
 import * as utils from '../utils'
