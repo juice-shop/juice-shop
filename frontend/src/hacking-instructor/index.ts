@@ -160,7 +160,7 @@ export function hasInstructions (challengeName: string): boolean {
 }
 
 export async function startHackingInstructorFor (challengeName: string): Promise<void> {
-  const challengeInstruction = challengeInstructions.find(({ name }) => name === challengeName) || TutorialUnavailableInstruction
+  const challengeInstruction = challengeInstructions.find(({ name }) => name === challengeName) ?? TutorialUnavailableInstruction
 
   for (const hint of challengeInstruction.hints) {
     const element = loadHint(hint)
