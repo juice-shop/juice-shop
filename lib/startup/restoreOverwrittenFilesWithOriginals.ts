@@ -7,7 +7,7 @@ import path from 'path'
 import * as utils from '../utils'
 import logger from '../logger'
 import { copyFile, access } from 'fs/promises'
-import { promise as glob } from 'glob-promise'
+import { glob } from 'glob'
 
 const exists = async (path: string) => await access(path).then(() => true).catch(() => false)
 
