@@ -94,15 +94,29 @@ jobs:
         run: |
           # The scan result can be filtered by severity level. The severity level is stored as environment variable in GitHub Settings (i.e. vars.ISSUE_SEVERITY ). 
           if [ -n "${{ vars.ISSUE_SEVERITY  }}" ]; then
-            jq_filter='.Results[0].Vulnerabilities[] | select(.Severity | IN(${{ vars.ISSUE_SEVERITY }})) | "- The \(.PkgName) library version \(.InstalledVersion) is currently outdated and vulnerable to \(.VulnerabilityID) (\(.Severity) impact) - \(.Title | gsub("\""; ""))."'
-            jq -r "$jq_filter" "$TRIVY_JSON_FILE" > $ANALYSE_FILE 
+            empty_issue_list=$(jq '.Results[0].Vulnerabilities[] | select(.Severity | IN(${{ vars.ISSUE_SEVERITY }})) ' $TRIVY_JSON_FILE | wc -l)
+            echo "empty_issue_list=$empty_issue_list" >> $GITHUB_ENV
+            if [ $empty_issue_list != 0 ]; then
+              echo "There are vulnerabilities with severity levels: "${{ vars.ISSUE_SEVERITY  }}"." 
+              jq_filter='.Results[0].Vulnerabilities[] | select(.Severity | IN(${{ vars.ISSUE_SEVERITY }})) | "- The \(.PkgName) library version \(.InstalledVersion) is currently outdated and vulnerable to \(.VulnerabilityID) (\(.Severity) impact) - \(.Title | gsub("\""; ""))."'
+              jq -r "$jq_filter" "$TRIVY_JSON_FILE" > $ANALYSE_FILE 
+              cat $ANALYSE_FILE
+            else 
+              echo "There are no issues with severity levels - "${{ vars.ISSUE_SEVERITY  }}", found in this scan. "
+            fi 
           else
             echo "Please customise the severity filtering variable for SCA scan result to the desired level. As of now, the scan results will be filtered to only show CRTICAL or HIGH severity impact only. "
-            jq_filter='.Results[0].Vulnerabilities[] | select(.Severity | IN("HIGH", "CRITICAL")) | "- The \(.PkgName) library version \(.InstalledVersion) is currently outdated and vulnerable to \(.VulnerabilityID) (\(.Severity) impact) - \(.Title | gsub("\""; ""))."'
-            jq -r "$jq_filter" "$TRIVY_JSON_FILE" > $ANALYSE_FILE  
+            empty_issue_list=$(jq '.Results[0].Vulnerabilities[] | select(.Severity | select(.Severity | IN(["HIGH", "CRITICAL"])) ' $TRIVY_JSON_FILE | wc -l)
+            echo "empty_issue_list=$empty_issue_list" >> $GITHUB_ENV
+            if [ $empty_issue_list != 0 ]; then
+              jq_filter='.Results[0].Vulnerabilities[] | select(.Severity | IN("HIGH", "CRITICAL")) | "- The \(.PkgName) library version \(.InstalledVersion) is currently outdated and vulnerable to \(.VulnerabilityID) (\(.Severity) impact) - \(.Title | gsub("\""; ""))."'
+              jq -r "$jq_filter" "$TRIVY_JSON_FILE" > $ANALYSE_FILE  
+              cat $ANALYSE_FILE 
+            else 
+              echo "There are no issues with severity levels 'HIGH' or 'CRITICAL' found in this scan. "
+            fi
           fi
-          
-          echo "empty_issue_list=$(jq length $ANALYSE_FILE)" >> $GITHUB_ENV
+
           echo "- Repository: ${{ github.repository }}\n- Scan Status: Completed\n- Completion Time: $(date)" >> $SUM_FILE
           echo "- Number of dependencies used by the project: $(jq '.packages | length' $SBOM_ANALYSE_FILE ) " >> $SUM_FILE
           no_of_vulnerable_dependencies=$(jq '.Results[0].Vulnerabilities[].PkgName' $TRIVY_JSON_FILE | uniq | wc -l) 
