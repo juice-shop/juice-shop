@@ -106,7 +106,7 @@ jobs:
             fi 
           else
             echo "Please customise the severity filtering variable for SCA scan result to the desired level. As of now, the scan results will be filtered to only show CRTICAL or HIGH severity impact only. "
-            empty_issue_list=$(jq '.Results[0].Vulnerabilities[] | select(.Severity | select(.Severity | IN(["HIGH", "CRITICAL"])) ' $TRIVY_JSON_FILE | wc -l)
+            empty_issue_list=$(jq '.Results[0].Vulnerabilities[] | select(.Severity | IN("HIGH", "CRITICAL"))' $TRIVY_JSON_FILE | wc -l)
             echo "empty_issue_list=$empty_issue_list" >> $GITHUB_ENV
             if [ $empty_issue_list != 0 ]; then
               jq_filter='.Results[0].Vulnerabilities[] | select(.Severity | IN("HIGH", "CRITICAL")) | "- The \(.PkgName) library version \(.InstalledVersion) is currently outdated and vulnerable to \(.VulnerabilityID) (\(.Severity) impact) - \(.Title | gsub("\""; ""))."'
