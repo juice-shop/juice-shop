@@ -55,7 +55,7 @@ jobs:
       
       - name: Get dependabot alert if enabled 
         run: |
-           # require GitHub app installation token or PAT 
+          # require GitHub app installation token or PAT 
           curl -L -o $DEPENDABOT_FILE \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ghs_GQsz5fptv9hKEKkoglSuTkYcwBjdyP4eoWZN" \

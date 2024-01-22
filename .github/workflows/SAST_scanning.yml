@@ -1,5 +1,5 @@
 name: SAST Scanning
-on: 
+on: workflow_dispatch
   #run the weekly scan on midnight Saturday
   #schedule: 
   #    - cron:  '0 0 * * 6' 
