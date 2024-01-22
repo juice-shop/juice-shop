@@ -19,7 +19,6 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { CodeSnippetService } from '../Services/code-snippet.service'
 import { ChallengeService } from '../Services/challenge.service'
 import { type Challenge } from '../Models/challenge.model'
-import { ActivatedRoute, Router } from '@angular/router'
 
 // allows to easily create a challenge with some overwrites
 function createChallenge (challengeOverwrites: Partial<Challenge>): Challenge {
@@ -49,8 +48,6 @@ describe('ScoreBoardPreviewComponent', () => {
   let challengeService
   let codeSnippetService
   let configService
-  let mockActivatedRoute
-  let router: Router
 
   beforeEach(async () => {
     challengeService = jasmine.createSpyObj('ChallengeService', ['find'])
@@ -60,11 +57,6 @@ describe('ScoreBoardPreviewComponent', () => {
     configService = jasmine.createSpyObj('ConfigurationService', [
       'getApplicationConfiguration'
     ])
-
-    mockActivatedRoute = {
-      queryParams: of({})
-    }
-
     await TestBed.configureTestingModule({
       declarations: [
         ScoreBoardComponent,
@@ -87,8 +79,7 @@ describe('ScoreBoardPreviewComponent', () => {
       providers: [
         { provide: ChallengeService, useValue: challengeService },
         { provide: CodeSnippetService, useValue: codeSnippetService },
-        { provide: ConfigurationService, useValue: configService },
-        { provide: ActivatedRoute, useValue: mockActivatedRoute }
+        { provide: ConfigurationService, useValue: configService }
       ]
     }).compileComponents()
 
@@ -134,7 +125,6 @@ describe('ScoreBoardPreviewComponent', () => {
 
     fixture = TestBed.createComponent(ScoreBoardComponent)
     component = fixture.componentInstance
-    router = TestBed.inject(Router) // Get the router from the test bed
     fixture.detectChanges()
   })
 
@@ -209,18 +199,5 @@ describe('ScoreBoardPreviewComponent', () => {
         (challenge) => challenge.key === 'challenge-2'
       ).codingChallengeStatus
     ).toBe(2)
-  })
-
-  it('should rewrite legacy challenge direct link', () => {
-    const spy = spyOn(router, 'navigate') // Spy on the router's navigate method
-    mockActivatedRoute.queryParams = of({ challenge: 'Score Board', searchQuery: null })
-    component.ngOnInit()
-
-    expect(spy).toHaveBeenCalledWith([], {
-      queryParams: {
-        challenge: null,
-        searchQuery: 'Score Board'
-      }
-    })
   })
 })
