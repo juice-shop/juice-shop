@@ -42,7 +42,6 @@ import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, LoginGuard } from './app.guard'
 import { NFTUnlockComponent } from './nft-unlock/nft-unlock.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
-import { Web3SandboxComponent } from './web3-sandbox/web3-sandbox.component'
 
 const loadFaucetModule = async () => {
   const module = await import('./faucet/faucet.module')
