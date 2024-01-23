@@ -10,7 +10,8 @@ on:
       - master 
 
 #require for dependabot alerts. Delete later when removing dependabot alert querying       
-permissions: write-all 
+permissions: 
+  security-events: read 
 jobs:
   build:
     runs-on: self-hosted
@@ -53,20 +54,31 @@ jobs:
           fi
         continue-on-error: true
       
+      - name: Generate IAT for Github App
+        uses: actions/create-github-app-token@c4fa18d55c5d49e6a2793e351ea4938322c61072 #v1
+        id: app-token
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
+          # create a token for all repositories in the current owner's installation
+          owner: ${{ github.repository_owner }}
+
       - name: Get dependabot alert if enabled 
         run: |
           # require GitHub app installation token or PAT
 
+          echo "${{ secrets.GITHUB_TOKEN }}"
+          echo " ${{ steps.app-token.outputs.token }} "
           curl --request GET \
           --url "https://api.github.com/repos/comveray/all-scanning/dependabot/alerts" \
           --header "Accept: application/vnd.github+json" \
-          --header "Authorization: Bearer ${{ secrets.INSTALLATION_ACCESS_TOKEN }}" \
+          --header "Authorization: Bearer ${{ steps.app-token.outputs.token }}" \
           --header "X-GitHub-Api-Version: 2022-11-28"
 
           curl --request GET -L -o $DEPENDABOT_FILE \
           --url https://api.github.com/repos/${{ github.repository }}/dependabot/alerts \
           -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer ghs_v5KkAbP3CKl7WobGrmX0NFNbo6hfpt1Jp3Ec" \
+          -H "Authorization: Bearer ${{ steps.app-token.outputs.token }}" \
           -H "X-GitHub-Api-Version: 2022-11-28" 
         continue-on-error: true
     
