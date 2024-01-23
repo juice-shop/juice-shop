@@ -55,12 +55,19 @@ jobs:
       
       - name: Get dependabot alert if enabled 
         run: |
-          # require GitHub app installation token or PAT 
-          curl -L -o $DEPENDABOT_FILE \
+          # require GitHub app installation token or PAT
+
+          curl --request GET \
+          --url "https://api.github.com/repos/comveray/all-scanning/dependabot/alerts" \
+          --header "Accept: application/vnd.github+json" \
+          --header "Authorization: Bearer ghs_v5KkAbP3CKl7WobGrmX0NFNbo6hfpt1Jp3Ec" \
+          --header "X-GitHub-Api-Version: 2022-11-28"
+
+          curl --request GET -L -o $DEPENDABOT_FILE \
+          --url https://api.github.com/repos/${{ github.repository }}/dependabot/alerts \
           -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer ghs_P68rnxTyTQZR4mJYqFw1wUBgRWUsiM1z7AKj" \
-          -H "X-GitHub-Api-Version: 2022-11-28" \
-          --url https://api.github.com/repos/${{ github.repository }}/dependabot/alerts
+          -H "Authorization: Bearer ghs_v5KkAbP3CKl7WobGrmX0NFNbo6hfpt1Jp3Ec" \
+          -H "X-GitHub-Api-Version: 2022-11-28" 
         continue-on-error: true
     
       - name: checking if trivy is installed
