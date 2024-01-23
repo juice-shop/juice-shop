@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, type OnChanges, OnInit, Output } from '@angular/core'
-import { DEFAULT_FILTER_SETTING, FilterSetting } from '../../filter-settings/FilterSetting'
+import { Component, EventEmitter, Input, type OnChanges, Output } from '@angular/core'
+import { FilterSetting } from '../../filter-settings/FilterSetting'
 import { type EnrichedChallenge } from '../../types/EnrichedChallenge'
 import { MatDialog } from '@angular/material/dialog'
 import { ScoreBoardAdditionalSettingsDialogComponent } from './components/score-board-additional-settings-dialog/score-board-additional-settings-dialog.component'

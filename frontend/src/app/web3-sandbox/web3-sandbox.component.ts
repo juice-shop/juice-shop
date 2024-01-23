@@ -1,20 +1,19 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core'
+import { Component, ChangeDetectorRef } from '@angular/core'
 import { KeysService } from '../Services/keys.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
-import { getDefaultProvider, ethers, BigNumber } from 'ethers'
+import { getDefaultProvider, ethers } from 'ethers'
 import {
   createClient,
   connect,
   disconnect,
   getAccount,
-  signMessage,
   InjectedConnector
 } from '@wagmi/core'
 import {
-  solidityCompiler,
-  getCompilerVersions
+  solidityCompiler
 } from 'solidity-browser-compiler'
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const client = createClient({
   autoConnect: true,
   provider: getDefaultProvider()
