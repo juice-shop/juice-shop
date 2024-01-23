@@ -66,22 +66,15 @@ jobs:
 
       - name: Get dependabot alert if enabled 
         run: |
+          
           # require GitHub app installation token or PAT
-
-          echo "${{ secrets.GITHUB_TOKEN }}"
-          echo " ${{ steps.app-token.outputs.token }} "
-          curl --request GET \
-          --url "https://api.github.com/repos/comveray/all-scanning/dependabot/alerts" \
-          --header "Accept: application/vnd.github+json" \
-          --header "Authorization: Bearer ${{ steps.app-token.outputs.token }}" \
-          --header "X-GitHub-Api-Version: 2022-11-28"
-
           curl --request GET -L -o $DEPENDABOT_FILE \
           --url https://api.github.com/repos/${{ github.repository }}/dependabot/alerts \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ steps.app-token.outputs.token }}" \
           -H "X-GitHub-Api-Version: 2022-11-28" 
         continue-on-error: true
+
     
       - name: checking if trivy is installed
         run: |
@@ -145,15 +138,8 @@ jobs:
         if: ${{ env.empty_issue_list != 0 }}
         run: | 
           bash -s << 'EOF'
-
-          EMAIL_BODY="Hello,\n\nThis email is to inform about the results of the recent SCA scan.
-          \nScan Summary:\n$(cat $SUM_FILE)
-          \nSCA Scan Result Details:\n$(cat $ANALYSE_FILE)\n
-          Recommendations:\n- Please review and upgrade the vulnerable dependencies to the latest version.\n
-          If you have any questions or need further assistance, please don't hesitate to reach out.
-          Thank you!"
           
-          EMAIL_BODY=$(printf "$EMAIL_BODY")
+          EMAIL_BODY=$(printf "${{ vars.EMAIL_BODY  }}")
  
           for text in "${{ vars.EMAILS }}"; do
             if [[ "$text" != *@fortescue.com* ]]; then
