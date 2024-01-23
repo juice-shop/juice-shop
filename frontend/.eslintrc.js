@@ -12,6 +12,9 @@ module.exports = {
     project: './src/tsconfig.*.json',
     sourceType: 'module'
   },
+  ignorePatterns: [
+    '.eslintrc.js'
+  ],
   rules: {
     '@typescript-eslint/prefer-nullish-coalescing': 'off', // requires the `strictNullChecks` compiler option
     // FIXME warnings below this line need to be checked and fixed.
