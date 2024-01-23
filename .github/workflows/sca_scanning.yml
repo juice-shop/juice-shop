@@ -60,8 +60,9 @@ jobs:
         with:
           app-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
-          # create a token for all repositories in the current owner's installation
+          # create a token for selected repositories in the current owner's installation
           owner: ${{ github.repository_owner }}
+          repositories: "All-scanning"
 
       - name: Get dependabot alert if enabled 
         run: |
