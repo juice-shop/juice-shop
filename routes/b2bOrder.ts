@@ -37,7 +37,7 @@ module.exports = function b2bOrder () {
   }
 
   function uniqueOrderNumber () {
-    return security.hash(`${new Date()}_B2B`)
+    return security.hash(`${(new Date()).toString()}_B2B`)
   }
 
   function dateTwoWeeksFromNow () {

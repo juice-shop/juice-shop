@@ -75,7 +75,7 @@ exports.serveMetrics = function serveMetrics () {
 }
 
 exports.observeMetrics = function observeMetrics () {
-  const app = config.get('application.customMetricsPrefix')
+  const app = config.get<string>('application.customMetricsPrefix')
   Prometheus.collectDefaultMetrics({})
   register.setDefaultLabels({ app })
 

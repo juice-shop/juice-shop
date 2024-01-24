@@ -62,7 +62,7 @@ export const checkIfRunningOnSupportedNodeVersion = (runningVersion: string) => 
 export const checkIfRunningOnSupportedOS = (runningOS: string) => {
   const supportedOS = pjson.os
   if (!supportedOS.includes(runningOS)) {
-    logger.warn(`Detected OS ${colors.bold(runningOS)} is not in the list of supported platforms ${supportedOS} (${colors.red('NOT OK')})`)
+    logger.warn(`Detected OS ${colors.bold(runningOS)} is not in the list of supported platforms ${supportedOS.toString()} (${colors.red('NOT OK')})`)
     return false
   }
   logger.info(`Detected OS ${colors.bold(runningOS)} (${colors.green('OK')})`)
@@ -72,7 +72,7 @@ export const checkIfRunningOnSupportedOS = (runningOS: string) => {
 export const checkIfRunningOnSupportedCPU = (runningArch: string) => {
   const supportedArch = pjson.cpu
   if (!supportedArch.includes(runningArch)) {
-    logger.warn(`Detected CPU ${colors.bold(runningArch)} is not in the list of supported architectures ${supportedArch} (${colors.red('NOT OK')})`)
+    logger.warn(`Detected CPU ${colors.bold(runningArch)} is not in the list of supported architectures ${supportedArch.toString()} (${colors.red('NOT OK')})`)
     return false
   }
   logger.info(`Detected CPU ${colors.bold(runningArch)} (${colors.green('OK')})`)
