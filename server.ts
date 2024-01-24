@@ -129,7 +129,7 @@ const locales = require('./data/static/locales.json')
 const i18n = require('i18n')
 const antiCheat = require('./lib/antiCheat')
 
-const appName = config.get('application.customMetricsPrefix')
+const appName = config.get<string>('application.customMetricsPrefix')
 const startupGauge = new Prometheus.Gauge({
   name: `${appName}_startup_duration_seconds`,
   help: `Duration ${appName} required to perform a certain task during startup`,
