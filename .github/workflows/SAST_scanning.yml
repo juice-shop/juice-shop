@@ -155,15 +155,8 @@ jobs:
         if: ${{ env.empty_issue_list != 0 }}
         run: | 
           bash -s << 'EOF'
-
-          EMAIL_BODY="Hello,\n\nThis email is to inform about the results of the recent SAST scan.
-          \nScan Summary:\n$(cat $SUM_FILE)
-          \nSAST Scan Result Details:\n$(cat $ANALYSE_FILE)\n
-          Recommendations:\n- Please review the vulnerable code and make the appropiate change.\n
-          If you have any questions or need further assistance, please don't hesitate to reach out.
-          Thank you!"
           
-          EMAIL_BODY=$(printf "$EMAIL_BODY")
+          EMAIL_BODY=$(printf "${{ vars.EMAIL_BODY  }}")
 
           for text in "${{ vars.EMAILS }}"; do
             if [[ "$text" != *@fortescue.com* ]]; then
