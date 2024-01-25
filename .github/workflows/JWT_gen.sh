@@ -4,20 +4,17 @@ set -o pipefail
 
 app_id=$1 # App ID as first argument
 pem=$( cat $2 ) # file path of the private key as second argument
-
 now=$(date +%s)
 iat=$((${now} - 60)) # Issues 60 seconds in the past
 exp=$((${now} + 600)) # Expires 10 minutes in the future
 
 b64enc() { openssl base64 | tr -d '=' | tr '/+' '_-' | tr -d '\n'; }
-
 header_json='{
     "typ":"JWT",
     "alg":"RS256"
 }'
 # Generate encoded JWT header
 header=$( echo -n "${header_json}" | b64enc )
-
 payload_json='{
     "iat":'"${iat}"',
     "exp":'"${exp}"',

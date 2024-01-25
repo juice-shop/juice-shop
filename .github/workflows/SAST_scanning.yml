@@ -27,6 +27,10 @@ jobs:
 
           echo "ANALYSE_FILE=${WORKFLOWDIR}/analyse_current_results.txt" >> $GITHUB_ENV
           echo "SUM_FILE=${WORKFLOWDIR}/scan_summary.txt" >> $GITHUB_ENV
+
+          echo "PREV_ARTIFACTS=${WORKFLOWDIR}/prev-artifacts.json" >> $GITHUB_ENV
+          echo "GITLEAKS_ARTIFACTS=${WORKFLOWDIR}/secret-af.json" >> $GITHUB_ENV
+          echo "LAST_ARTIFACT_ZIP=${WORKFLOWDIR}/last-scans-output.zip" >> $GITHUB_ENV
     
       - name: check if semgrep installed
         run: |
@@ -70,12 +74,61 @@ jobs:
               echo "There are no issues with severity levels 'HIGH' or 'CRITICAL' found in this scan. "
             fi
           fi
-          
           echo "- Repository: ${{ github.repository }}\n- Scan Status: Completed\n- Completion Time: $(date)" >> $SUM_FILE
           echo "- Number of files being scanned: $(jq '.paths.scanned | length' $ARTIFACT_PATH)  " >> $SUM_FILE
           echo "- Number of vulnerabilities detected in this scan: $(jq '.results| length' $ARTIFACT_PATH)  " >> $SUM_FILE
         continue-on-error: true
-    
+
+      - name: Compare Current vs Previous SAST scan result 
+        if: ${{ env.leaks != 0 }} && 
+        run: |
+          bash -s << 'EOF'
+
+          # retrieve all artifacts from all GitHub Actions workflows
+          curl -L -o $PREV_ARTIFACTS \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          https://api.github.com/repos/${{ github.repository }}/actions/artifacts
+          
+          # filter artifacts from SAST workflows only. Then find the most recent artifact for SAST scanning
+          jq '[ .artifacts[] | select(.name | startswith("FMGL-SAST"))]' $PREV_ARTIFACTS > $GITLEAKS_ARTIFACTS
+          echo "list of all SAST-scanning artifacts"
+          cat $GITLEAKS_ARTIFACTS
+          LAST_A=$(jq '.[].created_at' $GITLEAKS_ARTIFACTS | sort -rV | head -n 1)
+          if [ -z $LAST_A ] ; then exit 0 ; fi
+
+          # if recent artifact is found, obtaining the Download URL for the most Recent Artifact
+          echo "Most recent scan with artifact is $LAST_A"
+          A_URL=$(jq '.artifacts[] | select(.created_at == '${LAST_A}') | .archive_download_url' $PREV_ARTIFACTS | tr -d '"')
+          if [ -z $A_URL ] ; then exit 0 ; fi
+          echo "fetching previous scan results:" $LAST_A $A_URL
+          curl -L -o $LAST_ARTIFACT_ZIP \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "X-GitHub-Api-Version: 2022-11-28" $A_URL
+          
+          # if the ZIP file exists, extracts the contents of the ZIP file into that temp directory
+          if [ -e "$LAST_ARTIFACT_ZIP" ]; then
+            PREV_FILENAME=${WORKFLOWDIR}/previous_result.json
+            unzip -p $LAST_ARTIFACT_ZIP > $PREV_FILENAME
+            ls -lah $PREV_FILENAME
+
+            # format findings from previous result ($PREV_FILENAME) and current result ($ARTIFACT_PATH). These findings are sorted and unique results are saved.
+            format_findings(){ jq --compact-output '.[] | [.File , .Secret]' "$1"; }           
+            format_findings $PREV_FILENAME | sort | uniq > $WORKFLOWDIR/results-prev
+            format_findings $ARTIFACT_PATH | sort | uniq > $WORKFLOWDIR/results-current
+  
+            # compare the results from the previous run with the current run
+            diff_results=$(diff -u "$WORKFLOWDIR/results-prev" "$WORKFLOWDIR/results-current")
+            new_vulnerabilities=$(echo "$diff_results" | grep '^+\[' | wc -l)
+            echo "new_vulnerabilities=$new_vulnerabilities" >> $GITHUB_ENV
+          else
+            echo "This repository has not been scanned previosly."     
+          fi
+          EOF
+        continue-on-error: true 
+        
       - name: Get GitHub Code Scanning alert if enabled (GitHub Enterprise with GHAS license only)
         run: |
           # query the endpoint for repository level
