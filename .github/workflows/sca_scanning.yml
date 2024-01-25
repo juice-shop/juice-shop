@@ -8,6 +8,9 @@ on:
     branches:
       - main
       - master 
+  # runs when a pull_request event's activity type is opened, edited or reopened
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
 
 #require for dependabot alerts. Delete later when removing dependabot alert querying       
 permissions: 
@@ -71,7 +74,7 @@ jobs:
           --header "Accept: application/vnd.github+json" \
           --header "Authorization: Bearer ghs_WJYTKfWs5qjBByZ5FZR4cAqhTBSjqT1B2wbD" \
           --header "X-GitHub-Api-Version: 2022-11-28")
-          
+
           # require GitHub app installation token or PAT
           curl --request GET -L -o $DEPENDABOT_FILE \
           --url https://api.github.com/repos/${{ github.repository }}/dependabot/alerts \
