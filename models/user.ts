@@ -46,7 +46,7 @@ const UserModelInit = (sequelize: Sequelize) => { // vuln-code-snippet start wea
         type: DataTypes.STRING,
         defaultValue: '',
         set (username: string) {
-          if (!utils.disableOnContainerEnv()) {
+          if (!utils.disableOnContainerEnv() && !utils.disableOnFlagSet()) {
             username = security.sanitizeLegacy(username)
           } else {
             username = security.sanitizeSecure(username)
@@ -58,7 +58,7 @@ const UserModelInit = (sequelize: Sequelize) => { // vuln-code-snippet start wea
         type: DataTypes.STRING,
         unique: true,
         set (email: string) {
-          if (!utils.disableOnContainerEnv()) {
+          if (!utils.disableOnContainerEnv() && !utils.disableOnFlagSet()) {
             challengeUtils.solveIf(challenges.persistedXssUserChallenge, () => {
               return utils.contains(
                 email,

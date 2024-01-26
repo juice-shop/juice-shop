@@ -161,6 +161,10 @@ export const disableOnWindowsEnv = () => {
   return isWindows()
 }
 
+export const disableOnFlagSet = ()=>{
+  return config.get('challenges.safetyMode')
+}
+
 export const determineDisabledEnv = (disabledEnv: string | string[] | undefined) => {
   if (isDocker()) {
     return disabledEnv && (disabledEnv === 'Docker' || disabledEnv.includes('Docker')) ? 'Docker' : null

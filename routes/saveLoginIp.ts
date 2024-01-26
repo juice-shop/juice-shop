@@ -17,7 +17,7 @@ module.exports = function saveLoginIp () {
     const loggedInUser = security.authenticatedUsers.from(req)
     if (loggedInUser !== undefined) {
       let lastLoginIp = req.headers['true-client-ip']
-      if (!utils.disableOnContainerEnv()) {
+      if (!utils.disableOnContainerEnv() && !utils.disableOnFlagSet()) {
         challengeUtils.solveIf(challenges.httpHeaderXssChallenge, () => { return lastLoginIp === '<iframe src="javascript:alert(`xss`)">' })
       } else {
         lastLoginIp = security.sanitizeSecure(lastLoginIp)

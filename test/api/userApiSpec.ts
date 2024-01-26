@@ -190,7 +190,7 @@ describe('/api/Users', () => {
       })
   })
 
-  if (!utils.disableOnContainerEnv()) {
+  if (!utils.disableOnContainerEnv() && !utils.disableOnFlagSet()) {
     it('POST new user with XSS attack in email address', () => {
       return frisby.post(`${API_URL}/Users`, {
         headers: jsonHeader,
