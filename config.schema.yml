@@ -119,6 +119,8 @@ challenges:
     type: string
   safetyOverride:
     type: boolean
+  safetyMode:
+    type: boolean
   showFeedbackButtons:
     type: boolean
 hackingInstructor:
