@@ -23,7 +23,7 @@ function ensureFileIsPassed ({ file }: Request, res: Response, next: NextFunctio
 
 function handleZipFileUpload ({ file }: Request, res: Response, next: NextFunction) {
   if (utils.endsWith(file?.originalname.toLowerCase(), '.zip')) {
-    if (((file?.buffer) != null) && !utils.disableOnContainerEnv()) {
+    if (((file?.buffer) != null) && !utils.disableOnContainerEnv() && !utils.disableOnFlagSet()) {
       const buffer = file.buffer
       const filename = file.originalname.toLowerCase()
       const tempFile = path.join(os.tmpdir(), filename)

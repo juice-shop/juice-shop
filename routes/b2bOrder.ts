@@ -14,7 +14,7 @@ const challenges = require('../data/datacache').challenges
 
 module.exports = function b2bOrder () {
   return ({ body }: Request, res: Response, next: NextFunction) => {
-    if (!utils.disableOnContainerEnv()) {
+    if (!utils.disableOnContainerEnv() && !utils.disableOnFlagSet()) {
       const orderLinesData = body.orderLinesData || ''
       try {
         const sandbox = { safeEval, orderLinesData }

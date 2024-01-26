@@ -9,6 +9,7 @@ application:
 challenges:
   showHints: false
   safetyOverride: true
+  safetyMode: false
   showFeedbackButtons: false
 hackingInstructor:
   isEnabled: false
