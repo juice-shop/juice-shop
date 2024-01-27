@@ -8,8 +8,7 @@ application:
     showOnFirstStart: false
 challenges:
   showHints: false
-  safetyOverride: true
-  safetyMode: false
+  safetyMode: off
   showFeedbackButtons: false
 hackingInstructor:
   isEnabled: false
