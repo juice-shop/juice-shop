@@ -13,7 +13,7 @@ const API_URL = 'http://localhost:3000/b2b/v2/orders'
 const authHeader = { Authorization: 'Bearer ' + security.authorize(), 'content-type': 'application/json' }
 
 describe('/b2b/v2/orders', () => {
-  if (!utils.disableOnContainerEnv()) {
+  if (!utils.disableOnContainerEnv() && !utils.disableOnFlagSet()) {
     it('POST endless loop exploit in "orderLinesData" will raise explicit error', () => {
       return frisby.post(API_URL, {
         headers: authHeader,

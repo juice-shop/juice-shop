@@ -87,13 +87,13 @@ async function createChallenges () {
           name,
           category,
           tags: (tags != null) ? tags.join(',') : undefined,
-          description: effectiveDisabledEnv ? (description + ' <em>(This challenge is <strong>' + (config.get('challenges.safetyOverride') ? 'potentially harmful' : 'not available') + '</strong> on ' + effectiveDisabledEnv + '!)</em>') : description,
+          description: effectiveDisabledEnv ? (description + ' <em>(This challenge is <strong>' + (config.get('challenges.safetyMode') ? 'potentially harmful' : 'not available') + '</strong> on ' + effectiveDisabledEnv + '!)</em>') : description,
           difficulty,
           solved: false,
           hint: showHints ? hint : null,
           hintUrl: showHints ? hintUrl : null,
           mitigationUrl: showMitigations ? mitigationUrl : null,
-          disabledEnv: config.get<boolean>('challenges.safetyOverride') ? null : effectiveDisabledEnv,
+          disabledEnv: !config.get<boolean>('challenges.safetyMode') ? ((config.get('challenges.safetyMode') !== "on") ? null : effectiveDisabledEnv) : ((tags != null) ? tags.join(',') : undefined)?.includes('Danger Zone') ? effectiveDisabledEnv : null,
           tutorialOrder: (tutorial != null) ? tutorial.order : null,
           codingChallengeStatus: 0
         })
