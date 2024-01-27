@@ -1,23 +1,17 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import frisby = require('frisby')
-import { type Product } from '../../data/types'
+import type { Product as ProductConfig } from '../../lib/config.types'
 import config from 'config'
 const Joi = frisby.Joi
 const utils = require('../../lib/utils')
 const security = require('../../lib/insecurity')
 
-const tamperingProductId = ((() => {
-  const products = config.get<Product[]>('products')
-  for (let i = 0; i < products.length; i++) {
-    if (products[i].urlForProductTamperingChallenge) {
-      return i + 1
-    }
-  }
-})())
+// array index of the items is incremented by one because the db id starts with 1
+const tamperingProductId = config.get<ProductConfig[]>('products').findIndex((product) => !!product.urlForProductTamperingChallenge) + 1
 
 const API_URL = 'http://localhost:3000/api'
 

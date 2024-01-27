@@ -10,7 +10,6 @@ import { MatSelectModule } from '@angular/material/select'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatDialogModule } from '@angular/material/dialog'
-import { FeatureFlagService } from 'src/app/Services/feature-flag.service'
 import { DifficultySelectionSummaryPipe } from './pipes/difficulty-selection-summary.pipe'
 import { LocalBackupService } from 'src/app/Services/local-backup.service'
 
@@ -35,10 +34,6 @@ describe('FilterSettingsComponent', () => {
         DifficultySelectionSummaryPipe
       ],
       providers: [
-        {
-          provide: FeatureFlagService,
-          useValue: { getDefaultScoreBoard: () => 'v1' }
-        },
         {
           provide: LocalBackupService,
           useValue: {

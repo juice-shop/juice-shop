@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import chai = require('chai')
 import validateChatBot, { checkIntentWithFunctionHandlerExists } from '../../lib/startup/validateChatBot'
-const sinonChai = require('sinon-chai')
+import sinonChai = require('sinon-chai')
 const expect = chai.expect
 chai.use(sinonChai)
 

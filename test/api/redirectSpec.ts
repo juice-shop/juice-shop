@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -48,7 +48,7 @@ describe('/redirect', () => {
     return frisby.get(`${URL}/redirect`)
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', `<h1>${config.get('application.name')} (Express`)
+      .expect('bodyContains', `<h1>${config.get<string>('application.name')} (Express`)
       .expect('bodyContains', 'TypeError')
       .expect('bodyContains', 'of undefined')
       .expect('bodyContains', '&#39;includes&#39;')
@@ -58,7 +58,7 @@ describe('/redirect', () => {
     return frisby.get(`${URL}/redirect?x=y`)
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', `<h1>${config.get('application.name')} (Express`)
+      .expect('bodyContains', `<h1>${config.get<string>('application.name')} (Express`)
       .expect('bodyContains', 'TypeError')
       .expect('bodyContains', 'of undefined')
       .expect('bodyContains', '&#39;includes&#39;')
@@ -68,7 +68,7 @@ describe('/redirect', () => {
     return frisby.get(`${URL}/redirect?to=whatever`)
       .expect('status', 406)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', `<h1>${config.get('application.name')} (Express`)
+      .expect('bodyContains', `<h1>${config.get<string>('application.name')} (Express`)
       .expect('bodyContains', 'Unrecognized target URL for redirect: whatever')
   })
 
