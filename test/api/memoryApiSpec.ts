@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -22,7 +22,7 @@ describe('/rest/memories', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'jim@' + config.get('application.domain'),
+        email: 'jim@' + config.get<string>('application.domain'),
         password: 'ncc-1701'
       }
     })
@@ -60,7 +60,7 @@ describe('/rest/memories', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'jim@' + config.get('application.domain'),
+        email: 'jim@' + config.get<string>('application.domain'),
         password: 'ncc-1701'
       }
     })
@@ -87,7 +87,7 @@ describe('/rest/memories', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'jim@' + config.get('application.domain'),
+        email: 'jim@' + config.get<string>('application.domain'),
         password: 'ncc-1701'
       }
     })

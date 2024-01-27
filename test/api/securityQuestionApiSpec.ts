@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -59,7 +59,7 @@ describe('/api/SecurityQuestions/:id', () => {
 
 describe('/rest/user/security-question', () => {
   it('GET security question for an existing user\'s email address', () => {
-    return frisby.get(`${REST_URL}/user/security-question?email=jim@${config.get('application.domain')}`)
+    return frisby.get(`${REST_URL}/user/security-question?email=jim@${config.get<string>('application.domain')}`)
       .expect('status', 200)
       .expect('json', 'question', {
         question: 'Your eldest siblings middle name?'
@@ -76,7 +76,7 @@ describe('/rest/user/security-question', () => {
     return frisby.get(`${REST_URL}/user/security-question`)
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', `<h1>${config.get('application.name')} (Express`)
+      .expect('bodyContains', `<h1>${config.get<string>('application.name')} (Express`)
       .expect('bodyContains', 'Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value')
   })
 

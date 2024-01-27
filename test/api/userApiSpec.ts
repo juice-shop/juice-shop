@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -241,24 +241,6 @@ describe('/api/Users/:id', () => {
   it('DELETE existing user is forbidden via API even when authenticated', () => {
     return frisby.del(`${API_URL}/Users/1`, { headers: authHeader })
       .expect('status', 401)
-  })
-})
-
-describe('/rest/user/authentication-details', () => {
-  it('GET all users decorated with attribute for authentication token', () => {
-    return frisby.get(`${REST_URL}/user/authentication-details`, { headers: authHeader })
-      .expect('status', 200)
-      .expect('jsonTypes', 'data.?', {
-        token: Joi.string()
-      })
-  })
-
-  it('GET all users with password replaced by asterisks', () => {
-    return frisby.get(`${REST_URL}/user/authentication-details`, { headers: authHeader })
-      .expect('status', 200)
-      .expect('json', 'data.?', {
-        password: '********************************'
-      })
   })
 })
 

@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
   -->
 
@@ -16,8 +16,8 @@
 
           <ng-container matColumnDef="user">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
-            <mat-cell *matCellDef="let user" style="vertical-align: middle"><i *ngIf="user.token"
-                                                                               class="fas fa-user fa-lg confirmation"></i>
+            <mat-cell *matCellDef="let user" style="vertical-align: middle">
+              <i *ngIf="doesUserHaveAnActiveSession(user)" class="fas fa-user fa-lg confirmation"></i>
             </mat-cell>
           </ng-container>
 

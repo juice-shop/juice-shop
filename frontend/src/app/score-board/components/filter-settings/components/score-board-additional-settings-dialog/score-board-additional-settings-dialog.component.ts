@@ -1,8 +1,4 @@
-import { Component, type OnDestroy, type OnInit } from '@angular/core'
-import { MatDialogRef } from '@angular/material/dialog'
-import { type Subscription } from 'rxjs'
-
-import { FeatureFlagService } from 'src/app/Services/feature-flag.service'
+import { Component } from '@angular/core'
 import { LocalBackupService } from 'src/app/Services/local-backup.service'
 
 @Component({
@@ -10,30 +6,8 @@ import { LocalBackupService } from 'src/app/Services/local-backup.service'
   templateUrl: './score-board-additional-settings-dialog.component.html',
   styleUrls: ['./score-board-additional-settings-dialog.component.scss']
 })
-export class ScoreBoardAdditionalSettingsDialogComponent
-implements OnInit, OnDestroy {
-  public scoreBoardVersion: null | 'v1' | 'v2' = null
-
-  private readonly subscriptions: Subscription[] = []
-
+export class ScoreBoardAdditionalSettingsDialogComponent {
   constructor (
-    public dialogRef: MatDialogRef<ScoreBoardAdditionalSettingsDialogComponent>,
-    public featureFlagService: FeatureFlagService,
     public localBackupService: LocalBackupService
   ) {}
-
-  async ngOnInit () {
-    const subscription = this.featureFlagService.defaultScoreBoard$.subscribe(
-      (version) => {
-        this.scoreBoardVersion = version
-      }
-    )
-    this.subscriptions.push(subscription)
-  }
-
-  ngOnDestroy () {
-    for (const subscription of this.subscriptions) {
-      subscription.unsubscribe()
-    }
-  }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -43,7 +43,7 @@ describe('/rest/user/change-password', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'bjoern@' + config.get('application.domain'),
+        email: 'bjoern@' + config.get<string>('application.domain'),
         password: 'monkey summer birthday are all bad passwords but work just fine in a long passphrase'
       }
     })
@@ -73,7 +73,7 @@ describe('/rest/user/change-password', () => {
     return frisby.get(REST_URL + '/user/change-password?new=foo&repeat=foo')
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
+      .expect('bodyContains', '<h1>' + config.get<string>('application.name') + ' (Express')
       .expect('bodyContains', 'Error: Blocked illegal activity')
   })
 
@@ -81,7 +81,7 @@ describe('/rest/user/change-password', () => {
     return frisby.get(REST_URL + '/user/change-password?new=foo&repeat=foo', { headers: { Authorization: 'Bearer unknown' } })
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
+      .expect('bodyContains', '<h1>' + config.get<string>('application.name') + ' (Express')
       .expect('bodyContains', 'Error: Blocked illegal activity')
   })
 
@@ -89,7 +89,7 @@ describe('/rest/user/change-password', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'bender@' + config.get('application.domain'),
+        email: 'bender@' + config.get<string>('application.domain'),
         password: 'OhG0dPlease1nsertLiquor!'
       }
     })
@@ -108,7 +108,7 @@ describe('/rest/user/reset-password', () => {
     return frisby.post(REST_URL + '/user/reset-password', {
       headers: jsonHeader,
       body: {
-        email: 'jim@' + config.get('application.domain'),
+        email: 'jim@' + config.get<string>('application.domain'),
         answer: 'Samuel',
         new: 'ncc-1701',
         repeat: 'ncc-1701'
@@ -121,7 +121,7 @@ describe('/rest/user/reset-password', () => {
     return frisby.post(REST_URL + '/user/reset-password', {
       headers: jsonHeader,
       body: {
-        email: 'bender@' + config.get('application.domain'),
+        email: 'bender@' + config.get<string>('application.domain'),
         answer: 'Stop\'n\'Drop',
         new: 'OhG0dPlease1nsertLiquor!',
         repeat: 'OhG0dPlease1nsertLiquor!'
@@ -134,7 +134,7 @@ describe('/rest/user/reset-password', () => {
     return frisby.post(REST_URL + '/user/reset-password', {
       headers: jsonHeader,
       body: {
-        email: 'bjoern@' + config.get('application.domain'),
+        email: 'bjoern@' + config.get<string>('application.domain'),
         answer: 'West-2082',
         new: 'monkey summer birthday are all bad passwords but work just fine in a long passphrase',
         repeat: 'monkey summer birthday are all bad passwords but work just fine in a long passphrase'
@@ -160,7 +160,7 @@ describe('/rest/user/reset-password', () => {
     return frisby.post(REST_URL + '/user/reset-password', {
       headers: jsonHeader,
       body: {
-        email: 'morty@' + config.get('application.domain'),
+        email: 'morty@' + config.get<string>('application.domain'),
         answer: '5N0wb41L',
         new: 'iBurri3dMySe1fInTheB4ckyard!',
         repeat: 'iBurri3dMySe1fInTheB4ckyard!'
@@ -173,7 +173,7 @@ describe('/rest/user/reset-password', () => {
     return frisby.post(REST_URL + '/user/reset-password', {
       headers: jsonHeader,
       body: {
-        email: 'bjoern@' + config.get('application.domain'),
+        email: 'bjoern@' + config.get<string>('application.domain'),
         answer: '25436',
         new: '12345',
         repeat: '12345'
@@ -187,7 +187,7 @@ describe('/rest/user/reset-password', () => {
     return frisby.post(REST_URL + '/user/reset-password')
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
+      .expect('bodyContains', '<h1>' + config.get<string>('application.name') + ' (Express')
       .expect('bodyContains', 'Error: Blocked illegal activity')
   })
 
@@ -195,7 +195,7 @@ describe('/rest/user/reset-password', () => {
     return frisby.post(REST_URL + '/user/reset-password', {
       headers: jsonHeader,
       body: {
-        email: 'bjoern@' + config.get('application.domain'),
+        email: 'bjoern@' + config.get<string>('application.domain'),
         answer: 'W-2082',
         repeat: '12345'
       }
@@ -208,7 +208,7 @@ describe('/rest/user/reset-password', () => {
     return frisby.post(REST_URL + '/user/reset-password', {
       headers: jsonHeader,
       body: {
-        email: 'bjoern@' + config.get('application.domain'),
+        email: 'bjoern@' + config.get<string>('application.domain'),
         answer: 'W-2082',
         new: '12345',
         repeat: '1234_'
@@ -229,7 +229,7 @@ describe('/rest/user/reset-password', () => {
     })
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
+      .expect('bodyContains', '<h1>' + config.get<string>('application.name') + ' (Express')
       .expect('bodyContains', 'Error: Blocked illegal activity')
   })
 
@@ -237,14 +237,14 @@ describe('/rest/user/reset-password', () => {
     return frisby.post(REST_URL + '/user/reset-password', {
       header: jsonHeader,
       body: {
-        email: 'bjoern@' + config.get('application.domain'),
+        email: 'bjoern@' + config.get<string>('application.domain'),
         new: 'abcdef',
         repeat: 'abcdef'
       }
     })
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
+      .expect('bodyContains', '<h1>' + config.get<string>('application.name') + ' (Express')
       .expect('bodyContains', 'Error: Blocked illegal activity')
   })
 })

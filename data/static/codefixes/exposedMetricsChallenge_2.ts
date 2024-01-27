@@ -1,10 +1,7 @@
 /* Serve metrics */
 const Metrics = metrics.observeMetrics()
 app.get('/metrics', metrics.serveMetrics())
-errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
-
-const registerWebsocketEvents = require('./lib/startup/registerWebsocketEvents')
-const customizeApplication = require('./lib/startup/customizeApplication')
+errorhandler.title = `${config.get<string>('application.name')} (Express ${utils.version('express')})`
 
 export async function start (readyCallback: any) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })

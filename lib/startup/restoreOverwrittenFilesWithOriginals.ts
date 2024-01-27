@@ -1,18 +1,15 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import path = require('path')
-import utils = require('../utils')
+import path from 'path'
+import * as utils from '../utils'
 import logger from '../logger'
-import { promisify } from 'util'
-const fs = require('fs')
-const glob = promisify(require('glob'))
-const copyFile = promisify(fs.copyFile)
-const access = promisify(fs.access)
+import { copyFile, access } from 'fs/promises'
+import { glob } from 'glob'
 
-const exists = (path: string) => access(path).then(() => true).catch(() => false)
+const exists = async (path: string) => await access(path).then(() => true).catch(() => false)
 
 const restoreOverwrittenFilesWithOriginals = async () => {
   await copyFile(path.resolve('data/static/legal.md'), path.resolve('ftp/legal.md'))
@@ -27,11 +24,13 @@ const restoreOverwrittenFilesWithOriginals = async () => {
   try {
     const files = await glob(path.resolve('data/static/i18n/*.json'))
     await Promise.all(
-      files.map((filename: string) => copyFile(filename, path.resolve('i18n/', filename.substring(filename.lastIndexOf('/') + 1))))
+      files.map(async (filename: string) => {
+        await copyFile(filename, path.resolve('i18n/', filename.substring(filename.lastIndexOf('/') + 1)))
+      })
     )
   } catch (err) {
     logger.warn('Error listing JSON files in /data/static/i18n folder: ' + utils.getErrorMessage(err))
   }
 }
 
-module.exports = restoreOverwrittenFilesWithOriginals
+export default restoreOverwrittenFilesWithOriginals

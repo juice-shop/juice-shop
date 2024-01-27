@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -14,13 +14,12 @@ import { WalletModel } from '../models/wallet'
 import challengeUtils = require('../lib/challengeUtils')
 import config from 'config'
 import * as utils from '../lib/utils'
+import * as db from '../data/mongodb'
+import { challenges, products } from '../data/datacache'
 
 const fs = require('fs')
 const PDFDocument = require('pdfkit')
 const security = require('../lib/insecurity')
-const products = require('../data/datacache').products
-const challenges = require('../data/datacache').challenges
-const db = require('../data/mongodb')
 
 interface Product {
   quantity: number
@@ -51,7 +50,7 @@ module.exports = function placeOrder () {
             res.json({ orderConfirmation: orderId })
           })
 
-          doc.font('Times-Roman', 40).text(config.get('application.name'), { align: 'center' })
+          doc.font('Times-Roman', 40).text(config.get<string>('application.name'), { align: 'center' })
           doc.moveTo(70, 115).lineTo(540, 115).stroke()
           doc.moveTo(70, 120).lineTo(540, 120).stroke()
           doc.fontSize(20).moveDown()
@@ -152,7 +151,7 @@ module.exports = function placeOrder () {
             })
           }
 
-          db.orders.insert({
+          db.ordersCollection.insert({
             promotionalAmount: discountAmount,
             paymentId: req.body.orderDetails ? req.body.orderDetails.paymentId : null,
             addressId: req.body.orderDetails ? req.body.orderDetails.addressId : null,

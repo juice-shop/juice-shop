@@ -1,4 +1,4 @@
-import { Component, Input, type OnInit, Output, EventEmitter, ViewChild, type DoCheck, KeyValueDiffers, type KeyValueDiffer } from '@angular/core'
+import { Component, Input, type OnInit, ViewChild, type DoCheck, KeyValueDiffers, type KeyValueDiffer } from '@angular/core'
 import { NgxTextDiffComponent } from 'ngx-text-diff'
 import { CookieService } from 'ngx-cookie'
 import { type DiffTableFormat } from 'ngx-text-diff/lib/ngx-text-diff.model'

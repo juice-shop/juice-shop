@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -60,7 +60,7 @@ describe('/rest/user/login', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'admin@' + config.get('application.domain'),
+        email: 'admin@' + config.get<string>('application.domain'),
         password: 'admin123'
       }
     })
@@ -75,7 +75,7 @@ describe('/rest/user/login', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'support@' + config.get('application.domain'),
+        email: 'support@' + config.get<string>('application.domain'),
         password: 'J6aVjTgOpRs@?5l!Zkq2AYnCE@RF$P'
       }
     })
@@ -90,7 +90,7 @@ describe('/rest/user/login', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'mc.safesearch@' + config.get('application.domain'),
+        email: 'mc.safesearch@' + config.get<string>('application.domain'),
         password: 'Mr. N00dles'
       }
     })
@@ -105,7 +105,7 @@ describe('/rest/user/login', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'amy@' + config.get('application.domain'),
+        email: 'amy@' + config.get<string>('application.domain'),
         password: 'K1f.....................'
       }
     })
@@ -120,7 +120,7 @@ describe('/rest/user/login', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'wurstbrot@' + config.get('application.domain'),
+        email: 'wurstbrot@' + config.get<string>('application.domain'),
         password: 'EinBelegtesBrotMitSchinkenSCHINKEN!'
       }
     })
@@ -168,7 +168,7 @@ describe('/rest/user/login', () => {
     return frisby.post(REST_URL + '/user/login', {
       header: jsonHeader,
       body: {
-        email: 'admin@' + config.get('application.domain') + '\'--',
+        email: 'admin@' + config.get<string>('application.domain') + '\'--',
         password: undefined
       }
     })
@@ -183,7 +183,7 @@ describe('/rest/user/login', () => {
     return frisby.post(REST_URL + '/user/login', {
       header: jsonHeader,
       body: {
-        email: 'jim@' + config.get('application.domain') + '\'--',
+        email: 'jim@' + config.get<string>('application.domain') + '\'--',
         password: undefined
       }
     })
@@ -198,7 +198,7 @@ describe('/rest/user/login', () => {
     return frisby.post(REST_URL + '/user/login', {
       header: jsonHeader,
       body: {
-        email: 'bender@' + config.get('application.domain') + '\'--',
+        email: 'bender@' + config.get<string>('application.domain') + '\'--',
         password: undefined
       }
     })
@@ -213,7 +213,7 @@ describe('/rest/user/login', () => {
     return frisby.post(REST_URL + '/user/login', {
       header: jsonHeader,
       body: {
-        email: `' UNION SELECT * FROM (SELECT 15 as 'id', '' as 'username', 'acc0unt4nt@${config.get('application.domain')}' as 'email', '12345' as 'password', 'accounting' as 'role', '' as deluxeToken, '1.2.3.4' as 'lastLoginIp' , '/assets/public/images/uploads/default.svg' as 'profileImage', '' as 'totpSecret', 1 as 'isActive', '1999-08-16 14:14:41.644 +00:00' as 'createdAt', '1999-08-16 14:33:41.930 +00:00' as 'updatedAt', null as 'deletedAt')--`,
+        email: `' UNION SELECT * FROM (SELECT 15 as 'id', '' as 'username', 'acc0unt4nt@${config.get<string>('application.domain')}' as 'email', '12345' as 'password', 'accounting' as 'role', '' as deluxeToken, '1.2.3.4' as 'lastLoginIp' , '/assets/public/images/uploads/default.svg' as 'profileImage', '' as 'totpSecret', 1 as 'isActive', '1999-08-16 14:14:41.644 +00:00' as 'createdAt', '1999-08-16 14:33:41.930 +00:00' as 'updatedAt', null as 'deletedAt')--`,
         password: undefined
       }
     })

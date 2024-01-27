@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
   -->
 
@@ -233,7 +233,7 @@
 
   <mat-divider *ngIf="scoreBoardVisible || showGitHubLink" style="margin-bottom: 10px;"></mat-divider>
 
-  <a *ngIf="scoreBoardVisible" mat-list-item [routerLink]="scoreBoardLink$ | async" (click)="onToggleSidenav()"
+  <a *ngIf="scoreBoardVisible" mat-list-item routerLink="/score-board" (click)="onToggleSidenav()"
      aria-label="Open score-board">
     <mat-icon matListIcon class="fas fa-trophy fa-lg"></mat-icon>
     <span class="menu-text truncate">

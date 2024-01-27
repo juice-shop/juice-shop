@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -9,8 +9,8 @@ import challengeUtils = require('../lib/challengeUtils')
 import { type NextFunction, type Request, type Response } from 'express'
 import path from 'path'
 import * as utils from '../lib/utils'
+import { challenges } from '../data/datacache'
 
-const challenges = require('../data/datacache').challenges
 const libxml = require('libxmljs2')
 const vm = require('vm')
 const unzipper = require('unzipper')

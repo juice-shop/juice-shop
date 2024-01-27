@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -52,7 +52,7 @@ describe('/chatbot', () => {
 
     it('GET bot state for authenticated users contains request for username', async () => {
       const { token } = await login({
-        email: `J12934@${config.get('application.domain')}`,
+        email: `J12934@${config.get<string>('application.domain')}`,
         password: '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
       })
 
@@ -73,7 +73,7 @@ describe('/chatbot', () => {
   describe('/respond', () => {
     it('Asks for username if not defined', async () => {
       const { token } = await login({
-        email: `J12934@${config.get('application.domain')}`,
+        email: `J12934@${config.get<string>('application.domain')}`,
         password: '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
       })
 
@@ -201,7 +201,7 @@ describe('/chatbot', () => {
 
     it('Greets back registered user after being told username', async () => {
       const { token } = await login({
-        email: `stan@${config.get('application.domain')}`,
+        email: `stan@${config.get<string>('application.domain')}`,
         password: 'ship coffin krypt cross estate supply insurance asbestos souvenir'
       })
       await frisby.setup({
@@ -283,7 +283,7 @@ describe('/chatbot', () => {
           'Content-Type': 'application/json'
         },
         body: {
-          email: `chatbot-testuser@${config.get('application.domain')}`,
+          email: `chatbot-testuser@${config.get<string>('application.domain')}`,
           password: 'testtesttest',
           username: '"',
           role: 'admin'
@@ -291,7 +291,7 @@ describe('/chatbot', () => {
       }).promise()
 
       const { token } = await login({
-        email: `chatbot-testuser@${config.get('application.domain')}`,
+        email: `chatbot-testuser@${config.get<string>('application.domain')}`,
         password: 'testtesttest'
       })
 

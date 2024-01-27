@@ -1,16 +1,16 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import config from 'config'
 import { type Request, type Response, type NextFunction } from 'express'
-import { type Memory } from '../data/types'
+import type { Memory as MemoryConfig } from '../lib/config.types'
 import { SecurityAnswerModel } from '../models/securityAnswer'
 import { UserModel } from '../models/user'
+import { challenges } from '../data/datacache'
 
 import challengeUtils = require('../lib/challengeUtils')
-const challenges = require('../data/datacache').challenges
 const users = require('../data/datacache').users
 const security = require('../lib/insecurity')
 
@@ -63,7 +63,7 @@ function verifySecurityAnswerChallenges (user: UserModel, answer: string) {
   challengeUtils.solveIf(challenges.resetPasswordUvoginChallenge, () => { return user.id === users.uvogin.id && answer === 'Silence of the Lambs' })
   challengeUtils.solveIf(challenges.geoStalkingMetaChallenge, () => {
     const securityAnswer = ((() => {
-      const memories: Memory[] = config.get('memories')
+      const memories = config.get<MemoryConfig[]>('memories')
       for (let i = 0; i < memories.length; i++) {
         if (memories[i].geoStalkingMetaSecurityAnswer) {
           return memories[i].geoStalkingMetaSecurityAnswer
@@ -74,7 +74,7 @@ function verifySecurityAnswerChallenges (user: UserModel, answer: string) {
   })
   challengeUtils.solveIf(challenges.geoStalkingVisualChallenge, () => {
     const securityAnswer = ((() => {
-      const memories: Memory[] = config.get('memories')
+      const memories = config.get<MemoryConfig[]>('memories')
       for (let i = 0; i < memories.length; i++) {
         if (memories[i].geoStalkingVisualSecurityAnswer) {
           return memories[i].geoStalkingVisualSecurityAnswer
