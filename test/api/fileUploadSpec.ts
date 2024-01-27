@@ -62,7 +62,7 @@ describe('/file-upload', () => {
       .expect('status', 410)
   })
 
-  if (!utils.disableOnContainerEnv()) {
+  if (!utils.disableOnContainerEnv() && !utils.disableOnFlagSet()) {
     it('POST file type XML with XXE attack against Windows', () => {
       const file = path.resolve(__dirname, '../files/xxeForWindows.xml')
       const form = frisby.formData()

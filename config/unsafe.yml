@@ -1,3 +1,2 @@
 challenges:
-  safetyOverride: true
-  safetyMode: false
+  safetyMode: off

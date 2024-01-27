@@ -154,7 +154,7 @@ export const randomHexString = (length: number) => {
 }
 
 export const disableOnContainerEnv = () => {
-  return (isDocker() || isGitpod() || isHeroku()) && !config.get('challenges.safetyOverride')
+  return (isDocker() || isGitpod() || isHeroku())
 }
 
 export const disableOnWindowsEnv = () => {
@@ -162,7 +162,7 @@ export const disableOnWindowsEnv = () => {
 }
 
 export const disableOnFlagSet = ()=>{
-  return config.get('challenges.safetyMode')
+  return (config.get('challenges.safetyMode')!== "on" ? false : true)
 }
 
 export const determineDisabledEnv = (disabledEnv: string | string[] | undefined) => {
@@ -174,6 +174,8 @@ export const determineDisabledEnv = (disabledEnv: string | string[] | undefined)
     return disabledEnv && (disabledEnv === 'Windows' || disabledEnv.includes('Windows')) ? 'Windows' : null
   } else if (isGitpod()) {
     return disabledEnv && (disabledEnv === 'Gitpod' || disabledEnv.includes('Gitpod')) ? 'Gitpod' : null
+  }else if(disableOnFlagSet()){
+    return "SafetyMode"
   }
   return null
 }
