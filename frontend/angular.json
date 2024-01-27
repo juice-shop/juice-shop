@@ -31,8 +31,7 @@
               "node_modules/font-mfizz/dist/font-mfizz.css",
               "node_modules/highlight.js/styles/github.css",
               "node_modules/codemirror/lib/codemirror.css",
-              "node_modules/codemirror/theme/dracula.css",
-              "node_modules/ngx-spinner/animations/timer.css"
+              "node_modules/codemirror/theme/dracula.css"
             ],
             "allowedCommonJsDependencies": [
               "jwt-decode",
