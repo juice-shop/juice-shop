@@ -83,7 +83,7 @@ async function createChallenges () {
           hint: showHints ? hint : null,
           hintUrl: showHints ? hintUrl : null,
           mitigationUrl: showMitigations ? mitigationUrl : null,
-          disabledEnv: !config.get<boolean>('challenges.safetyMode') ? ((config.get('challenges.safetyMode') !== "on") ? null : effectiveDisabledEnv) : ((tags != null) ? tags.join(',') : undefined)?.includes('Danger Zone') ? effectiveDisabledEnv : null,
+          disabledEnv: !config.get<string>('challenges.safetyMode') ? ((config.get('challenges.safetyMode') !== "on") ? null : effectiveDisabledEnv) : ((tags != null) ? tags.join(',') : undefined)?.includes('Danger Zone') ? effectiveDisabledEnv : null,
           tutorialOrder: (tutorial != null) ? tutorial.order : null,
           codingChallengeStatus: 0
         })
