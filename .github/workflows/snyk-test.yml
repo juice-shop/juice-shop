@@ -2,9 +2,11 @@ name: Snyk - Actions - webinar
 on: workflow_dispatch
 jobs:
   build:
-    name: Install npm
-    environment: npm install
     runs-on: ubuntu-latest
+    steps:
+       - name: Install npm
+         run: npm install
+      
     
   security:
     runs-on: ubuntu-latest
