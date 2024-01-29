@@ -1,20 +1,25 @@
 name: Snyk - Actions - webinar
 on: workflow_dispatch
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-       - name: Install npm
-         run: npm install
-      
-    
+  # build:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #      - name: Install npm
+  #        run: npm install
   security:
     runs-on: ubuntu-latest
     steps:
-      # - uses: actions/checkout@master
-      # - name: Install npm
-      #   run: npm install
+      - uses: actions/checkout@master
+      - name: Install npm
+        run: npm install
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
+        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk.sarif
