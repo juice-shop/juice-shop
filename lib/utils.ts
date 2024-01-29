@@ -164,8 +164,6 @@ export const determineDisabledEnv = (disabledEnv: string | string[] | undefined)
     return disabledEnv != null && (disabledEnv === 'Windows' || disabledEnv?.includes('Windows')) ? 'Windows' : null
   } else if (isGitpod()) {
     return disabledEnv && (disabledEnv === 'Gitpod' || disabledEnv.includes('Gitpod')) ? 'Gitpod' : null
-  }else if(disableOnFlagSet()){
-    return "SafetyMode"
   }
   return null
 }
