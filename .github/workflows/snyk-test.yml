@@ -1,13 +1,17 @@
 name: Snyk - Actions - webinar
 on: workflow_dispatch
 jobs:
+  build:
+    name: Install npm
+    environment: npm install
+    runs-on: ubuntu-latest
+    
   security:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: Install npm
-        run: npm install
-        
+      # - uses: actions/checkout@master
+      # - name: Install npm
+      #   run: npm install
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
         env:
