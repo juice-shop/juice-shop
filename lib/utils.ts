@@ -151,8 +151,8 @@ export const disableOnWindowsEnv = (): boolean => {
   return isWindows()
 }
 
-export const disableOnFlagSet = ()=>{
-  return (config.get('challenges.safetyMode')!== "on" ? false : true)
+export const disableOnFlagSet = () => {
+  return !(config.get('challenges.safetyMode') !== 'on')
 }
 
 export const determineDisabledEnv = (disabledEnv: string | string[] | undefined) => {
