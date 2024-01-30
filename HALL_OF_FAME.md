@@ -9,6 +9,7 @@
 - [Timo Pagel](https://github.com/wurstbrot) aka `wurstbrot`
 - [Shubham Palriwala](https://github.com/ShubhamPalriwala) aka `ShubhamPalriwala`
 
+
 ## GitHub Contributors
 
 As reported by [`git-stats -a -s '2014'`](https://www.npmjs.com/package/git-stats) analysis of `master` as of Fri, 08 Sep
