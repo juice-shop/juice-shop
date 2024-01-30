@@ -55,7 +55,7 @@ jobs:
             changed_files=$(git diff --name-only ${{ github.event.before }}...${{ github.event.after }})
 
             # Run semgrep only on the changed files
-            semgrep --config=my_rules.yaml --json $changed_files
+            semgrep --json --output $ARTIFACT_PATH --config="p/default"
           else
             echo "Semgrep scan is skipped for non-pull request events."
           fi
