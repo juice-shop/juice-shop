@@ -27,6 +27,5 @@ export default function isDocker () {
   if (isDockerCached === undefined) {
     isDockerCached = hasDockerEnv() || hasDockerCGroup()
   }
-
   return isDockerCached
 }
