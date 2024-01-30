@@ -83,7 +83,7 @@ async function createChallenges () {
           hint: showHints ? hint : null,
           hintUrl: showHints ? hintUrl : null,
           mitigationUrl: showMitigations ? mitigationUrl : null,
-          disabledEnv: !utils.disableOnFlagSet() ? ((config.get('challenges.safetyMode') === 'off') ? null : (key.includes('jwtForged') && utils.disableOnWindowsEnv() ? 'safetyMode' : effectiveDisabledEnv)) : ((tags != null) ? tags.join(',') : 'null')?.includes('Danger Zone') || key?.includes('jwt') ? 'safetyMode' : null,
+          disabledEnv: !utils.disableOnFlagSet() ? ((config.get('challenges.safetyMode') === 'off') ? (key.includes('jwtForged') && utils.disableOnWindowsEnv() ? 'safetyMode' : null) : (key.includes('jwtForged') && utils.disableOnWindowsEnv() ? 'safetyMode' : effectiveDisabledEnv)) : ((tags != null) ? tags.join(',') : 'null')?.includes('Danger Zone') || key?.includes('jwtForged') ? 'safetyMode' : null,
           tutorialOrder: (tutorial != null) ? tutorial.order : null,
           codingChallengeStatus: 0
         })
