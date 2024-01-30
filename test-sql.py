@@ -1,4 +1,4 @@
-##to check the semgrep action 
+##to check the semgrep action for pull request
 def search():
     code = request.args.get('code')
     conn = sqlite3.connect("data.db")
