@@ -144,7 +144,7 @@ export const randomHexString = (length: number): string => {
 }
 
 export const disableOnContainerEnv = () => {
-  return (isDocker() || isGitpod() || isHeroku())
+  return (isDocker() || isGitpod() || isHeroku()) && (config.get('challenges.safetyMode') !== 'off')
 }
 
 export const disableOnWindowsEnv = (): boolean => {
