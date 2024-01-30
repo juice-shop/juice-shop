@@ -47,7 +47,7 @@ jobs:
 
       - name: Run full scan with Semgrep 
         run: |
-          semgrep scan --json --output $ARTIFACT_PATH --config="p/default"
+          semgrep ci --json --output $ARTIFACT_PATH --config="p/default"
           ls -alh $ARTIFACT_PATH
         continue-on-error: true
       
@@ -151,7 +151,7 @@ jobs:
             ${{ env.CODE_SCANNING_FILE }}
             ${{ env.ARTIFACT_PATH }}
       
-      - name: Email the result 
+      - name: Email the result (might change to send )
         if: ${{ env.empty_issue_list != 0 }}
         run: | 
           bash -s << 'EOF'
