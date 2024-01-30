@@ -125,9 +125,10 @@ jobs:
             # compare the results from the previous run with the current run
             diff_results=$(diff -u "$WORKFLOWDIR/results-prev" "$WORKFLOWDIR/results-current")
             new_vulnerabilities=$(echo "$diff_results" | grep '^+\[' | wc -l)
-            echo "new_vulnerabilities=$new_vulnerabilities" >> $GITHUB_ENV
+            echo "- Number of new vulnerabilities in this scan: $new_vulnerabilities" >> $SUM_FILE
           else
-            echo "This repository has not been scanned previosly."     
+            echo "This repository has not been scanned previosly."  
+            echo "new_vulnerabilities=$new_vulnerabilities" >> $GITHUB_ENV   
           fi
           EOF
         continue-on-error: true 
@@ -152,7 +153,7 @@ jobs:
             ${{ env.ARTIFACT_PATH }}
       
       - name: Email the result (might change to send )
-        if: ${{ env.empty_issue_list != 0 }}
+        if: ${{ env.empty_issue_list != 0 && env.new_vulnerabilities !=0 }}
         run: | 
           bash -s << 'EOF'
           
