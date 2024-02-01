@@ -1,0 +1,10 @@
+# Example analysis remediation config
+methods:
+  # - method: org.slf4j.Logger.info:void(java.lang.String,java.lang.Object)
+  #   tags:
+  #     - key: category
+  #       value: Sensitive Data Leak
+    - pattern: '.*'
+      tags:
+        - key: category
+          value: Sensitive Data Exposure
