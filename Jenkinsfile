@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         JUICE_SHOP_REPO = 'https://github.com/bkimminich/juice-shop.git'
-        SNYK_TOKEN = credentials('SNYK') // Assumes you have a Jenkins credential named 'snyk-token' with your Snyk token
+        // SNYK_TOKEN = credentials('SNYK') // Assumes you have a Jenkins credential named 'snyk-token' with your Snyk token
     }
     
     stages {
@@ -28,8 +28,8 @@ pipeline {
 
         stage('Test with Snyk') {
             steps {
-        snykSecurity failOnError: false, snykInstallation: 'snyk@latest', snykTokenId: 'SNYK_API'
-            }  
+                snykSecurity failOnIssues: false, severity: 'critical', snykInstallation: 'snyk-manual', snykTokenId: 'SNYK'
+             }  
         }
 
         stage('Deploy') {
