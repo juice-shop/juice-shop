@@ -28,7 +28,7 @@ pipeline {
 
         stage('Test with Snyk') {
             steps {
-        snykSecurity failOnError: false, snykInstallation: 'snyk-manual', snykTokenId: 'SNYK'
+        snykSecurity failOnError: false, snykInstallation: 'snyk@latest', snykTokenId: 'SNYK_API'
             }  
         }
 
