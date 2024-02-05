@@ -1,4 +1,4 @@
-name: Snyk - Actions - webinar
+name: Snyk - SCA fail
 on: workflow_dispatch #push #pull_request
 jobs:
   security:
