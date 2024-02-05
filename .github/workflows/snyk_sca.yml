@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: build
-      - run: echo test
+        run: echo test
   security:
     runs-on: ubuntu-latest
     steps:
