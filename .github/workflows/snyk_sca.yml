@@ -1,0 +1,17 @@
+name: Snyk - Actions - webinar
+on: workflow_dispatch #push #pull_request
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Install npm
+        run: npm install
+        
+      - name: Run Snyk Open-Source
+        uses: snyk/actions/node@master
+        continue-on-error: false
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: test
