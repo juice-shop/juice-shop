@@ -3,6 +3,9 @@ on: workflow_dispatch #push #pull_request
 jobs:
   build:
     runs-on: ubuntu-latest
+    steps:
+      - name: build
+      - run: echo test
   security:
     runs-on: ubuntu-latest
     steps:
