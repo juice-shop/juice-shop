@@ -1,0 +1,65 @@
+name: Snyk - Webinar
+on: workflow_dispatch #push #pull_request
+jobs:
+  configure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure
+        run: echo configure
+  checkout:
+    needs: configure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Checkout
+        run: echo checkout
+  build:
+    needs: checkout
+    runs-on: ubuntu-latest
+    steps:
+      # - uses: actions/checkout@master
+      - name: Install npm
+        run: npm install     
+  security_gate_snyk_code:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Snyk Code
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: code test
+          args: --sarif-file-output=snyk_code.sarif
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: snyk_code.sarif
+  security_gate_snyk_opec_source:
+    needs: security_gate_snyk_code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Snyk Open-Source
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: test
+          args: --sarif-file-output=snyk_sca.sarif
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: snyk_sca.sarif
+  snyk_monitoring:
+    needs: security_gate_snyk_opec_source
+    runs-on: ubuntu-latest
+    steps:
+      - name: Apply Snyk monitor
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: monitor
