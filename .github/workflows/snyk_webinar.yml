@@ -46,6 +46,7 @@ jobs:
         with:
           sarif_file: snyk_sca.sarif   
   security_gate_snyk_code:
+    needs: build
     # needs: snyk_monitor_SCA
     runs-on: ubuntu-latest
     steps:
