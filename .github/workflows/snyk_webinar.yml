@@ -21,10 +21,10 @@ jobs:
       - name: Install npm
         run: npm install     
   security_gate_snyk_code:
-    needs: [checkout, build]
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
-      # - uses: actions/checkout@master
+      - uses: actions/checkout@master
       - name: Run Snyk Code
         uses: snyk/actions/node@master
         continue-on-error: true
@@ -38,10 +38,10 @@ jobs:
         with:
           sarif_file: snyk_code.sarif
   security_gate_snyk_opec_source:
-    needs: [checkout, build]
+    needs: [build, security_gate_snyk_code]
     runs-on: ubuntu-latest
     steps:
-      # - uses: actions/checkout@master
+      - uses: actions/checkout@master
       - name: Run Snyk Open-Source
         uses: snyk/actions/node@master
         continue-on-error: true
@@ -55,7 +55,7 @@ jobs:
         with:
           sarif_file: snyk_sca.sarif
   snyk_monitoring:
-    needs: [checkout, build]
+    needs: security_gate_snyk_opec_source
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
