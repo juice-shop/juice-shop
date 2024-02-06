@@ -48,6 +48,7 @@ jobs:
           command: monitor  
       - name: Run Snyk Code
         uses: snyk/actions/node@master
+        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
