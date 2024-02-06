@@ -38,7 +38,7 @@ jobs:
         with:
           sarif_file: snyk_code.sarif
   security_gate_snyk_opec_source:
-    needs: [build]
+    needs: [security_gate_snyk_code]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
