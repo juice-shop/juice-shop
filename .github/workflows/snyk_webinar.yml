@@ -17,7 +17,7 @@ jobs:
     needs: checkout
     runs-on: ubuntu-latest
     steps:
-      # - uses: actions/checkout@master
+      - uses: actions/checkout@master
       - name: Install npm
         run: npm install     
   security_gate_snyk_code:
