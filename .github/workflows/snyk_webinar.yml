@@ -24,6 +24,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@master
       - name: Run Snyk Code
         uses: snyk/actions/node@master
         continue-on-error: true
@@ -40,6 +41,7 @@ jobs:
     needs: security_gate_snyk_code
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@master
       - name: Run Snyk Open-Source
         uses: snyk/actions/node@master
         continue-on-error: true
@@ -56,6 +58,7 @@ jobs:
     needs: security_gate_snyk_opec_source
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@master
       - name: Apply Snyk monitor
         uses: snyk/actions/node@master
         continue-on-error: true
