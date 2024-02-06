@@ -23,14 +23,14 @@ jobs:
   snyk_security_gate:
     needs: build
     runs-on: ubuntu-latest
-    continue-on-error: false
+    continue-on-error: true
     steps:
       - uses: actions/checkout@master
       - name: npm install
         run: npm install
       - name: Run Snyk Open-Source
         uses: snyk/actions/node@master
-        continue-on-error: true
+        # continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
@@ -48,7 +48,7 @@ jobs:
           command: monitor  
       - name: Run Snyk Code
         uses: snyk/actions/node@master
-        continue-on-error: true
+        # continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
