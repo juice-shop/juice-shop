@@ -21,15 +21,15 @@ jobs:
       - name: Install npm
         run: echo install
   security_gate_snyk_open_source:
-    needs: [build]
+    needs: build
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - uses: actions/checkout@master
       - name: Install npm
         run: npm install
       - name: Run Snyk Open-Source
         uses: snyk/actions/node@master
-        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
