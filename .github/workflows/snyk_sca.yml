@@ -4,15 +4,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: build
-        run: echo test
-  security:
-    runs-on: ubuntu-latest
-    steps:
       - uses: actions/checkout@master
       - name: Install npm
         run: npm install
         
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      # - name: Install npm
+      #   run: npm install  
       - name: Run Snyk Open-Source
         uses: snyk/actions/node@master
         continue-on-error: false
