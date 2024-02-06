@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@master
       - name: Install npm
         run: echo install
-  security_gate_snyk_opec_source:
+  security_gate_snyk_open_source:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
@@ -40,8 +40,20 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: snyk_sca.sarif
+  snyk_monitor_SCA:
+    needs: security_gate_snyk_open_source
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Apply Snyk monitor
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: monitor
   security_gate_snyk_code:
-    needs: [security_gate_snyk_opec_source]
+    needs: snyk_monitor_SCA
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -57,15 +69,9 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: snyk_code.sarif
-  snyk_monitoring:
-    needs: security_gate_snyk_opec_source
+  deploy:
+    needs: security_gate_snyk_code
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: Apply Snyk monitor
-        uses: snyk/actions/node@master
-        continue-on-error: true
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          command: monitor
+      - name: Deploy
+        run: echo deploy
