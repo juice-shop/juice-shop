@@ -23,7 +23,7 @@ jobs:
   snyk_security_gate:
     needs: build
     runs-on: ubuntu-latest
-    continue-on-error: true
+    continue-on-error: false
     steps:
       - uses: actions/checkout@master
       - name: npm install
@@ -37,16 +37,19 @@ jobs:
           command: test
           args: --sarif-file-output=snyk_sca.sarif
       - name: Upload result to GitHub Code Scanning - SCA
+        if: always()
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: snyk_sca.sarif   
       - name: Apply Snyk monitor
+        if: always()
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           command: monitor  
       - name: Run Snyk Code
+        if: always()
         uses: snyk/actions/node@master
         # continue-on-error: true
         env:
@@ -55,6 +58,7 @@ jobs:
           command: code test
           args: --sarif-file-output=snyk_code.sarif --severity-threshold=high
       - name: Upload result to GitHub Code Scanning - SAST
+        if: always()
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: snyk_code.sarif  
