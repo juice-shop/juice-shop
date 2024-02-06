@@ -20,13 +20,13 @@ jobs:
       - uses: actions/checkout@master
       - name: Install npm
         run: echo install
-  security_gate_snyk_open_source:
+  snyk_security_gate:
     needs: build
     runs-on: ubuntu-latest
     continue-on-error: false
     steps:
       - uses: actions/checkout@master
-      - name: Install npm
+      - name: npm install
         run: npm install
       - name: Run Snyk Open-Source
         uses: snyk/actions/node@master
@@ -35,36 +35,29 @@ jobs:
         with:
           command: test
           args: --sarif-file-output=snyk_sca.sarif
+      - name: Upload result to GitHub Code Scanning - SCA
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: snyk_sca.sarif   
       - name: Apply Snyk monitor
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          command: monitor   
-      - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: snyk_sca.sarif   
-  security_gate_snyk_code:
-    needs: build
-    # needs: snyk_monitor_SCA
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
+          command: monitor  
       - name: Run Snyk Code
         uses: snyk/actions/node@master
-        continue-on-error: false
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           command: code test
           args: --sarif-file-output=snyk_code.sarif --severity-threshold=high
-      - name: Upload result to GitHub Code Scanning
+      - name: Upload result to GitHub Code Scanning - SAST
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: snyk_code.sarif
+          sarif_file: snyk_code.sarif  
   deploy:
-    needs: security_gate_snyk_code
+    needs: snyk_security_gate
     runs-on: ubuntu-latest
     steps:
       - name: Deploy
