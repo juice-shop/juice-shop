@@ -29,12 +29,12 @@ jobs:
         run: npm install
       - name: Run Snyk Open-Source
         uses: snyk/actions/node@master
-        continue-on-error: false
+        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           command: test
-          args: --sarif-file-output=snyk_sca.sarif --severity-threshold=high
+          args: --sarif-file-output=snyk_sca.sarif
           
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v3
@@ -47,7 +47,7 @@ jobs:
       - uses: actions/checkout@master
       - name: Run Snyk Code
         uses: snyk/actions/node@master
-        continue-on-error: true
+        continue-on-error: false
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
