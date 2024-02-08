@@ -1,0 +1,69 @@
+name: Snyk - Webinar - 
+on: workflow_dispatch #push #pull_request
+jobs:
+  configure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure
+        run: echo configure
+  checkout:
+    needs: configure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Checkout
+        run: echo checkout
+  build:
+    needs: checkout
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Install npm
+        run: echo install
+  snyk_security_gate:
+    needs: build
+    runs-on: ubuntu-latest
+    continue-on-error: false
+    steps:
+      - uses: actions/checkout@master
+      - name: npm install
+        run: npm install
+      - name: Run Snyk Open-Source
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN_DEMO }}
+        with:
+          command: test
+          args: --sarif-file-output=snyk_sca.sarif
+      - name: Upload result to GitHub Code Scanning - SCA
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: snyk_sca.sarif   
+      - name: Apply Snyk monitor
+        if: always()
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: monitor  
+      - name: Run Snyk Code
+        if: always()
+        uses: snyk/actions/node@master
+        # continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: code test
+          args: --sarif-file-output=snyk_code.sarif --severity-threshold=high
+      - name: Upload result to GitHub Code Scanning - SAST
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: snyk_code.sarif  
+  deploy:
+    needs: snyk_security_gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        run: echo deploy
