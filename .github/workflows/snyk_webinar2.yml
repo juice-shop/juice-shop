@@ -1,4 +1,4 @@
-name: Snyk - Webinar - wersja online
+name: Pipeline1
 on: workflow_dispatch #push #pull_request
 jobs:
   configure:
