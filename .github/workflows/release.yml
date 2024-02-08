@@ -44,7 +44,7 @@ jobs:
       - name: 'Attach packaged archive to tag release'
         uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844 #v0.1.15
         with:
-          draft: true
+          draft: false
           files: dist/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
