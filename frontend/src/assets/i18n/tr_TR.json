@@ -345,6 +345,7 @@
   "CONFIRM_RECYCLING_BOX": "Çevre dostu geri dönüşüm self servisimizi kullandığınız için teşekkür ederiz. Size en kısa zamanda bir püre geri dönüşüm kutusu göndereceğiz.",
   "CONFIRM_RECYCLING_PICKUP": "Geri dönüşüm hizmetimizi kullandığınız için teşekkür ederiz. {{pickupdate}} tarihinde pürenizi alacağız.",
   "CHALLENGE_UNAVAILABLE": "Bu meydan okuma, bir {{env}} ortamında mevcut değil!",
+  "CHALLENGE_UNAVAILABLE_SAFETYMODE": "Bu zorluk, uygulamanın güvenlik modunda çalıştığı için kullanılamıyor!",
   "CLICK_FOR_MORE_HINTS": "Daha fazla ipucu için tıklayın.",
   "CLICK_TO_OPEN_HINTS": "İpuçlarını açmak için tıklayın.",
   "BONUS_POINTS_EARNED": "Kazanılan Bonus Puanlar: {{bonus}}",

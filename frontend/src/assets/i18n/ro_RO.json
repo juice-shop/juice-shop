@@ -345,6 +345,7 @@
   "CONFIRM_RECYCLING_BOX": "Îți mulțumim că folosești serviciul nostru de reciclare ecologic. Îți vom trimite o casetă de reciclare a pomiștilor.",
   "CONFIRM_RECYCLING_PICKUP": "Vă mulțumim pentru utilizarea serviciului nostru convenabil de reciclare. Vă vom ridica pompa de pe {{pickupdate}}.",
   "CHALLENGE_UNAVAILABLE": "Această provocare nu este disponibilă într-un mediu {{env}}!",
+  "CHALLENGE_UNAVAILABLE_SAFETYMODE": "Această provocare nu este disponibilă deoarece aplicația rulează în modul de siguranță!",
   "CLICK_FOR_MORE_HINTS": "Apasă aici pentru mai multe indicii.",
   "CLICK_TO_OPEN_HINTS": "Apasă aici pentru a deschide indicii.",
   "BONUS_POINTS_EARNED": "Puncte bonus câștigate: {{bonus}}",
