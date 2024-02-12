@@ -1,0 +1,39 @@
+name: Deploy Juice Shop to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install AWS CLI
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y awscli
+
+    - name: Deploy Juice Shop
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        EC2_INSTANCE_IP: 54.152.65.34
+      run: |
+        # Install node.js
+        curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+        sudo apt-get install -y nodejs
+
+        # Clone Juice Shop repository
+        git clone https://github.com/juice-shop/juice-shop.git --depth 1
+        cd juice-shop
+
+        # Install dependencies
+        npm install
+
+        # Start Juice Shop
+        npm start
