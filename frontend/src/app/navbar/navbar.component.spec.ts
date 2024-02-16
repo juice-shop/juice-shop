@@ -33,10 +33,10 @@ import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatGridListModule } from '@angular/material/grid-list'
-import { NgMatSearchBarModule } from 'ng-mat-search-bar'
 import { LoginGuard } from '../app.guard'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatSearchBarComponent } from '../mat-search-bar/mat-search-bar.component'
 
 class MockSocket {
   on (str: string, callback: any) {
@@ -79,7 +79,7 @@ describe('NavbarComponent', () => {
     loginGuard.tokenDecode.and.returnValue(of(true))
 
     TestBed.configureTestingModule({
-      declarations: [NavbarComponent, SearchResultComponent],
+      declarations: [NavbarComponent, SearchResultComponent, MatSearchBarComponent],
       imports: [
         RouterTestingModule.withRoutes([
           { path: 'search', component: SearchResultComponent }
@@ -102,7 +102,6 @@ describe('NavbarComponent', () => {
         MatDialogModule,
         MatDividerModule,
         MatGridListModule,
-        NgMatSearchBarModule,
         MatRadioModule,
         MatSnackBarModule
       ],

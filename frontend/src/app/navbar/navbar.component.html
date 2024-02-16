@@ -19,8 +19,8 @@
 
     <span class="fill-remaining-space"></span>
 
-    <mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"
-                    aria-label="Click to search"></mat-search-bar>
+    <app-mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"
+                    aria-label="Click to search"></app-mat-search-bar>
 
     <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle; height:48px;" class="buttons"
             fxHide.lt-md fxShow aria-label="Show/hide account menu" id="navbarAccount">
