@@ -29,3 +29,13 @@ button {
   text-align: justify;
   text-justify: inter-word;
 }
+
+.caption {
+  color: rgb(255, 255, 255);
+  background-color: rgba(0, 0, 0, 0.35);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 10px;
+  width: 100%;
+}
