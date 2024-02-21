@@ -7,7 +7,7 @@ import { Component, type OnInit } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
 import { ConfigurationService } from '../Services/configuration.service'
 import { FeedbackService } from '../Services/feedback.service'
-import { type GalleryRef } from 'ng-gallery'
+import { Gallery, type GalleryRef } from 'ng-gallery'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faFacebook, faReddit, faSlack, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { faNewspaper, faStar } from '@fortawesome/free-regular-svg-icons'
@@ -53,10 +53,12 @@ export class AboutComponent implements OnInit {
   constructor (
     private readonly configurationService: ConfigurationService,
     private readonly feedbackService: FeedbackService,
-    private readonly sanitizer: DomSanitizer
+    private readonly sanitizer: DomSanitizer,
+    private readonly gallery: Gallery
   ) {}
 
   ngOnInit () {
+    this.galleryRef = this.gallery.ref('feedback-gallery')
     this.populateSlideshowFromFeedbacks()
     this.configurationService.getApplicationConfiguration()
       .pipe(
