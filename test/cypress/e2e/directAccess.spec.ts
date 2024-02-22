@@ -51,7 +51,7 @@ describe('/', () => {
     it('should be able to access the crazy cat photo', () => {
       // cy.visit requires a text/html response and this is an image hence cy.request has been used
       cy.request(
-        '/assets/public/images/uploads/%F0%9F%98%BC-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg'
+        '/assets/public/images/uploads/%E1%93%9A%E1%98%8F%E1%97%A2-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg'
       )
       cy.expectChallengeSolved({ challenge: 'Missing Encoding' })
     })
