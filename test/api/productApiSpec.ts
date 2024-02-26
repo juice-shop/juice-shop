@@ -43,7 +43,7 @@ describe('/api/Products', () => {
       .expect('status', 401)
   })
 
-  if (!utils.disableOnContainerEnv() && !utils.disableOnFlagSet()) {
+  if (!utils.disableOnContainerEnv()) {
     it('POST new product does not filter XSS attacks', () => {
       return frisby.post(API_URL + '/Products', {
         headers: authHeader,
