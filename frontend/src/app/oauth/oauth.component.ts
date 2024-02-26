@@ -5,7 +5,7 @@
 
 import { ActivatedRoute, Router } from '@angular/router'
 import { UserService } from '../Services/user.service'
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngy-cookie'
 import { Component, NgZone, type OnInit } from '@angular/core'
 
 @Component({
