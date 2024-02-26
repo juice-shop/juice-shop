@@ -175,6 +175,7 @@
     "sequelize": "^6.15.1",
     "serve-index": "^1.9.1",
     "socket.io": "^3.1.0",
+    "styled-components": "^5.3.5",
     "sqlite3": "^5.0.8",
     "svg-captcha": "^1.4.0",
     "swagger-ui-express": "^5.0.0",
