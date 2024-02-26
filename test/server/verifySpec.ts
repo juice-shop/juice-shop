@@ -288,7 +288,7 @@ describe('verify', () => {
       expect(challenges.jwtForgedChallenge.solved).to.equal(false)
     })
 
-    if (!utils.disableOnWindowsEnv() && (!utils.disableOnFlagSet() && config.get('challenges.safetyMode') !== 'off')) {
+    if (!utils.disableOnWindowsEnv()) {
       it('"jwtForgedChallenge" is solved when forged token HMAC-signed with public RSA-key has email rsa_lord@juice-sh.op in the payload', () => {
         /*
         Header: { "alg": "HS256", "typ": "JWT" }
