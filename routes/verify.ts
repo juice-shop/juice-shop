@@ -293,7 +293,7 @@ function typosquattingNpmChallenge () {
 }
 
 function typosquattingAngularChallenge () {
-  FeedbackModel.findAndCountAll({ where: { comment: { [Op.like]: '%anuglar2-qrcode%' } } }
+  FeedbackModel.findAndCountAll({ where: { comment: { [Op.like]: '%ngy-cookie%' } } }
   ).then(({ count }: { count: number }) => {
     if (count > 0) {
       challengeUtils.solve(challenges.typosquattingAngularChallenge)
@@ -301,7 +301,7 @@ function typosquattingAngularChallenge () {
   }).catch(() => {
     throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
-  ComplaintModel.findAndCountAll({ where: { message: { [Op.like]: '%anuglar2-qrcode%' } } }
+  ComplaintModel.findAndCountAll({ where: { message: { [Op.like]: '%ngy-cookie%' } } }
   ).then(({ count }: { count: number }) => {
     if (count > 0) {
       challengeUtils.solve(challenges.typosquattingAngularChallenge)
