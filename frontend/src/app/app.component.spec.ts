@@ -33,7 +33,7 @@ import { LoginGuard } from './app.guard'
 import { MatInputModule } from '@angular/material/input'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatSearchBarComponent } from './mat-search-bar/mat-search-bar.component'
-import { CookieModule } from 'ngx-cookie'
+import { CookieModule } from 'ngy-cookie'
 
 describe('AppComponent', () => {
   let app: AppComponent
