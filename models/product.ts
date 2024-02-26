@@ -43,7 +43,7 @@ const ProductModelInit = (sequelize: Sequelize) => {
       description: {
         type: DataTypes.STRING,
         set (description: string) {
-          if (!utils.disableOnContainerEnv() && !utils.disableOnFlagSet()) {
+          if (!utils.disableOnContainerEnv()) {
             challengeUtils.solveIf(challenges.restfulXssChallenge, () => {
               return utils.contains(
                 description,

@@ -5,7 +5,7 @@
   </ng-container>
   <span *ngIf="disabledBecauseOfEnv !=='safetyMode'" warning-text [innerHTML]="'INFO_DISABLED_CHALLENGES' | translate: {num: numberOfDisabledChallenges, env: disabledBecauseOfEnv}">
     </span>
-    <span *ngIf="disabledBecauseOfEnv ==='safetyMode'" warning-text [innerHTML]="'INFO_DISABLED_CHALLENGES' | translate: {num: numberOfDisabledChallenges,env:'safety mode being turned on'}"></span>
+    <span *ngIf="disabledBecauseOfEnv ==='safetyMode'" warning-text [innerHTML]="'INFO_DISABLED_CHALLENGES' | translate: {num: numberOfDisabledChallenges-numberOfDisabledChallengesOnWindows,env:'safety mode being turned on'}"></span>
   <button warning-action mat-button color="accent" (click)="toggleShowDisabledChallenges()">
     <ng-container *ngIf="filterSetting.showDisabledChallenges == false">
       {{ 'SHOW_DISABLED_CHALLENGES' | translate }}
