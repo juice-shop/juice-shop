@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-builders/custom-webpack": "^17.0.1",
     "@angular-material-extensions/password-strength": "^6.0.0",
     "@angular/animations": "^17.2.1",
     "@angular/cdk": "^14.0.4",
@@ -65,7 +66,6 @@
     "zustand": "4.4.1"
   },
   "devDependencies": {
-    "@angular-builders/custom-webpack": "^17.0.1",
     "@angular-devkit/build-angular": "^17.2.0",
     "@angular-devkit/core": "^17.2.0",
     "@angular-devkit/schematics": "^17.2.0",
