@@ -1,6 +1,6 @@
 import { type ControlValueAccessor } from '@angular/forms'
 
-export abstract class AbstractControlValueAccessor<T>
+export abstract class AbstractControlValueAccessor
 implements ControlValueAccessor {
   value: string
 
