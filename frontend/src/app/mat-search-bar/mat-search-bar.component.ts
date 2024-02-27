@@ -39,7 +39,7 @@ import { AbstractControlValueAccessor } from './abstract-value-accessor'
     }
   ]
 })
-export class MatSearchBarComponent extends AbstractControlValueAccessor<string>
+export class MatSearchBarComponent extends AbstractControlValueAccessor
   implements OnInit {
   @ViewChild('input') inputElement: ElementRef
 
