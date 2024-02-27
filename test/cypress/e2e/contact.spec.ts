@@ -109,9 +109,9 @@ describe('/#/contact', () => {
   })
 
   describe('challenge "typosquattingAngular"', () => {
-    it('should be possible to post typosquatting Bower package as feedback', () => {
+    it('should be possible to post typosquatting NPM package as feedback', () => {
       cy.get('#comment').type(
-        'You are a typosquatting victim of this Bower package: anuglar2-qrcode'
+        'You are a typosquatting victim of this NPM package: ngy-cookie'
       )
       cy.get('#rating').click()
       cy.get('#submitButton').click()

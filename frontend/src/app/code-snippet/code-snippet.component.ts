@@ -5,7 +5,7 @@
 
 import { CodeSnippetService, type CodeSnippet } from '../Services/code-snippet.service'
 import { CodeFixesService } from '../Services/code-fixes.service'
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngy-cookie'
 import { ChallengeService } from '../Services/challenge.service'
 import { VulnLinesService, type result } from '../Services/vuln-lines.service'
 import { Component, Inject, type OnInit } from '@angular/core'

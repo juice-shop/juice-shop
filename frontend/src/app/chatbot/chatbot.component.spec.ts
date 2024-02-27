@@ -18,7 +18,7 @@ import { of } from 'rxjs'
 
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { EventEmitter } from '@angular/core'
-import { CookieModule } from 'ngx-cookie'
+import { CookieModule } from 'ngy-cookie'
 
 enum MessageSources {
   user = 'user',

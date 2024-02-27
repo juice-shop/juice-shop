@@ -7,11 +7,12 @@ import { Component, type OnInit } from '@angular/core'
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { mimeType } from './mime-type.validator'
 import { PhotoWallService } from '../Services/photo-wall.service'
-import { type IImage } from 'ng-simple-slideshow'
 import { ConfigurationService } from '../Services/configuration.service'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
+import { catchError } from 'rxjs/operators'
+import { EMPTY } from 'rxjs'
 
 library.add(faTwitter)
 
@@ -28,7 +29,7 @@ export class PhotoWallComponent implements OnInit {
     caption: new UntypedFormControl('', [Validators.required])
   })
 
-  public slideshowDataSource: IImage[] = []
+  public slideshowDataSource: Array<{ url: string, caption: string }> = []
   public twitterHandle = null
 
   constructor (private readonly photoWallService: PhotoWallService, private readonly configurationService: ConfigurationService,
@@ -36,7 +37,11 @@ export class PhotoWallComponent implements OnInit {
 
   ngOnInit () {
     this.slideshowDataSource = []
-    this.photoWallService.get().subscribe((memories) => {
+    this.photoWallService.get().pipe(catchError(err => {
+      console.log(err)
+
+      return EMPTY
+    })).subscribe((memories) => {
       if (memories.length === 0) {
         this.emptyState = true
       } else {
@@ -49,14 +54,19 @@ export class PhotoWallComponent implements OnInit {
         }
         this.slideshowDataSource.push({ url: memory.imagePath, caption: memory.caption })
       }
-    }, (err) => { console.log(err) })
-    this.configurationService.getApplicationConfiguration().subscribe((config) => {
+    })
+
+    this.configurationService.getApplicationConfiguration().pipe(catchError(err => {
+      console.log(err)
+
+      return EMPTY
+    })).subscribe((config) => {
       if (config?.application?.social) {
         if (config.application.social.twitterUrl) {
           this.twitterHandle = config.application.social.twitterUrl.replace('https://twitter.com/', '@')
         }
       }
-    }, (err) => { console.log(err) })
+    })
   }
 
   onImagePicked (event: Event) {

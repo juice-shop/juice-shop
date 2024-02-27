@@ -11,7 +11,7 @@ import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/test
 
 import { CodeSnippetComponent } from './code-snippet.component'
 import { CodeSnippetService } from '../Services/code-snippet.service'
-import { CookieModule, CookieService } from 'ngx-cookie'
+import { CookieModule, CookieService } from 'ngy-cookie'
 import { ConfigurationService } from '../Services/configuration.service'
 import { of, throwError } from 'rxjs'
 import { CodeFixesService } from '../Services/code-fixes.service'
