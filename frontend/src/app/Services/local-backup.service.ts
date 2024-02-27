@@ -5,7 +5,7 @@
 
 import { Injectable } from '@angular/core'
 import { type Backup } from '../Models/backup.model'
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngy-cookie'
 import { saveAs } from 'file-saver'
 import { SnackBarHelperService } from './snack-bar-helper.service'
 import { MatSnackBar } from '@angular/material/snack-bar'

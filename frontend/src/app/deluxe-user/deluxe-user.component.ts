@@ -6,7 +6,7 @@
 import { Component, NgZone, type OnInit } from '@angular/core'
 import { UserService } from '../Services/user.service'
 import { ActivatedRoute, Router } from '@angular/router'
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngy-cookie'
 import { ConfigurationService } from '../Services/configuration.service'
 import { SocketIoService } from '../Services/socket-io.service'
 

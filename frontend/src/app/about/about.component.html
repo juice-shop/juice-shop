@@ -4,7 +4,7 @@
   -->
 
 <div fxLayoutAlign="center">
-  <mat-card class="mat-elevation-z6">
+  <mat-card appearance="outlined" class="mat-elevation-z6">
     <section class="about-us">
       <h1 translate>TITLE_ABOUT</h1>
       <h3 translate>SECTION_CORPORATE_HISTORY</h3>
@@ -34,14 +34,19 @@
       </p>
 
       <h3><span translate>SECTION_CUSTOMER_FEEDBACK</span></h3>
-      <slideshow [height]="'300px'"
-                 [autoPlay]="true"
-                 [arrowSize]="'10px'"
-                 [showArrows]="true"
-                 [showDots]="false"
-                 [imageUrls]="slideshowDataSource">
-      </slideshow>
-
+      <gallery  id="feedback-gallery"
+                style="height: 300px;"
+                [autoPlay]="true"
+                [thumb]="false"
+                [counter]="false"
+                [imageSize]="'cover'"
+                >
+                <ng-container *galleryImageDef="let item; let active = active">
+                  <div *ngIf="active" class="item-text">
+                    <div class="caption" [innerHTML]="item?.args"></div>
+                  </div>
+                </ng-container>
+      </gallery>
       <div *ngIf="twitterUrl || facebookUrl" class="social">
         <h3><span translate="">SECTION_SOCIAL_MEDIA</span></h3>
         <a *ngIf="twitterUrl" [href]="twitterUrl" target="_blank" rel="noopener noreferrer" style="margin-left: 0px;" aria-label="Button for the Twitter page of the shop">

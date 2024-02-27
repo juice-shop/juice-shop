@@ -4,7 +4,6 @@
  */
 
 import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
-import { SlideshowModule } from 'ng-simple-slideshow'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 
 import { AboutComponent } from './about.component'
@@ -12,15 +11,14 @@ import { MatCardModule } from '@angular/material/card'
 import { NO_ERRORS_SCHEMA } from '@angular/core'
 import { of } from 'rxjs'
 import { ConfigurationService } from '../Services/configuration.service'
+import { GalleryModule } from 'ng-gallery'
 
 describe('AboutComponent', () => {
   let component: AboutComponent
   let fixture: ComponentFixture<AboutComponent>
-  let slideshowModule
   let configurationService
 
   beforeEach(waitForAsync(() => {
-    slideshowModule = jasmine.createSpy('SlideshowModule') // FIXME Replace with actual import if https://github.com/dockleryxk/ng-simple-slideshow/issues/70 gets fixed
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { } }))
 
@@ -28,11 +26,11 @@ describe('AboutComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
       imports: [
         HttpClientTestingModule,
-        MatCardModule
+        MatCardModule,
+        GalleryModule
       ],
       declarations: [AboutComponent],
       providers: [
-        { provide: SlideshowModule, useValue: slideshowModule },
         { provide: ConfigurationService, useValue: configurationService }
       ]
     })

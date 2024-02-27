@@ -6,16 +6,16 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http'
-import { CookieModule, CookieService } from 'ngx-cookie'
+import { CookieModule, CookieService } from 'ngy-cookie'
 import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 import { Routing } from './app.routing'
 import { OverlayContainer } from '@angular/cdk/overlay'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
-import { QRCodeModule } from 'anuglar2-qrcode'
+import { QrCodeModule } from 'ng-qrcode'
 import { ClipboardModule } from 'ngx-clipboard'
 import { FileUploadModule } from 'ng2-file-upload'
-import { SlideshowModule } from 'ng-simple-slideshow'
+import { GalleryModule } from 'ng-gallery'
 import { AppComponent } from './app.component'
 import { AboutComponent } from './about/about.component'
 import { AdministrationComponent } from './administration/administration.component'
@@ -47,7 +47,6 @@ import { ProductReviewEditComponent } from './product-review-edit/product-review
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
 import { PrivacySecurityComponent } from './privacy-security/privacy-security.component'
 import { ErrorPageComponent } from './error-page/error-page.component'
-import { NgMatSearchBarModule } from 'ng-mat-search-bar'
 import { RequestInterceptor } from './Services/request.interceptor'
 import { ProductService } from './Services/product.service'
 import { ConfigurationService } from './Services/configuration.service'
@@ -82,11 +81,11 @@ import { MatTableModule } from '@angular/material/table'
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatCardModule } from '@angular/material/card'
 import { MatInputModule } from '@angular/material/input'
+import { MatRippleModule, MatNativeDateModule } from '@angular/material/core'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatDatepickerModule } from '@angular/material/datepicker'
-import { MatNativeDateModule } from '@angular/material/core'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatTooltipModule } from '@angular/material/tooltip'
@@ -132,12 +131,22 @@ import { MatPasswordStrengthModule } from '@angular-material-extensions/password
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { FeedbackDetailsComponent } from './feedback-details/feedback-details.component'
 import { MatSliderModule } from '@angular/material/slider'
+import { MatAutocompleteModule } from '@angular/material/autocomplete'
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatChipsModule } from '@angular/material/chips'
 import { CodeSnippetComponent } from './code-snippet/code-snippet.component'
 import { CodeAreaComponent } from './code-area/code-area.component'
-import { NgxTextDiffModule } from 'ngx-text-diff'
+import { MatSearchBarComponent } from './mat-search-bar/mat-search-bar.component'
 import { CodeFixesComponent } from './code-fixes/code-fixes.component'
+import { NgxTextDiffModule } from '@winarg/ngx-text-diff'
+
+// This will fix the type checking issue for Module MatPasswordStrengthModule
+// It can be deleted after also upgrading Angular Material to v17
+declare module '@angular/core' {
+  interface ModuleWithProviders<T = any> {
+    ngModule: Type<T>
+  }
+}
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json')
@@ -200,7 +209,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     FeedbackDetailsComponent,
     CodeSnippetComponent,
     CodeAreaComponent,
-    CodeFixesComponent
+    CodeFixesComponent,
+    MatSearchBarComponent
   ],
   imports: [
     BrowserModule,
@@ -220,8 +230,9 @@ export function HttpLoaderFactory (http: HttpClient) {
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    SlideshowModule,
-    QRCodeModule,
+    GalleryModule,
+    NgxTextDiffModule,
+    QrCodeModule,
     FileUploadModule,
     ClipboardModule,
     MatToolbarModule,
@@ -231,6 +242,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatSelectModule,
     MatButtonModule,
     MatSidenavModule,
+    MatRippleModule,
     MatTableModule,
     MatPaginatorModule,
     MatCardModule,
@@ -248,7 +260,6 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatButtonToggleModule,
     LayoutModule,
     MatGridListModule,
-    NgMatSearchBarModule,
     MatBadgeModule,
     MatRadioModule,
     MatSnackBarModule,
@@ -256,7 +267,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatTabsModule,
     MatSlideToggleModule,
     MatChipsModule,
-    NgxTextDiffModule,
+    MatAutocompleteModule,
     HighlightModule,
     ScoreBoardModule
   ],

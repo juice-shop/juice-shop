@@ -6,7 +6,7 @@
 import { TranslateService } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
 import { ChangeDetectorRef, Component, NgZone, type OnInit } from '@angular/core'
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngy-cookie'
 import { SocketIoService } from '../Services/socket-io.service'
 
 interface HackingProgress {
