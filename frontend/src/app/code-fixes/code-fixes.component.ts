@@ -1,8 +1,9 @@
 import { Component, Input, type OnInit, ViewChild, type DoCheck, KeyValueDiffers, type KeyValueDiffer } from '@angular/core'
-import { NgxTextDiffComponent } from 'ngx-text-diff'
-import { CookieService } from 'ngx-cookie'
-import { type DiffTableFormat } from 'ngx-text-diff/lib/ngx-text-diff.model'
+import { NgxTextDiffComponent } from '@winarg/ngx-text-diff'
+
+import { CookieService } from 'ngy-cookie'
 import { type RandomFixes } from '../code-snippet/code-snippet.component'
+import { type DiffTableFormat } from '@winarg/ngx-text-diff/lib/ngx-text-diff.model'
 
 @Component({
   selector: 'app-code-fixes',

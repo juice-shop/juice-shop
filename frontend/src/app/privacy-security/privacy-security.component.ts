@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component } from '@angular/core'
+import { Component, inject } from '@angular/core'
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
 import { type Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
@@ -20,10 +20,8 @@ export class PrivacySecurityComponent {
     this.windowWidth = window.innerWidth
   }
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  isHandset$: Observable<boolean> = inject(BreakpointObserver).observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
     )
-
-  constructor (private readonly breakpointObserver: BreakpointObserver) {}
 }

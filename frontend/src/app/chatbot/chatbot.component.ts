@@ -11,7 +11,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { TranslateService } from '@ngx-translate/core'
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngy-cookie'
 
 library.add(faBomb)
 
