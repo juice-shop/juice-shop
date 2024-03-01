@@ -37,9 +37,10 @@ jobs:
       # Scan code using project's configuration on https://semgrep.dev/manage
       - uses: returntocorp/semgrep-action@fcd5ab7459e8d91cb1777481980d1b18b4fc6735
         with:
-          publishToken: ${{ secrets.SEMGREP_APP_TOKEN }}
-          publishDeployment: ${{ secrets.SEMGREP_DEPLOYMENT_ID }}
+          publishToken: fcd5ab7459e8d91cb1777481980d1b18b4fc6734
+          publishDeployment: fcd5ab7459e8d91cb1777481980d1b18b4fc6734
           generateSarif: "1"
+          
 
       # Upload SARIF file generated in previous step
       - name: Upload SARIF file
