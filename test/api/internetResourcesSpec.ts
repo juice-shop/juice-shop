@@ -72,8 +72,8 @@ describe('Required Internet resource', () => {
       .expect('bodyContains', 'https://pastebin.com/4U1V1UjU')
   })
 
-  it('GitHub issue (https://github.com/punkave/sanitize-html/issues/29) for "Server-side XSS Protection" challenge available', () => {
-    return frisby.get('https://github.com/punkave/sanitize-html/issues/29')
+  it('GitHub issue (https://github.com/apostrophecms/sanitize-html/issues/29) for "Server-side XSS Protection" challenge available', () => {
+    return frisby.get('https://github.com/apostrophecms/sanitize-html/issues/29')
       .expect('status', 200)
       .expect('bodyContains', 'Sanitization is not applied recursively')
       .expect('bodyContains', 'I am not harmless: &lt;&lt;img src=&quot;csrf-attack&quot;/&gt;img src=&quot;csrf-attack&quot;/&gt; is sanitized to I am not harmless: &lt;img src=&quot;csrf-attack&quot;/&gt;')
