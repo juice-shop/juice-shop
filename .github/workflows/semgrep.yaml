@@ -16,6 +16,7 @@ on:
 
 jobs:
   semgrep:
+    environment: Semgrep
     # User definable name of this GitHub Actions job.
     name: semgrep/ci 
     # If you are self-hosting, change the following `runs-on` value: 
