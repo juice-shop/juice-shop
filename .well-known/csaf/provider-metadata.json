@@ -21,7 +21,7 @@
   ],
   "publisher": {
     "category": "vendor",
-    "name": "OWASP juice-shop-sa-20200513-express-jwt.jsonJuice Shop",
+    "name": "OWASP Juice Shop",
     "namespace": "/juice-shop/juice-shop",
     "contact_details": "timo.pagel@owasp.org"
   },
