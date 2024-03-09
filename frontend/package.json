@@ -12,6 +12,10 @@
   "private": true,
   "dependencies": {
     "@angular-material-extensions/password-strength": "^6.0.0",
+    "@angular-builders/custom-webpack": "^17.0.1",
+    "@angular-devkit/build-angular": "^17.2.0",
+    "@angular/cli": "^17.2.0",
+    "@angular/compiler-cli": "^17.2.1",
     "@angular/animations": "^17.2.1",
     "@angular/cdk": "^14.0.4",
     "@angular/common": "^17.2.1",
@@ -62,16 +66,11 @@
     "solidity-browser-compiler": "^1.1.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.4",
-    "zustand": "4.4.1"
+    "zustand": "4.4.1",
+    "typescript": "~5.3.3"
   },
   "devDependencies": {
-    "@angular-builders/custom-webpack": "^17.0.1",
-    "@angular-devkit/build-angular": "^17.2.0",
-    "@angular-devkit/core": "^17.2.0",
-    "@angular-devkit/schematics": "^17.2.0",
     "@angular-eslint/builder": "^0.8.0-beta.7",
-    "@angular/cli": "^17.2.0",
-    "@angular/compiler-cli": "^17.2.1",
     "@angular/language-service": "^17.2.1",
     "@types/express-serve-static-core": "^4.17.9",
     "@types/file-saver": "^2.0.1",
@@ -103,7 +102,6 @@
     "stylelint": "^13.8.0",
     "stylelint-config-sass-guidelines": "^7.1.0",
     "stylelint-scss": "^3.18.0",
-    "ts-node": "^10.9.2",
-    "typescript": "~5.3.3"
+    "ts-node": "^10.9.2"
   }
 }
