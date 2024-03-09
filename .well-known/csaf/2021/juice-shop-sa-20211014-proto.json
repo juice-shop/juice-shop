@@ -11,7 +11,7 @@
         }
       },
       "current_release_date": "2021-10-14T10:00:00.000Z",
-      "id": "juice-shop-sa-20210014-proto",
+      "id": "juice-shop-sa-20211014-proto",
       "initial_release_date": "2024-03-03T11:00:00.000Z",
       "status": "final",
       "version": "1.0.0",
@@ -30,7 +30,7 @@
       }
     ],
     "lang": "EN",
-    "title": "juice-shop-sa-20210014-proto",
+    "title": "juice-shop-sa-20211014-proto",
     "aggregate_severity": {
       "text": "High"
     },
