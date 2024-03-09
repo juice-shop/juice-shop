@@ -64,6 +64,23 @@ describe('Server', () => {
     return frisby.get(URL + '/robots.txt')
       .expect('status', 200)
   })
+
+  it('GET serves a csaf provider-metadata.json', () => {
+    return frisby.get(URL + '/.well-known/csaf/provider-metadata.json')
+      .expect('status', 200)
+  })
+  it('GET serves a csaf index.txt', () => {
+    return frisby.get(URL + '/.well-known/csaf/index.txt')
+      .expect('status', 200)
+  })
+  it('GET serves a csaf changes.csv', () => {
+    return frisby.get(URL + '/.well-known/csaf/changes.csv')
+      .expect('status', 200)
+  })
+  it('GET serves a csaf juice-shop-sa-20200513-express-jwt.json', () => {
+    return frisby.get(URL + '/.well-known/csaf/2017/juice-shop-sa-20200513-express-jwt.json')
+      .expect('status', 200)
+  })
 })
 
 describe('/public/images/padding', () => {

@@ -333,3 +333,6 @@ ctf:
     web3SandboxChallenge:
       name: France
       code: FR
+    csafChallenge:
+      name: Slovenia
+      code: SI
