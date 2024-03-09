@@ -61,13 +61,12 @@
           "name": "OWASP Juice Shop",
           "product_id": "juice-shop/juice-shop",
           "product_identification_helper": {
-            "purl": "pkg:docker/bkimminich/juice-shop",
-            "cpe": "cpe:/a:owasp:juice-shop:*"
+            "purl": "pkg:docker/bkimminich/juice-shop"
           }
         },
         "category": "product_version_range",
         "name": "vers:all/*"
-      },
+      }
     ]
   },
   "vulnerabilities": [
