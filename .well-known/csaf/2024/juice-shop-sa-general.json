@@ -1,0 +1,125 @@
+{
+  "document": {
+    "category": "csaf_security_advisory",
+    "csaf_version": "2.1",
+    "tracking": {
+      "generator": {
+        "date": "2024-03-03T20:09:44.374Z",
+        "engine": {
+          "version": "2.5.0",
+          "name": "Secvisogram"
+        }
+      },
+      "current_release_date": "2024-03-03T11:00:00.000Z",
+      "id": "juice-shop-sa-disclaimer",
+      "initial_release_date": "2024-03-03T11:00:00.000Z",
+      "status": "final",
+      "version": "1.0.0",
+      "revision_history": [
+        {
+          "date": "2024-03-03T11:00:00.000Z",
+          "number": "1.0.0",
+          "summary": "Initial public release."
+        }
+      ]
+    },
+    "acknowledgments": [
+      {
+        "organization": "OWASP",
+        "summary": "Probably the most modern and sophisticated insecure web application"
+      }
+    ],
+    "lang": "EN",
+    "title": "juice-shop-sa-disclaimer",
+    "aggregate_severity": {
+      "text": "Critical"
+    },
+    "distribution": {
+      "tlp": {
+        "label": "WHITE"
+      }
+    },
+    "notes": [
+      {
+        "category": "legal_disclaimer",
+        "text": "The Juice Shop contains vulnerabilities. ONLY run the Juice Shop in an isolated training environment.",
+        "title": "Isolated Env."
+      }
+    ],
+    "publisher": {
+      "category": "vendor",
+      "contact_details": "timo.pagel@owasp.org",
+      "issuing_authority": "OWASP Juice Shop",
+      "name": "OWASP Juice Shop Core Team",
+      "namespace": "https://github.com/juice-shop/juice-shop"
+    }
+  },
+  "product_tree": {
+    "branches": [
+      {
+        "product": {
+          "name": "OWASP Juice Shop",
+          "product_id": "juice-shop/juice-shop",
+          "product_identification_helper": {
+            "purl": "pkg:docker/bkimminich/juice-shop",
+            "cpe": "cpe:/a:owasp:juice-shop:*"
+          }
+        },
+        "category": "product_version_range",
+        "name": "vers:all/*"
+      },
+    ]
+  },
+  "vulnerabilities": [
+    {
+      "title": "Intentional Vulnerabilities",
+      "product_status": {
+        "known_affected": [
+          "juice-shop/juice-shop"
+        ]
+      },
+      "notes": [
+        {
+          "category": "details",
+          "text": "The Juice Shop has intentional vulnerabilities which might be abused to attack your system",
+          "title": "Intentional Vulnerable Juice Shop"
+        }
+      ],
+      "remediations": [
+        {
+          "date": "2024-03-03T11:00:00.000Z",
+          "details": "ONLY run the Juice Shop in an isolated training environment.",
+          "category": "no_fix_planned",
+          "product_ids": [
+            "juice-shop/juice-shop"
+          ]
+        }
+      ],
+      "scores": [
+        {
+          "cvss_v3": {
+            "version": "3.1",
+            "attackVector": "NETWORK",
+            "attackComplexity": "LOW",
+            "privilegesRequired": "NONE",
+            "userInteraction": "NONE",
+            "scope": "UNCHANGED",
+            "confidentialityImpact": "HIGH",
+            "integrityImpact": "HIGH",
+            "availabilityImpact": "NONE",
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+            "baseScore": 9.1,
+            "baseSeverity": "CRITICAL",
+            "temporalScore": 9.1,
+            "temporalSeverity": "CRITICAL",
+            "environmentalScore": 9.1,
+            "environmentalSeverity": "CRITICAL"
+          },
+          "products": [
+            "juice-shop/juice-shop"
+          ]
+        }
+      ]
+    }
+  ]
+}

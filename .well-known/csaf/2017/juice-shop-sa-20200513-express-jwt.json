@@ -1,0 +1,118 @@
+{
+  "document": {
+    "category": "csaf_security_advisory",
+    "csaf_version": "2.0",
+    "tracking": {
+      "generator": {
+        "date": "2024-03-03T19:30:53.428Z",
+        "engine": {
+          "version": "2.5.0",
+          "name": "Secvisogram"
+        }
+      },
+      "current_release_date": "2024-03-03T11:00:00.000Z",
+      "id": "juice-shop-sa-20200513-express-jwt",
+      "initial_release_date": "2024-03-03T11:00:00.000Z",
+      "status": "final",
+      "version": "1.0.0",
+      "revision_history": [
+        {
+          "date": "2024-03-03T11:00:00.000Z",
+          "number": "1.0.0",
+          "summary": "Initial public release."
+        }
+      ]
+    },
+    "acknowledgments": [
+      {
+        "organization": "OWASP Juice Shop",
+        "summary": "Probably the most modern and sophisticated insecure web application"
+      }
+    ],
+    "lang": "EN",
+    "title": "juice-shop-sa-20200513-express-jwt",
+    "aggregate_severity": {
+      "text": "Critical"
+    },
+    "notes": [
+      {
+        "category": "legal_disclaimer",
+        "text": "The Juice Shop contains vulnerabilities. Only use it in an isolated. ONLY run the Juice Shop in a training environment.",
+        "title": "Isolated Env."
+      }
+    ],
+    "publisher": {
+      "category": "vendor",
+      "contact_details": "timo.pagel@owasp.org",
+      "issuing_authority": "OWASP Juice Shop",
+      "name": "OWASP Juice Shop Core Team",
+      "namespace": "https://github.com/juice-shop/juice-shop"
+    }
+  },
+  "product_tree": {
+    "branches": [
+      {
+        "product": {
+          "name": "OWASP Juice Shop",
+          "product_id": "juice-shop/juice-shop"
+        },
+        "category": "product_version_range",
+        "name": ">=v6.0.0"
+      }
+    ]
+  },
+  "vulnerabilities": [
+    {
+      "cve": "CVE-2020-15084",
+      "title": "CVE-2020-15084",
+      "product_status": {
+        "known_affected": [
+          "juice-shop/juice-shop"
+        ]
+      },
+      "notes": [
+        {
+          "category": "details",
+          "text": "The Juice Shop is currently vulnerable to JWT null algorithm attacks . We will soon release a patch",
+          "title": "Vulnerable to Null JWT Algorithm"
+        }
+      ],
+      "remediations": [
+        {
+          "date": "2020-07-01T10:00:00.000Z",
+          "details": "Check for the expected JWT algorithm type in a WAF/Proxy/Loadbalancer in front of the Juice Shop.",
+          "url": "https://github.com/advisories/GHSA-6g6m-m6h5-w9gf",
+          "category": "workaround",
+          "product_ids": [
+            "juice-shop/juice-shop"
+          ]
+        }
+      ],
+      "scores": [
+        {
+          "cvss_v3": {
+            "version": "3.1",
+            "attackVector": "NETWORK",
+            "attackComplexity": "LOW",
+            "privilegesRequired": "NONE",
+            "userInteraction": "NONE",
+            "scope": "UNCHANGED",
+            "confidentialityImpact": "HIGH",
+            "integrityImpact": "HIGH",
+            "availabilityImpact": "NONE",
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+            "baseScore": 9.1,
+            "baseSeverity": "CRITICAL",
+            "temporalScore": 9.1,
+            "temporalSeverity": "CRITICAL",
+            "environmentalScore": 9.1,
+            "environmentalSeverity": "CRITICAL"
+          },
+          "products": [
+            "juice-shop/juice-shop"
+          ]
+        }
+      ]
+    }
+  ]
+}
