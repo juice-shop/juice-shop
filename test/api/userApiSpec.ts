@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-import frisby = require('frisby')
+import { challenges } from '../../data/datacache'
 import { expect } from '@jest/globals'
+import frisby = require('frisby')
 const Joi = frisby.Joi
 const utils = require('../../lib/utils')
 const security = require('../../lib/insecurity')
@@ -190,7 +191,7 @@ describe('/api/Users', () => {
       })
   })
 
-  if (!utils.disableOnContainerEnv()) {
+  if (utils.isChallengeEnabled(challenges.usernameXssChallenge)) {
     it('POST new user with XSS attack in email address', () => {
       return frisby.post(`${API_URL}/Users`, {
         headers: jsonHeader,
