@@ -7,8 +7,8 @@ describe('/api', () => {
     // Cypress alert bug
     // The challege also passes but its just that cypress freezes and is unable to perform any action
     xit('should be possible to create a new product when logged in', () => {
-      cy.task('disableOnContainerEnv').then((disableOnContainerEnv) => {
-        if (!disableOnContainerEnv) {
+      cy.task('isDocker').then((isDocker) => {
+        if (!isDocker) {
           cy.window().then(async () => {
             const response = await fetch(
               `${Cypress.config('baseUrl')}/api/Products`,
@@ -84,8 +84,8 @@ describe('/rest/saveLoginIp', () => {
     })
 
     it('should be possible to save log-in IP when logged in', () => {
-      cy.task('disableOnContainerEnv').then((disableOnContainerEnv) => {
-        if (!disableOnContainerEnv) {
+      cy.task('isDocker').then((isDocker) => {
+        if (!isDocker) {
           cy.window().then(async () => {
             const response = await fetch(
               `${Cypress.config('baseUrl')}/rest/saveLoginIp`,
