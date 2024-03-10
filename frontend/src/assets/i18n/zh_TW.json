@@ -345,6 +345,7 @@
   "CONFIRM_RECYCLING_BOX": "感謝你使用我們的環境友善自助回收服務。我們將盡快向您發送果渣回收箱。",
   "CONFIRM_RECYCLING_PICKUP": "感謝您使用我們方便的回收服務，我們將在{{pickupdate}}收取您的廢棄物",
   "CHALLENGE_UNAVAILABLE": "這個挑戰在{{env}}中無法使用",
+  "CHALLENGE_UNAVAILABLE_SAFETYMODE": "這個挑戰無法使用，因為應用程式正在安全模式下運行！",
   "CLICK_FOR_MORE_HINTS": "點擊以開啟更多提示",
   "CLICK_TO_OPEN_HINTS": "點擊以開啟提示",
   "BONUS_POINTS_EARNED": "獲得的獎勵積分：{{bonus}}",
