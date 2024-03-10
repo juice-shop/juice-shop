@@ -87,11 +87,11 @@ export default defineConfig({
           const date = new Date()
           return utils.toISO8601(date)
         },
-        disableOnContainerEnv () {
-          return utils.disableOnContainerEnv()
+        isDocker () {
+          return utils.isDocker()
         },
-        disableOnWindowsEnv () {
-          return utils.disableOnWindowsEnv()
+        isWindows () {
+          return utils.isWindows()
         }
       })
     }
