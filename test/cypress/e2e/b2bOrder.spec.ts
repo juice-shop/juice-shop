@@ -1,8 +1,8 @@
 describe('/b2b/v2/order', () => {
   describe('challenge "rce"', () => {
     it('an infinite loop deserialization payload should not bring down the server', () => {
-      cy.task('disableOnContainerEnv').then((disableOnContainerEnv) => {
-        if (!disableOnContainerEnv) {
+      cy.task('isDocker').then((isDocker) => {
+        if (!isDocker) {
           cy.login({ email: 'admin', password: 'admin123' })
 
           cy.window().then(async () => {
@@ -32,8 +32,8 @@ describe('/b2b/v2/order', () => {
 
   describe('challenge "rceOccupy"', () => {
     it('should be possible to cause request timeout using a recursive regular expression payload', () => {
-      cy.task('disableOnContainerEnv').then((disableOnContainerEnv) => {
-        if (!disableOnContainerEnv) {
+      cy.task('isDocker').then((isDocker) => {
+        if (!isDocker) {
           cy.login({ email: 'admin', password: 'admin123' })
           cy.window().then(async () => {
             const response = await fetch(
