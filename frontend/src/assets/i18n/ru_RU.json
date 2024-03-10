@@ -345,7 +345,7 @@
   "CONFIRM_RECYCLING_BOX": "Спасибо за использование нашего экологически чистого сервиса самообслуживания. Мы отправим коробку для переработки как можно скорее.",
   "CONFIRM_RECYCLING_PICKUP": "Благодарим вас за использование нашей службы переработки. Мы заберем вашу выжимку {{pickupdate}}.",
   "CHALLENGE_UNAVAILABLE": "Это задание недоступно для приложения, запущенного в {{env}}!",
-  "CHALLENGE_UNAVAILABLE_SAFETYMODE": "Этот вызов недоступен, потому что приложение работает в режиме безопасности!",
+  "CHALLENGE_UNAVAILABLE_SAFETYMODE": "This challenge is unavailable because the application is running in safety mode!",
   "CLICK_FOR_MORE_HINTS": "Нажмите, чтобы получить больше подсказок.",
   "CLICK_TO_OPEN_HINTS": "Нажмите, чтобы открыть подсказки.",
   "BONUS_POINTS_EARNED": "Бонусных баллов заработано: {{bonus}}",

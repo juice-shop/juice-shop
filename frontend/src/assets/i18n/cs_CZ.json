@@ -345,7 +345,7 @@
   "CONFIRM_RECYCLING_BOX": "Děkujeme, že používáte naši ekologickou službu recyklace. Co nejdříve Vám zašleme krabici na recyklaci rozdrceného ovoce.",
   "CONFIRM_RECYCLING_PICKUP": "Děkujeme, že používáte naši pohodlnou recyklační službu. Vaše rozdrcené ovoce vyzvedneme {{pickupdate}}.",
   "CHALLENGE_UNAVAILABLE": "Tato výzva není dostupná v prostředí {{env}}!",
-  "CHALLENGE_UNAVAILABLE_SAFETYMODE": "Touto výzvou nelze pokračovat, protože aplikace běží v bezpečnostním režimu!",
+  "CHALLENGE_UNAVAILABLE_SAFETYMODE": "This challenge is unavailable because the application is running in safety mode!",
   "CLICK_FOR_MORE_HINTS": "Klepnutím zobrazíte další nápovědy.",
   "CLICK_TO_OPEN_HINTS": "Kliknutím otevřete nápovědy.",
   "BONUS_POINTS_EARNED": "Získané bonusové body: {{bonus}}",
