@@ -143,15 +143,32 @@ export const randomHexString = (length: number): string => {
   return crypto.randomBytes(Math.ceil(length / 2)).toString('hex').slice(0, length)
 }
 
-export const disableOnContainerEnv = (): boolean => {
-  return (isDocker() || isGitpod() || isHeroku()) && !(config.get('challenges.safetyOverride'))
+export const disableOnContainerEnv = () => {
+  if (config.get('challenges.safetyMode') === 'enabled') {
+    return true
+  } else if (config.get('challenges.safetyMode') === 'disabled') {
+    return false
+  } else if (config.get('challenges.safetyMode') === 'auto') {
+    return (isDocker() || isGitpod() || isHeroku())
+  }
 }
 
 export const disableOnWindowsEnv = (): boolean => {
   return isWindows()
 }
-
-export const determineDisabledEnv = (disabledEnv: string | string[] | undefined) => {
+export const safetyModeEnabled = (disabledEnv: string | string[] | undefined) => {
+  if (disabledEnv != null && (disabledEnv === 'Docker' || disabledEnv?.includes('Docker'))) {
+    return 'safetyMode'
+  } else if (disabledEnv != null && (disabledEnv === 'Heroku' || disabledEnv?.includes('Heroku'))) {
+    return 'safetyMode'
+  } else if (disabledEnv != null && (disabledEnv === 'Gitpod' || disabledEnv?.includes('Gitpod'))) {
+    return 'safetyMode'
+  } else if (isWindows()) {
+    return disabledEnv != null && (disabledEnv === 'Windows' || disabledEnv?.includes('Windows')) ? 'Windows' : null
+  }
+  return null
+}
+export const safetyModeTurnedAuto = (disabledEnv: string | string[] | undefined) => {
   if (isDocker()) {
     return disabledEnv != null && (disabledEnv === 'Docker' || disabledEnv?.includes('Docker')) ? 'Docker' : null
   } else if (isHeroku()) {
@@ -159,9 +176,24 @@ export const determineDisabledEnv = (disabledEnv: string | string[] | undefined)
   } else if (isWindows()) {
     return disabledEnv != null && (disabledEnv === 'Windows' || disabledEnv?.includes('Windows')) ? 'Windows' : null
   } else if (isGitpod()) {
-    return disabledEnv != null && (disabledEnv === 'Gitpod' || disabledEnv?.includes('Gitpod')) ? 'Gitpod' : null
+    return disabledEnv && (disabledEnv === 'Gitpod' || disabledEnv.includes('Gitpod')) ? 'Gitpod' : null
+  }
+}
+
+export const safetyModeDisabled = (disabledEnv: string | string[] | undefined) => {
+  if (isWindows()) {
+    return disabledEnv != null && (disabledEnv === 'Windows' || disabledEnv?.includes('Windows')) ? 'Windows' : null
   }
   return null
+}
+export const determineDisabledEnv = (disabledEnv: string | string[] | undefined) => {
+  if (config.get('challenges.safetyMode') === 'disabled') {
+    return safetyModeDisabled(disabledEnv)
+  } else if (config.get('challenges.safetyMode') === 'enabled') {
+    return safetyModeEnabled(disabledEnv)
+  } else if (config.get('challenges.safetyMode') === 'auto') {
+    return safetyModeTurnedAuto(disabledEnv)
+  }
 }
 
 export const parseJsonCustom = (jsonString: string) => {

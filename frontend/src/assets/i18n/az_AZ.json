@@ -345,6 +345,7 @@
   "CONFIRM_RECYCLING_BOX": "\"Ekologiya dostu, təkrar emal özünə xidmət\"imizi istifadə etdiyiniz üçün təşəkkürlər. Ən qısa müddətdə sizə \"pomace\" təkrar emal qutusu göndərəcəyik.",
   "CONFIRM_RECYCLING_PICKUP": "Əlverişli təkrar emal xidmətimizi istifadə etdiyiniz üçün təşəkkürlər. \"Pomace\"nizi {{pickupdate}} tarixində götürəcəyik.",
   "CHALLENGE_UNAVAILABLE": "Bu çağırış {{env}} mühitində əlçatmazdır!",
+  "CHALLENGE_UNAVAILABLE_SAFETYMODE": "Bu müsabiqə təhlükəsizlik rejimində işləyən tətbiqdə mövcud deyil!",
   "CLICK_FOR_MORE_HINTS": "Daha çox məsləhət üçün klikləyin.",
   "CLICK_TO_OPEN_HINTS": "Məsləhətləri açmaq üçün klikləyin.",
   "BONUS_POINTS_EARNED": "Qazanılan bonus xalları: {{bonus}}",

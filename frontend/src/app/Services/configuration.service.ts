@@ -76,7 +76,7 @@ export interface Config {
     showMitigations: boolean
     codingChallengesEnabled: string
     restrictToTutorialsFirst: boolean
-    safetyOverride: boolean
+    safetyMode: string
     overwriteUrlForProductTamperingChallenge: string
     showFeedbackButtons: boolean
   }
