@@ -345,7 +345,7 @@
   "CONFIRM_RECYCLING_BOX": "Nous vous remercions d’utiliser notre self-service de recyclage écologique et nous vous enverrons une boîte de recyclage au plus vite.",
   "CONFIRM_RECYCLING_PICKUP": "Merci d'utiliser notre service pratique de recyclage. Nous ramasserons votre marc de fruit le {{pickupdate}}.",
   "CHALLENGE_UNAVAILABLE": "Ce défi n'est pas disponible dans un environnement {{env}}!",
-  "CHALLENGE_UNAVAILABLE_SAFETYMODE": "Ce défi n'est pas disponible car l'application est en mode sécurité!",
+  "CHALLENGE_UNAVAILABLE_SAFETYMODE": "This challenge is unavailable because the application is running in safety mode!",
   "CLICK_FOR_MORE_HINTS": "Cliquez pour plus d'indices.",
   "CLICK_TO_OPEN_HINTS": "Cliquez pour ouvrir les indices.",
   "BONUS_POINTS_EARNED": "Points Bonus gagnés : {{bonus}}",
