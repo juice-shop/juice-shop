@@ -16,8 +16,15 @@
     <!-- info text if the challenge is unavailable -->
     <button
       class="badge"
-      *ngIf="challenge.disabledEnv !== null"
+      *ngIf="challenge.disabledEnv !== null && challenge.disabledEnv !== 'safetyMode'"
       [matTooltip]="'CHALLENGE_UNAVAILABLE' | translate:{ env: challenge.disabledEnv }"
+    >
+      <mat-icon [style.color]="'var(--theme-warn)'">info_outline</mat-icon>
+    </button>
+    <button
+      class="badge"
+      *ngIf="challenge.disabledEnv === 'safetyMode'"
+      [matTooltip]="'CHALLENGE_UNAVAILABLE_SAFETYMODE'| translate:{ env: challenge.disabledEnv}"
     >
       <mat-icon [style.color]="'var(--theme-warn)'">info_outline</mat-icon>
     </button>

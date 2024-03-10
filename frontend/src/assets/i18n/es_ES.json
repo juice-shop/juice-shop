@@ -345,6 +345,7 @@
   "CONFIRM_RECYCLING_BOX": "Gracias por utilizar nuestro autoservicio de reciclado respetuoso con el medio ambiente. Le enviaremos una caja de reciclaje de pulpa lo más pronto posible. ",
   "CONFIRM_RECYCLING_PICKUP": "Gracias por utilizar nuestro conveniente servicio de reciclaje. Recogeremos tu pulpa el {{pickupdate}}.",
   "CHALLENGE_UNAVAILABLE": "¡Este desafío no está disponible en un entorno {{env}}!",
+  "CHALLENGE_UNAVAILABLE_SAFETYMODE": "Este desafío no está disponible porque la aplicación está en modo de seguridad!",
   "CLICK_FOR_MORE_HINTS": "Haga clic para más pistas.",
   "CLICK_TO_OPEN_HINTS": "Haga clic para mostrar pistas.",
   "BONUS_POINTS_EARNED": "Puntos de Bonificación Obtenidos: {{bonus}}",
