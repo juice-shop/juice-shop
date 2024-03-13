@@ -11,7 +11,7 @@ import { type Request, type Response, type NextFunction } from 'express'
 function serveWellKnown () {
   return (req: Request, res: Response, next: NextFunction) => {
     const file = req.params.file
-    var folder = req.params.folder
+    let folder = req.params.folder
     if (!folder) {
       folder = ''
     }
