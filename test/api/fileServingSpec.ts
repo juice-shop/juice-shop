@@ -80,6 +80,8 @@ describe('Server', () => {
   it('GET serves a csaf juice-shop-sa-20200513-express-jwt.json', () => {
     return frisby.get(URL + '/.well-known/csaf/2017/juice-shop-sa-20200513-express-jwt.json')
       .expect('status', 200)
+      .expect('bodyContains', 'juice-shop-sa-20200513-express-jwt')
+      .expect('bodyContains', 'We will soon release a patch')
   })
 })
 

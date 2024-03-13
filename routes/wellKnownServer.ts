@@ -11,16 +11,24 @@ import { type Request, type Response, type NextFunction } from 'express'
 function serveWellKnown () {
   return (req: Request, res: Response, next: NextFunction) => {
     const file = req.params.file
-
-    if (!file.includes('/')) {
-      const pathResolved = path.resolve('.well-known/csaf', file)
+    var folder = req.params.folder
+    if (!folder) {
+      folder = ''
+    }
+    if (!file.includes('/') && !folder.includes('/')) {
+      const pathResolved = path.resolve('.well-known/csaf/' + folder, file)
+      if (pathResolved.endsWith('json')) {
+        res.setHeader('Content-Type', 'application/json')
+      }
       if (pathResolved.endsWith('/.well-known/csaf/provider-metadata.json')) {
         const fileContent = fs.readFileSync(pathResolved, 'utf8')
-        res.setHeader('Content-Type', 'application/json')
         const baseUrl = config.get<string>('server.baseUrl')
         res.send(fileContent.replace('http://localhost:3000', baseUrl))
-      } else {
+      } else if (pathResolved.includes('.well-known/csaf/')) {
         res.sendFile(pathResolved)
+      } else {
+        res.status(403)
+        next(new Error('Unknown file requested!'))
       }
     } else {
       res.status(403)
