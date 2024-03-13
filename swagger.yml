@@ -42,7 +42,7 @@ components:
       properties: { productId: { type: integer, example: 8 }, quantity: { type: integer, minimum: 1, example: 500 }, customerReference: { type: string, example: PO0000001 } }
     OrderLines:
       type: array
-      items: { $ref: '#/components/schemas/OrderLine' }
+      items: { $ref: '#/components/schemas/OrderLines' }
     OrderLinesData:
       description: 'Order line(s) in customer specific JSON format'
       type: string
