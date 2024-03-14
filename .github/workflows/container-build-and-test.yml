@@ -26,7 +26,7 @@ jobs:
         - name: Build and push
           uses: docker/build-push-action@v5
           with:
-            push: false
+            push: true
             tags: troysnyk/snyk-juice-shop:linux-action
 
         # - name: Test Built Image with Snyk
