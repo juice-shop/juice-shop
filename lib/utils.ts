@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -12,32 +12,25 @@ import jsSHA from 'jssha'
 import download from 'download'
 import crypto from 'crypto'
 import clarinet from 'clarinet'
+import type { Challenge } from 'data/types'
 
+import isHeroku from './is-heroku'
 import isDocker from './is-docker'
 import isWindows from './is-windows'
-import isHeroku from './is-heroku'
+export { default as isDocker } from './is-docker'
+export { default as isWindows } from './is-windows'
 // import isGitpod from 'is-gitpod') // FIXME Roll back to this when https://github.com/dword-design/is-gitpod/issues/94 is resolve
 const isGitpod = () => false
 
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
 
-export const queryResultToJson = (data: any, status: string = 'success') => {
-  let wrappedData: any = {}
-  if (data) {
-    if (!data.length && data.dataValues) {
-      wrappedData = data.dataValues
-    } else if (data.length > 0) {
-      wrappedData = []
-      for (let i = 0; i < data.length; i++) {
-        wrappedData.push(data[i]?.dataValues ? data[i].dataValues : data[i])
-      }
-    } else {
-      wrappedData = data
-    }
-  }
+export const queryResultToJson = <T>(
+  data: T,
+  status: string = 'success'
+): { data: T, status: string } => {
   return {
     status,
-    data: wrappedData
+    data
   }
 }
 
@@ -149,29 +142,56 @@ export const jwtFrom = ({ headers }: { headers: any }) => {
   return undefined
 }
 
-export const randomHexString = (length: number) => {
+export const randomHexString = (length: number): string => {
   return crypto.randomBytes(Math.ceil(length / 2)).toString('hex').slice(0, length)
 }
 
-export const disableOnContainerEnv = () => {
-  return (isDocker() || isGitpod() || isHeroku()) && !config.get('challenges.safetyOverride')
+export interface ChallengeEnablementStatus {
+  enabled: boolean
+  disabledBecause: string | null
 }
 
-export const disableOnWindowsEnv = () => {
-  return isWindows()
-}
+type SafetyModeSetting = 'enabled' | 'disabled' | 'auto'
 
-export const determineDisabledEnv = (disabledEnv: string | string[] | undefined) => {
-  if (isDocker()) {
-    return disabledEnv && (disabledEnv === 'Docker' || disabledEnv.includes('Docker')) ? 'Docker' : null
-  } else if (isHeroku()) {
-    return disabledEnv && (disabledEnv === 'Heroku' || disabledEnv.includes('Heroku')) ? 'Heroku' : null
-  } else if (isWindows()) {
-    return disabledEnv && (disabledEnv === 'Windows' || disabledEnv.includes('Windows')) ? 'Windows' : null
-  } else if (isGitpod()) {
-    return disabledEnv && (disabledEnv === 'Gitpod' || disabledEnv.includes('Gitpod')) ? 'Gitpod' : null
+type isEnvironmentFunction = () => boolean
+
+export function getChallengeEnablementStatus (challenge: Challenge,
+  safetyModeSetting: SafetyModeSetting = config.get<SafetyModeSetting>('challenges.safetyMode'),
+  isEnvironmentFunctions: {
+    isDocker: isEnvironmentFunction
+    isHeroku: isEnvironmentFunction
+    isWindows: isEnvironmentFunction
+    isGitpod: isEnvironmentFunction
+  } = { isDocker, isHeroku, isWindows, isGitpod }): ChallengeEnablementStatus {
+  if (!challenge?.disabledEnv) {
+    return { enabled: true, disabledBecause: null }
   }
-  return null
+
+  if (safetyModeSetting === 'disabled') {
+    return { enabled: true, disabledBecause: null }
+  }
+
+  if (challenge.disabledEnv?.includes('Docker') && isEnvironmentFunctions.isDocker()) {
+    return { enabled: false, disabledBecause: 'Docker' }
+  }
+  if (challenge.disabledEnv?.includes('Heroku') && isEnvironmentFunctions.isHeroku()) {
+    return { enabled: false, disabledBecause: 'Heroku' }
+  }
+  if (challenge.disabledEnv?.includes('Windows') && isEnvironmentFunctions.isWindows()) {
+    return { enabled: false, disabledBecause: 'Windows' }
+  }
+  if (challenge.disabledEnv?.includes('Gitpod') && isEnvironmentFunctions.isGitpod()) {
+    return { enabled: false, disabledBecause: 'Gitpod' }
+  }
+  if (challenge.disabledEnv && safetyModeSetting === 'enabled') {
+    return { enabled: false, disabledBecause: 'Safety Mode' }
+  }
+
+  return { enabled: true, disabledBecause: null }
+}
+export function isChallengeEnabled (challenge: Challenge): boolean {
+  const { enabled } = getChallengeEnablementStatus(challenge)
+  return enabled
 }
 
 export const parseJsonCustom = (jsonString: string) => {
@@ -196,10 +216,6 @@ export const toSimpleIpAddress = (ipv6: string) => {
   } else {
     return ipv6
   }
-}
-
-export const thaw = (frozenObject: any) => {
-  return JSON.parse(JSON.stringify(frozenObject))
 }
 
 export const getErrorMessage = (error: unknown) => {

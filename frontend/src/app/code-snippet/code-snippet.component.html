@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
   -->
 <h2 mat-dialog-title>{{'TITLE_CODING_CHALLENGE' | translate}}: {{dialogData.name}}</h2>
@@ -53,28 +53,28 @@
           [selected]="selectedFix === i">Fix {{ i+1 }}</option>
         </select>
       </mat-form-field>
-    
+
       <a *ngIf="this.showFeedbackButtons && this.solved.fixIt" [href]="'https://docs.google.com/forms/d/e/1FAIpQLSdaNEuz0dzFA2sexCa0AJ4QOb2OYdEL04eQOLFD2Y4T-BW6ag/viewform?usp=pp_url&entry.384948954=' + dialogData.name + '&entry.435235279=Coding+Challenge&entry.1734944650=Yes'" target="_blank">
         <button mat-icon-button><mat-icon color="accent">thumb_up</mat-icon></button>
       </a>
       <a *ngIf="this.showFeedbackButtons && this.solved.fixIt" [href]="'https://docs.google.com/forms/d/e/1FAIpQLSdaNEuz0dzFA2sexCa0AJ4QOb2OYdEL04eQOLFD2Y4T-BW6ag/viewform?usp=pp_url&entry.384948954=' + dialogData.name + '&entry.435235279=Coding+Challenge&entry.1734944650=No'" target="_blank">
         <button mat-icon-button><mat-icon color="warn">thumb_down</mat-icon></button>
       </a>
-    
+
       <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="Close Dialog" [mat-dialog-close]="solved" id="findItCloseButton">
         <i class="material-icons">
           close
         </i>
         <span>  {{'BTN_CLOSE' | translate}}</span>
       </button>
-      
+
       <button *ngIf="tab.value === 0" mat-stroked-button (click) = "checkLines()" [disabled]="this.solved.findIt" id="findItSubmitButton">
         <span>  {{'BTN_SUBMIT' | translate}}</span>
         <mat-icon [color]="resultColor()">
           {{ resultIcon() }}
         </mat-icon>
       </button>
-    
+
       <button *ngIf="tab.value === 1" mat-stroked-button (click) = "checkFix()" [disabled]="this.solved.fixIt" id="fixItSubmitButton">
         <span>  {{'BTN_SUBMIT' | translate}}</span>
         <mat-icon [color]="resultColor()">

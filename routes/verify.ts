@@ -1,10 +1,11 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { type Request, type Response, type NextFunction } from 'express'
 import { type Challenge, type Product } from '../data/types'
+import type { Product as ProductConfig } from '../lib/config.types'
 import { type JwtPayload, type VerifyErrors } from 'jsonwebtoken'
 import { FeedbackModel } from '../models/feedback'
 import { ComplaintModel } from '../models/complaint'
@@ -84,7 +85,7 @@ exports.jwtChallenges = () => (req: Request, res: Response, next: NextFunction) 
   if (challengeUtils.notSolved(challenges.jwtUnsignedChallenge)) {
     jwtChallenge(challenges.jwtUnsignedChallenge, req, 'none', /jwtn3d@/)
   }
-  if (!utils.disableOnWindowsEnv() && challengeUtils.notSolved(challenges.jwtForgedChallenge)) {
+  if (utils.isChallengeEnabled(challenges.jwtForgedChallenge) && challengeUtils.notSolved(challenges.jwtForgedChallenge)) {
     jwtChallenge(challenges.jwtForgedChallenge, req, 'HS256', /rsa_lord@/)
   }
   next()
@@ -162,7 +163,7 @@ exports.databaseRelatedChallenges = () => (req: Request, res: Response, next: Ne
 function changeProductChallenge (osaft: Product) {
   let urlForProductTamperingChallenge: string | null = null
   void osaft.reload().then(() => {
-    for (const product of config.get<Product[]>('products')) {
+    for (const product of config.get<ProductConfig[]>('products')) {
       if (product.urlForProductTamperingChallenge !== undefined) {
         urlForProductTamperingChallenge = product.urlForProductTamperingChallenge
         break
@@ -170,7 +171,7 @@ function changeProductChallenge (osaft: Product) {
     }
     if (urlForProductTamperingChallenge) {
       if (!utils.contains(osaft.description, `${urlForProductTamperingChallenge}`)) {
-        if (utils.contains(osaft.description, `<a href="${config.get('challenges.overwriteUrlForProductTamperingChallenge')}" target="_blank">More...</a>`)) {
+        if (utils.contains(osaft.description, `<a href="${config.get<string>('challenges.overwriteUrlForProductTamperingChallenge')}" target="_blank">More...</a>`)) {
           challengeUtils.solve(challenges.changeProductChallenge)
         }
       }
@@ -382,8 +383,8 @@ function dlpPastebinDataLeakChallenge () {
 }
 
 function dangerousIngredients () {
-  return config.get<Product[]>('products')
-    .flatMap((product: Product) => product.keywordsForPastebinDataLeakChallenge)
+  return config.get<ProductConfig[]>('products')
+    .flatMap((product) => product.keywordsForPastebinDataLeakChallenge)
     .filter(Boolean)
     .map((keyword) => {
       return { [Op.like]: `%${keyword}%` }

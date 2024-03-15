@@ -1,16 +1,16 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { type Request, type Response, type NextFunction } from 'express'
 import { MemoryModel } from '../models/memory'
 import { type ProductModel } from '../models/product'
+import * as db from '../data/mongodb'
+import { challenges } from '../data/datacache'
 
 import challengeUtils = require('../lib/challengeUtils')
 const security = require('../lib/insecurity')
-const db = require('../data/mongodb')
-const challenges = require('../data/datacache').challenges
 
 module.exports = function dataExport () {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -58,7 +58,7 @@ module.exports = function dataExport () {
         })
       })
 
-      db.orders.find({ email: updatedEmail }).then((orders: Array<{
+      db.ordersCollection.find({ email: updatedEmail }).then((orders: Array<{
         orderId: string
         totalPrice: number
         products: ProductModel[]
@@ -77,7 +77,7 @@ module.exports = function dataExport () {
           })
         }
 
-        db.reviews.find({ author: email }).then((reviews: Array<{
+        db.reviewsCollection.find({ author: email }).then((reviews: Array<{
           message: string
           author: string
           product: number

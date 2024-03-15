@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -20,7 +20,7 @@ describe('/rest', () => {
   it('GET error message with information leakage when calling unrecognized path with /rest in it', () => {
     return frisby.get(REST_URL + '/unrecognized')
       .expect('status', 500)
-      .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
+      .expect('bodyContains', '<h1>' + config.get<string>('application.name') + ' (Express')
       .expect('bodyContains', 'Unexpected path: /rest/unrecognized')
   })
 })
