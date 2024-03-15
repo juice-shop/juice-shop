@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: juice-shop
-        image: troysnyk/snyk-juice-shop:1.0.0
+        image: troysnyk/snyk-juice-shop:linux
         imagePullPolicy: Always
         ports:
         - containerPort: 3000

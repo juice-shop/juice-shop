@@ -64,3 +64,8 @@ config/*.yml
 
 # System Files
 .DS_Store
+
+# Infra
+.terraform.lock.hcl
+terraform.tfstate
+**/.terraform/**
