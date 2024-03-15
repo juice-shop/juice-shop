@@ -1,7 +1,7 @@
 server:
   port: 3000
   basePath: ''
-  baseUrl: '' # used for CSAF, e.g. https://example.com
+  baseUrl: 'http://localhost:3000' # used for CSAF, e.g. https://example.com
 application:
   domain: juice-sh.op # for pre-loaded email users
   name: 'OWASP Juice Shop'
