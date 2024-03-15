@@ -32,6 +32,8 @@ import { AllHtmlEntities as Entities } from 'html-entities'
 import * as datacache from './datacache'
 import * as security from '../lib/insecurity'
 
+const replace = require('replace');
+
 const entities = new Entities()
 
 export default async () => {
@@ -50,7 +52,8 @@ export default async () => {
     createQuantity,
     createWallet,
     createDeliveryMethods,
-    createMemories
+    createMemories,
+    prepareFilesystem
   ]
 
   for (const creator of creators) {
@@ -712,4 +715,14 @@ async function createOrders () {
       })
     )
   )
+}
+
+async function prepareFilesystem () {
+  replace({
+    regex: 'http://localhost:3000',
+    replacement: config.get<string>('server.baseUrl'),
+    paths: ['.well-known/csaf/provider-metadata.json'],
+    recursive: true,
+    silent: true,
+  })
 }
