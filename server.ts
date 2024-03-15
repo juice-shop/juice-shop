@@ -262,9 +262,8 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use('/ftp(?!/quarantine)/:file', fileServer()) // vuln-code-snippet vuln-line directoryListingChallenge
   app.use('/ftp/quarantine/:file', quarantineServer()) // vuln-code-snippet neutral-line directoryListingChallenge
 
-  app.use('/.well-known/csaf/:folder/:file', wellKnownServer())
-  app.use('/.well-known/csaf/:file', wellKnownServer())
   app.use('/.well-known', serveIndexMiddleware, serveIndex('.well-known', { icons: true, view: 'details' }))
+  app.use('/.well-known', express.static('.well-known'))
 
   /* /encryptionkeys directory browsing */
   app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' }))
