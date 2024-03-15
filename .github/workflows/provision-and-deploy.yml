@@ -38,11 +38,11 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
-    - name: Terraform Init
-      run: terraform -chdir=terraform init
+    # - name: Terraform Init
+    #   run: terraform -chdir=terraform init
 
-    - name: Terraform Apply
-      run: terraform -chdir=terraform apply -auto-approve
+    # - name: Terraform Apply
+    #   run: terraform -chdir=terraform apply -auto-approve
 
     - name: kubectl apply
       run: |
