@@ -32,8 +32,7 @@ import { AllHtmlEntities as Entities } from 'html-entities'
 import * as datacache from './datacache'
 import * as security from '../lib/insecurity'
 
-const replace = require('replace');
-
+const replace = require('replace')
 const entities = new Entities()
 
 export default async () => {
@@ -723,6 +722,6 @@ async function prepareFilesystem () {
     replacement: config.get<string>('server.baseUrl'),
     paths: ['.well-known/csaf/provider-metadata.json'],
     recursive: true,
-    silent: true,
+    silent: true
   })
 }
