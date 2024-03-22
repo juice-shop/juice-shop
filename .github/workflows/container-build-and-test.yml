@@ -1,8 +1,9 @@
 name: Build Image and Test with Snyk
 
 on:
-  workflow_dispatch:
-  workflow_call:
+  push:
+    branches:
+    - master
 
 jobs:
   docker:
@@ -27,12 +28,10 @@ jobs:
           uses: docker/build-push-action@v5
           with:
             push: true
-            tags: troysnyk/snyk-juice-shop:linux-action
+            tags: troysnyk/snyk-juice-shop:linux
 
-        # - name: Test Built Image with Snyk
-        #   uses: snyk/actions/docker@master
-        #   env:
-        #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        #   with:
-        #     image: troysnyk/snyk-juice-shop
-        #     args: --file=Dockerfile
+        - uses: snyk/actions/setup@master
+        - name: Snyk Container Monitor 
+          run: snyk container monitor troysnyk/snyk-juice-shop:linux --tags="component=pkg:${{ github.respository }}@${{ github.ref_name }}" --org=${{ secrets.SNYK_ORG_ID }} --exclude-app-vulns --file=Dockerfile 
+          env:
+            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
