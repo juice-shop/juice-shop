@@ -69,3 +69,5 @@ config/*.yml
 .terraform.lock.hcl
 terraform.tfstate
 **/.terraform/**
+
+.dccache
