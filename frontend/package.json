@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --output-hashing=none --vendor-chunk=true --source-map=false",
+    "build": "ng build --configuration production",
     "test": "ng test",
     "lint": "ng lint",
     "lint:scss": "npx stylelint \"**/*.scss\""
