@@ -1,5 +1,4 @@
--
-  email: demo
+  mail: 'rons@ox.security'
   password: 'demo'
   customDomain: true
   key: test
@@ -18,11 +17,6 @@
       country: 'United Fakedom'
   card:
     - fullName: 'Tim Tester'
-      cardNum: 1234567812345678
-      expMonth: 12
-      expYear: 2099
-  card:
-    - fullName: 'Tim Tester'
-      cardNum: 4580546265491234
-      expMonth: 12
-      expYear: 2026
+      cardNum: 4580546205409404
+      expMonth: 10
+      expYear: 2029
