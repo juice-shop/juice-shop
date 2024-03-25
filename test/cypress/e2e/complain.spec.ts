@@ -58,15 +58,15 @@ describe('/#/complain', () => {
 
   describe('challenge "xxeFileDisclosure"', () => {
     it('should be possible to retrieve file from Windows server via .xml upload with XXE attack', () => {
-      cy.task('disableOnContainerEnv').then((disableOnContainerEnv) => {
-        if (!disableOnContainerEnv) {
+      cy.task('isDocker').then((isDocker) => {
+        if (!isDocker) {
           cy.get('#complaintMessage').type('XXE File Exfiltration Windows!')
           cy.get('#file').selectFile('test/files/xxeForWindows.xml')
           cy.get('#submitButton').click()
         }
-      }).then((disableOnContainerEnv) => {
+      }).then((isDocker) => {
         it('should be possible to retrieve file from Linux server via .xml upload with XXE attack', () => {
-          if (!disableOnContainerEnv) {
+          if (!isDocker) {
             cy.get('#complaintMessage').type('XXE File Exfiltration Linux!')
             cy.get('#file').selectFile('test/files/xxeForLinux.xml')
             cy.get('#submitButton').click()
@@ -79,16 +79,16 @@ describe('/#/complain', () => {
 
   describe('challenge "xxeDos"', () => {
     it('should be possible to trigger request timeout via .xml upload with dev/random attack', () => {
-      cy.task('disableOnContainerEnv').then((disableOnContainerEnv) => {
-        if (!disableOnContainerEnv) {
+      cy.task('isDocker').then((isDocker) => {
+        if (!isDocker) {
           cy.get('#complaintMessage').type('XXE Quadratic Blowup!')
           cy.get('#file').selectFile('test/files/xxeDevRandom.xml')
           cy.get('#submitButton').click()
           cy.wait(2000) // Wait for timeout of XML parser
         }
-      }).then((disableOnContainerEnv) => {
+      }).then((isDocker) => {
         it('should be possible to trigger request timeout via .xml upload with Quadratic Blowup attack', () => {
-          if (!disableOnContainerEnv) {
+          if (!isDocker) {
             cy.get('#complaintMessage').type('XXE Quadratic Blowup!')
             cy.get('#file').selectFile('test/files/xxeQuadraticBlowup.xml')
             cy.get('#submitButton').click()
@@ -102,8 +102,8 @@ describe('/#/complain', () => {
 
   describe('challenge "arbitraryFileWrite"', () => {
     it('should be possible to upload zip file with filenames having path traversal', () => {
-      cy.task('disableOnContainerEnv').then((disableOnContainerEnv) => {
-        if (!disableOnContainerEnv) {
+      cy.task('isDocker').then((isDocker) => {
+        if (!isDocker) {
           cy.get('#complaintMessage').type('Zip Slip!')
           cy.get('#file').selectFile('test/files/arbitraryFileWrite.zip')
           cy.get('#submitButton').click()
@@ -115,8 +115,8 @@ describe('/#/complain', () => {
 
   describe('challenge "videoXssChallenge"', () => {
     it('should be possible to inject js in subtitles by uploading zip file with filenames having path traversal', () => {
-      cy.task('disableOnContainerEnv').then((disableOnContainerEnv) => {
-        if (!disableOnContainerEnv) {
+      cy.task('isDocker').then((isDocker) => {
+        if (!isDocker) {
           cy.get('#complaintMessage').type('Here we go!')
           cy.get('#file').selectFile('test/files/videoExploit.zip')
           cy.get('#submitButton').click()
