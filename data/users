@@ -21,3 +21,8 @@
       cardNum: 1234567812345678
       expMonth: 12
       expYear: 2099
+  card:
+    - fullName: 'Tim Tester'
+      cardNum: 4580546265491234
+      expMonth: 12
+      expYear: 2026
