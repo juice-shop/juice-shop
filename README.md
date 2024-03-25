@@ -68,9 +68,13 @@ helm install insights \
 
 Run `kubectl get pods` to verify the pod is running.
 
-## Step 2: Scan and Tag Container Images
+## Step 2: Scan and Tag Container projects
+
+See [full docs](https://docs.snyk.io/manage-risk/snyk-apprisk/risk-based-prioritization-for-snyk-apprisk/prioritization-setup/prioritization-setup-associating-snyk-open-source-code-and-container-projects) on tagging format. This is required to link Open Source and Code projects with Container projects.
 
 Add tags to container images: [see example workflow](./.github/workflows/container-build-and-test.yml#L35).
+
+Examples:
 
 ```
 snyk container monitor your/image:tag --tags="component=pkg:${{ github.repository }}@${{ github.ref_name }}"
