@@ -117,8 +117,9 @@ challenges:
     type: string
   xssBonusPayload:
     type: string
-  safetyOverride:
-    type: boolean
+  safetyMode:
+    type: string
+    enum: ['enabled', 'disabled','auto']
   showFeedbackButtons:
     type: boolean
 hackingInstructor:

