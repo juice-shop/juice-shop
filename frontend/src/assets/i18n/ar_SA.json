@@ -345,6 +345,7 @@
   "CONFIRM_RECYCLING_BOX": "Thank you for using our eco-friendly recycling self-service. We will send you a pomace recycling box asap.",
   "CONFIRM_RECYCLING_PICKUP": "Thank you for using our convenient recycling service. We will pick up your pomace on {{pickupdate}}.",
   "CHALLENGE_UNAVAILABLE": "This challenge is unavailable in a {{env}} environment!",
+  "CHALLENGE_UNAVAILABLE_SAFETYMODE":"هذا التحدي غير متاح لأن التطبيق يعمل في وضع السلامة!",
   "CLICK_FOR_MORE_HINTS": "انقر لمزيد من التلميحات. (Hints)",
   "CLICK_TO_OPEN_HINTS": "انقر لعرض التلميحات. (Hints).",
   "BONUS_POINTS_EARNED": "النقاط المكتسبة: {{bonus}}",

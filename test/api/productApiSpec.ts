@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: MIT
  */
 
-import frisby = require('frisby')
 import type { Product as ProductConfig } from '../../lib/config.types'
+import { challenges } from '../../data/datacache'
 import config from 'config'
+import frisby = require('frisby')
 const Joi = frisby.Joi
 const utils = require('../../lib/utils')
 const security = require('../../lib/insecurity')
@@ -43,7 +44,7 @@ describe('/api/Products', () => {
       .expect('status', 401)
   })
 
-  if (!utils.disableOnContainerEnv()) {
+  if (utils.isChallengeEnabled(challenges.restfulXssChallenge)) {
     it('POST new product does not filter XSS attacks', () => {
       return frisby.post(API_URL + '/Products', {
         headers: authHeader,

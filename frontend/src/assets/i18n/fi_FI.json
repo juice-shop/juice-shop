@@ -345,6 +345,7 @@
   "CONFIRM_RECYCLING_BOX": "Kiitos, että käytät ympäristöystävällistä kierrätystä itsepalvelua. Lähetämme sinulle pomace kierrätyslaatikon mahdollisimman pian.",
   "CONFIRM_RECYCLING_PICKUP": "Kiitos, että käytät kätevää kierrätyspalveluamme. Noudamme pomace laatikon  {{pickupdate}}.",
   "CHALLENGE_UNAVAILABLE": "Tämä tehtävä ei ole käytettävissä {{env}} ympäristössä!",
+  "CHALLENGE_UNAVAILABLE_SAFETYMODE": "Tämä haaste ei ole käytettävissä, koska sovellus toimii turvallisuustilassa!",
   "CLICK_FOR_MORE_HINTS": "Lisää vihjeitä napauttamalla.",
   "CLICK_TO_OPEN_HINTS": "Avaa vihjeet.",
   "BONUS_POINTS_EARNED": "Bonus pisteitä ansaittu {{bonus}}",
