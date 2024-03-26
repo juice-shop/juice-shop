@@ -32,11 +32,6 @@ jobs:
 
         - uses: snyk/actions/setup@master
         - name: Snyk Container Monitor 
-          run: >
-            snyk container monitor troysnyk/snyk-juice-shop:linux 
-                --tags="component=pkg:${{ github.repository }}@${{ github.ref_name }}" 
-                --org=${{ secrets.SNYK_ORG_ID }} 
-                --exclude-app-vulns 
-                --file=Dockerfile
+          run: snyk container monitor troysnyk/snyk-juice-shop:linux --tags="component=pkg:${{ github.repository }}@${{ github.ref_name }}" --org=${{ secrets.SNYK_ORG_ID }} --exclude-app-vulns --file=Dockerfile
           env:
             SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
