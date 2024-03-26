@@ -210,6 +210,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     acknowledgements: config.get('application.securityTxt.acknowledgements'),
     'Preferred-Languages': [...new Set(locales.map((locale: { key: string }) => locale.key.substr(0, 2)))].join(', '),
     hiring: config.get('application.securityTxt.hiring'),
+    csaf: config.get<string>('server.baseUrl') + config.get<string>('application.securityTxt.csaf'),
     expires: securityTxtExpiration.toUTCString()
   }))
 
@@ -259,6 +260,9 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use('/ftp', serveIndexMiddleware, serveIndex('ftp', { icons: true })) // vuln-code-snippet vuln-line directoryListingChallenge
   app.use('/ftp(?!/quarantine)/:file', fileServer()) // vuln-code-snippet vuln-line directoryListingChallenge
   app.use('/ftp/quarantine/:file', quarantineServer()) // vuln-code-snippet neutral-line directoryListingChallenge
+
+  app.use('/.well-known', serveIndexMiddleware, serveIndex('.well-known', { icons: true, view: 'details' }))
+  app.use('/.well-known', express.static('.well-known'))
 
   /* /encryptionkeys directory browsing */
   app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' }))

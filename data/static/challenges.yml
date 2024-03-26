@@ -1217,3 +1217,12 @@
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/score-board.html#_close_multiple_challenge_solved_notifications_in_one_go'
   mitigationUrl: ~
   key: closeNotificationsChallenge
+-
+  name: 'Security Advisory'
+  category: 'Miscellaneous'
+  description: ' The Juice Shop is susceptible to a known vulnerability in a library, for which an advisory has already been issued, marking the Juice Shop as <i>known affected</i>. A fix is still pending. <a href="/#/contact">Inform the shop</a> about a suitable checksum as proof that you did your due diligence.'
+  difficulty: 3
+  hint: 'Security Advisories are often listed in the security.txt'
+  hintUrl: ''
+  mitigationUrl: ~
+  key: csafChallenge

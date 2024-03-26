@@ -33,6 +33,7 @@ module.exports = function (grunt) {
         files: [
           {
             src: [
+              '.well-known/**',
               'LICENSE',
               '*.md',
               'package.json',

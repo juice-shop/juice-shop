@@ -4,6 +4,7 @@
 export interface ServerConfig {
   port: number
   basePath: string
+  baseUrl: string
 }
 
 export interface ApplicationConfig {
@@ -55,6 +56,7 @@ export interface ApplicationConfig {
     encryption: string
     acknowledgements: string
     hiring: string
+    csaf: string
   }
   promotion: {
     video: string
@@ -80,6 +82,7 @@ export interface ChallengesConfig {
   xssBonusPayload: string
   safetyOverride: boolean
   showFeedbackButtons: boolean
+  csafHashValue: string
 }
 
 export interface HackingInstructorConfig {
