@@ -4,9 +4,9 @@
     "csaf_version": "2.1",
     "tracking": {
       "generator": {
-        "date": "2024-03-03T20:09:44.374Z",
+        "date": "2024-03-26T09:17:56.336Z",
         "engine": {
-          "version": "2.5.0",
+          "version": "2.5.1",
           "name": "Secvisogram"
         }
       },
@@ -48,7 +48,7 @@
     ],
     "publisher": {
       "category": "vendor",
-      "contact_details": "timo.pagel@owasp.org",
+      "contact_details": "jannik.hollenbach@owasp.org;timo.pagel@owasp.org",
       "issuing_authority": "OWASP Juice Shop",
       "name": "OWASP Juice Shop Core Team",
       "namespace": "https://github.com/juice-shop/juice-shop"
@@ -66,6 +66,14 @@
         },
         "category": "product_version_range",
         "name": "vers:all/*"
+      },
+      {
+        "category": "product_version_range",
+        "name": "vers:all/>=17.0.0",
+        "product": {
+          "name": "OWASP Juice Shop",
+          "product_id": "juice-shop/juice-shop-17-or-later"
+        }
       }
     ]
   },
@@ -91,6 +99,15 @@
           "category": "no_fix_planned",
           "product_ids": [
             "juice-shop/juice-shop"
+          ]
+        },
+        {
+          "category": "mitigation",
+          "details": "Explicitly enable safetyMode to disable unsecure challenges.\n\n```yaml\nchallenges:\n  safetyMode: enabled\n```\n",
+          "date": "2024-03-10T08:46:00.000Z",
+          "url": "https://github.com/juice-shop/juice-shop/issues/2174",
+          "product_ids": [
+            "juice-shop/juice-shop-17-or-later"
           ]
         }
       ],
