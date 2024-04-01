@@ -717,3 +717,8 @@ ctf:
         type: string
       code:
         type: string
+    csafChallenge:
+      name:
+        type: string
+      code:
+        type: string
