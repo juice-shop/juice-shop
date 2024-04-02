@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./juice-shop",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
