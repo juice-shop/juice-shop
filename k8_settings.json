@@ -2,7 +2,7 @@
   "Default": {
     "app_name": "juice-shop",
     "app_owner": "{app_owner}",
-    "app_port": 80,
+    "app_port": 3000,
     "base_template": "SanityTemplate",
     "cpu_limit": "500m",
     "cpu_request": "50m",
