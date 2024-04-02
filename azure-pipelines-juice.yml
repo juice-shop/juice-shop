@@ -40,12 +40,6 @@ stages:
         parameters:
           agent_pool: $(agent_pool)
           build_location: $(build_location)
-          ca_aws_access_key_id: $(ca_aws_access_key_id)
-          ca_aws_secret_access_key: $(ca_aws_secret_access_key)
-          uk_aws_access_key_id: $(uk_aws_access_key_id)
-          uk_aws_secret_access_key: $(uk_aws_secret_access_key)
-          us_aws_access_key_id: $(us_aws_access_key_id)
-          us_aws_secret_access_key: $(us_aws_secret_access_key)
           countries:
             - AU
           docker_file: $(docker_file)
@@ -53,8 +47,6 @@ stages:
           repositoryname: $(repositoryname)
           working_directory: $(working_directory)
           set_version_buildarg: true
-          code_coverage_results: $(code_coverage_results)
-          test_results: $(test_results)
 
   - stage: AU_Test_Release
     displayName: AU Test Release
@@ -73,7 +65,6 @@ stages:
           k8settings: k8_settings.json
           prnumbers: $(prnumbers)
           repositoryname: $(repositoryname)
-          tests_directory: $(tests_directory)
           version: $(version)
           working_directory: $(working_directory)
           node_version: $(node_version)
