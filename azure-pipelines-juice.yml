@@ -1,7 +1,6 @@
 ---
 variables:
   - group: AWS-ECR-Credentials
-  - group: API-Test-Token-Credentials
   - group: common
   - group: PR-ENV-Credentials
   - name: agent_pool
@@ -61,7 +60,6 @@ stages:
     displayName: AU Test Release
     dependsOn: Docker_Build
     variables:
-      - group: CommonAuth-AU-Test
       - name: version
         value: $[ stageDependencies.Docker_Build.Build_Docker_Image.outputs['gitversion.docker_version'] ]
       - name: prnumbers
@@ -96,7 +94,6 @@ stages:
       - Docker_Build
       - AU_Test_Release
     variables:
-      - group: CommonAuth-AU-Stage
       - name: version
         value: $[ stageDependencies.Docker_Build.Build_Docker_Image.outputs['gitversion.docker_version'] ]
     jobs:
