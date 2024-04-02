@@ -1,0 +1,66 @@
+{
+  "Default": {
+    "app_name": "devops-warmup-tester",
+    "app_owner": "{app_owner}",
+    "app_port": 80,
+    "base_template": "SanityTemplate",
+    "cpu_limit": "500m",
+    "cpu_request": "50m",
+    "healthcheck_address": "/health",
+    "healthcheck_protocol": "HTTP",
+    "memory_limit": "750Mi",
+    "memory_request": "300Mi",
+    "min_replicas": 2,
+    "max_replicas": 5,
+    "service_prefix": "/devops-warmup-tester/",
+    "service_visibility": "internal",
+    "startup_address": "/Startup",
+    "slack_channel": "#default-alerts-channel",
+    "host_name": "",
+    "env_variables": [
+    ]
+  },
+     "PR": {
+       "env_variables": [
+         {
+           "name": "ASPNETCORE_ENVIRONMENT",
+           "value": "test.au"
+         }
+       ]
+     },
+     "Test": {
+       "env_variables": [
+         {
+           "name": "ASPNETCORE_ENVIRONMENT",
+           "value": "test.au"
+         }
+       ]
+     },
+     "Stage": {
+       "env_variables": [
+         {
+           "name": "ASPNETCORE_ENVIRONMENT",
+           "value": "stage.au"
+         },
+         {
+           "name": "DatadogApiKey",
+           "value": "vault:secrets/data/common#DatadogApikey"
+         }
+       ]
+     },
+     "Prod": {
+       "datadog_email_alerts": "no-reply@infotrack.com.au",
+       "env_variables": [
+         {
+         "name": "ASPNETCORE_ENVIRONMENT",
+         "value": "prod.au"
+         },
+         {
+           "name": "DatadogApiKey",
+           "value": "vault:secrets/data/common#DatadogApikey"
+         }
+       ],
+       "min_replicas": 2,
+       "max_replicas": 10
+     }
+   }
