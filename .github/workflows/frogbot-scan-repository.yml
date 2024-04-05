@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   schedule:
     # The repository will be scanned every 15 minutes.
-    - cron: "*/60 * * * *"
+    - cron: "0 12 * * *"
 permissions:
   contents: write
   pull-requests: write
