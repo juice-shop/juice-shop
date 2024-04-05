@@ -1,0 +1,3 @@
+myRepo:
+  gitProvider: Token         # replace with your GitRepo integration name
+  path: dandelion-and-burdock/juice-shop     # replace jfrog with your username or org name
