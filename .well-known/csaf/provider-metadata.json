@@ -1,0 +1,33 @@
+{
+  "canonical_url": "http://localhost:3000/.well-known/csaf/provider-metadata.json",
+  "distributions": [
+    {
+      "directory_url": "http://localhost:3000/.well-known/csaf/"
+    }
+  ],
+  "last_updated": "2024-03-05T20:20:56.169Z",
+  "list_on_CSAF_aggregators": false,
+  "metadata_version": "2.0",
+  "mirror_on_CSAF_aggregators": false,
+  "public_openpgp_keys": [
+    {
+      "fingerprint": "19c01cb7157e4645e9e2c863062a85a8cbfbdcda",
+      "url": "https://keybase.io/bkimminich/pgp_keys.asc?fingerprint=19c01cb7157e4645e9e2c863062a85a8cbfbdcda"
+    },
+    {
+      "fingerprint": "2372B2B12AEA7AE3001BB3FBD08FB16E2029D870",
+      "url": "https://keybase.io/wurstbrot/pgp_keys.asc"
+    },
+    {
+      "fingerprint": "91b7a09d34db0a5e662ea7546f4a7656807d4ff9",
+      "url": "https://github.com/J12934.gpg"
+    }
+  ],
+  "publisher": {
+    "category": "vendor",
+    "name": "OWASP Juice Shop",
+    "namespace": "/juice-shop/juice-shop",
+    "contact_details": "timo.pagel@owasp.org"
+  },
+  "role": "csaf_trusted_provider"
+}
