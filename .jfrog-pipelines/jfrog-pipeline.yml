@@ -1,0 +1,45 @@
+template: true   # required for local templates
+valuesFilePath: ./values.yml
+
+resources:
+  - name: npm_repo_jfp_example
+    type: GitRepo
+    configuration:
+      # SCM integration where the repository is located
+      gitProvider: {{ .Values.myRepo.gitProvider }}
+      # Repository path, including org name/repo name
+      path: {{ .Values.myRepo.path }}
+      branches:
+        # Specifies which branches will trigger dependent steps
+        include: master
+
+  - name: npm_buildinfo_jfp_example
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: POC-NPM-Local
+
+pipelines:
+  - name: npm_pipeline_jfp_example
+    steps:
+      - name: npm_build_step
+        type: NpmBuild
+        configuration:
+          repositoryName: POC-NPM-Virtual     # required, npm repository name on artifacctory
+          sourceLocation: .      # required, location of package.json file
+          integrations:
+            - name:  Token  # required
+          inputResources:
+            - name: npm_repo_jfp_example         # required
+
+      - name: npm_publish_step
+        type: NpmPublish
+        configuration:
+          # for payloadType npm:
+          repositoryName: npm-virtual        # required, npm repository name on artifactory
+          autoPublishBuildInfo: true       # optional
+          integrations:
+            - name: Token      # required
+          inputSteps:
+            - name: npm_build_step                # required
+          outputResources:
+            - name: npm_buildinfo_jfp_example                 # optional
