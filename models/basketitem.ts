@@ -21,6 +21,7 @@ InferCreationAttributes<BasketItem>
   declare BasketId: number
   declare id: CreationOptional<number>
   declare quantity: number
+  declare second_quantity: number
 }
 
 const BasketItemModelInit = (sequelize: Sequelize) => {
