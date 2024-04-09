@@ -1,34 +1,34 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import challengeUtils = require('../lib/challengeUtils')
 import { type Request, type Response, type NextFunction } from 'express'
 import { type Review } from '../data/types'
+import * as db from '../data/mongodb'
+import { challenges } from '../data/datacache'
 
-const challenges = require('../data/datacache').challenges
-const db = require('../data/mongodb')
 const security = require('../lib/insecurity')
 
 module.exports = function productReviews () {
   return (req: Request, res: Response, next: NextFunction) => {
     const id = req.body.id
     const user = security.authenticatedUsers.from(req)
-    db.reviews.findOne({ _id: id }).then((review: Review) => {
+    db.reviewsCollection.findOne({ _id: id }).then((review: Review) => {
       if (!review) {
         res.status(404).json({ error: 'Not found' })
       } else {
         const likedBy = review.likedBy
         if (!likedBy.includes(user.data.email)) {
-          db.reviews.update(
+          db.reviewsCollection.update(
             { _id: id },
             { $inc: { likesCount: 1 } }
           ).then(
             () => {
               // Artificial wait for timing attack challenge
               setTimeout(function () {
-                db.reviews.findOne({ _id: id }).then((review: Review) => {
+                db.reviewsCollection.findOne({ _id: id }).then((review: Review) => {
                   const likedBy = review.likedBy
                   likedBy.push(user.data.email)
                   let count = 0
@@ -38,7 +38,7 @@ module.exports = function productReviews () {
                     }
                   }
                   challengeUtils.solveIf(challenges.timingAttackChallenge, () => { return count > 2 })
-                  db.reviews.update(
+                  db.reviewsCollection.update(
                     { _id: id },
                     { $set: { likedBy } }
                   ).then(

@@ -18,7 +18,7 @@ module.exports = function login () {
       res.status(451).send(res.__('SQL Injection detected.'))
     }
     models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true })
-      .then((authenticatedUser: { data: User }) => {
+      .then((authenticatedUser) => {
         const user = utils.queryResultToJson(authenticatedUser)
         if (user.data?.id && user.data.totpSecret !== '') {
           res.status(401).json({

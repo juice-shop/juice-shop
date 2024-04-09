@@ -1,11 +1,12 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import config from 'config'
 import * as utils from '../utils'
-const replace = require('replace')
+// @ts-expect-error FIXME due to non-existing type definitions for replace
+import replace from 'replace'
 
 const customizeEasterEgg = async () => {
   if (config.has('application.easterEggPlanet.overlayMap')) {
@@ -34,7 +35,7 @@ const replaceImagePath = (overlay: string) => {
 }
 
 const replaceThreeJsTitleTag = () => {
-  const threeJsTitleTag = '<title>Welcome to Planet ' + config.get('application.easterEggPlanet.name') + '</title>'
+  const threeJsTitleTag = '<title>Welcome to Planet ' + config.get<string>('application.easterEggPlanet.name') + '</title>'
   replace({
     regex: /<title>.*<\/title>/,
     replacement: threeJsTitleTag,
@@ -44,4 +45,4 @@ const replaceThreeJsTitleTag = () => {
   })
 }
 
-module.exports = customizeEasterEgg
+export default customizeEasterEgg

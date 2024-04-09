@@ -1,10 +1,11 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import frisby = require('frisby')
+import { challenges } from '../../data/datacache'
 import { expect } from '@jest/globals'
+import frisby = require('frisby')
 import path from 'path'
 const fs = require('fs')
 const utils = require('../../lib/utils')
@@ -62,7 +63,7 @@ describe('/file-upload', () => {
       .expect('status', 410)
   })
 
-  if (!utils.disableOnContainerEnv()) {
+  if (utils.isChallengeEnabled(challenges.xxeFileDisclosureChallenge) || utils.isChallengeEnabled(challenges.xxeDosChallenge)) {
     it('POST file type XML with XXE attack against Windows', () => {
       const file = path.resolve(__dirname, '../files/xxeForWindows.xml')
       const form = frisby.formData()

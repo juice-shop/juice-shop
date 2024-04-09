@@ -1,4 +1,4 @@
-import { type Product } from '../../../data/types'
+import type { Product as ProductConfig } from '../../../lib/config.types'
 
 describe('/#/contact', () => {
   beforeEach(() => {
@@ -52,8 +52,8 @@ describe('/#/contact', () => {
     // Cypress alert bug
     // The challege also passes but its just that cypress freezes and is unable to perform any action
     xit('should be possible to trick the sanitization with a masked XSS attack', () => {
-      cy.task('disableOnContainerEnv').then((disableOnContainerEnv) => {
-        if (!disableOnContainerEnv) {
+      cy.task('isDocker').then((isDocker) => {
+        if (!isDocker) {
           cy.get('#comment').type(
             '<<script>Foo</script>iframe src="javascript:alert(`xss`)">'
           )
@@ -236,7 +236,7 @@ describe('/#/contact', () => {
 
   describe('challenge "dlpPastebinDataLeak"', () => {
     it('should be possible to post dangerous ingredients of unsafe product as feedback', () => {
-      cy.task<Product>('GetPastebinLeakProduct').then((pastebinLeakProduct: Product) => {
+      cy.task<ProductConfig>('GetPastebinLeakProduct').then((pastebinLeakProduct: ProductConfig) => {
         cy.get('#comment').type(
           pastebinLeakProduct.keywordsForPastebinDataLeakChallenge ? pastebinLeakProduct.keywordsForPastebinDataLeakChallenge.toString() : '?'
         )

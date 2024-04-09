@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -23,11 +23,9 @@ import { SecurityAnswerModelInit } from './securityAnswer'
 import { SecurityQuestionModelInit } from './securityQuestion'
 import { UserModelInit } from './user'
 import { WalletModelInit } from './wallet'
+import { Sequelize, Transaction } from 'sequelize'
 
 /* jslint node: true */
-
-const Sequelize = require('sequelize')
-
 const sequelize = new Sequelize('database', 'username', 'password', {
   dialect: 'sqlite',
   retry: {
@@ -35,7 +33,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
     name: 'query',
     max: 5
   },
-  transactionType: 'IMMEDIATE',
+  transactionType: Transaction.TYPES.IMMEDIATE,
   storage: 'data/juiceshop.sqlite',
   logging: false
 })

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -8,11 +8,11 @@ import { type Request, type Response } from 'express'
 import challengeUtils = require('../lib/challengeUtils')
 import config from 'config'
 import * as utils from '../lib/utils'
+import { AllHtmlEntities as Entities } from 'html-entities'
+import { challenges } from '../data/datacache'
 
 const pug = require('pug')
-const challenges = require('../data/datacache').challenges
 const themes = require('../views/themes/themes').themes
-const Entities = require('html-entities').AllHtmlEntities
 const entities = new Entities()
 
 exports.getVideo = () => {
@@ -57,7 +57,7 @@ exports.promotionVideo = () => {
       challengeUtils.solveIf(challenges.videoXssChallenge, () => { return utils.contains(subs, '</script><script>alert(`xss`)</script>') })
 
       const theme = themes[config.get<string>('application.theme')]
-      template = template.replace(/_title_/g, entities.encode(config.get('application.name')))
+      template = template.replace(/_title_/g, entities.encode(config.get<string>('application.name')))
       template = template.replace(/_favicon_/g, favicon())
       template = template.replace(/_bgColor_/g, theme.bgColor)
       template = template.replace(/_textColor_/g, theme.textColor)

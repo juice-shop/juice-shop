@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -8,13 +8,13 @@ import { type Request, type Response, type NextFunction } from 'express'
 import challengeUtils = require('../lib/challengeUtils')
 
 import * as utils from '../lib/utils'
+import { challenges } from '../data/datacache'
 const security = require('../lib/insecurity')
 const safeEval = require('notevil')
-const challenges = require('../data/datacache').challenges
 
 module.exports = function b2bOrder () {
   return ({ body }: Request, res: Response, next: NextFunction) => {
-    if (!utils.disableOnContainerEnv()) {
+    if (utils.isChallengeEnabled(challenges.rceChallenge) || utils.isChallengeEnabled(challenges.rceOccupyChallenge)) {
       const orderLinesData = body.orderLinesData || ''
       try {
         const sandbox = { safeEval, orderLinesData }
@@ -37,7 +37,7 @@ module.exports = function b2bOrder () {
   }
 
   function uniqueOrderNumber () {
-    return security.hash(new Date() + '_B2B')
+    return security.hash(`${(new Date()).toString()}_B2B`)
   }
 
   function dateTwoWeeksFromNow () {

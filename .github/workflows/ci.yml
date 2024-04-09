@@ -18,7 +18,8 @@ on:
       - 'data/static/i18n/*.json'
       - 'frontend/src/assets/i18n/*.json'
 env:
-  ANGULAR_CLI_VERSION: 15
+  NODE_DEFAULT_VERSION: 20
+  ANGULAR_CLI_VERSION: 17
   CYCLONEDX_NPM_VERSION: '^1.12.0'
 jobs:
   lint:
@@ -29,7 +30,7 @@ jobs:
       - name: "Use Node.js 18"
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d #v3.8.1
         with:
-          node-version: 20
+          node-version: ${{ env.NODE_DEFAULT_VERSION }}
       - name: "Install CLI tools"
         run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application minimalistically"
@@ -61,7 +62,7 @@ jobs:
       - name: "Use Node.js 18"
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d #v3.8.1
         with:
-          node-version: 20
+          node-version: ${{ env.NODE_DEFAULT_VERSION }}
       - name: "Install CLI tools"
         run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
@@ -183,7 +184,7 @@ jobs:
       - name: "Use Node.js 18"
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d #v3.8.1
         with:
-          node-version: 20
+          node-version: ${{ env.NODE_DEFAULT_VERSION }}
       - name: "Install CLI tools"
         run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
@@ -219,7 +220,7 @@ jobs:
       - name: "Use Node.js 18"
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d #v3.8.1
         with:
-          node-version: 20
+          node-version: ${{ env.NODE_DEFAULT_VERSION }}
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
@@ -260,7 +261,7 @@ jobs:
       - name: "Use Node.js 18"
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d #v3.8.1
         with:
-          node-version: 20
+          node-version: ${{ env.NODE_DEFAULT_VERSION }}
       - name: "Install CLI tools"
         run: |
           npm install -g @angular/cli@$ANGULAR_CLI_VERSION

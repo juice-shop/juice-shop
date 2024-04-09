@@ -1,7 +1,7 @@
 {
 	"accessLogDisclosureChallenge_1_correct.ts": {
 		"added": [
-			13
+			16
 		],
 		"removed": []
 	},
@@ -107,20 +107,31 @@
 		"removed": []
 	},
 	"exposedMetricsChallenge_1.ts": {
-		"added": [],
-		"removed": []
+		"added": [
+			7
+		],
+		"removed": [
+			7
+		]
 	},
 	"exposedMetricsChallenge_2.ts": {
 		"added": [
 			2,
-			19,
-			36
+			7,
+			16,
+			33
 		],
-		"removed": []
+		"removed": [
+			7
+		]
 	},
 	"exposedMetricsChallenge_3_correct.ts": {
-		"added": [],
-		"removed": []
+		"added": [
+			7
+		],
+		"removed": [
+			7
+		]
 	},
 	"forgedReviewChallenge_1.ts": {
 		"added": [

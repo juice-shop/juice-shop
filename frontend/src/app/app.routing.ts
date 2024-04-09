@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -18,7 +18,6 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ComplaintComponent } from './complaint/complaint.component'
 import { ChatbotComponent } from './chatbot/chatbot.component'
 import { RecycleComponent } from './recycle/recycle.component'
-import { ScoreBoardLegacyComponent } from './score-board-legacy/score-board-legacy.component'
 import { RouterModule, type Routes, type UrlMatchResult, type UrlSegment } from '@angular/router'
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
 import { ErrorPageComponent } from './error-page/error-page.component'
@@ -43,7 +42,6 @@ import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, LoginGuard } from './app.guard'
 import { NFTUnlockComponent } from './nft-unlock/nft-unlock.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
-import { Web3SandboxComponent } from './web3-sandbox/web3-sandbox.component'
 
 const loadFaucetModule = async () => {
   const module = await import('./faucet/faucet.module')
@@ -175,10 +173,6 @@ const routes: Routes = [
     path: 'score-board', // vuln-code-snippet vuln-line scoreBoardChallenge
     component: ScoreBoardComponent // vuln-code-snippet neutral-line scoreBoardChallenge
   }, // vuln-code-snippet neutral-line scoreBoardChallenge
-  { // vuln-code-snippet hide-line
-    path: 'score-board-legacy', // vuln-code-snippet hide-line
-    component: ScoreBoardLegacyComponent // vuln-code-snippet hide-line
-  }, // vuln-code-snippet hide-line
   {
     path: 'track-result',
     component: TrackResultComponent

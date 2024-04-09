@@ -1,15 +1,15 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import models = require('../models/index')
+import * as models from '../models/index'
 import { type Request, type Response, type NextFunction } from 'express'
 import { UserModel } from '../models/user'
+import { challenges } from '../data/datacache'
 
 import * as utils from '../lib/utils'
 const challengeUtils = require('../lib/challengeUtils')
-const challenges = require('../data/datacache').challenges
 
 class ErrorWithParent extends Error {
   parent: Error | undefined
@@ -44,7 +44,7 @@ module.exports = function searchProducts () {
         }
         if (challengeUtils.notSolved(challenges.dbSchemaChallenge)) {
           let solved = true
-          models.sequelize.query('SELECT sql FROM sqlite_master').then(([data]: any) => {
+          void models.sequelize.query('SELECT sql FROM sqlite_master').then(([data]: any) => {
             const tableDefinitions = utils.queryResultToJson(data)
             if (tableDefinitions.data?.length) {
               for (let i = 0; i < tableDefinitions.data.length; i++) {

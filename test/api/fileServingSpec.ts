@@ -1,18 +1,18 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import frisby = require('frisby')
 import config from 'config'
-import { type Product } from '../../data/types'
+import type { Product as ProductConfig } from '../../lib/config.types'
 const utils = require('../../lib/utils')
 
 const URL = 'http://localhost:3000'
 
 let blueprint: string
 
-for (const product of config.get<Product[]>('products')) {
+for (const product of config.get<ProductConfig[]>('products')) {
   if (product.fileForRetrieveBlueprintChallenge) {
     blueprint = product.fileForRetrieveBlueprintChallenge
     break
@@ -63,6 +63,25 @@ describe('Server', () => {
   it('GET serves a robots.txt file', () => {
     return frisby.get(URL + '/robots.txt')
       .expect('status', 200)
+  })
+
+  it('GET serves a csaf provider-metadata.json', () => {
+    return frisby.get(URL + '/.well-known/csaf/provider-metadata.json')
+      .expect('status', 200)
+  })
+  it('GET serves a csaf index.txt', () => {
+    return frisby.get(URL + '/.well-known/csaf/index.txt')
+      .expect('status', 200)
+  })
+  it('GET serves a csaf changes.csv', () => {
+    return frisby.get(URL + '/.well-known/csaf/changes.csv')
+      .expect('status', 200)
+  })
+  it('GET serves a csaf juice-shop-sa-20200513-express-jwt.json', () => {
+    return frisby.get(URL + '/.well-known/csaf/2017/juice-shop-sa-20200513-express-jwt.json')
+      .expect('status', 200)
+      .expect('bodyContains', 'juice-shop-sa-20200513-express-jwt')
+      .expect('bodyContains', 'We will soon release a patch')
   })
 })
 

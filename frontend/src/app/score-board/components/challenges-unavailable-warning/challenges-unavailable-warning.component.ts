@@ -20,12 +20,19 @@ export class ChallengesUnavailableWarningComponent implements OnChanges {
 
   public numberOfDisabledChallenges = 0
   public disabledBecauseOfEnv: string | null = null
+  public disabledOnWindows: boolean
+  public numberOfDisabledChallengesOnWindows = 0
 
   public ngOnChanges () {
     const disabledChallenges = this.challenges.filter(challenge => challenge.disabledEnv !== null)
+    const disabledOnWindows = disabledChallenges.filter(challenge => challenge.disabledEnv === 'Windows')
     this.numberOfDisabledChallenges = disabledChallenges.length
     if (this.numberOfDisabledChallenges > 0) {
       this.disabledBecauseOfEnv = disabledChallenges[0].disabledEnv
+    }
+    if (disabledOnWindows.length > 0) {
+      this.disabledOnWindows = true
+      this.numberOfDisabledChallengesOnWindows = disabledOnWindows.length
     }
   }
 

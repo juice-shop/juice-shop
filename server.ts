@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 import dataErasure from './routes/dataErasure'
@@ -26,6 +26,18 @@ import path from 'path'
 import morgan from 'morgan'
 import colors from 'colors/safe'
 import * as utils from './lib/utils'
+import * as Prometheus from 'prom-client'
+import datacreator from './data/datacreator'
+
+import validatePreconditions from './lib/startup/validatePreconditions'
+import cleanupFtpFolder from './lib/startup/cleanupFtpFolder'
+import validateConfig from './lib/startup/validateConfig'
+import restoreOverwrittenFilesWithOriginals from './lib/startup/restoreOverwrittenFilesWithOriginals'
+import registerWebsocketEvents from './lib/startup/registerWebsocketEvents'
+import customizeApplication from './lib/startup/customizeApplication'
+import customizeEasterEgg from './lib/startup/customizeEasterEgg' // vuln-code-snippet hide-line
+
+import authenticatedUsers from './routes/authenticatedUsers'
 
 const startTime = Date.now()
 const finale = require('finale-rest')
@@ -43,7 +55,6 @@ const robots = require('express-robots-txt')
 const yaml = require('js-yaml')
 const swaggerUi = require('swagger-ui-express')
 const RateLimit = require('express-rate-limit')
-const client = require('prom-client')
 const ipfilter = require('express-ipfilter').IpFilter
 const swaggerDocument = yaml.load(fs.readFileSync('./swagger.yml', 'utf8'))
 const {
@@ -71,7 +82,6 @@ const quarantineServer = require('./routes/quarantineServer')
 const keyServer = require('./routes/keyServer')
 const logFileServer = require('./routes/logfileServer')
 const metrics = require('./routes/metrics')
-const authenticatedUsers = require('./routes/authenticatedUsers')
 const currentUser = require('./routes/currentUser')
 const login = require('./routes/login')
 const changePassword = require('./routes/changePassword')
@@ -92,7 +102,6 @@ const web3Wallet = require('./routes/web3Wallet')
 const updateProductReviews = require('./routes/updateProductReviews')
 const likeProductReviews = require('./routes/likeProductReviews')
 const security = require('./lib/insecurity')
-const datacreator = require('./data/datacreator')
 const app = express()
 const server = require('http').Server(app)
 const appConfiguration = require('./routes/appConfiguration')
@@ -120,33 +129,34 @@ const locales = require('./data/static/locales.json')
 const i18n = require('i18n')
 const antiCheat = require('./lib/antiCheat')
 
-const appName = config.get('application.customMetricsPrefix')
-const startupGauge = new client.Gauge({
+const appName = config.get<string>('application.customMetricsPrefix')
+const startupGauge = new Prometheus.Gauge({
   name: `${appName}_startup_duration_seconds`,
   help: `Duration ${appName} required to perform a certain task during startup`,
   labelNames: ['task']
 })
 
 // Wraps the function and measures its (async) execution time
-const collectDurationPromise = (name: string, func: any) => {
+const collectDurationPromise = (name: string, func: (...args: any) => Promise<any>) => {
   return async (...args: any) => {
     const end = startupGauge.startTimer({ task: name })
-    const res = await func(...args)
-    end()
-    return res
+    try {
+      const res = await func(...args)
+      end()
+      return res
+    } catch (err) {
+      console.error('Error in timed startup function: ' + name, err)
+      throw err
+    }
   }
-}
-void collectDurationPromise('validatePreconditions', require('./lib/startup/validatePreconditions'))()
-void collectDurationPromise('cleanupFtpFolder', require('./lib/startup/cleanupFtpFolder'))()
-void collectDurationPromise('validateConfig', require('./lib/startup/validateConfig'))({})
-
-// Reloads the i18n files in case of server restarts or starts.
-async function restoreOverwrittenFilesWithOriginals () {
-  await collectDurationPromise('restoreOverwrittenFilesWithOriginals', require('./lib/startup/restoreOverwrittenFilesWithOriginals'))()
 }
 
 /* Sets view engine to hbs */
 app.set('view engine', 'hbs')
+
+void collectDurationPromise('validatePreconditions', validatePreconditions)()
+void collectDurationPromise('cleanupFtpFolder', cleanupFtpFolder)()
+void collectDurationPromise('validateConfig', validateConfig)({})
 
 // Function called first to ensure that all the i18n files are reloaded successfully before other linked operations.
 restoreOverwrittenFilesWithOriginals().then(() => {
@@ -200,6 +210,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     acknowledgements: config.get('application.securityTxt.acknowledgements'),
     'Preferred-Languages': [...new Set(locales.map((locale: { key: string }) => locale.key.substr(0, 2)))].join(', '),
     hiring: config.get('application.securityTxt.hiring'),
+    csaf: config.get<string>('server.baseUrl') + config.get<string>('application.securityTxt.csaf'),
     expires: securityTxtExpiration.toUTCString()
   }))
 
@@ -249,6 +260,9 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use('/ftp', serveIndexMiddleware, serveIndex('ftp', { icons: true })) // vuln-code-snippet vuln-line directoryListingChallenge
   app.use('/ftp(?!/quarantine)/:file', fileServer()) // vuln-code-snippet vuln-line directoryListingChallenge
   app.use('/ftp/quarantine/:file', quarantineServer()) // vuln-code-snippet neutral-line directoryListingChallenge
+
+  app.use('/.well-known', serveIndexMiddleware, serveIndex('.well-known', { icons: true, view: 'details' }))
+  app.use('/.well-known', express.static('.well-known'))
 
   /* /encryptionkeys directory browsing */
   app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' }))
@@ -313,7 +327,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use('/rest/user/reset-password', new RateLimit({
     windowMs: 5 * 60 * 1000,
     max: 100,
-    keyGenerator ({ headers, ip }: { headers: any, ip: any }) { return headers['X-Forwarded-For'] || ip } // vuln-code-snippet vuln-line resetPasswordMortyChallenge
+    keyGenerator ({ headers, ip }: { headers: any, ip: any }) { return headers['X-Forwarded-For'] ?? ip } // vuln-code-snippet vuln-line resetPasswordMortyChallenge
   }))
   // vuln-code-snippet end resetPasswordMortyChallenge
 
@@ -674,14 +688,10 @@ logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length.to
 /* Serve metrics */
 let metricsUpdateLoop: any
 const Metrics = metrics.observeMetrics() // vuln-code-snippet neutral-line exposedMetricsChallenge
-const customizeEasterEgg = require('./lib/startup/customizeEasterEgg') // vuln-code-snippet hide-line
 app.get('/metrics', metrics.serveMetrics()) // vuln-code-snippet vuln-line exposedMetricsChallenge
-errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
+errorhandler.title = `${config.get<string>('application.name')} (Express ${utils.version('express')})`
 
-const registerWebsocketEvents = require('./lib/startup/registerWebsocketEvents')
-const customizeApplication = require('./lib/startup/customizeApplication')
-
-export async function start (readyCallback: any) {
+export async function start (readyCallback?: () => void) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
   await sequelize.sync({ force: true })
   await datacreator()

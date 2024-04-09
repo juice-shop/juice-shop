@@ -107,7 +107,7 @@ For a detailed introduction, full list of features and architecture overview ple
 
 1. Install [Docker](https://www.docker.com)
 2. Run `docker pull bkimminich/juice-shop`
-3. Run `docker run --rm -p 3000:3000 bkimminich/juice-shop`
+3. Run `docker run --rm -p 127.0.0.1:3000:3000 bkimminich/juice-shop`
 4. Browse to <http://localhost:3000> (on macOS and Windows browse to
    <http://192.168.99.100:3000> if you are using docker-machine instead of the native docker installation)
 
@@ -316,6 +316,6 @@ For a list of all contributors to the OWASP Juice Shop please visit our
 
 This program is free software: you can redistribute it and/or modify it under the terms of the [MIT license](LICENSE).
 OWASP Juice Shop and any contributions are Copyright © by Bjoern Kimminich & the OWASP Juice Shop contributors
-2014-2023.
+2014-2024.
 
 ![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_400px.png)

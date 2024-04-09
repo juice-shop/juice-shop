@@ -12,8 +12,8 @@ describe('/#/register', () => {
     })
 
     it('should be possible to bypass validation by directly using Rest API', async () => {
-      cy.task('disableOnContainerEnv').then((disableOnContainerEnv) => {
-        if (!disableOnContainerEnv) {
+      cy.task('isDocker').then((isDocker) => {
+        if (!isDocker) {
           cy.window().then(async () => {
             const response = await fetch(
               `${Cypress.config('baseUrl')}/api/Users/`,

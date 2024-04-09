@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -8,13 +8,12 @@ import config from 'config'
 import logger from '../logger'
 import path from 'path'
 import colors from 'colors/safe'
-import { promisify } from 'util'
-const process = require('process')
-const semver = require('semver')
-const portscanner = require('portscanner')
-const fs = require('fs')
-const checkInternetConnected = require('check-internet-connected')
-const access = promisify(fs.access)
+import { access } from 'fs/promises'
+import process from 'process'
+import semver from 'semver'
+import portscanner from 'portscanner'
+// @ts-expect-error FIXME due to non-existing type definitions for check-internet-connected
+import checkInternetConnected from 'check-internet-connected'
 
 const domainDependencies = {
   'https://www.alchemy.com/': ['"Mint the Honeypot" challenge', '"Wallet Depletion" challenge']
@@ -34,7 +33,7 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
     checkIfRequiredFileExists('frontend/dist/frontend/polyfills.js'),
     checkIfRequiredFileExists('frontend/dist/frontend/runtime.js'),
     checkIfRequiredFileExists('frontend/dist/frontend/vendor.js'),
-    checkIfPortIsAvailable(process.env.PORT || config.get('server.port')),
+    checkIfPortIsAvailable(process.env.PORT ?? config.get<number>('server.port')),
     checkIfDomainReachable('https://www.alchemy.com/')
   ])).every(condition => condition)
 
@@ -45,9 +44,13 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
   return success
 }
 
-const checkIfRunningOnSupportedNodeVersion = (runningVersion: string) => {
+export const checkIfRunningOnSupportedNodeVersion = (runningVersion: string) => {
   const supportedVersion = pjson.engines.node
   const effectiveVersionRange = semver.validRange(supportedVersion)
+  if (!effectiveVersionRange) {
+    logger.warn(`Invalid Node.js version range ${colors.bold(supportedVersion)} in package.json (${colors.red('NOT OK')})`)
+    return false
+  }
   if (!semver.satisfies(runningVersion, effectiveVersionRange)) {
     logger.warn(`Detected Node version ${colors.bold(runningVersion)} is not in the supported version range of ${supportedVersion} (${colors.red('NOT OK')})`)
     return false
@@ -56,27 +59,27 @@ const checkIfRunningOnSupportedNodeVersion = (runningVersion: string) => {
   return true
 }
 
-const checkIfRunningOnSupportedOS = (runningOS: string) => {
+export const checkIfRunningOnSupportedOS = (runningOS: string) => {
   const supportedOS = pjson.os
   if (!supportedOS.includes(runningOS)) {
-    logger.warn(`Detected OS ${colors.bold(runningOS)} is not in the list of supported platforms ${supportedOS} (${colors.red('NOT OK')})`)
+    logger.warn(`Detected OS ${colors.bold(runningOS)} is not in the list of supported platforms ${supportedOS.toString()} (${colors.red('NOT OK')})`)
     return false
   }
   logger.info(`Detected OS ${colors.bold(runningOS)} (${colors.green('OK')})`)
   return true
 }
 
-const checkIfRunningOnSupportedCPU = (runningArch: string) => {
+export const checkIfRunningOnSupportedCPU = (runningArch: string) => {
   const supportedArch = pjson.cpu
   if (!supportedArch.includes(runningArch)) {
-    logger.warn(`Detected CPU ${colors.bold(runningArch)} is not in the list of supported architectures ${supportedArch} (${colors.red('NOT OK')})`)
+    logger.warn(`Detected CPU ${colors.bold(runningArch)} is not in the list of supported architectures ${supportedArch.toString()} (${colors.red('NOT OK')})`)
     return false
   }
   logger.info(`Detected CPU ${colors.bold(runningArch)} (${colors.green('OK')})`)
   return true
 }
 
-const checkIfDomainReachable = async (domain: string) => {
+export const checkIfDomainReachable = async (domain: string) => {
   return checkInternetConnected({ domain })
     .then(() => {
       logger.info(`Domain ${colors.bold(domain)} is reachable (${colors.green('OK')})`)
@@ -92,9 +95,10 @@ const checkIfDomainReachable = async (domain: string) => {
     })
 }
 
-const checkIfPortIsAvailable = async (port: number) => {
+export const checkIfPortIsAvailable = async (port: number | string) => {
+  const portNumber = parseInt(port.toString())
   return await new Promise((resolve, reject) => {
-    portscanner.checkPortStatus(port, function (error: unknown, status: string) {
+    portscanner.checkPortStatus(portNumber, function (error: unknown, status: string) {
       if (error) {
         reject(error)
       } else {
@@ -110,10 +114,10 @@ const checkIfPortIsAvailable = async (port: number) => {
   })
 }
 
-const checkIfRequiredFileExists = async (pathRelativeToProjectRoot: string) => {
+export const checkIfRequiredFileExists = async (pathRelativeToProjectRoot: string) => {
   const fileName = pathRelativeToProjectRoot.substr(pathRelativeToProjectRoot.lastIndexOf('/') + 1)
 
-  return access(path.resolve(pathRelativeToProjectRoot)).then(() => {
+  return await access(path.resolve(pathRelativeToProjectRoot)).then(() => {
     logger.info(`Required file ${colors.bold(fileName)} is present (${colors.green('OK')})`)
     return true
   }).catch(() => {
@@ -122,8 +126,4 @@ const checkIfRequiredFileExists = async (pathRelativeToProjectRoot: string) => {
   })
 }
 
-validatePreconditions.checkIfRunningOnSupportedNodeVersion = checkIfRunningOnSupportedNodeVersion
-validatePreconditions.checkIfPortIsAvailable = checkIfPortIsAvailable
-validatePreconditions.checkIfRequiredFileExists = checkIfRequiredFileExists
-
-module.exports = validatePreconditions
+export default validatePreconditions

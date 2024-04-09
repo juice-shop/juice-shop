@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -17,12 +17,10 @@ import config from 'config'
 import * as utils from '../lib/utils'
 import { totalCheatScore } from '../lib/antiCheat'
 import * as accuracy from '../lib/accuracy'
-
-const Prometheus = require('prom-client')
-const onFinished = require('on-finished')
-const orders = require('../data/mongodb').orders
-const reviews = require('../data/mongodb').reviews
-const challenges = require('../data/datacache').challenges
+import { reviewsCollection, ordersCollection } from '../data/mongodb'
+import { challenges } from '../data/datacache'
+import * as Prometheus from 'prom-client'
+import onFinished from 'on-finished'
 
 const register = Prometheus.register
 
@@ -77,13 +75,13 @@ exports.serveMetrics = function serveMetrics () {
 }
 
 exports.observeMetrics = function observeMetrics () {
-  const app = config.get('application.customMetricsPrefix')
-  const intervalCollector = Prometheus.collectDefaultMetrics({ timeout: 5000 })
+  const app = config.get<string>('application.customMetricsPrefix')
+  Prometheus.collectDefaultMetrics({})
   register.setDefaultLabels({ app })
 
   const versionMetrics = new Prometheus.Gauge({
     name: `${app}_version_info`,
-    help: `Release version of ${config.get('application.name')}.`,
+    help: `Release version of ${config.get<string>('application.name')}.`,
     labelNames: ['version', 'major', 'minor', 'patch']
   })
 
@@ -118,7 +116,7 @@ exports.observeMetrics = function observeMetrics () {
 
   const orderMetrics = new Prometheus.Gauge({
     name: `${app}_orders_placed_total`,
-    help: `Number of orders placed in ${config.get('application.name')}.`
+    help: `Number of orders placed in ${config.get<string>('application.name')}.`
   })
 
   const userMetrics = new Prometheus.Gauge({
@@ -191,11 +189,11 @@ exports.observeMetrics = function observeMetrics () {
       accuracyMetrics.set({ phase: 'find it' }, accuracy.totalFindItAccuracy())
       accuracyMetrics.set({ phase: 'fix it' }, accuracy.totalFixItAccuracy())
 
-      orders.count({}).then((orderCount: number) => {
+      ordersCollection.count({}).then((orderCount: number) => {
         if (orderCount) orderMetrics.set(orderCount)
       })
 
-      reviews.count({}).then((reviewCount: number) => {
+      reviewsCollection.count({}).then((reviewCount: number) => {
         if (reviewCount) interactionsMetrics.set({ type: 'review' }, reviewCount)
       })
 
@@ -229,7 +227,6 @@ exports.observeMetrics = function observeMetrics () {
 
   return {
     register,
-    probe: intervalCollector,
     updateLoop
   }
 }

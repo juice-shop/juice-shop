@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
-
+import { challenges } from '../../data/datacache'
 import frisby = require('frisby')
 import { expect } from '@jest/globals'
 const Joi = frisby.Joi
@@ -42,7 +42,7 @@ describe('/api/Feedbacks', () => {
       })
   })
 
-  if (!utils.disableOnContainerEnv()) {
+  if (utils.isChallengeEnabled(challenges.persistedXssFeedbackChallenge)) {
     it('POST fails to sanitize masked XSS-attack by not applying sanitization recursively', () => {
       return frisby.get(REST_URL + '/captcha')
         .expect('status', 200)

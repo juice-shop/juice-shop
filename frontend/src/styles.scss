@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 @use '@angular/material' as mat;
@@ -136,10 +136,10 @@
   --theme-text-fade-30: #{fade-out(mat.get-color-from-palette(map-get($theme, foreground), text,), 0.3)};
   --theme-text-fade-40: #{fade-out(mat.get-color-from-palette(map-get($theme, foreground), text,), 0.4)};
   --theme-text-fade-50: #{fade-out(mat.get-color-from-palette(map-get($theme, foreground), text,), 0.5)};
-  
+
   --theme-text-invert-15: #{invert(mat.get-color-from-palette(map-get($theme, foreground), text,), 15%)};
   --theme-text-invert-30: #{invert(mat.get-color-from-palette(map-get($theme, foreground), text,), 30%)};
-  
+
   --theme-background: #{mat.get-color-from-palette(map-get($theme, background), card)};
   --theme-background-lighter: #{lighten(mat.get-color-from-palette(map-get($theme, background), card), 6%)};
   --theme-background-light: #{lighten(mat.get-color-from-palette(map-get($theme, background), card), 10%)};
