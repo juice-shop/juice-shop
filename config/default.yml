@@ -1,8 +1,9 @@
 server:
   port: 3000
   basePath: ''
+  baseUrl: 'http://localhost:3000' # used for CSAF, e.g. https://example.com
 application:
-  domain: juice-sh.op
+  domain: juice-sh.op # for pre-loaded email users
   name: 'OWASP Juice Shop'
   logo: JuiceShop_Logo.png
   favicon: favicon_js.ico
@@ -45,6 +46,7 @@ application:
     encryption: 'https://keybase.io/bkimminich/pgp_keys.asc?fingerprint=19c01cb7157e4645e9e2c863062a85a8cbfbdcda'
     acknowledgements: '/#/score-board'
     hiring: '/#/jobs'
+    csaf: '/.well-known/csaf/provider-metadata.json' # scheme,host,port taken from baseUrl
   promotion:
     video: owasp_promo.mp4
     subtitles: owasp_promo.vtt
@@ -75,8 +77,9 @@ challenges:
   restrictToTutorialsFirst: false
   overwriteUrlForProductTamperingChallenge: 'https://owasp.slack.com'
   xssBonusPayload: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
-  safetyOverride: false
+  safetyMode: auto
   showFeedbackButtons: true
+  csafHashValue: 7d679a6a84a1ec0f12f91e2f487b9e89a7282ef775cbbec8baea2fa50eb101b7ee402dadd1bb9df0d8aaeb3ecb93e2892735f44b0c6cfb32c2f70478ae45afb7
 hackingInstructor:
   isEnabled: true
   avatarImage: JuicyBot.png

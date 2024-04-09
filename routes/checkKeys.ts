@@ -2,8 +2,7 @@ import { type Request, type Response } from 'express'
 import { HDNodeWallet } from 'ethers'
 import challengeUtils = require('../lib/challengeUtils')
 import * as utils from '../lib/utils'
-
-const challenges = require('../data/datacache').challenges
+import { challenges } from '../data/datacache'
 
 module.exports.checkKeys = function checkKeys () {
   return (req: Request, res: Response) => {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -17,7 +17,7 @@ module.exports = function saveLoginIp () {
     const loggedInUser = security.authenticatedUsers.from(req)
     if (loggedInUser !== undefined) {
       let lastLoginIp = req.headers['true-client-ip']
-      if (!utils.disableOnContainerEnv()) {
+      if (utils.isChallengeEnabled(challenges.httpHeaderXssChallenge)) {
         challengeUtils.solveIf(challenges.httpHeaderXssChallenge, () => { return lastLoginIp === '<iframe src="javascript:alert(`xss`)">' })
       } else {
         lastLoginIp = security.sanitizeSecure(lastLoginIp)

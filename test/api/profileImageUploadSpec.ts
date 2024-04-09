@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -21,7 +21,7 @@ describe('/profile/image/file', () => {
     return frisby.post(`${REST_URL}/user/login`, {
       headers: jsonHeader,
       body: {
-        email: `jim@${config.get('application.domain')}`,
+        email: `jim@${config.get<string>('application.domain')}`,
         password: 'ncc-1701'
       }
     })
@@ -48,7 +48,7 @@ describe('/profile/image/file', () => {
     return frisby.post(`${REST_URL}/user/login`, {
       headers: jsonHeader,
       body: {
-        email: `jim@${config.get('application.domain')}`,
+        email: `jim@${config.get<string>('application.domain')}`,
         password: 'ncc-1701'
       }
     })
@@ -64,7 +64,7 @@ describe('/profile/image/file', () => {
         })
           .expect('status', 415)
           .expect('header', 'content-type', /text\/html/)
-          .expect('bodyContains', `<h1>${config.get('application.name')} (Express`)
+          .expect('bodyContains', `<h1>${config.get<string>('application.name')} (Express`)
           .expect('bodyContains', 'Error: Profile image upload does not accept this file type')
       })
   })
@@ -93,7 +93,7 @@ describe('/profile/image/url', () => {
     return frisby.post(`${REST_URL}/user/login`, {
       headers: jsonHeader,
       body: {
-        email: `jim@${config.get('application.domain')}`,
+        email: `jim@${config.get<string>('application.domain')}`,
         password: 'ncc-1701'
       }
     })
@@ -119,7 +119,7 @@ describe('/profile/image/url', () => {
     return frisby.post(`${REST_URL}/user/login`, {
       headers: jsonHeader,
       body: {
-        email: `jim@${config.get('application.domain')}`,
+        email: `jim@${config.get<string>('application.domain')}`,
         password: 'ncc-1701'
       }
     })
