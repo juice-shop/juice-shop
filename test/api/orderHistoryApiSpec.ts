@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -15,7 +15,7 @@ describe('/rest/order-history', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'admin@' + config.get('application.domain'),
+        email: 'admin@' + config.get<string>('application.domain'),
         password: 'admin123'
       }
     })
@@ -52,7 +52,7 @@ describe('/rest/order-history/orders', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'jim@' + config.get('application.domain'),
+        email: 'jim@' + config.get<string>('application.domain'),
         password: 'ncc-1701'
       }
     })
@@ -69,7 +69,7 @@ describe('/rest/order-history/orders', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'admin@' + config.get('application.domain'),
+        email: 'admin@' + config.get<string>('application.domain'),
         password: 'admin123'
       }
     })
@@ -86,7 +86,7 @@ describe('/rest/order-history/orders', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'accountant@' + config.get('application.domain'),
+        email: 'accountant@' + config.get<string>('application.domain'),
         password: 'i am an awesome accountant'
       }
     })
@@ -105,7 +105,7 @@ describe('/rest/order-history/:id/delivery-status', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'admin@' + config.get('application.domain'),
+        email: 'admin@' + config.get<string>('application.domain'),
         password: 'admin123'
       }
     })
@@ -125,7 +125,7 @@ describe('/rest/order-history/:id/delivery-status', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'jim@' + config.get('application.domain'),
+        email: 'jim@' + config.get<string>('application.domain'),
         password: 'ncc-1701'
       }
     })
@@ -145,7 +145,7 @@ describe('/rest/order-history/:id/delivery-status', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'accountant@' + config.get('application.domain'),
+        email: 'accountant@' + config.get<string>('application.domain'),
         password: 'i am an awesome accountant'
       }
     })

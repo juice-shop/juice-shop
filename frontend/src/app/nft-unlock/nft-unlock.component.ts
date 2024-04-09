@@ -1,5 +1,4 @@
-import { ConfigurationService } from '../Services/configuration.service'
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { KeysService } from '../Services/keys.service'
 
 @Component({

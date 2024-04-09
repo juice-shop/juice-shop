@@ -13,7 +13,7 @@ application:
     greeting: "Hi <customer-name>, it's me, your friend and pal <bot-name>!"
     trainingData: 'https://gist.githubusercontent.com/bkimminich/d62bd52a1df4831a0fae7fb06062e3f0/raw/59dadc1e0ab1b5cb9264e85bc78736aaa3f0eb6b/bot7msTrainingData.json'
     defaultResponse: "Sorry, but \"no comprende\"!"
-    avatar: 'https://images.squarespace-cdn.com/content/v1/59f9e1c4d0e6281017434039/1509770498383-8VJKZ4PXTTHVIGIEG0KF/ke17ZwdGBToddI8pDm48kMreedPISwI1jnn2bzTr4CdZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzByX1XvUQea7698-2ac2uOajsBu-kHm1WemVMRSlEblOw5yevDuXqve6GdwpxNsnc/BrianJohnson-headshot.jpg?format=300w'
+    avatar: 'https://images.squarespace-cdn.com/content/v1/59f9e1c4d0e6281017434039/94c89793-630d-41a4-9976-91fef527f8d0/BrianJohnson-headshot-2022-2-small.png?format=500w'
   social:
     twitterUrl: 'https://twitter.com/7MinSec'
     facebookUrl: null
@@ -41,25 +41,25 @@ application:
 challenges:
   xssBonusPayload: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/265098051&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
 hackingInstructor:
-  avatarImage: 'https://images.squarespace-cdn.com/content/v1/59f9e1c4d0e6281017434039/1509770498383-8VJKZ4PXTTHVIGIEG0KF/ke17ZwdGBToddI8pDm48kMreedPISwI1jnn2bzTr4CdZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzByX1XvUQea7698-2ac2uOajsBu-kHm1WemVMRSlEblOw5yevDuXqve6GdwpxNsnc/BrianJohnson-headshot.jpg?format=300w'
+  avatarImage: 'https://images.squarespace-cdn.com/content/v1/59f9e1c4d0e6281017434039/94c89793-630d-41a4-9976-91fef527f8d0/BrianJohnson-headshot-2022-2-small.png?format=500w'
 products:
   -
     name: 'Security Assessment'
     price: 1999.99
     description: 'Rather than just pointing out the gaps in your administrative, physical and technical controls, 7 Minute Security will partner with you to help formulate - and execute - a measurable remediation plan.'
-    image: 'https://static1.squarespace.com/static/59f9e1c4d0e6281017434039/t/5a3c3ae69140b7cd5730028e/1513898060448/assessments2.png'
+    image: 'https://images.squarespace-cdn.com/content/v1/59f9e1c4d0e6281017434039/1618506026604-MMMHZED4KRAPGNEBL50V/website_photos_securityassessments01.jpg?format=750w'
   -
     name: 'Penetration Test'
     description: '<em>"Can the bad guys get in?"</em> An internal and/or external network penetration test will gauge your organization`s defenses and help answer that question.  After the test, 7 Minute Security will work with you on the technical defenses you need to put in place.'
     price: 1899.99
-    image: 'https://static1.squarespace.com/static/59f9e1c4d0e6281017434039/t/5a3c419f9140b7cd5730f574/1513898575643/wifi5.png'
+    image: 'https://images.squarespace-cdn.com/content/v1/59f9e1c4d0e6281017434039/1618506146888-XHHF0XYUR6D3YK46F3OJ/website_photos_pentesting01.jpg?format=750w'
   -
     name: Training
     description: '7 Minute Security can train your employees to not only be more secure at work, but carry that security-focused attitude into everything they do at home as well.  More tech-heavy sessions are available as well, such as <em>Penetration Testing 101</em> and <em>Intro to Windows System Forensics</em>.'
     price: 899.99
-    image: 'https://static1.squarespace.com/static/59f9e1c4d0e6281017434039/t/5a5cceb7f9619a9a191ef4e3/1516031679673/training4.jpg'
+    image: 'https://images.squarespace-cdn.com/content/v1/59f9e1c4d0e6281017434039/1618506195524-DNXS4OW3C65ZVKX7O3QQ/website_photos_training.jpg?format=750w'
     reviews:
-      - { text: 'Wow, that guy can fingerpoint IPs like a pro!', author: bender }
+      - { text: 'Wow, that lady can fingerpoint IPs like a pro!', author: bender }
   -
     name: 'Billy Madison 1.1'
     description: 'Billy Madison is a vulnerable virtual machine, hosted by Vulnhub. To successfully pwn the box, pentesters must undo modifications to the system and recover Billy’s 12th grade project. Otherwise Eric and his weasel laugh will take over Madison Hotels!'
@@ -94,6 +94,14 @@ products:
       - taylor swift
       - katy perry
   -
+    name: '7MSagotchi'
+    description: 'This cute little rascal is called a Pwnagotchi. It can look around like a champion!'
+    price: 40
+    image: 'https://images.squarespace-cdn.com/content/v1/59f9e1c4d0e6281017434039/1587693073228-8GDKF12U0LBBKO5XEPFA/image-asset.jpeg?format=2500w'
+    reviews:
+      - { text: 'FlipperZero FTW!', author: bjoern }
+      - { text: 'As you mentioned FlipperZero: @Brian, did you get one by now? Any chance we get this RTTTL version of the amazing JS jingle going? See https://github.com/juice-shop/pwning-juice-shop/issues/105 - Cheers!', author: bjoernOwasp }
+  -
     name: '7MS #230: Pentesting OWASP Juice Shop - Part 1'
     description: 'Today we`re kicking of a multipart series all about hacking the OWASP Juice Shop which is "an intentionally insecure webapp for security trainings written entirely in Javascript which encompasses the entire OWASP Top Ten and other severe security flaws."'
     price: 1.99
@@ -118,3 +126,27 @@ products:
     description: 'Today is part <strong>FIVE</strong> (insert menacing voice: "<em>the final chapter!!!</em>) of our series on attacking the <a href="https://www.owasp.org/index.php/OWASP_Juice_Shop_Project" target="_blank">OWASP Juice Shop</a> which is "an intentionally insecure webapp for security trainings written entirely in Javascript which encompasses the entire OWASP Top Ten and other severe security flaws."'
     price: 1.99
     image: hqdefault.jpg
+  -
+    name: '7MS #606: Hacking OWASP Juice Shop (2024 edition)'
+    description: "Join OWASP's Bjorn Kimminich and Paul Wilch from Project7 as we hack away at what is probably the most modern and sophisticated insecure Web application ever made: Juice Shop!"
+    price: 1.99
+    image: hqdefault.jpg
+memories:
+  -
+    image: 'https://images.squarespace-cdn.com/content/v1/59f9e1c4d0e6281017434039/1587695798282-PYCQEJEVJS1OF5FJY07A/pw.JPG?format=750w'
+    caption: 'There goes our ISO 27001 cert... "Thanks", Chris! :-('
+    user: ciso
+  -
+    image: 'https://images.squarespace-cdn.com/content/v1/59f9e1c4d0e6281017434039/1569207865247-XHRW3XQ0XVKNEG46L579/usergroup.jpg?format=2500w'
+    caption: 'Last meeting of our user group pre-covid...'
+    user: stan
+  -
+    image: 'favorite-hiking-place.png'
+    caption: 'I love going hiking here...'
+    geoStalkingMetaSecurityQuestion: 14
+    geoStalkingMetaSecurityAnswer: 'Daniel Boone National Forest'
+  -
+    image: 'IMG_4253.jpg'
+    caption: 'My old workplace...'
+    geoStalkingVisualSecurityQuestion: 10
+    geoStalkingVisualSecurityAnswer: 'ITsec'

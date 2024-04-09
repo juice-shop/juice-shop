@@ -9,10 +9,9 @@ import { calculateCheatScore, calculateFindItCheatScore, calculateFixItCheatScor
 import * as webhook from './webhook'
 import * as accuracy from './accuracy'
 import { type Server } from 'socket.io'
+import { AllHtmlEntities as Entities } from 'html-entities'
+import { challenges, notifications } from '../data/datacache'
 
-const challenges = require('../data/datacache').challenges
-const notifications = require('../data/datacache').notifications
-const Entities = require('html-entities').AllHtmlEntities
 const entities = new Entities()
 
 const globalWithSocketIO = global as typeof globalThis & {
@@ -52,7 +51,7 @@ export const sendNotification = function (challenge: { difficulty?: number, key:
       hidden: !config.get('challenges.showSolvedNotifications'),
       isRestore
     }
-    const wasPreviouslyShown = notifications.find(({ key }: { key: string }) => key === challenge.key) !== undefined
+    const wasPreviouslyShown = notifications.some(({ key }) => key === challenge.key)
     notifications.push(notification)
 
     if (globalWithSocketIO.io && (isRestore || !wasPreviouslyShown)) {
