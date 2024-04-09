@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "BMO65o9dFfpLlQjAZqshYtfNv0zVsZLsvcQGg3PtFxDdqxJMom6AuaiJsw9UAK4IMPKpoL5qF3fkYP8KAuHNow==",
+  "success": true,
+  "projectFilePath": "/Users/apiiro/code/examples_openai/HuggingFace/Dotnet_proj/example.csproj",
+  "expectedPackageFiles": [
+    "/Users/apiiro/.nuget/packages/carter/7.2.0/carter.7.2.0.nupkg.sha512",
+    "/Users/apiiro/.nuget/packages/fluentvalidation/11.0.1/fluentvalidation.11.0.1.nupkg.sha512",
+    "/Users/apiiro/.nuget/packages/microsoft.extensions.dependencymodel/7.0.0/microsoft.extensions.dependencymodel.7.0.0.nupkg.sha512",
+    "/Users/apiiro/.nuget/packages/system.text.encodings.web/7.0.0/system.text.encodings.web.7.0.0.nupkg.sha512",
+    "/Users/apiiro/.nuget/packages/system.text.json/7.0.0/system.text.json.7.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

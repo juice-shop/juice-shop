@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HuggingFace", "HuggingFace", "{839BD707-4A3B-4C80-8A78-D3F2EA0C3A5D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "example", "HuggingFace\Dotnet_proj\example.csproj", "{E56EAF46-24C5-402C-A364-511E12FEB108}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E56EAF46-24C5-402C-A364-511E12FEB108}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E56EAF46-24C5-402C-A364-511E12FEB108}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E56EAF46-24C5-402C-A364-511E12FEB108}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E56EAF46-24C5-402C-A364-511E12FEB108}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E56EAF46-24C5-402C-A364-511E12FEB108} = {839BD707-4A3B-4C80-8A78-D3F2EA0C3A5D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {02693332-E506-4AA2-BE58-00B301EE1060}
+	EndGlobalSection
+EndGlobal
