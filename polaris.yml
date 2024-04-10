@@ -1,0 +1,16 @@
+version: "1"
+project:
+  name: juice-shop
+  branch: juice-shop
+  revision:
+    name: juice-shop
+    date: "2023-06-22T05:26:53Z"
+capture:
+  coverity:
+    autoCapture: enable
+analyze:
+  mode: central
+install:
+  coverity:
+    version: default
+serverUrl: https://csprod.polaris.synopsys.com
