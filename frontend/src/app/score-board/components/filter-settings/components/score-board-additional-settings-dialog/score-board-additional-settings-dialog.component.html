@@ -1,0 +1,37 @@
+<mat-dialog-content class="mat-typography">
+  <h1 mat-dialog-title translate>SCOREBOARD_ADDITIONAL_SETTINGS</h1>
+
+  <div class="settings">
+    <div class="setting-group">
+      <h2 translate>BACKUP_HEADLINE</h2>
+      <div class="setting">
+        <span translate>SAVE_BACKUP_TOOLTIP</span>
+        <button mat-flat-button color="primary" (click)="localBackupService.save()"><mat-icon>save_alt</mat-icon><span translate>BTN_SAVE_BACKUP</span></button>
+      </div>
+      <div class="setting">
+        <input type="file"
+          #restoreBackupFile
+          (change)="localBackupService.restore($event.target.files.item(0))"
+          style="display:none;" />
+        <span translate>RESTORE_BACKUP_TOOLTIP</span>
+        <button mat-flat-button color="primary" (click)="restoreBackupFile.click()"><mat-icon>settings_backup_restore</mat-icon><span translate>BTN_RESTORE_BACKUP</span></button>
+      </div>
+    </div>
+    <div class="setting-group">
+      <h2 translate>FEATURE_FLAG_DEFAULT_SCORE_BOARD_NAME</h2>
+      <div class="setting">
+        <span translate>FEATURE_FLAG_DEFAULT_SCORE_BOARD_DESCRIPTION</span>
+        <mat-radio-group aria-label="Default ScoreBoard" (change)="featureFlagService.setDefaultScoreBoard($event.value)" [value]="scoreBoardVersion">
+          <mat-radio-button value="v1">{{ "FEATURE_FLAG_DEFAULT_SCORE_BOARD_VALUE_OLD" | translate}}</mat-radio-button>
+          <mat-radio-button value="v2">{{ "FEATURE_FLAG_DEFAULT_SCORE_BOARD_VALUE_NEW" | translate}}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+  </div>
+
+  <mat-dialog-actions>
+    <button mat-flat-button [mat-dialog-close]="null" cdkFocusInitial>
+      {{ "BTN_CLOSE" | translate }}
+    </button>
+  </mat-dialog-actions>
+</mat-dialog-content>

@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import utils = require('../lib/utils')
-import { Request, Response, NextFunction } from 'express'
+import challengeUtils = require('../lib/challengeUtils')
+import { type Request, type Response, type NextFunction } from 'express'
 
 const challenges = require('../data/datacache').challenges
 const db = require('../data/mongodb')
@@ -20,8 +20,8 @@ module.exports = function productReviews () {
       { multi: true } // vuln-code-snippet vuln-line noSqlReviewsChallenge
     ).then(
       (result: { modified: number, original: Array<{ author: any }> }) => {
-        utils.solveIf(challenges.noSqlReviewsChallenge, () => { return result.modified > 1 }) // vuln-code-snippet hide-line
-        utils.solveIf(challenges.forgedReviewChallenge, () => { return user?.data && result.original[0] && result.original[0].author !== user.data.email && result.modified === 1 }) // vuln-code-snippet hide-line
+        challengeUtils.solveIf(challenges.noSqlReviewsChallenge, () => { return result.modified > 1 }) // vuln-code-snippet hide-line
+        challengeUtils.solveIf(challenges.forgedReviewChallenge, () => { return user?.data && result.original[0] && result.original[0].author !== user.data.email && result.modified === 1 }) // vuln-code-snippet hide-line
         res.json(result)
       }, (err: unknown) => {
         res.status(500).json(err)

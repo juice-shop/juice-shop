@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -27,7 +27,7 @@ describe('b2bOrder', () => {
   })
 
   xit('infinite loop payload does not succeed but solves "rceChallenge"', () => { // FIXME Started failing on Linux regularly
-    challenges.rceChallenge = { solved: false, save: save }
+    challenges.rceChallenge = { solved: false, save }
 
     req.body.orderLinesData = '(function dos() { while(true); })()'
 
@@ -36,18 +36,19 @@ describe('b2bOrder', () => {
     expect(challenges.rceChallenge.solved).to.equal(true)
   })
 
-  xit('timeout after 2 seconds solves "rceOccupyChallenge"', () => { // FIXME Started failing on Linux regularly
-    challenges.rceOccupyChallenge = { solved: false, save: save }
+  // FIXME Disabled as test started failing on Linux regularly
+  xit('timeout after 2 seconds solves "rceOccupyChallenge"', () => {
+    challenges.rceOccupyChallenge = { solved: false, save }
 
     req.body.orderLinesData = '/((a+)+)b/.test("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")'
 
     createB2bOrder()(req, res, next)
 
     expect(challenges.rceOccupyChallenge.solved).to.equal(true)
-  }, 3000)
+  }/*, 3000 */)
 
   it('deserializing JSON as documented in Swagger should not solve "rceChallenge"', () => {
-    challenges.rceChallenge = { solved: false, save: save }
+    challenges.rceChallenge = { solved: false, save }
 
     req.body.orderLinesData = '{"productId": 12,"quantity": 10000,"customerReference": ["PO0000001.2", "SM20180105|042"],"couponCode": "pes[Bh.u*t"}'
 
@@ -57,7 +58,7 @@ describe('b2bOrder', () => {
   })
 
   it('deserializing arbitrary JSON should not solve "rceChallenge"', () => {
-    challenges.rceChallenge = { solved: false, save: save }
+    challenges.rceChallenge = { solved: false, save }
 
     req.body.orderLinesData = '{"hello": "world", "foo": 42, "bar": [false, true]}'
 
@@ -66,7 +67,7 @@ describe('b2bOrder', () => {
   })
 
   it('deserializing broken JSON should not solve "rceChallenge"', () => {
-    challenges.rceChallenge = { solved: false, save: save }
+    challenges.rceChallenge = { solved: false, save }
 
     req.body.orderLinesData = '{ "productId: 28'
 

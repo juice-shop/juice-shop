@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -19,7 +19,7 @@ export class RecycleService {
 
   find (params?: any) {
     return this.http.get(this.host + '/', {
-      params: params
+      params
     }).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 

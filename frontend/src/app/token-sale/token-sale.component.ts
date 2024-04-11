@@ -1,17 +1,16 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { ConfigurationService } from '../Services/configuration.service'
-import { Component, OnInit } from '@angular/core'
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { Component, type OnInit } from '@angular/core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBitcoin } from '@fortawesome/free-brands-svg-icons'
 import { faCommentAlt, faComments, faGraduationCap, faUniversity } from '@fortawesome/free-solid-svg-icons'
 import { faCommentAlt as farCommentAlt, faComments as farComments } from '@fortawesome/free-regular-svg-icons'
 
 library.add(faBitcoin, faUniversity, faGraduationCap, faCommentAlt, faComments, farCommentAlt, farComments)
-dom.watch()
 
 @Component({
   selector: 'app-token-sale',
@@ -27,6 +26,6 @@ export class TokenSaleComponent implements OnInit {
       if (config?.application?.altcoinName) {
         this.altcoinName = config.application.altcoinName
       }
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 }

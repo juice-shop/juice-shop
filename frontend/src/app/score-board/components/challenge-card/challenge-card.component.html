@@ -1,0 +1,96 @@
+<span class="category-row">{{ challenge.category }}</span>
+
+<div class="name-row">
+  <div class="dot"></div>
+  <span class="name">{{ challenge.name }}</span>
+  <difficulty-stars
+    [difficulty]="challenge.difficulty"
+  ></difficulty-stars>
+</div>
+<div class="description-row" [innerHtml]="challenge.description"></div>
+<div class="bottom-row">
+  <div class="tags">
+    <span *ngFor="let tag of challenge.tagList" class="tag" [matTooltip]="('TAG_' + tag?.toUpperCase().split(' ').join('_') + '_DESCRIPTION' | translate)">{{ tag }}</span>
+  </div>
+  <div class="badge-group">
+    <!-- info text if the challenge is unavailable -->
+    <button
+      class="badge"
+      *ngIf="challenge.disabledEnv !== null"
+      [matTooltip]="'CHALLENGE_UNAVAILABLE' | translate:{ env: challenge.disabledEnv }"
+    >
+      <mat-icon [style.color]="'var(--theme-warn)'">info_outline</mat-icon>
+    </button>
+    <!-- coding challenge badge -->
+    <button
+      class="badge"
+      *ngIf="challenge.hasCodingChallenge"
+      (click)="openCodingChallengeDialog(challenge.key)"
+      [disabled]="challenge.solved === false"
+      [ngClass]="{
+        'partially-completed': challenge.codingChallengeStatus === 1,
+        'completed': challenge.codingChallengeStatus === 2
+      }"
+      [matTooltip]="(challenge.solved ? 'LAUNCH_CODING_CHALLENGE' : 'SOLVE_HACKING_CHALLENGE') | translate"
+    >
+      <span class="badge-status" *ngIf="challenge.codingChallengeStatus !== 0">{{ challenge.codingChallengeStatus }}/2</span>
+      <mat-icon>code</mat-icon>
+    </button>
+    <!-- cheat cheat link-->
+    <a
+      class="badge not-completable"
+      *ngIf="challenge.mitigationUrl && challenge.solved"
+      [href]="challenge.mitigationUrl"
+      target="_blank"
+      rel="noopener noreferrer"
+      [matTooltip]="'INFO_VULNERABILITY_MITIGATION_LINK' | translate"
+      aria-label="Vulnerability mitigation link"
+    >
+      <mat-icon>policy_outline</mat-icon>
+    </a>
+    <!-- ctf mode flag repeat-->
+    <button
+      class="badge"
+      [ngClass]="{ 'completed': challenge.solved }"
+      *ngIf="challenge.solved && applicationConfiguration.ctf.showFlagsInNotifications"
+      (click)="repeatChallengeNotification(challenge.key)"
+      [matTooltip]="'NOTIFICATION_RESEND_INSTRUCTIONS' | translate"
+    >
+      <mat-icon>flag_outline</mat-icon>
+    </button>
+    <!-- hacking instructor-->
+    <button
+      class="badge not-completable"
+      *ngIf="hasInstructions(challenge.name)"
+      [matTooltip]="'INFO_HACKING_INSTRUCTOR' | translate"
+      (click)="startHackingInstructorFor(challenge.name)"
+    >
+      <mat-icon>school_outline</mat-icon>
+    </button>
+    <!-- challenge hint -->
+    <!-- with hintUrl -->
+    <a
+      *ngIf="challenge.hint && challenge.hintUrl"
+      class="badge not-completable"
+      [style.padding]="'0 6px 0 4px'"
+      target="_blank"
+      rel="noopener noreferrer"
+      [href]="challenge.hintUrl"
+      [matTooltip]="challenge.hint | challengeHint:{hintUrl: challenge.hintUrl} | async"
+    >
+      <mat-icon>lightbulb</mat-icon>
+      Hint
+    </a>
+    <!-- challenge hint -->
+    <!-- without hintUrl -->
+    <span
+      *ngIf="challenge.hint && !challenge.hintUrl"
+      class="badge not-completable"
+      [style.padding]="'0 6px 0 4px'"
+      [matTooltip]="challenge.hint"
+    >
+      <mat-icon>lightbulb</mat-icon>
+      Hint
+    </span>
+  </div>
+</div>

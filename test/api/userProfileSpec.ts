@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import frisby = require('frisby')
-import config = require('config')
+import config from 'config'
 
 const URL = 'http://localhost:3000'
 
@@ -48,7 +48,7 @@ describe('/profile', () => {
     form.append('username', 'Localhorst')
 
     return frisby.post(`${URL}/profile`, {
-      // @ts-expect-error
+      // @ts-expect-error FIXME form.getHeaders() is not found
       headers: { 'Content-Type': form.getHeaders()['content-type'], Cookie: authHeader.Cookie },
       body: form,
       redirect: 'manual'
@@ -61,7 +61,7 @@ describe('/profile', () => {
     form.append('username', 'Localhorst')
 
     return frisby.post(`${URL}/profile`, {
-      // @ts-expect-error
+      // @ts-expect-error FIXME form.getHeaders() is not found
       headers: { 'Content-Type': form.getHeaders()['content-type'] },
       body: form
     })

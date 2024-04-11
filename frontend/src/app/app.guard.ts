@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { CanActivate, Router } from '@angular/router'
+import { type CanActivate, Router } from '@angular/router'
 import * as jwtDecode from 'jwt-decode'
 import { roles } from './roles'
 import { Injectable, NgZone } from '@angular/core'

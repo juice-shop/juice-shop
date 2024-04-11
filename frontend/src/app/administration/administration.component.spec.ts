@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -8,7 +8,7 @@ import { FeedbackDetailsComponent } from '../feedback-details/feedback-details.c
 
 import { FeedbackService } from '../Services/feedback.service'
 import { UserService } from '../Services/user.service'
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing'
 
 import { AdministrationComponent } from './administration.component'
 import { MatTableModule } from '@angular/material/table'

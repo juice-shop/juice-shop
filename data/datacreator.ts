@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -20,16 +20,16 @@ import { SecurityAnswerModel } from '../models/securityAnswer'
 import { SecurityQuestionModel } from '../models/securityQuestion'
 import { UserModel } from '../models/user'
 import { WalletModel } from '../models/wallet'
-import { Address, Card, Challenge, Delivery, Memory, Product, SecurityQuestion, User } from './types'
+import { type Address, type Card, type Challenge, type Delivery, type Memory, type Product, type SecurityQuestion, type User } from './types'
+import logger from '../lib/logger'
+import config from 'config'
+import path from 'path'
+import * as utils from '../lib/utils'
 const datacache = require('./datacache')
-const config = require('config')
-const utils = require('../lib/utils')
 const mongodb = require('./mongodb')
 const security = require('../lib/insecurity')
-const logger = require('../lib/logger')
 
 const fs = require('fs')
-const path = require('path')
 const util = require('util')
 const { safeLoad } = require('js-yaml')
 const Entities = require('html-entities').AllHtmlEntities
@@ -86,15 +86,15 @@ async function createChallenges () {
           key,
           name,
           category,
-          tags: tags ? tags.join(',') : undefined,
+          tags: (tags != null) ? tags.join(',') : undefined,
           description: effectiveDisabledEnv ? (description + ' <em>(This challenge is <strong>' + (config.get('challenges.safetyOverride') ? 'potentially harmful' : 'not available') + '</strong> on ' + effectiveDisabledEnv + '!)</em>') : description,
           difficulty,
           solved: false,
           hint: showHints ? hint : null,
           hintUrl: showHints ? hintUrl : null,
           mitigationUrl: showMitigations ? mitigationUrl : null,
-          disabledEnv: config.get('challenges.safetyOverride') ? null : effectiveDisabledEnv,
-          tutorialOrder: tutorial ? tutorial.order : null,
+          disabledEnv: config.get<boolean>('challenges.safetyOverride') ? null : effectiveDisabledEnv,
+          tutorialOrder: (tutorial != null) ? tutorial.order : null,
           codingChallengeStatus: 0
         })
       } catch (err) {
@@ -108,7 +108,7 @@ async function createUsers () {
   const users = await loadStaticData('users')
 
   await Promise.all(
-    users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret = '' }: User) => {
+    users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret, lastLoginIp = '' }: User) => {
       try {
         const completeEmail = customDomain ? email : `${email}@${config.get('application.domain')}`
         const user = await UserModel.create({
@@ -118,14 +118,15 @@ async function createUsers () {
           role,
           deluxeToken: role === security.roles.deluxe ? security.deluxeToken(completeEmail) : '',
           profileImage: `assets/public/images/uploads/${profileImage ?? (role === security.roles.admin ? 'defaultAdmin.png' : 'default.svg')}`,
-          totpSecret
+          totpSecret,
+          lastLoginIp
         })
         datacache.users[key] = user
-        if (securityQuestion) await createSecurityAnswer(user.id, securityQuestion.id, securityQuestion.answer)
-        if (feedback) await createFeedback(user.id, feedback.comment, feedback.rating, user.email)
+        if (securityQuestion != null) await createSecurityAnswer(user.id, securityQuestion.id, securityQuestion.answer)
+        if (feedback != null) await createFeedback(user.id, feedback.comment, feedback.rating, user.email)
         if (deletedFlag) await deleteUser(user.id)
-        if (address) await createAddresses(user.id, address)
-        if (card) await createCards(user.id, card)
+        if (address != null) await createAddresses(user.id, address)
+        if (card != null) await createCards(user.id, card)
       } catch (err) {
         logger.error(`Could not insert User ${key}: ${utils.getErrorMessage(err)}`)
       }
@@ -139,7 +140,7 @@ async function createWallet () {
     users.map(async (user: User, index: number) => {
       return await WalletModel.create({
         UserId: index + 1,
-        balance: user.walletBalance !== undefined ? user.walletBalance : 0
+        balance: user.walletBalance ?? 0
       }).catch((err: unknown) => {
         logger.error(`Could not create wallet: ${utils.getErrorMessage(err)}`)
       })
@@ -167,27 +168,29 @@ async function createDeliveryMethods () {
   )
 }
 
-function createAddresses (UserId: number, addresses: Address[]) {
-  addresses.map(async (address) => {
-    return await AddressModel.create({
-      UserId: UserId,
-      country: address.country,
-      fullName: address.fullName,
-      mobileNum: address.mobileNum,
-      zipCode: address.zipCode,
-      streetAddress: address.streetAddress,
-      city: address.city,
-      state: address.state ? address.state : null
-    }).catch((err: unknown) => {
-      logger.error(`Could not create address: ${utils.getErrorMessage(err)}`)
+async function createAddresses (UserId: number, addresses: Address[]) {
+  return await Promise.all(
+    addresses.map(async (address) => {
+      return await AddressModel.create({
+        UserId,
+        country: address.country,
+        fullName: address.fullName,
+        mobileNum: address.mobileNum,
+        zipCode: address.zipCode,
+        streetAddress: address.streetAddress,
+        city: address.city,
+        state: address.state ? address.state : null
+      }).catch((err: unknown) => {
+        logger.error(`Could not create address: ${utils.getErrorMessage(err)}`)
+      })
     })
-  })
+  )
 }
 
 async function createCards (UserId: number, cards: Card[]) {
   return await Promise.all(cards.map(async (card) => {
     return await CardModel.create({
-      UserId: UserId,
+      UserId,
       fullName: card.fullName,
       cardNum: Number(card.cardNum),
       expMonth: card.expMonth,
@@ -235,10 +238,10 @@ async function createRandomFakeUsers () {
 
 async function createQuantity () {
   return await Promise.all(
-    config.get('products').map(async (product: Product, index: number) => {
+    config.get<Product[]>('products').map(async (product: Product, index: number) => {
       return await QuantityModel.create({
         ProductId: index + 1,
-        quantity: product.quantity !== undefined ? product.quantity : Math.floor(Math.random() * 70 + 30),
+        quantity: product.quantity ?? Math.floor(Math.random() * 70 + 30),
         limitPerUser: product.limitPerUser ?? null
       }).catch((err: unknown) => {
         logger.error(`Could not create quantity: ${utils.getErrorMessage(err)}`)
@@ -261,7 +264,7 @@ async function createMemories () {
       if (utils.isUrl(memory.image)) {
         const imageUrl = memory.image
         tmpImageFileName = utils.extractFilename(memory.image)
-        utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/uploads/' + tmpImageFileName)
+        void utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/uploads/' + tmpImageFileName)
       }
       if (memory.geoStalkingMetaSecurityQuestion && memory.geoStalkingMetaSecurityAnswer) {
         await createSecurityAnswer(datacache.users.john.id, memory.geoStalkingMetaSecurityQuestion, memory.geoStalkingMetaSecurityAnswer)
@@ -295,7 +298,7 @@ async function createProducts () {
     if (utils.isUrl(product.image)) {
       const imageUrl = product.image
       product.image = utils.extractFilename(product.image)
-      utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/products/' + product.image)
+      void utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/products/' + product.image)
     }
     return product
   })
@@ -335,7 +338,7 @@ async function createProducts () {
             logger.error(`Could not insert Product ${product.name}: ${utils.getErrorMessage(err)}`)
           }
         ).then((persistedProduct) => {
-          if (persistedProduct) {
+          if (persistedProduct != null) {
             if (useForChristmasSpecialChallenge) { datacache.products.christmasSpecial = persistedProduct }
             if (urlForProductTamperingChallenge) {
               datacache.products.osaft = persistedProduct
@@ -606,7 +609,7 @@ async function createSecurityAnswer (UserId: number, SecurityQuestionId: number,
 }
 
 async function createOrders () {
-  const products = config.get('products')
+  const products = config.get<Product[]>('products')
   const basket1Products = [
     {
       quantity: 3,
@@ -690,13 +693,13 @@ async function createOrders () {
   return await Promise.all(
     orders.map(({ orderId, email, totalPrice, bonus, products, eta, delivered }) =>
       mongodb.orders.insert({
-        orderId: orderId,
-        email: email,
-        totalPrice: totalPrice,
-        bonus: bonus,
-        products: products,
-        eta: eta,
-        delivered: delivered
+        orderId,
+        email,
+        totalPrice,
+        bonus,
+        products,
+        eta,
+        delivered
       }).catch((err: unknown) => {
         logger.error(`Could not insert Order ${orderId}: ${utils.getErrorMessage(err)}`)
       })

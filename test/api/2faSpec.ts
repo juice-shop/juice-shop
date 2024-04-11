@@ -1,15 +1,15 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import frisby = require('frisby')
-import config = require('config')
+import config from 'config'
+import jwt from 'jsonwebtoken'
 const Joi = frisby.Joi
 const security = require('../../lib/insecurity')
 
 const otplib = require('otplib')
-const jwt = require('jsonwebtoken')
 
 const REST_URL = 'http://localhost:3000/rest'
 const API_URL = 'http://localhost:3000/api'
@@ -17,7 +17,7 @@ const API_URL = 'http://localhost:3000/api'
 const jsonHeader = { 'content-type': 'application/json' }
 
 async function login ({ email, password, totpSecret }: { email: string, password: string, totpSecret?: string }) {
-  // @ts-expect-error
+  // @ts-expect-error FIXME promise return handling broken
   const loginRes = await frisby
     .post(REST_URL + '/user/login', {
       email,
@@ -30,7 +30,7 @@ async function login ({ email, password, totpSecret }: { email: string, password
     })
 
   if (loginRes.json.status && loginRes.json.status === 'totp_token_required') {
-    // @ts-expect-error
+    // @ts-expect-error FIXME promise return handling broken
     const totpRes = await frisby
       .post(REST_URL + '/2fa/verify', {
         tmpToken: loginRes.json.data.tmpToken,
@@ -44,7 +44,7 @@ async function login ({ email, password, totpSecret }: { email: string, password
 }
 
 async function register ({ email, password, totpSecret }: { email: string, password: string, totpSecret?: string }) {
-  // @ts-expect-error
+  // @ts-expect-error FIXME promise return handling broken
   const res = await frisby
     .post(API_URL + '/Users/', {
       email,
@@ -59,7 +59,7 @@ async function register ({ email, password, totpSecret }: { email: string, passw
   if (totpSecret) {
     const { token } = await login({ email, password })
 
-    // @ts-expect-error
+    // @ts-expect-error FIXME promise return handling broken
     await frisby.post(
       REST_URL + '/2fa/setup',
       {
@@ -103,7 +103,7 @@ describe('/rest/2fa/verify', () => {
 
     const totpToken = otplib.authenticator.generate('IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH')
 
-    // @ts-expect-error
+    // @ts-expect-error FIXME promise return handling broken
     await frisby.post(REST_URL + '/2fa/verify', {
       headers: jsonHeader,
       body: {
@@ -131,7 +131,7 @@ describe('/rest/2fa/verify', () => {
 
     const totpToken = otplib.authenticator.generate('THIS9ISNT8THE8RIGHT8SECRET')
 
-    // @ts-expect-error
+    // @ts-expect-error FIXME promise return handling broken
     await frisby.post(REST_URL + '/2fa/verify', {
       headers: jsonHeader,
       body: {
@@ -150,7 +150,7 @@ describe('/rest/2fa/verify', () => {
 
     const totpToken = otplib.authenticator.generate('IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH')
 
-    // @ts-expect-error
+    // @ts-expect-error FIXME promise return handling broken
     await frisby.post(REST_URL + '/2fa/verify', {
       headers: jsonHeader,
       body: {
@@ -170,7 +170,7 @@ describe('/rest/2fa/status', () => {
       totpSecret: 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH'
     })
 
-    // @ts-expect-error
+    // @ts-expect-error FIXME promise return handling broken
     await frisby.get(
       REST_URL + '/2fa/status',
       {
@@ -195,7 +195,7 @@ describe('/rest/2fa/status', () => {
       password: '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
     })
 
-    // @ts-expect-error
+    // @ts-expect-error FIXME promise return handling broken
     await frisby.get(
       REST_URL + '/2fa/status',
       {
@@ -219,7 +219,7 @@ describe('/rest/2fa/status', () => {
   })
 
   it('GET should return 401 when not logged in', async () => {
-    // @ts-expect-error
+    // @ts-expect-error FIXME promise return handling broken
     await frisby.get(REST_URL + '/2fa/status')
       .expect('status', 401)
   })
@@ -235,7 +235,7 @@ describe('/rest/2fa/setup', () => {
     await register({ email, password })
     const { token } = await login({ email, password })
 
-    // @ts-expect-error
+    // @ts-expect-error FIXME promise return handling broken
     await frisby.post(
       REST_URL + '/2fa/setup',
       {
@@ -254,7 +254,7 @@ describe('/rest/2fa/setup', () => {
       })
       .expect('status', 200)
 
-    // @ts-expect-error
+    // @ts-expect-error FIXME promise return handling broken
     await frisby.get(
       REST_URL + '/2fa/status',
       {
@@ -281,7 +281,7 @@ describe('/rest/2fa/setup', () => {
     await register({ email, password })
     const { token } = await login({ email, password })
 
-    // @ts-expect-error
+    // @ts-expect-error FIXME promise return handling broken
     await frisby.post(
       REST_URL + '/2fa/setup',
       {
@@ -310,7 +310,7 @@ describe('/rest/2fa/setup', () => {
     await register({ email, password })
     const { token } = await login({ email, password })
 
-    // @ts-expect-error
+    // @ts-expect-error FIXME promise return handling broken
     await frisby.post(
       REST_URL + '/2fa/setup',
       {
@@ -319,7 +319,7 @@ describe('/rest/2fa/setup', () => {
           'content-type': 'application/json'
         },
         body: {
-          password: password,
+          password,
           setupToken: security.authorize({
             secret,
             type: 'totp_setup_secret'
@@ -339,7 +339,7 @@ describe('/rest/2fa/setup', () => {
     await register({ email, password })
     const { token } = await login({ email, password })
 
-    // @ts-expect-error
+    // @ts-expect-error FIXME promise return handling broken
     await frisby.post(
       REST_URL + '/2fa/setup',
       {
@@ -366,7 +366,7 @@ describe('/rest/2fa/setup', () => {
 
     const { token } = await login({ email, password, totpSecret })
 
-    // @ts-expect-error
+    // @ts-expect-error FIXME promise return handling broken
     await frisby.post(
       REST_URL + '/2fa/setup',
       {
@@ -396,14 +396,14 @@ describe('/rest/2fa/disable', () => {
     await register({ email, password, totpSecret })
     const { token } = await login({ email, password, totpSecret })
 
-    // @ts-expect-error
+    // @ts-expect-error FIXME promise return handling broken
     await getStatus(token)
       .expect('status', 200)
       .expect('json', {
         setup: true
       })
 
-    // @ts-expect-error
+    // @ts-expect-error FIXME promise return handling broken
     await frisby.post(
       REST_URL + '/2fa/disable',
       {
@@ -417,7 +417,7 @@ describe('/rest/2fa/disable', () => {
       }
     ).expect('status', 200)
 
-    // @ts-expect-error
+    // @ts-expect-error FIXME promise return handling broken
     await getStatus(token)
       .expect('status', 200)
       .expect('json', {
@@ -433,14 +433,14 @@ describe('/rest/2fa/disable', () => {
     await register({ email, password, totpSecret })
     const { token } = await login({ email, password, totpSecret })
 
-    // @ts-expect-error
+    // @ts-expect-error FIXME promise return handling broken
     await getStatus(token)
       .expect('status', 200)
       .expect('json', {
         setup: true
       })
 
-    // @ts-expect-error
+    // @ts-expect-error FIXME promise return handling broken
     await frisby.post(
       REST_URL + '/2fa/disable',
       {
@@ -454,7 +454,7 @@ describe('/rest/2fa/disable', () => {
       }
     ).expect('status', 401)
 
-    // @ts-expect-error
+    // @ts-expect-error FIXME promise return handling broken
     await getStatus(token)
       .expect('status', 200)
       .expect('json', {

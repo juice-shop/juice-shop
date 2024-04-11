@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Request, Response, NextFunction } from 'express'
+import { type Request, type Response, type NextFunction } from 'express'
 import { CardModel } from '../models/card'
 
-interface displayCard{
+interface displayCard {
   UserId: number
   id: number
   fullName: string
@@ -47,7 +47,7 @@ module.exports.getPaymentMethodById = function getPaymentMethodById () {
       expMonth: 0,
       expYear: 0
     }
-    if (card) {
+    if (card != null) {
       displayableCard.UserId = card.UserId
       displayableCard.id = card.id
       displayableCard.fullName = card.fullName
@@ -57,7 +57,7 @@ module.exports.getPaymentMethodById = function getPaymentMethodById () {
       const cardNumber = String(card.cardNum)
       displayableCard.cardNum = '*'.repeat(12) + cardNumber.substring(cardNumber.length - 4)
     }
-    if (card && displayableCard) {
+    if ((card != null) && displayableCard) {
       res.status(200).json({ status: 'success', data: displayableCard })
     } else {
       res.status(400).json({ status: 'error', data: 'Malicious activity detected' })

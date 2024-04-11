@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { AddressComponent } from './address.component'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'

@@ -1,18 +1,17 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { ActivatedRoute } from '@angular/router'
 import { MatTableDataSource } from '@angular/material/table'
-import { Component, OnInit } from '@angular/core'
+import { Component, type OnInit } from '@angular/core'
 import { TrackOrderService } from '../Services/track-order.service'
 import { DomSanitizer } from '@angular/platform-browser'
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faHome, faSync, faTruck, faTruckLoading, faWarehouse } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faWarehouse, faSync, faTruckLoading, faTruck, faHome)
-dom.watch()
 
 export enum Status {
   New,

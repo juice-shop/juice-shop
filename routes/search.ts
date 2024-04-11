@@ -1,13 +1,14 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import models = require('../models/index')
-import { Request, Response, NextFunction } from 'express'
+import { type Request, type Response, type NextFunction } from 'express'
 import { UserModel } from '../models/user'
 
-const utils = require('../lib/utils')
+import * as utils from '../lib/utils'
+const challengeUtils = require('../lib/challengeUtils')
 const challenges = require('../data/datacache').challenges
 
 class ErrorWithParent extends Error {
@@ -22,7 +23,7 @@ module.exports = function searchProducts () {
     models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`) // vuln-code-snippet vuln-line unionSqlInjectionChallenge dbSchemaChallenge
       .then(([products]: any) => {
         const dataString = JSON.stringify(products)
-        if (utils.notSolved(challenges.unionSqlInjectionChallenge)) { // vuln-code-snippet hide-start
+        if (challengeUtils.notSolved(challenges.unionSqlInjectionChallenge)) { // vuln-code-snippet hide-start
           let solved = true
           UserModel.findAll().then(data => {
             const users = utils.queryResultToJson(data)
@@ -34,26 +35,28 @@ module.exports = function searchProducts () {
                 }
               }
               if (solved) {
-                utils.solve(challenges.unionSqlInjectionChallenge)
+                challengeUtils.solve(challenges.unionSqlInjectionChallenge)
               }
             }
           }).catch((error: Error) => {
             next(error)
           })
         }
-        if (utils.notSolved(challenges.dbSchemaChallenge)) {
+        if (challengeUtils.notSolved(challenges.dbSchemaChallenge)) {
           let solved = true
           models.sequelize.query('SELECT sql FROM sqlite_master').then(([data]: any) => {
             const tableDefinitions = utils.queryResultToJson(data)
             if (tableDefinitions.data?.length) {
               for (let i = 0; i < tableDefinitions.data.length; i++) {
-                solved = solved && utils.containsOrEscaped(dataString, tableDefinitions.data[i].sql)
-                if (!solved) {
-                  break
+                if (tableDefinitions.data[i].sql) {
+                  solved = solved && utils.containsOrEscaped(dataString, tableDefinitions.data[i].sql)
+                  if (!solved) {
+                    break
+                  }
                 }
               }
               if (solved) {
-                utils.solve(challenges.dbSchemaChallenge)
+                challengeUtils.solve(challenges.dbSchemaChallenge)
               }
             }
           })

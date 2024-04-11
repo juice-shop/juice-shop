@@ -1,15 +1,14 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { Component, NgZone } from '@angular/core'
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCartArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { Router } from '@angular/router'
 
 library.add(faCartArrowDown)
-dom.watch()
 
 @Component({
   selector: 'app-basket',

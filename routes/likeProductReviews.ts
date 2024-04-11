@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import utils = require('../lib/utils')
-import { Request, Response, NextFunction } from 'express'
-import { Review } from '../data/types'
+import challengeUtils = require('../lib/challengeUtils')
+import { type Request, type Response, type NextFunction } from 'express'
+import { type Review } from '../data/types'
 
 const challenges = require('../data/datacache').challenges
 const db = require('../data/mongodb')
@@ -37,10 +37,10 @@ module.exports = function productReviews () {
                       count++
                     }
                   }
-                  utils.solveIf(challenges.timingAttackChallenge, () => { return count > 2 })
+                  challengeUtils.solveIf(challenges.timingAttackChallenge, () => { return count > 2 })
                   db.reviews.update(
                     { _id: id },
-                    { $set: { likedBy: likedBy } }
+                    { $set: { likedBy } }
                   ).then(
                     (result: any) => {
                       res.json(result)

@@ -1,0 +1,146 @@
+.container {
+  display: flex;
+  grid-gap: 40px;
+  margin: 0 40px;
+}
+
+.faucet-container {
+  padding: 40px 80px;
+
+  p {
+    text-align: center;
+  }
+
+  h1 {
+    font-weight: bold;
+    margin: 0;
+    text-align: center;
+  }
+}
+
+.faucet-balance {
+  align-items: center;
+  border: 1px solid #7b7b7b;
+  border-radius: 10px;
+  display: flex;
+  font-size: 18px;
+  justify-content: center;
+  margin: 20px 0;
+  padding: 8px;
+  text-align: center;
+  width: 100%;
+
+  span {
+    flex-grow: 1;
+    text-align: center;
+  }
+}
+
+.faucet-image {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+
+  img {
+    width: 250px;
+  }
+}
+
+.metamask-button {
+  margin: 16px;
+  margin-left: auto;
+
+  button {
+    padding: 8px 6px;
+    width: 220px;
+  }
+}
+
+.withdraw-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+
+  div {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  button {
+    border-radius: 10px;
+    font-weight: 500;
+    justify-self: end;
+    margin-top: -20px;
+    padding: 16px 24px;
+    width: 300px;
+  }
+}
+
+.honeypot-container {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 80px;
+  text-align: center;
+  width: 35%;
+
+  h2 {
+    font-weight: bold;
+  }
+}
+
+.honeypot-image {
+  height: 320px;
+  margin: 0 auto;
+  margin-bottom: 16px;
+  width: 320px;
+
+  img {
+    height: 300px;
+    margin: 10px;
+  }
+}
+
+.mint_button {
+  border-radius: 10px;
+  font-weight: 500;
+  margin-top: 32px;
+  padding: 16px 48px;
+}
+@media (max-width: 1100px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .honeypot-container {
+    margin-bottom: 40px;
+    width: auto;
+  }
+
+  .faucet-balance {
+    flex-direction: column;
+    padding: 24px 0;
+  }
+
+  .metamask-button {
+    margin: auto;
+    margin-top: 16px;
+  }
+}
+@media (max-width: 580px) {
+  .faucet-container,
+  .honeypot-container {
+    padding: 30px;
+  }
+
+  .honeypot-image {
+    height: 240px;
+    width: 240px;
+  }
+
+  .honeypot-image > img {
+    height: 220px;
+    width: 220px;
+  }
+}

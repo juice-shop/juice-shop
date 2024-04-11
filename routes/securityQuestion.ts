@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Request, Response, NextFunction } from 'express'
+import { type Request, type Response, type NextFunction } from 'express'
 import { SecurityAnswerModel } from '../models/securityAnswer'
 import { UserModel } from '../models/user'
 import { SecurityQuestionModel } from '../models/securityQuestion'
@@ -17,7 +17,7 @@ module.exports = function securityQuestion () {
         where: { email: email?.toString() }
       }]
     }).then((answer: SecurityAnswerModel | null) => {
-      if (answer) {
+      if (answer != null) {
         SecurityQuestionModel.findByPk(answer.SecurityQuestionId).then((question: SecurityQuestionModel | null) => {
           res.json({ question })
         }).catch((error: Error) => {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -7,12 +7,12 @@ import { environment } from '../../environments/environment'
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
-import { Observable } from 'rxjs'
+import { type Observable } from 'rxjs'
 
 interface ConfigResponse {
   config: Config
 }
-interface Config {
+export interface Config {
   server: {
     port: number
   }
@@ -34,6 +34,7 @@ interface Config {
       slackUrl: string
       redditUrl: string
       pressKitUrl: string
+      nftUrl: string
       questionnaireUrl: string
     }
     recyclePage: {
@@ -46,10 +47,6 @@ interface Config {
       message: string
     }
     cookieConsent: {
-      backgroundColor: string
-      textColor: string
-      buttonColor: string
-      buttonTextColor: string
       message: string
       dismissText: string
       linkText: string

@@ -1,16 +1,16 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import fs = require('fs')
-import { Request, Response, NextFunction } from 'express'
+import { type Request, type Response, type NextFunction } from 'express'
+import logger from '../lib/logger'
 
 import { UserModel } from '../models/user'
-const utils = require('../lib/utils')
+import * as utils from '../lib/utils'
 const security = require('../lib/insecurity')
 const request = require('request')
-const logger = require('../lib/logger')
 
 module.exports = function profileImageUrlUpload () {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -33,7 +33,7 @@ module.exports = function profileImageUrlUpload () {
             } else UserModel.findByPk(loggedInUser.data.id).then(async (user: UserModel | null) => { return await user?.update({ profileImage: url }) }).catch((error: Error) => { next(error) })
           })
       } else {
-        next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+        next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
       }
     }
     res.location(process.env.BASE_PATH + '/profile')

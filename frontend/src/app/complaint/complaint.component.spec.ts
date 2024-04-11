@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -14,7 +14,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { ComplaintComponent } from './complaint.component'
 import { of, throwError } from 'rxjs'
 

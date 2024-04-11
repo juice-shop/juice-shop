@@ -1,18 +1,19 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import utils = require('../lib/utils')
-import { Request, Response, NextFunction } from 'express'
-import { Review } from 'data/types'
+import challengeUtils = require('../lib/challengeUtils')
+import { type Request, type Response, type NextFunction } from 'express'
+import { type Review } from 'data/types'
 
 const challenges = require('../data/datacache').challenges
 const security = require('../lib/insecurity')
 const db = require('../data/mongodb')
 
 // Blocking sleep function as in native MongoDB
-// @ts-expect-error
+// @ts-expect-error FIXME Type safety broken for global object
 global.sleep = (time: number) => {
   // Ensure that users don't accidentally dos their servers for too long
   if (time > 2000) {
@@ -32,7 +33,7 @@ module.exports = function productReviews () {
     const t0 = new Date().getTime()
     db.reviews.find({ $where: 'this.product == ' + id }).then((reviews: Review[]) => {
       const t1 = new Date().getTime()
-      utils.solveIf(challenges.noSqlCommandChallenge, () => { return (t1 - t0) > 2000 })
+      challengeUtils.solveIf(challenges.noSqlCommandChallenge, () => { return (t1 - t0) > 2000 })
       const user = security.authenticatedUsers.from(req)
       for (let i = 0; i < reviews.length; i++) {
         if (user === undefined || reviews[i].likedBy.includes(user.data.email)) {

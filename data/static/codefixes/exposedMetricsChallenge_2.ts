@@ -6,7 +6,7 @@ errorhandler.title = `${config.get('application.name')} (Express ${utils.version
 const registerWebsocketEvents = require('./lib/startup/registerWebsocketEvents')
 const customizeApplication = require('./lib/startup/customizeApplication')
 
-export async function start (readyCallback: Function) {
+export async function start (readyCallback: any) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
   await sequelize.sync({ force: true })
   await datacreator()
@@ -15,10 +15,10 @@ export async function start (readyCallback: Function) {
   process.env.BASE_PATH = process.env.BASE_PATH ?? config.get('server.basePath')
 
   server.listen(port, () => {
-    logger.info(colors.cyan(`Server listening on port ${colors.bold(port)}`))
+    logger.info(colors.cyan(`Server listening on port ${colors.bold(`${port}`)}`))
     startupGauge.set({ task: 'ready' }, (Date.now() - startTime) / 1000)
     if (process.env.BASE_PATH !== '') {
-      logger.info(colors.cyan(`Server using proxy base path ${colors.bold(process.env.BASE_PATH)} for redirects`))
+      logger.info(colors.cyan(`Server using proxy base path ${colors.bold(`${process.env.BASE_PATH}`)} for redirects`))
     }
     registerWebsocketEvents(server)
     if (readyCallback) {

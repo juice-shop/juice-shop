@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import Hashids = require('hashids/cjs')
-import { Request, Response } from 'express'
+import { type Request, type Response } from 'express'
 import { ChallengeModel } from '../models/challenge'
 
 const sequelize = require('sequelize')

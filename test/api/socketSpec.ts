@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import io = require('socket.io-client')
+import io from 'socket.io-client'
 
 describe('WebSocket', () => {
   let socket: SocketIOClient.Socket

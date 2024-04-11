@@ -26,6 +26,7 @@ application:
     slackUrl: 'https://owasp.org/slack/invite'
     redditUrl: 'https://www.reddit.com/r/owasp_juiceshop'
     pressKitUrl: 'https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop'
+    nftUrl: 'https://opensea.io/collection/juice-shop'
     questionnaireUrl: ~
   recyclePage:
     topProductImage: fruit_press.jpg
@@ -35,10 +36,6 @@ application:
     title: 'Welcome to OWASP Juice Shop!'
     message: "<p>Being a web application with a vast number of intended security vulnerabilities, the <strong>OWASP Juice Shop</strong> is supposed to be the opposite of a best practice or template application for web developers: It is an awareness, training, demonstration and exercise tool for security risks in modern web applications. The <strong>OWASP Juice Shop</strong> is an open-source project hosted by the non-profit <a href='https://owasp.org' target='_blank'>Open Web Application Security Project (OWASP)</a> and is developed and maintained by volunteers. Check out the link below for more information and documentation on the project.</p><h1><a href='https://owasp-juice.shop' target='_blank'>https://owasp-juice.shop</a></h1>"
   cookieConsent:
-    backgroundColor: '#546e7a'
-    textColor: '#ffffff'
-    buttonColor: '#558b2f'
-    buttonTextColor: '#ffffff'
     message: 'This website uses fruit cookies to ensure you get the juiciest tracking experience.'
     dismissText: 'Me want it!'
     linkText: 'But me wait!'
@@ -47,6 +44,7 @@ application:
     contact: 'mailto:donotreply@owasp-juice.shop'
     encryption: 'https://keybase.io/bkimminich/pgp_keys.asc?fingerprint=19c01cb7157e4645e9e2c863062a85a8cbfbdcda'
     acknowledgements: '/#/score-board'
+    hiring: '/#/jobs'
   promotion:
     video: owasp_promo.mp4
     subtitles: owasp_promo.vtt
@@ -81,7 +79,7 @@ challenges:
   showFeedbackButtons: true
 hackingInstructor:
   isEnabled: true
-  avatarImage: JuicyBot_MedicalMask.png
+  avatarImage: JuicyBot.png
   hintPlaybackSpeed: normal # Options: faster fast normal slow slower
 products:
   -
@@ -410,6 +408,10 @@ memories:
     caption: 'My old workplace...'
     geoStalkingVisualSecurityQuestion: 10
     geoStalkingVisualSecurityAnswer: 'ITsec'
+  -
+    image: 'BeeHaven.png'
+    caption: 'Welcome to the Bee Haven (/#/bee-haven)🐝'
+    user: evm
 ctf:
   showFlagsInNotifications: false
   showCountryDetailsInNotifications: none # Options: none  name  flag  both

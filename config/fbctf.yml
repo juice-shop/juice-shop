@@ -315,3 +315,21 @@ ctf:
     lfrChallenge:
       name: Ireland
       code: IE
+    closeNotificationsChallenge:
+      name: Zambia
+      code: ZM
+    emptyUserRegistration:
+      name: Kenya
+      code: KE
+    nftUnlockChallenge:
+      name: Afghanistan
+      code: AF
+    nftMintChallenge:
+      name: United Arab Emirates
+      code: UAE
+    web3WalletChallenge:
+      name: Mexico
+      code: MEX
+    web3SandboxChallenge:
+      name: France
+      code: FR

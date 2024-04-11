@@ -1,15 +1,15 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { Component } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
 import { ConfigurationService } from '../Services/configuration.service'
 
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSave, faUnlockAlt } from '@fortawesome/free-solid-svg-icons'
 
 import { forkJoin } from 'rxjs'
@@ -18,7 +18,6 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 library.add(faUnlockAlt, faSave)
-dom.watch()
 
 @Component({
   selector: 'app-two-factor-auth',
@@ -28,13 +27,13 @@ dom.watch()
 export class TwoFactorAuthComponent {
   public data?: string
 
-  public twoFactorSetupForm: FormGroup = new FormGroup({
-    passwordControl: new FormControl('', [Validators.required]),
-    initalTokenControl: new FormControl('', [Validators.required, Validators.pattern('^[\\d]{6}$')])
+  public twoFactorSetupForm: UntypedFormGroup = new UntypedFormGroup({
+    passwordControl: new UntypedFormControl('', [Validators.required]),
+    initalTokenControl: new UntypedFormControl('', [Validators.required, Validators.pattern('^[\\d]{6}$')])
   })
 
-  public twoFactorDisableForm: FormGroup = new FormGroup({
-    passwordControl: new FormControl('', [Validators.required])
+  public twoFactorDisableForm: UntypedFormGroup = new UntypedFormGroup({
+    passwordControl: new UntypedFormControl('', [Validators.required])
   })
 
   public setupStatus: boolean | null = null

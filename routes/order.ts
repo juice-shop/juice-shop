@@ -1,27 +1,28 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import path = require('path')
-import { Request, Response, NextFunction } from 'express'
+import { type Request, type Response, type NextFunction } from 'express'
 import { BasketModel } from '../models/basket'
 import { ProductModel } from '../models/product'
 import { BasketItemModel } from '../models/basketitem'
 import { QuantityModel } from '../models/quantity'
 import { DeliveryModel } from '../models/delivery'
 import { WalletModel } from '../models/wallet'
+import challengeUtils = require('../lib/challengeUtils')
+import config from 'config'
+import * as utils from '../lib/utils'
 
 const fs = require('fs')
 const PDFDocument = require('pdfkit')
-const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
 const products = require('../data/datacache').products
 const challenges = require('../data/datacache').challenges
-const config = require('config')
 const db = require('../data/mongodb')
 
-interface Product{
+interface Product {
   quantity: number
   id?: number
   name: string
@@ -35,7 +36,7 @@ module.exports = function placeOrder () {
     const id = req.params.id
     BasketModel.findOne({ where: { id }, include: [{ model: ProductModel, paranoid: false, as: 'Products' }] })
       .then(async (basket: BasketModel | null) => {
-        if (basket) {
+        if (basket != null) {
           const customer = security.authenticatedUsers.from(req)
           const email = customer ? customer.data ? customer.data.email : '' : ''
           const orderId = security.hash(email).slice(0, 4) + '-' + utils.randomHexString(16)
@@ -66,8 +67,8 @@ module.exports = function placeOrder () {
           const basketProducts: Product[] = []
           let totalPoints = 0
           basket.Products?.forEach(({ BasketItem, price, deluxePrice, name, id }) => {
-            if (BasketItem) {
-              utils.solveIf(challenges.christmasSpecialChallenge, () => { return BasketItem.ProductId === products.christmasSpecial.id })
+            if (BasketItem != null) {
+              challengeUtils.solveIf(challenges.christmasSpecialChallenge, () => { return BasketItem.ProductId === products.christmasSpecial.id })
               QuantityModel.findOne({ where: { ProductId: BasketItem.ProductId } }).then((product: any) => {
                 const newQuantity = product.quantity - BasketItem.quantity
                 QuantityModel.update({ quantity: newQuantity }, { where: { ProductId: BasketItem?.ProductId } }).catch((error: unknown) => {
@@ -86,7 +87,7 @@ module.exports = function placeOrder () {
               const itemBonus = Math.round(itemPrice / 10) * BasketItem.quantity
               const product = {
                 quantity: BasketItem.quantity,
-                id: id,
+                id,
                 name: req.__(name),
                 price: itemPrice,
                 total: itemTotal,
@@ -115,7 +116,7 @@ module.exports = function placeOrder () {
           }
           if (req.body.orderDetails?.deliveryMethodId) {
             const deliveryMethodFromModel = await DeliveryModel.findOne({ where: { id: req.body.orderDetails.deliveryMethodId } })
-            if (deliveryMethodFromModel) {
+            if (deliveryMethodFromModel != null) {
               deliveryMethod.deluxePrice = deliveryMethodFromModel.deluxePrice
               deliveryMethod.price = deliveryMethodFromModel.price
               deliveryMethod.eta = deliveryMethodFromModel.eta
@@ -133,12 +134,12 @@ module.exports = function placeOrder () {
           doc.moveDown()
           doc.font('Times-Roman', 15).text(req.__('Thank you for your order!'))
 
-          utils.solveIf(challenges.negativeOrderChallenge, () => { return totalPrice < 0 })
+          challengeUtils.solveIf(challenges.negativeOrderChallenge, () => { return totalPrice < 0 })
 
           if (req.body.UserId) {
             if (req.body.orderDetails && req.body.orderDetails.paymentId === 'wallet') {
               const wallet = await WalletModel.findOne({ where: { UserId: req.body.UserId } })
-              if (wallet && wallet.balance >= totalPrice) {
+              if ((wallet != null) && wallet.balance >= totalPrice) {
                 WalletModel.decrement({ balance: totalPrice }, { where: { UserId: req.body.UserId } }).catch((error: unknown) => {
                   next(error)
                 })
@@ -155,10 +156,10 @@ module.exports = function placeOrder () {
             promotionalAmount: discountAmount,
             paymentId: req.body.orderDetails ? req.body.orderDetails.paymentId : null,
             addressId: req.body.orderDetails ? req.body.orderDetails.addressId : null,
-            orderId: orderId,
+            orderId,
             delivered: false,
             email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
-            totalPrice: totalPrice,
+            totalPrice,
             products: basketProducts,
             bonus: totalPoints,
             deliveryPrice: deliveryAmount,
@@ -178,7 +179,7 @@ module.exports = function placeOrder () {
 function calculateApplicableDiscount (basket: BasketModel, req: Request) {
   if (security.discountFromCoupon(basket.coupon)) {
     const discount = security.discountFromCoupon(basket.coupon)
-    utils.solveIf(challenges.forgedCouponChallenge, () => { return discount >= 80 })
+    challengeUtils.solveIf(challenges.forgedCouponChallenge, () => { return discount >= 80 })
     return discount
   } else if (req.body.couponData) {
     const couponData = Buffer.from(req.body.couponData, 'base64').toString().split('-')
@@ -187,7 +188,7 @@ function calculateApplicableDiscount (basket: BasketModel, req: Request) {
     const campaign = campaigns[couponCode as keyof typeof campaigns]
 
     if (campaign && couponDate == campaign.validOn) { // eslint-disable-line eqeqeq
-      utils.solveIf(challenges.manipulateClockChallenge, () => { return campaign.validOn < new Date().getTime() })
+      challengeUtils.solveIf(challenges.manipulateClockChallenge, () => { return campaign.validOn < new Date().getTime() })
       return campaign.discount
     }
   }

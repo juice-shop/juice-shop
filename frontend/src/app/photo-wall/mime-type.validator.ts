@@ -1,21 +1,21 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { AbstractControl } from '@angular/forms'
-import { Observable, Observer, of } from 'rxjs'
+import { type AbstractControl } from '@angular/forms'
+import { Observable, type Observer, of } from 'rxjs'
 
 export const mimeType = (
   control: AbstractControl
-): Promise<{ [key: string]: any }> | Observable<{ [key: string]: any }> => {
+): Promise<Record<string, any>> | Observable<Record<string, any>> => {
   if (typeof (control.value) === 'string') {
     return of(null)
   }
   const file = control.value as File
   const fileReader = new FileReader()
   const frObs = new Observable(
-    (observer: Observer<{ [key: string]: any }>) => {
+    (observer: Observer<Record<string, any>>) => {
       fileReader.addEventListener('loadend', () => {
         const arr = new Uint8Array(fileReader.result as ArrayBuffer).subarray(0, 4)
         let header = ''

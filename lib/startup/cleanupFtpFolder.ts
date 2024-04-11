@@ -1,13 +1,13 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import glob = require('glob')
-const utils = require('../utils')
-const path = require('path')
+import logger from '../logger'
+import path from 'path'
+import * as utils from '../utils'
 const fs = require('fs-extra')
-const logger = require('../logger')
 
 const cleanupFtpFolder = () => {
   glob(path.resolve('ftp/*.pdf'), (err: unknown, files: string[]) => {

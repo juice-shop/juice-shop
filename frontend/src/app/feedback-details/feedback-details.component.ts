@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, OnInit, Inject } from '@angular/core'
+import { Component, type OnInit, Inject } from '@angular/core'
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 
 @Component({

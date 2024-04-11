@@ -1,8 +1,10 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
+// @ts-expect-error FIXME no typescript definitions for z85 :(
+import z85 from 'z85'
 import chai = require('chai')
 const expect = chai.expect
 
@@ -31,8 +33,6 @@ describe('insecurity', () => {
   })
 
   describe('generateCoupon', () => {
-    const z85 = require('z85')
-
     it('returns base85-encoded month, year and discount as coupon code', () => {
       const coupon = security.generateCoupon(20, new Date('1980-01-02'))
       expect(coupon).to.equal('n<MiifFb4l')
@@ -53,8 +53,6 @@ describe('insecurity', () => {
   })
 
   describe('discountFromCoupon', () => {
-    const z85 = require('z85')
-
     it('returns undefined when not passing in a coupon code', () => {
       expect(security.discountFromCoupon(undefined)).to.equal(undefined)
       expect(security.discountFromCoupon(null)).to.equal(undefined)

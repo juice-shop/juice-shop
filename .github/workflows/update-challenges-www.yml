@@ -3,7 +3,7 @@ name: "Update challenges on owasp-juice.shop"
 on:
   push:
     branches: [ master ]
-    paths: 
+    paths:
       - 'data/static/challenges.yml'
 
 jobs:
@@ -12,17 +12,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Check out Git repository
-      uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
+      uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac #v4.0.0
       with:
         token: ${{ secrets.BOT_TOKEN }}
         repository: OWASP/www-project-juice-shop
-        branch: master
+        ref: master
     - name: Update challenges.yml
       run: |
         cd _data/
         rm challenges.yml
         wget https://raw.githubusercontent.com/juice-shop/juice-shop/master/data/static/challenges.yml
-    - uses: stefanzweifel/git-auto-commit-action@v4.0.0
+    - uses: stefanzweifel/git-auto-commit-action@3ea6ae190baf489ba007f7c92608f33ce20ef04a #v4.16.0
       with:
         commit_message: "Auto-update challenges.yml from ${{ github.sha }}"
         branch: master

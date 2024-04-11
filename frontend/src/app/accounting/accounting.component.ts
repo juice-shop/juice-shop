@@ -1,21 +1,20 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { ProductService } from '../Services/product.service'
-import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core'
+import { type AfterViewInit, Component, type OnDestroy, ViewChild } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
-import { Subscription } from 'rxjs'
+import { type Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
 import { QuantityService } from '../Services/quantity.service'
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { OrderHistoryService } from '../Services/order-history.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 library.add(faCheck)
-dom.watch()
 
 interface Order {
   id: string
@@ -58,7 +57,7 @@ export class AccountingComponent implements AfterViewInit, OnDestroy {
           quantity: item.quantity
         }
       })
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   loadProducts () {
@@ -66,7 +65,7 @@ export class AccountingComponent implements AfterViewInit, OnDestroy {
       this.tableData = tableData
       this.dataSource = new MatTableDataSource<Element>(this.tableData)
       this.dataSource.paginator = this.paginator
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   loadOrders () {
@@ -82,7 +81,7 @@ export class AccountingComponent implements AfterViewInit, OnDestroy {
       }
       this.orderSource = new MatTableDataSource<Order>(this.orderData)
       this.orderSource.paginator = this.paginatorOrderHistory
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   ngOnDestroy () {
@@ -120,7 +119,7 @@ export class AccountingComponent implements AfterViewInit, OnDestroy {
   }
 
   changeDeliveryStatus (deliveryStatus, orderId) {
-    this.orderHistoryService.toggleDeliveryStatus(orderId, { deliveryStatus: deliveryStatus }).subscribe(() => {
+    this.orderHistoryService.toggleDeliveryStatus(orderId, { deliveryStatus }).subscribe(() => {
       this.loadOrders()
     }, (err) => {
       this.snackBarHelperService.open(err, 'errorBar')

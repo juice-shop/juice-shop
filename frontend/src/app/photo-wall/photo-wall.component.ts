@@ -1,20 +1,19 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, OnInit } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { Component, type OnInit } from '@angular/core'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { mimeType } from './mime-type.validator'
 import { PhotoWallService } from '../Services/photo-wall.service'
-import { IImage } from 'ng-simple-slideshow'
+import { type IImage } from 'ng-simple-slideshow'
 import { ConfigurationService } from '../Services/configuration.service'
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 library.add(faTwitter)
-dom.watch()
 
 @Component({
   selector: 'app-photo-wall',
@@ -24,9 +23,9 @@ dom.watch()
 export class PhotoWallComponent implements OnInit {
   public emptyState: boolean = true
   public imagePreview: string
-  public form: FormGroup = new FormGroup({
-    image: new FormControl('', { validators: [Validators.required], asyncValidators: [mimeType] }),
-    caption: new FormControl('', [Validators.required])
+  public form: UntypedFormGroup = new UntypedFormGroup({
+    image: new UntypedFormControl('', { validators: [Validators.required], asyncValidators: [mimeType] }),
+    caption: new UntypedFormControl('', [Validators.required])
   })
 
   public slideshowDataSource: IImage[] = []
@@ -50,14 +49,14 @@ export class PhotoWallComponent implements OnInit {
         }
         this.slideshowDataSource.push({ url: memory.imagePath, caption: memory.caption })
       }
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       if (config?.application?.social) {
         if (config.application.social.twitterUrl) {
           this.twitterHandle = config.application.social.twitterUrl.replace('https://twitter.com/', '@')
         }
       }
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   onImagePicked (event: Event) {

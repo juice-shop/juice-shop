@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, Inject, OnInit } from '@angular/core'
+import { Component, Inject, type OnInit } from '@angular/core'
 import { DOCUMENT } from '@angular/common'
 import { ConfigurationService } from '../Services/configuration.service'
 
@@ -30,6 +30,6 @@ export class PrivacyPolicyComponent implements OnInit {
       } else {
         this.privacyContactEmail = `donotreply@${this._document.location.hostname}`
       }
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 }

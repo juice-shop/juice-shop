@@ -1,25 +1,24 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { SecurityAnswerService } from '../Services/security-answer.service'
 import { UserService } from '../Services/user.service'
-import { AbstractControl, FormControl, Validators } from '@angular/forms'
-import { Component, NgZone, OnInit } from '@angular/core'
+import { type AbstractControl, UntypedFormControl, Validators } from '@angular/forms'
+import { Component, NgZone, type OnInit } from '@angular/core'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { Router } from '@angular/router'
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { MatSnackBar } from '@angular/material/snack-bar'
 
 import { faExclamationCircle, faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { TranslateService } from '@ngx-translate/core'
-import { SecurityQuestion } from '../Models/securityQuestion.model'
+import { type SecurityQuestion } from '../Models/securityQuestion.model'
 
 library.add(faUserPlus, faExclamationCircle)
-dom.watch()
 
 @Component({
   selector: 'app-register',
@@ -27,11 +26,11 @@ dom.watch()
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  public emailControl: FormControl = new FormControl('', [Validators.required, Validators.email])
-  public passwordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)])
-  public repeatPasswordControl: FormControl = new FormControl('', [Validators.required, matchValidator(this.passwordControl)])
-  public securityQuestionControl: FormControl = new FormControl('', [Validators.required])
-  public securityAnswerControl: FormControl = new FormControl('', [Validators.required])
+  public emailControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.email])
+  public passwordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)])
+  public repeatPasswordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, matchValidator(this.passwordControl)])
+  public securityQuestionControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
+  public securityAnswerControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
   public securityQuestions!: SecurityQuestion[]
   public selected?: number
   public error: string | null = null
@@ -49,9 +48,9 @@ export class RegisterComponent implements OnInit {
   ngOnInit () {
     this.securityQuestionService.find(null).subscribe((securityQuestions: any) => {
       this.securityQuestions = securityQuestions
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
 
-    this.formSubmitService.attachEnterKeyHandler('registration-form', 'registerButton', () => this.save())
+    this.formSubmitService.attachEnterKeyHandler('registration-form', 'registerButton', () => { this.save() })
   }
 
   save () {
@@ -88,7 +87,7 @@ export class RegisterComponent implements OnInit {
 }
 
 function matchValidator (passwordControl: AbstractControl) {
-  return function matchOtherValidate (repeatPasswordControl: FormControl) {
+  return function matchOtherValidate (repeatPasswordControl: UntypedFormControl) {
     const password = passwordControl.value
     const passwordRepeat = repeatPasswordControl.value
     if (password !== passwordRepeat) {

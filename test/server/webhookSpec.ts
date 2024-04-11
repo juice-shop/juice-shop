@@ -1,16 +1,15 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
+import * as webhook from '../../lib/webhook'
 import chai = require('chai')
 const expect = chai.expect
 const chaiAsPromised = require('chai-as-promised')
 chai.use(chaiAsPromised)
 
 describe('webhook', () => {
-  const webhook = require('../../lib/webhook')
-
   const challenge = {
     key: 'key',
     name: 'name',

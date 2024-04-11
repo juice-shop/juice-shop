@@ -1,16 +1,17 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import config = require('config')
-import { Request, Response } from 'express'
+import config from 'config'
+import { type Request, type Response } from 'express'
 import { BasketModel } from '../models/basket'
 import { UserModel } from '../models/user'
+import challengeUtils = require('../lib/challengeUtils')
+import * as utils from '../lib/utils'
 
 const security = require('../lib/insecurity')
 const otplib = require('otplib')
-const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
 otplib.authenticator.options = {
@@ -30,7 +31,7 @@ async function verify (req: Request, res: Response) {
     }
 
     const user = await UserModel.findByPk(userId)
-    if (!user) {
+    if (user == null) {
       throw new Error('No such user found!')
     }
 
@@ -41,11 +42,12 @@ async function verify (req: Request, res: Response) {
     if (!isValid) {
       return res.status(401).send()
     }
-    utils.solveIf(challenges.twoFactorAuthUnsafeSecretStorageChallenge, () => { return user.email === 'wurstbrot@' + config.get('application.domain') })
+    challengeUtils.solveIf(challenges.twoFactorAuthUnsafeSecretStorageChallenge, () => { return user.email === 'wurstbrot@' + config.get('application.domain') })
 
     const [basket] = await BasketModel.findOrCreate({ where: { UserId: userId } })
 
     const token = security.authorize(plainUser)
+    // @ts-expect-error FIXME set new property for original basket
     plainUser.bid = basket.id // keep track of original basket for challenge solution check
     security.authenticatedUsers.put(token, plainUser)
 
@@ -127,7 +129,7 @@ async function setup (req: Request, res: Response) {
 
     // Update db model and cached object
     const userModel = await UserModel.findByPk(user.id)
-    if (!userModel) {
+    if (userModel == null) {
       throw new Error('No such user found!')
     }
 
@@ -160,7 +162,7 @@ async function disable (req: Request, res: Response) {
 
     // Update db model and cached object
     const userModel = await UserModel.findByPk(user.id)
-    if (!userModel) {
+    if (userModel == null) {
       throw new Error('No such user found!')
     }
 

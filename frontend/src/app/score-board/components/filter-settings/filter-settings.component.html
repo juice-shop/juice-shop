@@ -1,0 +1,78 @@
+<div class="filter-row">
+  <div class="search-form-field">
+    <mat-form-field>
+      <mat-icon matPrefix class="search-icon">search</mat-icon>
+      <mat-label translate>NAV_SEARCH</mat-label>
+      <input type="search" matInput [value]="filterSetting.searchQuery" (input)="onSearchQueryFilterChange($event.target.value)">
+    </mat-form-field>
+  </div>
+  <div class="options-group">
+    <mat-form-field>
+      <mat-label translate>LABEL_DIFFICULTY</mat-label>
+      <mat-select multiple [value]="filterSetting.difficulties" (selectionChange)="onDifficultyFilterChange($event.value)">
+        <mat-select-trigger>
+          <ng-container *ngIf="filterSetting.difficulties.length === 0">
+            {{ "LABEL_DIFFICULTY" | translate }}
+          </ng-container>
+          <span *ngIf="filterSetting.difficulties.length !== 0">
+            {{ filterSetting.difficulties | difficultySelectionSummary }}
+          </span>
+        </mat-select-trigger>
+        <mat-option [value]="1">
+          <difficulty-stars [difficulty]="1"></difficulty-stars>
+        </mat-option>
+        <mat-option [value]="2">
+          <difficulty-stars [difficulty]="2"></difficulty-stars>
+        </mat-option>
+        <mat-option [value]="3">
+          <difficulty-stars [difficulty]="3"></difficulty-stars>
+        </mat-option>
+        <mat-option [value]="4">
+          <difficulty-stars [difficulty]="4"></difficulty-stars>
+        </mat-option>
+        <mat-option [value]="5">
+          <difficulty-stars [difficulty]="5"></difficulty-stars>
+        </mat-option>
+        <mat-option [value]="6">
+          <difficulty-stars [difficulty]="6"></difficulty-stars>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label translate>LABEL_STATUS</mat-label>
+      <mat-select placeholder="All" [value]="filterSetting.status" (selectionChange)="onStatusFilterChange($event.value)">
+        <mat-option [value]="null">{{ 'STATUS_ALL' | translate }}</mat-option>
+        <mat-option value="unsolved">{{ 'STATUS_UNSOLVED' | translate }}</mat-option>
+        <mat-option value="partially-solved">{{ 'STATUS_PARTIALLY_SOLVED' | translate }}</mat-option>
+        <mat-option value="solved">{{ 'STATUS_SOLVED' | translate }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label translate>LABEL_TAGS</mat-label>
+      <mat-select multiple [value]="filterSetting.tags" (selectionChange)="onTagFilterChange($event.value)">
+        <mat-option *ngFor="let tag of tags" [value]="tag">{{ tag }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="additional-settings-wrapper">
+      <div>
+        <button id="reset-filters" mat-icon-button aria-label="reset all filters" (click)="reset()" [matTooltip]="'LABEL_RESET_ALL_FILTERS' | translate">
+          <!-- inlined svg icon as the "filter_alt_off" isn't included in our icons. -->
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" [style.color]="canBeReset() ? 'var(--theme-warn)' : 'var(--theme-text-dark)'">
+            <path d="M12.2442 2.96672L9.56672 6.37922L10.6392 7.45172C11.4117 6.46922 14.3742 2.67422 14.3742 2.67422C14.7567 2.17922 14.4042 1.46672 13.7817 1.46672H4.65422L6.15422 2.96672H12.2442Z" fill="currentColor"/>
+            <path d="M1.63922 0.574219L0.574219 1.63172L7.03172 8.21672V12.7167C7.03172 13.1292 7.36922 13.4667 7.78172 13.4667H9.28172C9.69422 13.4667 10.0317 13.1292 10.0317 12.7167V11.0892L14.3667 15.4242L15.4242 14.3667L1.63922 0.574219Z" fill="currentColor"/>
+          </svg>
+        </button>
+        <label class="reset-filters-label" for="reset-filters" translate>LABEL_RESET_ALL_FILTERS</label>
+      </div>
+      <button class="additional-settings-button" mat-icon-button aria-label="Open additional settings dialog" (click)="openAdditionalSettingsDialog()" [matTooltip]="'Open additional settings dialog'">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+
+<category-filter
+  [categories]="filterSetting.categories"
+  (categoriesChange)="onCategoryFilterChange($event)"
+  [allChallenges]="allChallenges"
+></category-filter>

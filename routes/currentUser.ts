@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import utils = require('../lib/utils')
-import { Request, Response } from 'express'
+import challengeUtils = require('../lib/challengeUtils')
+import { type Request, type Response } from 'express'
 
 const security = require('../lib/insecurity')
 const cache = require('../data/datacache')
@@ -24,7 +24,7 @@ module.exports = function retrieveLoggedInUser () {
       if (req.query.callback === undefined) {
         res.json(response)
       } else {
-        utils.solveIf(challenges.emailLeakChallenge, () => { return true })
+        challengeUtils.solveIf(challenges.emailLeakChallenge, () => { return true })
         res.jsonp(response)
       }
     }

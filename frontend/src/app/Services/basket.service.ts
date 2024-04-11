@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment'
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
-import { Observable, Subject } from 'rxjs'
+import { type Observable, Subject } from 'rxjs'
 
 interface OrderDetail {
   paymentId: string
@@ -46,7 +46,7 @@ export class BasketService {
   }
 
   checkout (id?: number, couponData?: string, orderDetails?: OrderDetail) {
-    return this.http.post(`${this.hostServer}/rest/basket/${id}/checkout`, { couponData: couponData, orderDetails: orderDetails }).pipe(map((response: any) => response.orderConfirmation), catchError((error) => { throw error }))
+    return this.http.post(`${this.hostServer}/rest/basket/${id}/checkout`, { couponData, orderDetails }).pipe(map((response: any) => response.orderConfirmation), catchError((error) => { throw error }))
   }
 
   applyCoupon (id?: number, coupon?: string) {
@@ -57,7 +57,7 @@ export class BasketService {
     this.find(parseInt(sessionStorage.getItem('bid'), 10)).subscribe((basket) => {
       // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
       this.itemTotal.next(basket.Products.reduce((itemTotal, product) => itemTotal + product.BasketItem.quantity, 0))
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   getItemTotal (): Observable<any> {

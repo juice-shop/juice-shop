@@ -1,0 +1,120 @@
+.playground-wallet {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.sandbox-container {
+  margin: 32px;
+
+  &_body {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+    padding: 40px;
+  }
+
+  &_body_left {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+  }
+
+  &_body_right {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+  }
+}
+@media (max-width: 840px) {
+  .sandbox-container_body {
+    flex-direction: column;
+  }
+
+  .sandbox-container_body_left,
+  .sandbox-container_body_right {
+    width: 100%;
+  }
+}
+
+.deployedaddresstext {
+  color: rgb(45, 151, 45);
+  font-weight: 600;
+  margin: 10px 0;
+  word-break: break-all;
+}
+
+.invokecontainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+  max-height: 200px;
+  overflow: scroll;
+  padding: 16px;
+  width: 100%;
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  margin: 16px 0;
+  max-height: 300px;
+  overflow: scroll;
+  padding: 16px;
+
+  ul {
+    font-size: 12px;
+    padding-left: 16px;
+  }
+}
+
+.editor-title {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  padding: 0 8px;
+  width: 100%;
+}
+
+.function-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+}
+
+.functionwtext-container {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.output-container {
+  display: flex;
+  width: 100%;
+  word-break: break-all;
+}
+
+.invoke-btncontainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.invoke-output {
+  font-size: 12px;
+  padding: 4px;
+}
+
+h2 {
+  margin: 0;
+}
+
+ul {
+  padding-left: 16px;
+}
+
+.contracts-title {
+  font-weight: 500;
+  margin-top: 16px;
+}

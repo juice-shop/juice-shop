@@ -1,0 +1,54 @@
+.header_container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.dwbutton_container {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+mat-card {
+  display: block;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
+mat-form-field {
+  padding-top: 10px;
+  width: 100%;
+}
+
+.form-container {
+  min-width: 350px;
+}
+
+.deposit_withdraw_button {
+  width: 100%;
+}
+
+.heading {
+  background: rgba(0, 0, 0, 0.2);
+  font-size: x-large;
+  justify-content: center;
+  padding: 12px 20px;
+}
+@media (max-width: 1100px) {
+  mat-card {
+    margin-left: 20%;
+    margin-right: 20%;
+  }
+}
+@media (max-width: 580px) {
+  mat-card {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  .header_container {
+    flex-direction: column;
+    margin-bottom: 16px;
+  }
+}

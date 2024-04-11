@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
 import { ProductReviewEditComponent } from './product-review-edit.component'
 import { ReactiveFormsModule } from '@angular/forms'

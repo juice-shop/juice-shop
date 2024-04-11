@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Request, Response } from 'express'
+import { type Request, type Response } from 'express'
 import { AddressModel } from '../models/address'
 
 module.exports.getAddress = function getAddress () {
@@ -16,7 +16,7 @@ module.exports.getAddress = function getAddress () {
 module.exports.getAddressById = function getAddressById () {
   return async (req: Request, res: Response) => {
     const address = await AddressModel.findOne({ where: { id: req.params.id, UserId: req.body.UserId } })
-    if (address) {
+    if (address != null) {
       res.status(200).json({ status: 'success', data: address })
     } else {
       res.status(400).json({ status: 'error', data: 'Malicious activity detected.' })

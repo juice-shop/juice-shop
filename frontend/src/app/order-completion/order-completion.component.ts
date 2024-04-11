@@ -1,20 +1,19 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, OnInit } from '@angular/core'
+import { Component, type OnInit } from '@angular/core'
 import { TrackOrderService } from '../Services/track-order.service'
-import { ActivatedRoute, ParamMap } from '@angular/router'
+import { ActivatedRoute, type ParamMap } from '@angular/router'
 import { MatTableDataSource } from '@angular/material/table'
 import { BasketService } from '../Services/basket.service'
 import { AddressService } from '../Services/address.service'
 import { ConfigurationService } from '../Services/configuration.service'
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 
 library.add(faTwitter)
-dom.watch()
 
 @Component({
   selector: 'app-order-completion',
@@ -62,12 +61,12 @@ export class OrderCompletionComponent implements OnInit {
               this.tweetText += config.application.name
             }
           }
-        }, (err) => console.log(err))
+        }, (err) => { console.log(err) })
         this.addressService.getById(this.orderDetails.addressId).subscribe((address) => {
           this.address = address
-        }, (error) => console.log(error))
-      }, (err) => console.log(err))
-    }, (err) => console.log(err))
+        }, (error) => { console.log(error) })
+      }, (err) => { console.log(err) })
+    }, (err) => { console.log(err) })
   }
 
   openConfirmationPDF () {

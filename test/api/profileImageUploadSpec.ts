@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import frisby = require('frisby')
-import config = require('config')
+import config from 'config'
+import path from 'path'
 const fs = require('fs')
-const path = require('path')
 
 const jsonHeader = { 'content-type': 'application/json' }
 const REST_URL = 'http://localhost:3000/rest'
@@ -30,7 +30,7 @@ describe('/profile/image/file', () => {
         return frisby.post(`${URL}/profile/image/file`, {
           headers: {
             Cookie: `token=${jsonLogin.authentication.token}`,
-            // @ts-expect-error
+            // @ts-expect-error FIXME form.getHeaders() is not found
             'Content-Type': form.getHeaders()['content-type']
           },
           body: form,
@@ -57,7 +57,7 @@ describe('/profile/image/file', () => {
         return frisby.post(`${URL}/profile/image/file`, {
           headers: {
             Cookie: `token=${jsonLogin.authentication.token}`,
-            // @ts-expect-error
+            // @ts-expect-error FIXME form.getHeaders() is not found
             'Content-Type': form.getHeaders()['content-type']
           },
           body: form
@@ -75,7 +75,7 @@ describe('/profile/image/file', () => {
     form.append('file', fs.createReadStream(file))
 
     return frisby.post(`${URL}/profile/image/file`, {
-      // @ts-expect-error
+      // @ts-expect-error FIXME form.getHeaders() is not found
       headers: { 'Content-Type': form.getHeaders()['content-type'] },
       body: form
     })
@@ -102,7 +102,7 @@ describe('/profile/image/url', () => {
         return frisby.post(`${URL}/profile/image/url`, {
           headers: {
             Cookie: `token=${jsonLogin.authentication.token}`,
-            // @ts-expect-error
+            // @ts-expect-error FIXME form.getHeaders() is not found
             'Content-Type': form.getHeaders()['content-type']
           },
           body: form,
@@ -128,7 +128,7 @@ describe('/profile/image/url', () => {
         return frisby.post(`${URL}/profile/image/url`, {
           headers: {
             Cookie: `token=${jsonLogin.authentication.token}`,
-            // @ts-expect-error
+            // @ts-expect-error FIXME form.getHeaders() is not found
             'Content-Type': form.getHeaders()['content-type']
           },
           body: form,
@@ -143,7 +143,7 @@ describe('/profile/image/url', () => {
     form.append('imageUrl', 'https://placekitten.com/g/100/100')
 
     return frisby.post(`${URL}/profile/image/url`, {
-      // @ts-expect-error
+      // @ts-expect-error FIXME form.getHeaders() is not found
       headers: { 'Content-Type': form.getHeaders()['content-type'] },
       body: form
     })

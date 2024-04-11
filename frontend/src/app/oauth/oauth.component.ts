@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { ActivatedRoute, Router } from '@angular/router'
 import { UserService } from '../Services/user.service'
 import { CookieService } from 'ngx-cookie'
-import { Component, NgZone, OnInit } from '@angular/core'
+import { Component, NgZone, type OnInit } from '@angular/core'
 
 @Component({
   selector: 'app-oauth',
@@ -19,9 +19,9 @@ export class OAuthComponent implements OnInit {
   ngOnInit () {
     this.userService.oauthLogin(this.parseRedirectUrlParams().access_token).subscribe((profile: any) => {
       const password = btoa(profile.email.split('').reverse().join(''))
-      this.userService.save({ email: profile.email, password: password, passwordRepeat: password }).subscribe(() => {
+      this.userService.save({ email: profile.email, password, passwordRepeat: password }).subscribe(() => {
         this.login(profile)
-      }, () => this.login(profile))
+      }, () => { this.login(profile) })
     }, (error) => {
       this.invalidateSession(error)
       this.ngZone.run(async () => await this.router.navigate(['/login']))

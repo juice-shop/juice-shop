@@ -1,9 +1,10 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import frisby = require('frisby')
+import { expect } from '@jest/globals'
 const security = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/api'

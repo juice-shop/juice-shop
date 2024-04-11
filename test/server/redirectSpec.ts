@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -49,7 +49,7 @@ describe('redirect', () => {
 
   it('redirecting to https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm should solve the "redirectCryptoCurrencyChallenge"', () => {
     req.query.to = 'https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm'
-    challenges.redirectCryptoCurrencyChallenge = { solved: false, save: save }
+    challenges.redirectCryptoCurrencyChallenge = { solved: false, save }
 
     performRedirect()(req, res)
 
@@ -58,7 +58,7 @@ describe('redirect', () => {
 
   it('redirecting to https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW should solve the "redirectCryptoCurrencyChallenge"', () => {
     req.query.to = 'https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW'
-    challenges.redirectCryptoCurrencyChallenge = { solved: false, save: save }
+    challenges.redirectCryptoCurrencyChallenge = { solved: false, save }
 
     performRedirect()(req, res)
 
@@ -67,7 +67,7 @@ describe('redirect', () => {
 
   it('redirecting to https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6 should solve the "redirectCryptoCurrencyChallenge"', () => {
     req.query.to = 'https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6'
-    challenges.redirectCryptoCurrencyChallenge = { solved: false, save: save }
+    challenges.redirectCryptoCurrencyChallenge = { solved: false, save }
 
     performRedirect()(req, res)
 
@@ -75,8 +75,8 @@ describe('redirect', () => {
   })
 
   it('tricking the allowlist should solve "redirectChallenge"', () => {
-    req.query.to = 'http://kimminich.de?to=https://github.com/bkimminich/juice-shop'
-    challenges.redirectChallenge = { solved: false, save: save }
+    req.query.to = 'http://kimminich.de?to=https://github.com/juice-shop/juice-shop'
+    challenges.redirectChallenge = { solved: false, save }
 
     performRedirect()(req, res)
 

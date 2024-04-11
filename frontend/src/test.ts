@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -9,7 +9,7 @@ import 'zone.js/testing'
 import { getTestBed } from '@angular/core/testing'
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing'
 
 declare const require: any
@@ -17,11 +17,12 @@ declare const require: any
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting(), {
+  platformBrowserDynamicTesting(),
+  {
     teardown: { destroyAfterEach: false }
-}
+  }
 )
 // Then we find all the tests.
-const context = require.context('./', true, /\.spec\.ts$/)
-// And load the modules.
-context.keys().map(context)
+// const context = require.context('./', true, /\.spec\.ts$/)
+// // And load the modules.
+// context.keys().map(context)

@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { TranslateService } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
-import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core'
+import { ChangeDetectorRef, Component, NgZone, type OnInit } from '@angular/core'
 import { CookieService } from 'ngx-cookie'
 import { CountryMappingService } from 'src/app/Services/country-mapping.service'
 import { SocketIoService } from '../Services/socket-io.service'
@@ -49,9 +49,11 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
           }
           if (!data.isRestore) {
             this.saveProgress()
-            import('../../confetti').then(module => {
-              module.shootConfetti()
-            })
+            if (!data.hidden) {
+              import('../../confetti').then(module => {
+                module.shootConfetti()
+              })
+            }
           }
           this.io.socket().emit('notification received', data.flag)
         }
@@ -72,7 +74,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
           if (config.ctf.showCountryDetailsInNotifications !== 'none') {
             this.countryMappingService.getCountryMapping().subscribe((countryMap: any) => {
               this.countryMap = countryMap
-            }, (err) => console.log(err))
+            }, (err) => { console.log(err) })
           }
         } else {
           this.showCtfCountryDetailsInNotifications = 'none'
@@ -83,6 +85,9 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
 
   closeNotification (index: number, shiftKey: boolean = false) {
     if (shiftKey) {
+      this.ngZone.runOutsideAngular(() => {
+        this.io.socket().emit('verifyCloseNotificationsChallenge', this.notifications)
+      })
       this.notifications = []
     } else {
       this.notifications.splice(index, 1)
@@ -98,9 +103,9 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
         country = this.countryMap[challenge.key]
       }
       this.notifications.push({
-        message: message,
+        message,
         flag: challenge.flag,
-        country: country,
+        country,
         copied: false
       })
       this.ref.detectChanges()
@@ -110,11 +115,11 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
   saveProgress () {
     this.challengeService.continueCode().subscribe((continueCode) => {
       if (!continueCode) {
-        throw (new Error('Received invalid continue code from the sever!'))
+        throw (new Error('Received invalid continue code from the server!'))
       }
       const expires = new Date()
       expires.setFullYear(expires.getFullYear() + 1)
       this.cookieService.put('continueCode', continueCode, { expires })
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 }

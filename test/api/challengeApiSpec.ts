@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -83,6 +83,40 @@ describe('/rest/continue-code', () => {
 
   it('PUT continue code for non-existent challenge #999 is accepted', () => {
     return frisby.put(REST_URL + '/continue-code/apply/69OxrZ8aJEgxONZyWoz1Dw4BvXmRGkM6Ae9M7k2rK63YpqQLPjnlb5V5LvDj')
+      .expect('status', 200)
+  })
+})
+
+describe('/rest/continue-code-findIt', () => {
+  it('GET can retrieve continue code for currently solved challenges', () => {
+    return frisby.get(REST_URL + '/continue-code-findIt')
+      .expect('status', 200)
+  })
+
+  it('PUT invalid continue code is rejected', () => {
+    return frisby.put(REST_URL + '/continue-code-findIt/apply/ThisIsDefinitelyNotAValidContinueCode')
+      .expect('status', 404)
+  })
+
+  it('PUT continue code for more than one challenge is accepted', () => { // using [15, 69] here which both have a Coding Challenge
+    return frisby.put(REST_URL + '/continue-code-findIt/apply/Xg9oK0VdbW5g1KX9G7JYnqLpz3rAPBh6p4eRlkDM6EaBON2QoPmxjyvwMrP6')
+      .expect('status', 200)
+  })
+})
+
+describe('/rest/continue-code-fixIt', () => {
+  it('GET can retrieve continue code for currently solved challenges', () => {
+    return frisby.get(REST_URL + '/continue-code-fixIt')
+      .expect('status', 200)
+  })
+
+  it('PUT invalid continue code is rejected', () => {
+    return frisby.put(REST_URL + '/continue-code-fixIt/apply/ThisIsDefinitelyNotAValidContinueCode')
+      .expect('status', 404)
+  })
+
+  it('PUT continue code for more than one challenge is accepted', () => { // using [15, 69] here which both have a Coding Challenge
+    return frisby.put(REST_URL + '/continue-code-fixIt/apply/y28BEPE2k3yRrdz5p6DGqJONnj41n5UEWawYWgBMoVmL79bKZ8Qve0Xl5QLW')
       .expect('status', 200)
   })
 })

@@ -1,6 +1,6 @@
 import {
   Component,
-  OnInit,
+  type OnInit,
   Input,
   Output,
   EventEmitter
@@ -26,7 +26,7 @@ export class CodeAreaComponent implements OnInit {
   public lineMarkers: LineMarker[]
 
   @Output()
-  addLine = new EventEmitter<number[]>()
+    addLine = new EventEmitter<number[]>()
 
   public langs = ['javascript', 'typescript', 'json', 'yaml']
 

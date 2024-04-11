@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { Injectable } from '@angular/core'
-import { Backup } from '../Models/backup.model'
+import { type Backup } from '../Models/backup.model'
 import { CookieService } from 'ngx-cookie'
 import { saveAs } from 'file-saver'
 import { SnackBarHelperService } from './snack-bar-helper.service'
@@ -24,6 +24,7 @@ export class LocalBackupService {
     const backup: Backup = { version: this.VERSION }
 
     backup.scoreBoard = {
+      scoreBoardVersion: localStorage.getItem('score-board-version') ? JSON.parse(String(localStorage.getItem('score-board-version'))) : undefined,
       displayedDifficulties: localStorage.getItem('displayedDifficulties') ? JSON.parse(String(localStorage.getItem('displayedDifficulties'))) : undefined,
       showSolvedChallenges: localStorage.getItem('showSolvedChallenges') ? JSON.parse(String(localStorage.getItem('showSolvedChallenges'))) : undefined,
       showDisabledChallenges: localStorage.getItem('showDisabledChallenges') ? JSON.parse(String(localStorage.getItem('showDisabledChallenges'))) : undefined,
@@ -35,12 +36,24 @@ export class LocalBackupService {
       cookieConsentStatus: this.cookieService.get('cookieconsent_status') ? this.cookieService.get('cookieconsent_status') : undefined
     }
     backup.language = this.cookieService.get('language') ? this.cookieService.get('language') : undefined
-    backup.continueCode = this.cookieService.get('continueCode') ? this.cookieService.get('continueCode') : undefined
-    backup.continueCodeFindIt = this.cookieService.get('continueCodeFindIt') ? this.cookieService.get('continueCodeFindIt') : undefined
-    backup.continueCodeFixIt = this.cookieService.get('continueCodeFixIt') ? this.cookieService.get('continueCodeFixIt') : undefined
 
-    const blob = new Blob([JSON.stringify(backup)], { type: 'text/plain;charset=utf-8' })
-    saveAs(blob, `${fileName}-${new Date().toISOString().split('T')[0]}.json`)
+    const continueCode = this.challengeService.continueCode()
+    const continueCodeFindIt = this.challengeService.continueCodeFindIt()
+    const continueCodeFixIt = this.challengeService.continueCodeFixIt()
+    forkJoin([continueCode, continueCodeFindIt, continueCodeFixIt]).subscribe(([continueCode, continueCodeFindIt, continueCodeFixIt]) => {
+      backup.continueCode = continueCode
+      backup.continueCodeFindIt = continueCodeFindIt
+      backup.continueCodeFixIt = continueCodeFixIt
+      const blob = new Blob([JSON.stringify(backup)], { type: 'text/plain;charset=utf-8' })
+      saveAs(blob, `${fileName}-${new Date().toISOString().split('T')[0]}.json`)
+    }, () => {
+      console.log('Failed to retrieve continue code(s) for backup from server. Using cookie values as fallback.')
+      backup.continueCode = this.cookieService.get('continueCode') ? this.cookieService.get('continueCode') : undefined
+      backup.continueCodeFindIt = this.cookieService.get('continueCodeFindIt') ? this.cookieService.get('continueCodeFindIt') : undefined
+      backup.continueCodeFixIt = this.cookieService.get('continueCodeFixIt') ? this.cookieService.get('continueCodeFixIt') : undefined
+      const blob = new Blob([JSON.stringify(backup)], { type: 'text/plain;charset=utf-8' })
+      saveAs(blob, `${fileName}-${new Date().toISOString().split('T')[0]}.json`)
+    })
   }
 
   restore (backupFile: File) {
@@ -48,6 +61,7 @@ export class LocalBackupService {
       const backup: Backup = JSON.parse(backupData)
 
       if (backup.version === this.VERSION) {
+        this.restoreLocalStorage('score-board-version', backup.scoreBoard?.scoreBoardVersion)
         this.restoreLocalStorage('displayedDifficulties', backup.scoreBoard?.displayedDifficulties)
         this.restoreLocalStorage('showSolvedChallenges', backup.scoreBoard?.showSolvedChallenges)
         this.restoreLocalStorage('showDisabledChallenges', backup.scoreBoard?.showDisabledChallenges)
@@ -69,7 +83,7 @@ export class LocalBackupService {
           const fixItProgress = backup.continueCodeFixIt ? this.challengeService.restoreProgressFixIt(encodeURIComponent(backup.continueCodeFixIt)) : of(true)
           forkJoin([hackingProgress, findItProgress, fixItProgress]).subscribe(() => {
             location.reload()
-          }, (err) => console.log(err))
+          }, (err) => { console.log(err) })
         })
       } else {
         this.snackBarHelperService.open(`Version ${backup.version} is incompatible with expected version ${this.VERSION}`, 'errorBar')

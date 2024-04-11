@@ -1,10 +1,11 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import colors = require('colors/safe')
+import colors from 'colors/safe'
 import utils = require('../utils')
+import logger from '../logger'
 
 try {
   require('check-dependencies')
@@ -12,7 +13,6 @@ try {
   console.error('Please run "npm install" before starting the application!')
   process.exit(1)
 }
-const logger = require('../logger')
 const dependencyChecker = require('check-dependencies')
 
 const validateDependencies = async ({ packageDir = '.', exitOnFailure = true } = {}) => {

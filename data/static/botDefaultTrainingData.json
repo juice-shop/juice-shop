@@ -98,6 +98,29 @@
       ]
     },
     {
+      "intent": "queries.nft",
+      "utterances": [
+        "Do you know anything about NFTs",
+        "Can you tell me anything about NFTs",
+        "Do you sell NFTs",
+        "where can I buy NFTs"
+      ],
+      "answers": [
+        {
+          "action": "response",
+          "body": "I'm not sure if we have any actual NFTs listed right now, but you can check if there's a link on our \"About Us\" page!"
+        },
+        {
+          "action": "response",
+          "body": "Our developers are currently learning Web3, and they published a (literal) NFT honey pot for you to mint on /#/bee-haven."
+        },
+        {
+          "action": "response",
+          "body": "Our developers are currently learning Web3, and they published our official Soul-Bound-Token over on /#/juicy-nft for you to marvel at."
+        }
+      ]
+    },
+    {
       "intent": "queries.productPrice",
       "utterances": [
         "how much is X",
@@ -181,6 +204,18 @@
         {
           "action": "response",
           "body": "Juuuuice shop, Juuu-uuuice Shop, just don't test the site with Bob's sweet or you hm-hm-hm-hmmmmm..."
+        }
+      ]
+    },
+    {
+      "intent": "queries.swallow",
+      "utterances": [
+        "What is the airspeed velocity of an unladen swallow"
+      ],
+      "answers": [
+        {
+          "action": "response",
+          "body": "What do you mean? African or European swallow?"
         }
       ]
     },

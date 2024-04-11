@@ -1,9 +1,11 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
+import { expect } from '@jest/globals'
 import frisby = require('frisby')
+import io from 'socket.io-client'
 const Joi = frisby.Joi
 
 const URL = 'http://localhost:3000'
@@ -11,14 +13,14 @@ const URL = 'http://localhost:3000'
 describe('/snippets/:challenge', () => {
   it('GET code snippet retrieval for unknown challenge key throws error', () => {
     return frisby.get(URL + '/snippets/doesNotExistChallenge')
-      .expect('status', 412)
-      .expect('json', 'error', 'Unknown challenge key: doesNotExistChallenge')
+      .expect('status', 404)
+      .expect('json', 'error', 'No code challenge for challenge key: doesNotExistChallenge')
   })
 
   it('GET code snippet retrieval for challenge without code snippet throws error', () => {
     return frisby.get(URL + '/snippets/easterEggLevelTwoChallenge')
       .expect('status', 404)
-      .expect('json', 'error', 'No code snippet available for: easterEggLevelTwoChallenge')
+      .expect('json', 'error', 'No code challenge for challenge key: easterEggLevelTwoChallenge')
   })
 
   it('GET code snippet retrieval for challenge with code snippet', () => {
@@ -32,20 +34,23 @@ describe('/snippets/:challenge', () => {
 })
 
 describe('snippets/verdict', () => {
-  it('should check for the correct lines', () => {
-    return frisby.post(URL + '/snippets/verdict', {
-      body: {
-        selectedLines: [2],
-        key: 'resetPasswordJimChallenge'
-      }
+  let socket: SocketIOClient.Socket
+
+  beforeEach(done => {
+    socket = io('http://localhost:3000', {
+      reconnectionDelay: 0,
+      forceNew: true
     })
-      .expect('status', 200)
-      .expect('jsonTypes', {
-        verdict: Joi.boolean()
-      })
-      .expect('json', {
-        verdict: true
-      })
+    socket.on('connect', () => {
+      done()
+    })
+  })
+
+  afterEach(done => {
+    if (socket.connected) {
+      socket.disconnect()
+    }
+    done()
   })
 
   it('should check for the incorrect lines', () => {
@@ -62,5 +67,34 @@ describe('snippets/verdict', () => {
       .expect('json', {
         verdict: false
       })
+  })
+
+  it('should check for the correct lines', async () => {
+    const websocketReceivedPromise = new Promise<void>((resolve) => {
+      socket.once('code challenge solved', (data: any) => {
+        expect(data).toEqual({
+          key: 'resetPasswordJimChallenge',
+          codingChallengeStatus: 1
+        })
+        resolve()
+      })
+    })
+
+    await frisby.post(URL + '/snippets/verdict', {
+      body: {
+        selectedLines: [2],
+        key: 'resetPasswordJimChallenge'
+      }
+    })
+      .expect('status', 200)
+      .expect('jsonTypes', {
+        verdict: Joi.boolean()
+      })
+      .expect('json', {
+        verdict: true
+      })
+      .promise()
+
+    await websocketReceivedPromise
   })
 })

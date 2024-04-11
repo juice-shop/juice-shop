@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { environment } from '../../environments/environment'
 import { ChallengeService } from '../Services/challenge.service'
-import { Component, EventEmitter, NgZone, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, NgZone, type OnInit, Output } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 import { AdministrationService } from '../Services/administration.service'
 import { Router } from '@angular/router'
@@ -14,6 +14,9 @@ import { CookieService } from 'ngx-cookie'
 import { ConfigurationService } from '../Services/configuration.service'
 import { LoginGuard } from '../app.guard'
 import { roles } from '../roles'
+import { type Observable } from 'rxjs'
+import { FeatureFlagService } from '../Services/feature-flag.service'
+import { map } from 'rxjs/operators'
 
 @Component({
   selector: 'sidenav',
@@ -31,11 +34,13 @@ export class SidenavComponent implements OnInit {
   public isShowing = false
   public offerScoreBoardTutorial: boolean = false
 
+  public scoreBoardLink$: Observable<string>
+
   @Output() public sidenavToggle = new EventEmitter()
 
   constructor (private readonly administrationService: AdministrationService, private readonly challengeService: ChallengeService,
     private readonly ngZone: NgZone, private readonly io: SocketIoService, private readonly userService: UserService, private readonly cookieService: CookieService,
-    private readonly router: Router, private readonly configurationService: ConfigurationService, private readonly loginGuard: LoginGuard) { }
+    private readonly router: Router, private readonly configurationService: ConfigurationService, private readonly loginGuard: LoginGuard, private readonly featureFlagService: FeatureFlagService) { }
 
   ngOnInit () {
     this.administrationService.getApplicationVersion().subscribe((version: any) => {
@@ -43,7 +48,7 @@ export class SidenavComponent implements OnInit {
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         this.version = `v${version}`
       }
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
     this.getApplicationDetails()
     this.getScoreBoardStatus()
 
@@ -67,6 +72,7 @@ export class SidenavComponent implements OnInit {
         }
       })
     })
+    this.scoreBoardLink$ = this.featureFlagService.defaultScoreBoard$.pipe(map((version) => version === 'v1' ? '/score-board-legacy' : '/score-board'))
   }
 
   isLoggedIn () {
@@ -74,7 +80,7 @@ export class SidenavComponent implements OnInit {
   }
 
   logout () {
-    this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => console.log(err))
+    this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => { console.log(err) })
     localStorage.removeItem('token')
     this.cookieService.remove('token')
     sessionStorage.removeItem('bid')
@@ -99,13 +105,13 @@ export class SidenavComponent implements OnInit {
       this.ngZone.run(() => {
         this.scoreBoardVisible = challenges[0].solved
       })
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   getUserDetails () {
     this.userService.whoAmI().subscribe((user: any) => {
       this.userEmail = user.email
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   onToggleSidenav = () => {
@@ -123,7 +129,7 @@ export class SidenavComponent implements OnInit {
       if (config?.application.welcomeBanner.showOnFirstStart && config.hackingInstructor.isEnabled) {
         this.offerScoreBoardTutorial = config.application.welcomeBanner.showOnFirstStart && config.hackingInstructor.isEnabled
       }
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   isAccounting () {

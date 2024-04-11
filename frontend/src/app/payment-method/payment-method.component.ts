@@ -1,20 +1,19 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { FormControl, Validators } from '@angular/forms'
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { UntypedFormControl, Validators } from '@angular/forms'
+import { Component, EventEmitter, Input, type OnInit, Output } from '@angular/core'
 import { PaymentService } from '../Services/payment.service'
 import { MatTableDataSource } from '@angular/material/table'
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons/'
 import { TranslateService } from '@ngx-translate/core'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 library.add(faPaperPlane, faTrashAlt)
-dom.watch()
 
 @Component({
   selector: 'app-payment-method',
@@ -26,10 +25,11 @@ export class PaymentMethodComponent implements OnInit {
   @Output() emitSelection = new EventEmitter()
   @Input('allowDelete') public allowDelete: boolean = false
   public displayedColumns = ['Number', 'Name', 'Expiry']
-  public nameControl: FormControl = new FormControl('', [Validators.required])
-  public numberControl: FormControl = new FormControl('', [Validators.required, Validators.min(1000000000000000), Validators.max(9999999999999999)]) // eslint-disable-line no-loss-of-precision
-  public monthControl: FormControl = new FormControl('', [Validators.required])
-  public yearControl: FormControl = new FormControl('', [Validators.required])
+  public nameControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
+  // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
+  public numberControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.min(1000000000000000), Validators.max(9999999999999999)])
+  public monthControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
+  public yearControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
   public confirmation: any
   public error: any
   public storedCards: any
@@ -58,7 +58,7 @@ export class PaymentMethodComponent implements OnInit {
       this.cardsExist = cards.length
       this.storedCards = cards
       this.dataSource = new MatTableDataSource<Element>(this.storedCards)
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   save () {
@@ -84,7 +84,7 @@ export class PaymentMethodComponent implements OnInit {
   delete (id) {
     this.paymentService.del(id).subscribe(() => {
       this.load()
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   emitSelectionToParent (id: number) {

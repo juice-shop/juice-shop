@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -16,21 +16,24 @@ describe('preconditionValidation', () => {
   describe('checkIfRunningOnSupportedNodeVersion', () => {
     const supportedVersion = require('./../../package.json').engines.node
 
-    it('should define the supported semver range as 14 - 18', () => {
-      expect(supportedVersion).to.equal('14 - 18')
+    it('should define the supported semver range as 18 - 21', () => {
+      expect(supportedVersion).to.equal('18 - 21')
       expect(semver.validRange(supportedVersion)).to.not.equal(null)
     })
 
     it('should accept a supported version', () => {
+      expect(checkIfRunningOnSupportedNodeVersion('21.0.0')).to.equal(true)
+      expect(checkIfRunningOnSupportedNodeVersion('20.0.0')).to.equal(true)
+      expect(checkIfRunningOnSupportedNodeVersion('19.6.0')).to.equal(true)
       expect(checkIfRunningOnSupportedNodeVersion('18.1.0')).to.equal(true)
-      expect(checkIfRunningOnSupportedNodeVersion('17.3.0')).to.equal(true)
-      expect(checkIfRunningOnSupportedNodeVersion('16.10.0')).to.equal(true)
-      expect(checkIfRunningOnSupportedNodeVersion('15.9.0')).to.equal(true)
-      expect(checkIfRunningOnSupportedNodeVersion('14.0.0')).to.equal(true)
     })
 
     it('should fail for an unsupported version', () => {
-      expect(checkIfRunningOnSupportedNodeVersion('19.0.0')).to.equal(false)
+      expect(checkIfRunningOnSupportedNodeVersion('22.0.0')).to.equal(false)
+      expect(checkIfRunningOnSupportedNodeVersion('17.3.0')).to.equal(false)
+      expect(checkIfRunningOnSupportedNodeVersion('16.10.0')).to.equal(false)
+      expect(checkIfRunningOnSupportedNodeVersion('15.9.0')).to.equal(false)
+      expect(checkIfRunningOnSupportedNodeVersion('14.0.0')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('13.13.0')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('12.16.2')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('11.14.0')).to.equal(false)

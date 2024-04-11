@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -31,7 +31,7 @@ describe('easterEgg', () => {
   })
 
   it('should solve "easterEggLevelTwoChallenge"', () => {
-    challenges.easterEggLevelTwoChallenge = { solved: false, save: save }
+    challenges.easterEggLevelTwoChallenge = { solved: false, save }
 
     serveEasterEgg()(req, res)
 

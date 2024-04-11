@@ -1,15 +1,15 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, NgZone, OnInit } from '@angular/core'
+import { Component, NgZone, type OnInit } from '@angular/core'
 import { OrderHistoryService } from '../Services/order-history.service'
 import { MatTableDataSource } from '@angular/material/table'
 import { BasketService } from '../Services/basket.service'
 import { ProductDetailsComponent } from '../product-details/product-details.component'
 import { MatDialog } from '@angular/material/dialog'
-import { Product } from '../Models/product.model'
+import { type Product } from '../Models/product.model'
 import { ProductService } from '../Services/product.service'
 import { Router } from '@angular/router'
 
@@ -68,7 +68,7 @@ export class OrderHistoryComponent implements OnInit {
           delivered: order.delivered
         })
       }
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   showDetail (id: number) {
@@ -88,7 +88,7 @@ export class OrderHistoryComponent implements OnInit {
           productData: element
         }
       })
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   openConfirmationPDF (orderId: string) {

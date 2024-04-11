@@ -4,7 +4,7 @@ fixes:
   - id: 2
     explanation: "The metrics route remains publicly accessible. This change only messes with functional settings of the measurement framework unnecessarily."
   - id: 3
-    explanation: "Access will now be restricted only to users with administrator permissions, which seems reasonable protection, assuming that it is not possible for a reegular user to escalate admin priviliges. If that were a risk, the metrics should better be stored behind the scenes not be made accessible via the shop application at all."
+    explanation: "Access will now be restricted only to users with administrator permissions, which seems reasonable protection, assuming that it is not possible for a regular user to escalate admin priviliges. If that were a risk, the metrics should better be stored behind the scenes not be made accessible via the shop application at all."
 hints:
   - "Can you find a HTTP route mapping that deals with metrics?"
   - "Remember: The default behavior of route mappings is to allow access to everyone."

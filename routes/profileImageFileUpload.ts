@@ -1,15 +1,15 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import fs = require('fs')
-import { Request, Response, NextFunction } from 'express'
+import { type Request, type Response, type NextFunction } from 'express'
 import { UserModel } from '../models/user'
+import logger from '../lib/logger'
 
-const utils = require('../lib/utils')
+import * as utils from '../lib/utils'
 const security = require('../lib/insecurity')
-const logger = require('../lib/logger')
 const fileType = require('file-type')
 
 module.exports = function fileUpload () {
@@ -27,14 +27,14 @@ module.exports = function fileUpload () {
         if (loggedInUser) {
           fs.open(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.${uploadedFileType.ext}`, 'w', function (err, fd) {
             if (err != null) logger.warn('Error opening file: ' + err.message)
-            // @ts-expect-error
+            // @ts-expect-error FIXME buffer has unexpected type
             fs.write(fd, buffer, 0, buffer.length, null, function (err) {
               if (err != null) logger.warn('Error writing file: ' + err.message)
               fs.close(fd, function () { })
             })
           })
           UserModel.findByPk(loggedInUser.data.id).then(async (user: UserModel | null) => {
-            if (user) {
+            if (user != null) {
               return await user.update({ profileImage: `assets/public/images/uploads/${loggedInUser.data.id}.${uploadedFileType.ext}` })
             }
           }).catch((error: Error) => {
@@ -43,7 +43,7 @@ module.exports = function fileUpload () {
           res.location(process.env.BASE_PATH + '/profile')
           res.redirect(process.env.BASE_PATH + '/profile')
         } else {
-          next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+          next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
         }
       } else {
         res.status(415)

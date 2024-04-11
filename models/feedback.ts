@@ -1,18 +1,19 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 /* jslint node: true */
 import utils = require('../lib/utils')
+import challengeUtils = require('../lib/challengeUtils')
 
 import {
   Model,
-  InferAttributes,
-  InferCreationAttributes,
+  type InferAttributes,
+  type InferCreationAttributes,
   DataTypes,
-  CreationOptional,
-  Sequelize
+  type CreationOptional,
+  type Sequelize
 } from 'sequelize'
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
@@ -43,7 +44,7 @@ const FeedbackModelInit = (sequelize: Sequelize) => {
           let sanitizedComment: string
           if (!utils.disableOnContainerEnv()) {
             sanitizedComment = security.sanitizeHtml(comment)
-            utils.solveIf(challenges.persistedXssFeedbackChallenge, () => {
+            challengeUtils.solveIf(challenges.persistedXssFeedbackChallenge, () => {
               return utils.contains(
                 sanitizedComment,
                 '<iframe src="javascript:alert(`xss`)">'
@@ -60,7 +61,7 @@ const FeedbackModelInit = (sequelize: Sequelize) => {
         allowNull: false,
         set (rating: number) {
           this.setDataValue('rating', rating)
-          utils.solveIf(challenges.zeroStarsChallenge, () => {
+          challengeUtils.solveIf(challenges.zeroStarsChallenge, () => {
             return rating === 0
           })
         }

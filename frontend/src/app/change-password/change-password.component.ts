@@ -1,19 +1,18 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { AbstractControl, FormControl, Validators } from '@angular/forms'
+import { type AbstractControl, UntypedFormControl, Validators } from '@angular/forms'
 import { UserService } from '../Services/user.service'
 import { Component } from '@angular/core'
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-regular-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { TranslateService } from '@ngx-translate/core'
 
 library.add(faSave, faEdit)
-dom.watch()
 
 @Component({
   selector: 'app-change-password',
@@ -21,16 +20,16 @@ dom.watch()
   styleUrls: ['./change-password.component.scss']
 })
 export class ChangePasswordComponent {
-  public passwordControl: FormControl = new FormControl('', [Validators.required])
-  public newPasswordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)])
-  public repeatNewPasswordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40), matchValidator(this.newPasswordControl)])
+  public passwordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
+  public newPasswordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)])
+  public repeatNewPasswordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40), matchValidator(this.newPasswordControl)])
   public error: any
   public confirmation: any
 
   constructor (private readonly userService: UserService, private readonly formSubmitService: FormSubmitService, private readonly translate: TranslateService) { }
 
   ngOnInit () {
-    this.formSubmitService.attachEnterKeyHandler('password-form', 'changeButton', () => this.changePassword())
+    this.formSubmitService.attachEnterKeyHandler('password-form', 'changeButton', () => { this.changePassword() })
   }
 
   changePassword () {
@@ -75,7 +74,7 @@ export class ChangePasswordComponent {
 }
 
 function matchValidator (newPasswordControl: AbstractControl) {
-  return function matchOtherValidate (repeatNewPasswordControl: FormControl) {
+  return function matchOtherValidate (repeatNewPasswordControl: UntypedFormControl) {
     const password = newPasswordControl.value
     const passwordRepeat = repeatNewPasswordControl.value
     if (password !== passwordRepeat) {

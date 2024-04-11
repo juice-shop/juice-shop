@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import frisby = require('frisby')
-import config = require('config')
-import { Product } from '../../data/types'
+import config from 'config'
+import { type Product } from '../../data/types'
 const utils = require('../../lib/utils')
 
 const URL = 'http://localhost:3000'

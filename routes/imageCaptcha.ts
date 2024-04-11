@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Request, Response, NextFunction } from 'express'
+import { type Request, type Response, type NextFunction } from 'express'
 import { ImageCaptchaModel } from '../models/imageCaptcha'
 import { Op } from 'sequelize'
 
@@ -34,7 +34,7 @@ imageCaptchas.verifyCaptcha = () => (req: Request, res: Response, next: NextFunc
   ImageCaptchaModel.findAll({
     limit: 1,
     where: {
-      UserId: UserId,
+      UserId,
       createdAt: {
         [Op.gt]: new Date(Date.now() - 300000)
       }

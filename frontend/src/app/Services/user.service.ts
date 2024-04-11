@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -26,7 +26,7 @@ export class UserService {
   constructor (private readonly http: HttpClient) { }
 
   find (params?: any) {
-    return this.http.get(this.hostServer + '/rest/user/authentication-details/', { params: params }).pipe(map((response: any) =>
+    return this.http.get(this.hostServer + '/rest/user/authentication-details/', { params }).pipe(map((response: any) =>
       response.data), catchError((err) => { throw err }))
   }
 
@@ -76,6 +76,6 @@ export class UserService {
   }
 
   upgradeToDeluxe (paymentMode: string, paymentId: any) {
-    return this.http.post(this.hostServer + '/rest/deluxe-membership', { paymentMode: paymentMode, paymentId: paymentId }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.post(this.hostServer + '/rest/deluxe-membership', { paymentMode, paymentId }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 }

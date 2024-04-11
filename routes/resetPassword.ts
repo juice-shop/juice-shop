@@ -1,15 +1,15 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import config = require('config')
-import { Request, Response, NextFunction } from 'express'
-import { Memory } from '../data/types'
+import config from 'config'
+import { type Request, type Response, type NextFunction } from 'express'
+import { type Memory } from '../data/types'
 import { SecurityAnswerModel } from '../models/securityAnswer'
 import { UserModel } from '../models/user'
 
-const utils = require('../lib/utils')
+import challengeUtils = require('../lib/challengeUtils')
 const challenges = require('../data/datacache').challenges
 const users = require('../data/datacache').users
 const security = require('../lib/insecurity')
@@ -33,7 +33,7 @@ module.exports = function resetPassword () {
           where: { email }
         }]
       }).then((data: SecurityAnswerModel | null) => {
-        if (data && security.hmac(answer) === data.answer) {
+        if ((data != null) && security.hmac(answer) === data.answer) {
           UserModel.findByPk(data.UserId).then((user: UserModel | null) => {
             user?.update({ password: newPassword }).then((user: UserModel) => {
               verifySecurityAnswerChallenges(user, answer)
@@ -55,13 +55,13 @@ module.exports = function resetPassword () {
 }
 
 function verifySecurityAnswerChallenges (user: UserModel, answer: string) {
-  utils.solveIf(challenges.resetPasswordJimChallenge, () => { return user.id === users.jim.id && answer === 'Samuel' })
-  utils.solveIf(challenges.resetPasswordBenderChallenge, () => { return user.id === users.bender.id && answer === 'Stop\'n\'Drop' })
-  utils.solveIf(challenges.resetPasswordBjoernChallenge, () => { return user.id === users.bjoern.id && answer === 'West-2082' })
-  utils.solveIf(challenges.resetPasswordMortyChallenge, () => { return user.id === users.morty.id && answer === '5N0wb41L' })
-  utils.solveIf(challenges.resetPasswordBjoernOwaspChallenge, () => { return user.id === users.bjoernOwasp.id && answer === 'Zaya' })
-  utils.solveIf(challenges.resetPasswordUvoginChallenge, () => { return user.id === users.uvogin.id && answer === 'Silence of the Lambs' })
-  utils.solveIf(challenges.geoStalkingMetaChallenge, () => {
+  challengeUtils.solveIf(challenges.resetPasswordJimChallenge, () => { return user.id === users.jim.id && answer === 'Samuel' })
+  challengeUtils.solveIf(challenges.resetPasswordBenderChallenge, () => { return user.id === users.bender.id && answer === 'Stop\'n\'Drop' })
+  challengeUtils.solveIf(challenges.resetPasswordBjoernChallenge, () => { return user.id === users.bjoern.id && answer === 'West-2082' })
+  challengeUtils.solveIf(challenges.resetPasswordMortyChallenge, () => { return user.id === users.morty.id && answer === '5N0wb41L' })
+  challengeUtils.solveIf(challenges.resetPasswordBjoernOwaspChallenge, () => { return user.id === users.bjoernOwasp.id && answer === 'Zaya' })
+  challengeUtils.solveIf(challenges.resetPasswordUvoginChallenge, () => { return user.id === users.uvogin.id && answer === 'Silence of the Lambs' })
+  challengeUtils.solveIf(challenges.geoStalkingMetaChallenge, () => {
     const securityAnswer = ((() => {
       const memories: Memory[] = config.get('memories')
       for (let i = 0; i < memories.length; i++) {
@@ -72,7 +72,7 @@ function verifySecurityAnswerChallenges (user: UserModel, answer: string) {
     })())
     return user.id === users.john.id && answer === securityAnswer
   })
-  utils.solveIf(challenges.geoStalkingVisualChallenge, () => {
+  challengeUtils.solveIf(challenges.geoStalkingVisualChallenge, () => {
     const securityAnswer = ((() => {
       const memories: Memory[] = config.get('memories')
       for (let i = 0; i < memories.length; i++) {

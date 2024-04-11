@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -18,8 +18,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ComplaintComponent } from './complaint/complaint.component'
 import { ChatbotComponent } from './chatbot/chatbot.component'
 import { RecycleComponent } from './recycle/recycle.component'
-import { ScoreBoardComponent } from './score-board/score-board.component'
-import { RouterModule, Routes, UrlMatchResult, UrlSegment } from '@angular/router'
+import { ScoreBoardLegacyComponent } from './score-board-legacy/score-board-legacy.component'
+import { RouterModule, type Routes, type UrlMatchResult, type UrlSegment } from '@angular/router'
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
 import { ErrorPageComponent } from './error-page/error-page.component'
 import { PrivacySecurityComponent } from './privacy-security/privacy-security.component'
@@ -41,8 +41,24 @@ import { DeliveryMethodComponent } from './delivery-method/delivery-method.compo
 import { PhotoWallComponent } from './photo-wall/photo-wall.component'
 import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, LoginGuard } from './app.guard'
+import { NFTUnlockComponent } from './nft-unlock/nft-unlock.component'
+import { ScoreBoardComponent } from './score-board/score-board.component'
+import { Web3SandboxComponent } from './web3-sandbox/web3-sandbox.component'
 
-// vuln-code-snippet start adminSectionChallenge scoreBoardChallenge
+const loadFaucetModule = async () => {
+  const module = await import('./faucet/faucet.module')
+  return module.FaucetModule
+}
+const loadWeb3WalletModule = async () => {
+  const module = await import('./wallet-web3/wallet-web3.module')
+  return module.WalletWeb3Module
+}
+
+const loadWeb3SandboxtModule = async () => {
+  const module = await import('./web3-sandbox/web3-sandbox.module')
+  return module.FaucetModule
+}
+// vuln-code-snippet start adminSectionChallenge scoreBoardChallenge web3SandboxChallenge
 const routes: Routes = [
   { // vuln-code-snippet neutral-line adminSectionChallenge
     path: 'administration', // vuln-code-snippet vuln-line adminSectionChallenge
@@ -159,6 +175,10 @@ const routes: Routes = [
     path: 'score-board', // vuln-code-snippet vuln-line scoreBoardChallenge
     component: ScoreBoardComponent // vuln-code-snippet neutral-line scoreBoardChallenge
   }, // vuln-code-snippet neutral-line scoreBoardChallenge
+  { // vuln-code-snippet hide-line
+    path: 'score-board-legacy', // vuln-code-snippet hide-line
+    component: ScoreBoardLegacyComponent // vuln-code-snippet hide-line
+  }, // vuln-code-snippet hide-line
   {
     path: 'track-result',
     component: TrackResultComponent
@@ -200,6 +220,22 @@ const routes: Routes = [
       }
     ]
   },
+  {
+    path: 'juicy-nft',
+    component: NFTUnlockComponent
+  },
+  {
+    path: 'wallet-web3',
+    loadChildren: async () => await loadWeb3WalletModule()
+  },
+  { // vuln-code-snippet neutral-line web3SandboxChallenge
+    path: 'web3-sandbox', // vuln-code-snippet vuln-line web3SandboxChallenge
+    loadChildren: async () => await loadWeb3SandboxtModule() // vuln-code-snippet neutral-line web3SandboxChallenge
+  }, // vuln-code-snippet neutral-line web3SandboxChallenge
+  {
+    path: 'bee-haven',
+    loadChildren: async () => await loadFaucetModule()
+  },
   // vuln-code-snippet start tokenSaleChallenge
   {
     matcher: oauthMatcher,
@@ -219,9 +255,9 @@ const routes: Routes = [
     component: SearchResultComponent
   }
 ]
-// vuln-code-snippet end adminSectionChallenge scoreBoardChallenge
+// vuln-code-snippet end adminSectionChallenge scoreBoardChallenge web3SandboxChallenge
 
-export const Routing = RouterModule.forRoot(routes, { useHash: true, relativeLinkResolution: 'legacy' })
+export const Routing = RouterModule.forRoot(routes, { useHash: true })
 
 export function oauthMatcher (url: UrlSegment[]): UrlMatchResult {
   if (url.length === 0) {

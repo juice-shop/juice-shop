@@ -1,20 +1,19 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, OnInit } from '@angular/core'
+import { Component, type OnInit } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
 import { ConfigurationService } from '../Services/configuration.service'
 import { FeedbackService } from '../Services/feedback.service'
-import { IImage } from 'ng-simple-slideshow'
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { type IImage } from 'ng-simple-slideshow'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faFacebook, faReddit, faSlack, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { faNewspaper, faStar } from '@fortawesome/free-regular-svg-icons'
-import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar as fasStar, faPalette } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faFacebook, faTwitter, faSlack, faReddit, faNewspaper, faStar, fasStar)
-dom.watch()
+library.add(faFacebook, faTwitter, faSlack, faReddit, faNewspaper, faStar, fasStar, faPalette)
 
 @Component({
   selector: 'app-about',
@@ -27,6 +26,7 @@ export class AboutComponent implements OnInit {
   public slackUrl?: string
   public redditUrl?: string
   public pressKitUrl?: string
+  public nftUrl?: string
   public slideshowDataSource: IImage[] = []
 
   private readonly images = [
@@ -69,8 +69,11 @@ export class AboutComponent implements OnInit {
         if (config.application.social.pressKitUrl) {
           this.pressKitUrl = config.application.social.pressKitUrl
         }
+        if (config.application.social.nftUrl) {
+          this.nftUrl = config.application.social.nftUrl
+        }
       }
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   populateSlideshowFromFeedbacks () {

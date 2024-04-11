@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import sinon = require('sinon')
-const config = require('config')
+import config from 'config'
 const chai = require('chai')
 const sinonChai = require('sinon-chai')
 const expect = chai.expect

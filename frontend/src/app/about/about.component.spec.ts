@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { SlideshowModule } from 'ng-simple-slideshow'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 
@@ -82,5 +82,12 @@ describe('AboutComponent', () => {
     component.ngOnInit()
 
     expect(component.pressKitUrl).toBe('PRESS_KIT')
+  })
+
+  it('should set NFT link as obtained from configuration', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { nftUrl: 'NFT' } } }))
+    component.ngOnInit()
+
+    expect(component.nftUrl).toBe('NFT')
   })
 })

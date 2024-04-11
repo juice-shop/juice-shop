@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, OnInit } from '@angular/core'
+import { Component, type OnInit } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { MatDialogRef } from '@angular/material/dialog'
 import { CookieService } from 'ngx-cookie'
@@ -38,7 +38,7 @@ export class WelcomeBannerComponent implements OnInit {
         this.dialogRef.disableClose = true
         this.showDismissBtn = false
       }
-    }, (err) => console.log(err))
+    }, (err) => { console.log(err) })
   }
 
   startHackingInstructor () {

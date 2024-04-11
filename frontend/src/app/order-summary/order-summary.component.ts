@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, NgZone, OnInit } from '@angular/core'
+import { Component, NgZone, type OnInit } from '@angular/core'
 import { AddressService } from '../Services/address.service'
 import { PaymentService } from '../Services/payment.service'
 import { BasketService } from '../Services/basket.service'
@@ -32,13 +32,13 @@ export class OrderSummaryComponent implements OnInit {
 
     this.addressService.getById(sessionStorage.getItem('addressId')).subscribe((address) => {
       this.address = address
-    }, (error) => console.log(error))
+    }, (error) => { console.log(error) })
 
     if (sessionStorage.getItem('paymentId') !== 'wallet') {
       this.paymentService.getById(sessionStorage.getItem('paymentId')).subscribe((card) => {
         card.cardNum = String(card.cardNum).substring(String(card.cardNum).length - 4)
         this.paymentMethod = card
-      }, (err) => console.log(err))
+      }, (err) => { console.log(err) })
     } else if (sessionStorage.getItem('paymentId') === 'wallet') {
       this.paymentMethod = 'wallet'
     }

@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { QRCodeModule } from 'anuglar2-qrcode'
 import { TranslateModule } from '@ngx-translate/core'
 import { QrCodeComponent } from './qr-code.component'

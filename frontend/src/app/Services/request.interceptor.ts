@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http'
+import { type HttpEvent, type HttpHandler, type HttpInterceptor, type HttpRequest } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { Observable } from 'rxjs'
+import { type Observable } from 'rxjs'
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {

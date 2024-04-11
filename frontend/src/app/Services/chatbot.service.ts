@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -22,6 +22,6 @@ export class ChatbotService {
   }
 
   getResponse (action, query) {
-    return this.http.post(this.host + '/respond', { action: action, query: query }).pipe(map((response: any) => response), catchError((error: Error) => { throw error }))
+    return this.http.post(this.host + '/respond', { action, query }).pipe(map((response: any) => response), catchError((error: Error) => { throw error }))
   }
 }

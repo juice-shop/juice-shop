@@ -1,21 +1,20 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { environment } from '../../environments/environment'
 import { ComplaintService } from '../Services/complaint.service'
 import { UserService } from '../Services/user.service'
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
-import { FormControl, Validators } from '@angular/forms'
+import { Component, ElementRef, type OnInit, ViewChild } from '@angular/core'
+import { UntypedFormControl, Validators } from '@angular/forms'
 import { FileUploader } from 'ng2-file-upload'
-import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { TranslateService } from '@ngx-translate/core'
 
 library.add(faBomb)
-dom.watch()
 
 @Component({
   selector: 'app-complaint',
@@ -23,8 +22,8 @@ dom.watch()
   styleUrls: ['./complaint.component.scss']
 })
 export class ComplaintComponent implements OnInit {
-  public customerControl: FormControl = new FormControl({ value: '', disabled: true }, [])
-  public messageControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(160)])
+  public customerControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
+  public messageControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.maxLength(160)])
   @ViewChild('fileControl', { static: true }) fileControl!: ElementRef // For controlling the DOM Element for file input.
   public fileUploadError: any = undefined // For controlling error handling related to file input.
   public uploader: FileUploader = new FileUploader({
@@ -54,7 +53,7 @@ export class ComplaintComponent implements OnInit {
       this.saveComplaint()
       this.uploader.clearQueue()
     }
-    this.formSubmitService.attachEnterKeyHandler('complaint-form', 'submitButton', () => this.save())
+    this.formSubmitService.attachEnterKeyHandler('complaint-form', 'submitButton', () => { this.save() })
   }
 
   initComplaint () {

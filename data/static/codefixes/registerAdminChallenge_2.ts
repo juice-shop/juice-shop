@@ -20,5 +20,6 @@
     const resource = finale.resource({
       model,
       endpoints: [`/api/${name}s`, `/api/${name}s/:id`],
-      excludeAttributes: exclude
+      excludeAttributes: exclude,
+      pagination: false
     })

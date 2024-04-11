@@ -1,14 +1,14 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import process = require('process')
-import { Memory, Product } from '../../data/types'
-const config = require('config')
-const colors = require('colors/safe')
-const logger = require('../logger')
-const path = require('path')
+import { type Memory, type Product } from '../../data/types'
+import logger from '../logger'
+import config from 'config'
+import path from 'path'
+import colors from 'colors/safe'
 const validateSchema = require('yaml-schema-validator/src')
 
 const specialProducts = [
@@ -23,7 +23,7 @@ const specialMemories = [
   { name: '"Visual Geo Stalking" challenge memory', user: 'emma', keys: ['geoStalkingVisualSecurityQuestion', 'geoStalkingVisualSecurityAnswer'] }
 ]
 
-const validateConfig = ({ products = config.get('products'), memories = config.get('memories'), exitOnFailure = true } = {}) => {
+const validateConfig = ({ products = config.get('products'), memories = config.get('memories'), exitOnFailure = true }: { products: Product[], memories: Memory[], exitOnFailure: boolean }) => {
   let success = true
   success = checkYamlSchema() && success
   success = checkMinimumRequiredNumberOfProducts(products) && success
@@ -73,7 +73,7 @@ const checkMinimumRequiredNumberOfProducts = (products: Product[]) => {
 const checkUnambiguousMandatorySpecialProducts = (products: Product[]) => {
   let success = true
   specialProducts.forEach(({ name, key }) => {
-    // @ts-expect-error
+    // @ts-expect-error FIXME Ignoring any type issue on purpose
     const matchingProducts = products.filter((product) => product[key])
     if (matchingProducts.length === 0) {
       logger.warn(`No product is configured as ${colors.italic(name)} but one is required (${colors.red('NOT OK')})`)
@@ -89,11 +89,11 @@ const checkUnambiguousMandatorySpecialProducts = (products: Product[]) => {
 const checkNecessaryExtraKeysOnSpecialProducts = (products: Product[]) => {
   let success = true
   specialProducts.forEach(({ name, key, extra = {} }) => {
-    // @ts-expect-error
+    // @ts-expect-error FIXME implicit any type issue
     const matchingProducts = products.filter((product) => product[key])
-    // @ts-expect-error
+    // @ts-expect-error FIXME implicit any type issue
     if (extra.key && matchingProducts.length === 1 && !matchingProducts[0][extra.key]) {
-      logger.warn(`Product ${colors.italic(matchingProducts[0].name)} configured as ${colors.italic(name)} does't contain necessary ${colors.italic(extra.name)} (${colors.red('NOT OK')})`)
+      logger.warn(`Product ${colors.italic(matchingProducts[0].name)} configured as ${colors.italic(name)} does't contain necessary ${colors.italic(`${extra.name}`)} (${colors.red('NOT OK')})`)
       success = false
     }
   })
@@ -103,7 +103,7 @@ const checkNecessaryExtraKeysOnSpecialProducts = (products: Product[]) => {
 const checkUniqueSpecialOnProducts = (products: Product[]) => {
   let success = true
   products.forEach((product) => {
-    // @ts-expect-error
+    // @ts-expect-error FIXME any type issue
     const appliedSpecials = specialProducts.filter(({ key }) => product[key])
     if (appliedSpecials.length > 1) {
       logger.warn(`Product ${colors.italic(product.name)} is used as ${appliedSpecials.map(({ name }) => `${colors.italic(name)}`).join(' and ')} but can only be used for one challenge (${colors.red('NOT OK')})`)
@@ -125,7 +125,7 @@ const checkMinimumRequiredNumberOfMemories = (memories: Memory[]) => {
 const checkUnambiguousMandatorySpecialMemories = (memories: Memory[]) => {
   let success = true
   specialMemories.forEach(({ name, keys }) => {
-    // @ts-expect-error
+    // @ts-expect-error FIXME any type issue
     const matchingMemories = memories.filter((memory) => memory[keys[0]] && memory[keys[1]])
     if (matchingMemories.length === 0) {
       logger.warn(`No memory is configured as ${colors.italic(name)} but one is required (${colors.red('NOT OK')})`)
@@ -141,7 +141,7 @@ const checkUnambiguousMandatorySpecialMemories = (memories: Memory[]) => {
 const checkSpecialMemoriesHaveNoUserAssociated = (memories: Memory[]) => {
   let success = true
   specialMemories.forEach(({ name, user, keys }) => {
-    // @ts-expect-error
+    // @ts-expect-error FIXME any type issue
     const matchingMemories = memories.filter((memory) => memory[keys[0]] && memory[keys[1]] && memory.user && memory.user !== user)
     if (matchingMemories.length > 0) {
       logger.warn(`Memory configured as ${colors.italic(name)} must belong to user ${colors.italic(user)} but was linked to ${colors.italic(matchingMemories[0].user)} user (${colors.red('NOT OK')})`)
@@ -154,7 +154,7 @@ const checkSpecialMemoriesHaveNoUserAssociated = (memories: Memory[]) => {
 const checkUniqueSpecialOnMemories = (memories: Memory[]) => {
   let success = true
   memories.forEach((memory) => {
-    // @ts-expect-error
+    // @ts-expect-error FIXME any type issue
     const appliedSpecials = specialMemories.filter(({ keys }) => memory[keys[0]] && memory[keys[1]])
     if (appliedSpecials.length > 1) {
       logger.warn(`Memory ${colors.italic(memory.caption)} is used as ${appliedSpecials.map(({ name }) => `${colors.italic(name)}`).join(' and ')} but can only be used for one challenge (${colors.red('NOT OK')})`)

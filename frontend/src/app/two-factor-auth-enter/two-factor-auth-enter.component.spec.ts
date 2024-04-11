@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter.component'
 import { SearchResultComponent } from '../search-result/search-result.component'

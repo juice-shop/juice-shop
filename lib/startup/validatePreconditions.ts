@@ -1,19 +1,24 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import pjson from '../../package.json'
-import config = require('config')
+import config from 'config'
+import logger from '../logger'
+import path from 'path'
+import colors from 'colors/safe'
+import { promisify } from 'util'
 const process = require('process')
 const semver = require('semver')
-const colors = require('colors/safe')
-const logger = require('../logger')
 const portscanner = require('portscanner')
-const path = require('path')
 const fs = require('fs')
-const { promisify } = require('util')
+const checkInternetConnected = require('check-internet-connected')
 const access = promisify(fs.access)
+
+const domainDependencies = {
+  'https://www.alchemy.com/': ['"Mint the Honeypot" challenge', '"Wallet Depletion" challenge']
+}
 
 const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
   let success = true
@@ -26,11 +31,11 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
     checkIfRequiredFileExists('frontend/dist/frontend/index.html'),
     checkIfRequiredFileExists('frontend/dist/frontend/styles.css'),
     checkIfRequiredFileExists('frontend/dist/frontend/main.js'),
-    checkIfRequiredFileExists('frontend/dist/frontend/tutorial.js'),
     checkIfRequiredFileExists('frontend/dist/frontend/polyfills.js'),
     checkIfRequiredFileExists('frontend/dist/frontend/runtime.js'),
     checkIfRequiredFileExists('frontend/dist/frontend/vendor.js'),
-    checkIfPortIsAvailable(process.env.PORT || config.get('server.port'))
+    checkIfPortIsAvailable(process.env.PORT || config.get('server.port')),
+    checkIfDomainReachable('https://www.alchemy.com/')
   ])).every(condition => condition)
 
   if ((!success || !asyncConditions) && exitOnFailure) {
@@ -71,6 +76,22 @@ const checkIfRunningOnSupportedCPU = (runningArch: string) => {
   return true
 }
 
+const checkIfDomainReachable = async (domain: string) => {
+  return checkInternetConnected({ domain })
+    .then(() => {
+      logger.info(`Domain ${colors.bold(domain)} is reachable (${colors.green('OK')})`)
+      return true
+    })
+    .catch(() => {
+      logger.warn(`Domain ${colors.bold(domain)} is not reachable (${colors.yellow('NOT OK')} in a future major release)`)
+      // @ts-expect-error FIXME Type problem by accessing key via variable
+      domainDependencies[domain].forEach((dependency: string) => {
+        logger.warn(`${colors.italic(dependency)} will not work as intended without access to ${colors.bold(domain)}`)
+      })
+      return true // TODO Consider switching to "false" with breaking release v16.0.0 or later
+    })
+}
+
 const checkIfPortIsAvailable = async (port: number) => {
   return await new Promise((resolve, reject) => {
     portscanner.checkPortStatus(port, function (error: unknown, status: string) {
@@ -78,10 +99,10 @@ const checkIfPortIsAvailable = async (port: number) => {
         reject(error)
       } else {
         if (status === 'open') {
-          logger.warn(`Port ${colors.bold(port)} is in use (${colors.red('NOT OK')})`)
+          logger.warn(`Port ${colors.bold(port.toString())} is in use (${colors.red('NOT OK')})`)
           resolve(false)
         } else {
-          logger.info(`Port ${colors.bold(port)} is available (${colors.green('OK')})`)
+          logger.info(`Port ${colors.bold(port.toString())} is available (${colors.green('OK')})`)
           resolve(true)
         }
       }

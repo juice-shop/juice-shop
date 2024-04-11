@@ -1,0 +1,71 @@
+<mat-card class="mat-elevation-z6">
+  <div class="header_container">
+    <h1>{{"TITLE_CRYPTO_WALLET" | translate}}</h1>
+    <div class="metamask-button">
+      <button
+        mat-raised-button
+        color="accent"
+        type="button"
+        (click)="handleAuth()"
+      >
+        <i class="material-icons">
+          account_balance_wallet
+        </i>
+        <span *ngIf="!session">{{"BTN_CONNECT_METAMASK" | translate}}</span>
+        <span *ngIf="session"
+          >{{ userData.address.substring(0, 6) }}...{{
+            userData.address.slice(-6)
+          }}</span
+        >
+      </button>
+    </div>
+  </div>
+  <p>
+    <b>
+      <span translate>LABEL_WALLET_BALANCE</span>
+      <span class="confirmation"> {{ walletBalance }} ETH</span>
+    </b>
+  </p>
+  <div>
+    <mat-form-field style="width: 100%" color="accent" appearance="outline">
+      <mat-label>{{'LABEL_AMOUNT' | translate}}</mat-label>
+      <input
+        matInput
+        [placeholder]="'ENTER_ETHER_AMOUNT' | translate"
+        type="number"
+        id="inputAmount"
+        [(ngModel)]="inputAmount"
+        aria-label="Text field for the withdrawal amount"
+      />
+    </mat-form-field>
+    <h5 class="error">{{ errorMessage }}</h5>
+  </div>
+  <div class="dwbutton_container">
+    <button
+      type="submit"
+      class="deposit_withdraw_button"
+      mat-raised-button
+      color="primary"
+      aria-label="Button to deposit"
+      (click)="depositETH()"
+    >
+      <i class="material-icons">
+        monetization_on
+      </i>
+      {{'BTN_DEPOSIT' | translate}}
+    </button>
+    <button
+      type="submit"
+      class="deposit_withdraw_button"
+      mat-raised-button
+      color="warning"
+      aria-label="Button to withdraw"
+      (click)="withdrawETH()"
+    >
+      <i class="material-icons">
+        local_atm
+      </i>
+      {{'BTN_WITHDRAW' | translate}}
+    </button>
+  </div>
+</mat-card>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -37,6 +37,22 @@ describe('/api/Recycles', () => {
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', 'data', {
         err: 'Sorry, this endpoint is not supported.'
+      })
+  })
+
+  it('Will GET existing recycle from this endpoint', () => {
+    return frisby.get(`${API_URL}/Recycles/1`)
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'data.*', {
+        id: Joi.number(),
+        UserId: Joi.number(),
+        AddressId: Joi.number(),
+        quantity: Joi.number(),
+        isPickup: Joi.boolean(),
+        date: Joi.date(),
+        createdAt: Joi.string(),
+        updatedAt: Joi.string()
       })
   })
 
