@@ -1,0 +1,37 @@
+# Name of this GitHub Actions workflow.
+name: Semgrep
+
+on:
+  # Scan changed files in PRs (diff-aware scanning):
+  pull_request: {}
+  # Scan on-demand through GitHub Actions interface:
+  workflow_dispatch: {}
+  # Scan mainline branches and report all findings:
+  push:
+    branches: ["master", "main", "test"]
+  # Schedule the CI job (this method uses cron syntax):
+  #schedule:
+    #- cron: '20 17 * * *' # Sets Semgrep to scan every day at 17:20 UTC.
+    # It is recommended to change the schedule to a random time.
+
+jobs:
+  semgrep-manual-scan:
+    if: github.event_name == 'workflow_dispatch'
+    name: semgrep/workflow_dispatch
+    runs-on: sast-poc
+    env:
+      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+      SEMGREP_REPO_DISPLAY_NAME: ${{ github.repository }}/${{ github.ref_name }}
+    steps:
+    - uses: actions/checkout@v4
+    - run: semgrep ci
+
+  semgrep-auto-scan:
+    if: github.event_name != 'workflow_dispatch'
+    name: semgrep/ci
+    runs-on: sast-poc
+    env:
+      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+    steps:
+    - uses: actions/checkout@v4
+    - run: semgrep ci
