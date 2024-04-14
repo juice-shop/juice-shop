@@ -1,7 +1,7 @@
 name: "CodeQL Scan"
 
 on:
-  workflow_dispatch
+  pull_request
 
 jobs:
   analyze:
