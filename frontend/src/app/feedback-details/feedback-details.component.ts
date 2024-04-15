@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, type OnInit, Inject } from '@angular/core'
-import { MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { Component, OnInit, Inject, SecurityContext } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-feedback-details',
@@ -12,12 +13,17 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog'
   styleUrls: ['./feedback-details.component.scss']
 })
 export class FeedbackDetailsComponent implements OnInit {
-  public feedback: any
-  public id: any
-  constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any) { }
+  public feedback: SafeHtml; 
+  public id: any;
 
-  ngOnInit () {
-    this.feedback = this.dialogData.feedback
-    this.id = this.dialogData.id
+  constructor (
+    @Inject(MAT_DIALOG_DATA) public dialogData: any,
+    private sanitizer: DomSanitizer
+  ) { }
+
+  ngOnInit(): void {
+   
+    this.feedback = this.sanitizer.sanitize(SecurityContext.HTML, this.dialogData.feedback);
+    this.id = this.dialogData.id;
   }
 }
