@@ -10,11 +10,11 @@ import { TrackOrderService } from '../Services/track-order.service'
 import { DomSanitizer } from '@angular/platform-browser'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faHome, faSync, faTruck, faTruckLoading, faWarehouse } from '@fortawesome/free-solid-svg-icons'
-import { ExtendedModule } from '@angular/flex-layout/extended';
-import { FlexModule } from '@angular/flex-layout/flex';
-import { NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { MatCard } from '@angular/material/card';
+import { ExtendedModule } from '@angular/flex-layout/extended'
+import { FlexModule } from '@angular/flex-layout/flex'
+import { NgIf } from '@angular/common'
+import { TranslateModule } from '@ngx-translate/core'
+import { MatCard } from '@angular/material/card'
 
 library.add(faWarehouse, faSync, faTruckLoading, faTruck, faHome)
 
@@ -26,11 +26,11 @@ export enum Status {
 }
 
 @Component({
-    selector: 'app-track-result',
-    templateUrl: './track-result.component.html',
-    styleUrls: ['./track-result.component.scss'],
-    standalone: true,
-    imports: [MatCard, TranslateModule, NgIf, FlexModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, ExtendedModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow]
+  selector: 'app-track-result',
+  templateUrl: './track-result.component.html',
+  styleUrls: ['./track-result.component.scss'],
+  standalone: true,
+  imports: [MatCard, TranslateModule, NgIf, FlexModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, ExtendedModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow]
 })
 export class TrackResultComponent implements OnInit {
   public displayedColumns = ['product', 'price', 'quantity', 'total price']

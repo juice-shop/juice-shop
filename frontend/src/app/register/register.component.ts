@@ -17,25 +17,25 @@ import { FormSubmitService } from '../Services/form-submit.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { type SecurityQuestion } from '../Models/securityQuestion.model'
-import { MatButton } from '@angular/material/button';
-import { MatOption } from '@angular/material/core';
-import { MatSelect } from '@angular/material/select';
-import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
-import { MatSlideToggle } from '@angular/material/slide-toggle';
-import { NgIf, NgFor } from '@angular/common';
-import { MatInput } from '@angular/material/input';
-import { MatFormField, MatLabel, MatError, MatHint } from '@angular/material/form-field';
-import { MatCard } from '@angular/material/card';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { MatButton } from '@angular/material/button'
+import { MatOption } from '@angular/material/core'
+import { MatSelect } from '@angular/material/select'
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength'
+import { MatSlideToggle } from '@angular/material/slide-toggle'
+import { NgIf, NgFor } from '@angular/common'
+import { MatInput } from '@angular/material/input'
+import { MatFormField, MatLabel, MatError, MatHint } from '@angular/material/form-field'
+import { MatCard } from '@angular/material/card'
+import { FlexModule } from '@angular/flex-layout/flex'
 
 library.add(faUserPlus, faExclamationCircle)
 
 @Component({
-    selector: 'app-register',
-    templateUrl: './register.component.html',
-    styleUrls: ['./register.component.scss'],
-    standalone: true,
-    imports: [FlexModule, MatCard, TranslateModule, MatFormField, MatLabel, MatInput, FormsModule, ReactiveFormsModule, NgIf, MatError, MatHint, MatSlideToggle, MatPasswordStrengthModule, MatSelect, NgFor, MatOption, MatButton, RouterLink]
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
+  standalone: true,
+  imports: [FlexModule, MatCard, TranslateModule, MatFormField, MatLabel, MatInput, FormsModule, ReactiveFormsModule, NgIf, MatError, MatHint, MatSlideToggle, MatPasswordStrengthModule, MatSelect, NgFor, MatOption, MatButton, RouterLink]
 })
 export class RegisterComponent implements OnInit {
   public emailControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.email])

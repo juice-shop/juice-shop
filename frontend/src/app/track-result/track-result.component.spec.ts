@@ -28,19 +28,19 @@ describe('TrackResultComponent', () => {
     sanitizer.sanitize.and.returnValue({})
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         RouterTestingModule,
         HttpClientTestingModule,
         MatCardModule,
         MatTableModule,
         TrackResultComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: TrackOrderService, useValue: trackOrderService },
         { provide: DomSanitizer, useValue: sanitizer }
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

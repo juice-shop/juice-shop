@@ -32,7 +32,7 @@ describe('SavedAddressComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         RouterTestingModule,
         TranslateModule.forRoot(),
         HttpClientTestingModule,
@@ -50,9 +50,9 @@ describe('SavedAddressComponent', () => {
         MatTooltipModule,
         MatCheckboxModule,
         SavedAddressComponent, AddressComponent
-    ],
-    providers: [{ provide: MatSnackBar, useValue: snackBar }]
-})
+      ],
+      providers: [{ provide: MatSnackBar, useValue: snackBar }]
+    })
       .compileComponents()
   }))
 

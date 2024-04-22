@@ -10,9 +10,9 @@ describe('DifficultyOverviewScoreCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), ScoreCardComponent,
+      imports: [TranslateModule.forRoot(), ScoreCardComponent,
         DifficultyOverviewScoreCardComponent]
-})
+    })
       .compileComponents()
 
     fixture = TestBed.createComponent(DifficultyOverviewScoreCardComponent)

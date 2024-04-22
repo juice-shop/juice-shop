@@ -13,21 +13,21 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { catchError } from 'rxjs/operators'
 import { EMPTY } from 'rxjs'
-import { MatInput } from '@angular/material/input';
-import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
-import { TranslateModule } from '@ngx-translate/core';
-import { MatIconButton, MatButton } from '@angular/material/button';
-import { NgIf, NgFor } from '@angular/common';
-import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
+import { MatInput } from '@angular/material/input'
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field'
+import { TranslateModule } from '@ngx-translate/core'
+import { MatIconButton, MatButton } from '@angular/material/button'
+import { NgIf, NgFor } from '@angular/common'
+import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card'
 
 library.add(faTwitter)
 
 @Component({
-    selector: 'app-photo-wall',
-    templateUrl: './photo-wall.component.html',
-    styleUrls: ['./photo-wall.component.scss'],
-    standalone: true,
-    imports: [MatCard, NgIf, NgFor, MatIconButton, MatCardTitle, TranslateModule, MatCardContent, FormsModule, ReactiveFormsModule, MatButton, MatFormField, MatLabel, MatInput, MatError]
+  selector: 'app-photo-wall',
+  templateUrl: './photo-wall.component.html',
+  styleUrls: ['./photo-wall.component.scss'],
+  standalone: true,
+  imports: [MatCard, NgIf, NgFor, MatIconButton, MatCardTitle, TranslateModule, MatCardContent, FormsModule, ReactiveFormsModule, MatButton, MatFormField, MatLabel, MatInput, MatError]
 })
 export class PhotoWallComponent implements OnInit {
   public emptyState: boolean = true

@@ -12,11 +12,11 @@ import { faBomb } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { CookieService } from 'ngy-cookie'
-import { MatInput } from '@angular/material/input';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { NgFor, NgIf } from '@angular/common';
-import { MatCard } from '@angular/material/card';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { MatInput } from '@angular/material/input'
+import { MatFormField, MatLabel } from '@angular/material/form-field'
+import { NgFor, NgIf } from '@angular/common'
+import { MatCard } from '@angular/material/card'
+import { FlexModule } from '@angular/flex-layout/flex'
 
 library.add(faBomb)
 
@@ -36,11 +36,11 @@ interface MessageActions {
 }
 
 @Component({
-    selector: 'app-chatbot',
-    templateUrl: './chatbot.component.html',
-    styleUrls: ['./chatbot.component.scss'],
-    standalone: true,
-    imports: [FlexModule, MatCard, NgFor, NgIf, MatFormField, MatLabel, TranslateModule, MatInput, FormsModule, ReactiveFormsModule]
+  selector: 'app-chatbot',
+  templateUrl: './chatbot.component.html',
+  styleUrls: ['./chatbot.component.scss'],
+  standalone: true,
+  imports: [FlexModule, MatCard, NgFor, NgIf, MatFormField, MatLabel, TranslateModule, MatInput, FormsModule, ReactiveFormsModule]
 })
 export class ChatbotComponent implements OnInit, OnDestroy {
   public messageControl: UntypedFormControl = new UntypedFormControl()

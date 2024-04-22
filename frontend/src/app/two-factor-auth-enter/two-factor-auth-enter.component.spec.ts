@@ -51,10 +51,10 @@ describe('TwoFactorAuthEnterComponent', () => {
     twoFactorAuthService.verify.and.returnValue(of({ }))
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
-            { path: 'search', component: SearchResultComponent }
+          { path: 'search', component: SearchResultComponent }
         ]),
         ReactiveFormsModule,
         CookieModule.forRoot(),
@@ -74,15 +74,15 @@ describe('TwoFactorAuthEnterComponent', () => {
         MatSnackBarModule,
         MatTooltipModule,
         TwoFactorAuthEnterComponent, SearchResultComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: UserService, useValue: userService },
         { provide: TwoFactorAuthService, useValue: twoFactorAuthService },
         CookieService,
         WindowRefService,
         CookieService
-    ]
-})
+      ]
+    })
       .compileComponents()
     cookieService = TestBed.inject(CookieService)
   }))

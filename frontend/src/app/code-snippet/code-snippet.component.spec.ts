@@ -42,15 +42,15 @@ describe('CodeSnippetComponent', () => {
     challengeService.continueCodeFixIt.and.returnValue(of('continueCodeFixIt'))
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CookieModule.forRoot(),
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         MatDividerModule,
         MatDialogModule,
         CodeSnippetComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: { dialogData: {} } },
         { provide: ConfigurationService, useValue: configurationService },
@@ -59,8 +59,8 @@ describe('CodeSnippetComponent', () => {
         { provide: CodeFixesService, useValue: codeFixesService },
         { provide: VulnLinesService, useValue: vulnLinesService },
         { provide: ChallengeService, useValue: challengeService }
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

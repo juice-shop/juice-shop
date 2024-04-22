@@ -12,8 +12,8 @@ describe('ChallengeCard', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), MatIconModule, MatTooltipModule, ChallengeCardComponent]
-})
+      imports: [TranslateModule.forRoot(), MatIconModule, MatTooltipModule, ChallengeCardComponent]
+    })
       .compileComponents()
 
     fixture = TestBed.createComponent(ChallengeCardComponent)

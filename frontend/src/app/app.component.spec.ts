@@ -40,7 +40,7 @@ describe('AppComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         HttpClientTestingModule,
         RouterTestingModule,
         MatToolbarModule,
@@ -69,9 +69,9 @@ describe('AppComponent', () => {
         ServerStartedNotificationComponent,
         MatSearchBarComponent,
         AppComponent
-    ],
-    providers: [TranslateService, LoginGuard]
-}).compileComponents()
+      ],
+      providers: [TranslateService, LoginGuard]
+    }).compileComponents()
   }))
 
   beforeEach(() => {

@@ -48,7 +48,7 @@ describe('ProductDetailsComponent', () => {
     dialog.open.and.returnValue(dialogRefMock)
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
@@ -64,14 +64,14 @@ describe('ProductDetailsComponent', () => {
         MatExpansionModule,
         MatSnackBarModule,
         ProductDetailsComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: UserService, useValue: userService },
         { provide: ProductReviewService, useValue: productReviewService },
         { provide: MatDialog, useValue: dialog },
         { provide: MAT_DIALOG_DATA, useValue: { productData: {} } }
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

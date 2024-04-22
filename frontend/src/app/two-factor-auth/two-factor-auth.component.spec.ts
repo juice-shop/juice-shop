@@ -42,7 +42,7 @@ describe('TwoFactorAuthComponent', () => {
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { } }))
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         HttpClientTestingModule,
         ReactiveFormsModule,
         TranslateModule.forRoot(),
@@ -61,12 +61,12 @@ describe('TwoFactorAuthComponent', () => {
         MatSnackBarModule,
         MatTooltipModule,
         TwoFactorAuthComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: ConfigurationService, useValue: configurationService },
         { provide: TwoFactorAuthService, useValue: twoFactorAuthService }
-    ]
-}).compileComponents()
+      ]
+    }).compileComponents()
   }))
 
   beforeEach(() => {

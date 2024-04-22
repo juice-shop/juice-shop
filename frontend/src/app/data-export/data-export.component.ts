@@ -8,21 +8,21 @@ import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from
 import { ImageCaptchaService } from '../Services/image-captcha.service'
 import { DataSubjectService } from '../Services/data-subject.service'
 import { DomSanitizer } from '@angular/platform-browser'
-import { MatButton } from '@angular/material/button';
-import { MatInput } from '@angular/material/input';
-import { MatLabel, MatFormField, MatHint, MatError } from '@angular/material/form-field';
-import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
-import { NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { MatCard } from '@angular/material/card';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { MatButton } from '@angular/material/button'
+import { MatInput } from '@angular/material/input'
+import { MatLabel, MatFormField, MatHint, MatError } from '@angular/material/form-field'
+import { MatRadioGroup, MatRadioButton } from '@angular/material/radio'
+import { NgIf } from '@angular/common'
+import { TranslateModule } from '@ngx-translate/core'
+import { MatCard } from '@angular/material/card'
+import { FlexModule } from '@angular/flex-layout/flex'
 
 @Component({
-    selector: 'app-data-export',
-    templateUrl: './data-export.component.html',
-    styleUrls: ['./data-export.component.scss'],
-    standalone: true,
-    imports: [FlexModule, MatCard, TranslateModule, NgIf, MatRadioGroup, FormsModule, ReactiveFormsModule, MatLabel, MatRadioButton, MatFormField, MatInput, MatHint, MatError, MatButton]
+  selector: 'app-data-export',
+  templateUrl: './data-export.component.html',
+  styleUrls: ['./data-export.component.scss'],
+  standalone: true,
+  imports: [FlexModule, MatCard, TranslateModule, NgIf, MatRadioGroup, FormsModule, ReactiveFormsModule, MatLabel, MatRadioButton, MatFormField, MatInput, MatHint, MatError, MatButton]
 })
 export class DataExportComponent implements OnInit {
   public captchaControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5)])

@@ -42,7 +42,7 @@ describe('AddressCreateComponent', () => {
     snackBar.open.and.returnValue(null)
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         RouterTestingModule,
         TranslateModule.forRoot(),
         HttpClientTestingModule,
@@ -55,13 +55,13 @@ describe('AddressCreateComponent', () => {
         MatIconModule,
         MatSnackBarModule,
         AddressCreateComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: AddressService, useValue: addressService },
         { provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar }
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

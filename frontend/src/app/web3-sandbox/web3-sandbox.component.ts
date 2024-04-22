@@ -12,13 +12,13 @@ import {
 import {
   solidityCompiler
 } from 'solidity-browser-compiler'
-import { MatInput } from '@angular/material/input';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgIf, NgFor } from '@angular/common';
-import { MatButton } from '@angular/material/button';
-import { FormsModule } from '@angular/forms';
-import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { MatInput } from '@angular/material/input'
+import { MatFormField, MatLabel } from '@angular/material/form-field'
+import { TranslateModule } from '@ngx-translate/core'
+import { NgIf, NgFor } from '@angular/common'
+import { MatButton } from '@angular/material/button'
+import { FormsModule } from '@angular/forms'
+import { CodemirrorModule } from '@ctrl/ngx-codemirror'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const client = createClient({
@@ -38,11 +38,11 @@ const compilerReleases = {
   '0.1.7': 'soljson-v0.1.7+commit.b4e666cc.js'
 }
 @Component({
-    selector: 'app-web3-sandbox',
-    templateUrl: './web3-sandbox.component.html',
-    styleUrls: ['./web3-sandbox.component.scss'],
-    standalone: true,
-    imports: [CodemirrorModule, FormsModule, MatButton, NgIf, TranslateModule, MatFormField, MatLabel, MatInput, NgFor]
+  selector: 'app-web3-sandbox',
+  templateUrl: './web3-sandbox.component.html',
+  styleUrls: ['./web3-sandbox.component.scss'],
+  standalone: true,
+  imports: [CodemirrorModule, FormsModule, MatButton, NgIf, TranslateModule, MatFormField, MatLabel, MatInput, NgFor]
 })
 export class Web3SandboxComponent {
   constructor (

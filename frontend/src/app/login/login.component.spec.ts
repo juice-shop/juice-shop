@@ -42,10 +42,10 @@ describe('LoginComponent', () => {
     userService.isLoggedIn.next.and.returnValue({})
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
-            { path: 'search', component: SearchResultComponent }
+          { path: 'search', component: SearchResultComponent }
         ]),
         ReactiveFormsModule,
         CookieModule.forRoot(),
@@ -63,13 +63,13 @@ describe('LoginComponent', () => {
         MatGridListModule,
         MatTooltipModule,
         LoginComponent, SearchResultComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: UserService, useValue: userService },
         WindowRefService,
         CookieService
-    ]
-})
+      ]
+    })
       .compileComponents()
 
     location = TestBed.inject(Location)

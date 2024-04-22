@@ -44,9 +44,9 @@ describe('AddressSelectComponent', () => {
     snackBar.open.and.returnValue(null)
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         RouterTestingModule.withRoutes([
-            { path: 'delivery-method', component: DeliveryMethodComponent }
+          { path: 'delivery-method', component: DeliveryMethodComponent }
         ]),
         TranslateModule.forRoot(),
         HttpClientTestingModule,
@@ -64,10 +64,10 @@ describe('AddressSelectComponent', () => {
         MatTooltipModule,
         MatCheckboxModule,
         AddressSelectComponent, AddressComponent, DeliveryMethodComponent
-    ],
-    providers: [{ provide: TranslateService, useValue: translateService },
+      ],
+      providers: [{ provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar }]
-})
+    })
       .compileComponents()
   }))
 

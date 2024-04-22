@@ -49,7 +49,7 @@ describe('OrderCompletionComponent', () => {
     addressService.getById.and.returnValue(of([]))
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         RouterTestingModule,
         HttpClientTestingModule,
         TranslateModule.forRoot(),
@@ -63,15 +63,15 @@ describe('OrderCompletionComponent', () => {
         MatIconModule,
         MatTooltipModule,
         OrderCompletionComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: TrackOrderService, useValue: trackOrderService },
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: BasketService, useValue: basketService },
         { provide: ConfigurationService, useValue: configurationService },
         { provide: AddressService, useValue: addressService }
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

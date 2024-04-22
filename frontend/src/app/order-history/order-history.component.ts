@@ -12,13 +12,13 @@ import { MatDialog } from '@angular/material/dialog'
 import { type Product } from '../Models/product.model'
 import { ProductService } from '../Services/product.service'
 import { Router } from '@angular/router'
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatIconButton } from '@angular/material/button';
-import { TranslateModule } from '@ngx-translate/core';
-import { FlexModule } from '@angular/flex-layout/flex';
-import { NgIf, NgFor } from '@angular/common';
-import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
+import { MatIcon } from '@angular/material/icon'
+import { MatTooltip } from '@angular/material/tooltip'
+import { MatIconButton } from '@angular/material/button'
+import { TranslateModule } from '@ngx-translate/core'
+import { FlexModule } from '@angular/flex-layout/flex'
+import { NgIf, NgFor } from '@angular/common'
+import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card'
 
 export interface StrippedProduct {
   id: number
@@ -37,11 +37,11 @@ export interface Order {
 }
 
 @Component({
-    selector: 'app-order-history',
-    templateUrl: './order-history.component.html',
-    styleUrls: ['./order-history.component.scss'],
-    standalone: true,
-    imports: [MatCard, MatCardTitle, NgIf, FlexModule, NgFor, TranslateModule, MatIconButton, MatTooltip, MatIcon, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatCardContent]
+  selector: 'app-order-history',
+  templateUrl: './order-history.component.html',
+  styleUrls: ['./order-history.component.scss'],
+  standalone: true,
+  imports: [MatCard, MatCardTitle, NgIf, FlexModule, NgFor, TranslateModule, MatIconButton, MatTooltip, MatIcon, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatCardContent]
 })
 export class OrderHistoryComponent implements OnInit {
   public tableColumns = ['product', 'price', 'quantity', 'total price', 'review']

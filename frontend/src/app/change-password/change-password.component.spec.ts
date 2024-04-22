@@ -27,7 +27,7 @@ describe('ChangePasswordComponent', () => {
     userService.changePassword.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         ReactiveFormsModule,
         HttpClientTestingModule,
@@ -37,9 +37,9 @@ describe('ChangePasswordComponent', () => {
         MatInputModule,
         MatButtonModule,
         ChangePasswordComponent
-    ],
-    providers: [{ provide: UserService, useValue: userService }]
-})
+      ],
+      providers: [{ provide: UserService, useValue: userService }]
+    })
       .compileComponents()
   }))
 

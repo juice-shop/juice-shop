@@ -5,8 +5,8 @@ import {
   Output,
   EventEmitter
 } from '@angular/core'
-import { HighlightModule } from 'ngx-highlightjs';
-import { NgFor } from '@angular/common';
+import { HighlightModule } from 'ngx-highlightjs'
+import { NgFor } from '@angular/common'
 
 interface LineMarker {
   marked: boolean
@@ -14,11 +14,11 @@ interface LineMarker {
 }
 
 @Component({
-    selector: 'app-code-area',
-    templateUrl: './code-area.component.html',
-    styleUrls: ['./code-area.component.scss'],
-    standalone: true,
-    imports: [NgFor, HighlightModule]
+  selector: 'app-code-area',
+  templateUrl: './code-area.component.html',
+  styleUrls: ['./code-area.component.scss'],
+  standalone: true,
+  imports: [NgFor, HighlightModule]
 })
 export class CodeAreaComponent implements OnInit {
   @Input('code')
