@@ -6,12 +6,15 @@
 import { Component } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
 import * as jwtDecode from 'jwt-decode'
+import { TranslateModule } from '@ngx-translate/core';
+import { MatCard } from '@angular/material/card';
 
 @Component({
-  selector: 'app-last-login-ip',
-  templateUrl: './last-login-ip.component.html',
-  styleUrls: ['./last-login-ip.component.scss']
-
+    selector: 'app-last-login-ip',
+    templateUrl: './last-login-ip.component.html',
+    styleUrls: ['./last-login-ip.component.scss'],
+    standalone: true,
+    imports: [MatCard, TranslateModule]
 })
 
 export class LastLoginIpComponent {

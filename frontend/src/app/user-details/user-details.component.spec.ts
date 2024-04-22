@@ -23,19 +23,19 @@ describe('UserDetailsComponent', () => {
     userService.get.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         MatDividerModule,
-        MatDialogModule
-      ],
-      declarations: [UserDetailsComponent],
-      providers: [
+        MatDialogModule,
+        UserDetailsComponent
+    ],
+    providers: [
         { provide: UserService, useValue: userService },
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: { dialogData: {} } }
-      ]
-    })
+    ]
+})
       .compileComponents()
   }))
 

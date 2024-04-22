@@ -58,7 +58,7 @@ describe('RecycleComponent', () => {
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         RouterTestingModule,
         TranslateModule.forRoot(),
         HttpClientTestingModule,
@@ -77,17 +77,17 @@ describe('RecycleComponent', () => {
         MatRadioModule,
         MatTooltipModule,
         MatDialogModule,
-        MatDividerModule
-      ],
-      declarations: [RecycleComponent, AddressComponent],
-      providers: [
+        MatDividerModule,
+        RecycleComponent, AddressComponent
+    ],
+    providers: [
         { provide: RecycleService, useValue: recycleService },
         { provide: UserService, useValue: userService },
         { provide: ConfigurationService, useValue: configurationService },
         { provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar }
-      ]
-    })
+    ]
+})
       .compileComponents()
   }))
 

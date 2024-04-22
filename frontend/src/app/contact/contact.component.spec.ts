@@ -44,7 +44,7 @@ describe('ContactComponent', () => {
     captchaService.getCaptcha.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
@@ -53,17 +53,17 @@ describe('ContactComponent', () => {
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
-        MatSnackBarModule
-      ],
-      declarations: [ContactComponent],
-      providers: [
+        MatSnackBarModule,
+        ContactComponent
+    ],
+    providers: [
         { provide: UserService, useValue: userService },
         { provide: MatSnackBar, useValue: snackBar },
         { provide: FeedbackService, useValue: feedbackService },
         { provide: CaptchaService, useValue: captchaService },
         { provide: TranslateService, useValue: translateService }
-      ]
-    })
+    ]
+})
       .compileComponents()
   }))
 

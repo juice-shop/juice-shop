@@ -44,8 +44,7 @@ describe('ForgotPasswordComponent', () => {
     userService.resetPassword.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
-      declarations: [ForgotPasswordComponent],
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
         MatPasswordStrengthModule.forRoot(),
         HttpClientTestingModule,
@@ -57,13 +56,14 @@ describe('ForgotPasswordComponent', () => {
         MatButtonModule,
         MatTooltipModule,
         MatIconModule,
-        MatSlideToggleModule
-      ],
-      providers: [
+        MatSlideToggleModule,
+        ForgotPasswordComponent
+    ],
+    providers: [
         { provide: SecurityQuestionService, useValue: securityQuestionService },
         { provide: UserService, useValue: userService }
-      ]
-    })
+    ]
+})
       .compileComponents()
   }))
 

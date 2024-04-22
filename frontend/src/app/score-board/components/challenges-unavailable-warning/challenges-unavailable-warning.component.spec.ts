@@ -10,9 +10,8 @@ describe('ChallengesUnavailableWarningComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ChallengesUnavailableWarningComponent]
-    })
+    imports: [TranslateModule.forRoot(), ChallengesUnavailableWarningComponent]
+})
       .compileComponents()
 
     fixture = TestBed.createComponent(ChallengesUnavailableWarningComponent)

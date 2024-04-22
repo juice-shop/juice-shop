@@ -34,20 +34,20 @@ describe('ChallengeStatusBadgeComponent', () => {
     translateService.onDefaultLangChange = new EventEmitter()
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         HttpClientTestingModule,
         TranslateModule.forRoot(),
         MatButtonModule,
         MatTooltipModule,
-        MatIconModule
-      ],
-      declarations: [ChallengeStatusBadgeComponent],
-      providers: [
+        MatIconModule,
+        ChallengeStatusBadgeComponent
+    ],
+    providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: ChallengeService, useValue: challengeService },
         WindowRefService
-      ]
-    })
+    ]
+})
       .compileComponents()
 
     windowRefService = TestBed.inject(WindowRefService)

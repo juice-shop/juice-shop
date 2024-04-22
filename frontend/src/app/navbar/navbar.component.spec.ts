@@ -79,10 +79,9 @@ describe('NavbarComponent', () => {
     loginGuard.tokenDecode.and.returnValue(of(true))
 
     TestBed.configureTestingModule({
-      declarations: [NavbarComponent, SearchResultComponent, MatSearchBarComponent],
-      imports: [
+    imports: [
         RouterTestingModule.withRoutes([
-          { path: 'search', component: SearchResultComponent }
+            { path: 'search', component: SearchResultComponent }
         ]),
         HttpClientTestingModule,
         CookieModule.forRoot(),
@@ -103,9 +102,10 @@ describe('NavbarComponent', () => {
         MatDividerModule,
         MatGridListModule,
         MatRadioModule,
-        MatSnackBarModule
-      ],
-      providers: [
+        MatSnackBarModule,
+        NavbarComponent, SearchResultComponent, MatSearchBarComponent
+    ],
+    providers: [
         { provide: AdministrationService, useValue: administrationService },
         { provide: ConfigurationService, useValue: configurationService },
         { provide: UserService, useValue: userService },
@@ -114,8 +114,8 @@ describe('NavbarComponent', () => {
         { provide: SocketIoService, useValue: socketIoService },
         { provide: LoginGuard, useValue: loginGuard },
         TranslateService
-      ]
-    })
+    ]
+})
       .compileComponents()
 
     location = TestBed.inject(Location)

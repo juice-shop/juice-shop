@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { UntypedFormControl, Validators } from '@angular/forms'
+import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { Component, NgZone, type OnInit } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { BasketService } from '../Services/basket.service'
-import { TranslateService } from '@ngx-translate/core'
+import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faCartArrowDown,
@@ -29,15 +29,26 @@ import { WalletService } from '../Services/wallet.service'
 import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'
 import { CookieService } from 'ngy-cookie'
-import { Location } from '@angular/common'
+import { Location, NgIf } from '@angular/common'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/form-field';
+import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription } from '@angular/material/expansion';
+import { MatButton } from '@angular/material/button';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatDivider } from '@angular/material/divider';
+import { PaymentMethodComponent } from '../payment-method/payment-method.component';
+import { MatCard } from '@angular/material/card';
 
 library.add(faCartArrowDown, faGift, faHeart, faLeanpub, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faTimes, faStripe, faPalette)
 
 @Component({
-  selector: 'app-payment',
-  templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.scss']
+    selector: 'app-payment',
+    templateUrl: './payment.component.html',
+    styleUrls: ['./payment.component.scss'],
+    standalone: true,
+    imports: [MatCard, PaymentMethodComponent, MatDivider, NgIf, FlexModule, TranslateModule, MatButton, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatFormField, MatLabel, MatHint, MatInput, FormsModule, ReactiveFormsModule, MatError, MatIcon]
 })
 export class PaymentComponent implements OnInit {
   public couponConfirmation: any

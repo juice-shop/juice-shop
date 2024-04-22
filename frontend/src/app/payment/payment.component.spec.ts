@@ -79,16 +79,15 @@ describe('PaymentComponent', () => {
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         RouterTestingModule.withRoutes([
-          { path: 'order-summary', component: OrderSummaryComponent },
-          { path: 'login', component: LoginComponent },
-          { path: 'wallet', component: WalletComponent }
+            { path: 'order-summary', component: OrderSummaryComponent },
+            { path: 'login', component: LoginComponent },
+            { path: 'wallet', component: WalletComponent }
         ]),
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
-
         BrowserAnimationsModule,
         MatCardModule,
         MatTableModule,
@@ -100,10 +99,10 @@ describe('PaymentComponent', () => {
         MatDialogModule,
         MatIconModule,
         MatCheckboxModule,
-        MatTooltipModule
-      ],
-      declarations: [PaymentComponent, PaymentMethodComponent, OrderSummaryComponent, PurchaseBasketComponent, LoginComponent, WalletComponent],
-      providers: [
+        MatTooltipModule,
+        PaymentComponent, PaymentMethodComponent, OrderSummaryComponent, PurchaseBasketComponent, LoginComponent, WalletComponent
+    ],
+    providers: [
         { provide: BasketService, useValue: basketService },
         { provide: MatDialog, useValue: dialog },
         { provide: TranslateService, useValue: translateService },
@@ -113,9 +112,8 @@ describe('PaymentComponent', () => {
         { provide: DeliveryService, useValue: deliveryService },
         { provide: UserService, useValue: userService },
         { provide: MatSnackBar, useValue: snackBar }
-
-      ]
-    })
+    ]
+})
       .compileComponents()
     TestBed.inject(Location)
   }))

@@ -11,18 +11,17 @@ describe('ScoreBoardAdditionalSettingsDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), MatDialogModule],
-      declarations: [ScoreBoardAdditionalSettingsDialogComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), MatDialogModule, ScoreBoardAdditionalSettingsDialogComponent],
+    providers: [
         {
-          provide: LocalBackupService,
-          useValue: {
-            save: () => null,
-            restore: () => null
-          }
+            provide: LocalBackupService,
+            useValue: {
+                save: () => null,
+                restore: () => null
+            }
         }
-      ]
-    }).compileComponents()
+    ]
+}).compileComponents()
 
     fixture = TestBed.createComponent(
       ScoreBoardAdditionalSettingsDialogComponent
