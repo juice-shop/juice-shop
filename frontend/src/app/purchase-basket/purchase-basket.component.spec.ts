@@ -50,8 +50,7 @@ describe('PurchaseBasketComponent', () => {
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
-      declarations: [PurchaseBasketComponent],
-      imports: [
+    imports: [
         HttpClientTestingModule,
         TranslateModule.forRoot(),
         BrowserAnimationsModule,
@@ -61,16 +60,17 @@ describe('PurchaseBasketComponent', () => {
         MatTableModule,
         MatButtonModule,
         MatButtonToggleModule,
-        MatSnackBarModule
-      ],
-      providers: [
+        MatSnackBarModule,
+        PurchaseBasketComponent
+    ],
+    providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: BasketService, useValue: basketService },
         { provide: MatSnackBar, useValue: snackBar },
         { provide: UserService, useValue: userService },
         { provide: DeluxeGuard, useValue: deluxeGuard }
-      ]
-    })
+    ]
+})
       .compileComponents()
   }))
 

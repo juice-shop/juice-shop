@@ -48,14 +48,13 @@ describe('AddressComponent', () => {
     snackBar.open.and.returnValue(null)
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         RouterTestingModule.withRoutes([
-          { path: 'delivery-method', component: DeliveryMethodComponent }
+            { path: 'delivery-method', component: DeliveryMethodComponent }
         ]),
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
-
         BrowserAnimationsModule,
         MatCardModule,
         MatTableModule,
@@ -66,15 +65,15 @@ describe('AddressComponent', () => {
         MatRadioModule,
         MatDialogModule,
         MatIconModule,
-        MatTooltipModule
-      ],
-      declarations: [AddressComponent, AddressCreateComponent],
-      providers: [
+        MatTooltipModule,
+        AddressComponent, AddressCreateComponent
+    ],
+    providers: [
         { provide: AddressService, useValue: addressService },
         { provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar }
-      ]
-    })
+    ]
+})
       .compileComponents()
   }))
 

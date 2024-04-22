@@ -3,11 +3,15 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { TranslateService } from '@ngx-translate/core'
+import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
 import { ChangeDetectorRef, Component, NgZone, type OnInit } from '@angular/core'
 import { CookieService } from 'ngy-cookie'
 import { SocketIoService } from '../Services/socket-io.service'
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { MatCard, MatCardHeader, MatCardContent } from '@angular/material/card';
+import { NgIf } from '@angular/common';
 
 interface HackingProgress {
   autoRestoreMessage: string | null
@@ -15,9 +19,11 @@ interface HackingProgress {
 }
 
 @Component({
-  selector: 'app-server-started-notification',
-  templateUrl: './server-started-notification.component.html',
-  styleUrls: ['./server-started-notification.component.scss']
+    selector: 'app-server-started-notification',
+    templateUrl: './server-started-notification.component.html',
+    styleUrls: ['./server-started-notification.component.scss'],
+    standalone: true,
+    imports: [NgIf, MatCard, MatCardHeader, MatCardContent, TranslateModule, MatButton, MatIcon]
 })
 export class ServerStartedNotificationComponent implements OnInit {
   public hackingProgress: HackingProgress = {} as HackingProgress

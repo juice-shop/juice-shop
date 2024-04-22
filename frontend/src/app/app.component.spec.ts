@@ -40,16 +40,7 @@ describe('AppComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent,
-        NavbarComponent,
-        WelcomeComponent,
-        SidenavComponent,
-        ChallengeSolvedNotificationComponent,
-        ServerStartedNotificationComponent,
-        MatSearchBarComponent
-      ],
-      imports: [
+    imports: [
         HttpClientTestingModule,
         RouterTestingModule,
         MatToolbarModule,
@@ -70,10 +61,17 @@ describe('AppComponent', () => {
         MatRadioModule,
         MatDividerModule,
         MatListModule,
-        MatDialogModule
-      ],
-      providers: [TranslateService, LoginGuard]
-    }).compileComponents()
+        MatDialogModule,
+        NavbarComponent,
+        WelcomeComponent,
+        SidenavComponent,
+        ChallengeSolvedNotificationComponent,
+        ServerStartedNotificationComponent,
+        MatSearchBarComponent,
+        AppComponent
+    ],
+    providers: [TranslateService, LoginGuard]
+}).compileComponents()
   }))
 
   beforeEach(() => {

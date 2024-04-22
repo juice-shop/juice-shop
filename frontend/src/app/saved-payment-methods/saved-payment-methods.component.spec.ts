@@ -38,11 +38,10 @@ describe('SavedPaymentMethodsComponent', () => {
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
-
         BrowserAnimationsModule,
         MatCardModule,
         MatTableModule,
@@ -51,14 +50,14 @@ describe('SavedPaymentMethodsComponent', () => {
         MatExpansionModule,
         MatDividerModule,
         MatRadioModule,
-        MatDialogModule
-      ],
-      declarations: [SavedPaymentMethodsComponent, PaymentMethodComponent],
-      providers: [
+        MatDialogModule,
+        SavedPaymentMethodsComponent, PaymentMethodComponent
+    ],
+    providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar }
-      ]
-    })
+    ]
+})
       .compileComponents()
   }))
 

@@ -5,20 +5,32 @@
 
 import { UserService } from '../Services/user.service'
 import { SecurityQuestionService } from '../Services/security-question.service'
-import { type AbstractControl, UntypedFormControl, Validators } from '@angular/forms'
+import { type AbstractControl, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { Component } from '@angular/core'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-regular-svg-icons'
 import { type SecurityQuestion } from '../Models/securityQuestion.model'
-import { TranslateService } from '@ngx-translate/core'
+import { TranslateService, TranslateModule } from '@ngx-translate/core'
+import { MatButton } from '@angular/material/button';
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { NgIf } from '@angular/common';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel, MatSuffix, MatError, MatHint } from '@angular/material/form-field';
+import { MatCard } from '@angular/material/card';
+import { FlexModule } from '@angular/flex-layout/flex';
 
 library.add(faSave, faEdit)
 
 @Component({
-  selector: 'app-forgot-password',
-  templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.scss']
+    selector: 'app-forgot-password',
+    templateUrl: './forgot-password.component.html',
+    styleUrls: ['./forgot-password.component.scss'],
+    standalone: true,
+    imports: [FlexModule, MatCard, TranslateModule, MatFormField, MatLabel, MatInput, FormsModule, ReactiveFormsModule, MatIcon, MatSuffix, MatTooltip, NgIf, MatError, MatHint, MatSlideToggle, MatPasswordStrengthModule, MatButton]
 })
 export class ForgotPasswordComponent {
   public emailControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.email])

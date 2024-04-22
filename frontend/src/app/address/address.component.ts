@@ -5,20 +5,28 @@
 
 import { Component, EventEmitter, Input, type OnInit, Output, NgZone } from '@angular/core'
 import { AddressService } from '../Services/address.service'
-import { MatTableDataSource } from '@angular/material/table'
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faEdit, faTrashAlt } from '@fortawesome/free-regular-svg-icons/'
-import { TranslateService } from '@ngx-translate/core'
-import { Router } from '@angular/router'
+import { TranslateService, TranslateModule } from '@ngx-translate/core'
+import { Router, RouterLink } from '@angular/router'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { SelectionModel } from '@angular/cdk/collections'
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatRadioButton } from '@angular/material/radio';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { NgIf } from '@angular/common';
+import { MatCard } from '@angular/material/card';
 
 library.add(faEdit, faTrashAlt)
 
 @Component({
-  selector: 'app-address',
-  templateUrl: './address.component.html',
-  styleUrls: ['./address.component.scss']
+    selector: 'app-address',
+    templateUrl: './address.component.html',
+    styleUrls: ['./address.component.scss'],
+    standalone: true,
+    imports: [MatCard, NgIf, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, FlexModule, MatCellDef, MatCell, MatRadioButton, MatIconButton, RouterLink, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatButton, MatIcon]
 })
 export class AddressComponent implements OnInit {
   @Output() emitSelection = new EventEmitter()

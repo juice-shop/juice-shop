@@ -16,18 +16,18 @@ describe('ErrorPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ErrorPageComponent],
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
-        MatCardModule
-      ],
-      providers: [
+        MatCardModule,
+        ErrorPageComponent
+    ],
+    providers: [
         {
-          provide: ActivatedRoute,
-          useValue: { snapshot: { queryParams: { error: 'UNAUTHORIZED_PAGE_ACCESS_ERROR' } } }
+            provide: ActivatedRoute,
+            useValue: { snapshot: { queryParams: { error: 'UNAUTHORIZED_PAGE_ACCESS_ERROR' } } }
         }
-      ]
-    })
+    ]
+})
       .compileComponents()
   }))
 

@@ -24,20 +24,20 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [Web3SandboxComponent],
-  imports: [
-    CodemirrorModule,
-    CommonModule,
-    RouterModule.forChild(routes),
-    TranslateModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatCardModule,
-    MatInputModule,
-    MatSnackBarModule
-  ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    imports: [
+        CodemirrorModule,
+        CommonModule,
+        RouterModule.forChild(routes),
+        TranslateModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatCardModule,
+        MatInputModule,
+        MatSnackBarModule,
+        Web3SandboxComponent
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class FaucetModule {
   constructor (

@@ -40,10 +40,9 @@ describe('DeliveryMethodComponent', () => {
     deliveryService.get.and.returnValue(of([]))
 
     TestBed.configureTestingModule({
-      declarations: [DeliveryMethodComponent, PaymentComponent, PaymentMethodComponent],
-      imports: [
+    imports: [
         RouterTestingModule.withRoutes([
-          { path: 'payment/shop', component: PaymentComponent }
+            { path: 'payment/shop', component: PaymentComponent }
         ]),
         HttpClientTestingModule,
         TranslateModule.forRoot(),
@@ -58,13 +57,14 @@ describe('DeliveryMethodComponent', () => {
         MatTooltipModule,
         MatRadioModule,
         MatExpansionModule,
-        MatDividerModule
-      ],
-      providers: [
+        MatDividerModule,
+        DeliveryMethodComponent, PaymentComponent, PaymentMethodComponent
+    ],
+    providers: [
         { provide: AddressService, useValue: addressService },
         { provide: DeliveryService, useValue: deliveryService }
-      ]
-    })
+    ]
+})
       .compileComponents()
   }))
 
