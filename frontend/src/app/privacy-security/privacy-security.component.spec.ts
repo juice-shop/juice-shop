@@ -26,8 +26,7 @@ describe('PrivacySecurityComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ChangePasswordComponent, PrivacySecurityComponent],
-      imports: [
+    imports: [
         NoopAnimationsModule,
         LayoutModule,
         MatButtonModule,
@@ -40,10 +39,11 @@ describe('PrivacySecurityComponent', () => {
         ReactiveFormsModule,
         TranslateModule.forRoot(),
         HttpClientTestingModule,
-        RouterTestingModule
-      ],
-      providers: [TranslateService]
-    }).compileComponents()
+        RouterTestingModule,
+        ChangePasswordComponent, PrivacySecurityComponent
+    ],
+    providers: [TranslateService]
+}).compileComponents()
   }))
 
   beforeEach(() => {

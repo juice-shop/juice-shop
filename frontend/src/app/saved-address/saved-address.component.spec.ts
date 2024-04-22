@@ -32,12 +32,11 @@ describe('SavedAddressComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         RouterTestingModule,
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
-
         BrowserAnimationsModule,
         MatCardModule,
         MatTableModule,
@@ -49,11 +48,11 @@ describe('SavedAddressComponent', () => {
         MatDialogModule,
         MatIconModule,
         MatTooltipModule,
-        MatCheckboxModule
-      ],
-      declarations: [SavedAddressComponent, AddressComponent],
-      providers: [{ provide: MatSnackBar, useValue: snackBar }]
-    })
+        MatCheckboxModule,
+        SavedAddressComponent, AddressComponent
+    ],
+    providers: [{ provide: MatSnackBar, useValue: snackBar }]
+})
       .compileComponents()
   }))
 

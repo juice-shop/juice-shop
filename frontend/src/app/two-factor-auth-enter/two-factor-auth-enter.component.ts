@@ -4,13 +4,22 @@
  */
 
 import { Component, NgZone } from '@angular/core'
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
+import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
 import { CookieService } from 'ngy-cookie'
 import { UserService } from '../Services/user.service'
 import { Router } from '@angular/router'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUnlockAlt } from '@fortawesome/free-solid-svg-icons'
+import { MatButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel, MatSuffix, MatHint, MatError } from '@angular/material/form-field';
+import { NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { MatCard } from '@angular/material/card';
+import { FlexModule } from '@angular/flex-layout/flex';
 
 library.add(faUnlockAlt)
 
@@ -19,9 +28,11 @@ interface TokenEnterFormFields {
 }
 
 @Component({
-  selector: 'app-two-factor-auth-enter',
-  templateUrl: './two-factor-auth-enter.component.html',
-  styleUrls: ['./two-factor-auth-enter.component.scss']
+    selector: 'app-two-factor-auth-enter',
+    templateUrl: './two-factor-auth-enter.component.html',
+    styleUrls: ['./two-factor-auth-enter.component.scss'],
+    standalone: true,
+    imports: [FlexModule, MatCard, TranslateModule, NgIf, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatIcon, MatSuffix, MatTooltip, MatHint, MatError, MatButton]
 })
 export class TwoFactorAuthEnterComponent {
   public twoFactorForm: UntypedFormGroup = new UntypedFormGroup({

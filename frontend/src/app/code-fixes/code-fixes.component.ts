@@ -1,14 +1,17 @@
 import { Component, Input, type OnInit, ViewChild, type DoCheck, KeyValueDiffers, type KeyValueDiffer } from '@angular/core'
-import { NgxTextDiffComponent } from '@winarg/ngx-text-diff'
+import { NgxTextDiffComponent, NgxTextDiffModule } from '@winarg/ngx-text-diff'
 
 import { CookieService } from 'ngy-cookie'
 import { type RandomFixes } from '../code-snippet/code-snippet.component'
 import { type DiffTableFormat } from '@winarg/ngx-text-diff/lib/ngx-text-diff.model'
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-code-fixes',
-  templateUrl: './code-fixes.component.html',
-  styleUrls: ['./code-fixes.component.scss']
+    selector: 'app-code-fixes',
+    templateUrl: './code-fixes.component.html',
+    styleUrls: ['./code-fixes.component.scss'],
+    standalone: true,
+    imports: [NgFor, NgIf, NgxTextDiffModule]
 })
 export class CodeFixesComponent implements OnInit, DoCheck {
   differ: KeyValueDiffer<string, DiffTableFormat>

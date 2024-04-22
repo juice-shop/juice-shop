@@ -18,18 +18,18 @@ describe('QrCodeComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
         QrCodeModule,
         MatDividerModule,
         MatButtonModule,
-        MatDialogModule
-      ],
-      declarations: [QrCodeComponent],
-      providers: [
+        MatDialogModule,
+        QrCodeComponent
+    ],
+    providers: [
         { provide: MAT_DIALOG_DATA, useValue: { data: 'data', url: 'url', address: 'address', title: 'title' } }
-      ]
-    })
+    ]
+})
       .compileComponents()
   }))
 

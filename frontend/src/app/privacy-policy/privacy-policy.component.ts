@@ -6,11 +6,16 @@
 import { Component, Inject, type OnInit } from '@angular/core'
 import { DOCUMENT } from '@angular/common'
 import { ConfigurationService } from '../Services/configuration.service'
+import { MatDivider } from '@angular/material/divider';
+import { TranslateModule } from '@ngx-translate/core';
+import { MatCard } from '@angular/material/card';
 
 @Component({
-  selector: 'app-privacy-policy',
-  templateUrl: './privacy-policy.component.html',
-  styleUrls: ['./privacy-policy.component.scss']
+    selector: 'app-privacy-policy',
+    templateUrl: './privacy-policy.component.html',
+    styleUrls: ['./privacy-policy.component.scss'],
+    standalone: true,
+    imports: [MatCard, TranslateModule, MatDivider]
 })
 export class PrivacyPolicyComponent implements OnInit {
   public applicationName: string = 'OWASP Juice Shop'

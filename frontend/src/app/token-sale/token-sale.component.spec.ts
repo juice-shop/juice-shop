@@ -20,16 +20,16 @@ describe('TokenSaleComponent', () => {
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { } }))
     TestBed.configureTestingModule({
-      declarations: [TokenSaleComponent],
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
         MatCardModule,
-        MatButtonModule
-      ],
-      providers: [
+        MatButtonModule,
+        TokenSaleComponent
+    ],
+    providers: [
         { provide: ConfigurationService, useValue: configurationService }
-      ]
-    })
+    ]
+})
       .compileComponents()
   }))
 

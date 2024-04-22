@@ -53,9 +53,9 @@ describe('RegisterComponent', () => {
     userService = jasmine.createSpyObj('UserService', ['save'])
     userService.save.and.returnValue(of({}))
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         RouterTestingModule.withRoutes([
-          { path: 'login', component: LoginComponent }
+            { path: 'login', component: LoginComponent }
         ]),
         TranslateModule.forRoot(),
         MatPasswordStrengthModule.forRoot(),
@@ -72,15 +72,15 @@ describe('RegisterComponent', () => {
         MatSnackBarModule,
         MatTooltipModule,
         MatIconModule,
-        MatSlideToggleModule
-      ],
-      declarations: [RegisterComponent, LoginComponent],
-      providers: [
+        MatSlideToggleModule,
+        RegisterComponent, LoginComponent
+    ],
+    providers: [
         { provide: SecurityAnswerService, useValue: securityAnswerService },
         { provide: SecurityQuestionService, useValue: securityQuestionService },
         { provide: UserService, useValue: userService }
-      ]
-    })
+    ]
+})
       .compileComponents()
 
     location = TestBed.inject(Location)

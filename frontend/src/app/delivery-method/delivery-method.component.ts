@@ -6,20 +6,30 @@
 import { Component, NgZone, type OnInit } from '@angular/core'
 import { DeliveryService } from '../Services/delivery.service'
 import { AddressService } from '../Services/address.service'
-import { MatTableDataSource } from '@angular/material/table'
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table'
 import { Router } from '@angular/router'
-import { Location } from '@angular/common'
+import { Location, NgIf, NgClass } from '@angular/common'
 import { type DeliveryMethod } from '../Models/deliveryMethod.model'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faRocket, faShippingFast, faTruck } from '@fortawesome/free-solid-svg-icons'
 import { SelectionModel } from '@angular/cdk/collections'
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { MatRadioButton } from '@angular/material/radio';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatDivider } from '@angular/material/divider';
+import { TranslateModule } from '@ngx-translate/core';
+import { MatCard } from '@angular/material/card';
 
 library.add(faRocket, faShippingFast, faTruck)
 
 @Component({
-  selector: 'app-delivery-method',
-  templateUrl: './delivery-method.component.html',
-  styleUrls: ['./delivery-method.component.scss']
+    selector: 'app-delivery-method',
+    templateUrl: './delivery-method.component.html',
+    styleUrls: ['./delivery-method.component.scss'],
+    standalone: true,
+    imports: [MatCard, NgIf, TranslateModule, MatDivider, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, FlexModule, MatCellDef, MatCell, MatRadioButton, NgClass, ExtendedModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatButton, MatIcon]
 })
 export class DeliveryMethodComponent implements OnInit {
   public displayedColumns = ['Selection', 'Name', 'Price', 'ETA']

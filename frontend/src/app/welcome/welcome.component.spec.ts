@@ -28,19 +28,19 @@ describe('WelcomeComponent', () => {
     dialog.open.and.returnValue(null)
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
         CookieModule.forRoot(),
         HttpClientTestingModule,
-        MatDialogModule
-      ],
-      declarations: [WelcomeComponent],
-      providers: [
+        MatDialogModule,
+        WelcomeComponent
+    ],
+    providers: [
         { provide: ConfigurationService, useValue: configurationService },
         { provide: MatDialog, useValue: dialog },
         CookieService
-      ]
-    })
+    ]
+})
       .compileComponents()
 
     cookieService = TestBed.inject(CookieService)

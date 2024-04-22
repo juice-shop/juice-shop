@@ -9,11 +9,11 @@ describe('CodeAreaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot()
-      ],
-      declarations: [CodeAreaComponent]
-    })
+    imports: [
+        TranslateModule.forRoot(),
+        CodeAreaComponent
+    ]
+})
       .compileComponents()
   })
 

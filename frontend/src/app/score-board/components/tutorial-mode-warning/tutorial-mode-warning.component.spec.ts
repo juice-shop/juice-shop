@@ -9,9 +9,8 @@ describe('TutorialModeWarningComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [TutorialModeWarningComponent]
-    }).compileComponents()
+    imports: [TranslateModule.forRoot(), TutorialModeWarningComponent]
+}).compileComponents()
 
     fixture = TestBed.createComponent(TutorialModeWarningComponent)
     component = fixture.componentInstance

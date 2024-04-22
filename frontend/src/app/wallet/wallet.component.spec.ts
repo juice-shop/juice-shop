@@ -39,25 +39,24 @@ describe('WalletComponent', () => {
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         RouterTestingModule,
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
-
         BrowserAnimationsModule,
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
-        MatGridListModule
-      ],
-      declarations: [WalletComponent],
-      providers: [
+        MatGridListModule,
+        WalletComponent
+    ],
+    providers: [
         { provide: WalletService, useValue: walletService },
         { provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar }
-      ]
-    })
+    ]
+})
       .compileComponents()
   }))
 

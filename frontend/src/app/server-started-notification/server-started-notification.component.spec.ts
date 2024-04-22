@@ -45,22 +45,22 @@ describe('ServerStartedNotificationComponent', () => {
     socketIoService.socket.and.returnValue(mockSocket)
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
         CookieModule.forRoot(),
         HttpClientTestingModule,
         MatCardModule,
         MatButtonModule,
-        MatIconModule
-      ],
-      declarations: [ServerStartedNotificationComponent],
-      providers: [
+        MatIconModule,
+        ServerStartedNotificationComponent
+    ],
+    providers: [
         { provide: ChallengeService, useValue: challengeService },
         { provide: TranslateService, useValue: translateService },
         { provide: SocketIoService, useValue: socketIoService },
         CookieService
-      ]
-    })
+    ]
+})
       .compileComponents()
 
     cookieService = TestBed.inject(CookieService)

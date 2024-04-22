@@ -18,19 +18,19 @@ describe('FeedbackDetailsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         MatDividerModule,
-        MatDialogModule
-      ],
-      declarations: [FeedbackDetailsComponent],
-      providers: [
+        MatDialogModule,
+        FeedbackDetailsComponent
+    ],
+    providers: [
         UserService,
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: { productData: {} } }
-      ]
-    })
+    ]
+})
       .compileComponents()
   }))
 

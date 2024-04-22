@@ -20,19 +20,19 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [WalletWeb3Component],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    TranslateModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatCardModule,
-    MatInputModule,
-    MatSnackBarModule
-  ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        TranslateModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatCardModule,
+        MatInputModule,
+        MatSnackBarModule,
+        WalletWeb3Component
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class WalletWeb3Module {
   constructor (

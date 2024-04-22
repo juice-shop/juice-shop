@@ -8,13 +8,16 @@ import { Component, type OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSlash, faHandPaper } from '@fortawesome/free-solid-svg-icons'
+import { MatCard } from '@angular/material/card';
 
 library.add(faUserSlash, faHandPaper)
 
 @Component({
-  selector: 'app-error-page',
-  templateUrl: './error-page.component.html',
-  styleUrls: ['./error-page.component.scss']
+    selector: 'app-error-page',
+    templateUrl: './error-page.component.html',
+    styleUrls: ['./error-page.component.scss'],
+    standalone: true,
+    imports: [MatCard]
 })
 export class ErrorPageComponent implements OnInit {
   public error: string | null = null

@@ -19,30 +19,28 @@ describe('FilterSettingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         NoopAnimationsModule,
         TranslateModule.forRoot(),
         MatFormFieldModule,
         MatInputModule,
         MatSelectModule,
         MatTooltipModule,
-        MatDialogModule
-      ],
-      declarations: [
+        MatDialogModule,
         FilterSettingsComponent,
         CategoryFilterComponent,
         DifficultySelectionSummaryPipe
-      ],
-      providers: [
+    ],
+    providers: [
         {
-          provide: LocalBackupService,
-          useValue: {
-            save: () => null,
-            restore: () => null
-          }
+            provide: LocalBackupService,
+            useValue: {
+                save: () => null,
+                restore: () => null
+            }
         }
-      ]
-    }).compileComponents()
+    ]
+}).compileComponents()
 
     fixture = TestBed.createComponent(FilterSettingsComponent)
     component = fixture.componentInstance

@@ -10,8 +10,8 @@ import { AdministrationService } from '../Services/administration.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { Component, EventEmitter, NgZone, type OnInit, Output } from '@angular/core'
 import { CookieService } from 'ngy-cookie'
-import { TranslateService } from '@ngx-translate/core'
-import { Router } from '@angular/router'
+import { TranslateService, TranslateModule } from '@ngx-translate/core'
+import { Router, RouterLink } from '@angular/router'
 import { SocketIoService } from '../Services/socket-io.service'
 import { LanguagesService } from '../Services/languages.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
@@ -42,13 +42,26 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { LoginGuard } from '../app.guard'
 import { roles } from '../roles'
+import { MatDivider } from '@angular/material/divider';
+import { MatRadioButton } from '@angular/material/radio';
+import { NgIf, NgFor } from '@angular/common';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatSearchBarComponent } from '../mat-search-bar/mat-search-bar.component';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatButton } from '@angular/material/button';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 
 library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faGithub, faComments, faThermometerEmpty, faThermometerQuarter, faThermometerHalf, faThermometerThreeQuarters, faThermometerFull)
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+    selector: 'app-navbar',
+    templateUrl: './navbar.component.html',
+    styleUrls: ['./navbar.component.scss'],
+    standalone: true,
+    imports: [MatToolbar, FlexModule, MatToolbarRow, MatButton, MatTooltip, MatIcon, RouterLink, ExtendedModule, MatSearchBarComponent, MatMenuTrigger, MatMenu, NgIf, MatMenuItem, NgFor, MatRadioButton, TranslateModule, MatDivider]
 })
 export class NavbarComponent implements OnInit {
   public userEmail: string = ''

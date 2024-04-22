@@ -10,10 +10,22 @@ import { ChallengeService } from '../Services/challenge.service'
 import { VulnLinesService, type result } from '../Services/vuln-lines.service'
 import { Component, Inject, type OnInit } from '@angular/core'
 
-import { MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { UntypedFormControl } from '@angular/forms'
+import { MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog'
+import { UntypedFormControl, FormsModule } from '@angular/forms'
 import { ConfigurationService } from '../Services/configuration.service'
 import { type ThemePalette } from '@angular/material/core'
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { MatCard } from '@angular/material/card';
+import { CodeFixesComponent } from '../code-fixes/code-fixes.component';
+import { MatIcon } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
+import { CodeAreaComponent } from '../code-area/code-area.component';
+import { NgIf, NgClass, NgFor } from '@angular/common';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatTabGroup, MatTab, MatTabLabel } from '@angular/material/tabs';
 
 enum ResultState {
   Undecided,
@@ -32,10 +44,12 @@ export interface RandomFixes {
 }
 
 @Component({
-  selector: 'code-snippet',
-  templateUrl: './code-snippet.component.html',
-  styleUrls: ['./code-snippet.component.scss'],
-  host: { class: 'code-snippet' }
+    selector: 'code-snippet',
+    templateUrl: './code-snippet.component.html',
+    styleUrls: ['./code-snippet.component.scss'],
+    host: { class: 'code-snippet' },
+    standalone: true,
+    imports: [MatDialogTitle, MatDialogContent, MatTabGroup, MatTab, FlexModule, NgIf, CodeAreaComponent, TranslateModule, MatTabLabel, MatIcon, CodeFixesComponent, MatDialogActions, MatCard, NgClass, ExtendedModule, MatFormField, MatLabel, MatInput, NgFor, FormsModule, MatIconButton, MatButton, MatDialogClose]
 })
 export class CodeSnippetComponent implements OnInit {
   public snippet: CodeSnippet = null

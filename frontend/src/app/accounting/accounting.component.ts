@@ -7,12 +7,21 @@ import { ProductService } from '../Services/product.service'
 import { type AfterViewInit, Component, type OnDestroy, ViewChild } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { type Subscription } from 'rxjs'
-import { MatTableDataSource } from '@angular/material/table'
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table'
 import { QuantityService } from '../Services/quantity.service'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { OrderHistoryService } from '../Services/order-history.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatSuffix } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIconButton } from '@angular/material/button';
+import { NgIf } from '@angular/common';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { TranslateModule } from '@ngx-translate/core';
+import { MatCard } from '@angular/material/card';
 
 library.add(faCheck)
 
@@ -24,9 +33,11 @@ interface Order {
 }
 
 @Component({
-  selector: 'app-accounting',
-  templateUrl: './accounting.component.html',
-  styleUrls: ['./accounting.component.scss']
+    selector: 'app-accounting',
+    templateUrl: './accounting.component.html',
+    styleUrls: ['./accounting.component.scss'],
+    standalone: true,
+    imports: [MatCard, TranslateModule, FlexModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, NgIf, MatIconButton, MatTooltip, MatIcon, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, MatFormField, MatInput, MatSuffix]
 })
 export class AccountingComponent implements AfterViewInit, OnDestroy {
   public orderHistoryColumns = ['OrderId', 'Price', 'Status', 'StatusButton']

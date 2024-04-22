@@ -47,8 +47,7 @@ describe('AccountingComponent', () => {
     snackBar.open.and.returnValue(null)
 
     TestBed.configureTestingModule({
-      declarations: [AccountingComponent],
-      imports: [
+    imports: [
         RouterTestingModule,
         HttpClientTestingModule,
         TranslateModule.forRoot(),
@@ -61,15 +60,16 @@ describe('AccountingComponent', () => {
         MatCardModule,
         MatIconModule,
         MatTooltipModule,
-        MatSnackBarModule
-      ],
-      providers: [
+        MatSnackBarModule,
+        AccountingComponent
+    ],
+    providers: [
         { provide: ProductService, useValue: productService },
         { provide: QuantityService, useValue: quantityService },
         { provide: OrderHistoryService, useValue: orderHistoryService },
         { provide: MatSnackBar, useValue: snackBar }
-      ]
-    })
+    ]
+})
       .compileComponents()
   }))
 

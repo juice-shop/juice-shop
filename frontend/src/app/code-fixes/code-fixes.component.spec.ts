@@ -10,10 +10,9 @@ describe('CodeFixesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CookieModule.forRoot()],
-      declarations: [CodeFixesComponent],
-      providers: [CookieService]
-    })
+    imports: [CookieModule.forRoot(), CodeFixesComponent],
+    providers: [CookieService]
+})
       .compileComponents()
     cookieService = TestBed.inject(CookieService)
   })

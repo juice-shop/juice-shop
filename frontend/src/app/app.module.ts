@@ -99,7 +99,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatBadgeModule } from '@angular/material/badge'
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs'
-import { ScoreBoardModule } from './score-board/score-board.module'
+
 import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component'
 import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
@@ -152,9 +152,64 @@ export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json')
 }
 
-@NgModule({
-  declarations: [
-    AppComponent,
+@NgModule(/* TODO(standalone-migration): clean up removed NgModule class manually. 
+{
+    declarations: [AppComponent],
+    imports: [
+    BrowserModule,
+    Routing,
+    TranslateModule.forRoot({
+        loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient]
+        }
+    }),
+    CookieModule.forRoot(),
+    MatPasswordStrengthModule.forRoot(),
+    FlexLayoutModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    GalleryModule,
+    NgxTextDiffModule,
+    QrCodeModule,
+    FileUploadModule,
+    ClipboardModule,
+    MatToolbarModule,
+    MatIconModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatRippleModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCardModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatExpansionModule,
+    MatProgressBarModule,
+    MatTooltipModule,
+    MatMenuModule,
+    MatListModule,
+    MatButtonToggleModule,
+    LayoutModule,
+    MatGridListModule,
+    MatBadgeModule,
+    MatRadioModule,
+    MatSnackBarModule,
+    MatSliderModule,
+    MatTabsModule,
+    MatSlideToggleModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    HighlightModule,
     AboutComponent,
     AdministrationComponent,
     BasketComponent,
@@ -211,119 +266,60 @@ export function HttpLoaderFactory (http: HttpClient) {
     CodeAreaComponent,
     CodeFixesComponent,
     MatSearchBarComponent
-  ],
-  imports: [
-    BrowserModule,
-    Routing,
-    TranslateModule.forRoot(
-      {
-        loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
-        }
-      }
-    ),
-    CookieModule.forRoot(),
-    MatPasswordStrengthModule.forRoot(),
-    FlexLayoutModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    GalleryModule,
-    NgxTextDiffModule,
-    QrCodeModule,
-    FileUploadModule,
-    ClipboardModule,
-    MatToolbarModule,
-    MatIconModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatRippleModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatCardModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatDialogModule,
-    MatDividerModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatExpansionModule,
-    MatProgressBarModule,
-    MatTooltipModule,
-    MatMenuModule,
-    MatListModule,
-    MatButtonToggleModule,
-    LayoutModule,
-    MatGridListModule,
-    MatBadgeModule,
-    MatRadioModule,
-    MatSnackBarModule,
-    MatSliderModule,
-    MatTabsModule,
-    MatSlideToggleModule,
-    MatChipsModule,
-    MatAutocompleteModule,
-    HighlightModule,
-    ScoreBoardModule
-  ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: RequestInterceptor,
-      multi: true
-    },
-    {
-      provide: HIGHLIGHT_OPTIONS,
-      useValue: {
-        coreLibraryLoader: async () => await import('highlight.js/lib/core'),
-        lineNumbersLoader: async () => await import('highlightjs-line-numbers.js'),
-        languages: {
-          typescript: async () => await import('highlight.js/lib/languages/typescript'),
-          javascript: async () => await import('highlight.js/lib/languages/javascript'),
-          yaml: async () => await import('highlight.js/lib/languages/yaml')
-        }
-      }
-    },
-    ProductService,
-    ConfigurationService,
-    AdministrationService,
-    SecurityQuestionService,
-    DataSubjectService,
-    UserService,
-    SecurityAnswerService,
-    CaptchaService,
-    FeedbackService,
-    WindowRefService,
-    ProductReviewService,
-    ComplaintService,
-    ChatbotService,
-    TrackOrderService,
-    RecycleService,
-    BasketService,
-    ChallengeService,
-    CookieService,
-    AdminGuard,
-    LoginGuard,
-    PaymentService,
-    AccountingGuard,
-    DeluxeGuard,
-    ImageCaptchaService,
-    KeysService,
-    AddressService,
-    QuantityService,
-    WalletService,
-    OrderHistoryService,
-    DeliveryService,
-    PhotoWallService
-  ],
-  bootstrap: [AppComponent]
-})
+],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: RequestInterceptor,
+            multi: true
+        },
+        {
+            provide: HIGHLIGHT_OPTIONS,
+            useValue: {
+                coreLibraryLoader: async () => await import('highlight.js/lib/core'),
+                lineNumbersLoader: async () => await import('highlightjs-line-numbers.js'),
+                languages: {
+                    typescript: async () => await import('highlight.js/lib/languages/typescript'),
+                    javascript: async () => await import('highlight.js/lib/languages/javascript'),
+                    yaml: async () => await import('highlight.js/lib/languages/yaml')
+                }
+            }
+        },
+        ProductService,
+        ConfigurationService,
+        AdministrationService,
+        SecurityQuestionService,
+        DataSubjectService,
+        UserService,
+        SecurityAnswerService,
+        CaptchaService,
+        FeedbackService,
+        WindowRefService,
+        ProductReviewService,
+        ComplaintService,
+        ChatbotService,
+        TrackOrderService,
+        RecycleService,
+        BasketService,
+        ChallengeService,
+        CookieService,
+        AdminGuard,
+        LoginGuard,
+        PaymentService,
+        AccountingGuard,
+        DeluxeGuard,
+        ImageCaptchaService,
+        KeysService,
+        AddressService,
+        QuantityService,
+        WalletService,
+        OrderHistoryService,
+        DeliveryService,
+        PhotoWallService
+    ],
+    bootstrap: [AppComponent]
+} */)
 export class AppModule {
   constructor (public configurationService: ConfigurationService, public overlayContainer: OverlayContainer) {
     configurationService.getApplicationConfiguration().subscribe((conf) => {

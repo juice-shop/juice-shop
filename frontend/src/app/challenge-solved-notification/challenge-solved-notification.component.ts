@@ -3,13 +3,18 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { TranslateService } from '@ngx-translate/core'
+import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { ChangeDetectorRef, Component, NgZone, type OnInit } from '@angular/core'
 import { CookieService } from 'ngy-cookie'
 import { CountryMappingService } from 'src/app/Services/country-mapping.service'
 import { SocketIoService } from '../Services/socket-io.service'
+import { ClipboardModule } from 'ngx-clipboard';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { MatCard } from '@angular/material/card';
+import { NgFor, NgIf, LowerCasePipe } from '@angular/common';
 
 interface ChallengeSolvedMessage {
   challenge: string
@@ -27,9 +32,11 @@ interface ChallengeSolvedNotification {
 }
 
 @Component({
-  selector: 'app-challenge-solved-notification',
-  templateUrl: './challenge-solved-notification.component.html',
-  styleUrls: ['./challenge-solved-notification.component.scss']
+    selector: 'app-challenge-solved-notification',
+    templateUrl: './challenge-solved-notification.component.html',
+    styleUrls: ['./challenge-solved-notification.component.scss'],
+    standalone: true,
+    imports: [NgFor, MatCard, MatButton, MatIcon, ClipboardModule, NgIf, LowerCasePipe, TranslateModule]
 })
 export class ChallengeSolvedNotificationComponent implements OnInit {
   public notifications: ChallengeSolvedNotification[] = []

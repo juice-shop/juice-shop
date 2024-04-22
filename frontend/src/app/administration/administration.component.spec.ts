@@ -39,24 +39,23 @@ describe('AdministrationComponent', () => {
     feedbackService.del.and.returnValue(of(null))
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         HttpClientTestingModule,
-
         MatTableModule,
         TranslateModule.forRoot(),
         MatDialogModule,
         MatPaginatorModule,
         MatDividerModule,
         MatCardModule,
-        MatIconModule
-      ],
-      declarations: [AdministrationComponent],
-      providers: [
+        MatIconModule,
+        AdministrationComponent
+    ],
+    providers: [
         { provide: MatDialog, useValue: dialog },
         { provide: UserService, useValue: userService },
         { provide: FeedbackService, useValue: feedbackService }
-      ]
-    })
+    ]
+})
       .compileComponents()
   }))
 

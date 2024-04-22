@@ -94,8 +94,7 @@ describe('SearchResultComponent', () => {
     deluxeGuard.isDeluxe.and.returnValue(of(false))
 
     TestBed.configureTestingModule({
-      declarations: [SearchResultComponent],
-      imports: [
+    imports: [
         RouterTestingModule,
         HttpClientTestingModule,
         TranslateModule.forRoot(),
@@ -105,9 +104,10 @@ describe('SearchResultComponent', () => {
         MatDialogModule,
         MatDividerModule,
         MatGridListModule,
-        MatCardModule
-      ],
-      providers: [
+        MatCardModule,
+        SearchResultComponent
+    ],
+    providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: MatDialog, useValue: dialog },
         { provide: MatSnackBar, useValue: snackBar },
@@ -118,8 +118,8 @@ describe('SearchResultComponent', () => {
         { provide: SocketIoService, useValue: socketIoService },
         { provide: QuantityService, useValue: quantityService },
         { provide: DeluxeGuard, useValue: deluxeGuard }
-      ]
-    })
+    ]
+})
       .compileComponents()
   }))
 

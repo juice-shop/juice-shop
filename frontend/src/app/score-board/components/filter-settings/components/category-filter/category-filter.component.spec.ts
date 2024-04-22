@@ -11,12 +11,12 @@ describe('CategoryFilterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
-        MatTooltipModule
-      ],
-      declarations: [CategoryFilterComponent]
-    })
+        MatTooltipModule,
+        CategoryFilterComponent
+    ]
+})
       .compileComponents()
 
     fixture = TestBed.createComponent(CategoryFilterComponent)
