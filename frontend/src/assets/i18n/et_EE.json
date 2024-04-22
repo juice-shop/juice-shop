@@ -345,7 +345,7 @@
   "CONFIRM_RECYCLING_BOX": "Täname, et kasutate meie keskkonnasõbraliku taaskasutamise iseteenindust. Saadame teile õunamassi taaskasutuskasti esimesel võimalusel.",
   "CONFIRM_RECYCLING_PICKUP": "Täname teid meie mugava taaskasutusteenuse kasutamise eest. Tuleme teie õunamassile järgi {{pickupdate}}.",
   "CHALLENGE_UNAVAILABLE": "See väljakutse pole {{env}} keskkonnas saadaval!",
-  "CHALLENGE_UNAVAILABLE_SAFETYMODE": "See väljakutse pole saadaval, kuna rakendus töötab turvarežiimis!",
+  "CHALLENGE_UNAVAILABLE_SAFETYMODE": "This challenge is unavailable because the application is running in safety mode!",
   "CLICK_FOR_MORE_HINTS": "Klõpsa, et näha rohkem vihjeid.",
   "CLICK_TO_OPEN_HINTS": "Klõpsa vihjete nägemiseks.",
   "BONUS_POINTS_EARNED": "Teenitud boonuspunktid: {{bonus}}",

@@ -345,7 +345,7 @@
   "CONFIRM_RECYCLING_BOX": "Obrigado por utilizar nosso serviço de reciclagem. Iremos enviar a embalagem assim que possível.",
   "CONFIRM_RECYCLING_PICKUP": "Obrigado por utilizar nosso conveniente serviço de reciclagem. Iremos coletar a caixa em {{pickupdate}}.",
   "CHALLENGE_UNAVAILABLE": "Este desafio não está disponível em um ambiente {{env}}!",
-  "CHALLENGE_UNAVAILABLE_SAFETYMODE": "Este desafio não está disponível porque o aplicativo está em modo de segurança!",
+  "CHALLENGE_UNAVAILABLE_SAFETYMODE": "This challenge is unavailable because the application is running in safety mode!",
   "CLICK_FOR_MORE_HINTS": "Clique para mais dicas.",
   "CLICK_TO_OPEN_HINTS": "Clique para abrir as dicas.",
   "BONUS_POINTS_EARNED": "Pontos Bônus Obtidos: {{bonus}}",
