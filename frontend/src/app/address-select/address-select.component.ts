@@ -5,14 +5,14 @@
 
 import { Component, NgZone } from '@angular/core'
 import { Router } from '@angular/router'
-import { AddressComponent } from '../address/address.component';
+import { AddressComponent } from '../address/address.component'
 
 @Component({
-    selector: 'app-address-select',
-    templateUrl: './address-select.component.html',
-    styleUrls: ['./address-select.component.scss'],
-    standalone: true,
-    imports: [AddressComponent]
+  selector: 'app-address-select',
+  templateUrl: './address-select.component.html',
+  styleUrls: ['./address-select.component.scss'],
+  standalone: true,
+  imports: [AddressComponent]
 })
 export class AddressSelectComponent {
   public addressId: any = undefined

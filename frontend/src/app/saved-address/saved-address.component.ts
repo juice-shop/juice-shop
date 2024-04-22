@@ -4,14 +4,14 @@
  */
 
 import { Component } from '@angular/core'
-import { AddressComponent } from '../address/address.component';
+import { AddressComponent } from '../address/address.component'
 
 @Component({
-    selector: 'app-saved-address',
-    templateUrl: './saved-address.component.html',
-    styleUrls: ['./saved-address.component.scss'],
-    standalone: true,
-    imports: [AddressComponent]
+  selector: 'app-saved-address',
+  templateUrl: './saved-address.component.html',
+  styleUrls: ['./saved-address.component.scss'],
+  standalone: true,
+  imports: [AddressComponent]
 })
 
 export class SavedAddressComponent {

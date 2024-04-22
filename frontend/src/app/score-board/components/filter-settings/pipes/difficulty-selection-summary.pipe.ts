@@ -8,8 +8,9 @@ interface DifficultyGroup {
 }
 
 @Pipe({
-    name: 'difficultySelectionSummary', pure: true,
-    standalone: true
+  name: 'difficultySelectionSummary',
+  pure: true,
+  standalone: true
 })
 export class DifficultySelectionSummaryPipe implements PipeTransform {
   transform (selectedDifficulties: Array<1 | 2 | 3 | 4 | 5 | 6>): string {

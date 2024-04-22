@@ -14,22 +14,22 @@ import { DomSanitizer } from '@angular/platform-browser'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArchive, faEye, faHome, faTrashAlt, faUser } from '@fortawesome/free-solid-svg-icons'
 import { MatPaginator } from '@angular/material/paginator'
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatButton } from '@angular/material/button';
-import { NgIf, NgFor } from '@angular/common';
-import { FlexModule } from '@angular/flex-layout/flex';
-import { TranslateModule } from '@ngx-translate/core';
-import { MatCard } from '@angular/material/card';
+import { MatIcon } from '@angular/material/icon'
+import { MatTooltip } from '@angular/material/tooltip'
+import { MatButton } from '@angular/material/button'
+import { NgIf, NgFor } from '@angular/common'
+import { FlexModule } from '@angular/flex-layout/flex'
+import { TranslateModule } from '@ngx-translate/core'
+import { MatCard } from '@angular/material/card'
 
 library.add(faUser, faEye, faHome, faArchive, faTrashAlt)
 
 @Component({
-    selector: 'app-administration',
-    templateUrl: './administration.component.html',
-    styleUrls: ['./administration.component.scss'],
-    standalone: true,
-    imports: [MatCard, TranslateModule, FlexModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, NgIf, MatButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, MatTooltip, NgFor, MatIcon]
+  selector: 'app-administration',
+  templateUrl: './administration.component.html',
+  styleUrls: ['./administration.component.scss'],
+  standalone: true,
+  imports: [MatCard, TranslateModule, FlexModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, NgIf, MatButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, MatTooltip, NgFor, MatIcon]
 })
 export class AdministrationComponent implements OnInit {
   public userDataSource: any

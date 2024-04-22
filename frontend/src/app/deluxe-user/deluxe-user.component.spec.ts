@@ -49,9 +49,9 @@ describe('DeluxeUserComponent', () => {
     cookieService = jasmine.createSpyObj('CookieService', ['remove'])
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         RouterTestingModule.withRoutes([
-            { path: 'login', component: LoginComponent }
+          { path: 'login', component: LoginComponent }
         ]),
         TranslateModule.forRoot(),
         HttpClientTestingModule,
@@ -69,13 +69,13 @@ describe('DeluxeUserComponent', () => {
         MatCheckboxModule,
         MatTooltipModule,
         DeluxeUserComponent, LoginComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: UserService, useValue: userService },
         { provide: ConfigurationService, useValue: configurationService },
         { provide: CookieService, useValue: cookieService }
-    ]
-})
+      ]
+    })
       .compileComponents()
     TestBed.inject(Location)
   }))

@@ -7,15 +7,15 @@ import { Component, inject } from '@angular/core'
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
 import { type Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
-import { RouterOutlet } from '@angular/router';
-import { MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
+import { RouterOutlet } from '@angular/router'
+import { MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav'
 
 @Component({
-    selector: 'app-privacy-security',
-    templateUrl: './privacy-security.component.html',
-    styleUrls: ['./privacy-security.component.scss'],
-    standalone: true,
-    imports: [MatSidenavContainer, MatSidenavContent, RouterOutlet]
+  selector: 'app-privacy-security',
+  templateUrl: './privacy-security.component.html',
+  styleUrls: ['./privacy-security.component.scss'],
+  standalone: true,
+  imports: [MatSidenavContainer, MatSidenavContent, RouterOutlet]
 })
 export class PrivacySecurityComponent {
   Ip!: string

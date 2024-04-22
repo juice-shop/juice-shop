@@ -14,20 +14,20 @@ import { faNewspaper, faStar } from '@fortawesome/free-regular-svg-icons'
 import { faStar as fasStar, faPalette } from '@fortawesome/free-solid-svg-icons'
 import { catchError } from 'rxjs/operators'
 import { EMPTY } from 'rxjs'
-import { MatButton } from '@angular/material/button';
-import { NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { MatCard } from '@angular/material/card';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { MatButton } from '@angular/material/button'
+import { NgIf } from '@angular/common'
+import { TranslateModule } from '@ngx-translate/core'
+import { MatCard } from '@angular/material/card'
+import { FlexModule } from '@angular/flex-layout/flex'
 
 library.add(faFacebook, faTwitter, faSlack, faReddit, faNewspaper, faStar, fasStar, faPalette)
 
 @Component({
-    selector: 'app-about',
-    templateUrl: './about.component.html',
-    styleUrls: ['./about.component.scss'],
-    standalone: true,
-    imports: [FlexModule, MatCard, TranslateModule, GalleryComponent, GalleryImageDef, NgIf, MatButton]
+  selector: 'app-about',
+  templateUrl: './about.component.html',
+  styleUrls: ['./about.component.scss'],
+  standalone: true,
+  imports: [FlexModule, MatCard, TranslateModule, GalleryComponent, GalleryImageDef, NgIf, MatButton]
 })
 export class AboutComponent implements OnInit {
   public twitterUrl?: string
