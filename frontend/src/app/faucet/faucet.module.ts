@@ -20,19 +20,19 @@ const routes: Routes = [
 ]
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule.forChild(routes),
-        TranslateModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatButtonModule,
-        MatCardModule,
-        MatInputModule,
-        MatSnackBarModule,
-        FaucetComponent
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    TranslateModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatInputModule,
+    MatSnackBarModule,
+    FaucetComponent
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class FaucetModule {
   constructor (public configurationService: ConfigurationService, public overlayContainer: OverlayContainer) {

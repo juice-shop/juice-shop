@@ -12,22 +12,22 @@ import { AddressService } from '../Services/address.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatIconButton } from '@angular/material/button';
-import { NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { FlexModule } from '@angular/flex-layout/flex';
-import { MatCard } from '@angular/material/card';
+import { MatIcon } from '@angular/material/icon'
+import { MatTooltip } from '@angular/material/tooltip'
+import { MatIconButton } from '@angular/material/button'
+import { NgIf } from '@angular/common'
+import { TranslateModule } from '@ngx-translate/core'
+import { FlexModule } from '@angular/flex-layout/flex'
+import { MatCard } from '@angular/material/card'
 
 library.add(faTwitter)
 
 @Component({
-    selector: 'app-order-completion',
-    templateUrl: './order-completion.component.html',
-    styleUrls: ['./order-completion.component.scss'],
-    standalone: true,
-    imports: [MatCard, FlexModule, TranslateModule, RouterLink, NgIf, MatIconButton, MatTooltip, MatIcon, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow]
+  selector: 'app-order-completion',
+  templateUrl: './order-completion.component.html',
+  styleUrls: ['./order-completion.component.scss'],
+  standalone: true,
+  imports: [MatCard, FlexModule, TranslateModule, RouterLink, NgIf, MatIconButton, MatTooltip, MatIcon, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow]
 })
 export class OrderCompletionComponent implements OnInit {
   public tableColumns = ['product', 'price', 'quantity', 'total price']

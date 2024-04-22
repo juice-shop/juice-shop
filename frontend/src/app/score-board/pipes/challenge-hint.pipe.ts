@@ -8,8 +8,9 @@ interface ChallengeHintPipeArgs {
 }
 
 @Pipe({
-    name: 'challengeHint', pure: false,
-    standalone: true
+  name: 'challengeHint',
+  pure: false,
+  standalone: true
 })
 export class ChallengeHintPipe implements PipeTransform {
   constructor (private readonly translate: TranslateService) { }

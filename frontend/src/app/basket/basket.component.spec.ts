@@ -31,7 +31,7 @@ describe('BasketComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         RouterTestingModule,
         HttpClientTestingModule,
         TranslateModule.forRoot(),
@@ -47,12 +47,12 @@ describe('BasketComponent', () => {
         MatButtonToggleModule,
         MatSnackBarModule,
         BasketComponent, PurchaseBasketComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: DeluxeGuard, useValue: deluxeGuard },
         { provide: MatSnackBar, useValue: snackBar }
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

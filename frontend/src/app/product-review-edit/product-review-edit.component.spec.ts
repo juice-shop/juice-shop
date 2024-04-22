@@ -29,7 +29,7 @@ describe('ProductReviewEditComponent', () => {
     dialogRef.close.and.returnValue({})
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         ReactiveFormsModule,
         BrowserAnimationsModule,
@@ -39,13 +39,13 @@ describe('ProductReviewEditComponent', () => {
         MatButtonModule,
         MatSnackBarModule,
         ProductReviewEditComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: ProductReviewService, useValue: productReviewService },
         { provide: MAT_DIALOG_DATA, useValue: { productData: {} } },
         { provide: MatDialogRef, useValue: dialogRef }
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

@@ -8,19 +8,19 @@ import { Component, Inject, type OnInit } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons'
-import { MatButton } from '@angular/material/button';
-import { TranslateModule } from '@ngx-translate/core';
-import { FlexModule } from '@angular/flex-layout/flex';
-import { MatDivider } from '@angular/material/divider';
+import { MatButton } from '@angular/material/button'
+import { TranslateModule } from '@ngx-translate/core'
+import { FlexModule } from '@angular/flex-layout/flex'
+import { MatDivider } from '@angular/material/divider'
 
 library.add(faArrowCircleLeft)
 
 @Component({
-    selector: 'app-user-details',
-    templateUrl: './user-details.component.html',
-    styleUrls: ['./user-details.component.scss'],
-    standalone: true,
-    imports: [MatDialogContent, MatDivider, FlexModule, TranslateModule, MatDialogActions, MatButton, MatDialogClose]
+  selector: 'app-user-details',
+  templateUrl: './user-details.component.html',
+  styleUrls: ['./user-details.component.scss'],
+  standalone: true,
+  imports: [MatDialogContent, MatDivider, FlexModule, TranslateModule, MatDialogActions, MatButton, MatDialogClose]
 })
 export class UserDetailsComponent implements OnInit {
   public user: any

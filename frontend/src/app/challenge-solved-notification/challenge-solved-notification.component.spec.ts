@@ -55,7 +55,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         HttpClientTestingModule,
         TranslateModule.forRoot(),
         CookieModule.forRoot(),
@@ -64,16 +64,16 @@ describe('ChallengeSolvedNotificationComponent', () => {
         MatButtonModule,
         MatIconModule,
         ChallengeSolvedNotificationComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: SocketIoService, useValue: socketIoService },
         { provide: TranslateService, useValue: translateService },
         { provide: CookieService, useValue: cookieService },
         { provide: ChallengeService, useValue: challengeService },
         { provide: ConfigurationService, useValue: configurationService },
         CountryMappingService
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

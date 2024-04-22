@@ -40,7 +40,7 @@ describe('ComplaintComponent', () => {
     translateService.onDefaultLangChange = new EventEmitter()
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         HttpClientTestingModule,
         ReactiveFormsModule,
         FileUploadModule,
@@ -51,13 +51,13 @@ describe('ComplaintComponent', () => {
         MatInputModule,
         MatButtonModule,
         ComplaintComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: UserService, useValue: userService },
         { provide: ComplaintService, useValue: complaintService },
         { provide: TranslateService, useValue: translateService }
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

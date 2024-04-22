@@ -22,16 +22,16 @@ describe('PrivacyPolicyComponent', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         HttpClientTestingModule,
         MatCardModule,
         MatDividerModule,
         PrivacyPolicyComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: ConfigurationService, useValue: configurationService }
-    ]
-}).compileComponents()
+      ]
+    }).compileComponents()
   }))
 
   beforeEach(() => {

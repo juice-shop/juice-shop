@@ -11,19 +11,19 @@ import { ActivatedRoute, type ParamMap, Router } from '@angular/router'
 import { Location, NgIf } from '@angular/common'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
-import { MatIcon } from '@angular/material/icon';
-import { MatButton } from '@angular/material/button';
-import { MatInput } from '@angular/material/input';
-import { MatFormField, MatLabel, MatError, MatHint } from '@angular/material/form-field';
-import { MatCard } from '@angular/material/card';
-import { FlexModule } from '@angular/flex-layout/flex';
+import { MatIcon } from '@angular/material/icon'
+import { MatButton } from '@angular/material/button'
+import { MatInput } from '@angular/material/input'
+import { MatFormField, MatLabel, MatError, MatHint } from '@angular/material/form-field'
+import { MatCard } from '@angular/material/card'
+import { FlexModule } from '@angular/flex-layout/flex'
 
 @Component({
-    selector: 'app-address-create',
-    templateUrl: './address-create.component.html',
-    styleUrls: ['./address-create.component.scss'],
-    standalone: true,
-    imports: [FlexModule, MatCard, TranslateModule, MatFormField, MatLabel, MatInput, FormsModule, ReactiveFormsModule, NgIf, MatError, MatHint, MatButton, MatIcon]
+  selector: 'app-address-create',
+  templateUrl: './address-create.component.html',
+  styleUrls: ['./address-create.component.scss'],
+  standalone: true,
+  imports: [FlexModule, MatCard, TranslateModule, MatFormField, MatLabel, MatInput, FormsModule, ReactiveFormsModule, NgIf, MatError, MatHint, MatButton, MatIcon]
 })
 export class AddressCreateComponent implements OnInit {
   public countryControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])

@@ -23,17 +23,17 @@ describe('AboutComponent', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { } }))
 
     TestBed.configureTestingModule({
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
         HttpClientTestingModule,
         MatCardModule,
         GalleryModule,
         AboutComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: ConfigurationService, useValue: configurationService }
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

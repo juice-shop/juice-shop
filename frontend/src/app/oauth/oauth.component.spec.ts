@@ -37,9 +37,9 @@ describe('OAuthComponent', () => {
     userService.isLoggedIn.next.and.returnValue({})
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         RouterTestingModule.withRoutes([
-            { path: 'login', component: LoginComponent }
+          { path: 'login', component: LoginComponent }
         ]),
         ReactiveFormsModule,
         CookieModule.forRoot(),
@@ -52,12 +52,12 @@ describe('OAuthComponent', () => {
         HttpClientTestingModule,
         MatTooltipModule,
         OAuthComponent, LoginComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: ActivatedRoute, useValue: { snapshot: { data: { params: '?alt=json&access_token=TEST' } } } },
         { provide: UserService, useValue: userService }
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

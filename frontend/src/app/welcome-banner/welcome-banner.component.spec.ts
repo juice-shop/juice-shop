@@ -28,20 +28,20 @@ describe('WelcomeBannerComponent', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { } }))
     matDialogRef = jasmine.createSpyObj('MatDialogRef', ['close'])
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         CookieModule.forRoot(),
         HttpClientTestingModule,
         MatIconModule,
         MatTooltipModule,
         WelcomeBannerComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: MatDialogRef, useValue: matDialogRef },
         { provide: ConfigurationService, useValue: configurationService },
         CookieService
-    ]
-})
+      ]
+    })
       .compileComponents()
 
     cookieService = TestBed.inject(CookieService)

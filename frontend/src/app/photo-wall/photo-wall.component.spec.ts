@@ -50,7 +50,7 @@ describe('PhotoWallComponent', () => {
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         RouterTestingModule,
         HttpClientTestingModule,
         TranslateModule.forRoot(),
@@ -69,14 +69,14 @@ describe('PhotoWallComponent', () => {
         ReactiveFormsModule,
         MatInputModule,
         PhotoWallComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: PhotoWallService, useValue: photoWallService },
         { provide: ConfigurationService, useValue: configurationService },
         { provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar }
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

@@ -33,7 +33,7 @@ describe('DataExportComponent', () => {
     dataSubjectService = jasmine.createSpyObj('DataSubjectService', ['dataExport'])
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         HttpClientTestingModule,
         TranslateModule.forRoot(),
         MatFormFieldModule,
@@ -44,13 +44,13 @@ describe('DataExportComponent', () => {
         MatRadioModule,
         MatButtonModule,
         DataExportComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: ImageCaptchaService, useValue: imageCaptchaService },
         { provide: DataSubjectService, useValue: dataSubjectService },
         TranslateService
-    ]
-}).compileComponents()
+      ]
+    }).compileComponents()
   }))
 
   beforeEach(() => {

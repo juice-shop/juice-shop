@@ -42,7 +42,7 @@ describe('AccountingComponent', () => {
     orderHistoryService.get.and.returnValue(of([]))
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         RouterTestingModule,
         HttpClientTestingModule,
         TranslateModule.forRoot(),
@@ -58,13 +58,13 @@ describe('AccountingComponent', () => {
         MatDialogModule,
         MatExpansionModule,
         OrderHistoryComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: ProductService, useValue: productService },
         { provide: OrderHistoryService, useValue: orderHistoryService },
         { provide: MatDialog, useValue: dialog }
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 
