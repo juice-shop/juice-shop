@@ -4,8 +4,6 @@
  */
 @use '@angular/material' as mat;
 
-@import '@angular/material/theming';
-
 @include mat.core;
 
 $deeppurple-amber-primary: mat.define-palette(mat.$deep-purple-palette);
