@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
   public redirectUri: string = ''
   constructor (private readonly configurationService: ConfigurationService, private readonly userService: UserService, private readonly windowRefService: WindowRefService, private readonly cookieService: CookieService, private readonly router: Router, private readonly formSubmitService: FormSubmitService, private readonly basketService: BasketService, private readonly ngZone: NgZone) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     const email = localStorage.getItem('email')
     if (email) {
       this.user = {}

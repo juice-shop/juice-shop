@@ -34,7 +34,7 @@ export class OrderSummaryComponent implements OnInit {
   public paymentMethod: any
   constructor (private readonly router: Router, private readonly addressService: AddressService, private readonly paymentService: PaymentService, private readonly basketService: BasketService, private readonly deliveryService: DeliveryService, private readonly ngZone: NgZone, private readonly snackBarHelperService: SnackBarHelperService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.deliveryService.getById(sessionStorage.getItem('deliveryMethodId')).subscribe((method) => {
       this.deliveryPrice = method.price
     })

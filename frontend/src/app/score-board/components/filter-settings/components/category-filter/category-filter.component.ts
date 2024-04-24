@@ -24,7 +24,7 @@ export class CategoryFilterComponent implements OnInit, OnChanges {
   @Output()
     categoriesChange = new EventEmitter<string[]>()
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.availableCategories = CategoryFilterComponent.getAvailableCategories(this.allChallenges)
   }
 

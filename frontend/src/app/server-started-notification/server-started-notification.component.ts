@@ -31,7 +31,7 @@ export class ServerStartedNotificationComponent implements OnInit {
   constructor (private readonly ngZone: NgZone, private readonly challengeService: ChallengeService, private readonly translate: TranslateService, private readonly cookieService: CookieService, private readonly ref: ChangeDetectorRef, private readonly io: SocketIoService) {
   }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.ngZone.runOutsideAngular(() => {
       this.io.socket().on('server started', () => {
         const continueCode = this.cookieService.get('continueCode')

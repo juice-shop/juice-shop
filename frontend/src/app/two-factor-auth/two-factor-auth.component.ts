@@ -58,7 +58,7 @@ export class TwoFactorAuthComponent {
 
   constructor (private readonly twoFactorAuthService: TwoFactorAuthService, private readonly configurationService: ConfigurationService, private readonly snackBar: MatSnackBar, private readonly translateService: TranslateService, private readonly snackBarHelperService: SnackBarHelperService) {}
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.updateStatus()
   }
 

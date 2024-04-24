@@ -33,7 +33,7 @@ export class DeluxeUserComponent implements OnInit {
   constructor (private readonly router: Router, private readonly userService: UserService, private readonly cookieService: CookieService, private readonly configurationService: ConfigurationService, private readonly route: ActivatedRoute, private readonly ngZone: NgZone, private readonly io: SocketIoService) {
   }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       const decalParam: string = this.route.snapshot.queryParams.testDecal // "Forgotten" test parameter to play with different stickers on the delivery box image
       if (config?.application) {

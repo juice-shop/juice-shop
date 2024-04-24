@@ -36,7 +36,7 @@ export class ProductReviewEditComponent implements OnInit {
   constructor (@Inject(MAT_DIALOG_DATA) public data: { reviewData: Review }, private readonly productReviewService: ProductReviewService, private readonly dialogRef: MatDialogRef<ProductReviewEditComponent>,
     private readonly snackBar: MatSnackBar, private readonly snackBarHelperService: SnackBarHelperService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.editReviewControl.setValue(this.data.reviewData.message)
   }
 

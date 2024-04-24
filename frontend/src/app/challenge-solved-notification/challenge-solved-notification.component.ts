@@ -47,7 +47,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
   constructor (private readonly ngZone: NgZone, private readonly configurationService: ConfigurationService, private readonly challengeService: ChallengeService, private readonly countryMappingService: CountryMappingService, private readonly translate: TranslateService, private readonly cookieService: CookieService, private readonly ref: ChangeDetectorRef, private readonly io: SocketIoService) {
   }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.ngZone.runOutsideAngular(() => {
       this.io.socket().on('challenge solved', (data: ChallengeSolvedMessage) => {
         if (data?.challenge) {

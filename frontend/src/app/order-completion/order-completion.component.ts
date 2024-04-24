@@ -41,7 +41,7 @@ export class OrderCompletionComponent implements OnInit {
 
   constructor (private readonly configurationService: ConfigurationService, private readonly addressService: AddressService, private readonly trackOrderService: TrackOrderService, public activatedRoute: ActivatedRoute, private readonly basketService: BasketService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.orderId = paramMap.get('id')
       this.trackOrderService.find(this.orderId).subscribe((results) => {
