@@ -1,0 +1,51 @@
+name: blackduck
+on:
+  push:
+    branches: [ main, master, develop, stage, release ]
+  pull_request:
+    branches: [ main, master, develop, stage, release ]
+  workflow_dispatch:
+jobs:
+  blackduck:
+    runs-on: node:21
+    steps:
+    - name: Checkout Source
+      uses: actions/checkout@v4
+    - name: App Build
+      run: |
+          npm install
+    - name: Black Duck Full Scan
+      if: ${{ github.event_name != 'pull_request' }}
+      uses: synopsys-sig/synopsys-action@v1.9.0
+      env:
+        DETECT_PROJECT_NAME: ${{ github.event.repository.name }}
+        DETECT_PROJECT_VERSION_NAME: ${{ github.ref_name }}
+        DETECT_CODE_LOCATION_NAME: ${{ github.event.repository.name }}-${{ github.ref_name }}
+      with:
+        blackduck_url: ${{ vars.BLACKDUCK_URL }}
+        blackduck_token: ${{ secrets.BLACKDUCK_API_TOKEN }}
+        blackduck_scan_full: true
+        blackduck_scan_failure_severities: 'BLOCKER'
+        blackduck_fixpr_enabled: true
+        blackduck_reports_sarif_create: true
+        blackduck_upload_sarif_report: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Black Duck PR Scan
+      if: ${{ github.event_name == 'pull_request' }}
+      uses: synopsys-sig/synopsys-action@v1.9.0
+      env:
+        DETECT_PROJECT_NAME: ${{ github.event.repository.name }}
+        DETECT_PROJECT_VERSION_NAME: ${{ github.base_ref }}
+        DETECT_CODE_LOCATION_NAME: ${{ github.event.repository.name }}-${{ github.base_ref }}
+      with:
+        blackduck_url: ${{ vars.BLACKDUCK_URL }}
+        blackduck_token: ${{ secrets.BLACKDUCK_API_TOKEN }}
+        blackduck_scan_full: false
+        blackduck_prComment_enabled: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+#    - name: Save Logs
+#      if: always()
+#      uses: actions/upload-artifact@v4
+#      with:
+#        name: bridge-logs
+#        path: ${{ github.workspace }}/.bridge
