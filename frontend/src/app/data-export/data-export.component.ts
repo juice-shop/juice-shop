@@ -36,7 +36,7 @@ export class DataExportComponent implements OnInit {
   public userData: any
 
   constructor (public sanitizer: DomSanitizer, private readonly imageCaptchaService: ImageCaptchaService, private readonly dataSubjectService: DataSubjectService) { }
-  ngOnInit () {
+  ngOnInit (): void {
     this.needCaptcha()
     this.dataRequest = {}
   }

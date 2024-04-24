@@ -64,7 +64,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.chatbotService.getChatbotStatus().subscribe((response) => {
       this.messages.push({
         author: MessageSources.bot,

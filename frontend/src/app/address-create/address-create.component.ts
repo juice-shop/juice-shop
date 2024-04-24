@@ -41,7 +41,7 @@ export class AddressCreateComponent implements OnInit {
     private readonly addressService: AddressService, private readonly router: Router, public activatedRoute: ActivatedRoute,
     private readonly translate: TranslateService, private readonly snackBarHelperService: SnackBarHelperService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.address = {}
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('addressId')) {

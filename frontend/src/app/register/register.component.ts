@@ -57,7 +57,7 @@ export class RegisterComponent implements OnInit {
     private readonly snackBarHelperService: SnackBarHelperService,
     private readonly ngZone: NgZone) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.securityQuestionService.find(null).subscribe((securityQuestions: any) => {
       this.securityQuestions = securityQuestions
     }, (err) => { console.log(err) })

@@ -14,7 +14,7 @@ import { FormSubmitService } from '../Services/form-submit.service'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { MatButton } from '@angular/material/button'
-import { MatSlider } from '@angular/material/slider'
+import { MatSliderModule } from '@angular/material/slider'
 import { NgIf } from '@angular/common'
 import { MatInput } from '@angular/material/input'
 import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/form-field'
@@ -28,7 +28,7 @@ library.add(faStar, faPaperPlane)
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
   standalone: true,
-  imports: [FlexModule, MatCard, TranslateModule, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatHint, NgIf, MatError, MatSlider, MatButton]
+  imports: [FlexModule, MatCard, TranslateModule, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatHint, NgIf, MatError, MatSliderModule, MatButton]
 })
 export class ContactComponent implements OnInit {
   public authorControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
@@ -45,7 +45,7 @@ export class ContactComponent implements OnInit {
   constructor (private readonly userService: UserService, private readonly captchaService: CaptchaService, private readonly feedbackService: FeedbackService,
     private readonly formSubmitService: FormSubmitService, private readonly translate: TranslateService, private readonly snackBarHelperService: SnackBarHelperService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.userService.whoAmI().subscribe((data: any) => {
       this.feedback = {}
       this.userIdControl.setValue(data.id)

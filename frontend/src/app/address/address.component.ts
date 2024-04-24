@@ -45,7 +45,7 @@ export class AddressComponent implements OnInit {
   constructor (private readonly addressService: AddressService, private readonly translate: TranslateService,
     private readonly router: Router, private readonly ngZone: NgZone, private readonly snackBarHelperService: SnackBarHelperService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     if (this.allowEdit) {
       this.displayedColumns.push('Edit', 'Remove')
     } else {

@@ -22,7 +22,7 @@ export class FeedbackDetailsComponent implements OnInit {
   public id: any
   constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.feedback = this.dialogData.feedback
     this.id = this.dialogData.id
   }

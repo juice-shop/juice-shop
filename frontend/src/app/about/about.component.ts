@@ -64,7 +64,7 @@ export class AboutComponent implements OnInit {
     private readonly gallery: Gallery
   ) {}
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.galleryRef = this.gallery.ref('feedback-gallery')
     this.populateSlideshowFromFeedbacks()
     this.configurationService.getApplicationConfiguration()

@@ -41,7 +41,7 @@ export class TrackResultComponent implements OnInit {
   public Status = Status
   constructor (private readonly route: ActivatedRoute, private readonly trackOrderService: TrackOrderService, private readonly sanitizer: DomSanitizer) {}
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.orderId = this.route.snapshot.queryParams.id
     this.trackOrderService.find(this.orderId).subscribe((results) => {
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions

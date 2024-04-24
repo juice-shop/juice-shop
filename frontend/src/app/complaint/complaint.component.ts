@@ -47,7 +47,7 @@ export class ComplaintComponent implements OnInit {
 
   constructor (private readonly userService: UserService, private readonly complaintService: ComplaintService, private readonly formSubmitService: FormSubmitService, private readonly translate: TranslateService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.initComplaint()
     this.uploader.onWhenAddingFileFailed = (item, filter) => {
       this.fileUploadError = filter
