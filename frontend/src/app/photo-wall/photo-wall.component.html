@@ -3,7 +3,7 @@
   ~ SPDX-License-Identifier: MIT
   -->
 
-<mat-card class="heading mat-elevation-z6 mat-own-card" style="margin-bottom:10px;">
+<mat-card appearance="outlined" class="heading mat-elevation-z6 mat-own-card" style="margin-bottom:10px;">
   <h1>{{"LABEL_PHOTO_WALL" | translate}}</h1>
   <div>
     <div class="grid" *ngIf="!emptyState; else emptyResult">
@@ -24,7 +24,7 @@
   </div>
 
   <ng-template #emptyResult>
-    <mat-card class="mat-elevation-z0 emptyState">
+    <mat-card appearance="outlined" class="mat-elevation-z0 emptyState">
       <img alt=" No results found"
            class="img-responsive noResult"
            src="assets/public/images/products/no-results.png">
