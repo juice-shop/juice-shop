@@ -19,6 +19,7 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { CodeSnippetService } from '../Services/code-snippet.service'
 import { ChallengeService } from '../Services/challenge.service'
 import { type Challenge } from '../Models/challenge.model'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 // allows to easily create a challenge with some overwrites
 function createChallenge (challengeOverwrites: Partial<Challenge>): Challenge {
@@ -72,7 +73,8 @@ describe('ScoreBoardPreviewComponent', () => {
         WarningCardComponent,
         ChallengesUnavailableWarningComponent,
         TutorialModeWarningComponent,
-        ScoreCardComponent
+        ScoreCardComponent,
+        BrowserAnimationsModule
       ],
       providers: [
         { provide: ChallengeService, useValue: challengeService },
