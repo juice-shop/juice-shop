@@ -52,10 +52,14 @@ a:nth-child(1) {
   text-align: justify;
 }
 
+/*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.
+ */
 mat-card {
   margin-bottom: 10px;
 }
 
+/*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.
+ */
 mat-card:nth-child(1) {
   border-radius: 5px;
   margin: 0 auto;

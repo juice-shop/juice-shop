@@ -3,16 +3,16 @@
   ~ SPDX-License-Identifier: MIT
   -->
 
-<mat-card class="mat-elevation-z6 mat-own-card">
+<mat-card appearance="outlined" class="mat-elevation-z6 mat-own-card">
     <div>
        <div fxLayout="row" fxLayout.lt-md="column">
-          <mat-card class="mat-elevation-z0" fxFlex="60%">
+          <mat-card appearance="outlined" class="mat-elevation-z0" fxFlex="60%">
              <div>
                 <h1 class="confirmation" translate>THANKS_FOR_PURCHASE</h1>
                 <div translate>PURCHASE_COMMENT_PREFIX <a routerLink="/track-result/new" [queryParams]="{ id: this.orderId }" translate>TITLE_TRACK_ORDERS</a> PURCHASE_COMMENT_SUFFIX</div>
              </div>
           </mat-card>
-          <mat-card class="mat-elevation-z0" fxFlex="40%">
+          <mat-card appearance="outlined" class="mat-elevation-z0" fxFlex="40%">
              <div  *ngIf="address">
                <span *ngIf="orderDetails.eta !== '?' && orderDetails.eta !== undefined"><div class="confirmation" translate [translateParams]="{'numberdays': orderDetails.eta}">ESTIMATED_TIME_OF_DELIVERY</div></span>
                <div><b translate>LABEL_DELIVERY_ADDRESS</b></div>
@@ -100,7 +100,7 @@
     </div>
 
     <div>
-        <mat-card class="mat-elevation-z0">
+        <mat-card appearance="outlined" class="mat-elevation-z0">
           <div translate [translateParams]="{'bonus': orderDetails.bonus}">BONUS_POINTS_COUNT</div>
         </mat-card>
     </div>

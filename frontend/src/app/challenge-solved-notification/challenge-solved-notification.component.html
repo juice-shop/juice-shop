@@ -4,7 +4,7 @@
   -->
 
 <div class="container challenge-solved-toast mat-elevation-z4">
-  <mat-card class="accent-notification" *ngFor="let notification of notifications; index as index">
+  <mat-card appearance="outlined" class="accent-notification" *ngFor="let notification of notifications; index as index">
     <div>{{notification.message}}<button id="closeButton" mat-button (click)="closeNotification(index, $event.shiftKey)">X</button></div>
     <br>
     <div [hidden]="!showCtfFlagsInNotifications">
