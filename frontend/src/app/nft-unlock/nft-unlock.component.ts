@@ -25,7 +25,7 @@ export class NFTUnlockComponent {
 
   constructor (private readonly keysService: KeysService) {}
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.checkChallengeStatus()
   }
 

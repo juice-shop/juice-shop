@@ -51,7 +51,7 @@ export class PaymentMethodComponent implements OnInit {
 
   constructor (public paymentService: PaymentService, private readonly translate: TranslateService, private readonly snackBarHelperService: SnackBarHelperService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.monthRange = Array.from(Array(12).keys()).map(i => i + 1)
     this.yearRange = Array.from(Array(20).keys()).map(i => i + 2080)
     if (this.allowDelete) {

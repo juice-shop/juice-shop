@@ -45,7 +45,7 @@ export class AdministrationComponent implements OnInit {
   constructor (private readonly dialog: MatDialog, private readonly userService: UserService, private readonly feedbackService: FeedbackService,
     private readonly sanitizer: DomSanitizer) {}
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.findAllUsers()
     this.findAllFeedbacks()
   }

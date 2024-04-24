@@ -36,7 +36,7 @@ export class ChangePasswordComponent {
 
   constructor (private readonly userService: UserService, private readonly formSubmitService: FormSubmitService, private readonly translate: TranslateService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.formSubmitService.attachEnterKeyHandler('password-form', 'changeButton', () => { this.changePassword() })
   }
 

@@ -46,7 +46,7 @@ export class SidenavComponent implements OnInit {
     private readonly ngZone: NgZone, private readonly io: SocketIoService, private readonly userService: UserService, private readonly cookieService: CookieService,
     private readonly router: Router, private readonly configurationService: ConfigurationService, private readonly loginGuard: LoginGuard) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.administrationService.getApplicationVersion().subscribe((version: any) => {
       if (version) {
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions

@@ -42,7 +42,7 @@ export class DeliveryMethodComponent implements OnInit {
   constructor (private readonly location: Location, private readonly deliverySerivce: DeliveryService,
     private readonly addressService: AddressService, private readonly router: Router, private readonly ngZone: NgZone) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.addressService.getById(sessionStorage.getItem('addressId')).subscribe((address) => {
       this.address = address
     }, (error) => { console.log(error) })

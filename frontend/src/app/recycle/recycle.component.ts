@@ -49,7 +49,7 @@ export class RecycleComponent implements OnInit {
     private readonly configurationService: ConfigurationService, private readonly formSubmitService: FormSubmitService,
     private readonly translate: TranslateService, private readonly snackBarHelperService: SnackBarHelperService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
       if (config?.application?.recyclePage) {
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions

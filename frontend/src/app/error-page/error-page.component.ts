@@ -25,7 +25,7 @@ export class ErrorPageComponent implements OnInit {
   constructor (private readonly route: ActivatedRoute, private readonly translate: TranslateService) {
   }
 
-  ngOnInit () {
+  ngOnInit (): void {
     const errorKey = this.route.snapshot.queryParams.error
     if (errorKey) {
       this.translate.get(errorKey).subscribe((errorMessage) => {

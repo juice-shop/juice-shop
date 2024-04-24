@@ -87,7 +87,7 @@ export class PaymentComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute, private readonly ngZone: NgZone,
     private readonly snackBarHelperService: SnackBarHelperService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.initTotal()
     this.walletService.get().subscribe((balance) => {
       this.walletBalance = balance

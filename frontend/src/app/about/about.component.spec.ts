@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
+import { EventEmitter } from '@angular/core'
 import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 
@@ -17,10 +19,16 @@ describe('AboutComponent', () => {
   let component: AboutComponent
   let fixture: ComponentFixture<AboutComponent>
   let configurationService
+  let translateService
 
   beforeEach(waitForAsync(() => {
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { } }))
+    translateService = jasmine.createSpyObj('TranslateService', ['get'])
+    translateService.get.and.returnValue(of({}))
+    translateService.onLangChange = new EventEmitter()
+    translateService.onTranslationChange = new EventEmitter()
+    translateService.onDefaultLangChange = new EventEmitter()
 
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
@@ -28,10 +36,12 @@ describe('AboutComponent', () => {
         HttpClientTestingModule,
         MatCardModule,
         GalleryModule,
-        AboutComponent
+        AboutComponent,
+        TranslateModule.forRoot()
       ],
       providers: [
-        { provide: ConfigurationService, useValue: configurationService }
+        { provide: ConfigurationService, useValue: configurationService },
+        { provide: TranslateService, useValue: translateService }
       ]
     })
       .compileComponents()

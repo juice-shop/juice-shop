@@ -9,11 +9,11 @@
 
     <div class="form-container" id="feedback-form">
 
-      <input hidden type="text" id="userId" [formControl]="userIdControl"/>
+      <input hidden type="text" id="userId" ngDefaultControl [formControl]="userIdControl"/>
 
       <mat-form-field appearance="outline" color="accent">
         <mat-label translate>LABEL_AUTHOR</mat-label>
-        <input [formControl]="authorControl" matInput type="text" aria-label="Field with the name of the author">
+        <input ngDefaultControl [formControl]="authorControl" matInput type="text" aria-label="Field with the name of the author">
       </mat-form-field>
 
       <mat-form-field appearance="outline" color="accent">
@@ -22,7 +22,7 @@
           <i class="fas fa-exclamation-circle"></i>
           <em style="margin-left:5px;" translate>{{ 'MAX_TEXTAREA_LENGTH' | translate: {length: '160'} }}</em>
         </mat-hint>
-        <textarea #comment id="comment" [formControl]="feedbackControl" matInput
+        <textarea #comment id="comment" ngDefaultControl [formControl]="feedbackControl" matInput
                   matAutosizeMinRows="4" matAutosizeMaxRows="4" matTextareaAutosize cols="50" maxlength="160"
                   placeholder="{{ 'WRITE_REVIEW_PLACEHOLDER' | translate}}"
                   aria-label="Field for entering the comment or the feedback"></textarea>
@@ -33,7 +33,9 @@
 
       <div class="rating-container">
         <label style="font-weight:500; margin-right: 8px; float:left;" translate>LABEL_RATING</label>
-        <mat-slider id="rating" [(ngModel)]="rating" min="1" max="5" thumbLabel [displayWith]="formatRating" tickInterval="1" aria-label="Slider for selecting the star rating"></mat-slider>
+        <mat-slider id="rating" ngDefaultControl [(ngModel)]="rating" min="1" max="5" step="1" showTickMarks discrete [displayWith]="formatRating" aria-label="Slider for selecting the star rating">
+          <input matSliderThumb />
+        </mat-slider>
       </div>
 
       <div style="margin-bottom: 10px; margin-top: 10px; ">
@@ -44,7 +46,7 @@
       </div>
       <mat-form-field appearance="outline" color="accent">
         <mat-label translate>LABEL_RESULT</mat-label>
-        <input id="captchaControl" [formControl]="captchaControl" matInput type="text"
+        <input id="captchaControl" ngDefaultControl [formControl]="captchaControl" matInput type="text"
                placeholder="{{ 'MANDATORY_CAPTCHA' | translate}}"
                aria-label="Field for the result of the CAPTCHA code" pattern="-?[\d]*">
         <mat-error *ngIf="captchaControl.invalid && captchaControl.errors.required" translate>MANDATORY_CAPTCHA

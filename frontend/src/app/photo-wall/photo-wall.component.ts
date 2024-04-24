@@ -43,7 +43,7 @@ export class PhotoWallComponent implements OnInit {
   constructor (private readonly photoWallService: PhotoWallService, private readonly configurationService: ConfigurationService,
     private readonly snackBarHelperService: SnackBarHelperService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.slideshowDataSource = []
     this.photoWallService.get().pipe(catchError(err => {
       console.log(err)

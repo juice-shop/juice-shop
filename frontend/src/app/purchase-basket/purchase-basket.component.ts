@@ -41,7 +41,7 @@ export class PurchaseBasketComponent implements OnInit {
   constructor (private readonly deluxeGuard: DeluxeGuard, private readonly basketService: BasketService,
     private readonly userService: UserService, private readonly snackBarHelperService: SnackBarHelperService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     if (this.allowEdit && !this.tableColumns.includes('remove')) {
       this.tableColumns.push('remove')
     }

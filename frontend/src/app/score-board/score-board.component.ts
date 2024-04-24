@@ -67,7 +67,7 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
     private readonly route: ActivatedRoute
   ) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     const dataLoaderSubscription = combineLatest([
       this.challengeService.find({ sort: 'name' }),
       this.codeSnippetService.challenges(),

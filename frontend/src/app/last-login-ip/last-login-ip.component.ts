@@ -21,7 +21,7 @@ export class LastLoginIpComponent {
   lastLoginIp: any = '?'
   constructor (private readonly sanitizer: DomSanitizer) {}
 
-  ngOnInit () {
+  ngOnInit (): void {
     try {
       this.parseAuthToken()
     } catch (err) {

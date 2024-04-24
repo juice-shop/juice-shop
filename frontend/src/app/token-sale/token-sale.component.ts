@@ -27,7 +27,7 @@ export class TokenSaleComponent implements OnInit {
   public altcoinName = 'Juicycoin'
   constructor (private readonly configurationService: ConfigurationService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
       if (config?.application?.altcoinName) {
         this.altcoinName = config.application.altcoinName

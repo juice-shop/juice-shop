@@ -83,7 +83,7 @@ export class NavbarComponent implements OnInit {
     private readonly io: SocketIoService, private readonly langService: LanguagesService, private readonly loginGuard: LoginGuard,
     private readonly snackBar: MatSnackBar, private readonly basketService: BasketService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.getLanguages()
     this.basketService.getItemTotal().subscribe(x => (this.itemTotal = x))
     this.administrationService.getApplicationVersion().subscribe((version: any) => {

@@ -50,7 +50,7 @@ export class OrderHistoryComponent implements OnInit {
 
   constructor (private readonly router: Router, private readonly dialog: MatDialog, private readonly orderHistoryService: OrderHistoryService, private readonly basketService: BasketService, private readonly productService: ProductService, private readonly ngZone: NgZone) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.orderHistoryService.get().subscribe((orders) => {
       orders = orders.reverse()
       if (orders.length === 0) {
