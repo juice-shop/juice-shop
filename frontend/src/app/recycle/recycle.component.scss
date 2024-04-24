@@ -25,11 +25,15 @@ button {
   margin-right: 10%;
 }
 
+/*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.
+ */
 mat-card img {
   height: 100px;
   width: auto;
 }
 
+/*TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.
+ */
 mat-checkbox {
   margin-bottom: 20px;
 }

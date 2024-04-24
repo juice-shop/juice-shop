@@ -10,7 +10,7 @@ mat-toolbar {
   width: 100%;
 }
 
-.mat-button {
+.mat-mdc-button {
   padding-left: 8px;
   padding-right: 8px;
 }
@@ -39,6 +39,8 @@ mat-toolbar {
   width: 11%;
 }
 
+/*TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.
+ */
 ::ng-deep .mat-select-value-text {
   font-size: 15px;
 }
@@ -75,6 +77,8 @@ mat-search-bar {
   }
 }
 
+/*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.
+ */
 :host ::ng-deep .mat-form-field-infix {
   max-width: 250px !important;
   width: 14vw !important;

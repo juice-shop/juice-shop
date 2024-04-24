@@ -9,6 +9,8 @@
   width: 100%;
 }
 
+/*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.
+ */
 mat-card {
   height: auto;
   margin-top: 20px;
@@ -46,7 +48,7 @@ table {
   width: 100%;
 }
 
-.mat-footer-cell {
+.mat-mdc-footer-cell {
   font-weight: bold;
 }
 

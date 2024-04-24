@@ -5,6 +5,8 @@
 
 $break-line: #c0c0c0;
 
+/*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.
+ */
 mat-card {
   height: auto;
   min-width: 320px;
@@ -23,6 +25,8 @@ mat-card {
   margin-top: -15px;
 }
 
+/*TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.
+ */
 mat-checkbox {
   margin-bottom: 20px;
   margin-left: 20%;
@@ -74,12 +78,14 @@ mat-form-field:nth-child(2) {
   margin-top: 40px;
 }
 
+/*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.
+ */
 :host ::ng-deep .mat-form-field-suffix {
   margin-bottom: auto !important;
   margin-top: auto !important;
 }
 
-:host ::ng-deep .mat-icon-button {
+:host ::ng-deep .mat-mdc-icon-button {
   height: 40px !important;
   width: 24px !important;
 }

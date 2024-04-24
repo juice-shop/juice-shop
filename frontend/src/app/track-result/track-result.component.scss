@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+/*TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version.
+ */
 mat-table,
 .table-heading {
   width: 90%;

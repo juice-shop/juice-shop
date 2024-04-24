@@ -4,10 +4,10 @@
   -->
 
 <div fxLayoutAlign="center">
-  <mat-card class="mat-elevation-z6">
+  <mat-card appearance="outlined" class="mat-elevation-z6">
     <h1>{{"SECTION_SUPPORT_CHAT" | translate}} <span class="powered-by">({{"LABEL_POWERED_BY_CHATBOT" | translate: { chatbot: 'juicy-chat-bot' } }})</span></h1>
-    <mat-card id="chat-container">
-      <mat-card id="chat-box">
+    <mat-card appearance="outlined" id="chat-container">
+      <mat-card appearance="outlined" id="chat-box">
 
         <div id="chat-window">
           <div *ngFor="let message of messages; index as index" class="message-container">

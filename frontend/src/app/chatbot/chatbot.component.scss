@@ -5,6 +5,8 @@
 
 $bg-chat: rgba(0, 0, 0, 0.3);
 
+/*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.
+ */
 mat-card {
   height: auto;
   min-width: 320px;

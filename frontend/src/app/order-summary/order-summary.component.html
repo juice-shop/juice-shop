@@ -3,10 +3,10 @@
   ~ SPDX-License-Identifier: MIT
   -->
 
-<mat-card fxLayout="row" fxLayoutGap="10%" fxLayout.lt-md="column" class="mat-elevation-z6 mat-own-card">
+<mat-card appearance="outlined" fxLayout="row" fxLayoutGap="10%" fxLayout.lt-md="column" class="mat-elevation-z6 mat-own-card">
   <div fxLayout="column" fxLayoutGap="20px" fxFlex="70%">
     <div fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column" *ngIf="address && paymentMethod">
-      <mat-card class="mat-elevation-z0" fxFlex="60%">
+      <mat-card appearance="outlined" class="mat-elevation-z0" fxFlex="60%">
         <div>
           <div><b translate>LABEL_DELIVERY_ADDRESS</b></div>
           <div>{{address?.fullName}}</div>
@@ -15,7 +15,7 @@
           <div><span translate>PHONE_NUMBER</span> {{address?.mobileNum}}</div>
         </div>
       </mat-card>
-      <mat-card class="mat-elevation-z0" fxFlex="40%" *ngIf="paymentMethod !== 'wallet'; else walletPayment">
+      <mat-card appearance="outlined" class="mat-elevation-z0" fxFlex="40%" *ngIf="paymentMethod !== 'wallet'; else walletPayment">
         <div>
           <div><b translate>PAYMENT_METHOD</b></div>
           <div><span translate>CARD_ENDING_IN</span> {{paymentMethod?.cardNum}}</div>
@@ -24,7 +24,7 @@
       </mat-card>
 
       <ng-template #walletPayment>
-        <mat-card class="mat-elevation-z0" fxFlex="40%">
+        <mat-card appearance="outlined" class="mat-elevation-z0" fxFlex="40%">
           <div>
             <div><b translate>PAYMENT_METHOD</b></div>
             <div><span translate>DIGITAL_WALLET</span></div>
@@ -36,7 +36,7 @@
                          (emitTotal)="getMessage($event)"></app-purchase-basket>
   </div>
   <div fxFlex="40%">
-    <mat-card class="mat-elevation-z0">
+    <mat-card appearance="outlined" class="mat-elevation-z0">
       <div class="order-summary" translate>ORDER_SUMMARY</div>
       <table class="mat-table">
         <tr class="mat-row">

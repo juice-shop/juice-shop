@@ -18,7 +18,7 @@
     <div *ngIf=" !emptyState; else emptyResult">
       <mat-grid-list #table (window:resize)="onResize($event)" [cols]="breakpoint" gutterSize="30px">
         <mat-grid-tile *ngFor="let item of gridDataSource | async">
-          <mat-card [style.width]="'100%'" class="mat-elevation-z6 ribbon-card">
+          <mat-card appearance="outlined" [style.width]="'100%'" class="mat-elevation-z6 ribbon-card">
             <div class="ribbon ribbon-top-left" *ngIf="item.quantity <= 5 && item.quantity > 0"><span translate
                                                                                                       [translateParams]="{quantity: item.quantity}">LABEL_ONLY_QUANTITY_LEFT</span>
             </div>
@@ -52,7 +52,7 @@
     </div>
 
     <ng-template #emptyResult>
-      <mat-card class="mat-elevation-z6 emptyState">
+      <mat-card appearance="outlined" class="mat-elevation-z6 emptyState">
         <img alt=" No results found"
              class="img-responsive noResult"
              src="assets/public/images/products/no-results.png">
