@@ -44,7 +44,7 @@ jobs:
    if: (github.actor != 'dependabot[bot]') && github.event.issue.pull_request
    steps:
     - name: Add comment to PR
-    - uses: actions/checkout@v3
+      uses: actions/checkout@v3
       if: always()
       with:
         script: |
