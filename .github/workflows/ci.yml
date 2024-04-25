@@ -43,15 +43,18 @@ jobs:
      image: returntocorp/semgrep
    if: github.event.issue.pull_request
    steps:
-    - name: Add comment to PR
+    - name: Checkout code
       uses: actions/checkout@v3
-      if: always()
+    - name: Run Semgrep
+      run: export result = $(semgrep ci)
+    - name: Add comment to PR
+      uses: actions/github-script@v6
       with:
         script: |
           const name = '${{ github.workflow   }}';
           const url = '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}';
           const success = '${{ job.status }}' === 'success';
-          const body = `${name}: ${semgrep ci} ${success ? 'succeeded ✅' : 'failed ❌'}\n${url}`;
+          const body = `${name}: ${result} ${success ? 'succeeded ✅' : 'failed ❌'}\n${url}`;
           github.rest.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
