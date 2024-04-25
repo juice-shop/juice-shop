@@ -41,7 +41,6 @@ jobs:
     SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
    container:
      image: returntocorp/semgrep
-   if: github.event.issue.pull_request
    steps:
     - name: Checkout code
       uses: actions/checkout@v3
