@@ -45,6 +45,7 @@ jobs:
    steps:
     - name: Add comment to PR
     - uses: actions/checkout@v3
+      if: always()
       with:
         script: |
           const name = '${{ github.workflow   }}';
