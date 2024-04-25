@@ -41,7 +41,7 @@ jobs:
     SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
    container:
      image: returntocorp/semgrep
-   if: (github.actor != 'dependabot[bot]') && github.event.issue.pull_request
+   if: github.event.issue.pull_request
    steps:
     - name: Add comment to PR
       uses: actions/checkout@v3
@@ -52,7 +52,7 @@ jobs:
           const url = '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}';
           const success = '${{ job.status }}' === 'success';
           const body = `${name}: ${semgrep ci} ${success ? 'succeeded ✅' : 'failed ❌'}\n${url}`;
-          await github.rest.issues.createComment({
+          github.rest.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
