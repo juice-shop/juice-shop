@@ -8,7 +8,7 @@
   "MANDATORY_PASSWORD": "Please provide a password.",
   "LABEL_EMAIL": "SoQ",
   "LABEL_PASSWORD": "mu'wIj",
-  "SHOW_PASSWORD_ADVICE": "Show password advice",
+  "SHOW_PASSWORD_ADVICE": "test",
   "LOWER_CASE_CRITERIA_MSG": "contains at least one lower character",
   "UPPER_CASE_CRITERIA_MSG": "contains at least one upper character",
   "DIGITS_CRITERIA_MSG": "contains at least one digit",
