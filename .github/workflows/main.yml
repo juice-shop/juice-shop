@@ -3,7 +3,7 @@ name: "Polaris scan"
 on:
   workflow_call:
     secrets:
-      polaris-access-token:
+      polaris_access_token:
         description: "Access token for Polaris (Synpsys)"
         required: true   
 jobs:
@@ -19,7 +19,7 @@ jobs:
         fetch-depth: 0
     - name: Polaris Static Analysis
       run: |
-          export POLARIS_ACCESS_TOKEN=${{ secrets.polaris-access-token }}
+          export POLARIS_ACCESS_TOKEN=${{ secrets.polaris_access_token }}
           wget -q https://csprod.polaris.synopsys.com/api/tools/polaris_cli-linux64.zip
           unzip -j -o polaris_cli-linux64.zip -d ${{ github.workspace }}/tmp
           ${{ github.workspace }}/tmp/polaris analyze -w 
