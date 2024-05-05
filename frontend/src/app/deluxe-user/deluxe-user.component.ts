@@ -9,10 +9,10 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { CookieService } from 'ngy-cookie'
 import { ConfigurationService } from '../Services/configuration.service'
 import { SocketIoService } from '../Services/socket-io.service'
-import { MatIcon } from '@angular/material/icon'
-import { MatButton } from '@angular/material/button'
+import { MatIconModule } from '@angular/material/icon'
+import { MatButtonModule } from '@angular/material/button'
 import { TranslateModule } from '@ngx-translate/core'
-import { MatCard } from '@angular/material/card'
+import { MatCardModule } from '@angular/material/card'
 import { NgIf } from '@angular/common'
 import { FlexModule } from '@angular/flex-layout/flex'
 
@@ -21,7 +21,7 @@ import { FlexModule } from '@angular/flex-layout/flex'
   templateUrl: './deluxe-user.component.html',
   styleUrls: ['./deluxe-user.component.scss'],
   standalone: true,
-  imports: [FlexModule, NgIf, MatCard, TranslateModule, MatButton, MatIcon]
+  imports: [FlexModule, NgIf, MatCardModule, TranslateModule, MatButtonModule, MatIconModule]
 })
 
 export class DeluxeUserComponent implements OnInit {

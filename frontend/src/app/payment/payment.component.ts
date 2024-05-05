@@ -31,15 +31,15 @@ import { UserService } from '../Services/user.service'
 import { CookieService } from 'ngy-cookie'
 import { Location, NgIf } from '@angular/common'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
-import { MatIcon } from '@angular/material/icon'
-import { MatInput } from '@angular/material/input'
-import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/form-field'
+import { MatIconModule } from '@angular/material/icon'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel, MatHint, MatError } from '@angular/material/form-field'
 import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription } from '@angular/material/expansion'
-import { MatButton } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button'
 import { FlexModule } from '@angular/flex-layout/flex'
 import { MatDivider } from '@angular/material/divider'
 import { PaymentMethodComponent } from '../payment-method/payment-method.component'
-import { MatCard } from '@angular/material/card'
+import { MatCardModule } from '@angular/material/card'
 
 library.add(faCartArrowDown, faGift, faHeart, faLeanpub, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faTimes, faStripe, faPalette)
 
@@ -48,7 +48,7 @@ library.add(faCartArrowDown, faGift, faHeart, faLeanpub, faThumbsUp, faTshirt, f
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss'],
   standalone: true,
-  imports: [MatCard, PaymentMethodComponent, MatDivider, NgIf, FlexModule, TranslateModule, MatButton, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatFormField, MatLabel, MatHint, MatInput, FormsModule, ReactiveFormsModule, MatError, MatIcon]
+  imports: [MatCardModule, PaymentMethodComponent, MatDivider, NgIf, FlexModule, TranslateModule, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatIconModule]
 })
 export class PaymentComponent implements OnInit {
   public couponConfirmation: any

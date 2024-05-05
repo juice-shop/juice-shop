@@ -13,15 +13,15 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { OrderHistoryService } from '../Services/order-history.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
-import { MatInput } from '@angular/material/input'
-import { MatFormField, MatSuffix } from '@angular/material/form-field'
-import { MatIcon } from '@angular/material/icon'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatSuffix } from '@angular/material/form-field'
+import { MatIconModule } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatIconButton } from '@angular/material/button'
 import { NgIf } from '@angular/common'
 import { FlexModule } from '@angular/flex-layout/flex'
 import { TranslateModule } from '@ngx-translate/core'
-import { MatCard } from '@angular/material/card'
+import { MatCardModule } from '@angular/material/card'
 
 library.add(faCheck)
 
@@ -37,7 +37,7 @@ interface Order {
   templateUrl: './accounting.component.html',
   styleUrls: ['./accounting.component.scss'],
   standalone: true,
-  imports: [MatCard, TranslateModule, FlexModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, NgIf, MatIconButton, MatTooltip, MatIcon, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, MatFormField, MatInput, MatSuffix]
+  imports: [MatCardModule, TranslateModule, FlexModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, NgIf, MatIconButton, MatTooltip, MatIconModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, MatFormFieldModule, MatInputModule, MatSuffix]
 })
 export class AccountingComponent implements AfterViewInit, OnDestroy {
   public orderHistoryColumns = ['OrderId', 'Price', 'Status', 'StatusButton']

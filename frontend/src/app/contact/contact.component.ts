@@ -13,12 +13,12 @@ import { faPaperPlane, faStar } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
-import { MatButton } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button'
 import { MatSliderModule } from '@angular/material/slider'
 import { NgIf } from '@angular/common'
-import { MatInput } from '@angular/material/input'
-import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/form-field'
-import { MatCard } from '@angular/material/card'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel, MatHint, MatError } from '@angular/material/form-field'
+import { MatCardModule } from '@angular/material/card'
 import { FlexModule } from '@angular/flex-layout/flex'
 
 library.add(faStar, faPaperPlane)
@@ -28,7 +28,7 @@ library.add(faStar, faPaperPlane)
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
   standalone: true,
-  imports: [FlexModule, MatCard, TranslateModule, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatHint, NgIf, MatError, MatSliderModule, MatButton]
+  imports: [FlexModule, MatCardModule, TranslateModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatHint, NgIf, MatError, MatSliderModule, MatButtonModule]
 })
 export class ContactComponent implements OnInit {
   public authorControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])

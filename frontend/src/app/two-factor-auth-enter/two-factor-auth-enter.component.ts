@@ -11,14 +11,14 @@ import { UserService } from '../Services/user.service'
 import { Router } from '@angular/router'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUnlockAlt } from '@fortawesome/free-solid-svg-icons'
-import { MatButton } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button'
 import { MatTooltip } from '@angular/material/tooltip'
-import { MatIcon } from '@angular/material/icon'
-import { MatInput } from '@angular/material/input'
-import { MatFormField, MatLabel, MatSuffix, MatHint, MatError } from '@angular/material/form-field'
+import { MatIconModule } from '@angular/material/icon'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel, MatSuffix, MatHint, MatError } from '@angular/material/form-field'
 import { NgIf } from '@angular/common'
 import { TranslateModule } from '@ngx-translate/core'
-import { MatCard } from '@angular/material/card'
+import { MatCardModule } from '@angular/material/card'
 import { FlexModule } from '@angular/flex-layout/flex'
 
 library.add(faUnlockAlt)
@@ -32,7 +32,7 @@ interface TokenEnterFormFields {
   templateUrl: './two-factor-auth-enter.component.html',
   styleUrls: ['./two-factor-auth-enter.component.scss'],
   standalone: true,
-  imports: [FlexModule, MatCard, TranslateModule, NgIf, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatIcon, MatSuffix, MatTooltip, MatHint, MatError, MatButton]
+  imports: [FlexModule, MatCardModule, TranslateModule, NgIf, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatIconModule, MatSuffix, MatTooltip, MatHint, MatError, MatButtonModule]
 })
 export class TwoFactorAuthEnterComponent {
   public twoFactorForm: UntypedFormGroup = new UntypedFormGroup({

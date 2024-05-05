@@ -12,10 +12,10 @@ import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons/'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
-import { MatInput } from '@angular/material/input'
-import { MatFormField, MatLabel, MatError, MatHint } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel, MatError, MatHint } from '@angular/material/form-field'
 import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription } from '@angular/material/expansion'
-import { MatIconButton, MatButton } from '@angular/material/button'
+import { MatIconButton, MatButtonModule } from '@angular/material/button'
 import { MatRadioButton } from '@angular/material/radio'
 import { NgIf, NgFor } from '@angular/common'
 import { FlexModule } from '@angular/flex-layout/flex'
@@ -27,7 +27,7 @@ library.add(faPaperPlane, faTrashAlt)
   templateUrl: './payment-method.component.html',
   styleUrls: ['./payment-method.component.scss'],
   standalone: true,
-  imports: [FlexModule, NgIf, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatRadioButton, MatIconButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatFormField, MatLabel, TranslateModule, MatInput, FormsModule, ReactiveFormsModule, MatError, MatHint, NgFor, MatButton]
+  imports: [FlexModule, NgIf, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatRadioButton, MatIconButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatFormFieldModule, MatLabel, TranslateModule, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatHint, NgFor, MatButtonModule]
 })
 
 export class PaymentMethodComponent implements OnInit {

@@ -16,11 +16,11 @@ import {
   InjectedConnector
 } from '@wagmi/core'
 import { FormsModule } from '@angular/forms'
-import { MatInput } from '@angular/material/input'
-import { MatFormField, MatLabel } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
 import { NgIf } from '@angular/common'
-import { MatButton } from '@angular/material/button'
-import { MatCard } from '@angular/material/card'
+import { MatButtonModule } from '@angular/material/button'
+import { MatCardModule } from '@angular/material/card'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const client = createClient({
@@ -38,7 +38,7 @@ const BeeFaucetAddress = '0x860e3616aD0E0dEDc23352891f3E10C4131EA5BC'
   templateUrl: './faucet.component.html',
   styleUrls: ['./faucet.component.scss'],
   standalone: true,
-  imports: [MatCard, TranslateModule, MatButton, NgIf, MatFormField, MatLabel, MatInput, FormsModule]
+  imports: [MatCardModule, TranslateModule, MatButtonModule, NgIf, MatFormFieldModule, MatLabel, MatInputModule, FormsModule]
 })
 export class FaucetComponent {
   constructor (

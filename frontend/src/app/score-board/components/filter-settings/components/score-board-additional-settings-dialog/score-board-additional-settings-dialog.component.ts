@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { LocalBackupService } from 'src/app/Services/local-backup.service'
-import { MatIcon } from '@angular/material/icon'
-import { MatButton } from '@angular/material/button'
+import { MatIconModule } from '@angular/material/icon'
+import { MatButtonModule } from '@angular/material/button'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatDialogContent, MatDialogTitle, MatDialogActions, MatDialogClose } from '@angular/material/dialog'
 
@@ -10,7 +10,7 @@ import { MatDialogContent, MatDialogTitle, MatDialogActions, MatDialogClose } fr
   templateUrl: './score-board-additional-settings-dialog.component.html',
   styleUrls: ['./score-board-additional-settings-dialog.component.scss'],
   standalone: true,
-  imports: [MatDialogContent, MatDialogTitle, TranslateModule, MatButton, MatIcon, MatDialogActions, MatDialogClose]
+  imports: [MatDialogContent, MatDialogTitle, TranslateModule, MatButtonModule, MatIconModule, MatDialogActions, MatDialogClose]
 })
 export class ScoreBoardAdditionalSettingsDialogComponent {
   constructor (

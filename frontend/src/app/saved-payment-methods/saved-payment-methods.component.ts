@@ -5,14 +5,14 @@
 
 import { Component } from '@angular/core'
 import { PaymentMethodComponent } from '../payment-method/payment-method.component'
-import { MatCard } from '@angular/material/card'
+import { MatCardModule } from '@angular/material/card'
 
 @Component({
   selector: 'app-saved-payment-methods',
   templateUrl: './saved-payment-methods.component.html',
   styleUrls: ['./saved-payment-methods.component.scss'],
   standalone: true,
-  imports: [MatCard, PaymentMethodComponent]
+  imports: [MatCardModule, PaymentMethodComponent]
 })
 
 export class SavedPaymentMethodsComponent {

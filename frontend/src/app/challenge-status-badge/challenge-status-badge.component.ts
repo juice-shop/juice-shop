@@ -12,9 +12,9 @@ import { faWindows } from '@fortawesome/free-brands-svg-icons'
 import { Challenge } from '../Models/challenge.model'
 import { TranslateModule } from '@ngx-translate/core'
 import { ExtendedModule } from '@angular/flex-layout/extended'
-import { MatIcon } from '@angular/material/icon'
+import { MatIconModule } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
-import { MatButton } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button'
 import { NgIf } from '@angular/common'
 
 library.add(faWindows)
@@ -24,7 +24,7 @@ library.add(faWindows)
   templateUrl: './challenge-status-badge.component.html',
   styleUrls: ['./challenge-status-badge.component.scss'],
   standalone: true,
-  imports: [NgIf, MatButton, MatTooltip, MatIcon, ExtendedModule, TranslateModule]
+  imports: [NgIf, MatButtonModule, MatTooltip, MatIconModule, ExtendedModule, TranslateModule]
 })
 export class ChallengeStatusBadgeComponent {
   @Input() public challenge: Challenge = { } as Challenge

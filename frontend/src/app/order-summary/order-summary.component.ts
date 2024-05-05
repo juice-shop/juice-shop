@@ -10,20 +10,20 @@ import { BasketService } from '../Services/basket.service'
 import { Router } from '@angular/router'
 import { DeliveryService } from '../Services/delivery.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
-import { MatIcon } from '@angular/material/icon'
-import { MatButton } from '@angular/material/button'
+import { MatIconModule } from '@angular/material/icon'
+import { MatButtonModule } from '@angular/material/button'
 import { PurchaseBasketComponent } from '../purchase-basket/purchase-basket.component'
 import { TranslateModule } from '@ngx-translate/core'
 import { NgIf } from '@angular/common'
 import { FlexModule } from '@angular/flex-layout/flex'
-import { MatCard } from '@angular/material/card'
+import { MatCardModule } from '@angular/material/card'
 
 @Component({
   selector: 'app-order-summary',
   templateUrl: './order-summary.component.html',
   styleUrls: ['./order-summary.component.scss'],
   standalone: true,
-  imports: [MatCard, FlexModule, NgIf, TranslateModule, PurchaseBasketComponent, MatButton, MatIcon]
+  imports: [MatCardModule, FlexModule, NgIf, TranslateModule, PurchaseBasketComponent, MatButtonModule, MatIconModule]
 })
 export class OrderSummaryComponent implements OnInit {
   public bonus = 0

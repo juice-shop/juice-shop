@@ -11,11 +11,11 @@ import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-regular-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
-import { MatButton } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button'
 import { NgIf } from '@angular/common'
-import { MatInput } from '@angular/material/input'
-import { MatFormField, MatLabel, MatError, MatHint } from '@angular/material/form-field'
-import { MatCard } from '@angular/material/card'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel, MatError, MatHint } from '@angular/material/form-field'
+import { MatCardModule } from '@angular/material/card'
 import { FlexModule } from '@angular/flex-layout/flex'
 
 library.add(faSave, faEdit)
@@ -25,7 +25,7 @@ library.add(faSave, faEdit)
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss'],
   standalone: true,
-  imports: [FlexModule, MatCard, TranslateModule, MatFormField, MatLabel, MatInput, FormsModule, ReactiveFormsModule, NgIf, MatError, MatHint, MatButton]
+  imports: [FlexModule, MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, NgIf, MatError, MatHint, MatButtonModule]
 })
 export class ChangePasswordComponent {
   public passwordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
