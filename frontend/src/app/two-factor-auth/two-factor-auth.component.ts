@@ -17,13 +17,13 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { MatTooltip } from '@angular/material/tooltip'
-import { MatIcon } from '@angular/material/icon'
+import { MatIconModule } from '@angular/material/icon'
 import { QrCodeModule } from 'ng-qrcode'
-import { MatButton } from '@angular/material/button'
-import { MatInput } from '@angular/material/input'
-import { MatFormField, MatLabel, MatError, MatSuffix, MatHint } from '@angular/material/form-field'
+import { MatButtonModule } from '@angular/material/button'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel, MatError, MatSuffix, MatHint } from '@angular/material/form-field'
 import { NgIf } from '@angular/common'
-import { MatCard } from '@angular/material/card'
+import { MatCardModule } from '@angular/material/card'
 import { FlexModule } from '@angular/flex-layout/flex'
 
 library.add(faUnlockAlt, faSave)
@@ -33,7 +33,7 @@ library.add(faUnlockAlt, faSave)
   templateUrl: './two-factor-auth.component.html',
   styleUrls: ['./two-factor-auth.component.scss'],
   standalone: true,
-  imports: [FlexModule, MatCard, TranslateModule, NgIf, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatButton, QrCodeModule, MatError, MatIcon, MatSuffix, MatTooltip, MatHint]
+  imports: [FlexModule, MatCardModule, TranslateModule, NgIf, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatButtonModule, QrCodeModule, MatError, MatIconModule, MatSuffix, MatTooltip, MatHint]
 })
 export class TwoFactorAuthComponent {
   public data?: string

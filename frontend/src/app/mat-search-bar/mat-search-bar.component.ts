@@ -19,9 +19,9 @@ import { FormControl, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms'
 import { MatAutocomplete } from '@angular/material/autocomplete'
 import { AbstractControlValueAccessor } from './abstract-value-accessor'
 import { MatRipple } from '@angular/material/core'
-import { MatIcon } from '@angular/material/icon'
-import { MatInput } from '@angular/material/input'
-import { MatFormField } from '@angular/material/form-field'
+import { MatIconModule } from '@angular/material/icon'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule } from '@angular/material/form-field'
 
 @Component({
   selector: 'app-mat-search-bar',
@@ -43,7 +43,7 @@ import { MatFormField } from '@angular/material/form-field'
     }
   ],
   standalone: true,
-  imports: [MatFormField, MatInput, FormsModule, MatIcon, MatRipple]
+  imports: [MatFormFieldModule, MatInputModule, FormsModule, MatIconModule, MatRipple]
 })
 export class MatSearchBarComponent extends AbstractControlValueAccessor
   implements OnInit {

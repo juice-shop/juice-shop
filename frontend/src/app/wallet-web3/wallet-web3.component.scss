@@ -10,7 +10,6 @@
   justify-content: space-between;
 }
 
-/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card {
   display: block;
   margin-left: 30%;
@@ -37,14 +36,12 @@ mat-form-field {
   padding: 12px 20px;
 }
 @media (max-width: 1100px) {
-  /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
   mat-card {
     margin-left: 20%;
     margin-right: 20%;
   }
 }
 @media (max-width: 580px) {
-  /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
   mat-card {
     margin-left: 10%;
     margin-right: 10%;

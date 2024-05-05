@@ -4,7 +4,7 @@
   -->
 
 <mat-card appearance="outlined" class="mat-own-card mat-elevation-z6">
-  <div>
+  <div class="mdc-card">
     <app-payment-method (emitSelection)="getMessage($event)" [allowDelete]="false"></app-payment-method>
     <mat-divider></mat-divider>
     <div class="mat-elevation-z0" class="custom-card" *ngIf="mode !== 'wallet'">

@@ -15,12 +15,12 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { type Review } from '../Models/review.model'
 import { type Product } from '../Models/product.model'
-import { MatInput } from '@angular/material/input'
-import { MatFormField, MatLabel, MatHint } from '@angular/material/form-field'
-import { MatIcon } from '@angular/material/icon'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel, MatHint } from '@angular/material/form-field'
+import { MatIconModule } from '@angular/material/icon'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion'
-import { MatButton, MatIconButton } from '@angular/material/button'
+import { MatButtonModule, MatIconButton } from '@angular/material/button'
 import { MatDivider } from '@angular/material/divider'
 import { MatTooltip } from '@angular/material/tooltip'
 import { NgIf, NgFor, AsyncPipe } from '@angular/common'
@@ -33,7 +33,7 @@ library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp, faCrown)
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss'],
   standalone: true,
-  imports: [MatDialogContent, FlexModule, NgIf, MatTooltip, MatDivider, MatButton, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, TranslateModule, NgFor, MatIconButton, MatIcon, MatFormField, MatLabel, MatHint, MatInput, FormsModule, ReactiveFormsModule, MatDialogActions, MatDialogClose, AsyncPipe]
+  imports: [MatDialogContent, FlexModule, NgIf, MatTooltip, MatDivider, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, TranslateModule, NgFor, MatIconButton, MatIconModule, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormsModule, ReactiveFormsModule, MatDialogActions, MatDialogClose, AsyncPipe]
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
   public author: string = 'Anonymous'

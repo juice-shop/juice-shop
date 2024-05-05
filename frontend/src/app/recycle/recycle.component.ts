@@ -14,14 +14,14 @@ import { FormSubmitService } from '../Services/form-submit.service'
 import { AddressComponent } from '../address/address.component'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
-import { MatButton } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button'
 import { MatCheckbox } from '@angular/material/checkbox'
 import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker'
 import { NgIf } from '@angular/common'
-import { MatInput } from '@angular/material/input'
-import { MatFormField, MatLabel, MatError, MatSuffix } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel, MatError, MatSuffix } from '@angular/material/form-field'
 import { FlexModule } from '@angular/flex-layout/flex'
-import { MatCard, MatCardImage, MatCardContent } from '@angular/material/card'
+import { MatCardModule, MatCardImage, MatCardContent } from '@angular/material/card'
 
 library.add(faPaperPlane)
 
@@ -30,7 +30,7 @@ library.add(faPaperPlane)
   templateUrl: './recycle.component.html',
   styleUrls: ['./recycle.component.scss'],
   standalone: true,
-  imports: [MatCard, FlexModule, TranslateModule, MatFormField, MatLabel, MatInput, FormsModule, ReactiveFormsModule, NgIf, MatError, AddressComponent, MatDatepickerInput, MatDatepickerToggle, MatSuffix, MatDatepicker, MatCheckbox, MatButton, MatCardImage, MatCardContent]
+  imports: [MatCardModule, FlexModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, NgIf, MatError, AddressComponent, MatDatepickerInput, MatDatepickerToggle, MatSuffix, MatDatepicker, MatCheckbox, MatButtonModule, MatCardImage, MatCardContent]
 })
 export class RecycleComponent implements OnInit {
   @ViewChild('addressComp', { static: true }) public addressComponent: AddressComponent

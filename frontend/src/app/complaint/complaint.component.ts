@@ -13,11 +13,11 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
-import { MatButton } from '@angular/material/button'
-import { MatInput } from '@angular/material/input'
-import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/form-field'
+import { MatButtonModule } from '@angular/material/button'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel, MatHint, MatError } from '@angular/material/form-field'
 import { NgIf } from '@angular/common'
-import { MatCard } from '@angular/material/card'
+import { MatCardModule } from '@angular/material/card'
 import { FlexModule } from '@angular/flex-layout/flex'
 
 library.add(faBomb)
@@ -27,7 +27,7 @@ library.add(faBomb)
   templateUrl: './complaint.component.html',
   styleUrls: ['./complaint.component.scss'],
   standalone: true,
-  imports: [FlexModule, MatCard, TranslateModule, NgIf, MatFormField, MatLabel, MatInput, FormsModule, ReactiveFormsModule, MatHint, MatError, FileUploadModule, MatButton]
+  imports: [FlexModule, MatCardModule, TranslateModule, NgIf, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatHint, MatError, FileUploadModule, MatButtonModule]
 })
 export class ComplaintComponent implements OnInit {
   public customerControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])

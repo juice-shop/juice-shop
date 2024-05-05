@@ -13,9 +13,6 @@
   padding: 12px 20px;
 }
 
-
-/*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.
- */
 mat-card {
   height: auto;
   width: 80%;
@@ -42,8 +39,6 @@ mat-footer-cell {
   text-align: right;
 }
 
-/*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.
- */
 mat-card-title {
   margin-bottom: 25px;
 }

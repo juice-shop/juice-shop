@@ -30,8 +30,6 @@ $bg-heading: rgba(0, 0, 0, 0.2);
   bottom: 10%;
 }
 
-/*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.
- */
 mat-card {
   height: calc(100% - 70px);
 }

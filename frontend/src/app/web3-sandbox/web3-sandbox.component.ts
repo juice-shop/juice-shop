@@ -12,11 +12,11 @@ import {
 import {
   solidityCompiler
 } from 'solidity-browser-compiler'
-import { MatInput } from '@angular/material/input'
-import { MatFormField, MatLabel } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
 import { TranslateModule } from '@ngx-translate/core'
 import { NgIf, NgFor } from '@angular/common'
-import { MatButton } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button'
 import { FormsModule } from '@angular/forms'
 import { CodemirrorModule } from '@ctrl/ngx-codemirror'
 
@@ -42,7 +42,7 @@ const compilerReleases = {
   templateUrl: './web3-sandbox.component.html',
   styleUrls: ['./web3-sandbox.component.scss'],
   standalone: true,
-  imports: [CodemirrorModule, FormsModule, MatButton, NgIf, TranslateModule, MatFormField, MatLabel, MatInput, NgFor]
+  imports: [CodemirrorModule, FormsModule, MatButtonModule, NgIf, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, NgFor]
 })
 export class Web3SandboxComponent {
   constructor (

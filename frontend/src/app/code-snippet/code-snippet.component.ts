@@ -14,13 +14,13 @@ import { MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, Ma
 import { UntypedFormControl, FormsModule } from '@angular/forms'
 import { ConfigurationService } from '../Services/configuration.service'
 import { type ThemePalette } from '@angular/material/core'
-import { MatIconButton, MatButton } from '@angular/material/button'
-import { MatInput } from '@angular/material/input'
-import { MatFormField, MatLabel } from '@angular/material/form-field'
+import { MatIconButton, MatButtonModule } from '@angular/material/button'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
 import { ExtendedModule } from '@angular/flex-layout/extended'
-import { MatCard } from '@angular/material/card'
+import { MatCardModule } from '@angular/material/card'
 import { CodeFixesComponent } from '../code-fixes/code-fixes.component'
-import { MatIcon } from '@angular/material/icon'
+import { MatIconModule } from '@angular/material/icon'
 import { TranslateModule } from '@ngx-translate/core'
 import { CodeAreaComponent } from '../code-area/code-area.component'
 import { NgIf, NgClass, NgFor } from '@angular/common'
@@ -49,7 +49,7 @@ export interface RandomFixes {
   styleUrls: ['./code-snippet.component.scss'],
   host: { class: 'code-snippet' },
   standalone: true,
-  imports: [MatDialogTitle, MatDialogContent, MatTabGroup, MatTab, FlexModule, NgIf, CodeAreaComponent, TranslateModule, MatTabLabel, MatIcon, CodeFixesComponent, MatDialogActions, MatCard, NgClass, ExtendedModule, MatFormField, MatLabel, MatInput, NgFor, FormsModule, MatIconButton, MatButton, MatDialogClose]
+  imports: [MatDialogTitle, MatDialogContent, MatTabGroup, MatTab, FlexModule, NgIf, CodeAreaComponent, TranslateModule, MatTabLabel, MatIconModule, CodeFixesComponent, MatDialogActions, MatCardModule, NgClass, ExtendedModule, MatFormFieldModule, MatLabel, MatInputModule, NgFor, FormsModule, MatIconButton, MatButtonModule, MatDialogClose]
 })
 export class CodeSnippetComponent implements OnInit {
   public snippet: CodeSnippet = null

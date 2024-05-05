@@ -12,12 +12,12 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { Router, RouterLink } from '@angular/router'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { SelectionModel } from '@angular/cdk/collections'
-import { MatIcon } from '@angular/material/icon'
-import { MatIconButton, MatButton } from '@angular/material/button'
+import { MatIconModule } from '@angular/material/icon'
+import { MatIconButton, MatButtonModule } from '@angular/material/button'
 import { MatRadioButton } from '@angular/material/radio'
 import { FlexModule } from '@angular/flex-layout/flex'
 import { NgIf } from '@angular/common'
-import { MatCard } from '@angular/material/card'
+import { MatCardModule } from '@angular/material/card'
 
 library.add(faEdit, faTrashAlt)
 
@@ -26,7 +26,7 @@ library.add(faEdit, faTrashAlt)
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.scss'],
   standalone: true,
-  imports: [MatCard, NgIf, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, FlexModule, MatCellDef, MatCell, MatRadioButton, MatIconButton, RouterLink, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatButton, MatIcon]
+  imports: [MatCardModule, NgIf, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, FlexModule, MatCellDef, MatCell, MatRadioButton, MatIconButton, RouterLink, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatButtonModule, MatIconModule]
 })
 export class AddressComponent implements OnInit {
   @Output() emitSelection = new EventEmitter()

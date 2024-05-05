@@ -11,11 +11,11 @@ import { ActivatedRoute, type ParamMap, Router } from '@angular/router'
 import { Location, NgIf } from '@angular/common'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
-import { MatIcon } from '@angular/material/icon'
-import { MatButton } from '@angular/material/button'
-import { MatInput } from '@angular/material/input'
-import { MatFormField, MatLabel, MatError, MatHint } from '@angular/material/form-field'
-import { MatCard } from '@angular/material/card'
+import { MatIconModule } from '@angular/material/icon'
+import { MatButtonModule } from '@angular/material/button'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel, MatError, MatHint } from '@angular/material/form-field'
+import { MatCardModule } from '@angular/material/card'
 import { FlexModule } from '@angular/flex-layout/flex'
 
 @Component({
@@ -23,7 +23,7 @@ import { FlexModule } from '@angular/flex-layout/flex'
   templateUrl: './address-create.component.html',
   styleUrls: ['./address-create.component.scss'],
   standalone: true,
-  imports: [FlexModule, MatCard, TranslateModule, MatFormField, MatLabel, MatInput, FormsModule, ReactiveFormsModule, NgIf, MatError, MatHint, MatButton, MatIcon]
+  imports: [FlexModule, MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, NgIf, MatError, MatHint, MatButtonModule, MatIconModule]
 })
 export class AddressCreateComponent implements OnInit {
   public countryControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
