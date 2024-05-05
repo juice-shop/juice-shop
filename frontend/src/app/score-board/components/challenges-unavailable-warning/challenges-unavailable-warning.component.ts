@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, type OnChanges, Output } from '@angular
 import { FilterSetting } from '../../filter-settings/FilterSetting'
 import { type EnrichedChallenge } from '../../types/EnrichedChallenge'
 import { TranslateModule } from '@ngx-translate/core'
-import { MatButton } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button'
 import { WarningCardComponent } from '../warning-card/warning-card.component'
 import { NgIf, NgClass } from '@angular/common'
 
@@ -12,7 +12,7 @@ import { NgIf, NgClass } from '@angular/common'
   templateUrl: './challenges-unavailable-warning.component.html',
   styleUrls: ['./challenges-unavailable-warning.component.scss'],
   standalone: true,
-  imports: [NgIf, WarningCardComponent, NgClass, MatButton, TranslateModule]
+  imports: [NgIf, WarningCardComponent, NgClass, MatButtonModule, TranslateModule]
 })
 export class ChallengesUnavailableWarningComponent implements OnChanges {
   @Input()

@@ -16,14 +16,14 @@ import { FormSubmitService } from '../Services/form-submit.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { BasketService } from '../Services/basket.service'
 import { MatCheckbox } from '@angular/material/checkbox'
-import { MatIcon } from '@angular/material/icon'
+import { MatIconModule } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
-import { MatIconButton, MatButton } from '@angular/material/button'
-import { MatInput } from '@angular/material/input'
+import { MatIconButton, MatButtonModule } from '@angular/material/button'
+import { MatInputModule } from '@angular/material/input'
 import { TranslateModule } from '@ngx-translate/core'
-import { MatFormField, MatLabel, MatError, MatSuffix } from '@angular/material/form-field'
+import { MatFormFieldModule, MatLabel, MatError, MatSuffix } from '@angular/material/form-field'
 import { NgIf } from '@angular/common'
-import { MatCard } from '@angular/material/card'
+import { MatCardModule } from '@angular/material/card'
 import { FlexModule } from '@angular/flex-layout/flex'
 
 library.add(faKey, faEye, faEyeSlash, faGoogle)
@@ -35,7 +35,7 @@ const oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   standalone: true,
-  imports: [FlexModule, MatCard, NgIf, MatFormField, MatLabel, TranslateModule, MatInput, FormsModule, ReactiveFormsModule, MatError, MatIconButton, MatSuffix, MatTooltip, RouterLink, MatButton, MatIcon, MatCheckbox]
+  imports: [FlexModule, MatCardModule, NgIf, MatFormFieldModule, MatLabel, TranslateModule, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatIconButton, MatSuffix, MatTooltip, RouterLink, MatButtonModule, MatIconModule, MatCheckbox]
 })
 
 export class LoginComponent implements OnInit {

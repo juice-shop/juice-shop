@@ -48,9 +48,9 @@ import { NgIf, NgFor } from '@angular/common'
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu'
 import { MatSearchBarComponent } from '../mat-search-bar/mat-search-bar.component'
 import { ExtendedModule } from '@angular/flex-layout/extended'
-import { MatIcon } from '@angular/material/icon'
+import { MatIconModule } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
-import { MatButton } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button'
 import { FlexModule } from '@angular/flex-layout/flex'
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar'
 
@@ -61,7 +61,7 @@ library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, 
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
   standalone: true,
-  imports: [MatToolbar, FlexModule, MatToolbarRow, MatButton, MatTooltip, MatIcon, RouterLink, ExtendedModule, MatSearchBarComponent, MatMenuTrigger, MatMenu, NgIf, MatMenuItem, NgFor, MatRadioButton, TranslateModule, MatDivider]
+  imports: [MatToolbar, FlexModule, MatToolbarRow, MatButtonModule, MatTooltip, MatIconModule, RouterLink, ExtendedModule, MatSearchBarComponent, MatMenuTrigger, MatMenu, NgIf, MatMenuItem, NgFor, MatRadioButton, TranslateModule, MatDivider]
 })
 export class NavbarComponent implements OnInit {
   public userEmail: string = ''

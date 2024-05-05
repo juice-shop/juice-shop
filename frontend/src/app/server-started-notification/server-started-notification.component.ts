@@ -8,9 +8,9 @@ import { ChallengeService } from '../Services/challenge.service'
 import { ChangeDetectorRef, Component, NgZone, type OnInit } from '@angular/core'
 import { CookieService } from 'ngy-cookie'
 import { SocketIoService } from '../Services/socket-io.service'
-import { MatIcon } from '@angular/material/icon'
-import { MatButton } from '@angular/material/button'
-import { MatCard, MatCardHeader, MatCardContent } from '@angular/material/card'
+import { MatIconModule } from '@angular/material/icon'
+import { MatButtonModule } from '@angular/material/button'
+import { MatCardModule, MatCardHeader, MatCardContent } from '@angular/material/card'
 import { NgIf } from '@angular/common'
 
 interface HackingProgress {
@@ -23,7 +23,7 @@ interface HackingProgress {
   templateUrl: './server-started-notification.component.html',
   styleUrls: ['./server-started-notification.component.scss'],
   standalone: true,
-  imports: [NgIf, MatCard, MatCardHeader, MatCardContent, TranslateModule, MatButton, MatIcon]
+  imports: [NgIf, MatCardModule, MatCardHeader, MatCardContent, TranslateModule, MatButtonModule, MatIconModule]
 })
 export class ServerStartedNotificationComponent implements OnInit {
   public hackingProgress: HackingProgress = {} as HackingProgress

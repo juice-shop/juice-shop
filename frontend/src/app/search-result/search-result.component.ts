@@ -23,9 +23,9 @@ import { type Product } from '../Models/product.model'
 import { QuantityService } from '../Services/quantity.service'
 import { DeluxeGuard } from '../app.guard'
 import { MatDivider } from '@angular/material/divider'
-import { MatButton } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button'
 import { MatTooltip } from '@angular/material/tooltip'
-import { MatCard, MatCardImage, MatCardTitle, MatCardContent } from '@angular/material/card'
+import { MatCardModule, MatCardImage, MatCardTitle, MatCardContent } from '@angular/material/card'
 import { MatGridList, MatGridTile } from '@angular/material/grid-list'
 import { NgIf, NgFor, AsyncPipe } from '@angular/common'
 import { FlexModule } from '@angular/flex-layout/flex'
@@ -47,7 +47,7 @@ interface TableEntry {
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.scss'],
   standalone: true,
-  imports: [FlexModule, NgIf, MatGridList, NgFor, MatGridTile, MatCard, TranslateModule, MatTooltip, MatCardImage, MatButton, MatCardTitle, MatCardContent, MatDivider, MatPaginator, AsyncPipe]
+  imports: [FlexModule, NgIf, MatGridList, NgFor, MatGridTile, MatCardModule, TranslateModule, MatTooltip, MatCardImage, MatButtonModule, MatCardTitle, MatCardContent, MatDivider, MatPaginator, AsyncPipe]
 })
 export class SearchResultComponent implements OnDestroy, AfterViewInit {
   public displayedColumns = ['Image', 'Product', 'Description', 'Price', 'Select']

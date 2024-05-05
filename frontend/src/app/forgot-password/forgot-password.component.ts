@@ -12,15 +12,15 @@ import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-regular-svg-icons'
 import { type SecurityQuestion } from '../Models/securityQuestion.model'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
-import { MatButton } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button'
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength'
 import { MatSlideToggle } from '@angular/material/slide-toggle'
 import { NgIf } from '@angular/common'
 import { MatTooltip } from '@angular/material/tooltip'
-import { MatIcon } from '@angular/material/icon'
-import { MatInput } from '@angular/material/input'
-import { MatFormField, MatLabel, MatSuffix, MatError, MatHint } from '@angular/material/form-field'
-import { MatCard } from '@angular/material/card'
+import { MatIconModule } from '@angular/material/icon'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel, MatSuffix, MatError, MatHint } from '@angular/material/form-field'
+import { MatCardModule } from '@angular/material/card'
 import { FlexModule } from '@angular/flex-layout/flex'
 
 library.add(faSave, faEdit)
@@ -30,7 +30,7 @@ library.add(faSave, faEdit)
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss'],
   standalone: true,
-  imports: [FlexModule, MatCard, TranslateModule, MatFormField, MatLabel, MatInput, FormsModule, ReactiveFormsModule, MatIcon, MatSuffix, MatTooltip, NgIf, MatError, MatHint, MatSlideToggle, MatPasswordStrengthModule, MatButton]
+  imports: [FlexModule, MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatIconModule, MatSuffix, MatTooltip, NgIf, MatError, MatHint, MatSlideToggle, MatPasswordStrengthModule, MatButtonModule]
 })
 export class ForgotPasswordComponent {
   public emailControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.email])

@@ -8,9 +8,9 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCartArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { Router } from '@angular/router'
 import { TranslateModule } from '@ngx-translate/core'
-import { MatButton } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button'
 import { PurchaseBasketComponent } from '../purchase-basket/purchase-basket.component'
-import { MatCard } from '@angular/material/card'
+import { MatCardModule } from '@angular/material/card'
 
 library.add(faCartArrowDown)
 
@@ -19,7 +19,7 @@ library.add(faCartArrowDown)
   templateUrl: './basket.component.html',
   styleUrls: ['./basket.component.scss'],
   standalone: true,
-  imports: [MatCard, PurchaseBasketComponent, MatButton, TranslateModule]
+  imports: [MatCardModule, PurchaseBasketComponent, MatButtonModule, TranslateModule]
 })
 export class BasketComponent {
   public productCount: number = 0

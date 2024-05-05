@@ -11,17 +11,17 @@ import { DifficultyStarsComponent } from '../difficulty-stars/difficulty-stars.c
 import { MatOption } from '@angular/material/core'
 import { NgIf, NgFor } from '@angular/common'
 import { MatSelect, MatSelectTrigger } from '@angular/material/select'
-import { MatInput } from '@angular/material/input'
+import { MatInputModule } from '@angular/material/input'
 import { TranslateModule } from '@ngx-translate/core'
-import { MatIcon } from '@angular/material/icon'
-import { MatFormField, MatPrefix, MatLabel } from '@angular/material/form-field'
+import { MatIconModule } from '@angular/material/icon'
+import { MatFormFieldModule, MatPrefix, MatLabel } from '@angular/material/form-field'
 
 @Component({
   selector: 'filter-settings',
   templateUrl: './filter-settings.component.html',
   styleUrls: ['./filter-settings.component.scss'],
   standalone: true,
-  imports: [MatFormField, MatIcon, MatPrefix, MatLabel, TranslateModule, MatInput, MatSelect, MatSelectTrigger, NgIf, MatOption, DifficultyStarsComponent, NgFor, MatIconButton, MatTooltip, CategoryFilterComponent, DifficultySelectionSummaryPipe]
+  imports: [MatFormFieldModule, MatIconModule, MatPrefix, MatLabel, TranslateModule, MatInputModule, MatSelect, MatSelectTrigger, NgIf, MatOption, DifficultyStarsComponent, NgFor, MatIconButton, MatTooltip, CategoryFilterComponent, DifficultySelectionSummaryPipe]
 })
 export class FilterSettingsComponent implements OnChanges {
   @Input()

@@ -14,7 +14,7 @@ import { ExtendedModule } from '@angular/flex-layout/extended'
 import { FlexModule } from '@angular/flex-layout/flex'
 import { NgIf } from '@angular/common'
 import { TranslateModule } from '@ngx-translate/core'
-import { MatCard } from '@angular/material/card'
+import { MatCardModule } from '@angular/material/card'
 
 library.add(faWarehouse, faSync, faTruckLoading, faTruck, faHome)
 
@@ -30,7 +30,7 @@ export enum Status {
   templateUrl: './track-result.component.html',
   styleUrls: ['./track-result.component.scss'],
   standalone: true,
-  imports: [MatCard, TranslateModule, NgIf, FlexModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, ExtendedModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow]
+  imports: [MatCardModule, TranslateModule, NgIf, FlexModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, ExtendedModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow]
 })
 export class TrackResultComponent implements OnInit {
   public displayedColumns = ['product', 'price', 'quantity', 'total price']

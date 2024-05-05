@@ -6,7 +6,7 @@ import { hasInstructions, startHackingInstructorFor } from '../../../../hacking-
 import { Config } from 'src/app/Services/configuration.service'
 import { ChallengeHintPipe } from '../../pipes/challenge-hint.pipe'
 import { TranslateModule } from '@ngx-translate/core'
-import { MatIcon } from '@angular/material/icon'
+import { MatIconModule } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
 import { NgFor, NgIf, NgClass, AsyncPipe } from '@angular/common'
 import { DifficultyStarsComponent } from '../difficulty-stars/difficulty-stars.component'
@@ -16,7 +16,7 @@ import { DifficultyStarsComponent } from '../difficulty-stars/difficulty-stars.c
   templateUrl: './challenge-card.component.html',
   styleUrls: ['./challenge-card.component.scss'],
   standalone: true,
-  imports: [DifficultyStarsComponent, NgFor, MatTooltip, NgIf, MatIcon, NgClass, AsyncPipe, TranslateModule, ChallengeHintPipe]
+  imports: [DifficultyStarsComponent, NgFor, MatTooltip, NgIf, MatIconModule, NgClass, AsyncPipe, TranslateModule, ChallengeHintPipe]
 })
 export class ChallengeCardComponent {
   @Input()

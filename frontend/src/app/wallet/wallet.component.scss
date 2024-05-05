@@ -3,10 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-/*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.
- */
 mat-card {
-  display: block;
   margin-left: 30%;
   margin-right: 30%;
 }
@@ -38,16 +35,12 @@ mat-form-field {
   justify-content: space-between;
 }
 @media (max-width: 1100px) {
-  /*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.
- */
   mat-card {
     margin-left: 20%;
     margin-right: 20%;
   }
 }
 @media (max-width: 580px) {
-  /*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.
- */
   mat-card {
     margin-left: 10%;
     margin-right: 10%;

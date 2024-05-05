@@ -11,12 +11,12 @@ import {
   InjectedConnector
 } from '@wagmi/core'
 import { FormsModule } from '@angular/forms'
-import { MatInput } from '@angular/material/input'
-import { MatFormField, MatLabel } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
 import { TranslateModule } from '@ngx-translate/core'
 import { NgIf } from '@angular/common'
-import { MatButton } from '@angular/material/button'
-import { MatCard } from '@angular/material/card'
+import { MatButtonModule } from '@angular/material/button'
+import { MatCardModule } from '@angular/material/card'
 const { ethereum } = window
 const BankAddress = '0x413744D59d31AFDC2889aeE602636177805Bd7b0'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -30,7 +30,7 @@ const client = createClient({
   templateUrl: './wallet-web3.component.html',
   styleUrls: ['./wallet-web3.component.scss'],
   standalone: true,
-  imports: [MatCard, MatButton, NgIf, TranslateModule, MatFormField, MatLabel, MatInput, FormsModule]
+  imports: [MatCardModule, MatButtonModule, NgIf, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule]
 })
 export class WalletWeb3Component {
   constructor (
