@@ -27,9 +27,9 @@ $indigo-pink-theme: mat.define-light-theme((
     accent: $indigo-pink-accent,
   ),
 ));
+
 .indigo-pink-theme {
-  @include mat.all-component-colors($indigo-pink-theme)
-}
+  @include mat.all-component-colors($indigo-pink-theme); }
 
 $pink-bluegrey-primary: mat.define-palette(mat.$pink-palette, 700, 500, 900);
 $pink-bluegrey-accent: mat.define-palette(mat.$blue-grey-palette, A200, A100, A400);
@@ -39,9 +39,9 @@ $pink-bluegrey-theme: mat.define-dark-theme((
     accent: $pink-bluegrey-accent,
   ),
 ));
+
 .pink-bluegrey-theme {
-  @include mat.all-component-colors($pink-bluegrey-theme)
-}
+  @include mat.all-component-colors($pink-bluegrey-theme); }
 
 $purple-green-primary: mat.define-palette(mat.$purple-palette, 700, 500, 800);
 $purple-green-accent: mat.define-palette(mat.$green-palette, A200, A100, A400);
@@ -51,9 +51,9 @@ $purple-green-theme: mat.define-dark-theme((
     accent: $purple-green-accent,
   ),
 ));
+
 .purple-green-theme {
-  @include mat.all-component-colors($purple-green-theme)
-}
+  @include mat.all-component-colors($purple-green-theme); }
 
 $blue-lightblue-primary: mat.define-palette(mat.$blue-palette, 700, 400, 800);
 $blue-lightblue-accent: mat.define-palette(mat.$light-blue-palette, 700, 600, 800);
@@ -63,9 +63,9 @@ $blue-lightblue-theme: mat.define-light-theme((
     accent: $blue-lightblue-accent,
   ),
 ));
+
 .blue-lightblue-theme {
-  @include mat.all-component-colors($blue-lightblue-theme)
-}
+  @include mat.all-component-colors($blue-lightblue-theme); }
 
 $bluegrey-lightgreen-primary: mat.define-palette(mat.$blue-grey-palette, 600, 500, 900);
 $bluegrey-lightgreen-accent: mat.define-palette(mat.$light-green-palette, 700, 300, 800);
@@ -77,9 +77,9 @@ $bluegrey-lightgreen-theme: mat.define-dark-theme((
     warn: $bluegrey-lightgreen-warn,
   ),
 ));
+
 .bluegrey-lightgreen-theme {
-  @include mat.all-component-colors($bluegrey-lightgreen-theme)
-}
+  @include mat.all-component-colors($bluegrey-lightgreen-theme); }
 
 $deeporange-indigo-primary: mat.define-palette(mat.$deep-orange-palette, 700, 500, 900);
 $deeporange-indigo-accent: mat.define-palette(mat.$indigo-palette, 900, 300, A100);
@@ -89,6 +89,6 @@ $deeporange-indigo-theme: mat.define-light-theme((
     accent: $deeporange-indigo-accent,
   ),
 ));
+
 .deeporange-indigo-theme {
-  @include mat.all-component-colors($deeporange-indigo-theme)
-}
+  @include mat.all-component-colors($deeporange-indigo-theme); }
