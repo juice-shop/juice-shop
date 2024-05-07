@@ -4,13 +4,13 @@
  */
 
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
-import { EventEmitter } from '@angular/core'
+import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core'
 import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 
 import { AboutComponent } from './about.component'
 import { MatCardModule } from '@angular/material/card'
-import { NO_ERRORS_SCHEMA } from '@angular/core'
+
 import { of } from 'rxjs'
 import { ConfigurationService } from '../Services/configuration.service'
 import { GalleryModule } from 'ng-gallery'
