@@ -14,7 +14,8 @@ module.exports = {
     sourceType: 'module'
   },
   ignorePatterns: [
-    '.eslintrc.js'
+    '.eslintrc.js',
+    'score-board.module.ts' // FIXME remove patterns once (fully commented out) module file is deleted
   ],
   rules: {
     '@typescript-eslint/prefer-nullish-coalescing': 'off', // requires the `strictNullChecks` compiler option
