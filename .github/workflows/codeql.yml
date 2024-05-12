@@ -1,1 +1,24 @@
+name: CQL SAST
 
+on: [push]
+
+jobs:
+  sast:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+      - name: Install dependencies
+        run: npm install
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with: 
+           languages: 'javascript'
+      - name: Run CodeQL analysis
+        uses: github/codeql-action/analyze@v3
+      - name: Save CodeQL SARIF report
+        uses: actions/upload-artifact@v4
+        with:
+          path: /home/runner/work/juice-shop/results/javascript.sarif       
