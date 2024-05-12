@@ -1,5 +1,7 @@
 name: CQL SAST
+
 on: [push]
+
 jobs:
   sast:
     runs-on: ubuntu-latest
@@ -16,7 +18,16 @@ jobs:
            languages: 'javascript'
       - name: Run CodeQL analysis
         uses: github/codeql-action/analyze@v3
-      - name: Save CodeQL SARIF report
+      - name: Save CodeQL HTML report
+        run: |
+          codeql bqrs decode --output=javascript.bqrs /home/runner/work/juice-shop/results/javascript.bqrs
+          codeql bqrs decode --output=javascript.sarif /home/runner/work/juice-shop/results/javascript.bqrs
+          codeql database analyze javascript.sarif --format=html --output=javascript.html
+          mkdir -p reports
+          mv javascript.html reports/
+        if: always()
+      - name: Upload HTML report
         uses: actions/upload-artifact@v4
         with:
-          path: /home/runner/work/juice-shop/results/javascript.sarif       
+          name: codeql-html-report
+          path: reports/javascript.html    
