@@ -1,7 +1,5 @@
 name: CQL SAST
-
 on: [push]
-
 jobs:
   sast:
     runs-on: ubuntu-latest
