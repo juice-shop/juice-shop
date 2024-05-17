@@ -189,43 +189,36 @@
 $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
 
 .deeppurple-amber-theme {
-  @include mat.all-component-themes($deeppurple-amber-theme);
   @include custom-components-theme($deeppurple-amber-theme);
   @include css-vars($deeppurple-amber-theme);
 }
 
 .indigo-pink-theme {
-  @include mat.all-component-themes($indigo-pink-theme);
   @include custom-components-theme($indigo-pink-theme);
   @include css-vars($indigo-pink-theme);
 }
 
 .pink-bluegrey-theme {
-  @include mat.all-component-themes($pink-bluegrey-theme);
   @include custom-components-theme($pink-bluegrey-theme);
   @include css-vars($pink-bluegrey-theme);
 }
 
 .purple-green-theme {
-  @include mat.all-component-themes($purple-green-theme);
   @include custom-components-theme($purple-green-theme);
   @include css-vars($purple-green-theme);
 }
 
 .bluegrey-lightgreen-theme {
-  @include mat.all-component-themes($bluegrey-lightgreen-theme);
   @include custom-components-theme($bluegrey-lightgreen-theme);
   @include css-vars($bluegrey-lightgreen-theme);
 }
 
 .blue-lightblue-theme {
-  @include mat.all-component-themes($blue-lightblue-theme);
   @include custom-components-theme($blue-lightblue-theme);
   @include css-vars($blue-lightblue-theme);
 }
 
 .deeporange-indigo-theme {
-  @include mat.all-component-themes($deeporange-indigo-theme);
   @include custom-components-theme($deeporange-indigo-theme);
   @include css-vars($deeporange-indigo-theme);
 }
