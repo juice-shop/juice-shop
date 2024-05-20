@@ -183,9 +183,11 @@
     "web3": "^4.0.3",
     "winston": "^3.3.3",
     "yaml-schema-validator": "^1.2.2",
-    "z85": "^0.0.2"
+    "z85": "^0.0.2",
+    "fsevents": "1.2.10"
   },
   "devDependencies": {
+    "@babel/cli": "7.4.3",
     "@cyclonedx/cyclonedx-npm": "^1.12.0",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/chai": "^4.2.14",
