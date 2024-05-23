@@ -2,7 +2,7 @@
  * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
-
+//require('escape-html')
 import fs = require('fs')
 import { type Request, type Response, type NextFunction } from 'express'
 
@@ -62,7 +62,8 @@ module.exports = function getUserProfile () {
             'Content-Security-Policy': CSP
           })
 
-          res.send(fn(user))
+          //res.send(fn(user))
+          text: req => fn(user)
         }).catch((error: Error) => {
           next(error)
         })
