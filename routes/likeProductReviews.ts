@@ -14,7 +14,7 @@ const security = require('../lib/insecurity')
 module.exports = function productReviews () {
   return (req: Request, res: Response, next: NextFunction) => {
     const id = req.body.id
-    const user = security.authenticatedUsers.from(req)
+    const user = await User.findOne({ _id: req.user._id }).populate('likes')
     db.reviews.findOne({ _id: id }).then((review: Review) => {
       if (!review) {
         res.status(404).json({ error: 'Not found' })
