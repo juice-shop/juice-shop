@@ -11,7 +11,7 @@ import path from 'path'
 import * as utils from '../lib/utils'
 import { challenges } from '../data/datacache'
 
-const libxml = require('libxmljs2')
+const libxml = require('libxmljs')
 const vm = require('vm')
 const unzipper = require('unzipper')
 
