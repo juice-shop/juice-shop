@@ -61,7 +61,7 @@ module.exports = function getUserProfile () {
           res.set({
             'Content-Security-Policy': CSP
           })
-
+          res.set('Content-Type', 'application/json');
           res.send(fn(user))
         }).catch((error: Error) => {
           next(error)
