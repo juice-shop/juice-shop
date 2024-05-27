@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "17.0.0-SNAPSHOT",
+  "version": "17.0.0",
   "private": true,
   "description": "Probably the most modern and sophisticated insecure web application",
   "keywords": [
@@ -154,7 +154,7 @@
     "jsonwebtoken": "0.4.0",
     "jssha": "^3.1.1",
     "juicy-chat-bot": "~0.8.0",
-    "libxmljs2": "^0.33.0",
+    "libxmljs": "^1.0.11",
     "marsdb": "^0.6.11",
     "median": "^0.0.2",
     "morgan": "^1.10.0",
