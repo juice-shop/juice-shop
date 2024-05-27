@@ -113,7 +113,7 @@
   },
   "dependencies": {
     "body-parser": "^1.20.2",
-    "check-dependencies": "^1.1.0",
+    "check-dependencies": "^2.0.0",
     "check-internet-connected": "^2.0.6",
     "clarinet": "^0.12.5",
     "colors": "1.4.0",
