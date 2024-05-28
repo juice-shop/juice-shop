@@ -11,6 +11,7 @@ import { UserModel } from '../models/user'
 import * as utils from '../lib/utils'
 const security = require('../lib/insecurity')
 const request = require('request')
+import { sanitizeInput } from '../lib/utils'
 
 module.exports = function profileImageUrlUpload () {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -18,9 +19,10 @@ module.exports = function profileImageUrlUpload () {
       const url = req.body.imageUrl
       if (url.match(/(.)*solve\/challenges\/server-side(.)*/) !== null) req.app.locals.abused_ssrf_bug = true
       const loggedInUser = security.authenticatedUsers.get(req.cookies.token)
+      const cleanURL = sanitizeInput(url)
       if (loggedInUser) {
         const imageRequest = request
-          .get(url)
+          .get(cleanURL)
           .on('error', function (err: unknown) {
             UserModel.findByPk(loggedInUser.data.id).then(async (user: UserModel | null) => { return await user?.update({ profileImage: url }) }).catch((error: Error) => { next(error) })
             logger.warn(`Error retrieving user profile image: ${utils.getErrorMessage(err)}; using image link directly`)
