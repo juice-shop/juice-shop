@@ -9,6 +9,7 @@ import { UserModel } from '../models/user'
 import { SecurityQuestionModel } from '../models/securityQuestion'
 import { PrivacyRequestModel } from '../models/privacyRequests'
 const insecurity = require('../lib/insecurity')
+import {sanitizeInput} from '../lib/utils'
 
 const challenges = require('../data/datacache').challenges
 const challengeUtils = require('../lib/challengeUtils')
@@ -21,7 +22,7 @@ router.get('/', async (req: Request, res: Response, next: NextFunction): Promise
     next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
     return
   }
-  const email = loggedInUser.data.email
+  const email = sanitizeInput(loggedInUser.data.email)
 
   try {
     const answer = await SecurityAnswerModel.findOne({
@@ -57,10 +58,10 @@ router.post('/', async (req: Request<Record<string, unknown>, Record<string, unk
     next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
     return
   }
-
+  const sanitizedUserID = sanitizeInput(loggedInUser.data.id)
   try {
     await PrivacyRequestModel.create({
-      UserId: loggedInUser.data.id,
+      UserId: sanitizedUserID as number,
       deletionRequested: true
     })
 

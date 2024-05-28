@@ -7,10 +7,12 @@ import { type Request, type Response, type NextFunction } from 'express'
 import { SecurityAnswerModel } from '../models/securityAnswer'
 import { UserModel } from '../models/user'
 import { SecurityQuestionModel } from '../models/securityQuestion'
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm' // ORM Adding 
+import {sanitizeInput} from '../lib/utils'
 
 module.exports = function securityQuestion () {
   return ({ query }: Request, res: Response, next: NextFunction) => {
-    const email = query.email
+    const email = sanitizeInput(query.email)
     SecurityAnswerModel.findOne({
       include: [{
         model: UserModel,

@@ -6,6 +6,7 @@
 import { type Request, type Response, type NextFunction } from 'express'
 import { type Captcha } from '../data/types'
 import { CaptchaModel } from '../models/captcha'
+import {sanitizeInput} from '../lib/utils'
 
 function captchas () {
   return async (req: Request, res: Response) => {
@@ -34,7 +35,8 @@ function captchas () {
 }
 
 captchas.verifyCaptcha = () => (req: Request, res: Response, next: NextFunction) => {
-  CaptchaModel.findOne({ where: { captchaId: req.body.captchaId } }).then((captcha: Captcha | null) => {
+  const sanitizedCaptcha = sanitizeInput(req.body.captchaId )
+  CaptchaModel.findOne({ where: { captchaId: sanitizedCaptcha as string | number } }).then((captcha: Captcha | null) => {
     if ((captcha != null) && req.body.captcha === captcha.answer) {
       next()
     } else {

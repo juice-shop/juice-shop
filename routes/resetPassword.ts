@@ -8,6 +8,8 @@ import { type Request, type Response, type NextFunction } from 'express'
 import { type Memory } from '../data/types'
 import { SecurityAnswerModel } from '../models/securityAnswer'
 import { UserModel } from '../models/user'
+import {sanitizeInput} from '../lib/utils'
+
 
 import challengeUtils = require('../lib/challengeUtils')
 const challenges = require('../data/datacache').challenges
@@ -16,10 +18,10 @@ const security = require('../lib/insecurity')
 
 module.exports = function resetPassword () {
   return ({ body, connection }: Request, res: Response, next: NextFunction) => {
-    const email = body.email
-    const answer = body.answer
-    const newPassword = body.new
-    const repeatPassword = body.repeat
+    const email = sanitizeInput(body.email)
+    const answer = sanitizeInput(body.answer)
+    const newPassword = sanitizeInput(body.new)
+    const repeatPassword =  sanitizeInput(body.repeat)
     if (!email || !answer) {
       next(new Error('Blocked illegal activity by ' + connection.remoteAddress))
     } else if (!newPassword || newPassword === 'undefined') {

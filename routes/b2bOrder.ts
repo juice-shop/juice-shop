@@ -11,6 +11,7 @@ import * as utils from '../lib/utils'
 const security = require('../lib/insecurity')
 const safeEval = require('notevil')
 const challenges = require('../data/datacache').challenges
+var SDK = require('aws-sdk');
 
 module.exports = function b2bOrder () {
   return ({ body }: Request, res: Response, next: NextFunction) => {

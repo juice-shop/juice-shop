@@ -28,6 +28,8 @@ import * as utils from '../lib/utils'
 const datacache = require('./datacache')
 const mongodb = require('./mongodb')
 const security = require('../lib/insecurity')
+import {sanitizeInput} from '../lib/utils'
+
 
 const fs = require('fs')
 const util = require('util')
@@ -111,14 +113,21 @@ async function createUsers () {
     users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret, lastLoginIp = '' }: User) => {
       try {
         const completeEmail = customDomain ? email : `${email}@${config.get('application.domain')}`
+        const santitized_username = sanitizeInput(username)
+        const santitized_email = sanitizeInput(completeEmail)
+        const santitized_password = sanitizeInput(password)
+        const santitized_role= sanitizeInput(role)
+        const santitized_profileImage = sanitizeInput(profileImage)
+        const santitized_totpSecret = sanitizeInput(totpSecret)
+        const santitized_lastlogin = sanitizeInput(lastLoginIp)
         const user = await UserModel.create({
-          username,
+          santitized_username,
           email: completeEmail,
           password,
-          role,
-          deluxeToken: role === security.roles.deluxe ? security.deluxeToken(completeEmail) : '',
-          profileImage: `assets/public/images/uploads/${profileImage ?? (role === security.roles.admin ? 'defaultAdmin.png' : 'default.svg')}`,
-          totpSecret,
+          santitized_role,
+          deluxeToken: santitized_role === security.roles.deluxe ? security.deluxeToken(santitized_email) : '',
+          profileImage: `assets/public/images/uploads/${santitized_profileImage ?? (santitized_role === security.roles.admin ? 'defaultAdmin.png' : 'default.svg')}`,
+          santitized_totpSecret,
           lastLoginIp
         })
         datacache.users[key] = user

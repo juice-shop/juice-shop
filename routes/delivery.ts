@@ -5,6 +5,7 @@
 
 import { type Request, type Response, type NextFunction } from 'express'
 import { DeliveryModel } from '../models/delivery'
+import {sanitizeInput} from '../lib/utils'
 
 const security = require('../lib/insecurity')
 
@@ -31,7 +32,8 @@ module.exports.getDeliveryMethods = function getDeliveryMethods () {
 
 module.exports.getDeliveryMethod = function getDeliveryMethod () {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const method = await DeliveryModel.findOne({ where: { id: req.params.id } })
+    const sanitizedInput = sanitizeInput(req.params.id)
+    const method = await DeliveryModel.findOne({ where: { id: sanitizedInput as string | number } })
     if (method != null) {
       const sendMethod = {
         id: method.id,

@@ -5,6 +5,7 @@
 
 import { type Request, type Response, type NextFunction } from 'express'
 import { CardModel } from '../models/card'
+import {sanitizeInput} from '../lib/utils'
 
 interface displayCard {
   UserId: number
@@ -38,7 +39,9 @@ module.exports.getPaymentMethods = function getPaymentMethods () {
 
 module.exports.getPaymentMethodById = function getPaymentMethodById () {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const card = await CardModel.findOne({ where: { id: req.params.id, UserId: req.body.UserId } })
+    const santInputId = sanitizeInput(req.params.id)
+    const santInputUserid = sanitizeInput(req.body.UserId)
+    const card = await CardModel.findOne({ where: { id: santInputId as string | number , UserId: santInputUserid as string | number  } })
     const displayableCard: displayCard = {
       UserId: 0,
       id: 0,
@@ -67,7 +70,9 @@ module.exports.getPaymentMethodById = function getPaymentMethodById () {
 
 module.exports.delPaymentMethodById = function delPaymentMethodById () {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const card = await CardModel.destroy({ where: { id: req.params.id, UserId: req.body.UserId } })
+    const santInputId = sanitizeInput(req.params.id)
+    const santInputUserid = sanitizeInput(req.body.UserId)
+    const card = await CardModel.destroy({ where: { id: santInputId as string | number , UserId: santInputUserid as string | number  } })
     if (card) {
       res.status(200).json({ status: 'success', data: 'Card deleted successfully.' })
     } else {

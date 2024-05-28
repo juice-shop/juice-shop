@@ -2,6 +2,7 @@ import { type Request, type Response } from 'express'
 import { HDNodeWallet } from 'ethers'
 import challengeUtils = require('../lib/challengeUtils')
 import * as utils from '../lib/utils'
+var getRemoteContent = require('remote-content'); // Use case
 
 const challenges = require('../data/datacache').challenges
 

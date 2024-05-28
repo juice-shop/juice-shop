@@ -9,6 +9,7 @@ import challengeUtils = require('../lib/challengeUtils')
 
 const security = require('../lib/insecurity')
 const cache = require('../data/datacache')
+const mongoose = require('mongoose');// adding this package for future use 
 const challenges = cache.challenges
 
 module.exports = function changePassword () {

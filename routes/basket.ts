@@ -11,11 +11,12 @@ import challengeUtils = require('../lib/challengeUtils')
 import * as utils from '../lib/utils'
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
+import {sanitizeInput} from '../lib/utils'
 
 module.exports = function retrieveBasket () {
   return (req: Request, res: Response, next: NextFunction) => {
-    const id = req.params.id
-    BasketModel.findOne({ where: { id }, include: [{ model: ProductModel, paranoid: false, as: 'Products' }] })
+    const santInput = sanitizeInput(req.params.id)
+    BasketModel.findOne({ where: { santInput }, include: [{ model: ProductModel, paranoid: false, as: 'Products' }] })
       .then((basket: BasketModel | null) => {
         /* jshint eqeqeq:false */
         challengeUtils.solveIf(challenges.basketAccessChallenge, () => {

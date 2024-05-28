@@ -6,6 +6,7 @@
 import { type Request, type Response, type NextFunction } from 'express'
 import { MemoryModel } from '../models/memory'
 import { type ProductModel } from '../models/product'
+import {sanitizeInput} from '../lib/utils'
 
 import challengeUtils = require('../lib/challengeUtils')
 const security = require('../lib/insecurity')
@@ -49,15 +50,7 @@ module.exports = function dataExport () {
         reviews: [],
         memories: []
       }
-
-      const memories = await MemoryModel.findAll({ where: { UserId: req.body.UserId } })
-      memories.forEach((memory: MemoryModel) => {
-        userData.memories.push({
-          imageUrl: req.protocol + '://' + req.get('host') + '/' + memory.imagePath,
-          caption: memory.caption
-        })
-      })
-
+      
       db.orders.find({ email: updatedEmail }).then((orders: Array<{
         orderId: string
         totalPrice: number

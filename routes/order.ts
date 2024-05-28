@@ -14,6 +14,7 @@ import { WalletModel } from '../models/wallet'
 import challengeUtils = require('../lib/challengeUtils')
 import config from 'config'
 import * as utils from '../lib/utils'
+import {sanitizeInput} from '../lib/utils'
 
 const fs = require('fs')
 const PDFDocument = require('pdfkit')
@@ -33,8 +34,8 @@ interface Product {
 
 module.exports = function placeOrder () {
   return (req: Request, res: Response, next: NextFunction) => {
-    const id = req.params.id
-    BasketModel.findOne({ where: { id }, include: [{ model: ProductModel, paranoid: false, as: 'Products' }] })
+    const cleanedID = sanitizeInput(req.params.id)
+    BasketModel.findOne({ where: { cleanedID }, include: [{ model: ProductModel, paranoid: false, as: 'Products' }] })
       .then(async (basket: BasketModel | null) => {
         if (basket != null) {
           const customer = security.authenticatedUsers.from(req)
@@ -43,7 +44,8 @@ module.exports = function placeOrder () {
           const pdfFile = `order_${orderId}.pdf`
           const doc = new PDFDocument()
           const date = new Date().toJSON().slice(0, 10)
-          const fileWriter = doc.pipe(fs.createWriteStream(path.join('ftp/', pdfFile)))
+          const cleanedFile = sanitizeInput(pdfFile)
+          const fileWriter = doc.pipe(fs.createWriteStream(path.join('ftp/', cleanedFile as string)))
 
           fileWriter.on('finish', async () => {
             void basket.update({ coupon: null })
@@ -115,7 +117,8 @@ module.exports = function placeOrder () {
             eta: 5
           }
           if (req.body.orderDetails?.deliveryMethodId) {
-            const deliveryMethodFromModel = await DeliveryModel.findOne({ where: { id: req.body.orderDetails.deliveryMethodId } })
+            const deliveryMethodIdSant = sanitizeInput(req.body.orderDetails.deliveryMethodId)
+            const deliveryMethodFromModel = await DeliveryModel.findOne({ where: { id: deliveryMethodIdSant as string } })
             if (deliveryMethodFromModel != null) {
               deliveryMethod.deluxePrice = deliveryMethodFromModel.deluxePrice
               deliveryMethod.price = deliveryMethodFromModel.price
@@ -138,9 +141,10 @@ module.exports = function placeOrder () {
 
           if (req.body.UserId) {
             if (req.body.orderDetails && req.body.orderDetails.paymentId === 'wallet') {
-              const wallet = await WalletModel.findOne({ where: { UserId: req.body.UserId } })
+              const santiziedID = sanitizeInput(req.body.UserId)
+              const wallet = await WalletModel.findOne({ where: { UserId: santiziedID as string  } })
               if ((wallet != null) && wallet.balance >= totalPrice) {
-                WalletModel.decrement({ balance: totalPrice }, { where: { UserId: req.body.UserId } }).catch((error: unknown) => {
+                WalletModel.decrement({ balance: totalPrice }, { where: { UserId: santiziedID as string } }).catch((error: unknown) => {
                   next(error)
                 })
               } else {

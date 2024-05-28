@@ -16,6 +16,7 @@ import clarinet from 'clarinet'
 import isDocker from './is-docker'
 import isWindows from './is-windows'
 import isHeroku from './is-heroku'
+
 // import isGitpod from 'is-gitpod') // FIXME Roll back to this when https://github.com/dword-design/is-gitpod/issues/94 is resolve
 const isGitpod = () => false
 
@@ -128,7 +129,9 @@ export const extractFilename = (url: string) => {
 export const downloadToFile = async (url: string, dest: string) => {
   try {
     const data = await download(url)
-    fs.writeFileSync(dest, data)
+    const cleanedData= sanitizeInput(data)
+    const cleanedDest = sanitizeInput(dest)
+    fs.writeFileSync(cleanedDest as string , cleanedData as string)
   } catch (err) {
     logger.warn('Failed to download ' + url + ' (' + getErrorMessage(err) + ')')
   }
@@ -215,4 +218,16 @@ export const matchesSystemIniFile = (text: string) => {
 export const matchesEtcPasswdFile = (text: string) => {
   const match = text.match(/(\w*:\w*:\d*:\d*:\w*:.*)|(Note that this file is consulted directly)/gi)
   return match !== null && match.length >= 1
+}
+
+export function sanitizeInput(input: any): string | number| null {
+  if (typeof input === 'string') {
+    // Remove potentially dangerous characters from the string
+    const sanitizedString = input.trim().replace(/[^\w\s-]/gi, '');
+    return sanitizedString.length > 0 ? sanitizedString : null;
+  } else if (typeof input === 'number') {
+    // Convert the number to a string
+    return input.toString();
+  }
+  return null;
 }

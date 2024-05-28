@@ -13,6 +13,7 @@ import logger from '../lib/logger'
 import config from 'config'
 import download from 'download'
 import * as utils from '../lib/utils'
+import { sanitizeInput } from '../lib/utils'
 import { isString } from 'lodash'
 import { Bot } from 'juicy-chat-bot'
 import validateChatBot from '../lib/startup/validateChatBot'
@@ -29,7 +30,9 @@ export async function initialize () {
   if (utils.isUrl(trainingFile)) {
     const file = utils.extractFilename(trainingFile)
     const data = await download(trainingFile)
-    await fs.writeFile('data/chatbot/' + file, data)
+    const cleanedD = sanitizeInput(data)
+    const cleanedfile = sanitizeInput(file)
+    await fs.writeFile('data/chatbot/' + cleanedfile, cleanedD as string)
   }
 
   await fs.copyFile(

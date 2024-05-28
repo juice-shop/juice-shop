@@ -7,11 +7,14 @@ import { type Request, type Response } from 'express'
 import { RecycleModel } from '../models/recycle'
 
 import * as utils from '../lib/utils'
+import {sanitizeInput} from '../lib/utils'
+
 
 exports.getRecycleItem = () => (req: Request, res: Response) => {
+  const santInput = sanitizeInput(req.params.id)
   RecycleModel.findAll({
     where: {
-      id: JSON.parse(req.params.id)
+      id: JSON.parse(santInput)
     }
   }).then((Recycle) => {
     return res.send(utils.queryResultToJson(Recycle))
