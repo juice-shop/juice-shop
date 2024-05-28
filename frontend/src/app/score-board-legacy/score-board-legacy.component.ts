@@ -213,7 +213,7 @@ export class ScoreBoardLegacyComponent implements OnInit, AfterViewInit {
   }
 
   trustDescriptionHtml (challenge: Challenge) {
-    challenge.description = this.sanitizer.bypassSecurityTrustHtml(challenge.description as string)
+    //challenge.description = this.sanitizer.bypassSecurityTrustHtml(challenge.description as string)
   }
 
   calculateCodingProgressPercentage () {
