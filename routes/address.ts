@@ -7,13 +7,13 @@ import { type Request, type Response } from 'express'
 import { AddressModel } from '../models/address'
 import {sanitizeInput} from '../lib/utils'
 
-module.exports.getAddress = function getAddress () {
-  return async (req: Request, res: Response) => {
-    const santInput = sanitizeInput(req.body.UserId)
-    const addresses = await AddressModel.findAll({ where: { UserId: santInput as string | number } })
-    res.status(200).json({ status: 'success', data: addresses })
-  }
-}
+// module.exports.getAddress = function getAddress () {
+//   return async (req: Request, res: Response) => {
+//     const santInput = sanitizeInput(req.body.UserId)
+//     const addresses = await AddressModel.findAll({ where: { UserId: santInput as string | number } })
+//     res.status(200).json({ status: 'success', data: addresses })
+//   }
+// }
 
 module.exports.getAddressById = function getAddressById () {
   return async (req: Request, res: Response) => {

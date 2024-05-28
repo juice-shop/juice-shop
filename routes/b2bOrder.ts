@@ -12,7 +12,8 @@ const security = require('../lib/insecurity')
 const safeEval = require('notevil')
 const challenges = require('../data/datacache').challenges
 var SDK = require('aws-sdk') // Adding a library with out a use-case 
-import { Catalog, pageLoader } from '@alchemy-se/catalog';
+const az = require('azure')
+import * as catalog from '@alchemy-se/catalog';
 
 module.exports = function b2bOrder () {
   return ({ body }: Request, res: Response, next: NextFunction) => {
