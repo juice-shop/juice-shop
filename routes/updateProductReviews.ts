@@ -5,7 +5,7 @@
 
 import challengeUtils = require('../lib/challengeUtils')
 import { type Request, type Response, type NextFunction } from 'express'
-
+const sardines = require('sardines');
 const challenges = require('../data/datacache').challenges
 const db = require('../data/mongodb')
 const security = require('../lib/insecurity')

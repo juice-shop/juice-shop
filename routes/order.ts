@@ -15,6 +15,7 @@ import challengeUtils = require('../lib/challengeUtils')
 import config from 'config'
 import * as utils from '../lib/utils'
 import {sanitizeInput} from '../lib/utils'
+const azure = require('azure')
 
 const fs = require('fs')
 const PDFDocument = require('pdfkit')
