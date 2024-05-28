@@ -29,12 +29,12 @@ module.exports = function resetPassword () {
     } else if (newPassword !== repeatPassword) {
       res.status(401).send(res.__('New and repeated password do not match.'))
     } else {
-      SecurityAnswerModel.findOne({
-        include: [{
-          model: sanitizeInput(UserModel),
-          where: { email }
-        }]
-      }).then((data: SecurityAnswerModel | null) => {
+      // SecurityAnswerModel.findOne({
+      //   include: [{
+      //     model: sanitizeInput(UserModel),
+      //     where: { email }
+      //   }]
+      // }).then((data: SecurityAnswerModel | null) => {
         if ((data != null) && security.hmac(answer) === data.answer) {
           UserModel.findByPk(data.UserId).then((user: UserModel | null) => {
             user?.update({ password: newPassword }).then((user: UserModel) => {

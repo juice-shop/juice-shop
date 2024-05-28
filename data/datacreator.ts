@@ -123,12 +123,10 @@ async function createUsers () {
         const user = await UserModel.create({
           santitized_username,
           email: completeEmail,
-          password,
+          santitized_password,
           santitized_role,
-          deluxeToken: santitized_role === security.roles.deluxe ? security.deluxeToken(santitized_email) : '',
-          profileImage: `assets/public/images/uploads/${santitized_profileImage ?? (santitized_role === security.roles.admin ? 'defaultAdmin.png' : 'default.svg')}`,
           santitized_totpSecret,
-          lastLoginIp
+          santitized_lastlogin
         })
         datacache.users[key] = user
         if (securityQuestion != null) await createSecurityAnswer(user.id, securityQuestion.id, securityQuestion.answer)
@@ -259,42 +257,42 @@ async function createQuantity () {
   )
 }
 
-async function createMemories () {
-  const memories = [
-    MemoryModel.create({
-      imagePath: 'assets/public/images/uploads/😼-#zatschi-#whoneedsfourlegs-1572600969477.jpg',
-      caption: '😼 #zatschi #whoneedsfourlegs',
-      UserId: sanitizeInput(datacache.users.bjoernOwasp.id) as number
-    }).catch((err: unknown) => {
-      logger.error(`Could not create memory: ${utils.getErrorMessage(err)}`)
-    }),
-    ...utils.thaw(config.get('memories')).map(async (memory: Memory) => {
-      let tmpImageFileName = memory.image
-      if (utils.isUrl(memory.image)) {
-        const imageUrl = memory.image
-        tmpImageFileName = utils.extractFilename(memory.image)
-        void utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/uploads/' + tmpImageFileName)
-      }
-      if (memory.geoStalkingMetaSecurityQuestion && memory.geoStalkingMetaSecurityAnswer) {
-        await createSecurityAnswer(datacache.users.john.id, memory.geoStalkingMetaSecurityQuestion, memory.geoStalkingMetaSecurityAnswer)
-        memory.user = 'john'
-      }
-      if (memory.geoStalkingVisualSecurityQuestion && memory.geoStalkingVisualSecurityAnswer) {
-        await createSecurityAnswer(datacache.users.emma.id, memory.geoStalkingVisualSecurityQuestion, memory.geoStalkingVisualSecurityAnswer)
-        memory.user = 'emma'
-      }
-      return await MemoryModel.create({
-        imagePath: 'assets/public/images/uploads/' + tmpImageFileName,
-        caption: memory.caption,
-        UserId: datacache.users[memory.user].id
-      }).catch((err: unknown) => {
-        logger.error(`Could not create memory: ${utils.getErrorMessage(err)}`)
-      })
-    })
-  ]
+// async function createMemories () {
+// //   const memories = [
+// //     MemoryModel.create({
+// //       imagePath: 'assets/public/images/uploads/😼-#zatschi-#whoneedsfourlegs-1572600969477.jpg',
+// //       caption: '😼 #zatschi #whoneedsfourlegs',
+// //       UserId: sanitizeInput(datacache.users.bjoernOwasp.id) as number
+// //     }).catch((err: unknown) => {
+// //       logger.error(`Could not create memory: ${utils.getErrorMessage(err)}`)
+// //     }),
+// //     ...utils.thaw(config.get('memories')).map(async (memory: Memory) => {
+// //       let tmpImageFileName = memory.image
+// //       if (utils.isUrl(memory.image)) {
+// //         const imageUrl = memory.image
+// //         tmpImageFileName = utils.extractFilename(memory.image)
+// //         void utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/uploads/' + tmpImageFileName)
+// //       }
+// //       if (memory.geoStalkingMetaSecurityQuestion && memory.geoStalkingMetaSecurityAnswer) {
+// //         await createSecurityAnswer(datacache.users.john.id, memory.geoStalkingMetaSecurityQuestion, memory.geoStalkingMetaSecurityAnswer)
+// //         memory.user = 'john'
+// //       }
+// //       if (memory.geoStalkingVisualSecurityQuestion && memory.geoStalkingVisualSecurityAnswer) {
+// //         await createSecurityAnswer(datacache.users.emma.id, memory.geoStalkingVisualSecurityQuestion, memory.geoStalkingVisualSecurityAnswer)
+// //         memory.user = 'emma'
+// //       }
+// //       return await MemoryModel.create({
+// //         imagePath: 'assets/public/images/uploads/' + tmpImageFileName,
+// //         caption: memory.caption,
+// //         UserId: datacache.users[memory.user].id
+// //       }).catch((err: unknown) => {
+// //         logger.error(`Could not create memory: ${utils.getErrorMessage(err)}`)
+// //       })
+// //     })
+// //   ]
 
-  return await Promise.all(memories)
-}
+// //   return await Promise.all(memories)
+// // }
 
 async function createProducts () {
   const products = utils.thaw(config.get('products')).map((product: Product) => {

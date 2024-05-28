@@ -16,34 +16,34 @@ const challengeUtils = require('../lib/challengeUtils')
 const router = express.Router()
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
-router.get('/', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
-  if (!loggedInUser) {
-    next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
-    return
-  }
-  const email = sanitizeInput(loggedInUser.data.email)
+// router.get('/', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+//   const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
+//   if (!loggedInUser) {
+//     next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
+//     return
+//   }
+//   const email = sanitizeInput(loggedInUser.data.email)
 
-  try {
-    const answer = await SecurityAnswerModel.findOne({
-      include: [{
-        model: sanitizeInput(UserModel) as number,
-        where: { email }
-      }]
-    })
-    if (answer == null) {
-      throw new Error('No answer found!')
-    }
-    const question = await SecurityQuestionModel.findByPk(answer.SecurityQuestionId)
-    if (question == null) {
-      throw new Error('No question found!')
-    }
+//   try {
+//     const answer = await SecurityAnswerModel.findOne({
+//       include: [{
+//         model: sanitizeInput(UserModel) as number,
+//         where: { email }
+//       }]
+//     })
+//     if (answer == null) {
+//       throw new Error('No answer found!')
+//     }
+//     const question = await SecurityQuestionModel.findByPk(answer.SecurityQuestionId)
+//     if (question == null) {
+//       throw new Error('No question found!')
+//     }
 
-    res.render('dataErasureForm', { userEmail: email, securityQuestion: question.question })
-  } catch (error) {
-    next(error)
-  }
-})
+//     res.render('dataErasureForm', { userEmail: email, securityQuestion: question.question })
+//   } catch (error) {
+//     next(error)
+//   }
+// })
 
 interface DataErasureRequestParams {
   layout?: string

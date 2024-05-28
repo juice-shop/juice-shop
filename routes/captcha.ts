@@ -34,17 +34,17 @@ function captchas () {
   }
 }
 
-captchas.verifyCaptcha = () => (req: Request, res: Response, next: NextFunction) => {
-  const sanitizedCaptcha = sanitizeInput(req.body.captchaId )
-  CaptchaModel.findOne({ where: { captchaId: sanitizedCaptcha as string | number } }).then((captcha: Captcha | null) => {
-    if ((captcha != null) && req.body.captcha === captcha.answer) {
-      next()
-    } else {
-      res.status(401).send(res.__('Wrong answer to CAPTCHA. Please try again.'))
-    }
-  }).catch((error: Error) => {
-    next(error)
-  })
-}
+// captchas.verifyCaptcha = () => (req: Request, res: Response, next: NextFunction) => {
+//   const sanitizedCaptcha = sanitizeInput(req.body.captchaId )
+//   CaptchaModel.findOne({ where: { captchaId: sanitizedCaptcha as string | number } }).then((captcha: Captcha | null) => {
+//     if ((captcha != null) && req.body.captcha === captcha.answer) {
+//       next()
+//     } else {
+//       res.status(401).send(res.__('Wrong answer to CAPTCHA. Please try again.'))
+//     }
+//   }).catch((error: Error) => {
+//     next(error)
+//   })
+// }
 
 module.exports = captchas

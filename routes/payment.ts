@@ -20,7 +20,7 @@ module.exports.getPaymentMethods = function getPaymentMethods () {
   return async (req: Request, res: Response, next: NextFunction) => {
     const displayableCards: displayCard[] = []
     const userIdSanitized = sanitizeInput(req.body.UserId)
-    const cards = await CardModel.findAll({ where: { UserId: userIdSanitized as string } })
+    const cards = await CardModel.findByPk({ where: { UserId: userIdSanitized as string } })
     cards.forEach(card => {
       const displayableCard: displayCard = {
         UserId: card.UserId,
