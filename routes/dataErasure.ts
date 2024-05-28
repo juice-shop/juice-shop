@@ -27,7 +27,7 @@ router.get('/', async (req: Request, res: Response, next: NextFunction): Promise
   try {
     const answer = await SecurityAnswerModel.findOne({
       include: [{
-        model: UserModel,
+        model: sanitizeInput(UserModel) as number,
         where: { email }
       }]
     })

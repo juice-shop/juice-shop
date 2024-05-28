@@ -12,27 +12,31 @@ import * as utils from '../lib/utils'
 
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
+import {sanitizeInput} from '../lib/utils'
 
 module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const user = await UserModel.findOne({ where: { id: req.body.UserId, role: security.roles.customer } })
+      const cleanedInput = sanitizeInput(req.body.UserId)
+      const cleantedRole = sanitizeInput(security.roles.customer)
+      const user = await UserModel.findOne({ where: { id: cleanedInput as string , role: cleantedRole as string} })
       if (user == null) {
         res.status(400).json({ status: 'error', error: 'Something went wrong. Please try again!' })
         return
       }
       if (req.body.paymentMode === 'wallet') {
-        const wallet = await WalletModel.findOne({ where: { UserId: req.body.UserId } })
+        const wallet = await WalletModel.findOne({ where: { UserId: cleanedInput as string  } })
         if ((wallet != null) && wallet.balance < 49) {
           res.status(400).json({ status: 'error', error: 'Insuffienct funds in Wallet' })
           return
         } else {
-          await WalletModel.decrement({ balance: 49 }, { where: { UserId: req.body.UserId } })
+          await WalletModel.decrement({ balance: 49 }, { where: { UserId: cleanedInput as string  } })
         }
       }
 
       if (req.body.paymentMode === 'card') {
-        const card = await CardModel.findOne({ where: { id: req.body.paymentId, UserId: req.body.UserId } })
+        const cleanedPaymentID = sanitizeInput(req.body.paymentId)
+        const card = await CardModel.findOne({ where: { id: cleanedPaymentID as string , UserId: cleanedInput as string  } })
         if ((card == null) || card.expYear < new Date().getFullYear() || (card.expYear === new Date().getFullYear() && card.expMonth - 1 < new Date().getMonth())) {
           res.status(400).json({ status: 'error', error: 'Invalid Card' })
           return

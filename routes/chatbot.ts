@@ -41,7 +41,8 @@ export async function initialize () {
   )
 
   trainingFile = utils.extractFilename(trainingFile)
-  const trainingSet = await fs.readFile(`data/chatbot/${trainingFile}`, 'utf8')
+  const cleanedFile = sanitizeInput(trainingFile)
+  const trainingSet = await fs.readFile(`data/chatbot/${cleanedFile}`, 'utf8')
   validateChatBot(JSON.parse(trainingSet))
 
   testCommand = JSON.parse(trainingSet).data[0].utterances[0]

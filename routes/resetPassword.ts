@@ -31,7 +31,7 @@ module.exports = function resetPassword () {
     } else {
       SecurityAnswerModel.findOne({
         include: [{
-          model: UserModel,
+          model: sanitizeInput(UserModel),
           where: { email }
         }]
       }).then((data: SecurityAnswerModel | null) => {

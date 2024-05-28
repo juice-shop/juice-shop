@@ -16,7 +16,7 @@ module.exports = function securityQuestion () {
     const email = sanitizeInput(query.email)
     SecurityAnswerModel.findOne({
       include: [{
-        model: UserModel,
+        model: sanitizeInput(UserModel),
         where: { email: email?.toString() }
       }]
     }).then((answer: SecurityAnswerModel | null) => {

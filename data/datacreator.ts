@@ -264,7 +264,7 @@ async function createMemories () {
     MemoryModel.create({
       imagePath: 'assets/public/images/uploads/😼-#zatschi-#whoneedsfourlegs-1572600969477.jpg',
       caption: '😼 #zatschi #whoneedsfourlegs',
-      UserId: datacache.users.bjoernOwasp.id
+      UserId: sanitizeInput(datacache.users.bjoernOwasp.id) as number
     }).catch((err: unknown) => {
       logger.error(`Could not create memory: ${utils.getErrorMessage(err)}`)
     }),
