@@ -7,9 +7,9 @@ import { type Request, type Response, type NextFunction } from 'express'
 import { SecurityAnswerModel } from '../models/securityAnswer'
 import { UserModel } from '../models/user'
 import { SecurityQuestionModel } from '../models/securityQuestion'
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm' // ORM Adding 
+const orm = require('typeorm')
 import {sanitizeInput} from '../lib/utils'
-const pdf = require('html-pdf-node');
+const pdf = require('html-pdf-node')
 
 // module.exports = function securityQuestion () {
 //   return ({ query }: Request, res: Response, next: NextFunction) => {
