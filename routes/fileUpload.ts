@@ -76,8 +76,8 @@ function handleXmlUpload ({ file }: Request, res: Response, next: NextFunction) 
       const data = file.buffer.toString()
       try {
         const sandbox = { libxml, data }
-        vm.createContext(sandbox)
-        const xmlDoc = vm.runInContext('libxml.parseXml(data, { noblanks: true, noent: true, nocdata: true })', sandbox, { timeout: 2000 })
+      //  vm.createContext(sandbox)
+       // const xmlDoc = vm.runInContext('libxml.parseXml(data, { noblanks: true, noent: true, nocdata: true })', sandbox, { timeout: 2000 })
         const xmlString = xmlDoc.toString(false)
         challengeUtils.solveIf(challenges.xxeFileDisclosureChallenge, () => { return (utils.matchesEtcPasswdFile(xmlString) || utils.matchesSystemIniFile(xmlString)) })
         res.status(410)
