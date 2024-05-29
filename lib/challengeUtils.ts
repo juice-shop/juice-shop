@@ -2,7 +2,7 @@ import { Op } from 'sequelize'
 import { ChallengeModel } from '../models/challenge'
 import logger from './logger'
 import config from 'config'
-import sanitizeHtml from 'sanitize-html';
+//import sanitizeHtml from 'sanitize-html';
 import colors from 'colors/safe'
 import * as utils from './utils'
 import { calculateCheatScore, calculateFindItCheatScore, calculateFixItCheatScore } from './antiCheat'
