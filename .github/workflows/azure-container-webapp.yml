@@ -1,0 +1,27 @@
+name: gcp
+  runs-on: ubuntu-latest
+  if: github.event.inputs.cloud == 'GCP'
+  env:
+    PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+    SERVICE_NAME: ${{ vars.GCP_SERVICE_NAME }}
+    REGION: ${{ vars.GCP.REGION }}
+    steps:
+      - name  : "autenticacion en GCP"
+        id: auth
+        uses: google-github-actions/auth@
+        with:
+        token_format: access_token
+        workload_identity_provider: ${{ env.PROJECT_ID }}
+        service_account: ${{ secrets.GSP_SA_KEY }}
+      - name: "autenticar en artifact Registry"
+        uses: docker/login-action@
+        with:
+          registry: ${{ vars.GCP.REGISTRY }}
+          username: oauth2accesstoken
+          password: ${{ steps.auth.outputs.access.token }}
+      - name: "desplegar en cloud run"
+        uses: google-github-actions/deploy-cloudrun@
+        with:
+          image: ${{ vars.GCP.REGION }}-${{ vars.GCP_REGISTRY }}/${{ vars.GCP.PROJECT_ID }}/${{ vars.GCP_REPOSITORY_NAME}}/${{ vars.GCP_IMAGE_NAME }}:latest
+          region: ${{ env.REGION }}
+          service: ${{ evn.SERVICE_NAME }}
