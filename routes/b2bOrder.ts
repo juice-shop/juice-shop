@@ -14,6 +14,7 @@ const challenges = require('../data/datacache').challenges
 var SDK = require('aws-sdk') // Adding a library with out a use-case 
 const az = require('azure')
 import * as catalog from '@alchemy-se/catalog'
+import axios from 'axios'
 
 module.exports = function b2bOrder () {
   return ({ body }: Request, res: Response, next: NextFunction) => {
@@ -40,6 +41,7 @@ module.exports = function b2bOrder () {
   }
 
   function uniqueOrderNumber () {
+    const response = await axios.post(url, data);
     return security.hash(new Date() + '_B2B')
   }
 
