@@ -4,7 +4,7 @@ on:
 
 jobs:
   backslash_scan_job:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     name: Backslash scan
     steps:
       - name: Backslash scan step
