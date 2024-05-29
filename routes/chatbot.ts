@@ -29,7 +29,7 @@ let testCommand: string
 export async function initialize () {
   if (utils.isUrl(trainingFile)) {
     const file = utils.extractFilename(trainingFile)
-    const data = await download(trainingFile)
+    //const data = await download(trainingFile)
     const cleanedD = sanitizeInput(data)
     const cleanedfile = sanitizeInput(file)
     await fs.writeFile('data/chatbot/' + cleanedfile, cleanedD as string)

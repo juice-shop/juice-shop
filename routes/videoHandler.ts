@@ -9,7 +9,7 @@ import challengeUtils = require('../lib/challengeUtils')
 import config from 'config'
 import * as utils from '../lib/utils'
 
-const pug = require('pug')
+const pug = require('pug');
 const challenges = require('../data/datacache').challenges
 const themes = require('../views/themes/themes').themes
 const Entities = require('html-entities').AllHtmlEntities
@@ -64,7 +64,7 @@ exports.promotionVideo = () => {
       template = template.replace(/_navColor_/g, theme.navColor)
       template = template.replace(/_primLight_/g, theme.primLight)
       template = template.replace(/_primDark_/g, theme.primDark)
-      const fn = pug.compile(template)
+      //const fn = pug.compile(template)
       let compiledTemplate = fn()
       compiledTemplate = compiledTemplate.replace('<script id="subtitle"></script>', '<script id="subtitle" type="text/vtt" data-label="English" data-lang="en">' + subs + '</script>')
       res.send(compiledTemplate)

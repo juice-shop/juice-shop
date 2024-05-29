@@ -2,7 +2,7 @@ import { Op } from 'sequelize'
 import { ChallengeModel } from '../models/challenge'
 import logger from './logger'
 import config from 'config'
-import sanitizeHtml from 'sanitize-html'
+import sanitizeHtml from 'sanitize-html';
 import colors from 'colors/safe'
 import * as utils from './utils'
 import { calculateCheatScore, calculateFindItCheatScore, calculateFixItCheatScore } from './antiCheat'
@@ -47,7 +47,7 @@ export const sendNotification = function (challenge: { difficulty?: number, key:
     const notification = {
       key: challenge.key,
       name: challenge.name,
-      challenge: challenge.name + ' (' + entities.decode(sanitizeHtml(challenge.description, { allowedTags: [], allowedAttributes: {} })) + ')',
+      //challenge: challenge.name + ' (' + entities.decode(sanitizeHtml(challenge.description, { allowedTags: [], allowedAttributes: {} })) + ')',
       flag,
       hidden: !config.get('challenges.showSolvedNotifications'),
       isRestore
