@@ -16,7 +16,7 @@ const Entities = require('html-entities').AllHtmlEntities
 const entities = new Entities()
 
 const globalWithSocketIO = global as typeof globalThis & {
-  io: SocketIOClientStatic & Server
+ // io: SocketIOClientStatic & Server
 }
 
 export const solveIf = function (challenge: any, criteria: () => any, isRestore: boolean = false) {

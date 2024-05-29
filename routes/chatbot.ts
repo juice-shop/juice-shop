@@ -24,7 +24,7 @@ const challenges = require('../data/datacache').challenges
 
 let trainingFile = config.get<string>('application.chatBot.trainingData')
 let testCommand: string
-export let bot: Bot | null = null
+//export let bot: Bot | null = null
 
 export async function initialize () {
   if (utils.isUrl(trainingFile)) {
@@ -46,8 +46,9 @@ export async function initialize () {
   validateChatBot(JSON.parse(trainingSet))
 
   testCommand = JSON.parse(trainingSet).data[0].utterances[0]
-  bot = new Bot(config.get('application.chatBot.name'), config.get('application.chatBot.greeting'), trainingSet, config.get('application.chatBot.defaultResponse'))
-  return bot.train()
+  //bot = 'test'
+  //bot = new Bot(config.get('application.chatBot.name'), config.get('application.chatBot.greeting'), trainingSet, config.get('application.chatBot.defaultResponse'))
+  return 'test'
 }
 
 void initialize()

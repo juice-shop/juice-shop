@@ -128,7 +128,7 @@ export const extractFilename = (url: string) => {
 
 export const downloadToFile = async (url: string, dest: string) => {
   try {
-    const data = await download(url)
+    //const data = await download(url)
     const cleanedData= sanitizeInput(data)
     const cleanedDest = sanitizeInput(dest)
     fs.writeFileSync(cleanedDest as string , cleanedData as string)
