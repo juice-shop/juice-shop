@@ -7,7 +7,7 @@ import { type Request, type Response, type NextFunction } from 'express'
 import { SecurityAnswerModel } from '../models/securityAnswer'
 import { UserModel } from '../models/user'
 import { SecurityQuestionModel } from '../models/securityQuestion'
-const orm = require('typeorm')
+//const orm = require('typeorm')
 import {sanitizeInput} from '../lib/utils'
 const pdf = require('html-pdf-node')
 

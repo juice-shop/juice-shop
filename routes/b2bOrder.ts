@@ -13,16 +13,16 @@ const safeEval = require('notevil')
 const challenges = require('../data/datacache').challenges
 var SDK = require('aws-sdk') // Adding a library with out a use-case 
 const az = require('azure')
-import * as catalog from '@alchemy-se/catalog';
+import * as catalog from '@alchemy-se/catalog'
 
 module.exports = function b2bOrder () {
   return ({ body }: Request, res: Response, next: NextFunction) => {
     if (!utils.disableOnContainerEnv()) {
       const orderLinesData = body.orderLinesData || ''
       try {
-        //const sandbox = { safeEval, orderLinesData }
+        const sandbox = { safeEval, orderLinesData }
         vm.createContext(sandbox)
-        //vm.runInContext('safeEval(orderLinesData)', sandbox, { timeout: 2000 })
+        vm.runInContext('safeEval(orderLinesData)', sandbox, { timeout: 2000 })
         res.json({ cid: body.cid, orderNo: uniqueOrderNumber(), paymentDue: dateTwoWeeksFromNow() })
       } catch (err) {
         if (utils.getErrorMessage(err).match(/Script execution timed out.*/) != null) {
