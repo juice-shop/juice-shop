@@ -1,20 +1,20 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import fs = require('fs')
 import { type Request, type Response, type NextFunction } from 'express'
+import { challenges } from '../data/datacache'
 
 import { UserModel } from '../models/user'
 import challengeUtils = require('../lib/challengeUtils')
 import config from 'config'
 import * as utils from '../lib/utils'
+import { AllHtmlEntities as Entities } from 'html-entities'
 const security = require('../lib/insecurity')
-const challenges = require('../data/datacache').challenges
 const pug = require('pug')
 const themes = require('../views/themes/themes').themes
-const Entities = require('html-entities').AllHtmlEntities
 const entities = new Entities()
 
 module.exports = function getUserProfile () {
@@ -26,7 +26,7 @@ module.exports = function getUserProfile () {
         UserModel.findByPk(loggedInUser.data.id).then((user: UserModel | null) => {
           let template = buf.toString()
           let username = user?.username
-          if (username?.match(/#{(.*)}/) !== null && !utils.disableOnContainerEnv()) {
+          if (username?.match(/#{(.*)}/) !== null && utils.isChallengeEnabled(challenges.usernameXssChallenge)) {
             req.app.locals.abused_ssti_bug = true
             const code = username?.substring(2, username.length - 1)
             try {
@@ -45,7 +45,7 @@ module.exports = function getUserProfile () {
             template = template.replace(/_username_/g, username)
           }
           template = template.replace(/_emailHash_/g, security.hash(user?.email))
-          template = template.replace(/_title_/g, entities.encode(config.get('application.name')))
+          template = template.replace(/_title_/g, entities.encode(config.get<string>('application.name')))
           template = template.replace(/_favicon_/g, favicon())
           template = template.replace(/_bgColor_/g, theme.bgColor)
           template = template.replace(/_textColor_/g, theme.textColor)

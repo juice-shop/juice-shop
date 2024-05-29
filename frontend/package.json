@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "16.0.0",
+  "version": "17.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -57,7 +57,6 @@
     "ngx-clipboard": "^15.1.0",
     "ngx-cookie": "^6.0.0",
     "ngx-highlightjs": "^6.1.2",
-    "ngx-spinner": "^15.0.1",
     "ngx-text-diff": "^0.6.0",
     "ngx-window-token": "^6.0.0",
     "rxjs": "6.6.3",

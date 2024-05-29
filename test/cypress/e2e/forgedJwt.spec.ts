@@ -14,8 +14,8 @@ describe('/', () => {
 
   describe('challenge "jwtForged"', () => {
     it('should accept a token HMAC-signed with public RSA key with email rsa_lord@juice-sh.op in the payload ', () => {
-      cy.task('disableOnWindowsEnv').then((disableOnWindowsEnv) => {
-        if (!disableOnWindowsEnv) {
+      cy.task('isWindows').then((isWindows) => {
+        if (!isWindows) {
           cy.window().then(() => {
             localStorage.setItem(
               'token',

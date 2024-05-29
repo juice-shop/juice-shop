@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -119,7 +119,7 @@ describe('/rest/2fa/verify', () => {
         bid: Joi.number()
       })
       .expect('json', 'authentication', {
-        umail: `wurstbrot@${config.get('application.domain')}`
+        umail: `wurstbrot@${config.get<string>('application.domain')}`
       })
   })
 
@@ -165,7 +165,7 @@ describe('/rest/2fa/verify', () => {
 describe('/rest/2fa/status', () => {
   it('GET should indicate 2fa is setup for 2fa enabled users', async () => {
     const { token } = await login({
-      email: `wurstbrot@${config.get('application.domain')}`,
+      email: `wurstbrot@${config.get<string>('application.domain')}`,
       password: 'EinBelegtesBrotMitSchinkenSCHINKEN!',
       totpSecret: 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH'
     })
@@ -191,7 +191,7 @@ describe('/rest/2fa/status', () => {
 
   it('GET should indicate 2fa is not setup for users with 2fa disabled', async () => {
     const { token } = await login({
-      email: `J12934@${config.get('application.domain')}`,
+      email: `J12934@${config.get<string>('application.domain')}`,
       password: '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
     })
 
@@ -214,7 +214,7 @@ describe('/rest/2fa/status', () => {
       })
       .expect('json', {
         setup: false,
-        email: `J12934@${config.get('application.domain')}`
+        email: `J12934@${config.get<string>('application.domain')}`
       })
   })
 
@@ -360,7 +360,7 @@ describe('/rest/2fa/setup', () => {
   })
 
   it('POST should fail if the account has already set up 2fa', async () => {
-    const email = `wurstbrot@${config.get('application.domain')}`
+    const email = `wurstbrot@${config.get<string>('application.domain')}`
     const password = 'EinBelegtesBrotMitSchinkenSCHINKEN!'
     const totpSecret = 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH'
 

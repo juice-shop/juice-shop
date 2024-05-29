@@ -2,9 +2,7 @@ import { type ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { ScoreBoardAdditionalSettingsDialogComponent } from './score-board-additional-settings-dialog.component'
 import { TranslateModule } from '@ngx-translate/core'
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog'
-import { FeatureFlagService } from 'src/app/Services/feature-flag.service'
-import { of } from 'rxjs'
+import { MatDialogModule } from '@angular/material/dialog'
 import { LocalBackupService } from 'src/app/Services/local-backup.service'
 
 describe('ScoreBoardAdditionalSettingsDialogComponent', () => {
@@ -16,17 +14,6 @@ describe('ScoreBoardAdditionalSettingsDialogComponent', () => {
       imports: [TranslateModule.forRoot(), MatDialogModule],
       declarations: [ScoreBoardAdditionalSettingsDialogComponent],
       providers: [
-        {
-          provide: MatDialogRef,
-          useValue: {}
-        },
-        {
-          provide: FeatureFlagService,
-          useValue: {
-            defaultScoreBoard$: of('v1'),
-            setDefaultScoreBoard: () => null
-          }
-        },
         {
           provide: LocalBackupService,
           useValue: {

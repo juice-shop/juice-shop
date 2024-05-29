@@ -79,9 +79,6 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
     this.subscriptions.push(dataLoaderSubscription)
 
     const routerSubscription = this.route.queryParams.subscribe((queryParams) => {
-      // Fix to keep direct links to challenges stable for OpenCRE and others
-      if (this.rewriteLegacyChallengeDirectLink(queryParams)) return
-
       this.filterSetting = fromQueryParams(queryParams)
       this.filterAndUpdateChallenges()
     })
@@ -181,22 +178,5 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
   async repeatChallengeNotification (challengeKey: string) {
     const challenge = this.allChallenges.find((challenge) => challenge.key === challengeKey)
     await this.challengeService.repeatNotification(encodeURIComponent(challenge.name)).toPromise()
-  }
-
-  rewriteLegacyChallengeDirectLink (queryParams): boolean {
-    if (queryParams.challenge) {
-      console.warn('The "challenge=<name>" URL query parameter is deprecated! You should  use "searchQuery=<name>" instead to link to a challenge directly. See https://pwning.owasp-juice.shop/companion-guide/latest/part4/integration.html#_generating_links_to_juice_shop for details.')
-      if (!queryParams.searchQuery) {
-        this.router.navigate([], {
-          queryParams: {
-            ...queryParams,
-            challenge: null,
-            searchQuery: queryParams.challenge
-          }
-        })
-        return true
-      }
-    }
-    return false
   }
 }

@@ -7,8 +7,8 @@ describe('/api', () => {
     // Cypress alert bug
     // The challege also passes but its just that cypress freezes and is unable to perform any action
     xit('should be possible to create a new product when logged in', () => {
-      cy.task('disableOnContainerEnv').then((disableOnContainerEnv) => {
-        if (!disableOnContainerEnv) {
+      cy.task('isDocker').then((isDocker) => {
+        if (!isDocker) {
           cy.window().then(async () => {
             const response = await fetch(
               `${Cypress.config('baseUrl')}/api/Products`,
@@ -47,8 +47,8 @@ describe('/api', () => {
 
   describe('challenge "changeProduct"', () => {
     it('should be possible to change product via PUT request without being logged in', () => {
-      cy.task('GetTamperingProductId').then((tamperingProductId) => {
-        cy.task('GetOverwriteUrl').then((overwriteUrl) => {
+      cy.task('GetTamperingProductId').then((tamperingProductId: number) => {
+        cy.task('GetOverwriteUrl').then((overwriteUrl: string) => {
           cy.window().then(async () => {
             const response = await fetch(
               `${Cypress.config('baseUrl')}/api/Products/${tamperingProductId}`,
@@ -84,8 +84,8 @@ describe('/rest/saveLoginIp', () => {
     })
 
     it('should be possible to save log-in IP when logged in', () => {
-      cy.task('disableOnContainerEnv').then((disableOnContainerEnv) => {
-        if (!disableOnContainerEnv) {
+      cy.task('isDocker').then((isDocker) => {
+        if (!isDocker) {
           cy.window().then(async () => {
             const response = await fetch(
               `${Cypress.config('baseUrl')}/rest/saveLoginIp`,

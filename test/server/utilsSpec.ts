@@ -1,7 +1,10 @@
 /*
- * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
+
+import type { ChallengeModel } from 'models/challenge'
+import { getChallengeEnablementStatus } from '../../lib/utils'
 
 import chai = require('chai')
 const expect = chai.expect
@@ -110,5 +113,56 @@ describe('utils', () => {
           'usbmux:x:140:140:usbmux user:/:/usr/bin/nologin\n' +
           'moi:x:1000:1000:moi:/home/moi:/bin/zsh\n')).to.equal(true)
     })
+  })
+
+  describe('getChallengeEnablementStatus', () => {
+    const defaultIsEnvironmentFunctions = {
+      isDocker: () => false,
+      isHeroku: () => false,
+      isWindows: () => false,
+      isGitpod: () => false
+    }
+
+    for (const safetyMode of ['enabled', 'disabled', 'auto'] as const) {
+      it(`challenges without disabledEnv are enabled with safetyMode set to ${safetyMode}`, () => {
+        const challenge: ChallengeModel = { disabledEnv: null } as unknown as ChallengeModel
+
+        expect(getChallengeEnablementStatus(challenge, safetyMode, defaultIsEnvironmentFunctions))
+          .to.deep.equal({ enabled: true, disabledBecause: null })
+      })
+    }
+
+    const testCases = [
+      { name: 'Docker', environmentFunction: 'isDocker' },
+      { name: 'Heroku', environmentFunction: 'isHeroku' },
+      { name: 'Windows', environmentFunction: 'isWindows' },
+      { name: 'Gitpod', environmentFunction: 'isGitpod' }
+    ]
+
+    for (const testCase of testCases) {
+      it(`safetyMode: 'enabled': challenge with disabledOnEnv ${testCase.name} should be marked as disabled`, () => {
+        const challenge: ChallengeModel = { disabledEnv: testCase.name } as unknown as ChallengeModel
+
+        const isEnvironmentFunctions = { ...defaultIsEnvironmentFunctions, [testCase.environmentFunction]: () => true }
+        expect(getChallengeEnablementStatus(challenge, 'enabled', isEnvironmentFunctions))
+          .to.deep.equal({ enabled: false, disabledBecause: testCase.name })
+      })
+
+      it(`safetyMode: 'auto': challenge with disabledOnEnv ${testCase.name} should be marked as disabled`, () => {
+        const challenge: ChallengeModel = { disabledEnv: testCase.name } as unknown as ChallengeModel
+
+        const isEnvironmentFunctions = { ...defaultIsEnvironmentFunctions, [testCase.environmentFunction]: () => true }
+        expect(getChallengeEnablementStatus(challenge, 'auto', isEnvironmentFunctions))
+          .to.deep.equal({ enabled: false, disabledBecause: testCase.name })
+      })
+
+      it(`safetyMode: 'disabled': challenge with disabledOnEnv ${testCase.name} should be marked as enabled`, () => {
+        const challenge: ChallengeModel = { disabledEnv: testCase.name } as unknown as ChallengeModel
+
+        const isEnvironmentFunctions = { ...defaultIsEnvironmentFunctions, [testCase.environmentFunction]: () => true }
+        expect(getChallengeEnablementStatus(challenge, 'disabled', isEnvironmentFunctions))
+          .to.deep.equal({ enabled: true, disabledBecause: null })
+      })
+    }
   })
 })

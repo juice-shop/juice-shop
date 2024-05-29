@@ -1,0 +1,85 @@
+{
+  "document": {
+    "acknowledgments": [
+      {
+        "organization": "OWASP Juice Shop",
+        "summary": "Probably the most modern and sophisticated insecure web application"
+      }
+    ],
+    "aggregate_severity": {
+      "text": "High"
+    },
+    "category": "csaf_security_advisory",
+    "csaf_version": "2.0",
+    "lang": "en",
+    "notes": [
+      {
+        "category": "legal_disclaimer",
+        "text": "The Juice Shop contains vulnerabilities. Only use it in an isolated. ONLY run the Juice Shop in a training environment.",
+        "title": "Isolated Env."
+      }
+    ],
+    "publisher": {
+      "category": "vendor",
+      "contact_details": "timo.pagel@owasp.org",
+      "issuing_authority": "OWASP Juice Shop",
+      "name": "OWASP Juice Shop Core Team",
+      "namespace": "https://github.com/juice-shop/juice-shop"
+    },
+    "title": "juice-shop-sa-20211014-proto",
+    "tracking": {
+      "current_release_date": "2021-10-14T10:00:00.000Z",
+      "generator": {
+        "date": "2024-03-09T14:24:03.158Z",
+        "engine": {
+          "name": "Secvisogram",
+          "version": "2.5.0"
+        }
+      },
+      "id": "juice-shop-sa-20211014-proto",
+      "initial_release_date": "2024-03-03T11:00:00.000Z",
+      "revision_history": [
+        {
+          "date": "2024-03-03T11:00:00.000Z",
+          "number": "1.0.0",
+          "summary": "Initial public release."
+        }
+      ],
+      "status": "final",
+      "version": "1.0.0"
+    }
+  },
+  "product_tree": {
+    "branches": [
+      {
+        "category": "product_version_range",
+        "name": ">=v12.10.2",
+        "product": {
+          "name": "OWASP Juice Shop",
+          "product_id": "juice-shop/juice-shop",
+          "product_identification_helper": {
+            "purl": "pkg:docker/bkimminich/juice-shop"
+          }
+        }
+      }
+    ]
+  },
+  "vulnerabilities": [
+    {
+      "cve": "CVE-2020-36604",
+      "notes": [
+        {
+          "category": "details",
+          "text": "A proof of an exploit does not exists, but it might be possible to exploit the Juice Shop through the vulnerability.",
+          "title": "Notes"
+        }
+      ],
+      "product_status": {
+        "known_affected": [
+          "juice-shop/juice-shop"
+        ]
+      },
+      "title": "The Juice Shop uses the library hoek which might be subject to prototype pollution via the clone function."
+    }
+  ]
+}
