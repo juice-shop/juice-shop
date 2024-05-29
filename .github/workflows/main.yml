@@ -1,0 +1,16 @@
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  backslash_scan_job:
+    runs-on: self-hosted
+    name: Backslash scan
+    steps:
+      - name: Backslash scan step
+        id: bscan
+        uses: backslash-security/scan-action@main
+        with:
+          authToken: ${{ secrets.AUTH_TOKEN }}
+          enforceBlock: true
+          avoidComparingDifferences: true
