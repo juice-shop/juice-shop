@@ -12,7 +12,7 @@ import config from 'config'
 import * as utils from '../lib/utils'
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
-const pug = require('pug');
+//const pug = require('pug');
 const themes = require('../views/themes/themes').themes
 const Entities = require('html-entities').AllHtmlEntities
 const entities = new Entities()
