@@ -20,6 +20,11 @@ mat-toolbar {
   width: auto;
 }
 
+#homeButton {
+  align-items: center;
+  display: flex;
+}
+
 .avatar {
   background-repeat: no-repeat no-repeat;
   border-radius: 50%;

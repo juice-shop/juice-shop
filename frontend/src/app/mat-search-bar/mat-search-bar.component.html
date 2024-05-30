@@ -1,5 +1,5 @@
 <mat-form-field class="mat-search_field" [@slideInOut]="searchVisible">
-    <input #input matInput type="text" [(ngModel)]="value" [placeholder]="placeholder" (ngModelChange)="updateChanges()"
+    <input #input matInput type="text" [(ngModel)]="value" [placeholder]="placeholder" [disabled]="isDisabled" (ngModelChange)="updateChanges()"
         (blur)="onBlurring(input.value)" (keyup.enter)="onEnterring(input.value)" (focus)="onFocussing(input.value)"
         autocapitalize="none" />
 </mat-form-field>
