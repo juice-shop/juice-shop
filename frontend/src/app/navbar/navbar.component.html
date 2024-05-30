@@ -13,8 +13,10 @@
     </button>
 
     <button mat-button routerLink="/search" style="height:60px;" class="buttons" aria-label="Back to homepage">
-      <img [src]="logoSrc" class="logo" alt={{applicationName}}>
-      <span fxHide.lt-sm fxShow style="font-size: x-large"> {{applicationName}} </span>
+      <div id="homeButton">
+        <img [src]="logoSrc" class="logo" alt={{applicationName}}>
+        <span fxHide.lt-sm fxShow style="font-size: x-large"> {{applicationName}} </span>
+      </div>
     </button>
 
     <span class="fill-remaining-space"></span>

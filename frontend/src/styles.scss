@@ -146,6 +146,10 @@
   --theme-background-darker: #{darken(mat.get-color-from-palette(map-get($theme, background), card), 6%)};
   --theme-background-dark: #{darken(mat.get-color-from-palette(map-get($theme, background), card), 10%)};
   --theme-background-darkest: #{darken(mat.get-color-from-palette(map-get($theme, background), card), 14%)};
+
+  // make background of search field transparent
+  --mdc-filled-text-field-container-color: #0000;
+  --mdc-filled-text-field-disabled-container-color: #0000;
 }
 
 @mixin snackbar($theme) {
