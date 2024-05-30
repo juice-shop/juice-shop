@@ -6,7 +6,7 @@
 <div class="container challenge-solved-toast mat-elevation-z4">
   <mat-card appearance="outlined" class="accent-notification" *ngFor="let notification of notifications; index as index">
     <div class="mdc-card">
-      <div>{{notification.message}}<button id="closeButton" mat-button (click)="closeNotification(index, $event.shiftKey)">X</button></div>
+      <div class="notificationMessage">{{notification.message}}<button id="closeButton" mat-button (click)="closeNotification(index, $event.shiftKey)">X</button></div>
       <br>
       <div [hidden]="!showCtfFlagsInNotifications">
         <span class="icon-box"><mat-icon>outlined_flag</mat-icon> {{notification.flag}}</span>&nbsp;

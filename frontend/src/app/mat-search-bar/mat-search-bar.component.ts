@@ -61,6 +61,10 @@ export class MatSearchBarComponent extends AbstractControlValueAccessor
 
   searchVisible = false
 
+  get isDisabled (): string {
+    return this.searchVisible ? null : 'disabled'
+  }
+
   ngOnInit (): void {
     if (this.alwaysOpen) {
       this.searchVisible = true

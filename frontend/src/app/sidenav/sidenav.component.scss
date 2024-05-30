@@ -24,6 +24,14 @@ a {
   padding: 0 !important;
 }
 
+.mat-mdc-list-item {
+  ::ng-deep .mdc-list-item__primary-text {
+    align-items: center;
+    display: flex;
+    padding: 0 16px;
+  }
+}
+
 .toolbar-title {
   margin: 0 16px;
 }
