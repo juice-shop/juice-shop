@@ -1,6 +1,10 @@
 on:
+  push:
+    branches:
+    - master
   pull_request:
-    branches: [master]
+    branches:
+    - master
 
 jobs:
   backslash_scan_job:
@@ -12,5 +16,5 @@ jobs:
         uses: backslash-security/scan-action@main
         with:
           authToken: ${{ secrets.AUTH_TOKEN }}
-          enforceBlock: true
-          avoidComparingDifferences: true
+          ignoreBlocking: false
+          avoidComparingDifferences: false
