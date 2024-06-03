@@ -16,5 +16,5 @@ jobs:
         uses: backslash-security/scan-action@main
         with:
           authToken: ${{ secrets.AUTH_TOKEN }}
-          ignoreBlock: true
+          ignoreBlock: false
           prScan: true
