@@ -4,5 +4,7 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"codeQL.createQuery.qlPackLocation": "p:\\My Drive\\Git\\juice-shop"
+	}
 }
