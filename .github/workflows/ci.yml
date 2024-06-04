@@ -19,7 +19,7 @@ on:
       - 'frontend/src/assets/i18n/*.json'
 env:
   NODE_DEFAULT_VERSION: 20
-  ANGULAR_CLI_VERSION: 17
+  ANGULAR_CLI_VERSION: 18 # instead of 17
   CYCLONEDX_NPM_VERSION: '^1.12.0'
 jobs:
   lint:
