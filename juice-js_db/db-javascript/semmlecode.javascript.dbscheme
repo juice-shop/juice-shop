@@ -1,0 +1,1190 @@
+/*** Standard fragments ***/
+
+/*- Files and folders -*/
+
+/**
+ * The location of an element.
+ * The location spans column `startcolumn` of line `startline` to
+ * column `endcolumn` of line `endline` in file `file`.
+ * For more information, see
+ * [Locations](https://codeql.github.com/docs/writing-codeql-queries/providing-locations-in-codeql-queries/).
+ */
+locations_default(
+  unique int id: @location_default,
+  int file: @file ref,
+  int beginLine: int ref,
+  int beginColumn: int ref,
+  int endLine: int ref,
+  int endColumn: int ref
+);
+
+files(
+  unique int id: @file,
+  string name: string ref
+);
+
+folders(
+  unique int id: @folder,
+  string name: string ref
+);
+
+@container = @file | @folder
+
+containerparent(
+  int parent: @container ref,
+  unique int child: @container ref
+);
+
+/*- Lines of code -*/
+
+numlines(
+  int element_id: @sourceline ref,
+  int num_lines: int ref,
+  int num_code: int ref,
+  int num_comment: int ref
+);
+
+/*- External data -*/
+
+/**
+ * External data, loaded from CSV files during snapshot creation. See
+ * [Tutorial: Incorporating external data](https://help.semmle.com/wiki/display/SD/Tutorial%3A+Incorporating+external+data)
+ * for more information.
+ */
+externalData(
+  int id : @externalDataElement,
+  string path : string ref,
+  int column: int ref,
+  string value : string ref
+);
+
+/*- Source location prefix -*/
+
+/**
+ * The source location of the snapshot.
+ */
+sourceLocationPrefix(string prefix : string ref);
+
+/*- JavaScript-specific part -*/
+
+@location = @location_default
+
+@sourceline = @locatable;
+
+filetype(
+  int file: @file ref,
+  string filetype: string ref
+)
+
+// top-level code fragments
+toplevels (unique int id: @toplevel,
+           int kind: int ref);
+
+is_externs (int toplevel: @toplevel ref);
+
+case @toplevel.kind of
+   0 = @script
+|  1 = @inline_script
+|  2 = @event_handler
+|  3 = @javascript_url
+|  4 = @template_toplevel;
+
+is_module (int tl: @toplevel ref);
+is_nodejs (int tl: @toplevel ref);
+is_es2015_module (int tl: @toplevel ref);
+is_closure_module (int tl: @toplevel ref);
+
+@xml_node_with_code = @xmlelement | @xmlattribute | @template_placeholder_tag;
+toplevel_parent_xml_node(
+  unique int toplevel: @toplevel ref,
+  int xmlnode: @xml_node_with_code ref);
+
+xml_element_parent_expression(
+  unique int xmlnode: @xmlelement ref,
+  int expression: @expr ref,
+  int index: int ref);
+
+// statements
+#keyset[parent, idx]
+stmts (unique int id: @stmt,
+       int kind: int ref,
+       int parent: @stmt_parent ref,
+       int idx: int ref,
+       varchar(900) tostring: string ref);
+
+stmt_containers (unique int stmt: @stmt ref,
+       int container: @stmt_container ref);
+
+jump_targets (unique int jump: @stmt ref,
+       int target: @stmt ref);
+
+@stmt_parent = @stmt | @toplevel | @function_expr | @arrow_function_expr | @static_initializer;
+@stmt_container = @toplevel | @function | @namespace_declaration | @external_module_declaration | @global_augmentation_declaration;
+
+case @stmt.kind of
+   0 = @empty_stmt
+|  1 = @block_stmt
+|  2 = @expr_stmt
+|  3 = @if_stmt
+|  4 = @labeled_stmt
+|  5 = @break_stmt
+|  6 = @continue_stmt
+|  7 = @with_stmt
+|  8 = @switch_stmt
+|  9 = @return_stmt
+| 10 = @throw_stmt
+| 11 = @try_stmt
+| 12 = @while_stmt
+| 13 = @do_while_stmt
+| 14 = @for_stmt
+| 15 = @for_in_stmt
+| 16 = @debugger_stmt
+| 17 = @function_decl_stmt
+| 18 = @var_decl_stmt
+| 19 = @case
+| 20 = @catch_clause
+| 21 = @for_of_stmt
+| 22 = @const_decl_stmt
+| 23 = @let_stmt
+| 24 = @legacy_let_stmt
+| 25 = @for_each_stmt
+| 26 = @class_decl_stmt
+| 27 = @import_declaration
+| 28 = @export_all_declaration
+| 29 = @export_default_declaration
+| 30 = @export_named_declaration
+| 31 = @namespace_declaration
+| 32 = @import_equals_declaration
+| 33 = @export_assign_declaration
+| 34 = @interface_declaration
+| 35 = @type_alias_declaration
+| 36 = @enum_declaration
+| 37 = @external_module_declaration
+| 38 = @export_as_namespace_declaration
+| 39 = @global_augmentation_declaration
+| 40 = @using_decl_stmt
+;
+
+@decl_stmt = @var_decl_stmt | @const_decl_stmt | @let_stmt | @legacy_let_stmt | @using_decl_stmt;
+
+@export_declaration = @export_all_declaration | @export_default_declaration | @export_named_declaration;
+
+@namespace_definition = @namespace_declaration | @enum_declaration;
+@type_definition = @class_definition | @interface_declaration | @enum_declaration | @type_alias_declaration | @enum_member;
+
+is_instantiated(unique int decl: @namespace_declaration ref);
+
+@declarable_node = @decl_stmt | @namespace_declaration | @class_decl_stmt | @function_decl_stmt | @enum_declaration | @external_module_declaration | @global_augmentation_declaration | @field;
+has_declare_keyword(unique int stmt: @declarable_node ref);
+
+is_for_await_of(unique int forof: @for_of_stmt ref);
+
+// expressions
+#keyset[parent, idx]
+exprs (unique int id: @expr,
+       int kind: int ref,
+       int parent: @expr_parent ref,
+       int idx: int ref,
+       varchar(900) tostring: string ref);
+
+literals (varchar(900) value: string ref,
+       varchar(900) raw: string ref,
+       unique int expr: @expr_or_type ref);
+
+enclosing_stmt (unique int expr: @expr_or_type ref,
+       int stmt: @stmt ref);
+
+expr_containers (unique int expr: @expr_or_type ref,
+       int container: @stmt_container ref);
+
+array_size (unique int ae: @arraylike ref,
+       int sz: int ref);
+
+is_delegating (int yield: @yield_expr ref);
+
+@expr_or_stmt = @expr | @stmt;
+@expr_or_type = @expr | @typeexpr;
+@expr_parent = @expr_or_stmt | @property | @function_typeexpr;
+@arraylike = @array_expr | @array_pattern;
+@type_annotation = @typeexpr | @jsdoc_type_expr;
+@node_in_stmt_container = @cfg_node | @type_annotation | @toplevel;
+
+case @expr.kind of
+   0 = @label
+|  1 = @null_literal
+|  2 = @boolean_literal
+|  3 = @number_literal
+|  4 = @string_literal
+|  5 = @regexp_literal
+|  6 = @this_expr
+|  7 = @array_expr
+|  8 = @obj_expr
+|  9 = @function_expr
+| 10 = @seq_expr
+| 11 = @conditional_expr
+| 12 = @new_expr
+| 13 = @call_expr
+| 14 = @dot_expr
+| 15 = @index_expr
+| 16 = @neg_expr
+| 17 = @plus_expr
+| 18 = @log_not_expr
+| 19 = @bit_not_expr
+| 20 = @typeof_expr
+| 21 = @void_expr
+| 22 = @delete_expr
+| 23 = @eq_expr
+| 24 = @neq_expr
+| 25 = @eqq_expr
+| 26 = @neqq_expr
+| 27 = @lt_expr
+| 28 = @le_expr
+| 29 = @gt_expr
+| 30 = @ge_expr
+| 31 = @lshift_expr
+| 32 = @rshift_expr
+| 33 = @urshift_expr
+| 34 = @add_expr
+| 35 = @sub_expr
+| 36 = @mul_expr
+| 37 = @div_expr
+| 38 = @mod_expr
+| 39 = @bitor_expr
+| 40 = @xor_expr
+| 41 = @bitand_expr
+| 42 = @in_expr
+| 43 = @instanceof_expr
+| 44 = @logand_expr
+| 45 = @logor_expr
+| 47 = @assign_expr
+| 48 = @assign_add_expr
+| 49 = @assign_sub_expr
+| 50 = @assign_mul_expr
+| 51 = @assign_div_expr
+| 52 = @assign_mod_expr
+| 53 = @assign_lshift_expr
+| 54 = @assign_rshift_expr
+| 55 = @assign_urshift_expr
+| 56 = @assign_or_expr
+| 57 = @assign_xor_expr
+| 58 = @assign_and_expr
+| 59 = @preinc_expr
+| 60 = @postinc_expr
+| 61 = @predec_expr
+| 62 = @postdec_expr
+| 63 = @par_expr
+| 64 = @var_declarator
+| 65 = @arrow_function_expr
+| 66 = @spread_element
+| 67 = @array_pattern
+| 68 = @object_pattern
+| 69 = @yield_expr
+| 70 = @tagged_template_expr
+| 71 = @template_literal
+| 72 = @template_element
+| 73 = @array_comprehension_expr
+| 74 = @generator_expr
+| 75 = @for_in_comprehension_block
+| 76 = @for_of_comprehension_block
+| 77 = @legacy_letexpr
+| 78 = @var_decl
+| 79 = @proper_varaccess
+| 80 = @class_expr
+| 81 = @super_expr
+| 82 = @newtarget_expr
+| 83 = @named_import_specifier
+| 84 = @import_default_specifier
+| 85 = @import_namespace_specifier
+| 86 = @named_export_specifier
+| 87 = @exp_expr
+| 88 = @assign_exp_expr
+| 89 = @jsx_element
+| 90 = @jsx_qualified_name
+| 91 = @jsx_empty_expr
+| 92 = @await_expr
+| 93 = @function_sent_expr
+| 94 = @decorator
+| 95 = @export_default_specifier
+| 96 = @export_namespace_specifier
+| 97 = @bind_expr
+| 98 = @external_module_reference
+| 99 = @dynamic_import
+| 100 = @expression_with_type_arguments
+| 101 = @prefix_type_assertion
+| 102 = @as_type_assertion
+| 103 = @export_varaccess
+| 104 = @decorator_list
+| 105 = @non_null_assertion
+| 106 = @bigint_literal
+| 107 = @nullishcoalescing_expr
+| 108 = @e4x_xml_anyname
+| 109 = @e4x_xml_static_attribute_selector
+| 110 = @e4x_xml_dynamic_attribute_selector
+| 111 = @e4x_xml_filter_expression
+| 112 = @e4x_xml_static_qualident
+| 113 = @e4x_xml_dynamic_qualident
+| 114 = @e4x_xml_dotdotexpr
+| 115 = @import_meta_expr
+| 116 = @assignlogandexpr
+| 117 = @assignlogorexpr
+| 118 = @assignnullishcoalescingexpr
+| 119 = @template_pipe_ref
+| 120 = @generated_code_expr
+| 121 = @satisfies_expr
+;
+
+@varaccess = @proper_varaccess | @export_varaccess;
+@varref = @var_decl | @varaccess;
+
+@identifier = @label | @varref | @type_identifier;
+
+@literal = @null_literal | @boolean_literal | @number_literal | @string_literal | @regexp_literal | @bigint_literal;
+
+@propaccess = @dot_expr | @index_expr;
+
+@invokeexpr = @new_expr | @call_expr;
+
+@unaryexpr = @neg_expr | @plus_expr | @log_not_expr | @bit_not_expr | @typeof_expr | @void_expr | @delete_expr | @spread_element;
+
+@equality_test = @eq_expr | @neq_expr | @eqq_expr | @neqq_expr;
+
+@comparison = @equality_test | @lt_expr | @le_expr | @gt_expr | @ge_expr;
+
+@binaryexpr = @comparison | @lshift_expr | @rshift_expr | @urshift_expr | @add_expr | @sub_expr | @mul_expr | @div_expr | @mod_expr | @exp_expr | @bitor_expr | @xor_expr | @bitand_expr | @in_expr | @instanceof_expr | @logand_expr | @logor_expr | @nullishcoalescing_expr;
+
+@assignment = @assign_expr | @assign_add_expr | @assign_sub_expr | @assign_mul_expr | @assign_div_expr | @assign_mod_expr | @assign_exp_expr | @assign_lshift_expr | @assign_rshift_expr | @assign_urshift_expr | @assign_or_expr | @assign_xor_expr | @assign_and_expr | @assignlogandexpr | @assignlogorexpr | @assignnullishcoalescingexpr;
+
+@updateexpr = @preinc_expr | @postinc_expr | @predec_expr | @postdec_expr;
+
+@pattern = @varref | @array_pattern | @object_pattern;
+
+@comprehension_expr = @array_comprehension_expr | @generator_expr;
+
+@comprehension_block = @for_in_comprehension_block | @for_of_comprehension_block;
+
+@import_specifier = @named_import_specifier | @import_default_specifier | @import_namespace_specifier;
+
+@exportspecifier = @named_export_specifier | @export_default_specifier | @export_namespace_specifier;
+
+@type_keyword_operand = @import_declaration | @export_declaration | @import_specifier;
+
+@type_assertion = @as_type_assertion | @prefix_type_assertion;
+
+@class_definition = @class_decl_stmt | @class_expr;
+@interface_definition = @interface_declaration | @interface_typeexpr;
+@class_or_interface = @class_definition | @interface_definition;
+
+@lexical_decl = @var_decl | @type_decl;
+@lexical_access = @varaccess | @local_type_access | @local_var_type_access | @local_namespace_access;
+@lexical_ref = @lexical_decl | @lexical_access;
+
+@e4x_xml_attribute_selector = @e4x_xml_static_attribute_selector | @e4x_xml_dynamic_attribute_selector;
+@e4x_xml_qualident = @e4x_xml_static_qualident | @e4x_xml_dynamic_qualident;
+
+expr_contains_template_tag_location(
+  int expr: @expr ref,
+  int location: @location ref
+);
+
+@template_placeholder_tag_parent = @xmlelement | @xmlattribute | @file;
+
+template_placeholder_tag_info(
+  unique int node: @template_placeholder_tag,
+  int parentNode: @template_placeholder_tag_parent ref,
+  varchar(900) raw: string ref
+);
+
+// scopes
+scopes (unique int id: @scope,
+        int kind: int ref);
+
+case @scope.kind of
+   0 = @global_scope
+|  1 = @function_scope
+|  2 = @catch_scope
+|  3 = @module_scope
+|  4 = @block_scope
+|  5 = @for_scope
+|  6 = @for_in_scope // for-of scopes work the same as for-in scopes
+|  7 = @comprehension_block_scope
+|  8 = @class_expr_scope
+|  9 = @namespace_scope
+| 10 = @class_decl_scope
+| 11 = @interface_scope
+| 12 = @type_alias_scope
+| 13 = @mapped_type_scope
+| 14 = @enum_scope
+| 15 = @external_module_scope
+| 16 = @conditional_type_scope;
+
+scopenodes (unique int node: @ast_node ref,
+            int scope: @scope ref);
+
+scopenesting (unique int inner: @scope ref,
+              int outer: @scope ref);
+
+// functions
+@function = @function_decl_stmt | @function_expr | @arrow_function_expr;
+
+@parameterized = @function | @catch_clause;
+@type_parameterized = @function | @class_or_interface | @type_alias_declaration | @mapped_typeexpr | @infer_typeexpr;
+
+is_generator (int fun: @function ref);
+has_rest_parameter (int fun: @function ref);
+is_async (int fun: @function ref);
+
+// variables and lexically scoped type names
+#keyset[scope, name]
+variables (unique int id: @variable,
+           varchar(900) name: string ref,
+           int scope: @scope ref);
+
+#keyset[scope, name]
+local_type_names (unique int id: @local_type_name,
+                  varchar(900) name: string ref,
+                  int scope: @scope ref);
+
+#keyset[scope, name]
+local_namespace_names (unique int id: @local_namespace_name,
+                       varchar(900) name: string ref,
+                       int scope: @scope ref);
+
+is_arguments_object (int id: @variable ref);
+
+@lexical_name = @variable | @local_type_name | @local_namespace_name;
+
+@bind_id = @varaccess | @local_var_type_access;
+bind (unique int id: @bind_id ref,
+      int decl: @variable ref);
+
+decl (unique int id: @var_decl ref,
+      int decl: @variable ref);
+
+@typebind_id = @local_type_access | @export_varaccess;
+typebind (unique int id: @typebind_id ref,
+          int decl: @local_type_name ref);
+
+@typedecl_id = @type_decl | @var_decl;
+typedecl (unique int id: @typedecl_id ref,
+          int decl: @local_type_name ref);
+
+namespacedecl (unique int id: @var_decl ref,
+               int decl: @local_namespace_name ref);
+
+@namespacebind_id = @local_namespace_access | @export_varaccess;
+namespacebind (unique int id: @namespacebind_id ref,
+               int decl: @local_namespace_name ref);
+
+
+// properties in object literals, property patterns in object patterns, and method declarations in classes
+#keyset[parent, index]
+properties (unique int id: @property,
+            int parent: @property_parent ref,
+            int index: int ref,
+            int kind: int ref,
+            varchar(900) tostring: string ref);
+
+case @property.kind of
+  0 = @value_property
+| 1 = @property_getter
+| 2 = @property_setter
+| 3 = @jsx_attribute
+| 4 = @function_call_signature
+| 5 = @constructor_call_signature
+| 6 = @index_signature
+| 7 = @enum_member
+| 8 = @proper_field
+| 9 = @parameter_field
+| 10 = @static_initializer
+;
+
+@property_parent = @obj_expr | @object_pattern | @class_definition | @jsx_element | @interface_definition | @enum_declaration;
+@property_accessor = @property_getter | @property_setter;
+@call_signature = @function_call_signature | @constructor_call_signature;
+@field = @proper_field | @parameter_field;
+@field_or_vardeclarator = @field | @var_declarator;
+
+is_computed (int id: @property ref);
+is_method   (int id: @property ref);
+is_static   (int id: @property ref);
+is_abstract_member (int id: @property ref);
+is_const_enum (int id: @enum_declaration ref);
+is_abstract_class (int id: @class_decl_stmt ref);
+
+has_public_keyword (int id: @property ref);
+has_private_keyword (int id: @property ref);
+has_protected_keyword (int id: @property ref);
+has_readonly_keyword (int id: @property ref);
+has_type_keyword (int id: @type_keyword_operand ref);
+is_optional_member (int id: @property ref);
+has_definite_assignment_assertion (int id: @field_or_vardeclarator ref);
+is_optional_parameter_declaration (unique int parameter: @pattern ref);
+
+#keyset[constructor, param_index]
+parameter_fields(
+  unique int field: @parameter_field ref,
+  int constructor: @function_expr ref,
+  int param_index: int ref
+);
+
+// types
+#keyset[parent, idx]
+typeexprs (
+  unique int id: @typeexpr,
+  int kind: int ref,
+  int parent: @typeexpr_parent ref,
+  int idx: int ref,
+  varchar(900) tostring: string ref
+);
+
+case @typeexpr.kind of
+  0 = @local_type_access
+| 1 = @type_decl
+| 2 = @keyword_typeexpr
+| 3 = @string_literal_typeexpr
+| 4 = @number_literal_typeexpr
+| 5 = @boolean_literal_typeexpr
+| 6 = @array_typeexpr
+| 7 = @union_typeexpr
+| 8 = @indexed_access_typeexpr
+| 9 = @intersection_typeexpr
+| 10 = @parenthesized_typeexpr
+| 11 = @tuple_typeexpr
+| 12 = @keyof_typeexpr
+| 13 = @qualified_type_access
+| 14 = @generic_typeexpr
+| 15 = @type_label
+| 16 = @typeof_typeexpr
+| 17 = @local_var_type_access
+| 18 = @qualified_var_type_access
+| 19 = @this_var_type_access
+| 20 = @predicate_typeexpr
+| 21 = @interface_typeexpr
+| 22 = @type_parameter
+| 23 = @plain_function_typeexpr
+| 24 = @constructor_typeexpr
+| 25 = @local_namespace_access
+| 26 = @qualified_namespace_access
+| 27 = @mapped_typeexpr
+| 28 = @conditional_typeexpr
+| 29 = @infer_typeexpr
+| 30 = @import_type_access
+| 31 = @import_namespace_access
+| 32 = @import_var_type_access
+| 33 = @optional_typeexpr
+| 34 = @rest_typeexpr
+| 35 = @bigint_literal_typeexpr
+| 36 = @readonly_typeexpr
+| 37 = @template_literal_typeexpr
+;
+
+@typeref = @typeaccess | @type_decl;
+@type_identifier = @type_decl | @local_type_access | @type_label | @local_var_type_access | @local_namespace_access;
+@typeexpr_parent = @expr | @stmt | @property | @typeexpr;
+@literal_typeexpr = @string_literal_typeexpr | @number_literal_typeexpr | @boolean_literal_typeexpr | @bigint_literal_typeexpr;
+@typeaccess = @local_type_access | @qualified_type_access | @import_type_access;
+@vartypeaccess = @local_var_type_access | @qualified_var_type_access | @this_var_type_access | @import_var_type_access;
+@namespace_access = @local_namespace_access | @qualified_namespace_access | @import_namespace_access;
+@import_typeexpr = @import_type_access | @import_namespace_access | @import_var_type_access;
+
+@function_typeexpr = @plain_function_typeexpr | @constructor_typeexpr;
+
+// types
+types (
+  unique int id: @type,
+  int kind: int ref,
+  varchar(900) tostring: string ref
+);
+
+#keyset[parent, idx]
+type_child (
+  int child: @type ref,
+  int parent: @type ref,
+  int idx: int ref
+);
+
+case @type.kind of
+  0 = @any_type
+| 1 = @string_type
+| 2 = @number_type
+| 3 = @union_type
+| 4 = @true_type
+| 5 = @false_type
+| 6 = @type_reference
+| 7 = @object_type
+| 8 = @canonical_type_variable_type
+| 9 = @typeof_type
+| 10 = @void_type
+| 11 = @undefined_type
+| 12 = @null_type
+| 13 = @never_type
+| 14 = @plain_symbol_type
+| 15 = @unique_symbol_type
+| 16 = @objectkeyword_type
+| 17 = @intersection_type
+| 18 = @tuple_type
+| 19 = @lexical_type_variable_type
+| 20 = @this_type
+| 21 = @number_literal_type
+| 22 = @string_literal_type
+| 23 = @unknown_type
+| 24 = @bigint_type
+| 25 = @bigint_literal_type
+;
+
+@boolean_literal_type = @true_type | @false_type;
+@symbol_type = @plain_symbol_type | @unique_symbol_type;
+@union_or_intersection_type = @union_type | @intersection_type;
+@typevariable_type = @canonical_type_variable_type | @lexical_type_variable_type;
+
+has_asserts_keyword(int node: @predicate_typeexpr ref);
+
+@typed_ast_node = @expr | @typeexpr | @function;
+ast_node_type(
+  unique int node: @typed_ast_node ref,
+  int typ: @type ref);
+
+declared_function_signature(
+  unique int node: @function ref,
+  int sig: @signature_type ref
+);
+
+invoke_expr_signature(
+  unique int node: @invokeexpr ref,
+  int sig: @signature_type ref
+);
+
+invoke_expr_overload_index(
+  unique int node: @invokeexpr ref,
+  int index: int ref
+);
+
+symbols (
+  unique int id: @symbol,
+  int kind: int ref,
+  varchar(900) name: string ref
+);
+
+symbol_parent (
+  unique int symbol: @symbol ref,
+  int parent: @symbol ref
+);
+
+symbol_module (
+  int symbol: @symbol ref,
+  varchar(900) moduleName: string ref
+);
+
+symbol_global (
+  int symbol: @symbol ref,
+  varchar(900) globalName: string ref
+);
+
+case @symbol.kind of
+  0 = @root_symbol
+| 1 = @member_symbol
+| 2 = @other_symbol
+;
+
+@type_with_symbol = @type_reference | @typevariable_type | @typeof_type | @unique_symbol_type;
+@ast_node_with_symbol = @type_definition | @namespace_definition | @toplevel | @typeaccess | @namespace_access | @var_decl | @function | @invokeexpr | @import_declaration | @external_module_reference | @external_module_declaration;
+
+ast_node_symbol(
+  unique int node: @ast_node_with_symbol ref,
+  int symbol: @symbol ref);
+
+type_symbol(
+  unique int typ: @type_with_symbol ref,
+  int symbol: @symbol ref);
+
+#keyset[typ, name]
+type_property(
+  int typ: @type ref,
+  varchar(900) name: string ref,
+  int propertyType: @type ref);
+
+type_alias(
+  unique int aliasType: @type ref,
+  int underlyingType: @type ref);
+
+@literal_type = @string_literal_type | @number_literal_type | @boolean_literal_type | @bigint_literal_type;
+@type_with_literal_value = @string_literal_type | @number_literal_type | @bigint_literal_type;
+type_literal_value(
+  unique int typ: @type_with_literal_value ref,
+  varchar(900) value: string ref);
+
+signature_types (
+  unique int id: @signature_type,
+  int kind: int ref,
+  varchar(900) tostring: string ref,
+  int type_parameters: int ref,
+  int required_params: int ref
+);
+
+is_abstract_signature(
+  unique int sig: @signature_type ref
+);
+
+signature_rest_parameter(
+  unique int sig: @signature_type ref,
+  int rest_param_arra_type: @type ref
+);
+
+case @signature_type.kind of
+  0 = @function_signature_type
+| 1 = @constructor_signature_type
+;
+
+#keyset[typ, kind, index]
+type_contains_signature (
+  int typ: @type ref,
+  int kind: int ref,  // constructor/call/index
+  int index: int ref, // ordering of overloaded signatures
+  int sig: @signature_type ref
+);
+
+#keyset[parent, index]
+signature_contains_type (
+  int child: @type ref,
+  int parent: @signature_type ref,
+  int index: int ref
+);
+
+#keyset[sig, index]
+signature_parameter_name (
+  int sig: @signature_type ref,
+  int index: int ref,
+  varchar(900) name: string ref
+);
+
+number_index_type (
+  unique int baseType: @type ref,
+  int propertyType: @type ref
+);
+
+string_index_type (
+  unique int baseType: @type ref,
+  int propertyType: @type ref
+);
+
+base_type_names(
+  int typeName: @symbol ref,
+  int baseTypeName: @symbol ref
+);
+
+self_types(
+  int typeName: @symbol ref,
+  int selfType: @type_reference ref
+);
+
+tuple_type_min_length(
+  unique int typ: @type ref,
+  int minLength: int ref
+);
+
+tuple_type_rest_index(
+  unique int typ: @type ref,
+  int index: int ref
+);
+
+// comments
+comments (unique int id: @comment,
+          int kind: int ref,
+          int toplevel: @toplevel ref,
+          varchar(900) text: string ref,
+          varchar(900) tostring: string ref);
+
+case @comment.kind of
+  0 = @slashslash_comment
+| 1 = @slashstar_comment
+| 2 = @doc_comment
+| 3 = @html_comment_start
+| 4 = @htmlcommentend;
+
+@html_comment = @html_comment_start | @htmlcommentend;
+@line_comment = @slashslash_comment | @html_comment;
+@block_comment = @slashstar_comment | @doc_comment;
+
+// source lines
+lines (unique int id: @line,
+       int toplevel: @toplevel ref,
+       varchar(900) text: string ref,
+       varchar(2) terminator: string ref);
+indentation (int file: @file ref,
+            int lineno: int ref,
+            varchar(1) indentChar: string ref,
+            int indentDepth: int ref);
+
+// JavaScript parse errors
+js_parse_errors (unique int id: @js_parse_error,
+        int toplevel: @toplevel ref,
+        varchar(900) message: string ref,
+        varchar(900) line: string ref);
+
+// regular expressions
+#keyset[parent, idx]
+regexpterm (unique int id: @regexpterm,
+        int kind: int ref,
+        int parent: @regexpparent ref,
+        int idx: int ref,
+        varchar(900) tostring: string ref);
+
+@regexpparent = @regexpterm | @regexp_literal | @string_literal | @add_expr;
+
+case @regexpterm.kind of
+   0 = @regexp_alt
+|  1 = @regexp_seq
+|  2 = @regexp_caret
+|  3 = @regexp_dollar
+|  4 = @regexp_wordboundary
+|  5 = @regexp_nonwordboundary
+|  6 = @regexp_positive_lookahead
+|  7 = @regexp_negative_lookahead
+|  8 = @regexp_star
+|  9 = @regexp_plus
+| 10 = @regexp_opt
+| 11 = @regexp_range
+| 12 = @regexp_dot
+| 13 = @regexp_group
+| 14 = @regexp_normal_constant
+| 15 = @regexp_hex_escape
+| 16 = @regexp_unicode_escape
+| 17 = @regexp_dec_escape
+| 18 = @regexp_oct_escape
+| 19 = @regexp_ctrl_escape
+| 20 = @regexp_char_class_escape
+| 21 = @regexp_id_escape
+| 22 = @regexp_backref
+| 23 = @regexp_char_class
+| 24 = @regexp_char_range
+| 25 = @regexp_positive_lookbehind
+| 26 = @regexp_negative_lookbehind
+| 27 = @regexp_unicode_property_escape;
+
+regexp_parse_errors (unique int id: @regexp_parse_error,
+    int regexp: @regexpterm ref,
+    varchar(900) message: string ref);
+
+@regexp_quantifier = @regexp_star | @regexp_plus | @regexp_opt | @regexp_range;
+@regexp_escape = @regexp_char_escape | @regexp_char_class_escape | @regexp_unicode_property_escape;
+@regexp_char_escape = @regexp_hex_escape | @regexp_unicode_escape | @regexp_dec_escape | @regexp_oct_escape | @regexp_ctrl_escape | @regexp_id_escape;
+@regexp_constant = @regexp_normal_constant | @regexp_char_escape;
+@regexp_lookahead = @regexp_positive_lookahead | @regexp_negative_lookahead;
+@regexp_lookbehind = @regexp_positive_lookbehind | @regexp_negative_lookbehind;
+@regexp_subpattern = @regexp_lookahead | @regexp_lookbehind;
+@regexp_anchor = @regexp_dollar | @regexp_caret;
+
+is_greedy (int id: @regexp_quantifier ref);
+range_quantifier_lower_bound (unique int id: @regexp_range ref, int lo: int ref);
+range_quantifier_upper_bound (unique int id: @regexp_range ref, int hi: int ref);
+is_capture (unique int id: @regexp_group ref, int number: int ref);
+is_named_capture (unique int id: @regexp_group ref, string name: string ref);
+is_inverted (int id: @regexp_char_class ref);
+regexp_const_value (unique int id: @regexp_constant ref, varchar(1) value: string ref);
+char_class_escape (unique int id: @regexp_char_class_escape ref, varchar(1) value: string ref);
+backref (unique int id: @regexp_backref ref, int value: int ref);
+named_backref (unique int id: @regexp_backref ref, string name: string ref);
+unicode_property_escapename (unique int id: @regexp_unicode_property_escape ref, string name: string ref);
+unicode_property_escapevalue (unique int id: @regexp_unicode_property_escape ref, string value: string ref);
+
+// tokens
+#keyset[toplevel, idx]
+tokeninfo (unique int id: @token,
+    int kind: int ref,
+    int toplevel: @toplevel ref,
+    int idx: int ref,
+    varchar(900) value: string ref);
+
+case @token.kind of
+  0 = @token_eof
+| 1 = @token_null_literal
+| 2 = @token_boolean_literal
+| 3 = @token_numeric_literal
+| 4 = @token_string_literal
+| 5 = @token_regular_expression
+| 6 = @token_identifier
+| 7 = @token_keyword
+| 8 = @token_punctuator;
+
+// associate comments with the token immediately following them (which may be EOF)
+next_token (int comment: @comment ref, int token: @token ref);
+
+// JSON
+#keyset[parent, idx]
+json (unique int id: @json_value,
+      int kind: int ref,
+      int parent: @json_parent ref,
+      int idx: int ref,
+      varchar(900) tostring: string ref);
+
+json_literals (varchar(900) value: string ref,
+      varchar(900) raw: string ref,
+      unique int expr: @json_value ref);
+
+json_properties (int obj: @json_object ref,
+      varchar(900) property: string ref,
+      int value: @json_value ref);
+
+json_errors (unique int id: @json_parse_error,
+      varchar(900) message: string ref);
+
+json_locations(unique int locatable: @json_locatable ref,
+      int location: @location_default ref);
+
+case @json_value.kind of
+  0 = @json_null
+| 1 = @json_boolean
+| 2 = @json_number
+| 3 = @json_string
+| 4 = @json_array
+| 5 = @json_object;
+
+@json_parent = @json_object | @json_array | @file;
+
+@json_locatable = @json_value | @json_parse_error;
+
+// locations
+@ast_node = @toplevel | @stmt | @expr | @property | @typeexpr;
+
+@locatable = @file
+    | @ast_node
+    | @comment
+    | @line
+    | @js_parse_error | @regexp_parse_error
+    | @regexpterm
+    | @json_locatable
+    | @token
+    | @cfg_node
+    | @jsdoc | @jsdoc_type_expr | @jsdoc_tag
+    | @yaml_locatable
+    | @xmllocatable
+    | @configLocatable
+    | @template_placeholder_tag;
+
+hasLocation (unique int locatable: @locatable ref,
+    int location: @location ref);
+
+// CFG
+entry_cfg_node (unique int id: @entry_node, int container: @stmt_container ref);
+exit_cfg_node (unique int id: @exit_node, int container: @stmt_container ref);
+guard_node (unique int id: @guard_node, int kind: int ref, int test: @expr ref);
+case @guard_node.kind of
+  0 = @falsy_guard
+| 1 = @truthy_guard;
+@condition_guard = @falsy_guard | @truthy_guard;
+
+@synthetic_cfg_node = @entry_node | @exit_node | @guard_node;
+@cfg_node = @synthetic_cfg_node | @expr_parent;
+
+successor (int pred: @cfg_node ref, int succ: @cfg_node ref);
+
+// JSDoc comments
+jsdoc (unique int id: @jsdoc, varchar(900) description: string ref, int comment: @comment ref);
+#keyset[parent, idx]
+jsdoc_tags (unique int id: @jsdoc_tag, varchar(900) title: string ref,
+            int parent: @jsdoc ref, int idx: int ref, varchar(900) tostring: string ref);
+jsdoc_tag_descriptions (unique int tag: @jsdoc_tag ref, varchar(900) text: string ref);
+jsdoc_tag_names (unique int tag: @jsdoc_tag ref, varchar(900) text: string ref);
+
+#keyset[parent, idx]
+jsdoc_type_exprs (unique int id: @jsdoc_type_expr,
+                  int kind: int ref,
+                  int parent: @jsdoc_type_expr_parent ref,
+                  int idx: int ref,
+                  varchar(900) tostring: string ref);
+case @jsdoc_type_expr.kind of
+    0 = @jsdoc_any_type_expr
+|   1 = @jsdoc_null_type_expr
+|   2 = @jsdoc_undefined_type_expr
+|   3 = @jsdoc_unknown_type_expr
+|   4 = @jsdoc_void_type_expr
+|   5 = @jsdoc_named_type_expr
+|   6 = @jsdoc_applied_type_expr
+|   7 = @jsdoc_nullable_type_expr
+|   8 = @jsdoc_non_nullable_type_expr
+|   9 = @jsdoc_record_type_expr
+|  10 = @jsdoc_array_type_expr
+|  11 = @jsdoc_union_type_expr
+|  12 = @jsdoc_function_type_expr
+|  13 = @jsdoc_optional_type_expr
+|  14 = @jsdoc_rest_type_expr
+;
+
+#keyset[id, idx]
+jsdoc_record_field_name (int id: @jsdoc_record_type_expr ref, int idx: int ref, varchar(900) name: string ref);
+jsdoc_prefix_qualifier (int id: @jsdoc_type_expr ref);
+jsdoc_has_new_parameter (int fn: @jsdoc_function_type_expr ref);
+
+@jsdoc_type_expr_parent = @jsdoc_type_expr | @jsdoc_tag;
+
+jsdoc_errors (unique int id: @jsdoc_error, int tag: @jsdoc_tag ref, varchar(900) message: string ref, varchar(900) tostring: string ref);
+
+@dataflownode = @expr | @function_decl_stmt | @class_decl_stmt | @namespace_declaration | @enum_declaration | @property;
+
+@optionalchainable = @call_expr | @propaccess;
+
+isOptionalChaining(int id: @optionalchainable ref);
+
+/**
+ * The time taken for the extraction of a file.
+ * This table contains non-deterministic content.
+ *
+ * The sum of the `time` column for each (`file`, `timerKind`) pair
+ * is the total time taken for extraction of `file`.  The `extractionPhase`
+ * column provides a granular view of the extraction time of the file.
+ */
+extraction_time(
+  int file : @file ref,
+  // see `com.semmle.js.extractor.ExtractionMetrics.ExtractionPhase`.
+  int extractionPhase: int ref,
+  // 0 for the elapsed CPU time in nanoseconds, 1 for the elapsed wallclock time in nanoseconds
+  int timerKind: int ref,
+  float time: float ref
+)
+
+/**
+* Non-timing related data for the extraction of a single file.
+* This table contains non-deterministic content.
+*/
+extraction_data(
+  int file : @file ref,
+  // the absolute path to the cache file
+  varchar(900) cacheFile: string ref,
+  boolean fromCache: boolean ref,
+  int length: int ref
+)
+
+/*- YAML -*/
+
+#keyset[parent, idx]
+yaml (unique int id: @yaml_node,
+      int kind: int ref,
+      int parent: @yaml_node_parent ref,
+      int idx: int ref,
+      string tag: string ref,
+      string tostring: string ref);
+
+case @yaml_node.kind of
+  0 = @yaml_scalar_node
+| 1 = @yaml_mapping_node
+| 2 = @yaml_sequence_node
+| 3 = @yaml_alias_node
+;
+
+@yaml_collection_node = @yaml_mapping_node | @yaml_sequence_node;
+
+@yaml_node_parent = @yaml_collection_node | @file;
+
+yaml_anchors (unique int node: @yaml_node ref,
+              string anchor: string ref);
+
+yaml_aliases (unique int alias: @yaml_alias_node ref,
+              string target: string ref);
+
+yaml_scalars (unique int scalar: @yaml_scalar_node ref,
+              int style: int ref,
+              string value: string ref);
+
+yaml_errors (unique int id: @yaml_error,
+             string message: string ref);
+
+yaml_locations(unique int locatable: @yaml_locatable ref,
+             int location: @location_default ref);
+
+@yaml_locatable = @yaml_node | @yaml_error;
+
+/*- XML Files -*/
+
+xmlEncoding(
+  unique int id: @file ref,
+  string encoding: string ref
+);
+
+xmlDTDs(
+  unique int id: @xmldtd,
+  string root: string ref,
+  string publicId: string ref,
+  string systemId: string ref,
+  int fileid: @file ref
+);
+
+xmlElements(
+  unique int id: @xmlelement,
+  string name: string ref,
+  int parentid: @xmlparent ref,
+  int idx: int ref,
+  int fileid: @file ref
+);
+
+xmlAttrs(
+  unique int id: @xmlattribute,
+  int elementid: @xmlelement ref,
+  string name: string ref,
+  string value: string ref,
+  int idx: int ref,
+  int fileid: @file ref
+);
+
+xmlNs(
+  int id: @xmlnamespace,
+  string prefixName: string ref,
+  string URI: string ref,
+  int fileid: @file ref
+);
+
+xmlHasNs(
+  int elementId: @xmlnamespaceable ref,
+  int nsId: @xmlnamespace ref,
+  int fileid: @file ref
+);
+
+xmlComments(
+  unique int id: @xmlcomment,
+  string text: string ref,
+  int parentid: @xmlparent ref,
+  int fileid: @file ref
+);
+
+xmlChars(
+  unique int id: @xmlcharacters,
+  string text: string ref,
+  int parentid: @xmlparent ref,
+  int idx: int ref,
+  int isCDATA: int ref,
+  int fileid: @file ref
+);
+
+@xmlparent = @file | @xmlelement;
+@xmlnamespaceable = @xmlelement | @xmlattribute;
+
+xmllocations(
+  int xmlElement: @xmllocatable ref,
+  int location: @location_default ref
+);
+
+@xmllocatable = @xmlcharacters | @xmlelement | @xmlcomment | @xmlattribute | @xmldtd | @file | @xmlnamespace;
+
+/*- Configuration files with key value pairs -*/
+
+configs(
+  unique int id: @config
+);
+
+configNames(
+  unique int id: @configName,
+  int config: @config ref,
+  string name: string ref
+);
+
+configValues(
+  unique int id: @configValue,
+  int config: @config ref,
+  string value: string ref
+);
+
+configLocations(
+  int locatable: @configLocatable ref,
+  int location: @location_default ref
+);
+
+@configLocatable = @config | @configName | @configValue;

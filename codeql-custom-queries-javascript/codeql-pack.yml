@@ -1,0 +1,7 @@
+---
+library: false
+warnOnImplicitThis: false
+name: getting-started/codeql-extra-queries-javascript
+version: 1.0.0
+dependencies:
+  codeql/javascript-all: ^1.0.0

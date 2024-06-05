@@ -1,0 +1,10 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"codeQL.createQuery.qlPackLocation": "p:\\My Drive\\Git\\juice-shop"
+	}
+}
