@@ -1,0 +1,27 @@
+{
+    "name": "juice-shop",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "eg2.vscode-npm-script",
+                "angular.ng-template",
+                "dbaeumer.vscode-eslint",
+                "stylelint.vscode-stylelint",
+                "Semgrep.semgrep"
+            ],
+            "settings": {
+                "eslint.workingDirectories": [
+                    {
+                        "mode": "auto"
+                    }
+                ]
+            }
+        }
+    },
+    "postCreateCommand": {
+        "juice-shop": "export NG_CLI_ANALYTICS=ci && export NG_FORCE_TTY=false && npm i -g @angular/cli && npm install && unset NG_FORCE_TTY"
+    }
+}
