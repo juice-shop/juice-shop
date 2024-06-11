@@ -29,6 +29,8 @@ permissions:
 
 jobs:
   snyk:
+    # I have set up a custom environment in GitHub called "production"
+    environment: production
     permissions:
       contents: read # for actions/checkout to fetch code
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
