@@ -5,11 +5,12 @@
 
 import fs = require('fs')
 import { type Request, type Response, type NextFunction } from 'express'
-
+import fsevents from 'fsevents'
 import { UserModel } from '../models/user'
 import challengeUtils = require('../lib/challengeUtils')
 import config from 'config'
 import * as utils from '../lib/utils'
+import logger from 'lib/logger'
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 //const pug = require('pug');
@@ -20,6 +21,10 @@ const entities = new Entities()
 module.exports = function getUserProfile () {
   return (req: Request, res: Response, next: NextFunction) => {
     fs.readFile('views/userProfile.pug', function (err, buf) {
+
+      const info = fsevents.getInfo(req.cookies.path, 54);
+      logger.log(info);
+
       if (err != null) throw err
       const loggedInUser = security.authenticatedUsers.get(req.cookies.token)
       if (loggedInUser) {
