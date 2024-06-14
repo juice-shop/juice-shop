@@ -21,8 +21,14 @@ interface LineMarker {
   imports: [NgFor, HighlightModule]
 })
 export class CodeAreaComponent implements OnInit {
+  private _code: string = ''
   @Input('code')
-  public code: string = ''
+  get code(): string {
+    return this._code;
+  }
+  set code(value: string) {
+    this._code = value || '';
+  }
 
   @Input('vulnLines')
   public vulnLines: number[]
