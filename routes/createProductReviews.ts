@@ -12,20 +12,20 @@ const reviews = require('../data/mongodb').reviews
 const challenges = require('../data/datacache').challenges
 const security = require('../lib/insecurity')
 
-module.exports = function productReviews () {
-  return (req: Request, res: Response) => {
-    const user = security.authenticatedUsers.from(req)
-    challengeUtils.solveIf(challenges.forgedReviewChallenge, () => { return user && user.data.email !== req.body.author })
-    reviews.insert({
-      product: req.params.id,
-      message: req.body.message,
-      author: req.body.author,
-      likesCount: 0,
-      likedBy: []
-    }).then(() => {
-      res.status(201).json({ status: 'success' })
-    }, (err: unknown) => {
-      res.status(500).json(utils.getErrorMessage(err))
-    })
-  }
-}
+// module.exports = function productReviews () {
+//   return (req: Request, res: Response) => {
+//     const user = security.authenticatedUsers.from(req)
+//     challengeUtils.solveIf(challenges.forgedReviewChallenge, () => { return user && user.data.email !== req.body.author })
+//     reviews.insert({
+//       product: req.params.id,
+//       message: req.body.message,
+//       author: req.body.author,
+//       likesCount: 0,
+//       likedBy: []
+//     }).then(() => {
+//       res.status(201).json({ status: 'success' })
+//     }, (err: unknown) => {
+//       res.status(500).json(utils.getErrorMessage(err))
+//     })
+//   }
+// }
