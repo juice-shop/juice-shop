@@ -31,7 +31,7 @@ describe('CodeSnippetComponent', () => {
   beforeEach(waitForAsync(() => {
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: {}, challenges: {} }))
-    cookieService = jasmine.createSpyObj('CookieService', ['put'])
+    cookieService = jasmine.createSpyObj('CookieService', ['put', 'hasKey'])
     codeSnippetService = jasmine.createSpyObj('CodeSnippetService', ['get', 'check'])
     codeSnippetService.get.and.returnValue(of({}))
     codeFixesService = jasmine.createSpyObj('CodeFixesService', ['get', 'check'])
