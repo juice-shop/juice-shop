@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+import jwtDecode from 'jwt-decode'
+
 let config
 const playbackDelays = {
   faster: 0.5,
@@ -158,6 +160,26 @@ export function waitForLogIn () {
   return async () => {
     while (true) {
       if (localStorage.getItem('token') !== null) {
+        break
+      }
+      await sleep(100)
+    }
+  }
+}
+
+export function waitForAdminLogIn () {
+  return async () => {
+    while (true) {
+      let role: string = ''
+      try {
+        const token: string = localStorage.getItem('token')
+        const decodedToken = jwtDecode(token)
+        const payload = decodedToken as any
+        role = payload.data.role
+      } catch {
+        console.log('Role from token could not be accessed.')
+      }
+      if (role === 'admin') {
         break
       }
       await sleep(100)
