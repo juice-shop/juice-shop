@@ -76,8 +76,8 @@
 }
 
 .description-row::-webkit-scrollbar {
-  width: 10px;
   height: 10px;
+  width: 10px;
 }
 
 .description-row::-webkit-scrollbar-track {
@@ -96,7 +96,7 @@
 
 @supports not selector(::-webkit-scrollbar) {
   html {
-      scrollbar-width: thin;
+    scrollbar-width: thin;
   }
 }
 
