@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - uses: adventure8812/test-action@main
+      - uses: adventure8812/test-github-actions@main
         with:
           zeropath-token: ${{ secrets.ZEROPATH_API_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
