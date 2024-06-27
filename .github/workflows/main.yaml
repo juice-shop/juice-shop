@@ -1,0 +1,31 @@
+name: Scan
+on:
+  pull_request: 
+    types: [opened, reopened]
+
+jobs:
+  Scan:
+    name: "Scan"
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      security-events: write
+      statuses: write
+      contents: write
+      issues: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - uses: adventure8812/test-action@main
+        with:
+          zeropath-token: ${{ secrets.ZEROPATH_API_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pull-url: ${{ github.event.pull_request.html_url }}
+      - name: Run the action
+        uses: guibranco/github-status-action-v2@v1.1.8
+        if: success()
+        with: 
+            authToken: ${{secrets.GITHUB_TOKEN}}
+            context: 'ZeroPath'
+            description: 'scan completed.'
+            state: 'success'
