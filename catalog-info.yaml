@@ -1,4 +1,14 @@
-# OWASP Juice Shop Configuration
+# Metadata
+metadata:
+  name: owasp-juice-shop-config
+  title: OWASP Juice Shop Configuration
+
+# Specification
+spec:
+  type: project-config
+  owner: Tahoma Engineers
+  lifecycle: production
+  system: juice-shop
 
 # Backend server configuration
 backend:
@@ -96,4 +106,3 @@ misc:
   cache:
     enabled: true
     maxAge: 86400 # 1 day in seconds
-
