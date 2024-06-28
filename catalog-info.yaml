@@ -1,0 +1,99 @@
+# OWASP Juice Shop Configuration
+
+# Backend server configuration
+backend:
+  server:
+    port: 3000
+    hostname: localhost
+
+  db:
+    host: localhost
+    port: 27017
+    database: juice-shop
+    username: admin
+    password: admin_password
+
+  security:
+    csrf:
+      enabled: true
+      secret: super_secret_csrf_token
+    cors:
+      enabled: true
+      allowedOrigins:
+        - http://localhost:4200
+        - https://juice-shop.example.com
+
+  logging:
+    level: info
+    file:
+      enabled: true
+      path: /var/log/juice-shop.log
+      maxSizeMB: 10
+      maxFiles: 5
+
+  mail:
+    host: smtp.example.com
+    port: 587
+    secure: false
+    auth:
+      user: your_email@example.com
+      pass: your_email_password
+
+  misc:
+    captcha:
+      siteKey: your_recaptcha_site_key
+      secretKey: your_recaptcha_secret_key
+    uploadDir: /uploads
+
+# Frontend client configuration
+frontend:
+  client:
+    hostname: localhost
+    port: 4200
+    apiBaseUrl: http://localhost:3000/api
+    recaptchaSiteKey: your_recaptcha_site_key
+
+  logging:
+    level: debug
+    file:
+      enabled: true
+      path: /var/log/juice-shop-frontend.log
+      maxSizeMB: 5
+      maxFiles: 3
+
+  security:
+    contentSecurityPolicy:
+      directives:
+        defaultSrc:
+          - "'self'"
+          - "https://fonts.googleapis.com"
+          - "https://cdnjs.cloudflare.com"
+        scriptSrc:
+          - "'self'"
+          - "https://cdnjs.cloudflare.com"
+          - "https://www.google.com"
+        styleSrc:
+          - "'self'"
+          - "'unsafe-inline'"
+          - "https://fonts.googleapis.com"
+        imgSrc:
+          - "'self'"
+          - "data:"
+
+    featurePolicy:
+      features:
+        accelerometer: "'none'"
+        camera: "'none'"
+        geolocation: "'none'"
+        gyroscope: "'none'"
+        magnetometer: "'none'"
+        microphone: "'none'"
+        payment: "'none'"
+        usb: "'none'"
+
+# Other configurations
+misc:
+  cache:
+    enabled: true
+    maxAge: 86400 # 1 day in seconds
+
