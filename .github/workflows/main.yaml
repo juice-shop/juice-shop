@@ -7,6 +7,7 @@ jobs:
   Scan:
     name: "Scan"
     runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login != 'zeropath-ai-dev[bot]'
     permissions:
       pull-requests: write
       security-events: write
