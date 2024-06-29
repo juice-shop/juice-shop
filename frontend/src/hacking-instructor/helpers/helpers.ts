@@ -146,7 +146,7 @@ export function waitInMs (timeInMs: number) {
 export function waitForAngularRouteToBeVisited (route: string) {
   return async () => {
     while (true) {
-      if (window.location.hash === `#/${route}`) {
+      if (window.location.hash.startsWith(`#/${route}`)) {
         break
       }
       await sleep(100)
@@ -224,6 +224,21 @@ export function waitForSelectToNotHaveValue (selectSelector: string, value: stri
 
     while (true) {
       if (selectElement.options[selectElement.selectedIndex].value !== value) {
+        break
+      }
+      await sleep(100)
+    }
+  }
+}
+
+export function waitForRightUriQueryParamPair (key: string, value: string) {
+  return async () => {
+    while (true) {
+      const encodedValue: string = encodeURIComponent(value).replace(/%3A/g, ':')
+      const encodedKey: string = encodeURIComponent(key).replace(/%3A/g, ':')
+      const expectedHash: string = `#/track-result/new?${encodedKey}=${encodedValue}`
+
+      if (window.location.hash === expectedHash) {
         break
       }
       await sleep(100)
