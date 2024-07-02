@@ -7,6 +7,6 @@ updates:
     schedule:
       # Check for updates to GitHub Actions every week
       interval: "daily"
-    allow:
-    # Allow updates for CodeQL Action
-    - dependency-name: "github/codeql-action/*"
+ #   allow:
+#    # Allow updates for CodeQL Action
+# dependency-name: "github/codeql-action/*"
