@@ -1,13 +1,11 @@
-/*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
- * SPDX-License-Identifier: MIT
+
  */
 import dataErasure from './routes/dataErasure'
 import fs = require('fs')
 import { type Request, type Response, type NextFunction } from 'express'
 import { sequelize } from './models'
 import { UserModel } from './models/user'
-import { QuantityModel } from './models/quantity'
+import { QuantityModel } from './models/quantity' 
 import { CardModel } from './models/card'
 import { PrivacyRequestModel } from './models/privacyRequests'
 import { AddressModel } from './models/address'
