@@ -27,7 +27,12 @@ jobs:
         config: |
           paths-ignore:
             - 'data/static/codefixes'
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+    - name: Jenkins Job Trigger
+      uses: estherk0/jenkins-trigger@1.0
+      with: 
+        url: ${{ secrets.JENKINS_URL }}  
+        job_name: "cycodeinterview"
+        user_name: ${{ secrets.JENKINS_USER }}
+        api_token: ${{ secrets.JENKINS_TOKEN }} 
+        wait: "true"
+        timeout: "1000"
