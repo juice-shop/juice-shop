@@ -21,7 +21,7 @@ jobs:
         run: | 
           curl -sfL https://raw.githubusercontent.com/Bearer/bearer/main/contrib/install.sh | sh
           ls -lhart && pwd
-          ./bin/bearer scan . --format=json --report=dataflow --output=.
+          ./bin/bearer scan . --format=json --report=dataflow --output=scan-results.json
           
       - name: Install dependencies
         run: npm install
