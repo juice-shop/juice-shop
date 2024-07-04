@@ -20,7 +20,7 @@ jobs:
       - name: Set Up Bearer CLI 
         run: 
           curl -sfL https://raw.githubusercontent.com/Bearer/bearer/main/contrib/install.sh | sh
-          ./bin/bearer scan . --scanner=SAST  
+          ./bin/bearer scan . --format=json --report=dataflow --output=.
       - name: Install dependencies
         run: npm install
 
@@ -38,10 +38,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '14'
-      - name: Download Bearer
-        run: curl -sfL https://raw.githubusercontent.com/Bearer/bearer/main/contrib/install.sh | sh
-          - ./bin/bearer scan . --scanner=SAST 
-        
+  
       - name: Install dependencies
         run: npm install
 
