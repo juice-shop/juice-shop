@@ -35,7 +35,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '14'
-
+      - name: Download Bearer
+        run: curl -sfL https://raw.githubusercontent.com/Bearer/bearer/main/contrib/install.sh | sh
+          - ./bin/bearer scan . --scanner=SAST 
+        
       - name: Install dependencies
         run: npm install
 
