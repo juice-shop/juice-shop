@@ -7,3 +7,4 @@ services:
   app:
     image: bkimminich/juice-shop:latest-amd64
     build: ./
+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
