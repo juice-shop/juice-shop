@@ -8,8 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
-        uses: actions/checkout@v2
-      - name: install Bearer CLI 
+        uses: actions/checkout@v2          
+      - name: GitHub Action for Bash
+        uses: lafernando/github-action-bash@v1.0
+        
        # script: 
       - run: curl -sfL https://raw.githubusercontent.com/Bearer/bearer/main/contrib/install.sh | sh
       - run: ./bin/bearer scan ./* --output=./theresults.json --format=json
