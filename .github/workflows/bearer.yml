@@ -1,0 +1,34 @@
+name: Pipeline scan and Issue importer
+
+on: [push, pull_request, workflow_dispatch]
+#on: gollum          # sort of a dummy to prevent this from running
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+      - name: install Bearer CLI 
+       # script: 
+      - run: curl -sfL https://raw.githubusercontent.com/Bearer/bearer/main/contrib/install.sh | sh
+      - run: ./bin/bearer scan ./* --output=./theresults.json --format=json
+      - run: ls -lahrt && pwd
+          
+      - name: save archive
+        uses: actions/upload-artifact@v2
+        with:
+          name: theresults.json
+          path: .
+      - name: get archive
+        uses: actions/download-artifact@v2
+        with:
+          name: theresults.json
+          path: .
+
+      
+      - uses: khorwood/sarif-converter@main
+        with:
+          type: checkov
+          input: ./theresults.json
+          output: ./theresults.sarif
