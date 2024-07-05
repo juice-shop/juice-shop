@@ -1,6 +1,6 @@
 name: Pipeline scan and Issue importer
 
-on: [push, pull_request, workflow_dispatch]
+on: push
 #on: gollum          # sort of a dummy to prevent this from running
 
 jobs:
