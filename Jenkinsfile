@@ -14,7 +14,7 @@ stages {
             sh 'sudo -E cimon agent start-background'
         }
     }
-    ...
+    
 }
 post {
     always {
