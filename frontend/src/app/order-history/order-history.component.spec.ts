@@ -42,7 +42,6 @@ describe('AccountingComponent', () => {
     orderHistoryService.get.and.returnValue(of([]))
 
     TestBed.configureTestingModule({
-      declarations: [OrderHistoryComponent],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
@@ -57,7 +56,8 @@ describe('AccountingComponent', () => {
         MatIconModule,
         MatTooltipModule,
         MatDialogModule,
-        MatExpansionModule
+        MatExpansionModule,
+        OrderHistoryComponent
       ],
       providers: [
         { provide: ProductService, useValue: productService },

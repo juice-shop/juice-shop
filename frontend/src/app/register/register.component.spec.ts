@@ -27,6 +27,15 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { type Type } from '@angular/core'
+
+// This will fix the type checking issue for Module MatPasswordStrengthModule
+// It can be deleted after also upgrading Angular Material to v17
+declare module '@angular/core' {
+  interface ModuleWithProviders<T = any> {
+    ngModule: Type<T>
+  }
+}
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent
@@ -63,9 +72,9 @@ describe('RegisterComponent', () => {
         MatSnackBarModule,
         MatTooltipModule,
         MatIconModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        RegisterComponent, LoginComponent
       ],
-      declarations: [RegisterComponent, LoginComponent],
       providers: [
         { provide: SecurityAnswerService, useValue: securityAnswerService },
         { provide: SecurityQuestionService, useValue: securityQuestionService },

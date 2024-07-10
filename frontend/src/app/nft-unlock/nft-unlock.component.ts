@@ -1,10 +1,21 @@
 import { Component } from '@angular/core'
 import { KeysService } from '../Services/keys.service'
+import { MatDivider } from '@angular/material/divider'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
+import { FormsModule } from '@angular/forms'
+import { NgIf } from '@angular/common'
+import { TranslateModule } from '@ngx-translate/core'
+import { MatButtonModule } from '@angular/material/button'
+import { FlexModule } from '@angular/flex-layout/flex'
+import { MatCardModule, MatCardTitle } from '@angular/material/card'
 
 @Component({
   selector: 'app-nft-unlock',
   templateUrl: './nft-unlock.component.html',
-  styleUrls: ['./nft-unlock.component.scss']
+  styleUrls: ['./nft-unlock.component.scss'],
+  standalone: true,
+  imports: [MatCardModule, FlexModule, MatButtonModule, TranslateModule, NgIf, MatCardTitle, FormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatDivider]
 })
 export class NFTUnlockComponent {
   privateKey: string
@@ -14,7 +25,7 @@ export class NFTUnlockComponent {
 
   constructor (private readonly keysService: KeysService) {}
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.checkChallengeStatus()
   }
 

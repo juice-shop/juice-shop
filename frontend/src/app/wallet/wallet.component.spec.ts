@@ -44,14 +44,13 @@ describe('WalletComponent', () => {
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
-
         BrowserAnimationsModule,
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
-        MatGridListModule
+        MatGridListModule,
+        WalletComponent
       ],
-      declarations: [WalletComponent],
       providers: [
         { provide: WalletService, useValue: walletService },
         { provide: TranslateService, useValue: translateService },

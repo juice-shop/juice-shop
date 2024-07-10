@@ -47,8 +47,8 @@ describe('/api', () => {
 
   describe('challenge "changeProduct"', () => {
     it('should be possible to change product via PUT request without being logged in', () => {
-      cy.task('GetTamperingProductId').then((tamperingProductId: number) => {
-        cy.task('GetOverwriteUrl').then((overwriteUrl: string) => {
+      cy.task<number>('GetTamperingProductId').then((tamperingProductId: number) => {
+        cy.task<string>('GetOverwriteUrl').then((overwriteUrl: string) => {
           cy.window().then(async () => {
             const response = await fetch(
               `${Cypress.config('baseUrl')}/api/Products/${tamperingProductId}`,

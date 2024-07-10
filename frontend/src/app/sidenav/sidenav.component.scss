@@ -18,17 +18,25 @@ a {
   padding-left: 10px;
 }
 
-.mat-list-base,
-.mat-list-item,
-.mat-list-icon {
+.mat-mdc-list-base,
+.mat-mdc-list-item,
+.mat-mdc-list-item-icon {
   padding: 0 !important;
+}
+
+.mat-mdc-list-item {
+  ::ng-deep .mdc-list-item__primary-text {
+    align-items: center;
+    display: flex;
+    padding: 0 16px;
+  }
 }
 
 .toolbar-title {
   margin: 0 16px;
 }
 
-.mat-subheader {
+.mat-mdc-subheader {
   font-size: 18px;
   font-weight: 900;
 }

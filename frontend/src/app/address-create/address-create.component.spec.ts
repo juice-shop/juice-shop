@@ -47,16 +47,15 @@ describe('AddressCreateComponent', () => {
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
-
         BrowserAnimationsModule,
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
         MatGridListModule,
         MatIconModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        AddressCreateComponent
       ],
-      declarations: [AddressCreateComponent],
       providers: [
         { provide: AddressService, useValue: addressService },
         { provide: TranslateService, useValue: translateService },

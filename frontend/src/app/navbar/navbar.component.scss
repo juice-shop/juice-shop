@@ -10,7 +10,7 @@ mat-toolbar {
   width: 100%;
 }
 
-.mat-button {
+.mat-mdc-button {
   padding-left: 8px;
   padding-right: 8px;
 }
@@ -18,6 +18,11 @@ mat-toolbar {
 .logo {
   max-height: 60px;
   width: auto;
+}
+
+#homeButton {
+  align-items: center;
+  display: flex;
 }
 
 .avatar {
@@ -37,10 +42,6 @@ mat-toolbar {
 .language-select {
   margin-left: 10px;
   width: 11%;
-}
-
-::ng-deep .mat-select-value-text {
-  font-size: 15px;
 }
 
 .user-info {
@@ -73,9 +74,4 @@ mat-search-bar {
   .buttons {
     width: 48px;
   }
-}
-
-:host ::ng-deep .mat-form-field-infix {
-  max-width: 250px !important;
-  width: 14vw !important;
 }

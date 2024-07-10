@@ -12,6 +12,13 @@ import {
 import {
   solidityCompiler
 } from 'solidity-browser-compiler'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
+import { TranslateModule } from '@ngx-translate/core'
+import { NgIf, NgFor } from '@angular/common'
+import { MatButtonModule } from '@angular/material/button'
+import { FormsModule } from '@angular/forms'
+import { CodemirrorModule } from '@ctrl/ngx-codemirror'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const client = createClient({
@@ -33,7 +40,9 @@ const compilerReleases = {
 @Component({
   selector: 'app-web3-sandbox',
   templateUrl: './web3-sandbox.component.html',
-  styleUrls: ['./web3-sandbox.component.scss']
+  styleUrls: ['./web3-sandbox.component.scss'],
+  standalone: true,
+  imports: [CodemirrorModule, FormsModule, MatButtonModule, NgIf, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, NgFor]
 })
 export class Web3SandboxComponent {
   constructor (

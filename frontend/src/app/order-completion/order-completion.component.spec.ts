@@ -49,7 +49,6 @@ describe('OrderCompletionComponent', () => {
     addressService.getById.and.returnValue(of([]))
 
     TestBed.configureTestingModule({
-      declarations: [OrderCompletionComponent],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
@@ -62,7 +61,8 @@ describe('OrderCompletionComponent', () => {
         MatGridListModule,
         MatCardModule,
         MatIconModule,
-        MatTooltipModule
+        MatTooltipModule,
+        OrderCompletionComponent
       ],
       providers: [
         { provide: TrackOrderService, useValue: trackOrderService },

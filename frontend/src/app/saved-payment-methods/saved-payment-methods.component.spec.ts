@@ -42,7 +42,6 @@ describe('SavedPaymentMethodsComponent', () => {
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
-
         BrowserAnimationsModule,
         MatCardModule,
         MatTableModule,
@@ -51,9 +50,9 @@ describe('SavedPaymentMethodsComponent', () => {
         MatExpansionModule,
         MatDividerModule,
         MatRadioModule,
-        MatDialogModule
+        MatDialogModule,
+        SavedPaymentMethodsComponent, PaymentMethodComponent
       ],
-      declarations: [SavedPaymentMethodsComponent, PaymentMethodComponent],
       providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar }

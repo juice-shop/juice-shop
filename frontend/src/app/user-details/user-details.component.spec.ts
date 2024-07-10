@@ -27,9 +27,9 @@ describe('UserDetailsComponent', () => {
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         MatDividerModule,
-        MatDialogModule
+        MatDialogModule,
+        UserDetailsComponent
       ],
-      declarations: [UserDetailsComponent],
       providers: [
         { provide: UserService, useValue: userService },
         { provide: MatDialogRef, useValue: {} },
