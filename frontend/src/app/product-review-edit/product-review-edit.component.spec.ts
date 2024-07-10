@@ -37,9 +37,9 @@ describe('ProductReviewEditComponent', () => {
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        ProductReviewEditComponent
       ],
-      declarations: [ProductReviewEditComponent],
       providers: [
         { provide: ProductReviewService, useValue: productReviewService },
         { provide: MAT_DIALOG_DATA, useValue: { productData: {} } },

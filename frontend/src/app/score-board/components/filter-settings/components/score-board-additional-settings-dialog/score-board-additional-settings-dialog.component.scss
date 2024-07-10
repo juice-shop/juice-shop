@@ -1,17 +1,9 @@
-mat-dialog-content {
-  display: grid;
-  grid-template-rows: min-content 1fr min-content;
-  height: 100%;
-  overflow: visible;
-}
-
-.mat-radio-button ~ .mat-radio-button {
+.mat-mdc-radio-button ~ .mat-mdc-radio-button {
   margin-left: 16px;
 }
 
 mat-dialog-actions {
-  display: flex;
-  flex-direction: row-reverse;
+  justify-content: end;
 }
 
 h1 {

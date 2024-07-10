@@ -31,7 +31,6 @@ describe('BasketComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [BasketComponent, PurchaseBasketComponent],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
@@ -46,7 +45,8 @@ describe('BasketComponent', () => {
         MatExpansionModule,
         MatDialogModule,
         MatButtonToggleModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        BasketComponent, PurchaseBasketComponent
       ],
       providers: [
         { provide: DeluxeGuard, useValue: deluxeGuard },

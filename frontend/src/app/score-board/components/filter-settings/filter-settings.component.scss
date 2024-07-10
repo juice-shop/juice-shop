@@ -4,6 +4,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr) min-content;
   row-gap: 8px;
+  width: max-content;
   @media (max-width: 800px) {
     grid-template-columns: auto;
   }

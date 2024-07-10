@@ -94,7 +94,6 @@ describe('SearchResultComponent', () => {
     deluxeGuard.isDeluxe.and.returnValue(of(false))
 
     TestBed.configureTestingModule({
-      declarations: [SearchResultComponent],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
@@ -105,7 +104,8 @@ describe('SearchResultComponent', () => {
         MatDialogModule,
         MatDividerModule,
         MatGridListModule,
-        MatCardModule
+        MatCardModule,
+        SearchResultComponent
       ],
       providers: [
         { provide: TranslateService, useValue: translateService },

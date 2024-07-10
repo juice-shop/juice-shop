@@ -47,7 +47,6 @@ describe('PaymentMethodComponent', () => {
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
-
         BrowserAnimationsModule,
         MatCardModule,
         MatTableModule,
@@ -56,9 +55,9 @@ describe('PaymentMethodComponent', () => {
         MatExpansionModule,
         MatDividerModule,
         MatRadioModule,
-        MatDialogModule
+        MatDialogModule,
+        PaymentMethodComponent
       ],
-      declarations: [PaymentMethodComponent],
       providers: [
         { provide: PaymentService, useValue: paymentService },
         { provide: TranslateService, useValue: translateService },
