@@ -23,11 +23,12 @@ interface LineMarker {
 export class CodeAreaComponent implements OnInit {
   private _code: string = ''
   @Input('code')
-  get code(): string {
-    return this._code;
+  get code (): string {
+    return this._code
   }
-  set code(value: string) {
-    this._code = value || '';
+
+  set code (value: string) {
+    this._code = value || ''
   }
 
   @Input('vulnLines')
