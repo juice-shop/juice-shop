@@ -6,14 +6,22 @@
 import { Component, NgZone, type OnInit } from '@angular/core'
 import { UserService } from '../Services/user.service'
 import { ActivatedRoute, Router } from '@angular/router'
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngy-cookie'
 import { ConfigurationService } from '../Services/configuration.service'
 import { SocketIoService } from '../Services/socket-io.service'
+import { MatIconModule } from '@angular/material/icon'
+import { MatButtonModule } from '@angular/material/button'
+import { TranslateModule } from '@ngx-translate/core'
+import { MatCardModule } from '@angular/material/card'
+import { NgIf } from '@angular/common'
+import { FlexModule } from '@angular/flex-layout/flex'
 
 @Component({
   selector: 'app-deluxe-user',
   templateUrl: './deluxe-user.component.html',
-  styleUrls: ['./deluxe-user.component.scss']
+  styleUrls: ['./deluxe-user.component.scss'],
+  standalone: true,
+  imports: [FlexModule, NgIf, MatCardModule, TranslateModule, MatButtonModule, MatIconModule]
 })
 
 export class DeluxeUserComponent implements OnInit {
@@ -25,7 +33,7 @@ export class DeluxeUserComponent implements OnInit {
   constructor (private readonly router: Router, private readonly userService: UserService, private readonly cookieService: CookieService, private readonly configurationService: ConfigurationService, private readonly route: ActivatedRoute, private readonly ngZone: NgZone, private readonly io: SocketIoService) {
   }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       const decalParam: string = this.route.snapshot.queryParams.testDecal // "Forgotten" test parameter to play with different stickers on the delivery box image
       if (config?.application) {

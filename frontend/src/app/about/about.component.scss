@@ -4,7 +4,6 @@
  */
 
 mat-card {
-  display: block;
   margin-bottom: 30px;
   margin-left: auto;
   margin-right: auto;
@@ -28,4 +27,14 @@ button {
 .text-justify {
   text-align: justify;
   text-justify: inter-word;
+}
+
+.caption {
+  background-color: rgba(0, 0, 0, 0.35);
+  bottom: 0;
+  color: rgb(255, 255, 255);
+  left: 0;
+  padding: 10px;
+  position: absolute;
+  width: 100%;
 }

@@ -7,20 +7,22 @@
 
   <mat-toolbar-row fxLayout="row">
 
-    <button (click)="onToggleSidenav()" mat-button style="height:48px; width: 48px;" aria-label="Open Sidenav"
+    <button (click)="onToggleSidenav()" mat-icon-button style="height:48px; width: 48px;" aria-label="Open Sidenav"
             matTooltip="{{ 'SIDENAV_HINT' | translate }}" matTooltipPosition="below">
       <mat-icon>menu</mat-icon>
     </button>
 
     <button mat-button routerLink="/search" style="height:60px;" class="buttons" aria-label="Back to homepage">
-      <img [src]="logoSrc" class="logo" alt={{applicationName}}>
-      <span fxHide.lt-sm fxShow style="font-size: x-large"> {{applicationName}} </span>
+      <div id="homeButton">
+        <img [src]="logoSrc" class="logo" alt={{applicationName}}>
+        <span fxHide.lt-sm fxShow style="font-size: x-large"> {{applicationName}} </span>
+      </div>
     </button>
 
     <span class="fill-remaining-space"></span>
 
-    <mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"
-                    aria-label="Click to search"></mat-search-bar>
+    <app-mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"
+                    aria-label="Click to search"></app-mat-search-bar>
 
     <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle; height:48px;" class="buttons"
             fxHide.lt-md fxShow aria-label="Show/hide account menu" id="navbarAccount">

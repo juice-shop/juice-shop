@@ -48,7 +48,7 @@
     "..."
   ],
   "scripts": {
-    "build:frontend": "cd frontend && node ./node_modules/@angular/cli/bin/ng build --aot --configuration production --output-hashing=none --vendor-chunk=true --source-map=false",
+    "build:frontend": "cd frontend && ng build --configuration production",
     "build:server": "tsc",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",

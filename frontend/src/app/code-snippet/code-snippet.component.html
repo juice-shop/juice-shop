@@ -39,11 +39,15 @@
 </mat-dialog-content>
 <mat-dialog-actions class="dialog-action">
   <div>
-    <mat-card *ngIf="hint && tab.value === 0" class="primary-notification">
-      {{hint}}
+    <mat-card appearance="outlined" *ngIf="hint && tab.value === 0" class="primary-notification">
+      <div class="mdc-card">
+        {{hint}}
+      </div>
     </mat-card>
-    <mat-card *ngIf="explanation && tab.value === 1" [class]="resultColor() === 'warn' ? 'warn-notification' : 'accent-notification'">
-      {{explanation}}
+    <mat-card appearance="outlined" *ngIf="explanation && tab.value === 1" [class]="resultColor() === 'warn' ? 'warn-notification' : 'accent-notification'">
+      <div class="mdc-card">
+        {{explanation}}
+      </div>
     </mat-card>
     <div class="btns" [ngClass]="{'btns-findit': tab.value === 0}">
       <mat-form-field *ngIf="tab.value === 1" class="fix" appearance="fill">

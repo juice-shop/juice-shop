@@ -6,12 +6,20 @@
 import { Component, type OnInit } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { MatDialogRef } from '@angular/material/dialog'
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngy-cookie'
+import { TranslateModule } from '@ngx-translate/core'
+import { ExtendedModule } from '@angular/flex-layout/extended'
+import { MatIconModule } from '@angular/material/icon'
+import { MatTooltip } from '@angular/material/tooltip'
+import { MatButtonModule } from '@angular/material/button'
+import { NgIf } from '@angular/common'
 
 @Component({
   selector: 'app-welcome-banner',
   templateUrl: 'welcome-banner.component.html',
-  styleUrls: ['./welcome-banner.component.scss']
+  styleUrls: ['./welcome-banner.component.scss'],
+  standalone: true,
+  imports: [NgIf, MatButtonModule, MatTooltip, MatIconModule, ExtendedModule, TranslateModule]
 })
 export class WelcomeBannerComponent implements OnInit {
   public title: string = 'Welcome to OWASP Juice Shop'

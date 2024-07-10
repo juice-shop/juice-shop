@@ -77,9 +77,9 @@ describe('RecycleComponent', () => {
         MatRadioModule,
         MatTooltipModule,
         MatDialogModule,
-        MatDividerModule
+        MatDividerModule,
+        RecycleComponent, AddressComponent
       ],
-      declarations: [RecycleComponent, AddressComponent],
       providers: [
         { provide: RecycleService, useValue: recycleService },
         { provide: UserService, useValue: userService },
