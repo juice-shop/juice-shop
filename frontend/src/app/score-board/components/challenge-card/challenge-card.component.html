@@ -68,7 +68,7 @@
     <!-- hacking instructor-->
     <button
       class="badge not-completable"
-      *ngIf="hasInstructions(challenge.name)"
+      *ngIf="applicationConfiguration.hackingInstructor.isEnabled && hasInstructions(challenge.name)"
       [matTooltip]="'INFO_HACKING_INSTRUCTOR' | translate"
       (click)="startHackingInstructorFor(challenge.name)"
     >
