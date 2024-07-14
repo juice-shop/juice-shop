@@ -711,7 +711,7 @@
   mitigationUrl: ~
   key: privacyPolicyChallenge
   tutorial:
-    order: 5
+    order: 4
 -
   name: 'Privacy Policy Inspection'
   category: 'Security through Obscurity'
@@ -747,7 +747,7 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html'
   key: reflectedXssChallenge
   tutorial:
-    order: 4
+    order: 5
   disabledEnv:
     - Docker
     - Heroku
