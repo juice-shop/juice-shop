@@ -7,7 +7,6 @@ import {
   waitForRightUriQueryParamPair,
   waitInMs,
   waitForAngularRouteToBeVisited,
-  waitForElementToGetClicked,
   waitForLogIn
 } from '../helpers/helpers'
 import { type ChallengeInstruction } from '../'
