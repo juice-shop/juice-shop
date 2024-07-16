@@ -392,6 +392,15 @@ products:
     image: 20th.jpeg
     reviews:
       - { text: "I'll be there! Will you, too?", author: bjoernOwasp }
+  -
+    name: 'OWASP Juice Shop LEGO™ Tower'
+    description: 'Want to host a Juice Shop CTF in style? Build <a href="ADD HERE" target="_blank">your own LEGO™ tower</a> which holds four Raspberry Pi 4 models with PoE HAT modules <a href="https://github.com/juice-shop/multi-juicer/blob/main/guides/raspberry-pi/raspberry-pi.md" target="_blank">running a MultiJuicer Kubernetes cluster</a>! Wire to a switch and connect to your network to have an out-of-the-box ready CTF up in no time!'
+    price: 799
+    quantity: 3
+    limitPerUser: 1
+    image: lego_case.jpg
+    reviews:
+      - { text: 'Check out the /#/photo-wall for some impressions of the assembly process!', author: bjoernOwasp }
 memories:
   -
     image: 'magn(et)ificent!-1571814229653.jpg'
@@ -415,6 +424,22 @@ memories:
     image: 'BeeHaven.png'
     caption: 'Welcome to the Bee Haven (/#/bee-haven)🐝'
     user: evm
+  -
+    image: 'sorted-the-pieces,-starting-assembly-process-1721152307290.jpg'
+    caption: 'Sorted the pieces, starting assembly process...'
+    user: bjoernOwasp
+  -
+    image: 'building-something-literally-bottom-up-1721152342603.jpg'
+    caption: 'Building something literally bottom up...'
+    user: bjoernOwasp
+  -
+    image: 'putting-in-the-hardware-1721152366854.jpg'
+    caption: 'Putting in the hardware...'
+    user: bjoernOwasp
+  -
+    image: 'everything-up-and-running!-1721152385146.jpg'
+    caption: 'Everything up and running!'
+    user: bjoernOwasp
 ctf:
   showFlagsInNotifications: false
   showCountryDetailsInNotifications: none # Options: none  name  flag  both
