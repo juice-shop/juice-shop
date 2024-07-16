@@ -1,3 +1,6 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+
 # Metadata
 metadata:
   name: owasp-juice-shop-config
