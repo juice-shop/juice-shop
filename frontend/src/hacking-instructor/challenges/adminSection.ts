@@ -93,9 +93,14 @@ export const AdminSectionInstruction: ChallengeInstruction = {
       resolved: waitInMs(16000)
     },
     {
-      text: 'Always keep your eyes open when inspecting a website. Once you have identified the technologies used, leverage them to your advantage, and do not forget to read the docs! Happy hacking :)',
+      text: 'Always keep your eyes open when inspecting a website. Once you have identified the technologies used, leverage them to your advantage, and do not forget to read the docs!',
       fixture: 'app-navbar',
       resolved: waitInMs(10000)
+    },
+    {
+      text: 'If you like, try to access the admin section without admin credentials. What do you think would happen? Happy hacking :)',
+      fixture: 'app-navbar',
+      resolved: waitInMs(8000)
     }
   ]
 }
