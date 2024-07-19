@@ -111,6 +111,38 @@ For a detailed introduction, full list of features and architecture overview ple
 4. Browse to <http://localhost:3000> (on macOS and Windows browse to
    <http://192.168.99.100:3000> if you are using docker-machine instead of the native docker installation)
 
+### Kubernetes
+
+The following will allow you to run Juice Shop in a Kubernetes Pod.
+
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: owasp-juice
+spec:
+  selector:
+    matchLabels:
+      app: juice
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: juice
+    spec:
+      containers:
+      - name: juice
+        image: bkimminich/juice-shop
+        ports:
+        - containerPort: 3000
+```
+
+Access the Web GUI with the `port-forward` command.
+
+```
+kubectl port-forward pod/NAME_OF_JUICE_POD 3000:3000
+```
+
 ### Vagrant
 
 1. Install [Vagrant](https://www.vagrantup.com/downloads.html) and
