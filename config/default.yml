@@ -35,7 +35,7 @@ application:
   welcomeBanner:
     showOnFirstStart: true
     title: 'Welcome to OWASP Juice Shop!'
-    message: "<p>Being a web application with a vast number of intended security vulnerabilities, the <strong>OWASP Juice Shop</strong> is supposed to be the opposite of a best practice or template application for web developers: It is an awareness, training, demonstration and exercise tool for security risks in modern web applications. The <strong>OWASP Juice Shop</strong> is an open-source project hosted by the non-profit <a href='https://owasp.org' target='_blank'>Open Web Application Security Project (OWASP)</a> and is developed and maintained by volunteers. Check out the link below for more information and documentation on the project.</p><h1><a href='https://owasp-juice.shop' target='_blank'>https://owasp-juice.shop</a></h1>"
+    message: "<p>Being a web application with a vast number of intended security vulnerabilities, the <strong>OWASP Juice Shop</strong> is supposed to be the opposite of a best practice or template application for web developers: It is an awareness, training, demonstration and exercise tool for security risks in modern web applications. The <strong>OWASP Juice Shop</strong> is an open-source project hosted by the non-profit <a href='https://owasp.org' target='_blank'>Open Worldwide Application Security Project (OWASP)</a> and is developed and maintained by volunteers. Check out the link below for more information and documentation on the project.</p><h1><a href='https://owasp-juice.shop' target='_blank'>https://owasp-juice.shop</a></h1>"
   cookieConsent:
     message: 'This website uses fruit cookies to ensure you get the juiciest tracking experience.'
     dismissText: 'Me want it!'
@@ -79,7 +79,7 @@ challenges:
   xssBonusPayload: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
   safetyMode: auto
   showFeedbackButtons: true
-  csafHashValue: 7d679a6a84a1ec0f12f91e2f487b9e89a7282ef775cbbec8baea2fa50eb101b7ee402dadd1bb9df0d8aaeb3ecb93e2892735f44b0c6cfb32c2f70478ae45afb7
+  csafHashValue: 7e7ce7c65db3bf0625fcea4573d25cff41f2f7e3474f2c74334b14fc65bb4fd26af802ad17a3a03bf0eee6827a00fb8f7905f338c31b5e6ea9cb31620242e843
 hackingInstructor:
   isEnabled: true
   avatarImage: JuicyBot.png
@@ -392,6 +392,15 @@ products:
     image: 20th.jpeg
     reviews:
       - { text: "I'll be there! Will you, too?", author: bjoernOwasp }
+  -
+    name: 'OWASP Juice Shop LEGO™ Tower'
+    description: 'Want to host a Juice Shop CTF in style? Build <a href="https://github.com/OWASP/owasp-swag/blob/master/projects/juice-shop/lego/OWASP%20JuiceShop%20Pi-server%201.2.pdf" target="_blank">your own LEGO™ tower</a> which holds four Raspberry Pi 4 models with PoE HAT modules <a href="https://github.com/juice-shop/multi-juicer/blob/main/guides/raspberry-pi/raspberry-pi.md" target="_blank">running a MultiJuicer Kubernetes cluster</a>! Wire to a switch and connect to your network to have an out-of-the-box ready CTF up in no time!'
+    price: 799
+    quantity: 3
+    limitPerUser: 1
+    image: lego_case.jpg
+    reviews:
+      - { text: 'Check out the /#/photo-wall for some impressions of the assembly process!', author: bjoernOwasp }
 memories:
   -
     image: 'magn(et)ificent!-1571814229653.jpg'
@@ -415,6 +424,22 @@ memories:
     image: 'BeeHaven.png'
     caption: 'Welcome to the Bee Haven (/#/bee-haven)🐝'
     user: evm
+  -
+    image: 'sorted-the-pieces,-starting-assembly-process-1721152307290.jpg'
+    caption: 'Sorted the pieces, starting assembly process...'
+    user: bjoernOwasp
+  -
+    image: 'building-something-literally-bottom-up-1721152342603.jpg'
+    caption: 'Building something literally bottom up...'
+    user: bjoernOwasp
+  -
+    image: 'putting-in-the-hardware-1721152366854.jpg'
+    caption: 'Putting in the hardware...'
+    user: bjoernOwasp
+  -
+    image: 'everything-up-and-running!-1721152385146.jpg'
+    caption: 'Everything up and running!'
+    user: bjoernOwasp
 ctf:
   showFlagsInNotifications: false
   showCountryDetailsInNotifications: none # Options: none  name  flag  both
