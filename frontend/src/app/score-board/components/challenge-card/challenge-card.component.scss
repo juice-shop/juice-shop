@@ -75,6 +75,31 @@
   overflow-y: auto;
 }
 
+.description-row::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+
+.description-row::-webkit-scrollbar-track {
+  background: var(--theme-primary-light);
+  border-radius: 10px;
+}
+
+.description-row::-webkit-scrollbar-thumb {
+  background: var(--theme-primary-darker);
+  border-radius: 10px;
+}
+
+.description-row::-webkit-scrollbar-corner {
+  display: none;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-width: thin;
+  }
+}
+
 .bottom-row {
   align-items: end;
   column-gap: 4px;
