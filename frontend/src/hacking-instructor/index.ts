@@ -32,7 +32,7 @@ const challengeInstructions: ChallengeInstruction[] = [
   BonusPayloadInstruction,
   LoginBenderInstruction,
   CodingChallengesInstruction,
-  AdminSectionInstruction
+  AdminSectionInstruction,
   ReflectedXssInstruction
 ]
 
