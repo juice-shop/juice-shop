@@ -500,7 +500,7 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html'
   key: loginAdminChallenge
   tutorial:
-    order: 5
+    order: 6
 -
   name: 'Login Amy'
   category: 'Sensitive Data Exposure'
@@ -739,6 +739,7 @@
   name: 'Reflected XSS'
   category: 'XSS'
   tags:
+    - Tutorial
     - Danger Zone
     - Good for Demos
   description: 'Perform a <i>reflected</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code>.'
@@ -747,6 +748,8 @@
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/xss.html#_perform_a_reflected_xss_attack'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html'
   key: reflectedXssChallenge
+  tutorial:
+    order: 5
   disabledEnv:
     - Docker
     - Heroku
