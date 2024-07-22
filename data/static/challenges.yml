@@ -42,6 +42,8 @@
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_access_the_administration_section_of_the_store'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html'
   key: adminSectionChallenge
+  tutorial:
+    order: 6
 -
   name: 'Arbitrary File Write'
   category: 'Vulnerable Components'
