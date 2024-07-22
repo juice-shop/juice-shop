@@ -17,6 +17,7 @@ import { BonusPayloadInstruction } from './challenges/bonusPayload'
 import { LoginBenderInstruction } from './challenges/loginBender'
 import { TutorialUnavailableInstruction } from './tutorialUnavailable'
 import { CodingChallengesInstruction } from './challenges/codingChallenges'
+import { AdminSectionInstruction } from './challenges/adminSection'
 import { ReflectedXssInstruction } from './challenges/reflectedXss'
 
 const challengeInstructions: ChallengeInstruction[] = [
@@ -31,6 +32,7 @@ const challengeInstructions: ChallengeInstruction[] = [
   BonusPayloadInstruction,
   LoginBenderInstruction,
   CodingChallengesInstruction,
+  AdminSectionInstruction
   ReflectedXssInstruction
 ]
 
