@@ -5,3 +5,4 @@ variables:
   SAST_EXCLUDED_PATHS: "frontend/src/assets/private/**"
   TEST_DISABLED: "true"
   DAST_DISABLED: "true"
+  TOKEN: "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"
