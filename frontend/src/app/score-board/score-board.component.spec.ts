@@ -116,9 +116,15 @@ describe('ScoreBoardComponent', () => {
       of({
         challenges: {
           restrictToTutorialsFirst: false,
-          codingChallengesEnabled: true,
+          codingChallengesEnabled: 'solved',
           showHints: true,
           showMitigations: true
+        },
+        ctf: {
+          showFlagsInNotifications: true
+        },
+        hackingInstructor: {
+          isEnabled: true
         }
       })
     )
