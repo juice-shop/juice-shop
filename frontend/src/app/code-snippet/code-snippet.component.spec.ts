@@ -17,6 +17,7 @@ import { of, throwError } from 'rxjs'
 import { CodeFixesService } from '../Services/code-fixes.service'
 import { VulnLinesService } from '../Services/vuln-lines.service'
 import { ChallengeService } from '../Services/challenge.service'
+import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 
 describe('CodeSnippetComponent', () => {
   let component: CodeSnippetComponent
@@ -43,6 +44,7 @@ describe('CodeSnippetComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
+        NoopAnimationsModule,
         CookieModule.forRoot(),
         TranslateModule.forRoot(),
         HttpClientTestingModule,
