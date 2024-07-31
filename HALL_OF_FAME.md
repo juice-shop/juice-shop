@@ -70,6 +70,7 @@ Giovanni (cruzgio), Alexander Nissen (Nissen96), fabrizio1979, OrNol (TRNSRL), J
   [Timo Pagel](https://github.com/wurstbrot/))
 * Admin profile picture artworks by Kharisma Mulyana (courtesy of
   [Timo Pagel](https://github.com/wurstbrot/))
+* OWASP Juice Shop LEGO™ Tower design & prototyping by [Bram Patelski](https://github.com/brampat/)
 
 Additional thanks goes to the contractors we were able to hire for specific work packages over the years with OWASP funding:
 
