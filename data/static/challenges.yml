@@ -42,6 +42,8 @@
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_access_the_administration_section_of_the_store'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html'
   key: adminSectionChallenge
+  tutorial:
+    order: 7
 -
   name: 'Arbitrary File Write'
   category: 'Vulnerable Components'
@@ -354,7 +356,7 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html'
   key: forgedFeedbackChallenge
   tutorial:
-    order: 8
+    order: 10
 -
   name: 'Forged Review'
   category: 'Broken Access Control'
@@ -498,7 +500,7 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html'
   key: loginAdminChallenge
   tutorial:
-    order: 5
+    order: 6
 -
   name: 'Login Amy'
   category: 'Sensitive Data Exposure'
@@ -522,7 +524,7 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html'
   key: loginBenderChallenge
   tutorial:
-    order: 10
+    order: 12
 -
   name: 'Login Bjoern'
   category: 'Broken Authentication'
@@ -546,7 +548,7 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html'
   key: loginJimChallenge
   tutorial:
-    order: 9
+    order: 11
 -
   name: 'Login MC SafeSearch'
   category: 'Sensitive Data Exposure'
@@ -676,7 +678,7 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html'
   key: weakPasswordChallenge
   tutorial:
-    order: 6
+    order: 8
 -
   name: 'Payback Time'
   category: 'Improper Input Validation'
@@ -737,6 +739,7 @@
   name: 'Reflected XSS'
   category: 'XSS'
   tags:
+    - Tutorial
     - Danger Zone
     - Good for Demos
   description: 'Perform a <i>reflected</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code>.'
@@ -745,6 +748,8 @@
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/xss.html#_perform_a_reflected_xss_attack'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html'
   key: reflectedXssChallenge
+  tutorial:
+    order: 5
   disabledEnv:
     - Docker
     - Heroku
@@ -990,7 +995,7 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html'
   key: basketAccessChallenge
   tutorial:
-    order: 7
+    order: 9
 -
   name: 'Vulnerable Library'
   category: 'Vulnerable Components'
