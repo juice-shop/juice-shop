@@ -140,7 +140,7 @@
     "grunt": "^1.5.3",
     "grunt-contrib-compress": "^1.6.0",
     "grunt-replace-json": "^0.1.0",
-    "handlebars": "4.7.7",
+    "handlebars": "^4.7.7",
     "hashids": "^2.2.1",
     "hbs": "^4.0.4",
     "helmet": "^4.0.0",
