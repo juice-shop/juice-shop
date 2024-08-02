@@ -169,9 +169,9 @@ guide. If this does not solve your issue please post your specific problem or qu
 OWASP Juice Shop comes with an official companion guide eBook. It will give you a complete overview of all
 vulnerabilities found in the application including hints how to spot and exploit them. In the appendix you will even
 find complete step-by-step solutions to every challenge. Extensive documentation of
-[custom re-branding](https://pwning.owasp-juice.shop/part1/customization.html),
-[CTF-support](https://pwning.owasp-juice.shop/part1/ctf.html),
-[trainer's guide](https://pwning.owasp-juice.shop/appendix/trainers.html)
+[custom re-branding](https://pwning.owasp-juice.shop/companion-guide/latest/part4/customization.html),
+[CTF-support](https://pwning.owasp-juice.shop/companion-guide/latest/part4/ctf.html),
+[trainer's guide](https://pwning.owasp-juice.shop/companion-guide/latest/part4/trainers.html)
 and much more is also included.
 
 [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) is published under
