@@ -1,4 +1,12 @@
-- uses: cycodelabs/cimon-action@v0
-  with:
-    client-id: ${{ secrets.CIMON_CLIENT_ID }}
-    secret: ${{ secrets.CIMON_SECRET }}
+---
+name: CIMON
+on:
+  workflow_dispatch: null
+jobs:
+  cimon:
+    steps:
+      - name: CIMON
+        uses: cycodelabs/cimon-action@v0
+        with:
+          client-id: ${{ secrets.CIMON_CLIENT_ID }}
+          secret: ${{ secrets.CIMON_SECRET }}
