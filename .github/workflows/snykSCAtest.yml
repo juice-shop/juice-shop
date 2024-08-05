@@ -1,0 +1,29 @@
+name: “Snyk SCA Test”
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  pipeline-job:
+    name: "Snyk SCA Test"
+    runs-on: ubuntu-latest
+    env:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+
+    steps:
+      - name: "Checkout Code"
+        uses: actions/checkout@v1
+
+      - name: "Install and Auth Snyk"
+        run: |
+          sudo npm install -g snyk
+          snyk auth ${SNYK_TOKEN}
+
+#      - name: "Install Dependancies"
+#        run: |
+#          npm i
+      - name: "Run Snyk Test"
+        run: |
+          snyk test --severity-threshold=high --all-projects
