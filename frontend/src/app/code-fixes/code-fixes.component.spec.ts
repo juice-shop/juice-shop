@@ -9,12 +9,12 @@ describe('CodeFixesComponent', () => {
   let cookieService: any
 
   beforeEach(async () => {
+    cookieService = jasmine.createSpyObj('CookieService', ['put', 'get', 'hasKey'])
     await TestBed.configureTestingModule({
       imports: [CookieModule.forRoot(), CodeFixesComponent],
       providers: [{ provide: CookieService, useValue: cookieService }]
     })
       .compileComponents()
-    cookieService = jasmine.createSpyObj('CookieService', ['put', 'get', 'hasKey'])
   })
 
   beforeEach(() => {
