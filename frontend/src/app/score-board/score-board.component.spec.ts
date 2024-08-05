@@ -42,7 +42,7 @@ function createChallenge (challengeOverwrites: Partial<Challenge>): Challenge {
   }
 }
 
-describe('ScoreBoardPreviewComponent', () => {
+describe('ScoreBoardComponent', () => {
   let component: ScoreBoardComponent
   let fixture: ComponentFixture<ScoreBoardComponent>
   let challengeService
