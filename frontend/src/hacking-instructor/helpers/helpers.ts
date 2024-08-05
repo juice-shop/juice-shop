@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+import jwtDecode from 'jwt-decode'
+
 let config
 const playbackDelays = {
   faster: 0.5,
@@ -146,7 +148,7 @@ export function waitInMs (timeInMs: number) {
 export function waitForAngularRouteToBeVisited (route: string) {
   return async () => {
     while (true) {
-      if (window.location.hash === `#/${route}`) {
+      if (window.location.hash.startsWith(`#/${route}`)) {
         break
       }
       await sleep(100)
@@ -158,6 +160,26 @@ export function waitForLogIn () {
   return async () => {
     while (true) {
       if (localStorage.getItem('token') !== null) {
+        break
+      }
+      await sleep(100)
+    }
+  }
+}
+
+export function waitForAdminLogIn () {
+  return async () => {
+    while (true) {
+      let role: string = ''
+      try {
+        const token: string = localStorage.getItem('token')
+        const decodedToken = jwtDecode(token)
+        const payload = decodedToken as any
+        role = payload.data.role
+      } catch {
+        console.log('Role from token could not be accessed.')
+      }
+      if (role === 'admin') {
         break
       }
       await sleep(100)
@@ -178,22 +200,14 @@ export function waitForLogOut () {
 
 /**
  * see https://stackoverflow.com/questions/7798748/find-out-whether-chrome-console-is-open/48287643#48287643
+ * does detect when devtools are opened horizontally or vertically but not when undocked or open on page load
  */
 export function waitForDevTools () {
-  let checkStatus = false
-
-  const element = new Image()
-  Object.defineProperty(element, 'id', {
-    get: function () {
-      checkStatus = true
-    }
-  })
-
+  const initialInnerHeight = window.innerHeight
+  const initialInnerWidth = window.innerWidth
   return async () => {
     while (true) {
-      console.dir(element)
-      console.clear()
-      if (checkStatus) {
+      if (window.innerHeight !== initialInnerHeight || window.innerWidth !== initialInnerWidth) {
         break
       }
       await sleep(100)
@@ -224,6 +238,21 @@ export function waitForSelectToNotHaveValue (selectSelector: string, value: stri
 
     while (true) {
       if (selectElement.options[selectElement.selectedIndex].value !== value) {
+        break
+      }
+      await sleep(100)
+    }
+  }
+}
+
+export function waitForRightUriQueryParamPair (key: string, value: string) {
+  return async () => {
+    while (true) {
+      const encodedValue: string = encodeURIComponent(value).replace(/%3A/g, ':')
+      const encodedKey: string = encodeURIComponent(key).replace(/%3A/g, ':')
+      const expectedHash: string = `#/track-result/new?${encodedKey}=${encodedValue}`
+
+      if (window.location.hash === expectedHash) {
         break
       }
       await sleep(100)

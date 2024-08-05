@@ -32,6 +32,12 @@ describe('ChallengeCard', () => {
     component.applicationConfiguration = {
       ctf: {
         showFlagsInNotifications: true
+      },
+      challenges: {
+        codingChallengesEnabled: 'solved'
+      },
+      hackingInstructor: {
+        isEnabled: true
       }
     } as Config
 
