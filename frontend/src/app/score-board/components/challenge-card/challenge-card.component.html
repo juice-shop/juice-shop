@@ -31,9 +31,9 @@
     <!-- coding challenge badge -->
     <button
       class="badge"
-      *ngIf="challenge.hasCodingChallenge"
+      *ngIf="applicationConfiguration.challenges.codingChallengesEnabled !== 'never' && challenge.hasCodingChallenge"
       (click)="openCodingChallengeDialog(challenge.key)"
-      [disabled]="challenge.solved === false"
+      [disabled]="challenge.solved === false && applicationConfiguration.challenges.codingChallengesEnabled !== 'always'"
       [ngClass]="{
         'partially-completed': challenge.codingChallengeStatus === 1,
         'completed': challenge.codingChallengeStatus === 2
@@ -68,7 +68,7 @@
     <!-- hacking instructor-->
     <button
       class="badge not-completable"
-      *ngIf="hasInstructions(challenge.name)"
+      *ngIf="applicationConfiguration.hackingInstructor.isEnabled && hasInstructions(challenge.name)"
       [matTooltip]="'INFO_HACKING_INSTRUCTOR' | translate"
       (click)="startHackingInstructorFor(challenge.name)"
     >
