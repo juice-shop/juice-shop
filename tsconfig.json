@@ -38,5 +38,6 @@
     "vagrant",
     "data/static/codefixes/**",
     "**/*.d.ts"
+    
   ]
 }
