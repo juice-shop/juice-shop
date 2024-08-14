@@ -2,7 +2,7 @@
 # The schema is available here: <install-dir>/doc/configuration-schema.json
 # For help on individual settings:      coverity help config --setting <setting>
 # For a complete example configuration: coverity help config --show-all
-# test file
+# test file sasd
 
 # Specifies where the analysis results should be sent.
 commit:
