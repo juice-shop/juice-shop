@@ -1,0 +1,11 @@
+version: 1
+policies:
+  - id: PRECOMMIT_POLICY_CHECK:hardcoded_secret_pattern
+    when:
+      checks:
+        - hardcoded_secret_pattern
+    result:
+      exit-code: 1
+      message: >
+        PRECOMMIT_POLICY_CHECK:hardcoded_secret_pattern /
+        Defect from hardcoded_secret checker found

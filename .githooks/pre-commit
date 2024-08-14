@@ -1,0 +1,3 @@
+#!/bin/bash
+sigma --policy .githooks/pre-commit-sigma-policy.yml analyze
+[ $? -ne 0 ] && echo "FATAL: sigma policy violation; commit blocked" && exit 1
