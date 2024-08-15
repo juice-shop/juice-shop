@@ -260,3 +260,5 @@ OWASP Juice Shop and any contributions are Copyright © by Bjoern Kimminich & th
 email: admin
   password: 'admin123'
   key: admin
+
+  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
