@@ -265,3 +265,15 @@
   securityQuestion:
     id: 10
     answer: "Used Emporium"
+-
+  email: bobby
+  username: bobbybob
+  password: 'y&x5Z#f6W532Z4445#Ae2HkwZVyDb7&oCUaDzFU123'
+  key: evm
+  role: 'deluxe'
+  feedback:
+    comment: 'Please send me the juicy juice'
+    rating: 1
+  securityQuestion:
+    id: 10
+    answer: "Juicy"
