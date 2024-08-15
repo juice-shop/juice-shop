@@ -2,83 +2,44 @@ package main
 
 import (
 	"fmt"
-	"net/http"
+	"io"
+	"io/ioutil"
 
-	"github.com/julienschmidt/httprouter"
-
-	"github.com/govwa/setting"
-	"github.com/govwa/setup"
-	"github.com/govwa/user"
-	"github.com/govwa/util"
-	"github.com/govwa/util/config"
-	"github.com/govwa/util/middleware"
-	"github.com/govwa/vulnerability/csa"
-	"github.com/govwa/vulnerability/idor"
-	"github.com/govwa/vulnerability/sqli"
-	"github.com/govwa/vulnerability/xss"
+	"github.com/go-gitea/gitea/modules/markup"
+	"golang.org/x/crypto/md4"
+	"github.com/gophish/gophish/config"
 )
 
-const (
-	banner = `
-     ÛÛÛÛÛÛÛÛÛ           ÛÛÛÛÛ   ÛÛÛÛÛ ÛÛÛÛÛ   ÛÛÛ   ÛÛÛÛÛ   ÛÛÛÛÛÛÛÛÛ  
-    ÛÛÛ°°°°°ÛÛÛ         °°ÛÛÛ   °°ÛÛÛ °°ÛÛÛ   °ÛÛÛ  °°ÛÛÛ   ÛÛÛ°°°°°ÛÛÛ 
-   ÛÛÛ     °°°   ÛÛÛÛÛÛ  °ÛÛÛ    °ÛÛÛ  °ÛÛÛ   °ÛÛÛ   °ÛÛÛ  °ÛÛÛ    °ÛÛÛ 
-  °ÛÛÛ          ÛÛÛ°°ÛÛÛ °ÛÛÛ    °ÛÛÛ  °ÛÛÛ   °ÛÛÛ   °ÛÛÛ  °ÛÛÛÛÛÛÛÛÛÛÛ 
-  °ÛÛÛ    ÛÛÛÛÛ°ÛÛÛ °ÛÛÛ °°ÛÛÛ   ÛÛÛ   °°ÛÛÛ  ÛÛÛÛÛ  ÛÛÛ   °ÛÛÛ°°°°°ÛÛÛ 
-  °°ÛÛÛ  °°ÛÛÛ °ÛÛÛ °ÛÛÛ  °°°ÛÛÛÛÛ°     °°°ÛÛÛÛÛ°ÛÛÛÛÛ°    °ÛÛÛ    °ÛÛÛ 
-   °°ÛÛÛÛÛÛÛÛÛ °°ÛÛÛÛÛÛ     °°ÛÛÛ         °°ÛÛÛ °°ÛÛÛ      ÛÛÛÛÛ   ÛÛÛÛÛ
-     °°°°°°°°°   °°°°°°       °°°           °°°   °°°      °°°°°   °°°°° `
-)
+var validConfig = []byte(`{
+	"admin_server": {
+		"listen_url": "127.0.0.1:3333",
+		"use_tls": true,
+		"cert_path": "gophish_admin.crt",
+		"key_path": "gophish_admin.key"
+	},
+	"phish_server": {
+		"listen_url": "0.0.0.0:8080",
+		"use_tls": false,
+		"cert_path": "example.crt",
+		"key_path": "example.key"
+	},
+	"db_name": "sqlite3",
+	"db_path": "gophish.db",
+	"migrations_prefix": "db/db_",
+	"contact_address": ""
+}`)
 
-//index and set cookie
+func main(){
+	h := md4.New()
+	data := "These pretzels are making me thirsty."
+	io.WriteString(h, data)
+	fmt.Printf("MD4 is the new MD5: %x\n", h.Sum(nil))
 
-func indexHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	err := ioutil.WriteFile("config/phish-config.json", validConfig, 0644)
+	conf := config.Config{}
+	fmt.Printf("GONE PHISH'N for configs %v, maybe error: %v\n", conf, err)
 
-	util.SetCookieLevel(w, r, "low") //set cookie Level default to low
+	fmt.Printf("IS A README?? : %v as per gitea\n", markup.IsReadmeFile("README.md"))
 
-	data := make(map[string]interface{})
-	data["title"] = "Index"
-
-	util.SafeRender(w, r, "template.index", data)
-}
-
-func main() {
-
-	fmt.Println(banner)
-
-	mw := middleware.New()
-	router := httprouter.New()
-	user := user.New()
-	sqlI := sqli.New()
-	xss := xss.New()
-	idor := idor.New()
-	csa := csa.New()
-	setup := setup.New()
-	setting := setting.New()
-
-	router.ServeFiles("/public/*filepath", http.Dir("public/"))
-	router.GET("/", mw.LoggingMiddleware(mw.AuthCheck(indexHandler)))
-	router.GET("/index", mw.LoggingMiddleware(mw.DetectSQLMap(mw.AuthCheck(indexHandler))))
-
-	user.SetRouter(router)
-	sqlI.SetRouter(router)
-	xss.SetRouter(router)
-	idor.SetRouter(router)
-	csa.SetRouter(router)
-	setup.SetRouter(router)
-	setting.SetRouter(router)
-
-	s := http.Server{
-		Addr:    fmt.Sprintf(":%s", config.Cfg.Webport),
-		Handler: router,
-	}
-
-	fmt.Printf("Server running at port %s\n", s.Addr)
-	fmt.Printf("Open this url %s on your browser to access GoVWA", config.Fullurl)
-	fmt.Println("")
-	err := s.ListenAndServe()
-	if err != nil {
-		panic(err)
-	}
-
+	fmt.Println("HI I'M INTENTIONALLY USING VULNERABLE LIBS")
 }
