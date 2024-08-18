@@ -1,0 +1,71 @@
+This README will guide you through setting up Juice Shop, unzipping the tool, and running the scans.
+Prerequisites
+Ensure you have the following installed on your system:
+
+Kali Linux (or any Linux distribution)
+Node.js and npm (for running Juice Shop)
+Python 3.7+ (for the scanning tool)
+Git (to clone repositories)
+You can check if Node.js, npm, and Python are installed by running:
+node -v
+npm -v
+python3 --version
+
+Installing Juice Shop
+Clone the Juice Shop Repository: 
+Open your terminal and run:
+git clone https://github.com/juice-shop/juice-shop.git
+
+Navigate to the Juice Shop Directory:
+cd juice-shop
+Install Dependencies:
+
+Run the following command to install all required dependencies:
+npm install
+Start the Juice Shop Application:
+
+Run the command below to start the Juice Shop on your local machine:
+npm start
+Juice Shop should now be running at http://localhost:3000. You can open this URL in your browser to confirm it’s working.
+
+Setting Up the Scanning Tool
+Unzip the Tool:
+If you’ve received the tool as a .zip file, navigate to the directory where it’s located and unzip it:
+unzip your-tool-name.zip -d your-tool-directory
+
+Navigate to the Tool Directory:
+cd your-tool-directory
+Install Required Python Libraries:
+
+Make sure you have the required Python libraries installed. Run: pip install -r requirements.txt
+The requirements.txt file should contain necessary libraries like requests, beautifulsoup4, etc.
+
+Running the Tool
+Start the Proxy (Optional):
+If your tool includes a proxy feature, run the proxy.py script:
+python3 proxy.py
+
+Run the Main Script:
+
+Run the main scanning script: python3 main.py
+
+Select Scanning Options:
+
+The tool may prompt you to select options like:
+
+Target URL: Enter http://localhost:3000 (if you’re scanning the locally running Juice Shop).
+Type of Scan: Choose from options like traditional spider, active scan, etc.
+Understanding the Results
+After the scan completes, the tool will generate a report or list the identified vulnerabilities directly in the terminal. Depending on your tool's features, you may see:
+
+Vulnerability Types (e.g., XSS, CSRF, Clickjacking, etc.)
+Risk Levels (e.g., Low, Medium, High)
+Affected URLs
+Remediation Suggestions
+Troubleshooting
+Juice Shop Not Starting? Ensure Node.js and npm are properly installed and that all dependencies are correctly installed.
+Missing Python Libraries? Double-check the requirements.txt file and ensure all necessary libraries are installed.
+Scan Results Empty? Verify that the target URL is correct and that Juice Shop is running.
+If you encounter issues, refer to the official Juice Shop documentation or check your tool’s error messages for guidance.
+
+This README provides a comprehensive guide to setting up, running, and troubleshooting the tool for scanning vulnerabilities in Juice Shop. Happy testing! 🎯
