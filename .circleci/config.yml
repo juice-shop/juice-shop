@@ -1,39 +1,12 @@
 version: 2.1
 workflows:
-  semgrep:
-    jobs:
-      - semgrep-full-scan:
-          filters:
-            branches:
-              only: circleci-project-setup
-          context:
-            - semgrep
-      - semgrep-diff-scan:
-          filters:
-            branches:
-              ignore: main
-          context:
-            - semgrep
-jobs:
-  semgrep-full-scan:
+ wk-1:
+  jobs:
+    - build
+  jobs:
+  build:
     docker:
-      - image: semgrep/semgrep
+      - image: cimg/node:22.6.0
     steps:
       - checkout
-      - run:
-          name: "Semgrep full scan"
-          command: semgrep scan --output semgrep.json   
-  semgrep-diff-scan:
-    parameters:
-      default_branch:
-        type: string
-        default: circleci-project-setup
-    docker:
-      - image: semgrep/semgrep
-    steps:
-      - checkout
-      - run: 
-          name: Semgrep diff scan
-          environment: 
-            SEMGREP_BASELINE_REF: circleci-project-setup
-          command: semgrep ci
+      - run: node --version
