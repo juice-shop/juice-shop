@@ -22,12 +22,12 @@ jobs:
       - checkout
       - run:
           name: "Semgrep full scan"
-          command: semgrep ci     
+          command: semgrep scan --output semgrep.json   
   semgrep-diff-scan:
     parameters:
       default_branch:
         type: string
-        default: main
+        default: circleci-project-setup
     docker:
       - image: semgrep/semgrep
     steps:
