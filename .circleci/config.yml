@@ -9,4 +9,11 @@ jobs:
       - image: cimg/node:22.6.0
     steps:
       - checkout
-      - run: node --version
+      - run: 
+         name: install dependencies
+         command:  npm install
+
+      - run: 
+          name: Run Test
+          command:  npm run test
+         
