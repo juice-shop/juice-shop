@@ -16,4 +16,4 @@ jobs:
       - checkout
       - run:
           name: "Semgrep OSS full scan"
-          command: semgrep scan --config auto
+          command: semgrep --config=local-config.yml --metrics=off
