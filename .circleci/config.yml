@@ -8,6 +8,12 @@ workflows:
               only: circleci-project-setup
           context:
             - semgrep
+      - semgrep-diff-scan:
+          filters:
+            branches:
+              ignore: main
+          context:
+            - semgrep
 jobs:
   semgrep-full-scan:
     docker:
@@ -15,5 +21,19 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Semgrep OSS full scan"
-          command: semgrep --config=local-config.yml --metrics=off
+          name: "Semgrep full scan"
+          command: semgrep ci     
+  semgrep-diff-scan:
+    parameters:
+      default_branch:
+        type: string
+        default: main
+    docker:
+      - image: semgrep/semgrep
+    steps:
+      - checkout
+      - run: 
+          name: Semgrep diff scan
+          environment: 
+            SEMGREP_BASELINE_REF: circleci-project-setup
+          command: semgrep ci
