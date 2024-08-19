@@ -5,7 +5,7 @@ workflows:
       - semgrep-full-scan:
           filters:
             branches:
-              only: main
+              only: circleci-project-setup
           context:
             - semgrep
 jobs:
