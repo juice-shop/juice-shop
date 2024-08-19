@@ -3,6 +3,18 @@ workflows:
  wk-1:
   jobs:
     - build
+ schedule-workflow:
+   triggers:
+    - schedule:
+        cron: "0 * * * *"
+        filters:
+          branches:
+            only:
+             - circleci-project-setup 
+   jobs:
+    - build
+    - deploy
+         
 jobs:
   build:
     docker:
@@ -16,4 +28,13 @@ jobs:
       - run: 
           name: Run Test
           command:  npm run test
-         
+
+  deploy: 
+    docker: 
+      - image: circleci/node
+    working_directory: ~/circleci-demo-schedule
+    steps: 
+      - checkout 
+      - run:
+          name: Run deploy Command
+          command: echo "hello i am deploying"
