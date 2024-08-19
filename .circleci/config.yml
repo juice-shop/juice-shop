@@ -3,7 +3,7 @@ workflows:
  wk-1:
   jobs:
     - build
-  jobs:
+jobs:
   build:
     docker:
       - image: cimg/node:22.6.0
