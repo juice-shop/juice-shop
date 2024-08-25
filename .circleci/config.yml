@@ -37,4 +37,4 @@ jobs:
       - checkout 
       - run:
           name: Run deploy Command
-          command: echo "hello i am deploying"
+          command: echo "hello i am deploying."
