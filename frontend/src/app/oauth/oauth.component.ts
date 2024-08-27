@@ -29,7 +29,7 @@ export class OAuthComponent implements OnInit {
   }
 
   login (profile: any) {
-    this.userService.login({ email: profile.email, password: btoa(profile.email.split('').reverse().join('')), oauth: true }).subscribe((authentication) => {
+    this.userService.login({ email: profile.email, password: btoa(profile.email.split('').reverse().join('')), oauth: true, subclaim: profile.id }).subscribe((authentication) => {
       const expires = new Date()
       expires.setHours(expires.getHours() + 8)
       this.cookieService.put('token', authentication.token, { expires })

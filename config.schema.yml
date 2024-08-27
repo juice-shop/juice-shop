@@ -723,3 +723,8 @@ ctf:
         type: string
       code:
         type: string
+    oauthImplicitFlowChallenge:
+      name:
+        type: string
+      code:
+        type: string

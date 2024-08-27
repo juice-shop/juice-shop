@@ -89,7 +89,7 @@ describe('OAuthComponent', () => {
     userService.oauthLogin.and.returnValue(of({ email: 'test@test.com' }))
     userService.save.and.returnValue(throwError({ error: 'Account already exists' }))
     component.ngOnInit()
-    expect(userService.login).toHaveBeenCalledWith({ email: 'test@test.com', password: 'bW9jLnRzZXRAdHNldA==', oauth: true })
+    expect(userService.login).toHaveBeenCalledWith({ email: 'test@test.com', password: 'bW9jLnRzZXRAdHNldA==', oauth: true, subclaim: undefined })
   }))
 
   it('removes authentication token and basket id on failed subsequent regular login attempt', fakeAsync(() => {

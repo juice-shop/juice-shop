@@ -32,6 +32,7 @@ InferCreationAttributes<User>
   declare profileImage: CreationOptional<string>
   declare totpSecret: CreationOptional<string>
   declare isActive: CreationOptional<boolean>
+  declare subclaim?: CreationOptional<string>
 }
 
 const UserModelInit = (sequelize: Sequelize) => { // vuln-code-snippet start weakPasswordChallenge
@@ -117,6 +118,10 @@ const UserModelInit = (sequelize: Sequelize) => { // vuln-code-snippet start wea
       isActive: {
         type: DataTypes.BOOLEAN,
         defaultValue: true
+      },
+      subclaim: {
+        type: DataTypes.STRING,
+        defaultValue: ''
       }
     },
     {

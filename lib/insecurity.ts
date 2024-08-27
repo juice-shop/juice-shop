@@ -28,6 +28,7 @@ interface ResponseWithUser {
   iat: number
   exp: number
   bid: number
+  subclaim?: string
 }
 
 interface IAuthenticatedUsers {

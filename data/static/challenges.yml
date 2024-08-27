@@ -1231,3 +1231,14 @@
   hintUrl: ''
   mitigationUrl: ~
   key: csafChallenge
+-
+  name: 'Exposed OAuth Access Token'
+  category: 'Broken Authentication'
+  tags:
+    - Good for Demo
+  description: 'Steal your own OAuth access token and publish your sub claim as a product review.'
+  difficulty: 3
+  hint: 'Read up on common OAuth flows and and their flaws.'
+  hintUrl: ''
+  mitigationUrl: ~
+  key: oauthImplicitFlowChallenge
