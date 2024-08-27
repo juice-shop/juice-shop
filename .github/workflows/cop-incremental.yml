@@ -1,0 +1,41 @@
+# demonstrate Coverity on Polaris incremental analysis for PR scans
+name: cop-incremental
+on:
+  push:
+    branches: [ main, master, develop, stage, release ]
+  pull_request:
+    branches: [ main, master, develop, stage, release ]
+  workflow_dispatch:
+jobs:
+  coverity-on-polaris:
+    runs-on: ubuntu-latest
+    env:
+      POLARIS_SERVER_URL: ${{ vars.POLARIS_SERVER_URL }}
+      POLARIS_ACCESS_TOKEN: ${{ secrets.POLARIS_ACCESS_TOKEN }}
+      POLARIS_PROJECT: ${{ github.event.repository.name }}
+      POLARIS_ZIP: polaris_cli-linux64.zip
+    steps:
+    - name: Checkout Source
+      uses: actions/checkout@v4
+    - name: Setup Java JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: 17
+        distribution: microsoft
+        cache: maven
+    - id: changeset
+      name: Get Pull Request Changeset
+      uses: jitterbit/get-changed-files@v1
+      if: ${{ github.event_name == 'pull_request' }}
+    - name: Polaris PR Scan
+      if: ${{ github.event_name == 'pull_request' && steps.changeset.outputs.added_modified != '' }}
+      run: |
+        curl -fLOsS $POLARIS_SERVER_URL/api/tools/$POLARIS_ZIP
+        unzip -d ${{ runner.temp }} -jo $POLARIS_ZIP && rm -f $POLARIS_ZIP
+        export POLARIS_FF_ENABLE_COVERITY_INCREMENTAL=true
+        echo ${{ steps.changeset.outputs.added_modified }} | tee changeset.txt
+        ${{ runner.temp }}/polaris --co project.name=$POLARIS_PROJECT --co project.branch=${{ github.base_ref }} analyze -w --incremental changeset.txt
+        COUNT=$(cat .synopsys/polaris/data/coverity/*/idir/incremental-results/new-issues.json | jq '. | length')
+        if [ $COUNT -ne 0 ]; then
+          echo "$COUNT new issues detected, do something here"
+        fi
