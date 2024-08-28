@@ -18,6 +18,9 @@ module.exports = function login () {
       { bind: [ req.body.email ], model: models.User, plain: true })
       .then((authenticatedUser) => {
         const user = utils.queryResultToJson(authenticatedUser)
+        if (user.data && req.body.subclaim) {
+          user.data.subclaim = req.body.subclaim
+        }
         if (user.data?.id && user.data.totpSecret !== '') {
           res.status(401).json({
             status: 'totp_token_required',

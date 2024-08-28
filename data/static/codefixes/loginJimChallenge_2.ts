@@ -17,6 +17,9 @@ module.exports = function login () {
     models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: false })
       .then((authenticatedUser) => {
         const user = utils.queryResultToJson(authenticatedUser)
+        if (user.data && req.body.subclaim) {
+          user.data.subclaim = req.body.subclaim
+        }
         if (user.data?.id && user.data.totpSecret !== '') {
           res.status(401).json({
             status: 'totp_token_required',
