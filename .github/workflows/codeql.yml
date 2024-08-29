@@ -51,6 +51,18 @@ jobs:
         # see https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/customizing-your-advanced-setup-for-code-scanning.
         # If you are analyzing a compiled language, you can modify the 'build-mode' for that language to customize how
         # your codebase is analyzed, see https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/codeql-code-scanning-for-compiled-languages
+        - language: c-cpp
+          build-mode: none
+        - language: csharp
+          build-mode: none
+        - language: go
+          build-mode: none
+        - language: java-kotlin
+          build-mode: none
+        - language: ruby
+          build-mode: none
+        - language: swift
+          build-mode: none
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
