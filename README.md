@@ -212,15 +212,6 @@ Add it to our ever-growing list of [REFERENCES.md](REFERENCES.md) by forking and
   you can get variants of the OWASP Juice Shop logo as single stickers to decorate your laptop with. They can also print
   magnets, iron-ons, sticker sheets and temporary tattoos.
 
-The most honorable way to get some stickers is to
-[contribute to the project](https://pwning.owasp-juice.shop/part3/contribution.html)
-by fixing an issue, finding a serious bug or submitting a good idea for a new challenge!
-
-We're also happy to supply you with stickers if you organize a meetup or conference talk where you use or talk about or
-hack the OWASP Juice Shop! Just
-[contact the mailing list](mailto:owasp_juice_shop_project@lists.owasp.org)
-or [the project leader](mailto:bjoern.kimminich@owasp.org) to discuss your plans!
-
 ## Donations
 
 [![](https://img.shields.io/badge/support-owasp%20juice%20shop-blue)](https://owasp.org/donate/?reponame=www-project-juice-shop&title=OWASP+Juice+Shop)
