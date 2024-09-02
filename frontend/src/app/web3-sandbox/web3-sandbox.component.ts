@@ -178,76 +178,84 @@ contract HelloWorld {
     }
   }
 
-  async invokeFunction (func) {
+  async invokeFunction(func) {
     if (!this.session) {
-      this.snackBarHelperService.open('PLEASE_CONNECT_WEB3_WALLET', 'errorBar')
-      return
+        this.showError('PLEASE_CONNECT_WEB3_WALLET');
+        return;
     }
+
     try {
-      const selectedContract =
-        this.compiledContracts[this.selectedContractName]
+        const contract = this.getContractInstance();
+        const inputs = this.parseInputs(func);
+        const transactionOptions = this.getTransactionOptions();
 
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
-      const signer = provider.getSigner()
-      const contract = new ethers.Contract(
-        this.deployedContractAddress,
-        selectedContract.abi,
-        signer
-      )
+        const transaction = await this.executeContractFunction(contract, func, inputs, transactionOptions);
+        this.handleTransactionOutput(func, transaction);
+        console.log('Invoked:', transaction);
 
-      const inputs =
-        func.inputValues.trim() !== ''
-          ? func.inputValues.split(',').map((value, index) => {
-            const inputType = func.inputs[index].type
-            return this.parseInputValue(value.trim(), inputType)
-          })
-          : []
-      const transactionOptions: ethers.PayableOverrides = {}
-      if (this.commonGweiValue > 0) {
-        transactionOptions.value = ethers.utils.parseUnits(
-          this.commonGweiValue.toString(),
-          'gwei'
-        )
-      }
-      const transaction = await contract.functions[func.name](
-        ...inputs,
-        transactionOptions
-      )
-      console.log(transaction)
-
-      if (
-        func.outputs.length > 0 &&
-        (func.stateMutability === 'view' || func.stateMutability === 'pure')
-      ) {
-        console.log('hello')
-        const outputValue = transaction[0].toString()
-        const updatedFunc = this.contractFunctions.find(
-          (f) => f.name === func.name
-        )
-        if (updatedFunc) {
-          updatedFunc.outputValue = outputValue
-          const index = this.contractFunctions.indexOf(func)
-          if (index !== -1) {
-            this.contractFunctions[index] = updatedFunc
-          }
-        }
-        console.log(func.outputValue)
-      }
-      console.log('Invoked:', transaction)
     } catch (error) {
-      console.error('Error invoking function', error)
-      const updatedFunc = this.contractFunctions.find(
-        (f) => f.name === func.name
-      )
-      if (updatedFunc) {
-        updatedFunc.outputValue = error.message
-        const index = this.contractFunctions.indexOf(func)
-        if (index !== -1) {
-          this.contractFunctions[index] = updatedFunc
-        }
-      }
+        this.handleError(func, error);
     }
-  }
+}
+
+showError(message) {
+    this.snackBarHelperService.open(message, 'errorBar');
+}
+
+getContractInstance() {
+    const selectedContract = this.compiledContracts[this.selectedContractName];
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    return new ethers.Contract(this.deployedContractAddress, selectedContract.abi, signer);
+}
+
+parseInputs(func) {
+    if (func.inputValues.trim() === '') return [];
+    return func.inputValues.split(',').map((value, index) => {
+        const inputType = func.inputs[index].type;
+        return this.parseInputValue(value.trim(), inputType);
+    });
+}
+
+getTransactionOptions() {
+    const transactionOptions = {};
+    if (this.commonGweiValue > 0) {
+        transactionOptions.value = ethers.utils.parseUnits(this.commonGweiValue.toString(), 'gwei');
+    }
+    return transactionOptions;
+}
+
+async executeContractFunction(contract, func, inputs, transactionOptions) {
+    return await contract.functions[func.name](...inputs, transactionOptions);
+}
+
+handleTransactionOutput(func, transaction) {
+    if (func.outputs.length > 0 && this.isViewOrPure(func)) {
+        const outputValue = transaction[0].toString();
+        this.updateFunctionOutput(func, outputValue);
+        console.log(func.outputValue);
+    }
+}
+
+isViewOrPure(func) {
+    return func.stateMutability === 'view' || func.stateMutability === 'pure';
+}
+
+updateFunctionOutput(func, outputValue) {
+    const updatedFunc = this.contractFunctions.find(f => f.name === func.name);
+    if (updatedFunc) {
+        updatedFunc.outputValue = outputValue;
+        const index = this.contractFunctions.indexOf(func);
+        if (index !== -1) {
+            this.contractFunctions[index] = updatedFunc;
+        }
+    }
+}
+
+handleError(func, error) {
+    console.error('Error invoking function', error);
+    this.updateFunctionOutput(func, error.message);
+}
 
   async handleChainChanged (chainId: string) {
     await this.handleAuth()
