@@ -16,32 +16,50 @@ interface CachedCodeChallenge {
 }
 
 export const findFilesWithCodeChallenges = async (paths: readonly string[]): Promise<FileMatch[]> => {
-  const matches = []
+  const matches: FileMatch[] = [];
   for (const currPath of paths) {
-    if ((await fs.lstat(currPath)).isDirectory()) {
-      const files = await fs.readdir(currPath)
-      const moreMatches = await findFilesWithCodeChallenges(
-        files.map(file => path.resolve(currPath, file))
-      )
-      matches.push(...moreMatches)
-    } else {
-      try {
-        const code = await fs.readFile(currPath, 'utf8')
-        if (
-          // strings are split so that it doesn't find itself...
-          code.includes('// vuln-code' + '-snippet start') ||
-          code.includes('# vuln-code' + '-snippet start')
-        ) {
-          matches.push({ path: currPath, content: code })
-        }
-      } catch (e) {
-        logger.warn(`File ${currPath} could not be read. it might have been moved or deleted. If coding challenges are contained in the file, they will not be available.`)
-      }
-    }
+    const moreMatches = await processPath(currPath);
+    matches.push(...moreMatches);
   }
-
-  return matches
+  return matches;
 }
+
+const processPath = async (currPath: string): Promise<FileMatch[]> => {
+  if ((await fs.lstat(currPath)).isDirectory()) {
+    return await processDirectory(currPath);
+  } else {
+    return await processFile(currPath);
+  }
+}
+
+const processDirectory = async (directoryPath: string): Promise<FileMatch[]> => {
+  const matches: FileMatch[] = [];
+  const files = await fs.readdir(directoryPath);
+  for (const file of files) {
+    const filePath = path.resolve(directoryPath, file);
+    const moreMatches = await findFilesWithCodeChallenges([filePath]);
+    matches.push(...moreMatches);
+  }
+  return matches;
+}
+
+const processFile = async (filePath: string): Promise<FileMatch[]> => {
+  const matches: FileMatch[] = [];
+  try {
+    const code = await fs.readFile(filePath, 'utf8');
+    if (containsCodeChallenge(code)) {
+      matches.push({ path: filePath, content: code });
+    }
+  } catch (e) {
+    logger.warn(`File ${filePath} could not be read. It might have been moved or deleted. If coding challenges are contained in the file, they will not be available.`);
+  }
+  return matches;
+}
+
+const containsCodeChallenge = (code: string): boolean => {
+  return code.includes('// vuln-code-snippet start') || code.includes('# vuln-code-snippet start');
+}
+
 
 function getCodeChallengesFromFile (file: FileMatch) {
   const fileContent = file.content
