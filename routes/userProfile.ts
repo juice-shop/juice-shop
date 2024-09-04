@@ -14,7 +14,7 @@ import * as utils from '../lib/utils'
 import { AllHtmlEntities as Entities } from 'html-entities'
 const security = require('../lib/insecurity')
 const pug = require('pug')
-const themes = require('../views/themes/themes').themes
+const memes = require('../views/themes/themes').themes
 const entities = new Entities()
 
 module.exports = function getUserProfile () {
@@ -40,7 +40,7 @@ module.exports = function getUserProfile () {
           } else {
             username = '\\' + username
           }
-          const theme = themes[config.get<string>('application.theme')]
+          const theme = memes[config.get<string>('application.theme')]
           if (username) {
             template = template.replace(/_username_/g, username)
           }
