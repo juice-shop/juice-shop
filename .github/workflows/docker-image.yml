@@ -10,6 +10,7 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
   CYCLONEDX_NPM_VERSION: '^1.12.0'
+  AZURE_WEBAPP_NAME: juiceshop-datanerd
   
 jobs:
   docker-test:
@@ -21,7 +22,7 @@ jobs:
         run: docker compose -f docker-compose.test.yml up --exit-code-from sut
 
   docker-build-and-publish:
-    needs: [docker-test]
+    needs: docker-test
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
@@ -71,3 +72,23 @@ jobs:
             VCS_REF=${{ env.VCS_REF }}
             BUILD_DATE=${{ env.BUILD_DATE }}
             CYCLONEDX_NPM_VERSION=${{ env.CYCLONEDX_NPM_VERSION }}
+  deploy:
+    permissions:
+      contents: none
+    runs-on: ubuntu-latest
+    needs: docker-build-and-publish
+    environment:
+      name: 'Development'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Lowercase the repo name and username
+        run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          images: 'ghcr.io/${{ env.REPO }}:${{ github.sha }}'
