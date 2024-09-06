@@ -5,13 +5,20 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-
-
 jobs:
   snyk-scan:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
+      - name: "Install CLI tools"
+        run: npm install -g @angular/cli@$17    
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm install
+
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
         env:
