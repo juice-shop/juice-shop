@@ -1,22 +1,9 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-# A sample workflow which checks out your Infrastructure as Code Configuration files,
-# such as Kubernetes, Helm & Terraform and scans them for any security issues.
-# The results are then uploaded to GitHub Security Code Scanning
-#
-# For more examples, including how to limit scans to only high-severity issues
-# and fail PR checks, see https://github.com/snyk/actions/
-
-name: Snyk Infrastructure as Code
+name: Snyk IaaC
 
 on:
   push:
     branches: [ "master" ]
   pull_request:
-    # The branches below must be a subset of the branches above
     branches: [ "master" ]
   schedule:
     - cron: '36 8 * * 4'
@@ -29,7 +16,6 @@ jobs:
     permissions:
       contents: read # for actions/checkout to fetch code
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
-#      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
