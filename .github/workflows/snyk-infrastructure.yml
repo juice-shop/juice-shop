@@ -29,29 +29,17 @@ jobs:
     permissions:
       contents: read # for actions/checkout to fetch code
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
-      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
+#      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Run Snyk to check configuration files for security issues
-        # Snyk can be used to break the build when it detects security issues.
-        # In this case we want to upload the issues to GitHub Code Scanning
         continue-on-error: true
         uses: snyk/actions/iac@master
         env:
-          # In order to use the Snyk Action you will need to have a Snyk API token.
-          # More details in https://github.com/snyk/actions#getting-your-snyk-token
-          # or you can signup for free at https://snyk.io/login
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-#        with:
-#          sarif: true
-          # Add the path to the configuration file that you would like to test.
-          # For example `deployment.yaml` for a Kubernetes deployment manifest
-          # or `main.tf` for a Terraform configuration file
-#          file: your-file-to-test.yaml
-#      - name: Replace security-severity undefined for license-related findings 
-#        run: |
-#          sed -i 's/"security-severity": "null"/"security-severity": "0"/g' snyk.sarif
+        with:
+          sarif: true
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v3
         with:
