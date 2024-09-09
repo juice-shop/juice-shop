@@ -7,6 +7,7 @@
 @include mat.core();
 
 $my-typography: mat.define-typography-config();
+@include mat.typography-hierarchy($my-typography);
 
 $deeppurple-amber-primary: mat.define-palette(mat.$deep-purple-palette);
 $deeppurple-amber-accent: mat.define-palette(mat.$amber-palette, 700, 600, 800);
@@ -14,8 +15,7 @@ $deeppurple-amber-theme: mat.define-light-theme((
   color: (
     primary: $deeppurple-amber-primary,
     accent: $deeppurple-amber-accent,
-  ),
-  typography: $my-typography,
+  )
 ));
 @include mat.all-component-themes($deeppurple-amber-theme);
 
