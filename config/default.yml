@@ -401,6 +401,17 @@ products:
     image: lego_case.jpg
     reviews:
       - { text: 'Check out the /#/photo-wall for some impressions of the assembly process!', author: bjoernOwasp }
+  -
+    name: 'DSOMM & Juice Shop User Day Ticket'
+    description: 'You are going to the OWASP Global AppSec San Francisco 2024? <a href="https://www.eventbrite.com/e/owasp-global-appsec-san-francisco-2024-tickets-723699172707" target="_blank">Get a ticket<sup>*</sup></a> for this amazing side event as well! Check the juice-packed agenda <a href="https://owasp.org/www-project-juice-shop/#div-userday2024" target="_blank">here</a> for all the details!<br><br><small><small><sup>*</sup>=scroll down to <strong>Elevate: DSOMM and Juice Shop User Day (Sept. 25)</strong> after clicking <em>Get Tickets</em> on Eventbrite. Ticket price set to only covers fees for room, AV, and catering throughout the day.</small></small>'
+    price: 55.20
+    quantity: 47
+    limitPerUser: 1
+    image: user_day_ticket.png
+    reviews:
+      - { text: 'This is *THE* chance to "meet the makers" of both Juice Shop and DSOMM in the United States!', author: bjoernOwasp }
+      - { text: 'The DSOMM Live Assessment session will even use Juice Shop as its "real-world" example!', author: timo }
+      - { text: 'We will showcase the amazing MultiJuicer Lego Tower at this event!', author: jannik }
 memories:
   -
     image: 'magn(et)ificent!-1571814229653.jpg'
