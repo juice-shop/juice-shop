@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: update-sonar-badges
+        name: Update SonarQube Badges
+        entry: bash scripts/update_sonar_badge.sh
+        language: system
+        files: ^README\.md$
+        stages: [commit]
