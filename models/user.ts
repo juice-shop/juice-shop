@@ -74,6 +74,8 @@ const UserModelInit = (sequelize: Sequelize) => { // vuln-code-snippet start wea
       password: {
         type: DataTypes.STRING,
         set (clearTextPassword: string) {
+          validatePasswordHasAtLeastTenChar(clearTextPassword)
+		      validatePasswordIsNotInTopOneMillionCommonPasswordsList(clearTextPassword)
           this.setDataValue('password', security.hash(clearTextPassword)) // vuln-code-snippet vuln-line weakPasswordChallenge
         }
       }, // vuln-code-snippet end weakPasswordChallenge
@@ -142,3 +144,11 @@ const UserModelInit = (sequelize: Sequelize) => { // vuln-code-snippet start wea
 }
 
 export { User as UserModel, UserModelInit }
+function validatePasswordHasAtLeastTenChar(clearTextPassword: string) {
+  throw new Error('Function not implemented.')
+}
+
+function validatePasswordIsNotInTopOneMillionCommonPasswordsList(clearTextPassword: string) {
+  throw new Error('Function not implemented.')
+}
+
