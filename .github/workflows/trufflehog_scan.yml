@@ -1,0 +1,20 @@
+name: TruffleHog Scan
+
+on:
+  pull_request:
+    branches:
+      - main  # Adjust this to your default branch
+
+jobs:
+  trufflehog:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Run TruffleHog
+      uses: trufflesecurity/trufflehog@v3
+      with:
+        scan: 'repo'
+        github_token: ${{ secrets.GITHUB_TOKEN }}
