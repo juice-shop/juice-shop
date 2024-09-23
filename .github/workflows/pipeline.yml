@@ -9,33 +9,28 @@ on:
       - master
 
 jobs:
-  # Job 1: Static Application Security Testing (SAST) with Snyk
-  snyk-sast:
-    name: SAST with Snyk
+  # Job 1: Static Application Security Testing (SAST) with Semgrep
+  semgrep-sast:
+    name: SAST with Semgrep
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Run Snyk SAST
-        uses: snyk/actions@v3
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}  # Ensure your SNYK_TOKEN secret is added in the repository
+      - name: Run Semgrep SAST
+        uses: r2c/semgrep-action@v0.92
         with:
-          args: test --severity-threshold=high --file=<your-project-file>  # Replace <your-project-file> with the actual file to scan (e.g., package.json)
+          config: "path/to/your/semgrep/config.yaml"  # Update with your Semgrep config path
 
-  # Job 2: Software Composition Analysis (SCA) with Snyk
-  snyk-sca:
-    name: SCA with Snyk
+  # Job 2: Software Composition Analysis (SCA) with OWASP Dependency Checker
+  owasp-sca:
+    name: SCA with OWASP Dependency Checker
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Run Snyk SCA
-        uses: snyk/actions@v3
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}  # Ensure the SNYK_TOKEN secret is available
-        with:
-          args: monitor --all-projects
+      - name: Run OWASP Dependency Checker
+        run: |
+          dependency-check.sh --project "YourProjectName" --scan . --format "ALL"
 
   # Job 3: Container Image Scanning with Trivy
   container-scan:
@@ -60,7 +55,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Run Nuclei vulnerability scan
         run: |
-          nuclei -u https://example.com  # Replace with your target URL
+          nuclei -u https://example.com
 
   # Job 5: Deploy to Docker Desktop
   deploy-docker:
@@ -83,4 +78,4 @@ jobs:
         uses: actions/checkout@v3
       - name: Run Dastarly scan
         run: |
-          dastarly scan --target https://localhost:8080  # Ensure Docker container is running before scanning
+          dastarly scan --target https://localhost:8080
