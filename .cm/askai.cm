@@ -1,0 +1,38 @@
+-*- mode: yaml -*-
+
+manifest:
+  version: 1.0
+
+triggers:
+  on:
+    - pr_created
+    - commit
+
+automations:
+  describe_pr:
+    if:
+      - true
+    run:
+      - action: add-comment@v1
+        args:
+          comment: |
+            # 📜 PR Summary 📜
+            {{ source | askAI("
+              Summarize in simple terms the changes in this PR using bullet points.", env.OPEN_AI_TOKEN) | encode }}
+
+  cr_code_changes:
+    if:
+      - {{ has.code_changes }}
+    run:
+      - action: add-comment@v1
+        args:
+          comment: |
+            # ✨ gitStream Review ✨
+            {{ source | askAI("
+              Perform a code review of the PR using the code diff. You can suggest code changes. Make sure to cover: Bugs, security risks, and performance issues, Verify best practices, style guide violations and general improvements",
+              env.OPEN_AI_TOKEN) | encode }}
+
+
+
+has:
+    code_changes: {{ files | extensions | match(list=['cm', 'js']) | some }}
