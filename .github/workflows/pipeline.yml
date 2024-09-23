@@ -1,0 +1,86 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  # Job 1: Static Application Security Testing (SAST) with Snyk
+  snyk-sast:
+    name: SAST with Snyk
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run Snyk SAST
+        uses: snyk/actions/cli@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: test --severity-threshold=high --file=<your-project-file>
+
+  # Job 2: Software Composition Analysis (SCA) with Snyk
+  snyk-sca:
+    name: SCA with Snyk
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run Snyk SCA
+        uses: snyk/actions/cli@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: monitor --all-projects
+
+  # Job 3: Container Image Scanning with Trivy
+  container-scan:
+    name: Trivy Container Image Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Build Docker image
+        run: docker build -t my-app:latest .
+      - name: Scan Docker image with Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: my-app:latest
+
+  # Job 4: Nuclei Vulnerability Scanning
+  nuclei-scan:
+    name: System Vulnerability Scanning with Nuclei
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run Nuclei vulnerability scan
+        run: |
+          nuclei -u https://example.com
+
+  # Job 5: Deploy to Docker Desktop
+  deploy-docker:
+    name: Deploy to Docker Desktop
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Build and Deploy Docker Image
+        run: |
+          docker build -t my-app:latest .
+          docker run -d -p 8080:8080 my-app:latest
+
+  # Job 6: Dynamic Application Security Testing (DAST) with Dastarly
+  dastarly-scan:
+    name: Run DAST with Dastarly
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run Dastarly scan
+        run: |
+          dastarly scan --target https://localhost:8080
