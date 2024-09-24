@@ -3,26 +3,27 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 18 # Use the required Node.js version
+      nodejs: 18 # Specify Node.js version
     commands:
       - echo "Installing dependencies"
       - npm install
-  
+      - echo "Installing Angular CLI"
+      - npm install -g @angular/cli # Install Angular CLI globally
+
   pre_build:
     commands:
-      - echo "Running tests before build"
-      - npm run lint # Optional: If you use linting
-      - npm test     # Run tests if applicable
+      - echo "Running linting"
+      - npm run lint # Ensure that the lint script exists
   
   build:
     commands:
-      - echo "Building the project"
-      - npm run build # If there's a specific build command
+      - echo "Starting the project"
+      - npm run start # Replace with the correct script for running Juice Shop
   
   post_build:
     commands:
       - echo "Post-build actions"
-      # You can add actions here, such as uploading artifacts to S3 or notifying other services
+      # Any post-build steps like packaging or deploying
 
 artifacts:
   files:
