@@ -109,4 +109,3 @@ at [https://www.contributor-covenant.org/faq][FAQ]. Translations are available a
 [FAQ]: https://www.contributor-covenant.org/faq
 
 [translations]: https://www.contributor-covenant.org/translations
-

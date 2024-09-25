@@ -9,4 +9,3 @@ hints:
   - "To find the culprit lines, you need to understand how MongoDB handles updating records."
   - "Does this query really need to allow updating more than one review at once?"
   - "Consider the query parameters under control of the attacker and try to find the one where they might inject some query-altering command."
-

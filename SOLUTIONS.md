@@ -166,4 +166,3 @@ file and open a PR! The same goes for any scripts or automated tools you made fo
 * [Automated solving script for the OWASP Juice Shop](https://github.com/incognitjoe/juice-shop-solver)
   written in Python by [@incognitjoe](https://github.com/incognitjoe)
   (🧃`v2.x`)
-

@@ -80,7 +80,7 @@ describe('/profile', () => {
           .getElementsByName('editbox')[0]
           .contentDocument.getElementsByName(
             'ta'
-          )[0].value = `<form action=\\"${Cypress.config('baseUrl')}/profile\\" 
+          )[0].value = `<form action=\\"${Cypress.config('baseUrl')}/profile\\"
         method=\\"POST\\">
         <input type=\\"hidden\\" name=\\"username\\" value=\\"CSRF\\"/>
         <input type=\\"submit\\"/>

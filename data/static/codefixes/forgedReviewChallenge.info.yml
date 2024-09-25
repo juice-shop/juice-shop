@@ -9,4 +9,3 @@ hints:
   - "To find the culprit lines, you need to understand how MongoDB handles updating records."
   - "Did you notice that the developers retrieved a reference to the user but never actually use it for anything? This might be part of the problem."
   - "Another problematic line you need to select, is actually missing something that ties the user to the review."
-
