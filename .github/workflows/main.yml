@@ -1,0 +1,28 @@
+name: Eureka Scanning
+
+# Controls when the action will run.
+on:
+  push:
+    branches:
+        - '*'
+
+jobs:
+  eureka-scan:
+    runs-on: ubuntu-latest
+    name: scan
+    steps:
+      - name: Checkout GitHub Action
+        uses: actions/checkout@v3
+
+      - name: Pull and Run Eureka
+        run: |
+          docker login -u ${{ secrets.EUREKA_USER }} -p ${{ secrets.EUREKA_PASSWORD }} ${{ vars.EUREKA_REGISTRY_URL }}
+          docker pull ${{ vars.EUREKA_REGISTRY_URL }}/${{ vars.EUREKA_REPO }}:${{ vars.EUREKA_TAG }}
+          docker run --rm --network host \
+          -v /var/run/docker.sock:/var/run/docker.sock \
+          -v "$(pwd)":/home/repo \
+          -e DIND_USER_HOME="$(pwd)" \
+          -e EUREKA_ENDPOINT="${{ secrets.EUREKA_ENDPOINT }}" \
+          -e EUREKA_USER=${{ secrets.EUREKA_USER }} \
+          -e EUREKA_PASSWORD=${{ secrets.EUREKA_PASSWORD }} \
+          ${{ vars.EUREKA_REGISTRY_URL }}/${{ vars.EUREKA_REPO }}:${{ vars.EUREKA_TAG }}
