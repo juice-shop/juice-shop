@@ -19,6 +19,7 @@ InferCreationAttributes<Challenge>
   declare id: CreationOptional<number>
   declare name: string
   declare category: string
+  declare test: string
   declare description: string
   declare difficulty: number
   declare hint: string | null
