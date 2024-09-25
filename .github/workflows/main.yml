@@ -14,6 +14,9 @@ jobs:
       - name: Checkout GitHub Action
         uses: actions/checkout@v3
 
+      - name: Install dependencies
+        run: npm install && npm i --package-lock-only
+
       - name: Pull and Run Eureka
         run: |
           docker login -u ${{ secrets.EUREKA_USER }} -p ${{ secrets.EUREKA_PASSWORD }} ${{ vars.EUREKA_REGISTRY_URL }}
