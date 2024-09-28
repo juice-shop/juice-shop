@@ -5,9 +5,7 @@
 
 import * as models from '../models/index'
 import { type Request, type Response, type NextFunction } from 'express'
-import { buildSearchQuery } from 'routes/querybuilder' // vuln-code-snippet hide-line;
 import { UserModel } from '../models/user'
-import { executeQuery } from './database'
 import { challenges } from '../data/datacache'
 
 import * as utils from '../lib/utils'
