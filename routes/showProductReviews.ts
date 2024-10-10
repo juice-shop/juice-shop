@@ -25,7 +25,7 @@ global.sleep = (time: number) => {
   }
 }
 
-module.exports = function productReviews() {
+module.exports = function productReviews () {
   return (req: Request, res: Response, next: NextFunction) => {
     // Truncate id to avoid unintentional RCE
     const id = !utils.isChallengeEnabled(challenges.noSqlCommandChallenge) ? Number(req.params.id) : utils.trunc(decodeURIComponent(req.params.id), 40)
@@ -35,7 +35,7 @@ module.exports = function productReviews() {
 
     // Further Sanitization for Potential Code Injection
     if (/[^a-zA-Z0-9-_()"' ]/.test(String(id))) {
-      return res.status(400).json({ error: 'Unsafe characters detected in product ID' });
+      return res.status(400).json({ error: 'Unsafe characters detected in product ID' })
     }
 
     db.reviewsCollection.find({ $where: 'this.product == ' + id }).then((reviews: Review[]) => {
