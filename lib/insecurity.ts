@@ -198,3 +198,13 @@ export const updateAuthenticatedUsers = () => (req: Request, res: Response, next
   }
   next()
 }
+
+export const sanitizePathTraversal = (inputPath: string): string => {
+  const traversalPattern = /(\.\.(\/|\\))/g;
+
+  while (traversalPattern.test(inputPath)) {
+    inputPath = inputPath.replace(traversalPattern, '');
+  }
+
+  return inputPath.replace(/(\/|\\){2,}/g, '/');
+}
