@@ -44,11 +44,8 @@ export const hash = (data: string) => crypto.createHash('md5').update(data).dige
 export const hmac = (data: string) => crypto.createHmac('sha256', 'pa4qacea4VK9t9nGv7yZtwmj').update(data).digest('hex')
 
 export const cutOffPoisonNullByte = (str: string) => {
-  const nullByte = '%00'
-  if (utils.contains(str, nullByte)) {
-    return str.substring(0, str.indexOf(nullByte))
-  }
-  return str
+  const nullByte = '%00';
+  return str.replace(new RegExp(nullByte, 'g'), '');
 }
 
 export const isAuthorized = () => expressJwt(({ secret: publicKey }) as any)
