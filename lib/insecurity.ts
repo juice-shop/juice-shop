@@ -44,11 +44,8 @@ export const hash = (data: string) => crypto.createHash('md5').update(data).dige
 export const hmac = (data: string) => crypto.createHmac('sha256', 'pa4qacea4VK9t9nGv7yZtwmj').update(data).digest('hex')
 
 export const cutOffPoisonNullByte = (str: string) => {
-  const nullByte = '%00'
-  if (utils.contains(str, nullByte)) {
-    return str.substring(0, str.indexOf(nullByte))
-  }
-  return str
+  const nullByte = '%00';
+  return str.replace(new RegExp(nullByte, 'g'), '');
 }
 
 export const isAuthorized = () => expressJwt(({ secret: publicKey }) as any)
@@ -133,12 +130,14 @@ export const redirectAllowlist = new Set([
 ])
 
 export const isRedirectAllowed = (url: string) => {
-  let allowed = false
-  for (const allowedUrl of redirectAllowlist) {
-    allowed = allowed || url.includes(allowedUrl) // vuln-code-snippet vuln-line redirectChallenge
+  try {
+    const parsedUrl = new URL(url);
+    return redirectAllowlist.some(allowedUrl => parsedUrl.hostname === allowedUrl);
+  } catch (error) {
+    return false;
   }
-  return allowed
 }
+
 // vuln-code-snippet end redirectCryptoCurrencyChallenge redirectChallenge
 
 export const roles = {
@@ -198,4 +197,14 @@ export const updateAuthenticatedUsers = () => (req: Request, res: Response, next
     })
   }
   next()
+}
+
+export const sanitizePathTraversal = (inputPath: string): string => {
+  const traversalPattern = /(\.\.(\/|\\))/g;
+
+  while (traversalPattern.test(inputPath)) {
+    inputPath = inputPath.replace(traversalPattern, '');
+  }
+
+  return inputPath.replace(/(\/|\\){2,}/g, '/');
 }
