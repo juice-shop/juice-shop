@@ -64,3 +64,4 @@ config/*.yml
 
 # System Files
 .DS_Store
+.env

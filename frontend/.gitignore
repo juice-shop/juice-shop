@@ -13,6 +13,7 @@ package-lock.json
 /.idea
 .project
 .classpath
+.env
 .c9/
 *.launch
 .settings/
