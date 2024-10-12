@@ -20,7 +20,7 @@ describe('/api/Deliverys', () => {
         headers: jsonHeader,
         body: {
           email: 'jim@' + config.get<string>('application.domain'),
-          password: 'ncc-1701'
+          password: process.env.JIM_USER_PASSWORD
         }
       })
         .expect('status', 200)
@@ -49,7 +49,7 @@ describe('/api/Deliverys', () => {
         headers: jsonHeader,
         body: {
           email: 'ciso@' + config.get<string>('application.domain'),
-          password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb'
+          password: process.env.CISO_USER_PASSWORD
         }
       })
         .expect('status', 200)
@@ -80,7 +80,7 @@ describe('/api/Deliverys/:id', () => {
         headers: jsonHeader,
         body: {
           email: 'jim@' + config.get<string>('application.domain'),
-          password: 'ncc-1701'
+          password: process.env.JIM_USER_PASSWORD
         }
       })
         .expect('status', 200)
@@ -108,7 +108,7 @@ describe('/api/Deliverys/:id', () => {
         headers: jsonHeader,
         body: {
           email: 'ciso@' + config.get<string>('application.domain'),
-          password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb'
+          password: process.env.CISO_USER_PASSWORD
         }
       })
         .expect('status', 200)

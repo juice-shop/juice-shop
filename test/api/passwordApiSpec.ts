@@ -17,7 +17,7 @@ describe('/rest/user/change-password', () => {
       headers: jsonHeader,
       body: {
         email: 'kuni@be.rt',
-        password: 'kunigunde'
+        password: process.env.KUNI_USER_PASSWORD
       }
     })
       .expect('status', 201)
@@ -26,7 +26,7 @@ describe('/rest/user/change-password', () => {
           headers: jsonHeader,
           body: {
             email: 'kuni@be.rt',
-            password: 'kunigunde'
+            password: process.env.KUNI_USER_PASSWORD
           }
         })
           .expect('status', 200)
@@ -44,7 +44,7 @@ describe('/rest/user/change-password', () => {
       headers: jsonHeader,
       body: {
         email: 'bjoern@' + config.get<string>('application.domain'),
-        password: 'monkey summer birthday are all bad passwords but work just fine in a long passphrase'
+        password: process.env.PASSWORD_BJOERN_USER_PASS
       }
     })
       .expect('status', 200)
@@ -90,7 +90,7 @@ describe('/rest/user/change-password', () => {
       headers: jsonHeader,
       body: {
         email: 'bender@' + config.get<string>('application.domain'),
-        password: 'OhG0dPlease1nsertLiquor!'
+        password: process.env.BENDER_USER_PASSWORD_1
       }
     })
       .expect('status', 200)

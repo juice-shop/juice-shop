@@ -3,7 +3,7 @@ describe('/b2b/v2/order', () => {
     it('an infinite loop deserialization payload should not bring down the server', () => {
       cy.task('isDocker').then((isDocker) => {
         if (!isDocker) {
-          cy.login({ email: 'admin', password: 'admin123' })
+          cy.login({ email: 'admin', password: process.env.B2b_admin_password })
 
           cy.window().then(async () => {
             const response = await fetch(
@@ -34,7 +34,7 @@ describe('/b2b/v2/order', () => {
     it('should be possible to cause request timeout using a recursive regular expression payload', () => {
       cy.task('isDocker').then((isDocker) => {
         if (!isDocker) {
-          cy.login({ email: 'admin', password: 'admin123' })
+          cy.login({ email: 'admin', password: process.env.B2b_admin_password })
           cy.window().then(async () => {
             const response = await fetch(
               `${Cypress.config('baseUrl')}/b2b/v2/orders/`,

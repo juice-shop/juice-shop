@@ -22,7 +22,7 @@ module.exports = function resetPassword () {
     const repeatPassword = body.repeat
     if (!email || !answer) {
       next(new Error('Blocked illegal activity by ' + connection.remoteAddress))
-    } else if (!newPassword || newPassword === 'undefined') {
+    } else if (!newPassword || newPassword === process.env.newPassword) {
       res.status(401).send(res.__('Password cannot be empty.'))
     } else if (newPassword !== repeatPassword) {
       res.status(401).send(res.__('New and repeated password do not match.'))

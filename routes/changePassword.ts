@@ -17,7 +17,7 @@ module.exports = function changePassword () {
     const newPassword = query.new
     const newPasswordInString = newPassword?.toString()
     const repeatPassword = query.repeat
-    if (!newPassword || newPassword === 'undefined') {
+    if (!newPassword || newPassword === process.env.newPassword) {
       res.status(401).send(res.__('Password cannot be empty.'))
     } else if (newPassword !== repeatPassword) {
       res.status(401).send(res.__('New and repeated password do not match.'))

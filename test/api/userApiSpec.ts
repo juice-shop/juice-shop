@@ -40,7 +40,7 @@ describe('/api/Users', () => {
       headers: jsonHeader,
       body: {
         email: 'horst@horstma.nn',
-        password: 'hooooorst'
+        password: process.env.HORST_USER_PASSWORD
       }
     })
       .expect('status', 201)
@@ -58,7 +58,7 @@ describe('/api/Users', () => {
       headers: jsonHeader,
       body: {
         email: 'horst2@horstma.nn',
-        password: 'hooooorst',
+        password: process.env.HORST_USER_PASSWORD,
         role: 'admin'
       }
     })
@@ -79,8 +79,8 @@ describe('/api/Users', () => {
     return frisby.post(`${API_URL}/Users`, {
       headers: jsonHeader,
       body: {
-        email: ' ',
-        password: ' '
+        email: null,
+        password: null
       }
     })
       .expect('status', 201)
@@ -97,14 +97,14 @@ describe('/api/Users', () => {
     return frisby.post(`${API_URL}/Users`, {
       headers: jsonHeader,
       body: {
-        email: ' ',
-        password: ' '
+        email: null,
+        password: null
       }
     }).post(`${API_URL}/Users`, {
       headers: jsonHeader,
       body: {
-        email: ' ',
-        password: ' '
+        email: null,
+        password: null
       }
     })
       .expect('status', 400)
@@ -116,7 +116,7 @@ describe('/api/Users', () => {
       headers: jsonHeader,
       body: {
         email: ' test@gmail.com',
-        password: ' test'
+        password: process.env.TEST_USER_PASSWORD
       }
     })
       .expect('status', 201)
@@ -134,7 +134,7 @@ describe('/api/Users', () => {
       headers: jsonHeader,
       body: {
         email: 'horst3@horstma.nn',
-        password: 'hooooorst',
+        password: process.env.HORST_USER_PASSWORD,
         role: 'deluxe'
       }
     })
@@ -156,7 +156,7 @@ describe('/api/Users', () => {
       headers: jsonHeader,
       body: {
         email: 'horst4@horstma.nn',
-        password: 'hooooorst',
+        password: process.env.HORST_USER_PASSWORD,
         role: 'accounting'
       }
     })
@@ -178,7 +178,7 @@ describe('/api/Users', () => {
       headers: jsonHeader,
       body: {
         email: 'horst5@horstma.nn',
-        password: 'hooooorst',
+        password: process.env.HORST_USER_PASSWORD,
         role: 'accountinguser'
       }
     })
@@ -197,7 +197,7 @@ describe('/api/Users', () => {
         headers: jsonHeader,
         body: {
           email: '<iframe src="javascript:alert(`xss`)">',
-          password: 'does.not.matter'
+          password: process.env.DNM_PASSWORD
         }
       })
         .expect('status', 201)
@@ -251,7 +251,7 @@ describe('/rest/user/whoami', () => {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@gmail.com',
-        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+        password: process.env.Bjoern_kimminich_PASSWORD
       }
     })
       .expect('status', 200)

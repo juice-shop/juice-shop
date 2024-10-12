@@ -1,6 +1,6 @@
 describe('/profile', () => {
   beforeEach(() => {
-    cy.login({ email: 'admin', password: 'admin123' })
+    cy.login({ email: 'admin', password: process.env.PROFILE_ADMIN_PASSWORD })
   })
   describe('challenge "ssrf"', () => {
     it('should be possible to request internal resources using image upload URL', () => {

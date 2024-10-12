@@ -15,7 +15,7 @@ describe('/dataerasure', () => {
       headers: jsonHeader,
       body: {
         email: 'bjoern@owasp.org',
-        password: 'kitten lesser pooch karate buffoon indoors'
+        password: process.env.bjoern_USER_PASSWORD
       }
     })
       .expect('status', 200)
@@ -34,7 +34,7 @@ describe('/dataerasure', () => {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@gmail.com',
-        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+        password: process.env.Bjoern_kimminich_PASSWORD
       }
     })
       .expect('status', 200)
@@ -61,7 +61,7 @@ describe('/dataerasure', () => {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@gmail.com',
-        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+        password: process.env.Bjoern_kimminich_PASSWORD
       }
     })
       .expect('status', 200)
@@ -77,7 +77,7 @@ describe('/dataerasure', () => {
               headers: jsonHeader,
               body: {
                 email: 'bjoern.kimminich@gmail.com',
-                password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+                password: process.env.Bjoern_kimminich_PASSWORD
               }
             })
               .expect('status', 200)
@@ -96,7 +96,7 @@ describe('/dataerasure', () => {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@gmail.com',
-        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+        password: process.env.Bjoern_kimminich_PASSWORD
       }
     })
       .expect('status', 200)
@@ -116,7 +116,7 @@ describe('/dataerasure', () => {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@gmail.com',
-        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+        password: process.env.Bjoern_kimminich_PASSWORD
       }
     })
       .expect('status', 200)
@@ -137,7 +137,7 @@ describe('/dataerasure', () => {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@gmail.com',
-        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+        password: process.env.Bjoern_kimminich_PASSWORD
       }
     })
       .expect('status', 200)

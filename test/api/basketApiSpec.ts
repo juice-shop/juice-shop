@@ -22,7 +22,7 @@ beforeAll(() => {
     headers: jsonHeader,
     body: {
       email: 'jim@juice-sh.op',
-      password: 'ncc-1701'
+      password: process.env.JIM_USER_PASSWORD
     }
   })
     .expect('status', 200)
@@ -98,7 +98,7 @@ describe('/rest/basket/:id', () => {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@gmail.com',
-        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+        password: process.env.Rest_basket_id_password
       }
     })
       .expect('status', 200)

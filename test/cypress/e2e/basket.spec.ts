@@ -1,7 +1,7 @@
 describe('/#/basket', () => {
   describe('as admin', () => {
     beforeEach(() => {
-      cy.login({ email: 'admin', password: 'admin123' })
+      cy.login({ email: 'admin', password: process.env.BASKET_ADMIN_PASSWORD })
     })
 
     describe('challenge "negativeOrder"', () => {
@@ -73,7 +73,7 @@ describe('/#/basket', () => {
 
   describe('as jim', () => {
     beforeEach(() => {
-      cy.login({ email: 'jim', password: 'ncc-1701' })
+      cy.login({ email: 'jim', password: process.env.JIM_USER_PASSWORD })
     })
     describe('challenge "manipulateClock"', () => {
       it('should be possible to enter WMNSDY2019 coupon & place order with this expired coupon', () => {

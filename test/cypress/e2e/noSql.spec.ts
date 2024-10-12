@@ -5,7 +5,7 @@ describe('/rest/products/reviews', () => {
 
   describe('challenge "NoSQL DoS"', () => {
     beforeEach(() => {
-      cy.login({ email: 'admin', password: 'admin123' })
+      cy.login({ email: 'admin', password: process.env.NoSQL_ADMIN_PASSWORD })
     })
     it('should be possible to inject a command into the get route', () => {
       cy.task('isDocker').then((isDocker) => {
@@ -50,7 +50,7 @@ describe('/rest/products/reviews', () => {
 
   describe('challenge "NoSQL Manipulation"', () => {
     beforeEach(() => {
-      cy.login({ email: 'admin', password: 'admin123' })
+      cy.login({ email: 'admin', password: process.env.NoSQL_ADMIN_PASSWORD })
     })
 
     it('should be possible to inject a selector into the update route', () => {
@@ -73,7 +73,7 @@ describe('/rest/products/reviews', () => {
 
   describe('challenge "Forged Review"', () => {
     beforeEach(() => {
-      cy.login({ email: 'mc.safesearch', password: 'Mr. N00dles' })
+      cy.login({ email: 'mc.safesearch', password: process.env.MC_SAFESEARCH_USER_PASSWORD })
     })
 
     it('should be possible to edit any existing review', () => {
@@ -117,7 +117,7 @@ describe('/rest/products/reviews', () => {
 
   describe('challenge "Multiple Likes"', () => {
     beforeEach(() => {
-      cy.login({ email: 'mc.safesearch', password: 'Mr. N00dles' })
+      cy.login({ email: 'mc.safesearch', password: process.env.MC_SAFESEARCH_USER_PASSWORD })
     })
 
     it('should be possible to like reviews multiple times', () => {

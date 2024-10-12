@@ -18,7 +18,7 @@ describe('/rest/user/login', () => {
       headers: jsonHeader,
       body: {
         email: 'kalli@kasper.le',
-        password: 'kallliiii'
+        password: process.env.KALLI_USER_PASSWORD
       }
     })
       .expect('status', 201)
@@ -27,7 +27,7 @@ describe('/rest/user/login', () => {
           headers: jsonHeader,
           body: {
             email: 'kalli@kasper.le',
-            password: 'kallliiii'
+            password: process.env.KALLI_USER_PASSWORD
           }
         })
           .expect('status', 200)
@@ -43,7 +43,7 @@ describe('/rest/user/login', () => {
   it('POST login non-existing user', () => {
     return frisby.post(REST_URL + '/user/login', {
       email: 'otto@mei.er',
-      password: 'ooootto'
+      password: process.env.OTTO_USER_PASSWORD
     }, { json: true })
       .expect('status', 401)
   })
@@ -61,7 +61,7 @@ describe('/rest/user/login', () => {
       headers: jsonHeader,
       body: {
         email: 'admin@' + config.get<string>('application.domain'),
-        password: 'admin123'
+        password: process.env.LOGIN_ADMIN_PASSWORD
       }
     })
       .expect('status', 200)
@@ -76,7 +76,7 @@ describe('/rest/user/login', () => {
       headers: jsonHeader,
       body: {
         email: 'support@' + config.get<string>('application.domain'),
-        password: 'J6aVjTgOpRs@?5l!Zkq2AYnCE@RF$P'
+        password: process.env.SUPPORT_USER_PASSWORD
       }
     })
       .expect('status', 200)
@@ -91,7 +91,7 @@ describe('/rest/user/login', () => {
       headers: jsonHeader,
       body: {
         email: 'mc.safesearch@' + config.get<string>('application.domain'),
-        password: 'Mr. N00dles'
+        password: process.env.MC_SAFESEARCH_USER_PASSWORD
       }
     })
       .expect('status', 200)
@@ -106,7 +106,7 @@ describe('/rest/user/login', () => {
       headers: jsonHeader,
       body: {
         email: 'amy@' + config.get<string>('application.domain'),
-        password: 'K1f.....................'
+        password: process.env.AMY_USER_PASSWORD
       }
     })
       .expect('status', 200)
@@ -121,7 +121,7 @@ describe('/rest/user/login', () => {
       headers: jsonHeader,
       body: {
         email: 'wurstbrot@' + config.get<string>('application.domain'),
-        password: 'EinBelegtesBrotMitSchinkenSCHINKEN!'
+        password: process.env.WurstBrot_USER_PASSWORD
       }
     })
       .expect('status', 401)
@@ -139,7 +139,7 @@ describe('/rest/user/login', () => {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@gmail.com',
-        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+        password: process.env.Bjoern_kimminich_PASSWORD
       }
     })
       .expect('status', 200)
@@ -242,7 +242,7 @@ describe('/rest/saveLoginIp', () => {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@gmail.com',
-        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+        password: process.env.Bjoern_kimminich_PASSWORD
       }
     })
       .expect('status', 200)
@@ -263,7 +263,7 @@ describe('/rest/saveLoginIp', () => {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@gmail.com',
-        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+        password: process.env.Bjoern_kimminich_PASSWORD
       }
     })
       .expect('status', 200)

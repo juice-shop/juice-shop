@@ -108,7 +108,7 @@ describe('/rest/products/reviews', () => {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@gmail.com',
-        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+        password: process.env.Bjoern_kimminich_PASSWORD
       }
     })
       .expect('status', 200)
@@ -128,7 +128,7 @@ describe('/rest/products/reviews', () => {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@gmail.com',
-        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+        password: process.env.Bjoern_kimminich_PASSWORD
       }
     })
       .expect('status', 200)

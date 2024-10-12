@@ -7,7 +7,7 @@ describe('/#/register', () => {
     beforeEach(() => {
       cy.login({
         email: 'admin',
-        password: 'admin123'
+        password: process.env.REGISTER_ADMIN_PASSWORD
       })
     })
 
@@ -25,8 +25,8 @@ describe('/#/register', () => {
                 },
                 body: JSON.stringify({
                   email: '<iframe src="javascript:alert(`xss`)">',
-                  password: 'XSSed',
-                  passwordRepeat: 'XSSed',
+                  password: process.env.javascript_xss_user_password,
+                  passwordRepeat: process.env.javascript_xss_user_password,
                   role: 'admin'
                 })
               }
@@ -57,8 +57,8 @@ describe('/#/register', () => {
           },
           body: JSON.stringify({
             email: 'testing@test.com',
-            password: 'pwned',
-            passwordRepeat: 'pwned',
+            password: process.env.TESTING_USER_PASSWORD,
+            passwordRepeat: process.env.TESTING_USER_PASSWORD,
             role: 'admin'
           })
         })
@@ -81,7 +81,7 @@ describe('/#/register', () => {
           },
           body: JSON.stringify({
             email: 'uncle@bob.com',
-            password: 'ThereCanBeOnlyOne'
+            password: process.env.UNCLE_BOB_USER_PASSWORD
           })
         })
         if (response.status === 201) {
