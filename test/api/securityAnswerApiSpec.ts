@@ -41,7 +41,7 @@ describe('/api/SecurityAnswers/:id', () => {
   it('POST security answer for a newly registered user', () => {
     return frisby.post(`${API_URL}/Users`, {
       email: 'new.user@te.st',
-      password: '12345'
+      password: process.env.NEW_USER_PASSWORD
     }, { json: true })
       .expect('status', 201)
       .then(({ json }) => {

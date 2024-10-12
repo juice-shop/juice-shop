@@ -1,7 +1,7 @@
 describe('/#/deluxe-membership', () => {
   describe('challenge "svgInjection"', () => {
     it('should be possible to pass in a forgotten test parameter abusing the redirect-endpoint to load an external image', () => {
-      cy.login({ email: 'jim', password: 'ncc-1701' })
+      cy.login({ email: 'jim', password: process.env.JIM_USER_PASSWORD })
       cy.location().then((loc) => {
         cy.visit(
           `/#/deluxe-membership?testDecal=${encodeURIComponent(
@@ -18,7 +18,7 @@ describe('/#/deluxe-membership', () => {
     it('should upgrade to deluxe for free by making a post request to /rest/deluxe-membership by setting the paymentMode parameter to null', () => {
       cy.login({
         email: 'jim',
-        password: 'ncc-1701'
+        password: process.env.JIM_USER_PASSWORD
       })
       cy.visit('/#/')
       cy.getCookie('token').then((token) => {

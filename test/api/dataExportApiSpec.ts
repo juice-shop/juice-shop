@@ -19,7 +19,7 @@ describe('/rest/user/data-export', () => {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@gmail.com',
-        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+        password: process.env.Bjoern_kimminich_PASSWORD
       }
     })
       .expect('status', 200)
@@ -46,7 +46,7 @@ describe('/rest/user/data-export', () => {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@gmail.com',
-        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+        password: process.env.Bjoern_kimminich_PASSWORD
       }
     })
       .expect('status', 200)
@@ -75,7 +75,7 @@ describe('/rest/user/data-export', () => {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@gmail.com',
-        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+        password: process.env.Bjoern_kimminich_PASSWORD
       }
     })
       .expect('status', 200)
@@ -110,7 +110,7 @@ describe('/rest/user/data-export', () => {
       headers: jsonHeader,
       body: {
         email: 'amy@' + config.get<string>('application.domain'),
-        password: 'K1f.....................'
+        password: process.env.AMY_USER_PASSWORD
       }
     })
       .expect('status', 200)
@@ -150,7 +150,7 @@ describe('/rest/user/data-export', () => {
       headers: jsonHeader,
       body: {
         email: 'jim@' + config.get<string>('application.domain'),
-        password: 'ncc-1701'
+        password: process.env.JIM_USER_PASSWORD
       }
     })
       .expect('status', 200)
@@ -192,7 +192,7 @@ describe('/rest/user/data-export', () => {
       headers: jsonHeader,
       body: {
         email: 'jim@' + config.get<string>('application.domain'),
-        password: 'ncc-1701'
+        password: process.env.JIM_USER_PASSWORD
       }
     })
       .expect('status', 200)
@@ -232,7 +232,7 @@ describe('/rest/user/data-export', () => {
       headers: jsonHeader,
       body: {
         email: 'amy@' + config.get<string>('application.domain'),
-        password: 'K1f.....................'
+        password: process.env.AMY_USER_PASSWORD
       }
     })
       .expect('status', 200)
@@ -280,7 +280,7 @@ describe('/rest/user/data-export', () => {
       headers: jsonHeader,
       body: {
         email: 'jim@' + config.get<string>('application.domain'),
-        password: 'ncc-1701'
+        password: process.env.JIM_USER_PASSWORD
       }
     })
       .expect('status', 200)
@@ -330,7 +330,7 @@ describe('/rest/user/data-export', () => {
       headers: jsonHeader,
       body: {
         email: 'jim@' + config.get<string>('application.domain'),
-        password: 'ncc-1701'
+        password: process.env.JIM_USER_PASSWORD
       }
     })
       .expect('status', 200)

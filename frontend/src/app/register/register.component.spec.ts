@@ -132,10 +132,10 @@ describe('RegisterComponent', () => {
   })
 
   it('password and repeat password should be the same', () => {
-    const password: string = 'aaaaa'
-    const passwordRepeat: string = 'aaaaa'
+    const password: string = process.env.REPEAT_PASSWORD_1
+    const passwordRepeat: string = process.env.REPEAT_PASSWORD_1
     component.passwordControl.setValue(password)
-    component.repeatPasswordControl.setValue('bbbbb')
+    component.repeatPasswordControl.setValue(process.env.REPEAT_PASSWORD_2)
     expect(component.repeatPasswordControl.valid).toBeFalsy()
     component.repeatPasswordControl.setValue(passwordRepeat)
     expect(component.repeatPasswordControl.valid).toBe(true)
@@ -150,7 +150,7 @@ describe('RegisterComponent', () => {
     component.repeatPasswordControl.setValue('password')
     component.securityQuestionControl.setValue(1)
     component.securityAnswerControl.setValue('Answer')
-    const user = { email: 'x@x.xx', password: 'password', passwordRepeat: 'password', securityQuestion: { id: 1, question: 'Wat is?' }, securityAnswer: 'Answer' }
+    const user = { email: 'x@x.xx', password: process.env.X_USER_PASSWORD, passwordRepeat: process.env.X_USER_PASSWORD, securityQuestion: { id: 1, question: 'Wat is?' }, securityAnswer: 'Answer' }
     const securityAnswerObject = { UserId: 1, answer: 'Answer', SecurityQuestionId: 1 }
     component.save()
     tick()

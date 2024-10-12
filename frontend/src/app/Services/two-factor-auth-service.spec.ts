@@ -61,7 +61,7 @@ describe('TwoFactorAuthServiceService', () => {
       tick()
 
       expect(req.request.method).toBe('POST')
-      expect(req.request.body).toEqual({ password: 's3cr3t!', initialToken: 'initialToken', setupToken: 'setupToken' })
+      expect(req.request.body).toEqual({ password: process.env.REST_2FA_SETUP_POST_SECRET, initialToken: 'initialToken', setupToken: 'setupToken' })
       expect(res).toBe(undefined)
       httpMock.verify()
     })
@@ -77,7 +77,7 @@ describe('TwoFactorAuthServiceService', () => {
       tick()
 
       expect(req.request.method).toBe('POST')
-      expect(req.request.body).toEqual({ password: 's3cr3t!' })
+      expect(req.request.body).toEqual({ password: process.env.REST_2FA_SETUP_POST_SECRET })
       expect(res).toBe(undefined)
       httpMock.verify()
     })

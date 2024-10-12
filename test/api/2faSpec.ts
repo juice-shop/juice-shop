@@ -164,9 +164,10 @@ describe('/rest/2fa/verify', () => {
 
 describe('/rest/2fa/status', () => {
   it('GET should indicate 2fa is setup for 2fa enabled users', async () => {
+
     const { token } = await login({
       email: `wurstbrot@${config.get<string>('application.domain')}`,
-      password: 'EinBelegtesBrotMitSchinkenSCHINKEN!',
+      password: process.env.Rest_2fa_status_password,
       totpSecret: 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH'
     })
 
@@ -192,7 +193,7 @@ describe('/rest/2fa/status', () => {
   it('GET should indicate 2fa is not setup for users with 2fa disabled', async () => {
     const { token } = await login({
       email: `J12934@${config.get<string>('application.domain')}`,
-      password: '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
+      password: process.env.indicate_2fa_is_not_setup_password
     })
 
     // @ts-expect-error FIXME promise return handling broken
@@ -228,7 +229,7 @@ describe('/rest/2fa/status', () => {
 describe('/rest/2fa/setup', () => {
   it('POST should be able to setup 2fa for accounts without 2fa enabled', async () => {
     const email = 'fooooo1@bar.com'
-    const password = '123456'
+    const password = process.env.Rest_2fa_setup_password
 
     const secret = 'ASDVAJSDUASZGDIADBJS'
 
@@ -274,7 +275,7 @@ describe('/rest/2fa/setup', () => {
 
   it('POST should fail if the password doesnt match', async () => {
     const email = 'fooooo2@bar.com'
-    const password = '123456'
+    const password = process.env.Rest_2fa_setup_password
 
     const secret = 'ASDVAJSDUASZGDIADBJS'
 
@@ -303,7 +304,7 @@ describe('/rest/2fa/setup', () => {
 
   it('POST should fail if the inital token is incorrect', async () => {
     const email = 'fooooo3@bar.com'
-    const password = '123456'
+    const password = process.env.Rest_2fa_setup_password
 
     const secret = 'ASDVAJSDUASZGDIADBJS'
 
@@ -332,7 +333,7 @@ describe('/rest/2fa/setup', () => {
 
   it('POST should fail if the token is of the wrong type', async () => {
     const email = 'fooooo4@bar.com'
-    const password = '123456'
+    const password = process.env.Rest_2fa_setup_password
 
     const secret = 'ASDVAJSDUASZGDIADBJS'
 
@@ -361,7 +362,7 @@ describe('/rest/2fa/setup', () => {
 
   it('POST should fail if the account has already set up 2fa', async () => {
     const email = `wurstbrot@${config.get<string>('application.domain')}`
-    const password = 'EinBelegtesBrotMitSchinkenSCHINKEN!'
+    const password = process.env.Rest_2fa_status_password
     const totpSecret = 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH'
 
     const { token } = await login({ email, password, totpSecret })
@@ -390,7 +391,7 @@ describe('/rest/2fa/setup', () => {
 describe('/rest/2fa/disable', () => {
   it('POST should be able to disable 2fa for account with 2fa enabled', async () => {
     const email = 'fooooodisable1@bar.com'
-    const password = '123456'
+    const password = process.env.Rest_2fa_disable_password
     const totpSecret = 'ASDVAJSDUASZGDIADBJS'
 
     await register({ email, password, totpSecret })
@@ -427,7 +428,7 @@ describe('/rest/2fa/disable', () => {
 
   it('POST should not be possible to disable 2fa without the correct password', async () => {
     const email = 'fooooodisable1@bar.com'
-    const password = '123456'
+    const password = process.env.Rest_2fa_disable_password
     const totpSecret = 'ASDVAJSDUASZGDIADBJS'
 
     await register({ email, password, totpSecret })
