@@ -13,7 +13,8 @@ jobs:
 
       - name: Nuclei - Vulnerability Scan
         id: nuclei_scan
-        uses: projectdiscovery/nuclei-action@main
+        #uses: projectdiscovery/nuclei-action@main
+        uses: projectdiscovery/nuclei-action@master
         with:
           target: http://demo.owasp-juice.shop
 
@@ -25,7 +26,8 @@ jobs:
 
       - name: GitHub Security Dashboard Alerts update
         uses: github/codeql-action/upload-sarif@v3
-        if: steps.nuclei_scan.outputs.sarif_exists == 'true'
+        #if: steps.nuclei_scan.outputs.sarif_exists == 'true'
+        if: ${{ steps.nuclei_scan.outputs.sarif_exists == 'true' }}
         with:
           sarif_file: nuclei.sarif
         env:
