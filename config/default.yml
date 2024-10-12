@@ -54,7 +54,7 @@ application:
     name: Orangeuze
     overlayMap: orangemap2k.jpg
   googleOauth:
-    clientId: '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
+    clientId: process.env.GOOGLE_CLIENT_ID
     authorizedRedirects:
       - { uri: 'https://demo.owasp-juice.shop' }
       - { uri: 'https://juice-shop.herokuapp.com' }
