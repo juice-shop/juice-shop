@@ -1,7 +1,7 @@
 FROM node:20-buster as installer
 COPY . /juice-shop
 WORKDIR /juice-shop
-RUN npm i -g typescript ts-node
+RUN npm i -g typescript@5.6.3 ts-node@10.9.2
 RUN npm install --omit=dev --unsafe-perm
 RUN npm dedupe --omit=dev
 RUN rm -rf frontend/node_modules
@@ -22,13 +22,13 @@ RUN npm run sbom
 # workaround for libxmljs startup error
 FROM node:20-buster as libxmljs-builder
 WORKDIR /juice-shop
-RUN apt-get update && apt-get install -y build-essential python3
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential=12.6 python3=3.7.3-1
 COPY --from=installer /juice-shop/node_modules ./node_modules
 RUN rm -rf node_modules/libxmljs/build && \
   cd node_modules/libxmljs && \
   npm run build
 
-FROM gcr.io/distroless/nodejs20-debian11
+FROM gcr.io/distroless/nodejs20-debian11@sha256:4840b78eb94649eea400df451cbe210b24196991c91126d40292c00509b9e838
 ARG BUILD_DATE
 ARG VCS_REF
 LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
