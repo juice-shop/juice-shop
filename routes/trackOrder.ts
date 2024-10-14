@@ -12,10 +12,10 @@ import { challenges } from '../data/datacache'
 module.exports = function trackOrder () {
   return (req: Request, res: Response) => {
     // Truncate id to avoid unintentional RCE
-    const id = !utils.isChallengeEnabled(challenges.reflectedXssChallenge) ? String(req.params.id).replace(/[^\w-]+/g, '') : utils.trunc(req.params.id, 50)
+    const id = !utils.isChallengeEnabled(challenges.reflectedXssChallenge) ? String(req.params.id).replace(/[^\w-]+/g, '') : utils.trunc(req.params.id, 60)
 
     // Further Sanitization for Potential Code Injection
-    if (/[^a-zA-Z0-9-_()<>/"' ]/.test(String(id))) {
+    if (/[^a-zA-Z0-9-_()<>/%"' ]/.test(String(id))) {
       return res.status(400).json({ error: 'Unsafe characters detected in product ID' })
     }
 
