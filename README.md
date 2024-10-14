@@ -63,7 +63,7 @@ For a detailed introduction, full list of features and architecture overview ple
 ### From Sources
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/juice-shop/juice-shop.svg)
-1. Verify you have and authentication key in your github ssh keys [link](https://github.com/settings/keys).
+1. Verify you have an authentication key in your github ssh keys [link](https://github.com/settings/keys).
     If not, follow github directions on setting up ssh key [link](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
 2. Install [node.js](#nodejs-version-compatibility)
 3. Clone via SSH by Run `git clone git@github.com:Fall-2024-Security-Project/juice-shop-updated.git`
