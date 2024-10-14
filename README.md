@@ -63,15 +63,14 @@ For a detailed introduction, full list of features and architecture overview ple
 ### From Sources
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/juice-shop/juice-shop.svg)
-
-1. Install [node.js](#nodejs-version-compatibility)
-2. Run `git clone https://github.com/juice-shop/juice-shop.git --depth 1` (or
-   clone [your own fork](https://github.com/juice-shop/juice-shop/fork)
-   of the repository)
-3. Go into the cloned folder with `cd juice-shop`
-4. Run `npm install` (only has to be done before first start or when you change the source code)
-5. Run `npm start`
-6. Browse to <http://localhost:3000>
+1. Verify you have and authentication key in your github ssh keys [link](https://github.com/settings/keys).
+    If not, follow github directions on setting up ssh key [link](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
+2. Install [node.js](#nodejs-version-compatibility)
+3. Clone via SSH by Run `git clone git@github.com:Fall-2024-Security-Project/juice-shop-updated.git`
+4. Go into the cloned folder with `cd juice-shop-updated`
+5. Run `npm install` (only has to be done before first start or when you change the source code)
+6. Run `npm start`
+7. Browse to <http://localhost:3000>
 
 ### Packaged Distributions
 
