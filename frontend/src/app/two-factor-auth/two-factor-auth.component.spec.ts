@@ -81,7 +81,7 @@ describe('TwoFactorAuthComponent', () => {
 
   it('should set TOTP secret and URL if 2FA is not already set up', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { name: 'Test App' } }))
-    twoFactorAuthService.status.and.returnValue(of({ setup: false, email: 'email', secret: 'secret', setupToken: '12345' }))
+    twoFactorAuthService.status.and.returnValue(of({ setup: false, email: 'email', secret: process.env.Secret_2factor, setupToken: process.env.SetupToken_2factor }))
 
     component.updateStatus()
 
@@ -92,7 +92,7 @@ describe('TwoFactorAuthComponent', () => {
 
   it('should not set TOTP secret and URL if 2FA is already set up', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { name: 'Test App' } }))
-    twoFactorAuthService.status.and.returnValue(of({ setup: true, email: 'email', secret: 'secret', setupToken: '12345' }))
+    twoFactorAuthService.status.and.returnValue(of({ setup: true, email: 'email', secret: process.env.Secret_2factor, setupToken: process.env.SetupToken_2factor }))
 
     component.updateStatus()
 
@@ -131,7 +131,7 @@ describe('TwoFactorAuthComponent', () => {
   })
 
   it('should confirm successfully disabling 2FA', () => {
-    twoFactorAuthService.status.and.returnValue(of({ setup: true, email: 'email', secret: 'secret', setupToken: '12345' }))
+    twoFactorAuthService.status.and.returnValue(of({ setup: true, email: 'email', secret: process.env.Secret_2factor, setupToken: process.env.SetupToken_2factor }))
     twoFactorAuthService.disable.and.returnValue(of({}))
     component.setupStatus = true
     component.twoFactorDisableForm.get('passwordControl').setValue('password')

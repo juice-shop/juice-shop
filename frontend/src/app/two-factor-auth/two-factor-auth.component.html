@@ -15,14 +15,14 @@
         class="form-container"
         id="two-factor-auth-disable"
         [formGroup]="twoFactorDisableForm"
+        autocomplete="off"
         (ngSubmit)="disable()"
+        method="post"
       >
 
         <h2 id="two-factor-auth-disable-title" translate>REMOVE_TWO_FACTOR_AUTH</h2>
 
         <div class="error" [hidden]="!(errored && !twoFactorDisableForm.dirty)" translate>2FA_SETUP_ERROR</div>
-
-        <form method="post">
           <mat-form-field appearance="outline" color="accent">
             <mat-label translate>LABEL_CURRENT_PASSWORD</mat-label>
             <input id="currentPasswordDisable" formControlName="passwordControl" type="password" matInput
@@ -30,7 +30,6 @@
                    placeholder="{{'MANDATORY_CURRENT_PASSWORD' | translate }}"
                    autocomplete="off">
           </mat-form-field>
-        </form>
         <button
           type="submit"
           id="disableTwoFactorAuth"
@@ -53,6 +52,8 @@
       id="two-factor-auth-setup"
       [formGroup]="twoFactorSetupForm"
       (ngSubmit)="setup()"
+      method="post"
+      autocomplete="off"
     >
 
       <span id="2fa-setup-instructions" translate>2FA_AUTH_SETUP_INSTRUCTIONS</span>
@@ -66,7 +67,6 @@
       </div>
 
       <div class="error" [hidden]="!(errored && !twoFactorSetupForm.dirty)" translate>2FA_SETUP_ERROR</div>
-      <form method="post">
       <mat-form-field appearance="outline" color="accent">
         <mat-label translate>LABEL_CURRENT_PASSWORD</mat-label>
         <input id="currentPasswordSetup" formControlName="passwordControl" type="password" matInput
@@ -74,7 +74,6 @@
                placeholder="{{'MANDATORY_CURRENT_PASSWORD' | translate }}"
                autocomplete="off">
       </mat-form-field>
-      </form>
       <mat-form-field appearance="outline" color="accent">
         <mat-label translate>INITIAL_CODE</mat-label>
         <input
