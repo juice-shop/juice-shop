@@ -231,7 +231,7 @@ describe('/rest/2fa/setup', () => {
     const email = 'fooooo1@bar.com'
     const password = process.env.Rest_2fa_setup_password
 
-    const secret = 'ASDVAJSDUASZGDIADBJS'
+    const secret = process.env.Secret_2faSpec
 
     await register({ email, password })
     const { token } = await login({ email, password })
@@ -277,7 +277,7 @@ describe('/rest/2fa/setup', () => {
     const email = 'fooooo2@bar.com'
     const password = process.env.Rest_2fa_setup_password
 
-    const secret = 'ASDVAJSDUASZGDIADBJS'
+    const secret = process.env.Secret_2faSpec
 
     await register({ email, password })
     const { token } = await login({ email, password })
@@ -306,7 +306,7 @@ describe('/rest/2fa/setup', () => {
     const email = 'fooooo3@bar.com'
     const password = process.env.Rest_2fa_setup_password
 
-    const secret = 'ASDVAJSDUASZGDIADBJS'
+    const secret = process.env.Secret_2faSpec
 
     await register({ email, password })
     const { token } = await login({ email, password })
@@ -335,7 +335,7 @@ describe('/rest/2fa/setup', () => {
     const email = 'fooooo4@bar.com'
     const password = process.env.Rest_2fa_setup_password
 
-    const secret = 'ASDVAJSDUASZGDIADBJS'
+    const secret = process.env.Secret_2faSpec
 
     await register({ email, password })
     const { token } = await login({ email, password })
@@ -363,7 +363,7 @@ describe('/rest/2fa/setup', () => {
   it('POST should fail if the account has already set up 2fa', async () => {
     const email = `wurstbrot@${config.get<string>('application.domain')}`
     const password = process.env.Rest_2fa_status_password
-    const totpSecret = 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH'
+    const totpSecret = process.env.totpSecret_2faSpec
 
     const { token } = await login({ email, password, totpSecret })
 

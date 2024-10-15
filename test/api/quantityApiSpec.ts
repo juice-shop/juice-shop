@@ -170,7 +170,7 @@ describe('/api/Quantitys/:ids', () => {
       headers: jsonHeader,
       body: {
         email: `accountant@${config.get<string>('application.domain')}`,
-        password: 'i am an awesome accountant'
+        password: process.env.Accountant_USER_PASSWORD
       }
     })
       .expect('status', 200)
