@@ -1,0 +1,31 @@
+name: PR Build and Test
+
+on: [push, pull_request]
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          
+      - name: Install Node dependencies
+        run: npm ci
+        
+      - name: Build TypeScript
+        run: npm start
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Test with Unittest
+        run: |
+          if [ -f tests/tests.py ]; then python tests/tests.py; fi
+      
