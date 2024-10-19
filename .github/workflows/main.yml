@@ -15,7 +15,7 @@ jobs:
           node-version: '22'
           
       - name: Install Node dependencies
-        run: npm ci
+        run: npm install
         
       - name: Build TypeScript
         run: npm start
