@@ -19,10 +19,11 @@ checks:
   identical-code:
     enabled: false
 exclude_patterns:
-  - '**/*conf.js'
   - 'Gruntfile.js'
+  - '**/*conf.js'
   - 'data/datacreator.ts'
+  - 'data/static/codefixes/**'
   - 'frontend/src/hacking-instructor/**/*.ts'
   - 'frontend/src/assets/private/*.js'
   - 'lib/logger.ts'
-  - 'data/static/codefixes/**'
+  - 'lib/config.types.ts'
