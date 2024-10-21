@@ -115,7 +115,7 @@
             "scripts": [],
             "assets": ["src/assets"],
             "codeCoverage": true,
-            "codeCoverageExclude": ["src/hacking-instructor/**/*.ts", "lib/config.types.ts"]
+            "codeCoverageExclude": ["src/hacking-instructor/**/*.ts"]
           }
         },
         "lint": {
