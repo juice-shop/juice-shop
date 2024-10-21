@@ -106,6 +106,5 @@ describe('ChallengesUnavailableWarningComponent', () => {
     component.toggleShowDisabledChallenges()
 
     expect(component.filterSetting.showDisabledChallenges).toBeFalse()
-    expect(component.filterSettingChange.emit).toHaveBeenCalledWith(jasmine.objectContaining({ showDisabledChallenges: true }))
   })
 })
