@@ -23,6 +23,11 @@ _Screen shot of payload in the search bar_
 
 If we search for this string we entered we can see our iframe has been injected into the code. Now imagine if this had been something much more malicious being injected into our code?
 
+
+![Screenshot 2024-10-22 at 3 13 49 PM](https://github.com/user-attachments/assets/951dc834-48d5-4736-a597-f6d82de7a3fd)
+
+_code inserted into DOM+
+
 #### Remediating the Injection Vulnerability
 
 OK, now that we know we can perform injection attacks via the search bar, we look to how we can remedy this. Let's find the code that deals with the search bar. After some digging we see that in the folder:
