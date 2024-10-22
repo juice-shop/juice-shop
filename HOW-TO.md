@@ -11,7 +11,11 @@ Here we are going to inject a payload into the Document Object Model (DOM). Inse
 
 Looking at the Juice Shop webpage, the area that stands out as a place to test any kind of injection or payload would be areas that allow user input. In our case this is the website's search bar.
 
-Since we are just doing a proof of concept lets send a script that contains and alert. First, right click on the webpage and select inspect. This will open developers tools in a separate frame. In the search bar, we will enter:
+Since we are just doing a proof of concept lets send a script that contains and alert. First, right click on the webpage and select inspect. This will open developers tools in a separate frame. In the search bar, we will enter: `<h1>Hacking is Cool</h1?`
+
+Press enter. Notice how this shows up on the webpage search results? If we right click and inspect the text we put on the page, we can see it has been inserted into the code.
+
+Now lets try inserting a bit of JavaScript. In the search bar enter the following and hit enter:
 
 ```
 <iframe src="javascript:alert(`HERE IS AN XSS INJECTION - KULJOT BIRING`)">.
@@ -21,12 +25,12 @@ Since we are just doing a proof of concept lets send a script that contains and 
 
 _Screen shot of payload in the search bar_
 
-If we search for this string we entered we can see our iframe has been injected into the code. Now imagine if this had been something much more malicious being injected into our code?
+If we search for this string in the page inspector, we entered we can see our iframe has been injected into the code. Now imagine if this had been something much more malicious being injected into our code such as code to steal a user's cookies?
 
 
 ![Screenshot 2024-10-22 at 3 13 49 PM](https://github.com/user-attachments/assets/951dc834-48d5-4736-a597-f6d82de7a3fd)
 
-_code inserted into DOM+
+_code inserted into DOM_
 
 #### Remediating the Injection Vulnerability
 
