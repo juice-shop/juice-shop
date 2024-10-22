@@ -26,7 +26,7 @@ jobs:
           #!/bin/bash
           attempts=0
           printf 'Waiting on Juice Shop to start'
-          until curl --output /dev/null --silent --head --fail https://localhost:3000; do
+          until lsof -i :3000 | grep LISTEN; do
             if (( attempts > 20 )); then
               printf 'Juice Shop startup timed out'
               exit 1
