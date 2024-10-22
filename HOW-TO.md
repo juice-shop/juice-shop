@@ -61,6 +61,7 @@ If an attacker was to discover that these URL's are in the Allowlist, they could
 First, right click on the webpage and select inspect. Navigate to the debugger tab and take a look at main.js. From there we can use CTRL-F to search for the string "redirect" until we come accross a URL that could be used as an attack vector.
 
 ![alt text](image.png)
+
 _image of potentially vulnerable URL_
 
 
@@ -76,11 +77,13 @@ If we are to paste that into our search bar, we will be redirected to a Cryptocu
 The easiest way to fix this vulnerability is to remove those URL's from the Allowlist. Inside the lib folder there is a file called `insecurity.ts` that handles the Allowlist.
 
 ![alt text](image-1.png)
+
 _image of insecure code_
 
 The solution is to remove any URL's that we don't want to  be redirected. Just comment out the appropriate URL's.
 
 ![alt text](image-2.png)
+
 _code fix_
 
 #### Key Takeaways
