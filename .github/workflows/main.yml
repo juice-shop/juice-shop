@@ -20,10 +20,21 @@ jobs:
       - name: Start Juice Shop
         run: npm start &
 
-      - wait-for:
-        command: curl https://localhost:3000
-        port: 3000
-        timeout: 120
+      - name: Wait for Juice Shop
+        run: |
+          bash << EOF
+          #!/bin/bash
+          attempts=0
+          printf 'Waiting on Juice Shop to start'
+          until curl --output /dev/null --silent --head --fail https://localhost:3000; do
+            if [ ${attempts} -gt 10 ]; then
+              printf 'Juice Shop startup timed out"
+              exit(1)
+            fi
+            printf '.'
+            sleep 5              
+          done
+          EOF
 
       - name: Install Python dependencies
         run: |
@@ -34,5 +45,5 @@ jobs:
         run: |
           if [ -f tests/tests.py ]; then python tests/tests.py; fi
 
-      - run: exit(1)
-      
+      - run: |
+          killall node  
