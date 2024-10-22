@@ -18,6 +18,7 @@ Since we are just doing a proof of concept lets send a script that contains and 
 ```
 
 ![Screenshot 2024-10-21 at 9 35 10 PM](https://github.com/user-attachments/assets/fbf4bd51-4678-4bb6-8cfc-2f8b5172a79c)
+
 _Screen shot of payload in the search bar_
 
 If we search for this string we entered we can see our iframe has been injected into the code. Now imagine if this had been something much more malicious being injected into our code?
@@ -32,12 +33,14 @@ frontend > src > app > search-result
 there is a file called `search-result.component.ts`. In this file we can see the following snippet of code which seems to be overriding Angular's built-in safeguards which would prevent an XSS attack.
 
 ![Screenshot 2024-10-21 at 9 35 37 PM](https://github.com/user-attachments/assets/9feb704f-dcf9-4500-97be-55f192bc17f8)
+
 _image of insecure code_
 
 
 The solution here is to remedy this code by not bypassing built-in security trusts in the first place.
 
 ![Screenshot 2024-10-21 at 9 35 55 PM](https://github.com/user-attachments/assets/10094bd5-cd40-4dd6-afdb-7684901f77b2)
+
 _code fix_
 
 
