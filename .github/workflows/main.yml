@@ -28,7 +28,7 @@ jobs:
           printf 'Waiting on Juice Shop to start'
           until curl --output /dev/null --silent --head --fail https://localhost:3000; do
             if [ ${attempts} -gt 10 ]; then
-              printf 'Juice Shop startup timed out"
+              printf 'Juice Shop startup timed out'
               exit(1)
             fi
             printf '.'
