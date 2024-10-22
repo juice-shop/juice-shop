@@ -25,7 +25,8 @@ Now lets try inserting a bit of JavaScript. In the search bar enter the followin
 
 _Screen shot of payload in the search bar_
 
-If we search for this string in the page inspector, we entered we can see our iframe has been injected into the code. Now imagine if this had been something much more malicious being injected into our code such as code to steal a user's cookies?
+
+If we search for this string in the page inspector we entered, we can see our iframe has been injected into the code. Now imagine if this had been something much more malicious being injected into our code such as code to steal a user's cookies?
 
 
 ![Screenshot 2024-10-22 at 3 13 49 PM](https://github.com/user-attachments/assets/951dc834-48d5-4736-a597-f6d82de7a3fd)
