@@ -99,3 +99,49 @@ _code fix_
 #### Key Takeaways
 
 Allowlists are a powerful tool in controlling where users can be redirected. However, if they fall out of date they can become a serious vulnerability. Developers should strive to make sure that the URL's that are within their Allowlist are secure and can't be used for phishing scams. Additionally, Allowlists should be kept up to date. Developers should add checking their Allowlist to a regular maintenance schedule and frequently audit which URL's are contained within it.
+
+## Cryptographic Failures vulnerability - OWASP #2
+#### Exploiting Sensitive Data
+###### By: Pontipe Kopkaew
+
+For this vulnerability, we will exploit a confidential document. The goal is to find a hidden file containing sensitive information about potential hostile takeovers by management. By exploring various links within the application, we should be able to locate this unprotected file and access its contents.
+
+To begin, we do not need any tools to exploit the vulnerability; instead, we should thoroughly explore the Juice Shop website, looking for links that might lead to embedded documents.
+
+![alt text](image-3.png)
+
+_screenshot of About Us Page_
+
+There is a link on the "About Us" page that directs users to the terms of use, which leads to the URL: https://cs467-owasp-juice-shop-87450be9c684.herokuapp.com/ftp/legal.md. From this, we can deduce that the document is named legal.md and is located in the ftp directory, prompting us to investigate further.
+
+![alt text](image-4.png)
+
+_screenshot of the content of legal.md_
+
+The next step is to navigate to the directory at https://cs467-owasp-juice-shop-87450be9c684.herokuapp.com/ftp to check its contents.
+
+![alt text](image-5.png)
+
+_screenshot of the content of the ftp directory_
+
+Finally, if we examine the contents of the directory, we will discover that acquisitions.md is the file containing the sensitive data we are seeking.
+
+![alt text](image-6.png)
+
+_screenshot of the content of acquisitions.md_
+
+#### Remediating Cryptographic Failures vulnerability
+
+To address this issue, we should eliminate access to the directory listing of /ftp directory by commenting out the relevant code snippet in the server.ts file of the application. This code creates an endpoint that serves a directory listing of the ftp folder, which can be a potential security risk if not properly secured, as it could expose sensitive files to unauthorized users. By taking this action, we effectively resolve the data leak.
+
+![alt text](image-7.png)
+
+_screenshot of insecure code snippet from GitHub_
+
+![alt text](image-8.png)
+
+_screenshot of secure code snippet from code editor_
+
+#### Key Takeaways
+
+The key takeaway from this exploit is the importance for organizations to prioritize strong data protection measures to keep sensitive information safe. Protecting data is important not only for maintaining customer trust but also for complying with legal regulations and avoiding potential financial losses. Regularly reviewing and enhancing security practices is vital for reducing risks and ensuring that data is secure from potential threats.
