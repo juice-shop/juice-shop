@@ -38,7 +38,7 @@ jobs:
           # JF_PASSWORD: ${{ secrets.JF_PASSWORD }}
 
           # [Mandatory]
-          # The GitHub token is automatically generated for the job
+          # The GitHub token is automatically generated for the jo
           JF_GIT_TOKEN: ${{ secrets.JF_GIT_TOKEN }}
 
           # [Mandatory]
