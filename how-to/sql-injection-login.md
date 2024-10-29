@@ -1,33 +1,35 @@
 # SQL Injection - Login
 ## How To (Vulnerable Website)
 1. Go to vulnerable website
+
+
 2. Go to login page
 
-    ![sql-injection-login-location.png](..%2Fhow-to-images%2Fsql-injection-login-location.png)
+<img src="../how-to-images/sql-injection-login-location.png" width="720"  alt="sql-injection-login-location"/>
 
 3. Enter `' or 1=1--` for the email and `password` for the password
 
-    ![sql-injection-login-credentials.png](..%2Fhow-to-images%2Fsql-injection-login-credentials.png)
+<img src="../how-to-images/sql-injection-login-credentials.png" width="288"  alt="sql-injection-login-credentials"/>
 
 4. Click "login"
 5. Verify access as admin by clicking on "Account" in the header and ensure logged in as "admin@juice-shop.op"
 
-    ![sql-injection-admin-login-success.png](..%2Fhow-to-images%2Fsql-injection-admin-login-success.png)
+<img src="../how-to-images/sql-injection-admin-login-success.png" width="288"  alt="sql-injection-admin-login-success"/>
 
 ## How To (Secured Website)
 1. Go to secured website
 2. Go to login page
 
-   ![sql-injection-login-location.png](..%2Fhow-to-images%2Fsql-injection-login-location.png)
+<img src="../how-to-images/sql-injection-login-location.png" width="720"  alt="sql-injection-login-location"/>
 
 3. Enter `' or 1=1--` for the email and `password` for the password
 
-   ![sql-injection-login-credentials.png](..%2Fhow-to-images%2Fsql-injection-login-credentials.png)
+<img src="../how-to-images/sql-injection-login-credentials.png" width="288"  alt="sql-injection-login-credentials"/>
 
 4. Click "login"
 5. Verify failed login:
 
-    ![sql-injection-login-failed.png](..%2Fhow-to-images%2Fsql-injection-login-failed.png)
+<img src="../how-to-images/sql-injection-login-failed.png" width="216"  alt="sql-injection-login-failed"/>
 
 
 ## Mitigations
