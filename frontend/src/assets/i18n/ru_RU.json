@@ -113,7 +113,7 @@
   "LABEL_STATUS": "Статус",
   "STATUS_UNSOLVED": "нерешено",
   "STATUS_SOLVED": "решено",
-  "STATUS_PARTIALLY_SOLVED": "partially solved",
+  "STATUS_PARTIALLY_SOLVED": "частично решено",
   "STATUS_UNAVAILABLE": "недоступный",
   "STATUS_ALL": "все",
   "CALL_FOR_CONTRIBUTIONS": "Got an idea for a new challenge? Found a vulnerability that is not tracked here? Let us know via <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> community chat or by opening a <a href='https://github.com/juice-shop/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a> issue!",
