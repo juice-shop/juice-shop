@@ -18,6 +18,8 @@ const unzipper = require('unzipper')
 function ensureFileIsPassed ({ file }: Request, res: Response, next: NextFunction) {
   if (file != null) {
     next()
+  } else {
+    return res.status(400).json({ error: 'File is not passed' })
   }
 }
 
