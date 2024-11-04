@@ -1,1 +1,32 @@
-
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: juice-shop-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: juice-shop
+  template:
+    metadata:
+      labels:
+        app: juice-shop
+    spec:
+      containers:
+      - name: juice-shop
+        image: ogechiesther/owasp_juiceshop:latest
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: juice-shop-service
+spec:
+  selector:
+    app: juice-shop
+  ports:
+    - protocol: TCP
+      port: 80              
+      targetPort: 3000       
+  type: NodePort 
