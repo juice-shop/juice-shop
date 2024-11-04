@@ -1,0 +1,8 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: fluentd-role
+rules:
+- apiGroups: [""]
+  resources: ["namespaces", "pods", "pods/log"]
+  verbs: ["get", "list", "watch"]

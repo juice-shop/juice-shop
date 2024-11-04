@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kibana
+spec:
+  type: LoadBalancer   # Exposes Kibana externally
+  ports:
+    - port: 5601
+      targetPort: 5601
+  selector:
+    app: kibana

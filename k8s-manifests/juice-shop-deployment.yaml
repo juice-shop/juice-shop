@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: juice-shop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: juice-shop
+  template:
+    metadata:
+      labels:
+        app: juice-shop
+    spec:
+      containers:
+      - name: juice-shop
+        image: bkimminich/juice-shop
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            memory: "256Mi" # Request minimum 256 Mi of memory
+            cpu: "250m"     # Request 250 millicores of CPU
+          limits:
+            memory: "512Mi" # Limit memory usage to 512 Mi
+            cpu: "500m"     # Limit CPU usage to 500 millicores
+      # affinity:
+#   podAntiAffinity:
+#     requiredDuringSchedulingIgnoredDuringExecution:
+#       - labelSelector:
+#           matchExpressions:
+#             - key: app
+#               operator: In
+#               values:
+#                 - elasticsearch-master
+#         topologyKey: "kubernetes.io/hostname"
+

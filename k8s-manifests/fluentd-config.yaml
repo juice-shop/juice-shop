@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluentd-config
+data:
+  fluent.conf: |
+    <source>
+      @type tail
+      path /var/log/containers/*.log
+      pos_file /var/log/fluentd-docker.pos
+      tag kubernetes.*
+      format json
+    </source>
+
+    <match kubernetes.**>
+      @type elasticsearch
+      host elasticsearch       
+      port 9200
+      logstash_format true
+      index_name fluentd_logs 
+    </match>
