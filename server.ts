@@ -645,7 +645,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   /* Error Handling */
   app.use(verify.errorHandlingChallenge())
-  app.use(errorhandler())
+   app.use(errorhandler())
 }).catch((err) => {
   console.error(err)
 })
@@ -689,7 +689,10 @@ logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length.to
 let metricsUpdateLoop: any
 const Metrics = metrics.observeMetrics() // vuln-code-snippet neutral-line exposedMetricsChallenge
 app.get('/metrics', metrics.serveMetrics()) // vuln-code-snippet vuln-line exposedMetricsChallenge
-errorhandler.title = `${config.get<string>('application.name')} (Express ${utils.version('express')})`
+
+// Removed framework and framework version from title of error page
+// errorhandler.title = `${config.get<string>('application.name')} (Express ${utils.version('express')})`
+  errorhandler.title = `${config.get<string>('application.name')}`
 
 export async function start (readyCallback?: () => void) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
