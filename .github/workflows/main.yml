@@ -44,7 +44,7 @@ jobs:
 
       - name: Test with Unittest
         run: |
-          if [ -f tests/tests.py ]; then python tests/tests.py; fi
+          if [ -f python/tests.py ]; then python tests/tests.py; fi
 
       - run: |
           killall node  
