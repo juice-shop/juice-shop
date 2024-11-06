@@ -7,20 +7,29 @@ import challengeUtils = require('../lib/challengeUtils')
 import { type Request, type Response, type NextFunction } from 'express'
 import * as db from '../data/mongodb'
 import { challenges } from '../data/datacache'
+import jwt from 'jsonwebtoken'
 
 const security = require('../lib/insecurity')
 
 // vuln-code-snippet start noSqlReviewsChallenge forgedReviewChallenge
 module.exports = function productReviews () {
   return (req: Request, res: Response, next: NextFunction) => {
-    const user = security.authenticatedUsers.from(req) // vuln-code-snippet vuln-line forgedReviewChallenge
+    const token = req.headers['authorization']?.split(' '[1]) // vuln-code-snippet vuln-line forgedReviewChallenge
     // check if user is authenticated prevents anon review changes
-    if (!user || !user.data.email) {
+    if (!token) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
+      const decoded = jwt.verify(token, 'your-secret-key'); // Ensure the token is valid using your secret key
+      const user = security.authenticatedUsers.get(token); // Retrieve the user based on the token
+
+      if (!user || user.data.email !== decoded.email) {
+        return res.status(403).json({ error: 'Forbidden' }); // Check if the user matches the decoded token
+      }
+
     // grab the id if the review to be updated
-    const reviewId = req.body.id
+    const reviewId = 
+    const reviewMessage = req.body.message;
 
     // Define a type for the review if not one already
     interface Review {
@@ -38,9 +47,9 @@ module.exports = function productReviews () {
 
         // at this point OK to update review
         return db.reviewsCollection.update( // vuln-code-snippet neutral-line forgedReviewChallenge
-          { _id: req.body.id, author: user.data.email }, // vuln-code-snippet vuln-line noSqlReviewsChallenge forgedReviewChallenge
+          { _id: reviewId, author: user.data.email }, // vuln-code-snippet vuln-line noSqlReviewsChallenge forgedReviewChallenge
           // Only allow message update, do not allow author to be changed
-          { $set: { message: req.body.message, author: user.data.email } },
+          { $set: { message: reviewMessage, author: user.data.email } },
           { multi: false } // vuln-code-snippet vuln-line noSqlReviewsChallenge
         ).then((result: { modified: number, original: Array<{ author: string }> }) => {
           if (!result.original || result.original.length === 0) {
