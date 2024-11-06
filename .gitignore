@@ -64,3 +64,7 @@ config/*.yml
 
 # System Files
 .DS_Store
+
+# Python
+venv/
+__pycache__/
