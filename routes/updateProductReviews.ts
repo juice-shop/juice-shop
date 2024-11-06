@@ -15,7 +15,7 @@ module.exports = function productReviews () {
   return (req: Request, res: Response, next: NextFunction) => {
     const user = security.authenticatedUsers.from(req) // vuln-code-snippet vuln-line forgedReviewChallenge
     // check if user is authenticated prevents anon review changes
-    if (!user) {
+    if (!user || !user.data.email) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
