@@ -293,6 +293,7 @@ const user = security.authenticatedUsers.from(req) // vuln-code-snippet vuln-lin
     db.reviewsCollection.update( // vuln-code-snippet neutral-line forgedReviewChallenge
       { _id: req.body.id }, // vuln-code-snippet vuln-line noSqlReviewsChallenge forgedReviewChallenge
       { $set: { message: req.body.message } }
+      { multi: true } // vuln-code-snippet vuln-line noSqlReviewsChallenge
 ```
 
 To remedy this issue, we are going to do an authentication check before that snippet of code:
@@ -303,18 +304,15 @@ if (!user) {
     }
 ```
 
-We also add code to ensure that before directly updating the review there is appropriate ownership via:
+We also add code to ensure that before directly updating the review there is appropriate ownership via changing the three problematic lines above. We also remove the ability to edit multiple review entries via a well crafted SQL command:
 ```
+{ _id: req.body.id, author: user.data.email }, // vuln-code-snippet vuln-line noSqlReviewsChallenge forgedReviewChallenge
 // Only allow message update, do not allow author to be changed
-const updateData = { $set: { message: req.body.message } }; 
+{ $set: { message: req.body.message, author: user.data.email } },
+{ multi: false } 
 
-// at this point OK to update review
-return db.reviewsCollection.update( // vuln-code-snippet neutral-line forgedReviewChallenge
-    { _id: reviewId }, // vuln-code-snippet vuln-line noSqlReviewsChallenge forgedReviewChallenge
-    updateData
-```
 
-In the same vein we need to check the authorization of the author using:
+In the same vein we need to check the authorization of the author as well as ensure the user has not entered anything unexpected using:
 
 ```
 if (!review || typeof review.author !== 'string' || review.author !== user.data.email) {
@@ -324,10 +322,6 @@ if (!review || typeof review.author !== 'string' || review.author !== user.data.
 ```
 
 This ensure that only the user who originally posted a review can modify it. Now we have handled Authentication and Authorization of Access Controls.
-
-The line of code ```{ multi: true }``` raises the possiblilty of an SQL injection as it does not allow assurance that only one document is updated. A malicious user could craft a request body with an SQL command that would cause the database to update multiple reviews.
-
-To remedy this we are going to remove this line from the code.
 
 Additionally the database operation is using ```result.original``` without any sanitization. If this becomes undefined or malformed the logic could break as there is no checking as to the integrity of the response from the database query.
 
