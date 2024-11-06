@@ -78,6 +78,57 @@ describe('/rest/memories', () => {
       })
   })
 
+  it('POST new memory image file is not passed - 1', () => {
+    return frisby.post(REST_URL + '/user/login', {
+      headers: jsonHeader,
+      body: {
+        email: 'jim@' + config.get<string>('application.domain'),
+        password: 'ncc-1701'
+      }
+    })
+      .expect('status', 200)
+      .then(({ json: jsonLogin }) => {
+        return frisby.post(REST_URL + '/memories', {
+          headers: {
+            Authorization: 'Bearer ' + jsonLogin.authentication.token
+          }
+        })
+          .expect('status', 400)
+          .expect('json', {
+            error: 'File is not passed'
+          })
+      })
+  })
+
+  it('POST new memory image file is not passed - 2', () => {
+    const form = frisby.formData()
+    form.append('key1', 'value1')
+    form.append('key2', 'value2')
+
+    return frisby.post(REST_URL + '/user/login', {
+      headers: jsonHeader,
+      body: {
+        email: 'jim@' + config.get<string>('application.domain'),
+        password: 'ncc-1701'
+      }
+    })
+      .expect('status', 200)
+      .then(({ json: jsonLogin }) => {
+        return frisby.post(REST_URL + '/memories', {
+          headers: {
+            Authorization: 'Bearer ' + jsonLogin.authentication.token,
+            // @ts-expect-error FIXME form.getHeaders() is not found
+            'Content-Type': form.getHeaders()['content-type']
+          },
+          body: form
+        })
+          .expect('status', 400)
+          .expect('json', {
+            error: 'File is not passed'
+          })
+      })
+  })
+
   it('POST new memory with valid for JPG format image', () => {
     const file = path.resolve(__dirname, '../files/validProfileImage.jpg')
     const form = frisby.formData()
