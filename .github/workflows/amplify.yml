@@ -17,6 +17,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run Amplify Security Scan (Lab)
-        uses: amplify-security/runner-action@main
+        uses: amplify-security/runner-action@079139af603daee05527c48419e142a2891215df
         with:
           amplify-endpoint: https://api.lab.amplify.security
