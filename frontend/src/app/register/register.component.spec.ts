@@ -104,24 +104,78 @@ describe('RegisterComponent', () => {
     expect(component.passwordControl.valid).toBeFalsy()
   })
 
-  it('password should have at least five characters', () => {
-    component.passwordControl.setValue('aaaa')
-    expect(component.passwordControl.valid).toBeFalsy()
-    component.passwordControl.setValue('aaaaa')
-    expect(component.passwordControl.valid).toBe(true)
-  })
-
+  // it('password should have at least five characters', () => {
+  //   component.passwordControl.setValue('aaaa')
+  //   expect(component.passwordControl.valid).toBeFalsy()
+  //   component.passwordControl.setValue('aaaaa')
+  //   expect(component.passwordControl.valid).toBe(true)
+  // })
+  
+  // Start
+  /*
+    The following block contains unit tests for validating the password field in a component. These tests are written using 
+    Jasmine, which is a popular testing framework used with Angular. Each test checks a specific password validation rule and
+    verifies whether the password is considered valid or invalid based on the criteria.
+      1. Test: "password should be at least 8 characters long"
+      2. Test: "password should contain at least one number"
+      3. Test: "password should contain at least one special character"
+      4. Test: "password should not be a common password"
+    Each of these tests sets the value of `passwordControl` and checks the validity of the password using the `.valid` property,
+    which returns `true` if the password satisfies the validation rules and `false` otherwise. These tests ensure that the 
+    password input field enforces important validation rules for security and usability.
+  */
+  it('password should be at least 8 characters long', () => {
+    component.passwordControl.setValue('aaaaa');
+    expect(component.passwordControl.valid).toBeFalsy();
+    component.passwordControl.setValue('aaaaaaaa');
+    expect(component.passwordControl.valid).toBeTruthy();
+  });
+  
   it('password should not be more than 20 characters', () => {
-    let password: string = ''
-    for (let i = 0; i < 41; i++) {
-      password += 'a'
-    }
-    component.passwordControl.setValue(password)
-    expect(component.passwordControl.valid).toBeFalsy()
-    password = password.slice(1)
-    component.passwordControl.setValue(password)
-    expect(component.passwordControl.valid).toBe(true)
-  })
+    let password: string = 'a'.repeat(21);
+    component.passwordControl.setValue(password);
+    expect(component.passwordControl.valid).toBeFalsy();  
+    password = 'a'.repeat(20);
+    component.passwordControl.setValue(password);
+    expect(component.passwordControl.valid).toBeTruthy();  
+    password = 'a'.repeat(19);
+    component.passwordControl.setValue(password);
+    expect(component.passwordControl.valid).toBeTruthy();  
+  });
+
+  it('password should contain at least one number', () => {
+    component.passwordControl.setValue('password');
+    expect(component.passwordControl.valid).toBeFalsy();
+    component.passwordControl.setValue('password1');
+    expect(component.passwordControl.valid).toBeTruthy();
+  });
+
+  it('password should contain at least one special character', () => {
+    component.passwordControl.setValue('password1');
+    expect(component.passwordControl.valid).toBeFalsy();
+    component.passwordControl.setValue('password1!');
+    expect(component.passwordControl.valid).toBeTruthy();
+  });
+
+  it('password should not be a common password', () => {
+    component.passwordControl.setValue('password');
+    expect(component.passwordControl.valid).toBeFalsy();
+    component.passwordControl.setValue('uniquePassword123!');
+    expect(component.passwordControl.valid).toBeTruthy();
+  });
+// End
+
+  // it('password should not be more than 20 characters', () => {
+  //   let password: string = ''
+  //   for (let i = 0; i < 41; i++) {
+  //     password += 'a'
+  //   }
+  //   component.passwordControl.setValue(password)
+  //   expect(component.passwordControl.valid).toBeFalsy()
+  //   password = password.slice(1)
+  //   component.passwordControl.setValue(password)
+  //   expect(component.passwordControl.valid).toBe(true)
+  // })
 
   it('should be compulsory to repeat the password', () => {
     component.passwordControl.setValue('a')

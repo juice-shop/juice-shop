@@ -227,3 +227,207 @@ Here you can see where we use our Bind parameters ($1 and $2) so that Sequelize 
 The biggest takeaway from this exploit is that it is important for developers to be educated in website security. If a developer does not know that this is an avenue for attack, they will not be able to protect the site from SQL injection. Since this code works by just placing user input into our SQL statements, an uneducated developer will have a hard time understanding that they have written a major vulnerability into the site. 
 
 It is important for developers to know how SQL injection works so that they can select secure packages to handle their SQL Queries and take full advantage of the security measures that they offer.
+## Broken Access Control Vulnerability - OWASP #1
+#### Exploiting Broken Acess Controls via Forging another user's review
+###### By: Kuljot Biring
+
+In this vulnerability, I we will be taking advantage of broken access controls in OWASP Juice Shop. These vulnerabilities occur when an applicaiton does not properly restrict user permissions and allows unauthorized users to access or modify resources. This usually results from having inadequate authentication checks or failing to enfoce access controls at the applicaiton level. Attackers can take advantage of these weaknesses to access sensitive data or take unauthorized actions including but not limited to escalating priveledges. 
+
+In investigating proper access controls for the Web Application, I noticed that a user can forge another user's review on the products page. 
+
+To exploit this vulnerability we are going to need to have [Burp Suite](https://portswigger.net/burp/communitydownload) downloaded and installed. We are going to use this popular Web Security software to "catch" requests we make to the website on the fly (as we send them over).
+
+We open up the Burp Suite application and just accept the default settings and make a Temporary Project in Memory option with the default settings, and then click Start Burp.
+
+In the tabs on the top of the application select Proxy and on that screen slide the toggle for Intercept to be in the ON position. Now click the open browser button which will launch a web browser. Note: you will have to click forward as the GET (or other HTTP request) are getting processed for the page to load and to move forward with your actions.
+
+![Bupr Proxy](image-burpproxy.png)
+_screenshot of Bupr Proxy Tab_
+
+In this browser we want to navigate to [OWASP Juice Shop](https://juice-shop.herokuapp.com/#/search) and click Account in the top right. We want to create a new user via the ```Not yet a cutomer?``` link.
+
+![Create Account](image-creatingaccount.png)
+_screenshot of creating a new account_
+
+Once we have created a new user, go ahead and log in as the user you just created. On the main page of the website, we can take a look at the Apple Juice product. We can see that there is a review there currently when we click on the product:
+
+![Juice comment](image-juicecomment.png)
+_screenshot of comment on Apple Juice product_
+
+Let's leave one of our own comments on the product. Now, in Burp Suite we see our PATCH appear. Before we press forward let's take a closer look at the request. At the very bottom of the Request window in Burp Suite we can see our email that is submitting the review listed as author as well as the message for we had written for the review.
+
+![Burp Request](image-burprequest.png)
+_screenshot of PUT request in Burp Suite_
+
+Go ahead and forward this request. We see that our review shows up as expected. No surprise here. 
+
+![New Review](image-newreview.png)
+_screenshot of our new review_
+
+Since we are able to intercept and examine the request before it's sent through, let us test if there is any authentication in the method that handles this. Let's craft a new review that says ```This is filled with poison```. However, before we forward the request in Burp Suite let's change the author. We saw that the first review was left by admin@juice-sh.op. We know this is a valid authenticated user (since they are able to leave comments), so let's use this as the author in the request instead of our own cs467@gmail.com. See below:
+
+
+![Editing Author](image-editauthor.png)
+_screenshot of editing author in new review PUT request_
+
+Forward the request. Look at what happened! A new review is left with the admin of juice shop saying the product is filled with poison. We were able to forge a comment as the Juice Shop admin!
+
+![Forged Review](image-forgedreview.png)
+_screenshot of forged admin review_
+
+What happened here? I seems as though there is a seriously flaw in the way that authentication and authorization are handled on the web app. The application is not checking that the person logged in is only able to leave reviews as themselves. There is definately a Broken Acccess Control vulnerability in the web application.
+
+
+#### Remediating the Broken Access Control Vulnerability
+
+Now that we have exploited the vulnerability, let's remediate it to patch this security issue. Looking through the code we can see that the file ```updateProductReviews.ts``` appears to be handling the review functionality of the web site. Taking a deeper look at the source code, we can see that it processes incoming request to update a review, checks for the authentication of the user and then updates the review message in the database if the user is authorized to do so. The vulnerable code is here:
+
+
+![Vulnerable Code](image-vulnerablecode.png)
+_screenshot of vulnerable code_
+
+The issues with this code are; the code does not check whether the authenticated user is the actual author the the review (as we demonstrated any user can author a review for another user). The lines of code allowing this are below:
+
+```
+const user = security.authenticatedUsers.from(req) // vuln-code-snippet vuln-line forgedReviewChallenge
+    db.reviewsCollection.update( // vuln-code-snippet neutral-line forgedReviewChallenge
+      { _id: req.body.id }, // vuln-code-snippet vuln-line noSqlReviewsChallenge forgedReviewChallenge
+      { $set: { message: req.body.message } }
+```
+
+To remedy this issue, we are going to do an authentication check before that snippet of code:
+
+```
+if (!user) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+```
+
+We also add code to ensure that before directly updating the review there is appropriate ownership via:
+```
+// Only allow message update, do not allow author to be changed
+const updateData = { $set: { message: req.body.message } }; 
+
+// at this point OK to update review
+return db.reviewsCollection.update( // vuln-code-snippet neutral-line forgedReviewChallenge
+    { _id: reviewId }, // vuln-code-snippet vuln-line noSqlReviewsChallenge forgedReviewChallenge
+    updateData
+```
+
+In the same vein we need to check the authorization of the author using:
+
+```
+if (!review || typeof review.author !== 'string' || review.author !== user.data.email) {
+          // user is not authorized to edit review
+          return res.status(403).json({ error: 'Forbidden' });
+        }
+```
+
+This ensure that only the user who originally posted a review can modify it. Now we have handled Authentication and Authorization of Access Controls.
+
+The line of code ```{ multi: true }``` raises the possiblilty of an SQL injection as it does not allow assurance that only one document is updated. A malicious user could craft a request body with an SQL command that would cause the database to update multiple reviews.
+
+To remedy this we are going to remove this line from the code.
+
+Additionally the database operation is using ```result.original``` without any sanitization. If this becomes undefined or malformed the logic could break as there is no checking as to the integrity of the response from the database query.
+
+To remedy this, we are going to add checking to see if the ```result.original``` exists and whether it has any elements. If it's null or empty, the DB likely didn't return expected data - we can handle that gracefully with an error.
+
+```
+if (!result.original || result.original.length === 0) {
+            return res.status(500).json({ error: 'Failed to retrieve the original review' });
+          }
+```
+
+Lastly, the error handling in the code uses a generic ```500`` response for all errors which would not provide enough context or detail about the issue that occurred. An error message with more context (i.e database errors, authorization errors etc) woudl be more beneficial. We update the error block as follows:
+
+```
+.catch((err: Error) => {
+      // Handle other potential errors like connection issues
+      console.error('Error fetching review:', err);
+      res.status(500).json({ error: 'Failed to fetch review' });
+    });
+```
+
+#### Key Takeaways
+
+Broken Access Controls allows individuals to peform actions for which they should not be authorized. In our example, we used broken access controls to forge reviews on products. This proof of concepts highlights the need to have proper controls in place which strictly control Authentication - verifying the entity is who they claim to be, Authorization - allowing the entity to perform only actions that have been specifically granted to them, and Accounting - keeping track of the entity's actions. Without these measures in place, a malicious actor can bypass safeguards and perform a plethora of nefarious actions.
+
+## Identification and Authentication Failures vulnerability - OWASP #7
+#### Password Strength
+###### By: Pontipe Kopkaew
+
+For this vulnerability, we will exploit password strength. The goal is to log in with the administrator's user credentials without previously changing them or applying SQL Injection.
+
+We will use Burp Suite, a popular tool for intercepting and modifying HTTP requests. The steps to exploit the vulnerability are as follows:
+
+To begin, The administrator's email address is already given in the product page, under the reviews section. It is admin@juice-sh.op. 
+
+![alt text](product-page.png)
+
+_screenshot of the products page displaying the admin email address_
+
+Next, we have to guess the password. The challenge requires us to find the admin's password without changing it or using SQL injection. We can rely on the fact that many systems have weak or predictable passwords, especially for admin accounts. 
+
+To do this, Let's capture the admin login request using Burp Suite's Interceptor feature.
+
+![alt text](burpsuite1.png)
+
+_screenshot of Burp Suite setup_
+
+![alt text](login-page.png)
+
+_screenshot of failed attempt to log in_
+
+![alt text](burpsuite3.png)
+
+_screenshot of the Burp Suite Proxy result_
+
+Pick a  list of common passwords (e.g., admin, password123, 123456, etc.), which are often used in weak password configurations. The Intruder feature in Burp Suite to automate the process of guessing the password. This tool allowed me to send a series of requests with different password combinations, automatically testing them against the login endpoint until the correct one was found.
+
+![alt text](burpsuite2.png)
+
+_screenshot of Burp Suite intruder result_
+
+![alt text](burpsuite4.png)
+
+_screenshot of the intruder payload setup_
+
+![alt text](burpsuite5.png)
+
+_screenshot of the the processing of the passwords list_
+
+As shown in the screenshot above, the password "admin123" returns a status code 200, indicating a successful login. By testing this password, we are able to gain access with the correct credentials. This proved that the admin's password is weak and vulnerable to brute-force or simple guessing attacks.
+
+![alt text](logged-user-profile.png)
+
+_screenshot of the user's profile_
+
+#### Remediating Identification and Authentication Failures vulnerability
+To address the password strength vulnerability in the register form (\frontend\src\app\register) of the OWASP Juice Shop, I reinforced the validation logic to ensure that passwords meet specific strength criteria. These changes were made in the following files:
+
+- Code 1: register.component.html
+    I added validation feedback to the front-end form to notify users about password strength requirements. Specifically, I created a list of password criteria (such as minimum length, inclusion of digits, special characters, and prevention of common passwords), and displayed real-time feedback to users.
+
+    ![alt text](component-html-img.png)
+
+    _screenshot of the code snippet from register.component.html_
+
+- Code 2: register.component.spec.ts
+    I added unit tests to ensure that the password validation logic was working as expected. These tests cover various scenarios, such as password length, inclusion of numbers and special characters, and ensuring the password is not one of the most common passwords.
+
+    ![alt text](component-spec-ts-img.png)
+
+    _screenshot of the code snippet from register.component.spec.ts_
+
+- Code 3: register.component.ts
+    To implement the password validation logic on the back-end, I modified the password validator function to check for several criteria. These include checking the password length, ensuring the password contains at least one digit, at least one special character, and that the password is not a common password.
+
+    ![alt text](component-ts-img.png)
+
+    _screenshot of the code snippet from register.component.ts_
+
+#### Key Takeaways
+The major takeaways from this exploit highlight the risks posed by weak passwords, which are common targets for attackers. Predictable passwords like "admin" or "password123" leave systems vulnerable to unauthorized access, especially when combined with automated attack tools like Burp Suite or Hydra, which can quickly perform brute-force attacks. To mitigate such vulnerabilities, it is important to implement strong authentication controls, including enforcing complex password policies, setting up account lockout mechanisms to thwart brute-force attempts, and utilizing multi-factor authentication (MFA) for added security, particularly for administrative accounts.
+
+
