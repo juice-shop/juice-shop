@@ -28,7 +28,7 @@ module.exports = function productReviews () {
       }
 
     // grab the id if the review to be updated
-    const reviewId = 
+    const reviewId = req.body.id
     const reviewMessage = req.body.message;
 
     // Define a type for the review if not one already
