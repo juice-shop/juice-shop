@@ -5,7 +5,7 @@
 
 import { SecurityAnswerService } from '../Services/security-answer.service'
 import { UserService } from '../Services/user.service'
-import { type AbstractControl, UntypedFormControl, Validators } from '@angular/forms'
+import { type AbstractControl, UntypedFormControl, Validators, ValidationErrors } from '@angular/forms'
 import { Component, NgZone, type OnInit } from '@angular/core'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { Router } from '@angular/router'
@@ -27,7 +27,7 @@ library.add(faUserPlus, faExclamationCircle)
 })
 export class RegisterComponent implements OnInit {
   public emailControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.email])
-  public passwordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)])
+  public passwordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(20), passwordValidator])
   public repeatPasswordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, matchValidator(this.passwordControl)])
   public securityQuestionControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
   public securityAnswerControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
@@ -96,3 +96,32 @@ function matchValidator (passwordControl: AbstractControl) {
     return null
   }
 }
+
+// Start
+// Common passwords fetch from an API or file
+const commonPasswords = ["123456", "password", "a12345678@", "qwerty", "abc1234!", "12345", "password1@", "password123!"];
+
+export function passwordValidator(control: AbstractControl): ValidationErrors | null {
+  const password = control.value;
+  // Check password length
+  if (password && password.length < 8) {
+    return { minLength: true };
+  }
+  if (password && password.length > 20) {
+    return { maxLength: true };
+  }
+  // Check if password contains at least one number
+  if (!/\d/.test(password)) {
+    return { noNumber: true };
+  }
+  // Check if password contains at least one special character
+  if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+    return { noSpecialChar: true };
+  }
+  // Check if password is a common password
+  if (commonPasswords.includes(password)) {
+    return { commonPassword: true };
+  }
+  return null; // Valid password
+}
+// End
