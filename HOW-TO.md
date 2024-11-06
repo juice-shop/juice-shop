@@ -146,6 +146,87 @@ _screenshot of secure code snippet from code editor_
 
 The key takeaway from this exploit is the importance for organizations to prioritize strong data protection measures to keep sensitive information safe. Protecting data is important not only for maintaining customer trust but also for complying with legal regulations and avoiding potential financial losses. Regularly reviewing and enhancing security practices is vital for reducing risks and ensuring that data is secure from potential threats.
 
+## Injection Vulnerability - OWASP #3
+#### Exploiting SQL Injection
+###### By: Jason Gottlieb
+
+For this vulnerability we will be looking at how directly passing user input to a SQL Query can lead to an injection attack. When allowing users to log in, the Juice Shop has a user type in their email and password. On the back end, the inputs are passed into a SQL Query that checks a table of emails and passwords. If the email and password matches what is on record, a token is passed back to the user that allows them to log in. This is standard practice for logging users into a service. The Juice Shop makes a mistake however when they do not check the user input to make sure that they are only putting in a valid email.
+
+When the user inputs their email, their input is directly slotted into the SQL Query to the database. Since there is no sanitization, it is possible for a knowledgable attacker to hijack the SQL Query and input their own commands. Let's take a look at how this might be accomplished. We begin by navigating to the login page, opening up the browser inspector, and going to the "Network" tab.
+
+![alt text](SQLInjection1.png)
+
+_image of login page and network tab_
+
+We can test to see if the login page might be vulnerable to an SQL Injection attack by putting an apostraphe in the email input and anything we want for the password. In this case I used "123"
+
+![alt text](SQLInjection2.png)
+
+_testing the login page for an SQL Injection Vulnerability_
+
+We can hit login and check the response from the server to see the exact SQL Query that was sent
+
+![alt text](SQLInjection3.png)
+
+_response from the server_
+
+The query that was sent was as follows:
+```
+"SELECT * FROM Users WHERE email = ''' AND password = '202cb962ac59075b964b07152d234b70' AND deletedAt IS NULL" 
+```
+
+We can see from this query that in the email section, the apostrophe was simply passed in without problems. This is a major security issue since in SQL, apostrophes can be used to start a new command. If someone knows what they are doing, they could enter their own SQL Query inside of the one we are trying to send. Normally a developer would not allow an apostrophe to be entered in email input for this reason.
+
+Now that we know that we can inject our own SQL, we can try to gain access to the Admin account. 
+
+This time in the email we will type:
+```
+' OR TRUE -- 
+```
+Let's take a look at what happens when we do this
+
+![alt text](SQLInjection4.png)
+
+_successful response from the server_
+
+This time when we go to login, we are given a valid access toekn and logged in. If we were to navigate to the Account tab we would see that we are logged in as an admin. What happened here?
+
+Well we know that inputs are not sanitized when entered into the user login so we sent the following query:
+```
+"SELECT * FROM Users WHERE email = ' ' OR TRUE--  AND password = '202cb962ac59075b964b07152d234b70' AND deletedAt IS NULL" 
+```
+
+We have asked SQL to return the passwords for all users where the email address is ‘ ‘ or if the second expression is True. Since True is always True, it returns the full list of User passwords. We then use the – to comment out the rest of the hard coded SQL statement and just run our injection. In the case of the Juice Shop, the Admin account is the very first one in the list, so we are logged in as the admin.
+
+![alt text](SQLInjection5.png)
+
+_we are logged in as an admin_
+
+#### Remediating the SQL Injection Vulnerability
+
+We can remedy this exploit by sanitizing user inputs before running our SQL Queries. Searching through the code, we can find the relevant functions that handle user login.
+
+![alt text](SQLInjection6.png)
+
+_insecure login code_
+
+The important part for us is on line 36 where we can see that there is no sanitization being done on our SQL Query. Inputs from our login request are being directly input to the Query. 
+
+This can be fixed using something called binding. This is considered safe because Juice Shop uses a package called Sequelize to handle its SQL Queries. When Sequelize binds a parameter, it does a check to ensure that Bind parameters are not SQL keywords. This makes it impossible for an attacker to inject their own statement because Sequelize will throw an error if it sees an apostrophe or other SQL keyword. These keywords are not normally part of emails so it shouldn’t be an issue if we don’t allow them to be input. 
+
+The fixed code looks like this:
+
+![alt text](SQLInjection7.png)
+
+_fixed code_
+
+Here you can see where we use our Bind parameters ($1 and $2) so that Sequelize will sanitize the inputs. 
+
+#### Key Takeaways
+
+The biggest takeaway from this exploit is that it is important for developers to be educated in website security. If a developer does not know that this is an avenue for attack, they will not be able to protect the site from SQL injection. Since this code works by just placing user input into our SQL statements, an uneducated developer will have a hard time understanding that they have written a major vulnerability into the site. 
+
+It is important for developers to know how SQL injection works so that they can select secure packages to handle their SQL Queries and take full advantage of the security measures that they offer.
 ## Broken Access Control Vulnerability - OWASP #1
 #### Exploiting Broken Acess Controls via Forging another user's review
 ###### By: Kuljot Biring
