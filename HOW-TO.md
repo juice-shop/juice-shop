@@ -310,7 +310,7 @@ We also add code to ensure that before directly updating the review there is app
 // Only allow message update, do not allow author to be changed
 { $set: { message: req.body.message, author: user.data.email } },
 { multi: false } 
-
+```
 
 In the same vein we need to check the authorization of the author as well as ensure the user has not entered anything unexpected using:
 
@@ -401,6 +401,7 @@ _screenshot of the user's profile_
 To address the password strength vulnerability in the register form (\frontend\src\app\register) of the OWASP Juice Shop, I reinforced the validation logic to ensure that passwords meet specific strength criteria. These changes were made in the following files:
 
 - Code 1: register.component.html
+
     I added validation feedback to the front-end form to notify users about password strength requirements. Specifically, I created a list of password criteria (such as minimum length, inclusion of digits, special characters, and prevention of common passwords), and displayed real-time feedback to users.
 
     ![alt text](component-html-img.png)
@@ -408,6 +409,7 @@ To address the password strength vulnerability in the register form (\frontend\s
     _screenshot of the code snippet from register.component.html_
 
 - Code 2: register.component.spec.ts
+
     I added unit tests to ensure that the password validation logic was working as expected. These tests cover various scenarios, such as password length, inclusion of numbers and special characters, and ensuring the password is not one of the most common passwords.
 
     ![alt text](component-spec-ts-img.png)
@@ -415,6 +417,7 @@ To address the password strength vulnerability in the register form (\frontend\s
     _screenshot of the code snippet from register.component.spec.ts_
 
 - Code 3: register.component.ts
+
     To implement the password validation logic on the back-end, I modified the password validator function to check for several criteria. These include checking the password length, ensuring the password contains at least one digit, at least one special character, and that the password is not a common password.
 
     ![alt text](component-ts-img.png)
