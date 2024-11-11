@@ -20,7 +20,8 @@ import { type SecurityQuestion } from '../Models/securityQuestion.model'
 import { MatButtonModule } from '@angular/material/button'
 import { MatOption } from '@angular/material/core'
 import { MatSelect } from '@angular/material/select'
-import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength'
+import { PasswordStrengthComponent } from '../password-strength/password-strength.component'
+import { PasswordStrengthInfoComponent } from '../password-strength-info/password-strength-info.component'
 import { MatSlideToggle } from '@angular/material/slide-toggle'
 import { NgIf, NgFor } from '@angular/common'
 import { MatInputModule } from '@angular/material/input'
@@ -35,7 +36,7 @@ library.add(faUserPlus, faExclamationCircle)
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
   standalone: true,
-  imports: [FlexModule, MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, NgIf, MatError, MatHint, MatSlideToggle, MatPasswordStrengthModule, MatSelect, NgFor, MatOption, MatButtonModule, RouterLink]
+  imports: [FlexModule, MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, NgIf, MatError, MatHint, MatSlideToggle, PasswordStrengthComponent, PasswordStrengthInfoComponent, MatSelect, NgFor, MatOption, MatButtonModule, RouterLink]
 })
 export class RegisterComponent implements OnInit {
   public emailControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.email])

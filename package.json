@@ -182,7 +182,7 @@
     "ts-node-dev": "^1.1.8",
     "unzipper": "0.9.15",
     "web3": "^4.13.0",
-    "winston": "^3.14.2",
+    "winston": "^3.16.0",
     "yaml-schema-validator": "^1.2.3",
     "z85": "^0.0.2"
   },
@@ -213,6 +213,7 @@
     "@types/js-yaml": "^3.12.10",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/jws": "^3.2.10",
+    "@types/lodash": "^4.17.13",
     "@types/mocha": "^8.2.3",
     "@types/morgan": "^1.9.9",
     "@types/multer": "^1.4.12",
