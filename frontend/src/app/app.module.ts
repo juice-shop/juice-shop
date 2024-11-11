@@ -9,14 +9,6 @@ import { OverlayContainer } from '@angular/cdk/overlay'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 import { ConfigurationService } from './Services/configuration.service'
 
-// This will fix the type checking issue for Module MatPasswordStrengthModule
-// It can be deleted after also upgrading Angular Material to v17
-declare module '@angular/core' {
-  interface ModuleWithProviders<T = any> {
-    ngModule: Type<T>
-  }
-}
-
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json')
 }
