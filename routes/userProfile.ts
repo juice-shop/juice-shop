@@ -26,6 +26,7 @@ module.exports = function getUserProfile () {
         UserModel.findByPk(loggedInUser.data.id).then((user: UserModel | null) => {
           let template = buf.toString()
           let username = user?.username
+          // Hello world!
           if (username?.match(/#{(.*)}/) !== null && utils.isChallengeEnabled(challenges.usernameXssChallenge)) {
             req.app.locals.abused_ssti_bug = true
             const code = username?.substring(2, username.length - 1)
