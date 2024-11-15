@@ -347,6 +347,11 @@ Lastly, the error handling in the code uses a generic ```500`` response for all 
 
 Broken Access Controls allows individuals to peform actions for which they should not be authorized. In our example, we used broken access controls to forge reviews on products. This proof of concepts highlights the need to have proper controls in place which strictly control Authentication - verifying the entity is who they claim to be, Authorization - allowing the entity to perform only actions that have been specifically granted to them, and Accounting - keeping track of the entity's actions. Without these measures in place, a malicious actor can bypass safeguards and perform a plethora of nefarious actions.
 
+### Special Note:
+There is a known bug with the code and the current solution and recommended solution does not fix the vulnerability. This has been documented as an 
+(Code Issue](https://github.com/juice-shop/juice-shop/issues/2389) and the project lead has been made aware of the problem. The professor also has been notified
+and concurs with the decision to document the problem and move to the next vulnerability.
+
 ## Identification and Authentication Failures vulnerability - OWASP #7
 #### Password Strength
 ###### By: Pontipe Kopkaew
