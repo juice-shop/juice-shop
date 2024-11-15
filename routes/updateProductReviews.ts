@@ -14,7 +14,7 @@ const security = require('../lib/insecurity')
 // vuln-code-snippet start noSqlReviewsChallenge forgedReviewChallenge
 module.exports = function productReviews () {
   return (req: Request, res: Response, next: NextFunction) => {
-    const token = req.headers['authorization']?.split(' '[1]) // vuln-code-snippet vuln-line forgedReviewChallenge
+    const token = req.headers['authorization']?.split(' ')[1] // vuln-code-snippet vuln-line forgedReviewChallenge
     // check if user is authenticated prevents anon review changes
     if (!token) {
       return res.status(401).json({ error: 'Unauthorized' });
