@@ -156,7 +156,7 @@ Please make sure you stay up to date with your chosen version.
 [![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
 
 If you need help with the application setup please check our
-[our existing _Troubleshooting_](https://pwning.owasp-juice.shop/appendix/troubleshooting.html)
+[our existing _Troubleshooting_](https://pwning.owasp-juice.shop/companion-guide/latest/part4/troubleshooting.html)
 guide. If this does not solve your issue please post your specific problem or question in the
 [Gitter Chat](https://gitter.im/bkimminich/juice-shop) where community members can best try to help you.
 
@@ -221,7 +221,7 @@ for expenses from the Foundation. If you'd like to express your support of the J
 tick the "Publicly list me as a supporter of OWASP Juice Shop" checkbox on the donation form. You can find our more
 about donations and how they are used here:
 
-<https://pwning.owasp-juice.shop/part3/donations.html>
+<https://pwning.owasp-juice.shop/companion-guide/latest/part3/donations.html>
 
 ## Contributors
 
