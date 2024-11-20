@@ -1,0 +1,9 @@
+# For further examples, See https://github.com/actions/labeler#basic-examples
+
+github-workflows:
+- changed-files:
+  - any-glob-to-any-file: '.github/workflows/*'
+
+shop-frontend:
+- changed-files:
+  - any-glob-to-any-file: frontend/**
