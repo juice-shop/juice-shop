@@ -22,7 +22,7 @@ jobs:
         cd _data/
         rm challenges.yml
         wget https://raw.githubusercontent.com/juice-shop/juice-shop/master/data/static/challenges.yml
-    - uses: stefanzweifel/git-auto-commit-action@3ea6ae190baf489ba007f7c92608f33ce20ef04a #v4.16.0
+    - uses: stefanzweifel/git-auto-commit-action@8621497c8c39c72f3e2a999a26b4ca1b5058a842 #v5.0.1
       with:
         commit_message: "Auto-update challenges.yml from ${{ github.sha }}"
         branch: master
