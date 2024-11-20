@@ -58,7 +58,9 @@ jobs:
       with:
         languages: ${{ matrix.language }}
         build-mode: ${{ matrix.build-mode }}
-
+        config: |
+            paths-ignore:
+              - 'data/static/codefixes'
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
