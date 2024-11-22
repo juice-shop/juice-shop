@@ -19,7 +19,7 @@ module.exports = function servePublicFiles () {
       verify(file, res, next)
     } else {
       res.status(403)
-      next(new Error('File names cannot contain forward slashes!'))
+      next(new Error('File names cannot contain forward slashes!').message)
     }
   }
 
@@ -33,7 +33,8 @@ module.exports = function servePublicFiles () {
       res.sendFile(path.resolve('ftp/', file))
     } else {
       res.status(403)
-      next(new Error('Only .md and .pdf files are allowed!'))
+      next(new Error('Only .md and .pdf files are allowed!').message)
+      
     }
   }
 
