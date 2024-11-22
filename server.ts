@@ -389,6 +389,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
         req.body.email = req.body.email.trim()
         req.body.password = req.body.password.trim()
         req.body.passwordRepeat = req.body.passwordRepeat.trim()
+        req.body.role = "customer"  // When a user registers via this form, it must always be a customer
       } else {
         res.status(400).send(res.__('Invalid email/password cannot be empty'))
       }
@@ -488,7 +489,6 @@ restoreOverwrittenFilesWithOriginals().then(() => {
         WalletModel.create({ UserId: context.instance.id }).catch((err: unknown) => {
           console.log(err)
         })
-        context.instance.role = 'customer'
         return context.continue // vuln-code-snippet neutral-line registerAdminChallenge
       }) // vuln-code-snippet neutral-line registerAdminChallenge
     } // vuln-code-snippet neutral-line registerAdminChallenge

@@ -37,6 +37,9 @@ jobs:
           done
           EOF
 
+      - name: Run TypeScript Tests
+        run: npm test
+
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip

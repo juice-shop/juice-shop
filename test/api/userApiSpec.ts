@@ -12,6 +12,7 @@ const security = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
+const BASE_URL = 'http://localhost:3000/#'
 
 const authHeader = { Authorization: `Bearer ${security.authorize()}`, 'content-type': 'application/json' }
 const jsonHeader = { 'content-type': 'application/json' }
@@ -53,7 +54,7 @@ describe('/api/Users', () => {
       })
   })
 
-  it('POST new admin', () => {
+  it('POST new admin, log in, and attempt admin access', () => {
     return frisby.post(`${API_URL}/Users`, {
       headers: jsonHeader,
       body: {
@@ -71,7 +72,17 @@ describe('/api/Users', () => {
         password: Joi.any().forbidden()
       })
       .expect('json', 'data', {
-        role: 'admin'
+        role: 'customer'
+      })
+      .then(() => {
+        return frisby.post(REST_URL + '/user/login', {
+          headers: jsonHeader,
+          body: {
+            email: 'horst2@horstma.nn',
+            password: 'hooooorst',
+          }
+        })
+          .expect('status', 200)
       })
   })
 
