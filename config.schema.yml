@@ -42,6 +42,10 @@ application:
     avatar:
       type: string
   social:
+    blueSkyUrl:
+      type: string
+    mastodonUrl:
+      type: string
     twitterUrl:
       type: string
     facebookUrl:

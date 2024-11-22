@@ -21,6 +21,8 @@ library.add(faFacebook, faTwitter, faSlack, faReddit, faNewspaper, faStar, fasSt
   styleUrls: ['./about.component.scss']
 })
 export class AboutComponent implements OnInit {
+  public blueSkyUrl?: string
+  public mastodonUrl?: string
   public twitterUrl?: string
   public facebookUrl?: string
   public slackUrl?: string
@@ -54,6 +56,12 @@ export class AboutComponent implements OnInit {
     this.populateSlideshowFromFeedbacks()
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       if (config?.application?.social) {
+        if (config.application.social.blueSkyUrl) {
+          this.blueSkyUrl = config.application.social.blueSkyUrl
+        }
+        if (config.application.social.mastodonUrl) {
+          this.mastodonUrl = config.application.social.mastodonUrl
+        }
         if (config.application.social.twitterUrl) {
           this.twitterUrl = config.application.social.twitterUrl
         }
