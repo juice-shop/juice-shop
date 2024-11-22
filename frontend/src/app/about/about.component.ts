@@ -9,11 +9,11 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { FeedbackService } from '../Services/feedback.service'
 import { type IImage } from 'ng-simple-slideshow'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faFacebook, faReddit, faSlack, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { faFacebook, faMastodon, faReddit, faSlack, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { faNewspaper, faStar } from '@fortawesome/free-regular-svg-icons'
-import { faStar as fasStar, faPalette } from '@fortawesome/free-solid-svg-icons'
+import { faStar as fasStar, faPalette, faBold } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faFacebook, faTwitter, faSlack, faReddit, faNewspaper, faStar, fasStar, faPalette)
+library.add(faFacebook, faTwitter, faSlack, faReddit, faNewspaper, faStar, fasStar, faPalette, faMastodon, faBold)
 
 @Component({
   selector: 'app-about',
