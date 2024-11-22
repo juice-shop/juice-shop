@@ -132,8 +132,8 @@ describe('PaymentComponent', () => {
 
   it('should not hold twitter or facebook URL if not defined in configuration', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
-    expect(component.twitterUrl).toBeNull()
-    expect(component.facebookUrl).toBeNull()
+    expect(component.blueSkyUrl).toBeNull()
+    expect(component.redditUrl).toBeNull()
   })
 
   it('should hold the default applicationName if not defined in configuration', () => {
@@ -144,13 +144,13 @@ describe('PaymentComponent', () => {
   it('should use custom twitter URL if configured', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { twitterUrl: 'twitter' } } }))
     component.ngOnInit()
-    expect(component.twitterUrl).toBe('twitter')
+    expect(component.blueSkyUrl).toBe('twitter')
   })
 
   it('should use custom facebook URL if configured', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { facebookUrl: 'facebook' } } }))
     component.ngOnInit()
-    expect(component.facebookUrl).toBe('facebook')
+    expect(component.redditUrl).toBe('facebook')
   })
 
   it('should log error while getting application configuration from backend API directly to browser console', fakeAsync(() => {
