@@ -12,6 +12,8 @@ application:
     name: 'Bobby'
     avatar: 'https://www.alldaydevops.com/hs-fs/hubfs/2019-ADDO/2019-footer-bobby-1.png?width=135&name=2019-footer-bobby-1.png'
   social:
+    blueSkyUrl: null
+    mastodonUrl: null
     twitterUrl: 'https://twitter.com/AllDayDevOps'
     facebookUrl: 'https://www.facebook.com/AllDayDevOps/'
     slackUrl: 'https://join.slack.com/t/alldaydevops/shared_invite/enQtNzc3NDc2NDQ2OTAwLTRhMjBjNTg2NTM4ZWRmZmQxMDEyNGNmMDI1OGM2ZDMzYjUwZmY4Mjc0NGJiODJkNjVhYmU2ZTBmNGZlNDUwMjc'
