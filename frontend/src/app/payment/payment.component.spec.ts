@@ -130,7 +130,7 @@ describe('PaymentComponent', () => {
     expect(component).toBeTruthy()
   })
 
-  it('should not hold twitter or facebook URL if not defined in configuration', () => {
+  it('should not hold blueSky or reddit URL if not defined in configuration', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
     expect(component.blueSkyUrl).toBeNull()
     expect(component.redditUrl).toBeNull()
@@ -141,16 +141,16 @@ describe('PaymentComponent', () => {
     expect(component.applicationName).toBe('OWASP Juice Shop')
   })
 
-  it('should use custom twitter URL if configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { twitterUrl: 'twitter' } } }))
+  it('should use custom blueSky URL if configured', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { blueSkyUrl: 'blueSky' } } }))
     component.ngOnInit()
-    expect(component.blueSkyUrl).toBe('twitter')
+    expect(component.blueSkyUrl).toBe('blueSky')
   })
 
-  it('should use custom facebook URL if configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { facebookUrl: 'facebook' } } }))
+  it('should use custom reddit URL if configured', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { redditUrl: 'reddit' } } }))
     component.ngOnInit()
-    expect(component.redditUrl).toBe('facebook')
+    expect(component.redditUrl).toBe('reddit')
   })
 
   it('should log error while getting application configuration from backend API directly to browser console', fakeAsync(() => {
