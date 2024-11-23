@@ -78,7 +78,7 @@
   "INVALID_COUPON_LENGTH": "O cupão deve possuir {{length}} caracteres.",
   "INVALID_COUPON": "Cupão inválido.",
   "LABEL_COUPON": "Cupão",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "Precisa de um cupão? Siga-nos no <a href='{{twitter}}' target='_blank'>Twitter</a> or <a href='{{facebook}}' target='_blank'>Facebook</a> para receber cupões mensais e mais spam desinteressante!",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Need a coupon code? Follow us on <a href='{{blueSky}}' target='_blank'>BlueSky</a> or <a href='{{reddit}}' target='_blank'>Reddit</a> for monthly coupons and other spam!",
   "BTN_REDEEM": "Resgatar",
   "THANKS_FOR_SUPPORT": "Obrigado por ajudar a {{juiceshop}}!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "Obrigado por suportares este projecto Open Source {{appname}}!",
