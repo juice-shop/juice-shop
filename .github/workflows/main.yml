@@ -38,7 +38,7 @@ jobs:
           EOF
 
       - name: Run TypeScript API Tests
-        run: npm run test:api
+        run: npm run frisby
 
       - name: Install Python dependencies
         run: |
