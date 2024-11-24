@@ -37,8 +37,8 @@ jobs:
           done
           EOF
 
-      - name: Run TypeScript Tests
-        run: npm test
+      - name: Run TypeScript API Tests
+        run: npm run test:API
 
       - name: Install Python dependencies
         run: |
