@@ -18,6 +18,9 @@ import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { TranslateService } from '@ngx-translate/core'
 import { type SecurityQuestion } from '../Models/securityQuestion.model'
 
+import { HttpClient } from '@angular/common/http';
+import { customPasswordValidator, loadCommonPasswords } from './custom-password-validator';
+
 library.add(faUserPlus, faExclamationCircle)
 
 @Component({
@@ -26,8 +29,8 @@ library.add(faUserPlus, faExclamationCircle)
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  public emailControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.email])
-  public passwordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)])
+  public emailControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.email, customPasswordValidator()])
+  public passwordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, customPasswordValidator()])
   public repeatPasswordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, matchValidator(this.passwordControl)])
   public securityQuestionControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
   public securityAnswerControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
@@ -43,7 +46,9 @@ export class RegisterComponent implements OnInit {
     private readonly translateService: TranslateService,
     private readonly snackBar: MatSnackBar,
     private readonly snackBarHelperService: SnackBarHelperService,
-    private readonly ngZone: NgZone) { }
+    private readonly ngZone: NgZone, 
+    private http: HttpClient) {}
+
 
   ngOnInit () {
     this.securityQuestionService.find(null).subscribe((securityQuestions: any) => {
@@ -51,6 +56,7 @@ export class RegisterComponent implements OnInit {
     }, (err) => { console.log(err) })
 
     this.formSubmitService.attachEnterKeyHandler('registration-form', 'registerButton', () => { this.save() })
+    loadCommonPasswords(this.http);
   }
 
   save () {
@@ -85,6 +91,12 @@ export class RegisterComponent implements OnInit {
     })
   }
 }
+
+// custom password validator function
+
+
+
+
 
 function matchValidator (passwordControl: AbstractControl) {
   return function matchOtherValidate (repeatPasswordControl: UntypedFormControl) {
