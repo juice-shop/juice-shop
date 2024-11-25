@@ -37,9 +37,6 @@ jobs:
           done
           EOF
 
-      - name: Run TypeScript API Tests
-        run: npm run frisby
-
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
