@@ -71,8 +71,13 @@ describe('/rest/continue-code', () => {
       .expect('status', 200)
   })
 
-  it('PUT invalid continue code is rejected', () => {
+  it('PUT invalid continue code is rejected (alphanumeric)', () => {
     return frisby.put(REST_URL + '/continue-code/apply/ThisIsDefinitelyNotAValidContinueCode')
+      .expect('status', 404)
+  })
+
+  it('PUT invalid continue code is rejected (non-alphanumeric)', () => {
+    return frisby.put(REST_URL + '/continue-code/apply/%3Cimg%20src=nonexist1%20onerror=alert()%3E')
       .expect('status', 404)
   })
 
@@ -93,8 +98,13 @@ describe('/rest/continue-code-findIt', () => {
       .expect('status', 200)
   })
 
-  it('PUT invalid continue code is rejected', () => {
+  it('PUT invalid continue code is rejected (alphanumeric)', () => {
     return frisby.put(REST_URL + '/continue-code-findIt/apply/ThisIsDefinitelyNotAValidContinueCode')
+      .expect('status', 404)
+  })
+
+  it('PUT completely invalid continue code is rejected (non-alphanumeric)', () => {
+    return frisby.put(REST_URL + '/continue-code-findIt/apply/%3Cimg%20src=nonexist1%20onerror=alert()%3E')
       .expect('status', 404)
   })
 
@@ -110,8 +120,13 @@ describe('/rest/continue-code-fixIt', () => {
       .expect('status', 200)
   })
 
-  it('PUT invalid continue code is rejected', () => {
+  it('PUT invalid continue code is rejected (alphanumeric)', () => {
     return frisby.put(REST_URL + '/continue-code-fixIt/apply/ThisIsDefinitelyNotAValidContinueCode')
+      .expect('status', 404)
+  })
+
+  it('PUT completely invalid continue code is rejected (non-alphanumeric)', () => {
+    return frisby.put(REST_URL + '/continue-code-fixIt/apply/%3Cimg%20src=nonexist1%20onerror=alert()%3E')
       .expect('status', 404)
   })
 
