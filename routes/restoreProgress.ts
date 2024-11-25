@@ -8,11 +8,17 @@ import { type Request, type Response } from 'express'
 import { challenges } from '../data/datacache'
 
 const challengeUtils = require('../lib/challengeUtils')
+const hashidsAlphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+const hashidRegexp = /^[a-zA-Z0-9]+$/
+const invalidContinueCode = 'Invalid continue code.'
 
 module.exports.restoreProgress = function restoreProgress () {
   return ({ params }: Request, res: Response) => {
-    const hashids = new Hashids('this is my salt', 60, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
+    const hashids = new Hashids('this is my salt', 60, hashidsAlphabet)
     const continueCode = params.continueCode
+    if (!hashidRegexp.test(continueCode)) {
+      return res.status(404).send(invalidContinueCode)
+    }
     const ids = hashids.decode(continueCode)
     if (challengeUtils.notSolved(challenges.continueCodeChallenge) && ids.includes(999)) {
       challengeUtils.solve(challenges.continueCodeChallenge)
@@ -27,15 +33,18 @@ module.exports.restoreProgress = function restoreProgress () {
       }
       res.json({ data: ids.length + ' solved challenges have been restored.' })
     } else {
-      res.status(404).send('Invalid continue code.')
+      res.status(404).send(invalidContinueCode)
     }
   }
 }
 
 module.exports.restoreProgressFindIt = function restoreProgressFindIt () {
   return async ({ params }: Request, res: Response) => {
-    const hashids = new Hashids('this is the salt for findIt challenges', 60, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
+    const hashids = new Hashids('this is the salt for findIt challenges', 60, hashidsAlphabet)
     const continueCodeFindIt = params.continueCode
+    if (!hashidRegexp.test(continueCodeFindIt)) {
+      return res.status(404).send(invalidContinueCode)
+    }
     const idsFindIt = hashids.decode(continueCodeFindIt)
     if (idsFindIt.length > 0) {
       for (const key in challenges) {
@@ -47,15 +56,18 @@ module.exports.restoreProgressFindIt = function restoreProgressFindIt () {
       }
       res.json({ data: idsFindIt.length + ' solved challenges have been restored.' })
     } else {
-      res.status(404).send('Invalid continue code.')
+      res.status(404).send(invalidContinueCode)
     }
   }
 }
 
 module.exports.restoreProgressFixIt = function restoreProgressFixIt () {
-  const hashids = new Hashids('yet another salt for the fixIt challenges', 60, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
+  const hashids = new Hashids('yet another salt for the fixIt challenges', 60, hashidsAlphabet)
   return async ({ params }: Request, res: Response) => {
     const continueCodeFixIt = params.continueCode
+    if (!hashidRegexp.test(continueCodeFixIt)) {
+      return res.status(404).send(invalidContinueCode)
+    }
     const idsFixIt = hashids.decode(continueCodeFixIt)
     if (idsFixIt.length > 0) {
       for (const key in challenges) {
@@ -67,7 +79,7 @@ module.exports.restoreProgressFixIt = function restoreProgressFixIt () {
       }
       res.json({ data: idsFixIt.length + ' solved challenges have been restored.' })
     } else {
-      res.status(404).send('Invalid continue code.')
+      res.status(404).send(invalidContinueCode)
     }
   }
 }
