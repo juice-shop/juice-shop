@@ -78,7 +78,7 @@
   "INVALID_COUPON_LENGTH": "Der Guetschiincode muess {{length}} Zeiche läng si.",
   "INVALID_COUPON": "Ungüutige Guetschiin.",
   "LABEL_COUPON": "Guetschiin",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "Du möchtisch ä Guetschiincod? De foug nis uf <a href='{{twitter}}' target='_blank'>Twitter</a> oder <a href='{{facebook}}' target='_blank'>Facebook</a> u überchum monetlech Gueschtiine u no viu meh Spam!",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Du brauchst einen Gutschein? Folge uns auf <a href='{{blueSky}}' target='_self'>BlueSky</a> oder <a href='{{reddit}}' target='_blank'>Reddit</a> und erhalte monatlich Gutscheine und anderen Spam!",
   "BTN_REDEEM": "Ilöse",
   "THANKS_FOR_SUPPORT": "Merci für dini Ungerstützig vo {{juiceshop}}!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "Merci, dass de z Open-Source Projekt hinter {{appname}} ungerschtützisch!",

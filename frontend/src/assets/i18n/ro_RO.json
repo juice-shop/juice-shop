@@ -78,7 +78,7 @@
   "INVALID_COUPON_LENGTH": "Codul cuponului trebuie să aibă {{length}} caractere.",
   "INVALID_COUPON": "Cupon invalid.",
   "LABEL_COUPON": "Cupon",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "Ai nevoie de un cupon? Urmărește-ne pe <a href='{{twitter}}' target='_blank'>Twitter</a> sau <a href='{{facebook}}' target='_blank'>Facebook</a> pentru cupoane și alte spam-uri!",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Need a coupon code? Follow us on <a href='{{blueSky}}' target='_blank'>BlueSky</a> or <a href='{{reddit}}' target='_blank'>Reddit</a> for monthly coupons and other spam!",
   "BTN_REDEEM": "Foloseşte",
   "THANKS_FOR_SUPPORT": "Mulţumim pentru sprijinirea {{juiceshop}}!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "Mulţumim pentru sprijinirea proiectului open source din spatele {{appname}}!",

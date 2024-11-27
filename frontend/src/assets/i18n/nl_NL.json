@@ -78,7 +78,7 @@
   "INVALID_COUPON_LENGTH": "Een waardebon moet {{length}} tekens lang zijn.",
   "INVALID_COUPON": "Ongeldige couponcode.",
   "LABEL_COUPON": "Waardebon",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "Waardebon nodig? Volg ons op <a href='{{twitter}}' target='_blank'>Twitter</a> of <a href='{{facebook}}' target='_blank'>Facebook</a> voor maandelijkse waardebonnen en andere spam!",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Need a coupon code? Follow us on <a href='{{blueSky}}' target='_blank'>BlueSky</a> or <a href='{{reddit}}' target='_blank'>Reddit</a> for monthly coupons and other spam!",
   "BTN_REDEEM": "Inwisselen",
   "THANKS_FOR_SUPPORT": "Bedankt voor het ondersteunen van {{juiceshop}}!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "Bedankt voor jouw steun aan het opensource project acter {{appname}}!",

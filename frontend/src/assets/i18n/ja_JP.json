@@ -78,7 +78,7 @@
   "INVALID_COUPON_LENGTH": "クーポンコードは {{length}} 文字である必要があります",
   "INVALID_COUPON": "無効なクーポンです。",
   "LABEL_COUPON": "クーポン",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "クーポンコードが必要ですか? 毎月のクーポンとスパムのために <a href='{{twitter}}' target='_blank'>Twitter</a> または <a href='{{facebook}}' target='_blank'>Facebook</a> をフォローしてください!",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Need a coupon code? Follow us on <a href='{{blueSky}}' target='_blank'>BlueSky</a> or <a href='{{reddit}}' target='_blank'>Reddit</a> for monthly coupons and other spam!",
   "BTN_REDEEM": "クーポン適用",
   "THANKS_FOR_SUPPORT": "{{juiceshop}}をサポートしていただきありがとうございます!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "{{appname}} の後ろ盾となっているオープンソースプロジェクトのご支援に感謝します。",

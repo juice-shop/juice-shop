@@ -78,7 +78,7 @@
   "INVALID_COUPON_LENGTH": "ဖြတ်ပိုင်း ကုတ်မှာ {{length}} စာလုံးရေ ရှိရပါမည်",
   "INVALID_COUPON": "Invalid coupon.",
   "LABEL_COUPON": "ဖြတ်ပိုင်း",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "ဖြတ်ပိုင်း ကုတ် အလိုရှိပါသလား? <a href='{{twitter}}' target='_blank'>Twitter</a> သို့မဟုတ် <a href='{{facebook}}' target='_blank'>Facebook</a> ကို follow လုပ်ခြင်းဖြင့် လစဉ်ဖြတ်ပိုင်းများကို ရယူပါ",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Need a coupon code? Follow us on <a href='{{blueSky}}' target='_blank'>BlueSky</a> or <a href='{{reddit}}' target='_blank'>Reddit</a> for monthly coupons and other spam!",
   "BTN_REDEEM": "ဖြတ်ပိုင်း ကုတ် ကို အသုံးပြုမည်",
   "THANKS_FOR_SUPPORT": "{{juiceshop}} ကို အားပေးမှုအတွက် ကျေးဇူးအထူးတင်ရှိပါသည် !",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "Thank you for supporting the open source project behind {{appname}}!",

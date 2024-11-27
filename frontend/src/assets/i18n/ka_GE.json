@@ -78,7 +78,7 @@
   "INVALID_COUPON_LENGTH": "კუპონის კოდი უნდა შედგებოდეს მინიმუმ {{length}} სიმბოლოსგან.",
   "INVALID_COUPON": "Invalid coupon.",
   "LABEL_COUPON": "კუპონი",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "გსურთ კუპონი?  გამოგვიწერეთ <a href='{{twitter}}' target='_blank'>Twitter</a> ან <a href='{{facebook}}' target='_blank'>Facebook</a> ყოველთვიური კუპონების და სხვა სპამისთვის.",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Need a coupon code? Follow us on <a href='{{blueSky}}' target='_blank'>BlueSky</a> or <a href='{{reddit}}' target='_blank'>Reddit</a> for monthly coupons and other spam!",
   "BTN_REDEEM": "დაბრუნება/გამოთხოვნა",
   "THANKS_FOR_SUPPORT": "მადლობა რომ ეხმარებით {{juiceshop}}!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "მადლობა რომ ეხმარებით საჯარო პროექტს {{appname}}!",

@@ -78,7 +78,7 @@
   "INVALID_COUPON_LENGTH": "Ο κωδικός κουπονιού πρέπει να έχει μήκος {{length}} χαρακτήρες.",
   "INVALID_COUPON": "Invalid coupon.",
   "LABEL_COUPON": "Κουπόνι",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "Χρειάζεστε κάποιο κωδικό κουπoνιού; Ακολουθήστε μας στο <a href='{{twitter}}' target='_blank'>Twitter</a> ή <a href='{{facebook}}' target='_blank'>Facebook</a> για μηνιαία κουπόνια και άλλο spam!",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Need a coupon code? Follow us on <a href='{{blueSky}}' target='_blank'>BlueSky</a> or <a href='{{reddit}}' target='_blank'>Reddit</a> for monthly coupons and other spam!",
   "BTN_REDEEM": "Εξαργύρωση",
   "THANKS_FOR_SUPPORT": "Ευχαριστούμε που υποστηρίζετε το {{juiceshop}}!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "Ευχαριστούμε που υποστηρίζετε το έργο ανοικτού κώδικα {{appname}}!",
