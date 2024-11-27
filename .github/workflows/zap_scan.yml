@@ -1,6 +1,7 @@
 name: "ZAP Baseline Scan"
 
 on:
+  workflow_dispatch: # enables manual trigger 
   schedule:
     - cron:  '0 18 * * 6'
 
