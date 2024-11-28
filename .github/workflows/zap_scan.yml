@@ -33,7 +33,7 @@ jobs:
         with:
           # Specify the branch to be checked out (e.g., 'develop').
           # If 'develop' doesn't exist, the workflow will fail.
-          ref: msater
+          ref: master
 
       # Step 2: Perform the ZAP Baseline Scan.
       - name: ZAP Scan
