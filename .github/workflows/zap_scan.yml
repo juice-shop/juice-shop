@@ -1,23 +1,57 @@
+# Workflow Name: ZAP Baseline Scan
+# Purpose: Runs a ZAP Baseline security scan against the Juice Shop preview instance hosted on Heroku.
+# This workflow detects security vulnerabilities in the application.
+
 name: "ZAP Baseline Scan"
 
 on:
-  workflow_dispatch: # enables manual trigger 
+  # Enable manual trigger for this workflow.
+  workflow_dispatch: # Allows users to manually start the workflow from the GitHub Actions UI.
+
+  # Schedule the workflow to run automatically at a specific time.
+  # '0 18 * * 6' corresponds to 6:00 PM UTC every Saturday.
   schedule:
-    - cron:  '0 18 * * 6'
+    - cron: '0 18 * * 6'
 
 jobs:
+  # Job Name: zap_scan
+  # Purpose: Executes the ZAP Baseline security scan against the target application.
   zap_scan:
+    # Defines the type of runner to execute the workflow.
+    # 'ubuntu-latest' is a GitHub-hosted runner using the latest version of Ubuntu.
     runs-on: ubuntu-latest
+
+    # A user-friendly name for the job, displayed in the GitHub Actions UI.
     name: Scan Juice Shop preview instance on Heroku
+
+    # Steps executed in sequence as part of the job.
     steps:
+      # Step 1: Check out the repository code.
       - name: Check out Git repository
-        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac #v4.0.0
+        # Uses the GitHub-provided "actions/checkout" action to clone the repository code.
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # Uses a specific commit of v4.0.0 for consistency.
         with:
-          ref: develop
+          # Specify the branch to be checked out (e.g., 'develop').
+          # If 'develop' doesn't exist, the workflow will fail.
+          ref: msater
+
+      # Step 2: Perform the ZAP Baseline Scan.
       - name: ZAP Scan
-        uses: zaproxy/action-baseline@41aee98ebc7cf2802c3beae4e7d4336413a21e43 # v0.9.0
+        # Uses the ZAP Baseline Scan GitHub Action to perform a security scan.
+        uses: zaproxy/action-baseline@41aee98ebc7cf2802c3beae4e7d4336413a21e43 # v0.9.0 for stability and reproducibility.
         with:
+          # Passes the GitHub-provided token to authenticate the action (required for API access).
           token: ${{ secrets.GITHUB_TOKEN }}
+
+          # Specifies the target application URL for the ZAP scan.
+          # In this case, the Juice Shop preview instance hosted on Heroku.
           target: 'https://preview.owasp-juice.shop'
+
+          # Specifies the custom rules file to fine-tune the ZAP scan.
+          # This file (.zap/rules.tsv) defines the rules for allowed or ignored vulnerabilities.
           rules_file_name: '.zap/rules.tsv'
+
+          # Additional command-line options passed to ZAP for scan configuration.
+          # '-a' enables all passive scan rules.
+          # '-j' outputs the scan results in JSON format for easy parsing.
           cmd_options: '-a -j'
