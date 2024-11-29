@@ -1,13 +1,15 @@
 # Admin Registration
 ## How to execute
 
-- Run a local instance of Juice Shop
-
 - Install requirements with `pip install -r requirements.txt`
 
-- Locally execute script `python/exploits/forge_admin_account.py`
+- Locally execute script `python/exploits/forge_admin_account.py [site url]`
 
 - Use the printed credentials to log into your new admin account
+
+- Navigate to `{website_url}/#/administration`
+    - If the exploit succeeded, you will see the admin interface: ![admin interface](../how-to-images/juice-shop-admin-page.jpg) 
+    - If the app is hardened against this attack, you will receive a 403 error page.
 
 ## Why does this work?
 When registering a new account via Juice Shop's web interface, 
