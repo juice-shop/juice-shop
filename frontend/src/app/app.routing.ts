@@ -58,11 +58,6 @@ const loadWeb3SandboxtModule = async () => {
 }
 // vuln-code-snippet start adminSectionChallenge scoreBoardChallenge web3SandboxChallenge
 const routes: Routes = [
-  { // vuln-code-snippet neutral-line adminSectionChallenge
-    path: 'administration', // vuln-code-snippet vuln-line adminSectionChallenge
-    component: AdministrationComponent, // vuln-code-snippet neutral-line adminSectionChallenge
-    canActivate: [AdminGuard] // vuln-code-snippet neutral-line adminSectionChallenge
-  }, // vuln-code-snippet neutral-line adminSectionChallenge
   {
     path: 'accounting',
     component: AccountingComponent,
