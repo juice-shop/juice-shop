@@ -23,4 +23,4 @@ In this case, we have mitigated the risk by removing the `/administration` route
 
 Given a proper administrative setup, the route has no legitimate reason to exist. Administrative utilities for the site can, and likely should, be hosted in a totally private system. How this would be managed depends on organizational needs, but customers and admins should NOT share a user system. 
 
-The privileges of the admin page are limited to viewing users and deleting site reviews, both of which could be quite easily integrated into a simple, server-sequestered utility which queries the site's SQL database.
+The privileges of the admin page are limited to viewing users and deleting site reviews, both of which could be quite easily integrated into a simple, server-sequestered utility that queries the site's SQL database.

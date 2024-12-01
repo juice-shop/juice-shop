@@ -1,21 +1,18 @@
 # Admin Registration
 ## How to execute
 
-- Install requirements with `pip install -r requirements.txt`
+Install requirements with `pip install -r requirements.txt`
 
-- Locally execute script `python/exploits/forge_admin_account.py [site url]`
+Execute script `python/exploits/forge_admin_account.py [site url]`
+- Copy the site's base url, e.g. `https://not-juice-shop.com`, including `https://` but minus additional slashes and subdirectories.
 
-- Use the printed credentials to log into your new admin account
+Use the printed credentials to log into your new admin account
 
-- Navigate to `{website_url}/#/administration`
+If... 
+- ...the exploit succeeds, you will see the console statement "Success!"
+- ...the app is hardened against this attack, you will see the console statement: "App invulnerable to this attack!"
 
-If the exploit succeeded, you will see the admin interface: 
-
-![admin interface](../how-to-images/juice-shop-admin-page.png)
-
-If the app is hardened against this attack, you will receive a 403 error page:
-
-![403 page](../how-to-images/juice-shop-admin-page-403.png)
+To see what you can do with your credentials, follow the [Admin Route How-to](admin-route.md).
 
 ## Why does this work?
 When registering a new account via Juice Shop's web interface, 
