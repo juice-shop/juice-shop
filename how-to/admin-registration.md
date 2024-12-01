@@ -8,8 +8,14 @@
 - Use the printed credentials to log into your new admin account
 
 - Navigate to `{website_url}/#/administration`
-    - If the exploit succeeded, you will see the admin interface: ![admin interface](../how-to-images/juice-shop-admin-page.jpg) 
-    - If the app is hardened against this attack, you will receive a 403 error page.
+
+If the exploit succeeded, you will see the admin interface: 
+
+![admin interface](../how-to-images/juice-shop-admin-page.png)
+
+If the app is hardened against this attack, you will receive a 403 error page:
+
+![403 page](../how-to-images/juice-shop-admin-page-403.png)
 
 ## Why does this work?
 When registering a new account via Juice Shop's web interface, 
