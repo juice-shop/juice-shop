@@ -5,7 +5,7 @@
 
 - Execute script `python/exploits/forge_admin_account.py [site url]`
 
-- Copy the site's base url, e.g. `https://not-juice-shop.com`, including `https://` but minus additional slashes and subdirectories.
+    - Copy the site's base url, e.g. `https://not-juice-shop.com`, including `https://` but minus additional slashes and subdirectories.
 
 - Use the printed credentials to log into your new admin account
 
