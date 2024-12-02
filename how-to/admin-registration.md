@@ -1,4 +1,6 @@
 # Admin Registration
+Targets OWASP vulnerabilities [#10: Server Side Request Forgery](https://owasp.org/Top10/A10_2021-Server-Side_Request_Forgery_%28SSRF%29/) and [#3: Injection](https://owasp.org/Top10/A03_2021-Injection/)
+
 ## How to execute
 
 - Install requirements with `pip install -r requirements.txt`

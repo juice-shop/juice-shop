@@ -1,4 +1,6 @@
 # Admin Route
+Targets OWASP vulnerability [#1 Broken Access Control](https://owasp.org/Top10/A01_2021-Broken_Access_Control/)
+
 ## How to exploit
 
 [Forge admin credentials](admin-registration.md), log in, and then navigate from the base site to `/#/administration`. You will see a list of every site user, and be able to delete customer feedback:

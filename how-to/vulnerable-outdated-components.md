@@ -1,4 +1,6 @@
 # Outdated and Vulnerable Components - Arbitrary File Write
+Targets OWASP vulnerability [#6: Vulnerable and Outdated Components](https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/)
+
 ## How To (Vulnerable Website)
 1. Create and log into an account.
 

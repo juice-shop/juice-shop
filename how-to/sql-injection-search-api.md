@@ -1,4 +1,6 @@
 # SQL Injection - Search API
+Targets OWASP vulnerability [#3: Injection](https://owasp.org/Top10/A03_2021-Injection/)
+
 ## How To (Vulnerable Website)
 1. Go to vulnerable website
 
