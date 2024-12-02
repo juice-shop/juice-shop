@@ -1,4 +1,6 @@
 # Security Misconfiguration - Error Handling
+Targets OWASP vulnerability [#5: Security Misconfiguration](https://owasp.org/Top10/A05_2021-Security_Misconfiguration/)
+
 ## How To (Vulnerable Website)
 1. Go to /FTP page of vulnerable website. 
 <img src="../how-to-images/security-misconfiguration-ftp.png" width="703">
