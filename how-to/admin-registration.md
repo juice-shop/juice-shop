@@ -1,16 +1,17 @@
 # Admin Registration
 ## How to execute
 
-Install requirements with `pip install -r requirements.txt`
+- Install requirements with `pip install -r requirements.txt`
 
-Execute script `python/exploits/forge_admin_account.py [site url]`
+- Execute script `python/exploits/forge_admin_account.py [site url]`
+
 - Copy the site's base url, e.g. `https://not-juice-shop.com`, including `https://` but minus additional slashes and subdirectories.
 
-Use the printed credentials to log into your new admin account
+- Use the printed credentials to log into your new admin account
 
-If... 
-- ...the exploit succeeds, you will see the console statement "Success!"
-- ...the app is hardened against this attack, you will see the console statement: "App invulnerable to this attack!"
+If the exploit succeeds, you will see the console statement "Success!"
+
+If the app is hardened against this attack, you will see the console statement: "App invulnerable to this attack!"
 
 To see what you can do with your credentials, follow the [Admin Route How-to](admin-route.md).
 
