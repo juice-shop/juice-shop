@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-mat-card {
+ mat-card {
   height: auto;
   min-width: 320px;
   width: 25%;
@@ -11,6 +11,18 @@ mat-card {
 
 mat-form-field {
   padding-top: 10px;
+}
+
+// Ensure hints and errors stack properly with spacing
+.mat-hint {
+  display: block; // Force each hint onto its own line
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.mat-error {
+  margin-top: 8px; // Add spacing between errors and hints
+  display: block; // Ensure errors are stacked properly
 }
 
 .form-container {
@@ -40,4 +52,22 @@ mat-form-field {
 
 ::ng-deep mat-option .mat-option-text {
   font-size: 14px;
+}
+
+.password-field {
+  position: relative; /* Set relative positioning on the parent mat-form-field */
+}
+
+.password-visibility-toggle {
+  position: absolute; /* Position the toggle absolutely inside the parent */
+  right: 6px; /* Move the toggle to the far right */
+  top: 50%; /* Vertically center the toggle */
+  transform: translateY(-50%); /* Adjust to center it properly */
+  z-index: 1; /* Ensure it stays on top of other elements */
+
+  /* Resize the toggle button */
+  font-size: 12px; /* Adjust the font size of the toggle */
+  width: 15px; /* Adjust the width */
+  height: 15px; /* Adjust the height */
+  padding: 3; /* Remove extra padding around the button */
 }
