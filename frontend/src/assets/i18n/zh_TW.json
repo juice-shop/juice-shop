@@ -195,7 +195,7 @@
   "BTN_SHOW_ALL": "顯示全部",
   "BTN_SHOW_UNAVAILABLE": "顯示為不可用",
   "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/companion-guide/latest/part1/challenges.html#_potentially_dangerous_challenges'>security concerns</a> or technical incompatibility!",
-  "SHOW_DISABLED_CHALLENGES": "Show them anyways",
+  "SHOW_DISABLED_CHALLENGES": "無論如何都要顯示",
   "HIDE_DISABLED_CHALLENGES": "Hide disabled challenges",
   "BTN_HIDE_ALL": "隱藏全部",
   "TYPE_THESE_LETTERS": "輸入這{{length}}個字",
