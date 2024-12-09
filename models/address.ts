@@ -73,3 +73,4 @@ const AddressModelInit = (sequelize: Sequelize) => {
 }
 
 export { Address as AddressModel, AddressModelInit }
+
