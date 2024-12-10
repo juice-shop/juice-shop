@@ -1,0 +1,45 @@
+name: CI Pipeline with Snyk
+
+# Define when the workflow runs
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Check out the code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Step 2: Set up Node.js environment
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    # Step 3: Install dependencies
+    - name: Install dependencies
+      run: npm install
+
+    # Step 4: Run tests
+    - name: Run tests
+      run: npm test
+
+    # Step 5: Install Snyk CLI
+    - name: Install Snyk CLI
+      run: npm install -g snyk
+
+    # Step 6: Authenticate Snyk
+    - name: Authenticate Snyk
+      run: snyk auth ${{ secrets.SNYK_TOKEN }}
+
+    # Step 7: Run Snyk security scan
+    - name: Run Snyk Test
+      run: snyk test
