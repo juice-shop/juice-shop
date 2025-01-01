@@ -13,6 +13,8 @@ application:
     name: 'Dinis'
     avatar: 'https://pbs.twimg.com/profile_images/552850030105591808/x3i7zK5r_400x400.jpeg'
   social:
+    blueSkyUrl: null
+    mastodonUrl: null
     twitterUrl: 'https://twitter.com/opensecsummit'
     facebookUrl: ~
     slackUrl: 'https://join.slack.com/t/os-summit/shared_invite/zt-eptzb479-POZlYeYI1vaNNZzVatF2ag'

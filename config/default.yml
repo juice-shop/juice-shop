@@ -22,6 +22,8 @@ application:
     defaultResponse: "Sorry I couldn't understand what you were trying to say"
     avatar: 'JuicyChatBot.png'
   social:
+    blueSkyUrl: 'https://bsky.app/profile/owasp-juice.shop'
+    mastodonUrl: 'https://fosstodon.org/@owasp_juiceshop'
     twitterUrl: 'https://twitter.com/owasp_juiceshop'
     facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
     slackUrl: 'https://owasp.org/slack/invite'
