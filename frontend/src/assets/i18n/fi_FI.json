@@ -78,7 +78,7 @@
   "INVALID_COUPON_LENGTH": "Alennuskoodin täytyy olla vähintään {{length}} pitkä",
   "INVALID_COUPON": "Alennuskoodi ei kelpaa",
   "LABEL_COUPON": "Alennuskoodi",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "Tarvitsetko alennuskoodin ? Seuraa meitä  <a href='{{twitter}}' target='_blank'>Twitterissä</a> tai <a href='{{facebook}}' target='_blank'>Facebookissa </a>  josta löytyy kuukauden alennuskoodit ja muuta markkinointisälää.",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Need a coupon code? Follow us on <a href='{{blueSky}}' target='_blank'>BlueSky</a> or <a href='{{reddit}}' target='_blank'>Reddit</a> for monthly coupons and other spam!",
   "BTN_REDEEM": "Lunastus",
   "THANKS_FOR_SUPPORT": "Kiitos tuestasi {{juiceshop}}:lle !",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "Kiitos tuestasi open source projektille, jolla {{appname}} on toteutettu.",
