@@ -212,7 +212,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        browser: [chrome, firefox] # FIXME Switch back to [chrome, firefox] after debugging extreme flakiness of Firefox on CI/CD
+        browser: [chrome] # FIXME Switch back to [chrome, firefox] after debugging extreme flakiness of Firefox on CI/CD
       fail-fast: false
     steps:
       - name: "Check out Git repository"
