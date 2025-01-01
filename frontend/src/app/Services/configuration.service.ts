@@ -29,6 +29,8 @@ export interface Config {
     altcoinName: string
     privacyContactEmail: string
     social: {
+      blueSkyUrl: string
+      mastodonUrl: string
       twitterUrl: string
       facebookUrl: string
       slackUrl: string
