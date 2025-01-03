@@ -1,8 +1,5 @@
-import { Component, Input } from '@angular/core'
-
+import { Component, Input, type OnInit } from '@angular/core'
 import { EnrichedChallenge } from '../../types/EnrichedChallenge'
-
-import { hasInstructions, startHackingInstructorFor } from '../../../../hacking-instructor'
 import { Config } from 'src/app/Services/configuration.service'
 
 @Component({
@@ -10,7 +7,7 @@ import { Config } from 'src/app/Services/configuration.service'
   templateUrl: './challenge-card.component.html',
   styleUrls: ['./challenge-card.component.scss']
 })
-export class ChallengeCardComponent {
+export class ChallengeCardComponent implements OnInit {
   @Input()
   public challenge: EnrichedChallenge
 
@@ -23,6 +20,12 @@ export class ChallengeCardComponent {
   @Input()
   public applicationConfiguration: Config
 
-  public hasInstructions = hasInstructions
-  public startHackingInstructorFor = startHackingInstructorFor
+  public hasInstructions: (challengeName: string) => boolean = () => false
+  public startHackingInstructorFor: (challengeName: string) => Promise<void> = async () => {}
+
+  async ngOnInit () {
+    const { hasInstructions, startHackingInstructorFor } = await import('../../../../hacking-instructor')
+    this.hasInstructions = hasInstructions
+    this.startHackingInstructorFor = startHackingInstructorFor
+  }
 }
