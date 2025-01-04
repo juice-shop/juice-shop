@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -9,9 +9,9 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { FeedbackService } from '../Services/feedback.service'
 import { Gallery, type GalleryRef, GalleryComponent, GalleryImageDef } from 'ng-gallery'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faFacebook, faReddit, faSlack, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { faFacebook, faMastodon, faReddit, faSlack, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { faNewspaper, faStar } from '@fortawesome/free-regular-svg-icons'
-import { faStar as fasStar, faPalette } from '@fortawesome/free-solid-svg-icons'
+import { faStar as fasStar, faPalette, faBold } from '@fortawesome/free-solid-svg-icons'
 import { catchError } from 'rxjs/operators'
 import { EMPTY } from 'rxjs'
 import { MatButtonModule } from '@angular/material/button'
@@ -20,7 +20,7 @@ import { TranslateModule } from '@ngx-translate/core'
 import { MatCardModule } from '@angular/material/card'
 import { FlexModule } from '@angular/flex-layout/flex'
 
-library.add(faFacebook, faTwitter, faSlack, faReddit, faNewspaper, faStar, fasStar, faPalette)
+library.add(faFacebook, faTwitter, faSlack, faReddit, faNewspaper, faStar, fasStar, faPalette, faMastodon, faBold)
 
 @Component({
   selector: 'app-about',
@@ -30,6 +30,8 @@ library.add(faFacebook, faTwitter, faSlack, faReddit, faNewspaper, faStar, fasSt
   imports: [FlexModule, MatCardModule, TranslateModule, GalleryComponent, GalleryImageDef, NgIf, MatButtonModule]
 })
 export class AboutComponent implements OnInit {
+  public blueSkyUrl?: string
+  public mastodonUrl?: string
   public twitterUrl?: string
   public facebookUrl?: string
   public slackUrl?: string
@@ -75,7 +77,13 @@ export class AboutComponent implements OnInit {
         })
       ).subscribe((config) => {
         if (config?.application?.social) {
-          if (config.application.social.twitterUrl) {
+          if (config.application.social.blueSkyUrl) {
+          this.blueSkyUrl = config.application.social.blueSkyUrl
+        }
+        if (config.application.social.mastodonUrl) {
+          this.mastodonUrl = config.application.social.mastodonUrl
+        }
+        if (config.application.social.twitterUrl) {
             this.twitterUrl = config.application.social.twitterUrl
           }
           if (config.application.social.facebookUrl) {
