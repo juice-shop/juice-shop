@@ -78,12 +78,12 @@ export class AboutComponent implements OnInit {
       ).subscribe((config) => {
         if (config?.application?.social) {
           if (config.application.social.blueSkyUrl) {
-          this.blueSkyUrl = config.application.social.blueSkyUrl
-        }
-        if (config.application.social.mastodonUrl) {
-          this.mastodonUrl = config.application.social.mastodonUrl
-        }
-        if (config.application.social.twitterUrl) {
+            this.blueSkyUrl = config.application.social.blueSkyUrl
+          }
+          if (config.application.social.mastodonUrl) {
+            this.mastodonUrl = config.application.social.mastodonUrl
+          }
+          if (config.application.social.twitterUrl) {
             this.twitterUrl = config.application.social.twitterUrl
           }
           if (config.application.social.facebookUrl) {
