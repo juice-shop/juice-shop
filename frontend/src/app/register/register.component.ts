@@ -43,11 +43,11 @@ export class RegisterComponent implements OnInit {
     private readonly translateService: TranslateService,
     private readonly snackBar: MatSnackBar,
     private readonly snackBarHelperService: SnackBarHelperService,
-    private readonly ngZone: NgZone) { 
-      this.passwordControl.valueChanges.subscribe(() => {
-        this.repeatPasswordControl.updateValueAndValidity(); // Trigger revalidation
-      });
-    }
+    private readonly ngZone: NgZone) {
+    this.passwordControl.valueChanges.subscribe(() => {
+      this.repeatPasswordControl.updateValueAndValidity() // Trigger revalidation
+    })
+  }
 
   ngOnInit () {
     this.securityQuestionService.find(null).subscribe((securityQuestions: any) => {
