@@ -78,7 +78,7 @@
   "INVALID_COUPON_LENGTH": "Kupona kodam jābūt {{length}} simbolu garam.",
   "INVALID_COUPON": "Invalid coupon.",
   "LABEL_COUPON": "Kupons",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "Need a coupon code? Follow us on <a href='{{twitter}}' target='_blank'>Twitter</a> or <a href='{{facebook}}' target='_blank'>Facebook</a> for monthly coupons and other spam!",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Need a coupon code? Follow us on <a href='{{blueSky}}' target='_blank'>BlueSky</a> or <a href='{{reddit}}' target='_blank'>Reddit</a> for monthly coupons and other spam!",
   "BTN_REDEEM": "Redeem",
   "THANKS_FOR_SUPPORT": "Paldies ka atbalstat {{juiceshop}}!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "Thank you for supporting the open source project behind {{appname}}!",

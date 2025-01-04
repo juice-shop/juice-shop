@@ -22,6 +22,8 @@ application:
     defaultResponse: "Sorry I couldn't understand what you were trying to say"
     avatar: 'JuicyChatBot.png'
   social:
+    blueSkyUrl: 'https://bsky.app/profile/owasp-juice.shop'
+    mastodonUrl: 'https://fosstodon.org/@owasp_juiceshop'
     twitterUrl: 'https://twitter.com/owasp_juiceshop'
     facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
     slackUrl: 'https://owasp.org/slack/invite'
@@ -405,7 +407,7 @@ products:
     name: 'DSOMM & Juice Shop User Day Ticket'
     description: 'You are going to the OWASP Global AppSec San Francisco 2024? <a href="https://www.eventbrite.com/e/owasp-global-appsec-san-francisco-2024-tickets-723699172707" target="_blank">Get a ticket<sup>*</sup></a> for this amazing side event as well! Check the juice-packed agenda <a href="https://owasp.org/www-project-juice-shop/#div-userday2024" target="_blank">here</a> for all the details!<br><br><small><small><sup>*</sup>=scroll down to <strong>Elevate: DSOMM and Juice Shop User Day (Sept. 25)</strong> after clicking <em>Get Tickets</em> on Eventbrite. Ticket price set to only covers fees for room, AV, and catering throughout the day.</small></small>'
     price: 55.20
-    quantity: 47
+    deletedDate: '2024-09-26'
     limitPerUser: 1
     image: user_day_ticket.png
     reviews:

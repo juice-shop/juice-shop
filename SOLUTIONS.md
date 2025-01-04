@@ -8,7 +8,7 @@ file and open a PR! The same goes for any scripts or automated tools you made fo
 > themselves are not individually tagged! You might not want to view
 > anything from this page before tackling the related challenges
 > yourself! :broken_heart: marks resources which rely on
-> [_some form of cheating_](https://pwning.owasp-juice.shop/part1/rules.html#%E2%9D%8C-things-considered-cheating)
+> [_some form of cheating_](https://pwning.owasp-juice.shop/companion-guide/latest/part1/rules.html#_things_considered_cheating)
 > to solve a challenge.
 >
 > 🧃 is followed by the last known major release of OWASP Juice Shop

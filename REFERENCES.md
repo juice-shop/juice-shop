@@ -134,6 +134,7 @@ mentioned or used!
 
 ### Blogs & Articles
 
+* Blog post on [A Tester's Journey](https://www.lisihocke.com/) by Lisi Hocke: [Open Security Conference 2024 - A Memorable Beginning](https://www.lisihocke.com/2024/10/open-security-conference-2024-a-memorable-beginning.html)
 * Blog post on [OWASP.org](https://owasp.org) by Björn Kimminich: [OWASP Juice Shop 2023 achievements and beyond](https://owasp.org/blog/2023/10/10/juice-shop-2023.html)
 * Article on [Cobalt.io Developer Best Practices](https://developer.cobalt.io/bestpractices/): [Validate User Input](https://developer.cobalt.io/bestpractices/input-validation/)
 * Blog post (:de:) on [Dev-Insider](https://www.dev-insider.de/): [OWASP Juice Shop lädt zum Hacken ein](https://www.dev-insider.de/owasp-juice-shop-laedt-zum-hacken-ein-a-968485/) :godmode:
@@ -315,9 +316,11 @@ mentioned or used!
 
 #### 2024
 
-* :date: [OWASP Juice Shop 10th anniversary: Is it still fresh?](https://opensecurityconference.org/conference/keynotes) keynote by Björn Kimminich, [Open Security Conference](https://opensecurityconference.org/), 04.10.2024
-* :date: [DSOMM & Juice Shop User Day](https://owasp2024globalappsecsanfra.sched.com/event/1gk01/juice-shop-dsomm-user-day-2024) before [OWASP 2024 Global AppSec San Francisco](https://sf.globalappsec.org/) with Timo Pagel, Jannik Hollenbach & Björn Kimminich, 25.09.2024
-* :date: [OWASP Juice Shop](https://owasp2024globalappsecsanfra.sched.com/event/1ivEu/owasp-juiceshop) talk in Project Track of [OWASP 2024 Global AppSec San Francisco](https://sf.globalappsec.org/) by Björn Kimminich, 27.09.2024
+* :date: [OWASP Juice Shop: Advanced Demos & For-fun CTF](https://god.owasp.de/2024/program-detail.html?talk=trainingOne) with Björn Kimminich & Jannik Hollenbach, [German OWASP Day 2024](https://god.owasp.de/2024), 12.11.2024
+* :date: [OWASP Juice Shop 10th anniversary: Is it still fresh?](https://god.owasp.de/2024/program-detail.html?talk=talkOne) by Björn Kimminich, [German OWASP Day 2024](https://god.owasp.de/2024), 13.11.2024
+* [OWASP Juice Shop 10th anniversary: Is it still fresh?](https://opensecurityconference.org/conference/keynotes) keynote by Björn Kimminich, [Open Security Conference](https://opensecurityconference.org/), 04.10.2024
+* [DSOMM & Juice Shop User Day](https://owasp2024globalappsecsanfra.sched.com/event/1gk01/juice-shop-dsomm-user-day-2024) before [OWASP 2024 Global AppSec San Francisco](https://sf.globalappsec.org/) with Timo Pagel, Jannik Hollenbach & Björn Kimminich, 25.09.2024
+* [OWASP Juice Shop](https://owasp2024globalappsecsanfra.sched.com/event/1ivEu/owasp-juiceshop) talk in Project Track of [OWASP 2024 Global AppSec San Francisco](https://sf.globalappsec.org/) by Björn Kimminich, 27.09.2024
 * [Brick your Juice Shop in 319 easy steps](https://www.meetup.com/owasp-hamburg-stammtisch/events/302138351/)
   by Jannik Hollenbach & Björn Kimminich, [69. OWASP Stammtisch Hamburg](https://owasp.org/www-chapter-germany/stammtische/hamburg/), 23.07.2024
 * [OWASP Juice Shop - An Open Source Software and security Fairytale](https://ndc-security.com/agenda/owasp-juice-shop-an-open-source-software-and-security-fairytale-09mg/09ko186cud8) by Björn Kimminich, [NDC Security 2024](https://ndc-security.com/), 11.01.2024

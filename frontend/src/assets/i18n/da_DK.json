@@ -78,7 +78,7 @@
   "INVALID_COUPON_LENGTH": "Kuponkoden skal være {{length}} tegn.",
   "INVALID_COUPON": "Ugyldig rabatkode.",
   "LABEL_COUPON": "Rabatkupon",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "Har du brug for en rabatkode? Følg os på <a href='{{twitter}}' target='_blank'>Twitter</a> eller <a href='{{facebook}}' target='_blank'>Facebook</a> for månedlige rabatkoder og andet spam!",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Need a coupon code? Follow us on <a href='{{blueSky}}' target='_blank'>BlueSky</a> or <a href='{{reddit}}' target='_blank'>Reddit</a> for monthly coupons and other spam!",
   "BTN_REDEEM": "Indløs",
   "THANKS_FOR_SUPPORT": "Tak fordi du støttede {{juiceshop}}!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "Tak fordi du støtter open source-projektet bag {{appname}}!",

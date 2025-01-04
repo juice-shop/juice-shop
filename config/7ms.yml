@@ -15,6 +15,8 @@ application:
     defaultResponse: "Sorry, but \"no comprende\"!"
     avatar: 'https://images.squarespace-cdn.com/content/v1/59f9e1c4d0e6281017434039/94c89793-630d-41a4-9976-91fef527f8d0/BrianJohnson-headshot-2022-2-small.png?format=500w'
   social:
+    blueSkyUrl: null
+    mastodonUrl: null
     twitterUrl: 'https://twitter.com/7MinSec'
     facebookUrl: null
     slackUrl: 'https://7ms.us/slack'

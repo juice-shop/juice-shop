@@ -78,7 +78,7 @@
   "INVALID_COUPON_LENGTH": "Kupon kodu {{length}} simvol uzunluğunda olmalıdır.",
   "INVALID_COUPON": "Etibarsız kupon.",
   "LABEL_COUPON": "Kupon",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "Kupon kodu lazımdır? Aylıq kuponlar və digər spamlar üçün bizi <a href='{{twitter}}' target='_blank'>Twitter</a> və ya <a href='{{facebook}}' target='_blank'>Facebook-da</a> izləyin!",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Need a coupon code? Follow us on <a href='{{blueSky}}' target='_blank'>BlueSky</a> or <a href='{{reddit}}' target='_blank'>Reddit</a> for monthly coupons and other spam!",
   "BTN_REDEEM": "İstifadə et",
   "THANKS_FOR_SUPPORT": "{{juiceshop}}-a dəstək olduğunuz üçün təşəkkürlər!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "{{appname}} arxasındakı açıq mənbəli layihəni dəstəklədiyiniz üçün təşəkkürlər!",
