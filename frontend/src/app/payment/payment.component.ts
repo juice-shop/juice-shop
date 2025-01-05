@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -43,8 +43,8 @@ export class PaymentComponent implements OnInit {
   public couponConfirmation: any
   public couponError: any
   public card: any = {}
-  public twitterUrl = null
-  public facebookUrl = null
+  public blueSkyUrl = null
+  public redditUrl = null
   public applicationName = 'OWASP Juice Shop'
   private campaignCoupon: string
   public couponControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)])
@@ -87,11 +87,11 @@ export class PaymentComponent implements OnInit {
 
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       if (config?.application?.social) {
-        if (config.application.social.twitterUrl) {
-          this.twitterUrl = config.application.social.twitterUrl
+        if (config.application.social.blueSkyUrl) {
+          this.blueSkyUrl = config.application.social.blueSkyUrl
         }
-        if (config.application.social.facebookUrl) {
-          this.facebookUrl = config.application.social.facebookUrl
+        if (config.application.social.redditUrl) {
+          this.redditUrl = config.application.social.redditUrl
         }
         if (config.application.name) {
           this.applicationName = config.application.name

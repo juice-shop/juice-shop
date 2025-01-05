@@ -78,7 +78,7 @@
   "INVALID_COUPON_LENGTH": "優惠券代碼必須是 {{length}} 字符長。",
   "INVALID_COUPON": "Invalid coupon.",
   "LABEL_COUPON": "優惠券",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "需要優惠券代碼？關注我們的 <a href='{{twitter}}' target='_blank'>Twitter</a> 或 <a href='{{facebook}}' target='_blank'>Facebook</a> 以獲取每月優惠券和其他垃圾資訊！",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Need a coupon code? Follow us on <a href='{{blueSky}}' target='_blank'>BlueSky</a> or <a href='{{reddit}}' target='_blank'>Reddit</a> for monthly coupons and other spam!",
   "BTN_REDEEM": "兌換",
   "THANKS_FOR_SUPPORT": "感謝您對 {{juiceshop}} 的支持！",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "感謝您對 {{appname}} 背後開源項目的支持！",
