@@ -1,6 +1,6 @@
 # OWASP Juice Shop Demo Set up
 
-his project uses Docker Scout to perform software composition analysis (SCA) on the containerized Juice Shop application.
+his project uses Docker Scout to perform container scanning to find vulnerabilities in the packages used in the containerized Juice Shop application.
 
 To experience Docker Scout, you will need a  [Docker account](https://app.docker.com/signup).  A free personal account can be used to run Docker Scout for one image.  
 
@@ -33,7 +33,7 @@ The homepage will then be available at <http://localhost:3000>
 
 ![Juice Shop Screenshot](screenshots/juice_shop.png)
 
-## Use Docker Scout for SCA
+## Use Docker Scout for Container Vulnerabilities
 
 You can run Docker Scout on the local image by running the command:
 
