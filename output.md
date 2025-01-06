@@ -38,3 +38,5 @@ That will provide a summary of the vulnerabilities found and prompt you with add
 
 ![Docker Scout Results](screenshots/scout_results.png)
 
+
+
