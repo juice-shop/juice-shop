@@ -21,7 +21,7 @@
 
 6. What is FOSS?
 
- - Free an open source software - code that is publicly available for software development organizations to use and contribute back to. 
+ - Free and open source software - code that is publicly available for software development organizations to use and contribute back to. 
  							
 7. What is a package manager?
  - It’s a mechanism for securely publishing, managing, and consuming software libraries for a specific coding framework.  Different package managers used for Javascript (npm or yarn), Java (gradle or maven), Python (pypi), and ruby (bundler).  The source code repository typically contains a file that specifies what packages and versions are needed as dependencies to build an application, and the packages are pulled from the specified repository and install them.
@@ -39,10 +39,10 @@
  - Cloud security posture management - the ability to understand all potential security threats for a cloud-based application and relationships between these threats in order to prioritize remediation efforts to maintain a secure application
  							
 12. What is SAST? What is DAST? What are the main differences?
- - SAST is Static Application Security Testing and DAST is Dynamic Application Security Testing.  SASTS scans the source code to look for patterns that are known as common security weaknesses.  SAST is commonly used early in the SDLC to make developers aware of code that might introduce new vulnerabilities so it can be fixed prior to being pushed to production.  However, many SAST scanners produce many false positives where the specific code flagged is not actually insecure.  DAST, on the other hand, is Dynamic Application Security Testing - it runs against a running web application (in an ephemeral or test environment, not in production).  It crawls the web application to find every path through it - through buttons, forms, links, etc and then simulates real-world attacks  to try to gain access to sensitive data or bring down the web server.
+ - SAST is Static Application Security Testing and DAST is Dynamic Application Security Testing.  SAST scans the source code to look for patterns that are known as common security weaknesses.  SAST is commonly used early in the SDLC to make developers aware of code that might introduce new vulnerabilities so it can be fixed prior to being pushed to production.  However, many SAST scanners produce many false positives where the specific code flagged is not actually insecure.  DAST, on the other hand, is Dynamic Application Security Testing - it runs against a running web application (in an ephemeral or test environment, not in production).  It crawls the web application to find every path through it via buttons, forms, links, etc and then simulates real-world attacks  to try to gain access to sensitive data or bring down the web server.
  							
 13. What is SLSA? What are the security levels?
- - Supply chain levels for software artifacts - it’s a set of policies and controls to ensure the security and authenticity of software artifacts across the software supply chain (build, test, and distribution).  There are 4 levels, 0 - 3, each with its own specifications.  Each level progressively builds on the previous levels to provide additional security controls
+ - Supply chain levels for software artifacts - it’s a set of policies and controls to ensure the security and authenticity of software artifacts across the software supply chain (build, test, and distribution).  There are 4 levels, 0 - 3, each with its own specifications.  Each level progressively builds on the previous levels to provide additional security controls.
 
 
 
