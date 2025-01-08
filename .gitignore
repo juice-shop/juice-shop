@@ -1,5 +1,11 @@
 # App
-node_modules/
+
+# Ignore everything in node_modules
+/node_modules/*
+
+# Allow the specific package-lock.json file
+!/node_modules/.package-lock.json
+
 juiceshop.sqlite
 order_*.pdf
 app/
