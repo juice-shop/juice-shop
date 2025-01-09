@@ -301,7 +301,7 @@ describe('/rest/2fa/setup', () => {
       .expect('status', 401)
   })
 
-  it('POST should fail if the inital token is incorrect', async () => {
+  it('POST should fail if the initial token is incorrect', async () => {
     const email = 'fooooo3@bar.com'
     const password = '123456'
 
