@@ -1,0 +1,32 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
+
+- bash: |
+    curl -fLsS -o bridge.zip $BRIDGECLI_LINUX64 && unzip -qo -d $(Agent.TempDirectory) bridge.zip && rm -f bridge.zip
+    $(Agent.TempDirectory)/bridge-cli --stage polaris
+  env:
+    POLARIS_SERVER_URL: $(POLARIS_SERVER_URL)
+    POLARIS_ACCESS_TOKEN: $(POLARIS_ACCESS_TOKEN)
+    POLARIS_ASSESSMENT_TYPES: 'SAST'
+    POLARIS_APPLICATION_NAME: 'tenju-test'
+    POLARIS_PROJECT_NAME: 'juice-shop'
+    POLARIS_BRANCH_NAME: 'master'
+    POLARIS_REPORTS_SARIF_CREATE: true
+  displayName: 'Polaris Full Scan'
