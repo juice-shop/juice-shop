@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  name: windows-tenju
+  name: Default
 
 steps:
 - script: echo Hello, world!
