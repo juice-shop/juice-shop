@@ -5,6 +5,7 @@
 
 # Allow the specific package-lock.json file
 !/node_modules/.package-lock.json
+*.code-workspace
 
 juiceshop.sqlite
 order_*.pdf
