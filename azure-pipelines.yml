@@ -17,9 +17,9 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
-
-- bash: |
-    $(BRIDGE_PATH)/bridge-cli --stage polaris
+- task: CmdLine@2
+  inputs:
+    script: '$(BRIDGE_PATH)/bridge-cli --stage polaris'
   env:
     POLARIS_SERVER_URL: $(POLARIS_SERVER_URL)
     POLARIS_ACCESS_TOKEN: $(POLARIS_ACCESS_TOKEN)
