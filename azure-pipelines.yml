@@ -21,6 +21,6 @@ steps:
   inputs:
     scanType: 'polaris'
     polarisServerUrl: $(POLARIS_SERVER_URL)
-    polarisAccessToken: $(POLARIS_ACCESS_TOKEN)
+    polarisAccessToken: 's4jpgckfat47f3dcaebrc486ljgdueq6h1hkr3kc7vtdta5rjo176u1b6u17ahuh78onjns5bdjs4'
     polarisAssessmentTypes: 'SAST'
   displayName: Polaris Scan
