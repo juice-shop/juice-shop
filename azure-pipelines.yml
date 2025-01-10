@@ -17,15 +17,10 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
-- task: CmdLine@2
+- task: BlackDuckSecurityScan@2
   inputs:
-    script: '$(BRIDGE_PATH)/bridge-cli --stage polaris'
-  env:
-    POLARIS_SERVER_URL: $(POLARIS_SERVER_URL)
-    POLARIS_ACCESS_TOKEN: $(POLARIS_ACCESS_TOKEN)
-    POLARIS_ASSESSMENT_TYPES: 'SAST'
-    POLARIS_APPLICATION_NAME: 'tenju-test'
-    POLARIS_PROJECT_NAME: 'juice-shop'
-    POLARIS_BRANCH_NAME: 'master'
-    POLARIS_REPORTS_SARIF_CREATE: true
-  displayName: 'Polaris Full Scan'
+    scanType: 'polaris'
+    polarisServerUrl: $(POLARIS_SERVER_URL)
+    polarisAccessToken: $(POLARIS_ACCESS_TOKEN)
+    polarisAssessmentTypes: 'SAST'
+  displayName: Polaris Scan
