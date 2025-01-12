@@ -41,6 +41,7 @@ out/
 *.iml
 *.iws
 *.swp
+*.code-workspace
 
 # Branch ghpages
 assets/
