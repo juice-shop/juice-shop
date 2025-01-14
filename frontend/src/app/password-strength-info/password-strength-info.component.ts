@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core'
 import { PasswordStrengthComponent } from '../password-strength/password-strength.component'
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card'
+import { MatIconModule } from '@angular/material/icon'
 
 @Component({
   selector: 'app-password-strength-info',
@@ -16,29 +16,28 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './password-strength-info.component.scss'
 })
 export class PasswordStrengthInfoComponent implements OnInit {
+  @Input()
+    passwordComponent: PasswordStrengthComponent
 
   @Input()
-  passwordComponent: PasswordStrengthComponent;
+    enableScoreInfo = false
 
   @Input()
-  enableScoreInfo = false;
+    lowerCaseCriteriaMsg = 'contains at least one lower character'
 
   @Input()
-  lowerCaseCriteriaMsg = 'contains at least one lower character';
+    upperCaseCriteriaMsg = 'contains at least one upper character'
 
   @Input()
-  upperCaseCriteriaMsg = 'contains at least one upper character';
+    digitsCriteriaMsg = 'contains at least one digit character'
 
   @Input()
-  digitsCriteriaMsg = 'contains at least one digit character';
+    specialCharsCriteriaMsg = 'contains at least one special character'
 
   @Input()
-  specialCharsCriteriaMsg = 'contains at least one special character';
+    minCharsCriteriaMsg: string
 
-  @Input()
-  minCharsCriteriaMsg: string;
-
-  ngOnInit(): void {
+  ngOnInit (): void {
     if (!this.minCharsCriteriaMsg) {
       this.minCharsCriteriaMsg = `contains at least ${this.passwordComponent.minLength} characters`
     }
