@@ -59,7 +59,7 @@ steps:
   displayName: "Upload Report to DefectDojo"
   continueOnError: true
 
-# Step 6: Check for Secrets and Fail Build
+# Step 6: Check for Secrets and Fail Build - Build Break
 - script: |
     if [ -s $(reportPath) ]; then
       echo "Secrets detected. Failing the build."
