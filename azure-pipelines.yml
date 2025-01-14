@@ -1,0 +1,70 @@
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  reportPath: '$(Build.ArtifactStagingDirectory)/gitleaks_report.json'
+
+steps:
+# Step 1: Checkout Repository
+- checkout: self
+  displayName: "Checkout Repository"
+
+# Step 2: Create Artifact Staging Directory
+- script: |
+    echo "Creating artifact staging directory..."
+    mkdir -p $(Build.ArtifactStagingDirectory)
+  displayName: "Prepare Artifact Staging Directory"
+
+# Step 3: Pull and Run Gitleaks Docker Image
+- script: |
+    echo "Pulling Gitleaks Docker image..."
+    docker pull zricethezav/gitleaks:latest
+    echo "Running Gitleaks scan..."
+    docker run --rm \
+      -v $(System.DefaultWorkingDirectory):/repo \
+      -v $(Build.ArtifactStagingDirectory):/output \
+      zricethezav/gitleaks:latest detect \
+      --source /repo \
+      --report-format json \
+      --report-path /output/gitleaks_report.json
+  displayName: "Run Gitleaks with Docker"
+  continueOnError: true
+
+# Step 4: Print Gitleaks Report
+- script: |
+    echo "Gitleaks Report Output:"
+    cat $(reportPath)
+  displayName: "Print Gitleaks Report"
+
+# Step 4: Print Gitleaks Report
+- script: |
+    echo "Gitleaks Report Output:"
+    cat $(reportPath)
+  displayName: "Print Gitleaks Report"
+
+# Step 5: Upload Gitleaks Report to DefectDojo
+- script: |
+    echo "Uploading report to DefectDojo..."
+    curl -X POST "http://20.244.37.70:8080/api/v2/import-scan/" \
+      -H "Authorization: Token 334e5c5163069f478135c5a5fd411358e35debd8" \
+      -H "Content-Type: multipart/form-data" \
+      -F "scan_type=Gitleaks Scan" \
+      -F "file=@$(reportPath)" \
+      -F "engagement=4" \
+      -F "verified=False" \
+      -F "active=True"
+  displayName: "Upload Report to DefectDojo"
+  continueOnError: true
+
+# Step 6: Check for Secrets and Fail Build
+- script: |
+    if [ -s $(reportPath) ]; then
+      echo "Secrets detected. Failing the build."
+      exit 1
+    else
+      echo "No secrets detected."
+    fi
+  displayName: "Validate Gitleaks Report"
