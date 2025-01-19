@@ -11,9 +11,8 @@ import path from 'path'
 import * as utils from '../lib/utils'
 import { challenges } from '../data/datacache'
 
-const libxml = require('libxmljs')
-const vm = require('vm')
-const unzipper = require('unzipper')
+import { XmlDocument, ParseOption } from 'libxml2-wasm'
+import unzipper from 'unzipper'
 
 function ensureFileIsPassed ({ file }: Request, res: Response, next: NextFunction) {
   if (file != null) {
@@ -72,13 +71,14 @@ function checkFileType ({ file }: Request, res: Response, next: NextFunction) {
 function handleXmlUpload ({ file }: Request, res: Response, next: NextFunction) {
   if (utils.endsWith(file?.originalname.toLowerCase(), '.xml')) {
     challengeUtils.solveIf(challenges.deprecatedInterfaceChallenge, () => { return true })
-    if (((file?.buffer) != null) && utils.isChallengeEnabled(challenges.deprecatedInterfaceChallenge)) { // XXE attacks in Docker/Heroku containers regularly cause "segfault" crashes
+    if (((file?.buffer) != null) && utils.isChallengeEnabled(challenges.deprecatedInterfaceChallenge)) {
       const data = file.buffer.toString()
       try {
-        const sandbox = { libxml, data }
-        vm.createContext(sandbox)
-        const xmlDoc = vm.runInContext('libxml.parseXml(data, { noblanks: true, noent: true, nocdata: true })', sandbox, { timeout: 2000 })
-        const xmlString = xmlDoc.toString(false)
+        // Use libxml2-wasm for XML parsing
+        const parseOptions = { option: ParseOption.XML_PARSE_NOENT };
+        const xmlDoc = XmlDocument.fromString(data, parseOptions);
+        const xmlString = xmlDoc.toString();
+        xmlDoc.dispose(); // Dispose to avoid memory leaks
         challengeUtils.solveIf(challenges.xxeFileDisclosureChallenge, () => { return (utils.matchesEtcPasswdFile(xmlString) || utils.matchesSystemIniFile(xmlString)) })
         res.status(410)
         next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + utils.trunc(xmlString, 400) + ' (' + file.originalname + ')'))
