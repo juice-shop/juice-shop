@@ -154,16 +154,16 @@
 
 @mixin snackbar($theme) {
   .mat-mdc-snack-bar-container {
-    --mdc-snackbar-container-color: mat.get-color-from-palette(map-get($theme, background), card) !important;
-    --mdc-snackbar-supporting-text-color: mat.get-color-from-palette(map-get($theme, foreground), text) !important;
+    --mdc-snackbar-container-color: var(--theme-background-lighter);
+    --mdc-snackbar-supporting-text-color: var(--theme-text);
   }
 
   .mat-mdc-snack-bar-container.errorBar {
-    --mdc-snackbar-supporting-text-color: mat.get-color-from-palette(map-get($theme, warn)) !important;
+    --mdc-snackbar-supporting-text-color: var(--theme-warn);
   }
 
   .mat-mdc-snack-bar-container.confirmBar {
-    --mdc-snackbar-supporting-text-color: mat.get-color-from-palette(map-get($theme, accent)) !important;
+    --mdc-snackbar-supporting-text-color: var(--theme-accent);
   }
 }
 
