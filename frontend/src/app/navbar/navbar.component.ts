@@ -188,7 +188,8 @@ export class NavbarComponent implements OnInit {
       this.shortKeyLang = language.shortKey
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       const snackBarRef = this.snackBar.open(`Language has been changed to ${language.lang}`, 'Force page reload', {
-        duration: 5000
+        duration: 5000,
+        panelClass: ['mat-body']
       })
       snackBarRef.onAction().subscribe(() => {
         location.reload()

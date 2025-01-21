@@ -18,12 +18,12 @@ export class SnackBarHelperService {
     this.translateService.get(message).subscribe((translatedMessage) => {
       this.snackBar.open(translatedMessage, 'X', {
         duration: 5000,
-        panelClass: cssClass
+        panelClass: [cssClass, 'mat-body']
       })
     }, () => {
       this.snackBar.open(message, 'X', {
         duration: 5000,
-        panelClass: cssClass
+        panelClass: [cssClass, 'mat-body']
       })
     })
   }
