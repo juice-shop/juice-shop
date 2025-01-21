@@ -110,7 +110,7 @@
       <mat-radio-button (click)="changeLanguage(language.key)" *ngFor="let language of languages" [value]="language"
                         class="mat-menu-item" style="width: 240px;" checked="{{selectedLanguage === language}}"
                         aria-label="{{language.lang}}">
-        <div style="display: inline-block; width: 200px; margin-left: 5px;">
+        <div class="mat-body" style="display: inline-block; width: 200px; margin-left: 5px;">
           <span *ngFor="let icon of language.icons" [class]="'fi fi-' + icon"></span>
           {{language?.lang}}
         </div>
