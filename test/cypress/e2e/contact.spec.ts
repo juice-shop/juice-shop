@@ -21,7 +21,7 @@ describe('/#/contact', () => {
 
       cy.get('#userId').clear().type('2')
       cy.get('#comment').type('Picard stinks!')
-      cy.get('#rating').click()
+      cy.get('#rating').focus().type('{rightarrow}{rightarrow}{rightarrow}')
       cy.get('#submitButton').click()
 
       cy.visit('/#/administration')
@@ -57,7 +57,7 @@ describe('/#/contact', () => {
           cy.get('#comment').type(
             '<<script>Foo</script>iframe src="javascript:alert(`xss`)">'
           )
-          cy.get('#rating').click()
+          cy.get('#rating').focus().type('{rightarrow}{rightarrow}{rightarrow}')
           cy.get('#submitButton').click()
 
           cy.visit('/#/about')
@@ -79,7 +79,7 @@ describe('/#/contact', () => {
     it('should be possible to post known vulnerable component(s) as feedback', () => {
       cy.get('#comment').type('sanitize-html 1.4.2 is non-recursive.')
       cy.get('#comment').type('express-jwt 0.1.3 has broken crypto.')
-      cy.get('#rating').click()
+      cy.get('#rating').focus().type('{rightarrow}{rightarrow}{rightarrow}')
 
       cy.get('#submitButton').click()
       cy.expectChallengeSolved({ challenge: 'Vulnerable Library' })
@@ -91,7 +91,7 @@ describe('/#/contact', () => {
       cy.get('#comment').type(
         'The following libraries are bad for crypto: z85, base85, md5 and hashids'
       )
-      cy.get('#rating').click()
+      cy.get('#rating').focus().type('{rightarrow}{rightarrow}{rightarrow}')
       cy.get('#submitButton').click()
       cy.expectChallengeSolved({ challenge: 'Weird Crypto' })
     })
@@ -102,7 +102,7 @@ describe('/#/contact', () => {
       cy.get('#comment').type(
         'You are a typosquatting victim of this NPM package: epilogue-js'
       )
-      cy.get('#rating').click()
+      cy.get('#rating').focus().type('{rightarrow}{rightarrow}{rightarrow}')
       cy.get('#submitButton').click()
       cy.expectChallengeSolved({ challenge: 'Legacy Typosquatting' })
     })
@@ -113,7 +113,7 @@ describe('/#/contact', () => {
       cy.get('#comment').type(
         'You are a typosquatting victim of this NPM package: ngy-cookie'
       )
-      cy.get('#rating').click()
+      cy.get('#rating').focus().type('{rightarrow}{rightarrow}{rightarrow}')
       cy.get('#submitButton').click()
       cy.expectChallengeSolved({ challenge: 'Frontend Typosquatting' })
     })
@@ -124,7 +124,7 @@ describe('/#/contact', () => {
       cy.get('#comment').type(
         'Pickle Rick is hiding behind one of the support team ladies'
       )
-      cy.get('#rating').click()
+      cy.get('#rating').focus().type('{rightarrow}{rightarrow}{rightarrow}')
       cy.get('#submitButton').click()
       cy.expectChallengeSolved({ challenge: 'Steganography' })
     })
@@ -228,7 +228,7 @@ describe('/#/contact', () => {
       cy.get('#comment').type(
         'Turn on 2FA! Now!!! https://github.com/eslint/eslint-scope/issues/39'
       )
-      cy.get('#rating').click()
+      cy.get('#rating').focus().type('{rightarrow}{rightarrow}{rightarrow}')
       cy.get('#submitButton').click()
       cy.expectChallengeSolved({ challenge: 'Supply Chain Attack' })
     })
@@ -241,7 +241,7 @@ describe('/#/contact', () => {
           pastebinLeakProduct.keywordsForPastebinDataLeakChallenge ? pastebinLeakProduct.keywordsForPastebinDataLeakChallenge.toString() : '?'
         )
       })
-      cy.get('#rating').click()
+      cy.get('#rating').focus().type('{rightarrow}{rightarrow}{rightarrow}')
       cy.get('#submitButton').click()
       cy.expectChallengeSolved({ challenge: 'Leaked Unsafe Product' })
     })
