@@ -61,7 +61,8 @@ export class LocalBackupService {
         this.restoreCookie('continueCode', backup.continueCode)
 
         const snackBarRef = this.snackBar.open('Backup has been restored from ' + backupFile.name, 'Apply changes now', {
-          duration: 10000
+          duration: 10000,
+          panelClass: ['mat-body']
         })
         snackBarRef.onAction().subscribe(() => {
           const hackingProgress = backup.continueCode ? this.challengeService.restoreProgress(encodeURIComponent(backup.continueCode)) : of(true)
