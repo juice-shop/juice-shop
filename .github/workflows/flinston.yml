@@ -1,0 +1,20 @@
+name: Dependency Vetting
+
+on:
+  pull_request:
+    paths:
+      - '**/*'
+
+jobs:
+  vet-dependencies:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run SafeDep Vet-Action
+        uses: safedep/vet-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fail_on_severity: high
