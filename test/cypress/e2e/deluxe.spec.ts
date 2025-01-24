@@ -5,7 +5,7 @@ describe('/#/deluxe-membership', () => {
       cy.location().then((loc) => {
         cy.visit(
           `/#/deluxe-membership?testDecal=${encodeURIComponent(
-            `../../..${loc.pathname}/redirect?to=https://placekitten.com/g/200/100?x=https://github.com/juice-shop/juice-shop`
+            `../../..${loc.pathname}/redirect?to=https://placecats.com/g/200/100?x=https://github.com/juice-shop/juice-shop`
           )}`
         )
       })

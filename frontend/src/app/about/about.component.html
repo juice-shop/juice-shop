@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
   -->
 
@@ -42,8 +42,14 @@
                  [imageUrls]="slideshowDataSource">
       </slideshow>
 
-      <div *ngIf="twitterUrl || facebookUrl" class="social">
+      <div *ngIf="blueSkyUrl || mastodonUrl || twitterUrl || facebookUrl || slackUrl || redditUrl || pressKitUrl || nftUrl" class="social">
         <h3><span translate="">SECTION_SOCIAL_MEDIA</span></h3>
+        <a *ngIf="blueSkyUrl" [href]="blueSkyUrl" target="_blank" rel="noopener noreferrer" style="margin-left: 0px;" aria-label="Button for the BlueSky page of the shop">
+          <button mat-raised-button color="accent"><i class="fas fa-bold fa-lg"></i> BlueSky</button>
+        </a>
+        <a *ngIf="mastodonUrl" [href]="mastodonUrl" target="_blank" rel="noopener noreferrer" style="margin-left: 0px;" aria-label="Button for the Mastodon page of the shop">
+          <button mat-raised-button color="accent"><i class="fab fa-mastodon fa-lg"></i> Mastodon</button>
+        </a>
         <a *ngIf="twitterUrl" [href]="twitterUrl" target="_blank" rel="noopener noreferrer" style="margin-left: 0px;" aria-label="Button for the Twitter page of the shop">
           <button mat-raised-button color="accent"><i class="fab fa-twitter fa-lg"></i> Twitter</button>
         </a>
