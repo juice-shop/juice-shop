@@ -18,7 +18,7 @@ describe('/#/administration', () => {
     it('should be possible for any admin user to delete feedback', () => {
       cy.visit('/#/administration')
       cy.wait(1000)
-      cy.get('.mat-cell.mat-column-remove > button').first().click()
+      cy.get('.mat-mdc-cell.mat-column-remove > button').first().click()
       cy.expectChallengeSolved({ challenge: 'Five-Star Feedback' })
     })
   })
