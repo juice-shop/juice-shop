@@ -29,7 +29,7 @@ export class TwoFactorAuthComponent {
 
   public twoFactorSetupForm: UntypedFormGroup = new UntypedFormGroup({
     passwordControl: new UntypedFormControl('', [Validators.required]),
-    initalTokenControl: new UntypedFormControl('', [Validators.required, Validators.pattern('^[\\d]{6}$')])
+    initialTokenControl: new UntypedFormControl('', [Validators.required, Validators.pattern('^[\\d]{6}$')])
   })
 
   public twoFactorDisableForm: UntypedFormGroup = new UntypedFormGroup({
@@ -73,14 +73,14 @@ export class TwoFactorAuthComponent {
   setup () {
     this.twoFactorAuthService.setup(
       this.twoFactorSetupForm.get('passwordControl')?.value,
-      this.twoFactorSetupForm.get('initalTokenControl')?.value,
+      this.twoFactorSetupForm.get('initialTokenControl')?.value,
       this.setupToken
     ).subscribe(() => {
       this.setupStatus = true
       this.snackBarHelperService.open('CONFIRM_2FA_SETUP')
     }, () => {
       this.twoFactorSetupForm.get('passwordControl')?.markAsPristine()
-      this.twoFactorSetupForm.get('initalTokenControl')?.markAsPristine()
+      this.twoFactorSetupForm.get('initialTokenControl')?.markAsPristine()
       this.errored = true
     })
   }
