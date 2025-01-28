@@ -301,7 +301,7 @@ contract HelloWorld {
       console.log('session', this.session)
       this.changeDetectorRef.detectChanges()
     } catch (err) {
-      console.log('An error occured')
+      console.log('An error occurred')
     }
   }
 }
