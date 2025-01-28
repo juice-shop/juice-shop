@@ -5,7 +5,7 @@ describe('/api', () => {
     })
 
     // Cypress alert bug
-    // The challege also passes but its just that cypress freezes and is unable to perform any action
+    // The challenge also passes but its just that cypress freezes and is unable to perform any action
     xit('should be possible to create a new product when logged in', () => {
       cy.task('isDocker').then((isDocker) => {
         if (!isDocker) {

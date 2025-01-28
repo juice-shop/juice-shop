@@ -114,7 +114,7 @@ describe('/#/login', () => {
   })
 
   describe('challenge "twoFactorAuthUnsafeSecretStorage"', () => {
-    it('should be able to log into a exsisting 2fa protected account given the right token', () => {
+    it('should be able to log into a existing 2fa protected account given the right token', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
           cy.get('#email').type(`wurstbrot@${appDomain}'--`)
