@@ -9,7 +9,7 @@ describe('/#/photo-wall', () => {
         (answer: string) => {
           cy.task<string>('GetFromConfig', 'application.domain').then((appDomain: string) => {
             cy.get('#email').type(`john@${appDomain}`)
-            cy.get('#securityAnswer').type(answer)
+            cy.get('#securityAnswer').type(answer, { force: true })
             cy.get('#newPassword').type('123456')
             cy.get('#newPasswordRepeat').type('123456')
             cy.get('#resetButton').click()
@@ -27,7 +27,7 @@ describe('/#/photo-wall', () => {
         (answer: string) => {
           cy.task<string>('GetFromConfig', 'application.domain').then((appDomain: string) => {
             cy.get('#email').type(`emma@${appDomain}`)
-            cy.get('#securityAnswer').type(answer)
+            cy.get('#securityAnswer').type(answer, { force: true })
             cy.get('#newPassword').type('123456')
             cy.get('#newPasswordRepeat').type('123456')
             cy.get('#resetButton').click()
