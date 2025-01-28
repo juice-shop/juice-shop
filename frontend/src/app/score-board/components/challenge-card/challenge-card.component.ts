@@ -1,8 +1,5 @@
-import { Component, Input } from '@angular/core'
-
+import { Component, Input, type OnInit } from '@angular/core'
 import { EnrichedChallenge } from '../../types/EnrichedChallenge'
-
-import { hasInstructions, startHackingInstructorFor } from '../../../../hacking-instructor'
 import { Config } from 'src/app/Services/configuration.service'
 import { ChallengeHintPipe } from '../../pipes/challenge-hint.pipe'
 import { TranslateModule } from '@ngx-translate/core'
@@ -18,7 +15,7 @@ import { DifficultyStarsComponent } from '../difficulty-stars/difficulty-stars.c
   standalone: true,
   imports: [DifficultyStarsComponent, NgFor, MatTooltip, NgIf, MatIconModule, NgClass, AsyncPipe, TranslateModule, ChallengeHintPipe]
 })
-export class ChallengeCardComponent {
+export class ChallengeCardComponent implements OnInit {
   @Input()
   public challenge: EnrichedChallenge
 
@@ -31,6 +28,12 @@ export class ChallengeCardComponent {
   @Input()
   public applicationConfiguration: Config
 
-  public hasInstructions = hasInstructions
-  public startHackingInstructorFor = startHackingInstructorFor
+  public hasInstructions: (challengeName: string) => boolean = () => false
+  public startHackingInstructorFor: (challengeName: string) => Promise<void> = async () => {}
+
+  async ngOnInit () {
+    const { hasInstructions, startHackingInstructorFor } = await import('../../../../hacking-instructor')
+    this.hasInstructions = hasInstructions
+    this.startHackingInstructorFor = startHackingInstructorFor
+  }
 }
