@@ -105,7 +105,7 @@ describe('TwoFactorAuthComponent', () => {
     twoFactorAuthService.setup.and.returnValue(of({}))
     component.setupStatus = false
     component.twoFactorSetupForm.get('passwordControl').setValue('password')
-    component.twoFactorSetupForm.get('initalTokenControl').setValue('12345')
+    component.twoFactorSetupForm.get('initialTokenControl').setValue('12345')
 
     component.setup()
 
@@ -118,16 +118,16 @@ describe('TwoFactorAuthComponent', () => {
     component.setupStatus = false
     component.errored = false
     component.twoFactorSetupForm.get('passwordControl').markAsDirty()
-    component.twoFactorSetupForm.get('initalTokenControl').markAsDirty()
+    component.twoFactorSetupForm.get('initialTokenControl').markAsDirty()
 
     expect(component.twoFactorSetupForm.get('passwordControl').pristine).toBe(false)
-    expect(component.twoFactorSetupForm.get('initalTokenControl').pristine).toBe(false)
+    expect(component.twoFactorSetupForm.get('initialTokenControl').pristine).toBe(false)
     component.setup()
 
     expect(component.setupStatus).toBe(false)
     expect(component.errored).toBe(true)
     expect(component.twoFactorSetupForm.get('passwordControl').pristine).toBe(true)
-    expect(component.twoFactorSetupForm.get('initalTokenControl').pristine).toBe(true)
+    expect(component.twoFactorSetupForm.get('initialTokenControl').pristine).toBe(true)
   })
 
   it('should confirm successfully disabling 2FA', () => {

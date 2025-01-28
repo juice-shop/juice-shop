@@ -50,7 +50,7 @@ describe('/#/contact', () => {
     })
 
     // Cypress alert bug
-    // The challege also passes but its just that cypress freezes and is unable to perform any action
+    // The challenge also passes but its just that cypress freezes and is unable to perform any action
     xit('should be possible to trick the sanitization with a masked XSS attack', () => {
       cy.task('isDocker').then((isDocker) => {
         if (!isDocker) {

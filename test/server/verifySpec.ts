@@ -197,7 +197,7 @@ describe('verify', () => {
       })
     })
 
-    it('should pass occured error on to next route', () => {
+    it('should pass occurred error on to next route', () => {
       res.statusCode = 500
       err = new Error()
 
