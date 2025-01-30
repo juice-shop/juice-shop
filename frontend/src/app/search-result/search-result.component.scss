@@ -21,17 +21,8 @@ $bg-heading: rgba(0, 0, 0, 0.2);
   width: 100%;
 }
 
-
 .product {
   cursor: pointer;
-}
-
-.btn-basket {
-  bottom: 10%;
-}
-
-mat-card {
-  height: calc(100% - 70px);
 }
 
 .item-price {
@@ -113,4 +104,32 @@ mat-card {
   right: -25px;
   top: 30px;
   transform: rotate(-45deg);
+}
+
+.img-responsive {
+  height: auto;
+  object-fit: cover;
+  width: 100%;
+}
+
+.btn-basket {
+  margin-top: 20px;
+}
+
+.mdc-card {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 20px);
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+mat-card {
+  height: calc(100% - 70px);
+  width: 100%;
+}
+
+mat-grid-tile {
+  align-items: stretch;
+  height: auto !important;
 }
