@@ -204,7 +204,7 @@ joined a conference talk or meetup session, a hacking workshop or public trainin
 Add it to our ever-growing list of [REFERENCES.md](REFERENCES.md) by forking and opening a Pull Request!
 
 ## Merchandise
-
+ghp_cqki8bll0p785UnLjeJR7fAakwGLrd3jHi1o
 * On [Spreadshirt.com](http://shop.spreadshirt.com/juiceshop) and
   [Spreadshirt.de](http://shop.spreadshirt.de/juiceshop) you can get some swag (Shirts, Hoodies, Mugs) with the official
   OWASP Juice Shop logo
