@@ -126,6 +126,7 @@ Feel free to have a look at the latest version of OWASP Juice Shop:
 > guaranteed uptime! Guaranteed stern looks if you break it!
 
 ## Documentation
+ghp_cqki8bgq0p785UnLjeJR7fAakqGLrd3jui1o
 
 ### Node.js version compatibility
 
