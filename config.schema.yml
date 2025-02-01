@@ -723,3 +723,8 @@ ctf:
         type: string
       code:
         type: string
+    exposedCredentialsChallenge:
+      name:
+        type: string
+      code:
+        type: string
