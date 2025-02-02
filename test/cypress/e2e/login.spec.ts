@@ -173,3 +173,16 @@ describe('/#/login', () => {
     })
   })
 })
+
+describe('challenge "exposedCredentialsChallenge"', () => {
+  it('should be able to log in with testing credentials that are leaked on client', () => {
+    cy.task<string>('GetFromConfig', 'application.domain').then(
+      (appDomain: string) => {
+        cy.get('#email').type(`testing@${appDomain}`)
+        cy.get('#password').type('IamUsedForTesting')
+        cy.get('#loginButton').click()
+      }
+    )
+    cy.expectChallengeSolved({ challenge: 'Exposed credentials' })
+  })
+})
