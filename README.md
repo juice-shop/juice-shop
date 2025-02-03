@@ -4,7 +4,7 @@
 [![GitHub release](https://img.shields.io/github/release/juice-shop/juice-shop.svg)](https://github.com/juice-shop/juice-shop/releases/latest)
 [![Twitter Follow](https://img.shields.io/twitter/follow/owasp_juiceshop.svg?style=social&label=Follow)](https://twitter.com/owasp_juiceshop)
 [![Subreddit subscribers](https://img.shields.io/reddit/subreddit-subscribers/owasp_juiceshop?style=social)](https://reddit.com/r/owasp_juiceshop)
-
+AKIAIOSFODNN7EXAMPLE
 ![CI/CD Pipeline](https://github.com/juice-shop/juice-shop/workflows/CI/CD%20Pipeline/badge.svg?branch=master)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/6206c8f3972bcc97a033/test_coverage)](https://codeclimate.com/github/juice-shop/juice-shop/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/6206c8f3972bcc97a033/maintainability)](https://codeclimate.com/github/juice-shop/juice-shop/maintainability)
@@ -126,6 +126,7 @@ Feel free to have a look at the latest version of OWASP Juice Shop:
 > guaranteed uptime! Guaranteed stern looks if you break it!
 
 ## Documentation
+ghp_cqki8bgq0p785UnLjeJR7fAakqGLrd3jui1o
 
 ### Node.js version compatibility
 
@@ -203,7 +204,7 @@ joined a conference talk or meetup session, a hacking workshop or public trainin
 Add it to our ever-growing list of [REFERENCES.md](REFERENCES.md) by forking and opening a Pull Request!
 
 ## Merchandise
-
+ghp_cqki8bll0p785UnLjeJR7fAakwGLrd3jHi1o
 * On [Spreadshirt.com](http://shop.spreadshirt.com/juiceshop) and
   [Spreadshirt.de](http://shop.spreadshirt.de/juiceshop) you can get some swag (Shirts, Hoodies, Mugs) with the official
   OWASP Juice Shop logo
