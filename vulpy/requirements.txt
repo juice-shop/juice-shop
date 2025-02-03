@@ -1,9 +1,0 @@
-click
-cryptography
-Flask
-geoip2
-jsonschema
-PyJWT
-pyotp
-qrcode
-requests
