@@ -1,0 +1,42 @@
+{% include "head.html" %}
+{% include "navbar.html" %}
+
+  <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px">
+    {% if username %}
+      {% if username == g.session.username %}
+      <h2 class="w3-wide">{{ username }} (you)</h2>
+      {% else %}
+      <h2 class="w3-wide">{{ username }}</h2>
+      {% endif %}
+
+      {% if username == g.session.username %}
+      <form method="POST" action="/posts/" class="w3-padding-16">
+        <div class="w3-rest">
+          <input class="w3-input w3-border" type="text" name="text" placeholder="What are you thinking?">
+        </div>
+      </form>
+      {% endif %}
+
+      {% if posts %}
+        <ul class="w3-ul w3-left-align w3-border">
+        {% for post in posts %}
+          <li><span class="w3-h3">{{ post.text | safe }}</span></li>
+        {% endfor %}
+        </ul>
+      {% else %}
+        <div>No posts yet!</div>
+      {% endif %}
+    {% endif %}
+ 
+    <h3 class="w3-wide">Other users</h3>
+    <ul class="w3-ul w3-left-align w3-border">
+    {% for user in users %}
+      {% if user != username %}
+        <li><a href="/posts/{{ user }}">{{ user }}</a></li>
+      {% endif %}
+    {% endfor %}
+    </ul>
+
+  </div>
+{% include "footer.html" %}
+

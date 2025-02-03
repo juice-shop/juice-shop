@@ -1,0 +1,25 @@
+{% include "head.html" %}
+{% include "navbar.html" %}
+
+  <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px">
+    <h2 class="w3-wide">{{ session.username }} (you)</h2>
+
+    <form method="POST" action="/post" class="w3-padding-16">
+      <div class="w3-rest">
+        <input class="w3-input w3-border" type="text" name="text" placeholder="What are you thinking?">
+      </div>
+    </form>
+
+    {% if posts %}
+      <ul class="w3-ul w3-left-align w3-border">
+      {% for post in posts %}
+        <li><span class="w3-h3">{{ post.text }}</span></li>
+      {% endfor %}
+      <ul>
+    {% else %}
+      <div>No posts yet!</div>
+    {% endif %}
+
+  </div>
+{% include "footer.html" %}
+

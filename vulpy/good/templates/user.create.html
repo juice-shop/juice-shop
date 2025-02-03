@@ -1,0 +1,28 @@
+{% include "head.html" %}
+
+<!-- Page content -->
+<div class="w3-content" style="max-width:2000px;margin-top:15px">
+  <!-- The Band Section -->
+  <div class="w3-container w3-content w3-center" style="max-width: 400px">
+
+    <form method="POST" class="w3-padding-32">
+      <div class="w3-section">
+        <label><b>Username</b></label>
+        <input class="w3-input w3-border w3-margin-bottom" type="text" name="username" required>
+        <label><b>Email</b></label>
+        <input class="w3-input w3-border w3-margin-bottom" type="text" name="email" required>
+        <label><b>Password</b></label>
+        <input class="w3-input w3-border" type="password" name="password" required>
+        <button class="w3-button w3-block w3-black w3-section w3-padding" type="submit">Create</button>
+      </div>
+    </form>
+
+    <p class="w3-left-align"><a href="/user/login">Login</a></p>
+
+  </div>
+</div>
+
+</div>
+</div>
+{% include "footer.html" %}
+

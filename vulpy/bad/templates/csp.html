@@ -1,0 +1,48 @@
+{% include "head.html" %}
+{% include "navbar.html" %}
+
+<div class="w3-content" style="max-width:2000px;margin-top:55px">
+
+  <div class="w3-container w3-content w3-center">
+
+    <h2>Content Security Policy Tester</h2>
+
+    <table class="w3-table-all">
+        <tr>
+            <td>External Image</td>
+            <td><img src="https://www.python.org/static/favicon.ico" width="20px" /></td>
+        </tr>
+        <tr>
+            <td>Inline Style</td>
+            <td><span style="font-weight: bold">A bold Text</span></td>
+        </tr>
+        <tr>
+            <td>Inline Script</td>
+            <td><script type="text/javascript" nonce="4AEemGb0xJptoIGFP3Nd">document.write('Dynamically generated text')</script></td>
+        </tr>
+        <tr>
+            <td>External XMLHttpRequest</td>
+            <td><span id="place_ip"></span></td>
+        </tr>
+        <tr>
+            <td>External JavaScript</td>
+            <td><script src="https://apis.google.com/js/platform.js" async defer></script><g:plusone></g:plusone></td>
+        </tr>
+    </table>
+  </div>
+</div>
+
+<script>
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+         document.getElementById("place_ip").textContent = this.responseText;
+    }
+};
+xmlhttp.open("GET", "https://api.ipify.org/", true);
+xmlhttp.send();
+</script>
+
+
+{% include "footer.html" %}
+
