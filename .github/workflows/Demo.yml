@@ -7,7 +7,7 @@ on:
 
 jobs:
   snyk-scan:
-    runs-on: ubuntu-latest  # Esto puede cambiar si usas otro runner
+    runs-on: self-hosted  # Esto puede cambiar si usas otro runner
 
     steps:
       # Paso 1: Verificar que el código está bien clonado y listo
