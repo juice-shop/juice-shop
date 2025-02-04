@@ -3,11 +3,11 @@ name: Snyk Security Scan
 on:
   pull_request:
     branches:
-      - main # O la rama en la que desees realizar el escaneo
+      - main  # O la rama en la que desees realizar el escaneo
 
 jobs:
   snyk-scan:
-    runs-on: self-hosted  # Esto puede cambiar si usas otro runner
+    runs-on: [self-hosted, linux]  # Esto indica que usas un runner auto-hospedado en Linux
 
     steps:
       # Paso 1: Verificar que el código está bien clonado y listo
@@ -20,13 +20,7 @@ jobs:
           curl -sL https://static.snyk.io/snyk-install.sh | bash
           export PATH=$HOME/.snyk/bin:$PATH
 
-      # Paso 3: Ejecutar el escaneo con Snyk
-      - name: Run Snyk test
-        run: snyk test
+      # Paso 3: Ejecutar el escaneo con Snyk y guardar el reporte en un archivo JSON
+      - name: Run Snyk test and save the report locally
+        run: snyk test --all-projects --json > ~/Documents/IMF/desarrolloSeguro/snyk-report.json
 
-      # (Opcional) Paso 4: Si deseas subir el reporte de resultados de Snyk
-      - name: Upload Snyk report
-        uses: actions/upload-artifact@v2
-        with:
-          name: snyk-report
-          path: snyk-report.json
