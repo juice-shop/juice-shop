@@ -11,8 +11,27 @@ mat-toolbar {
 }
 
 .mat-mdc-button {
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#navbarLanguageButton mat-icon {
+  font-size: 24px;
+  width: 26px;
+  height: 26px;
+  margin-right: 2px;
+}
+mat-toolbar {
+  mat-icon {
+    font-size: 23px;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.warn-notification {
+  left: 15px;
+  top: -15px;
 }
 
 .logo {
@@ -63,7 +82,9 @@ mat-toolbar {
 
 mat-search-bar {
   font-size: 13px;
-  margin-right: 14px;
+  margin-right: 80px; 
+  min-width: 200px; 
+  padding-right: 100px;
 }
 
 .buttons {
@@ -73,5 +94,5 @@ mat-search-bar {
 @media screen and (max-width: 959px) {
   .buttons {
     width: 48px;
-  }
+  }  
 }
