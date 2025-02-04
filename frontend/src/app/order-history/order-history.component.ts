@@ -42,13 +42,9 @@ export class OrderHistoryComponent implements OnInit {
   constructor (private readonly router: Router, private readonly dialog: MatDialog, private readonly orderHistoryService: OrderHistoryService, private readonly basketService: BasketService, private readonly productService: ProductService, private readonly ngZone: NgZone) { }
 
   ngOnInit () {
-    this.orderHistoryService.get().subscribe((orders) => {
+    this.orderHistoryService.get().subscribe((orders: any[]) => {
       orders = orders.reverse()
-      if (orders.length === 0) {
-        this.emptyState = true
-      } else {
-        this.emptyState = false
-      }
+      this.emptyState = orders.length === 0;
       for (const order of orders) {
         const products: StrippedProduct[] = []
         for (const product of order.products) {
@@ -88,7 +84,7 @@ export class OrderHistoryComponent implements OnInit {
           productData: element
         }
       })
-    }, (err) => { console.log(err) })
+    }, (err: any) => { console.log(err) })
   }
 
   openConfirmationPDF (orderId: string) {

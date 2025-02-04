@@ -26,7 +26,7 @@ export class DeluxeUserComponent implements OnInit {
   }
 
   ngOnInit () {
-    this.configurationService.getApplicationConfiguration().subscribe((config) => {
+    this.configurationService.getApplicationConfiguration().subscribe((config: { application: { name: string; logo: string } }) => {
       const decalParam: string = this.route.snapshot.queryParams.testDecal // "Forgotten" test parameter to play with different stickers on the delivery box image
       if (config?.application) {
         if (config.application.name) {
@@ -46,10 +46,10 @@ export class DeluxeUserComponent implements OnInit {
           this.io.socket().emit('verifySvgInjectionChallenge', decalParam)
         })
       }
-    }, (err) => { console.log(err) })
-    this.userService.deluxeStatus().subscribe((res) => {
+    }, (err: any) => { console.log(err) })
+    this.userService.deluxeStatus().subscribe((res: { membershipCost: number }) => {
       this.membershipCost = res.membershipCost
-    }, (err) => {
+    }, (err: { error: { error: string } }) => {
       this.error = err.error.error
     })
   }

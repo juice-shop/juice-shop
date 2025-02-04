@@ -27,7 +27,7 @@ export class ErrorPageComponent implements OnInit {
     if (errorKey) {
       this.translate.get(errorKey).subscribe((errorMessage) => {
         this.error = errorMessage
-      }, (translationId) => {
+      }, (translationId: string) => {
         this.error = translationId
       })
     }
