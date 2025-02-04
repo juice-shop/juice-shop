@@ -1,0 +1,26 @@
+name: Semgrep Scan  # Nome do workflow
+
+on:
+  push:
+    branches:
+      - main  # Executa o pipeline quando houver push para o branch "main"
+  pull_request:
+    branches:
+      - main  # Executa o pipeline quando houver um pull request para o branch "main"
+
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest  # Define o sistema operacional que será usado (Ubuntu)
+
+    steps:
+      # Passo 1: Faz o checkout do código do repositório
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Passo 2: Executa o Semgrep
+      - name: Run Semgrep
+        uses: returntocorp/semgrep-action@v2  # Usa a ação oficial do Semgrep
+        with:
+          config: p/r2c-ci  # Usa regras pré-definidas do Semgrep (p/r2c-ci é um conjunto de regras populares)
+          # Você pode substituir por um arquivo de configuração personalizado, como:
+          # config: .semgrep.yml
