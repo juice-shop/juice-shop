@@ -13,3 +13,4 @@ jobs:
           target: 'https://probable-system-6p4g779rxjc697-3000.app.github.dev/'
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a'
+
