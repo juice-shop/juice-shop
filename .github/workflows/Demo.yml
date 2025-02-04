@@ -1,0 +1,32 @@
+name: Snyk Security Scan
+
+on:
+  pull_request:
+    branches:
+      - main # O la rama en la que desees realizar el escaneo
+
+jobs:
+  snyk-scan:
+    runs-on: ubuntu-latest  # Esto puede cambiar si usas otro runner
+
+    steps:
+      # Paso 1: Verificar que el código está bien clonado y listo
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
+      # Paso 2: Configurar Snyk CLI
+      - name: Install Snyk CLI
+        run: |
+          curl -sL https://static.snyk.io/snyk-install.sh | bash
+          export PATH=$HOME/.snyk/bin:$PATH
+
+      # Paso 3: Ejecutar el escaneo con Snyk
+      - name: Run Snyk test
+        run: snyk test
+
+      # (Opcional) Paso 4: Si deseas subir el reporte de resultados de Snyk
+      - name: Upload Snyk report
+        uses: actions/upload-artifact@v2
+        with:
+          name: snyk-report
+          path: snyk-report.json
