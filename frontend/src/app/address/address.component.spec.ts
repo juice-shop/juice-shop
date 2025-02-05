@@ -31,9 +31,9 @@ import { DeliveryMethodComponent } from '../delivery-method/delivery-method.comp
 describe('AddressComponent', () => {
   let component: AddressComponent
   let fixture: ComponentFixture<AddressComponent>
-  let addressService
+  let addressService: { get: { and: { returnValue: (arg0: any) => void } }; del: { and: { returnValue: (arg0: any) => void } } }
   let snackBar: any
-  let translateService
+  let translateService: { get: { and: { returnValue: (arg0: any) => void } }; onLangChange: any; onTranslationChange: any; onDefaultLangChange: any }
 
   beforeEach(waitForAsync(() => {
     addressService = jasmine.createSpyObj('AddressService', ['get', 'del'])
