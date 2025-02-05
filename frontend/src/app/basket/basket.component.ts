@@ -25,11 +25,11 @@ export class BasketComponent {
     this.ngZone.run(async () => await this.router.navigate(['/address/select']))
   }
 
-  getProductCount (total) {
+  getProductCount (total: number) {
     this.productCount = total
   }
 
-  getBonusPoints (total) {
+  getBonusPoints (total: number[]) {
     sessionStorage.setItem('itemTotal', total[0])
     this.bonus = total[1]
   }
