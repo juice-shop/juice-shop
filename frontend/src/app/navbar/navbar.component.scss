@@ -17,15 +17,16 @@ mat-toolbar {
 
 #navbarLanguageButton mat-icon {
   font-size: 24px;
-  width: 26px;
   height: 26px;
   margin-right: 2px;
+  width: 26px;
 }
+
 mat-toolbar {
   mat-icon {
     font-size: 23px;
-    width: 24px;
     height: 24px;
+    width: 24px;
   }
 }
 
@@ -82,22 +83,23 @@ mat-toolbar {
 
 mat-search-bar {
   font-size: 13px;
-  margin-right: 80px; 
-  min-width: 200px; 
+  margin-right: 80px;
+  min-width: 200px;
   padding-right: 100px;
 }
 
 .buttons {
-  width: auto;
-  position: relative; 
+  position: relative;
+  width: auto; 
 }
 
 @media screen and (max-width: 959px) {
   .buttons {
     width: 48px;
   }  
-  .warn-notification {
-    position: absolute;  
-    left: -60px; 
+
+  .warn-notification {  
+    left: -60px;
+    position: absolute; 
   }
 }
