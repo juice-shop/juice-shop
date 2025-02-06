@@ -89,10 +89,15 @@ mat-search-bar {
 
 .buttons {
   width: auto;
+  position: relative; 
 }
 
 @media screen and (max-width: 959px) {
   .buttons {
     width: 48px;
   }  
+  .warn-notification {
+    position: absolute;  
+    left: -60px; 
+  }
 }
