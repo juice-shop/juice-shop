@@ -6,6 +6,17 @@ describe('/#/forgot-password', () => {
       }
     })
     cy.visit('/#/forgot-password')
+    cy.intercept('GET', '/rest/user/security-question?email=*', {
+      statusCode: 200,
+      body: {
+        question: {
+          id: 1,
+          question: 'Your eldest siblings middle name?',
+          createdAt: '2025-02-06T16:26:35.582Z',
+          updatedAt: '2025-02-06T16:26:35.582Z'
+        }
+      }
+    })
   })
 
   describe('as Jim', () => {
@@ -15,9 +26,10 @@ describe('/#/forgot-password', () => {
           cy.get('#email').type(`jim@${appDomain}`)
         }
       )
-      cy.get('#securityAnswer').type('Samuel', { force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+      cy.get('#securityAnswer').type('Samuel', { force: true }) // FIXME Analyze Cypress
+      // recordings to properly fix behavior during test
       cy.get('#newPassword').type('I <3 Spock')
-      cy.get('#newPasswordRepeat').type('I <3 Spock')
+      cy.get('#newPasswordRepeat').type('I <3 Spock', { force: true })
       cy.get('#resetButton').click()
 
       cy.get('.confirmation').should('not.be.hidden')
@@ -32,9 +44,10 @@ describe('/#/forgot-password', () => {
           cy.get('#email').type(`bender@${appDomain}`)
         }
       )
-      cy.get('#securityAnswer').type("Stop'n'Drop", { force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+      cy.get('#securityAnswer').type("Stop'n'Drop", { force: true }) // FIXME Analyze Cypress
+      // recordings to properly fix behavior during test
       cy.get('#newPassword').type('Brannigan 8=o Leela')
-      cy.get('#newPasswordRepeat').type('Brannigan 8=o Leela')
+      cy.get('#newPasswordRepeat').type('Brannigan 8=o Leela', { force: true })
       cy.get('#resetButton').click()
 
       cy.get('.confirmation').should('not.be.hidden')
@@ -50,9 +63,10 @@ describe('/#/forgot-password', () => {
             cy.get('#email').type(`bjoern@${appDomain}`)
           }
         )
-        cy.get('#securityAnswer').type('West-2082', { force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+        cy.get('#securityAnswer').type('West-2082', { force: true }) // FIXME Analyze Cypress
+        // recordings to properly fix behavior during test
         cy.get('#newPassword').type('monkey birthday ')
-        cy.get('#newPasswordRepeat').type('monkey birthday ')
+        cy.get('#newPasswordRepeat').type('monkey birthday ', { force: true })
         cy.get('#resetButton').click()
 
         cy.get('.confirmation').should('not.be.hidden')
@@ -63,9 +77,10 @@ describe('/#/forgot-password', () => {
     describe('for his OWASP account', () => {
       it('should be able to reset password with his security answer', () => {
         cy.get('#email').type('bjoern@owasp.org')
-        cy.get('#securityAnswer').type('Zaya', { force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+        cy.get('#securityAnswer').type('Zaya', { force: true }) // FIXME Analyze Cypress
+        // recordings to properly fix behavior during test
         cy.get('#newPassword').type('kitten lesser pooch')
-        cy.get('#newPasswordRepeat').type('kitten lesser pooch')
+        cy.get('#newPasswordRepeat').type('kitten lesser pooch', { force: true })
         cy.get('#resetButton').click()
 
         cy.get('.confirmation').should('not.be.hidden')
@@ -81,9 +96,10 @@ describe('/#/forgot-password', () => {
           cy.get('#email').type(`morty@${appDomain}`)
         }
       )
-      cy.get('#securityAnswer').type('5N0wb41L', { force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+      cy.get('#securityAnswer').type('5N0wb41L', { force: true }) // FIXME Analyze Cypress
+      // recordings to properly fix behavior during test
       cy.get('#newPassword').type('iBurri3dMySe1f!')
-      cy.get('#newPasswordRepeat').type('iBurri3dMySe1f!')
+      cy.get('#newPasswordRepeat').type('iBurri3dMySe1f!', { force: true })
       cy.get('#resetButton').click()
 
       cy.get('.confirmation').should('not.be.hidden')
@@ -98,9 +114,10 @@ describe('/#/forgot-password', () => {
           cy.get('#email').type(`uvogin@${appDomain}`)
         }
       )
-      cy.get('#securityAnswer').type('Silence of the Lambs', { force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+      cy.get('#securityAnswer').type('Silence of the Lambs', { force: true }) // FIXME Analyze
+      // Cypress recordings to properly fix behavior during test
       cy.get('#newPassword').type('ora-ora > muda-muda')
-      cy.get('#newPasswordRepeat').type('ora-ora > muda-muda')
+      cy.get('#newPasswordRepeat').type('ora-ora > muda-muda', { force: true })
       cy.get('#resetButton').click()
 
       cy.get('.confirmation').should('not.be.hidden')
