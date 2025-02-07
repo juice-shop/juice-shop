@@ -13,4 +13,4 @@ analyze:
 install:
   coverity:
     version: default
-serverUrl: https://csprod.polaris.synopsys.com
+serverUrl: https://testcsprod.polaris.synopsys.com
