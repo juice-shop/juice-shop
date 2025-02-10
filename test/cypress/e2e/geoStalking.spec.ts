@@ -1,6 +1,7 @@
 describe('/#/photo-wall', () => {
   beforeEach(() => {
     cy.visit('/#/forgot-password')
+    cy.intercept('GET', '/rest/user/security-question?email=*').as('securityQuestion')
   })
 
   describe('challenge "geoStalkingMeta"', () => {
@@ -9,9 +10,10 @@ describe('/#/photo-wall', () => {
         (answer: string) => {
           cy.task<string>('GetFromConfig', 'application.domain').then((appDomain: string) => {
             cy.get('#email').type(`john@${appDomain}`)
-            cy.get('#securityAnswer').type(answer, { force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
-            cy.get('#newPassword').type('123456')
-            cy.get('#newPasswordRepeat').type('123456')
+            cy.wait('@securityQuestion')
+            cy.get('#securityAnswer').focus().type(answer)
+            cy.get('#newPassword').focus().type('123456')
+            cy.get('#newPasswordRepeat').focus().type('123456')
             cy.get('#resetButton').click()
 
             cy.expectChallengeSolved({ challenge: 'Meta Geo Stalking' })
@@ -27,9 +29,10 @@ describe('/#/photo-wall', () => {
         (answer: string) => {
           cy.task<string>('GetFromConfig', 'application.domain').then((appDomain: string) => {
             cy.get('#email').type(`emma@${appDomain}`)
-            cy.get('#securityAnswer').type(answer, { force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
-            cy.get('#newPassword').type('123456')
-            cy.get('#newPasswordRepeat').type('123456')
+            cy.wait('@securityQuestion')
+            cy.get('#securityAnswer').focus().type(answer)
+            cy.get('#newPassword').focus().type('123456')
+            cy.get('#newPasswordRepeat').focus().type('123456')
             cy.get('#resetButton').click()
 
             cy.expectChallengeSolved({ challenge: 'Visual Geo Stalking' })
