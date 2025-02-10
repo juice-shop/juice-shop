@@ -11,7 +11,7 @@ describe('/#/photo-wall', () => {
           cy.task<string>('GetFromConfig', 'application.domain').then((appDomain: string) => {
             cy.get('#email').type(`john@${appDomain}`)
             cy.wait('@securityQuestion')
-            cy.get('#securityAnswer').focus().type(answer)
+            cy.get('#securityAnswer').should('not.be.disabled').focus().type(answer)
             cy.get('#newPassword').focus().type('123456')
             cy.get('#newPasswordRepeat').focus().type('123456')
             cy.get('#resetButton').click()
@@ -30,7 +30,7 @@ describe('/#/photo-wall', () => {
           cy.task<string>('GetFromConfig', 'application.domain').then((appDomain: string) => {
             cy.get('#email').type(`emma@${appDomain}`)
             cy.wait('@securityQuestion')
-            cy.get('#securityAnswer').focus().type(answer)
+            cy.get('#securityAnswer').should('not.be.disabled').focus().type(answer)
             cy.get('#newPassword').focus().type('123456')
             cy.get('#newPasswordRepeat').focus().type('123456')
             cy.get('#resetButton').click()
