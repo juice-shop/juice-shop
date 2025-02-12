@@ -43,6 +43,7 @@ mat-toolbar {
 #homeButton {
   align-items: center;
   display: flex;
+  min-width: 0;
 }
 
 .avatar {
@@ -101,5 +102,25 @@ mat-search-bar {
   .warn-notification {  
     left: -60px;
     position: absolute; 
+  }
+}
+
+@media screen and (max-width: 959px) and (min-width: 600px) {
+  #homeButton {
+    margin-left: 8px;
+  }
+  
+  #homeButton span {
+    font-size: 1.2rem !important; 
+    white-space: nowrap; 
+  }
+  
+  button[mat-button] {
+    padding: 0 8px;
+  }
+  
+  .buttons {
+    width: auto !important; 
+    min-width: 48px;
   }
 }
