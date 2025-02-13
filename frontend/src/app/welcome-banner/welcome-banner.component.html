@@ -4,9 +4,9 @@
   -->
 
 <div class="mat-typography">
-  <h1><span>{{title}}</span></h1>
+  <h1>{{title}}</h1>
   <div class="text-justify" [innerHtml]="message"></div>
-  <div>
+  <div class="button-footer">
     <button
       *ngIf="showHackingInstructor"
       mat-raised-button color="warn"
