@@ -67,8 +67,8 @@
  
       <ng-template #emptyResult>
         <div>
-          <span class="noResultText" translate>
-            EMPTY_REVIEW_LIST
+          <span class="noResultText" >
+            {{ 'EMPTY_REVIEW_LIST' | translate }}
           </span>
         </div>
       </ng-template>
@@ -77,13 +77,13 @@
  
       <mat-divider class="detail-divider"></mat-divider>
  
-      <h4 [style.display]="isLoggedIn() ? 'block' : 'none' " translate>WRITE_REVIEW</h4>
+      <h4 [style.display]="isLoggedIn() ? 'block' : 'none' ">{{ 'WRITE_REVIEW' | translate }}</h4>
       <mat-form-field appearance="outline" color="accent"
                       [style.display]="isLoggedIn() ? 'block' : 'none' " floatLabel="always">
-        <mat-label translate>LABEL_REVIEW</mat-label>
+        <mat-label>{{ 'LABEL_REVIEW' | translate }}</mat-label>
         <mat-hint translate>
           <i class="fas fa-exclamation-circle"></i>
-          <em style="margin-left:5px;" translate>{{ 'MAX_TEXTAREA_LENGTH' | translate: {length: '160'} }}</em>
+          <em style="margin-left:5px;">{{ 'MAX_TEXTAREA_LENGTH' | translate: {length: '160'} }}</em>
         </mat-hint>
         <textarea [formControl]="reviewControl" #textPut cols="50" matInput
                   placeholder="{{'WRITE_REVIEW_PLACEHOLDER' | translate}}"
@@ -115,5 +115,5 @@
       </mat-dialog-actions>
     </div>
   </div>
- </mat-dialog-content>
+</mat-dialog-content>
  
