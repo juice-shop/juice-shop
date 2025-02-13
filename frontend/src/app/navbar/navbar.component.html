@@ -26,9 +26,9 @@
 
     <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle; height:48px;" class="buttons"
             fxHide.lt-md fxShow aria-label="Show/hide account menu" id="navbarAccount">
-      <i class="material-icons">
+      <mat-icon>
         account_circle
-      </i>
+      </mat-icon>
       <span> {{"ACCOUNT" | translate}} </span>
     </button>
 
@@ -92,12 +92,12 @@
       <mat-icon>
         shopping_cart
       </mat-icon>
-      <span fxHide.lt-md fxShow> {{"TITLE_BASKET" | translate}}</span>
+      <span fxHide.lt-md fxShow style="margin-right: 10px;"> {{"TITLE_BASKET" | translate}}</span>
       <span class="fa-layers-counter fa-layers-top-right fa-3x warn-notification"
             style="font-size: 47px;">{{itemTotal}}</span>
     </button>
 
-    <button [matMenuTriggerFor]="menu" mat-button style="height:48px; width: 48px;" class="buttons"
+    <button id="navbarLanguageButton" [matMenuTriggerFor]="menu" mat-button style="height:48px; width: 48px;" class="buttons"
             aria-label="Language selection menu"
             matTooltip="{{ 'LANGUAGE_SEL_HINT' | translate }}" matTooltipPosition="below">
       <mat-icon>

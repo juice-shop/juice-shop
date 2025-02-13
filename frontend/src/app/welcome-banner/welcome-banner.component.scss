@@ -3,15 +3,26 @@
  * SPDX-License-Identifier: MIT
  */
 
+:host {
+  display: block;
+  margin: 24px;
+}
+
 .text-justify {
   text-align: justify;
   text-justify: inter-word;
 }
 
-:host ::ng-deep h1 a {
+:host h1 a {
   font-size: 20px;
 }
 
 :host ::ng-deep strong {
   font-style: italic;
+}
+
+.button-footer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
 }

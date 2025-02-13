@@ -265,3 +265,8 @@
   securityQuestion:
     id: 10
     answer: "Used Emporium"
+-
+  email: testing
+  password: 'IamUsedForTesting'
+  key: LetUsTest
+  role: 'admin'
