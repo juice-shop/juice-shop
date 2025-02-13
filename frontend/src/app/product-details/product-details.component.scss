@@ -68,3 +68,18 @@ p {
   padding-left: 13px;
   padding-right: 13px;
 }
+
+like-button {
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+
+.like-counter {
+  border-radius: 50%;
+  bottom: -5px;
+  font-size: 10px;
+  padding: 2px 6px;
+  position: absolute;
+  right: -5px;
+}
