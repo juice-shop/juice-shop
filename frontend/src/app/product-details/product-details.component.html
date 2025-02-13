@@ -52,14 +52,21 @@
                 <p>{{ review.message }}</p>
               </div>
               <div>
-                <button mat-icon-button (click)="likeReview(review)" [disabled]="review.liked || !isLoggedIn()"
-                      class="rw-button" aria-label="Rate a helpful review">
-                    <span class="fa-2x fa-layers fa-fw">
-                      <mat-icon>thumb_up</mat-icon>
-                      <span class="fa-layers-counter fa-layers-bottom-right accent-notification" style="font-size: 32px;">{{ review.likesCount }}</span>
-                    </span>
+                <button 
+                  mat-icon-button 
+                  (click)="likeReview(review)" 
+                  [disabled]="review.liked || !isLoggedIn()"
+                  class="rw-button like-button" 
+                  aria-label="Rate a helpful review"
+                >
+                  <mat-icon>thumb_up</mat-icon>
+              
+                  <span class="accent-notification like-counter">
+                    {{ review.likesCount }}
+                  </span>
                 </button>
               </div>
+              
             </div>
           </div>
         </div>

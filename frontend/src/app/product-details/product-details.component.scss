@@ -70,16 +70,16 @@ p {
 }
 
 .like-button {
-  display: flex ;
   align-items: center;
-  position: relative ;
+  display: flex;
+  position: relative;
 }
 
 .like-counter {
+  border-radius: 50%;
+  bottom: -5px;
   font-size: 10px;
-  position: absolute ;
-  bottom: -5px ;
-  right: -5px ;
-  border-radius: 50% ;
-  padding: 2px 6px ;
+  padding: 2px 6px;
+  position: absolute;
+  right: -5px;
 }
