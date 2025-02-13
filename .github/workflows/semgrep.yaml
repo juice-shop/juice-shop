@@ -18,8 +18,9 @@ jobs:
     if: (github.actor != 'dependabot[bot]')
     steps:
       - uses: actions/checkout@v4
-      - run: semgrep ci --sarif-output results.sarif
+      - run: semgrep ci --supply-chain --sarif-output results.sarif
       - name: Upload Dependency Sarif output
+        if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.SEMGREP_ARTIFACT_NAME }}
@@ -28,6 +29,7 @@ jobs:
   upload-results:
     name: upload-sarif
     needs: ['semgrep']
+    if: ${{ always() }}
     runs-on: ubuntu-24.04
     permissions:
       security-events: write
