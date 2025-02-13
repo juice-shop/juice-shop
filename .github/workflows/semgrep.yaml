@@ -34,6 +34,7 @@ jobs:
     permissions:
       security-events: write
     steps:
+    - uses: actions/checkout@v4
     - name: Download semgrep sarif artifact
       uses: actions/download-artifact@v4
       with:
