@@ -5,7 +5,6 @@ on:
 
 env:
   SEMGREP_SARIF_FILE: 'results.sarif'
-  SEMGREP_ARTIFACT_NAME: 'semgrep-sarif'
 
 jobs:
   semgrep:
@@ -18,30 +17,9 @@ jobs:
     if: (github.actor != 'dependabot[bot]')
     steps:
       - uses: actions/checkout@v4
-      - run: semgrep ci --supply-chain --sarif-output results.sarif
-      - name: Upload Dependency Sarif output
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v4
+      - run: semgrep ci --supply-chain --sarif-output '${{ env.SEMGREP_SARIF_FILE }}'
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
         with:
-          name: ${{ env.SEMGREP_ARTIFACT_NAME }}
-          path: ${{ env.SEMGREP_SARIF_FILE }}
-
-  upload-results:
-    name: upload-sarif
-    needs: ['semgrep']
-    if: ${{ always() }}
-    runs-on: ubuntu-24.04
-    permissions:
-      security-events: write
-    steps:
-    - uses: actions/checkout@v4
-    - name: Download semgrep sarif artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: ${{ env.SEMGREP_ARTIFACT_NAME }}
-    - name: Upload SARIF file
-      uses: github/codeql-action/upload-sarif@v3
-      with:
-        sarif_file: ${{ env.SEMGREP_SARIF_FILE }}
-        category: semgrep
-    
+          sarif_file: '${{ env.SEMGREP_SARIF_FILE }}'
+          category: semgrep-sca
