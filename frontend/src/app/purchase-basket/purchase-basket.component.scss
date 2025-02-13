@@ -25,8 +25,8 @@ h1 {
   border-radius: $border-radius;
   font-size: x-large;
   justify-content: center;
-  padding: 12px 20px;
   margin-bottom: 20px;
+  padding: 12px 20px;
 }
 
 // Table styles
@@ -73,21 +73,21 @@ mat-footer-cell {
 
 // Footer styles
 .mat-mdc-footer-cell {
-  font-weight: 500;
   font-size: 1.1em;
+  font-weight: 500;
 }
 
 // Content alignment
 .content-align {
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 // Quantity controls
 .quantity-controls {
-  display: flex;
   align-items: center;
+  display: flex;
   gap: 8px;
 
   button {
@@ -110,9 +110,9 @@ mat-footer-cell {
   font-size: large;
   font-weight: 500;
   margin-top: 30px;
+  padding: $cell-padding;
   text-align: right;
   width: 100%;
-  padding: $cell-padding;
 }
 
 // Responsive adjustments
