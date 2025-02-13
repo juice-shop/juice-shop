@@ -45,7 +45,10 @@ const UserModelInit = (sequelize: Sequelize) => { // vuln-code-snippet start wea
       username: {
         type: DataTypes.STRING,
         defaultValue: '',
-        set (username: string) {
+        set(username: string) {
+          if (!username || typeof username !== 'string') {
+            throw new Error('Invalid username')
+          }
           if (utils.isChallengeEnabled(challenges.persistedXssUserChallenge)) {
             username = security.sanitizeLegacy(username)
           } else {
@@ -57,14 +60,17 @@ const UserModelInit = (sequelize: Sequelize) => { // vuln-code-snippet start wea
       email: {
         type: DataTypes.STRING,
         unique: true,
-        set (email: string) {
+        set(email: string) {
+          if (!email || typeof email !== 'string') {
+            throw new Error('Invalid email')
+          }
           if (utils.isChallengeEnabled(challenges.persistedXssUserChallenge)) {
             challengeUtils.solveIf(challenges.persistedXssUserChallenge, () => {
               return utils.contains(
                 email,
                 '<iframe src="javascript:alert(`xss`)">'
-              )
-            })
+              );
+            });
           } else {
             email = security.sanitizeSecure(email)
           }
@@ -73,7 +79,10 @@ const UserModelInit = (sequelize: Sequelize) => { // vuln-code-snippet start wea
       }, // vuln-code-snippet hide-end
       password: {
         type: DataTypes.STRING,
-        set (clearTextPassword: string) {
+        set(clearTextPassword: string) {
+          if (!clearTextPassword || typeof clearTextPassword !== 'string') {
+            throw new Error('Invalid password');
+          }
           this.setDataValue('password', security.hash(clearTextPassword)) // vuln-code-snippet vuln-line weakPasswordChallenge
         }
       }, // vuln-code-snippet end weakPasswordChallenge
