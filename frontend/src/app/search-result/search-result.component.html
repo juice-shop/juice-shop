@@ -27,10 +27,8 @@
                 translate>LABEL_SOLD_OUT</span></div>
               <div (click)="showDetail(item)" aria-label="Click for more information about the product" class="product"
                   matTooltip="Click for more information" matTooltipPosition="above">
-                <div class="img-container" fxFlexAlign="center" fxFlex="60%">
-                  <img mat-card-image [src]="'assets/public/images/products/'+item.image" alt={{item.name}}
+                <img mat-card-image [src]="'assets/public/images/products/'+item.image" alt={{item.name}}
                       class="img-responsive img-thumbnail" role="button">
-                </div>
                 <div fxFlexAlign="center" fxFlex="40%">
                   <div class="item-name">
                     {{item.name}}

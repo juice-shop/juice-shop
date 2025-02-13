@@ -27,11 +27,11 @@ describe('/#/contact', () => {
       cy.visit('/#/administration')
 
       cy.get(
-        '.customer-table > .mat-table > :nth-child(8) > .cdk-column-user'
+        '.customer-table > .mat-mdc-table > :nth-child(8) > .cdk-column-user'
       ).then(($val) => {
         if ($val.text() !== ' 2') {
           cy.get(
-            '.customer-table > .mat-table > :nth-child(9) > .cdk-column-user'
+            '.customer-table > .mat-mdc-table > :nth-child(9) > .cdk-column-user'
           ).should('contain.text', '2')
         } else {
           expect($val.text()).contain('2')
