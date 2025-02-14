@@ -21,44 +21,37 @@ mat-card {
 .rating-container {
   margin-bottom: 15px;
   margin-top: 15px;
-
-  ::ng-deep {
-    .mdc-slider {
-      
-      .mat-mdc-slider-track-wrapper {
-        height: 2px;
-      }
-      
-      // Active track uses theme accent color
-      .mdc-slider__track--active {
-        background: var(--theme-accent);
-      }
-      
-
-      // Value indicator styling
-      .mat-mdc-slider-value-indicator {
-        background-color: var(--theme-accent);
-      }
-    }
-
-    // Ensure thumb and track colors update when slider is focused/active
-    .mat-mdc-slider-focused {
-      .mdc-slider__track--active {
-        background: var(--theme-accent);
-      }
-      
-      .mdc-slider__thumb {
-        background: var(--theme-accent);
-      }
-    }
-  }
-}// Style for the MAX_TEXTAREA_LENGTH text
-mat-hint {
-
-    color: var(--theme-text-fade-40); // Uses theme variable for greyish color
-    font-size: 0.85em; // Makes the text slightly smaller
-  
 }
+
+::ng-deep .mat-mdc-slider {
+  --mdc-slider-handle-color: var(--theme-accent);
+  --mdc-slider-focus-handle-color: var(--theme-accent);
+  --mdc-slider-hover-handle-color: var(--theme-accent);
+  --mdc-slider-active-track-color: var(--theme-accent);
+  --mdc-slider-inactive-track-color: var(--theme-accent-fade-30);
+  --mdc-slider-with-tick-marks-active-container-color: var(--theme-background);
+  --mdc-slider-with-tick-marks-inactive-container-color: var(--theme-background-darker);
+}
+
+::ng-deep .mat-mdc-slider .mdc-slider__thumb-knob {
+  background-color: var(--theme-accent) !important;
+  border-color: var(--theme-accent) !important;
+}
+
+::ng-deep .mat-mdc-slider .mdc-slider__tick-marks {
+  background-size: 25% 2px !important;
+}
+
+::ng-deep .mat-mdc-slider .mdc-slider__thumb-label {
+  background-color: var(--theme-accent);
+  color: var(--theme-background);
+}
+
+mat-hint {
+  color: var(--theme-text-fade-40);
+  font-size: 0.85em; 
+}
+
 .star {
   color: $star-off;
 }
