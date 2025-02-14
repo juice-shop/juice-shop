@@ -12,12 +12,12 @@ $transition-speed: 0.2s;
 // Header styles
 h1 {
   margin-bottom: 24px;
-  
-  small {
-    color: rgba(0, 0, 0, 0.6);
-    font-size: 0.8em;
-    margin-left: 8px;
-  }
+}
+
+h1 small {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 0.8em;
+  margin-left: 8px;
 }
 
 .heading {
@@ -40,23 +40,25 @@ mat-header-row {
 
 mat-row {
   transition: background-color $transition-speed ease;
+}
 
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.04);
-  }
+mat-row:hover {
+  background-color: rgba(0, 0, 0, 0.04);
 }
 
 mat-cell,
 mat-footer-cell {
   padding: $cell-padding;
-  
-  &:first-of-type {
-    padding-left: $cell-padding;
-  }
-  
-  &:last-of-type {
-    padding-right: $cell-padding;
-  }
+}
+
+mat-cell:first-of-type,
+mat-footer-cell:first-of-type {
+  padding-left: $cell-padding;
+}
+
+mat-cell:last-of-type,
+mat-footer-cell:last-of-type {
+  padding-right: $cell-padding;
 }
 
 // Image styles
@@ -65,10 +67,10 @@ mat-footer-cell {
   height: auto;
   max-width: 90px;
   transition: transform $transition-speed ease;
-  
-  &:hover {
-    transform: scale(1.05);
-  }
+}
+
+.img-thumbnail:hover {
+  transform: scale(1.05);
 }
 
 // Footer styles
@@ -89,20 +91,20 @@ mat-footer-cell {
   align-items: center;
   display: flex;
   gap: 8px;
+}
 
-  button {
-    color: rgba(0, 0, 0, 0.6);
-    transition: color $transition-speed ease;
+.quantity-controls button {
+  color: rgba(0, 0, 0, 0.6);
+  transition: color $transition-speed ease;
+}
 
-    &:hover {
-      color: rgba(0, 0, 0, 0.87);
-    }
-  }
+.quantity-controls button:hover {
+  color: rgba(0, 0, 0, 0.87);
+}
 
-  span {
-    min-width: 24px;
-    text-align: center;
-  }
+.quantity-controls span {
+  min-width: 24px;
+  text-align: center;
 }
 
 // Price display
@@ -136,8 +138,8 @@ mat-footer-cell {
 .far.fa-trash-alt {
   color: rgba(0, 0, 0, 0.54);
   transition: color $transition-speed ease;
+}
 
-  &:hover {
-    color: #f44336;
-  }
+.far.fa-trash-alt:hover {
+  color: #f44336;
 }
