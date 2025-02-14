@@ -6,26 +6,28 @@
 .btn-pay {
   display: block;
   margin-top: 10px;
+  margin-top: 20px;
+  padding: 10px;
   width: 100%;
+
 }
 
 mat-card {
   height: auto;
   margin-top: 20px;
+  padding-bottom: 20px !important;
+  width: 98.4% !important;
 }
 
 .mat-own-card {
-  display: block;
-  margin-left: 20%;
-  margin-right: 20%;
+  background-color: #2c2c2c;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  max-width: 1200px;
+  padding: 20px;
+  width: 90%;
 }
-
-
-.main-wrapper {
-  margin-left: 10%;
-  margin-right: 10%;
-}
-
 
 mat-cell {
   padding-left: 10px;
@@ -52,11 +54,109 @@ table {
 
 .order-summary {
   font-size: x-large;
+  font-weight: 500;
+  margin-bottom: 15px;
   padding-bottom: 10px;
   padding-left: 10px;
+  
 }
 
 .bonus-points {
   margin-top: 5px;
   text-align: center;
+}
+
+
+.mdc-card {
+  
+  border: 0;
+  border-bottom: 0;
+  padding: 15px;
+  width: 100%;
+
+}
+
+.mat-table .mat-row,
+.mat-table .mat-footer-cell {
+  border-bottom: 1px solid #ffffff1f;
+  border-radius: 5px !important;
+  padding: 10px 0;
+}
+
+.mat-table {
+   
+  border-collapse: collapse;
+    
+}
+  
+.mat-cell,
+.mat-footer-cell {
+  padding: 12px 0; 
+}
+
+
+::ng-deep app-purchase-basket .mat-row .mat-cell {
+  border-bottom: 0;
+}
+
+::ng-deep .mat-mdc-cell.mdc-data-table__cell.cdk-cell {
+  border: 0 !important;
+
+}
+
+.mat-elevation-z6.mat-own-card {
+  align-items: end;
+  display: flex;
+  justify-self: center;
+
+  width: 90% !important;
+}
+
+.mat-table {
+  background: transparent;
+  width: 100%;
+}
+
+.mat-row {
+  border-bottom: 1px solid #ffffff1f;
+}
+
+.mat-cell,
+.mat-footer-cell {
+  color: rgba(255, 255, 255, 0.87);
+  padding: 12px 0;
+}
+
+.mat-footer-cell.label {
+  text-align: start;
+  text-indent: 10px;
+}
+
+.mat-footer-cell.price {
+  
+  padding-right: 10px !important;
+  text-align: end;
+}
+
+.bonus-points {
+  color: #fff;
+  margin-top: 10px;
+  text-align: center;
+}
+
+::ng-deep app-purchase-basket {
+  .mat-mdc-row {
+    border-bottom: 1px solid #ffffff1f !important;
+
+  }
+  
+  h1 {
+    border-bottom: 1px solid #ffffff1f !important;
+    margin: 0;
+    padding: 13px;
+  }
+  
+  .mat-cell {
+    border-bottom: 0;
+  }
 }
