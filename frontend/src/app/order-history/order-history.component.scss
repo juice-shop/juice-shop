@@ -76,19 +76,19 @@ mat-card-title {
 }
 
 .mat-mdc-header-cell:first-child {
-  //  Apply 10px padding only to the first column 
+  //  Apply 24px padding only to the first column 
   padding-left: 24px !important; 
 }
 
 .mat-mdc-header-cell:not(:first-child) {
-  //  Keep 24px for the rest 
+  //  Keep 2px for the rest 
   padding-left: 2px !important; 
 }
 
 
 .mat-mdc-header-cell {
   align-items: center;
-  color: #ffffffb3 !important;
+  color: var(--theme-text-darker) !important;
   display: flex;
   font-size: 12px;
   justify-content: start;
@@ -96,7 +96,6 @@ mat-card-title {
 
 .mdc-card {
   border: 0;
-  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.05), 0 6px 10px rgba(0, 0, 0, 0.08), 0 1px 18px rgba(0, 0, 0, 0.07);
 }
 
 
