@@ -73,10 +73,11 @@
               <span >{{"PLACE_ORDER_AND_PAY" | translate}}</span>
             </button>
             <!-- Bonus Points -->
-            <div class="bonus-points" translate [translateParams]="{'bonus': bonus}">{{"CHECKOUT_FOR_BONUS_POINTS" | translate}}</div>
+            <div class="bonus-points">{{ "CHECKOUT_FOR_BONUS_POINTS" | translate:{ bonus: bonus } }}</div>
           </div>
         </mat-card>
       </div>
+
     </div>
   </mat-card>
   
