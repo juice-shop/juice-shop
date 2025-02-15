@@ -28,6 +28,45 @@ button {
 mat-card img {
   height: 100px;
   width: auto;
+  margin: 15px
+}
+
+.responsibility-header{
+  margin-left: 15px;
+  margin-top: 10px;
+}
+
+.mat-mdc-card.mdc-card.mat-elevation-z0{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+#recycle-form{
+  margin-left:15px ;
+  margin-right: 15px;
+}
+
+::ng-deep .mat-mdc-row.mdc-data-table__row{
+  border-top: 1px solid var(--theme-background-light) !important;
+  border-bottom: 1px solid var(--theme-background-light) !important;
+
+}
+
+h1{
+  margin-left: 15px;
+  margin-top: 10px;
+}
+
+.mat-mdc-card-content{
+  margin-right:20px;
+}
+
+.left-container{
+  margin-bottom:20px;
+  margin-right:10px !important;
 }
 
 mat-checkbox {
