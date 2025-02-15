@@ -9,9 +9,9 @@
           type="button"
           (click)="handleAuth()"
         >
-          <i class="material-icons">
+          <mat-icon>
             account_balance_wallet
-          </i>
+          </mat-icon>
           <span *ngIf="!session">{{"BTN_CONNECT_METAMASK" | translate}}</span>
           <span *ngIf="session"
             >{{ userData.address.substring(0, 6) }}...{{
@@ -23,7 +23,7 @@
     </div>
     <p>
       <b>
-        <span translate>LABEL_WALLET_BALANCE</span>
+        <span>{{"LABEL_WALLET_BALANCE" | translate}}</span>
         <span class="confirmation"> {{ walletBalance }} ETH</span>
       </b>
     </p>
@@ -50,9 +50,7 @@
         aria-label="Button to deposit"
         (click)="depositETH()"
       >
-        <i class="material-icons">
-          monetization_on
-        </i>
+        <mat-icon>monetization_on</mat-icon>
         {{'BTN_DEPOSIT' | translate}}
       </button>
       <button
@@ -63,9 +61,7 @@
         aria-label="Button to withdraw"
         (click)="withdrawETH()"
       >
-        <i class="material-icons">
-          local_atm
-        </i>
+        <mat-icon>local_atm</mat-icon>
         {{'BTN_WITHDRAW' | translate}}
       </button>
     </div>
