@@ -19,6 +19,7 @@ import { MatFormFieldModule, MatLabel, MatHint, MatError } from '@angular/materi
 import { NgIf } from '@angular/common'
 import { MatCardModule } from '@angular/material/card'
 import { FlexModule } from '@angular/flex-layout/flex'
+import { MatIconModule } from '@angular/material/icon'
 
 library.add(faBomb)
 
@@ -27,7 +28,7 @@ library.add(faBomb)
   templateUrl: './complaint.component.html',
   styleUrls: ['./complaint.component.scss'],
   standalone: true,
-  imports: [FlexModule, MatCardModule, TranslateModule, NgIf, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatHint, MatError, FileUploadModule, MatButtonModule]
+  imports: [FlexModule, MatCardModule, TranslateModule, NgIf, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatHint, MatError, FileUploadModule, MatButtonModule, MatIconModule]
 })
 export class ComplaintComponent implements OnInit {
   public customerControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
