@@ -16,7 +16,7 @@
       <mat-icon>
         school
       </mat-icon>
-      <span fxShow fxHide.lt-lg translate>BTN_GETTING_STARTED</span>
+      <span fxShow fxHide.lt-lg>{{"BTN_GETTING_STARTED" | translate}}</span>
     </button>
     <button mat-raised-button class="close-dialog" (click)="closeWelcome()" color="primary"
             *ngIf="showDismissBtn"
@@ -24,7 +24,7 @@
       <mat-icon>
         visibility_off
       </mat-icon>
-      <span fxShow fxHide.lt-sm translate>BTN_DISMISS</span>
+      <span fxShow fxHide.lt-sm>{{"BTN_DISMISS" | translate }}</span>
     </button>
   </div>
 </div>
