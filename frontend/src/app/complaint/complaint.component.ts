@@ -28,7 +28,7 @@ library.add(faBomb)
   templateUrl: './complaint.component.html',
   styleUrls: ['./complaint.component.scss'],
   standalone: true,
-  imports: [FlexModule, MatCardModule, TranslateModule, NgIf, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatHint, MatError, FileUploadModule, MatButtonModule , MatIconModule]
+  imports: [FlexModule, MatCardModule, TranslateModule, NgIf, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatHint, MatError, FileUploadModule, MatButtonModule, MatIconModule]
 })
 export class ComplaintComponent implements OnInit {
   public customerControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])

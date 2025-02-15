@@ -25,8 +25,14 @@ mat-form-field {
   width: 60%;
 }
 
-.mdc-card{
+.mdc-card {
   border: 0;
+}
+
+.invoice {
+  display: flex;
+  margin-left: 3px;
+  margin-top: 15px;
 }
 
 em {
