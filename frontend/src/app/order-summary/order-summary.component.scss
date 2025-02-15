@@ -19,16 +19,6 @@ mat-card {
   width: 98.4% !important;
 }
 
-.mat-own-card {
-  background-color: #2c2c2c;
-  display: flex;
-  justify-content: space-between;
-  margin: auto;
-  max-width: 1200px;
-  padding: 20px;
-  width: 90%;
-}
-
 mat-cell {
   padding-left: 10px;
   padding-right: 10px;
@@ -76,9 +66,19 @@ table {
 
 }
 
+.mat-own-card {
+  background-color: var(--theme-background);
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  max-width: 1200px;
+  padding: 20px;
+  width: 90%;
+}
+
 .mat-table .mat-row,
 .mat-table .mat-footer-cell {
-  border-bottom: 1px solid #ffffff1f;
+  border-bottom: 1px solid var(--theme-background-light);
   border-radius: 5px !important;
   padding: 10px 0;
 }
@@ -118,40 +118,42 @@ table {
 }
 
 .mat-row {
-  border-bottom: 1px solid #ffffff1f;
+  border-bottom: 1px solid var(--theme-background-light);
 }
 
 .mat-cell,
 .mat-footer-cell {
-  color: rgba(255, 255, 255, 0.87);
+  color: var(--theme-text);
   padding: 12px 0;
 }
 
 .mat-footer-cell.label {
+  font-weight: bold;
   text-align: start;
   text-indent: 10px;
 }
 
 .mat-footer-cell.price {
+  font-weight: bold;
   
   padding-right: 10px !important;
   text-align: end;
 }
 
 .bonus-points {
-  color: #fff;
+  color: var(--theme-text);
   margin-top: 10px;
   text-align: center;
 }
 
 ::ng-deep app-purchase-basket {
   .mat-mdc-row {
-    border-bottom: 1px solid #ffffff1f !important;
+    border-bottom: 1px solid var(--theme-background-light) !important;
 
   }
   
   h1 {
-    border-bottom: 1px solid #ffffff1f !important;
+    border-bottom: 1px solid var(--theme-background-light) !important;
     margin: 0;
     padding: 13px;
   }
