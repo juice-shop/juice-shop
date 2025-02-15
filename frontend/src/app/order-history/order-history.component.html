@@ -3,7 +3,7 @@
   ~ SPDX-License-Identifier: MIT
 -->
 
-<mat-card appearance="outlined" class="card1">
+<mat-card appearance="outlined" class="card1 mat-elevation-z6 ">
   <div class="mdc-card mat-card-cvr">
     <mat-card-title>
       {{"LABEL_ORDER_HISTORY" | translate}}
@@ -14,20 +14,20 @@
           <div class="heading">
             <div fxLayout="row">
               <div fxFlex="40%" fxLayout="column">
-                <div translate>LABEL_ORDER_ID</div>
+                <div>{{"LABEL_ORDER_ID" | translate}}</div>
                 <div>#{{ order.orderId }}</div>
               </div>
               <div fxFlex="15%" fxLayout="column">
-                <div translate>LABEL_TOTAL_PRICE</div>
+                <div>{{"LABEL_TOTAL_PRICE" | translate}}</div>
                 <div>{{ order.totalPrice.toFixed(2) }}&curren;</div>
               </div>
               <div fxFlex="15%" fxLayout="column">
-                <div translate>LABEL_BONUS</div>
+                <div >{{"LABEL_BONUS" | translate}}</div>
                 <div>{{ order.bonus }}</div>
               </div>
               <div fxFlex="20%">
-                <div *ngIf="!order.delivered" class="error" translate>LABEL_IN_TRANSIT</div>
-                <div *ngIf="order.delivered" class="confirmation" translate>LABEL_DELIVERED</div>
+                <div *ngIf="!order.delivered" class="error">{{"LABEL_IN_TRANSIT" | translate}}</div>
+                <div *ngIf="order.delivered" class="confirmation" > {{"LABEL_DELIVERED" | translate}}</div>
               </div>
               <div fxFlex="5%" fxLayoutAlign="end">
                 <button mat-icon-button aria-label="Track Your Order" matTooltip="{{ 'LABEL_TRACK_ORDER' | translate }}" matTooltipPosition="below" (click)= "trackOrder(order.orderId)">
@@ -48,25 +48,25 @@
           </div>
           <mat-table [dataSource]="order.products">
             <ng-container matColumnDef="product">
-              <mat-header-cell *matHeaderCellDef translate fxFlex="40%">LABEL_PRODUCT</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef  fxFlex="40%">{{"LABEL_PRODUCT" | translate}}</mat-header-cell>
               <mat-cell *matCellDef="let element" fxFlex="40%">{{element.name}} </mat-cell>
             </ng-container>
             <ng-container matColumnDef="price">
-              <mat-header-cell *matHeaderCellDef translate fxFlex="15%">LABEL_PRICE</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef  fxFlex="15%">{{"LABEL_PRICE" | translate}}</mat-header-cell>
               <mat-cell *matCellDef="let element" fxFlex="15%">{{element.price}}&curren;</mat-cell>
             </ng-container>
             <ng-container matColumnDef="quantity">
-              <mat-header-cell *matHeaderCellDef translate fxFlex="15%">LABEL_QUANTITY</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef  fxFlex="15%">{{"LABEL_QUANTITY" | translate}}</mat-header-cell>
               <mat-cell *matCellDef="let element" fxFlex="15%">
                 <span>{{element.quantity}}</span>
               </mat-cell>
             </ng-container>
             <ng-container matColumnDef="total price">
-              <mat-header-cell *matHeaderCellDef translate fxFlex="15%">LABEL_TOTAL_PRICE</mat-header-cell>
-              <mat-cell *matCellDef="let element" class="price-align" fxFlex="15%">{{ (element.total).toFixed(2) }}&curren;</mat-cell>
+              <mat-header-cell *matHeaderCellDef  fxFlex="15%">{{"LABEL_TOTAL_PRICE" | translate}}</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="price-align" fxFlex="13%">{{ (element.total).toFixed(2) }}&curren;</mat-cell>
             </ng-container>
             <ng-container matColumnDef="review">
-              <mat-header-cell *matHeaderCellDef translate fxFlex="15%"></mat-header-cell>
+              <mat-header-cell *matHeaderCellDef fxFlex="15%"> </mat-header-cell>
               <mat-cell *matCellDef="let element" fxFlex="15%">
                 <button mat-icon-button aria-label="Print order confirmation" matTooltip="{{ 'WRITE_REVIEW' | translate }}" matTooltipPosition="below"
                 (click)= "showDetail(element.id)">
@@ -85,17 +85,17 @@
     <ng-template #emptyResult>
       <mat-card appearance="outlined" class="mat-elevation-z6 emptyState">
         <div class="mdc-card">
-          <img alt=" No results found"
+          <img alt="No results found"
           class="img-responsive noResult"
           src="assets/public/images/products/no-results.png">
           <mat-card-title>
-            <span class="noResultText" translate>
-              NO_SEARCH_RESULT
+            <span class="noResultText">
+              {{"NO_SEARCH_RESULT" | translate}}
             </span>
           </mat-card-title>
           <mat-card-content>
             <span class="noResultText" translate>
-              NO_ORDERS_PLACED
+              {{"NO_ORDERS_PLACED" | translate}}
             </span>
           </mat-card-content>
         </div>
