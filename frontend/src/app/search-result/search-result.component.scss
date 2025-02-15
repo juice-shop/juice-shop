@@ -18,9 +18,10 @@ $bg-heading: rgba(0, 0, 0, 0.2);
 }
 
 .img-thumbnail {
-  width: 61% !important;
   align-self: start;
+  width: 61% !important;
 }
+
 .heading.mat-elevation-z6 {
   margin-bottom: 10px;
 }
@@ -121,8 +122,8 @@ $bg-heading: rgba(0, 0, 0, 0.2);
 }
 
 .mdc-card {
-  display: flex;
   border: 0;
+  display: flex;
   flex-direction: column;
   height: calc(100% - 20px);
   justify-content: space-between;
@@ -148,11 +149,11 @@ mat-grid-tile {
 }
 
 .mat-mdc-tooltip-trigger.product {
-  margin-left:-17px ;
-  margin-right:6px ;
+  margin-left: -17px;
+  margin-right: 6px;
   margin-top: -17px;
 }
 
-.basket-btn-container{
+.basket-btn-container {
   margin-bottom: 52px !important;
 }
