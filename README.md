@@ -137,19 +137,21 @@ OWASP Juice Shop officially supports the following versions of
 [node.js LTS schedule](https://github.com/nodejs/LTS) as close as possible. Docker images and packaged distributions are
 offered accordingly.
 
-| node.js | Supported               | Tested                                                    | [Packaged Distributions](#packaged-distributions) | [Docker images](#docker-container) from `master` | [Docker images](#docker-container) from `develop` |
-|:--------|:------------------------|:----------------------------------------------------------|:--------------------------------------------------|:-------------------------------------------------|:--------------------------------------------------|
-| 23.x    | :x:                     | :x:                                                       |                                                   |                                                  |                                                   |
-| 22.x    | :heavy_check_mark:      | :heavy_check_mark:                                        | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
-| 21.x    | ( :heavy_check_mark:  ) | :heavy_check_mark:                                        | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
-| 20.x    | :heavy_check_mark:      | :heavy_check_mark:                                        | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     | `latest` (`linux/amd64`, `linux/arm64`)          | `snapshot` (`linux/amd64`, `linux/arm64`)         |
-| 19.x    | ( :heavy_check_mark: )  | :x:                                                       |                                                   |                                                  |                                                   |
-| 18.x    | :heavy_check_mark:      | :heavy_check_mark:                                        | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
-| <18.x   | :x:                     | :x:                                                       |                                                   |                                                  |                                                   |
+| node.js | Supported                | Tested             | [Packaged Distributions](#packaged-distributions) | [Docker images](#docker-container) from `master` | [Docker images](#docker-container) from `develop` |
+|:--------|:-------------------------|:-------------------|:--------------------------------------------------|:-------------------------------------------------|:--------------------------------------------------|
+| 23.x    | :x:                      | :x:                |                                                   |                                                  |                                                   |
+| 22.x    | :heavy_check_mark:*      | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
+| 21.x    | ( :heavy_check_mark:*  ) | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
+| 20.x    | :heavy_check_mark:       | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     | `latest` (`linux/amd64`, `linux/arm64`)          | `snapshot` (`linux/amd64`, `linux/arm64`)         |
+| 19.x    | ( :heavy_check_mark: )   | :x:                |                                                   |                                                  |                                                   |
+| 18.x    | :heavy_check_mark:       | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
+| <18.x   | :x:                      | :x:                |                                                   |                                                  |                                                   |
 
 Juice Shop is automatically tested _only on the latest `.x` minor version_ of each node.js version mentioned above!
 There is no guarantee that older minor node.js releases will always work with Juice Shop!
 Please make sure you stay up to date with your chosen version.
+
+\*=:warning: _There are no pre-built binaries for `libxmljs` available for Node.js versions greater than 20.x. In order to build Juice Shop from source locally, you need to have all C++ build tools installed that are needed to compile those binaries locally. In the packaged distributions theses binaries are already included. We are working on a pure JavaScript replacement of `libxmljs` in [#2421](https://github.com/juice-shop/juice-shop/issues/2421). Contributions are highly welcome!_
 
 ### Troubleshooting
 
@@ -225,14 +227,10 @@ about donations and how they are used here:
 
 ## Contributors
 
-The OWASP Juice Shop core project team are:
+The OWASP Juice Shop Project Leaders are:
 
-- [Björn Kimminich](https://github.com/bkimminich) aka `bkimminich`
-  ([Project Leader](https://www.owasp.org/index.php/Projects/Project_Leader_Responsibilities))
-  [![Keybase PGP](https://img.shields.io/keybase/pgp/bkimminich)](https://keybase.io/bkimminich)
+- [Björn Kimminich](https://github.com/bkimminich) aka `bkimminich` [![Keybase PGP](https://img.shields.io/keybase/pgp/bkimminich)](https://keybase.io/bkimminich)
 - [Jannik Hollenbach](https://github.com/J12934) aka `J12934`
-- [Timo Pagel](https://github.com/wurstbrot) aka `wurstbrot`
-- [Shubham Palriwala](https://github.com/ShubhamPalriwala) aka `ShubhamPalriwala`
 
 For a list of all contributors to the OWASP Juice Shop please visit our
 [HALL_OF_FAME.md](HALL_OF_FAME.md).

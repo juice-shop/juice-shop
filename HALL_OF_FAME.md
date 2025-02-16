@@ -1,18 +1,9 @@
 # Hall of Fame
 
-## Core Team
-
-- [Björn Kimminich](https://github.com/bkimminich) aka `bkimminich`
-  ([Project Leader](https://www.owasp.org/index.php/Projects/Project_Leader_Responsibilities))
-  [![Keybase PGP](https://img.shields.io/keybase/pgp/bkimminich)](https://keybase.io/bkimminich)
-- [Jannik Hollenbach](https://github.com/J12934) aka `J12934`
-- [Timo Pagel](https://github.com/wurstbrot) aka `wurstbrot`
-- [Shubham Palriwala](https://github.com/ShubhamPalriwala) aka `ShubhamPalriwala`
-
 ## GitHub Contributors
 
-As reported by [`git-stats -a -s '2014'`](https://www.npmjs.com/package/git-stats) analysis of `master` as of Wed, 07 Aug
-2024 after deduplication with `.mailmap`.
+As reported by [`git-stats -a -s '2014'`](https://www.npmjs.com/package/git-stats) analysis of `master` as of Thu, 30 Jan
+2025 after deduplication with `.mailmap`.
 
 ![Top git contributors](screenshots/git-stats.png)
 
