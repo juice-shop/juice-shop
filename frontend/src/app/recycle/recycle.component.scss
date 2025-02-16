@@ -36,7 +36,7 @@ mat-card img {
   margin-top: 10px;
 }
 
-.mat-mdc-card.mdc-card.mat-elevation-z0 {
+.mdc-card.mat-elevation-z0 {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -64,9 +64,10 @@ h1 {
   margin-right: 20px;
 }
 
-.left-container {
-  margin-bottom: 20px;
-  margin-right: 10px !important;
+
+ .left-container {
+  display: flex; 
+  margin-bottom: 10px !important
 }
 
 mat-checkbox {
