@@ -4,6 +4,11 @@
   margin-bottom: 18px;
 }
 
+$li-text-color: var(--theme-text) !default;
+
+li[translate] {
+  color: $li-text-color;
+}
 .sandbox-container {
   margin: 32px;
 
