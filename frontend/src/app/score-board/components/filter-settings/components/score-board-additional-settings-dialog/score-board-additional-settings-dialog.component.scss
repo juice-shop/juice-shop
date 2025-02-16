@@ -8,9 +8,9 @@ mat-dialog-actions {
 }
 
 h1 {
-  margin-bottom: 24px;  
-  text-align: center;
   font-size: 24px !important;
+  margin-bottom: 24px;
+  text-align: center;
 
 }
 
@@ -47,18 +47,18 @@ button mat-icon {
 }
 
 h2 {
- color: var(--theme-text) ;
+  color: var(--theme-text);
 }
 
-span{
- font-size: 14px;
-  color: var(--theme-text) ;
+span {
+  color: var(--theme-text);
+  font-size: 14px;
 }
 
 mat-icon {
   font-size: 24px !important; /* Increases the icon size */
-  width: 24px !important;
   height: 24px !important;
+  width: 24px !important;
 }
 
 .tooltip {
@@ -66,5 +66,5 @@ mat-icon {
 }
 
 .close-btn:hover {
- background-color: var(--theme-background-lighter) !important;
+  background-color: var(--theme-background-lighter) !important;
 }
