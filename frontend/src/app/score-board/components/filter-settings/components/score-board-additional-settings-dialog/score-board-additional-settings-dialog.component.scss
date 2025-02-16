@@ -1,3 +1,4 @@
+
 .mat-mdc-radio-button ~ .mat-mdc-radio-button {
   margin-left: 16px;
 }
@@ -7,7 +8,10 @@ mat-dialog-actions {
 }
 
 h1 {
-  margin-bottom: 24px;
+  margin-bottom: 24px;  
+  text-align: center;
+  font-size: 24px !important;
+
 }
 
 .settings {
@@ -40,4 +44,27 @@ h1 {
 
 button mat-icon {
   margin-right: 8px;
+}
+
+h2 {
+ color: var(--theme-text) ;
+}
+
+span{
+ font-size: 14px;
+  color: var(--theme-text) ;
+}
+
+mat-icon {
+  font-size: 24px !important; /* Increases the icon size */
+  width: 24px !important;
+  height: 24px !important;
+}
+
+.tooltip {
+  font-size: 14px !important; /* Increases text size */
+}
+
+.close-btn:hover {
+ background-color: var(--theme-background-lighter) !important;
 }
