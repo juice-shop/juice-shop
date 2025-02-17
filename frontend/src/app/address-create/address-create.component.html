@@ -20,7 +20,7 @@
           <mat-label >{{"LABEL_NAME" | translate}}</mat-label>
           <input [formControl]="nameControl" type="text" [placeholder]="'MANDATORY_NAME' | translate"
           matInput>
-          <mat-error *ngIf="nameControl.invalid && nameControl.errors.required" translate>
+          <mat-error *ngIf="nameControl.invalid && nameControl.errors.required">
             {{"MANDATORY_NAME" | translate}}
           </mat-error>
         </mat-form-field>
