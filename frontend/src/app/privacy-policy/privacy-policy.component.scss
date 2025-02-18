@@ -56,12 +56,15 @@ h4 {
   width: 82% !important;
 }
 
-.mat-elevation-z6 {
+.mdc-card {
+
   border: 0;
+
+  img { 
+    display: block;
+    max-height: 10px;
+  }
+
 }
 
-.mdc-card img { 
-  display: block;
-  max-height: 10px;
-}
 
