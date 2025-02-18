@@ -22,7 +22,7 @@ $bg-heading: rgba(0, 0, 0, 0.2);
   width: 61% !important;
 }
 
-.heading.mat-elevation-z6 {
+.heading {
   margin-bottom: 10px;
 }
 
@@ -140,15 +140,11 @@ mat-grid-tile {
   height: auto !important;
 }
 
-.mat-mdc-button-persistent-ripple.mdc-button__ripple {
-  display: none !important;
-}
-
 .mat-divider.mat-divider-horizontal {
   margin-top: 10px;
 }
 
-.mat-mdc-tooltip-trigger.product {
+.product {
   margin-left: -17px;
   margin-right: 6px;
   margin-top: -17px;
