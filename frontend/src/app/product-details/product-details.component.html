@@ -18,7 +18,7 @@
         <div>
           <p class="item-price">{{data.productData.price}}&curren;</p>
           <div *ngIf="data.productData.points > 0" matTooltip="{{'LABEL_BONUS' | translate}}"
-               aria-label="{{'LABEL_BONUS' | translate}}">
+               aria-label="Bonus points when buying the product">
             <span class="fa-2x fa-layers fa-fw">
             <i class="fas fa-crown"></i>
             <span class="fa-layers-counter fa-layers-bottom-left fa-2x warn-notification" style="font-size: 47px;">{{ data.productData.points }}</span>
@@ -35,7 +35,7 @@
     <mat-expansion-panel class="mat-elevation-z0" aria-label="Expand for Reviews">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <span style="margin-right: 5px;">{{"LABEL_REVIEWS" | translate}}</span> <span>({{(reviews$| async)?.length}})</span>
+          <span style="margin-right: 5px;" translate>LABEL_REVIEWS</span> <span>({{(reviews$| async)?.length}})</span>
         </mat-panel-title>
       </mat-expansion-panel-header>
       <button mat-button style="height: 0; position: absolute;">
@@ -65,8 +65,8 @@
 
       <ng-template #emptyResult>
         <div>
-            <span class="noResultText">
-              {{"EMPTY_REVIEW_LIST" | translate}}
+            <span class="noResultText" translate>
+            EMPTY_REVIEW_LIST
             </span>
         </div>
       </ng-template>
@@ -74,7 +74,7 @@
 
       <mat-divider class="detail-divider"></mat-divider>
 
-      <h4 [style.display]="isLoggedIn() ? 'block' : 'none' ">{{"WRITE_REVIEW" | translate}}</h4>
+      <h4 [style.display]="isLoggedIn() ? 'block' : 'none' " translate>WRITE_REVIEW</h4>
       <mat-form-field appearance="outline" color="accent"
                       [style.display]="isLoggedIn() ? 'block' : 'none' " floatLabel="always">
         <mat-label >{{"LABEL_REVIEW" | translate}}</mat-label>
@@ -85,12 +85,13 @@
         <textarea [formControl]="reviewControl" #textPut cols="50" matInput
                   placeholder="{{'WRITE_REVIEW_PLACEHOLDER' | translate}}"
                   matTextareaAutosize matAutosizeMinRows="2" maxlength="160"
-                  matAutosizeMaxRows="4" aria-label="{{'LABEL_REVIEW' | translate}}"></textarea>
+                  matAutosizeMaxRows="4" aria-label="Text field to review a product"
+                  ></textarea>
         <mat-hint align="end">{{textPut.value?.length || 0}}/160</mat-hint>
       </mat-form-field>
 
       <mat-dialog-actions align="end" class="dialogAction">
-        <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="{{'BTN_CLOSE' | translate}}">
+        <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="Close Dialog">
           <mat-icon>
             close
           </mat-icon>
@@ -99,7 +100,7 @@
 
         <button type="submit" id="submitButton" [disabled]="!textPut.value.trim()" mat-raised-button color="primary"
                 (click)="addReview(textPut)" style="margin-left: 5px;"
-                aria-label="{{'BTN_SUBMIT' | translate}}" class="buttons"
+                aria-label="Send the review" class="buttons"
                 [style.display]="isLoggedIn() ? 'flex' : 'none' ">
           <mat-icon>
             send
