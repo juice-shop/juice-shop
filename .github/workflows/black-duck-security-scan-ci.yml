@@ -32,17 +32,17 @@ jobs:
         uses: actions/checkout@v4
       - name: Black Duck Security Scan
         uses: blackduck-inc/black-duck-security-scan@805cbd09e806b01907bbea0f990723c2bb85abe9
-        env: 
-          Detect.Accuracy.Required: NONE 
+        # env: 
+          # Detect.Accuracy.Required: NONE 
         with:
           ### ---------- BLACKDUCK SCA SCANNING: REQUIRED FIELDS ----------
-          blackducksca_url: ${{ vars.BLACKDUCKSCA_URL }}
-          blackducksca_token: ${{ secrets.BLACKDUCKSCA_TOKEN }}
+          # blackducksca_url: ${{ vars.BLACKDUCKSCA_URL }}
+          # blackducksca_token: ${{ secrets.BLACKDUCKSCA_TOKEN }}
 
           ### ---------- COVERITY SCANNING: REQUIRED FIELDS ----------
-          coverity_url: ${{ vars.COVERITY_URL }}
-          coverity_user: ${{ secrets.COVERITY_USER }}
-          coverity_passphrase: ${{ secrets.COVERITY_PASSPHRASE }}
+          # coverity_url: ${{ vars.COVERITY_URL }}
+          # coverity_user: ${{ secrets.COVERITY_USER }}
+          # coverity_passphrase: ${{ secrets.COVERITY_PASSPHRASE }}
 
           ### ---------- POLARIS SCANNING: REQUIRED FIELDS ----------
           polaris_server_url: ${{ vars.POLARIS_SERVER_URL }}
@@ -50,7 +50,7 @@ jobs:
           polaris_assessment_types: "SCA,SAST"
 
           ### ---------- SRM SCANNING: REQUIRED FIELDS ----------
-          srm_url: ${{ vars.SRM_URL }}
-          srm_apikey: ${{ secrets.SRM_API_KEY }}
-          srm_assessment_types: "SCA,SAST"
+          # srm_url: ${{ vars.SRM_URL }}
+          # srm_apikey: ${{ secrets.SRM_API_KEY }}
+          # srm_assessment_types: "SCA,SAST"
 
