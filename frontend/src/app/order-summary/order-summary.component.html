@@ -2,9 +2,9 @@
   ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
   -->
-<mat-card appearance="outlined" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" class="mat-elevation-z6 mat-own-card">
+<mat-card appearance="outlined" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" class=" container mat-elevation-z6 mat-own-card" >
   <div class="mdc-card" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
-    <div fxLayout="column" fxLayoutGap="20px" fxFlex="70" fxFlex.lt-md="100%">
+    <div fxLayout="column" fxLayoutGap="20px" fxFlex="50" fxFlex.lt-md="100%">
             <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column" *ngIf="address && paymentMethod">       
           <!-- Delivery Address Card -->
           <mat-card appearance="outlined" class="mat-elevation-z0" fxFlex="60" fxFlex.lt-md="100%">
@@ -36,11 +36,11 @@
           </ng-template>
         </div>
         <!-- Purchase Basket -->
-      <app-purchase-basket [allowEdit]="false" [totalPrice]="false" 
+      <app-purchase-basket id="app-purchase-basket" [allowEdit]="false" [totalPrice]="false" 
          (emitTotal)="getMessage($event)"></app-purchase-basket>
       </div> 
       <!-- Order Summary Card -->
-      <div fxFlex="30" fxFlex.lt-md="100%">
+      <div fxFlex="50" fxFlex.lt-md="100%">
         <mat-card appearance="outlined" class="mat-elevation-z0" fxFlexFill>
           <div class="mdc-card">
             <div class="order-summary" >{{"ORDER_SUMMARY" | translate}}</div>
