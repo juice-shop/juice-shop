@@ -14,16 +14,15 @@
 
 mat-card {
   height: auto;
+  margin-bottom: -10px !important;
   margin-top: 20px;
-  padding-bottom: 20px !important;
-  width: 98.4% !important;
+
 }
 
 mat-cell {
   padding-left: 10px;
   padding-right: 10px;
 }
-
 
 .price:last-of-type {
   padding-right: 10px;
@@ -57,23 +56,22 @@ table {
 }
 
 
-.mdc-card {
-  
+.mdc-card { 
   border: 0;
   border-bottom: 0;
-  padding: 15px;
+  margin-top: -5px;
+  padding: 5px;
   width: 100%;
 
 }
 
 .mat-own-card {
   background-color: var(--theme-background);
-  display: flex;
-  justify-content: space-between;
   margin: auto;
   max-width: 1200px;
   padding: 20px;
-  width: 90%;
+  width: 60% !important;
+
 }
 
 .mat-table .mat-row,
@@ -81,10 +79,10 @@ table {
   border-bottom: 1px solid var(--theme-background-light);
   border-radius: 5px !important;
   padding: 10px 0;
+
 }
 
 .mat-table {
-   
   border-collapse: collapse;
     
 }
@@ -92,11 +90,7 @@ table {
 .mat-cell,
 .mat-footer-cell {
   padding: 12px 0; 
-}
 
-
-::ng-deep app-purchase-basket .mat-row .mat-cell {
-  border-bottom: 0;
 }
 
 ::ng-deep .mat-mdc-cell.mdc-data-table__cell.cdk-cell {
@@ -104,13 +98,6 @@ table {
 
 }
 
-.mat-elevation-z6.mat-own-card {
-  align-items: end;
-  display: flex;
-  justify-self: center;
-
-  width: 90% !important;
-}
 
 .mat-table {
   background: transparent;
@@ -135,7 +122,6 @@ table {
 
 .mat-footer-cell.price {
   font-weight: bold;
-  
   padding-right: 10px !important;
   text-align: end;
 }
@@ -146,19 +132,3 @@ table {
   text-align: center;
 }
 
-::ng-deep app-purchase-basket {
-  .mat-mdc-row {
-    border-bottom: 1px solid var(--theme-background-light) !important;
-
-  }
-  
-  h1 {
-    border-bottom: 1px solid var(--theme-background-light) !important;
-    margin: 0;
-    padding: 13px;
-  }
-  
-  .mat-cell {
-    border-bottom: 0;
-  }
-}
