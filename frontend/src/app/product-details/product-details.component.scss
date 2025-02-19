@@ -86,3 +86,31 @@ p {
   position: absolute;
   right: 8px;
 }
+
+mat-dialog-content {
+  overflow: hidden !important;
+}
+
+h1 {
+  color: var(--theme-text);
+}
+
+div {
+  color: var(--theme-text);
+}
+
+em {
+  color: var(--theme-text-fade-30) !important;
+  display: flex;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.mat-mdc-form-field-hint {
+  align-items: center;
+  color: var(--theme-text-fade-30) !important;
+  display: flex;
+  font-size: 11px;
+  margin-left: -10px !important;
+  margin-right: -10px !important;
+}
