@@ -6,6 +6,8 @@
 # Black Duck Security Action allows you to integrate Static Analysis Security Testing (SAST) and Software Composition Analysis (SCA) into your CI/CD pipelines.
 # For more information about configuring your workflow,
 # read our documentation at https://github.com/blackduck-inc/black-duck-security-scan
+# 
+# force PR 1
 
 name: CI Black Duck security scan
 
