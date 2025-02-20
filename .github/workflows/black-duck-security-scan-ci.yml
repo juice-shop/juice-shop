@@ -53,6 +53,7 @@ jobs:
           polaris_prComment_enabled: 'true'
           polaris_reports_sarif_create: 'true'
           polaris_upload_sarif_report: 'true'
+          github_token: ${{ secrets.POLARIS_GITHUB_TOKEN }}
 
           ### ---------- SRM SCANNING: REQUIRED FIELDS ----------
           # srm_url: ${{ vars.SRM_URL }}
