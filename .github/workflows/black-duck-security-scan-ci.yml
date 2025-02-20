@@ -50,6 +50,9 @@ jobs:
           polaris_server_url: ${{ vars.POLARIS_SERVER_URL }}
           polaris_access_token: ${{ secrets.POLARIS_ACCESS_TOKEN }}
           polaris_assessment_types: "SCA,SAST"
+          polaris_prComment_enabled: 'true'
+          polaris_reports_sarif_create: 'true'
+          polaris_upload_sarif_report: 'true'
 
           ### ---------- SRM SCANNING: REQUIRED FIELDS ----------
           # srm_url: ${{ vars.SRM_URL }}
