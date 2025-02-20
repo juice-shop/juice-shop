@@ -70,7 +70,6 @@ mat-card:nth-child(1) {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  justify-content: start;
   margin-top: -7px;
 }
 
@@ -79,7 +78,6 @@ mat-card-title {
 }
 
 .offer-container {
-  
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -87,10 +85,6 @@ mat-card-title {
 
 mat-card-header {
   margin-left: -15px;
-  margin-top: -15px;
-}
-
-mat-card-title {
   margin-top: 15px;
 }
 
