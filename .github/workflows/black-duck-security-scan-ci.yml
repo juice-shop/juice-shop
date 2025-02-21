@@ -50,11 +50,19 @@ jobs:
           polaris_server_url: ${{ vars.POLARIS_SERVER_URL }}
           polaris_access_token: ${{ secrets.POLARIS_ACCESS_TOKEN }}
           polaris_assessment_types: "SCA,SAST"
-          polaris_prComment_enabled: 'true'
+          
+          ### SCANNING: Optional fields
+          polaris_application_name: SLS-${{ github.event.repository.name }}
+          polaris_project_name: ${{ github.event.repository.name }}
+
+          ### PULL REQUEST COMMENTS: Uncomment below to enable
+          polaris_prComment_enabled: true 
+          github_token: ${{ secrets.GITHUB_TOKEN }} # Required when PR comments is enabled
+
+          ### SARIF report parameters 
           polaris_reports_sarif_create: 'true'
           polaris_upload_sarif_report: 'true'
-          github_token: ${{ secrets.POLARIS_GITHUB_TOKEN }}
-
+          
           ### ---------- SRM SCANNING: REQUIRED FIELDS ----------
           # srm_url: ${{ vars.SRM_URL }}
           # srm_apikey: ${{ secrets.SRM_API_KEY }}
