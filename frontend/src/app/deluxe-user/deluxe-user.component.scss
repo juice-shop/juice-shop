@@ -42,3 +42,64 @@ $bg-heading: rgba(0, 0, 0, 0.2);
   height: 360px;
   width: 360px;
 }
+
+
+@media screen and (max-width: 768px) {
+  .deluxe-membership .mdc-card {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+  }
+  
+  .deluxe-membership .img-container {
+    width: 40% !important;
+    max-width: 200px !important;
+    flex: 0 0 auto !important;
+    height: auto;
+    min-height: 0;
+  }
+  
+  .deluxe-membership [fxFlex="60%"] {
+    width: calc(60% - 10px) !important;
+    flex: 1 1 auto !important;
+  }
+  
+  mat-card.mat-elevation-z6[fxFlex="33.33%"] .mdc-card {
+    flex-direction: column !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .deluxe-membership .img-container {
+    width: 30% !important;
+    max-width: 120px !important;
+  }
+  
+  .img-container svg {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+mat-card.mat-elevation-z6[fxFlex="33.33%"] {
+  height: auto;
+  max-height: 120px; 
+}
+
+mat-card.mat-elevation-z6[fxFlex="33.33%"] .mdc-card {
+  height: 100%;
+  padding: 10px; 
+  overflow: hidden;
+}
+
+mat-card.mat-elevation-z6[fxFlex="33.33%"] .img-container {
+  height: auto;
+  min-height: 60px; 
+  max-height: 80px; 
+  display: flex;
+  align-items: center;
+}
+
+mat-card.mat-elevation-z6[fxFlex="33.33%"] .item-description {
+  font-size: 0.9em;
+  margin-top: 8px;
+}
