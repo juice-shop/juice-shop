@@ -10,9 +10,9 @@
     </div>
   </div>
   <mat-card appearance="outlined" class="mat-elevation-z6 deluxe-membership">
-    <div class="mdc-card">
-      <div class="img-container" fxFlexAlign="center" fxFlex="30%">
-        <svg viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg">
+    <div class="mdc-card" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start center">
+      <div class="img-container" fxFlexAlign="start" fxFlex="30%">
+        <svg preserveAspectRatio="xMidYMid meet" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg">
           <image href="assets/public/images/deluxe/blankBoxes.png" x="0" y="0" height="720" width="720"/>
           <image [attr.href]="logoSrc" x="260" y="130" height="50"/>
           <image [attr.href]="logoSrc" x="230" y="330" height="70"/>
@@ -43,9 +43,9 @@
   </mat-card>
   <div fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column">
     <mat-card appearance="outlined" class="mat-elevation-z6" fxFlex="33.33%">
-      <div class="mdc-card">
-        <div class="img-container" fxFlexAlign="center" fxFlex="40%">
-          <mat-icon style="transform: scale(3)" class="img-responsive img-thumbnail" >
+      <div class="mdc-card" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start center">
+        <div class="img-container" fxFlexAlign="start" fxFlex="40%">
+          <mat-icon style="transform: scale(3)" class="img-responsive img-thumbnail">
             slideshow
           </mat-icon>
         </div>
@@ -60,9 +60,9 @@
       </div>
     </mat-card>
     <mat-card appearance="outlined" class="mat-elevation-z6" fxFlex="33.33%">
-      <div class="mdc-card">
-        <div class="img-container" fxFlexAlign="center" fxFlex="40%">
-          <mat-icon style="transform: scale(3)" class="img-responsive img-thumbnail" >
+      <div class="mdc-card" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start center">
+        <div class="img-container" fxFlexAlign="start" fxFlex="40%">
+          <mat-icon style="transform: scale(3)" class="img-responsive img-thumbnail">
             directions_car
           </mat-icon>
         </div>
@@ -77,8 +77,8 @@
       </div>
     </mat-card>
     <mat-card appearance="outlined" class="mat-elevation-z6" fxFlex="33.33%">
-      <div class="mdc-card">
-        <div class="img-container" fxFlexAlign="center" fxFlex="40%">
+      <div class="mdc-card" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start center">
+        <div class="img-container" fxFlexAlign="start" fxFlex="40%">
           <mat-icon style="transform: scale(3)" class="img-responsive img-thumbnail">
             add
           </mat-icon>
