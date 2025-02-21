@@ -51,55 +51,55 @@ $bg-heading: rgba(0, 0, 0, 0.2);
   }
   
   .deluxe-membership .img-container {
-    width: 40% !important;
-    max-width: 200px !important;
     flex: 0 0 auto !important;
     height: auto;
+    max-width: 200px !important;
     min-height: 0;
+    width: 40% !important;
   }
   
-  .deluxe-membership [fxFlex="60%"] {
-    width: calc(60% - 10px) !important;
+  .deluxe-membership [fxFlex='60%'] {
     flex: 1 1 auto !important;
+    width: calc(60% - 10px) !important;
   }
   
-  mat-card.mat-elevation-z6[fxFlex="33.33%"] .mdc-card {
+  mat-card.mat-elevation-z6[fxFlex='33.33%'] .mdc-card {
     flex-direction: column !important;
   }
 }
 
 @media screen and (max-width: 480px) {
   .deluxe-membership .img-container {
-    width: 30% !important;
     max-width: 120px !important;
+    width: 30% !important;
   }
   
   .img-container svg {
-    max-width: 100%;
     height: auto;
+    max-width: 100%;
   }
 }
 
-mat-card.mat-elevation-z6[fxFlex="33.33%"] {
+mat-card.mat-elevation-z6[fxFlex='33.33%'] {
   height: auto;
   max-height: 120px; 
 }
 
-mat-card.mat-elevation-z6[fxFlex="33.33%"] .mdc-card {
+mat-card.mat-elevation-z6[fxFlex='33.33%'] .mdc-card {
   height: 100%;
-  padding: 10px; 
   overflow: hidden;
+  padding: 10px;
 }
 
-mat-card.mat-elevation-z6[fxFlex="33.33%"] .img-container {
-  height: auto;
-  min-height: 60px; 
-  max-height: 80px; 
-  display: flex;
+mat-card.mat-elevation-z6[fxFlex='33.33%'] .img-container {
   align-items: center;
+  display: flex;
+  height: auto;
+  max-height: 80px;
+  min-height: 60px;
 }
 
-mat-card.mat-elevation-z6[fxFlex="33.33%"] .item-description {
+mat-card.mat-elevation-z6[fxFlex='33.33%'] .item-description {
   font-size: 0.9em;
   margin-top: 8px;
 }
