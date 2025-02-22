@@ -24,7 +24,7 @@
                                                                                                         [translateParams]="{quantity: item.quantity}">LABEL_ONLY_QUANTITY_LEFT</span>
               </div>
               <div class="ribbon ribbon-top-left ribbon-sold" *ngIf="item.quantity <= 0"><span
-                translate>LABEL_SOLD_OUT</span></div>
+                >{{"LABEL_SOLD_OUT" | translate }}</span></div>
               <div (click)="showDetail(item)" aria-label="Click for more information about the product" class="product"
                   matTooltip="Click for more information" matTooltipPosition="above">
                 <img mat-card-image [src]="'assets/public/images/products/'+item.image" alt={{item.name}}
@@ -39,10 +39,10 @@
                   </div>
                 </div>
               </div>
-              <div style="display: flex; justify-content: center;">
+              <div style="display: flex; justify-content: center;" class="basket-btn-container">
                 <button (click)="addToBasket(item.id)" *ngIf="isLoggedIn()" aria-label="Add to Basket" class="btn-basket"
                         color="primary" mat-button mat-raised-button>
-                  <span translate>ADD_BASKET</span>
+                  <span>{{"ADD_BASKET" | translate}}</span>
                 </button>
               </div>
             </div>
@@ -58,13 +58,13 @@
               class="img-responsive noResult"
               src="assets/public/images/products/no-results.png">
           <mat-card-title>
-            <span class="noResultText" translate>
-              NO_SEARCH_RESULT
+            <span class="noResultText" >
+              {{"NO_SEARCH_RESULT" | translate}}
             </span>
           </mat-card-title>
           <mat-card-content>
-            <span class="noResultText" translate>
-              EMPTY_SEARCH_RESULT
+            <span class="noResultText">
+              {{"EMPTY_SEARCH_RESULT" | translate}}
             </span>
           </mat-card-content>
         </div>
