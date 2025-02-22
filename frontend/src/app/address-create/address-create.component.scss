@@ -30,3 +30,22 @@ input::-webkit-inner-spin-button {
   -moz-appearance: none;
   margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
+
+.mat-mdc-form-field-hint {
+  align-items: center;
+  color: var(--theme-text-fade-30);
+  display: flex;
+  font-size: 11px;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.mdc-card {
+  border: 0;
+}
+
+mat-error {
+  font-size: 10.5px;
+  margin-left: -10px;
+  margin-top: -3px; 
+}
