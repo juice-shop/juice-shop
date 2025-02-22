@@ -44,8 +44,7 @@ mat-icon {
 
 @media screen and (max-width: 1279px) {
   mat-icon {
-    margin-left: 1px !important;
+    margin-left: 1px !important; //  Slightly shifts the icon for better positioning on small screens 
   }
  
-  
 }
