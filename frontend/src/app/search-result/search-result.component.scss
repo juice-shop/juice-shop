@@ -18,7 +18,12 @@ $bg-heading: rgba(0, 0, 0, 0.2);
 }
 
 .img-thumbnail {
-  width: 100%;
+  align-self: start;
+  width: 61% !important;
+}
+
+.heading {
+  margin-bottom: 10px;
 }
 
 .product {
@@ -117,6 +122,7 @@ $bg-heading: rgba(0, 0, 0, 0.2);
 }
 
 .mdc-card {
+  border: 0;
   display: flex;
   flex-direction: column;
   height: calc(100% - 20px);
@@ -132,4 +138,14 @@ mat-card {
 mat-grid-tile {
   align-items: stretch;
   height: auto !important;
+}
+
+.mat-divider.mat-divider-horizontal {
+  margin-top: 10px;
+}
+
+.product {
+  margin-left: -17px;
+  margin-right: 6px;
+  margin-top: -17px;
 }
