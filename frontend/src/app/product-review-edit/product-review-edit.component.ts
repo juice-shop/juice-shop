@@ -7,7 +7,6 @@ import { Component, Inject, type OnInit } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog'
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ProductReviewService } from '../Services/product-review.service'
-import { MatSnackBar } from '@angular/material/snack-bar'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowCircleLeft, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
@@ -35,7 +34,7 @@ export class ProductReviewEditComponent implements OnInit {
   public error: string | null = null
 
   constructor (@Inject(MAT_DIALOG_DATA) public data: { reviewData: Review }, private readonly productReviewService: ProductReviewService, private readonly dialogRef: MatDialogRef<ProductReviewEditComponent>,
-    private readonly snackBar: MatSnackBar, private readonly snackBarHelperService: SnackBarHelperService) { }
+    private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit (): void {
     this.editReviewControl.setValue(this.data.reviewData.message)
