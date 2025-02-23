@@ -19,20 +19,17 @@
         <div><span translate>PHONE_NUMBER</span> {{address?.mobileNum}}</div>
       </div>
     </div>
-    <div class="heading">
+    <div class="heading-banner">
       <span class="heading-text">{{"ORDER_SUMMARY" | translate}}</span>
-      <span fxFlex></span>
-      <a href="https://twitter.com/intent/tweet?text={{ tweetText }}&hashtags=security">
-        <button mat-icon-button aria-label="Tweet">
-          <i class="fab fa-twitter fa-lg"></i>
+      <div class="order-links">
+        <a href="https://twitter.com/intent/tweet?text={{ tweetText }}&hashtags=security" mat-icon-button aria-label="Tweet">
+          <i class="fab fa-twitter fa-lg tweet-logo"></i>
+        </a>
+        <button mat-icon-button aria-label="Print order confirmation" [matTooltip]="'PRINT_ORDER_CONFIRMATION' | translate" matTooltipPosition="below"
+        (click)= "openConfirmationPDF()">
+          <mat-icon>note</mat-icon>
         </button>
-      </a>
-      <button mat-icon-button aria-label="Print order confirmation" matTooltip="{{ 'PRINT_ORDER_CONFIRMATION' | translate }}" matTooltipPosition="below"
-      (click)= "openConfirmationPDF()">
-        <mat-icon>
-          note
-        </mat-icon>
-      </button>
+      </div>
     </div>
     <div class="mat-elevation-z0 table-container">
       <mat-table [dataSource]="dataSource">
