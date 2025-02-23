@@ -5,24 +5,18 @@
 
 <mat-card appearance="outlined" class="mat-elevation-z6 mat-own-card">
   <div class="mdc-card">
-    <div>
-      <div fxLayout="row" fxLayout.lt-md="column">
-        <mat-card appearance="outlined" class="mat-elevation-z0" fxFlex="60%">
-          <div class="mdc-card">
-            <h1 class="confirmation" translate>THANKS_FOR_PURCHASE</h1>
-            <div translate>PURCHASE_COMMENT_PREFIX <a routerLink="/track-result/new" [queryParams]="{ id: this.orderId }" translate>TITLE_TRACK_ORDERS</a> PURCHASE_COMMENT_SUFFIX</div>
-          </div>
-        </mat-card>
-        <mat-card appearance="outlined" class="mat-elevation-z0" fxFlex="40%">
-          <div class="mdc-card" *ngIf="address">
-            <span *ngIf="orderDetails.eta !== '?' && orderDetails.eta !== undefined"><div class="confirmation" translate [translateParams]="{'numberdays': orderDetails.eta}">ESTIMATED_TIME_OF_DELIVERY</div></span>
-            <div><b translate>LABEL_DELIVERY_ADDRESS</b></div>
-            <div>{{address?.fullName}}</div>
-            <div>{{address?.streetAddress}}, {{address?.city}}, {{address?.state}}, {{address?.zipCode}}</div>
-            <div>{{address?.country}}</div>
-            <div><span translate>PHONE_NUMBER</span> {{address?.mobileNum}}</div>
-          </div>
-        </mat-card>
+    <div class="order-completion-header">
+      <div>
+        <h1 class="confirmation" translate>THANKS_FOR_PURCHASE</h1>
+        <div translate>PURCHASE_COMMENT_PREFIX <a routerLink="/track-result/new" [queryParams]="{ id: this.orderId }" translate>TITLE_TRACK_ORDERS</a> PURCHASE_COMMENT_SUFFIX</div>
+      </div>
+      <div *ngIf="address">
+        <span *ngIf="orderDetails.eta !== '?' && orderDetails.eta !== undefined"><div class="confirmation" translate [translateParams]="{'numberdays': orderDetails.eta}">ESTIMATED_TIME_OF_DELIVERY</div></span>
+        <div><b translate>LABEL_DELIVERY_ADDRESS</b></div>
+        <div>{{address?.fullName}}</div>
+        <div>{{address?.streetAddress}}, {{address?.city}}, {{address?.state}}, {{address?.zipCode}}</div>
+        <div>{{address?.country}}</div>
+        <div><span translate>PHONE_NUMBER</span> {{address?.mobileNum}}</div>
       </div>
     </div>
     <div class="mat-elevation-z0 table-container">
