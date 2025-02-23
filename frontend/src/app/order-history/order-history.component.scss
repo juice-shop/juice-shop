@@ -7,7 +7,6 @@
   padding: 12px 20px;
 }
 
-
 .heading-text {
   justify-content: center;
   padding: 12px 20px;
@@ -85,24 +84,19 @@ mat-card-title {
   padding-left: 2px !important; 
 }
 
-
 .mat-mdc-header-cell {
   align-items: center;
   color: var(--theme-text-darker) !important;
   display: flex;
   font-size: 12px;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .mdc-card {
   border: 0;
 }
 
-
 .mat-mdc-cell {
   display: flex;
-  justify-content: start;
-
+  justify-content: flex-start;
 }
-
-
