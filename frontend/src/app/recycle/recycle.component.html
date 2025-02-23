@@ -3,41 +3,41 @@
   ~ SPDX-License-Identifier: MIT
   -->
 
-<mat-card appearance="outlined" class="mat-elevation-z6 mat-own-card" fxLayout="row" fxLayoutGap="5%" fxLayout.lt-md="column"
+<mat-card class="mat-elevation-z6 mat-own-card" fxLayout="row"  fxLayout.lt-md="column"
           fxLayoutGap.lt-md="20px">
-  <div class="mdc-card">
-    <div fxLayout="column" fxLayoutGap="20px" fxFlex="50%">
-      <h1 translate>TITLE_RECYCLE</h1>
+          <!-- left -->
+  <div fxLayout="column" fxLayoutGap="20px" class="left-container" fxFlex="50%">
+    <h1>{{"TITLE_RECYCLE" | translate}}</h1>
 
       <div class="form-container" id="recycle-form">
         <mat-form-field appearance="outline" color="accent">
-          <mat-label translate>LABEL_REQUESTOR</mat-label>
+          <mat-label>{{"LABEL_REQUESTOR" | translate}}</mat-label>
           <input [formControl]="requestorControl" type="text" matInput>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="accent">
-          <mat-label translate>LABEL_QUANTITY</mat-label>
+          <mat-label>{{"LABEL_QUANTITY" | translate}}</mat-label>
           <input [formControl]="recycleQuantityControl" type="number" [placeholder]="'IN_LITERS_PLACEHOLDER' | translate"
-                matInput>
+                 matInput>
           <mat-error *ngIf="recycleQuantityControl.invalid && recycleQuantityControl.errors.required" translate>
-            MANDATORY_QUANTITY
+            {{"MANDATORY_QUANTITY" | translate}}
           </mat-error>
           <mat-error
             *ngIf="recycleQuantityControl.invalid && (recycleQuantityControl.errors.min || recycleQuantityControl.errors.max)"
-            translate [translateParams]="{range: '10-1000'}">INVALID_QUANTITY
+            translate [translateParams]="{range: '10-1000'}">{{"INVALID_QUANTITY" | translate}}
           </mat-error>
         </mat-form-field>
 
         <app-address (emitSelection)="getMessage($event)" [addNewAddressDiv]="false" #addressComp
                     class="mat-elevation-z0"></app-address>
 
-        <mat-form-field *ngIf="pickup.value && recycleQuantityControl.value > 100" appearance="outline">
-          <mat-label translate>LABEL_PICKUP_DATE</mat-label>
-          <input [formControl]="pickUpDateControl" matInput [matDatepicker]="picker">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-          <mat-error *ngIf="pickUpDateControl.invalid" translate>INVALID_DATE</mat-error>
-        </mat-form-field>
+      <mat-form-field *ngIf="pickup.value && recycleQuantityControl.value > 100" appearance="outline">
+        <mat-label>{{"LABEL_PICKUP_DATE" | translate}}</mat-label>
+        <input [formControl]="pickUpDateControl" matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="pickUpDateControl.invalid">{{"INVALID_DATE" | translate }}</mat-error>
+      </mat-form-field>
 
         <mat-checkbox [formControl]="pickup" *ngIf="recycleQuantityControl.value > 100">{{'REQUEST_PICKUP' | translate}}
         </mat-checkbox>
@@ -51,41 +51,37 @@
       </button>
 
     </div>
-    <div fxFlex="50%">
+    <!-- right -->
+    <div fxFlex="50%" fxLayout="column" fxLayoutGap="20px" > 
       <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center">
 
-        <h3 class="responsibility-header" translate>SECTION_PRESS_JUICE_RESPONSIBLY</h3>
-        <mat-card appearance="outlined" fxLayout="row" fxLayoutGap="20px" class="mat-elevation-z0">
-          <div class="mdc-card">
-            <img mat-card-image [src]="topImage">
-            <mat-card-content>
-              <div>
-                <small>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-                  labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-                  rebum.
-                </small>
-              </div>
-            </mat-card-content>
+      <h3 class="responsibility-header">{{"SECTION_PRESS_JUICE_RESPONSIBLY" | translate}}</h3>
+      <mat-card fxLayout="row" fxLayoutGap="20px" class="mat-elevation-z0">
+        <img mat-card-image [src]="topImage">
+        <mat-card-content>
+          <div>
+            <small>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
+              labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
+              rebum.
+            </small>
           </div>
-        </mat-card>
+        </mat-card-content>
+      </mat-card>
 
-        <mat-card appearance="outlined" fxLayout="row" fxLayoutGap="20px" class="mat-elevation-z0">
-          <div class="mdc-card">
-            <img mat-card-image [src]="bottomImage">
-            <mat-card-content>
-              <div>
-                <small>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor
-                  sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                  aliquyam erat, sed diam voluptua.
-                </small>
-              </div>
-            </mat-card-content>
+      <mat-card fxLayout="row" fxLayoutGap="20px" class="mat-elevation-z0">
+        <img mat-card-image [src]="bottomImage">
+        <mat-card-content>
+          <div>
+            <small>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor
+              sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
+              aliquyam erat, sed diam voluptua.
+            </small>
           </div>
-        </mat-card>
+        </mat-card-content>
+      </mat-card>
 
-        <span class="fill-remaining-space"></span>
+      <span class="fill-remaining-space"></span>
 
-      </div>
     </div>
-  </div>
+ </div>
 </mat-card>
