@@ -6,10 +6,10 @@
 .order-completion-header {
   display: grid;
   gap: 24px;
-  grid-template-columns: auto minmax(250px, 400px);
-  margin: 0 16px;
+  grid-template-columns: auto minmax(250px, max-content);
+  margin-bottom: 16px;
 
-  @media (max-width: 600px) {
+  @media (max-width: 800px) {
     grid-template-columns: auto;
   }
 
@@ -19,17 +19,17 @@
 }
 
 .heading-banner {
-  background: rgba(0, 0, 0, 0.2);
-  font-size: x-large;
-  display: flex;
   align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  font-size: x-large;
   justify-content: space-between;
-  padding: 6px 20px 0;
+  padding: 6px 8px 6px 20px;
 }
 
 .order-links {
-  display: flex;
   align-items: center;
+  display: flex;
 }
 
 .heading-text {
