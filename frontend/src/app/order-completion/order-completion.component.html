@@ -19,22 +19,22 @@
         <div><span translate>PHONE_NUMBER</span> {{address?.mobileNum}}</div>
       </div>
     </div>
-    <div class="mat-elevation-z0 table-container">
-      <div class="heading">
-        <span class="heading-text">{{"ORDER_SUMMARY" | translate}}</span>
-        <span fxFlex></span>
-        <a href="https://twitter.com/intent/tweet?text={{ tweetText }}&hashtags=security">
-          <button mat-icon-button aria-label="Tweet">
-            <i class="fab fa-twitter fa-lg"></i>
-          </button>
-        </a>
-        <button mat-icon-button aria-label="Print order confirmation" matTooltip="{{ 'PRINT_ORDER_CONFIRMATION' | translate }}" matTooltipPosition="below"
-        (click)= "openConfirmationPDF()">
-          <mat-icon>
-            note
-          </mat-icon>
+    <div class="heading">
+      <span class="heading-text">{{"ORDER_SUMMARY" | translate}}</span>
+      <span fxFlex></span>
+      <a href="https://twitter.com/intent/tweet?text={{ tweetText }}&hashtags=security">
+        <button mat-icon-button aria-label="Tweet">
+          <i class="fab fa-twitter fa-lg"></i>
         </button>
-      </div>
+      </a>
+      <button mat-icon-button aria-label="Print order confirmation" matTooltip="{{ 'PRINT_ORDER_CONFIRMATION' | translate }}" matTooltipPosition="below"
+      (click)= "openConfirmationPDF()">
+        <mat-icon>
+          note
+        </mat-icon>
+      </button>
+    </div>
+    <div class="mat-elevation-z0 table-container">
       <mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="product">
           <mat-header-cell *matHeaderCellDef translate>LABEL_PRODUCT</mat-header-cell>
