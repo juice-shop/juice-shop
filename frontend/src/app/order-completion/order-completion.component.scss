@@ -3,6 +3,21 @@
  * SPDX-License-Identifier: MIT
  */
 
+.order-completion-header {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: auto minmax(250px, 400px);
+  margin: 0 16px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: auto;
+  }
+
+  > div {
+    padding: 8px;
+  }
+}
+
 .heading {
   background: rgba(0, 0, 0, 0.2);
   font-size: x-large;
