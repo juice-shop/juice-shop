@@ -91,10 +91,8 @@
       </mat-table>
     </div>
 
-    <div>
-      <mat-card appearance="outlined" class="mat-elevation-z0">
-        <div class="mdc-card" translate [translateParams]="{'bonus': orderDetails.bonus}">BONUS_POINTS_COUNT</div>
-      </mat-card>
+    <div class="bonus-point-container">
+      <span translate [translateParams]="{'bonus': orderDetails.bonus}">BONUS_POINTS_COUNT</span>
     </div>
   </div>
 </mat-card>
