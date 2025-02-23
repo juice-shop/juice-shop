@@ -18,14 +18,22 @@
   }
 }
 
-.heading {
+.heading-banner {
   background: rgba(0, 0, 0, 0.2);
   font-size: x-large;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 20px 0;
+}
+
+.order-links {
+  display: flex;
+  align-items: center;
 }
 
 .heading-text {
   justify-content: center;
-  padding: 12px 20px;
 }
 
 .mat-own-card {
@@ -33,7 +41,6 @@
   margin-left: 20%;
   margin-right: 20%;
 }
-
 
 mat-cell,
 mat-footer-cell,
