@@ -22,9 +22,8 @@
           <mat-error *ngIf="recycleQuantityControl.invalid && recycleQuantityControl.errors.required" translate>
             {{"MANDATORY_QUANTITY" | translate}}
           </mat-error>
-          <mat-error
-            *ngIf="recycleQuantityControl.invalid && (recycleQuantityControl.errors.min || recycleQuantityControl.errors.max)"
-            translate [translateParams]="{range: '10-1000'}">{{"INVALID_QUANTITY" | translate}}
+          <mat-error *ngIf="recycleQuantityControl.invalid && (recycleQuantityControl.errors.min || recycleQuantityControl.errors.max)">
+            {{"INVALID_QUANTITY" | translate: {range: '10-1000'} }}
           </mat-error>
         </mat-form-field>
 
