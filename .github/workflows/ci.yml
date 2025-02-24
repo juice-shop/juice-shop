@@ -340,10 +340,8 @@ jobs:
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
-      - name: "Install CLI tools"
-        run: |
-          curl https://cli-assets.heroku.com/install.sh | sh
-          npm install -g @angular/cli@$ANGULAR_CLI_VERSION
+      - name: "Install Heroku CLI"
+        run: curl https://cli-assets.heroku.com/install.sh | sh
       - name: "Set Heroku app & branch for ${{ github.ref }}" # TODO Switch angular17 back to develop after merge
         run: |
           if [ "$GITHUB_REF" == "refs/heads/master" ]; then
