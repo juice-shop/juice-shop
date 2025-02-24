@@ -334,7 +334,7 @@ jobs:
             BUILD_DATE=${{ env.BUILD_DATE }}
             CYCLONEDX_NPM_VERSION=${{ env.CYCLONEDX_NPM_VERSION }}
   heroku:
-    if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
+    if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && (github.ref == 'refs/heads/angular17' || github.ref == 'refs/heads/master') # TODO Switch angular17 back to develop after merge
     needs: [test, api-test, e2e, custom-config-test]
     runs-on: ubuntu-latest
     steps:
@@ -342,14 +342,14 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
       - name: "Install Heroku CLI"
         run: curl https://cli-assets.heroku.com/install.sh | sh
-      - name: "Set Heroku app & branch for ${{ github.ref }}"
+      - name: "Set Heroku app & branch for ${{ github.ref }}" # TODO Switch angular17 back to develop after merge
         run: |
           if [ "$GITHUB_REF" == "refs/heads/master" ]; then
           echo "HEROKU_APP=juice-shop" >> $GITHUB_ENV
           echo "HEROKU_BRANCH=master" >> $GITHUB_ENV
           else
           echo "HEROKU_APP=juice-shop-staging" >> $GITHUB_ENV
-          echo "HEROKU_BRANCH=develop" >> $GITHUB_ENV
+          echo "HEROKU_BRANCH=angular17" >> $GITHUB_ENV
           fi
       - name: "Deploy ${{ github.ref }} to Heroku"
         uses: akhileshns/heroku-deploy@581dd286c962b6972d427fcf8980f60755c15520 #v3.13.15
