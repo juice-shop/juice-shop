@@ -2,10 +2,28 @@
   align-items: center;
   column-gap: 16px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr) min-content;
+  grid-template-columns: repeat(3, minmax(180px, 1fr)) min-content;
   row-gap: 8px;
   @media (max-width: 800px) {
     grid-template-columns: auto;
+  }
+  // Added mobile responsiveness for select panels
+  @media (max-width: 600px) {
+    row-gap: 12px; 
+    mat-form-field {
+      width: 100%;
+      min-width: unset;
+    }
+  }
+  .mat-select-panel {
+    max-width: 100vw;
+    min-width: unset !important;
+    
+    @media (max-width: 600px) {
+      width: calc(100vw - 32px);
+      position: relative;
+      left: -16px;
+    }
   }
 }
 
@@ -45,18 +63,16 @@
   }
 }
 
-.reset-filters-label {
-  color: var(--theme-text-fade-30);
-  @media (min-width: 800px) {
-    // hide the reset filters label on large screens
-    // not needed there and the button looks too alone and unexplained on smaller screens without it
-    display: none;
-  }
-}
-
 .additional-settings-wrapper {
   align-items: center;
   display: flex;
+  
+  // Ensure buttons stay aligned on mobile
+  @media (max-width: 600px) {
+    justify-content: space-between;
+    margin-top: 8px;
+    width: 100%;
+  }
 }
 
 .additional-settings-button {
