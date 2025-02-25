@@ -48,7 +48,7 @@
     "..."
   ],
   "scripts": {
-    "build:frontend": "cd frontend && ng build --configuration production",
+    "build:frontend": "cd frontend && npm run build",
     "build:server": "tsc",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
