@@ -20,9 +20,3 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: semgrep ci --supply-chain --sarif-output '${{ env.SEMGREP_SARIF_FILE }}'
-      - name: Upload SARIF file
-        if: ${{ always() }}
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: '${{ env.SEMGREP_SARIF_FILE }}'
-          category: semgrep-sca
