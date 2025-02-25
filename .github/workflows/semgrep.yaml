@@ -9,7 +9,9 @@ env:
 jobs:
   semgrep:
     name: semgrep/ci
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
     env:
       SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
     container:
