@@ -40,15 +40,15 @@ mat-header-row {
   border: 0;
 }
 
-mat-table{
+mat-table {
   border-bottom: 1px solid var(--theme-background-light);
-  border-top: 1px solid var(--theme-background-light)
+  border-top: 1px solid var(--theme-background-light);
 }
 
-mat-cell{
+mat-cell {
   padding: 0 !important;
 }
 
 svg {
- font-size: 12.5px;
+  font-size: 12.5px;
 }
