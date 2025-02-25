@@ -10,9 +10,17 @@ const path = require('path')
 const utils = require('../lib/utils')
 const { challenges } = require('../data/datacache')
 
-const libxml = require('libxmljs')
 const vm = require('vm')
 const unzipper = require('unzipper')
+
+// Dynamically import libxml2-wasm
+let libxml2Wasm: any = null
+const getLibxml2Wasm = async () => {
+  if (!libxml2Wasm) {
+    libxml2Wasm = await import('libxml2-wasm')
+  }
+  return libxml2Wasm
+}
 
 function ensureFileIsPassed ({ file }: { file: any }, res: any, next: any) {
   if (file != null) {
@@ -68,19 +76,23 @@ function checkFileType ({ file }: { file: any }, res: any, next: any) {
   next()
 }
 
-function handleXmlUpload ({ file }: { file: any }, res: any, next: any) {
+async function handleXmlUpload ({ file }: { file: any }, res: any, next: any) {
   if (utils.endsWith(file?.originalname.toLowerCase(), '.xml')) {
     challengeUtils.solveIf(challenges.deprecatedInterfaceChallenge, () => { return true })
     if (((file?.buffer) != null) && utils.isChallengeEnabled(challenges.deprecatedInterfaceChallenge)) { // XXE attacks in Docker/Heroku containers regularly cause "segfault" crashes
       const data = file.buffer.toString()
       try {
-        const sandbox = { libxml, data }
+        const libxml2 = await getLibxml2Wasm() // Dynamically import libxml2-wasm
+        const { XmlDocument, ParseOption } = libxml2 // Destructure needed components
+        const sandbox = { libxml: XmlDocument, data, ParseOption }
         vm.createContext(sandbox)
-        const xmlDoc = vm.runInContext('libxml.parseXml(data, { noblanks: true, noent: true, nocdata: true })', sandbox, { timeout: 2000 })
-        const xmlString = xmlDoc.toString(false)
+        // Parsing XML with options
+        const xmlDoc = vm.runInContext('libxml.fromString(data, { option: ParseOption.XML_PARSE_NOBLANKS | ParseOption.XML_PARSE_NOENT | ParseOption.XML_PARSE_NOCDATA })', sandbox, { timeout: 2000 })
+        const xmlString = xmlDoc.toString({ format: false })
         challengeUtils.solveIf(challenges.xxeFileDisclosureChallenge, () => { return (utils.matchesEtcPasswdFile(xmlString) || utils.matchesSystemIniFile(xmlString)) })
         res.status(410)
         next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + utils.trunc(xmlString, 400) + ' (' + file.originalname + ')'))
+        xmlDoc.dispose() // Dispose of xmlDoc to prevent memory leaks
       } catch (err: any) {
         if (utils.contains(err.message, 'Script execution timed out')) {
           if (challengeUtils.notSolved(challenges.xxeDosChallenge)) {
