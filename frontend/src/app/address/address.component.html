@@ -5,8 +5,8 @@
 
 <mat-card appearance="outlined" [class.div-boundary]="!addNewAddressDiv" class="mat-elevation-z6">
   <div class="mdc-card">
-    <h1 translate *ngIf="showNextButton">TITLE_SELECT_ADDRESS</h1>
-    <h1 translate *ngIf="!showNextButton">MY_SAVED_ADRESSES</h1>
+    <h1  *ngIf="showNextButton">{{"TITLE_SELECT_ADDRESS" | translate}}</h1>
+    <h1  *ngIf="!showNextButton">{{"MY_SAVED_ADRESSES" | translate}}</h1>
     <mat-table [dataSource]="dataSource" *ngIf="addressExist">
       <ng-container matColumnDef="Selection">
         <mat-header-cell *matHeaderCellDef fxFlex="20%"></mat-header-cell>
@@ -54,7 +54,7 @@
         <mat-icon>
           add
         </mat-icon>
-        <span translate>ADD_NEW_ADDRESS</span>
+        <span>{{"ADD_NEW_ADDRESS" | translate}}</span>
       </button>
     </div>
     <button mat-raised-button mat-button class="btn btn-next" color="primary"
@@ -63,7 +63,7 @@
       <mat-icon>
         navigate_next
       </mat-icon>
-      <span translate>LABEL_CONTINUE</span>
+      <span translate>{{"LABEL_CONTINUE" | translate}}</span>
     </button>
   </div>
 </mat-card>
