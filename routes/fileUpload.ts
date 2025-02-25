@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -25,6 +25,8 @@ const getLibxml2Wasm = async () => {
 function ensureFileIsPassed ({ file }: { file: any }, res: any, next: any) {
   if (file != null) {
     next()
+  } else {
+    return res.status(400).json({ error: 'File is not passed' })
   }
 }
 

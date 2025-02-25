@@ -33193,7 +33193,7 @@ THREE.ExtrudeGeometry.prototype.addShape = function ( shape, options ) {
 
 	}
 
-	// Variables initalization
+	// Variables initialization
 
 	var ahole, h, hl; // looping of holes
 	var scope = this;

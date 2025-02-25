@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -197,7 +197,7 @@ describe('verify', () => {
       })
     })
 
-    it('should pass occured error on to next route', () => {
+    it('should pass occurred error on to next route', () => {
       res.statusCode = 500
       err = new Error()
 
