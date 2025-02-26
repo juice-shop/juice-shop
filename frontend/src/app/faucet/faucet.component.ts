@@ -21,6 +21,7 @@ import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
 import { NgIf } from '@angular/common'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
+import { MatIconModule } from '@angular/material/icon'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const client = createClient({
@@ -38,7 +39,7 @@ const BeeFaucetAddress = '0x860e3616aD0E0dEDc23352891f3E10C4131EA5BC'
   templateUrl: './faucet.component.html',
   styleUrls: ['./faucet.component.scss'],
   standalone: true,
-  imports: [MatCardModule, TranslateModule, MatButtonModule, NgIf, MatFormFieldModule, MatLabel, MatInputModule, FormsModule]
+  imports: [MatCardModule, TranslateModule, MatButtonModule, NgIf, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, MatIconModule]
 })
 export class FaucetComponent {
   constructor (
