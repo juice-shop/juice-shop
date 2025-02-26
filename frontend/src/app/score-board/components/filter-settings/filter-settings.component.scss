@@ -2,28 +2,11 @@
   align-items: center;
   column-gap: 16px;
   display: grid;
-  grid-template-columns: repeat(3, minmax(180px, 1fr)) min-content;
+  grid-template-columns: repeat(3, 1fr) min-content;
   row-gap: 8px;
+  width: max-content;
   @media (max-width: 800px) {
     grid-template-columns: auto;
-  }
-  // Added mobile responsiveness for select panels
-  @media (max-width: 600px) {
-    row-gap: 12px; 
-    mat-form-field {
-      width: 100%;
-      min-width: unset;
-    }
-  }
-  .mat-select-panel {
-    max-width: 100vw;
-    min-width: unset !important;
-    
-    @media (max-width: 600px) {
-      width: calc(100vw - 32px);
-      position: relative;
-      left: -16px;
-    }
   }
 }
 
@@ -66,13 +49,6 @@
 .additional-settings-wrapper {
   align-items: center;
   display: flex;
-  
-  // Ensure buttons stay aligned on mobile
-  @media (max-width: 600px) {
-    justify-content: space-between;
-    margin-top: 8px;
-    width: 100%;
-  }
 }
 
 .additional-settings-button {
@@ -86,5 +62,14 @@
     height: 16px;
     line-height: 16px;
     width: 16px;
+  }
+}
+
+.filter-select-field {
+  width: 100%;
+  @media (max-width: 800px) {
+    mat-select {
+      width: 100%;
+    }
   }
 }

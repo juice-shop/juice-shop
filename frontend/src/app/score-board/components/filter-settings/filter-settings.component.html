@@ -40,17 +40,17 @@
     </mat-form-field>
     <mat-form-field class="filter-select-field">
       <mat-label translate>LABEL_STATUS</mat-label>
-      <mat-select panelClass="responsive-select" [value]="filterSetting.status" (selectionChange)="onStatusFilterChange($event.value)">
-        <mat-option [value]="null">{{ 'STATUS_ALL' | translate }}</mat-option>
-        <mat-option value="unsolved">{{ 'STATUS_UNSOLVED' | translate }}</mat-option>
-        <mat-option value="partially-solved">{{ 'STATUS_PARTIALLY_SOLVED' | translate }}</mat-option>
-        <mat-option value="solved">{{ 'STATUS_SOLVED' | translate }}</mat-option>
+      <mat-select panelClass="responsive-select" placeholder="All" [value]="filterSetting.status" (selectionChange)="onStatusFilterChange($event.value)">
+        <mat-option [value]="null" class="mat-body">{{ 'STATUS_ALL' | translate }}</mat-option>
+        <mat-option value="unsolved" class="mat-body">{{ 'STATUS_UNSOLVED' | translate }}</mat-option>
+        <mat-option value="partially-solved" class="mat-body">{{ 'STATUS_PARTIALLY_SOLVED' | translate }}</mat-option>
+        <mat-option value="solved" class="mat-body">{{ 'STATUS_SOLVED' | translate }}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field class="filter-select-field">
       <mat-label translate>LABEL_TAGS</mat-label>
       <mat-select multiple panelClass="responsive-select" [value]="filterSetting.tags" (selectionChange)="onTagFilterChange($event.value)">
-        <mat-option *ngFor="let tag of tags" [value]="tag">{{ tag }}</mat-option>
+        <mat-option *ngFor="let tag of tags" [value]="tag" class="mat-body">{{ tag }}</mat-option>
       </mat-select>
     </mat-form-field>
     <div class="additional-settings-wrapper">
