@@ -114,7 +114,7 @@ describe('/file-upload', () => {
         headers: { 'Content-Type': form.getHeaders()['content-type'] },
         body: form
       }).then((res) => {
-        expect(res.status).toBeGreaterThanOrEqual(410) // usually runs into 410 on Travis-CI but into 503 locally
+        expect(res.status).toBeGreaterThanOrEqual(410)
       })
     })
 
@@ -128,6 +128,7 @@ describe('/file-upload', () => {
         headers: { 'Content-Type': form.getHeaders()['content-type'] },
         body: form
       })
+        .expect('status', 410)
     })
   }
 
