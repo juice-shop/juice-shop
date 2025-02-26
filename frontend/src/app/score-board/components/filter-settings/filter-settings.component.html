@@ -6,10 +6,10 @@
       <input type="search" matInput [value]="filterSetting.searchQuery" (input)="onSearchQueryFilterChange($event.target.value)">
     </mat-form-field>
   </div>
-  <div class="options-group">
-    <mat-form-field>
+  <div class="options-group filter-options-group">
+    <mat-form-field class="filter-select-field">
       <mat-label translate>LABEL_DIFFICULTY</mat-label>
-      <mat-select multiple [value]="filterSetting.difficulties" (selectionChange)="onDifficultyFilterChange($event.value)">
+      <mat-select multiple panelClass="responsive-select" [value]="filterSetting.difficulties" (selectionChange)="onDifficultyFilterChange($event.value)">
         <mat-select-trigger>
           <ng-container *ngIf="filterSetting.difficulties.length === 0">
             {{ "LABEL_DIFFICULTY" | translate }}
@@ -38,18 +38,18 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="filter-select-field">
       <mat-label translate>LABEL_STATUS</mat-label>
-      <mat-select placeholder="All" [value]="filterSetting.status" (selectionChange)="onStatusFilterChange($event.value)">
+      <mat-select panelClass="responsive-select" placeholder="All" [value]="filterSetting.status" (selectionChange)="onStatusFilterChange($event.value)">
         <mat-option [value]="null" class="mat-body">{{ 'STATUS_ALL' | translate }}</mat-option>
         <mat-option value="unsolved" class="mat-body">{{ 'STATUS_UNSOLVED' | translate }}</mat-option>
         <mat-option value="partially-solved" class="mat-body">{{ 'STATUS_PARTIALLY_SOLVED' | translate }}</mat-option>
         <mat-option value="solved" class="mat-body">{{ 'STATUS_SOLVED' | translate }}</mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="filter-select-field">
       <mat-label translate>LABEL_TAGS</mat-label>
-      <mat-select multiple [value]="filterSetting.tags" (selectionChange)="onTagFilterChange($event.value)">
+      <mat-select multiple panelClass="responsive-select" [value]="filterSetting.tags" (selectionChange)="onTagFilterChange($event.value)">
         <mat-option *ngFor="let tag of tags" [value]="tag" class="mat-body">{{ tag }}</mat-option>
       </mat-select>
     </mat-form-field>
