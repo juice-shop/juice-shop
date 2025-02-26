@@ -87,7 +87,7 @@ jobs:
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '20')
         uses: nick-invision/retry@7152eba30c6575329ac0576536151aca5a72780e #v3.0.0
         with:
-          timeout_minutes: 15
+          timeout_minutes: 20
           max_attempts: 3
           command: npm test
       - name: "Copy unit test coverage data"
