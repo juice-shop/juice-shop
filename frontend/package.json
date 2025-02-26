@@ -7,7 +7,8 @@
     "build": "ng build --configuration production",
     "test": "ng test",
     "lint": "ng lint",
-    "lint:scss": "npx stylelint \"**/*.scss\""
+    "lint:scss": "npx stylelint \"**/*.scss\"",
+    "lint:fix": "ng lint --fix && npx stylelint \"**/*.scss\" --fix"
   },
   "private": true,
   "dependencies": {

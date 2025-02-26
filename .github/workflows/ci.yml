@@ -19,7 +19,6 @@ on:
       - 'frontend/src/assets/i18n/*.json'
 env:
   NODE_DEFAULT_VERSION: 20
-  ANGULAR_CLI_VERSION: 17
   CYCLONEDX_NPM_VERSION: '^1.12.0'
   NODE_OPTIONS: "--max_old_space_size=4096"
 jobs:
@@ -32,8 +31,6 @@ jobs:
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af #v4.1.0
         with:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
-      - name: "Install CLI tools"
-        run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application minimalistically"
         run: |
           npm install --ignore-scripts
@@ -64,8 +61,6 @@ jobs:
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af #v4.1.0
         with:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
-      - name: "Install CLI tools"
-        run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
         run: npm install
       - name: "Check coding challenges for accidental code discrepancies"
@@ -85,9 +80,6 @@ jobs:
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af #v4.1.0
         with:
           node-version: ${{ matrix.node-version }}
-      - name: "Install CLI tools"
-        if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '20')
-        run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '20')
         run: npm install
@@ -125,9 +117,6 @@ jobs:
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af #v4.1.0
         with:
           node-version: ${{ matrix.node-version }}
-      - name: "Install CLI tools"
-        if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '20')
-        run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '20')
         run: npm install
@@ -186,8 +175,6 @@ jobs:
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af #v4.1.0
         with:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
-      - name: "Install CLI tools"
-        run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '20')
         run: npm install
@@ -265,7 +252,6 @@ jobs:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
       - name: "Install CLI tools"
         run: |
-          npm install -g @angular/cli@$ANGULAR_CLI_VERSION
           npm install -g @cyclonedx/cyclonedx-npm@$CYCLONEDX_NPM_VERSION
           npm install -g grunt-cli
       - name: "Set packaging options for Grunt"
