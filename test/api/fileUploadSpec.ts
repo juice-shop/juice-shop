@@ -132,6 +132,22 @@ describe('/file-upload', () => {
     })
   }
 
+  if (utils.isChallengeEnabled(challenges.yamlBombChallenge)) {
+    it('POST file type YAML with Billion Laughs-style attack', () => {
+      const file = path.resolve(__dirname, '../files/yamlBomb.yml')
+      const form = frisby.formData()
+      form.append('file', fs.createReadStream(file))
+
+      return frisby.post(URL + '/file-upload', {
+        // @ts-expect-error FIXME form.getHeaders() is not found
+        headers: { 'Content-Type': form.getHeaders()['content-type'] },
+        body: form
+      })
+        .expect('status', 410)
+        .expect('bodyContains', 'Invalid string length')
+    })
+  }
+
   it('POST file too large for API', () => {
     const file = path.resolve(__dirname, '../files/invalidSizeForServer.pdf')
     const form = frisby.formData()
