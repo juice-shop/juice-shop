@@ -1,0 +1,144 @@
+name: Snyk Security Scan for OWASP Juice Shop PR Changes
+
+on:
+  pull_request:
+    branches:
+      - master
+    types:
+      - opened      # Trigger on PR creation
+      - synchronize # Trigger on PR updates
+      - reopened    # Trigger if PR is reopened
+
+jobs:
+  snyk_security_scan:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Checkout the repository with full history
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch full history to compare changes
+
+      # Set up Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Install dependencies
+      - name: Install Dependencies
+        run: npm ci
+
+      # Install Snyk CLI
+      - name: Install Snyk
+        run: npm install -g snyk
+
+      # Get changed files in the PR
+      - name: Get Changed Files
+        id: changed_files
+        run: |
+          # Compare PR branch with target branch (master)
+          git fetch origin master
+          CHANGED_FILES=$(git diff --name-only origin/master...HEAD)
+          echo "files<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGED_FILES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      # Filter package.json and lock files for dependency scan
+      - name: Filter Dependency Files
+        id: dep_files
+        run: |
+          DEP_FILES=$(echo "${{ steps.changed_files.outputs.files }}" | grep -E 'package.json|package-lock.json' || true)
+          echo "dep_files=$DEP_FILES" >> $GITHUB_OUTPUT
+
+      # Run Snyk dependency scan if package files changed
+      - name: Snyk Dependency Scan
+        id: snyk_dep_scan
+        if: steps.dep_files.outputs.dep_files != ''
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          snyk test --json > snyk-dep-report.json || true
+          if [ -s snyk-dep-report.json ]; then
+            VULN_COUNT=$(jq '.vulnerabilities | length' snyk-dep-report.json)
+            echo "dep_vuln_count=$VULN_COUNT" >> $GITHUB_OUTPUT
+          else
+            echo "dep_vuln_count=0" >> $GITHUB_OUTPUT
+          fi
+
+      # Run Snyk code scan on changed files only
+      - name: Snyk Code Scan
+        id: snyk_code_scan
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          CHANGED_FILES="${{ steps.changed_files.outputs.files }}"
+          if [ -n "$CHANGED_FILES" ]; then
+            snyk code test $(echo "$CHANGED_FILES" | tr '\n' ' ') --json > snyk-code-report.json || true
+            if [ -s snyk-code-report.json ]; then
+              CODE_VULN_COUNT=$(jq '.runs[0].results | length' snyk-code-report.json)
+              echo "code_vuln_count=$CODE_VULN_COUNT" >> $GITHUB_OUTPUT
+            else
+              echo "code_vuln_count=0" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "code_vuln_count=0" >> $GITHUB_OUTPUT
+            echo "{}" > snyk-code-report.json
+          fi
+
+      # Generate comment based on scan results
+      - name: Generate Scan Comment
+        id: comment
+        run: |
+          COMMENT="## Snyk Security Scan Results for OWASP Juice Shop PR Changes\n\n"
+          
+          if [ "${{ steps.dep_files.outputs.dep_files }}" != "" ]; then
+            if [ "${{ steps.snyk_dep_scan.outputs.dep_vuln_count }}" -gt 0 ]; then
+              COMMENT="$COMMENT### Dependency Vulnerabilities\nFound ${{ steps.snyk_dep_scan.outputs.dep_vuln_count }} vulnerabilities in dependencies (package files changed).\nCheck the snyk-dep-report.json artifact for details.\n\n"
+            else
+              COMMENT="$COMMENT### Dependency Vulnerabilities\nNo new vulnerabilities found in dependencies (package files changed).\n\n"
+            fi
+          else
+            COMMENT="$COMMENT### Dependency Vulnerabilities\nNo package files modified in this PR.\n\n"
+          fi
+          
+          if [ "${{ steps.snyk_code_scan.outputs.code_vuln_count }}" -gt 0 ]; then
+            COMMENT="$COMMENT### Code Vulnerabilities\nFound ${{ steps.snyk_code_scan.outputs.code_vuln_count }} potential vulnerabilities in changed code.\nCheck the snyk-code-report.json artifact for details.\n"
+          else
+            COMMENT="$COMMENT### Code Vulnerabilities\nNo vulnerabilities found in changed code.\n"
+          fi
+          
+          COMMENT="$COMMENT*Note: OWASP Juice Shop is intentionally vulnerable - some findings may be expected.*"
+          
+          echo "body<<EOF" >> $GITHUB_OUTPUT
+          echo "$COMMENT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      # Post comment to PR
+      - name: Comment on PR
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const comment = `${{ steps.comment.outputs.body }}`;
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: comment
+            });
+
+      # Upload scan reports as artifacts
+      - name: Upload Snyk Dependency Report
+        if: steps.dep_files.outputs.dep_files != ''
+        uses: actions/upload-artifact@v3
+        with:
+          name: snyk-dep-report
+          path: snyk-dep-report.json
+
+      - name: Upload Snyk Code Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: snyk-code-report
+          path: snyk-code-report.json
