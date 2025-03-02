@@ -30,6 +30,12 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        run: npm install
       - name: Black Duck SCA scan
         uses: blackduck-inc/black-duck-security-scan@805cbd09e806b01907bbea0f990723c2bb85abe9
         with:
@@ -37,3 +43,8 @@ jobs:
           polaris_server_url: ${{ vars.POLARIS_SERVER_URL }}
           polaris_access_token: ${{ secrets.POLARIS_ACCESS_TOKEN }}
           polaris_assessment_types: "SCA,SAST"
+          polaris_application_name: HVP-GitHub-${{ github.event.repository.name }}
+          polaris_prComment_enabled: 'true'
+          polaris_reports_sarif_create: 'true'
+          polaris_upload_sarif_report: 'true'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
