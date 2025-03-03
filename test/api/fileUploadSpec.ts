@@ -160,4 +160,15 @@ describe('/file-upload', () => {
     return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 204)
   })
+
+  it('POST valid file with tampered content length', () => {
+    const file = path.resolve(__dirname, '../files/validSizeAndTypeForClient.pdf')
+    const form = frisby.formData()
+    form.append('file', fs.createReadStream(file))
+
+    // @ts-expect-error FIXME form.getHeaders() is not found
+    return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'], 'Content-Length': 42 }, body: form })
+      .expect('status', 500)
+      .expect('bodyContains', 'Unexpected end of form')
+  })
 })
