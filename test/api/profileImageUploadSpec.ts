@@ -151,4 +151,33 @@ describe('/profile/image/url', () => {
       .expect('header', 'content-type', /text\/html/)
       .expect('bodyContains', 'Error: Blocked illegal activity')
   })
+
+  it('POST valid image with tampered content length', () => {
+    const file = path.resolve(__dirname, '../files/validProfileImage.jpg')
+    const form = frisby.formData()
+    form.append('file', fs.createReadStream(file))
+
+    return frisby.post(`${REST_URL}/user/login`, {
+      headers: jsonHeader,
+      body: {
+        email: `jim@${config.get<string>('application.domain')}`,
+        password: 'ncc-1701'
+      }
+    })
+      .expect('status', 200)
+      .then(({ json: jsonLogin }) => {
+        return frisby.post(`${URL}/profile/image/file`, {
+          headers: {
+            Cookie: `token=${jsonLogin.authentication.token}`,
+            // @ts-expect-error FIXME form.getHeaders() is not found
+            'Content-Type': form.getHeaders()['content-type'],
+            'Content-Length': 42
+          },
+          body: form,
+          redirect: 'manual'
+        })
+          .expect('status', 500)
+          .expect('bodyContains', 'Unexpected end of form')
+      })
+  })
 })
