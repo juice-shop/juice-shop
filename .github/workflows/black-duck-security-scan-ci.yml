@@ -1,8 +1,3 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 # Black Duck Security Action allows you to integrate Static Analysis Security Testing (SAST) and Software Composition Analysis (SCA) into your CI/CD pipelines.
 # For more information about configuring your workflow,
 # read our documentation at https://github.com/blackduck-inc/black-duck-security-scan
@@ -11,16 +6,13 @@ name: CI Black Duck security scan
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ main, master, develop, stage, release ]
   pull_request:
-    # The branches below must be a subset of the branches above
-    branches: [ "master" ]
-  schedule:
-    - cron: '28 22 * * 5'
+    branches: [ main, master, develop, stage, release ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  polaris-scan:
+    runs-on: [ ubuntu-latest ]
     permissions:
       contents: read
       pull-requests: write
@@ -30,21 +22,42 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
+        
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '20.x'
+        
       - name: Install dependencies
         run: npm install
-      - name: Black Duck SCA scan
-        uses: blackduck-inc/black-duck-security-scan@805cbd09e806b01907bbea0f990723c2bb85abe9
+
+      - name: Polaris Full Scan
+        if: ${{ github.event_name != 'pull_request' }}
+        uses: blackduck-inc/black-duck-security-scan@v2.0.0
+        ### uses: blackduck-inc/black-duck-security-scan@805cbd09e806b01907bbea0f990723c2bb85abe9
         with:
           ### ---------- POLARIS SCANNING: REQUIRED FIELDS ----------
           polaris_server_url: ${{ vars.POLARIS_SERVER_URL }}
           polaris_access_token: ${{ secrets.POLARIS_ACCESS_TOKEN }}
-          polaris_assessment_types: "SCA,SAST"
           polaris_application_name: HVP-GitHub-${{ github.event.repository.name }}
-          polaris_prComment_enabled: 'true'
+          polaris_project_name: HVP-GitHub-${{ github.event.repository.name }}
+          polaris_assessment_types: "SCA,SAST"          
+          ### SARIF report generation and upload to GitHub Adavanced Security Tab
           polaris_reports_sarif_create: 'true'
-          polaris_upload_sarif_report: 'true'
+          polaris_upload_sarif_report: true 
+          # polaris_prComment_enabled: 'true'
+          # polaris_reports_sarif_issue_types: 'SCA, SAST'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Polaris PR Scan
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: blackduck-inc/black-duck-security-scan@v2.0.0
+        with:
+          polaris_server_url: ${{ vars.POLARIS_SERVER_URL }}
+          polaris_access_token: ${{ secrets.POLARIS_ACCESS_TOKEN }}
+          polaris_application_name: HVP-GitHub-${{ github.event.repository.name }}
+          polaris_project_name: HVP-GitHub-${{ github.event.repository.name }}
+          polaris_assessment_types: "SCA,SAST"
+          ### Below configuration is used to enable feedback from Polaris security testing as pull request comment
+          polaris_prComment_enabled: true 
           github_token: ${{ secrets.GITHUB_TOKEN }}
