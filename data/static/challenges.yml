@@ -1219,7 +1219,7 @@
   description: 'Close multiple "Challenge solved"-notifications in one go.'
   difficulty: 1
   hint: 'Either check the official documentation or inspect a notification UI element directly.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/score-board.html#_close_multiple_challenge_solved_notifications_in_one_go'
+  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/miscellaneous.html#_close_multiple_challenge_solved_notifications_in_one_go'
   mitigationUrl: ~
   key: closeNotificationsChallenge
 -
