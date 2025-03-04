@@ -93,7 +93,7 @@ describe('/#/complain', () => {
           cy.get('#complaintMessage').type('XXE Dev Random!')
           cy.get('#file').selectFile('test/files/xxeDevRandom.xml')
           cy.get('#submitButton').click()
-          cy.wait(2000) // Wait for timeout of XML parser
+          cy.wait(5000) // Wait for 2.5x timeout of XML parser
         }
       })
     })
@@ -104,7 +104,7 @@ describe('/#/complain', () => {
             cy.get('#complaintMessage').type('XXE Quadratic Blowup!')
             cy.get('#file').selectFile('test/files/xxeQuadraticBlowup.xml')
             cy.get('#submitButton').click()
-            cy.wait(2000) // Wait for timeout of XML parser
+            cy.wait(5000) // Wait for 2.5x timeout of XML parser
           }
         })
       })
@@ -125,7 +125,7 @@ describe('/#/complain', () => {
           cy.get('#complaintMessage').type('YAML Bomb!')
           cy.get('#file').selectFile('test/files/yamlBomb.yml')
           cy.get('#submitButton').click()
-          cy.wait(2000) // Wait for possible timeout of YAML parser
+          cy.wait(5000) // Wait for 2.5x possible timeout of YAML parser
           cy.expectChallengeSolved({ challenge: 'Memory Bomb' })
         }
       })
