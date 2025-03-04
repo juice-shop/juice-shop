@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "31479f5c-c65c-4cc9-90b6-82240b529434",
+		"name": "juice-shop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28370141"
+	},
+	"item": [
+		{
+			"name": "Sent without captcha",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer  TOKEN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Test User\",\r\n  \"email\": \"user@example.com\",\r\n  \"feedback\": \"This is a test feedback to check CAPTCHA bypass.\",\r\n  \"captcha\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://juice-shop.api.com/feedback/submit",
+					"protocol": "https",
+					"host": [
+						"juice-shop",
+						"api",
+						"com"
+					],
+					"path": [
+						"feedback",
+						"submit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Empty CAPTCHA",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer  TOKEN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Test User\",\r\n  \"email\": \"user@example.com\",\r\n  \"feedback\": \"Check CAPTCHA \",\r\n  \"captcha\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://juice-shop.api.com/feedback/submit",
+					"protocol": "https",
+					"host": [
+						"juice-shop",
+						"api",
+						"com"
+					],
+					"path": [
+						"feedback",
+						"submit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Submit  Using CAPTCHA from Another User’s token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer  TOKEN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"User B\",\r\n    \"email\": \"userB@example.com\",\r\n    \"feedback\": \"Testing  CAPTCHA.\",\r\n    \"captcha\": \"correct data\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://juice-shop.api.com/feedback/submit",
+					"protocol": "https",
+					"host": [
+						"juice-shop",
+						"api",
+						"com"
+					],
+					"path": [
+						"feedback",
+						"submit"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
