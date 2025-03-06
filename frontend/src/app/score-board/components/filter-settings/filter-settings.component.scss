@@ -16,7 +16,7 @@
   gap: 16px;
   grid-template-columns: auto min-content min-content;
   margin-top: 16px;
-  @media (max-width: 1000px) {
+  @media (max-width: 1200px) {
     grid-template-columns: auto;
   }
 }
