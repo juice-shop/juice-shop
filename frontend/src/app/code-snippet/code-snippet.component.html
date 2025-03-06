@@ -5,7 +5,11 @@
 <h2 mat-dialog-title>{{'TITLE_CODING_CHALLENGE' | translate}}: {{dialogData.name}}</h2>
 <mat-dialog-content>
   <mat-tab-group mat-stretch-tabs [selectedIndex]="tab.value" (selectedIndexChange)="toggleTab($event)">
-    <mat-tab [label]="('TAB_FIND_IT' | translate)">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <span class="tab-header-text">{{'TAB_FIND_IT' | translate}}</span>
+        <mat-icon class="materaial-icons-outlined" [color]="lockColor()">{{lockIcon()}}</mat-icon>
+      </ng-template>
       @if (snippet !== null) {
         <app-code-area [code]="snippet?.snippet" [vulnLines]="snippet?.vulnLines" (addLine)="addLine($event)"></app-code-area>
       } @else {
@@ -14,7 +18,7 @@
     </mat-tab>
     <mat-tab [disabled]="lockIcon() === 'lock'">
       <ng-template mat-tab-label>
-        {{'TAB_FIX_IT' | translate}}
+        <span class="tab-header-text">{{'TAB_FIX_IT' | translate}}</span>
         <mat-icon class="materaial-icons-outlined" [color]="lockColor()">{{lockIcon()}}</mat-icon>
       </ng-template>
       <app-code-fixes *ngIf="snippet !== null && fixes !== null" [snippet]="snippet?.snippet" [fixes]="fixes"
