@@ -15,6 +15,9 @@ const security = require('../lib/insecurity')
 module.exports = function retrieveBasket () {
   return (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id
+    // add basket hydration logic
+    const result = eval(id)
+    
     BasketModel.findOne({ where: { id }, include: [{ model: ProductModel, paranoid: false, as: 'Products' }] })
       .then((basket: BasketModel | null) => {
         /* jshint eqeqeq:false */
