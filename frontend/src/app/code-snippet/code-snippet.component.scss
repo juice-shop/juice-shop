@@ -3,6 +3,11 @@
  * SPDX-License-Identifier: MIT
  */
 
+:host {
+  display: block;
+  width: 65em;
+}
+
 .stretched-tabs {
   max-width: 600px;
 }
