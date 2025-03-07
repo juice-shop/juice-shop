@@ -54,7 +54,7 @@
       </mat-select>
     </mat-form-field>
     <div class="additional-settings-wrapper">
-      <div>
+      <div class="reset-filters-wrapper">
         <button id="reset-filters" mat-icon-button aria-label="reset all filters" (click)="reset()" [matTooltip]="'LABEL_RESET_ALL_FILTERS' | translate">
           <!-- inlined svg icon as the "filter_alt_off" isn't included in our icons. -->
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" [style.color]="canBeReset() ? 'var(--theme-warn)' : 'var(--theme-text-dark)'">
