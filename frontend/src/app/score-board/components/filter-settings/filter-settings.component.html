@@ -2,17 +2,17 @@
   <div class="search-form-field">
     <mat-form-field>
       <mat-icon matPrefix class="search-icon">search</mat-icon>
-      <mat-label translate>NAV_SEARCH</mat-label>
+      <mat-label>{{ 'NAV_SEARCH' | translate }}</mat-label>
       <input type="search" matInput [value]="filterSetting.searchQuery" (input)="onSearchQueryFilterChange($event.target.value)">
     </mat-form-field>
   </div>
   <div class="options-group">
     <mat-form-field>
-      <mat-label translate>LABEL_DIFFICULTY</mat-label>
+      <mat-label>{{ 'LABEL_DIFFICULTY' | translate }}</mat-label>
       <mat-select multiple [value]="filterSetting.difficulties" (selectionChange)="onDifficultyFilterChange($event.value)">
         <mat-select-trigger>
           <ng-container *ngIf="filterSetting.difficulties.length === 0">
-            {{ "LABEL_DIFFICULTY" | translate }}
+            {{ 'LABEL_DIFFICULTY' | translate }}
           </ng-container>
           <span *ngIf="filterSetting.difficulties.length !== 0">
             {{ filterSetting.difficulties | difficultySelectionSummary }}
@@ -48,7 +48,7 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <mat-label translate>LABEL_TAGS</mat-label>
+      <mat-label>{{ 'LABEL_TAGS' | translate }}</mat-label>
       <mat-select multiple [value]="filterSetting.tags" (selectionChange)="onTagFilterChange($event.value)">
         <mat-option *ngFor="let tag of tags" [value]="tag" class="mat-body">{{ tag }}</mat-option>
       </mat-select>
@@ -62,7 +62,7 @@
             <path d="M1.63922 0.574219L0.574219 1.63172L7.03172 8.21672V12.7167C7.03172 13.1292 7.36922 13.4667 7.78172 13.4667H9.28172C9.69422 13.4667 10.0317 13.1292 10.0317 12.7167V11.0892L14.3667 15.4242L15.4242 14.3667L1.63922 0.574219Z" fill="currentColor"/>
           </svg>
         </button>
-        <label class="reset-filters-label" for="reset-filters" translate>LABEL_RESET_ALL_FILTERS</label>
+        <label class="reset-filters-label" for="reset-filters">{{ 'LABEL_RESET_ALL_FILTERS' | translate }}</label>
       </div>
       <button class="additional-settings-button" mat-icon-button aria-label="Open additional settings dialog" (click)="openAdditionalSettingsDialog()" [matTooltip]="'Open additional settings dialog'">
         <mat-icon>settings</mat-icon>
