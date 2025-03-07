@@ -34,6 +34,11 @@
   color: var(--theme-text-fade-30);
 }
 
+.reset-filters-wrapper {
+  display: flex;
+  align-items: center;
+}
+
 .reset-filters-label {
   color: var(--theme-text-fade-30);
   @media (min-width: 800px) {
