@@ -5,6 +5,9 @@
   grid-template-columns: repeat(3, 1fr) min-content;
   row-gap: 8px;
   width: max-content;
+  @media (max-width: 1200px) {
+    width: auto;
+  }
   @media (max-width: 800px) {
     grid-template-columns: auto;
   }
@@ -15,8 +18,8 @@
   gap: 16px;
   grid-template-columns: auto min-content min-content;
   margin-top: 16px;
-  @media (max-width: 1000px) {
-    grid-template-columns: auto;
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr;
   }
 }
 
