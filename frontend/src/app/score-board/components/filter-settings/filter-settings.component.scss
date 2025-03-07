@@ -55,15 +55,3 @@
     width: 16px;
   }
 }
-
-@media screen and (max-width: 800px) {
-  .filter-row {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .options-group {
-    width: auto;
-  }
-}
