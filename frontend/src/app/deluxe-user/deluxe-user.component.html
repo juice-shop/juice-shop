@@ -3,15 +3,15 @@
   ~ SPDX-License-Identifier: MIT
 -->
 
-<div fxLayout="column" fxLayoutGap="10px" class="main-wrapper">
+<div class="main-wrapper">
   <div *ngIf="error" class="heading mat-elevation-z6">
     <div style="margin-top:5px;">
       <p class="error">{{error}}</p>
     </div>
   </div>
   <mat-card appearance="outlined" class="mat-elevation-z6 deluxe-membership">
-    <div class="mdc-card" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start center">
-      <div class="img-container" fxFlexAlign="start" fxFlex="30%">
+    <div class="card-content">
+      <div class="img-container">
         <svg preserveAspectRatio="xMidYMid meet" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg">
           <image href="assets/public/images/deluxe/blankBoxes.png" x="0" y="0" height="720" width="720"/>
           <image [attr.href]="logoSrc" x="260" y="130" height="50"/>
@@ -21,7 +21,7 @@
           <image [attr.href]="logoSrc" x="500" y="410" height="45"/>
         </svg>
       </div>
-      <div fxFlexAlign="center" fxFlex="60%">
+      <div class="card-text">
         <div class="item-name">
           <b translate>LABEL_DELUXE_MEMBERSHIP</b>
         </div>
@@ -41,15 +41,15 @@
       </div>
     </div>
   </mat-card>
-  <div fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column">
-    <mat-card appearance="outlined" class="mat-elevation-z6" fxFlex="33.33%">
-      <div class="mdc-card" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start center">
-        <div class="img-container" fxFlexAlign="start" fxFlex="40%">
+  <div class="feature-cards-container">
+    <mat-card appearance="outlined" class="mat-elevation-z6 feature-card">
+      <div class="card-content">
+        <div class="img-container">
           <mat-icon style="transform: scale(3)" class="img-responsive img-thumbnail">
             slideshow
           </mat-icon>
         </div>
-        <div fxFlexAlign="center" fxFlex="60%">
+        <div class="card-text">
           <div class="item-name">
             <b translate>LABEL_DEALS_OFFERS</b>
           </div>
@@ -59,14 +59,14 @@
         </div>
       </div>
     </mat-card>
-    <mat-card appearance="outlined" class="mat-elevation-z6" fxFlex="33.33%">
-      <div class="mdc-card" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start center">
-        <div class="img-container" fxFlexAlign="start" fxFlex="40%">
+    <mat-card appearance="outlined" class="mat-elevation-z6 feature-card">
+      <div class="card-content">
+        <div class="img-container">
           <mat-icon style="transform: scale(3)" class="img-responsive img-thumbnail">
             directions_car
           </mat-icon>
         </div>
-        <div fxFlexAlign="center" fxFlex="60%">
+        <div class="card-text">
           <div class="item-name">
             <b translate>LABEL_FREE_FAST_DELIVERY</b>
           </div>
@@ -76,14 +76,14 @@
         </div>
       </div>
     </mat-card>
-    <mat-card appearance="outlined" class="mat-elevation-z6" fxFlex="33.33%">
-      <div class="mdc-card" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start center">
-        <div class="img-container" fxFlexAlign="start" fxFlex="40%">
+    <mat-card appearance="outlined" class="mat-elevation-z6 feature-card">
+      <div class="card-content">
+        <div class="img-container">
           <mat-icon style="transform: scale(3)" class="img-responsive img-thumbnail">
             add
           </mat-icon>
         </div>
-        <div fxFlexAlign="center" fxFlex="60%">
+        <div class="card-text">
           <div class="item-name">
             <b translate>LABEL_UNLIMITED_PURCHASE</b>
           </div>
