@@ -3,95 +3,95 @@
   ~ SPDX-License-Identifier: MIT
 -->
 
-<div class="main-wrapper">
-  <div *ngIf="error" class="heading mat-elevation-z6">
-    <div style="margin-top:5px;">
-      <p class="error">{{error}}</p>
+<div *ngIf="error" class="heading mat-elevation-z6">
+  <div style="margin-top:5px;">
+    <p class="error">{{error}}</p>
+  </div>
+</div>
+
+<mat-card appearance="outlined" class="mat-elevation-z6 deluxe-membership">
+  <div class="card-content">
+    <div class="img-container">
+      <svg preserveAspectRatio="xMidYMid meet" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg">
+        <image href="assets/public/images/deluxe/blankBoxes.png" x="0" y="0" height="720" width="720" />
+        <image [attr.href]="logoSrc" x="260" y="130" height="50" />
+        <image [attr.href]="logoSrc" x="230" y="330" height="70" />
+        <image [attr.href]="logoSrc" x="70" y="355" height="40" />
+        <image [attr.href]="logoSrc" x="120" y="450" height="55" />
+        <image [attr.href]="logoSrc" x="500" y="410" height="45" />
+      </svg>
+    </div>
+    <div class="card-text">
+      <div class="item-name">
+        <b translate>LABEL_DELUXE_MEMBERSHIP</b>
+      </div>
+      <div class="item-description">
+        <span translate [translateParams]="{appname: applicationName}">DESCRIPTION_DELUXE_MEMBERSHIP</span>
+      </div>
+      <div *ngIf="!error">
+        <div class="item-description">
+          {{ membershipCost }}&curren;
+        </div>
+        <div class="item-description">
+          <button (click)="upgradeToDeluxe()" aria-label="Add to Basket" class="btn-member" color="primary" mat-button
+            mat-raised-button>
+            <span translate>LABEL_BECOME_MEMBER</span>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
-  <mat-card appearance="outlined" class="mat-elevation-z6 deluxe-membership">
+</mat-card>
+<div class="feature-cards-container">
+  <mat-card appearance="outlined" class="mat-elevation-z6 feature-card">
     <div class="card-content">
       <div class="img-container">
-        <svg preserveAspectRatio="xMidYMid meet" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg">
-          <image href="assets/public/images/deluxe/blankBoxes.png" x="0" y="0" height="720" width="720"/>
-          <image [attr.href]="logoSrc" x="260" y="130" height="50"/>
-          <image [attr.href]="logoSrc" x="230" y="330" height="70"/>
-          <image [attr.href]="logoSrc" x="70" y="355" height="40"/>
-          <image [attr.href]="logoSrc" x="120" y="450" height="55"/>
-          <image [attr.href]="logoSrc" x="500" y="410" height="45"/>
-        </svg>
+        <mat-icon style="transform: scale(3)" class="img-responsive img-thumbnail">
+          slideshow
+        </mat-icon>
       </div>
       <div class="card-text">
         <div class="item-name">
-          <b translate>LABEL_DELUXE_MEMBERSHIP</b>
+          <b translate>LABEL_DEALS_OFFERS</b>
         </div>
-        <div class="item-description">
-          <span translate [translateParams]="{appname: applicationName}">DESCRIPTION_DELUXE_MEMBERSHIP</span>
-        </div>
-        <div *ngIf="!error">
-          <div class="item-description">
-            {{ membershipCost }}&curren;
-          </div>
-          <div class="item-description">
-            <button (click)="upgradeToDeluxe()" aria-label="Add to Basket" class="btn-member" color="primary" mat-button mat-raised-button>
-              <span translate>LABEL_BECOME_MEMBER</span>
-            </button>
-          </div>
+        <div class="item-description" translate>
+          DESCRIPTION_DEALS_OFFERS
         </div>
       </div>
     </div>
   </mat-card>
-  <div class="feature-cards-container">
-    <mat-card appearance="outlined" class="mat-elevation-z6 feature-card">
-      <div class="card-content">
-        <div class="img-container">
-          <mat-icon style="transform: scale(3)" class="img-responsive img-thumbnail">
-            slideshow
-          </mat-icon>
+  <mat-card appearance="outlined" class="mat-elevation-z6 feature-card">
+    <div class="card-content">
+      <div class="img-container">
+        <mat-icon style="transform: scale(3)" class="img-responsive img-thumbnail">
+          directions_car
+        </mat-icon>
+      </div>
+      <div class="card-text">
+        <div class="item-name">
+          <b translate>LABEL_FREE_FAST_DELIVERY</b>
         </div>
-        <div class="card-text">
-          <div class="item-name">
-            <b translate>LABEL_DEALS_OFFERS</b>
-          </div>
-          <div class="item-description" translate>
-            DESCRIPTION_DEALS_OFFERS
-          </div>
+        <div class="item-description" translate>
+          DESCRIPTION_FREE_FAST_DELIVERY
         </div>
       </div>
-    </mat-card>
-    <mat-card appearance="outlined" class="mat-elevation-z6 feature-card">
-      <div class="card-content">
-        <div class="img-container">
-          <mat-icon style="transform: scale(3)" class="img-responsive img-thumbnail">
-            directions_car
-          </mat-icon>
+    </div>
+  </mat-card>
+  <mat-card appearance="outlined" class="mat-elevation-z6 feature-card">
+    <div class="card-content">
+      <div class="img-container">
+        <mat-icon style="transform: scale(3)" class="img-responsive img-thumbnail">
+          add
+        </mat-icon>
+      </div>
+      <div class="card-text">
+        <div class="item-name">
+          <b translate>LABEL_UNLIMITED_PURCHASE</b>
         </div>
-        <div class="card-text">
-          <div class="item-name">
-            <b translate>LABEL_FREE_FAST_DELIVERY</b>
-          </div>
-          <div class="item-description" translate>
-            DESCRIPTION_FREE_FAST_DELIVERY
-          </div>
+        <div class="item-description" translate>
+          DESCRIPTION_UNLIMITED_PURCHASE
         </div>
       </div>
-    </mat-card>
-    <mat-card appearance="outlined" class="mat-elevation-z6 feature-card">
-      <div class="card-content">
-        <div class="img-container">
-          <mat-icon style="transform: scale(3)" class="img-responsive img-thumbnail">
-            add
-          </mat-icon>
-        </div>
-        <div class="card-text">
-          <div class="item-name">
-            <b translate>LABEL_UNLIMITED_PURCHASE</b>
-          </div>
-          <div class="item-description" translate>
-            DESCRIPTION_UNLIMITED_PURCHASE
-          </div>
-        </div>
-      </div>
-    </mat-card>
-  </div>
+    </div>
+  </mat-card>
 </div>

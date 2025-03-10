@@ -5,19 +5,19 @@
 
 $bg-heading: rgba(0, 0, 0, 0.2);
 
-.heading {
-  background: $bg-heading;
-  font-size: x-large;
-  justify-content: center;
-  padding: 12px 20px;
-}
-
-.main-wrapper {
+:host {
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-left: 10%;
   margin-right: 10%;
+}
+
+.heading {
+  background: $bg-heading;
+  font-size: x-large;
+  justify-content: center;
+  padding: 12px 20px;
 }
 
 .feature-cards-container {
