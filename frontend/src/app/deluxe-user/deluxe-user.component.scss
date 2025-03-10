@@ -13,17 +13,17 @@ $bg-heading: rgba(0, 0, 0, 0.2);
 }
 
 .main-wrapper {
-  margin-left: 10%;
-  margin-right: 10%;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 .feature-cards-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .img-thumbnail {
@@ -49,14 +49,14 @@ $bg-heading: rgba(0, 0, 0, 0.2);
 
 .img-container {
   height: 360px;
-  width: 360px;
   padding-bottom: 30px;
+  width: 360px;
 }
 
 .card-content {
+  align-items: center;
   display: flex;
   flex-direction: row;
-  align-items: center;
 }
 
 .deluxe-membership .card-content {
@@ -83,9 +83,9 @@ $bg-heading: rgba(0, 0, 0, 0.2);
 }
 
 .feature-card .img-container {
-  flex: 0 0 40%;
   align-items: center;
   display: flex;
+  flex: 0 0 40%;
   height: auto;
   max-height: 80px;
   min-height: 60px;
