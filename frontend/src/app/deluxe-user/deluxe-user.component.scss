@@ -15,6 +15,15 @@ $bg-heading: rgba(0, 0, 0, 0.2);
 .main-wrapper {
   margin-left: 10%;
   margin-right: 10%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feature-cards-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 }
 
 .img-thumbnail {
@@ -41,57 +50,40 @@ $bg-heading: rgba(0, 0, 0, 0.2);
 .img-container {
   height: 360px;
   width: 360px;
+  padding-bottom: 30px;
 }
 
-
-@media screen and (max-width: 768px) {
-  .deluxe-membership .mdc-card {
-    flex-direction: row !important;
-    flex-wrap: wrap;
-  }
-  
-  .deluxe-membership .img-container {
-    flex: 0 0 auto !important;
-    height: auto;
-    max-width: 200px !important;
-    min-height: 0;
-    width: 40% !important;
-  }
-  
-  .deluxe-membership [fxFlex='60%'] {
-    flex: 1 1 auto !important;
-    width: calc(60% - 10px) !important;
-  }
-  
-  mat-card.mat-elevation-z6[fxFlex='33.33%'] .mdc-card {
-    flex-direction: column !important;
-  }
+.card-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-@media screen and (max-width: 480px) {
-  .deluxe-membership .img-container {
-    max-width: 120px !important;
-    width: 30% !important;
-  }
-  
-  .img-container svg {
-    height: auto;
-    max-width: 100%;
-  }
+.deluxe-membership .card-content {
+  flex-direction: row;
 }
 
-mat-card.mat-elevation-z6[fxFlex='33.33%'] {
+.deluxe-membership .img-container {
+  flex: 0 0 30%;
+}
+
+.deluxe-membership .card-text {
+  flex: 0 0 60%;
+}
+
+.feature-card {
   height: auto;
-  max-height: 120px; 
+  max-height: 120px;
 }
 
-mat-card.mat-elevation-z6[fxFlex='33.33%'] .mdc-card {
+.feature-card .card-content {
   height: 100%;
   overflow: hidden;
   padding: 10px;
 }
 
-mat-card.mat-elevation-z6[fxFlex='33.33%'] .img-container {
+.feature-card .img-container {
+  flex: 0 0 40%;
   align-items: center;
   display: flex;
   height: auto;
@@ -99,7 +91,51 @@ mat-card.mat-elevation-z6[fxFlex='33.33%'] .img-container {
   min-height: 60px;
 }
 
-mat-card.mat-elevation-z6[fxFlex='33.33%'] .item-description {
+.feature-card .card-text {
+  flex: 0 0 60%;
+}
+
+.feature-card .item-description {
   font-size: 0.9em;
   margin-top: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .feature-cards-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .deluxe-membership .card-content {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .deluxe-membership .img-container {
+    flex: 0 0 auto;
+    height: auto;
+    max-width: 200px;
+    min-height: 0;
+    width: 40%;
+  }
+  
+  .deluxe-membership .card-text {
+    flex: 1 1 auto;
+    width: calc(60% - 10px);
+  }
+  
+  .feature-card .card-content {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .deluxe-membership .img-container {
+    max-width: 120px;
+    width: 30%;
+  }
+  
+  .img-container svg {
+    height: auto;
+    max-width: 100%;
+  }
 }
