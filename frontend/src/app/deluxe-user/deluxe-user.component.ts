@@ -28,6 +28,24 @@ export class DeluxeUserComponent implements OnInit {
   public applicationName = 'OWASP Juice Shop'
   public logoSrc: string = 'assets/public/images/JuiceShop_Logo.png'
 
+  public SHOWCASES = [
+    {
+      icon: 'slideshow',
+      name: 'LABEL_DEALS_OFFERS',
+      description: 'DESCRIPTION_DEALS_OFFERS'
+    },
+    {
+      icon: 'directions_car',
+      name: 'LABEL_FREE_FAST_DELIVERY',
+      description: 'DESCRIPTION_FREE_FAST_DELIVERY'
+    },
+    {
+      icon: 'add',
+      name: 'LABEL_UNLIMITED_PURCHASE',
+      description: 'DESCRIPTION_UNLIMITED_PURCHASE'
+    }
+  ] as const
+
   constructor (private readonly router: Router, private readonly userService: UserService, private readonly configurationService: ConfigurationService, private readonly route: ActivatedRoute, private readonly ngZone: NgZone, private readonly io: SocketIoService) {
   }
 
