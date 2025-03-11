@@ -39,7 +39,7 @@ const routes: Routes = [
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class FaucetModule {
+export class Web3SandboxModule {
   constructor (
     public configurationService: ConfigurationService,
     public overlayContainer: OverlayContainer
