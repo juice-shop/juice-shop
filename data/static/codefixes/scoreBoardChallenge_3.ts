@@ -161,7 +161,7 @@ const routes: Routes = [
   },
   {
     path: 'web3-sandbox',
-    loadChildren: async () => await loadWeb3SandboxtModule()
+    loadChildren: async () => await loadWeb3SandboxModule()
   },
   {
     path: 'bee-haven',
