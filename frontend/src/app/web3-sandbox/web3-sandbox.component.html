@@ -43,9 +43,7 @@
         mat-raised-button
         (click)="compileAndFetchContracts(code)"
       >
-        <i class="material-icons">
-          build
-        </i>
+        <mat-icon>build</mat-icon>
         {{ "BTN_COMPILE_CONTRACT" | translate}}
       </button>
       <div *ngIf="compilerErrors.length > 0" class="error-container mat-elevation-z6">
@@ -86,9 +84,7 @@
           type="button"
           (click)="deploySelectedContract()"
         >
-          <i class="material-icons">
-            link
-          </i>
+          <mat-icon>link</mat-icon>
           {{ "BTN_DEPLOY_SELECTED_CONTRACT" | translate}}
         </button>
       </div>
@@ -106,9 +102,7 @@
                   type="button"
                   (click)="invokeFunction(func)"
                 >
-                  <i class="material-icons">
-                    call_to_action
-                  </i>
+                  <mat-icon>call_to_action</mat-icon>
                   {{ "BTN_INVOKE" | translate}} {{ func.name }}
                 </button>
                 <mat-form-field appearance="outline" color="accent">
@@ -133,9 +127,7 @@
                   type="button"
                   (click)="invokeFunction(func)"
                 >
-                  <i class="material-icons">
-                    call_to_action
-                  </i>
+                  <mat-icon>call_to_action</mat-icon>
                   {{ "BTN_INVOKE" | translate}} {{ func.name }}
                 </button>
                 <div class="invoke-output" *ngIf="func.outputValue !== ''">

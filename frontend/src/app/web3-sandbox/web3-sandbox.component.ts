@@ -19,6 +19,7 @@ import { NgIf, NgFor } from '@angular/common'
 import { MatButtonModule } from '@angular/material/button'
 import { FormsModule } from '@angular/forms'
 import { CodemirrorModule } from '@ctrl/ngx-codemirror'
+import { MatIconModule } from '@angular/material/icon'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const client = createClient({
@@ -42,7 +43,7 @@ const compilerReleases = {
   templateUrl: './web3-sandbox.component.html',
   styleUrls: ['./web3-sandbox.component.scss'],
   standalone: true,
-  imports: [CodemirrorModule, FormsModule, MatButtonModule, NgIf, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, NgFor]
+  imports: [CodemirrorModule, FormsModule, MatButtonModule, MatIconModule, NgIf, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, NgFor]
 })
 export class Web3SandboxComponent {
   constructor (
