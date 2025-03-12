@@ -11,6 +11,13 @@
   margin-right: 10%;
 }
 
+.card-image {
+  height: flex;
+  width: flex;
+  max-width: 360px;
+  max-height: 360px;
+}
+
 .heading {
   background: rgba(0, 0, 0, 0.2);
   font-size: x-large;
@@ -40,9 +47,6 @@
     width: min-content;
   }
 
-  @media screen and (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
 }
 
 .feature-cards-container {
@@ -68,6 +72,7 @@
     gap: 6px;
     padding: 0 16px;
     text-align: center;
+    font-size: 1.15em;
   }
 
   mat-icon {
