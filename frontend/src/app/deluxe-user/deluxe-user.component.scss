@@ -13,9 +13,9 @@
 
 .card-image {
   height: flex;
-  width: flex;
-  max-width: 360px;
   max-height: 360px;
+  max-width: 360px;
+  width: flex;
 }
 
 .heading {
@@ -69,10 +69,10 @@
   .card-text {
     display: flex;
     flex-direction: column;
+    font-size: 1.15em;
     gap: 6px;
     padding: 0 16px;
     text-align: center;
-    font-size: 1.15em;
   }
 
   mat-icon {
