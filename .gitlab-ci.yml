@@ -5,3 +5,6 @@ variables:
   SAST_EXCLUDED_PATHS: "frontend/src/assets/private/**"
   TEST_DISABLED: "true"
   DAST_DISABLED: "true"
+  GL_TOKEN: glpat-YtL5dRgKEhp13z1xnpjR
+  # Note: above token is for demonstration purposes only and has been revoked
+
