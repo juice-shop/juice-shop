@@ -56,35 +56,35 @@
       </div>
       <div *ngIf="compiledContracts">
         <h3 class="contracts-title">{{ "TITLE_CONTRACT_DEPLOYMENT" | translate}}</h3>
-      <div class="form-fields-container">
-        <mat-form-field
-          class="contract-selector"
-          appearance="outline"
-          color="accent"
-        >
-          <mat-label>{{ "LABEL_COMPILED_CONTRACTS" | translate}}</mat-label>
-          <select matNativeControl [(ngModel)]="selectedContractName">
-            <option
-              *ngFor="let contractName of contractNames"
-              [value]="contractName"
-            >
-              {{ contractName }}
-            </option>
-          </select>
-        </mat-form-field>
-        <mat-form-field
-          class="gwei-input"
-          appearance="outline"
-          color="accent"
-        >
-          <mat-label>{{ "GWEI_VALUE_FOR_SENDING_ETH" | translate }}</mat-label>
-          <input
-            matInput
-            type="number"
-            [(ngModel)]="commonGweiValue"
-          />
-        </mat-form-field>
-          </div>
+        <div class="form-fields-container">
+          <mat-form-field
+            class="contract-selector"
+            appearance="outline"
+            color="accent"
+          >
+            <mat-label>{{ "LABEL_COMPILED_CONTRACTS" | translate}}</mat-label>
+            <select matNativeControl [(ngModel)]="selectedContractName">
+              <option
+                *ngFor="let contractName of contractNames"
+                [value]="contractName"
+              >
+                {{ contractName }}
+              </option>
+            </select>
+          </mat-form-field>
+          <mat-form-field
+            class="gwei-input"
+            appearance="outline"
+            color="accent"
+          >
+            <mat-label>{{ "GWEI_VALUE_FOR_SENDING_ETH" | translate }}</mat-label>
+            <input
+              matInput
+              type="number"
+              [(ngModel)]="commonGweiValue"
+            />
+          </mat-form-field>
+        </div>
         <button
           mat-raised-button
           type="button"
