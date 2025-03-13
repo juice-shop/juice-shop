@@ -56,8 +56,9 @@
       </div>
       <div *ngIf="compiledContracts">
         <h3 class="contracts-title">{{ "TITLE_CONTRACT_DEPLOYMENT" | translate}}</h3>
+      <div class="form-fields-container">
         <mat-form-field
-          style="width: 45%; margin-right: 10%"
+          class="contract-selector"
           appearance="outline"
           color="accent"
         >
@@ -71,14 +72,19 @@
             </option>
           </select>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field
+          class="gwei-input"
+          appearance="outline"
+          color="accent"
+        >
+          <mat-label>{{ "GWEI_VALUE_FOR_SENDING_ETH" | translate }}</mat-label>
           <input
             matInput
             type="number"
-            [placeholder]="'GWEI_VALUE_FOR_SENDING_ETH' | translate"
             [(ngModel)]="commonGweiValue"
           />
         </mat-form-field>
+          </div>
         <button
           mat-raised-button
           type="button"
