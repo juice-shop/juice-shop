@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run Eureka Scan
-        uses: FWDSEC/eureka-scan-action@v1
+        uses: FWDSEC/eureka-scan-action@main
         env:
           EUREKA_REGISTRY_URL: "fwdsecuritystaging.azurecr.io"
           EUREKA_REPO: " fwdsec/eureka"
