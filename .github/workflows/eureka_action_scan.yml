@@ -13,9 +13,9 @@ jobs:
       - name: Run Eureka Scan
         uses: FWDSEC/eureka-scan-action@v1
         env:
-          EUREKA_REGISTRY_URL: "fwdsecuritystaging.azurecr.io",
-          EUREKA_REPO: " fwdsec/eureka",
-          EUREKA_TAG: "latest",
+          EUREKA_REGISTRY_URL: "fwdsecuritystaging.azurecr.io"
+          EUREKA_REPO: " fwdsec/eureka"
+          EUREKA_TAG: "latest"
           EUREKA_ENDPOINT: ${{ secrets.EUREKA_ENDPOINT }}
           EUREKA_USER: ${{ secrets.EUREKA_USER }}
           EUREKA_PASSWORD: ${{ secrets.EUREKA_PASSWORD }}
