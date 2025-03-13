@@ -1,0 +1,22 @@
+name: Test Workflow
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+        - '*'
+
+jobs:
+  eureka-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Eureka Scan
+        uses: FWDSEC/eureka-scan-action@v1
+        env:
+          EUREKA_REGISTRY_URL: "fwdsecuritystaging.azurecr.io",
+          EUREKA_REPO: " fwdsec/eureka",
+          EUREKA_TAG: "latest",
+          EUREKA_ENDPOINT: ${{ secrets.EUREKA_ENDPOINT }}
+          EUREKA_USER: ${{ secrets.EUREKA_USER }}
+          EUREKA_PASSWORD: ${{ secrets.EUREKA_PASSWORD }}
+          PROFILE_INFO: ${{ secrets.PROFILE_INFO }} 
