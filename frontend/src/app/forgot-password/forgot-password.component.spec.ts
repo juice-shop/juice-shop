@@ -19,7 +19,6 @@ import { UserService } from 'src/app/Services/user.service'
 import { of, throwError } from 'rxjs'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatIconModule } from '@angular/material/icon'
-import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 
 describe('ForgotPasswordComponent', () => {
@@ -35,10 +34,8 @@ describe('ForgotPasswordComponent', () => {
     userService.resetPassword.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
-      declarations: [ForgotPasswordComponent],
       imports: [
         TranslateModule.forRoot(),
-        MatPasswordStrengthModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
@@ -48,7 +45,8 @@ describe('ForgotPasswordComponent', () => {
         MatButtonModule,
         MatTooltipModule,
         MatIconModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        ForgotPasswordComponent
       ],
       providers: [
         { provide: SecurityQuestionService, useValue: securityQuestionService },

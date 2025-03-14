@@ -37,7 +37,8 @@ module.exports = {
         // FIXME warnings below this line need to be checked and fixed.
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/strict-boolean-expressions': 'off',
-        '@typescript-eslint/no-var-requires': 'off'
+        '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/no-misused-promises': 'off'
       }
     }
   ]

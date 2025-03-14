@@ -95,7 +95,7 @@ describe('/#/basket', () => {
 
         cy.get('#coupon').type('WMNSDY2019')
         cy.get('#applyCouponButton').click()
-        cy.get('.mat-radio-inner-circle').first().click()
+        cy.get('.mat-mdc-radio-button').first().click()
         cy.get('.nextButton').click()
         cy.get('#checkoutButton').click()
         cy.expectChallengeSolved({ challenge: 'Expired Coupon' })

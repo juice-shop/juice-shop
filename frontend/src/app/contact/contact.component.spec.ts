@@ -53,9 +53,9 @@ describe('ContactComponent', () => {
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        ContactComponent
       ],
-      declarations: [ContactComponent],
       providers: [
         { provide: UserService, useValue: userService },
         { provide: MatSnackBar, useValue: snackBar },

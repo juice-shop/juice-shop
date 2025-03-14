@@ -1,10 +1,4 @@
-<section class="wrapper">
-  <div *ngFor="let fix of randomFixes; index as i" id="code">
-    <div  *ngIf="selectedFix === i">
-      <td-ngx-text-diff [left]="snippet"
-      [right]="fix?.fix" [format]="format" #codeComponent
-      >
-      </td-ngx-text-diff>
-    </div>
-  </div>
-</section>
+@for (fix of randomFixes;  track fix.index) {
+    <td-ngx-text-diff *ngIf="selectedFix === $index" [left]="snippet" [right]="fix?.fix" [format]="format" #codeComponent>
+    </td-ngx-text-diff>
+}

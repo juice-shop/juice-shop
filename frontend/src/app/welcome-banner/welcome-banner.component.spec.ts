@@ -5,7 +5,7 @@
 
 import { TranslateModule } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { CookieModule, CookieService } from 'ngx-cookie'
+import { CookieModule, CookieService } from 'ngy-cookie'
 
 import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 
@@ -33,9 +33,9 @@ describe('WelcomeBannerComponent', () => {
         CookieModule.forRoot(),
         HttpClientTestingModule,
         MatIconModule,
-        MatTooltipModule
+        MatTooltipModule,
+        WelcomeBannerComponent
       ],
-      declarations: [WelcomeBannerComponent],
       providers: [
         { provide: MatDialogRef, useValue: matDialogRef },
         { provide: ConfigurationService, useValue: configurationService },

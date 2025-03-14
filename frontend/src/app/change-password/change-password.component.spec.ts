@@ -35,9 +35,9 @@ describe('ChangePasswordComponent', () => {
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
-        MatButtonModule
+        MatButtonModule,
+        ChangePasswordComponent
       ],
-      declarations: [ChangePasswordComponent],
       providers: [{ provide: UserService, useValue: userService }]
     })
       .compileComponents()
