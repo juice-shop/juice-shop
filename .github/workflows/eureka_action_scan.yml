@@ -12,8 +12,9 @@ jobs:
     steps:
       - name: Install dependencies
         run: npm install && npm i --package-lock-only
+        
       - name: Run Eureka Scan
-        uses: FWDSEC/eureka-scan-action@main
+        uses: FWDSEC/eureka-scan-action@eureka-report-pr-comment
         env:
           EUREKA_REGISTRY_URL: "fwdsecuritystaging.azurecr.io"
           EUREKA_REPO: "fwdsec/eureka"
