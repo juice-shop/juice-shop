@@ -335,7 +335,7 @@ jobs:
           echo "HEROKU_BRANCH=master" >> $GITHUB_ENV
           else
           echo "HEROKU_APP=juice-shop-staging" >> $GITHUB_ENV
-          echo "HEROKU_BRANCH=angular17" >> $GITHUB_ENV
+          echo "HEROKU_BRANCH=develop" >> $GITHUB_ENV
           fi
       - name: "Deploy ${{ github.ref }} to Heroku"
         uses: akhileshns/heroku-deploy@581dd286c962b6972d427fcf8980f60755c15520 #v3.13.15
