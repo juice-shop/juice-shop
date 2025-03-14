@@ -19,6 +19,7 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { CodeSnippetService } from '../Services/code-snippet.service'
 import { ChallengeService } from '../Services/challenge.service'
 import { type Challenge } from '../Models/challenge.model'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 // allows to easily create a challenge with some overwrites
 function createChallenge (challengeOverwrites: Partial<Challenge>): Challenge {
@@ -58,7 +59,13 @@ describe('ScoreBoardComponent', () => {
       'getApplicationConfiguration'
     ])
     await TestBed.configureTestingModule({
-      declarations: [
+      imports: [
+        TranslateModule.forRoot(),
+        HttpClientTestingModule,
+        RouterTestingModule,
+        MatProgressSpinnerModule,
+        MatDialogModule,
+        MatIconModule,
         ScoreBoardComponent,
         HackingChallengeProgressScoreCardComponent,
         CodingChallengeProgressScoreCardComponent,
@@ -66,15 +73,8 @@ describe('ScoreBoardComponent', () => {
         WarningCardComponent,
         ChallengesUnavailableWarningComponent,
         TutorialModeWarningComponent,
-        ScoreCardComponent
-      ],
-      imports: [
-        TranslateModule.forRoot(),
-        HttpClientTestingModule,
-        RouterTestingModule,
-        MatProgressSpinnerModule,
-        MatDialogModule,
-        MatIconModule
+        ScoreCardComponent,
+        BrowserAnimationsModule
       ],
       providers: [
         { provide: ChallengeService, useValue: challengeService },
@@ -116,9 +116,15 @@ describe('ScoreBoardComponent', () => {
       of({
         challenges: {
           restrictToTutorialsFirst: false,
-          codingChallengesEnabled: true,
+          codingChallengesEnabled: 'solved',
           showHints: true,
           showMitigations: true
+        },
+        ctf: {
+          showFlagsInNotifications: true
+        },
+        hackingInstructor: {
+          isEnabled: true
         }
       })
     )

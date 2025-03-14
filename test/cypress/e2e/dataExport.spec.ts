@@ -12,7 +12,7 @@ describe('/#/privacy-security/data-export', () => {
       cy.get('#repeatPasswordControl').type('admun123')
 
       cy.get('mat-select[name="securityQuestion"]').click()
-      cy.get('.mat-option')
+      cy.get('.mat-mdc-option')
         .contains('Your eldest siblings middle name?')
         .click()
 

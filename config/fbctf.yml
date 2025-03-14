@@ -339,3 +339,6 @@ ctf:
     exposedCredentialsChallenge:
       name: Montenegro
       code: ME
+    yamlBombChallenge:
+      name: Eswatini
+      code: SZ

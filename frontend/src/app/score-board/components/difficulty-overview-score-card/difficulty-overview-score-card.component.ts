@@ -1,6 +1,9 @@
 import { Component, Input, type OnChanges, type OnInit, type SimpleChanges } from '@angular/core'
 
 import { type EnrichedChallenge } from '../../types/EnrichedChallenge'
+import { TranslateModule } from '@ngx-translate/core'
+import { NgFor, NgIf } from '@angular/common'
+import { ScoreCardComponent } from '../score-card/score-card.component'
 
 interface DifficultySummary {
   difficulty: 0 | 1 | 2 | 3 | 4 | 5 | 6
@@ -24,7 +27,9 @@ const INITIAL_SUMMARIES: Readonly<DifficultySummaries> = Object.freeze({
 @Component({
   selector: 'difficulty-overview-score-card',
   templateUrl: './difficulty-overview-score-card.component.html',
-  styleUrls: ['./difficulty-overview-score-card.component.scss']
+  styleUrls: ['./difficulty-overview-score-card.component.scss'],
+  standalone: true,
+  imports: [ScoreCardComponent, NgFor, NgIf, TranslateModule]
 })
 export class DifficultyOverviewScoreCardComponent implements OnInit, OnChanges {
   @Input()

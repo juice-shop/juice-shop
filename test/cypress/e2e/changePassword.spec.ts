@@ -11,7 +11,7 @@ describe('/#/privacy-security/change-password', () => {
     it('should be able to change password', () => {
       cy.get('#currentPassword').type('focusOnScienceMorty!focusOnScience')
       cy.get('#newPassword').type('GonorrheaCantSeeUs!')
-      cy.get('#newPasswordRepeat').type('GonorrheaCantSeeUs!')
+      cy.get('#newPasswordRepeat').type('GonorrheaCantSeeUs!', { force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
       cy.get('#changeButton').click()
 
       cy.get('.confirmation').should('not.be.hidden')

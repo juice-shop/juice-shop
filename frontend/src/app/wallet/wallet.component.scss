@@ -4,7 +4,6 @@
  */
 
 mat-card {
-  display: block;
   margin-left: 30%;
   margin-right: 30%;
 }
@@ -35,6 +34,11 @@ mat-form-field {
   display: flex;
   justify-content: space-between;
 }
+
+.mdc-card {
+  border: 0;
+}
+
 @media (max-width: 1100px) {
   mat-card {
     margin-left: 20%;

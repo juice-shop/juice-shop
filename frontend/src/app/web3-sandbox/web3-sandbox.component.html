@@ -43,9 +43,7 @@
         mat-raised-button
         (click)="compileAndFetchContracts(code)"
       >
-        <i class="material-icons">
-          build
-        </i>
+        <mat-icon>build</mat-icon>
         {{ "BTN_COMPILE_CONTRACT" | translate}}
       </button>
       <div *ngIf="compilerErrors.length > 0" class="error-container mat-elevation-z6">
@@ -58,37 +56,41 @@
       </div>
       <div *ngIf="compiledContracts">
         <h3 class="contracts-title">{{ "TITLE_CONTRACT_DEPLOYMENT" | translate}}</h3>
-        <mat-form-field
-          style="width: 45%; margin-right: 10%"
-          appearance="outline"
-          color="accent"
-        >
-          <mat-label>{{ "LABEL_COMPILED_CONTRACTS" | translate}}</mat-label>
-          <select matNativeControl [(ngModel)]="selectedContractName">
-            <option
-              *ngFor="let contractName of contractNames"
-              [value]="contractName"
-            >
-              {{ contractName }}
-            </option>
-          </select>
-        </mat-form-field>
-        <mat-form-field>
-          <input
-            matInput
-            type="number"
-            [placeholder]="'GWEI_VALUE_FOR_SENDING_ETH' | translate"
-            [(ngModel)]="commonGweiValue"
-          />
-        </mat-form-field>
+        <div class="form-fields-container">
+          <mat-form-field
+            class="contract-selector"
+            appearance="outline"
+            color="accent"
+          >
+            <mat-label>{{ "LABEL_COMPILED_CONTRACTS" | translate}}</mat-label>
+            <select matNativeControl [(ngModel)]="selectedContractName">
+              <option
+                *ngFor="let contractName of contractNames"
+                [value]="contractName"
+              >
+                {{ contractName }}
+              </option>
+            </select>
+          </mat-form-field>
+          <mat-form-field
+            class="gwei-input"
+            appearance="outline"
+            color="accent"
+          >
+            <mat-label>{{ "GWEI_VALUE_FOR_SENDING_ETH" | translate }}</mat-label>
+            <input
+              matInput
+              type="number"
+              [(ngModel)]="commonGweiValue"
+            />
+          </mat-form-field>
+        </div>
         <button
           mat-raised-button
           type="button"
           (click)="deploySelectedContract()"
         >
-          <i class="material-icons">
-            link
-          </i>
+          <mat-icon>link</mat-icon>
           {{ "BTN_DEPLOY_SELECTED_CONTRACT" | translate}}
         </button>
       </div>
@@ -106,9 +108,7 @@
                   type="button"
                   (click)="invokeFunction(func)"
                 >
-                  <i class="material-icons">
-                    call_to_action
-                  </i>
+                  <mat-icon>call_to_action</mat-icon>
                   {{ "BTN_INVOKE" | translate}} {{ func.name }}
                 </button>
                 <mat-form-field appearance="outline" color="accent">
@@ -133,9 +133,7 @@
                   type="button"
                   (click)="invokeFunction(func)"
                 >
-                  <i class="material-icons">
-                    call_to_action
-                  </i>
+                  <mat-icon>call_to_action</mat-icon>
                   {{ "BTN_INVOKE" | translate}} {{ func.name }}
                 </button>
                 <div class="invoke-output" *ngIf="func.outputValue !== ''">

@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { UntypedFormControl, Validators } from '@angular/forms'
+import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { Component, NgZone, type OnInit } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { BasketService } from '../Services/basket.service'
-import { TranslateService } from '@ngx-translate/core'
+import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faCartArrowDown,
@@ -28,16 +28,27 @@ import { ActivatedRoute, type ParamMap, Router } from '@angular/router'
 import { WalletService } from '../Services/wallet.service'
 import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'
-import { CookieService } from 'ngx-cookie'
-import { Location } from '@angular/common'
+import { CookieService } from 'ngy-cookie'
+import { Location, NgIf } from '@angular/common'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
+import { MatIconModule } from '@angular/material/icon'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel, MatHint, MatError } from '@angular/material/form-field'
+import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription } from '@angular/material/expansion'
+import { MatButtonModule } from '@angular/material/button'
+import { FlexModule } from '@angular/flex-layout/flex'
+import { MatDivider } from '@angular/material/divider'
+import { PaymentMethodComponent } from '../payment-method/payment-method.component'
+import { MatCardModule } from '@angular/material/card'
 
 library.add(faCartArrowDown, faGift, faHeart, faLeanpub, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faTimes, faStripe, faPalette)
 
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.scss']
+  styleUrls: ['./payment.component.scss'],
+  standalone: true,
+  imports: [MatCardModule, PaymentMethodComponent, MatDivider, NgIf, FlexModule, TranslateModule, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatIconModule]
 })
 export class PaymentComponent implements OnInit {
   public couponConfirmation: any
@@ -76,7 +87,7 @@ export class PaymentComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute, private readonly ngZone: NgZone,
     private readonly snackBarHelperService: SnackBarHelperService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.initTotal()
     this.walletService.get().subscribe((balance) => {
       this.walletBalance = balance

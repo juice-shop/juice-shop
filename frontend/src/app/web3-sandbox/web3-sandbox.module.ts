@@ -24,7 +24,6 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [Web3SandboxComponent],
   imports: [
     CodemirrorModule,
     CommonModule,
@@ -35,11 +34,12 @@ const routes: Routes = [
     MatButtonModule,
     MatCardModule,
     MatInputModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    Web3SandboxComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class FaucetModule {
+export class Web3SandboxModule {
   constructor (
     public configurationService: ConfigurationService,
     public overlayContainer: OverlayContainer

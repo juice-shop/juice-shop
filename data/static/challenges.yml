@@ -1058,6 +1058,21 @@
   - Heroku
   - Gitpod
 -
+  name: 'Memory Bomb'
+  category: 'Insecure Deserialization'
+  tags:
+    - Danger Zone
+  description: 'Drop some explosive data into a vulnerable file-handling endpoint.'
+  difficulty: 5
+  hint: 'This one is actually similar to the XXE DoS challenge in every way except the data format being (ab)used.'
+  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/insecure-deserialization.html#_drop_some_explosive_data_into_a_vulnerable_file_handling_endpoint'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html'
+  key: yamlBombChallenge
+  disabledEnv:
+  - Docker
+  - Heroku
+  - Gitpod
+-
   name: 'Zero Stars'
   category: 'Improper Input Validation'
   description: 'Give a devastating zero-star feedback to the store.'

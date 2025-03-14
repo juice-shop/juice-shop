@@ -16,10 +16,10 @@ describe('ErrorPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ErrorPageComponent],
       imports: [
         TranslateModule.forRoot(),
-        MatCardModule
+        MatCardModule,
+        ErrorPageComponent
       ],
       providers: [
         {

@@ -4,7 +4,6 @@ on:
     tags:
       - v*
 env:
-  ANGULAR_CLI_VERSION: 17
   CYCLONEDX_NPM_VERSION: '^1.12.0'
 jobs:
   package:
@@ -22,7 +21,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: "Install CLI tools"
         run: |
-          npm install -g @angular/cli@$ANGULAR_CLI_VERSION
           npm install -g @cyclonedx/cyclonedx-npm@$CYCLONEDX_NPM_VERSION
           npm install -g grunt-cli
       - name: "Set packaging options for Grunt"

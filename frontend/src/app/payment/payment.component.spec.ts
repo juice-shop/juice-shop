@@ -27,7 +27,7 @@ import { PaymentMethodComponent } from '../payment-method/payment-method.compone
 import { RouterTestingModule } from '@angular/router/testing'
 import { OrderSummaryComponent } from '../order-summary/order-summary.component'
 import { PurchaseBasketComponent } from '../purchase-basket/purchase-basket.component'
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngy-cookie'
 import { WalletService } from '../Services/wallet.service'
 import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'
@@ -88,7 +88,6 @@ describe('PaymentComponent', () => {
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
-
         BrowserAnimationsModule,
         MatCardModule,
         MatTableModule,
@@ -100,9 +99,9 @@ describe('PaymentComponent', () => {
         MatDialogModule,
         MatIconModule,
         MatCheckboxModule,
-        MatTooltipModule
+        MatTooltipModule,
+        PaymentComponent, PaymentMethodComponent, OrderSummaryComponent, PurchaseBasketComponent, LoginComponent, WalletComponent
       ],
-      declarations: [PaymentComponent, PaymentMethodComponent, OrderSummaryComponent, PurchaseBasketComponent, LoginComponent, WalletComponent],
       providers: [
         { provide: BasketService, useValue: basketService },
         { provide: MatDialog, useValue: dialog },
@@ -113,7 +112,6 @@ describe('PaymentComponent', () => {
         { provide: DeliveryService, useValue: deliveryService },
         { provide: UserService, useValue: userService },
         { provide: MatSnackBar, useValue: snackBar }
-
       ]
     })
       .compileComponents()
