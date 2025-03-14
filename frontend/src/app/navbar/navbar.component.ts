@@ -2,7 +2,6 @@
  * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
-
 import { environment } from '../../environments/environment'
 import { ChallengeService } from '../Services/challenge.service'
 import { UserService } from '../Services/user.service'
@@ -16,6 +15,8 @@ import { SocketIoService } from '../Services/socket-io.service'
 import { LanguagesService } from '../Services/languages.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { BasketService } from '../Services/basket.service'
+import { FormControl } from '@angular/forms'
+import { map, startWith } from 'rxjs/operators'
 
 import {
   faBomb,
@@ -53,6 +54,7 @@ library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, 
 export class NavbarComponent implements OnInit {
   public userEmail: string = ''
   public languages: any = []
+  public filteredLanguages: any = []
   public selectedLanguage: string = 'placeholder'
   public version: string = ''
   public applicationName: string = 'OWASP Juice Shop'
@@ -61,6 +63,20 @@ export class NavbarComponent implements OnInit {
   public scoreBoardVisible: boolean = false
   public shortKeyLang: string = 'placeholder'
   public itemTotal = 0
+  public languageSearchCtrl = new FormControl('')
+
+  private languageMapping: { [key: string]: string[] } = {
+    'en': ['english', 'inglese', 'anglais', 'английский', 'इंग्लिश'],
+    'de': ['german', 'deutsch', 'tedesco', 'allemand', 'немецкий', 'जर्मन'],
+    'es': ['spanish', 'español', 'spagnolo', 'espagnol', 'испанский', 'स्पेनिश'],
+    'fr': ['french', 'français', 'francese', 'francés', 'французский', 'फ्रेंच'],
+    'pt': ['portuguese', 'português', 'portoghese', 'portugués', 'португальский', 'पुर्तगाली'],
+    'zh': ['chinese', 'cinese', 'chinois', 'chino', 'китайский', 'चीनी', '中文'],
+    'ru': ['russian', 'russo', 'russe', 'ruso', 'русский', 'रूसी'],
+    'ja': ['japanese', 'giapponese', 'japonais', 'japonés', 'японский', 'जापानी', '日本語'],
+    'hi': ['hindi', 'индийский', 'हिन्दी', 'हिंदी'],
+    'ar': ['arabic', 'arabo', 'arabe', 'árabe', 'арабский', 'अरबी', 'العربية']
+  }
 
   @Output() public sidenavToggle = new EventEmitter()
 
@@ -75,7 +91,6 @@ export class NavbarComponent implements OnInit {
     this.basketService.getItemTotal().subscribe(x => (this.itemTotal = x))
     this.administrationService.getApplicationVersion().subscribe((version: any) => {
       if (version) {
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         this.version = `v${version}`
       }
     }, (err) => { console.log(err) })
@@ -121,6 +136,42 @@ export class NavbarComponent implements OnInit {
         }
       })
     })
+
+    this.languageSearchCtrl.valueChanges
+      .pipe(
+        startWith(''),
+        map(searchText => this.filterLanguages(searchText || ''))
+      )
+      .subscribe(filtered => {
+        this.filteredLanguages = filtered
+      })
+  }
+
+  filterLanguages(searchText: string) {
+    if (!this.languages) return []
+    
+    const lowerSearchText = searchText.toLowerCase();
+    
+    return this.languages.filter((language: any) => {
+
+      if (language.lang.toLowerCase().includes(lowerSearchText)) {
+        return true;
+      }
+      
+      if (language.key && language.key.toLowerCase().includes(lowerSearchText)) {
+        return true;
+      }
+      
+      if (language.shortKey && language.shortKey.toLowerCase().includes(lowerSearchText)) {
+        return true;
+      }
+      
+      return false;
+    });
+  }
+
+  onSearchClick(event: Event) {
+    event.stopPropagation();
   }
 
   checkLanguage () {
@@ -173,7 +224,6 @@ export class NavbarComponent implements OnInit {
     if (this.languages.find((y: { key: string }) => y.key === langKey)) {
       const language = this.languages.find((y: { key: string }) => y.key === langKey)
       this.shortKeyLang = language.shortKey
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       const snackBarRef = this.snackBar.open(`Language has been changed to ${language.lang}`, 'Force page reload', {
         duration: 5000
       })
@@ -203,12 +253,12 @@ export class NavbarComponent implements OnInit {
     this.sidenavToggle.emit()
   }
 
-  // eslint-disable-next-line no-empty,@typescript-eslint/no-empty-function
   noop () { }
 
   getLanguages () {
     this.langService.getLanguages().subscribe((res) => {
       this.languages = res
+      this.filteredLanguages = res
       this.checkLanguage()
     })
   }

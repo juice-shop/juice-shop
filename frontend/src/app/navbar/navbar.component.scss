@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-mat-toolbar {
+ mat-toolbar {
   height: auto;
   min-width: 100%;
   padding-bottom: 5px;
@@ -63,6 +63,8 @@ mat-toolbar {
 mat-search-bar {
   font-size: 13px;
   margin-right: 14px;
+  width: 12vw !important;
+  max-width: 220px !important; 
 }
 
 .buttons {
@@ -76,6 +78,41 @@ mat-search-bar {
 }
 
 :host ::ng-deep .mat-form-field-infix {
-  max-width: 250px !important;
-  width: 14vw !important;
+  max-width: 200px !important; 
+  width: 12vw !important;
+}
+
+.language-search-container {
+  padding: 8px 16px;
+  
+  mat-form-field {
+    width: 100%;
+  }
+
+  .search-icon {
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+}
+
+:host ::ng-deep .mat-menu-content .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+:host ::ng-deep .mat-form-field-label {
+  color: inherit;
+}
+
+:host ::ng-deep .language-search-field .mat-form-field-flex {
+  align-items: center;
+}
+
+:host ::ng-deep .language-search-field .mat-form-field-prefix {
+  align-self: center;
+  margin-right: 8px;
+}
+
+:host ::ng-deep .language-search-field input.mat-input-element {
+  margin-top: 0;
+  line-height: normal;
 }
