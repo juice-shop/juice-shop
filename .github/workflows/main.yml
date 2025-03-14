@@ -1,10 +1,10 @@
 name: Eureka Scanning
 
 # Controls when the action will run.
-on:
-  push:
-    branches:
-        - '*'
+# on:
+#   push:
+#     branches:
+#         - '*'
 
 jobs:
   eureka-scan:
