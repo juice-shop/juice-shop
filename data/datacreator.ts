@@ -248,7 +248,7 @@ async function createQuantity () {
 async function createMemories () {
   const memories = [
     MemoryModel.create({
-      imagePath: 'assets/public/images/uploads/😼-#zatschi-#whoneedsfourlegs-1572600969477.jpg',
+      imagePath: 'assets/public/images/uploads/ᓚᘏᗢ-#zatschi-#whoneedsfourlegs-1572600969477.jpg',
       caption: '😼 #zatschi #whoneedsfourlegs',
       UserId: datacache.users.bjoernOwasp.id
     }).catch((err: unknown) => {

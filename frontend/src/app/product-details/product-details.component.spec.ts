@@ -62,9 +62,9 @@ describe('ProductDetailsComponent', () => {
         MatIconModule,
         MatTooltipModule,
         MatExpansionModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        ProductDetailsComponent
       ],
-      declarations: [ProductDetailsComponent],
       providers: [
         { provide: UserService, useValue: userService },
         { provide: ProductReviewService, useValue: productReviewService },

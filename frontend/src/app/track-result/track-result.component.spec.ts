@@ -33,9 +33,9 @@ describe('TrackResultComponent', () => {
         RouterTestingModule,
         HttpClientTestingModule,
         MatCardModule,
-        MatTableModule
+        MatTableModule,
+        TrackResultComponent
       ],
-      declarations: [TrackResultComponent],
       providers: [
         { provide: TrackOrderService, useValue: trackOrderService },
         { provide: DomSanitizer, useValue: sanitizer }

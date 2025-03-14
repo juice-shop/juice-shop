@@ -39,9 +39,9 @@ describe('ChallengeStatusBadgeComponent', () => {
         TranslateModule.forRoot(),
         MatButtonModule,
         MatTooltipModule,
-        MatIconModule
+        MatIconModule,
+        ChallengeStatusBadgeComponent
       ],
-      declarations: [ChallengeStatusBadgeComponent],
       providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: ChallengeService, useValue: challengeService },

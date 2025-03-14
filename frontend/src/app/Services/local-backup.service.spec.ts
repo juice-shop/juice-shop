@@ -6,7 +6,7 @@
 import { inject, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { LocalBackupService } from './local-backup.service'
-import { CookieModule, CookieService } from 'ngx-cookie'
+import { CookieModule, CookieService } from 'ngy-cookie'
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'

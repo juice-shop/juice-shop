@@ -26,9 +26,7 @@ describe('FilterSettingsComponent', () => {
         MatInputModule,
         MatSelectModule,
         MatTooltipModule,
-        MatDialogModule
-      ],
-      declarations: [
+        MatDialogModule,
         FilterSettingsComponent,
         CategoryFilterComponent,
         DifficultySelectionSummaryPipe

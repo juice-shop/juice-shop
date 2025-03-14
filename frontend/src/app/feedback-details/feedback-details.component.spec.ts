@@ -22,9 +22,9 @@ describe('FeedbackDetailsComponent', () => {
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         MatDividerModule,
-        MatDialogModule
+        MatDialogModule,
+        FeedbackDetailsComponent
       ],
-      declarations: [FeedbackDetailsComponent],
       providers: [
         UserService,
         { provide: MatDialogRef, useValue: {} },

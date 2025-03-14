@@ -41,16 +41,15 @@ describe('AdministrationComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-
         MatTableModule,
         TranslateModule.forRoot(),
         MatDialogModule,
         MatPaginatorModule,
         MatDividerModule,
         MatCardModule,
-        MatIconModule
+        MatIconModule,
+        AdministrationComponent
       ],
-      declarations: [AdministrationComponent],
       providers: [
         { provide: MatDialog, useValue: dialog },
         { provide: UserService, useValue: userService },
