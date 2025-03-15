@@ -6,7 +6,7 @@
 import * as webhook from '../../lib/webhook'
 import chai from 'chai'
 import http from 'http'
-import { AddressInfo } from 'net'
+import { type AddressInfo } from 'net'
 const expect = chai.expect
 
 describe('webhook', () => {
@@ -44,7 +44,6 @@ describe('webhook', () => {
 
       const port = (server.address() as AddressInfo)?.port
       const url = `http://localhost:${port}`
-
 
       try {
         await webhook.notify(challenge, 0, url)
