@@ -4,7 +4,7 @@
  */
 
 import utils = require('../lib/utils')
-import challengeUtils = require('../lib/challengeUtils')
+import * as challengeUtils from '../lib/challengeUtils'
 import { type Request, type Response, type NextFunction } from 'express'
 import { challenges } from '../data/datacache'
 

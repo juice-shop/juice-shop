@@ -4,7 +4,7 @@
  */
 
 import { type Request, type Response } from 'express'
-import challengeUtils = require('../lib/challengeUtils')
+import * as challengeUtils from '../lib/challengeUtils'
 import { reviewsCollection } from '../data/mongodb'
 
 import * as utils from '../lib/utils'

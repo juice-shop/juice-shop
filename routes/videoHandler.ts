@@ -5,7 +5,7 @@
 
 import fs = require('fs')
 import { type Request, type Response } from 'express'
-import challengeUtils = require('../lib/challengeUtils')
+import * as challengeUtils from '../lib/challengeUtils'
 import config from 'config'
 import * as utils from '../lib/utils'
 import { AllHtmlEntities as Entities } from 'html-entities'

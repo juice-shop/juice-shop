@@ -1,7 +1,8 @@
 import { type Request, type Response } from 'express'
-import challengeUtils = require('../lib/challengeUtils')
+import * as challengeUtils from '../lib/challengeUtils'
 import * as utils from '../lib/utils'
 import { challenges } from '../data/datacache'
+
 const nftABI = require('../data/static/contractABIs').nftABI
 const ethers = require('ethers')
 const nftAddress = '0x41427790c94E7a592B17ad694eD9c06A02bb9C39'

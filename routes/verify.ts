@@ -10,7 +10,7 @@ import { type JwtPayload, type VerifyErrors } from 'jsonwebtoken'
 import { FeedbackModel } from '../models/feedback'
 import { ComplaintModel } from '../models/complaint'
 import { Op } from 'sequelize'
-import challengeUtils = require('../lib/challengeUtils')
+import * as challengeUtils from '../lib/challengeUtils'
 import config from 'config'
 import jws from 'jws'
 
