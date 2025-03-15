@@ -5,9 +5,9 @@
 
 import * as webhook from '../../lib/webhook'
 import chai from 'chai'
+import http from 'http'
+import { AddressInfo } from 'net'
 const expect = chai.expect
-const chaiAsPromised = require('chai-as-promised')
-chai.use(chaiAsPromised)
 
 describe('webhook', () => {
   const challenge = {
@@ -17,16 +17,40 @@ describe('webhook', () => {
   }
 
   describe('notify', () => {
-    it('fails when no webhook URL is provided via environment variable', () => {
-      void expect(webhook.notify(challenge)).to.eventually.throw('options.uri is a required argument')
+    it('ignores errors where no webhook URL is provided via environment variable', async () => {
+      try {
+        await webhook.notify(challenge)
+      } catch (error) {
+        chai.assert.fail('Expected error was not thrown')
+      }
     })
 
-    it('fails when supplied webhook is not a valid URL', () => {
-      void expect(webhook.notify(challenge, 0, 'localhorst')).to.eventually.throw('Invalid URI "localhorst"')
+    it('fails when supplied webhook is not a valid URL', async () => {
+      try {
+        await webhook.notify(challenge, 0, 'localhorst')
+        chai.assert.fail('Expected error was not thrown')
+      } catch (error) {
+        expect((error as Error).message).to.equal('Invalid URI "localhorst"')
+      }
     })
 
-    it('submits POST with payload to existing URL', () => {
-      void expect(webhook.notify(challenge, 0, 'https://enlm7zwniuyah.x.pipedream.net/')).to.eventually.not.throw()
+    it('submits POST with payload to existing URL', async () => {
+      const server = http.createServer((req, res) => {
+        res.statusCode = 200
+        res.end('OK')
+      })
+
+      await new Promise<void>((resolve) => server.listen(0, resolve))
+
+      const port = (server.address() as AddressInfo)?.port
+      const url = `http://localhost:${port}`
+
+
+      try {
+        await webhook.notify(challenge, 0, url)
+      } finally {
+        server.close()
+      }
     })
   })
 })
