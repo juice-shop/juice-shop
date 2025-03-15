@@ -5,7 +5,7 @@
 
 // @ts-expect-error FIXME no typescript definitions for z85 :(
 import z85 from 'z85'
-import chai = require('chai')
+import chai from 'chai'
 const expect = chai.expect
 
 describe('insecurity', () => {

@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-import chai = require('chai')
+import chai from 'chai'
 import validateChatBot, { checkIntentWithFunctionHandlerExists } from '../../lib/startup/validateChatBot'
-import sinonChai = require('sinon-chai')
+import sinonChai from 'sinon-chai'
 const expect = chai.expect
 chai.use(sinonChai)
 
