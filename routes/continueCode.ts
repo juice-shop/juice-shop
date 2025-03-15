@@ -7,8 +7,8 @@ import Hashids from 'hashids/cjs'
 import { type Request, type Response } from 'express'
 import { ChallengeModel } from '../models/challenge'
 import { challenges } from '../data/datacache'
+import sequelize from 'sequelize'
 
-const sequelize = require('sequelize')
 const Op = sequelize.Op
 
 module.exports.continueCode = function continueCode () {
