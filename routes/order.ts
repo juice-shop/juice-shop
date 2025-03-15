@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+import fs from 'fs'
 import path from 'path'
 import { type Request, type Response, type NextFunction } from 'express'
 import { BasketModel } from '../models/basket'
@@ -17,7 +18,6 @@ import * as utils from '../lib/utils'
 import * as db from '../data/mongodb'
 import { challenges, products } from '../data/datacache'
 
-const fs = require('fs')
 const PDFDocument = require('pdfkit')
 const security = require('../lib/insecurity')
 
