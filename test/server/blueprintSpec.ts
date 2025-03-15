@@ -2,13 +2,14 @@ import chai = require('chai')
 import config from 'config'
 import type { Product as ProductConfig } from 'lib/config.types'
 
+import fs from 'fs'
 import path from 'path'
 import { promisify } from 'util'
 import { ExifImage } from 'exif'
 import sinonChai = require('sinon-chai')
 const expect = chai.expect
 chai.use(sinonChai)
-const fs = require('fs')
+
 const utils = require('../../lib/utils')
 const { pipeline } = require('stream')
 const fetch = require('node-fetch')
