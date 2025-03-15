@@ -11,7 +11,7 @@ import { BasketItemModel } from '../models/basketitem'
 import { QuantityModel } from '../models/quantity'
 import { DeliveryModel } from '../models/delivery'
 import { WalletModel } from '../models/wallet'
-import challengeUtils = require('../lib/challengeUtils')
+import * as challengeUtils from '../lib/challengeUtils'
 import config from 'config'
 import * as utils from '../lib/utils'
 import * as db from '../data/mongodb'

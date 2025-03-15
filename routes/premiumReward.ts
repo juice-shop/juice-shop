@@ -6,8 +6,7 @@
 import path = require('path')
 import { type Request, type Response } from 'express'
 import { challenges } from '../data/datacache'
-
-import challengeUtils = require('../lib/challengeUtils')
+import * as challengeUtils from '../lib/challengeUtils'
 
 module.exports = function servePremiumContent () {
   return (req: Request, res: Response) => {

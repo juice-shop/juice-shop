@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import challengeUtils = require('../lib/challengeUtils')
+import * as challengeUtils from '../lib/challengeUtils'
 import { type Request, type Response } from 'express'
 
 const security = require('../lib/insecurity')

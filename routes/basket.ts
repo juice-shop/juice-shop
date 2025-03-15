@@ -6,7 +6,7 @@
 import { type Request, type Response, type NextFunction } from 'express'
 import { ProductModel } from '../models/product'
 import { BasketModel } from '../models/basket'
-import challengeUtils = require('../lib/challengeUtils')
+import * as challengeUtils from '../lib/challengeUtils'
 
 import * as utils from '../lib/utils'
 import { challenges } from '../data/datacache'

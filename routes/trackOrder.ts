@@ -4,7 +4,7 @@
  */
 
 import utils = require('../lib/utils')
-import challengeUtils = require('../lib/challengeUtils')
+import * as challengeUtils from '../lib/challengeUtils'
 import { type Request, type Response } from 'express'
 import * as db from '../data/mongodb'
 import { challenges } from '../data/datacache'
