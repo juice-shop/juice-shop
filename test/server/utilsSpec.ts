@@ -6,7 +6,7 @@
 import type { ChallengeModel } from 'models/challenge'
 import { getChallengeEnablementStatus } from '../../lib/utils'
 
-import chai = require('chai')
+import chai from 'chai'
 const expect = chai.expect
 
 describe('utils', () => {

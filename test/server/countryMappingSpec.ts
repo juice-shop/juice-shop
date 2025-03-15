@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: MIT
  */
 
-import sinon = require('sinon')
+import sinon from 'sinon'
 import config from 'config'
-import chai = require('chai')
-import sinonChai = require('sinon-chai')
+import chai from 'chai'
+import sinonChai from 'sinon-chai'
 const expect = chai.expect
 chai.use(sinonChai)
 

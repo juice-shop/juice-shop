@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-import chai = require('chai')
-import sinonChai = require('sinon-chai')
+import chai from 'chai'
+import sinonChai from 'sinon-chai'
 import validateConfig from '../../lib/startup/validateConfig'
 
 const expect = chai.expect

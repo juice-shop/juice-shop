@@ -1,5 +1,5 @@
-import chai = require('chai')
-import sinonChai = require('sinon-chai')
+import chai from 'chai'
+import sinonChai from 'sinon-chai'
 const expect = chai.expect
 chai.use(sinonChai)
 const { getVerdict } = require('../../routes/vulnCodeSnippet')
