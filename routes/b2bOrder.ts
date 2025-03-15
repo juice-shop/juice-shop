@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
-import vm = require('vm')
+import vm from 'vm'
 import { type Request, type Response, type NextFunction } from 'express'
 import * as challengeUtils from '../lib/challengeUtils'
-
 import * as utils from '../lib/utils'
 import { challenges } from '../data/datacache'
+
 const security = require('../lib/insecurity')
 const safeEval = require('notevil')
 

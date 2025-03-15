@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import fs = require('fs')
+import fs from 'fs'
 import { type Request, type Response, type NextFunction } from 'express'
 import { challenges } from '../data/datacache'
 

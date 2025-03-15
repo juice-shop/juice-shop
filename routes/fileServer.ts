@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import path = require('path')
+import path from 'path'
 import { type Request, type Response, type NextFunction } from 'express'
 import { challenges } from '../data/datacache'
 import * as challengeUtils from '../lib/challengeUtils'
