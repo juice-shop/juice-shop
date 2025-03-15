@@ -8,8 +8,8 @@ import { MemoryModel } from '../models/memory'
 import { type ProductModel } from '../models/product'
 import * as db from '../data/mongodb'
 import { challenges } from '../data/datacache'
+import * as challengeUtils from '../lib/challengeUtils'
 
-import challengeUtils = require('../lib/challengeUtils')
 const security = require('../lib/insecurity')
 
 module.exports = function dataExport () {

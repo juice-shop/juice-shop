@@ -1,5 +1,5 @@
 import { type Request, type Response } from 'express'
-import challengeUtils = require('../lib/challengeUtils')
+import * as challengeUtils from '../lib/challengeUtils'
 import * as utils from '../lib/utils'
 import { challenges } from '../data/datacache'
 const web3WalletABI = require('../data/static/contractABIs').web3WalletABI

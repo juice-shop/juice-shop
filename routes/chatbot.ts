@@ -8,7 +8,7 @@ import { type Request, type Response, type NextFunction } from 'express'
 import { type User } from '../data/types'
 import { UserModel } from '../models/user'
 import jwt, { type JwtPayload, type VerifyErrors } from 'jsonwebtoken'
-import challengeUtils = require('../lib/challengeUtils')
+import * as challengeUtils from '../lib/challengeUtils'
 import logger from '../lib/logger'
 import config from 'config'
 import download from 'download'
