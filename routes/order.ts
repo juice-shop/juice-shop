@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import path = require('path')
+import path from 'path'
 import { type Request, type Response, type NextFunction } from 'express'
 import { BasketModel } from '../models/basket'
 import { ProductModel } from '../models/product'
