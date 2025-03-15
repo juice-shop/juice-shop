@@ -4,7 +4,7 @@
  */
 
 import * as webhook from '../../lib/webhook'
-import chai = require('chai')
+import chai from 'chai'
 const expect = chai.expect
 const chaiAsPromised = require('chai-as-promised')
 chai.use(chaiAsPromised)

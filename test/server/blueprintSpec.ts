@@ -1,4 +1,4 @@
-import chai = require('chai')
+import chai from 'chai'
 import config from 'config'
 import type { Product as ProductConfig } from 'lib/config.types'
 
@@ -6,7 +6,7 @@ import fs from 'fs'
 import path from 'path'
 import { promisify } from 'util'
 import { ExifImage } from 'exif'
-import sinonChai = require('sinon-chai')
+import sinonChai from 'sinon-chai'
 const expect = chai.expect
 chai.use(sinonChai)
 
