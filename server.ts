@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 import dataErasure from './routes/dataErasure'
-import fs = require('fs')
+import fs from 'fs'
 import { type Request, type Response, type NextFunction } from 'express'
 import { sequelize } from './models'
 import { UserModel } from './models/user'
