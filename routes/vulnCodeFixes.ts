@@ -1,8 +1,8 @@
+import fs from 'fs'
 import { type NextFunction, type Request, type Response } from 'express'
 import * as accuracy from '../lib/accuracy'
 
 const challengeUtils = require('../lib/challengeUtils')
-const fs = require('fs')
 const yaml = require('js-yaml')
 
 const FixesDir = 'data/static/codefixes'

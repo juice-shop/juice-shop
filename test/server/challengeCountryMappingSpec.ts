@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+import fs from 'fs'
 import chai = require('chai')
 import path from 'path'
 import { promisify } from 'util'
@@ -10,7 +11,6 @@ import sinonChai = require('sinon-chai')
 const expect = chai.expect
 chai.use(sinonChai)
 
-const fs = require('fs')
 const { safeLoad } = require('js-yaml')
 const readFile = promisify(fs.readFile)
 
