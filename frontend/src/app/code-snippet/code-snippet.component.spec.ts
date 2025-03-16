@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -11,12 +11,13 @@ import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/test
 
 import { CodeSnippetComponent } from './code-snippet.component'
 import { CodeSnippetService } from '../Services/code-snippet.service'
-import { CookieModule, CookieService } from 'ngx-cookie'
+import { CookieModule, CookieService } from 'ngy-cookie'
 import { ConfigurationService } from '../Services/configuration.service'
 import { of, throwError } from 'rxjs'
 import { CodeFixesService } from '../Services/code-fixes.service'
 import { VulnLinesService } from '../Services/vuln-lines.service'
 import { ChallengeService } from '../Services/challenge.service'
+import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 
 describe('CodeSnippetComponent', () => {
   let component: CodeSnippetComponent
@@ -31,7 +32,7 @@ describe('CodeSnippetComponent', () => {
   beforeEach(waitForAsync(() => {
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: {}, challenges: {} }))
-    cookieService = jasmine.createSpyObj('CookieService', ['put'])
+    cookieService = jasmine.createSpyObj('CookieService', ['put', 'hasKey'])
     codeSnippetService = jasmine.createSpyObj('CodeSnippetService', ['get', 'check'])
     codeSnippetService.get.and.returnValue(of({}))
     codeFixesService = jasmine.createSpyObj('CodeFixesService', ['get', 'check'])
@@ -43,13 +44,14 @@ describe('CodeSnippetComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
+        NoopAnimationsModule,
         CookieModule.forRoot(),
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         MatDividerModule,
-        MatDialogModule
+        MatDialogModule,
+        CodeSnippetComponent
       ],
-      declarations: [CodeSnippetComponent],
       providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: { dialogData: {} } },

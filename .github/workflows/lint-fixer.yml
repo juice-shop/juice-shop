@@ -7,13 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: "Check out Git repository"
-      uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac #v4.0.0
-    - name: "Use Node.js 18"
-      uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d #v3.8.1
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
+    - name: "Use Node.js 20"
+      uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af #v4.1.0
       with:
-        node-version: 18
-    - name: "Install CLI tools"
-      run: npm install -g @angular/cli
+        node-version: 20
     - name: "Install application"
       run: |
         npm install --ignore-scripts
@@ -21,7 +19,7 @@ jobs:
         npm install --ignore-scripts --legacy-peer-deps
     - name: "Fix everything which can be fixed"
       run: 'npm run lint:fix'
-    - uses: stefanzweifel/git-auto-commit-action@3ea6ae190baf489ba007f7c92608f33ce20ef04a #v4.16.0
+    - uses: stefanzweifel/git-auto-commit-action@8621497c8c39c72f3e2a999a26b4ca1b5058a842 #v5.0.1
       with:
         commit_message: "Auto-fix linting issues"
         branch: ${{ github.head_ref }}

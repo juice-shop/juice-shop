@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -22,9 +22,9 @@ describe('FeedbackDetailsComponent', () => {
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         MatDividerModule,
-        MatDialogModule
+        MatDialogModule,
+        FeedbackDetailsComponent
       ],
-      declarations: [FeedbackDetailsComponent],
       providers: [
         UserService,
         { provide: MatDialogRef, useValue: {} },

@@ -1,15 +1,18 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { Component, NgZone } from '@angular/core'
 import { Router } from '@angular/router'
+import { AddressComponent } from '../address/address.component'
 
 @Component({
   selector: 'app-address-select',
   templateUrl: './address-select.component.html',
-  styleUrls: ['./address-select.component.scss']
+  styleUrls: ['./address-select.component.scss'],
+  standalone: true,
+  imports: [AddressComponent]
 })
 export class AddressSelectComponent {
   public addressId: any = undefined

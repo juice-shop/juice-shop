@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -13,7 +13,7 @@ import { forkJoin, type Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
 import { MatDialog } from '@angular/material/dialog'
 import { DomSanitizer, type SafeHtml } from '@angular/platform-browser'
-import { TranslateService } from '@ngx-translate/core'
+import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { SocketIoService } from '../Services/socket-io.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
@@ -22,6 +22,13 @@ import { faCartPlus, faEye } from '@fortawesome/free-solid-svg-icons'
 import { type Product } from '../Models/product.model'
 import { QuantityService } from '../Services/quantity.service'
 import { DeluxeGuard } from '../app.guard'
+import { MatDivider } from '@angular/material/divider'
+import { MatButtonModule } from '@angular/material/button'
+import { MatTooltip } from '@angular/material/tooltip'
+import { MatCardModule, MatCardImage, MatCardTitle, MatCardContent } from '@angular/material/card'
+import { MatGridList, MatGridTile } from '@angular/material/grid-list'
+import { NgIf, NgFor, AsyncPipe } from '@angular/common'
+import { FlexModule } from '@angular/flex-layout/flex'
 
 library.add(faEye, faCartPlus)
 
@@ -38,7 +45,9 @@ interface TableEntry {
 @Component({
   selector: 'app-search-result',
   templateUrl: './search-result.component.html',
-  styleUrls: ['./search-result.component.scss']
+  styleUrls: ['./search-result.component.scss'],
+  standalone: true,
+  imports: [FlexModule, NgIf, MatGridList, NgFor, MatGridTile, MatCardModule, TranslateModule, MatTooltip, MatCardImage, MatButtonModule, MatCardTitle, MatCardContent, MatDivider, MatPaginator, AsyncPipe]
 })
 export class SearchResultComponent implements OnDestroy, AfterViewInit {
   public displayedColumns = ['Image', 'Product', 'Description', 'Price', 'Select']

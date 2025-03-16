@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -16,7 +16,7 @@ import { of } from 'rxjs'
 import { RouterTestingModule } from '@angular/router/testing'
 import { DeluxeUserComponent } from './deluxe-user.component'
 import { UserService } from '../Services/user.service'
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngy-cookie'
 import { LoginComponent } from '../login/login.component'
 import { Location } from '@angular/common'
 import { MatTableModule } from '@angular/material/table'
@@ -56,7 +56,6 @@ describe('DeluxeUserComponent', () => {
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
-
         BrowserAnimationsModule,
         MatCardModule,
         MatTableModule,
@@ -68,9 +67,9 @@ describe('DeluxeUserComponent', () => {
         MatDialogModule,
         MatIconModule,
         MatCheckboxModule,
-        MatTooltipModule
+        MatTooltipModule,
+        DeluxeUserComponent, LoginComponent
       ],
-      declarations: [DeluxeUserComponent, LoginComponent],
       providers: [
         { provide: UserService, useValue: userService },
         { provide: ConfigurationService, useValue: configurationService },

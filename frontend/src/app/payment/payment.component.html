@@ -1,10 +1,10 @@
 <!--
-  ~ Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
   -->
 
-<mat-card class="mat-own-card mat-elevation-z6">
-  <div>
+<mat-card appearance="outlined" class="mat-own-card mat-elevation-z6">
+  <div class="mdc-card">
     <app-payment-method (emitSelection)="getMessage($event)" [allowDelete]="false"></app-payment-method>
     <mat-divider></mat-divider>
     <div class="mat-elevation-z0" class="custom-card" *ngIf="mode !== 'wallet'">
@@ -45,7 +45,7 @@
       <mat-form-field appearance="outline" color="accent">
         <mat-label translate>LABEL_COUPON</mat-label>
         <mat-hint
-            [innerHtml]="'FOLLOW_FOR_MONTHLY_COUPONS' | translate:{twitter: twitterUrl, facebook: facebookUrl}">
+            [innerHtml]="'FOLLOW_FOR_MONTHLY_COUPONS' | translate:{blueSky: blueSkyUrl, reddit: redditUrl}">
         </mat-hint>
         <input #coupon id="coupon" [formControl]="couponControl" matInput type="text" placeholder="{{ 'ENTER_COUPON_CODE' | translate}}">
         <mat-hint align="end">{{coupon .value?.length || 0}}/10</mat-hint>
@@ -81,7 +81,7 @@
             <i style="margin-left: 3px;" class="fas fa-heart error"></i>)
           </small>
           <div class="button-container" style="margin-top: 6px;">
-            <a href="https://pwning.owasp-juice.shop/part3/donations.html">
+            <a href="https://pwning.owasp-juice.shop/companion-guide/latest/part3/donations.html">
               <button mat-stroked-button><i class="fab fa-stripe fa-lg"></i> {{'BTN_CREDIT_CARD' | translate}}</button>
             </a>
             <button mat-stroked-button (click)="showBitcoinQrCode()" *ngIf="false"><i class="fab fa-btc fa-lg"></i>

@@ -1,24 +1,32 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { Component, EventEmitter, Input, type OnInit, Output, NgZone } from '@angular/core'
 import { AddressService } from '../Services/address.service'
-import { MatTableDataSource } from '@angular/material/table'
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faEdit, faTrashAlt } from '@fortawesome/free-regular-svg-icons/'
-import { TranslateService } from '@ngx-translate/core'
-import { Router } from '@angular/router'
+import { TranslateService, TranslateModule } from '@ngx-translate/core'
+import { Router, RouterLink } from '@angular/router'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { SelectionModel } from '@angular/cdk/collections'
+import { MatIconModule } from '@angular/material/icon'
+import { MatIconButton, MatButtonModule } from '@angular/material/button'
+import { MatRadioButton } from '@angular/material/radio'
+import { FlexModule } from '@angular/flex-layout/flex'
+import { NgIf } from '@angular/common'
+import { MatCardModule } from '@angular/material/card'
 
 library.add(faEdit, faTrashAlt)
 
 @Component({
   selector: 'app-address',
   templateUrl: './address.component.html',
-  styleUrls: ['./address.component.scss']
+  styleUrls: ['./address.component.scss'],
+  standalone: true,
+  imports: [MatCardModule, NgIf, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, FlexModule, MatCellDef, MatCell, MatRadioButton, MatIconButton, RouterLink, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatButtonModule, MatIconModule]
 })
 export class AddressComponent implements OnInit {
   @Output() emitSelection = new EventEmitter()
@@ -37,7 +45,7 @@ export class AddressComponent implements OnInit {
   constructor (private readonly addressService: AddressService, private readonly translate: TranslateService,
     private readonly router: Router, private readonly ngZone: NgZone, private readonly snackBarHelperService: SnackBarHelperService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     if (this.allowEdit) {
       this.displayedColumns.push('Edit', 'Remove')
     } else {

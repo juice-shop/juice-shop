@@ -1,15 +1,20 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { TranslateService } from '@ngx-translate/core'
+import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { ChangeDetectorRef, Component, NgZone, type OnInit } from '@angular/core'
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngy-cookie'
 import { CountryMappingService } from 'src/app/Services/country-mapping.service'
 import { SocketIoService } from '../Services/socket-io.service'
+import { ClipboardModule } from 'ngx-clipboard'
+import { MatIconModule } from '@angular/material/icon'
+import { MatButtonModule } from '@angular/material/button'
+import { MatCardModule } from '@angular/material/card'
+import { NgFor, NgIf, LowerCasePipe } from '@angular/common'
 
 interface ChallengeSolvedMessage {
   challenge: string
@@ -29,7 +34,9 @@ interface ChallengeSolvedNotification {
 @Component({
   selector: 'app-challenge-solved-notification',
   templateUrl: './challenge-solved-notification.component.html',
-  styleUrls: ['./challenge-solved-notification.component.scss']
+  styleUrls: ['./challenge-solved-notification.component.scss'],
+  standalone: true,
+  imports: [NgFor, MatCardModule, MatButtonModule, MatIconModule, ClipboardModule, NgIf, LowerCasePipe, TranslateModule]
 })
 export class ChallengeSolvedNotificationComponent implements OnInit {
   public notifications: ChallengeSolvedNotification[] = []
@@ -40,7 +47,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
   constructor (private readonly ngZone: NgZone, private readonly configurationService: ConfigurationService, private readonly challengeService: ChallengeService, private readonly countryMappingService: CountryMappingService, private readonly translate: TranslateService, private readonly cookieService: CookieService, private readonly ref: ChangeDetectorRef, private readonly io: SocketIoService) {
   }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.ngZone.runOutsideAngular(() => {
       this.io.socket().on('challenge solved', (data: ChallengeSolvedMessage) => {
         if (data?.challenge) {

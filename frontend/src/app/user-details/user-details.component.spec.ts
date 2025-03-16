@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -27,9 +27,9 @@ describe('UserDetailsComponent', () => {
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         MatDividerModule,
-        MatDialogModule
+        MatDialogModule,
+        UserDetailsComponent
       ],
-      declarations: [UserDetailsComponent],
       providers: [
         { provide: UserService, useValue: userService },
         { provide: MatDialogRef, useValue: {} },

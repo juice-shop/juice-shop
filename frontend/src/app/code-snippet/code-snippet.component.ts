@@ -1,19 +1,31 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { CodeSnippetService, type CodeSnippet } from '../Services/code-snippet.service'
 import { CodeFixesService } from '../Services/code-fixes.service'
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngy-cookie'
 import { ChallengeService } from '../Services/challenge.service'
 import { VulnLinesService, type result } from '../Services/vuln-lines.service'
 import { Component, Inject, type OnInit } from '@angular/core'
 
-import { MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { UntypedFormControl } from '@angular/forms'
+import { MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog'
+import { UntypedFormControl, FormsModule } from '@angular/forms'
 import { ConfigurationService } from '../Services/configuration.service'
 import { type ThemePalette } from '@angular/material/core'
+import { MatIconButton, MatButtonModule } from '@angular/material/button'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
+import { ExtendedModule } from '@angular/flex-layout/extended'
+import { MatCardModule } from '@angular/material/card'
+import { CodeFixesComponent } from '../code-fixes/code-fixes.component'
+import { MatIconModule } from '@angular/material/icon'
+import { TranslateModule } from '@ngx-translate/core'
+import { CodeAreaComponent } from '../code-area/code-area.component'
+import { NgIf, NgClass, NgFor } from '@angular/common'
+import { FlexModule } from '@angular/flex-layout/flex'
+import { MatTabGroup, MatTab, MatTabLabel } from '@angular/material/tabs'
 
 enum ResultState {
   Undecided,
@@ -35,7 +47,9 @@ export interface RandomFixes {
   selector: 'code-snippet',
   templateUrl: './code-snippet.component.html',
   styleUrls: ['./code-snippet.component.scss'],
-  host: { class: 'code-snippet' }
+  host: { class: 'code-snippet' },
+  standalone: true,
+  imports: [MatDialogTitle, MatDialogContent, MatTabGroup, MatTab, FlexModule, NgIf, CodeAreaComponent, TranslateModule, MatTabLabel, MatIconModule, CodeFixesComponent, MatDialogActions, MatCardModule, NgClass, ExtendedModule, MatFormFieldModule, MatLabel, MatInputModule, NgFor, FormsModule, MatIconButton, MatButtonModule, MatDialogClose]
 })
 export class CodeSnippetComponent implements OnInit {
   public snippet: CodeSnippet = null
@@ -53,7 +67,7 @@ export class CodeSnippetComponent implements OnInit {
 
   constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly configurationService: ConfigurationService, private readonly codeSnippetService: CodeSnippetService, private readonly vulnLinesService: VulnLinesService, private readonly codeFixesService: CodeFixesService, private readonly challengeService: ChallengeService, private readonly cookieService: CookieService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       this.showFeedbackButtons = config.challenges.showFeedbackButtons
     }, (err) => { console.log(err) })

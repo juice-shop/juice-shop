@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -33,7 +33,6 @@ describe('DataExportComponent', () => {
     dataSubjectService = jasmine.createSpyObj('DataSubjectService', ['dataExport'])
 
     TestBed.configureTestingModule({
-      declarations: [DataExportComponent],
       imports: [
         HttpClientTestingModule,
         TranslateModule.forRoot(),
@@ -43,7 +42,8 @@ describe('DataExportComponent', () => {
         MatInputModule,
         MatCardModule,
         MatRadioModule,
-        MatButtonModule
+        MatButtonModule,
+        DataExportComponent
       ],
       providers: [
         { provide: ImageCaptchaService, useValue: imageCaptchaService },

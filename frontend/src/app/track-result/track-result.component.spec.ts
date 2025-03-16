@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -33,9 +33,9 @@ describe('TrackResultComponent', () => {
         RouterTestingModule,
         HttpClientTestingModule,
         MatCardModule,
-        MatTableModule
+        MatTableModule,
+        TrackResultComponent
       ],
-      declarations: [TrackResultComponent],
       providers: [
         { provide: TrackOrderService, useValue: trackOrderService },
         { provide: DomSanitizer, useValue: sanitizer }

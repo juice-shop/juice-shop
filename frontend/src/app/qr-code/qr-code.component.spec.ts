@@ -1,15 +1,16 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
 import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
-import { QRCodeModule } from 'anuglar2-qrcode'
+
 import { TranslateModule } from '@ngx-translate/core'
 import { QrCodeComponent } from './qr-code.component'
 import { MatButtonModule } from '@angular/material/button'
+import { QrCodeModule } from 'ng-qrcode'
 
 describe('QrCodeComponent', () => {
   let component: QrCodeComponent
@@ -19,12 +20,12 @@ describe('QrCodeComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        QRCodeModule,
+        QrCodeModule,
         MatDividerModule,
         MatButtonModule,
-        MatDialogModule
+        MatDialogModule,
+        QrCodeComponent
       ],
-      declarations: [QrCodeComponent],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: { data: 'data', url: 'url', address: 'address', title: 'title' } }
       ]

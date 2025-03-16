@@ -1,13 +1,17 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { TranslateService } from '@ngx-translate/core'
+import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
 import { ChangeDetectorRef, Component, NgZone, type OnInit } from '@angular/core'
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngy-cookie'
 import { SocketIoService } from '../Services/socket-io.service'
+import { MatIconModule } from '@angular/material/icon'
+import { MatButtonModule } from '@angular/material/button'
+import { MatCardModule, MatCardHeader, MatCardContent } from '@angular/material/card'
+import { NgIf } from '@angular/common'
 
 interface HackingProgress {
   autoRestoreMessage: string | null
@@ -17,7 +21,9 @@ interface HackingProgress {
 @Component({
   selector: 'app-server-started-notification',
   templateUrl: './server-started-notification.component.html',
-  styleUrls: ['./server-started-notification.component.scss']
+  styleUrls: ['./server-started-notification.component.scss'],
+  standalone: true,
+  imports: [NgIf, MatCardModule, MatCardHeader, MatCardContent, TranslateModule, MatButtonModule, MatIconModule]
 })
 export class ServerStartedNotificationComponent implements OnInit {
   public hackingProgress: HackingProgress = {} as HackingProgress
@@ -25,7 +31,7 @@ export class ServerStartedNotificationComponent implements OnInit {
   constructor (private readonly ngZone: NgZone, private readonly challengeService: ChallengeService, private readonly translate: TranslateService, private readonly cookieService: CookieService, private readonly ref: ChangeDetectorRef, private readonly io: SocketIoService) {
   }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.ngZone.runOutsideAngular(() => {
       this.io.socket().on('server started', () => {
         const continueCode = this.cookieService.get('continueCode')

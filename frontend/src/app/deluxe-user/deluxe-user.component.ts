@@ -1,31 +1,55 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { Component, NgZone, type OnInit } from '@angular/core'
 import { UserService } from '../Services/user.service'
 import { ActivatedRoute, Router } from '@angular/router'
-import { CookieService } from 'ngx-cookie'
 import { ConfigurationService } from '../Services/configuration.service'
 import { SocketIoService } from '../Services/socket-io.service'
+import { MatIconModule } from '@angular/material/icon'
+import { MatButtonModule } from '@angular/material/button'
+import { TranslateModule } from '@ngx-translate/core'
+import { MatCardModule } from '@angular/material/card'
+import { NgIf } from '@angular/common'
 
 @Component({
   selector: 'app-deluxe-user',
   templateUrl: './deluxe-user.component.html',
-  styleUrls: ['./deluxe-user.component.scss']
+  styleUrls: ['./deluxe-user.component.scss'],
+  standalone: true,
+  imports: [NgIf, MatCardModule, TranslateModule, MatButtonModule, MatIconModule]
 })
 
 export class DeluxeUserComponent implements OnInit {
   public membershipCost: number = 0
-  public error: string = undefined
+  public error?: string = undefined
   public applicationName = 'OWASP Juice Shop'
   public logoSrc: string = 'assets/public/images/JuiceShop_Logo.png'
 
-  constructor (private readonly router: Router, private readonly userService: UserService, private readonly cookieService: CookieService, private readonly configurationService: ConfigurationService, private readonly route: ActivatedRoute, private readonly ngZone: NgZone, private readonly io: SocketIoService) {
+  public SHOWCASES = [
+    {
+      icon: 'slideshow',
+      name: 'LABEL_DEALS_OFFERS',
+      description: 'DESCRIPTION_DEALS_OFFERS'
+    },
+    {
+      icon: 'directions_car',
+      name: 'LABEL_FREE_FAST_DELIVERY',
+      description: 'DESCRIPTION_FREE_FAST_DELIVERY'
+    },
+    {
+      icon: 'add',
+      name: 'LABEL_UNLIMITED_PURCHASE',
+      description: 'DESCRIPTION_UNLIMITED_PURCHASE'
+    }
+  ] as const
+
+  constructor (private readonly router: Router, private readonly userService: UserService, private readonly configurationService: ConfigurationService, private readonly route: ActivatedRoute, private readonly ngZone: NgZone, private readonly io: SocketIoService) {
   }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       const decalParam: string = this.route.snapshot.queryParams.testDecal // "Forgotten" test parameter to play with different stickers on the delivery box image
       if (config?.application) {

@@ -43,7 +43,7 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html'
   key: adminSectionChallenge
   tutorial:
-    order: 7
+    order: 8
 -
   name: 'Arbitrary File Write'
   category: 'Vulnerable Components'
@@ -356,7 +356,7 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html'
   key: forgedFeedbackChallenge
   tutorial:
-    order: 10
+    order: 11
 -
   name: 'Forged Review'
   category: 'Broken Access Control'
@@ -500,7 +500,7 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html'
   key: loginAdminChallenge
   tutorial:
-    order: 6
+    order: 7
 -
   name: 'Login Amy'
   category: 'Sensitive Data Exposure'
@@ -524,7 +524,7 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html'
   key: loginBenderChallenge
   tutorial:
-    order: 12
+    order: 13
 -
   name: 'Login Bjoern'
   category: 'Broken Authentication'
@@ -548,7 +548,7 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html'
   key: loginJimChallenge
   tutorial:
-    order: 11
+    order: 12
 -
   name: 'Login MC SafeSearch'
   category: 'Sensitive Data Exposure'
@@ -678,7 +678,7 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html'
   key: weakPasswordChallenge
   tutorial:
-    order: 8
+    order: 9
 -
   name: 'Payback Time'
   category: 'Improper Input Validation'
@@ -995,7 +995,7 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html'
   key: basketAccessChallenge
   tutorial:
-    order: 9
+    order: 10
 -
   name: 'Vulnerable Library'
   category: 'Vulnerable Components'
@@ -1058,6 +1058,21 @@
   - Heroku
   - Gitpod
 -
+  name: 'Memory Bomb'
+  category: 'Insecure Deserialization'
+  tags:
+    - Danger Zone
+  description: 'Drop some explosive data into a vulnerable file-handling endpoint.'
+  difficulty: 5
+  hint: 'This one is actually similar to the XXE DoS challenge in every way except the data format being (ab)used.'
+  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/insecure-deserialization.html#_drop_some_explosive_data_into_a_vulnerable_file_handling_endpoint'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html'
+  key: yamlBombChallenge
+  disabledEnv:
+  - Docker
+  - Heroku
+  - Gitpod
+-
   name: 'Zero Stars'
   category: 'Improper Input Validation'
   description: 'Give a devastating zero-star feedback to the store.'
@@ -1082,7 +1097,7 @@
   category: 'Security Misconfiguration'
   tags:
     - Contraption
-  description: 'Stick <a href="http://placekitten.com/" target="_blank">cute cross-domain kittens</a> all over our delivery boxes.'
+  description: 'Stick <a href="http://placecats.com/" target="_blank">cute cross-domain kittens</a> all over our delivery boxes.'
   difficulty: 5
   hint: 'This challenge would formally have to be in several categories as the developers made multiple gaffes for this to be possible.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/security-misconfiguration.html#_stick_cute_cross_domain_kittens_all_over_our_delivery_boxes'
@@ -1219,7 +1234,7 @@
   description: 'Close multiple "Challenge solved"-notifications in one go.'
   difficulty: 1
   hint: 'Either check the official documentation or inspect a notification UI element directly.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/score-board.html#_close_multiple_challenge_solved_notifications_in_one_go'
+  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/miscellaneous.html#_close_multiple_challenge_solved_notifications_in_one_go'
   mitigationUrl: ~
   key: closeNotificationsChallenge
 -
@@ -1231,3 +1246,14 @@
   hintUrl: ''
   mitigationUrl: ~
   key: csafChallenge
+-
+  name: 'Exposed credentials'
+  category: 'Sensitive Data Exposure'
+  description: 'A developer was careless with hardcoding unused, but still valid credentials for a testing account on the client-side.'
+  difficulty: 2
+  hint: 'Have a look at the client-side code in the dev console.'
+  hintUrl: ''
+  mitigationUrl: ~
+  key: exposedCredentialsChallenge
+  tutorial:
+    order: 6

@@ -30,42 +30,6 @@ import { ScoreBoardAdditionalSettingsDialogComponent } from './components/filter
 import { ChallengeHintPipe } from './pipes/challenge-hint.pipe'
 import { DifficultySelectionSummaryPipe } from './components/filter-settings/pipes/difficulty-selection-summary.pipe'
 
-@NgModule({
-  declarations: [
-    CategoryFilterComponent,
-    ChallengeCardComponent,
-    ChallengeHintPipe,
-    ChallengesUnavailableWarningComponent,
-    CodingChallengeProgressScoreCardComponent,
-    DifficultyOverviewScoreCardComponent,
-    FilterSettingsComponent,
-    HackingChallengeProgressScoreCardComponent,
-    ScoreBoardAdditionalSettingsDialogComponent,
-    ScoreBoardComponent,
-    ScoreCardComponent,
-    TutorialModeWarningComponent,
-    WarningCardComponent,
-    DifficultySelectionSummaryPipe,
-    DifficultyStarsComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatSelectModule,
-    MatTooltipModule,
-    MatRadioModule,
-    ReactiveFormsModule,
-    RouterModule,
-    TranslateModule,
-    MatProgressSpinnerModule
-  ]
-})
-class ScoreBoardModule {}
 
-export { ScoreBoardModule }
+
+

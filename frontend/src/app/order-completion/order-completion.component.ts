@@ -1,24 +1,33 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { Component, type OnInit } from '@angular/core'
 import { TrackOrderService } from '../Services/track-order.service'
-import { ActivatedRoute, type ParamMap } from '@angular/router'
-import { MatTableDataSource } from '@angular/material/table'
+import { ActivatedRoute, type ParamMap, RouterLink } from '@angular/router'
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow } from '@angular/material/table'
 import { BasketService } from '../Services/basket.service'
 import { AddressService } from '../Services/address.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { MatIconModule } from '@angular/material/icon'
+import { MatTooltip } from '@angular/material/tooltip'
+import { MatIconButton } from '@angular/material/button'
+import { NgIf } from '@angular/common'
+import { TranslateModule } from '@ngx-translate/core'
+import { FlexModule } from '@angular/flex-layout/flex'
+import { MatCardModule } from '@angular/material/card'
 
 library.add(faTwitter)
 
 @Component({
   selector: 'app-order-completion',
   templateUrl: './order-completion.component.html',
-  styleUrls: ['./order-completion.component.scss']
+  styleUrls: ['./order-completion.component.scss'],
+  standalone: true,
+  imports: [MatCardModule, FlexModule, TranslateModule, RouterLink, NgIf, MatIconButton, MatTooltip, MatIconModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow]
 })
 export class OrderCompletionComponent implements OnInit {
   public tableColumns = ['product', 'price', 'quantity', 'total price']
@@ -32,7 +41,7 @@ export class OrderCompletionComponent implements OnInit {
 
   constructor (private readonly configurationService: ConfigurationService, private readonly addressService: AddressService, private readonly trackOrderService: TrackOrderService, public activatedRoute: ActivatedRoute, private readonly basketService: BasketService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.orderId = paramMap.get('id')
       this.trackOrderService.find(this.orderId).subscribe((results) => {

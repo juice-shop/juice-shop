@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 import { environment } from '../../environments/environment'
@@ -8,7 +8,7 @@ import { UserService } from '../Services/user.service'
 import { AdministrationService } from '../Services/administration.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { Component, EventEmitter, NgZone, type OnInit, Output } from '@angular/core'
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngx-cookie-service'
 import { TranslateService } from '@ngx-translate/core'
 import { Router } from '@angular/router'
 import { SocketIoService } from '../Services/socket-io.service'
@@ -18,29 +18,15 @@ import { BasketService } from '../Services/basket.service'
 import { FormControl } from '@angular/forms'
 import { map, startWith } from 'rxjs/operators'
 
-import {
-  faBomb,
-  faComment,
-  faInfoCircle,
-  faLanguage,
-  faMapMarker,
-  faRecycle,
-  faSearch,
-  faShoppingCart,
-  faSignInAlt,
-  faSignOutAlt,
-  faThermometerEmpty,
-  faThermometerFull,
-  faThermometerHalf,
-  faThermometerQuarter,
-  faThermometerThreeQuarters,
-  faTrophy,
-  faUserCircle,
-  faUserSecret
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { 
+  faBomb, faComment, faInfoCircle, faLanguage, faMapMarker, faRecycle, 
+  faSearch, faShoppingCart, faSignInAlt, faSignOutAlt, faThermometerEmpty, 
+  faThermometerFull, faThermometerHalf, faThermometerQuarter, faThermometerThreeQuarters, 
+  faTrophy, faUserCircle, faUserSecret 
 } from '@fortawesome/free-solid-svg-icons'
 import { faComments } from '@fortawesome/free-regular-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
-import { library } from '@fortawesome/fontawesome-svg-core'
 import { LoginGuard } from '../app.guard'
 import { roles } from '../roles'
 
@@ -86,7 +72,7 @@ export class NavbarComponent implements OnInit {
     private readonly io: SocketIoService, private readonly langService: LanguagesService, private readonly loginGuard: LoginGuard,
     private readonly snackBar: MatSnackBar, private readonly basketService: BasketService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.getLanguages()
     this.basketService.getItemTotal().subscribe(x => (this.itemTotal = x))
     this.administrationService.getApplicationVersion().subscribe((version: any) => {
@@ -150,28 +136,33 @@ export class NavbarComponent implements OnInit {
   filterLanguages(searchText: string) {
     if (!this.languages) return []
     
-    const lowerSearchText = searchText.toLowerCase();
+    const lowerSearchText = searchText.toLowerCase()
     
     return this.languages.filter((language: any) => {
-
       if (language.lang.toLowerCase().includes(lowerSearchText)) {
-        return true;
+        return true
       }
       
       if (language.key && language.key.toLowerCase().includes(lowerSearchText)) {
-        return true;
+        return true
       }
       
       if (language.shortKey && language.shortKey.toLowerCase().includes(lowerSearchText)) {
-        return true;
+        return true
       }
       
-      return false;
-    });
+      // Check for alternative language names
+      const alternatives = this.languageMapping[language.key]
+      if (alternatives && alternatives.some(alt => alt.toLowerCase().includes(lowerSearchText))) {
+        return true
+      }
+      
+      return false
+    })
   }
 
   onSearchClick(event: Event) {
-    event.stopPropagation();
+    event.stopPropagation()
   }
 
   checkLanguage () {
@@ -209,7 +200,7 @@ export class NavbarComponent implements OnInit {
   logout () {
     this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => { console.log(err) })
     localStorage.removeItem('token')
-    this.cookieService.remove('token')
+    this.cookieService.delete('token')
     sessionStorage.removeItem('bid')
     sessionStorage.removeItem('itemTotal')
     this.userService.isLoggedIn.next(false)
@@ -220,12 +211,13 @@ export class NavbarComponent implements OnInit {
     this.translate.use(langKey)
     const expires = new Date()
     expires.setFullYear(expires.getFullYear() + 1)
-    this.cookieService.put('language', langKey, { expires })
+    this.cookieService.set('language', langKey, { expires })
     if (this.languages.find((y: { key: string }) => y.key === langKey)) {
       const language = this.languages.find((y: { key: string }) => y.key === langKey)
       this.shortKeyLang = language.shortKey
       const snackBarRef = this.snackBar.open(`Language has been changed to ${language.lang}`, 'Force page reload', {
-        duration: 5000
+        duration: 5000,
+        panelClass: ['mat-body']
       })
       snackBarRef.onAction().subscribe(() => {
         location.reload()

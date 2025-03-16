@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -50,7 +50,6 @@ describe('PhotoWallComponent', () => {
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
-      declarations: [PhotoWallComponent],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
@@ -68,7 +67,8 @@ describe('PhotoWallComponent', () => {
         MatExpansionModule,
         FormsModule,
         ReactiveFormsModule,
-        MatInputModule
+        MatInputModule,
+        PhotoWallComponent
       ],
       providers: [
         { provide: PhotoWallService, useValue: photoWallService },

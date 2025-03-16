@@ -78,7 +78,7 @@
   "INVALID_COUPON_LENGTH": "कूपन कोड {{length}} वर्ण लंबा होना चाहिए।",
   "INVALID_COUPON": "Invalid coupon.",
   "LABEL_COUPON": "कूपन",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "कूपन कोड की आवश्यकता है? मासिक कूपन और अन्य स्पैम के लिए <a href='{{twitter}}' target='_blank'>Twitter</a> या <a href='{{facebook}}' target='_blank'>Facebook</a> पर हमारा अनुसरण करें!",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Need a coupon code? Follow us on <a href='{{blueSky}}' target='_blank'>BlueSky</a> or <a href='{{reddit}}' target='_blank'>Reddit</a> for monthly coupons and other spam!",
   "BTN_REDEEM": "के एवज",
   "THANKS_FOR_SUPPORT": "{{Juiceshop}} का समर्थन करने के लिए धन्यवाद!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "{{Appname}} के पीछे खुले स्रोत परियोजना का समर्थन करने के लिए धन्यवाद!",

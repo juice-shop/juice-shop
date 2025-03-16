@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -51,7 +51,6 @@ describe('AddressSelectComponent', () => {
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
-
         BrowserAnimationsModule,
         MatCardModule,
         MatTableModule,
@@ -63,9 +62,9 @@ describe('AddressSelectComponent', () => {
         MatDialogModule,
         MatIconModule,
         MatTooltipModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        AddressSelectComponent, AddressComponent, DeliveryMethodComponent
       ],
-      declarations: [AddressSelectComponent, AddressComponent, DeliveryMethodComponent],
       providers: [{ provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar }]
     })

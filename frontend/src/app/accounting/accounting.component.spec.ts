@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -47,7 +47,6 @@ describe('AccountingComponent', () => {
     snackBar.open.and.returnValue(null)
 
     TestBed.configureTestingModule({
-      declarations: [AccountingComponent],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
@@ -61,7 +60,8 @@ describe('AccountingComponent', () => {
         MatCardModule,
         MatIconModule,
         MatTooltipModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        AccountingComponent
       ],
       providers: [
         { provide: ProductService, useValue: productService },

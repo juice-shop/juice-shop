@@ -1,17 +1,22 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { ChatbotService } from '../Services/chatbot.service'
 import { UserService } from '../Services/user.service'
 import { Component, type OnDestroy, type OnInit } from '@angular/core'
-import { UntypedFormControl } from '@angular/forms'
+import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
-import { TranslateService } from '@ngx-translate/core'
-import { CookieService } from 'ngx-cookie'
+import { TranslateService, TranslateModule } from '@ngx-translate/core'
+import { CookieService } from 'ngy-cookie'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
+import { NgFor, NgIf } from '@angular/common'
+import { MatCardModule } from '@angular/material/card'
+import { FlexModule } from '@angular/flex-layout/flex'
 
 library.add(faBomb)
 
@@ -33,7 +38,9 @@ interface MessageActions {
 @Component({
   selector: 'app-chatbot',
   templateUrl: './chatbot.component.html',
-  styleUrls: ['./chatbot.component.scss']
+  styleUrls: ['./chatbot.component.scss'],
+  standalone: true,
+  imports: [FlexModule, MatCardModule, NgFor, NgIf, MatFormFieldModule, MatLabel, TranslateModule, MatInputModule, FormsModule, ReactiveFormsModule]
 })
 export class ChatbotComponent implements OnInit, OnDestroy {
   public messageControl: UntypedFormControl = new UntypedFormControl()
@@ -57,7 +64,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.chatbotService.getChatbotStatus().subscribe((response) => {
       this.messages.push({
         author: MessageSources.bot,

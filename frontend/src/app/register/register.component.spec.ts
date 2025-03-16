@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -25,7 +25,6 @@ import { of, throwError } from 'rxjs'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatTooltipModule } from '@angular/material/tooltip'
-import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 
 describe('RegisterComponent', () => {
@@ -49,7 +48,6 @@ describe('RegisterComponent', () => {
           { path: 'login', component: LoginComponent }
         ]),
         TranslateModule.forRoot(),
-        MatPasswordStrengthModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
@@ -63,9 +61,9 @@ describe('RegisterComponent', () => {
         MatSnackBarModule,
         MatTooltipModule,
         MatIconModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        RegisterComponent, LoginComponent
       ],
-      declarations: [RegisterComponent, LoginComponent],
       providers: [
         { provide: SecurityAnswerService, useValue: securityAnswerService },
         { provide: SecurityQuestionService, useValue: securityQuestionService },
