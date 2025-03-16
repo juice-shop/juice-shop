@@ -9,7 +9,7 @@ import * as challengeUtils from '../lib/challengeUtils'
 import * as utils from '../lib/utils'
 import { challenges } from '../data/datacache'
 // @ts-expect-error FIXME due to non-existing type definitions for notevil
-import * as safeEval from 'notevil'
+import { eval as safeEval } from 'notevil'
 
 const security = require('../lib/insecurity')
 
