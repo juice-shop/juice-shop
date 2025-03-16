@@ -7,10 +7,9 @@ import { type Request, type Response, type NextFunction } from 'express'
 import { UserModel } from '../models/user'
 import * as challengeUtils from '../lib/challengeUtils'
 import * as utils from '../lib/utils'
+import { challenges } from '../data/datacache'
 
 const security = require('../lib/insecurity')
-const cache = require('../data/datacache')
-const challenges = cache.challenges
 
 module.exports = function updateUserProfile () {
   return (req: Request, res: Response, next: NextFunction) => {
