@@ -4,12 +4,11 @@
  */
 
 import { type Request, type Response, type NextFunction } from 'express'
-import { UserModel } from '../models/user'
 import * as challengeUtils from '../lib/challengeUtils'
+import { challenges } from '../data/datacache'
+import { UserModel } from '../models/user'
 
 const security = require('../lib/insecurity')
-const cache = require('../data/datacache')
-const challenges = cache.challenges
 
 module.exports = function changePassword () {
   return ({ query, headers, connection }: Request, res: Response, next: NextFunction) => {
