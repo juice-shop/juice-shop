@@ -4,17 +4,16 @@ import type { Product as ProductConfig } from 'lib/config.types'
 
 import fs from 'fs'
 import path from 'path'
+import fetch from 'node-fetch'
 import { promisify } from 'util'
 import { ExifImage } from 'exif'
+import { pipeline } from 'stream'
 import sinonChai from 'sinon-chai'
 
 import * as utils from '../../lib/utils'
 
 const expect = chai.expect
 chai.use(sinonChai)
-
-const { pipeline } = require('stream')
-const fetch = require('node-fetch')
 
 async function parseExifData (path: string): Promise<any> {
   return await new Promise((resolve, reject) => {
