@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 import { challenges } from '../../data/datacache'
-import frisby = require('frisby')
+import * as frisby from 'frisby'
 import { expect } from '@jest/globals'
 const Joi = frisby.Joi
 const utils = require('../../lib/utils')
