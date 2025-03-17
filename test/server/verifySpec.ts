@@ -3,16 +3,19 @@
  * SPDX-License-Identifier: MIT
  */
 
+import chai from 'chai'
 import sinon from 'sinon'
 import config from 'config'
-import type { Product as ProductConfig } from '../../lib/config.types'
-import chai from 'chai'
 import sinonChai from 'sinon-chai'
+
+import type { Product as ProductConfig } from '../../lib/config.types'
+import * as utils from '../../lib/utils'
 const expect = chai.expect
+
 chai.use(sinonChai)
+
 const cache = require('../../data/datacache')
 const security = require('../../lib/insecurity')
-const utils = require('../../lib/utils')
 
 describe('verify', () => {
   const verify = require('../../routes/verify')

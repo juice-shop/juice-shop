@@ -4,11 +4,11 @@
  */
 
 import { challenges } from '../../data/datacache'
+import * as utils from '../../lib/utils'
 import { expect } from '@jest/globals'
 import * as frisby from 'frisby'
 import path from 'path'
 const fs = require('fs')
-const utils = require('../../lib/utils')
 
 const URL = 'http://localhost:3000'
 

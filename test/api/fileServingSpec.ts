@@ -5,8 +5,9 @@
 
 import * as frisby from 'frisby'
 import config from 'config'
+
 import type { Product as ProductConfig } from '../../lib/config.types'
-const utils = require('../../lib/utils')
+import * as utils from '../../lib/utils'
 
 const URL = 'http://localhost:3000'
 
