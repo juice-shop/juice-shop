@@ -7,11 +7,11 @@ import chai from 'chai'
 import fs from 'fs'
 import path from 'path'
 import { promisify } from 'util'
+import { safeLoad } from 'js-yaml'
 import sinonChai from 'sinon-chai'
 const expect = chai.expect
 chai.use(sinonChai)
 
-const { safeLoad } = require('js-yaml')
 const readFile = promisify(fs.readFile)
 
 const loadYamlFile = async (filename: string) => {
