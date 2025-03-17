@@ -9,13 +9,12 @@ import vm from 'vm'
 import path from 'path'
 import yaml from 'js-yaml'
 import libxml from 'libxmljs'
+import unzipper from 'unzipper'
 import { type NextFunction, type Request, type Response } from 'express'
 
 import * as challengeUtils from '../lib/challengeUtils'
 import { challenges } from '../data/datacache'
 import * as utils from '../lib/utils'
-
-const unzipper = require('unzipper')
 
 function ensureFileIsPassed ({ file }: Request, res: Response, next: NextFunction) {
   if (file != null) {
