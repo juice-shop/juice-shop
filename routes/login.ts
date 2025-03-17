@@ -2,15 +2,15 @@
  * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
-
-import models = require('../models/index')
 import { type Request, type Response, type NextFunction } from 'express'
-import { type User } from '../data/types'
+import config from 'config'
+
+import * as challengeUtils from '../lib/challengeUtils'
+import { challenges, users } from '../data/datacache'
 import { BasketModel } from '../models/basket'
 import { UserModel } from '../models/user'
-import * as challengeUtils from '../lib/challengeUtils'
-import config from 'config'
-import { challenges, users } from '../data/datacache'
+import * as models from '../models/index'
+import { type User } from '../data/types'
 import * as utils from '../lib/utils'
 
 const security = require('../lib/insecurity')
