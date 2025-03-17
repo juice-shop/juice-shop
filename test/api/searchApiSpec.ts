@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import frisby = require('frisby')
+import * as frisby from 'frisby'
 import { expect } from '@jest/globals'
 import type { Product as ProductConfig } from '../../lib/config.types'
 import config from 'config'

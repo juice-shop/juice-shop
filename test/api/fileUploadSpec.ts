@@ -5,7 +5,7 @@
 
 import { challenges } from '../../data/datacache'
 import { expect } from '@jest/globals'
-import frisby = require('frisby')
+import * as frisby from 'frisby'
 import path from 'path'
 const fs = require('fs')
 const utils = require('../../lib/utils')

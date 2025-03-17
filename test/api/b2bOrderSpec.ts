@@ -4,7 +4,7 @@
  */
 
 import { challenges } from '../../data/datacache'
-import frisby = require('frisby')
+import * as frisby from 'frisby'
 const Joi = frisby.Joi
 const utils = require('../../lib/utils')
 const security = require('../../lib/insecurity')

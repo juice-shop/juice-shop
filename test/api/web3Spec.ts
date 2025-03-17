@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import frisby = require('frisby')
+import * as frisby from 'frisby'
 import { Joi } from 'frisby'
 
 const REST_URL = 'http://localhost:3000/rest/web3'

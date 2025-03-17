@@ -6,7 +6,7 @@
 import type { Product as ProductConfig } from '../../lib/config.types'
 import { challenges } from '../../data/datacache'
 import config from 'config'
-import frisby = require('frisby')
+import * as frisby from 'frisby'
 const Joi = frisby.Joi
 const utils = require('../../lib/utils')
 const security = require('../../lib/insecurity')
