@@ -7,10 +7,12 @@ import path from 'path'
 import { promisify } from 'util'
 import { ExifImage } from 'exif'
 import sinonChai from 'sinon-chai'
+
+import * as utils from '../../lib/utils'
+
 const expect = chai.expect
 chai.use(sinonChai)
 
-const utils = require('../../lib/utils')
 const { pipeline } = require('stream')
 const fetch = require('node-fetch')
 
