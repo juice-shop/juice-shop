@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import utils = require('../lib/utils')
+import * as utils from '../lib/utils'
 import * as challengeUtils from '../lib/challengeUtils'
 import { type Request, type Response } from 'express'
 import * as db from '../data/mongodb'
