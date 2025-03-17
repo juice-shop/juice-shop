@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import frisby = require('frisby')
+import * as frisby from 'frisby'
 
 xdescribe('Required Internet resource', () => { // FIXME Tests fail regularly (but not always) from ECONNRESET
   describe('PasteBin paste for "Leaked Unsafe Product" challenge available', () => {

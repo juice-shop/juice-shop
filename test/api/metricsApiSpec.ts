@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import frisby = require('frisby')
+import * as frisby from 'frisby'
 import path from 'path'
 const fs = require('fs')
 const URL = 'http://localhost:3000'
