@@ -3,8 +3,7 @@ import yaml from 'js-yaml'
 import { type NextFunction, type Request, type Response } from 'express'
 
 import * as accuracy from '../lib/accuracy'
-
-const challengeUtils = require('../lib/challengeUtils')
+import * as challengeUtils from '../lib/challengeUtils'
 
 const FixesDir = 'data/static/codefixes'
 

@@ -5,9 +5,10 @@
 
 import Hashids from 'hashids/cjs'
 import { type Request, type Response } from 'express'
+
+import * as challengeUtils from '../lib/challengeUtils'
 import { challenges } from '../data/datacache'
 
-const challengeUtils = require('../lib/challengeUtils')
 const hashidsAlphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
 const hashidRegexp = /^[a-zA-Z0-9]+$/
 const invalidContinueCode = 'Invalid continue code.'
