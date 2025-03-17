@@ -6,13 +6,14 @@
 import os from 'os'
 import fs from 'fs'
 import vm from 'vm'
-import * as challengeUtils from '../lib/challengeUtils'
-import { type NextFunction, type Request, type Response } from 'express'
 import path from 'path'
-import * as utils from '../lib/utils'
-import { challenges } from '../data/datacache'
+import libxml from 'libxmljs'
+import { type NextFunction, type Request, type Response } from 'express'
 
-const libxml = require('libxmljs')
+import * as challengeUtils from '../lib/challengeUtils'
+import { challenges } from '../data/datacache'
+import * as utils from '../lib/utils'
+
 const yaml = require('js-yaml')
 const unzipper = require('unzipper')
 
