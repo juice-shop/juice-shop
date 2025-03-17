@@ -7,6 +7,7 @@ import os from 'os'
 import fs from 'fs'
 import vm from 'vm'
 import path from 'path'
+import yaml from 'js-yaml'
 import libxml from 'libxmljs'
 import { type NextFunction, type Request, type Response } from 'express'
 
@@ -14,7 +15,6 @@ import * as challengeUtils from '../lib/challengeUtils'
 import { challenges } from '../data/datacache'
 import * as utils from '../lib/utils'
 
-const yaml = require('js-yaml')
 const unzipper = require('unzipper')
 
 function ensureFileIsPassed ({ file }: Request, res: Response, next: NextFunction) {

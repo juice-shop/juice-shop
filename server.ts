@@ -23,12 +23,12 @@ import { WalletModel } from './models/wallet'
 import logger from './lib/logger'
 import config from 'config'
 import path from 'path'
+import yaml from 'js-yaml'
 import morgan from 'morgan'
 import colors from 'colors/safe'
 import * as utils from './lib/utils'
 import * as Prometheus from 'prom-client'
 import datacreator from './data/datacreator'
-
 import validatePreconditions from './lib/startup/validatePreconditions'
 import cleanupFtpFolder from './lib/startup/cleanupFtpFolder'
 import validateConfig from './lib/startup/validateConfig'
@@ -52,7 +52,6 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const securityTxt = require('express-security.txt')
 const robots = require('express-robots-txt')
-const yaml = require('js-yaml')
 const swaggerUi = require('swagger-ui-express')
 const RateLimit = require('express-rate-limit')
 const ipfilter = require('express-ipfilter').IpFilter
