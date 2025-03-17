@@ -4,14 +4,16 @@
  */
 import express, { type NextFunction, type Request, type Response } from 'express'
 import path from 'path'
-import { SecurityAnswerModel } from '../models/securityAnswer'
-import { UserModel } from '../models/user'
+
 import { SecurityQuestionModel } from '../models/securityQuestion'
 import { PrivacyRequestModel } from '../models/privacyRequests'
+import { SecurityAnswerModel } from '../models/securityAnswer'
+import * as challengeUtils from '../lib/challengeUtils'
 import { challenges } from '../data/datacache'
+import { UserModel } from '../models/user'
+
 const insecurity = require('../lib/insecurity')
 
-const challengeUtils = require('../lib/challengeUtils')
 const router = express.Router()
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
