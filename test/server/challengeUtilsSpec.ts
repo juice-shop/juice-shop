@@ -4,10 +4,11 @@
  */
 
 import chai from 'chai'
+import * as challengeUtils from '../../lib/challengeUtils'
+
 const expect = chai.expect
 
 describe('challengeUtils', () => {
-  const challengeUtils = require('../../lib/challengeUtils')
   const challenges = require('../../data/datacache').challenges
 
   describe('findChallengeByName', () => {
