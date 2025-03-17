@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-import server = require('./../server')
+import * as server from '../server'
 
-module.exports = async () => {
+export default () => {
   server.close(undefined)
 }
