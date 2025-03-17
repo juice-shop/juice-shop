@@ -4,13 +4,13 @@
  */
 
 import { type NextFunction, type Request, type Response } from 'express'
-import fs from 'fs'
 import yaml from 'js-yaml'
+import fs from 'fs'
+
 import { getCodeChallenges } from '../lib/codingChallenges'
+import * as challengeUtils from '../lib/challengeUtils'
 import * as accuracy from '../lib/accuracy'
 import * as utils from '../lib/utils'
-
-const challengeUtils = require('../lib/challengeUtils')
 
 interface SnippetRequestBody {
   challenge: string
