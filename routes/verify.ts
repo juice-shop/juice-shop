@@ -5,20 +5,19 @@
 
 import { type Request, type Response, type NextFunction } from 'express'
 import { Op } from 'sequelize'
+import jwt from 'jsonwebtoken'
 import config from 'config'
 import jws from 'jws'
 
 import { products, challenges, retrieveBlueprintChallengeFile } from '../data/datacache'
 import type { Product as ProductConfig } from '../lib/config.types'
-import { type JwtPayload, type VerifyErrors } from 'jsonwebtoken'
 import { type Challenge, type Product } from '../data/types'
 import * as challengeUtils from '../lib/challengeUtils'
 import { ComplaintModel } from '../models/complaint'
 import { FeedbackModel } from '../models/feedback'
-
 import * as utils from '../lib/utils'
+
 const security = require('../lib/insecurity')
-const jwt = require('jsonwebtoken')
 
 exports.emptyUserRegistration = () => (req: Request, res: Response, next: NextFunction) => {
   challengeUtils.solveIf(challenges.emptyUserRegistration, () => {
@@ -111,9 +110,16 @@ function jwtChallenge (challenge: Challenge, req: Request, algorithm: string, em
   const token = utils.jwtFrom(req)
   if (token) {
     const decoded = jws.decode(token) ? jwt.decode(token) : null
-    jwt.verify(token, security.publicKey, (err: VerifyErrors | null, verified: JwtPayload) => {
+
+    if (decoded === null || typeof decoded === 'string') {
+      return
+    }
+
+    jwt.verify(token, security.publicKey, (err: jwt.VerifyErrors | null) => {
       if (err === null) {
-        challengeUtils.solveIf(challenge, () => { return hasAlgorithm(token, algorithm) && hasEmail(decoded, email) })
+        challengeUtils.solveIf(challenge, () => {
+          return hasAlgorithm(token, algorithm) && hasEmail(decoded as { data: { email: string } }, email)
+        })
       }
     })
   }
