@@ -1,3 +1,4 @@
+```
 version: 1
 update_configs:
   - package_manager: "javascript"
@@ -17,7 +18,7 @@ update_configs:
           version_requirement: "1.4.2"
       - match:
           dependency_name: "unzipper"
-          version_requirement: "0.9.15"
+          version_requirement: "5.10.5"
       - match:
           dependency_name: "jsonwebtoken"
           version_requirement: "0.4.0"
@@ -29,3 +30,4 @@ update_configs:
       - "bkimminich"
     default_labels:
       - "dependencies"
+```
