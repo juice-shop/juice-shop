@@ -1,11 +1,10 @@
-name: "Polaris scan"
-
+name: polaris-ss-action
 on:
-  workflow_call:
-    secrets:
-      polaris_access_token:
-        description: "Access token for Polaris (Synpsys)"
-        required: true   
+  push:
+    branches: [ main, master, develop, stage, release ]
+  pull_request:
+    branches: [ main, master, develop, stage, release ]
+  workflow_dispatch: 
 jobs:
   build:
     name: code scan with Polaris
@@ -17,11 +16,19 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
-    - name: Polaris Static Analysis
-      run: |
-          export POLARIS_ACCESS_TOKEN=${{ secrets.polaris_access_token }}
-          wget -q https://csprod.polaris.synopsys.com/api/tools/polaris_cli-linux64.zip
-          unzip -j -o polaris_cli-linux64.zip -d ${{ github.workspace }}/tmp
-          ${{ github.workspace }}/tmp/polaris analyze -w 
-          
-  
+    - name: Polaris Scan
+      uses: blackduck-inc/black-duck-security-scan@v2.0.0
+      with:
+        polaris_server_url: ${{ vars.POLARIS_SERVERURL }}
+        polaris_access_token: ${{ secrets.POLARIS_ACCESSTOKEN }}
+        polaris_assessment_types: 'SAST'
+        polaris_application_name: tenjupaul-${{ github.event.repository.name }}
+        # include_diagnostics: true
+#    - name: Save Logs
+#      if: always()
+#      uses: actions/upload-artifact@v4
+#      with:
+#        name: bridge-logs
+#        path: ${{ github.workspace }}/.bridge
+#        include-hidden-files: true
+
