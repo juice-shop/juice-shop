@@ -21,7 +21,7 @@ jobs:
       with:
         polaris_access_token: ${{ secrets.POLARIS_ACCESSTOKEN }}
         polaris_assessment_types: 'SAST'
-        polaris_server_url: ${{ vars.POLARIS_SERVERURL }}
+        polaris_server_url: 'https://poc.polaris.blackduck.com'
         polaris_application_name: tenjupaulGH-${{ github.event.repository.name }}
         polaris_project_name: tenjupaulGH-${{ github.event.repository.name }}
         # include_diagnostics: true
