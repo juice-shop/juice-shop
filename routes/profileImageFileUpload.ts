@@ -7,15 +7,21 @@ import fs from 'fs'
 import { type Request, type Response, type NextFunction } from 'express'
 import { UserModel } from '../models/user'
 import logger from '../lib/logger'
+import fileType from 'file-type'
 
 import * as utils from '../lib/utils'
 const security = require('../lib/insecurity')
-const fileType = require('file-type')
 
 module.exports = function fileUpload () {
   return async (req: Request, res: Response, next: NextFunction) => {
     const file = req.file
     const buffer = file?.buffer
+    if (buffer === undefined) {
+      res.status(500)
+      next(new Error('Illegal file type'))
+      return
+    }
+
     const uploadedFileType = await fileType.fromBuffer(buffer)
 
     if (uploadedFileType === undefined) {
@@ -27,7 +33,6 @@ module.exports = function fileUpload () {
         if (loggedInUser) {
           fs.open(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.${uploadedFileType.ext}`, 'w', function (err, fd) {
             if (err != null) logger.warn('Error opening file: ' + err.message)
-            // @ts-expect-error FIXME buffer has unexpected type
             fs.write(fd, buffer, 0, buffer.length, null, function (err) {
               if (err != null) logger.warn('Error writing file: ' + err.message)
               fs.close(fd, function () { })
