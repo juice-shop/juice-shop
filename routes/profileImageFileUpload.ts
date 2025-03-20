@@ -21,39 +21,39 @@ module.exports = function fileUpload () {
       next(new Error('Illegal file type'))
       return
     }
-
     const uploadedFileType = await fileType.fromBuffer(buffer)
-
     if (uploadedFileType === undefined) {
       res.status(500)
       next(new Error('Illegal file type'))
-    } else {
-      if (uploadedFileType !== null && utils.startsWith(uploadedFileType.mime, 'image')) {
-        const loggedInUser = security.authenticatedUsers.get(req.cookies.token)
-        if (loggedInUser) {
-          fs.open(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.${uploadedFileType.ext}`, 'w', function (err, fd) {
-            if (err != null) logger.warn('Error opening file: ' + err.message)
-            fs.write(fd, buffer, 0, buffer.length, null, function (err) {
-              if (err != null) logger.warn('Error writing file: ' + err.message)
-              fs.close(fd, function () { })
-            })
-          })
-          UserModel.findByPk(loggedInUser.data.id).then(async (user: UserModel | null) => {
-            if (user != null) {
-              return await user.update({ profileImage: `assets/public/images/uploads/${loggedInUser.data.id}.${uploadedFileType.ext}` })
-            }
-          }).catch((error: Error) => {
-            next(error)
-          })
-          res.location(process.env.BASE_PATH + '/profile')
-          res.redirect(process.env.BASE_PATH + '/profile')
-        } else {
-          next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
-        }
-      } else {
-        res.status(415)
-        next(new Error(`Profile image upload does not accept this file type${uploadedFileType ? (': ' + uploadedFileType.mime) : '.'}`))
-      }
+      return
     }
+    if (uploadedFileType === null || !utils.startsWith(uploadedFileType.mime, 'image')) {
+      res.status(415)
+      next(new Error(`Profile image upload does not accept this file type${uploadedFileType ? (': ' + uploadedFileType.mime) : '.'}`))
+      return
+    }
+    const loggedInUser = security.authenticatedUsers.get(req.cookies.token)
+    if (!loggedInUser) {
+      next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
+      return
+    }
+
+    fs.open(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.${uploadedFileType.ext}`, 'w', function (err, fd) {
+      if (err != null) logger.warn('Error opening file: ' + err.message)
+      fs.write(fd, buffer, 0, buffer.length, null, function (err) {
+        if (err != null) logger.warn('Error writing file: ' + err.message)
+        fs.close(fd, function () { })
+      })
+    })
+    try {
+      const user = await UserModel.findByPk(loggedInUser.data.id)
+      if (user != null) {
+        await user.update({ profileImage: `assets/public/images/uploads/${loggedInUser.data.id}.${uploadedFileType.ext}` })
+      }
+    } catch (error) {
+      next(error)
+    }
+    res.location(process.env.BASE_PATH + '/profile')
+    res.redirect(process.env.BASE_PATH + '/profile')
   }
 }
