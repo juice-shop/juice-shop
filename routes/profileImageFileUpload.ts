@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import fs from 'fs'
+import fs from 'fs/promises'
 import { type Request, type Response, type NextFunction } from 'express'
 import { UserModel } from '../models/user'
 import logger from '../lib/logger'
@@ -38,13 +38,13 @@ module.exports = function fileUpload () {
       return
     }
 
-    fs.open(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.${uploadedFileType.ext}`, 'w', function (err, fd) {
-      if (err != null) logger.warn('Error opening file: ' + err.message)
-      fs.write(fd, buffer, 0, buffer.length, null, function (err) {
-        if (err != null) logger.warn('Error writing file: ' + err.message)
-        fs.close(fd, function () { })
-      })
-    })
+    const filePath = `frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.${uploadedFileType.ext}`
+    try {
+      await fs.writeFile(filePath, buffer)
+    } catch (err) {
+      logger.warn('Error writing file: ' + (err instanceof Error ? err.message : String(err)))
+    }
+
     try {
       const user = await UserModel.findByPk(loggedInUser.data.id)
       if (user != null) {
