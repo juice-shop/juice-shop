@@ -314,10 +314,15 @@ mentioned or used!
 
 > Upcoming events are marked with :date:. The availability of link destinations for past events cannot be guaranteed. 
 
+#### 2025
+
+* :date: [OWASP Juice Shop Demo: Your vitamin shot for security awareness & education](https://owasp2025globalappseceu.sched.com/event/1yOPV/owasp-juice-shop-demo-your-vitamin-shot-for-security-awareness-education) with Björn Kimminich, [OWASP Global AppSec EU 2025, Barcelona](https://owasp.glueup.com/event/owasp-global-appsec-eu-2025-123983), 29.05.2025
+* :date: [OWASP Juice Shop Demo: Your vitamin shot for security awareness & education](https://owasp2025globalappseceu.sched.com/event/1yPXh/owasp-juice-shop-demo-your-vitamin-shot-for-security-awareness-education) with Björn Kimminich, [OWASP Global AppSec EU 2025, Barcelona](https://owasp.glueup.com/event/owasp-global-appsec-eu-2025-123983), 30.05.2025
+
 #### 2024
 
-* :date: [OWASP Juice Shop: Advanced Demos & For-fun CTF](https://god.owasp.de/2024/program-detail.html?talk=trainingOne) with Björn Kimminich & Jannik Hollenbach, [German OWASP Day 2024](https://god.owasp.de/2024), 12.11.2024
-* :date: [OWASP Juice Shop 10th anniversary: Is it still fresh?](https://god.owasp.de/2024/program-detail.html?talk=talkOne) by Björn Kimminich, [German OWASP Day 2024](https://god.owasp.de/2024), 13.11.2024
+* [OWASP Juice Shop: Advanced Demos & For-fun CTF](https://god.owasp.de/2024/program-detail.html?talk=trainingOne) with Björn Kimminich & Jannik Hollenbach, [German OWASP Day 2024](https://god.owasp.de/2024), 12.11.2024
+* [OWASP Juice Shop 10th anniversary: Is it still fresh?](https://god.owasp.de/2024/program-detail.html?talk=talkOne) by Björn Kimminich, [German OWASP Day 2024](https://god.owasp.de/2024), 13.11.2024
 * [OWASP Juice Shop 10th anniversary: Is it still fresh?](https://opensecurityconference.org/conference/keynotes) keynote by Björn Kimminich, [Open Security Conference](https://opensecurityconference.org/), 04.10.2024
 * [DSOMM & Juice Shop User Day](https://owasp2024globalappsecsanfra.sched.com/event/1gk01/juice-shop-dsomm-user-day-2024) before [OWASP 2024 Global AppSec San Francisco](https://sf.globalappsec.org/) with Timo Pagel, Jannik Hollenbach & Björn Kimminich, 25.09.2024
 * [OWASP Juice Shop](https://owasp2024globalappsecsanfra.sched.com/event/1ivEu/owasp-juiceshop) talk in Project Track of [OWASP 2024 Global AppSec San Francisco](https://sf.globalappsec.org/) by Björn Kimminich, 27.09.2024 ([YouTube](https://www.youtube.com/watch?v=1-2e-OpvV-Y))
