@@ -25,7 +25,7 @@ global.sleep = (time: number) => {
   }
 }
 
-module.exports = function productReviews () {
+module.exports = function showProductReviews () {
   return (req: Request, res: Response, next: NextFunction) => {
     // Truncate id to avoid unintentional RCE
     const id = !utils.isChallengeEnabled(challenges.noSqlCommandChallenge) ? Number(req.params.id) : utils.trunc(req.params.id, 40)

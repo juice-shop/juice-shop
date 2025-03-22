@@ -12,7 +12,7 @@ import { challenges } from '../data/datacache'
 
 const security = require('../lib/insecurity')
 
-module.exports = function productReviews () {
+module.exports = function createProductReviews () {
   return (req: Request, res: Response) => {
     const user = security.authenticatedUsers.from(req)
     challengeUtils.solveIf(challenges.forgedReviewChallenge, () => { return user && user.data.email !== req.body.author })
