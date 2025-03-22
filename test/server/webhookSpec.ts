@@ -21,7 +21,7 @@ describe('webhook', () => {
       try {
         await webhook.notify(challenge)
       } catch (error) {
-        chai.assert.fail('Expected error was not thrown')
+        chai.assert.fail('webhook.notify should not throw an error when no webhook URL is provided')
       }
     })
 
@@ -30,7 +30,7 @@ describe('webhook', () => {
         await webhook.notify(challenge, 0, 'localhorst')
         chai.assert.fail('Expected error was not thrown')
       } catch (error) {
-        expect((error as Error).message).to.equal('Invalid URI "localhorst"')
+        expect((error as Error).message).to.equal('Failed to parse URL from localhorst')
       }
     })
 
