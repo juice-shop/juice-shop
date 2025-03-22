@@ -38,7 +38,7 @@ module.exports = function getUserProfile () {
       next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress)); return
     }
 
-    let user
+    let user: UserModel | null
     try {
       user = await UserModel.findByPk(loggedInUser.data.id)
     } catch (error) {
