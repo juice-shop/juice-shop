@@ -13,7 +13,7 @@ const security = require('../lib/insecurity')
 
 const sleep = async (ms: number) => await new Promise(resolve => setTimeout(resolve, ms))
 
-module.exports = function productReviews () {
+module.exports = function likeProductReview () {
   return async (req: Request, res: Response, next: NextFunction) => {
     const id = req.body.id
     const user = security.authenticatedUsers.from(req)
