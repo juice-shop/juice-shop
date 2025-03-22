@@ -1,8 +1,8 @@
 import fs from 'fs'
-import { retrieveCodeSnippet } from '../routes/vulnCodeSnippet'
 import colors from 'colors/safe'
+import { diffLines, structuredPatch } from 'diff'
 
-const Diff = require('diff')
+import { retrieveCodeSnippet } from '../routes/vulnCodeSnippet'
 
 const fixesPath = 'data/static/codefixes'
 const cacheFile = 'rsn/cache.json'
@@ -48,9 +48,10 @@ const checkDiffs = async (keys: string[]) => {
         if (snippet == null) return
         process.stdout.write(val + ': ')
         const fileData = fs.readFileSync(fixesPath + '/' + val).toString()
-        const diff = Diff.diffLines(filterString(fileData), filterString(snippet.snippet))
+        const diff = diffLines(filterString(fileData), filterString(snippet.snippet))
         let line = 0
         for (const part of diff) {
+          if (!part.count) continue
           if (part.removed) continue
           const prev = line
           line += part.count
@@ -70,6 +71,7 @@ const checkDiffs = async (keys: string[]) => {
         line = 0
         let norm = 0
         for (const part of diff) {
+          if (!part.count) continue
           if (part.added) {
             norm--
             continue
@@ -105,7 +107,7 @@ async function seePatch (file: string) {
   const fileData = fs.readFileSync(fixesPath + '/' + file).toString()
   const snippet = await retrieveCodeSnippet(file.split('_')[0])
   if (snippet == null) return
-  const patch = Diff.structuredPatch(file, file, filterString(snippet.snippet), filterString(fileData))
+  const patch = structuredPatch(file, file, filterString(snippet.snippet), filterString(fileData))
   console.log(colors.bold(file + '\n'))
   for (const hunk of patch.hunks) {
     for (const line of hunk.lines) {
