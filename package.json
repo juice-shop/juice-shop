@@ -75,11 +75,13 @@
     "sbom:xml": " cyclonedx-npm --omit=dev --output-format=XML  --output-file=bom.xml"
   },
   "jest": {
-    "preset": "ts-jest",
-    "globals": {
-      "ts-jest": {
-        "diagnostics": false
-      }
+    "transform": {
+      "^.+\\.[tj]s$": [
+        "ts-jest",
+        {
+          "diagnostics": false
+        }
+      ]
     },
     "globalSetup": "./test/apiTestsSetup.ts",
     "globalTeardown": "./test/apiTestsTeardown.ts",
@@ -96,7 +98,9 @@
       "/node_modules/",
       "/frontend/node_modules/"
     ],
-    "testURL": "http://localhost"
+    "testEnvironmentOptions": {
+      "url": "http://localhost"
+    }
   },
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript",
