@@ -4,14 +4,13 @@
  */
 
 import fs from 'fs'
-import { fetch } from 'undici'
-import { promisify } from 'util'
-import { pipeline } from 'stream'
+import { Readable } from 'stream'
 import { type Request, type Response, type NextFunction } from 'express'
 
 import { UserModel } from '../models/user'
 import * as utils from '../lib/utils'
 import logger from '../lib/logger'
+import { finished } from 'stream/promises'
 
 const security = require('../lib/insecurity')
 
@@ -28,8 +27,8 @@ module.exports = function profileImageUrlUpload () {
             throw new Error('url returned a non-OK status code or an empty body')
           }
           const ext = ['jpg', 'jpeg', 'png', 'svg', 'gif'].includes(url.split('.').slice(-1)[0].toLowerCase()) ? url.split('.').slice(-1)[0].toLowerCase() : 'jpg'
-          const streamPipeline = promisify(pipeline)
-          await streamPipeline(response.body, fs.createWriteStream(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.${ext}`))
+          const fileStream = fs.createWriteStream(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.${ext}`, { flags: 'w' })
+          await finished(Readable.fromWeb(response.body as any).pipe(fileStream))
           await UserModel.findByPk(loggedInUser.data.id).then(async (user: UserModel | null) => { return await user?.update({ profileImage: `/assets/public/images/uploads/${loggedInUser.data.id}.${ext}` }) }).catch((error: Error) => { next(error) })
         } catch (error) {
           try {
