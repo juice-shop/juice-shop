@@ -197,6 +197,7 @@
     "@types/cors": "^2.8.17",
     "@types/cross-spawn": "^6.0.6",
     "@types/cypress": "^1.1.6",
+    "@types/diff": "^7.0.1",
     "@types/download": "^8.0.5",
     "@types/errorhandler": "^1.5.3",
     "@types/exif": "^0.6.5",
