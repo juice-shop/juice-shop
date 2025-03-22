@@ -4,13 +4,12 @@ import type { Product as ProductConfig } from 'lib/config.types'
 
 import fs from 'fs'
 import path from 'path'
-import { fetch } from 'undici'
-import { promisify } from 'util'
 import { ExifImage } from 'exif'
-import { pipeline } from 'stream'
+import { Readable } from 'stream'
 import sinonChai from 'sinon-chai'
 
 import * as utils from '../../lib/utils'
+import { finished } from 'stream/promises'
 
 const expect = chai.expect
 chai.use(sinonChai)
@@ -38,13 +37,13 @@ describe('blueprint', () => {
         if (product.fileForRetrieveBlueprintChallenge && product.image) {
           if (utils.isUrl(product.image)) {
             pathToImage = path.resolve('frontend/dist/frontend', pathToImage, product.image.substring(product.image.lastIndexOf('/') + 1))
-            const streamPipeline = promisify(pipeline)
             const response = await fetch(product.image)
             if (!response.ok || !response.body) {
               expect.fail(`Could not download image from ${product.image}`)
               return
             }
-            await streamPipeline(response.body, fs.createWriteStream(pathToImage))
+            const fileStream = fs.createWriteStream(pathToImage, { flags: 'w' })
+            await finished(Readable.fromWeb(response.body as any).pipe(fileStream))
           } else {
             pathToImage = path.resolve('frontend/src', pathToImage, product.image)
           }
