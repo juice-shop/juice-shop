@@ -4,15 +4,16 @@
  */
 
 import fs from 'fs'
-import { type Request, type Response } from 'express'
-import * as challengeUtils from '../lib/challengeUtils'
+import pug from 'pug'
 import config from 'config'
-import * as utils from '../lib/utils'
+import { type Request, type Response } from 'express'
 import { AllHtmlEntities as Entities } from 'html-entities'
-import { challenges } from '../data/datacache'
 
-const pug = require('pug')
-const themes = require('../views/themes/themes').themes
+import * as challengeUtils from '../lib/challengeUtils'
+import { themes } from '../views/themes/themes'
+import { challenges } from '../data/datacache'
+import * as utils from '../lib/utils'
+
 const entities = new Entities()
 
 exports.getVideo = () => {
@@ -56,7 +57,8 @@ exports.promotionVideo = () => {
 
       challengeUtils.solveIf(challenges.videoXssChallenge, () => { return utils.contains(subs, '</script><script>alert(`xss`)</script>') })
 
-      const theme = themes[config.get<string>('application.theme')]
+      const themeKey = config.get<string>('application.theme') as keyof typeof themes
+      const theme = themes[themeKey] || themes['bluegrey-lightgreen']
       template = template.replace(/_title_/g, entities.encode(config.get<string>('application.name')))
       template = template.replace(/_favicon_/g, favicon())
       template = template.replace(/_bgColor_/g, theme.bgColor)
