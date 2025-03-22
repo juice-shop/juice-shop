@@ -5,7 +5,6 @@
 
 import os from 'os'
 import config from 'config'
-import { fetch } from 'undici'
 import colors from 'colors/safe'
 
 import logger from './logger'
