@@ -7,19 +7,18 @@ import chai from 'chai'
 import sinon from 'sinon'
 import config from 'config'
 import sinonChai from 'sinon-chai'
-
+import { challenges, setRetrieveBlueprintChallengeFile } from '../../data/datacache'
+import { type Challenge } from 'data/types'
 import type { Product as ProductConfig } from '../../lib/config.types'
 import * as utils from '../../lib/utils'
 const expect = chai.expect
 
 chai.use(sinonChai)
 
-const cache = require('../../data/datacache')
 const security = require('../../lib/insecurity')
 
 describe('verify', () => {
   const verify = require('../../routes/verify')
-  const challenges = require('../../data/datacache').challenges
   let req: any
   let res: any
   let next: any
@@ -43,7 +42,7 @@ describe('verify', () => {
           email: 'test@juice-sh.op'
         }
       })
-      challenges.forgedFeedbackChallenge = { solved: false, save }
+      challenges.forgedFeedbackChallenge = { solved: false, save } as unknown as Challenge
     })
 
     it('is not solved when an authenticated user passes his own ID when writing feedback', () => {
@@ -85,7 +84,7 @@ describe('verify', () => {
 
   describe('accessControlChallenges', () => {
     it('"scoreBoardChallenge" is solved when the 1px.png transpixel is requested', () => {
-      challenges.scoreBoardChallenge = { solved: false, save }
+      challenges.scoreBoardChallenge = { solved: false, save } as unknown as Challenge
       req.url = 'http://juice-sh.op/public/images/padding/1px.png'
 
       verify.accessControlChallenges()(req, res, next)
@@ -94,7 +93,7 @@ describe('verify', () => {
     })
 
     it('"adminSectionChallenge" is solved when the 19px.png transpixel is requested', () => {
-      challenges.adminSectionChallenge = { solved: false, save }
+      challenges.adminSectionChallenge = { solved: false, save } as unknown as Challenge
       req.url = 'http://juice-sh.op/public/images/padding/19px.png'
 
       verify.accessControlChallenges()(req, res, next)
@@ -103,7 +102,7 @@ describe('verify', () => {
     })
 
     it('"tokenSaleChallenge" is solved when the 56px.png transpixel is requested', () => {
-      challenges.tokenSaleChallenge = { solved: false, save }
+      challenges.tokenSaleChallenge = { solved: false, save } as unknown as Challenge
       req.url = 'http://juice-sh.op/public/images/padding/56px.png'
 
       verify.accessControlChallenges()(req, res, next)
@@ -112,7 +111,7 @@ describe('verify', () => {
     })
 
     it('"extraLanguageChallenge" is solved when the Klingon translation file is requested', () => {
-      challenges.extraLanguageChallenge = { solved: false, save }
+      challenges.extraLanguageChallenge = { solved: false, save } as unknown as Challenge
       req.url = 'http://juice-sh.op/public/i18n/tlh_AA.json'
 
       verify.accessControlChallenges()(req, res, next)
@@ -121,8 +120,8 @@ describe('verify', () => {
     })
 
     it('"retrieveBlueprintChallenge" is solved when the blueprint file is requested', () => {
-      challenges.retrieveBlueprintChallenge = { solved: false, save }
-      cache.retrieveBlueprintChallengeFile = 'test.dxf'
+      challenges.retrieveBlueprintChallenge = { solved: false, save } as unknown as Challenge
+      setRetrieveBlueprintChallengeFile('test.dxf')
       req.url = 'http://juice-sh.op/public/images/products/test.dxf'
 
       verify.accessControlChallenges()(req, res, next)
@@ -131,7 +130,7 @@ describe('verify', () => {
     })
 
     it('"missingEncodingChallenge" is solved when the crazy cat photo is requested', () => {
-      challenges.missingEncodingChallenge = { solved: false, save }
+      challenges.missingEncodingChallenge = { solved: false, save } as unknown as Challenge
       req.url = 'http://juice-sh.op/public/images/uploads/%E1%93%9A%E1%98%8F%E1%97%A2-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg'
 
       verify.accessControlChallenges()(req, res, next)
@@ -140,7 +139,7 @@ describe('verify', () => {
     })
 
     it('"accessLogDisclosureChallenge" is solved when any server access log file is requested', () => {
-      challenges.accessLogDisclosureChallenge = { solved: false, save }
+      challenges.accessLogDisclosureChallenge = { solved: false, save } as unknown as Challenge
       req.url = 'http://juice-sh.op/support/logs/access.log.2019-01-15'
 
       verify.accessControlChallenges()(req, res, next)
@@ -151,7 +150,7 @@ describe('verify', () => {
 
   describe('"errorHandlingChallenge"', () => {
     beforeEach(() => {
-      challenges.errorHandlingChallenge = { solved: false, save }
+      challenges.errorHandlingChallenge = { solved: false, save } as unknown as Challenge
     })
 
     it('is solved when an error occurs on a response with OK 200 status code', () => {
@@ -215,7 +214,7 @@ describe('verify', () => {
       const products = require('../../data/datacache').products
 
       beforeEach(() => {
-        challenges.changeProductChallenge = { solved: false, save }
+        challenges.changeProductChallenge = { solved: false, save } as unknown as Challenge
         products.osaft = { reload () { return { then (cb: any) { cb() } } } }
       })
 
@@ -254,8 +253,8 @@ describe('verify', () => {
 
   describe('jwtChallenges', () => {
     beforeEach(() => {
-      challenges.jwtUnsignedChallenge = { solved: false, save }
-      challenges.jwtForgedChallenge = { solved: false, save }
+      challenges.jwtUnsignedChallenge = { solved: false, save } as unknown as Challenge
+      challenges.jwtForgedChallenge = { solved: false, save } as unknown as Challenge
     })
 
     it('"jwtUnsignedChallenge" is solved when forged unsigned token has email jwtn3d@juice-sh.op in the payload', () => {

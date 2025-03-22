@@ -11,6 +11,7 @@ import { getCodeChallenges } from '../lib/codingChallenges'
 import * as challengeUtils from '../lib/challengeUtils'
 import * as accuracy from '../lib/accuracy'
 import * as utils from '../lib/utils'
+import { type ChallengeKey } from 'models/challenge'
 
 interface SnippetRequestBody {
   challenge: string
@@ -18,7 +19,7 @@ interface SnippetRequestBody {
 
 interface VerdictRequestBody {
   selectedLines: number[]
-  key: string
+  key: ChallengeKey
 }
 
 const setStatusCode = (error: any) => {

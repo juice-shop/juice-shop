@@ -6,12 +6,13 @@
 import sinon from 'sinon'
 import chai from 'chai'
 import sinonChai from 'sinon-chai'
+import { challenges } from '../../data/datacache'
+import { type Challenge } from 'data/types'
 const expect = chai.expect
 chai.use(sinonChai)
 
 describe('easterEgg', () => {
   const serveEasterEgg = require('../../routes/easterEgg')
-  const challenges = require('../../data/datacache').challenges
   let req: any
   let res: any
   let save: any
@@ -31,7 +32,7 @@ describe('easterEgg', () => {
   })
 
   it('should solve "easterEggLevelTwoChallenge"', () => {
-    challenges.easterEggLevelTwoChallenge = { solved: false, save }
+    challenges.easterEggLevelTwoChallenge = { solved: false, save } as unknown as Challenge
 
     serveEasterEgg()(req, res)
 
