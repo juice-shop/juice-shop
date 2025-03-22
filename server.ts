@@ -2,7 +2,6 @@
  * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
-import dataErasure from './routes/dataErasure'
 import fs from 'fs'
 import { type Request, type Response, type NextFunction } from 'express'
 import { sequelize } from './models'
@@ -25,6 +24,7 @@ import config from 'config'
 import path from 'path'
 import yaml from 'js-yaml'
 import morgan from 'morgan'
+import http from 'http'
 import colors from 'colors/safe'
 import * as utils from './lib/utils'
 import * as Prometheus from 'prom-client'
@@ -36,25 +36,35 @@ import restoreOverwrittenFilesWithOriginals from './lib/startup/restoreOverwritt
 import registerWebsocketEvents from './lib/startup/registerWebsocketEvents'
 import customizeApplication from './lib/startup/customizeApplication'
 import customizeEasterEgg from './lib/startup/customizeEasterEgg' // vuln-code-snippet hide-line
+// @ts-expect-error FIXME due to non-existing type definitions for finale-rest
+import * as finale from 'finale-rest'
+import express from 'express'
+import compression from 'compression'
+import helmet from 'helmet'
+import featurePolicy from 'feature-policy'
+import cookieParser from 'cookie-parser'
+import serveIndex from 'serve-index'
+import bodyParser from 'body-parser'
+import cors from 'cors'
+// @ts-expect-error FIXME due to non-existing type definitions for express-security.txt
+import securityTxt from 'express-security.txt'
+// @ts-expect-error FIXME due to non-existing type definitions for express-robots-txt
+import robots from 'express-robots-txt'
+import swaggerUi from 'swagger-ui-express'
+import { rateLimit } from 'express-rate-limit'
+import { IpFilter } from 'express-ipfilter'
+import multer from 'multer'
+import i18n from 'i18n'
+import { getStream } from 'file-stream-rotator'
 
 import authenticatedUsers from './routes/authenticatedUsers'
+import dataErasure from './routes/dataErasure'
+
+// errorhandler requires us from overwriting a string property on it's module which is a big no-no with esmodules :/
+const errorhandler = require('errorhandler')
 
 const startTime = Date.now()
-const finale = require('finale-rest')
-const express = require('express')
-const compression = require('compression')
-const helmet = require('helmet')
-const featurePolicy = require('feature-policy')
-const errorhandler = require('errorhandler')
-const cookieParser = require('cookie-parser')
-const serveIndex = require('serve-index')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const securityTxt = require('express-security.txt')
-const robots = require('express-robots-txt')
-const swaggerUi = require('swagger-ui-express')
-const RateLimit = require('express-rate-limit')
-const ipfilter = require('express-ipfilter').IpFilter
+
 const swaggerDocument = yaml.load(fs.readFileSync('./swagger.yml', 'utf8'))
 const {
   ensureFileIsPassed,
@@ -101,9 +111,6 @@ const nftMint = require('./routes/nftMint')
 const web3Wallet = require('./routes/web3Wallet')
 const updateProductReviews = require('./routes/updateProductReviews')
 const likeProductReviews = require('./routes/likeProductReviews')
-const security = require('./lib/insecurity')
-const app = express()
-const server = require('http').Server(app)
 const appConfiguration = require('./routes/appConfiguration')
 const captcha = require('./routes/captcha')
 const trackOrder = require('./routes/trackOrder')
@@ -125,9 +132,13 @@ const delivery = require('./routes/delivery')
 const deluxe = require('./routes/deluxe')
 const memory = require('./routes/memory')
 const chatbot = require('./routes/chatbot')
+
+const app = express()
+const server = new http.Server(app)
+
 const locales = require('./data/static/locales.json')
-const i18n = require('i18n')
 const antiCheat = require('./lib/antiCheat')
+const security = require('./lib/insecurity')
 
 const appName = config.get<string>('application.customMetricsPrefix')
 const startupGauge = new Prometheus.Gauge({
@@ -313,8 +324,10 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   })
 
   /* HTTP request logging */
-  const accessLogStream = require('file-stream-rotator').getStream({
-    filename: path.resolve('logs/access.log'),
+  const accessLogStream = getStream({
+    filename: path.resolve('logs/access.log.%DATE%'),
+    date_format: 'YYYY-MM-DD',
+    audit_file: 'logs/audit.json',
     frequency: 'daily',
     verbose: false,
     max_logs: '2d'
@@ -324,7 +337,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   // vuln-code-snippet start resetPasswordMortyChallenge
   /* Rate limiting */
   app.enable('trust proxy')
-  app.use('/rest/user/reset-password', new RateLimit({
+  app.use('/rest/user/reset-password', rateLimit({
     windowMs: 5 * 60 * 1000,
     max: 100,
     keyGenerator ({ headers, ip }: { headers: any, ip: any }) { return headers['X-Forwarded-For'] ?? ip } // vuln-code-snippet vuln-line resetPasswordMortyChallenge
@@ -406,7 +419,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Accounting users are allowed to check and update quantities */
   app.delete('/api/Quantitys/:id', security.denyAll())
   app.post('/api/Quantitys', security.denyAll())
-  app.use('/api/Quantitys/:id', security.isAccounting(), ipfilter(['123.456.789'], { mode: 'allow' }))
+  app.use('/api/Quantitys/:id', security.isAccounting(), IpFilter(['123.456.789'], { mode: 'allow' }))
   /* Feedbacks: Do not allow changes of existing feedback */
   app.put('/api/Feedbacks/:id', security.denyAll())
   /* PrivacyRequests: Only allowed for authenticated users */
@@ -434,20 +447,20 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   /* Verify the 2FA Token */
   app.post('/rest/2fa/verify',
-    new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
+    rateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
     twoFactorAuth.verify()
   )
   /* Check 2FA Status for the current User */
   app.get('/rest/2fa/status', security.isAuthorized(), twoFactorAuth.status())
   /* Enable 2FA for the current User */
   app.post('/rest/2fa/setup',
-    new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
+    rateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
     security.isAuthorized(),
     twoFactorAuth.setup()
   )
   /* Disable 2FA Status for the current User */
   app.post('/rest/2fa/disable',
-    new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
+    rateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
     security.isAuthorized(),
     twoFactorAuth.disable()
   )
@@ -650,7 +663,6 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   console.error(err)
 })
 
-const multer = require('multer')
 const uploadToMemory = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
 const mimeTypeMap: any = {
   'image/png': 'png',
