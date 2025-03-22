@@ -25,11 +25,9 @@ module.exports.restoreProgress = function restoreProgress () {
       challengeUtils.solve(challenges.continueCodeChallenge)
       res.end()
     } else if (ids.length > 0) {
-      for (const name in challenges) {
-        if (Object.prototype.hasOwnProperty.call(challenges, name)) {
-          if (ids.includes(challenges[name].id)) {
-            challengeUtils.solve(challenges[name], true)
-          }
+      for (const challenge of Object.values(challenges)) {
+        if (ids.includes(challenge.id)) {
+          challengeUtils.solve(challenge, true)
         }
       }
       res.json({ data: ids.length + ' solved challenges have been restored.' })
@@ -48,11 +46,9 @@ module.exports.restoreProgressFindIt = function restoreProgressFindIt () {
     }
     const idsFindIt = hashids.decode(continueCodeFindIt)
     if (idsFindIt.length > 0) {
-      for (const key in challenges) {
-        if (Object.prototype.hasOwnProperty.call(challenges, key)) {
-          if (idsFindIt.includes(challenges[key].id)) {
-            await challengeUtils.solveFindIt(key, true)
-          }
+      for (const challenge of Object.values(challenges)) {
+        if (idsFindIt.includes(challenge.id)) {
+          await challengeUtils.solveFindIt(challenge.key, true)
         }
       }
       res.json({ data: idsFindIt.length + ' solved challenges have been restored.' })
@@ -71,11 +67,9 @@ module.exports.restoreProgressFixIt = function restoreProgressFixIt () {
     }
     const idsFixIt = hashids.decode(continueCodeFixIt)
     if (idsFixIt.length > 0) {
-      for (const key in challenges) {
-        if (Object.prototype.hasOwnProperty.call(challenges, key)) {
-          if (idsFixIt.includes(challenges[key].id)) {
-            await challengeUtils.solveFixIt(key, true)
-          }
+      for (const challenge of Object.values(challenges)) {
+        if (idsFixIt.includes(challenge.id)) {
+          await challengeUtils.solveFixIt(challenge.key, true)
         }
       }
       res.json({ data: idsFixIt.length + ' solved challenges have been restored.' })
