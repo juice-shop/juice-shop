@@ -6,12 +6,13 @@
 import sinon from 'sinon'
 import chai from 'chai'
 import sinonChai from 'sinon-chai'
+import { challenges } from '../../data/datacache'
+import { type Challenge } from 'data/types'
 const expect = chai.expect
 chai.use(sinonChai)
 
 describe('b2bOrder', () => {
   const createB2bOrder = require('../../routes/b2bOrder')
-  const challenges = require('../../data/datacache').challenges
   let req: any
   let res: any
   let next: any
@@ -24,11 +25,10 @@ describe('b2bOrder', () => {
     save = () => ({
       then () { }
     })
+    challenges.rceChallenge = { solved: false, save } as unknown as Challenge
   })
 
   xit('infinite loop payload does not succeed but solves "rceChallenge"', () => { // FIXME Started failing on Linux regularly
-    challenges.rceChallenge = { solved: false, save }
-
     req.body.orderLinesData = '(function dos() { while(true); })()'
 
     createB2bOrder()(req, res, next)
@@ -38,8 +38,6 @@ describe('b2bOrder', () => {
 
   // FIXME Disabled as test started failing on Linux regularly
   xit('timeout after 2 seconds solves "rceOccupyChallenge"', () => {
-    challenges.rceOccupyChallenge = { solved: false, save }
-
     req.body.orderLinesData = '/((a+)+)b/.test("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")'
 
     createB2bOrder()(req, res, next)
@@ -48,8 +46,6 @@ describe('b2bOrder', () => {
   }/*, 3000 */)
 
   it('deserializing JSON as documented in Swagger should not solve "rceChallenge"', () => {
-    challenges.rceChallenge = { solved: false, save }
-
     req.body.orderLinesData = '{"productId": 12,"quantity": 10000,"customerReference": ["PO0000001.2", "SM20180105|042"],"couponCode": "pes[Bh.u*t"}'
 
     createB2bOrder()(req, res, next)
@@ -58,8 +54,6 @@ describe('b2bOrder', () => {
   })
 
   it('deserializing arbitrary JSON should not solve "rceChallenge"', () => {
-    challenges.rceChallenge = { solved: false, save }
-
     req.body.orderLinesData = '{"hello": "world", "foo": 42, "bar": [false, true]}'
 
     createB2bOrder()(req, res, next)
@@ -67,8 +61,6 @@ describe('b2bOrder', () => {
   })
 
   it('deserializing broken JSON should not solve "rceChallenge"', () => {
-    challenges.rceChallenge = { solved: false, save }
-
     req.body.orderLinesData = '{ "productId: 28'
 
     createB2bOrder()(req, res, next)

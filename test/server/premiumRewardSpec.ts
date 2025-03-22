@@ -6,12 +6,14 @@
 import sinon from 'sinon'
 import chai from 'chai'
 import sinonChai from 'sinon-chai'
+import { challenges } from '../../data/datacache'
+import { type Challenge } from 'data/types'
+
 const expect = chai.expect
 chai.use(sinonChai)
 
 describe('premiumReward', () => {
   const servePremiumContent = require('../../routes/premiumReward')
-  const challenges = require('../../data/datacache').challenges
   let req: any
   let res: any
   let save: any
@@ -31,7 +33,7 @@ describe('premiumReward', () => {
   })
 
   it('should solve "premiumPaywallChallenge"', () => {
-    challenges.premiumPaywallChallenge = { solved: false, save }
+    challenges.premiumPaywallChallenge = { solved: false, save } as unknown as Challenge
 
     servePremiumContent()(req, res)
 

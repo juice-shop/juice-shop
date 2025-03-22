@@ -7,18 +7,14 @@ import Hashids from 'hashids/cjs'
 import { type Request, type Response } from 'express'
 import { ChallengeModel } from '../models/challenge'
 import { challenges } from '../data/datacache'
-import sequelize from 'sequelize'
-
-const Op = sequelize.Op
+import { Op } from 'sequelize'
 
 module.exports.continueCode = function continueCode () {
   const hashids = new Hashids('this is my salt', 60, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
   return (req: Request, res: Response) => {
     const ids = []
-    for (const name in challenges) {
-      if (Object.prototype.hasOwnProperty.call(challenges, name)) {
-        if (challenges[name].solved) ids.push(challenges[name].id)
-      }
+    for (const challenge of Object.values(challenges)) {
+      if (challenge.solved) ids.push(challenge.id)
     }
     const continueCode = ids.length > 0 ? hashids.encode(ids) : undefined
     res.json({ continueCode })
