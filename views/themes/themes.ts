@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-exports.themes = {
+export const themes = {
   'bluegrey-lightgreen': {
     bgColor: '#303030',
     textColor: '#FFFFFF',
@@ -53,4 +53,4 @@ exports.themes = {
     primLight: '#FF5722',
     primDark: '#BF360C'
   }
-}
+} as const
