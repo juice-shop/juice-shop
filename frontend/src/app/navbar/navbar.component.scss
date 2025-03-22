@@ -6,13 +6,13 @@
 mat-toolbar {
   height: auto;
   min-width: 100%;
-  padding: 4px 0;
+  padding-bottom: 5px;
   width: 100%;
 }
 
 .mat-mdc-button {
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 #navbarLanguageButton mat-icon {
@@ -36,7 +36,7 @@ mat-toolbar {
 }
 
 .logo {
-  max-height: 60px;
+  max-width: 60px;
   width: auto;
 }
 
@@ -71,6 +71,7 @@ mat-toolbar {
 }
 
 .fi {
+  color: #fff;
   margin-right: 2px;
 }
 
@@ -84,43 +85,190 @@ mat-toolbar {
 
 mat-search-bar {
   font-size: 13px;
-  margin-right: 80px;
-  min-width: 200px;
-  padding-right: 100px;
+  margin-right: 14px;
+  max-width: 220px !important;
+  width: 12vw !important;
 }
 
 .buttons {
   position: relative;
-  width: auto; 
+  width: auto;
 }
 
 @media screen and (max-width: 959px) {
   .buttons {
     width: 48px;
-  }  
-
-  .warn-notification {  
-    left: -60px;
-    position: absolute; 
   }
 }
 
-@media screen and (max-width: 959px) and (min-width: 600px) {
-  #homeButton {
-    margin-left: 8px;
+:host ::ng-deep .mat-form-field-infix {
+  max-width: 200px !important;
+  width: 12vw !important;
+}
+
+.language-search-container {
+  padding: 8px 16px;
+
+  mat-form-field {
+    width: 100%;
   }
-  
-  #homeButton span {
-    font-size: 1.2rem !important;
-    white-space: nowrap; 
+
+  .search-icon {
+    color: #fff;
+    margin-right: 8px;
+    opacity: 0.8;
+    vertical-align: middle;
   }
-  
-  button[mat-button] {
-    padding: 0 8px;
+}
+
+:host ::ng-deep .mat-menu-content .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+:host ::ng-deep .mat-form-field-label {
+  color: inherit;
+}
+
+:host ::ng-deep .language-search-field .mat-form-field-flex {
+  align-items: center;
+  justify-content: flex-start;
+}
+
+:host ::ng-deep .language-search-field .mat-mdc-form-field-prefix {
+  align-self: center;
+  margin-right: 8px;
+}
+
+:host ::ng-deep .language-search-field input.mat-input-element {
+  line-height: normal;
+  margin-top: 0;
+  text-align: left;
+}
+
+:host ::ng-deep .language-search-menu {
+  max-width: 280px;
+
+  .mat-mdc-menu-content {
+    padding: 0;
   }
-  
-  .buttons { 
-    min-width: 48px;
-    width: auto !important;
+}
+
+.language-search-field {
+  width: 100%;
+
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    background-color: transparent;
+    padding: 0;
+  }
+
+  ::ng-deep .mat-mdc-form-field-flex {
+    align-items: center;
+    display: flex;
+    height: 36px;
+    justify-content: flex-start;
+    padding: 0;
+  }
+
+  ::ng-deep .mat-mdc-form-field-infix {
+    align-items: center;
+    border-top: 0;
+    display: flex;
+    justify-content: flex-start;
+    padding: 0;
+    text-align: left;
+  }
+
+  ::ng-deep .mdc-notched-outline {
+    display: none;
+  }
+
+  ::ng-deep .mat-mdc-form-field-prefix {
+    align-items: center;
+    display: inline-flex;
+    justify-content: flex-start;
+    margin-top: 0;
+    vertical-align: middle;
+  }
+
+  ::ng-deep .search-icon {
+    align-items: center;
+    display: flex;
+    font-size: 20px;
+    height: 20px;
+    justify-content: center;
+    vertical-align: middle;
+    width: 20px;
+  }
+
+  ::ng-deep .mdc-text-field__input {
+    align-items: center;
+    caret-color: #fff;
+    color: #fff;
+    display: flex;
+    height: 100%;
+    margin-top: 0;
+    text-align: left;
+  }
+
+  ::ng-deep .mat-mdc-floating-label {
+    color: rgba(255, 255, 255, 0.7);
+    margin-left: 4px;
+    text-align: left;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  ::ng-deep .mdc-floating-label--float-above {
+    align-items: center;
+    display: flex;
+    text-align: left;
+    transform: translateY(-106%) scale(0.75);
+  }
+
+  ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
+}
+
+.language-options-container {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.language-item-content {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 8px;
+  width: 100%;
+}
+
+.language-label {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+}
+
+.language-gauge {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  min-width: 24px;
+  overflow: hidden;
+}
+
+.language-gauge i {
+  font-size: 16px;
+  margin-left: 4px;
+}
+
+.language-option {
+  align-items: center;
+  display: flex;
+  font-size: 14px;
+  width: 100%;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
   }
 }

@@ -8,7 +8,7 @@ import { ChallengeService } from '../Services/challenge.service'
 import { UserService } from '../Services/user.service'
 import { AdministrationService } from '../Services/administration.service'
 import { ConfigurationService } from '../Services/configuration.service'
-import { Component, EventEmitter, NgZone, type OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, NgZone, type OnInit, Output, ViewChild } from '@angular/core'
 import { CookieService } from 'ngy-cookie'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { Router, RouterLink } from '@angular/router'
@@ -16,6 +16,8 @@ import { SocketIoService } from '../Services/socket-io.service'
 import { LanguagesService } from '../Services/languages.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { BasketService } from '../Services/basket.service'
+import { FormsModule } from '@angular/forms'
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu'
 
 import {
   faBomb,
@@ -45,7 +47,6 @@ import { roles } from '../roles'
 import { MatDivider } from '@angular/material/divider'
 import { MatRadioButton } from '@angular/material/radio'
 import { NgIf, NgFor } from '@angular/common'
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu'
 import { MatSearchBarComponent } from '../mat-search-bar/mat-search-bar.component'
 import { ExtendedModule } from '@angular/flex-layout/extended'
 import { MatIconModule } from '@angular/material/icon'
@@ -53,6 +54,8 @@ import { MatTooltip } from '@angular/material/tooltip'
 import { MatButtonModule } from '@angular/material/button'
 import { FlexModule } from '@angular/flex-layout/flex'
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
 
 library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faGithub, faComments, faThermometerEmpty, faThermometerQuarter, faThermometerHalf, faThermometerThreeQuarters, faThermometerFull)
 
@@ -61,11 +64,33 @@ library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, 
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
   standalone: true,
-  imports: [MatToolbar, FlexModule, MatToolbarRow, MatButtonModule, MatTooltip, MatIconModule, RouterLink, ExtendedModule, MatSearchBarComponent, MatMenuTrigger, MatMenu, NgIf, MatMenuItem, NgFor, MatRadioButton, TranslateModule, MatDivider]
+  imports: [
+    MatToolbar,
+    FlexModule,
+    MatToolbarRow,
+    MatButtonModule,
+    MatTooltip,
+    MatIconModule,
+    RouterLink,
+    ExtendedModule,
+    MatSearchBarComponent,
+    MatMenuTrigger,
+    MatMenu,
+    NgIf,
+    MatMenuItem,
+    NgFor,
+    MatRadioButton,
+    TranslateModule,
+    MatDivider,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule
+  ]
 })
 export class NavbarComponent implements OnInit {
   public userEmail: string = ''
-  public languages: any = []
+  public languages: any[] = []
+  public filteredLanguages: any[] = []
   public selectedLanguage: string = 'placeholder'
   public version: string = ''
   public applicationName: string = 'OWASP Juice Shop'
@@ -74,7 +99,9 @@ export class NavbarComponent implements OnInit {
   public scoreBoardVisible: boolean = false
   public shortKeyLang: string = 'placeholder'
   public itemTotal = 0
+  public languageSearchQuery: string = ''
 
+  @ViewChild('languageMenu') languageMenu!: MatMenu
   @Output() public sidenavToggle = new EventEmitter()
 
   constructor (private readonly administrationService: AdministrationService, private readonly challengeService: ChallengeService,
@@ -136,16 +163,32 @@ export class NavbarComponent implements OnInit {
     })
   }
 
+  filterLanguages () {
+    if (!this.languageSearchQuery) {
+      this.filteredLanguages = Array.isArray(this.languages) ? [...this.languages] : []
+      return
+    }
+
+    const query = this.languageSearchQuery.toLowerCase()
+    this.filteredLanguages = Array.isArray(this.languages)
+      ? this.languages.filter((lang: any) =>
+        lang.lang.toLowerCase().includes(query) ||
+        lang.key.toLowerCase().includes(query) ||
+        lang.shortKey?.toLowerCase().includes(query)
+      )
+      : []
+  }
+
   checkLanguage () {
     if (this.cookieService.get('language')) {
       const langKey = this.cookieService.get('language')
       this.translate.use(langKey)
       this.selectedLanguage = this.languages.find((y: { key: string }) => y.key === langKey)
-      this.shortKeyLang = this.languages.find((y: { key: string }) => y.key === langKey).shortKey
+      this.shortKeyLang = this.languages.find((y: { key: string }) => y.key === langKey)?.shortKey
     } else {
       this.changeLanguage('en')
       this.selectedLanguage = this.languages.find((y: { key: string }) => y.key === 'en')
-      this.shortKeyLang = this.languages.find((y: { key: string }) => y.key === 'en').shortKey
+      this.shortKeyLang = this.languages.find((y: { key: string }) => y.key === 'en')?.shortKey
     }
   }
 
@@ -185,7 +228,7 @@ export class NavbarComponent implements OnInit {
     this.cookieService.put('language', langKey, { expires })
     if (this.languages.find((y: { key: string }) => y.key === langKey)) {
       const language = this.languages.find((y: { key: string }) => y.key === langKey)
-      this.shortKeyLang = language.shortKey
+      this.shortKeyLang = language?.shortKey
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       const snackBarRef = this.snackBar.open(`Language has been changed to ${language.lang}`, 'Force page reload', {
         duration: 5000,
@@ -195,6 +238,9 @@ export class NavbarComponent implements OnInit {
         location.reload()
       })
     }
+    // Reset search after language change
+    this.languageSearchQuery = ''
+    this.filterLanguages()
   }
 
   getScoreBoardStatus () {
@@ -221,8 +267,9 @@ export class NavbarComponent implements OnInit {
   noop () { }
 
   getLanguages () {
-    this.langService.getLanguages().subscribe((res) => {
+    this.langService.getLanguages().subscribe((res: any[]) => {
       this.languages = res
+      this.filteredLanguages = Array.isArray(res) ? [...res] : []
       this.checkLanguage()
     })
   }
