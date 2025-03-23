@@ -10,12 +10,12 @@ import sinonChai from 'sinon-chai'
 import { challenges, products, setRetrieveBlueprintChallengeFile } from '../../data/datacache'
 import type { Product, Challenge } from 'data/types'
 import type { Product as ProductConfig } from '../../lib/config.types'
+import * as security from '../../lib/insecurity'
+import { type UserModel } from 'models/user'
 import * as utils from '../../lib/utils'
 const expect = chai.expect
 
 chai.use(sinonChai)
-
-const security = require('../../lib/insecurity')
 
 describe('verify', () => {
   const verify = require('../../routes/verify')
@@ -40,7 +40,7 @@ describe('verify', () => {
         data: {
           id: 42,
           email: 'test@juice-sh.op'
-        }
+        } as unknown as UserModel
       })
       challenges.forgedFeedbackChallenge = { solved: false, save } as unknown as Challenge
     })

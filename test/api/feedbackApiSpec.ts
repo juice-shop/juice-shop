@@ -6,10 +6,9 @@ import * as frisby from 'frisby'
 import { expect } from '@jest/globals'
 
 import { challenges } from '../../data/datacache'
+import * as security from '../../lib/insecurity'
 import * as utils from '../../lib/utils'
 const Joi = frisby.Joi
-
-const security = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
@@ -130,7 +129,7 @@ describe('/api/Feedbacks', () => {
             return frisby.post(API_URL + '/Feedbacks', {
               headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
               body: {
-                comment: 'Stupid JWT secret "' + security.defaultSecret + '" and being typosquatted by epilogue-js and ngy-cookie!',
+                comment: 'Stupid JWT secret and being typosquatted by epilogue-js and ngy-cookie!',
                 rating: 5,
                 UserId: 4,
                 captchaId: json.captchaId,

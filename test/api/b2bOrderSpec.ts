@@ -6,8 +6,8 @@ import * as frisby from 'frisby'
 
 import { challenges } from '../../data/datacache'
 import * as utils from '../../lib/utils'
+import * as security from '../../lib/insecurity'
 const Joi = frisby.Joi
-const security = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/b2b/v2/orders'
 
