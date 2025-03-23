@@ -4,26 +4,28 @@
  */
 
 import { type Request, type Response, type NextFunction } from 'express'
-import { UserModel } from '../models/user'
-import * as challengeUtils from '../lib/challengeUtils'
-import * as utils from '../lib/utils'
-import { challenges } from '../data/datacache'
 
-const security = require('../lib/insecurity')
+import * as challengeUtils from '../lib/challengeUtils'
+import { challenges } from '../data/datacache'
+import * as security from '../lib/insecurity'
+import { UserModel } from '../models/user'
+import * as utils from '../lib/utils'
 
 module.exports = function saveLoginIp () {
   return (req: Request, res: Response, next: NextFunction) => {
     const loggedInUser = security.authenticatedUsers.from(req)
     if (loggedInUser !== undefined) {
       let lastLoginIp = req.headers['true-client-ip']
+      if (Array.isArray(lastLoginIp)) {
+        lastLoginIp = lastLoginIp[0]
+      }
       if (utils.isChallengeEnabled(challenges.httpHeaderXssChallenge)) {
         challengeUtils.solveIf(challenges.httpHeaderXssChallenge, () => { return lastLoginIp === '<iframe src="javascript:alert(`xss`)">' })
       } else {
-        lastLoginIp = security.sanitizeSecure(lastLoginIp)
+        lastLoginIp = security.sanitizeSecure(lastLoginIp ?? '')
       }
       if (lastLoginIp === undefined) {
-        // @ts-expect-error FIXME types not matching
-        lastLoginIp = utils.toSimpleIpAddress(req.socket.remoteAddress)
+        lastLoginIp = utils.toSimpleIpAddress(req.socket.remoteAddress ?? '')
       }
       UserModel.findByPk(loggedInUser.data.id).then((user: UserModel | null) => {
         user?.update({ lastLoginIp: lastLoginIp?.toString() }).then((user: UserModel) => {
