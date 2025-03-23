@@ -8,11 +8,11 @@ import chai from 'chai'
 import sinonChai from 'sinon-chai'
 import { challenges } from '../../data/datacache'
 import { type Challenge } from 'data/types'
+import { b2bOrder } from '../../routes/b2bOrder'
 const expect = chai.expect
 chai.use(sinonChai)
 
 describe('b2bOrder', () => {
-  const createB2bOrder = require('../../routes/b2bOrder')
   let req: any
   let res: any
   let next: any
@@ -31,7 +31,7 @@ describe('b2bOrder', () => {
   xit('infinite loop payload does not succeed but solves "rceChallenge"', () => { // FIXME Started failing on Linux regularly
     req.body.orderLinesData = '(function dos() { while(true); })()'
 
-    createB2bOrder()(req, res, next)
+    b2bOrder()(req, res, next)
 
     expect(challenges.rceChallenge.solved).to.equal(true)
   })
@@ -40,7 +40,7 @@ describe('b2bOrder', () => {
   xit('timeout after 2 seconds solves "rceOccupyChallenge"', () => {
     req.body.orderLinesData = '/((a+)+)b/.test("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")'
 
-    createB2bOrder()(req, res, next)
+    b2bOrder()(req, res, next)
 
     expect(challenges.rceOccupyChallenge.solved).to.equal(true)
   }/*, 3000 */)
@@ -48,7 +48,7 @@ describe('b2bOrder', () => {
   it('deserializing JSON as documented in Swagger should not solve "rceChallenge"', () => {
     req.body.orderLinesData = '{"productId": 12,"quantity": 10000,"customerReference": ["PO0000001.2", "SM20180105|042"],"couponCode": "pes[Bh.u*t"}'
 
-    createB2bOrder()(req, res, next)
+    b2bOrder()(req, res, next)
 
     expect(challenges.rceChallenge.solved).to.equal(false)
   })
@@ -56,14 +56,14 @@ describe('b2bOrder', () => {
   it('deserializing arbitrary JSON should not solve "rceChallenge"', () => {
     req.body.orderLinesData = '{"hello": "world", "foo": 42, "bar": [false, true]}'
 
-    createB2bOrder()(req, res, next)
+    b2bOrder()(req, res, next)
     expect(challenges.rceChallenge.solved).to.equal(false)
   })
 
   it('deserializing broken JSON should not solve "rceChallenge"', () => {
     req.body.orderLinesData = '{ "productId: 28'
 
-    createB2bOrder()(req, res, next)
+    b2bOrder()(req, res, next)
 
     expect(challenges.rceChallenge.solved).to.equal(false)
   })

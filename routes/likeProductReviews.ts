@@ -13,7 +13,7 @@ import * as db from '../data/mongodb'
 
 const sleep = async (ms: number) => await new Promise(resolve => setTimeout(resolve, ms))
 
-module.exports = function likeProductReview () {
+export function likeProductReviews () {
   return async (req: Request, res: Response, next: NextFunction) => {
     const id = req.body.id
     const user = security.authenticatedUsers.from(req)

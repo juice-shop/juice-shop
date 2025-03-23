@@ -4,7 +4,7 @@ import * as challengeUtils from '../lib/challengeUtils'
 import * as utils from '../lib/utils'
 import { challenges } from '../data/datacache'
 
-module.exports.checkKeys = function checkKeys () {
+export function checkKeys () {
   return (req: Request, res: Response) => {
     try {
       const mnemonic = 'purpose betray marriage blame crunch monitor spin slide donate sport lift clutch'
@@ -31,7 +31,7 @@ module.exports.checkKeys = function checkKeys () {
     }
   }
 }
-module.exports.nftUnlocked = function nftUnlocked () {
+export function nftUnlocked () {
   return (req: Request, res: Response) => {
     try {
       res.status(200).json({ status: challenges.nftUnlockChallenge.solved })

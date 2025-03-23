@@ -13,7 +13,7 @@ const hashidsAlphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123
 const hashidRegexp = /^[a-zA-Z0-9]+$/
 const invalidContinueCode = 'Invalid continue code.'
 
-module.exports.restoreProgress = function restoreProgress () {
+export function restoreProgress () {
   return ({ params }: Request, res: Response) => {
     const hashids = new Hashids('this is my salt', 60, hashidsAlphabet)
     const continueCode = params.continueCode
@@ -37,7 +37,7 @@ module.exports.restoreProgress = function restoreProgress () {
   }
 }
 
-module.exports.restoreProgressFindIt = function restoreProgressFindIt () {
+export function restoreProgressFindIt () {
   return async ({ params }: Request, res: Response) => {
     const hashids = new Hashids('this is the salt for findIt challenges', 60, hashidsAlphabet)
     const continueCodeFindIt = params.continueCode
@@ -58,7 +58,7 @@ module.exports.restoreProgressFindIt = function restoreProgressFindIt () {
   }
 }
 
-module.exports.restoreProgressFixIt = function restoreProgressFixIt () {
+export function restoreProgressFixIt () {
   const hashids = new Hashids('yet another salt for the fixIt challenges', 60, hashidsAlphabet)
   return async ({ params }: Request, res: Response) => {
     const continueCodeFixIt = params.continueCode

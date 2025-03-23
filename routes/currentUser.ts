@@ -8,7 +8,7 @@ import { type Request, type Response } from 'express'
 import { challenges } from '../data/datacache'
 import * as security from '../lib/insecurity'
 
-module.exports = function retrieveLoggedInUser () {
+export function retrieveLoggedInUser () {
   return (req: Request, res: Response) => {
     let user
     try {

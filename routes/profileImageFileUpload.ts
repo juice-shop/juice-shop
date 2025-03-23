@@ -12,7 +12,7 @@ import * as utils from '../lib/utils'
 import { UserModel } from '../models/user'
 import * as security from '../lib/insecurity'
 
-module.exports = function fileUpload () {
+export function profileImageFileUpload () {
   return async (req: Request, res: Response, next: NextFunction) => {
     const file = req.file
     const buffer = file?.buffer

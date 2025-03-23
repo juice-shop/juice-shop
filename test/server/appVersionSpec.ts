@@ -9,12 +9,12 @@ import chai from 'chai'
 import sinonChai from 'sinon-chai'
 
 import { version } from '../../package.json'
+import { retrieveAppVersion } from '../../routes/appVersion'
 
 const expect = chai.expect
 chai.use(sinonChai)
 
 describe('appVersion', () => {
-  const retrieveAppVersion = require('../../routes/appVersion')
   let req: any
   let res: any
 

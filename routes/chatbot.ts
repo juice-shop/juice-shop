@@ -24,7 +24,7 @@ let trainingFile = config.get<string>('application.chatBot.trainingData')
 let testCommand: string
 export let bot: Bot | null = null
 
-export async function initialize () {
+export async function initializeChatbot () {
   if (utils.isUrl(trainingFile)) {
     const file = utils.extractFilename(trainingFile)
     const data = await download(trainingFile)
@@ -45,7 +45,7 @@ export async function initialize () {
   return bot.train()
 }
 
-void initialize()
+void initializeChatbot()
 
 async function processQuery (user: User, req: Request, res: Response, next: NextFunction) {
   if (bot == null) {
@@ -202,7 +202,7 @@ export const status = function status () {
   }
 }
 
-module.exports.process = function respond () {
+export function process () {
   return async (req: Request, res: Response, next: NextFunction) => {
     if (bot == null) {
       res.status(200).json({
