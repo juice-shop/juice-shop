@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
-import * as challengeUtils from '../lib/challengeUtils'
 import { type Request, type Response, type NextFunction } from 'express'
-import * as db from '../data/mongodb'
-import { challenges } from '../data/datacache'
 
-const security = require('../lib/insecurity')
+import * as challengeUtils from '../lib/challengeUtils'
+import { challenges } from '../data/datacache'
+import * as security from '../lib/insecurity'
+import * as db from '../data/mongodb'
 
 // vuln-code-snippet start noSqlReviewsChallenge forgedReviewChallenge
 module.exports = function updateProductReviews () {
