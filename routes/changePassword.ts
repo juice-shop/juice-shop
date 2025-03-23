@@ -10,11 +10,12 @@ import { UserModel } from '../models/user'
 import * as security from '../lib/insecurity'
 
 module.exports = function changePassword () {
-  return ({ query, headers, connection }: Request, res: Response, next: NextFunction) => {
+  return async ({ query, headers, connection }: Request, res: Response, next: NextFunction) => {
     const currentPassword = query.current as string
     const newPassword = query.new as string
     const newPasswordInString = newPassword?.toString()
     const repeatPassword = query.repeat
+
     if (!newPassword || newPassword === 'undefined') {
       res.status(401).send(res.__('Password cannot be empty.'))
       return
@@ -22,31 +23,39 @@ module.exports = function changePassword () {
       res.status(401).send(res.__('New and repeated password do not match.'))
       return
     }
+
     const token = headers.authorization ? headers.authorization.substr('Bearer='.length) : null
     if (token === null) {
       next(new Error('Blocked illegal activity by ' + connection.remoteAddress))
       return
     }
+
     const loggedInUser = security.authenticatedUsers.get(token)
     if (!loggedInUser) {
       next(new Error('Blocked illegal activity by ' + connection.remoteAddress))
       return
     }
+
     if (currentPassword && security.hash(currentPassword) !== loggedInUser.data.password) {
       res.status(401).send(res.__('Current password is not correct.'))
       return
     }
-    UserModel.findByPk(loggedInUser.data.id).then((user: UserModel | null) => {
-      if (user != null) {
-        user.update({ password: newPasswordInString }).then((user: UserModel) => {
-          challengeUtils.solveIf(challenges.changePasswordBenderChallenge, () => { return user.id === 3 && !currentPassword && user.password === security.hash('slurmCl4ssic') })
-          res.json({ user })
-        }).catch((error: Error) => {
-          next(error)
-        })
+
+    try {
+      const user = await UserModel.findByPk(loggedInUser.data.id)
+      if (!user) {
+        res.status(404).send(res.__('User not found.'))
+        return
       }
-    }).catch((error: Error) => {
+
+      await user.update({ password: newPasswordInString })
+      challengeUtils.solveIf(
+        challenges.changePasswordBenderChallenge,
+        () => user.id === 3 && !currentPassword && user.password === security.hash('slurmCl4ssic')
+      )
+      res.json({ user })
+    } catch (error) {
       next(error)
-    })
+    }
   }
 }
