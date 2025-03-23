@@ -20,6 +20,9 @@ import { FeedbackModel } from './models/feedback'
 import { ProductModel } from './models/product'
 import { WalletModel } from './models/wallet'
 import logger from './lib/logger'
+import * as antiCheat from './lib/antiCheat'
+import * as security from './lib/insecurity'
+import locales from './data/static/locales.json'
 import config from 'config'
 import path from 'path'
 import yaml from 'js-yaml'
@@ -122,10 +125,6 @@ import * as chatbot from './routes/chatbot'
 
 const app = express()
 const server = new http.Server(app)
-
-const locales = require('./data/static/locales.json')
-const antiCheat = require('./lib/antiCheat')
-const security = require('./lib/insecurity')
 
 // errorhandler requires us from overwriting a string property on it's module which is a big no-no with esmodules :/
 const errorhandler = require('errorhandler')
