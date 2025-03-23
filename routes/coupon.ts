@@ -8,27 +8,27 @@ import { BasketModel } from '../models/basket'
 import * as security from '../lib/insecurity'
 
 module.exports = function applyCoupon () {
-  return ({ params }: Request, res: Response, next: NextFunction) => {
-    const id = params.id
-    let coupon: string | undefined | null = params.coupon ? decodeURIComponent(params.coupon) : undefined
-    const discount = security.discountFromCoupon(coupon)
-    coupon = discount ? coupon : null
-    BasketModel.findByPk(id).then((basket: BasketModel | null) => {
-      if (basket != null) {
-        basket.update({ coupon: coupon?.toString() }).then(() => {
-          if (discount) {
-            res.json({ discount })
-          } else {
-            res.status(404).send('Invalid coupon.')
-          }
-        }).catch((error: Error) => {
-          next(error)
-        })
-      } else {
-        next(new Error('Basket with id=' + id + ' does not exist.'))
+  return async ({ params }: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = params.id
+      let coupon: string | undefined | null = params.coupon ? decodeURIComponent(params.coupon) : undefined
+      const discount = security.discountFromCoupon(coupon)
+      coupon = discount ? coupon : null
+
+      const basket = await BasketModel.findByPk(id)
+      if (!basket) {
+        next(new Error(`Basket with id=${id} does not exist.`))
+        return
       }
-    }).catch((error: Error) => {
+
+      await basket.update({ coupon: coupon?.toString() })
+      if (discount) {
+        return res.json({ discount })
+      } else {
+        return res.status(404).send('Invalid coupon.')
+      }
+    } catch (error) {
       next(error)
-    })
+    }
   }
 }
