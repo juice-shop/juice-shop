@@ -4,28 +4,32 @@
  */
 
 import { type Request, type Response } from 'express'
+
 import * as challengeUtils from '../lib/challengeUtils'
 import { reviewsCollection } from '../data/mongodb'
-
-import * as utils from '../lib/utils'
 import { challenges } from '../data/datacache'
-
-const security = require('../lib/insecurity')
+import * as security from '../lib/insecurity'
+import * as utils from '../lib/utils'
 
 module.exports = function createProductReviews () {
-  return (req: Request, res: Response) => {
+  return async (req: Request, res: Response) => {
     const user = security.authenticatedUsers.from(req)
-    challengeUtils.solveIf(challenges.forgedReviewChallenge, () => { return user && user.data.email !== req.body.author })
-    reviewsCollection.insert({
-      product: req.params.id,
-      message: req.body.message,
-      author: req.body.author,
-      likesCount: 0,
-      likedBy: []
-    }).then(() => {
-      res.status(201).json({ status: 'success' })
-    }, (err: unknown) => {
-      res.status(500).json(utils.getErrorMessage(err))
-    })
+    challengeUtils.solveIf(
+      challenges.forgedReviewChallenge,
+      () => user?.data?.email !== req.body.author
+    )
+
+    try {
+      await reviewsCollection.insert({
+        product: req.params.id,
+        message: req.body.message,
+        author: req.body.author,
+        likesCount: 0,
+        likedBy: []
+      })
+      return res.status(201).json({ status: 'success' })
+    } catch (err: unknown) {
+      return res.status(500).json(utils.getErrorMessage(err))
+    }
   }
 }
