@@ -4,9 +4,9 @@
  */
 
 import { type Request, type Response, type NextFunction } from 'express'
-import { ordersCollection } from '../data/mongodb'
 
-const security = require('../lib/insecurity')
+import { ordersCollection } from '../data/mongodb'
+import * as security from '../lib/insecurity'
 
 module.exports.orderHistory = function orderHistory () {
   return async (req: Request, res: Response, next: NextFunction) => {
