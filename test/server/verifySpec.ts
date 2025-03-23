@@ -13,12 +13,12 @@ import type { Product as ProductConfig } from '../../lib/config.types'
 import * as security from '../../lib/insecurity'
 import { type UserModel } from 'models/user'
 import * as utils from '../../lib/utils'
+import * as verify from '../../routes/verify'
 const expect = chai.expect
 
 chai.use(sinonChai)
 
 describe('verify', () => {
-  const verify = require('../../routes/verify')
   let req: any
   let res: any
   let next: any
