@@ -7,8 +7,8 @@ import chai from 'chai'
 import sinon from 'sinon'
 import config from 'config'
 import sinonChai from 'sinon-chai'
-import { challenges, setRetrieveBlueprintChallengeFile } from '../../data/datacache'
-import { type Challenge } from 'data/types'
+import { challenges, products, setRetrieveBlueprintChallengeFile } from '../../data/datacache'
+import type { Product, Challenge } from 'data/types'
 import type { Product as ProductConfig } from '../../lib/config.types'
 import * as utils from '../../lib/utils'
 const expect = chai.expect
@@ -211,11 +211,9 @@ describe('verify', () => {
 
   describe('databaseRelatedChallenges', () => {
     describe('"changeProductChallenge"', () => {
-      const products = require('../../data/datacache').products
-
       beforeEach(() => {
         challenges.changeProductChallenge = { solved: false, save } as unknown as Challenge
-        products.osaft = { reload () { return { then (cb: any) { cb() } } } }
+        products.osaft = { reload () { return { then (cb: any) { cb() } } } } as unknown as Product
       })
 
       it(`is solved when the link in the O-Saft product goes to ${config.get<string>('challenges.overwriteUrlForProductTamperingChallenge')}`, () => {
