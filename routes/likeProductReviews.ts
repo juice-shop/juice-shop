@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: MIT
  */
 
-import * as challengeUtils from '../lib/challengeUtils'
 import { type Request, type Response, type NextFunction } from 'express'
+
+import * as challengeUtils from '../lib/challengeUtils'
+import { challenges } from '../data/datacache'
+import * as security from '../lib/insecurity'
 import { type Review } from '../data/types'
 import * as db from '../data/mongodb'
-import { challenges } from '../data/datacache'
-
-const security = require('../lib/insecurity')
 
 const sleep = async (ms: number) => await new Promise(resolve => setTimeout(resolve, ms))
 
@@ -17,6 +17,9 @@ module.exports = function likeProductReview () {
   return async (req: Request, res: Response, next: NextFunction) => {
     const id = req.body.id
     const user = security.authenticatedUsers.from(req)
+    if (!user) {
+      return res.status(401).json({ error: 'Unauthorized' })
+    }
 
     try {
       const review = await db.reviewsCollection.findOne({ _id: id })
