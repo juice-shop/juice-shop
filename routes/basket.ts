@@ -9,8 +9,8 @@ import { BasketModel } from '../models/basket'
 import * as challengeUtils from '../lib/challengeUtils'
 
 import * as utils from '../lib/utils'
+import * as security from '../lib/insecurity'
 import { challenges } from '../data/datacache'
-const security = require('../lib/insecurity')
 
 module.exports = function retrieveBasket () {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -20,7 +20,7 @@ module.exports = function retrieveBasket () {
         /* jshint eqeqeq:false */
         challengeUtils.solveIf(challenges.basketAccessChallenge, () => {
           const user = security.authenticatedUsers.from(req)
-          return user && id && id !== 'undefined' && id !== 'null' && id !== 'NaN' && user.bid && user.bid != id // eslint-disable-line eqeqeq
+          return user && id && id !== 'undefined' && id !== 'null' && id !== 'NaN' && user.bid && user?.bid != parseInt(id, 10) // eslint-disable-line eqeqeq
         })
         if (((basket?.Products) != null) && basket.Products.length > 0) {
           for (let i = 0; i < basket.Products.length; i++) {
