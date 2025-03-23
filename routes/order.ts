@@ -17,10 +17,9 @@ import { QuantityModel } from '../models/quantity'
 import { ProductModel } from '../models/product'
 import { BasketModel } from '../models/basket'
 import { WalletModel } from '../models/wallet'
+import * as security from '../lib/insecurity'
 import * as utils from '../lib/utils'
 import * as db from '../data/mongodb'
-
-const security = require('../lib/insecurity')
 
 interface Product {
   quantity: number
@@ -101,7 +100,7 @@ module.exports = function placeOrder () {
             }
           })
           doc.moveDown()
-          const discount = calculateApplicableDiscount(basket, req)
+          const discount = calculateApplicableDiscount(basket, req) ?? 0
           let discountAmount = '0'
           if (discount > 0) {
             discountAmount = (totalPrice * (discount / 100)).toFixed(2)
@@ -177,9 +176,9 @@ module.exports = function placeOrder () {
 }
 
 function calculateApplicableDiscount (basket: BasketModel, req: Request) {
-  if (security.discountFromCoupon(basket.coupon)) {
-    const discount = security.discountFromCoupon(basket.coupon)
-    challengeUtils.solveIf(challenges.forgedCouponChallenge, () => { return discount >= 80 })
+  if (security.discountFromCoupon(basket.coupon ?? undefined)) {
+    const discount = security.discountFromCoupon(basket.coupon ?? undefined)
+    challengeUtils.solveIf(challenges.forgedCouponChallenge, () => { return discount ?? 0 >= 80 })
     return discount
   } else if (req.body.couponData) {
     const couponData = Buffer.from(req.body.couponData, 'base64').toString().split('-')
