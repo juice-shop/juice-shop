@@ -10,7 +10,7 @@ import * as challengeUtils from '../lib/challengeUtils'
 
 import * as utils from '../lib/utils'
 import { challenges } from '../data/datacache'
-const security = require('../lib/insecurity')
+import * as security from '../lib/insecurity'
 
 interface RequestWithRawBody extends Request {
   rawBody: string
