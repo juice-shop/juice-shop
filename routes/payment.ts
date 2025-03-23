@@ -15,7 +15,7 @@ interface displayCard {
   expYear: number
 }
 
-module.exports.getPaymentMethods = function getPaymentMethods () {
+export function getPaymentMethods () {
   return async (req: Request, res: Response, next: NextFunction) => {
     const displayableCards: displayCard[] = []
     const cards = await CardModel.findAll({ where: { UserId: req.body.UserId } })
@@ -36,7 +36,7 @@ module.exports.getPaymentMethods = function getPaymentMethods () {
   }
 }
 
-module.exports.getPaymentMethodById = function getPaymentMethodById () {
+export function getPaymentMethodById () {
   return async (req: Request, res: Response, next: NextFunction) => {
     const card = await CardModel.findOne({ where: { id: req.params.id, UserId: req.body.UserId } })
     const displayableCard: displayCard = {
@@ -65,7 +65,7 @@ module.exports.getPaymentMethodById = function getPaymentMethodById () {
   }
 }
 
-module.exports.delPaymentMethodById = function delPaymentMethodById () {
+export function delPaymentMethodById () {
   return async (req: Request, res: Response, next: NextFunction) => {
     const card = await CardModel.destroy({ where: { id: req.params.id, UserId: req.body.UserId } })
     if (card) {

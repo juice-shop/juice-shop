@@ -16,7 +16,7 @@ import * as utils from '../lib/utils'
 
 const entities = new Entities()
 
-exports.getVideo = () => {
+export const getVideo = () => {
   return (req: Request, res: Response) => {
     const path = videoPath()
     const stat = fs.statSync(path)
@@ -48,7 +48,7 @@ exports.getVideo = () => {
   }
 }
 
-exports.promotionVideo = () => {
+export const promotionVideo = () => {
   return (req: Request, res: Response) => {
     fs.readFile('views/promotionVideo.pug', function (err, buf) {
       if (err != null) throw err

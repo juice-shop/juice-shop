@@ -30,7 +30,7 @@ interface Product {
   bonus: number
 }
 
-module.exports = function placeOrder () {
+export function placeOrder () {
   return (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id
     BasketModel.findOne({ where: { id }, include: [{ model: ProductModel, paranoid: false, as: 'Products' }] })

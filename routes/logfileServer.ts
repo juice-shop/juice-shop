@@ -6,7 +6,7 @@
 import path from 'path'
 import { type Request, type Response, type NextFunction } from 'express'
 
-module.exports = function serveLogFiles () {
+export function serveLogFiles () {
   return ({ params }: Request, res: Response, next: NextFunction) => {
     const file = params.file
 
