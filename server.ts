@@ -73,12 +73,12 @@ import { servePrivacyPolicyProof } from './routes/privacyPolicyProof'
 import { retrieveAppVersion } from './routes/appVersion'
 import { repeatNotification } from './routes/repeatNotification'
 import { continueCode, continueCodeFindIt, continueCodeFixIt } from './routes/continueCode'
-import { restoreProgress, restoreProgressFindIt, restoreProgressFixIt } from './routes/restoreProgress'
+import * as restoreProgress from './routes/restoreProgress'
 import { servePublicFiles } from './routes/fileServer'
 import { serveQuarantineFiles } from './routes/quarantineServer'
 import { serveKeyFiles } from './routes/keyServer'
 import { serveLogFiles } from './routes/logfileServer'
-import { serveMetrics, observeMetrics, observeFileUploadMetricsMiddleware, observeRequestMetricsMiddleware } from './routes/metrics'
+import * as metrics from './routes/metrics'
 import { retrieveLoggedInUser } from './routes/currentUser'
 import { login } from './routes/login'
 import { changePassword } from './routes/changePassword'
@@ -88,19 +88,8 @@ import { searchProducts } from './routes/search'
 import { applyCoupon } from './routes/coupon'
 import { retrieveBasket } from './routes/basket'
 import { placeOrder } from './routes/order'
-import {
-  accessControlChallenges,
-  captchaBypassChallenge,
-  databaseRelatedChallenges,
-  emptyUserRegistration,
-  errorHandlingChallenge,
-  forgedFeedbackChallenge,
-  jwtChallenges,
-  passwordRepeatChallenge,
-  registerAdminChallenge,
-  serverSideChallenges
-} from './routes/verify'
-import { getRecycleItem, blockRecycleItems } from './routes/recycles'
+import * as verify from './routes/verify'
+import * as recycles from './routes/recycles'
 import { b2bOrder } from './routes/b2bOrder'
 import { showProductReviews } from './routes/showProductReviews'
 import { createProductReviews } from './routes/createProductReviews'
@@ -113,25 +102,20 @@ import { retrieveAppConfiguration } from './routes/appConfiguration'
 import { captchas, verifyCaptcha } from './routes/captcha'
 import { trackOrder } from './routes/trackOrder'
 import { countryMapping } from './routes/countryMapping'
-import { addBasketItem, quantityCheckBeforeBasketItemAddition, quantityCheckBeforeBasketItemUpdate } from './routes/basketItems'
+import * as basketItems from './routes/basketItems'
 import { saveLoginIp } from './routes/saveLoginIp'
 import { getUserProfile } from './routes/userProfile'
 import { updateUserProfile } from './routes/updateUserProfile'
 import { getVideo, promotionVideo } from './routes/videoHandler'
-import {
-  verifyTwoFactorAuth,
-  statusTwoFactorAuth,
-  setupTwoFactorAuth,
-  disableTwoFactorAuth
-} from './routes/2fa'
+import * as twoFactorAuth from './routes/2fa'
 import { getLanguageList } from './routes/languages'
 import { imageCaptchas, verifyImageCaptcha } from './routes/imageCaptcha'
 import { dataExport } from './routes/dataExport'
-import { getAddress, getAddressById, delAddressById } from './routes/address'
-import { getPaymentMethods, getPaymentMethodById, delPaymentMethodById } from './routes/payment'
+import * as address from './routes/address'
+import * as payment from './routes/payment'
 import { getWalletBalance, addWalletBalance } from './routes/wallet'
 import { orderHistory, allOrders, toggleDeliveryStatus } from './routes/orderHistory'
-import { getDeliveryMethods, getDeliveryMethod } from './routes/delivery'
+import * as delivery from './routes/delivery'
 import { upgradeToDeluxe, deluxeMembershipStatus } from './routes/deluxe'
 import { addMemory, getMemories } from './routes/memory'
 import * as chatbot from './routes/chatbot'
@@ -219,12 +203,12 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   })
 
   /* Increase request counter metric for every request */
-  app.use(observeRequestMetricsMiddleware())
+  app.use(metrics.observeRequestMetricsMiddleware())
 
   /* Security Policy */
   const securityTxtExpiration = new Date()
   securityTxtExpiration.setFullYear(securityTxtExpiration.getFullYear() + 1)
-  app.get(['/.well-known/security.txt', '/security.txt'], accessControlChallenges())
+  app.get(['/.well-known/security.txt', '/security.txt'], verify.accessControlChallenges())
   app.use(['/.well-known/security.txt', '/security.txt'], securityTxt({
     contact: config.get('application.securityTxt.contact'),
     encryption: config.get('application.securityTxt.encryption'),
@@ -242,13 +226,13 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use(antiCheat.checkForPreSolveInteractions())
 
   /* Checks for challenges solved by retrieving a file implicitly or explicitly */
-  app.use('/assets/public/images/padding', accessControlChallenges())
-  app.use('/assets/public/images/products', accessControlChallenges())
-  app.use('/assets/public/images/uploads', accessControlChallenges())
-  app.use('/assets/i18n', accessControlChallenges())
+  app.use('/assets/public/images/padding', verify.accessControlChallenges())
+  app.use('/assets/public/images/products', verify.accessControlChallenges())
+  app.use('/assets/public/images/uploads', verify.accessControlChallenges())
+  app.use('/assets/i18n', verify.accessControlChallenges())
 
   /* Checks for challenges solved by abusing SSTi and SSRF bugs */
-  app.use('/solve/challenges/server-side', serverSideChallenges())
+  app.use('/solve/challenges/server-side', verify.serverSideChallenges())
 
   /* Create middleware to change paths from the serve-index plugin from absolute to relative */
   const serveIndexMiddleware = (req: Request, res: Response, next: NextFunction) => {
@@ -291,7 +275,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   /* /logs directory browsing */ // vuln-code-snippet neutral-line accessLogDisclosureChallenge
   app.use('/support/logs', serveIndexMiddleware, serveIndex('logs', { icons: true, view: 'details' })) // vuln-code-snippet vuln-line accessLogDisclosureChallenge
-  app.use('/support/logs', accessControlChallenges()) // vuln-code-snippet hide-line
+  app.use('/support/logs', verify.accessControlChallenges()) // vuln-code-snippet hide-line
   app.use('/support/logs/:file', serveLogFiles()) // vuln-code-snippet vuln-line accessLogDisclosureChallenge
 
   /* Swagger documentation for B2B v2 endpoints */
@@ -313,10 +297,10 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   app.use(bodyParser.urlencoded({ extended: true }))
   /* File Upload */
-  app.post('/file-upload', uploadToMemory.single('file'), ensureFileIsPassed, observeFileUploadMetricsMiddleware(), checkUploadSize, checkFileType, handleZipFileUpload, handleXmlUpload, handleYamlUpload)
-  app.post('/profile/image/file', uploadToMemory.single('file'), ensureFileIsPassed, observeFileUploadMetricsMiddleware(), profileImageFileUpload())
+  app.post('/file-upload', uploadToMemory.single('file'), ensureFileIsPassed, metrics.observeFileUploadMetricsMiddleware(), checkUploadSize, checkFileType, handleZipFileUpload, handleXmlUpload, handleYamlUpload)
+  app.post('/profile/image/file', uploadToMemory.single('file'), ensureFileIsPassed, metrics.observeFileUploadMetricsMiddleware(), profileImageFileUpload())
   app.post('/profile/image/url', uploadToMemory.single('file'), profileImageUrlUpload())
-  app.post('/rest/memories', uploadToDisk.single('image'), ensureFileIsPassed, security.appendUserId(), observeFileUploadMetricsMiddleware(), addMemory())
+  app.post('/rest/memories', uploadToDisk.single('image'), ensureFileIsPassed, security.appendUserId(), metrics.observeFileUploadMetricsMiddleware(), addMemory())
 
   app.use(bodyParser.text({ type: '*/*' }))
   app.use(function jsonParser (req: Request, res: Response, next: NextFunction) {
@@ -357,7 +341,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   // vuln-code-snippet start changeProductChallenge
   /** Authorization **/
   /* Checks on JWT in Authorization header */ // vuln-code-snippet hide-line
-  app.use(jwtChallenges()) // vuln-code-snippet hide-line
+  app.use(verify.jwtChallenges()) // vuln-code-snippet hide-line
   /* Baskets: Unauthorized users are not allowed to access baskets */
   app.use('/rest/basket', security.isAuthorized(), security.appendUserId())
   /* BasketItems: API only accessible for authenticated users */
@@ -383,10 +367,10 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.post('/api/Complaints', security.isAuthorized())
   app.use('/api/Complaints/:id', security.denyAll())
   /* Recycles: POST and GET allowed when logged in only */
-  app.get('/api/Recycles', blockRecycleItems())
+  app.get('/api/Recycles', recycles.blockRecycleItems())
   app.post('/api/Recycles', security.isAuthorized())
   /* Challenge evaluation before finale takes over */
-  app.get('/api/Recycles/:id', getRecycleItem())
+  app.get('/api/Recycles/:id', recycles.getRecycleItem())
   app.put('/api/Recycles/:id', security.denyAll())
   app.delete('/api/Recycles/:id', security.denyAll())
   /* SecurityQuestions: Only GET list of questions allowed. */
@@ -400,11 +384,11 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use('/rest/basket/:id', security.isAuthorized())
   app.use('/rest/basket/:id/order', security.isAuthorized())
   /* Challenge evaluation before finale takes over */ // vuln-code-snippet hide-start
-  app.post('/api/Feedbacks', forgedFeedbackChallenge())
+  app.post('/api/Feedbacks', verify.forgedFeedbackChallenge())
   /* Captcha verification before finale takes over */
   app.post('/api/Feedbacks', verifyCaptcha())
   /* Captcha Bypass challenge verification */
-  app.post('/api/Feedbacks', captchaBypassChallenge())
+  app.post('/api/Feedbacks', verify.captchaBypassChallenge())
   /* User registration challenge verifications before finale takes over */
   app.post('/api/Users', (req: Request, res: Response, next: NextFunction) => {
     if (req.body.email !== undefined && req.body.password !== undefined && req.body.passwordRepeat !== undefined) {
@@ -418,14 +402,14 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     }
     next()
   })
-  app.post('/api/Users', registerAdminChallenge())
-  app.post('/api/Users', passwordRepeatChallenge()) // vuln-code-snippet hide-end
-  app.post('/api/Users', emptyUserRegistration())
+  app.post('/api/Users', verify.registerAdminChallenge())
+  app.post('/api/Users', verify.passwordRepeatChallenge()) // vuln-code-snippet hide-end
+  app.post('/api/Users', verify.emptyUserRegistration())
   /* Unauthorized users are not allowed to access B2B API */
   app.use('/b2b/v2', security.isAuthorized())
   /* Check if the quantity is available in stock and limit per user not exceeded, then add item to basket */
-  app.put('/api/BasketItems/:id', security.appendUserId(), quantityCheckBeforeBasketItemUpdate())
-  app.post('/api/BasketItems', security.appendUserId(), quantityCheckBeforeBasketItemAddition(), addBasketItem())
+  app.put('/api/BasketItems/:id', security.appendUserId(), basketItems.quantityCheckBeforeBasketItemUpdate())
+  app.post('/api/BasketItems', security.appendUserId(), basketItems.quantityCheckBeforeBasketItemAddition(), basketItems.addBasketItem())
   /* Accounting users are allowed to check and update quantities */
   app.delete('/api/Quantitys/:id', security.denyAll())
   app.post('/api/Quantitys', security.denyAll())
@@ -437,45 +421,45 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use('/api/PrivacyRequests/:id', security.isAuthorized())
   /* PaymentMethodRequests: Only allowed for authenticated users */
   app.post('/api/Cards', security.appendUserId())
-  app.get('/api/Cards', security.appendUserId(), getPaymentMethods())
+  app.get('/api/Cards', security.appendUserId(), payment.getPaymentMethods())
   app.put('/api/Cards/:id', security.denyAll())
-  app.delete('/api/Cards/:id', security.appendUserId(), delPaymentMethodById())
-  app.get('/api/Cards/:id', security.appendUserId(), getPaymentMethodById())
+  app.delete('/api/Cards/:id', security.appendUserId(), payment.delPaymentMethodById())
+  app.get('/api/Cards/:id', security.appendUserId(), payment.getPaymentMethodById())
   /* PrivacyRequests: Only POST allowed for authenticated users */
   app.post('/api/PrivacyRequests', security.isAuthorized())
   app.get('/api/PrivacyRequests', security.denyAll())
   app.use('/api/PrivacyRequests/:id', security.denyAll())
 
   app.post('/api/Addresss', security.appendUserId())
-  app.get('/api/Addresss', security.appendUserId(), getAddress())
+  app.get('/api/Addresss', security.appendUserId(), address.getAddress())
   app.put('/api/Addresss/:id', security.appendUserId())
-  app.delete('/api/Addresss/:id', security.appendUserId(), delAddressById())
-  app.get('/api/Addresss/:id', security.appendUserId(), getAddressById())
-  app.get('/api/Deliverys', getDeliveryMethods())
-  app.get('/api/Deliverys/:id', getDeliveryMethod())
+  app.delete('/api/Addresss/:id', security.appendUserId(), address.delAddressById())
+  app.get('/api/Addresss/:id', security.appendUserId(), address.getAddressById())
+  app.get('/api/Deliverys', delivery.getDeliveryMethods())
+  app.get('/api/Deliverys/:id', delivery.getDeliveryMethod())
   // vuln-code-snippet end changeProductChallenge
 
   /* Verify the 2FA Token */
   app.post('/rest/2fa/verify',
     rateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
-    verifyTwoFactorAuth
+    twoFactorAuth.verify
   )
   /* Check 2FA Status for the current User */
-  app.get('/rest/2fa/status', security.isAuthorized(), statusTwoFactorAuth)
+  app.get('/rest/2fa/status', security.isAuthorized(), twoFactorAuth.status)
   /* Enable 2FA for the current User */
   app.post('/rest/2fa/setup',
     rateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
     security.isAuthorized(),
-    setupTwoFactorAuth
+    twoFactorAuth.setup
   )
   /* Disable 2FA Status for the current User */
   app.post('/rest/2fa/disable',
     rateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
     security.isAuthorized(),
-    disableTwoFactorAuth
+    twoFactorAuth.disable
   )
   /* Verifying DB related challenges can be postponed until the next request for challenges is coming via finale */
-  app.use(databaseRelatedChallenges())
+  app.use(verify.databaseRelatedChallenges())
 
   // vuln-code-snippet start registerAdminChallenge
   /* Generated API endpoints */
@@ -600,9 +584,9 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/rest/continue-code', continueCode())
   app.get('/rest/continue-code-findIt', continueCodeFindIt())
   app.get('/rest/continue-code-fixIt', continueCodeFixIt())
-  app.put('/rest/continue-code-findIt/apply/:continueCode', restoreProgressFindIt())
-  app.put('/rest/continue-code-fixIt/apply/:continueCode', restoreProgressFixIt())
-  app.put('/rest/continue-code/apply/:continueCode', restoreProgress())
+  app.put('/rest/continue-code-findIt/apply/:continueCode', restoreProgress.restoreProgressFindIt())
+  app.put('/rest/continue-code-fixIt/apply/:continueCode', restoreProgress.restoreProgressFixIt())
+  app.put('/rest/continue-code/apply/:continueCode', restoreProgress.restoreProgress())
   app.get('/rest/captcha', captchas())
   app.get('/rest/image-captcha', imageCaptchas())
   app.get('/rest/track-order/:id', trackOrder())
@@ -666,7 +650,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use(serveAngularClient())
 
   /* Error Handling */
-  app.use(errorHandlingChallenge())
+  app.use(verify.errorHandlingChallenge())
   app.use(errorhandler())
 }).catch((err) => {
   console.error(err)
@@ -708,8 +692,8 @@ logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length.to
 // vuln-code-snippet start exposedMetricsChallenge
 /* Serve metrics */
 let metricsUpdateLoop: any
-const Metrics = observeMetrics() // vuln-code-snippet neutral-line exposedMetricsChallenge
-app.get('/metrics', serveMetrics()) // vuln-code-snippet vuln-line exposedMetricsChallenge
+const Metrics = metrics.observeMetrics() // vuln-code-snippet neutral-line exposedMetricsChallenge
+app.get('/metrics', metrics.serveMetrics()) // vuln-code-snippet vuln-line exposedMetricsChallenge
 errorhandler.title = `${config.get<string>('application.name')} (Express ${utils.version('express')})`
 
 export async function start (readyCallback?: () => void) {

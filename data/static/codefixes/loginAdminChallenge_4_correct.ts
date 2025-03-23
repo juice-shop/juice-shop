@@ -1,6 +1,6 @@
 import {BasketModel} from "../../../models/basket";
 
-module.exports = function login () {
+export function login () {
   function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {
     BasketModel.findOrCreate({ where: { UserId: user.data.id } })
       .then(([basket]: [BasketModel, boolean]) => {
