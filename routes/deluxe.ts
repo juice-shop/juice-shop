@@ -4,14 +4,14 @@
  */
 
 import { type Request, type Response, type NextFunction } from 'express'
-import { UserModel } from '../models/user'
-import { WalletModel } from '../models/wallet'
-import { CardModel } from '../models/card'
-import * as challengeUtils from '../lib/challengeUtils'
-import * as utils from '../lib/utils'
-import { challenges } from '../data/datacache'
 
-const security = require('../lib/insecurity')
+import * as challengeUtils from '../lib/challengeUtils'
+import { WalletModel } from '../models/wallet'
+import { challenges } from '../data/datacache'
+import * as security from '../lib/insecurity'
+import { UserModel } from '../models/user'
+import { CardModel } from '../models/card'
+import * as utils from '../lib/utils'
 
 module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -42,10 +42,9 @@ module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
       user.update({ role: security.roles.deluxe, deluxeToken: security.deluxeToken(user.email) })
         .then(user => {
           challengeUtils.solveIf(challenges.freeDeluxeChallenge, () => { return security.verify(utils.jwtFrom(req)) && req.body.paymentMode !== 'wallet' && req.body.paymentMode !== 'card' })
-          // @ts-expect-error FIXME some properties missing in user
-          user = utils.queryResultToJson(user)
-          const updatedToken = security.authorize(user)
-          security.authenticatedUsers.put(updatedToken, user)
+          const userWithStatus = utils.queryResultToJson(user)
+          const updatedToken = security.authorize(userWithStatus)
+          security.authenticatedUsers.put(updatedToken, userWithStatus)
           res.status(200).json({ status: 'success', data: { confirmation: 'Congratulations! You are now a deluxe member!', token: updatedToken } })
         }).catch(() => {
           res.status(400).json({ status: 'error', error: 'Something went wrong. Please try again!' })
