@@ -136,7 +136,7 @@ function handleYamlUpload ({ file }: Request, res: Response, next: NextFunction)
   res.status(204).end()
 }
 
-module.exports = {
+export {
   ensureFileIsPassed,
   handleZipFileUpload,
   checkUploadSize,

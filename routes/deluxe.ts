@@ -13,7 +13,7 @@ import { UserModel } from '../models/user'
 import { CardModel } from '../models/card'
 import * as utils from '../lib/utils'
 
-module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
+export function upgradeToDeluxe () {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user = await UserModel.findOne({ where: { id: req.body.UserId, role: security.roles.customer } })
@@ -57,7 +57,7 @@ module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
   }
 }
 
-module.exports.deluxeMembershipStatus = function deluxeMembershipStatus () {
+export function deluxeMembershipStatus () {
   return (req: Request, res: Response, next: NextFunction) => {
     if (security.isCustomer(req)) {
       res.status(200).json({ status: 'success', data: { membershipCost: 49 } })

@@ -10,7 +10,7 @@ import { Op } from 'sequelize'
 import { ImageCaptchaModel } from '../models/imageCaptcha'
 import * as security from '../lib/insecurity'
 
-function imageCaptchas () {
+export function imageCaptchas () {
   return (req: Request, res: Response) => {
     const captcha = svgCaptcha.create({ size: 5, noise: 2, color: true })
 
@@ -34,7 +34,7 @@ function imageCaptchas () {
   }
 }
 
-imageCaptchas.verifyCaptcha = () => (req: Request, res: Response, next: NextFunction) => {
+export const verifyImageCaptcha = () => (req: Request, res: Response, next: NextFunction) => {
   const user = security.authenticatedUsers.from(req)
   const UserId = user ? user.data ? user.data.id : undefined : undefined
   ImageCaptchaModel.findAll({
@@ -56,5 +56,3 @@ imageCaptchas.verifyCaptcha = () => (req: Request, res: Response, next: NextFunc
     res.status(401).send(res.__('Something went wrong while submitting CAPTCHA. Please try again.'))
   })
 }
-
-module.exports = imageCaptchas

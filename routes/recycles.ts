@@ -8,7 +8,7 @@ import { RecycleModel } from '../models/recycle'
 
 import * as utils from '../lib/utils'
 
-exports.getRecycleItem = () => (req: Request, res: Response) => {
+export const getRecycleItem = () => (req: Request, res: Response) => {
   RecycleModel.findAll({
     where: {
       id: JSON.parse(req.params.id)
@@ -20,7 +20,7 @@ exports.getRecycleItem = () => (req: Request, res: Response) => {
   })
 }
 
-exports.blockRecycleItems = () => (req: Request, res: Response) => {
+export const blockRecycleItems = () => (req: Request, res: Response) => {
   const errMsg = { err: 'Sorry, this endpoint is not supported.' }
   return res.send(utils.queryResultToJson(errMsg))
 }

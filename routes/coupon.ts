@@ -7,7 +7,7 @@ import { type Request, type Response, type NextFunction } from 'express'
 import { BasketModel } from '../models/basket'
 import * as security from '../lib/insecurity'
 
-module.exports = function applyCoupon () {
+export function applyCoupon () {
   return async ({ params }: Request, res: Response, next: NextFunction) => {
     try {
       const id = params.id

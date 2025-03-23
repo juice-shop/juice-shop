@@ -22,7 +22,7 @@ function favicon () {
   return utils.extractFilename(config.get('application.favicon'))
 }
 
-module.exports = function getUserProfile () {
+export function getUserProfile () {
   return async (req: Request, res: Response, next: NextFunction) => {
     let template: string
     try {

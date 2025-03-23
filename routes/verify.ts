@@ -18,14 +18,14 @@ import { FeedbackModel } from '../models/feedback'
 import * as security from '../lib/insecurity'
 import * as utils from '../lib/utils'
 
-exports.emptyUserRegistration = () => (req: Request, res: Response, next: NextFunction) => {
+export const emptyUserRegistration = () => (req: Request, res: Response, next: NextFunction) => {
   challengeUtils.solveIf(challenges.emptyUserRegistration, () => {
     return req.body && req.body.email === '' && req.body.password === ''
   })
   next()
 }
 
-exports.forgedFeedbackChallenge = () => (req: Request, res: Response, next: NextFunction) => {
+export const forgedFeedbackChallenge = () => (req: Request, res: Response, next: NextFunction) => {
   challengeUtils.solveIf(challenges.forgedFeedbackChallenge, () => {
     const user = security.authenticatedUsers.from(req)
     const userId = user?.data ? user.data.id : undefined
@@ -34,7 +34,7 @@ exports.forgedFeedbackChallenge = () => (req: Request, res: Response, next: Next
   next()
 }
 
-exports.captchaBypassChallenge = () => (req: Request, res: Response, next: NextFunction) => {
+export const captchaBypassChallenge = () => (req: Request, res: Response, next: NextFunction) => {
   if (challengeUtils.notSolved(challenges.captchaBypassChallenge)) {
     if (req.app.locals.captchaReqId >= 10) {
       if ((new Date().getTime() - req.app.locals.captchaBypassReqTimes[req.app.locals.captchaReqId - 10]) <= 20000) {
@@ -47,19 +47,19 @@ exports.captchaBypassChallenge = () => (req: Request, res: Response, next: NextF
   next()
 }
 
-exports.registerAdminChallenge = () => (req: Request, res: Response, next: NextFunction) => {
+export const registerAdminChallenge = () => (req: Request, res: Response, next: NextFunction) => {
   challengeUtils.solveIf(challenges.registerAdminChallenge, () => {
     return req.body && req.body.role === security.roles.admin
   })
   next()
 }
 
-exports.passwordRepeatChallenge = () => (req: Request, res: Response, next: NextFunction) => {
+export const passwordRepeatChallenge = () => (req: Request, res: Response, next: NextFunction) => {
   challengeUtils.solveIf(challenges.passwordRepeatChallenge, () => { return req.body && req.body.passwordRepeat !== req.body.password })
   next()
 }
 
-exports.accessControlChallenges = () => ({ url }: Request, res: Response, next: NextFunction) => {
+export const accessControlChallenges = () => ({ url }: Request, res: Response, next: NextFunction) => {
   challengeUtils.solveIf(challenges.scoreBoardChallenge, () => { return utils.endsWith(url, '/1px.png') })
   challengeUtils.solveIf(challenges.web3SandboxChallenge, () => { return utils.endsWith(url, '/11px.png') })
   challengeUtils.solveIf(challenges.adminSectionChallenge, () => { return utils.endsWith(url, '/19px.png') })
@@ -73,12 +73,12 @@ exports.accessControlChallenges = () => ({ url }: Request, res: Response, next: 
   next()
 }
 
-exports.errorHandlingChallenge = () => (err: unknown, req: Request, { statusCode }: Response, next: NextFunction) => {
+export const errorHandlingChallenge = () => (err: unknown, req: Request, { statusCode }: Response, next: NextFunction) => {
   challengeUtils.solveIf(challenges.errorHandlingChallenge, () => { return err && (statusCode === 200 || statusCode > 401) })
   next(err)
 }
 
-exports.jwtChallenges = () => (req: Request, res: Response, next: NextFunction) => {
+export const jwtChallenges = () => (req: Request, res: Response, next: NextFunction) => {
   if (challengeUtils.notSolved(challenges.jwtUnsignedChallenge)) {
     jwtChallenge(challenges.jwtUnsignedChallenge, req, 'none', /jwtn3d@/)
   }
@@ -88,7 +88,7 @@ exports.jwtChallenges = () => (req: Request, res: Response, next: NextFunction) 
   next()
 }
 
-exports.serverSideChallenges = () => (req: Request, res: Response, next: NextFunction) => {
+export const serverSideChallenges = () => (req: Request, res: Response, next: NextFunction) => {
   if (req.query.key === 'tRy_H4rd3r_n0thIng_iS_Imp0ssibl3') {
     if (challengeUtils.notSolved(challenges.sstiChallenge) && req.app.locals.abused_ssti_bug === true) {
       challengeUtils.solve(challenges.sstiChallenge)
@@ -133,7 +133,7 @@ function hasEmail (token: { data: { email: string } }, email: string | RegExp) {
   return token?.data?.email?.match(email)
 }
 
-exports.databaseRelatedChallenges = () => (req: Request, res: Response, next: NextFunction) => {
+export const databaseRelatedChallenges = () => (req: Request, res: Response, next: NextFunction) => {
   if (challengeUtils.notSolved(challenges.changeProductChallenge) && products.osaft) {
     changeProductChallenge(products.osaft)
   }

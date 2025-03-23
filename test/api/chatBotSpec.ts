@@ -6,7 +6,7 @@
 import * as frisby from 'frisby'
 import { expect } from '@jest/globals'
 import config from 'config'
-import { initialize, bot } from '../../routes/chatbot'
+import { initializeChatbot, bot } from '../../routes/chatbot'
 import fs from 'fs/promises'
 import * as utils from '../../lib/utils'
 
@@ -33,7 +33,7 @@ async function login ({ email, password }: { email: string, password: string }) 
 
 describe('/chatbot', () => {
   beforeAll(async () => {
-    await initialize()
+    await initializeChatbot()
     trainingData = JSON.parse(await fs.readFile(`data/chatbot/${utils.extractFilename(config.get('application.chatBot.trainingData'))}`, { encoding: 'utf8' }))
   })
 
@@ -101,7 +101,7 @@ describe('/chatbot', () => {
 
     it('Returns greeting if username is defined', async () => {
       if (bot == null) {
-        throw new Error('Bot not initialized')
+        throw new Error('Bot not initializeChatbotd')
       }
       const { token } = await login({
         email: 'bjoern.kimminich@gmail.com',
@@ -133,7 +133,7 @@ describe('/chatbot', () => {
 
     it('Returns proper response for registered user', async () => {
       if (bot == null) {
-        throw new Error('Bot not initialized')
+        throw new Error('Bot not initializeChatbotd')
       }
       const { token } = await login({
         email: 'bjoern.kimminich@gmail.com',
