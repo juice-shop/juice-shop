@@ -39,16 +39,18 @@ module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
         }
       }
 
-      user.update({ role: security.roles.deluxe, deluxeToken: security.deluxeToken(user.email) })
-        .then(user => {
-          challengeUtils.solveIf(challenges.freeDeluxeChallenge, () => { return security.verify(utils.jwtFrom(req)) && req.body.paymentMode !== 'wallet' && req.body.paymentMode !== 'card' })
-          const userWithStatus = utils.queryResultToJson(user)
-          const updatedToken = security.authorize(userWithStatus)
-          security.authenticatedUsers.put(updatedToken, userWithStatus)
-          res.status(200).json({ status: 'success', data: { confirmation: 'Congratulations! You are now a deluxe member!', token: updatedToken } })
-        }).catch(() => {
-          res.status(400).json({ status: 'error', error: 'Something went wrong. Please try again!' })
+      try {
+        const updatedUser = await user.update({ role: security.roles.deluxe, deluxeToken: security.deluxeToken(user.email) })
+        challengeUtils.solveIf(challenges.freeDeluxeChallenge, () => {
+          return security.verify(utils.jwtFrom(req)) && req.body.paymentMode !== 'wallet' && req.body.paymentMode !== 'card'
         })
+        const userWithStatus = utils.queryResultToJson(updatedUser)
+        const updatedToken = security.authorize(userWithStatus)
+        security.authenticatedUsers.put(updatedToken, userWithStatus)
+        res.status(200).json({ status: 'success', data: { confirmation: 'Congratulations! You are now a deluxe member!', token: updatedToken } })
+      } catch (error) {
+        res.status(400).json({ status: 'error', error: 'Something went wrong. Please try again!' })
+      }
     } catch (err: unknown) {
       res.status(400).json({ status: 'error', error: 'Something went wrong: ' + utils.getErrorMessage(err) })
     }
