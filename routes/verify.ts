@@ -15,9 +15,8 @@ import { type Challenge, type Product } from '../data/types'
 import * as challengeUtils from '../lib/challengeUtils'
 import { ComplaintModel } from '../models/complaint'
 import { FeedbackModel } from '../models/feedback'
+import * as security from '../lib/insecurity'
 import * as utils from '../lib/utils'
-
-const security = require('../lib/insecurity')
 
 exports.emptyUserRegistration = () => (req: Request, res: Response, next: NextFunction) => {
   challengeUtils.solveIf(challenges.emptyUserRegistration, () => {
