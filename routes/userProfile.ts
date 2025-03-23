@@ -12,10 +12,9 @@ import fs from 'fs/promises'
 import * as challengeUtils from '../lib/challengeUtils'
 import { themes } from '../views/themes/themes'
 import { challenges } from '../data/datacache'
+import * as security from '../lib/insecurity'
 import { UserModel } from '../models/user'
 import * as utils from '../lib/utils'
-
-const security = require('../lib/insecurity')
 
 const entities = new Entities()
 
