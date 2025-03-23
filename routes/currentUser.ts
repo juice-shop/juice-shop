@@ -6,8 +6,7 @@
 import * as challengeUtils from '../lib/challengeUtils'
 import { type Request, type Response } from 'express'
 import { challenges } from '../data/datacache'
-
-const security = require('../lib/insecurity')
+import * as security from '../lib/insecurity'
 
 module.exports = function retrieveLoggedInUser () {
   return (req: Request, res: Response) => {
