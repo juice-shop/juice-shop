@@ -141,7 +141,6 @@ async function setUserName (user: User, req: Request, res: Response) {
     const updatedUser = await userModel.update({ username: req.body.query })
     const updatedUserResponse = utils.queryResultToJson(updatedUser)
     const updatedToken = security.authorize(updatedUserResponse)
-    // @ts-expect-error FIXME some properties missing in updatedUserResponse
     security.authenticatedUsers.put(updatedToken, updatedUserResponse)
     bot.addUser(`${updatedUser.id}`, req.body.query)
     res.status(200).json({
