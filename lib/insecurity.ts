@@ -34,7 +34,7 @@ interface IAuthenticatedUsers {
   tokenMap: Record<string, ResponseWithUser>
   idMap: Record<string, string>
   put: (token: string, user: ResponseWithUser) => void
-  get: (token: string) => ResponseWithUser | undefined
+  get: (token?: string) => ResponseWithUser | undefined
   tokenOf: (user: UserModel) => string | undefined
   from: (req: Request) => ResponseWithUser | undefined
   updateFrom: (req: Request, user: ResponseWithUser) => any
@@ -76,7 +76,7 @@ export const authenticatedUsers: IAuthenticatedUsers = {
     this.tokenMap[token] = user
     this.idMap[user.data.id] = token
   },
-  get: function (token: string) {
+  get: function (token?: string) {
     return token ? this.tokenMap[utils.unquote(token)] : undefined
   },
   tokenOf: function (user: UserModel) {
