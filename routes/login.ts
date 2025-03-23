@@ -8,12 +8,11 @@ import config from 'config'
 import * as challengeUtils from '../lib/challengeUtils'
 import { challenges, users } from '../data/datacache'
 import { BasketModel } from '../models/basket'
+import * as security from '../lib/insecurity'
 import { UserModel } from '../models/user'
 import * as models from '../models/index'
 import { type User } from '../data/types'
 import * as utils from '../lib/utils'
-
-const security = require('../lib/insecurity')
 
 // vuln-code-snippet start loginAdminChallenge loginBenderChallenge loginJimChallenge
 module.exports = function login () {
