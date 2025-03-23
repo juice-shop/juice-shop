@@ -7,12 +7,12 @@ import sinon from 'sinon'
 import chai from 'chai'
 import sinonChai from 'sinon-chai'
 import { challenges } from '../../data/datacache'
+import { servePublicFiles } from '../../routes/fileServer'
 import { type Challenge } from 'data/types'
 const expect = chai.expect
 chai.use(sinonChai)
 
 describe('fileServer', () => {
-  const servePublicFiles = require('../../routes/fileServer')
   let req: any
   let res: any
   let next: any

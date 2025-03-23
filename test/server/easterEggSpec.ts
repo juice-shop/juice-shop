@@ -8,11 +8,11 @@ import chai from 'chai'
 import sinonChai from 'sinon-chai'
 import { challenges } from '../../data/datacache'
 import { type Challenge } from 'data/types'
+import { serveEasterEgg } from '../../routes/easterEgg'
 const expect = chai.expect
 chai.use(sinonChai)
 
 describe('easterEgg', () => {
-  const serveEasterEgg = require('../../routes/easterEgg')
   let req: any
   let res: any
   let save: any

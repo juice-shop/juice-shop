@@ -8,13 +8,12 @@ import chai from 'chai'
 import sinonChai from 'sinon-chai'
 import { challenges } from '../../data/datacache'
 import { type Challenge } from 'data/types'
+import { continueCode } from '../../routes/continueCode'
 
 const expect = chai.expect
 chai.use(sinonChai)
 
 describe('continueCode', () => {
-  const continueCode = require('../../routes/continueCode').continueCode
-
   let req: any
   let res: any
 

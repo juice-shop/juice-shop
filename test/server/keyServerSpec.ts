@@ -6,11 +6,11 @@
 import sinon from 'sinon'
 import chai from 'chai'
 import sinonChai from 'sinon-chai'
+import { serveKeyFiles } from '../../routes/keyServer'
 const expect = chai.expect
 chai.use(sinonChai)
 
 describe('keyServer', () => {
-  const serveKeyFiles = require('../../routes/keyServer')
   let req: any
   let res: any
   let next: any

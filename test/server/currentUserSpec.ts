@@ -6,11 +6,11 @@
 import sinon from 'sinon'
 import chai from 'chai'
 import sinonChai from 'sinon-chai'
+import { retrieveLoggedInUser } from '../../routes/currentUser'
 const expect = chai.expect
 chai.use(sinonChai)
 
 describe('currentUser', () => {
-  const retrieveLoggedInUser = require('../../routes/currentUser')
   let req: any
   let res: any
 

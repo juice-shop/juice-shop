@@ -6,19 +6,18 @@
 import chai from 'chai'
 import { challenges } from '../../data/datacache'
 import { type Challenge } from 'data/types'
+import { checkUploadSize, checkFileType } from '../../routes/fileUpload'
 
 const expect = chai.expect
 
 describe('fileUpload', () => {
-  const {
-    checkUploadSize,
-    checkFileType
-  } = require('../../routes/fileUpload')
   let req: any
+  let res: any
   let save: any
 
   beforeEach(() => {
     req = { file: { originalname: '' } }
+    res = {}
     save = () => ({
       then () { }
     })
@@ -31,7 +30,7 @@ describe('fileUpload', () => {
         challenges.uploadSizeChallenge = { solved: false, save } as unknown as Challenge
         req.file.size = size
 
-        checkUploadSize(req, undefined, () => {})
+        checkUploadSize(req, res, () => {})
 
         expect(challenges.uploadSizeChallenge.solved).to.equal(false)
       })
@@ -42,7 +41,7 @@ describe('fileUpload', () => {
     challenges.uploadSizeChallenge = { solved: false, save } as unknown as Challenge
     req.file.size = 100001
 
-    checkUploadSize(req, undefined, () => {})
+    checkUploadSize(req, res, () => {})
 
     expect(challenges.uploadSizeChallenge.solved).to.equal(true)
   })
@@ -51,7 +50,7 @@ describe('fileUpload', () => {
     challenges.uploadTypeChallenge = { solved: false, save } as unknown as Challenge
     req.file.originalname = 'hack.exe'
 
-    checkFileType(req, undefined, () => {})
+    checkFileType(req, res, () => {})
 
     expect(challenges.uploadTypeChallenge.solved).to.equal(true)
   })
@@ -60,7 +59,7 @@ describe('fileUpload', () => {
     challenges.uploadTypeChallenge = { solved: false, save } as unknown as Challenge
     req.file.originalname = 'hack.pdf'
 
-    checkFileType(req, undefined, () => {})
+    checkFileType(req, res, () => {})
 
     expect(challenges.uploadTypeChallenge.solved).to.equal(false)
   })
