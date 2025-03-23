@@ -7,10 +7,10 @@ import { expect } from '@jest/globals'
 import * as frisby from 'frisby'
 
 import { challenges } from '../../data/datacache'
+import * as security from '../../lib/insecurity'
 import * as utils from '../../lib/utils'
 
 const Joi = frisby.Joi
-const security = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
