@@ -11,8 +11,7 @@ import * as challengeUtils from '../lib/challengeUtils'
 import * as utils from '../lib/utils'
 import { challenges } from '../data/datacache'
 import * as otplib from 'otplib'
-
-const security = require('../lib/insecurity')
+import * as security from '../lib/insecurity'
 
 otplib.authenticator.options = {
   // Accepts tokens as valid even when they are 30sec to old or to new
