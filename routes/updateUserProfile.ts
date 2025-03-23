@@ -12,31 +12,36 @@ import { UserModel } from '../models/user'
 import * as utils from '../lib/utils'
 
 module.exports = function updateUserProfile () {
-  return (req: Request, res: Response, next: NextFunction) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     const loggedInUser = security.authenticatedUsers.get(req.cookies.token)
 
-    if (loggedInUser) {
-      UserModel.findByPk(loggedInUser.data.id).then((user: UserModel | null) => {
-        if (user != null) {
-          challengeUtils.solveIf(challenges.csrfChallenge, () => {
-            return ((req.headers.origin?.includes('://htmledit.squarefree.com')) ??
-              (req.headers.referer?.includes('://htmledit.squarefree.com'))) &&
-              req.body.username !== user.username
-          })
-          void user.update({ username: req.body.username }).then((savedUser: UserModel) => {
-            const userWithStatus = utils.queryResultToJson(savedUser)
-            const updatedToken = security.authorize(userWithStatus)
-            security.authenticatedUsers.put(updatedToken, userWithStatus)
-            res.cookie('token', updatedToken)
-            res.location(process.env.BASE_PATH + '/profile')
-            res.redirect(process.env.BASE_PATH + '/profile')
-          })
-        }
-      }).catch((error: Error) => {
-        next(error)
-      })
-    } else {
+    if (!loggedInUser) {
       next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
+      return
+    }
+
+    try {
+      const user = await UserModel.findByPk(loggedInUser.data.id)
+      if (!user) {
+        next(new Error('User not found'))
+        return
+      }
+
+      challengeUtils.solveIf(challenges.csrfChallenge, () => {
+        return ((req.headers.origin?.includes('://htmledit.squarefree.com')) ??
+          (req.headers.referer?.includes('://htmledit.squarefree.com'))) &&
+          req.body.username !== user.username
+      })
+
+      const savedUser = await user.update({ username: req.body.username })
+      const userWithStatus = utils.queryResultToJson(savedUser)
+      const updatedToken = security.authorize(userWithStatus)
+      security.authenticatedUsers.put(updatedToken, userWithStatus)
+      res.cookie('token', updatedToken)
+      res.location(process.env.BASE_PATH + '/profile')
+      res.redirect(process.env.BASE_PATH + '/profile')
+    } catch (error) {
+      next(error)
     }
   }
 }
