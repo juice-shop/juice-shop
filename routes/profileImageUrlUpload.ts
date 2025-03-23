@@ -5,14 +5,13 @@
 
 import fs from 'fs'
 import { Readable } from 'stream'
+import { finished } from 'stream/promises'
 import { type Request, type Response, type NextFunction } from 'express'
 
+import * as security from '../lib/insecurity'
 import { UserModel } from '../models/user'
 import * as utils from '../lib/utils'
 import logger from '../lib/logger'
-import { finished } from 'stream/promises'
-
-const security = require('../lib/insecurity')
 
 module.exports = function profileImageUrlUpload () {
   return async (req: Request, res: Response, next: NextFunction) => {
