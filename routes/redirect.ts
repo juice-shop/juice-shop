@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
-import * as utils from '../lib/utils'
-import * as challengeUtils from '../lib/challengeUtils'
 import { type Request, type Response, type NextFunction } from 'express'
-import { challenges } from '../data/datacache'
 
-const security = require('../lib/insecurity')
+import * as challengeUtils from '../lib/challengeUtils'
+import { challenges } from '../data/datacache'
+import * as security from '../lib/insecurity'
+import * as utils from '../lib/utils'
 
 module.exports = function performRedirect () {
   return ({ query }: Request, res: Response, next: NextFunction) => {
