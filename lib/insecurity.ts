@@ -25,9 +25,9 @@ const privateKey = '-----BEGIN RSA PRIVATE KEY-----\r\nMIICXAIBAAKBgQDNwqLEe9wgT
 interface ResponseWithUser {
   status: string
   data: UserModel
-  iat: number
-  exp: number
-  bid: number
+  iat?: number
+  exp?: number
+  bid?: number
 }
 
 interface IAuthenticatedUsers {
