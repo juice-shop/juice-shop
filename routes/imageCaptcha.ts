@@ -4,20 +4,26 @@
  */
 
 import { type Request, type Response, type NextFunction } from 'express'
-import { ImageCaptchaModel } from '../models/imageCaptcha'
 import svgCaptcha from 'svg-captcha'
 import { Op } from 'sequelize'
 
-const security = require('../lib/insecurity')
+import { ImageCaptchaModel } from '../models/imageCaptcha'
+import * as security from '../lib/insecurity'
 
 function imageCaptchas () {
   return (req: Request, res: Response) => {
     const captcha = svgCaptcha.create({ size: 5, noise: 2, color: true })
 
+    const user = security.authenticatedUsers.from(req)
+    if (!user) {
+      res.status(401).send(res.__('You need to be logged in to request a CAPTCHA.'))
+      return
+    }
+
     const imageCaptcha = {
       image: captcha.data,
       answer: captcha.text,
-      UserId: security.authenticatedUsers.from(req).data.id
+      UserId: user.data.id
     }
     const imageCaptchaInstance = ImageCaptchaModel.build(imageCaptcha)
     imageCaptchaInstance.save().then(() => {
