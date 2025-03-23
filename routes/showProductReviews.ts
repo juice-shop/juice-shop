@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: MIT
  */
 
-import * as utils from '../lib/utils'
-import * as challengeUtils from '../lib/challengeUtils'
 import { type Request, type Response, type NextFunction } from 'express'
+
+import * as challengeUtils from '../lib/challengeUtils'
+import { challenges } from '../data/datacache'
+import * as security from '../lib/insecurity'
 import { type Review } from 'data/types'
 import * as db from '../data/mongodb'
-import { challenges } from '../data/datacache'
-
-const security = require('../lib/insecurity')
+import * as utils from '../lib/utils'
 
 // Blocking sleep function as in native MongoDB
 // @ts-expect-error FIXME Type safety broken for global object
