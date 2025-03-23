@@ -4,12 +4,12 @@
  */
 
 import { type Request, type Response, type NextFunction } from 'express'
-import { UserModel } from '../models/user'
-import * as challengeUtils from '../lib/challengeUtils'
-import * as utils from '../lib/utils'
-import { challenges } from '../data/datacache'
 
-const security = require('../lib/insecurity')
+import * as challengeUtils from '../lib/challengeUtils'
+import { challenges } from '../data/datacache'
+import * as security from '../lib/insecurity'
+import { UserModel } from '../models/user'
+import * as utils from '../lib/utils'
 
 module.exports = function updateUserProfile () {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -24,10 +24,9 @@ module.exports = function updateUserProfile () {
               req.body.username !== user.username
           })
           void user.update({ username: req.body.username }).then((savedUser: UserModel) => {
-            // @ts-expect-error FIXME some properties missing in savedUser
-            savedUser = utils.queryResultToJson(savedUser)
-            const updatedToken = security.authorize(savedUser)
-            security.authenticatedUsers.put(updatedToken, savedUser)
+            const userWithStatus = utils.queryResultToJson(savedUser)
+            const updatedToken = security.authorize(userWithStatus)
+            security.authenticatedUsers.put(updatedToken, userWithStatus)
             res.cookie('token', updatedToken)
             res.location(process.env.BASE_PATH + '/profile')
             res.redirect(process.env.BASE_PATH + '/profile')
