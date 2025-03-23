@@ -4,13 +4,13 @@
  */
 
 import { type Request, type Response, type NextFunction } from 'express'
-import { MemoryModel } from '../models/memory'
-import { type ProductModel } from '../models/product'
-import * as db from '../data/mongodb'
-import { challenges } from '../data/datacache'
-import * as challengeUtils from '../lib/challengeUtils'
 
-const security = require('../lib/insecurity')
+import * as challengeUtils from '../lib/challengeUtils'
+import { type ProductModel } from '../models/product'
+import { MemoryModel } from '../models/memory'
+import { challenges } from '../data/datacache'
+import * as security from '../lib/insecurity'
+import * as db from '../data/mongodb'
 
 module.exports = function dataExport () {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -21,7 +21,7 @@ module.exports = function dataExport () {
       const updatedEmail = email.replace(/[aeiou]/gi, '*')
       const userData:
       {
-        username: string
+        username?: string
         email: string
         orders: Array<{
           orderId: string
