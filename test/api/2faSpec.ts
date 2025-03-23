@@ -8,8 +8,9 @@ import config from 'config'
 import jwt from 'jsonwebtoken'
 import * as otplib from 'otplib'
 
+import * as security from '../../lib/insecurity'
+
 const Joi = frisby.Joi
-const security = require('../../lib/insecurity')
 
 const REST_URL = 'http://localhost:3000/rest'
 const API_URL = 'http://localhost:3000/api'
