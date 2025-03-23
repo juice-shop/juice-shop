@@ -5,12 +5,12 @@
 
 import fs from 'fs/promises'
 import { type Request, type Response, type NextFunction } from 'express'
-import { UserModel } from '../models/user'
-import logger from '../lib/logger'
 import fileType from 'file-type'
 
+import logger from '../lib/logger'
 import * as utils from '../lib/utils'
-const security = require('../lib/insecurity')
+import { UserModel } from '../models/user'
+import * as security from '../lib/insecurity'
 
 module.exports = function fileUpload () {
   return async (req: Request, res: Response, next: NextFunction) => {
