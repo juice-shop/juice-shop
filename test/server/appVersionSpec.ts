@@ -7,6 +7,9 @@ import sinon from 'sinon'
 import config from 'config'
 import chai from 'chai'
 import sinonChai from 'sinon-chai'
+
+import { version } from '../../package.json'
+
 const expect = chai.expect
 chai.use(sinonChai)
 
@@ -20,6 +23,6 @@ describe('appVersion', () => {
     res = { json: sinon.spy() }
 
     retrieveAppVersion()(req, res)
-    expect(res.json).to.have.been.calledWith({ version: config.get<boolean>('application.showVersionNumber') ? require('../../package.json').version : '' })
+    expect(res.json).to.have.been.calledWith({ version: config.get<boolean>('application.showVersionNumber') ? version : '' })
   })
 })
