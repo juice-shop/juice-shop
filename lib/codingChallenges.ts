@@ -20,8 +20,11 @@ export const findFilesWithCodeChallenges = async (paths: readonly string[]): Pro
   for (const currPath of paths) {
     if ((await fs.lstat(currPath)).isDirectory()) {
       const files = await fs.readdir(currPath)
+      const baseDir = path.resolve(currPath)
       const moreMatches = await findFilesWithCodeChallenges(
-        files.map(file => path.resolve(currPath, file))
+        files
+          .map(file => path.resolve(baseDir, file))
+          .filter(filePath => filePath.startsWith(baseDir))
       )
       matches.push(...moreMatches)
     } else {
