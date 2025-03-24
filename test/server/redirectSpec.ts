@@ -9,6 +9,8 @@ import sinonChai from 'sinon-chai'
 import { challenges } from '../../data/datacache'
 import { performRedirect } from '../../routes/redirect'
 import { type Challenge } from 'data/types'
+import { redirectAllowlist } from '../../lib/insecurity'
+
 const expect = chai.expect
 chai.use(sinonChai)
 
@@ -28,7 +30,7 @@ describe('redirect', () => {
   })
 
   describe('should be performed for all allowlisted URLs', () => {
-    for (const url of require('../../lib/insecurity').redirectAllowlist) {
+    for (const url of redirectAllowlist) {
       it(url, () => {
         req.query.to = url
 
