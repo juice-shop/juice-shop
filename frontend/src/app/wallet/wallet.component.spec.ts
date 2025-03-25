@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -44,14 +44,13 @@ describe('WalletComponent', () => {
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
-
         BrowserAnimationsModule,
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
-        MatGridListModule
+        MatGridListModule,
+        WalletComponent
       ],
-      declarations: [WalletComponent],
       providers: [
         { provide: WalletService, useValue: walletService },
         { provide: TranslateService, useValue: translateService },

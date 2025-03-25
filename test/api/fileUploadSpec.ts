@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -114,7 +114,7 @@ describe('/file-upload', () => {
         headers: { 'Content-Type': form.getHeaders()['content-type'] },
         body: form
       }).then((res) => {
-        expect(res.status).toBeGreaterThanOrEqual(410) // usually runs into 410 on Travis-CI but into 503 locally
+        expect(res.status).toBeGreaterThanOrEqual(410)
       })
     })
 
@@ -127,6 +127,24 @@ describe('/file-upload', () => {
         // @ts-expect-error FIXME form.getHeaders() is not found
         headers: { 'Content-Type': form.getHeaders()['content-type'] },
         body: form
+      }).then((res) => {
+        expect(res.status).toBeGreaterThanOrEqual(410)
+      })
+    })
+  }
+
+  if (utils.isChallengeEnabled(challenges.yamlBombChallenge)) {
+    it('POST file type YAML with Billion Laughs-style attack', () => {
+      const file = path.resolve(__dirname, '../files/yamlBomb.yml')
+      const form = frisby.formData()
+      form.append('file', fs.createReadStream(file))
+
+      return frisby.post(URL + '/file-upload', {
+        // @ts-expect-error FIXME form.getHeaders() is not found
+        headers: { 'Content-Type': form.getHeaders()['content-type'] },
+        body: form
+      }).then((res) => {
+        expect(res.status).toBeGreaterThanOrEqual(410)
       })
     })
   }
@@ -159,5 +177,16 @@ describe('/file-upload', () => {
     // @ts-expect-error FIXME form.getHeaders() is not found
     return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 204)
+  })
+
+  xit('POST valid file with tampered content length', () => { // FIXME Fails on CI/CD pipeline
+    const file = path.resolve(__dirname, '../files/validSizeAndTypeForClient.pdf')
+    const form = frisby.formData()
+    form.append('file', fs.createReadStream(file))
+
+    // @ts-expect-error FIXME form.getHeaders() is not found
+    return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'], 'Content-Length': 42 }, body: form })
+      .expect('status', 500)
+      .expect('bodyContains', 'Unexpected end of form')
   })
 })

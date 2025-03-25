@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { TranslateModule } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
-import { CookieModule, CookieService } from 'ngx-cookie'
+import { CookieModule, CookieService } from 'ngy-cookie'
 
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
 
@@ -32,9 +32,9 @@ describe('WelcomeComponent', () => {
         TranslateModule.forRoot(),
         CookieModule.forRoot(),
         HttpClientTestingModule,
-        MatDialogModule
+        MatDialogModule,
+        WelcomeComponent
       ],
-      declarations: [WelcomeComponent],
       providers: [
         { provide: ConfigurationService, useValue: configurationService },
         { provide: MatDialog, useValue: dialog },

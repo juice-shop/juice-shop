@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -11,13 +11,21 @@ import { faTrashAlt } from '@fortawesome/free-regular-svg-icons/'
 import { faMinusSquare, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 import { DeluxeGuard } from '../app.guard'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
+import { TranslateModule } from '@ngx-translate/core'
+import { MatIconButton } from '@angular/material/button'
+import { NgIf } from '@angular/common'
+import { FlexModule } from '@angular/flex-layout/flex'
+import { ExtendedModule } from '@angular/flex-layout/extended'
+import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow } from '@angular/material/table'
 
 library.add(faTrashAlt, faMinusSquare, faPlusSquare)
 
 @Component({
   selector: 'app-purchase-basket',
   templateUrl: './purchase-basket.component.html',
-  styleUrls: ['./purchase-basket.component.scss']
+  styleUrls: ['./purchase-basket.component.scss'],
+  standalone: true,
+  imports: [MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, ExtendedModule, FlexModule, MatFooterCellDef, MatFooterCell, NgIf, MatIconButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow, TranslateModule]
 })
 export class PurchaseBasketComponent implements OnInit {
   @Input('allowEdit') public allowEdit: boolean = false
@@ -33,7 +41,7 @@ export class PurchaseBasketComponent implements OnInit {
   constructor (private readonly deluxeGuard: DeluxeGuard, private readonly basketService: BasketService,
     private readonly userService: UserService, private readonly snackBarHelperService: SnackBarHelperService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     if (this.allowEdit && !this.tableColumns.includes('remove')) {
       this.tableColumns.push('remove')
     }

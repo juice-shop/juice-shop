@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -49,7 +49,6 @@ describe('OrderCompletionComponent', () => {
     addressService.getById.and.returnValue(of([]))
 
     TestBed.configureTestingModule({
-      declarations: [OrderCompletionComponent],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
@@ -62,7 +61,8 @@ describe('OrderCompletionComponent', () => {
         MatGridListModule,
         MatCardModule,
         MatIconModule,
-        MatTooltipModule
+        MatTooltipModule,
+        OrderCompletionComponent
       ],
       providers: [
         { provide: TrackOrderService, useValue: trackOrderService },

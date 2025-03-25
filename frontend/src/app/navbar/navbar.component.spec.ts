@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -23,7 +23,7 @@ import { AdministrationService } from '../Services/administration.service'
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatTooltipModule } from '@angular/material/tooltip'
-import { CookieModule, CookieService } from 'ngx-cookie'
+import { CookieModule, CookieService } from 'ngy-cookie'
 import { SocketIoService } from '../Services/socket-io.service'
 import { of, throwError } from 'rxjs'
 import { MatCardModule } from '@angular/material/card'
@@ -33,10 +33,10 @@ import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatGridListModule } from '@angular/material/grid-list'
-import { NgMatSearchBarModule } from 'ng-mat-search-bar'
 import { LoginGuard } from '../app.guard'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatSearchBarComponent } from '../mat-search-bar/mat-search-bar.component'
 
 class MockSocket {
   on (str: string, callback: any) {
@@ -79,7 +79,6 @@ describe('NavbarComponent', () => {
     loginGuard.tokenDecode.and.returnValue(of(true))
 
     TestBed.configureTestingModule({
-      declarations: [NavbarComponent, SearchResultComponent],
       imports: [
         RouterTestingModule.withRoutes([
           { path: 'search', component: SearchResultComponent }
@@ -102,9 +101,9 @@ describe('NavbarComponent', () => {
         MatDialogModule,
         MatDividerModule,
         MatGridListModule,
-        NgMatSearchBarModule,
         MatRadioModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        NavbarComponent, SearchResultComponent, MatSearchBarComponent
       ],
       providers: [
         { provide: AdministrationService, useValue: administrationService },

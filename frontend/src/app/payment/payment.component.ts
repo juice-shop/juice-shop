@@ -1,13 +1,13 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { UntypedFormControl, Validators } from '@angular/forms'
+import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { Component, NgZone, type OnInit } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { BasketService } from '../Services/basket.service'
-import { TranslateService } from '@ngx-translate/core'
+import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faCartArrowDown,
@@ -28,23 +28,34 @@ import { ActivatedRoute, type ParamMap, Router } from '@angular/router'
 import { WalletService } from '../Services/wallet.service'
 import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'
-import { CookieService } from 'ngx-cookie'
-import { Location } from '@angular/common'
+import { CookieService } from 'ngy-cookie'
+import { Location, NgIf } from '@angular/common'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
+import { MatIconModule } from '@angular/material/icon'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel, MatHint, MatError } from '@angular/material/form-field'
+import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription } from '@angular/material/expansion'
+import { MatButtonModule } from '@angular/material/button'
+import { FlexModule } from '@angular/flex-layout/flex'
+import { MatDivider } from '@angular/material/divider'
+import { PaymentMethodComponent } from '../payment-method/payment-method.component'
+import { MatCardModule } from '@angular/material/card'
 
 library.add(faCartArrowDown, faGift, faHeart, faLeanpub, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faTimes, faStripe, faPalette)
 
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.scss']
+  styleUrls: ['./payment.component.scss'],
+  standalone: true,
+  imports: [MatCardModule, PaymentMethodComponent, MatDivider, NgIf, FlexModule, TranslateModule, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatIconModule]
 })
 export class PaymentComponent implements OnInit {
   public couponConfirmation: any
   public couponError: any
   public card: any = {}
-  public twitterUrl = null
-  public facebookUrl = null
+  public blueSkyUrl = null
+  public redditUrl = null
   public applicationName = 'OWASP Juice Shop'
   private campaignCoupon: string
   public couponControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)])
@@ -76,7 +87,7 @@ export class PaymentComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute, private readonly ngZone: NgZone,
     private readonly snackBarHelperService: SnackBarHelperService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.initTotal()
     this.walletService.get().subscribe((balance) => {
       this.walletBalance = balance
@@ -87,11 +98,11 @@ export class PaymentComponent implements OnInit {
 
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       if (config?.application?.social) {
-        if (config.application.social.twitterUrl) {
-          this.twitterUrl = config.application.social.twitterUrl
+        if (config.application.social.blueSkyUrl) {
+          this.blueSkyUrl = config.application.social.blueSkyUrl
         }
-        if (config.application.social.facebookUrl) {
-          this.facebookUrl = config.application.social.facebookUrl
+        if (config.application.social.redditUrl) {
+          this.redditUrl = config.application.social.redditUrl
         }
         if (config.application.name) {
           this.applicationName = config.application.name

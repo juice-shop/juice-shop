@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -129,7 +129,7 @@ describe('verify', () => {
 
     it('"missingEncodingChallenge" is solved when the crazy cat photo is requested', () => {
       challenges.missingEncodingChallenge = { solved: false, save }
-      req.url = 'http://juice-sh.op/public/images/uploads/%F0%9F%98%BC-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg'
+      req.url = 'http://juice-sh.op/public/images/uploads/%E1%93%9A%E1%98%8F%E1%97%A2-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg'
 
       verify.accessControlChallenges()(req, res, next)
 
@@ -197,7 +197,7 @@ describe('verify', () => {
       })
     })
 
-    it('should pass occured error on to next route', () => {
+    it('should pass occurred error on to next route', () => {
       res.statusCode = 500
       err = new Error()
 

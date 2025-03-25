@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -54,7 +54,6 @@ describe('OrderSummaryComponent', () => {
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
-      declarations: [OrderSummaryComponent, PurchaseBasketComponent, OrderCompletionComponent],
       imports: [
         RouterTestingModule.withRoutes([
           { path: 'order-completion', component: OrderCompletionComponent }
@@ -70,7 +69,8 @@ describe('OrderSummaryComponent', () => {
         MatButtonToggleModule,
         MatIconModule,
         MatTooltipModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        OrderSummaryComponent, PurchaseBasketComponent, OrderCompletionComponent
       ],
       providers: [
         { provide: BasketService, useValue: basketService },

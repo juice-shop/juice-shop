@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -25,11 +25,11 @@ import { MatDividerModule } from '@angular/material/divider'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatTooltipModule } from '@angular/material/tooltip'
 
-import { QRCodeModule } from 'anuglar2-qrcode'
 import { of } from 'rxjs'
 import { ConfigurationService } from '../Services/configuration.service'
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
 import { throwError } from 'rxjs/internal/observable/throwError'
+import { QrCodeModule } from 'ng-qrcode'
 
 describe('TwoFactorAuthComponent', () => {
   let component: TwoFactorAuthComponent
@@ -42,7 +42,6 @@ describe('TwoFactorAuthComponent', () => {
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { } }))
     TestBed.configureTestingModule({
-      declarations: [TwoFactorAuthComponent],
       imports: [
         HttpClientTestingModule,
         ReactiveFormsModule,
@@ -58,9 +57,10 @@ describe('TwoFactorAuthComponent', () => {
         MatDialogModule,
         MatDividerModule,
         MatButtonModule,
-        QRCodeModule,
+        QrCodeModule,
         MatSnackBarModule,
-        MatTooltipModule
+        MatTooltipModule,
+        TwoFactorAuthComponent
       ],
       providers: [
         { provide: ConfigurationService, useValue: configurationService },
@@ -105,7 +105,7 @@ describe('TwoFactorAuthComponent', () => {
     twoFactorAuthService.setup.and.returnValue(of({}))
     component.setupStatus = false
     component.twoFactorSetupForm.get('passwordControl').setValue('password')
-    component.twoFactorSetupForm.get('initalTokenControl').setValue('12345')
+    component.twoFactorSetupForm.get('initialTokenControl').setValue('12345')
 
     component.setup()
 
@@ -118,16 +118,16 @@ describe('TwoFactorAuthComponent', () => {
     component.setupStatus = false
     component.errored = false
     component.twoFactorSetupForm.get('passwordControl').markAsDirty()
-    component.twoFactorSetupForm.get('initalTokenControl').markAsDirty()
+    component.twoFactorSetupForm.get('initialTokenControl').markAsDirty()
 
     expect(component.twoFactorSetupForm.get('passwordControl').pristine).toBe(false)
-    expect(component.twoFactorSetupForm.get('initalTokenControl').pristine).toBe(false)
+    expect(component.twoFactorSetupForm.get('initialTokenControl').pristine).toBe(false)
     component.setup()
 
     expect(component.setupStatus).toBe(false)
     expect(component.errored).toBe(true)
     expect(component.twoFactorSetupForm.get('passwordControl').pristine).toBe(true)
-    expect(component.twoFactorSetupForm.get('initalTokenControl').pristine).toBe(true)
+    expect(component.twoFactorSetupForm.get('initialTokenControl').pristine).toBe(true)
   })
 
   it('should confirm successfully disabling 2FA', () => {

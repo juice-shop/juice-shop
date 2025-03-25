@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -41,16 +41,15 @@ describe('AdministrationComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-
         MatTableModule,
         TranslateModule.forRoot(),
         MatDialogModule,
         MatPaginatorModule,
         MatDividerModule,
         MatCardModule,
-        MatIconModule
+        MatIconModule,
+        AdministrationComponent
       ],
-      declarations: [AdministrationComponent],
       providers: [
         { provide: MatDialog, useValue: dialog },
         { provide: UserService, useValue: userService },

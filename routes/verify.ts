@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -71,7 +71,7 @@ exports.accessControlChallenges = () => ({ url }: Request, res: Response, next: 
   challengeUtils.solveIf(challenges.extraLanguageChallenge, () => { return utils.endsWith(url, '/tlh_AA.json') })
   challengeUtils.solveIf(challenges.retrieveBlueprintChallenge, () => { return utils.endsWith(url, cache.retrieveBlueprintChallengeFile) })
   challengeUtils.solveIf(challenges.securityPolicyChallenge, () => { return utils.endsWith(url, '/security.txt') })
-  challengeUtils.solveIf(challenges.missingEncodingChallenge, () => { return utils.endsWith(url.toLowerCase(), '%f0%9f%98%bc-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg') })
+  challengeUtils.solveIf(challenges.missingEncodingChallenge, () => { return utils.endsWith(url.toLowerCase(), '%e1%93%9a%e1%98%8f%e1%97%a2-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg') })
   challengeUtils.solveIf(challenges.accessLogDisclosureChallenge, () => { return url.match(/access\.log(0-9-)*/) })
   next()
 }
@@ -174,7 +174,7 @@ function changeProductChallenge (osaft: Product) {
     }
     if (urlForProductTamperingChallenge) {
       if (!utils.contains(osaft.description, `${urlForProductTamperingChallenge}`)) {
-        if (utils.contains(osaft.description, `<a href="${config.get<string>('challenges.overwriteUrlForProductTamperingChallenge')}" target="_blank">More...</a>`)) {
+        if (utils.contains(osaft.description, `<a href="${config.get<string>('challenges.overwriteUrlForProductTamperingChallenge')}" target="_blank">`)) {
           challengeUtils.solve(challenges.changeProductChallenge)
         }
       }
@@ -297,7 +297,7 @@ function typosquattingNpmChallenge () {
 }
 
 function typosquattingAngularChallenge () {
-  FeedbackModel.findAndCountAll({ where: { comment: { [Op.like]: '%anuglar2-qrcode%' } } }
+  FeedbackModel.findAndCountAll({ where: { comment: { [Op.like]: '%ngy-cookie%' } } }
   ).then(({ count }: { count: number }) => {
     if (count > 0) {
       challengeUtils.solve(challenges.typosquattingAngularChallenge)
@@ -305,7 +305,7 @@ function typosquattingAngularChallenge () {
   }).catch(() => {
     throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
-  ComplaintModel.findAndCountAll({ where: { message: { [Op.like]: '%anuglar2-qrcode%' } } }
+  ComplaintModel.findAndCountAll({ where: { message: { [Op.like]: '%ngy-cookie%' } } }
   ).then(({ count }: { count: number }) => {
     if (count > 0) {
       challengeUtils.solve(challenges.typosquattingAngularChallenge)

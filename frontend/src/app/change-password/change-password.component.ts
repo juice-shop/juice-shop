@@ -1,23 +1,31 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { type AbstractControl, UntypedFormControl, Validators } from '@angular/forms'
+import { type AbstractControl, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { UserService } from '../Services/user.service'
 import { Component } from '@angular/core'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-regular-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
-import { TranslateService } from '@ngx-translate/core'
+import { TranslateService, TranslateModule } from '@ngx-translate/core'
+import { MatButtonModule } from '@angular/material/button'
+import { NgIf } from '@angular/common'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel, MatError, MatHint } from '@angular/material/form-field'
+import { MatCardModule } from '@angular/material/card'
+import { FlexModule } from '@angular/flex-layout/flex'
 
 library.add(faSave, faEdit)
 
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.scss']
+  styleUrls: ['./change-password.component.scss'],
+  standalone: true,
+  imports: [FlexModule, MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, NgIf, MatError, MatHint, MatButtonModule]
 })
 export class ChangePasswordComponent {
   public passwordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
@@ -28,7 +36,7 @@ export class ChangePasswordComponent {
 
   constructor (private readonly userService: UserService, private readonly formSubmitService: FormSubmitService, private readonly translate: TranslateService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.formSubmitService.attachEnterKeyHandler('password-form', 'changeButton', () => { this.changePassword() })
   }
 

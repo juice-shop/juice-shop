@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -10,13 +10,21 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faWindows } from '@fortawesome/free-brands-svg-icons'
 
 import { Challenge } from '../Models/challenge.model'
+import { TranslateModule } from '@ngx-translate/core'
+import { ExtendedModule } from '@angular/flex-layout/extended'
+import { MatIconModule } from '@angular/material/icon'
+import { MatTooltip } from '@angular/material/tooltip'
+import { MatButtonModule } from '@angular/material/button'
+import { NgIf } from '@angular/common'
 
 library.add(faWindows)
 
 @Component({
   selector: 'app-challenge-status-badge',
   templateUrl: './challenge-status-badge.component.html',
-  styleUrls: ['./challenge-status-badge.component.scss']
+  styleUrls: ['./challenge-status-badge.component.scss'],
+  standalone: true,
+  imports: [NgIf, MatButtonModule, MatTooltip, MatIconModule, ExtendedModule, TranslateModule]
 })
 export class ChallengeStatusBadgeComponent {
   @Input() public challenge: Challenge = { } as Challenge

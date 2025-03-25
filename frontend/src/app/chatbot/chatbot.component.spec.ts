@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -18,7 +18,7 @@ import { of } from 'rxjs'
 
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { EventEmitter } from '@angular/core'
-import { CookieModule } from 'ngx-cookie'
+import { CookieModule } from 'ngy-cookie'
 
 enum MessageSources {
   user = 'user',
@@ -57,9 +57,9 @@ describe('ComplaintComponent', () => {
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
-        MatButtonModule
+        MatButtonModule,
+        ChatbotComponent
       ],
-      declarations: [ChatbotComponent],
       providers: [
         { provide: ChatbotService, useValue: chatbotService },
         { provide: TranslateService, useValue: translateService }

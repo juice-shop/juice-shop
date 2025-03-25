@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -42,7 +42,6 @@ describe('SavedPaymentMethodsComponent', () => {
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
-
         BrowserAnimationsModule,
         MatCardModule,
         MatTableModule,
@@ -51,9 +50,9 @@ describe('SavedPaymentMethodsComponent', () => {
         MatExpansionModule,
         MatDividerModule,
         MatRadioModule,
-        MatDialogModule
+        MatDialogModule,
+        SavedPaymentMethodsComponent, PaymentMethodComponent
       ],
-      declarations: [SavedPaymentMethodsComponent, PaymentMethodComponent],
       providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar }

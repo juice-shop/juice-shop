@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -11,7 +11,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { RouterTestingModule } from '@angular/router/testing'
 import { of } from 'rxjs'
 import { HttpClientModule } from '@angular/common/http'
-import { CookieModule, CookieService } from 'ngx-cookie'
+import { CookieModule, CookieService } from 'ngy-cookie'
 import { LoginGuard } from '../app.guard'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { SidenavComponent } from './sidenav.component'
@@ -65,7 +65,6 @@ describe('SidenavComponent', () => {
     loginGuard.tokenDecode.and.returnValue({})
 
     TestBed.configureTestingModule({
-      declarations: [SidenavComponent],
       imports: [
         HttpClientModule,
         TranslateModule.forRoot(),
@@ -76,7 +75,8 @@ describe('SidenavComponent', () => {
         MatMenuModule,
         MatListModule,
         CookieModule.forRoot(),
-        RouterTestingModule
+        RouterTestingModule,
+        SidenavComponent
       ],
       providers: [
         { provide: ConfigurationService, useValue: configurationService },

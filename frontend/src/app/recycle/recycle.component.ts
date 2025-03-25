@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -7,20 +7,30 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { UserService } from '../Services/user.service'
 import { RecycleService } from '../Services/recycle.service'
 import { Component, type OnInit, ViewChild } from '@angular/core'
-import { UntypedFormControl, Validators } from '@angular/forms'
+import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { AddressComponent } from '../address/address.component'
-import { TranslateService } from '@ngx-translate/core'
+import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
+import { MatButtonModule } from '@angular/material/button'
+import { MatCheckbox } from '@angular/material/checkbox'
+import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker'
+import { NgIf } from '@angular/common'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel, MatError, MatSuffix } from '@angular/material/form-field'
+import { FlexModule } from '@angular/flex-layout/flex'
+import { MatCardModule, MatCardImage, MatCardContent } from '@angular/material/card'
 
 library.add(faPaperPlane)
 
 @Component({
   selector: 'app-recycle',
   templateUrl: './recycle.component.html',
-  styleUrls: ['./recycle.component.scss']
+  styleUrls: ['./recycle.component.scss'],
+  standalone: true,
+  imports: [MatCardModule, FlexModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, NgIf, MatError, AddressComponent, MatDatepickerInput, MatDatepickerToggle, MatSuffix, MatDatepicker, MatCheckbox, MatButtonModule, MatCardImage, MatCardContent]
 })
 export class RecycleComponent implements OnInit {
   @ViewChild('addressComp', { static: true }) public addressComponent: AddressComponent
@@ -39,7 +49,7 @@ export class RecycleComponent implements OnInit {
     private readonly configurationService: ConfigurationService, private readonly formSubmitService: FormSubmitService,
     private readonly translate: TranslateService, private readonly snackBarHelperService: SnackBarHelperService) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
       if (config?.application?.recyclePage) {
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions

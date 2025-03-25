@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -7,7 +7,7 @@ import { ClipboardModule } from 'ngx-clipboard'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 import { CountryMappingService } from '../Services/country-mapping.service'
-import { CookieModule, CookieService } from 'ngx-cookie'
+import { CookieModule, CookieService } from 'ngy-cookie'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
@@ -62,9 +62,9 @@ describe('ChallengeSolvedNotificationComponent', () => {
         ClipboardModule,
         MatCardModule,
         MatButtonModule,
-        MatIconModule
+        MatIconModule,
+        ChallengeSolvedNotificationComponent
       ],
-      declarations: [ChallengeSolvedNotificationComponent],
       providers: [
         { provide: SocketIoService, useValue: socketIoService },
         { provide: TranslateService, useValue: translateService },

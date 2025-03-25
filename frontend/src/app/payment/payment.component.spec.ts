@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -27,7 +27,7 @@ import { PaymentMethodComponent } from '../payment-method/payment-method.compone
 import { RouterTestingModule } from '@angular/router/testing'
 import { OrderSummaryComponent } from '../order-summary/order-summary.component'
 import { PurchaseBasketComponent } from '../purchase-basket/purchase-basket.component'
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngy-cookie'
 import { WalletService } from '../Services/wallet.service'
 import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'
@@ -88,7 +88,6 @@ describe('PaymentComponent', () => {
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
-
         BrowserAnimationsModule,
         MatCardModule,
         MatTableModule,
@@ -100,9 +99,9 @@ describe('PaymentComponent', () => {
         MatDialogModule,
         MatIconModule,
         MatCheckboxModule,
-        MatTooltipModule
+        MatTooltipModule,
+        PaymentComponent, PaymentMethodComponent, OrderSummaryComponent, PurchaseBasketComponent, LoginComponent, WalletComponent
       ],
-      declarations: [PaymentComponent, PaymentMethodComponent, OrderSummaryComponent, PurchaseBasketComponent, LoginComponent, WalletComponent],
       providers: [
         { provide: BasketService, useValue: basketService },
         { provide: MatDialog, useValue: dialog },
@@ -113,7 +112,6 @@ describe('PaymentComponent', () => {
         { provide: DeliveryService, useValue: deliveryService },
         { provide: UserService, useValue: userService },
         { provide: MatSnackBar, useValue: snackBar }
-
       ]
     })
       .compileComponents()
@@ -130,10 +128,10 @@ describe('PaymentComponent', () => {
     expect(component).toBeTruthy()
   })
 
-  it('should not hold twitter or facebook URL if not defined in configuration', () => {
+  it('should not hold blueSky or reddit URL if not defined in configuration', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
-    expect(component.twitterUrl).toBeNull()
-    expect(component.facebookUrl).toBeNull()
+    expect(component.blueSkyUrl).toBeNull()
+    expect(component.redditUrl).toBeNull()
   })
 
   it('should hold the default applicationName if not defined in configuration', () => {
@@ -141,16 +139,16 @@ describe('PaymentComponent', () => {
     expect(component.applicationName).toBe('OWASP Juice Shop')
   })
 
-  it('should use custom twitter URL if configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { twitterUrl: 'twitter' } } }))
+  it('should use custom blueSky URL if configured', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { blueSkyUrl: 'blueSky' } } }))
     component.ngOnInit()
-    expect(component.twitterUrl).toBe('twitter')
+    expect(component.blueSkyUrl).toBe('blueSky')
   })
 
-  it('should use custom facebook URL if configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { facebookUrl: 'facebook' } } }))
+  it('should use custom reddit URL if configured', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { redditUrl: 'reddit' } } }))
     component.ngOnInit()
-    expect(component.facebookUrl).toBe('facebook')
+    expect(component.redditUrl).toBe('reddit')
   })
 
   it('should log error while getting application configuration from backend API directly to browser console', fakeAsync(() => {

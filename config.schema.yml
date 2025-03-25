@@ -42,6 +42,10 @@ application:
     avatar:
       type: string
   social:
+    blueSkyUrl:
+      type: string
+    mastodonUrl:
+      type: string
     twitterUrl:
       type: string
     facebookUrl:
@@ -719,6 +723,16 @@ ctf:
       code:
         type: string
     csafChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    exposedCredentialsChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    yamlBombChallenge:
       name:
         type: string
       code:

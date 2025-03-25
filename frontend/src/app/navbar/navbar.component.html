@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
   -->
 
@@ -7,26 +7,28 @@
 
   <mat-toolbar-row fxLayout="row">
 
-    <button (click)="onToggleSidenav()" mat-button style="height:48px; width: 48px;" aria-label="Open Sidenav"
+    <button (click)="onToggleSidenav()" mat-icon-button style="height:48px; width: 48px;" aria-label="Open Sidenav"
             matTooltip="{{ 'SIDENAV_HINT' | translate }}" matTooltipPosition="below">
       <mat-icon>menu</mat-icon>
     </button>
 
     <button mat-button routerLink="/search" style="height:60px;" class="buttons" aria-label="Back to homepage">
-      <img [src]="logoSrc" class="logo" alt={{applicationName}}>
-      <span fxHide.lt-sm fxShow style="font-size: x-large"> {{applicationName}} </span>
+      <div id="homeButton">
+        <img [src]="logoSrc" class="logo" alt={{applicationName}}>
+        <span fxHide.lt-sm fxShow style="font-size: x-large"> {{applicationName}} </span>
+      </div>
     </button>
 
     <span class="fill-remaining-space"></span>
 
-    <mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"
-                    aria-label="Click to search"></mat-search-bar>
+    <app-mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"
+                    aria-label="Click to search"></app-mat-search-bar>
 
     <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle; height:48px;" class="buttons"
             fxHide.lt-md fxShow aria-label="Show/hide account menu" id="navbarAccount">
-      <i class="material-icons">
+      <mat-icon>
         account_circle
-      </i>
+      </mat-icon>
       <span> {{"ACCOUNT" | translate}} </span>
     </button>
 
@@ -90,12 +92,12 @@
       <mat-icon>
         shopping_cart
       </mat-icon>
-      <span fxHide.lt-md fxShow> {{"TITLE_BASKET" | translate}}</span>
+      <span fxHide.lt-md fxShow style="margin-right: 10px;"> {{"TITLE_BASKET" | translate}}</span>
       <span class="fa-layers-counter fa-layers-top-right fa-3x warn-notification"
             style="font-size: 47px;">{{itemTotal}}</span>
     </button>
 
-    <button [matMenuTriggerFor]="menu" mat-button style="height:48px; width: 48px;" class="buttons"
+    <button id="navbarLanguageButton" [matMenuTriggerFor]="menu" mat-button style="height:48px; width: 48px;" class="buttons"
             aria-label="Language selection menu"
             matTooltip="{{ 'LANGUAGE_SEL_HINT' | translate }}" matTooltipPosition="below">
       <mat-icon>
@@ -108,7 +110,7 @@
       <mat-radio-button (click)="changeLanguage(language.key)" *ngFor="let language of languages" [value]="language"
                         class="mat-menu-item" style="width: 240px;" checked="{{selectedLanguage === language}}"
                         aria-label="{{language.lang}}">
-        <div style="display: inline-block; width: 200px; margin-left: 5px;">
+        <div class="mat-body" style="display: inline-block; width: 200px; margin-left: 5px;">
           <span *ngFor="let icon of language.icons" [class]="'fi fi-' + icon"></span>
           {{language?.lang}}
         </div>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -18,7 +18,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatCardModule } from '@angular/material/card'
 import { MatInputModule } from '@angular/material/input'
-import { CookieModule, CookieService } from 'ngx-cookie'
+import { CookieModule, CookieService } from 'ngy-cookie'
 import { Location } from '@angular/common'
 import { of, throwError } from 'rxjs'
 import { MatTableModule } from '@angular/material/table'
@@ -42,13 +42,11 @@ describe('LoginComponent', () => {
     userService.isLoggedIn.next.and.returnValue({})
 
     TestBed.configureTestingModule({
-      declarations: [LoginComponent, SearchResultComponent],
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
           { path: 'search', component: SearchResultComponent }
-        ]
-        ),
+        ]),
         ReactiveFormsModule,
         CookieModule.forRoot(),
         TranslateModule.forRoot(),
@@ -63,7 +61,8 @@ describe('LoginComponent', () => {
         MatDialogModule,
         MatDividerModule,
         MatGridListModule,
-        MatTooltipModule
+        MatTooltipModule,
+        LoginComponent, SearchResultComponent
       ],
       providers: [
         { provide: UserService, useValue: userService },

@@ -1,39 +1,47 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
+import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core'
 import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
-import { SlideshowModule } from 'ng-simple-slideshow'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 
 import { AboutComponent } from './about.component'
 import { MatCardModule } from '@angular/material/card'
-import { NO_ERRORS_SCHEMA } from '@angular/core'
+
 import { of } from 'rxjs'
 import { ConfigurationService } from '../Services/configuration.service'
+import { GalleryModule } from 'ng-gallery'
 
 describe('AboutComponent', () => {
   let component: AboutComponent
   let fixture: ComponentFixture<AboutComponent>
-  let slideshowModule
   let configurationService
+  let translateService
 
   beforeEach(waitForAsync(() => {
-    slideshowModule = jasmine.createSpy('SlideshowModule') // FIXME Replace with actual import if https://github.com/dockleryxk/ng-simple-slideshow/issues/70 gets fixed
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { } }))
+    translateService = jasmine.createSpyObj('TranslateService', ['get'])
+    translateService.get.and.returnValue(of({}))
+    translateService.onLangChange = new EventEmitter()
+    translateService.onTranslationChange = new EventEmitter()
+    translateService.onDefaultLangChange = new EventEmitter()
 
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       imports: [
         HttpClientTestingModule,
-        MatCardModule
+        MatCardModule,
+        GalleryModule,
+        AboutComponent,
+        TranslateModule.forRoot()
       ],
-      declarations: [AboutComponent],
       providers: [
-        { provide: SlideshowModule, useValue: slideshowModule },
-        { provide: ConfigurationService, useValue: configurationService }
+        { provide: ConfigurationService, useValue: configurationService },
+        { provide: TranslateService, useValue: translateService }
       ]
     })
       .compileComponents()

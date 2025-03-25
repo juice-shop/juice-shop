@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -40,7 +40,6 @@ describe('DeliveryMethodComponent', () => {
     deliveryService.get.and.returnValue(of([]))
 
     TestBed.configureTestingModule({
-      declarations: [DeliveryMethodComponent, PaymentComponent, PaymentMethodComponent],
       imports: [
         RouterTestingModule.withRoutes([
           { path: 'payment/shop', component: PaymentComponent }
@@ -58,7 +57,8 @@ describe('DeliveryMethodComponent', () => {
         MatTooltipModule,
         MatRadioModule,
         MatExpansionModule,
-        MatDividerModule
+        MatDividerModule,
+        DeliveryMethodComponent, PaymentComponent, PaymentMethodComponent
       ],
       providers: [
         { provide: AddressService, useValue: addressService },

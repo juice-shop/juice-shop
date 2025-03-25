@@ -1,16 +1,21 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { Component, Inject, type OnInit } from '@angular/core'
 import { DOCUMENT } from '@angular/common'
 import { ConfigurationService } from '../Services/configuration.service'
+import { MatDivider } from '@angular/material/divider'
+import { TranslateModule } from '@ngx-translate/core'
+import { MatCardModule } from '@angular/material/card'
 
 @Component({
   selector: 'app-privacy-policy',
   templateUrl: './privacy-policy.component.html',
-  styleUrls: ['./privacy-policy.component.scss']
+  styleUrls: ['./privacy-policy.component.scss'],
+  standalone: true,
+  imports: [MatCardModule, TranslateModule, MatDivider]
 })
 export class PrivacyPolicyComponent implements OnInit {
   public applicationName: string = 'OWASP Juice Shop'
