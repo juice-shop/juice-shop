@@ -21,7 +21,7 @@ steps:
   displayName: 'Coverity Scan'
   inputs:
     coverity_url: "http://ec2-13-52-80-57.us-west-1.compute.amazonaws.com:8080/"
-    coverity_user: $(COV_USER)
-    coverity_passphrase: $(COVERITY_PASSPHRASE)
+    coverity_user: "committer"
+    coverity_passphrase: "committer"
     coverity_stream_name: "juice-shop-master"
     coverity_install_directory: "C:\\Program Files\\Coverity\\Coverity Static Analysis 2024.9.1"
