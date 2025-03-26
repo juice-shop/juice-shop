@@ -23,3 +23,4 @@ steps:
     coverity_url: $(COVERITY_URL)
     coverity_user: $(COV_USER)
     coverity_passphrase: $(COVERITY_PASSPHRASE)
+    coverity_stream_name: "juice-shop-master"
