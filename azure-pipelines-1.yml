@@ -24,3 +24,4 @@ steps:
     coverity_user: $(COV_USER)
     coverity_passphrase: $(COVERITY_PASSPHRASE)
     coverity_stream_name: "juice-shop-master"
+    coverity_install_directory: "C:\\Program Files\\Coverity\\Coverity Static Analysis 2024.9.1"
