@@ -19,5 +19,6 @@ steps:
   displayName: 'Run a multi-line script'
 - task: BlackduckCoverityOnPolaris@2
   inputs:
-    polarisService: 'CoP'
-    polarisCommand: 'analyze -w'
+    coverity_url: $(COVERITY_URL)
+    coverity_user: $(COV_USER)
+    coverity_passphrase: $(COVERITY_PASSPHRASE)
