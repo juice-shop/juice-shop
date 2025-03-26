@@ -20,7 +20,7 @@ steps:
 - task: BlackDuckSecurityScan@2
   displayName: 'Coverity Scan'
   inputs:
-    coverity_url: "https://ec2-13-52-80-57.us-west-1.compute.amazonaws.com:8443/"
+    coverity_url: "http://ec2-13-52-80-57.us-west-1.compute.amazonaws.com:8080/"
     coverity_user: $(COV_USER)
     coverity_passphrase: $(COVERITY_PASSPHRASE)
     coverity_stream_name: "juice-shop-master"
