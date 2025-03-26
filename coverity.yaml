@@ -15,4 +15,4 @@ commit:
     stream: juice-shop-master
 
     # Absolute URL of where to commit the Coverity Connect results.
-    url: http://localhost:8080
+    url: https://ec2-13-52-80-57.us-west-1.compute.amazonaws.com:8443/
