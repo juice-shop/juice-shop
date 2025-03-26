@@ -17,7 +17,8 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
-- task: BlackduckCoverityOnPolaris@2
+- task: BlackDuckSecurityScan@2
+  displayName: 'Coverity Scan'
   inputs:
     coverity_url: $(COVERITY_URL)
     coverity_user: $(COV_USER)
