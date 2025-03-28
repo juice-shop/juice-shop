@@ -24,11 +24,11 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
-- task: PowerShell@2
-  displayName: "Coverity CLI Scan"
-  inputs:
-    targetType: 'inline'
-    script: 'coverity scan -o commit.connect.url="http://localhost:8080"'
+# - task: PowerShell@2
+#   displayName: "Coverity CLI Scan"
+#   inputs:
+#     targetType: 'inline'
+#     script: 'coverity scan -o commit.connect.url="http://localhost:8080"'
 
 - task: BlackDuckSecurityScan@2
   inputs:
