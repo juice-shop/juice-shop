@@ -10,6 +10,7 @@ pool:
   name: Default
 
 variables:
+  - group: coverity-cli
   - name: COVERITY_TOOL_HOME
     value: "C:\\Program Files\\Coverity\\Coverity Static Analysis 2024.9.1"
 
