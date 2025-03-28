@@ -27,4 +27,4 @@ steps:
   displayName: "Coverity CLI Scan"
   inputs:
     targetType: 'inline'
-    script: '$COVERITY_TOOL_HOME\bin\coverity scan -o commit.connect.url="http://localhost:8080"'
+    script: 'C:\\Program Files\\Coverity\\Coverity Static Analysis 2024.9.1\bin\coverity scan -o commit.connect.url="http://localhost:8080"'
