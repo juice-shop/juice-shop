@@ -11,6 +11,7 @@ pool:
 
 variables:
   - group: coverity-cli
+  - group: coverity-bd-scan
   - name: COVERITY_TOOL_HOME
     value: "C:\\Program Files\\Coverity\\Coverity Static Analysis 2024.9.1"
 
@@ -33,9 +34,9 @@ steps:
 - task: BlackDuckSecurityScan@2
   inputs:
     scanType: 'coverity'
-    coverityUrl: 'http://localhost:8080'
-    coverityUser: 'committer'
-    coverityUserPassword: 'committer'
+    coverityUrl: $(COVERITY_URL)
+    coverityUser: $(COV_USER)
+    coverityUserPassword: $(COVERITY_PASSPHRASE)
     coverityLocal: true
     coverityProjectName: 'juice-shop'
     coverityStreamName: 'juice-shop-master'
