@@ -22,15 +22,8 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
-- task: BatchScript@1
-  displayName: 'Coverity Scan'
 
-- script: |
-    set -ex
-    $COVERITY_TOOL_HOME/bin/coverity scan -o commit.connect.url="http://localhost:8080"
-  # inputs:
-  #   coverity_url: "http://ec2-13-52-80-57.us-west-1.compute.amazonaws.com:8080/"
-  #   coverity_user: "committer"
-  #   coverity_passphrase: "committer"
-  #   coverity_stream_name: "juice-shop-master"
-  #   coverity_install_directory: "C:\\Program Files\\Coverity\\Coverity Static Analysis 2024.9.1"
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: '$COVERITY_TOOL_HOME/bin/coverity scan -o commit.connect.url="http://localhost:8080"'
