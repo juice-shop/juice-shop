@@ -9,6 +9,11 @@ trigger:
 pool:
   name: Default
 
+variables:
+  - name: COVERITY_TOOL_HOME
+    value: "C:\\Program Files\\Coverity\\Coverity Static Analysis 2024.9.1"
+
+
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
@@ -19,9 +24,13 @@ steps:
   displayName: 'Run a multi-line script'
 - task: BlackDuckSecurityScan@2
   displayName: 'Coverity Scan'
-  inputs:
-    coverity_url: "http://ec2-13-52-80-57.us-west-1.compute.amazonaws.com:8080/"
-    coverity_user: "committer"
-    coverity_passphrase: "committer"
-    coverity_stream_name: "juice-shop-master"
-    coverity_install_directory: "C:\\Program Files\\Coverity\\Coverity Static Analysis 2024.9.1"
+
+- script: |
+    set -ex
+    $COVERITY_TOOL_HOME/bin/coverity scan -o commit.connect.url="http://localhost:8080"
+  # inputs:
+  #   coverity_url: "http://ec2-13-52-80-57.us-west-1.compute.amazonaws.com:8080/"
+  #   coverity_user: "committer"
+  #   coverity_passphrase: "committer"
+  #   coverity_stream_name: "juice-shop-master"
+  #   coverity_install_directory: "C:\\Program Files\\Coverity\\Coverity Static Analysis 2024.9.1"
