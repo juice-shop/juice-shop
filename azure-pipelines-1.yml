@@ -12,9 +12,6 @@ pool:
 variables:
   - group: coverity-cli
   - group: coverity-bd-scan
-  - name: COVERITY_TOOL_HOME
-    value: "C:\\Program Files\\Coverity\\Coverity Static Analysis 2024.9.1"
-
 
 steps:
 - script: echo Hello, world!
@@ -37,6 +34,8 @@ steps:
     coverityUrl: $(COVERITY_URL)
     coverityUser: $(COV_USER)
     coverityUserPassword: $(COVERITY_PASSPHRASE)
+    coverityInstallDirectory: 'C:\Program Files\Coverity\Coverity Static Analysis 2024.9.1'
     coverityLocal: true
     coverityProjectName: 'juice-shop'
     coverityStreamName: 'juice-shop-master'
+
