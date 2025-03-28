@@ -29,3 +29,13 @@ steps:
   inputs:
     targetType: 'inline'
     script: 'coverity scan -o commit.connect.url="http://localhost:8080"'
+
+- task: BlackDuckSecurityScan@2
+  inputs:
+    scanType: 'coverity'
+    coverityUrl: 'http://localhost:8080'
+    coverityUser: 'committer'
+    coverityUserPassword: 'committer'
+    coverityLocal: true
+    coverityProjectName: 'juice-shop'
+    coverityStreamName: 'juice-shop-master'
