@@ -24,7 +24,7 @@ steps:
   displayName: 'Run a multi-line script'
 
 - task: PowerShell@2
-displayName: "Coverity CLI Scan"
+  displayName: "Coverity CLI Scan"
   inputs:
     targetType: 'inline'
     script: '$COVERITY_TOOL_HOME\bin\coverity scan -o commit.connect.url="http://localhost:8080"'
