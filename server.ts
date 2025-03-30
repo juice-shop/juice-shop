@@ -101,6 +101,7 @@ const nftMint = require('./routes/nftMint')
 const web3Wallet = require('./routes/web3Wallet')
 const updateProductReviews = require('./routes/updateProductReviews')
 const likeProductReviews = require('./routes/likeProductReviews')
+const insecureDemo = require('./routes/insecureDemo')
 const security = require('./lib/insecurity')
 const app = express()
 const server = require('http').Server(app)
@@ -642,6 +643,12 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.post('/snippets/fixes', vulnCodeFixes.checkCorrectFix())
 
   app.use(angular())
+
+  /* Routes for deliberately insecure credential demonstration */
+  app.get('/rest/insecure/aws-credentials', insecureDemo.getAwsCredentials())
+  app.get('/rest/insecure/google-credentials', insecureDemo.getGoogleCredentials())
+  app.get('/rest/insecure/aws-demo', insecureDemo.demoAWSUsage())
+  app.get('/rest/insecure/google-demo', insecureDemo.demoGoogleAPIUsage())
 
   /* Error Handling */
   app.use(verify.errorHandlingChallenge())
