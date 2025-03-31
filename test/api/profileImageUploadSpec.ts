@@ -5,8 +5,8 @@
 
 import * as frisby from 'frisby'
 import config from 'config'
-import path from 'path'
-import fs from 'fs'
+import path from 'node:path'
+import fs from 'node:fs'
 
 const jsonHeader = { 'content-type': 'application/json' }
 const REST_URL = 'http://localhost:3000/rest'

@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-import fs from 'fs'
-import { Readable } from 'stream'
-import { finished } from 'stream/promises'
+import fs from 'node:fs'
+import { Readable } from 'node:stream'
+import { finished } from 'node:stream/promises'
 import { type Request, type Response, type NextFunction } from 'express'
 
 import * as security from '../lib/insecurity'

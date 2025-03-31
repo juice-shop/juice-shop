@@ -4,8 +4,8 @@
  */
 
 import chai from 'chai'
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 import { promisify } from 'util'
 import { safeLoad } from 'js-yaml'
 import sinonChai from 'sinon-chai'

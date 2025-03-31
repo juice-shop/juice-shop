@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import fs from 'fs'
+import fs from 'node:fs'
 import config from 'config'
 import * as utils from '../utils'
 // @ts-expect-error FIXME due to non-existing type definitions for replace

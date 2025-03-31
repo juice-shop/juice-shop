@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: MIT
  */
 
-import os from 'os'
-import fs from 'fs'
-import vm from 'vm'
-import path from 'path'
+import os from 'node:os'
+import fs from 'node:fs'
+import vm from 'node:vm'
+import path from 'node:path'
 import yaml from 'js-yaml'
 import libxml from 'libxmljs'
 import unzipper from 'unzipper'

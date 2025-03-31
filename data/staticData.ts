@@ -1,5 +1,5 @@
-import path from 'path'
-import { readFile } from 'fs/promises'
+import path from 'node:path'
+import { readFile } from 'node:fs/promises'
 import { safeLoad } from 'js-yaml'
 import logger from '../lib/logger'
 import { type ChallengeKey } from 'models/challenge'

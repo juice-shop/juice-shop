@@ -2,8 +2,8 @@
  * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 import i18n from 'i18n'
 import http from 'http'
 import cors from 'cors'

@@ -2,14 +2,14 @@ import chai from 'chai'
 import config from 'config'
 import type { Product as ProductConfig } from 'lib/config.types'
 
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 import { ExifImage } from 'exif'
-import { Readable } from 'stream'
+import { Readable } from 'node:stream'
 import sinonChai from 'sinon-chai'
 
 import * as utils from '../../lib/utils'
-import { finished } from 'stream/promises'
+import { finished } from 'node:stream/promises'
 
 const expect = chai.expect
 chai.use(sinonChai)

@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-import fs from 'fs'
+import fs from 'node:fs'
 import chai from 'chai'
-import path from 'path'
+import path from 'node:path'
 import { promisify } from 'util'
 import { safeLoad } from 'js-yaml'
 import sinonChai from 'sinon-chai'

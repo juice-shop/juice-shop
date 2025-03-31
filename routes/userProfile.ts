@@ -7,7 +7,7 @@ import { type Request, type Response, type NextFunction } from 'express'
 import { AllHtmlEntities as Entities } from 'html-entities'
 import config from 'config'
 import pug from 'pug'
-import fs from 'fs/promises'
+import fs from 'node:fs/promises'
 
 import * as challengeUtils from '../lib/challengeUtils'
 import { themes } from '../views/themes/themes'

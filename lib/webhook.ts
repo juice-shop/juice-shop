@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import os from 'os'
+import os from 'node:os'
 import config from 'config'
 import colors from 'colors/safe'
 
