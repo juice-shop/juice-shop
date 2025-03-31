@@ -442,20 +442,20 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   /* Verify the 2FA Token */
   app.post('/rest/2fa/verify',
-    rateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
+    rateLimit({ windowMs: 5 * 60 * 1000, max: 100, validate: false }),
     twoFactorAuth.verify
   )
   /* Check 2FA Status for the current User */
   app.get('/rest/2fa/status', security.isAuthorized(), twoFactorAuth.status)
   /* Enable 2FA for the current User */
   app.post('/rest/2fa/setup',
-    rateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
+    rateLimit({ windowMs: 5 * 60 * 1000, max: 100, validate: false }),
     security.isAuthorized(),
     twoFactorAuth.setup
   )
   /* Disable 2FA Status for the current User */
   app.post('/rest/2fa/disable',
-    rateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
+    rateLimit({ windowMs: 5 * 60 * 1000, max: 100, validate: false }),
     security.isAuthorized(),
     twoFactorAuth.disable
   )
