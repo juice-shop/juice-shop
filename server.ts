@@ -2,16 +2,16 @@
  * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
-import fs from 'node:fs'
-import path from 'node:path'
 import i18n from 'i18n'
-import http from 'http'
 import cors from 'cors'
+import fs from 'node:fs'
 import yaml from 'js-yaml'
 import config from 'config'
 import morgan from 'morgan'
 import multer from 'multer'
 import helmet from 'helmet'
+import http from 'node:http'
+import path from 'node:path'
 import express from 'express'
 import colors from 'colors/safe'
 import serveIndex from 'serve-index'
@@ -30,7 +30,7 @@ import { IpFilter } from 'express-ipfilter'
 import securityTxt from 'express-security.txt'
 import { rateLimit } from 'express-rate-limit'
 import { getStream } from 'file-stream-rotator'
-import { type Request, type Response, type NextFunction } from 'express'
+import type { Request, Response, NextFunction } from 'express'
 
 import { sequelize } from './models'
 import { UserModel } from './models/user'
