@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-import net from 'net'
 import chai from 'chai'
+import net from 'node:net'
 import semver from 'semver'
 import sinonChai from 'sinon-chai'
 import { engines as supportedEngines } from './../../package.json'
