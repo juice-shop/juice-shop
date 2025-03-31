@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-import path from 'path'
+import path from 'node:path'
 import config from 'config'
-import process from 'process'
+import process from 'node:process'
 import colors from 'colors/safe'
 // @ts-expect-error FIXME due to non-existing type definitions for yaml-schema-validator
 import validateSchema from 'yaml-schema-validator/src'

@@ -7,7 +7,7 @@ import * as frisby from 'frisby'
 import { expect } from '@jest/globals'
 import config from 'config'
 import { initializeChatbot, bot } from '../../routes/chatbot'
-import fs from 'fs/promises'
+import fs from 'node:fs/promises'
 import * as utils from '../../lib/utils'
 
 const URL = 'http://localhost:3000'

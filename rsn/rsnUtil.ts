@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'node:fs'
 import colors from 'colors/safe'
 import { diffLines, structuredPatch } from 'diff'
 

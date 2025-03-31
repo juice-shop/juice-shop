@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import path from 'path'
+import path from 'node:path'
 import { type Request, type Response, type NextFunction } from 'express'
 
 export function serveKeyFiles () {
