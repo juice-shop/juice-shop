@@ -107,16 +107,26 @@
     </button>
 
     <mat-menu #menu="matMenu" [overlapTrigger]="true">
-      <mat-radio-button (click)="changeLanguage(language.key)" *ngFor="let language of languages" [value]="language"
-                        class="mat-menu-item" style="width: 240px;" checked="{{selectedLanguage === language}}"
-                        aria-label="{{language.lang}}">
+      <div class="language-search-container" (click)="$event.stopPropagation()">
+        <mat-form-field class="language-search-field">
+          <mat-icon matPrefix class="search-icon">search</mat-icon>
+          <mat-label>{{ 'SEARCH' | translate }}</mat-label>
+          <input type="search" matInput [(ngModel)]="languageSearchQuery" (input)="filterLanguages()">
+        </mat-form-field>
+      </div>
+      <mat-radio-button 
+        (click)="changeLanguage(language.key)" 
+        *ngFor="let language of filteredLanguages" 
+        [value]="language"
+        class="mat-menu-item" 
+        style="width: 240px;" 
+        checked="{{selectedLanguage === language}}"
+        aria-label="{{language.lang}}">
         <div class="mat-body" style="display: inline-block; width: 200px; margin-left: 5px;">
           <span *ngFor="let icon of language.icons" [class]="'fi fi-' + icon"></span>
           {{language?.lang}}
         </div>
-        <i
-          [class]="'fas fa-thermometer-' + language.gauge + (language.percentage > 70 ? ' confirmation' : ' error')">
-        </i>
+        <i [class]="'fas fa-thermometer-' + language.gauge + (language.percentage > 70 ? ' confirmation' : ' error')"></i>
       </mat-radio-button>
     </mat-menu>
 
