@@ -94,6 +94,19 @@ mat-search-bar {
   width: auto; 
 }
 
+// New language search styles
+.language-search-container {
+  padding: 8px 16px;
+}
+
+.language-search-field {
+  width: 100%;
+}
+
+.search-icon {
+  color: var(--theme-text-fade-30);
+}
+
 @media screen and (max-width: 959px) {
   .buttons {
     width: 48px;
