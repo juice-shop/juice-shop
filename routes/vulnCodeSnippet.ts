@@ -5,7 +5,7 @@
 
 import { type NextFunction, type Request, type Response } from 'express'
 import yaml from 'js-yaml'
-import fs from 'fs'
+import fs from 'node:fs'
 
 import { getCodeChallenges } from '../lib/codingChallenges'
 import * as challengeUtils from '../lib/challengeUtils'

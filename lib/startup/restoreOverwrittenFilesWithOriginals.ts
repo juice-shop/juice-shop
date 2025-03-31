@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: MIT
  */
 
-import path from 'path'
+import path from 'node:path'
 import * as utils from '../utils'
 import logger from '../logger'
-import { copyFile, access } from 'fs/promises'
+import { copyFile, access } from 'node:fs/promises'
 import { glob } from 'glob'
 
 const exists = async (path: string) => await access(path).then(() => true).catch(() => false)

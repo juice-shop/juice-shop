@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 import config from 'config'
 import PDFDocument from 'pdfkit'
 import { type Request, type Response, type NextFunction } from 'express'

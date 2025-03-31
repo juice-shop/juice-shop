@@ -7,8 +7,8 @@ import { challenges } from '../../data/datacache'
 import * as utils from '../../lib/utils'
 import { expect } from '@jest/globals'
 import * as frisby from 'frisby'
-import path from 'path'
-import fs from 'fs'
+import path from 'node:path'
+import fs from 'node:fs'
 
 const URL = 'http://localhost:3000'
 

@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-import fs from 'fs'
-import crypto from 'crypto'
+import fs from 'node:fs'
+import crypto from 'node:crypto'
 import { type Request, type Response, type NextFunction } from 'express'
 import { type UserModel } from 'models/user'
 import expressJwt from 'express-jwt'
