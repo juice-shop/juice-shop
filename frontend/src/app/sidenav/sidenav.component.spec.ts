@@ -10,7 +10,7 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { RouterTestingModule } from '@angular/router/testing'
 import { of } from 'rxjs'
-import { HttpClientModule } from '@angular/common/http'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { CookieModule, CookieService } from 'ngy-cookie'
 import { LoginGuard } from '../app.guard'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -65,9 +65,7 @@ describe('SidenavComponent', () => {
     loginGuard.tokenDecode.and.returnValue({})
 
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientModule,
-        TranslateModule.forRoot(),
+    imports: [TranslateModule.forRoot(),
         BrowserAnimationsModule,
         MatToolbarModule,
         MatIconModule,
@@ -76,9 +74,8 @@ describe('SidenavComponent', () => {
         MatListModule,
         CookieModule.forRoot(),
         RouterTestingModule,
-        SidenavComponent
-      ],
-      providers: [
+        SidenavComponent],
+    providers: [
         { provide: ConfigurationService, useValue: configurationService },
         { provide: ChallengeService, useValue: challengeService },
         { provide: UserService, useValue: userService },
@@ -86,9 +83,10 @@ describe('SidenavComponent', () => {
         { provide: CookieService, useValue: cookieService },
         { provide: SocketIoService, useValue: socketIoService },
         { provide: LoginGuard, useValue: loginGuard },
-        TranslateService
-      ]
-    })
+        TranslateService,
+        provideHttpClient(withInterceptorsFromDi())
+    ]
+})
       .compileComponents()
     location = TestBed.inject(Location)
     TestBed.inject(TranslateService)
