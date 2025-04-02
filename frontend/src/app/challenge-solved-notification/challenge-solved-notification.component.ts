@@ -8,7 +8,7 @@ import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { ChangeDetectorRef, Component, NgZone, type OnInit } from '@angular/core'
 import { CookieService } from 'ngy-cookie'
-import { CountryMappingService } from 'src/app/Services/country-mapping.service'
+import { CountryMappingService } from '../Services/country-mapping.service'
 import { SocketIoService } from '../Services/socket-io.service'
 import { ClipboardModule } from 'ngx-clipboard'
 import { MatIconModule } from '@angular/material/icon'
@@ -25,6 +25,7 @@ interface ChallengeSolvedMessage {
 }
 
 interface ChallengeSolvedNotification {
+  key: string
   message: string
   flag: string
   country?: { code: string, name: string }
@@ -111,6 +112,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
       }
       this.notifications.push({
         message,
+        key: challenge.key,
         flag: challenge.flag,
         country,
         copied: false

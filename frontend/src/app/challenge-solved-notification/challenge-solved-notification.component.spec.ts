@@ -89,18 +89,18 @@ describe('ChallengeSolvedNotificationComponent', () => {
 
   it('should delete notifictions', () => {
     component.notifications = [
-      { message: 'foo', flag: '1234', copied: false },
-      { message: 'bar', flag: '5678', copied: false }
+      { key: 'foo', message: 'foo', flag: '1234', copied: false },
+      { key: 'bar', message: 'bar', flag: '5678', copied: false }
     ]
     component.closeNotification(0)
 
-    expect(component.notifications).toEqual([{ message: 'bar', flag: '5678', copied: false }])
+    expect(component.notifications).toEqual([{ key: 'bar', message: 'bar', flag: '5678', copied: false }])
   })
 
   it('should delete all notifications if the shiftKey was pressed', () => {
     component.notifications = [
-      { message: 'foo', flag: '1234', copied: false },
-      { message: 'bar', flag: '5678', copied: false }
+      { key: 'foo', message: 'foo', flag: '1234', copied: false },
+      { key: 'bar', message: 'bar', flag: '5678', copied: false }
     ]
     component.closeNotification(0, true)
 
@@ -110,11 +110,11 @@ describe('ChallengeSolvedNotificationComponent', () => {
   it('should add new notification', fakeAsync(() => {
     translateService.get.and.returnValue(of('CHALLENGE_SOLVED'))
     component.notifications = []
-    component.showNotification({ challenge: 'Test', flag: '1234' })
+    component.showNotification({ key: 'test', challenge: 'Test', flag: '1234' })
     tick()
 
     expect(translateService.get).toHaveBeenCalledWith('CHALLENGE_SOLVED', { challenge: 'Test' })
-    expect(component.notifications).toEqual([{ message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: undefined }])
+    expect(component.notifications).toEqual([{ key: 'test', message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: undefined }])
   }))
 
   it('should store retrieved continue code as cookie for 1 year', () => {
