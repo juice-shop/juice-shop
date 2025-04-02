@@ -37,7 +37,7 @@ import { LoginGuard } from '../app.guard'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatSearchBarComponent } from '../mat-search-bar/mat-search-bar.component'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 class MockSocket {
   on (str: string, callback: any) {
@@ -80,30 +80,30 @@ describe('NavbarComponent', () => {
     loginGuard.tokenDecode.and.returnValue(of(true))
 
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule.withRoutes([
-            { path: 'search', component: SearchResultComponent }
-        ]),
-        CookieModule.forRoot(),
-        TranslateModule.forRoot(),
-        BrowserAnimationsModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatButtonModule,
-        MatMenuModule,
-        MatTooltipModule,
-        MatCardModule,
-        MatInputModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatDialogModule,
-        MatDividerModule,
-        MatGridListModule,
-        MatRadioModule,
-        MatSnackBarModule,
-        NavbarComponent, SearchResultComponent, MatSearchBarComponent],
-    providers: [
+      imports: [RouterTestingModule.withRoutes([
+        { path: 'search', component: SearchResultComponent }
+      ]),
+      CookieModule.forRoot(),
+      TranslateModule.forRoot(),
+      BrowserAnimationsModule,
+      MatToolbarModule,
+      MatIconModule,
+      MatFormFieldModule,
+      MatSelectModule,
+      MatButtonModule,
+      MatMenuModule,
+      MatTooltipModule,
+      MatCardModule,
+      MatInputModule,
+      MatTableModule,
+      MatPaginatorModule,
+      MatDialogModule,
+      MatDividerModule,
+      MatGridListModule,
+      MatRadioModule,
+      MatSnackBarModule,
+      NavbarComponent, SearchResultComponent, MatSearchBarComponent],
+      providers: [
         { provide: AdministrationService, useValue: administrationService },
         { provide: ConfigurationService, useValue: configurationService },
         { provide: UserService, useValue: userService },
@@ -114,8 +114,8 @@ describe('NavbarComponent', () => {
         TranslateService,
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
 
     location = TestBed.inject(Location)

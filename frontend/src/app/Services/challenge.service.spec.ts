@@ -7,14 +7,14 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
 
 import { ChallengeService } from './challenge.service'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('ChallengeService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [],
-    providers: [ChallengeService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
-})
+      imports: [],
+      providers: [ChallengeService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+    })
   })
 
   it('should be created', inject([ChallengeService], (service: ChallengeService) => {

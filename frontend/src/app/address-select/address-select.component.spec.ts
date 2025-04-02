@@ -27,7 +27,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 import { EventEmitter } from '@angular/core'
 import { of } from 'rxjs'
 import { MatSnackBar } from '@angular/material/snack-bar'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('AddressSelectComponent', () => {
   let component: AddressSelectComponent
@@ -45,27 +45,27 @@ describe('AddressSelectComponent', () => {
     snackBar.open.and.returnValue(null)
 
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule.withRoutes([
-            { path: 'delivery-method', component: DeliveryMethodComponent }
-        ]),
-        TranslateModule.forRoot(),
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        MatCardModule,
-        MatTableModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatExpansionModule,
-        MatDividerModule,
-        MatRadioModule,
-        MatDialogModule,
-        MatIconModule,
-        MatTooltipModule,
-        MatCheckboxModule,
-        AddressSelectComponent, AddressComponent, DeliveryMethodComponent],
-    providers: [{ provide: TranslateService, useValue: translateService },
+      imports: [RouterTestingModule.withRoutes([
+        { path: 'delivery-method', component: DeliveryMethodComponent }
+      ]),
+      TranslateModule.forRoot(),
+      ReactiveFormsModule,
+      BrowserAnimationsModule,
+      MatCardModule,
+      MatTableModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatExpansionModule,
+      MatDividerModule,
+      MatRadioModule,
+      MatDialogModule,
+      MatIconModule,
+      MatTooltipModule,
+      MatCheckboxModule,
+      AddressSelectComponent, AddressComponent, DeliveryMethodComponent],
+      providers: [{ provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar }, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
-})
+    })
       .compileComponents()
   }))
 

@@ -13,7 +13,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { TrackOrderService } from '../Services/track-order.service'
 import { DomSanitizer } from '@angular/platform-browser'
 import { of } from 'rxjs'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('TrackResultComponent', () => {
   let component: TrackResultComponent
@@ -29,18 +29,18 @@ describe('TrackResultComponent', () => {
     sanitizer.sanitize.and.returnValue({})
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         RouterTestingModule,
         MatCardModule,
         MatTableModule,
         TrackResultComponent],
-    providers: [
+      providers: [
         { provide: TrackOrderService, useValue: trackOrderService },
         { provide: DomSanitizer, useValue: sanitizer },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

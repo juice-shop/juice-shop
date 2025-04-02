@@ -7,14 +7,14 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
 
 import { SecurityAnswerService } from './security-answer.service'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('SecurityAnswerService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [],
-    providers: [SecurityAnswerService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
-})
+      imports: [],
+      providers: [SecurityAnswerService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+    })
   })
 
   it('should be created', inject([SecurityAnswerService], (service: SecurityAnswerService) => {

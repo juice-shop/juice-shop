@@ -26,7 +26,7 @@ import { PaymentMethodComponent } from '../payment-method/payment-method.compone
 import { MatRadioModule } from '@angular/material/radio'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatDividerModule } from '@angular/material/divider'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('DeliveryMethodComponent', () => {
   let component: DeliveryMethodComponent
@@ -41,30 +41,30 @@ describe('DeliveryMethodComponent', () => {
     deliveryService.get.and.returnValue(of([]))
 
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule.withRoutes([
-            { path: 'payment/shop', component: PaymentComponent }
-        ]),
-        TranslateModule.forRoot(),
-        BrowserAnimationsModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatCardModule,
-        MatTableModule,
-        MatButtonModule,
-        MatButtonToggleModule,
-        MatIconModule,
-        MatTooltipModule,
-        MatRadioModule,
-        MatExpansionModule,
-        MatDividerModule,
-        DeliveryMethodComponent, PaymentComponent, PaymentMethodComponent],
-    providers: [
+      imports: [RouterTestingModule.withRoutes([
+        { path: 'payment/shop', component: PaymentComponent }
+      ]),
+      TranslateModule.forRoot(),
+      BrowserAnimationsModule,
+      ReactiveFormsModule,
+      MatInputModule,
+      MatCardModule,
+      MatTableModule,
+      MatButtonModule,
+      MatButtonToggleModule,
+      MatIconModule,
+      MatTooltipModule,
+      MatRadioModule,
+      MatExpansionModule,
+      MatDividerModule,
+      DeliveryMethodComponent, PaymentComponent, PaymentMethodComponent],
+      providers: [
         { provide: AddressService, useValue: addressService },
         { provide: DeliveryService, useValue: deliveryService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

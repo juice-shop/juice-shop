@@ -26,7 +26,7 @@ import { of, throwError } from 'rxjs'
 import { ReactiveFormsModule } from '@angular/forms'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { type Product } from '../Models/product.model'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('ProductDetailsComponent', () => {
   let component: ProductDetailsComponent
@@ -49,7 +49,7 @@ describe('ProductDetailsComponent', () => {
     dialog.open.and.returnValue(dialogRefMock)
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         ReactiveFormsModule,
         BrowserAnimationsModule,
         MatDialogModule,
@@ -63,15 +63,15 @@ describe('ProductDetailsComponent', () => {
         MatExpansionModule,
         MatSnackBarModule,
         ProductDetailsComponent],
-    providers: [
+      providers: [
         { provide: UserService, useValue: userService },
         { provide: ProductReviewService, useValue: productReviewService },
         { provide: MatDialog, useValue: dialog },
         { provide: MAT_DIALOG_DATA, useValue: { productData: {} } },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

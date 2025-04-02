@@ -14,7 +14,7 @@ import { MatCardModule } from '@angular/material/card'
 import { of } from 'rxjs'
 import { ConfigurationService } from '../Services/configuration.service'
 import { GalleryModule } from 'ng-gallery'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('AboutComponent', () => {
   let component: AboutComponent
@@ -32,18 +32,18 @@ describe('AboutComponent', () => {
     translateService.onDefaultLangChange = new EventEmitter()
 
     TestBed.configureTestingModule({
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [MatCardModule,
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [MatCardModule,
         GalleryModule,
         AboutComponent,
         TranslateModule.forRoot()],
-    providers: [
+      providers: [
         { provide: ConfigurationService, useValue: configurationService },
         { provide: TranslateService, useValue: translateService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 
