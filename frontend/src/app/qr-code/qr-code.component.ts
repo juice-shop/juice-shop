@@ -16,11 +16,10 @@ import { FlexModule } from '@angular/flex-layout/flex'
 library.add(faArrowCircleLeft)
 
 @Component({
-  selector: 'app-qr-code',
-  templateUrl: './qr-code.component.html',
-  styleUrls: ['./qr-code.component.scss'],
-  standalone: true,
-  imports: [FlexModule, MatDivider, QrCodeModule, MatButtonModule, MatDialogClose, TranslateModule]
+    selector: 'app-qr-code',
+    templateUrl: './qr-code.component.html',
+    styleUrls: ['./qr-code.component.scss'],
+    imports: [FlexModule, MatDivider, QrCodeModule, MatButtonModule, MatDialogClose, TranslateModule]
 })
 export class QrCodeComponent implements OnInit {
   public title!: string

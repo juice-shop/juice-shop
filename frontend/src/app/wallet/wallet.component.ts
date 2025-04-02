@@ -16,11 +16,10 @@ import { MatCardModule } from '@angular/material/card'
 import { MatIconModule } from '@angular/material/icon'
 
 @Component({
-  selector: 'app-wallet',
-  templateUrl: './wallet.component.html',
-  styleUrls: ['./wallet.component.scss'],
-  standalone: true,
-  imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, FormsModule, MatInputModule, ReactiveFormsModule, NgIf, MatError, MatButtonModule, MatIconModule]
+    selector: 'app-wallet',
+    templateUrl: './wallet.component.html',
+    styleUrls: ['./wallet.component.scss'],
+    imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, FormsModule, MatInputModule, ReactiveFormsModule, NgIf, MatError, MatButtonModule, MatIconModule]
 })
 export class WalletComponent implements OnInit {
   public balance: string

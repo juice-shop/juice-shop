@@ -35,11 +35,10 @@ const BeeTokenAddress = '0x36435796Ca9be2bf150CE0dECc2D8Fab5C4d6E13'
 const BeeFaucetAddress = '0x860e3616aD0E0dEDc23352891f3E10C4131EA5BC'
 
 @Component({
-  selector: 'app-faucet',
-  templateUrl: './faucet.component.html',
-  styleUrls: ['./faucet.component.scss'],
-  standalone: true,
-  imports: [MatCardModule, TranslateModule, MatButtonModule, NgIf, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, MatIconModule]
+    selector: 'app-faucet',
+    templateUrl: './faucet.component.html',
+    styleUrls: ['./faucet.component.scss'],
+    imports: [MatCardModule, TranslateModule, MatButtonModule, NgIf, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, MatIconModule]
 })
 export class FaucetComponent {
   constructor (

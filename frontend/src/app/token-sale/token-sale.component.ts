@@ -17,11 +17,10 @@ import { MatCardModule, MatCardHeader, MatCardTitle, MatCardSubtitle } from '@an
 library.add(faBitcoin, faUniversity, faGraduationCap, faCommentAlt, faComments, farCommentAlt, farComments)
 
 @Component({
-  selector: 'app-token-sale',
-  templateUrl: './token-sale.component.html',
-  styleUrls: ['./token-sale.component.scss'],
-  standalone: true,
-  imports: [MatCardModule, FlexModule, MatCardHeader, MatCardTitle, MatCardSubtitle, TranslateModule, MatButtonModule]
+    selector: 'app-token-sale',
+    templateUrl: './token-sale.component.html',
+    styleUrls: ['./token-sale.component.scss'],
+    imports: [MatCardModule, FlexModule, MatCardHeader, MatCardTitle, MatCardSubtitle, TranslateModule, MatButtonModule]
 })
 export class TokenSaleComponent implements OnInit {
   public altcoinName = 'Juicycoin'

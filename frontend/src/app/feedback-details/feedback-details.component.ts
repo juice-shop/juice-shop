@@ -11,11 +11,10 @@ import { FlexModule } from '@angular/flex-layout/flex'
 import { MatDivider } from '@angular/material/divider'
 
 @Component({
-  selector: 'app-feedback-details',
-  templateUrl: './feedback-details.component.html',
-  styleUrls: ['./feedback-details.component.scss'],
-  standalone: true,
-  imports: [MatDialogContent, MatDivider, FlexModule, MatDialogActions, MatButtonModule, MatDialogClose, TranslateModule]
+    selector: 'app-feedback-details',
+    templateUrl: './feedback-details.component.html',
+    styleUrls: ['./feedback-details.component.scss'],
+    imports: [MatDialogContent, MatDivider, FlexModule, MatDialogActions, MatButtonModule, MatDialogClose, TranslateModule]
 })
 export class FeedbackDetailsComponent implements OnInit {
   public feedback: any
