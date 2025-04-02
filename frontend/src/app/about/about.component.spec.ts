@@ -6,7 +6,7 @@
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core'
 import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 
 import { AboutComponent } from './about.component'
 import { MatCardModule } from '@angular/material/card'
@@ -14,6 +14,7 @@ import { MatCardModule } from '@angular/material/card'
 import { of } from 'rxjs'
 import { ConfigurationService } from '../Services/configuration.service'
 import { GalleryModule } from 'ng-gallery'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('AboutComponent', () => {
   let component: AboutComponent
@@ -31,19 +32,18 @@ describe('AboutComponent', () => {
     translateService.onDefaultLangChange = new EventEmitter()
 
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [
-        HttpClientTestingModule,
-        MatCardModule,
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [MatCardModule,
         GalleryModule,
         AboutComponent,
-        TranslateModule.forRoot()
-      ],
-      providers: [
+        TranslateModule.forRoot()],
+    providers: [
         { provide: ConfigurationService, useValue: configurationService },
-        { provide: TranslateService, useValue: translateService }
-      ]
-    })
+        { provide: TranslateService, useValue: translateService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+})
       .compileComponents()
   }))
 

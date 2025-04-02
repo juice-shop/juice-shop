@@ -9,7 +9,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { UserService } from '../Services/user.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { type ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { NavbarComponent } from './navbar.component'
 import { Location } from '@angular/common'
 
@@ -37,6 +37,7 @@ import { LoginGuard } from '../app.guard'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatSearchBarComponent } from '../mat-search-bar/mat-search-bar.component'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 class MockSocket {
   on (str: string, callback: any) {
@@ -79,11 +80,9 @@ describe('NavbarComponent', () => {
     loginGuard.tokenDecode.and.returnValue(of(true))
 
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule.withRoutes([
-          { path: 'search', component: SearchResultComponent }
+    imports: [RouterTestingModule.withRoutes([
+            { path: 'search', component: SearchResultComponent }
         ]),
-        HttpClientTestingModule,
         CookieModule.forRoot(),
         TranslateModule.forRoot(),
         BrowserAnimationsModule,
@@ -103,9 +102,8 @@ describe('NavbarComponent', () => {
         MatGridListModule,
         MatRadioModule,
         MatSnackBarModule,
-        NavbarComponent, SearchResultComponent, MatSearchBarComponent
-      ],
-      providers: [
+        NavbarComponent, SearchResultComponent, MatSearchBarComponent],
+    providers: [
         { provide: AdministrationService, useValue: administrationService },
         { provide: ConfigurationService, useValue: configurationService },
         { provide: UserService, useValue: userService },
@@ -113,9 +111,11 @@ describe('NavbarComponent', () => {
         { provide: CookieService, useValue: cookieService },
         { provide: SocketIoService, useValue: socketIoService },
         { provide: LoginGuard, useValue: loginGuard },
-        TranslateService
-      ]
-    })
+        TranslateService,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+})
       .compileComponents()
 
     location = TestBed.inject(Location)

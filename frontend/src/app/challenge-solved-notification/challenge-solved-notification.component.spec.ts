@@ -11,7 +11,7 @@ import { CookieModule, CookieService } from 'ngy-cookie'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { type ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing'
 import { SocketIoService } from '../Services/socket-io.service'
 
@@ -19,6 +19,7 @@ import { ChallengeSolvedNotificationComponent } from './challenge-solved-notific
 import { of, throwError } from 'rxjs'
 import { EventEmitter } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 class MockSocket {
   on (str: string, callback: any) {
@@ -55,25 +56,24 @@ describe('ChallengeSolvedNotificationComponent', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        TranslateModule.forRoot(),
+    imports: [TranslateModule.forRoot(),
         CookieModule.forRoot(),
         ClipboardModule,
         MatCardModule,
         MatButtonModule,
         MatIconModule,
-        ChallengeSolvedNotificationComponent
-      ],
-      providers: [
+        ChallengeSolvedNotificationComponent],
+    providers: [
         { provide: SocketIoService, useValue: socketIoService },
         { provide: TranslateService, useValue: translateService },
         { provide: CookieService, useValue: cookieService },
         { provide: ChallengeService, useValue: challengeService },
         { provide: ConfigurationService, useValue: configurationService },
-        CountryMappingService
-      ]
-    })
+        CountryMappingService,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+})
       .compileComponents()
   }))
 

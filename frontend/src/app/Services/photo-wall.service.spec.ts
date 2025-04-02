@@ -3,16 +3,17 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing'
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
 import { PhotoWallService } from './photo-wall.service'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('PhotoWallService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [PhotoWallService]
-    })
+    imports: [],
+    providers: [PhotoWallService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
   })
 
   it('should be created', inject([PhotoWallService], (service: PhotoWallService) => {

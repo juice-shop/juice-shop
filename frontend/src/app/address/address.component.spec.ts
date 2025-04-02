@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
@@ -27,6 +27,7 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { EventEmitter } from '@angular/core'
 import { DeliveryMethodComponent } from '../delivery-method/delivery-method.component'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('AddressComponent', () => {
   let component: AddressComponent
@@ -48,12 +49,10 @@ describe('AddressComponent', () => {
     snackBar.open.and.returnValue(null)
 
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule.withRoutes([
-          { path: 'delivery-method', component: DeliveryMethodComponent }
+    imports: [RouterTestingModule.withRoutes([
+            { path: 'delivery-method', component: DeliveryMethodComponent }
         ]),
         TranslateModule.forRoot(),
-        HttpClientTestingModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
         MatCardModule,
@@ -66,14 +65,15 @@ describe('AddressComponent', () => {
         MatDialogModule,
         MatIconModule,
         MatTooltipModule,
-        AddressComponent, AddressCreateComponent
-      ],
-      providers: [
+        AddressComponent, AddressCreateComponent],
+    providers: [
         { provide: AddressService, useValue: addressService },
         { provide: TranslateService, useValue: translateService },
-        { provide: MatSnackBar, useValue: snackBar }
-      ]
-    })
+        { provide: MatSnackBar, useValue: snackBar },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+})
       .compileComponents()
   }))
 

@@ -7,7 +7,7 @@ import { LoginComponent } from '../login/login.component'
 import { SecurityAnswerService } from '../Services/security-answer.service'
 import { UserService } from '../Services/user.service'
 import { SecurityQuestionService } from '../Services/security-question.service'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { type ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing'
 import { RegisterComponent } from './register.component'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -26,6 +26,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent
@@ -43,12 +44,10 @@ describe('RegisterComponent', () => {
     userService = jasmine.createSpyObj('UserService', ['save'])
     userService.save.and.returnValue(of({}))
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule.withRoutes([
-          { path: 'login', component: LoginComponent }
+    imports: [RouterTestingModule.withRoutes([
+            { path: 'login', component: LoginComponent }
         ]),
         TranslateModule.forRoot(),
-        HttpClientTestingModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
         MatCardModule,
@@ -62,14 +61,15 @@ describe('RegisterComponent', () => {
         MatTooltipModule,
         MatIconModule,
         MatSlideToggleModule,
-        RegisterComponent, LoginComponent
-      ],
-      providers: [
+        RegisterComponent, LoginComponent],
+    providers: [
         { provide: SecurityAnswerService, useValue: securityAnswerService },
         { provide: SecurityQuestionService, useValue: securityQuestionService },
-        { provide: UserService, useValue: userService }
-      ]
-    })
+        { provide: UserService, useValue: userService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+})
       .compileComponents()
 
     location = TestBed.inject(Location)
