@@ -51,7 +51,7 @@
     "lodash-es": "^4.17.21",
     "material-icons": "^0.3.1",
     "ng-gallery": "^11.0.0",
-    "ng-qrcode": "^16.0.0",
+    "ng-qrcode": "^19.0.1",
     "ng2-file-upload": "^5.0.0",
     "ngx-clipboard": "^15.1.0",
     "ngx-highlightjs": "^6.1.2",
