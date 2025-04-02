@@ -5,7 +5,7 @@
 
 import { SearchResultComponent } from '../search-result/search-result.component'
 import { WindowRefService } from '../Services/window-ref.service'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { UserService } from '../Services/user.service'
 import { type ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing'
 import { LoginComponent } from './login.component'
@@ -28,6 +28,7 @@ import { MatDividerModule } from '@angular/material/divider'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatTooltipModule } from '@angular/material/tooltip'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('LoginComponent', () => {
   let component: LoginComponent
@@ -42,10 +43,8 @@ describe('LoginComponent', () => {
     userService.isLoggedIn.next.and.returnValue({})
 
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        RouterTestingModule.withRoutes([
-          { path: 'search', component: SearchResultComponent }
+    imports: [RouterTestingModule.withRoutes([
+            { path: 'search', component: SearchResultComponent }
         ]),
         ReactiveFormsModule,
         CookieModule.forRoot(),
@@ -62,14 +61,15 @@ describe('LoginComponent', () => {
         MatDividerModule,
         MatGridListModule,
         MatTooltipModule,
-        LoginComponent, SearchResultComponent
-      ],
-      providers: [
+        LoginComponent, SearchResultComponent],
+    providers: [
         { provide: UserService, useValue: userService },
         WindowRefService,
-        CookieService
-      ]
-    })
+        CookieService,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+})
       .compileComponents()
 
     location = TestBed.inject(Location)
