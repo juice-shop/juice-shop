@@ -65,6 +65,7 @@
     "zone.js": "~0.14.4"
   },
   "devDependencies": {
+    "@angular-eslint/builder": "^18.4.3",
     "@angular/language-service": "^18.2.13",
     "@types/express-serve-static-core": "^4.17.9",
     "@types/file-saver": "^2.0.1",
