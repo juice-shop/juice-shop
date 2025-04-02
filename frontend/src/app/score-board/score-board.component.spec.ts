@@ -20,7 +20,7 @@ import { CodeSnippetService } from '../Services/code-snippet.service'
 import { ChallengeService } from '../Services/challenge.service'
 import { type Challenge } from '../Models/challenge.model'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 // allows to easily create a challenge with some overwrites
 function createChallenge (challengeOverwrites: Partial<Challenge>): Challenge {
@@ -60,7 +60,7 @@ describe('ScoreBoardComponent', () => {
       'getApplicationConfiguration'
     ])
     await TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         RouterTestingModule,
         MatProgressSpinnerModule,
         MatDialogModule,
@@ -74,14 +74,14 @@ describe('ScoreBoardComponent', () => {
         TutorialModeWarningComponent,
         ScoreCardComponent,
         BrowserAnimationsModule],
-    providers: [
+      providers: [
         { provide: ChallengeService, useValue: challengeService },
         { provide: CodeSnippetService, useValue: codeSnippetService },
         { provide: ConfigurationService, useValue: configService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-}).compileComponents()
+      ]
+    }).compileComponents()
 
     challengeService.find.and.returnValue(
       of([

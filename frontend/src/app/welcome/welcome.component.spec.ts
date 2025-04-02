@@ -13,7 +13,7 @@ import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { WelcomeComponent } from './welcome.component'
 import { of } from 'rxjs'
 import { ConfigurationService } from '../Services/configuration.service'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('WelcomeComponent', () => {
   let component: WelcomeComponent
@@ -29,18 +29,18 @@ describe('WelcomeComponent', () => {
     dialog.open.and.returnValue(null)
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         CookieModule.forRoot(),
         MatDialogModule,
         WelcomeComponent],
-    providers: [
+      providers: [
         { provide: ConfigurationService, useValue: configurationService },
         { provide: MatDialog, useValue: dialog },
         CookieService,
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
 
     cookieService = TestBed.inject(CookieService)

@@ -38,7 +38,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatSnackBar } from '@angular/material/snack-bar'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('PaymentComponent', () => {
   let component: PaymentComponent
@@ -80,27 +80,27 @@ describe('PaymentComponent', () => {
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule.withRoutes([
-            { path: 'order-summary', component: OrderSummaryComponent },
-            { path: 'login', component: LoginComponent },
-            { path: 'wallet', component: WalletComponent }
-        ]),
-        TranslateModule.forRoot(),
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        MatCardModule,
-        MatTableModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatExpansionModule,
-        MatDividerModule,
-        MatRadioModule,
-        MatDialogModule,
-        MatIconModule,
-        MatCheckboxModule,
-        MatTooltipModule,
-        PaymentComponent, PaymentMethodComponent, OrderSummaryComponent, PurchaseBasketComponent, LoginComponent, WalletComponent],
-    providers: [
+      imports: [RouterTestingModule.withRoutes([
+        { path: 'order-summary', component: OrderSummaryComponent },
+        { path: 'login', component: LoginComponent },
+        { path: 'wallet', component: WalletComponent }
+      ]),
+      TranslateModule.forRoot(),
+      ReactiveFormsModule,
+      BrowserAnimationsModule,
+      MatCardModule,
+      MatTableModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatExpansionModule,
+      MatDividerModule,
+      MatRadioModule,
+      MatDialogModule,
+      MatIconModule,
+      MatCheckboxModule,
+      MatTooltipModule,
+      PaymentComponent, PaymentMethodComponent, OrderSummaryComponent, PurchaseBasketComponent, LoginComponent, WalletComponent],
+      providers: [
         { provide: BasketService, useValue: basketService },
         { provide: MatDialog, useValue: dialog },
         { provide: TranslateService, useValue: translateService },
@@ -112,8 +112,8 @@ describe('PaymentComponent', () => {
         { provide: MatSnackBar, useValue: snackBar },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
     TestBed.inject(Location)
   }))

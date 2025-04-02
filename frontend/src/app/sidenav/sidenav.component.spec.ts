@@ -65,7 +65,7 @@ describe('SidenavComponent', () => {
     loginGuard.tokenDecode.and.returnValue({})
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         BrowserAnimationsModule,
         MatToolbarModule,
         MatIconModule,
@@ -75,7 +75,7 @@ describe('SidenavComponent', () => {
         CookieModule.forRoot(),
         RouterTestingModule,
         SidenavComponent],
-    providers: [
+      providers: [
         { provide: ConfigurationService, useValue: configurationService },
         { provide: ChallengeService, useValue: challengeService },
         { provide: UserService, useValue: userService },
@@ -85,8 +85,8 @@ describe('SidenavComponent', () => {
         { provide: LoginGuard, useValue: loginGuard },
         TranslateService,
         provideHttpClient(withInterceptorsFromDi())
-    ]
-})
+      ]
+    })
       .compileComponents()
     location = TestBed.inject(Location)
     TestBed.inject(TranslateService)

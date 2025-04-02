@@ -7,13 +7,13 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
 
 import { LanguagesService } from './languages.service'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('LanguagesService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [],
     providers: [LanguagesService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
-}))
+  }))
 
   it('should be created', () => {
     const service: LanguagesService = TestBed.inject(LanguagesService)

@@ -22,7 +22,7 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 import { of, throwError } from 'rxjs'
 import { UserService } from '../Services/user.service'
 import { CookieModule } from 'ngy-cookie'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('OAuthComponent', () => {
   let component: OAuthComponent
@@ -38,26 +38,26 @@ describe('OAuthComponent', () => {
     userService.isLoggedIn.next.and.returnValue({})
 
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule.withRoutes([
-            { path: 'login', component: LoginComponent }
-        ]),
-        ReactiveFormsModule,
-        CookieModule.forRoot(),
-        TranslateModule.forRoot(),
-        MatInputModule,
-        MatIconModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatCheckboxModule,
-        MatTooltipModule,
-        OAuthComponent, LoginComponent],
-    providers: [
+      imports: [RouterTestingModule.withRoutes([
+        { path: 'login', component: LoginComponent }
+      ]),
+      ReactiveFormsModule,
+      CookieModule.forRoot(),
+      TranslateModule.forRoot(),
+      MatInputModule,
+      MatIconModule,
+      MatCardModule,
+      MatFormFieldModule,
+      MatCheckboxModule,
+      MatTooltipModule,
+      OAuthComponent, LoginComponent],
+      providers: [
         { provide: ActivatedRoute, useValue: { snapshot: { data: { params: '?alt=json&access_token=TEST' } } } },
         { provide: UserService, useValue: userService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

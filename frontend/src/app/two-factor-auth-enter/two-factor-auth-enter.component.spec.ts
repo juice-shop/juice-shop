@@ -34,7 +34,7 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 
 import { of } from 'rxjs'
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('TwoFactorAuthEnterComponent', () => {
   let component: TwoFactorAuthEnterComponent
@@ -52,28 +52,28 @@ describe('TwoFactorAuthEnterComponent', () => {
     twoFactorAuthService.verify.and.returnValue(of({ }))
 
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule.withRoutes([
-            { path: 'search', component: SearchResultComponent }
-        ]),
-        ReactiveFormsModule,
-        CookieModule.forRoot(),
-        TranslateModule.forRoot(),
-        BrowserAnimationsModule,
-        MatCheckboxModule,
-        MatFormFieldModule,
-        MatCardModule,
-        MatIconModule,
-        MatInputModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatDialogModule,
-        MatDividerModule,
-        MatButtonModule,
-        MatGridListModule,
-        MatSnackBarModule,
-        MatTooltipModule,
-        TwoFactorAuthEnterComponent, SearchResultComponent],
-    providers: [
+      imports: [RouterTestingModule.withRoutes([
+        { path: 'search', component: SearchResultComponent }
+      ]),
+      ReactiveFormsModule,
+      CookieModule.forRoot(),
+      TranslateModule.forRoot(),
+      BrowserAnimationsModule,
+      MatCheckboxModule,
+      MatFormFieldModule,
+      MatCardModule,
+      MatIconModule,
+      MatInputModule,
+      MatTableModule,
+      MatPaginatorModule,
+      MatDialogModule,
+      MatDividerModule,
+      MatButtonModule,
+      MatGridListModule,
+      MatSnackBarModule,
+      MatTooltipModule,
+      TwoFactorAuthEnterComponent, SearchResultComponent],
+      providers: [
         { provide: UserService, useValue: userService },
         { provide: TwoFactorAuthService, useValue: twoFactorAuthService },
         CookieService,
@@ -81,8 +81,8 @@ describe('TwoFactorAuthEnterComponent', () => {
         CookieService,
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
     cookieService = TestBed.inject(CookieService)
   }))

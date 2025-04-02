@@ -12,7 +12,7 @@ import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/test
 
 import { UserDetailsComponent } from './user-details.component'
 import { of, throwError } from 'rxjs'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('UserDetailsComponent', () => {
   let component: UserDetailsComponent
@@ -24,18 +24,18 @@ describe('UserDetailsComponent', () => {
     userService.get.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         MatDividerModule,
         MatDialogModule,
         UserDetailsComponent],
-    providers: [
+      providers: [
         { provide: UserService, useValue: userService },
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: { dialogData: {} } },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

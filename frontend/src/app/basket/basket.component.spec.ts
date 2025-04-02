@@ -22,7 +22,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { PurchaseBasketComponent } from '../purchase-basket/purchase-basket.component'
 import { DeluxeGuard } from '../app.guard'
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('BasketComponent', () => {
   let component: BasketComponent
@@ -32,7 +32,7 @@ describe('BasketComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule,
+      imports: [RouterTestingModule,
         TranslateModule.forRoot(),
         BrowserAnimationsModule,
         ReactiveFormsModule,
@@ -46,13 +46,13 @@ describe('BasketComponent', () => {
         MatButtonToggleModule,
         MatSnackBarModule,
         BasketComponent, PurchaseBasketComponent],
-    providers: [
+      providers: [
         { provide: DeluxeGuard, useValue: deluxeGuard },
         { provide: MatSnackBar, useValue: snackBar },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

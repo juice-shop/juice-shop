@@ -23,7 +23,7 @@ import { BasketService } from '../Services/basket.service'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { AddressService } from '../Services/address.service'
 import { ConfigurationService } from '../Services/configuration.service'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 export class MockActivatedRoute {
   public paramMap = of(convertToParamMap({
@@ -50,7 +50,7 @@ describe('OrderCompletionComponent', () => {
     addressService.getById.and.returnValue(of([]))
 
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule,
+      imports: [RouterTestingModule,
         TranslateModule.forRoot(),
         BrowserAnimationsModule,
         MatTableModule,
@@ -62,7 +62,7 @@ describe('OrderCompletionComponent', () => {
         MatIconModule,
         MatTooltipModule,
         OrderCompletionComponent],
-    providers: [
+      providers: [
         { provide: TrackOrderService, useValue: trackOrderService },
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: BasketService, useValue: basketService },
@@ -70,8 +70,8 @@ describe('OrderCompletionComponent', () => {
         { provide: AddressService, useValue: addressService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

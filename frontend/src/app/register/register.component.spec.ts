@@ -26,7 +26,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent
@@ -44,32 +44,32 @@ describe('RegisterComponent', () => {
     userService = jasmine.createSpyObj('UserService', ['save'])
     userService.save.and.returnValue(of({}))
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule.withRoutes([
-            { path: 'login', component: LoginComponent }
-        ]),
-        TranslateModule.forRoot(),
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatCheckboxModule,
-        MatInputModule,
-        MatSelectModule,
-        MatButtonModule,
-        MatIconModule,
-        MatSnackBarModule,
-        MatTooltipModule,
-        MatIconModule,
-        MatSlideToggleModule,
-        RegisterComponent, LoginComponent],
-    providers: [
+      imports: [RouterTestingModule.withRoutes([
+        { path: 'login', component: LoginComponent }
+      ]),
+      TranslateModule.forRoot(),
+      ReactiveFormsModule,
+      BrowserAnimationsModule,
+      MatCardModule,
+      MatFormFieldModule,
+      MatCheckboxModule,
+      MatInputModule,
+      MatSelectModule,
+      MatButtonModule,
+      MatIconModule,
+      MatSnackBarModule,
+      MatTooltipModule,
+      MatIconModule,
+      MatSlideToggleModule,
+      RegisterComponent, LoginComponent],
+      providers: [
         { provide: SecurityAnswerService, useValue: securityAnswerService },
         { provide: SecurityQuestionService, useValue: securityQuestionService },
         { provide: UserService, useValue: userService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
 
     location = TestBed.inject(Location)

@@ -16,7 +16,7 @@ import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatCardModule } from '@angular/material/card'
 import { of, throwError } from 'rxjs'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('ChangePasswordComponent', () => {
   let component: ChangePasswordComponent
@@ -28,7 +28,7 @@ describe('ChangePasswordComponent', () => {
     userService.changePassword.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         ReactiveFormsModule,
         BrowserAnimationsModule,
         MatCardModule,
@@ -36,8 +36,8 @@ describe('ChangePasswordComponent', () => {
         MatInputModule,
         MatButtonModule,
         ChangePasswordComponent],
-    providers: [{ provide: UserService, useValue: userService }, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
-})
+      providers: [{ provide: UserService, useValue: userService }, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+    })
       .compileComponents()
   }))
 

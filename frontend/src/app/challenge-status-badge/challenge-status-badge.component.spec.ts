@@ -16,7 +16,7 @@ import { EventEmitter } from '@angular/core'
 import { type Challenge } from '../Models/challenge.model'
 import { MatButtonModule } from '@angular/material/button'
 import { MatTooltipModule } from '@angular/material/tooltip'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('ChallengeStatusBadgeComponent', () => {
   let challengeService: any
@@ -35,19 +35,19 @@ describe('ChallengeStatusBadgeComponent', () => {
     translateService.onDefaultLangChange = new EventEmitter()
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         MatButtonModule,
         MatTooltipModule,
         MatIconModule,
         ChallengeStatusBadgeComponent],
-    providers: [
+      providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: ChallengeService, useValue: challengeService },
         WindowRefService,
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
 
     windowRefService = TestBed.inject(WindowRefService)

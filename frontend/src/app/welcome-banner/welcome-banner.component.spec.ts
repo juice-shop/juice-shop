@@ -15,7 +15,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { of, throwError } from 'rxjs'
 import { ConfigurationService } from '../Services/configuration.service'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('WelcomeBannerComponent', () => {
   let component: WelcomeBannerComponent
@@ -29,19 +29,19 @@ describe('WelcomeBannerComponent', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { } }))
     matDialogRef = jasmine.createSpyObj('MatDialogRef', ['close'])
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         CookieModule.forRoot(),
         MatIconModule,
         MatTooltipModule,
         WelcomeBannerComponent],
-    providers: [
+      providers: [
         { provide: MatDialogRef, useValue: matDialogRef },
         { provide: ConfigurationService, useValue: configurationService },
         CookieService,
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
 
     cookieService = TestBed.inject(CookieService)

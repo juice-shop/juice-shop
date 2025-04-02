@@ -29,7 +29,7 @@ import { SocketIoService } from '../Services/socket-io.service'
 import { type Product } from '../Models/product.model'
 import { QuantityService } from '../Services/quantity.service'
 import { DeluxeGuard } from '../app.guard'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 class MockSocket {
   on (str: string, callback: any) {
@@ -95,7 +95,7 @@ describe('SearchResultComponent', () => {
     deluxeGuard.isDeluxe.and.returnValue(of(false))
 
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule,
+      imports: [RouterTestingModule,
         TranslateModule.forRoot(),
         BrowserAnimationsModule,
         MatTableModule,
@@ -105,7 +105,7 @@ describe('SearchResultComponent', () => {
         MatGridListModule,
         MatCardModule,
         SearchResultComponent],
-    providers: [
+      providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: MatDialog, useValue: dialog },
         { provide: MatSnackBar, useValue: snackBar },
@@ -118,8 +118,8 @@ describe('SearchResultComponent', () => {
         { provide: DeluxeGuard, useValue: deluxeGuard },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 
