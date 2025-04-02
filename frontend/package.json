@@ -52,7 +52,7 @@
     "material-icons": "^0.3.1",
     "ng-gallery": "^11.0.0",
     "ng-qrcode": "^18.0.0",
-    "ng2-file-upload": "^8.0.0",
+    "ng2-file-upload": "^7.0.1",
     "ngx-clipboard": "^15.1.0",
     "ngx-highlightjs": "^6.1.2",
     "ngx-window-token": "^6.0.0",
