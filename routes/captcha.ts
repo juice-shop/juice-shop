@@ -6,6 +6,16 @@
 import { type Request, type Response, type NextFunction } from 'express'
 import { type Captcha } from '../data/types'
 import { CaptchaModel } from '../models/captcha'
+import { evaluate } from 'mathjs';
+
+function parseMathExpression(expression: string): string {
+  try {
+    return evaluate(expression).toString();
+  } catch (error) {
+    console.error('Evaluting with error:', error);
+    return '0';
+  }
+}
 
 function captchas () {
   return async (req: Request, res: Response) => {
@@ -20,7 +30,7 @@ function captchas () {
     const secondOperator = operators[Math.floor((Math.random() * 3))]
 
     const expression = firstTerm.toString() + firstOperator + secondTerm.toString() + secondOperator + thirdTerm.toString()
-    const answer = eval(expression).toString() // eslint-disable-line no-eval
+    const answer = parseMathExpression(expression)
 
     const captcha = {
       captchaId,

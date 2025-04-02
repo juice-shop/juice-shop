@@ -157,7 +157,7 @@ async function setUserName (user: User, req: Request, res: Response) {
 
 export const status = function status () {
   return async (req: Request, res: Response, next: NextFunction) => {
-    if (bot == null) {
+    if (bot === null) {
       res.status(200).json({
         status: false,
         body: `${config.get<string>('application.chatBot.name')} isn't ready at the moment, please wait while I set things up`
