@@ -6,14 +6,14 @@
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing'
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
 import { OrderHistoryService } from './order-history.service'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('OrderHistoryService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [],
-    providers: [OrderHistoryService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
-})
+      imports: [],
+      providers: [OrderHistoryService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+    })
   })
 
   it('should be created', inject([OrderHistoryService], (service: OrderHistoryService) => {

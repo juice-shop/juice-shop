@@ -23,7 +23,7 @@ import { OrderHistoryService } from '../Services/order-history.service'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('AccountingComponent', () => {
   let component: AccountingComponent
@@ -48,7 +48,7 @@ describe('AccountingComponent', () => {
     snackBar.open.and.returnValue(null)
 
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule,
+      imports: [RouterTestingModule,
         TranslateModule.forRoot(),
         BrowserAnimationsModule,
         MatTableModule,
@@ -61,15 +61,15 @@ describe('AccountingComponent', () => {
         MatTooltipModule,
         MatSnackBarModule,
         AccountingComponent],
-    providers: [
+      providers: [
         { provide: ProductService, useValue: productService },
         { provide: QuantityService, useValue: quantityService },
         { provide: OrderHistoryService, useValue: orderHistoryService },
         { provide: MatSnackBar, useValue: snackBar },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

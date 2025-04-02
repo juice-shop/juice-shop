@@ -19,7 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FeedbackService } from '../Services/feedback.service'
 import { MatSliderModule } from '@angular/material/slider'
 import { of, throwError } from 'rxjs'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('ContactComponent', () => {
   let component: ContactComponent
@@ -45,7 +45,7 @@ describe('ContactComponent', () => {
     captchaService.getCaptcha.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         ReactiveFormsModule,
         MatSliderModule,
         BrowserAnimationsModule,
@@ -54,7 +54,7 @@ describe('ContactComponent', () => {
         MatInputModule,
         MatSnackBarModule,
         ContactComponent],
-    providers: [
+      providers: [
         { provide: UserService, useValue: userService },
         { provide: MatSnackBar, useValue: snackBar },
         { provide: FeedbackService, useValue: feedbackService },
@@ -62,8 +62,8 @@ describe('ContactComponent', () => {
         { provide: TranslateService, useValue: translateService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

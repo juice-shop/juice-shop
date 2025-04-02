@@ -13,7 +13,7 @@ import { MatDividerModule } from '@angular/material/divider'
 
 import { PrivacyPolicyComponent } from './privacy-policy.component'
 import { of } from 'rxjs'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('PrivacyPolicyComponent', () => {
   let component: PrivacyPolicyComponent
@@ -31,17 +31,17 @@ describe('PrivacyPolicyComponent', () => {
     translateService.onDefaultLangChange = new EventEmitter()
 
     TestBed.configureTestingModule({
-    imports: [MatCardModule,
+      imports: [MatCardModule,
         MatDividerModule,
         PrivacyPolicyComponent,
         TranslateModule.forRoot()],
-    providers: [
+      providers: [
         { provide: ConfigurationService, useValue: configurationService },
         { provide: TranslateService, useValue: translateService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-}).compileComponents()
+      ]
+    }).compileComponents()
   }))
 
   beforeEach(() => {

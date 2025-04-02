@@ -7,14 +7,14 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
 
 import { FeedbackService } from './feedback.service'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('FeedbackService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [],
-    providers: [FeedbackService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
-})
+      imports: [],
+      providers: [FeedbackService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+    })
   })
 
   it('should be created', inject([FeedbackService], (service: FeedbackService) => {

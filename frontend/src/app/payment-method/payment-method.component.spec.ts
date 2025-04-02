@@ -22,7 +22,7 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { PaymentMethodComponent } from './payment-method.component'
 import { EventEmitter } from '@angular/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('PaymentMethodComponent', () => {
   let component: PaymentMethodComponent
@@ -44,7 +44,7 @@ describe('PaymentMethodComponent', () => {
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         ReactiveFormsModule,
         BrowserAnimationsModule,
         MatCardModule,
@@ -56,14 +56,14 @@ describe('PaymentMethodComponent', () => {
         MatRadioModule,
         MatDialogModule,
         PaymentMethodComponent],
-    providers: [
+      providers: [
         { provide: PaymentService, useValue: paymentService },
         { provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

@@ -19,7 +19,7 @@ import { of } from 'rxjs'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { EventEmitter } from '@angular/core'
 import { CookieModule } from 'ngy-cookie'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 enum MessageSources {
   user = 'user',
@@ -49,7 +49,7 @@ describe('ComplaintComponent', () => {
     translateService.onDefaultLangChange = new EventEmitter()
 
     TestBed.configureTestingModule({
-    imports: [ReactiveFormsModule,
+      imports: [ReactiveFormsModule,
         CookieModule.forRoot(),
         TranslateModule.forRoot(),
         BrowserAnimationsModule,
@@ -58,13 +58,13 @@ describe('ComplaintComponent', () => {
         MatInputModule,
         MatButtonModule,
         ChatbotComponent],
-    providers: [
+      providers: [
         { provide: ChatbotService, useValue: chatbotService },
         { provide: TranslateService, useValue: translateService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

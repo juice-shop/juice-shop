@@ -11,7 +11,7 @@ import { MatDividerModule } from '@angular/material/divider'
 import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { FeedbackDetailsComponent } from './feedback-details.component'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('FeedbackDetailsComponent', () => {
   let component: FeedbackDetailsComponent
@@ -19,18 +19,18 @@ describe('FeedbackDetailsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         MatDividerModule,
         MatDialogModule,
         FeedbackDetailsComponent],
-    providers: [
+      providers: [
         UserService,
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: { productData: {} } },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

@@ -6,14 +6,14 @@
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing'
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
 import { WalletService } from './wallet.service'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('WalletService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [],
-    providers: [WalletService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
-})
+      imports: [],
+      providers: [WalletService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+    })
   })
 
   it('should be created', inject([WalletService], (service: WalletService) => {

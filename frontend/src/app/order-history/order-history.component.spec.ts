@@ -25,7 +25,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { MatExpansionModule } from '@angular/material/expansion'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('AccountingComponent', () => {
   let component: OrderHistoryComponent
@@ -43,7 +43,7 @@ describe('AccountingComponent', () => {
     orderHistoryService.get.and.returnValue(of([]))
 
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule,
+      imports: [RouterTestingModule,
         TranslateModule.forRoot(),
         BrowserAnimationsModule,
         MatTableModule,
@@ -57,14 +57,14 @@ describe('AccountingComponent', () => {
         MatDialogModule,
         MatExpansionModule,
         OrderHistoryComponent],
-    providers: [
+      providers: [
         { provide: ProductService, useValue: productService },
         { provide: OrderHistoryService, useValue: orderHistoryService },
         { provide: MatDialog, useValue: dialog },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

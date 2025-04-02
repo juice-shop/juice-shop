@@ -20,7 +20,7 @@ import { MatGridListModule } from '@angular/material/grid-list'
 import { EventEmitter } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('AddressCreateComponent', () => {
   let component: AddressCreateComponent
@@ -43,7 +43,7 @@ describe('AddressCreateComponent', () => {
     snackBar.open.and.returnValue(null)
 
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule,
+      imports: [RouterTestingModule,
         TranslateModule.forRoot(),
         ReactiveFormsModule,
         BrowserAnimationsModule,
@@ -54,14 +54,14 @@ describe('AddressCreateComponent', () => {
         MatIconModule,
         MatSnackBarModule,
         AddressCreateComponent],
-    providers: [
+      providers: [
         { provide: AddressService, useValue: addressService },
         { provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 
