@@ -40,7 +40,6 @@
     "canvas-confetti": "^1.4.0",
     "codemirror": "^5.65.14",
     "codemirror-solidity": "^0.2.5",
-    "core-js": "^3.22.5",
     "ethers": "^5.7.2",
     "file-saver": "^2.0.2",
     "flag-icons": "^6.9.2",
