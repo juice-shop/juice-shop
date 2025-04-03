@@ -8,16 +8,16 @@ import { AccountingGuard, AdminGuard, DeluxeGuard, LoginGuard } from './app.guar
 import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { ErrorPageComponent } from './error-page/error-page.component'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('LoginGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule.withRoutes([
-            { path: '403', component: ErrorPageComponent }
-        ])],
-    providers: [LoginGuard, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
-})
+      imports: [RouterTestingModule.withRoutes([
+        { path: '403', component: ErrorPageComponent }
+      ])],
+      providers: [LoginGuard, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+    })
   })
 
   it('should be created', inject([LoginGuard], (guard: LoginGuard) => {
@@ -61,16 +61,16 @@ describe('AdminGuard', () => {
     loginGuard = jasmine.createSpyObj('LoginGuard', ['tokenDecode', 'forbidRoute'])
 
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule.withRoutes([
-            { path: '403', component: ErrorPageComponent }
-        ])],
-    providers: [
+      imports: [RouterTestingModule.withRoutes([
+        { path: '403', component: ErrorPageComponent }
+      ])],
+      providers: [
         AdminGuard,
         { provide: LoginGuard, useValue: loginGuard },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
   })
 
   it('should be created', inject([AdminGuard], (guard: AdminGuard) => {
@@ -108,16 +108,16 @@ describe('AccountingGuard', () => {
     loginGuard = jasmine.createSpyObj('LoginGuard', ['tokenDecode', 'forbidRoute'])
 
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule.withRoutes([
-            { path: '403', component: ErrorPageComponent }
-        ])],
-    providers: [
+      imports: [RouterTestingModule.withRoutes([
+        { path: '403', component: ErrorPageComponent }
+      ])],
+      providers: [
         AccountingGuard,
         { provide: LoginGuard, useValue: loginGuard },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
   })
 
   it('should be created', inject([AccountingGuard], (guard: AccountingGuard) => {
@@ -155,16 +155,16 @@ describe('DeluxeGuard', () => {
     loginGuard = jasmine.createSpyObj('LoginGuard', ['tokenDecode'])
 
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule.withRoutes([
-            { path: '403', component: ErrorPageComponent }
-        ])],
-    providers: [
+      imports: [RouterTestingModule.withRoutes([
+        { path: '403', component: ErrorPageComponent }
+      ])],
+      providers: [
         DeluxeGuard,
         { provide: LoginGuard, useValue: loginGuard },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
   })
 
   it('should be created', inject([DeluxeGuard], (guard: DeluxeGuard) => {

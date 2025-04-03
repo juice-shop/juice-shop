@@ -7,13 +7,13 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
 
 import { TwoFactorAuthService } from './two-factor-auth-service'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('TwoFactorAuthServiceService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [],
     providers: [TwoFactorAuthService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
-}))
+  }))
 
   it('should be created', inject([TwoFactorAuthService], (service: TwoFactorAuthService) => {
     expect(service).toBeTruthy()

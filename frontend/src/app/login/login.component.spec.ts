@@ -28,7 +28,7 @@ import { MatDividerModule } from '@angular/material/divider'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatTooltipModule } from '@angular/material/tooltip'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('LoginComponent', () => {
   let component: LoginComponent
@@ -43,33 +43,33 @@ describe('LoginComponent', () => {
     userService.isLoggedIn.next.and.returnValue({})
 
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule.withRoutes([
-            { path: 'search', component: SearchResultComponent }
-        ]),
-        ReactiveFormsModule,
-        CookieModule.forRoot(),
-        TranslateModule.forRoot(),
-        BrowserAnimationsModule,
-        MatCheckboxModule,
-        MatFormFieldModule,
-        MatCardModule,
-        MatIconModule,
-        MatInputModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatDialogModule,
-        MatDividerModule,
-        MatGridListModule,
-        MatTooltipModule,
-        LoginComponent, SearchResultComponent],
-    providers: [
+      imports: [RouterTestingModule.withRoutes([
+        { path: 'search', component: SearchResultComponent }
+      ]),
+      ReactiveFormsModule,
+      CookieModule.forRoot(),
+      TranslateModule.forRoot(),
+      BrowserAnimationsModule,
+      MatCheckboxModule,
+      MatFormFieldModule,
+      MatCardModule,
+      MatIconModule,
+      MatInputModule,
+      MatTableModule,
+      MatPaginatorModule,
+      MatDialogModule,
+      MatDividerModule,
+      MatGridListModule,
+      MatTooltipModule,
+      LoginComponent, SearchResultComponent],
+      providers: [
         { provide: UserService, useValue: userService },
         WindowRefService,
         CookieService,
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
 
     location = TestBed.inject(Location)

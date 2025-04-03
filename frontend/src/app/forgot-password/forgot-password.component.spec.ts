@@ -20,7 +20,7 @@ import { of, throwError } from 'rxjs'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatIconModule } from '@angular/material/icon'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('ForgotPasswordComponent', () => {
   let component: ForgotPasswordComponent
@@ -35,7 +35,7 @@ describe('ForgotPasswordComponent', () => {
     userService.resetPassword.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         ReactiveFormsModule,
         BrowserAnimationsModule,
         MatCardModule,
@@ -46,13 +46,13 @@ describe('ForgotPasswordComponent', () => {
         MatIconModule,
         MatSlideToggleModule,
         ForgotPasswordComponent],
-    providers: [
+      providers: [
         { provide: SecurityQuestionService, useValue: securityQuestionService },
         { provide: UserService, useValue: userService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

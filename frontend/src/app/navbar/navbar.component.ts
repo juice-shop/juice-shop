@@ -57,10 +57,10 @@ import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar'
 library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faGithub, faComments, faThermometerEmpty, faThermometerQuarter, faThermometerHalf, faThermometerThreeQuarters, faThermometerFull)
 
 @Component({
-    selector: 'app-navbar',
-    templateUrl: './navbar.component.html',
-    styleUrls: ['./navbar.component.scss'],
-    imports: [MatToolbar, FlexModule, MatToolbarRow, MatButtonModule, MatTooltip, MatIconModule, RouterLink, ExtendedModule, MatSearchBarComponent, MatMenuTrigger, MatMenu, NgIf, MatMenuItem, NgFor, MatRadioButton, TranslateModule, MatDivider]
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.scss'],
+  imports: [MatToolbar, FlexModule, MatToolbarRow, MatButtonModule, MatTooltip, MatIconModule, RouterLink, ExtendedModule, MatSearchBarComponent, MatMenuTrigger, MatMenu, NgIf, MatMenuItem, NgFor, MatRadioButton, TranslateModule, MatDivider]
 })
 export class NavbarComponent implements OnInit {
   public userEmail: string = ''

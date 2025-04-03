@@ -18,7 +18,7 @@ import { CodeFixesService } from '../Services/code-fixes.service'
 import { VulnLinesService } from '../Services/vuln-lines.service'
 import { ChallengeService } from '../Services/challenge.service'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('CodeSnippetComponent', () => {
   let component: CodeSnippetComponent
@@ -44,13 +44,13 @@ describe('CodeSnippetComponent', () => {
     challengeService.continueCodeFixIt.and.returnValue(of('continueCodeFixIt'))
 
     TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule,
+      imports: [NoopAnimationsModule,
         CookieModule.forRoot(),
         TranslateModule.forRoot(),
         MatDividerModule,
         MatDialogModule,
         CodeSnippetComponent],
-    providers: [
+      providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: { dialogData: {} } },
         { provide: ConfigurationService, useValue: configurationService },
@@ -61,8 +61,8 @@ describe('CodeSnippetComponent', () => {
         { provide: ChallengeService, useValue: challengeService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

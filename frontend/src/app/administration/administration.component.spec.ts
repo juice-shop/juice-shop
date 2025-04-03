@@ -21,7 +21,7 @@ import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatCardModule } from '@angular/material/card'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatIconModule } from '@angular/material/icon'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('AdministrationComponent', () => {
   let component: AdministrationComponent
@@ -40,7 +40,7 @@ describe('AdministrationComponent', () => {
     feedbackService.del.and.returnValue(of(null))
 
     TestBed.configureTestingModule({
-    imports: [MatTableModule,
+      imports: [MatTableModule,
         TranslateModule.forRoot(),
         MatDialogModule,
         MatPaginatorModule,
@@ -48,14 +48,14 @@ describe('AdministrationComponent', () => {
         MatCardModule,
         MatIconModule,
         AdministrationComponent],
-    providers: [
+      providers: [
         { provide: MatDialog, useValue: dialog },
         { provide: UserService, useValue: userService },
         { provide: FeedbackService, useValue: feedbackService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

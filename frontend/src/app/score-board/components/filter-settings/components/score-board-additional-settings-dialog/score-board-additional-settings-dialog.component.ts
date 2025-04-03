@@ -6,10 +6,10 @@ import { TranslateModule } from '@ngx-translate/core'
 import { MatDialogContent, MatDialogTitle, MatDialogActions, MatDialogClose } from '@angular/material/dialog'
 
 @Component({
-    selector: 'score-board-additional-settings-dialog',
-    templateUrl: './score-board-additional-settings-dialog.component.html',
-    styleUrls: ['./score-board-additional-settings-dialog.component.scss'],
-    imports: [MatDialogContent, MatDialogTitle, TranslateModule, MatButtonModule, MatIconModule, MatDialogActions, MatDialogClose]
+  selector: 'score-board-additional-settings-dialog',
+  templateUrl: './score-board-additional-settings-dialog.component.html',
+  styleUrls: ['./score-board-additional-settings-dialog.component.scss'],
+  imports: [MatDialogContent, MatDialogTitle, TranslateModule, MatButtonModule, MatIconModule, MatDialogActions, MatDialogClose]
 })
 export class ScoreBoardAdditionalSettingsDialogComponent {
   constructor (

@@ -24,10 +24,10 @@ import { MatNavList, MatListSubheaderCssMatStyler, MatListItem } from '@angular/
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar'
 
 @Component({
-    selector: 'sidenav',
-    templateUrl: './sidenav.component.html',
-    styleUrls: ['./sidenav.component.scss'],
-    imports: [MatToolbar, MatToolbarRow, MatNavList, MatButtonModule, MatListSubheaderCssMatStyler, TranslateModule, ExtendedModule, NgIf, MatListItem, RouterLink, MatIconModule, NgClass, MatDivider]
+  selector: 'sidenav',
+  templateUrl: './sidenav.component.html',
+  styleUrls: ['./sidenav.component.scss'],
+  imports: [MatToolbar, MatToolbarRow, MatNavList, MatButtonModule, MatListSubheaderCssMatStyler, TranslateModule, ExtendedModule, NgIf, MatListItem, RouterLink, MatIconModule, NgClass, MatDivider]
 })
 export class SidenavComponent implements OnInit {
   public applicationName = 'OWASP Juice Shop'

@@ -21,7 +21,7 @@ import { UserService } from '../Services/user.service'
 import { DeluxeGuard } from '../app.guard'
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 import { EventEmitter } from '@angular/core'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('PurchaseBasketComponent', () => {
   let component: PurchaseBasketComponent
@@ -51,7 +51,7 @@ describe('PurchaseBasketComponent', () => {
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         BrowserAnimationsModule,
         ReactiveFormsModule,
         MatInputModule,
@@ -61,7 +61,7 @@ describe('PurchaseBasketComponent', () => {
         MatButtonToggleModule,
         MatSnackBarModule,
         PurchaseBasketComponent],
-    providers: [
+      providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: BasketService, useValue: basketService },
         { provide: MatSnackBar, useValue: snackBar },
@@ -69,8 +69,8 @@ describe('PurchaseBasketComponent', () => {
         { provide: DeluxeGuard, useValue: deluxeGuard },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

@@ -19,7 +19,7 @@ import { WalletComponent } from './wallet.component'
 import { WalletService } from '../Services/wallet.service'
 import { EventEmitter } from '@angular/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('WalletComponent', () => {
   let component: WalletComponent
@@ -40,7 +40,7 @@ describe('WalletComponent', () => {
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule,
+      imports: [RouterTestingModule,
         TranslateModule.forRoot(),
         ReactiveFormsModule,
         BrowserAnimationsModule,
@@ -49,14 +49,14 @@ describe('WalletComponent', () => {
         MatInputModule,
         MatGridListModule,
         WalletComponent],
-    providers: [
+      providers: [
         { provide: WalletService, useValue: walletService },
         { provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

@@ -2,10 +2,10 @@ import { Component, Input } from '@angular/core'
 import { NgIf, DecimalPipe } from '@angular/common'
 
 @Component({
-    selector: 'score-card',
-    templateUrl: './score-card.component.html',
-    styleUrls: ['./score-card.component.scss'],
-    imports: [NgIf, DecimalPipe]
+  selector: 'score-card',
+  templateUrl: './score-card.component.html',
+  styleUrls: ['./score-card.component.scss'],
+  imports: [NgIf, DecimalPipe]
 })
 export class ScoreCardComponent {
   @Input()

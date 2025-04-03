@@ -29,7 +29,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { ConfigurationService } from '../Services/configuration.service'
 import { throwError } from 'rxjs/internal/observable/throwError'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('DeluxeUserComponent', () => {
   let component: DeluxeUserComponent
@@ -50,32 +50,32 @@ describe('DeluxeUserComponent', () => {
     cookieService = jasmine.createSpyObj('CookieService', ['remove'])
 
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule.withRoutes([
-            { path: 'login', component: LoginComponent }
-        ]),
-        TranslateModule.forRoot(),
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        MatCardModule,
-        MatTableModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatExpansionModule,
-        MatDividerModule,
-        MatRadioModule,
-        MatDialogModule,
-        MatIconModule,
-        MatCheckboxModule,
-        MatTooltipModule,
-        DeluxeUserComponent, LoginComponent],
-    providers: [
+      imports: [RouterTestingModule.withRoutes([
+        { path: 'login', component: LoginComponent }
+      ]),
+      TranslateModule.forRoot(),
+      ReactiveFormsModule,
+      BrowserAnimationsModule,
+      MatCardModule,
+      MatTableModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatExpansionModule,
+      MatDividerModule,
+      MatRadioModule,
+      MatDialogModule,
+      MatIconModule,
+      MatCheckboxModule,
+      MatTooltipModule,
+      DeluxeUserComponent, LoginComponent],
+      providers: [
         { provide: UserService, useValue: userService },
         { provide: ConfigurationService, useValue: configurationService },
         { provide: CookieService, useValue: cookieService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
     TestBed.inject(Location)
   }))

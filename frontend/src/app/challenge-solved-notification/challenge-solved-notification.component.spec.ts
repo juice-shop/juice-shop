@@ -19,7 +19,7 @@ import { ChallengeSolvedNotificationComponent } from './challenge-solved-notific
 import { of, throwError } from 'rxjs'
 import { EventEmitter } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 class MockSocket {
   on (str: string, callback: any) {
@@ -56,14 +56,14 @@ describe('ChallengeSolvedNotificationComponent', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         CookieModule.forRoot(),
         ClipboardModule,
         MatCardModule,
         MatButtonModule,
         MatIconModule,
         ChallengeSolvedNotificationComponent],
-    providers: [
+      providers: [
         { provide: SocketIoService, useValue: socketIoService },
         { provide: TranslateService, useValue: translateService },
         { provide: CookieService, useValue: cookieService },
@@ -72,8 +72,8 @@ describe('ChallengeSolvedNotificationComponent', () => {
         CountryMappingService,
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
-    ]
-})
+      ]
+    })
       .compileComponents()
   }))
 

@@ -39,10 +39,10 @@ const compilerReleases = {
   '0.1.7': 'soljson-v0.1.7+commit.b4e666cc.js'
 }
 @Component({
-    selector: 'app-web3-sandbox',
-    templateUrl: './web3-sandbox.component.html',
-    styleUrls: ['./web3-sandbox.component.scss'],
-    imports: [CodemirrorModule, FormsModule, MatButtonModule, MatIconModule, NgIf, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, NgFor]
+  selector: 'app-web3-sandbox',
+  templateUrl: './web3-sandbox.component.html',
+  styleUrls: ['./web3-sandbox.component.scss'],
+  imports: [CodemirrorModule, FormsModule, MatButtonModule, MatIconModule, NgIf, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, NgFor]
 })
 export class Web3SandboxComponent {
   constructor (

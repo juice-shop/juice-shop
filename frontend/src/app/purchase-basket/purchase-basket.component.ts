@@ -21,10 +21,10 @@ import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, Ma
 library.add(faTrashAlt, faMinusSquare, faPlusSquare)
 
 @Component({
-    selector: 'app-purchase-basket',
-    templateUrl: './purchase-basket.component.html',
-    styleUrls: ['./purchase-basket.component.scss'],
-    imports: [MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, ExtendedModule, FlexModule, MatFooterCellDef, MatFooterCell, NgIf, MatIconButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow, TranslateModule]
+  selector: 'app-purchase-basket',
+  templateUrl: './purchase-basket.component.html',
+  styleUrls: ['./purchase-basket.component.scss'],
+  imports: [MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, ExtendedModule, FlexModule, MatFooterCellDef, MatFooterCell, NgIf, MatIconButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow, TranslateModule]
 })
 export class PurchaseBasketComponent implements OnInit {
   @Input('allowEdit') public allowEdit: boolean = false

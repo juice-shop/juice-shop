@@ -17,10 +17,10 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatFormFieldModule, MatPrefix, MatLabel } from '@angular/material/form-field'
 
 @Component({
-    selector: 'filter-settings',
-    templateUrl: './filter-settings.component.html',
-    styleUrls: ['./filter-settings.component.scss'],
-    imports: [MatFormFieldModule, MatIconModule, MatPrefix, MatLabel, TranslateModule, MatInputModule, MatSelect, MatSelectTrigger, NgIf, MatOption, DifficultyStarsComponent, NgFor, MatIconButton, MatTooltip, CategoryFilterComponent, DifficultySelectionSummaryPipe]
+  selector: 'filter-settings',
+  templateUrl: './filter-settings.component.html',
+  styleUrls: ['./filter-settings.component.scss'],
+  imports: [MatFormFieldModule, MatIconModule, MatPrefix, MatLabel, TranslateModule, MatInputModule, MatSelect, MatSelectTrigger, NgIf, MatOption, DifficultyStarsComponent, NgFor, MatIconButton, MatTooltip, CategoryFilterComponent, DifficultySelectionSummaryPipe]
 })
 export class FilterSettingsComponent implements OnChanges {
   @Input()

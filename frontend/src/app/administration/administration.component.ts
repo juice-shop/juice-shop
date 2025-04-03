@@ -25,10 +25,10 @@ import { MatCardModule } from '@angular/material/card'
 library.add(faUser, faEye, faHome, faArchive, faTrashAlt)
 
 @Component({
-    selector: 'app-administration',
-    templateUrl: './administration.component.html',
-    styleUrls: ['./administration.component.scss'],
-    imports: [MatCardModule, TranslateModule, FlexModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, NgIf, MatButtonModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, MatTooltip, NgFor, MatIconModule]
+  selector: 'app-administration',
+  templateUrl: './administration.component.html',
+  styleUrls: ['./administration.component.scss'],
+  imports: [MatCardModule, TranslateModule, FlexModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, NgIf, MatButtonModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, MatTooltip, NgFor, MatIconModule]
 })
 export class AdministrationComponent implements OnInit {
   public userDataSource: any
