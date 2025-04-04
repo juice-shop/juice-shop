@@ -29,11 +29,10 @@ import { FlexModule } from '@angular/flex-layout/flex'
 library.add(faUnlockAlt, faSave)
 
 @Component({
-  selector: 'app-two-factor-auth',
-  templateUrl: './two-factor-auth.component.html',
-  styleUrls: ['./two-factor-auth.component.scss'],
-  standalone: true,
-  imports: [FlexModule, MatCardModule, TranslateModule, NgIf, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatButtonModule, QrCodeModule, MatError, MatIconModule, MatSuffix, MatTooltip, MatHint]
+    selector: 'app-two-factor-auth',
+    templateUrl: './two-factor-auth.component.html',
+    styleUrls: ['./two-factor-auth.component.scss'],
+    imports: [FlexModule, MatCardModule, TranslateModule, NgIf, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatButtonModule, QrCodeModule, MatError, MatIconModule, MatSuffix, MatTooltip, MatHint]
 })
 export class TwoFactorAuthComponent {
   public data?: string

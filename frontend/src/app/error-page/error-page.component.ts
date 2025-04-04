@@ -13,11 +13,10 @@ import { MatCardModule } from '@angular/material/card'
 library.add(faUserSlash, faHandPaper)
 
 @Component({
-  selector: 'app-error-page',
-  templateUrl: './error-page.component.html',
-  styleUrls: ['./error-page.component.scss'],
-  standalone: true,
-  imports: [MatCardModule]
+    selector: 'app-error-page',
+    templateUrl: './error-page.component.html',
+    styleUrls: ['./error-page.component.scss'],
+    imports: [MatCardModule]
 })
 export class ErrorPageComponent implements OnInit {
   public error: string | null = null
