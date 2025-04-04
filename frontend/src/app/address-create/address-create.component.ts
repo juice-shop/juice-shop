@@ -19,11 +19,10 @@ import { MatCardModule } from '@angular/material/card'
 import { FlexModule } from '@angular/flex-layout/flex'
 
 @Component({
-  selector: 'app-address-create',
-  templateUrl: './address-create.component.html',
-  styleUrls: ['./address-create.component.scss'],
-  standalone: true,
-  imports: [FlexModule, MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, NgIf, MatError, MatHint, MatButtonModule, MatIconModule]
+    selector: 'app-address-create',
+    templateUrl: './address-create.component.html',
+    styleUrls: ['./address-create.component.scss'],
+    imports: [FlexModule, MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, NgIf, MatError, MatHint, MatButtonModule, MatIconModule]
 })
 export class AddressCreateComponent implements OnInit {
   public countryControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])

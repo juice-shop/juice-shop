@@ -23,11 +23,10 @@ import { MatIconModule } from '@angular/material/icon'
 library.add(faPaperPlane, faArrowCircleLeft)
 
 @Component({
-  selector: 'app-product-review-edit',
-  templateUrl: './product-review-edit.component.html',
-  styleUrls: ['./product-review-edit.component.scss'],
-  standalone: true,
-  imports: [MatDialogContent, FlexModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatHint, NgIf, MatError, MatDialogActions, MatButtonModule, MatDialogClose, MatIconModule]
+    selector: 'app-product-review-edit',
+    templateUrl: './product-review-edit.component.html',
+    styleUrls: ['./product-review-edit.component.scss'],
+    imports: [MatDialogContent, FlexModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatHint, NgIf, MatError, MatDialogActions, MatButtonModule, MatDialogClose, MatIconModule]
 })
 export class ProductReviewEditComponent implements OnInit {
   public editReviewControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(160)])

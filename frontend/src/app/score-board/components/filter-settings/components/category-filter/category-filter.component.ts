@@ -6,11 +6,10 @@ import { MatTooltip } from '@angular/material/tooltip'
 import { NgClass, NgFor } from '@angular/common'
 
 @Component({
-  selector: 'category-filter',
-  templateUrl: './category-filter.component.html',
-  styleUrls: ['./category-filter.component.scss'],
-  standalone: true,
-  imports: [NgClass, NgFor, MatTooltip, TranslateModule]
+    selector: 'category-filter',
+    templateUrl: './category-filter.component.html',
+    styleUrls: ['./category-filter.component.scss'],
+    imports: [NgClass, NgFor, MatTooltip, TranslateModule]
 })
 export class CategoryFilterComponent implements OnInit, OnChanges {
   public availableCategories = new Set<string>()

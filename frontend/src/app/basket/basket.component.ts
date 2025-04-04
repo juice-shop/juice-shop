@@ -15,11 +15,10 @@ import { MatCardModule } from '@angular/material/card'
 library.add(faCartArrowDown)
 
 @Component({
-  selector: 'app-basket',
-  templateUrl: './basket.component.html',
-  styleUrls: ['./basket.component.scss'],
-  standalone: true,
-  imports: [MatCardModule, PurchaseBasketComponent, MatButtonModule, TranslateModule]
+    selector: 'app-basket',
+    templateUrl: './basket.component.html',
+    styleUrls: ['./basket.component.scss'],
+    imports: [MatCardModule, PurchaseBasketComponent, MatButtonModule, TranslateModule]
 })
 export class BasketComponent {
   public productCount: number = 0

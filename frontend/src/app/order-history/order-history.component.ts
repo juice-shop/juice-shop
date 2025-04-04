@@ -37,11 +37,10 @@ export interface Order {
 }
 
 @Component({
-  selector: 'app-order-history',
-  templateUrl: './order-history.component.html',
-  styleUrls: ['./order-history.component.scss'],
-  standalone: true,
-  imports: [MatCardModule, MatCardTitle, NgIf, FlexModule, NgFor, TranslateModule, MatIconButton, MatTooltip, MatIconModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatCardContent]
+    selector: 'app-order-history',
+    templateUrl: './order-history.component.html',
+    styleUrls: ['./order-history.component.scss'],
+    imports: [MatCardModule, MatCardTitle, NgIf, FlexModule, NgFor, TranslateModule, MatIconButton, MatTooltip, MatIconModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatCardContent]
 })
 export class OrderHistoryComponent implements OnInit {
   public tableColumns = ['product', 'price', 'quantity', 'total price', 'review']

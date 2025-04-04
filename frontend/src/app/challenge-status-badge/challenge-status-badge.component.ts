@@ -20,11 +20,10 @@ import { NgIf } from '@angular/common'
 library.add(faWindows)
 
 @Component({
-  selector: 'app-challenge-status-badge',
-  templateUrl: './challenge-status-badge.component.html',
-  styleUrls: ['./challenge-status-badge.component.scss'],
-  standalone: true,
-  imports: [NgIf, MatButtonModule, MatTooltip, MatIconModule, ExtendedModule, TranslateModule]
+    selector: 'app-challenge-status-badge',
+    templateUrl: './challenge-status-badge.component.html',
+    styleUrls: ['./challenge-status-badge.component.scss'],
+    imports: [NgIf, MatButtonModule, MatTooltip, MatIconModule, ExtendedModule, TranslateModule]
 })
 export class ChallengeStatusBadgeComponent {
   @Input() public challenge: Challenge = { } as Challenge

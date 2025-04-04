@@ -8,11 +8,10 @@ import { WarningCardComponent } from '../warning-card/warning-card.component'
 import { NgIf, NgClass } from '@angular/common'
 
 @Component({
-  selector: 'challenges-unavailable-warning',
-  templateUrl: './challenges-unavailable-warning.component.html',
-  styleUrls: ['./challenges-unavailable-warning.component.scss'],
-  standalone: true,
-  imports: [NgIf, WarningCardComponent, NgClass, MatButtonModule, TranslateModule]
+    selector: 'challenges-unavailable-warning',
+    templateUrl: './challenges-unavailable-warning.component.html',
+    styleUrls: ['./challenges-unavailable-warning.component.scss'],
+    imports: [NgIf, WarningCardComponent, NgClass, MatButtonModule, TranslateModule]
 })
 export class ChallengesUnavailableWarningComponent implements OnChanges {
   @Input()

@@ -10,11 +10,10 @@ import { TranslateModule } from '@ngx-translate/core'
 import { MatCardModule } from '@angular/material/card'
 
 @Component({
-  selector: 'app-last-login-ip',
-  templateUrl: './last-login-ip.component.html',
-  styleUrls: ['./last-login-ip.component.scss'],
-  standalone: true,
-  imports: [MatCardModule, TranslateModule]
+    selector: 'app-last-login-ip',
+    templateUrl: './last-login-ip.component.html',
+    styleUrls: ['./last-login-ip.component.scss'],
+    imports: [MatCardModule, TranslateModule]
 })
 
 export class LastLoginIpComponent {

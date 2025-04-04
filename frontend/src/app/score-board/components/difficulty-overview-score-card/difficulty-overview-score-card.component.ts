@@ -25,11 +25,10 @@ const INITIAL_SUMMARIES: Readonly<DifficultySummaries> = Object.freeze({
 })
 
 @Component({
-  selector: 'difficulty-overview-score-card',
-  templateUrl: './difficulty-overview-score-card.component.html',
-  styleUrls: ['./difficulty-overview-score-card.component.scss'],
-  standalone: true,
-  imports: [ScoreCardComponent, NgFor, NgIf, TranslateModule]
+    selector: 'difficulty-overview-score-card',
+    templateUrl: './difficulty-overview-score-card.component.html',
+    styleUrls: ['./difficulty-overview-score-card.component.scss'],
+    imports: [ScoreCardComponent, NgFor, NgIf, TranslateModule]
 })
 export class DifficultyOverviewScoreCardComponent implements OnInit, OnChanges {
   @Input()

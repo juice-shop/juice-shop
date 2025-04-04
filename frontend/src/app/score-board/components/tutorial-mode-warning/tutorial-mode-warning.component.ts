@@ -8,10 +8,9 @@ import { WarningCardComponent } from '../warning-card/warning-card.component'
 import { NgIf } from '@angular/common'
 
 @Component({
-  selector: 'tutorial-mode-warning',
-  templateUrl: './tutorial-mode-warning.component.html',
-  standalone: true,
-  imports: [NgIf, WarningCardComponent, MatIconModule, TranslateModule]
+    selector: 'tutorial-mode-warning',
+    templateUrl: './tutorial-mode-warning.component.html',
+    imports: [NgIf, WarningCardComponent, MatIconModule, TranslateModule]
 })
 export class TutorialModeWarningComponent implements OnChanges {
   @Input()
