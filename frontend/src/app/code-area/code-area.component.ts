@@ -14,11 +14,10 @@ interface LineMarker {
 }
 
 @Component({
-  selector: 'app-code-area',
-  templateUrl: './code-area.component.html',
-  styleUrls: ['./code-area.component.scss'],
-  standalone: true,
-  imports: [NgFor, HighlightModule]
+    selector: 'app-code-area',
+    templateUrl: './code-area.component.html',
+    styleUrls: ['./code-area.component.scss'],
+    imports: [NgFor, HighlightModule]
 })
 export class CodeAreaComponent implements OnInit {
   private _code: string = ''

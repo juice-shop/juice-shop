@@ -7,11 +7,10 @@ import { type DiffTableFormat } from '@winarg/ngx-text-diff/lib/ngx-text-diff.mo
 import { NgFor, NgIf } from '@angular/common'
 
 @Component({
-  selector: 'app-code-fixes',
-  templateUrl: './code-fixes.component.html',
-  styleUrls: ['./code-fixes.component.scss'],
-  standalone: true,
-  imports: [NgFor, NgIf, NgxTextDiffModule]
+    selector: 'app-code-fixes',
+    templateUrl: './code-fixes.component.html',
+    styleUrls: ['./code-fixes.component.scss'],
+    imports: [NgFor, NgIf, NgxTextDiffModule]
 })
 export class CodeFixesComponent implements OnInit, DoCheck {
   differ: KeyValueDiffer<string, DiffTableFormat>

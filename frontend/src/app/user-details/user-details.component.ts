@@ -16,11 +16,10 @@ import { MatDivider } from '@angular/material/divider'
 library.add(faArrowCircleLeft)
 
 @Component({
-  selector: 'app-user-details',
-  templateUrl: './user-details.component.html',
-  styleUrls: ['./user-details.component.scss'],
-  standalone: true,
-  imports: [MatDialogContent, MatDivider, FlexModule, TranslateModule, MatDialogActions, MatButtonModule, MatDialogClose]
+    selector: 'app-user-details',
+    templateUrl: './user-details.component.html',
+    styleUrls: ['./user-details.component.scss'],
+    imports: [MatDialogContent, MatDivider, FlexModule, TranslateModule, MatDialogActions, MatButtonModule, MatDialogClose]
 })
 export class UserDetailsComponent implements OnInit {
   public user: any
