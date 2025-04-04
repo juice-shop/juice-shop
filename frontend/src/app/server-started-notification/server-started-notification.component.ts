@@ -19,10 +19,10 @@ interface HackingProgress {
 }
 
 @Component({
-    selector: 'app-server-started-notification',
-    templateUrl: './server-started-notification.component.html',
-    styleUrls: ['./server-started-notification.component.scss'],
-    imports: [NgIf, MatCardModule, MatCardHeader, MatCardContent, TranslateModule, MatButtonModule, MatIconModule]
+  selector: 'app-server-started-notification',
+  templateUrl: './server-started-notification.component.html',
+  styleUrls: ['./server-started-notification.component.scss'],
+  imports: [NgIf, MatCardModule, MatCardHeader, MatCardContent, TranslateModule, MatButtonModule, MatIconModule]
 })
 export class ServerStartedNotificationComponent implements OnInit {
   public hackingProgress: HackingProgress = {} as HackingProgress

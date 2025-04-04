@@ -22,10 +22,10 @@ import { MatCardModule } from '@angular/material/card'
 library.add(faEdit, faTrashAlt)
 
 @Component({
-    selector: 'app-address',
-    templateUrl: './address.component.html',
-    styleUrls: ['./address.component.scss'],
-    imports: [MatCardModule, NgIf, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, FlexModule, MatCellDef, MatCell, MatRadioButton, MatIconButton, RouterLink, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatButtonModule, MatIconModule]
+  selector: 'app-address',
+  templateUrl: './address.component.html',
+  styleUrls: ['./address.component.scss'],
+  imports: [MatCardModule, NgIf, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, FlexModule, MatCellDef, MatCell, MatRadioButton, MatIconButton, RouterLink, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatButtonModule, MatIconModule]
 })
 export class AddressComponent implements OnInit {
   @Output() emitSelection = new EventEmitter()

@@ -24,25 +24,25 @@ import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
 
 @Component({
-    selector: 'app-mat-search-bar',
-    templateUrl: './mat-search-bar.component.html',
-    styleUrls: ['./mat-search-bar.component.scss'],
-    animations: [
-        trigger('slideInOut', [
-            state('true', style({ width: '*' })),
-            state('false', style({ width: '0' })),
-            transition('true => false', animate('300ms ease-in')),
-            transition('false => true', animate('300ms ease-out'))
-        ])
-    ],
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => MatSearchBarComponent),
-            multi: true
-        }
-    ],
-    imports: [MatFormFieldModule, MatInputModule, FormsModule, MatIconModule, MatRipple]
+  selector: 'app-mat-search-bar',
+  templateUrl: './mat-search-bar.component.html',
+  styleUrls: ['./mat-search-bar.component.scss'],
+  animations: [
+    trigger('slideInOut', [
+      state('true', style({ width: '*' })),
+      state('false', style({ width: '0' })),
+      transition('true => false', animate('300ms ease-in')),
+      transition('false => true', animate('300ms ease-out'))
+    ])
+  ],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => MatSearchBarComponent),
+      multi: true
+    }
+  ],
+  imports: [MatFormFieldModule, MatInputModule, FormsModule, MatIconModule, MatRipple]
 })
 export class MatSearchBarComponent extends AbstractControlValueAccessor
   implements OnInit {
