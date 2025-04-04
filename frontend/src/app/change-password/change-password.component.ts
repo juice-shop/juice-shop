@@ -21,10 +21,10 @@ import { FlexModule } from '@angular/flex-layout/flex'
 library.add(faSave, faEdit)
 
 @Component({
-    selector: 'app-change-password',
-    templateUrl: './change-password.component.html',
-    styleUrls: ['./change-password.component.scss'],
-    imports: [FlexModule, MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, NgIf, MatError, MatHint, MatButtonModule]
+  selector: 'app-change-password',
+  templateUrl: './change-password.component.html',
+  styleUrls: ['./change-password.component.scss'],
+  imports: [FlexModule, MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, NgIf, MatError, MatHint, MatButtonModule]
 })
 export class ChangePasswordComponent {
   public passwordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])

@@ -24,10 +24,10 @@ import { FlexModule } from '@angular/flex-layout/flex'
 library.add(faStar, faPaperPlane)
 
 @Component({
-    selector: 'app-contact',
-    templateUrl: './contact.component.html',
-    styleUrls: ['./contact.component.scss'],
-    imports: [FlexModule, MatCardModule, TranslateModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatHint, NgIf, MatError, MatSliderModule, MatButtonModule]
+  selector: 'app-contact',
+  templateUrl: './contact.component.html',
+  styleUrls: ['./contact.component.scss'],
+  imports: [FlexModule, MatCardModule, TranslateModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatHint, NgIf, MatError, MatSliderModule, MatButtonModule]
 })
 export class ContactComponent implements OnInit {
   public authorControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])

@@ -18,10 +18,10 @@ import { MatCardModule } from '@angular/material/card'
 import { FlexModule } from '@angular/flex-layout/flex'
 
 @Component({
-    selector: 'app-data-export',
-    templateUrl: './data-export.component.html',
-    styleUrls: ['./data-export.component.scss'],
-    imports: [FlexModule, MatCardModule, TranslateModule, NgIf, MatRadioGroup, FormsModule, ReactiveFormsModule, MatLabel, MatRadioButton, MatFormFieldModule, MatInputModule, MatHint, MatError, MatButtonModule]
+  selector: 'app-data-export',
+  templateUrl: './data-export.component.html',
+  styleUrls: ['./data-export.component.scss'],
+  imports: [FlexModule, MatCardModule, TranslateModule, NgIf, MatRadioGroup, FormsModule, ReactiveFormsModule, MatLabel, MatRadioButton, MatFormFieldModule, MatInputModule, MatHint, MatError, MatButtonModule]
 })
 export class DataExportComponent implements OnInit {
   public captchaControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5)])
