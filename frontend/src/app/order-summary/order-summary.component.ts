@@ -19,10 +19,10 @@ import { FlexModule } from '@angular/flex-layout/flex'
 import { MatCardModule } from '@angular/material/card'
 
 @Component({
-    selector: 'app-order-summary',
-    templateUrl: './order-summary.component.html',
-    styleUrls: ['./order-summary.component.scss'],
-    imports: [MatCardModule, FlexModule, NgIf, TranslateModule, PurchaseBasketComponent, MatButtonModule, MatIconModule]
+  selector: 'app-order-summary',
+  templateUrl: './order-summary.component.html',
+  styleUrls: ['./order-summary.component.scss'],
+  imports: [MatCardModule, FlexModule, NgIf, TranslateModule, PurchaseBasketComponent, MatButtonModule, MatIconModule]
 })
 export class OrderSummaryComponent implements OnInit {
   public bonus = 0

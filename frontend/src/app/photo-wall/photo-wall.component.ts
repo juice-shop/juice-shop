@@ -23,10 +23,10 @@ import { MatCardModule, MatCardTitle, MatCardContent } from '@angular/material/c
 library.add(faTwitter)
 
 @Component({
-    selector: 'app-photo-wall',
-    templateUrl: './photo-wall.component.html',
-    styleUrls: ['./photo-wall.component.scss'],
-    imports: [MatCardModule, NgIf, NgFor, MatIconButton, MatCardTitle, TranslateModule, MatCardContent, FormsModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatLabel, MatInputModule, MatError]
+  selector: 'app-photo-wall',
+  templateUrl: './photo-wall.component.html',
+  styleUrls: ['./photo-wall.component.scss'],
+  imports: [MatCardModule, NgIf, NgFor, MatIconButton, MatCardTitle, TranslateModule, MatCardContent, FormsModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatLabel, MatInputModule, MatError]
 })
 export class PhotoWallComponent implements OnInit {
   public emptyState: boolean = true

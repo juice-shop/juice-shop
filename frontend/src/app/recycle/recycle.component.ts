@@ -26,10 +26,10 @@ import { MatCardModule, MatCardImage, MatCardContent } from '@angular/material/c
 library.add(faPaperPlane)
 
 @Component({
-    selector: 'app-recycle',
-    templateUrl: './recycle.component.html',
-    styleUrls: ['./recycle.component.scss'],
-    imports: [MatCardModule, FlexModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, NgIf, MatError, AddressComponent, MatDatepickerInput, MatDatepickerToggle, MatSuffix, MatDatepicker, MatCheckbox, MatButtonModule, MatCardImage, MatCardContent]
+  selector: 'app-recycle',
+  templateUrl: './recycle.component.html',
+  styleUrls: ['./recycle.component.scss'],
+  imports: [MatCardModule, FlexModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, NgIf, MatError, AddressComponent, MatDatepickerInput, MatDatepickerToggle, MatSuffix, MatDatepicker, MatCheckbox, MatButtonModule, MatCardImage, MatCardContent]
 })
 export class RecycleComponent implements OnInit {
   @ViewChild('addressComp', { static: true }) public addressComponent: AddressComponent

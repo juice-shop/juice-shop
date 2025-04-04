@@ -9,10 +9,10 @@ import { MatCardModule } from '@angular/material/card'
 import { MatIconModule } from '@angular/material/icon'
 
 @Component({
-    selector: 'app-password-strength-info',
-    imports: [MatCardModule, MatIconModule],
-    templateUrl: './password-strength-info.component.html',
-    styleUrl: './password-strength-info.component.scss'
+  selector: 'app-password-strength-info',
+  imports: [MatCardModule, MatIconModule],
+  templateUrl: './password-strength-info.component.html',
+  styleUrl: './password-strength-info.component.scss'
 })
 export class PasswordStrengthInfoComponent implements OnInit {
   @Input()

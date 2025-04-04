@@ -9,10 +9,10 @@ import { NgFor, NgIf, NgClass, AsyncPipe } from '@angular/common'
 import { DifficultyStarsComponent } from '../difficulty-stars/difficulty-stars.component'
 
 @Component({
-    selector: 'challenge-card',
-    templateUrl: './challenge-card.component.html',
-    styleUrls: ['./challenge-card.component.scss'],
-    imports: [DifficultyStarsComponent, NgFor, MatTooltip, NgIf, MatIconModule, NgClass, AsyncPipe, TranslateModule, ChallengeHintPipe]
+  selector: 'challenge-card',
+  templateUrl: './challenge-card.component.html',
+  styleUrls: ['./challenge-card.component.scss'],
+  imports: [DifficultyStarsComponent, NgFor, MatTooltip, NgIf, MatIconModule, NgClass, AsyncPipe, TranslateModule, ChallengeHintPipe]
 })
 export class ChallengeCardComponent implements OnInit {
   @Input()

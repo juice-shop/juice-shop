@@ -12,10 +12,10 @@ import { MatCardModule } from '@angular/material/card'
 import { FlexModule } from '@angular/flex-layout/flex'
 
 @Component({
-    selector: 'app-oauth',
-    templateUrl: './oauth.component.html',
-    styleUrls: ['./oauth.component.scss'],
-    imports: [FlexModule, MatCardModule, TranslateModule]
+  selector: 'app-oauth',
+  templateUrl: './oauth.component.html',
+  styleUrls: ['./oauth.component.scss'],
+  imports: [FlexModule, MatCardModule, TranslateModule]
 })
 export class OAuthComponent implements OnInit {
   constructor (private readonly cookieService: CookieService, private readonly userService: UserService, private readonly router: Router, private readonly route: ActivatedRoute, private readonly ngZone: NgZone) { }
