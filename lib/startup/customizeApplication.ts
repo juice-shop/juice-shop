@@ -92,9 +92,9 @@ const customizeTitle = () => {
 }
 
 const customizeTheme = () => {
-  const bodyClass = '"mat-app-background ' + config.get<string>('application.theme') + '-theme"'
+  const bodyClass = '"mat-app-background mat-typography ' + config.get<string>('application.theme') + '-theme"'
   replace({
-    regex: /"mat-app-background .*-theme"/,
+    regex: /"mat-app-background mat-typography .*-theme"/,
     replacement: bodyClass,
     paths: ['frontend/dist/frontend/index.html'],
     recursive: false,
