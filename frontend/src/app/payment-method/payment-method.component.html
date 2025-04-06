@@ -87,9 +87,7 @@
       <button type="submit" id="submitButton" style="margin-top:5px; float:right;" mat-raised-button color="primary"
               [disabled]="nameControl.invalid || numberControl.invalid || monthControl.invalid || yearControl.invalid"
               (click)="save()">
-              <i class="material-icons">
-                  send
-              </i>
+              <mat-icon>send</mat-icon>
               {{'BTN_SUBMIT' | translate}}
       </button>
     </mat-expansion-panel>

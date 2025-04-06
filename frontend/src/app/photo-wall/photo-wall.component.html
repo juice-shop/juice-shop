@@ -63,9 +63,7 @@
           </mat-form-field>
           <button id="submitButton" mat-raised-button color="primary" (click)="save()"
                   [disabled]="form.get('image').invalid || form.get('caption').invalid">
-            <i class="material-icons">
-            send
-            </i>
+            <mat-icon>send</mat-icon>
             {{'BTN_SUBMIT' | translate}}
           </button>
         </form>
