@@ -14,7 +14,7 @@ import { ClipboardModule } from 'ngx-clipboard'
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
-import { NgFor, NgIf, LowerCasePipe } from '@angular/common'
+import { NgIf, LowerCasePipe } from '@angular/common'
 
 interface ChallengeSolvedMessage {
   challenge: string
@@ -36,7 +36,7 @@ interface ChallengeSolvedNotification {
   selector: 'app-challenge-solved-notification',
   templateUrl: './challenge-solved-notification.component.html',
   styleUrls: ['./challenge-solved-notification.component.scss'],
-  imports: [NgFor, MatCardModule, MatButtonModule, MatIconModule, ClipboardModule, NgIf, LowerCasePipe, TranslateModule]
+  imports: [MatCardModule, MatButtonModule, MatIconModule, ClipboardModule, NgIf, LowerCasePipe, TranslateModule]
 })
 export class ChallengeSolvedNotificationComponent implements OnInit {
   public notifications: ChallengeSolvedNotification[] = []
