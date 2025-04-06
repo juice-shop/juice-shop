@@ -10,7 +10,6 @@ import { NgIf } from '@angular/common'
 @Component({
   selector: 'tutorial-mode-warning',
   templateUrl: './tutorial-mode-warning.component.html',
-  standalone: true,
   imports: [NgIf, WarningCardComponent, MatIconModule, TranslateModule]
 })
 export class TutorialModeWarningComponent implements OnChanges {

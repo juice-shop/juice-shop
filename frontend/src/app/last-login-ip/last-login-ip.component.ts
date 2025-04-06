@@ -13,7 +13,6 @@ import { MatCardModule } from '@angular/material/card'
   selector: 'app-last-login-ip',
   templateUrl: './last-login-ip.component.html',
   styleUrls: ['./last-login-ip.component.scss'],
-  standalone: true,
   imports: [MatCardModule, TranslateModule]
 })
 
