@@ -7,7 +7,7 @@
 @use 'sass:map';
 @use 'sass:color';
 
-@import 'theme';
+@use './theme' as *;
 
 @mixin link-theme($theme) {
   a:link,
