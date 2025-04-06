@@ -120,7 +120,7 @@ export class AboutComponent implements OnInit {
           feedbacks[i].comment = `<span style="width: 90%; display:block;">${
             feedbacks[i].comment
           }<br/> (${this.stars[feedbacks[i].rating]})</span>`
-          feedbacks[i].comment = this.sanitizer.bypassSecurityTrustHtml(
+          feedbacks[i].comment = this.sanitizer.sanitize(
             feedbacks[i].comment
           )
 
