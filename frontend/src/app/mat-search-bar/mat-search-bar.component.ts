@@ -42,7 +42,6 @@ import { MatFormFieldModule } from '@angular/material/form-field'
       multi: true
     }
   ],
-  standalone: true,
   imports: [MatFormFieldModule, MatInputModule, FormsModule, MatIconModule, MatRipple]
 })
 export class MatSearchBarComponent extends AbstractControlValueAccessor

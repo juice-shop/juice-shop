@@ -21,7 +21,6 @@ import { FlexModule } from '@angular/flex-layout/flex'
   selector: 'app-data-export',
   templateUrl: './data-export.component.html',
   styleUrls: ['./data-export.component.scss'],
-  standalone: true,
   imports: [FlexModule, MatCardModule, TranslateModule, NgIf, MatRadioGroup, FormsModule, ReactiveFormsModule, MatLabel, MatRadioButton, MatFormFieldModule, MatInputModule, MatHint, MatError, MatButtonModule]
 })
 export class DataExportComponent implements OnInit {

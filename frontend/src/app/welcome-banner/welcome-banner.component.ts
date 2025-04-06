@@ -18,7 +18,6 @@ import { NgIf } from '@angular/common'
   selector: 'app-welcome-banner',
   templateUrl: 'welcome-banner.component.html',
   styleUrls: ['./welcome-banner.component.scss'],
-  standalone: true,
   imports: [NgIf, MatButtonModule, MatTooltip, MatIconModule, ExtendedModule, TranslateModule]
 })
 export class WelcomeBannerComponent implements OnInit {

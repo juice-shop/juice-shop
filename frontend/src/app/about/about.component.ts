@@ -26,7 +26,6 @@ library.add(faFacebook, faTwitter, faSlack, faReddit, faNewspaper, faStar, fasSt
   selector: 'app-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss'],
-  standalone: true,
   imports: [FlexModule, MatCardModule, TranslateModule, GalleryComponent, GalleryImageDef, NgIf, MatButtonModule]
 })
 export class AboutComponent implements OnInit {

@@ -63,7 +63,6 @@ library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, 
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
-  standalone: true,
   imports: [
     MatToolbar, FlexModule, MatToolbarRow, MatButtonModule, MatTooltip,
     MatIconModule, RouterLink, ExtendedModule, MatSearchBarComponent,

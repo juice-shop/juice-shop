@@ -23,7 +23,7 @@ import { CodeFixesComponent } from '../code-fixes/code-fixes.component'
 import { MatIconModule } from '@angular/material/icon'
 import { TranslateModule } from '@ngx-translate/core'
 import { CodeAreaComponent } from '../code-area/code-area.component'
-import { NgIf, NgClass, NgFor } from '@angular/common'
+import { NgIf, NgFor } from '@angular/common'
 import { FlexModule } from '@angular/flex-layout/flex'
 import { MatTabGroup, MatTab, MatTabLabel } from '@angular/material/tabs'
 
@@ -48,8 +48,7 @@ export interface RandomFixes {
   templateUrl: './code-snippet.component.html',
   styleUrls: ['./code-snippet.component.scss'],
   host: { class: 'code-snippet' },
-  standalone: true,
-  imports: [MatDialogTitle, MatDialogContent, MatTabGroup, MatTab, FlexModule, NgIf, CodeAreaComponent, TranslateModule, MatTabLabel, MatIconModule, CodeFixesComponent, MatDialogActions, MatCardModule, NgClass, ExtendedModule, MatFormFieldModule, MatLabel, MatInputModule, NgFor, FormsModule, MatIconButton, MatButtonModule, MatDialogClose]
+  imports: [MatDialogTitle, MatDialogContent, MatTabGroup, MatTab, FlexModule, NgIf, CodeAreaComponent, TranslateModule, MatTabLabel, MatIconModule, CodeFixesComponent, MatDialogActions, MatCardModule, ExtendedModule, MatFormFieldModule, MatLabel, MatInputModule, NgFor, FormsModule, MatIconButton, MatButtonModule, MatDialogClose]
 })
 export class CodeSnippetComponent implements OnInit {
   public snippet: CodeSnippet = null

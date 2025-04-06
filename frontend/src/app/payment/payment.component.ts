@@ -47,7 +47,6 @@ library.add(faCartArrowDown, faGift, faHeart, faLeanpub, faThumbsUp, faTshirt, f
   selector: 'app-payment',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss'],
-  standalone: true,
   imports: [MatCardModule, PaymentMethodComponent, MatDivider, NgIf, FlexModule, TranslateModule, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatIconModule]
 })
 export class PaymentComponent implements OnInit {

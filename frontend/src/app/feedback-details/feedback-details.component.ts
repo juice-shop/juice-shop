@@ -14,7 +14,6 @@ import { MatDivider } from '@angular/material/divider'
   selector: 'app-feedback-details',
   templateUrl: './feedback-details.component.html',
   styleUrls: ['./feedback-details.component.scss'],
-  standalone: true,
   imports: [MatDialogContent, MatDivider, FlexModule, MatDialogActions, MatButtonModule, MatDialogClose, TranslateModule]
 })
 export class FeedbackDetailsComponent implements OnInit {

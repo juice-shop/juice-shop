@@ -24,7 +24,6 @@ library.add(faTrashAlt, faMinusSquare, faPlusSquare)
   selector: 'app-purchase-basket',
   templateUrl: './purchase-basket.component.html',
   styleUrls: ['./purchase-basket.component.scss'],
-  standalone: true,
   imports: [MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, ExtendedModule, FlexModule, MatFooterCellDef, MatFooterCell, NgIf, MatIconButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow, TranslateModule]
 })
 export class PurchaseBasketComponent implements OnInit {

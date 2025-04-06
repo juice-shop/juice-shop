@@ -30,7 +30,6 @@ const client = createClient({
   selector: 'app-wallet-web3',
   templateUrl: './wallet-web3.component.html',
   styleUrls: ['./wallet-web3.component.scss'],
-  standalone: true,
   imports: [MatCardModule, MatButtonModule, NgIf, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, MatIconModule]
 })
 export class WalletWeb3Component {

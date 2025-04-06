@@ -31,7 +31,6 @@ interface TokenEnterFormFields {
   selector: 'app-two-factor-auth-enter',
   templateUrl: './two-factor-auth-enter.component.html',
   styleUrls: ['./two-factor-auth-enter.component.scss'],
-  standalone: true,
   imports: [FlexModule, MatCardModule, TranslateModule, NgIf, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatIconModule, MatSuffix, MatTooltip, MatHint, MatError, MatButtonModule]
 })
 export class TwoFactorAuthEnterComponent {

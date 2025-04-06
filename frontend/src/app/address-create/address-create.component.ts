@@ -22,7 +22,6 @@ import { FlexModule } from '@angular/flex-layout/flex'
   selector: 'app-address-create',
   templateUrl: './address-create.component.html',
   styleUrls: ['./address-create.component.scss'],
-  standalone: true,
   imports: [FlexModule, MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, NgIf, MatError, MatHint, MatButtonModule, MatIconModule]
 })
 export class AddressCreateComponent implements OnInit {

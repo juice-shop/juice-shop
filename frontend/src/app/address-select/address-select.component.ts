@@ -11,7 +11,6 @@ import { AddressComponent } from '../address/address.component'
   selector: 'app-address-select',
   templateUrl: './address-select.component.html',
   styleUrls: ['./address-select.component.scss'],
-  standalone: true,
   imports: [AddressComponent]
 })
 export class AddressSelectComponent {

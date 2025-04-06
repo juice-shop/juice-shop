@@ -10,7 +10,6 @@ import { MatIconModule } from '@angular/material/icon'
 
 @Component({
   selector: 'app-password-strength-info',
-  standalone: true,
   imports: [MatCardModule, MatIconModule],
   templateUrl: './password-strength-info.component.html',
   styleUrl: './password-strength-info.component.scss'

@@ -28,7 +28,6 @@ library.add(faUser, faEye, faHome, faArchive, faTrashAlt)
   selector: 'app-administration',
   templateUrl: './administration.component.html',
   styleUrls: ['./administration.component.scss'],
-  standalone: true,
   imports: [MatCardModule, TranslateModule, FlexModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, NgIf, MatButtonModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, MatTooltip, NgFor, MatIconModule]
 })
 export class AdministrationComponent implements OnInit {
