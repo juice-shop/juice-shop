@@ -55,7 +55,7 @@
     "ngx-window-token": "^6.0.0",
     "ngy-cookie": "^6.0.0",
     "rxjs": "7.8.1",
-    "sass": "^1.32.2",
+    "sass": "^1.86.3",
     "snarkdown": "^1.2.2",
     "socket.io-client": "^3.1.0",
     "solidity-browser-compiler": "^1.1.0",
