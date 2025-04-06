@@ -9,7 +9,6 @@ import { NgClass, NgFor } from '@angular/common'
   selector: 'category-filter',
   templateUrl: './category-filter.component.html',
   styleUrls: ['./category-filter.component.scss'],
-  standalone: true,
   imports: [NgClass, NgFor, MatTooltip, TranslateModule]
 })
 export class CategoryFilterComponent implements OnInit, OnChanges {

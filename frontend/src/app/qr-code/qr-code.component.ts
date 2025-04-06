@@ -19,7 +19,6 @@ library.add(faArrowCircleLeft)
   selector: 'app-qr-code',
   templateUrl: './qr-code.component.html',
   styleUrls: ['./qr-code.component.scss'],
-  standalone: true,
   imports: [FlexModule, MatDivider, QrCodeModule, MatButtonModule, MatDialogClose, TranslateModule]
 })
 export class QrCodeComponent implements OnInit {

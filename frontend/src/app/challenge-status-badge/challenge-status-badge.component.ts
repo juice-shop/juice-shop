@@ -23,7 +23,6 @@ library.add(faWindows)
   selector: 'app-challenge-status-badge',
   templateUrl: './challenge-status-badge.component.html',
   styleUrls: ['./challenge-status-badge.component.scss'],
-  standalone: true,
   imports: [NgIf, MatButtonModule, MatTooltip, MatIconModule, ExtendedModule, TranslateModule]
 })
 export class ChallengeStatusBadgeComponent {

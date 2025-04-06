@@ -4,7 +4,8 @@
  */
 @use '@angular/material' as mat;
 
-@include mat.core();
+@include mat.elevation-classes();
+@include mat.app-background();
 
 $my-typography: mat.m2-define-typography-config();
 @include mat.typography-hierarchy($my-typography);

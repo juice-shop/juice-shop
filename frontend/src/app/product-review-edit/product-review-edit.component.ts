@@ -26,7 +26,6 @@ library.add(faPaperPlane, faArrowCircleLeft)
   selector: 'app-product-review-edit',
   templateUrl: './product-review-edit.component.html',
   styleUrls: ['./product-review-edit.component.scss'],
-  standalone: true,
   imports: [MatDialogContent, FlexModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatHint, NgIf, MatError, MatDialogActions, MatButtonModule, MatDialogClose, MatIconModule]
 })
 export class ProductReviewEditComponent implements OnInit {

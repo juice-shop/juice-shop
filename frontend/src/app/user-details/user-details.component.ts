@@ -19,7 +19,6 @@ library.add(faArrowCircleLeft)
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.scss'],
-  standalone: true,
   imports: [MatDialogContent, MatDivider, FlexModule, TranslateModule, MatDialogActions, MatButtonModule, MatDialogClose]
 })
 export class UserDetailsComponent implements OnInit {
