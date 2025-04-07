@@ -9,6 +9,8 @@
 
 @use './theme' as *;
 
+@use './hacking-instructor/hacking-instructor.scss';
+
 @mixin link-theme($theme) {
   a:link,
   a:visited {
