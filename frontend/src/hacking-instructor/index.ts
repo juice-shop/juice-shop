@@ -102,7 +102,8 @@ function loadHint (hint: ChallengeHint): HTMLElement {
     fontSize: '14px',
     display: 'flex',
     alignItems: 'center',
-    cursor: hint.unskippable ? 'default' : 'pointer'
+    cursor: hint.unskippable ? 'default' : 'pointer',
+    animation: 'flash 0.2s'
   }
 
   const elem = createElement('div', elemStyles, { id: 'hacking-instructor', title: hint.unskippable ? '' : 'Double-click to skip' })
@@ -195,7 +196,6 @@ export async function startHackingInstructorFor (challengeName: string): Promise
     if (!isElementInViewport(element)) {
       element.scrollIntoView()
     }
-
 
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const continueConditions: Array<Promise<void | unknown>> = [
