@@ -128,7 +128,8 @@ function loadHint (hint: ChallengeHint): HTMLElement {
     fontSize: 'large',
     position: 'relative',
     zIndex: '20001',
-    bottom: '-22px',
+    top: '32px',
+    left: '5px',
     cursor: 'pointer'
   }
 
