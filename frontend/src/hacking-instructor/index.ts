@@ -172,6 +172,16 @@ export function hasInstructions (challengeName: string): boolean {
   return challengeInstructions.find(({ name }) => name === challengeName) !== undefined
 }
 
+function isElementInViewport (el: HTMLElement): boolean {
+  const rect = el.getBoundingClientRect()
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  )
+}
+
 export async function startHackingInstructorFor (challengeName: string): Promise<void> {
   const challengeInstruction = challengeInstructions.find(({ name }) => name === challengeName) ?? TutorialUnavailableInstruction
 
@@ -181,7 +191,11 @@ export async function startHackingInstructorFor (challengeName: string): Promise
       console.warn(`Could not find Element with fixture "${hint.fixture}"`)
       continue
     }
-    element.scrollIntoView()
+
+    if (!isElementInViewport(element)) {
+      element.scrollIntoView()
+    }
+
 
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const continueConditions: Array<Promise<void | unknown>> = [
