@@ -19,8 +19,8 @@ on:
       - 'frontend/src/assets/i18n/*.json'
 env:
   NODE_DEFAULT_VERSION: 20
-  CYCLONEDX_NPM_VERSION: '^1.12.0'
   NODE_OPTIONS: "--max_old_space_size=4096"
+  CYCLONEDX_NPM_VERSION: '^2.0.0||^3.0.0'
 jobs:
   lint:
     runs-on: ubuntu-latest
