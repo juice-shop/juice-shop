@@ -383,10 +383,10 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.post('/api/Feedbacks', captcha.verifyCaptcha())
   /* Captcha Bypass challenge verification */
   app.post('/api/Feedbacks', verify.captchaBypassChallenge())
-  /*Add Status 200 OK - 04/14/2025*/
+ /* /*Add Status 200 OK - 04/14/2025*/
    app.post('/api/*', (req: Request, res: Response, next: NextFunction) => {
     
-        res.status(200).send(res.__('Request Successful'))
+        res.sendStatus(200);
       
     }
     next()
