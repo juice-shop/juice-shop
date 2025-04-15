@@ -2,6 +2,7 @@ FROM node:20-buster as installer
 COPY . /juice-shop
 WORKDIR /juice-shop
 RUN npm i -g typescript ts-node
+ENV NODE_OPTIONS=--max-old-space-size=4096 
 RUN npm install --omit=dev --unsafe-perm
 RUN npm dedupe --omit=dev
 RUN rm -rf frontend/node_modules
