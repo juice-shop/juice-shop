@@ -232,6 +232,11 @@ $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
   @include css-vars($deeporange-indigo-theme);
 }
 
+.lime-green-theme {
+  @include custom-components-theme($lime-green-theme);
+  @include css-vars($lime-green-theme);
+}
+
 .close-dialog {
   float: right;
   width: fit-content;
