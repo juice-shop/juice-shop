@@ -1,0 +1,71 @@
+application:
+  domain: defcon.33
+  name: 'DEF CON 33 Merch Store'
+  logo: 'https://shop.defcon.org/cdn/shop/files/33-fullcolorgradient_1_720x.jpg?v=1740593533'
+  theme: lime-green
+  showGitHubLinks: false
+  altcoinName: Defco(i)n
+  privacyContactEmail: 'donotreply@defcon.33'
+  customMetricsPrefix: defcon33
+  social:
+    blueSkyUrl: 'https://bsky.app/profile/defcon.bsky.social'
+    mastodonUrl: 'https://defcon.social/'
+    twitterUrl: null
+    facebookUrl: 'https://facebook.com/defcon'
+    slackUrl: null
+    redditUrl: 'https://www.reddit.com/r/defcon'
+    pressKitUrl: 'https://media.defcon.org/'
+    nftUrl: null
+    questionnaireUrl: null
+  welcomeBanner:
+    showOnFirstStart: false
+products:
+  -
+    name: 'DEFCON 32 Sticker Pack'
+    price: 17
+    description: "5 premium stickers: Glow in the Dark, Brushed Aluminium & Transparent"
+    image: 'https://shop.defcon.org/cdn/shop/files/stickers_720x.jpg?v=1732936912'
+  -
+    name: 'Hawaiian Shirt'
+    price: 60
+    description: "DEFCON Hawaiian shirt! Soft and breezy. Perfect for a day at the pool."
+    image: 'https://shop.defcon.org/cdn/shop/files/defcon-hawaiian_720x.png?v=1732927277'
+  -
+    name: 'DEFCON Holiday Sweater'
+    price: 60
+    description: "Get in to the DEFCON holiday spirit with our brand new knit sweaters! These sweaters are fully knitted with the design woven in. They are very soft and cozy – ideal for the stylish hacker in your life."
+    image: 'https://shop.defcon.org/cdn/shop/files/y21QZGdI_720x.jpg?v=1732924318'
+  -
+    name: 'DEF CON 33 Las Vegas Convention Center'
+    price: 540
+    description: "DEF CON will always be a cash-at-the-door conference. We will always honor the LineCon. This is the way. Preregistration guarantees you'll receive a DEF CON 33 Human badge (as opposed to a paper badge, if we run out) when redeeming your ticket in Las Vegas. Badges must be picked up onsite."
+    image: 'https://shop.defcon.org/cdn/shop/files/ticket_720x.jpg?v=1740606815'
+    quantity: 3
+  -
+    name: 'OWASP SSL Advanced Forensic Tool (O-Saft)'
+    description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations.'
+    price: 0.01
+    image: orange_juice.jpg
+    urlForProductTamperingChallenge: 'https://www.owasp.org/index.php/O-Saft'
+  -
+    name: 'Christmas Super-Surprise-Box (2014 Edition)'
+    description: 'Contains a random selection of 10 bottles (each 500ml) of our tastiest juices and an extra fan shirt for an unbeatable price!'
+    price: 29.99
+    image: undefined.jpg
+    useForChristmasSpecialChallenge: true
+  -
+    name: 'Rippertuer Special Juice'
+    description: 'Contains a magical collection of the rarest fruits gathered from all around the world, like Cherymoya Annona cherimola, Jabuticaba Myrciaria cauliflora, Bael Aegle marmelos... and others, at an unbelievable price! <br/><span style="color:red;">This item has been made unavailable because of lack of safety standards.</span>'
+    price: 16.99
+    image: undefined.jpg
+    keywordsForPastebinDataLeakChallenge:
+      - hueteroneel
+      - eurogium edule
+  -
+    name: 'OWASP Juice Shop Logo (3D-printed)'
+    description: 'This rare item was designed and handcrafted in Sweden. This is why it is so incredibly expensive despite its complete lack of purpose.'
+    price: 99.99
+    image: 3d_keychain.jpg # Exif metadata contains "OpenSCAD" as subtle hint...
+    fileForRetrieveBlueprintChallenge: JuiceShop.stl # ...to blueprint file type
+    exifForBlueprintChallenge:
+      - OpenSCAD
