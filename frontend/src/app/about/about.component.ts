@@ -76,32 +76,7 @@ export class AboutComponent implements OnInit {
           return EMPTY
         })
       ).subscribe((config) => {
-        if (config?.application?.social) {
-          if (config.application.social.blueSkyUrl) {
-            this.blueSkyUrl = config.application.social.blueSkyUrl
-          }
-          if (config.application.social.mastodonUrl) {
-            this.mastodonUrl = config.application.social.mastodonUrl
-          }
-          if (config.application.social.twitterUrl) {
-            this.twitterUrl = config.application.social.twitterUrl
-          }
-          if (config.application.social.facebookUrl) {
-            this.facebookUrl = config.application.social.facebookUrl
-          }
-          if (config.application.social.slackUrl) {
-            this.slackUrl = config.application.social.slackUrl
-          }
-          if (config.application.social.redditUrl) {
-            this.redditUrl = config.application.social.redditUrl
-          }
-          if (config.application.social.pressKitUrl) {
-            this.pressKitUrl = config.application.social.pressKitUrl
-          }
-          if (config.application.social.nftUrl) {
-            this.nftUrl = config.application.social.nftUrl
-          }
-        }
+    this.assignSocialUrls(config?.application?.social)
       })
   }
 

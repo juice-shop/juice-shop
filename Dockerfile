@@ -1,4 +1,4 @@
-FROM node:20-buster as installer
+FROM node:20-buster AS installer
 COPY . /juice-shop
 WORKDIR /juice-shop
 RUN npm i -g typescript ts-node
@@ -16,7 +16,7 @@ RUN rm ftp/legal.md || true
 RUN rm i18n/*.json || true
 
 ARG CYCLONEDX_NPM_VERSION=latest
-RUN npm install -g @cyclonedx/cyclonedx-npm@$CYCLONEDX_NPM_VERSION
+RUN npm install -g "@cyclonedx/cyclonedx-npm@$CYCLONEDX_NPM_VERSION"
 RUN npm run sbom
 
 # workaround for libxmljs startup error
