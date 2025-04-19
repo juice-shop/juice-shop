@@ -17,9 +17,8 @@ module.exports = function b2bOrder () {
     if (utils.isChallengeEnabled(challenges.rceChallenge) || utils.isChallengeEnabled(challenges.rceOccupyChallenge)) {
       const orderLinesData = body.orderLinesData || ''
       try {
-        const sandbox = { safeEval, orderLinesData }
-        vm.createContext(sandbox)
-        vm.runInContext('safeEval(orderLinesData)', sandbox, { timeout: 2000 })
+        // Безопасное выполнение выражения
+        const result = safeEval(orderLinesData)
         res.json({ cid: body.cid, orderNo: uniqueOrderNumber(), paymentDue: dateTwoWeeksFromNow() })
       } catch (err) {
         if (utils.getErrorMessage(err).match(/Script execution timed out.*/) != null) {
@@ -27,7 +26,9 @@ module.exports = function b2bOrder () {
           res.status(503)
           next(new Error('Sorry, we are temporarily not available! Please try again later.'))
         } else {
-          challengeUtils.solveIf(challenges.rceChallenge, () => { return utils.getErrorMessage(err) === 'Infinite loop detected - reached max iterations' })
+          challengeUtils.solveIf(challenges.rceChallenge, () => {
+            return utils.getErrorMessage(err) === 'Infinite loop detected - reached max iterations'
+          })
           next(err)
         }
       }

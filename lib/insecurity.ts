@@ -192,7 +192,12 @@ export const updateAuthenticatedUsers = () => (req: Request, res: Response, next
       if (err === null) {
         if (authenticatedUsers.get(token) === undefined) {
           authenticatedUsers.put(token, decoded)
-          res.cookie('token', token)
+
+          res.cookie('token', token, {
+            httpOnly: true,       // Защита от XSS (не доступна в JS)
+            secure: true,         // Только по HTTPS
+            sameSite: 'Strict'    // Блокировка CSRF
+          })
         }
       }
     })

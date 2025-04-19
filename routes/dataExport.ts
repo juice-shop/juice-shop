@@ -58,7 +58,8 @@ module.exports = function dataExport () {
         })
       })
 
-      db.ordersCollection.find({ email: updatedEmail }).then((orders: Array<{
+      const safeEmail = typeof updatedEmail === 'string' ? updatedEmail : ''
+      db.ordersCollection.find({ email: safeEmail }).then((orders: Array<{
         orderId: string
         totalPrice: number
         products: ProductModel[]
