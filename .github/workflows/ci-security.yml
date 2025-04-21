@@ -1,0 +1,84 @@
+name: CI Security Scan Demo
+
+# Trigger the workflow on pushes to the main/master branch
+# and allow manual triggering from the Actions tab
+on:
+  push:
+    branches: [ "master", "main" ] # Adjust if Juice Shop uses 'master'
+  workflow_dispatch:
+
+jobs:
+  build_and_scan:
+    name: Build and Scan
+    # Use the latest available Ubuntu runner
+    runs-on: ubuntu-latest
+
+    # Grant permissions for actions to interact with GitHub's Checks API and Security Tab
+    permissions:
+      contents: read       # To checkout the code
+      security-events: write # To upload SARIF results
+      actions: read        # To read workflow status
+
+    steps:
+      # --------------------------------------------------
+      # Step 2a: Clones the repository
+      # --------------------------------------------------
+      - name: Checkout code
+        uses: actions/checkout@v4 # Use the latest version
+
+      # --------------------------------------------------
+      # Step 2b: Compiles/builds the application (Setup & Install)
+      # --------------------------------------------------
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          # Check Juice Shop's package.json or docs for the recommended Node version
+          node-version: '18' # Example version, adjust as needed
+
+      - name: Install dependencies
+        run: npm install
+        # Optionally, run a build if needed, but npm install is often sufficient for scanning
+        # run: npm run build # If Juice Shop has a build script
+
+      # --------------------------------------------------
+      # Step 2c (Part 1): Perform SAST scan (Semgrep)
+      # --------------------------------------------------
+      - name: Run Semgrep SAST Scan
+        uses: semgrep/semgrep-action@v2
+        with:
+          # Generate results in SARIF format for GitHub Security tab integration
+          publish_format: 'sarif'
+          publish_token: ${{ secrets.GITHUB_TOKEN }} # Use built-in token for SARIF upload
+          # Use a general configuration suitable for CI environments and JavaScript/TypeScript
+          config: >-
+            p/ci
+            p/javascript
+            p/typescript
+            p/owasp-top-ten
+            p/generic_secrets # Basic secret scanning (TruffleHog is more specialized)
+
+      # --------------------------------------------------
+      # Step 2c (Part 2): Perform SCA scan (Snyk)
+      # --------------------------------------------------
+      - name: Run Snyk SCA Scan
+        uses: snyk/actions/node@master # Use Snyk's official action
+        continue-on-error: true # Don't fail the build if Snyk finds vulnerabilities (for demo purposes)
+        env:
+          # Required: Store your Snyk API token as a secret in GitHub repository settings
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          # Scan for open source vulnerabilities
+          command: test --sarif-file-output=snyk.sarif
+          # Optional: monitor project snapshot in Snyk UI
+          # command: monitor --all-projects
+
+      # --------------------------------------------------
+      # Step 2d: Upload SARIF results (Snyk) to GitHub Security Tab
+      # Note: Semgrep action uploads its own SARIF automatically when publish_token is set.
+      # --------------------------------------------------
+      - name: Upload Snyk SARIF results
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: snyk.sarif
+          # Optional: define a category for easier filtering in the Security tab
+          category: Snyk SCA Scan
