@@ -11,8 +11,7 @@ describe('ScoreBoardAdditionalSettingsDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), MatDialogModule],
-      declarations: [ScoreBoardAdditionalSettingsDialogComponent],
+      imports: [TranslateModule.forRoot(), MatDialogModule, ScoreBoardAdditionalSettingsDialogComponent],
       providers: [
         {
           provide: LocalBackupService,

@@ -1,16 +1,17 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import sinon = require('sinon')
-import chai = require('chai')
-import sinonChai = require('sinon-chai')
+import sinon from 'sinon'
+import chai from 'chai'
+import sinonChai from 'sinon-chai'
+import config from 'config'
+import { retrieveAppConfiguration } from '../../routes/appConfiguration'
 const expect = chai.expect
 chai.use(sinonChai)
 
 describe('appConfiguration', () => {
-  const retrieveAppConfiguration = require('../../routes/appConfiguration')
   let req: any
   let res: any
 
@@ -19,6 +20,6 @@ describe('appConfiguration', () => {
     res = { json: sinon.spy() }
 
     retrieveAppConfiguration()(req, res)
-    expect(res.json).to.have.been.calledWith({ config: require('config') })
+    expect(res.json).to.have.been.calledWith({ config })
   })
 })

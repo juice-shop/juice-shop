@@ -84,7 +84,7 @@ describe('/#/basket', () => {
 
         cy.window().then((win) => {
           cy.on('uncaught:exception', (_err, _runnable) => {
-            // Introduced to disbale the uncaught:exception we get after the eval under this as TypeError: Date.now is not a function
+            // Introduced to disable the uncaught:exception we get after the eval under this as TypeError: Date.now is not a function
             return false
           })
           win.eval(
@@ -95,7 +95,7 @@ describe('/#/basket', () => {
 
         cy.get('#coupon').type('WMNSDY2019')
         cy.get('#applyCouponButton').click()
-        cy.get('.mat-radio-inner-circle').first().click()
+        cy.get('.mat-mdc-radio-button').first().click()
         cy.get('.nextButton').click()
         cy.get('#checkoutButton').click()
         cy.expectChallengeSolved({ challenge: 'Expired Coupon' })

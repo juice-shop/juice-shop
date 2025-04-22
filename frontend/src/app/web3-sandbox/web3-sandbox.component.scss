@@ -118,3 +118,21 @@ ul {
   font-weight: 500;
   margin-top: 16px;
 }
+
+.form-fields-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.contract-selector {
+  flex: 1 1 60%;
+  min-width: 200px;
+}
+
+.gwei-input {
+  flex: 1 1 30%;
+  min-width: 150px;
+}

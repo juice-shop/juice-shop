@@ -1,9 +1,10 @@
+import fs from 'node:fs'
+import yaml from 'js-yaml'
 import { type NextFunction, type Request, type Response } from 'express'
-import * as accuracy from '../lib/accuracy'
 
-const challengeUtils = require('../lib/challengeUtils')
-const fs = require('fs')
-const yaml = require('js-yaml')
+import * as accuracy from '../lib/accuracy'
+import * as challengeUtils from '../lib/challengeUtils'
+import { type ChallengeKey } from 'models/challenge'
 
 const FixesDir = 'data/static/codefixes'
 
@@ -48,7 +49,7 @@ interface FixesRequestParams {
 }
 
 interface VerdictRequestBody {
-  key: string
+  key: ChallengeKey
   selectedFix: number
 }
 

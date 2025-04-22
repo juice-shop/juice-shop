@@ -13,9 +13,9 @@ describe('CategoryFilterComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        MatTooltipModule
-      ],
-      declarations: [CategoryFilterComponent]
+        MatTooltipModule,
+        CategoryFilterComponent
+      ]
     })
       .compileComponents()
 

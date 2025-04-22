@@ -1,39 +1,78 @@
 /*!
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-$bg-heading: rgba(0, 0, 0, 0.2);
-
-.heading {
-  background: $bg-heading;
-  font-size: x-large;
-  justify-content: center;
-  padding: 12px 20px;
-}
-
-.main-wrapper {
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   margin-left: 10%;
   margin-right: 10%;
 }
 
-.img-thumbnail {
-  background: none;
-  border: 0;
-  margin-left: 20px;
+.heading {
+  background: rgba(0, 0, 0, 0.2);
+  font-size: x-large;
+  padding: 16px 24px;
 }
 
-.btn-member {
-  bottom: 10%;
+.deluxe-membership {
+  align-items: center;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(min-content, 600px) auto;
+
+  strong {
+    font-size: 1.5em;
+  }
+
+  .card-text {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .btn-become-member {
+    width: min-content;
+  }
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 }
 
-.item-description {
-  font-size: initial;
-  margin-top: 12px;
-  text-align: center;
+.feature-cards-container {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 }
 
-.item-name {
-  font-size: large;
-  text-align: center;
+.feature-card {
+  align-items: center;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: max-content auto;
+  padding: 16px;
+
+  .card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0 16px;
+    text-align: center;
+  }
+
+  mat-icon {
+    font-size: 72px;
+    height: 72px;
+    width: 72px;
+  }
 }

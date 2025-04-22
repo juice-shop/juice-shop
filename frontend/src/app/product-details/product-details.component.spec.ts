@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -9,7 +9,7 @@ import { By } from '@angular/platform-browser'
 import { MatDividerModule } from '@angular/material/divider'
 import { UserService } from '../Services/user.service'
 import { ProductReviewService } from '../Services/product-review.service'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
@@ -26,6 +26,7 @@ import { of, throwError } from 'rxjs'
 import { ReactiveFormsModule } from '@angular/forms'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { type Product } from '../Models/product.model'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('ProductDetailsComponent', () => {
   let component: ProductDetailsComponent
@@ -48,9 +49,7 @@ describe('ProductDetailsComponent', () => {
     dialog.open.and.returnValue(dialogRefMock)
 
     TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot(),
-        HttpClientTestingModule,
+      imports: [TranslateModule.forRoot(),
         ReactiveFormsModule,
         BrowserAnimationsModule,
         MatDialogModule,
@@ -62,14 +61,15 @@ describe('ProductDetailsComponent', () => {
         MatIconModule,
         MatTooltipModule,
         MatExpansionModule,
-        MatSnackBarModule
-      ],
-      declarations: [ProductDetailsComponent],
+        MatSnackBarModule,
+        ProductDetailsComponent],
       providers: [
         { provide: UserService, useValue: userService },
         { provide: ProductReviewService, useValue: productReviewService },
         { provide: MatDialog, useValue: dialog },
-        { provide: MAT_DIALOG_DATA, useValue: { productData: {} } }
+        { provide: MAT_DIALOG_DATA, useValue: { productData: {} } },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     })
       .compileComponents()

@@ -1,15 +1,16 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import frisby = require('frisby')
+import * as frisby from 'frisby'
 import config from 'config'
 import jwt from 'jsonwebtoken'
-const Joi = frisby.Joi
-const security = require('../../lib/insecurity')
+import * as otplib from 'otplib'
 
-const otplib = require('otplib')
+import * as security from '../../lib/insecurity'
+
+const Joi = frisby.Joi
 
 const REST_URL = 'http://localhost:3000/rest'
 const API_URL = 'http://localhost:3000/api'
@@ -30,6 +31,10 @@ async function login ({ email, password, totpSecret }: { email: string, password
     })
 
   if (loginRes.json.status && loginRes.json.status === 'totp_token_required') {
+    if (!totpSecret) {
+      throw new Error('login with totp required but no totp secret provided to login function')
+    }
+
     // @ts-expect-error FIXME promise return handling broken
     const totpRes = await frisby
       .post(REST_URL + '/2fa/verify', {
@@ -301,7 +306,7 @@ describe('/rest/2fa/setup', () => {
       .expect('status', 401)
   })
 
-  it('POST should fail if the inital token is incorrect', async () => {
+  it('POST should fail if the initial token is incorrect', async () => {
     const email = 'fooooo3@bar.com'
     const password = '123456'
 

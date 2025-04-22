@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -16,10 +16,10 @@ describe('ErrorPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ErrorPageComponent],
       imports: [
         TranslateModule.forRoot(),
-        MatCardModule
+        MatCardModule,
+        ErrorPageComponent
       ],
       providers: [
         {

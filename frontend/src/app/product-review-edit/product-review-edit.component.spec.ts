@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -37,9 +37,9 @@ describe('ProductReviewEditComponent', () => {
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        ProductReviewEditComponent
       ],
-      declarations: [ProductReviewEditComponent],
       providers: [
         { provide: ProductReviewService, useValue: productReviewService },
         { provide: MAT_DIALOG_DATA, useValue: { productData: {} } },

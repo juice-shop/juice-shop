@@ -1,7 +1,7 @@
 // from https://github.com/sindresorhus/is-docker/tree/main MIT Licensed
 // inlined to avoid import problems in cypress
 
-import fs from 'fs'
+import fs from 'node:fs'
 
 let isDockerCached: boolean | undefined
 
