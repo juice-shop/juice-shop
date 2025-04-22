@@ -42,8 +42,6 @@ jobs:
           npm run package:ci
       - name: 'Attach packaged archive to tag release'
         uses: softprops/action-gh-release@da05d552573ad5aba039eaac05058a918a7bf631 #v2.2.2
-        permissions:
-          contents: write
         with:
           draft: true
           files: dist/*
