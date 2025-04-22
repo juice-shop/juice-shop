@@ -3,12 +3,12 @@ on:
   pull_request:
     types:
       - labeled
+permissions:
+  pull-requests: write
 jobs:
   add-comment:
     if: github.event.label.name == 'spam'
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
     steps:
       - name: Add spam comment
         run: gh pr comment "$NUMBER" --body "$BODY"
