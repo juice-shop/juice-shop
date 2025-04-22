@@ -14,7 +14,6 @@ import { MatCardModule } from '@angular/material/card'
   selector: 'app-privacy-policy',
   templateUrl: './privacy-policy.component.html',
   styleUrls: ['./privacy-policy.component.scss'],
-  standalone: true,
   imports: [MatCardModule, TranslateModule, MatDivider]
 })
 export class PrivacyPolicyComponent implements OnInit {

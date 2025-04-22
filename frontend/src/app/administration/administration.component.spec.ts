@@ -12,7 +12,7 @@ import { type ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@
 
 import { AdministrationComponent } from './administration.component'
 import { MatTableModule } from '@angular/material/table'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { TranslateModule } from '@ngx-translate/core'
 import { of } from 'rxjs'
@@ -21,6 +21,7 @@ import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatCardModule } from '@angular/material/card'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatIconModule } from '@angular/material/icon'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('AdministrationComponent', () => {
   let component: AdministrationComponent
@@ -39,21 +40,20 @@ describe('AdministrationComponent', () => {
     feedbackService.del.and.returnValue(of(null))
 
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        MatTableModule,
+      imports: [MatTableModule,
         TranslateModule.forRoot(),
         MatDialogModule,
         MatPaginatorModule,
         MatDividerModule,
         MatCardModule,
         MatIconModule,
-        AdministrationComponent
-      ],
+        AdministrationComponent],
       providers: [
         { provide: MatDialog, useValue: dialog },
         { provide: UserService, useValue: userService },
-        { provide: FeedbackService, useValue: feedbackService }
+        { provide: FeedbackService, useValue: feedbackService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     })
       .compileComponents()

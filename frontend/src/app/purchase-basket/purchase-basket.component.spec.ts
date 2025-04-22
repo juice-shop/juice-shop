@@ -11,7 +11,7 @@ import { MatCardModule } from '@angular/material/card'
 import { MatTableModule } from '@angular/material/table'
 import { MatButtonModule } from '@angular/material/button'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { ReactiveFormsModule } from '@angular/forms'
 import { of } from 'rxjs'
 import { throwError } from 'rxjs/internal/observable/throwError'
@@ -21,6 +21,7 @@ import { UserService } from '../Services/user.service'
 import { DeluxeGuard } from '../app.guard'
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 import { EventEmitter } from '@angular/core'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('PurchaseBasketComponent', () => {
   let component: PurchaseBasketComponent
@@ -50,9 +51,7 @@ describe('PurchaseBasketComponent', () => {
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         BrowserAnimationsModule,
         ReactiveFormsModule,
         MatInputModule,
@@ -61,14 +60,15 @@ describe('PurchaseBasketComponent', () => {
         MatButtonModule,
         MatButtonToggleModule,
         MatSnackBarModule,
-        PurchaseBasketComponent
-      ],
+        PurchaseBasketComponent],
       providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: BasketService, useValue: basketService },
         { provide: MatSnackBar, useValue: snackBar },
         { provide: UserService, useValue: userService },
-        { provide: DeluxeGuard, useValue: deluxeGuard }
+        { provide: DeluxeGuard, useValue: deluxeGuard },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     })
       .compileComponents()

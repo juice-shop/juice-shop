@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
 import { Status, TrackResultComponent } from './track-result.component'
@@ -13,6 +13,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { TrackOrderService } from '../Services/track-order.service'
 import { DomSanitizer } from '@angular/platform-browser'
 import { of } from 'rxjs'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('TrackResultComponent', () => {
   let component: TrackResultComponent
@@ -28,17 +29,16 @@ describe('TrackResultComponent', () => {
     sanitizer.sanitize.and.returnValue({})
 
     TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         RouterTestingModule,
-        HttpClientTestingModule,
         MatCardModule,
         MatTableModule,
-        TrackResultComponent
-      ],
+        TrackResultComponent],
       providers: [
         { provide: TrackOrderService, useValue: trackOrderService },
-        { provide: DomSanitizer, useValue: sanitizer }
+        { provide: DomSanitizer, useValue: sanitizer },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     })
       .compileComponents()

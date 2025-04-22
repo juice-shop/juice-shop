@@ -4,7 +4,7 @@
  */
 
 import { TranslateModule } from '@ngx-translate/core'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
@@ -29,6 +29,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { ConfigurationService } from '../Services/configuration.service'
 import { throwError } from 'rxjs/internal/observable/throwError'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('DeluxeUserComponent', () => {
   let component: DeluxeUserComponent
@@ -49,31 +50,30 @@ describe('DeluxeUserComponent', () => {
     cookieService = jasmine.createSpyObj('CookieService', ['remove'])
 
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule.withRoutes([
-          { path: 'login', component: LoginComponent }
-        ]),
-        TranslateModule.forRoot(),
-        HttpClientTestingModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        MatCardModule,
-        MatTableModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatExpansionModule,
-        MatDividerModule,
-        MatRadioModule,
-        MatDialogModule,
-        MatIconModule,
-        MatCheckboxModule,
-        MatTooltipModule,
-        DeluxeUserComponent, LoginComponent
-      ],
+      imports: [RouterTestingModule.withRoutes([
+        { path: 'login', component: LoginComponent }
+      ]),
+      TranslateModule.forRoot(),
+      ReactiveFormsModule,
+      BrowserAnimationsModule,
+      MatCardModule,
+      MatTableModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatExpansionModule,
+      MatDividerModule,
+      MatRadioModule,
+      MatDialogModule,
+      MatIconModule,
+      MatCheckboxModule,
+      MatTooltipModule,
+      DeluxeUserComponent, LoginComponent],
       providers: [
         { provide: UserService, useValue: userService },
         { provide: ConfigurationService, useValue: configurationService },
-        { provide: CookieService, useValue: cookieService }
+        { provide: CookieService, useValue: cookieService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     })
       .compileComponents()

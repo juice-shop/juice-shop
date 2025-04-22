@@ -3,23 +3,23 @@
  * SPDX-License-Identifier: MIT
  */
 
-import path = require('path')
-import { type Request, type Response, type NextFunction } from 'express'
-import { BasketModel } from '../models/basket'
-import { ProductModel } from '../models/product'
-import { BasketItemModel } from '../models/basketitem'
-import { QuantityModel } from '../models/quantity'
-import { DeliveryModel } from '../models/delivery'
-import { WalletModel } from '../models/wallet'
-import challengeUtils = require('../lib/challengeUtils')
+import fs from 'node:fs'
+import path from 'node:path'
 import config from 'config'
+import PDFDocument from 'pdfkit'
+import { type Request, type Response, type NextFunction } from 'express'
+
+import { challenges, products } from '../data/datacache'
+import * as challengeUtils from '../lib/challengeUtils'
+import { BasketItemModel } from '../models/basketitem'
+import { DeliveryModel } from '../models/delivery'
+import { QuantityModel } from '../models/quantity'
+import { ProductModel } from '../models/product'
+import { BasketModel } from '../models/basket'
+import { WalletModel } from '../models/wallet'
+import * as security from '../lib/insecurity'
 import * as utils from '../lib/utils'
 import * as db from '../data/mongodb'
-import { challenges, products } from '../data/datacache'
-
-const fs = require('fs')
-const PDFDocument = require('pdfkit')
-const security = require('../lib/insecurity')
 
 interface Product {
   quantity: number
@@ -30,7 +30,7 @@ interface Product {
   bonus: number
 }
 
-module.exports = function placeOrder () {
+export function placeOrder () {
   return (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id
     BasketModel.findOne({ where: { id }, include: [{ model: ProductModel, paranoid: false, as: 'Products' }] })
@@ -50,16 +50,16 @@ module.exports = function placeOrder () {
             res.json({ orderConfirmation: orderId })
           })
 
-          doc.font('Times-Roman', 40).text(config.get<string>('application.name'), { align: 'center' })
+          doc.font('Times-Roman').fontSize(40).text(config.get<string>('application.name'), { align: 'center' })
           doc.moveTo(70, 115).lineTo(540, 115).stroke()
           doc.moveTo(70, 120).lineTo(540, 120).stroke()
           doc.fontSize(20).moveDown()
-          doc.font('Times-Roman', 20).text(req.__('Order Confirmation'), { align: 'center' })
+          doc.font('Times-Roman').fontSize(20).text(req.__('Order Confirmation'), { align: 'center' })
           doc.fontSize(20).moveDown()
-          doc.font('Times-Roman', 15).text(`${req.__('Customer')}: ${email}`, { align: 'left' })
-          doc.font('Times-Roman', 15).text(`${req.__('Order')} #: ${orderId}`, { align: 'left' })
+          doc.font('Times-Roman').fontSize(15).text(`${req.__('Customer')}: ${email}`, { align: 'left' })
+          doc.font('Times-Roman').fontSize(15).text(`${req.__('Order')} #: ${orderId}`, { align: 'left' })
           doc.moveDown()
-          doc.font('Times-Roman', 15).text(`${req.__('Date')}: ${date}`, { align: 'left' })
+          doc.font('Times-Roman').fontSize(15).text(`${req.__('Date')}: ${date}`, { align: 'left' })
           doc.moveDown()
           doc.moveDown()
           let totalPrice = 0
@@ -100,7 +100,7 @@ module.exports = function placeOrder () {
             }
           })
           doc.moveDown()
-          const discount = calculateApplicableDiscount(basket, req)
+          const discount = calculateApplicableDiscount(basket, req) ?? 0
           let discountAmount = '0'
           if (discount > 0) {
             discountAmount = (totalPrice * (discount / 100)).toFixed(2)
@@ -125,13 +125,13 @@ module.exports = function placeOrder () {
           totalPrice += deliveryAmount
           doc.text(`${req.__('Delivery Price')}: ${deliveryAmount.toFixed(2)}¤`)
           doc.moveDown()
-          doc.font('Helvetica-Bold', 20).text(`${req.__('Total Price')}: ${totalPrice.toFixed(2)}¤`)
+          doc.font('Helvetica-Bold').fontSize(20).text(`${req.__('Total Price')}: ${totalPrice.toFixed(2)}¤`)
           doc.moveDown()
-          doc.font('Helvetica-Bold', 15).text(`${req.__('Bonus Points Earned')}: ${totalPoints}`)
-          doc.font('Times-Roman', 15).text(`(${req.__('The bonus points from this order will be added 1:1 to your wallet ¤-fund for future purchases!')}`)
+          doc.font('Helvetica-Bold').fontSize(15).text(`${req.__('Bonus Points Earned')}: ${totalPoints}`)
+          doc.font('Times-Roman').fontSize(15).text(`(${req.__('The bonus points from this order will be added 1:1 to your wallet ¤-fund for future purchases!')}`)
           doc.moveDown()
           doc.moveDown()
-          doc.font('Times-Roman', 15).text(req.__('Thank you for your order!'))
+          doc.font('Times-Roman').fontSize(15).text(req.__('Thank you for your order!'))
 
           challengeUtils.solveIf(challenges.negativeOrderChallenge, () => { return totalPrice < 0 })
 
@@ -176,9 +176,9 @@ module.exports = function placeOrder () {
 }
 
 function calculateApplicableDiscount (basket: BasketModel, req: Request) {
-  if (security.discountFromCoupon(basket.coupon)) {
-    const discount = security.discountFromCoupon(basket.coupon)
-    challengeUtils.solveIf(challenges.forgedCouponChallenge, () => { return discount >= 80 })
+  if (security.discountFromCoupon(basket.coupon ?? undefined)) {
+    const discount = security.discountFromCoupon(basket.coupon ?? undefined)
+    challengeUtils.solveIf(challenges.forgedCouponChallenge, () => { return discount ?? 0 >= 80 })
     return discount
   } else if (req.body.couponData) {
     const couponData = Buffer.from(req.body.couponData, 'base64').toString().split('-')

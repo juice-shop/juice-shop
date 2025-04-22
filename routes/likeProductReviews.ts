@@ -3,63 +3,60 @@
  * SPDX-License-Identifier: MIT
  */
 
-import challengeUtils = require('../lib/challengeUtils')
 import { type Request, type Response, type NextFunction } from 'express'
+
+import * as challengeUtils from '../lib/challengeUtils'
+import { challenges } from '../data/datacache'
+import * as security from '../lib/insecurity'
 import { type Review } from '../data/types'
 import * as db from '../data/mongodb'
-import { challenges } from '../data/datacache'
 
-const security = require('../lib/insecurity')
+const sleep = async (ms: number) => await new Promise(resolve => setTimeout(resolve, ms))
 
-module.exports = function productReviews () {
-  return (req: Request, res: Response, next: NextFunction) => {
+export function likeProductReviews () {
+  return async (req: Request, res: Response, next: NextFunction) => {
     const id = req.body.id
     const user = security.authenticatedUsers.from(req)
-    db.reviewsCollection.findOne({ _id: id }).then((review: Review) => {
+    if (!user) {
+      return res.status(401).json({ error: 'Unauthorized' })
+    }
+
+    try {
+      const review = await db.reviewsCollection.findOne({ _id: id })
       if (!review) {
-        res.status(404).json({ error: 'Not found' })
-      } else {
-        const likedBy = review.likedBy
-        if (!likedBy.includes(user.data.email)) {
-          db.reviewsCollection.update(
-            { _id: id },
-            { $inc: { likesCount: 1 } }
-          ).then(
-            () => {
-              // Artificial wait for timing attack challenge
-              setTimeout(function () {
-                db.reviewsCollection.findOne({ _id: id }).then((review: Review) => {
-                  const likedBy = review.likedBy
-                  likedBy.push(user.data.email)
-                  let count = 0
-                  for (let i = 0; i < likedBy.length; i++) {
-                    if (likedBy[i] === user.data.email) {
-                      count++
-                    }
-                  }
-                  challengeUtils.solveIf(challenges.timingAttackChallenge, () => { return count > 2 })
-                  db.reviewsCollection.update(
-                    { _id: id },
-                    { $set: { likedBy } }
-                  ).then(
-                    (result: any) => {
-                      res.json(result)
-                    }, (err: unknown) => {
-                      res.status(500).json(err)
-                    })
-                }, () => {
-                  res.status(400).json({ error: 'Wrong Params' })
-                })
-              }, 150)
-            }, (err: unknown) => {
-              res.status(500).json(err)
-            })
-        } else {
-          res.status(403).json({ error: 'Not allowed' })
-        }
+        return res.status(404).json({ error: 'Not found' })
       }
-    }, () => {
+
+      const likedBy = review.likedBy
+      if (likedBy.includes(user.data.email)) {
+        return res.status(403).json({ error: 'Not allowed' })
+      }
+
+      await db.reviewsCollection.update(
+        { _id: id },
+        { $inc: { likesCount: 1 } }
+      )
+
+      // Artificial wait for timing attack challenge
+      await sleep(150)
+      try {
+        const updatedReview: Review = await db.reviewsCollection.findOne({ _id: id })
+        const updatedLikedBy = updatedReview.likedBy
+        updatedLikedBy.push(user.data.email)
+
+        const count = updatedLikedBy.filter(email => email === user.data.email).length
+        challengeUtils.solveIf(challenges.timingAttackChallenge, () => count > 2)
+
+        const result = await db.reviewsCollection.update(
+          { _id: id },
+          { $set: { likedBy: updatedLikedBy } }
+        )
+        res.json(result)
+      } catch (err) {
+        res.status(500).json(err)
+      }
+    } catch (err) {
       res.status(400).json({ error: 'Wrong Params' })
-    })
+    }
   }
 }

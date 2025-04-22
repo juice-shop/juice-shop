@@ -1,7 +1,8 @@
-import path from 'path'
-import { readFile } from 'fs/promises'
+import path from 'node:path'
+import { readFile } from 'node:fs/promises'
 import { safeLoad } from 'js-yaml'
 import logger from '../lib/logger'
+import { type ChallengeKey } from 'models/challenge'
 
 export async function loadStaticData (file: string) {
   const filePath = path.resolve('./data/static/' + file + '.yml')
@@ -64,7 +65,7 @@ export interface StaticChallenge {
   hint: string
   hintUrl: string
   mitigationUrl: string
-  key: string
+  key: ChallengeKey
   disabledEnv?: string[]
   tutorial?: {
     order: number

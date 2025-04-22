@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: MIT
  */
 
-import utils = require('../lib/utils')
-import challengeUtils = require('../lib/challengeUtils')
 import { type Request, type Response, type NextFunction } from 'express'
+
+import * as challengeUtils from '../lib/challengeUtils'
+import { challenges } from '../data/datacache'
+import * as security from '../lib/insecurity'
 import { type Review } from 'data/types'
 import * as db from '../data/mongodb'
-import { challenges } from '../data/datacache'
-
-const security = require('../lib/insecurity')
+import * as utils from '../lib/utils'
 
 // Blocking sleep function as in native MongoDB
 // @ts-expect-error FIXME Type safety broken for global object
@@ -25,7 +25,7 @@ global.sleep = (time: number) => {
   }
 }
 
-module.exports = function productReviews () {
+export function showProductReviews () {
   return (req: Request, res: Response, next: NextFunction) => {
     // Truncate id to avoid unintentional RCE
     const id = !utils.isChallengeEnabled(challenges.noSqlCommandChallenge) ? Number(req.params.id) : utils.trunc(req.params.id, 40)

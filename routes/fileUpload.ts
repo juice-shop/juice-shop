@@ -3,18 +3,18 @@
  * SPDX-License-Identifier: MIT
  */
 
-import os from 'os'
-import fs = require('fs')
-import challengeUtils = require('../lib/challengeUtils')
+import os from 'node:os'
+import fs from 'node:fs'
+import vm from 'node:vm'
+import path from 'node:path'
+import yaml from 'js-yaml'
+import libxml from 'libxmljs'
+import unzipper from 'unzipper'
 import { type NextFunction, type Request, type Response } from 'express'
-import path from 'path'
-import * as utils from '../lib/utils'
-import { challenges } from '../data/datacache'
 
-const libxml = require('libxmljs')
-const yaml = require('js-yaml')
-const vm = require('vm')
-const unzipper = require('unzipper')
+import * as challengeUtils from '../lib/challengeUtils'
+import { challenges } from '../data/datacache'
+import * as utils from '../lib/utils'
 
 function ensureFileIsPassed ({ file }: Request, res: Response, next: NextFunction) {
   if (file != null) {
@@ -136,7 +136,7 @@ function handleYamlUpload ({ file }: Request, res: Response, next: NextFunction)
   res.status(204).end()
 }
 
-module.exports = {
+export {
   ensureFileIsPassed,
   handleZipFileUpload,
   checkUploadSize,

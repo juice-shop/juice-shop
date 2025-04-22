@@ -11,7 +11,7 @@ import { UserService } from '../Services/user.service'
 import { WindowRefService } from '../Services/window-ref.service'
 
 import { ReactiveFormsModule } from '@angular/forms'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
@@ -34,6 +34,7 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 
 import { of } from 'rxjs'
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('TwoFactorAuthEnterComponent', () => {
   let component: TwoFactorAuthEnterComponent
@@ -51,36 +52,35 @@ describe('TwoFactorAuthEnterComponent', () => {
     twoFactorAuthService.verify.and.returnValue(of({ }))
 
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        RouterTestingModule.withRoutes([
-          { path: 'search', component: SearchResultComponent }
-        ]),
-        ReactiveFormsModule,
-        CookieModule.forRoot(),
-        TranslateModule.forRoot(),
-        BrowserAnimationsModule,
-        MatCheckboxModule,
-        MatFormFieldModule,
-        MatCardModule,
-        MatIconModule,
-        MatInputModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatDialogModule,
-        MatDividerModule,
-        MatButtonModule,
-        MatGridListModule,
-        MatSnackBarModule,
-        MatTooltipModule,
-        TwoFactorAuthEnterComponent, SearchResultComponent
-      ],
+      imports: [RouterTestingModule.withRoutes([
+        { path: 'search', component: SearchResultComponent }
+      ]),
+      ReactiveFormsModule,
+      CookieModule.forRoot(),
+      TranslateModule.forRoot(),
+      BrowserAnimationsModule,
+      MatCheckboxModule,
+      MatFormFieldModule,
+      MatCardModule,
+      MatIconModule,
+      MatInputModule,
+      MatTableModule,
+      MatPaginatorModule,
+      MatDialogModule,
+      MatDividerModule,
+      MatButtonModule,
+      MatGridListModule,
+      MatSnackBarModule,
+      MatTooltipModule,
+      TwoFactorAuthEnterComponent, SearchResultComponent],
       providers: [
         { provide: UserService, useValue: userService },
         { provide: TwoFactorAuthService, useValue: twoFactorAuthService },
         CookieService,
         WindowRefService,
-        CookieService
+        CookieService,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     })
       .compileComponents()

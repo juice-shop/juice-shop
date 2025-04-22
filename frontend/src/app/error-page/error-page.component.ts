@@ -16,7 +16,6 @@ library.add(faUserSlash, faHandPaper)
   selector: 'app-error-page',
   templateUrl: './error-page.component.html',
   styleUrls: ['./error-page.component.scss'],
-  standalone: true,
   imports: [MatCardModule]
 })
 export class ErrorPageComponent implements OnInit {

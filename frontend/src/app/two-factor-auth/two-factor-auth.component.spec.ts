@@ -7,7 +7,7 @@ import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/test
 import { TwoFactorAuthComponent } from './two-factor-auth.component'
 
 import { ReactiveFormsModule } from '@angular/forms'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { TranslateModule } from '@ngx-translate/core'
@@ -30,6 +30,7 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
 import { throwError } from 'rxjs/internal/observable/throwError'
 import { QrCodeModule } from 'ng-qrcode'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('TwoFactorAuthComponent', () => {
   let component: TwoFactorAuthComponent
@@ -42,9 +43,7 @@ describe('TwoFactorAuthComponent', () => {
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { } }))
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        ReactiveFormsModule,
+      imports: [ReactiveFormsModule,
         TranslateModule.forRoot(),
         BrowserAnimationsModule,
         MatCheckboxModule,
@@ -60,11 +59,12 @@ describe('TwoFactorAuthComponent', () => {
         QrCodeModule,
         MatSnackBarModule,
         MatTooltipModule,
-        TwoFactorAuthComponent
-      ],
+        TwoFactorAuthComponent],
       providers: [
         { provide: ConfigurationService, useValue: configurationService },
-        { provide: TwoFactorAuthService, useValue: twoFactorAuthService }
+        { provide: TwoFactorAuthService, useValue: twoFactorAuthService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     }).compileComponents()
   }))

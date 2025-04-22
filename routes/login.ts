@@ -2,22 +2,20 @@
  * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
-
-import models = require('../models/index')
 import { type Request, type Response, type NextFunction } from 'express'
-import { type User } from '../data/types'
-import { BasketModel } from '../models/basket'
-import { UserModel } from '../models/user'
-import challengeUtils = require('../lib/challengeUtils')
 import config from 'config'
-import { challenges } from '../data/datacache'
 
+import * as challengeUtils from '../lib/challengeUtils'
+import { challenges, users } from '../data/datacache'
+import { BasketModel } from '../models/basket'
+import * as security from '../lib/insecurity'
+import { UserModel } from '../models/user'
+import * as models from '../models/index'
+import { type User } from '../data/types'
 import * as utils from '../lib/utils'
-const security = require('../lib/insecurity')
-const users = require('../data/datacache').users
 
 // vuln-code-snippet start loginAdminChallenge loginBenderChallenge loginJimChallenge
-module.exports = function login () {
+export function login () {
   function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {
     verifyPostLoginChallenges(user) // vuln-code-snippet hide-line
     BasketModel.findOrCreate({ where: { UserId: user.data.id } })
