@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { SearchResultComponent } from '../search-result/search-result.component'
 import { WindowRefService } from '../Services/window-ref.service'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { UserService } from '../Services/user.service'
 import { type ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing'
 import { LoginComponent } from './login.component'
@@ -18,7 +18,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatCardModule } from '@angular/material/card'
 import { MatInputModule } from '@angular/material/input'
-import { CookieModule, CookieService } from 'ngx-cookie'
+import { CookieModule, CookieService } from 'ngy-cookie'
 import { Location } from '@angular/common'
 import { of, throwError } from 'rxjs'
 import { MatTableModule } from '@angular/material/table'
@@ -28,6 +28,7 @@ import { MatDividerModule } from '@angular/material/divider'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatTooltipModule } from '@angular/material/tooltip'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('LoginComponent', () => {
   let component: LoginComponent
@@ -42,33 +43,31 @@ describe('LoginComponent', () => {
     userService.isLoggedIn.next.and.returnValue({})
 
     TestBed.configureTestingModule({
-      declarations: [LoginComponent, SearchResultComponent],
-      imports: [
-        HttpClientTestingModule,
-        RouterTestingModule.withRoutes([
-          { path: 'search', component: SearchResultComponent }
-        ]
-        ),
-        ReactiveFormsModule,
-        CookieModule.forRoot(),
-        TranslateModule.forRoot(),
-        BrowserAnimationsModule,
-        MatCheckboxModule,
-        MatFormFieldModule,
-        MatCardModule,
-        MatIconModule,
-        MatInputModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatDialogModule,
-        MatDividerModule,
-        MatGridListModule,
-        MatTooltipModule
-      ],
+      imports: [RouterTestingModule.withRoutes([
+        { path: 'search', component: SearchResultComponent }
+      ]),
+      ReactiveFormsModule,
+      CookieModule.forRoot(),
+      TranslateModule.forRoot(),
+      BrowserAnimationsModule,
+      MatCheckboxModule,
+      MatFormFieldModule,
+      MatCardModule,
+      MatIconModule,
+      MatInputModule,
+      MatTableModule,
+      MatPaginatorModule,
+      MatDialogModule,
+      MatDividerModule,
+      MatGridListModule,
+      MatTooltipModule,
+      LoginComponent, SearchResultComponent],
       providers: [
         { provide: UserService, useValue: userService },
         WindowRefService,
-        CookieService
+        CookieService,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     })
       .compileComponents()

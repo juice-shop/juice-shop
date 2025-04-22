@@ -1,20 +1,14 @@
-mat-dialog-content {
-  display: grid;
-  grid-template-rows: min-content 1fr min-content;
-  height: 100%;
-  overflow: visible;
-}
 
-.mat-radio-button ~ .mat-radio-button {
+.mat-mdc-radio-button ~ .mat-mdc-radio-button {
   margin-left: 16px;
 }
 
 mat-dialog-actions {
-  display: flex;
-  flex-direction: row-reverse;
+  justify-content: end;
 }
 
 h1 {
+  font-size: 24px !important;
   margin-bottom: 24px;
 }
 
@@ -48,4 +42,27 @@ h1 {
 
 button mat-icon {
   margin-right: 8px;
+}
+
+h2 {
+  color: var(--theme-text);
+}
+
+span {
+  color: var(--theme-text);
+  font-size: 14px;
+}
+
+mat-icon {
+  font-size: 24px !important; /* Increases the icon size */
+  height: 24px !important;
+  width: 24px !important;
+}
+
+.tooltip {
+  font-size: 14px;
+}
+
+.close-btn:hover {
+  background-color: var(--theme-background-lighter) !important;
 }

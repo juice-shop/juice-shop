@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -7,7 +7,7 @@ import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angula
 import { DataExportComponent } from './data-export.component'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { ImageCaptchaService } from '../Services/image-captcha.service'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { ReactiveFormsModule } from '@angular/forms'
 import { of, throwError } from 'rxjs'
 import { DomSanitizer } from '@angular/platform-browser'
@@ -19,6 +19,7 @@ import { MatInputModule } from '@angular/material/input'
 import { MatCardModule } from '@angular/material/card'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatButtonModule } from '@angular/material/button'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('DataExportComponent', () => {
   let component: DataExportComponent
@@ -33,22 +34,21 @@ describe('DataExportComponent', () => {
     dataSubjectService = jasmine.createSpyObj('DataSubjectService', ['dataExport'])
 
     TestBed.configureTestingModule({
-      declarations: [DataExportComponent],
-      imports: [
-        HttpClientTestingModule,
-        TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         MatFormFieldModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
         MatInputModule,
         MatCardModule,
         MatRadioModule,
-        MatButtonModule
-      ],
+        MatButtonModule,
+        DataExportComponent],
       providers: [
         { provide: ImageCaptchaService, useValue: imageCaptchaService },
         { provide: DataSubjectService, useValue: dataSubjectService },
-        TranslateService
+        TranslateService,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     }).compileComponents()
   }))

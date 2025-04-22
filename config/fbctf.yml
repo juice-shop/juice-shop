@@ -336,3 +336,9 @@ ctf:
     csafChallenge:
       name: Slovenia
       code: SI
+    exposedCredentialsChallenge:
+      name: Montenegro
+      code: ME
+    yamlBombChallenge:
+      name: Eswatini
+      code: SZ

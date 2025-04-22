@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -18,20 +18,16 @@ $bg-heading: rgba(0, 0, 0, 0.2);
 }
 
 .img-thumbnail {
-  width: 100%;
+  align-self: start;
+  width: 61% !important;
 }
 
+.heading {
+  margin-bottom: 10px;
+}
 
 .product {
   cursor: pointer;
-}
-
-.btn-basket {
-  bottom: 10%;
-}
-
-mat-card {
-  height: calc(100% - 70px);
 }
 
 .item-price {
@@ -99,6 +95,7 @@ mat-card {
 .ribbon-top-left {
   left: -10px;
   top: -10px;
+  z-index: 1;
 }
 
 .ribbon-top-left::before {
@@ -112,4 +109,43 @@ mat-card {
   right: -25px;
   top: 30px;
   transform: rotate(-45deg);
+}
+
+.img-responsive {
+  height: auto;
+  object-fit: cover;
+  width: 100%;
+}
+
+.btn-basket {
+  margin-top: 20px;
+}
+
+.mdc-card {
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 20px);
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+mat-card {
+  height: calc(100% - 70px);
+  width: 100%;
+}
+
+mat-grid-tile {
+  align-items: stretch;
+  height: auto !important;
+}
+
+.mat-divider.mat-divider-horizontal {
+  margin-top: 10px;
+}
+
+.product {
+  margin-left: -17px;
+  margin-right: 6px;
+  margin-top: -17px;
 }

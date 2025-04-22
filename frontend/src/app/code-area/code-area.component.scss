@@ -5,11 +5,7 @@
   padding: 1em 0.5em;
 }
 
-#code {
-  width: 63em;
-  // height: 50em;
-}
-
 .lineMarker {
+  color: #fff; // needs to be completly white, otherwise the emojis colors just look dull
   cursor: pointer;
 }

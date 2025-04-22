@@ -1,12 +1,11 @@
 <!--
-  ~ Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
   -->
 
 <mat-dialog-content>
-  <div class="container mat-typography" fxLayout="column">
+  <div class="container" fxLayout="column">
     <h1 translate>LABEL_EDIT_REVIEW</h1>
-
     <div>
       <mat-form-field appearance="outline" color="accent" hintLabel="Max 160 characters" floatLabel="always">
         <mat-label translate>LABEL_REVIEW</mat-label>
@@ -23,16 +22,12 @@
 
 <mat-dialog-actions align="end">
   <button mat-stroked-button mat-dialog-close class="close-dialog" aria-label="Close Dialog">
-    <i class="material-icons">
-      close
-    </i>
-    <span>  {{'BTN_CLOSE' | translate}}</span>
+    <mat-icon>close</mat-icon>
+    <span>{{'BTN_CLOSE' | translate}}</span>
   </button>
   <button type="submit" (click)="editReview()" mat-raised-button style="margin-left: 5px;" color="primary" aria-label="Send the review"
           [disabled]="editReviewControl.invalid">
-    <i class="material-icons">
-      send
-    </i>
-    <span>  {{'BTN_SUBMIT' | translate}}</span>
+    <mat-icon>send</mat-icon>
+    <span>{{'BTN_SUBMIT' | translate}}</span>
   </button>
 </mat-dialog-actions>

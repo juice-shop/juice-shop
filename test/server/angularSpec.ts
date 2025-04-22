@@ -1,16 +1,16 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import sinon = require('sinon')
-import chai = require('chai')
-import sinonChai = require('sinon-chai')
+import sinon from 'sinon'
+import chai from 'chai'
+import sinonChai from 'sinon-chai'
+import { serveAngularClient } from '../../routes/angular'
 const expect = chai.expect
 chai.use(sinonChai)
 
 describe('angular', () => {
-  const serveAngularClient = require('../../routes/angular')
   let req: any
   let res: any
   let next: any

@@ -1,6 +1,6 @@
 confidential_document = open('announcement.md', 'r')
 
-#  Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+#  Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
 #  SPDX-License-Identifier: MIT
 
 # Public Parameters

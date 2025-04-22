@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Check out Git repository
-      uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac #v4.0.0
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
       with:
         token: ${{ secrets.BOT_TOKEN }}
         repository: OWASP/www-project-juice-shop
@@ -17,7 +17,7 @@ jobs:
     - name: Update tab_news.md
       run: |
         sed -i 's/<!-- next:juice-shop -->/<!-- next:juice-shop -->\n* ${{ github.event.release.published_at }}: juice-shop [`${{ github.event.release.tag_name }}`](https:\/\/github.com\/juice-shop\/juice-shop\/releases\/tag\/${{ github.event.release.tag_name }})/' tab_news.md
-    - uses: stefanzweifel/git-auto-commit-action@3ea6ae190baf489ba007f7c92608f33ce20ef04a #v4.16.0
+    - uses: stefanzweifel/git-auto-commit-action@8621497c8c39c72f3e2a999a26b4ca1b5058a842 #v5.0.1
       with:
         commit_message: "Add juice-shop ${{ github.event.release.tag_name }} release notes to tab_news.md"
         branch: master

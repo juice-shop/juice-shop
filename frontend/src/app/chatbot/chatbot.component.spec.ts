@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -16,9 +16,10 @@ import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/test
 import { ChatbotComponent } from './chatbot.component'
 import { of } from 'rxjs'
 
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { EventEmitter } from '@angular/core'
-import { CookieModule } from 'ngx-cookie'
+import { CookieModule } from 'ngy-cookie'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 enum MessageSources {
   user = 'user',
@@ -48,21 +49,20 @@ describe('ComplaintComponent', () => {
     translateService.onDefaultLangChange = new EventEmitter()
 
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        ReactiveFormsModule,
+      imports: [ReactiveFormsModule,
         CookieModule.forRoot(),
         TranslateModule.forRoot(),
         BrowserAnimationsModule,
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
-        MatButtonModule
-      ],
-      declarations: [ChatbotComponent],
+        MatButtonModule,
+        ChatbotComponent],
       providers: [
         { provide: ChatbotService, useValue: chatbotService },
-        { provide: TranslateService, useValue: translateService }
+        { provide: TranslateService, useValue: translateService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     })
       .compileComponents()

@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  grid-gap: 40px;
+  grid-gap: 34px;
   margin: 0 40px;
 }
 
@@ -32,6 +32,7 @@
 
   span {
     flex-grow: 1;
+    font-size: 18px;
     text-align: center;
   }
 }
@@ -50,10 +51,23 @@
   margin: 16px;
   margin-left: auto;
 
+  span {
+    font-size: 14px !important;
+
+  }
+
+  mat-icon {
+    font-size: 24px;
+    height: 24px;
+    width: 24px;
+  }
+  
   button {
+    height: 54px;
     padding: 8px 6px;
     width: 220px;
   }
+  
 }
 
 .withdraw-container {
@@ -104,9 +118,24 @@
 
 .mint_button {
   border-radius: 10px;
+  display: flex;
   font-weight: 500;
+  height: 68px;
   margin-top: 32px;
   padding: 16px 48px;
+  width: 100%;
+
+}
+
+.mdc-card {
+  align-items: center;
+  border: 0;
+  display: flex;
+  
+}
+
+.withdraw-container button {
+  height: 68px;
 }
 @media (max-width: 1100px) {
   .container {

@@ -474,7 +474,7 @@
   "BEE_HONEYPOT_DESCRIPTION": "Deep within the magical realm, the Enchanted Honey Pot awaits its rightful owner. To unlock its wonders, you must trade the essence of the buzzing kingdom - BEE tokens. Gather these mystical tokens from the generous Bee Haven.",
   "NFT_MINT_TEXT_INTRO": "Mint the Pot - 1000 BEE",
   "NFT_MINT_TEXT_SUCCESS": "Minted Successfully",
-  "NFT_MINT_TEXT_AWAITING_APPROVAL": "Awaiting Approval",
+  "NFT_MINT_TEXT_AWAITING_APPROVAL": "En attente d’approbation",
   "NFT_MINT_TEXT_CONFIRM": "Confirm Mint...",
   "NFT_MINT_TEXT_IN_PROGRESS": "Mint in Process..."
 }

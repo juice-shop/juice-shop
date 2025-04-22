@@ -1,37 +1,28 @@
 /*!
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 .btn-pay {
   display: block;
   margin-top: 10px;
+  margin-top: 20px;
+  padding: 10px;
   width: 100%;
+
 }
 
 mat-card {
   height: auto;
+  margin-bottom: -10px !important;
   margin-top: 20px;
+
 }
-
-.mat-own-card {
-  display: block;
-  margin-left: 20%;
-  margin-right: 20%;
-}
-
-
-.main-wrapper {
-  margin-left: 10%;
-  margin-right: 10%;
-}
-
 
 mat-cell {
   padding-left: 10px;
   padding-right: 10px;
 }
-
 
 .price:last-of-type {
   padding-right: 10px;
@@ -46,17 +37,98 @@ table {
   width: 100%;
 }
 
-.mat-footer-cell {
+.mat-mdc-footer-cell {
   font-weight: bold;
 }
 
 .order-summary {
   font-size: x-large;
+  font-weight: 500;
+  margin-bottom: 15px;
   padding-bottom: 10px;
   padding-left: 10px;
+  
 }
 
 .bonus-points {
   margin-top: 5px;
   text-align: center;
 }
+
+
+.mdc-card { 
+  border: 0;
+  border-bottom: 0;
+  margin-top: -5px;
+  padding: 5px;
+  width: 100%;
+
+}
+
+.mat-own-card {
+  background-color: var(--theme-background);
+  margin: auto;
+  max-width: 1200px;
+  padding: 20px;
+  width: 60% !important;
+
+}
+
+.mat-table .mat-row,
+.mat-table .mat-footer-cell {
+  border-bottom: 1px solid var(--theme-background-light);
+  border-radius: 5px !important;
+  padding: 10px 0;
+
+}
+
+.mat-table {
+  border-collapse: collapse;
+    
+}
+  
+.mat-cell,
+.mat-footer-cell {
+  padding: 12px 0; 
+
+}
+
+::ng-deep .mat-mdc-cell.mdc-data-table__cell.cdk-cell {
+  border: 0 !important;
+
+}
+
+
+.mat-table {
+  background: transparent;
+  width: 100%;
+}
+
+.mat-row {
+  border-bottom: 1px solid var(--theme-background-light);
+}
+
+.mat-cell,
+.mat-footer-cell {
+  color: var(--theme-text);
+  padding: 12px 0;
+}
+
+.mat-footer-cell.label {
+  font-weight: bold;
+  text-align: start;
+  text-indent: 10px;
+}
+
+.mat-footer-cell.price {
+  font-weight: bold;
+  padding-right: 10px !important;
+  text-align: end;
+}
+
+.bonus-points {
+  color: var(--theme-text);
+  margin-top: 10px;
+  text-align: center;
+}
+

@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "17.2.0-SNAPSHOT",
+  "version": "17.3.0-SNAPSHOT",
   "private": true,
   "description": "Probably the most modern and sophisticated insecure web application",
   "keywords": [
@@ -48,22 +48,22 @@
     "..."
   ],
   "scripts": {
-    "build:frontend": "cd frontend && node ./node_modules/@angular/cli/bin/ng build --aot --configuration production --output-hashing=none --vendor-chunk=true --source-map=false",
+    "build:frontend": "cd frontend && npm run build",
     "build:server": "tsc",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "frisby": "nyc --report-dir=./build/reports/coverage/api-tests jest --silent --runInBand --forceExit",
     "postinstall": "cd frontend && npm install --legacy-peer-deps && cd .. && npm run build:frontend && (npm run --silent build:server || cd .)",
-    "lint": "eslint *.ts data lib models routes test/**/*.ts views && cd frontend && ng lint && npx stylelint \"**/*.scss\" && cd ..",
+    "lint": "eslint *.ts data lib models routes test/**/*.ts views && cd frontend && npm run lint && npm run lint:scss && cd ..",
     "lint:config": "schema validate -s config.schema.yml",
-    "lint:fix": "eslint *.ts data lib models routes test/**/*.ts views rsn --fix && cd frontend && ng lint --fix && npx stylelint \"**/*.scss\" --fix && cd ..",
+    "lint:fix": "eslint *.ts data lib models routes test/**/*.ts views rsn --fix && cd frontend && npm run lint:fix && cd ..",
     "package": "grunt package",
     "package:ci": "npm prune --production && npm dedupe && cd frontend && npm prune --legacy-peer-deps --production && cd .. && npm run --silent sbom && grunt package",
-    "serve": "concurrently --kill-others \"ts-node app.ts\" \"cd frontend && ng serve\"",
-    "serve:dev": "concurrently --kill-others \"ts-node-dev app.ts\" \"cd frontend && ng serve\"",
+    "serve": "concurrently --kill-others \"ts-node app.ts\" \"cd frontend && npm run start\"",
+    "serve:dev": "concurrently --kill-others \"ts-node-dev app.ts\" \"cd frontend && npm run start\"",
     "start": "node build/app",
-    "test": "cd frontend && ng test --watch=false --source-map=true && cd .. && npm run test:server",
-    "test:chromium": "cd frontend && ng test --watch=false --source-map=false --browsers=ChromiumHeadless && cd .. && npm run test:server",
+    "test": "cd frontend && npm run test -- --watch=false --source-map=true && cd .. && npm run test:server",
+    "test:chromium": "cd frontend && npm run test -- --watch=false --source-map=false --browsers=ChromiumHeadless && cd .. && npm run test:server",
     "test:server": "nyc --report-dir=./build/reports/coverage/server-tests mocha -r ts-node/register -r source-map-support/register --recursive test/server/**/*.ts",
     "test:api": "npm run frisby",
     "rsn": "ts-node rsn/rsn.ts",
@@ -75,11 +75,13 @@
     "sbom:xml": " cyclonedx-npm --omit=dev --output-format=XML  --output-file=bom.xml"
   },
   "jest": {
-    "preset": "ts-jest",
-    "globals": {
-      "ts-jest": {
-        "diagnostics": false
-      }
+    "transform": {
+      "^.+\\.[tj]s$": [
+        "ts-jest",
+        {
+          "diagnostics": false
+        }
+      ]
     },
     "globalSetup": "./test/apiTestsSetup.ts",
     "globalTeardown": "./test/apiTestsTeardown.ts",
@@ -96,7 +98,9 @@
       "/node_modules/",
       "/frontend/node_modules/"
     ],
-    "testURL": "http://localhost"
+    "testEnvironmentOptions": {
+      "url": "http://localhost"
+    }
   },
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript",
@@ -119,7 +123,6 @@
     "clarinet": "^0.12.6",
     "colors": "1.4.0",
     "compression": "^1.7.4",
-    "concurrently": "^5.3.0",
     "config": "^3.3.12",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -127,15 +130,14 @@
     "download": "^8.0.0",
     "errorhandler": "^1.5.1",
     "ethers": "^6.13.2",
-    "exif": "^0.6.0",
     "express": "^4.21.0",
     "express-ipfilter": "^1.3.2",
     "express-jwt": "0.1.3",
-    "express-rate-limit": "^5.5.1",
+    "express-rate-limit": "^7.5.0",
     "express-robots-txt": "^0.4.1",
     "express-security.txt": "^2.0.0",
     "feature-policy": "^0.5.0",
-    "file-stream-rotator": "^0.5.7",
+    "file-stream-rotator": "^1.0.0",
     "file-type": "^16.5.4",
     "filesniffer": "^1.0.3",
     "finale-rest": "^1.2.2",
@@ -169,7 +171,6 @@
     "prom-client": "^14.2.0",
     "pug": "^3.0.3",
     "replace": "^1.2.2",
-    "request": "^2.88.2",
     "sanitize-filename": "^1.6.3",
     "sanitize-html": "1.4.2",
     "semver": "^7.6.3",
@@ -182,22 +183,22 @@
     "ts-node-dev": "^1.1.8",
     "unzipper": "0.9.15",
     "web3": "^4.13.0",
-    "winston": "^3.14.2",
+    "winston": "^3.16.0",
     "yaml-schema-validator": "^1.2.3",
     "z85": "^0.0.2"
   },
   "devDependencies": {
-    "@cyclonedx/cyclonedx-npm": "^1.19.3",
+    "@cyclonedx/cyclonedx-npm": "^2.0.0||^3.0.0",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@types/chai": "^4.3.20",
-    "@types/chai-as-promised": "^7.1.8",
     "@types/clarinet": "^0.12.3",
     "@types/compression": "^1.7.5",
     "@types/config": "^3.3.5",
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
     "@types/cross-spawn": "^6.0.6",
-    "@types/cypress": "^1.1.3",
+    "@types/cypress": "^1.1.6",
+    "@types/diff": "^7.0.1",
     "@types/download": "^8.0.5",
     "@types/errorhandler": "^1.5.3",
     "@types/exif": "^0.6.5",
@@ -213,10 +214,11 @@
     "@types/js-yaml": "^3.12.10",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/jws": "^3.2.10",
+    "@types/lodash": "^4.17.14",
     "@types/mocha": "^8.2.3",
     "@types/morgan": "^1.9.9",
     "@types/multer": "^1.4.12",
-    "@types/node": "^17.0.45",
+    "@types/node": "^20.17.25",
     "@types/on-finished": "^2.3.4",
     "@types/pdfkit": "^0.10.6",
     "@types/portscanner": "^2.1.4",
@@ -236,32 +238,32 @@
     "@typescript-eslint/eslint-plugin": "6.18.1",
     "@typescript-eslint/parser": "6.18.1",
     "chai": "^4.5.0",
-    "chai-as-promised": "^7.1.2",
+    "concurrently": "^5.3.0",
     "cross-spawn": "^7.0.3",
-    "cypress": "^13.15.0",
+    "cypress": "^13.17.0",
     "eslint": "^8.57.1",
     "eslint-config-standard-with-typescript": "^39.1.1",
     "eslint-plugin-import": "^2.30.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.6.0",
+    "exif": "^0.6.0",
     "frisby": "github:bkimminich/frisby",
     "grunt-cli": "^1.5.0",
     "http-server": "^0.12.3",
     "jasmine": "^3.99.0",
     "jasmine-core": "~3.9.0",
     "jasmine-reporters": "^2.5.2",
-    "jest": "^26.6.3",
+    "jest": "^29.7.0",
     "mocha": "^8.4.0",
-    "node-fetch": "^2.7.0",
     "nyc": "^15.1.0",
     "shelljs": "^0.8.5",
     "sinon": "^11.1.2",
     "sinon-chai": "^3.7.0",
     "socket.io-client": "^3.1.3",
     "source-map-support": "^0.5.21",
-    "ts-jest": "^26.5.6",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
-    "typescript": "~4.6.0"
+    "typescript": "~5.3.3"
   },
   "engines": {
     "node": "18 - 22"
