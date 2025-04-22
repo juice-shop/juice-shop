@@ -20,7 +20,6 @@ library.add(faBitcoin, faUniversity, faGraduationCap, faCommentAlt, faComments, 
   selector: 'app-token-sale',
   templateUrl: './token-sale.component.html',
   styleUrls: ['./token-sale.component.scss'],
-  standalone: true,
   imports: [MatCardModule, FlexModule, MatCardHeader, MatCardTitle, MatCardSubtitle, TranslateModule, MatButtonModule]
 })
 export class TokenSaleComponent implements OnInit {

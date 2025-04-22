@@ -3,15 +3,18 @@
  * SPDX-License-Identifier: MIT
  */
 
-import sinon = require('sinon')
-import chai = require('chai')
-import sinonChai = require('sinon-chai')
+import sinon from 'sinon'
+import chai from 'chai'
+import sinonChai from 'sinon-chai'
+import { challenges } from '../../data/datacache'
+import { performRedirect } from '../../routes/redirect'
+import { type Challenge } from 'data/types'
+import { redirectAllowlist } from '../../lib/insecurity'
+
 const expect = chai.expect
 chai.use(sinonChai)
 
 describe('redirect', () => {
-  const performRedirect = require('../../routes/redirect')
-  const challenges = require('../../data/datacache').challenges
   let req: any
   let res: any
   let next: any
@@ -27,7 +30,7 @@ describe('redirect', () => {
   })
 
   describe('should be performed for all allowlisted URLs', () => {
-    for (const url of require('../../lib/insecurity').redirectAllowlist) {
+    for (const url of redirectAllowlist) {
       it(url, () => {
         req.query.to = url
 
@@ -49,36 +52,36 @@ describe('redirect', () => {
 
   it('redirecting to https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm should solve the "redirectCryptoCurrencyChallenge"', () => {
     req.query.to = 'https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm'
-    challenges.redirectCryptoCurrencyChallenge = { solved: false, save }
+    challenges.redirectCryptoCurrencyChallenge = { solved: false, save } as unknown as Challenge
 
-    performRedirect()(req, res)
+    performRedirect()(req, res, next)
 
     expect(challenges.redirectCryptoCurrencyChallenge.solved).to.equal(true)
   })
 
   it('redirecting to https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW should solve the "redirectCryptoCurrencyChallenge"', () => {
     req.query.to = 'https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW'
-    challenges.redirectCryptoCurrencyChallenge = { solved: false, save }
+    challenges.redirectCryptoCurrencyChallenge = { solved: false, save } as unknown as Challenge
 
-    performRedirect()(req, res)
+    performRedirect()(req, res, next)
 
     expect(challenges.redirectCryptoCurrencyChallenge.solved).to.equal(true)
   })
 
   it('redirecting to https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6 should solve the "redirectCryptoCurrencyChallenge"', () => {
     req.query.to = 'https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6'
-    challenges.redirectCryptoCurrencyChallenge = { solved: false, save }
+    challenges.redirectCryptoCurrencyChallenge = { solved: false, save } as unknown as Challenge
 
-    performRedirect()(req, res)
+    performRedirect()(req, res, next)
 
     expect(challenges.redirectCryptoCurrencyChallenge.solved).to.equal(true)
   })
 
   it('tricking the allowlist should solve "redirectChallenge"', () => {
     req.query.to = 'http://kimminich.de?to=https://github.com/juice-shop/juice-shop'
-    challenges.redirectChallenge = { solved: false, save }
+    challenges.redirectChallenge = { solved: false, save } as unknown as Challenge
 
-    performRedirect()(req, res)
+    performRedirect()(req, res, next)
 
     expect(challenges.redirectChallenge.solved).to.equal(true)
   })

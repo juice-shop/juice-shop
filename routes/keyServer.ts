@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: MIT
  */
 
-import path = require('path')
+import path from 'node:path'
 import { type Request, type Response, type NextFunction } from 'express'
 
-module.exports = function serveKeyFiles () {
+export function serveKeyFiles () {
   return ({ params }: Request, res: Response, next: NextFunction) => {
     const file = params.file
 

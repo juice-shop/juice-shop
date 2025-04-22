@@ -4,31 +4,28 @@
  */
 
 import { type Request, type Response, type NextFunction } from 'express'
-import { type Challenge, type Product } from '../data/types'
-import type { Product as ProductConfig } from '../lib/config.types'
-import { type JwtPayload, type VerifyErrors } from 'jsonwebtoken'
-import { FeedbackModel } from '../models/feedback'
-import { ComplaintModel } from '../models/complaint'
 import { Op } from 'sequelize'
-import challengeUtils = require('../lib/challengeUtils')
+import jwt from 'jsonwebtoken'
 import config from 'config'
 import jws from 'jws'
 
+import { products, challenges, retrieveBlueprintChallengeFile } from '../data/datacache'
+import type { Product as ProductConfig } from '../lib/config.types'
+import { type Challenge, type Product } from '../data/types'
+import * as challengeUtils from '../lib/challengeUtils'
+import { ComplaintModel } from '../models/complaint'
+import { FeedbackModel } from '../models/feedback'
+import * as security from '../lib/insecurity'
 import * as utils from '../lib/utils'
-const security = require('../lib/insecurity')
-const jwt = require('jsonwebtoken')
-const cache = require('../data/datacache')
-const challenges = cache.challenges
-const products = cache.products
 
-exports.emptyUserRegistration = () => (req: Request, res: Response, next: NextFunction) => {
+export const emptyUserRegistration = () => (req: Request, res: Response, next: NextFunction) => {
   challengeUtils.solveIf(challenges.emptyUserRegistration, () => {
     return req.body && req.body.email === '' && req.body.password === ''
   })
   next()
 }
 
-exports.forgedFeedbackChallenge = () => (req: Request, res: Response, next: NextFunction) => {
+export const forgedFeedbackChallenge = () => (req: Request, res: Response, next: NextFunction) => {
   challengeUtils.solveIf(challenges.forgedFeedbackChallenge, () => {
     const user = security.authenticatedUsers.from(req)
     const userId = user?.data ? user.data.id : undefined
@@ -37,7 +34,7 @@ exports.forgedFeedbackChallenge = () => (req: Request, res: Response, next: Next
   next()
 }
 
-exports.captchaBypassChallenge = () => (req: Request, res: Response, next: NextFunction) => {
+export const captchaBypassChallenge = () => (req: Request, res: Response, next: NextFunction) => {
   if (challengeUtils.notSolved(challenges.captchaBypassChallenge)) {
     if (req.app.locals.captchaReqId >= 10) {
       if ((new Date().getTime() - req.app.locals.captchaBypassReqTimes[req.app.locals.captchaReqId - 10]) <= 20000) {
@@ -50,38 +47,38 @@ exports.captchaBypassChallenge = () => (req: Request, res: Response, next: NextF
   next()
 }
 
-exports.registerAdminChallenge = () => (req: Request, res: Response, next: NextFunction) => {
+export const registerAdminChallenge = () => (req: Request, res: Response, next: NextFunction) => {
   challengeUtils.solveIf(challenges.registerAdminChallenge, () => {
     return req.body && req.body.role === security.roles.admin
   })
   next()
 }
 
-exports.passwordRepeatChallenge = () => (req: Request, res: Response, next: NextFunction) => {
+export const passwordRepeatChallenge = () => (req: Request, res: Response, next: NextFunction) => {
   challengeUtils.solveIf(challenges.passwordRepeatChallenge, () => { return req.body && req.body.passwordRepeat !== req.body.password })
   next()
 }
 
-exports.accessControlChallenges = () => ({ url }: Request, res: Response, next: NextFunction) => {
+export const accessControlChallenges = () => ({ url }: Request, res: Response, next: NextFunction) => {
   challengeUtils.solveIf(challenges.scoreBoardChallenge, () => { return utils.endsWith(url, '/1px.png') })
   challengeUtils.solveIf(challenges.web3SandboxChallenge, () => { return utils.endsWith(url, '/11px.png') })
   challengeUtils.solveIf(challenges.adminSectionChallenge, () => { return utils.endsWith(url, '/19px.png') })
   challengeUtils.solveIf(challenges.tokenSaleChallenge, () => { return utils.endsWith(url, '/56px.png') })
   challengeUtils.solveIf(challenges.privacyPolicyChallenge, () => { return utils.endsWith(url, '/81px.png') })
   challengeUtils.solveIf(challenges.extraLanguageChallenge, () => { return utils.endsWith(url, '/tlh_AA.json') })
-  challengeUtils.solveIf(challenges.retrieveBlueprintChallenge, () => { return utils.endsWith(url, cache.retrieveBlueprintChallengeFile) })
+  challengeUtils.solveIf(challenges.retrieveBlueprintChallenge, () => { return utils.endsWith(url, retrieveBlueprintChallengeFile ?? undefined) })
   challengeUtils.solveIf(challenges.securityPolicyChallenge, () => { return utils.endsWith(url, '/security.txt') })
   challengeUtils.solveIf(challenges.missingEncodingChallenge, () => { return utils.endsWith(url.toLowerCase(), '%e1%93%9a%e1%98%8f%e1%97%a2-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg') })
   challengeUtils.solveIf(challenges.accessLogDisclosureChallenge, () => { return url.match(/access\.log(0-9-)*/) })
   next()
 }
 
-exports.errorHandlingChallenge = () => (err: unknown, req: Request, { statusCode }: Response, next: NextFunction) => {
+export const errorHandlingChallenge = () => (err: unknown, req: Request, { statusCode }: Response, next: NextFunction) => {
   challengeUtils.solveIf(challenges.errorHandlingChallenge, () => { return err && (statusCode === 200 || statusCode > 401) })
   next(err)
 }
 
-exports.jwtChallenges = () => (req: Request, res: Response, next: NextFunction) => {
+export const jwtChallenges = () => (req: Request, res: Response, next: NextFunction) => {
   if (challengeUtils.notSolved(challenges.jwtUnsignedChallenge)) {
     jwtChallenge(challenges.jwtUnsignedChallenge, req, 'none', /jwtn3d@/)
   }
@@ -91,7 +88,7 @@ exports.jwtChallenges = () => (req: Request, res: Response, next: NextFunction) 
   next()
 }
 
-exports.serverSideChallenges = () => (req: Request, res: Response, next: NextFunction) => {
+export const serverSideChallenges = () => (req: Request, res: Response, next: NextFunction) => {
   if (req.query.key === 'tRy_H4rd3r_n0thIng_iS_Imp0ssibl3') {
     if (challengeUtils.notSolved(challenges.sstiChallenge) && req.app.locals.abused_ssti_bug === true) {
       challengeUtils.solve(challenges.sstiChallenge)
@@ -112,9 +109,16 @@ function jwtChallenge (challenge: Challenge, req: Request, algorithm: string, em
   const token = utils.jwtFrom(req)
   if (token) {
     const decoded = jws.decode(token) ? jwt.decode(token) : null
-    jwt.verify(token, security.publicKey, (err: VerifyErrors | null, verified: JwtPayload) => {
+
+    if (decoded === null || typeof decoded === 'string') {
+      return
+    }
+
+    jwt.verify(token, security.publicKey, (err: jwt.VerifyErrors | null) => {
       if (err === null) {
-        challengeUtils.solveIf(challenge, () => { return hasAlgorithm(token, algorithm) && hasEmail(decoded, email) })
+        challengeUtils.solveIf(challenge, () => {
+          return hasAlgorithm(token, algorithm) && hasEmail(decoded as { data: { email: string } }, email)
+        })
       }
     })
   }
@@ -129,7 +133,7 @@ function hasEmail (token: { data: { email: string } }, email: string | RegExp) {
   return token?.data?.email?.match(email)
 }
 
-exports.databaseRelatedChallenges = () => (req: Request, res: Response, next: NextFunction) => {
+export const databaseRelatedChallenges = () => (req: Request, res: Response, next: NextFunction) => {
   if (challengeUtils.notSolved(challenges.changeProductChallenge) && products.osaft) {
     changeProductChallenge(products.osaft)
   }

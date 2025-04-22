@@ -9,7 +9,6 @@ import { MatDialogContent, MatDialogTitle, MatDialogActions, MatDialogClose } fr
   selector: 'score-board-additional-settings-dialog',
   templateUrl: './score-board-additional-settings-dialog.component.html',
   styleUrls: ['./score-board-additional-settings-dialog.component.scss'],
-  standalone: true,
   imports: [MatDialogContent, MatDialogTitle, TranslateModule, MatButtonModule, MatIconModule, MatDialogActions, MatDialogClose]
 })
 export class ScoreBoardAdditionalSettingsDialogComponent {

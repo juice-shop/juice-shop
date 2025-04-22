@@ -3,16 +3,17 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing'
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
 
 import { ProductService } from './product.service'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('ProductService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [ProductService]
+      imports: [],
+      providers: [ProductService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
     })
   })
 

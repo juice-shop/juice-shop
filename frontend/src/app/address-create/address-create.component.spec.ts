@@ -4,7 +4,7 @@
  */
 
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
@@ -20,6 +20,7 @@ import { MatGridListModule } from '@angular/material/grid-list'
 import { EventEmitter } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('AddressCreateComponent', () => {
   let component: AddressCreateComponent
@@ -42,10 +43,8 @@ describe('AddressCreateComponent', () => {
     snackBar.open.and.returnValue(null)
 
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
+      imports: [RouterTestingModule,
         TranslateModule.forRoot(),
-        HttpClientTestingModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
         MatCardModule,
@@ -54,12 +53,13 @@ describe('AddressCreateComponent', () => {
         MatGridListModule,
         MatIconModule,
         MatSnackBarModule,
-        AddressCreateComponent
-      ],
+        AddressCreateComponent],
       providers: [
         { provide: AddressService, useValue: addressService },
         { provide: TranslateService, useValue: translateService },
-        { provide: MatSnackBar, useValue: snackBar }
+        { provide: MatSnackBar, useValue: snackBar },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     })
       .compileComponents()

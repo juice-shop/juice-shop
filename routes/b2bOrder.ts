@@ -3,16 +3,17 @@
  * SPDX-License-Identifier: MIT
  */
 
-import vm = require('vm')
+import vm from 'node:vm'
 import { type Request, type Response, type NextFunction } from 'express'
-import challengeUtils = require('../lib/challengeUtils')
+// @ts-expect-error FIXME due to non-existing type definitions for notevil
+import { eval as safeEval } from 'notevil'
 
-import * as utils from '../lib/utils'
+import * as challengeUtils from '../lib/challengeUtils'
 import { challenges } from '../data/datacache'
-const security = require('../lib/insecurity')
-const safeEval = require('notevil')
+import * as security from '../lib/insecurity'
+import * as utils from '../lib/utils'
 
-module.exports = function b2bOrder () {
+export function b2bOrder () {
   return ({ body }: Request, res: Response, next: NextFunction) => {
     if (utils.isChallengeEnabled(challenges.rceChallenge) || utils.isChallengeEnabled(challenges.rceOccupyChallenge)) {
       const orderLinesData = body.orderLinesData || ''

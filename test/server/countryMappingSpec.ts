@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: MIT
  */
 
-import sinon = require('sinon')
-import config from 'config'
-import chai = require('chai')
-import sinonChai = require('sinon-chai')
+import sinon from 'sinon'
+import config, { type IConfig } from 'config'
+import chai from 'chai'
+import sinonChai from 'sinon-chai'
+import { countryMapping } from '../../routes/countryMapping'
 const expect = chai.expect
 chai.use(sinonChai)
 
 describe('countryMapping', () => {
-  const countryMapping = require('../../routes/countryMapping')
   let req: any
   let res: any
 
@@ -21,13 +21,13 @@ describe('countryMapping', () => {
   })
 
   it('should return configured country mappings', () => {
-    countryMapping({ get: sinon.stub().withArgs('ctf.countryMapping').returns('TEST') })(req, res)
+    countryMapping({ get: sinon.stub().withArgs('ctf.countryMapping').returns('TEST') } as unknown as IConfig)(req, res)
 
     expect(res.send).to.have.been.calledWith('TEST')
   })
 
   it('should return server error when configuration has no country mappings', () => {
-    countryMapping({ get: sinon.stub().withArgs('ctf.countryMapping').returns(null) })(req, res)
+    countryMapping({ get: sinon.stub().withArgs('ctf.countryMapping').returns(null) } as unknown as IConfig)(req, res)
 
     expect(res.status).to.have.been.calledWith(500)
   })

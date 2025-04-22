@@ -4,10 +4,10 @@
  */
 
 import locales from '../data/static/locales.json'
-import fs = require('fs')
+import fs from 'node:fs'
 import { type Request, type Response, type NextFunction } from 'express'
 
-module.exports = function getLanguageList () { // TODO Refactor and extend to also load backend translations from /i18n/*json and calculate joint percentage/gauge
+export function getLanguageList () { // TODO Refactor and extend to also load backend translations from /i18n/*json and calculate joint percentage/gauge
   return (req: Request, res: Response, next: NextFunction) => {
     const languages: Array<{ key: string, lang: any, icons: string[], shortKey: string, percentage: unknown, gauge: string }> = []
     let count = 0

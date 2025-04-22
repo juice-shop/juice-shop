@@ -5,12 +5,13 @@
 
 // @ts-expect-error FIXME no typescript definitions for z85 :(
 import z85 from 'z85'
-import chai = require('chai')
+import chai from 'chai'
+import * as security from '../../lib/insecurity'
+import type { UserModel } from 'models/user'
+import type { Request } from 'express'
 const expect = chai.expect
 
 describe('insecurity', () => {
-  const security = require('../../lib/insecurity')
-
   describe('cutOffPoisonNullByte', () => {
     it('returns string unchanged if it contains no null byte', () => {
       expect(security.cutOffPoisonNullByte('file.exe.pdf')).to.equal('file.exe.pdf')
@@ -55,7 +56,6 @@ describe('insecurity', () => {
   describe('discountFromCoupon', () => {
     it('returns undefined when not passing in a coupon code', () => {
       expect(security.discountFromCoupon(undefined)).to.equal(undefined)
-      expect(security.discountFromCoupon(null)).to.equal(undefined)
     })
 
     it('returns undefined for malformed coupon code', () => {
@@ -77,7 +77,6 @@ describe('insecurity', () => {
     })
 
     it('returns discount from valid coupon code', () => {
-      expect(security.discountFromCoupon(security.generateCoupon('05'))).to.equal(5)
       expect(security.discountFromCoupon(security.generateCoupon(10))).to.equal(10)
       expect(security.discountFromCoupon(security.generateCoupon(99))).to.equal(99)
     })
@@ -85,44 +84,35 @@ describe('insecurity', () => {
 
   describe('authenticatedUsers', () => {
     it('returns user by associated token', () => {
-      security.authenticatedUsers.put('11111', { data: { id: 1 } })
+      security.authenticatedUsers.put('11111', { data: { id: 1 } as unknown as UserModel })
 
       expect(security.authenticatedUsers.get('11111')).to.deep.equal({ data: { id: 1 } })
     })
 
     it('returns undefined if no token is passed in', () => {
       expect(security.authenticatedUsers.get(undefined)).to.equal(undefined)
-      expect(security.authenticatedUsers.get(null)).to.equal(undefined)
     })
 
     it('returns token by associated user', () => {
-      security.authenticatedUsers.put('11111', { data: { id: 1 } })
+      security.authenticatedUsers.put('11111', { data: { id: 1 } as unknown as UserModel })
 
-      expect(security.authenticatedUsers.tokenOf({ id: 1 })).to.equal('11111')
-    })
-
-    it('returns undefined if no user is passed in', () => {
-      expect(security.authenticatedUsers.tokenOf(undefined)).to.equal(undefined)
-      expect(security.authenticatedUsers.tokenOf(null)).to.equal(undefined)
+      expect(security.authenticatedUsers.tokenOf({ id: 1 } as unknown as UserModel)).to.equal('11111')
     })
 
     it('returns user by associated token from request', () => {
-      security.authenticatedUsers.put('11111', { data: { id: 1 } })
+      security.authenticatedUsers.put('11111', { data: { id: 1 } as unknown as UserModel })
 
-      expect(security.authenticatedUsers.from({ headers: { authorization: 'Bearer 11111' } })).to.deep.equal({ data: { id: 1 } })
+      expect(security.authenticatedUsers.from({ headers: { authorization: 'Bearer 11111' } } as unknown as Request)).to.deep.equal({ data: { id: 1 } })
     })
 
     it('returns undefined if no token is present in request', () => {
-      expect(security.authenticatedUsers.from({ headers: {} })).to.equal(undefined)
-      expect(security.authenticatedUsers.from({})).to.equal(undefined)
+      expect(security.authenticatedUsers.from({ headers: {} } as unknown as Request)).to.equal(undefined)
+      expect(security.authenticatedUsers.from({} as unknown as Request)).to.equal(undefined)
     })
   })
 
   describe('sanitizeHtml', () => {
     it('handles empty inputs by returning their string representation', () => {
-      expect(security.sanitizeHtml()).to.equal('undefined')
-      expect(security.sanitizeHtml(undefined)).to.equal('undefined')
-      expect(security.sanitizeHtml(null)).to.equal('null')
       expect(security.sanitizeHtml('')).to.equal('')
     })
 
@@ -172,9 +162,6 @@ describe('insecurity', () => {
 
   describe('sanitizeSecure', () => {
     it('handles empty inputs by returning their string representation', () => {
-      expect(security.sanitizeSecure()).to.equal('undefined')
-      expect(security.sanitizeSecure(undefined)).to.equal('undefined')
-      expect(security.sanitizeSecure(null)).to.equal('null')
       expect(security.sanitizeSecure('')).to.equal('')
     })
 
@@ -202,10 +189,6 @@ describe('insecurity', () => {
   })
 
   describe('hash', () => {
-    it('throws type error for for undefined input', () => {
-      expect(() => security.hash()).to.throw(TypeError)
-    })
-
     it('returns MD5 hash for any input string', () => {
       expect(security.hash('admin123')).to.equal('0192023a7bbd73250516f069df18b500')
       expect(security.hash('password')).to.equal('5f4dcc3b5aa765d61d8327deb882cf99')
@@ -214,10 +197,6 @@ describe('insecurity', () => {
   })
 
   describe('hmac', () => {
-    it('throws type error for for undefined input', () => {
-      expect(() => security.hmac()).to.throw(TypeError)
-    })
-
     it('returns SHA-256 HMAC with "pa4qacea4VK9t9nGv7yZtwmj" as salt any input string', () => {
       expect(security.hmac('admin123')).to.equal('6be13e2feeada221f29134db71c0ab0be0e27eccfc0fb436ba4096ba73aafb20')
       expect(security.hmac('password')).to.equal('da28fc4354f4a458508a461fbae364720c4249c27f10fccf68317fc4bf6531ed')

@@ -5,8 +5,9 @@
 
 import { type Request, type Response } from 'express'
 import logger from '../lib/logger'
+import configModule from 'config'
 
-module.exports = function countryMapping (config = require('config')) {
+export function countryMapping (config = configModule) {
   return (req: Request, res: Response) => {
     try {
       const countryMapping = config.get('ctf.countryMapping')

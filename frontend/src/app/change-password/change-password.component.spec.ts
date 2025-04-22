@@ -5,7 +5,7 @@
 
 import { TranslateModule } from '@ngx-translate/core'
 import { UserService } from '../Services/user.service'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { ChangePasswordComponent } from './change-password.component'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatCardModule } from '@angular/material/card'
 import { of, throwError } from 'rxjs'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('ChangePasswordComponent', () => {
   let component: ChangePasswordComponent
@@ -27,18 +28,15 @@ describe('ChangePasswordComponent', () => {
     userService.changePassword.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         ReactiveFormsModule,
-        HttpClientTestingModule,
         BrowserAnimationsModule,
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
-        ChangePasswordComponent
-      ],
-      providers: [{ provide: UserService, useValue: userService }]
+        ChangePasswordComponent],
+      providers: [{ provide: UserService, useValue: userService }, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
     })
       .compileComponents()
   }))

@@ -5,7 +5,7 @@
 
 import { TranslateModule } from '@ngx-translate/core'
 import { MatDividerModule } from '@angular/material/divider'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatGridListModule } from '@angular/material/grid-list'
@@ -23,6 +23,7 @@ import { BasketService } from '../Services/basket.service'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { AddressService } from '../Services/address.service'
 import { ConfigurationService } from '../Services/configuration.service'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 export class MockActivatedRoute {
   public paramMap = of(convertToParamMap({
@@ -49,9 +50,7 @@ describe('OrderCompletionComponent', () => {
     addressService.getById.and.returnValue(of([]))
 
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        HttpClientTestingModule,
+      imports: [RouterTestingModule,
         TranslateModule.forRoot(),
         BrowserAnimationsModule,
         MatTableModule,
@@ -62,14 +61,15 @@ describe('OrderCompletionComponent', () => {
         MatCardModule,
         MatIconModule,
         MatTooltipModule,
-        OrderCompletionComponent
-      ],
+        OrderCompletionComponent],
       providers: [
         { provide: TrackOrderService, useValue: trackOrderService },
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: BasketService, useValue: basketService },
         { provide: ConfigurationService, useValue: configurationService },
-        { provide: AddressService, useValue: addressService }
+        { provide: AddressService, useValue: addressService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     })
       .compileComponents()

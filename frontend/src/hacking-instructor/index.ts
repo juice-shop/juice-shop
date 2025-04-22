@@ -69,6 +69,15 @@ export interface ChallengeHint {
   resolved: () => Promise<void>
 }
 
+function createElement (tag: string, styles: Record<string, string>, attributes: Record<string, string> = {}): HTMLElement {
+  const element = document.createElement(tag)
+  Object.assign(element.style, styles)
+  for (const [key, value] of Object.entries(attributes)) {
+    element.setAttribute(key, value)
+  }
+  return element
+}
+
 function loadHint (hint: ChallengeHint): HTMLElement {
   const target = document.querySelector(hint.fixture)
 
@@ -76,69 +85,68 @@ function loadHint (hint: ChallengeHint): HTMLElement {
     return null as unknown as HTMLElement
   }
 
-  const wrapper = document.createElement('div')
-  wrapper.style.position = 'absolute'
+  const wrapper = createElement('div', { position: 'absolute' })
 
-  const elem = document.createElement('div')
-  elem.id = 'hacking-instructor'
-  elem.style.position = 'absolute'
-  elem.style.zIndex = '20000'
-  elem.style.backgroundColor = 'rgba(50, 115, 220, 0.9)'
-  elem.style.maxWidth = '400px'
-  elem.style.minWidth = hint.text.length > 100 ? '350px' : '250px'
-  elem.style.padding = '16px'
-  elem.style.borderRadius = '8px'
-  elem.style.whiteSpace = 'initial'
-  elem.style.lineHeight = '1.3'
-  elem.style.top = '24px'
-  elem.style.fontFamily = 'Roboto,Helvetica Neue,sans-serif'
-  if (!hint.unskippable) {
-    elem.style.cursor = 'pointer'
-    elem.title = 'Double-click to skip'
+  const elemStyles = {
+    position: 'absolute',
+    zIndex: '20000',
+    backgroundColor: 'rgba(50, 115, 220, 0.9)',
+    maxWidth: '400px',
+    minWidth: hint.text.length > 100 ? '350px' : '250px',
+    padding: '16px',
+    borderRadius: '8px',
+    whiteSpace: 'initial',
+    lineHeight: '1.3',
+    top: '24px',
+    fontFamily: 'Roboto,Helvetica Neue,sans-serif',
+    fontSize: '14px',
+    display: 'flex',
+    alignItems: 'center',
+    cursor: hint.unskippable ? 'default' : 'pointer',
+    animation: 'flash 0.2s'
   }
-  elem.style.fontSize = '14px'
-  elem.style.display = 'flex'
-  elem.style.alignItems = 'center'
 
-  const picture = document.createElement('img')
-  picture.style.minWidth = '64px'
-  picture.style.minHeight = '64px'
-  picture.style.width = '64px'
-  picture.style.height = '64px'
-  picture.style.marginRight = '8px'
-  picture.src = '/assets/public/images/hackingInstructor.png'
+  const elem = createElement('div', elemStyles, { id: 'hacking-instructor', title: hint.unskippable ? '' : 'Double-click to skip' })
 
-  const textBox = document.createElement('span')
-  textBox.style.flexGrow = '2'
+  const pictureStyles = {
+    minWidth: '64px',
+    minHeight: '64px',
+    width: '64px',
+    height: '64px',
+    marginRight: '8px'
+  }
+
+  const picture = createElement('img', pictureStyles, { src: '/assets/public/images/hackingInstructor.png' })
+
+  const textBox = createElement('span', { flexGrow: '2' })
   textBox.innerHTML = snarkdown(hint.text)
 
-  const cancelButton = document.createElement('button')
-  cancelButton.id = 'cancelButton'
-  cancelButton.style.textDecoration = 'none'
-  cancelButton.style.backgroundColor = 'transparent'
-  cancelButton.style.border = 'none'
-  cancelButton.style.color = 'white'
-  cancelButton.innerHTML = '<div style;">&times;</div>'
-  cancelButton.style.fontSize = 'large'
-  cancelButton.title = 'Cancel the tutorial'
-  cancelButton.style.position = 'relative'
-  cancelButton.style.zIndex = '20001'
-  cancelButton.style.bottom = '-22px'
-  cancelButton.style.cursor = 'pointer'
+  const cancelButtonStyles = {
+    textDecoration: 'none',
+    backgroundColor: 'transparent',
+    border: 'none',
+    color: 'white',
+    fontSize: 'large',
+    position: 'relative',
+    zIndex: '20001',
+    top: '32px',
+    left: '5px',
+    cursor: 'pointer'
+  }
+
+  const cancelButton = createElement('button', cancelButtonStyles, { id: 'cancelButton', title: 'Cancel the tutorial' })
+  cancelButton.innerHTML = '<div>&times;</div>'
 
   elem.appendChild(picture)
   elem.appendChild(textBox)
 
-  const relAnchor = document.createElement('div')
-  relAnchor.style.position = 'relative'
-  relAnchor.style.display = 'inline'
+  const relAnchor = createElement('div', { position: 'relative', display: 'inline' })
   relAnchor.appendChild(elem)
   relAnchor.appendChild(cancelButton)
 
   wrapper.appendChild(relAnchor)
 
   if (hint.fixtureAfter) {
-    // insertAfter does not exist so we simulate it this way
     target.parentElement.insertBefore(wrapper, target.nextSibling)
   } else {
     target.parentElement.insertBefore(wrapper, target)
@@ -165,6 +173,16 @@ export function hasInstructions (challengeName: string): boolean {
   return challengeInstructions.find(({ name }) => name === challengeName) !== undefined
 }
 
+function isElementInViewport (el: HTMLElement): boolean {
+  const rect = el.getBoundingClientRect()
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  )
+}
+
 export async function startHackingInstructorFor (challengeName: string): Promise<void> {
   const challengeInstruction = challengeInstructions.find(({ name }) => name === challengeName) ?? TutorialUnavailableInstruction
 
@@ -174,7 +192,10 @@ export async function startHackingInstructorFor (challengeName: string): Promise
       console.warn(`Could not find Element with fixture "${hint.fixture}"`)
       continue
     }
-    element.scrollIntoView()
+
+    if (!isElementInViewport(element)) {
+      element.scrollIntoView()
+    }
 
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const continueConditions: Array<Promise<void | unknown>> = [

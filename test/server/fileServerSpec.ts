@@ -3,15 +3,16 @@
  * SPDX-License-Identifier: MIT
  */
 
-import sinon = require('sinon')
-import chai = require('chai')
-import sinonChai = require('sinon-chai')
+import sinon from 'sinon'
+import chai from 'chai'
+import sinonChai from 'sinon-chai'
+import { challenges } from '../../data/datacache'
+import { servePublicFiles } from '../../routes/fileServer'
+import { type Challenge } from 'data/types'
 const expect = chai.expect
 chai.use(sinonChai)
 
 describe('fileServer', () => {
-  const servePublicFiles = require('../../routes/fileServer')
-  const challenges = require('../../data/datacache').challenges
   let req: any
   let res: any
   let next: any
@@ -69,7 +70,7 @@ describe('fileServer', () => {
   })
 
   it('should solve "directoryListingChallenge" when requesting acquisitions.md', () => {
-    challenges.directoryListingChallenge = { solved: false, save }
+    challenges.directoryListingChallenge = { solved: false, save } as unknown as Challenge
     req.params.file = 'acquisitions.md'
 
     servePublicFiles()(req, res, next)
@@ -79,7 +80,7 @@ describe('fileServer', () => {
   })
 
   it('should solve "easterEggLevelOneChallenge" when requesting eastere.gg with Poison Null Byte attack', () => {
-    challenges.easterEggLevelOneChallenge = { solved: false, save }
+    challenges.easterEggLevelOneChallenge = { solved: false, save } as unknown as Challenge
     req.params.file = 'eastere.gg%00.md'
 
     servePublicFiles()(req, res, next)
@@ -89,7 +90,7 @@ describe('fileServer', () => {
   })
 
   it('should solve "forgottenDevBackupChallenge" when requesting package.json.bak with Poison Null Byte attack', () => {
-    challenges.forgottenDevBackupChallenge = { solved: false, save }
+    challenges.forgottenDevBackupChallenge = { solved: false, save } as unknown as Challenge
     req.params.file = 'package.json.bak%00.md'
 
     servePublicFiles()(req, res, next)
@@ -99,7 +100,7 @@ describe('fileServer', () => {
   })
 
   it('should solve "forgottenBackupChallenge" when requesting coupons_2013.md.bak with Poison Null Byte attack', () => {
-    challenges.forgottenBackupChallenge = { solved: false, save }
+    challenges.forgottenBackupChallenge = { solved: false, save } as unknown as Challenge
     req.params.file = 'coupons_2013.md.bak%00.md'
 
     servePublicFiles()(req, res, next)
@@ -109,7 +110,7 @@ describe('fileServer', () => {
   })
 
   it('should solve "misplacedSignatureFileChallenge" when requesting suspicious_errors.yml with Poison Null Byte attack', () => {
-    challenges.misplacedSignatureFileChallenge = { solved: false, save }
+    challenges.misplacedSignatureFileChallenge = { solved: false, save } as unknown as Challenge
     req.params.file = 'suspicious_errors.yml%00.md'
 
     servePublicFiles()(req, res, next)

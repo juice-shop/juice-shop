@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: MIT
  */
 
-import chai = require('chai')
-import path from 'path'
+import fs from 'node:fs'
+import chai from 'chai'
+import path from 'node:path'
 import { promisify } from 'util'
-import sinonChai = require('sinon-chai')
+import { safeLoad } from 'js-yaml'
+import sinonChai from 'sinon-chai'
 const expect = chai.expect
 chai.use(sinonChai)
 
-const fs = require('fs')
-const { safeLoad } = require('js-yaml')
 const readFile = promisify(fs.readFile)
 
 const loadYamlFile = async (filename: string) => {
@@ -24,7 +24,7 @@ describe('challengeCountryMapping', () => {
   let countryMapping: Record<string, { code: any }>
   before(async () => {
     challenges = await loadYamlFile(path.resolve('data/static/challenges.yml'))
-    countryMapping = (await loadYamlFile(path.resolve('config/fbctf.yml'))).ctf.countryMapping
+    countryMapping = (await loadYamlFile(path.resolve('config/fbctf.yml')) as any)?.ctf?.countryMapping
   })
   it('should have a country mapping for every challenge', async () => {
     for (const { key } of challenges) {

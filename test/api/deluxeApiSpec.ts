@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import frisby = require('frisby')
+import * as frisby from 'frisby'
 import config from 'config'
 
 const jsonHeader = { 'content-type': 'application/json' }

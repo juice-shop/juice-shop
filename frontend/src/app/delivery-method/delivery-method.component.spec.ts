@@ -10,7 +10,7 @@ import { MatCardModule } from '@angular/material/card'
 import { MatTableModule } from '@angular/material/table'
 import { MatButtonModule } from '@angular/material/button'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { ReactiveFormsModule } from '@angular/forms'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { RouterTestingModule } from '@angular/router/testing'
@@ -26,6 +26,7 @@ import { PaymentMethodComponent } from '../payment-method/payment-method.compone
 import { MatRadioModule } from '@angular/material/radio'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatDividerModule } from '@angular/material/divider'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('DeliveryMethodComponent', () => {
   let component: DeliveryMethodComponent
@@ -40,29 +41,28 @@ describe('DeliveryMethodComponent', () => {
     deliveryService.get.and.returnValue(of([]))
 
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule.withRoutes([
-          { path: 'payment/shop', component: PaymentComponent }
-        ]),
-        HttpClientTestingModule,
-        TranslateModule.forRoot(),
-        BrowserAnimationsModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatCardModule,
-        MatTableModule,
-        MatButtonModule,
-        MatButtonToggleModule,
-        MatIconModule,
-        MatTooltipModule,
-        MatRadioModule,
-        MatExpansionModule,
-        MatDividerModule,
-        DeliveryMethodComponent, PaymentComponent, PaymentMethodComponent
-      ],
+      imports: [RouterTestingModule.withRoutes([
+        { path: 'payment/shop', component: PaymentComponent }
+      ]),
+      TranslateModule.forRoot(),
+      BrowserAnimationsModule,
+      ReactiveFormsModule,
+      MatInputModule,
+      MatCardModule,
+      MatTableModule,
+      MatButtonModule,
+      MatButtonToggleModule,
+      MatIconModule,
+      MatTooltipModule,
+      MatRadioModule,
+      MatExpansionModule,
+      MatDividerModule,
+      DeliveryMethodComponent, PaymentComponent, PaymentMethodComponent],
       providers: [
         { provide: AddressService, useValue: addressService },
-        { provide: DeliveryService, useValue: deliveryService }
+        { provide: DeliveryService, useValue: deliveryService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     })
       .compileComponents()

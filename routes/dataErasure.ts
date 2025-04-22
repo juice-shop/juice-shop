@@ -3,20 +3,20 @@
  * SPDX-License-Identifier: MIT
  */
 import express, { type NextFunction, type Request, type Response } from 'express'
-import path from 'path'
-import { SecurityAnswerModel } from '../models/securityAnswer'
-import { UserModel } from '../models/user'
+import path from 'node:path'
+
 import { SecurityQuestionModel } from '../models/securityQuestion'
 import { PrivacyRequestModel } from '../models/privacyRequests'
+import { SecurityAnswerModel } from '../models/securityAnswer'
+import * as challengeUtils from '../lib/challengeUtils'
 import { challenges } from '../data/datacache'
-const insecurity = require('../lib/insecurity')
+import * as security from '../lib/insecurity'
+import { UserModel } from '../models/user'
 
-const challengeUtils = require('../lib/challengeUtils')
 const router = express.Router()
 
-// eslint-disable-next-line @typescript-eslint/no-misused-promises
-router.get('/', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
+  const loggedInUser = security.authenticatedUsers.get(req.cookies.token)
   if (!loggedInUser) {
     next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
     return
@@ -52,7 +52,7 @@ interface DataErasureRequestParams {
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 router.post('/', async (req: Request<Record<string, unknown>, Record<string, unknown>, DataErasureRequestParams>, res: Response, next: NextFunction): Promise<void> => {
-  const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
+  const loggedInUser = security.authenticatedUsers.get(req.cookies.token)
   if (!loggedInUser) {
     next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
     return

@@ -2,12 +2,12 @@
  * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
+import * as frisby from 'frisby'
 
 import { challenges } from '../../data/datacache'
-import frisby = require('frisby')
+import * as utils from '../../lib/utils'
+import * as security from '../../lib/insecurity'
 const Joi = frisby.Joi
-const utils = require('../../lib/utils')
-const security = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/b2b/v2/orders'
 

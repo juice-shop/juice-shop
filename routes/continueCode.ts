@@ -3,29 +3,25 @@
  * SPDX-License-Identifier: MIT
  */
 
-import Hashids = require('hashids/cjs')
+import Hashids from 'hashids/cjs'
 import { type Request, type Response } from 'express'
 import { ChallengeModel } from '../models/challenge'
 import { challenges } from '../data/datacache'
+import { Op } from 'sequelize'
 
-const sequelize = require('sequelize')
-const Op = sequelize.Op
-
-module.exports.continueCode = function continueCode () {
+export function continueCode () {
   const hashids = new Hashids('this is my salt', 60, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
   return (req: Request, res: Response) => {
     const ids = []
-    for (const name in challenges) {
-      if (Object.prototype.hasOwnProperty.call(challenges, name)) {
-        if (challenges[name].solved) ids.push(challenges[name].id)
-      }
+    for (const challenge of Object.values(challenges)) {
+      if (challenge.solved) ids.push(challenge.id)
     }
     const continueCode = ids.length > 0 ? hashids.encode(ids) : undefined
     res.json({ continueCode })
   }
 }
 
-module.exports.continueCodeFindIt = function continueCodeFindIt () {
+export function continueCodeFindIt () {
   const hashids = new Hashids('this is the salt for findIt challenges', 60, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
   return async (req: Request, res: Response) => {
     const ids = []
@@ -38,7 +34,7 @@ module.exports.continueCodeFindIt = function continueCodeFindIt () {
   }
 }
 
-module.exports.continueCodeFixIt = function continueCodeFixIt () {
+export function continueCodeFixIt () {
   const hashids = new Hashids('yet another salt for the fixIt challenges', 60, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
   return async (req: Request, res: Response) => {
     const ids = []

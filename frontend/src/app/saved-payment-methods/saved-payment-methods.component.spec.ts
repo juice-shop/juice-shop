@@ -4,7 +4,7 @@
  */
 
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
@@ -22,6 +22,7 @@ import { PaymentMethodComponent } from '../payment-method/payment-method.compone
 import { EventEmitter } from '@angular/core'
 import { of } from 'rxjs'
 import { MatSnackBar } from '@angular/material/snack-bar'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('SavedPaymentMethodsComponent', () => {
   let component: SavedPaymentMethodsComponent
@@ -38,9 +39,7 @@ describe('SavedPaymentMethodsComponent', () => {
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot(),
-        HttpClientTestingModule,
+      imports: [TranslateModule.forRoot(),
         ReactiveFormsModule,
         BrowserAnimationsModule,
         MatCardModule,
@@ -51,11 +50,12 @@ describe('SavedPaymentMethodsComponent', () => {
         MatDividerModule,
         MatRadioModule,
         MatDialogModule,
-        SavedPaymentMethodsComponent, PaymentMethodComponent
-      ],
+        SavedPaymentMethodsComponent, PaymentMethodComponent],
       providers: [
         { provide: TranslateService, useValue: translateService },
-        { provide: MatSnackBar, useValue: snackBar }
+        { provide: MatSnackBar, useValue: snackBar },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     })
       .compileComponents()

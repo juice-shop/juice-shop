@@ -14,7 +14,7 @@ import { MatCardModule } from '@angular/material/card'
 import { MatTableModule } from '@angular/material/table'
 import { MatButtonModule } from '@angular/material/button'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { ReactiveFormsModule } from '@angular/forms'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
@@ -22,6 +22,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { PurchaseBasketComponent } from '../purchase-basket/purchase-basket.component'
 import { DeluxeGuard } from '../app.guard'
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('BasketComponent', () => {
   let component: BasketComponent
@@ -31,9 +32,7 @@ describe('BasketComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        HttpClientTestingModule,
+      imports: [RouterTestingModule,
         TranslateModule.forRoot(),
         BrowserAnimationsModule,
         ReactiveFormsModule,
@@ -46,11 +45,12 @@ describe('BasketComponent', () => {
         MatDialogModule,
         MatButtonToggleModule,
         MatSnackBarModule,
-        BasketComponent, PurchaseBasketComponent
-      ],
+        BasketComponent, PurchaseBasketComponent],
       providers: [
         { provide: DeluxeGuard, useValue: deluxeGuard },
-        { provide: MatSnackBar, useValue: snackBar }
+        { provide: MatSnackBar, useValue: snackBar },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     })
       .compileComponents()

@@ -5,12 +5,12 @@
 
 /* jslint node: true */
 import packageJson from '../package.json'
-import fs from 'fs'
+import fs from 'node:fs'
 import logger from './logger'
 import config from 'config'
 import jsSHA from 'jssha'
 import download from 'download'
-import crypto from 'crypto'
+import crypto from 'node:crypto'
 import clarinet from 'clarinet'
 import type { Challenge } from 'data/types'
 

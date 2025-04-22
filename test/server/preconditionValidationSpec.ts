@@ -3,23 +3,21 @@
  * SPDX-License-Identifier: MIT
  */
 
-import chai = require('chai')
-import sinonChai = require('sinon-chai')
+import chai from 'chai'
+import net from 'node:net'
+import semver from 'semver'
+import sinonChai from 'sinon-chai'
+import { engines as supportedEngines } from './../../package.json'
 import { checkIfRunningOnSupportedNodeVersion, checkIfPortIsAvailable } from '../../lib/startup/validatePreconditions'
 
 const expect = chai.expect
-const net = require('net')
 chai.use(sinonChai)
-
-const semver = require('semver')
 
 describe('preconditionValidation', () => {
   describe('checkIfRunningOnSupportedNodeVersion', () => {
-    const supportedVersion = require('./../../package.json').engines.node
-
     it('should define the supported semver range as 18 - 22', () => {
-      expect(supportedVersion).to.equal('18 - 22')
-      expect(semver.validRange(supportedVersion)).to.not.equal(null)
+      expect(supportedEngines.node).to.equal('18 - 22')
+      expect(semver.validRange(supportedEngines.node)).to.not.equal(null)
     })
 
     it('should accept a supported version', () => {

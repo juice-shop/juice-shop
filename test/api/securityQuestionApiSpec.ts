@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: MIT
  */
 
-import frisby = require('frisby')
+import * as frisby from 'frisby'
 import config from 'config'
+import * as security from '../../lib/insecurity'
 const Joi = frisby.Joi
-const security = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'

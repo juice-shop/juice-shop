@@ -4,7 +4,7 @@
  */
 
 import { expect } from '@jest/globals'
-import frisby = require('frisby')
+import * as frisby from 'frisby'
 import io from 'socket.io-client'
 import { Joi } from 'frisby'
 

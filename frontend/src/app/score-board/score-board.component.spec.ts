@@ -1,5 +1,5 @@
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatDialogModule } from '@angular/material/dialog'
@@ -20,6 +20,7 @@ import { CodeSnippetService } from '../Services/code-snippet.service'
 import { ChallengeService } from '../Services/challenge.service'
 import { type Challenge } from '../Models/challenge.model'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 // allows to easily create a challenge with some overwrites
 function createChallenge (challengeOverwrites: Partial<Challenge>): Challenge {
@@ -59,9 +60,7 @@ describe('ScoreBoardComponent', () => {
       'getApplicationConfiguration'
     ])
     await TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot(),
-        HttpClientTestingModule,
+      imports: [TranslateModule.forRoot(),
         RouterTestingModule,
         MatProgressSpinnerModule,
         MatDialogModule,
@@ -74,12 +73,13 @@ describe('ScoreBoardComponent', () => {
         ChallengesUnavailableWarningComponent,
         TutorialModeWarningComponent,
         ScoreCardComponent,
-        BrowserAnimationsModule
-      ],
+        BrowserAnimationsModule],
       providers: [
         { provide: ChallengeService, useValue: challengeService },
         { provide: CodeSnippetService, useValue: codeSnippetService },
-        { provide: ConfigurationService, useValue: configService }
+        { provide: ConfigurationService, useValue: configService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     }).compileComponents()
 

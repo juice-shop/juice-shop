@@ -1,8 +1,8 @@
-import chai = require('chai')
-import sinonChai = require('sinon-chai')
+import chai from 'chai'
+import sinonChai from 'sinon-chai'
+import { getVerdict } from '../../routes/vulnCodeSnippet'
 const expect = chai.expect
 chai.use(sinonChai)
-const { getVerdict } = require('../../routes/vulnCodeSnippet')
 
 describe('vulnCodeSnippet', () => {
   it('should assert single correctly selected vuln line as correct', () => {

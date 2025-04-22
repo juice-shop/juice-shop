@@ -4,15 +4,15 @@
  */
 
 import { type Request, type Response, type NextFunction } from 'express'
-import { MemoryModel } from '../models/memory'
+
+import * as challengeUtils from '../lib/challengeUtils'
 import { type ProductModel } from '../models/product'
-import * as db from '../data/mongodb'
+import { MemoryModel } from '../models/memory'
 import { challenges } from '../data/datacache'
+import * as security from '../lib/insecurity'
+import * as db from '../data/mongodb'
 
-import challengeUtils = require('../lib/challengeUtils')
-const security = require('../lib/insecurity')
-
-module.exports = function dataExport () {
+export function dataExport () {
   return async (req: Request, res: Response, next: NextFunction) => {
     const loggedInUser = security.authenticatedUsers.get(req.headers?.authorization?.replace('Bearer ', ''))
     if (loggedInUser?.data?.email && loggedInUser.data.id) {
@@ -21,7 +21,7 @@ module.exports = function dataExport () {
       const updatedEmail = email.replace(/[aeiou]/gi, '*')
       const userData:
       {
-        username: string
+        username?: string
         email: string
         orders: Array<{
           orderId: string

@@ -3,25 +3,26 @@
  * SPDX-License-Identifier: MIT
  */
 
+import { type ChallengeKey } from 'models/challenge'
 import logger from './logger'
 import colors from 'colors/safe'
 const solves: Record<string, { 'find it': boolean, 'fix it': boolean, attempts: { 'find it': number, 'fix it': number } }> = {}
 
 type Phase = 'find it' | 'fix it'
 
-export const storeFindItVerdict = (challengeKey: string, verdict: boolean) => {
+export const storeFindItVerdict = (challengeKey: ChallengeKey, verdict: boolean) => {
   storeVerdict(challengeKey, 'find it', verdict)
 }
 
-export const storeFixItVerdict = (challengeKey: string, verdict: boolean) => {
+export const storeFixItVerdict = (challengeKey: ChallengeKey, verdict: boolean) => {
   storeVerdict(challengeKey, 'fix it', verdict)
 }
 
-export const calculateFindItAccuracy = (challengeKey: string) => {
+export const calculateFindItAccuracy = (challengeKey: ChallengeKey) => {
   return calculateAccuracy(challengeKey, 'find it')
 }
 
-export const calculateFixItAccuracy = (challengeKey: string) => {
+export const calculateFixItAccuracy = (challengeKey: ChallengeKey) => {
   return calculateAccuracy(challengeKey, 'fix it')
 }
 
@@ -33,7 +34,7 @@ export const totalFixItAccuracy = () => {
   return totalAccuracy('fix it')
 }
 
-export const getFindItAttempts = (challengeKey: string) => {
+export const getFindItAttempts = (challengeKey: ChallengeKey) => {
   return solves[challengeKey] ? solves[challengeKey].attempts['find it'] : 0
 }
 
@@ -49,7 +50,7 @@ function totalAccuracy (phase: Phase) {
   return sumAccuracy / totalSolved
 }
 
-function calculateAccuracy (challengeKey: string, phase: Phase) {
+function calculateAccuracy (challengeKey: ChallengeKey, phase: Phase) {
   let accuracy = 0
   if (solves[challengeKey][phase]) {
     accuracy = 1 / solves[challengeKey].attempts[phase]
@@ -58,7 +59,7 @@ function calculateAccuracy (challengeKey: string, phase: Phase) {
   return accuracy
 }
 
-function storeVerdict (challengeKey: string, phase: Phase, verdict: boolean) {
+function storeVerdict (challengeKey: ChallengeKey, phase: Phase, verdict: boolean) {
   if (!solves[challengeKey]) {
     solves[challengeKey] = { 'find it': false, 'fix it': false, attempts: { 'find it': 0, 'fix it': 0 } }
   }

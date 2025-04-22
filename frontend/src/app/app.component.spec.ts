@@ -6,7 +6,7 @@
 import { ClipboardModule } from 'ngx-clipboard'
 import { ServerStartedNotificationComponent } from './server-started-notification/server-started-notification.component'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { TestBed, waitForAsync } from '@angular/core/testing'
 import { AppComponent } from './app.component'
@@ -34,15 +34,14 @@ import { MatInputModule } from '@angular/material/input'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatSearchBarComponent } from './mat-search-bar/mat-search-bar.component'
 import { CookieModule } from 'ngy-cookie'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('AppComponent', () => {
   let app: AppComponent
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        RouterTestingModule,
+      imports: [RouterTestingModule,
         MatToolbarModule,
         CookieModule.forRoot(),
         TranslateModule.forRoot(),
@@ -68,9 +67,8 @@ describe('AppComponent', () => {
         ChallengeSolvedNotificationComponent,
         ServerStartedNotificationComponent,
         MatSearchBarComponent,
-        AppComponent
-      ],
-      providers: [TranslateService, LoginGuard]
+        AppComponent],
+      providers: [TranslateService, LoginGuard, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
     }).compileComponents()
   }))
 

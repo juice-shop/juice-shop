@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
+import { Component, EventEmitter, NgZone, type OnInit, Output } from '@angular/core'
 import { environment } from '../../environments/environment'
 import { ChallengeService } from '../Services/challenge.service'
 import { UserService } from '../Services/user.service'
 import { AdministrationService } from '../Services/administration.service'
 import { ConfigurationService } from '../Services/configuration.service'
-import { Component, EventEmitter, NgZone, type OnInit, Output } from '@angular/core'
 import { CookieService } from 'ngy-cookie'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { Router, RouterLink } from '@angular/router'
@@ -16,6 +16,9 @@ import { SocketIoService } from '../Services/socket-io.service'
 import { LanguagesService } from '../Services/languages.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { BasketService } from '../Services/basket.service'
+import { FormsModule } from '@angular/forms'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
 
 import {
   faBomb,
@@ -60,12 +63,18 @@ library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, 
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
-  standalone: true,
-  imports: [MatToolbar, FlexModule, MatToolbarRow, MatButtonModule, MatTooltip, MatIconModule, RouterLink, ExtendedModule, MatSearchBarComponent, MatMenuTrigger, MatMenu, NgIf, MatMenuItem, NgFor, MatRadioButton, TranslateModule, MatDivider]
+  imports: [
+    MatToolbar, FlexModule, MatToolbarRow, MatButtonModule, MatTooltip,
+    MatIconModule, RouterLink, ExtendedModule, MatSearchBarComponent,
+    MatMenuTrigger, MatMenu, NgIf, MatMenuItem, NgFor, MatRadioButton,
+    TranslateModule, MatDivider, MatFormFieldModule, MatInputModule, FormsModule
+  ]
 })
 export class NavbarComponent implements OnInit {
   public userEmail: string = ''
-  public languages: any = []
+  public languages: any[] = []
+  public filteredLanguages: any[] = []
+  public languageSearchQuery: string = ''
   public selectedLanguage: string = 'placeholder'
   public version: string = ''
   public applicationName: string = 'OWASP Juice Shop'
@@ -133,6 +142,33 @@ export class NavbarComponent implements OnInit {
           this.scoreBoardVisible = true
         }
       })
+    })
+  }
+
+  filterLanguages (): void {
+    if (!this.languageSearchQuery) {
+      this.filteredLanguages = [...this.languages]
+      return
+    }
+
+    const query = this.languageSearchQuery.toLowerCase()
+    this.filteredLanguages = this.languages.filter((lang: any) => {
+      // Filter by language name
+      if (lang.lang.toLowerCase().includes(query)) {
+        return true
+      }
+
+      // Filter by language key (e.g., 'en', 'fr', 'hi')
+      if (lang.key.toLowerCase().includes(query)) {
+        return true
+      }
+
+      // Filter by any additional language properties if needed
+      if (lang.shortKey?.toLowerCase()?.includes(query)) {
+        return true
+      }
+
+      return false
     })
   }
 
@@ -221,8 +257,9 @@ export class NavbarComponent implements OnInit {
   noop () { }
 
   getLanguages () {
-    this.langService.getLanguages().subscribe((res) => {
+    this.langService.getLanguages().subscribe((res: any[]) => {
       this.languages = res
+      this.filteredLanguages = Array.isArray(res) ? [...res] : []
       this.checkLanguage()
     })
   }

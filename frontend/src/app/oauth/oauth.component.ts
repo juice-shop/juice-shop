@@ -15,7 +15,6 @@ import { FlexModule } from '@angular/flex-layout/flex'
   selector: 'app-oauth',
   templateUrl: './oauth.component.html',
   styleUrls: ['./oauth.component.scss'],
-  standalone: true,
   imports: [FlexModule, MatCardModule, TranslateModule]
 })
 export class OAuthComponent implements OnInit {

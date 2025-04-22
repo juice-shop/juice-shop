@@ -6,10 +6,10 @@
 import pjson from '../../package.json'
 import config from 'config'
 import logger from '../logger'
-import path from 'path'
+import path from 'node:path'
 import colors from 'colors/safe'
-import { access } from 'fs/promises'
-import process from 'process'
+import { access } from 'node:fs/promises'
+import process from 'node:process'
 import semver from 'semver'
 import portscanner from 'portscanner'
 // @ts-expect-error FIXME due to non-existing type definitions for check-internet-connected
@@ -31,7 +31,6 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
     checkIfRequiredFileExists('frontend/dist/frontend/styles.css'),
     checkIfRequiredFileExists('frontend/dist/frontend/main.js'),
     checkIfRequiredFileExists('frontend/dist/frontend/tutorial.js'),
-    checkIfRequiredFileExists('frontend/dist/frontend/polyfills.js'),
     checkIfRequiredFileExists('frontend/dist/frontend/runtime.js'),
     checkIfRequiredFileExists('frontend/dist/frontend/vendor.js'),
     checkIfPortIsAvailable(process.env.PORT ?? config.get<number>('server.port')),

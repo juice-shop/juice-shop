@@ -5,16 +5,15 @@
 
 import config from 'config'
 import { type Request, type Response, type NextFunction } from 'express'
+
 import type { Memory as MemoryConfig } from '../lib/config.types'
 import { SecurityAnswerModel } from '../models/securityAnswer'
+import * as challengeUtils from '../lib/challengeUtils'
+import { challenges, users } from '../data/datacache'
+import * as security from '../lib/insecurity'
 import { UserModel } from '../models/user'
-import { challenges } from '../data/datacache'
 
-import challengeUtils = require('../lib/challengeUtils')
-const users = require('../data/datacache').users
-const security = require('../lib/insecurity')
-
-module.exports = function resetPassword () {
+export function resetPassword () {
   return ({ body, connection }: Request, res: Response, next: NextFunction) => {
     const email = body.email
     const answer = body.answer

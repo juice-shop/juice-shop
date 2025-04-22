@@ -19,6 +19,7 @@ import { MatIconButton, MatButtonModule } from '@angular/material/button'
 import { MatRadioButton } from '@angular/material/radio'
 import { NgIf, NgFor } from '@angular/common'
 import { FlexModule } from '@angular/flex-layout/flex'
+import { MatIconModule } from '@angular/material/icon'
 
 library.add(faPaperPlane, faTrashAlt)
 
@@ -26,8 +27,7 @@ library.add(faPaperPlane, faTrashAlt)
   selector: 'app-payment-method',
   templateUrl: './payment-method.component.html',
   styleUrls: ['./payment-method.component.scss'],
-  standalone: true,
-  imports: [FlexModule, NgIf, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatRadioButton, MatIconButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatFormFieldModule, MatLabel, TranslateModule, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatHint, NgFor, MatButtonModule]
+  imports: [FlexModule, NgIf, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatRadioButton, MatIconButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatFormFieldModule, MatLabel, TranslateModule, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatHint, NgFor, MatButtonModule, MatIconModule]
 })
 
 export class PaymentMethodComponent implements OnInit {

@@ -9,13 +9,13 @@ import { TranslateModule } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'
 import { FlexModule } from '@angular/flex-layout/flex'
 import { MatDivider } from '@angular/material/divider'
+import { MatIconModule } from '@angular/material/icon'
 
 @Component({
   selector: 'app-feedback-details',
   templateUrl: './feedback-details.component.html',
   styleUrls: ['./feedback-details.component.scss'],
-  standalone: true,
-  imports: [MatDialogContent, MatDivider, FlexModule, MatDialogActions, MatButtonModule, MatDialogClose, TranslateModule]
+  imports: [MatDialogContent, MatDivider, FlexModule, MatDialogActions, MatButtonModule, MatDialogClose, TranslateModule, MatIconModule]
 })
 export class FeedbackDetailsComponent implements OnInit {
   public feedback: any

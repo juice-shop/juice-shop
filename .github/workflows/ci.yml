@@ -19,8 +19,8 @@ on:
       - 'frontend/src/assets/i18n/*.json'
 env:
   NODE_DEFAULT_VERSION: 20
-  CYCLONEDX_NPM_VERSION: '^1.12.0'
   NODE_OPTIONS: "--max_old_space_size=4096"
+  CYCLONEDX_NPM_VERSION: '^2.0.0||^3.0.0'
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -320,7 +320,7 @@ jobs:
             BUILD_DATE=${{ env.BUILD_DATE }}
             CYCLONEDX_NPM_VERSION=${{ env.CYCLONEDX_NPM_VERSION }}
   heroku:
-    if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && (github.ref == 'refs/heads/angular17' || github.ref == 'refs/heads/master') # TODO Switch angular17 back to develop after merge
+    if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
     needs: [test, api-test, e2e, custom-config-test]
     runs-on: ubuntu-latest
     steps:
@@ -328,7 +328,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
       - name: "Install Heroku CLI"
         run: curl https://cli-assets.heroku.com/install.sh | sh
-      - name: "Set Heroku app & branch for ${{ github.ref }}" # TODO Switch angular17 back to develop after merge
+      - name: "Set Heroku app & branch for ${{ github.ref }}"
         run: |
           if [ "$GITHUB_REF" == "refs/heads/master" ]; then
           echo "HEROKU_APP=juice-shop" >> $GITHUB_ENV
