@@ -1,0 +1,48 @@
+name: CI with SAST and SCA
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x' # Or your preferred Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build application
+        run: npm run build
+
+      # SAST with Semgrep
+      - name: Run Semgrep SAST scan
+        uses: returntocorp/semgrep-action@v3
+        with:
+          sarif_file: semgrep-results.sarif
+
+      - name: Upload Semgrep SARIF report
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: semgrep-results.sarif
+          category: Semgrep
+
+      # SCA with OWASP Dependency-Check
+      - name: Run OWASP Dependency-Check SCA scan
+        run: |
+          mvn org.owasp:dependency-check-maven:check -Dformat=SARIF -DoutputDirectory=dependency-check-report
+
+      - name: Upload OWASP Dependency-Check SARIF report
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: dependency-check-report/dependency-check-report.sarif
+          category: Dependency-Check
