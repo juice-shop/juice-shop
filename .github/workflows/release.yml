@@ -41,7 +41,7 @@ jobs:
           npm install --production
           npm run package:ci
       - name: 'Attach packaged archive to tag release'
-        uses: softprops/action-gh-release@2.0.5 # TODO Pin to avoid release duplication. Check for alternatives?
+        uses: softprops/action-gh-release@v2.0.5 # TODO Pin to avoid release duplication. Check for alternatives?
         with:
           draft: true
           files: dist/*
