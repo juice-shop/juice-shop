@@ -1,14 +1,14 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { type Request, type Response, type NextFunction } from 'express'
+
 import { DeliveryModel } from '../models/delivery'
+import * as security from '../lib/insecurity'
 
-const security = require('../lib/insecurity')
-
-module.exports.getDeliveryMethods = function getDeliveryMethods () {
+export function getDeliveryMethods () {
   return async (req: Request, res: Response, next: NextFunction) => {
     const methods = await DeliveryModel.findAll()
     if (methods) {
@@ -29,7 +29,7 @@ module.exports.getDeliveryMethods = function getDeliveryMethods () {
   }
 }
 
-module.exports.getDeliveryMethod = function getDeliveryMethod () {
+export function getDeliveryMethod () {
   return async (req: Request, res: Response, next: NextFunction) => {
     const method = await DeliveryModel.findOne({ where: { id: req.params.id } })
     if (method != null) {

@@ -1,18 +1,19 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { TranslateModule } from '@ngx-translate/core'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
-import { CookieModule, CookieService } from 'ngx-cookie'
+import { CookieModule, CookieService } from 'ngy-cookie'
 
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { WelcomeComponent } from './welcome.component'
 import { of } from 'rxjs'
 import { ConfigurationService } from '../Services/configuration.service'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('WelcomeComponent', () => {
   let component: WelcomeComponent
@@ -28,17 +29,16 @@ describe('WelcomeComponent', () => {
     dialog.open.and.returnValue(null)
 
     TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         CookieModule.forRoot(),
-        HttpClientTestingModule,
-        MatDialogModule
-      ],
-      declarations: [WelcomeComponent],
+        MatDialogModule,
+        WelcomeComponent],
       providers: [
         { provide: ConfigurationService, useValue: configurationService },
         { provide: MatDialog, useValue: dialog },
-        CookieService
+        CookieService,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     })
       .compileComponents()

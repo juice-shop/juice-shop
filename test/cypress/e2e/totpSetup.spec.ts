@@ -24,14 +24,14 @@ describe('/#/basket', () => {
     it('should be possible to setup 2fa for a account without 2fa enabled', async () => {
       cy.visit('/#/privacy-security/two-factor-authentication')
 
-      cy.get('#initalToken')
+      cy.get('#initialToken')
         .should('have.attr', 'data-test-totp-secret')
         .then(($val) => {
           // console.log($val);
           cy.get('#currentPasswordSetup').type('K1f.....................')
 
           cy.task<string>('GenerateAuthenticator', $val).then((secret: string) => {
-            cy.get('#initalToken').type(secret)
+            cy.get('#initialToken').type(secret)
             cy.get('#setupTwoFactorAuth').click()
 
             cy.get('#currentPasswordDisable').type('K1f.....................')

@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import server = require('./../server')
+import * as server from '../server'
 
-module.exports = async () => {
+export default () => {
   server.close(undefined)
 }

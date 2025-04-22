@@ -1,14 +1,15 @@
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing'
 import { CodeFixesService } from './code-fixes.service'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('CodeFixesService', () => {
   let service: CodeFixesService
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [CodeFixesService]
+      imports: [],
+      providers: [CodeFixesService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
     })
     service = TestBed.inject(CodeFixesService)
   })

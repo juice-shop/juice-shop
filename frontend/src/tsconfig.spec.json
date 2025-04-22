@@ -2,7 +2,7 @@
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
-    "module": "es2020",
+    "module": "ES2022",
     "allowSyntheticDefaultImports": true,
     "types": [
       "jasmine",
@@ -10,8 +10,7 @@
     ]
   },
   "files": [
-    "test.ts",
-    "polyfills.ts"
+    "test.ts"
   ],
   "include": [
     "**/*.spec.ts",
