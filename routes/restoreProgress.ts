@@ -3,16 +3,17 @@
  * SPDX-License-Identifier: MIT
  */
 
-import Hashids = require('hashids/cjs')
+import Hashids from 'hashids/cjs'
 import { type Request, type Response } from 'express'
+
+import * as challengeUtils from '../lib/challengeUtils'
 import { challenges } from '../data/datacache'
 
-const challengeUtils = require('../lib/challengeUtils')
 const hashidsAlphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
 const hashidRegexp = /^[a-zA-Z0-9]+$/
 const invalidContinueCode = 'Invalid continue code.'
 
-module.exports.restoreProgress = function restoreProgress () {
+export function restoreProgress () {
   return ({ params }: Request, res: Response) => {
     const hashids = new Hashids('this is my salt', 60, hashidsAlphabet)
     const continueCode = params.continueCode
@@ -24,11 +25,9 @@ module.exports.restoreProgress = function restoreProgress () {
       challengeUtils.solve(challenges.continueCodeChallenge)
       res.end()
     } else if (ids.length > 0) {
-      for (const name in challenges) {
-        if (Object.prototype.hasOwnProperty.call(challenges, name)) {
-          if (ids.includes(challenges[name].id)) {
-            challengeUtils.solve(challenges[name], true)
-          }
+      for (const challenge of Object.values(challenges)) {
+        if (ids.includes(challenge.id)) {
+          challengeUtils.solve(challenge, true)
         }
       }
       res.json({ data: ids.length + ' solved challenges have been restored.' })
@@ -38,7 +37,7 @@ module.exports.restoreProgress = function restoreProgress () {
   }
 }
 
-module.exports.restoreProgressFindIt = function restoreProgressFindIt () {
+export function restoreProgressFindIt () {
   return async ({ params }: Request, res: Response) => {
     const hashids = new Hashids('this is the salt for findIt challenges', 60, hashidsAlphabet)
     const continueCodeFindIt = params.continueCode
@@ -47,11 +46,9 @@ module.exports.restoreProgressFindIt = function restoreProgressFindIt () {
     }
     const idsFindIt = hashids.decode(continueCodeFindIt)
     if (idsFindIt.length > 0) {
-      for (const key in challenges) {
-        if (Object.prototype.hasOwnProperty.call(challenges, key)) {
-          if (idsFindIt.includes(challenges[key].id)) {
-            await challengeUtils.solveFindIt(key, true)
-          }
+      for (const challenge of Object.values(challenges)) {
+        if (idsFindIt.includes(challenge.id)) {
+          await challengeUtils.solveFindIt(challenge.key, true)
         }
       }
       res.json({ data: idsFindIt.length + ' solved challenges have been restored.' })
@@ -61,7 +58,7 @@ module.exports.restoreProgressFindIt = function restoreProgressFindIt () {
   }
 }
 
-module.exports.restoreProgressFixIt = function restoreProgressFixIt () {
+export function restoreProgressFixIt () {
   const hashids = new Hashids('yet another salt for the fixIt challenges', 60, hashidsAlphabet)
   return async ({ params }: Request, res: Response) => {
     const continueCodeFixIt = params.continueCode
@@ -70,11 +67,9 @@ module.exports.restoreProgressFixIt = function restoreProgressFixIt () {
     }
     const idsFixIt = hashids.decode(continueCodeFixIt)
     if (idsFixIt.length > 0) {
-      for (const key in challenges) {
-        if (Object.prototype.hasOwnProperty.call(challenges, key)) {
-          if (idsFixIt.includes(challenges[key].id)) {
-            await challengeUtils.solveFixIt(key, true)
-          }
+      for (const challenge of Object.values(challenges)) {
+        if (idsFixIt.includes(challenge.id)) {
+          await challengeUtils.solveFixIt(challenge.key, true)
         }
       }
       res.json({ data: idsFixIt.length + ' solved challenges have been restored.' })

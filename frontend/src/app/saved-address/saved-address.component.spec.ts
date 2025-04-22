@@ -4,7 +4,7 @@
  */
 
 import { TranslateModule } from '@ngx-translate/core'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
@@ -24,6 +24,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { MatCheckboxModule } from '@angular/material/checkbox'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('SavedAddressComponent', () => {
   let component: SavedAddressComponent
@@ -32,10 +33,8 @@ describe('SavedAddressComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
+      imports: [RouterTestingModule,
         TranslateModule.forRoot(),
-        HttpClientTestingModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
         MatCardModule,
@@ -49,9 +48,8 @@ describe('SavedAddressComponent', () => {
         MatIconModule,
         MatTooltipModule,
         MatCheckboxModule,
-        SavedAddressComponent, AddressComponent
-      ],
-      providers: [{ provide: MatSnackBar, useValue: snackBar }]
+        SavedAddressComponent, AddressComponent],
+      providers: [{ provide: MatSnackBar, useValue: snackBar }, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
     })
       .compileComponents()
   }))

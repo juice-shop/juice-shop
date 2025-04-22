@@ -27,7 +27,6 @@ import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar'
   selector: 'sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss'],
-  standalone: true,
   imports: [MatToolbar, MatToolbarRow, MatNavList, MatButtonModule, MatListSubheaderCssMatStyler, TranslateModule, ExtendedModule, NgIf, MatListItem, RouterLink, MatIconModule, NgClass, MatDivider]
 })
 export class SidenavComponent implements OnInit {

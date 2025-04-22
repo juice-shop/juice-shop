@@ -10,7 +10,7 @@ import { MatCardModule } from '@angular/material/card'
 import { MatTableModule } from '@angular/material/table'
 import { MatButtonModule } from '@angular/material/button'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { ReactiveFormsModule } from '@angular/forms'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { OrderSummaryComponent } from './order-summary.component'
@@ -27,6 +27,7 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 import { DeliveryService } from '../Services/delivery.service'
 import { DeluxeGuard } from '../app.guard'
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('OrderSummaryComponent', () => {
   let component: OrderSummaryComponent
@@ -54,31 +55,30 @@ describe('OrderSummaryComponent', () => {
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule.withRoutes([
-          { path: 'order-completion', component: OrderCompletionComponent }
-        ]),
-        HttpClientTestingModule,
-        TranslateModule.forRoot(),
-        BrowserAnimationsModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatCardModule,
-        MatTableModule,
-        MatButtonModule,
-        MatButtonToggleModule,
-        MatIconModule,
-        MatTooltipModule,
-        MatSnackBarModule,
-        OrderSummaryComponent, PurchaseBasketComponent, OrderCompletionComponent
-      ],
+      imports: [RouterTestingModule.withRoutes([
+        { path: 'order-completion', component: OrderCompletionComponent }
+      ]),
+      TranslateModule.forRoot(),
+      BrowserAnimationsModule,
+      ReactiveFormsModule,
+      MatInputModule,
+      MatCardModule,
+      MatTableModule,
+      MatButtonModule,
+      MatButtonToggleModule,
+      MatIconModule,
+      MatTooltipModule,
+      MatSnackBarModule,
+      OrderSummaryComponent, PurchaseBasketComponent, OrderCompletionComponent],
       providers: [
         { provide: BasketService, useValue: basketService },
         { provide: AddressService, useValue: addressService },
         { provide: PaymentService, useValue: paymentService },
         { provide: DeliveryService, useValue: deliveryService },
         { provide: DeluxeGuard, useValue: deluxeGuard },
-        { provide: MatSnackBar, useValue: snackBar }
+        { provide: MatSnackBar, useValue: snackBar },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     })
       .compileComponents()

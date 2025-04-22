@@ -4,7 +4,7 @@
  */
 
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
@@ -38,6 +38,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatSnackBar } from '@angular/material/snack-bar'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('PaymentComponent', () => {
   let component: PaymentComponent
@@ -79,29 +80,26 @@ describe('PaymentComponent', () => {
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule.withRoutes([
-          { path: 'order-summary', component: OrderSummaryComponent },
-          { path: 'login', component: LoginComponent },
-          { path: 'wallet', component: WalletComponent }
-        ]),
-        TranslateModule.forRoot(),
-        HttpClientTestingModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        MatCardModule,
-        MatTableModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatExpansionModule,
-        MatDividerModule,
-        MatRadioModule,
-        MatDialogModule,
-        MatIconModule,
-        MatCheckboxModule,
-        MatTooltipModule,
-        PaymentComponent, PaymentMethodComponent, OrderSummaryComponent, PurchaseBasketComponent, LoginComponent, WalletComponent
-      ],
+      imports: [RouterTestingModule.withRoutes([
+        { path: 'order-summary', component: OrderSummaryComponent },
+        { path: 'login', component: LoginComponent },
+        { path: 'wallet', component: WalletComponent }
+      ]),
+      TranslateModule.forRoot(),
+      ReactiveFormsModule,
+      BrowserAnimationsModule,
+      MatCardModule,
+      MatTableModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatExpansionModule,
+      MatDividerModule,
+      MatRadioModule,
+      MatDialogModule,
+      MatIconModule,
+      MatCheckboxModule,
+      MatTooltipModule,
+      PaymentComponent, PaymentMethodComponent, OrderSummaryComponent, PurchaseBasketComponent, LoginComponent, WalletComponent],
       providers: [
         { provide: BasketService, useValue: basketService },
         { provide: MatDialog, useValue: dialog },
@@ -111,7 +109,9 @@ describe('PaymentComponent', () => {
         { provide: WalletService, useValue: walletService },
         { provide: DeliveryService, useValue: deliveryService },
         { provide: UserService, useValue: userService },
-        { provide: MatSnackBar, useValue: snackBar }
+        { provide: MatSnackBar, useValue: snackBar },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     })
       .compileComponents()

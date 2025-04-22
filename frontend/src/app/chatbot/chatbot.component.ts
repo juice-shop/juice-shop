@@ -39,7 +39,6 @@ interface MessageActions {
   selector: 'app-chatbot',
   templateUrl: './chatbot.component.html',
   styleUrls: ['./chatbot.component.scss'],
-  standalone: true,
   imports: [FlexModule, MatCardModule, NgFor, NgIf, MatFormFieldModule, MatLabel, TranslateModule, MatInputModule, FormsModule, ReactiveFormsModule]
 })
 export class ChatbotComponent implements OnInit, OnDestroy {

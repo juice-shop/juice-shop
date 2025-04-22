@@ -11,7 +11,7 @@ import { WalletModel } from '../models/wallet'
 import { FeedbackModel } from '../models/feedback'
 import { ComplaintModel } from '../models/complaint'
 import { Op } from 'sequelize'
-import challengeUtils = require('../lib/challengeUtils')
+import * as challengeUtils from '../lib/challengeUtils'
 import logger from '../lib/logger'
 import config from 'config'
 import * as utils from '../lib/utils'
@@ -36,7 +36,7 @@ const fileUploadErrorsMetric = new Prometheus.Counter({
   labelNames: ['file_type']
 })
 
-exports.observeRequestMetricsMiddleware = function observeRequestMetricsMiddleware () {
+export function observeRequestMetricsMiddleware () {
   const httpRequestsMetric = new Prometheus.Counter({
     name: 'http_requests_count',
     help: 'Total HTTP request count grouped by status code.',
@@ -52,7 +52,7 @@ exports.observeRequestMetricsMiddleware = function observeRequestMetricsMiddlewa
   }
 }
 
-exports.observeFileUploadMetricsMiddleware = function observeFileUploadMetricsMiddleware () {
+export function observeFileUploadMetricsMiddleware () {
   return ({ file }: Request, res: Response, next: NextFunction) => {
     onFinished(res, () => {
       if (file != null) {
@@ -63,7 +63,7 @@ exports.observeFileUploadMetricsMiddleware = function observeFileUploadMetricsMi
   }
 }
 
-exports.serveMetrics = function serveMetrics () {
+export function serveMetrics () {
   return async (req: Request, res: Response, next: NextFunction) => {
     challengeUtils.solveIf(challenges.exposedMetricsChallenge, () => {
       const userAgent = req.headers['user-agent'] ?? ''
@@ -74,7 +74,7 @@ exports.serveMetrics = function serveMetrics () {
   }
 }
 
-exports.observeMetrics = function observeMetrics () {
+export function observeMetrics () {
   const app = config.get<string>('application.customMetricsPrefix')
   Prometheus.collectDefaultMetrics({})
   register.setDefaultLabels({ app })

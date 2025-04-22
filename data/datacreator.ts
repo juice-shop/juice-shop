@@ -31,8 +31,9 @@ import { ordersCollection, reviewsCollection } from './mongodb'
 import { AllHtmlEntities as Entities } from 'html-entities'
 import * as datacache from './datacache'
 import * as security from '../lib/insecurity'
+// @ts-expect-error FIXME due to non-existing type definitions for replace
+import replace from 'replace'
 
-const replace = require('replace')
 const entities = new Entities()
 
 export default async () => {

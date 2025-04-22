@@ -42,7 +42,6 @@ const compilerReleases = {
   selector: 'app-web3-sandbox',
   templateUrl: './web3-sandbox.component.html',
   styleUrls: ['./web3-sandbox.component.scss'],
-  standalone: true,
   imports: [CodemirrorModule, FormsModule, MatButtonModule, MatIconModule, NgIf, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, NgFor]
 })
 export class Web3SandboxComponent {

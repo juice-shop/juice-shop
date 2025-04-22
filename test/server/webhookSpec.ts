@@ -4,10 +4,10 @@
  */
 
 import * as webhook from '../../lib/webhook'
-import chai = require('chai')
+import { type AddressInfo } from 'node:net'
+import http from 'node:http'
+import chai from 'chai'
 const expect = chai.expect
-const chaiAsPromised = require('chai-as-promised')
-chai.use(chaiAsPromised)
 
 describe('webhook', () => {
   const challenge = {
@@ -17,16 +17,39 @@ describe('webhook', () => {
   }
 
   describe('notify', () => {
-    it('fails when no webhook URL is provided via environment variable', () => {
-      void expect(webhook.notify(challenge)).to.eventually.throw('options.uri is a required argument')
+    it('ignores errors where no webhook URL is provided via environment variable', async () => {
+      try {
+        await webhook.notify(challenge)
+      } catch (error) {
+        chai.assert.fail('webhook.notify should not throw an error when no webhook URL is provided')
+      }
     })
 
-    it('fails when supplied webhook is not a valid URL', () => {
-      void expect(webhook.notify(challenge, 0, 'localhorst')).to.eventually.throw('Invalid URI "localhorst"')
+    it('fails when supplied webhook is not a valid URL', async () => {
+      try {
+        await webhook.notify(challenge, 0, 'localhorst')
+        chai.assert.fail('Expected error was not thrown')
+      } catch (error) {
+        expect((error as Error).message).to.equal('Failed to parse URL from localhorst')
+      }
     })
 
-    it('submits POST with payload to existing URL', () => {
-      void expect(webhook.notify(challenge, 0, 'https://enlm7zwniuyah.x.pipedream.net/')).to.eventually.not.throw()
+    it('submits POST with payload to existing URL', async () => {
+      const server = http.createServer((req, res) => {
+        res.statusCode = 200
+        res.end('OK')
+      })
+
+      await new Promise<void>((resolve) => server.listen(0, resolve))
+
+      const port = (server.address() as AddressInfo)?.port
+      const url = `http://localhost:${port}`
+
+      try {
+        await webhook.notify(challenge, 0, url)
+      } finally {
+        server.close()
+      }
     })
   })
 })

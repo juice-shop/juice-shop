@@ -26,7 +26,6 @@ library.add(faTwitter)
   selector: 'app-order-completion',
   templateUrl: './order-completion.component.html',
   styleUrls: ['./order-completion.component.scss'],
-  standalone: true,
   imports: [MatCardModule, FlexModule, TranslateModule, RouterLink, NgIf, MatIconButton, MatTooltip, MatIconModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow]
 })
 export class OrderCompletionComponent implements OnInit {

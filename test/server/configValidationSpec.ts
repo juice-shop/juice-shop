@@ -3,33 +3,47 @@
  * SPDX-License-Identifier: MIT
  */
 
-import chai = require('chai')
-import sinonChai = require('sinon-chai')
-import validateConfig from '../../lib/startup/validateConfig'
+import chai from 'chai'
+import sinonChai from 'sinon-chai'
+import validateConfig, {
+  checkUnambiguousMandatorySpecialProducts,
+  checkUniqueSpecialOnProducts,
+  checkYamlSchema,
+  checkMinimumRequiredNumberOfProducts,
+  checkUnambiguousMandatorySpecialMemories,
+  checkMinimumRequiredNumberOfMemories,
+  checkUniqueSpecialOnMemories,
+  checkSpecialMemoriesHaveNoUserAssociated,
+  checkNecessaryExtraKeysOnSpecialProducts
+} from '../../lib/startup/validateConfig'
+import type { Memory, Product } from 'lib/config.types'
 
 const expect = chai.expect
 chai.use(sinonChai)
 
-const { checkUnambiguousMandatorySpecialProducts, checkUniqueSpecialOnProducts, checkYamlSchema, checkMinimumRequiredNumberOfProducts, checkUnambiguousMandatorySpecialMemories, checkMinimumRequiredNumberOfMemories, checkUniqueSpecialOnMemories, checkSpecialMemoriesHaveNoUserAssociated, checkNecessaryExtraKeysOnSpecialProducts } = require('../../lib/startup/validateConfig')
-
 describe('configValidation', () => {
+  const COMMON_PRODUCT = { price: 1, description: 'foo', image: 'bar.jpg' }
   describe('checkUnambiguousMandatorySpecialProducts', () => {
     it('should accept a valid config', () => {
-      const products = [
+      const products: Product[] = [
         {
+          ...COMMON_PRODUCT,
           name: 'Apple Juice',
           useForChristmasSpecialChallenge: true
         },
         {
+          ...COMMON_PRODUCT,
           name: 'Orange Juice',
           urlForProductTamperingChallenge: 'foobar'
         },
         {
+          ...COMMON_PRODUCT,
           name: 'Melon Juice',
           fileForRetrieveBlueprintChallenge: 'foobar',
           exifForBlueprintChallenge: ['OpenSCAD']
         },
         {
+          ...COMMON_PRODUCT,
           name: 'Rippertuer Special Juice',
           keywordsForPastebinDataLeakChallenge: ['bla', 'blubb']
         }
@@ -39,20 +53,24 @@ describe('configValidation', () => {
     })
 
     it('should fail if multiple products are configured for the same challenge', () => {
-      const products = [
+      const products: Product[] = [
         {
+          ...COMMON_PRODUCT,
           name: 'Apple Juice',
           useForChristmasSpecialChallenge: true
         },
         {
+          ...COMMON_PRODUCT,
           name: 'Melon Bike',
           useForChristmasSpecialChallenge: true
         },
         {
+          ...COMMON_PRODUCT,
           name: 'Orange Juice',
           urlForProductTamperingChallenge: 'foobar'
         },
         {
+          ...COMMON_PRODUCT,
           name: 'Melon Juice',
           fileForRetrieveBlueprintChallenge: 'foobar',
           exifForBlueprintChallenge: ['OpenSCAD']
@@ -63,12 +81,14 @@ describe('configValidation', () => {
     })
 
     it('should fail if a required challenge product is missing', () => {
-      const products = [
+      const products: Product[] = [
         {
+          ...COMMON_PRODUCT,
           name: 'Apple Juice',
           useForChristmasSpecialChallenge: true
         },
         {
+          ...COMMON_PRODUCT,
           name: 'Orange Juice',
           urlForProductTamperingChallenge: 'foobar'
         }
@@ -80,21 +100,25 @@ describe('configValidation', () => {
 
   describe('checkNecessaryExtraKeysOnSpecialProducts', () => {
     it('should accept a valid config', () => {
-      const products = [
+      const products: Product[] = [
         {
+          ...COMMON_PRODUCT,
           name: 'Apple Juice',
           useForChristmasSpecialChallenge: true
         },
         {
+          ...COMMON_PRODUCT,
           name: 'Orange Juice',
           urlForProductTamperingChallenge: 'foobar'
         },
         {
+          ...COMMON_PRODUCT,
           name: 'Melon Juice',
           fileForRetrieveBlueprintChallenge: 'foobar',
           exifForBlueprintChallenge: ['OpenSCAD']
         },
         {
+          ...COMMON_PRODUCT,
           name: 'Rippertuer Special Juice',
           keywordsForPastebinDataLeakChallenge: ['bla', 'blubb']
         }
@@ -104,20 +128,24 @@ describe('configValidation', () => {
     })
 
     it('should fail if product has no exifForBlueprintChallenge', () => {
-      const products = [
+      const products: Product[] = [
         {
+          ...COMMON_PRODUCT,
           name: 'Apple Juice',
           useForChristmasSpecialChallenge: true
         },
         {
+          ...COMMON_PRODUCT,
           name: 'Orange Juice',
           urlForProductTamperingChallenge: 'foobar'
         },
         {
+          ...COMMON_PRODUCT,
           name: 'Melon Juice',
           fileForRetrieveBlueprintChallenge: 'foobar'
         },
         {
+          ...COMMON_PRODUCT,
           name: 'Rippertuer Special Juice',
           keywordsForPastebinDataLeakChallenge: ['bla', 'blubb']
         }
@@ -129,21 +157,25 @@ describe('configValidation', () => {
 
   describe('checkUniqueSpecialOnProducts', () => {
     it('should accept a valid config', () => {
-      const products = [
+      const products: Product[] = [
         {
+          ...COMMON_PRODUCT,
           name: 'Apple Juice',
           useForChristmasSpecialChallenge: true
         },
         {
+          ...COMMON_PRODUCT,
           name: 'Orange Juice',
           urlForProductTamperingChallenge: 'foobar'
         },
         {
+          ...COMMON_PRODUCT,
           name: 'Melon Juice',
           fileForRetrieveBlueprintChallenge: 'foobar',
           exifForBlueprintChallenge: ['OpenSCAD']
         },
         {
+          ...COMMON_PRODUCT,
           name: 'Rippertuer Special Juice',
           keywordsForPastebinDataLeakChallenge: ['bla', 'blubb']
         }
@@ -153,8 +185,9 @@ describe('configValidation', () => {
     })
 
     it('should fail if a product is configured for multiple challenges', () => {
-      const products = [
+      const products: Product[] = [
         {
+          ...COMMON_PRODUCT,
           name: 'Apple Juice',
           useForChristmasSpecialChallenge: true,
           urlForProductTamperingChallenge: 'foobar'
@@ -167,17 +200,21 @@ describe('configValidation', () => {
 
   describe('checkMinimumRequiredNumberOfProducts', () => {
     it('should accept a valid config', () => {
-      const products = [
+      const products: Product[] = [
         {
+          ...COMMON_PRODUCT,
           name: 'Apple Juice'
         },
         {
+          ...COMMON_PRODUCT,
           name: 'Orange Juice'
         },
         {
+          ...COMMON_PRODUCT,
           name: 'Melon Juice'
         },
         {
+          ...COMMON_PRODUCT,
           name: 'Rippertuer Special Juice'
         }
       ]
@@ -186,14 +223,17 @@ describe('configValidation', () => {
     })
 
     it('should fail if less than 4 products are configured', () => {
-      const products = [
+      const products: Product[] = [
         {
+          ...COMMON_PRODUCT,
           name: 'Apple Juice'
         },
         {
+          ...COMMON_PRODUCT,
           name: 'Orange Juice'
         },
         {
+          ...COMMON_PRODUCT,
           name: 'Melon Juice'
         }
       ]
@@ -207,11 +247,13 @@ describe('configValidation', () => {
       const memories = [
         {
           image: 'bla.png',
+          caption: 'Bla',
           geoStalkingMetaSecurityQuestion: 42,
           geoStalkingMetaSecurityAnswer: 'foobar'
         },
         {
           image: 'blubb.png',
+          caption: 'Blubb',
           geoStalkingVisualSecurityQuestion: 43,
           geoStalkingVisualSecurityAnswer: 'barfoo'
         }
@@ -221,19 +263,22 @@ describe('configValidation', () => {
     })
 
     it('should fail if multiple memories are configured for the same challenge', () => {
-      const memories = [
+      const memories: Memory[] = [
         {
           image: 'bla.png',
+          caption: 'Bla',
           geoStalkingMetaSecurityQuestion: 42,
           geoStalkingMetaSecurityAnswer: 'foobar'
         },
         {
           image: 'blubb.png',
+          caption: 'Blubb',
           geoStalkingVisualSecurityQuestion: 43,
           geoStalkingVisualSecurityAnswer: 'barfoo'
         },
         {
           image: 'lalala.png',
+          caption: 'Lalala',
           geoStalkingMetaSecurityQuestion: 46,
           geoStalkingMetaSecurityAnswer: 'foobarfoo'
         }
@@ -243,9 +288,10 @@ describe('configValidation', () => {
     })
 
     it('should fail if a required challenge memory is missing', () => {
-      const memories = [
+      const memories: Memory[] = [
         {
           image: 'bla.png',
+          caption: 'Bla',
           geoStalkingMetaSecurityQuestion: 42,
           geoStalkingMetaSecurityAnswer: 'foobar'
         }
@@ -255,14 +301,16 @@ describe('configValidation', () => {
     })
 
     it('should fail if memories have mixed up the required challenge keys', () => {
-      const memories = [
+      const memories: Memory[] = [
         {
           image: 'bla.png',
+          caption: 'Bla',
           geoStalkingMetaSecurityQuestion: 42,
           geoStalkingVisualSecurityAnswer: 'foobar'
         },
         {
           image: 'blubb.png',
+          caption: 'Blubb',
           geoStalkingVisualSecurityQuestion: 43,
           geoStalkingMetaSecurityAnswer: 'barfoo'
         }
@@ -274,14 +322,16 @@ describe('configValidation', () => {
 
   describe('checkThatThereIsOnlyOneMemoryPerSpecial', () => {
     it('should accept a valid config', () => {
-      const memories = [
+      const memories: Memory[] = [
         {
           image: 'bla.png',
+          caption: 'Bla',
           geoStalkingMetaSecurityQuestion: 42,
           geoStalkingMetaSecurityAnswer: 'foobar'
         },
         {
           image: 'blubb.png',
+          caption: 'Blubb',
           geoStalkingVisualSecurityQuestion: 43,
           geoStalkingVisualSecurityAnswer: 'barfoo'
         }
@@ -291,7 +341,7 @@ describe('configValidation', () => {
     })
 
     it('should fail if a memory is configured for multiple challenges', () => {
-      const memories = [
+      const memories: Memory[] = [
         {
           image: 'bla.png',
           caption: 'Bla',
@@ -308,14 +358,16 @@ describe('configValidation', () => {
 
   describe('checkSpecialMemoriesHaveNoUserAssociated', () => {
     it('should accept a valid config', () => {
-      const memories = [
+      const memories: Memory[] = [
         {
           image: 'bla.png',
+          caption: 'Bla',
           geoStalkingMetaSecurityQuestion: 42,
           geoStalkingMetaSecurityAnswer: 'foobar'
         },
         {
           image: 'blubb.png',
+          caption: 'Blubb',
           geoStalkingVisualSecurityQuestion: 43,
           geoStalkingVisualSecurityAnswer: 'barfoo'
         }
@@ -325,16 +377,18 @@ describe('configValidation', () => {
     })
 
     it('should accept a config where the default users are associated', () => {
-      const memories = [
+      const memories: Memory[] = [
         {
           user: 'john',
           image: 'bla.png',
+          caption: 'Bla',
           geoStalkingMetaSecurityQuestion: 42,
           geoStalkingMetaSecurityAnswer: 'foobar'
         },
         {
           user: 'emma',
           image: 'blubb.png',
+          caption: 'Blubb',
           geoStalkingVisualSecurityQuestion: 43,
           geoStalkingVisualSecurityAnswer: 'barfoo'
         }
@@ -344,7 +398,7 @@ describe('configValidation', () => {
     })
 
     it('should fail if a memory is linked to another user', () => {
-      const memories = [
+      const memories: Memory[] = [
         {
           user: 'admin',
           image: 'bla.png',
@@ -360,13 +414,15 @@ describe('configValidation', () => {
 
   describe('checkMinimumRequiredNumberOfMemories', () => {
     it('should accept a valid config', () => {
-      const memories = [
+      const memories: Memory[] = [
         {
           image: 'bla.png',
+          caption: 'Bla',
           user: 'admin'
         },
         {
           image: 'blubb.png',
+          caption: 'Blubb',
           user: 'bjoern'
         }
       ]
@@ -375,9 +431,10 @@ describe('configValidation', () => {
     })
 
     it('should fail if less than 2 memories are configured', () => {
-      const memories = [
+      const memories: Memory[] = [
         {
           image: 'bla.png',
+          caption: 'Bla',
           user: 'admin'
         }
       ]

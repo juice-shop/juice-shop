@@ -177,27 +177,21 @@
 
   <h3 mat-subheader class="side-subHeader" translate>TITLE_CONTACT</h3>
   <a mat-list-item routerLink="/contact" (click)="onToggleSidenav();" aria-label="Go to contact us page">
-    <i class="material-icons">
-      feedback
-    </i>
+    <mat-icon>feedback</mat-icon>
     <span class="menu-text truncate">
       {{"SECTION_CUSTOMER_FEEDBACK" | translate}}
     </span>
   </a>
   <a mat-list-item *ngIf="isLoggedIn()" routerLink="/complain" (click)="onToggleSidenav();"
      aria-label="Go to complain page">
-    <i class="material-icons">
-      sentiment_dissatisfied
-    </i>
+    <mat-icon>sentiment_dissatisfied</mat-icon>
     <span class="menu-text truncate">
       {{"NAV_COMPLAIN" | translate}}
     </span>
   </a>
   <a mat-list-item *ngIf="isLoggedIn()" routerLink="/chatbot" (click)="onToggleSidenav();"
      aria-label="Go to chatbot page">
-     <i class="material-icons">
-      chat
-    </i>
+     <mat-icon>chat</mat-icon>
     <span class="menu-text truncate">
       {{"SECTION_SUPPORT_CHAT" | translate}}
     </span>
@@ -207,25 +201,19 @@
 
   <h3 mat-subheader class="side-subHeader" translate>COMPANY</h3>
   <a mat-list-item routerLink="/about" (click)="onToggleSidenav()" aria-label="Go to about us page">
-    <i class="material-icons">
-      business_center
-    </i>
+    <mat-icon>business_center</mat-icon>
     <span class="menu-text truncate">
       {{"TITLE_ABOUT" | translate}}
     </span>
   </a>
   <a mat-list-item routerLink="/photo-wall" (click)="onToggleSidenav()" aria-label="Go to photo wall">
-    <i class="material-icons">
-      camera
-    </i>
+    <mat-icon>camera</mat-icon>
     <span class="menu-text truncate">
       {{"LABEL_PHOTO_WALL" | translate}}
     </span>
   </a>
   <a mat-list-item *ngIf="isLoggedIn()" routerLink="/deluxe-membership" (click)="onToggleSidenav()" aria-label="Go to deluxe membership page">
-    <i class="material-icons">
-      card_membership
-    </i>
+    <mat-icon>card_membership</mat-icon>
     <span class="menu-text truncate">
       {{"LABEL_DELUXE_MEMBERSHIP" | translate}}
     </span>
@@ -242,9 +230,7 @@
   </a>
   <a *ngIf="!scoreBoardVisible && offerScoreBoardTutorial" mat-list-item (click)="startHackingInstructor()"
      aria-label="Launch beginners tutorial">
-    <i class="material-icons">
-      school
-    </i>
+    <mat-icon>school</mat-icon>
     <span class="menu-text truncate">
       {{"BTN_GETTING_STARTED" | translate}}
     </span>

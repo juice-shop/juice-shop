@@ -5,7 +5,7 @@
 
 import { TranslateModule } from '@ngx-translate/core'
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { MatDividerModule } from '@angular/material/divider'
 import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
@@ -18,6 +18,7 @@ import { CodeFixesService } from '../Services/code-fixes.service'
 import { VulnLinesService } from '../Services/vuln-lines.service'
 import { ChallengeService } from '../Services/challenge.service'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('CodeSnippetComponent', () => {
   let component: CodeSnippetComponent
@@ -43,15 +44,12 @@ describe('CodeSnippetComponent', () => {
     challengeService.continueCodeFixIt.and.returnValue(of('continueCodeFixIt'))
 
     TestBed.configureTestingModule({
-      imports: [
-        NoopAnimationsModule,
+      imports: [NoopAnimationsModule,
         CookieModule.forRoot(),
         TranslateModule.forRoot(),
-        HttpClientTestingModule,
         MatDividerModule,
         MatDialogModule,
-        CodeSnippetComponent
-      ],
+        CodeSnippetComponent],
       providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: { dialogData: {} } },
@@ -60,7 +58,9 @@ describe('CodeSnippetComponent', () => {
         { provide: CodeSnippetService, useValue: codeSnippetService },
         { provide: CodeFixesService, useValue: codeFixesService },
         { provide: VulnLinesService, useValue: vulnLinesService },
-        { provide: ChallengeService, useValue: challengeService }
+        { provide: ChallengeService, useValue: challengeService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     })
       .compileComponents()

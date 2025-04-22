@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
-import fs from 'fs/promises'
+import fs from 'node:fs/promises'
 import { type Request, type Response, type NextFunction } from 'express'
 import { type User } from '../data/types'
 import { UserModel } from '../models/user'
 import jwt, { type JwtPayload, type VerifyErrors } from 'jsonwebtoken'
-import challengeUtils = require('../lib/challengeUtils')
+import * as challengeUtils from '../lib/challengeUtils'
 import logger from '../lib/logger'
 import config from 'config'
 import download from 'download'
@@ -24,7 +24,7 @@ let trainingFile = config.get<string>('application.chatBot.trainingData')
 let testCommand: string
 export let bot: Bot | null = null
 
-export async function initialize () {
+export async function initializeChatbot () {
   if (utils.isUrl(trainingFile)) {
     const file = utils.extractFilename(trainingFile)
     const data = await download(trainingFile)
@@ -45,7 +45,7 @@ export async function initialize () {
   return bot.train()
 }
 
-void initialize()
+void initializeChatbot()
 
 async function processQuery (user: User, req: Request, res: Response, next: NextFunction) {
   if (bot == null) {
@@ -141,7 +141,6 @@ async function setUserName (user: User, req: Request, res: Response) {
     const updatedUser = await userModel.update({ username: req.body.query })
     const updatedUserResponse = utils.queryResultToJson(updatedUser)
     const updatedToken = security.authorize(updatedUserResponse)
-    // @ts-expect-error FIXME some properties missing in updatedUserResponse
     security.authenticatedUsers.put(updatedToken, updatedUserResponse)
     bot.addUser(`${updatedUser.id}`, req.body.query)
     res.status(200).json({
@@ -203,7 +202,7 @@ export const status = function status () {
   }
 }
 
-module.exports.process = function respond () {
+export function process () {
   return async (req: Request, res: Response, next: NextFunction) => {
     if (bot == null) {
       res.status(200).json({

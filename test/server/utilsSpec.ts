@@ -4,14 +4,13 @@
  */
 
 import type { ChallengeModel } from 'models/challenge'
-import { getChallengeEnablementStatus } from '../../lib/utils'
 
-import chai = require('chai')
+import * as utils from '../../lib/utils'
+
+import chai from 'chai'
 const expect = chai.expect
 
 describe('utils', () => {
-  const utils = require('../../lib/utils')
-
   describe('toSimpleIpAddress', () => {
     it('returns ipv6 address unchanged', () => {
       expect(utils.toSimpleIpAddress('2001:0db8:85a3:0000:0000:8a2e:0370:7334')).to.equal('2001:0db8:85a3:0000:0000:8a2e:0370:7334')
@@ -115,7 +114,7 @@ describe('utils', () => {
     })
   })
 
-  describe('getChallengeEnablementStatus', () => {
+  describe('utils.getChallengeEnablementStatus', () => {
     const defaultIsEnvironmentFunctions = {
       isDocker: () => false,
       isHeroku: () => false,
@@ -127,7 +126,7 @@ describe('utils', () => {
       it(`challenges without disabledEnv are enabled with safetyMode set to ${safetyMode}`, () => {
         const challenge: ChallengeModel = { disabledEnv: null } as unknown as ChallengeModel
 
-        expect(getChallengeEnablementStatus(challenge, safetyMode, defaultIsEnvironmentFunctions))
+        expect(utils.getChallengeEnablementStatus(challenge, safetyMode, defaultIsEnvironmentFunctions))
           .to.deep.equal({ enabled: true, disabledBecause: null })
       })
     }
@@ -144,7 +143,7 @@ describe('utils', () => {
         const challenge: ChallengeModel = { disabledEnv: testCase.name } as unknown as ChallengeModel
 
         const isEnvironmentFunctions = { ...defaultIsEnvironmentFunctions, [testCase.environmentFunction]: () => true }
-        expect(getChallengeEnablementStatus(challenge, 'enabled', isEnvironmentFunctions))
+        expect(utils.getChallengeEnablementStatus(challenge, 'enabled', isEnvironmentFunctions))
           .to.deep.equal({ enabled: false, disabledBecause: testCase.name })
       })
 
@@ -152,7 +151,7 @@ describe('utils', () => {
         const challenge: ChallengeModel = { disabledEnv: testCase.name } as unknown as ChallengeModel
 
         const isEnvironmentFunctions = { ...defaultIsEnvironmentFunctions, [testCase.environmentFunction]: () => true }
-        expect(getChallengeEnablementStatus(challenge, 'auto', isEnvironmentFunctions))
+        expect(utils.getChallengeEnablementStatus(challenge, 'auto', isEnvironmentFunctions))
           .to.deep.equal({ enabled: false, disabledBecause: testCase.name })
       })
 
@@ -160,7 +159,7 @@ describe('utils', () => {
         const challenge: ChallengeModel = { disabledEnv: testCase.name } as unknown as ChallengeModel
 
         const isEnvironmentFunctions = { ...defaultIsEnvironmentFunctions, [testCase.environmentFunction]: () => true }
-        expect(getChallengeEnablementStatus(challenge, 'disabled', isEnvironmentFunctions))
+        expect(utils.getChallengeEnablementStatus(challenge, 'disabled', isEnvironmentFunctions))
           .to.deep.equal({ enabled: true, disabledBecause: null })
       })
     }

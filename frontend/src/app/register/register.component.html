@@ -100,9 +100,7 @@
                 [disabled]="emailControl.invalid || passwordControl.invalid || repeatPasswordControl.invalid || securityQuestionControl.invalid || securityAnswerControl.invalid"
                 (click)="save()"
                 aria-label="Button to complete the registration">
-          <i class="material-icons">
-            person_add
-          </i>
+          <mat-icon>person_add</mat-icon>
           {{'BTN_REGISTER' | translate}}
         </button>
 

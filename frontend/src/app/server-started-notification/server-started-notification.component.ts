@@ -10,7 +10,7 @@ import { CookieService } from 'ngy-cookie'
 import { SocketIoService } from '../Services/socket-io.service'
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
-import { MatCardModule, MatCardHeader, MatCardContent } from '@angular/material/card'
+import { MatCardModule, MatCardContent } from '@angular/material/card'
 import { NgIf } from '@angular/common'
 
 interface HackingProgress {
@@ -22,8 +22,7 @@ interface HackingProgress {
   selector: 'app-server-started-notification',
   templateUrl: './server-started-notification.component.html',
   styleUrls: ['./server-started-notification.component.scss'],
-  standalone: true,
-  imports: [NgIf, MatCardModule, MatCardHeader, MatCardContent, TranslateModule, MatButtonModule, MatIconModule]
+  imports: [NgIf, MatCardModule, MatCardContent, TranslateModule, MatButtonModule, MatIconModule]
 })
 export class ServerStartedNotificationComponent implements OnInit {
   public hackingProgress: HackingProgress = {} as HackingProgress

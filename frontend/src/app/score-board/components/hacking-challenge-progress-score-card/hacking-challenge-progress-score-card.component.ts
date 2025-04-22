@@ -7,7 +7,6 @@ import { ScoreCardComponent } from '../score-card/score-card.component'
   selector: 'hacking-challenge-progress-score-card',
   templateUrl: './hacking-challenge-progress-score-card.component.html',
   styleUrls: ['./hacking-challenge-progress-score-card.component.scss'],
-  standalone: true,
   imports: [ScoreCardComponent, TranslateModule]
 })
 export class HackingChallengeProgressScoreCardComponent implements OnInit, OnChanges {

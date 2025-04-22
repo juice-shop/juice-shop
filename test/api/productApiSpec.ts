@@ -3,13 +3,15 @@
  * SPDX-License-Identifier: MIT
  */
 
+import * as frisby from 'frisby'
+import config from 'config'
+
 import type { Product as ProductConfig } from '../../lib/config.types'
 import { challenges } from '../../data/datacache'
-import config from 'config'
-import frisby = require('frisby')
+import * as security from '../../lib/insecurity'
+import * as utils from '../../lib/utils'
+
 const Joi = frisby.Joi
-const utils = require('../../lib/utils')
-const security = require('../../lib/insecurity')
 
 // array index of the items is incremented by one because the db id starts with 1
 const tamperingProductId = config.get<ProductConfig[]>('products').findIndex((product) => !!product.urlForProductTamperingChallenge) + 1
