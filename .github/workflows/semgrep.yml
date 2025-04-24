@@ -1,0 +1,18 @@
+name: Semgrep Code Scan
+on: [push]  # Trigger on every push event to this repo
+jobs:
+  semgrep-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'        # Set up Node.js (using Node 18 LTS)
+      - name: Install dependencies
+        run: npm install            # Install Node.js project dependencies
+      - name: Build the app (optional)
+        run: npm run build --if-present  # Build the app, if a build script is defined
+      - name: Install Semgrep
+        run: pip3 install semgrep   # Install Semgrep via pip (Python package manager)
+      - name: Run Semgrep scan
+        run: semgrep --config auto .  # Run Semgrep code scan with automatic rules
