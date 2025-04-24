@@ -1,0 +1,46 @@
+name: CI with SAST and SCA
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build app
+      run: npm run build
+
+    # --- SAST with Semgrep ---
+    - name: Run Semgrep (SAST)
+      uses: returntocorp/semgrep-action@v1
+      with:
+        config: 'p/owasp-top-ten'
+
+    # --- SCA with OWASP Dependency-Check ---
+    - name: Run Dependency-Check (SCA)
+      uses: dependency-check/Dependency-Check_Action@main
+      with:
+        project: 'Juice Shop'
+        path: '.'
+        format: 'HTML'
+
+    - name: Upload SCA report
+      uses: actions/upload-artifact@v3
+      with:
+        name: dependency-check-report
+        path: dependency-check-report.html
