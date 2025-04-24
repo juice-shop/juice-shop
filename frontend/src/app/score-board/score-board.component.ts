@@ -75,11 +75,11 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
       this.applicationConfiguration = applicationConfiguration
 
       const transformedChallenges = challenges.map((challenge) => {
-        const tagList: string[] = challenge.tags ? challenge.tags.split(',').map((tag) => tag.trim()) : [];
-        const hasCodingChallenge =  challengeKeysWithCodeChallenges.includes(challenge.key)
-        
+        const tagList: string[] = challenge.tags ? challenge.tags.split(',').map((tag) => tag.trim()) : []
+        const hasCodingChallenge = challengeKeysWithCodeChallenges.includes(challenge.key)
+
         if (hasCodingChallenge) {
-          tagList.push('Has Coding Challenge');
+          tagList.push('Has Coding Challenge')
         }
 
         return {
@@ -87,7 +87,7 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
           tagList,
           hasCodingChallenge,
           originalDescription: challenge.description as string,
-          description: this.sanitizer.bypassSecurityTrustHtml(challenge.description as string),
+          description: this.sanitizer.bypassSecurityTrustHtml(challenge.description as string)
         }
       })
       this.allChallenges = transformedChallenges
