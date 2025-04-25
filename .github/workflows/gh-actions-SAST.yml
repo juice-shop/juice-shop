@@ -1,3 +1,4 @@
+
 name: Static Analysis Security Testing (SAST)
 
 on:
@@ -38,4 +39,4 @@ jobs:
             # Unique key of your project. You can find it in SonarQube > [my project] > Project Information (top-right menu)
             # mandatory
             -Dsonar.projectKey=DevSecOps
-            
+  
