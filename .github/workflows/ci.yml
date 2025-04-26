@@ -5,7 +5,6 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,14 +19,12 @@ jobs:
     - name: Build Docker Image
       run: |
         docker build -t my-app .
-
     - name: Copy lcov.info if exists
       run: |
         docker run --rm my-app /bin/bash -c "
           [ -f build/reports/coverage/api-tests/lcov.info ] && cp build/reports/coverage/api-tests/lcov.info api-lcov.info || echo 'lcov.info bulunamadı, kopyalama atlandı.'
         "
-
-    - name: Upload Coverage Report (Optional)
+    - name: Upload Coverage (Opsiyonel)
       if: always()
       uses: actions/upload-artifact@v4
       with:
