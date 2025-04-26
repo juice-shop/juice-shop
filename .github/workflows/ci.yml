@@ -39,12 +39,13 @@ jobs:
       - name: "Lint source code"
         run: npm run lint
       - name: Copy lcov.info if exists
-          run:|
-            if [ -f build/reports/coverage/api-tests/lcov.info ]; then
-              cp build/reports/coverage/api-tests/lcov.info api-lcov.info
-            else
-              echo "Coverage file not found, skipping copy."
-            fi
+        run: |
+          if [ -f build/reports/coverage/api-tests/lcov.info ]; then
+            cp build/reports/coverage/api-tests/lcov.info api-lcov.info
+          else
+            echo "Coverage file not found, skipping copy."
+          fi
+
 
       - name: "Lint customization configs"
         run: >
