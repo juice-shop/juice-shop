@@ -8,7 +8,6 @@ import { fromQueryParams, toQueryParams } from './filter-settings/query-params-c
 import { DEFAULT_FILTER_SETTING, type FilterSetting } from './filter-settings/FilterSetting'
 import { type Config, ConfigurationService } from '../Services/configuration.service'
 import { CodeSnippetComponent } from '../code-snippet/code-snippet.component'
-import { CodeSnippetService } from '../Services/code-snippet.service'
 import { ChallengeService } from '../Services/challenge.service'
 import { filterChallenges } from './helpers/challenge-filtering'
 import { SocketIoService } from '../Services/socket-io.service'
@@ -56,7 +55,6 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
 
   constructor (
     private readonly challengeService: ChallengeService,
-    private readonly codeSnippetService: CodeSnippetService,
     private readonly configurationService: ConfigurationService,
     private readonly sanitizer: DomSanitizer,
     private readonly ngZone: NgZone,
