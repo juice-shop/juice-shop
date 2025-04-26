@@ -45,8 +45,6 @@ jobs:
           else
             echo "Coverage file not found, skipping copy."
           fi
-
-
       - name: "Lint customization configs"
         run: >
           npm run lint:config -- -f ./config/7ms.yml &&
