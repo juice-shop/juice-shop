@@ -1,10 +1,10 @@
-name: Docker Build and Test
+name: Docker Build
 
 on:
   push:
-    branches: [ "main", "develop" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main", "develop" ]
+    branches: [ "master" ]
 
 jobs:
   build:
@@ -21,24 +21,32 @@ jobs:
       run: |
         docker build -t my-app .
 
-    - name: Run Tests inside Docker Container
+    - name: Run Tests and Copy Coverage
       run: |
-        docker run --rm my-app /bin/sh -c "
-          npm install && 
-          npm run build &&
-          npm run test || true &&
+        docker run --rm --entrypoint /bin/bash \
+          -v "$(pwd)/coverage:/app/coverage" \
+          my-app \
+          -c "
+            set -e
+            npm install && 
+            npm run build &&
+            npm run test || true
+            
+            if [ -f build/reports/coverage/api-tests/lcov.info ]; then
+              mkdir -p /app/coverage
+              cp build/reports/coverage/api-tests/lcov.info /app/coverage/
+            else
+              echo 'lcov.info bulunamadı'
+            fi
+          "
 
-          # lcov.info dosyasını kopyalamaya çalış
-          [ -f build/reports/coverage/api-tests/lcov.info ] && cp build/reports/coverage/api-tests/lcov.info api-lcov.info || echo 'lcov.info bulunamadı, kopyalama atlandı.'
-        "
-
-    - name: Run SamGrep Security Scan
+    - name: Run Semgrep Security Scan
       run: |
         docker run --rm -v $(pwd):/src returntocorp/semgrep --config auto /src
 
-    - name: Upload Coverage (Opsiyonel)
+    - name: Upload Coverage
       if: always()
       uses: actions/upload-artifact@v4
       with:
         name: coverage-report
-        path: api-lcov.info
+        path: coverage/
