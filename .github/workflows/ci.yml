@@ -23,7 +23,7 @@ jobs:
 
     - name: Run Tests inside Docker Container
       run: |
-        docker run --rm my-app /bin/bash -c "
+        docker run --rm my-app /bin/sh -c "
           npm install && 
           npm run build &&
           npm run test || true &&
@@ -31,6 +31,10 @@ jobs:
           # lcov.info dosyasını kopyalamaya çalış
           [ -f build/reports/coverage/api-tests/lcov.info ] && cp build/reports/coverage/api-tests/lcov.info api-lcov.info || echo 'lcov.info bulunamadı, kopyalama atlandı.'
         "
+
+    - name: Run SamGrep Security Scan
+      run: |
+        docker run --rm -v $(pwd):/src returntocorp/semgrep --config auto /src
 
     - name: Upload Coverage (Opsiyonel)
       if: always()
