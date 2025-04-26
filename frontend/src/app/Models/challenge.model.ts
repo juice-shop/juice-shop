@@ -21,4 +21,5 @@ export interface Challenge {
   hasSnippet?: boolean
   codingChallengeStatus?: 0 | 1 | 2
   mitigationUrl?: string
+  hasCodingChallenge: boolean
 }
