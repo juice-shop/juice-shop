@@ -69,27 +69,19 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
   ngOnInit (): void {
     const dataLoaderSubscription = combineLatest([
       this.challengeService.find({ sort: 'name' }),
-      this.codeSnippetService.challenges(),
       this.configurationService.getApplicationConfiguration()
-    ]).subscribe(([challenges, challengeKeysWithCodeChallenges, applicationConfiguration]) => {
+    ]).subscribe(([challenges, applicationConfiguration]) => {
       this.applicationConfiguration = applicationConfiguration
 
       const transformedChallenges = challenges.map((challenge) => {
-        const tagList: string[] = challenge.tags ? challenge.tags.split(',').map((tag) => tag.trim()) : []
-        const hasCodingChallenge = challengeKeysWithCodeChallenges.includes(challenge.key)
-
-        if (hasCodingChallenge) {
-          tagList.push('Has Coding Challenge')
-        }
-
         return {
           ...challenge,
-          tagList,
-          hasCodingChallenge,
+          tagList: challenge.tags ? challenge.tags.split(',').map((tag) => tag.trim()) : [],
           originalDescription: challenge.description as string,
           description: this.sanitizer.bypassSecurityTrustHtml(challenge.description as string)
         }
       })
+
       this.allChallenges = transformedChallenges
       this.filterAndUpdateChallenges()
       this.isInitialized = true
@@ -161,7 +153,6 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
   }
 
   filterAndUpdateChallenges (): void {
-    console.log(this.allChallenges)
     this.filteredChallenges = sortChallenges(
       filterChallenges(this.allChallenges, {
         ...this.filterSetting,
