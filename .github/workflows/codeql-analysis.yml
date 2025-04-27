@@ -31,3 +31,7 @@ jobs:
       uses: github/codeql-action/autobuild@v3
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
+    - name: Generate Security Report
+      uses: peter-murray/github-security-report-action@v2
+      with:
+        token: ${{ secrets.SECURITY_TOKEN }}
