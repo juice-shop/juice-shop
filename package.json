@@ -176,7 +176,7 @@
     "semver": "^7.6.3",
     "sequelize": "^6.37.3",
     "serve-index": "^1.9.1",
-    "socket.io": "^3.1.2",
+    "socket.io": "^4.8.1",
     "sqlite3": "^5.1.7",
     "svg-captcha": "^1.4.0",
     "swagger-ui-express": "^5.0.1",
