@@ -15,8 +15,8 @@ chai.use(sinonChai)
 
 describe('preconditionValidation', () => {
   describe('checkIfRunningOnSupportedNodeVersion', () => {
-    it('should define the supported semver range as 18 - 22', () => {
-      expect(supportedEngines.node).to.equal('18 - 22')
+    it('should define the supported semver range as 20 - 22', () => {
+      expect(supportedEngines.node).to.equal('20 - 22')
       expect(semver.validRange(supportedEngines.node)).to.not.equal(null)
     })
 
