@@ -328,7 +328,8 @@ async function createProducts () {
     pastebinLeakChallengeProduct.deletedDate = '2019-02-1 00:00:00.000 +00:00'
   }
   if (blueprintRetrievalChallengeProduct) {
-    let blueprint = blueprintRetrievalChallengeProduct.fileForRetrieveBlueprintChallenge as string
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    let blueprint = blueprintRetrievalChallengeProduct.fileForRetrieveBlueprintChallenge!
     if (utils.isUrl(blueprint)) {
       const blueprintUrl = blueprint
       blueprint = utils.extractFilename(blueprint)
