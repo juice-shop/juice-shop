@@ -21,7 +21,6 @@ describe('preconditionValidation', () => {
     })
 
     it('should accept a supported version', () => {
-      expect(checkIfRunningOnSupportedNodeVersion('23.11.0')).to.equal(true)
       expect(checkIfRunningOnSupportedNodeVersion('22.4.1')).to.equal(true)
       expect(checkIfRunningOnSupportedNodeVersion('21.7.3')).to.equal(true)
       expect(checkIfRunningOnSupportedNodeVersion('20.15.1')).to.equal(true)
@@ -29,6 +28,7 @@ describe('preconditionValidation', () => {
 
     it('should fail for an unsupported version', () => {
       expect(checkIfRunningOnSupportedNodeVersion('24.0.0')).to.equal(false)
+      expect(checkIfRunningOnSupportedNodeVersion('23.11.0')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('19.9.0')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('18.20.4')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('17.3.0')).to.equal(false)
