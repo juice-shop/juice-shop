@@ -387,6 +387,8 @@
   "TAG_WEB3_DESCRIPTION": "Marks challenges which incorporate Web3 concepts or technology such as Blockchain, Crypto Currency, Smart Contracts, or NFT.",
   "TAG_INTERNET_TRAFFIC": "Internet Traffic",
   "TAG_INTERNET_TRAFFIC_DESCRIPTION": "Marks challenges strictly depending on the server being able to connect with the Internet via e.g. WebSocket or JSON-RPC.",
+  "TAG_WITH_CODING_CHALLENGE": "With Coding Challenge",
+  "TAG_WITH_CODING_CHALLENGE_DESCRIPTION": "Marks a challenge that contains an associated coding challenge.",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "Contrôle d'accès rompu",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "Anti-automatisation brisée",
   "CATEGORY_BROKEN_AUTHENTICATION": "Authentification rompue",
