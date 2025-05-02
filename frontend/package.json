@@ -71,6 +71,7 @@
     "@types/jasmine": "~3.9.1",
     "@types/jasminewd2": "^2.0.10",
     "@types/jwt-decode": "^2.2.1",
+    "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.11.19",
     "@types/socket.io-client": "^1.4.33",
     "@typescript-eslint/eslint-plugin": "^7.0.2",

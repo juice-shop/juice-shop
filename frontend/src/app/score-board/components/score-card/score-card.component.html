@@ -15,3 +15,8 @@
 <div class="right-group">
   <ng-content select="[right-side]" />
 </div>
+<div class="hover-group" *ngIf="hoverEnabled">
+  <div class="hover-content">
+    <ng-content select="[hover-content]" />
+  </div>
+</div>

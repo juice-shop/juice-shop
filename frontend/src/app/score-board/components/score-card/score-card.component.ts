@@ -12,6 +12,9 @@ export class ScoreCardComponent {
   public description: string
 
   @Input()
+  public hoverEnabled = false
+
+  @Input()
   public total: number
 
   @Input()

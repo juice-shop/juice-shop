@@ -3,6 +3,7 @@
   [total]="availableCodingChallenges"
   [score]="solvedCodingChallenges"
   [showAsPercentage]="true"
+  [hoverEnabled]="true"
 >
   <div right-side class="icon-group">
     <svg
@@ -33,4 +34,5 @@
       </defs>
     </svg>
   </div>
+  <challenge-category-list hover-content [challengeCategories]="challengeCategories" />
 </score-card>

@@ -1,0 +1,10 @@
+:host {
+  display: grid;
+  grid-template-columns: auto max-content;
+}
+
+.category-progress {
+  font-size: 14px;
+  margin: 5px 0;
+  text-align: right;
+}

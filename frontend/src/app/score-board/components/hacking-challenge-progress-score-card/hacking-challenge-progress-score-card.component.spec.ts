@@ -22,4 +22,34 @@ describe('HackingChallengeProgressScoreCardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy()
   })
+
+  it('should update challengeCategories when allChallenges input changes', () => {
+    const initialChallenges = [
+      { category: 'Category1', solved: true },
+      { category: 'Category1', solved: false },
+      { category: 'Category2', solved: false }
+    ]
+
+    const updatedChallenges = [
+      { category: 'Category1', solved: true },
+      { category: 'Category1', solved: true },
+      { category: 'Category3', solved: false }
+    ]
+
+    component.allChallenges = initialChallenges as any
+    component.ngOnChanges({ allChallenges: { currentValue: initialChallenges, previousValue: [], firstChange: true, isFirstChange: () => true } })
+
+    expect(component.challengeCategories).toEqual([
+      { name: 'Category1', solved: 1, total: 2 },
+      { name: 'Category2', solved: 0, total: 1 }
+    ])
+
+    component.allChallenges = updatedChallenges as any
+    component.ngOnChanges({ allChallenges: { currentValue: updatedChallenges, previousValue: initialChallenges, firstChange: false, isFirstChange: () => false } })
+
+    expect(component.challengeCategories).toEqual([
+      { name: 'Category1', solved: 2, total: 2 },
+      { name: 'Category3', solved: 0, total: 1 }
+    ])
+  })
 })

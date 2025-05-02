@@ -4,6 +4,15 @@
   display: grid;
   grid-template-columns: auto min-content;
   height: 100%;
+  overflow: visible;
+
+  // styles for the bottom expand group
+  position: relative;
+
+  &:hover {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 }
 
 .score-group {
@@ -47,4 +56,31 @@
     background-color: var(--theme-accent);
     height: 8px;
   }
+}
+
+.hover-group {
+  background: var(--theme-background-dark);
+  border-radius: 0 0 4px 4px;
+  border-top: 1px solid var(--theme-background-lighter);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: calc(100%);
+  transform: translateY(0);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  z-index: 10;
+}
+
+.hover-content {
+  padding: 8px 16px;
+}
+
+:host(:hover) .hover-group {
+  opacity: 1;
+  pointer-events: auto;
+  pointer-events: auto;
+  transform: translateY(0);
 }
