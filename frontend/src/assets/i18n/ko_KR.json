@@ -387,6 +387,8 @@
   "TAG_WEB3_DESCRIPTION": "블록체인, 암호화폐, 스마트 컨트랙트 또는 NFT와 같은 웹3 개념 또는 기술을 통합한 챌린지를 표시합니다.",
   "TAG_INTERNET_TRAFFIC": "인터넷 트래픽",
   "TAG_INTERNET_TRAFFIC_DESCRIPTION": "웹소켓 또는 JSON-RPC 등을 통해 인터넷에 연결할 수 있는 서버에 따라 엄격하게 문제를 표시합니다.",
+  "TAG_WITH_CODING_CHALLENGE": "With Coding Challenge",
+  "TAG_WITH_CODING_CHALLENGE_DESCRIPTION": "Marks a challenge that contains an associated coding challenge.",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "손상된 액세스 제어",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "고장난 안티 자동화",
   "CATEGORY_BROKEN_AUTHENTICATION": "인증 오류",
