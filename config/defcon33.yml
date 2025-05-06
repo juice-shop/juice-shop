@@ -2,11 +2,20 @@ application:
   domain: defcon.33
   name: 'DEF CON 33 Merch Store'
   logo: 'https://shop.defcon.org/cdn/shop/files/33-fullcolorgradient_1_720x.jpg?v=1740593533'
+  favicon: 'https://defcon.org/images/favicon.ico'
   theme: lime-green
+  showVersionNumber: false
   showGitHubLinks: false
+  localBackupEnabled: true
+  numberOfRandomFakeUsers: 42
   altcoinName: Defco(i)n
   privacyContactEmail: 'donotreply@defcon.33'
   customMetricsPrefix: defcon33
+  chatBot:
+    name: 'Conny'
+    greeting: "Hi there, hacker known as <customer-name>! I'm <bot-name>, the friendly chatbot of DEF CON."
+    defaultResponse: "Sorry, hacker! I couldn't reverse-engineer the meaning of your question."
+    avatar: 'https://defcon.org/images/defcon-main/dc-forums.png'
   social:
     blueSkyUrl: 'https://bsky.app/profile/defcon.bsky.social'
     mastodonUrl: 'https://defcon.social/'
@@ -19,6 +28,13 @@ application:
     questionnaireUrl: null
   welcomeBanner:
     showOnFirstStart: false
+  cookieConsent:
+    message: 'DEF CON wants to be up-front and transparent with what happens to the information that is gathered when you interact [1] with us.'
+    dismissText: 'I trust you!'
+    linkText: 'DEF CON Privacy Policy'
+    linkUrl: 'https://defcon.org/html/links/dc-privacy.html'
+ctf:
+  showFlagsInNotifications: true
 products:
   -
     name: 'DEFCON 32 Sticker Pack'
@@ -42,16 +58,17 @@ products:
     image: 'https://shop.defcon.org/cdn/shop/files/ticket_720x.jpg?v=1740606815'
     quantity: 3
   -
-    name: 'OWASP SSL Advanced Forensic Tool (O-Saft)'
-    description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations.'
-    price: 0.01
-    image: orange_juice.jpg
-    urlForProductTamperingChallenge: 'https://www.owasp.org/index.php/O-Saft'
+    name: 'Engage Hoodie - Lightweight Premium Zip Hoodie'
+    description: 'An incredibly soft and relaxed unisex full zip up hoodie, spun from a plush poly-cotton blend, will quickly become a go-to essential. Features a relaxed fit, hood with white drawstrings, full zip closure and ribbed cuffs and waistband.'
+    price: 55
+    deluxePrice: 47
+    image: 'https://shop.defcon.org/cdn/shop/files/ziphoodie_1080x.jpg?v=1732925354'
+    urlForProductTamperingChallenge: 'https://shop.defcon.org/products/engage-hoodie-lightweight-premium-zip-hoodie'
   -
-    name: 'Christmas Super-Surprise-Box (2014 Edition)'
-    description: 'Contains a random selection of 10 bottles (each 500ml) of our tastiest juices and an extra fan shirt for an unbeatable price!'
-    price: 29.99
-    image: undefined.jpg
+    name: 'DEF CON 32 Theme Pack'
+    description: 'Contains all colors, fonts, styles and images for a fully immersed DEF CON 32 experience!'
+    price: 99.99
+    image: "https://media.defcon.org/DEF%20CON%2032/DEF%20CON%2032%20art/DEF%20CON%2032%20theme.webp"
     useForChristmasSpecialChallenge: true
   -
     name: 'Rippertuer Special Juice'
