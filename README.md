@@ -151,7 +151,7 @@ Juice Shop is automatically tested _only on the latest `.x` minor version_ of ea
 There is no guarantee that older minor node.js releases will always work with Juice Shop!
 Please make sure you stay up to date with your chosen version.
 
-\*=:warning: _There are no pre-built binaries for `libxmljs` available for Node.js versions greater than 20.x. In order to build Juice Shop from source locally, you need to have all C++ build tools installed that are needed to compile those binaries locally. In the packaged distributions theses binaries are already included. We are working on a pure JavaScript replacement of `libxmljs` in [#2421](https://github.com/juice-shop/juice-shop/issues/2421). Contributions are highly welcome!_
+\*= :warning: _There are no pre-built binaries for `libxmljs` available for Node.js versions greater than 20.x. In order to build Juice Shop from source locally, you need to have all C++ build tools installed that are needed to compile those binaries locally. In the packaged distributions theses binaries are already included. We are working on a pure JavaScript replacement of `libxmljs` in [#2421](https://github.com/juice-shop/juice-shop/issues/2421). Contributions are highly welcome!_
 
 ### Troubleshooting
 
