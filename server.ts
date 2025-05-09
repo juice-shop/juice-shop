@@ -49,6 +49,8 @@ const errorhandler = require('errorhandler')
 const cookieParser = require('cookie-parser')
 const serveIndex = require('serve-index')
 const bodyParser = require('body-parser')
+const lusca = require('lusca')
+const session = require('express-session')
 const cors = require('cors')
 const securityTxt = require('express-security.txt')
 const robots = require('express-robots-txt')
@@ -313,6 +315,16 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     next()
   })
 
+  /* Session handeling */
+  app.use(session({
+    secret: 'super-secret-key',
+    resave: false,
+    saveUninitialized: true
+  }))
+
+  /* CSRF validation */
+  app.use(lusca.csrf())
+  
   /* HTTP request logging */
   const accessLogStream = require('file-stream-rotator').getStream({
     filename: path.resolve('logs/access.log'),
