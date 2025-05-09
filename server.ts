@@ -324,7 +324,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   /* CSRF validation */
   app.use(lusca.csrf())
-  
+
   /* HTTP request logging */
   const accessLogStream = require('file-stream-rotator').getStream({
     filename: path.resolve('logs/access.log'),
