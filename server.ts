@@ -654,6 +654,11 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/snippets/fixes/:key', vulnCodeFixes.serveCodeFixes())
   app.post('/snippets/fixes', vulnCodeFixes.checkCorrectFix())
 
+  /* Route to CSRF */
+  app.get('/csrf-token', (req, res) => {
+    res.json({ csrfToken: req.csrfToken() })
+  })
+  
   app.use(angular())
 
   /* Error Handling */
