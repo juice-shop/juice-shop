@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
-import path = require('path')
+import path from 'node:path'
 import { type Request, type Response, type NextFunction } from 'express'
 
 import * as utils from '../lib/utils'
 
-module.exports = function serveAngularClient () {
+export function serveAngularClient () {
   return ({ url }: Request, res: Response, next: NextFunction) => {
     if (!utils.startsWith(url, '/api') && !utils.startsWith(url, '/rest')) {
       res.sendFile(path.resolve('frontend/dist/frontend/index.html'))

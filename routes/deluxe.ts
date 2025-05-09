@@ -4,16 +4,16 @@
  */
 
 import { type Request, type Response, type NextFunction } from 'express'
-import { UserModel } from '../models/user'
+
+import * as challengeUtils from '../lib/challengeUtils'
 import { WalletModel } from '../models/wallet'
-import { CardModel } from '../models/card'
-import challengeUtils = require('../lib/challengeUtils')
-import * as utils from '../lib/utils'
 import { challenges } from '../data/datacache'
+import * as security from '../lib/insecurity'
+import { UserModel } from '../models/user'
+import { CardModel } from '../models/card'
+import * as utils from '../lib/utils'
 
-const security = require('../lib/insecurity')
-
-module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
+export function upgradeToDeluxe () {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user = await UserModel.findOne({ where: { id: req.body.UserId, role: security.roles.customer } })
@@ -39,24 +39,25 @@ module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
         }
       }
 
-      user.update({ role: security.roles.deluxe, deluxeToken: security.deluxeToken(user.email) })
-        .then(user => {
-          challengeUtils.solveIf(challenges.freeDeluxeChallenge, () => { return security.verify(utils.jwtFrom(req)) && req.body.paymentMode !== 'wallet' && req.body.paymentMode !== 'card' })
-          // @ts-expect-error FIXME some properties missing in user
-          user = utils.queryResultToJson(user)
-          const updatedToken = security.authorize(user)
-          security.authenticatedUsers.put(updatedToken, user)
-          res.status(200).json({ status: 'success', data: { confirmation: 'Congratulations! You are now a deluxe member!', token: updatedToken } })
-        }).catch(() => {
-          res.status(400).json({ status: 'error', error: 'Something went wrong. Please try again!' })
+      try {
+        const updatedUser = await user.update({ role: security.roles.deluxe, deluxeToken: security.deluxeToken(user.email) })
+        challengeUtils.solveIf(challenges.freeDeluxeChallenge, () => {
+          return security.verify(utils.jwtFrom(req)) && req.body.paymentMode !== 'wallet' && req.body.paymentMode !== 'card'
         })
+        const userWithStatus = utils.queryResultToJson(updatedUser)
+        const updatedToken = security.authorize(userWithStatus)
+        security.authenticatedUsers.put(updatedToken, userWithStatus)
+        res.status(200).json({ status: 'success', data: { confirmation: 'Congratulations! You are now a deluxe member!', token: updatedToken } })
+      } catch (error) {
+        res.status(400).json({ status: 'error', error: 'Something went wrong. Please try again!' })
+      }
     } catch (err: unknown) {
       res.status(400).json({ status: 'error', error: 'Something went wrong: ' + utils.getErrorMessage(err) })
     }
   }
 }
 
-module.exports.deluxeMembershipStatus = function deluxeMembershipStatus () {
+export function deluxeMembershipStatus () {
   return (req: Request, res: Response, next: NextFunction) => {
     if (security.isCustomer(req)) {
       res.status(200).json({ status: 'success', data: { membershipCost: 49 } })

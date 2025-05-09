@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: MIT
  */
 
-import frisby = require('frisby')
+import * as frisby from 'frisby'
 import config from 'config'
-import path from 'path'
-const fs = require('fs')
+import path from 'node:path'
+import fs from 'node:fs'
 
 const jsonHeader = { 'content-type': 'application/json' }
 const REST_URL = 'http://localhost:3000/rest'
@@ -16,7 +16,7 @@ describe('/profile/image/file', () => {
   it('POST profile image file valid for JPG format', () => {
     const file = path.resolve(__dirname, '../files/validProfileImage.jpg')
     const form = frisby.formData()
-    form.append('file', fs.createReadStream(file))
+    form.append('file', fs.createReadStream(file) as unknown as Blob) // casting to blob as the frisby types are wrong and wont accept the fileStream type
 
     return frisby.post(`${REST_URL}/user/login`, {
       headers: jsonHeader,
@@ -43,7 +43,7 @@ describe('/profile/image/file', () => {
   it('POST profile image file invalid type', () => {
     const file = path.resolve(__dirname, '../files/invalidProfileImageType.docx')
     const form = frisby.formData()
-    form.append('file', fs.createReadStream(file))
+    form.append('file', fs.createReadStream(file) as unknown as Blob) // casting to blob as the frisby types are wrong and wont accept the fileStream type
 
     return frisby.post(`${REST_URL}/user/login`, {
       headers: jsonHeader,
@@ -72,7 +72,7 @@ describe('/profile/image/file', () => {
   it('POST profile image file forbidden for anonymous user', () => {
     const file = path.resolve(__dirname, '../files/validProfileImage.jpg')
     const form = frisby.formData()
-    form.append('file', fs.createReadStream(file))
+    form.append('file', fs.createReadStream(file) as unknown as Blob) // casting to blob as the frisby types are wrong and wont accept the fileStream type
 
     return frisby.post(`${URL}/profile/image/file`, {
       // @ts-expect-error FIXME form.getHeaders() is not found
@@ -155,7 +155,7 @@ describe('/profile/image/url', () => {
   xit('POST valid image with tampered content length', () => { // FIXME Fails on CI/CD pipeline
     const file = path.resolve(__dirname, '../files/validProfileImage.jpg')
     const form = frisby.formData()
-    form.append('file', fs.createReadStream(file))
+    form.append('file', fs.createReadStream(file) as unknown as Blob) // casting to blob as the frisby types are wrong and wont accept the fileStream type
 
     return frisby.post(`${REST_URL}/user/login`, {
       headers: jsonHeader,

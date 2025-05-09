@@ -5,9 +5,9 @@
 
 import { retrieveChallengesWithCodeSnippet } from '../../routes/vulnCodeSnippet'
 import { readFixes } from '../../routes/vulnCodeFixes'
-import chai = require('chai')
+import chai from 'chai'
 import fs from 'graceful-fs'
-import sinonChai = require('sinon-chai')
+import sinonChai from 'sinon-chai'
 const expect = chai.expect
 chai.use(sinonChai)
 

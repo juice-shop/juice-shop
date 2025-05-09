@@ -4,13 +4,14 @@
  */
 
 import { type NextFunction, type Request, type Response } from 'express'
-import fs from 'fs'
 import yaml from 'js-yaml'
+import fs from 'node:fs'
+
 import { getCodeChallenges } from '../lib/codingChallenges'
+import * as challengeUtils from '../lib/challengeUtils'
 import * as accuracy from '../lib/accuracy'
 import * as utils from '../lib/utils'
-
-const challengeUtils = require('../lib/challengeUtils')
+import { type ChallengeKey } from 'models/challenge'
 
 interface SnippetRequestBody {
   challenge: string
@@ -18,7 +19,7 @@ interface SnippetRequestBody {
 
 interface VerdictRequestBody {
   selectedLines: number[]
-  key: string
+  key: ChallengeKey
 }
 
 const setStatusCode = (error: any) => {
@@ -38,7 +39,7 @@ export const retrieveCodeSnippet = async (challengeKey: string) => {
   return null
 }
 
-exports.serveCodeSnippet = () => async (req: Request<SnippetRequestBody, Record<string, unknown>, Record<string, unknown>>, res: Response, next: NextFunction) => {
+export const serveCodeSnippet = () => async (req: Request<SnippetRequestBody, Record<string, unknown>, Record<string, unknown>>, res: Response, next: NextFunction) => {
   try {
     const snippetData = await retrieveCodeSnippet(req.params.challenge)
     if (snippetData == null) {
@@ -57,7 +58,7 @@ export const retrieveChallengesWithCodeSnippet = async () => {
   return [...codeChallenges.keys()]
 }
 
-exports.serveChallengesWithCodeSnippet = () => async (req: Request, res: Response, next: NextFunction) => {
+export const serveChallengesWithCodeSnippet = () => async (req: Request, res: Response, next: NextFunction) => {
   const codingChallenges = await retrieveChallengesWithCodeSnippet()
   res.json({ challenges: codingChallenges })
 }
@@ -71,7 +72,7 @@ export const getVerdict = (vulnLines: number[], neutralLines: number[], selected
   return notOkLines.length === 0
 }
 
-exports.checkVulnLines = () => async (req: Request<Record<string, unknown>, Record<string, unknown>, VerdictRequestBody>, res: Response, next: NextFunction) => {
+export const checkVulnLines = () => async (req: Request<Record<string, unknown>, Record<string, unknown>, VerdictRequestBody>, res: Response, next: NextFunction) => {
   const key = req.body.key
   let snippetData
   try {

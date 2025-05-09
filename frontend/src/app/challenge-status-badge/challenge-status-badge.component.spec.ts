@@ -10,12 +10,13 @@ import { ChallengeStatusBadgeComponent } from './challenge-status-badge.componen
 import { of, throwError } from 'rxjs'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { WindowRefService } from '../Services/window-ref.service'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { MatIconModule } from '@angular/material/icon'
 import { EventEmitter } from '@angular/core'
 import { type Challenge } from '../Models/challenge.model'
 import { MatButtonModule } from '@angular/material/button'
 import { MatTooltipModule } from '@angular/material/tooltip'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('ChallengeStatusBadgeComponent', () => {
   let challengeService: any
@@ -34,18 +35,17 @@ describe('ChallengeStatusBadgeComponent', () => {
     translateService.onDefaultLangChange = new EventEmitter()
 
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         MatButtonModule,
         MatTooltipModule,
         MatIconModule,
-        ChallengeStatusBadgeComponent
-      ],
+        ChallengeStatusBadgeComponent],
       providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: ChallengeService, useValue: challengeService },
-        WindowRefService
+        WindowRefService,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     })
       .compileComponents()

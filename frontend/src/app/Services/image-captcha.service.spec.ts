@@ -3,15 +3,16 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing'
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
 import { ImageCaptchaService } from './image-captcha.service'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('ImageCaptchaService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [ImageCaptchaService]
+      imports: [],
+      providers: [ImageCaptchaService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
     })
   })
 

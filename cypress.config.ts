@@ -8,6 +8,9 @@ import * as otplib from 'otplib'
 export default defineConfig({
   projectId: '3hrkhu',
   defaultCommandTimeout: 10000,
+  retries: {
+    runMode: 2
+  },
   e2e: {
     baseUrl: 'http://localhost:3000',
     specPattern: 'test/cypress/e2e/**.spec.ts',

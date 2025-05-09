@@ -17,7 +17,6 @@ interface LineMarker {
   selector: 'app-code-area',
   templateUrl: './code-area.component.html',
   styleUrls: ['./code-area.component.scss'],
-  standalone: true,
   imports: [NgFor, HighlightModule]
 })
 export class CodeAreaComponent implements OnInit {
