@@ -658,7 +658,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/csrf-token', (req, res) => {
     res.json({ csrfToken: req.csrfToken() })
   })
-  
+
   app.use(angular())
 
   /* Error Handling */
