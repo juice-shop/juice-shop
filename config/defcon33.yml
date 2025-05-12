@@ -26,6 +26,9 @@ application:
     pressKitUrl: 'https://media.defcon.org/'
     nftUrl: null
     questionnaireUrl: null
+  recyclePage:
+    topProductImage: defcon-hawaiian_720x.png
+    bottomProductImage: y21QZGdI_720x.jpg
   welcomeBanner:
     showOnFirstStart: false
   cookieConsent:
@@ -33,30 +36,55 @@ application:
     dismissText: 'I trust you!'
     linkText: 'DEF CON Privacy Policy'
     linkUrl: 'https://defcon.org/html/links/dc-privacy.html'
-ctf:
-  showFlagsInNotifications: true
+  securityTxt:
+    contact: 'mailto:donotreply@defcon.33'
+    encryption: 'https://defcon.org/dtangent/The%20Dark%20Tangent%20(ECDSA%20p521%202021-2024)%20PGP%20PUBLIC.asc'
+    acknowledgements: 'https://defcon.org/html/links/hall-of-fame.html'
+    hiring: ~
+    csaf: '/.well-known/csaf/provider-metadata.json'
+  easterEggPlanet:
+    name: Defconia XXXIII
+    overlayMap: 'https://shop.defcon.org/cdn/shop/files/defcon-hawaiian_720x.png?v=1732927277'
+challenges:
+  overwriteUrlForProductTamperingChallenge: 'https://discord.com/invite/defcon'
+  safetyMode: disabled
+hackingInstructor:
+  avatarImage: 'https://training.defcon.org/cdn/shop/files/DCTraining_sticker1.jpg?v=1692301964&width=600'
 products:
   -
     name: 'DEFCON 32 Sticker Pack'
     price: 17
     description: "5 premium stickers: Glow in the Dark, Brushed Aluminium & Transparent"
     image: 'https://shop.defcon.org/cdn/shop/files/stickers_720x.jpg?v=1732936912'
+    quantity: 0
+    reviews:
+      - { text: "Rad, dude!", author: rapper }
+      - { text: "Looks spacy on Bones' new tricorder!", author: jim }
+      - { text: "Will put one on the Planet Express ship's bumper!", author: bender }
   -
     name: 'Hawaiian Shirt'
     price: 60
     description: "DEFCON Hawaiian shirt! Soft and breezy. Perfect for a day at the pool."
     image: 'https://shop.defcon.org/cdn/shop/files/defcon-hawaiian_720x.png?v=1732927277'
+    reviews:
+      - { text: "Humans must really be color blind...", author: bender }
+      - { text: '0 st4rs f0r 7h3 h0rr1bl3 s7y13', author: uvogin }
   -
     name: 'DEFCON Holiday Sweater'
     price: 60
     description: "Get in to the DEFCON holiday spirit with our brand new knit sweaters! These sweaters are fully knitted with the design woven in. They are very soft and cozy – ideal for the stylish hacker in your life."
     image: 'https://shop.defcon.org/cdn/shop/files/y21QZGdI_720x.jpg?v=1732924318'
+    reviews:
+      - { text: "I hope Santa has you on his naughty list!", author: bender }
+      - { text: '-1 st4rs f0r 3v3n m0r3 7h3 h0rr1bl3 s7y13', author: uvogin }
   -
     name: 'DEF CON 33 Las Vegas Convention Center'
     price: 540
     description: "DEF CON will always be a cash-at-the-door conference. We will always honor the LineCon. This is the way. Preregistration guarantees you'll receive a DEF CON 33 Human badge (as opposed to a paper badge, if we run out) when redeeming your ticket in Las Vegas. Badges must be picked up onsite."
     image: 'https://shop.defcon.org/cdn/shop/files/ticket_720x.jpg?v=1740606815'
     quantity: 3
+    reviews:
+      - { text: "I'll be there! Will you, too?", author: bjoernOwasp }
   -
     name: 'Engage Hoodie - Lightweight Premium Zip Hoodie'
     description: 'An incredibly soft and relaxed unisex full zip up hoodie, spun from a plush poly-cotton blend, will quickly become a go-to essential. Features a relaxed fit, hood with white drawstrings, full zip closure and ribbed cuffs and waistband.'
@@ -83,6 +111,9 @@ products:
     description: 'This rare item was designed and handcrafted in Sweden. This is why it is so incredibly expensive despite its complete lack of purpose.'
     price: 99.99
     image: 3d_keychain.jpg # Exif metadata contains "OpenSCAD" as subtle hint...
+    deletedDate: '2025-05-12'
     fileForRetrieveBlueprintChallenge: JuiceShop.stl # ...to blueprint file type
     exifForBlueprintChallenge:
       - OpenSCAD
+ctf:
+  showFlagsInNotifications: true
