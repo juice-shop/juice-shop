@@ -34,8 +34,8 @@
 
         <div class="rating-container">
           <label style="font-weight:500; margin-right: 8px; float:left;" translate>LABEL_RATING</label>
-          <mat-slider id="rating" ngDefaultControl [(ngModel)]="rating" min="1" max="5" step="1" showTickMarks discrete [displayWith]="formatRating" aria-label="Slider for selecting the star rating">
-            <input matSliderThumb />
+          <mat-slider id="rating" min="1" max="5" step="1" showTickMarks discrete [displayWith]="formatRating" aria-label="Slider for selecting the star rating">
+            <input matSliderThumb [(ngModel)]="rating" />
           </mat-slider>
         </div>
 
