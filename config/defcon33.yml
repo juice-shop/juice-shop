@@ -115,5 +115,28 @@ products:
     fileForRetrieveBlueprintChallenge: JuiceShop.stl # ...to blueprint file type
     exifForBlueprintChallenge:
       - OpenSCAD
+memories:
+  -
+    image: 'https://media.defcon.org/DEF%20CON%201/DEF%20CON%201%20pictures/DEF%20CON%201%20Pictures%20-%20Unsorted/DEF%20CON%201%20badges.jpg'
+    caption: 'OG badges from DEF CON 1!'
+    user: admin
+  -
+    image: 'https://media.defcon.org/DEF%20CON%202/DEF%20CON%202%20pictures/DEF%20CON%202%20Pictures%20-%20Unsorted/DEF%20CON%202%20-%20SIG-1.JPG'
+    caption: 'Retro Cybermode activated!'
+    user: admin
+  -
+    image: 'favorite-hiking-place.png'
+    caption: 'I love going hiking here...'
+    geoStalkingMetaSecurityQuestion: 14
+    geoStalkingMetaSecurityAnswer: 'Daniel Boone National Forest'
+  -
+    image: 'https://media.defcon.org/DEF%20CON%202/DEF%20CON%202%20pictures/DEF%20CON%202%20Pictures%20-%20Unsorted/DEF%20CON%202%20-%20nsa-guy.jpg'
+    caption: 'My work colleague and I wore matching shirts to DEF CON 2!'
+    geoStalkingVisualSecurityQuestion: 10
+    geoStalkingVisualSecurityAnswer: 'NSA'
+  -
+    image: 'https://pbs.twimg.com/media/DjJVEu_UwAAoj1L?format=jpg&name=large'
+    caption: 'Spelling Bee was sooo 2018! Visit /#/bee-haven🐝 for NFT today!'
+    user: evm
 ctf:
   showFlagsInNotifications: true
