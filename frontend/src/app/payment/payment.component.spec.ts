@@ -136,7 +136,7 @@ describe('PaymentComponent', () => {
 
   it('should hold the default applicationName if not defined in configuration', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
-    expect(component.applicationName).toBe('OWASP Juice Shop')
+    expect(component.applicationName).toBe('C4B Juice Shop')
   })
 
   it('should use custom blueSky URL if configured', () => {
