@@ -30,7 +30,7 @@ import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar'
   imports: [MatToolbar, MatToolbarRow, MatNavList, MatButtonModule, MatListSubheaderCssMatStyler, TranslateModule, ExtendedModule, NgIf, MatListItem, RouterLink, MatIconModule, NgClass, MatDivider]
 })
 export class SidenavComponent implements OnInit {
-  public applicationName = 'OWASP Juice Shop'
+  public applicationName = 'C4B Juice Shop'
   public showGitHubLink = true
   public userEmail = ''
   public scoreBoardVisible: boolean = false

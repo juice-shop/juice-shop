@@ -77,7 +77,7 @@ export class NavbarComponent implements OnInit {
   public languageSearchQuery: string = ''
   public selectedLanguage: string = 'placeholder'
   public version: string = ''
-  public applicationName: string = 'OWASP Juice Shop'
+  public applicationName: string = 'C4B Juice Shop'
   public showGitHubLink: boolean = true
   public logoSrc: string = 'assets/public/images/JuiceShop_Logo.png'
   public scoreBoardVisible: boolean = false
