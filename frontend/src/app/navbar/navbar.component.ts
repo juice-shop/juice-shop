@@ -1,7 +1,4 @@
-/*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
- * SPDX-License-Identifier: MIT
- */
+ 
 
 import { Component, EventEmitter, NgZone, type OnInit, Output } from '@angular/core'
 import { environment } from '../../environments/environment'

@@ -25,7 +25,7 @@
   ],
   "publisher": {
     "category": "vendor",
-    "name": "OWASP Juice Shop",
+    "name": "C4B Juice Shop",
     "namespace": "/juice-shop/juice-shop",
     "contact_details": "timo.pagel@owasp.org"
   },

@@ -1,7 +1,4 @@
-/*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
- * SPDX-License-Identifier: MIT
- */
+ 
 
 // This file is required by karma.conf.js and loads recursively all the .spec and framework files
 

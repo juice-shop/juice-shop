@@ -1,6 +1,6 @@
 ---
 name: "⭐Challenge idea"
-about: Idea for a new hacking challenge in OWASP Juice Shop
+about: Idea for a new hacking challenge in C4B Juice Shop
 title: '[⭐] '
 labels: challenge
 assignees: ''

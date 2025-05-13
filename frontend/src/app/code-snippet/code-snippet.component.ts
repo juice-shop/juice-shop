@@ -1,7 +1,4 @@
-/*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
- * SPDX-License-Identifier: MIT
- */
+ 
 
 import { CodeSnippetService, type CodeSnippet } from '../Services/code-snippet.service'
 import { CodeFixesService } from '../Services/code-fixes.service'

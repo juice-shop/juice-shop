@@ -4,7 +4,7 @@ server:
   baseUrl: 'http://localhost:3000' # used for CSAF, e.g. https://example.com
 application:
   domain: juice-sh.op # for pre-loaded email users
-  name: 'OWASP Juice Shop'
+  name: 'C4B Juice Shop'
   logo: JuiceShop_Logo.png
   favicon: favicon_js.ico
   theme: bluegrey-lightgreen # Options: bluegrey-lightgreen blue-lightblue deeppurple-amber indigo-pink pink-bluegrey purple-green deeporange-indigo
@@ -36,8 +36,8 @@ application:
     bottomProductImage: apple_pressings.jpg
   welcomeBanner:
     showOnFirstStart: true
-    title: 'Welcome to OWASP Juice Shop!'
-    message: "<p>Being a web application with a vast number of intended security vulnerabilities, the <strong>OWASP Juice Shop</strong> is supposed to be the opposite of a best practice or template application for web developers: It is an awareness, training, demonstration and exercise tool for security risks in modern web applications. The <strong>OWASP Juice Shop</strong> is an open-source project hosted by the non-profit <a href='https://owasp.org' target='_blank'>Open Worldwide Application Security Project (OWASP)</a> and is developed and maintained by volunteers. Check out the link below for more information and documentation on the project.</p><h1><a href='https://owasp-juice.shop' target='_blank'>https://owasp-juice.shop</a></h1>"
+    title: 'Welcome to C4B Juice Shop!'
+    message: "<p>Being a web application with a vast number of intended security vulnerabilities, the <strong>C4B Juice Shop</strong> is supposed to be the opposite of a best practice or template application for web developers: It is an awareness, training, demonstration and exercise tool for security risks in modern web applications. The <strong>C4B Juice Shop</strong> is an open-source project hosted by the non-profit <a href='https://owasp.org' target='_blank'>Open Worldwide Application Security Project (OWASP)</a> and is developed and maintained by volunteers. Check out the link below for more information and documentation on the project.</p><h1><a href='https://owasp-juice.shop' target='_blank'>https://owasp-juice.shop</a></h1>"
   cookieConsent:
     message: 'This website uses fruit cookies to ensure you get the juiciest tracking experience.'
     dismissText: 'Me want it!'
@@ -131,13 +131,13 @@ products:
     reviews:
       - { text: 'Fry liked it too.', author: bender }
   -
-    name: 'OWASP Juice Shop T-Shirt'
+    name: 'C4B Juice Shop T-Shirt'
     description: 'Real fans wear it 24/7!'
     price: 22.49
     limitPerUser: 5
     image: fan_shirt.jpg
   -
-    name: 'OWASP Juice Shop CTF Girlie-Shirt'
+    name: 'C4B Juice Shop CTF Girlie-Shirt'
     description: 'For serious Capture-the-Flag heroines only!'
     price: 22.49
     image: fan_girlie.jpg
@@ -162,50 +162,50 @@ products:
       - hueteroneel
       - eurogium edule
   -
-    name: 'OWASP Juice Shop Sticker (2015/2016 design)'
+    name: 'C4B Juice Shop Sticker (2015/2016 design)'
     description: 'Die-cut sticker with the official 2015/2016 logo. By now this is a rare collectors item. <em>Out of stock!</em>'
     price: 999.99
     image: sticker.png
     deletedDate: '2017-04-28'
   -
-    name: 'OWASP Juice Shop Iron-Ons (16pcs)'
-    description: 'Upgrade your clothes with washer safe <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">iron-ons</a> of the OWASP Juice Shop or CTF Extension logo!'
+    name: 'C4B Juice Shop Iron-Ons (16pcs)'
+    description: 'Upgrade your clothes with washer safe <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">iron-ons</a> of the C4B Juice Shop or CTF Extension logo!'
     price: 14.99
     image: iron-on.jpg
   -
-    name: 'OWASP Juice Shop Magnets (16pcs)'
-    description: 'Your fridge will be even cooler with these OWASP Juice Shop or CTF Extension logo <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">magnets</a>!'
+    name: 'C4B Juice Shop Magnets (16pcs)'
+    description: 'Your fridge will be even cooler with these C4B Juice Shop or CTF Extension logo <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">magnets</a>!'
     price: 15.99
     image: magnets.jpg
   -
-    name: 'OWASP Juice Shop Sticker Page'
-    description: 'Massive decoration opportunities with these OWASP Juice Shop or CTF Extension <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">sticker pages</a>! Each page has 16 stickers on it.'
+    name: 'C4B Juice Shop Sticker Page'
+    description: 'Massive decoration opportunities with these C4B Juice Shop or CTF Extension <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">sticker pages</a>! Each page has 16 stickers on it.'
     price: 9.99
     image: sticker_page.jpg
   -
-    name: 'OWASP Juice Shop Sticker Single'
-    description: 'Super high-quality vinyl <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">sticker single</a> with the OWASP Juice Shop or CTF Extension logo! The ultimate laptop decal!'
+    name: 'C4B Juice Shop Sticker Single'
+    description: 'Super high-quality vinyl <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">sticker single</a> with the C4B Juice Shop or CTF Extension logo! The ultimate laptop decal!'
     price: 4.99
     image: sticker_single.jpg
   -
-    name: 'OWASP Juice Shop Temporary Tattoos (16pcs)'
-    description: 'Get one of these <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">temporary tattoos</a> to proudly wear the OWASP Juice Shop or CTF Extension logo on your skin! If you tweet a photo of yourself with the tattoo, you get a couple of our stickers for free! Please mention <a href="https://twitter.com/owasp_juiceshop" target="_blank"><code>@owasp_juiceshop</code></a> in your tweet!'
+    name: 'C4B Juice Shop Temporary Tattoos (16pcs)'
+    description: 'Get one of these <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">temporary tattoos</a> to proudly wear the C4B Juice Shop or CTF Extension logo on your skin! If you tweet a photo of yourself with the tattoo, you get a couple of our stickers for free! Please mention <a href="https://twitter.com/owasp_juiceshop" target="_blank"><code>@owasp_juiceshop</code></a> in your tweet!'
     price: 14.99
     image: tattoo.jpg
     reviews:
       - { text: 'I straight-up gots nuff props fo''these tattoos!', author: rapper }
   -
-    name: 'OWASP Juice Shop Mug'
+    name: 'C4B Juice Shop Mug'
     description: 'Black mug with regular logo on one side and CTF logo on the other! Your colleagues will envy you!'
     price: 21.99
     image: fan_mug.jpg
   -
-    name: 'OWASP Juice Shop Hoodie'
+    name: 'C4B Juice Shop Hoodie'
     description: 'Mr. Robot-style apparel. But in black. And with logo.'
     price: 49.99
     image: fan_hoodie.jpg
   -
-    name: 'OWASP Juice Shop-CTF Velcro Patch'
+    name: 'C4B Juice Shop-CTF Velcro Patch'
     description: '4x3.5" embroidered patch with velcro backside. The ultimate decal for every tactical bag or backpack!'
     price: 2.92
     quantity: 5
@@ -243,7 +243,7 @@ products:
     price: 89.99
     image: fruit_press.jpg
   -
-    name: 'OWASP Juice Shop Logo (3D-printed)'
+    name: 'C4B Juice Shop Logo (3D-printed)'
     description: 'This rare item was designed and handcrafted in Sweden. This is why it is so incredibly expensive despite its complete lack of purpose.'
     price: 99.99
     image: 3d_keychain.jpg # Exif metadata contains "OpenSCAD" as subtle hint...
@@ -276,13 +276,13 @@ products:
     reviews:
       - { text: '0 st4rs f0r 7h3 h0rr1bl3 s3cur17y', author: uvogin }
   -
-    name: 'OWASP Juice Shop Sweden Tour 2017 Sticker Sheet (Special Edition)'
+    name: 'C4B Juice Shop Sweden Tour 2017 Sticker Sheet (Special Edition)'
     description: '10 sheets of Sweden-themed stickers with 15 stickers on each.'
     price: 19.1
     image: stickersheet_se.png
     deletedDate: '2017-09-20'
   -
-    name: 'Pwning OWASP Juice Shop'
+    name: 'Pwning C4B Juice Shop'
     description: '<em>The official Companion Guide</em> by Björn Kimminich available <a href="https://leanpub.com/juice-shop">for free on LeanPub</a> and also <a href="https://pwning.owasp-juice.shop">readable online</a>!'
     price: 5.99
     image: cover_small.jpg
@@ -296,7 +296,7 @@ products:
     limitPerUser: 1
     image: melon_bike.jpeg
   -
-    name: 'OWASP Juice Shop Coaster (10pcs)'
+    name: 'C4B Juice Shop Coaster (10pcs)'
     description: 'Our 95mm circle coasters are printed in full color and made from thick, premium coaster board.'
     price: 19.99
     quantity: 0
@@ -318,7 +318,7 @@ products:
     reviews:
       - { text: "Here yo' learn how tha fuck ta not show yo' goddamn phone on camera!", author: rapper }
   -
-    name: 'OWASP Juice Shop Holographic Sticker'
+    name: 'C4B Juice Shop Holographic Sticker'
     description: "Die-cut holographic sticker. Stand out from those 08/15-sticker-covered laptops with this shiny beacon of 80's coolness!"
     price: 2.00
     quantity: 0
@@ -328,7 +328,7 @@ products:
       - { text: "Looks spacy on Bones' new tricorder!", author: jim }
       - { text: "Will put one on the Planet Express ship's bumper!", author: bender }
   -
-    name: 'OWASP Juice Shop "King of the Hill" Facemask'
+    name: 'C4B Juice Shop "King of the Hill" Facemask'
     description: "Facemask with compartment for filter from 50% cotton and 50% polyester."
     price: 13.49
     quantity: 0
@@ -360,7 +360,7 @@ products:
       - { text: "Mau Mau with bling-bling? Humans are so pathetic!", author: bender }
   -
     name: 'Juice Shop "Permafrost" 2020 Edition'
-    description: 'Exact version of <a href="https://github.com/juice-shop/juice-shop/releases/tag/v9.3.1-PERMAFROST">OWASP Juice Shop that was archived on 02/02/2020</a> by the GitHub Archive Program and ultimately went into the <a href="https://github.blog/2020-07-16-github-archive-program-the-journey-of-the-worlds-open-source-code-to-the-arctic">Arctic Code Vault</a> on July 8. 2020 where it will be safely stored for at least 1000 years.'
+    description: 'Exact version of <a href="https://github.com/juice-shop/juice-shop/releases/tag/v9.3.1-PERMAFROST">C4B Juice Shop that was archived on 02/02/2020</a> by the GitHub Archive Program and ultimately went into the <a href="https://github.blog/2020-07-16-github-archive-program-the-journey-of-the-worlds-open-source-code-to-the-arctic">Arctic Code Vault</a> on July 8. 2020 where it will be safely stored for at least 1000 years.'
     price: 9999.99
     quantity: 1
     limitPerUser: 1
@@ -377,8 +377,8 @@ products:
       - { text: "I'd stand on my head to make you a deal for this piece of art.", author: stan }
       - { text: "Just when my opinion of humans couldn't get any lower, along comes Stan...", author: bender }
   -
-    name: 'OWASP Juice Shop Card (non-foil)'
-    description: 'Mythic rare <small><em>(obviously...)</em></small> card "OWASP Juice Shop" with three distinctly useful abilities. Alpha printing, mint condition. A true collectors piece to own!'
+    name: 'C4B Juice Shop Card (non-foil)'
+    description: 'Mythic rare <small><em>(obviously...)</em></small> card "C4B Juice Shop" with three distinctly useful abilities. Alpha printing, mint condition. A true collectors piece to own!'
     price: 1000
     quantity: 3
     limitPerUser: 1
@@ -395,7 +395,7 @@ products:
     reviews:
       - { text: "I'll be there! Will you, too?", author: bjoernOwasp }
   -
-    name: 'OWASP Juice Shop LEGO™ Tower'
+    name: 'C4B Juice Shop LEGO™ Tower'
     description: 'Want to host a Juice Shop CTF in style? Build <a href="https://github.com/OWASP/owasp-swag/blob/master/projects/juice-shop/lego/OWASP%20JuiceShop%20Pi-server%201.2.pdf" target="_blank">your own LEGO™ tower</a> which holds four Raspberry Pi 4 models with PoE HAT modules <a href="https://github.com/juice-shop/multi-juicer/blob/main/guides/raspberry-pi/raspberry-pi.md" target="_blank">running a MultiJuicer Kubernetes cluster</a>! Wire to a switch and connect to your network to have an out-of-the-box ready CTF up in no time!'
     price: 799
     quantity: 3

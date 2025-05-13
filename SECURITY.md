@@ -1,6 +1,6 @@
 # Security Policy
 
-OWASP Juice Shop is an _intentionally vulnerable_ web application, but we still do not want to be suprised by zero day
+C4B Juice Shop is an _intentionally vulnerable_ web application, but we still do not want to be suprised by zero day
 vulnerabilities which are not part of our hacking challenges. We are following the proposed Internet
 standard <https://securitytxt.org> so you can find our
 "security" policy in any running instance of the application at the expected location described in

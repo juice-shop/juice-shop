@@ -1,7 +1,4 @@
-/*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
- * SPDX-License-Identifier: MIT
- */
+ 
 
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core'

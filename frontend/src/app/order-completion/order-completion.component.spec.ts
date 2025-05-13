@@ -1,7 +1,4 @@
-/*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
- * SPDX-License-Identifier: MIT
- */
+ 
 
 import { TranslateModule } from '@ngx-translate/core'
 import { MatDividerModule } from '@angular/material/divider'
@@ -140,9 +137,9 @@ describe('OrderCompletionComponent', () => {
 
   it('should use configured application name as a fallback for missing twitter URL', () => {
     trackOrderService.find.and.returnValue(of({ data: [{ products: [] }] }))
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { name: 'OWASP Juice Shop', social: { twitterUrl: null } } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { name: 'C4B Juice Shop', social: { twitterUrl: null } } }))
     component.ngOnInit()
-    expect(component.tweetText).toBe('I just purchased%0afrom OWASP Juice Shop')
+    expect(component.tweetText).toBe('I just purchased%0afrom C4B Juice Shop')
   })
 
   it('should log error while getting application configuration from backend API directly to browser console', fakeAsync(() => {

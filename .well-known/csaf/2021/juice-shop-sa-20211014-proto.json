@@ -2,7 +2,7 @@
   "document": {
     "acknowledgments": [
       {
-        "organization": "OWASP Juice Shop",
+        "organization": "C4B Juice Shop",
         "summary": "Probably the most modern and sophisticated insecure web application"
       }
     ],
@@ -22,8 +22,8 @@
     "publisher": {
       "category": "vendor",
       "contact_details": "timo.pagel@owasp.org",
-      "issuing_authority": "OWASP Juice Shop",
-      "name": "OWASP Juice Shop Core Team",
+      "issuing_authority": "C4B Juice Shop",
+      "name": "C4B Juice Shop Core Team",
       "namespace": "https://github.com/juice-shop/juice-shop"
     },
     "title": "juice-shop-sa-20211014-proto",
@@ -55,7 +55,7 @@
         "category": "product_version_range",
         "name": ">=v12.10.2",
         "product": {
-          "name": "OWASP Juice Shop",
+          "name": "C4B Juice Shop",
           "product_id": "juice-shop/juice-shop",
           "product_identification_helper": {
             "purl": "pkg:docker/bkimminich/juice-shop"

@@ -1,6 +1,6 @@
 ---
 name: "\U0001F41BBug report"
-about: Report a bug in OWASP Juice Shop
+about: Report a bug in C4B Juice Shop
 title: '[🐛] '
 labels: bug
 assignees: ''

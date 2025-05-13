@@ -3,7 +3,7 @@ tasks:
     command: npm start
 
 ports:
-  - name: OWASP Juice Shop
+  - name: C4B Juice Shop
     description: The Juice Shop web server
     port: 3000
     onOpen: open-preview

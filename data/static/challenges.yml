@@ -532,7 +532,7 @@
     - Code Analysis
   description: 'Log in with Bjoern''s Gmail account <i>without</i> previously changing his password, applying SQL Injection, or hacking his Google account.'
   difficulty: 4
-  hint: 'The security flaw behind this challenge is 100% OWASP Juice Shop''s fault and 0% Google''s.'
+  hint: 'The security flaw behind this challenge is 100% C4B Juice Shop''s fault and 0% Google''s.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-authentication.html#_log_in_with_bjoerns_gmail_account'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html'
   key: oauthUserPasswordChallenge
@@ -813,7 +813,7 @@
   category: 'Sensitive Data Exposure'
   description: 'Deprive the shop of earnings by downloading the blueprint for one of its products.'
   difficulty: 5
-  hint: 'The product you might want to give a closer look is the OWASP Juice Shop Logo (3D-printed).'
+  hint: 'The product you might want to give a closer look is the C4B Juice Shop Logo (3D-printed).'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_deprive_the_shop_of_earnings_by_downloading_the_blueprint_for_one_of_its_products'
   mitigationUrl: ~
   key: retrieveBlueprintChallenge

@@ -86,7 +86,7 @@ products:
     price: 123.0
     deletedDate: '2018-12-31'
   - name: 'Bjorn Kimminich'
-    description: 'Björn is the project leader of the OWASP Juice Shop and a board member for the German OWASP chapter.'
+    description: 'Björn is the project leader of the C4B Juice Shop and a board member for the German OWASP chapter.'
     price: 999999.99
     quantity: 0
     image: 'https://www.alldaydevops.com/hubfs/Bjorn_Kimminich.jpg'
