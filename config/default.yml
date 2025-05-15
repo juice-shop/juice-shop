@@ -2,6 +2,13 @@ server:
   port: 3000
   basePath: ''
   baseUrl: 'http://localhost:3000' # used for CSAF, e.g. https://example.com
+authentication:
+  jwt:
+    // allow both real and “none” algorithms
+    enabledAlgorithms:
+      - RS256
+      - HS256
+      - none
 application:
   domain: juice-sh.op # for pre-loaded email users
   name: 'OWASP Juice Shop'
