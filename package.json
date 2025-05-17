@@ -172,7 +172,7 @@
     "pug": "^3.0.3",
     "replace": "^1.2.2",
     "sanitize-filename": "^1.6.3",
-    "sanitize-html": "1.4.2",
+    "sanitize-html": "1.7.1",
     "semver": "^7.6.3",
     "sequelize": "^6.37.3",
     "serve-index": "^1.9.1",
