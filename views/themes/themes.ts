@@ -52,5 +52,12 @@ export const themes = {
     navColor: '#E64A19',
     primLight: '#FF5722',
     primDark: '#BF360C'
+  },
+  'lime-green': {
+    bgColor: '#303030',
+    textColor: '#000000',
+    navColor: '#cddc39',
+    primLight: '#ddee48',
+    primDark: '#97a621'
   }
 } as const
