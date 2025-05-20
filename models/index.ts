@@ -1,5 +1,3 @@
- 
-
 import { AddressModelInit } from './address'
 import { BasketModelInit } from './basket'
 import { BasketItemModelInit } from './basketitem'

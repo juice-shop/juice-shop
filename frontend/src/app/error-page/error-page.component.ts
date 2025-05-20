@@ -1,5 +1,3 @@
- 
-
 import { TranslateService } from '@ngx-translate/core'
 import { Component, type OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'

@@ -1,5 +1,3 @@
- 
-
 import fs from 'node:fs/promises'
 import { type Request, type Response, type NextFunction } from 'express'
 import fileType from 'file-type'

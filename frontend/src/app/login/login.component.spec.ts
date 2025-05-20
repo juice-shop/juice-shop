@@ -1,5 +1,3 @@
- 
-
 import { SearchResultComponent } from '../search-result/search-result.component'
 import { WindowRefService } from '../Services/window-ref.service'
 import { provideHttpClientTesting } from '@angular/common/http/testing'

@@ -1,5 +1,3 @@
- 
-
 import { ClipboardModule } from 'ngx-clipboard'
 import { ServerStartedNotificationComponent } from './server-started-notification/server-started-notification.component'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'

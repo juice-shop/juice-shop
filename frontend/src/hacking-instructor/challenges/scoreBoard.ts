@@ -1,5 +1,3 @@
- 
-
 import {
   waitInMs, waitForAngularRouteToBeVisited, waitForDevTools
 } from '../helpers/helpers'

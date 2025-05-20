@@ -1,5 +1,3 @@
- 
-
 async function app () {
   const { default: validateDependencies } = await import('./lib/startup/validateDependenciesBasic')
   await validateDependencies()

@@ -1,5 +1,3 @@
- 
-
 import fs from 'node:fs'
 import pug from 'pug'
 import config from 'config'

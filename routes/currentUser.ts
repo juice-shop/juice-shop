@@ -1,5 +1,3 @@
- 
-
 import * as challengeUtils from '../lib/challengeUtils'
 import { type Request, type Response } from 'express'
 import { challenges } from '../data/datacache'

@@ -1,5 +1,3 @@
- 
-
 import { ChallengeService } from '../Services/challenge.service'
 import { SearchResultComponent } from '../search-result/search-result.component'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'

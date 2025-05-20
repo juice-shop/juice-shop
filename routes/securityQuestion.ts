@@ -1,5 +1,3 @@
- 
-
 import { type Request, type Response, type NextFunction } from 'express'
 import { SecurityAnswerModel } from '../models/securityAnswer'
 import { UserModel } from '../models/user'

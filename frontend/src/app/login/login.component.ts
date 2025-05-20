@@ -1,5 +1,3 @@
- 
-
 import { CookieService } from 'ngy-cookie'
 import { WindowRefService } from '../Services/window-ref.service'
 import { Router, RouterLink } from '@angular/router'

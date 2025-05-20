@@ -1,4 +1,3 @@
- 
 import i18n from 'i18n'
 import cors from 'cors'
 import fs from 'node:fs'

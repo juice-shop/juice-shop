@@ -1,5 +1,3 @@
- 
-
 import {
   waitForInputToHaveValue,
   waitForElementToGetClicked,

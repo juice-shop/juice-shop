@@ -1,5 +1,3 @@
- 
-
 import * as frisby from 'frisby'
 import * as security from '../../lib/insecurity'
 import { expect } from '@jest/globals'

@@ -1,5 +1,3 @@
- 
-
 import { ActivatedRoute } from '@angular/router'
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table'
 import { Component, type OnInit } from '@angular/core'

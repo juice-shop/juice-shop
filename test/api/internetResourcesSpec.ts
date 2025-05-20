@@ -1,5 +1,3 @@
- 
-
 import * as frisby from 'frisby'
 
 xdescribe('Required Internet resource', () => { // FIXME Tests fail regularly (but not always) from ECONNRESET

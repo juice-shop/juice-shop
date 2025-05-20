@@ -1,5 +1,3 @@
- 
-
 import path from 'node:path'
 import config from 'config'
 import process from 'node:process'

@@ -1,5 +1,3 @@
- 
-
 import { TranslateModule } from '@ngx-translate/core'
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog'
 import { UserService } from '../Services/user.service'

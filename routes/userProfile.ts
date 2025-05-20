@@ -1,5 +1,3 @@
- 
-
 import { type Request, type Response, type NextFunction } from 'express'
 import { AllHtmlEntities as Entities } from 'html-entities'
 import config from 'config'

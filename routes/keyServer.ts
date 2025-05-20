@@ -1,5 +1,3 @@
- 
-
 import path from 'node:path'
 import { type Request, type Response, type NextFunction } from 'express'
 

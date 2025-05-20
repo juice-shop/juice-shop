@@ -1,5 +1,3 @@
- 
-
 import { retrieveChallengesWithCodeSnippet } from './vulnCodeSnippet'
 import { type Request, type Response, type NextFunction } from 'express'
 import { ChallengeModel } from '../models/challenge'

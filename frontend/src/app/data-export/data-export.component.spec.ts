@@ -1,5 +1,3 @@
- 
-
 import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { DataExportComponent } from './data-export.component'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'

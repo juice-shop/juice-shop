@@ -1,5 +1,3 @@
- 
-
 import fs from 'node:fs'
 import chai from 'chai'
 import path from 'node:path'

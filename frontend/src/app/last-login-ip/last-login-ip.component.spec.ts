@@ -1,5 +1,3 @@
- 
-
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { EventEmitter } from '@angular/core'
 import { of } from 'rxjs'

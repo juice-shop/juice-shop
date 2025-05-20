@@ -1,5 +1,3 @@
- 
-
 /* jslint node: true */
 import packageJson from '../package.json'
 import fs from 'node:fs'

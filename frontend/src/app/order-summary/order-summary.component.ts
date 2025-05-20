@@ -1,5 +1,3 @@
- 
-
 import { Component, NgZone, type OnInit } from '@angular/core'
 import { AddressService } from '../Services/address.service'
 import { PaymentService } from '../Services/payment.service'

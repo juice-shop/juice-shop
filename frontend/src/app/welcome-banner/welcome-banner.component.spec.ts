@@ -1,5 +1,3 @@
- 
-
 import { TranslateModule } from '@ngx-translate/core'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { CookieModule, CookieService } from 'ngy-cookie'

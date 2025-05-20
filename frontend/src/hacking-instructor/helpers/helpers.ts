@@ -1,5 +1,3 @@
- 
-
 import jwtDecode from 'jwt-decode'
 
 let config

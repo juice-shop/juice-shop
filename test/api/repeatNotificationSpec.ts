@@ -1,5 +1,3 @@
- 
-
 import * as frisby from 'frisby'
 
 const REST_URL = 'http://localhost:3000/rest'

@@ -1,5 +1,3 @@
- 
-
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { CaptchaService } from '../Services/captcha.service'
 import { provideHttpClientTesting } from '@angular/common/http/testing'

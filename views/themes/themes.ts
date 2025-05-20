@@ -1,5 +1,3 @@
- 
-
 export const themes = {
   'bluegrey-lightgreen': {
     bgColor: '#303030',

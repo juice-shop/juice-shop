@@ -1,5 +1,3 @@
- 
-
 import { ConfigurationService } from '../Services/configuration.service'
 import { Component, type OnInit } from '@angular/core'
 import { library } from '@fortawesome/fontawesome-svg-core'

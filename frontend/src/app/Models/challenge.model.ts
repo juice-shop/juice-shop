@@ -1,5 +1,3 @@
- 
-
 import { type SafeHtml } from '@angular/platform-browser'
 
 export interface Challenge {

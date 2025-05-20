@@ -1,5 +1,3 @@
- 
-
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing'
 import { ConfigurationService } from './configuration.service'

@@ -1,5 +1,3 @@
- 
-
 import os from 'node:os'
 import config from 'config'
 import colors from 'colors/safe'

@@ -1,5 +1,3 @@
- 
-
 import { ChallengeService } from '../Services/challenge.service'
 import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 

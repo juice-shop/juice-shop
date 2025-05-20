@@ -1,5 +1,3 @@
- 
-
 import { Component, Inject, type OnInit } from '@angular/core'
 import { DOCUMENT } from '@angular/common'
 import { ConfigurationService } from '../Services/configuration.service'

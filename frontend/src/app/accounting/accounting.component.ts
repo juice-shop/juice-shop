@@ -1,5 +1,3 @@
- 
-
 import { ProductService } from '../Services/product.service'
 import { type AfterViewInit, Component, type OnDestroy, ViewChild } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'

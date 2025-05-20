@@ -1,5 +1,3 @@
- 
-
 import { TranslateModule } from '@ngx-translate/core'
 import { MatInputModule } from '@angular/material/input'
 import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'

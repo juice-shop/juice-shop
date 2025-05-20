@@ -1,5 +1,3 @@
- 
-
 import chai from 'chai'
 import { challenges } from '../../data/datacache'
 import { type Challenge } from 'data/types'

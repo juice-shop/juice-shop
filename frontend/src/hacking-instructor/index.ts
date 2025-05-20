@@ -1,5 +1,3 @@
- 
-
 import snarkdown from 'snarkdown'
 
 import { LoginAdminInstruction } from './challenges/loginAdmin'

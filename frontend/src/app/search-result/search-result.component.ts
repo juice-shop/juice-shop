@@ -1,5 +1,3 @@
- 
-
 import { ProductDetailsComponent } from '../product-details/product-details.component'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ProductService } from '../Services/product.service'

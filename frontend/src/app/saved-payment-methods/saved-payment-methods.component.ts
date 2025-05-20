@@ -1,5 +1,3 @@
- 
-
 import { Component } from '@angular/core'
 import { PaymentMethodComponent } from '../payment-method/payment-method.component'
 import { MatCardModule } from '@angular/material/card'

@@ -1,5 +1,3 @@
- 
-
 import { Component, NgZone, type OnInit } from '@angular/core'
 import { UserService } from '../Services/user.service'
 import { ActivatedRoute, Router } from '@angular/router'

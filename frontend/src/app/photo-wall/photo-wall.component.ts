@@ -1,5 +1,3 @@
- 
-
 import { Component, type OnInit } from '@angular/core'
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { mimeType } from './mime-type.validator'
