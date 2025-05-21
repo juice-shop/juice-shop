@@ -307,7 +307,6 @@ describe('/chatbot', () => {
           query: testCommand
         }
       })
-        .inspectResponse()
         .expect('status', 500)
         .promise()
     })
