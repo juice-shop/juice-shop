@@ -1,5 +1,3 @@
- 
-
 import pjson from '../../package.json'
 import config from 'config'
 import logger from '../logger'

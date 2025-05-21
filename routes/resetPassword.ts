@@ -1,5 +1,3 @@
- 
-
 import config from 'config'
 import { type Request, type Response, type NextFunction } from 'express'
 

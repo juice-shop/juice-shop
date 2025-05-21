@@ -1,5 +1,3 @@
- 
-
 import { Component, type OnInit } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { MatDialog } from '@angular/material/dialog'

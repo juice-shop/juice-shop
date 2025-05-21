@@ -1,5 +1,3 @@
- 
-
 import path from 'node:path'
 import { type Request, type Response } from 'express'
 import { challenges } from '../data/datacache'

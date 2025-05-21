@@ -1,5 +1,3 @@
- 
-
 import { Component, NgZone } from '@angular/core'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCartArrowDown } from '@fortawesome/free-solid-svg-icons'

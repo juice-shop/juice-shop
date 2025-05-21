@@ -1,5 +1,3 @@
- 
-
 import chai from 'chai'
 import * as challengeUtils from '../../lib/challengeUtils'
 import { challenges } from '../../data/datacache'

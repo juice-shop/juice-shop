@@ -1,5 +1,3 @@
- 
-
 import {
   waitInMs,
   sleep, waitForAngularRouteToBeVisited, waitForElementToGetClicked, waitForDevTools

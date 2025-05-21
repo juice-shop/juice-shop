@@ -1,5 +1,3 @@
- 
-
 import { ConfigurationService } from '../Services/configuration.service'
 import { UserService } from '../Services/user.service'
 import { RecycleService } from '../Services/recycle.service'

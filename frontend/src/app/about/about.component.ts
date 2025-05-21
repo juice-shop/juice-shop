@@ -1,5 +1,3 @@
- 
-
 import { Component, type OnInit } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
 import { ConfigurationService } from '../Services/configuration.service'

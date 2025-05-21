@@ -1,5 +1,3 @@
- 
-
 import { ChatbotService } from '../Services/chatbot.service'
 import { UserService } from '../Services/user.service'
 import { Component, type OnDestroy, type OnInit } from '@angular/core'

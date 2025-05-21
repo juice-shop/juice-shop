@@ -1,5 +1,3 @@
- 
-
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'

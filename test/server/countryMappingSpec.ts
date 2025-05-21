@@ -1,5 +1,3 @@
- 
-
 import sinon from 'sinon'
 import config, { type IConfig } from 'config'
 import chai from 'chai'

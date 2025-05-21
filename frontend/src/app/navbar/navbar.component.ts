@@ -1,5 +1,3 @@
- 
-
 import { Component, EventEmitter, NgZone, type OnInit, Output } from '@angular/core'
 import { environment } from '../../environments/environment'
 import { ChallengeService } from '../Services/challenge.service'

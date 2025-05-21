@@ -1,5 +1,3 @@
- 
-
 import { Component, EventEmitter, Input, type OnInit, Output } from '@angular/core'
 import { BasketService } from '../Services/basket.service'
 import { UserService } from '../Services/user.service'

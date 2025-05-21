@@ -1,5 +1,3 @@
- 
-
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { ConfigurationService } from '../Services/configuration.service'

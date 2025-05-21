@@ -1,5 +1,3 @@
- 
-
 import { challenges } from '../../data/datacache'
 import * as utils from '../../lib/utils'
 import { expect } from '@jest/globals'

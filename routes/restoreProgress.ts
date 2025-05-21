@@ -1,5 +1,3 @@
- 
-
 import Hashids from 'hashids/cjs'
 import { type Request, type Response } from 'express'
 

@@ -1,5 +1,3 @@
- 
-
 import { environment } from 'src/environments/environment'
 import { Injectable, NgZone } from '@angular/core'
 import { io, type Socket } from 'socket.io-client'

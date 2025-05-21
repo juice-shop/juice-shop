@@ -1,5 +1,3 @@
- 
-
 export const roles = {
   customer: 'customer',
   deluxe: 'deluxe',

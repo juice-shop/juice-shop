@@ -1,5 +1,3 @@
- 
-
 import { retrieveChallengesWithCodeSnippet } from '../../routes/vulnCodeSnippet'
 import { readFixes } from '../../routes/vulnCodeFixes'
 import chai from 'chai'

@@ -1,5 +1,3 @@
- 
-
 import { inject, TestBed } from '@angular/core/testing'
 
 import { WindowRefService } from './window-ref.service'

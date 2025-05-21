@@ -1,5 +1,3 @@
- 
-
 // @ts-expect-error FIXME due to non-existing type definitions for MarsDB
 import * as MarsDB from 'marsdb'
 

@@ -1,5 +1,3 @@
- 
-
 import { type Request, type Response } from 'express'
 import logger from '../lib/logger'
 import configModule from 'config'

@@ -1,5 +1,3 @@
- 
-
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { Component, NgZone, type OnInit } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'

@@ -1,5 +1,3 @@
- 
-
 import { Component, type OnInit } from '@angular/core'
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ImageCaptchaService } from '../Services/image-captcha.service'

@@ -1,5 +1,3 @@
- 
-
 import { Component, type OnInit, Inject } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog'
 import { TranslateModule } from '@ngx-translate/core'

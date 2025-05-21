@@ -1,5 +1,3 @@
- 
-
 export interface Backup {
   version: number
   continueCode?: string

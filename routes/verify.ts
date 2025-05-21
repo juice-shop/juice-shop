@@ -1,5 +1,3 @@
- 
-
 import { type Request, type Response, type NextFunction } from 'express'
 import { Op } from 'sequelize'
 import jwt from 'jsonwebtoken'

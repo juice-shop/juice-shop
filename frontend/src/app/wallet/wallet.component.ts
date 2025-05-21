@@ -1,5 +1,3 @@
- 
-
 import { Component, NgZone, type OnInit } from '@angular/core'
 import { WalletService } from '../Services/wallet.service'
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'

@@ -1,5 +1,3 @@
- 
-
 import { Component, NgZone } from '@angular/core'
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'

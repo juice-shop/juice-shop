@@ -1,4 +1,3 @@
- 
 import * as frisby from 'frisby'
 
 import { challenges } from '../../data/datacache'

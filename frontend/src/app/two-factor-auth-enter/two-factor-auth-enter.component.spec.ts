@@ -1,5 +1,3 @@
- 
-
 import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter.component'

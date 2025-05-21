@@ -1,5 +1,3 @@
- 
-
 /* jslint node: true */
 import config from 'config'
 import {

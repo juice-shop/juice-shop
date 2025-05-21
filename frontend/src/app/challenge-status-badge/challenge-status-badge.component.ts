@@ -1,5 +1,3 @@
- 
-
 import { Component, Input } from '@angular/core'
 import { WindowRefService } from '../Services/window-ref.service'
 import { ChallengeService } from '../Services/challenge.service'

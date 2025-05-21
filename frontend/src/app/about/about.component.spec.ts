@@ -1,5 +1,3 @@
- 
-
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core'
 import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'

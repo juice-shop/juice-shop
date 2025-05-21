@@ -1,5 +1,3 @@
- 
-
 /* jslint node: true */
 import { AddressModel } from '../models/address'
 import { BasketModel } from '../models/basket'

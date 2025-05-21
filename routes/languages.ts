@@ -1,5 +1,3 @@
- 
-
 import locales from '../data/static/locales.json'
 import fs from 'node:fs'
 import { type Request, type Response, type NextFunction } from 'express'

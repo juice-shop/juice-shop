@@ -1,5 +1,3 @@
- 
-
 import { type Request, type Response } from 'express'
 import { AddressModel } from '../models/address'
 

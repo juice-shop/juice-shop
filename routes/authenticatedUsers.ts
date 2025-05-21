@@ -1,4 +1,3 @@
- 
 import { type Request, type Response, type NextFunction } from 'express'
 import { UserModel } from '../models/user'
 import { decode } from 'jsonwebtoken'

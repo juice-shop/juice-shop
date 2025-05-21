@@ -1,5 +1,3 @@
- 
-
 import {
   waitInMs, waitForElementToGetClicked, waitForAngularRouteToBeVisited
 } from '../helpers/helpers'

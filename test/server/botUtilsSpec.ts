@@ -1,5 +1,3 @@
- 
-
 import chai from 'chai'
 import * as botUtils from '../../lib/botUtils'
 import * as security from '../../lib/insecurity'

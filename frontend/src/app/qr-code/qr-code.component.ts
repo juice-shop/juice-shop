@@ -1,5 +1,3 @@
- 
-
 import { MAT_DIALOG_DATA, MatDialogClose } from '@angular/material/dialog'
 import { Component, Inject, type OnInit } from '@angular/core'
 import { library } from '@fortawesome/fontawesome-svg-core'

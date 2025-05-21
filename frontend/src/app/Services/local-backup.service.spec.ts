@@ -1,5 +1,3 @@
- 
-
 import { inject, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { LocalBackupService } from './local-backup.service'
