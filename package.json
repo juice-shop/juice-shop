@@ -157,7 +157,7 @@
     "jsonwebtoken": "0.4.0",
     "jssha": "^3.3.1",
     "juicy-chat-bot": "^0.8.0",
-    "libxmljs": "^1.0.11",
+    "libxml2-wasm": "^0.5.0",
     "marsdb": "^0.6.11",
     "median": "^0.0.2",
     "morgan": "^1.10.0",

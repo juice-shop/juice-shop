@@ -101,7 +101,7 @@ describe('/file-upload', () => {
         body: form
       })
         .expect('status', 410)
-        .expect('bodyContains', 'Detected an entity reference loop')
+        .expect('bodyContains', 'Maximum entity amplification factor exceeded')
     })
 
     it('POST file type XML with Quadratic Blowup attack', () => {

@@ -8,13 +8,17 @@ import fs from 'node:fs'
 import vm from 'node:vm'
 import path from 'node:path'
 import yaml from 'js-yaml'
-import libxml from 'libxmljs'
 import unzipper from 'unzipper'
 import { type NextFunction, type Request, type Response } from 'express'
+import type { XmlDocument as XmlDocumentType, ParseOption as ParseOptionType } from 'libxml2-wasm'
 
 import * as challengeUtils from '../lib/challengeUtils'
 import { challenges } from '../data/datacache'
 import * as utils from '../lib/utils'
+
+// use ESM native import() function to ESM only libxml function, using eval to ensure that the code isn't transpiled back to commonjs
+// eslint-disable-next-line no-eval
+const libxmlImportPromise = eval("import('libxml2-wasm')")
 
 function ensureFileIsPassed ({ file }: Request, res: Response, next: NextFunction) {
   if (file != null) {
@@ -72,37 +76,67 @@ function checkFileType ({ file }: Request, res: Response, next: NextFunction) {
   next()
 }
 
-function handleXmlUpload ({ file }: Request, res: Response, next: NextFunction) {
+async function handleXmlUpload ({ file }: Request, res: Response, next: NextFunction) {
+  const { XmlDocument, ParseOption } = (await libxmlImportPromise) as { XmlDocument: typeof XmlDocumentType, ParseOption: typeof ParseOptionType }
+
   if (utils.endsWith(file?.originalname.toLowerCase(), '.xml')) {
     challengeUtils.solveIf(challenges.deprecatedInterfaceChallenge, () => { return true })
-    if (((file?.buffer) != null) && utils.isChallengeEnabled(challenges.deprecatedInterfaceChallenge)) { // XXE attacks in Docker/Heroku containers regularly cause "segfault" crashes
-      const data = file.buffer.toString()
-      try {
-        const sandbox = { libxml, data }
-        vm.createContext(sandbox)
-        const xmlDoc = vm.runInContext('libxml.parseXml(data, { noblanks: true, noent: true, nocdata: true })', sandbox, { timeout: 2000 })
-        const xmlString = xmlDoc.toString(false)
-        challengeUtils.solveIf(challenges.xxeFileDisclosureChallenge, () => { return (utils.matchesEtcPasswdFile(xmlString) || utils.matchesSystemIniFile(xmlString)) })
-        res.status(410)
-        next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + utils.trunc(xmlString, 400) + ' (' + file.originalname + ')'))
-      } catch (err: any) { // TODO: Remove any
-        if (utils.contains(err.message, 'Script execution timed out')) {
-          if (challengeUtils.notSolved(challenges.xxeDosChallenge)) {
-            challengeUtils.solve(challenges.xxeDosChallenge)
-          }
-          res.status(503)
-          next(new Error('Sorry, we are temporarily not available! Please try again later.'))
-        } else {
-          res.status(410)
-          next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + err.message + ' (' + file.originalname + ')'))
-        }
-      }
-    } else {
+    if (((file?.buffer) == null) || !utils.isChallengeEnabled(challenges.deprecatedInterfaceChallenge)) { // XXE attacks in Docker/Heroku containers regularly cause "segfault" crashes
       res.status(410)
       next(new Error('B2B customer complaints via file upload have been deprecated for security reasons (' + file?.originalname + ')'))
+      return
+    }
+
+    try {
+      const sandbox = { XmlDocument, ParseOption, buffer: file.buffer }
+      vm.createContext(sandbox)
+      const xmlDoc = vm.runInContext('XmlDocument.fromBuffer(buffer, { option: ParseOption.XML_PARSE_NOBLANKS | ParseOption.XML_PARSE_NOENT | ParseOption.XML_PARSE_NOCDATA })', sandbox, { timeout: 2000 })
+      const xmlString = xmlDoc.toString({ format: false })
+      challengeUtils.solveIf(challenges.xxeFileDisclosureChallenge, () => doesXmlDocumentContainASuccessfulXxeFileDisclosureAttack(xmlString))
+      challengeUtils.solveIf(challenges.xxeDosChallenge, () => doesXmlDocumentContainASuccessfulXxeDosAttack(xmlString))
+      res.status(410)
+      next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + utils.trunc(xmlString, 400) + ' (' + file.originalname + ')'))
+    } catch (err: any) { // TODO: Remove any
+      if (
+        utils.contains(err.message, 'Script execution timed out')
+      ) {
+        if (challengeUtils.notSolved(challenges.xxeDosChallenge)) {
+          challengeUtils.solve(challenges.xxeDosChallenge)
+        }
+        res.status(503)
+        next(new Error('Sorry, we are temporarily not available! Please try again later.'))
+      } else {
+        res.status(410)
+        next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + err.message + ' (' + file.originalname + ')'))
+      }
     }
   }
   next()
+}
+
+// checks if the xml file contains a successful XXE file disclosure attack
+// actually executing the attack is not possible in the because the libxml2-wasm library runs in a pretty tight sandbox without access to the file system
+function doesXmlDocumentContainASuccessfulXxeFileDisclosureAttack (file: string) {
+  // for linux/mac check if file contains something like: <!ENTITY ... SYSTEM "file:///etc/passwd" >
+  const linuxRegex = /<!ENTITY+.*SYSTEM\s+"file:\/\/\/etc\/passwd"/
+  if (linuxRegex.test(file)) {
+    return true
+  }
+  // for windows check if file contains something like: <!ENTITY ... SYSTEM "file:///C:/Windows/system.ini" >
+  const windowsRegex = /<!ENTITY+.*SYSTEM\s+"file:\/\/\/C:\/Windows\/system\.ini"/
+  if (windowsRegex.test(file)) {
+    return true
+  }
+  return false
+}
+
+// checks if the file reads the special linux file streams (e.g. dev/random, dev/null) which is one way to solve the dos challenge
+function doesXmlDocumentContainASuccessfulXxeDosAttack (file: string) {
+  const linuxRegex = /<!ENTITY+.*SYSTEM\s+"file:\/\/\/dev\/(random|urandom|null)"/
+  if (linuxRegex.test(file)) {
+    return true
+  }
+  return false
 }
 
 function handleYamlUpload ({ file }: Request, res: Response, next: NextFunction) {
