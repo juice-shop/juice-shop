@@ -87,8 +87,8 @@ For a detailed introduction, full list of features and architecture overview ple
 4. Run `npm start`
 5. Browse to <http://localhost:3000>
 
-> Each packaged distribution includes some binaries for `sqlite3` and
-> `libxmljs` bound to the OS and node.js version which `npm install` was
+> Each packaged distribution includes some binaries for `sqlite3`
+> bound to the OS and node.js version which `npm install` was
 > executed on.
 
 ### Docker Container
@@ -148,8 +148,6 @@ offered accordingly.
 Juice Shop is automatically tested _only on the latest `.x` minor version_ of each node.js version mentioned above!
 There is no guarantee that older minor node.js releases will always work with Juice Shop!
 Please make sure you stay up to date with your chosen version.
-
-\*=:warning: _There are no pre-built binaries for `libxmljs` available for Node.js versions greater than 20.x. In order to build Juice Shop from source locally, you need to have all C++ build tools installed that are needed to compile those binaries locally. In the packaged distributions theses binaries are already included. We are working on a pure JavaScript replacement of `libxmljs` in [#2421](https://github.com/juice-shop/juice-shop/issues/2421). Contributions are highly welcome!_
 
 ### Troubleshooting
 
