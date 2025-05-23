@@ -86,6 +86,30 @@ products:
     reviews:
       - { text: "I'll be there! Will you, too?", author: bjoernOwasp }
   -
+    name: 'Unofficial DEF CON 31 Glow-in-the-dark "Script Kitty" t-shirt'
+    price: 31.95
+    description: "Soft Premium Glow-in-the-dark t-shirt. High quality screenprint will last for years. This design is created and sold direct by the artist (me) and isn't official DEFCON merch. But it is the last of a limited run, and it's cute as hell, so you should officially buy one anyway."
+    image: 'https://marwilliams.art/cdn/shop/files/PXL_20230804_151813053.MP.jpg?v=1701376090&width=1346'
+  -
+    name: "Phreaker Men's Loose T-shirt"
+    price: 31.95
+    description: "Material: 100% polyester .: Extra large sizes available .: Loose fit"
+    image: 'https://marwilliams.art/cdn/shop/files/13631953935217315276_2048.jpg?v=1701310313&width=1346'
+  -
+    name: 'DC32 Human Badge'
+    price: 200
+    deluxePrice: 160
+    description: "The DEF CON 32 Badge is just a little cat, but does some pretty cool tricks. Built with the newly released Raspberry Pi RP2350, this badge can be customized in a any number of ways - from SAOs, to loading up your favorite classic ROMs, to creating your own with the open source drag-and-drop game creator GB Studio, to creating your own firmware using the RP2350 SDK, to really any way you’d use a microcontroller!"
+    image: 'https://shop.defcon.org/cdn/shop/files/front_table_1080x.jpg?v=1724260452'
+    quantity: 0
+    reviews:
+      - { text: "Pss-pss-pss!", author: bjoern }
+  -
+    name: 'DEFCON1'
+    price: 71.64
+    description: "A totally asymmetrical game about the cold war (1950 to 1990)"
+    image: 'https://cf.geekdo-images.com/5kPnvJoZhN6NTqpomgPulg__imagepage/img/kMlx-OvN1EVbmtChZ4s-QYhQt4k=/fit-in/900x600/filters:no_upscale():strip_icc()/pic5735750.png'
+  -
     name: 'Engage Hoodie - Lightweight Premium Zip Hoodie'
     description: 'An incredibly soft and relaxed unisex full zip up hoodie, spun from a plush poly-cotton blend, will quickly become a go-to essential. Features a relaxed fit, hood with white drawstrings, full zip closure and ribbed cuffs and waistband.'
     price: 55
