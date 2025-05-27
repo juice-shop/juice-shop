@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
-                sh 'cat README.mdl' 
+                sh 'cat README.md' 
             }
         }
     }
