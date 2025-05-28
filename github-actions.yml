@@ -1,0 +1,29 @@
+name: GitHub Actions YAML
+on:
+  # To get Pull Request Comments, you need to be scanning *on Pull Request*
+  pull_request:
+
+jobs:
+  example-build:
+    name: Example Action
+    runs-on: ubuntu-latest
+    steps:
+        # Ensure we have the project & stackhawk.yml checked out.
+      - name: "Check out Git repository"
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac #v4.0.0
+      - name: "Use Node.js 18"
+        uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d #v3.8.1
+      - name: Build Your App
+        run: npm install
+      - name: Run Your App in the Background
+        # The '&' at the end of this command is one way to push a process to the background.
+        run: npm start &
+      - name: HawkScan
+        uses: stackhawk/hawkscan-action@v2
+        with:
+          # Provide this as a GitHub Actions Secret
+          apiKey: ${{ secrets.HAWK_API_KEY }}
+        env:
+          # Use GitHub Actions workflow variables to populate these environment variables
+          COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
+          BRANCH_NAME: ${{ github.head_ref }}
