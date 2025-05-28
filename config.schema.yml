@@ -132,6 +132,8 @@ challenges:
     type: boolean
   csafHashValue:
     type: string
+  metricsIgnoredUserAgents:
+    - type: string
 hackingInstructor:
   isEnabled:
     type: boolean
