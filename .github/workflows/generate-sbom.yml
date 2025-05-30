@@ -2,7 +2,7 @@ name: Generate SBOM
 
 on:
   push:
-    branches: [main]
+    branches: [master] # Verander 'main' naar 'master'
   workflow_dispatch:
 
 permissions:
