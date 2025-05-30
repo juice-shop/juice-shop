@@ -1,0 +1,30 @@
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - checkout: self
+    fetchDepth: 0
+
+  - script: |
+      sudo apt-get install python3-pip python3-venv -y
+      python3 -m venv .venv
+    displayName: 'Setup python env'
+
+  - script: |
+      source .venv/bin/activate
+      pip3 install s1-shift-left-cli
+      s1-cns-cli config --service-user-api-token $(S1_SERVICE_USER_API_TOKEN) --management-console-url https://apne1-1101-nfr.sentinelone.net --scope-type SITE --scope-id 2137821414163885691 --tag $(tag)
+    displayName: 'Configure SentinelOne CNS Cli'
+
+  - script: |
+      source .venv/bin/activate
+      SOURCE_BRANCH=$(echo $SYSTEM_PULLREQUEST_SOURCEBRANCH | awk -F'refs/heads/' '{print $2}')
+      DESTINATION_BRANCH=${SYSTEM_PULLREQUEST_TARGETBRANCHNAME}
+      SERVER_URL=${SYSTEM_COLLECTIONURI}
+      ORGANIZATION=$(echo $SERVER_URL | awk -F'/' '{print $4}')
+      REPO_URL=${SERVER_URL}${BUILD_REPOSITORY_NAME}
+      
+      s1-cns-cli scan secret -d . --pull-request remotes/origin/${SOURCE_BRANCH} remotes/origin/${DESTINATION_BRANCH} --verified-only --publish-result --repo-url ${REPO_URL} --repo-full-name ${ORGANIZATION}/${BUILD_REPOSITORY_NAME} --provider AZURE
+      s1-cns-cli scan iac -d . --publish-result --repo-url ${REPO_URL} --repo-full-name ${ORGANIZATION}/${BUILD_REPOSITORY_NAME} --branch ${SOURCE_BRANCH} --provider AZURE
+      s1-cns-cli scan vuln -d .
+    displayName: 'SentinelOne Shift Left Scan'
