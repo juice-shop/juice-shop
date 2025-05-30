@@ -1,7 +1,12 @@
 name: Generate SBOM
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   sbom:
@@ -14,7 +19,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install CycloneDX module
         run: npm install -g @cyclonedx/bom
@@ -23,7 +28,7 @@ jobs:
         run: npm install
 
       - name: Generate SBOM
-        run: cyclonedx-bom -o sbom.json
+        run: cyclonedx-bom -o sbom.json -d .
 
       - name: Upload SBOM artifact
         uses: actions/upload-artifact@v3
