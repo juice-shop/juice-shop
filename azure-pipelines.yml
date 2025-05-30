@@ -9,7 +9,7 @@ trigger:
 pool:
   name: Default  # Replace with your actual agent pool name
   demands:
-    - agent.name -equals ubuntu  # Optional: match your Jenkins label
+    - agent.name -equals ubuntu
 
 variables:
   GIT_DEPTH: '0'
