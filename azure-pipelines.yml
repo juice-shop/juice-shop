@@ -1,30 +1,95 @@
+trigger:
+  branches:
+    include:
+      - master
+      - main
+      - develop
+      - feature/*
+
 pool:
-  vmImage: ubuntu-latest
+  name: Default  # Replace with your actual agent pool name
+  demands:
+    - agent.name -equals s1-docker  # Optional: match your Jenkins label
 
-steps:
-  - checkout: self
-    fetchDepth: 0
+variables:
+  GIT_DEPTH: '0'
 
-  - script: |
-      sudo apt-get install python3-pip python3-venv -y
-      python3 -m venv .venv
-    displayName: 'Setup python env'
+stages:
+  - stage: Cloning
+    displayName: 'Clone Juice Shop Repo'
+    jobs:
+      - job: CloneRepo
+        steps:
+          - checkout: none  # We manually clone
+          - script: |
+              git clone https://github.com/gameblezz/juice-shop.git
+            displayName: 'Git Clone Juice Shop'
 
-  - script: |
-      source .venv/bin/activate
-      pip3 install s1-shift-left-cli
-      s1-cns-cli config --service-user-api-token $(S1_SERVICE_USER_API_TOKEN) --management-console-url https://apne1-1101-nfr.sentinelone.net --scope-type SITE --scope-id 2137821414163885691 --tag $(tag)
-    displayName: 'Configure SentinelOne CNS Cli'
+  - stage: Scan_Secrets_IAC_Vuln
+    displayName: 'Scan Secrets, IaC and Vuln'
+    jobs:
+      - job: ScanJob
+        steps:
+          - script: |
+              # Determine source and target branches from environment or use fallback
+              targetBranch="${SYSTEM_PULLREQUEST_TARGETBRANCH:-master}"
+              sourceBranch="${BUILD_SOURCEBRANCHNAME:-master}"
+              
+              echo "Source branch: $sourceBranch"
+              echo "Target branch: $targetBranch"
 
-  - script: |
-      source .venv/bin/activate
-      SOURCE_BRANCH=$(echo $SYSTEM_PULLREQUEST_SOURCEBRANCH | awk -F'refs/heads/' '{print $2}')
-      DESTINATION_BRANCH=${SYSTEM_PULLREQUEST_TARGETBRANCHNAME}
-      SERVER_URL=${SYSTEM_COLLECTIONURI}
-      ORGANIZATION=$(echo $SERVER_URL | awk -F'/' '{print $4}')
-      REPO_URL=${SERVER_URL}${BUILD_REPOSITORY_NAME}
-      
-      s1-cns-cli scan secret -d . --pull-request remotes/origin/${SOURCE_BRANCH} remotes/origin/${DESTINATION_BRANCH} --verified-only --publish-result --repo-url ${REPO_URL} --repo-full-name ${ORGANIZATION}/${BUILD_REPOSITORY_NAME} --provider AZURE
-      s1-cns-cli scan iac -d . --publish-result --repo-url ${REPO_URL} --repo-full-name ${ORGANIZATION}/${BUILD_REPOSITORY_NAME} --branch ${SOURCE_BRANCH} --provider AZURE
-      s1-cns-cli scan vuln -d .
-    displayName: 'SentinelOne Shift Left Scan'
+              tag="TestCNAPP:Test"
+
+              cd juice-shop
+
+              /root/.local/bin/s1-cns-cli config \
+                --service-user-api-token $(S1_SERVICE_USER_API_TOKEN) \
+                --management-console-url https://apne1-1101-nfr.sentinelone.net \
+                --scope-type SITE \
+                --scope-id 2137821414163885691 \
+                --tag "$tag"
+
+              /root/.local/bin/s1-cns-cli scan secret \
+                -d ./ \
+                --pull-request origin/$sourceBranch origin/$targetBranch \
+                --publish-result \
+                --repo-full-name gameblezz/juice-shop \
+                --repo-url "https://github.com/gameblezz/juice-shop" \
+                --provider GITHUB
+
+              /root/.local/bin/s1-cns-cli scan iac \
+                -d ./ \
+                --publish-result \
+                --repo-full-name gameblezz/juice-shop \
+                --repo-url "https://github.com/gameblezz/juice-shop.git" \
+                --branch $sourceBranch \
+                --provider GITHUB
+
+              /root/.local/bin/s1-cns-cli scan vuln -d ./
+            env:
+              S1_SERVICE_USER_API_TOKEN: $(S1_SERVICE_USER_API_TOKEN)
+            displayName: 'Run SentinelOne Scans'
+
+  - stage: Scan_Image
+    displayName: 'Scan Docker Image'
+    jobs:
+      - job: ImageScan
+        steps:
+          - script: |
+              /root/.local/bin/s1-cns-cli scan vuln \
+                --docker-image bkimminich/juice-shop:latest \
+                --generate-sbom \
+                --sbom-format s1-cns-json \
+                --output-file /home/jenkin/TESTSCAN.json
+            displayName: 'Scan Docker Image with S1 CLI'
+
+  - stage: Cleanup
+    displayName: 'Cleanup Workspace'
+    condition: always()
+    jobs:
+      - job: CleanupJob
+        steps:
+          - script: |
+              echo "Cleaning workspace..."
+              sudo rm -rf juice-shop
+            displayName: 'Clean workspace'
