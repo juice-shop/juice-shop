@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
-                sh 'cat README.md' 
+                sh 'cat cycode.txt' 
             }
         }
     }
