@@ -31,3 +31,8 @@ jobs:
       uses: github/codeql-action/autobuild@v3
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
+    - name: Upload SARIF report
+      uses: actions/upload-artifact@v4
+      with:
+        name: codeql-sarif-report
+        path: ${{ github.workspace }}/results/javascript-typescript.sarif
