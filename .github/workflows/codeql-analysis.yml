@@ -24,17 +24,21 @@ jobs:
       with:
         languages: ${{ matrix.language }}
         queries: security-extended
-        config: |
-          paths-ignore:
-            - 'data/static/codefixes'
     - name: Autobuild
       uses: github/codeql-action/autobuild@v3
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v3
-      with:
-        upload: false
+    - name: Run CodeQL database analyze
+      run: |
+        mkdir -p sarif-output
+        codeql database analyze \
+          --format=sarifv2 \
+          --output=sarif-output/codeql-report.sarif \
+          --threads=0 \
+          --rerun \
+          --ram=4096 \
+          ./codeql-db \
+          security-extended
     - name: Upload SARIF report
       uses: actions/upload-artifact@v4
       with:
         name: codeql-sarif-report
-        path: results/javascript-typescript.sarif
+        path: sarif-output/codeql-report.sarif
