@@ -31,10 +31,10 @@ jobs:
       uses: github/codeql-action/autobuild@v3
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
-      with:
-        output: sarif-report
+      env:
+        CODEQL_ACTION_EXTRA_OPTIONS: '{"sarif_output":"codeql-report.sarif"}'
     - name: Upload SARIF report
       uses: actions/upload-artifact@v4
       with:
         name: codeql-sarif-report
-        path: sarif-results/javascript-typescript.sarif
+        path: codeql-report.sarif
