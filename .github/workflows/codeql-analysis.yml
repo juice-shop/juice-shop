@@ -26,16 +26,21 @@ jobs:
         queries: security-extended
     - name: Autobuild
       uses: github/codeql-action/autobuild@v3
-    - name: Run CodeQL database analyze
+    - name: Manually run CodeQL analysis and upload SARIF
       run: |
         mkdir -p sarif-output
+        # Find the correct database path created by the init step
+        DB_DIR=$(find . -type d -name "*-codeql-database" | head -n 1)
+        echo "Detected database directory: $DB_DIR"
+
+        # Run analysis using the installed CodeQL CLI
         "${CODEQL_DIST}/codeql" database analyze \
           --format=sarifv2 \
           --output=sarif-output/codeql-report.sarif \
           --threads=0 \
           --rerun \
           --ram=4096 \
-          ./codeql-db \
+          "$DB_DIR" \
           security-extended
     - name: Upload SARIF report
       uses: actions/upload-artifact@v4
