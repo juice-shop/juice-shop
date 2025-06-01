@@ -19,36 +19,31 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
+      
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
         queries: security-extended
+        db-location: ./codeql-db
+        
     - name: Autobuild
       uses: github/codeql-action/autobuild@v3
       
     - name: Run CodeQL analysis and generate SARIF report
       run: |
         mkdir -p sarif-output
+        DB_DIR=./codeql-db
 
-        echo "Searching for CodeQL database..."
-        DB_DIR=$(find . -type d -name "*-codeql-database" | head -n 1)
-        echo "Found database at: $DB_DIR"
-
-        if [ ! -d "$DB_DIR" ]; then
-          echo "CodeQL database not found. Exiting."
-          exit 1
-        fi
-
-        echo "Locating CodeQL CLI..."
+        echo "Using database: $DB_DIR"
+        
         CODEQL="$(dirname "$(find /opt/hostedtoolcache/CodeQL -name codeql -type f | head -n 1)")/codeql"
-        echo "CodeQL binary found at: $CODEQL"
+        echo "CodeQL binary: $CODEQL"
 
-        echo "RUnning CodeQL analysis..."
         "$CODEQL" database analyze \
           --format=sarifv2 \
           --output=sarif-output/codeql-report.sarif \
-          --thread=0 \
+          --threads=0 \
           --rerun \
           --ram=4096 \
           "$DB_DIR" \
