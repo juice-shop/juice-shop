@@ -27,8 +27,10 @@ jobs:
         queries: security-extended
         db-location: ./codeql-db
         
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v3
+    - name: Manual build step
+      run: |
+        npm ci
+        npm run build
       
     - name: Run CodeQL analysis and generate SARIF report
       run: |
