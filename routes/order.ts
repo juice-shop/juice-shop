@@ -178,7 +178,8 @@ export function placeOrder () {
 function calculateApplicableDiscount (basket: BasketModel, req: Request) {
   if (security.discountFromCoupon(basket.coupon ?? undefined)) {
     const discount = security.discountFromCoupon(basket.coupon ?? undefined)
-    challengeUtils.solveIf(challenges.forgedCouponChallenge, () => { return discount ?? 0 >= 80 })
+    challengeUtils.solveIf(challenges.forgedCouponChallenge, () => { return (discount ?? 0) >= 80 })
+    console.log(discount)
     return discount
   } else if (req.body.couponData) {
     const couponData = Buffer.from(req.body.couponData, 'base64').toString().split('-')
