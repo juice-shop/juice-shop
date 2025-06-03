@@ -7,7 +7,7 @@ trigger:
       - feature/*
 
 pool:
-  name: Default  # Name of the agent pool in Azure DevOps
+  name: CNAPP  # Name of the agent pool in Azure DevOps
   demands:
     - Agent.name -equals s1-agent  # Ensure your agent is tagged correctly in DevOps
 
