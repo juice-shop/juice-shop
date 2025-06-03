@@ -9,7 +9,7 @@ trigger:
 pool:
   name: Default  # Name of the agent pool in Azure DevOps
   demands:
-    - Agent.Tags -equals S1-Agent  # Ensure your agent is tagged correctly in DevOps
+    - Agent.name -equals s1-agent  # Ensure your agent is tagged correctly in DevOps
 
 variables:
   GIT_DEPTH: '0'
