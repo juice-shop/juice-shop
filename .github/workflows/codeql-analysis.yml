@@ -38,15 +38,15 @@ jobs:
             upload: false
             output: results
 
-      - name: Check SARIF file exists
+      - name: Check if SARIF file exists
         run: |
-          if [ ! -f results/java.sarif ]; then
-            echo "SARIF file not found"
+          if [ ! -f results/${{ matrix.language }}.sarif ]; then
+            echo "SARIF file for ${{ matrix.language }} not found"
             exit 1
           fi
 
       - name: Upload SARIF artifact
         uses: actions/upload-artifact@v4
         with:
-            name: sast-report
-            path: results/java.sarif
+            name: sast-report-${{ matrix.language }}
+            path: results/${{ matrix.language }}.sarif
