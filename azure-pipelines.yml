@@ -91,7 +91,7 @@ stages:
           - task: DownloadPipelineArtifact@2
             inputs:
               buildType: 'current'
-              artifactName: 'TestCNAPP'
+              artifactName: 'TESTSCAN'
               itemPattern: '*.json'
               targetPath: '/home/azuredevops/'
             displayName: 'Download SBOM Artifact'
