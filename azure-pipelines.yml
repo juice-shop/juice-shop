@@ -40,14 +40,14 @@ stages:
 
               tag="TestCNAPP:Test"
               
-              ./home/azuredevops/.local/bin/s1-cns-cli config \
+              /home/azuredevops/.local/bin/s1-cns-cli config \
                 --service-user-api-token $(S1_SERVICE_USER_API_TOKEN) \
                 --management-console-url https://apne1-1101-nfr.sentinelone.net \
                 --scope-type SITE \
                 --scope-id 2137821414163885691 \
                 --tag "$tag"
 
-              ./home/azuredevops/.local/bin/s1-cns-cli scan secret \
+              /home/azuredevops/.local/bin/s1-cns-cli scan secret \
                 -d ./ \
                 --pull-request origin/$sourceBranch origin/$targetBranch \
                 --publish-result \
@@ -55,7 +55,7 @@ stages:
                 --repo-url "https://github.com/gameblezz/juice-shop" \
                 --provider GITHUB
 
-              ./home/azuredevops/.local/bin/s1-cns-cli scan iac \
+              /home/azuredevops/.local/bin/s1-cns-cli scan iac \
                 -d ./ \
                 --publish-result \
                 --repo-full-name gameblezz/juice-shop \
@@ -74,7 +74,7 @@ stages:
       - job: ImageScan
         steps:
           - script: |
-              ./home/azuredevops/.local/bin/s1-cns-cli scan vuln \
+              /home/azuredevops/.local/bin/s1-cns-cli scan vuln \
                 --docker-image bkimminich/juice-shop:latest \
                 --generate-sbom \
                 --sbom-format s1-cns-json \
