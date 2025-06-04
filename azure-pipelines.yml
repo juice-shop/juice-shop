@@ -7,7 +7,7 @@ trigger:
       - feature/*
 
 pool:
-  name: CNAPP  # Custom agent pool
+  name: CNAPP
   demands:
     - Agent.name -equals s1-agent
 
@@ -81,7 +81,17 @@ stages:
                 --sbom-format s1-cns-json \
                 --output-file /home/azuredevops/TESTSCAN.json
             displayName: 'Scan Docker Image with S1 CLI'
-            
+
+          - script: |
+              echo "Check file exists:"
+              ls -la /home/azuredevops/
+            displayName: 'Verify SBOM Output'
+
+          - task: PublishPipelineArtifact@1
+            inputs:
+              targetPath: '/home/azuredevops/TESTSCAN.json'
+              artifactName: 'TESTSCAN'
+            displayName: 'Publish SBOM Artifact'
 
   - stage: Download_Artifact
     displayName: 'Download Artifact'
@@ -89,14 +99,18 @@ stages:
     jobs:
       - job: DownloadJob
         steps:
-          - script: |
-              sudo chown azuredevops:azuredevops /home/azuredevops/TESTSCAN.json  
           - task: DownloadPipelineArtifact@2
             inputs:
-              artifact: 'TESTSCAN'
-              patterns: '**/*.json'
-              path: '/home/azuredevops/'
+              buildType: 'current'
+              artifactName: 'TESTSCAN'
+              itemPattern: '*.json'
+              targetPath: '/home/azuredevops/'
             displayName: 'Download SBOM Artifact'
+
+          - script: |
+              echo "Verify Downloaded Artifact:"
+              ls -la /home/azuredevops/
+            displayName: 'Check Downloaded File'
 
   - stage: Cleanup
     displayName: 'Cleanup Workspace'
@@ -107,5 +121,5 @@ stages:
         steps:
           - script: |
               echo "Cleaning workspace..."
-              sudo rm -rf juice-shop
+              sudo rm -rf juice-shop /home/azuredevops/TESTSCAN.json
             displayName: 'Clean workspace'
