@@ -83,6 +83,7 @@ stages:
             displayName: 'Scan Docker Image with S1 CLI'
 
           - script: |
+              sudo chown azuredevops:azuredevops /home/azuredevops/TESTSCAN.json
               echo "Check file exists:"
               ls -la /home/azuredevops/
             displayName: 'Verify SBOM Output'
