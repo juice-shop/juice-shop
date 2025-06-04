@@ -7,9 +7,9 @@ trigger:
       - feature/*
 
 pool:
-  name: CNAPP  # Name of the agent pool in Azure DevOps
+  name: CNAPP  # Custom agent pool
   demands:
-    - Agent.name -equals s1-agent  # Ensure your agent is tagged correctly in DevOps
+    - Agent.name -equals s1-agent
 
 variables:
   GIT_DEPTH: '0'
@@ -20,18 +20,18 @@ stages:
     jobs:
       - job: CloneRepo
         steps:
-          - checkout: none  # We manually clone
+          - checkout: none
           - script: |
               git clone https://github.com/gameblezz/juice-shop.git
             displayName: 'Git Clone Juice Shop'
 
   - stage: Scan_Secrets_IAC_Vuln
     displayName: 'Scan Secrets, IaC and Vuln'
+    dependsOn: Cloning
     jobs:
       - job: ScanJob
         steps:
           - script: |
-              # Determine source and target branches from environment or use fallback
               targetBranch="${SYSTEM_PULLREQUEST_TARGETBRANCH:-master}"
               sourceBranch="${BUILD_SOURCEBRANCHNAME:-master}"
               
@@ -70,6 +70,7 @@ stages:
 
   - stage: Scan_Image
     displayName: 'Scan Docker Image'
+    dependsOn: Scan_Secrets_IAC_Vuln
     jobs:
       - job: ImageScan
         steps:
@@ -78,11 +79,26 @@ stages:
                 --docker-image bkimminich/juice-shop:latest \
                 --generate-sbom \
                 --sbom-format s1-cns-json \
-                --output-file /home/jenkin/TESTSCAN.json
+                --output-file /home/azuredevops/TESTSCAN.json
             displayName: 'Scan Docker Image with S1 CLI'
+
+  - stage: Download_Artifact
+    displayName: 'Download Artifact'
+    dependsOn: Scan_Image
+    jobs:
+      - job: DownloadJob
+        steps:
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              buildType: 'current'
+              artifactName: 'TestCNAPP'
+              itemPattern: '*.json'
+              targetPath: '$(Pipeline.Workspace)'
+            displayName: 'Download SBOM Artifact'
 
   - stage: Cleanup
     displayName: 'Cleanup Workspace'
+    dependsOn: Download_Artifact
     condition: always()
     jobs:
       - job: CleanupJob
