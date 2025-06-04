@@ -93,10 +93,9 @@ stages:
               sudo chown azuredevops:azuredevops /home/azuredevops/TESTSCAN.json  
           - task: DownloadPipelineArtifact@2
             inputs:
-              buildType: 'current'
-              artifactName: 'TESTSCAN'
-              itemPattern: '*.json'
-              targetPath: '/home/azuredevops/'
+              artifact: 'TESTSCAN'
+              patterns: '**/*.json'
+              path: '/home/azuredevops/'
             displayName: 'Download SBOM Artifact'
 
   - stage: Cleanup
