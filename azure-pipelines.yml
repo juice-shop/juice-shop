@@ -93,7 +93,7 @@ stages:
               buildType: 'current'
               artifactName: 'TestCNAPP'
               itemPattern: '*.json'
-              targetPath: '$(Pipeline.Workspace)'
+              targetPath: '/home/azuredevops/'
             displayName: 'Download SBOM Artifact'
 
   - stage: Cleanup
