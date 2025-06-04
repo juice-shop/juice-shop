@@ -81,6 +81,7 @@ stages:
                 --sbom-format s1-cns-json \
                 --output-file /home/azuredevops/TESTSCAN.json
             displayName: 'Scan Docker Image with S1 CLI'
+            
 
   - stage: Download_Artifact
     displayName: 'Download Artifact'
@@ -88,6 +89,8 @@ stages:
     jobs:
       - job: DownloadJob
         steps:
+          - script: |
+              sudo chown azuredevops:azuredevops /home/azuredevops/TESTSCAN.json  
           - task: DownloadPipelineArtifact@2
             inputs:
               buildType: 'current'
