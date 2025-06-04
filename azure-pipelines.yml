@@ -78,7 +78,7 @@ stages:
               sudo /root/.local/bin/s1-cns-cli scan vuln \
                 --docker-image bkimminich/juice-shop:latest \
                 --generate-sbom \
-                --sbom-format spdx-json \
+                --sbom-format cyclonedx-json \
                 --output-file /home/azuredevops/TESTSCAN.json
             displayName: 'Scan Docker Image with S1 CLI'
 
