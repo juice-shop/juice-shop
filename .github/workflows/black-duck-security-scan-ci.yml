@@ -34,29 +34,3 @@ jobs:
           polaris_server_url: ${{ vars.POLARIS_SERVER_URL }}
           polaris_access_token: ${{ secrets.POLARIS_ACCESS_TOKEN }}
           polaris_assessment_types: "SCA,SAST"
- ### SCANNING: Optional fields
-          # polaris_application_name: ${{ github.event.repository.name }}
-          # polaris_project_name: ${{ github.event.repository.name }}
-          
-          ### PULL REQUEST COMMENTS: Uncomment below to enable
-          # polaris_prComment_enabled: true 
-          # github_token: ${{ secrets.GITHUB_TOKEN }} # Required when PR comments is enabled
-
-          ### SARIF report parameters
-          #polaris_reports_sarif_create: true
-          #polaris_upload_sarif_report: true
-          
-          ### Signature scan
-          #polaris_test_sca_type: "SCA-SIGNATURE"
-          
-          ### Mark build status if policy violating issues are found
-          # mark_build_status: 'success'
-          
-    ### Uncomment below configuration to add custom logic based on return status
-    # - name: cmdLine
-    #   id: cmdLine
-    #   run: |
-    #     EXIT_CODE=${{ steps.polaris-scan.outputs.status }}
-    #     echo "Polaris Scan exit status - $EXIT_CODE"
-            
-
