@@ -1,0 +1,62 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+# Black Duck Security Action allows you to integrate Static Analysis Security Testing (SAST) and Software Composition Analysis (SCA) into your CI/CD pipelines.
+# For more information about configuring your workflow,
+# read our documentation at https://github.com/blackduck-inc/black-duck-security-scan
+
+name: CI-Polaris-Basic 
+on:
+  push:
+    branches: [ main, master, develop, stage, release ]
+  pull_request:
+    branches: [ main, master, develop, stage, release ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      security-events: write
+      actions: read
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Black Duck SCA scan
+        uses: blackduck-inc/black-duck-security-scan@805cbd09e806b01907bbea0f990723c2bb85abe9
+        with:
+          ### ---------- POLARIS SCANNING: REQUIRED FIELDS ----------
+          polaris_server_url: ${{ vars.POLARIS_SERVER_URL }}
+          polaris_access_token: ${{ secrets.POLARIS_ACCESS_TOKEN }}
+          polaris_assessment_types: "SCA,SAST"
+ ### SCANNING: Optional fields
+          # polaris_application_name: ${{ github.event.repository.name }}
+          # polaris_project_name: ${{ github.event.repository.name }}
+          
+          ### PULL REQUEST COMMENTS: Uncomment below to enable
+          # polaris_prComment_enabled: true 
+          # github_token: ${{ secrets.GITHUB_TOKEN }} # Required when PR comments is enabled
+
+          ### SARIF report parameters
+          #polaris_reports_sarif_create: true
+          #polaris_upload_sarif_report: true
+          
+          ### Signature scan
+          #polaris_test_sca_type: "SCA-SIGNATURE"
+          
+          ### Mark build status if policy violating issues are found
+          # mark_build_status: 'success'
+          
+    ### Uncomment below configuration to add custom logic based on return status
+    # - name: cmdLine
+    #   id: cmdLine
+    #   run: |
+    #     EXIT_CODE=${{ steps.polaris-scan.outputs.status }}
+    #     echo "Polaris Scan exit status - $EXIT_CODE"
+            
+
