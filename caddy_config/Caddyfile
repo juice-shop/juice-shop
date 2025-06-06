@@ -1,5 +1,5 @@
 js.<domain>.<suffix> {
-    reverse_proxy js:3000 {
+    reverse_proxy juice-shop:3000 {
       flush_interval -1
     }
 }
