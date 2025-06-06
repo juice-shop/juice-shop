@@ -36,7 +36,7 @@ jobs:
           polaris_assessment_types: "SCA,SAST"
           
           ### SCANNING: Optional fields
-          # polaris_application_name: ${{ github.event.repository.name }}
+          polaris_application_name: "Hari_JuiceShop"
           # polaris_project_name: ${{ github.event.repository.name }}
           
           ### PULL REQUEST COMMENTS: Uncomment below to enable
