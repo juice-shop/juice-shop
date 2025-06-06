@@ -1,0 +1,30 @@
+version: "1.0"
+
+services:
+  caddy:
+    image: caddy:latest
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - caddy_data:/data
+      - ${DATA_FOLDER}/caddy_config:/config
+      - ${DATA_FOLDER}/caddy_config/Caddyfile:/etc/caddy/Caddyfile
+
+  js:
+    image: bkimminich/juice-shop:latest
+    restart: always
+    ports:
+      - 3000:3000
+    environment:
+      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
+    volumes:
+      - js_data:/juice-shop
+      - ${DATA_FOLDER}/local_files:/files
+
+  volumes:
+  caddy_data:
+    external: true
+  js_data:
+    external: true
