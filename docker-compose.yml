@@ -1,30 +1,34 @@
-version: "1.0"
+version: "3.8"
 
 services:
-  caddy:
-    image: caddy:latest
-    restart: unless-stopped
+  juice-shop:
+    image: bkimminich/juice-shop
+    container_name: juice-shop
     ports:
-      - "80:80"
-      - "443:443"
+      - "3000:3000" # Expose Juice Shop on port 3000
     volumes:
-      - caddy_data:/data
-      - ${DATA_FOLDER}/caddy_config:/config
-      - ${DATA_FOLDER}/caddy_config/Caddyfile:/etc/caddy/Caddyfile
-
-  js:
-    image: bkimminich/juice-shop:latest
-    restart: always
-    ports:
-      - 3000:3000
-    environment:
-      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
-    volumes:
+      # Mount the named volume 'js_data' to /juice-shop inside the container
+      # This is where Juice Shop store persistent data like user progress or challenges
       - js_data:/juice-shop
-      - ${DATA_FOLDER}/local_files:/files
+    restart: unless-stopped
 
-  volumes:
-  caddy_data:
-    external: true
+  caddy:
+    image: caddy:2-alpine # Using a lightweight Caddy image
+    container_name: caddy
+    ports:
+      - "80:80" # Expose Caddy on port 80 (HTTP)
+      - "443:443" # Expose Caddy on port 443 (HTTPS)
+    volumes:
+      # Mount the named volume 'caddy_data' for Caddy's persistent data (e.g., certificates)
+      - caddy_data:/data
+      # Mount your Caddyfile to configure Caddy
+      - ./Caddyfile:/etc/caddy/Caddyfile # Assuming you have a Caddyfile in the same directory
+    restart: unless-stopped
+    depends_on:
+      - juice-shop # Ensure Juice Shop starts before Caddy
+
+volumes:
   js_data:
-    external: true
+    external: true # Indicates that this volume is pre-created
+  caddy_data:
+    external: true # Indicates that this volume is pre-created
