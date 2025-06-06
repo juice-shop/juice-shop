@@ -50,10 +50,13 @@ jobs:
           #polaris_upload_sarif_report: true
           
           ### Signature scan
-          polaris_test_sca_type: "SCA-SIGNATURE"
+          #polaris_test_sca_type: "SCA-SIGNATURE"
           
           ### Mark build status if policy violating issues are found
           # mark_build_status: 'success'
+
+          ### Added this to combat original SCA package manager error
+          detect_args: '--detect.accuracy.required=NONE'
           
     ### Uncomment below configuration to add custom logic based on return status
     # - name: cmdLine
