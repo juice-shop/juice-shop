@@ -21,8 +21,9 @@ services:
     volumes:
       # Mount the named volume 'caddy_data' for Caddy's persistent data (e.g., certificates)
       - caddy_data:/data
+      - ${DATA_FOLDER}/caddy_config:/config
       # Mount your Caddyfile to configure Caddy
-      - ${DATA_FOLDER}/caddy/Caddyfile # Setting from .env file
+      - ${DATA_FOLDER}/caddy_config/Caddyfile:/etc/caddy/Caddyfile
     restart: unless-stopped
     depends_on:
       - juice-shop # Ensure Juice Shop starts before Caddy
