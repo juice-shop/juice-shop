@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   juice-shop:
     image: bkimminich/juice-shop
