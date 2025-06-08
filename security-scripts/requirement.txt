@@ -1,0 +1,19 @@
+# Security & Log Analysis Dependencies
+
+# pandas: Data manipulation and analysis (e.g., parsing structured logs, aggregating metrics)
+pandas
+
+# numpy: Numerical operations (e.g., anomaly detection thresholds, mathematical transformations)
+numpy
+
+# nltk: Natural Language Processing (e.g., log message keyword extraction, sentiment analysis)
+nltk
+
+# scikit-learn: Machine learning for anomaly detection (e.g., clustering, classification)
+scikit-learn
+
+# scapy: Network packet analysis (e.g., detecting malicious traffic patterns)
+scapy
+
+# yara-python: Pattern matching for threat detection (e.g., malware signatures in logs)
+yara-python
