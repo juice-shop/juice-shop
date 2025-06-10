@@ -61,7 +61,7 @@ const FeedbackModelInit = (sequelize: Sequelize) => {
         set (rating: number) {
           this.setDataValue('rating', rating)
           challengeUtils.solveIf(challenges.zeroStarsChallenge, () => {
-            return rating === 0
+            return Number(rating) === 0
           })
         }
       }
