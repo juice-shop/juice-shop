@@ -430,7 +430,6 @@ function leakedApiKeyChallenge () {
   })
 }
 
-
 function dangerousIngredients () {
   return config.get<ProductConfig[]>('products')
     .flatMap((product) => product.keywordsForPastebinDataLeakChallenge)
