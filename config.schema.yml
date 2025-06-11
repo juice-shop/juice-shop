@@ -737,3 +737,8 @@ ctf:
         type: string
       code:
         type: string
+    leakedApiKeyChallenge:
+      name:
+        type: string
+      code:
+        type: string
