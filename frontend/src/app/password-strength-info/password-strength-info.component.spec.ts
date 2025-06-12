@@ -17,9 +17,23 @@ describe('PasswordStrengthInfoComponent', () => {
     fixture.detectChanges()
   })
 
-  xit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy()
   })
 
-  // todo: unit test each conditional | passwordLength message
+  // Unit tests for each conditional | passwordLength message
+  it('should show weak message for length < 6', () => {
+    component.passwordLength = 5;
+    expect(component.getPasswordStrengthMessage()).toEqual('Weak');
+  });
+
+  it('should show medium message for length 6 to 8', () => {
+    component.passwordLength = 7;
+    expect(component.getPasswordStrengthMessage()).toEqual('Medium');
+  });
+
+  it('should show strong message for length > 8', () => {
+    component.passwordLength = 9;
+    expect(component.getPasswordStrengthMessage()).toEqual('Strong');
+  });
 })
