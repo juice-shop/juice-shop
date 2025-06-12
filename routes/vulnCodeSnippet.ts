@@ -72,24 +72,23 @@ export const getVerdict = (vulnLines: number[], neutralLines: number[], selected
   return notOkLines.length === 0
 }
 
-export const checkVulnLines = () => async (req: Request<Record<string, unknown>, Record<string, unknown>, VerdictRequestBody>, res: Response, next: NextFunction) => {
-  const key = req.body.key
+const handleSnippetData = async (req: Request<Record<string, unknown>, Record<string, unknown>, VerdictRequestBody>, res: Response, key: string) => {
   let snippetData
   try {
     snippetData = await retrieveCodeSnippet(key)
     if (snippetData == null) {
       res.status(404).json({ status: 'error', error: `No code challenge for challenge key: ${key}` })
-      return
+      return null
     }
   } catch (error) {
     const statusCode = setStatusCode(error)
     res.status(statusCode).json({ status: 'error', error: utils.getErrorMessage(error) })
-    return
+    return null
   }
-  const vulnLines: number[] = snippetData.vulnLines
-  const neutralLines: number[] = snippetData.neutralLines
-  const selectedLines: number[] = req.body.selectedLines
-  const verdict = getVerdict(vulnLines, neutralLines, selectedLines)
+  return snippetData
+}
+
+const generateHint = (vulnLines: number[], neutralLines: number[], key: string, email: string, res: Response) => {
   let hint
   if (fs.existsSync('./data/static/codefixes/' + key + '.info.yml')) {
     const codingChallengeInfos = yaml.load(fs.readFileSync('./data/static/codefixes/' + key + '.info.yml', 'utf8'))
@@ -106,6 +105,20 @@ export const checkVulnLines = () => async (req: Request<Record<string, unknown>,
       }
     }
   }
+  return hint
+}
+
+export const checkVulnLines = () => async (req: Request<Record<string, unknown>, Record<string, unknown>, VerdictRequestBody>, res: Response, next: NextFunction) => {
+  const key = req.body.key
+  const snippetData = await handleSnippetData(req, res, key)
+  if (!snippetData) return
+
+  const vulnLines: number[] = snippetData.vulnLines
+  const neutralLines: number[] = snippetData.neutralLines
+  const selectedLines: number[] = req.body.selectedLines
+  const verdict = getVerdict(vulnLines, neutralLines, selectedLines)
+  const hint = generateHint(vulnLines, neutralLines, key, req.body.key, res)
+
   if (verdict) {
     await challengeUtils.solveFindIt(key)
     res.status(200).json({
