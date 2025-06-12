@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
- * SPDX-License-Identifier: MIT
- */
-
 import config from 'config'
 import { type Request, type Response, type NextFunction } from 'express'
 
@@ -33,16 +28,7 @@ export function resetPassword () {
         }]
       }).then((data: SecurityAnswerModel | null) => {
         if ((data != null) && security.hmac(answer) === data.answer) {
-          UserModel.findByPk(data.UserId).then((user: UserModel | null) => {
-            user?.update({ password: newPassword }).then((user: UserModel) => {
-              verifySecurityAnswerChallenges(user, answer)
-              res.json({ user })
-            }).catch((error: unknown) => {
-              next(error)
-            })
-          }).catch((error: unknown) => {
-            next(error)
-          })
+          handleUserUpdate(data.UserId, newPassword, answer, res, next)
         } else {
           res.status(401).send(res.__('Wrong answer to security question.'))
         }
@@ -53,6 +39,19 @@ export function resetPassword () {
   }
 }
 
+function handleUserUpdate(userId: number, newPassword: string, answer: string, res: Response, next: NextFunction) {
+  UserModel.findByPk(userId).then((user: UserModel | null) => {
+    user?.update({ password: newPassword }).then((user: UserModel) => {
+      verifySecurityAnswerChallenges(user, answer)
+      res.json({ user })
+    }).catch((error: unknown) => {
+      next(error)
+    })
+  }).catch((error: unknown) => {
+    next(error)
+  })
+}
+
 function verifySecurityAnswerChallenges (user: UserModel, answer: string) {
   challengeUtils.solveIf(challenges.resetPasswordJimChallenge, () => { return user.id === users.jim.id && answer === 'Samuel' })
   challengeUtils.solveIf(challenges.resetPasswordBenderChallenge, () => { return user.id === users.bender.id && answer === 'Stop\'n\'Drop' })
@@ -61,25 +60,29 @@ function verifySecurityAnswerChallenges (user: UserModel, answer: string) {
   challengeUtils.solveIf(challenges.resetPasswordBjoernOwaspChallenge, () => { return user.id === users.bjoernOwasp.id && answer === 'Zaya' })
   challengeUtils.solveIf(challenges.resetPasswordUvoginChallenge, () => { return user.id === users.uvogin.id && answer === 'Silence of the Lambs' })
   challengeUtils.solveIf(challenges.geoStalkingMetaChallenge, () => {
-    const securityAnswer = ((() => {
-      const memories = config.get<MemoryConfig[]>('memories')
-      for (let i = 0; i < memories.length; i++) {
-        if (memories[i].geoStalkingMetaSecurityAnswer) {
-          return memories[i].geoStalkingMetaSecurityAnswer
-        }
-      }
-    })())
+    const securityAnswer = getGeoStalkingMetaSecurityAnswer()
     return user.id === users.john.id && answer === securityAnswer
   })
   challengeUtils.solveIf(challenges.geoStalkingVisualChallenge, () => {
-    const securityAnswer = ((() => {
-      const memories = config.get<MemoryConfig[]>('memories')
-      for (let i = 0; i < memories.length; i++) {
-        if (memories[i].geoStalkingVisualSecurityAnswer) {
-          return memories[i].geoStalkingVisualSecurityAnswer
-        }
-      }
-    })())
+    const securityAnswer = getGeoStalkingVisualSecurityAnswer()
     return user.id === users.emma.id && answer === securityAnswer
   })
+}
+
+function getGeoStalkingMetaSecurityAnswer() {
+  const memories = config.get<MemoryConfig[]>('memories')
+  for (let i = 0; i < memories.length; i++) {
+    if (memories[i].geoStalkingMetaSecurityAnswer) {
+      return memories[i].geoStalkingMetaSecurityAnswer
+    }
+  }
+}
+
+function getGeoStalkingVisualSecurityAnswer() {
+  const memories = config.get<MemoryConfig[]>('memories')
+  for (let i = 0; i < memories.length; i++) {
+    if (memories[i].geoStalkingVisualSecurityAnswer) {
+      return memories[i].geoStalkingVisualSecurityAnswer
+    }
+  }
 }
