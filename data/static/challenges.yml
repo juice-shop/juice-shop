@@ -1097,7 +1097,7 @@
   category: 'Security Misconfiguration'
   tags:
     - Contraption
-  description: 'Stick <a href="http://placecats.com/" target="_blank">cute cross-domain kittens</a> all over our delivery boxes.'
+  description: 'Stick <a href="https://cataas.com/cat" target="_blank">cute cross-domain kittens</a> all over our delivery boxes.'
   difficulty: 5
   hint: 'This challenge would formally have to be in several categories as the developers made multiple gaffes for this to be possible.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/security-misconfiguration.html#_stick_cute_cross_domain_kittens_all_over_our_delivery_boxes'
