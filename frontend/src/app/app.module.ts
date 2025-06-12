@@ -13,8 +13,7 @@ export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json')
 }
 
-@NgModule(/* TODO(standalone-migration): clean up removed NgModule class manually.
-{
+@NgModule({
     declarations: [AppComponent],
     imports: [
     BrowserModule,
@@ -180,7 +179,7 @@ export function HttpLoaderFactory (http: HttpClient) {
         PhotoWallService
     ],
     bootstrap: [AppComponent]
-} */)
+})
 export class AppModule {
   constructor (public configurationService: ConfigurationService, public overlayContainer: OverlayContainer) {
     configurationService.getApplicationConfiguration().subscribe((conf) => {
