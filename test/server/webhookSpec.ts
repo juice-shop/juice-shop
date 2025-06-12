@@ -47,6 +47,8 @@ describe('webhook', () => {
 
       try {
         await webhook.notify(challenge, 0, url)
+      } catch (error) {
+        next(error)
       } finally {
         server.close()
       }
