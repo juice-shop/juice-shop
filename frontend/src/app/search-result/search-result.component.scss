@@ -15,6 +15,7 @@ $bg-heading: rgba(0, 0, 0, 0.2);
   font-size: x-large;
   justify-content: center;
   padding: 12px 20px;
+  margin-bottom: 10px;
 }
 
 .img-thumbnail {
@@ -22,12 +23,11 @@ $bg-heading: rgba(0, 0, 0, 0.2);
   width: 61% !important;
 }
 
-.heading {
-  margin-bottom: 10px;
-}
-
 .product {
   cursor: pointer;
+  margin-left: -17px;
+  margin-right: 6px;
+  margin-top: -17px;
 }
 
 .item-price {
@@ -142,10 +142,4 @@ mat-grid-tile {
 
 .mat-divider.mat-divider-horizontal {
   margin-top: 10px;
-}
-
-.product {
-  margin-left: -17px;
-  margin-right: 6px;
-  margin-top: -17px;
 }
