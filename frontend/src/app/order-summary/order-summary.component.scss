@@ -55,7 +55,6 @@ table {
   text-align: center;
 }
 
-
 .mdc-card { 
   border: 0;
   border-bottom: 0;
@@ -84,34 +83,14 @@ table {
 
 .mat-table {
   border-collapse: collapse;
-    
+  background: transparent;
+  width: 100%;
 }
   
 .mat-cell,
 .mat-footer-cell {
   padding: 12px 0; 
-
-}
-
-::ng-deep .mat-mdc-cell.mdc-data-table__cell.cdk-cell {
-  border: 0 !important;
-
-}
-
-
-.mat-table {
-  background: transparent;
-  width: 100%;
-}
-
-.mat-row {
-  border-bottom: 1px solid var(--theme-background-light);
-}
-
-.mat-cell,
-.mat-footer-cell {
   color: var(--theme-text);
-  padding: 12px 0;
 }
 
 .mat-footer-cell.label {
@@ -131,4 +110,3 @@ table {
   margin-top: 10px;
   text-align: center;
 }
-
