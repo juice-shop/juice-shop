@@ -1243,7 +1243,7 @@
   description: 'The Juice Shop is susceptible to a known vulnerability in a library, for which an advisory has already been issued, marking the Juice Shop as <i>known affected</i>. A fix is still pending. <a href="/#/contact">Inform the shop</a> about a suitable checksum as proof that you did your due diligence.'
   difficulty: 3
   hint: 'Security Advisories are often listed in the security.txt'
-  hintUrl: ''
+  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/miscellaneous.html#_the_juice_shop_is_susceptible_to_a_known_vulnerability_in_a_library_for_which_an_advisory_has_already_been_issued'
   mitigationUrl: ~
   key: csafChallenge
 -
@@ -1252,8 +1252,8 @@
   description: 'A developer was careless with hardcoding unused, but still valid credentials for a testing account on the client-side.'
   difficulty: 2
   hint: 'Have a look at the client-side code in the dev console.'
-  hintUrl: ''
-  mitigationUrl: ~
+  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_a_developer_was_careless_with_hardcoding_unused_but_still_valid_credentials'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html'
   key: exposedCredentialsChallenge
   tutorial:
     order: 6
