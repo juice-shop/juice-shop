@@ -24,8 +24,8 @@ FROM node:22 AS libxmljs-builder
 WORKDIR /juice-shop
 RUN apt-get update && apt-get install -y build-essential python3
 COPY --from=installer /juice-shop/node_modules ./node_modules
-RUN rm -rf node_modules/libxmljs/build && \
-  cd node_modules/libxmljs && \
+RUN rm -rf node_modules/libxmljs2/build && \
+  cd node_modules/libxmljs2 && \
   npm run build
 
 FROM gcr.io/distroless/nodejs22-debian12
