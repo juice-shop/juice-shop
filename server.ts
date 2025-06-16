@@ -120,9 +120,9 @@ import { profileImageFileUpload } from './routes/profileImageFileUpload'
 import { serveCodeFixes, checkCorrectFix } from './routes/vulnCodeFixes'
 import { imageCaptchas, verifyImageCaptcha } from './routes/imageCaptcha'
 import { upgradeToDeluxe, deluxeMembershipStatus } from './routes/deluxe'
+import { serveCodeSnippet, checkVulnLines } from './routes/vulnCodeSnippet'
 import { orderHistory, allOrders, toggleDeliveryStatus } from './routes/orderHistory'
 import { continueCode, continueCodeFindIt, continueCodeFixIt } from './routes/continueCode'
-import { serveChallengesWithCodeSnippet, serveCodeSnippet, checkVulnLines } from './routes/vulnCodeSnippet'
 import { ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload, handleYamlUpload } from './routes/fileUpload'
 
 const app = express()
@@ -237,12 +237,14 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   /* Create middleware to change paths from the serve-index plugin from absolute to relative */
   const serveIndexMiddleware = (req: Request, res: Response, next: NextFunction) => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const origEnd = res.end
     // @ts-expect-error FIXME assignment broken due to seemingly void return value
     res.end = function () {
       if (arguments.length) {
         const reqPath = req.originalUrl.replace(/\?.*$/, '')
-        const currentFolder = reqPath.split('/').pop() as string
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const currentFolder = reqPath.split('/').pop()!
         arguments[0] = arguments[0].replace(/a href="([^"]+?)"/gi, function (matchString: string, matchedUrl: string) {
           let relativePath = path.relative(reqPath, matchedUrl)
           if (relativePath === '') {
@@ -642,7 +644,6 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.post('/profile', updateUserProfile())
 
   /* Route for vulnerable code snippets */
-  app.get('/snippets', serveChallengesWithCodeSnippet())
   app.get('/snippets/:challenge', serveCodeSnippet())
   app.post('/snippets/verdict', checkVulnLines())
   app.get('/snippets/fixes/:key', serveCodeFixes())

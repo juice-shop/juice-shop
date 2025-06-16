@@ -88,7 +88,7 @@ describe('/profile/image/file', () => {
 describe('/profile/image/url', () => {
   it('POST profile image URL valid for image available online', () => {
     const form = frisby.formData()
-    form.append('imageUrl', 'https://placecats.com/g/100/100')
+    form.append('imageUrl', 'cataas.com/cat')
 
     return frisby.post(`${REST_URL}/user/login`, {
       headers: jsonHeader,
@@ -140,7 +140,7 @@ describe('/profile/image/url', () => {
 
   xit('POST profile image URL forbidden for anonymous user', () => { // FIXME runs into "socket hang up"
     const form = frisby.formData()
-    form.append('imageUrl', 'https://placecats.com/g/100/100')
+    form.append('imageUrl', 'cataas.com/cat')
 
     return frisby.post(`${URL}/profile/image/url`, {
       // @ts-expect-error FIXME form.getHeaders() is not found
