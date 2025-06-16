@@ -22,6 +22,7 @@ import { UserModel } from '../models/user'
 import { WalletModel } from '../models/wallet'
 import { type Product } from './types'
 import logger from '../lib/logger'
+import { getCodeChallenges } from '../lib/codingChallenges'
 import type { Memory as MemoryConfig, Product as ProductConfig } from '../lib/config.types'
 import config from 'config'
 import * as utils from '../lib/utils'
@@ -66,6 +67,8 @@ async function createChallenges () {
   const showMitigations = config.get<boolean>('challenges.showMitigations')
 
   const challenges = await loadStaticChallengeData()
+  const codeChallenges = await getCodeChallenges()
+  const challengeKeysWithCodeChallenges = [...codeChallenges.keys()]
 
   await Promise.all(
     challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, mitigationUrl, key, disabledEnv, tutorial, tags }) => {
@@ -75,6 +78,11 @@ async function createChallenges () {
       description = description.replace('juice-sh.op', config.get<string>('application.domain'))
       description = description.replace('&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;', entities.encode(config.get('challenges.xssBonusPayload')))
       hint = hint.replace(/OWASP Juice Shop's/, `${config.get<string>('application.name')}'s`)
+      const hasCodingChallenge = challengeKeysWithCodeChallenges.includes(key)
+
+      if (hasCodingChallenge) {
+        tags = tags ? [...tags, 'With Coding Challenge'] : ['With Coding Challenge']
+      }
 
       try {
         datacache.challenges[key] = await ChallengeModel.create({
@@ -91,7 +99,8 @@ async function createChallenges () {
           mitigationUrl: showMitigations ? mitigationUrl : null,
           disabledEnv: disabledBecause,
           tutorialOrder: (tutorial != null) ? tutorial.order : null,
-          codingChallengeStatus: 0
+          codingChallengeStatus: 0,
+          hasCodingChallenge
         })
       } catch (err) {
         logger.error(`Could not insert Challenge ${name}: ${utils.getErrorMessage(err)}`)
@@ -328,7 +337,8 @@ async function createProducts () {
     pastebinLeakChallengeProduct.deletedDate = '2019-02-1 00:00:00.000 +00:00'
   }
   if (blueprintRetrievalChallengeProduct) {
-    let blueprint = blueprintRetrievalChallengeProduct.fileForRetrieveBlueprintChallenge as string
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    let blueprint = blueprintRetrievalChallengeProduct.fileForRetrieveBlueprintChallenge!
     if (utils.isUrl(blueprint)) {
       const blueprintUrl = blueprint
       blueprint = utils.extractFilename(blueprint)

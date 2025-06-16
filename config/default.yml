@@ -79,9 +79,14 @@ challenges:
   restrictToTutorialsFirst: false
   overwriteUrlForProductTamperingChallenge: 'https://owasp.slack.com'
   xssBonusPayload: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
-  safetyMode: auto
+  safetyMode: auto # Options: enabled disabled auto
   showFeedbackButtons: true
   csafHashValue: 7e7ce7c65db3bf0625fcea4573d25cff41f2f7e3474f2c74334b14fc65bb4fd26af802ad17a3a03bf0eee6827a00fb8f7905f338c31b5e6ea9cb31620242e843
+  metricsIgnoredUserAgents:
+    - 'Prometheus'
+    - 'Alloy'
+    - 'promscrape'
+    - 'otelcol'
 hackingInstructor:
   isEnabled: true
   avatarImage: JuicyBot.png

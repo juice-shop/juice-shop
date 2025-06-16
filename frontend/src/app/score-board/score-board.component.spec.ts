@@ -40,6 +40,7 @@ function createChallenge (challengeOverwrites: Partial<Challenge>): Challenge {
     hasSnippet: false,
     codingChallengeStatus: 0,
     mitigationUrl: '',
+    hasCodingChallenge: false,
     ...challengeOverwrites
   }
 }
@@ -136,14 +137,6 @@ describe('ScoreBoardComponent', () => {
 
   it('should not filter any challenges on default settings', (): void => {
     expect(component.filteredChallenges).toHaveSize(3)
-  })
-
-  it('should properly identify that a challenge has a associated coding challenge', (): void => {
-    expect(
-      component.filteredChallenges.find(
-        (challenge) => challenge.key === 'challenge-2'
-      ).hasCodingChallenge
-    ).toBe(true)
   })
 
   it('should mark challenges as solved on "challenge solved" websocket', (): void => {

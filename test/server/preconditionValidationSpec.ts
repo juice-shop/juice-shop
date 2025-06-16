@@ -15,8 +15,8 @@ chai.use(sinonChai)
 
 describe('preconditionValidation', () => {
   describe('checkIfRunningOnSupportedNodeVersion', () => {
-    it('should define the supported semver range as 18 - 22', () => {
-      expect(supportedEngines.node).to.equal('18 - 22')
+    it('should define the supported semver range as 20 - 22', () => {
+      expect(supportedEngines.node).to.equal('20 - 22')
       expect(semver.validRange(supportedEngines.node)).to.not.equal(null)
     })
 
@@ -24,12 +24,13 @@ describe('preconditionValidation', () => {
       expect(checkIfRunningOnSupportedNodeVersion('22.4.1')).to.equal(true)
       expect(checkIfRunningOnSupportedNodeVersion('21.7.3')).to.equal(true)
       expect(checkIfRunningOnSupportedNodeVersion('20.15.1')).to.equal(true)
-      expect(checkIfRunningOnSupportedNodeVersion('19.9.0')).to.equal(true)
-      expect(checkIfRunningOnSupportedNodeVersion('18.20.4')).to.equal(true)
     })
 
     it('should fail for an unsupported version', () => {
-      expect(checkIfRunningOnSupportedNodeVersion('23.0.0')).to.equal(false)
+      expect(checkIfRunningOnSupportedNodeVersion('24.0.0')).to.equal(false)
+      expect(checkIfRunningOnSupportedNodeVersion('23.11.0')).to.equal(false)
+      expect(checkIfRunningOnSupportedNodeVersion('19.9.0')).to.equal(false)
+      expect(checkIfRunningOnSupportedNodeVersion('18.20.4')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('17.3.0')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('16.10.0')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('15.9.0')).to.equal(false)
