@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [18, 20, 21, 22]
+        node-version: [20, 22]
       fail-fast: false
     steps:
       - name: "Check out Git repository"
@@ -41,7 +41,7 @@ jobs:
           npm install --production
           npm run package:ci
       - name: 'Attach packaged archive to tag release'
-        uses: softprops/action-gh-release@c95fe1489396fe8a9eb87c0abf8aa5b2ef267fda #v2.2.1
+        uses: softprops/action-gh-release@da05d552573ad5aba039eaac05058a918a7bf631 #v2.2.2
         with:
           draft: true
           files: dist/*

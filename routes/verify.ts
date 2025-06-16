@@ -164,6 +164,9 @@ export const databaseRelatedChallenges = () => (req: Request, res: Response, nex
   if (challengeUtils.notSolved(challenges.csafChallenge)) {
     csafChallenge()
   }
+  if (challengeUtils.notSolved(challenges.leakedApiKeyChallenge)) {
+    leakedApiKeyChallenge()
+  }
   next()
 }
 
@@ -402,6 +405,25 @@ function csafChallenge () {
   ).then(({ count }: { count: number }) => {
     if (count > 0) {
       challengeUtils.solve(challenges.csafChallenge)
+    }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
+  })
+}
+
+function leakedApiKeyChallenge () {
+  FeedbackModel.findAndCountAll({ where: { comment: { [Op.like]: '%6PPi37DBxP4lDwlriuaxP15HaDJpsUXY5TspVmie%' } } }
+  ).then(({ count }: { count: number }) => {
+    if (count > 0) {
+      challengeUtils.solve(challenges.leakedApiKeyChallenge)
+    }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
+  })
+  ComplaintModel.findAndCountAll({ where: { message: { [Op.like]: '%6PPi37DBxP4lDwlriuaxP15HaDJpsUXY5TspVmie%' } } }
+  ).then(({ count }: { count: number }) => {
+    if (count > 0) {
+      challengeUtils.solve(challenges.leakedApiKeyChallenge)
     }
   }).catch(() => {
     throw new Error('Unable to get data for known vulnerabilities. Please try again')

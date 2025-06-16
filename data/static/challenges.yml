@@ -1097,7 +1097,7 @@
   category: 'Security Misconfiguration'
   tags:
     - Contraption
-  description: 'Stick <a href="http://placecats.com/" target="_blank">cute cross-domain kittens</a> all over our delivery boxes.'
+  description: 'Stick <a href="https://cataas.com/cat" target="_blank">cute cross-domain kittens</a> all over our delivery boxes.'
   difficulty: 5
   hint: 'This challenge would formally have to be in several categories as the developers made multiple gaffes for this to be possible.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/security-misconfiguration.html#_stick_cute_cross_domain_kittens_all_over_our_delivery_boxes'
@@ -1240,7 +1240,7 @@
 -
   name: 'Security Advisory'
   category: 'Miscellaneous'
-  description: ' The Juice Shop is susceptible to a known vulnerability in a library, for which an advisory has already been issued, marking the Juice Shop as <i>known affected</i>. A fix is still pending. <a href="/#/contact">Inform the shop</a> about a suitable checksum as proof that you did your due diligence.'
+  description: 'The Juice Shop is susceptible to a known vulnerability in a library, for which an advisory has already been issued, marking the Juice Shop as <i>known affected</i>. A fix is still pending. <a href="/#/contact">Inform the shop</a> about a suitable checksum as proof that you did your due diligence.'
   difficulty: 3
   hint: 'Security Advisories are often listed in the security.txt'
   hintUrl: ''
@@ -1257,3 +1257,12 @@
   key: exposedCredentialsChallenge
   tutorial:
     order: 6
+-
+  name: 'Leaked API Key'
+  category: 'Sensitive Data Exposure'
+  description: '<a href="/#/contact">Inform the shop</a> about a leaked API key. (Mention the exact key in your comment)'
+  difficulty: 5
+  hint: 'The API call is part of a scheduled process "behind the scenes", i.e. completely unrelated to the web application.'
+  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_inform_the_shop_about_a_leaked_api_key'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html'
+  key: leakedApiKeyChallenge
