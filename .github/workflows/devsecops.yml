@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Build Docker image
-        run: docker build -t juice-shop-local .
+        run: docker build -t juice-shop:latest .
 
   sca:
     runs-on: ubuntu-latest
@@ -75,7 +75,7 @@ jobs:
 
       - name: Run Juice Shop container
         run: |
-          docker run -d -p 3000:3000 --name juice-shop-local juice-shop-local
+          docker run -d -p 3000:3000 --name juice-shop-local juice-shop:latest
 
       - name: Wait for Juice Shop to be ready
         run: |
