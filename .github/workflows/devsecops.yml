@@ -1,0 +1,90 @@
+name: DevSecOps CI/CD
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Docker image
+        run: docker build -t juice-shop-local .
+
+  sca:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Run npm audit (SCA)
+        run: npm audit --audit-level=high
+
+  sast:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Run Semgrep (SAST)
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: "auto"
+
+  secrets:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Run Gitleaks (Secrets Scan)
+        uses: gitleaks/gitleaks-action@v2
+
+  dast:
+    runs-on: ubuntu-latest
+    needs: build
+    services:
+      docker:
+        image: docker:dind
+        options: --privileged
+        ports:
+          - 2375:2375
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+    
+      - name: Install Docker CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+
+      - name: Run Juice Shop container
+        run: |
+          docker run -d -p 3000:3000 --name juice-shop-local juice-shop-local
+
+      - name: Wait for Juice Shop to be ready
+        run: |
+          until curl -s http://localhost:3000; do sleep 5; done
+
+      - name: Run OWASP ZAP Baseline Scan (DAST)
+        run: |
+          docker run --network host owasp/zap2docker-stable zap-baseline.py -t http://localhost:3000 -r zap_report.html
+
+      - name: Upload ZAP report
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-report
+          path: zap_report.html
