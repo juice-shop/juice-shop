@@ -70,8 +70,8 @@ jobs:
     
       - name: Install Docker CLI
         run: |
-          sudo apt update
-          sudo apt install -y docker.io
+          apt update
+          apt install -y docker.io
 
       - name: Run Juice Shop container
         run: |
