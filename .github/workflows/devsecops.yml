@@ -81,10 +81,10 @@ jobs:
       - name: Wait for Juice Shop to be ready
         run: |
           sleep 30
-
+      
       - name: Run OWASP ZAP Baseline Scan (DAST)
         run: |
-          docker run --network host owasp/zap2docker-stable zap-baseline.py -t http://localhost:3000 -r zap_report.html
+          docker run --network host zaproxy/zap-stable zap-baseline.py -t http://localhost:3000 -r zap_report.html
 
       - name: Upload ZAP report
         uses: actions/upload-artifact@v4
