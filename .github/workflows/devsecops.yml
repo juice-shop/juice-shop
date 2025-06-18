@@ -59,6 +59,8 @@ jobs:
         options: --privileged
         ports:
           - 2375:2375
+    container:
+      image: ubuntu:latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
