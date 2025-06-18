@@ -180,6 +180,7 @@
     "sqlite3": "^5.1.7",
     "svg-captcha": "^1.4.0",
     "swagger-ui-express": "^5.0.1",
+    "tinymce": "^4.1.0",
     "ts-node-dev": "^1.1.8",
     "unzipper": "0.9.15",
     "web3": "^4.13.0",
