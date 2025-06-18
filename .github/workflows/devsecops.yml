@@ -80,7 +80,7 @@ jobs:
 
       - name: Wait for Juice Shop to be ready
         run: |
-          until curl -s http://localhost:3000; do sleep 5; done
+          sleep 30
 
       - name: Run OWASP ZAP Baseline Scan (DAST)
         run: |
