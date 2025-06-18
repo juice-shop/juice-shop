@@ -21,9 +21,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Docker image
-        run: docker build -t juice-shop:latest .
-
   sca:
     runs-on: ubuntu-latest
     needs: build
@@ -62,16 +59,17 @@ jobs:
         options: --privileged
         ports:
           - 2375:2375
-    container:
-      image: ubuntu:latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-    
+
       - name: Install Docker CLI
         run: |
           apt update
           apt install -y docker.io
+
+      - name: Build Docker image
+        run: docker build -t juice-shop:latest .
 
       - name: Run Juice Shop container
         run: |
