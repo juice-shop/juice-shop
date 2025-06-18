@@ -68,6 +68,7 @@ jobs:
       - name: Install Docker CLI
         run: |
           apt update
+          apt install -y curl
           apt install -y docker.io
 
       - name: Build Docker image
