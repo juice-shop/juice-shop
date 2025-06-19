@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "18.0.0",
+  "version": "18.1.0-SNAPSHOT",
   "private": true,
   "description": "Probably the most modern and sophisticated insecure web application",
   "keywords": [
@@ -266,7 +266,7 @@
     "typescript": "~5.3.3"
   },
   "engines": {
-    "node": "20 - 22"
+    "node": "20 - 24"
   },
   "os": [
     "win32",

@@ -139,7 +139,9 @@ offered accordingly.
 
 | node.js | Supported              | Tested             | [Packaged Distributions](#packaged-distributions) | [Docker images](#docker-container) from `master` | [Docker images](#docker-container) from `develop` |
 |:--------|:-----------------------|:-------------------|:--------------------------------------------------|:-------------------------------------------------|:--------------------------------------------------|
-| 23.x    | :x:                    | :x:                |                                                   |                                                  |                                                   |
+| 25.x    | :x:                    | :x:                |                                                   |                                                  |                                                   |
+| 24.x    | :heavy_check_mark:     | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
+| 23.x    | ( :heavy_check_mark: ) | :x:                |                                                   |                                                  |                                                   |
 | 22.x    | :heavy_check_mark:     | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     | `latest` (`linux/amd64`, `linux/arm64`)          | `snapshot` (`linux/amd64`, `linux/arm64`)         |
 | 21.x    | ( :heavy_check_mark: ) | :x:                |                                                   |                                                  |                                                   |
 | 20.x    | :heavy_check_mark:     | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
