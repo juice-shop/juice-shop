@@ -1,3 +1,6 @@
+import * as sanitizeHtml from 'sanitize-html';
+
+
 ngAfterViewInit () {
     const products = this.productService.search('')
     const quantities = this.quantityService.getAll()
@@ -54,8 +57,14 @@ ngAfterViewInit () {
     }, (err) => { console.log(err) })
   }
 
-  encodeProductDescription (tableData: any[]) {
-    for (let i = 0; i < tableData.length; i++) {
-      tableData[i].description = tableData[i].description.replaceAll('<', '&lt;').replaceAll('>', '&gt;')
-    }
+encodeProductDescription(tableData: any[]) {
+  for (let i = 0; i < tableData.length; i++) {
+    tableData[i].description = sanitizeHtml(tableData[i].description, {
+      allowedTags: [], // Brak tagów HTML
+      allowedAttributes: {} // Brak dozwolonych atrybutów
+    });
   }
+}
+
+
+
