@@ -1,0 +1,6 @@
+ignore:
+  vulnerabilities:
+    CVE-2020-15084:
+      /package.json:
+        reason: EXCEPTION
+        expires: 2025-12-12T00:00:00Z
