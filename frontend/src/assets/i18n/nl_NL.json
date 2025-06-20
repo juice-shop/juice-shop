@@ -457,7 +457,7 @@
   "LABEL_CONTRACT_ADDRESS": "Contract Address",
   "TITLE_INTERACT_WITH_CONTRACT": "Interact with Contract",
   "BTN_INVOKE": "Invoke",
-  "LABEL_OUTPUT_FOR": "Output for",
+  "LABEL_OUTPUT_FOR": "",
   "LABEL_OUTPUT": "Output",
   "TITLE_SBT": "Juicy Chatbot SBT",
   "BTN_SBT_NOTE": "Note: Never reveal your personal private keys and seed phrase to anyone",
