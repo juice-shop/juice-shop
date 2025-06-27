@@ -1,17 +1,18 @@
-import chai = require('chai')
+import chai from 'chai'
 import config from 'config'
 import type { Product as ProductConfig } from 'lib/config.types'
 
-import path from 'path'
-import { promisify } from 'util'
+import fs from 'node:fs'
+import path from 'node:path'
 import { ExifImage } from 'exif'
-import sinonChai = require('sinon-chai')
+import { Readable } from 'node:stream'
+import sinonChai from 'sinon-chai'
+
+import * as utils from '../../lib/utils'
+import { finished } from 'node:stream/promises'
+
 const expect = chai.expect
 chai.use(sinonChai)
-const fs = require('fs')
-const utils = require('../../lib/utils')
-const { pipeline } = require('stream')
-const fetch = require('node-fetch')
 
 async function parseExifData (path: string): Promise<any> {
   return await new Promise((resolve, reject) => {
@@ -36,10 +37,13 @@ describe('blueprint', () => {
         if (product.fileForRetrieveBlueprintChallenge && product.image) {
           if (utils.isUrl(product.image)) {
             pathToImage = path.resolve('frontend/dist/frontend', pathToImage, product.image.substring(product.image.lastIndexOf('/') + 1))
-            const streamPipeline = promisify(pipeline)
             const response = await fetch(product.image)
-            if (!response.ok) expect.fail(`Could not download image from ${product.image}`)
-            await streamPipeline(response.body, fs.createWriteStream(pathToImage))
+            if (!response.ok || !response.body) {
+              expect.fail(`Could not download image from ${product.image}`)
+              return
+            }
+            const fileStream = fs.createWriteStream(pathToImage, { flags: 'w' })
+            await finished(Readable.fromWeb(response.body as any).pipe(fileStream))
           } else {
             pathToImage = path.resolve('frontend/src', pathToImage, product.image)
           }

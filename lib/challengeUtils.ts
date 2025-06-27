@@ -1,5 +1,5 @@
 import { Op } from 'sequelize'
-import { ChallengeModel } from '../models/challenge'
+import { type ChallengeKey, ChallengeModel } from '../models/challenge'
 import logger from './logger'
 import config from 'config'
 import sanitizeHtml from 'sanitize-html'
@@ -75,28 +75,24 @@ export const sendCodingChallengeNotification = function (challenge: { key: strin
 export const notSolved = (challenge: any) => challenge && !challenge.solved
 
 export const findChallengeByName = (challengeName: string) => {
-  for (const c in challenges) {
-    if (Object.prototype.hasOwnProperty.call(challenges, c)) {
-      if (challenges[c].name === challengeName) {
-        return challenges[c]
-      }
+  for (const challenge of Object.values(challenges)) {
+    if (challenge.name === challengeName) {
+      return challenge
     }
   }
   logger.warn('Missing challenge with name: ' + challengeName)
 }
 
 export const findChallengeById = (challengeId: number) => {
-  for (const c in challenges) {
-    if (Object.prototype.hasOwnProperty.call(challenges, c)) {
-      if (challenges[c].id === challengeId) {
-        return challenges[c]
-      }
+  for (const challenge of Object.values(challenges)) {
+    if (challenge.id === challengeId) {
+      return challenge
     }
   }
   logger.warn('Missing challenge with id: ' + challengeId)
 }
 
-export const solveFindIt = async function (key: string, isRestore: boolean) {
+export const solveFindIt = async function (key: ChallengeKey, isRestore: boolean = false) {
   const solvedChallenge = challenges[key]
   await ChallengeModel.update({ codingChallengeStatus: 1 }, { where: { key, codingChallengeStatus: { [Op.lt]: 2 } } })
   logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Find It' phase of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
@@ -108,7 +104,7 @@ export const solveFindIt = async function (key: string, isRestore: boolean) {
   }
 }
 
-export const solveFixIt = async function (key: string, isRestore: boolean) {
+export const solveFixIt = async function (key: ChallengeKey, isRestore: boolean = false) {
   const solvedChallenge = challenges[key]
   await ChallengeModel.update({ codingChallengeStatus: 2 }, { where: { key } })
   logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Fix It' phase of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)

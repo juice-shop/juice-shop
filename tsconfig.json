@@ -13,11 +13,10 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "lib": [
-      "es2020",
-      "dom"
+      "es2020"
     ]
   },
-  "include" : [
+  "include": [
     "cypress/**/*.ts",
     "data/**/*.ts",
     "lib/**/*.ts",

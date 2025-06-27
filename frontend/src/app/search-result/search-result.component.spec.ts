@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatDividerModule } from '@angular/material/divider'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { SearchResultComponent } from './search-result.component'
 import { ProductService } from '../Services/product.service'
@@ -29,6 +29,7 @@ import { SocketIoService } from '../Services/socket-io.service'
 import { type Product } from '../Models/product.model'
 import { QuantityService } from '../Services/quantity.service'
 import { DeluxeGuard } from '../app.guard'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 class MockSocket {
   on (str: string, callback: any) {
@@ -94,10 +95,7 @@ describe('SearchResultComponent', () => {
     deluxeGuard.isDeluxe.and.returnValue(of(false))
 
     TestBed.configureTestingModule({
-      declarations: [SearchResultComponent],
-      imports: [
-        RouterTestingModule,
-        HttpClientTestingModule,
+      imports: [RouterTestingModule,
         TranslateModule.forRoot(),
         BrowserAnimationsModule,
         MatTableModule,
@@ -105,8 +103,8 @@ describe('SearchResultComponent', () => {
         MatDialogModule,
         MatDividerModule,
         MatGridListModule,
-        MatCardModule
-      ],
+        MatCardModule,
+        SearchResultComponent],
       providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: MatDialog, useValue: dialog },
@@ -117,7 +115,9 @@ describe('SearchResultComponent', () => {
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: SocketIoService, useValue: socketIoService },
         { provide: QuantityService, useValue: quantityService },
-        { provide: DeluxeGuard, useValue: deluxeGuard }
+        { provide: DeluxeGuard, useValue: deluxeGuard },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     })
       .compileComponents()

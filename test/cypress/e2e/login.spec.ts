@@ -114,7 +114,7 @@ describe('/#/login', () => {
   })
 
   describe('challenge "twoFactorAuthUnsafeSecretStorage"', () => {
-    it('should be able to log into a exsisting 2fa protected account given the right token', () => {
+    it('should be able to log into a existing 2fa protected account given the right token', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
           cy.get('#email').type(`wurstbrot@${appDomain}'--`)
@@ -170,6 +170,19 @@ describe('/#/login', () => {
       cy.get('#password').type('a')
       cy.get('#loginButton').click()
       cy.expectChallengeSolved({ challenge: 'Ephemeral Accountant' })
+    })
+  })
+
+  describe('challenge "exposedCredentialsChallenge"', () => {
+    it('should be able to log in with testing credentials that are leaked on client', () => {
+      cy.task<string>('GetFromConfig', 'application.domain').then(
+        (appDomain: string) => {
+          cy.get('#email').type(`testing@${appDomain}`)
+          cy.get('#password').type('IamUsedForTesting')
+          cy.get('#loginButton').click()
+        }
+      )
+      cy.expectChallengeSolved({ challenge: 'Exposed credentials' })
     })
   })
 })

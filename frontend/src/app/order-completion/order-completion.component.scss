@@ -1,16 +1,39 @@
 /*!
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-.heading {
+.order-completion-header {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: auto minmax(250px, max-content);
+  margin-bottom: 16px;
+
+  @media (max-width: 800px) {
+    grid-template-columns: auto;
+  }
+
+  > div {
+    padding: 8px;
+  }
+}
+
+.heading-banner {
+  align-items: center;
   background: rgba(0, 0, 0, 0.2);
+  display: flex;
   font-size: x-large;
+  justify-content: space-between;
+  padding: 6px 8px 6px 20px;
+}
+
+.order-links {
+  align-items: center;
+  display: flex;
 }
 
 .heading-text {
   justify-content: center;
-  padding: 12px 20px;
 }
 
 .mat-own-card {
@@ -18,7 +41,6 @@
   margin-left: 20%;
   margin-right: 20%;
 }
-
 
 mat-cell,
 mat-footer-cell,
@@ -33,4 +55,13 @@ mat-header-cell {
 
 .tweet-logo {
   height: 24px;
+}
+
+.table-container {
+  // without setting it to auto, angular material limit the height and cuts off the table
+  --mat-table-footer-container-height: auto;
+}
+
+.bonus-point-container {
+  margin-top: 16px;
 }

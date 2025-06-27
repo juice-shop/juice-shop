@@ -1,5 +1,5 @@
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatDialogModule } from '@angular/material/dialog'
@@ -19,6 +19,8 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { CodeSnippetService } from '../Services/code-snippet.service'
 import { ChallengeService } from '../Services/challenge.service'
 import { type Challenge } from '../Models/challenge.model'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 // allows to easily create a challenge with some overwrites
 function createChallenge (challengeOverwrites: Partial<Challenge>): Challenge {
@@ -38,6 +40,7 @@ function createChallenge (challengeOverwrites: Partial<Challenge>): Challenge {
     hasSnippet: false,
     codingChallengeStatus: 0,
     mitigationUrl: '',
+    hasCodingChallenge: false,
     ...challengeOverwrites
   }
 }
@@ -58,7 +61,11 @@ describe('ScoreBoardComponent', () => {
       'getApplicationConfiguration'
     ])
     await TestBed.configureTestingModule({
-      declarations: [
+      imports: [TranslateModule.forRoot(),
+        RouterTestingModule,
+        MatProgressSpinnerModule,
+        MatDialogModule,
+        MatIconModule,
         ScoreBoardComponent,
         HackingChallengeProgressScoreCardComponent,
         CodingChallengeProgressScoreCardComponent,
@@ -66,20 +73,14 @@ describe('ScoreBoardComponent', () => {
         WarningCardComponent,
         ChallengesUnavailableWarningComponent,
         TutorialModeWarningComponent,
-        ScoreCardComponent
-      ],
-      imports: [
-        TranslateModule.forRoot(),
-        HttpClientTestingModule,
-        RouterTestingModule,
-        MatProgressSpinnerModule,
-        MatDialogModule,
-        MatIconModule
-      ],
+        ScoreCardComponent,
+        BrowserAnimationsModule],
       providers: [
         { provide: ChallengeService, useValue: challengeService },
         { provide: CodeSnippetService, useValue: codeSnippetService },
-        { provide: ConfigurationService, useValue: configService }
+        { provide: ConfigurationService, useValue: configService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     }).compileComponents()
 
@@ -116,9 +117,15 @@ describe('ScoreBoardComponent', () => {
       of({
         challenges: {
           restrictToTutorialsFirst: false,
-          codingChallengesEnabled: true,
+          codingChallengesEnabled: 'solved',
           showHints: true,
           showMitigations: true
+        },
+        ctf: {
+          showFlagsInNotifications: true
+        },
+        hackingInstructor: {
+          isEnabled: true
         }
       })
     )
@@ -130,14 +137,6 @@ describe('ScoreBoardComponent', () => {
 
   it('should not filter any challenges on default settings', (): void => {
     expect(component.filteredChallenges).toHaveSize(3)
-  })
-
-  it('should properly identify that a challenge has a associated coding challenge', (): void => {
-    expect(
-      component.filteredChallenges.find(
-        (challenge) => challenge.key === 'challenge-2'
-      ).hasCodingChallenge
-    ).toBe(true)
   })
 
   it('should mark challenges as solved on "challenge solved" websocket', (): void => {
