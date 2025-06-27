@@ -1,14 +1,60 @@
 {
+    "name": "OWASP Juice Shop",
+    "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {},
+        "ghcr.io/devcontainers/features/github-cli:1": {},
+        "ghcr.io/devcontainers/features/common-utils:2": {},
+        "ghcr.io/devcontainers-extra/features/angular-cli:2": {
+            "version": "19.2.6"
+        },
+        "ghcr.io/devcontainers-extra/features/prettier:1": {},
+        "ghcr.io/devcontainers-extra/features/typescript:2": {}
+    },
     "extensions": [
         "eg2.vscode-npm-script",
         "angular.ng-template",
         "dbaeumer.vscode-eslint",
-        "stylelint.vscode-stylelint"
+        "stylelint.vscode-stylelint",
+        "ms-vscode.vscode-typescript-next",
+        "bradlc.vscode-tailwindcss",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-json"
     ],
     "settings": {
         "eslint.workingDirectories": [
             { "mode": "auto" }
-        ]
+        ],
+        "typescript.preferences.includePackageJsonAutoImports": "on",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": "explicit"
+        }
     },
-    "postCreateCommand": "export NG_CLI_ANALYTICS=ci && export NG_FORCE_TTY=false && npm i -g @angular/cli && npm install && unset NG_FORCE_TTY"
+    "forwardPorts": [3000],
+    "portsAttributes": {
+        "3000": {
+            "label": "Juice Shop Backend",
+            "onAutoForward": "notify"
+        }
+    },
+    "containerEnv": {
+        "NG_CLI_ANALYTICS": "ci",
+        "NG_FORCE_TTY": "false"
+    },
+    "postCreateCommand": "bash .devcontainer/setup.sh",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "eg2.vscode-npm-script",
+                "angular.ng-template",
+                "dbaeumer.vscode-eslint",
+                "stylelint.vscode-stylelint",
+                "ms-vscode.vscode-typescript-next",
+                "bradlc.vscode-tailwindcss",
+                "esbenp.prettier-vscode",
+                "ms-vscode.vscode-json"
+            ]
+        }
+    }
 }
