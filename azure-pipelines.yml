@@ -1,29 +1,69 @@
-# Docker
-# Build a Docker image
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
 trigger:
-- master
+  branches:
+    include:
+      - master
 
 resources:
-- repo: self
+  repositories:
+    - repository: self
 
 variables:
-  tag: '$(Build.BuildId)'
+  - name: tag
+    value: '$(Build.BuildId)'
+  - name: imageName
+    value: 'juice-shop'
 
 stages:
 - stage: Build
-  displayName: Build image
+  displayName: Build image and scan with Endor
   jobs:
   - job: Build
-    displayName: Build
+    displayName: Build and Scan
     pool:
       vmImage: ubuntu-latest
     steps:
+    - checkout: self
+
+    # 🧰 Install Node.js & build app (for source scan)
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '18.x'
+      displayName: 'Install Node.js'
+
+    - script: |
+        npm install
+        npm run build
+      displayName: 'Build Juice Shop'
+
+    # 🚨 Install endorctl
+    - script: |
+        curl -sSfL https://endorlabs.com/install.sh | sh
+      displayName: 'Install endorctl'
+
+    # 🔍 Source SCA scan
+    - script: |
+        ./endorctl scan \
+          --upload \
+          --namespace "<your-endor-namespace>" \
+          --project-name "$(Build.Repository.Name)" \
+          --source-path "." \
+          --build-cmd "npm run build"
+      displayName: 'Run Endor Labs SCA (source) Scan'
+
+    # 🐳 Build Docker image
     - task: Docker@2
-      displayName: Build an image
+      displayName: 'Build Docker Image'
       inputs:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
-          $(tag)
+          $(imageName):$(tag)
+
+    # 🔍 Container scan
+    - script: |
+        ./endorctl scan \
+          --upload \
+          --namespace "<your-endor-namespace>" \
+          --project-name "$(Build.Repository.Name)" \
+          --container "$(imageName):$(tag)"
+      displayName: 'Run Endor Labs Container Image Scan'
