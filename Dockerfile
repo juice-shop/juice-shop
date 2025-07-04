@@ -2,7 +2,7 @@ FROM node:20-buster AS installer
 COPY . /juice-shop
 WORKDIR /juice-shop
 RUN npm i -g typescript ts-node
-RUN npm install --omit=dev --unsafe-perm
+RUN npm install --omit=dev --unsafe-perm --legacy-peer-deps
 RUN npm dedupe --omit=dev
 RUN rm -rf frontend/node_modules
 RUN rm -rf frontend/.angular
