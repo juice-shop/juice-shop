@@ -22,7 +22,12 @@ import { MatIconModule } from '@angular/material/icon'
   selector: 'app-data-export',
   templateUrl: './data-export.component.html',
   styleUrls: ['./data-export.component.scss'],
-  imports: [FlexModule, MatCardModule, TranslateModule, NgIf, MatRadioGroup, FormsModule, ReactiveFormsModule, MatLabel, MatRadioButton, MatFormFieldModule, MatInputModule, MatHint, MatError, MatButtonModule, MatIconModule]
+  imports: [
+    FlexModule, MatCardModule, TranslateModule, NgIf,
+    MatRadioGroup, FormsModule, ReactiveFormsModule,
+    MatLabel, MatRadioButton, MatFormFieldModule, MatInputModule,
+    MatHint, MatError, MatButtonModule, MatIconModule
+  ]
 })
 export class DataExportComponent implements OnInit {
   public captchaControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5)])
@@ -35,7 +40,12 @@ export class DataExportComponent implements OnInit {
   public presenceOfCaptcha: boolean = false
   public userData: any
 
-  constructor (public sanitizer: DomSanitizer, private readonly imageCaptchaService: ImageCaptchaService, private readonly dataSubjectService: DataSubjectService) { }
+  constructor (
+    public sanitizer: DomSanitizer,
+    private readonly imageCaptchaService: ImageCaptchaService,
+    private readonly dataSubjectService: DataSubjectService
+  ) { }
+
   ngOnInit (): void {
     this.needCaptcha()
     this.dataRequest = {}
@@ -43,7 +53,9 @@ export class DataExportComponent implements OnInit {
 
   needCaptcha () {
     const nowTime = new Date()
-    const timeOfCaptcha = localStorage.getItem('lstdtxprt') ? new Date(JSON.parse(String(localStorage.getItem('lstdtxprt')))) : new Date(0)
+    const timeOfCaptcha = localStorage.getItem('lstdtxprt')
+      ? new Date(JSON.parse(String(localStorage.getItem('lstdtxprt'))))
+      : new Date(0)
     if (nowTime.getTime() - timeOfCaptcha.getTime() < 300000) {
       this.getNewCaptcha()
       this.presenceOfCaptcha = true
@@ -56,6 +68,16 @@ export class DataExportComponent implements OnInit {
     })
   }
 
+  // Helper function to escape HTML special chars to prevent XSS
+  private escapeHtml(unsafe: string): string {
+    return unsafe
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;")
+  }
+
   save () {
     if (this.presenceOfCaptcha) {
       this.dataRequest.answer = this.captchaControl.value
@@ -65,7 +87,12 @@ export class DataExportComponent implements OnInit {
       this.error = null
       this.confirmation = data.confirmation
       this.userData = data.userData
-      window.open('', '_blank', 'width=500')?.document.write(this.userData)
+
+      const newWindow = window.open('', '_blank', 'width=500')
+      if (newWindow) {
+        newWindow.document.write('<pre>' + this.escapeHtml(this.userData) + '</pre>')
+      }
+
       this.lastSuccessfulTry = new Date()
       localStorage.setItem('lstdtxprt', JSON.stringify(this.lastSuccessfulTry))
       this.ngOnInit()
