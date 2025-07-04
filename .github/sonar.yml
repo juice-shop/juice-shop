@@ -1,0 +1,22 @@
+  sonarqube:
+    name: SonarQube
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Archive SonarQube scanner work directory
+        if: always()
+        run: |
+          tar -czf sonarqube-scannerwork.tar.gz .scannerwork || true
+      - name: Upload SonarQube scanner artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sonarqube-scannerwork
+          path: sonarqube-scannerwork.tar.gz
+          retention-days: 7
