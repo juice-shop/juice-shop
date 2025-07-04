@@ -21,6 +21,7 @@ env:
   NODE_DEFAULT_VERSION: 22
   NODE_OPTIONS: "--max_old_space_size=4096"
   CYCLONEDX_NPM_VERSION: '^2.0.0||^3.0.0'
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -52,6 +53,7 @@ jobs:
           npm run lint:config -- -f ./config/quiet.yml &&
           npm run lint:config -- -f ./config/tutorial.yml &&
           npm run lint:config -- -f ./config/unsafe.yml
+
   coding-challenge-rsn:
     runs-on: windows-latest
     steps:
@@ -102,6 +104,7 @@ jobs:
           path: |
             frontend-lcov.info
             server-lcov.info
+
   api-test:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -138,6 +141,7 @@ jobs:
           name: api-test-lcov
           path: |
             api-lcov.info
+
   coverage-report:
     needs: [test, api-test]
     runs-on: ubuntu-latest
@@ -166,6 +170,7 @@ jobs:
           ./cc-test-reporter sum-coverage codeclimate.*.json -p 3
           ./cc-test-reporter upload-coverage
         shell: bash
+
   custom-config-test:
     runs-on: ubuntu-latest
     steps:
@@ -195,6 +200,7 @@ jobs:
             NODE_ENV=quiet npm run test:server &&
             NODE_ENV=tutorial npm run test:server &&
             NODE_ENV=unsafe npm run test:server
+
   e2e:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -241,6 +247,7 @@ jobs:
           CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   smoke-test:
     runs-on: ubuntu-latest
     steps:
@@ -274,6 +281,7 @@ jobs:
           cd ../..
           chmod +x test/smoke/smoke-test.sh
           test/smoke/smoke-test.sh http://localhost:3000
+
   docker-test:
     runs-on: ubuntu-latest
     steps:
@@ -281,6 +289,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
       - name: "Execute smoke test on Docker"
         run: docker compose -f docker-compose.test.yml up --exit-code-from sut
+
   docker:
     if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
     needs: [test, api-test, e2e, custom-config-test, docker-test]
@@ -319,6 +328,7 @@ jobs:
             VCS_REF=${{ env.VCS_REF }}
             BUILD_DATE=${{ env.BUILD_DATE }}
             CYCLONEDX_NPM_VERSION=${{ env.CYCLONEDX_NPM_VERSION }}
+
   heroku:
     if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
     needs: [test, api-test, e2e, custom-config-test]
@@ -344,6 +354,7 @@ jobs:
           heroku_app_name: ${{ env.HEROKU_APP }}
           heroku_email: bjoern.kimminich@owasp.org
           branch: ${{ env.HEROKU_BRANCH }}
+
   notify-slack:
     if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && (success() || failure())
     needs:
@@ -360,6 +371,7 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+  
   sonarqube:
     name: SonarQube
     runs-on: ubuntu-latest
@@ -367,14 +379,30 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      
+      - name: Install application
+        run: npm install
+      
+      - name: Generate coverage reports
+        run: |
+          npm test
+          npm run frisby
+      
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      
       - name: Archive SonarQube scanner work directory
         if: always()
         run: |
           tar -czf sonarqube-scannerwork.tar.gz .scannerwork || true
+      
       - name: Upload SonarQube scanner artifact
         if: always()
         uses: actions/upload-artifact@v4
