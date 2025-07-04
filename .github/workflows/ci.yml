@@ -407,7 +407,7 @@ jobs:
           args: >
             -Dsonar.projectKey=santoshgarole5992_juice-shop
             -Dsonar.organization=santoshgarole5992
-            -Dsonar.sources=lib,routes,models,config,frontend/src,frontend/src/app,views,server.ts,app.ts
+            -Dsonar.sources=lib,routes,models,config,frontend/src,views,server.ts,app.ts
             -Dsonar.javascript.lcov.reportPaths=build/reports/coverage/frontend-tests/lcov.info,build/reports/coverage/server-tests/lcov.info,build/reports/coverage/api-tests/lcov.info
       
       - name: Archive SonarQube scanner work directory
