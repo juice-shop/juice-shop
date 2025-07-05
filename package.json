@@ -189,7 +189,6 @@
     "z85": "^0.0.2"
   },
   "devDependencies": {
-    
     "@cyclonedx/cyclonedx-npm": "^4.0.0",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@types/chai": "^5.2.2",
