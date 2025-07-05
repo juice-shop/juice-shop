@@ -129,7 +129,7 @@
 	"Reset Morty's password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism with <i>his obfuscated answer</i> to his security question.": "Reset Morty's password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism with <i>his obfuscated answer</i> to his security question.",
 	"Find a way to bypass the rate limiting and brute force the obfuscated answer to Morty's security question.": "Find a way to bypass the rate limiting and brute force the obfuscated answer to Morty's security question.",
 	"Deprive the shop of earnings by downloading the blueprint for one of its products.": "Deprive the shop of earnings by downloading the blueprint for one of its products.",
-	"The product you might want to give a closer look is the OWASP Juice Shop Logo (3D-printed).": "The product you might want to give a closer look is the OWASP Juice Shop Logo (3D-printed).",
+	"The product you might want to give a closer look is the OWASP Juice Shop Logo (3D-printed).": "Produkt, któremu możesz chcieć przyjrzeć się bliżej, to logo OWASP Juice Shop (wydruk 3D).",
 	"Request a hidden resource on server through server.": "Request a hidden resource on server through server.",
 	"Reverse engineering something bad can make good things happen.": "Reverse engineering something bad can make good things happen.",
 	"Infect the server with juicy malware by abusing arbitrary command execution.": "Infect the server with juicy malware by abusing arbitrary command execution.",
