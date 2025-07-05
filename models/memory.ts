@@ -35,8 +35,20 @@ const MemoryModelInit = (sequelize: Sequelize) => {
         primaryKey: true,
         autoIncrement: true
       },
-      caption: DataTypes.STRING,
-      imagePath: DataTypes.STRING
+      caption: {
+        type: DataTypes.STRING,
+        validate: {
+          // Allow letters, numbers, spaces, common punctuation. Adjust as needed.
+          is: /^[\w\s.,:;!?'"\-\(\)\[\]]*$/i
+        }
+      },
+      imagePath: {
+        type: DataTypes.STRING,
+        validate: {
+          // Allow only safe path-like structures (alphanumeric, dash, underscore, dot, slash)
+          is: /^[\w\-\/\.]+$/i
+        }
+      }
     },
     {
       tableName: 'Memories',

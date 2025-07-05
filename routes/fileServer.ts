@@ -15,11 +15,11 @@ export function servePublicFiles () {
   return ({ params, query }: Request, res: Response, next: NextFunction) => {
     const file = params.file
 
-    if (!file.includes('/')) {
+    if (!file.includes('/') && !file.includes('\\')) {
       verify(file, res, next)
     } else {
       res.status(403)
-      next(new Error('File names cannot contain forward slashes!'))
+      next(new Error('File names cannot contain forward or backward slashes!'))
     }
   }
 
@@ -30,7 +30,16 @@ export function servePublicFiles () {
       challengeUtils.solveIf(challenges.directoryListingChallenge, () => { return file.toLowerCase() === 'acquisitions.md' })
       verifySuccessfulPoisonNullByteExploit(file)
 
-      res.sendFile(path.resolve('ftp/', file))
+      // ensure file does not contain dangerous path fragments
+      const sanitizedFile = file.replace(/(\.\.[\/\\])|[\/\\]/g, '')
+      const basePath = path.resolve('ftp/')
+      const resolvedPath = path.resolve(basePath, sanitizedFile)
+      if (!resolvedPath.startsWith(basePath + path.sep)) {
+        res.status(403)
+        next(new Error('File path traversal attempt detected!'))
+        return
+      }
+      res.sendFile(resolvedPath)
     } else {
       res.status(403)
       next(new Error('Only .md and .pdf files are allowed!'))

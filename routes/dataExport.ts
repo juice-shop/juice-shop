@@ -50,7 +50,7 @@ export function dataExport () {
         memories: []
       }
 
-      const memories = await MemoryModel.findAll({ where: { UserId: req.body.UserId } })
+      const memories = await MemoryModel.findAll({ where: { UserId: loggedInUser.data.id } })
       memories.forEach((memory: MemoryModel) => {
         userData.memories.push({
           imageUrl: req.protocol + '://' + req.get('host') + '/' + memory.imagePath,
@@ -99,7 +99,22 @@ export function dataExport () {
           for (const order of userData.orders) {
             challengeUtils.solveIf(challenges.dataExportChallenge, () => { return order.orderId.split('-')[0] !== emailHash })
           }
-          res.status(200).send({ userData: JSON.stringify(userData, null, 2), confirmation: 'Your data export will open in a new Browser window.' })
+          // Only include non-sensitive fields in the exported data
+          const safeUserData = {
+            orders: userData.orders ? userData.orders.map(order => ({
+              orderId: order.orderId,
+              products: order.products,
+              // Exclude addresses, payment info, etc.
+            })) : [],
+            reviews: userData.reviews ? userData.reviews.map(review => ({
+              message: review.message,
+              productId: review.productId,
+              likesCount: review.likesCount,
+              // Do not expose reviewer email or username
+            })) : [],
+            // Add/modify further fields as appropriate, ensuring no PII or sensitive user info is included
+          }
+          res.status(200).send({ userData: JSON.stringify(safeUserData, null, 2), confirmation: 'Your data export will open in a new Browser window.' })
         },
         () => {
           next(new Error(`Error retrieving reviews for ${updatedEmail}`))

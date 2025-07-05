@@ -27,12 +27,28 @@ export function login () {
       })
   }
 
+  // In-memory failed login tracker (for demonstration; use persistent store in prod)
+  const FAILED_ATTEMPTS_LIMIT = 5
+  const LOCK_TIME_MS = 15 * 60 * 1000 // 15 minutes
+  const failedLoginAttempts: Record<string, { count: number, lastAttempt: number }> = {}
   return async (req: Request, res: Response, next: NextFunction) => {
+    const email = req.body.email || ''
+    const key = `${email}:${req.ip}`
+    const now = Date.now()
+    if (failedLoginAttempts[key] && failedLoginAttempts[key].count >= FAILED_ATTEMPTS_LIMIT) {
+      if (now - failedLoginAttempts[key].lastAttempt < LOCK_TIME_MS) {
+        res.status(429).send(res.__('Too many failed login attempts. Please try again later.'))
+        return
+      } else {
+        // Reset after lock time passed
+        delete failedLoginAttempts[key]
+      }
+    }
     try {
       verifyPreLoginChallenges(req)
 
       const email = req.body.email || ''
-      const hashedPassword = security.hash(req.body.password || '')
+      const hashedPassword = await security.hashPassword(req.body.password || '')
 
       const authenticatedUser = await UserModel.findOne({
         where: {
@@ -45,6 +61,7 @@ export function login () {
       const user = utils.queryResultToJson(authenticatedUser)
 
       if (user.data?.id && user.data.totpSecret !== '') {
+        if (failedLoginAttempts[key]) { delete failedLoginAttempts[key] }
         res.status(401).json({
           status: 'totp_token_required',
           data: {
@@ -55,9 +72,16 @@ export function login () {
           }
         })
       } else if (user.data?.id) {
+        if (failedLoginAttempts[key]) { delete failedLoginAttempts[key] }
         // @ts-expect-error FIXME some properties missing in user
         afterLogin(user, res, next)
       } else {
+        if (!failedLoginAttempts[key]) {
+          failedLoginAttempts[key] = { count: 1, lastAttempt: now }
+        } else {
+          failedLoginAttempts[key].count += 1
+          failedLoginAttempts[key].lastAttempt = now
+        }
         res.status(401).send(res.__('Invalid email or password.'))
       }
     } catch (error) {
@@ -88,7 +112,7 @@ export function login () {
 
     challengeUtils.solveIf(challenges.oauthUserPasswordChallenge, () =>
       req.body.email === 'bjoern.kimminich@gmail.com' &&
-      req.body.password === 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI=')
+      req.body.password === config.get('oauthUser.password'))
 
     challengeUtils.solveIf(challenges.exposedCredentialsChallenge, () =>
       req.body.email === 'testing@' + config.get<string>('application.domain') &&

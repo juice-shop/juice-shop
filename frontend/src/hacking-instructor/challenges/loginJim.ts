@@ -43,7 +43,7 @@ export const LoginJimInstruction: ChallengeInstruction = {
     },
     {
       text:
-        "So, let's go find out Jim's email! Luckily the shop is very bad with privacy and leaks emails in different places, for instance in the product reviews.",
+        "So, let's go find out Jim's email! Let's investigate where we might find more information about users in the shop.",
       fixture: 'app-navbar',
       resolved: waitInMs(15000)
     },

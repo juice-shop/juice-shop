@@ -110,7 +110,7 @@ export async function setup (req: Request, res: Response) {
 
     const { password, setupToken, initialToken } = req.body
 
-    if (user.password !== security.hash(password)) {
+    if (!security.constantTimeCompare(user.password, security.hash(password))) {
       throw new Error('Password doesnt match stored password')
     }
 

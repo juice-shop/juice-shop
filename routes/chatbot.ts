@@ -138,11 +138,35 @@ async function setUserName (user: User, req: Request, res: Response) {
       })
       return
     }
-    const updatedUser = await userModel.update({ username: req.body.query })
+    // Validate and sanitize username to mitigate persistent XSS
+    const rawUsername = req.body.query
+    if (!isString(rawUsername)) {
+      res.status(400).json({
+        status: 'error',
+        error: 'Invalid username type'
+      })
+      return
+    }
+    const sanitizedUsername = rawUsername
+      .replace(/[<>"'`/\\]/g, '') // strip common XSS vectors
+      .trim()
+    // Enforce allowed characters and reasonable length
+    if (
+      sanitizedUsername.length < 3 ||
+      sanitizedUsername.length > 30 ||
+      !/^[\w .\-@]+$/.test(sanitizedUsername)
+    ) {
+      res.status(400).json({
+        status: 'error',
+        error: 'Username must be 3-30 characters and contain only letters, numbers, spaces, and .-@_'
+      })
+      return
+    }
+    const updatedUser = await userModel.update({ username: sanitizedUsername })
     const updatedUserResponse = utils.queryResultToJson(updatedUser)
     const updatedToken = security.authorize(updatedUserResponse)
     security.authenticatedUsers.put(updatedToken, updatedUserResponse)
-    bot.addUser(`${updatedUser.id}`, req.body.query)
+    bot.addUser(`${updatedUser.id}`, sanitizedUsername)
     res.status(200).json({
       action: 'response',
       body: bot.greet(`${updatedUser.id}`),
@@ -240,7 +264,26 @@ async function getUserFromJwt (token: string): Promise<User | null> {
       if (err !== null || !decoded || isString(decoded)) {
         resolve(null)
       } else {
-        resolve(decoded.data)
+        // Strictly validate decoded.data fields against expected User object structure
+        const userData = decoded.data
+        if (
+          userData &&
+          typeof userData === "object" &&
+          typeof userData.id === "number" &&
+          typeof userData.email === "string" &&
+          typeof userData.role === "string" &&
+          typeof userData.username === "string"
+        ) {
+          // Return only safe, whitelisted fields
+          resolve({
+            id: userData.id,
+            email: userData.email,
+            role: userData.role,
+            username: userData.username
+          })
+        } else {
+          resolve(null)
+        }
       }
     })
   })

@@ -199,3 +199,11 @@ export const updateAuthenticatedUsers = () => (req: Request, res: Response, next
   }
   next()
 }
+
+export function constantTimeCompare(password: string & { [CreationAttributeBrand]?: true; }, arg1: string) {
+  throw new Error('Function not implemented.');
+}
+
+export function hashPassword(arg0: any) {
+  throw new Error('Function not implemented.');
+}
