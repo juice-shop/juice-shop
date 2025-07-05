@@ -14,7 +14,14 @@ RUN npm i -g typescript ts-node
 RUN npm install --legacy-peer-deps
 RUN npm dedupe --legacy-peer-deps
 
-# Чистим ненужные файлы фронтенда и данные
+# Устанавливаем CycloneDX и генерируем SBOM
+ARG CYCLONEDX_NPM_VERSION=4.0.0
+RUN npm install -g @cyclonedx/cyclonedx-npm@$CYCLONEDX_NPM_VERSION
+
+# Проверяем наличие package.json и генерируем SBOM ДО очистки
+RUN ls -la && test -f package.json && cyclonedx-npm --output-format json --output-file sbom.json
+
+# Чистим ненужные файлы фронтенда и данные (после генерации SBOM)
 RUN rm -rf frontend/node_modules \
     && rm -rf frontend/.angular \
     && rm -rf frontend/src/assets \
@@ -26,12 +33,7 @@ RUN rm -rf frontend/node_modules \
     && rm -f ftp/legal.md \
     && rm -f i18n/*.json
 
-# Устанавливаем CycloneDX и генерируем SBOM
-ARG CYCLONEDX_NPM_VERSION=4.0.0
-RUN npm install -g @cyclonedx/cyclonedx-npm@$CYCLONEDX_NPM_VERSION
-RUN cyclonedx-npm --output-format json --output-file sbom.json
-
-# Финальный этап: минимальный runtime образ с Node.js 24
+# Этап 2: Минимальный runtime образ с Node.js 24
 FROM node:24.3.0-slim
 
 WORKDIR /juice-shop
