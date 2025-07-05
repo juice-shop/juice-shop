@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import pjson from '../../package.json'
+import rawPackageJson from '../../package.json'
 import config from 'config'
 import logger from '../logger'
 import path from 'node:path'
@@ -12,8 +12,14 @@ import { access } from 'node:fs/promises'
 import process from 'node:process'
 import semver from 'semver'
 import portscanner from 'portscanner'
-// @ts-expect-error FIXME due to non-existing type definitions for check-internet-connected
+// @ts-expect-error No types available for 'check-internet-connected'
 import checkInternetConnected from 'check-internet-connected'
+
+const pjson = rawPackageJson as typeof rawPackageJson & {
+  engines: { node: string }
+  os: string[]
+  cpu: string[]
+}
 
 const domainDependencies = {
   'https://www.alchemy.com/': ['"Mint the Honeypot" challenge', '"Wallet Depletion" challenge']
@@ -35,7 +41,7 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
     checkIfRequiredFileExists('frontend/dist/frontend/vendor.js'),
     checkIfPortIsAvailable(process.env.PORT ?? config.get<number>('server.port')),
     checkIfDomainReachable('https://www.alchemy.com/')
-  ])).every(condition => condition)
+  ])).every((condition: boolean) => condition)
 
   if ((!success || !asyncConditions) && exitOnFailure) {
     logger.error(colors.red('Exiting due to unsatisfied precondition!'))
@@ -115,7 +121,7 @@ export const checkIfPortIsAvailable = async (port: number | string) => {
 }
 
 export const checkIfRequiredFileExists = async (pathRelativeToProjectRoot: string) => {
-  const fileName = pathRelativeToProjectRoot.substr(pathRelativeToProjectRoot.lastIndexOf('/') + 1)
+  const fileName = pathRelativeToProjectRoot.substring(pathRelativeToProjectRoot.lastIndexOf('/') + 1)
 
   return await access(path.resolve(pathRelativeToProjectRoot)).then(() => {
     logger.info(`Required file ${colors.bold(fileName)} is present (${colors.green('OK')})`)

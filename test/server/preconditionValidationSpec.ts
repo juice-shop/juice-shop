@@ -1,17 +1,15 @@
-/*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
- * SPDX-License-Identifier: MIT
- */
-
 import chai from 'chai'
 import net from 'node:net'
 import semver from 'semver'
 import sinonChai from 'sinon-chai'
-import { engines as supportedEngines } from './../../package.json'
 import { checkIfRunningOnSupportedNodeVersion, checkIfPortIsAvailable } from '../../lib/startup/validatePreconditions'
 
 const expect = chai.expect
 chai.use(sinonChai)
+
+// Импортируем package.json через require
+const packageJson = require('./../../package.json')
+const supportedEngines = packageJson.engines
 
 describe('preconditionValidation', () => {
   describe('checkIfRunningOnSupportedNodeVersion', () => {

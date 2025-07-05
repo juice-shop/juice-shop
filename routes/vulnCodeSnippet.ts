@@ -22,6 +22,10 @@ interface VerdictRequestBody {
   key: ChallengeKey
 }
 
+interface CodeChallengeInfo {
+  hints: string[]
+}
+
 const setStatusCode = (error: any) => {
   switch (error.name) {
     case 'BrokenBoundary':
@@ -39,7 +43,11 @@ export const retrieveCodeSnippet = async (challengeKey: string) => {
   return null
 }
 
-export const serveCodeSnippet = () => async (req: Request<SnippetRequestBody, Record<string, unknown>, Record<string, unknown>>, res: Response, next: NextFunction) => {
+export const serveCodeSnippet = () => async (
+  req: Request<SnippetRequestBody, Record<string, unknown>, Record<string, unknown>>,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const snippetData = await retrieveCodeSnippet(req.params.challenge)
     if (snippetData == null) {
@@ -58,12 +66,20 @@ export const retrieveChallengesWithCodeSnippet = async () => {
   return [...codeChallenges.keys()]
 }
 
-export const serveChallengesWithCodeSnippet = () => async (req: Request, res: Response, next: NextFunction) => {
+export const serveChallengesWithCodeSnippet = () => async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const codingChallenges = await retrieveChallengesWithCodeSnippet()
   res.json({ challenges: codingChallenges })
 }
 
-export const getVerdict = (vulnLines: number[], neutralLines: number[], selectedLines: number[]) => {
+export const getVerdict = (
+  vulnLines: number[],
+  neutralLines: number[],
+  selectedLines: number[]
+): boolean => {
   if (selectedLines === undefined) return false
   if (vulnLines.length > selectedLines.length) return false
   if (!vulnLines.every(e => selectedLines.includes(e))) return false
@@ -72,9 +88,14 @@ export const getVerdict = (vulnLines: number[], neutralLines: number[], selected
   return notOkLines.length === 0
 }
 
-export const checkVulnLines = () => async (req: Request<Record<string, unknown>, Record<string, unknown>, VerdictRequestBody>, res: Response, next: NextFunction) => {
+export const checkVulnLines = () => async (
+  req: Request<Record<string, unknown>, Record<string, unknown>, VerdictRequestBody>,
+  res: Response,
+  next: NextFunction
+) => {
   const key = req.body.key
   let snippetData
+
   try {
     snippetData = await retrieveCodeSnippet(key)
     if (snippetData == null) {
@@ -86,36 +107,44 @@ export const checkVulnLines = () => async (req: Request<Record<string, unknown>,
     res.status(statusCode).json({ status: 'error', error: utils.getErrorMessage(error) })
     return
   }
+
   const vulnLines: number[] = snippetData.vulnLines
   const neutralLines: number[] = snippetData.neutralLines
   const selectedLines: number[] = req.body.selectedLines
   const verdict = getVerdict(vulnLines, neutralLines, selectedLines)
-  let hint
-  if (fs.existsSync('./data/static/codefixes/' + key + '.info.yml')) {
-    const codingChallengeInfos = yaml.load(fs.readFileSync('./data/static/codefixes/' + key + '.info.yml', 'utf8'))
+
+  let hint: string | undefined
+
+  const infoPath = `./data/static/codefixes/${key}.info.yml`
+  if (fs.existsSync(infoPath)) {
+    const codingChallengeInfos = yaml.load(
+      fs.readFileSync(infoPath, 'utf8')
+    ) as CodeChallengeInfo
+
     if (codingChallengeInfos?.hints) {
-      if (accuracy.getFindItAttempts(key) > codingChallengeInfos.hints.length) {
+      const attempt = accuracy.getFindItAttempts(key)
+      if (attempt > codingChallengeInfos.hints.length) {
         if (vulnLines.length === 1) {
-          hint = res.__('Line {{vulnLine}} is responsible for this vulnerability or security flaw. Select it and submit to proceed.', { vulnLine: vulnLines[0].toString() })
+          hint = res.__('Line {{vulnLine}} is responsible for this vulnerability or security flaw. Select it and submit to proceed.', {
+            vulnLine: vulnLines[0].toString()
+          })
         } else {
-          hint = res.__('Lines {{vulnLines}} are responsible for this vulnerability or security flaw. Select them and submit to proceed.', { vulnLines: vulnLines.toString() })
+          hint = res.__('Lines {{vulnLines}} are responsible for this vulnerability or security flaw. Select them and submit to proceed.', {
+            vulnLines: vulnLines.toString()
+          })
         }
       } else {
-        const nextHint = codingChallengeInfos.hints[accuracy.getFindItAttempts(key) - 1] // -1 prevents after first attempt
+        const nextHint = codingChallengeInfos.hints[attempt - 1] // -1 to align hint with attempt
         if (nextHint) hint = res.__(nextHint)
       }
     }
   }
+
   if (verdict) {
     await challengeUtils.solveFindIt(key)
-    res.status(200).json({
-      verdict: true
-    })
+    res.status(200).json({ verdict: true })
   } else {
     accuracy.storeFindItVerdict(key, false)
-    res.status(200).json({
-      verdict: false,
-      hint
-    })
+    res.status(200).json({ verdict: false, hint })
   }
 }

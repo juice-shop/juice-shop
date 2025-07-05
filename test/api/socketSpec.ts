@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: MIT
  */
 
-import io from 'socket.io-client'
+import { io, Socket } from 'socket.io-client'
 
 describe('WebSocket', () => {
-  let socket: SocketIOClient.Socket
+  let socket: Socket
 
   beforeEach(done => {
     socket = io('http://localhost:3000', {
