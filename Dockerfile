@@ -15,7 +15,7 @@ RUN rm data/chatbot/botDefaultTrainingData.json || true
 RUN rm ftp/legal.md || true
 RUN rm i18n/*.json || true
 
-ARG CYCLONEDX_NPM_VERSION=3.7.1
+ARG CYCLONEDX_NPM_VERSION=4.0.0
 RUN npm install -g @cyclonedx/cyclonedx-npm@$CYCLONEDX_NPM_VERSION
 RUN cyclonedx-npm --output-format json --output-file sbom.json
 
