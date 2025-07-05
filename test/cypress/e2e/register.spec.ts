@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 describe('/#/register', () => {
   beforeEach(() => {
     cy.visit('/#/register')
@@ -6,8 +8,8 @@ describe('/#/register', () => {
   describe('challenge "persistedXssUser"', () => {
     beforeEach(() => {
       cy.login({
-        email: 'admin',
-        password: 'admin123'
+        email: process.env.ADMIN_EMAIL,
+        password: process.env.ADMIN_PASSWORD
       })
     })
 
