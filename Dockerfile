@@ -24,7 +24,8 @@ RUN rm -rf frontend/node_modules \
 # Устанавливаем CycloneDX и генерируем SBOM
 ARG CYCLONEDX_NPM_VERSION=4.0.0
 RUN npm install -g @cyclonedx/cyclonedx-npm@$CYCLONEDX_NPM_VERSION
-RUN cyclonedx-npm --output-format json --output-file sbom.json
+RUN cyclonedx-npm --ignore-npm-errors --output-format json --output-file sbom.json
+
 
 # Build libxmljs
 FROM node:20-buster AS libxmljs-builder
