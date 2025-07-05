@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y build-essential python3 libxml2-dev
 RUN npm i -g typescript ts-node
 
 # Устанавливаем все зависимости с учетом peer deps
-RUN npm install --unsafe-perm --legacy-peer-deps
+RUN npm install --legacy-peer-deps
 RUN npm dedupe --legacy-peer-deps
 
 # Чистим ненужные файлы фронтенда и данные
@@ -29,7 +29,7 @@ RUN rm -rf frontend/node_modules \
 # Устанавливаем CycloneDX и генерируем SBOM
 ARG CYCLONEDX_NPM_VERSION=4.0.0
 RUN npm install -g @cyclonedx/cyclonedx-npm@$CYCLONEDX_NPM_VERSION
-RUN cyclonedx-npm --ignore-npm-errors --output-format json --output-file sbom.json
+RUN cyclonedx-npm --output-format json --output-file sbom.json
 
 # Финальный этап: минимальный runtime образ с Node.js 24
 FROM node:24.3.0-slim
