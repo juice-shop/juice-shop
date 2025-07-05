@@ -8,14 +8,14 @@ import * as utils from './utils'
 import { calculateCheatScore, calculateFindItCheatScore, calculateFixItCheatScore } from './antiCheat'
 import * as webhook from './webhook'
 import * as accuracy from './accuracy'
-import { type Server } from 'socket.io'
-import { AllHtmlEntities as Entities } from 'html-entities'
+import type { Server } from 'socket.io'
+import { encode, decode } from 'html-entities'
+
 import { challenges, notifications } from '../data/datacache'
 
-const entities = new Entities()
 
 const globalWithSocketIO = global as typeof globalThis & {
-  io: SocketIOClientStatic & Server
+  io: Server
 }
 
 export const solveIf = function (challenge: any, criteria: () => any, isRestore: boolean = false) {
@@ -46,7 +46,7 @@ export const sendNotification = function (challenge: { difficulty?: number, key:
     const notification = {
       key: challenge.key,
       name: challenge.name,
-      challenge: challenge.name + ' (' + entities.decode(sanitizeHtml(challenge.description, { allowedTags: [], allowedAttributes: {} })) + ')',
+      challenge: challenge.name + ' (' + decode(sanitizeHtml(challenge.description, { allowedTags: [], allowedAttributes: {} })) + ')',
       flag,
       hidden: !config.get('challenges.showSolvedNotifications'),
       isRestore
