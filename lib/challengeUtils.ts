@@ -10,7 +10,6 @@ import * as webhook from './webhook'
 import * as accuracy from './accuracy'
 import type { Server } from 'socket.io'
 import { encode, decode } from 'html-entities'
-
 import { challenges, notifications } from '../data/datacache'
 
 
