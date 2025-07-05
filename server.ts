@@ -2,6 +2,8 @@
  * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
+
+import { JsonObject } from 'swagger-ui-express'; // Import JsonObject type
 import i18n from 'i18n'
 import cors from 'cors'
 import fs from 'node:fs'
@@ -110,7 +112,6 @@ import { repeatNotification } from './routes/repeatNotification'
 import { serveQuarantineFiles } from './routes/quarantineServer'
 import { showProductReviews } from './routes/showProductReviews'
 import { nftMintListener, walletNFTVerify } from './routes/nftMint'
-import { createProductReviews } from './routes/createProductReviews'
 import { getWalletBalance, addWalletBalance } from './routes/wallet'
 import { retrieveAppConfiguration } from './routes/appConfiguration'
 import { updateProductReviews } from './routes/updateProductReviews'
@@ -133,7 +134,7 @@ const errorhandler = require('errorhandler')
 
 const startTime = Date.now()
 
-const swaggerDocument = yaml.load(fs.readFileSync('./swagger.yml', 'utf8'))
+const swaggerDocument = yaml.load(fs.readFileSync('./swagger.yml', 'utf8')) as JsonObject;
 
 const appName = config.get<string>('application.customMetricsPrefix')
 const startupGauge = new Prometheus.Gauge({
@@ -280,7 +281,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use('/support/logs/:file', serveLogFiles()) // vuln-code-snippet vuln-line accessLogDisclosureChallenge
 
   /* Swagger documentation for B2B v2 endpoints */
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
   app.use(express.static(path.resolve('frontend/dist/frontend')))
   app.use(cookieParser('kekse'))
@@ -298,10 +299,11 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   app.use(bodyParser.urlencoded({ extended: true }))
   /* File Upload */
-  app.post('/file-upload', uploadToMemory.single('file'), ensureFileIsPassed, metrics.observeFileUploadMetricsMiddleware(), checkUploadSize, checkFileType, handleZipFileUpload, handleXmlUpload, handleYamlUpload)
-  app.post('/profile/image/file', uploadToMemory.single('file'), ensureFileIsPassed, metrics.observeFileUploadMetricsMiddleware(), profileImageFileUpload())
-  app.post('/profile/image/url', uploadToMemory.single('file'), profileImageUrlUpload())
-  app.post('/rest/memories', uploadToDisk.single('image'), ensureFileIsPassed, security.appendUserId(), metrics.observeFileUploadMetricsMiddleware(), addMemory())
+  // File Upload Routes
+app.post('/file-upload', uploadToMemory.single('file'), ensureFileIsPassed, metrics.observeFileUploadMetricsMiddleware(), checkUploadSize, checkFileType, handleZipFileUpload, handleXmlUpload, handleYamlUpload); // Line 301
+app.post('/profile/image/file', uploadToMemory.single('file'), ensureFileIsPassed, metrics.observeFileUploadMetricsMiddleware(), profileImageFileUpload()); // Line 302
+app.post('/profile/image/url', profileImageUrlUpload()); // Line 304 (Removed multer if URL-based)
+app.post('/rest/memories', uploadToDisk.single('image'), ensureFileIsPassed, security.appendUserId(), metrics.observeFileUploadMetricsMiddleware(), addMemory()); // Line 305
 
   app.use(bodyParser.text({ type: '*/*' }))
   app.use(function jsonParser (req: Request, res: Response, next: NextFunction) {
@@ -441,9 +443,13 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   // vuln-code-snippet end changeProductChallenge
 
   /* Verify the 2FA Token */
+  const asyncHandler = (fn: (req: Request, res: Response, next: NextFunction) => Promise<any>) =>
+  (req: Request, res: Response, next: NextFunction) =>
+    Promise.resolve(fn(req, res, next)).catch(next)
+
   app.post('/rest/2fa/verify',
     rateLimit({ windowMs: 5 * 60 * 1000, max: 100, validate: false }),
-    twoFactorAuth.verify
+    asyncHandler(twoFactorAuth.verify)
   )
   /* Check 2FA Status for the current User */
   app.get('/rest/2fa/status', security.isAuthorized(), twoFactorAuth.status)
@@ -578,16 +584,16 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/rest/products/search', searchProducts())
   app.get('/rest/basket/:id', retrieveBasket())
   app.post('/rest/basket/:id/checkout', placeOrder())
-  app.put('/rest/basket/:id/coupon/:coupon', applyCoupon())
+  app.put('/rest/basket/:id/coupon/:coupon', asyncHandler(applyCoupon()))
   app.get('/rest/admin/application-version', retrieveAppVersion())
   app.get('/rest/admin/application-configuration', retrieveAppConfiguration())
   app.get('/rest/repeat-notification', repeatNotification())
   app.get('/rest/continue-code', continueCode())
   app.get('/rest/continue-code-findIt', continueCodeFindIt())
   app.get('/rest/continue-code-fixIt', continueCodeFixIt())
-  app.put('/rest/continue-code-findIt/apply/:continueCode', restoreProgress.restoreProgressFindIt())
-  app.put('/rest/continue-code-fixIt/apply/:continueCode', restoreProgress.restoreProgressFixIt())
-  app.put('/rest/continue-code/apply/:continueCode', restoreProgress.restoreProgress())
+  app.put('/rest/continue-code-findIt/apply/:continueCode', asyncHandler(restoreProgress.restoreProgressFindIt()))
+  app.put('/rest/continue-code-fixIt/apply/:continueCode', asyncHandler(restoreProgress.restoreProgressFixIt()))
+  app.put('/rest/continue-code-findIt/apply/:continueCode', asyncHandler(restoreProgress.restoreProgressFindIt()))
   app.get('/rest/captcha', captchas())
   app.get('/rest/image-captcha', imageCaptchas())
   app.get('/rest/track-order/:id', trackOrder())
@@ -608,9 +614,9 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.post('/rest/chatbot/respond', chatbot.process())
   /* NoSQL API endpoints */
   app.get('/rest/products/:id/reviews', showProductReviews())
-  app.put('/rest/products/:id/reviews', createProductReviews())
+  app.put('/rest/products/:id/reviews', asyncHandler(likeProductReviews()))
   app.patch('/rest/products/reviews', security.isAuthorized(), updateProductReviews())
-  app.post('/rest/products/reviews', security.isAuthorized(), likeProductReviews())
+  app.post('/rest/products/reviews', security.isAuthorized(), asyncHandler(likeProductReviews()))
 
   /* Web3 API endpoints */
   app.post('/rest/web3/submitKey', checkKeys())

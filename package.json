@@ -117,8 +117,6 @@
     ]
   },
   "dependencies": {
-    "js-yaml": "^4.1.0",
-    "html-entities": "^2.5.2",
     "body-parser": "^1.20.2",
     "check-dependencies": "^1.1.0",
     "check-internet-connected": "^2.0.6",
@@ -140,7 +138,7 @@
     "express-security.txt": "^2.0.0",
     "feature-policy": "^0.6.0",
     "file-stream-rotator": "^1.0.0",
-    "file-type": "^21.0.0",
+    "file-type": "21.0.0",
     "filesniffer": "^1.0.3",
     "finale-rest": "^1.2.2",
     "fs-extra": "^11.2.0",
@@ -153,7 +151,9 @@
     "hashids": "^2.3.0",
     "hbs": "^4.2.0",
     "helmet": "^7.1.0",
+    "html-entities": "^2.5.2",
     "i18n": "^0.15.1",
+    "js-yaml": "^4.1.0",
     "jsonwebtoken": "9.0.2",
     "jssha": "^3.3.1",
     "juicy-chat-bot": "^0.8.0",
@@ -162,7 +162,7 @@
     "median": "^0.0.2",
     "mongodb": "^6.8.0",
     "morgan": "^1.10.0",
-    "multer": "^1.4.5-lts.1",
+    "multer": "^2.0.0",
     "node-pre-gyp": "^0.17.0",
     "notevil": "^1.3.3",
     "on-finished": "^2.4.1",
@@ -198,16 +198,12 @@
     "@types/cookie-parser": "^1.4.9",
     "@types/cors": "^2.8.19",
     "@types/cross-spawn": "^6.0.6",
-    "@types/cypress": "^1.1.6",
-    "@types/diff": "^8.0.0",
     "@types/download": "^8.0.5",
     "@types/errorhandler": "^1.5.3",
     "@types/exif": "^0.6.5",
     "@types/express": "^5.0.3",
-    "@types/express-jwt": "^7.4.4",
     "@types/frisby": "^2.0.17",
     "@types/fs-extra": "^11.0.4",
-    "@types/glob": "^9.0.0",
     "@types/graceful-fs": "^4.1.9",
     "@types/i18n": "^0.13.12",
     "@types/jasmine": "~5.1.8",
@@ -217,7 +213,6 @@
     "@types/jws": "^3.2.10",
     "@types/lodash": "^4.17.20",
     "@types/mocha": "^10.0.10",
-    "@types/mongodb": "^4.0.7",
     "@types/morgan": "^1.9.10",
     "@types/multer": "^2.0.0",
     "@types/node": "^24.0.10",
@@ -232,23 +227,21 @@
     "@types/serve-index": "^1.9.4",
     "@types/sinon": "^17.0.4",
     "@types/sinon-chai": "^4.0.0",
-    "@types/socket.io": "^3.0.2",
-    "@types/socket.io-client": "^3.0.0",
     "@types/swagger-ui-express": "^4.1.8",
     "@types/unzipper": "^0.10.11",
     "@types/validator": "^13.15.2",
-    "@typescript-eslint/eslint-plugin": "8.35.1",
-    "@typescript-eslint/parser": "8.35.1",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
     "chai": "^5.2.0",
     "concurrently": "^9.2.0",
     "cross-spawn": "^7.0.6",
     "cypress": "^14.5.1",
-    "eslint": "^9.30.1",
-    "eslint-plugin-n": "^16.0.0",
+    "eslint": "^8.57.1",
     "eslint-config-standard-with-typescript": "^43.0.1",
     "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-n": "^16.0.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^7.2.1",
+    "eslint-plugin-promise": "^6.6.0",
     "exif": "^0.6.0",
     "frisby": "github:bkimminich/frisby",
     "grunt-cli": "^1.5.0",
@@ -268,27 +261,11 @@
     "ts-node": "^10.9.2",
     "typescript": "~5.8.3"
   },
-  "engines": {
-    "node": "18 - 22"
-  },
-  "os": [
-    "win32",
-    "linux",
-    "darwin",
-    "freebsd",
-    "openbsd"
-  ],
-  "cpu": [
-    "x64",
-    "x32",
-    "arm64",
-    "arm"
-  ],
-  "heroku-run-build-script": true,
-  "standard": {
-    "global": [
-      "angular",
-      "inject"
-    ]
+  "resolutions": {
+    "file-type": "^21.0.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-promise": "^6.6.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0"
   }
 }
