@@ -134,7 +134,7 @@
     "ethers": "^6.13.1",
     "express": "^4.19.2",
     "express-ipfilter": "^1.3.2",
-    "express-jwt": "8.4.1",
+    "express-jwt": "^7.7.5",
     "express-rate-limit": "^7.4.0",
     "express-robots-txt": "^1.0.0",
     "express-security.txt": "^2.0.0",

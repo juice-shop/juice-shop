@@ -4,7 +4,7 @@
  */
 
 import { type Request, type Response, type NextFunction } from 'express'
-import { AllHtmlEntities as Entities } from 'html-entities'
+import { encode, decode } from 'html-entities' // ✅ Современный способ
 import config from 'config'
 import pug from 'pug'
 import fs from 'node:fs/promises'
@@ -16,7 +16,6 @@ import * as security from '../lib/insecurity'
 import { UserModel } from '../models/user'
 import * as utils from '../lib/utils'
 
-const entities = new Entities()
 
 function favicon () {
   return utils.extractFilename(config.get('application.favicon'))
@@ -74,7 +73,7 @@ export function getUserProfile () {
       template = template.replace(/_username_/g, username)
     }
     template = template.replace(/_emailHash_/g, security.hash(user?.email))
-    template = template.replace(/_title_/g, entities.encode(config.get<string>('application.name')))
+    template = template.replace(/_title_/g, encode(config.get<string>('application.name')))
     template = template.replace(/_favicon_/g, favicon())
     template = template.replace(/_bgColor_/g, theme.bgColor)
     template = template.replace(/_textColor_/g, theme.textColor)
