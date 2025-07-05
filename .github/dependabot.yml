@@ -1,0 +1,20 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"  # путь к package.json
+    schedule:
+      interval: "daily"  # можно: daily, weekly, monthly
+    open-pull-requests-limit: 10
+    allow:
+      - dependency-type: "all"  # обновляет и продакшн, и дев-зависимости
+    commit-message:
+      prefix: "deps"
+    ignore:
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]  # например, игнорировать major обновления typescript
+    labels:
+      - "dependencies"
+    rebase-strategy: "auto"
+    versioning-strategy: "increase"  # "increase" или "widen"
+    automerge: true  # авто-merge, если все тесты прошли
+
