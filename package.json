@@ -245,6 +245,7 @@
     "cross-spawn": "^7.0.6",
     "cypress": "^14.5.1",
     "eslint": "^9.30.1",
+    "eslint-plugin-n": "^16.0.0",
     "eslint-config-standard-with-typescript": "^43.0.1",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-node": "^11.1.0",
