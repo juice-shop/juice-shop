@@ -15,9 +15,9 @@ RUN rm data/chatbot/botDefaultTrainingData.json || true
 RUN rm ftp/legal.md || true
 RUN rm i18n/*.json || true
 
-ARG CYCLONEDX_NPM_VERSION=latest
+ARG CYCLONEDX_NPM_VERSION=3.7.1
 RUN npm install -g @cyclonedx/cyclonedx-npm@$CYCLONEDX_NPM_VERSION
-RUN npm run sbom
+RUN cyclonedx-npm --output-format json --output-file sbom.json
 
 # workaround for libxmljs startup error
 FROM node:20-buster AS libxmljs-builder
