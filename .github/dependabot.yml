@@ -1,0 +1,18 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/" 
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 10
+    allow:
+      - dependency-type: "all"
+    commit-message:
+      prefix: "deps"
+    ignore:
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+    labels:
+      - "dependencies"
+    rebase-strategy: "auto"
+    versioning-strategy: "increase"
