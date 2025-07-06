@@ -138,7 +138,7 @@
 	"Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> bypassing a <i>server-side</i> security mechanism.": "Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> bypassing a <i>server-side</i> security mechanism.",
 	"The \"Comment\" field in the \"Customer Feedback\" screen is where you want to put your focus on.": "The \"Comment\" field in the \"Customer Feedback\" screen is where you want to put your focus on.",
 	"<a href=\"/#/contact\">Rat out</a> a notorious character hiding in plain sight in the shop. (Mention the exact name of the character)": "<a href=\"/#/contact\">Rat out</a> a notorious character hiding in plain sight in the shop. (Mention the exact name of the character)",
-	"No matter how good your eyes are, you will need tool assistance for this challenge.": "No matter how good your eyes are, you will need tool assistance for this challenge.",
+	"No matter how good your eyes are, you will need tool assistance for this challenge.": "Bez względu na to, jak dobry masz wzrok, potrzebujesz pomocy narzędzi, aby sprostać temu wyzwaniu.",
 	"Perform a Remote Code Execution that occupies the server for a while without using infinite loops.": "Perform a Remote Code Execution that occupies the server for a while without using infinite loops.",
 	"Your attack payload must not trigger the protection against too many iterations.": "Your attack payload must not trigger the protection against too many iterations.",
 	"This vulnerability will not affect any customer of the shop. It is aimed exclusively at its developers.": "This vulnerability will not affect any customer of the shop. It is aimed exclusively at its developers.",
