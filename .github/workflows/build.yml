@@ -1,0 +1,94 @@
+name: Build and Deploy to Azure Container Apps
+
+# NOTE: The Azure Container Registry (ACR) is created in a separate resource group (ACR_RESOURCE_GROUP).
+# If you need to reference the ACR resource group in az commands, use the ${{ secrets.ACR_RESOURCE_GROUP }} secret.
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - 'README.md'
+      - '**.md'
+      - 'LICENSE'
+      - '.gitignore'
+      - 'function-app/**'
+
+env:
+  AZURE_SUBSCRIPTION_ID: cf63e15e-fbe9-4c6c-97dc-56ffff3139bc
+  RESOURCE_GROUP: jit-se-testing-k8-demo-pr-agent-rg01
+  ACR_NAME: jitsetestingacr01
+  ACR_USERNAME: jitsetestingacr01
+  LOG_ANALYTICS_WORKSPACE_ID: 0735b919-51c9-4ca5-bb7e-84be405c0027
+  LOCATION: westeurope
+  STORAGE_ACCOUNT_NAME: stogk8sdemopragent01
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Set Azure subscription
+        run: |
+          az account set --subscription $AZURE_SUBSCRIPTION_ID
+
+      - name: Login to Azure Container Registry
+        uses: azure/docker-login@v1
+        with:
+          login-server: $ACR_NAME.azurecr.io
+          username: $ACR_USERNAME
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      - name: Build, tag, and push image to Azure Container Registry
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          # Build and push the image
+          docker login $ACR_NAME.azurecr.io -u $ACR_USERNAME -p ${{ secrets.ACR_PASSWORD }}
+          docker build -t $ACR_NAME.azurecr.io/k8s-demo:$IMAGE_TAG -t $ACR_NAME.azurecr.io/k8s-demo:latest ./app
+          docker push $ACR_NAME.azurecr.io/k8s-demo:$IMAGE_TAG
+          docker push $ACR_NAME.azurecr.io/k8s-demo:latest
+
+      - name: Create Container Apps Environment
+        run: |
+          # Create the Container Apps Environment if it doesn't exist
+          az containerapp env show \
+            --name k8s-demo-environment \
+            --resource-group $RESOURCE_GROUP \
+            --output none 2>/dev/null || \
+          az containerapp env create \
+            --name k8s-demo-environment \
+            --resource-group $RESOURCE_GROUP \
+            --location $LOCATION \
+            --logs-workspace-id $LOG_ANALYTICS_WORKSPACE_ID
+
+      - name: Deploy application to Container Apps
+        run: |
+          # Create or update the Container App
+          az containerapp create \
+            --name k8s-demo-app \
+            --resource-group $RESOURCE_GROUP \
+            --environment k8s-demo-environment \
+            --image $ACR_NAME.azurecr.io/k8s-demo:latest \
+            --target-port 5000 \
+            --ingress external \
+            --registry-server $ACR_NAME.azurecr.io \
+            --registry-username $ACR_USERNAME \
+            --registry-password ${{ secrets.ACR_PASSWORD }} \
+            --cpu 0.5 \
+            --memory 1Gi \
+            --min-replicas 1 \
+            --max-replicas 3 \
+            --env-vars API_KEY=dummy_key_container_app_12345 \
+            --output none 2>/dev/null || \
+          az containerapp update \
+            --name k8s-demo-app \
+            --resource-group $RESOURCE_GROUP \
+            --image $ACR_NAME.azurecr.io/k8s-demo:latest \
+            --output none
