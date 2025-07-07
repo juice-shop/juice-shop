@@ -1,0 +1,92 @@
+name: Deploy Vulnerable Azure Function App
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'function-app/**'
+      - '.github/workflows/deploy-function-app.yaml'
+
+env:
+  RESOURCE_GROUP: jit-se-testing-k8-demo-pr-agent-rg01
+  LOCATION: westeurope
+  AZURE_SUBSCRIPTION_ID: cf63e15e-fbe9-4c6c-97dc-56ffff3139bc
+  STORAGE_ACCOUNT_NAME: stogk8sdemopragent01
+  FUNCTIONAPP_NAME: k8s-demo-function-app
+  FUNCTION_NAME: vulnerableFunction
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Set Azure subscription
+        run: |
+          az account set --subscription ${{ env.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.9'
+
+      - name: Install Azure Functions Core Tools
+        run: |
+          npm install -g azure-functions-core-tools@4 --unsafe-perm true
+
+      - name: Create Function App if it doesn't exist
+        run: |
+          # Create the Function App if it doesn't exist
+          az functionapp show \
+            --name ${{ env.FUNCTIONAPP_NAME }} \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --output none 2>/dev/null || \
+          az functionapp create \
+            --name ${{ env.FUNCTIONAPP_NAME }} \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --consumption-plan-location ${{ env.LOCATION }} \
+            --runtime python \
+            --runtime-version 3.9 \
+            --functions-version 4 \
+            --os-type linux \
+            --storage-account ${{ env.STORAGE_ACCOUNT_NAME }} \
+            --output none
+
+      - name: Configure Function App settings
+        run: |
+          # Set environment variables
+          az functionapp config appsettings set \
+            --name ${{ env.FUNCTIONAPP_NAME }} \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --settings \
+              API_KEY=dummy_key_function_app_12345 \
+              FUNCTIONS_WORKER_RUNTIME=python \
+              WEBSITE_RUN_FROM_PACKAGE=1 \
+              WEBSITE_CONTENTAZUREFILECONNECTIONSTRING="${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" \
+              WEBSITE_CONTENTSHARE="k8sdemofunctionapp"
+
+      - name: Deploy Function App
+        run: |
+          # Deploy the function app
+          cd function-app
+          func azure functionapp publish ${{ env.FUNCTIONAPP_NAME }} \
+            --python \
+            --build remote
+
+      - name: Get Function App URL
+        run: |
+          # Get the function app URL
+          FUNCTION_URL=$(az functionapp function show \
+            --function-name ${{ env.FUNCTION_NAME }} \
+            --name ${{ env.FUNCTIONAPP_NAME }} \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --query "invokeUrlTemplate" \
+            --output tsv)
+          echo "Function App URL: $FUNCTION_URL"
+          echo "FUNCTION_URL=$FUNCTION_URL" >> $GITHUB_ENV 
