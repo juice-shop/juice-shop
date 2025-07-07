@@ -34,7 +34,7 @@ RUN rm -rf frontend/node_modules \
     && rm -f i18n/*.json
 
 # Этап 2: Минимальный runtime образ с Node.js 24
-FROM node:24.3.0-slim
+FROM node:24.3.0-alpine3.21
 
 WORKDIR /juice-shop
 
