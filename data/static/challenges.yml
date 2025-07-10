@@ -39,6 +39,10 @@
   difficulty: 3
   hint: 'You have to assign the unassignable.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_register_as_a_user_with_administrator_privileges'
+  hints:
+    - 'You have to assign the unassignable.'
+    - 'Register as an ordinary user to learn what API endpoints are involved in this use case.'
+    - 'Think of the simplest possible implementations of a distinction between regular users and administrators.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Mass_Assignment_Cheat_Sheet.html'
   key: registerAdminChallenge
 -
