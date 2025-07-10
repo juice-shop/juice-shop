@@ -1,4 +1,4 @@
-name: "Update challenges on owasp-juice.shop"
+name: "Update challenges in Companion Guide"
 
 on:
   push:
