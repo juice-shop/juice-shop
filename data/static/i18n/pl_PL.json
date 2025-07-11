@@ -318,7 +318,7 @@
 	"Just keep asking.": "Just keep asking.",
 	"Permanently disable the support chatbot so that it can no longer answer customer queries.": "Permanently disable the support chatbot so that it can no longer answer customer queries.",
 	"Think of a way to get a hold of the internal workings on the chatbot API.": "Think of a way to get a hold of the internal workings on the chatbot API.",
-	"Gain read access to an arbitrary local file on the web server.": "Gain read access to an arbitrary local file on the web server.",
+	"Gain read access to an arbitrary local file on the web server.": "Uzyskaj dostęp do dowolnego pliku lokalnego na serwerze.",
 	"You should read up on vulnerabilities in popular NodeJs template engines.": "You should read up on vulnerabilities in popular NodeJs template engines.",
 	"Try to identify where (potentially malicious) user input is coming into the code.": "Try to identify where (potentially malicious) user input is coming into the code.",
 	"What is the code doing with the user input other than using it to filter the data source?": "What is the code doing with the user input other than using it to filter the data source?",
