@@ -7,6 +7,10 @@
   difficulty: 3
   hint: 'You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/xss.html#_perform_a_persisted_xss_attack_without_using_the_frontend_application_at_all'
+  hints:
+    - 'You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.'
+    - 'A matrix of known data entities and their supported HTTP verbs through the API can help you here.'
+    - 'Careless developers might have exposed API methods that the client does not even need.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html'
   key: restfulXssChallenge
   disabledEnv:
@@ -20,6 +24,12 @@
   difficulty: 4
   hint: 'Who would want a server access log to be accessible through a web application?'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_gain_access_to_any_access_log_file_of_the_server'
+  hints:
+    - 'Who would want a server access log to be accessible through a web application?'
+    - 'Normally, server log files are written to disk on server side and are not accessible from the outside.'
+    - 'Which raises the question: Who would want a server access log to be accessible through a web application?'
+    - 'One particular file found in the folder you might already have found during the Access a confidential document challenge might give you an idea who is interested in such a public exposure.'
+    - 'Drilling down one level into the file system might not be sufficient.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html'
   key: accessLogDisclosureChallenge
 -
@@ -29,6 +39,10 @@
   difficulty: 3
   hint: 'You have to assign the unassignable.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_register_as_a_user_with_administrator_privileges'
+  hints:
+    - 'You have to assign the unassignable.'
+    - 'Register as an ordinary user to learn what API endpoints are involved in this use case.'
+    - 'Think of the simplest possible implementations of a distinction between regular users and administrators.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Mass_Assignment_Cheat_Sheet.html'
   key: registerAdminChallenge
 -
@@ -40,6 +54,12 @@
   difficulty: 2
   hint: 'It is just slightly harder to find than the score board link.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_access_the_administration_section_of_the_store'
+  hints:
+    - 'It is just slightly harder to find than the score board link.'
+    - 'Knowing it exists, you can simply guess what URL the admin section might have.'
+    - 'Alternatively, you can try to find a reference or clue within the parts of the application that are not usually visible in the browser.'
+    - 'It is probably just slightly harder to find and gain access to than the score board link.'
+    - 'There is some access control in place, but there are at least three ways to bypass it.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html'
   key: adminSectionChallenge
   tutorial:
