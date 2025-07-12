@@ -15,6 +15,8 @@ import { SecurityAnswerModel } from './securityAnswer'
 import { SecurityQuestionModel } from './securityQuestion'
 import { UserModel } from './user'
 import { WalletModel } from './wallet'
+import { HintUsageModel } from './hintUsage'
+import { ChallengeModel } from './challenge'
 
 import { makeKeyNonUpdatable } from '../lib/noUpdate'
 
@@ -138,6 +140,21 @@ const relationsInit = (_sequelize: Sequelize) => {
     foreignKeyConstraint: true,
     foreignKey: {
       name: 'UserId'
+    }
+  })
+  HintUsageModel.belongsTo(UserModel, {
+    constraints: true,
+    foreignKeyConstraint: true,
+    foreignKey: {
+      name: 'UserId'
+    }
+  })
+
+  HintUsageModel.belongsTo(ChallengeModel, {
+    constraints: true,
+    foreignKeyConstraint: true,
+    foreignKey: {
+      name: 'ChallengeId'
     }
   })
 }
