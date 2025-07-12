@@ -75,29 +75,17 @@
       <mat-icon>school_outline</mat-icon>
     </button>
     <!-- challenge hint -->
-    <!-- with hintUrl -->
-    <a
-      *ngIf="challenge.hint && challenge.hintUrl"
+    <!-- NEW HINT BUTTON LOGIC -->
+    <button
+      *ngIf="challenge.hint"
       class="badge not-completable"
       [style.padding]="'0 6px 0 4px'"
-      target="_blank"
-      rel="noopener noreferrer"
-      [href]="challenge.hintUrl"
-      [matTooltip]="challenge.hint | challengeHint:{hintUrl: challenge.hintUrl} | async"
-    >
-      <mat-icon>lightbulb</mat-icon>
+      [matTooltip]="getHintTooltip()"
+      (click)="handleHintClick()"
+      aria-label="Challenge hint button">
       Hint
-    </a>
-    <!-- challenge hint -->
-    <!-- without hintUrl -->
-    <span
-      *ngIf="challenge.hint && !challenge.hintUrl"
-      class="badge not-completable"
-      [style.padding]="'0 6px 0 4px'"
-      [matTooltip]="challenge.hint"
-    >
-      <mat-icon>lightbulb</mat-icon>
-      Hint
-    </span>
+        <mat-icon>{{ getHintIcon(1) }}</mat-icon>
+        <mat-icon>{{ getHintIcon(2) }}</mat-icon>
+    </button>
   </div>
 </div>
