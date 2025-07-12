@@ -14,8 +14,7 @@ describe('PasswordStrengthComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [PasswordStrengthComponent]
-    })
-      .compileComponents()
+    }).compileComponents()
 
     fixture = TestBed.createComponent(PasswordStrengthComponent)
     component = fixture.componentInstance
@@ -34,8 +33,16 @@ describe('PasswordStrengthComponent', () => {
   it('should bind progress input to mat-progress-bar value', () => {
     component.passwordStrength = 50
     fixture.detectChanges()
-    const progressBar = fixture.nativeElement.querySelector('mat-progress-bar')
-    expect(progressBar.getAttribute('ng-reflect-value')).toBe('50')
+
+    const progressBarDebug =
+      fixture.debugElement.nativeElement.querySelector('mat-progress-bar')
+    expect(progressBarDebug).toBeTruthy()
+
+    const matProgressBarInstance = fixture.debugElement.children.find(
+      (el) => el.nativeElement.tagName.toLowerCase() === 'mat-progress-bar'
+    )?.componentInstance
+
+    expect(matProgressBarInstance.value).toBe(50)
   })
 
   it('should apply correct class based on progress value', () => {
