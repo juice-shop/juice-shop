@@ -124,7 +124,14 @@ describe('ChallengeSolvedNotificationComponent', () => {
     component.saveProgress()
     expires.setFullYear(expires.getFullYear() + 1)
 
-    expect(cookieService.put).toHaveBeenCalledWith('continueCode', '12345', { expires })
+    expect(cookieService.put).toHaveBeenCalledWith('continueCode', '12345', jasmine.objectContaining({ expires: jasmine.any(Date) }))
+    const callArgs = cookieService.put.calls.mostRecent().args
+    expect(callArgs[2].expires.getFullYear()).toBe(expires.getFullYear())
+    expect(callArgs[2].expires.getMonth()).toBe(expires.getMonth())
+    expect(callArgs[2].expires.getDate()).toBe(expires.getDate())
+    expect(callArgs[2].expires.getHours()).toBe(expires.getHours())
+    expect(callArgs[2].expires.getMinutes()).toBe(expires.getMinutes())
+    expect(callArgs[2].expires.getSeconds()).toBe(expires.getSeconds())
   })
 
   it('should throw error when not supplied with a valid continue code', () => {
