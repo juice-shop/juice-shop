@@ -97,7 +97,7 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html'
   hints:
     - 'Hints to the answer to Bjoern’s question can be found by looking him up on the Internet.'
-    - 'More precisely, Bjoern might have accidentally (😜) doxxed himself by mentioning his security answer on at least one occasion where a camera was running.'
+    - 'More precisely, Bjoern might have accidentally (?) doxxed himself by mentioning his security answer on at least one occasion where a camera was running.'
     - 'Brute forcing the answer might be very well possible with a sufficiently extensive list of common pet names.'
   key: resetPasswordBjoernOwaspChallenge
 -
