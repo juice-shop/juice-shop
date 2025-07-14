@@ -111,6 +111,11 @@
   difficulty: 5
   hint: 'The developers truly believe in "Security through Obscurity" over actual access restrictions.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/security-through-obscurity.html#_learn_about_the_token_sale_before_its_official_announcement'
+  hints:
+    - 'The developers truly believe in "Security through Obscurity" over actual access restrictions.'
+    - 'Guessing or brute forcing the URL of the token sale page is very unlikely to succeed.'
+    - 'You should closely investigate the place where all paths within the application are defined.'
+    - 'Beating the employed obfuscation mechanism manually will take some time. Maybe there is an easier way to undo it?'
   mitigationUrl: ~
   key: tokenSaleChallenge
 -
