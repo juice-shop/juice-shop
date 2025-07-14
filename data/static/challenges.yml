@@ -74,6 +74,11 @@
   difficulty: 6
   hint: 'Look out for a tweet praising new functionality of the web shop. Then find a third party vulnerability associated with it.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/vulnerable-components.html#_overwrite_the_legal_information_file'
+  hints:
+    - 'Look out for a tweet praising new functionality of the web shop. Then find a third party vulnerability associated with it.'
+    - 'Find all places in the application where file uploads are possible.'
+    - 'For at least one of these, the Juice Shop is depending on a library that suffers from an arbitrary file overwrite vulnerability.'
+    - 'You can find a hint toward the underlying vulnerability in the @owasp_juiceshop Twitter timeline.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html'
   key: fileWriteChallenge
   disabledEnv:
