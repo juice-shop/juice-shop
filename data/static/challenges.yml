@@ -92,9 +92,13 @@
     - OSINT
   description: 'Reset the password of Bjoern''s OWASP account via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
   difficulty: 3
-  hint: 'He might have trumpeted it on at least one occasion where a camera was running. Maybe elsewhere as well.'
+  hint: 'Hints to the answer to Bjoern’s question can be found by looking him up on the Internet.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-authentication.html#_reset_the_password_of_bjoerns_owasp_account_via_the_forgot_password_mechanism'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html'
+  hints:
+    - 'Hints to the answer to Bjoern’s question can be found by looking him up on the Internet.'
+    - 'More precisely, Bjoern might have accidentally (😜) doxxed himself by mentioning his security answer on at least one occasion where a camera was running.'
+    - 'Brute forcing the answer might be very well possible with a sufficiently extensive list of common pet names.'
   key: resetPasswordBjoernOwaspChallenge
 -
   name: 'Blockchain Hype'
