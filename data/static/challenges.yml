@@ -28,7 +28,7 @@
     - 'Who would want a server access log to be accessible through a web application?'
     - 'Normally, server log files are written to disk on server side and are not accessible from the outside.'
     - 'Which raises the question: Who would want a server access log to be accessible through a web application?'
-    - 'One particular file found in the folder you might already have found during the Access a confidential document challenge might give you an idea who is interested in such a public exposure.'
+    - 'One particular file found in the folder you might already have found during the "Access a confidential document" challenge might give you an idea who is interested in such a public exposure.'
     - 'Drilling down one level into the file system might not be sufficient.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html'
   key: accessLogDisclosureChallenge
@@ -129,6 +129,8 @@
   difficulty: 2
   hint: 'Find the seed phrase posted accidentally.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_take_over_the_wallet_containing_our_official_soul_bound_token'
+  hints:
+    - 'Find the seed phrase posted accidentally.'
   mitigationUrl: ~
   key: nftUnlockChallenge
 -
@@ -141,6 +143,8 @@
   difficulty: 3
   hint: 'Discover NFT wonders among the captivating visual memories.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_mint_the_honey_pot_nft_by_gathering_bees_from_the_bee_haven'
+  hints:
+    - 'Discover NFT wonders among the captivating visual memories.'
   mitigationUrl: ~
   key: nftMintChallenge
 -
@@ -153,6 +157,8 @@
   difficulty: 6
   hint: 'Try to exploit the contract of the wallet.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/miscellaneous.html#_withdraw_more_eth_from_the_new_wallet_than_you_deposited'
+  hints:
+    - 'Try to exploit the contract of the wallet.'
   mitigationUrl: ~
   key: web3WalletChallenge
 -
@@ -164,6 +170,8 @@
   difficulty: 1
   hint: 'It is just as easy as finding the Score Board.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_find_an_accidentally_deployed_code_sandbox'
+  hints:
+    - 'It is just as easy as finding the Score Board.'
   mitigationUrl: ~
   key: web3SandboxChallenge
 -
@@ -176,6 +184,12 @@
   hint: 'The feature you need to exploit for this challenge is not directly advertised anywhere.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/insecure-deserialization.html#_perform_a_remote_code_execution_that_would_keep_a_less_hardened_application_busy_forever'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html'
+  hints:
+    - 'The feature you need to exploit for this challenge is not directly advertised anywhere.'
+    - 'As the Juice Shop is written in pure Javascript, there is one data format that is most probably used for serialization.'
+    - 'You should try to make the server busy for all eternity.'
+    - 'The challenge will be solved if you manage to trigger the protection of the application against a very specific DoS attack vector.'
+    - 'Similar to the "Let the server sleep for some time" challenge (which accepted nothing but NoSQL Injection as a solution) this challenge will only accept proper RCE as a solution. It cannot be solved by simply hammering the server with requests. That would probably just kill your server instance.'
   key: rceChallenge
   disabledEnv:
     - Docker
@@ -190,6 +204,12 @@
   difficulty: 3
   hint: 'After finding a CAPTCHA bypass, write a script that automates feedback submission. Or open many browser tabs and be really quick.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-anti-automation.html#_submit_10_or_more_customer_feedbacks_within_20_seconds'
+  hints:
+    - 'After finding a CAPTCHA bypass, write a script that automates feedback submission. Or open many browser tabs and be really quick.'
+    - 'You could prepare 10 browser tabs, solving every CAPTCHA and filling out the each feedback form. Then you’d need to very quickly switch through the tabs and submit the forms in under 20 seconds total.'
+    - 'Should the Juice Shop ever decide to change the challenge into "Submit 100 or more customer feedbacks within 60 seconds" or worse, you’d probably have a hard time keeping up with any tab-switching approach.'
+    - 'Investigate closely how the CAPTCHA mechanism works and try to find either a bypass or some automated way of solving it dynamically.'
+    - 'Wrap this into a script (in whatever programming language you prefer) that repeats this 10 times.'
   mitigationUrl: ~
   key: captchaBypassChallenge
 -
@@ -199,6 +219,10 @@
   difficulty: 5
   hint: 'In previous releases this challenge was wrongly accused of being based on CSRF.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-authentication.html#_change_benders_password_into_slurmcl4ssic_without_using_sql_injection_or_forgot_password'
+  hints:
+    - 'In previous releases this challenge was wrongly accused of being based on CSRF.'
+    - 'It might also have been put into the Improper Input Validation category.'
+    - 'Bender’s current password is so strong that brute force, rainbow table or guessing attacks will probably not work.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html'
   key: changePasswordBenderChallenge
 -
@@ -208,6 +232,12 @@
   difficulty: 4
   hint: 'Find out how the application handles unavailable products and try to find a loophole.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/injection.html#_order_the_christmas_special_offer_of_2014'
+  hints:
+    - 'Find out how the application handles unavailable products and try to find a loophole.'
+    - 'Find out how the application hides deleted products from its customers.'
+    - 'Try to craft an attack string that makes deleted products visible again.'
+    - 'You need to get the deleted product into your shopping cart and trigger the Checkout.'
+    - 'Neither of the above can be achieved through the application frontend and it might even require (half-)Blind SQL Injection.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html'
   key: christmasSpecialChallenge
 -
