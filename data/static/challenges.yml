@@ -249,6 +249,11 @@
   difficulty: 4
   hint: 'What is even "better" than a legacy page with a homegrown RegEx sanitizer? Having CSP injection issues on the exact same page as well!'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/xss.html#_bypass_the_content_security_policy_and_perform_an_xss_attack_on_a_legacy_page'
+  hints:
+    - 'What is even "better" than a legacy page with a homegrown RegEx sanitizer? Having CSP injection issues on the exact same page as well!'
+    - 'Find a screen in the application that looks subtly odd and dated compared with all other screens.'
+    - 'Before trying any XSS attacks, you should understand how the page is setting its Content Security Policy.'
+    - 'For the subsequent XSS, make good use of the flaws in the homegrown sanitization based on a RegEx!'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html'
   key: usernameXssChallenge
   disabledEnv:
@@ -262,8 +267,12 @@
     - Danger Zone
   description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> bypassing a <i>client-side</i> security mechanism.'
   difficulty: 3
-  hint: 'Only some input fields validate their input. Even less of these are persisted in a way where their content is shown on another screen.'
+  hint: 'There are only some input fields in the Juice Shop forms that validate their input.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/xss.html#_perform_a_persisted_xss_attack_bypassing_a_client_side_security_mechanism'
+  hints:
+    - 'There are only some input fields in the Juice Shop forms that validate their input.'
+    - 'Even less of these fields are persisted in a way where their content is shown on another screen.'
+    - 'Bypassing client-side security can typically be done by either disabling it on the client (i.e. in the browser by manipulating the DOM tree) or by ignoring it completely and interacting with the backend instead.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html'
   key: persistedXssUserChallenge
   disabledEnv:
@@ -279,6 +288,9 @@
   difficulty: 1
   hint: 'Analyze and tamper with links in the application that deliver a file directly.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_access_a_confidential_document'
+  hints:
+    - 'Analyze and tamper with links in the application that deliver a file directly.'
+    - 'The file you are looking for is not protected in any way. Once you found it you can also access it.'
   mitigationUrl: ~
   key: directoryListingChallenge
 -
@@ -291,6 +303,9 @@
   difficulty: 1
   hint: 'Look for an input field where its content appears in the HTML when its form is submitted.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/xss.html#_perform_a_dom_xss_attack'
+  hints:
+    - 'Look for an input field where its content appears in the HTML when its form is submitted.'
+    - 'This challenge is almost indistinguishable from "Perform a reflected XSS attack" if you do not look "under the hood" to find out what the application actually does with the user input.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html'
   key: localXssChallenge
   tutorial:
@@ -300,8 +315,14 @@
   category: 'Injection'
   description: 'Exfiltrate the entire DB schema definition via SQL Injection.'
   difficulty: 3
-  hint: 'Find out where this information could come from. Then craft a UNION SELECT attack string against an endpoint that offers an unnecessary way to filter data.'
+  hint: 'Find out where this information could come from. Then craft an attack string against an endpoint that offers an unnecessary way to filter data.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/injection.html#_exfiltrate_the_entire_db_schema_definition_via_sql_injection'
+  hints:
+    - 'Find out where this information could come from. Then craft an attack string against an endpoint that offers an unnecessary way to filter data.'
+    - 'Find out which database system is in use and where it would usually store its schema definitions.'
+    - 'Craft a UNION SELECT attack string to join the relevant data from any such identified system table into the original result.'
+    - 'You might have to tackle some query syntax issues step-by-step, basically hopping from one error to the next.'
+    - 'As with "Order the Christmas special offer of 2014" this cannot be achieved through the application frontend.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html'
   key: dbSchemaChallenge
 -
@@ -1287,7 +1308,7 @@
   hint: 'You should read up on vulnerabilities in popular NodeJs template engines.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/vulnerable-components.html#_gain_read_access_to_an_arbitrary_local_file_on_the_web_server'
   description: 'Gain read access to an arbitrary local file on the web server.'
-  key: 'lfrChallenge'
+  key: lfrChallenge
   disabledEnv:
     - Docker
     - Heroku
