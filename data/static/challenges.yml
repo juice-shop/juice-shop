@@ -335,6 +335,11 @@
   difficulty: 2
   hint: 'The developers who disabled the interface think they could go invisible by just closing their eyes.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/security-misconfiguration.html#_use_a_deprecated_b2b_interface_that_was_not_properly_shut_down'
+  hints:
+    - 'The developers who disabled the interface think they could go invisible by just closing their eyes.'
+    - 'The old B2B interface was replaced with a more modern version recently.'
+    - 'When deprecating the old interface, not all of its parts were cleanly removed from the code base.'
+    - 'Simply using the deprecated interface suffices to solve this challenge. No attack or exploit is necessary.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Web_Service_Security_Cheat_Sheet.html'
   key: deprecatedInterfaceChallenge
 -
@@ -346,8 +351,11 @@
     - Good for Demos
   description: 'Find the hidden <a href="https://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.'
   difficulty: 4
-  hint: 'If you solved one of the three file access challenges, you already know where to find the easter egg.'
+  hint: 'If you solved one of the four file access challenges, you already know where to find the easter egg.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_find_the_hidden_easter_egg'
+  hints:
+    - 'If you solved one of the four file access challenges, you already know where to find the easter egg.'
+    - 'Simply reuse the trick that already worked for the files above.'
   mitigationUrl: ~
   key: easterEggLevelOneChallenge
 -
@@ -357,6 +365,10 @@
   difficulty: 5
   hint: 'Try to find and attack an endpoint that responds with user information. SQL Injection is not the solution here.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_perform_an_unwanted_information_disclosure_by_accessing_data_cross_domain'
+  hints:
+    - 'Try to find and attack an endpoint that responds with user information. SQL Injection is not the solution here.'
+    - 'What ways are there to access data from a web application cross-domain?'
+    - 'This challenge uses an old way which is no longer recommended.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/XS_Leaks_Cheat_Sheet.html'
   key: emailLeakChallenge
 -
@@ -365,7 +377,9 @@
   description: 'Register a user with an empty email and password.'
   difficulty: 2
   hint: 'Consider intercepting and playing with the request payload.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_register_a_user_account_with_an_empty_email_and_password'
+  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_register_a_user_with_an_empty_email_and_password'
+  hints:
+    - 'Consider intercepting and playing with the request payload.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html'
   key: emptyUserRegistration
 -
@@ -375,6 +389,12 @@
   difficulty: 4
   hint: 'Try to create the needed user "out of thin air".'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/injection.html#_log_in_with_the_non_existing_accountant_without_ever_registering_that_user'
+  hints:
+    - 'Try to create the needed user "out of thin air".'
+    - 'The user literally needs to be ephemeral as in "lasting for only a short time".'
+    - 'Registering normally with the user’s email address will then obviously not solve this challenge. The Juice Shop will not even let you register as acc0unt4nt@juice-sh.op, as this would make the challenge unsolvable for you.'
+    - 'Getting the user into the database some other way will also fail to solve this challenge. In case you somehow managed to do so, you need to restart the Juice Shop application in order to wipe the database and make the challenge solvable again.'
+    - 'The fact that this challenge is in the Injection category should already give away the intended approach.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html'
   key: ephemeralAccountantChallenge
 -
@@ -386,6 +406,11 @@
   difficulty: 1
   hint: 'Try to submit bad input to forms. Alternatively tamper with URL paths or parameters.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/security-misconfiguration.html#_provoke_an_error_that_is_neither_very_gracefully_nor_consistently_handled'
+  hints:
+    - 'Try to submit bad input to forms. Alternatively tamper with URL paths or parameters.'
+    - 'This challenge actually triggers from various possible error conditions.'
+    - 'You can try to submit bad input to forms to provoke an improper error handling.'
+    - 'Tampering with URL paths or parameters might also trigger an unforeseen error.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html'
   key: errorHandlingChallenge
 -
@@ -395,6 +420,10 @@
   difficulty: 4
   hint: 'Try to identify past special event or holiday campaigns of the shop first.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_successfully_redeem_an_expired_campaign_coupon_code'
+  hints:
+    - 'Try to identify past special event or holiday campaigns of the shop first.'
+    - 'Look for clues about the past campaign or holiday event somewhere in the application.'
+    - 'Solving this challenge does not require actual time traveling.'
   mitigationUrl: ~
   key: manipulateClockChallenge
 -
@@ -402,10 +431,15 @@
   category: 'Broken Anti Automation'
   tags:
     - Brute Force
-  description: 'Retrieve the language file that never made it into production.'
+  description: 'First you should find out how the languages are technically changed in the user interface.'
   difficulty: 5
   hint: 'Brute force is not the only option for this challenge, but a perfectly viable one.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-anti-automation.html#_retrieve_the_language_file_that_never_made_it_into_production'
+  hints:
+    - 'First you should find out how the languages are technically changed in the user interface.'
+    - 'Guessing will most definitely not work in this challenge.'
+    - 'Brute force is not the only option for this challenge, but a perfectly viable one.'
+    - 'Investigate online what languages are actually available.'
   mitigationUrl: ~
   key: extraLanguageChallenge
 -
@@ -415,6 +449,9 @@
   difficulty: 2
   hint: 'Once you found admin section of the application, this challenge is almost trivial.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_get_rid_of_all_5_star_customer_feedback'
+  hints:
+    - 'Once you found admin section of the application, this challenge is almost trivial.'
+    - 'Nothing happens when you try to delete feedback entries? Check the JavaScript console for errors!'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html'
   key: feedbackChallenge
 -
@@ -427,6 +464,11 @@
   difficulty: 6
   hint: 'Try either a) a knowledgeable brute force attack or b) reverse engineering or c) some research in the cloud.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/cryptographic-issues.html#_forge_a_coupon_code_that_gives_you_a_discount_of_at_least_80'
+  hints:
+    - 'Try either a) a knowledgeable brute force attack or b) reverse engineering or c) some research in the cloud.'
+    - 'One viable solution would be to reverse-engineer how coupon codes are generated and craft your own 80% coupon by using the same (or at least similar) implementation.'
+    - 'Another possible solution might be harvesting as many previous coupon as possible and look for patterns that might give you a leverage for a brute force attack.'
+    - 'If all else fails, you could still try to blindly brute force the coupon code field before checkout.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html'
   key: forgedCouponChallenge
 -
@@ -438,6 +480,10 @@
   difficulty: 3
   hint: 'You can solve this by tampering with the user interface or by intercepting the communication with the RESTful backend.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_post_some_feedback_in_another_users_name'
+  hints:
+    - 'You can solve this by tampering with the user interface or by intercepting the communication with the RESTful backend.'
+    - 'To find the client-side leverage point, closely analyze the HTML form used for feedback submission.'
+    - 'The backend-side leverage point is similar to some of the XSS challenges found in OWASP Juice Shop.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html'
   key: forgedFeedbackChallenge
   tutorial:
@@ -449,6 +495,11 @@
   difficulty: 3
   hint: 'Observe the flow of product review posting and editing and see if you can exploit it.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_post_a_product_review_as_another_user_or_edit_any_users_existing_review'
+  hints:
+    - 'Observe the flow of product review posting and editing and see if you can exploit it.'
+    - 'This challenge can be solved by using developers tool of your browser or with tools like postman.'
+    - 'Analyze the form used for review submission and try to find a leverage point.'
+    - 'This challenge is pretty similar to "Post some feedback in another user’s name" challenge.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html'
   key: forgedReviewChallenge
 -
@@ -458,6 +509,13 @@
   difficulty: 6
   hint: 'This challenge is explicitly not about acquiring the RSA private key used for JWT signing.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/vulnerable-components.html#_forge_an_almost_properly_rsa_signed_jwt_token'
+  hints:
+    - 'This challenge is explicitly not about acquiring the RSA private key used for JWT signing.'
+    - 'The three generic hints from Forge an essentially unsigned JWT token also help with this challenge.'
+    - 'Instead of enforcing no encryption to be applied, try to apply a more sophisticated exploit against the JWT libraries used in the Juice Shop.'
+    - 'Getting your hands on the public RSA key the application employs for its JWTs is mandatory for this challenge.'
+    - 'Finding the corresponding private key should actually be impossible, but that obviously doesn’t make this challenge unsolvable.'
+    - 'Make sure your JWT is URL safe!'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html'
   key: jwtForgedChallenge
   disabledEnv:
@@ -473,6 +531,12 @@
   difficulty: 4
   hint: 'You need to trick a security mechanism into thinking that the file you want has a valid file type.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_access_a_developers_forgotten_backup_file'
+  hints:
+    - 'You need to trick a security mechanism into thinking that the file you want has a valid file type.'
+    - 'Analyze and tamper with links in the application that deliver a file directly.'
+    - 'The file is not directly accessible because a security mechanism prevents access to it.'
+    - 'You need to trick the security mechanism into thinking that the file has a valid file type.'
+    - 'For this challenge there is only one approach to pull this trick.'
   mitigationUrl: ~
   key: forgottenDevBackupChallenge
 -
@@ -484,6 +548,11 @@
   difficulty: 4
   hint: 'You need to trick a security mechanism into thinking that the file you want has a valid file type.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_access_a_salesmans_forgotten_backup_file'
+  hints:
+    - 'You need to trick a security mechanism into thinking that the file you want has a valid file type.'
+    - 'Analyze and tamper with links in the application that deliver a file directly.'
+    - 'The file is not directly accessible because a security mechanism prevents access to it.'
+    - 'You need to trick the security mechanism into thinking that the file has a valid file type.'
   mitigationUrl: ~
   key: forgottenBackupChallenge
 -
@@ -493,6 +562,10 @@
   difficulty: 5
   hint: 'This challenge has nothing to do with mistyping web domains. There is no conveniently misplaced file helping you with this one either. Or is there?'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/vulnerable-components.html#_inform_the_shop_about_a_typosquatting_imposter_that_dug_itself_deep_into_the_frontend'
+  hints:
+    - 'This challenge has nothing to do with mistyping web domains. There is no conveniently misplaced file helping you with this one either. Or is there?'
+    - 'This challenge has nothing to do with URLs or domains.'
+    - 'Other than for its legacy companion, combing through the package.json.bak does not help for this challenge.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html'
   key: typosquattingAngularChallenge
 -
