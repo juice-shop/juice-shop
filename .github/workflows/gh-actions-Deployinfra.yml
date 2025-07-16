@@ -2,8 +2,7 @@ name: Deploy Infrastructure
 
 on:
   push:
-    branches:
-    - none
+    branches: ["master"]
   workflow_dispatch:
 
 permissions:
