@@ -23,8 +23,6 @@ import { NgIf, NgFor, NgClass } from '@angular/common'
 import { DifficultyOverviewScoreCardComponent } from './components/difficulty-overview-score-card/difficulty-overview-score-card.component'
 import { CodingChallengeProgressScoreCardComponent } from './components/coding-challenge-progress-score-card/coding-challenge-progress-score-card.component'
 import { HackingChallengeProgressScoreCardComponent } from './components/hacking-challenge-progress-score-card/hacking-challenge-progress-score-card.component'
-import { HTTP_INTERCEPTORS } from '@angular/common/http'
-import { RequestInterceptor } from '../Services/request.interceptor'
 
 interface ChallengeSolvedWebsocket {
   key: string
@@ -43,14 +41,7 @@ interface CodeChallengeSolvedWebsocket {
   selector: 'app-score-board',
   templateUrl: './score-board.component.html',
   styleUrls: ['./score-board.component.scss'],
-  imports: [HackingChallengeProgressScoreCardComponent, CodingChallengeProgressScoreCardComponent, DifficultyOverviewScoreCardComponent, NgIf, FilterSettingsComponent, MatProgressSpinner, ChallengesUnavailableWarningComponent, TutorialModeWarningComponent, NgFor, ChallengeCardComponent, NgClass, TranslateModule],   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: RequestInterceptor,
-      multi: true
-    }
-  ]
-
+  imports: [HackingChallengeProgressScoreCardComponent, CodingChallengeProgressScoreCardComponent, DifficultyOverviewScoreCardComponent, NgIf, FilterSettingsComponent, MatProgressSpinner, ChallengesUnavailableWarningComponent, TutorialModeWarningComponent, NgFor, ChallengeCardComponent, NgClass, TranslateModule]
 })
 export class ScoreBoardComponent implements OnInit, OnDestroy {
   public allChallenges: EnrichedChallenge[] = []

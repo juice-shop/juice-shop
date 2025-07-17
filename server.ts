@@ -83,7 +83,6 @@ import { trackOrder } from './routes/trackOrder'
 import { saveLoginIp } from './routes/saveLoginIp'
 import { serveKeyFiles } from './routes/keyServer'
 import * as basketItems from './routes/basketItems'
-import * as hints from './routes/hints'
 import * as challengeHints from './routes/challengeHints' // NEW: Import hint route
 import { performRedirect } from './routes/redirect'
 import { serveEasterEgg } from './routes/easterEgg'
@@ -611,7 +610,6 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/rest/chatbot/status', chatbot.status())
   app.post('/rest/chatbot/respond', chatbot.process())
   app.patch('/rest/challenges/hint-state', challengeHints.updateHintState()) // NEW: Register the PATCH endpoint
-  app.post('/rest/hints/record', security.isAuthorized(), hints.recordHintUsage())
 
   /* NoSQL API endpoints */
   app.get('/rest/products/:id/reviews', showProductReviews())

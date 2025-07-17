@@ -14,6 +14,8 @@ import { ServerStartedNotificationComponent } from './server-started-notificatio
 import { NavbarComponent } from './navbar/navbar.component'
 import { SidenavComponent } from './sidenav/sidenav.component'
 import { MatSidenavContainer, MatSidenav } from '@angular/material/sidenav'
+import { HTTP_INTERCEPTORS } from '@angular/common/http'
+import { RequestInterceptor } from './Services/request.interceptor'
 
 dom.watch()
 
@@ -21,7 +23,14 @@ dom.watch()
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [MatSidenavContainer, MatSidenav, SidenavComponent, NavbarComponent, ServerStartedNotificationComponent, ChallengeSolvedNotificationComponent, WelcomeComponent, RouterOutlet]
+  imports: [MatSidenavContainer, MatSidenav, SidenavComponent, NavbarComponent, ServerStartedNotificationComponent, ChallengeSolvedNotificationComponent, WelcomeComponent, RouterOutlet],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true
+    }
+  ]
 })
 export class AppComponent {
   constructor (@Inject(DOCUMENT) private readonly _document: HTMLDocument, private readonly translate: TranslateService) {
