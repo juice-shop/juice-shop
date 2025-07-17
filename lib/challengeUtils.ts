@@ -26,13 +26,23 @@ export const solveIf = function (challenge: any, criteria: () => any, isRestore:
 
 export const solve = function (challenge: any, isRestore = false) {
   challenge.solved = true
-  challenge.save().then((solvedChallenge: { difficulty: number, key: string, name: string }) => {
+  challenge.save().then((solvedChallenge: { difficulty: number, key: string, name: string, hint: string, hintUrl: string, hintState: number }) => { // MODIFIED: Add hintState to type
     logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} ${solvedChallenge.difficulty}-star ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
     sendNotification(solvedChallenge, isRestore)
     if (!isRestore) {
       const cheatScore = calculateCheatScore(challenge)
+
+      // NEW: Determine hintAvailable
+      let hintAvailable = 0
+      if (solvedChallenge.hintUrl) {
+        hintAvailable = 2
+      } else if (solvedChallenge.hint) {
+        hintAvailable = 1
+      }
+
       if (process.env.SOLUTIONS_WEBHOOK) {
-        webhook.notify(solvedChallenge, cheatScore).catch((error: unknown) => {
+        // MODIFIED: Pass new hint data to the webhook
+        webhook.notify(solvedChallenge, cheatScore, solvedChallenge.hintState, hintAvailable).catch((error: unknown) => {
           logger.error('Webhook notification failed: ' + colors.red(utils.getErrorMessage(error)))
         })
       }

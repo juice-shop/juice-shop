@@ -6,7 +6,7 @@
 import { environment } from '../../environments/environment'
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { type Observable } from 'rxjs'
+import { type Observable, of } from 'rxjs' // Import 'of'
 import { catchError, map } from 'rxjs/operators'
 import { type Challenge } from '../Models/challenge.model'
 
@@ -20,6 +20,16 @@ export class ChallengeService {
 
   find (params?: any): Observable<Challenge[]> {
     return this.http.get(this.host + '/', { params }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+  }
+
+  // NEW: Method to update hint state
+  updateHintState (challengeKey: string, hintState: number): Observable<any> {
+    return this.http.patch(`${this.hostServer}/rest/challenges/hint-state`, { challengeKey, hintState }).pipe(
+      catchError((err) => {
+        console.error(err)
+        return of(null) // Prevent breaking the UI flow
+      })
+    )
   }
 
   repeatNotification (challengeName: string) {

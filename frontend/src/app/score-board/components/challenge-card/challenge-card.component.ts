@@ -5,14 +5,15 @@
 
 import { Component, Input, type OnInit } from '@angular/core'
 import { EnrichedChallenge } from '../../types/EnrichedChallenge'
-import { Config } from 'src/app/Services/configuration.service'
+import { Config } from '../../../Services/configuration.service'
 import { ChallengeHintPipe } from '../../pipes/challenge-hint.pipe'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
 import { NgFor, NgIf, NgClass, AsyncPipe } from '@angular/common'
 import { DifficultyStarsComponent } from '../difficulty-stars/difficulty-stars.component'
-import { WindowRefService } from 'src/app/Services/window-ref.service' // Import WindowRefService
+import { WindowRefService } from '../../../Services/window-ref.service'
+import { ChallengeService } from '../../../Services/challenge.service' // NEW: Import ChallengeService
 
 @Component({
   selector: 'challenge-card',
@@ -36,11 +37,20 @@ export class ChallengeCardComponent implements OnInit {
   public hasInstructions: (challengeName: string) => boolean = () => false
   public startHackingInstructorFor: (challengeName: string) => Promise<void> = async () => {}
 
-  // NEW: State for hint button (0: initial, 1: hint revealed, 2: link opened)
-  public hintState: number = 0
+  // MODIFIED: Use the hintState from the challenge object directly
+  public get hintState (): number {
+    return this.challenge.hintState || 0
+  }
 
-  // NEW: Inject WindowRefService for safe window access
-  constructor (private readonly windowRefService: WindowRefService) {}
+  public set hintState (value: number) {
+    this.challenge.hintState = value
+  }
+
+  // MODIFIED: Inject ChallengeService
+  constructor (
+    private readonly windowRefService: WindowRefService,
+    private readonly challengeService: ChallengeService
+  ) {}
 
   async ngOnInit () {
     const { hasInstructions, startHackingInstructorFor } = await import('../../../../hacking-instructor')
@@ -48,23 +58,20 @@ export class ChallengeCardComponent implements OnInit {
     this.startHackingInstructorFor = startHackingInstructorFor
   }
 
-  // NEW: Logic for the new hint button behavior
   handleHintClick () {
     switch (this.hintState) {
       case 0:
-        // First click: Reveal hint
         this.hintState = 1
-        // In the future, this is where we will send the request to the backend.
+        this.challengeService.updateHintState(this.challenge.key, 1).subscribe()
         break
       case 1:
-        // Second click: Redirect to hintUrl
         if (this.challenge.hintUrl) {
           this.windowRefService.nativeWindow.open(this.challenge.hintUrl, '_blank')
           this.hintState = 2
+          this.challengeService.updateHintState(this.challenge.key, 2).subscribe()
         }
         break
       case 2:
-        // Subsequent clicks: Still redirect
         if (this.challenge.hintUrl) {
           this.windowRefService.nativeWindow.open(this.challenge.hintUrl, '_blank')
         }
@@ -72,7 +79,6 @@ export class ChallengeCardComponent implements OnInit {
     }
   }
 
-  // NEW: Method to determine which icon to show for the locks
   getHintIcon (lockNumber: 1 | 2): 'lock' | 'lock_open' {
     if (this.hintState === 0) {
       return 'lock'
@@ -83,13 +89,12 @@ export class ChallengeCardComponent implements OnInit {
     if (this.hintState >= 2) {
       return 'lock_open'
     }
-    return 'lock' // Default case
+    return 'lock'
   }
 
-  // NEW: Method to control the tooltip content
   getHintTooltip (): string {
     if (this.hintState === 0) {
-      return 'Click to reveal hint' // Or a translated version
+      return 'Click to reveal hint'
     }
     return this.challenge.hint || ''
   }

@@ -147,6 +147,7 @@ InferCreationAttributes<Challenge>
   declare solved: CreationOptional<boolean>
   declare codingChallengeStatus: CreationOptional<number>
   declare hasCodingChallenge: boolean
+  declare hintState: CreationOptional<number>
 }
 
 const ChallengeModelInit = (sequelize: Sequelize) => {
@@ -173,7 +174,12 @@ const ChallengeModelInit = (sequelize: Sequelize) => {
       disabledEnv: DataTypes.STRING,
       tutorialOrder: DataTypes.NUMBER,
       codingChallengeStatus: DataTypes.NUMBER,
-      hasCodingChallenge: DataTypes.BOOLEAN
+      hasCodingChallenge: DataTypes.BOOLEAN,
+      // NEW: Define the new column
+      hintState: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0 // 0 = untouched, 1 = hint revealed, 2 = link used
+      }
     },
     {
       tableName: 'Challenges',
