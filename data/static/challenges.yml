@@ -758,8 +758,12 @@
     - Tutorial
   description: 'Log in with Jim''s user account.'
   difficulty: 3
-  hint: 'Try cracking Jim''s password hash if you harvested it already. Alternatively, if you know Jim''s email address, try SQL Injection.'
+  hint: 'The challenge description probably gave away what form you should attack.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/injection.html#_log_in_with_jims_user_account'
+  hints:
+    - 'The challenge description probably gave away what form you should attack.'
+    - 'You need to know (or smart-guess) Jim’s email address so you can launch a targeted attack.'
+    - 'If you harvested Jim’s password hash, you can try to attack that instead of using SQL Injection.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html'
   key: loginJimChallenge
   tutorial:
@@ -772,8 +776,11 @@
     - OSINT
   description: 'Log in with MC SafeSearch''s original user credentials without applying SQL Injection or any other bypass.'
   difficulty: 2
-  hint: 'You should listen to MC''s hit song "Protect Ya Passwordz".'
+  hint: 'MC SafeSearch is a rapper who produced the song "Protect Ya'' Passwordz" which explains password & sensitive data protection very nicely.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_log_in_with_mc_safesearchs_original_user_credentials'
+  hints:
+    - 'MC SafeSearch is a rapper who produced the song "Protect Ya'' Passwordz" which explains password & sensitive data protection very nicely.'
+    - 'After watching the music video of this song, you should agree that even ⭐⭐ is a slightly exaggerated difficulty rating for this challenge.'
   mitigationUrl: ~
   key: loginRapperChallenge
 -
@@ -786,6 +793,12 @@
   difficulty: 6
   hint: 'The underlying flaw of this challenge is a lot more human error than technical weakness.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/security-misconfiguration.html#_log_in_with_the_support_teams_original_user_credentials'
+  hints:
+    - 'The underlying flaw of this challenge is a lot more human error than technical weakness.'
+    - 'The support team is located in a low-cost country and the team structure fluctuates a lot due to people leaving for jobs with even just slightly better wages.'
+    - 'To prevent abuse the password for the support team account itself is actually very strong.'
+    - 'To allow easy access during an incident, the support team utilizes a 3rd party tool which every support engineer can access to get the current account password from.'
+    - 'While it is also possible to use SQL Injection to log in as the support team, this will not solve the challenge.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html'
   key: loginSupportChallenge
 -
