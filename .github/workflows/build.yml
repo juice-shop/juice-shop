@@ -3,7 +3,7 @@ name: Build and Deploy to Azure Container Apps
 # NOTE: The Azure Container Registry (ACR) is created in a separate resource group (ACR_RESOURCE_GROUP).
 # If you need to reference the ACR resource group in az commands, use the ${{ secrets.ACR_RESOURCE_GROUP }} secret.
 
-on:
+on: 
   push:
     branches: [ main ]
     paths-ignore:
