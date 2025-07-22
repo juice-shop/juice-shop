@@ -1255,8 +1255,11 @@
     - Danger Zone
   description: 'Perform a Remote Code Execution that occupies the server for a while without using infinite loops.'
   difficulty: 6
-  hint: 'Your attack payload must not trigger the protection against too many iterations.'
+  hint: 'Your attack payload must not trigger the protection against too many iterations and infinite loops.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/insecure-deserialization.html#_perform_a_remote_code_execution_that_occupies_the_server_for_a_while_without_using_infinite_loops'
+  hints:
+    - 'Your attack payload must not trigger the protection against too many iterations and infinite loops.'
+    - 'This challenge uses the same leverage point as the "Perform a Remote Code Execution that would keep a less hardened application busy forever" challenge.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html'
   key: rceOccupyChallenge
   disabledEnv:
@@ -1272,6 +1275,10 @@
   difficulty: 5
   hint: 'This vulnerability will not affect any customer of the shop. It is aimed exclusively at its developers.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/vulnerable-components.html#_inform_the_development_team_about_a_danger_to_some_of_their_credentials'
+  hints:
+    - 'This vulnerability will not affect any customer of the shop. It is aimed exclusively at its developers.'
+    - 'This is a research-heavy challenge which does not involve any actual hacking.'
+    - 'Solving "Access a developer''s forgotten backup file" before attempting this challenge will save you from a lot of frustration.'
   mitigationUrl: ~
   key: supplyChainAttackChallenge
 -
@@ -1281,6 +1288,11 @@
   difficulty: 5
   hint: 'The 2FA implementation requires to store a secret for every user. You will need to find a way to access this secret in order to solve this challenge.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-authentication.html#_solve_the_2fa_challenge_for_user_wurstbrot'
+  hints:
+    - 'The 2FA implementation requires to store a secret for every user. You will need to find a way to access this secret in order to solve this challenge.'
+    - 'As always, first learn how the feature under attack is used and behaves under normal conditions.'
+    - 'Make sure you understand how 2FA with TOTP (time-based one-time password) works and which part of it is the critically sensitive one.'
+    - 'Solving the challenge "Retrieve a list of all user credentials via SQL Injection" before tackling this one will definitely help. But it will not carry you all the way.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Multifactor_Authentication_Cheat_Sheet.html'
   key: twoFactorAuthUnsafeSecretStorageChallenge
 -
@@ -1290,6 +1302,12 @@
   difficulty: 5
   hint: 'This challenge exploits a weird option that is supported when signing tokens with JWT.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/vulnerable-components.html#_forge_an_essentially_unsigned_jwt_token'
+  hints:
+    - 'This challenge exploits a weird option that is supported when signing tokens with JWT.'
+    - 'You should begin with retrieving a valid JWT from the application’s Authorization request header.'
+    - 'A JWT is only given to users who have logged in. They have a limited validity, so better do not dawdle.'
+    - 'Try to convince the site to give you a valid token with the required payload while downgrading to no encryption at all.'
+    - 'Make sure your JWT is URL safe!'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html'
   key: jwtUnsignedChallenge
 -
@@ -1299,6 +1317,10 @@
   difficulty: 3
   hint: 'You can attach a small file to the "Complaint" form. Investigate how this upload actually works.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_upload_a_file_larger_than_100_kb'
+  hints:
+    - 'You can attach a small file to the "Complaint" form. Investigate how this upload actually works.'
+    - 'First you should try to understand how the file upload is actually handled on the client and server side.'
+    - 'With this understanding you need to find a "weak spot" in the right place and have to craft an exploit for it.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html'
   key: uploadSizeChallenge
 -
@@ -1308,6 +1330,9 @@
   difficulty: 3
   hint: 'You can attach a PDF or ZIP file to the "Complaint" form. Investigate how this upload actually works.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_upload_a_file_that_has_no_pdf_or_zip_extension'
+  hints:
+    - 'You can attach a PDF or ZIP file to the "Complaint" form. Investigate how this upload actually works.'
+    - 'If you solved the "Upload a file larger than 100 kB" challenge, you should try to apply the same solution here'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html'
   key: uploadTypeChallenge
 -
@@ -1317,6 +1342,12 @@
   difficulty: 4
   hint: 'Gather information on where user data is stored and how it is addressed. Then craft a corresponding UNION SELECT attack.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/injection.html#_retrieve_a_list_of_all_user_credentials_via_sql_injection'
+  hints:
+    - 'Gather information on where user data is stored and how it is addressed. Then craft a corresponding UNION SELECT attack.'
+    - 'Try to find an endpoint where you can influence data being retrieved from the server.'
+    - 'Craft a UNION SELECT attack string to join data from another table into the original result.'
+    - 'You might have to tackle some query syntax issues step-by-step, basically hopping from one error to the next'
+    - 'As with "Order the Christmas special offer of 2014" and "Exfiltrate the entire DB schema definition via SQL Injection" this cannot be achieved through the application frontend.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html'
   key: unionSqlInjectionChallenge
 -
@@ -1326,8 +1357,13 @@
     - Danger Zone
   description: 'Embed an XSS payload <code>&lt;/script&gt;&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> into our promo video.'
   difficulty: 6
-  hint: 'You have to reuse the vulnerability behind one other 6-star challenge to be able to solve this one.'
+  hint: 'Without utilizing the vulnerability behind another ⭐⭐⭐⭐⭐⭐ challenge it is not possible to plant the XSS payload for this challenge.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/xss.html#_embed_an_xss_payload_into_our_promo_video'
+  hints:
+    - 'Without utilizing the vulnerability behind another ⭐⭐⭐⭐⭐⭐ challenge it is not possible to plant the XSS payload for this challenge.'
+    - 'The mentioned "marketing collateral" might have been publicly advertised by the Juice Shop but is not necessarily part of its sitemap yet.'
+    - 'It might help to perform some online searches for structurally similar web projects once you get stuck.'
+    - 'This challenge will always partially keep you blindfolded, no matter how hard you do research and analysis.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html'
   key: videoXssChallenge
   disabledEnv:
@@ -1342,8 +1378,12 @@
     - Good for Demos
   description: 'View another user''s shopping basket.'
   difficulty: 2
-  hint: 'Have an eye on the HTTP traffic while shopping. Alternatively try to find a client-side association of users to their basket.'
+  hint: 'Try out all existing functionality involving the shopping basket while having an eye on the HTTP traffic.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_view_another_users_shopping_basket'
+  hints:
+    - 'Try out all existing functionality involving the shopping basket while having an eye on the HTTP traffic.'
+    - 'There might be a client-side association of user to basket that you can try to manipulate.'
+    - 'In case you manage to update the database via SQL Injection so that a user is linked to another shopping basket, the application will not notice this challenge as solved.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html'
   key: basketAccessChallenge
   tutorial:
@@ -1357,6 +1397,10 @@
   difficulty: 4
   hint: 'Report one of two possible answers via the "Customer Feedback" form. Do not forget to submit the library''s version as well.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/vulnerable-components.html#_inform_the_shop_about_a_vulnerable_library_it_is_using'
+  hints:
+    - 'Report one of two possible answers via the "Customer Feedback" form. Do not forget to submit the library''s version as well.'
+    - 'Look for possible dependencies related to security in the package.json.bak you probably harvested earlier during the Access a developer’s forgotten backup file challenge.'
+    - 'Do some research on the internet for known security issues in the most suspicious application dependencies.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html'
   key: knownVulnerableComponentChallenge
 -
