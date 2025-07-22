@@ -445,7 +445,7 @@
   "PLEASE_CONNECT_TO_SEPOLIA_NETWORK": "Proszę połączyć się z siecią Sepolia.",
   "PLEASE_CONNECT_WEB3_WALLET": "Najpierw podłącz swój portfel Web3.",
   "TITLE_CONTRACT_EDITOR": "Edytor kontraktów",
-  "TITLE_WEB3_SANDBOX": "Web3 Code Sandbox",
+  "TITLE_WEB3_SANDBOX": "Piaskownica kodu Web3",
   "EXPLANATION_SMART_CONTRACT_DEPLOYMENT": "Z łatwością kompiluj/wdrażaj i wywoływaj inteligentne kontrakty ponieżej",
   "EXPLANATION_GWEI_VALUE_POST_COMPILATION": "Możesz przekazać ETH do kontraktu zarówno podczas wywoływania/wdrażania, wprowadzając po przeliczeniu wartości GWEI",
   "LABEL_SELECT_COMPILER_VERSION": "Wybierz wersje kompilatora",
