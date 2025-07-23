@@ -1408,8 +1408,11 @@
   category: 'Cryptographic Issues'
   description: '<a href="/#/contact">Inform the shop</a> about an algorithm or library it should definitely not use the way it does.'
   difficulty: 2
-  hint: 'Report one of four possible answers via the "Customer Feedback" form.'
+  hint: 'Report one of five possible answers via the "Customer Feedback" form.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/cryptographic-issues.html#_inform_the_shop_about_an_algorithm_or_library_it_should_definitely_not_use_the_way_it_does'
+  hints:
+    - 'Report one of five possible answers via the "Customer Feedback" form.'
+    - 'Cryptographic functions only used in the "Apply some advanced cryptanalysis to find the real easter egg" challenge do not count as they are only a developer’s prank and not a serious security problem.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html'
   key: weirdCryptoChallenge
 -
@@ -1421,6 +1424,11 @@
   difficulty: 4
   hint: 'You have to find a way to beat the allowlist of allowed redirect URLs.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/unvalidated-redirects.html#_enforce_a_redirect_to_a_page_you_are_not_supposed_to_redirect_to'
+  hints:
+     - 'You have to find a way to beat the allowlist of allowed redirect URLs.'
+     - 'You can find several places where redirects happen in the OWASP Juice Shop.'
+     - 'The application will only allow you to redirect to allowlisted (previously referred to as whitelisted) URLs.'
+     - 'Tampering with the redirect mechanism might give you some valuable information about how it works under to hood.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html'
   key: redirectChallenge
 -
@@ -1431,7 +1439,11 @@
   description: 'Retrieve the content of <code>C:\Windows\system.ini</code> or <code>/etc/passwd</code> from the server.'
   difficulty: 3
   hint: 'The leverage point for this challenge is the deprecated B2B interface.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/xxe.html#_retrieve_the_content_of_cwindowssystemini_or_etcpasswd_from_the_server'
+  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/xxe.html#_retrieve_the_content_of_cwindowssystem_ini_or_etcpasswd_from_the_server'
+  hints:
+    - 'The leverage point for this challenge is the deprecated B2B interface.'
+    - 'This challenge sounds a lot harder than it actually is, which amplifies how bad the underlying vulnerability is.'
+    - 'Doing some research on typical XEE attack patterns basically gives away the solution for free.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html'
   key: xxeFileDisclosureChallenge
   disabledEnv:
@@ -1447,6 +1459,11 @@
   difficulty: 5
   hint: 'It is not as easy as sending a large amount of data directly to the deprecated B2B interface.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/xxe.html#_give_the_server_something_to_chew_on_for_quite_a_while'
+  hints:
+    - 'It is not as easy as sending a large amount of data directly to the deprecated B2B interface.'
+    - 'The leverage point for this is obviously the same as for the XXE Data Access challenge.'
+    - 'You can only solve this challenge by keeping the server busy for >2sec with your attack.'
+    - 'The effectiveness of attack payloads for this challenge might depend on the operating system the Juice Shop is running on.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html'
   key: xxeDosChallenge
   disabledEnv:
@@ -1462,6 +1479,10 @@
   difficulty: 5
   hint: 'This one is actually similar to the XXE DoS challenge in every way except the data format being (ab)used.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/insecure-deserialization.html#_drop_some_explosive_data_into_a_vulnerable_file_handling_endpoint'
+  hints:
+    - 'This one is actually similar to the XXE DoS challenge in every way except the data format being (ab)used.'
+    - 'You can only solve this challenge by keeping the server busy for >2sec with your attack.'
+    - 'The effectiveness of attack payloads for this challenge might depend on the operating system the Juice Shop is running on.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html'
   key: yamlBombChallenge
   disabledEnv:
@@ -1475,6 +1496,8 @@
   difficulty: 1
   hint: 'Before you invest time bypassing the API, you might want to play around with the UI a bit.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_give_a_devastating_zero_star_feedback_to_the_store'
+  hints:
+    - 'Before you invest time bypassing the API, you might want to play around with the UI a bit.'
   mitigationUrl: ~
   key: zeroStarsChallenge
 -
@@ -1486,6 +1509,10 @@
   difficulty: 1
   hint: 'Check the Photo Wall for an image that could not be loaded correctly.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_retrieve_the_photo_of_bjoerns_cat_in_melee_combat_mode'
+  hints:
+    - 'Check the Photo Wall for an image that could not be loaded correctly.'
+    - 'You just have to (literally) inspect the problem to understand the basic issue.'
+    - 'It can also help to try out the Tweet-button of the entry and observe what happens.'
   mitigationUrl: ~
   key: missingEncodingChallenge
 -
@@ -1497,6 +1524,12 @@
   difficulty: 5
   hint: 'This challenge would formally have to be in several categories as the developers made multiple gaffes for this to be possible.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/security-misconfiguration.html#_stick_cute_cross_domain_kittens_all_over_our_delivery_boxes'
+  hints:
+    - 'This challenge would formally have to be in several categories as the developers made multiple gaffes for this to be possible.'
+    - 'Loading this page with an empty browser cache and on a slow (or throttled) connection will give you an idea on what the delivery box image is made of. Of course inspecting the page source will tell you just as much.'
+    - 'You need to dive deep into the actual Angular code to understand this one.'
+    - 'This challenge requires the exploitation of another vulnerability which even has its own two challenges in its very own category'
+    - 'This challenge can only be solved by strictly using the mentioned "cross-domain kittens". No other kittens from anywhere else can solve this challenge.'
   mitigationUrl: ~
   key: svgInjectionChallenge
 -
@@ -1508,6 +1541,10 @@
   difficulty: 1
   hint: 'Try to guess what URL the endpoint might have.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_find_the_endpoint_that_serves_usage_data_to_be_scraped_by_a_popular_monitoring_system'
+  hints:
+    - 'Try to guess what URL the endpoint might have.'
+    - 'The Juice Shop serves its metrics on the default path expected by Prometheus'
+    - 'Guessing the path is probably just as quick as taking the RTFM route via https://prometheus.io/docs/introduction/first_steps'
   mitigationUrl: ~
   key: exposedMetricsChallenge
 -
@@ -1517,6 +1554,11 @@
   difficulty: 3
   hint: 'Look closely at what happens when you attempt to upgrade your account.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_obtain_a_deluxe_membership_without_paying_for_it'
+  hints:
+    - 'Look closely at what happens when you attempt to upgrade your account.'
+    - 'Go to the payment page for a deluxe membership and try paying through different methods.'
+    - 'Try inspecting the requests that go out for each of these methods, using the browser’s developer tools.'
+    - 'Maybe playing around with the parameters in these requests could reveal something interesting.'
   mitigationUrl: ~
   key: freeDeluxeChallenge
 -
@@ -1526,6 +1568,11 @@
   difficulty: 3
   hint: 'Find a form which updates the username and then construct a malicious page in the online HTML editor. You probably need an older browser version for this.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_change_the_name_of_a_user_by_performing_cross_site_request_forgery_from_another_origin'
+  hints:
+    - 'Find a form which updates the username and then construct a malicious page in the online HTML editor. You probably need an older browser version for this.'
+    - 'Take a look at what happens when you change the username within the profile page.'
+    - 'Search for information about CSRF attacks and look out for examples that can be applied to this challenge.'
+    - 'Write the code for the CSRF attack within http://htmledit.squarefree.com and verify that it changes your username.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html'
   key: csrfChallenge
 -
@@ -1536,8 +1583,12 @@
     - Tutorial
   description: 'Use the bonus payload <code>&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;</code> in the <i>DOM XSS</i> challenge.'
   difficulty: 1
-  hint: 'Copy + Paste = Solved!'
+  hint: 'First, solve the "Perform a DOM XSS attack" challenge.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/xss.html#_use_the_bonus_payload_in_the_dom_xss_challenge'
+  hints:
+    - 'First, solve the "Perform a DOM XSS attack" challenge.'
+    - 'Now it is just a question of copying and pasting the payload into the same vulnerable field.'
+    - 'Crank up the volume of your computer before submitting the payload! 🔊'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html'
   key: xssBonusChallenge
   tutorial:
