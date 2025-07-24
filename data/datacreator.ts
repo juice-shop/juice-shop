@@ -34,7 +34,7 @@ import * as datacache from './datacache'
 import * as security from '../lib/insecurity'
 // @ts-expect-error FIXME due to non-existing type definitions for replace
 import replace from 'replace'
-import {HintModel} from "../models/hint";
+import { HintModel } from '../models/hint'
 
 const entities = new Entities()
 
@@ -114,16 +114,16 @@ async function createChallenges () {
 async function createHints (ChallengeId: number, hints: string[]) {
   let i: number = 0
   return await Promise.all(
-      hints.map(async (hint) => {
-        return HintModel.create({
-          ChallengeId,
-          text: hint,
-          order: ++i,
-          unlocked: false
-        }).catch((err: unknown) => {
-          logger.error(`Could not create hint: ${utils.getErrorMessage(err)}`)
-        });
+    hints.map(async (hint) => {
+      return await HintModel.create({
+        ChallengeId,
+        text: hint,
+        order: ++i,
+        unlocked: false
+      }).catch((err: unknown) => {
+        logger.error(`Could not create hint: ${utils.getErrorMessage(err)}`)
       })
+    })
   )
 }
 
