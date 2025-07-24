@@ -103,7 +103,7 @@ async function createChallenges () {
           codingChallengeStatus: 0,
           hasCodingChallenge
         })
-        if (hints && hints != []) await createHints(datacache.challenges[key].id, hints)
+        if (hints && hints !== []) await createHints(datacache.challenges[key].id, hints)
       } catch (err) {
         logger.error(`Could not insert Challenge ${name}: ${utils.getErrorMessage(err)}`)
       }
