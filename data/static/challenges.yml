@@ -1659,8 +1659,13 @@
     - Prerequisite
   description: 'Bypass a security control with a <a href="https://hakipedia.com/index.php/Poison_Null_Byte">Poison Null Byte</a> to access a file not meant for your eyes.'
   difficulty: 4
-  hint: 'Take a look at the details in the photo to determine the location of where it was taken.'
+  hint: 'Analyze and tamper with links in the application until you get to an unprotected directory listing.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_bypass_a_security_control_with_a_poison_null_byte'
+  hints:
+    - 'Analyze and tamper with links in the application until you get to an unprotected directory listing.'
+    - 'Some files in there are not directly accessible because a security mechanism prevents access.'
+    - 'The Poison Null Byte can trick the security mechanism into thinking that the file you want has a valid file type.'
+    - 'Depending on the files you try to retrieve you will probably solve "Access a developer’s forgotten backup file", "Access a salesman’s forgotten backup file", "Access a misplaced SIEM signature file, or "Find the hidden easter egg" along the way.'
   mitigationUrl: ~
   key: nullByteChallenge
 -
@@ -1671,8 +1676,12 @@
     - Brute Force
   description: 'Receive a coupon code from the support chatbot.'
   difficulty: 1
-  hint: 'Just keep asking.'
+  hint: 'The bot is reluctant to give you a coupon as it’s coming up with various excuses for not giving you one.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/miscellaneous.html#_receive_a_coupon_code_from_the_support_chatbot'
+  hints:
+    - 'The bot is reluctant to give you a coupon as it’s coming up with various excuses for not giving you one.'
+    - 'Asking over and over again like a little kid might actually help you succeed in this case.'
+    - 'No seriously, just keep asking.'
   mitigationUrl: ~
   key: bullyChatbotChallenge
 -
@@ -1684,6 +1693,12 @@
   difficulty: 5
   hint: 'You should read up on vulnerabilities in popular NodeJs template engines.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/vulnerable-components.html#_gain_read_access_to_an_arbitrary_local_file_on_the_web_server'
+  hints:
+    - 'You should read up on vulnerabilities in popular NodeJs template engines.'
+    - 'You should read up on Local File Read (LFR) vulnerabilities in popular NodeJS template engines.'
+    - 'Look for an easily forgettable endpoint in Juice Shop to test out the LFR attack.'
+    - '500 Internal Server Error is always an interesting status code.'
+    - 'Fuzzing can also help with this challenge.'
   description: 'Gain read access to an arbitrary local file on the web server.'
   key: lfrChallenge
   disabledEnv:
@@ -1697,6 +1712,10 @@
   difficulty: 1
   hint: 'Either check the official documentation or inspect a notification UI element directly.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/miscellaneous.html#_close_multiple_challenge_solved_notifications_in_one_go'
+  hints:
+    - 'Either check the official documentation or inspect a notification UI element directly.'
+    - 'This challenge is most easily solvable immediately after a server restart.'
+    - 'Alternatively you can also inspect any "Challenge solved"-notification in your browser to understand its convenience feature.'
   mitigationUrl: ~
   key: closeNotificationsChallenge
 -
@@ -1706,6 +1725,8 @@
   difficulty: 3
   hint: 'Security Advisories are often listed in the security.txt'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/miscellaneous.html#_the_juice_shop_is_susceptible_to_a_known_vulnerability_in_a_library_for_which_an_advisory_has_already_been_issued'
+  hints:
+    - 'Security Advisories are often listed in the security.txt'
   mitigationUrl: ~
   key: csafChallenge
 -
@@ -1715,6 +1736,8 @@
   difficulty: 2
   hint: 'Have a look at the client-side code in the dev console.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_a_developer_was_careless_with_hardcoding_unused_but_still_valid_credentials'
+  hints:
+    - 'Have a look at the client-side code in the dev console.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html'
   key: exposedCredentialsChallenge
   tutorial:
@@ -1726,5 +1749,10 @@
   difficulty: 5
   hint: 'The API call is part of a scheduled process "behind the scenes", i.e. completely unrelated to the web application.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_inform_the_shop_about_a_leaked_api_key'
+  hints:
+    - 'The API call is part of a scheduled process "behind the scenes", i.e. completely unrelated to the web application.'
+    - 'Check the Juice Shop’s social media channels for regularly scheduled content being posted, possibly even indicating that it was automatically created.'
+    - 'Find out which part of the content might come from the response of an API call.'
+    - 'Find the place where the API call happens — as stated above, it is not in the web application — and then look for the API key itself.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html'
   key: leakedApiKeyChallenge
