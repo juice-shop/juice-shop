@@ -12,6 +12,7 @@ import { ChallengeModel } from '../models/challenge'
 import { ComplaintModel } from '../models/complaint'
 import { DeliveryModel } from '../models/delivery'
 import { FeedbackModel } from '../models/feedback'
+import { HintModel } from '../models/hint'
 import { MemoryModel } from '../models/memory'
 import { ProductModel } from '../models/product'
 import { QuantityModel } from '../models/quantity'
@@ -34,7 +35,6 @@ import * as datacache from './datacache'
 import * as security from '../lib/insecurity'
 // @ts-expect-error FIXME due to non-existing type definitions for replace
 import replace from 'replace'
-import {HintModel} from "../models/hint";
 
 const entities = new Entities()
 
@@ -114,16 +114,16 @@ async function createChallenges () {
 async function createHints (ChallengeId: number, hints: string[]) {
   let i: number = 0
   return await Promise.all(
-      hints.map(async (hint) => {
-        return HintModel.create({
-          ChallengeId,
-          text: hint,
-          order: ++i,
-          unlocked: false
-        }).catch((err: unknown) => {
-          logger.error(`Could not create hint: ${utils.getErrorMessage(err)}`)
-        });
+    hints.map(async (hint) => {
+      return HintModel.create({
+        ChallengeId,
+        text: hint,
+        order: ++i,
+        unlocked: false
+      }).catch((err: unknown) => {
+        logger.error(`Could not create hint: ${utils.getErrorMessage(err)}`)
       })
+    })
   )
 }
 

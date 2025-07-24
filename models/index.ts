@@ -12,7 +12,7 @@ import { ChallengeModelInit } from './challenge'
 import { ComplaintModelInit } from './complaint'
 import { DeliveryModelInit } from './delivery'
 import { FeedbackModelInit } from './feedback'
-import { HintModelInit } from './hint';
+import { HintModelInit } from './hint'
 import { ImageCaptchaModelInit } from './imageCaptcha'
 import { MemoryModelInit } from './memory'
 import { PrivacyRequestModelInit } from './privacyRequests'
