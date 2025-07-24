@@ -115,7 +115,7 @@ async function createHints (ChallengeId: number, hints: string[]) {
   let i: number = 0
   return await Promise.all(
     hints.map(async (hint) => {
-      return HintModel.create({
+      return await HintModel.create({
         ChallengeId,
         text: hint,
         order: ++i,
