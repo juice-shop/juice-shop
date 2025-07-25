@@ -158,7 +158,6 @@ jobs:
         with:
           name: api-test-lcov
       - name: "Publish coverage to Coveralls"
-        if: github.event_name == 'push' && matrix.node-version == env.NODE_DEFAULT_VERSION
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
