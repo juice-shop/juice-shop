@@ -71,4 +71,17 @@ export function searchProducts () {
       })
   }
 }
+
+export function searchProductsVulnerable () {
+  return (req: Request, res: Response, next: NextFunction) => {
+    let criteria: any = req.query.q === 'undefined' ? '' : req.query.q ?? ''
+    criteria = (criteria.length <= 200) ? criteria : criteria.substring(0, 200)
+    // Introduce the vulnerability by directly using user input in the response
+    const responseHtml = `
+      <h1>Search Results</h1>
+      <p>You searched for: ${criteria}</p>
+    `;
+    res.send(responseHtml);
+  }
+}
 // vuln-code-snippet end unionSqlInjectionChallenge dbSchemaChallenge
