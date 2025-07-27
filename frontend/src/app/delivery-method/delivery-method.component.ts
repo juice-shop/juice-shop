@@ -42,15 +42,21 @@ export class DeliveryMethodComponent implements OnInit {
     private readonly addressService: AddressService, private readonly router: Router, private readonly ngZone: NgZone) { }
 
   ngOnInit (): void {
-    this.addressService.getById(sessionStorage.getItem('addressId')).subscribe((address) => {
-      this.address = address
-    }, (error) => { console.log(error) })
+    this.addressService.getById(sessionStorage.getItem('addressId')).subscribe({
+      next: (address) => {
+        this.address = address
+      },
+      error: (error) => { console.log(error) }
+    })
 
-    this.deliverySerivce.get().subscribe((methods) => {
-      console.log(methods)
-      this.methods = methods
-      this.dataSource = new MatTableDataSource<DeliveryMethod>(this.methods)
-    }, (error) => { console.log(error) })
+    this.deliverySerivce.get().subscribe({
+      next: (methods) => {
+        console.log(methods)
+        this.methods = methods
+        this.dataSource = new MatTableDataSource<DeliveryMethod>(this.methods)
+      },
+      error: (error) => { console.log(error) }
+    })
   }
 
   selectMethod (id) {

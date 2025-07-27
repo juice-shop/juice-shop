@@ -28,10 +28,13 @@ export class WalletComponent implements OnInit {
   constructor (private readonly router: Router, private readonly walletService: WalletService, private readonly ngZone: NgZone) { }
 
   ngOnInit (): void {
-    this.walletService.get().subscribe((balance) => {
-      this.balance = parseFloat(balance).toFixed(2)
-    }, (err) => {
-      console.log(err)
+    this.walletService.get().subscribe({
+      next: (balance) => {
+        this.balance = parseFloat(balance).toFixed(2)
+      },
+      error: (err) => {
+        console.log(err)
+      }
     })
   }
 

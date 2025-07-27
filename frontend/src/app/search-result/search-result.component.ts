@@ -71,61 +71,64 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
   ngAfterViewInit () {
     const products = this.productService.search('')
     const quantities = this.quantityService.getAll()
-    forkJoin([quantities, products]).subscribe(([quantities, products]) => {
-      const dataTable: TableEntry[] = []
-      this.tableData = products
-      this.trustProductDescription(products) // vuln-code-snippet neutral-line restfulXssChallenge
-      for (const product of products) {
-        dataTable.push({
-          name: product.name,
-          price: product.price,
-          deluxePrice: product.deluxePrice,
-          id: product.id,
-          image: product.image,
-          description: product.description
-        })
-      }
-      for (const quantity of quantities) {
-        const entry = dataTable.find((dataTableEntry) => {
-          return dataTableEntry.id === quantity.ProductId
-        })
-        if (entry === undefined) {
-          continue
+    forkJoin([quantities, products]).subscribe({
+      next: ([quantities, products]) => {
+        const dataTable: TableEntry[] = []
+        this.tableData = products
+        this.trustProductDescription(products) // vuln-code-snippet neutral-line restfulXssChallenge
+        for (const product of products) {
+          dataTable.push({
+            name: product.name,
+            price: product.price,
+            deluxePrice: product.deluxePrice,
+            id: product.id,
+            image: product.image,
+            description: product.description
+          })
         }
-        entry.quantity = quantity.quantity
-      }
-      this.dataSource = new MatTableDataSource<TableEntry>(dataTable)
-      for (let i = 1; i <= Math.ceil(this.dataSource.data.length / 12); i++) {
-        this.pageSizeOptions.push(i * 12)
-      }
-      this.paginator.pageSizeOptions = this.pageSizeOptions
-      this.dataSource.paginator = this.paginator
-      this.gridDataSource = this.dataSource.connect()
-      this.resultsLength = this.dataSource.data.length
-      this.filterTable()
-      this.routerSubscription = this.router.events.subscribe(() => {
+        for (const quantity of quantities) {
+          const entry = dataTable.find((dataTableEntry) => {
+            return dataTableEntry.id === quantity.ProductId
+          })
+          if (entry === undefined) {
+            continue
+          }
+          entry.quantity = quantity.quantity
+        }
+        this.dataSource = new MatTableDataSource<TableEntry>(dataTable)
+        for (let i = 1; i <= Math.ceil(this.dataSource.data.length / 12); i++) {
+          this.pageSizeOptions.push(i * 12)
+        }
+        this.paginator.pageSizeOptions = this.pageSizeOptions
+        this.dataSource.paginator = this.paginator
+        this.gridDataSource = this.dataSource.connect()
+        this.resultsLength = this.dataSource.data.length
         this.filterTable()
-      })
-      const challenge: string = this.route.snapshot.queryParams.challenge // vuln-code-snippet hide-start
-      if (challenge && this.route.snapshot.url.join('').match(/hacking-instructor/)) {
-        this.startHackingInstructor(decodeURIComponent(challenge))
-      } // vuln-code-snippet hide-end
-      if (window.innerWidth < 2600) {
-        this.breakpoint = 4
-        if (window.innerWidth < 1740) {
-          this.breakpoint = 3
-          if (window.innerWidth < 1280) {
-            this.breakpoint = 2
-            if (window.innerWidth < 850) {
-              this.breakpoint = 1
+        this.routerSubscription = this.router.events.subscribe(() => {
+          this.filterTable()
+        })
+        const challenge: string = this.route.snapshot.queryParams.challenge // vuln-code-snippet hide-start
+        if (challenge && this.route.snapshot.url.join('').match(/hacking-instructor/)) {
+          this.startHackingInstructor(decodeURIComponent(challenge))
+        } // vuln-code-snippet hide-end
+        if (window.innerWidth < 2600) {
+          this.breakpoint = 4
+          if (window.innerWidth < 1740) {
+            this.breakpoint = 3
+            if (window.innerWidth < 1280) {
+              this.breakpoint = 2
+              if (window.innerWidth < 850) {
+                this.breakpoint = 1
+              }
             }
           }
+        } else {
+          this.breakpoint = 6
         }
-      } else {
-        this.breakpoint = 6
-      }
-      this.cdRef.detectChanges()
-    }, (err) => { console.log(err) })
+        this.cdRef.detectChanges()
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 
   trustProductDescription (tableData: any[]) { // vuln-code-snippet neutral-line restfulXssChallenge
@@ -190,50 +193,74 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
   }
 
   addToBasket (id?: number) {
-    this.basketService.find(Number(sessionStorage.getItem('bid'))).subscribe((basket) => {
-      const productsInBasket: any = basket.Products
-      let found = false
-      for (let i = 0; i < productsInBasket.length; i++) {
-        if (productsInBasket[i].id === id) {
-          found = true
-          this.basketService.get(productsInBasket[i].BasketItem.id).subscribe((existingBasketItem) => {
-            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            const newQuantity = existingBasketItem.quantity + 1
-            this.basketService.put(existingBasketItem.id, { quantity: newQuantity }).subscribe((updatedBasketItem) => {
-              this.productService.get(updatedBasketItem.ProductId).subscribe((product) => {
-                this.translateService.get('BASKET_ADD_SAME_PRODUCT', { product: product.name }).subscribe((basketAddSameProduct) => {
-                  this.snackBarHelperService.open(basketAddSameProduct, 'confirmBar')
-                  this.basketService.updateNumberOfCartItems()
-                }, (translationId) => {
-                  this.snackBarHelperService.open(translationId, 'confirmBar')
-                  this.basketService.updateNumberOfCartItems()
+    this.basketService.find(Number(sessionStorage.getItem('bid'))).subscribe({
+      next: (basket) => {
+        const productsInBasket: any = basket.Products
+        let found = false
+        for (let i = 0; i < productsInBasket.length; i++) {
+          if (productsInBasket[i].id === id) {
+            found = true
+            this.basketService.get(productsInBasket[i].BasketItem.id).subscribe({
+              next: (existingBasketItem) => {
+                // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+                const newQuantity = existingBasketItem.quantity + 1
+                this.basketService.put(existingBasketItem.id, { quantity: newQuantity }).subscribe({
+                  next: (updatedBasketItem) => {
+                    this.productService.get(updatedBasketItem.ProductId).subscribe({
+                      next: (product) => {
+                        this.translateService.get('BASKET_ADD_SAME_PRODUCT', { product: product.name }).subscribe({
+                          next: (basketAddSameProduct) => {
+                            this.snackBarHelperService.open(basketAddSameProduct, 'confirmBar')
+                            this.basketService.updateNumberOfCartItems()
+                          },
+                          error: (translationId) => {
+                            this.snackBarHelperService.open(translationId, 'confirmBar')
+                            this.basketService.updateNumberOfCartItems()
+                          }
+                        })
+                      },
+                      error: (err) => { console.log(err) }
+                    })
+                  },
+                  error: (err) => {
+                    this.snackBarHelperService.open(err.error?.error, 'errorBar')
+                    console.log(err)
+                  }
                 })
-              }, (err) => { console.log(err) })
-            }, (err) => {
+              },
+              error: (err) => { console.log(err) }
+            })
+            break
+          }
+        }
+        if (!found) {
+          this.basketService.save({ ProductId: id, BasketId: sessionStorage.getItem('bid'), quantity: 1 }).subscribe({
+            next: (newBasketItem) => {
+              this.productService.get(newBasketItem.ProductId).subscribe({
+                next: (product) => {
+                  this.translateService.get('BASKET_ADD_PRODUCT', { product: product.name }).subscribe({
+                    next: (basketAddProduct) => {
+                      this.snackBarHelperService.open(basketAddProduct, 'confirmBar')
+                      this.basketService.updateNumberOfCartItems()
+                    },
+                    error: (translationId) => {
+                      this.snackBarHelperService.open(translationId, 'confirmBar')
+                      this.basketService.updateNumberOfCartItems()
+                    }
+                  })
+                },
+                error: (err) => { console.log(err) }
+              })
+            },
+            error: (err) => {
               this.snackBarHelperService.open(err.error?.error, 'errorBar')
               console.log(err)
-            })
-          }, (err) => { console.log(err) })
-          break
+            }
+          })
         }
-      }
-      if (!found) {
-        this.basketService.save({ ProductId: id, BasketId: sessionStorage.getItem('bid'), quantity: 1 }).subscribe((newBasketItem) => {
-          this.productService.get(newBasketItem.ProductId).subscribe((product) => {
-            this.translateService.get('BASKET_ADD_PRODUCT', { product: product.name }).subscribe((basketAddProduct) => {
-              this.snackBarHelperService.open(basketAddProduct, 'confirmBar')
-              this.basketService.updateNumberOfCartItems()
-            }, (translationId) => {
-              this.snackBarHelperService.open(translationId, 'confirmBar')
-              this.basketService.updateNumberOfCartItems()
-            })
-          }, (err) => { console.log(err) })
-        }, (err) => {
-          this.snackBarHelperService.open(err.error?.error, 'errorBar')
-          console.log(err)
-        })
-      }
-    }, (err) => { console.log(err) })
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 
   isLoggedIn () {
