@@ -67,29 +67,38 @@ export class CodeSnippetComponent implements OnInit {
   constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly configurationService: ConfigurationService, private readonly codeSnippetService: CodeSnippetService, private readonly vulnLinesService: VulnLinesService, private readonly codeFixesService: CodeFixesService, private readonly challengeService: ChallengeService, private readonly cookieService: CookieService) { }
 
   ngOnInit (): void {
-    this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      this.showFeedbackButtons = config.challenges.showFeedbackButtons
-    }, (err) => { console.log(err) })
-
-    this.codeSnippetService.get(this.dialogData.key).subscribe((snippet) => {
-      this.snippet = snippet
-      this.solved.findIt = false
-      if (this.dialogData.codingChallengeStatus >= 1) {
-        this.result = ResultState.Right
-        this.lock = ResultState.Right
-        this.solved.findIt = true
-      }
-    }, (err) => {
-      this.snippet = { snippet: err.error }
+    this.configurationService.getApplicationConfiguration().subscribe({
+      next: (config) => {
+        this.showFeedbackButtons = config.challenges.showFeedbackButtons
+      },
+      error: (err) => { console.log(err) }
     })
-    this.codeFixesService.get(this.dialogData.key).subscribe((fixes) => {
-      this.fixes = fixes.fixes
-      if (this.fixes) {
-        this.shuffle()
+
+    this.codeSnippetService.get(this.dialogData.key).subscribe({
+      next: (snippet) => {
+        this.snippet = snippet
+        this.solved.findIt = false
+        if (this.dialogData.codingChallengeStatus >= 1) {
+          this.result = ResultState.Right
+          this.lock = ResultState.Right
+          this.solved.findIt = true
+        }
+      },
+      error: (err) => {
+        this.snippet = { snippet: err.error }
       }
-      this.solved.fixIt = this.dialogData.codingChallengeStatus >= 2
-    }, () => {
-      this.fixes = null
+    })
+    this.codeFixesService.get(this.dialogData.key).subscribe({
+      next: (fixes) => {
+        this.fixes = fixes.fixes
+        if (this.fixes) {
+          this.shuffle()
+        }
+        this.solved.fixIt = this.dialogData.codingChallengeStatus >= 2
+      },
+      error: () => {
+        this.fixes = null
+      }
     })
   }
 
@@ -166,24 +175,30 @@ export class CodeSnippetComponent implements OnInit {
     if (verdict) {
       if (this.tab.value === 0) {
         this.solved.findIt = true
-        this.challengeService.continueCodeFindIt().subscribe((continueCode) => {
-          if (!continueCode) {
-            throw (new Error('Received invalid continue code from the server!'))
-          }
-          const expires = new Date()
-          expires.setFullYear(expires.getFullYear() + 1)
-          this.cookieService.put('continueCodeFindIt', continueCode, { expires })
-        }, (err) => { console.log(err) })
+        this.challengeService.continueCodeFindIt().subscribe({
+          next: (continueCode) => {
+            if (!continueCode) {
+              throw (new Error('Received invalid continue code from the server!'))
+            }
+            const expires = new Date()
+            expires.setFullYear(expires.getFullYear() + 1)
+            this.cookieService.put('continueCodeFindIt', continueCode, { expires })
+          },
+          error: (err) => { console.log(err) }
+        })
       } else {
         this.solved.fixIt = true
-        this.challengeService.continueCodeFixIt().subscribe((continueCode) => {
-          if (!continueCode) {
-            throw (new Error('Received invalid continue code from the server!'))
-          }
-          const expires = new Date()
-          expires.setFullYear(expires.getFullYear() + 1)
-          this.cookieService.put('continueCodeFixIt', continueCode, { expires })
-        }, (err) => { console.log(err) })
+        this.challengeService.continueCodeFixIt().subscribe({
+          next: (continueCode) => {
+            if (!continueCode) {
+              throw (new Error('Received invalid continue code from the server!'))
+            }
+            const expires = new Date()
+            expires.setFullYear(expires.getFullYear() + 1)
+            this.cookieService.put('continueCodeFixIt', continueCode, { expires })
+          },
+          error: (err) => { console.log(err) }
+        })
       }
       this.result = ResultState.Right
       this.lock = ResultState.Right

@@ -49,14 +49,17 @@ export class RecycleComponent implements OnInit {
     private readonly translate: TranslateService, private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit (): void {
-    this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
-      if (config?.application?.recyclePage) {
+    this.configurationService.getApplicationConfiguration().subscribe({
+      next: (config: any) => {
+        if (config?.application?.recyclePage) {
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        this.topImage = `assets/public/images/products/${config.application.recyclePage.topProductImage}`
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        this.bottomImage = `assets/public/images/products/${config.application.recyclePage.bottomProductImage}`
-      }
-    }, (err) => { console.log(err) })
+          this.topImage = `assets/public/images/products/${config.application.recyclePage.topProductImage}`
+          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+          this.bottomImage = `assets/public/images/products/${config.application.recyclePage.bottomProductImage}`
+        }
+      },
+      error: (err) => { console.log(err) }
+    })
 
     this.initRecycle()
     this.findAll()
@@ -65,12 +68,15 @@ export class RecycleComponent implements OnInit {
   }
 
   initRecycle () {
-    this.userService.whoAmI().subscribe((data) => {
-      this.recycle = {}
-      this.recycle.UserId = data.id
-      this.userEmail = data.email
-      this.requestorControl.setValue(this.userEmail)
-    }, (err) => { console.log(err) })
+    this.userService.whoAmI().subscribe({
+      next: (data) => {
+        this.recycle = {}
+        this.recycle.UserId = data.id
+        this.userEmail = data.email
+        this.requestorControl.setValue(this.userEmail)
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 
   save () {
@@ -81,34 +87,46 @@ export class RecycleComponent implements OnInit {
       this.recycle.date = this.pickUpDateControl.value
     }
 
-    this.recycleService.save(this.recycle).subscribe((savedRecycle: any) => {
-      if (savedRecycle.isPickup) {
-        this.translate.get('CONFIRM_RECYCLING_PICKUP', { pickupdate: savedRecycle.pickupDate }).subscribe((confirmRecyclingPickup) => {
-          this.snackBarHelperService.open(confirmRecyclingPickup, 'confirmBar')
-        }, (translationId) => {
-          this.snackBarHelperService.open(translationId, 'confirmBar')
-        })
-      } else {
-        this.translate.get('CONFIRM_RECYCLING_BOX').subscribe((confirmRecyclingBox) => {
-          this.snackBarHelperService.open(confirmRecyclingBox, 'confirmBar')
-        }, (translationId) => {
-          this.snackBarHelperService.open(translationId, 'confirmBar')
-        })
+    this.recycleService.save(this.recycle).subscribe({
+      next: (savedRecycle: any) => {
+        if (savedRecycle.isPickup) {
+          this.translate.get('CONFIRM_RECYCLING_PICKUP', { pickupdate: savedRecycle.pickupDate }).subscribe({
+            next: (confirmRecyclingPickup) => {
+              this.snackBarHelperService.open(confirmRecyclingPickup, 'confirmBar')
+            },
+            error: (translationId) => {
+              this.snackBarHelperService.open(translationId, 'confirmBar')
+            }
+          })
+        } else {
+          this.translate.get('CONFIRM_RECYCLING_BOX').subscribe({
+            next: (confirmRecyclingBox) => {
+              this.snackBarHelperService.open(confirmRecyclingBox, 'confirmBar')
+            },
+            error: (translationId) => {
+              this.snackBarHelperService.open(translationId, 'confirmBar')
+            }
+          })
+        }
+        this.addressComponent.load()
+        this.initRecycle()
+        this.resetForm()
+      },
+      error: (err) => {
+        this.snackBarHelperService.open(err.error?.error, 'errorBar')
+        console.log(err)
       }
-      this.addressComponent.load()
-      this.initRecycle()
-      this.resetForm()
-    }, (err) => {
-      this.snackBarHelperService.open(err.error?.error, 'errorBar')
-      console.log(err)
     })
   }
 
   findAll () {
-    this.recycleService.find().subscribe((recycles) => {
-      this.recycles = recycles
-    }, (error) => {
-      console.log(error)
+    this.recycleService.find().subscribe({
+      next: (recycles) => {
+        this.recycles = recycles
+      },
+      error: (error) => {
+        console.log(error)
+      }
     })
   }
 

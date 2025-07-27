@@ -27,10 +27,13 @@ export class ErrorPageComponent implements OnInit {
   ngOnInit (): void {
     const errorKey = this.route.snapshot.queryParams.error
     if (errorKey) {
-      this.translate.get(errorKey).subscribe((errorMessage) => {
-        this.error = errorMessage
-      }, (translationId) => {
-        this.error = translationId
+      this.translate.get(errorKey).subscribe({
+        next: (errorMessage) => {
+          this.error = errorMessage
+        },
+        error: (translationId) => {
+          this.error = translationId
+        }
       })
     }
   }

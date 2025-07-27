@@ -61,19 +61,22 @@ export class DataExportComponent implements OnInit {
       this.dataRequest.answer = this.captchaControl.value
     }
     this.dataRequest.format = this.formatControl.value
-    this.dataSubjectService.dataExport(this.dataRequest).subscribe((data: any) => {
-      this.error = null
-      this.confirmation = data.confirmation
-      this.userData = data.userData
-      window.open('', '_blank', 'width=500')?.document.write(this.userData)
-      this.lastSuccessfulTry = new Date()
-      localStorage.setItem('lstdtxprt', JSON.stringify(this.lastSuccessfulTry))
-      this.ngOnInit()
-      this.resetForm()
-    }, (error) => {
-      this.error = error.error
-      this.confirmation = null
-      this.resetFormError()
+    this.dataSubjectService.dataExport(this.dataRequest).subscribe({
+      next: (data: any) => {
+        this.error = null
+        this.confirmation = data.confirmation
+        this.userData = data.userData
+        window.open('', '_blank', 'width=500')?.document.write(this.userData)
+        this.lastSuccessfulTry = new Date()
+        localStorage.setItem('lstdtxprt', JSON.stringify(this.lastSuccessfulTry))
+        this.ngOnInit()
+        this.resetForm()
+      },
+      error: (error) => {
+        this.error = error.error
+        this.confirmation = null
+        this.resetFormError()
+      }
     })
   }
 

@@ -59,9 +59,12 @@ export class RegisterComponent implements OnInit {
     private readonly ngZone: NgZone) { }
 
   ngOnInit (): void {
-    this.securityQuestionService.find(null).subscribe((securityQuestions: any) => {
-      this.securityQuestions = securityQuestions
-    }, (err) => { console.log(err) })
+    this.securityQuestionService.find(null).subscribe({
+      next: (securityQuestions: any) => {
+        this.securityQuestions = securityQuestions
+      },
+      error: (err) => { console.log(err) }
+    })
 
     this.formSubmitService.attachEnterKeyHandler('registration-form', 'registerButton', () => { this.save() })
   }
@@ -75,24 +78,27 @@ export class RegisterComponent implements OnInit {
       securityAnswer: this.securityAnswerControl.value
     }
 
-    this.userService.save(user).subscribe((response: any) => {
-      this.securityAnswerService.save({
-        UserId: response.id,
-        answer: this.securityAnswerControl.value,
-        SecurityQuestionId: this.securityQuestionControl.value
-      }).subscribe(() => {
-        this.ngZone.run(async () => await this.router.navigate(['/login']))
-        this.snackBarHelperService.open('CONFIRM_REGISTER')
-      })
-    }, (err) => {
-      console.log(err)
-      if (err.error?.errors) {
-        const error = err.error.errors[0]
-        if (error.message) {
+    this.userService.save(user).subscribe({
+      next: (response: any) => {
+        this.securityAnswerService.save({
+          UserId: response.id,
+          answer: this.securityAnswerControl.value,
+          SecurityQuestionId: this.securityQuestionControl.value
+        }).subscribe(() => {
+          this.ngZone.run(async () => await this.router.navigate(['/login']))
+          this.snackBarHelperService.open('CONFIRM_REGISTER')
+        })
+      },
+      error: (err) => {
+        console.log(err)
+        if (err.error?.errors) {
+          const error = err.error.errors[0]
+          if (error.message) {
           // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-          this.error = error.message[0].toUpperCase() + error.message.slice(1)
-        } else {
-          this.error = error
+            this.error = error.message[0].toUpperCase() + error.message.slice(1)
+          } else {
+            this.error = error
+          }
         }
       }
     })
