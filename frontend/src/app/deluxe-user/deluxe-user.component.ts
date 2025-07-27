@@ -49,31 +49,37 @@ export class DeluxeUserComponent implements OnInit {
   }
 
   ngOnInit (): void {
-    this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      const decalParam: string = this.route.snapshot.queryParams.testDecal // "Forgotten" test parameter to play with different stickers on the delivery box image
-      if (config?.application) {
-        if (config.application.name) {
-          this.applicationName = config.application.name
-        }
-        if (config.application.logo) {
-          let logo: string = config.application.logo
-
-          if (logo.substring(0, 4) === 'http') {
-            logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
+    this.configurationService.getApplicationConfiguration().subscribe({
+      next: (config) => {
+        const decalParam: string = this.route.snapshot.queryParams.testDecal // "Forgotten" test parameter to play with different stickers on the delivery box image
+        if (config?.application) {
+          if (config.application.name) {
+            this.applicationName = config.application.name
           }
-          this.logoSrc = `assets/public/images/${decalParam || logo}`
+          if (config.application.logo) {
+            let logo: string = config.application.logo
+
+            if (logo.substring(0, 4) === 'http') {
+              logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
+            }
+            this.logoSrc = `assets/public/images/${decalParam || logo}`
+          }
         }
+        if (decalParam) {
+          this.ngZone.runOutsideAngular(() => {
+            this.io.socket().emit('verifySvgInjectionChallenge', decalParam)
+          })
+        }
+      },
+      error: (err) => { console.log(err) }
+    })
+    this.userService.deluxeStatus().subscribe({
+      next: (res) => {
+        this.membershipCost = res.membershipCost
+      },
+      error: (err) => {
+        this.error = err.error.error
       }
-      if (decalParam) {
-        this.ngZone.runOutsideAngular(() => {
-          this.io.socket().emit('verifySvgInjectionChallenge', decalParam)
-        })
-      }
-    }, (err) => { console.log(err) })
-    this.userService.deluxeStatus().subscribe((res) => {
-      this.membershipCost = res.membershipCost
-    }, (err) => {
-      this.error = err.error.error
     })
   }
 

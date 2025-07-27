@@ -122,14 +122,16 @@ export class WalletWeb3Component {
       const provider = await connect({ connector: new InjectedConnector() })
       this.metamaskAddress = provider.account
       this.keysService.walletAddressSend(this.metamaskAddress).subscribe(
-        (response) => {
-          if (response.success) {
-            this.successResponse = response.status
-            this.mintButtonDisabled = true
+        {
+          next: (response) => {
+            if (response.success) {
+              this.successResponse = response.status
+              this.mintButtonDisabled = true
+            }
+          },
+          error: (error) => {
+            console.error(error)
           }
-        },
-        (error) => {
-          console.error(error)
         }
       )
       this.userData = {

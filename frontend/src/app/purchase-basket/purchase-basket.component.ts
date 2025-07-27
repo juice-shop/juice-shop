@@ -45,33 +45,42 @@ export class PurchaseBasketComponent implements OnInit {
       this.tableColumns.push('remove')
     }
     this.load()
-    this.userService.whoAmI().subscribe((data) => {
-      this.userEmail = data.email || 'anonymous'
-      this.userEmail = '(' + this.userEmail + ')'
-    }, (err) => { console.log(err) })
+    this.userService.whoAmI().subscribe({
+      next: (data) => {
+        this.userEmail = data.email || 'anonymous'
+        this.userEmail = '(' + this.userEmail + ')'
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 
   load () {
-    this.basketService.find(parseInt(sessionStorage.getItem('bid'), 10)).subscribe((basket) => {
-      if (this.isDeluxe()) {
-        basket.Products.forEach(product => {
-          product.price = product.deluxePrice
-        })
-      }
-      this.dataSource = basket.Products
-      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-      this.itemTotal = basket.Products.reduce((itemTotal, product) => itemTotal + product.price * product.BasketItem.quantity, 0)
-      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-      this.bonus = basket.Products.reduce((bonusPoints, product) => bonusPoints + Math.round(product.price / 10) * product.BasketItem.quantity, 0)
-      this.sendToParent(this.dataSource.length)
-    }, (err) => { console.log(err) })
+    this.basketService.find(parseInt(sessionStorage.getItem('bid'), 10)).subscribe({
+      next: (basket) => {
+        if (this.isDeluxe()) {
+          basket.Products.forEach(product => {
+            product.price = product.deluxePrice
+          })
+        }
+        this.dataSource = basket.Products
+        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+        this.itemTotal = basket.Products.reduce((itemTotal, product) => itemTotal + product.price * product.BasketItem.quantity, 0)
+        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+        this.bonus = basket.Products.reduce((bonusPoints, product) => bonusPoints + Math.round(product.price / 10) * product.BasketItem.quantity, 0)
+        this.sendToParent(this.dataSource.length)
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 
   delete (id) {
-    this.basketService.del(id).subscribe(() => {
-      this.load()
-      this.basketService.updateNumberOfCartItems()
-    }, (err) => { console.log(err) })
+    this.basketService.del(id).subscribe({
+      next: () => {
+        this.load()
+        this.basketService.updateNumberOfCartItems()
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 
   inc (id) {
@@ -83,17 +92,23 @@ export class PurchaseBasketComponent implements OnInit {
   }
 
   addToQuantity (id, value) {
-    this.basketService.get(id).subscribe((basketItem) => {
+    this.basketService.get(id).subscribe({
+      next: (basketItem) => {
       // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-      const newQuantity = basketItem.quantity + value
-      this.basketService.put(id, { quantity: newQuantity < 1 ? 1 : newQuantity }).subscribe(() => {
-        this.load()
-        this.basketService.updateNumberOfCartItems()
-      }, (err) => {
-        this.snackBarHelperService.open(err.error?.error, 'errorBar')
-        console.log(err)
-      })
-    }, (err) => { console.log(err) })
+        const newQuantity = basketItem.quantity + value
+        this.basketService.put(id, { quantity: newQuantity < 1 ? 1 : newQuantity }).subscribe({
+          next: () => {
+            this.load()
+            this.basketService.updateNumberOfCartItems()
+          },
+          error: (err) => {
+            this.snackBarHelperService.open(err.error?.error, 'errorBar')
+            console.log(err)
+          }
+        })
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 
   sendToParent (count) {

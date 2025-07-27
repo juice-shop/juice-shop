@@ -79,9 +79,12 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
           this.showCtfCountryDetailsInNotifications = config.ctf.showCountryDetailsInNotifications
 
           if (config.ctf.showCountryDetailsInNotifications !== 'none') {
-            this.countryMappingService.getCountryMapping().subscribe((countryMap: any) => {
-              this.countryMap = countryMap
-            }, (err) => { console.log(err) })
+            this.countryMappingService.getCountryMapping().subscribe({
+              next: (countryMap: any) => {
+                this.countryMap = countryMap
+              },
+              error: (err) => { console.log(err) }
+            })
           }
         } else {
           this.showCtfCountryDetailsInNotifications = 'none'
@@ -121,13 +124,16 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
   }
 
   saveProgress () {
-    this.challengeService.continueCode().subscribe((continueCode) => {
-      if (!continueCode) {
-        throw (new Error('Received invalid continue code from the server!'))
-      }
-      const expires = new Date()
-      expires.setFullYear(expires.getFullYear() + 1)
-      this.cookieService.put('continueCode', continueCode, { expires })
-    }, (err) => { console.log(err) })
+    this.challengeService.continueCode().subscribe({
+      next: (continueCode) => {
+        if (!continueCode) {
+          throw (new Error('Received invalid continue code from the server!'))
+        }
+        const expires = new Date()
+        expires.setFullYear(expires.getFullYear() + 1)
+        this.cookieService.put('continueCode', continueCode, { expires })
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 }

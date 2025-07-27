@@ -29,20 +29,23 @@ export class NFTUnlockComponent {
   }
 
   checkChallengeStatus () {
-    this.keysService.nftUnlocked().subscribe(
+    this.keysService.nftUnlocked().subscribe({
+      next:
       (response) => {
         this.successResponse = response.status
       },
-      (error) => {
+      error: (error) => {
         console.error(error)
         this.successResponse = false
       }
+    }
     )
   }
 
   submitForm () {
     this.formSubmitted = true
-    this.keysService.submitKey(this.privateKey).subscribe(
+    this.keysService.submitKey(this.privateKey).subscribe({
+      next:
       (response) => {
         if (response.success) {
           this.successResponse = true
@@ -51,10 +54,11 @@ export class NFTUnlockComponent {
           this.successResponse = false
         }
       },
-      (error) => {
+      error: (error) => {
         this.successResponse = false
         this.errorMessage = error.error.message
       }
+    }
     )
   }
 }

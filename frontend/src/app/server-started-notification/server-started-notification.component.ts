@@ -37,31 +37,46 @@ export class ServerStartedNotificationComponent implements OnInit {
         const continueCodeFindIt = this.cookieService.get('continueCodeFindIt')
         const continueCodeFixIt = this.cookieService.get('continueCodeFixIt')
         if (continueCode) {
-          this.challengeService.restoreProgress(encodeURIComponent(continueCode)).subscribe(() => {
-            this.translate.get('AUTO_RESTORED_PROGRESS').subscribe((notificationServerStarted) => {
-              this.hackingProgress.autoRestoreMessage = notificationServerStarted
-            }, (translationId) => {
-              this.hackingProgress.autoRestoreMessage = translationId
-            })
-          }, (error) => {
-            console.log(error)
-            this.translate.get('AUTO_RESTORE_PROGRESS_FAILED', { error }).subscribe((notificationServerStarted) => {
-              this.hackingProgress.autoRestoreMessage = notificationServerStarted
-            }, (translationId) => {
-              this.hackingProgress.autoRestoreMessage = translationId
-            })
+          this.challengeService.restoreProgress(encodeURIComponent(continueCode)).subscribe({
+            next: () => {
+              this.translate.get('AUTO_RESTORED_PROGRESS').subscribe({
+                next: (notificationServerStarted) => {
+                  this.hackingProgress.autoRestoreMessage = notificationServerStarted
+                },
+                error: (translationId) => {
+                  this.hackingProgress.autoRestoreMessage = translationId
+                }
+              })
+            },
+            error: (error) => {
+              console.log(error)
+              this.translate.get('AUTO_RESTORE_PROGRESS_FAILED', { error }).subscribe({
+                next: (notificationServerStarted) => {
+                  this.hackingProgress.autoRestoreMessage = notificationServerStarted
+                },
+                error: (translationId) => {
+                  this.hackingProgress.autoRestoreMessage = translationId
+                }
+              })
+            }
           })
         }
         if (continueCodeFindIt) {
-          this.challengeService.restoreProgressFindIt(encodeURIComponent(continueCodeFindIt)).subscribe(() => {
-          }, (error) => {
-            console.log(error)
+          this.challengeService.restoreProgressFindIt(encodeURIComponent(continueCodeFindIt)).subscribe({
+            next: () => {
+            },
+            error: (error) => {
+              console.log(error)
+            }
           })
         }
         if (continueCodeFixIt) {
-          this.challengeService.restoreProgressFixIt(encodeURIComponent(continueCodeFixIt)).subscribe(() => {
-          }, (error) => {
-            console.log(error)
+          this.challengeService.restoreProgressFixIt(encodeURIComponent(continueCodeFixIt)).subscribe({
+            next: () => {
+            },
+            error: (error) => {
+              console.log(error)
+            }
           })
         }
         this.ref.detectChanges()
