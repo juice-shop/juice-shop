@@ -11,11 +11,13 @@ items:
   - name: Scan your code for vulnerabilities (SAST)
     uses: >-
       jitsecurity-controls/jit-plans/items/code/item-code-vulnerability.yml@latest
+  - name: Scan code for hard-coded secrets
+    uses: jitsecurity-controls/jit-plans/items/code/item-secret-detection.yml@latest
 override:
   workflows:
-    sast:
+    secret-detection:
       jobs:
-        static-code-analysis-python-semgrep:
+        secret-detection:
           enabled: true
-        static-code-analysis-semgrep-pro:
+        secret-detection-trufflehog:
           enabled: false
