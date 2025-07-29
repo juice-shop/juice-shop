@@ -1,7 +1,7 @@
 name: SCA Fluidattacks
 on: [push, pull_request]
 jobs:
-   machineStandalone:
+   SCA_Fluidattacks:
       runs-on: ubuntu-latest
       steps:
          - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
