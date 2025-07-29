@@ -19,7 +19,7 @@ InferCreationAttributes<Hint>
   declare ChallengeId: number
   declare id: CreationOptional<number>
   declare text: string
-  declare rank: number
+  declare order: number
   declare unlocked: boolean
 }
 
