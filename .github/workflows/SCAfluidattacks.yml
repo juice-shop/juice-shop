@@ -6,6 +6,6 @@ jobs:
       steps:
          - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
          - uses: docker://docker.io/fluidattacks/sca:latest
-           name: skimsStandalone
+           name: SCA Fluidattacks
            with:
              args: sca scan .
