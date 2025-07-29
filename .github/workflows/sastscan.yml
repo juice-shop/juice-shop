@@ -1,4 +1,4 @@
-name: SAST CLI
+name: SAST Fluidattacks
 on: [push, pull_request]
 jobs:
    SastFluidAttacks:
@@ -6,6 +6,6 @@ jobs:
       steps:
          - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
          - uses: docker://docker.io/fluidattacks/sast:latest
-           name: SastFluidAttacksStandalone
+           name: SAST FluidAttacks
            with:
              args: sast scan .
