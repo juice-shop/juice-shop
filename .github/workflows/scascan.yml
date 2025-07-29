@@ -1,4 +1,4 @@
-machineStandalone:
+SCAfluidattacks:
 image: docker.io/fluidattacks/sca:latest
 script:
    - sca scan .
