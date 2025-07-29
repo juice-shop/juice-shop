@@ -1,23 +1,17 @@
-name: My plan
-level: beginner
 author: Jit
-version: 0.1
-owners:
-  default: null
-references:
-  - https://www.jit.io
-tags: []
 items:
-  - name: Scan your code for vulnerabilities (SAST)
-    uses: >-
-      jitsecurity-controls/jit-plans/items/code/item-code-vulnerability.yml@latest
-  - name: Scan code for hard-coded secrets
-    uses: jitsecurity-controls/jit-plans/items/code/item-secret-detection.yml@latest
-  - name: Scan your code dependencies for vulnerabilities (SCA)
-    uses: jitsecurity-controls/jit-plans/items/code/item-dependency-check.yml@latest
-  - name: Scan your Dockerfiles for vulnerabilities
-    uses: >-
-      jitsecurity-controls/jit-plans/items/infrastructure/item-container-scan.yml@latest
+- name: Scan your code for vulnerabilities (SAST)
+  uses: jitsecurity-controls/jit-plans/items/code/item-code-vulnerability.yml@latest
+- name: Scan your Dockerfiles for vulnerabilities
+  uses: jitsecurity-controls/jit-plans/items/infrastructure/item-container-scan.yml@latest
+- name: Scan your code dependencies for vulnerabilities (SCA)
+  uses: jitsecurity-controls/jit-plans/items/code/item-dependency-check.yml@latest
+- name: Scan code for hard-coded secrets
+  uses: jitsecurity-controls/jit-plans/items/code/item-secret-detection.yml@latest
+- name: Analyze for Jit Context
+  uses: jitsecurity-controls/jit-plans/items/jit-context/item-jit-context-analysis.yml@latest
+level: beginner
+name: My plan
 override:
   workflows:
     secret-detection:
@@ -26,3 +20,9 @@ override:
           enabled: true
         secret-detection-trufflehog:
           enabled: false
+owners:
+  default: null
+references:
+- https://www.jit.io
+tags: []
+version: 0.1
