@@ -26,4 +26,4 @@ jobs:
         run: snyk auth "${{ secrets.SNYK_TOKEN }}"
 
       - name: Run Snyk Code scan
-        run: snyk code test || true
+        run: snyk code test --include-ignores || true
