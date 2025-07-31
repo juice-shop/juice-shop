@@ -72,18 +72,21 @@ export class FaucetComponent {
   }
 
   nftMintListener () {
-    this.keysService.nftMintListen().subscribe(
+    this.keysService.nftMintListen().subscribe({
+      next:
       (response) => {
         console.log(response)
       },
-      (error) => {
+      error: (error) => {
         console.error(error)
       }
+    }
     )
   }
 
   checkNftMinted () {
-    this.keysService.checkNftMinted().subscribe(
+    this.keysService.checkNftMinted().subscribe({
+      next:
       (response) => {
         const challengeSolvedStatus = response.data[0].solved
         this.mintButtonDisabled = challengeSolvedStatus
@@ -94,10 +97,12 @@ export class FaucetComponent {
           })
         }
       },
+      error:
       (error) => {
         console.error(error)
         this.successResponse = false
       }
+    }
     )
   }
 
@@ -282,17 +287,19 @@ export class FaucetComponent {
           this.nftMintText = translatedString
         })
         setTimeout(() => {
-          this.keysService.verifyNFTWallet(this.metamaskAddress).subscribe(
+          this.keysService.verifyNFTWallet(this.metamaskAddress).subscribe({
+            next:
             (response) => {
               if (response.success) {
                 this.successResponse = response.status
                 this.mintButtonDisabled = true
               }
             },
-            (error) => {
+            error: (error) => {
               console.error(error)
               this.successResponse = false
             }
+          }
           )
         }, 3500)
       }

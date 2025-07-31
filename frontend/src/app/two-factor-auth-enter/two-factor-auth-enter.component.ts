@@ -51,22 +51,25 @@ export class TwoFactorAuthEnterComponent {
   verify () {
     const fields: TokenEnterFormFields = this.twoFactorForm.value
 
-    this.twoFactorAuthService.verify(fields.token).subscribe((authentication) => {
-      localStorage.setItem('token', authentication.token)
-      const expires = new Date()
-      expires.setHours(expires.getHours() + 8)
-      this.cookieService.put('token', authentication.token, { expires })
-      sessionStorage.setItem('bid', authentication.bid?.toString())
-      /* Use userService to notifiy if user has logged in */
-      /* this.userService.isLoggedIn = true; */
-      this.userService.isLoggedIn.next(true)
-      this.ngZone.run(async () => await this.router.navigate(['/search']))
-    }, (error) => {
-      this.errored = true
-      setTimeout(() => {
-        this.errored = false
-      }, 5 * 1000)
-      return error
+    this.twoFactorAuthService.verify(fields.token).subscribe({
+      next: (authentication) => {
+        localStorage.setItem('token', authentication.token)
+        const expires = new Date()
+        expires.setHours(expires.getHours() + 8)
+        this.cookieService.put('token', authentication.token, { expires })
+        sessionStorage.setItem('bid', authentication.bid?.toString())
+        /* Use userService to notifiy if user has logged in */
+        /* this.userService.isLoggedIn = true; */
+        this.userService.isLoggedIn.next(true)
+        this.ngZone.run(async () => await this.router.navigate(['/search']))
+      },
+      error: (error) => {
+        this.errored = true
+        setTimeout(() => {
+          this.errored = false
+        }, 5 * 1000)
+        return error
+      }
     })
   }
 }

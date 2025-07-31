@@ -2,7 +2,7 @@ import { Component, NgZone, type OnDestroy, type OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { DomSanitizer } from '@angular/platform-browser'
 import { MatDialog } from '@angular/material/dialog'
-import { type Subscription, combineLatest } from 'rxjs'
+import { type Subscription, combineLatest, firstValueFrom } from 'rxjs'
 
 import { fromQueryParams, toQueryParams } from './filter-settings/query-params-converters'
 import { DEFAULT_FILTER_SETTING, type FilterSetting } from './filter-settings/FilterSetting'
@@ -185,6 +185,6 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
 
   async repeatChallengeNotification (challengeKey: string) {
     const challenge = this.allChallenges.find((challenge) => challenge.key === challengeKey)
-    await this.challengeService.repeatNotification(encodeURIComponent(challenge.name)).toPromise()
+    await firstValueFrom(this.challengeService.repeatNotification(encodeURIComponent(challenge.name)))
   }
 }

@@ -50,19 +50,21 @@ export class ForgotPasswordComponent {
     this.timeout = setTimeout(() => {
       this.securityQuestion = undefined
       if (this.emailControl.value) {
-        this.securityQuestionService.findBy(this.emailControl.value).subscribe((securityQuestion: SecurityQuestion) => {
-          if (securityQuestion) {
-            this.securityQuestion = securityQuestion.question
-            this.securityQuestionControl.enable()
-            this.passwordControl.enable()
-            this.repeatPasswordControl.enable()
-          } else {
-            this.securityQuestionControl.disable()
-            this.passwordControl.disable()
-            this.repeatPasswordControl.disable()
-          }
-        },
-        (error) => error
+        this.securityQuestionService.findBy(this.emailControl.value).subscribe({
+          next: (securityQuestion: SecurityQuestion) => {
+            if (securityQuestion) {
+              this.securityQuestion = securityQuestion.question
+              this.securityQuestionControl.enable()
+              this.passwordControl.enable()
+              this.repeatPasswordControl.enable()
+            } else {
+              this.securityQuestionControl.disable()
+              this.passwordControl.disable()
+              this.repeatPasswordControl.disable()
+            }
+          },
+          error: (error) => error
+        }
         )
       } else {
         this.securityQuestionControl.disable()
@@ -78,18 +80,24 @@ export class ForgotPasswordComponent {
       answer: this.securityQuestionControl.value,
       new: this.passwordControl.value,
       repeat: this.repeatPasswordControl.value
-    }).subscribe(() => {
-      this.error = undefined
-      this.translate.get('PASSWORD_SUCCESSFULLY_CHANGED').subscribe((passwordSuccessfullyChanged) => {
-        this.confirmation = passwordSuccessfullyChanged
-      }, (translationId) => {
-        this.confirmation = translationId
-      })
-      this.resetForm()
-    }, (error) => {
-      this.error = error.error
-      this.confirmation = undefined
-      this.resetErrorForm()
+    }).subscribe({
+      next: () => {
+        this.error = undefined
+        this.translate.get('PASSWORD_SUCCESSFULLY_CHANGED').subscribe({
+          next: (passwordSuccessfullyChanged) => {
+            this.confirmation = passwordSuccessfullyChanged
+          },
+          error: (translationId) => {
+            this.confirmation = translationId
+          }
+        })
+        this.resetForm()
+      },
+      error: (error) => {
+        this.error = error.error
+        this.confirmation = undefined
+        this.resetErrorForm()
+      }
     })
   }
 
