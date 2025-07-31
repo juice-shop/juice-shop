@@ -74,10 +74,13 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       }
     })
 
-    this.userService.whoAmI().subscribe((user: any) => {
-      this.profileImageSrc = user.profileImage
-    }, (err) => {
-      console.log(err)
+    this.userService.whoAmI().subscribe({
+      next: (user: any) => {
+        this.profileImageSrc = user.profileImage
+      },
+      error: (err) => {
+        console.log(err)
+      }
     })
   }
 

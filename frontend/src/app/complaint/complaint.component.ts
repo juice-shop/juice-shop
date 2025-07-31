@@ -65,14 +65,17 @@ export class ComplaintComponent implements OnInit {
   }
 
   initComplaint () {
-    this.userService.whoAmI().subscribe((user: any) => {
-      this.complaint = {}
-      this.complaint.UserId = user.id
-      this.userEmail = user.email
-      this.customerControl.setValue(this.userEmail)
-    }, (err) => {
-      this.complaint = undefined
-      console.log(err)
+    this.userService.whoAmI().subscribe({
+      next: (user: any) => {
+        this.complaint = {}
+        this.complaint.UserId = user.id
+        this.userEmail = user.email
+        this.customerControl.setValue(this.userEmail)
+      },
+      error: (err) => {
+        this.complaint = undefined
+        console.log(err)
+      }
     })
   }
 
@@ -87,16 +90,22 @@ export class ComplaintComponent implements OnInit {
 
   saveComplaint () {
     this.complaint.message = this.messageControl.value
-    this.complaintService.save(this.complaint).subscribe((savedComplaint: any) => {
-      this.translate.get('CUSTOMER_SUPPORT_COMPLAINT_REPLY', { ref: savedComplaint.id }).subscribe((customerSupportReply) => {
-        this.confirmation = customerSupportReply
-      }, (translationId) => {
-        this.confirmation = translationId
-      })
-      this.initComplaint()
-      this.resetForm()
-      this.fileUploadError = undefined
-    }, (error) => error)
+    this.complaintService.save(this.complaint).subscribe({
+      next: (savedComplaint: any) => {
+        this.translate.get('CUSTOMER_SUPPORT_COMPLAINT_REPLY', { ref: savedComplaint.id }).subscribe({
+          next: (customerSupportReply) => {
+            this.confirmation = customerSupportReply
+          },
+          error: (translationId) => {
+            this.confirmation = translationId
+          }
+        })
+        this.initComplaint()
+        this.resetForm()
+        this.fileUploadError = undefined
+      },
+      error: (error) => error
+    })
   }
 
   resetForm () {

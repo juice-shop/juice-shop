@@ -15,16 +15,19 @@ export class SnackBarHelperService {
     private readonly snackBar: MatSnackBar) { }
 
   open (message: string, cssClass?: string) {
-    this.translateService.get(message).subscribe((translatedMessage) => {
-      this.snackBar.open(translatedMessage, 'X', {
-        duration: 5000,
-        panelClass: [cssClass, 'mat-body']
-      })
-    }, () => {
-      this.snackBar.open(message, 'X', {
-        duration: 5000,
-        panelClass: [cssClass, 'mat-body']
-      })
+    this.translateService.get(message).subscribe({
+      next: (translatedMessage) => {
+        this.snackBar.open(translatedMessage, 'X', {
+          duration: 5000,
+          panelClass: [cssClass, 'mat-body']
+        })
+      },
+      error: () => {
+        this.snackBar.open(message, 'X', {
+          duration: 5000,
+          panelClass: [cssClass, 'mat-body']
+        })
+      }
     })
   }
 }

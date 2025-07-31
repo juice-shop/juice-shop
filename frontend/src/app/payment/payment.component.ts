@@ -88,46 +88,58 @@ export class PaymentComponent implements OnInit {
 
   ngOnInit (): void {
     this.initTotal()
-    this.walletService.get().subscribe((balance) => {
-      this.walletBalance = balance
-      this.walletBalanceStr = parseFloat(balance).toFixed(2)
-    }, (err) => { console.log(err) })
+    this.walletService.get().subscribe({
+      next: (balance) => {
+        this.walletBalance = balance
+        this.walletBalanceStr = parseFloat(balance).toFixed(2)
+      },
+      error: (err) => { console.log(err) }
+    })
     this.couponPanelExpanded = localStorage.getItem('couponPanelExpanded') ? JSON.parse(localStorage.getItem('couponPanelExpanded')) : false
     this.paymentPanelExpanded = localStorage.getItem('paymentPanelExpanded') ? JSON.parse(localStorage.getItem('paymentPanelExpanded')) : false
 
-    this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      if (config?.application?.social) {
-        if (config.application.social.blueSkyUrl) {
-          this.blueSkyUrl = config.application.social.blueSkyUrl
+    this.configurationService.getApplicationConfiguration().subscribe({
+      next: (config) => {
+        if (config?.application?.social) {
+          if (config.application.social.blueSkyUrl) {
+            this.blueSkyUrl = config.application.social.blueSkyUrl
+          }
+          if (config.application.social.redditUrl) {
+            this.redditUrl = config.application.social.redditUrl
+          }
+          if (config.application.name) {
+            this.applicationName = config.application.name
+          }
         }
-        if (config.application.social.redditUrl) {
-          this.redditUrl = config.application.social.redditUrl
-        }
-        if (config.application.name) {
-          this.applicationName = config.application.name
-        }
-      }
-    }, (err) => { console.log(err) })
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 
   initTotal () {
-    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
-      this.mode = paramMap.get('entity')
-      if (this.mode === 'wallet') {
-        this.totalPrice = parseFloat(sessionStorage.getItem('walletTotal'))
-      } else if (this.mode === 'deluxe') {
-        this.userService.deluxeStatus().subscribe((res) => {
-          this.totalPrice = res.membershipCost
-        }, (err) => { console.log(err) })
-      } else {
-        const itemTotal = parseFloat(sessionStorage.getItem('itemTotal'))
-        const promotionalDiscount = sessionStorage.getItem('couponDiscount') ? (parseFloat(sessionStorage.getItem('couponDiscount')) / 100) * itemTotal : 0
-        this.deliveryService.getById(sessionStorage.getItem('deliveryMethodId')).subscribe((method) => {
-          const deliveryPrice = method.price
-          this.totalPrice = itemTotal + deliveryPrice - promotionalDiscount
-        })
-      }
-    }, (err) => { console.log(err) })
+    this.activatedRoute.paramMap.subscribe({
+      next: (paramMap: ParamMap) => {
+        this.mode = paramMap.get('entity')
+        if (this.mode === 'wallet') {
+          this.totalPrice = parseFloat(sessionStorage.getItem('walletTotal'))
+        } else if (this.mode === 'deluxe') {
+          this.userService.deluxeStatus().subscribe({
+            next: (res) => {
+              this.totalPrice = res.membershipCost
+            },
+            error: (err) => { console.log(err) }
+          })
+        } else {
+          const itemTotal = parseFloat(sessionStorage.getItem('itemTotal'))
+          const promotionalDiscount = sessionStorage.getItem('couponDiscount') ? (parseFloat(sessionStorage.getItem('couponDiscount')) / 100) * itemTotal : 0
+          this.deliveryService.getById(sessionStorage.getItem('deliveryMethodId')).subscribe((method) => {
+            const deliveryPrice = method.price
+            this.totalPrice = itemTotal + deliveryPrice - promotionalDiscount
+          })
+        }
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 
   applyCoupon () {
@@ -145,20 +157,26 @@ export class PaymentComponent implements OnInit {
         this.showConfirmation(campaign.discount)
       } else {
         this.couponConfirmation = undefined
-        this.translate.get('INVALID_COUPON').subscribe((invalidCoupon) => {
-          this.couponError = { error: invalidCoupon }
-        }, (translationId) => {
-          this.couponError = { error: translationId }
+        this.translate.get('INVALID_COUPON').subscribe({
+          next: (invalidCoupon) => {
+            this.couponError = { error: invalidCoupon }
+          },
+          error: (translationId) => {
+            this.couponError = { error: translationId }
+          }
         })
         this.resetCouponForm()
       }
     } else {
-      this.basketService.applyCoupon(Number(sessionStorage.getItem('bid')), encodeURIComponent(this.couponControl.value)).subscribe((discount: any) => {
-        this.showConfirmation(discount)
-      }, (err) => {
-        this.couponConfirmation = undefined
-        this.couponError = err
-        this.resetCouponForm()
+      this.basketService.applyCoupon(Number(sessionStorage.getItem('bid')), encodeURIComponent(this.couponControl.value)).subscribe({
+        next: (discount: any) => {
+          this.showConfirmation(discount)
+        },
+        error: (err) => {
+          this.couponConfirmation = undefined
+          this.couponError = err
+          this.resetCouponForm()
+        }
       })
     }
   }
@@ -167,10 +185,13 @@ export class PaymentComponent implements OnInit {
     this.resetCouponForm()
     this.couponError = undefined
     sessionStorage.setItem('couponDiscount', discount)
-    this.translate.get('DISCOUNT_APPLIED', { discount }).subscribe((discountApplied) => {
-      this.couponConfirmation = discountApplied
-    }, (translationId) => {
-      this.couponConfirmation = translationId
+    this.translate.get('DISCOUNT_APPLIED', { discount }).subscribe({
+      next: (discountApplied) => {
+        this.couponConfirmation = discountApplied
+      },
+      error: (translationId) => {
+        this.couponConfirmation = translationId
+      }
     })
     this.initTotal()
   }
@@ -187,20 +208,26 @@ export class PaymentComponent implements OnInit {
   choosePayment () {
     sessionStorage.removeItem('itemTotal')
     if (this.mode === 'wallet') {
-      this.walletService.put({ balance: this.totalPrice, paymentId: this.paymentId }).subscribe(() => {
-        sessionStorage.removeItem('walletTotal')
-        this.ngZone.run(async () => await this.router.navigate(['/wallet']))
-        this.snackBarHelperService.open('CHARGED_WALLET', 'confirmBar')
-      }, (err) => {
-        console.log(err)
-        this.snackBarHelperService.open(err.error?.message, 'errorBar')
+      this.walletService.put({ balance: this.totalPrice, paymentId: this.paymentId }).subscribe({
+        next: () => {
+          sessionStorage.removeItem('walletTotal')
+          this.ngZone.run(async () => await this.router.navigate(['/wallet']))
+          this.snackBarHelperService.open('CHARGED_WALLET', 'confirmBar')
+        },
+        error: (err) => {
+          console.log(err)
+          this.snackBarHelperService.open(err.error?.message, 'errorBar')
+        }
       })
     } else if (this.mode === 'deluxe') {
-      this.userService.upgradeToDeluxe(this.paymentMode, this.paymentId).subscribe((data) => {
-        localStorage.setItem('token', data.token)
-        this.cookieService.put('token', data.token)
-        this.ngZone.run(async () => await this.router.navigate(['/deluxe-membership']))
-      }, (err) => { console.log(err) })
+      this.userService.upgradeToDeluxe(this.paymentMode, this.paymentId).subscribe({
+        next: (data) => {
+          localStorage.setItem('token', data.token)
+          this.cookieService.put('token', data.token)
+          this.ngZone.run(async () => await this.router.navigate(['/deluxe-membership']))
+        },
+        error: (err) => { console.log(err) }
+      })
     } else {
       if (this.paymentMode === 'wallet') {
         if (this.walletBalance < this.totalPrice) {

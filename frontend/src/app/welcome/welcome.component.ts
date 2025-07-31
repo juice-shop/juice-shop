@@ -24,18 +24,21 @@ export class WelcomeComponent implements OnInit {
   ngOnInit (): void {
     const welcomeBannerStatus = this.cookieService.get(this.welcomeBannerStatusCookieKey)
     if (welcomeBannerStatus !== 'dismiss') {
-      this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
-        if (config?.application?.welcomeBanner && !config.application.welcomeBanner.showOnFirstStart) {
-          return
-        }
-        this.dialog.open(WelcomeBannerComponent, {
-          minWidth: '320px',
-          width: '35%',
-          position: {
-            top: '50px'
+      this.configurationService.getApplicationConfiguration().subscribe({
+        next: (config: any) => {
+          if (config?.application?.welcomeBanner && !config.application.welcomeBanner.showOnFirstStart) {
+            return
           }
-        })
-      }, (err) => { console.log(err) })
+          this.dialog.open(WelcomeBannerComponent, {
+            minWidth: '320px',
+            width: '35%',
+            position: {
+              top: '50px'
+            }
+          })
+        },
+        error: (err) => { console.log(err) }
+      })
     }
   }
 }

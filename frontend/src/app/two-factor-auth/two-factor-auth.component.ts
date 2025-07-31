@@ -65,17 +65,20 @@ export class TwoFactorAuthComponent {
     const status = this.twoFactorAuthService.status()
     const config = this.configurationService.getApplicationConfiguration()
 
-    forkJoin([status, config]).subscribe(([{ setup, email, secret, setupToken }, config]) => {
-      this.setupStatus = setup
-      this.appName = config.application.name
-      if (!setup) {
-        const encodedAppName = encodeURIComponent(this.appName)
-        this.totpUrl = `otpauth://totp/${encodedAppName}:${email}?secret=${secret}&issuer=${encodedAppName}`
-        this.totpSecret = secret
-        this.setupToken = setupToken
+    forkJoin([status, config]).subscribe({
+      next: ([{ setup, email, secret, setupToken }, config]) => {
+        this.setupStatus = setup
+        this.appName = config.application.name
+        if (!setup) {
+          const encodedAppName = encodeURIComponent(this.appName)
+          this.totpUrl = `otpauth://totp/${encodedAppName}:${email}?secret=${secret}&issuer=${encodedAppName}`
+          this.totpSecret = secret
+          this.setupToken = setupToken
+        }
+      },
+      error: () => {
+        console.log('Failed to fetch 2fa status')
       }
-    }, () => {
-      console.log('Failed to fetch 2fa status')
     })
     return status
   }
@@ -85,29 +88,35 @@ export class TwoFactorAuthComponent {
       this.twoFactorSetupForm.get('passwordControl')?.value,
       this.twoFactorSetupForm.get('initialTokenControl')?.value,
       this.setupToken
-    ).subscribe(() => {
-      this.setupStatus = true
-      this.snackBarHelperService.open('CONFIRM_2FA_SETUP')
-    }, () => {
-      this.twoFactorSetupForm.get('passwordControl')?.markAsPristine()
-      this.twoFactorSetupForm.get('initialTokenControl')?.markAsPristine()
-      this.errored = true
+    ).subscribe({
+      next: () => {
+        this.setupStatus = true
+        this.snackBarHelperService.open('CONFIRM_2FA_SETUP')
+      },
+      error: () => {
+        this.twoFactorSetupForm.get('passwordControl')?.markAsPristine()
+        this.twoFactorSetupForm.get('initialTokenControl')?.markAsPristine()
+        this.errored = true
+      }
     })
   }
 
   disable () {
     this.twoFactorAuthService.disable(
       this.twoFactorDisableForm.get('passwordControl')?.value
-    ).subscribe(() => {
-      this.updateStatus().subscribe(
-        () => {
-          this.setupStatus = false
-        }
-      )
-      this.snackBarHelperService.open('CONFIRM_2FA_DISABLE')
-    }, () => {
-      this.twoFactorDisableForm.get('passwordControl')?.markAsPristine()
-      this.errored = true
+    ).subscribe({
+      next: () => {
+        this.updateStatus().subscribe(
+          () => {
+            this.setupStatus = false
+          }
+        )
+        this.snackBarHelperService.open('CONFIRM_2FA_DISABLE')
+      },
+      error: () => {
+        this.twoFactorDisableForm.get('passwordControl')?.markAsPristine()
+        this.errored = true
+      }
     })
   }
 }

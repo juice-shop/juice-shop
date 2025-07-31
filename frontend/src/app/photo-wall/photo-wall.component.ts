@@ -88,13 +88,16 @@ export class PhotoWallComponent implements OnInit {
   }
 
   save () {
-    this.photoWallService.addMemory(this.form.value.caption, this.form.value.image).subscribe(() => {
-      this.resetForm()
-      this.ngOnInit()
-      this.snackBarHelperService.open('IMAGE_UPLOAD_SUCCESS', 'confirmBar')
-    }, (err) => {
-      this.snackBarHelperService.open(err.error?.error, 'errorBar')
-      console.log(err)
+    this.photoWallService.addMemory(this.form.value.caption, this.form.value.image).subscribe({
+      next: () => {
+        this.resetForm()
+        this.ngOnInit()
+        this.snackBarHelperService.open('IMAGE_UPLOAD_SUCCESS', 'confirmBar')
+      },
+      error: (err) => {
+        this.snackBarHelperService.open(err.error?.error, 'errorBar')
+        console.log(err)
+      }
     })
   }
 
