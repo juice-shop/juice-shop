@@ -66,36 +66,48 @@ export class AddressCreateComponent implements OnInit {
     this.address.city = this.cityControl.value
     this.address.state = this.stateControl.value
     if (this.mode === 'edit') {
-      this.addressService.put(this.addressId, this.address).subscribe((savedAddress) => {
-        this.address = {}
-        this.ngOnInit()
-        this.resetForm()
-        this.routeToPreviousUrl()
-        this.translate.get('ADDRESS_UPDATED', { city: savedAddress.city }).subscribe((addressUpdated) => {
-          this.snackBarHelperService.open(addressUpdated, 'confirmBar')
-        }, (translationId) => {
-          this.snackBarHelperService.open(translationId, 'confirmBar')
-        })
-      }, (err) => {
-        this.snackBarHelperService.open(err.error?.error, 'errorBar')
-        this.address = {}
-        this.resetForm()
+      this.addressService.put(this.addressId, this.address).subscribe({
+        next: (savedAddress) => {
+          this.address = {}
+          this.ngOnInit()
+          this.resetForm()
+          this.routeToPreviousUrl()
+          this.translate.get('ADDRESS_UPDATED', { city: savedAddress.city }).subscribe({
+            next: (addressUpdated) => {
+              this.snackBarHelperService.open(addressUpdated, 'confirmBar')
+            },
+            error: (translationId) => {
+              this.snackBarHelperService.open(translationId, 'confirmBar')
+            }
+          })
+        },
+        error: (err) => {
+          this.snackBarHelperService.open(err.error?.error, 'errorBar')
+          this.address = {}
+          this.resetForm()
+        }
       })
     } else {
-      this.addressService.save(this.address).subscribe((savedAddress) => {
-        this.address = {}
-        this.ngOnInit()
-        this.resetForm()
-        this.routeToPreviousUrl()
-        this.translate.get('ADDRESS_ADDED', { city: savedAddress.city }).subscribe((addressAdded) => {
-          this.snackBarHelperService.open(addressAdded, 'confirmBar')
-        }, (translationId) => {
-          this.snackBarHelperService.open(translationId, 'confirmBar')
-        })
-      }, (err) => {
-        this.snackBarHelperService.open(err.error?.error, 'errorBar')
-        this.address = {}
-        this.resetForm()
+      this.addressService.save(this.address).subscribe({
+        next: (savedAddress) => {
+          this.address = {}
+          this.ngOnInit()
+          this.resetForm()
+          this.routeToPreviousUrl()
+          this.translate.get('ADDRESS_ADDED', { city: savedAddress.city }).subscribe({
+            next: (addressAdded) => {
+              this.snackBarHelperService.open(addressAdded, 'confirmBar')
+            },
+            error: (translationId) => {
+              this.snackBarHelperService.open(translationId, 'confirmBar')
+            }
+          })
+        },
+        error: (err) => {
+          this.snackBarHelperService.open(err.error?.error, 'errorBar')
+          this.address = {}
+          this.resetForm()
+        }
       })
     }
   }

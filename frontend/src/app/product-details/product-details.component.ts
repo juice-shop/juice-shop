@@ -46,13 +46,16 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   ngOnInit (): void {
     this.data.productData.points = Math.round(this.data.productData.price / 10)
     this.reviews$ = this.productReviewService.get(this.data.productData.id)
-    this.userSubscription = this.userService.whoAmI().subscribe((user: any) => {
-      if (user?.email) {
-        this.author = user.email
-      } else {
-        this.author = 'Anonymous'
-      }
-    }, (err) => { console.log(err) })
+    this.userSubscription = this.userService.whoAmI().subscribe({
+      next: (user: any) => {
+        if (user?.email) {
+          this.author = user.email
+        } else {
+          this.author = 'Anonymous'
+        }
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 
   ngOnDestroy () {
@@ -65,9 +68,12 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     const review = { message: textPut.value, author: this.author }
 
     textPut.value = ''
-    this.productReviewService.create(this.data.productData.id, review).subscribe(() => {
-      this.reviews$ = this.productReviewService.get(this.data.productData.id)
-    }, (err) => { console.log(err) })
+    this.productReviewService.create(this.data.productData.id, review).subscribe({
+      next: () => {
+        this.reviews$ = this.productReviewService.get(this.data.productData.id)
+      },
+      error: (err) => { console.log(err) }
+    })
     this.snackBarHelperService.open('CONFIRM_REVIEW_SAVED')
   }
 

@@ -34,18 +34,21 @@ export class WelcomeBannerComponent implements OnInit {
     private readonly cookieService: CookieService) { }
 
   ngOnInit (): void {
-    this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      if (config?.application?.welcomeBanner) {
-        this.title = config.application.welcomeBanner.title
-        this.message = config.application.welcomeBanner.message
-      }
-      this.showHackingInstructor = config?.hackingInstructor?.isEnabled
-      // Don't allow to skip the tutorials when restrictToTutorialsFirst and showHackingInstructor are enabled
-      if (this.showHackingInstructor && config?.challenges?.restrictToTutorialsFirst) {
-        this.dialogRef.disableClose = true
-        this.showDismissBtn = false
-      }
-    }, (err) => { console.log(err) })
+    this.configurationService.getApplicationConfiguration().subscribe({
+      next: (config) => {
+        if (config?.application?.welcomeBanner) {
+          this.title = config.application.welcomeBanner.title
+          this.message = config.application.welcomeBanner.message
+        }
+        this.showHackingInstructor = config?.hackingInstructor?.isEnabled
+        // Don't allow to skip the tutorials when restrictToTutorialsFirst and showHackingInstructor are enabled
+        if (this.showHackingInstructor && config?.challenges?.restrictToTutorialsFirst) {
+          this.dialogRef.disableClose = true
+          this.showDismissBtn = false
+        }
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 
   startHackingInstructor () {

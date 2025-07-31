@@ -54,13 +54,16 @@ export class AddressComponent implements OnInit {
   }
 
   load () {
-    this.addressService.get().subscribe((addresses) => {
-      this.addressExist = addresses.length
-      this.storedAddresses = addresses
-      this.dataSource = new MatTableDataSource<Element>(this.storedAddresses)
-    }, (err) => {
-      this.snackBarHelperService.open(err.error?.error, 'errorBar')
-      console.log(err)
+    this.addressService.get().subscribe({
+      next: (addresses) => {
+        this.addressExist = addresses.length
+        this.storedAddresses = addresses
+        this.dataSource = new MatTableDataSource<Element>(this.storedAddresses)
+      },
+      error: (err) => {
+        this.snackBarHelperService.open(err.error?.error, 'errorBar')
+        console.log(err)
+      }
     })
   }
 
@@ -80,17 +83,23 @@ export class AddressComponent implements OnInit {
   }
 
   deleteAddress (id: number) {
-    this.addressService.del(id).subscribe(() => {
-      this.error = null
-      this.translate.get('ADDRESS_REMOVED').subscribe((addressRemoved) => {
-        this.snackBarHelperService.open(addressRemoved, 'confirmBar')
-      }, (translationId) => {
-        this.snackBarHelperService.open(translationId, 'confirmBar')
-      })
-      this.load()
-    }, (err) => {
-      this.snackBarHelperService.open(err.error?.error, 'errorBar')
-      console.log(err)
+    this.addressService.del(id).subscribe({
+      next: () => {
+        this.error = null
+        this.translate.get('ADDRESS_REMOVED').subscribe({
+          next: (addressRemoved) => {
+            this.snackBarHelperService.open(addressRemoved, 'confirmBar')
+          },
+          error: (translationId) => {
+            this.snackBarHelperService.open(translationId, 'confirmBar')
+          }
+        })
+        this.load()
+      },
+      error: (err) => {
+        this.snackBarHelperService.open(err.error?.error, 'errorBar')
+        console.log(err)
+      }
     })
   }
 }
