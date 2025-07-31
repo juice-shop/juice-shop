@@ -1,0 +1,13 @@
+{
+  "goatLink": [
+    "https://gitlab.com/oxsecurity/research/code/collections/sast-lab-pos/-/blob/main/JavaScript/xss/example_6/vulnCode.js#L87"
+  ],
+  "vulnType": "Xss",
+  "vulnerableStartLine": 79,
+  "vulnerableEndLine": 79,
+  "vulnerableLines": [
+    "  res.send(req.query.text);"
+  ],
+  "AI_summary_promptVersion": "",
+  "AI_codeFix_promptVersion": ""
+}

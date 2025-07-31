@@ -1,0 +1,13 @@
+{
+  "goatLink": [
+    "https://gitlab.com/oxsecurity/research/code/collections/sast-lab-pos/-/blob/main/JavaScript/open_redirect/example_8/vulnCode.js#L197"
+  ],
+  "vulnType": "Open Redirect",
+  "vulnerableStartLine": 16,
+  "vulnerableEndLine": 16,
+  "vulnerableLines": [
+    "  res.redirect(target);"
+  ],
+  "AI_summary_promptVersion": "",
+  "AI_codeFix_promptVersion": ""
+}

@@ -1,0 +1,13 @@
+{
+  "goatLink": [
+    ""
+  ],
+  "vulnType": "Regex Injection",
+  "vulnerableStartLine": 22,
+  "vulnerableEndLine": 22,
+  "vulnerableLines": [
+    "  const regex = new RegExp(pattern);"
+  ],
+  "AI_summary_promptVersion": "",
+  "AI_codeFix_promptVersion": ""
+}
