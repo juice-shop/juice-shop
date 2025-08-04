@@ -14,7 +14,7 @@
 
     <button mat-button routerLink="/search" style="height:60px;" class="buttons" aria-label="Back to homepage">
       <div id="homeButton">
-        <img [src]="logoSrc" class="logo" alt={{applicationName}}>
+        <img [src]="logoSrc" class="logo" alt="{{applicationName}}">
         <span fxHide.lt-sm fxShow style="font-size: x-large"> {{applicationName}} </span>
       </div>
     </button>
@@ -118,8 +118,8 @@
         </mat-form-field>
       </div>
       @for (language of filteredLanguages; track language.key) {
-        <mat-radio-button 
-          (click)="changeLanguage(language.key)" 
+        <mat-radio-button
+          (click)="changeLanguage(language.key)"
           [value]="language"
           class="mat-menu-item"
           style="width: 240px;"
