@@ -12,7 +12,7 @@
   <ng-container matColumnDef="image">
     <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
     <mat-cell *matCellDef="let element" fxShow fxHide.lt-md fxFlex="20%" class="content-align">
-      <img [src]="'assets/public/images/products/'+element.image" alt={{element.name}}
+      <img [src]="'assets/public/images/products/'+element.image" alt="{{element.name}}"
            class="img-responsive img-thumbnail">
     </mat-cell>
     <mat-footer-cell *matFooterCellDef fxShow fxHide.lt-md fxFlex="20%" class="content-align"></mat-footer-cell>
