@@ -15,5 +15,4 @@ You would setup branch protection rules inside your Git that requires a code rev
 9. If you made changes to the repository settings, then add it to your answers in the output.md file and merge.
 As the only contributor, I did not need to set branch protection rules up.
 10. Send the URL of the forked project in GitHub to your hiring manager.
-test
 
