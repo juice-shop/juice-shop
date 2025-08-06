@@ -1,0 +1,37 @@
+name: Polaris Security Scan
+on:
+  push:
+    branches:
+      - main
+      - master
+      - develop
+      - stage
+      - release
+  pull_request:
+    branches:
+      - main
+      - master
+      - develop
+      - stage
+      - release
+  workflow_dispatch: {}
+jobs:
+  polaris:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+      - name: Polaris Security Scan
+        id: polaris-scan
+        uses: blackduck-inc/black-duck-security-scan@v2
+        with:
+          polaris_server_url: ${{ vars.POLARIS_URL }}
+          polaris_access_token: ${{ secrets.POLARIS_ACCESS_TOKEN }}
+          polaris_assessment_types: SAST,SCA
+          polaris_waitForScan: true
+          mark_build_status: failure
+          include_diagnostics: false
+          polaris_prComment_enabled: true
+          github_token: ${{ secrets.GH_TOKEN }}
+          polaris_reports_sarif_create: false
+          polaris_upload_sarif_report: false
