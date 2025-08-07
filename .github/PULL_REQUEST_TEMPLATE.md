@@ -11,6 +11,9 @@ information [here](https://pwning.owasp-juice.shop/companion-guide/latest/part3/
 🚫 Lazy typo fixing PRs - if you fix a typo in a file, your PR will only be merged
 if all other typos in the same file are also fixed with the same PR
 
+🚫 If you fail to provide any _Description_ below, your PR will be considered spam.
+If you do not check the _Affirmation_ box below, your PR will not be merged.
+
 🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅-->
 
 ### Description
