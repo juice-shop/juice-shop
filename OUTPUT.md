@@ -13,5 +13,5 @@ If I am the only contributor/owner working on a personal project (not in prod), 
 8. How would you prevent that?
 You would setup branch protection rules inside your git that requires a code reviewer and/or a successful status check before merging any PRs. For Github, in the repo under >Settings >Branches, you can add "classic branch protection rules", specify protection for the "master" branch and choose additional settings.
 9. If you made changes to the repository settings, then add it to your answers in the output.md file and merge.
-As the only contributor, I did not need to set branch protection rules up.
+As the only contributor to a personal project, I did not need to set branch protection rules up. But I could follow the steps above to add them.
 10. Send the URL of the forked project in GitHub to your hiring manager.
