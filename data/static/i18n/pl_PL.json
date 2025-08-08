@@ -174,7 +174,7 @@
 	"Post a product review as another user or edit any user's existing review.": "Opublikuj recenzję produktu jako inny użytkownik lub edytuj istniejącą recenzję dowolnego użytkownika.",
 	"Observe the flow of product review posting and editing and see if you can exploit it.": "Obserwuj proces publikowania i edycji recenzji produktów i sprawdź, czy możesz to wykorzystać.",
 	"Forge an almost properly RSA-signed JWT token that impersonates the (non-existing) user <i>rsa_lord@juice-sh.op</i>.": "Sfałszuj prawie poprawnie podpisany przez RSA token JWT, który podszywa się pod (nieistniejącego) użytkownika <i>rsa_lord@juice-sh.op</i>.",
-	" <em>(This challenge is <strong>potentially harmful</strong> on Windows!)</em>": " <em>(This challenge is <strong>potentially harmful</strong> on Windows!)</em>",
+	" <em>(This challenge is <strong>potentially harmful</strong> on Windows!)</em>": "<em>(To wyzwanie jest <strong>potencjalnie szkodliwe</strong> w systemie Windows!) </em>",
 	"This challenge is explicitly not about acquiring the RSA private key used for JWT signing.": "Wyzwanie to wyraźnie nie polega na nabyciu prywatnego klucza RSA używanego do podpisywania JWT.",
 	"Access a developer's forgotten backup file.": "Uzyskaj dostęp do zapomnianego pliku kopii zapasowej programisty.",
 	"You need to trick a security mechanism into thinking that the file you want has a valid file type.": "Musisz oszukać mechanizm bezpieczeństwa, aby myślał, że żądany plik ma prawidłowy typ.",
