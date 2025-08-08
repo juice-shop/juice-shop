@@ -3,6 +3,42 @@
  * SPDX-License-Identifier: MIT
  */
 
+/* fxLayout="column" fxLayoutGap="20px" */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Table sizing instead of fxFlex on cells */
+mat-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+/* Angular Material adds .mat-column-<Name> to header/cell */
+.mat-column-Selection { width: 15%; }
+.mat-column-Number { width: 35%; }
+.mat-column-Name { width: 30%; }
+.mat-column-Expiry { width: 20%; }
+.mat-column-Remove { width: 15%; }
+
+/* Simple two-column fields layout for month/year (replaces inline widths) */
+.half-field {
+  margin-right: 10%;
+  width: 45%;
+}
+
+.half-field:last-of-type {
+  margin-right: 0;
+}
+@media (max-width: 599.98px) {
+  .half-field {
+    margin-right: 0;
+    width: 100%;
+  }
+}
+
 .heading {
   background: rgba(0, 0, 0, 0.2);
   font-size: x-large;

@@ -41,3 +41,9 @@ mat-form-field {
 ::ng-deep mat-option .mat-mdc-option-text {
   font-size: 14px;
 }
+/* fxLayoutAlign="center" */
+.center-container {
+  align-items: stretch;    /* cross axis default from fxLayoutAlign */
+  display: flex;
+  justify-content: center; /* main axis */
+}

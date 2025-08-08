@@ -39,3 +39,10 @@ mat-card {
   margin-bottom: 10px;
   margin-top: 20px;
 }
+
+/* fxLayoutAlign="center" */
+.center-container {
+  align-items: stretch;    /* cross axis default from fxLayoutAlign */
+  display: flex;
+  justify-content: center; /* main axis */
+}

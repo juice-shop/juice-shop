@@ -17,14 +17,14 @@ import { type ThemePalette } from '@angular/material/core'
 import { MatIconButton, MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
-import { ExtendedModule } from '@angular/flex-layout/extended'
+
 import { MatCardModule } from '@angular/material/card'
 import { CodeFixesComponent } from '../code-fixes/code-fixes.component'
 import { MatIconModule } from '@angular/material/icon'
 import { TranslateModule } from '@ngx-translate/core'
 import { CodeAreaComponent } from '../code-area/code-area.component'
 import { NgIf, NgFor } from '@angular/common'
-import { FlexModule } from '@angular/flex-layout/flex'
+
 import { MatTabGroup, MatTab, MatTabLabel } from '@angular/material/tabs'
 
 enum ResultState {
@@ -48,7 +48,7 @@ export interface RandomFixes {
   templateUrl: './code-snippet.component.html',
   styleUrls: ['./code-snippet.component.scss'],
   host: { class: 'code-snippet' },
-  imports: [MatDialogTitle, MatDialogContent, MatTabGroup, MatTab, FlexModule, NgIf, CodeAreaComponent, TranslateModule, MatTabLabel, MatIconModule, CodeFixesComponent, MatDialogActions, MatCardModule, ExtendedModule, MatFormFieldModule, MatLabel, MatInputModule, NgFor, FormsModule, MatIconButton, MatButtonModule, MatDialogClose]
+  imports: [MatDialogTitle, MatDialogContent, MatTabGroup, MatTab, NgIf, CodeAreaComponent, TranslateModule, MatTabLabel, MatIconModule, CodeFixesComponent, MatDialogActions, MatCardModule, MatFormFieldModule, MatLabel, MatInputModule, NgFor, FormsModule, MatIconButton, MatButtonModule, MatDialogClose]
 })
 export class CodeSnippetComponent implements OnInit {
   public snippet: CodeSnippet = null

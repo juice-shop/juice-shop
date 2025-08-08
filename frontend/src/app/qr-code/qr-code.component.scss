@@ -6,3 +6,10 @@
 .qr-code {
   margin: 16px;
 }
+
+/* Replaces fxLayout="column" fxLayoutGap="10px" */
+.content-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

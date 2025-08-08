@@ -15,6 +15,25 @@ mat-toolbar {
   padding-right: 4px;
 }
 
+/* Flex Layout replacements */
+.navbar-toolbar {
+  display: flex;
+  flex-direction: column; /* was fxLayout="column" */
+}
+
+.navbar-row {
+  align-items: center;
+  display: flex;          /* was fxLayout="row" */
+}
+
+@media (max-width: 599.98px) {
+  .hide-lt-sm { display: none !important; }
+}
+
+@media (max-width: 959.98px) {
+  .hide-lt-md { display: none !important; }
+}
+
 #navbarLanguageButton mat-icon {
   font-size: 24px;
   height: 26px;

@@ -103,3 +103,38 @@ div {
   margin-left: -10px;
   margin-right: -10px;
 }
+
+/* Flex Layout replacements */
+.container {
+  display: flex;          /* fxLayout="column" */
+  flex-direction: column;
+}
+
+.details-row {
+  display: flex;          /* fxLayout="row" fxLayoutGap="20px" */
+  flex-direction: row;
+  gap: 20px;
+}
+
+@media (max-width: 599.98px) {  /* fxLayout.lt-sm="column" */
+  .details-row {
+    flex-direction: column;
+  }
+}
+
+/* fxFlex="noshrink" */
+.no-shrink {
+  flex: 0 0 auto;
+}
+
+/* Reviews row (was fxLayout="row") */
+.review-row {
+  align-items: flex-start;
+  display: flex;
+  gap: 8px;
+}
+
+.like-container {
+  align-items: center;
+  display: flex;
+}

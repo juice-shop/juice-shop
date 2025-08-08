@@ -96,7 +96,53 @@ mat-card-title {
   border: 0;
 }
 
-.mat-mdc-cell {
-  display: flex;
-  justify-content: flex-start;
+/* Flex Layout replacements */
+.orders-container {
+  display: flex;          /* fxLayout="column" */
+  flex-direction: column;
+  gap: 20px;              /* fxLayoutGap="20px" */
 }
+
+.heading-row {
+  align-items: center;
+  display: flex;          /* fxLayout="row" */
+}
+
+.col { min-width: 0; }
+
+.col-40 { flex: 0 0 40%;
+  max-width: 40%; }
+
+.col-20 { flex: 0 0 20%;
+  max-width: 20%; }
+
+.col-15 { flex: 0 0 15%;
+  max-width: 15%; }
+
+.col-5 { flex: 0 0 5%;
+  max-width: 5%; }
+
+.col-vertical { display: flex;
+  flex-direction: column; }
+
+.align-end { display: flex;
+  justify-content: flex-end; }
+
+/* Table column widths (Material adds .mat-column-<name> classes) */
+mat-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.mat-column-product { width: 40%; }
+.mat-column-price { width: 15%; }
+.mat-column-quantity { width: 15%; }
+/* handle possible normalization of "total price" */
+.mat-column-total-price,
+.mat-column-total\ price,
+.mat-column-totalprice,
+.mat-column-total { width: 15%; }
+.mat-column-review { width: 15%; }
+
+/* Remove Flex override on cells so widths work as table-cells */
+// .mat-mdc-cell { display: table-cell; } // keep default from Material

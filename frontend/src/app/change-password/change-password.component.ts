@@ -27,7 +27,6 @@ import {
   MatHint
 } from '@angular/material/form-field'
 import { MatCardModule } from '@angular/material/card'
-import { FlexModule } from '@angular/flex-layout/flex'
 
 library.add(faSave, faEdit)
 
@@ -36,7 +35,7 @@ library.add(faSave, faEdit)
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss'],
   imports: [
-    FlexModule,
+
     MatCardModule,
     TranslateModule,
     MatFormFieldModule,
