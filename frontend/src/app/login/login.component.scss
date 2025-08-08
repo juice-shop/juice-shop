@@ -73,3 +73,10 @@ mat-form-field:nth-child(2) {
   font-size: 12px;
   margin-top: 40px;
 }
+
+/* fxLayoutAlign="center" */
+.center-container {
+  align-items: stretch;    /* cross axis default from fxLayoutAlign */
+  display: flex;
+  justify-content: center; /* main axis */
+}

@@ -7,14 +7,14 @@ import { FormsModule } from '@angular/forms'
 import { NgIf } from '@angular/common'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'
-import { FlexModule } from '@angular/flex-layout/flex'
+
 import { MatCardModule, MatCardTitle } from '@angular/material/card'
 
 @Component({
   selector: 'app-nft-unlock',
   templateUrl: './nft-unlock.component.html',
   styleUrls: ['./nft-unlock.component.scss'],
-  imports: [MatCardModule, FlexModule, MatButtonModule, TranslateModule, NgIf, MatCardTitle, FormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatDivider]
+  imports: [MatCardModule, MatButtonModule, TranslateModule, NgIf, MatCardTitle, FormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatDivider]
 })
 export class NFTUnlockComponent {
   privateKey: string

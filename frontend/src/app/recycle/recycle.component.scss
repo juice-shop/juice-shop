@@ -57,9 +57,53 @@ h1 {
  
 .left-container {
   display: flex; // Use flex to prevent margin disappearing after reload.
+
+  /* replaces fxLayout="column" fxLayoutGap="20px" */
+  flex-direction: column;
+  gap: 20px;
   margin-bottom: 20px !important;
 }
 
 .fill-remaining-space {
   flex: 1 1 auto;
 }
+
+/* Flex Layout replacements */
+.recycle-container {
+  display: flex;          /* fxLayout="row" */
+  flex-direction: row;
+}
+
+/* Stack on < md and add gap (fxLayout.lt-md="column" fxLayoutGap.lt-md="20px") */
+@media (max-width: 959.98px) {
+  .recycle-container { flex-direction: column;
+    gap: 20px; }
+
+  .flex-50 { flex: 0 0 100%;
+    max-width: 100%; }
+}
+
+.right-container {
+  display: flex;          /* fxLayout="column" fxLayoutGap="20px" */
+  flex-direction: column;
+  gap: 20px;
+}
+
+.right-inner {
+  align-items: center;
+  display: flex;          /* fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center" */
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Cards: fxLayout="row" fxLayoutGap="20px" */
+.card-row {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+/* fxFlex="50%" */
+.flex-50 { flex: 0 0 50%;
+  max-width: 50%; }

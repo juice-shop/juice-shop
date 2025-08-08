@@ -50,11 +50,11 @@ import { MatRadioButton } from '@angular/material/radio'
 import { NgIf, NgFor } from '@angular/common'
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu'
 import { MatSearchBarComponent } from '../mat-search-bar/mat-search-bar.component'
-import { ExtendedModule } from '@angular/flex-layout/extended'
+
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatButtonModule } from '@angular/material/button'
-import { FlexModule } from '@angular/flex-layout/flex'
+
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar'
 
 library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faGithub, faComments, faThermometerEmpty, faThermometerQuarter, faThermometerHalf, faThermometerThreeQuarters, faThermometerFull)
@@ -64,8 +64,8 @@ library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, 
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
   imports: [
-    MatToolbar, FlexModule, MatToolbarRow, MatButtonModule, MatTooltip,
-    MatIconModule, RouterLink, ExtendedModule, MatSearchBarComponent,
+    MatToolbar, MatToolbarRow, MatButtonModule, MatTooltip,
+    MatIconModule, RouterLink, MatSearchBarComponent,
     MatMenuTrigger, MatMenu, NgIf, MatMenuItem, NgFor, MatRadioButton,
     TranslateModule, MatDivider, MatFormFieldModule, MatInputModule, FormsModule
   ]

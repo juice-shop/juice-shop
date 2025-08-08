@@ -3,6 +3,13 @@
  * SPDX-License-Identifier: MIT
  */
 
+/* Replace fxLayoutAlign="center" wrapper */
+.page-center {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+}
+
 mat-card {
   height: auto;
   min-width: 320px;
@@ -19,16 +26,31 @@ mat-card {
   position: relative;
 }
 
+.form-container mat-form-field {
+  width: 100%;
+}
+
 .btn-return {
   float: left;
 }
 
+/* Containing block for floated buttons */
+.actions {
+  margin-top: 16px;
+}
+
+.actions::after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+/* Remove numeric input spinners */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  /* display: none; <- Crashes Chrome on hover */
   -webkit-appearance: none;
   -moz-appearance: none;
-  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  margin: 0;
 }
 
 .mat-mdc-form-field-hint {
@@ -47,5 +69,5 @@ input::-webkit-inner-spin-button {
 mat-error {
   font-size: 10.5px;
   margin-left: -10px;
-  margin-top: -3px; 
+  margin-top: -3px;
 }
