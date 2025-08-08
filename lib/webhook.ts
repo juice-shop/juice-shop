@@ -11,7 +11,7 @@ import logger from './logger'
 import * as utils from './utils'
 import { totalCheatScore } from './antiCheat'
 
-export const notify = async (challenge: { key: any, name: any }, cheatScore = -1, webhook = process.env.SOLUTIONS_WEBHOOK) => {
+export const notify = async (challenge: { key: any, name: any }, cheatScore = -1, hintsAvailable = 0, hintsUnlocked = 0, webhook = process.env.SOLUTIONS_WEBHOOK) => {
   if (!webhook) {
     return
   }
@@ -22,6 +22,8 @@ export const notify = async (challenge: { key: any, name: any }, cheatScore = -1
       solution: {
         challenge: challenge.key,
         cheatScore,
+        hintsAvailable,
+        hintsUnlocked,
         totalCheatScore: totalCheatScore(),
         issuedOn: new Date().toISOString()
       },
