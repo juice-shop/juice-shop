@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+
 .btn-new-address {
   display: block;
   margin-left: 0;
@@ -51,4 +52,32 @@ mat-cell {
 
 svg {
   font-size: 12.5px;
+}
+
+/* CSS replacement for former fxFlex column sizing */
+.address-table {
+  width: 100%;
+}
+
+/* Keep proportions from previous fxFlex usage for primary columns */
+.mat-column-Selection { width: 20%; }
+.mat-column-Name { width: 20%; }
+.mat-column-Address { width: 40%; }
+.mat-column-Country { width: 20%; }
+
+/* Compact action columns sized to icon buttons */
+.mat-column-Edit,
+.mat-column-Remove {
+  text-align: right;
+  width: 48px;
+}
+
+/* Tidy long address text */
+.mat-column-Address {
+  word-break: break-word;
+}
+
+/* Spacing for the "Add new address" wrapper (replaces inline style) */
+.add-new-address {
+  margin-top: 20px;
 }

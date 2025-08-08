@@ -149,3 +149,10 @@ mat-form-field {
 .powered-by {
   font-size: xx-small;
 }
+
+/* fxLayoutAlign="center" */
+.center-container {
+  align-items: stretch;    /* cross axis default from fxLayoutAlign */
+  display: flex;
+  justify-content: center; /* main axis */
+}
