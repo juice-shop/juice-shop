@@ -11,6 +11,7 @@ mat-card {
 
 .mdc-table {
   align-self: center;
+  margin: 0 auto;           /* center the table block */
   width: 90%;
 }
 
@@ -27,6 +28,8 @@ mat-card {
 }
 
 .table-wrapper {
+  display: flex;            /* replaces fxLayoutAlign="center" */
+  justify-content: center;
   margin-top: 30px;
 }
 
@@ -56,4 +59,8 @@ mat-card {
     margin: 0;
     padding: 0;
   }
+}
+/* Hide price column on < md (replaces fxShow fxHide.lt-md) */
+@media (max-width: 959.98px) {
+  .mat-column-price { display: none; }
 }

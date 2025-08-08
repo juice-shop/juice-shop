@@ -15,3 +15,16 @@ mat-dialog-content {
   max-width: 320px;
   min-width: 280px;
 }
+
+/* fxLayout="column" -> Flexbox */
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* fxLayout="row" fxLayoutGap="10px" -> Flexbox with gap */
+.user-line {
+  align-items: baseline;
+  display: flex;
+  gap: 10px;
+}

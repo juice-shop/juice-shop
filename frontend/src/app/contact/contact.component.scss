@@ -75,3 +75,10 @@ mat-hint {
   margin-top: 30px;
   width: 60%;
 }
+
+/* fxLayoutAlign="center" */
+.center-container {
+  align-items: stretch;    /* cross axis default from fxLayoutAlign */
+  display: flex;
+  justify-content: center; /* main axis */
+}
