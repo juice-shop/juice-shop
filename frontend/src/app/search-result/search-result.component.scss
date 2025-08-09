@@ -154,22 +154,22 @@ mat-grid-tile {
   margin-top: -17px;
 }
 
-/* fxLayoutAlign="center" */
+
 .center-align {
   display: flex;
   justify-content: center;
 }
 
-/* fxFlexAlign="center" fxFlex="40%" */
+
 .info-box {
   align-self: center;
   width: 40%;
 }
 
-/* Make image/info full-width on small screens */
+
 @media (max-width: 959.98px) {
   .product {
-    flex-direction: column;    /* stack on small screens */
+    flex-direction: column;
     gap: 10px;
   }
   .info-box { width: 100%; }

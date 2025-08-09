@@ -36,9 +36,8 @@ mat-card {
   font-size: 0.75rem;
 }
 
-/* Replace fxFlex column sizing with CSS column widths */
 mat-table {
-  table-layout: fixed; /* keeps percentage widths reliable */
+  table-layout: fixed;
   width: 100%;
 }
 

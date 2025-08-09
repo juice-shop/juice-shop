@@ -104,30 +104,29 @@ div {
   margin-right: -10px;
 }
 
-/* Flex Layout replacements */
 .container {
-  display: flex;          /* fxLayout="column" */
+  display: flex;
   flex-direction: column;
 }
 
 .details-row {
-  display: flex;          /* fxLayout="row" fxLayoutGap="20px" */
+  display: flex;
   flex-direction: row;
   gap: 20px;
 }
 
-@media (max-width: 599.98px) {  /* fxLayout.lt-sm="column" */
+@media (max-width: 599.98px) {  
   .details-row {
     flex-direction: column;
   }
 }
 
-/* fxFlex="noshrink" */
+
 .no-shrink {
   flex: 0 0 auto;
 }
 
-/* Reviews row (was fxLayout="row") */
+
 .review-row {
   align-items: flex-start;
   display: flex;
