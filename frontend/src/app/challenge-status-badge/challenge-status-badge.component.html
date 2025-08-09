@@ -11,7 +11,6 @@
         matTooltipPosition="above">
             <mat-icon [hidden]="!allowRepeatNotifications">flag</mat-icon>
             <mat-icon [hidden]="allowRepeatNotifications">check_box</mat-icon>
-            <!-- Replace fxShow fxHide.lt-lg -->
             <span class="status-label">{{'STATUS_SOLVED' | translate}}</span>
 </button>
 
@@ -23,7 +22,6 @@
         matTooltipPosition="above">
             <mat-icon [hidden]="!showChallengeHints || !challenge.hintUrl">book</mat-icon>
             <mat-icon [hidden]="showChallengeHints && challenge.hintUrl">check_box_outline_blank</mat-icon>
-            <!-- Replace fxShow fxHide.lt-lg -->
             <span class="status-label">{{'STATUS_UNSOLVED' | translate}}</span>
 </button>
 

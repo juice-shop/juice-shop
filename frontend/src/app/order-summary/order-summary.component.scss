@@ -95,18 +95,17 @@ table { width: 100%; }
   text-align: end;
 }
 
-/* Flex Layout replacements */
 .container {
   align-items: stretch;
-  display: flex;                 /* fxLayout="row" */
+  display: flex;
   flex-direction: row;
-  gap: 20px;                     /* fxLayoutGap="20px" */
+  gap: 20px;                     
 }
 
 .column {
-  display: flex;                 /* fxLayout="column" */
+  display: flex;
   flex-direction: column;
-  gap: 20px;                     /* fxLayoutGap="20px" */
+  gap: 20px;                     
 }
 
 .flex-50 { flex: 0 0 50%;
@@ -122,9 +121,8 @@ table { width: 100%; }
   min-width: 0; }
 
 .fill { height: auto;
-  width: 100%; } /* fxFlexFill */
+  width: 100%; }
 
-/* fxLayout.lt-md="column" and fxFlex.lt-md="100%" */
 @media (max-width: 959.98px) {
   .container { flex-direction: column; }
 

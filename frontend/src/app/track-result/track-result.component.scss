@@ -28,7 +28,7 @@ mat-card {
 }
 
 .table-wrapper {
-  display: flex;            /* replaces fxLayoutAlign="center" */
+  display: flex;
   justify-content: center;
   margin-top: 30px;
 }
@@ -60,7 +60,6 @@ mat-card {
     padding: 0;
   }
 }
-/* Hide price column on < md (replaces fxShow fxHide.lt-md) */
 @media (max-width: 959.98px) {
   .mat-column-price { display: none; }
 }

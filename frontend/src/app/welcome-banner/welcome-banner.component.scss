@@ -47,7 +47,6 @@ mat-icon {
   }
 }
 
-/* Replaces fxShow + fxHide.lt-* */
 .hide-lt-lg { display: inline; }
 @media (max-width: 1279.98px) { .hide-lt-lg { display: none !important; } }
 

@@ -15,15 +15,14 @@ mat-toolbar {
   padding-right: 4px;
 }
 
-/* Flex Layout replacements */
 .navbar-toolbar {
   display: flex;
-  flex-direction: column; /* was fxLayout="column" */
+  flex-direction: column;
 }
 
 .navbar-row {
   align-items: center;
-  display: flex;          /* was fxLayout="row" */
+  display: flex;
 }
 
 @media (max-width: 599.98px) {

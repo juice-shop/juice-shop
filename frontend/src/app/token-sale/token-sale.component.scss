@@ -5,7 +5,6 @@
 
 $bg-heading: rgba(0, 0, 0, 0.13);
 
-/* Replaces fxLayout="row" fxLayoutGap="20px" and fxLayout.lt-md="column" */
 .container {
   align-items: stretch;
   display: flex;
@@ -16,10 +15,10 @@ $bg-heading: rgba(0, 0, 0, 0.13);
 
 @media (max-width: 959.98px) {
   .container { flex-direction: column; }
-  .align-self-lt-md-center { align-self: center; } /* replaces fxFlexAlign.lt-md="center" */
+  .align-self-lt-md-center { align-self: center; } 
 }
 
-/* Replaces fxFlexAlign="center" */
+
 .align-self-center {
   align-self: center;
 }

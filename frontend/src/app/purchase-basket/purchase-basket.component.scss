@@ -63,19 +63,16 @@ mat-footer-cell:last-of-type {
   padding-right: $cell-padding;
 }
 
-/* Column widths (replaces fxFlex on cells) */
 .mat-column-image { width: 20%; }
 .mat-column-product { width: 35%; }
 .mat-column-quantity { width: 16%; }
 .mat-column-price { width: 16%; }
 .mat-column-remove { width: 10%; }
 
-/* Hide image and price columns on < md (replaces fxShow fxHide.lt-md) */
 @media (max-width: 959.98px) {
   .mat-column-image,
   .mat-column-price { display: none; }
 
-  /* Adjust remaining widths for small screens */
   .mat-column-product { width: 30%; }
   .mat-column-quantity { width: 35%; }
   .mat-column-remove { width: 15%; }

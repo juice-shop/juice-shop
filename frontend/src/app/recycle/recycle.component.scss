@@ -58,7 +58,6 @@ h1 {
 .left-container {
   display: flex; // Use flex to prevent margin disappearing after reload.
 
-  /* replaces fxLayout="column" fxLayoutGap="20px" */
   flex-direction: column;
   gap: 20px;
   margin-bottom: 20px !important;
@@ -68,13 +67,11 @@ h1 {
   flex: 1 1 auto;
 }
 
-/* Flex Layout replacements */
 .recycle-container {
-  display: flex;          /* fxLayout="row" */
+  display: flex;
   flex-direction: row;
 }
 
-/* Stack on < md and add gap (fxLayout.lt-md="column" fxLayoutGap.lt-md="20px") */
 @media (max-width: 959.98px) {
   .recycle-container { flex-direction: column;
     gap: 20px; }
@@ -84,19 +81,19 @@ h1 {
 }
 
 .right-container {
-  display: flex;          /* fxLayout="column" fxLayoutGap="20px" */
+  display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
 .right-inner {
   align-items: center;
-  display: flex;          /* fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center" */
+  display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-/* Cards: fxLayout="row" fxLayoutGap="20px" */
+
 .card-row {
   align-items: flex-start;
   display: flex;
@@ -104,6 +101,6 @@ h1 {
   gap: 20px;
 }
 
-/* fxFlex="50%" */
+
 .flex-50 { flex: 0 0 50%;
   max-width: 50%; }

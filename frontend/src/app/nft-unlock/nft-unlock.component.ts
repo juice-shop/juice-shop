@@ -22,6 +22,11 @@ export class NFTUnlockComponent {
   successResponse: boolean = false
   errorMessage = ''
 
+  // Params for translation with HTML link
+  i18nParams = {
+    link: '<a target="_blank" rel="noopener noreferrer" href="https://testnets.opensea.io/assets/mumbai/0xf4817631372dca68a25a18eb7a0b36d54f3dbcf7/0">Opensea</a>'
+  }
+
   constructor (private readonly keysService: KeysService) {}
 
   ngOnInit (): void {

@@ -11,15 +11,15 @@ mat-divider {
   margin-bottom: 0 !important;
 }
 
-/* Flex Layout replacements */
+
 .container {
-  display: flex;           /* fxLayout="column" */
+  display: flex;
   flex-direction: column;
-  gap: 10px;               /* fxLayoutGap="10px" on child rows */
+  gap: 10px;               
 }
 
 .row {
   align-items: baseline;
-  display: flex;           /* fxLayout="row" */
-  gap: 10px;               /* fxLayoutGap="10px" */
+  display: flex;
+  gap: 10px;               
 }
