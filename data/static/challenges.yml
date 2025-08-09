@@ -1187,10 +1187,6 @@
   difficulty: 1
   hint: 'Try to find a reference or clue behind the scenes. Or simply guess what URL the Score Board might have.'
   hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/score-board.html#_find_the_carefully_hidden_score_board_page'
-  hints:
-    - 'Try to find a reference or clue behind the scenes. Or simply guess what URL the Score Board might have.'
-    - 'Guessing the URL is quite easy if you consider the structure of other frontend paths in the application.'
-    - 'For the more investigative approvach, your browser''s built-in developer tools can help you a lot.'
   mitigationUrl: ~
   key: scoreBoardChallenge
   tutorial:
