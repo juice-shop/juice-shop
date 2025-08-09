@@ -55,18 +55,14 @@
         </div>
         <mat-divider class="detail-divider"></mat-divider>
         <div class="detail-box mat-elevation-z6">
-          <div class="box-title">{{ LABEL_ACCOUNT_ADDRESS | translate }}</div>
+          <div class="box-title">{{ 'LABEL_ACCOUNT_ADDRESS' | translate }}</div>
           <mat-divider class="detail-divider"></mat-divider>
           <p class="box-text">0x8343d2eb2B13A2495De435a1b15e85b98115Ce05</p>
         </div>
         <div class="detail-box mat-elevation-z6">
-          <div class="box-title">{{ LABEL_DESCRIPTION | translate }}</div>
+          <div class="box-title">{{ 'LABEL_DESCRIPTION' | translate }}</div>
           <mat-divider class="detail-divider"></mat-divider>
-          <p class="box-text">
-            {{'NFT_SBT_BOX_TEXT' | translate: {
-              link: '<a target="_blank" href="https://testnets.opensea.io/assets/mumbai/0xf4817631372dca68a25a18eb7a0b36d54f3dbcf7/0">Opensea</a>'
-            } }}
-          </p>
+          <p class="box-text" [innerHTML]="'NFT_SBT_BOX_TEXT' | translate: i18nParams"></p>
         </div>
       </div>
     </div>

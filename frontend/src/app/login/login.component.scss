@@ -74,9 +74,8 @@ mat-form-field:nth-child(2) {
   margin-top: 40px;
 }
 
-/* fxLayoutAlign="center" */
 .center-container {
-  align-items: stretch;    /* cross axis default from fxLayoutAlign */
+  align-items: stretch;
   display: flex;
-  justify-content: center; /* main axis */
+  justify-content: center;
 }

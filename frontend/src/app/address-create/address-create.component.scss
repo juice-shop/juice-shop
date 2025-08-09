@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-/* Replace fxLayoutAlign="center" wrapper */
 .page-center {
   display: flex;
   justify-content: center;
@@ -34,7 +33,6 @@ mat-card {
   float: left;
 }
 
-/* Containing block for floated buttons */
 .actions {
   margin-top: 16px;
 }
@@ -45,7 +43,6 @@ mat-card {
   display: table;
 }
 
-/* Remove numeric input spinners */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

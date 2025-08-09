@@ -40,9 +40,8 @@ mat-card {
   margin-top: 20px;
 }
 
-/* fxLayoutAlign="center" */
 .center-container {
-  align-items: stretch;    /* cross axis default from fxLayoutAlign */
+  align-items: stretch;
   display: flex;
-  justify-content: center; /* main axis */
+  justify-content: center;
 }
