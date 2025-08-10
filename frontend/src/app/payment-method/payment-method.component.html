@@ -3,32 +3,31 @@
   ~ SPDX-License-Identifier: MIT
   -->
 
-<div fxLayout="column" fxLayoutGap="20px">
+<div class="container">
   <h1>{{"MY_PAYMENT_OPTIONS" | translate}}</h1>
   <div *ngIf="cardsExist">
     <mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="Selection">
-        <mat-header-cell *matHeaderCellDef fxFlex="15%"></mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="15%">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">
           <mat-radio-button (click)="emitSelectionToParent(element.id)"></mat-radio-button>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="Number">
-        <mat-header-cell *matHeaderCellDef fxFlex="35%"></mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="35%">{{ element.cardNum }}
-        </mat-cell>
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.cardNum }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="Name">
-        <mat-header-cell *matHeaderCellDef fxFlex="30%"></mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="30%">{{ element.fullName }}</mat-cell>
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.fullName }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="Expiry">
-        <mat-header-cell *matHeaderCellDef fxFlex="20%"></mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="20%">{{ element.expMonth }}/{{ element.expYear }}</mat-cell>
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.expMonth }}/{{ element.expYear }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="Remove">
-        <mat-header-cell *matHeaderCellDef fxFlex="15%"></mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="15%">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">
           <button mat-icon-button (click)="delete(element.id)"><i class="far fa-trash-alt"></i></button>
         </mat-cell>
       </ng-container>
@@ -65,7 +64,7 @@
             VALID_CARD_NUMBER
           </mat-error>
         </mat-form-field>
-        <mat-form-field style="width: 45%;margin-right: 10%;" appearance="outline" color="accent">
+        <mat-form-field class="half-field" appearance="outline" color="accent">
           <mat-label translate>LABEL_EXPIRY_MONTH</mat-label>
           <select matNativeControl [formControl]="monthControl" required>
             <option *ngFor="let i of monthRange" value="{{ i }}">{{ i }}</option>
@@ -74,7 +73,7 @@
             MANDATORY_EXPIRY_MONTH
           </mat-error>
         </mat-form-field>
-        <mat-form-field style="width: 45%" appearance="outline" color="accent">
+        <mat-form-field class="half-field" appearance="outline" color="accent">
           <mat-label translate>LABEL_EXPIRY_YEAR</mat-label>
           <select matNativeControl [formControl]="yearControl" required>
             <option *ngFor="let i of yearRange" value="{{ i }}">{{ i }}</option>

@@ -35,3 +35,13 @@ mat-card {
   color: var(--theme-text-fade-50);
   font-size: 0.75rem;
 }
+
+mat-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.mat-column-Selection { width: 20%; }
+.mat-column-Name { width: 30%; }
+.mat-column-Price { width: 25%; }
+.mat-column-ETA { width: 25%; }

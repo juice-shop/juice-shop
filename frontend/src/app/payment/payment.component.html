@@ -7,18 +7,18 @@
   <div class="mdc-card">
     <app-payment-method (emitSelection)="getMessage($event)" [allowDelete]="false"></app-payment-method>
     <mat-divider></mat-divider>
-    <div class="mat-elevation-z0" class="custom-card" *ngIf="mode !== 'wallet'">
-      <div fxLayout="row">
-        <div fxFlex="42%">
+    <div class="mat-elevation-z0 custom-card" *ngIf="mode !== 'wallet'">
+      <div class="row">
+        <div class="col col-42">
           <span translate class="card-title">LABEL_PAY_USING_WALLET</span>
         </div>
-        <div fxFlex="38%">
+        <div class="col col-38">
           <b>
             <span class="card-title" translate>LABEL_WALLET_BALANCE</span>
             <span class="confirmation card-title"> {{ walletBalanceStr }}</span>
           </b>
         </div>
-        <div fxFlex="20%">
+        <div class="col col-20">
           <button type="submit" color="primary" mat-raised-button class="btn" style="float: right;"
                   [disabled]="(walletBalance - totalPrice) < 0" (click)="useWallet()">
             <i class="fas fa-hand-holding-usd fa-lg"></i> {{'LABEL_PAY' | translate}} {{ totalPrice?.toFixed(2) }}¤
@@ -68,8 +68,8 @@
           {{"OTHER_PAYMENT_OPTIONS" | translate}}
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div fxLayout="row" fxLayout.lt-lg="column">
-        <div fxFlex="34%" fxFlex.lt-lg="100%" class="mat-elevation-z0">
+      <div class="row responsive-row">
+        <div class="col col-34 mat-elevation-z0">
           <div class="payment-label">
             <label translate>LABEL_DONATIONS</label>
           </div>
@@ -94,7 +94,7 @@
           </div>
         </div>
         <span class="fill-remaining-space"></span>
-        <div fxFlex="65%" fxFlex.lt-lg="100%" class="mat-elevation-z0">
+        <div class="col col-65 mat-elevation-z0">
           <div class="payment-label">
             <label translate>LABEL_MERCHANDISE</label>
           </div>
