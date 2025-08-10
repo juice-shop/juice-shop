@@ -28,13 +28,14 @@
         </div>
       </div>
     </div>
-    <div class="table-wrapper" fxLayoutAlign="center">
+
+    <div class="table-wrapper">
       <div class="table-heading heading">
         <h2 translate>LABEL_PRODUCT_ORDERED</h2>
       </div>
     </div>
     
-    <div class="mdc-table" fxLayoutAlign="center">
+    <div class="mdc-table">
       <mat-table class="mat-elevation-z0" #table [dataSource]="dataSource">
         
         <ng-container matColumnDef="product">
@@ -43,15 +44,14 @@
         </ng-container>
         
         <ng-container matColumnDef="price">
-          <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md translate>LABEL_PRICE</mat-header-cell>
-          <mat-cell class="product-price" *matCellDef="let product" fxShow fxHide.lt-md> {{product.price}}&curren;</mat-cell>
+          <mat-header-cell *matHeaderCellDef translate>LABEL_PRICE</mat-header-cell>
+          <mat-cell class="product-price" *matCellDef="let product"> {{product.price}}&curren;</mat-cell>
         </ng-container>
         
         <ng-container matColumnDef="quantity">
           <mat-header-cell *matHeaderCellDef translate>LABEL_QUANTITY</mat-header-cell>
           <mat-cell class="product-quantity" *matCellDef="let product"> {{product.quantity}}</mat-cell>
         </ng-container>
-        
         
         <ng-container matColumnDef="total price">
           <mat-header-cell *matHeaderCellDef translate>LABEL_TOTAL_PRICE</mat-header-cell>
@@ -62,6 +62,7 @@
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
     </div>
+
     <div class="bonus-container">
       <h2 translate [translateParams]="{'bonus': results.bonus}">BONUS_POINTS_EARNED</h2>
       <p>(<span [innerHtml]="'BONUS_FOR_FUTURE_PURCHASES' | translate"></span>)</p>

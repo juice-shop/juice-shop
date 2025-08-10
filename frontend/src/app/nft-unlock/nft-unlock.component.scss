@@ -1,4 +1,7 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   justify-content: center;
 }
 
@@ -9,11 +12,23 @@
 }
 
 .detail-container.offer-container {
+  align-items: center;
   display: flex;
+  flex-direction: row;
   gap: 16px;
   max-width: 700px;
   min-width: 300px;
   width: 70%;
+}
+
+@media (max-width: 1279.98px) {
+  .detail-container.offer-container {
+    flex-direction: column;
+  }
+}
+
+.align-self-center {
+  align-self: center;
 }
 
 .owner-text {
@@ -34,19 +49,6 @@
   }
 }
 
-.detail-container.offer-container.warning-container {
-  button {
-    font-size: clamp(0.875rem, 2.5vw, 1rem);
-    padding: 0 16px;
-    white-space: nowrap;
-    
-    @media (max-width: 480px) {
-      transform: scale(0.9);
-      width: 95%;
-    }
-  }
-}
-
 .warning-container {
   align-items: center;
   border-radius: 4px;
@@ -58,7 +60,6 @@
   text-align: center;
   white-space: normal;
 
-  
   @media (max-width: 600px) {
     font-size: 0.9em;
     line-height: 1.4;
@@ -66,15 +67,6 @@
     padding: 20px 16px;
   }
 }
-
-.title {
-  padding-bottom: 27px;
-}
-
-.text-justify {
-  text-align: justify;
-}
-
 
 .sbt-title {
   font-size: 1.5rem;

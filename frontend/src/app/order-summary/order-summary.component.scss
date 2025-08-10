@@ -5,18 +5,15 @@
 
 .btn-pay {
   display: block;
-  margin-top: 10px;
   margin-top: 20px;
   padding: 10px;
   width: 100%;
-
 }
 
 mat-card {
   height: auto;
   margin-bottom: -10px !important;
   margin-top: 20px;
-
 }
 
 mat-cell {
@@ -33,13 +30,9 @@ mat-cell {
   padding-left: 10px;
 }
 
-table {
-  width: 100%;
-}
+table { width: 100%; }
 
-.mat-mdc-footer-cell {
-  font-weight: bold;
-}
+.mat-mdc-footer-cell { font-weight: bold; }
 
 .order-summary {
   font-size: x-large;
@@ -47,22 +40,20 @@ table {
   margin-bottom: 15px;
   padding-bottom: 10px;
   padding-left: 10px;
-  
 }
 
 .bonus-points {
-  margin-top: 5px;
+  color: var(--theme-text);
+  margin-top: 10px;
   text-align: center;
 }
 
-
-.mdc-card { 
+.mdc-card {
   border: 0;
   border-bottom: 0;
   margin-top: -5px;
   padding: 5px;
   width: 100%;
-
 }
 
 .mat-own-card {
@@ -71,7 +62,6 @@ table {
   max-width: 1200px;
   padding: 20px;
   width: 60% !important;
-
 }
 
 .mat-table .mat-row,
@@ -79,33 +69,12 @@ table {
   border-bottom: 1px solid var(--theme-background-light);
   border-radius: 5px !important;
   padding: 10px 0;
-
 }
-
-.mat-table {
-  border-collapse: collapse;
-    
-}
-  
-.mat-cell,
-.mat-footer-cell {
-  padding: 12px 0; 
-
-}
-
-::ng-deep .mat-mdc-cell.mdc-data-table__cell.cdk-cell {
-  border: 0 !important;
-
-}
-
 
 .mat-table {
   background: transparent;
+  border-collapse: collapse;
   width: 100%;
-}
-
-.mat-row {
-  border-bottom: 1px solid var(--theme-background-light);
 }
 
 .mat-cell,
@@ -126,9 +95,40 @@ table {
   text-align: end;
 }
 
-.bonus-points {
-  color: var(--theme-text);
-  margin-top: 10px;
-  text-align: center;
+.container {
+  align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;                     
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;                     
+}
+
+.flex-50 { flex: 0 0 50%;
+  max-width: 50%;
+  min-width: 0; }
+
+.flex-60 { flex: 0 0 60%;
+  max-width: 60%;
+  min-width: 0; }
+
+.flex-40 { flex: 0 0 40%;
+  max-width: 40%;
+  min-width: 0; }
+
+.fill { height: auto;
+  width: 100%; }
+
+@media (max-width: 959.98px) {
+  .container { flex-direction: column; }
+
+  .flex-50,
+  .flex-60,
+  .flex-40 { flex: 0 0 100%;
+    max-width: 100%; }
 }
 

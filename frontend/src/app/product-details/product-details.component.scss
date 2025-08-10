@@ -103,3 +103,37 @@ div {
   margin-left: -10px;
   margin-right: -10px;
 }
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.details-row {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+@media (max-width: 599.98px) {  
+  .details-row {
+    flex-direction: column;
+  }
+}
+
+
+.no-shrink {
+  flex: 0 0 auto;
+}
+
+
+.review-row {
+  align-items: flex-start;
+  display: flex;
+  gap: 8px;
+}
+
+.like-container {
+  align-items: center;
+  display: flex;
+}

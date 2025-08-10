@@ -1,22 +1,18 @@
 <mat-card appearance="outlined">
-  <div class="mdc-card container" fxLayout="column" fxLayoutGap="20px">
+  <div class="mdc-card container">
     <button
-      class="detail-container offer-container warning-container"
+      class="detail-container offer-container warning-container align-self-center"
       mat-raised-button
       color="warn"
-      fxFlexAlign="center"
     >
-    {{ 'BTN_SBT_NOTE' | translate }}
+      {{ 'BTN_SBT_NOTE' | translate }}
     </button>
-    <div
-      class="detail-container offer-container"
-      fxFlexAlign="center"
-      fxLayout="row"
-      fxLayout.lt-lg="column"
-    >
+
+    <div class="detail-container offer-container align-self-center">
       <div>
         <img src="assets/public/images/products/juicy_chatbot.jpg" />
       </div>
+
       <div *ngIf="!successResponse">
         <div>
           <mat-card-title class="sbt-title">{{ 'TITLE_SBT' | translate }}</mat-card-title>
@@ -39,22 +35,18 @@
             <h5 class="error">{{ errorMessage }}</h5>
           </div>
 
-          <button
-            type="submit"
-            class="btn btn-primary"
-            mat-raised-button
-            color="accent"
-          >
-          {{ 'BTN_AUTHENTICATE' | translate }}
+          <button type="submit" class="btn btn-primary" mat-raised-button color="accent">
+            {{ 'BTN_AUTHENTICATE' | translate }}
           </button>
         </form>
       </div>
+
       <div *ngIf="successResponse">
         <div>
-          <mat-card-title >{{'TITLE_SBT'| translate}}</mat-card-title>
+          <mat-card-title>{{ 'TITLE_SBT' | translate }}</mat-card-title>
         </div>
         <div class="owner-text">
-          {{'OWNED_BY' | translate}}
+          {{ 'OWNED_BY' | translate }}
           <a
             target="_blank"
             href="https://testnets.opensea.io/0x8343d2eb2B13A2495De435a1b15e85b98115Ce05"
@@ -63,21 +55,14 @@
         </div>
         <mat-divider class="detail-divider"></mat-divider>
         <div class="detail-box mat-elevation-z6">
-          <div class="box-title">{{ LABEL_ACCOUNT_ADDRESS | translate }}</div>
+          <div class="box-title">{{ 'LABEL_ACCOUNT_ADDRESS' | translate }}</div>
           <mat-divider class="detail-divider"></mat-divider>
           <p class="box-text">0x8343d2eb2B13A2495De435a1b15e85b98115Ce05</p>
         </div>
         <div class="detail-box mat-elevation-z6">
-          <div class="box-title">{{ LABEL_DESCRIPTION |  translate }}</div>
+          <div class="box-title">{{ 'LABEL_DESCRIPTION' | translate }}</div>
           <mat-divider class="detail-divider"></mat-divider>
-          <p class="box-text">
-            {{'NFT_SBT_BOX_TEXT' | translate: {
-              link: '<a
-                target="_blank"
-                href="https://testnets.opensea.io/assets/mumbai/0xf4817631372dca68a25a18eb7a0b36d54f3dbcf7/0"
-              >Opensea</a>'
-            &#125; &#125;&#125;
-          </p>
+          <p class="box-text" [innerHTML]="'NFT_SBT_BOX_TEXT' | translate: i18nParams"></p>
         </div>
       </div>
     </div>

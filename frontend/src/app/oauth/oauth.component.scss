@@ -8,3 +8,9 @@ mat-card {
   min-width: 300px;
   width: 35%;
 }
+
+.center-container {
+  align-items: stretch;
+  display: flex;
+  justify-content: center;
+}

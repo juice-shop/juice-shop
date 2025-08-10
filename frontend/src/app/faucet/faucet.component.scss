@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  grid-gap: 34px;
+  gap: 34px;
   margin: 0 40px;
 }
 
@@ -116,22 +116,24 @@
   }
 }
 
-.mint_button {
-  border-radius: 10px;
-  display: flex;
-  font-weight: 500;
-  height: 68px;
-  margin-top: 32px;
-  padding: 16px 48px;
-  width: 100%;
-
-}
-
 .mdc-card {
   align-items: center;
   border: 0;
   display: flex;
-  
+  flex-direction: column;
+}
+
+.mint_button {
+  align-items: center;
+  align-self: center;
+  border-radius: 10px;
+  display: flex;
+  font-weight: 500;
+  height: 68px;
+  justify-content: center;
+  margin-top: 32px;
+  padding: 16px 48px;
+  width: 100%;
 }
 
 .withdraw-container button {

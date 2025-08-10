@@ -11,7 +11,7 @@ import { faCommentAlt, faComments, faGraduationCap, faUniversity } from '@fortaw
 import { faCommentAlt as farCommentAlt, faComments as farComments } from '@fortawesome/free-regular-svg-icons'
 import { MatButtonModule } from '@angular/material/button'
 import { TranslateModule } from '@ngx-translate/core'
-import { FlexModule } from '@angular/flex-layout/flex'
+
 import { MatCardModule, MatCardHeader, MatCardTitle, MatCardSubtitle } from '@angular/material/card'
 
 library.add(faBitcoin, faUniversity, faGraduationCap, faCommentAlt, faComments, farCommentAlt, farComments)
@@ -20,7 +20,7 @@ library.add(faBitcoin, faUniversity, faGraduationCap, faCommentAlt, faComments, 
   selector: 'app-token-sale',
   templateUrl: './token-sale.component.html',
   styleUrls: ['./token-sale.component.scss'],
-  imports: [MatCardModule, FlexModule, MatCardHeader, MatCardTitle, MatCardSubtitle, TranslateModule, MatButtonModule]
+  imports: [MatCardModule, MatCardHeader, MatCardTitle, MatCardSubtitle, TranslateModule, MatButtonModule]
 })
 export class TokenSaleComponent implements OnInit {
   public altcoinName = 'Juicycoin'

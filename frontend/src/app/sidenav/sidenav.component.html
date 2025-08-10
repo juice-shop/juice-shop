@@ -14,9 +14,9 @@
   <button mat-button style="height: 0; position: absolute;">
     <!-- 'absorbs' the auto-focus behavior -->
   </button>
-  <h3 mat-subheader class="side-subHeader" translate fxHide fxShow.lt-md>ACCOUNT</h3>
+  <h3 mat-subheader class="side-subHeader show-lt-md-only" translate>ACCOUNT</h3>
 
-  <div fxHide fxShow.lt-md>
+  <div class="show-lt-md-only">
     <a mat-list-item *ngIf="!isLoggedIn()" routerLink="/login" (click)="onToggleSidenav();"
        aria-label="Go to login page">
       <mat-icon>
@@ -173,7 +173,7 @@
     </a>
   </div>
 
-  <mat-divider fxHide fxShow.lt-md></mat-divider>
+  <mat-divider class="show-lt-md-only"></mat-divider>
 
   <h3 mat-subheader class="side-subHeader" translate>TITLE_CONTACT</h3>
   <a mat-list-item routerLink="/contact" (click)="onToggleSidenav();" aria-label="Go to contact us page">

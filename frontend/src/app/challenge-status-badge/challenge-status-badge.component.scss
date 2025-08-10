@@ -3,3 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
+.status-label {
+  display: inline;
+}
+
+@media (max-width: 1279.98px) {
+  .status-label {
+    display: none;
+  }
+}

@@ -19,7 +19,7 @@ $bg-heading: rgba(0, 0, 0, 0.2);
 
 .img-thumbnail {
   align-self: start;
-  width: 61% !important;
+  width: 60% !important;       /* image ~60%, info-box ~40% */
 }
 
 .heading {
@@ -27,7 +27,11 @@ $bg-heading: rgba(0, 0, 0, 0.2);
 }
 
 .product {
+  align-items: stretch;
   cursor: pointer;
+  display: flex;               /* lay out image + info side-by-side */
+  flex-direction: row;
+  gap: 12px;
 }
 
 .item-price {
@@ -148,4 +152,26 @@ mat-grid-tile {
   margin-left: -17px;
   margin-right: 6px;
   margin-top: -17px;
+}
+
+
+.center-align {
+  display: flex;
+  justify-content: center;
+}
+
+
+.info-box {
+  align-self: center;
+  width: 40%;
+}
+
+
+@media (max-width: 959.98px) {
+  .product {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .info-box { width: 100%; }
+  .img-thumbnail { width: 100% !important; }
 }

@@ -10,3 +10,16 @@ mat-divider {
 .dialogAction {
   margin-bottom: 0 !important;
 }
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;               
+}
+
+.row {
+  align-items: baseline;
+  display: flex;
+  gap: 10px;               
+}
