@@ -21,7 +21,6 @@
     "@angular/compiler": "^20.1.0",
     "@angular/compiler-cli": "^20.1.0",
     "@angular/core": "^20.1.0",
-    "@angular/flex-layout": "15.0.0-beta.42",
     "@angular/forms": "^20.1.0",
     "@angular/material": "^20.1.0",
     "@angular/platform-browser": "^20.1.0",

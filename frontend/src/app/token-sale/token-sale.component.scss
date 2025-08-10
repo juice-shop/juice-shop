@@ -6,7 +6,21 @@
 $bg-heading: rgba(0, 0, 0, 0.13);
 
 .container {
+  align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
   justify-content: center;
+}
+
+@media (max-width: 959.98px) {
+  .container { flex-direction: column; }
+  .align-self-lt-md-center { align-self: center; } 
+}
+
+
+.align-self-center {
+  align-self: center;
 }
 
 .heading {
@@ -99,3 +113,14 @@ h4 {
 img {
   width: 10px;
 }
+
+.mdc-card { border: 0; }
+
+.offer-container { display: flex;
+  flex-direction: column;
+  gap: 16px; }
+
+.faq-container { display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: -7px; }

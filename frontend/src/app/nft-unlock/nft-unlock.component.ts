@@ -7,20 +7,25 @@ import { FormsModule } from '@angular/forms'
 import { NgIf } from '@angular/common'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'
-import { FlexModule } from '@angular/flex-layout/flex'
+
 import { MatCardModule, MatCardTitle } from '@angular/material/card'
 
 @Component({
   selector: 'app-nft-unlock',
   templateUrl: './nft-unlock.component.html',
   styleUrls: ['./nft-unlock.component.scss'],
-  imports: [MatCardModule, FlexModule, MatButtonModule, TranslateModule, NgIf, MatCardTitle, FormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatDivider]
+  imports: [MatCardModule, MatButtonModule, TranslateModule, NgIf, MatCardTitle, FormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatDivider]
 })
 export class NFTUnlockComponent {
   privateKey: string
   formSubmitted: boolean = false
   successResponse: boolean = false
   errorMessage = ''
+
+  // Params for translation with HTML link
+  i18nParams = {
+    link: '<a target="_blank" rel="noopener noreferrer" href="https://testnets.opensea.io/assets/mumbai/0xf4817631372dca68a25a18eb7a0b36d54f3dbcf7/0">Opensea</a>'
+  }
 
   constructor (private readonly keysService: KeysService) {}
 

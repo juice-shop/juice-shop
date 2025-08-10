@@ -15,3 +15,14 @@ mat-dialog-content {
   max-width: 320px;
   min-width: 280px;
 }
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-line {
+  align-items: baseline;
+  display: flex;
+  gap: 10px;
+}

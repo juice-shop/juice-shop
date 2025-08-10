@@ -11,7 +11,6 @@ import { TranslateModule } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'
 import { QrCodeModule } from 'ng-qrcode'
 import { MatDivider } from '@angular/material/divider'
-import { FlexModule } from '@angular/flex-layout/flex'
 
 library.add(faArrowCircleLeft)
 
@@ -19,7 +18,7 @@ library.add(faArrowCircleLeft)
   selector: 'app-qr-code',
   templateUrl: './qr-code.component.html',
   styleUrls: ['./qr-code.component.scss'],
-  imports: [FlexModule, MatDivider, QrCodeModule, MatButtonModule, MatDialogClose, TranslateModule]
+  imports: [MatDivider, QrCodeModule, MatButtonModule, MatDialogClose, TranslateModule]
 })
 export class QrCodeComponent implements OnInit {
   public title!: string
