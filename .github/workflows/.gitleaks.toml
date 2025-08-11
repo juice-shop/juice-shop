@@ -1,2 +1,0 @@
-[extend]
-path = "https://raw.githubusercontent.com/gitleaks/gitleaks/master/config/gitleaks.toml"
