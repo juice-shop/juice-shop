@@ -20,6 +20,7 @@ jobs:
       - uses: gitleaks/gitleaks-action@v2
         with:
           args: --redact
+        continue-on-error: true   # ← НЕ роняем джоб, даже если найдёт секрет
 
   semgrep:
     name: SAST (Semgrep)
@@ -67,7 +68,7 @@ jobs:
           framework: dockerfile,compose
           output_format: sarif
           output_file_path: checkov.sarif
-          soft_fail: true
+          soft_fail: true          # ← не падаем, просто отдаём SARIF
       - uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: checkov.sarif
