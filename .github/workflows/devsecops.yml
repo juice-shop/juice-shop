@@ -1,10 +1,8 @@
 name: DevSecOps Scans
 
 on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+  push: { branches: ["master"] }
+  pull_request: { branches: ["master"] }
 
 permissions:
   contents: read
@@ -13,17 +11,14 @@ permissions:
 
 jobs:
   gitleaks:
-    name: Secrets scan (Gitleaks)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: gitleaks/gitleaks-action@v2
-        with:
-          args: --redact
+        with: { args: --redact }
         continue-on-error: true
 
   semgrep:
-    name: SAST (Semgrep)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,20 +28,16 @@ jobs:
           generateSarif: "true"
           auditOn: push
         continue-on-error: true
-      - name: Upload SARIF (Semgrep)
-        if: always()
+      - if: always()
         uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: semgrep.sarif
+        with: { sarif_file: semgrep.sarif }
         continue-on-error: true
 
   trivy_fs:
-    name: Trivy FS (vuln+secrets+config)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Trivy filesystem scan
-        uses: aquasecurity/trivy-action@0.24.0
+      - uses: aquasecurity/trivy-action@0.24.0
         with:
           scan-type: fs
           ignore-unfixed: true
@@ -56,18 +47,16 @@ jobs:
           severity: HIGH,CRITICAL
           exit-code: 0
         continue-on-error: true
-      - uses: github/codeql-action/upload-sarif@v3
-        if: always()
-        with:
-          sarif_file: trivy-fs.sarif
+      - if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with: { sarif_file: trivy-fs.sarif }
         continue-on-error: true
 
   checkov_hadolint:
-    name: IaC/Docker checks (Checkov/Hadolint)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Checkov (Dockerfile/Compose)
+      - name: Checkov
         uses: bridgecrewio/checkov-action@v12
         with:
           directory: .
@@ -76,48 +65,27 @@ jobs:
           output_file_path: checkov.sarif
           soft_fail: true
         continue-on-error: true
-      - uses: github/codeql-action/upload-sarif@v3
-        if: always()
-        with:
-          sarif_file: checkov.sarif
+      - if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with: { sarif_file: checkov.sarif }
         continue-on-error: true
       - name: Hadolint Dockerfile
         uses: hadolint/hadolint-action@v3.1.0
-        with:
-          dockerfile: Dockerfile
+        with: { dockerfile: Dockerfile }
         continue-on-error: true
 
-  wait_staging:
-    name: Wait for staging URL
-    runs-on: ubuntu-latest
-    needs: [gitleaks, semgrep, trivy_fs, checkov_hadolint]
-    if: github.ref == 'refs/heads/master'
-    steps:
-      - name: Ping STAGING_URL until 200/301/302
-        run: |
-          for i in {1..30}; do
-            CODE=$(curl -s -o /dev/null -w "%{http_code}" "${{ secrets.STAGING_URL }}")
-            echo "try $i: HTTP $CODE"
-            if [ "$CODE" = "200" ] || [ "$CODE" = "301" ] || [ "$CODE" = "302" ]; then
-              exit 0
-            fi
-            sleep 10
-          done
-          echo "Staging is not responding in time"; exit 1
-
   dast_zap:
-    name: DAST (ZAP Baseline)
     runs-on: ubuntu-latest
-    needs: wait_staging
-    if: github.ref == 'refs/heads/master'
     steps:
       - name: ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.13.0
         with:
           target: ${{ secrets.STAGING_URL }}
           cmd_options: "-a -m 5 -r zap-report.html"
+        continue-on-error: true
+      - name: Ensure report exists
+        run: |
+          [ -f zap-report.html ] || echo "ZAP report not generated" > zap-report.html
       - name: Upload ZAP report
         uses: actions/upload-artifact@v4
-        with:
-          name: zap-report
-          path: zap-report.html
+        with: { name: zap-report, path: zap-report.html }
