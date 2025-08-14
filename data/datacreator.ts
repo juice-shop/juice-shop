@@ -12,6 +12,7 @@ import { ChallengeModel } from '../models/challenge'
 import { ComplaintModel } from '../models/complaint'
 import { DeliveryModel } from '../models/delivery'
 import { FeedbackModel } from '../models/feedback'
+import { HintModel } from '../models/hint'
 import { MemoryModel } from '../models/memory'
 import { ProductModel } from '../models/product'
 import { QuantityModel } from '../models/quantity'
@@ -71,7 +72,7 @@ async function createChallenges () {
   const challengeKeysWithCodeChallenges = [...codeChallenges.keys()]
 
   await Promise.all(
-    challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, mitigationUrl, key, disabledEnv, tutorial, tags }) => {
+    challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, hints, mitigationUrl, key, disabledEnv, tutorial, tags }) => {
       // todo(@J12934) change this to use a proper challenge model or something
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const { enabled: isChallengeEnabled, disabledBecause } = utils.getChallengeEnablementStatus({ disabledEnv: disabledEnv?.join(';') ?? '' } as ChallengeModel)
@@ -102,9 +103,26 @@ async function createChallenges () {
           codingChallengeStatus: 0,
           hasCodingChallenge
         })
+        if (hints?.length > 0) await createHints(datacache.challenges[key].id, hints)
       } catch (err) {
         logger.error(`Could not insert Challenge ${name}: ${utils.getErrorMessage(err)}`)
       }
+    })
+  )
+}
+
+async function createHints (ChallengeId: number, hints: string[]) {
+  let i: number = 0
+  return await Promise.all(
+    hints.map(async (hint) => {
+      return await HintModel.create({
+        ChallengeId,
+        text: hint,
+        order: ++i,
+        unlocked: false
+      }).catch((err: unknown) => {
+        logger.error(`Could not create hint: ${utils.getErrorMessage(err)}`)
+      })
     })
   )
 }
