@@ -64,6 +64,7 @@ export interface StaticChallenge {
   difficulty: number
   hint: string
   hintUrl: string
+  hints: string[]
   mitigationUrl: string
   key: ChallengeKey
   disabledEnv?: string[]
