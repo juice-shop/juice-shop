@@ -13,7 +13,7 @@ import { faArrowCircleLeft, faPaperPlane } from '@fortawesome/free-solid-svg-ico
 import { type Review } from '../Models/review.model'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { MatButtonModule } from '@angular/material/button'
-import { NgIf } from '@angular/common'
+
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel, MatHint, MatError } from '@angular/material/form-field'
 import { TranslateModule } from '@ngx-translate/core'
@@ -26,7 +26,7 @@ library.add(faPaperPlane, faArrowCircleLeft)
   selector: 'app-product-review-edit',
   templateUrl: './product-review-edit.component.html',
   styleUrls: ['./product-review-edit.component.scss'],
-  imports: [MatDialogContent, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatHint, NgIf, MatError, MatDialogActions, MatButtonModule, MatDialogClose, MatIconModule]
+  imports: [MatDialogContent, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatHint, MatError, MatDialogActions, MatButtonModule, MatDialogClose, MatIconModule]
 })
 export class ProductReviewEditComponent implements OnInit {
   public editReviewControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(160)])
