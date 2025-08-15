@@ -1,6 +1,6 @@
 <!--
-  ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
-  ~ SPDX-License-Identifier: MIT
+~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+~ SPDX-License-Identifier: MIT
 -->
 
 <mat-card appearance="outlined" class="mat-elevation-z6 mat-own-card">
@@ -10,14 +10,18 @@
         <h1 class="confirmation" translate>THANKS_FOR_PURCHASE</h1>
         <div translate>PURCHASE_COMMENT_PREFIX <a routerLink="/track-result/new" [queryParams]="{ id: this.orderId }" translate>TITLE_TRACK_ORDERS</a> PURCHASE_COMMENT_SUFFIX</div>
       </div>
-      <div *ngIf="address">
-        <span *ngIf="orderDetails.eta !== '?' && orderDetails.eta !== undefined"><div class="confirmation" translate [translateParams]="{'numberdays': orderDetails.eta}">ESTIMATED_TIME_OF_DELIVERY</div></span>
-        <div><b translate>LABEL_DELIVERY_ADDRESS</b></div>
-        <div>{{address?.fullName}}</div>
-        <div>{{address?.streetAddress}}, {{address?.city}}, {{address?.state}}, {{address?.zipCode}}</div>
-        <div>{{address?.country}}</div>
-        <div><span translate>PHONE_NUMBER</span> {{address?.mobileNum}}</div>
-      </div>
+      @if (address) {
+        <div>
+          @if (orderDetails.eta !== '?' && orderDetails.eta !== undefined) {
+            <span><div class="confirmation" translate [translateParams]="{'numberdays': orderDetails.eta}">ESTIMATED_TIME_OF_DELIVERY</div></span>
+          }
+          <div><b translate>LABEL_DELIVERY_ADDRESS</b></div>
+          <div>{{address?.fullName}}</div>
+          <div>{{address?.streetAddress}}, {{address?.city}}, {{address?.state}}, {{address?.zipCode}}</div>
+          <div>{{address?.country}}</div>
+          <div><span translate>PHONE_NUMBER</span> {{address?.mobileNum}}</div>
+        </div>
+      }
     </div>
     <div class="heading-banner">
       <span class="heading-text">{{"ORDER_SUMMARY" | translate}}</span>
@@ -26,7 +30,7 @@
           <i class="fab fa-twitter fa-lg tweet-logo"></i>
         </a>
         <button mat-icon-button aria-label="Print order confirmation" [matTooltip]="'PRINT_ORDER_CONFIRMATION' | translate" matTooltipPosition="below"
-        (click)= "openConfirmationPDF()">
+          (click)= "openConfirmationPDF()">
           <mat-icon>note</mat-icon>
         </button>
       </div>

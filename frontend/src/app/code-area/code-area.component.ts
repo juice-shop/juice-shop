@@ -6,7 +6,6 @@ import {
   EventEmitter
 } from '@angular/core'
 import { HighlightModule } from 'ngx-highlightjs'
-import { NgFor } from '@angular/common'
 
 interface LineMarker {
   marked: boolean
@@ -17,7 +16,7 @@ interface LineMarker {
   selector: 'app-code-area',
   templateUrl: './code-area.component.html',
   styleUrls: ['./code-area.component.scss'],
-  imports: [NgFor, HighlightModule]
+  imports: [HighlightModule]
 })
 export class CodeAreaComponent implements OnInit {
   private _code: string = ''

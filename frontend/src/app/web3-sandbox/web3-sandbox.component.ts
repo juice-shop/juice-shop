@@ -15,7 +15,7 @@ import {
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
 import { TranslateModule } from '@ngx-translate/core'
-import { NgIf, NgFor } from '@angular/common'
+
 import { MatButtonModule } from '@angular/material/button'
 import { FormsModule } from '@angular/forms'
 import { CodemirrorModule } from '@ctrl/ngx-codemirror'
@@ -42,7 +42,7 @@ const compilerReleases = {
   selector: 'app-web3-sandbox',
   templateUrl: './web3-sandbox.component.html',
   styleUrls: ['./web3-sandbox.component.scss'],
-  imports: [CodemirrorModule, FormsModule, MatButtonModule, MatIconModule, NgIf, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, NgFor]
+  imports: [CodemirrorModule, FormsModule, MatButtonModule, MatIconModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule]
 })
 export class Web3SandboxComponent {
   constructor (

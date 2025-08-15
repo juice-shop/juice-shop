@@ -47,7 +47,7 @@ import { LoginGuard } from '../app.guard'
 import { roles } from '../roles'
 import { MatDivider } from '@angular/material/divider'
 import { MatRadioButton } from '@angular/material/radio'
-import { NgIf, NgFor } from '@angular/common'
+
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu'
 import { MatSearchBarComponent } from '../mat-search-bar/mat-search-bar.component'
 
@@ -64,10 +64,22 @@ library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, 
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
   imports: [
-    MatToolbar, MatToolbarRow, MatButtonModule, MatTooltip,
-    MatIconModule, RouterLink, MatSearchBarComponent,
-    MatMenuTrigger, MatMenu, NgIf, MatMenuItem, NgFor, MatRadioButton,
-    TranslateModule, MatDivider, MatFormFieldModule, MatInputModule, FormsModule
+    MatToolbar,
+    MatToolbarRow,
+    MatButtonModule,
+    MatTooltip,
+    MatIconModule,
+    RouterLink,
+    MatSearchBarComponent,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
+    MatRadioButton,
+    TranslateModule,
+    MatDivider,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule
   ]
 })
 export class NavbarComponent implements OnInit {

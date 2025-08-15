@@ -1,7 +1,7 @@
 <!--
-  ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
-  ~ SPDX-License-Identifier: MIT
-  -->
+~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+~ SPDX-License-Identifier: MIT
+-->
 
 <mat-card appearance="outlined" class="mat-elevation-z6 mat-own-card">
   <div class="mdc-card">
@@ -15,7 +15,9 @@
           <ng-container matColumnDef="user">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let user" style="vertical-align: middle">
-              <i *ngIf="doesUserHaveAnActiveSession(user)" class="fas fa-user fa-lg confirmation"></i>
+              @if (doesUserHaveAnActiveSession(user)) {
+                <i class="fas fa-user fa-lg confirmation"></i>
+              }
             </mat-cell>
           </ng-container>
 
@@ -36,10 +38,10 @@
 
         </mat-table>
         <mat-paginator #paginatorUsers
-                      [pageSize]="10"
-                      [length]="resultsLengthUser"
-                      class="mat-elevation-z0"
-                      color="accent">
+          [pageSize]="10"
+          [length]="resultsLengthUser"
+          class="mat-elevation-z0"
+          color="accent">
         </mat-paginator>
       </div>
       <div class="customer-table">
@@ -62,9 +64,11 @@
           <ng-container matColumnDef="rating">
             <mat-header-cell *matHeaderCellDef translate></mat-header-cell>
             <mat-cell *matCellDef="let feedback">
-              <mat-icon *ngFor="let i of times(feedback.rating)">
-                star_rate
-              </mat-icon>
+              @for (i of times(feedback.rating); track i) {
+                <mat-icon>
+                  star_rate
+                </mat-icon>
+              }
             </mat-cell>
           </ng-container>
 
@@ -79,10 +83,10 @@
           <mat-row *matRowDef="let row; columns: feedbackColumns;"></mat-row>
         </mat-table>
         <mat-paginator #paginatorFeedb
-                      [pageSize]="10"
-                      [length]="resultsLengthFeedback"
-                      class="mat-elevation-z0"
-                      color="accent">
+          [pageSize]="10"
+          [length]="resultsLengthFeedback"
+          class="mat-elevation-z0"
+          color="accent">
         </mat-paginator>
       </div>
     </div>
