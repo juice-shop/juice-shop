@@ -1,0 +1,91 @@
+name: Deploy to Amazon ECS (Terraform-managed)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      deploy_env:
+        description: "Environment to deploy to"
+        required: true
+        default: "production"
+
+env:
+  AWS_REGION: eu-north-1
+  ECR_REPOSITORY: juice-shop-repo
+  ECS_CLUSTER: app-fargate-cluster
+  ECS_SERVICE: app-fargate-service
+  CONTAINER_NAME: juice-shop
+
+permissions:
+  id-token: write
+  contents: read
+
+# Avoid overlapping deploys
+concurrency:
+  group: ecs-deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build_and_push:
+    name: Build & Push Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::930900578129:role/github-actions-role
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Extract Docker metadata (tags/labels)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}
+          tags: |
+            type=raw,value=${{ github.sha }}
+            # tag "latest" only on main
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=registry,ref=${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:buildcache
+          cache-to: type=registry,ref=${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:buildcache,mode=max
+
+  deploy:
+    name: Deploy to ECS
+    runs-on: ubuntu-latest
+    needs: build_and_push
+    if: ${{ needs.build_and_push.result == 'success' }}
+    environment:
+      name: ${{ github.event.inputs.deploy_env || 'production' }}
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::930900578129:role/github-actions-role
+          aws-region: ${{ env.AWS_REGION }}
+
+      # If your task definition uses :latest, the force-new-deployment will pull the newly-pushed image
+      - name: Force ECS service deployment
+        run: |
+          aws ecs update-service \
+            --cluster "${{ env.ECS_CLUSTER }}" \
+            --service "${{ env.ECS_SERVICE }}" \
+            --force-new-deployment
