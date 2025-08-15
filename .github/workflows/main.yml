@@ -12,6 +12,7 @@ on:
 
 env:
   AWS_REGION: eu-north-1
+  AWS_ROLE_ARN: arn:aws:iam::930900578129:role/github-actions-role
   ECR_REPOSITORY: juice-shop-repo
   ECS_CLUSTER: app-fargate-cluster
   ECS_SERVICE: app-fargate-service
@@ -21,9 +22,9 @@ permissions:
   id-token: write
   contents: read
 
-# Avoid overlapping deploys
+# Avoid overlapping deploys *per environment/branch*
 concurrency:
-  group: ecs-deploy-${{ github.ref }}
+  group: ecs-deploy-${{ github.ref }}-${{ github.event.inputs.deploy_env || 'production' }}
   cancel-in-progress: false
 
 jobs:
@@ -34,25 +35,31 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Configure AWS credentials
+      - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::930900578129:role/github-actions-role
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
+
+      - name: Who am I (debug)
+        run: aws sts get-caller-identity
 
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
+      - name: Ensure ECR repository exists
+        run: |
+          aws ecr describe-repositories --repository-names "${{ env.ECR_REPOSITORY }}" >/dev/null 2>&1 || \
+          aws ecr create-repository --repository-name "${{ env.ECR_REPOSITORY }}" >/dev/null
+
       - name: Extract Docker metadata (tags/labels)
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: |
-            ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}
+          images: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}
           tags: |
             type=raw,value=${{ github.sha }}
-            # tag "latest" only on main
             type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
 
       - name: Set up Docker Buildx
@@ -76,16 +83,21 @@ jobs:
     environment:
       name: ${{ github.event.inputs.deploy_env || 'production' }}
     steps:
-      - name: Configure AWS credentials
+      - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::930900578129:role/github-actions-role
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
 
-      # If your task definition uses :latest, the force-new-deployment will pull the newly-pushed image
       - name: Force ECS service deployment
         run: |
           aws ecs update-service \
             --cluster "${{ env.ECS_CLUSTER }}" \
             --service "${{ env.ECS_SERVICE }}" \
             --force-new-deployment
+
+      - name: Wait for service stable (optional but recommended)
+        run: |
+          aws ecs wait services-stable \
+            --cluster "${{ env.ECS_CLUSTER }}" \
+            --services "${{ env.ECS_SERVICE }}"
