@@ -9,7 +9,7 @@ on:
 env:
   AWS_REGION: eu-north-1
   AWS_ROLE_ARN: arn:aws:iam::930900578129:role/github-actions-role
-  ECR_REPOSITORY: juice-shop-repo
+  ECR_REPOSITORY: my-app-repo
   ECS_CLUSTER: app-fargate-cluster
   ECS_SERVICE: app-fargate-service
 
