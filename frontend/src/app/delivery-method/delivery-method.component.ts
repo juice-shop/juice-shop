@@ -8,7 +8,7 @@ import { DeliveryService } from '../Services/delivery.service'
 import { AddressService } from '../Services/address.service'
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table'
 import { Router } from '@angular/router'
-import { Location, NgIf, NgClass } from '@angular/common'
+import { Location, NgClass } from '@angular/common'
 import { type DeliveryMethod } from '../Models/deliveryMethod.model'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faRocket, faShippingFast, faTruck } from '@fortawesome/free-solid-svg-icons'
@@ -28,7 +28,7 @@ library.add(faRocket, faShippingFast, faTruck)
   selector: 'app-delivery-method',
   templateUrl: './delivery-method.component.html',
   styleUrls: ['./delivery-method.component.scss'],
-  imports: [MatCardModule, NgIf, TranslateModule, MatDivider, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatRadioButton, NgClass, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatButtonModule, MatIconModule]
+  imports: [MatCardModule, TranslateModule, MatDivider, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatRadioButton, NgClass, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatButtonModule, MatIconModule]
 })
 export class DeliveryMethodComponent implements OnInit {
   public displayedColumns = ['Selection', 'Name', 'Price', 'ETA']

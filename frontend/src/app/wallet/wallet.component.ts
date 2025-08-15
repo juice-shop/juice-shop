@@ -8,7 +8,7 @@ import { WalletService } from '../Services/wallet.service'
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
 import { MatButtonModule } from '@angular/material/button'
-import { NgIf } from '@angular/common'
+
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel, MatError } from '@angular/material/form-field'
 import { TranslateModule } from '@ngx-translate/core'
@@ -19,7 +19,7 @@ import { MatIconModule } from '@angular/material/icon'
   selector: 'app-wallet',
   templateUrl: './wallet.component.html',
   styleUrls: ['./wallet.component.scss'],
-  imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, FormsModule, MatInputModule, ReactiveFormsModule, NgIf, MatError, MatButtonModule, MatIconModule]
+  imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, FormsModule, MatInputModule, ReactiveFormsModule, MatError, MatButtonModule, MatIconModule]
 })
 export class WalletComponent implements OnInit {
   public balance: string

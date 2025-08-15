@@ -18,7 +18,7 @@ import { faEdit } from '@fortawesome/free-regular-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'
-import { NgIf } from '@angular/common'
+
 import { MatInputModule } from '@angular/material/input'
 import {
   MatFormFieldModule,
@@ -35,7 +35,6 @@ library.add(faSave, faEdit)
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss'],
   imports: [
-
     MatCardModule,
     TranslateModule,
     MatFormFieldModule,
@@ -43,7 +42,6 @@ library.add(faSave, faEdit)
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    NgIf,
     MatError,
     MatHint,
     MatButtonModule

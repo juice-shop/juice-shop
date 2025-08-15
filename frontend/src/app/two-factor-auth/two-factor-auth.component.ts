@@ -22,7 +22,7 @@ import { QrCodeModule } from 'ng-qrcode'
 import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel, MatError, MatSuffix, MatHint } from '@angular/material/form-field'
-import { NgIf } from '@angular/common'
+
 import { MatCardModule } from '@angular/material/card'
 
 library.add(faUnlockAlt, faSave)
@@ -31,7 +31,7 @@ library.add(faUnlockAlt, faSave)
   selector: 'app-two-factor-auth',
   templateUrl: './two-factor-auth.component.html',
   styleUrls: ['./two-factor-auth.component.scss'],
-  imports: [MatCardModule, TranslateModule, NgIf, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatButtonModule, QrCodeModule, MatError, MatIconModule, MatSuffix, MatTooltip, MatHint, MatIconModule]
+  imports: [MatCardModule, TranslateModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatButtonModule, QrCodeModule, MatError, MatIconModule, MatSuffix, MatTooltip, MatHint, MatIconModule]
 })
 export class TwoFactorAuthComponent {
   public data?: string

@@ -1,7 +1,7 @@
 <!--
-  ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
-  ~ SPDX-License-Identifier: MIT
-  -->
+~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+~ SPDX-License-Identifier: MIT
+-->
 
 <mat-card class="mat-elevation-z6 mat-own-card recycle-container">
   <!-- left -->
@@ -17,30 +17,40 @@
       <mat-form-field appearance="outline" color="accent">
         <mat-label>{{"LABEL_QUANTITY" | translate}}</mat-label>
         <input [formControl]="recycleQuantityControl" type="number" [placeholder]="'IN_LITERS_PLACEHOLDER' | translate" matInput>
-        <mat-error *ngIf="recycleQuantityControl.invalid && recycleQuantityControl.errors.required" translate>
-          {{"MANDATORY_QUANTITY" | translate}}
-        </mat-error>
-        <mat-error *ngIf="recycleQuantityControl.invalid && (recycleQuantityControl.errors.min || recycleQuantityControl.errors.max)">
-          {{"INVALID_QUANTITY" | translate: {range: '10-1000'} }}
-        </mat-error>
+        @if (recycleQuantityControl.invalid && recycleQuantityControl.errors.required) {
+          <mat-error translate>
+            {{"MANDATORY_QUANTITY" | translate}}
+          </mat-error>
+        }
+        @if (recycleQuantityControl.invalid && (recycleQuantityControl.errors.min || recycleQuantityControl.errors.max)) {
+          <mat-error>
+            {{"INVALID_QUANTITY" | translate: {range: '10-1000'} }}
+          </mat-error>
+        }
       </mat-form-field>
 
       <app-address (emitSelection)="getMessage($event)" [addNewAddressDiv]="false" #addressComp class="mat-elevation-z0"></app-address>
 
-      <mat-form-field *ngIf="pickup.value && recycleQuantityControl.value > 100" appearance="outline">
-        <mat-label>{{"LABEL_PICKUP_DATE" | translate}}</mat-label>
-        <input [formControl]="pickUpDateControl" matInput [matDatepicker]="picker">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-        <mat-error *ngIf="pickUpDateControl.invalid">{{"INVALID_DATE" | translate }}</mat-error>
-      </mat-form-field>
+      @if (pickup.value && recycleQuantityControl.value > 100) {
+        <mat-form-field appearance="outline">
+          <mat-label>{{"LABEL_PICKUP_DATE" | translate}}</mat-label>
+          <input [formControl]="pickUpDateControl" matInput [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          @if (pickUpDateControl.invalid) {
+            <mat-error>{{"INVALID_DATE" | translate }}</mat-error>
+          }
+        </mat-form-field>
+      }
 
-      <mat-checkbox [formControl]="pickup" *ngIf="recycleQuantityControl.value > 100">{{'REQUEST_PICKUP' | translate}}</mat-checkbox>
+      @if (recycleQuantityControl.value > 100) {
+        <mat-checkbox [formControl]="pickup">{{'REQUEST_PICKUP' | translate}}</mat-checkbox>
+      }
     </div>
 
     <button type="submit" id="recycleButton"
-            [disabled]="addressId === undefined || recycleQuantityControl.invalid || pickUpDateControl.invalid"
-            mat-raised-button color="primary" (click)="save()">
+      [disabled]="addressId === undefined || recycleQuantityControl.invalid || pickUpDateControl.invalid"
+      mat-raised-button color="primary" (click)="save()">
       <i class="fas fa-paper-plane fa-lg"></i> {{'BTN_SUBMIT' | translate}}
     </button>
   </div>
