@@ -1,16 +1,17 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { TranslateModule } from '@ngx-translate/core'
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog'
 import { UserService } from '../Services/user.service'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { MatDividerModule } from '@angular/material/divider'
 import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { FeedbackDetailsComponent } from './feedback-details.component'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('FeedbackDetailsComponent', () => {
   let component: FeedbackDetailsComponent
@@ -18,17 +19,16 @@ describe('FeedbackDetailsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot(),
-        HttpClientTestingModule,
+      imports: [TranslateModule.forRoot(),
         MatDividerModule,
-        MatDialogModule
-      ],
-      declarations: [FeedbackDetailsComponent],
+        MatDialogModule,
+        FeedbackDetailsComponent],
       providers: [
         UserService,
         { provide: MatDialogRef, useValue: {} },
-        { provide: MAT_DIALOG_DATA, useValue: { productData: {} } }
+        { provide: MAT_DIALOG_DATA, useValue: { productData: {} } },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     })
       .compileComponents()

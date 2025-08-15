@@ -12,8 +12,7 @@ describe('ChallengeCard', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), MatIconModule, MatTooltipModule],
-      declarations: [ChallengeCardComponent]
+      imports: [TranslateModule.forRoot(), MatIconModule, MatTooltipModule, ChallengeCardComponent]
     })
       .compileComponents()
 

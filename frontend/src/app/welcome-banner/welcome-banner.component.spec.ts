@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { TranslateModule } from '@ngx-translate/core'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { CookieModule, CookieService } from 'ngx-cookie'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
+import { CookieModule, CookieService } from 'ngy-cookie'
 
 import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 
@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { of, throwError } from 'rxjs'
 import { ConfigurationService } from '../Services/configuration.service'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('WelcomeBannerComponent', () => {
   let component: WelcomeBannerComponent
@@ -28,18 +29,17 @@ describe('WelcomeBannerComponent', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { } }))
     matDialogRef = jasmine.createSpyObj('MatDialogRef', ['close'])
     TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         CookieModule.forRoot(),
-        HttpClientTestingModule,
         MatIconModule,
-        MatTooltipModule
-      ],
-      declarations: [WelcomeBannerComponent],
+        MatTooltipModule,
+        WelcomeBannerComponent],
       providers: [
         { provide: MatDialogRef, useValue: matDialogRef },
         { provide: ConfigurationService, useValue: configurationService },
-        CookieService
+        CookieService,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     })
       .compileComponents()

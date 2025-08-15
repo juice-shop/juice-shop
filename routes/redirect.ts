@@ -1,16 +1,16 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import utils = require('../lib/utils')
-import challengeUtils = require('../lib/challengeUtils')
 import { type Request, type Response, type NextFunction } from 'express'
+
+import * as challengeUtils from '../lib/challengeUtils'
 import { challenges } from '../data/datacache'
+import * as security from '../lib/insecurity'
+import * as utils from '../lib/utils'
 
-const security = require('../lib/insecurity')
-
-module.exports = function performRedirect () {
+export function performRedirect () {
   return ({ query }: Request, res: Response, next: NextFunction) => {
     const toUrl: string = query.to as string
     if (security.isRedirectAllowed(toUrl)) {

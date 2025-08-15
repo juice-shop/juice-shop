@@ -1,11 +1,11 @@
 <!--
-  ~ Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
   -->
 
 <mat-dialog-content>
 
-  <div class="container mat-typography" fxLayout="column">
+  <div class="container" fxLayout="column">
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px">
       <div fxFlex="noshrink">
         <img class="img-thumbnail" [src]="'assets/public/images/products/'+data.productData.image" alt={{data.productData.name}}>
@@ -51,14 +51,12 @@
               <cite>{{review.author}}</cite>
               <p>{{ review.message }}</p>
             </div>
-            <div>
+            <div class="like-container">
               <button mat-icon-button (click)="likeReview(review)" [disabled]="review.liked || !isLoggedIn()"
                       class="rw-button" aria-label="Rate a helpful review">
-                  <span class="fa-2x fa-layers fa-fw">
                     <mat-icon>thumb_up</mat-icon>
                     <span
-                      class="fa-layers-counter fa-layers-bottom-right accent-notification" style="font-size: 32px;">{{ review.likesCount }}</span>
-                  </span>
+                      class="like-counter accent-notification">{{ review.likesCount }}</span>
               </button>
             </div>
           </div>
@@ -68,22 +66,21 @@
       <ng-template #emptyResult>
         <div>
             <span class="noResultText" translate>
-              EMPTY_REVIEW_LIST
+            EMPTY_REVIEW_LIST
             </span>
         </div>
       </ng-template>
     </mat-expansion-panel>
-    <div>
 
       <mat-divider class="detail-divider"></mat-divider>
 
       <h4 [style.display]="isLoggedIn() ? 'block' : 'none' " translate>WRITE_REVIEW</h4>
       <mat-form-field appearance="outline" color="accent"
-                      [style.display]="isLoggedIn() ? 'block' : 'none' "  floatLabel="always">
-        <mat-label translate>LABEL_REVIEW</mat-label>
-        <mat-hint translate>
+                      [style.display]="isLoggedIn() ? 'block' : 'none' " floatLabel="always">
+        <mat-label >{{"LABEL_REVIEW" | translate}}</mat-label>
+        <mat-hint>
           <i class="fas fa-exclamation-circle"></i>
-          <em style="margin-left:5px;" translate>{{ 'MAX_TEXTAREA_LENGTH' | translate: {length: '160'} }}</em>
+          <em style="margin-left:5px;">{{ 'MAX_TEXTAREA_LENGTH' | translate: {length: '160'} }}</em>
         </mat-hint>
         <textarea [formControl]="reviewControl" #textPut cols="50" matInput
                   placeholder="{{'WRITE_REVIEW_PLACEHOLDER' | translate}}"
@@ -95,24 +92,23 @@
 
       <mat-dialog-actions align="end" class="dialogAction">
         <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="Close Dialog">
-          <i class="material-icons">
+          <mat-icon>
             close
-          </i>
+          </mat-icon>
           <span>  {{'BTN_CLOSE' | translate}}</span>
         </button>
 
         <button type="submit" id="submitButton" [disabled]="!textPut.value.trim()" mat-raised-button color="primary"
-                (click)="addReview(textPut)" style="margin-bottom: 5px; margin-top: 5px; margin-left: 5px;"
+                (click)="addReview(textPut)" style="margin-left: 5px;"
                 aria-label="Send the review" class="buttons"
-                [style.display]="isLoggedIn() ? 'block' : 'none' ">
-          <i class="material-icons">
+                [style.display]="isLoggedIn() ? 'flex' : 'none' ">
+          <mat-icon>
             send
-          </i>
+          </mat-icon>
           <span>
             {{'BTN_SUBMIT' | translate}}
           </span>
         </button>
       </mat-dialog-actions>
-    </div>
   </div>
 </mat-dialog-content>

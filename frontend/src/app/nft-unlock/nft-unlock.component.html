@@ -1,13 +1,12 @@
-<mat-card>
-  <div class="container" fxLayout="column" fxLayoutGap="20px">
+<mat-card appearance="outlined">
+  <div class="mdc-card container" fxLayout="column" fxLayoutGap="20px">
     <button
       class="detail-container offer-container warning-container"
       mat-raised-button
       color="warn"
       fxFlexAlign="center"
-      translate
     >
-      BTN_SBT_NOTE
+    {{ 'BTN_SBT_NOTE' | translate }}
     </button>
     <div
       class="detail-container offer-container"
@@ -20,16 +19,12 @@
       </div>
       <div *ngIf="!successResponse">
         <div>
-          <mat-card-title translate>TITLE_SBT</mat-card-title>
+          <mat-card-title class="sbt-title">{{ 'TITLE_SBT' | translate }}</mat-card-title>
         </div>
         <form (ngSubmit)="submitForm()">
           <div class="form-group">
-            <mat-form-field
-              style="width: 350px"
-              color="accent"
-              appearance="outline"
-            >
-              <mat-label translate>LABEL_PRIVATE_KEY</mat-label>
+            <mat-form-field color="accent" appearance="outline" class="responsive-field">
+              <mat-label>{{ 'LABEL_PRIVATE_KEY' | translate }}</mat-label>
               <input
                 matInput
                 [(ngModel)]="privateKey"
@@ -37,7 +32,8 @@
                 name="privateKey"
                 required
                 type="text"
-                aria-label="Text field for the private key"
+                [attr.aria-label]="'LABEL_PRIVATE_KEY' | translate"
+                class="text-ellipsis"
               />
             </mat-form-field>
             <h5 class="error">{{ errorMessage }}</h5>
@@ -48,15 +44,14 @@
             class="btn btn-primary"
             mat-raised-button
             color="accent"
-            translate
           >
-            BTN_AUTHENTICATE
+          {{ 'BTN_AUTHENTICATE' | translate }}
           </button>
         </form>
       </div>
       <div *ngIf="successResponse">
         <div>
-          <mat-card-title translate>TITLE_SBT</mat-card-title>
+          <mat-card-title >{{'TITLE_SBT'| translate}}</mat-card-title>
         </div>
         <div class="owner-text">
           {{'OWNED_BY' | translate}}
@@ -68,12 +63,12 @@
         </div>
         <mat-divider class="detail-divider"></mat-divider>
         <div class="detail-box mat-elevation-z6">
-          <div class="box-title" translate>LABEL_ACCOUNT_ADDRESS</div>
+          <div class="box-title">{{ LABEL_ACCOUNT_ADDRESS | translate }}</div>
           <mat-divider class="detail-divider"></mat-divider>
           <p class="box-text">0x8343d2eb2B13A2495De435a1b15e85b98115Ce05</p>
         </div>
         <div class="detail-box mat-elevation-z6">
-          <div class="box-title" translate>LABEL_DESCRIPTION</div>
+          <div class="box-title">{{ LABEL_DESCRIPTION |  translate }}</div>
           <mat-divider class="detail-divider"></mat-divider>
           <p class="box-text">
             {{'NFT_SBT_BOX_TEXT' | translate: {
@@ -81,7 +76,7 @@
                 target="_blank"
                 href="https://testnets.opensea.io/assets/mumbai/0xf4817631372dca68a25a18eb7a0b36d54f3dbcf7/0"
               >Opensea</a>'
-            } }}
+            &#125; &#125;&#125;
           </p>
         </div>
       </div>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -7,7 +7,7 @@ import { type Request, type Response, type NextFunction } from 'express'
 import { WalletModel } from '../models/wallet'
 import { CardModel } from '../models/card'
 
-module.exports.getWalletBalance = function getWalletBalance () {
+export function getWalletBalance () {
   return async (req: Request, res: Response, next: NextFunction) => {
     const wallet = await WalletModel.findOne({ where: { UserId: req.body.UserId } })
     if (wallet != null) {
@@ -18,7 +18,7 @@ module.exports.getWalletBalance = function getWalletBalance () {
   }
 }
 
-module.exports.addWalletBalance = function addWalletBalance () {
+export function addWalletBalance () {
   return async (req: Request, res: Response, next: NextFunction) => {
     const cardId = req.body.paymentId
     const card = cardId ? await CardModel.findOne({ where: { id: cardId, UserId: req.body.UserId } }) : null
