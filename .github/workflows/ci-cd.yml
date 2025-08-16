@@ -111,11 +111,20 @@ jobs:
       name: production   # set reviewers in Settings → Environments → production
       url: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
     steps:
+      - name: Show GitHub context
+        run: |
+          echo "repo=${{ github.repository }}"
+          echo "ref=${{ github.ref }}"
+          echo "event=${{ github.event_name }}"
+
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ env.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
+
+      - name: Who am I
+        run: aws sts get-caller-identity
 
       - name: Force ECS service deployment
         run: |
