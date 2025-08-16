@@ -16,7 +16,6 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatIconButton, MatButtonModule } from '@angular/material/button'
 import { MatRadioButton } from '@angular/material/radio'
 
-import { NgIf } from '@angular/common'
 import { MatCardModule } from '@angular/material/card'
 
 library.add(faEdit, faTrashAlt)
@@ -25,7 +24,7 @@ library.add(faEdit, faTrashAlt)
   selector: 'app-address',
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.scss'],
-  imports: [MatCardModule, NgIf, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatRadioButton, MatIconButton, RouterLink, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatButtonModule, MatIconModule]
+  imports: [MatCardModule, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatRadioButton, MatIconButton, RouterLink, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatButtonModule, MatIconModule]
 })
 export class AddressComponent implements OnInit {
   @Output() emitSelection = new EventEmitter()

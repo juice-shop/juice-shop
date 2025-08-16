@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
 import { TranslateModule } from '@ngx-translate/core'
-import { NgIf } from '@angular/common'
+
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 const { ethereum } = window
@@ -30,7 +30,7 @@ const client = createClient({
   selector: 'app-wallet-web3',
   templateUrl: './wallet-web3.component.html',
   styleUrls: ['./wallet-web3.component.scss'],
-  imports: [MatCardModule, MatButtonModule, NgIf, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, MatIconModule]
+  imports: [MatCardModule, MatButtonModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, MatIconModule]
 })
 export class WalletWeb3Component {
   constructor (

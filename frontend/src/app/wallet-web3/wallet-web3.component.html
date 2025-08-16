@@ -8,16 +8,20 @@
           color="accent"
           type="button"
           (click)="handleAuth()"
-        >
+          >
           <mat-icon>
             account_balance_wallet
           </mat-icon>
-          <span *ngIf="!session">{{"BTN_CONNECT_METAMASK" | translate}}</span>
-          <span *ngIf="session"
-            >{{ userData.address.substring(0, 6) }}...{{
+          
+          @if (session) {
+            <span
+              >{{ userData.address.substring(0, 6) }}...{{
               userData.address.slice(-6)
-            }}</span
-          >
+              }}
+            </span>
+          } @else {
+            <span>{{"BTN_CONNECT_METAMASK" | translate}}</span>
+          }
         </button>
       </div>
     </div>
@@ -37,7 +41,7 @@
           id="inputAmount"
           [(ngModel)]="inputAmount"
           aria-label="Text field for the withdrawal amount"
-        />
+          />
       </mat-form-field>
       <h5 class="error">{{ errorMessage }}</h5>
     </div>
@@ -49,7 +53,7 @@
         color="primary"
         aria-label="Button to deposit"
         (click)="depositETH()"
-      >
+        >
         <mat-icon>monetization_on</mat-icon>
         {{'BTN_DEPOSIT' | translate}}
       </button>
@@ -60,7 +64,7 @@
         color="warning"
         aria-label="Button to withdraw"
         (click)="withdrawETH()"
-      >
+        >
         <mat-icon>local_atm</mat-icon>
         {{'BTN_WITHDRAW' | translate}}
       </button>

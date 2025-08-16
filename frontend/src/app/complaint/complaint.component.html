@@ -1,7 +1,7 @@
 <!--
   ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
-  -->
+-->
 
 <div class="center-container">
   <mat-card appearance="outlined" class="mat-elevation-z6">
@@ -11,12 +11,16 @@
 
       <div class="confirmation" [hidden]="!(confirmation && !messageControl.dirty)">{{ confirmation }}</div>
 
-      <div class="error fileUploadError" *ngIf="(fileUploadError && fileUploadError.name == 'mimeType')">{{
-        "INVALID_FILE_TYPE" | translate: { type: 'PDF, ZIP' } }}
-      </div>
-      <div class="error fileUploadError" *ngIf="(fileUploadError && fileUploadError.name == 'fileSize')">{{
-        "INVALID_FILE_SIZE" | translate: { size: '100 KB' } }}
-      </div>
+      @if ((fileUploadError && fileUploadError.name == 'mimeType')) {
+        <div class="error fileUploadError">{{
+          "INVALID_FILE_TYPE" | translate: { type: 'PDF, ZIP' } }}
+        </div>
+      }
+      @if ((fileUploadError && fileUploadError.name == 'fileSize')) {
+        <div class="error fileUploadError">{{
+          "INVALID_FILE_SIZE" | translate: { size: '100 KB' } }}
+        </div>
+      }
 
       <div class="form-container" id="complaint-form">
 
@@ -32,12 +36,14 @@
             <em style="margin-left:5px;">{{ 'MAX_TEXTAREA_LENGTH' | translate: {length: '160'} }}</em>
           </mat-hint>
           <textarea #complaintMessage id="complaintMessage" [formControl]="messageControl" matAutosizeMinRows="4" matAutosizeMaxRows="4"
-                    matTextareaAutosize cols="50" maxlength="160" matInput
-                    placeholder="{{ 'WRITE_MESSAGE_PLACEHOLDER' | translate}}"
-                    aria-label="Field for entering the complaint"></textarea>
-          <mat-error *ngIf="messageControl.invalid && messageControl?.errors.required">{{"MANDATORY_MESSAGE" |
-            translate}}
-          </mat-error>
+            matTextareaAutosize cols="50" maxlength="160" matInput
+            placeholder="{{ 'WRITE_MESSAGE_PLACEHOLDER' | translate}}"
+          aria-label="Field for entering the complaint"></textarea>
+          @if (messageControl.invalid && messageControl?.errors.required) {
+            <mat-error>{{"MANDATORY_MESSAGE" |
+              translate}}
+            </mat-error>
+          }
           <mat-hint align="end">{{complaintMessage.value?.length || 0}}/160</mat-hint>
         </mat-form-field>
 
@@ -49,7 +55,7 @@
       </div>
 
       <button type="submit" id="submitButton" [disabled]="messageControl.invalid || fileUploadError" (click)="save()"
-              mat-raised-button color="primary" aria-label="Button to send the complaint">
+        mat-raised-button color="primary" aria-label="Button to send the complaint">
         <mat-icon>
           send
         </mat-icon>

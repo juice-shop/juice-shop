@@ -8,7 +8,7 @@ import { Component, type OnInit } from '@angular/core'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { AddressService } from '../Services/address.service'
 import { ActivatedRoute, type ParamMap, Router } from '@angular/router'
-import { Location, NgIf } from '@angular/common'
+import { Location } from '@angular/common'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { MatIconModule } from '@angular/material/icon'
@@ -21,7 +21,7 @@ import { MatCardModule } from '@angular/material/card'
   selector: 'app-address-create',
   templateUrl: './address-create.component.html',
   styleUrls: ['./address-create.component.scss'],
-  imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, NgIf, MatError, MatHint, MatButtonModule, MatIconModule]
+  imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatHint, MatButtonModule, MatIconModule]
 })
 export class AddressCreateComponent implements OnInit {
   public countryControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])

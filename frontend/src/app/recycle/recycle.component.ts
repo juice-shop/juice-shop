@@ -17,7 +17,7 @@ import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCheckbox } from '@angular/material/checkbox'
 import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker'
-import { NgIf } from '@angular/common'
+
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel, MatError, MatSuffix } from '@angular/material/form-field'
 
@@ -29,7 +29,7 @@ library.add(faPaperPlane)
   selector: 'app-recycle',
   templateUrl: './recycle.component.html',
   styleUrls: ['./recycle.component.scss'],
-  imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, NgIf, MatError, AddressComponent, MatDatepickerInput, MatDatepickerToggle, MatSuffix, MatDatepicker, MatCheckbox, MatButtonModule, MatCardImage, MatCardContent]
+  imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatError, AddressComponent, MatDatepickerInput, MatDatepickerToggle, MatSuffix, MatDatepicker, MatCheckbox, MatButtonModule, MatCardImage, MatCardContent]
 })
 export class RecycleComponent implements OnInit {
   @ViewChild('addressComp', { static: true }) public addressComponent: AddressComponent

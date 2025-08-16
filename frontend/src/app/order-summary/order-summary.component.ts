@@ -14,7 +14,6 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
 import { PurchaseBasketComponent } from '../purchase-basket/purchase-basket.component'
 import { TranslateModule } from '@ngx-translate/core'
-import { NgIf } from '@angular/common'
 
 import { MatCardModule } from '@angular/material/card'
 
@@ -22,7 +21,7 @@ import { MatCardModule } from '@angular/material/card'
   selector: 'app-order-summary',
   templateUrl: './order-summary.component.html',
   styleUrls: ['./order-summary.component.scss'],
-  imports: [MatCardModule, NgIf, TranslateModule, PurchaseBasketComponent, MatButtonModule, MatIconModule]
+  imports: [MatCardModule, TranslateModule, PurchaseBasketComponent, MatButtonModule, MatIconModule]
 })
 export class OrderSummaryComponent implements OnInit {
   public bonus = 0

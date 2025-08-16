@@ -1,43 +1,45 @@
 <!--
   ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
-  -->
+-->
 <mat-card appearance="outlined" class="container mat-elevation-z6 mat-own-card">
   <div class="mdc-card container">
     <div class="column flex-50">
-      <div class="container" *ngIf="address && paymentMethod">
-        <!-- Delivery Address Card -->
-        <mat-card appearance="outlined" class="mat-elevation-z0 flex-60">
-          <div class="mdc-card">
-            <div><b>{{"LABEL_DELIVERY_ADDRESS" | translate}}</b></div>
-            <div>{{address?.fullName}}</div>
-            <div>{{address?.streetAddress}}, {{address?.city}}, {{address?.state}}, {{address?.zipCode}}</div>
-            <div>{{address?.country}}</div>
-            <div><span>{{"PHONE_NUMBER" | translate}}</span> {{address?.mobileNum}}</div>
-          </div>
-        </mat-card>
-        <!-- Payment Method Card -->
-        <mat-card appearance="outlined" class="mat-elevation-z0 flex-40" *ngIf="paymentMethod !== 'wallet'; else walletPayment">
-          <div class="mdc-card">
-            <div><b>{{"PAYMENT_METHOD" | translate}}</b></div>
-            <div><span>{{"CARD_ENDING_IN" | translate}}</span> {{paymentMethod?.cardNum}}</div>
-            <div><span>{{"CARD_HOLDER" | translate}}"</span> {{paymentMethod?.fullName}}</div>
-          </div>
-        </mat-card>
-
-        <!-- Digital Wallet (Fallback) -->
-        <ng-template #walletPayment>
-          <mat-card appearance="outlined" class="mat-elevation-z0 flex-40">
+      @if (address && paymentMethod) {
+        <div class="container">
+          <!-- Delivery Address Card -->
+          <mat-card appearance="outlined" class="mat-elevation-z0 flex-60">
             <div class="mdc-card">
-              <div><b>{{"PAYMENT_METHOD" | translate}}</b></div>
-              <div><span>{{"DIGITAL_WALLET" | translate}}</span></div>
+              <div><b>{{"LABEL_DELIVERY_ADDRESS" | translate}}</b></div>
+              <div>{{address?.fullName}}</div>
+              <div>{{address?.streetAddress}}, {{address?.city}}, {{address?.state}}, {{address?.zipCode}}</div>
+              <div>{{address?.country}}</div>
+              <div><span>{{"PHONE_NUMBER" | translate}}</span> {{address?.mobileNum}}</div>
             </div>
           </mat-card>
-        </ng-template>
-      </div>
+          <!-- Payment Method Card -->
+          @if (paymentMethod !== 'wallet') {
+            <mat-card appearance="outlined" class="mat-elevation-z0 flex-40">
+              <div class="mdc-card">
+                <div><b>{{"PAYMENT_METHOD" | translate}}</b></div>
+                <div><span>{{"CARD_ENDING_IN" | translate}}</span> {{paymentMethod?.cardNum}}</div>
+                <div><span>{{"CARD_HOLDER" | translate}}"</span> {{paymentMethod?.fullName}}</div>
+              </div>
+            </mat-card>
+          } @else {
+          <!-- Digital Wallet (Fallback) -->
+            <mat-card appearance="outlined" class="mat-elevation-z0 flex-40">
+              <div class="mdc-card">
+                <div><b>{{"PAYMENT_METHOD" | translate}}</b></div>
+                <div><span>{{"DIGITAL_WALLET" | translate}}</span></div>
+              </div>
+            </mat-card>
+          }
+        </div>
+      }
       <!-- Purchase Basket -->
       <app-purchase-basket id="app-purchase-basket" [allowEdit]="false" [totalPrice]="false"
-        (emitTotal)="getMessage($event)"></app-purchase-basket>
+      (emitTotal)="getMessage($event)"></app-purchase-basket>
     </div>
 
     <!-- Order Summary Card -->
@@ -65,7 +67,7 @@
           </table>
           <!-- Checkout Button -->
           <button mat-raised-button mat-button class="btn btn-pay" color="primary" aria-label="Complete your purchase"
-                  id="checkoutButton" (click)="placeOrder()">
+            id="checkoutButton" (click)="placeOrder()">
             <mat-icon>{{"monetization_on" | translate}}</mat-icon>
             <span>{{"PLACE_ORDER_AND_PAY" | translate}}</span>
           </button>

@@ -4,7 +4,7 @@ import { MatDivider } from '@angular/material/divider'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
 import { FormsModule } from '@angular/forms'
-import { NgIf } from '@angular/common'
+
 import { TranslateModule } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'
 
@@ -14,7 +14,7 @@ import { MatCardModule, MatCardTitle } from '@angular/material/card'
   selector: 'app-nft-unlock',
   templateUrl: './nft-unlock.component.html',
   styleUrls: ['./nft-unlock.component.scss'],
-  imports: [MatCardModule, MatButtonModule, TranslateModule, NgIf, MatCardTitle, FormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatDivider]
+  imports: [MatCardModule, MatButtonModule, TranslateModule, MatCardTitle, FormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatDivider]
 })
 export class NFTUnlockComponent {
   privateKey: string

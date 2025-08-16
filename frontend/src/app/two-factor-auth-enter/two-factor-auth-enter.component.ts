@@ -16,7 +16,7 @@ import { MatTooltip } from '@angular/material/tooltip'
 import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel, MatSuffix, MatHint, MatError } from '@angular/material/form-field'
-import { NgIf } from '@angular/common'
+
 import { TranslateModule } from '@ngx-translate/core'
 import { MatCardModule } from '@angular/material/card'
 
@@ -30,7 +30,7 @@ interface TokenEnterFormFields {
   selector: 'app-two-factor-auth-enter',
   templateUrl: './two-factor-auth-enter.component.html',
   styleUrls: ['./two-factor-auth-enter.component.scss'],
-  imports: [MatCardModule, TranslateModule, NgIf, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatIconModule, MatSuffix, MatTooltip, MatHint, MatError, MatButtonModule, MatIconModule]
+  imports: [MatCardModule, TranslateModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatIconModule, MatSuffix, MatTooltip, MatHint, MatError, MatButtonModule, MatIconModule]
 })
 export class TwoFactorAuthEnterComponent {
   public twoFactorForm: UntypedFormGroup = new UntypedFormGroup({

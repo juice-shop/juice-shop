@@ -1,7 +1,7 @@
 <!--
   ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
-  -->
+-->
 
 <mat-card appearance="outlined" class="mat-elevation-z6 mat-own-card">
   <div class="mdc-card">
@@ -26,28 +26,34 @@
           <ng-container matColumnDef="Status">
             <mat-header-cell *matHeaderCellDef translate="LABEL_STATUS" style="max-width: 96px;"></mat-header-cell>
             <mat-cell *matCellDef="let element" style="max-width: 96px;">
-              <div *ngIf="!element.delivered" class="error" translate>LABEL_IN_TRANSIT</div>
-              <div *ngIf="element.delivered" class="confirmation" translate>LABEL_DELIVERED</div>
+              @if (element.delivered) {
+              <div class="confirmation" translate>LABEL_DELIVERED</div>
+              } @else {
+              <div class="error" translate>LABEL_IN_TRANSIT</div>
+              }
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="StatusButton">
             <mat-header-cell *matHeaderCellDef style="max-width: 96px;"></mat-header-cell>
             <mat-cell *matCellDef="let element" style="max-width: 96px;">
-              <button *ngIf="element.delivered" mat-icon-button aria-label="Print order confirmation"
-                      matTooltip="{{ 'LABEL_MARK_AS_TRANSIT' | translate }}" matTooltipPosition="below"
-                      (click)="changeDeliveryStatus(element.delivered, element.id)">
-                <mat-icon>
-                  cached
-                </mat-icon>
-              </button>
-              <button *ngIf="!element.delivered" mat-icon-button aria-label="Print order confirmation"
-                      matTooltip="{{ 'LABEL_MARK_AS_DELIVERED' | translate }}" matTooltipPosition="below"
-                      (click)="changeDeliveryStatus(element.delivered, element.id)">
-                <mat-icon>
-                  check_circle
-                </mat-icon>
-              </button>
+              @if (element.delivered) {
+                <button mat-icon-button aria-label="Print order confirmation"
+                  matTooltip="{{ 'LABEL_MARK_AS_TRANSIT' | translate }}" matTooltipPosition="below"
+                  (click)="changeDeliveryStatus(element.delivered, element.id)">
+                  <mat-icon>
+                    cached
+                  </mat-icon>
+                </button>
+              } @else {
+                <button mat-icon-button aria-label="Print order confirmation"
+                  matTooltip="{{ 'LABEL_MARK_AS_DELIVERED' | translate }}" matTooltipPosition="below"
+                  (click)="changeDeliveryStatus(element.delivered, element.id)">
+                  <mat-icon>
+                    check_circle
+                  </mat-icon>
+                </button>
+              }
             </mat-cell>
           </ng-container>
 
@@ -57,9 +63,9 @@
         </mat-table>
 
         <mat-paginator #paginatorOrderHistory
-                      [pageSize]="10"
-                      class="mat-elevation-z0"
-                      color="accent">
+          [pageSize]="10"
+          class="mat-elevation-z0"
+          color="accent">
         </mat-paginator>
       </div>
 
@@ -79,7 +85,7 @@
               <mat-form-field class="input-field">
                 <input #price matInput type="number" value="{{ element.price }}">
                 <button mat-icon-button (click)="modifyPrice(element.id, price.value)" matSuffix><i
-                  class="fas fa-check"></i>
+                    class="fas fa-check"></i>
                 </button>
               </mat-form-field>
             </mat-cell>
@@ -102,10 +108,10 @@
 
         </mat-table>
 
-        <mat-paginator #paginator
-                      [pageSize]="10"
-                      class="mat-elevation-z0"
-                      color="accent">
+      <mat-paginator #paginator
+        [pageSize]="10"
+        class="mat-elevation-z0"
+        color="accent">
         </mat-paginator>
       </div>
     </div>

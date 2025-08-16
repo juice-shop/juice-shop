@@ -16,7 +16,7 @@ import { LoginGuard } from '../app.guard'
 import { roles } from '../roles'
 import { MatDivider } from '@angular/material/divider'
 import { MatIconModule } from '@angular/material/icon'
-import { NgIf, NgClass } from '@angular/common'
+import { NgClass } from '@angular/common'
 
 import { TranslateModule } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'
@@ -27,7 +27,7 @@ import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar'
   selector: 'sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss'],
-  imports: [MatToolbar, MatToolbarRow, MatNavList, MatButtonModule, MatListSubheaderCssMatStyler, TranslateModule, NgIf, MatListItem, RouterLink, MatIconModule, NgClass, MatDivider]
+  imports: [MatToolbar, MatToolbarRow, MatNavList, MatButtonModule, MatListSubheaderCssMatStyler, TranslateModule, MatListItem, RouterLink, MatIconModule, NgClass, MatDivider]
 })
 export class SidenavComponent implements OnInit {
   public applicationName = 'OWASP Juice Shop'

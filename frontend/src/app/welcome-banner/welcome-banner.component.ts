@@ -12,13 +12,12 @@ import { TranslateModule } from '@ngx-translate/core'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatButtonModule } from '@angular/material/button'
-import { NgIf } from '@angular/common'
 
 @Component({
   selector: 'app-welcome-banner',
   templateUrl: 'welcome-banner.component.html',
   styleUrls: ['./welcome-banner.component.scss'],
-  imports: [NgIf, MatButtonModule, MatTooltip, MatIconModule, TranslateModule]
+  imports: [MatButtonModule, MatTooltip, MatIconModule, TranslateModule]
 })
 export class WelcomeBannerComponent implements OnInit {
   public title: string = 'Welcome to OWASP Juice Shop'
