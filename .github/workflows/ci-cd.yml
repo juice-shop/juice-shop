@@ -6,7 +6,7 @@ on:
 
 env:
   AWS_REGION: eu-north-1
-  AWS_ROLE_ARN: arn:aws:iam::930900578129:role/my-app-github-deploy
+  AWS_ROLE_ARN: arn:aws:iam::930900578129:role/juice-shop-github-deploy
   ECR_REPOSITORY: my-app-repo
   ECS_CLUSTER: my-app-cluster
   ECS_SERVICE: my-app-service
