@@ -19,7 +19,7 @@ import { TutorialModeWarningComponent } from './components/tutorial-mode-warning
 import { ChallengesUnavailableWarningComponent } from './components/challenges-unavailable-warning/challenges-unavailable-warning.component'
 import { MatProgressSpinner } from '@angular/material/progress-spinner'
 import { FilterSettingsComponent } from './components/filter-settings/filter-settings.component'
-import { NgIf, NgFor, NgClass } from '@angular/common'
+import { NgClass } from '@angular/common'
 import { DifficultyOverviewScoreCardComponent } from './components/difficulty-overview-score-card/difficulty-overview-score-card.component'
 import { CodingChallengeProgressScoreCardComponent } from './components/coding-challenge-progress-score-card/coding-challenge-progress-score-card.component'
 import { HackingChallengeProgressScoreCardComponent } from './components/hacking-challenge-progress-score-card/hacking-challenge-progress-score-card.component'
@@ -41,7 +41,7 @@ interface CodeChallengeSolvedWebsocket {
   selector: 'app-score-board',
   templateUrl: './score-board.component.html',
   styleUrls: ['./score-board.component.scss'],
-  imports: [HackingChallengeProgressScoreCardComponent, CodingChallengeProgressScoreCardComponent, DifficultyOverviewScoreCardComponent, NgIf, FilterSettingsComponent, MatProgressSpinner, ChallengesUnavailableWarningComponent, TutorialModeWarningComponent, NgFor, ChallengeCardComponent, NgClass, TranslateModule]
+  imports: [HackingChallengeProgressScoreCardComponent, CodingChallengeProgressScoreCardComponent, DifficultyOverviewScoreCardComponent, FilterSettingsComponent, MatProgressSpinner, ChallengesUnavailableWarningComponent, TutorialModeWarningComponent, ChallengeCardComponent, NgClass, TranslateModule]
 })
 export class ScoreBoardComponent implements OnInit, OnDestroy {
   public allChallenges: EnrichedChallenge[] = []

@@ -1,18 +1,23 @@
-<warning-card *ngIf="numberOfDisabledChallenges > 0">
-  <ng-container warning-icon>
-    <i class="env-icon" *ngIf="disabledBecauseOfEnv !== 'Windows'" [ngClass]="'icon-' + disabledBecauseOfEnv.toString().toLowerCase()"></i>
-    <i class="env-icon" *ngIf="disabledBecauseOfEnv === 'Windows'" [ngClass]="'fab fa-' + disabledBecauseOfEnv.toString().toLowerCase()"></i>
-  </ng-container>
-  
-  <span *ngIf="disabledBecauseOfEnv !=='Safety Mode'" warning-text [innerHTML]="'INFO_DISABLED_CHALLENGES' | translate: {num: numberOfDisabledChallenges, env: disabledBecauseOfEnv}"></span>
-  <span *ngIf="disabledBecauseOfEnv ==='Safety Mode'" warning-text [innerHTML]="'INFO_DISABLED_CHALLENGES' | translate: {num: numberOfDisabledChallenges,env:'safety mode being turned on'}"></span>
-  
-  <button warning-action mat-button color="accent" (click)="toggleShowDisabledChallenges()">
-    <ng-container *ngIf="filterSetting.showDisabledChallenges == false">
-      {{ 'SHOW_DISABLED_CHALLENGES' | translate }}
+@if (numberOfDisabledChallenges > 0) {
+  <warning-card>
+    <ng-container warning-icon>
+      @if (disabledBecauseOfEnv === 'Windows') {
+        <i class="env-icon" [ngClass]="'fab fa-' + disabledBecauseOfEnv.toString().toLowerCase()"></i>
+      } @else {
+        <i class="env-icon" [ngClass]="'icon-' + disabledBecauseOfEnv.toString().toLowerCase()"></i>
+      }
     </ng-container>
-    <ng-container *ngIf="filterSetting.showDisabledChallenges == true">
-      {{ 'HIDE_DISABLED_CHALLENGES' | translate }}
-    </ng-container>
-  </button>
-</warning-card>
+    @if (disabledBecauseOfEnv ==='Safety Mode') {
+      <span warning-text [innerHTML]="'INFO_DISABLED_CHALLENGES' | translate: {num: numberOfDisabledChallenges,env:'safety mode being turned on'}"></span>
+    } @else {
+      <span warning-text [innerHTML]="'INFO_DISABLED_CHALLENGES' | translate: {num: numberOfDisabledChallenges, env: disabledBecauseOfEnv}"></span>
+    }
+    <button warning-action mat-button color="accent" (click)="toggleShowDisabledChallenges()">
+      @if (filterSetting.showDisabledChallenges === true) {
+        {{ 'HIDE_DISABLED_CHALLENGES' | translate }}
+      } @else {
+        {{ 'SHOW_DISABLED_CHALLENGES' | translate }}
+      }
+    </button>
+  </warning-card>
+}

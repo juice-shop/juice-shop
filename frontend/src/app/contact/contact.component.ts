@@ -15,7 +15,7 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { MatButtonModule } from '@angular/material/button'
 import { MatSliderModule } from '@angular/material/slider'
-import { NgIf } from '@angular/common'
+
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel, MatHint, MatError } from '@angular/material/form-field'
 import { MatCardModule } from '@angular/material/card'
@@ -28,7 +28,7 @@ library.add(faStar, faPaperPlane)
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
-  imports: [MatCardModule, TranslateModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatHint, NgIf, MatError, MatSliderModule, MatButtonModule, MatIconModule]
+  imports: [MatCardModule, TranslateModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatHint, MatError, MatSliderModule, MatButtonModule, MatIconModule]
 })
 export class ContactComponent implements OnInit {
   public authorControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])

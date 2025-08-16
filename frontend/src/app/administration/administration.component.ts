@@ -17,7 +17,6 @@ import { MatPaginator } from '@angular/material/paginator'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatButtonModule } from '@angular/material/button'
-import { NgIf, NgFor } from '@angular/common'
 
 import { TranslateModule } from '@ngx-translate/core'
 import { MatCardModule } from '@angular/material/card'
@@ -28,7 +27,7 @@ library.add(faUser, faEye, faHome, faArchive, faTrashAlt)
   selector: 'app-administration',
   templateUrl: './administration.component.html',
   styleUrls: ['./administration.component.scss'],
-  imports: [MatCardModule, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, NgIf, MatButtonModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, MatTooltip, NgFor, MatIconModule]
+  imports: [MatCardModule, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatButtonModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, MatTooltip, MatIconModule]
 })
 export class AdministrationComponent implements OnInit {
   public userDataSource: any

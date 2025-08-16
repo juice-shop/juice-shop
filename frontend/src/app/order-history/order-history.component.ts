@@ -17,7 +17,6 @@ import { MatTooltip } from '@angular/material/tooltip'
 import { MatIconButton } from '@angular/material/button'
 import { TranslateModule } from '@ngx-translate/core'
 
-import { NgIf, NgFor } from '@angular/common'
 import { MatCardModule, MatCardTitle, MatCardContent } from '@angular/material/card'
 
 export interface StrippedProduct {
@@ -40,7 +39,7 @@ export interface Order {
   selector: 'app-order-history',
   templateUrl: './order-history.component.html',
   styleUrls: ['./order-history.component.scss'],
-  imports: [MatCardModule, MatCardTitle, NgIf, NgFor, TranslateModule, MatIconButton, MatTooltip, MatIconModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatCardContent]
+  imports: [MatCardModule, MatCardTitle, TranslateModule, MatIconButton, MatTooltip, MatIconModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatCardContent]
 })
 export class OrderHistoryComponent implements OnInit {
   public tableColumns = ['product', 'price', 'quantity', 'total price', 'review']

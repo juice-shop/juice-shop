@@ -12,13 +12,12 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatCardModule } from '@angular/material/card'
-import { NgIf } from '@angular/common'
 
 @Component({
   selector: 'app-deluxe-user',
   templateUrl: './deluxe-user.component.html',
   styleUrls: ['./deluxe-user.component.scss'],
-  imports: [NgIf, MatCardModule, TranslateModule, MatButtonModule, MatIconModule]
+  imports: [MatCardModule, TranslateModule, MatButtonModule, MatIconModule]
 })
 
 export class DeluxeUserComponent implements OnInit {
