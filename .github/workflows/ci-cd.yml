@@ -110,6 +110,9 @@ jobs:
     environment:
       name: production   # set reviewers in Settings → Environments → production
       url: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Show GitHub context
         run: |
