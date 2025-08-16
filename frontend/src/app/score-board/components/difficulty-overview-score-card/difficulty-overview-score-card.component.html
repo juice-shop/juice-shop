@@ -28,8 +28,7 @@
                   <stop stop-color="var(--theme-accent)" />
                   @if (difficulty.availableChallenges === 0) {
                     <stop offset="0%" stop-color="var(--theme-accent)" />
-                  }
-                  @if (difficulty.availableChallenges !== 0) {
+                  } @else {
                     <stop [attr.offset]="difficulty.solvedChallenges / difficulty.availableChallenges * 100 + '%'" stop-color="var(--theme-accent)" />
                   }
                   <stop stop-color="var(--theme-accent)" />

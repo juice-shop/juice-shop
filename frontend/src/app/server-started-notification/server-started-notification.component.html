@@ -11,8 +11,7 @@
         <mat-icon>delete_forever</mat-icon>
         @if (hackingProgress.cleared) {
           <span translate>RESTART_REQUIRED</span>
-        }
-        @if (!hackingProgress.cleared) {
+        } @else {
           <span translate>RESET_HACKING_PROGRESS</span>
         }
       </button>
