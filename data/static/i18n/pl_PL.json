@@ -274,7 +274,7 @@
 	"You can attach a small file to the \"Complaint\" form. Investigate how this upload actually works.": "Możesz dołączyć mały plik do formularza \"Skarga\". Zbadaj, jak to przesyłanie faktycznie działa.",
 	"Upload a file that has no .pdf or .zip extension.": "Prześlij plik, który nie posiada rozszerzenia .pdf lub .zip.",
 	"You can attach a PDF or ZIP file to the \"Complaint\" form. Investigate how this upload actually works.": "Możesz dołączyć plik PDF lub ZIP do formularza \"Skarga\". Zbadaj, jak to przesyłanie faktycznie działa.",
-	"Retrieve a list of all user credentials via SQL Injection.": "Pobierz listę wszystkich poświadczeń użytkownika za pomocą wstrzykiwania SQL.",
+	"Retrieve a list of all user credentials via SQL Injection.": "Pobierz listę wszystkich poświadczeń użytkownika za pomocą wstrzyknięcia SQL.",
 	"Gather information on where user data is stored and how it is addressed. Then craft a corresponding UNION SELECT attack.": "Zgromadż informacje o tym, gdzie przechowywane są dane użytkownika i jak są one adresowane. Następnie stwórz odpowiedni atak UNION SELECT.",
 	"Embed an XSS payload <code>&lt;/script&gt;&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> into our promo video.": "Umieść ładunek XSS <code>&lt;/script&gt;&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> do naszego filmu promocyjnego.",
 	"You have to reuse the vulnerability behind one other 6-star challenge to be able to solve this one.": "Aby rozwiązać to zadanie, musisz ponownie wykorzystać lukę z innego zadania oznaczonego 6 gwiazdkami.",
