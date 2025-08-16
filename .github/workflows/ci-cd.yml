@@ -8,10 +8,10 @@ on:
 
 env:
   AWS_REGION: eu-north-1
-  AWS_ROLE_ARN: arn:aws:iam::930900578129:role/github-actions-role
+  AWS_ROLE_ARN: arn:aws:iam::930900578129:role/my-app-github-deploy
   ECR_REPOSITORY: my-app-repo
-  ECS_CLUSTER: app-fargate-cluster
-  ECS_SERVICE: app-fargate-service
+  ECS_CLUSTER: my-app-cluster
+  ECS_SERVICE: my-app-service
 
 permissions:
   id-token: write
