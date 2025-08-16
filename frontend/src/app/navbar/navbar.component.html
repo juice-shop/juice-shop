@@ -36,17 +36,6 @@
     </button>
 
     <mat-menu #userMenu="matMenu">
-      @if (!isLoggedIn()) {
-        <button mat-menu-item routerLink="/login" aria-label="Go to login page"
-          id="navbarLoginButton">
-          <mat-icon>
-            exit_to_app
-          </mat-icon>
-          <span>
-            {{"TITLE_LOGIN" | translate }}
-          </span>
-        </button>
-      }
       @if (isLoggedIn()) {
         <button (click)="goToProfilePage()" mat-menu-item aria-label="Go to user profile">
           <mat-icon>
@@ -54,6 +43,16 @@
           </mat-icon>
           <span>
             {{userEmail}}
+          </span>
+        </button>
+      } @else {
+        <button mat-menu-item routerLink="/login" aria-label="Go to login page"
+          id="navbarLoginButton">
+          <mat-icon>
+            exit_to_app
+          </mat-icon>
+          <span>
+            {{"TITLE_LOGIN" | translate }}
           </span>
         </button>
       }

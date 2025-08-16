@@ -7,8 +7,7 @@
   <div class="mdc-card">
     @if (showNextButton) {
       <h1>{{ 'TITLE_SELECT_ADDRESS' | translate }}</h1>
-    }
-    @if (!showNextButton) {
+    } @else {
       <h1>{{ 'MY_SAVED_ADRESSES' | translate }}</h1>
     }
 

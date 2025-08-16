@@ -12,14 +12,13 @@
           <span>{{"TITLE_SEARCH_RESULTS" | translate}} - </span>
           <span id="searchValue" [innerHTML]="searchValue"></span>
         </div>
-      }
-      @if (!searchValue) {
+      } @else {
         <div>{{"TITLE_ALL_PRODUCTS" | translate}}</div>
       }
       <div id="search-result-heading"></div>
     </div>
 
-    @if ( !emptyState) {
+    @if (!emptyState) {
       <div>
         <mat-grid-list #table (window:resize)="onResize($event)" [cols]="breakpoint" gutterSize="30px">
           @for (item of gridDataSource | async; track item) {
@@ -53,50 +52,50 @@
                           }
                         </div>
                       </div>
-                    </div>
-                    <div style="display: flex; justify-content: center;" class="basket-btn-container">
-                      @if (isLoggedIn()) {
-                        <button (click)="addToBasket(item.id)" aria-label="Add to Basket" class="btn-basket"
-                          color="primary" mat-button mat-raised-button>
-                          <span>{{"ADD_BASKET" | translate}}</span>
-                        </button>
-                      }
-                    </div>
                   </div>
-                </mat-card>
-              </mat-grid-tile>
-            }
-          </mat-grid-list>
-        </div>
-      } @else {
-        <mat-card appearance="outlined" class="mat-elevation-z6 emptyState">
-          <div class="mdc-card">
-            <img alt=" No results found"
-              class="img-responsive noResult"
-              src="assets/public/images/products/no-results.png">
-              <mat-card-title>
-                <span class="noResultText" >
-                  {{"NO_SEARCH_RESULT" | translate}}
-                </span>
-              </mat-card-title>
-              <mat-card-content>
-                <span class="noResultText">
-                  {{"EMPTY_SEARCH_RESULT" | translate}}
-                </span>
-              </mat-card-content>
-            </div>
-          </mat-card>
-        }
-
-
-        <mat-divider></mat-divider>
-
-        <mat-paginator #paginator
-          [pageSize]="12"
-          [pageSizeOptions]="pageSizeOptions"
-          [length]="resultsLength"
-          class="mat-elevation-z6"
-          color="accent">
-        </mat-paginator>
+                  <div style="display: flex; justify-content: center;" class="basket-btn-container">
+                    @if (isLoggedIn()) {
+                      <button (click)="addToBasket(item.id)" aria-label="Add to Basket" class="btn-basket"
+                        color="primary" mat-button mat-raised-button>
+                        <span>{{"ADD_BASKET" | translate}}</span>
+                      </button>
+                    }
+                  </div>
+                </div>
+              </mat-card>
+            </mat-grid-tile>
+          }
+        </mat-grid-list>
       </div>
-    </div>
+    } @else {
+      <mat-card appearance="outlined" class="mat-elevation-z6 emptyState">
+        <div class="mdc-card">
+          <img alt=" No results found"
+            class="img-responsive noResult"
+            src="assets/public/images/products/no-results.png">
+          <mat-card-title>
+            <span class="noResultText" >
+              {{"NO_SEARCH_RESULT" | translate}}
+            </span>
+          </mat-card-title>
+          <mat-card-content>
+            <span class="noResultText">
+              {{"EMPTY_SEARCH_RESULT" | translate}}
+            </span>
+          </mat-card-content>
+        </div>
+      </mat-card>
+    }
+
+
+    <mat-divider></mat-divider>
+
+    <mat-paginator #paginator
+      [pageSize]="12"
+      [pageSizeOptions]="pageSizeOptions"
+      [length]="resultsLength"
+      class="mat-elevation-z6"
+      color="accent">
+    </mat-paginator>
+  </div>
+</div>
