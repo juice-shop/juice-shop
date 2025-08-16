@@ -25,16 +25,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Debug OIDC subject
+        run: |
+          echo "repo=${{ github.repository }}"
+          echo "ref=${{ github.ref }}"
+
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ env.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
-
-      - name: Debug OIDC subject
-        run: |
-          echo "repo=${{ github.repository }}"
-          echo "ref=${{ github.ref }}"
 
       - name: Who am I
         run: aws sts get-caller-identity
