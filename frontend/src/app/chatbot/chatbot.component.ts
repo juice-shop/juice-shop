@@ -14,7 +14,7 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { CookieService } from 'ngy-cookie'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
-import { NgFor, NgIf } from '@angular/common'
+
 import { MatCardModule } from '@angular/material/card'
 
 library.add(faBomb)
@@ -38,7 +38,7 @@ interface MessageActions {
   selector: 'app-chatbot',
   templateUrl: './chatbot.component.html',
   styleUrls: ['./chatbot.component.scss'],
-  imports: [MatCardModule, NgFor, NgIf, MatFormFieldModule, MatLabel, TranslateModule, MatInputModule, FormsModule, ReactiveFormsModule]
+  imports: [MatCardModule, MatFormFieldModule, MatLabel, TranslateModule, MatInputModule, FormsModule, ReactiveFormsModule]
 })
 export class ChatbotComponent implements OnInit, OnDestroy {
   public messageControl: UntypedFormControl = new UntypedFormControl()

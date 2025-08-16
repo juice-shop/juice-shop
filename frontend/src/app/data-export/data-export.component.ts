@@ -12,7 +12,7 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { MatLabel, MatFormFieldModule, MatHint, MatError } from '@angular/material/form-field'
 import { MatRadioGroup, MatRadioButton } from '@angular/material/radio'
-import { NgIf } from '@angular/common'
+
 import { TranslateModule } from '@ngx-translate/core'
 import { MatCardModule } from '@angular/material/card'
 
@@ -22,7 +22,7 @@ import { MatIconModule } from '@angular/material/icon'
   selector: 'app-data-export',
   templateUrl: './data-export.component.html',
   styleUrls: ['./data-export.component.scss'],
-  imports: [MatCardModule, TranslateModule, NgIf, MatRadioGroup, FormsModule, ReactiveFormsModule, MatLabel, MatRadioButton, MatFormFieldModule, MatInputModule, MatHint, MatError, MatButtonModule, MatIconModule]
+  imports: [MatCardModule, TranslateModule, MatRadioGroup, FormsModule, ReactiveFormsModule, MatLabel, MatRadioButton, MatFormFieldModule, MatInputModule, MatHint, MatError, MatButtonModule, MatIconModule]
 })
 export class DataExportComponent implements OnInit {
   public captchaControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5)])

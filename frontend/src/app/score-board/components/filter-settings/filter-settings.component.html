@@ -11,12 +11,13 @@
       <mat-label>{{ 'LABEL_DIFFICULTY' | translate }}</mat-label>
       <mat-select multiple [value]="filterSetting.difficulties" (selectionChange)="onDifficultyFilterChange($event.value)">
         <mat-select-trigger>
-          <ng-container *ngIf="filterSetting.difficulties.length === 0">
+          @if (filterSetting.difficulties.length === 0) {
             {{ 'LABEL_DIFFICULTY' | translate }}
-          </ng-container>
-          <span *ngIf="filterSetting.difficulties.length !== 0">
-            {{ filterSetting.difficulties | difficultySelectionSummary }}
-          </span>
+          } @else {
+            <span>
+              {{ filterSetting.difficulties | difficultySelectionSummary }}
+            </span>
+          }
         </mat-select-trigger>
         <mat-option [value]="1">
           <difficulty-stars [difficulty]="1"></difficulty-stars>
@@ -50,7 +51,9 @@
     <mat-form-field>
       <mat-label>{{ 'LABEL_TAGS' | translate }}</mat-label>
       <mat-select multiple [value]="filterSetting.tags" (selectionChange)="onTagFilterChange($event.value)">
-        <mat-option *ngFor="let tag of tags" [value]="tag" class="mat-body">{{ tag }}</mat-option>
+        @for (tag of tags; track tag) {
+          <mat-option [value]="tag" class="mat-body">{{ tag }}</mat-option>
+        }
       </mat-select>
     </mat-form-field>
     <div class="additional-settings-wrapper">

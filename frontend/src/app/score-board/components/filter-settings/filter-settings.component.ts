@@ -9,7 +9,7 @@ import { MatTooltip } from '@angular/material/tooltip'
 import { MatIconButton } from '@angular/material/button'
 import { DifficultyStarsComponent } from '../difficulty-stars/difficulty-stars.component'
 import { MatOption } from '@angular/material/core'
-import { NgIf, NgFor } from '@angular/common'
+
 import { MatSelect, MatSelectTrigger } from '@angular/material/select'
 import { MatInputModule } from '@angular/material/input'
 import { TranslateModule } from '@ngx-translate/core'
@@ -20,7 +20,7 @@ import { MatFormFieldModule, MatPrefix, MatLabel } from '@angular/material/form-
   selector: 'filter-settings',
   templateUrl: './filter-settings.component.html',
   styleUrls: ['./filter-settings.component.scss'],
-  imports: [MatFormFieldModule, MatIconModule, MatPrefix, MatLabel, TranslateModule, MatInputModule, MatSelect, MatSelectTrigger, NgIf, MatOption, DifficultyStarsComponent, NgFor, MatIconButton, MatTooltip, CategoryFilterComponent, DifficultySelectionSummaryPipe]
+  imports: [MatFormFieldModule, MatIconModule, MatPrefix, MatLabel, TranslateModule, MatInputModule, MatSelect, MatSelectTrigger, MatOption, DifficultyStarsComponent, MatIconButton, MatTooltip, CategoryFilterComponent, DifficultySelectionSummaryPipe]
 })
 export class FilterSettingsComponent implements OnChanges {
   @Input()

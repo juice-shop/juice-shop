@@ -15,7 +15,7 @@ import { faStar as fasStar, faPalette, faBold } from '@fortawesome/free-solid-sv
 import { catchError } from 'rxjs/operators'
 import { EMPTY } from 'rxjs'
 import { MatButtonModule } from '@angular/material/button'
-import { NgIf } from '@angular/common'
+
 import { TranslateModule } from '@ngx-translate/core'
 import { MatCardModule } from '@angular/material/card'
 
@@ -25,7 +25,7 @@ library.add(faFacebook, faTwitter, faSlack, faReddit, faNewspaper, faStar, fasSt
   selector: 'app-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss'],
-  imports: [MatCardModule, TranslateModule, GalleryComponent, GalleryImageDef, NgIf, MatButtonModule]
+  imports: [MatCardModule, TranslateModule, GalleryComponent, GalleryImageDef, MatButtonModule]
 })
 export class AboutComponent implements OnInit {
   public blueSkyUrl?: string

@@ -18,7 +18,6 @@ import { MatFormFieldModule, MatSuffix } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatIconButton } from '@angular/material/button'
-import { NgIf } from '@angular/common'
 
 import { TranslateModule } from '@ngx-translate/core'
 import { MatCardModule } from '@angular/material/card'
@@ -36,7 +35,7 @@ interface Order {
   selector: 'app-accounting',
   templateUrl: './accounting.component.html',
   styleUrls: ['./accounting.component.scss'],
-  imports: [MatCardModule, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, NgIf, MatIconButton, MatTooltip, MatIconModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, MatFormFieldModule, MatInputModule, MatSuffix]
+  imports: [MatCardModule, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatIconButton, MatTooltip, MatIconModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, MatFormFieldModule, MatInputModule, MatSuffix]
 })
 export class AccountingComponent implements AfterViewInit, OnDestroy {
   public orderHistoryColumns = ['OrderId', 'Price', 'Status', 'StatusButton']

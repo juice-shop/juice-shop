@@ -27,7 +27,7 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatCardModule, MatCardImage, MatCardTitle, MatCardContent } from '@angular/material/card'
 import { MatGridList, MatGridTile } from '@angular/material/grid-list'
-import { NgIf, NgFor, AsyncPipe } from '@angular/common'
+import { AsyncPipe } from '@angular/common'
 
 library.add(faEye, faCartPlus)
 
@@ -45,7 +45,7 @@ interface TableEntry {
   selector: 'app-search-result',
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.scss'],
-  imports: [NgIf, MatGridList, NgFor, MatGridTile, MatCardModule, TranslateModule, MatTooltip, MatCardImage, MatButtonModule, MatCardTitle, MatCardContent, MatDivider, MatPaginator, AsyncPipe]
+  imports: [MatGridList, MatGridTile, MatCardModule, TranslateModule, MatTooltip, MatCardImage, MatButtonModule, MatCardTitle, MatCardContent, MatDivider, MatPaginator, AsyncPipe]
 })
 export class SearchResultComponent implements OnDestroy, AfterViewInit {
   public displayedColumns = ['Image', 'Product', 'Description', 'Price', 'Select']

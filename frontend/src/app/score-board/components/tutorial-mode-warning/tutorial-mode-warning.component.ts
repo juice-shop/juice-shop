@@ -5,12 +5,11 @@ import { type Config } from 'src/app/Services/configuration.service'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatIconModule } from '@angular/material/icon'
 import { WarningCardComponent } from '../warning-card/warning-card.component'
-import { NgIf } from '@angular/common'
 
 @Component({
   selector: 'tutorial-mode-warning',
   templateUrl: './tutorial-mode-warning.component.html',
-  imports: [NgIf, WarningCardComponent, MatIconModule, TranslateModule]
+  imports: [WarningCardComponent, MatIconModule, TranslateModule]
 })
 export class TutorialModeWarningComponent implements OnChanges {
   @Input()

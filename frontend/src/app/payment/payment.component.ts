@@ -29,7 +29,7 @@ import { WalletService } from '../Services/wallet.service'
 import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'
 import { CookieService } from 'ngy-cookie'
-import { Location, NgIf } from '@angular/common'
+import { Location } from '@angular/common'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
@@ -47,7 +47,7 @@ library.add(faCartArrowDown, faGift, faHeart, faLeanpub, faThumbsUp, faTshirt, f
   selector: 'app-payment',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss'],
-  imports: [MatCardModule, PaymentMethodComponent, MatDivider, NgIf, TranslateModule, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatIconModule]
+  imports: [MatCardModule, PaymentMethodComponent, MatDivider, TranslateModule, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatIconModule]
 })
 export class PaymentComponent implements OnInit {
   public couponConfirmation: any

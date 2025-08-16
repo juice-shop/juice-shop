@@ -13,7 +13,6 @@ import { DeluxeGuard } from '../app.guard'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatIconButton } from '@angular/material/button'
-import { NgIf } from '@angular/common'
 
 import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow } from '@angular/material/table'
 
@@ -23,7 +22,7 @@ library.add(faTrashAlt, faMinusSquare, faPlusSquare)
   selector: 'app-purchase-basket',
   templateUrl: './purchase-basket.component.html',
   styleUrls: ['./purchase-basket.component.scss'],
-  imports: [MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, NgIf, MatIconButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow, TranslateModule]
+  imports: [MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, MatIconButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow, TranslateModule]
 })
 export class PurchaseBasketComponent implements OnInit {
   @Input('allowEdit') public allowEdit: boolean = false

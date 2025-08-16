@@ -15,7 +15,7 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatIconButton } from '@angular/material/button'
-import { NgIf } from '@angular/common'
+
 import { TranslateModule } from '@ngx-translate/core'
 
 import { MatCardModule } from '@angular/material/card'
@@ -26,7 +26,7 @@ library.add(faTwitter)
   selector: 'app-order-completion',
   templateUrl: './order-completion.component.html',
   styleUrls: ['./order-completion.component.scss'],
-  imports: [MatCardModule, TranslateModule, RouterLink, NgIf, MatIconButton, MatTooltip, MatIconModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow]
+  imports: [MatCardModule, TranslateModule, RouterLink, MatIconButton, MatTooltip, MatIconModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow]
 })
 export class OrderCompletionComponent implements OnInit {
   public tableColumns = ['product', 'price', 'quantity', 'total price']
