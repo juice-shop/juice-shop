@@ -13,20 +13,17 @@
         <div class="row fa-4x">
           @if (status === Status.New) {
             <span><i class="fas fa-warehouse confirmation"></i></span>
-          }
-          @if (status !== Status.New) {
+          } @else {
             <span><i class="fas fa-warehouse"></i></span>
           }
           @if (status === Status.Packing) {
             <span><i class="fas fa-truck-loading confirmation"></i></span>
-          }
-          @if (status !== Status.Packing) {
+          } @else {
             <span><i class="fas fa-truck-loading"></i></span>
           }
           @if (status === Status.Transit) {
             <span><i class="fas fa-truck confirmation"></i></span>
-          }
-          @if (status !== Status.Transit) {
+          } @else {
             <span><i class="fas fa-truck"></i></span>
           }
           @if (status === Status.Delivered) {
@@ -34,8 +31,7 @@
               <span><i class="fas fa-home confirmation"></i></span>
               <span class="fa-layers-counter accent-notification" style="width: max-content">{{results.eta}} {{'LABEL_DAYS' | translate}}</span>
             </span>
-          }
-          @if (status !== Status.Delivered) {
+          } @else {
             <span class="fa-layers fa-fw">
               <span><i class="fas fa-home"></i></span>
               <span class="fa-layers-counter accent-notification" style="width: max-content">{{results.eta}} {{'LABEL_DAYS' | translate}}</span>

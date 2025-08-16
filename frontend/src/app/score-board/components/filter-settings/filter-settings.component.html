@@ -13,8 +13,7 @@
         <mat-select-trigger>
           @if (filterSetting.difficulties.length === 0) {
             {{ 'LABEL_DIFFICULTY' | translate }}
-          }
-          @if (filterSetting.difficulties.length !== 0) {
+          } @else {
             <span>
               {{ filterSetting.difficulties | difficultySelectionSummary }}
             </span>

@@ -33,11 +33,10 @@
   <button [id]="challenge.name + '.unavailable'" mat-raised-button
     [matTooltip]="challenge.hint" matTooltipPosition="above">
     <span>
-      @if (challenge.disabledEnv !== 'Windows') {
-        <i class="{{ 'icon-' + challenge.disabledEnv?.toString().toLowerCase() }}"></i>
-      }
       @if (challenge.disabledEnv === 'Windows') {
         <i class="{{ 'fab fa-' + challenge.disabledEnv?.toString().toLowerCase() }}"></i>
+      } @else {
+        <i class="{{ 'icon-' + challenge.disabledEnv?.toString().toLowerCase() }}"></i>
       }
       {{'STATUS_UNAVAILABLE' | translate}}
     </span>
