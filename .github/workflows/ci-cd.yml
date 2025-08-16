@@ -21,14 +21,16 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # ----------------------------
-  # 1) Build & scan (no pushing)
-  # ----------------------------
-  build_and_scan:
+  # ---------------------------
+  # Build -> Scan -> Push (always)
+  # ---------------------------
+  build_scan_push:
     runs-on: ubuntu-latest
+    outputs:
+      registry: ${{ steps.ecr.outputs.registry }}
+      image_tag: ${{ steps.meta.outputs.image_tag }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
@@ -36,10 +38,14 @@ jobs:
           role-to-assume: ${{ env.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Build Docker image (local only)
+      - name: Who am I
+        run: aws sts get-caller-identity
+
+      - name: Build Docker image (local)
         run: |
           docker build -t app:${{ github.sha }} -t app:latest .
 
+      # ---- Trivy BEFORE push ----
       - name: Cache Trivy DB
         uses: actions/cache@v4
         with:
@@ -48,8 +54,7 @@ jobs:
           restore-keys: |
             trivy-db-${{ runner.os }}-
 
-      # Human-readable output – non-blocking
-      - name: Trivy Image Scan (table)
+      - name: Trivy Image Scan (table, non-blocking)
         uses: aquasecurity/trivy-action@0.28.0
         with:
           scan-type: image
@@ -57,9 +62,8 @@ jobs:
           format: table
           severity: HIGH,CRITICAL
           ignore-unfixed: true
-          exit-code: 0   # don't fail the job; we still want to push later with approval
+          exit-code: 0   # <— push anyway; set to 1 to break on HIGH/CRITICAL
 
-      # Security tab visibility
       - name: Trivy Image Scan (SARIF)
         uses: aquasecurity/trivy-action@0.28.0
         with:
@@ -71,55 +75,58 @@ jobs:
           ignore-unfixed: true
           exit-code: 0
 
-      - name: Upload SARIF to Security tab
+      - name: Upload SARIF
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: trivy-image.sarif
 
-  # --------------------------------------------------------
-  # 2) One job, one step: PUSH + DEPLOY (requires approval)
-  # --------------------------------------------------------
-  push_and_deploy:
+      # ---- Push to ECR ----
+      - name: Login to Amazon ECR
+        id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Tag image for ECR
+        id: meta
+        run: |
+          REG="${{ steps.ecr.outputs.registry }}"
+          TAG="${{ github.sha }}"
+          docker tag app:${TAG} "$REG/${{ env.ECR_REPOSITORY }}:${TAG}"
+          docker tag app:latest   "$REG/${{ env.ECR_REPOSITORY }}:latest"
+          echo "image_tag=${TAG}" >> "$GITHUB_OUTPUT"
+
+      - name: Push image
+        run: |
+          REG="${{ steps.ecr.outputs.registry }}"
+          TAG="${{ steps.meta.outputs.image_tag }}"
+          docker push "$REG/${{ env.ECR_REPOSITORY }}:${TAG}"
+          docker push "$REG/${{ env.ECR_REPOSITORY }}:latest"
+
+  # ---------------------------
+  # Manual-approval Deploy
+  # ---------------------------
+  deploy:
     runs-on: ubuntu-latest
-    needs: build_and_scan
+    needs: build_scan_push
     environment:
-      name: production            # << create "production" env & require reviewers for manual approval
+      name: production   # set reviewers in Settings → Environments → production
       url: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ env.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
 
-      # Single step that logs in, builds (again), pushes, and deploys
-      - name: Push image to ECR and deploy to ECS (one step)
+      - name: Force ECS service deployment
         run: |
-          set -euo pipefail
-          REGISTRY="$(aws ecr describe-registry --query 'registryId' --output text).dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com"
-
-          echo "Logging in to ECR..."
-          aws ecr get-login-password --region "${{ env.AWS_REGION }}" \
-            | docker login --username AWS --password-stdin "$REGISTRY"
-
-          echo "Building image..."
-          docker build -t "$REGISTRY/${{ env.ECR_REPOSITORY }}:${{ github.sha }}" -t "$REGISTRY/${{ env.ECR_REPOSITORY }}:latest" .
-
-          echo "Pushing image tags..."
-          docker push "$REGISTRY/${{ env.ECR_REPOSITORY }}:${{ github.sha }}"
-          docker push "$REGISTRY/${{ env.ECR_REPOSITORY }}:latest"
-
-          echo "Forcing ECS deployment..."
           aws ecs update-service \
             --cluster "${{ env.ECS_CLUSTER }}" \
             --service "${{ env.ECS_SERVICE }}" \
             --force-new-deployment \
             --region "${{ env.AWS_REGION }}"
 
-          echo "Waiting for service stability..."
+      - name: Wait for service stability
+        run: |
           aws ecs wait services-stable \
             --cluster "${{ env.ECS_CLUSTER }}" \
             --services "${{ env.ECS_SERVICE }}" \
