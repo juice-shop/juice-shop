@@ -1,8 +1,11 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
+import { EventEmitter } from '@angular/core'
+import { of } from 'rxjs'
 import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { LastLoginIpComponent } from './last-login-ip.component'
 import { MatCardModule } from '@angular/material/card'
@@ -12,19 +15,27 @@ describe('LastLoginIpComponent', () => {
   let component: LastLoginIpComponent
   let fixture: ComponentFixture<LastLoginIpComponent>
   let sanitizer
+  let translateService
 
   beforeEach(waitForAsync(() => {
     sanitizer = jasmine.createSpyObj('DomSanitizer', ['bypassSecurityTrustHtml', 'sanitize'])
     sanitizer.bypassSecurityTrustHtml.and.callFake((args: any) => args)
     sanitizer.sanitize.and.returnValue({})
+    translateService = jasmine.createSpyObj('TranslateService', ['get'])
+    translateService.get.and.returnValue(of({}))
+    translateService.onLangChange = new EventEmitter()
+    translateService.onTranslationChange = new EventEmitter()
+    translateService.onDefaultLangChange = new EventEmitter()
 
     TestBed.configureTestingModule({
-      declarations: [LastLoginIpComponent],
       providers: [
-        { provide: DomSanitizer, useValue: sanitizer }
+        { provide: DomSanitizer, useValue: sanitizer },
+        { provide: TranslateService, useValue: translateService }
       ],
       imports: [
-        MatCardModule
+        MatCardModule,
+        LastLoginIpComponent,
+        TranslateModule.forRoot()
       ]
     }).compileComponents()
   }))

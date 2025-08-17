@@ -1,16 +1,17 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import process from 'process'
-import type { Memory as MemoryConfig, Product as ProductConfig } from '../config.types'
-import logger from '../logger'
+import path from 'node:path'
 import config from 'config'
-import path from 'path'
+import process from 'node:process'
 import colors from 'colors/safe'
 // @ts-expect-error FIXME due to non-existing type definitions for yaml-schema-validator
 import validateSchema from 'yaml-schema-validator/src'
+
+import type { AppConfig, Memory as MemoryConfig, Product as ProductConfig } from '../config.types'
+import logger from '../logger'
 
 const specialProducts = [
   { name: '"Christmas Special" challenge product', key: 'useForChristmasSpecialChallenge' },
@@ -43,7 +44,7 @@ const validateConfig = async ({ products, memories, exitOnFailure = true }: { pr
     logger.info(`Configuration ${colors.bold(process.env.NODE_ENV ?? 'default')} validated (${colors.green('OK')})`)
   } else {
     logger.warn(`Configuration ${colors.bold(process.env.NODE_ENV ?? 'default')} validated (${colors.red('NOT OK')})`)
-    logger.warn(`Visit ${colors.yellow('https://pwning.owasp-juice.shop/part1/customization.html#yaml-configuration-file')} for the configuration schema definition.`)
+    logger.warn(`Visit ${colors.yellow('https://pwning.owasp-juice.shop/companion-guide/latest/part4/customization.html#_yaml_configuration_file')} for the configuration schema definition.`)
     if (exitOnFailure) {
       logger.error(colors.red('Exiting due to configuration errors!'))
       process.exit(1)
@@ -52,7 +53,7 @@ const validateConfig = async ({ products, memories, exitOnFailure = true }: { pr
   return success
 }
 
-export const checkYamlSchema = (configuration = config.util.toObject()) => {
+export const checkYamlSchema = (configuration = config.util.toObject()): configuration is AppConfig => {
   let success = true
   const schemaErrors = validateSchema(configuration, { schemaPath: path.resolve('config.schema.yml'), logLevel: 'none' })
   if (schemaErrors.length !== 0) {

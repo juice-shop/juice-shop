@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { expect } from '@jest/globals'
-import frisby = require('frisby')
+import * as frisby from 'frisby'
 import io from 'socket.io-client'
 const Joi = frisby.Joi
 

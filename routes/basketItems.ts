@@ -1,24 +1,24 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { type Request, type Response, type NextFunction } from 'express'
 import { BasketItemModel } from '../models/basketitem'
 import { QuantityModel } from '../models/quantity'
-import challengeUtils = require('../lib/challengeUtils')
+import * as challengeUtils from '../lib/challengeUtils'
 
 import * as utils from '../lib/utils'
 import { challenges } from '../data/datacache'
-const security = require('../lib/insecurity')
+import * as security from '../lib/insecurity'
 
 interface RequestWithRawBody extends Request {
   rawBody: string
 }
 
-module.exports.addBasketItem = function addBasketItem () {
-  return (req: RequestWithRawBody, res: Response, next: NextFunction) => {
-    const result = utils.parseJsonCustom(req.rawBody)
+export function addBasketItem () {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const result = utils.parseJsonCustom((req as RequestWithRawBody).rawBody)
     const productIds = []
     const basketIds = []
     const quantities = []
@@ -54,7 +54,7 @@ module.exports.addBasketItem = function addBasketItem () {
   }
 }
 
-module.exports.quantityCheckBeforeBasketItemAddition = function quantityCheckBeforeBasketItemAddition () {
+export function quantityCheckBeforeBasketItemAddition () {
   return (req: Request, res: Response, next: NextFunction) => {
     void quantityCheck(req, res, next, req.body.ProductId, req.body.quantity).catch((error: Error) => {
       next(error)
@@ -62,7 +62,7 @@ module.exports.quantityCheckBeforeBasketItemAddition = function quantityCheckBef
   }
 }
 
-module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBeforeBasketItemUpdate () {
+export function quantityCheckBeforeBasketItemUpdate () {
   return (req: Request, res: Response, next: NextFunction) => {
     BasketItemModel.findOne({ where: { id: req.params.id } }).then((item: BasketItemModel | null) => {
       const user = security.authenticatedUsers.from(req)

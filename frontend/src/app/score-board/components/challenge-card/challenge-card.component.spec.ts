@@ -12,8 +12,7 @@ describe('ChallengeCard', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), MatIconModule, MatTooltipModule],
-      declarations: [ChallengeCardComponent]
+      imports: [TranslateModule.forRoot(), MatIconModule, MatTooltipModule, ChallengeCardComponent]
     })
       .compileComponents()
 
@@ -32,6 +31,12 @@ describe('ChallengeCard', () => {
     component.applicationConfiguration = {
       ctf: {
         showFlagsInNotifications: true
+      },
+      challenges: {
+        codingChallengesEnabled: 'solved'
+      },
+      hackingInstructor: {
+        isEnabled: true
       }
     } as Config
 

@@ -4,8 +4,13 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr) min-content;
   row-gap: 8px;
+  width: max-content;
+  @media (max-width: 1200px) {
+    width: auto;
+  }
   @media (max-width: 800px) {
     grid-template-columns: auto;
+    width: 100%;
   }
 }
 
@@ -14,8 +19,8 @@
   gap: 16px;
   grid-template-columns: auto min-content min-content;
   margin-top: 16px;
-  @media (max-width: 1000px) {
-    grid-template-columns: auto;
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -26,30 +31,17 @@
 }
 
 .search-icon {
-  align-items: flex-end;
   color: var(--theme-text-fade-30);
+}
+
+.reset-filters-wrapper {
+  align-items: center;
   display: flex;
-  // some weird fixes to get the icon to align with the search field
-  // something troubling seems to be broken with angular material positioning for us
-  font-size: 18px;
-  line-height: 12px;
-  margin-right: 4px;
 }
 
 .reset-filters-label {
   color: var(--theme-text-fade-30);
   @media (min-width: 800px) {
-    // hide the reset filters label on large screens
-    // not needed there and the button looks too alone and unexplained on smaller screens without it
-    display: none;
-  }
-}
-
-.reset-filters-label {
-  color: var(--theme-text-fade-30);
-  @media (min-width: 800px) {
-    // hide the reset filters label on large screens
-    // not needed there and the button looks too alone and unexplained on smaller screens without it
     display: none;
   }
 }

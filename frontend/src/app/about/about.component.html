@@ -1,13 +1,13 @@
 <!--
-  ~ Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
   -->
 
-<div fxLayoutAlign="center">
-  <mat-card class="mat-elevation-z6">
+<mat-card appearance="outlined" class="mat-elevation-z6">
+  <div class="mdc-card">
     <section class="about-us">
-      <h1 translate>TITLE_ABOUT</h1>
-      <h3 translate>SECTION_CORPORATE_HISTORY</h3>
+      <h1>{{"TITLE_ABOUT" | translate}}</h1>
+      <h3>{{"SECTION_CORPORATE_HISTORY" | translate}}</h3>
       <p class="text-justify">
 
         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
@@ -33,17 +33,28 @@
         erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum.
       </p>
 
-      <h3><span translate>SECTION_CUSTOMER_FEEDBACK</span></h3>
-      <slideshow [height]="'300px'"
-                 [autoPlay]="true"
-                 [arrowSize]="'10px'"
-                 [showArrows]="true"
-                 [showDots]="false"
-                 [imageUrls]="slideshowDataSource">
-      </slideshow>
-
-      <div *ngIf="twitterUrl || facebookUrl" class="social">
-        <h3><span translate="">SECTION_SOCIAL_MEDIA</span></h3>
+      <h3><span>{{"SECTION_CUSTOMER_FEEDBACK" | translate}}</span></h3>
+      <gallery id="feedback-gallery"
+               style="height: 300px;"
+               [autoPlay]="true"
+               [thumb]="false"
+               [counter]="false"
+               [imageSize]="'cover'"
+               >
+                <ng-container *galleryImageDef="let item; let active = active">
+                  <div *ngIf="active" class="item-text">
+                    <div class="caption" [innerHTML]="item?.args"></div>
+                  </div>
+                </ng-container>
+      </gallery>
+      <div *ngIf="blueSkyUrl || mastodonUrl || twitterUrl || facebookUrl || slackUrl || redditUrl || pressKitUrl || nftUrl" class="social">
+        <h3><span>{{"SECTION_SOCIAL_MEDIA" | translate }}</span></h3>
+      <a *ngIf="blueSkyUrl" [href]="blueSkyUrl" target="_blank" rel="noopener noreferrer" style="margin-left: 0px;" aria-label="Button for the BlueSky page of the shop">
+        <button mat-raised-button color="accent"><i class="fas fa-bold fa-lg"></i> BlueSky</button>
+      </a>
+      <a *ngIf="mastodonUrl" [href]="mastodonUrl" target="_blank" rel="noopener noreferrer" style="margin-left: 0px;" aria-label="Button for the Mastodon page of the shop">
+        <button mat-raised-button color="accent"><i class="fab fa-mastodon fa-lg"></i> Mastodon</button>
+      </a>
         <a *ngIf="twitterUrl" [href]="twitterUrl" target="_blank" rel="noopener noreferrer" style="margin-left: 0px;" aria-label="Button for the Twitter page of the shop">
           <button mat-raised-button color="accent"><i class="fab fa-twitter fa-lg"></i> Twitter</button>
         </a>
@@ -64,5 +75,5 @@
         </a>
       </div>
     </section>
-  </mat-card>
-</div>
+  </div>
+</mat-card>

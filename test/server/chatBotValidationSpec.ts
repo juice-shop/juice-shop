@@ -1,11 +1,14 @@
 /*
- * Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import chai = require('chai')
+import chai from 'chai'
+import sinonChai from 'sinon-chai'
+
 import validateChatBot, { checkIntentWithFunctionHandlerExists } from '../../lib/startup/validateChatBot'
-import sinonChai = require('sinon-chai')
+import botDefaultTrainingData from '../../data/static/botDefaultTrainingData.json'
+
 const expect = chai.expect
 chai.use(sinonChai)
 
@@ -61,7 +64,7 @@ describe('chatBotValidation', () => {
   })
 
   it('should accept the default chatbot training data', () => {
-    expect(validateChatBot(require('../../data/static/botDefaultTrainingData.json'))).to.equal(true)
+    expect(validateChatBot(botDefaultTrainingData)).to.equal(true)
   })
 
   it('should fail if the chatbot training data is empty', () => {

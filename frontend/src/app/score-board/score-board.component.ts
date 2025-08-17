@@ -8,12 +8,21 @@ import { fromQueryParams, toQueryParams } from './filter-settings/query-params-c
 import { DEFAULT_FILTER_SETTING, type FilterSetting } from './filter-settings/FilterSetting'
 import { type Config, ConfigurationService } from '../Services/configuration.service'
 import { CodeSnippetComponent } from '../code-snippet/code-snippet.component'
-import { CodeSnippetService } from '../Services/code-snippet.service'
 import { ChallengeService } from '../Services/challenge.service'
 import { filterChallenges } from './helpers/challenge-filtering'
 import { SocketIoService } from '../Services/socket-io.service'
 import { type EnrichedChallenge } from './types/EnrichedChallenge'
 import { sortChallenges } from './helpers/challenge-sorting'
+import { TranslateModule } from '@ngx-translate/core'
+import { ChallengeCardComponent } from './components/challenge-card/challenge-card.component'
+import { TutorialModeWarningComponent } from './components/tutorial-mode-warning/tutorial-mode-warning.component'
+import { ChallengesUnavailableWarningComponent } from './components/challenges-unavailable-warning/challenges-unavailable-warning.component'
+import { MatProgressSpinner } from '@angular/material/progress-spinner'
+import { FilterSettingsComponent } from './components/filter-settings/filter-settings.component'
+import { NgIf, NgFor, NgClass } from '@angular/common'
+import { DifficultyOverviewScoreCardComponent } from './components/difficulty-overview-score-card/difficulty-overview-score-card.component'
+import { CodingChallengeProgressScoreCardComponent } from './components/coding-challenge-progress-score-card/coding-challenge-progress-score-card.component'
+import { HackingChallengeProgressScoreCardComponent } from './components/hacking-challenge-progress-score-card/hacking-challenge-progress-score-card.component'
 
 interface ChallengeSolvedWebsocket {
   key: string
@@ -31,7 +40,8 @@ interface CodeChallengeSolvedWebsocket {
 @Component({
   selector: 'app-score-board',
   templateUrl: './score-board.component.html',
-  styleUrls: ['./score-board.component.scss']
+  styleUrls: ['./score-board.component.scss'],
+  imports: [HackingChallengeProgressScoreCardComponent, CodingChallengeProgressScoreCardComponent, DifficultyOverviewScoreCardComponent, NgIf, FilterSettingsComponent, MatProgressSpinner, ChallengesUnavailableWarningComponent, TutorialModeWarningComponent, NgFor, ChallengeCardComponent, NgClass, TranslateModule]
 })
 export class ScoreBoardComponent implements OnInit, OnDestroy {
   public allChallenges: EnrichedChallenge[] = []
@@ -45,7 +55,6 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
 
   constructor (
     private readonly challengeService: ChallengeService,
-    private readonly codeSnippetService: CodeSnippetService,
     private readonly configurationService: ConfigurationService,
     private readonly sanitizer: DomSanitizer,
     private readonly ngZone: NgZone,
@@ -55,12 +64,11 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
     private readonly route: ActivatedRoute
   ) { }
 
-  ngOnInit () {
+  ngOnInit (): void {
     const dataLoaderSubscription = combineLatest([
       this.challengeService.find({ sort: 'name' }),
-      this.codeSnippetService.challenges(),
       this.configurationService.getApplicationConfiguration()
-    ]).subscribe(([challenges, challengeKeysWithCodeChallenges, applicationConfiguration]) => {
+    ]).subscribe(([challenges, applicationConfiguration]) => {
       this.applicationConfiguration = applicationConfiguration
 
       const transformedChallenges = challenges.map((challenge) => {
@@ -68,10 +76,10 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
           ...challenge,
           tagList: challenge.tags ? challenge.tags.split(',').map((tag) => tag.trim()) : [],
           originalDescription: challenge.description as string,
-          description: this.sanitizer.bypassSecurityTrustHtml(challenge.description as string),
-          hasCodingChallenge: challengeKeysWithCodeChallenges.includes(challenge.key)
+          description: this.sanitizer.bypassSecurityTrustHtml(challenge.description as string)
         }
       })
+
       this.allChallenges = transformedChallenges
       this.filterAndUpdateChallenges()
       this.isInitialized = true

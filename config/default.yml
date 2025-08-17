@@ -22,6 +22,8 @@ application:
     defaultResponse: "Sorry I couldn't understand what you were trying to say"
     avatar: 'JuicyChatBot.png'
   social:
+    blueSkyUrl: 'https://bsky.app/profile/owasp-juice.shop'
+    mastodonUrl: 'https://fosstodon.org/@owasp_juiceshop'
     twitterUrl: 'https://twitter.com/owasp_juiceshop'
     facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
     slackUrl: 'https://owasp.org/slack/invite'
@@ -35,7 +37,7 @@ application:
   welcomeBanner:
     showOnFirstStart: true
     title: 'Welcome to OWASP Juice Shop!'
-    message: "<p>Being a web application with a vast number of intended security vulnerabilities, the <strong>OWASP Juice Shop</strong> is supposed to be the opposite of a best practice or template application for web developers: It is an awareness, training, demonstration and exercise tool for security risks in modern web applications. The <strong>OWASP Juice Shop</strong> is an open-source project hosted by the non-profit <a href='https://owasp.org' target='_blank'>Open Web Application Security Project (OWASP)</a> and is developed and maintained by volunteers. Check out the link below for more information and documentation on the project.</p><h1><a href='https://owasp-juice.shop' target='_blank'>https://owasp-juice.shop</a></h1>"
+    message: "<p>Being a web application with a vast number of intended security vulnerabilities, the <strong>OWASP Juice Shop</strong> is supposed to be the opposite of a best practice or template application for web developers: It is an awareness, training, demonstration and exercise tool for security risks in modern web applications. The <strong>OWASP Juice Shop</strong> is an open-source project hosted by the non-profit <a href='https://owasp.org' target='_blank'>Open Worldwide Application Security Project (OWASP)</a> and is developed and maintained by volunteers. Check out the link below for more information and documentation on the project.</p><h1><a href='https://owasp-juice.shop' target='_blank'>https://owasp-juice.shop</a></h1>"
   cookieConsent:
     message: 'This website uses fruit cookies to ensure you get the juiciest tracking experience.'
     dismissText: 'Me want it!'
@@ -77,9 +79,14 @@ challenges:
   restrictToTutorialsFirst: false
   overwriteUrlForProductTamperingChallenge: 'https://owasp.slack.com'
   xssBonusPayload: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
-  safetyMode: auto
+  safetyMode: auto # Options: enabled disabled auto
   showFeedbackButtons: true
-  csafHashValue: 7d679a6a84a1ec0f12f91e2f487b9e89a7282ef775cbbec8baea2fa50eb101b7ee402dadd1bb9df0d8aaeb3ecb93e2892735f44b0c6cfb32c2f70478ae45afb7
+  csafHashValue: 7e7ce7c65db3bf0625fcea4573d25cff41f2f7e3474f2c74334b14fc65bb4fd26af802ad17a3a03bf0eee6827a00fb8f7905f338c31b5e6ea9cb31620242e843
+  metricsIgnoredUserAgents:
+    - 'Prometheus'
+    - 'Alloy'
+    - 'promscrape'
+    - 'otelcol'
 hackingInstructor:
   isEnabled: true
   avatarImage: JuicyBot.png
@@ -392,6 +399,26 @@ products:
     image: 20th.jpeg
     reviews:
       - { text: "I'll be there! Will you, too?", author: bjoernOwasp }
+  -
+    name: 'OWASP Juice Shop LEGO™ Tower'
+    description: 'Want to host a Juice Shop CTF in style? Build <a href="https://github.com/OWASP/owasp-swag/blob/master/projects/juice-shop/lego/OWASP%20JuiceShop%20Pi-server%201.2.pdf" target="_blank">your own LEGO™ tower</a> which holds four Raspberry Pi 4 models with PoE HAT modules <a href="https://github.com/juice-shop/multi-juicer/blob/main/guides/raspberry-pi/raspberry-pi.md" target="_blank">running a MultiJuicer Kubernetes cluster</a>! Wire to a switch and connect to your network to have an out-of-the-box ready CTF up in no time!'
+    price: 799
+    quantity: 3
+    limitPerUser: 1
+    image: lego_case.jpg
+    reviews:
+      - { text: 'Check out the /#/photo-wall for some impressions of the assembly process!', author: bjoernOwasp }
+  -
+    name: 'DSOMM & Juice Shop User Day Ticket'
+    description: 'You are going to the OWASP Global AppSec San Francisco 2024? <a href="https://www.eventbrite.com/e/owasp-global-appsec-san-francisco-2024-tickets-723699172707" target="_blank">Get a ticket<sup>*</sup></a> for this amazing side event as well! Check the juice-packed agenda <a href="https://owasp.org/www-project-juice-shop/#div-userday2024" target="_blank">here</a> for all the details!<br><br><small><small><sup>*</sup>=scroll down to <strong>Elevate: DSOMM and Juice Shop User Day (Sept. 25)</strong> after clicking <em>Get Tickets</em> on Eventbrite. Ticket price set to only covers fees for room, AV, and catering throughout the day.</small></small>'
+    price: 55.20
+    deletedDate: '2024-09-26'
+    limitPerUser: 1
+    image: user_day_ticket.png
+    reviews:
+      - { text: 'This is *THE* chance to "meet the makers" of both Juice Shop and DSOMM in the United States!', author: bjoernOwasp }
+      - { text: 'The DSOMM Live Assessment session will even use Juice Shop as its "real-world" example!', author: timo }
+      - { text: 'We will showcase the amazing MultiJuicer Lego Tower at this event!', author: jannik }
 memories:
   -
     image: 'magn(et)ificent!-1571814229653.jpg'
@@ -415,6 +442,22 @@ memories:
     image: 'BeeHaven.png'
     caption: 'Welcome to the Bee Haven (/#/bee-haven)🐝'
     user: evm
+  -
+    image: 'sorted-the-pieces,-starting-assembly-process-1721152307290.jpg'
+    caption: 'Sorted the pieces, starting assembly process...'
+    user: bjoernOwasp
+  -
+    image: 'building-something-literally-bottom-up-1721152342603.jpg'
+    caption: 'Building something literally bottom up...'
+    user: bjoernOwasp
+  -
+    image: 'putting-in-the-hardware-1721152366854.jpg'
+    caption: 'Putting in the hardware...'
+    user: bjoernOwasp
+  -
+    image: 'everything-up-and-running!-1721152385146.jpg'
+    caption: 'Everything up and running!'
+    user: bjoernOwasp
 ctf:
   showFlagsInNotifications: false
   showCountryDetailsInNotifications: none # Options: none  name  flag  both
