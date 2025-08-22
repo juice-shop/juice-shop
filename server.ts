@@ -47,6 +47,7 @@ import { BasketItemModel } from './models/basketitem'
 import { SecurityAnswerModel } from './models/securityAnswer'
 import { PrivacyRequestModel } from './models/privacyRequests'
 import { SecurityQuestionModel } from './models/securityQuestion'
+import { HintModel } from './models/hint'
 
 import logger from './lib/logger'
 import * as utils from './lib/utils'
@@ -365,6 +366,11 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Challenges: GET list of challenges allowed. Everything else forbidden entirely */
   app.post('/api/Challenges', security.denyAll())
   app.use('/api/Challenges/:id', security.denyAll())
+  /* Hints: GET and PUT hints allowed. Everything else forbidden */
+  app.post('/api/Hints', security.denyAll())
+  app.route('/api/Hints/:id')
+    .get(security.denyAll())
+    .delete(security.denyAll())
   /* Complaints: POST and GET allowed when logged in only */
   app.get('/api/Complaints', security.isAuthorized())
   app.post('/api/Complaints', security.isAuthorized())
@@ -481,7 +487,8 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     { name: 'Address', exclude: [], model: AddressModel },
     { name: 'PrivacyRequest', exclude: [], model: PrivacyRequestModel },
     { name: 'Card', exclude: [], model: CardModel },
-    { name: 'Quantity', exclude: [], model: QuantityModel }
+    { name: 'Quantity', exclude: [], model: QuantityModel },
+    { name: 'Hint', exclude: [], model: HintModel }
   ]
 
   for (const { name, exclude, model } of autoModels) {
@@ -540,6 +547,20 @@ restoreOverwrittenFilesWithOriginals().then(() => {
       })
       resource.read.send.before((req: Request, res: Response, context: { instance: { question: string }, continue: any }) => {
         context.instance.question = req.__(context.instance.question)
+        return context.continue
+      })
+    }
+
+    // translate hints on-the-fly
+    if (name === 'Hint') {
+      resource.list.fetch.after((req: Request, res: Response, context: { instance: string | any[], continue: any }) => {
+        for (let i = 0; i < context.instance.length; i++) {
+          context.instance[i].text = req.__(context.instance[i].text)
+        }
+        return context.continue
+      })
+      resource.read.send.before((req: Request, res: Response, context: { instance: { text: string }, continue: any }) => {
+        context.instance.text = req.__(context.instance.text)
         return context.continue
       })
     }
