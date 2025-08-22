@@ -238,5 +238,5 @@ OWASP Juice Shop and any contributions are Copyright © by Bjoern Kimminich & th
 
 ![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_400px.png)
 
-AWS_ACCESS_KEY_ID="AKIAEXAMPLE123456789"
+AWS_ACCESS_KEY_ID="AKIAEXAMPLE123456789" 
 AWS_SECRET_ACCESS_KEY="wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
