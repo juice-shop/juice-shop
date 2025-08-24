@@ -9,6 +9,7 @@ import { DEFAULT_FILTER_SETTING, type FilterSetting } from './filter-settings/Fi
 import { type Config, ConfigurationService } from '../Services/configuration.service'
 import { CodeSnippetComponent } from '../code-snippet/code-snippet.component'
 import { ChallengeService } from '../Services/challenge.service'
+import { HintService } from '../Services/hint.service'
 import { filterChallenges } from './helpers/challenge-filtering'
 import { SocketIoService } from '../Services/socket-io.service'
 import { type EnrichedChallenge } from './types/EnrichedChallenge'
@@ -55,6 +56,7 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
 
   constructor (
     private readonly challengeService: ChallengeService,
+    private readonly hintService: HintService,
     private readonly configurationService: ConfigurationService,
     private readonly sanitizer: DomSanitizer,
     private readonly ngZone: NgZone,
@@ -67,13 +69,18 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
   ngOnInit (): void {
     const dataLoaderSubscription = combineLatest([
       this.challengeService.find({ sort: 'name' }),
+      this.hintService.getAll(),
       this.configurationService.getApplicationConfiguration()
-    ]).subscribe(([challenges, applicationConfiguration]) => {
+    ]).subscribe(([challenges, hints, applicationConfiguration]) => {
       this.applicationConfiguration = applicationConfiguration
 
       const transformedChallenges = challenges.map((challenge) => {
         return {
           ...challenge,
+          hintText: hints.filter((hint) => hint.ChallengeId === challenge.id && hint.unlocked).map((hint) => hint.text).join('\n'),
+          nextHint: hints.filter((hint) => hint.ChallengeId === challenge.id && !hint.unlocked).sort((a, b) => a.order - b.order).map((hint) => hint.id)[0],
+          hintsUnlocked: hints.filter((hint) => hint.ChallengeId === challenge.id && hint.unlocked).length,
+          hintsAvailable: hints.filter((hint) => hint.ChallengeId === challenge.id).length,
           tagList: challenge.tags ? challenge.tags.split(',').map((tag) => tag.trim()) : [],
           originalDescription: challenge.description as string,
           description: this.sanitizer.bypassSecurityTrustHtml(challenge.description as string)
