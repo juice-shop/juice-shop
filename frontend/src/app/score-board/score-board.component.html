@@ -37,6 +37,7 @@
           [applicationConfiguration]="applicationConfiguration"
           [openCodingChallengeDialog]="openCodingChallengeDialog.bind(this)"
           [repeatChallengeNotification]="repeatChallengeNotification.bind(this)"
+          [unlockHint]="unlockHint.bind(this)"
           [ngClass]="{ solved: challenge.solved, unsolved: !challenge.solved, disabled: challenge.disabledEnv !== null }"
           />
       }
