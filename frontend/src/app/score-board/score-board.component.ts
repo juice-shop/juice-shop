@@ -194,4 +194,8 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
     const challenge = this.allChallenges.find((challenge) => challenge.key === challengeKey)
     await firstValueFrom(this.challengeService.repeatNotification(encodeURIComponent(challenge.name)))
   }
+
+  unlockHint (hintId: number) {
+    this.hintService.put(hintId, { unlocked: true })
+  }
 }
