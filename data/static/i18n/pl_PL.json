@@ -112,7 +112,7 @@
   "Perform a <i>DOM</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code>.": "Wykonaj atak <i>DOM</i> XSS za pomocą <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code>.",
   "Look for an input field where its content appears in the HTML when its form is submitted.": "Poszukaj pola wejściowego, w którym jego zawartość pojawia się w HTML po przesłaniu formularza.",
   "Exfiltrate the entire DB schema definition via SQL Injection.": "Eksfiltruj całą definicję schematu DB za pomocą wstrzyknięcia SQL.",
-  "Find out where this information could come from. Then craft an attack string against an endpoint that offers an unnecessary way to filter data.": "Find out where this information could come from. Then craft an attack string against an endpoint that offers an unnecessary way to filter data.",
+  "Find out where this information could come from. Then craft an attack string against an endpoint that offers an unnecessary way to filter data.": "Dowiedz się, skąd mogłaby pochodzić ta informacja. Następnie stwórz ciąg ataku przeciwko endpointowi, który oferuje niepotrzebny sposób filtrowania danych.",
   "Use a deprecated B2B interface that was not properly shut down.": "Użyj przestarzałego interfejsu B2B, który nie został prawidłowo wyłączony.",
   "The developers who disabled the interface think they could go invisible by just closing their eyes.": "Deweloperzy, którzy wyłączyli interfejs, uważają, że mogą być niewidoczni, po prostu zamykając oczy.",
   "Find the hidden <a href=\"https://en.wikipedia.org/wiki/Easter_egg_(media)\" target=\"_blank\">easter egg</a>.": "Znajdź ukrytą <a href=\"https://en.wikipedia.org/wiki/Easter_egg_(media)\" target=\"_blank\">pisankę</a>.",
