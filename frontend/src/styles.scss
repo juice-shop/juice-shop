@@ -294,3 +294,9 @@ div.mdc-card {
 .mat-mdc-button {
   white-space: nowrap;
 }
+
+.multiline-tooltip {
+  white-space: pre-line;
+  line-height: 1.2;
+  max-width: 480px;
+}
