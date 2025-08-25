@@ -196,7 +196,7 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
   }
 
   unlockHint (hintId: number) {
-      this.hintService.put(hintId, { unlocked: true }).subscribe({
+    this.hintService.put(hintId, { unlocked: true }).subscribe({
       next: () => {
         this.ngOnInit()
       },
