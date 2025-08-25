@@ -47,7 +47,7 @@ describe('ChallengeCard', () => {
     expect(component).toBeTruthy()
   })
 
-  it('should not show a mitigation link when challenge has it but isnt solved', () => {
+  it('should not show a mitigation link when challenge has it but is not solved', () => {
     component.challenge.solved = false
     component.challenge.mitigationUrl = 'https://owasp.example.com'
     fixture.detectChanges()
@@ -55,7 +55,7 @@ describe('ChallengeCard', () => {
       .toBeFalsy()
   })
 
-  it('should show a mitigation link when challenge has it but isnt solved', () => {
+  it('should show a mitigation link when challenge has it and is solved', () => {
     component.challenge.solved = true
     component.challenge.mitigationUrl = 'https://owasp.example.com'
     fixture.detectChanges()

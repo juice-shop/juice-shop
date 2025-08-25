@@ -47,6 +47,7 @@ import { BasketItemModel } from './models/basketitem'
 import { SecurityAnswerModel } from './models/securityAnswer'
 import { PrivacyRequestModel } from './models/privacyRequests'
 import { SecurityQuestionModel } from './models/securityQuestion'
+import { HintModel } from './models/hint'
 
 import logger from './lib/logger'
 import * as utils from './lib/utils'
@@ -365,6 +366,11 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Challenges: GET list of challenges allowed. Everything else forbidden entirely */
   app.post('/api/Challenges', security.denyAll())
   app.use('/api/Challenges/:id', security.denyAll())
+  /* Hints: GET and PUT hints allowed. Everything else forbidden */
+  app.post('/api/Hints', security.denyAll())
+  app.route('/api/Hints/:id')
+    .get(security.denyAll())
+    .delete(security.denyAll())
   /* Complaints: POST and GET allowed when logged in only */
   app.get('/api/Complaints', security.isAuthorized())
   app.post('/api/Complaints', security.isAuthorized())
@@ -481,7 +487,8 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     { name: 'Address', exclude: [], model: AddressModel },
     { name: 'PrivacyRequest', exclude: [], model: PrivacyRequestModel },
     { name: 'Card', exclude: [], model: CardModel },
-    { name: 'Quantity', exclude: [], model: QuantityModel }
+    { name: 'Quantity', exclude: [], model: QuantityModel },
+    { name: 'Hint', exclude: [], model: HintModel }
   ]
 
   for (const { name, exclude, model } of autoModels) {
@@ -503,7 +510,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     } // vuln-code-snippet neutral-line registerAdminChallenge
     // vuln-code-snippet end registerAdminChallenge
 
-    // translate challenge descriptions and hints on-the-fly
+    // translate challenge descriptions on-the-fly
     if (name === 'Challenge') {
       resource.list.fetch.after((req: Request, res: Response, context: { instance: string | any[], continue: any }) => {
         for (let i = 0; i < context.instance.length; i++) {
@@ -515,17 +522,11 @@ restoreOverwrittenFilesWithOriginals().then(() => {
           } else {
             context.instance[i].description = req.__(description)
           }
-          if (context.instance[i].hint) {
-            context.instance[i].hint = req.__(context.instance[i].hint)
-          }
         }
         return context.continue
       })
       resource.read.send.before((req: Request, res: Response, context: { instance: { description: string, hint: string }, continue: any }) => {
         context.instance.description = req.__(context.instance.description)
-        if (context.instance.hint) {
-          context.instance.hint = req.__(context.instance.hint)
-        }
         return context.continue
       })
     }
@@ -540,6 +541,20 @@ restoreOverwrittenFilesWithOriginals().then(() => {
       })
       resource.read.send.before((req: Request, res: Response, context: { instance: { question: string }, continue: any }) => {
         context.instance.question = req.__(context.instance.question)
+        return context.continue
+      })
+    }
+
+    // translate hints on-the-fly
+    if (name === 'Hint') {
+      resource.list.fetch.after((req: Request, res: Response, context: { instance: string | any[], continue: any }) => {
+        for (let i = 0; i < context.instance.length; i++) {
+          context.instance[i].text = req.__(context.instance[i].text)
+        }
+        return context.continue
+      })
+      resource.read.send.before((req: Request, res: Response, context: { instance: { text: string }, continue: any }) => {
+        context.instance.text = req.__(context.instance.text)
         return context.continue
       })
     }
@@ -685,7 +700,7 @@ const uploadToDisk = multer({
   })
 })
 
-const expectedModels = ['Address', 'Basket', 'BasketItem', 'Captcha', 'Card', 'Challenge', 'Complaint', 'Delivery', 'Feedback', 'ImageCaptcha', 'Memory', 'PrivacyRequestModel', 'Product', 'Quantity', 'Recycle', 'SecurityAnswer', 'SecurityQuestion', 'User', 'Wallet']
+const expectedModels = ['Address', 'Basket', 'BasketItem', 'Captcha', 'Card', 'Challenge', 'Complaint', 'Delivery', 'Feedback', 'ImageCaptcha', 'Memory', 'PrivacyRequestModel', 'Product', 'Quantity', 'Recycle', 'SecurityAnswer', 'SecurityQuestion', 'User', 'Wallet', 'Hint']
 while (!expectedModels.every(model => Object.keys(sequelize.models).includes(model))) {
   logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length.toString())} of ${colors.bold(expectedModels.length.toString())} are initialized (${colors.yellow('WAITING')})`)
 }

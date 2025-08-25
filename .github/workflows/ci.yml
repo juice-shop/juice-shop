@@ -91,9 +91,12 @@ jobs:
           max_attempts: 3
           command: npm test
       - name: "Copy unit test coverage data"
+        if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '22'
         run: |
           cp build/reports/coverage/frontend-tests/lcov.info frontend-lcov.info
           cp build/reports/coverage/server-tests/lcov.info server-lcov.info
+          sed -i s/SF:/SF:frontend\\//g frontend-lcov.info
+        shell: bash
       - name: "Upload unit test coverage data"
         if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '22'
         uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b #v4.5.0
@@ -130,6 +133,7 @@ jobs:
           max_attempts: 3
           command: npm run frisby
       - name: "Copy API test coverage data"
+        if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '22'
         run: cp build/reports/coverage/api-tests/lcov.info api-lcov.info
       - name: "Upload API test coverage data"
         if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '22'
@@ -153,19 +157,11 @@ jobs:
         uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 #v4.1.8
         with:
           name: api-test-lcov
-      - name: "Publish coverage to Codeclimate"
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          chmod +x ./cc-test-reporter
-          sed -i s/SF:/SF:frontend\\//g frontend-lcov.info
-          ./cc-test-reporter format-coverage -t lcov -o codeclimate.frontend.json frontend-lcov.info
-          ./cc-test-reporter format-coverage -t lcov -o codeclimate.server.json server-lcov.info
-          ./cc-test-reporter format-coverage -t lcov -o codeclimate.api.json api-lcov.info
-          ./cc-test-reporter sum-coverage codeclimate.*.json -p 3
-          ./cc-test-reporter upload-coverage
-        shell: bash
+      - name: "Publish coverage to Coveralls"
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          files: frontend-lcov.info server-lcov.info api-lcov.info
   custom-config-test:
     runs-on: ubuntu-latest
     steps:

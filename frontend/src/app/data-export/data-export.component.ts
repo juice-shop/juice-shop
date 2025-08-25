@@ -12,17 +12,17 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { MatLabel, MatFormFieldModule, MatHint, MatError } from '@angular/material/form-field'
 import { MatRadioGroup, MatRadioButton } from '@angular/material/radio'
-import { NgIf } from '@angular/common'
+
 import { TranslateModule } from '@ngx-translate/core'
 import { MatCardModule } from '@angular/material/card'
-import { FlexModule } from '@angular/flex-layout/flex'
+
 import { MatIconModule } from '@angular/material/icon'
 
 @Component({
   selector: 'app-data-export',
   templateUrl: './data-export.component.html',
   styleUrls: ['./data-export.component.scss'],
-  imports: [FlexModule, MatCardModule, TranslateModule, NgIf, MatRadioGroup, FormsModule, ReactiveFormsModule, MatLabel, MatRadioButton, MatFormFieldModule, MatInputModule, MatHint, MatError, MatButtonModule, MatIconModule]
+  imports: [MatCardModule, TranslateModule, MatRadioGroup, FormsModule, ReactiveFormsModule, MatLabel, MatRadioButton, MatFormFieldModule, MatInputModule, MatHint, MatError, MatButtonModule, MatIconModule]
 })
 export class DataExportComponent implements OnInit {
   public captchaControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5)])
@@ -61,19 +61,22 @@ export class DataExportComponent implements OnInit {
       this.dataRequest.answer = this.captchaControl.value
     }
     this.dataRequest.format = this.formatControl.value
-    this.dataSubjectService.dataExport(this.dataRequest).subscribe((data: any) => {
-      this.error = null
-      this.confirmation = data.confirmation
-      this.userData = data.userData
-      window.open('', '_blank', 'width=500')?.document.write(this.userData)
-      this.lastSuccessfulTry = new Date()
-      localStorage.setItem('lstdtxprt', JSON.stringify(this.lastSuccessfulTry))
-      this.ngOnInit()
-      this.resetForm()
-    }, (error) => {
-      this.error = error.error
-      this.confirmation = null
-      this.resetFormError()
+    this.dataSubjectService.dataExport(this.dataRequest).subscribe({
+      next: (data: any) => {
+        this.error = null
+        this.confirmation = data.confirmation
+        this.userData = data.userData
+        window.open('', '_blank', 'width=500')?.document.write(this.userData)
+        this.lastSuccessfulTry = new Date()
+        localStorage.setItem('lstdtxprt', JSON.stringify(this.lastSuccessfulTry))
+        this.ngOnInit()
+        this.resetForm()
+      },
+      error: (error) => {
+        this.error = error.error
+        this.confirmation = null
+        this.resetFormError()
+      }
     })
   }
 

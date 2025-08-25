@@ -3,13 +3,13 @@ import { type EnrichedChallenge } from '../../../../types/EnrichedChallenge'
 import { DEFAULT_FILTER_SETTING } from '../../../../filter-settings/FilterSetting'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatTooltip } from '@angular/material/tooltip'
-import { NgClass, NgFor } from '@angular/common'
+import { NgClass } from '@angular/common'
 
 @Component({
   selector: 'category-filter',
   templateUrl: './category-filter.component.html',
   styleUrls: ['./category-filter.component.scss'],
-  imports: [NgClass, NgFor, MatTooltip, TranslateModule]
+  imports: [NgClass, MatTooltip, TranslateModule]
 })
 export class CategoryFilterComponent implements OnInit, OnChanges {
   public availableCategories = new Set<string>()

@@ -1,5 +1,7 @@
 /* Generated API endpoints */
-  finale.initialize({ app, sequelize })
+  import { HintModel } from '../../../models/hint'
+
+finale.initialize({ app, sequelize })
 
   const autoModels = [
     { name: 'User', exclude: ['password', 'totpSecret'], model: UserModel },
@@ -14,7 +16,8 @@
     { name: 'Address', exclude: [], model: AddressModel },
     { name: 'PrivacyRequest', exclude: [], model: PrivacyRequestModel },
     { name: 'Card', exclude: [], model: CardModel },
-    { name: 'Quantity', exclude: [], model: QuantityModel }
+    { name: 'Quantity', exclude: [], model: QuantityModel },
+    { name: 'Hint', exclude: [], model: HintModel }
   ]
 
   for (const { name, exclude, model } of autoModels) {

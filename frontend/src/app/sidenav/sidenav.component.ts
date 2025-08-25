@@ -16,8 +16,8 @@ import { LoginGuard } from '../app.guard'
 import { roles } from '../roles'
 import { MatDivider } from '@angular/material/divider'
 import { MatIconModule } from '@angular/material/icon'
-import { NgIf, NgClass } from '@angular/common'
-import { ExtendedModule } from '@angular/flex-layout/extended'
+import { NgClass } from '@angular/common'
+
 import { TranslateModule } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatNavList, MatListSubheaderCssMatStyler, MatListItem } from '@angular/material/list'
@@ -27,7 +27,7 @@ import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar'
   selector: 'sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss'],
-  imports: [MatToolbar, MatToolbarRow, MatNavList, MatButtonModule, MatListSubheaderCssMatStyler, TranslateModule, ExtendedModule, NgIf, MatListItem, RouterLink, MatIconModule, NgClass, MatDivider]
+  imports: [MatToolbar, MatToolbarRow, MatNavList, MatButtonModule, MatListSubheaderCssMatStyler, TranslateModule, MatListItem, RouterLink, MatIconModule, NgClass, MatDivider]
 })
 export class SidenavComponent implements OnInit {
   public applicationName = 'OWASP Juice Shop'
@@ -46,12 +46,15 @@ export class SidenavComponent implements OnInit {
     private readonly router: Router, private readonly configurationService: ConfigurationService, private readonly loginGuard: LoginGuard) { }
 
   ngOnInit (): void {
-    this.administrationService.getApplicationVersion().subscribe((version: any) => {
-      if (version) {
+    this.administrationService.getApplicationVersion().subscribe({
+      next: (version: any) => {
+        if (version) {
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        this.version = `v${version}`
-      }
-    }, (err) => { console.log(err) })
+          this.version = `v${version}`
+        }
+      },
+      error: (err) => { console.log(err) }
+    })
     this.getApplicationDetails()
     this.getScoreBoardStatus()
 
@@ -82,7 +85,7 @@ export class SidenavComponent implements OnInit {
   }
 
   logout () {
-    this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => { console.log(err) })
+    this.userService.saveLastLoginIp().subscribe({ next: (user: any) => { this.noop() }, error: (err) => { console.log(err) } })
     localStorage.removeItem('token')
     this.cookieService.remove('token')
     sessionStorage.removeItem('bid')
@@ -103,17 +106,23 @@ export class SidenavComponent implements OnInit {
   noop () { }
 
   getScoreBoardStatus () {
-    this.challengeService.find({ name: 'Score Board' }).subscribe((challenges: any) => {
-      this.ngZone.run(() => {
-        this.scoreBoardVisible = challenges[0].solved
-      })
-    }, (err) => { console.log(err) })
+    this.challengeService.find({ name: 'Score Board' }).subscribe({
+      next: (challenges: any) => {
+        this.ngZone.run(() => {
+          this.scoreBoardVisible = challenges[0].solved
+        })
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 
   getUserDetails () {
-    this.userService.whoAmI().subscribe((user: any) => {
-      this.userEmail = user.email
-    }, (err) => { console.log(err) })
+    this.userService.whoAmI().subscribe({
+      next: (user: any) => {
+        this.userEmail = user.email
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 
   onToggleSidenav = () => {
@@ -121,17 +130,20 @@ export class SidenavComponent implements OnInit {
   }
 
   getApplicationDetails () {
-    this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
-      if (config?.application?.name) {
-        this.applicationName = config.application.name
-      }
-      if (config?.application) {
-        this.showGitHubLink = config.application.showGitHubLinks
-      }
-      if (config?.application.welcomeBanner.showOnFirstStart && config.hackingInstructor.isEnabled) {
-        this.offerScoreBoardTutorial = config.application.welcomeBanner.showOnFirstStart && config.hackingInstructor.isEnabled
-      }
-    }, (err) => { console.log(err) })
+    this.configurationService.getApplicationConfiguration().subscribe({
+      next: (config: any) => {
+        if (config?.application?.name) {
+          this.applicationName = config.application.name
+        }
+        if (config?.application) {
+          this.showGitHubLink = config.application.showGitHubLinks
+        }
+        if (config?.application.welcomeBanner.showOnFirstStart && config.hackingInstructor.isEnabled) {
+          this.offerScoreBoardTutorial = config.application.welcomeBanner.showOnFirstStart && config.hackingInstructor.isEnabled
+        }
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 
   isAccounting () {

@@ -8,16 +8,16 @@ import { DeliveryService } from '../Services/delivery.service'
 import { AddressService } from '../Services/address.service'
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table'
 import { Router } from '@angular/router'
-import { Location, NgIf, NgClass } from '@angular/common'
+import { Location, NgClass } from '@angular/common'
 import { type DeliveryMethod } from '../Models/deliveryMethod.model'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faRocket, faShippingFast, faTruck } from '@fortawesome/free-solid-svg-icons'
 import { SelectionModel } from '@angular/cdk/collections'
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
-import { ExtendedModule } from '@angular/flex-layout/extended'
+
 import { MatRadioButton } from '@angular/material/radio'
-import { FlexModule } from '@angular/flex-layout/flex'
+
 import { MatDivider } from '@angular/material/divider'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatCardModule } from '@angular/material/card'
@@ -28,7 +28,7 @@ library.add(faRocket, faShippingFast, faTruck)
   selector: 'app-delivery-method',
   templateUrl: './delivery-method.component.html',
   styleUrls: ['./delivery-method.component.scss'],
-  imports: [MatCardModule, NgIf, TranslateModule, MatDivider, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, FlexModule, MatCellDef, MatCell, MatRadioButton, NgClass, ExtendedModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatButtonModule, MatIconModule]
+  imports: [MatCardModule, TranslateModule, MatDivider, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatRadioButton, NgClass, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatButtonModule, MatIconModule]
 })
 export class DeliveryMethodComponent implements OnInit {
   public displayedColumns = ['Selection', 'Name', 'Price', 'ETA']
@@ -42,15 +42,21 @@ export class DeliveryMethodComponent implements OnInit {
     private readonly addressService: AddressService, private readonly router: Router, private readonly ngZone: NgZone) { }
 
   ngOnInit (): void {
-    this.addressService.getById(sessionStorage.getItem('addressId')).subscribe((address) => {
-      this.address = address
-    }, (error) => { console.log(error) })
+    this.addressService.getById(sessionStorage.getItem('addressId')).subscribe({
+      next: (address) => {
+        this.address = address
+      },
+      error: (error) => { console.log(error) }
+    })
 
-    this.deliverySerivce.get().subscribe((methods) => {
-      console.log(methods)
-      this.methods = methods
-      this.dataSource = new MatTableDataSource<DeliveryMethod>(this.methods)
-    }, (error) => { console.log(error) })
+    this.deliverySerivce.get().subscribe({
+      next: (methods) => {
+        console.log(methods)
+        this.methods = methods
+        this.dataSource = new MatTableDataSource<DeliveryMethod>(this.methods)
+      },
+      error: (error) => { console.log(error) }
+    })
   }
 
   selectMethod (id) {
