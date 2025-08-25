@@ -95,8 +95,6 @@ async function createChallenges () {
           description: isChallengeEnabled ? description : (description + ' <em>(This challenge is <strong>potentially harmful</strong> on ' + disabledBecause + '!)</em>'),
           difficulty,
           solved: false,
-          hint: showHints ? hint : null,
-          hintUrl: showHints ? hintUrl : null,
           mitigationUrl: showMitigations ? mitigationUrl : null,
           disabledEnv: disabledBecause,
           tutorialOrder: (tutorial != null) ? tutorial.order : null,
@@ -390,13 +388,6 @@ async function createProducts () {
                   persistedProduct)
               })
             }
-            if (fileForRetrieveBlueprintChallenge && datacache.challenges.retrieveBlueprintChallenge.hint !== null) {
-              await datacache.challenges.retrieveBlueprintChallenge.update({
-                hint: customizeRetrieveBlueprintChallenge(
-                  datacache.challenges.retrieveBlueprintChallenge.hint,
-                  persistedProduct)
-              })
-            }
             if (deletedDate) void deleteProduct(persistedProduct.id) // TODO Rename into "isDeleted" or "deletedFlag" in config for v14.x release
           } else {
             throw new Error('No persisted product found!')
@@ -425,10 +416,6 @@ async function createProducts () {
     let customDescription = description.replace(/OWASP SSL Advanced Forensic Tool \(O-Saft\)/g, customProduct.name)
     customDescription = customDescription.replace('https://owasp.slack.com', customUrl)
     return customDescription
-  }
-
-  function customizeRetrieveBlueprintChallenge (hint: string, customProduct: Product) {
-    return hint.replace(/OWASP Juice Shop Logo \(3D-printed\)/g, customProduct.name)
   }
 }
 
