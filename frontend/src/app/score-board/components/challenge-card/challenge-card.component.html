@@ -50,7 +50,7 @@
         <mat-icon>code</mat-icon>
       </button>
     }
-    <!-- cheat cheat link-->
+    <!-- mitigation link-->
     @if (challenge.mitigationUrl && challenge.solved) {
       <a
         class="badge not-completable"
@@ -84,13 +84,14 @@
         <mat-icon>school_outline</mat-icon>
       </button>
     }
-    <!-- challenge hints -->
+    <!-- challenge hints  -->
     @if (challenge.hintsAvailable > 0) {
       <button
         class="badge not-completable"
         [style.padding]="'0 6px 0 4px'"
-        [matTooltip]="challenge.hintText + (challenge.hintsAvailable > challenge.hintsUnlocked ? ('\nClick to unlock hint ' + (challenge.hintsUnlocked+1) + ' of ' + challenge.hintsAvailable) : '')"
+        [matTooltip]="challenge.hintText + (challenge.nextHint ? ('\nClick to unlock hint ' + (challenge.hintsUnlocked+1) + ' of ' + challenge.hintsAvailable + '!') : '')"
         (click)="unlockHint(challenge.nextHint)"
+        [disabled]="!challenge.nextHint"
         >
         <mat-icon>lightbulb</mat-icon>
         {{ challenge.hintsUnlocked }}/{{ challenge.hintsAvailable }}
