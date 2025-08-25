@@ -72,13 +72,12 @@ async function createChallenges () {
   const challengeKeysWithCodeChallenges = [...codeChallenges.keys()]
 
   await Promise.all(
-    challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, hints, mitigationUrl, key, disabledEnv, tutorial, tags }) => {
+    challenges.map(async ({ name, category, description, difficulty, hints, mitigationUrl, key, disabledEnv, tutorial, tags }) => {
       // todo(@J12934) change this to use a proper challenge model or something
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const { enabled: isChallengeEnabled, disabledBecause } = utils.getChallengeEnablementStatus({ disabledEnv: disabledEnv?.join(';') ?? '' } as ChallengeModel)
       description = description.replace('juice-sh.op', config.get<string>('application.domain'))
       description = description.replace('&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;', entities.encode(config.get('challenges.xssBonusPayload')))
-      hint = hint.replace(/OWASP Juice Shop's/, `${config.get<string>('application.name')}'s`)
       const hasCodingChallenge = challengeKeysWithCodeChallenges.includes(key)
 
       if (hasCodingChallenge) {
@@ -113,6 +112,7 @@ async function createHints (ChallengeId: number, hints: string[]) {
   let i: number = 0
   return await Promise.all(
     hints.map(async (hint) => {
+      hint = hint.replace(/OWASP Juice Shop/, `${config.get<string>('application.name')}`)
       return await HintModel.create({
         ChallengeId,
         text: hint,
