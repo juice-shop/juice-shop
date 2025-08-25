@@ -13,8 +13,6 @@ export interface Challenge {
   tags?: string
   description?: string | SafeHtml
   difficulty: 1 | 2 | 3 | 4 | 5 | 6
-  hint?: string
-  hintUrl?: string
   disabledEnv?: string
   solved?: boolean
   tutorialOrder?: number

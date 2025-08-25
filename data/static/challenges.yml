@@ -5,8 +5,6 @@
     - Danger Zone
   description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> without using the frontend application at all.'
   difficulty: 3
-  hint: 'You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/xss.html#_perform_a_persisted_xss_attack_without_using_the_frontend_application_at_all'
   hints:
     - 'You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.'
     - 'A matrix of known data entities and their supported HTTP verbs through the API can help you here.'
@@ -22,8 +20,6 @@
   category: 'Sensitive Data Exposure'
   description: 'Gain access to any access log file of the server.'
   difficulty: 4
-  hint: 'Who would want a server access log to be accessible through a web application?'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_gain_access_to_any_access_log_file_of_the_server'
   hints:
     - 'Who would want a server access log to be accessible through a web application?'
     - 'Normally, server log files are written to disk on server side and are not accessible from the outside.'
@@ -37,8 +33,6 @@
   category: 'Improper Input Validation'
   description: 'Register as a user with administrator privileges.'
   difficulty: 3
-  hint: 'You have to assign the unassignable.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_register_as_a_user_with_administrator_privileges'
   hints:
     - 'You have to assign the unassignable.'
     - 'Register as an ordinary user to learn what API endpoints are involved in this use case.'
@@ -52,8 +46,6 @@
     - Good for Demos
   description: 'Access the administration section of the store.'
   difficulty: 2
-  hint: 'It is just slightly harder to find than the score board link.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_access_the_administration_section_of_the_store'
   hints:
     - 'It is just slightly harder to find than the score board link.'
     - 'Knowing it exists, you can simply guess what URL the admin section might have.'
@@ -72,8 +64,6 @@
     - Prerequisite
   description: 'Overwrite the <a href="/ftp/legal.md">Legal Information</a> file.'
   difficulty: 6
-  hint: 'Look out for a tweet praising new functionality of the web shop. Then find a third party vulnerability associated with it.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/vulnerable-components.html#_overwrite_the_legal_information_file'
   hints:
     - 'Look out for a tweet praising new functionality of the web shop. Then find a third party vulnerability associated with it.'
     - 'Find all places in the application where file uploads are possible.'
@@ -92,8 +82,6 @@
     - OSINT
   description: 'Reset the password of Bjoern''s OWASP account via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
   difficulty: 3
-  hint: 'Hints to the answer to Bjoern’s question can be found by looking him up on the Internet.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-authentication.html#_reset_the_password_of_bjoerns_owasp_account_via_the_forgot_password_mechanism'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html'
   hints:
     - 'Hints to the answer to Bjoern’s question can be found by looking him up on the Internet.'
@@ -109,8 +97,6 @@
     - Web3
   description: 'Learn about the Token Sale before its official announcement.'
   difficulty: 5
-  hint: 'The developers truly believe in "Security through Obscurity" over actual access restrictions.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/security-through-obscurity.html#_learn_about_the_token_sale_before_its_official_announcement'
   hints:
     - 'The developers truly believe in "Security through Obscurity" over actual access restrictions.'
     - 'Guessing or brute forcing the URL of the token sale page is very unlikely to succeed.'
@@ -127,8 +113,6 @@
     - Web3
   description: 'Take over the wallet containing our official Soul Bound Token (NFT).'
   difficulty: 2
-  hint: 'Find the seed phrase posted accidentally.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_take_over_the_wallet_containing_our_official_soul_bound_token'
   hints:
     - 'Find the seed phrase posted accidentally.'
   mitigationUrl: ~
@@ -141,8 +125,6 @@
       - Internet Traffic
   description: 'Mint the Honey Pot NFT by gathering BEEs from the bee haven.'
   difficulty: 3
-  hint: 'Discover NFT wonders among the captivating visual memories.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_mint_the_honey_pot_nft_by_gathering_bees_from_the_bee_haven'
   hints:
     - 'Discover NFT wonders among the captivating visual memories.'
   mitigationUrl: ~
@@ -155,8 +137,6 @@
       - Internet Traffic
   description: 'Withdraw more ETH from the new wallet than you deposited.'
   difficulty: 6
-  hint: 'Try to exploit the contract of the wallet.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/miscellaneous.html#_withdraw_more_eth_from_the_new_wallet_than_you_deposited'
   hints:
     - 'Try to exploit the contract of the wallet.'
   mitigationUrl: ~
@@ -168,8 +148,6 @@
       - Web3
   description: 'Find an accidentally deployed code sandbox for writing smart contracts on the fly.'
   difficulty: 1
-  hint: 'It is just as easy as finding the Score Board.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_find_an_accidentally_deployed_code_sandbox'
   hints:
     - 'It is just as easy as finding the Score Board.'
   mitigationUrl: ~
@@ -181,8 +159,6 @@
     - Danger Zone
   description: 'Perform a Remote Code Execution that would keep a less hardened application busy <em>forever</em>.'
   difficulty: 5
-  hint: 'The feature you need to exploit for this challenge is not directly advertised anywhere.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/insecure-deserialization.html#_perform_a_remote_code_execution_that_would_keep_a_less_hardened_application_busy_forever'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html'
   hints:
     - 'The feature you need to exploit for this challenge is not directly advertised anywhere.'
@@ -202,8 +178,6 @@
     - Brute Force
   description: 'Submit 10 or more customer feedbacks within 20 seconds.'
   difficulty: 3
-  hint: 'After finding a CAPTCHA bypass, write a script that automates feedback submission. Or open many browser tabs and be really quick.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-anti-automation.html#_submit_10_or_more_customer_feedbacks_within_20_seconds'
   hints:
     - 'After finding a CAPTCHA bypass, write a script that automates feedback submission. Or open many browser tabs and be really quick.'
     - 'You could prepare 10 browser tabs, solving every CAPTCHA and filling out the each feedback form. Then you’d need to very quickly switch through the tabs and submit the forms in under 20 seconds total.'
@@ -217,8 +191,6 @@
   category: 'Broken Authentication'
   description: 'Change Bender''s password into <i>slurmCl4ssic</i> without using SQL Injection or Forgot Password.'
   difficulty: 5
-  hint: 'In previous releases this challenge was wrongly accused of being based on CSRF.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-authentication.html#_change_benders_password_into_slurmcl4ssic_without_using_sql_injection_or_forgot_password'
   hints:
     - 'In previous releases this challenge was wrongly accused of being based on CSRF.'
     - 'It might also have been put into the Improper Input Validation category.'
@@ -230,8 +202,6 @@
   category: 'Injection'
   description: 'Order the Christmas special offer of 2014.'
   difficulty: 4
-  hint: 'Find out how the application handles unavailable products and try to find a loophole.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/injection.html#_order_the_christmas_special_offer_of_2014'
   hints:
     - 'Find out how the application handles unavailable products and try to find a loophole.'
     - 'Find out how the application hides deleted products from its customers.'
@@ -247,8 +217,6 @@
     - Danger Zone
   description: 'Bypass the Content Security Policy and perform an XSS attack with <code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> on a legacy page within the application.'
   difficulty: 4
-  hint: 'What is even "better" than a legacy page with a homegrown RegEx sanitizer? Having CSP injection issues on the exact same page as well!'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/xss.html#_bypass_the_content_security_policy_and_perform_an_xss_attack_on_a_legacy_page'
   hints:
     - 'What is even "better" than a legacy page with a homegrown RegEx sanitizer? Having CSP injection issues on the exact same page as well!'
     - 'Find a screen in the application that looks subtly odd and dated compared with all other screens.'
@@ -267,8 +235,6 @@
     - Danger Zone
   description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> bypassing a <i>client-side</i> security mechanism.'
   difficulty: 3
-  hint: 'There are only some input fields in the Juice Shop forms that validate their input.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/xss.html#_perform_a_persisted_xss_attack_bypassing_a_client_side_security_mechanism'
   hints:
     - 'There are only some input fields in the Juice Shop forms that validate their input.'
     - 'Even less of these fields are persisted in a way where their content is shown on another screen.'
@@ -286,8 +252,6 @@
     - Good for Demos
   description: 'Access a confidential document.'
   difficulty: 1
-  hint: 'Analyze and tamper with links in the application that deliver a file directly.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_access_a_confidential_document'
   hints:
     - 'Analyze and tamper with links in the application that deliver a file directly.'
     - 'The file you are looking for is not protected in any way. Once you found it you can also access it.'
@@ -301,8 +265,6 @@
     - Good for Demos
   description: 'Perform a <i>DOM</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code>.'
   difficulty: 1
-  hint: 'Look for an input field where its content appears in the HTML when its form is submitted.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/xss.html#_perform_a_dom_xss_attack'
   hints:
     - 'Look for an input field where its content appears in the HTML when its form is submitted.'
     - 'This challenge is almost indistinguishable from "Perform a reflected XSS attack" if you do not look "under the hood" to find out what the application actually does with the user input.'
@@ -315,8 +277,6 @@
   category: 'Injection'
   description: 'Exfiltrate the entire DB schema definition via SQL Injection.'
   difficulty: 3
-  hint: 'Find out where this information could come from. Then craft an attack string against an endpoint that offers an unnecessary way to filter data.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/injection.html#_exfiltrate_the_entire_db_schema_definition_via_sql_injection'
   hints:
     - 'Find out where this information could come from. Then craft an attack string against an endpoint that offers an unnecessary way to filter data.'
     - 'Find out which database system is in use and where it would usually store its schema definitions.'
@@ -333,8 +293,6 @@
     - Prerequisite
   description: 'Use a deprecated B2B interface that was not properly shut down.'
   difficulty: 2
-  hint: 'The developers who disabled the interface think they could go invisible by just closing their eyes.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/security-misconfiguration.html#_use_a_deprecated_b2b_interface_that_was_not_properly_shut_down'
   hints:
     - 'The developers who disabled the interface think they could go invisible by just closing their eyes.'
     - 'The old B2B interface was replaced with a more modern version recently.'
@@ -351,8 +309,6 @@
     - Good for Demos
   description: 'Find the hidden <a href="https://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.'
   difficulty: 4
-  hint: 'If you solved one of the four file access challenges, you already know where to find the easter egg.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_find_the_hidden_easter_egg'
   hints:
     - 'If you solved one of the four file access challenges, you already know where to find the easter egg.'
     - 'Simply reuse the trick that already worked for the files above.'
@@ -363,8 +319,6 @@
   category: 'Sensitive Data Exposure'
   description: 'Perform an unwanted information disclosure by accessing data cross-domain.'
   difficulty: 5
-  hint: 'Try to find and attack an endpoint that responds with user information. SQL Injection is not the solution here.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_perform_an_unwanted_information_disclosure_by_accessing_data_cross_domain'
   hints:
     - 'Try to find and attack an endpoint that responds with user information. SQL Injection is not the solution here.'
     - 'What ways are there to access data from a web application cross-domain?'
@@ -376,8 +330,6 @@
   category: 'Improper Input Validation'
   description: 'Register a user with an empty email and password.'
   difficulty: 2
-  hint: 'Consider intercepting and playing with the request payload.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_register_a_user_with_an_empty_email_and_password'
   hints:
     - 'Consider intercepting and playing with the request payload.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html'
@@ -387,8 +339,6 @@
   category: 'Injection'
   description: 'Log in with the (non-existing) accountant <i>acc0unt4nt@juice-sh.op</i> without ever registering that user.'
   difficulty: 4
-  hint: 'Try to create the needed user "out of thin air".'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/injection.html#_log_in_with_the_non_existing_accountant_without_ever_registering_that_user'
   hints:
     - 'Try to create the needed user "out of thin air".'
     - 'The user literally needs to be ephemeral as in "lasting for only a short time".'
@@ -404,8 +354,6 @@
     - Prerequisite
   description: 'Provoke an error that is neither very gracefully nor consistently handled.'
   difficulty: 1
-  hint: 'Try to submit bad input to forms. Alternatively tamper with URL paths or parameters.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/security-misconfiguration.html#_provoke_an_error_that_is_neither_very_gracefully_nor_consistently_handled'
   hints:
     - 'Try to submit bad input to forms. Alternatively tamper with URL paths or parameters.'
     - 'This challenge actually triggers from various possible error conditions.'
@@ -418,8 +366,6 @@
   category: 'Improper Input Validation'
   description: 'Successfully redeem an expired campaign coupon code.'
   difficulty: 4
-  hint: 'Try to identify past special event or holiday campaigns of the shop first.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_successfully_redeem_an_expired_campaign_coupon_code'
   hints:
     - 'Try to identify past special event or holiday campaigns of the shop first.'
     - 'Look for clues about the past campaign or holiday event somewhere in the application.'
@@ -433,8 +379,6 @@
     - Brute Force
   description: 'First you should find out how the languages are technically changed in the user interface.'
   difficulty: 5
-  hint: 'Brute force is not the only option for this challenge, but a perfectly viable one.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-anti-automation.html#_retrieve_the_language_file_that_never_made_it_into_production'
   hints:
     - 'First you should find out how the languages are technically changed in the user interface.'
     - 'Guessing will most definitely not work in this challenge.'
@@ -447,8 +391,6 @@
   category: 'Broken Access Control'
   description: 'Get rid of all 5-star customer feedback.'
   difficulty: 2
-  hint: 'Once you found admin section of the application, this challenge is almost trivial.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_get_rid_of_all_5_star_customer_feedback'
   hints:
     - 'Once you found admin section of the application, this challenge is almost trivial.'
     - 'Nothing happens when you try to delete feedback entries? Check the JavaScript console for errors!'
@@ -462,8 +404,6 @@
     - Code Analysis
   description: 'Forge a coupon code that gives you a discount of at least 80%.'
   difficulty: 6
-  hint: 'Try either a) a knowledgeable brute force attack or b) reverse engineering or c) some research in the cloud.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/cryptographic-issues.html#_forge_a_coupon_code_that_gives_you_a_discount_of_at_least_80'
   hints:
     - 'Try either a) a knowledgeable brute force attack or b) reverse engineering or c) some research in the cloud.'
     - 'One viable solution would be to reverse-engineer how coupon codes are generated and craft your own 80% coupon by using the same (or at least similar) implementation.'
@@ -478,8 +418,6 @@
     - Tutorial
   description: "Post some feedback in another user's name."
   difficulty: 3
-  hint: 'You can solve this by tampering with the user interface or by intercepting the communication with the RESTful backend.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_post_some_feedback_in_another_users_name'
   hints:
     - 'You can solve this by tampering with the user interface or by intercepting the communication with the RESTful backend.'
     - 'To find the client-side leverage point, closely analyze the HTML form used for feedback submission.'
@@ -493,8 +431,6 @@
   category: 'Broken Access Control'
   description: 'Post a product review as another user or edit any user''s existing review.'
   difficulty: 3
-  hint: 'Observe the flow of product review posting and editing and see if you can exploit it.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_post_a_product_review_as_another_user_or_edit_any_users_existing_review'
   hints:
     - 'Observe the flow of product review posting and editing and see if you can exploit it.'
     - 'This challenge can be solved by using developers tool of your browser or with tools like postman.'
@@ -507,8 +443,6 @@
   category: 'Vulnerable Components'
   description: 'Forge an almost properly RSA-signed JWT token that impersonates the (non-existing) user <i>rsa_lord@juice-sh.op</i>.'
   difficulty: 6
-  hint: 'This challenge is explicitly not about acquiring the RSA private key used for JWT signing.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/vulnerable-components.html#_forge_an_almost_properly_rsa_signed_jwt_token'
   hints:
     - 'This challenge is explicitly not about acquiring the RSA private key used for JWT signing.'
     - 'The three generic hints from Forge an essentially unsigned JWT token also help with this challenge.'
@@ -529,8 +463,6 @@
     - Prerequisite
   description: 'Access a developer''s forgotten backup file.'
   difficulty: 4
-  hint: 'You need to trick a security mechanism into thinking that the file you want has a valid file type.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_access_a_developers_forgotten_backup_file'
   hints:
     - 'You need to trick a security mechanism into thinking that the file you want has a valid file type.'
     - 'Analyze and tamper with links in the application that deliver a file directly.'
@@ -546,8 +478,6 @@
     - Contraption
   description: 'Access a salesman''s forgotten backup file.'
   difficulty: 4
-  hint: 'You need to trick a security mechanism into thinking that the file you want has a valid file type.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_access_a_salesmans_forgotten_backup_file'
   hints:
     - 'You need to trick a security mechanism into thinking that the file you want has a valid file type.'
     - 'Analyze and tamper with links in the application that deliver a file directly.'
@@ -560,8 +490,6 @@
   category: 'Vulnerable Components'
   description: '<a href="/#/contact">Inform the shop</a> about a <i>typosquatting</i> imposter that dug itself deep into the frontend. (Mention the exact name of the culprit)'
   difficulty: 5
-  hint: 'This challenge has nothing to do with mistyping web domains. There is no conveniently misplaced file helping you with this one either. Or is there?'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/vulnerable-components.html#_inform_the_shop_about_a_typosquatting_imposter_that_dug_itself_deep_into_the_frontend'
   hints:
     - 'This challenge has nothing to do with mistyping web domains. There is no conveniently misplaced file helping you with this one either. Or is there?'
     - 'This challenge has nothing to do with URLs or domains.'
@@ -573,8 +501,6 @@
   category: 'Broken Authentication'
   description: 'Log in with Chris'' erased user account.'
   difficulty: 3
-  hint: 'Turns out that something is technically and legally wrong with the implementation of the "right to be forgotten" for users.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-authentication.html#_log_in_with_chris_erased_user_account'
   hints:
     - 'Turns out that something is technically and legally wrong with the implementation of the "right to be forgotten" for users.'
     - 'Trying out the Request Data Erasure functionality might be interesting, but cannot help you solve this challenge in real time.'
@@ -587,8 +513,6 @@
   category: 'Sensitive Data Exposure'
   description: 'Steal someone else''s personal data without using Injection.'
   difficulty: 4
-  hint: 'Trick the regular Data Export to give you more than actually belongs to you.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_steal_someone_elses_personal_data_without_using_injection'
   hints:
     - 'Trick the regular Data Export to give you more than actually belongs to you.'
     - 'You should not try to steal data from a "vanilla" user who never even ordered something at the shop.'
@@ -603,8 +527,6 @@
     - Danger Zone
   description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> through an HTTP header.'
   difficulty: 4
-  hint: 'Finding a piece of displayed information that could originate from an HTTP header is part of this challenge.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/xss.html#_perform_a_persisted_xss_attack_through_an_http_header'
   hints:
     - 'Finding a piece of displayed information that could originate from an HTTP header is part of this challenge.'
     - 'You might have to look into less common or even proprietary HTTP headers to find the leverage point.'
@@ -623,8 +545,6 @@
     - Code Analysis
   description: 'Solve challenge #999. Unfortunately, this challenge does not exist.'
   difficulty: 6
-  hint: 'You need to trick the hacking progress persistence feature into thinking you solved challenge #999.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/cryptographic-issues.html#_solve_challenge_999'
   hints:
     - 'You need to trick the hacking progress persistence feature into thinking you solved challenge #999.'
     - 'Find out how saving and restoring progress is done behind the scenes.'
@@ -640,8 +560,6 @@
     - OSINT
   description: 'Dumpster dive the Internet for a leaked password and log in to the original user account it belongs to. (Creating a new account with the same password does not qualify as a solution.)'
   difficulty: 5
-  hint: 'As the challenge name implies, your task is to find some leaked access logs which happen to have a fairly common format.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_dumpster_dive_the_internet_for_a_leaked_password_and_log_in_to_the_original_user_account_it_belongs_to'
   hints:
     - 'As the challenge name implies, your task is to find some leaked access logs which happen to have a fairly common format.'
     - 'A very popular help platform for developers might contain breadcrumbs towards solving this challenge.'
@@ -657,8 +575,6 @@
     - OSINT
   description: 'Identify an unsafe product that was removed from the shop and <a href="/#/contact">inform the shop</a> which ingredients are dangerous.'
   difficulty: 4
-  hint: 'Your own SQLi and someone else''s Ctrl-V will be your accomplices in this challenge!'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_identify_an_unsafe_product_that_was_removed_from_the_shop_and_inform_the_shop_which_ingredients_are_dangerous'
   hints:
     - 'Your own SQLi and someone else''s Ctrl-V will be your accomplices in this challenge!'
     - 'You must first identify the "unsafe product" which ist not available any more in the shop.'
@@ -672,8 +588,6 @@
   category: 'Vulnerable Components'
   description: '<a href="/#/contact">Inform the shop</a> about a <i>typosquatting</i> trick it has been a victim of at least in <code>v6.2.0-SNAPSHOT</code>. (Mention the exact name of the culprit)'
   difficulty: 4
-  hint: 'This challenge has nothing to do with mistyping web domains. Investigate the forgotten developer''s backup file instead.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/vulnerable-components.html#_inform_the_shop_about_a_typosquatting_trick_it_has_been_a_victim_of'
   hints:
     - 'This challenge has nothing to do with mistyping web domains. Investigate the forgotten developer''s backup file instead.'
     - 'Investigating the forgotten developer’s backup file might bring some insight.'
@@ -688,8 +602,6 @@
     - Good for Demos
   description: 'Log in with the administrator''s user account.'
   difficulty: 2
-  hint: 'The challenge description probably gave away what form you should attack.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/injection.html#_log_in_with_the_administrators_user_account'
   hints:
     - 'The challenge description probably gave away what form you should attack.'
     - 'If you happen to know the email address of the admin already, you can launch a targeted attack.'
@@ -707,8 +619,6 @@
     - OSINT
   description: 'Log in with Amy''s original user credentials. (This could take 93.83 billion trillion trillion centuries to brute force, but luckily she did not read the "One Important Final Note")'
   difficulty: 3
-  hint: 'This challenge will make you go after a needle in a haystack.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_log_in_with_amys_original_user_credentials'
   hints:
     - 'This challenge will make you go after a needle in a haystack.'
     - 'As with so many other characters from Futurama this challenge is of course about logging in as Amy from that show.'
@@ -724,8 +634,6 @@
     - Tutorial
   description: 'Log in with Bender''s user account.'
   difficulty: 3
-  hint: 'The challenge description probably gave away what form you should attack.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/injection.html#_log_in_with_benders_user_account'
   hints:
     - 'The challenge description probably gave away what form you should attack.'
     - 'You need to know (or smart-guess) Bender’s email address so you can launch a targeted attack.'
@@ -742,8 +650,6 @@
     - Code Analysis
   description: 'Log in with Bjoern''s Gmail account <i>without</i> previously changing his password, applying SQL Injection, or hacking his Google account.'
   difficulty: 4
-  hint: 'The security flaw behind this challenge is 100% OWASP Juice Shop''s fault and 0% Google''s.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-authentication.html#_log_in_with_bjoerns_gmail_account'
   hints:
     - 'The security flaw behind this challenge is 100% OWASP Juice Shop''s fault and 0% Google''s.'
     - 'One way to light up this challenge in green on the score board, is to be Bjoern Kimminich. In that case, just log in with your Google account to automatically solve this challenge! Congratulations!'
@@ -758,8 +664,6 @@
     - Tutorial
   description: 'Log in with Jim''s user account.'
   difficulty: 3
-  hint: 'The challenge description probably gave away what form you should attack.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/injection.html#_log_in_with_jims_user_account'
   hints:
     - 'The challenge description probably gave away what form you should attack.'
     - 'You need to know (or smart-guess) Jim’s email address so you can launch a targeted attack.'
@@ -776,8 +680,6 @@
     - OSINT
   description: 'Log in with MC SafeSearch''s original user credentials without applying SQL Injection or any other bypass.'
   difficulty: 2
-  hint: 'MC SafeSearch is a rapper who produced the song "Protect Ya'' Passwordz" which explains password & sensitive data protection very nicely.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_log_in_with_mc_safesearchs_original_user_credentials'
   hints:
     - 'MC SafeSearch is a rapper who produced the song "Protect Ya'' Passwordz" which explains password & sensitive data protection very nicely.'
     - 'After watching the music video of this song, you should agree that even ⭐⭐ is a slightly exaggerated difficulty rating for this challenge.'
@@ -791,8 +693,6 @@
     - Code Analysis
   description: 'Log in with the support team''s original user credentials without applying SQL Injection or any other bypass.'
   difficulty: 6
-  hint: 'The underlying flaw of this challenge is a lot more human error than technical weakness.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/security-misconfiguration.html#_log_in_with_the_support_teams_original_user_credentials'
   hints:
     - 'The underlying flaw of this challenge is a lot more human error than technical weakness.'
     - 'The support team is located in a low-cost country and the team structure fluctuates a lot due to people leaving for jobs with even just slightly better wages.'
@@ -806,8 +706,6 @@
   category: 'Broken Access Control'
   description: 'Put an additional product into another user''s shopping basket.'
   difficulty: 3
-  hint: 'Have an eye on the HTTP traffic while placing products in the shopping basket.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_put_an_additional_product_into_another_users_shopping_basket'
   hints:
     - 'Have an eye on the HTTP traffic while placing products in the shopping basket.'
     - 'Adding more instances of the same product to someone else’s basket does not qualify as a solution. The same goes for stealing from someone else’s basket.'
@@ -822,8 +720,6 @@
     - Contraption
   description: 'Access a misplaced <a href="https://github.com/Neo23x0/sigma">SIEM signature</a> file.'
   difficulty: 4
-  hint: 'You need to trick a security mechanism into thinking that the file you want has a valid file type.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_access_a_misplaced_siem_signature_file'
   hints:
     - 'You need to trick a security mechanism into thinking that the file you want has a valid file type.'
     - 'If you solved one of the other four file access challenges, you already know where the SIEM signature file is located.'
@@ -835,8 +731,6 @@
   category: 'Broken Anti Automation'
   description: 'Like any review at least three times as the same user.'
   difficulty: 6
-  hint: 'Punctuality is the politeness of kings.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-anti-automation.html#_like_any_review_at_least_three_times_as_the_same_user'
   hints:
     - 'Punctuality is the politeness of kings.'
     - 'Every user is (almost) immediately associated with the review they "liked" to prevent abuse of that functionality.'
@@ -852,8 +746,6 @@
     - Good for Demos
   description: 'Apply some advanced cryptanalysis to find <i>the real</i> easter egg.'
   difficulty: 4
-  hint: 'You might have to peel through several layers of tough-as-nails encryption for this challenge.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/cryptographic-issues.html#_apply_some_advanced_cryptanalysis_to_find_the_real_easter_egg'
   hints:
     - 'You might have to peel through several layers of tough-as-nails encryption for this challenge.'
     - 'Make sure you solve Find the hidden easter egg first.'
@@ -867,8 +759,6 @@
     - Danger Zone
   description: 'Let the server sleep for some time. (It has done more than enough hard work for you)'
   difficulty: 4
-  hint: 'This challenge is essentially a stripped-down Denial of Service (DoS) attack.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/injection.html#_let_the_server_sleep_for_some_time'
   hints:
     - 'This challenge is essentially a stripped-down Denial of Service (DoS) attack.'
     - 'As stated in the Architecture overview, OWASP Juice Shop uses a MongoDB derivate as its NoSQL database.'
@@ -887,8 +777,6 @@
     - Danger Zone
   description: 'All your orders are belong to us! Even the ones which don''t.'
   difficulty: 5
-  hint: 'Take a close look on how the $where query operator works in MongoDB.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/injection.html#_all_your_orders_are_belong_to_us'
   hints:
     - 'Take a close look on how the $where query operator works in MongoDB.'
     - 'This challenge requires a classic Injection attack.'
@@ -905,8 +793,6 @@
   category: 'Injection'
   description: 'Update multiple product reviews at the same time.'
   difficulty: 4
-  hint: 'Take a close look on how the equivalent of UPDATE-statements in MongoDB work.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/injection.html#_update_multiple_product_reviews_at_the_same_time'
   hints:
     - 'Take a close look on how the equivalent of UPDATE-statements in MongoDB work.'
     - 'This challenge requires another classic Injection attack.'
@@ -920,8 +806,6 @@
     - Code Analysis
   description: 'Let us redirect you to one of our crypto currency addresses which are not promoted any longer.'
   difficulty: 1
-  hint: 'When removing references to those addresses from the code the developers have been a bit sloppy.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/unvalidated-redirects.html#_let_us_redirect_you_to_one_of_our_crypto_currency_addresses'
   hints:
     - 'When removing references to those addresses from the code the developers have been a bit sloppy.'
     - 'More particular, they have been sloppy in a way that even the Angular Compiler was not able to clean up after them automatically.'
@@ -936,8 +820,6 @@
     - Tutorial
   description: 'Log in with the administrator''s user credentials without previously changing them or applying SQL Injection.'
   difficulty: 2
-  hint: 'This challenge can be solved with three different approaches.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-authentication.html#_log_in_with_the_administrators_user_credentials_without_previously_changing_them_or_applying_sql_injection'
   hints:
     - 'This challenge can be solved with three different approaches.'
     - 'Guessing might work just fine.'
@@ -952,8 +834,6 @@
   category: 'Improper Input Validation'
   description: 'Place an order that makes you rich.'
   difficulty: 3
-  hint: 'You literally need to make the shop owe you any amount of money.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_place_an_order_that_makes_you_rich'
   hints:
     - 'You literally need to make the shop owe you any amount of money.'
     - 'Investigate the shopping basket closely to understand how it prevents you from creating orders that would fulfil the challenge.'
@@ -966,8 +846,6 @@
     - Shenanigans
   description: '<i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><!--IvLuRfBJYlmStf9XfL6ckJFngyd9LfV1JaaN/KRTPQPidTuJ7FR+D/nkWJUF+0xUF07CeCeqYfxq+OJVVa0gNbqgYkUNvn//UbE7e95C+6e+7GtdpqJ8mqm4WcPvUGIUxmGLTTAC2+G9UuFCD1DUjg==--> <a href="https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm" target="_blank"><i class="fab fa-btc fa-sm"></i> Unlock Premium Challenge</a> to access exclusive content.'
   difficulty: 6
-  hint: 'You do not have to pay anything to unlock this challenge! Nonetheless, donations are very much appreciated.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/cryptographic-issues.html#_unlock_premium_challenge_to_access_exclusive_content'
   hints:
     - 'You do not have to pay anything to unlock this challenge! Nonetheless, donations are very much appreciated.'
     - 'There is no inappropriate, self-written or misconfigured cryptographic library to be exploited here.'
@@ -984,8 +862,6 @@
     - Good for Demos
   description: 'Read our privacy policy.'
   difficulty: 1
-  hint: 'We won''t even ask you to confirm that you did. Just read it. Please. Pretty please.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/miscellaneous.html#_read_our_privacy_policy'
   hints:
     - 'We won''t even ask you to confirm that you did. Just read it. Please. Pretty please.'
     - 'When you work with the application you will most likely solve this challenge in the process.'
@@ -1003,8 +879,6 @@
     - Good for Demos
   description: 'Prove that you actually read our privacy policy.'
   difficulty: 3
-  hint: 'Only by visiting a special URL you can confirm that you read it carefully.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/security-through-obscurity.html#_prove_that_you_actually_read_our_privacy_policy'
   hints:
     - 'Only by visiting a special URL you can confirm that you read it carefully.'
     - 'First you should obviously solve the "Read our privacy policy" challenge.'
@@ -1017,8 +891,6 @@
   category: 'Broken Access Control'
   description: 'Change the <code>href</code> of the link within the <a href="/#/search?q=OWASP SSL Advanced Forensic Tool (O-Saft)">OWASP SSL Advanced Forensic Tool (O-Saft)</a> product description into <i>https://owasp.slack.com</i>.'
   difficulty: 3
-  hint: 'Theoretically there are three possible ways to beat this challenge: a) broken admin functionality, b) holes in RESTful API or c) possibility for SQL Injection.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_change_the_href_of_the_link_within_the_o_saft_product_description'
   hints:
     - 'Theoretically there are three possible ways to beat this challenge: a) broken admin functionality, b) holes in RESTful API or c) possibility for SQL Injection.'
     - 'In practice two of these three ways should turn out to be dead ends.'
@@ -1033,8 +905,6 @@
     - Good for Demos
   description: 'Perform a <i>reflected</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code>.'
   difficulty: 2
-  hint: 'Look for a url parameter where its value appears in the page it is leading to.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/xss.html#_perform_a_reflected_xss_attack'
   hints:
     - 'Look for a url parameter where its value appears in the page it is leading to.'
     - 'Try probing for XSS vulnerabilities by submitting text wrapped in an HTML tag which is easy to spot on screen, e.g. <h1> or <strike>.'
@@ -1051,8 +921,6 @@
   category: 'Improper Input Validation'
   description: 'Follow the DRY principle while registering a user.'
   difficulty: 1
-  hint: 'You can solve this by cleverly interacting with the UI or bypassing it altogether.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_follow_the_dry_principle_while_registering_a_user'
   hints:
     - 'You can solve this by cleverly interacting with the UI or bypassing it altogether.'
     - 'The obvious repetition in the User Registration form is the Repeat Password field.'
@@ -1067,8 +935,6 @@
     - OSINT
   description: 'Reset Bender''s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
   difficulty: 4
-  hint: 'If you have no idea who Bender is, please put down this book right now and watch the first episodes of Futurama before you come back.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-authentication.html#_reset_benders_password_via_the_forgot_password_mechanism'
   hints:
     - 'If you have no idea who Bender is, please put down this book right now and watch the first episodes of Futurama before you come back.'
     - 'Unexpectedly, Bender also chose to answer his chosen question truthfully.'
@@ -1084,8 +950,6 @@
     - OSINT
   description: 'Reset the password of Bjoern''s internal account via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
   difficulty: 5
-  hint: 'Nothing a little bit of Facebook stalking couldn''t reveal. Might involve a historical twist.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-authentication.html#_reset_the_password_of_bjoerns_internal_account_via_the_forgot_password_mechanism'
   hints:
     - 'Nothing a little bit of Facebook stalking couldn''t reveal. Might involve a historical twist.'
     - 'Other than with his OWASP account, Bjoern was a bit less careless with his choice of security and answer to his internal account.'
@@ -1101,8 +965,6 @@
     - OSINT
   description: 'Reset Jim''s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
   difficulty: 3
-  hint: 'The hardest part of this challenge is actually to find out who Jim actually is.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-authentication.html#_reset_jims_password_via_the_forgot_password_mechanism'
   hints:
     - 'The hardest part of this challenge is actually to find out who Jim actually is.'
     - 'Jim picked one of the worst security questions and chose to answer it truthfully.'
@@ -1118,8 +980,6 @@
     - Brute Force
   description: 'Reset Morty''s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>his obfuscated answer</i> to his security question.'
   difficulty: 5
-  hint: 'Finding out who Morty actually is, will help to reduce the solution space.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-anti-automation.html#_reset_mortys_password_via_the_forgot_password_mechanism'
   hints:
     - 'Finding out who Morty actually is, will help to reduce the solution space.'
     - 'You can assume that Morty answered his security question truthfully but employed some obfuscation to make it more secure.'
@@ -1132,10 +992,9 @@
   category: 'Sensitive Data Exposure'
   description: 'Deprive the shop of earnings by downloading the blueprint for one of its products.'
   difficulty: 5
-  hint: 'The product you might want to give a closer look is the OWASP Juice Shop Logo (3D-printed).'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_deprive_the_shop_of_earnings_by_downloading_the_blueprint_for_one_of_its_products'
   hints:
-    - 'The product you might want to give a closer look is the OWASP Juice Shop Logo (3D-printed).'
+    - 'Check for products which seem like a natural fit for being based on a blueprint.'
+    - 'You might want to pay attention to the images of the identified product candidates.'
     - 'For your inconvenience the blueprint was not misplaced into the same place like so many others forgotten files covered in this chapter.'
   mitigationUrl: ~
   key: retrieveBlueprintChallenge
@@ -1146,8 +1005,6 @@
     - Code Analysis
   description: 'Request a hidden resource on server through server.'
   difficulty: 6
-  hint: 'Reverse engineering something bad can make good things happen.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_request_a_hidden_resource_on_server_through_server'
   hints:
     - 'Reverse engineering something bad can make good things happen.'
     - 'Using whatever you find inside the malware directly will not do you any good.'
@@ -1164,8 +1021,6 @@
     - Code Analysis
   description: 'Infect the server with juicy malware by abusing arbitrary command execution.'
   difficulty: 6
-  hint: '"SSTi" is a clear indicator that this has nothing to do with anything Angular. Also, make sure to use only our non-malicious malware.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/injection.html#_infect_the_server_with_juicy_malware_by_abusing_arbitrary_command_execution'
   hints:
     - '"SSTi" is a clear indicator that this has nothing to do with anything Angular. Also, make sure to use only our non-malicious malware.'
     - 'You can find the juicy malware via a very obvious Google search or by stumbling into a very ill-placed quarantine folder with the necessary URLs in it.'
@@ -1185,8 +1040,6 @@
     - Code Analysis
   description: 'Find the carefully hidden ''Score Board'' page.'
   difficulty: 1
-  hint: 'Try to find a reference or clue behind the scenes. Or simply guess what URL the Score Board might have.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/score-board.html#_find_the_carefully_hidden_score_board_page'
   mitigationUrl: ~
   key: scoreBoardChallenge
   tutorial:
@@ -1198,8 +1051,6 @@
     - Good Practice
   description: 'Behave like any "white-hat" should before getting into the action.'
   difficulty: 2
-  hint: 'This challenge asks you to act like an ethical hacker.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/miscellaneous.html#_behave_like_any_white_hat_should_before_getting_into_the_action'
   hints:
     - 'This challenge asks you to act like an ethical hacker.'
     - 'Undoubtedly you want to read our security policy before conducting any research on our application.'
@@ -1214,8 +1065,6 @@
     - Danger Zone
   description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> bypassing a <i>server-side</i> security mechanism.'
   difficulty: 4
-  hint: 'The "Comment" field in the "Customer Feedback" screen is where you want to put your focus on.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/xss.html#_perform_a_persisted_xss_attack_bypassing_a_server_side_security_mechanism'
   hints:
     - 'The "Comment" field in the "Customer Feedback" screen is where you want to put your focus on.'
     - 'The Comment field in the Contact Us screen is where you want to put your focus on.'
@@ -1235,8 +1084,6 @@
     - Shenanigans
   description: '<a href="/#/contact">Rat out</a> a notorious character hiding in plain sight in the shop. (Mention the exact name of the character)'
   difficulty: 4
-  hint: 'There is not the slightest chance that you can spot the hidden character with the naked eye.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/security-through-obscurity.html#_rat_out_a_notorious_character_hiding_in_plain_sight_in_the_shop'
   hints:
     - 'There is not the slightest chance that you can spot the hidden character with the naked eye.'
     - 'You will need very specialized tool assistance for this challenge.'
@@ -1251,8 +1098,6 @@
     - Danger Zone
   description: 'Perform a Remote Code Execution that occupies the server for a while without using infinite loops.'
   difficulty: 6
-  hint: 'Your attack payload must not trigger the protection against too many iterations and infinite loops.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/insecure-deserialization.html#_perform_a_remote_code_execution_that_occupies_the_server_for_a_while_without_using_infinite_loops'
   hints:
     - 'Your attack payload must not trigger the protection against too many iterations and infinite loops.'
     - 'This challenge uses the same leverage point as the "Perform a Remote Code Execution that would keep a less hardened application busy forever" challenge.'
@@ -1269,8 +1114,6 @@
     - OSINT
   description: '<a href="/#/contact">Inform the development team</a> about a danger to some of <em>their</em> credentials. (Send them the URL of the <em>original report</em> or an assigned CVE or another identifier of this vulnerability)'
   difficulty: 5
-  hint: 'This vulnerability will not affect any customer of the shop. It is aimed exclusively at its developers.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/vulnerable-components.html#_inform_the_development_team_about_a_danger_to_some_of_their_credentials'
   hints:
     - 'This vulnerability will not affect any customer of the shop. It is aimed exclusively at its developers.'
     - 'This is a research-heavy challenge which does not involve any actual hacking.'
@@ -1282,8 +1125,6 @@
   category: 'Broken Authentication'
   description: 'Solve the 2FA challenge for user "wurstbrot". (Disabling, bypassing or overwriting his 2FA settings does not count as a solution)'
   difficulty: 5
-  hint: 'The 2FA implementation requires to store a secret for every user. You will need to find a way to access this secret in order to solve this challenge.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-authentication.html#_solve_the_2fa_challenge_for_user_wurstbrot'
   hints:
     - 'The 2FA implementation requires to store a secret for every user. You will need to find a way to access this secret in order to solve this challenge.'
     - 'As always, first learn how the feature under attack is used and behaves under normal conditions.'
@@ -1296,8 +1137,6 @@
   category: 'Vulnerable Components'
   description: 'Forge an essentially unsigned JWT token that impersonates the (non-existing) user <i>jwtn3d@juice-sh.op</i>.'
   difficulty: 5
-  hint: 'This challenge exploits a weird option that is supported when signing tokens with JWT.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/vulnerable-components.html#_forge_an_essentially_unsigned_jwt_token'
   hints:
     - 'This challenge exploits a weird option that is supported when signing tokens with JWT.'
     - 'You should begin with retrieving a valid JWT from the application’s Authorization request header.'
@@ -1311,8 +1150,6 @@
   category: 'Improper Input Validation'
   description: 'Upload a file larger than 100 kB.'
   difficulty: 3
-  hint: 'You can attach a small file to the "Complaint" form. Investigate how this upload actually works.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_upload_a_file_larger_than_100_kb'
   hints:
     - 'You can attach a small file to the "Complaint" form. Investigate how this upload actually works.'
     - 'First you should try to understand how the file upload is actually handled on the client and server side.'
@@ -1324,8 +1161,6 @@
   category: 'Improper Input Validation'
   description: 'Upload a file that has no .pdf or .zip extension.'
   difficulty: 3
-  hint: 'You can attach a PDF or ZIP file to the "Complaint" form. Investigate how this upload actually works.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_upload_a_file_that_has_no_pdf_or_zip_extension'
   hints:
     - 'You can attach a PDF or ZIP file to the "Complaint" form. Investigate how this upload actually works.'
     - 'If you solved the "Upload a file larger than 100 kB" challenge, you should try to apply the same solution here'
@@ -1336,8 +1171,6 @@
   category: 'Injection'
   description: 'Retrieve a list of all user credentials via SQL Injection.'
   difficulty: 4
-  hint: 'Gather information on where user data is stored and how it is addressed. Then craft a corresponding UNION SELECT attack.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/injection.html#_retrieve_a_list_of_all_user_credentials_via_sql_injection'
   hints:
     - 'Gather information on where user data is stored and how it is addressed. Then craft a corresponding UNION SELECT attack.'
     - 'Try to find an endpoint where you can influence data being retrieved from the server.'
@@ -1353,8 +1186,6 @@
     - Danger Zone
   description: 'Embed an XSS payload <code>&lt;/script&gt;&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> into our promo video.'
   difficulty: 6
-  hint: 'Without utilizing the vulnerability behind another ⭐⭐⭐⭐⭐⭐ challenge it is not possible to plant the XSS payload for this challenge.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/xss.html#_embed_an_xss_payload_into_our_promo_video'
   hints:
     - 'Without utilizing the vulnerability behind another ⭐⭐⭐⭐⭐⭐ challenge it is not possible to plant the XSS payload for this challenge.'
     - 'The mentioned "marketing collateral" might have been publicly advertised by the Juice Shop but is not necessarily part of its sitemap yet.'
@@ -1374,8 +1205,6 @@
     - Good for Demos
   description: 'View another user''s shopping basket.'
   difficulty: 2
-  hint: 'Try out all existing functionality involving the shopping basket while having an eye on the HTTP traffic.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_view_another_users_shopping_basket'
   hints:
     - 'Try out all existing functionality involving the shopping basket while having an eye on the HTTP traffic.'
     - 'There might be a client-side association of user to basket that you can try to manipulate.'
@@ -1391,8 +1220,6 @@
     - OSINT
   description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your comment)'
   difficulty: 4
-  hint: 'Report one of two possible answers via the "Customer Feedback" form. Do not forget to submit the library''s version as well.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/vulnerable-components.html#_inform_the_shop_about_a_vulnerable_library_it_is_using'
   hints:
     - 'Report one of two possible answers via the "Customer Feedback" form. Do not forget to submit the library''s version as well.'
     - 'Look for possible dependencies related to security in the package.json.bak you probably harvested earlier during the Access a developer’s forgotten backup file challenge.'
@@ -1404,8 +1231,6 @@
   category: 'Cryptographic Issues'
   description: '<a href="/#/contact">Inform the shop</a> about an algorithm or library it should definitely not use the way it does.'
   difficulty: 2
-  hint: 'Report one of five possible answers via the "Customer Feedback" form.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/cryptographic-issues.html#_inform_the_shop_about_an_algorithm_or_library_it_should_definitely_not_use_the_way_it_does'
   hints:
     - 'Report one of five possible answers via the "Customer Feedback" form.'
     - 'Cryptographic functions only used in the "Apply some advanced cryptanalysis to find the real easter egg" challenge do not count as they are only a developer’s prank and not a serious security problem.'
@@ -1418,8 +1243,6 @@
     - Prerequisite
   description: 'Enforce a redirect to a page you are not supposed to redirect to.'
   difficulty: 4
-  hint: 'You have to find a way to beat the allowlist of allowed redirect URLs.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/unvalidated-redirects.html#_enforce_a_redirect_to_a_page_you_are_not_supposed_to_redirect_to'
   hints:
      - 'You have to find a way to beat the allowlist of allowed redirect URLs.'
      - 'You can find several places where redirects happen in the OWASP Juice Shop.'
@@ -1434,8 +1257,6 @@
     - Danger Zone
   description: 'Retrieve the content of <code>C:\Windows\system.ini</code> or <code>/etc/passwd</code> from the server.'
   difficulty: 3
-  hint: 'The leverage point for this challenge is the deprecated B2B interface.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/xxe.html#_retrieve_the_content_of_cwindowssystem_ini_or_etcpasswd_from_the_server'
   hints:
     - 'The leverage point for this challenge is the deprecated B2B interface.'
     - 'This challenge sounds a lot harder than it actually is, which amplifies how bad the underlying vulnerability is.'
@@ -1453,8 +1274,6 @@
     - Danger Zone
   description: 'Give the server something to chew on for quite a while.'
   difficulty: 5
-  hint: 'It is not as easy as sending a large amount of data directly to the deprecated B2B interface.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/xxe.html#_give_the_server_something_to_chew_on_for_quite_a_while'
   hints:
     - 'It is not as easy as sending a large amount of data directly to the deprecated B2B interface.'
     - 'The leverage point for this is obviously the same as for the XXE Data Access challenge.'
@@ -1473,8 +1292,6 @@
     - Danger Zone
   description: 'Drop some explosive data into a vulnerable file-handling endpoint.'
   difficulty: 5
-  hint: 'This one is actually similar to the XXE DoS challenge in every way except the data format being (ab)used.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/insecure-deserialization.html#_drop_some_explosive_data_into_a_vulnerable_file_handling_endpoint'
   hints:
     - 'This one is actually similar to the XXE DoS challenge in every way except the data format being (ab)used.'
     - 'You can only solve this challenge by keeping the server busy for >2sec with your attack.'
@@ -1490,8 +1307,6 @@
   category: 'Improper Input Validation'
   description: 'Give a devastating zero-star feedback to the store.'
   difficulty: 1
-  hint: 'Before you invest time bypassing the API, you might want to play around with the UI a bit.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_give_a_devastating_zero_star_feedback_to_the_store'
   hints:
     - 'Before you invest time bypassing the API, you might want to play around with the UI a bit.'
   mitigationUrl: ~
@@ -1503,8 +1318,6 @@
     - Shenanigans
   description: 'Retrieve the photo of Bjoern''s cat in "melee combat-mode".'
   difficulty: 1
-  hint: 'Check the Photo Wall for an image that could not be loaded correctly.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_retrieve_the_photo_of_bjoerns_cat_in_melee_combat_mode'
   hints:
     - 'Check the Photo Wall for an image that could not be loaded correctly.'
     - 'You just have to (literally) inspect the problem to understand the basic issue.'
@@ -1518,8 +1331,6 @@
     - Contraption
   description: 'Stick <a href="https://cataas.com/cat" target="_blank">cute cross-domain kittens</a> all over our delivery boxes.'
   difficulty: 5
-  hint: 'This challenge would formally have to be in several categories as the developers made multiple gaffes for this to be possible.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/security-misconfiguration.html#_stick_cute_cross_domain_kittens_all_over_our_delivery_boxes'
   hints:
     - 'This challenge would formally have to be in several categories as the developers made multiple gaffes for this to be possible.'
     - 'Loading this page with an empty browser cache and on a slow (or throttled) connection will give you an idea on what the delivery box image is made of. Of course inspecting the page source will tell you just as much.'
@@ -1535,8 +1346,6 @@
     - Good Practice
   description: 'Find the endpoint that serves usage data to be scraped by a <a href="https://github.com/prometheus/prometheus">popular monitoring system</a>.'
   difficulty: 1
-  hint: 'Try to guess what URL the endpoint might have.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_find_the_endpoint_that_serves_usage_data_to_be_scraped_by_a_popular_monitoring_system'
   hints:
     - 'Try to guess what URL the endpoint might have.'
     - 'The Juice Shop serves its metrics on the default path expected by Prometheus'
@@ -1548,8 +1357,6 @@
   category: 'Improper Input Validation'
   description: 'Obtain a Deluxe Membership without paying for it.'
   difficulty: 3
-  hint: 'Look closely at what happens when you attempt to upgrade your account.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_obtain_a_deluxe_membership_without_paying_for_it'
   hints:
     - 'Look closely at what happens when you attempt to upgrade your account.'
     - 'Go to the payment page for a deluxe membership and try paying through different methods.'
@@ -1562,8 +1369,6 @@
   category: 'Broken Access Control'
   description: 'Change the name of a user by performing Cross-Site Request Forgery from <a href="http://htmledit.squarefree.com">another origin</a>.'
   difficulty: 3
-  hint: 'Find a form which updates the username and then construct a malicious page in the online HTML editor. You probably need an older browser version for this.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/broken-access-control.html#_change_the_name_of_a_user_by_performing_cross_site_request_forgery_from_another_origin'
   hints:
     - 'Find a form which updates the username and then construct a malicious page in the online HTML editor. You probably need an older browser version for this.'
     - 'Take a look at what happens when you change the username within the profile page.'
@@ -1579,8 +1384,6 @@
     - Tutorial
   description: 'Use the bonus payload <code>&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;</code> in the <i>DOM XSS</i> challenge.'
   difficulty: 1
-  hint: 'First, solve the "Perform a DOM XSS attack" challenge.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/xss.html#_use_the_bonus_payload_in_the_dom_xss_challenge'
   hints:
     - 'First, solve the "Perform a DOM XSS attack" challenge.'
     - 'Now it is just a question of copying and pasting the payload into the same vulnerable field.'
@@ -1596,8 +1399,6 @@
     - OSINT
   description: 'Reset Uvogin''s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
   difficulty: 4
-  hint: 'You might have to do some OSINT on his social media personas to find out his honest answer to the security question.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_reset_uvogins_password_via_the_forgot_password_mechanism'
   hints:
     - 'You might have to do some OSINT on his social media personas to find out his honest answer to the security question.'
     - 'People often reuse aliases online. You might be able to find something by looking online for Uvogin’s name or slight variations of it based on his unique writing habits.'
@@ -1611,8 +1412,6 @@
     - OSINT
   description: 'Determine the answer to John''s security question by looking at an upload of him to the Photo Wall and use it to reset his password via the <a href="/#/forgot-password">Forgot Password</a> mechanism.'
   difficulty: 2
-  hint: 'Take a look at the meta data of the corresponding photo.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_determine_the_answer_to_johns_security_question'
   hints:
     - 'Take a look at the meta data of the corresponding photo.'
     - 'Make use of tools that can inspect the metadata of images.'
@@ -1626,8 +1425,6 @@
     - OSINT
   description: 'Determine the answer to Emma''s security question by looking at an upload of her to the Photo Wall and use it to reset her password via the <a href="/#/forgot-password">Forgot Password</a> mechanism.'
   difficulty: 2
-  hint: 'Take a look at the details in the photo to determine the location of where it was taken.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_determine_the_answer_to_emmas_security_question'
   hints:
     - 'Take a look at the details in the photo to determine the location of where it was taken.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html'
@@ -1639,8 +1436,6 @@
     - Code Analysis
   description: 'Permanently disable the support chatbot so that it can no longer answer customer queries.'
   difficulty: 5
-  hint: 'Think of a way to get a hold of the internal workings on the chatbot API.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/snapshot/part2/vulnerable-components.html#_permanently_disable_the_support_chatbot'
   hints:
     - 'Think of a way to get a hold of the internal workings on the chatbot API.'
     - 'In order to disable the chatbot for all users, you must first get an understanding of how it works under the hood.'
@@ -1655,8 +1450,6 @@
     - Prerequisite
   description: 'Bypass a security control with a <a href="https://hakipedia.com/index.php/Poison_Null_Byte">Poison Null Byte</a> to access a file not meant for your eyes.'
   difficulty: 4
-  hint: 'Analyze and tamper with links in the application until you get to an unprotected directory listing.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/improper-input-validation.html#_bypass_a_security_control_with_a_poison_null_byte'
   hints:
     - 'Analyze and tamper with links in the application until you get to an unprotected directory listing.'
     - 'Some files in there are not directly accessible because a security mechanism prevents access.'
@@ -1672,8 +1465,6 @@
     - Brute Force
   description: 'Receive a coupon code from the support chatbot.'
   difficulty: 1
-  hint: 'The bot is reluctant to give you a coupon as it’s coming up with various excuses for not giving you one.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/miscellaneous.html#_receive_a_coupon_code_from_the_support_chatbot'
   hints:
     - 'The bot is reluctant to give you a coupon as it’s coming up with various excuses for not giving you one.'
     - 'Asking over and over again like a little kid might actually help you succeed in this case.'
@@ -1687,8 +1478,6 @@
     - OSINT
     - Danger Zone
   difficulty: 5
-  hint: 'You should read up on vulnerabilities in popular NodeJs template engines.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/vulnerable-components.html#_gain_read_access_to_an_arbitrary_local_file_on_the_web_server'
   hints:
     - 'You should read up on vulnerabilities in popular NodeJs template engines.'
     - 'You should read up on Local File Read (LFR) vulnerabilities in popular NodeJS template engines.'
@@ -1706,8 +1495,6 @@
   category: 'Miscellaneous'
   description: 'Close multiple "Challenge solved"-notifications in one go.'
   difficulty: 1
-  hint: 'Either check the official documentation or inspect a notification UI element directly.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/miscellaneous.html#_close_multiple_challenge_solved_notifications_in_one_go'
   hints:
     - 'Either check the official documentation or inspect a notification UI element directly.'
     - 'This challenge is most easily solvable immediately after a server restart.'
@@ -1719,8 +1506,6 @@
   category: 'Miscellaneous'
   description: 'The Juice Shop is susceptible to a known vulnerability in a library, for which an advisory has already been issued, marking the Juice Shop as <i>known affected</i>. A fix is still pending. <a href="/#/contact">Inform the shop</a> about a suitable checksum as proof that you did your due diligence.'
   difficulty: 3
-  hint: 'Security Advisories are often listed in the security.txt'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/miscellaneous.html#_the_juice_shop_is_susceptible_to_a_known_vulnerability_in_a_library_for_which_an_advisory_has_already_been_issued'
   hints:
     - 'Security Advisories are often listed in the security.txt'
   mitigationUrl: ~
@@ -1730,8 +1515,6 @@
   category: 'Sensitive Data Exposure'
   description: 'A developer was careless with hardcoding unused, but still valid credentials for a testing account on the client-side.'
   difficulty: 2
-  hint: 'Have a look at the client-side code in the dev console.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_a_developer_was_careless_with_hardcoding_unused_but_still_valid_credentials'
   hints:
     - 'Have a look at the client-side code in the dev console.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html'
@@ -1743,8 +1526,6 @@
   category: 'Sensitive Data Exposure'
   description: '<a href="/#/contact">Inform the shop</a> about a leaked API key. (Mention the exact key in your comment)'
   difficulty: 5
-  hint: 'The API call is part of a scheduled process "behind the scenes", i.e. completely unrelated to the web application.'
-  hintUrl: 'https://pwning.owasp-juice.shop/companion-guide/latest/part2/sensitive-data-exposure.html#_inform_the_shop_about_a_leaked_api_key'
   hints:
     - 'The API call is part of a scheduled process "behind the scenes", i.e. completely unrelated to the web application.'
     - 'Check the Juice Shop’s social media channels for regularly scheduled content being posted, possibly even indicating that it was automatically created.'
