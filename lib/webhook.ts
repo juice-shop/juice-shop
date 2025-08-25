@@ -21,9 +21,9 @@ export const notify = async (challenge: { key: any, name: any }, cheatScore = -1
     body: JSON.stringify({
       solution: {
         challenge: challenge.key,
-        cheatScore,
         hintsAvailable,
         hintsUnlocked,
+        cheatScore,
         totalCheatScore: totalCheatScore(),
         issuedOn: new Date().toISOString()
       },
