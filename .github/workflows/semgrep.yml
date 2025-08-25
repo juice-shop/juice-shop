@@ -1,26 +1,53 @@
+name: Semgrep PR Scan
+
 on:
-  workflow_dispatch: {}
-  pull_request: {}
-  push:
-    branches:
-    - main
-    - master
-    paths:
-    - .github/workflows/semgrep.yml
-  schedule:
-  # random HH:MM to avoid a load spike on GitHub Actions at 00:00
-  - cron: 3 16 * * *
-name: Semgrep
+  pull_request:
+    types: [opened, reopened, synchronize]
+
 jobs:
-  semgrep:
-    name: semgrep/ci
+  semgrep_scan:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    env:
-      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
-    container:
-      image: semgrep/semgrep
+
     steps:
-    - uses: actions/checkout@v4
-    - run: semgrep ci
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Call FastAPI Semgrep Scanner
+        id: call_api
+        run: |
+          PR_ID=${{ github.event.pull_request.number }}
+          COMMIT_HASH=${{ github.sha }}
+          REPO_URL=${{ github.event.repository.clone_url }}
+          API_URL=${{ secrets.SEMGREP_API_URL }}
+
+          echo "Sending scan request to FastAPI..."
+
+          RESPONSE=$(curl -s -X POST "$API_URL/scan_pr" \
+            -H "Content-Type: application/json" \
+            -d "{\"pr_id\": \"$PR_ID\", \"repo_url\": \"$REPO_URL\", \"commit_hash\": \"$COMMIT_HASH\"}")
+
+          echo "$RESPONSE" > response.json
+          STATUS=$(echo "$RESPONSE" | jq -r '.status')
+
+          echo "Scan Status: $STATUS"
+          echo "::set-output name=status::$STATUS"
+
+      - name: Fail if high/critical findings
+        if: steps.call_api.outputs.status == 'blocked'
+        run: |
+          echo "Critical/High severity issues found. PR requires manual security approval."
+          exit 1
+
+      - name: Notify Slack if PR is blocked
+        if: steps.call_api.outputs.status == 'blocked'
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          slack-message: |
+            :rotating_light: *Security Alert for PR #${{ github.event.pull_request.number }}*
+
+            Critical or High severity vulnerabilities were found by Semgrep.
+
+            ➤ To review findings: `/pr_findings ${{ github.event.pull_request.number }}`
+            ➤ To approve: `/approve_pr ${{ github.event.pull_request.number }}`
+
+          slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
