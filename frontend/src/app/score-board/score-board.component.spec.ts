@@ -21,7 +21,7 @@ import { ChallengeService } from '../Services/challenge.service'
 import { type Challenge } from '../Models/challenge.model'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
-import {HintService} from "../Services/hint.service";
+import { HintService } from '../Services/hint.service'
 
 // allows to easily create a challenge with some overwrites
 function createChallenge (challengeOverwrites: Partial<Challenge>): Challenge {
