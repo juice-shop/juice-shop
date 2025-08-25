@@ -15,11 +15,11 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { MatButtonModule } from '@angular/material/button'
 import { MatSliderModule } from '@angular/material/slider'
-import { NgIf } from '@angular/common'
+
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel, MatHint, MatError } from '@angular/material/form-field'
 import { MatCardModule } from '@angular/material/card'
-import { FlexModule } from '@angular/flex-layout/flex'
+
 import { MatIconModule } from '@angular/material/icon'
 
 library.add(faStar, faPaperPlane)
@@ -28,7 +28,7 @@ library.add(faStar, faPaperPlane)
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
-  imports: [FlexModule, MatCardModule, TranslateModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatHint, NgIf, MatError, MatSliderModule, MatButtonModule, MatIconModule]
+  imports: [MatCardModule, TranslateModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatHint, MatError, MatSliderModule, MatButtonModule, MatIconModule]
 })
 export class ContactComponent implements OnInit {
   public authorControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
@@ -46,15 +46,18 @@ export class ContactComponent implements OnInit {
     private readonly formSubmitService: FormSubmitService, private readonly translate: TranslateService, private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit (): void {
-    this.userService.whoAmI().subscribe((data: any) => {
-      this.feedback = {}
-      this.userIdControl.setValue(data.id)
-      this.feedback.UserId = data.id
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      this.authorControl.setValue(data.email ? `***${data.email.slice(3)}` : 'anonymous')
-    }, (err) => {
-      this.feedback = undefined
-      console.log(err)
+    this.userService.whoAmI().subscribe({
+      next: (data: any) => {
+        this.feedback = {}
+        this.userIdControl.setValue(data.id)
+        this.feedback.UserId = data.id
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        this.authorControl.setValue(data.email ? `***${data.email.slice(3)}` : 'anonymous')
+      },
+      error: (err) => {
+        this.feedback = undefined
+        console.log(err)
+      }
     })
     this.getNewCaptcha()
 
@@ -62,10 +65,13 @@ export class ContactComponent implements OnInit {
   }
 
   getNewCaptcha () {
-    this.captchaService.getCaptcha().subscribe((data: any) => {
-      this.captcha = data.captcha
-      this.captchaId = data.captchaId
-    }, (err) => err)
+    this.captchaService.getCaptcha().subscribe({
+      next: (data: any) => {
+        this.captcha = data.captcha
+        this.captchaId = data.captchaId
+      },
+      error: (err) => err
+    })
   }
 
   save () {
@@ -75,28 +81,37 @@ export class ContactComponent implements OnInit {
     this.feedback.comment = `${this.feedbackControl.value} (${this.authorControl.value})`
     this.feedback.rating = this.rating
     this.feedback.UserId = this.userIdControl.value
-    this.feedbackService.save(this.feedback).subscribe((savedFeedback) => {
-      if (savedFeedback.rating === 5) {
-        this.translate.get('FEEDBACK_FIVE_STAR_THANK_YOU').subscribe((feedbackThankYou) => {
-          this.snackBarHelperService.open(feedbackThankYou)
-        }, (translationId) => {
-          this.snackBarHelperService.open(translationId)
-        })
-      } else {
-        this.translate.get('FEEDBACK_THANK_YOU').subscribe((feedbackThankYou) => {
-          this.snackBarHelperService.open(feedbackThankYou)
-        }, (translationId) => {
-          this.snackBarHelperService.open(translationId)
-        })
+    this.feedbackService.save(this.feedback).subscribe({
+      next: (savedFeedback) => {
+        if (savedFeedback.rating === 5) {
+          this.translate.get('FEEDBACK_FIVE_STAR_THANK_YOU').subscribe({
+            next: (feedbackThankYou) => {
+              this.snackBarHelperService.open(feedbackThankYou)
+            },
+            error: (translationId) => {
+              this.snackBarHelperService.open(translationId)
+            }
+          })
+        } else {
+          this.translate.get('FEEDBACK_THANK_YOU').subscribe({
+            next: (feedbackThankYou) => {
+              this.snackBarHelperService.open(feedbackThankYou)
+            },
+            error: (translationId) => {
+              this.snackBarHelperService.open(translationId)
+            }
+          })
+        }
+        this.feedback = {}
+        this.ngOnInit()
+        this.resetForm()
+      },
+      error: (err) => {
+        console.log(err)
+        this.snackBarHelperService.open(err.error, 'errorBar')
+        this.feedback = {}
+        this.resetCaptcha()
       }
-      this.feedback = {}
-      this.ngOnInit()
-      this.resetForm()
-    }, (err) => {
-      console.log(err)
-      this.snackBarHelperService.open(err.error, 'errorBar')
-      this.feedback = {}
-      this.resetCaptcha()
     })
   }
 

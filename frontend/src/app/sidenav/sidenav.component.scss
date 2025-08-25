@@ -89,3 +89,10 @@ mat-nav-list {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.show-lt-md-only {
+  display: none !important;
+}
+@media (max-width: 959.98px) {
+  .show-lt-md-only { display: block !important; }
+}

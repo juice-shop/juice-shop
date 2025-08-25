@@ -23,8 +23,7 @@ import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } fr
 import { MatButtonModule, MatIconButton } from '@angular/material/button'
 import { MatDivider } from '@angular/material/divider'
 import { MatTooltip } from '@angular/material/tooltip'
-import { NgIf, NgFor, AsyncPipe } from '@angular/common'
-import { FlexModule } from '@angular/flex-layout/flex'
+import { AsyncPipe } from '@angular/common'
 
 library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp, faCrown)
 
@@ -32,7 +31,7 @@ library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp, faCrown)
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss'],
-  imports: [MatDialogContent, FlexModule, NgIf, MatTooltip, MatDivider, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, TranslateModule, NgFor, MatIconButton, MatIconModule, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormsModule, ReactiveFormsModule, MatDialogActions, MatDialogClose, AsyncPipe]
+  imports: [MatDialogContent, MatTooltip, MatDivider, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, TranslateModule, MatIconButton, MatIconModule, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormsModule, ReactiveFormsModule, MatDialogActions, MatDialogClose, AsyncPipe]
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
   public author: string = 'Anonymous'
@@ -46,13 +45,16 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   ngOnInit (): void {
     this.data.productData.points = Math.round(this.data.productData.price / 10)
     this.reviews$ = this.productReviewService.get(this.data.productData.id)
-    this.userSubscription = this.userService.whoAmI().subscribe((user: any) => {
-      if (user?.email) {
-        this.author = user.email
-      } else {
-        this.author = 'Anonymous'
-      }
-    }, (err) => { console.log(err) })
+    this.userSubscription = this.userService.whoAmI().subscribe({
+      next: (user: any) => {
+        if (user?.email) {
+          this.author = user.email
+        } else {
+          this.author = 'Anonymous'
+        }
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 
   ngOnDestroy () {
@@ -65,9 +67,12 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     const review = { message: textPut.value, author: this.author }
 
     textPut.value = ''
-    this.productReviewService.create(this.data.productData.id, review).subscribe(() => {
-      this.reviews$ = this.productReviewService.get(this.data.productData.id)
-    }, (err) => { console.log(err) })
+    this.productReviewService.create(this.data.productData.id, review).subscribe({
+      next: () => {
+        this.reviews$ = this.productReviewService.get(this.data.productData.id)
+      },
+      error: (err) => { console.log(err) }
+    })
     this.snackBarHelperService.open('CONFIRM_REVIEW_SAVED')
   }
 

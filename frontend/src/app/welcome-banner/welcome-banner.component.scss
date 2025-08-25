@@ -39,12 +39,16 @@ mat-icon {
   justify-content: center;
   margin-right: 1px !important;
   width: 24px !important;
-  
 }
 
 @media screen and (max-width: 1279px) {
   mat-icon {
-    margin-left: 1px !important; //  Slightly shifts the icon for better positioning on small screens 
+    margin-left: 1px !important;
   }
- 
 }
+
+.hide-lt-lg { display: inline; }
+@media (max-width: 1279.98px) { .hide-lt-lg { display: none !important; } }
+
+.hide-lt-sm { display: inline; }
+@media (max-width: 599.98px) { .hide-lt-sm { display: none !important; } }

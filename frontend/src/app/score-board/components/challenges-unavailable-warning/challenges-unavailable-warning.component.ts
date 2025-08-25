@@ -5,13 +5,13 @@ import { type EnrichedChallenge } from '../../types/EnrichedChallenge'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'
 import { WarningCardComponent } from '../warning-card/warning-card.component'
-import { NgIf, NgClass } from '@angular/common'
+import { NgClass } from '@angular/common'
 
 @Component({
   selector: 'challenges-unavailable-warning',
   templateUrl: './challenges-unavailable-warning.component.html',
   styleUrls: ['./challenges-unavailable-warning.component.scss'],
-  imports: [NgIf, WarningCardComponent, NgClass, MatButtonModule, TranslateModule]
+  imports: [WarningCardComponent, NgClass, MatButtonModule, TranslateModule]
 })
 export class ChallengesUnavailableWarningComponent implements OnChanges {
   @Input()

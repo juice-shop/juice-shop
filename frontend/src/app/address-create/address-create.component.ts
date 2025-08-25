@@ -8,7 +8,7 @@ import { Component, type OnInit } from '@angular/core'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { AddressService } from '../Services/address.service'
 import { ActivatedRoute, type ParamMap, Router } from '@angular/router'
-import { Location, NgIf } from '@angular/common'
+import { Location } from '@angular/common'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { MatIconModule } from '@angular/material/icon'
@@ -16,13 +16,12 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel, MatError, MatHint } from '@angular/material/form-field'
 import { MatCardModule } from '@angular/material/card'
-import { FlexModule } from '@angular/flex-layout/flex'
 
 @Component({
   selector: 'app-address-create',
   templateUrl: './address-create.component.html',
   styleUrls: ['./address-create.component.scss'],
-  imports: [FlexModule, MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, NgIf, MatError, MatHint, MatButtonModule, MatIconModule]
+  imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatHint, MatButtonModule, MatIconModule]
 })
 export class AddressCreateComponent implements OnInit {
   public countryControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
@@ -66,36 +65,48 @@ export class AddressCreateComponent implements OnInit {
     this.address.city = this.cityControl.value
     this.address.state = this.stateControl.value
     if (this.mode === 'edit') {
-      this.addressService.put(this.addressId, this.address).subscribe((savedAddress) => {
-        this.address = {}
-        this.ngOnInit()
-        this.resetForm()
-        this.routeToPreviousUrl()
-        this.translate.get('ADDRESS_UPDATED', { city: savedAddress.city }).subscribe((addressUpdated) => {
-          this.snackBarHelperService.open(addressUpdated, 'confirmBar')
-        }, (translationId) => {
-          this.snackBarHelperService.open(translationId, 'confirmBar')
-        })
-      }, (err) => {
-        this.snackBarHelperService.open(err.error?.error, 'errorBar')
-        this.address = {}
-        this.resetForm()
+      this.addressService.put(this.addressId, this.address).subscribe({
+        next: (savedAddress) => {
+          this.address = {}
+          this.ngOnInit()
+          this.resetForm()
+          this.routeToPreviousUrl()
+          this.translate.get('ADDRESS_UPDATED', { city: savedAddress.city }).subscribe({
+            next: (addressUpdated) => {
+              this.snackBarHelperService.open(addressUpdated, 'confirmBar')
+            },
+            error: (translationId) => {
+              this.snackBarHelperService.open(translationId, 'confirmBar')
+            }
+          })
+        },
+        error: (err) => {
+          this.snackBarHelperService.open(err.error?.error, 'errorBar')
+          this.address = {}
+          this.resetForm()
+        }
       })
     } else {
-      this.addressService.save(this.address).subscribe((savedAddress) => {
-        this.address = {}
-        this.ngOnInit()
-        this.resetForm()
-        this.routeToPreviousUrl()
-        this.translate.get('ADDRESS_ADDED', { city: savedAddress.city }).subscribe((addressAdded) => {
-          this.snackBarHelperService.open(addressAdded, 'confirmBar')
-        }, (translationId) => {
-          this.snackBarHelperService.open(translationId, 'confirmBar')
-        })
-      }, (err) => {
-        this.snackBarHelperService.open(err.error?.error, 'errorBar')
-        this.address = {}
-        this.resetForm()
+      this.addressService.save(this.address).subscribe({
+        next: (savedAddress) => {
+          this.address = {}
+          this.ngOnInit()
+          this.resetForm()
+          this.routeToPreviousUrl()
+          this.translate.get('ADDRESS_ADDED', { city: savedAddress.city }).subscribe({
+            next: (addressAdded) => {
+              this.snackBarHelperService.open(addressAdded, 'confirmBar')
+            },
+            error: (translationId) => {
+              this.snackBarHelperService.open(translationId, 'confirmBar')
+            }
+          })
+        },
+        error: (err) => {
+          this.snackBarHelperService.open(err.error?.error, 'errorBar')
+          this.address = {}
+          this.resetForm()
+        }
       })
     }
   }

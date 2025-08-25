@@ -1,7 +1,7 @@
 <div class="container">
   <mat-card appearance="outlined" class="mat-elevation-z6 faucet-container">
     <div class="mdc-card">
-      <h1 >{{"TITLE_BEE_HAVEN" | translate}}</h1>
+      <h1>{{"TITLE_BEE_HAVEN" | translate}}</h1>
       <div class="faucet-image">
         <img src="assets/public/images/BeeOwner.png" />
       </div>
@@ -9,24 +9,25 @@
       <div class="faucet-balance">
         <span color="accent">
           {{'FAUCET_BALANCE' | translate}}: {{ BEEBalance }} | {{'BEE_BALANCE' | translate}}:
-          {{ myBEEBalance }}</span
-        >
+          {{ myBEEBalance }}
+        </span>
         <div class="metamask-button">
           <button
             mat-raised-button
             color="accent"
             type="button"
             (click)="handleAuth()"
-          >
+            >
             <mat-icon>
               account_balance_wallet
             </mat-icon>
-            <span *ngIf="!session" >{{"BTN_CONNECT_METAMASK" | translate}}</span>
-            <span *ngIf="session"
-              >{{ userData.address.substring(0, 6) }}...{{
-                userData.address.slice(-6)
-              }}</span
-            >
+            @if (session) {
+            <span>{{ userData.address.substring(0, 6) }}...{{
+              userData.address.slice(-6)
+              }}</span>
+            } @else {
+            <span>{{"BTN_CONNECT_METAMASK" | translate}}</span>
+            }
           </button>
         </div>
       </div>
@@ -42,7 +43,7 @@
               id="withdrawAmount"
               [(ngModel)]="withdrawAmount"
               aria-label="Text field for the withdrawal amount"
-            />
+              />
           </mat-form-field>
           <h5 class="error">{{ errorMessage }}</h5>
         </div>
@@ -51,7 +52,7 @@
           type="button"
           color="primary"
           (click)="extractBEETokens()"
-        >
+          >
           <mat-icon>
             emoji_nature
           </mat-icon>
@@ -65,20 +66,19 @@
       <div class="honeypot-image mat-elevation-z6">
         <img src="assets/public/images/HoneyPot.png" />
       </div>
-      <h2 >{{"BEE_HONEYPOT_TITLE" | translate}}</h2>
-      <p >{{"BEE_HONEYPOT_DESCRIPTION" | translate}}</p>
+      <h2>{{"BEE_HONEYPOT_TITLE" | translate}}</h2>
+      <p>{{"BEE_HONEYPOT_DESCRIPTION" | translate}}</p>
 
-      <button
+      <button 
         class="mint_button"
         mat-raised-button
         color="warn"
         [disabled]="mintButtonDisabled"
-        fxFlexAlign="center"
         (click)="mintNFT()"
       >
-       <mat-icon>
-        image
-       </mat-icon>
+        <mat-icon>
+          image
+        </mat-icon>
         {{ nftMintText }}
       </button>
     </div>
