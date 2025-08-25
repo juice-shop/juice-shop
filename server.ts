@@ -510,7 +510,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     } // vuln-code-snippet neutral-line registerAdminChallenge
     // vuln-code-snippet end registerAdminChallenge
 
-    // translate challenge descriptions and hints on-the-fly
+    // translate challenge descriptions on-the-fly
     if (name === 'Challenge') {
       resource.list.fetch.after((req: Request, res: Response, context: { instance: string | any[], continue: any }) => {
         for (let i = 0; i < context.instance.length; i++) {
@@ -522,17 +522,11 @@ restoreOverwrittenFilesWithOriginals().then(() => {
           } else {
             context.instance[i].description = req.__(description)
           }
-          if (context.instance[i].hint) {
-            context.instance[i].hint = req.__(context.instance[i].hint)
-          }
         }
         return context.continue
       })
       resource.read.send.before((req: Request, res: Response, context: { instance: { description: string, hint: string }, continue: any }) => {
         context.instance.description = req.__(context.instance.description)
-        if (context.instance.hint) {
-          context.instance.hint = req.__(context.instance.hint)
-        }
         return context.continue
       })
     }
