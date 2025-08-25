@@ -52,9 +52,9 @@
 				<a href="https://owasp-juice.shop">https://owasp-juice.shop</a>
 			</h2>
 			<small>
-				Copyright (c) 2014-2023 <a href="http://kimminich.de">Björn Kimminich</a> | <a href="http://twitter.com/bkimminich">@bkimminich</a> | <a href="https://infosec.exchange/@bkimminich">infosec.exchange/@bkimminich</a>
+				<a href="http://kimminich.de">Björn Kimminich</a> | <a href="http://twitter.com/bkimminich">@bkimminich</a> | <a href="https://infosec.exchange/@bkimminich">infosec.exchange/@bkimminich</a> | <a href="https://bsky.app/profile/bkimminich.bsky.social">@bkimminich.bsky.social</a>
 			</small>
-		</section>
+        </section>
 
 		<section data-transition="fade-in convex-out">
 			<h2>What is "OWASP"?!?</h2>
@@ -653,44 +653,6 @@ products:
 				<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/braimee" title="braimee" target="_blank" style="color: #cccccc; text-decoration: none;">braimee</a> · <a href="https://soundcloud.com/braimee/owasp-juice-shop-jingle" title="OWASP Juice Shop Jingle" target="_blank" style="color: #cccccc; text-decoration: none;">OWASP Juice Shop Jingle</a></div>
 			</section>
 
-			<section>
-				<h3>This project REALLY needs NFTs!</h3>
-				<p>
-					We couldn't agree more!
-				</p>
-				<table>
-					<tr>
-						<td>
-							<nft-card width="400px"
-									  contractAddress="0x495f947276749ce646f68ac8c248420045cb7b5e"
-									  tokenId="69157691162327567172870131924536492302815108437750715040309091511341588414514">
-							</nft-card>
-						</td>
-						<td>
-							<nft-card width="400px"
-									  contractAddress="0x495f947276749ce646f68ac8c248420045cb7b5e"
-									  tokenId="69157691162327567172870131924536492302815108437750715040309091514640123297842">
-							</nft-card>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<nft-card width="400px"
-									  contractAddress="0x495f947276749ce646f68ac8c248420045cb7b5e"
-									  tokenId="69157691162327567172870131924536492302815108437750715040309091515739634925593">
-							</nft-card>
-						</td>
-						<td>
-							<nft-card width="400px"
-									  contractAddress="0x495f947276749ce646f68ac8c248420045cb7b5e"
-									  tokenId="69157691162327567172870131924536492302815108437750715040309091512441100042265">
-							</nft-card>
-						</td>
-					</tr>
-				</table>
-				<script src="https://unpkg.com/embeddable-nfts/dist/nft-card.min.js"></script>
-			</section>
-
 		</section>
 
 		<section>
@@ -706,8 +668,9 @@ products:
 				<img class="no-box" height="45px" src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg"/>
 				<img class="no-box" height="45px" src="https://www.bestpractices.dev/projects/223/badge"/>
 				<br>
-				<img class="no-box" height="48px" src="https://api.codeclimate.com/v1/badges/6206c8f3972bcc97a033/test_coverage"/>
-				<img class="no-box" height="48px" src="https://api.codeclimate.com/v1/badges/6206c8f3972bcc97a033/maintainability"/>
+				<img class="no-box" height="43px" src="https://coveralls.io/repos/github/juice-shop/juice-shop/badge.svg?branch=develop"/>
+                <img class="no-box" height="43px" src="https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/3hrkhu/master&style=flat&logo=cypress"/>
+                <img class="no-box" height="43px" src="https://api.codeclimate.com/v1/badges/6206c8f3972bcc97a033/maintainability"/>
 				<br>
 				<img class="no-box" height="33px" src="https://img.shields.io/github/stars/juice-shop/juice-shop.svg?label=GitHub%20%E2%98%85&style=flat"/>
 				<img class="no-box" height="33px" src="https://img.shields.io/github/downloads/juice-shop/juice-shop/total.svg"/>
@@ -758,7 +721,7 @@ products:
 		<section data-transition="fade">
 			<img src="assets/JuiceShop_Logo.png" width="300" class="no-box"/>
 			<p>
-				Copyright (c) 2014-2023 <a href="http://kimminich.de">Björn Kimminich</a> / <a href="http://twitter.com/bkimminich">@bkimminich</a>
+				Copyright (c) 2014-2025 <a href="http://kimminich.de">Björn Kimminich</a> / <a href="http://twitter.com/bkimminich">@bkimminich</a>
 			</p>
 			<p>
 				Licensed under the <a href="https://github.com/juice-shop/juice-shop/blob/master/LICENSE">MIT license</a>.
@@ -811,17 +774,17 @@ products:
 		const snippets = await res.json();
 		document.getElementById('numCodingChallenges').innerHTML = snippets.challenges.length
 	})
-	fetch("https://raw.githubusercontent.com/bkimminich/juice-shop/master/package.json").then(async (res) => {
+	fetch("https://raw.githubusercontent.com/juice-shop/juice-shop/master/package.json").then(async (res) => {
 		const juiceShopPackage = await res.json();
 		document.getElementById('juiceShopVersion').innerHTML = juiceShopPackage.version
 	})
-	fetch("https://raw.githubusercontent.com/bkimminich/juice-shop-ctf/master/package.json").then(async (res) => {
+	fetch("https://raw.githubusercontent.com/juice-shop/juice-shop-ctf/master/package.json").then(async (res) => {
 		const ctfExtensionPackage = await res.json();
 		document.getElementById('ctfExtensionVersion').innerHTML = ctfExtensionPackage.version
 	})
-	fetch("https://raw.githubusercontent.com/iteratec/multi-juicer/main/helm/multi-juicer/Chart.yaml").then(async (res) => {
-		const multiJuicerChart = await res.text();
-		document.getElementById('multiJuicerVersion').innerHTML = multiJuicerChart.match(/version: (.*)/)[1]
+	fetch("https://api.github.com/repos/juice-shop/multi-juicer/releases").then(async (res) => {
+		const multiJuicerLatestReleases = await res.json();
+		document.getElementById('multiJuicerVersion').innerHTML = multiJuicerLatestReleases[0].name
 	})
 </script>
 <!-- Roadmap -->
@@ -856,27 +819,25 @@ products:
 		<table>
 			<tr>
 				<td>
-					<div class="fb-like" data-href="https://www.facebook.com/owasp.juiceshop" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-colorscheme="dark"></div>
-				</td>
-				<td>
-					<a href="https://twitter.com/share" class="twitter-share-button" data-url="https://www.owasp.org/index.php/OWASP_Juice_Shop_Project" data-text="OWASP Juice Shop - An intentionally insecure JavaScript Web Application" data-via="owasp_juiceshop" data-related="owasp">Tweet</a>
-					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-				</td>
-				<td>
 					<a href="https://twitter.com/owasp_juiceshop" class="twitter-follow-button" data-show-count="false">Follow @owasp_juiceshop</a>
 					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 				</td>
-				<td>
-					<a href="https://twitter.com/bkimminich" class="twitter-follow-button" data-show-count="false">Follow @bkimminich</a>
-					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                <td>
+                    <a href="https://fosstodon.org/@owasp_juiceshop/"><img src="https://img.shields.io/mastodon/follow/109372732266638050?domain=fosstodon.org"></a>
 				</td>
-				<td>
-					<iframe src="https://ghbtns.com/github-btn.html?user=bkimminich&type=follow&count=true" frameborder="0" scrolling="0" width="175px" height="20px"></iframe>
+                <td>
+                    <a href="https://bsky.app/profile/owasp-juice.shop/"><img src="https://img.shields.io/badge/bluesky-Follow-blue?logo=bluesky"></a>
 				</td>
-				<td>
+                <td>
 					<iframe src="https://ghbtns.com/github-btn.html?user=juice-shop&repo=juice-shop&type=star&count=true" frameborder="0" scrolling="0" width="120px" height="20px"></iframe>
 				</td>
-			</tr>
+                <td>
+                    <div class="fb-like" data-href="https://www.facebook.com/owasp.juiceshop" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-colorscheme="dark"></div>
+                </td>
+                <td>
+                    <a href="https://www.reddit.com/r/owasp_juiceshop/"><img src="https://img.shields.io/reddit/subreddit-subscribers/owasp_juiceshop"></a>
+                </td>
+            </tr>
 		</table>
 	</div>
 </div>
