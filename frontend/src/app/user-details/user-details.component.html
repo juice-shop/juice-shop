@@ -8,8 +8,9 @@
     <h1>{{"LABEL_USER" | translate}} #{{user?.id}}</h1>
   </header>
   <mat-divider></mat-divider>
-  <div class="container" fxLayout="column">
-    <div fxLayout="row" fxLayoutGap="10px">
+
+  <div class="container">
+    <div class="row">
       <div>
         <strong translate="LABEL_EMAIL"></strong>
         <p>{{user?.email}}</p>
@@ -19,7 +20,8 @@
         <p>{{user?.password}}</p>
       </div>-->
     </div>
-    <div fxLayout="row" fxLayoutGap="10px">
+
+    <div class="row">
       <div>
         <strong translate="LABEL_CREATED_AT"></strong>
         <p>{{user?.createdAt}}</p>
@@ -30,6 +32,7 @@
       </div>
     </div>
   </div>
+
   <mat-dialog-actions align="end" class="dialogAction">
     <button mat-button style="height: 0; position: absolute;">
       <!-- 'absorbs' the auto-focus behavior -->

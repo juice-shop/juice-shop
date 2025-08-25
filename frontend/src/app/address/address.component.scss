@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+
 .btn-new-address {
   display: block;
   margin-left: 0;
@@ -51,4 +52,27 @@ mat-cell {
 
 svg {
   font-size: 12.5px;
+}
+
+.address-table {
+  width: 100%;
+}
+
+.mat-column-Selection { width: 20%; }
+.mat-column-Name { width: 20%; }
+.mat-column-Address { width: 40%; }
+.mat-column-Country { width: 20%; }
+
+.mat-column-Edit,
+.mat-column-Remove {
+  text-align: right;
+  width: 48px;
+}
+
+.mat-column-Address {
+  word-break: break-word;
+}
+
+.add-new-address {
+  margin-top: 20px;
 }

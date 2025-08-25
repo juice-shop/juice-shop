@@ -3,6 +3,38 @@
  * SPDX-License-Identifier: MIT
  */
 
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+mat-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.mat-column-Selection { width: 15%; }
+.mat-column-Number { width: 35%; }
+.mat-column-Name { width: 30%; }
+.mat-column-Expiry { width: 20%; }
+.mat-column-Remove { width: 15%; }
+
+.half-field {
+  margin-right: 10%;
+  width: 45%;
+}
+
+.half-field:last-of-type {
+  margin-right: 0;
+}
+@media (max-width: 599.98px) {
+  .half-field {
+    margin-right: 0;
+    width: 100%;
+  }
+}
+
 .heading {
   background: rgba(0, 0, 0, 0.2);
   font-size: x-large;
@@ -29,8 +61,7 @@ mat-header-row {
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  /* display: none; <- Crashes Chrome on hover */
   -webkit-appearance: none;
   -moz-appearance: none;
-  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  margin: 0;
 }

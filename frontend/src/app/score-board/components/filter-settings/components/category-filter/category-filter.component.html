@@ -2,15 +2,16 @@
   class="pill selected"
   (click)="resetCategoryFilter()"
   [ngClass]="{ selected: isAllCategoriesSelected() }"
->
+  >
   All
 </button>
-<button
-  *ngFor="let category of availableCategories"
-  class="pill"
-  [ngClass]="{ selected: isCategorySelected(category) }"
-  (click)="toggleCategorySelected(category)"
-  [matTooltip]="'CATEGORY_' + category.toUpperCase().split(' ').join('_') + '_DESCRIPTION' | translate"
->
-  {{ category }}
-</button>
+@for (category of availableCategories; track category) {
+  <button
+    class="pill"
+    [ngClass]="{ selected: isCategorySelected(category) }"
+    (click)="toggleCategorySelected(category)"
+    [matTooltip]="'CATEGORY_' + category.toUpperCase().split(' ').join('_') + '_DESCRIPTION' | translate"
+    >
+    {{ category }}
+  </button>
+}

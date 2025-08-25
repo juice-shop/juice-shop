@@ -22,9 +22,8 @@ import { QrCodeModule } from 'ng-qrcode'
 import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel, MatError, MatSuffix, MatHint } from '@angular/material/form-field'
-import { NgIf } from '@angular/common'
+
 import { MatCardModule } from '@angular/material/card'
-import { FlexModule } from '@angular/flex-layout/flex'
 
 library.add(faUnlockAlt, faSave)
 
@@ -32,7 +31,7 @@ library.add(faUnlockAlt, faSave)
   selector: 'app-two-factor-auth',
   templateUrl: './two-factor-auth.component.html',
   styleUrls: ['./two-factor-auth.component.scss'],
-  imports: [FlexModule, MatCardModule, TranslateModule, NgIf, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatButtonModule, QrCodeModule, MatError, MatIconModule, MatSuffix, MatTooltip, MatHint, MatIconModule]
+  imports: [MatCardModule, TranslateModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatButtonModule, QrCodeModule, MatError, MatIconModule, MatSuffix, MatTooltip, MatHint, MatIconModule]
 })
 export class TwoFactorAuthComponent {
   public data?: string
@@ -65,17 +64,20 @@ export class TwoFactorAuthComponent {
     const status = this.twoFactorAuthService.status()
     const config = this.configurationService.getApplicationConfiguration()
 
-    forkJoin([status, config]).subscribe(([{ setup, email, secret, setupToken }, config]) => {
-      this.setupStatus = setup
-      this.appName = config.application.name
-      if (!setup) {
-        const encodedAppName = encodeURIComponent(this.appName)
-        this.totpUrl = `otpauth://totp/${encodedAppName}:${email}?secret=${secret}&issuer=${encodedAppName}`
-        this.totpSecret = secret
-        this.setupToken = setupToken
+    forkJoin([status, config]).subscribe({
+      next: ([{ setup, email, secret, setupToken }, config]) => {
+        this.setupStatus = setup
+        this.appName = config.application.name
+        if (!setup) {
+          const encodedAppName = encodeURIComponent(this.appName)
+          this.totpUrl = `otpauth://totp/${encodedAppName}:${email}?secret=${secret}&issuer=${encodedAppName}`
+          this.totpSecret = secret
+          this.setupToken = setupToken
+        }
+      },
+      error: () => {
+        console.log('Failed to fetch 2fa status')
       }
-    }, () => {
-      console.log('Failed to fetch 2fa status')
     })
     return status
   }
@@ -85,29 +87,35 @@ export class TwoFactorAuthComponent {
       this.twoFactorSetupForm.get('passwordControl')?.value,
       this.twoFactorSetupForm.get('initialTokenControl')?.value,
       this.setupToken
-    ).subscribe(() => {
-      this.setupStatus = true
-      this.snackBarHelperService.open('CONFIRM_2FA_SETUP')
-    }, () => {
-      this.twoFactorSetupForm.get('passwordControl')?.markAsPristine()
-      this.twoFactorSetupForm.get('initialTokenControl')?.markAsPristine()
-      this.errored = true
+    ).subscribe({
+      next: () => {
+        this.setupStatus = true
+        this.snackBarHelperService.open('CONFIRM_2FA_SETUP')
+      },
+      error: () => {
+        this.twoFactorSetupForm.get('passwordControl')?.markAsPristine()
+        this.twoFactorSetupForm.get('initialTokenControl')?.markAsPristine()
+        this.errored = true
+      }
     })
   }
 
   disable () {
     this.twoFactorAuthService.disable(
       this.twoFactorDisableForm.get('passwordControl')?.value
-    ).subscribe(() => {
-      this.updateStatus().subscribe(
-        () => {
-          this.setupStatus = false
-        }
-      )
-      this.snackBarHelperService.open('CONFIRM_2FA_DISABLE')
-    }, () => {
-      this.twoFactorDisableForm.get('passwordControl')?.markAsPristine()
-      this.errored = true
+    ).subscribe({
+      next: () => {
+        this.updateStatus().subscribe(
+          () => {
+            this.setupStatus = false
+          }
+        )
+        this.snackBarHelperService.open('CONFIRM_2FA_DISABLE')
+      },
+      error: () => {
+        this.twoFactorDisableForm.get('passwordControl')?.markAsPristine()
+        this.errored = true
+      }
     })
   }
 }

@@ -64,3 +64,35 @@ mat-card {
 .mat-mdc-card .mat-divider-horizontal {
   position: relative !important;
 }
+
+.row {
+  align-items: center;
+  display: flex;
+}
+
+.col { min-width: 0; }
+
+.col-42 { flex: 0 0 42%;
+  max-width: 42%; }
+
+.col-38 { flex: 0 0 38%;
+  max-width: 38%; }
+
+.col-20 { flex: 0 0 20%;
+  max-width: 20%; }
+
+.col-34 { flex: 0 0 34%;
+  max-width: 34%; }
+
+.col-65 { flex: 0 0 65%;
+  max-width: 65%; }
+
+/* Stack the payment options on < lg */
+.responsive-row { flex-wrap: nowrap; }
+@media (max-width: 1279.98px) {
+  .responsive-row { flex-direction: column; }
+
+  .responsive-row .col { flex: 0 0 100%;
+    max-width: 100%; }
+  .fill-remaining-space { display: none; }
+}

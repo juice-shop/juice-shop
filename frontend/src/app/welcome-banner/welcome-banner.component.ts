@@ -8,17 +8,16 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { MatDialogRef } from '@angular/material/dialog'
 import { CookieService } from 'ngy-cookie'
 import { TranslateModule } from '@ngx-translate/core'
-import { ExtendedModule } from '@angular/flex-layout/extended'
+
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatButtonModule } from '@angular/material/button'
-import { NgIf } from '@angular/common'
 
 @Component({
   selector: 'app-welcome-banner',
   templateUrl: 'welcome-banner.component.html',
   styleUrls: ['./welcome-banner.component.scss'],
-  imports: [NgIf, MatButtonModule, MatTooltip, MatIconModule, ExtendedModule, TranslateModule]
+  imports: [MatButtonModule, MatTooltip, MatIconModule, TranslateModule]
 })
 export class WelcomeBannerComponent implements OnInit {
   public title: string = 'Welcome to OWASP Juice Shop'
@@ -34,18 +33,21 @@ export class WelcomeBannerComponent implements OnInit {
     private readonly cookieService: CookieService) { }
 
   ngOnInit (): void {
-    this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      if (config?.application?.welcomeBanner) {
-        this.title = config.application.welcomeBanner.title
-        this.message = config.application.welcomeBanner.message
-      }
-      this.showHackingInstructor = config?.hackingInstructor?.isEnabled
-      // Don't allow to skip the tutorials when restrictToTutorialsFirst and showHackingInstructor are enabled
-      if (this.showHackingInstructor && config?.challenges?.restrictToTutorialsFirst) {
-        this.dialogRef.disableClose = true
-        this.showDismissBtn = false
-      }
-    }, (err) => { console.log(err) })
+    this.configurationService.getApplicationConfiguration().subscribe({
+      next: (config) => {
+        if (config?.application?.welcomeBanner) {
+          this.title = config.application.welcomeBanner.title
+          this.message = config.application.welcomeBanner.message
+        }
+        this.showHackingInstructor = config?.hackingInstructor?.isEnabled
+        // Don't allow to skip the tutorials when restrictToTutorialsFirst and showHackingInstructor are enabled
+        if (this.showHackingInstructor && config?.challenges?.restrictToTutorialsFirst) {
+          this.dialogRef.disableClose = true
+          this.showDismissBtn = false
+        }
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 
   startHackingInstructor () {

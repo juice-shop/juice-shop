@@ -21,6 +21,7 @@ import { ChallengeService } from '../Services/challenge.service'
 import { type Challenge } from '../Models/challenge.model'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
+import { HintService } from '../Services/hint.service'
 
 // allows to easily create a challenge with some overwrites
 function createChallenge (challengeOverwrites: Partial<Challenge>): Challenge {
@@ -30,9 +31,7 @@ function createChallenge (challengeOverwrites: Partial<Challenge>): Challenge {
     category: 'category-blue',
     difficulty: 3,
     description: '',
-    hint: '',
     tags: '',
-    hintUrl: '',
     disabledEnv: null,
     solved: false,
     tutorialOrder: null,
@@ -49,11 +48,13 @@ describe('ScoreBoardComponent', () => {
   let component: ScoreBoardComponent
   let fixture: ComponentFixture<ScoreBoardComponent>
   let challengeService
+  let hintService
   let codeSnippetService
   let configService
 
   beforeEach(async () => {
     challengeService = jasmine.createSpyObj('ChallengeService', ['find'])
+    hintService = jasmine.createSpyObj('HintService', ['getAll'])
     codeSnippetService = jasmine.createSpyObj('CodeSnippetService', [
       'challenges'
     ])
@@ -77,6 +78,7 @@ describe('ScoreBoardComponent', () => {
         BrowserAnimationsModule],
       providers: [
         { provide: ChallengeService, useValue: challengeService },
+        { provide: HintService, useValue: hintService },
         { provide: CodeSnippetService, useValue: codeSnippetService },
         { provide: ConfigurationService, useValue: configService },
         provideHttpClient(withInterceptorsFromDi()),
@@ -112,6 +114,9 @@ describe('ScoreBoardComponent', () => {
         })
       ])
     )
+
+    hintService.getAll.and.returnValue(of([]))
+
     codeSnippetService.challenges.and.returnValue(of(['challenge-2']))
     configService.getApplicationConfiguration.and.returnValue(
       of({

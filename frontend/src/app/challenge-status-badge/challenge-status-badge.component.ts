@@ -11,11 +11,10 @@ import { faWindows } from '@fortawesome/free-brands-svg-icons'
 
 import { Challenge } from '../Models/challenge.model'
 import { TranslateModule } from '@ngx-translate/core'
-import { ExtendedModule } from '@angular/flex-layout/extended'
+
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatButtonModule } from '@angular/material/button'
-import { NgIf } from '@angular/common'
 
 library.add(faWindows)
 
@@ -23,7 +22,7 @@ library.add(faWindows)
   selector: 'app-challenge-status-badge',
   templateUrl: './challenge-status-badge.component.html',
   styleUrls: ['./challenge-status-badge.component.scss'],
-  imports: [NgIf, MatButtonModule, MatTooltip, MatIconModule, ExtendedModule, TranslateModule]
+  imports: [MatButtonModule, MatTooltip, MatIconModule, TranslateModule]
 })
 export class ChallengeStatusBadgeComponent {
   @Input() public challenge: Challenge = { } as Challenge
@@ -34,15 +33,12 @@ export class ChallengeStatusBadgeComponent {
 
   repeatNotification () {
     if (this.allowRepeatNotifications) {
-      this.challengeService.repeatNotification(encodeURIComponent(this.challenge.name)).subscribe(() => {
-        this.windowRefService.nativeWindow.scrollTo(0, 0)
-      }, (err) => { console.log(err) })
-    }
-  }
-
-  openHint () {
-    if (this.showChallengeHints && this.challenge.hintUrl) {
-      this.windowRefService.nativeWindow.open(this.challenge.hintUrl, '_blank')
+      this.challengeService.repeatNotification(encodeURIComponent(this.challenge.name)).subscribe({
+        next: () => {
+          this.windowRefService.nativeWindow.scrollTo(0, 0)
+        },
+        error: (err) => { console.log(err) }
+      })
     }
   }
 }

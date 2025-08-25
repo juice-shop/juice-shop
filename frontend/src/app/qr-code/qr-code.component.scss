@@ -6,3 +6,9 @@
 .qr-code {
   margin: 16px;
 }
+
+.content-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

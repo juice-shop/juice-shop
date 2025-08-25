@@ -15,8 +15,7 @@ import { SelectionModel } from '@angular/cdk/collections'
 import { MatIconModule } from '@angular/material/icon'
 import { MatIconButton, MatButtonModule } from '@angular/material/button'
 import { MatRadioButton } from '@angular/material/radio'
-import { FlexModule } from '@angular/flex-layout/flex'
-import { NgIf } from '@angular/common'
+
 import { MatCardModule } from '@angular/material/card'
 
 library.add(faEdit, faTrashAlt)
@@ -25,7 +24,7 @@ library.add(faEdit, faTrashAlt)
   selector: 'app-address',
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.scss'],
-  imports: [MatCardModule, NgIf, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, FlexModule, MatCellDef, MatCell, MatRadioButton, MatIconButton, RouterLink, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatButtonModule, MatIconModule]
+  imports: [MatCardModule, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatRadioButton, MatIconButton, RouterLink, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatButtonModule, MatIconModule]
 })
 export class AddressComponent implements OnInit {
   @Output() emitSelection = new EventEmitter()
@@ -54,13 +53,16 @@ export class AddressComponent implements OnInit {
   }
 
   load () {
-    this.addressService.get().subscribe((addresses) => {
-      this.addressExist = addresses.length
-      this.storedAddresses = addresses
-      this.dataSource = new MatTableDataSource<Element>(this.storedAddresses)
-    }, (err) => {
-      this.snackBarHelperService.open(err.error?.error, 'errorBar')
-      console.log(err)
+    this.addressService.get().subscribe({
+      next: (addresses) => {
+        this.addressExist = addresses.length
+        this.storedAddresses = addresses
+        this.dataSource = new MatTableDataSource<Element>(this.storedAddresses)
+      },
+      error: (err) => {
+        this.snackBarHelperService.open(err.error?.error, 'errorBar')
+        console.log(err)
+      }
     })
   }
 
@@ -80,17 +82,23 @@ export class AddressComponent implements OnInit {
   }
 
   deleteAddress (id: number) {
-    this.addressService.del(id).subscribe(() => {
-      this.error = null
-      this.translate.get('ADDRESS_REMOVED').subscribe((addressRemoved) => {
-        this.snackBarHelperService.open(addressRemoved, 'confirmBar')
-      }, (translationId) => {
-        this.snackBarHelperService.open(translationId, 'confirmBar')
-      })
-      this.load()
-    }, (err) => {
-      this.snackBarHelperService.open(err.error?.error, 'errorBar')
-      console.log(err)
+    this.addressService.del(id).subscribe({
+      next: () => {
+        this.error = null
+        this.translate.get('ADDRESS_REMOVED').subscribe({
+          next: (addressRemoved) => {
+            this.snackBarHelperService.open(addressRemoved, 'confirmBar')
+          },
+          error: (translationId) => {
+            this.snackBarHelperService.open(translationId, 'confirmBar')
+          }
+        })
+        this.load()
+      },
+      error: (err) => {
+        this.snackBarHelperService.open(err.error?.error, 'errorBar')
+        console.log(err)
+      }
     })
   }
 }

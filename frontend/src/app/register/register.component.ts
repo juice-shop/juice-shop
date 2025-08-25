@@ -23,11 +23,11 @@ import { MatSelect } from '@angular/material/select'
 import { PasswordStrengthComponent } from '../password-strength/password-strength.component'
 import { PasswordStrengthInfoComponent } from '../password-strength-info/password-strength-info.component'
 import { MatSlideToggle } from '@angular/material/slide-toggle'
-import { NgIf, NgFor } from '@angular/common'
+
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel, MatError, MatHint } from '@angular/material/form-field'
 import { MatCardModule } from '@angular/material/card'
-import { FlexModule } from '@angular/flex-layout/flex'
+
 import { MatIconModule } from '@angular/material/icon'
 
 library.add(faUserPlus, faExclamationCircle)
@@ -36,7 +36,7 @@ library.add(faUserPlus, faExclamationCircle)
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
-  imports: [FlexModule, MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, NgIf, MatError, MatHint, MatSlideToggle, PasswordStrengthComponent, PasswordStrengthInfoComponent, MatSelect, NgFor, MatOption, MatButtonModule, RouterLink, MatIconModule]
+  imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatHint, MatSlideToggle, PasswordStrengthComponent, PasswordStrengthInfoComponent, MatSelect, MatOption, MatButtonModule, RouterLink, MatIconModule]
 })
 export class RegisterComponent implements OnInit {
   public emailControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.email])
@@ -59,9 +59,12 @@ export class RegisterComponent implements OnInit {
     private readonly ngZone: NgZone) { }
 
   ngOnInit (): void {
-    this.securityQuestionService.find(null).subscribe((securityQuestions: any) => {
-      this.securityQuestions = securityQuestions
-    }, (err) => { console.log(err) })
+    this.securityQuestionService.find(null).subscribe({
+      next: (securityQuestions: any) => {
+        this.securityQuestions = securityQuestions
+      },
+      error: (err) => { console.log(err) }
+    })
 
     this.formSubmitService.attachEnterKeyHandler('registration-form', 'registerButton', () => { this.save() })
   }
@@ -75,24 +78,27 @@ export class RegisterComponent implements OnInit {
       securityAnswer: this.securityAnswerControl.value
     }
 
-    this.userService.save(user).subscribe((response: any) => {
-      this.securityAnswerService.save({
-        UserId: response.id,
-        answer: this.securityAnswerControl.value,
-        SecurityQuestionId: this.securityQuestionControl.value
-      }).subscribe(() => {
-        this.ngZone.run(async () => await this.router.navigate(['/login']))
-        this.snackBarHelperService.open('CONFIRM_REGISTER')
-      })
-    }, (err) => {
-      console.log(err)
-      if (err.error?.errors) {
-        const error = err.error.errors[0]
-        if (error.message) {
+    this.userService.save(user).subscribe({
+      next: (response: any) => {
+        this.securityAnswerService.save({
+          UserId: response.id,
+          answer: this.securityAnswerControl.value,
+          SecurityQuestionId: this.securityQuestionControl.value
+        }).subscribe(() => {
+          this.ngZone.run(async () => await this.router.navigate(['/login']))
+          this.snackBarHelperService.open('CONFIRM_REGISTER')
+        })
+      },
+      error: (err) => {
+        console.log(err)
+        if (err.error?.errors) {
+          const error = err.error.errors[0]
+          if (error.message) {
           // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-          this.error = error.message[0].toUpperCase() + error.message.slice(1)
-        } else {
-          this.error = error
+            this.error = error.message[0].toUpperCase() + error.message.slice(1)
+          } else {
+            this.error = error
+          }
         }
       }
     })

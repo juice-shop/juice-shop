@@ -1,5 +1,6 @@
 import { Op } from 'sequelize'
 import { type ChallengeKey, ChallengeModel } from '../models/challenge'
+import { HintModel } from '../models/hint'
 import logger from './logger'
 import config from 'config'
 import sanitizeHtml from 'sanitize-html'
@@ -26,13 +27,15 @@ export const solveIf = function (challenge: any, criteria: () => any, isRestore:
 
 export const solve = function (challenge: any, isRestore = false) {
   challenge.solved = true
-  challenge.save().then((solvedChallenge: { difficulty: number, key: string, name: string }) => {
+  challenge.save().then(async (solvedChallenge: { difficulty: number, key: string, name: string, id: number }) => {
     logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} ${solvedChallenge.difficulty}-star ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
     sendNotification(solvedChallenge, isRestore)
     if (!isRestore) {
       const cheatScore = calculateCheatScore(challenge)
+      const hintsAvailable = await HintModel.count({ where: { ChallengeId: solvedChallenge.id } })
+      const hintsUnlocked = await HintModel.count({ where: { ChallengeId: solvedChallenge.id, unlocked: true } })
       if (process.env.SOLUTIONS_WEBHOOK) {
-        webhook.notify(solvedChallenge, cheatScore).catch((error: unknown) => {
+        webhook.notify(solvedChallenge, cheatScore, hintsAvailable, hintsUnlocked).catch((error: unknown) => {
           logger.error('Webhook notification failed: ' + colors.red(utils.getErrorMessage(error)))
         })
       }

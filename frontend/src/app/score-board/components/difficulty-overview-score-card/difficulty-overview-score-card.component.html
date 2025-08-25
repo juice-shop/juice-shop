@@ -4,40 +4,45 @@
   [score]="solvedChallenges"
   [showAsPercentage]="false"
   [showProgressBar]="false"
->
+  >
   <div right-side class="difficulties-group">
-    <div class="difficulty-container" *ngFor="let difficulty of difficultySummaries">
-      <div class="star-container">
-        <svg
-          width="28"
-          height="25"
-          viewBox="0 0 28 25"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            [attr.fill]="'url(#solved-gradient-' + difficulty.difficulty + ')'"
-            d="M12.6496 1.25874L9.57854 7.48541L2.70757 8.48713C1.4754 8.66584 0.981596 10.1849 1.87515 11.0549L6.84614 15.8989L5.67041 22.7417C5.45878 23.9786 6.76149 24.905 7.85257 24.3266L13.9993 21.0957L20.146 24.3266C21.2371 24.9003 22.5398 23.9786 22.3282 22.7417L21.1524 15.8989L26.1234 11.0549C27.017 10.1849 26.5232 8.66584 25.291 8.48713L18.42 7.48541L15.349 1.25874C14.7988 0.148847 13.2045 0.134738 12.6496 1.25874Z"
-          />
-          <defs>
-            <linearGradient
-              [attr.id]="'solved-gradient-' + difficulty.difficulty"
-              x1="0" x2="0" y1="1" y2="0"
+    @for (difficulty of difficultySummaries; track difficulty) {
+      <div class="difficulty-container">
+        <div class="star-container">
+          <svg
+            width="28"
+            height="25"
+            viewBox="0 0 28 25"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
             >
-            <stop stop-color="var(--theme-accent)" />
-            <stop *ngIf="difficulty.availableChallenges === 0" offset="0%" stop-color="var(--theme-accent)" />
-            <stop *ngIf="difficulty.availableChallenges !== 0" [attr.offset]="difficulty.solvedChallenges / difficulty.availableChallenges * 100 + '%'" stop-color="var(--theme-accent)" />
-            <stop stop-color="var(--theme-accent)" />
-            <!-- has to be duplicated here to stop the gradient directly instead of doing a "gradual" transition -->
-            <stop stop-color="var(--theme-primary)" />
-            </linearGradient>
-          </defs>
-        </svg>
-        <span class="star-difficulty-label">{{ difficulty.difficulty }}</span>
-      </div>
-      <span>
-        {{ difficulty.solvedChallenges }}/<span class="total-challenges">{{ difficulty.availableChallenges }}</span>
-      </span>
+            <path
+              [attr.fill]="'url(#solved-gradient-' + difficulty.difficulty + ')'"
+              d="M12.6496 1.25874L9.57854 7.48541L2.70757 8.48713C1.4754 8.66584 0.981596 10.1849 1.87515 11.0549L6.84614 15.8989L5.67041 22.7417C5.45878 23.9786 6.76149 24.905 7.85257 24.3266L13.9993 21.0957L20.146 24.3266C21.2371 24.9003 22.5398 23.9786 22.3282 22.7417L21.1524 15.8989L26.1234 11.0549C27.017 10.1849 26.5232 8.66584 25.291 8.48713L18.42 7.48541L15.349 1.25874C14.7988 0.148847 13.2045 0.134738 12.6496 1.25874Z"
+              />
+              <defs>
+                <linearGradient
+                  [attr.id]="'solved-gradient-' + difficulty.difficulty"
+                  x1="0" x2="0" y1="1" y2="0"
+                  >
+                  <stop stop-color="var(--theme-accent)" />
+                  @if (difficulty.availableChallenges === 0) {
+                    <stop offset="0%" stop-color="var(--theme-accent)" />
+                  } @else {
+                    <stop [attr.offset]="difficulty.solvedChallenges / difficulty.availableChallenges * 100 + '%'" stop-color="var(--theme-accent)" />
+                  }
+                  <stop stop-color="var(--theme-accent)" />
+                  <!-- has to be duplicated here to stop the gradient directly instead of doing a "gradual" transition -->
+                  <stop stop-color="var(--theme-primary)" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <span class="star-difficulty-label">{{ difficulty.difficulty }}</span>
+          </div>
+          <span>
+            {{ difficulty.solvedChallenges }}/<span class="total-challenges">{{ difficulty.availableChallenges }}</span>
+          </span>
+        </div>
+      }
     </div>
-  </div>
-</score-card>
+  </score-card>

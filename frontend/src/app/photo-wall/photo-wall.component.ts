@@ -17,7 +17,7 @@ import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel, MatError } from '@angular/material/form-field'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatIconButton, MatButtonModule } from '@angular/material/button'
-import { NgIf, NgFor } from '@angular/common'
+
 import { MatCardModule, MatCardTitle, MatCardContent } from '@angular/material/card'
 
 library.add(faTwitter)
@@ -26,7 +26,7 @@ library.add(faTwitter)
   selector: 'app-photo-wall',
   templateUrl: './photo-wall.component.html',
   styleUrls: ['./photo-wall.component.scss'],
-  imports: [MatCardModule, NgIf, NgFor, MatIconButton, MatCardTitle, TranslateModule, MatCardContent, FormsModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatLabel, MatInputModule, MatError]
+  imports: [MatCardModule, MatIconButton, MatCardTitle, TranslateModule, MatCardContent, FormsModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatLabel, MatInputModule, MatError]
 })
 export class PhotoWallComponent implements OnInit {
   public emptyState: boolean = true
@@ -88,13 +88,16 @@ export class PhotoWallComponent implements OnInit {
   }
 
   save () {
-    this.photoWallService.addMemory(this.form.value.caption, this.form.value.image).subscribe(() => {
-      this.resetForm()
-      this.ngOnInit()
-      this.snackBarHelperService.open('IMAGE_UPLOAD_SUCCESS', 'confirmBar')
-    }, (err) => {
-      this.snackBarHelperService.open(err.error?.error, 'errorBar')
-      console.log(err)
+    this.photoWallService.addMemory(this.form.value.caption, this.form.value.image).subscribe({
+      next: () => {
+        this.resetForm()
+        this.ngOnInit()
+        this.snackBarHelperService.open('IMAGE_UPLOAD_SUCCESS', 'confirmBar')
+      },
+      error: (err) => {
+        this.snackBarHelperService.open(err.error?.error, 'errorBar')
+        console.log(err)
+      }
     })
   }
 

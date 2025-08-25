@@ -43,3 +43,9 @@ mat-form-field {
 button {
   margin-top: 5px;
 }
+
+.center-container {
+  align-items: stretch;
+  display: flex;
+  justify-content: center; 
+}

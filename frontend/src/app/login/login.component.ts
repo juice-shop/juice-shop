@@ -22,9 +22,8 @@ import { MatIconButton, MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatFormFieldModule, MatLabel, MatError, MatSuffix } from '@angular/material/form-field'
-import { NgIf } from '@angular/common'
+
 import { MatCardModule } from '@angular/material/card'
-import { FlexModule } from '@angular/flex-layout/flex'
 
 library.add(faKey, faEye, faEyeSlash, faGoogle)
 
@@ -34,7 +33,7 @@ const oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  imports: [FlexModule, MatCardModule, NgIf, MatFormFieldModule, MatLabel, TranslateModule, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatIconButton, MatSuffix, MatTooltip, RouterLink, MatButtonModule, MatIconModule, MatCheckbox]
+  imports: [MatCardModule, MatFormFieldModule, MatLabel, TranslateModule, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatIconButton, MatSuffix, MatTooltip, RouterLink, MatButtonModule, MatIconModule, MatCheckbox]
 })
 
 export class LoginComponent implements OnInit {
@@ -65,19 +64,22 @@ export class LoginComponent implements OnInit {
 
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     this.redirectUri = `${this.windowRefService.nativeWindow.location.protocol}//${this.windowRefService.nativeWindow.location.host}`
-    this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      if (config?.application?.googleOauth) {
-        this.clientId = config.application.googleOauth.clientId
-        const authorizedRedirect = config.application.googleOauth.authorizedRedirects.find(r => r.uri === this.redirectUri)
-        if (authorizedRedirect) {
-          this.oauthUnavailable = false
-          this.redirectUri = authorizedRedirect.proxy ? authorizedRedirect.proxy : authorizedRedirect.uri
-        } else {
-          this.oauthUnavailable = true
-          console.log(this.redirectUri + ' is not an authorized redirect URI for this application.')
+    this.configurationService.getApplicationConfiguration().subscribe({
+      next: (config) => {
+        if (config?.application?.googleOauth) {
+          this.clientId = config.application.googleOauth.clientId
+          const authorizedRedirect = config.application.googleOauth.authorizedRedirects.find(r => r.uri === this.redirectUri)
+          if (authorizedRedirect) {
+            this.oauthUnavailable = false
+            this.redirectUri = authorizedRedirect.proxy ? authorizedRedirect.proxy : authorizedRedirect.uri
+          } else {
+            this.oauthUnavailable = true
+            console.log(this.redirectUri + ' is not an authorized redirect URI for this application.')
+          }
         }
-      }
-    }, (err) => { console.log(err) })
+      },
+      error: (err) => { console.log(err) }
+    })
 
     this.formSubmitService.attachEnterKeyHandler('login-form', 'loginButton', () => { this.login() })
   }
@@ -86,28 +88,31 @@ export class LoginComponent implements OnInit {
     this.user = {}
     this.user.email = this.emailControl.value
     this.user.password = this.passwordControl.value
-    this.userService.login(this.user).subscribe((authentication: any) => {
-      localStorage.setItem('token', authentication.token)
-      const expires = new Date()
-      expires.setHours(expires.getHours() + 8)
-      this.cookieService.put('token', authentication.token, { expires })
-      sessionStorage.setItem('bid', authentication.bid)
-      this.basketService.updateNumberOfCartItems()
-      this.userService.isLoggedIn.next(true)
-      this.ngZone.run(async () => await this.router.navigate(['/search']))
-    }, ({ error }) => {
-      if (error.status && error.data && error.status === 'totp_token_required') {
-        localStorage.setItem('totp_tmp_token', error.data.tmpToken)
-        this.ngZone.run(async () => await this.router.navigate(['/2fa/enter']))
-        return
+    this.userService.login(this.user).subscribe({
+      next: (authentication: any) => {
+        localStorage.setItem('token', authentication.token)
+        const expires = new Date()
+        expires.setHours(expires.getHours() + 8)
+        this.cookieService.put('token', authentication.token, { expires })
+        sessionStorage.setItem('bid', authentication.bid)
+        this.basketService.updateNumberOfCartItems()
+        this.userService.isLoggedIn.next(true)
+        this.ngZone.run(async () => await this.router.navigate(['/search']))
+      },
+      error: ({ error }) => {
+        if (error.status && error.data && error.status === 'totp_token_required') {
+          localStorage.setItem('totp_tmp_token', error.data.tmpToken)
+          this.ngZone.run(async () => await this.router.navigate(['/2fa/enter']))
+          return
+        }
+        localStorage.removeItem('token')
+        this.cookieService.remove('token')
+        sessionStorage.removeItem('bid')
+        this.error = error
+        this.userService.isLoggedIn.next(false)
+        this.emailControl.markAsPristine()
+        this.passwordControl.markAsPristine()
       }
-      localStorage.removeItem('token')
-      this.cookieService.remove('token')
-      sessionStorage.removeItem('bid')
-      this.error = error
-      this.userService.isLoggedIn.next(false)
-      this.emailControl.markAsPristine()
-      this.passwordControl.markAsPristine()
     })
 
     if (this.rememberMe.value) {
