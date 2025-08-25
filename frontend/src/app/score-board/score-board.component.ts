@@ -77,7 +77,7 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
       const transformedChallenges = challenges.map((challenge) => {
         return {
           ...challenge,
-          hintText: hints.filter((hint) => hint.ChallengeId === challenge.id && hint.unlocked).map((hint) => hint.text).join('\n'),
+          hintText: hints.filter((hint) => hint.ChallengeId === challenge.id && hint.unlocked).map((hint) => '(' + hint.order + ') ' + hint.text).join(' '),
           nextHint: hints.filter((hint) => hint.ChallengeId === challenge.id && !hint.unlocked).sort((a, b) => a.order - b.order).map((hint) => hint.id)[0],
           hintsUnlocked: hints.filter((hint) => hint.ChallengeId === challenge.id && hint.unlocked).length,
           hintsAvailable: hints.filter((hint) => hint.ChallengeId === challenge.id).length,
@@ -196,9 +196,9 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
   }
 
   unlockHint (hintId: number) {
-    this.hintService.put(hintId, { unlocked: true }).subscribe({
+      this.hintService.put(hintId, { unlocked: true }).subscribe({
       next: () => {
-        // TODO Refresh UI to show unlocked hint immediately. Currently requires page reload.
+        this.ngOnInit()
       },
       error: (err) => { console.log(err) }
     })
