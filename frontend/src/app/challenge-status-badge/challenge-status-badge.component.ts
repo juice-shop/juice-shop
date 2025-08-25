@@ -41,10 +41,4 @@ export class ChallengeStatusBadgeComponent {
       })
     }
   }
-
-  openHint () {
-    if (this.showChallengeHints && this.challenge.hintUrl) {
-      this.windowRefService.nativeWindow.open(this.challenge.hintUrl, '_blank')
-    }
-  }
 }
