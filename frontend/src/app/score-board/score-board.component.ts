@@ -196,6 +196,11 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
   }
 
   unlockHint (hintId: number) {
-    this.hintService.put(hintId, { unlocked: true })
+    this.hintService.put(hintId, { unlocked: true }).subscribe({
+      next: () => {
+        // TODO Refresh UI to show unlocked hint immediately. Currently requires page reload.
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 }
