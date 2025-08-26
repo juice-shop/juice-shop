@@ -346,7 +346,7 @@
   "CONFIRM_RECYCLING_PICKUP": "Vielen Dank für die Nutzung unseres bequemen Recyclingdienstes. Wir werden deinen Trester am {{pickupdate}} abholen.",
   "CHALLENGE_UNAVAILABLE": "Diese Herausforderung ist in einer {{env}}-Umgebung nicht verfügbar!",
   "CHALLENGE_UNAVAILABLE_SAFETYMODE": "Diese Herausforderung ist nicht verfügbar, da die Anwendung im Sicherheitsmodus läuft!",
-  "CLICK_TO_UNLOCK_NEXT_HINT": "Klicken, um Hinweis {{next}} von {{total}} anzuzeigen!",
+  "CLICK_TO_UNLOCK_NEXT_HINT": "Klicke, um Hinweis {{next}} von {{total}} freizuschalten!",
   "BONUS_POINTS_EARNED": "Verdiente Bonuspunkte: {{bonus}}",
   "BONUS_FOR_FUTURE_PURCHASES": "Die Bonuspunkte aus dieser Bestellung werden für zukünftige Einkäufe <em>1:1 deinem Brieftaschen-¤-Kontostand hinzugefügt</em>!",
   "ENTER_COUPON_CODE": "Bitte gib deinen Gutscheidcode ein",
