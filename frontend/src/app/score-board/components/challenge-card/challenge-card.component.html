@@ -94,7 +94,7 @@
         (click)="unlockHint(challenge.nextHint)"
         [disabled]="!challenge.nextHint"
         >
-        <mat-icon>lightbulb</mat-icon>
+        <mat-icon>{{ challenge.nextHint ? 'lightbulb_outlined' : 'lightbulb' }}</mat-icon>
         {{ challenge.hintsUnlocked }}/{{ challenge.hintsAvailable }}
       </button>
     }
