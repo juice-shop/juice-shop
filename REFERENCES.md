@@ -21,6 +21,7 @@ mentioned or used!
 * [Summits & Open Source Events](#summits--open-source-events)
   + [Google Summer of Code](#googlesummerofcode)
 * [Conference and Meetup Appearances](#conference-and-meetup-appearances)
+  - [2025](#2025)
   - [2024](#2024)
   - [2023](#2023)
   - [2022](#2022)
