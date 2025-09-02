@@ -2,6 +2,7 @@
  * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
+
 import i18n from 'i18n'
 import cors from 'cors'
 import fs from 'node:fs'
@@ -653,6 +654,16 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   /* Error Handling */
   app.use(verify.errorHandlingChallenge())
+
+  // This is a global error handler that will catch any unhandled errors.
+  // It only runs when the server is in 'unsafe' mode.
+  if (process.env.NODE_ENV === 'unsafe') {
+    app.use((err: Error, req: import('express').Request, res: import('express').Response, next: import('express').NextFunction) => {
+      console.error(err.stack)
+      res.status(500).send('An unexpected error occurred!')
+    })
+  }
+
   app.use(errorhandler())
 }).catch((err) => {
   console.error(err)
