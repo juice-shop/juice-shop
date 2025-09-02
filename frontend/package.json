@@ -36,7 +36,7 @@
     "@ngx-translate/http-loader": "^8.0.0",
     "@wagmi/core": "^0.5.8",
     "@winarg/ngx-text-diff": "^19.0.1",
-    "canvas-confetti": "^1.4.0",
+    "canvas-confetti": "^1.9.3",
     "codemirror": "^5.65.14",
     "codemirror-solidity": "^0.2.5",
     "ethers": "^5.7.2",
