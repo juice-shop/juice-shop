@@ -116,10 +116,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bkimminich/juice-shop.git"
+    "url": "https://github.com/juice-shop/juice-shop.git"
   },
   "bugs": {
-    "url": "https://github.com/bkimminich/juice-shop/issues"
+    "url": "https://github.com/juice-shop/juice-shop/issues"
   },
   "license": "MIT",
   "scripts": {
