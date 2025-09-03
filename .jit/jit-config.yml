@@ -1,4 +1,18 @@
 applications:
+- api_domain: app-staging.netenrich.com
+  application_name: RIC STAGING
+  authentication_key: password
+  authentication_mode: selenium
+  authentication_value: ${{ jit_secrets.RIC_STAGING_web }}
+  exclude_paths: []
+  login_page_url: https://auth-stag.netenrich.com/u/login/identifier?state=hKFo2SBMR0VGVVZvX2N6WVl5NkItRFUxZkkzdklWb1ktb3lBaKFur3VuaXZlcnNhbC1sb2dpbqN0aWTZIE1jTmZQU0ZaaG12NURCVjNhRWdNVF80RW52R0hSd1ZRo2NpZNkgYmZ2d2tEdkhsT3Q3M3hDZGs2NW5Tc0xWMHVZOTFKRlo
+  password: encrypted$AQICAHh4k42GDEppXrD7oIk1VdAOcRSb3578lObCgHNFMXvyugFJgXtdKFOBvrWvaMVOxdYmAAAAbDBqBgkqhkiG9w0BBwagXTBbAgEAMFYGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM89AP3HjkPkueTd17AgEQgCk6Xbkqx0DRY+9u5m9er1BWnsMZTK+ZCZ72fqc8vSLR+ntf7wAT/3FQMg==
+  password_css_selector: '[id=password]'
+  password_ref: ${{ jit_secrets.web_scan_password }}
+  target_url: https://app-staging.netenrich.com
+  type: web
+  username: actoneye.user22@actoneye.com
+  username_css_selector: '[id=username]'
 - api_domain: demo-pentest.openasset.com
   application_name: demo-pentest
   authentication_key: password
@@ -10,3 +24,4 @@ applications:
   target_url: https://demo-pentest.openasset.com
   type: web
   username: intruder-io-admin
+
