@@ -26,6 +26,12 @@ items:
       jitsecurity-controls/jit-plans/items/runtime/item-web-app-scanner.yml@latest
 override:
   workflows:
+    web-app-scanner:
+      jobs:
+        web-security-detection:
+          steps:
+            - name: Run ZAP
+              uses: registry.jit.io/zap-increased-memory:latest
     secret-detection:
       jobs:
         secret-detection:
