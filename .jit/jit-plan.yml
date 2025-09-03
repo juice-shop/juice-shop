@@ -21,9 +21,6 @@ items:
       jitsecurity-controls/jit-plans/items/jit-context/item-jit-context-analysis.yml@latest
   - name: Scan code for hard-coded secrets
     uses: jitsecurity-controls/jit-plans/items/code/item-secret-detection.yml@latest
-  - name: Scan your web application for vulnerabilities
-    uses: >-
-      jitsecurity-controls/jit-plans/items/runtime/item-web-app-scanner.yml@latest
 override:
   workflows:
     secret-detection:
