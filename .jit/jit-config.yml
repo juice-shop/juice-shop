@@ -1,1 +1,14 @@
-
+applications:
+- api_domain: app-staging.netenrich.com
+  application_name: ric_staging
+  authentication_key: password
+  authentication_mode: selenium
+  authentication_value: ${{ jit_secrets.ric_staging_web }}
+  exclude_paths: []
+  login_page_url: https://auth-stag.netenrich.com/u/login/identifier?state=hKFo2SBMR0VGVVZvX2N6WVl5NkItRFUxZkkzdklWb1ktb3lBaKFur3VuaXZlcnNhbC1sb2dpbqN0aWTZIE1jTmZQU0ZaaG12NURCVjNhRWdNVF80RW52R0hSd1ZRo2NpZNkgYmZ2d2tEdkhsT3Q3M3hDZGs2NW5Tc0xWMHVZOTFKRlo
+  password: encrypted$AQICAHh4k42GDEppXrD7oIk1VdAOcRSb3578lObCgHNFMXvyugHaQiJYj87QSqgiD7u/RDROAAAAbDBqBgkqhkiG9w0BBwagXTBbAgEAMFYGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMim9CpJXW74iIlBNdAgEQgCkUr7Ami+HtUfN6nX59c1Rwx09EyYm3vfW7svT7nztzrn7DAmP/eA3+Ow==
+  password_css_selector: '[id=password]'
+  target_url: https://app-staging.netenrich.com
+  type: web
+  username: actoneye.user22@actoneye.com
+  username_css_selector: '[id=username]'
