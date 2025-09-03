@@ -83,7 +83,6 @@ export function getUserProfile () {
     template = template.replace(/_primDark_/g, theme.primDark)
     template = template.replace(/_logo_/g, utils.extractFilename(config.get('application.logo')))
 
-    const fn = pug.compile(template)
     const CSP = `img-src 'self' ${user?.profileImage}; script-src 'self' 'unsafe-eval' https://code.getmdl.io http://ajax.googleapis.com`
 
     challengeUtils.solveIf(challenges.usernameXssChallenge, () => {
@@ -94,6 +93,14 @@ export function getUserProfile () {
       'Content-Security-Policy': CSP
     })
 
-    res.send(fn(user))
+    // THE FIX IS HERE: We wrap the dangerous Pug compilation and rendering in a try...catch block.
+    try {
+      const fn = pug.compile(template)
+      res.send(fn(user))
+    } catch (error) {
+      // If rendering fails, we catch the error and pass it to the next error handler instead of crashing.
+      console.error('Caught a template rendering error during profile view:', error)
+      next(error)
+    }
   }
 }
