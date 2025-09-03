@@ -48,7 +48,7 @@
     "material-icons": "^0.3.1",
     "ng-gallery": "^12.0.0",
     "ng-qrcode": "^20.0.0",
-    "ng2-file-upload": "^7.0.1",
+    "ng2-file-upload": "^8.0.0",
     "ngx-clipboard": "^15.1.0",
     "ngx-highlightjs": "^6.1.2",
     "ngx-window-token": "^6.0.0",
@@ -63,7 +63,7 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular-eslint/builder": "^18.4.3",
+    "@angular-eslint/builder": "^20.1.0",
     "@angular/language-service": "^20.1.0",
     "@types/express-serve-static-core": "^4.17.9",
     "@types/file-saver": "^2.0.1",
@@ -75,7 +75,6 @@
     "@typescript-eslint/eslint-plugin": "^7.0.2",
     "@typescript-eslint/eslint-plugin-tslint": "^7.0.2",
     "@typescript-eslint/parser": "^7.0.2",
-    "codelyzer": "^6.0.0",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "10.1.2",
     "eslint-config-standard-with-typescript": "^43.0.1",
@@ -96,5 +95,11 @@
     "stylelint-config-sass-guidelines": "^7.1.0",
     "stylelint-scss": "^3.18.0",
     "ts-node": "^10.9.2"
+  },
+  "overrides": {
+    "ng2-file-upload": {
+      "@angular/common": "^19.0.0 || ^20.0.0",
+      "@angular/core": "^19.0.0 || ^20.0.0"
+    }
   }
 }
