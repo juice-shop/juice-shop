@@ -12,3 +12,14 @@ applications:
   type: web
   username: actoneye.user22@actoneye.com
   username_css_selector: '[id=username]'
+- api_domain: demo-pentest.openasset.com
+  application_name: demo-pentest
+  authentication_key: password
+  authentication_mode: selenium
+  authentication_value: ${{ jit_secrets.demo-pentest_web }}
+  exclude_paths: []
+  login_page_url: https://demo-pentest.openasset.com/Page/User?id=13
+  password: encrypted$AQICAHh4k42GDEppXrD7oIk1VdAOcRSb3578lObCgHNFMXvyugERXJ9SDbPfVfuXvbx3GXO5AAAAdjB0BgkqhkiG9w0BBwagZzBlAgEAMGAGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMG39s+otJ9aizLt2hAgEQgDM1iRyOGe/APh0najJEjIAyHtTuA2IctqbmmDylxoHfXbd/09tEpCVQ8Lb8g0OZQqFfgLc=
+  target_url: https://demo-pentest.openasset.com
+  type: web
+  username: intruder-io-admin
