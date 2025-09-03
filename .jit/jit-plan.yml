@@ -21,20 +21,17 @@ items:
       jitsecurity-controls/jit-plans/items/jit-context/item-jit-context-analysis.yml@latest
   - name: Scan code for hard-coded secrets
     uses: jitsecurity-controls/jit-plans/items/code/item-secret-detection.yml@latest
-  - name: Scan your web application for vulnerabilities
-    uses: >-
-      jitsecurity-controls/jit-plans/items/runtime/item-web-app-scanner.yml@latest
 override:
   workflows:
-    web-app-scanner:
-      jobs:
-        web-security-detection:
-          steps:
-            - name: Run ZAP
-              uses: registry.jit.io/zap-increased-memory:latest
     secret-detection:
       jobs:
         secret-detection:
           enabled: true
         secret-detection-trufflehog:
           enabled: false
+    web-app-scanner:
+      jobs:
+        web-security-detection:
+          steps:
+            - name: Run ZAP
+              uses: registry.jit.io/zap-increased-memory:latest
