@@ -1,0 +1,12 @@
+applications:
+- api_domain: demo-pentest.openasset.com
+  application_name: demo-pentest
+  authentication_key: password
+  authentication_mode: selenium
+  authentication_value: ${{ jit_secrets.demo-pentest_web }}
+  exclude_paths: []
+  login_page_url: https://demo-pentest.openasset.com/Page/User?id=13
+  password: encrypted$AQICAHh4k42GDEppXrD7oIk1VdAOcRSb3578lObCgHNFMXvyugGjbArW6kQMZicxUd/3rGisAAAAdjB0BgkqhkiG9w0BBwagZzBlAgEAMGAGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMMBqc7buwM9HO01gYAgEQgDP/v6KFsXWCog23wIDfwO0ynEJo3FizXCl9oA4e3nYmFAzxAJQAE4+dosFU4H2AfrogjsE=
+  target_url: https://demo-pentest.openasset.com
+  type: web
+  username: intruder-io-admin
