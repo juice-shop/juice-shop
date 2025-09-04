@@ -112,7 +112,7 @@ export class AboutComponent implements OnInit {
       )
       .subscribe((feedbacks) => {
         for (let i = 0; i < feedbacks.length; i++) {
-          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+           
           feedbacks[i].comment = `<span style="width: 90%; display:block;">${
             feedbacks[i].comment
           }<br/> (${this.stars[feedbacks[i].rating]})</span>`

@@ -152,11 +152,11 @@ export class PaymentComponent implements OnInit {
   applyCoupon () {
     this.campaignCoupon = this.couponControl.value
     this.clientDate = new Date()
-    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+     
     const offsetTimeZone = (this.clientDate.getTimezoneOffset() + 60) * 60 * 1000
     this.clientDate.setHours(0, 0, 0, 0)
     this.clientDate = this.clientDate.getTime() - offsetTimeZone
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+     
     sessionStorage.setItem('couponDetails', `${this.campaignCoupon}-${this.clientDate}`)
     const campaign = this.campaigns[this.couponControl.value]
     if (campaign) {
@@ -249,7 +249,7 @@ export class PaymentComponent implements OnInit {
     }
   }
 
-  // eslint-disable-next-line no-empty,@typescript-eslint/no-empty-function
+   
   noop () { }
 
   showBitcoinQrCode () {

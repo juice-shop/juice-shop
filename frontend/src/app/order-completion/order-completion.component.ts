@@ -55,14 +55,14 @@ export class OrderCompletionComponent implements OnInit {
             this.orderDetails.addressId = results.data[0].addressId
             this.orderDetails.paymentId = results.data[0].paymentId
             this.orderDetails.totalPrice = results.data[0].totalPrice
-            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+             
             this.orderDetails.itemTotal = results.data[0].totalPrice + this.promotionalDiscount - this.deliveryPrice
             this.orderDetails.eta = results.data[0].eta || '?'
             this.orderDetails.products = results.data[0].products
             this.orderDetails.bonus = results.data[0].bonus
             this.dataSource = new MatTableDataSource<Element>(this.orderDetails.products)
             for (const product of this.orderDetails.products) {
-              // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+               
               this.tweetText += `%0a- ${product.name}`
             }
             this.tweetText = this.truncateTweet(this.tweetText)

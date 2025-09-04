@@ -118,7 +118,7 @@ export class NavbarComponent implements OnInit {
     this.administrationService.getApplicationVersion().subscribe({
       next: (version: any) => {
         if (version) {
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+         
           this.version = `v${version}`
         }
       },
@@ -251,7 +251,7 @@ export class NavbarComponent implements OnInit {
     if (this.languages.find((y: { key: string }) => y.key === langKey)) {
       const language = this.languages.find((y: { key: string }) => y.key === langKey)
       this.shortKeyLang = language.shortKey
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+       
       const snackBarRef = this.snackBar.open(`Language has been changed to ${language.lang}`, 'Force page reload', {
         duration: 5000,
         panelClass: ['mat-body']
@@ -285,7 +285,7 @@ export class NavbarComponent implements OnInit {
     this.sidenavToggle.emit()
   }
 
-  // eslint-disable-next-line no-empty,@typescript-eslint/no-empty-function
+   
   noop () { }
 
   getLanguages () {

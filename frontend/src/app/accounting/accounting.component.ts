@@ -121,7 +121,7 @@ export class AccountingComponent implements AfterViewInit, OnDestroy {
         const product = this.tableData.find((product) => {
           return product.id === quantity.ProductId
         })
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+         
         this.snackBarHelperService.open(`Quantity for ${product.name} has been updated.`, 'confirmBar')
         this.loadQuantity()
       },
@@ -135,7 +135,7 @@ export class AccountingComponent implements AfterViewInit, OnDestroy {
   modifyPrice (id, value) {
     this.productService.put(id, { price: value < 0 ? 0 : value }).subscribe({
       next: (product) => {
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+       
         this.snackBarHelperService.open(`Price for ${product.name} has been updated.`, 'confirmBar')
         this.loadProducts()
       },

@@ -38,7 +38,7 @@ export class PaymentMethodComponent implements OnInit {
   @Input() public allowDelete = false
   public displayedColumns = ['Number', 'Name', 'Expiry']
   public nameControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
-  // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
+   
   public numberControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.min(1000000000000000), Validators.max(9999999999999999)])
   public monthControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
   public yearControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])

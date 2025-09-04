@@ -56,9 +56,9 @@ export class RecycleComponent implements OnInit {
     this.configurationService.getApplicationConfiguration().subscribe({
       next: (config: any) => {
         if (config?.application?.recyclePage) {
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+         
           this.topImage = `assets/public/images/products/${config.application.recyclePage.topProductImage}`
-          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+           
           this.bottomImage = `assets/public/images/products/${config.application.recyclePage.bottomProductImage}`
         }
       },

@@ -12,7 +12,7 @@ interface DifficultySummary {
 }
 
 // interface doesn't work here
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+ 
 type DifficultySummaries = Record<number, DifficultySummary>
 
 const INITIAL_SUMMARIES: Readonly<DifficultySummaries> = Object.freeze({
