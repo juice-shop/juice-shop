@@ -55,7 +55,7 @@ export class SidenavComponent implements OnInit {
     this.administrationService.getApplicationVersion().subscribe({
       next: (version: any) => {
         if (version) {
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+         
           this.version = `v${version}`
         }
       },
@@ -108,7 +108,7 @@ export class SidenavComponent implements OnInit {
     window.location.replace(environment.hostServer + '/dataerasure')
   }
 
-  // eslint-disable-next-line no-empty,@typescript-eslint/no-empty-function
+   
   noop () { }
 
   getScoreBoardStatus () {
