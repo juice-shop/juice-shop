@@ -4,7 +4,7 @@
  */
 
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { Component, NgZone, type OnInit } from '@angular/core'
+import { Component, NgZone, type OnInit, inject } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { BasketService } from '../Services/basket.service'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
@@ -50,6 +50,20 @@ library.add(faCartArrowDown, faGift, faHeart, faLeanpub, faThumbsUp, faTshirt, f
   imports: [MatCardModule, PaymentMethodComponent, MatDivider, TranslateModule, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatIconModule]
 })
 export class PaymentComponent implements OnInit {
+  private readonly location = inject(Location);
+  private readonly cookieService = inject(CookieService);
+  private readonly userService = inject(UserService);
+  private readonly deliveryService = inject(DeliveryService);
+  private readonly walletService = inject(WalletService);
+  private readonly router = inject(Router);
+  private readonly dialog = inject(MatDialog);
+  private readonly configurationService = inject(ConfigurationService);
+  private readonly basketService = inject(BasketService);
+  private readonly translate = inject(TranslateService);
+  private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly ngZone = inject(NgZone);
+  private readonly snackBarHelperService = inject(SnackBarHelperService);
+
   public couponConfirmation: any
   public couponError: any
   public card: any = {}
@@ -78,13 +92,6 @@ export class PaymentComponent implements OnInit {
     ORANGE2022: { validOn: 1651618800000, discount: 40 },
     ORANGE2023: { validOn: 1683154800000, discount: 40 }
   }
-
-  constructor (private readonly location: Location, private readonly cookieService: CookieService,
-    private readonly userService: UserService, private readonly deliveryService: DeliveryService, private readonly walletService: WalletService,
-    private readonly router: Router, private readonly dialog: MatDialog, private readonly configurationService: ConfigurationService,
-    private readonly basketService: BasketService, private readonly translate: TranslateService,
-    private readonly activatedRoute: ActivatedRoute, private readonly ngZone: NgZone,
-    private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit (): void {
     this.initTotal()

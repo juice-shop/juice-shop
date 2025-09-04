@@ -5,7 +5,7 @@
 
 import { environment } from '../../environments/environment'
 import { HttpClient } from '@angular/common/http'
-import { Injectable } from '@angular/core'
+import { Injectable, inject } from '@angular/core'
 import { type Observable } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
 import { type Challenge } from '../Models/challenge.model'
@@ -14,9 +14,10 @@ import { type Challenge } from '../Models/challenge.model'
   providedIn: 'root'
 })
 export class ChallengeService {
+  private readonly http = inject(HttpClient);
+
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/api/Challenges'
-  constructor (private readonly http: HttpClient) { }
 
   find (params?: any): Observable<Challenge[]> {
     return this.http.get(this.host + '/', { params }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))

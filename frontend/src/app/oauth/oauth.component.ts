@@ -6,7 +6,7 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { UserService } from '../Services/user.service'
 import { CookieService } from 'ngy-cookie'
-import { Component, NgZone, type OnInit } from '@angular/core'
+import { Component, NgZone, type OnInit, inject } from '@angular/core'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatCardModule } from '@angular/material/card'
 
@@ -17,7 +17,12 @@ import { MatCardModule } from '@angular/material/card'
   imports: [MatCardModule, TranslateModule]
 })
 export class OAuthComponent implements OnInit {
-  constructor (private readonly cookieService: CookieService, private readonly userService: UserService, private readonly router: Router, private readonly route: ActivatedRoute, private readonly ngZone: NgZone) { }
+  private readonly cookieService = inject(CookieService);
+  private readonly userService = inject(UserService);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+  private readonly ngZone = inject(NgZone);
+
 
   ngOnInit (): void {
     this.userService.oauthLogin(this.parseRedirectUrlParams().access_token).subscribe({

@@ -5,7 +5,7 @@
 
 import { ChatbotService } from '../Services/chatbot.service'
 import { UserService } from '../Services/user.service'
-import { Component, type OnDestroy, type OnInit } from '@angular/core'
+import { Component, type OnDestroy, type OnInit, inject } from '@angular/core'
 import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
@@ -41,6 +41,12 @@ interface MessageActions {
   imports: [MatCardModule, MatFormFieldModule, MatLabel, TranslateModule, MatInputModule, FormsModule, ReactiveFormsModule]
 })
 export class ChatbotComponent implements OnInit, OnDestroy {
+  private readonly userService = inject(UserService);
+  private readonly chatbotService = inject(ChatbotService);
+  private readonly cookieService = inject(CookieService);
+  private readonly formSubmitService = inject(FormSubmitService);
+  private readonly translate = inject(TranslateService);
+
   public messageControl: UntypedFormControl = new UntypedFormControl()
   public messages: ChatMessage[] = []
   public juicyImageSrc: string = 'assets/public/images/ChatbotAvatar.png'
@@ -53,8 +59,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   public currentAction: string = this.messageActions.response
 
   private chatScrollDownTimeoutId: ReturnType<typeof setTimeout> | null = null
-
-  constructor (private readonly userService: UserService, private readonly chatbotService: ChatbotService, private readonly cookieService: CookieService, private readonly formSubmitService: FormSubmitService, private readonly translate: TranslateService) { }
 
   ngOnDestroy (): void {
     if (this.chatScrollDownTimeoutId) {

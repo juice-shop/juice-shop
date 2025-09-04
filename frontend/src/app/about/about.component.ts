@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, type OnInit } from '@angular/core'
+import { Component, type OnInit, inject } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
 import { ConfigurationService } from '../Services/configuration.service'
 import { FeedbackService } from '../Services/feedback.service'
@@ -28,6 +28,11 @@ library.add(faFacebook, faTwitter, faSlack, faReddit, faNewspaper, faStar, fasSt
   imports: [MatCardModule, TranslateModule, GalleryComponent, GalleryImageDef, MatButtonModule]
 })
 export class AboutComponent implements OnInit {
+  private readonly configurationService = inject(ConfigurationService);
+  private readonly feedbackService = inject(FeedbackService);
+  private readonly sanitizer = inject(DomSanitizer);
+  private readonly gallery = inject(Gallery);
+
   public blueSkyUrl?: string
   public mastodonUrl?: string
   public twitterUrl?: string
@@ -56,13 +61,6 @@ export class AboutComponent implements OnInit {
     '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>',
     '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>'
   ]
-
-  constructor (
-    private readonly configurationService: ConfigurationService,
-    private readonly feedbackService: FeedbackService,
-    private readonly sanitizer: DomSanitizer,
-    private readonly gallery: Gallery
-  ) {}
 
   ngOnInit (): void {
     this.galleryRef = this.gallery.ref('feedback-gallery')

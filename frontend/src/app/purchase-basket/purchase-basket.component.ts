@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, EventEmitter, Input, type OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, Input, type OnInit, Output, inject } from '@angular/core'
 import { BasketService } from '../Services/basket.service'
 import { UserService } from '../Services/user.service'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -25,6 +25,11 @@ library.add(faTrashAlt, faMinusSquare, faPlusSquare)
   imports: [MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, MatIconButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow, TranslateModule]
 })
 export class PurchaseBasketComponent implements OnInit {
+  private readonly deluxeGuard = inject(DeluxeGuard);
+  private readonly basketService = inject(BasketService);
+  private readonly userService = inject(UserService);
+  private readonly snackBarHelperService = inject(SnackBarHelperService);
+
   @Input('allowEdit') public allowEdit: boolean = false
   @Input('displayTotal') public displayTotal: boolean = false
   @Input('totalPrice') public totalPrice: boolean = true
@@ -35,8 +40,6 @@ export class PurchaseBasketComponent implements OnInit {
   public bonus = 0
   public itemTotal = 0
   public userEmail: string
-  constructor (private readonly deluxeGuard: DeluxeGuard, private readonly basketService: BasketService,
-    private readonly userService: UserService, private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit (): void {
     if (this.allowEdit && !this.tableColumns.includes('remove')) {

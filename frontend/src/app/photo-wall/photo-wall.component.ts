@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, type OnInit } from '@angular/core'
+import { Component, type OnInit, inject } from '@angular/core'
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { mimeType } from './mime-type.validator'
 import { PhotoWallService } from '../Services/photo-wall.service'
@@ -29,6 +29,10 @@ library.add(faTwitter)
   imports: [MatCardModule, MatIconButton, MatCardTitle, TranslateModule, MatCardContent, FormsModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatLabel, MatInputModule, MatError]
 })
 export class PhotoWallComponent implements OnInit {
+  private readonly photoWallService = inject(PhotoWallService);
+  private readonly configurationService = inject(ConfigurationService);
+  private readonly snackBarHelperService = inject(SnackBarHelperService);
+
   public emptyState: boolean = true
   public imagePreview: string
   public form: UntypedFormGroup = new UntypedFormGroup({
@@ -38,9 +42,6 @@ export class PhotoWallComponent implements OnInit {
 
   public slideshowDataSource: Array<{ url: string, caption: string }> = []
   public twitterHandle = null
-
-  constructor (private readonly photoWallService: PhotoWallService, private readonly configurationService: ConfigurationService,
-    private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit (): void {
     this.slideshowDataSource = []

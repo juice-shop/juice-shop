@@ -3,14 +3,15 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Inject, Injectable } from '@angular/core'
+import { Injectable, inject } from '@angular/core'
 import { DOCUMENT } from '@angular/common'
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormSubmitService {
-  constructor (@Inject(DOCUMENT) private readonly _document: HTMLDocument) { }
+  private readonly _document = inject<HTMLDocument>(DOCUMENT);
+
 
   attachEnterKeyHandler (formId: string, submitButtonId: string, onSubmit: any) {
     const form = this._document.getElementById(formId) as HTMLFormElement

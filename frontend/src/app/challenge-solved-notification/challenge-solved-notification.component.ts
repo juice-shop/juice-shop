@@ -6,7 +6,7 @@
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
-import { ChangeDetectorRef, Component, NgZone, type OnInit } from '@angular/core'
+import { ChangeDetectorRef, Component, NgZone, type OnInit, inject } from '@angular/core'
 import { CookieService } from 'ngy-cookie'
 import { CountryMappingService } from '../Services/country-mapping.service'
 import { SocketIoService } from '../Services/socket-io.service'
@@ -40,13 +40,19 @@ interface ChallengeSolvedNotification {
   imports: [MatCardModule, MatButtonModule, MatIconModule, ClipboardModule, LowerCasePipe, TranslateModule]
 })
 export class ChallengeSolvedNotificationComponent implements OnInit {
+  private readonly ngZone = inject(NgZone);
+  private readonly configurationService = inject(ConfigurationService);
+  private readonly challengeService = inject(ChallengeService);
+  private readonly countryMappingService = inject(CountryMappingService);
+  private readonly translate = inject(TranslateService);
+  private readonly cookieService = inject(CookieService);
+  private readonly ref = inject(ChangeDetectorRef);
+  private readonly io = inject(SocketIoService);
+
   public notifications: ChallengeSolvedNotification[] = []
   public showCtfFlagsInNotifications: boolean = false
   public showCtfCountryDetailsInNotifications: string = 'none'
   public countryMap?: any
-
-  constructor (private readonly ngZone: NgZone, private readonly configurationService: ConfigurationService, private readonly challengeService: ChallengeService, private readonly countryMappingService: CountryMappingService, private readonly translate: TranslateService, private readonly cookieService: CookieService, private readonly ref: ChangeDetectorRef, private readonly io: SocketIoService) {
-  }
 
   ngOnInit (): void {
     this.ngZone.runOutsideAngular(() => {

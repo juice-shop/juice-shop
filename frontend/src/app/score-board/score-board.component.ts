@@ -1,4 +1,4 @@
-import { Component, NgZone, type OnDestroy, type OnInit } from '@angular/core'
+import { Component, NgZone, type OnDestroy, type OnInit, inject } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { DomSanitizer } from '@angular/platform-browser'
 import { MatDialog } from '@angular/material/dialog'
@@ -45,6 +45,16 @@ interface CodeChallengeSolvedWebsocket {
   imports: [HackingChallengeProgressScoreCardComponent, CodingChallengeProgressScoreCardComponent, DifficultyOverviewScoreCardComponent, FilterSettingsComponent, MatProgressSpinner, ChallengesUnavailableWarningComponent, TutorialModeWarningComponent, ChallengeCardComponent, NgClass, TranslateModule]
 })
 export class ScoreBoardComponent implements OnInit, OnDestroy {
+  private readonly challengeService = inject(ChallengeService);
+  private readonly hintService = inject(HintService);
+  private readonly configurationService = inject(ConfigurationService);
+  private readonly sanitizer = inject(DomSanitizer);
+  private readonly ngZone = inject(NgZone);
+  private readonly io = inject(SocketIoService);
+  private readonly dialog = inject(MatDialog);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+
   public allChallenges: EnrichedChallenge[] = []
   public filteredChallenges: EnrichedChallenge[] = []
   public filterSetting: FilterSetting = structuredClone(DEFAULT_FILTER_SETTING)
@@ -53,18 +63,6 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
   public isInitialized: boolean = false
 
   private readonly subscriptions: Subscription[] = []
-
-  constructor (
-    private readonly challengeService: ChallengeService,
-    private readonly hintService: HintService,
-    private readonly configurationService: ConfigurationService,
-    private readonly sanitizer: DomSanitizer,
-    private readonly ngZone: NgZone,
-    private readonly io: SocketIoService,
-    private readonly dialog: MatDialog,
-    private readonly router: Router,
-    private readonly route: ActivatedRoute
-  ) { }
 
   ngOnInit (): void {
     const dataLoaderSubscription = combineLatest([

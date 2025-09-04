@@ -5,15 +5,16 @@
 
 import { environment } from '../../environments/environment'
 import { HttpClient } from '@angular/common/http'
-import { Injectable } from '@angular/core'
+import { Injectable, inject } from '@angular/core'
 import { catchError } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
 })
 export class CountryMappingService {
+  private readonly http = inject(HttpClient);
+
   private readonly hostServer = environment.hostServer
-  constructor (private readonly http: HttpClient) { }
 
   getCountryMapping () {
     return this.http.get(this.hostServer + '/rest/country-mapping').pipe(catchError((err) => { throw err }))

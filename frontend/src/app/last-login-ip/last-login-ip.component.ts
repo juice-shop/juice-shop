@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component } from '@angular/core'
+import { Component, inject } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
 import * as jwtDecode from 'jwt-decode'
 import { TranslateModule } from '@ngx-translate/core'
@@ -17,8 +17,9 @@ import { MatCardModule } from '@angular/material/card'
 })
 
 export class LastLoginIpComponent {
+  private readonly sanitizer = inject(DomSanitizer);
+
   lastLoginIp: any = '?'
-  constructor (private readonly sanitizer: DomSanitizer) {}
 
   ngOnInit (): void {
     try {

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Injectable } from '@angular/core'
+import { Injectable, inject } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { environment } from '../../environments/environment'
 import { catchError, map } from 'rxjs/operators'
@@ -12,10 +12,10 @@ import { catchError, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class TrackOrderService {
+  private readonly http = inject(HttpClient);
+
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/rest/track-order'
-
-  constructor (private readonly http: HttpClient) { }
 
   find (params: string) {
     params = encodeURIComponent(params)

@@ -6,7 +6,7 @@
 import { ConfigurationService } from '../Services/configuration.service'
 import { UserService } from '../Services/user.service'
 import { RecycleService } from '../Services/recycle.service'
-import { Component, type OnInit, ViewChild } from '@angular/core'
+import { Component, type OnInit, ViewChild, inject } from '@angular/core'
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
@@ -32,6 +32,13 @@ library.add(faPaperPlane)
   imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatError, AddressComponent, MatDatepickerInput, MatDatepickerToggle, MatSuffix, MatDatepicker, MatCheckbox, MatButtonModule, MatCardImage, MatCardContent]
 })
 export class RecycleComponent implements OnInit {
+  private readonly recycleService = inject(RecycleService);
+  private readonly userService = inject(UserService);
+  private readonly configurationService = inject(ConfigurationService);
+  private readonly formSubmitService = inject(FormSubmitService);
+  private readonly translate = inject(TranslateService);
+  private readonly snackBarHelperService = inject(SnackBarHelperService);
+
   @ViewChild('addressComp', { static: true }) public addressComponent: AddressComponent
   public requestorControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
   public recycleQuantityControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(1000)])
@@ -44,9 +51,6 @@ export class RecycleComponent implements OnInit {
   public userEmail: any
   public confirmation: any
   public addressId: any = undefined
-  constructor (private readonly recycleService: RecycleService, private readonly userService: UserService,
-    private readonly configurationService: ConfigurationService, private readonly formSubmitService: FormSubmitService,
-    private readonly translate: TranslateService, private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit (): void {
     this.configurationService.getApplicationConfiguration().subscribe({

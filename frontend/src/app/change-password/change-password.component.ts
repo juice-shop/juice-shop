@@ -11,7 +11,7 @@ import {
   ReactiveFormsModule
 } from '@angular/forms'
 import { UserService } from '../Services/user.service'
-import { Component } from '@angular/core'
+import { Component, inject } from '@angular/core'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-regular-svg-icons'
@@ -48,6 +48,10 @@ library.add(faSave, faEdit)
   ]
 })
 export class ChangePasswordComponent {
+  private readonly userService = inject(UserService);
+  private readonly formSubmitService = inject(FormSubmitService);
+  private readonly translate = inject(TranslateService);
+
   public passwordControl: UntypedFormControl = new UntypedFormControl('', [
     Validators.required
   ])
@@ -70,12 +74,6 @@ export class ChangePasswordComponent {
 
   public error: any
   public confirmation: any
-
-  constructor (
-    private readonly userService: UserService,
-    private readonly formSubmitService: FormSubmitService,
-    private readonly translate: TranslateService
-  ) {}
 
   ngOnInit (): void {
     this.formSubmitService.attachEnterKeyHandler(

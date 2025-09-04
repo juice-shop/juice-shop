@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, type OnInit, Inject } from '@angular/core'
+import { Component, type OnInit, inject } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'
@@ -18,9 +18,10 @@ import { MatIconModule } from '@angular/material/icon'
   imports: [MatDialogContent, MatDivider, MatDialogActions, MatButtonModule, MatDialogClose, TranslateModule, MatIconModule]
 })
 export class FeedbackDetailsComponent implements OnInit {
+  dialogData = inject(MAT_DIALOG_DATA);
+
   public feedback: any
   public id: any
-  constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any) { }
 
   ngOnInit (): void {
     this.feedback = this.dialogData.feedback
