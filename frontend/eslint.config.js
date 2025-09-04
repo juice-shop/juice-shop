@@ -25,7 +25,6 @@ module.exports = tseslint.config(
       "@typescript-eslint/consistent-type-assertions": "off",
       "@typescript-eslint/no-floating-promises": "off",
       "@typescript-eslint/explicit-function-return-type": "off",
-      "@typescript-eslint/restrict-template-expressions": "off",
       "@typescript-eslint/no-confusing-void-expression": "off",
       "@typescript-eslint/require-await": "off",
       "@typescript-eslint/no-empty-function": "off",
@@ -39,7 +38,6 @@ module.exports = tseslint.config(
       "@typescript-eslint/no-unsafe-assignment": "off",
       "@typescript-eslint/no-redundant-type-constituents": "off",
       "@typescript-eslint/unbound-method": "off",
-      "no-loss-of-precision": "off",
       "@angular-eslint/no-output-on-prefix": "off"
     },
   },
