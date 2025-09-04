@@ -362,7 +362,7 @@
   "The three generic hints from Forge an essentially unsigned JWT token also help with this challenge.": "Trzy ogólne wskazówki z wyzwania \"Sfałszuj zasadniczo niepodpisany token JWT\" również pomagają w tym wyzwaniu.",
   "Instead of enforcing no encryption to be applied, try to apply a more sophisticated exploit against the JWT libraries used in the Juice Shop.": "Zamiast wymuszać brak szyfrowania, spróbuj zastosować bardziej wyrafinowany exploit przeciwko bibliotekom JWT używanym w Juice Shop.",
   "Getting your hands on the public RSA key the application employs for its JWTs is mandatory for this challenge.": "Getting your hands on the public RSA key the application employs for its JWTs is mandatory for this challenge.",
-  "Finding the corresponding private key should actually be impossible, but that obviously doesn’t make this challenge unsolvable.": "Finding the corresponding private key should actually be impossible, but that obviously doesn’t make this challenge unsolvable.",
+  "Finding the corresponding private key should actually be impossible, but that obviously doesn’t make this challenge unsolvable.": "Znalezienie odpowiedniego klucza prywatnego powinno być w rzeczywistości niemożliwe, ale to oczywiście nie czyni tego wyzwania nierozwiązywalnym.",
   "Make sure your JWT is URL safe!": "Make sure your JWT is URL safe!",
   "The file is not directly accessible because a security mechanism prevents access to it.": "The file is not directly accessible because a security mechanism prevents access to it.",
   "You need to trick the security mechanism into thinking that the file has a valid file type.": "You need to trick the security mechanism into thinking that the file has a valid file type.",
