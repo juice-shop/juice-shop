@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+/* eslint-disable @typescript-eslint/prefer-for-of */
 import { ProductDetailsComponent } from '../product-details/product-details.component'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ProductService } from '../Services/product.service'
