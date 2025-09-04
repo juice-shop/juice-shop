@@ -19,7 +19,6 @@ export class FormSubmitService {
 
     form.addEventListener('keyup', function (event) {
       event.preventDefault()
-      // eslint-disable-next-line import/no-deprecated
       if (event.keyCode === 13 && !submitButton.disabled) {
         onSubmit()
       }
