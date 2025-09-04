@@ -63,7 +63,7 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "angular-eslint": "20.2.0",
+    "angular-eslint": "^20.1.0",
     "@angular/language-service": "^20.1.0",
     "@types/express-serve-static-core": "^4.17.9",
     "@types/file-saver": "^2.0.1",
@@ -84,11 +84,5 @@
     "stylelint-config-sass-guidelines": "^7.1.0",
     "stylelint-scss": "^3.18.0",
     "ts-node": "^10.9.2"
-  },
-  "overrides": {
-    "ng2-file-upload": {
-      "@angular/common": "^19.0.0 || ^20.0.0",
-      "@angular/core": "^19.0.0 || ^20.0.0"
-    }
   }
 }
