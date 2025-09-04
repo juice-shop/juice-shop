@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component } from '@angular/core'
+import { Component, inject } from '@angular/core'
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
@@ -34,6 +34,12 @@ library.add(faUnlockAlt, faSave)
   imports: [MatCardModule, TranslateModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatButtonModule, QrCodeModule, MatError, MatIconModule, MatSuffix, MatTooltip, MatHint, MatIconModule]
 })
 export class TwoFactorAuthComponent {
+  private readonly twoFactorAuthService = inject(TwoFactorAuthService);
+  private readonly configurationService = inject(ConfigurationService);
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly translateService = inject(TranslateService);
+  private readonly snackBarHelperService = inject(SnackBarHelperService);
+
   public data?: string
 
   public twoFactorSetupForm: UntypedFormGroup = new UntypedFormGroup({
@@ -53,8 +59,6 @@ export class TwoFactorAuthComponent {
   private setupToken?: string
 
   private appName = 'OWASP Juice Shop'
-
-  constructor (private readonly twoFactorAuthService: TwoFactorAuthService, private readonly configurationService: ConfigurationService, private readonly snackBar: MatSnackBar, private readonly translateService: TranslateService, private readonly snackBarHelperService: SnackBarHelperService) {}
 
   ngOnInit (): void {
     this.updateStatus()

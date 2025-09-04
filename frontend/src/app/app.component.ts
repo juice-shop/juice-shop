@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, Inject } from '@angular/core'
+import { Component, inject } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { DOCUMENT } from '@angular/common'
 import { dom } from '@fortawesome/fontawesome-svg-core'
@@ -24,7 +24,10 @@ dom.watch()
   imports: [MatSidenavContainer, MatSidenav, SidenavComponent, NavbarComponent, ServerStartedNotificationComponent, ChallengeSolvedNotificationComponent, WelcomeComponent, RouterOutlet]
 })
 export class AppComponent {
-  constructor (@Inject(DOCUMENT) private readonly _document: HTMLDocument, private readonly translate: TranslateService) {
+  private readonly _document = inject<HTMLDocument>(DOCUMENT);
+  private readonly translate = inject(TranslateService);
+
+  constructor () {
     this.translate.setDefaultLang('en')
   }
 }

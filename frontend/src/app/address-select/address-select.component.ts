@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, NgZone } from '@angular/core'
+import { Component, NgZone, inject } from '@angular/core'
 import { Router } from '@angular/router'
 import { AddressComponent } from '../address/address.component'
 
@@ -14,10 +14,11 @@ import { AddressComponent } from '../address/address.component'
   imports: [AddressComponent]
 })
 export class AddressSelectComponent {
+  private readonly router = inject(Router);
+  private readonly ngZone = inject(NgZone);
+
   public addressId: any = undefined
   public showNextButton: boolean = true
-
-  constructor (private readonly router: Router, private readonly ngZone: NgZone) {}
 
   getMessage (id) {
     this.addressId = id

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, NgZone, type OnInit } from '@angular/core'
+import { Component, NgZone, type OnInit, inject } from '@angular/core'
 import { UserService } from '../Services/user.service'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ConfigurationService } from '../Services/configuration.service'
@@ -21,6 +21,13 @@ import { MatCardModule } from '@angular/material/card'
 })
 
 export class DeluxeUserComponent implements OnInit {
+  private readonly router = inject(Router);
+  private readonly userService = inject(UserService);
+  private readonly configurationService = inject(ConfigurationService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly ngZone = inject(NgZone);
+  private readonly io = inject(SocketIoService);
+
   public membershipCost: number = 0
   public error?: string = undefined
   public applicationName = 'OWASP Juice Shop'
@@ -43,9 +50,6 @@ export class DeluxeUserComponent implements OnInit {
       description: 'DESCRIPTION_UNLIMITED_PURCHASE'
     }
   ] as const
-
-  constructor (private readonly router: Router, private readonly userService: UserService, private readonly configurationService: ConfigurationService, private readonly route: ActivatedRoute, private readonly ngZone: NgZone, private readonly io: SocketIoService) {
-  }
 
   ngOnInit (): void {
     this.configurationService.getApplicationConfiguration().subscribe({

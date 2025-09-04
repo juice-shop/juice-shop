@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core'
+import { Component, ChangeDetectorRef, inject } from '@angular/core'
 import { KeysService } from '../Services/keys.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { getDefaultProvider, ethers } from 'ethers'
@@ -45,11 +45,10 @@ const compilerReleases = {
   imports: [CodemirrorModule, FormsModule, MatButtonModule, MatIconModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule]
 })
 export class Web3SandboxComponent {
-  constructor (
-    private readonly keysService: KeysService,
-    private readonly snackBarHelperService: SnackBarHelperService,
-    private readonly changeDetectorRef: ChangeDetectorRef
-  ) {}
+  private readonly keysService = inject(KeysService);
+  private readonly snackBarHelperService = inject(SnackBarHelperService);
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
+
 
   ngOnInit (): void {
     this.handleAuth()

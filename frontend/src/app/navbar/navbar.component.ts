@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, EventEmitter, NgZone, type OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, NgZone, type OnInit, Output, inject } from '@angular/core'
 import { environment } from '../../environments/environment'
 import { ChallengeService } from '../Services/challenge.service'
 import { UserService } from '../Services/user.service'
@@ -83,6 +83,20 @@ library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, 
   ]
 })
 export class NavbarComponent implements OnInit {
+  private readonly administrationService = inject(AdministrationService);
+  private readonly challengeService = inject(ChallengeService);
+  private readonly configurationService = inject(ConfigurationService);
+  private readonly userService = inject(UserService);
+  private readonly ngZone = inject(NgZone);
+  private readonly cookieService = inject(CookieService);
+  private readonly router = inject(Router);
+  private readonly translate = inject(TranslateService);
+  private readonly io = inject(SocketIoService);
+  private readonly langService = inject(LanguagesService);
+  private readonly loginGuard = inject(LoginGuard);
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly basketService = inject(BasketService);
+
   public userEmail: string = ''
   public languages: any[] = []
   public filteredLanguages: any[] = []
@@ -97,12 +111,6 @@ export class NavbarComponent implements OnInit {
   public itemTotal = 0
 
   @Output() public sidenavToggle = new EventEmitter()
-
-  constructor (private readonly administrationService: AdministrationService, private readonly challengeService: ChallengeService,
-    private readonly configurationService: ConfigurationService, private readonly userService: UserService, private readonly ngZone: NgZone,
-    private readonly cookieService: CookieService, private readonly router: Router, private readonly translate: TranslateService,
-    private readonly io: SocketIoService, private readonly langService: LanguagesService, private readonly loginGuard: LoginGuard,
-    private readonly snackBar: MatSnackBar, private readonly basketService: BasketService) { }
 
   ngOnInit (): void {
     this.getLanguages()

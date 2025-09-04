@@ -4,16 +4,18 @@
  */
 
 import { environment } from 'src/environments/environment'
-import { Injectable, NgZone } from '@angular/core'
+import { Injectable, NgZone, inject } from '@angular/core'
 import { io, type Socket } from 'socket.io-client'
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketIoService {
+  private readonly ngZone = inject(NgZone);
+
   private _socket: Socket
 
-  constructor (private readonly ngZone: NgZone) {
+  constructor () {
     this.ngZone.runOutsideAngular(() => {
       if (environment.hostServer === '.') {
         this._socket = io(window.location.origin, {

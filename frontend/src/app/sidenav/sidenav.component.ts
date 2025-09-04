@@ -5,7 +5,7 @@
 
 import { environment } from '../../environments/environment'
 import { ChallengeService } from '../Services/challenge.service'
-import { Component, EventEmitter, NgZone, type OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, NgZone, type OnInit, Output, inject } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 import { AdministrationService } from '../Services/administration.service'
 import { Router, RouterLink } from '@angular/router'
@@ -30,6 +30,16 @@ import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar'
   imports: [MatToolbar, MatToolbarRow, MatNavList, MatButtonModule, MatListSubheaderCssMatStyler, TranslateModule, MatListItem, RouterLink, MatIconModule, NgClass, MatDivider]
 })
 export class SidenavComponent implements OnInit {
+  private readonly administrationService = inject(AdministrationService);
+  private readonly challengeService = inject(ChallengeService);
+  private readonly ngZone = inject(NgZone);
+  private readonly io = inject(SocketIoService);
+  private readonly userService = inject(UserService);
+  private readonly cookieService = inject(CookieService);
+  private readonly router = inject(Router);
+  private readonly configurationService = inject(ConfigurationService);
+  private readonly loginGuard = inject(LoginGuard);
+
   public applicationName = 'OWASP Juice Shop'
   public showGitHubLink = true
   public userEmail = ''
@@ -40,10 +50,6 @@ export class SidenavComponent implements OnInit {
   public isShowing = false
   public offerScoreBoardTutorial: boolean = false
   @Output() public sidenavToggle = new EventEmitter()
-
-  constructor (private readonly administrationService: AdministrationService, private readonly challengeService: ChallengeService,
-    private readonly ngZone: NgZone, private readonly io: SocketIoService, private readonly userService: UserService, private readonly cookieService: CookieService,
-    private readonly router: Router, private readonly configurationService: ConfigurationService, private readonly loginGuard: LoginGuard) { }
 
   ngOnInit (): void {
     this.administrationService.getApplicationVersion().subscribe({

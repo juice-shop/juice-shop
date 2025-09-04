@@ -4,7 +4,7 @@
  */
 
 import { environment } from '../../environments/environment'
-import { Injectable } from '@angular/core'
+import { Injectable, inject } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
 
@@ -12,10 +12,10 @@ import { catchError, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class FeedbackService {
+  private readonly http = inject(HttpClient);
+
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/api/Feedbacks'
-
-  constructor (private readonly http: HttpClient) { }
 
   find (params?: any) {
     return this.http.get(this.host + '/', {

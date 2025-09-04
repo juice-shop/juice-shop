@@ -4,7 +4,7 @@
  */
 
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { Component, EventEmitter, Input, type OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, Input, type OnInit, Output, inject } from '@angular/core'
 import { PaymentService } from '../Services/payment.service'
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -30,6 +30,10 @@ library.add(faPaperPlane, faTrashAlt)
 })
 
 export class PaymentMethodComponent implements OnInit {
+  paymentService = inject(PaymentService);
+  private readonly translate = inject(TranslateService);
+  private readonly snackBarHelperService = inject(SnackBarHelperService);
+
   @Output() emitSelection = new EventEmitter()
   @Input('allowDelete') public allowDelete: boolean = false
   public displayedColumns = ['Number', 'Name', 'Expiry']
@@ -47,8 +51,6 @@ export class PaymentMethodComponent implements OnInit {
   public yearRange: any[]
   public cardsExist: boolean = false
   public paymentId: any = undefined
-
-  constructor (public paymentService: PaymentService, private readonly translate: TranslateService, private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit (): void {
     this.monthRange = Array.from(Array(12).keys()).map(i => i + 1)

@@ -1,4 +1,4 @@
-import { Component, Input, type OnInit, ViewChild, type DoCheck, KeyValueDiffers, type KeyValueDiffer } from '@angular/core'
+import { Component, Input, type OnInit, ViewChild, type DoCheck, KeyValueDiffers, type KeyValueDiffer, inject } from '@angular/core'
 import { NgxTextDiffComponent, NgxTextDiffModule } from '@winarg/ngx-text-diff'
 
 import { CookieService } from 'ngy-cookie'
@@ -12,9 +12,14 @@ import { type DiffTableFormat } from '@winarg/ngx-text-diff/lib/ngx-text-diff.mo
   imports: [NgxTextDiffModule]
 })
 export class CodeFixesComponent implements OnInit, DoCheck {
+  private readonly cookieService = inject(CookieService);
+  private readonly differs = inject(KeyValueDiffers);
+
   differ: KeyValueDiffer<string, DiffTableFormat>
 
-  constructor (private readonly cookieService: CookieService, private readonly differs: KeyValueDiffers) {
+  constructor () {
+    const cookieService = this.cookieService;
+
     this.cookieService = cookieService
     this.differ = this.differs.find({}).create()
   }

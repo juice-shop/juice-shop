@@ -6,7 +6,7 @@
 import { CookieService } from 'ngy-cookie'
 import { WindowRefService } from '../Services/window-ref.service'
 import { Router, RouterLink } from '@angular/router'
-import { Component, NgZone, type OnInit } from '@angular/core'
+import { Component, NgZone, type OnInit, inject } from '@angular/core'
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { UserService } from '../Services/user.service'
@@ -37,6 +37,15 @@ const oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
 })
 
 export class LoginComponent implements OnInit {
+  private readonly configurationService = inject(ConfigurationService);
+  private readonly userService = inject(UserService);
+  private readonly windowRefService = inject(WindowRefService);
+  private readonly cookieService = inject(CookieService);
+  private readonly router = inject(Router);
+  private readonly formSubmitService = inject(FormSubmitService);
+  private readonly basketService = inject(BasketService);
+  private readonly ngZone = inject(NgZone);
+
   public emailControl = new UntypedFormControl('', [Validators.required])
 
   public passwordControl = new UntypedFormControl('', [Validators.required, Validators.minLength(1)])
@@ -50,7 +59,6 @@ export class LoginComponent implements OnInit {
   public redirectUri: string = ''
   public testingUsername = 'testing@juice-sh.op'
   public testingPassword = 'IamUsedForTesting'
-  constructor (private readonly configurationService: ConfigurationService, private readonly userService: UserService, private readonly windowRefService: WindowRefService, private readonly cookieService: CookieService, private readonly router: Router, private readonly formSubmitService: FormSubmitService, private readonly basketService: BasketService, private readonly ngZone: NgZone) { }
 
   ngOnInit (): void {
     const email = localStorage.getItem('email')

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, EventEmitter, Input, type OnInit, Output, NgZone } from '@angular/core'
+import { Component, EventEmitter, Input, type OnInit, Output, NgZone, inject } from '@angular/core'
 import { AddressService } from '../Services/address.service'
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -27,6 +27,12 @@ library.add(faEdit, faTrashAlt)
   imports: [MatCardModule, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatRadioButton, MatIconButton, RouterLink, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatButtonModule, MatIconModule]
 })
 export class AddressComponent implements OnInit {
+  private readonly addressService = inject(AddressService);
+  private readonly translate = inject(TranslateService);
+  private readonly router = inject(Router);
+  private readonly ngZone = inject(NgZone);
+  private readonly snackBarHelperService = inject(SnackBarHelperService);
+
   @Output() emitSelection = new EventEmitter()
   @Input('allowEdit') public allowEdit: boolean = false
   @Input('addNewAddressDiv') public addNewAddressDiv: boolean = true
@@ -39,9 +45,6 @@ export class AddressComponent implements OnInit {
   public confirmation: any
   public error: any
   public addressExist: boolean = false
-
-  constructor (private readonly addressService: AddressService, private readonly translate: TranslateService,
-    private readonly router: Router, private readonly ngZone: NgZone, private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit (): void {
     if (this.allowEdit) {

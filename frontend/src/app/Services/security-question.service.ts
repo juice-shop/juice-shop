@@ -4,7 +4,7 @@
  */
 
 import { HttpClient } from '@angular/common/http'
-import { Injectable } from '@angular/core'
+import { Injectable, inject } from '@angular/core'
 import { environment } from 'src/environments/environment'
 import { catchError, map } from 'rxjs/operators'
 
@@ -12,10 +12,10 @@ import { catchError, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class SecurityQuestionService {
+  private readonly http = inject(HttpClient);
+
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/api/SecurityQuestions'
-
-  constructor (private readonly http: HttpClient) { }
 
   find (params: any) {
     return this.http.get(this.host + '/', { params }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core'
+import { Component, ChangeDetectorRef, inject } from '@angular/core'
 import { KeysService } from '../Services/keys.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
@@ -41,12 +41,11 @@ const BeeFaucetAddress = '0x860e3616aD0E0dEDc23352891f3E10C4131EA5BC'
   imports: [MatCardModule, TranslateModule, MatButtonModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, MatIconModule]
 })
 export class FaucetComponent {
-  constructor (
-    private readonly keysService: KeysService,
-    private readonly snackBarHelperService: SnackBarHelperService,
-    private readonly translateService: TranslateService,
-    private readonly changeDetectorRef: ChangeDetectorRef
-  ) {}
+  private readonly keysService = inject(KeysService);
+  private readonly snackBarHelperService = inject(SnackBarHelperService);
+  private readonly translateService = inject(TranslateService);
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
+
 
   userData: object
   session = false

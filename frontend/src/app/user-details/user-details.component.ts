@@ -4,7 +4,7 @@
  */
 
 import { UserService } from '../Services/user.service'
-import { Component, Inject, type OnInit } from '@angular/core'
+import { Component, type OnInit, inject } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons'
@@ -23,8 +23,10 @@ library.add(faArrowCircleLeft)
   imports: [MatDialogContent, MatDivider, TranslateModule, MatDialogActions, MatButtonModule, MatDialogClose, MatIconModule]
 })
 export class UserDetailsComponent implements OnInit {
+  dialogData = inject(MAT_DIALOG_DATA);
+  private readonly userService = inject(UserService);
+
   public user: any
-  constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private readonly userService: UserService) { }
 
   ngOnInit (): void {
     this.userService.get(this.dialogData.id).subscribe({
