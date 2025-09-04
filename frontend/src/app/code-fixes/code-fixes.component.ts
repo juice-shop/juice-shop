@@ -61,6 +61,7 @@ export class CodeFixesComponent implements OnInit, DoCheck {
         )
       }
     } catch {
+      console.warn('Error during diffing')
     }
   }
 }
