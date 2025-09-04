@@ -72,7 +72,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | null = null
   private readonly productSubscription?: Subscription
   private routerSubscription?: Subscription
-  public breakpoint: number = 6
+  public breakpoint = 6
   public emptyState = false
 
   // vuln-code-snippet start restfulXssChallenge
@@ -210,7 +210,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
             found = true
             this.basketService.get(productsInBasket[i].BasketItem.id).subscribe({
               next: (existingBasketItem) => {
-                // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+                 
                 const newQuantity = existingBasketItem.quantity + 1
                 this.basketService.put(existingBasketItem.id, { quantity: newQuantity }).subscribe({
                   next: (updatedBasketItem) => {

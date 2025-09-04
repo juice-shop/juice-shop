@@ -35,7 +35,7 @@ export class PaymentMethodComponent implements OnInit {
   private readonly snackBarHelperService = inject(SnackBarHelperService);
 
   @Output() emitSelection = new EventEmitter()
-  @Input('allowDelete') public allowDelete: boolean = false
+  @Input() public allowDelete = false
   public displayedColumns = ['Number', 'Name', 'Expiry']
   public nameControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
   // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
@@ -49,7 +49,7 @@ export class PaymentMethodComponent implements OnInit {
   public dataSource
   public monthRange: any[]
   public yearRange: any[]
-  public cardsExist: boolean = false
+  public cardsExist = false
   public paymentId: any = undefined
 
   ngOnInit (): void {

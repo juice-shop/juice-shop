@@ -51,7 +51,7 @@ export class OrderHistoryComponent implements OnInit {
 
   public tableColumns = ['product', 'price', 'quantity', 'total price', 'review']
   public orders: Order[] = []
-  public emptyState: boolean = true
+  public emptyState = true
 
   ngOnInit (): void {
     this.orderHistoryService.get().subscribe({

@@ -74,13 +74,13 @@ export class PaymentComponent implements OnInit {
   public couponControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)])
   public clientDate: any
   public paymentId: any = undefined
-  public couponPanelExpanded: boolean = false
-  public paymentPanelExpanded: boolean = false
+  public couponPanelExpanded = false
+  public paymentPanelExpanded = false
   public mode: any
-  public walletBalance: number = 0
+  public walletBalance = 0
   public walletBalanceStr: string
   public totalPrice: any = 0
-  public paymentMode: string = 'card'
+  public paymentMode = 'card'
   private readonly campaigns = {
     WMNSDY2019: { validOn: 1551999600000, discount: 75 },
     WMNSDY2020: { validOn: 1583622000000, discount: 60 },

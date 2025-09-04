@@ -61,14 +61,14 @@ export class CodeSnippetComponent implements OnInit {
   public snippet: CodeSnippet = null
   public fixes: string [] = null
   public selectedLines: number[]
-  public selectedFix: number = 0
+  public selectedFix = 0
   public tab: UntypedFormControl = new UntypedFormControl(0)
   public lock: ResultState = ResultState.Undecided
   public result: ResultState = ResultState.Undecided
   public hint: string = null
   public explanation: string = null
   public solved: Solved = { findIt: false, fixIt: false }
-  public showFeedbackButtons: boolean = true
+  public showFeedbackButtons = true
   public randomFixes: RandomFixes[] = []
 
   ngOnInit (): void {

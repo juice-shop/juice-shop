@@ -55,8 +55,8 @@ export class LoginComponent implements OnInit {
   public rememberMe: UntypedFormControl = new UntypedFormControl(false)
   public error: any
   public clientId = '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
-  public oauthUnavailable: boolean = true
-  public redirectUri: string = ''
+  public oauthUnavailable = true
+  public redirectUri = ''
   public testingUsername = 'testing@juice-sh.op'
   public testingPassword = 'IamUsedForTesting'
 

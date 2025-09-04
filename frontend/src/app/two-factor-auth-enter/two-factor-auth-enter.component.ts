@@ -43,7 +43,7 @@ export class TwoFactorAuthEnterComponent {
     token: new UntypedFormControl('', [Validators.minLength(6), Validators.maxLength(6), Validators.required, Validators.pattern('^[\\d]{6}$')])
   })
 
-  public errored: boolean = false
+  public errored = false
 
   verify () {
     const fields: TokenEnterFormFields = this.twoFactorForm.value

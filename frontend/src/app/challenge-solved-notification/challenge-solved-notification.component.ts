@@ -50,8 +50,8 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
   private readonly io = inject(SocketIoService);
 
   public notifications: ChallengeSolvedNotification[] = []
-  public showCtfFlagsInNotifications: boolean = false
-  public showCtfCountryDetailsInNotifications: string = 'none'
+  public showCtfFlagsInNotifications = false
+  public showCtfCountryDetailsInNotifications = 'none'
   public countryMap?: any
 
   ngOnInit (): void {
@@ -100,7 +100,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
     })
   }
 
-  closeNotification (index: number, shiftKey: boolean = false) {
+  closeNotification (index: number, shiftKey = false) {
     if (shiftKey) {
       this.ngZone.runOutsideAngular(() => {
         this.io.socket().emit('verifyCloseNotificationsChallenge', this.notifications)

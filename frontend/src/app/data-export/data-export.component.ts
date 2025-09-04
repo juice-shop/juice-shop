@@ -36,7 +36,7 @@ export class DataExportComponent implements OnInit {
   public confirmation: any
   public error: any
   public lastSuccessfulTry: any
-  public presenceOfCaptcha: boolean = false
+  public presenceOfCaptcha = false
   public userData: any
   ngOnInit (): void {
     this.needCaptcha()

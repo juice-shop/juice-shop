@@ -97,17 +97,17 @@ export class NavbarComponent implements OnInit {
   private readonly snackBar = inject(MatSnackBar);
   private readonly basketService = inject(BasketService);
 
-  public userEmail: string = ''
+  public userEmail = ''
   public languages: any[] = []
   public filteredLanguages: any[] = []
-  public languageSearchQuery: string = ''
-  public selectedLanguage: string = 'placeholder'
-  public version: string = ''
-  public applicationName: string = 'OWASP Juice Shop'
-  public showGitHubLink: boolean = true
-  public logoSrc: string = 'assets/public/images/JuiceShop_Logo.png'
-  public scoreBoardVisible: boolean = false
-  public shortKeyLang: string = 'placeholder'
+  public languageSearchQuery = ''
+  public selectedLanguage = 'placeholder'
+  public version = ''
+  public applicationName = 'OWASP Juice Shop'
+  public showGitHubLink = true
+  public logoSrc = 'assets/public/images/JuiceShop_Logo.png'
+  public scoreBoardVisible = false
+  public shortKeyLang = 'placeholder'
   public itemTotal = 0
 
   @Output() public sidenavToggle = new EventEmitter()

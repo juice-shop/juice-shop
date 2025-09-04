@@ -30,9 +30,9 @@ export class PurchaseBasketComponent implements OnInit {
   private readonly userService = inject(UserService);
   private readonly snackBarHelperService = inject(SnackBarHelperService);
 
-  @Input('allowEdit') public allowEdit: boolean = false
-  @Input('displayTotal') public displayTotal: boolean = false
-  @Input('totalPrice') public totalPrice: boolean = true
+  @Input() public allowEdit = false
+  @Input() public displayTotal = false
+  @Input() public totalPrice = true
   @Output() emitTotal = new EventEmitter()
   @Output() emitProductCount = new EventEmitter()
   public tableColumns = ['image', 'product', 'quantity', 'price']

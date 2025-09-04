@@ -33,14 +33,14 @@ export class PhotoWallComponent implements OnInit {
   private readonly configurationService = inject(ConfigurationService);
   private readonly snackBarHelperService = inject(SnackBarHelperService);
 
-  public emptyState: boolean = true
+  public emptyState = true
   public imagePreview: string
   public form: UntypedFormGroup = new UntypedFormGroup({
     image: new UntypedFormControl('', { validators: [Validators.required], asyncValidators: [mimeType] }),
     caption: new UntypedFormControl('', [Validators.required])
   })
 
-  public slideshowDataSource: Array<{ url: string, caption: string }> = []
+  public slideshowDataSource: { url: string, caption: string }[] = []
   public twitterHandle = null
 
   ngOnInit (): void {
@@ -57,7 +57,7 @@ export class PhotoWallComponent implements OnInit {
       }
       for (const memory of memories) {
         if (memory.User?.username) {
-          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+           
           memory.caption = `${memory.caption} (© ${memory.User.username})`
         }
         this.slideshowDataSource.push({ url: memory.imagePath, caption: memory.caption })

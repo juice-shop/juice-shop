@@ -43,7 +43,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   private readonly snackBar = inject(MatSnackBar);
   private readonly snackBarHelperService = inject(SnackBarHelperService);
 
-  public author: string = 'Anonymous'
+  public author = 'Anonymous'
   public reviews$: any
   public userSubscription: any
   public reviewControl: UntypedFormControl = new UntypedFormControl('', [Validators.maxLength(160)])

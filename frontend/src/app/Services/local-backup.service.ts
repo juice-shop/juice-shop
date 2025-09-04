@@ -23,7 +23,7 @@ export class LocalBackupService {
 
   private readonly VERSION = 1
 
-  save (fileName: string = 'owasp_juice_shop') {
+  save (fileName = 'owasp_juice_shop') {
     const backup: Backup = { version: this.VERSION }
 
     backup.banners = {

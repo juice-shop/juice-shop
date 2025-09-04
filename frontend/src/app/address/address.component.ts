@@ -34,9 +34,9 @@ export class AddressComponent implements OnInit {
   private readonly snackBarHelperService = inject(SnackBarHelperService);
 
   @Output() emitSelection = new EventEmitter()
-  @Input('allowEdit') public allowEdit: boolean = false
-  @Input('addNewAddressDiv') public addNewAddressDiv: boolean = true
-  @Input('showNextButton') public showNextButton: boolean = false
+  @Input() public allowEdit = false
+  @Input() public addNewAddressDiv = true
+  @Input() public showNextButton = false
   public addressId: any = undefined
   public displayedColumns = ['Name', 'Address', 'Country']
   selection = new SelectionModel<Element>(false, [])
@@ -44,7 +44,7 @@ export class AddressComponent implements OnInit {
   public dataSource
   public confirmation: any
   public error: any
-  public addressExist: boolean = false
+  public addressExist = false
 
   ngOnInit (): void {
     if (this.allowEdit) {

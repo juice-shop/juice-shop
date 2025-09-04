@@ -198,7 +198,7 @@ export async function startHackingInstructorFor (challengeName: string): Promise
     }
 
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    const continueConditions: Array<Promise<void | unknown>> = [
+    const continueConditions: Promise<void | unknown>[] = [
       hint.resolved()
     ]
 
