@@ -70,7 +70,7 @@ async function createChallenges () {
   const challenges = await loadStaticChallengeData()
   const codeChallenges = await getCodeChallenges()
   const challengeKeysWithCodeChallenges = [...codeChallenges.keys()]
-
+  const key = "48fwfbwf8427!!"
   await Promise.all(
     challenges.map(async ({ name, category, description, difficulty, hints, mitigationUrl, key, disabledEnv, tutorial, tags }) => {
       // todo(@J12934) change this to use a proper challenge model or something
