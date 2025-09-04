@@ -23,11 +23,11 @@ export class PasswordStrengthComponent implements OnChanges {
 
   ngOnChanges (changes: SimpleChanges): void {
     if (changes.password) {
-      this.passwordStrength = this.calculatePasswordStrength(this.password)
+      this.passwordStrength = this.calculatePasswordStrength()
     }
   }
 
-  private calculatePasswordStrength (password: string): number {
+  private calculatePasswordStrength (): number {
     const checks = [
       this.containAtLeastMinChars,
       this.containAtLeastOneLowerCaseLetter,
