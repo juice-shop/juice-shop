@@ -18,7 +18,7 @@ export class AddressSelectComponent {
   private readonly ngZone = inject(NgZone);
 
   public addressId: any = undefined
-  public showNextButton: boolean = true
+  public showNextButton = true
 
   getMessage (id) {
     this.addressId = id

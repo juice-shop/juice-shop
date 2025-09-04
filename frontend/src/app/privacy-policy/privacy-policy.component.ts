@@ -20,7 +20,7 @@ export class PrivacyPolicyComponent implements OnInit {
   private readonly _document = inject<HTMLDocument>(DOCUMENT);
   private readonly configurationService = inject(ConfigurationService);
 
-  public applicationName: string = 'OWASP Juice Shop'
+  public applicationName = 'OWASP Juice Shop'
   public privacyContactEmail!: string
   public applicationUrl!: string
 

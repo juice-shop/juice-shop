@@ -43,12 +43,12 @@ export class SidenavComponent implements OnInit {
   public applicationName = 'OWASP Juice Shop'
   public showGitHubLink = true
   public userEmail = ''
-  public scoreBoardVisible: boolean = false
-  public version: string = ''
-  public showPrivacySubmenu: boolean = false
-  public showOrdersSubmenu: boolean = false
+  public scoreBoardVisible = false
+  public version = ''
+  public showPrivacySubmenu = false
+  public showOrdersSubmenu = false
   public isShowing = false
-  public offerScoreBoardTutorial: boolean = false
+  public offerScoreBoardTutorial = false
   @Output() public sidenavToggle = new EventEmitter()
 
   ngOnInit (): void {

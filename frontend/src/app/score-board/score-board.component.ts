@@ -60,7 +60,7 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
   public filterSetting: FilterSetting = structuredClone(DEFAULT_FILTER_SETTING)
   public applicationConfiguration: Config | null = null
 
-  public isInitialized: boolean = false
+  public isInitialized = false
 
   private readonly subscriptions: Subscription[] = []
 

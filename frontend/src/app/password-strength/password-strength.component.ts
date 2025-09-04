@@ -15,9 +15,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar'
 })
 
 export class PasswordStrengthComponent implements OnChanges {
-  @Input() password: string = ''
-  passwordStrength: number = 0
-  minLength: number = 8
+  @Input() password = ''
+  passwordStrength = 0
+  minLength = 8
 
   private readonly ranges = ['low', 'low-medium', 'medium', 'high-medium', 'high']
 

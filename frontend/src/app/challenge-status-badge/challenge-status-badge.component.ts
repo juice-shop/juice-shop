@@ -29,8 +29,8 @@ export class ChallengeStatusBadgeComponent {
   private readonly windowRefService = inject(WindowRefService);
 
   @Input() public challenge: Challenge = { } as Challenge
-  @Input() public allowRepeatNotifications: boolean = false
-  @Input() public showChallengeHints: boolean = true
+  @Input() public allowRepeatNotifications = false
+  @Input() public showChallengeHints = true
 
   repeatNotification () {
     if (this.allowRepeatNotifications) {

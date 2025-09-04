@@ -24,20 +24,20 @@ export class CodeFixesComponent implements OnInit, DoCheck {
     this.differ = this.differs.find({}).create()
   }
 
-  @Input('snippet')
-  public snippet: string = ''
+  @Input()
+  public snippet = ''
 
-  @Input('fixes')
+  @Input()
   public fixes: string[] = []
 
-  @Input('selectedFix')
-  public selectedFix: number = 0
+  @Input()
+  public selectedFix = 0
 
-  @Input('randomFixes')
+  @Input()
   public randomFixes: RandomFixes[] = []
 
-  @Input('format')
-  public format: string = 'SideBySide'
+  @Input()
+  public format = 'SideBySide'
 
   @ViewChild('codeComponent', { static: false }) codeComponent: NgxTextDiffComponent
 

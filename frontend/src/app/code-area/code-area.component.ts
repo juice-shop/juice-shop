@@ -19,7 +19,7 @@ interface LineMarker {
   imports: [HighlightModule]
 })
 export class CodeAreaComponent implements OnInit {
-  private _code: string = ''
+  private _code = ''
   @Input('code')
   get code (): string {
     return this._code
@@ -29,7 +29,7 @@ export class CodeAreaComponent implements OnInit {
     this._code = value || ''
   }
 
-  @Input('vulnLines')
+  @Input()
   public vulnLines: number[]
 
   public lineMarkers: LineMarker[]

@@ -42,7 +42,7 @@ export class FilterSettingsComponent implements OnChanges {
     this.tags = new Set(this.allChallenges.flatMap((challenge) => challenge.tagList))
   }
 
-  onDifficultyFilterChange (difficulties: Array<1 | 2 | 3 | 4 | 5 | 6>) {
+  onDifficultyFilterChange (difficulties: (1 | 2 | 3 | 4 | 5 | 6)[]) {
     const filterSettingCopy = structuredClone(this.filterSetting)
     filterSettingCopy.difficulties = difficulties
     this.filterSettingChange.emit(filterSettingCopy)

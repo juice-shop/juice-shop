@@ -28,10 +28,10 @@ export class DeluxeUserComponent implements OnInit {
   private readonly ngZone = inject(NgZone);
   private readonly io = inject(SocketIoService);
 
-  public membershipCost: number = 0
+  public membershipCost = 0
   public error?: string = undefined
   public applicationName = 'OWASP Juice Shop'
-  public logoSrc: string = 'assets/public/images/JuiceShop_Logo.png'
+  public logoSrc = 'assets/public/images/JuiceShop_Logo.png'
 
   public SHOWCASES = [
     {
