@@ -23,10 +23,10 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 class MockSocket {
   on (str: string, callback: any) {
-    callback()
+    callback(str)
   }
 
-  emit (a: any, b: any) {
+  emit () {
     return null
   }
 }

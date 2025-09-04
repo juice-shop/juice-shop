@@ -257,7 +257,7 @@ contract HelloWorld {
     }
   }
 
-  async handleChainChanged (chainId: string) {
+  async handleChainChanged () {
     await this.handleAuth()
   }
 
@@ -309,7 +309,7 @@ contract HelloWorld {
       console.log('session', this.session)
       this.changeDetectorRef.detectChanges()
     } catch (err) {
-      console.log('An error occurred')
+      console.log('An error occurred', err)
     }
   }
 }

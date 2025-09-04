@@ -150,7 +150,7 @@ export class FaucetComponent implements OnInit {
     }
   }
 
-  async handleChainChanged (chainId: string) {
+  async handleChainChanged () {
     await this.handleAuth()
   }
 
