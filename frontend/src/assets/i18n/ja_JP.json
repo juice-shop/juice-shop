@@ -346,7 +346,7 @@
   "CONFIRM_RECYCLING_PICKUP": "リサイクルサービスをご利用いただきありがとうございます。 {{pickupdate}} に絞りかすの引き取りに伺います。",
   "CHALLENGE_UNAVAILABLE": "このチャレンジは {{env}} 環境では利用できません！",
   "CHALLENGE_UNAVAILABLE_SAFETYMODE": "アプリケーションがセーフモードで実行されているため、このチャレンジは利用できません！",
-  "CLICK_TO_UNLOCK_NEXT_HINT": "Click to unlock hint {{next}} of {{total}}!",
+  "CLICK_TO_UNLOCK_NEXT_HINT": "クリックしてヒント {{next}}/{{total}} を表示！",
   "BONUS_POINTS_EARNED": "獲得したボーナスポイント: {{bonus}}",
   "BONUS_FOR_FUTURE_PURCHASES": "この注文からのボーナスポイントとして<em>注文金額分がウォレットに追加されます。</em>ためた分はすべて将来の購入でご利用いただけます。",
   "ENTER_COUPON_CODE": "クーポンコードを入力してください",
