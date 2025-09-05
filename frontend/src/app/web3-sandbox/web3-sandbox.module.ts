@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 import { RouterModule, type Routes } from '@angular/router'
@@ -40,10 +40,13 @@ const routes: Routes = [
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class Web3SandboxModule {
-  constructor (
-    public configurationService: ConfigurationService,
-    public overlayContainer: OverlayContainer
-  ) {
+  configurationService = inject(ConfigurationService);
+  overlayContainer = inject(OverlayContainer);
+
+  constructor () {
+    const configurationService = this.configurationService;
+    const overlayContainer = this.overlayContainer;
+
     configurationService.getApplicationConfiguration().subscribe((conf) => {
       overlayContainer
         .getContainerElement()

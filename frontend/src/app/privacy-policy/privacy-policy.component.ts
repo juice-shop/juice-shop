@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, Inject, type OnInit } from '@angular/core'
+import { Component, type OnInit, inject } from '@angular/core'
 import { DOCUMENT } from '@angular/common'
 import { ConfigurationService } from '../Services/configuration.service'
 import { MatDivider } from '@angular/material/divider'
@@ -17,11 +17,12 @@ import { MatCardModule } from '@angular/material/card'
   imports: [MatCardModule, TranslateModule, MatDivider]
 })
 export class PrivacyPolicyComponent implements OnInit {
-  public applicationName: string = 'OWASP Juice Shop'
+  private readonly _document = inject<HTMLDocument>(DOCUMENT);
+  private readonly configurationService = inject(ConfigurationService);
+
+  public applicationName = 'OWASP Juice Shop'
   public privacyContactEmail!: string
   public applicationUrl!: string
-
-  constructor (@Inject(DOCUMENT) private readonly _document: HTMLDocument, private readonly configurationService: ConfigurationService) { }
 
   ngOnInit (): void {
     this.applicationUrl = this._document.location.protocol + '//' + this._document.location.hostname

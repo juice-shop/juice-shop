@@ -4,7 +4,7 @@
  */
 
 import { environment } from '../../environments/environment'
-import { Injectable } from '@angular/core'
+import { Injectable, inject } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
 
@@ -12,17 +12,17 @@ import { catchError, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class PaymentService {
+  private readonly http = inject(HttpClient);
+
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/api/Cards'
-
-  constructor (private readonly http: HttpClient) { }
 
   get () {
     return this.http.get(this.host).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
   getById (id) {
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+     
     return this.http.get(`${this.host}/${id}`).pipe(map((response: any) => response.data), catchError((err: Error) => { throw err }))
   }
 

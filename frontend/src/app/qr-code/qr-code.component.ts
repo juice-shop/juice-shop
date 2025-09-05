@@ -4,7 +4,7 @@
  */
 
 import { MAT_DIALOG_DATA, MatDialogClose } from '@angular/material/dialog'
-import { Component, Inject, type OnInit } from '@angular/core'
+import { Component, type OnInit, inject } from '@angular/core'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons'
 import { TranslateModule } from '@ngx-translate/core'
@@ -21,11 +21,12 @@ library.add(faArrowCircleLeft)
   imports: [MatDivider, QrCodeModule, MatButtonModule, MatDialogClose, TranslateModule]
 })
 export class QrCodeComponent implements OnInit {
+  dialogData = inject(MAT_DIALOG_DATA);
+
   public title!: string
   public url!: string
   public address!: string
   public data!: string
-  constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any) { }
 
   ngOnInit (): void {
     this.title = this.dialogData.title

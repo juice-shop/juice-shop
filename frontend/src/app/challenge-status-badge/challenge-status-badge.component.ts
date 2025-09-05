@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, Input } from '@angular/core'
+import { Component, Input, inject } from '@angular/core'
 import { WindowRefService } from '../Services/window-ref.service'
 import { ChallengeService } from '../Services/challenge.service'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -25,11 +25,12 @@ library.add(faWindows)
   imports: [MatButtonModule, MatTooltip, MatIconModule, TranslateModule]
 })
 export class ChallengeStatusBadgeComponent {
-  @Input() public challenge: Challenge = { } as Challenge
-  @Input() public allowRepeatNotifications: boolean = false
-  @Input() public showChallengeHints: boolean = true
+  private readonly challengeService = inject(ChallengeService);
+  private readonly windowRefService = inject(WindowRefService);
 
-  constructor (private readonly challengeService: ChallengeService, private readonly windowRefService: WindowRefService) { }
+  @Input() public challenge: Challenge = { } as Challenge
+  @Input() public allowRepeatNotifications = false
+  @Input() public showChallengeHints = true
 
   repeatNotification () {
     if (this.allowRepeatNotifications) {

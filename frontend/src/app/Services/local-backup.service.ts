@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Injectable } from '@angular/core'
+import { Injectable, inject } from '@angular/core'
 import { type Backup } from '../Models/backup.model'
 import { CookieService } from 'ngy-cookie'
 import { saveAs } from 'file-saver'
@@ -16,11 +16,14 @@ import { ChallengeService } from './challenge.service'
   providedIn: 'root'
 })
 export class LocalBackupService {
+  private readonly cookieService = inject(CookieService);
+  private readonly challengeService = inject(ChallengeService);
+  private readonly snackBarHelperService = inject(SnackBarHelperService);
+  private readonly snackBar = inject(MatSnackBar);
+
   private readonly VERSION = 1
 
-  constructor (private readonly cookieService: CookieService, private readonly challengeService: ChallengeService, private readonly snackBarHelperService: SnackBarHelperService, private readonly snackBar: MatSnackBar) { }
-
-  save (fileName: string = 'owasp_juice_shop') {
+  save (fileName = 'owasp_juice_shop') {
     const backup: Backup = { version: this.VERSION }
 
     backup.banners = {
