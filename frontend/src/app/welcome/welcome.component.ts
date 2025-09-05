@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, type OnInit } from '@angular/core'
+import { Component, type OnInit, inject } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { MatDialog } from '@angular/material/dialog'
 import { WelcomeBannerComponent } from '../welcome-banner/welcome-banner.component'
@@ -17,9 +17,11 @@ import { CookieService } from 'ngy-cookie'
 })
 
 export class WelcomeComponent implements OnInit {
-  private readonly welcomeBannerStatusCookieKey = 'welcomebanner_status'
+  private readonly dialog = inject(MatDialog);
+  private readonly configurationService = inject(ConfigurationService);
+  private readonly cookieService = inject(CookieService);
 
-  constructor (private readonly dialog: MatDialog, private readonly configurationService: ConfigurationService, private readonly cookieService: CookieService) { }
+  private readonly welcomeBannerStatusCookieKey = 'welcomebanner_status'
 
   ngOnInit (): void {
     const welcomeBannerStatus = this.cookieService.get(this.welcomeBannerStatusCookieKey)

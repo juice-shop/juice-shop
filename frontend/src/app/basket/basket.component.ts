@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, NgZone } from '@angular/core'
+import { Component, NgZone, inject } from '@angular/core'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCartArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { Router } from '@angular/router'
@@ -21,10 +21,11 @@ library.add(faCartArrowDown)
   imports: [MatCardModule, PurchaseBasketComponent, MatButtonModule, TranslateModule]
 })
 export class BasketComponent {
-  public productCount: number = 0
-  public bonus: number = 0
+  private readonly router = inject(Router);
+  private readonly ngZone = inject(NgZone);
 
-  constructor (private readonly router: Router, private readonly ngZone: NgZone) {}
+  public productCount = 0
+  public bonus = 0
 
   checkout () {
     this.ngZone.run(async () => await this.router.navigate(['/address/select']))

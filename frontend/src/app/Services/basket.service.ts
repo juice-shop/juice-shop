@@ -4,7 +4,7 @@
  */
 
 import { environment } from '../../environments/environment'
-import { Injectable } from '@angular/core'
+import { Injectable, inject } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
 import { type Observable, Subject } from 'rxjs'
@@ -19,11 +19,11 @@ interface OrderDetail {
   providedIn: 'root'
 })
 export class BasketService {
+  private readonly http = inject(HttpClient);
+
   public hostServer = environment.hostServer
   public itemTotal = new Subject<any>()
   private readonly host = this.hostServer + '/api/BasketItems'
-
-  constructor (private readonly http: HttpClient) { }
 
   find (id?: number) {
     return this.http.get(`${this.hostServer}/rest/basket/${id}`).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
@@ -56,7 +56,7 @@ export class BasketService {
   updateNumberOfCartItems () {
     this.find(parseInt(sessionStorage.getItem('bid'), 10)).subscribe({
       next: (basket) => {
-      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+       
         this.itemTotal.next(basket.Products.reduce((itemTotal, product) => itemTotal + product.BasketItem.quantity, 0))
       },
       error: (err) => { console.log(err) }

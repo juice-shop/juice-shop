@@ -51,7 +51,7 @@ export class MatSearchBarComponent extends AbstractControlValueAccessor
   @Input() formControl: FormControl
   @Input() matAutocomplete: MatAutocomplete
   @Input() placeholder = ''
-  @Input() alwaysOpen: boolean = false
+  @Input() alwaysOpen = false
   @Output() onBlur = new EventEmitter<string>()
   @Output() onClose = new EventEmitter<void>()
   @Output() onEnter = new EventEmitter<string>()
