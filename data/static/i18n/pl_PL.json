@@ -389,7 +389,7 @@
   "The actual data you need to solve this challenge was leaked on the same platform that was involved in the \"Dumpster dive the Internet for a leaked password and log in to the original user account it belongs to\" challenge.": "Dane potrzebne do rozwiązania tego zadania wyciekły na tę samą platformę, która była używana w wyzwaniu \"Przeszukaj śmietnik internetu w poszukiwaniu wykradzionego hasła i zaloguj się na oryginalne konto użytkownika, do którego ono należało\".",
   "Google is a particularly good accomplice in this challenge.": "Google jest szczególnie dobrym wspólnikiem w tym wyzwaniu.",
   "Investigating the forgotten developer’s backup file might bring some insight.": "Investigating the forgotten developer’s backup file might bring some insight.",
-  "\"Malicious packages in npm\" is a worthwhile read on Ivan Akulov’s blog.": "\"Malicious packages in npm\" is a worthwhile read on Ivan Akulov’s blog.",
+  "\"Malicious packages in npm\" is a worthwhile read on Ivan Akulov’s blog.": "\"Złośliwe pakiety w npm\" to warto przeczytać na blogu Ivana Akulova.",
   "If you happen to know the email address of the admin already, you can launch a targeted attack.": "If you happen to know the email address of the admin already, you can launch a targeted attack.",
   "You might be lucky with a dedicated attack pattern even if you have no clue about the admin email address.": "You might be lucky with a dedicated attack pattern even if you have no clue about the admin email address.",
   "If you harvested the admin’s password hash, you can of course try to attack that instead of using SQL Injection.": "If you harvested the admin’s password hash, you can of course try to attack that instead of using SQL Injection.",
