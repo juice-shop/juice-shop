@@ -110,12 +110,12 @@ export class AboutComponent implements OnInit {
           return EMPTY
         })
       )
-      .subscribe((feedbacks) => {
+      .subscribe((feedbacks) => { 
         for (let i = 0; i < feedbacks.length; i++) {
-           
-          feedbacks[i].comment = `<span style="width: 90%; display:block;">${
+
+          feedbacks[i].comment = `<figcaption><p style="margin-bottom: 0;">${
             feedbacks[i].comment
-          }<br/> (${this.stars[feedbacks[i].rating]})</span>`
+          }</p><div class="feedback-stars">(${this.stars[feedbacks[i].rating]})</div></figcaption>`
           feedbacks[i].comment = this.sanitizer.bypassSecurityTrustHtml(
             feedbacks[i].comment
           )
