@@ -48,9 +48,7 @@
           >
           <ng-container *galleryImageDef="let item; let active = active">
             @if (active) {
-              <figure class="item-text">
-                <figcaption class="caption" [innerHTML]="item?.args"></figcaption>
-              </figure>
+              <figure class="feedback" [innerHTML]="item?.args"></figure>
             }
           </ng-container>
         </gallery>
