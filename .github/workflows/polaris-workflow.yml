@@ -27,8 +27,9 @@ jobs:
         with:
           polaris_server_url: ${{ vars.POLARIS_URL }}
           polaris_access_token: ${{ secrets.POLARIS_ACCESS_TOKEN }}
-          polaris_application_name: SLS-ghAppTest-${{ github.event.repository.name }}
           polaris_assessment_types: SAST,SCA
+          polaris_application_name: ${{ github.event.organization.name }}
+          polaris_project_name: ${{ github.event.repository.name }}
           polaris_waitForScan: true
           mark_build_status: failure
           include_diagnostics: false
