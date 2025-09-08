@@ -28,8 +28,8 @@ jobs:
           polaris_server_url: ${{ vars.POLARIS_URL }}
           polaris_access_token: ${{ secrets.POLARIS_ACCESS_TOKEN }}
           polaris_assessment_types: SAST,SCA
+          polaris_assessment_mode: SOURCE_UPLOAD
           polaris_application_name: ${{ github.event.organization.name }}
-          polaris_project_name: ${{ github.event.repository.name }}
           polaris_waitForScan: true
           mark_build_status: failure
           include_diagnostics: false
