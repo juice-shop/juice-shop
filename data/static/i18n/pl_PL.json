@@ -421,7 +421,7 @@
   "As stated in the Architecture overview, OWASP Juice Shop uses a MongoDB derivate as its NoSQL database.": "Jak stwierdzono w przeglądzie architektury, OWASP Juice Shop używa pochodnej MongoDB jako bazy danych NoSQL.",
   "The categorization into the NoSQL Injection category totally gives away the expected attack vector for this challenge. Trying any others will not solve the challenge, even if they might yield the same result.": "Kategoryzacja NoSQL Injection w pełni wskazuje na oczekiwany wektor ataku w tym wyzwaniu. Próby użycia jakichkolwiek innych metod nie doprowadzą do rozwiązania wyzwania, nawet jeśli mogłyby przynieść ten sam rezultat.",
   "In particular, flooding the application with requests will not solve this challenge. That would probably just kill your server instance.": "W szczególności, zalewanie aplikacji żądaniami nie rozwiąże tego wyzwania. To prawdopodobnie po prostu wyłączyłoby twoją instancję  serwera.",
-  "This challenge requires a classic Injection attack.": "This challenge requires a classic Injection attack.",
+  "This challenge requires a classic Injection attack.": "To wyzwanie wymaga klasycznego ataku typu Injection.",
   "Find an API endpoint with the intent of delivering a single order to the user and work with that.": "Find an API endpoint with the intent of delivering a single order to the user and work with that.",
   "Reading up on how MongoDB queries work is really helpful here.": "Reading up on how MongoDB queries work is really helpful here.",
   "This challenge requires another classic Injection attack.": "This challenge requires another classic Injection attack.",
