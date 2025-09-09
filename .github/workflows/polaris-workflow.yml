@@ -29,10 +29,10 @@ jobs:
           polaris_access_token: ${{ secrets.POLARIS_ACCESS_TOKEN }}
           polaris_assessment_types: SAST,SCA
           polaris_assessment_mode: SOURCE_UPLOAD
-          polaris_application_name: SLS-GitHub-Ap
+          polaris_application_name: SLS-GitHub-App
           polaris_waitForScan: true
           mark_build_status: failure
-          include_diagnostics: true
+          include_diagnostics: false
           polaris_prComment_enabled: true
           github_token: ${{ secrets.GITHUB_TOKEN }}
           polaris_reports_sarif_create: true
