@@ -1,1 +1,2 @@
-docker run --rm -v "$(pwd):/pwd" -w /pwd trufflesecurity/trufflehog:latest git file:///pwd --fail --since-commit HEAD~1 --exclude-paths .trufflehogignore
+# docker run --rm -v "$(pwd):/pwd" -w /pwd trufflesecurity/trufflehog:latest git file:///pwd --fail --since-commit HEAD~1 --exclude-paths .trufflehogignore
+docker run --rm -v "$(pwd):/pwd" -w /pwd trufflesecurity/trufflehog:latest git file:///pwd --fail --exclude-paths .trufflehogignore
