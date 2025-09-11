@@ -1,0 +1,41 @@
+# TruffleHog ignore patterns
+# Add patterns for files/directories to exclude from secret scanning
+
+# Node.js dependencies
+node_modules/
+frontend/node_modules/
+
+# Build outputs
+build/
+dist/
+*.log
+
+# Package files
+package-lock.json
+frontend/package-lock.json
+
+# Test files (may contain dummy secrets)
+test/
+frontend/src/test/
+*.spec.ts
+*.spec.js
+*.test.ts
+*.test.js
+
+# Documentation
+*.md
+docs/
+
+# Git files
+.git/
+.gitignore
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db

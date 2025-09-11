@@ -72,7 +72,8 @@
     "vagrant": "cd vagrant && vagrant up",
     "sbom": "npm run sbom:json && npm run sbom:xml",
     "sbom:json": "cyclonedx-npm --omit=dev --output-format=JSON --output-file=bom.json",
-    "sbom:xml": " cyclonedx-npm --omit=dev --output-format=XML  --output-file=bom.xml"
+    "sbom:xml": " cyclonedx-npm --omit=dev --output-format=XML  --output-file=bom.xml",
+    "prepare": "husky"
   },
   "jest": {
     "transform": {
@@ -250,6 +251,7 @@
     "frisby": "github:bkimminich/frisby",
     "grunt-cli": "^1.5.0",
     "http-server": "^0.12.3",
+    "husky": "^9.1.7",
     "jasmine": "^3.99.0",
     "jasmine-core": "~3.9.0",
     "jasmine-reporters": "^2.5.2",
