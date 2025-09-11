@@ -1,0 +1,61 @@
+name: TruffleHog Secret Scanning
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
+jobs:
+  trufflehog-scan:
+    name: Secret Scanning
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Run TruffleHog
+        id: trufflehog
+        uses: trufflesecurity/trufflehog@main
+        with:
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
+          path: ./
+          extra_args: --exclude-paths .trufflehogignore --fail
+          
+      - name: Comment on PR if secrets found
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment = `⚠️ **Security Alert: Secrets Detected**
+            
+            TruffleHog has detected potential secrets in this pull request. Please review and remove any exposed credentials before this PR can be merged.
+            
+            Common issues:
+            - API keys or tokens
+            - Database passwords
+            - Private keys
+            - Authentication credentials
+            
+            Please check the TruffleHog scan results in the GitHub Actions logs for specific details.`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+            
+      - name: Fail if secrets detected
+        if: failure()
+        run: |
+          echo "❌ TruffleHog detected secrets in the codebase"
+          echo "This PR cannot be merged until all secrets are removed"
+          exit 1
