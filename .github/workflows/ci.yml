@@ -1,4 +1,4 @@
-name: DumendenSecurity-DevSecOps-Pipeline
+name: Bogazici-DevSecOps-Pipeline
 
 on:
   push:
