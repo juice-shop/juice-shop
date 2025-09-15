@@ -74,5 +74,32 @@ jobs:
           sarif_file: semgrep-results.sarif
         if: always()
 
-      
-      
+
+
+
+name: gitleaks
+on:
+  pull_request:
+    branches: 
+      - master
+  push:
+    branches: 
+      - master
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Code checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'  
+    - name: gitleaks-action checkout(private)
+      uses: actions/checkout@v2
+      with:
+        repository: <yourOrgChangeThis>/gitleaks-action
+        ref: master 
+        token: ${{ secrets.GIT_ACTION_TOKEN }} #stored in GitHub secrets
+        path: ./gitleaksaction
+    - name: run gitleaks action
+      uses: ./gitleaksaction
+
