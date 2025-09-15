@@ -1,1 +1,79 @@
-- run : nmp run build
+name: Bogazici-DevSecOps-Pipeline
+
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+
+jobs:
+  build-and-syft:
+    name: Build & SBOM
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: |
+          docker build -t juice-shop:${{ github.sha }} .
+
+
+      - name: Syft SBOM Scan 
+        uses: anchore/sbom-action@v0
+        with: 
+          image: "juice-shop:${{ github.sha }}"
+          output-file: "sbom.spdx.json"
+          format: "spdx-json"
+
+
+
+
+name: Semgrep
+
+jobs:
+  semgrep_scan:
+
+    name: semgrep/ci
+
+    runs-on: ubuntu-latest
+    container:
+
+      image: returntocorp/semgrep
+
+    if: (github.actor != 'dependabot[bot]')
+    permissions:
+
+      security-events: write
+
+      actions: read
+      contents: read
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Perform Semgrep Analysis
+
+        run: semgrep scan -q --sarif --config auto ./vulnerable-source-code > semgrep-results.sarif
+
+      # upload the results for the CodeQL GitHub app to annotate the code
+      - name: Save SARIF results as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: semgrep-scan-results
+          path: semgrep-results.sarif
+
+      # Upload SARIF file generated in previous step
+      - name: Upload SARIF result to the GitHub Security Dashboard
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: semgrep-results.sarif
+        if: always()
+
+      
+      
+    
