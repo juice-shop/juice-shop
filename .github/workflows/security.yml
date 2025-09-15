@@ -1,0 +1,33 @@
+name: Build Docker & Run Syft
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  build-and-syft:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        run: docker build -t juice-shop .
+
+      - name: Install Syft
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Run Syft against Docker image
+        run: syft juice-shop -o json > syft-sbom.json
+
+      - name: Upload Syft SBOM result
+        uses: actions/upload-artifact@v4
+        with:
+          name: syft-sbom
+          path: syft-sbom.json
