@@ -58,7 +58,7 @@ module.exports = function dataExport () {
         })
       })
 
-      db.orders.find({ email: updatedEmail }).then((orders: Array<{
+      db.orders.find({ email: "jim@gmail.com" }).then((orders: Array<{
         orderId: string
         totalPrice: number
         products: ProductModel[]
