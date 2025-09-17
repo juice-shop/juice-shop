@@ -98,6 +98,7 @@ import { countryMapping } from './routes/countryMapping'
 import { retrieveAppVersion } from './routes/appVersion'
 import { captchas, verifyCaptcha } from './routes/captcha'
 import * as restoreProgress from './routes/restoreProgress'
+import { performNuclearReset } from './routes/nuclearReset'
 import { checkKeys, nftUnlocked } from './routes/checkKeys'
 import { retrieveLoggedInUser } from './routes/currentUser'
 import authenticatedUsers from './routes/authenticatedUsers'
@@ -605,6 +606,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.put('/rest/continue-code-findIt/apply/:continueCode', restoreProgress.restoreProgressFindIt())
   app.put('/rest/continue-code-fixIt/apply/:continueCode', restoreProgress.restoreProgressFixIt())
   app.put('/rest/continue-code/apply/:continueCode', restoreProgress.restoreProgress())
+  app.post('/rest/admin/nuclear-reset', performNuclearReset())
   app.get('/rest/captcha', captchas())
   app.get('/rest/image-captcha', imageCaptchas())
   app.get('/rest/track-order/:id', trackOrder())

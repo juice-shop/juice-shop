@@ -23,4 +23,11 @@ export class AdministrationService {
       catchError((error: Error) => { throw error })
     )
   }
+
+  performNuclearReset () {
+    return this.http.post(this.host + '/nuclear-reset', {}).pipe(
+      map((response: any) => response),
+      catchError((error: Error) => { throw error })
+    )
+  }
 }

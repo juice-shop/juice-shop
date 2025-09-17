@@ -118,3 +118,14 @@ export const solveFixIt = async function (key: ChallengeKey, isRestore: boolean 
     sendCodingChallengeNotification({ key, codingChallengeStatus: 2 })
   }
 }
+
+export const resetAllChallenges = function () {
+  logger.info('Resetting all challenge states in memory...')
+  for (const challenge of Object.values(challenges)) {
+    // Reset the solved state in memory
+    challenge.solved = false
+    // Note: Database is already wiped by sequelize.sync({ force: true })
+    // so we only need to reset the in-memory state
+  }
+  logger.info(`Reset ${Object.keys(challenges).length} challenges in memory`)
+}

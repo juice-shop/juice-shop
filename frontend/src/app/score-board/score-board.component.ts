@@ -8,6 +8,7 @@ import { type Subscription, combineLatest, firstValueFrom } from 'rxjs'
 import { fromQueryParams, toQueryParams } from './filter-settings/query-params-converters'
 import { DEFAULT_FILTER_SETTING, type FilterSetting } from './filter-settings/FilterSetting'
 import { type Config, ConfigurationService } from '../Services/configuration.service'
+import { AdministrationService } from '../Services/administration.service'
 import { CodeSnippetComponent } from '../code-snippet/code-snippet.component'
 import { ChallengeService } from '../Services/challenge.service'
 import { HintService } from '../Services/hint.service'
@@ -59,6 +60,7 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
     private readonly challengeService: ChallengeService,
     private readonly hintService: HintService,
     private readonly configurationService: ConfigurationService,
+    private readonly administrationService: AdministrationService,
     private readonly sanitizer: DomSanitizer,
     private readonly ngZone: NgZone,
     private readonly io: SocketIoService,
@@ -207,55 +209,78 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
   }
 
   resetProgress () {
-    try {
-      // Clear local storage items related to progress
-      localStorage.removeItem('token')
-      localStorage.removeItem('displayedDifficulties')
-      localStorage.removeItem('showSolvedChallenges')
-      localStorage.removeItem('showDisabledChallenges')
-      localStorage.removeItem('showOnlyTutorialChallenges')
-      localStorage.removeItem('displayedChallengeCategories')
-      
-      // Clear session storage items
-      sessionStorage.removeItem('bid')
-      sessionStorage.removeItem('itemTotal')
-      
-      // Reset all challenges to unsolved state locally
-      this.allChallenges = this.allChallenges.map((challenge) => ({
-        ...challenge,
-        solved: false,
-        codingChallengeStatus: 0,
-        hintsUnlocked: 0
-      }))
-      
-      // Reset filter settings
-      this.filterSetting = structuredClone(DEFAULT_FILTER_SETTING)
-      this.router.navigate([], {
-        queryParams: toQueryParams(DEFAULT_FILTER_SETTING)
-      })
-      
-      // Show success message
-      this.snackBar.open('Progress has been reset successfully!', 'Close', {
-        duration: 3000,
-        horizontalPosition: 'center',
-        verticalPosition: 'top'
-      })
-      
-      // Refresh the component
-      this.filterAndUpdateChallenges()
-      this.ngZone.run(() => {})
-      
-      // Reload the page to ensure complete reset
-      setTimeout(() => {
-        window.location.reload()
-      }, 1000)
-    } catch (error) {
-      console.error('Error resetting progress:', error)
-      this.snackBar.open('Error resetting progress. Please try again.', 'Close', {
-        duration: 5000,
-        horizontalPosition: 'center',
-        verticalPosition: 'top'
-      })
-    }
+    // Show loading message
+    this.snackBar.open('Reseting progress...', '', {
+      duration: 0, // Indefinite duration until closed manually
+      horizontalPosition: 'center',
+      verticalPosition: 'top'
+    })
+
+    // Perform nuclear reset on backend
+    this.administrationService.performNuclearReset().subscribe({
+      next: (response) => {
+        try {
+          // Clear local storage items related to progress
+          localStorage.removeItem('token')
+          localStorage.removeItem('displayedDifficulties')
+          localStorage.removeItem('showSolvedChallenges')
+          localStorage.removeItem('showDisabledChallenges')
+          localStorage.removeItem('showOnlyTutorialChallenges')
+          localStorage.removeItem('displayedChallengeCategories')
+          
+          // Clear session storage items
+          sessionStorage.removeItem('bid')
+          sessionStorage.removeItem('itemTotal')
+          
+          // Reset all challenges to unsolved state locally
+          this.allChallenges = this.allChallenges.map((challenge) => ({
+            ...challenge,
+            solved: false,
+            codingChallengeStatus: 0,
+            hintsUnlocked: 0
+          }))
+          
+          // Reset filter settings
+          this.filterSetting = structuredClone(DEFAULT_FILTER_SETTING)
+          this.router.navigate([], {
+            queryParams: toQueryParams(DEFAULT_FILTER_SETTING)
+          })
+          
+          // Close loading message and show success
+          this.snackBar.dismiss()
+          this.snackBar.open('Reset completed! All progress and challenges are reset to a started fresh.', 'Close', {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top'
+          })
+          
+          // Refresh the component
+          this.filterAndUpdateChallenges()
+          this.ngZone.run(() => {})
+          
+          // Reload the page to ensure complete reset
+          setTimeout(() => {
+            window.location.reload()
+          }, 2000)
+        } catch (error) {
+          console.error('Error clearing frontend state:', error)
+          this.snackBar.dismiss()
+          this.snackBar.open('Backend reset succeeded but frontend cleanup failed. Please refresh the page.', 'Close', {
+            duration: 7000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top'
+          })
+        }
+      },
+      error: (error) => {
+        console.error('Nuclear reset failed:', error)
+        this.snackBar.dismiss()
+        this.snackBar.open('Reset failed. Please check logs and try again.', 'Close', {
+          duration: 7000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        })
+      }
+    })
   }
 }
