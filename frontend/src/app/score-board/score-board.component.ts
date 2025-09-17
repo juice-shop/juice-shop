@@ -2,6 +2,7 @@ import { Component, NgZone, type OnDestroy, type OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { DomSanitizer } from '@angular/platform-browser'
 import { MatDialog } from '@angular/material/dialog'
+import { MatSnackBar } from '@angular/material/snack-bar'
 import { type Subscription, combineLatest, firstValueFrom } from 'rxjs'
 
 import { fromQueryParams, toQueryParams } from './filter-settings/query-params-converters'
@@ -63,7 +64,8 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
     private readonly io: SocketIoService,
     private readonly dialog: MatDialog,
     private readonly router: Router,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
+    private readonly snackBar: MatSnackBar
   ) { }
 
   ngOnInit (): void {
@@ -202,5 +204,58 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
       },
       error: (err) => { console.log(err) }
     })
+  }
+
+  resetProgress () {
+    try {
+      // Clear local storage items related to progress
+      localStorage.removeItem('token')
+      localStorage.removeItem('displayedDifficulties')
+      localStorage.removeItem('showSolvedChallenges')
+      localStorage.removeItem('showDisabledChallenges')
+      localStorage.removeItem('showOnlyTutorialChallenges')
+      localStorage.removeItem('displayedChallengeCategories')
+      
+      // Clear session storage items
+      sessionStorage.removeItem('bid')
+      sessionStorage.removeItem('itemTotal')
+      
+      // Reset all challenges to unsolved state locally
+      this.allChallenges = this.allChallenges.map((challenge) => ({
+        ...challenge,
+        solved: false,
+        codingChallengeStatus: 0,
+        hintsUnlocked: 0
+      }))
+      
+      // Reset filter settings
+      this.filterSetting = structuredClone(DEFAULT_FILTER_SETTING)
+      this.router.navigate([], {
+        queryParams: toQueryParams(DEFAULT_FILTER_SETTING)
+      })
+      
+      // Show success message
+      this.snackBar.open('Progress has been reset successfully!', 'Close', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top'
+      })
+      
+      // Refresh the component
+      this.filterAndUpdateChallenges()
+      this.ngZone.run(() => {})
+      
+      // Reload the page to ensure complete reset
+      setTimeout(() => {
+        window.location.reload()
+      }, 1000)
+    } catch (error) {
+      console.error('Error resetting progress:', error)
+      this.snackBar.open('Error resetting progress. Please try again.', 'Close', {
+        duration: 5000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top'
+      })
+    }
   }
 }

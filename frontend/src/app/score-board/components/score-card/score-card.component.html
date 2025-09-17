@@ -1,11 +1,15 @@
 <div class="score-group">
-  <p class="score">
-    @if (showAsPercentage === true) {
-      {{ (score / total) * 100 | number : "1.0-0" }}%
-    } @else {
-      {{ score }}/<span class="fraction-total">{{ total }}</span>
-    }
-  </p>
+  @if (!hideScoreDisplay) {
+    <p class="score">
+      @if (showAsPercentage === true) {
+        {{ (score / total) * 100 | number : "1.0-0" }}%
+      } @else {
+        <span class="score-number">{{ score }}</span>
+        <span class="score-separator">of</span>
+        <span class="fraction-total">{{ total }}</span>
+      }
+    </p>
+  }
   <p class="category">{{ description }}</p>
   @if (showProgressBar === true) {
     <div class="progress-bar-container">

@@ -16,6 +16,10 @@
         <span>{{"RESTORE_BACKUP_TOOLTIP" | translate }}</span>
         <button mat-flat-button color="primary" (click)="restoreBackupFile.click()"><mat-icon>settings_backup_restore</mat-icon><span class="tooltip">{{"BTN_RESTORE_BACKUP" | translate  }}</span></button>
       </div>
+      <div class="setting">
+        <span>{{"RESET_PROGRESS_DESCRIPTION" | translate }}</span>
+        <button mat-flat-button color="warn" (click)="onResetProgress()"><mat-icon>refresh</mat-icon><span class="tooltip">{{"BTN_RESET_PROGRESS" | translate }}</span></button>
+      </div>
     </div>
   </div>
 

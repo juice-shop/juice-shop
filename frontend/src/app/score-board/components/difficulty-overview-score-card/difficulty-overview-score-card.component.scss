@@ -34,6 +34,16 @@ $vertical-padding: 8px;
     justify-content: center;
   }
   
+  .solved-count {
+    color: var(--theme-accent);
+    font-weight: 600;
+  }
+
+  .score-separator {
+    color: var(--theme-text-invert-30);
+    margin: 0 2px;
+  }
+
   .total-challenges {
     color: var(--theme-text-invert-30);
   }

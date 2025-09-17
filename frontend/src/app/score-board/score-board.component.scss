@@ -20,11 +20,7 @@
   min-height: 120px;
   row-gap: 8px;
 
-  // use 3 columns on large(ish) screens
-  @media (max-width: 1500px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  // use 2 columns ipads and smaller
+  // use 2 columns on ipads and smaller
   @media (max-width: 900px) {
     grid-template-columns: repeat(2, 1fr);
   }

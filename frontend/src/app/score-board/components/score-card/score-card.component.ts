@@ -22,4 +22,7 @@ export class ScoreCardComponent {
 
   @Input()
   public showProgressBar: boolean = true
+
+  @Input()
+  public hideScoreDisplay: boolean = false
 }

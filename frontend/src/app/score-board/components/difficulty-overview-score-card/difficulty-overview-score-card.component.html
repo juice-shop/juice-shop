@@ -40,7 +40,9 @@
             <span class="star-difficulty-label">{{ difficulty.difficulty }}</span>
           </div>
           <span>
-            {{ difficulty.solvedChallenges }}/<span class="total-challenges">{{ difficulty.availableChallenges }}</span>
+            <span class="solved-count">{{ difficulty.solvedChallenges }}</span>
+            <span class="score-separator">of</span>
+            <span class="total-challenges">{{ difficulty.availableChallenges }}</span>
           </span>
         </div>
       }

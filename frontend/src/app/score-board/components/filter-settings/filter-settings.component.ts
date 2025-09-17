@@ -35,6 +35,9 @@ export class FilterSettingsComponent implements OnChanges {
   @Input()
   public reset: () => void
 
+  @Input()
+  public resetProgress: () => void
+
   constructor (private readonly dialog: MatDialog) { }
 
   public tags = new Set<string>()
@@ -82,6 +85,12 @@ export class FilterSettingsComponent implements OnChanges {
   }
 
   public openAdditionalSettingsDialog () {
-    this.dialog.open(ScoreBoardAdditionalSettingsDialogComponent)
+    const dialogRef = this.dialog.open(ScoreBoardAdditionalSettingsDialogComponent)
+    
+    dialogRef.componentInstance.resetProgress.subscribe(() => {
+      if (this.resetProgress) {
+        this.resetProgress()
+      }
+    })
   }
 }

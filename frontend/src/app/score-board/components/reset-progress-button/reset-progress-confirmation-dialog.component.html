@@ -1,0 +1,30 @@
+<mat-dialog-content>
+  <h1 mat-dialog-title>{{ 'RESET_PROGRESS' | translate }}</h1>
+  
+  <div class="confirmation-content">
+    <div class="warning-message">
+      <mat-icon class="warning-icon">warning</mat-icon>
+      <div class="message-text">
+        <p class="main-message">{{ 'RESET_PROGRESS_CONFIRMATION' | translate }}</p>
+        <p class="warning-detail">{{ 'RESET_PROGRESS_WARNING' | translate }}</p>
+      </div>
+    </div>
+  </div>
+
+  <mat-dialog-actions align="end">
+    <button 
+      mat-stroked-button 
+      [mat-dialog-close]="false"
+      class="cancel-button"
+    >
+      {{ 'BTN_NO' | translate }}
+    </button>
+    <button 
+      mat-raised-button 
+      [mat-dialog-close]="true"
+      class="confirm-button"
+    >
+      {{ 'BTN_YES' | translate }}
+    </button>
+  </mat-dialog-actions>
+</mat-dialog-content>
