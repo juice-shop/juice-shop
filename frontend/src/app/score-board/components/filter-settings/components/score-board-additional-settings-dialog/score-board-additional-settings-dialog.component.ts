@@ -17,8 +17,8 @@ export class ScoreBoardAdditionalSettingsDialogComponent {
   public resetProgress = new EventEmitter<void>()
 
   constructor (
-    public localBackupService: LocalBackupService,
-    private dialog: MatDialog
+    public readonly localBackupService: LocalBackupService,
+    private readonly dialog: MatDialog
   ) {}
 
   onResetProgress () {

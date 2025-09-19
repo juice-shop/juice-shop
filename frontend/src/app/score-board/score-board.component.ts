@@ -227,11 +227,9 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
           localStorage.removeItem('showDisabledChallenges')
           localStorage.removeItem('showOnlyTutorialChallenges')
           localStorage.removeItem('displayedChallengeCategories')
-          
           // Clear session storage items
           sessionStorage.removeItem('bid')
           sessionStorage.removeItem('itemTotal')
-          
           // Reset all challenges to unsolved state locally
           this.allChallenges = this.allChallenges.map((challenge) => ({
             ...challenge,
@@ -239,13 +237,11 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
             codingChallengeStatus: 0,
             hintsUnlocked: 0
           }))
-          
           // Reset filter settings
           this.filterSetting = structuredClone(DEFAULT_FILTER_SETTING)
           this.router.navigate([], {
             queryParams: toQueryParams(DEFAULT_FILTER_SETTING)
           })
-          
           // Close loading message and show success
           this.snackBar.dismiss()
           this.snackBar.open('Reset completed! All progress and challenges are reset to a started fresh.', 'Close', {
@@ -253,11 +249,9 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
             horizontalPosition: 'center',
             verticalPosition: 'top'
           })
-          
           // Refresh the component
           this.filterAndUpdateChallenges()
           this.ngZone.run(() => {})
-          
           // Reload the page to ensure complete reset
           setTimeout(() => {
             window.location.reload()

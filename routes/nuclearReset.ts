@@ -13,27 +13,18 @@ export function performNuclearReset () {
   return async (req: Request, res: Response) => {
     try {
       logger.info('Nuclear reset initiated from frontend')
-      
-      // Step 1: Complete database wipe (same as server startup)
       logger.info('Wiping all database tables...')
       await sequelize.sync({ force: true })
-      
-      // Step 2: Recreate all default data
       logger.info('Recreating default data...')
       await datacreator()
-      
-      // Step 3: Reset all challenge states in memory
       logger.info('Resetting challenge states...')
       challengeUtils.resetAllChallenges()
-      
       logger.info('Nuclear reset completed successfully')
-      
       res.status(200).json({
         status: 'success',
         message: 'Nuclear reset completed successfully. All data has been wiped and recreated.',
         timestamp: new Date().toISOString()
       })
-      
     } catch (error) {
       logger.error('Nuclear reset failed:', error)
       res.status(500).json({

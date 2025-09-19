@@ -86,7 +86,6 @@ export class FilterSettingsComponent implements OnChanges {
 
   public openAdditionalSettingsDialog () {
     const dialogRef = this.dialog.open(ScoreBoardAdditionalSettingsDialogComponent)
-    
     dialogRef.componentInstance.resetProgress.subscribe(() => {
       if (this.resetProgress) {
         this.resetProgress()
