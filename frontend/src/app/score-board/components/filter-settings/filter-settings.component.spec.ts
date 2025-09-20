@@ -92,7 +92,14 @@ describe('FilterSettingsComponent', () => {
   })
 
   it('should open additional settings dialog', () => {
-    spyOn(dialog, 'open')
+    const mockDialogRef = {
+      componentInstance: {
+        resetProgress: {
+          subscribe: jasmine.createSpy('subscribe')
+        }
+      }
+    }
+    spyOn(dialog, 'open').and.returnValue(mockDialogRef as any)
     component.openAdditionalSettingsDialog()
     expect(dialog.open).toHaveBeenCalled()
   })
