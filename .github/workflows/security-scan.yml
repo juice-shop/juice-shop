@@ -1,0 +1,15 @@
+name: "Security Scan"
+on:
+  pull_request:
+jobs:
+  semgrep:
+    name: "Run Semgrep Scan"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v4
+      - name: "Run Semgrep Scan"
+        uses: returntocorp/semgrep-action@v1
+        with:
+          # Le decimos a Semgrep que use nuestras reglas locales
+          config: .semgrep/
