@@ -1,0 +1,11 @@
+rules:
+  - id: juice-shop-login-sqli
+    patterns:
+      - pattern-inside: |
+          db.sequelize.query('SELECT * FROM Users WHERE email = \'' + ... + '\' AND password = \'' + ... + '\'', ...)
+      - pattern: req.body.email
+    message: >-
+      Inyección SQL detectada. La entrada del usuario (req.body.email) se está concatenando directamente en una consulta SQL. Esto viola la regla de seguridad definida en nuestro modelo de amenazas.
+    languages:
+      - javascript
+    severity: ERROR
