@@ -1,0 +1,74 @@
+# .yamllint.yml
+extends: default
+
+rules:
+  # --- Linhas ---
+  line-length:
+    max: 120
+    level: warning # Define como aviso em vez de erro
+
+  trailing-spaces: enable # Evita espaços no final das linhas
+  new-line-at-end-of-file: enable # Garante que arquivos terminem com uma nova linha
+
+  empty-lines:
+    max: 2
+    max-start: 0
+    max-end: 1
+
+  # --- Indentação ---
+  indentation:
+    spaces: consistent
+    indent-sequences: true
+    width: 2 # Define indentação de 2 espaços
+
+  # --- Chaves e Valores ---
+  key-duplicates: enable # Evita chaves duplicadas
+  key-ordering: disable # Ordem das chaves não será verificada
+
+  # --- Aspas e Strings ---
+  quoted-strings:
+    quote-type: single
+    required: false
+    extra-allowed: ['double']
+
+  # --- Booleanos ---
+  truthy:
+    level: error
+    allowed-values: ['true', 'false']
+
+  # --- Comentários ---
+  comments:
+    level: warning
+    require-starting-space: true
+    min-spaces-from-content: 1
+
+  comments-indentation: enable
+
+  # --- Documentos ---
+  document-start:
+    present: true
+    level: warning
+
+  document-end:
+    present: false
+
+  # --- Espaçamento ---
+  colons:
+    max-spaces-before: 0
+    max-spaces-after: 1
+
+  commas:
+    max-spaces-before: 0
+    min-spaces-after: 1
+    max-spaces-after: 1
+
+# Ignorar arquivos e diretórios que não devem ser validados
+ignore: |
+  .git/
+  .venv/
+  venv/
+  node_modules/
+  vendor/
+  build/
+  dist/
+  *.egg-info/
