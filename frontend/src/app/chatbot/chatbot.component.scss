@@ -11,9 +11,11 @@ mat-card {
   width: 60%;
 }
 
+
 .chat-wrapper {
   display: flex;
   flex-direction: column;
+  align-items: center;
   height: 100%;
 }
 
@@ -33,6 +35,8 @@ mat-form-field {
 #chat-container {
   box-shadow: none;
   display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
   width: 95%;
 }
@@ -74,7 +78,7 @@ mat-form-field {
 .message-box-container {
   border-top: solid 1px #fff;
   bottom: 0;
-  margin-bottom: -20px;
+  margin-bottom: 0px;
   position: sticky;
 }
 
