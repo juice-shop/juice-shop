@@ -2,51 +2,51 @@ name: DAST scam woth OWASP ZAP
 
 # This workflow triggers on a pull request that targets the 'master' brnach 
 on:
-  pull_requests:
-  branches: [master]
+  pull_request:
+    branches: [ master ]
 
 jobs:
   zap_scan:
-  runs-on: ubuntu-latest
-  name: Run DAST scan
+    runs-on: ubuntu-latest
+    name: Run DAST scan
 
-steps:
+    steps:
   # Step 1: Check out the code from the pull request
-  - name: Checkout code
-    uses: actions/checkout@v3
-    with: 
-      ref: ${{ github.event.pull_request.head.sha }}
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with: 
+          ref: ${{ github.event.pull_request.head.sha }}
 
   # Step 2: Set up node.js environment to run the application
-  - name: Setup Node.js
-    uses: actions/setup-node@v3
-    with:
-      node-version: '18'
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
   # Step 3: Install application dependencies 
-  - name: Install Dependencies 
-    run: npm install 
+      - name: Install Dependencies 
+        run: npm install 
 
   # Step 4: Start the application in the background 
-  - name: Start Application
-    run: npm start &
+      - name: Start Application
+        run: npm start &
 
   # Step 5: Wait for the application to be ready
-  - name: Wait for the application to start
-    run: sleep 30 
+      - name: Wait for the application to start
+        run: sleep 30 
 
   # Step 6 : Run the OWASP ZAP BAseline Scan 
-  - name: ZAP Baseline scan 
-    uses: zaproxy/action-basline@v0.10.0
-    with: 
+      - name: ZAP Baseline scan 
+        uses: zaproxy/action-basline@v0.10.0
+        with: 
       # Target the locally running application 
-      target: 'http://localhost:3000'
-      cmd_options: '-J report.json'
+          target: 'http://localhost:3000'
+          cmd_options: '-J report.json'
  
   #Step 7: upload the zap report as a workflow artificat 
-  - name: Upload ZAP Report 
-    if: always() # will ensure this step runs even if the zap scan fails to the build 
-    uses: actions/upload-artifact@v3
-    with:
-      name: zap-scan-report
-      path: report.json
+      - name: Upload ZAP Report 
+        if: always() # will ensure this step runs even if the zap scan fails to the build 
+        uses: actions/upload-artifact@v3
+        with:
+          name: zap-scan-report
+          path: report.json
