@@ -1,3 +1,6 @@
+⚠️ WARNING: DO NOT DEPLOY
+This is a deliberately vulnerable application used for security training and demonstration purposes only. It contains known security flaws and should never be deployed to a production or public-facing environment. Use it only locally or in a sandboxed, isolated environment.
+
 # ![Juice Shop Logo](https://raw.githubusercontent.com/juice-shop/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_100px.png) OWASP Juice Shop
 
 [![OWASP Flagship](https://img.shields.io/badge/owasp-flagship%20project-48A646.svg)](https://owasp.org/projects/#sec-flagships)
