@@ -428,7 +428,7 @@
   "It is also worth looking into how Query Operators work in MongoDB.": "It is also worth looking into how Query Operators work in MongoDB.",
   "More particular, they have been sloppy in a way that even the Angular Compiler was not able to clean up after them automatically.": "More particular, they have been sloppy in a way that even the Angular Compiler was not able to clean up after them automatically.",
   "It is of course not sufficient to just visit any of the crypto currency links directly to solve the challenge.": "It is of course not sufficient to just visit any of the crypto currency links directly to solve the challenge.",
-  "Guessing might work just fine.": "Guessing might work just fine.",
+  "Guessing might work just fine.": "Bloßes Raten könnte schon klappen.",
   "If you harvested the admin’s password hash, you can try to attack that.": "If you harvested the admin’s password hash, you can try to attack that.",
   "In case you use some hacker tool, you can also go for a brute force attack using a generic password list.": "In case you use some hacker tool, you can also go for a brute force attack using a generic password list.",
   "Investigate the shopping basket closely to understand how it prevents you from creating orders that would fulfil the challenge.": "Investigate the shopping basket closely to understand how it prevents you from creating orders that would fulfil the challenge.",
