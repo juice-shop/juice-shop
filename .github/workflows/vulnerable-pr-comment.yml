@@ -1,0 +1,18 @@
+name: Vulnerable PR Comment Check
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  check-comment:
+    runs-on: ubuntu-latest
+    if: github.event.issue.pull_request
+    steps:
+      - name: Get PR Comment
+        run: |
+          echo "The PR comment is:"
+          echo "${{ github.event.comment.body }}"
+          echo "Checking comment..."
+          # VULNERABLE LINE: The comment body is directly used in a command
+          echo "Comment check result: $(echo ${{ github.event.comment.body }})"
