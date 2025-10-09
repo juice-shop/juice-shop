@@ -300,3 +300,8 @@ div.mdc-card {
   max-width: 480px;
   white-space: pre-line;
 }
+
+/* override Angular Material tooltip max-height for score-board hints */
+.mat-mdc-tooltip-surface {
+  max-height: none !important;
+}
