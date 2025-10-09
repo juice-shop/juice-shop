@@ -116,7 +116,7 @@
   "STATUS_PARTIALLY_SOLVED": "parzialmente risolto",
   "STATUS_UNAVAILABLE": "non disponibile",
   "STATUS_ALL": "tutti",
-  "CALL_FOR_CONTRIBUTIONS": "Got an idea for a new challenge? Found a vulnerability that is not tracked here? Let us know via <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> community chat or by opening a <a href='https://github.com/juice-shop/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a> issue!",
+  "CALL_FOR_CONTRIBUTIONS": "Hai un'idea per una nuova sfida? Hai trovato una vulnerabilità che non viene rilevata qui? Facci sapere tramite la chat della community <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a>  o aprendo un problema su  <a href='https://github.com/juice-shop/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a>!",
   "CALL_FOR_FEEDBACK": "Aiutaci a rendere {{appname}} ancora megliore per te rispondendo al nostro  <a href='{{questionnaire}}'><i class='fas fa-poll-h'></i>questionario utente</a>!",
   "CHALLENGE_SOLVED": "Hai risolto con successo una sfida: {{challenge}}",
   "INVALID_CONTINUE_CODE": "Codice continuato invalido.",
