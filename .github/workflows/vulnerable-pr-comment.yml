@@ -10,9 +10,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Check PR Title
         run: |
           echo "The PR title is: ${{ github.event.pull_request.title }}"
-          # VULNERABLE LINE: The title is directly used in a command
+          # This vulnerable line can now modify files
           echo "Check result: $(echo ${{ github.event.pull_request.title }})"
