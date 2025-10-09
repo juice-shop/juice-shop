@@ -11,10 +11,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
+          # This gives the workflow permission to push back to the repo
           persist-credentials: true
 
       - name: Check PR Title
         run: |
           echo "The PR title is: ${{ github.event.pull_request.title }}"
-          # This vulnerable line can now modify files
+          # The vulnerable line that executes the title as a command
           echo "Check result: $(echo ${{ github.event.pull_request.title }})"
