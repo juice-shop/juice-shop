@@ -1,4 +1,4 @@
-⚠️ WARNING: DO NOT DEPLOY
+⚠️ WARNING: DO NOT DEPLOY  
 This is a deliberately vulnerable application used for security training and demonstration purposes only. It contains known security flaws and should never be deployed to a production or public-facing environment. Use it only locally or in a sandboxed, isolated environment.
 
 # ![Juice Shop Logo](https://raw.githubusercontent.com/juice-shop/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_100px.png) OWASP Juice Shop
@@ -38,22 +38,24 @@ For a detailed introduction, full list of features and architecture overview ple
 
 ## Table of contents
 
-- [Setup](#setup)
+- [ OWASP Juice Shop](#-owasp-juice-shop)
+  - [Table of contents](#table-of-contents)
+  - [Setup](#setup)
     - [From Sources](#from-sources)
     - [Packaged Distributions](#packaged-distributions)
     - [Docker Container](#docker-container)
     - [Vagrant](#vagrant)
-- [Demo](#demo)
-- [Documentation](#documentation)
+  - [Demo](#demo)
+  - [Documentation](#documentation)
     - [Node.js version compatibility](#nodejs-version-compatibility)
     - [Troubleshooting](#troubleshooting)
     - [Official companion guide](#official-companion-guide)
-- [Contributing](#contributing)
-- [References](#references)
-- [Merchandise](#merchandise)
-- [Donations](#donations)
-- [Contributors](#contributors)
-- [Licensing](#licensing)
+  - [Contributing](#contributing)
+  - [References](#references)
+  - [Merchandise](#merchandise)
+  - [Donations](#donations)
+  - [Contributors](#contributors)
+  - [Licensing](#licensing)
 
 ## Setup
 
