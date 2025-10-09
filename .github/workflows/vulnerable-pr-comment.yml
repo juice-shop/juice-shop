@@ -1,18 +1,18 @@
-name: Vulnerable PR Comment Check
+name: Vulnerable PR Title Check
 
 on:
-  issue_comment:
-    types: [created]
+  pull_request:
+    types: [opened]
 
 jobs:
-  check-comment:
+  check-title:
     runs-on: ubuntu-latest
-    if: github.event.issue.pull_request
     steps:
-      - name: Get PR Comment
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check PR Title
         run: |
-          echo "The PR comment is:"
-          echo "${{ github.event.comment.body }}"
-          echo "Checking comment..."
-          # VULNERABLE LINE: The comment body is directly used in a command
-          echo "Comment check result: $(echo ${{ github.event.comment.body }})"
+          echo "The PR title is: ${{ github.event.pull_request.title }}"
+          # VULNERABLE LINE: The title is directly used in a command
+          echo "Check result: $(echo ${{ github.event.pull_request.title }})"
