@@ -3,10 +3,11 @@ name: SonarQube Scan
 on:
   push:
     branches:
-      - '**'
+      - '**'  # Triggers on all branches
   pull_request:
     branches:
       - '**'
+  workflow_dispatch:  # Allows manual trigger from GitHub UI
 
 jobs:
   sonarqube:
@@ -20,13 +21,18 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
+          distribution: 'temurin'
           java-version: '17'
 
-      - name: SonarQube Scan
+      - name: Download SonarScanner
         run: |
           wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
           unzip sonar-scanner-cli-5.0.1.3006-linux.zip
+
+      - name: Run SonarQube Scan
+        run: |
           ./sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner \
             -Dsonar.projectKey=your_project_key \
             -Dsonar.sources=. \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
