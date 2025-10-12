@@ -1,0 +1,84 @@
+name: "SAST Scanning"
+
+# Truong's workflow - Static Application Security Testing
+# This workflow is called by security-enhanced.yml OR can run independently
+
+on:
+  workflow_call: # Called by main pipeline
+  workflow_dispatch: # Can be triggered manually
+  push:
+    branches:
+      - feature/truong
+
+jobs:
+  semgrep:
+    name: "Semgrep - Code Scanning"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Semgrep
+        uses: returntocorp/semgrep-action@v1
+        continue-on-error: true # Don't fail pipeline
+        with:
+          config: >-
+            p/security-audit
+            p/secrets
+            p/owasp-top-ten
+
+      - name: Upload Semgrep results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: semgrep.sarif
+
+  sonarcloud:
+    name: "SonarCloud - Code Quality"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests with coverage
+        continue-on-error: true
+        run: npm test 2>&1 || true
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=your-team_juice-shop
+            -Dsonar.organization=your-team-org
+
+  secret-scanning:
+    name: "TruffleHog - Secret Detection"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: TruffleHog Scan
+        uses: trufflesecurity/trufflehog@main
+        continue-on-error: true
+        with:
+          path: ./
+          base: main
+          head: HEAD
+          extra_args: --only-verified

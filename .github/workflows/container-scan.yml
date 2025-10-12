@@ -1,0 +1,99 @@
+name: "Container Security Scanning"
+
+# Dat's workflow - Container and Image Security
+# This workflow is called by security-enhanced.yml OR can run independently
+
+on:
+  workflow_call: # Called by main pipeline
+  workflow_dispatch: # Can be triggered manually
+  push:
+    branches:
+      - feature/dat
+
+jobs:
+  trivy-scan:
+    name: "Trivy - Container Vulnerability Scanner"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t juice-shop:scan .
+
+      - name: Run Trivy vulnerability scanner (SARIF)
+        uses: aquasecurity/trivy-action@master
+        continue-on-error: true
+        with:
+          image-ref: "juice-shop:scan"
+          format: "sarif"
+          output: "trivy-results.sarif"
+          severity: "CRITICAL,HIGH,MEDIUM"
+
+      - name: Upload Trivy results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: "trivy-results.sarif"
+
+      - name: Run Trivy with JSON output
+        uses: aquasecurity/trivy-action@master
+        continue-on-error: true
+        with:
+          image-ref: "juice-shop:scan"
+          format: "json"
+          output: "trivy-results.json"
+
+      - name: Upload Trivy JSON report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: trivy-report
+          path: trivy-results.json
+
+  grype-scan:
+    name: "Grype - Vulnerability Scanner"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t juice-shop:scan .
+
+      - name: Scan with Grype
+        uses: anchore/scan-action@v3
+        id: grype
+        continue-on-error: true
+        with:
+          image: "juice-shop:scan"
+          fail-build: false
+          severity-cutoff: high
+
+      - name: Upload Grype results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: ${{ steps.grype.outputs.sarif }}
+
+  hadolint:
+    name: "Hadolint - Dockerfile Linting"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Hadolint
+        uses: hadolint/hadolint-action@v3.1.0
+        continue-on-error: true
+        with:
+          dockerfile: Dockerfile
+          failure-threshold: warning
+          format: sarif
+          output-file: hadolint-results.sarif
+
+      - name: Upload Hadolint results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: hadolint-results.sarif

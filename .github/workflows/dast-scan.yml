@@ -1,0 +1,77 @@
+name: "DAST Scanning"
+
+# Truong's workflow - Dynamic Application Security Testing
+# This workflow is called by security-enhanced.yml OR can run independently
+
+on:
+  workflow_call: # Called by main pipeline
+  workflow_dispatch: # Can be triggered manually
+  push:
+    branches:
+      - feature/truong
+
+jobs:
+  zap-scan:
+    name: "OWASP ZAP - Dynamic Scan"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install and start application
+        run: |
+          npm install
+          npm start &
+          sleep 30  # Wait for app to start
+
+      - name: Run ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.7.0
+        continue-on-error: true
+        with:
+          target: "http://localhost:3000"
+          rules_file_name: ".zap/rules.tsv"
+          cmd_options: "-a -j"
+
+      - name: Upload ZAP results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: zap-scan-results
+          path: report_html.html
+
+  api-security-test:
+    name: "API Security Testing"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install and start application
+        run: |
+          npm install
+          npm start &
+          sleep 30
+
+      - name: Run API security tests
+        continue-on-error: true
+        run: |
+          # Test API endpoints for common vulnerabilities
+          npm run frisby || true
+          echo "✅ API security tests completed"
+
+      - name: Upload API test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: api-security-results
+          path: build/reports/
