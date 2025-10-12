@@ -77,7 +77,7 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
       const transformedChallenges = challenges.map((challenge) => {
         return {
           ...challenge,
-          hintText: hints.filter((hint) => hint.ChallengeId === challenge.id && hint.unlocked).map((hint) => hint.order + '. ' + hint.text).join('\n'),
+          hintText: hints.filter((hint) => hint.ChallengeId === challenge.id && hint.unlocked).map((hint) => hint.order + '. ' + hint.text).join('\n\n'),
           nextHint: hints.filter((hint) => hint.ChallengeId === challenge.id && !hint.unlocked).sort((a, b) => a.order - b.order).map((hint) => hint.id)[0],
           hintsUnlocked: hints.filter((hint) => hint.ChallengeId === challenge.id && hint.unlocked).length,
           hintsAvailable: hints.filter((hint) => hint.ChallengeId === challenge.id).length,
