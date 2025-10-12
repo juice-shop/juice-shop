@@ -1,0 +1,211 @@
+name: "Enhanced Security Pipeline"
+
+# Som (Pipeline Lead) orchestrates all security workflows
+# This is YOUR team's main security pipeline - it calls individual workflows
+# Each team member maintains their own .yml file to avoid merge conflicts
+
+on:
+  push:
+    branches:
+      - dev # Deploy to staging
+      - main # Deploy to production
+      - feature/som # Som tests full pipeline integration
+  pull_request:
+    branches:
+      - dev
+  workflow_dispatch: # Manual trigger for testing
+
+jobs:
+  # ============================================
+  # Truong: SAST + DAST Workflows
+  # ============================================
+  run-sast:
+    name: "SAST Scanning (Truong)"
+    uses: ./.github/workflows/sast-scan.yml
+    secrets: inherit
+
+  run-dast:
+    name: "DAST Scanning (Truong)"
+    uses: ./.github/workflows/dast-scan.yml
+    secrets: inherit
+
+  # ============================================
+  # Dat: Container Security Workflows
+  # ============================================
+  run-container-scan:
+    name: "Container Scanning (Dat)"
+    uses: ./.github/workflows/container-scan.yml
+    secrets: inherit
+
+  # ============================================
+  # Hoang Anh: Dependency & SBOM Workflows
+  # ============================================
+  run-dependency-scan:
+    name: "Dependency Scanning (Hoang Anh)"
+    uses: ./.github/workflows/dependency-scan.yml
+    secrets: inherit
+
+  # ============================================
+  # Som: Security Gate Evaluation
+  # ============================================
+  security-gate:
+    name: "Security Quality Gate"
+    runs-on: ubuntu-latest
+    needs:
+      - run-sast
+      - run-dast
+      - run-container-scan
+      - run-dependency-scan
+    if: always() # Run even if some scans failed
+    outputs:
+      deploy_approved: ${{ steps.evaluate.outputs.deploy_approved }}
+    steps:
+      - name: Evaluate security scan results
+        id: evaluate
+        run: |
+          echo "🔒 Security Gate Evaluation"
+          echo "=============================="
+          echo ""
+
+          # Check all workflow results
+          SAST_STATUS="${{ needs.run-sast.result }}"
+          DAST_STATUS="${{ needs.run-dast.result }}"
+          CONTAINER_STATUS="${{ needs.run-container-scan.result }}"
+          DEPENDENCY_STATUS="${{ needs.run-dependency-scan.result }}"
+
+          echo "📊 Scan Results:"
+          echo "  SAST (Truong): $SAST_STATUS"
+          echo "  DAST (Truong): $DAST_STATUS"
+          echo "  Container (Dat): $CONTAINER_STATUS"
+          echo "  Dependencies (Hoang Anh): $DEPENDENCY_STATUS"
+          echo ""
+
+          # For this intentionally vulnerable app:
+          # - We run all scans
+          # - We report findings
+          # - We proceed with deployment for educational purposes
+          # - In production, you would fail on critical findings
+
+          echo "⚠️  NOTE: This is an INTENTIONALLY VULNERABLE application"
+          echo "📋 All security scans completed - see artifacts for detailed reports"
+          echo "✅ Deployment APPROVED for educational/demo purposes"
+          echo ""
+
+          # Set output for deployment decision
+          echo "deploy_approved=true" >> $GITHUB_OUTPUT
+
+      - name: Generate summary comment
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const summary = `
+            ## 🔒 Security Scan Summary
+
+            | Scan Type | Status | Owner |
+            |-----------|--------|-------|
+            | SAST | ${{ needs.run-sast.result }} | Truong |
+            | DAST | ${{ needs.run-dast.result }} | Truong |
+            | Container | ${{ needs.run-container-scan.result }} | Dat |
+            | Dependencies | ${{ needs.run-dependency-scan.result }} | Hoang Anh |
+
+            **Security Gate**: ✅ Approved (intentionally vulnerable app)
+
+            📊 See workflow artifacts for detailed security reports
+            `;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: summary
+            });
+
+  # ============================================
+  # Kien: Deployment Workflows
+  # ============================================
+  deploy-staging:
+    name: "Deploy to Staging (Kien)"
+    needs: [security-gate]
+    if: |
+      github.ref == 'refs/heads/dev' && 
+      needs.security-gate.outputs.deploy_approved == 'true'
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: staging
+    secrets: inherit
+
+  deploy-production:
+    name: "Deploy to Production (Kien)"
+    needs: [security-gate]
+    if: |
+      github.ref == 'refs/heads/main' && 
+      needs.security-gate.outputs.deploy_approved == 'true'
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: production
+    secrets: inherit
+
+  # ============================================
+  # Ha: Generate Documentation Report
+  # ============================================
+  generate-documentation:
+    name: "Generate Security Documentation (Ha)"
+    runs-on: ubuntu-latest
+    needs:
+      - security-gate
+      - deploy-staging
+      - deploy-production
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download all scan artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: security-reports/
+
+      - name: Generate comprehensive report
+        run: |
+          cat << 'EOF' > SECURITY_REPORT.md
+          # Security Scan Report
+
+          **Pipeline Run**: ${{ github.run_number }}
+          **Date**: $(date)
+          **Branch**: ${{ github.ref_name }}
+          **Commit**: ${{ github.sha }}
+
+          ## Summary
+
+          | Component | Status | Details |
+          |-----------|--------|---------|
+          | SAST Scanning | ${{ needs.security-gate.result }} | Semgrep, SonarCloud, TruffleHog |
+          | DAST Scanning | ${{ needs.security-gate.result }} | OWASP ZAP, API Tests |
+          | Container Security | ${{ needs.security-gate.result }} | Trivy, Grype, Hadolint |
+          | Dependency Security | ${{ needs.security-gate.result }} | OWASP DC, Snyk, SBOM |
+          | Staging Deployment | ${{ needs.deploy-staging.result }} | AWS Staging |
+          | Production Deployment | ${{ needs.deploy-production.result }} | AWS Production |
+
+          ## Deployment Status
+
+          - **Staging**: ${{ needs.deploy-staging.result }}
+          - **Production**: ${{ needs.deploy-production.result }}
+
+          ## Notes
+
+          This is an intentionally vulnerable application used for security training.
+          All findings are documented in the workflow artifacts.
+
+          ---
+          *Generated by Enhanced Security Pipeline*
+          EOF
+
+          cat SECURITY_REPORT.md
+
+      - name: Upload documentation report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: security-documentation
+          path: SECURITY_REPORT.md

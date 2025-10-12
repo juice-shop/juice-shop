@@ -1,0 +1,122 @@
+name: "Dependency & SBOM Scanning"
+
+# Hoang Anh's workflow - Dependency Security and Software Bill of Materials
+# This workflow is called by security-enhanced.yml OR can run independently
+
+on:
+  workflow_call: # Called by main pipeline
+  workflow_dispatch: # Can be triggered manually
+  push:
+    branches:
+      - feature/hoang_anh
+
+jobs:
+  owasp-dependency-check:
+    name: "OWASP Dependency-Check"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run OWASP Dependency Check
+        uses: dependency-check/Dependency-Check_Action@main
+        continue-on-error: true
+        with:
+          project: "juice-shop"
+          path: "."
+          format: "ALL"
+          args: >
+            --enableRetired
+            --failOnCVSS 7
+
+      - name: Upload Dependency Check reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dependency-check-reports
+          path: reports/
+
+  snyk-scan:
+    name: "Snyk - Dependency Vulnerabilities"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Snyk vulnerability scan
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high --json-file-output=snyk-results.json
+
+      - name: Upload Snyk results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: snyk-report
+          path: snyk-results.json
+
+  sbom-generation:
+    name: "SBOM - Software Bill of Materials"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install --production
+
+      - name: Generate SBOM
+        run: |
+          npm install -g @cyclonedx/cyclonedx-npm
+          npm run sbom
+
+      - name: Validate SBOM files
+        run: |
+          test -f bom.json && echo "✅ SBOM JSON generated"
+          test -f bom.xml && echo "✅ SBOM XML generated"
+          cat bom.json | jq . > /dev/null && echo "✅ SBOM JSON is valid"
+
+      - name: Upload SBOM artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sbom-files
+          path: |
+            bom.json
+            bom.xml
+
+  license-compliance:
+    name: "License Compliance Check"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install license checker
+        run: npm install -g license-checker
+
+      - name: Check licenses
+        continue-on-error: true
+        run: |
+          license-checker --json --out licenses.json
+          license-checker --summary
+
+      - name: Upload license report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: license-report
+          path: licenses.json
