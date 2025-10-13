@@ -8,7 +8,13 @@ $bg-chat: rgba(0, 0, 0, 0.3);
 mat-card {
   height: auto;
   min-width: 320px;
-  width: 60%;
+  width: 70%;
+}
+
+@media (max-width: 599.98px) {
+  mat-card {
+    width: 90%;
+  }
 }
 
 .chat-wrapper {
