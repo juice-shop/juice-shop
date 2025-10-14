@@ -1,0 +1,105 @@
+name: Trivy PR Scan
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]  # Adjust to your target branch
+
+permissions:
+  contents: read
+  pull-requests: write  # Required for creating/updating PR comments
+
+jobs:
+  trivy-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # For full history if needed
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master  # Or pin to a version like @0.28.0
+        with:
+          scan-type: 'fs'  # Options: 'fs' (repo), 'image-ref' (Docker), etc.
+          scan-ref: '.'    # Scan the entire repo; adjust path as needed
+          format: 'json'   # JSON for easy parsing; use 'table' for raw output
+          output: 'trivy-results.json'
+          severity: 'CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN'  # Adjust thresholds
+          ignore-unfixed: true
+          vuln-type: 'os,library'  # Customize as needed
+        continue-on-error: true  # Don't fail the workflow on vulns; report them
+
+      - name: Update PR with Trivy results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        env:
+          GITHUB_SHA: ${{ github.sha }}
+        with:
+          script: |
+            const fs = require('fs');
+            const { data: { number: prNumber } } = context.issue;  // Directly from context for PR number
+
+            // Read Trivy results
+            let results = { Results: [] };
+            if (fs.existsSync('trivy-results.json')) {
+              const rawData = fs.readFileSync('trivy-results.json', 'utf8');
+              results = JSON.parse(rawData);
+            }
+
+            // Extract vulnerabilities (handle optional chaining for safety)
+            const vulnerabilities = results.Results?.[0]?.Vulnerabilities || [];
+            const vulnCount = vulnerabilities.length;
+
+            // Format results as Markdown
+            let body = `## Trivy Security Scan Results (Updated: ${new Date().toISOString().split('T')[0]})\n\n`;
+            body += `Scan completed on \`${process.env.GITHUB_SHA}\`. Found **${vulnCount}** vulnerabilities.\n\n`;
+
+            if (vulnCount === 0) {
+              body += '### No vulnerabilities detected! ✅';
+            } else {
+              body += '### Critical/High Vulnerabilities\n';
+              const highCrit = vulnerabilities.filter(v => ['CRITICAL', 'HIGH'].includes(v.Severity));
+              if (highCrit.length === 0) {
+                body += 'No critical or high severity vulnerabilities found.\n';
+              } else {
+                highCrit.forEach(vuln => {
+                  body += `- **${vuln.Severity}**: ${vuln.Title || vuln.VulnerabilityID} (${vuln.PkgName}:${vuln.InstalledVersion} -> ${vuln.FixedVersion || 'unfixed'})\n`;
+                  body += `  *Description*: ${vuln.Description?.substring(0, 200)}...\n`;
+                  body += `  *[Details](${vuln.PrimaryURL || vuln.Reference || '#'})*\n\n`;
+                });
+              }
+              body += '\n<details><summary>Full results (including Medium/Low)</summary>\n\n';
+              body += '```\n' + JSON.stringify(results, null, 2) + '\n```\n</details>';
+            }
+
+            // Check for existing Trivy comment
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+            });
+
+            const existingComment = comments.find(comment => 
+              comment.body?.includes('## Trivy Security Scan Results')
+            );
+
+            if (existingComment) {
+              // Update existing comment
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existingComment.id,
+                body: body,
+              });
+              console.log(`Updated existing Trivy comment ID ${existingComment.id}`);
+            } else {
+              // Create new comment
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body: body,
+              });
+              console.log('Created new Trivy comment');
+            }
