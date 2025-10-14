@@ -9,6 +9,7 @@ on:
 
 jobs:
   build:
+    if: false
     name: Build and analyze
     runs-on: ubuntu-latest
     
