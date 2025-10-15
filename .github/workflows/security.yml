@@ -1,0 +1,60 @@
+name: AppSec Pipeline
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          APP_PATH: './app'
+
+jobs:
+  snyk-code:
+    environment: snyk
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      - uses: snyk/actions/setup@master
+      
+      - name: Install dependencies
+        run: npm install
+            
+      - name: Configure Snyk endpoint
+        run: snyk config set endpoint=https://api.us.snyk.io
+            
+      - name: Authenticate with Snyk
+        run: snyk auth ${{ secrets.SNYK_TOKEN }}
+            
+      - name: SAST - Scan de Código
+        run: |
+          echo "Executando análise SAST..."
+          snyk code test --json > snyk-sast-report.json
+        continue-on-error: true
+
+      - name: SCA - Dependências
+        run: |
+          echo "Executando análise SCA..."
+          snyk test --json > snyk-sca-report.json
+        continue-on-error: true
+
+      - name: Dockerfile Scan
+        run: |
+          echo "Executando análise de imagem Docker..."
+          snyk container test $APP_PATH/Dockerfile --json > snyk-docker-report.json
+        continue-on-error: true
+        
+      - name: Arquivar relatórios
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports
+          path: |
+            snyk-sast-report.json
+            snyk-sca-report.json
+            snyk-docker-report.json
+          
+      - name: Snyk Monitor
+        run: snyk monitor
