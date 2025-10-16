@@ -192,6 +192,13 @@ We are always happy to get new contributors on board! Please check
 [contribute to our codebase](CONTRIBUTING.md#code-contributions) or the
 [translation into different languages](CONTRIBUTING.md#i18n-contributions)!
 
+### Theme Verification
+
+If you are working on Angular Material themes, please refer to our
+[Theme Verification Guide](docs/THEME_VERIFICATION.md) for detailed
+instructions on verifying that the correct theme is applied.
+
+
 ## References
 
 Did you write a blog post, magazine article or do a podcast about or mentioning OWASP Juice Shop? Or maybe you held or
