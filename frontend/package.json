@@ -60,7 +60,8 @@
     "solidity-browser-compiler": "^1.1.0",
     "tslib": "^2.5.0",
     "typescript": "~5.8.2",
-    "zone.js": "~0.15.0"
+    "zone.js": "~0.15.0",
+    "lodash": "4.17.19"
   },
   "devDependencies": {
     "@angular-eslint/builder": "^18.4.3",
