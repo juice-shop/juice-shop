@@ -1,0 +1,32 @@
+name: DAST - OWASP ZAP Scan
+
+on:
+  push:
+    branches:
+      - feature/truong
+
+jobs:
+  zap-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies and start Juice Shop
+        run: |
+          npm install
+          npm start &
+          sleep 20  # chờ app khởi động
+
+      - name: Run OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.8.0
+        with:
+          target: 'http://localhost:3000'
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a'
+
+      - name: Upload ZAP report
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-report
+          path: report.html
