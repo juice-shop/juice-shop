@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 1️⃣ Cài NodeJS và chạy Juice Shop server trong nền
+      #  Cài NodeJS và chạy Juice Shop server trong nền
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -27,7 +27,7 @@ jobs:
           npm start &
           sleep 15 # đợi app khởi động xong
 
-      # 2️⃣ Chạy OWASP ZAP scan (DAST)
+      #  Chạy OWASP ZAP scan (DAST)
       - name: Run OWASP ZAP DAST Scan
         uses: zaproxy/action-baseline@v0.9.0
         with:
