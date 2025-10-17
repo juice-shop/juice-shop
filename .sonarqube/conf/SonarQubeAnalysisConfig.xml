@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AnalysisConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/integration/2015/1">
+  <SonarConfigDir>C:\Users\MSi\Documents\GitHub\owasp-juice-shop\.sonarqube\conf</SonarConfigDir>
+  <SonarOutputDir>C:\Users\MSi\Documents\GitHub\owasp-juice-shop\.sonarqube\out</SonarOutputDir>
+  <SonarBinDir>C:\Users\MSi\Documents\GitHub\owasp-juice-shop\.sonarqube\bin</SonarBinDir>
+  <SonarScannerWorkingDirectory>C:\Users\MSi\Documents\GitHub\owasp-juice-shop</SonarScannerWorkingDirectory>
+  <JavaExePath>C:\Users\MSi\.sonar\cache\11a61a94d383e755b08b4e5890a13d148bc9f95b7149cbbeec62efb8c75a4a67\OpenJDK17U-jre_x64_windows_hotspot_17.0.13_11.zip_extracted\jdk-17.0.13+11-jre/bin/java.exe</JavaExePath>
+  <EngineJarPath>C:\Users\MSi\.sonar\cache\d6e15f5e32432aa3c7ef8e65784f7efedd6c8b1a4e828c6a1557a4334109174f\sonar-scanner-engine-shaded-25.9.0.112764-all.jar</EngineJarPath>
+  <UseSonarScannerCli>false</UseSonarScannerCli>
+  <ScanAllAnalysis>true</ScanAllAnalysis>
+  <HasBeginStepCommandLineCredentials>true</HasBeginStepCommandLineCredentials>
+  <HasBeginStepCommandLineTruststorePassword>false</HasBeginStepCommandLineTruststorePassword>
+  <SonarQubeHostUrl>http://localhost:9000</SonarQubeHostUrl>
+  <SonarQubeVersion>25.9.0.112764</SonarQubeVersion>
+  <SonarProjectKey>myapp</SonarProjectKey>
+  <AdditionalConfig>
+    <ConfigSetting Id="BuildUri" />
+    <ConfigSetting Id="TfsUri" />
+    <ConfigSetting Id="VsCoverageConverterToolPath" />
+    <ConfigSetting Id="UnchangedFilesPath" />
+    <ConfigSetting Id="sonar.pullrequest.cache.basepath" Value="C:\Users\MSi\Documents\GitHub\owasp-juice-shop" />
+    <ConfigSetting Id="settings.file.path" Value="C:\Users\MSi\.dotnet\tools\.store\dotnet-sonarscanner\11.0.0\dotnet-sonarscanner\11.0.0\tools\netcoreapp3.1\any\SonarQube.Analysis.xml" />
+  </AdditionalConfig>
+  <ServerSettings>
+    <Property Name="sonar.cs.ignoreHeaderComments">true</Property>
+    <Property Name="sonar.typescript.file.suffixes">.ts,.tsx,.cts,.mts</Property>
+    <Property Name="sonar.ai.codefix.hidden">false</Property>
+    <Property Name="sonar.python.xunit.skipDetails">false</Property>
+    <Property Name="sonar.ipynb.file.suffixes">ipynb</Property>
+    <Property Name="sonar.auth.saml.signature.enabled">false</Property>
+    <Property Name="sonar.go.exclusions">**/vendor/**</Property>
+    <Property Name="sonar.terraform.file.suffixes">.tf</Property>
+    <Property Name="sonar.forceAuthentication">true</Property>
+    <Property Name="sonar.notifications.delay">60</Property>
+    <Property Name="sonar.multi-quality-mode.enabled">true</Property>
+    <Property Name="sonar.rust.file.suffixes">.rs</Property>
+    <Property Name="sonaranalyzer-cs.ruleNamespace">SonarAnalyzer.CSharp</Property>
+    <Property Name="sonar.azureresourcemanager.file.identifier">https://schema.management.azure.com/schemas/,http://schema.management.azure.com/schemas/</Property>
+    <Property Name="sonar.cs.analyzeGeneratedCode">false</Property>
+    <Property Name="sonar.java.jvmframeworkconfig.file.patterns">**/src/main/resources/**/*app*.properties,**/src/main/resources/**/*app*.yaml,**/src/main/resources/**/*app*.yml</Property>
+    <Property Name="sonar.builtInQualityProfiles.disableNotificationOnUpdate">false</Property>
+    <Property Name="sonar.css.file.suffixes">.css,.less,.scss,.sass</Property>
+    <Property Name="sonar.docker.file.patterns">Dockerfile,*.dockerfile</Property>
+    <Property Name="sonar.html.file.suffixes">.html,.xhtml,.cshtml,.vbhtml,.aspx,.ascx,.rhtml,.erb,.shtm,.shtml,.cmp,.twig</Property>
+    <Property Name="sonar.auth.gitlab.enabled">false</Property>
+    <Property Name="sonar.cpd.cross_project">false</Property>
+    <Property Name="sonar.vbnet.ignoreHeaderComments">true</Property>
+    <Property Name="sonar.auth.github.groupsSync">false</Property>
+    <Property Name="sonar.vbnet.analyzer.dotnet.pluginKey">vbnet</Property>
+    <Property Name="sonar.scala.file.suffixes">.scala</Property>
+    <Property Name="sonar.cloudformation.activate">true</Property>
+    <Property Name="sonaranalyzer-vbnet.ruleNamespace">SonarAnalyzer.VisualBasic</Property>
+    <Property Name="sonar.cloudformation.file.identifier">AWSTemplateFormatVersion</Property>
+    <Property Name="sonar.dbcleaner.daysBeforeDeletingAnticipatedTransitions">30</Property>
+    <Property Name="sonar.javascript.ignoreHeaderComments">true</Property>
+    <Property Name="sonar.dbcleaner.daysBeforeDeletingClosedIssues">30</Property>
+    <Property Name="sonar.java.enablePreview">False</Property>
+    <Property Name="sonar.dbcleaner.weeksBeforeKeepingOnlyOneSnapshotByMonth">52</Property>
+    <Property Name="sonar.lf.gravatarServerUrl">https://secure.gravatar.com/avatar/{EMAIL_MD5}.jpg?s={SIZE}&amp;d=identicon</Property>
+    <Property Name="sonar.notifications.runningDelayBeforeReportingStatus">600</Property>
+    <Property Name="sonar.jsp.file.suffixes">.jsp,.jspf,.jspx</Property>
+    <Property Name="sonar.javascript.maxFileSize">1000</Property>
+    <Property Name="sonar.javascript.environments">amd,applescript,atomtest,browser,commonjs,embertest,greasemonkey,jasmine,jest,jquery,meteor,mocha,mongo,nashorn,node,phantomjs,prototypejs,protractor,qunit,serviceworker,shared-node-browser,shelljs,webextensions,worker</Property>
+    <Property Name="sonar.scm.disabled">false</Property>
+    <Property Name="sonar.ruby.exclusions">**/vendor/**</Property>
+    <Property Name="sonar.auth.saml.enabled">false</Property>
+    <Property Name="sonar.vbnet.file.suffixes">.vb</Property>
+    <Property Name="sonar.vbnet.analyzer.dotnet.pluginVersion">10.15.0.120848</Property>
+    <Property Name="sonar.technicalDebt.developmentCost">30</Property>
+    <Property Name="sonar.validateWebhooks">true</Property>
+    <Property Name="sonar.python.file.suffixes">py</Property>
+    <Property Name="sonar.cs.file.suffixes">.cs,.razor</Property>
+    <Property Name="sonar.allowPermissionManagementForProjectAdmins">true</Property>
+    <Property Name="sonar.rust.clippy.offline">false</Property>
+    <Property Name="sonar.text.inclusions.activate">true</Property>
+    <Property Name="sonaranalyzer-vbnet.staticResourceName">SonarAnalyzer-vbnet-10.15.0.120848.zip</Property>
+    <Property Name="sonar.java.file.suffixes">.java,.jav</Property>
+    <Property Name="sonar.kotlin.file.suffixes">.kt,.kts</Property>
+    <Property Name="sonar.php.file.suffixes">php,php3,php4,php5,phtml,inc</Property>
+    <Property Name="sonar.xml.file.suffixes">.xml,.xsd,.xsl,.config</Property>
+    <Property Name="sonar.dbcleaner.weeksBeforeDeletingAllSnapshots">260</Property>
+    <Property Name="sonar.azureresourcemanager.activate">true</Property>
+    <Property Name="sonar.updatecenter.cache.ttl">3600000</Property>
+    <Property Name="sonar.auth.bitbucket.allowUsersToSignUp">true</Property>
+    <Property Name="sonar.auth.github.enabled">false</Property>
+    <Property Name="sonar.python.coverage.reportPaths">coverage-reports/*coverage-*.xml</Property>
+    <Property Name="sonar.text.activate">true</Property>
+    <Property Name="provisioning.gitlab.enabled">false</Property>
+    <Property Name="sonar.go.file.suffixes">.go</Property>
+    <Property Name="sonar.cs.analyzeRazorCode">true</Property>
+    <Property Name="sonar.auth.saml.applicationId">sonarqube</Property>
+    <Property Name="sonar.dbcleaner.weeksBeforeKeepingOnlyAnalysesWithVersion">104</Property>
+    <Property Name="sonar.qualitygate.ignoreSmallChanges">true</Property>
+    <Property Name="sonar.php.exclusions">**/vendor/**</Property>
+    <Property Name="sonar.rust.clippy.enabled">true</Property>
+    <Property Name="sonar.vbnet.roslyn.ignoreIssues">false</Property>
+    <Property Name="sonar.flex.file.suffixes">as</Property>
+    <Property Name="sonar.filesize.limit">20</Property>
+    <Property Name="sonar.auth.gitlab.groupsSync">false</Property>
+    <Property Name="sonar.auth.github.apiUrl">https://api.github.com/</Property>
+    <Property Name="sonar.ruby.file.suffixes">.rb</Property>
+    <Property Name="sonar.auth.github.allowUsersToSignUp">true</Property>
+    <Property Name="sonar.kubernetes.helm.activate">true</Property>
+    <Property Name="sonar.python.xunit.reportPath">xunit-reports/xunit-result-*.xml</Property>
+    <Property Name="sonar.javascript.globals">angular,goog,google,OpenLayers,d3,dojo,dojox,dijit,Backbone,moment,casper,_,sap</Property>
+    <Property Name="sonar.dbcleaner.hoursBeforeKeepingOnlyOneSnapshotByDay">24</Property>
+    <Property Name="sonar.yaml.file.suffixes">.yaml,.yml</Property>
+    <Property Name="sonar.auth.bitbucket.enabled">false</Property>
+    <Property Name="sonar.terraform.activate">true</Property>
+    <Property Name="sonar.auth.github.webUrl">https://github.com/</Property>
+    <Property Name="sonar.php.frameworkDetection">true</Property>
+    <Property Name="sonar.cs.analyzer.dotnet.pluginVersion">10.15.0.120848</Property>
+    <Property Name="sonaranalyzer-vbnet.pluginVersion">10.15.0.120848</Property>
+    <Property Name="sonar.dbcleaner.weeksBeforeKeepingOnlyOneSnapshotByWeek">4</Property>
+    <Property Name="sonaranalyzer-vbnet.analyzerId">SonarAnalyzer.VisualBasic</Property>
+    <Property Name="sonar.cs.roslyn.ignoreIssues">false</Property>
+    <Property Name="sonaranalyzer-cs.pluginKey">csharp</Property>
+    <Property Name="sonar.kubernetes.activate">true</Property>
+    <Property Name="sonar.java.ignoreUnnamedModuleForSplitPackage">False</Property>
+    <Property Name="sonar.vbnet.analyzer.dotnet.staticResourceName">SonarAnalyzer-vbnet-10.15.0.120848.zip</Property>
+    <Property Name="sonar.json.file.suffixes">.json</Property>
+    <Property Name="sonar.auth.saml.providerName">SAML</Property>
+    <Property Name="provisioning.github.project.visibility.enabled">true</Property>
+    <Property Name="sonar.ruby.coverage.reportPaths">coverage/.resultset.json</Property>
+    <Property Name="sonar.text.inclusions">**/*.sh,**/*.bash,**/*.zsh,**/*.ksh,**/*.ps1,**/*.properties,**/*.conf,**/*.pem,**/*.config,.env,.aws/config</Property>
+    <Property Name="sonar.qualityProfiles.allowDisableInheritedRules">true</Property>
+    <Property Name="sonaranalyzer-cs.staticResourceName">SonarAnalyzer-csharp-10.15.0.120848.zip</Property>
+    <Property Name="sonar.auth.gitlab.allowUsersToSignUp">true</Property>
+    <Property Name="sonar.projectCreation.mainBranchName">main</Property>
+    <Property Name="sonar.cs.analyzer.dotnet.staticResourceName">SonarAnalyzer-csharp-10.15.0.120848.zip</Property>
+    <Property Name="sonar.authenticator.downcase">false</Property>
+    <Property Name="sonaranalyzer-cs.analyzerId">SonarAnalyzer.CSharp</Property>
+    <Property Name="sonar.cs.analyzer.dotnet.pluginKey">csharp</Property>
+    <Property Name="sonar.technicalDebt.ratingGrid">0.05,0.1,0.2,0.5</Property>
+    <Property Name="sonar.lf.enableGravatar">false</Property>
+    <Property Name="sonar.docker.activate">true</Property>
+    <Property Name="sonaranalyzer-cs.pluginVersion">10.15.0.120848</Property>
+    <Property Name="sonar.developerAggregatedInfo.disabled">false</Property>
+    <Property Name="sonar.plugins.downloadOnlyRequired">true</Property>
+    <Property Name="sonar.azureresourcemanager.file.suffixes">.bicep</Property>
+    <Property Name="sonar.javascript.file.suffixes">.js,.jsx,.cjs,.mjs,.vue</Property>
+    <Property Name="sonar.vbnet.analyzeGeneratedCode">false</Property>
+    <Property Name="sonar.plugins.risk.consent">NOT_ACCEPTED</Property>
+    <Property Name="sonar.auth.gitlab.url">https://gitlab.com</Property>
+    <Property Name="sonar.scanner.skipNodeProvisioning">false</Property>
+    <Property Name="sonaranalyzer-vbnet.pluginKey">vbnet</Property>
+    <Property Name="sonar.java.jvmframeworkconfig.activate">true</Property>
+    <Property Name="sonar.updatecenter.url">https://downloads.sonarsource.com/sonarqube/update/update-center.properties</Property>
+    <Property Name="sonar.core.id">147B411E-AZmWC7AD04r7Hty24PeH</Property>
+    <Property Name="sonar.core.startTime">10/16/2025 8:07:07 AM</Property>
+  </ServerSettings>
+  <LocalSettings>
+    <Property Name="sonar.host.url">http://localhost:9000</Property>
+  </LocalSettings>
+  <ScannerOptsSettings />
+  <AnalyzersSettings>
+    <AnalyzerSettings>
+      <Language>cs</Language>
+      <RulesetPath>C:\Users\MSi\Documents\GitHub\owasp-juice-shop\.sonarqube\conf\Sonar-cs.ruleset</RulesetPath>
+      <DeactivatedRulesetPath>C:\Users\MSi\Documents\GitHub\owasp-juice-shop\.sonarqube\conf\Sonar-cs-none.ruleset</DeactivatedRulesetPath>
+      <AnalyzerPlugins>
+        <AnalyzerPlugin Key="csharp" Version="10.15.0.120848" StaticResourceName="SonarAnalyzer-csharp-10.15.0.120848.zip">
+          <AssemblyPaths>
+            <Path>C:\Users\MSi\AppData\Local\Temp\.sonarqube\resources\0\SonarAnalyzer.CSharp.dll</Path>
+            <Path>C:\Users\MSi\AppData\Local\Temp\.sonarqube\resources\0\THIRD-PARTY-NOTICES.txt</Path>
+          </AssemblyPaths>
+        </AnalyzerPlugin>
+      </AnalyzerPlugins>
+      <AdditionalFilePaths>
+        <Path>C:\Users\MSi\Documents\GitHub\owasp-juice-shop\.sonarqube\conf\cs\SonarLint.xml</Path>
+      </AdditionalFilePaths>
+    </AnalyzerSettings>
+    <AnalyzerSettings>
+      <Language>vbnet</Language>
+      <RulesetPath>C:\Users\MSi\Documents\GitHub\owasp-juice-shop\.sonarqube\conf\Sonar-vbnet.ruleset</RulesetPath>
+      <DeactivatedRulesetPath>C:\Users\MSi\Documents\GitHub\owasp-juice-shop\.sonarqube\conf\Sonar-vbnet-none.ruleset</DeactivatedRulesetPath>
+      <AnalyzerPlugins>
+        <AnalyzerPlugin Key="vbnet" Version="10.15.0.120848" StaticResourceName="SonarAnalyzer-vbnet-10.15.0.120848.zip">
+          <AssemblyPaths>
+            <Path>C:\Users\MSi\AppData\Local\Temp\.sonarqube\resources\1\SonarAnalyzer.VisualBasic.dll</Path>
+            <Path>C:\Users\MSi\AppData\Local\Temp\.sonarqube\resources\1\THIRD-PARTY-NOTICES.txt</Path>
+          </AssemblyPaths>
+        </AnalyzerPlugin>
+      </AnalyzerPlugins>
+      <AdditionalFilePaths>
+        <Path>C:\Users\MSi\Documents\GitHub\owasp-juice-shop\.sonarqube\conf\vbnet\SonarLint.xml</Path>
+      </AdditionalFilePaths>
+    </AnalyzerSettings>
+  </AnalyzersSettings>
+</AnalysisConfig>

@@ -1,0 +1,6 @@
+projectKey=owasp-juice-shop
+serverUrl=http://localhost:9000
+serverVersion=25.9.0.112764
+dashboardUrl=http://localhost:9000/dashboard?id=owasp-juice-shop
+ceTaskId=62c2954a-878a-4ceb-b0f6-8612517f0c51
+ceTaskUrl=http://localhost:9000/api/ce/task?id=62c2954a-878a-4ceb-b0f6-8612517f0c51
