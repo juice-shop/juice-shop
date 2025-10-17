@@ -6,40 +6,27 @@ on:
       - feature/truong
 
 jobs:
-  zap_scan:
+  zap-scan:
     runs-on: ubuntu-latest
-
-    services:
-      juice-shop:
-        image: bkimminich/juice-shop
-        ports:
-          - 3000:3000
-        options: >-
-          --health-cmd "curl -f http://localhost:3000 || exit 1"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Wait for Juice Shop to be healthy
+      - name: Install dependencies and start Juice Shop
         run: |
-          echo "⏳ Waiting for Juice Shop to start..."
-          sleep 30
-          curl -I http://localhost:3000
+          npm install
+          npm start &
+          sleep 20  # chờ app khởi động
 
       - name: Run OWASP ZAP Baseline Scan
-        uses: zaproxy/action-baseline@v0.11.0
+        uses: zaproxy/action-baseline@v0.8.0
         with:
           target: 'http://localhost:3000'
-          docker_name: 'owasp/zap2docker-stable'
           rules_file_name: '.zap/rules.tsv'
-          cmd_options: '-a -r zap-report.html'
+          cmd_options: '-a'
 
-      - name: Upload ZAP Report
+      - name: Upload ZAP report
         uses: actions/upload-artifact@v4
         with:
-          name: ZAP-DAST-Report
-          path: zap-report.html
+          name: zap-report
+          path: report.html
