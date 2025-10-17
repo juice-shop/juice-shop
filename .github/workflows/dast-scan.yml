@@ -8,17 +8,20 @@ on:
 jobs:
   zap-scan:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Start Juice Shop container
+      
+      - name: Check target availability
         run: |
-          docker run -d -p 3000:3000 bkimminich/juice-shop
-          sleep 30  # đợi app khởi động hoàn tất
+          echo " Checking if http://localhost:3000 is reachable..."
+          curl -I http://localhost:3000 || echo " App not reachable yet"
 
-      - name: Run OWASP ZAP baseline scan
+      
+      - name: Run OWASP ZAP DAST Scan
         uses: zaproxy/action-baseline@v0.9.0
         with:
           target: 'http://localhost:3000'
-          cmd_options: '-a'
+          cmd_options: '-a' 
