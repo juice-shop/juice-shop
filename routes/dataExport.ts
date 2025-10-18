@@ -14,13 +14,13 @@ import * as db from '../data/mongodb'
 
 export function dataExport () {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const loggedInUser = security.authenticatedUsers.get(req.headers?.authorization?.replace('Bearer ', ''))
+    const authToken = req.headers?.authorization?.replace('Bearer ', '')
+    const loggedInUser = security.authenticatedUsers.get(authToken)
     if (loggedInUser?.data?.email && loggedInUser.data.id) {
-      const username = loggedInUser.data.username
       const email = loggedInUser.data.email
+      const username = loggedInUser.data.username
       const updatedEmail = email.replace(/[aeiou]/gi, '*')
-      const userData:
-      {
+      const userData: {
         username?: string
         email: string
         orders: Array<{
@@ -41,8 +41,7 @@ export function dataExport () {
           imageUrl: string
           caption: string
         }>
-      } =
-      {
+      } = {
         username,
         email,
         orders: [],
@@ -51,12 +50,13 @@ export function dataExport () {
       }
 
       const memories = await MemoryModel.findAll({ where: { UserId: req.body.UserId } })
-      memories.forEach((memory: MemoryModel) => {
+      for (const memory of memories) {
+        const hostUrl = `${req.protocol}://${req.get('host')}`
         userData.memories.push({
-          imageUrl: req.protocol + '://' + req.get('host') + '/' + memory.imagePath,
+          imageUrl: `${hostUrl}/${memory.imagePath}`,
           caption: memory.caption
         })
-      })
+      }
 
       db.ordersCollection.find({ email: updatedEmail }).then((orders: Array<{
         orderId: string
@@ -65,15 +65,13 @@ export function dataExport () {
         bonus: number
         eta: string
       }>) => {
-        if (orders.length > 0) {
-          orders.forEach(order => {
-            userData.orders.push({
-              orderId: order.orderId,
-              totalPrice: order.totalPrice,
-              products: [...order.products],
-              bonus: order.bonus,
-              eta: order.eta
-            })
+        for (const order of orders) {
+          userData.orders.push({
+            orderId: order.orderId,
+            totalPrice: order.totalPrice,
+            products: [...order.products],
+            bonus: order.bonus,
+            eta: order.eta
           })
         }
 
@@ -84,32 +82,35 @@ export function dataExport () {
           likesCount: number
           likedBy: string
         }>) => {
-          if (reviews.length > 0) {
-            reviews.forEach(review => {
-              userData.reviews.push({
-                message: review.message,
-                author: review.author,
-                productId: review.product,
-                likesCount: review.likesCount,
-                likedBy: review.likedBy
-              })
+          for (const review of reviews) {
+            userData.reviews.push({
+              message: review.message,
+              author: review.author,
+              productId: review.product,
+              likesCount: review.likesCount,
+              likedBy: review.likedBy
             })
           }
           const emailHash = security.hash(email).slice(0, 4)
           for (const order of userData.orders) {
-            challengeUtils.solveIf(challenges.dataExportChallenge, () => { return order.orderId.split('-')[0] !== emailHash })
+            const orderPrefix = order.orderId.split('-')[0]
+            challengeUtils.solveIf(challenges.dataExportChallenge, () => { return orderPrefix !== emailHash })
           }
-          res.status(200).send({ userData: JSON.stringify(userData, null, 2), confirmation: 'Your data export will open in a new Browser window.' })
+          const confirmationMessage = 'Your data export will open in a new Browser window.'
+          res.status(200).send({ userData: JSON.stringify(userData, null, 2), confirmation: confirmationMessage })
         },
         () => {
-          next(new Error(`Error retrieving reviews for ${updatedEmail}`))
+          const reviewErrorMsg = `Error retrieving reviews for ${updatedEmail}`
+          next(new Error(reviewErrorMsg))
         })
       },
       () => {
-        next(new Error(`Error retrieving orders for ${updatedEmail}`))
+        const orderErrorMsg = `Error retrieving orders for ${updatedEmail}`
+        next(new Error(orderErrorMsg))
       })
     } else {
-      next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
+      const errorMsg = `Blocked illegal activity by ${req.socket.remoteAddress}`
+      next(new Error(errorMsg))
     }
   }
 }
