@@ -1,0 +1,36 @@
+name: DAST Scan with Escape
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  dast-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Étape optionnelle : lancer l'application cible
+      - name: Start Juice Shop
+        run: |
+          docker build -t juice-shop .
+          docker run -d -p 3000:3000 juice-shop
+          sleep 10  # attendre que le serveur démarre
+
+      # Étape principale : lancer le scan Escape
+      - name: Run Escape DAST Scan
+        uses: Escape-Technologies/escape-action@v1
+        with:
+          api_key: ${{ secrets.ESCAPE_API_KEY }}
+          target_url: "http://localhost:3000"
+          project_name: "Juice Shop DAST Scan"
+
+      # (optionnel) Publier les résultats
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: escape-report
+          path: escape-report.json
