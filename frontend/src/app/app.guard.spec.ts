@@ -35,7 +35,11 @@ describe('LoginGuard', () => {
   }))
 
   it('returns payload from decoding a valid JWT', inject([LoginGuard], (guard: LoginGuard) => {
-    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c')
+    const test_token = process.env.TEST_TOKEN
+    if (!test_token) {
+      throw new Error('TEST_TOKEN environment variable is not set. Please define it in your .env file.')
+    }
+    localStorage.setItem('token', test_token)
     expect(guard.tokenDecode()).toEqual({
       sub: '1234567890',
       name: 'John Doe',
