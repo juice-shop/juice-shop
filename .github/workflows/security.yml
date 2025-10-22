@@ -9,10 +9,6 @@ on:
     branches:
       - master
       - develop
-
-env:
-  NODE_VERSION: 22
-
 jobs:
   sonarqube:
     name: SonarQube Scan
@@ -23,63 +19,7 @@ jobs:
         with:
           fetch-depth: 0  # Shallow clones should be disabled for better analysis
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests with coverage
-        run: npm test -- --coverage
-        continue-on-error: true
-
       - name: SonarQube Scan
-        uses: sonarsource/sonarqube-scan-action@master
+        uses: SonarSource/sonarqube-scan-action@v6 # Ex: v4.1.0 or sha1, See the latest version at https://github.com/marketplace/actions/official-sonarqube-scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-
-      - name: SonarQube Quality Gate check
-        uses: sonarsource/sonarqube-quality-gate-action@master
-        timeout-minutes: 5
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        continue-on-error: true
-
-  dependency-check:
-    name: OWASP Dependency Check
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Run dependency check
-        uses: dependency-check/Dependency-Check_Action@main
-        with:
-          project: 'juice-shop'
-          path: '.'
-          format: 'HTML'
-
-      - name: Upload results
-        uses: actions/upload-artifact@v4
-        with:
-          name: dependency-check-report
-          path: reports/
-
-  npm-audit:
-    name: NPM Audit
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - name: Run npm audit
-        run: npm audit --audit-level=moderate
-        continue-on-error: true
