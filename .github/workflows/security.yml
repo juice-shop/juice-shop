@@ -19,7 +19,15 @@ jobs:
         with:
           fetch-depth: 0  # Shallow clones should be disabled for better analysis
 
+      - name: Verify sonar-project.properties
+        run: |
+          echo "Checking sonar-project.properties..."
+          cat sonar-project.properties
+          echo "---"
+          echo "Verifying SONAR_TOKEN is set: ${{ secrets.SONAR_TOKEN != '' }}"
+
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v5.0.0
+        uses: SonarSource/sonarqube-scan-action@v6.0.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_SCANNER_OPTS: "-Dsonar.verbose=true"
