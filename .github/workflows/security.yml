@@ -20,11 +20,6 @@ jobs:
           fetch-depth: 0  # Shallow clones should be disabled for better analysis
 
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v6 # Ex: v4.1.0 or sha1, See the latest version at https://github.com/marketplace/actions/official-sonarqube-scan
+        uses: SonarSource/sonarqube-scan-action@v6.0.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          projectBaseDir: .
-          args: >
-            -Dsonar.projectKey=juice-shop
-            -Dsonar.organization=freddyhm
