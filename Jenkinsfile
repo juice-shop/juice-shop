@@ -1,8 +1,12 @@
 pipeline {
     agent any
 
+    environment {
+        CHROME_BIN = '/usr/bin/google-chrome' // Adjust path if needed
+    }
+
     tools {
-        nodejs 'node_18' // Make sure this matches your Jenkins tool config
+        nodejs 'node_18'
     }
 
     stages {
@@ -45,7 +49,7 @@ pipeline {
 
     post {
         always {
-            junit '**/test-results/**/*.xml' // Adjust if using a test reporter that outputs JUnit XML
+            junit 'test-results/test-results.xml'
         }
     }
 }
