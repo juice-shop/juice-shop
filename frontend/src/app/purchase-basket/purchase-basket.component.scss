@@ -1,162 +1,135 @@
-/*!
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
- * SPDX-License-Identifier: MIT
+/*
+ * Vertical card layout for basket items
  */
 
-// Variables
-$bg-heading: rgba(0, 0, 0, 0.2);
-$cell-padding: 16px;
-$border-radius: 4px;
-$transition-speed: 0.2s;
-
-// Header styles
-h1 {
-  margin-bottom: 24px;
-}
-
-h1 small {
-  color: rgba(0, 0, 0, 0.6);
-  font-size: 0.8em;
-  margin-left: 8px;
-}
-
-.heading {
-  background: $bg-heading;
-  border-radius: $border-radius;
-  font-size: x-large;
-  justify-content: center;
-  margin-bottom: 20px;
-  padding: 12px 20px;
-}
-
-// Table styles
-mat-table {
-  margin-bottom: 24px;
-  table-layout: fixed;
-  width: 100%;
-}
-
-mat-header-row {
-  min-height: 0 !important;
-}
-
-mat-row {
-  transition: background-color $transition-speed ease;
-}
-
-mat-row:hover {
-  background-color: rgba(0, 0, 0, 0.04);
-}
-
-mat-cell,
-mat-footer-cell {
-  padding: $cell-padding;
-}
-
-mat-cell:first-of-type,
-mat-footer-cell:first-of-type {
-  padding-left: $cell-padding;
-}
-
-mat-cell:last-of-type,
-mat-footer-cell:last-of-type {
-  padding-right: $cell-padding;
-}
-
-.mat-column-image { width: 20%; }
-.mat-column-product { width: 35%; }
-.mat-column-quantity { width: 16%; }
-.mat-column-price { width: 16%; }
-.mat-column-remove { width: 10%; }
-
-@media (max-width: 959.98px) {
-  .mat-column-image,
-  .mat-column-price { display: none; }
-
-  .mat-column-product { width: 30%; }
-  .mat-column-quantity { width: 35%; }
-  .mat-column-remove { width: 15%; }
-}
-
-// Image styles
-.img-thumbnail {
-  border-radius: $border-radius;
-  height: auto;
-  max-width: 90px;
-  transition: transform $transition-speed ease;
-}
-
-.img-thumbnail:hover {
-  transform: scale(1.05);
-}
-
-// Footer styles
-.mat-mdc-footer-cell {
-  font-size: 1.1em;
-  font-weight: 500;
-}
-
-// Content alignment
-.content-align {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-}
-
-// Quantity controls
-.quantity-controls {
-  align-items: center;
-  display: flex;
-  gap: 8px;
-}
-
-.quantity-controls button {
-  color: rgba(0, 0, 0, 0.6);
-  transition: color $transition-speed ease;
-}
-
-.quantity-controls button:hover {
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.quantity-controls span {
-  min-width: 24px;
-  text-align: center;
-}
-
-// Price display
-#price {
-  font-size: large;
-  font-weight: 500;
-  margin-top: 30px;
-  padding: $cell-padding;
-  text-align: right;
-  width: 100%;
-}
-
-// Responsive adjustments
-@media (max-width: 768px) {
-  .img-thumbnail {
-    max-width: 70px;
-  }
-
-  mat-cell,
-  mat-footer-cell {
-    padding: 12px;
-  }
-
-  #price {
-    font-size: medium;
-    margin-top: 20px;
-  }
-}
-
-// Delete button
-.far.fa-trash-alt {
-  color: rgba(0, 0, 0, 0.54);
-  transition: color $transition-speed ease;
-}
-
-.far.fa-trash-alt:hover {
-  color: #f44336;
-}
+ $card-bg: #3a3a3a;
+ $card-border: rgba(255,255,255,0.04);
+ $accent: #f99200;
+ $muted: rgba(255,255,255,0.7);
+ 
+ h1 {
+   text-align: center;
+   margin-bottom: 18px;
+   color: #fff;
+ }
+ h1 small { color: rgba(255,255,255,0.6); font-size: 0.85rem; margin-left: 8px; }
+ 
+ .basket-table {
+   width: 100%;
+   display: block; 
+ }
+ 
+ /* mat-row uses full-width */
+ mat-row {
+   display: block;
+   margin: 0 auto 18px;
+ }
+ 
+ /* mat-cell used as container for the single card */
+ mat-cell {
+   display: flex;
+   justify-content: center;
+   padding: 0;
+ }
+ 
+ /* card */
+ .product-card {
+   width: 100%;
+   background: $card-bg;
+   border: 1px solid $card-border;
+   border-radius: 6px;
+   padding: 0.5rem;
+   box-sizing: border-box;
+   color: #fff;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 12px;
+   margin: 0 auto;
+ }
+ 
+ /* top area: image + title */
+ .product-top {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   text-align: center;
+   gap: 8px;
+ }
+ 
+ .product-image {
+   width: 96px;
+   height: 96px;
+   object-fit: contain;
+   border-radius: 6px;
+   background: rgba(255,255,255,0.03);
+   padding: 8px;
+ }
+ 
+ .product-title {
+   font-weight: 600;
+   font-size: 1rem;
+   color: #fff;
+   line-height: 1.15;
+ }
+ 
+ /* quantity controls (centered) */
+ .product-qty {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 10px;
+ }
+ 
+ .product-qty button {
+   color: $muted;
+   transition: transform 0.12s ease, color 0.12s ease;
+ }
+ 
+ .product-qty button:hover {
+   color: #fff;
+   transform: scale(1.05);
+ }
+ 
+ .qty-count {
+   min-width: 20px;
+   text-align: center;
+   font-weight: 600;
+   font-size: 1rem;
+ }
+ 
+ /* bottom: price + delete aligned horizontally but centered within card */
+ .product-bottom {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 14px;
+ }
+ 
+ /* price */
+ .product-price {
+   font-weight: 700;
+   font-size: 1.05rem;
+   color: #fff;
+ }
+ 
+ /* delete */
+ .delete-btn {
+   color: rgba(255,255,255,0.7);
+   transition: transform 0.12s ease, color 0.12s ease;
+ }
+ .delete-btn:hover {
+   color: #ff6b6b;
+   transform: scale(1.05);
+ }
+ 
+ /* total price below cards */
+ #price {
+   margin-top: 10px;
+   text-align: center;
+   color: #fff;
+   font-weight: 600;
+ }
+ 
+ @media screen and (max-width:400px) {
+ }

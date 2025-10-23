@@ -1,69 +1,55 @@
-<!--
-  ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
-  ~ SPDX-License-Identifier: MIT
--->
-
-
 <h1>
   {{"TITLE_BASKET" | translate}}
-  <small>{{userEmail}}</small>
+  <small>{{ userEmail }}</small>
 </h1>
-<mat-table [dataSource]="dataSource">
-  <ng-container matColumnDef="image">
-    <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
-    <mat-cell *matCellDef="let element" class="content-align">
-      <img [src]="'assets/public/images/products/'+element.image" alt={{element.name}}
-        class="img-responsive img-thumbnail">
-      </mat-cell>
-      <mat-footer-cell *matFooterCellDef class="content-align"></mat-footer-cell>
-    </ng-container>
 
-    <ng-container matColumnDef="product">
-      <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
-      <mat-cell *matCellDef="let element" style="font-size: initial;"> {{element.name}}</mat-cell>
-      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
-    </ng-container>
+<mat-table [dataSource]="dataSource" class="basket-table">
 
-    <ng-container matColumnDef="quantity">
-      <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
-      <mat-cell *matCellDef="let element" class="content-align">
-        @if (allowEdit) {
-          <button mat-icon-button (click)="dec(element.BasketItem.id)"><i class="fas fa-minus-square"></i></button>
-        }
-        <span style="font-size: initial;"> {{element.BasketItem.quantity}}</span>
-        @if (allowEdit) {
-          <button mat-icon-button (click)="inc(element.BasketItem.id)"><i class="fas fa-plus-square"></i></button>
-        }
-      </mat-cell>
-      <mat-footer-cell *matFooterCellDef class="header-align">TOTAL</mat-footer-cell>
-    </ng-container>
+  <!-- Single column: full vertical card per product -->
+  <ng-container matColumnDef="productCard">
+    <mat-cell *matCellDef="let element">
+      <div class="product-card">
+        <!-- image + title -->
+        <div class="product-top">
+          <img [src]="'assets/public/images/products/' + element.image" alt="{{ element.name }}" class="product-image" />
+          <div class="product-title">{{ element.name }}</div>
+        </div>
 
-    <ng-container matColumnDef="price">
-      <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
-      <mat-cell *matCellDef="let element" style="font-size: initial;"> {{element.price}}&curren;</mat-cell>
-      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
-    </ng-container>
+        <!-- quantity controls -->
+        <div class="product-qty">
+          @if (allowEdit) {
+            <button mat-icon-button (click)="dec(element.BasketItem.id)" aria-label="decrease">
+              <i class="fas fa-minus-square"></i>
+            </button>
+          }
+          <span class="qty-count">{{ element.BasketItem.quantity }}</span>
+          @if (allowEdit) {
+            <button mat-icon-button (click)="inc(element.BasketItem.id)" aria-label="increase">
+              <i class="fas fa-plus-square"></i>
+            </button>
+          }
+        </div>
 
-    @if (allowEdit) {
-      <ng-container matColumnDef="remove">
-        <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          <button mat-icon-button (click)="delete(element.BasketItem.id)"><i class="far fa-trash-alt"></i></button>
-        </mat-cell>
-        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
-      </ng-container>
-    }
+        <!-- price + delete -->
+        <div class="product-bottom">
+          <div class="product-price">{{ element.price }}¤</div>
 
-    <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
+          @if (allowEdit) {
+            <button mat-icon-button class="delete-btn" (click)="delete(element.BasketItem.id)" aria-label="delete">
+              <i class="far fa-trash-alt"></i>
+            </button>
+          }
+        </div>
+      </div>
+    </mat-cell>
+  </ng-container>
 
-    @if (displayTotal) {
-      <span>
-        <mat-footer-row mat-footer-row *matFooterRowDef="tableColumns"></mat-footer-row>
-      </span>
-    }
-  </mat-table>
+  <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
 
-  @if (totalPrice) {
-    <div id="price">{{"LABEL_TOTAL_PRICE"| translate }}: {{itemTotal}}¤</div>
-  }
+</mat-table>
+
+@if (totalPrice) {
+  <div id="price">
+    {{"LABEL_TOTAL_PRICE" | translate}}: {{ itemTotal }}¤
+  </div>
+}
