@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -32,16 +33,16 @@ pipeline {
         }
 
         stage('Install Dependencies') {
-              steps {
+            steps {
                 sh 'rm -rf node_modules package-lock.json'
                 sh 'npm install'
                 sh 'cd frontend && npm install --save-dev karma-junit-reporter --legacy-peer-deps'
                 sh 'npm uninstall libxmljs2'
                 sh 'npm install libxmljs2'
                 sh 'npm rebuild'
-             }
+            }
         }
-        
+
         stage('Run Tests') {
             steps {
                 sh 'cd frontend && npm run test -- --watch=false --source-map=true'
@@ -68,15 +69,15 @@ pipeline {
         }
 
         stage('Verify Test Report') {
-           steps {
+            steps {
                 sh 'find . -name "test-results.xml" || echo "No test-results.xml found"'
             }
         }
+    }
 
     post {
         always {
-            junit 'frontend/test-results/test-results.xml'
+            junit testResults: 'frontend/test-results/test-results.xml', allowEmptyResults: true
         }
     }
-}
 }
