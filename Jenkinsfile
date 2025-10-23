@@ -66,13 +66,12 @@ pipeline {
                 sh 'google-chrome --version || chromium-browser --version || echo "Chrome not installed"'
             }
         }
-    }
 
         stage('Verify Test Report') {
            steps {
                 sh 'find . -name "test-results.xml" || echo "No test-results.xml found"'
-    }
-}
+            }
+        }
 
     post {
         always {
