@@ -36,12 +36,12 @@ pipeline {
             }
         }
 
-
         stage('Check Chrome') {
             steps {
                 sh 'google-chrome --version || chromium-browser --version || echo "Chrome not installed"'
             }
         }
+    }
 
     post {
         always {
