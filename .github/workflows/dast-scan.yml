@@ -1,35 +1,42 @@
-name: OWASP ZAP DAST pipeline
+name: DAST Scan (OWASP ZAP)
 
 on:
   push:
     branches:
-      - feature/truong
+      - feature/truong   
+  workflow_dispatch:    
 
 jobs:
-  zap-scan:
+  zap_scan:
     runs-on: ubuntu-latest
+    name: Run OWASP ZAP DAST Scan
 
     steps:
+      
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      #  Cài NodeJS và chạy Juice Shop server trong nền
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
+      
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v3
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Start Juice Shop
+      
+      - name: Run Juice Shop
         run: |
-          npm start &
-          sleep 15 # đợi app khởi động xong
+          docker run -d -p 3000:3000 bkimminich/juice-shop
+          sleep 20  # Chờ app khởi động
 
-      #  Chạy OWASP ZAP scan (DAST)
-      - name: Run OWASP ZAP DAST Scan
-        uses: zaproxy/action-baseline@v0.9.0
+      
+      - name: Run OWASP ZAP baseline scan
+        run: |
+          docker run -v $(pwd):/zap/wrk/:rw \
+            owasp/zap2docker-stable zap-baseline.py \
+            -t http://host.docker.internal:3000 \
+            -r zap-report.html || true
+
+      
+      - name: Upload ZAP Scan Report
+        uses: actions/upload-artifact@v4
         with:
-          target: 'http://localhost:3000'
-          cmd_options: '-a'
+          name: ZAP-DAST-Report
+          path: zap-report.html
