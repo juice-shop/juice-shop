@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        CHROME_BIN = '/usr/bin/google-chrome' // Adjust path if needed
+        CHROME_BIN = 'usr/bin/chromium-browser' // Adjust path if needed
     }
 
     tools {
