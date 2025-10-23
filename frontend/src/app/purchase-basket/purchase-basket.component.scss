@@ -5,13 +5,13 @@
 
 // Variables
 $bg-heading: rgba(0, 0, 0, 0.2);
-$cell-padding: 16px;
+$cell-padding: 5px;
 $border-radius: 4px;
 $transition-speed: 0.2s;
 
 // Header styles
 h1 {
-  margin-bottom: 24px;
+  margin-bottom: 12px;
 }
 
 h1 small {
@@ -25,13 +25,13 @@ h1 small {
   border-radius: $border-radius;
   font-size: x-large;
   justify-content: center;
-  margin-bottom: 20px;
-  padding: 12px 20px;
+  margin-bottom: 12px;
+  padding: 8px 16px;
 }
 
 // Table styles
 mat-table {
-  margin-bottom: 24px;
+  margin-bottom: 12px;
   table-layout: fixed;
   width: 100%;
 }
@@ -71,18 +71,23 @@ mat-footer-cell:last-of-type {
 
 @media (max-width: 959.98px) {
   .mat-column-image,
-  .mat-column-price { display: none; }
-
-  .mat-column-product { width: 30%; }
-  .mat-column-quantity { width: 35%; }
-  .mat-column-remove { width: 15%; }
+  .mat-column-price,
+  .mat-column-product,
+  .mat-column-quantity,
+  .mat-column-remove {
+    width: 100%;
+    display: flex;
+    justify-content: center; 
+    align-items: center;   
+    margin-bottom: 8px;      
+  }
 }
 
 // Image styles
 .img-thumbnail {
   border-radius: $border-radius;
   height: auto;
-  max-width: 90px;
+  max-width: 80px;
   transition: transform $transition-speed ease;
 }
 
@@ -128,8 +133,7 @@ mat-footer-cell:last-of-type {
 #price {
   font-size: large;
   font-weight: 500;
-  margin-top: 30px;
-  padding: $cell-padding;
+  margin-top: 12px;
   text-align: right;
   width: 100%;
 }
@@ -140,15 +144,17 @@ mat-footer-cell:last-of-type {
     max-width: 70px;
   }
 
-  mat-cell,
-  mat-footer-cell {
-    padding: 12px;
-  }
-
   #price {
     font-size: medium;
-    margin-top: 20px;
+    margin-top: 8px;
   }
+  mat-row {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+  }
+
 }
 
 // Delete button
