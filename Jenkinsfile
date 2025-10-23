@@ -44,7 +44,7 @@ pipeline {
         
         stage('Run Tests') {
             steps {
-                sh 'npm test'
+                sh 'cd frontend && npm run test -- --watch=false --source-map=true'
             }
         }
 
