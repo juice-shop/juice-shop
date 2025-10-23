@@ -37,17 +37,27 @@ mat-table {
 }
 
 mat-header-row {
-  min-height: 0 !important;
+  min-height: 48px !important;
 }
 
 mat-row {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+  margin: 0;
+  padding: 12px 0;
+  box-sizing: border-box;
   transition: background-color $transition-speed ease;
+}
+mat-row:last-of-type {
+  border-bottom: none !important; // no border after the last product
 }
 
 mat-row:hover {
   background-color: rgba(0, 0, 0, 0.04);
 }
 
+mat-cell {
+  border: none;
+}
 mat-cell,
 mat-footer-cell {
   padding: $cell-padding;
