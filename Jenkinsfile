@@ -35,6 +35,7 @@ pipeline {
               steps {
                 sh 'rm -rf node_modules package-lock.json'
                 sh 'npm install'
+                sh 'cd frontend && npm install --save-dev karma-junit-reporter'
                 sh 'npm uninstall libxmljs2'
                 sh 'npm install libxmljs2'
                 sh 'npm rebuild'
