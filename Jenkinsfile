@@ -38,7 +38,18 @@ pipeline {
                 sh 'npm rebuild'
             }
         }
-        
+
+        stage('Install Dependencies') {
+              steps {
+                sh 'rm -rf node_modules package-lock.json'
+                sh 'npm install'
+                sh 'npm uninstall libxmljs2'
+                sh 'npm install libxmljs2'
+                sh 'npm rebuild'
+            }
+        }
+
+
         stage('Run Tests') {
             steps {
                 sh 'npm test'
@@ -47,7 +58,8 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'npm run build'
+                sh 'npm run build:frontend'
+                sh 'npm run build:server'
             }
         }
 
