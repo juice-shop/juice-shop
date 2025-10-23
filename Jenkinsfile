@@ -1,8 +1,7 @@
 pipeline {
     agent any
-
     environment {
-        CHROME_BIN = 'usr/bin/chromium-browser' // Adjust path if needed
+        CHROME_BIN = '/usr/bin/google-chrome' // Adjust path if needed
     }
 
     tools {
@@ -13,6 +12,21 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
+            }
+        }
+
+        stage('Install Chrome') {
+            steps {
+                sh '''
+                    if ! command -v google-chrome > /dev/null; then
+                      echo "Installing Google Chrome..."
+                      wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+                      sudo apt-get update
+                      sudo apt-get install -y ./google-chrome-stable_current_amd64.deb
+                    else
+                      echo "Google Chrome already installed."
+                    fi
+                '''
             }
         }
 
