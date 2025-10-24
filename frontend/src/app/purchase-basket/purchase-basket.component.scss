@@ -42,13 +42,14 @@ mat-header-row {
 
 mat-row {
   border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-sizing: border-box;
   margin: 0;
   padding: 12px 0;
-  box-sizing: border-box;
   transition: background-color $transition-speed ease;
 }
+
 mat-row:last-of-type {
-  border-bottom: none !important; // no border after the last product
+  border-bottom: 0 !important; // no border after the last product
 }
 
 mat-row:hover {
@@ -56,8 +57,9 @@ mat-row:hover {
 }
 
 mat-cell {
-  border: none;
+  border: 0;
 }
+
 mat-cell,
 mat-footer-cell {
   padding: $cell-padding;
@@ -85,14 +87,13 @@ mat-footer-cell:last-of-type {
   .mat-column-product,
   .mat-column-quantity,
   .mat-column-remove {
-    width: 100%;
+    align-items: center;
     display: flex;
-    justify-content: center; 
-    align-items: center;   
-    margin-bottom: 8px;      
+    justify-content: center;
+    margin-bottom: 8px;
+    width: 100%;
   }
 }
-
 // Image styles
 .img-thumbnail {
   border-radius: $border-radius;
@@ -158,6 +159,7 @@ mat-footer-cell:last-of-type {
     font-size: medium;
     margin-top: 8px;
   }
+
   mat-row {
     display: flex;
     flex-direction: column;
