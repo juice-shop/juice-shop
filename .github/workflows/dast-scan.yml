@@ -3,25 +3,24 @@ name: DAST Scan (OWASP ZAP)
 on:
   push:
     branches:
-      - feature/truong   # nhánh của bạn
-  workflow_dispatch:     # cho phép chạy thủ công
-
+      - feature/truong   
+  workflow_dispatch:     
 jobs:
   zap_scan:
     runs-on: ubuntu-latest
     name: Run OWASP ZAP DAST Scan
 
     steps:
-      # 1️⃣ Clone code
+      
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Cài đặt Docker (ZAP chạy trong container)
+     
       - name: Set up Docker
         uses: docker/setup-buildx-action@v3
 
 
-      # 4️⃣ Chạy OWASP ZAP quét vào URL thật của ngrok
+      
       - name: Run OWASP ZAP baseline scan
         run: |
           docker run -v $(pwd):/zap/wrk/:rw \
@@ -29,7 +28,7 @@ jobs:
             -t https://8999cd7bbecf.ngrok-free.app \
             -r zap-report.html || true
 
-      # 5️⃣ Upload báo cáo quét OWASP ZAP
+      
       - name: Upload ZAP Scan Report
         uses: actions/upload-artifact@v4
         with:
