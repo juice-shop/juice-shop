@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 
@@ -71,6 +70,29 @@ pipeline {
         stage('Verify Test Report') {
             steps {
                 sh 'find . -name "test-results.xml" || echo "No test-results.xml found"'
+            }
+        }
+
+        stage('Aqua scanner') {
+            agent {
+                docker {
+                    image 'aquasec/aqua-scanner'
+                    args '-u root:root'
+                }
+            }
+            steps {
+                withCredentials([
+                    string(credentialsId: 'AQUA_KEY_DEV_123', variable: 'AQUA_KEY'),
+                    string(credentialsId: 'AQUA_SECRET_DEV_123', variable: 'AQUA_SECRET'),
+                    string(credentialsId: 'GITHUB_TOKEN_DEV_123', variable: 'GITHUB_TOKEN')
+                ]) {
+                    sh '''
+                        export TRIVY_RUN_AS_PLUGIN=aqua
+                        export AQUA_URL=https://api.dev.supply-chain.cloud.aquasec.com
+                        export CSPM_URL=https://stage.api.cloudsploit.com
+                        trivy fs --scanners misconfig,vuln,secret .
+                    '''
+                }
             }
         }
     }
