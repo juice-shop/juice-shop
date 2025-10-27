@@ -16,8 +16,10 @@ This fork demonstrates CodeQL scanning on pull requests for OWASP Juice Shop.
 The goal is to surface vulnerabilities directly in PR checks without navigating to the Security tab.
 
 ### Steps
-- added code definition in `codeql-bhpoc.yml`
-- Display code scanning results as PR annotations (no need to open the Security tab)
+Under .github/workflow
+- added `codeql-bhpoc.yml` for code scanning
+- added `dependency-review.yml` for dependency review 
+Display code scanning results as PR annotations (no need to open the Security tab)
 
 ### Reference Branch
 The initial baseline code is available in `feature/initialcode`.
