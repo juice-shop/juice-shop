@@ -23,12 +23,13 @@ jobs:
 
       - name: Run Trivy vulnerability scanner (SARIF)
         uses: aquasecurity/trivy-action@master
-        continue-on-error: true
+        # continue-on-error: true
         with:
           image-ref: "juice-shop:scan"
           format: "sarif"
           output: "trivy-results.sarif"
           severity: "CRITICAL,HIGH,MEDIUM"
+          exit-code: '1'
 
       - name: Upload Trivy results to GitHub Security
         uses: github/codeql-action/upload-sarif@v3
@@ -64,10 +65,10 @@ jobs:
       - name: Scan with Grype
         uses: anchore/scan-action@v3
         id: grype
-        continue-on-error: true
+        # continue-on-error: true
         with:
           image: "juice-shop:scan"
-          fail-build: false
+          fail-build: true
           severity-cutoff: high
 
       - name: Upload Grype results
@@ -85,7 +86,7 @@ jobs:
 
       - name: Run Hadolint
         uses: hadolint/hadolint-action@v3.1.0
-        continue-on-error: true
+        # continue-on-error: true
         with:
           dockerfile: Dockerfile
           failure-threshold: warning
