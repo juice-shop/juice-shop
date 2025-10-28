@@ -1,83 +1,14 @@
-name: "Container Security Scanning"
-
-# Dat's workflow - Container and Image Security
-# This workflow is called by security-enhanced.yml OR can run independently
+name: "Improved Container Security Pipeline"
 
 on:
-  workflow_call: # Called by main pipeline
-  workflow_dispatch: # Can be triggered manually
+  workflow_call:
+  workflow_dispatch:
   push:
     branches:
       - feature/dat
 
 jobs:
-  trivy-scan:
-    name: "Trivy - Container Vulnerability Scanner"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Build Docker image
-        run: docker build -t juice-shop:scan .
-
-      - name: Run Trivy vulnerability scanner (SARIF)
-        uses: aquasecurity/trivy-action@master
-        # continue-on-error: true
-        with:
-          image-ref: "juice-shop:scan"
-          format: "sarif"
-          output: "trivy-results.sarif"
-          severity: "CRITICAL,HIGH,MEDIUM"
-          exit-code: '1'
-
-      - name: Upload Trivy results to GitHub Security
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
-        with:
-          sarif_file: "trivy-results.sarif"
-
-      - name: Run Trivy with JSON output
-        uses: aquasecurity/trivy-action@master
-        continue-on-error: true
-        with:
-          image-ref: "juice-shop:scan"
-          format: "json"
-          output: "trivy-results.json"
-
-      - name: Upload Trivy JSON report
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: trivy-report
-          path: trivy-results.json
-
-  grype-scan:
-    name: "Grype - Vulnerability Scanner"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Build Docker image
-        run: docker build -t juice-shop:scan .
-
-      - name: Scan with Grype
-        uses: anchore/scan-action@v3
-        id: grype
-        # continue-on-error: true
-        with:
-          image: "juice-shop:scan"
-          fail-build: true
-          severity-cutoff: high
-
-      - name: Upload Grype results
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
-        with:
-          sarif_file: ${{ steps.grype.outputs.sarif }}
-
-  hadolint:
+  lint-dockerfile:
     name: "Hadolint - Dockerfile Linting"
     runs-on: ubuntu-latest
     steps:
@@ -86,15 +17,108 @@ jobs:
 
       - name: Run Hadolint
         uses: hadolint/hadolint-action@v3.1.0
-        # continue-on-error: true
         with:
           dockerfile: Dockerfile
-          failure-threshold: warning
+          failure-threshold: warning # Fail on warnings or worse
           format: sarif
           output-file: hadolint-results.sarif
 
       - name: Upload Hadolint results
         uses: github/codeql-action/upload-sarif@v3
-        if: always()
+        if: always() # Upload results even if the check fails
         with:
           sarif_file: hadolint-results.sarif
+
+  build-and-push:
+    name: "Build Image and Generate SBOM"
+    runs-on: self-hosted # Self-hosted runner is recommended for Docker builds
+    needs: lint-dockerfile # Only run if the Dockerfile linting succeeds
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Generate SBOM with Syft
+        uses: anchore/sbom-action@v0
+        with:
+          image: "juice-shop" # Tell Syft what to scan during build
+          output-file: "sbom.json"
+          format: "spdx-json"
+
+      - name: Build and push Docker image
+        id: build_push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/juice-shop:${{ github.sha }}
+
+      - name: Upload SBOM as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-${{ github.sha }}
+          path: sbom.json
+
+  scan-image-trivy:
+    name: "Scan Image with Trivy"
+    runs-on: self-hosted
+    needs: build-and-push
+    permissions:
+      security-events: write
+    steps:
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: "${{ secrets.DOCKERHUB_USERNAME }}/juice-shop:${{ github.sha }}"
+          format: "sarif"
+          output: "trivy-results.sarif"
+          severity: "CRITICAL,HIGH"
+
+      - name: Upload Trivy scan results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: "trivy-results.sarif"
+
+  scan-sbom-grype:
+    name: "Scan SBOM with Grype"
+    runs-on: self-hosted
+    needs: build-and-push
+    permissions:
+      security-events: write
+    steps:
+      - name: Download SBOM artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: sbom-${{ github.sha }}
+
+      - name: Scan SBOM with Grype
+        uses: anchore/scan-action@v3
+        with:
+          sbom: "sbom.json"
+          output-format: sarif
+          fail-build: false
+          
+      - name: Upload Grype scan results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          # The anchore/scan-action automatically places the sarif in the correct output path
+          sarif_file: results.sarif
