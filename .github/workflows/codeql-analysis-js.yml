@@ -1,4 +1,4 @@
-name: "CodeQL Scan"
+name: "CodeQL Scan - JS"
 
 on:
   push:

@@ -1,4 +1,4 @@
-name: "CodeQL-BHPoC"
+name: "CodeQL-BH"
 
 on:
  push:

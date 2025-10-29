@@ -1,4 +1,4 @@
-name: "ZAP Baseline Scan"
+name: "ZAP Baseline Scan - JS"
 
 on:
   schedule:

@@ -1,4 +1,4 @@
-name: "CI/CD Pipeline"
+name: "CI/CD Pipeline - JS"
 on:
   push:
     branches-ignore:

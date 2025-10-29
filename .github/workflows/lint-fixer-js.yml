@@ -1,4 +1,4 @@
-name: "Let me lint:fix that for you"
+name: "Let me lint:fix that for you - JS"
 
 on: [push]
 

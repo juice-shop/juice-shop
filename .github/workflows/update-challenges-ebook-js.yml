@@ -1,4 +1,4 @@
-name: "Update challenges in Companion Guide"
+name: "Update challenges in Companion Guide - JS"
 
 on:
   push:

@@ -1,4 +1,4 @@
-name: Automatic Rebase
+name: Automatic Rebase JS
 
 on:
   issue_comment:
