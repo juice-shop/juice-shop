@@ -2,9 +2,9 @@ name: "CodeQL Scan -BH"
 
 on:
  push:
-   branches: [ "main" ]
+   branches: [ "master" ]
  pull_request:
-   branches: [ "main" ]
+   branches: [ "master" ]
    # run on any branch PRs
    ##types: [opened, synchronize, reopened]
 
