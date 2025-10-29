@@ -25,7 +25,7 @@ jobs:
      with:
       fetch-depth: 0
 
-    # juice-shop specific: setup node and install dependencies
+    # juice-shop specific: setup node and install dependencies needed for analysis
    - name: Setup Node.js
      uses: actions/setup-node@v4
      with:
