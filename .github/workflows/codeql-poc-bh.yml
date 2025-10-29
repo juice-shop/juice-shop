@@ -1,12 +1,13 @@
 name: "CodeQL Scan -BH"
 
 on:
+ #workflow_dispatch: #manual trigger
  push:
-   branches: [ "master" ]
+   branches: [ "master" ] 
  pull_request:
    branches: [ "master" ]
-   # run on any branch PRs
-   ##types: [opened, synchronize, reopened]
+   # run on any branch PRs & to show results in the PR UI
+   types: [opened, synchronize, reopened]
 
 jobs:
   analyze:
@@ -20,6 +21,8 @@ jobs:
      actions: read
      contents: read
      security-events: write
+     pull-requests: write  # enables PR/comments 
+   
    strategy:
       fail-fast: false
       matrix:
@@ -63,5 +66,5 @@ jobs:
     # Run CodeQL analysis and upload results 
    - name: Perform CodeQL Analysis
      uses: github/codeql-action/analyze@v3
-     #with:
-          #category: "/language:javascript"
+     with:
+          category: "/language:${{ matrix.language }}"
