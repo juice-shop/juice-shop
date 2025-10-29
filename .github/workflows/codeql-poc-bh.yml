@@ -1,4 +1,4 @@
-name: "CodeQL-BH"
+name: "CodeQL Scan -BH"
 
 on:
  push:
@@ -7,44 +7,52 @@ on:
    branches: [ "main" ]
    # run on any branch PRs
    ##types: [opened, synchronize, reopened]
+
 jobs:
   analyze:
    name: Analyze
    runs-on: ubuntu-latest
+
    #timeout prevents runaway jobs and improves how results show in GitHub UI.
    timeout-minutes: 60
+   
    permissions:
      actions: read
      contents: read
      security-events: write
+   
    steps:
 
     # checkout code and install dependencies
    - name: Checkout repository
-     uses: actions/checkout@v3
+     uses: actions/checkout@v4
      with:
       fetch-depth: 0
 
-    # juice-shop specific: setup node and install dependencies needed for analysis
+    # Set up Node.js environment
    - name: Setup Node.js
      uses: actions/setup-node@v4
      with:
           node-version: 20
+
+    # Install project dependencies
    - name: Install dependencies
      run: npm ci
 
-    # Run CodeQL analysis for JavaScript
+    # Initialized CodeQL for JavaScript
    - name: Initialize CodeQL
      uses: github/codeql-action/init@v3
      with:
        languages: 'javascript'
+       queries: security-extended   # extended queries = deeper findings
 
-    # run autobuild to compile the code
-    # not needed for juice-shop as it's interpreted, but left here for completeness
+    # --(Optional) Autobuild step ---
+    # Juice Shop is JavaScript-based and doesn't require a build step,
+    # but this is left for completeness and compatibility.
    - name: Autobuild
      uses: github/codeql-action/autobuild@v3
 
-    # perform the analysis
+    # Run CodeQL analysis and upload results 
    - name: Perform CodeQL Analysis
      uses: github/codeql-action/analyze@v3
      with:
