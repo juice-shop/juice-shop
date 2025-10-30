@@ -1,8 +1,7 @@
 name: Syft SBOM Report
 
 on:
-  push:
-   branches: [ "master"]
+  workflow_dispatch:
 
 jobs:
   syft-scan:
