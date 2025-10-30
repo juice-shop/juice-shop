@@ -1,0 +1,28 @@
+name: Syft SBOM Generation
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  syft-scan:
+    runs-on: ubuntu-latest
+    name: Generate SBOM using Syft
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Syft
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Generate SBOM in SPDX format
+        run: |
+          syft dir:. -o spdx-json=sbom.json
+
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: syft-sbom
+          path: sbom.json
