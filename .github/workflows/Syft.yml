@@ -1,0 +1,27 @@
+name: SBOM report generator
+
+on:
+  workflow_dispatch:
+
+jobs:
+  syft-scan:
+    runs-on: ubuntu-latest
+    name: Generate SBOM using Syft
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Syft
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Generate SBOM in SPDX JSON format
+        run: |
+          syft . -o spdx-json=sbom.json
+
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: syft-sbom
+          path: sbom.json
