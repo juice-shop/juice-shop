@@ -1,4 +1,4 @@
-name: SBOM report generator
+name: Syft SBOM Report
 
 on:
   workflow_dispatch:
