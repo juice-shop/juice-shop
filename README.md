@@ -29,4 +29,4 @@ The initial baseline code is available in `feature/initialcode`.
 Other branches were merged to master branch.
 
 ### Note
-Select Bamboo Health Cloned version when doing PRs
+Select Bamboo Health Cloned version when doing PRs.

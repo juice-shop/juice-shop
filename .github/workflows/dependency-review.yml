@@ -1,0 +1,22 @@
+name: "Dependency Review - BH POC"
+
+on:
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  dependency-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        with:
+          # This references the configuration you added
+          config-file: .github/dependency-review-config.yml

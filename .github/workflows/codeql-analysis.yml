@@ -14,7 +14,7 @@ jobs:
    name: Analyze
    runs-on: ubuntu-latest
 
-   #timeout prevents runaway jobs and improves how results show in GitHub UI.
+   #timeout prevents runaway/ stucked jobs and excessive resource use
    timeout-minutes: 60
    
    permissions:
@@ -22,7 +22,9 @@ jobs:
      contents: read
      security-events: write
      pull-requests: write  # enables PR/comments 
-   
+
+   # Define matrix for multiple languages if needed in future
+   # parallel scans
    strategy:
       fail-fast: false
       matrix:

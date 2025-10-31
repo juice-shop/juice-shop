@@ -1,0 +1,36 @@
+# Dependabot v2 for OWASP Juice Shop (BH POC)
+# Scans for vulnerable dependencies 
+# Creates PRs to update them if enabled in settings
+
+version: 2
+updates:
+  # Backend dependencies (Node.js)
+  - package-ecosystem: "npm"
+    directory: "/"                      # location of package.json
+    schedule:
+      interval: "weekly"                # "live" → replaced by interval
+    target-branch: "develop"            # same as original
+    labels:
+      - "dependencies"
+    reviewers:
+      - "bkimminich"
+    ignore:
+      - dependency-name: "express-jwt"
+        versions: ["0.1.3"]
+      - dependency-name: "sanitize-html"
+        versions: ["1.4.2"]
+      - dependency-name: "unzipper"
+        versions: ["0.9.15"]
+      - dependency-name: "jsonwebtoken"
+        versions: ["0.4.0"]
+
+  # Frontend dependencies (Angular)
+  - package-ecosystem: "npm"
+    directory: "/frontend"              # location of frontend package.json
+    schedule:
+      interval: "weekly"
+    target-branch: "develop"
+    labels:
+      - "dependencies"
+    reviewers:
+      - "bkimminich"
