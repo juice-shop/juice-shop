@@ -67,8 +67,8 @@ jobs:
     # but this is left for completeness and compatibility.
    #- name: Autobuild
    #  uses: github/codeql-action/autobuild@v3
-   - name: Install dependencies
-     run: npm ci
+   #- name: Install dependencies
+    # run: npm install
 
 
     # Run CodeQL analysis and upload the results 
