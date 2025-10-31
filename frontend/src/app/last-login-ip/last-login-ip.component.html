@@ -3,9 +3,10 @@
   ~ SPDX-License-Identifier: MIT
   -->
 
-<mat-card appearance="outlined" class="ipCard mat-elevation-z6" >
-  <div class="mdc-card">
-    <h1 translate>LAST_LOGIN_IP</h1>
-    <p style="margin-bottom: 15px;"><span translate>IP_ADDRESS</span>&nbsp;&nbsp;<span [innerHTML]="lastLoginIp"></span></p>
-  </div>
+<mat-card appearance="outlined" class="ipCard mat-elevation-z6">
+  <h1 translate>LAST_LOGIN_IP</h1>
+  <dl>
+    <dt translate>IP_ADDRESS</dt>
+    <dd [innerHTML]="lastLoginIp"></dd>
+  </dl>
 </mat-card>
