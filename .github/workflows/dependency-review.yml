@@ -3,6 +3,7 @@ name: "Dependency Review - BH POC"
 on:
   pull_request:
     branches: [ "master" ]
+    types: [opened, synchronize, reopened]
 
 permissions:
   contents: read
