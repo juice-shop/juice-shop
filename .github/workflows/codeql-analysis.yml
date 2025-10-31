@@ -1,4 +1,4 @@
-name: "CodeQL Scan -BH"
+name: "CodeQL Scan - BH POC"
 
 on:
  #workflow_dispatch: #manual trigger
@@ -53,15 +53,23 @@ jobs:
      with:
        languages: ${{ matrix.language }}
        queries: security-extended
+       # to optimize scan time by excluding known safe paths
        config: |
-         paths-ignore:
+         paths-ignore: 
            - 'data/static/codefixes'
+           - 'frontend/noce_modules/**'
+           - 'test/'
+           - 'docs/'
+           - 'cypress/'
 
     # --(Optional) Autobuild step ---
     # Juice Shop is JavaScript-based and doesn't require a build step,
     # but this is left for completeness and compatibility.
-   - name: Autobuild
-     uses: github/codeql-action/autobuild@v3
+   #- name: Autobuild
+   #  uses: github/codeql-action/autobuild@v3
+   - name: Install dependencies
+     run: npm ci
+
 
     # Run CodeQL analysis and upload the results 
    - name: Perform CodeQL Analysis
