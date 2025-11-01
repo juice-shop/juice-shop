@@ -45,10 +45,10 @@ jobs:
             -Dsonar.host.url=https://sonarcloud.io
 
       - name: OWASP Dependency Check
-        uses: jeremylong/owasp-dependency-check-action@v2
+        uses: dependency-check/Dependency-Check_Action@main
         with:
           project: 'MyProject'
-          scan: './'
+          path: './'
           format: 'ALL'
           out: 'dependency-check-report'
 
