@@ -1,0 +1,423 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dependency-Check Report</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="shortcut icon" href="data:;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAVLSURBVFhHvZdvbFRFEMB3913v9Vr+FKUNRdtrewg1lQgRE0gMYkJSowYMwcSPkGDwg8ZigMR+UYzGaIuAEj+R+IfE+EUlRL+QYAwhGBMqkFQDpO1xd/YPBaSU9u767r0dZ5a513vtXVsq8Zcsb3bu9c3szuzsIMU8iEaj5fhYJlzRYCkZ7Utd+wbnQL+Nd0TeoyeAPLFgf/oiyTNxXw6g4WUhTz4JEtaiNXLCEE8l3seHJjlzsOJHfLxMsgHE4cje9B6eTUPxc0ZoxbFHG1qVFq9rCRsKjc+KFG3oFGQ6Kw6xJsCsDqDxNZYWbWSYVUFAJFkyaA2XWAxiHIlcGPukYg1rDCVDQKsOadmqBaxllY8CuKHBuqOlHlNKufFk/GdUmxxoeqTpMbBg1dGXRlZtqHc2R8rgedIXgk4eqNyXMblS1AE2vhWNP84qAxl2hewno6wyFHOAZOLAc6PRbU+kd2OyrmbVPTg3pjlQzDgazGmh40rKMY3LZrVBCi/Tl0z+gqJxYGV9fWNOWC0kF3Jm1/C2pZWwk6cG2olpOcDb7hsHgLQGcUWAGs0bV1K7EuSQFbbOLKmuPkOvkZ64mkzG8bXz5BirDBuP1fzQP6I+5yl9eAS9vxjYAVz9esx0P2a0ck+73VKGPFaR8Vtpx7k0ODiYZlVJmpcvfzirwi1SyUWsMiF5ZXX6A1zJzsq9mRO+A7T1lO2BIyZVN/6bJZFWnQO4Wl1dnerq6sqRbq401TWtw9qxjGT6zhfbs3+0Hrw+THPfgVhdA8Xdz3j84RpIdZOngrY1kUgMOR3lG1kVREkHhBp3smJ4wdLmf+TuoJOxuroW3NI6zN6L9B1W33MAV1+FW99mNIgUclBaYtCPObjx3lTqT5KxqJyk52y4nv5u4f7stzzNY+Hww0ncS0JXBIoDWryRN07JVlVTc9Xo74OQpV7F6ndk5CO7iVVEwDihVqxYYVtKrOc5bckIgHJIpnhl3MxfpWIuJZyWAMdo0Io1AOXMJFI0hm3VzrOiYG2BmsLEAz0Zd9DWzZmyHd/tLt+bOUmDthuzun3C8dryjqCDdzF5tqcPRr40f1AElcvl6lgmJkC5d1kWYS8bZ3HOVL0z0TcKiz70tBjAML4opVgsoeB2nIJyXfeKJfRxGo52j4ds+xwWmN9t1/7t8sDALX7vvqjdd31cChgi40YhZdXUSyiPGkAjPalUL43+/v6/e3p6btC4PHB5XsZ9sMqxZJAWbGIxwJz6gfkAWl5jcUYUbU1+3D60uIp0PPwiNR/wZAW3HERRh5Sy4C3LEhdoiAn368b6xhdoxKLRVn5nXmDpfZZFg7J00f5QgRYJlkV5GWyJVnk2yRpUKBaLFZ6QOYMFaAdW0x08xcXDr5E9E8V3wAmFD7NseO3pMf8uh1xuJYuzQuGjMJreT4rJc4/XrvZk6aZ0yZ47WPkm47M55mxnET23IrW1tRU8DUBFBlf2faYzcptGuefETRix9+NXDNhLHJmpPTenAON1xMyQRbZevaV5ooanwrbsdSz6kPF8kaEz7o9CqOEAvPO59yuFccBR4a/MjGnfNDp5M2IzgQnpd8QB41NBoxRvarWyVrgRe77Ad4vhHzX6H41S8l2eitO9ZR+/+dNDZ3lqbsW+VN/52x12YxlY04xbZd5IqUSbCd8BSiLby13AlTWwSnx6tvKNY10LzCmhm7E3kTiFYqAp/a/4lZCSUYIX6Frffmb86K6nxqJknDoZVD1Q48S0ajc1FBTXU8mFzVs/G77OmgdK0XLLZ7nNnGHuXvmn/w9yYrwzUvIefzAI8S83C2sS1J4rmAAAAABJRU5ErkJggg==" />
+        <style type="text/css">
+            #modal-background {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: white;
+                opacity: .50;
+                -webkit-opacity: .5;
+                -moz-opacity: .5;
+                filter: alpha(opacity=50);
+                z-index: 1000;
+            }
+
+            #modal-content {
+                background-color: white;
+                border-radius: 10px;
+                -webkit-border-radius: 10px;
+                -moz-border-radius: 10px;
+                box-shadow: 0 0 20px 0 #222;
+                -webkit-box-shadow: 0 0 20px 0 #222;
+                -moz-box-shadow: 0 0 20px 0 #222;
+                display: none;
+                height: 240px;
+                left: 50%;
+                margin: -120px 0 0 -160px;
+                padding: 10px;
+                position: fixed;
+                top: 50%;
+                z-index: 1000;
+            }
+            #modal-add-header {
+                display: none;
+            }
+            #modal-add-header.active {
+                display: block;
+            }
+            #modal-background.active, #modal-content.active {
+                display: block;
+            }
+            #modal-text {
+                border: 0;
+                overflow: hidden
+            }
+            #modal-text:focus {
+                outline: none;
+            }
+            .suppresstype {
+                display: none;
+            }
+            .suppresstype.active {
+                display: block;
+            }  
+            .suppressedLabel {
+                cursor: default;
+                padding:1px;
+                background-color: #eeeeee;
+                border: 1px solid #555555;
+                color:#555555;
+                text-decoration:none;
+                -moz-border-radius: 3px;
+                -webkit-border-radius: 3px;
+                -khtml-border-radius: 3px;
+                -o-border-radius: 3px;
+                border-radius: 3px;
+            }
+            .copybutton {
+                padding:1px;
+                background-color: #eeeeee;
+                border: 1px solid #555555;
+                color:#555555;
+                text-decoration:none;
+                -moz-border-radius: 3px;
+                -webkit-border-radius: 3px;
+                -khtml-border-radius: 3px;
+                -o-border-radius: 3px;
+                border-radius: 3px;
+            }
+            .copybutton:hover {
+                padding:1px;
+                background-color: #dddddd;
+                border: 1px solid #444444;
+                color:#444444;
+                text-decoration:none;
+                -moz-border-radius: 3px;
+                -webkit-border-radius: 3px;
+                -khtml-border-radius: 3px;
+                -o-border-radius: 3px;
+                border-radius: 3px;
+            }
+            .modal-button {
+                padding:1px;
+                float:left;
+                background-color: #eeeeee;
+                border: 1px solid #555555;
+                color:#555555;
+                text-decoration:none;
+                -moz-border-radius: 3px;
+                -webkit-border-radius: 3px;
+                -khtml-border-radius: 3px;
+                -o-border-radius: 3px;
+                border-radius: 3px;
+            }
+            .modal-button:hover {
+                padding:1px;
+                float:left;
+                background-color: #dddddd;
+                border: 1px solid #333333;
+                color:#333333;
+                text-decoration:none;
+                -moz-border-radius: 3px;
+                -webkit-border-radius: 3px;
+                -khtml-border-radius: 3px;
+                -o-border-radius: 3px;
+                border-radius: 3px;
+            }
+            .modal-button-right {
+                padding:1px;
+                float:right;
+                background-color: #eeeeee;
+                border: 1px solid #555555;
+                color:#555555;
+                text-decoration:none;
+                -moz-border-radius: 3px;
+                -webkit-border-radius: 3px;
+                -khtml-border-radius: 3px;
+                -o-border-radius: 3px;
+                border-radius: 3px;
+            }
+            .modal-button-right:hover {
+                padding:1px;
+                float:right;
+                background-color: #dddddd;
+                border: 1px solid #333333;
+                color:#333333;
+                text-decoration:none;
+                -moz-border-radius: 3px;
+                -webkit-border-radius: 3px;
+                -khtml-border-radius: 3px;
+                -o-border-radius: 3px;
+                border-radius: 3px;
+            }
+            .rounded-corners {
+                -moz-border-radius: 20px;
+                -webkit-border-radius: 20px;
+                -khtml-border-radius: 20px;
+                -o-border-radius: 20px;
+                border-radius: 20px;
+            }
+            .hidden {
+                display: none;
+            }
+            .standardsubsection {
+                -moz-border-radius-bottomleft:0px; /* bottom left corner */
+                -webkit-border-bottom-left-radius:0px; /* bottom left corner */
+                border-bottom-left-radius: 0px;
+                border-bottom: 0px solid #ffffff;
+            }
+            .content {
+                margin-top:0px;
+                margin-left:20px;
+                margin-right:20px;
+                margin-bottom:20px;
+                background: #ffffff;
+                padding: 20px;
+            }
+
+            .sectionheader {
+                background-color: #cccccc;
+                margin-top: 20px;
+                margin-right: 20px;
+                margin-left: 20px;
+                margin-bottom: 0px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-left:20px;
+                padding-right:20px;
+                border-top: 1px solid #ccc;
+                border-right: 1px solid #ccc;
+                border-left: 1px solid #ccc;
+                border-bottom: 0px;
+
+                /*
+                -moz-border-radius: 15px;
+                -webkit-border-radius: 15px;
+                -o-border-radius: 15px;
+                border-radius: 15px;
+                */
+
+                /* firefox's individual border radius properties */
+                -moz-border-radius-topleft:15px; /* top left corner */
+                -moz-border-radius-topright:0px; /* top right corner */
+                -moz-border-radius-bottomleft:0px; /* bottom left corner */
+                -moz-border-radius-bottomright:0px; /* bottom right corner */
+
+                /* webkit's individual border radius properties */
+                -webkit-border-top-left-radius:15px; /* top left corner */
+                -webkit-border-top-right-radius:0px; /* top right corner */
+                -webkit-border-bottom-left-radius:0px; /* bottom left corner */
+                -webkit-border-bottom-right-radius:0px; /* bottom right corner */
+                /* ie9+ */
+                border-top-left-radius: 15px;
+                border-top-right-radius: 0px;
+                border-bottom-right-radius: 0px;
+                border-bottom-left-radius: 0px;
+            }
+            .sectioncontent {
+                margin-top:0px;
+                margin-left:20px;
+                margin-right:20px;
+                margin-bottom:10px;
+                background: #ffffff;
+
+                padding-top: 10px;
+                padding-bottom: 20px;
+                padding-left:20px;
+                padding-right:20px;
+
+                border-top: 0px;
+                border-right: 1px solid #ccc;
+                border-left: 1px solid #ccc;
+                border-bottom: 1px solid #ccc;
+
+                -moz-border-radius-topleft:0px; /* top left corner */
+                -moz-border-radius-topright:0px; /* top right corner */
+                -moz-border-radius-bottomright:15px; /* bottom right corner */
+                -moz-border-radius-bottomleft:15px; /* bottom right corner */
+
+                /* webkit's individual border radius properties */
+                -webkit-border-top-left-radius:0px; /* top left corner */
+                -webkit-border-top-right-radius:0px; /* top right corner */
+                -webkit-border-bottom-right-radius:15px; /* bottom right corner */
+                -webkit-border-bottom-left-radius:15px; /* bottom right corner */
+                /* ie9+ */
+                border-top-left-radius: 0px;
+                border-top-right-radius: 0px;
+                border-bottom-right-radius: 15px;
+                border-bottom-left-radius: 15px;
+            }
+
+            .subsectionheader {
+                background-color: #cccccc;
+                margin-top: 20px;
+                margin-right: 20px;
+                margin-left: 0px;
+                margin-bottom: 0px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-left:20px;
+                padding-right:20px;
+                border-top: 1px solid #ccc;
+                border-right: 1px solid #ccc;
+                border-left: 1px solid #ccc;
+
+                /* firefox's individual border radius properties */
+                -moz-border-radius-topleft:15px; /* top left corner */
+                -moz-border-radius-topright:0px; /* top right corner */
+                -moz-border-radius-bottomright:0px; /* bottom right corner */
+
+                /* webkit's individual border radius properties */
+                -webkit-border-top-left-radius:15px; /* top left corner */
+                -webkit-border-top-right-radius:0px; /* top right corner */
+                -webkit-border-bottom-right-radius:0px; /* bottom right corner */
+                /* ie9+ */
+                border-top-left-radius: 15px;
+                border-top-right-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
+            .subsectioncontent {
+                margin-top:0px;
+                margin-left:0px;
+                margin-right:20px;
+                margin-bottom:10px;
+                background: #ffffff;
+                padding-top: 10px;
+                padding-left: 20px;
+                padding-right: 20px;
+                padding-bottom: 20px;
+                border-top: 0px;
+                border-right: 1px solid #ccc;
+                border-left: 1px solid #ccc;
+                border-bottom: 1px solid #ccc;
+
+                -moz-border-radius-topleft:0px; /* top left corner */
+                -moz-border-radius-topright:0px; /* top right corner */
+                -moz-border-radius-bottomleft:15px; /* bottom left corner */
+                -moz-border-radius-bottomright:15px; /* bottom right corner */
+
+                /* webkit's individual border radius properties */
+                -webkit-border-top-left-radius:0px; /* top left corner */
+                -webkit-border-top-right-radius:0px; /* top right corner */
+                -webkit-border-bottom-left-radius:15px; /* bottom left corner */
+                -webkit-border-bottom-right-radius:15px; /* bottom right corner */
+                /* ie9+ */
+                border-top-left-radius: 0px;
+                border-top-right-radius: 0px;
+                border-bottom-right-radius: 15px;
+                border-bottom-left-radius: 15px;
+
+            }
+            .white {
+                background-color: #ffffff;
+            }
+            .red {
+                background-color: #DF0101;
+            }
+            .left {
+                text-align: left;
+            }
+            .indent {
+                margin-left:20px;
+            }
+            td{
+                vertical-align:text-top;
+                padding:6px;
+                margin:0px;
+            }
+            th {
+                text-align:left;
+                vertical-align:text-top;
+                padding:6px;
+                margin:0px;
+                border-bottom:1px;
+                border-color: black;
+            }
+            table {
+                border: 0px;
+            }
+            table.lined tr:nth-child(even) {
+                background-color: #f3f3f3;
+            }
+            .fullwidth {
+                width:100%;
+            }
+            body {
+                font: 13px "Droid Sans",Arial,"Helvetica Neue","Lucida Grande",sans-serif
+            }
+            ul {
+                margin-top:3px;
+                margin-bottom:3px;
+            }
+            .vulnerable {
+                color: #000;
+            }
+            .notvulnerable {
+                display:none;
+            }
+            .hidden {
+                display:none;
+            }
+            .infolink {
+                text-decoration:none;
+                color: blue;
+                float:right;
+            }
+            .infolink:hover {
+                text-decoration:none;
+                color: blue;
+                float:right;
+            }
+            .disclaimer {
+                color: #888888;
+                font: 9px "Droid Sans",Arial,"Helvetica Neue","Lucida Grande",sans-serif
+            }
+            .sortable {
+                cursor:pointer;
+            }
+            .sortable:hover {
+                text-decoration:underline;
+            }
+            pre {
+                white-space: pre-wrap;
+                font: 13px "Droid Sans",Arial,"Helvetica Neue","Lucida Grande",sans-serif
+            }
+            .underline {
+                text-decoration: underline;
+            }
+            .tooltip {
+              position: relative;
+              display: inline-block;
+              border-bottom: 1px dotted black;
+            }
+
+            .tooltip .tooltiptext {
+              visibility: hidden;
+              width: 220px;
+              background-color: #cccccc;
+              text-align: center;
+              border-radius: 6px;
+              padding: 5px 0;
+
+              /* Position the tooltip */
+              position: absolute;
+              z-index: 1;
+            }
+
+            .tooltip:hover .tooltiptext {
+              visibility: visible;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" width="459.5" height="150" viewBox="0 0 459.5 150" enable-background="new 0 0 595.28 841.89" xml:space="preserve"><g transform="translate(-79.10464,-172.551)"><path d="m246.1 274.3c-2.6 0-5.3-0.2-6.6-0.5-0.6-0.1-0.9-0.4-0.9-1.1l0-20.4c0-0.7 0.3-1 0.9-1.1 1.3-0.2 4-0.5 6.6-0.5 6.1 0 9.8 3.2 9.8 9.7l0 4c0 6.5-3.7 9.7-9.8 9.7zm4.6-13.7c0-4.2-1.8-5.3-4.6-5.3-0.8 0-1.8 0-2.2 0.1l0 14.4c0.4 0 1.4 0.1 2.2 0.1 2.8 0 4.6-1.1 4.6-5.3l0-4zM273 273.9 273 273.9c-1.1 0.2-2.6 0.4-6 0.4-4 0-7.5-1-7.5-6.6l0-10.2c0-5.6 3.5-6.6 7.5-6.6 3.3 0 4.9 0.2 5.9 0.4 0.4 0.1 0.6 0.2 0.6 0.6l0 2.9c0 0.3-0.3 0.6-0.6 0.6l-6.3 0c-1.4 0-2 0.5-2 2.1l0 2.8 8 0c0.3 0 0.6 0.3 0.6 0.6l0 2.9c0 0.3-0.3 0.6-0.6 0.6l-8 0 0 3.3c0 1.6 0.5 2.1 2 2.1l6.3 0c0.3 0 0.6 0.3 0.6 0.6l0 2.9c0 0.4-0.2 0.6-0.6 0.6zM285.2 266c-0.7 0-1.7-0.1-2.5-0.1l0 7.5c0 0.3-0.3 0.6-0.6 0.6l-4 0c-0.3 0-0.6-0.2-0.6-0.6l0-20.7c0-1 0.4-1.3 1.4-1.5 1.6-0.2 4-0.4 6.3-0.4 4.7 0 9.2 1.6 9.2 7.4l0 0.3c0 5.8-4.6 7.5-9.2 7.5zm3.9-7.7c0-2.2-1.4-3-3.9-3-0.4 0-2.1 0.1-2.5 0.1l0 6.3c0.3 0 2.2 0.1 2.5 0.1 2.7 0 3.9-1 3.9-3.1l0-0.3zM311 273.9c-1.1 0.2-2.6 0.4-6 0.4-4 0-7.5-1-7.5-6.6l0-10.2c0-5.6 3.5-6.6 7.5-6.6 3.3 0 4.9 0.2 5.9 0.4 0.4 0.1 0.6 0.2 0.6 0.6l0 2.9c0 0.3-0.3 0.6-0.6 0.6l-6.3 0c-1.4 0-2 0.5-2 2.1l0 2.8 8 0c0.3 0 0.6 0.3 0.6 0.6l0 2.9c0 0.3-0.3 0.6-0.6 0.6l-8 0 0 3.3c0 1.6 0.5 2.1 2 2.1l6.3 0c0.3 0 0.6 0.3 0.6 0.6l0 2.9c0 0.4-0.2 0.6-0.6 0.6zM332.4 274l-3 0c-0.6 0-1.1-0.1-1.6-1l-7-12.1c-0.1-0.2-0.2-0.2-0.3-0.2-0.1 0-0.2 0.1-0.2 0.2l0 12.5c0 0.3-0.3 0.6-0.6 0.6l-3.6 0c-0.3 0-0.6-0.3-0.6-0.6l0-21.1c0-0.6 0.5-1.2 1.2-1.2l3.1 0c0.6 0 0.9 0.3 1.3 1l7.3 12.7c0.1 0.2 0.2 0.2 0.2 0.2 0.1 0 0.2-0.1 0.2-0.3l0-13c0-0.3 0.3-0.6 0.6-0.6l3.6 0c0.3 0 0.6 0.2 0.6 0.6l0 21.1c0 0.6-0.6 1.2-1.2 1.2zM345.4 274.3c-2.6 0-5.3-0.2-6.6-0.5-0.6-0.1-0.9-0.4-0.9-1.1l0-20.4c0-0.7 0.3-1 0.9-1.1 1.3-0.2 4-0.5 6.6-0.5 6.1 0 9.8 3.2 9.8 9.7l0 4c0 6.5-3.7 9.7-9.8 9.7zm4.6-13.7c0-4.2-1.8-5.3-4.6-5.3-0.8 0-1.8 0-2.2 0.1l0 14.4c0.4 0 1.4 0.1 2.2 0.1 2.8 0 4.6-1.1 4.6-5.3l0-4zM372.3 273.9c-1.1 0.2-2.6 0.4-6 0.4-4 0-7.5-1-7.5-6.6l0-10.2c0-5.6 3.5-6.6 7.5-6.6 3.3 0 4.9 0.2 5.9 0.4 0.4 0.1 0.6 0.2 0.6 0.6l0 2.9c0 0.3-0.3 0.6-0.6 0.6l-6.3 0c-1.4 0-2 0.5-2 2.1l0 2.8 8 0c0.3 0 0.6 0.3 0.6 0.6l0 2.9c0 0.3-0.3 0.6-0.6 0.6l-8 0 0 3.3c0 1.6 0.5 2.1 2 2.1l6.3 0c0.3 0 0.6 0.3 0.6 0.6l0 2.9c0 0.4-0.2 0.6-0.6 0.6zM393.7 274l-3 0c-0.6 0-1.1-0.1-1.6-1l-7-12.1c-0.1-0.2-0.2-0.2-0.3-0.2-0.1 0-0.2 0.1-0.2 0.2l0 12.5c0 0.3-0.3 0.6-0.6 0.6l-3.6 0c-0.3 0-0.6-0.3-0.6-0.6l0-21.1c0-0.6 0.5-1.2 1.2-1.2l3.1 0c0.6 0 0.9 0.3 1.3 1l7.3 12.7c0.1 0.2 0.2 0.2 0.2 0.2 0.1 0 0.2-0.1 0.2-0.3l0-13c0-0.3 0.3-0.6 0.6-0.6l3.6 0c0.3 0 0.6 0.2 0.6 0.6l0 21.1c0 0.6-0.6 1.2-1.2 1.2zM412.4 273.8c-0.6 0.2-2.4 0.5-4.6 0.5-4.7 0-9.1-2.5-9.1-9.8l0-3.9c0-7.3 4.4-9.8 9.1-9.8 2.2 0 3.9 0.3 4.6 0.5 0.4 0.1 0.7 0.2 0.7 0.7l0 3c0 0.4-0.2 0.6-0.6 0.6 0 0-0.1 0-0.1 0-1.2-0.1-2.9-0.2-4.6-0.2-2.1 0-3.8 1.1-3.8 5.2l0 3.9c0 4.1 1.7 5.2 3.8 5.2 1.7 0 3.4-0.2 4.6-0.2 0 0 0.1 0 0.1 0 0.4 0 0.6 0.2 0.6 0.6l0 3c0 0.4-0.2 0.6-0.7 0.7zM433.6 251.8l-4.7 10.7c-0.6 1.4-1.3 2.1-2 2.4l0 8.6c0 0.3-0.3 0.6-0.6 0.6l-4 0c-0.3 0-0.6-0.3-0.6-0.6l0-8.6c-0.7-0.3-1.4-1-2-2.4l-4.7-10.7c0-0.1 0-0.2 0-0.2 0-0.2 0.2-0.5 0.5-0.5l4.4 0c0.3 0 0.5 0.2 0.6 0.5l3.3 8.7c0.2 0.4 0.2 0.5 0.5 0.5 0.2 0 0.3-0.1 0.5-0.5l3.3-8.7c0.1-0.3 0.3-0.5 0.6-0.5l4.4 0c0.3 0 0.5 0.2 0.5 0.5 0 0.1 0 0.2 0 0.2zM442 266.5l-6 0c-0.3 0-0.6-0.2-0.6-0.6l0-2.5c0-0.3 0.3-0.6 0.6-0.6l6 0c0.3 0 0.6 0.2 0.6 0.6l0 2.5c0 0.3-0.3 0.6-0.6 0.6z" style="fill:#231f20;opacity:0.5"/><path d="m459 273.8c-0.6 0.2-2.4 0.5-4.6 0.5-4.7 0-9.1-2.5-9.1-9.8l0-3.9c0-7.3 4.4-9.8 9.1-9.8 2.2 0 3.9 0.3 4.6 0.5 0.4 0.1 0.7 0.2 0.7 0.7l0 3c0 0.4-0.2 0.6-0.6 0.6 0 0-0.1 0-0.1 0-1.2-0.1-2.9-0.2-4.6-0.2-2.1 0-3.8 1.1-3.8 5.2l0 3.9c0 4.1 1.7 5.2 3.8 5.2 1.7 0 3.4-0.2 4.6-0.2 0 0 0.1 0 0.1 0 0.4 0 0.6 0.2 0.6 0.6l0 3c0 0.4-0.2 0.6-0.7 0.7zM480.6 274l-4 0M480.6 274l-4 0c-0.3 0-0.6-0.3-0.6-0.6l0-8.9-7.6 0 0 8.9c0 0.3-0.3 0.6-0.6 0.6l-4 0c-0.3 0-0.6-0.3-0.6-0.6l0-21.7c0-0.3 0.3-0.6 0.6-0.6l4 0c0.3 0 0.6 0.2 0.6 0.6l0 8.2 7.6 0 0-8.2c0-0.3 0.3-0.6 0.6-0.6l4 0c0.3 0 0.6 0.2 0.6 0.6l0 21.7c0 0.3-0.3 0.6-0.6 0.6zM498.9 273.9c-1.1 0.2-2.6 0.4-6 0.4-4 0-7.5-1-7.5-6.6l0-10.2c0-5.6 3.5-6.6 7.5-6.6 3.3 0 4.9 0.2 5.9 0.4 0.4 0.1 0.6 0.2 0.6 0.6l0 2.9c0 0.3-0.3 0.6-0.6 0.6l-6.3 0c-1.4 0-2 0.5-2 2.1l0 2.8 8 0c0.3 0 0.6 0.3 0.6 0.6l0 2.9c0 0.3-0.3 0.6-0.6 0.6l-8 0 0 3.3c0 1.6 0.5 2.1 2 2.1l6.3 0c0.3 0 0.6 0.3 0.6 0.6l0 2.9c0 0.4-0.2 0.6-0.6 0.6zM516.6 273.8c-0.6 0.2-2.4 0.5-4.6 0.5-4.7 0-9.1-2.5-9.1-9.8l0-3.9c0-7.3 4.4-9.8 9.1-9.8 2.2 0 3.9 0.3 4.6 0.5 0.4 0.1 0.7 0.2 0.7 0.7l0 3c0 0.4-0.2 0.6-0.6 0.6 0 0-0.1 0-0.1 0-1.2-0.1-2.9-0.2-4.6-0.2-2.1 0-3.8 1.1-3.8 5.2l0 3.9c0 4.1 1.7 5.2 3.8 5.2 1.7 0 3.4-0.2 4.6-0.2 0 0 0.1 0 0.1 0 0.4 0 0.6 0.2 0.6 0.6l0 3c0 0.4-0.2 0.6-0.7 0.7zM538.5 251.9l-7.3 10.4 7.4 11.1c0.1 0.1 0.1 0.2 0.1 0.3 0 0.2-0.2 0.3-0.4 0.3l-5.3 0c-0.4 0-0.5-0.2-0.7-0.4l-6.3-10.2 0 10c0 0.3-0.3 0.6-0.6 0.6l-4 0c-0.3 0-0.6-0.3-0.6-0.6l0-21.7c0-0.3 0.3-0.6 0.6-0.6l4 0c0.3 0 0.6 0.2 0.6 0.6l0 9.8 6.8-10c0.2-0.2 0.3-0.4 0.7-0.4l4.7 0c0.3 0 0.5 0.2 0.5 0.3 0 0.1-0.1 0.3-0.2 0.4z" fill="#f78d0a"/><path d="m151.6 187.1 0-14.6c-36.7 5.4-65.9 33.9-72.2 70.4l14.7 0C100 214.5 122.8 192.2 151.6 187.1Z" style="fill:#231f20;opacity:0.5"/><path d="m151.6 200.4 0-13.3c-28.7 5.1-51.6 27.3-57.5 55.8l13.3 0c5.5-21.2 22.6-37.8 44.2-42.5z" style="fill:#231f20;opacity:0.3"/><path d="m193 237-10.9 10.9c0.3 0.6 0.7 1.2 1 1.9 1 2.5 1.5 5.3 1.5 8.2l0 0.2c0 3-0.5 5.8-1.5 8.2-1 2.5-2.4 4.6-4.2 6.4-1.8 1.8-3.9 3.2-6.4 4.2-2.5 1-5.3 1.5-8.3 1.5l-11.5 0 0-1-14.4 14.4 25.9 0c5.3 0 10.1-0.9 14.6-2.6 4.4-1.7 8.2-4.1 11.4-7.2 3.2-3 5.7-6.6 7.4-10.7 1.7-4.1 2.6-8.6 2.6-13.3l0-0.2c0-4.8-0.9-9.2-2.6-13.3-1.2-2.7-2.7-5.2-4.5-7.5z" fill="#f78d0a"/><path d="m152.7 237.6 11.5 0c3 0 5.8 0.5 8.3 1.5 2.5 1 4.7 2.4 6.4 4.2 1.3 1.3 2.3 2.9 3.2 4.6l10.9-10.9c-0.9-1.1-1.8-2.2-2.9-3.2-3.2-3-7-5.4-11.4-7.1-4.4-1.7-9.3-2.6-14.6-2.6l-26.4 0 0 67.7 0.5 0 14.4-14.4 0-39.8z" style="fill:#f78d0a;opacity:0.7"/><path d="m179.5 187.7 0 13.4c11.9 3.2 22.3 10.1 29.9 19.4l9.2-9.3c-10-11.7-23.6-20.1-39.2-23.5z" style="fill:#231f20;opacity:0.3"/><path d="m179.5 173 0 14.7c15.5 3.4 29.2 11.8 39.2 23.5l10.2-10.2c-12.6-14.3-29.8-24.5-49.4-28zM93.7 270.9l-14.6 0M93.7 270.9l-14.6 0c3.1 20.5 13.6 38.6 28.5 51.7l10.2-10.2C105.5 301.9 96.8 287.4 93.7 270.9Z" fill="#f78d0a"/><path d="m107 270.9-13.3 0c3.1 16.5 11.8 31 24.1 41.5l9.2-9.3c-9.9-8.1-17.1-19.3-20-32.2z" style="fill:#231f20;opacity:0.3"/></g></svg>
+<p class="disclaimer">Dependency-Check is an open source tool performing a best effort analysis of 3rd party dependencies;
+false positives and false negatives may exist in the analysis performed by the tool. Use of the tool and
+the reporting provided constitutes acceptance for use in an AS IS condition, and there are NO warranties,
+implied or otherwise, with regard to the analysis or its use. Any use of the tool and the reporting provided
+is at the user’s risk. In no event shall the copyright holder or OWASP be held liable for any damages whatsoever
+arising out of or in connection with the use of this tool, the analysis performed, or the resulting report.</p>
+<h3><a href="https://dependency-check.github.io/DependencyCheck/general/thereport.html" target="_blank">How&nbsp;to&nbsp;read&nbsp;the&nbsp;report</a> |
+<a href="https://dependency-check.github.io/DependencyCheck/general/suppression.html" target="_blank">Suppressing false positives</a> |
+Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issues" target="_blank">github issues</a></h3>
+<h2 class="">Project:&nbsp;</h2><div class="">Scan Information:<br/><ul class="indent"><li><i>dependency-check version</i>: 12.1.8</li><li><i>Report Generated On</i>: Sat, 1 Nov 2025 13:55:15 +0500</li><li><i>Dependencies Scanned</i>:&nbsp;21 (21 unique)</li><li><i>Vulnerable Dependencies</i>:&nbsp;<span id="vulnerableCount">0</span></li><li><i>Vulnerabilities Found</i>:&nbsp;0</li><li><i>Vulnerabilities Suppressed</i>:&nbsp;0</li></ul><br/><h2>Analysis Exceptions</h2><h4 id="header1" class="subsectionheader expandable expandablesubsection white">Archive contains a file (../../frontend/dist/frontend/assets/public/videos/owasp_promo.vtt) that would be extracted outside of the target directory.</h4><div id="content1" class="subsectioncontent standardsubsection hidden"><b>exception</b>: org.owasp.dependencycheck.analyzer.exception.AnalysisException: Archive contains a file (../../frontend/dist/frontend/assets/public/videos/owasp_promo.vtt) that would be extracted outside of the target directory.<pre>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractFiles(ArchiveAnalyzer.java:503)<br/>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractAndAnalyze(ArchiveAnalyzer.java:295)<br/>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.analyzeDependency(ArchiveAnalyzer.java:277)<br/>org.owasp.dependencycheck.analyzer.AbstractAnalyzer.analyze(AbstractAnalyzer.java:131)<br/>org.owasp.dependencycheck.AnalysisTask.call(AnalysisTask.java:88)<br/>org.owasp.dependencycheck.AnalysisTask.call(AnalysisTask.java:37)<br/>java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)<br/>java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)<br/>java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)<br/>java.base/java.lang.Thread.run(Thread.java:1474)<br/></pre><h4 id="header2" class="subsectionheader expandable expandablesubsection white">Archive contains a file (../../frontend/dist/frontend/assets/public/videos/owasp_promo.vtt) that would be extracted outside of the target directory.</h4><div id="content2" class="subsectioncontent standardsubsection hidden"><b>cause</b>: org.owasp.dependencycheck.analyzer.exception.ArchiveExtractionException: Archive contains a file (../../frontend/dist/frontend/assets/public/videos/owasp_promo.vtt) that would be extracted outside of the target directory.<pre>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractArchive(ArchiveAnalyzer.java:589)<br/>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractFiles(ArchiveAnalyzer.java:457)<br/>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractAndAnalyze(ArchiveAnalyzer.java:295)<br/>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.analyzeDependency(ArchiveAnalyzer.java:277)<br/>org.owasp.dependencycheck.analyzer.AbstractAnalyzer.analyze(AbstractAnalyzer.java:131)<br/>org.owasp.dependencycheck.AnalysisTask.call(AnalysisTask.java:88)<br/>org.owasp.dependencycheck.AnalysisTask.call(AnalysisTask.java:37)<br/>java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)<br/>java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)<br/>java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)<br/>java.base/java.lang.Thread.run(Thread.java:1474)<br/></pre></div></div><h4 id="header3" class="subsectionheader expandable expandablesubsection white">java.util.zip.ZipException: encrypted ZIP entry not supported</h4><div id="content3" class="subsectioncontent standardsubsection hidden"><b>exception</b>: org.owasp.dependencycheck.analyzer.exception.AnalysisException: java.util.zip.ZipException: encrypted ZIP entry not supported<pre>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractFiles(ArchiveAnalyzer.java:503)<br/>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractAndAnalyze(ArchiveAnalyzer.java:295)<br/>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.analyzeDependency(ArchiveAnalyzer.java:277)<br/>org.owasp.dependencycheck.analyzer.AbstractAnalyzer.analyze(AbstractAnalyzer.java:131)<br/>org.owasp.dependencycheck.AnalysisTask.call(AnalysisTask.java:88)<br/>org.owasp.dependencycheck.AnalysisTask.call(AnalysisTask.java:37)<br/>java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)<br/>java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)<br/>java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)<br/>java.base/java.lang.Thread.run(Thread.java:1474)<br/></pre><h4 id="header4" class="subsectionheader expandable expandablesubsection white">java.util.zip.ZipException: encrypted ZIP entry not supported</h4><div id="content4" class="subsectioncontent standardsubsection hidden"><b>cause</b>: org.owasp.dependencycheck.analyzer.exception.ArchiveExtractionException: java.util.zip.ZipException: encrypted ZIP entry not supported<pre>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractArchive(ArchiveAnalyzer.java:602)<br/>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractFiles(ArchiveAnalyzer.java:457)<br/>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractAndAnalyze(ArchiveAnalyzer.java:295)<br/>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.analyzeDependency(ArchiveAnalyzer.java:277)<br/>org.owasp.dependencycheck.analyzer.AbstractAnalyzer.analyze(AbstractAnalyzer.java:131)<br/>org.owasp.dependencycheck.AnalysisTask.call(AnalysisTask.java:88)<br/>org.owasp.dependencycheck.AnalysisTask.call(AnalysisTask.java:37)<br/>java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)<br/>java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)<br/>java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)<br/>java.base/java.lang.Thread.run(Thread.java:1474)<br/></pre><h4 id="header5" class="subsectionheader expandable expandablesubsection white">encrypted ZIP entry not supported</h4><div id="content5" class="subsectioncontent standardsubsection hidden"><b>cause</b>: java.util.zip.ZipException: encrypted ZIP entry not supported<pre>java.base/java.util.zip.ZipInputStream.readLOC(ZipInputStream.java:530)<br/>java.base/java.util.zip.ZipInputStream.getNextEntry(ZipInputStream.java:158)<br/>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractArchive(ArchiveAnalyzer.java:581)<br/>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractFiles(ArchiveAnalyzer.java:457)<br/>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractAndAnalyze(ArchiveAnalyzer.java:295)<br/>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.analyzeDependency(ArchiveAnalyzer.java:277)<br/>org.owasp.dependencycheck.analyzer.AbstractAnalyzer.analyze(AbstractAnalyzer.java:131)<br/>org.owasp.dependencycheck.AnalysisTask.call(AnalysisTask.java:88)<br/>org.owasp.dependencycheck.AnalysisTask.call(AnalysisTask.java:37)<br/>java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)<br/>java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)<br/>java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)<br/>java.base/java.lang.Thread.run(Thread.java:1474)<br/></pre></div></div></div><h4 id="header6" class="subsectionheader expandable expandablesubsection white">Archive contains a file (../../ftp/legal.md) that would be extracted outside of the target directory.</h4><div id="content6" class="subsectioncontent standardsubsection hidden"><b>exception</b>: org.owasp.dependencycheck.analyzer.exception.AnalysisException: Archive contains a file (../../ftp/legal.md) that would be extracted outside of the target directory.<pre>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractFiles(ArchiveAnalyzer.java:503)<br/>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractAndAnalyze(ArchiveAnalyzer.java:295)<br/>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.analyzeDependency(ArchiveAnalyzer.java:277)<br/>org.owasp.dependencycheck.analyzer.AbstractAnalyzer.analyze(AbstractAnalyzer.java:131)<br/>org.owasp.dependencycheck.AnalysisTask.call(AnalysisTask.java:88)<br/>org.owasp.dependencycheck.AnalysisTask.call(AnalysisTask.java:37)<br/>java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)<br/>java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)<br/>java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)<br/>java.base/java.lang.Thread.run(Thread.java:1474)<br/></pre><h4 id="header7" class="subsectionheader expandable expandablesubsection white">Archive contains a file (../../ftp/legal.md) that would be extracted outside of the target directory.</h4><div id="content7" class="subsectioncontent standardsubsection hidden"><b>cause</b>: org.owasp.dependencycheck.analyzer.exception.ArchiveExtractionException: Archive contains a file (../../ftp/legal.md) that would be extracted outside of the target directory.<pre>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractArchive(ArchiveAnalyzer.java:589)<br/>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractFiles(ArchiveAnalyzer.java:457)<br/>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.extractAndAnalyze(ArchiveAnalyzer.java:295)<br/>org.owasp.dependencycheck.analyzer.ArchiveAnalyzer.analyzeDependency(ArchiveAnalyzer.java:277)<br/>org.owasp.dependencycheck.analyzer.AbstractAnalyzer.analyze(AbstractAnalyzer.java:131)<br/>org.owasp.dependencycheck.AnalysisTask.call(AnalysisTask.java:88)<br/>org.owasp.dependencycheck.AnalysisTask.call(AnalysisTask.java:37)<br/>java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)<br/>java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)<br/>java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)<br/>java.base/java.lang.Thread.run(Thread.java:1474)<br/></pre></div></div><br/><h2>Summary</h2><table id="summaryTable" class="lined"><thead><tr style="text-align:left"><th class="sortable" data-sort="string" title="The name of the dependency">Dependency</th><th class="sortable" data-sort="string" title="The Common Platform Enumeration">Vulnerability&nbsp;IDs</th><th class="sortable" data-sort="string" title="The Build Coordinates">Package</th><th class="sortable" data-sort="float"    title="The highest CVE Severity">Highest&nbsp;Severity</th><th class="sortable" data-sort="int"    title="The number of Common Vulnerability and Exposure (CVE) entries">CVE&nbsp;Count</th><th class="sortable" data-sort="string" title="The confidence rating dependency-check has for the identified CPE">Confidence</th><th class="sortable" data-sort="int"    title="The count of evidence collected to identify the CPE">Evidence&nbsp;Count</th></tr></thead></table><h2>Dependencies</h2> </div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div><div><br/><br/>This report contains data retrieved from the <a href="https://nvd.nist.gov">National Vulnerability Database</a>.<br/>This report may contain data retrieved from the <a href="https://www.cisa.gov/known-exploited-vulnerabilities-catalog">CISA Known Exploited Vulnerability Catalog</a>.<br/>This report may contain data retrieved from the <a href="https://github.com/advisories/">Github Advisory Database (via NPM Audit API)</a>.<br/>This report may contain data retrieved from <a href="https://retirejs.github.io/retire.js/">RetireJS</a>.<br/>This report may contain data retrieved from the <a href="https://ossindex.sonatype.org">Sonatype OSS Index</a>.</div></body></html>

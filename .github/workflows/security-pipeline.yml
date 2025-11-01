@@ -1,0 +1,78 @@
+name: Security CI Pipeline
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Set up node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: CodeQL Scan
+        uses: github/codeql-action/init@v2
+        with:
+          languages: javascript
+
+      - name: Auto Build
+        uses: github/codeql-action/autobuild@v2
+      
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+
+      - name: SonarQube Scan
+        uses: sonarsource/sonarcloud-github-action@v1
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: .
+          args: >
+            -Dsonar.projectKey=ZSultanbek_juice-shop-test
+            -Dsonar.organization=zsultanbek
+            -Dsonar.host.url=https://sonarcloud.io
+
+      - name: OWASP Dependency Check
+        uses: jeremylong/owasp-dependency-check-action@v2
+        with:
+          project: 'MyProject'
+          scan: './'
+          format: 'ALL'
+          out: 'dependency-check-report'
+
+      - name: install Trivy
+        run: |
+          sudo apt-get install -y wget apt-transport-https gnupg lsb-release
+          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+          echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+          sudo apt-get update
+          sudo apt-get install -y trivy
+          
+      - name: Trivy File Scan
+        run: trivy fs --format table --output trivy-fs-report.html --exit-code 0 --severity HIGH,CRITICAL .
+      
+      - name: Trivy Image scan
+        run: |
+          docker pull bkimminich/juice-shop
+          trivy image bkimminich/juice-shop --format table --output trivy-image-report.html
+        
+      - name: Upload Reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-reports
+          path: |
+            trivy-fs-report.html
+            trivy-image-report.html
+            dependency-check-report
