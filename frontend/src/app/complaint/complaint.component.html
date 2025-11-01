@@ -5,28 +5,28 @@
 
 <main class="center-container">
   <mat-card appearance="outlined" class="mat-elevation-z6">
-    <h1>{{ 'NAV_COMPLAIN' | translate }}</h1>
+    <h1>{{ "NAV_COMPLAIN" | translate }}</h1>
 
     <section aria-live="polite">
       <p class="confirmation" [hidden]="!(confirmation && !messageControl.dirty)">
         {{ confirmation }}
       </p>
 
-      @if (fileUploadError && fileUploadError.name == 'mimeType') {
+      @if (fileUploadError && fileUploadError.name == "mimeType") {
         <p class="error fileUploadError" role="alert">
-          {{ 'INVALID_FILE_TYPE' | translate: { type: 'PDF, ZIP' } }}
+          {{ "INVALID_FILE_TYPE" | translate: { type: "PDF, ZIP" } }}
         </p>
       }
-      @if (fileUploadError && fileUploadError.name == 'fileSize') {
+      @if (fileUploadError && fileUploadError.name == "fileSize") {
         <p class="error fileUploadError" role="alert">
-          {{ 'INVALID_FILE_SIZE' | translate: { size: '100 KB' } }}
+          {{ "INVALID_FILE_SIZE" | translate: { size: "100 KB" } }}
         </p>
       }
     </section>
 
     <form class="form-container" id="complaint-form">
       <mat-form-field appearance="outline" color="accent">
-        <mat-label>{{ 'LABEL_CUSTOMER' | translate }}</mat-label>
+        <mat-label>{{ "LABEL_CUSTOMER" | translate }}</mat-label>
         <input
           [formControl]="customerControl"
           type="text"
@@ -36,10 +36,10 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline" color="accent">
-        <mat-label>{{ 'LABEL_MESSAGE' | translate }}</mat-label>
+        <mat-label>{{ "LABEL_MESSAGE" | translate }}</mat-label>
         <mat-hint>
           <i class="fas fa-exclamation-circle"></i>
-          <em>{{ 'MAX_TEXTAREA_LENGTH' | translate: { length: '160' } }}</em>
+          <em>{{ "MAX_TEXTAREA_LENGTH" | translate: { length: "160" } }}</em>
         </mat-hint>
         <textarea
           #complaintMessage
@@ -57,7 +57,7 @@
           aria-describedby="messageCounter"
         ></textarea>
         @if (messageControl.invalid && messageControl?.errors.required) {
-          <mat-error role="alert">{{ 'MANDATORY_MESSAGE' | translate }} </mat-error>
+          <mat-error role="alert">{{ "MANDATORY_MESSAGE" | translate }} </mat-error>
         }
         <mat-hint align="end" id="messageCounter">
           <output>{{ complaintMessage.value?.length || 0 }}</output
@@ -66,7 +66,7 @@
       </mat-form-field>
 
       <p class="invoice">
-        <label for="file">{{ 'LABEL_INVOICE' | translate }}<span>:</span></label>
+        <label for="file">{{ "LABEL_INVOICE" | translate }}<span>:</span></label>
         <input
           #fileControl
           ng2FileSelect
@@ -89,7 +89,7 @@
       aria-label="Button to send the complaint"
     >
       <mat-icon> send </mat-icon>
-      {{ 'BTN_SUBMIT' | translate }}
+      {{ "BTN_SUBMIT" | translate }}
     </button>
   </mat-card>
 </main>
