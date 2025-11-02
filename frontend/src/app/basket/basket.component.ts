@@ -26,15 +26,15 @@ export class BasketComponent {
 
   constructor (private readonly router: Router, private readonly ngZone: NgZone) {}
 
-  checkout () {
+  checkout (): void {
     this.ngZone.run(async () => await this.router.navigate(['/address/select']))
   }
 
-  getProductCount (total) {
+  getProductCount (total : number): void {
     this.productCount = total
   }
 
-  getBonusPoints (total) {
+  getBonusPoints (total:[string,number]): void {
     sessionStorage.setItem('itemTotal', total[0])
     this.bonus = total[1]
   }
