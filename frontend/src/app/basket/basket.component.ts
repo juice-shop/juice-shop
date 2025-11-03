@@ -24,19 +24,19 @@ export class BasketComponent {
   private readonly router = inject(Router);
   private readonly ngZone = inject(NgZone);
 
-  public productCount = 0
-  public bonus = 0
+  public productCount: number = 0
+  public bonus: number = 0
 
-  checkout () {
+  checkout (): void {
     this.ngZone.run(async () => await this.router.navigate(['/address/select']))
   }
 
-  getProductCount (total) {
+  getProductCount (total: number): void {
     this.productCount = total
   }
 
-  getBonusPoints (total) {
-    sessionStorage.setItem('itemTotal', total[0])
+  getBonusPoints (total: [number, number]): void {
+    sessionStorage.setItem('itemTotal', total[0].toString())
     this.bonus = total[1]
   }
 }
