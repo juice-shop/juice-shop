@@ -1,0 +1,15 @@
+﻿name: sca-npm
+on:
+  push: { branches: ["**"] }
+  pull_request: { branches: ["main"] }
+jobs:
+  npm-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: "npm"
+      - run: npm install
+      - run: npm audit --audit-level=high

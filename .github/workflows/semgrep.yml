@@ -1,0 +1,19 @@
+﻿name: semgrep
+on:
+  push: { branches: ["**"] }
+  pull_request: { branches: ["main"] }
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: returntocorp/semgrep-action@v1
+        with:
+          config: >-
+            p/owasp-top-ten
+            p/javascript
+          generateSarif: true
+          publishResults: true
