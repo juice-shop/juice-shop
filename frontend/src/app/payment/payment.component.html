@@ -5,173 +5,254 @@
 
 <mat-card appearance="outlined" class="mat-own-card mat-elevation-z6">
   <div class="mdc-card">
-    <app-payment-method (emitSelection)="getMessage($event)" [allowDelete]="false"></app-payment-method>
+    <app-payment-method
+      (emitSelection)="getMessage($event)"
+      [allowDelete]="false"
+    ></app-payment-method>
     <mat-divider></mat-divider>
-    @if (mode !== 'wallet') {
-    <div class="mat-elevation-z0 custom-card">
-      <div class="row">
-        <div class="col col-42">
-          <span translate class="card-title">LABEL_PAY_USING_WALLET</span>
-        </div>
-        <div class="col col-38">
-          <b>
-            <span class="card-title" translate>LABEL_WALLET_BALANCE</span>
-            <span class="confirmation card-title"> {{ walletBalanceStr }}</span>
-          </b>
-        </div>
-        <div class="col col-20">
-          <button type="submit" color="primary" mat-raised-button class="btn" style="float: right;"
-            [disabled]="(walletBalance - totalPrice) < 0" (click)="useWallet()">
-            <i class="fas fa-hand-holding-usd fa-lg"></i> {{'LABEL_PAY' | translate}} {{ totalPrice?.toFixed(2) }}¤
-          </button>
+    @if (mode !== "wallet") {
+      <div class="mat-elevation-z0 custom-card">
+        <div class="row">
+          <div class="col col-42">
+            <span translate class="card-title">LABEL_PAY_USING_WALLET</span>
+          </div>
+          <div class="col col-38">
+            <b>
+              <span class="card-title" translate>LABEL_WALLET_BALANCE</span>
+              <span class="confirmation card-title">
+                {{ walletBalanceStr }}</span
+              >
+            </b>
+          </div>
+          <div class="col col-20">
+            <button
+              type="submit"
+              color="primary"
+              mat-raised-button
+              class="btn"
+              style="float: right"
+              [disabled]="walletBalance - totalPrice < 0"
+              (click)="useWallet()"
+            >
+              <i class="fas fa-hand-holding-usd fa-lg"></i>
+              {{ "LABEL_PAY" | translate }} {{ totalPrice?.toFixed(2) }}¤
+            </button>
+          </div>
         </div>
       </div>
-    </div>
     }
     <mat-divider></mat-divider>
-    @if (mode !== 'wallet') {
-    <mat-expansion-panel class="mat-elevation-z0" [expanded]="couponPanelExpanded" id="collapseCouponElement">
-      <mat-expansion-panel-header class="detail-divider">
-        <mat-panel-title>
-          {{"ADD_A_COUPON" | translate}}
-        </mat-panel-title>
-        <mat-panel-description>
-          {{"VOUCHERS_AND_PROMOTIONAL_CODE" | translate}}
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      @if (couponConfirmation && !couponControl.dirty) {
-      <div style="margin-top:5px;" class="confirmation">{{
-        couponConfirmation }}
-      </div>
-      }
-      @if (couponError && !couponControl.dirty) {
-      <div style="margin-top:5px;" class="error">{{couponError?.error}}
-      </div>
-      }
-      <mat-form-field appearance="outline" color="accent">
-        <mat-label translate>LABEL_COUPON</mat-label>
-        <mat-hint
-          [innerHtml]="'FOLLOW_FOR_MONTHLY_COUPONS' | translate:{blueSky: blueSkyUrl, reddit: redditUrl}">
-        </mat-hint>
-        <input #coupon id="coupon" [formControl]="couponControl" matInput type="text" placeholder="{{ 'ENTER_COUPON_CODE' | translate}}">
-        <mat-hint align="end">{{coupon.value?.length || 0}}/10</mat-hint>
-        @if (couponControl.invalid && (couponControl.errors.minlength || couponControl.errors.maxlength)) {
-        <mat-error>
-          {{'COUPON_CODE_HINT' | translate}}
-        </mat-error>
+    @if (mode !== "wallet") {
+      <mat-expansion-panel
+        class="mat-elevation-z0"
+        [expanded]="couponPanelExpanded"
+        id="collapseCouponElement"
+      >
+        <mat-expansion-panel-header class="detail-divider">
+          <mat-panel-title>
+            {{ "ADD_A_COUPON" | translate }}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{ "VOUCHERS_AND_PROMOTIONAL_CODE" | translate }}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        @if (couponConfirmation && !couponControl.dirty) {
+          <div style="margin-top: 5px" class="confirmation">
+            {{ couponConfirmation }}
+          </div>
         }
-      </mat-form-field>
-      <button type="submit" id="applyCouponButton" color="accent" style="margin-top:5px; float: right;"
-        (click)="applyCoupon()" [disabled]="couponControl.invalid" mat-raised-button>
-        <mat-icon>
-          redeem
-        </mat-icon>
-        {{'BTN_REDEEM' | translate}}
-      </button>
-    </mat-expansion-panel>
+        @if (couponError && !couponControl.dirty) {
+          <div style="margin-top: 5px" class="error">
+            {{ couponError?.error }}
+          </div>
+        }
+        <mat-form-field appearance="outline" color="accent">
+          <mat-label translate>LABEL_COUPON</mat-label>
+          <mat-hint
+            [innerHtml]="
+              'FOLLOW_FOR_MONTHLY_COUPONS'
+                | translate: { blueSky: blueSkyUrl, reddit: redditUrl }
+            "
+          >
+          </mat-hint>
+          <input
+            #coupon
+            id="coupon"
+            [formControl]="couponControl"
+            matInput
+            type="text"
+            placeholder="{{ 'ENTER_COUPON_CODE' | translate }}"
+          />
+          <mat-hint align="end">{{ coupon.value?.length || 0 }}/10</mat-hint>
+          @if (
+            couponControl.invalid &&
+            (couponControl.errors.minlength || couponControl.errors.maxlength)
+          ) {
+            <mat-error>
+              {{ "COUPON_CODE_HINT" | translate }}
+            </mat-error>
+          }
+        </mat-form-field>
+        <button
+          type="submit"
+          id="applyCouponButton"
+          color="accent"
+          style="margin-top: 5px; float: right"
+          (click)="applyCoupon()"
+          [disabled]="couponControl.invalid"
+          mat-raised-button
+        >
+          <mat-icon> redeem </mat-icon>
+          {{ "BTN_REDEEM" | translate }}
+        </button>
+      </mat-expansion-panel>
     }
     <mat-divider></mat-divider>
-    @if (mode !== 'wallet') {
-    <mat-expansion-panel class="mat-elevation-z0" [expanded]="paymentPanelExpanded">
-      <mat-expansion-panel-header class="detail-divider">
-        <mat-panel-title>
-          {{"OTHER_PAYMENT_OPTIONS" | translate}}
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="row responsive-row">
-        <div class="col col-34 mat-elevation-z0">
-          <div class="payment-label">
-            <label translate>LABEL_DONATIONS</label>
+    @if (mode !== "wallet") {
+      <mat-expansion-panel
+        class="mat-elevation-z0"
+        [expanded]="paymentPanelExpanded"
+      >
+        <mat-expansion-panel-header class="detail-divider">
+          <mat-panel-title>
+            {{ "OTHER_PAYMENT_OPTIONS" | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="row responsive-row">
+          <div class="col col-34 mat-elevation-z0">
+            <div class="payment-label">
+              <label translate>LABEL_DONATIONS</label>
+            </div>
+            <small>
+              (
+              @if (applicationName === "OWASP Juice Shop") {
+                <span
+                  translate
+                  [translateParams]="{ juiceshop: 'OWASP Juice Shop' }"
+                  >THANKS_FOR_SUPPORT</span
+                >
+              } @else {
+                <span translate [translateParams]="{ appname: applicationName }"
+                  >THANKS_FOR_SUPPORT_CUSTOMIZED</span
+                >
+              }
+              <i style="margin-left: 3px" class="fas fa-heart error"></i>)
+            </small>
+            <div class="button-container" style="margin-top: 6px">
+              <a
+                href="https://pwning.owasp-juice.shop/companion-guide/latest/part3/donations.html"
+              >
+                <button mat-stroked-button>
+                  <i class="fab fa-stripe fa-lg"></i>
+                  {{ "BTN_CREDIT_CARD" | translate }}
+                </button>
+              </a>
+              @if (false) {
+                <button mat-stroked-button (click)="showBitcoinQrCode()">
+                  <i class="fab fa-btc fa-lg"></i>
+                  Bitcoin
+                </button>
+              }
+              @if (false) {
+                <button mat-stroked-button (click)="showDashQrCode()">
+                  <i class="fa-lg">Ð</i> Dash
+                </button>
+              }
+              @if (false) {
+                <button mat-stroked-button (click)="showEtherQrCode()">
+                  <i class="fab fa-ethereum fa-lg"></i>
+                  Ether
+                </button>
+              }
+            </div>
           </div>
-          <small>
-            (@if (applicationName === 'OWASP Juice Shop') {
-              <span translate
-              [translateParams]="{juiceshop: 'OWASP Juice Shop'}">THANKS_FOR_SUPPORT</span>
-            } @else {
-              <span translate
-              [translateParams]="{appname: applicationName}">THANKS_FOR_SUPPORT_CUSTOMIZED</span>
-            }
-            <i style="margin-left: 3px;" class="fas fa-heart error"></i>)
-          </small>
-          <div class="button-container" style="margin-top: 6px;">
-            <a href="https://pwning.owasp-juice.shop/companion-guide/latest/part3/donations.html">
-              <button mat-stroked-button><i class="fab fa-stripe fa-lg"></i> {{'BTN_CREDIT_CARD' | translate}}</button>
-            </a>
-            @if (false) {
-            <button mat-stroked-button (click)="showBitcoinQrCode()"><i class="fab fa-btc fa-lg"></i>
-              Bitcoin
-            </button>
-            }
-            @if (false) {
-            <button mat-stroked-button (click)="showDashQrCode()"><i class="fa-lg">Ð</i> Dash</button>
-            }
-            @if (false) {
-            <button mat-stroked-button (click)="showEtherQrCode()"><i class="fab fa-ethereum fa-lg"></i>
-              Ether
-            </button>
-            }
+          <span class="fill-remaining-space"></span>
+          <div class="col col-65 mat-elevation-z0">
+            <div class="payment-label">
+              <label translate>LABEL_MERCHANDISE</label>
+            </div>
+            <small>
+              (
+              @if (applicationName === "OWASP Juice Shop") {
+                <span
+                  translate
+                  [translateParams]="{ juiceshop: 'OWASP Juice Shop' }"
+                  >OFFICIAL_MERCHANDISE_STORES</span
+                >
+              } @else {
+                <span translate [translateParams]="{ appname: applicationName }"
+                  >OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED</span
+                >
+              }
+              <i
+                style="margin-left: 3px"
+                class="fas fa-thumbs-up confirmation"
+              ></i
+              >)
+            </small>
+            <div class="button-container" style="margin-top: 6px">
+              <a href="./redirect?to=http://shop.spreadshirt.com/juiceshop">
+                <button mat-stroked-button>
+                  <i class="fas fa-tshirt fa-lg"></i> Spreadshirt (US)
+                </button>
+              </a>
+              <a href="./redirect?to=http://shop.spreadshirt.de/juiceshop">
+                <button mat-stroked-button>
+                  <i class="fas fa-tshirt fa-lg"></i> Spreadshirt (DE)
+                </button>
+              </a>
+              <a
+                href="./redirect?to=https://www.stickeryou.com/products/owasp-juice-shop/794"
+              >
+                <button mat-stroked-button>
+                  <i class="fas fa-sticky-note fa-lg"></i> StickerYou
+                </button>
+              </a>
+              <a href="./redirect?to=http://leanpub.com/juice-shop">
+                <button mat-stroked-button>
+                  <i class="fab fa-leanpub fa-lg"></i> Leanpub
+                </button>
+              </a>
+              <a href="https://opensea.io/collection/juice-shop">
+                <button mat-stroked-button>
+                  <i class="fas fa-palette fa-lg"></i> OpenSea
+                </button>
+              </a>
+            </div>
           </div>
         </div>
-        <span class="fill-remaining-space"></span>
-        <div class="col col-65 mat-elevation-z0">
-          <div class="payment-label">
-            <label translate>LABEL_MERCHANDISE</label>
-          </div>
-          <small>
-            (@if (applicationName === 'OWASP Juice Shop') {
-            <span translate
-              [translateParams]="{juiceshop: 'OWASP Juice Shop'}">OFFICIAL_MERCHANDISE_STORES</span>
-            } @else {
-            <span translate
-              [translateParams]="{appname: applicationName}">OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED</span>
-            }
-            <i style="margin-left: 3px;" class="fas fa-thumbs-up confirmation"></i>)
-          </small>
-          <div class="button-container" style="margin-top: 6px;">
-            <a href="./redirect?to=http://shop.spreadshirt.com/juiceshop">
-              <button mat-stroked-button><i class="fas fa-tshirt fa-lg"></i> Spreadshirt (US)</button>
-            </a>
-            <a href="./redirect?to=http://shop.spreadshirt.de/juiceshop">
-              <button mat-stroked-button><i class="fas fa-tshirt fa-lg"></i> Spreadshirt (DE)</button>
-            </a>
-            <a href="./redirect?to=https://www.stickeryou.com/products/owasp-juice-shop/794">
-              <button mat-stroked-button><i class="fas fa-sticky-note fa-lg"></i> StickerYou</button>
-            </a>
-            <a href="./redirect?to=http://leanpub.com/juice-shop">
-              <button mat-stroked-button><i class="fab fa-leanpub fa-lg"></i> Leanpub</button>
-            </a>
-            <a href="https://opensea.io/collection/juice-shop">
-              <button mat-stroked-button><i class="fas fa-palette fa-lg"></i> OpenSea</button>
-            </a>
-          </div>
-        </div>
-      </div>
-    </mat-expansion-panel>
+      </mat-expansion-panel>
     }
     <mat-divider></mat-divider>
-    <div style="margin-top: 20px; margin-bottom: 20px;">
-      <button mat-stroked-button class="btn btn-return" (click)="routeToPreviousUrl()">
-        <mat-icon>
-          navigate_before
-        </mat-icon>
-        {{'LABEL_BACK' | translate}}
+    <div style="margin-top: 20px; margin-bottom: 20px">
+      <button
+        mat-stroked-button
+        class="btn btn-return"
+        (click)="routeToPreviousUrl()"
+      >
+        <mat-icon> navigate_before </mat-icon>
+        {{ "LABEL_BACK" | translate }}
       </button>
-      <button mat-raised-button mat-button class="btn nextButton" color="primary" aria-label="Proceed to review"
-        [disabled]="paymentId === undefined && paymentMode !== 'wallet'" (click)="choosePayment()">
-        <mat-icon>
-          navigate_next
-        </mat-icon>
+      <button
+        mat-raised-button
+        mat-button
+        class="btn nextButton"
+        color="primary"
+        aria-label="Proceed to review"
+        [disabled]="paymentId === undefined && paymentMode !== 'wallet'"
+        (click)="choosePayment()"
+      >
+        <mat-icon> navigate_next </mat-icon>
         <span translate>LABEL_CONTINUE</span>
       </button>
-      <p style="text-align: center;margin-top: -27px;">
-        @if (mode !== 'deluxe' && mode !== 'wallet') {
-        <span translate>REVIEW_ALERT</span>
+      <p style="text-align: center; margin-top: -27px">
+        @if (mode !== "deluxe" && mode !== "wallet") {
+          <span translate>REVIEW_ALERT</span>
         }
-        @if (mode === 'wallet') {
-        <span translate>REVIEW_WALLET</span>
+        @if (mode === "wallet") {
+          <span translate>REVIEW_WALLET</span>
         }
       </p>
     </div>
   </div>
-
 </mat-card>

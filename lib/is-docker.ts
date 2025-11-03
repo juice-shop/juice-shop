@@ -1,31 +1,31 @@
 // from https://github.com/sindresorhus/is-docker/tree/main MIT Licensed
 // inlined to avoid import problems in cypress
 
-import fs from 'node:fs'
+import fs from "node:fs";
 
-let isDockerCached: boolean | undefined
+let isDockerCached: boolean | undefined;
 
-function hasDockerEnv () {
+function hasDockerEnv() {
   try {
-    fs.statSync('/.dockerenv')
-    return true
+    fs.statSync("/.dockerenv");
+    return true;
   } catch {
-    return false
+    return false;
   }
 }
 
-function hasDockerCGroup () {
+function hasDockerCGroup() {
   try {
-    return fs.readFileSync('/proc/self/cgroup', 'utf8').includes('docker')
+    return fs.readFileSync("/proc/self/cgroup", "utf8").includes("docker");
   } catch {
-    return false
+    return false;
   }
 }
 
-export default function isDocker () {
+export default function isDocker() {
   // TODO: Use `??=` when targeting Node.js 16.
   if (isDockerCached === undefined) {
-    isDockerCached = hasDockerEnv() || hasDockerCGroup()
+    isDockerCached = hasDockerEnv() || hasDockerCGroup();
   }
-  return isDockerCached
+  return isDockerCached;
 }

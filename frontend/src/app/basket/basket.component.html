@@ -5,11 +5,23 @@
 
 <mat-card appearance="outlined" class="mat-elevation-z6">
   <div class="mdc-card">
-    <app-purchase-basket [allowEdit]="true" (emitTotal)="getBonusPoints($event)"
-                        (emitProductCount)="getProductCount($event)"></app-purchase-basket>
-    <button id="checkoutButton" class="checkout-button" color="primary" [disabled]="productCount < 1" (click)="checkout()"
-            mat-raised-button><i class="fas fa-cart-arrow-down"></i> {{"BTN_CHECKOUT" | translate}}
+    <app-purchase-basket
+      [allowEdit]="true"
+      (emitTotal)="getBonusPoints($event)"
+      (emitProductCount)="getProductCount($event)"
+    ></app-purchase-basket>
+    <button
+      id="checkoutButton"
+      class="checkout-button"
+      color="primary"
+      [disabled]="productCount < 1"
+      (click)="checkout()"
+      mat-raised-button
+    >
+      <i class="fas fa-cart-arrow-down"></i> {{ "BTN_CHECKOUT" | translate }}
     </button>
-    <div class="hint" translate [translateParams]="{'bonus': bonus}">CHECKOUT_FOR_BONUS_POINTS</div>
+    <div class="hint" translate [translateParams]="{ bonus: bonus }">
+      CHECKOUT_FOR_BONUS_POINTS
+    </div>
   </div>
 </mat-card>

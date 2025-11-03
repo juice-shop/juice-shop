@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-import * as server from '../server'
+import * as server from "../server";
 
 export default async () => {
-  await server.start()
-}
+  await server.start();
+};

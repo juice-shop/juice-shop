@@ -209,9 +209,7 @@
     },
     {
       "intent": "queries.swallow",
-      "utterances": [
-        "What is the airspeed velocity of an unladen swallow"
-      ],
+      "utterances": ["What is the airspeed velocity of an unladen swallow"],
       "answers": [
         {
           "action": "response",
@@ -221,9 +219,7 @@
     },
     {
       "intent": "queries.functionTest",
-      "utterances": [
-        "function test command b8a8ba1ecea1607e1713e31a3d9e5e19"
-      ],
+      "utterances": ["function test command b8a8ba1ecea1607e1713e31a3d9e5e19"],
       "answers": [
         {
           "action": "function",

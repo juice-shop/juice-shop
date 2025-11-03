@@ -3,4 +3,4 @@
  * SPDX-License-Identifier: MIT
  */
 
-jest.setTimeout(10000) // eslint-disable-line
+jest.setTimeout(10000); // eslint-disable-line

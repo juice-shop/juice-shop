@@ -4,7 +4,7 @@ fixes:
   - id: 2
     explanation: 'Using the built-in binding (or replacement) mechanism of Sequelize is equivalent to creating a Prepared Statement. This prevents tampering with the query syntax through malicious user input as it is "set in stone" before the criteria parameter is inserted.'
   - id: 3
-    explanation: 'This fix unfortunately goes only half the way to using the replacement mechanism of Sequelize. Such a Prepared Statement still concatenated from user input, is still wide open for SQL Injection attacks.'
+    explanation: "This fix unfortunately goes only half the way to using the replacement mechanism of Sequelize. Such a Prepared Statement still concatenated from user input, is still wide open for SQL Injection attacks."
   - id: 4
     explanation: 'Turning off the "plain" flag will let Sequelize return all matching rows instead of just the first one. This neither makes sense from a functional point of view in a login function, not could it prevent SQL Injection attacks.'
 hints:

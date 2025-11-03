@@ -9,18 +9,18 @@ import {
   type InferCreationAttributes,
   DataTypes,
   type CreationOptional,
-  type Sequelize
-} from 'sequelize'
+  type Sequelize,
+} from "sequelize";
 
 class ImageCaptcha extends Model<
-InferAttributes<ImageCaptcha>,
-InferCreationAttributes<ImageCaptcha>
+  InferAttributes<ImageCaptcha>,
+  InferCreationAttributes<ImageCaptcha>
 > {
-  declare id: CreationOptional<number>
-  declare image: string
-  declare answer: string
-  declare UserId: number
-  declare createdAt: CreationOptional<Date>
+  declare id: CreationOptional<number>;
+  declare image: string;
+  declare answer: string;
+  declare UserId: number;
+  declare createdAt: CreationOptional<Date>;
 }
 
 const ImageCaptchaModelInit = (sequelize: Sequelize) => {
@@ -29,18 +29,18 @@ const ImageCaptchaModelInit = (sequelize: Sequelize) => {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
       image: DataTypes.STRING,
       answer: DataTypes.STRING,
       UserId: { type: DataTypes.INTEGER },
-      createdAt: DataTypes.DATE
+      createdAt: DataTypes.DATE,
     },
     {
-      tableName: 'ImageCaptchas',
-      sequelize
-    }
-  )
-}
+      tableName: "ImageCaptchas",
+      sequelize,
+    },
+  );
+};
 
-export { ImageCaptcha as ImageCaptchaModel, ImageCaptchaModelInit }
+export { ImageCaptcha as ImageCaptchaModel, ImageCaptchaModelInit };

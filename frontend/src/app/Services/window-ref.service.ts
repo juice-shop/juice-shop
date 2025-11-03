@@ -3,17 +3,17 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Injectable } from '@angular/core'
+import { Injectable } from "@angular/core";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class WindowRefService {
-  get nativeWindow (): any {
-    return getWindow()
+  get nativeWindow(): any {
+    return getWindow();
   }
 }
 
-function getWindow (): any {
-  return window
+function getWindow(): any {
+  return window;
 }

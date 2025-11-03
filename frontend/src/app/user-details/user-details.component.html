@@ -5,7 +5,7 @@
 
 <mat-dialog-content>
   <header>
-    <h1>{{"LABEL_USER" | translate}} #{{user?.id}}</h1>
+    <h1>{{ "LABEL_USER" | translate }} #{{ user?.id }}</h1>
   </header>
   <mat-divider></mat-divider>
 
@@ -13,7 +13,7 @@
     <div class="row">
       <div>
         <strong translate="LABEL_EMAIL"></strong>
-        <p>{{user?.email}}</p>
+        <p>{{ user?.email }}</p>
       </div>
       <!--<div>
         <strong translate="LABEL_PASSWORD"></strong>
@@ -24,22 +24,27 @@
     <div class="row">
       <div>
         <strong translate="LABEL_CREATED_AT"></strong>
-        <p>{{user?.createdAt}}</p>
+        <p>{{ user?.createdAt }}</p>
       </div>
       <div>
         <strong translate="LABEL_UPDATED_AT"></strong>
-        <p>{{user?.updatedAt}}</p>
+        <p>{{ user?.updatedAt }}</p>
       </div>
     </div>
   </div>
 
   <mat-dialog-actions align="end" class="dialogAction">
-    <button mat-button style="height: 0; position: absolute;">
+    <button mat-button style="height: 0; position: absolute">
       <!-- 'absorbs' the auto-focus behavior -->
     </button>
-    <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="Close Dialog">
+    <button
+      mat-stroked-button
+      mat-dialog-close
+      class="close-dialog buttons"
+      aria-label="Close Dialog"
+    >
       <mat-icon>close</mat-icon>
-      <span>{{'BTN_CLOSE' | translate}}</span>
+      <span>{{ "BTN_CLOSE" | translate }}</span>
     </button>
   </mat-dialog-actions>
 </mat-dialog-content>

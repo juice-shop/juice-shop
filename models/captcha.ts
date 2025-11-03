@@ -8,32 +8,32 @@ import {
   type InferAttributes,
   type InferCreationAttributes,
   DataTypes,
-  type Sequelize
-} from 'sequelize'
+  type Sequelize,
+} from "sequelize";
 
 class Captcha extends Model<
-InferAttributes<Captcha>,
-InferCreationAttributes<Captcha>
+  InferAttributes<Captcha>,
+  InferCreationAttributes<Captcha>
 > {
-  declare captchaId: number
-  declare captcha: string
-  declare answer: string
+  declare captchaId: number;
+  declare captcha: string;
+  declare answer: string;
 }
 
 const CaptchaModelInit = (sequelize: Sequelize) => {
   Captcha.init(
     {
       captchaId: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
       },
       captcha: DataTypes.STRING,
-      answer: DataTypes.STRING
+      answer: DataTypes.STRING,
     },
     {
-      tableName: 'Captchas',
-      sequelize
-    }
-  )
-}
+      tableName: "Captchas",
+      sequelize,
+    },
+  );
+};
 
-export { Captcha as CaptchaModel, CaptchaModelInit }
+export { Captcha as CaptchaModel, CaptchaModelInit };

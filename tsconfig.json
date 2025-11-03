@@ -12,9 +12,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "lib": [
-      "es2020"
-    ]
+    "lib": ["es2020"]
   },
   "include": [
     "cypress/**/*.ts",

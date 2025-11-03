@@ -10,42 +10,42 @@ import {
   type InferCreationAttributes,
   DataTypes,
   type CreationOptional,
-  type Sequelize
-} from 'sequelize'
+  type Sequelize,
+} from "sequelize";
 
 class Wallet extends Model<
-InferAttributes<Wallet>,
-InferCreationAttributes<Wallet>
+  InferAttributes<Wallet>,
+  InferCreationAttributes<Wallet>
 > {
-  declare UserId: number
-  declare id: CreationOptional<number>
-  declare balance: CreationOptional<number>
+  declare UserId: number;
+  declare id: CreationOptional<number>;
+  declare balance: CreationOptional<number>;
 }
 
 const WalletModelInit = (sequelize: Sequelize) => {
   Wallet.init(
     {
       UserId: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
       },
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
       balance: {
         type: DataTypes.INTEGER,
         validate: {
-          isInt: true
+          isInt: true,
         },
-        defaultValue: 0
-      }
+        defaultValue: 0,
+      },
     },
     {
-      tableName: 'Wallets',
-      sequelize
-    }
-  )
-}
+      tableName: "Wallets",
+      sequelize,
+    },
+  );
+};
 
-export { Wallet as WalletModel, WalletModelInit }
+export { Wallet as WalletModel, WalletModelInit };

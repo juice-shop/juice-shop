@@ -1,9 +1,9 @@
-import { type EnrichedChallenge } from '../types/EnrichedChallenge'
+import { type EnrichedChallenge } from "../types/EnrichedChallenge";
 
-import sortBy from 'lodash-es/sortBy'
+import sortBy from "lodash-es/sortBy";
 
-export function sortChallenges (
-  challenges: EnrichedChallenge[]
+export function sortChallenges(
+  challenges: EnrichedChallenge[],
 ): EnrichedChallenge[] {
-  return sortBy(challenges, ['difficulty', 'tutorialOrder', 'name'])
+  return sortBy(challenges, ["difficulty", "tutorialOrder", "name"]);
 }

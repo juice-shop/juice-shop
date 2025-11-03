@@ -3,25 +3,25 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { type Request, type Response, type NextFunction } from 'express'
-import { MemoryModel } from '../models/memory'
-import { UserModel } from '../models/user'
+import { type Request, type Response, type NextFunction } from "express";
+import { MemoryModel } from "../models/memory";
+import { UserModel } from "../models/user";
 
-export function addMemory () {
+export function addMemory() {
   return async (req: Request, res: Response, next: NextFunction) => {
     const record = {
       caption: req.body.caption,
-      imagePath: 'assets/public/images/uploads/' + req.file?.filename,
-      UserId: req.body.UserId
-    }
-    const memory = await MemoryModel.create(record)
-    res.status(200).json({ status: 'success', data: memory })
-  }
+      imagePath: "assets/public/images/uploads/" + req.file?.filename,
+      UserId: req.body.UserId,
+    };
+    const memory = await MemoryModel.create(record);
+    res.status(200).json({ status: "success", data: memory });
+  };
 }
 
-export function getMemories () {
+export function getMemories() {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const memories = await MemoryModel.findAll({ include: [UserModel] })
-    res.status(200).json({ status: 'success', data: memories })
-  }
+    const memories = await MemoryModel.findAll({ include: [UserModel] });
+    res.status(200).json({ status: "success", data: memories });
+  };
 }

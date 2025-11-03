@@ -1,13 +1,13 @@
 fixes:
   - id: 1
-    explanation: 'Wrong!'
+    explanation: "Wrong!"
   - id: 2
-    explanation: 'Correct!'
+    explanation: "Correct!"
   - id: 3
-    explanation: 'Wrong!'
+    explanation: "Wrong!"
   - id: 4
-    explanation: 'Wrong!'
+    explanation: "Wrong!"
 hints:
-  - 'Hint1'
-  - 'Hint2'
-  - 'Hint3'
+  - "Hint1"
+  - "Hint2"
+  - "Hint3"

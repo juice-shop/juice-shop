@@ -1,10 +1,9 @@
 ---
 name: "\U0001F680Feature request"
 about: Suggest a feature for OWASP Juice Shop
-title: '[🚀] '
+title: "[🚀] "
 labels: feature
-assignees: ''
-
+assignees: ""
 ---
 
 <!--🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅
@@ -20,11 +19,9 @@ Existing issues often contain information about workarounds, resolution, or prog
 
 <!-- ✍️--> A clear and concise description of the problem or missing capability...
 
-
 ### Solution ideas
 
 <!-- ✍️--> If you have a solution in mind, please describe it.
-
 
 ### Possible alternatives
 

@@ -4,38 +4,40 @@
  */
 
 import {
-  waitInMs, waitForAngularRouteToBeVisited, waitForElementToGetClicked, waitForLogIn
-} from '../helpers/helpers'
-import { type ChallengeInstruction } from '../'
+  waitInMs,
+  waitForAngularRouteToBeVisited,
+  waitForElementToGetClicked,
+  waitForLogIn,
+} from "../helpers/helpers";
+import { type ChallengeInstruction } from "../";
 
 export const PrivacyPolicyInstruction: ChallengeInstruction = {
-  name: 'Privacy Policy',
+  name: "Privacy Policy",
   hints: [
     {
-      text:
-        'Log in with any user to begin this challenge. You can use an existing or freshly registered account.',
-      fixture: 'app-navbar',
+      text: "Log in with any user to begin this challenge. You can use an existing or freshly registered account.",
+      fixture: "app-navbar",
       fixtureAfter: true,
       unskippable: true,
-      resolved: waitForLogIn()
+      resolved: waitForLogIn(),
     },
     {
-      text:
-        'Great, you are logged in! Now open the _Account_ menu.',
-      fixture: '#navbarAccount',
-      resolved: waitForElementToGetClicked('#navbarAccount')
+      text: "Great, you are logged in! Now open the _Account_ menu.",
+      fixture: "#navbarAccount",
+      resolved: waitForElementToGetClicked("#navbarAccount"),
     },
     {
-      text:
-        'Open the _Privacy & Security_ sub-menu and click _Privacy Policy_.',
-      fixture: 'app-navbar',
+      text: "Open the _Privacy & Security_ sub-menu and click _Privacy Policy_.",
+      fixture: "app-navbar",
       unskippable: true,
-      resolved: waitForAngularRouteToBeVisited('privacy-security/privacy-policy')
+      resolved: waitForAngularRouteToBeVisited(
+        "privacy-security/privacy-policy",
+      ),
     },
     {
-      text: '🎉 That was super easy, right? This challenge is a bit of a joke actually, because nobody reads any fine print online... 🙈',
-      fixture: 'app-navbar',
-      resolved: waitInMs(60000)
-    }
-  ]
-}
+      text: "🎉 That was super easy, right? This challenge is a bit of a joke actually, because nobody reads any fine print online... 🙈",
+      fixture: "app-navbar",
+      resolved: waitInMs(60000),
+    },
+  ],
+};

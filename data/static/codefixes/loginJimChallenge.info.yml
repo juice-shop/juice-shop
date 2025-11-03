@@ -4,7 +4,7 @@ fixes:
   - id: 2
     explanation: 'Turning off the "plain" flag will let Sequelize return all matching rows instead of just the first one. This neither makes sense from a functional point of view in a login function, not could it prevent SQL Injection attacks.'
   - id: 3
-    explanation: 'This fix uses the binding mechanism of Sequelize to create the equivalent of a Prepared Statement, which is great. Unfortunately this fix also introduces a critical functional bug into the authentication process.'
+    explanation: "This fix uses the binding mechanism of Sequelize to create the equivalent of a Prepared Statement, which is great. Unfortunately this fix also introduces a critical functional bug into the authentication process."
   - id: 4
     explanation: "Trying to prevent any injection attacks with a custom-built blocklist mechanism is doomed to fail. It might work for some simpler attack payloads but an attacker with time and skills can likely bypass it at some point."
 hints:

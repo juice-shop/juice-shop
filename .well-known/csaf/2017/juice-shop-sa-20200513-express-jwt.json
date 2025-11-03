@@ -75,18 +75,14 @@
         }
       ],
       "product_status": {
-        "known_affected": [
-          "juice-shop/juice-shop"
-        ]
+        "known_affected": ["juice-shop/juice-shop"]
       },
       "remediations": [
         {
           "category": "workaround",
           "date": "2020-07-01T10:00:00.000Z",
           "details": "Check for the expected JWT algorithm type in a WAF/Proxy/Loadbalancer in front of the Juice Shop.",
-          "product_ids": [
-            "juice-shop/juice-shop"
-          ],
+          "product_ids": ["juice-shop/juice-shop"],
           "url": "https://github.com/advisories/GHSA-6g6m-m6h5-w9gf"
         }
       ],
@@ -110,9 +106,7 @@
             "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
             "version": "3.1"
           },
-          "products": [
-            "juice-shop/juice-shop"
-          ]
+          "products": ["juice-shop/juice-shop"]
         }
       ],
       "title": "CVE-2020-15084"

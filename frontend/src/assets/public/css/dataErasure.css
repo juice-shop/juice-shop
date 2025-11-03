@@ -24,7 +24,7 @@ p,
 h5 {
   color: whitesmoke;
 }
-.deleteButton{
+.deleteButton {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -126,14 +126,14 @@ i {
 }
 
 @media only screen and (max-width: 650px) {
-  .formBlock{
+  .formBlock {
     width: 500px;
     height: 420px;
   }
 }
 
 @media only screen and (max-width: 440px) {
-  .formBlock{
+  .formBlock {
     width: 370px;
     height: 480px;
   }

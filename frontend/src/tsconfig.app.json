@@ -6,10 +6,6 @@
     "allowSyntheticDefaultImports": true,
     "types": []
   },
-  "files": [
-    "main.ts"
-  ],
-  "include": [
-    "**/*.d.ts"
-  ]
+  "files": ["main.ts"],
+  "include": ["**/*.d.ts"]
 }

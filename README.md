@@ -36,15 +36,15 @@ For a detailed introduction, full list of features and architecture overview ple
 ## Table of contents
 
 - [Setup](#setup)
-    - [From Sources](#from-sources)
-    - [Packaged Distributions](#packaged-distributions)
-    - [Docker Container](#docker-container)
-    - [Vagrant](#vagrant)
+  - [From Sources](#from-sources)
+  - [Packaged Distributions](#packaged-distributions)
+  - [Docker Container](#docker-container)
+  - [Vagrant](#vagrant)
 - [Demo](#demo)
 - [Documentation](#documentation)
-    - [Node.js version compatibility](#nodejs-version-compatibility)
-    - [Troubleshooting](#troubleshooting)
-    - [Official companion guide](#official-companion-guide)
+  - [Node.js version compatibility](#nodejs-version-compatibility)
+  - [Troubleshooting](#troubleshooting)
+  - [Official companion guide](#official-companion-guide)
 - [Contributing](#contributing)
 - [References](#references)
 - [Merchandise](#merchandise)
@@ -92,10 +92,8 @@ For a detailed introduction, full list of features and architecture overview ple
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/bkimminich/juice-shop.svg)](https://hub.docker.com/r/bkimminich/juice-shop)
 ![Docker Stars](https://img.shields.io/docker/stars/bkimminich/juice-shop.svg)
-[![](https://images.microbadger.com/badges/image/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop
-"Get your own image badge on microbadger.com")
-[![](https://images.microbadger.com/badges/version/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop
-"Get your own version badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop "Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/version/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop "Get your own version badge on microbadger.com")
 
 1. Install [Docker](https://www.docker.com)
 2. Run `docker pull bkimminich/juice-shop`
@@ -118,8 +116,8 @@ For a detailed introduction, full list of features and architecture overview ple
 Feel free to have a look at the latest version of OWASP Juice Shop:
 <http://demo.owasp-juice.shop>
 
-> This is a deployment-test and sneak-peek instance only! You are __not
-> supposed__ to use this instance for your own hacking endeavours! No
+> This is a deployment-test and sneak-peek instance only! You are **not
+> supposed** to use this instance for your own hacking endeavours! No
 > guaranteed uptime! Guaranteed stern looks if you break it!
 
 ## Documentation
@@ -135,7 +133,7 @@ OWASP Juice Shop officially supports the following versions of
 offered accordingly.
 
 | node.js | Supported              | Tested             | [Packaged Distributions](#packaged-distributions) | [Docker images](#docker-container) from `master` | [Docker images](#docker-container) from `develop` |
-|:--------|:-----------------------|:-------------------|:--------------------------------------------------|:-------------------------------------------------|:--------------------------------------------------|
+| :------ | :--------------------- | :----------------- | :------------------------------------------------ | :----------------------------------------------- | :------------------------------------------------ |
 | 25.x    | :x:                    | :x:                |                                                   |                                                  |                                                   |
 | 24.x    | :heavy_check_mark:     | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
 | 23.x    | ( :heavy_check_mark: ) | :x:                |                                                   |                                                  |                                                   |
@@ -201,10 +199,10 @@ Add it to our ever-growing list of [REFERENCES.md](REFERENCES.md) by forking and
 
 ## Merchandise
 
-* On [Spreadshirt.com](http://shop.spreadshirt.com/juiceshop) and
+- On [Spreadshirt.com](http://shop.spreadshirt.com/juiceshop) and
   [Spreadshirt.de](http://shop.spreadshirt.de/juiceshop) you can get some swag (Shirts, Hoodies, Mugs) with the official
   OWASP Juice Shop logo
-* On
+- On
   [StickerYou.com](https://www.stickeryou.com/products/owasp-juice-shop/794)
   you can get variants of the OWASP Juice Shop logo as single stickers to decorate your laptop with. They can also print
   magnets, iron-ons, sticker sheets and temporary tattoos.

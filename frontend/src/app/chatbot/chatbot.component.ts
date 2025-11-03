@@ -3,125 +3,145 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { ChatbotService } from '../Services/chatbot.service'
-import { UserService } from '../Services/user.service'
-import { Component, type OnDestroy, type OnInit } from '@angular/core'
-import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faBomb } from '@fortawesome/free-solid-svg-icons'
-import { FormSubmitService } from '../Services/form-submit.service'
-import { TranslateService, TranslateModule } from '@ngx-translate/core'
-import { CookieService } from 'ngy-cookie'
-import { MatInputModule } from '@angular/material/input'
-import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
+import { ChatbotService } from "../Services/chatbot.service";
+import { UserService } from "../Services/user.service";
+import { Component, type OnDestroy, type OnInit } from "@angular/core";
+import {
+  UntypedFormControl,
+  FormsModule,
+  ReactiveFormsModule,
+} from "@angular/forms";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faBomb } from "@fortawesome/free-solid-svg-icons";
+import { FormSubmitService } from "../Services/form-submit.service";
+import { TranslateService, TranslateModule } from "@ngx-translate/core";
+import { CookieService } from "ngy-cookie";
+import { MatInputModule } from "@angular/material/input";
+import { MatFormFieldModule, MatLabel } from "@angular/material/form-field";
 
-import { MatCardModule } from '@angular/material/card'
+import { MatCardModule } from "@angular/material/card";
 
-library.add(faBomb)
+library.add(faBomb);
 
 enum MessageSources {
-  user = 'user',
-  bot = 'bot'
+  user = "user",
+  bot = "bot",
 }
 
 interface ChatMessage {
-  author: MessageSources.user | MessageSources.bot
-  body: string
+  author: MessageSources.user | MessageSources.bot;
+  body: string;
 }
 
 interface MessageActions {
-  response: string
-  namequery: string
+  response: string;
+  namequery: string;
 }
 
 @Component({
-  selector: 'app-chatbot',
-  templateUrl: './chatbot.component.html',
-  styleUrls: ['./chatbot.component.scss'],
-  imports: [MatCardModule, MatFormFieldModule, MatLabel, TranslateModule, MatInputModule, FormsModule, ReactiveFormsModule]
+  selector: "app-chatbot",
+  templateUrl: "./chatbot.component.html",
+  styleUrls: ["./chatbot.component.scss"],
+  imports: [
+    MatCardModule,
+    MatFormFieldModule,
+    MatLabel,
+    TranslateModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
 export class ChatbotComponent implements OnInit, OnDestroy {
-  public messageControl: UntypedFormControl = new UntypedFormControl()
-  public messages: ChatMessage[] = []
-  public juicyImageSrc: string = 'assets/public/images/ChatbotAvatar.png'
-  public profileImageSrc: string = 'assets/public/images/uploads/default.svg'
+  public messageControl: UntypedFormControl = new UntypedFormControl();
+  public messages: ChatMessage[] = [];
+  public juicyImageSrc: string = "assets/public/images/ChatbotAvatar.png";
+  public profileImageSrc: string = "assets/public/images/uploads/default.svg";
   public messageActions: MessageActions = {
-    response: 'query',
-    namequery: 'setname'
-  }
+    response: "query",
+    namequery: "setname",
+  };
 
-  public currentAction: string = this.messageActions.response
+  public currentAction: string = this.messageActions.response;
 
-  private chatScrollDownTimeoutId: ReturnType<typeof setTimeout> | null = null
+  private chatScrollDownTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
-  constructor (private readonly userService: UserService, private readonly chatbotService: ChatbotService, private readonly cookieService: CookieService, private readonly formSubmitService: FormSubmitService, private readonly translate: TranslateService) { }
+  constructor(
+    private readonly userService: UserService,
+    private readonly chatbotService: ChatbotService,
+    private readonly cookieService: CookieService,
+    private readonly formSubmitService: FormSubmitService,
+    private readonly translate: TranslateService,
+  ) {}
 
-  ngOnDestroy (): void {
+  ngOnDestroy(): void {
     if (this.chatScrollDownTimeoutId) {
-      clearTimeout(this.chatScrollDownTimeoutId)
+      clearTimeout(this.chatScrollDownTimeoutId);
     }
   }
 
-  ngOnInit (): void {
+  ngOnInit(): void {
     this.chatbotService.getChatbotStatus().subscribe((response) => {
       this.messages.push({
         author: MessageSources.bot,
-        body: response.body
-      })
+        body: response.body,
+      });
       if (response.action) {
-        this.currentAction = this.messageActions[response.action]
+        this.currentAction = this.messageActions[response.action];
       }
-    })
+    });
 
     this.userService.whoAmI().subscribe({
       next: (user: any) => {
-        this.profileImageSrc = user.profileImage
+        this.profileImageSrc = user.profileImage;
       },
       error: (err) => {
-        console.log(err)
-      }
-    })
+        console.log(err);
+      },
+    });
   }
 
-  handleResponse (response) {
+  handleResponse(response) {
     this.messages.push({
       author: MessageSources.bot,
-      body: response.body
-    })
-    this.currentAction = this.messageActions[response.action]
+      body: response.body,
+    });
+    this.currentAction = this.messageActions[response.action];
     if (response.token) {
-      localStorage.setItem('token', response.token)
-      const expires = new Date()
-      expires.setHours(expires.getHours() + 8)
-      this.cookieService.put('token', response.token, { expires })
+      localStorage.setItem("token", response.token);
+      const expires = new Date();
+      expires.setHours(expires.getHours() + 8);
+      this.cookieService.put("token", response.token, { expires });
     }
   }
 
-  sendMessage () {
-    const messageBody = this.messageControl.value
+  sendMessage() {
+    const messageBody = this.messageControl.value;
     if (messageBody) {
       this.messages.push({
         author: MessageSources.user,
-        body: messageBody
-      })
-      this.messageControl.setValue('')
+        body: messageBody,
+      });
+      this.messageControl.setValue("");
       this.chatbotService.getChatbotStatus().subscribe((response) => {
         if (!response.status && !response.action) {
           this.messages.push({
             author: MessageSources.bot,
-            body: response.body
-          })
+            body: response.body,
+          });
         } else {
-          this.chatbotService.getResponse(this.currentAction, messageBody).subscribe((response) => {
-            this.handleResponse(response)
-          })
+          this.chatbotService
+            .getResponse(this.currentAction, messageBody)
+            .subscribe((response) => {
+              this.handleResponse(response);
+            });
         }
         this.chatScrollDownTimeoutId = setTimeout(() => {
-          const chat = document.getElementById('chat-window')
-          chat.scrollTop = chat.scrollHeight
-          this.chatScrollDownTimeoutId = null
-        }, 250)
-      })
+          const chat = document.getElementById("chat-window");
+          chat.scrollTop = chat.scrollHeight;
+          this.chatScrollDownTimeoutId = null;
+        }, 250);
+      });
     }
   }
 }

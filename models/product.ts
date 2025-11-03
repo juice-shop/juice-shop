@@ -4,31 +4,31 @@
  */
 
 /* jslint node: true */
-import * as utils from '../lib/utils'
-import * as challengeUtils from '../lib/challengeUtils'
+import * as utils from "../lib/utils";
+import * as challengeUtils from "../lib/challengeUtils";
 import {
   Model,
   type InferAttributes,
   type InferCreationAttributes,
   DataTypes,
   type CreationOptional,
-  type Sequelize
-} from 'sequelize'
-import { type BasketItemModel } from './basketitem'
-import { challenges } from '../data/datacache'
-import * as security from '../lib/insecurity'
+  type Sequelize,
+} from "sequelize";
+import { type BasketItemModel } from "./basketitem";
+import { challenges } from "../data/datacache";
+import * as security from "../lib/insecurity";
 
 class Product extends Model<
-InferAttributes<Product>,
-InferCreationAttributes<Product>
+  InferAttributes<Product>,
+  InferCreationAttributes<Product>
 > {
-  declare id: CreationOptional<number>
-  declare name: string
-  declare description: string
-  declare price: number
-  declare deluxePrice: number
-  declare image: string
-  declare BasketItem?: CreationOptional<BasketItemModel> // Note this is optional since it's only populated when explicitly requested in code
+  declare id: CreationOptional<number>;
+  declare name: string;
+  declare description: string;
+  declare price: number;
+  declare deluxePrice: number;
+  declare image: string;
+  declare BasketItem?: CreationOptional<BasketItemModel>; // Note this is optional since it's only populated when explicitly requested in code
 }
 
 const ProductModelInit = (sequelize: Sequelize) => {
@@ -37,35 +37,35 @@ const ProductModelInit = (sequelize: Sequelize) => {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
       name: DataTypes.STRING,
       description: {
         type: DataTypes.STRING,
-        set (description: string) {
+        set(description: string) {
           if (utils.isChallengeEnabled(challenges.restfulXssChallenge)) {
             challengeUtils.solveIf(challenges.restfulXssChallenge, () => {
               return utils.contains(
                 description,
-                '<iframe src="javascript:alert(`xss`)">'
-              )
-            })
+                '<iframe src="javascript:alert(`xss`)">',
+              );
+            });
           } else {
-            description = security.sanitizeSecure(description)
+            description = security.sanitizeSecure(description);
           }
-          this.setDataValue('description', description)
-        }
+          this.setDataValue("description", description);
+        },
       },
       price: DataTypes.DECIMAL,
       deluxePrice: DataTypes.DECIMAL,
-      image: DataTypes.STRING
+      image: DataTypes.STRING,
     },
     {
-      tableName: 'Products',
+      tableName: "Products",
       sequelize,
-      paranoid: true
-    }
-  )
-}
+      paranoid: true,
+    },
+  );
+};
 
-export { Product as ProductModel, ProductModelInit }
+export { Product as ProductModel, ProductModelInit };

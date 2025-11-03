@@ -3,31 +3,36 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { environment } from '../../environments/environment'
-import { Injectable } from '@angular/core'
-import { HttpClient } from '@angular/common/http'
-import { catchError, map } from 'rxjs/operators'
-import { type Observable } from 'rxjs'
+import { environment } from "../../environments/environment";
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { catchError, map } from "rxjs/operators";
+import { type Observable } from "rxjs";
 
 export interface CodeSnippet {
-  vulnLines?: number[]
-  snippet: string
+  vulnLines?: number[];
+  snippet: string;
 }
 
 export interface Solved {
-  challenges: string[]
+  challenges: string[];
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class CodeSnippetService {
-  private readonly hostServer = environment.hostServer
-  private readonly host = this.hostServer + '/snippets'
+  private readonly hostServer = environment.hostServer;
+  private readonly host = this.hostServer + "/snippets";
 
-  constructor (private readonly http: HttpClient) { }
+  constructor(private readonly http: HttpClient) {}
 
-  get (key: string): Observable<CodeSnippet> {
-    return this.http.get<CodeSnippet>(`${this.host}/${key}`).pipe(map((response: CodeSnippet) => response), catchError((err) => { throw err }))
+  get(key: string): Observable<CodeSnippet> {
+    return this.http.get<CodeSnippet>(`${this.host}/${key}`).pipe(
+      map((response: CodeSnippet) => response),
+      catchError((err) => {
+        throw err;
+      }),
+    );
   }
 }

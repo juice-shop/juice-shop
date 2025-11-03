@@ -23,12 +23,12 @@ h3 {
   display: table;
 }
 
-.breakLine>div {
+.breakLine > div {
   display: table-cell;
   white-space: nowrap;
 }
 
-.line>div {
+.line > div {
   border-bottom: 1px solid silver;
   height: 1px;
 }
@@ -57,4 +57,3 @@ h3 {
 ::placeholder {
   font-size: 0.66em;
 }
-

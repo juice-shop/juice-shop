@@ -2,13 +2,23 @@
   { "key": "en", "icons": ["gb", "us"], "shortKey": "EN", "lang": "English" },
   { "key": "ar_SA", "icons": ["ae", "tn"], "shortKey": "AR", "lang": "عربى" },
   { "key": "az_AZ", "icons": ["az"], "shortKey": "AZ", "lang": "Azərbaycanca" },
-  { "key": "bg_BG", "icons": ["bg"], "shortKey": "BG", "lang": "български (език)" },
+  {
+    "key": "bg_BG",
+    "icons": ["bg"],
+    "shortKey": "BG",
+    "lang": "български (език)"
+  },
   { "key": "bn_BD", "icons": ["bd"], "shortKey": "BD", "lang": "বাংলা" },
   { "key": "ca_ES", "icons": ["es-ct"], "shortKey": "CA", "lang": "Catalan" },
   { "key": "cs_CZ", "icons": ["cz"], "shortKey": "CS", "lang": "Česky" },
   { "key": "da_DK", "icons": ["dk"], "shortKey": "DA", "lang": "Dansk" },
   { "key": "de_DE", "icons": ["de"], "shortKey": "DE", "lang": "Deutsch" },
-  { "key": "de_CH", "icons": ["ch"], "shortKey": "CH", "lang": "Schwizerdütsch" },
+  {
+    "key": "de_CH",
+    "icons": ["ch"],
+    "shortKey": "CH",
+    "lang": "Schwizerdütsch"
+  },
   { "key": "ga_IE", "icons": ["ie"], "shortKey": "GA", "lang": "Gaeilge" },
   { "key": "el_GR", "icons": ["gr"], "shortKey": "EL", "lang": "Ελληνικά" },
   { "key": "es_ES", "icons": ["es"], "shortKey": "ES", "lang": "Español" },
@@ -19,7 +29,12 @@
   { "key": "he_IL", "icons": ["il"], "shortKey": "HE", "lang": "עברית" },
   { "key": "hi_IN", "icons": ["in"], "shortKey": "HI", "lang": "हिंदी" },
   { "key": "hu_HU", "icons": ["hu"], "shortKey": "HU", "lang": "Magyar" },
-  { "key": "id_ID", "icons": ["id"], "shortKey": "ID", "lang": "Bahasa Indonesia" },
+  {
+    "key": "id_ID",
+    "icons": ["id"],
+    "shortKey": "ID",
+    "lang": "Bahasa Indonesia"
+  },
   { "key": "it_IT", "icons": ["it"], "shortKey": "IT", "lang": "Italiano" },
   { "key": "ja_JP", "icons": ["jp"], "shortKey": "JA", "lang": "日本語" },
   { "key": "ko_KR", "icons": ["kr"], "shortKey": "KO", "lang": "영어" },
@@ -29,7 +44,12 @@
   { "key": "no_NO", "icons": ["no"], "shortKey": "NO", "lang": "Norsk" },
   { "key": "pl_PL", "icons": ["pl"], "shortKey": "PL", "lang": "Język Polski" },
   { "key": "pt_PT", "icons": ["pt"], "shortKey": "PT", "lang": "Português" },
-  { "key": "pt_BR", "icons": ["br"], "shortKey": "BR", "lang": "Português (Brasil)" },
+  {
+    "key": "pt_BR",
+    "icons": ["br"],
+    "shortKey": "BR",
+    "lang": "Português (Brasil)"
+  },
   { "key": "ro_RO", "icons": ["ro"], "shortKey": "RO", "lang": "Românesc" },
   { "key": "ru_RU", "icons": ["ru"], "shortKey": "RU", "lang": "Pусский" },
   { "key": "si_LK", "icons": ["si"], "shortKey": "SI", "lang": "සිංහල" },

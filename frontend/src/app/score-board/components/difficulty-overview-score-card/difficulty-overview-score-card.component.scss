@@ -26,14 +26,14 @@ $vertical-padding: 8px;
 
   padding: $vertical-padding 12px;
   row-gap: 2px;
-  
+
   .difficulty-container {
     align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
-  
+
   .total-challenges {
     color: var(--theme-text-invert-30);
   }

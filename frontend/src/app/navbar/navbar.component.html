@@ -4,18 +4,30 @@
 -->
 
 <mat-toolbar class="mat-elevation-z6 navbar-toolbar" color="primary">
-
   <mat-toolbar-row class="navbar-row">
-
-    <button (click)="onToggleSidenav()" mat-icon-button style="height:48px; width: 48px;" aria-label="Open Sidenav"
-      matTooltip="{{ 'SIDENAV_HINT' | translate }}" matTooltipPosition="below">
+    <button
+      (click)="onToggleSidenav()"
+      mat-icon-button
+      style="height: 48px; width: 48px"
+      aria-label="Open Sidenav"
+      matTooltip="{{ 'SIDENAV_HINT' | translate }}"
+      matTooltipPosition="below"
+    >
       <mat-icon>menu</mat-icon>
     </button>
 
-    <button mat-button routerLink="/search" style="height:60px;" class="buttons" aria-label="Back to homepage">
+    <button
+      mat-button
+      routerLink="/search"
+      style="height: 60px"
+      class="buttons"
+      aria-label="Back to homepage"
+    >
       <div id="homeButton">
-        <img [src]="logoSrc" class="logo" alt={{applicationName}}>
-        <span class="hide-lt-sm" style="font-size: x-large"> {{applicationName}} </span>
+        <img [src]="logoSrc" class="logo" alt="{{ applicationName }}" />
+        <span class="hide-lt-sm" style="font-size: x-large">
+          {{ applicationName }}
+        </span>
       </div>
     </button>
 
@@ -24,110 +36,146 @@
     <div>
       <div id="product-search-fixture"></div>
     </div>
-    <app-mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"
-    aria-label="Click to search"></app-mat-search-bar>
+    <app-mat-search-bar
+      #searchControl
+      id="searchQuery"
+      (onEnter)="search(searchControl.value)"
+      aria-label="Click to search"
+    ></app-mat-search-bar>
 
-    <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle; height:48px;" class="buttons hide-lt-md"
-      aria-label="Show/hide account menu" id="navbarAccount">
-      <mat-icon>
-        account_circle
-      </mat-icon>
-      <span> {{"ACCOUNT" | translate}} </span>
+    <button
+      [matMenuTriggerFor]="userMenu"
+      mat-button
+      style="vertical-align: middle; height: 48px"
+      class="buttons hide-lt-md"
+      aria-label="Show/hide account menu"
+      id="navbarAccount"
+    >
+      <mat-icon> account_circle </mat-icon>
+      <span> {{ "ACCOUNT" | translate }} </span>
     </button>
 
     <mat-menu #userMenu="matMenu">
       @if (isLoggedIn()) {
-        <button (click)="goToProfilePage()" mat-menu-item aria-label="Go to user profile">
-          <mat-icon>
-            account_circle
-          </mat-icon>
+        <button
+          (click)="goToProfilePage()"
+          mat-menu-item
+          aria-label="Go to user profile"
+        >
+          <mat-icon> account_circle </mat-icon>
           <span>
-            {{userEmail}}
+            {{ userEmail }}
           </span>
         </button>
       } @else {
-        <button mat-menu-item routerLink="/login" aria-label="Go to login page"
-          id="navbarLoginButton">
-          <mat-icon>
-            exit_to_app
-          </mat-icon>
+        <button
+          mat-menu-item
+          routerLink="/login"
+          aria-label="Go to login page"
+          id="navbarLoginButton"
+        >
+          <mat-icon> exit_to_app </mat-icon>
           <span>
-            {{"TITLE_LOGIN" | translate }}
+            {{ "TITLE_LOGIN" | translate }}
           </span>
         </button>
       }
       @if (isLoggedIn() && isAccounting()) {
-        <button mat-menu-item routerLink="/accounting"
-          aria-label="Go to accounting page">
-          <mat-icon>
-            account_balance
-          </mat-icon>
+        <button
+          mat-menu-item
+          routerLink="/accounting"
+          aria-label="Go to accounting page"
+        >
+          <mat-icon> account_balance </mat-icon>
           <span>
-            {{"ACCOUNTING" | translate}}
+            {{ "ACCOUNTING" | translate }}
           </span>
         </button>
       }
       @if (isLoggedIn()) {
-        <button mat-menu-item [matMenuTriggerFor]="ordersSubMenu"
-          aria-label="Show Orders and Payment Menu">
-          <mat-icon>
-            check_circle_outline
-          </mat-icon>
+        <button
+          mat-menu-item
+          [matMenuTriggerFor]="ordersSubMenu"
+          aria-label="Show Orders and Payment Menu"
+        >
+          <mat-icon> check_circle_outline </mat-icon>
           <span>
             {{ "ORDERS_AND_PAYMENT" | translate }}
           </span>
         </button>
       }
       @if (isLoggedIn()) {
-        <button mat-menu-item [matMenuTriggerFor]="privacySubMenu"
-          aria-label="Show Privacy and Security Menu">
-          <mat-icon>
-            security
-          </mat-icon>
+        <button
+          mat-menu-item
+          [matMenuTriggerFor]="privacySubMenu"
+          aria-label="Show Privacy and Security Menu"
+        >
+          <mat-icon> security </mat-icon>
           <span>
             {{ "PRIVACY_AND_SECURITY" | translate }}
           </span>
         </button>
       }
       @if (isLoggedIn()) {
-        <button (click)="logout()" mat-menu-item aria-label="Logout" id="navbarLogoutButton">
-          <mat-icon>
-            power_settings_new
-          </mat-icon>
+        <button
+          (click)="logout()"
+          mat-menu-item
+          aria-label="Logout"
+          id="navbarLogoutButton"
+        >
+          <mat-icon> power_settings_new </mat-icon>
           <span>
-            {{"TITLE_LOGOUT" | translate }}
+            {{ "TITLE_LOGOUT" | translate }}
           </span>
         </button>
       }
     </mat-menu>
 
     @if (isLoggedIn()) {
-      <button mat-button routerLink="/basket" style="height:48px;" class="buttons"
-        aria-label="Show the shopping cart">
-        <mat-icon>
-          shopping_cart
-        </mat-icon>
-        <span class="hide-lt-md" style="margin-right: 10px;"> {{"TITLE_BASKET" | translate}}</span>
-        <span class="fa-layers-counter fa-layers-top-right fa-3x warn-notification"
-        style="font-size: 47px;">{{itemTotal}}</span>
+      <button
+        mat-button
+        routerLink="/basket"
+        style="height: 48px"
+        class="buttons"
+        aria-label="Show the shopping cart"
+      >
+        <mat-icon> shopping_cart </mat-icon>
+        <span class="hide-lt-md" style="margin-right: 10px">
+          {{ "TITLE_BASKET" | translate }}</span
+        >
+        <span
+          class="fa-layers-counter fa-layers-top-right fa-3x warn-notification"
+          style="font-size: 47px"
+          >{{ itemTotal }}</span
+        >
       </button>
     }
 
-    <button id="navbarLanguageButton" [matMenuTriggerFor]="menu" mat-button style="height:48px; width: 48px;" class="buttons"
+    <button
+      id="navbarLanguageButton"
+      [matMenuTriggerFor]="menu"
+      mat-button
+      style="height: 48px; width: 48px"
+      class="buttons"
       aria-label="Language selection menu"
-      matTooltip="{{ 'LANGUAGE_SEL_HINT' | translate }}" matTooltipPosition="below">
-      <mat-icon>
-        language
-      </mat-icon>
-      <span class="hide-lt-md"> {{shortKeyLang}} </span>
+      matTooltip="{{ 'LANGUAGE_SEL_HINT' | translate }}"
+      matTooltipPosition="below"
+    >
+      <mat-icon> language </mat-icon>
+      <span class="hide-lt-md"> {{ shortKeyLang }} </span>
     </button>
 
     <mat-menu #menu="matMenu" [overlapTrigger]="true">
       <div class="language-search-container" (click)="$event.stopPropagation()">
         <mat-form-field class="language-search-field">
           <mat-icon matPrefix class="search-icon">search</mat-icon>
-          <mat-label>{{ 'SEARCH' | translate }}</mat-label>
-          <input type="search" matInput [(ngModel)]="languageSearchQuery" (input)="filterLanguages()">
+          <mat-label>{{ "SEARCH" | translate }}</mat-label>
+          <input
+            type="search"
+            matInput
+            [(ngModel)]="languageSearchQuery"
+            (input)="filterLanguages()"
+          />
         </mat-form-field>
       </div>
       @for (language of filteredLanguages; track language.key) {
@@ -135,113 +183,140 @@
           (click)="changeLanguage(language.key)"
           [value]="language"
           class="mat-menu-item"
-          style="width: 240px;"
+          style="width: 240px"
           [checked]="selectedLanguage === language"
           [aria-label]="language.lang"
+        >
+          <div
+            class="mat-body"
+            style="display: inline-block; width: 200px; margin-left: 5px"
           >
-          <div class="mat-body" style="display: inline-block; width: 200px; margin-left: 5px;">
             @for (icon of language.icons; track icon) {
               <span [class]="'fi fi-' + icon"></span>
             }
-            {{language?.lang}}
+            {{ language?.lang }}
           </div>
-          <i [class]="'fas fa-thermometer-' + language.gauge + (language.percentage > 70 ? ' confirmation' : ' error')"></i>
+          <i
+            [class]="
+              'fas fa-thermometer-' +
+              language.gauge +
+              (language.percentage > 70 ? ' confirmation' : ' error')
+            "
+          ></i>
         </mat-radio-button>
       }
     </mat-menu>
 
     <mat-menu #privacySubMenu="matMenu">
-      <button mat-menu-item [routerLink]="['privacy-security/privacy-policy']" aria-label="Go to privacy policy page">
-        <mat-icon>
-          assignment
-        </mat-icon>
+      <button
+        mat-menu-item
+        [routerLink]="['privacy-security/privacy-policy']"
+        aria-label="Go to privacy policy page"
+      >
+        <mat-icon> assignment </mat-icon>
         <span translate>TITLE_PRIVACY_POLICY</span>
       </button>
-      <button mat-menu-item [routerLink]="['privacy-security/data-export']" aria-label="Go to data export page">
-        <mat-icon>
-          get_app
-        </mat-icon>
+      <button
+        mat-menu-item
+        [routerLink]="['privacy-security/data-export']"
+        aria-label="Go to data export page"
+      >
+        <mat-icon> get_app </mat-icon>
         <span translate>TITLE_REQUEST_DATA_EXPORT</span>
       </button>
-      <button mat-menu-item (click) = "goToDataErasurePage()" aria-label="Go to data subject page">
-        <mat-icon>
-          delete_forever
-        </mat-icon>
+      <button
+        mat-menu-item
+        (click)="goToDataErasurePage()"
+        aria-label="Go to data subject page"
+      >
+        <mat-icon> delete_forever </mat-icon>
         <span translate>DATA_SUBJECT_TITLE</span>
       </button>
       <mat-divider></mat-divider>
-      <button mat-menu-item [routerLink]="['privacy-security/change-password']" aria-label="Go to change password page">
-        <mat-icon>
-          edit
-        </mat-icon>
+      <button
+        mat-menu-item
+        [routerLink]="['privacy-security/change-password']"
+        aria-label="Go to change password page"
+      >
+        <mat-icon> edit </mat-icon>
         <span translate>TITLE_CHANGE_PASSWORD</span>
       </button>
-      <button mat-menu-item [routerLink]="['privacy-security/two-factor-authentication']"
-        aria-label="Go to two factor authentication page">
-        <mat-icon>
-          exposure_plus_2
-        </mat-icon>
+      <button
+        mat-menu-item
+        [routerLink]="['privacy-security/two-factor-authentication']"
+        aria-label="Go to two factor authentication page"
+      >
+        <mat-icon> exposure_plus_2 </mat-icon>
         <span translate>TITLE_TWO_FACTOR_AUTH_CONFIG</span>
       </button>
-      <button mat-menu-item [routerLink]="['privacy-security/last-login-ip']" aria-label="Go to last login ip page">
-        <mat-icon>
-          place
-        </mat-icon>
+      <button
+        mat-menu-item
+        [routerLink]="['privacy-security/last-login-ip']"
+        aria-label="Go to last login ip page"
+      >
+        <mat-icon> place </mat-icon>
         <span translate>LAST_LOGIN_IP</span>
       </button>
     </mat-menu>
 
     <mat-menu #ordersSubMenu="matMenu">
-      <button mat-menu-item routerLink="/order-history" aria-label="Go to order history page">
-        <mat-icon>
-          archive
-        </mat-icon>
+      <button
+        mat-menu-item
+        routerLink="/order-history"
+        aria-label="Go to order history page"
+      >
+        <mat-icon> archive </mat-icon>
         <span>
-          {{"LABEL_ORDER_HISTORY" | translate}}
+          {{ "LABEL_ORDER_HISTORY" | translate }}
         </span>
       </button>
-      <button mat-menu-item routerLink="/recycle" aria-label="Go to recycling page">
-        <mat-icon>
-          autorenew
-        </mat-icon>
+      <button
+        mat-menu-item
+        routerLink="/recycle"
+        aria-label="Go to recycling page"
+      >
+        <mat-icon> autorenew </mat-icon>
         <span>
-          {{"NAV_RECYCLE" | translate}}
+          {{ "NAV_RECYCLE" | translate }}
         </span>
       </button>
       <mat-divider></mat-divider>
       @if (isLoggedIn()) {
-        <button mat-menu-item routerLink="/address/saved" aria-label="Go to saved address page">
-          <mat-icon>
-            my_location
-          </mat-icon>
+        <button
+          mat-menu-item
+          routerLink="/address/saved"
+          aria-label="Go to saved address page"
+        >
+          <mat-icon> my_location </mat-icon>
           <span>
-            {{"MY_SAVED_ADRESSES" | translate}}
+            {{ "MY_SAVED_ADRESSES" | translate }}
           </span>
         </button>
       }
       @if (isLoggedIn()) {
-        <button mat-menu-item routerLink="/saved-payment-methods"
-          aria-label="Go to saved payment methods page">
-          <mat-icon>
-            credit_card
-          </mat-icon>
+        <button
+          mat-menu-item
+          routerLink="/saved-payment-methods"
+          aria-label="Go to saved payment methods page"
+        >
+          <mat-icon> credit_card </mat-icon>
           <span>
-            {{"MY_PAYMENT_OPTIONS" | translate}}
+            {{ "MY_PAYMENT_OPTIONS" | translate }}
           </span>
         </button>
       }
       @if (isLoggedIn()) {
-        <button mat-menu-item routerLink="/wallet" aria-label="Go to wallet page">
-          <mat-icon>
-            account_balance_wallet
-          </mat-icon>
+        <button
+          mat-menu-item
+          routerLink="/wallet"
+          aria-label="Go to wallet page"
+        >
+          <mat-icon> account_balance_wallet </mat-icon>
           <span>
-            {{"DIGITAL_WALLET" | translate}}
+            {{ "DIGITAL_WALLET" | translate }}
           </span>
         </button>
       }
-
     </mat-menu>
-
   </mat-toolbar-row>
 </mat-toolbar>

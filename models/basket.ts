@@ -12,18 +12,18 @@ import {
   DataTypes,
   type CreationOptional,
   type NonAttribute,
-  type Sequelize
-} from 'sequelize'
-import { type ProductModel } from './product'
+  type Sequelize,
+} from "sequelize";
+import { type ProductModel } from "./product";
 
 class Basket extends Model<
-InferAttributes<Basket>,
-InferCreationAttributes<Basket>
+  InferAttributes<Basket>,
+  InferCreationAttributes<Basket>
 > {
-  declare UserId: CreationOptional<number>
-  declare id: CreationOptional<number>
-  declare coupon: CreationOptional<string> | null
-  declare Products?: NonAttribute<ProductModel[]>
+  declare UserId: CreationOptional<number>;
+  declare id: CreationOptional<number>;
+  declare coupon: CreationOptional<string> | null;
+  declare Products?: NonAttribute<ProductModel[]>;
 }
 
 const BasketModelInit = (sequelize: Sequelize) => {
@@ -32,18 +32,18 @@ const BasketModelInit = (sequelize: Sequelize) => {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
       coupon: DataTypes.STRING,
       UserId: {
-        type: DataTypes.INTEGER
-      }
+        type: DataTypes.INTEGER,
+      },
     },
     {
-      tableName: 'Baskets',
-      sequelize
-    }
-  )
-}
+      tableName: "Baskets",
+      sequelize,
+    },
+  );
+};
 
-export { Basket as BasketModel, BasketModelInit }
+export { Basket as BasketModel, BasketModelInit };

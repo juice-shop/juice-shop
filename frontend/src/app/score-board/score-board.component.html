@@ -31,25 +31,31 @@
   ></tutorial-mode-warning>
   @if (filteredChallenges.length > 0) {
     <div class="challenges">
-      @for (challenge of filteredChallenges; track getChallengeKey($index, challenge)) {
+      @for (
+        challenge of filteredChallenges;
+        track getChallengeKey($index, challenge)
+      ) {
         <challenge-card
           [challenge]="challenge"
           [applicationConfiguration]="applicationConfiguration"
           [openCodingChallengeDialog]="openCodingChallengeDialog.bind(this)"
           [repeatChallengeNotification]="repeatChallengeNotification.bind(this)"
           [unlockHint]="unlockHint.bind(this)"
-          [ngClass]="{ solved: challenge.solved, unsolved: !challenge.solved, disabled: challenge.disabledEnv !== null }"
-          />
+          [ngClass]="{
+            solved: challenge.solved,
+            unsolved: !challenge.solved,
+            disabled: challenge.disabledEnv !== null,
+          }"
+        />
       }
     </div>
   } @else {
     <!-- only showing when there are more than 1 challenge in total. not completely loaded otherwise -->
     @if (allChallenges.length > 0) {
       <div class="empty-challenges">
-        <p>{{ 'NO_CHALLENGES_FOUND' | translate }}</p>
+        <p>{{ "NO_CHALLENGES_FOUND" | translate }}</p>
       </div>
     }
   }
-  <img src="assets/public/images/padding/1px.png"/>
+  <img src="assets/public/images/padding/1px.png" />
 }
-

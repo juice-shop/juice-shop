@@ -5,59 +5,91 @@
 
 <div class="center-align">
   <div class="table-container custom-slate">
-
     <div class="heading mat-elevation-z6">
       @if (searchValue) {
         <div>
-          <span>{{"TITLE_SEARCH_RESULTS" | translate}} - </span>
+          <span>{{ "TITLE_SEARCH_RESULTS" | translate }} - </span>
           <span id="searchValue" [innerHTML]="searchValue"></span>
         </div>
       } @else {
-        <div>{{"TITLE_ALL_PRODUCTS" | translate}}</div>
+        <div>{{ "TITLE_ALL_PRODUCTS" | translate }}</div>
       }
       <div id="search-result-heading"></div>
     </div>
 
     @if (!emptyState) {
       <div>
-        <mat-grid-list #table (window:resize)="onResize($event)" [cols]="breakpoint" gutterSize="30px">
+        <mat-grid-list
+          #table
+          (window:resize)="onResize($event)"
+          [cols]="breakpoint"
+          gutterSize="30px"
+        >
           @for (item of gridDataSource | async; track item) {
             <mat-grid-tile>
-              <mat-card appearance="outlined" [style.width]="'100%'" class="mat-elevation-z6 ribbon-card">
+              <mat-card
+                appearance="outlined"
+                [style.width]="'100%'"
+                class="mat-elevation-z6 ribbon-card"
+              >
                 <div class="mdc-card">
                   @if (item.quantity <= 5 && item.quantity > 0) {
                     <div class="ribbon ribbon-top-left">
-                      <span translate [translateParams]="{quantity: item.quantity}">LABEL_ONLY_QUANTITY_LEFT</span>
+                      <span
+                        translate
+                        [translateParams]="{ quantity: item.quantity }"
+                        >LABEL_ONLY_QUANTITY_LEFT</span
+                      >
                     </div>
                   }
                   @if (item.quantity <= 0) {
                     <div class="ribbon ribbon-top-left ribbon-sold">
-                      <span>{{"LABEL_SOLD_OUT" | translate }}</span>
+                      <span>{{ "LABEL_SOLD_OUT" | translate }}</span>
                     </div>
                   }
-                  <div class="product" (click)="showDetail(item)" aria-label="Click for more information about the product"
-                    matTooltip="Click for more information" matTooltipPosition="above">
-                    <img mat-card-image [src]="'assets/public/images/products/'+item.image" alt={{item.name}}
-                      class="img-responsive img-thumbnail" role="button">
-                      <div class="info-box">
-                        <div class="item-name">{{item.name}}</div>
-                        <div class="item-price">
-                          @if (!isDeluxe() || item.price === item.deluxePrice) {
-                            <span>{{item.price}}&curren;</span>
-                          }
-                          @if (isDeluxe() && item.price !== item.deluxePrice) {
-                            <span>
-                              <s>{{item.price}}</s> {{ item.deluxePrice }}&curren;
-                            </span>
-                          }
-                        </div>
+                  <div
+                    class="product"
+                    (click)="showDetail(item)"
+                    aria-label="Click for more information about the product"
+                    matTooltip="Click for more information"
+                    matTooltipPosition="above"
+                  >
+                    <img
+                      mat-card-image
+                      [src]="'assets/public/images/products/' + item.image"
+                      alt="{{ item.name }}"
+                      class="img-responsive img-thumbnail"
+                      role="button"
+                    />
+                    <div class="info-box">
+                      <div class="item-name">{{ item.name }}</div>
+                      <div class="item-price">
+                        @if (!isDeluxe() || item.price === item.deluxePrice) {
+                          <span>{{ item.price }}&curren;</span>
+                        }
+                        @if (isDeluxe() && item.price !== item.deluxePrice) {
+                          <span>
+                            <s>{{ item.price }}</s>
+                            {{ item.deluxePrice }}&curren;
+                          </span>
+                        }
                       </div>
+                    </div>
                   </div>
-                  <div style="display: flex; justify-content: center;" class="basket-btn-container">
+                  <div
+                    style="display: flex; justify-content: center"
+                    class="basket-btn-container"
+                  >
                     @if (isLoggedIn()) {
-                      <button (click)="addToBasket(item.id)" aria-label="Add to Basket" class="btn-basket"
-                        color="primary" mat-button mat-raised-button>
-                        <span>{{"ADD_BASKET" | translate}}</span>
+                      <button
+                        (click)="addToBasket(item.id)"
+                        aria-label="Add to Basket"
+                        class="btn-basket"
+                        color="primary"
+                        mat-button
+                        mat-raised-button
+                      >
+                        <span>{{ "ADD_BASKET" | translate }}</span>
                       </button>
                     }
                   </div>
@@ -70,32 +102,35 @@
     } @else {
       <mat-card appearance="outlined" class="mat-elevation-z6 emptyState">
         <div class="mdc-card">
-          <img alt=" No results found"
+          <img
+            alt=" No results found"
             class="img-responsive noResult"
-            src="assets/public/images/products/no-results.png">
+            src="assets/public/images/products/no-results.png"
+          />
           <mat-card-title>
-            <span class="noResultText" >
-              {{"NO_SEARCH_RESULT" | translate}}
+            <span class="noResultText">
+              {{ "NO_SEARCH_RESULT" | translate }}
             </span>
           </mat-card-title>
           <mat-card-content>
             <span class="noResultText">
-              {{"EMPTY_SEARCH_RESULT" | translate}}
+              {{ "EMPTY_SEARCH_RESULT" | translate }}
             </span>
           </mat-card-content>
         </div>
       </mat-card>
     }
 
-
     <mat-divider></mat-divider>
 
-    <mat-paginator #paginator
+    <mat-paginator
+      #paginator
       [pageSize]="12"
       [pageSizeOptions]="pageSizeOptions"
       [length]="resultsLength"
       class="mat-elevation-z6"
-      color="accent">
+      color="accent"
+    >
     </mat-paginator>
   </div>
 </div>

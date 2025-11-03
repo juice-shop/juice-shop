@@ -15,7 +15,7 @@ As exported from
 2024 after [conversion into Markdown](https://thisdavej.com/copy-table-in-excel-and-paste-as-a-markdown-table/).
 
 | Name                               | Languages                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Translated |
-|------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |
 | Björn Kimminich (bkimminich)       | German; Dutch; German, Switzerland; Chinese Simplified; Romanian; Danish; Spanish; French; Chinese Traditional; Polish; Hebrew; Japanese; Turkish; Portuguese, Brazilian; Russian; Estonian; Portuguese; Arabic; Norwegian; Czech; Italian; Hindi; Swedish; Azerbaijani; Finnish; Indonesian; Chinese Traditional, Hong Kong; Thai; Korean; Burmese; Greek; Bulgarian; Georgian; Klingon; Latvian; Hungarian; Catalan; Lithuanian; Sinhala; Irish; Urdu (Pakistan); Armenian; Ukrainian; Bengali | 46776      |
 | tongsonghua (yolylight)            | Chinese Simplified                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | 10517      |
 | Derek Chan (ChanDerek)             | Chinese Traditional                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | 5411       |
@@ -48,31 +48,31 @@ Giovanni (cruzgio), Alexander Nissen (Nissen96), fabrizio1979, OrNol (TRNSRL), J
 
 ## Special Thanks
 
-* Inspired by the "classic"
+- Inspired by the "classic"
   [BodgeIt Store](https://github.com/psiinon/bodgeit) by
   [@psiinon](https://github.com/psiinon)
-* Revised OWASP Juice Shop and Juice Shop CTF logo artworks by Emily Gundry (courtesy
+- Revised OWASP Juice Shop and Juice Shop CTF logo artworks by Emily Gundry (courtesy
   of [@SecureState](https://github.com/SecureState))
-* Wallpaper artworks by Mike Branscum (courtesy of
+- Wallpaper artworks by Mike Branscum (courtesy of
   [@daylightstudio](https://github.com/daylightstudio))
-* Official
+- Official
   [OWASP Juice Shop Jingle](https://soundcloud.com/braimee/owasp-juice-shop-jingle)
   written and performed by [Brian Johnson](https://github.com/braimee)
-* Juicy Chat Bot artworks by Kharisma Mulyana (courtesy of
+- Juicy Chat Bot artworks by Kharisma Mulyana (courtesy of
   [Timo Pagel](https://github.com/wurstbrot/))
-* Admin profile picture artworks by Kharisma Mulyana (courtesy of
+- Admin profile picture artworks by Kharisma Mulyana (courtesy of
   [Timo Pagel](https://github.com/wurstbrot/))
-* OWASP Juice Shop LEGO™ Tower design & prototyping by [Bram Patelski](https://github.com/brampat/)
+- OWASP Juice Shop LEGO™ Tower design & prototyping by [Bram Patelski](https://github.com/brampat/)
 
 Additional thanks goes to the contractors we were able to hire for specific work packages over the years with OWASP funding:
 
-* [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) cover artwork
+- [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) cover artwork
   by [Patch Kroll](https://99designs.de/profiles/3099878)
-* [Banner](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/banners)
+- [Banner](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/banners)
   and
   [flyer](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/flyers)
   artwork by [logicainfo](https://99designs.de/profiles/logicainfo)
-* [Score Board redesign](https://www.figma.com/file/DwC5ErhRz6gb3eTZEYYriS/Juiceshop-Scoreboard?type=design&node-id=0-1&mode=design) by Vibhuti Arora
+- [Score Board redesign](https://www.figma.com/file/DwC5ErhRz6gb3eTZEYYriS/Juiceshop-Scoreboard?type=design&node-id=0-1&mode=design) by Vibhuti Arora
 
 ## Stargazers (over time)
 

@@ -9,8 +9,8 @@
 
 export const environment = {
   production: false,
-  hostServer: 'http://localhost:3000'
-}
+  hostServer: "http://localhost:3000",
+};
 
 /*
  * In development mode, to ignore zone related error stack frames such as

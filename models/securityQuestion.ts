@@ -10,15 +10,15 @@ import {
   type InferCreationAttributes,
   DataTypes,
   type CreationOptional,
-  type Sequelize
-} from 'sequelize'
+  type Sequelize,
+} from "sequelize";
 
 class SecurityQuestion extends Model<
-InferAttributes<SecurityQuestion>,
-InferCreationAttributes<SecurityQuestion>
+  InferAttributes<SecurityQuestion>,
+  InferCreationAttributes<SecurityQuestion>
 > {
-  declare id: CreationOptional<number>
-  declare question: string
+  declare id: CreationOptional<number>;
+  declare question: string;
 }
 
 const SecurityQuestionModelInit = (sequelize: Sequelize) => {
@@ -27,17 +27,17 @@ const SecurityQuestionModelInit = (sequelize: Sequelize) => {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
       question: {
-        type: DataTypes.STRING
-      }
+        type: DataTypes.STRING,
+      },
     },
     {
-      tableName: 'SecurityQuestions',
-      sequelize
-    }
-  )
-}
+      tableName: "SecurityQuestions",
+      sequelize,
+    },
+  );
+};
 
-export { SecurityQuestion as SecurityQuestionModel, SecurityQuestionModelInit }
+export { SecurityQuestion as SecurityQuestionModel, SecurityQuestionModelInit };

@@ -7,13 +7,26 @@
   <div class="container column-layout">
     <h1 translate>LABEL_EDIT_REVIEW</h1>
     <div>
-      <mat-form-field appearance="outline" color="accent" hintLabel="Max 160 characters" floatLabel="always">
+      <mat-form-field
+        appearance="outline"
+        color="accent"
+        hintLabel="Max 160 characters"
+        floatLabel="always"
+      >
         <mat-label translate>LABEL_REVIEW</mat-label>
-        <textarea [formControl]="editReviewControl" #textPut matInput
-          placeholder="{{'WRITE_REVIEW_PLACEHOLDER' | translate}}"
-          matTextareaAutosize matAutosizeMinRows="2" maxlength="160"
-        matAutosizeMaxRows="4" aria-label="Text field to edit a product review"  (focus)="this.error=null"></textarea>
-        <mat-hint align="end">{{textPut.value?.length || 0}}/160</mat-hint>
+        <textarea
+          [formControl]="editReviewControl"
+          #textPut
+          matInput
+          placeholder="{{ 'WRITE_REVIEW_PLACEHOLDER' | translate }}"
+          matTextareaAutosize
+          matAutosizeMinRows="2"
+          maxlength="160"
+          matAutosizeMaxRows="4"
+          aria-label="Text field to edit a product review"
+          (focus)="this.error = null"
+        ></textarea>
+        <mat-hint align="end">{{ textPut.value?.length || 0 }}/160</mat-hint>
         @if (editReviewControl.invalid) {
           <mat-error translate>MANDATORY_REVIEW</mat-error>
         }
@@ -23,13 +36,25 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-stroked-button mat-dialog-close class="close-dialog" aria-label="Close Dialog">
+  <button
+    mat-stroked-button
+    mat-dialog-close
+    class="close-dialog"
+    aria-label="Close Dialog"
+  >
     <mat-icon>close</mat-icon>
-    <span>{{'BTN_CLOSE' | translate}}</span>
+    <span>{{ "BTN_CLOSE" | translate }}</span>
   </button>
-  <button type="submit" (click)="editReview()" mat-raised-button style="margin-left: 5px;" color="primary" aria-label="Send the review"
-    [disabled]="editReviewControl.invalid">
+  <button
+    type="submit"
+    (click)="editReview()"
+    mat-raised-button
+    style="margin-left: 5px"
+    color="primary"
+    aria-label="Send the review"
+    [disabled]="editReviewControl.invalid"
+  >
     <mat-icon>send</mat-icon>
-    <span>{{'BTN_SUBMIT' | translate}}</span>
+    <span>{{ "BTN_SUBMIT" | translate }}</span>
   </button>
 </mat-dialog-actions>

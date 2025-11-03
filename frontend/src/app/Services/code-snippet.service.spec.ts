@@ -3,36 +3,54 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing'
-import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from "@angular/common/http/testing";
+import { fakeAsync, inject, TestBed, tick } from "@angular/core/testing";
 
-import { CodeSnippetService } from './code-snippet.service'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
+import { CodeSnippetService } from "./code-snippet.service";
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from "@angular/common/http";
 
-describe('CodeSnippetService', () => {
+describe("CodeSnippetService", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [],
-      providers: [CodeSnippetService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
-    })
-  })
+      providers: [
+        CodeSnippetService,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+      ],
+    });
+  });
 
-  it('should be created', inject([CodeSnippetService], (service: CodeSnippetService) => {
-    expect(service).toBeTruthy()
-  }))
+  it("should be created", inject(
+    [CodeSnippetService],
+    (service: CodeSnippetService) => {
+      expect(service).toBeTruthy();
+    },
+  ));
 
-  it('should get single snippet directly from the rest api', inject([CodeSnippetService, HttpTestingController],
-    fakeAsync((service: CodeSnippetService, httpMock: HttpTestingController) => {
-      let res: any
-      service.get('testChallenge').subscribe((data) => (res = data))
+  it("should get single snippet directly from the rest api", inject(
+    [CodeSnippetService, HttpTestingController],
+    fakeAsync(
+      (service: CodeSnippetService, httpMock: HttpTestingController) => {
+        let res: any;
+        service.get("testChallenge").subscribe((data) => (res = data));
 
-      const req = httpMock.expectOne('http://localhost:3000/snippets/testChallenge')
-      req.flush({ snippet: 'apiResponse' })
-      tick()
+        const req = httpMock.expectOne(
+          "http://localhost:3000/snippets/testChallenge",
+        );
+        req.flush({ snippet: "apiResponse" });
+        tick();
 
-      expect(req.request.method).toBe('GET')
-      expect(res).toEqual({ snippet: 'apiResponse' })
-      httpMock.verify()
-    })
-  ))
-})
+        expect(req.request.method).toBe("GET");
+        expect(res).toEqual({ snippet: "apiResponse" });
+        httpMock.verify();
+      },
+    ),
+  ));
+});

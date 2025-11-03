@@ -5,26 +5,31 @@
 
 <mat-dialog-content>
   <header>
-    <h1>{{"LABEL_COMMENT" | translate}}</h1>
+    <h1>{{ "LABEL_COMMENT" | translate }}</h1>
   </header>
   <mat-divider></mat-divider>
   <div class="container">
-      <div class="user-line">
-        <span>{{"LABEL_USER" | translate}}:</span>
-        <p>#{{id}}</p>
-      </div>
+    <div class="user-line">
+      <span>{{ "LABEL_USER" | translate }}:</span>
+      <p>#{{ id }}</p>
+    </div>
 
-      <div style="margin-top: 10px !important;">
-        <cite [innerHTML]="feedback"></cite>
-      </div>
+    <div style="margin-top: 10px !important">
+      <cite [innerHTML]="feedback"></cite>
+    </div>
   </div>
   <mat-dialog-actions align="end" class="dialogAction">
-    <button mat-button style="height: 0; position: absolute;">
+    <button mat-button style="height: 0; position: absolute">
       <!-- 'absorbs' the auto-focus behavior -->
     </button>
-    <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="Close Dialog">
+    <button
+      mat-stroked-button
+      mat-dialog-close
+      class="close-dialog buttons"
+      aria-label="Close Dialog"
+    >
       <mat-icon>close</mat-icon>
-      <span>{{'BTN_CLOSE' | translate}}</span>
+      <span>{{ "BTN_CLOSE" | translate }}</span>
     </button>
   </mat-dialog-actions>
 </mat-dialog-content>

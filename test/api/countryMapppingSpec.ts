@@ -3,13 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
-import * as frisby from 'frisby'
+import * as frisby from "frisby";
 
-const REST_URL = 'http://localhost:3000/rest'
+const REST_URL = "http://localhost:3000/rest";
 
-describe('/rest/country-mapping', () => {
-  it('GET no country mapping present in default configuration', () => {
-    return frisby.get(REST_URL + '/country-mapping')
-      .expect('status', 500)
-  })
-})
+describe("/rest/country-mapping", () => {
+  it("GET no country mapping present in default configuration", () => {
+    return frisby.get(REST_URL + "/country-mapping").expect("status", 500);
+  });
+});

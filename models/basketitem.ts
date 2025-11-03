@@ -10,40 +10,40 @@ import {
   type InferCreationAttributes,
   DataTypes,
   type CreationOptional,
-  type Sequelize
-} from 'sequelize'
+  type Sequelize,
+} from "sequelize";
 
 class BasketItem extends Model<
-InferAttributes<BasketItem>,
-InferCreationAttributes<BasketItem>
+  InferAttributes<BasketItem>,
+  InferCreationAttributes<BasketItem>
 > {
-  declare ProductId: number
-  declare BasketId: number
-  declare id: CreationOptional<number>
-  declare quantity: number
+  declare ProductId: number;
+  declare BasketId: number;
+  declare id: CreationOptional<number>;
+  declare quantity: number;
 }
 
 const BasketItemModelInit = (sequelize: Sequelize) => {
   BasketItem.init(
     {
       ProductId: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
       },
       BasketId: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
       },
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
-      quantity: DataTypes.INTEGER
+      quantity: DataTypes.INTEGER,
     },
     {
-      tableName: 'BasketItems',
-      sequelize
-    }
-  )
-}
+      tableName: "BasketItems",
+      sequelize,
+    },
+  );
+};
 
-export { BasketItem as BasketItemModel, BasketItemModelInit }
+export { BasketItem as BasketItemModel, BasketItemModelInit };

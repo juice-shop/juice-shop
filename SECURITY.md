@@ -11,7 +11,7 @@ standard <https://securitytxt.org> so you can find our
 We provide security patches for the latest released minor version.
 
 | Version | Supported          |
-|:--------|:-------------------|
+| :------ | :----------------- |
 | 19.0.x  | :white_check_mark: |
 | <19.0   | :x:                |
 

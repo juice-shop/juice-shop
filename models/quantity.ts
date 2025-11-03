@@ -11,49 +11,49 @@ import {
   type InferCreationAttributes,
   DataTypes,
   type CreationOptional,
-  type Sequelize
-} from 'sequelize'
+  type Sequelize,
+} from "sequelize";
 
 class Quantity extends Model<
-InferAttributes<Quantity>,
-InferCreationAttributes<Quantity>
+  InferAttributes<Quantity>,
+  InferCreationAttributes<Quantity>
 > {
-  declare ProductId: number
-  declare id: CreationOptional<number>
-  declare quantity: number
-  declare limitPerUser: number | null
+  declare ProductId: number;
+  declare id: CreationOptional<number>;
+  declare quantity: number;
+  declare limitPerUser: number | null;
 }
 
 const QuantityModelInit = (sequelize: Sequelize) => {
   Quantity.init(
     {
       ProductId: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
       },
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
       quantity: {
         type: DataTypes.INTEGER,
         validate: {
-          isInt: true
-        }
+          isInt: true,
+        },
       },
       limitPerUser: {
         type: DataTypes.INTEGER,
         validate: {
-          isInt: true
+          isInt: true,
         },
-        defaultValue: null
-      }
+        defaultValue: null,
+      },
     },
     {
-      tableName: 'Quantities',
-      sequelize
-    }
-  )
-}
+      tableName: "Quantities",
+      sequelize,
+    },
+  );
+};
 
-export { Quantity as QuantityModel, QuantityModelInit }
+export { Quantity as QuantityModel, QuantityModelInit };

@@ -3,46 +3,67 @@
   ~ SPDX-License-Identifier: MIT
 -->
 
-<mat-card appearance="outlined" [class.div-boundary]="!addNewAddressDiv" class="mat-elevation-z6">
+<mat-card
+  appearance="outlined"
+  [class.div-boundary]="!addNewAddressDiv"
+  class="mat-elevation-z6"
+>
   <div class="mdc-card">
     @if (showNextButton) {
-      <h1>{{ 'TITLE_SELECT_ADDRESS' | translate }}</h1>
+      <h1>{{ "TITLE_SELECT_ADDRESS" | translate }}</h1>
     } @else {
-      <h1>{{ 'MY_SAVED_ADRESSES' | translate }}</h1>
+      <h1>{{ "MY_SAVED_ADRESSES" | translate }}</h1>
     }
 
     @if (addressExist) {
       <mat-table [dataSource]="dataSource" class="address-table">
         <ng-container matColumnDef="Selection">
-          <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
+          <mat-header-cell
+            *matHeaderCellDef
+            style="display: none"
+          ></mat-header-cell>
           <mat-cell *matCellDef="let element; let row">
             <mat-radio-button
               (click)="emitSelectionToParent(element.id)"
               [checked]="selection.isSelected(row)"
-              (change)="$event ? selection.toggle(row) : null">
+              (change)="$event ? selection.toggle(row) : null"
+            >
             </mat-radio-button>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="Name">
-          <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
+          <mat-header-cell
+            *matHeaderCellDef
+            style="display: none"
+          ></mat-header-cell>
           <mat-cell *matCellDef="let element">
             {{ element?.fullName }}
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="Address">
-          <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
+          <mat-header-cell
+            *matHeaderCellDef
+            style="display: none"
+          ></mat-header-cell>
           <mat-cell *matCellDef="let element">
-            {{ element?.streetAddress }}, {{ element?.city }}, {{ element?.state }}, {{ element?.zipCode }}
+            {{ element?.streetAddress }}, {{ element?.city }},
+            {{ element?.state }}, {{ element?.zipCode }}
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="Country">
-          <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
+          <mat-header-cell
+            *matHeaderCellDef
+            style="display: none"
+          ></mat-header-cell>
           <mat-cell *matCellDef="let element">
             {{ element?.country }}
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="Edit">
-          <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
+          <mat-header-cell
+            *matHeaderCellDef
+            style="display: none"
+          ></mat-header-cell>
           <mat-cell *matCellDef="let element">
             <button mat-icon-button routerLink="/address/edit/{{ element.id }}">
               <i class="far fa-edit"></i>
@@ -50,7 +71,10 @@
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="Remove">
-          <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
+          <mat-header-cell
+            *matHeaderCellDef
+            style="display: none"
+          ></mat-header-cell>
           <mat-cell *matCellDef="let element">
             <button mat-icon-button (click)="deleteAddress(element.id)">
               <i class="far fa-trash-alt"></i>
@@ -60,7 +84,8 @@
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row
           *matRowDef="let row; columns: displayedColumns; let element"
-          (click)="selection.toggle(row); emitSelectionToParent(element.id)">
+          (click)="selection.toggle(row); emitSelectionToParent(element.id)"
+        >
         </mat-row>
       </mat-table>
     }
@@ -73,9 +98,10 @@
           class="btn btn-new-address"
           color="primary"
           aria-label="Add a new address"
-          routerLink="/address/create">
+          routerLink="/address/create"
+        >
           <mat-icon>add</mat-icon>
-          <span>{{ 'ADD_NEW_ADDRESS' | translate }}</span>
+          <span>{{ "ADD_NEW_ADDRESS" | translate }}</span>
         </button>
       </div>
     }
@@ -89,9 +115,9 @@
         aria-label="Proceed to payment selection"
         [disabled]="addressId === undefined"
         (click)="chooseAddress()"
-        >
+      >
         <mat-icon>navigate_next</mat-icon>
-        <span translate>{{ 'LABEL_CONTINUE' | translate }}</span>
+        <span translate>{{ "LABEL_CONTINUE" | translate }}</span>
       </button>
     }
   </div>

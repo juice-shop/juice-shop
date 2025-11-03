@@ -4,141 +4,140 @@
  */
 
 /* jslint node: true */
-import config from 'config'
+import config from "config";
 import {
   type InferAttributes,
   type InferCreationAttributes,
   Model,
   DataTypes,
   type CreationOptional,
-  type Sequelize
-} from 'sequelize'
-import * as challengeUtils from '../lib/challengeUtils'
-import * as utils from '../lib/utils'
-import { challenges } from '../data/datacache'
-import * as security from '../lib/insecurity'
+  type Sequelize,
+} from "sequelize";
+import * as challengeUtils from "../lib/challengeUtils";
+import * as utils from "../lib/utils";
+import { challenges } from "../data/datacache";
+import * as security from "../lib/insecurity";
 
-class User extends Model<
-InferAttributes<User>,
-InferCreationAttributes<User>
-> {
-  declare id: CreationOptional<number>
-  declare username: string | undefined
-  declare email: CreationOptional<string>
-  declare password: CreationOptional<string>
-  declare role: CreationOptional<string>
-  declare deluxeToken: CreationOptional<string>
-  declare lastLoginIp: CreationOptional<string>
-  declare profileImage: CreationOptional<string>
-  declare totpSecret: CreationOptional<string>
-  declare isActive: CreationOptional<boolean>
+class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  declare id: CreationOptional<number>;
+  declare username: string | undefined;
+  declare email: CreationOptional<string>;
+  declare password: CreationOptional<string>;
+  declare role: CreationOptional<string>;
+  declare deluxeToken: CreationOptional<string>;
+  declare lastLoginIp: CreationOptional<string>;
+  declare profileImage: CreationOptional<string>;
+  declare totpSecret: CreationOptional<string>;
+  declare isActive: CreationOptional<boolean>;
 }
 
-const UserModelInit = (sequelize: Sequelize) => { // vuln-code-snippet start weakPasswordChallenge
+const UserModelInit = (sequelize: Sequelize) => {
+  // vuln-code-snippet start weakPasswordChallenge
   User.init(
-    { // vuln-code-snippet hide-start
+    {
+      // vuln-code-snippet hide-start
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
       username: {
         type: DataTypes.STRING,
-        defaultValue: '',
-        set (username: string) {
+        defaultValue: "",
+        set(username: string) {
           if (utils.isChallengeEnabled(challenges.persistedXssUserChallenge)) {
-            username = security.sanitizeLegacy(username)
+            username = security.sanitizeLegacy(username);
           } else {
-            username = security.sanitizeSecure(username)
+            username = security.sanitizeSecure(username);
           }
-          this.setDataValue('username', username)
-        }
+          this.setDataValue("username", username);
+        },
       },
       email: {
         type: DataTypes.STRING,
         unique: true,
-        set (email: string) {
+        set(email: string) {
           if (utils.isChallengeEnabled(challenges.persistedXssUserChallenge)) {
             challengeUtils.solveIf(challenges.persistedXssUserChallenge, () => {
               return utils.contains(
                 email,
-                '<iframe src="javascript:alert(`xss`)">'
-              )
-            })
+                '<iframe src="javascript:alert(`xss`)">',
+              );
+            });
           } else {
-            email = security.sanitizeSecure(email)
+            email = security.sanitizeSecure(email);
           }
-          this.setDataValue('email', email)
-        }
+          this.setDataValue("email", email);
+        },
       }, // vuln-code-snippet hide-end
       password: {
         type: DataTypes.STRING,
-        set (clearTextPassword: string) {
-          this.setDataValue('password', security.hash(clearTextPassword)) // vuln-code-snippet vuln-line weakPasswordChallenge
-        }
+        set(clearTextPassword: string) {
+          this.setDataValue("password", security.hash(clearTextPassword)); // vuln-code-snippet vuln-line weakPasswordChallenge
+        },
       }, // vuln-code-snippet end weakPasswordChallenge
       role: {
         type: DataTypes.STRING,
-        defaultValue: 'customer',
+        defaultValue: "customer",
         validate: {
-          isIn: [['customer', 'deluxe', 'accounting', 'admin']]
+          isIn: [["customer", "deluxe", "accounting", "admin"]],
         },
-        set (role: string) {
-          const profileImage = this.getDataValue('profileImage')
+        set(role: string) {
+          const profileImage = this.getDataValue("profileImage");
           if (
             role === security.roles.admin &&
-          (!profileImage ||
-            profileImage === '/assets/public/images/uploads/default.svg')
+            (!profileImage ||
+              profileImage === "/assets/public/images/uploads/default.svg")
           ) {
             this.setDataValue(
-              'profileImage',
-              '/assets/public/images/uploads/defaultAdmin.png'
-            )
+              "profileImage",
+              "/assets/public/images/uploads/defaultAdmin.png",
+            );
           }
-          this.setDataValue('role', role)
-        }
+          this.setDataValue("role", role);
+        },
       },
       deluxeToken: {
         type: DataTypes.STRING,
-        defaultValue: ''
+        defaultValue: "",
       },
       lastLoginIp: {
         type: DataTypes.STRING,
-        defaultValue: '0.0.0.0'
+        defaultValue: "0.0.0.0",
       },
       profileImage: {
         type: DataTypes.STRING,
-        defaultValue: '/assets/public/images/uploads/default.svg'
+        defaultValue: "/assets/public/images/uploads/default.svg",
       },
       totpSecret: {
         type: DataTypes.STRING,
-        defaultValue: ''
+        defaultValue: "",
       },
       isActive: {
         type: DataTypes.BOOLEAN,
-        defaultValue: true
-      }
+        defaultValue: true,
+      },
     },
     {
-      tableName: 'Users',
+      tableName: "Users",
       paranoid: true,
-      sequelize
-    }
-  )
+      sequelize,
+    },
+  );
 
-  User.addHook('afterValidate', async (user: User) => {
+  User.addHook("afterValidate", async (user: User) => {
     if (
       user.email &&
-    user.email.toLowerCase() ===
-      `acc0unt4nt@${config.get<string>('application.domain')}`.toLowerCase()
+      user.email.toLowerCase() ===
+        `acc0unt4nt@${config.get<string>("application.domain")}`.toLowerCase()
     ) {
       await Promise.reject(
         new Error(
-          'Nice try, but this is not how the "Ephemeral Accountant" challenge works!'
-        )
-      )
+          'Nice try, but this is not how the "Ephemeral Accountant" challenge works!',
+        ),
+      );
     }
-  })
-}
+  });
+};
 
-export { User as UserModel, UserModelInit }
+export { User as UserModel, UserModelInit };

@@ -6,7 +6,15 @@
 <div class="center-container">
   <mat-card appearance="outlined" class="mat-elevation-z6">
     <div class="mdc-card chat-wrapper">
-      <h1>{{"SECTION_SUPPORT_CHAT" | translate}} <span class="powered-by">({{"LABEL_POWERED_BY_CHATBOT" | translate: { chatbot: 'juicy-chat-bot' } }})</span></h1>
+      <h1>
+        {{ "SECTION_SUPPORT_CHAT" | translate }}
+        <span class="powered-by"
+          >({{
+            "LABEL_POWERED_BY_CHATBOT"
+              | translate: { chatbot: "juicy-chat-bot" }
+          }})</span
+        >
+      </h1>
       <mat-card appearance="outlined" id="chat-container">
         <div class="mdc-card">
           <mat-card appearance="outlined" id="chat-box">
@@ -14,14 +22,23 @@
               <div id="chat-window">
                 @for (message of messages; track message; let index = $index) {
                   <div class="message-container">
-                    @if (message.author == 'bot') {
-                      <img src="{{juicyImageSrc}}" class="juicy-chat-bot-image"/>
+                    @if (message.author == "bot") {
+                      <img
+                        src="{{ juicyImageSrc }}"
+                        class="juicy-chat-bot-image"
+                      />
                     }
-                    @if (message.author == 'user') {
-                      <img src="{{profileImageSrc}}" class="profile-image"/>
+                    @if (message.author == "user") {
+                      <img src="{{ profileImageSrc }}" class="profile-image" />
                     }
-                    <div class="{{message.author == 'user' ? 'speech-bubble-right' : 'speech-bubble-left'}}">
-                      {{message.body}}
+                    <div
+                      class="{{
+                        message.author == 'user'
+                          ? 'speech-bubble-right'
+                          : 'speech-bubble-left'
+                      }}"
+                    >
+                      {{ message.body }}
                     </div>
                   </div>
                 }
@@ -31,16 +48,25 @@
                 <div class="form-wrapper">
                   <mat-form-field color="accent" appearance="outline">
                     <mat-label translate>LABEL_MESSAGE</mat-label>
-                    <input id="message-input" #message name="message" [formControl]="messageControl"
-                      matInput placeholder="{{ 'ASK_ME_ANYTHING_PLACEHOLDER' | translate}}"
-                      aria-label="Text field for a chat message" (keyup.enter)="sendMessage()">
-                    </mat-form-field>
-                  </div>
+                    <input
+                      id="message-input"
+                      #message
+                      name="message"
+                      [formControl]="messageControl"
+                      matInput
+                      placeholder="{{
+                        'ASK_ME_ANYTHING_PLACEHOLDER' | translate
+                      }}"
+                      aria-label="Text field for a chat message"
+                      (keyup.enter)="sendMessage()"
+                    />
+                  </mat-form-field>
                 </div>
               </div>
-            </mat-card>
-          </div>
-        </mat-card>
-      </div>
-    </mat-card>
-  </div>
+            </div>
+          </mat-card>
+        </div>
+      </mat-card>
+    </div>
+  </mat-card>
+</div>

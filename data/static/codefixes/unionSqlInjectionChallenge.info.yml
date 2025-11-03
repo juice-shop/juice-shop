@@ -4,7 +4,7 @@ fixes:
   - id: 2
     explanation: 'Using the built-in replacement (or binding) mechanism of Sequelize is equivalent to creating a Prepared Statement. This prevents tampering with the query syntax through malicious user input as it is "set in stone" before the criteria parameter is inserted.'
   - id: 3
-    explanation: "Limiting the allowed search values via startsWith() would still allow SQL Injection via \"orange')) UNION SELECT ... --\" or similarly prefixed payloads. Even worse, this fix also breaks the free text search capability."
+    explanation: 'Limiting the allowed search values via startsWith() would still allow SQL Injection via "orange'')) UNION SELECT ... --" or similarly prefixed payloads. Even worse, this fix also breaks the free text search capability.'
 hints:
   - "Try to identify any variables in the code that might contain arbitrary user input."
   - "Follow the user input through the function call and try to spot places where it might be abused for malicious purposes."

@@ -3,18 +3,21 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { inject, TestBed } from '@angular/core/testing'
+import { inject, TestBed } from "@angular/core/testing";
 
-import { WindowRefService } from './window-ref.service'
+import { WindowRefService } from "./window-ref.service";
 
-describe('WindowRefService', () => {
+describe("WindowRefService", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [WindowRefService]
-    })
-  })
+      providers: [WindowRefService],
+    });
+  });
 
-  it('should be created', inject([WindowRefService], (service: WindowRefService) => {
-    expect(service).toBeTruthy()
-  }))
-})
+  it("should be created", inject(
+    [WindowRefService],
+    (service: WindowRefService) => {
+      expect(service).toBeTruthy();
+    },
+  ));
+});

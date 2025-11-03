@@ -1,10 +1,9 @@
 ---
 name: "\U0001F41BBug report"
 about: Report a bug in OWASP Juice Shop
-title: '[🐛] '
+title: "[🐛] "
 labels: bug
-assignees: ''
-
+assignees: ""
 ---
 
 <!--🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅
@@ -21,15 +20,15 @@ Please also make sure to check the official [Troubleshooting guide](https://pwni
 ## Description
 
 <!-- ✍️-->
-A clear and concise description of the problem...
 
+A clear and concise description of the problem...
 
 ### Is this a regression?
 
 <!-- Did this behavior use to work in the previous version? -->
 <!-- ✍️-->
-Yes, the previous version in which this bug was not present was: `x.y.z`
 
+Yes, the previous version in which this bug was not present was: `x.y.z`
 
 ## :microscope: Minimal Reproduction
 
@@ -37,7 +36,6 @@ Yes, the previous version in which this bug was not present was: `x.y.z`
 
 Issues that don't have enough info and can't be reproduced will be labeled with "missing information" and closed shortly afterwards.
 -->
-
 
 ## :fire: Exception or Error
 
@@ -47,7 +45,6 @@ Issues that don't have enough info and can't be reproduced will be labeled with 
 
 </code></pre>
 
-
 ## :deciduous_tree: Your Environment
 
 <pre><code>
@@ -55,7 +52,6 @@ Issues that don't have enough info and can't be reproduced will be labeled with 
 <!-- ✍️-->
 
 </code></pre>
-
 
 ### Additional Information
 

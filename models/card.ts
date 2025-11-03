@@ -10,30 +10,27 @@ import {
   type InferCreationAttributes,
   DataTypes,
   type CreationOptional,
-  type Sequelize
-} from 'sequelize'
-class Card extends Model<
-InferAttributes<Card>,
-InferCreationAttributes<Card>
-> {
-  declare UserId: number
-  declare id: CreationOptional<number>
-  declare fullName: string
-  declare cardNum: number
-  declare expMonth: number
-  declare expYear: number
+  type Sequelize,
+} from "sequelize";
+class Card extends Model<InferAttributes<Card>, InferCreationAttributes<Card>> {
+  declare UserId: number;
+  declare id: CreationOptional<number>;
+  declare fullName: string;
+  declare cardNum: number;
+  declare expMonth: number;
+  declare expYear: number;
 }
 
 const CardModelInit = (sequelize: Sequelize) => {
   Card.init(
     {
       UserId: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
       },
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
       fullName: DataTypes.STRING,
       cardNum: {
@@ -41,31 +38,31 @@ const CardModelInit = (sequelize: Sequelize) => {
         validate: {
           isInt: true,
           min: 1000000000000000,
-          max: 9999999999999998
-        }
+          max: 9999999999999998,
+        },
       },
       expMonth: {
         type: DataTypes.INTEGER,
         validate: {
           isInt: true,
           min: 1,
-          max: 12
-        }
+          max: 12,
+        },
       },
       expYear: {
         type: DataTypes.INTEGER,
         validate: {
           isInt: true,
           min: 2080,
-          max: 2099
-        }
-      }
+          max: 2099,
+        },
+      },
     },
     {
-      tableName: 'Cards',
-      sequelize
-    }
-  )
-}
+      tableName: "Cards",
+      sequelize,
+    },
+  );
+};
 
-export { Card as CardModel, CardModelInit }
+export { Card as CardModel, CardModelInit };

@@ -127,7 +127,7 @@ challenges:
     type: string
   safetyMode:
     type: string
-    enum: ['enabled', 'disabled','auto']
+    enum: ["enabled", "disabled", "auto"]
   showFeedbackButtons:
     type: boolean
   csafHashValue:

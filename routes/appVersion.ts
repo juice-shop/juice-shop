@@ -3,15 +3,17 @@
  * SPDX-License-Identifier: MIT
  */
 
-import config from 'config'
-import { type Request, type Response } from 'express'
+import config from "config";
+import { type Request, type Response } from "express";
 
-import * as utils from '../lib/utils'
+import * as utils from "../lib/utils";
 
-export function retrieveAppVersion () {
+export function retrieveAppVersion() {
   return (_req: Request, res: Response) => {
     res.json({
-      version: config.get('application.showVersionNumber') ? utils.version() : ''
-    })
-  }
+      version: config.get("application.showVersionNumber")
+        ? utils.version()
+        : "",
+    });
+  };
 }

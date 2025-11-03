@@ -1,10 +1,9 @@
 ---
 name: "⭐Challenge idea"
 about: Idea for a new hacking challenge in OWASP Juice Shop
-title: '[⭐] '
+title: "[⭐] "
 labels: challenge
-assignees: ''
-
+assignees: ""
 ---
 
 <!--🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅
@@ -30,7 +29,7 @@ Existing issues often contain information about workarounds, resolution, or prog
 <!-- ✍️ -->
 
 | :heavy_check_mark: / :x: | Difficulty                           |
-|:------------------------:|:-------------------------------------|
+| :----------------------: | :----------------------------------- |
 |     :grey_question:      | :star:                               |
 |     :grey_question:      | :star::star:                         |
 |     :grey_question:      | :star::star::star:                   |

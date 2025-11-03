@@ -7,36 +7,64 @@
   @for (notification of notifications; track notification.key) {
     <mat-card appearance="outlined" class="accent-notification">
       <div class="mdc-card">
-        <div class="notificationMessage">{{notification.message}}<button id="closeButton" mat-button (click)="closeNotification($index, $event.shiftKey)">X</button></div>
+        <div class="notificationMessage">
+          {{ notification.message
+          }}<button
+            id="closeButton"
+            mat-button
+            (click)="closeNotification($index, $event.shiftKey)"
+          >
+            X
+          </button>
+        </div>
         @if (showCtfFlagsInNotifications) {
-          <br/>
+          <br />
           <div>
-            <span class="icon-box"><mat-icon>outlined_flag</mat-icon> {{notification.flag}}</span>&nbsp;
-            <button ngxClipboard mat-stroked-button [cbContent]="notification.flag" (cbOnSuccess)="notification.copied = true" [disabled]="notification.copied">
+            <span class="icon-box"
+              ><mat-icon>outlined_flag</mat-icon> {{ notification.flag }}</span
+            >&nbsp;
+            <button
+              ngxClipboard
+              mat-stroked-button
+              [cbContent]="notification.flag"
+              (cbOnSuccess)="notification.copied = true"
+              [disabled]="notification.copied"
+            >
               <mat-icon>content_copy</mat-icon>
-              <span [hidden]="!notification.copied">{{"COPY_SUCCESS" | translate}}</span>
-              <span [hidden]="notification.copied">{{"COPY_TO_CLIPBOARD" | translate}}</span>
+              <span [hidden]="!notification.copied">{{
+                "COPY_SUCCESS" | translate
+              }}</span>
+              <span [hidden]="notification.copied">{{
+                "COPY_TO_CLIPBOARD" | translate
+              }}</span>
             </button>
-            <br/>
-            @if (showCtfCountryDetailsInNotifications !== 'none') {
+            <br />
+            @if (showCtfCountryDetailsInNotifications !== "none") {
               <span class="icon-box">
-                @if (showCtfCountryDetailsInNotifications === 'flag' || showCtfCountryDetailsInNotifications === 'both') {
+                @if (
+                  showCtfCountryDetailsInNotifications === "flag" ||
+                  showCtfCountryDetailsInNotifications === "both"
+                ) {
                   <span
-                    class="fi fi-{{notification.country.code | lowercase}}"
-                    >
+                    class="fi fi-{{ notification.country.code | lowercase }}"
+                  >
                   </span>
                 }
-                @if (showCtfCountryDetailsInNotifications === 'name') {
+                @if (showCtfCountryDetailsInNotifications === "name") {
                   <mat-icon>my_location</mat-icon>
-                  }&nbsp;
-                  @if (showCtfCountryDetailsInNotifications === 'name' || showCtfCountryDetailsInNotifications === 'both') {
-                    <span>{{notification.country.name}}</span>
-                  }
-                </span>
-              }
-            </div>
-          }
-        </div>
-      </mat-card>
-    }
-  </div>
+                }
+                &nbsp;
+                @if (
+                  showCtfCountryDetailsInNotifications === "name" ||
+                  showCtfCountryDetailsInNotifications === "both"
+                ) {
+                  <span>{{ notification.country.name }}</span>
+                }
+              </span>
+            }
+          </div>
+        }
+      </div>
+    </mat-card>
+  }
+</div>

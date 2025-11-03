@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { NgModule } from '@angular/core'
-import { type HttpClient } from '@angular/common/http'
-import { OverlayContainer } from '@angular/cdk/overlay'
-import { TranslateHttpLoader } from '@ngx-translate/http-loader'
-import { ConfigurationService } from './Services/configuration.service'
+import { NgModule } from "@angular/core";
+import { type HttpClient } from "@angular/common/http";
+import { OverlayContainer } from "@angular/cdk/overlay";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { ConfigurationService } from "./Services/configuration.service";
 
-export function HttpLoaderFactory (http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json')
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
 
 @NgModule(/* TODO(standalone-migration): clean up removed NgModule class manually.
@@ -182,9 +182,14 @@ export function HttpLoaderFactory (http: HttpClient) {
     bootstrap: [AppComponent]
 } */)
 export class AppModule {
-  constructor (public configurationService: ConfigurationService, public overlayContainer: OverlayContainer) {
+  constructor(
+    public configurationService: ConfigurationService,
+    public overlayContainer: OverlayContainer,
+  ) {
     configurationService.getApplicationConfiguration().subscribe((conf) => {
-      overlayContainer.getContainerElement().classList.add(conf.application.theme + '-theme')
-    })
+      overlayContainer
+        .getContainerElement()
+        .classList.add(conf.application.theme + "-theme");
+    });
   }
 }

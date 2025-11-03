@@ -3,23 +3,26 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, NgZone } from '@angular/core'
-import { Router } from '@angular/router'
-import { AddressComponent } from '../address/address.component'
+import { Component, NgZone } from "@angular/core";
+import { Router } from "@angular/router";
+import { AddressComponent } from "../address/address.component";
 
 @Component({
-  selector: 'app-address-select',
-  templateUrl: './address-select.component.html',
-  styleUrls: ['./address-select.component.scss'],
-  imports: [AddressComponent]
+  selector: "app-address-select",
+  templateUrl: "./address-select.component.html",
+  styleUrls: ["./address-select.component.scss"],
+  imports: [AddressComponent],
 })
 export class AddressSelectComponent {
-  public addressId: any = undefined
-  public showNextButton: boolean = true
+  public addressId: any = undefined;
+  public showNextButton: boolean = true;
 
-  constructor (private readonly router: Router, private readonly ngZone: NgZone) {}
+  constructor(
+    private readonly router: Router,
+    private readonly ngZone: NgZone,
+  ) {}
 
-  getMessage (id) {
-    this.addressId = id
+  getMessage(id) {
+    this.addressId = id;
   }
 }

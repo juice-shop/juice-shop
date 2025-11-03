@@ -75,9 +75,7 @@
         }
       ],
       "product_status": {
-        "known_affected": [
-          "juice-shop/juice-shop"
-        ]
+        "known_affected": ["juice-shop/juice-shop"]
       },
       "title": "The Juice Shop uses the library hoek which might be subject to prototype pollution via the clone function."
     }

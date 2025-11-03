@@ -1,23 +1,23 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { ReactiveFormsModule, FormsModule } from '@angular/forms'
-import { RouterModule, type Routes } from '@angular/router'
-import { ConfigurationService } from '../Services/configuration.service'
-import { OverlayContainer } from '@angular/cdk/overlay'
-import { MatCardModule } from '@angular/material/card'
-import { MatInputModule } from '@angular/material/input'
-import { MatButtonModule } from '@angular/material/button'
-import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { RouterModule, type Routes } from "@angular/router";
+import { ConfigurationService } from "../Services/configuration.service";
+import { OverlayContainer } from "@angular/cdk/overlay";
+import { MatCardModule } from "@angular/material/card";
+import { MatInputModule } from "@angular/material/input";
+import { MatButtonModule } from "@angular/material/button";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
-import { WalletWeb3Component } from './wallet-web3.component'
-import { TranslateModule } from '@ngx-translate/core'
+import { WalletWeb3Component } from "./wallet-web3.component";
+import { TranslateModule } from "@ngx-translate/core";
 
 const routes: Routes = [
   {
-    path: '',
-    component: WalletWeb3Component
-  }
-]
+    path: "",
+    component: WalletWeb3Component,
+  },
+];
 
 @NgModule({
   imports: [
@@ -30,19 +30,19 @@ const routes: Routes = [
     MatCardModule,
     MatInputModule,
     MatSnackBarModule,
-    WalletWeb3Component
+    WalletWeb3Component,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class WalletWeb3Module {
-  constructor (
+  constructor(
     public configurationService: ConfigurationService,
-    public overlayContainer: OverlayContainer
+    public overlayContainer: OverlayContainer,
   ) {
     configurationService.getApplicationConfiguration().subscribe((conf) => {
       overlayContainer
         .getContainerElement()
-        .classList.add(conf.application.theme + '-theme')
-    })
+        .classList.add(conf.application.theme + "-theme");
+    });
   }
 }

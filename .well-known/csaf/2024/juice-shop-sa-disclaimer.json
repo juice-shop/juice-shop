@@ -87,26 +87,20 @@
         }
       ],
       "product_status": {
-        "known_affected": [
-          "juice-shop/juice-shop"
-        ]
+        "known_affected": ["juice-shop/juice-shop"]
       },
       "remediations": [
         {
           "category": "no_fix_planned",
           "date": "2024-03-03T11:00:00.000Z",
           "details": "ONLY run the Juice Shop in an isolated training environment.",
-          "product_ids": [
-            "juice-shop/juice-shop"
-          ]
+          "product_ids": ["juice-shop/juice-shop"]
         },
         {
           "category": "mitigation",
           "date": "2024-03-10T08:46:00.000Z",
           "details": "Explicitly enable safetyMode to disable unsecure challenges.\n\n```yaml\nchallenges:\n  safetyMode: enabled\n```\n",
-          "product_ids": [
-            "juice-shop/juice-shop-17-or-later"
-          ],
+          "product_ids": ["juice-shop/juice-shop-17-or-later"],
           "url": "https://github.com/juice-shop/juice-shop/issues/2174"
         }
       ],
@@ -130,9 +124,7 @@
             "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
             "version": "3.1"
           },
-          "products": [
-            "juice-shop/juice-shop"
-          ]
+          "products": ["juice-shop/juice-shop"]
         }
       ],
       "title": "Intentional Vulnerabilities"

@@ -1,192 +1,194 @@
 const routes: Routes = [
   {
-    path: 'administration',
+    path: "administration",
     component: AdministrationComponent,
-    canActivate: [AdminGuard]
+    canActivate: [AdminGuard],
   },
   {
-    path: 'accounting',
+    path: "accounting",
     component: AccountingComponent,
-    canActivate: [AccountingGuard]
+    canActivate: [AccountingGuard],
   },
   {
-    path: 'about',
-    component: AboutComponent
+    path: "about",
+    component: AboutComponent,
   },
   {
-    path: 'address/select',
+    path: "address/select",
     component: AddressSelectComponent,
-    canActivate: [LoginGuard]
+    canActivate: [LoginGuard],
   },
   {
-    path: 'address/saved',
+    path: "address/saved",
     component: SavedAddressComponent,
-    canActivate: [LoginGuard]
+    canActivate: [LoginGuard],
   },
   {
-    path: 'address/create',
+    path: "address/create",
     component: AddressCreateComponent,
-    canActivate: [LoginGuard]
+    canActivate: [LoginGuard],
   },
   {
-    path: 'address/edit/:addressId',
+    path: "address/edit/:addressId",
     component: AddressCreateComponent,
-    canActivate: [LoginGuard]
+    canActivate: [LoginGuard],
   },
   {
-    path: 'delivery-method',
-    component: DeliveryMethodComponent
+    path: "delivery-method",
+    component: DeliveryMethodComponent,
   },
   {
-    path: 'deluxe-membership',
+    path: "deluxe-membership",
     component: DeluxeUserComponent,
-    canActivate: [LoginGuard]
+    canActivate: [LoginGuard],
   },
   {
-    path: 'saved-payment-methods',
-    component: SavedPaymentMethodsComponent
+    path: "saved-payment-methods",
+    component: SavedPaymentMethodsComponent,
   },
   {
-    path: 'basket',
-    component: BasketComponent
+    path: "basket",
+    component: BasketComponent,
   },
   {
-    path: 'order-completion/:id',
-    component: OrderCompletionComponent
+    path: "order-completion/:id",
+    component: OrderCompletionComponent,
   },
   {
-    path: 'contact',
-    component: ContactComponent
+    path: "contact",
+    component: ContactComponent,
   },
   {
-    path: 'photo-wall',
-    component: PhotoWallComponent
+    path: "photo-wall",
+    component: PhotoWallComponent,
   },
   {
-    path: 'complain',
-    component: ComplaintComponent
+    path: "complain",
+    component: ComplaintComponent,
   },
   {
-    path: 'chatbot',
-    component: ChatbotComponent
+    path: "chatbot",
+    component: ChatbotComponent,
   },
   {
-    path: 'order-summary',
-    component: OrderSummaryComponent
+    path: "order-summary",
+    component: OrderSummaryComponent,
   },
   {
-    path: 'order-history',
-    component: OrderHistoryComponent
+    path: "order-history",
+    component: OrderHistoryComponent,
   },
   {
-    path: 'payment/:entity',
-    component: PaymentComponent
+    path: "payment/:entity",
+    component: PaymentComponent,
   },
   {
-    path: 'wallet',
-    component: WalletComponent
+    path: "wallet",
+    component: WalletComponent,
   },
   {
-    path: 'login',
-    component: LoginComponent
+    path: "login",
+    component: LoginComponent,
   },
   {
-    path: 'forgot-password',
-    component: ForgotPasswordComponent
+    path: "forgot-password",
+    component: ForgotPasswordComponent,
   },
   {
-    path: 'recycle',
-    component: RecycleComponent
+    path: "recycle",
+    component: RecycleComponent,
   },
   {
-    path: 'register',
-    component: RegisterComponent
+    path: "register",
+    component: RegisterComponent,
   },
   {
-    path: 'search',
-    component: SearchResultComponent
+    path: "search",
+    component: SearchResultComponent,
   },
   {
-    path: 'hacking-instructor',
-    component: SearchResultComponent
+    path: "hacking-instructor",
+    component: SearchResultComponent,
   },
   {
-    path: 'score-board',
-    component: ScoreBoardComponent
+    path: "score-board",
+    component: ScoreBoardComponent,
   },
   {
-    path: 'track-result',
-    component: TrackResultComponent
+    path: "track-result",
+    component: TrackResultComponent,
   },
   {
-    path: 'track-result/new',
+    path: "track-result/new",
     component: TrackResultComponent,
     data: {
-      type: 'new'
-    }
+      type: "new",
+    },
   },
   {
-    path: '2fa/enter',
-    component: TwoFactorAuthEnterComponent
+    path: "2fa/enter",
+    component: TwoFactorAuthEnterComponent,
   },
   {
-    path: 'privacy-security',
+    path: "privacy-security",
     component: PrivacySecurityComponent,
     children: [
       {
-        path: 'privacy-policy',
-        component: PrivacyPolicyComponent
+        path: "privacy-policy",
+        component: PrivacyPolicyComponent,
       },
       {
-        path: 'change-password',
-        component: ChangePasswordComponent
+        path: "change-password",
+        component: ChangePasswordComponent,
       },
       {
-        path: 'two-factor-authentication',
-        component: TwoFactorAuthComponent
+        path: "two-factor-authentication",
+        component: TwoFactorAuthComponent,
       },
       {
-        path: 'data-export',
-        component: DataExportComponent
+        path: "data-export",
+        component: DataExportComponent,
       },
       {
-        path: 'last-login-ip',
-        component: LastLoginIpComponent
-      }
-    ]
+        path: "last-login-ip",
+        component: LastLoginIpComponent,
+      },
+    ],
   },
   {
-    path: 'juicy-nft',
-    component: NFTUnlockComponent
+    path: "juicy-nft",
+    component: NFTUnlockComponent,
   },
   {
-    path: 'wallet-web3',
-    loadChildren: async () => await loadWeb3WalletModule()
+    path: "wallet-web3",
+    loadChildren: async () => await loadWeb3WalletModule(),
   },
   {
-    path: 'web3-sandbox',
+    path: "web3-sandbox",
     canActivate: [AdminGuard],
-    loadChildren: async () => await loadWeb3SandboxModule()
+    loadChildren: async () => await loadWeb3SandboxModule(),
   },
   {
-    path: 'bee-haven',
-    loadChildren: async () => await loadFaucetModule()
+    path: "bee-haven",
+    loadChildren: async () => await loadFaucetModule(),
   },
-   {
+  {
     matcher: oauthMatcher,
-    data: { params: (window.location.href).substr(window.location.href.indexOf('#')) },
-    component: OAuthComponent
+    data: {
+      params: window.location.href.substr(window.location.href.indexOf("#")),
+    },
+    component: OAuthComponent,
   },
   {
     matcher: tokenMatcher,
-    component: TokenSaleComponent
+    component: TokenSaleComponent,
   },
   {
-    path: '403',
-    component: ErrorPageComponent
+    path: "403",
+    component: ErrorPageComponent,
   },
   {
-    path: '**',
-    component: SearchResultComponent
-  }
-]
+    path: "**",
+    component: SearchResultComponent,
+  },
+];

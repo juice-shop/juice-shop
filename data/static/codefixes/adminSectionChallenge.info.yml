@@ -4,7 +4,7 @@ fixes:
   - id: 2
     explanation: "Obfuscating the path to the administration section does not add any security, even if it wasn't just a trivial Base64 encoding."
   - id: 3
-    explanation: 'This obfuscation attempt is hard to undo by hand but trivial when executed in a JavaScript console. Regardless, obfuscating the route does not add any level of security.'
+    explanation: "This obfuscation attempt is hard to undo by hand but trivial when executed in a JavaScript console. Regardless, obfuscating the route does not add any level of security."
   - id: 4
     explanation: 'Assuming that the original "AdminGuard" provided access control only to admin users, switching to "LoginGuard" seems like a downgrade that would give access to any authenticated user.'
 hints:

@@ -11,16 +11,16 @@ import {
   type InferCreationAttributes,
   DataTypes,
   type CreationOptional,
-  type Sequelize
-} from 'sequelize'
+  type Sequelize,
+} from "sequelize";
 
 class PrivacyRequestModel extends Model<
-InferAttributes<PrivacyRequestModel>,
-InferCreationAttributes<PrivacyRequestModel>
+  InferAttributes<PrivacyRequestModel>,
+  InferCreationAttributes<PrivacyRequestModel>
 > {
-  declare id: CreationOptional<number>
-  declare UserId: number
-  declare deletionRequested: boolean
+  declare id: CreationOptional<number>;
+  declare UserId: number;
+  declare deletionRequested: boolean;
 }
 const PrivacyRequestModelInit = (sequelize: Sequelize) => {
   PrivacyRequestModel.init(
@@ -28,21 +28,21 @@ const PrivacyRequestModelInit = (sequelize: Sequelize) => {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
       UserId: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
       },
       deletionRequested: {
         type: DataTypes.BOOLEAN,
-        defaultValue: false
-      }
+        defaultValue: false,
+      },
     },
     {
-      tableName: 'PrivacyRequests',
-      sequelize
-    }
-  )
-}
+      tableName: "PrivacyRequests",
+      sequelize,
+    },
+  );
+};
 
-export { PrivacyRequestModel, PrivacyRequestModelInit }
+export { PrivacyRequestModel, PrivacyRequestModelInit };

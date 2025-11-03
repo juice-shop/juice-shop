@@ -9,48 +9,45 @@ import {
   type InferCreationAttributes,
   Model,
   DataTypes,
-  type Sequelize
-} from 'sequelize'
+  type Sequelize,
+} from "sequelize";
 /* jslint node: true */
-class Hint extends Model<
-InferAttributes<Hint>,
-InferCreationAttributes<Hint>
-> {
-  declare ChallengeId: number
-  declare id: CreationOptional<number>
-  declare text: string
-  declare order: number
-  declare unlocked: boolean
+class Hint extends Model<InferAttributes<Hint>, InferCreationAttributes<Hint>> {
+  declare ChallengeId: number;
+  declare id: CreationOptional<number>;
+  declare text: string;
+  declare order: number;
+  declare unlocked: boolean;
 }
 
 const HintModelInit = (sequelize: Sequelize) => {
   Hint.init(
     {
       ChallengeId: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
       },
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
       text: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
       },
       order: {
         type: DataTypes.INTEGER,
         validate: {
           isInt: true,
-          min: 1
-        }
+          min: 1,
+        },
       },
-      unlocked: DataTypes.BOOLEAN
+      unlocked: DataTypes.BOOLEAN,
     },
     {
-      tableName: 'Hints',
-      sequelize
-    }
-  )
-}
+      tableName: "Hints",
+      sequelize,
+    },
+  );
+};
 
-export { Hint as HintModel, HintModelInit }
+export { Hint as HintModel, HintModelInit };

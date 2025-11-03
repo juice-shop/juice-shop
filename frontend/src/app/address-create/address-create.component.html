@@ -6,59 +6,85 @@
 <div class="page-center">
   <mat-card appearance="outlined" class="mat-elevation-z6">
     <div class="mdc-card">
-      <h1>{{ 'ADD_NEW_ADDRESS' | translate }}</h1>
+      <h1>{{ "ADD_NEW_ADDRESS" | translate }}</h1>
 
       <div class="form-container" id="address-form">
         <mat-form-field appearance="outline" color="accent">
-          <mat-label>{{ 'LABEL_COUNTRY' | translate }}</mat-label>
-          <input [formControl]="countryControl" type="text" [placeholder]="'MANDATORY_COUNTRY' | translate" matInput>
+          <mat-label>{{ "LABEL_COUNTRY" | translate }}</mat-label>
+          <input
+            [formControl]="countryControl"
+            type="text"
+            [placeholder]="'MANDATORY_COUNTRY' | translate"
+            matInput
+          />
           @if (countryControl.invalid && countryControl.errors.required) {
             <mat-error>
-              {{ 'MANDATORY_COUNTRY' | translate }}
+              {{ "MANDATORY_COUNTRY" | translate }}
             </mat-error>
           }
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="accent">
-          <mat-label>{{ 'LABEL_NAME' | translate }}</mat-label>
-          <input [formControl]="nameControl" type="text" [placeholder]="'MANDATORY_NAME' | translate" matInput>
+          <mat-label>{{ "LABEL_NAME" | translate }}</mat-label>
+          <input
+            [formControl]="nameControl"
+            type="text"
+            [placeholder]="'MANDATORY_NAME' | translate"
+            matInput
+          />
           @if (nameControl.invalid && nameControl.errors.required) {
             <mat-error>
-              {{ 'MANDATORY_NAME' | translate }}
+              {{ "MANDATORY_NAME" | translate }}
             </mat-error>
           }
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="accent">
-          <mat-label>{{ 'LABEL_MOBILE_NUMBER' | translate }}</mat-label>
-          <input [formControl]="numberControl" type="number" [placeholder]="'MANDATORY_NUMBER' | translate" matInput>
+          <mat-label>{{ "LABEL_MOBILE_NUMBER" | translate }}</mat-label>
+          <input
+            [formControl]="numberControl"
+            type="number"
+            [placeholder]="'MANDATORY_NUMBER' | translate"
+            matInput
+          />
           @if (numberControl.invalid && numberControl.errors.required) {
             <mat-error>
-              {{ 'MANDATORY_NUMBER' | translate }}
+              {{ "MANDATORY_NUMBER" | translate }}
             </mat-error>
           }
-          @if (numberControl.invalid && (numberControl.errors.min || numberControl.errors.max)) {
-            <mat-error
-              [translateParams]="{range: '1000000-9999999999'}"
-              >
-              {{ 'INVALID_MOBILE_NUMBER' | translate }}
+          @if (
+            numberControl.invalid &&
+            (numberControl.errors.min || numberControl.errors.max)
+          ) {
+            <mat-error [translateParams]="{ range: '1000000-9999999999' }">
+              {{ "INVALID_MOBILE_NUMBER" | translate }}
             </mat-error>
           }
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="accent">
-          <mat-label>{{ 'LABEL_ZIP_CODE' | translate }}</mat-label>
-          <input #pin [formControl]="pinControl" type="text" [placeholder]="'MANDATORY_ZIP' | translate" matInput>
+          <mat-label>{{ "LABEL_ZIP_CODE" | translate }}</mat-label>
+          <input
+            #pin
+            [formControl]="pinControl"
+            type="text"
+            [placeholder]="'MANDATORY_ZIP' | translate"
+            matInput
+          />
           <mat-hint align="end">{{ pin.value?.length || 0 }}/8</mat-hint>
           @if (pinControl.invalid && pinControl.errors.required) {
             <mat-error>
-              {{ 'MANDATORY_ZIP' | translate }}
+              {{ "MANDATORY_ZIP" | translate }}
             </mat-error>
           }
         </mat-form-field>
 
-        <mat-form-field appearance="outline" color="accent" class="textarea-field">
-          <mat-label>{{ 'LABEL_ADDRESS' | translate }}</mat-label>
+        <mat-form-field
+          appearance="outline"
+          color="accent"
+          class="textarea-field"
+        >
+          <mat-label>{{ "LABEL_ADDRESS" | translate }}</mat-label>
           <textarea
             #adress
             id="address"
@@ -73,36 +99,52 @@
           ></textarea>
           <mat-hint>
             <i class="fas fa-exclamation-circle"></i>
-            <em style="margin-left:5px;">{{ 'MAX_TEXTAREA_LENGTH' | translate: { length: '160' } }}</em>
+            <em style="margin-left: 5px">{{
+              "MAX_TEXTAREA_LENGTH" | translate: { length: "160" }
+            }}</em>
           </mat-hint>
           <mat-hint align="end">{{ adress.value?.length || 0 }}/160</mat-hint>
           @if (addressControl.invalid && addressControl.errors.required) {
             <mat-error>
-              {{ 'MANDATORY_ADDRESS' | translate }}
+              {{ "MANDATORY_ADDRESS" | translate }}
             </mat-error>
           }
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="accent">
-          <mat-label>{{ 'LABEL_CITY' | translate }}</mat-label>
-          <input [formControl]="cityControl" type="text" [placeholder]="'MANDATORY_CITY' | translate" matInput>
+          <mat-label>{{ "LABEL_CITY" | translate }}</mat-label>
+          <input
+            [formControl]="cityControl"
+            type="text"
+            [placeholder]="'MANDATORY_CITY' | translate"
+            matInput
+          />
           @if (cityControl.invalid && cityControl.errors.required) {
             <mat-error>
-              {{ 'MANDATORY_CITY' | translate }}
+              {{ "MANDATORY_CITY" | translate }}
             </mat-error>
           }
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="accent">
-          <mat-label>{{ 'LABEL_STATE' | translate }}</mat-label>
-          <input [formControl]="stateControl" type="text" [placeholder]="'STATE_PLACEHOLDER' | translate" matInput>
+          <mat-label>{{ "LABEL_STATE" | translate }}</mat-label>
+          <input
+            [formControl]="stateControl"
+            type="text"
+            [placeholder]="'STATE_PLACEHOLDER' | translate"
+            matInput
+          />
         </mat-form-field>
       </div>
 
       <div class="actions">
-        <button mat-stroked-button class="btn-return" (click)="routeToPreviousUrl()">
+        <button
+          mat-stroked-button
+          class="btn-return"
+          (click)="routeToPreviousUrl()"
+        >
           <mat-icon>navigate_before</mat-icon>
-          {{ 'LABEL_BACK' | translate }}
+          {{ "LABEL_BACK" | translate }}
         </button>
 
         <button
@@ -110,11 +152,18 @@
           id="submitButton"
           mat-raised-button
           color="primary"
-          [disabled]="countryControl.invalid || nameControl.invalid || numberControl.invalid || pinControl.invalid || addressControl.invalid || cityControl.invalid"
+          [disabled]="
+            countryControl.invalid ||
+            nameControl.invalid ||
+            numberControl.invalid ||
+            pinControl.invalid ||
+            addressControl.invalid ||
+            cityControl.invalid
+          "
           (click)="save()"
-          >
+        >
           <mat-icon>send</mat-icon>
-          {{ 'BTN_SUBMIT' | translate }}
+          {{ "BTN_SUBMIT" | translate }}
         </button>
       </div>
     </div>

@@ -3,42 +3,42 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, Input, OnInit } from '@angular/core'
-import { PasswordStrengthComponent } from '../password-strength/password-strength.component'
-import { MatCardModule } from '@angular/material/card'
-import { MatIconModule } from '@angular/material/icon'
+import { Component, Input, OnInit } from "@angular/core";
+import { PasswordStrengthComponent } from "../password-strength/password-strength.component";
+import { MatCardModule } from "@angular/material/card";
+import { MatIconModule } from "@angular/material/icon";
 
 @Component({
-  selector: 'app-password-strength-info',
+  selector: "app-password-strength-info",
   imports: [MatCardModule, MatIconModule],
-  templateUrl: './password-strength-info.component.html',
-  styleUrl: './password-strength-info.component.scss'
+  templateUrl: "./password-strength-info.component.html",
+  styleUrl: "./password-strength-info.component.scss",
 })
 export class PasswordStrengthInfoComponent implements OnInit {
   @Input()
-    passwordComponent: PasswordStrengthComponent
+  passwordComponent: PasswordStrengthComponent;
 
   @Input()
-    enableScoreInfo = false
+  enableScoreInfo = false;
 
   @Input()
-    lowerCaseCriteriaMsg = 'contains at least one lower character'
+  lowerCaseCriteriaMsg = "contains at least one lower character";
 
   @Input()
-    upperCaseCriteriaMsg = 'contains at least one upper character'
+  upperCaseCriteriaMsg = "contains at least one upper character";
 
   @Input()
-    digitsCriteriaMsg = 'contains at least one digit character'
+  digitsCriteriaMsg = "contains at least one digit character";
 
   @Input()
-    specialCharsCriteriaMsg = 'contains at least one special character'
+  specialCharsCriteriaMsg = "contains at least one special character";
 
   @Input()
-    minCharsCriteriaMsg: string
+  minCharsCriteriaMsg: string;
 
-  ngOnInit (): void {
+  ngOnInit(): void {
     if (!this.minCharsCriteriaMsg) {
-      this.minCharsCriteriaMsg = `contains at least ${this.passwordComponent.minLength} characters`
+      this.minCharsCriteriaMsg = `contains at least ${this.passwordComponent.minLength} characters`;
     }
   }
 }

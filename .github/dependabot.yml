@@ -1,0 +1,17 @@
+version: 2
+
+updates:
+  # Gestion automatique des dépendances npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - VOTRE_USERNAME
+    labels:
+      - "dependencies"
+      - "security"
+    commit-message:
+      prefix: "chore(deps)"

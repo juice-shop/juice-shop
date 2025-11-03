@@ -37,7 +37,7 @@
 
 .responsive-field {
   width: 100%;
-  
+
   @media (min-width: 600px) {
     max-width: 350px;
     width: 75vw;
@@ -71,9 +71,9 @@
 .sbt-title {
   font-size: 1.5rem;
   margin: 0 0 16px;
-  
+
   @media screen and (max-width: 600px) {
-    font-size: 1.25rem; 
+    font-size: 1.25rem;
   }
 }
 
