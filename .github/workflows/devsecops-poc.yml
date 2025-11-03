@@ -1,0 +1,99 @@
+name: DevSecOps POC
+
+on:
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+  security-events: write
+  pull-requests: write
+
+jobs:
+  sca-audit:
+    name: SCA - npm audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm audit --audit-level=high || true
+      - name: Check Critical Vulnerabilities
+        run: |
+          CRITICAL=$(npm audit --json 2>/dev/null | jq -r '.metadata.vulnerabilities.critical')
+          if [ "$CRITICAL" -gt 0 ]; then
+            echo "❌ Found $CRITICAL critical vulnerabilities"
+            exit 1
+          fi
+          echo "✅ No critical vulnerabilities"
+
+  sast-codeql:
+    name: SAST - CodeQL
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        language: ['javascript']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - run: npm ci
+      - uses: github/codeql-action/autobuild@v3
+      - uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:javascript"
+
+  dast-zap:
+    name: DAST - OWASP ZAP
+    runs-on: ubuntu-latest
+    services:
+      juice-shop:
+        image: bkimminich/juice-shop:latest
+        ports:
+          - 3000:3000
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for app
+        run: |
+          for i in {1..30}; do
+            curl -s http://localhost:3000 && break
+            sleep 2
+          done
+      - uses: zaproxy/action-baseline@v0.7.0
+        with:
+          target: 'http://localhost:3000'
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: zap-report
+          path: report_md.md
+          retention-days: 7
+
+  summary:
+    name: Security Summary
+    runs-on: ubuntu-latest
+    if: always()
+    needs: [sca-audit, sast-codeql, dast-zap]
+    steps:
+      - run: |
+          echo "## 🔐 Security Scan Summary"
+          echo ""
+          echo "| Check | Status |"
+          echo "|-------|--------|"
+          echo "| SCA (npm audit) | ${{ needs.sca-audit.result }} |"
+          echo "| SAST (CodeQL) | ${{ needs.sast-codeql.result }} |"
+          echo "| DAST (ZAP) | ${{ needs.dast-zap.result }} |"
+          echo ""
+          if [ "${{ needs.sca-audit.result }}" != "success" ]; then
+            echo "⚠️ SCA check failed"
+            exit 1
+          fi

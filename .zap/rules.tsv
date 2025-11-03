@@ -17,3 +17,6 @@
 90005	IGNORE	(Sec-Fetch-Mode Header is Missing)
 90005	IGNORE	(Sec-Fetch-Site Header is Missing)
 90005	IGNORE	(Sec-Fetch-User Header is Missing)
+10010	IGNORE	(Cookie without SameSite)
+10015	IGNORE	(Cache Control)
+10020	IGNORE	(X-Frame-Options)
