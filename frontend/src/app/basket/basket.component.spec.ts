@@ -79,6 +79,6 @@ describe('BasketComponent', () => {
   it('should store itemTotal in session storage', () => {
     spyOn(sessionStorage, 'setItem')
     component.getBonusPoints([1, 10])
-    expect(sessionStorage.setItem).toHaveBeenCalledWith('itemTotal', 1 as any)
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('itemTotal', '1')
   })
 })

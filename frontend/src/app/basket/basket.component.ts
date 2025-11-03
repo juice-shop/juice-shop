@@ -24,8 +24,8 @@ export class BasketComponent {
   private readonly router = inject(Router);
   private readonly ngZone = inject(NgZone);
 
-  public productCount: number = 0
-  public bonus: number = 0
+  public productCount = 0
+  public bonus = 0
 
   checkout (): void {
     this.ngZone.run(async () => await this.router.navigate(['/address/select']))
