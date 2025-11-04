@@ -1,13 +1,13 @@
 fixes:
   - id: 1
-    explanation: 'Wrong!'
+    explanation: 'While adding a reentrancy guard is a good approach, this implementation still has the vulnerability because the balance is updated AFTER the external call. The guard check happens too late in the execution flow.'
   - id: 2
-    explanation: 'Wrong!'
+    explanation: 'Moving the balance update before the external call follows the Checks-Effects-Interactions pattern, which is the correct way to prevent reentrancy attacks. This ensures the state is updated before any external calls are made.'
   - id: 3
-    explanation: 'Correct!'
+    explanation: 'This is the correct fix! By updating the balance BEFORE making the external call (msg.sender.call), we follow the Checks-Effects-Interactions pattern and prevent reentrancy attacks.'
   - id: 4
-    explanation: 'Wrong!'
+    explanation: 'Removing the reentrancy counter entirely makes the contract even more vulnerable. The counter was an attempt (albeit flawed) to prevent reentrancy, but removing it without fixing the core issue makes things worse.'
 hints:
-  - 'Hint1'
-  - 'Hint2'
-  - 'Hint3'
+  - 'The vulnerability is a classic reentrancy attack. Look at the order of operations in the withdraw function.'
+  - 'In Solidity, external calls can trigger fallback functions in the receiving contract, allowing it to call back into the original contract.'
+  - 'The Checks-Effects-Interactions pattern suggests: check conditions first, update state second, interact with external contracts last.'

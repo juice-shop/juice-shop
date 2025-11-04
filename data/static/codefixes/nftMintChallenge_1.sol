@@ -18,9 +18,9 @@ contract HoneyPotNFT is ERC721, Ownable {
     constructor() ERC721("The Enchanted Honey Pot", "EHP") {}
 
     function mintNFT() external {
-        token.transferFrom(msg.sender, address(this), mintPrice);
-        _safeMint(msg.sender, totalSupply);
         totalSupply = totalSupply.add(1);
+        token.transferFrom(msg.sender, address(this), mintPrice);
+        _safeMint(msg.sender, totalSupply - 1);
         emit NFTMinted(msg.sender, totalSupply - 1);
     }
 

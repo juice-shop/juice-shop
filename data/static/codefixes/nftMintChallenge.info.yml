@@ -1,13 +1,13 @@
 fixes:
   - id: 1
-    explanation: 'Wrong!'
+    explanation: 'Incrementing totalSupply before minting creates a mismatch. The first NFT would be minted with tokenId 0, but totalSupply would be 1, causing the event to emit the wrong tokenId (totalSupply - 1 = 0 is correct by accident, but the logic is flawed).'
   - id: 2
-    explanation: 'Wrong!'
+    explanation: 'Adding a require statement for the transferFrom is good practice, but it does not fix the core vulnerability. The issue is that totalSupply is incremented AFTER minting, which can lead to reentrancy issues during the _safeMint callback.'
   - id: 3
-    explanation: 'Wrong!'
+    explanation: 'Storing the tokenId in a local variable before minting is a step in the right direction, but the vulnerability still exists because totalSupply is updated after the external call (_safeMint), allowing potential reentrancy attacks.'
   - id: 4
-    explanation: 'Correct!'
+    explanation: 'This is correct! The vulnerability is that totalSupply is incremented AFTER _safeMint. Since _safeMint can trigger a callback to the recipient, they could re-enter and mint multiple NFTs with the same tokenId. The original code in the snippet already has this fix applied.'
 hints:
-  - 'Hint1'
-  - 'Hint2'
-  - 'Hint3'
+  - 'The _safeMint function can trigger a callback to the recipient contract. What could happen if the state is not updated before this call?'
+  - 'Look at when totalSupply is incremented relative to when _safeMint is called. This is another example of the Checks-Effects-Interactions pattern.'
+  - 'If totalSupply is not incremented before minting, a malicious contract could re-enter the mintNFT function during the _safeMint callback and mint multiple tokens with the same ID.'

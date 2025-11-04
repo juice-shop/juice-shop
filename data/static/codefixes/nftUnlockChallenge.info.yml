@@ -1,13 +1,13 @@
 fixes:
   - id: 1
-    explanation: 'Wrong!'
+    explanation: 'This contract is actually secure in its implementation. The vulnerability for this challenge is not in the smart contract code itself, but in how the wallet seed phrase was exposed.'
   - id: 2
-    explanation: 'Correct!'
+    explanation: 'Correct! This challenge is about sensitive data exposure (the wallet seed phrase), not a smart contract vulnerability. The contract code is the same because the issue is operational security, not code security.'
   - id: 3
-    explanation: 'Wrong!'
+    explanation: 'The contract implementation is secure. The Soul Bound Token (SBT) correctly prevents transfers after minting. The challenge vulnerability is the exposed seed phrase, not the contract code.'
   - id: 4
-    explanation: 'Wrong!'
+    explanation: 'The contract is properly implemented. This challenge focuses on finding accidentally posted credentials (seed phrase), which is a different type of security issue than smart contract vulnerabilities.'
 hints:
-  - 'Hint1'
-  - 'Hint2'
-  - 'Hint3'
+  - 'This challenge is about sensitive data exposure, not a smart contract coding flaw.'
+  - 'The seed phrase for the wallet was accidentally posted somewhere. Look for it in the application.'
+  - 'Once you have the seed phrase, you can import the wallet and access the Soul Bound Token (NFT).'
