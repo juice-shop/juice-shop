@@ -31,18 +31,48 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 16px;
+    gap: 16px;
+    padding: 24px;
     text-align: center;
   }
 
+  .price-section {
+    align-items: baseline;
+    display: flex;
+    gap: 4px;
+    margin: 8px 0;
+  }
+
   .btn-become-member {
-    width: min-content;
+    border-radius: 8px;
+    font-weight: 500;
+    min-width: 160px;
+    padding: 12px 24px;
+    text-transform: uppercase;
+    transition: all 0.2s ease-in-out;
+    white-space: nowrap;
   }
 
   @media screen and (max-width: 768px) {
     grid-template-columns: 1fr;
   }
+}
+
+.amount {
+  color: #1976d2;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.currency {
+  color: #666;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.btn-become-member:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
 }
 
 .feature-cards-container {

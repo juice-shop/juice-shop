@@ -22,9 +22,10 @@
     <strong class="item-name" translate="">LABEL_DELUXE_MEMBERSHIP</strong>
     <span translate [translateParams]="{appname: applicationName}">DESCRIPTION_DELUXE_MEMBERSHIP</span>
     @if (!error) {
-      <span>
-        {{ membershipCost }}&curren;
-      </span>
+      <div class="price-section">
+        <span class="amount">{{ membershipCost }}</span>
+        <span class="currency">¤</span>
+      </div>
       <button (click)="upgradeToDeluxe()" aria-label="Become deluxe member" class="btn-become-member" color="primary"
         mat-button mat-raised-button>
         <span translate>LABEL_BECOME_MEMBER</span>
