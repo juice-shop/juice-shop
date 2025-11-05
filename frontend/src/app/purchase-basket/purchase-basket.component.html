@@ -65,5 +65,5 @@
   </mat-table>
 
   @if (totalPrice) {
-    <div id="price">{{"LABEL_TOTAL_PRICE"| translate }}: {{itemTotal}}¤</div>
+    <div id="price">{{"LABEL_TOTAL_PRICE"| translate }}: {{itemTotal.toFixed(2)}}¤</div>
   }

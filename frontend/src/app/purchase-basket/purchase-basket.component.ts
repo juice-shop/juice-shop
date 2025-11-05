@@ -65,8 +65,11 @@ export class PurchaseBasketComponent implements OnInit {
         }
         this.dataSource = basket.Products
          
-        this.itemTotal = basket.Products.reduce((itemTotal, product) => itemTotal + product.price * product.BasketItem.quantity, 0)
-         
+        this.itemTotal = basket.Products.reduce((itemTotal, product) => {
+          const itemPrice = Math.round(product.price * product.BasketItem.quantity * 100) / 100
+          return Math.round((itemTotal + itemPrice) * 100) / 100
+        }, 0)
+        
         this.bonus = basket.Products.reduce((bonusPoints, product) => bonusPoints + Math.round(product.price / 10) * product.BasketItem.quantity, 0)
         this.sendToParent(this.dataSource.length)
       },
