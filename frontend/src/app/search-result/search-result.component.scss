@@ -174,4 +174,12 @@ mat-grid-tile {
   }
   .info-box { width: 100%; }
   .img-thumbnail { width: 100% !important; }
+  
+  .mdc-card {
+    overflow: visible;
+  }
+  
+  mat-card {
+    height: auto;
+  }
 }
