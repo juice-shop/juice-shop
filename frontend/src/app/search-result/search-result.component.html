@@ -21,7 +21,7 @@
     @if (!emptyState) {
       <div>
         <mat-grid-list #table (window:resize)="onResize($event)" [cols]="breakpoint" gutterSize="30px">
-          @for (item of gridDataSource | async; track item) {
+          @for (item of gridDataSource | async; track trackByProductId($index, item)) {
             <mat-grid-tile>
               <mat-card appearance="outlined" [style.width]="'100%'" class="mat-elevation-z6 ribbon-card">
                 <div class="mdc-card">

@@ -127,4 +127,12 @@ export class PaymentMethodComponent implements OnInit {
     this.yearControl.markAsPristine()
     this.yearControl.setValue('')
   }
+
+  trackByValue(index: number, value: any): any {
+    return value;
+  }
+
+  trackByCardId(index: number, item: any): any {
+    return item.id || index;
+  }
 }
