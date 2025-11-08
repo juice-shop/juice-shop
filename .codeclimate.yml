@@ -1,3 +1,4 @@
+# YMAL file for juice-shop
 version: "2"
 plugins:
   fixme:
