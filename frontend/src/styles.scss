@@ -320,10 +320,10 @@ div.mdc-card {
   }
   
   .cdk-describedby-message-container,
-  [id^="cdk-describedby-message"] {
+  [id^='cdk-describedby-message'] {
     max-width: calc(100vw - 10px) !important;
     overflow: hidden !important;
-    white-space: nowrap !important;
     text-overflow: ellipsis !important;
+    white-space: nowrap !important;
   }
 }

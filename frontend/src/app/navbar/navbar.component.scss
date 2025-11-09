@@ -167,10 +167,10 @@ mat-search-bar {
   .mat-mdc-form-field-flex,
   .mat-mdc-form-field-infix,
   .mat-mdc-text-field-wrapper {
-    width: 100%;
+    margin: 0;
     min-width: 0;
     padding: 0;
-    margin: 0;
+    width: 100%;
   }
 
   .mat-search_icons,
