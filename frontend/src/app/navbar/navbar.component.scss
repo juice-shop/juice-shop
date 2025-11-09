@@ -107,6 +107,14 @@ mat-search-bar {
   padding-right: 100px;
 }
 
+@media (max-width: 768px) {
+  mat-search-bar {
+    margin-right: 16px;
+    min-width: 120px;
+    padding-right: 16px;
+  }
+}
+
 .buttons {
   position: relative;
   width: auto; 
@@ -152,5 +160,30 @@ mat-search-bar {
   .buttons { 
     min-width: 48px;
     width: auto !important;
+  }
+  
+  /* Fix MDC field overflow on mobile */
+  app-mat-search-bar,
+  .mat-mdc-form-field-flex,
+  .mat-mdc-form-field-infix,
+  .mat-mdc-text-field-wrapper {
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .mat-search_icons,
+  .mdc-button__label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mat-mdc-select,
+  .mat-mdc-select-trigger,
+  .mat-mdc-select-arrow,
+  .mat-mdc-select-arrow-wrapper {
+    min-width: 0;
+    width: auto;
   }
 }

@@ -38,10 +38,19 @@
 
   .btn-become-member {
     width: min-content;
+    white-space: nowrap;
   }
 
   @media screen and (max-width: 768px) {
     grid-template-columns: 1fr;
+    
+    .btn-become-member {
+      white-space: nowrap !important;
+      width: auto;
+      min-width: max-content;
+      padding: 8px 20px;
+      font-size: 0.875rem;
+    }
   }
 }
 

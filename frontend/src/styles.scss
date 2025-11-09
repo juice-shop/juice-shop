@@ -295,9 +295,15 @@ div.mdc-card {
   white-space: nowrap;
 }
 
+@media (max-width: 768px) {
+  .mat-mdc-button {
+    white-space: normal;
+  }
+}
+
 .multiline-tooltip {
   line-height: 1.2;
-  max-width: 480px;
+  max-width: calc(100vw - 20px);
   white-space: pre-line;
 }
 
@@ -305,4 +311,19 @@ div.mdc-card {
 /* override Angular Material tooltip max-height for score-board hints */
 .mat-mdc-tooltip-surface {
   max-height: none !important;
+}
+
+/* Fix CDK tooltip container overflow on mobile */
+@media (max-width: 768px) {
+  .mat-mdc-tooltip-surface {
+    max-width: calc(100vw - 20px) !important;
+  }
+  
+  .cdk-describedby-message-container,
+  [id^="cdk-describedby-message"] {
+    max-width: calc(100vw - 10px) !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+  }
 }

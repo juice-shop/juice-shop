@@ -23,6 +23,13 @@
     padding: 0.5em;
   }
 }
+
+@media (max-width: 768px) {
+  .mat-search_field {
+    padding: 0 12px 0 0;
+    max-width: calc(100vw - 120px);
+  }
+}
   
 .mat-search_icons {
   display: block;

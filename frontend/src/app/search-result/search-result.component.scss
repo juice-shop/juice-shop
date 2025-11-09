@@ -6,8 +6,8 @@
 $bg-heading: rgba(0, 0, 0, 0.2);
 
 .table-container {
-  min-width: 350px;
   width: 80%;
+  min-width: 100%;
 }
 
 .heading {
@@ -69,12 +69,25 @@ $bg-heading: rgba(0, 0, 0, 0.2);
   position: relative;
 }
 
+@media (max-width: 768px) {
+  .ribbon-card {
+    overflow: hidden;
+  }
+}
+
 .ribbon {
   height: 150px;
   overflow: hidden;
   pointer-events: none;
   position: absolute;
   width: 150px;
+}
+
+@media (max-width: 768px) {
+  .ribbon {
+    height: 120px;
+    width: 120px;
+  }
 }
 
 .ribbon::before {
@@ -94,6 +107,14 @@ $bg-heading: rgba(0, 0, 0, 0.2);
   text-align: center;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
   width: 225px;
+}
+
+@media (max-width: 768px) {
+  .ribbon span {
+    font-size: 14px;
+    padding: 10px 0;
+    width: 180px;
+  }
 }
 
 .ribbon-top-left {
@@ -149,9 +170,8 @@ mat-grid-tile {
 }
 
 .product {
-  margin-left: -17px;
   margin-right: 6px;
-  margin-top: -17px;
+  padding: 8px;
 }
 
 
@@ -181,5 +201,33 @@ mat-grid-tile {
   
   mat-card {
     height: auto;
+  }
+}
+
+/* Fix ribbon overflow on mobile */
+@media (max-width: 768px) {
+  .ribbon-card {
+    overflow: hidden;
+  }
+  
+  .ribbon {
+    height: 100px;
+    width: 100px;
+  }
+  
+  .ribbon span {
+    font-size: 12px;
+    padding: 8px 0;
+    width: 150px;
+  }
+  
+  .ribbon-top-left {
+    left: -5px;
+    top: -5px;
+  }
+  
+  .ribbon-top-left span {
+    right: -15px;
+    top: 25px;
   }
 }

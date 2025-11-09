@@ -14,7 +14,13 @@ mat-form-field {
 }
 
 .form-container {
-  min-width: 350px;
+  min-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    min-width: auto;
+  }
 }
 
 #submitButton {
