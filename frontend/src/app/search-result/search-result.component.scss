@@ -165,21 +165,3 @@ mat-grid-tile {
   align-self: center;
   width: 40%;
 }
-
-
-@media (max-width: 959.98px) {
-  .product {
-    flex-direction: column;
-    gap: 10px;
-  }
-  .info-box { width: 100%; }
-  .img-thumbnail { width: 100% !important; }
-  
-  .mdc-card {
-    overflow: visible;
-  }
-  
-  mat-card {
-    height: auto;
-  }
-}
