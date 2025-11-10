@@ -1,0 +1,109 @@
+name: CI Security Pipeline
+
+on:
+  push:
+    branches: [ lab9-ci ]
+  pull_request:
+    branches: [ lab9-ci ]
+
+jobs:
+  build:
+    name: Build project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          npm ci
+
+      - name: Run tests (optional)
+        run: |
+          npm test || true
+
+  semgrep:
+    name: Semgrep scan
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install semgrep
+        run: |
+          python -m pip install --upgrade pip
+          pip install semgrep
+      - name: Run semgrep (JSON + SARIF)
+        run: |
+          semgrep --config auto --json --output semgrep-report.json
+          semgrep --config auto --sarif --output semgrep-report.sarif || true
+      - name: Upload semgrep reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-reports
+          path: |
+            semgrep-report.json
+            semgrep-report.sarif
+
+  codeql:
+    name: CodeQL analysis
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: javascript
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
+      - name: Perform CodeQL analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          output: codeql-results.sarif
+      - name: Upload CodeQL SARIF
+        uses: actions/upload-artifact@v4
+        with:
+          name: codeql-sarif
+          path: codeql-results.sarif
+
+  trivy:
+    name: Trivy SCA (filesystem)
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Trivy
+        run: |
+          sudo apt-get update && sudo apt-get install -y wget
+          wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_0.39.0_Linux-64bit.deb -O trivy.deb || true
+          sudo dpkg -i trivy.deb || true
+      - name: Run Trivy filesystem scan
+        run: |
+          trivy fs --format json -o trivy-report.json .
+      - name: Upload Trivy report
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-report
+          path: trivy-report.json
+
+  dependency-check:
+    name: OWASP Dependency-Check
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Dependency-Check (docker)
+        run: |
+          docker run --rm -v ${{ github.workspace }}:/src -v /tmp/depcache:/report owasp/dependency-check \
+            --project "juice-shop" --scan /src --format ALL --out /report
+      - name: Upload Dependency-Check reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-check-reports
+          path: /tmp/depcache
