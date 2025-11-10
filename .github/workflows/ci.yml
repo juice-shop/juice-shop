@@ -2,9 +2,9 @@ name: JuiceShop CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ lab9-ci ]
   pull_request:
-    branches: [ main ]
+    branches: [ lab9-ci ]
 
 jobs:
   build-and-analyze:
