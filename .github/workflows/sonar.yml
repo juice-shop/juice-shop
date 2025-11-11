@@ -29,3 +29,9 @@ jobs:
       #   timeout-minutes: 5
       #   env:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Run CI-driven scan with Burp Action Step
+        uses: PortSwigger/ci-driven-scan-github-action@main
+        with:
+          enterprise-server-url: 'https://e7b82a65.portswigger.cloud'
+          enterprise-api-key: 'wNDtztSFdOUMh7WimyElaeSznIYJtpuo'
+          start-url: 'https://demo.owasp-juice.shop/'

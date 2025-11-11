@@ -1,0 +1,13 @@
+site:
+  correlationId: Demo Juice Shop - SPA
+  startUrls:
+    - https://demo.owasp-juice.shop/
+logins:
+  loginCredentials:
+  - username: jamie.white@sonarsource.com
+    password: Flash123!
+reporting:
+  threshold:
+    minimumSeverity: LOW
+    minimumConfidence: FIRM
+scanConfigurations.custom: ./SPAs.json
