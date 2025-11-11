@@ -72,6 +72,9 @@ h1 {
   flex-direction: row;
 }
 
+.flex-50 { flex: 0 0 50%;
+  max-width: 50%; }
+
 @media (max-width: 959.98px) {
   .recycle-container { flex-direction: column;
     gap: 20px; }
@@ -102,5 +105,3 @@ h1 {
 }
 
 
-.flex-50 { flex: 0 0 50%;
-  max-width: 50%; }
