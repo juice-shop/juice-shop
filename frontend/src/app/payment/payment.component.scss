@@ -25,11 +25,11 @@ mat-form-field {
 }
 
 .btn-return,
-.btn-next {
+.nextButton {
   width: min-content;
 }
 
-.btn-next {
+.nextButton {
   justify-self: end;
 }
 
@@ -115,7 +115,7 @@ mat-card {
     grid-row: 1;
   }
 
-  .btn-next {
+  .nextButton {
     grid-column: 3 / -1;
   }
 }
