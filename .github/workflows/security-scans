@@ -1,0 +1,52 @@
+name: Security Scans
+
+on:
+  push:
+    branches: [ "preprod", "master" ]
+  pull_request:
+    branches: [ "preprod", "master" ]
+
+jobs:
+  security-scan:
+    name: Run Security Scans (Semgrep + Gitleaks + Trivy)
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1️⃣: Checkout source code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2️⃣: Secret scanning with Gitleaks
+      - name: Scan for secrets with Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        with:
+          args: detect --source . --no-git -v
+
+      # Step 3️⃣: Static code analysis with Semgrep
+      - name: Run Semgrep scan
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: "p/default"      # Uses Semgrep’s default security rules
+          generateSarif: true
+          sarifFile: semgrep.sarif
+
+      # Step 4️⃣: Upload Semgrep results to GitHub Security tab
+      - name: Upload Semgrep results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: semgrep.sarif
+
+      # Step 5️⃣: Build the Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t myapp:${{ github.sha }} .
+
+      # Step 6️⃣: Scan Docker image for vulnerabilities with Trivy
+      - name: Scan Docker image with Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: "myapp:${{ github.sha }}"
+          format: "table"              # Easy to read in logs
+          exit-code: "0"               # Don’t break pipeline yet
+          vuln-type: "os,library"      # Scan both OS & app libs
+          severity: "CRITICAL,HIGH"    # Focus on serious issues
