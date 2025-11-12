@@ -141,3 +141,12 @@ mat-table {
 .mat-column-totalprice,
 .mat-column-total { width: 15%; }
 .mat-column-review { width: 15%; }
+
+
+@media (max-width: 959.98px) {
+  .emptyState {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+}
