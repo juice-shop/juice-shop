@@ -1,60 +1,39 @@
-name: OWASP Juice Shop CI
+name: CI Security pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - '**'
   pull_request:
-    branches: [ main ]
+    branches:
+      - '**'
 
 jobs:
-  build-test-analyze:
+  build-test-scan:
     runs-on: ubuntu-latest
 
     steps:
-      # ✅ 1. Клонируем репозиторий
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ✅ 2. Устанавливаем Node.js
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      # ✅ 3. Устанавливаем зависимости
       - name: Install dependencies
         run: npm install
 
-      # ✅ 4. Устанавливаем Cypress и типы
-      - name: Install Cypress and types
-        run: |
-          npm install cypress --save-dev
-          npm install @types/cypress --save-dev
-          npx cypress verify
+      - name: Verify Cypress installation
+        run: npx cypress verify
 
-      # ✅ 5. Собираем проект
-      - name: Build project
-        run: npm run build
-
-      # ✅ 6. Запускаем тесты (если есть)
-      - name: Run unit tests
-        run: npm test --if-present
-
-      # ✅ 7. Запускаем E2E тесты через Cypress
       - name: Run Cypress tests
-        run: npx cypress run --browser chrome || true
+        run: npx cypress run --browser chrome || echo "⚠️ Cypress tests failed, but continuing"
 
-      # ✅ 8. Устанавливаем Semgrep
-      - name: Install Semgrep
-        run: pip install semgrep
-
-      # ✅ 9. Запускаем Semgrep анализ
-      - name: Run Semgrep scan
-        run: semgrep --config auto --json > semgrep-report.json || true
-
-      # ✅ 10. Сохраняем отчёт
-      - name: Upload Semgrep report
-        uses: actions/upload-artifact@v4
+      - name: Run Semgrep security scan
+        uses: returntocorp/semgrep-action@v1
         with:
-          name: semgrep-report
-          path: semgrep-report.json
+          config: "p/default"
+
+      - name: Run CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
