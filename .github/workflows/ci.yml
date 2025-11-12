@@ -24,11 +24,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install Cypress binary
+        run: npx cypress install
+
       - name: Verify Cypress installation
         run: npx cypress verify
 
       - name: Run Cypress tests
-        run: npx cypress run --browser chrome || echo "⚠️ Cypress tests failed, but continuing"
+        run: npx cypress run --browser electron || echo "⚠️ Cypress tests failed, but continuing"
 
       - name: Run Semgrep security scan
         uses: returntocorp/semgrep-action@v1
