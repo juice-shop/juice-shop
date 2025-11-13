@@ -49,7 +49,7 @@
         <button type="submit" id="submitButton" color="primary" mat-raised-button (click)="save()"
           [disabled]="formatControl.invalid || (captchaControl.invalid && presenceOfCaptcha)"
           aria-label="Button to send the request">
-          <mat-icon aria-hidden="true">file_download</mat-icon>
+          <mat-icon aria-hidden="true" fontIcon="file_download"></mat-icon>
           {{'BTN_REQUEST' | translate}}
         </button>
         <div class="hint">
