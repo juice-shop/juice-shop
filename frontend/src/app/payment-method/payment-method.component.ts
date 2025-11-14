@@ -22,6 +22,10 @@ import { MatIconModule } from '@angular/material/icon'
 
 library.add(faPaperPlane, faTrashAlt)
 
+interface PaymentCard {
+  id: number
+}
+
 @Component({
   selector: 'app-payment-method',
   templateUrl: './payment-method.component.html',
@@ -46,9 +50,9 @@ export class PaymentMethodComponent implements OnInit {
   public error: any
   public storedCards: any
   public card: any = {}
-  public dataSource
-  public monthRange: any[]
-  public yearRange: any[]
+  public dataSource: any
+  public monthRange!: any[]
+  public yearRange!: any[]
   public cardsExist = false
   public paymentId: any = undefined
 
@@ -68,7 +72,7 @@ export class PaymentMethodComponent implements OnInit {
       next: (cards) => {
         this.cardsExist = cards.length
         this.storedCards = cards
-        this.dataSource = new MatTableDataSource<Element>(this.storedCards)
+        this.dataSource = new MatTableDataSource(this.storedCards)
       },
       error: (err) => { console.log(err) }
     })
@@ -100,7 +104,7 @@ export class PaymentMethodComponent implements OnInit {
     })
   }
 
-  delete (id) {
+  delete (id: any) {
     this.paymentService.del(id).subscribe({
       next: () => {
         this.load()
@@ -128,11 +132,7 @@ export class PaymentMethodComponent implements OnInit {
     this.yearControl.setValue('')
   }
 
-  trackByValue(index: number, value: any): any {
-    return value;
-  }
-
-  trackByCardId(index: number, item: any): any {
-    return item.id || index;
+  trackByCardId(index: number, item: PaymentCard): number {
+    return item.id ?? index;
   }
 }

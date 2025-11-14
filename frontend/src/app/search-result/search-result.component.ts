@@ -297,7 +297,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
     return this.deluxeGuard.isDeluxe()
   }
 
-  trackByProductId(index: number, item: any): any {
-    return item.id || index;
+  trackByProductId(index: number, item: Product): number {
+    return item.id ?? index;
   }
 }
