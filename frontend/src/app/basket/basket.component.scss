@@ -62,3 +62,11 @@ mat-expansion-panel {
 .payment-label {
   padding-top: 10px;
 }
+
+@media (max-width: 599.98px) {
+  mat-card {
+    margin-bottom: 32px;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+}
