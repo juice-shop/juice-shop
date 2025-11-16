@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -64,9 +64,9 @@ export class PurchaseBasketComponent implements OnInit {
           })
         }
         this.dataSource = basket.Products
-         
+
         this.itemTotal = basket.Products.reduce((itemTotal, product) => itemTotal + product.price * product.BasketItem.quantity, 0)
-         
+
         this.bonus = basket.Products.reduce((bonusPoints, product) => bonusPoints + Math.round(product.price / 10) * product.BasketItem.quantity, 0)
         this.sendToParent(this.dataSource.length)
       },
@@ -95,7 +95,7 @@ export class PurchaseBasketComponent implements OnInit {
   addToQuantity (id, value) {
     this.basketService.get(id).subscribe({
       next: (basketItem) => {
-       
+
         const newQuantity = basketItem.quantity + value
         this.basketService.put(id, { quantity: newQuantity < 1 ? 1 : newQuantity }).subscribe({
           next: () => {

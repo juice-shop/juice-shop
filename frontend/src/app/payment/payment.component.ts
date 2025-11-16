@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -152,11 +152,11 @@ export class PaymentComponent implements OnInit {
   applyCoupon () {
     this.campaignCoupon = this.couponControl.value
     this.clientDate = new Date()
-     
+
     const offsetTimeZone = (this.clientDate.getTimezoneOffset() + 60) * 60 * 1000
     this.clientDate.setHours(0, 0, 0, 0)
     this.clientDate = this.clientDate.getTime() - offsetTimeZone
-     
+
     sessionStorage.setItem('couponDetails', `${this.campaignCoupon}-${this.clientDate}`)
     const campaign = this.campaigns[this.couponControl.value]
     if (campaign) {
@@ -249,7 +249,7 @@ export class PaymentComponent implements OnInit {
     }
   }
 
-   
+
   noop () { }
 
   showBitcoinQrCode () {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -110,7 +110,7 @@ export class AboutComponent implements OnInit {
           return EMPTY
         })
       )
-      .subscribe((feedbacks) => { 
+      .subscribe((feedbacks) => {
         for (let i = 0; i < feedbacks.length; i++) {
 
           feedbacks[i].comment = `<figcaption><p style="margin-bottom: 0;">${
