@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -94,7 +94,7 @@ export class RegisterComponent implements OnInit {
         if (err.error?.errors) {
           const error = err.error.errors[0]
           if (error.message) {
-           
+
             this.error = error.message[0].toUpperCase() + error.message.slice(1)
           } else {
             this.error = error

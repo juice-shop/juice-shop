@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -56,9 +56,9 @@ export class RecycleComponent implements OnInit {
     this.configurationService.getApplicationConfiguration().subscribe({
       next: (config: any) => {
         if (config?.application?.recyclePage) {
-         
+
           this.topImage = `assets/public/images/products/${config.application.recyclePage.topProductImage}`
-           
+
           this.bottomImage = `assets/public/images/products/${config.application.recyclePage.bottomProductImage}`
         }
       },

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -55,7 +55,7 @@ export class SidenavComponent implements OnInit {
     this.administrationService.getApplicationVersion().subscribe({
       next: (version: any) => {
         if (version) {
-         
+
           this.version = `v${version}`
         }
       },
@@ -108,7 +108,7 @@ export class SidenavComponent implements OnInit {
     window.location.replace(environment.hostServer + '/dataerasure')
   }
 
-   
+
   noop () { }
 
   getScoreBoardStatus () {

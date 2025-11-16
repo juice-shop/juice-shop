@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -55,7 +55,7 @@ export class ContactComponent implements OnInit {
         this.feedback = {}
         this.userIdControl.setValue(data.id)
         this.feedback.UserId = data.id
-         
+
         this.authorControl.setValue(data.email ? `***${data.email.slice(3)}` : 'anonymous')
       },
       error: (err) => {
@@ -81,7 +81,7 @@ export class ContactComponent implements OnInit {
   save () {
     this.feedback.captchaId = this.captchaId
     this.feedback.captcha = this.captchaControl.value
-     
+
     this.feedback.comment = `${this.feedbackControl.value} (${this.authorControl.value})`
     this.feedback.rating = this.rating
     this.feedback.UserId = this.userIdControl.value

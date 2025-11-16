@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -211,7 +211,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
             found = true
             this.basketService.get(productsInBasket[i].BasketItem.id).subscribe({
               next: (existingBasketItem) => {
-                 
+
                 const newQuantity = existingBasketItem.quantity + 1
                 this.basketService.put(existingBasketItem.id, { quantity: newQuantity }).subscribe({
                   next: (updatedBasketItem) => {

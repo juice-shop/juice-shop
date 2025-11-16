@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -118,7 +118,7 @@ export class NavbarComponent implements OnInit {
     this.administrationService.getApplicationVersion().subscribe({
       next: (version: any) => {
         if (version) {
-         
+
           this.version = `v${version}`
         }
       },
@@ -251,7 +251,7 @@ export class NavbarComponent implements OnInit {
     if (this.languages.find((y: { key: string }) => y.key === langKey)) {
       const language = this.languages.find((y: { key: string }) => y.key === langKey)
       this.shortKeyLang = language.shortKey
-       
+
       const snackBarRef = this.snackBar.open(`Language has been changed to ${language.lang}`, 'Force page reload', {
         duration: 5000,
         panelClass: ['mat-body']
@@ -285,7 +285,7 @@ export class NavbarComponent implements OnInit {
     this.sidenavToggle.emit()
   }
 
-   
+
   noop () { }
 
   getLanguages () {
