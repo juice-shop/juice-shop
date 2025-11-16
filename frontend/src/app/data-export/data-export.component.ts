@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, type OnInit } from '@angular/core'
+import { Component, type OnInit, inject } from '@angular/core'
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ImageCaptchaService } from '../Services/image-captcha.service'
 import { DataSubjectService } from '../Services/data-subject.service'
@@ -25,6 +25,10 @@ import { MatIconModule } from '@angular/material/icon'
   imports: [MatCardModule, TranslateModule, MatRadioGroup, FormsModule, ReactiveFormsModule, MatLabel, MatRadioButton, MatFormFieldModule, MatInputModule, MatHint, MatError, MatButtonModule, MatIconModule]
 })
 export class DataExportComponent implements OnInit {
+  sanitizer = inject(DomSanitizer);
+  private readonly imageCaptchaService = inject(ImageCaptchaService);
+  private readonly dataSubjectService = inject(DataSubjectService);
+
   public captchaControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5)])
   public formatControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
   public captcha: any
@@ -32,10 +36,8 @@ export class DataExportComponent implements OnInit {
   public confirmation: any
   public error: any
   public lastSuccessfulTry: any
-  public presenceOfCaptcha: boolean = false
+  public presenceOfCaptcha = false
   public userData: any
-
-  constructor (public sanitizer: DomSanitizer, private readonly imageCaptchaService: ImageCaptchaService, private readonly dataSubjectService: DataSubjectService) { }
   ngOnInit (): void {
     this.needCaptcha()
     this.dataRequest = {}

@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { UserService } from '../Services/user.service'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { type AbstractControl, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { Component } from '@angular/core'
+import { Component, inject } from '@angular/core'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-regular-svg-icons'
@@ -32,6 +32,10 @@ library.add(faSave, faEdit)
   imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatIconModule, MatSuffix, MatTooltip, MatError, MatHint, MatSlideToggle, PasswordStrengthComponent, PasswordStrengthInfoComponent, MatButtonModule]
 })
 export class ForgotPasswordComponent {
+  private readonly securityQuestionService = inject(SecurityQuestionService);
+  private readonly userService = inject(UserService);
+  private readonly translate = inject(TranslateService);
+
   public emailControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.email])
   public securityQuestionControl: UntypedFormControl = new UntypedFormControl({ disabled: true, value: '' }, [Validators.required])
   public passwordControl: UntypedFormControl = new UntypedFormControl({ disabled: true, value: '' }, [Validators.required, Validators.minLength(5)])
@@ -41,8 +45,6 @@ export class ForgotPasswordComponent {
   public confirmation?: string
   public timeoutDuration = 1000
   private timeout
-
-  constructor (private readonly securityQuestionService: SecurityQuestionService, private readonly userService: UserService, private readonly translate: TranslateService) { }
 
   findSecurityQuestion () {
     clearTimeout(this.timeout)

@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { ProductService } from '../Services/product.service'
-import { type AfterViewInit, Component, type OnDestroy, ViewChild } from '@angular/core'
+import { type AfterViewInit, Component, type OnDestroy, ViewChild, inject } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { type Subscription } from 'rxjs'
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table'
@@ -38,6 +38,11 @@ interface Order {
   imports: [MatCardModule, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatIconButton, MatTooltip, MatIconModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, MatFormFieldModule, MatInputModule, MatSuffix]
 })
 export class AccountingComponent implements AfterViewInit, OnDestroy {
+  private readonly productService = inject(ProductService);
+  private readonly quantityService = inject(QuantityService);
+  private readonly orderHistoryService = inject(OrderHistoryService);
+  private readonly snackBarHelperService = inject(SnackBarHelperService);
+
   public orderHistoryColumns = ['OrderId', 'Price', 'Status', 'StatusButton']
   @ViewChild('paginatorOrderHistory', { static: true }) paginatorOrderHistory: MatPaginator
   public orderData: Order[]
@@ -49,7 +54,6 @@ export class AccountingComponent implements AfterViewInit, OnDestroy {
   private productSubscription: Subscription
   private quantitySubscription: Subscription
   public quantityMap: any
-  constructor (private readonly productService: ProductService, private readonly quantityService: QuantityService, private readonly orderHistoryService: OrderHistoryService, private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngAfterViewInit () {
     this.loadQuantity()
@@ -117,7 +121,7 @@ export class AccountingComponent implements AfterViewInit, OnDestroy {
         const product = this.tableData.find((product) => {
           return product.id === quantity.ProductId
         })
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
         this.snackBarHelperService.open(`Quantity for ${product.name} has been updated.`, 'confirmBar')
         this.loadQuantity()
       },
@@ -131,7 +135,7 @@ export class AccountingComponent implements AfterViewInit, OnDestroy {
   modifyPrice (id, value) {
     this.productService.put(id, { price: value < 0 ? 0 : value }).subscribe({
       next: (product) => {
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
         this.snackBarHelperService.open(`Price for ${product.name} has been updated.`, 'confirmBar')
         this.loadProducts()
       },

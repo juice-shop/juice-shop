@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -11,7 +11,7 @@ import {
   ReactiveFormsModule
 } from '@angular/forms'
 import { UserService } from '../Services/user.service'
-import { Component } from '@angular/core'
+import { Component, inject, OnInit } from '@angular/core'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-regular-svg-icons'
@@ -47,7 +47,11 @@ library.add(faSave, faEdit)
     MatButtonModule
   ]
 })
-export class ChangePasswordComponent {
+export class ChangePasswordComponent implements OnInit {
+  private readonly userService = inject(UserService);
+  private readonly formSubmitService = inject(FormSubmitService);
+  private readonly translate = inject(TranslateService);
+
   public passwordControl: UntypedFormControl = new UntypedFormControl('', [
     Validators.required
   ])
@@ -70,12 +74,6 @@ export class ChangePasswordComponent {
 
   public error: any
   public confirmation: any
-
-  constructor (
-    private readonly userService: UserService,
-    private readonly formSubmitService: FormSubmitService,
-    private readonly translate: TranslateService
-  ) {}
 
   ngOnInit (): void {
     this.formSubmitService.attachEnterKeyHandler(

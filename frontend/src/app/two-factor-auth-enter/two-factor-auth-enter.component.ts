@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, NgZone } from '@angular/core'
+import { Component, NgZone, inject } from '@angular/core'
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
 import { CookieService } from 'ngy-cookie'
@@ -33,19 +33,17 @@ interface TokenEnterFormFields {
   imports: [MatCardModule, TranslateModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatIconModule, MatSuffix, MatTooltip, MatHint, MatError, MatButtonModule, MatIconModule]
 })
 export class TwoFactorAuthEnterComponent {
+  private readonly twoFactorAuthService = inject(TwoFactorAuthService);
+  private readonly cookieService = inject(CookieService);
+  private readonly userService = inject(UserService);
+  private readonly router = inject(Router);
+  private readonly ngZone = inject(NgZone);
+
   public twoFactorForm: UntypedFormGroup = new UntypedFormGroup({
     token: new UntypedFormControl('', [Validators.minLength(6), Validators.maxLength(6), Validators.required, Validators.pattern('^[\\d]{6}$')])
   })
 
-  public errored: boolean = false
-
-  constructor (
-    private readonly twoFactorAuthService: TwoFactorAuthService,
-    private readonly cookieService: CookieService,
-    private readonly userService: UserService,
-    private readonly router: Router,
-    private readonly ngZone: NgZone
-  ) { }
+  public errored = false
 
   verify () {
     const fields: TokenEnterFormFields = this.twoFactorForm.value

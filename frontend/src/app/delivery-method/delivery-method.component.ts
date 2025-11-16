@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, NgZone, type OnInit } from '@angular/core'
+import { Component, NgZone, type OnInit, inject } from '@angular/core'
 import { DeliveryService } from '../Services/delivery.service'
 import { AddressService } from '../Services/address.service'
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table'
@@ -31,15 +31,18 @@ library.add(faRocket, faShippingFast, faTruck)
   imports: [MatCardModule, TranslateModule, MatDivider, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatRadioButton, NgClass, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatButtonModule, MatIconModule]
 })
 export class DeliveryMethodComponent implements OnInit {
+  private readonly location = inject(Location);
+  private readonly deliverySerivce = inject(DeliveryService);
+  private readonly addressService = inject(AddressService);
+  private readonly router = inject(Router);
+  private readonly ngZone = inject(NgZone);
+
   public displayedColumns = ['Selection', 'Name', 'Price', 'ETA']
   public methods: DeliveryMethod[]
   public address: any
   public dataSource
   public deliveryMethodId: number = undefined
   selection = new SelectionModel<DeliveryMethod>(false, [])
-
-  constructor (private readonly location: Location, private readonly deliverySerivce: DeliveryService,
-    private readonly addressService: AddressService, private readonly router: Router, private readonly ngZone: NgZone) { }
 
   ngOnInit (): void {
     this.addressService.getById(sessionStorage.getItem('addressId')).subscribe({
