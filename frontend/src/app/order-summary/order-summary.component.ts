@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, NgZone, type OnInit } from '@angular/core'
+import { Component, NgZone, type OnInit, inject } from '@angular/core'
 import { AddressService } from '../Services/address.service'
 import { PaymentService } from '../Services/payment.service'
 import { BasketService } from '../Services/basket.service'
@@ -24,13 +24,20 @@ import { MatCardModule } from '@angular/material/card'
   imports: [MatCardModule, TranslateModule, PurchaseBasketComponent, MatButtonModule, MatIconModule]
 })
 export class OrderSummaryComponent implements OnInit {
+  private readonly router = inject(Router);
+  private readonly addressService = inject(AddressService);
+  private readonly paymentService = inject(PaymentService);
+  private readonly basketService = inject(BasketService);
+  private readonly deliveryService = inject(DeliveryService);
+  private readonly ngZone = inject(NgZone);
+  private readonly snackBarHelperService = inject(SnackBarHelperService);
+
   public bonus = 0
   public itemTotal = 0
   public deliveryPrice = 0
   public promotionalDiscount = 0
   public address: any
   public paymentMethod: any
-  constructor (private readonly router: Router, private readonly addressService: AddressService, private readonly paymentService: PaymentService, private readonly basketService: BasketService, private readonly deliveryService: DeliveryService, private readonly ngZone: NgZone, private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit (): void {
     this.deliveryService.getById(sessionStorage.getItem('deliveryMethodId')).subscribe((method) => {

@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 @use '@angular/material' as mat;
@@ -299,4 +299,10 @@ div.mdc-card {
   line-height: 1.2;
   max-width: 480px;
   white-space: pre-line;
+}
+
+
+/* override Angular Material tooltip max-height for score-board hints */
+.mat-mdc-tooltip-surface {
+  max-height: none !important;
 }

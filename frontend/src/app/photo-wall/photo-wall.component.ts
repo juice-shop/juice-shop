@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, type OnInit } from '@angular/core'
+import { Component, type OnInit, inject } from '@angular/core'
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { mimeType } from './mime-type.validator'
 import { PhotoWallService } from '../Services/photo-wall.service'
@@ -29,18 +29,19 @@ library.add(faTwitter)
   imports: [MatCardModule, MatIconButton, MatCardTitle, TranslateModule, MatCardContent, FormsModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatLabel, MatInputModule, MatError]
 })
 export class PhotoWallComponent implements OnInit {
-  public emptyState: boolean = true
+  private readonly photoWallService = inject(PhotoWallService);
+  private readonly configurationService = inject(ConfigurationService);
+  private readonly snackBarHelperService = inject(SnackBarHelperService);
+
+  public emptyState = true
   public imagePreview: string
   public form: UntypedFormGroup = new UntypedFormGroup({
     image: new UntypedFormControl('', { validators: [Validators.required], asyncValidators: [mimeType] }),
     caption: new UntypedFormControl('', [Validators.required])
   })
 
-  public slideshowDataSource: Array<{ url: string, caption: string }> = []
+  public slideshowDataSource: { url: string, caption: string }[] = []
   public twitterHandle = null
-
-  constructor (private readonly photoWallService: PhotoWallService, private readonly configurationService: ConfigurationService,
-    private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit (): void {
     this.slideshowDataSource = []
@@ -56,7 +57,7 @@ export class PhotoWallComponent implements OnInit {
       }
       for (const memory of memories) {
         if (memory.User?.username) {
-          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
           memory.caption = `${memory.caption} (© ${memory.User.username})`
         }
         this.slideshowDataSource.push({ url: memory.imagePath, caption: memory.caption })

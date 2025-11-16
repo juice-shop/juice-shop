@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { ConfigurationService } from '../Services/configuration.service'
-import { Component, type OnInit } from '@angular/core'
+import { Component, type OnInit, inject } from '@angular/core'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBitcoin } from '@fortawesome/free-brands-svg-icons'
 import { faCommentAlt, faComments, faGraduationCap, faUniversity } from '@fortawesome/free-solid-svg-icons'
@@ -23,8 +23,9 @@ library.add(faBitcoin, faUniversity, faGraduationCap, faCommentAlt, faComments, 
   imports: [MatCardModule, MatCardHeader, MatCardTitle, MatCardSubtitle, TranslateModule, MatButtonModule]
 })
 export class TokenSaleComponent implements OnInit {
+  private readonly configurationService = inject(ConfigurationService);
+
   public altcoinName = 'Juicycoin'
-  constructor (private readonly configurationService: ConfigurationService) { }
 
   ngOnInit (): void {
     this.configurationService.getApplicationConfiguration().subscribe({

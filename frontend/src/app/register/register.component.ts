@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { SecurityAnswerService } from '../Services/security-answer.service'
 import { UserService } from '../Services/user.service'
 import { type AbstractControl, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { Component, NgZone, type OnInit } from '@angular/core'
+import { Component, NgZone, type OnInit, inject } from '@angular/core'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { Router, RouterLink } from '@angular/router'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -39,6 +39,16 @@ library.add(faUserPlus, faExclamationCircle)
   imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatHint, MatSlideToggle, PasswordStrengthComponent, PasswordStrengthInfoComponent, MatSelect, MatOption, MatButtonModule, RouterLink, MatIconModule]
 })
 export class RegisterComponent implements OnInit {
+  private readonly securityQuestionService = inject(SecurityQuestionService);
+  private readonly userService = inject(UserService);
+  private readonly securityAnswerService = inject(SecurityAnswerService);
+  private readonly router = inject(Router);
+  private readonly formSubmitService = inject(FormSubmitService);
+  private readonly translateService = inject(TranslateService);
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly snackBarHelperService = inject(SnackBarHelperService);
+  private readonly ngZone = inject(NgZone);
+
   public emailControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.email])
   public passwordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)])
   public repeatPasswordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, matchValidator(this.passwordControl)])
@@ -47,16 +57,6 @@ export class RegisterComponent implements OnInit {
   public securityQuestions!: SecurityQuestion[]
   public selected?: number
   public error: string | null = null
-
-  constructor (private readonly securityQuestionService: SecurityQuestionService,
-    private readonly userService: UserService,
-    private readonly securityAnswerService: SecurityAnswerService,
-    private readonly router: Router,
-    private readonly formSubmitService: FormSubmitService,
-    private readonly translateService: TranslateService,
-    private readonly snackBar: MatSnackBar,
-    private readonly snackBarHelperService: SnackBarHelperService,
-    private readonly ngZone: NgZone) { }
 
   ngOnInit (): void {
     this.securityQuestionService.find(null).subscribe({
@@ -94,7 +94,7 @@ export class RegisterComponent implements OnInit {
         if (err.error?.errors) {
           const error = err.error.errors[0]
           if (error.message) {
-          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+
             this.error = error.message[0].toUpperCase() + error.message.slice(1)
           } else {
             this.error = error

@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, NgZone, type OnInit } from '@angular/core'
+import { Component, NgZone, type OnInit, inject } from '@angular/core'
 import { UserService } from '../Services/user.service'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ConfigurationService } from '../Services/configuration.service'
@@ -21,10 +21,17 @@ import { MatCardModule } from '@angular/material/card'
 })
 
 export class DeluxeUserComponent implements OnInit {
-  public membershipCost: number = 0
+  private readonly router = inject(Router);
+  private readonly userService = inject(UserService);
+  private readonly configurationService = inject(ConfigurationService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly ngZone = inject(NgZone);
+  private readonly io = inject(SocketIoService);
+
+  public membershipCost = 0
   public error?: string = undefined
   public applicationName = 'OWASP Juice Shop'
-  public logoSrc: string = 'assets/public/images/JuiceShop_Logo.png'
+  public logoSrc = 'assets/public/images/JuiceShop_Logo.png'
 
   public SHOWCASES = [
     {
@@ -43,9 +50,6 @@ export class DeluxeUserComponent implements OnInit {
       description: 'DESCRIPTION_UNLIMITED_PURCHASE'
     }
   ] as const
-
-  constructor (private readonly router: Router, private readonly userService: UserService, private readonly configurationService: ConfigurationService, private readonly route: ActivatedRoute, private readonly ngZone: NgZone, private readonly io: SocketIoService) {
-  }
 
   ngOnInit (): void {
     this.configurationService.getApplicationConfiguration().subscribe({

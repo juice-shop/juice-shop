@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -54,7 +54,7 @@ h1 {
 .mat-mdc-card-content {
   margin-right: 20px;
 }
- 
+
 .left-container {
   display: flex; // Use flex to prevent margin disappearing after reload.
 
@@ -71,6 +71,9 @@ h1 {
   display: flex;
   flex-direction: row;
 }
+
+.flex-50 { flex: 0 0 50%;
+  max-width: 50%; }
 
 @media (max-width: 959.98px) {
   .recycle-container { flex-direction: column;
@@ -102,5 +105,3 @@ h1 {
 }
 
 
-.flex-50 { flex: 0 0 50%;
-  max-width: 50%; }

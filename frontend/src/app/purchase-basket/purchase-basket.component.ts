@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, EventEmitter, Input, type OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, Input, type OnInit, Output, inject } from '@angular/core'
 import { BasketService } from '../Services/basket.service'
 import { UserService } from '../Services/user.service'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -25,9 +25,14 @@ library.add(faTrashAlt, faMinusSquare, faPlusSquare)
   imports: [MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, MatIconButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow, TranslateModule]
 })
 export class PurchaseBasketComponent implements OnInit {
-  @Input('allowEdit') public allowEdit: boolean = false
-  @Input('displayTotal') public displayTotal: boolean = false
-  @Input('totalPrice') public totalPrice: boolean = true
+  private readonly deluxeGuard = inject(DeluxeGuard);
+  private readonly basketService = inject(BasketService);
+  private readonly userService = inject(UserService);
+  private readonly snackBarHelperService = inject(SnackBarHelperService);
+
+  @Input() public allowEdit = false
+  @Input() public displayTotal = false
+  @Input() public totalPrice = true
   @Output() emitTotal = new EventEmitter()
   @Output() emitProductCount = new EventEmitter()
   public tableColumns = ['image', 'product', 'quantity', 'price']
@@ -35,8 +40,6 @@ export class PurchaseBasketComponent implements OnInit {
   public bonus = 0
   public itemTotal = 0
   public userEmail: string
-  constructor (private readonly deluxeGuard: DeluxeGuard, private readonly basketService: BasketService,
-    private readonly userService: UserService, private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit (): void {
     if (this.allowEdit && !this.tableColumns.includes('remove')) {
@@ -61,9 +64,9 @@ export class PurchaseBasketComponent implements OnInit {
           })
         }
         this.dataSource = basket.Products
-        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+
         this.itemTotal = basket.Products.reduce((itemTotal, product) => itemTotal + product.price * product.BasketItem.quantity, 0)
-        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+
         this.bonus = basket.Products.reduce((bonusPoints, product) => bonusPoints + Math.round(product.price / 10) * product.BasketItem.quantity, 0)
         this.sendToParent(this.dataSource.length)
       },
@@ -92,7 +95,7 @@ export class PurchaseBasketComponent implements OnInit {
   addToQuantity (id, value) {
     this.basketService.get(id).subscribe({
       next: (basketItem) => {
-      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+
         const newQuantity = basketItem.quantity + value
         this.basketService.put(id, { quantity: newQuantity < 1 ? 1 : newQuantity }).subscribe({
           next: () => {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -193,7 +193,7 @@ describe('/api/Users', () => {
       })
   })
 
-  if (utils.isChallengeEnabled(challenges.usernameXssChallenge)) {
+  if (utils.isChallengeEnabled(challenges.persistedXssUserChallenge)) {
     it('POST new user with XSS attack in email address', () => {
       return frisby.post(`${API_URL}/Users`, {
         headers: jsonHeader,

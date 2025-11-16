@@ -1,8 +1,9 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { TokenSaleComponent } from './token-sale/token-sale.component'
 import { OAuthComponent } from './oauth/oauth.component'
 import { BasketComponent } from './basket/basket.component'
@@ -271,7 +272,7 @@ export function tokenMatcher (url: UrlSegment[]): UrlMatchResult { // vuln-code-
   } // vuln-code-snippet neutral-line tokenSaleChallenge
   // vuln-code-snippet neutral-line tokenSaleChallenge
   const path = url[0].toString() // vuln-code-snippet neutral-line tokenSaleChallenge
-  // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+
   if (path.match((token1(25, 184, 174, 179, 182, 186) + (36669).toString(36).toLowerCase() + token2(13, 144, 87, 152, 139, 144, 83, 138) + (10).toString(36).toLowerCase()))) { // vuln-code-snippet vuln-line tokenSaleChallenge
     return ({ consumed: url }) // vuln-code-snippet neutral-line tokenSaleChallenge
   } // vuln-code-snippet neutral-line tokenSaleChallenge

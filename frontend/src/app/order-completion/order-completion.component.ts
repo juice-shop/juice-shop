@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, type OnInit } from '@angular/core'
+import { Component, type OnInit, inject } from '@angular/core'
 import { TrackOrderService } from '../Services/track-order.service'
 import { ActivatedRoute, type ParamMap, RouterLink } from '@angular/router'
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow } from '@angular/material/table'
@@ -29,6 +29,12 @@ library.add(faTwitter)
   imports: [MatCardModule, TranslateModule, RouterLink, MatIconButton, MatTooltip, MatIconModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow]
 })
 export class OrderCompletionComponent implements OnInit {
+  private readonly configurationService = inject(ConfigurationService);
+  private readonly addressService = inject(AddressService);
+  private readonly trackOrderService = inject(TrackOrderService);
+  activatedRoute = inject(ActivatedRoute);
+  private readonly basketService = inject(BasketService);
+
   public tableColumns = ['product', 'price', 'quantity', 'total price']
   public dataSource
   public orderId: string
@@ -36,9 +42,7 @@ export class OrderCompletionComponent implements OnInit {
   public deliveryPrice = 0
   public promotionalDiscount = 0
   public address: any
-  public tweetText: string = 'I just purchased'
-
-  constructor (private readonly configurationService: ConfigurationService, private readonly addressService: AddressService, private readonly trackOrderService: TrackOrderService, public activatedRoute: ActivatedRoute, private readonly basketService: BasketService) { }
+  public tweetText = 'I just purchased'
 
   ngOnInit (): void {
     this.activatedRoute.paramMap.subscribe({
@@ -51,14 +55,14 @@ export class OrderCompletionComponent implements OnInit {
             this.orderDetails.addressId = results.data[0].addressId
             this.orderDetails.paymentId = results.data[0].paymentId
             this.orderDetails.totalPrice = results.data[0].totalPrice
-            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+
             this.orderDetails.itemTotal = results.data[0].totalPrice + this.promotionalDiscount - this.deliveryPrice
             this.orderDetails.eta = results.data[0].eta || '?'
             this.orderDetails.products = results.data[0].products
             this.orderDetails.bonus = results.data[0].bonus
             this.dataSource = new MatTableDataSource<Element>(this.orderDetails.products)
             for (const product of this.orderDetails.products) {
-              // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
               this.tweetText += `%0a- ${product.name}`
             }
             this.tweetText = this.truncateTweet(this.tweetText)

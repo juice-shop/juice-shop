@@ -1,99 +1,145 @@
 <!--
-  ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
 -->
 
 <mat-card appearance="outlined" class="mat-elevation-z6">
   <div class="mdc-card">
-    <section class="about-us">
-      <h1>{{"TITLE_ABOUT" | translate}}</h1>
-      <h3>{{"SECTION_CORPORATE_HISTORY" | translate}}</h3>
-      <p class="text-justify">
+    <article class="about-us">
+      <header>
+        <h1>{{"TITLE_ABOUT" | translate}}</h1>
+      </header>
+      <section aria-labelledby="corporate-history">
+        <h2 id="corporate-history">{{"SECTION_CORPORATE_HISTORY" | translate}}</h2>
+        <p class="text-justify">
 
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-        dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-        clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-        consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
-        diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-        takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-        diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+          dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+          clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+          consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
+          diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+          takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+          diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
 
-        Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu
-        feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril
-        delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-        sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+          Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu
+          feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril
+          delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+          sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
 
-        <a href="ftp/legal.md" aria-label="Link to the Terms of Use" translate>LINK_TERMS_OF_USE</a>
+          <a href="ftp/legal.md" aria-label="Link to the Terms of Use" translate>LINK_TERMS_OF_USE</a>
 
-        At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-        Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-        tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
-        dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem
-        ipsum dolor sit amet, consetetur sadipscing elitr, At accusam aliquyam diam diam dolore dolores duo eirmod eos
-        erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum.
-      </p>
+          At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
+          Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+          tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
+          dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem
+          ipsum dolor sit amet, consetetur sadipscing elitr, At accusam aliquyam diam diam dolore dolores duo eirmod eos
+          erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum.
+        </p>
+      </section>
 
-      <h3><span>{{"SECTION_CUSTOMER_FEEDBACK" | translate}}</span></h3>
-      <gallery id="feedback-gallery"
-        style="height: 300px;"
-        [autoplay]="true"
-        [thumbs]="false"
-        [counter]="false"
-        [imageSize]="'cover'"
-        >
-        <ng-container *galleryImageDef="let item; let active = active">
-          @if (active) {
-            <div class="item-text">
-              <div class="caption" [innerHTML]="item?.args"></div>
-            </div>
-          }
-        </ng-container>
-      </gallery>
+      <section aria-labelledby="customer-feedback">
+        <h2 id="customer-feedback"><span>{{"SECTION_CUSTOMER_FEEDBACK" | translate}}</span></h2>
+        <gallery id="feedback-gallery"
+          class="gallery"
+          [autoplay]="true"
+          [thumbs]="false"
+          [counter]="false"
+          [imageSize]="'cover'"
+          >
+          <ng-container *galleryImageDef="let item; let active = active">
+            @if (active) {
+              <figure class="feedback" [innerHTML]="item?.args"></figure>
+            }
+          </ng-container>
+        </gallery>
+      </section>
       @if (blueSkyUrl || mastodonUrl || twitterUrl || facebookUrl || slackUrl || redditUrl || pressKitUrl || nftUrl) {
-        <div class="social">
-          <h3><span>{{"SECTION_SOCIAL_MEDIA" | translate }}</span></h3>
+        <nav class="social-nav" aria-labelledby="social-media">
+          <h2 id="social-media">{{ "SECTION_SOCIAL_MEDIA" | translate }}</h2>
+          <ul class="social">
           @if (blueSkyUrl) {
-            <a [href]="blueSkyUrl" target="_blank" rel="noopener noreferrer" style="margin-left: 0px;" aria-label="Button for the BlueSky page of the shop">
-              <button mat-raised-button color="accent"><i class="fas fa-bold fa-lg"></i> BlueSky</button>
-            </a>
+            <li>
+              <a [href]="blueSkyUrl" target="_blank" rel="noopener noreferrer"
+                 aria-label="Visit our BlueSky page">
+                <button mat-raised-button color="accent">
+                  <i class="fas fa-bold fa-lg" aria-hidden="true"></i> BlueSky
+                </button>
+              </a>
+            </li>
           }
           @if (mastodonUrl) {
-            <a [href]="mastodonUrl" target="_blank" rel="noopener noreferrer" style="margin-left: 0px;" aria-label="Button for the Mastodon page of the shop">
-              <button mat-raised-button color="accent"><i class="fab fa-mastodon fa-lg"></i> Mastodon</button>
-            </a>
+            <li>
+              <a [href]="mastodonUrl" target="_blank" rel="noopener noreferrer"
+                 aria-label="Visit our Mastodon page">
+                <button mat-raised-button color="accent">
+                  <i class="fab fa-mastodon fa-lg" aria-hidden="true"></i> Mastodon
+                </button>
+              </a>
+            </li>
           }
           @if (twitterUrl) {
-            <a [href]="twitterUrl" target="_blank" rel="noopener noreferrer" style="margin-left: 0px;" aria-label="Button for the Twitter page of the shop">
-              <button mat-raised-button color="accent"><i class="fab fa-twitter fa-lg"></i> Twitter</button>
-            </a>
+            <li>
+              <a [href]="twitterUrl" target="_blank" rel="noopener noreferrer"
+                 aria-label="Visit our Twitter page">
+                <button mat-raised-button color="accent">
+                  <i class="fab fa-twitter fa-lg" aria-hidden="true"></i> Twitter
+                </button>
+              </a>
+            </li>
           }
           @if (facebookUrl) {
-            <a [href]="facebookUrl" target="_blank" rel="noopener noreferrer" aria-label="Button for the Facebook page of the shop">
-              <button mat-raised-button color="accent"><i class="fab fa-facebook fa-lg"></i> Facebook</button>
-            </a>
+            <li>
+              <a [href]="facebookUrl" target="_blank" rel="noopener noreferrer"
+                 aria-label="Visit our Facebook page">
+                <button mat-raised-button color="accent">
+                  <i class="fab fa-facebook fa-lg" aria-hidden="true"></i> Facebook
+                </button>
+              </a>
+            </li>
           }
           @if (slackUrl) {
-            <a [href]="slackUrl" target="_blank" rel="noopener noreferrer" aria-label="Button for the Slack page of the shop">
-              <button mat-raised-button color="accent"><i class="fab fa-slack fa-lg"></i> Slack</button>
-            </a>
+            <li>
+              <a [href]="slackUrl" target="_blank" rel="noopener noreferrer"
+                 aria-label="Join our Slack workspace">
+                <button mat-raised-button color="accent">
+                  <i class="fab fa-slack fa-lg" aria-hidden="true"></i> Slack
+                </button>
+              </a>
+            </li>
           }
           @if (redditUrl) {
-            <a [href]="redditUrl" target="_blank" rel="noopener noreferrer" aria-label="Button for the Reddit page of the shop">
-              <button mat-raised-button color="accent"><i class="fab fa-reddit fa-lg"></i> Reddit</button>
-            </a>
+            <li>
+              <a [href]="redditUrl" target="_blank" rel="noopener noreferrer"
+                 aria-label="Visit our Reddit page">
+                <button mat-raised-button color="accent">
+                  <i class="fab fa-reddit fa-lg" aria-hidden="true"></i> Reddit
+                </button>
+              </a>
+            </li>
           }
           @if (pressKitUrl) {
-            <a [href]="pressKitUrl" target="_blank" rel="noopener noreferrer" aria-label="Button for the PressKit page of the shop">
-              <button mat-raised-button color="accent"><i class="far fa-newspaper fa-lg"></i> Press Kit</button>
-            </a>
+            <li>
+              <a [href]="pressKitUrl" target="_blank" rel="noopener noreferrer"
+                 aria-label="Access our Press Kit">
+                <button mat-raised-button color="accent">
+                  <i class="far fa-newspaper fa-lg" aria-hidden="true"></i> Press Kit
+                </button>
+              </a>
+            </li>
           }
           @if (nftUrl) {
-            <a [href]="nftUrl" target="_blank" rel="noopener noreferrer" aria-label="Button for the NFT of the shop">
-              <button mat-raised-button color="accent"><i class="fas fa-palette fa-lg"></i> NFT</button>
-            </a>
+            <li>
+              <a [href]="nftUrl" target="_blank" rel="noopener noreferrer"
+                 aria-label="View our NFT">
+                <button mat-raised-button color="accent">
+                  <i class="fas fa-palette fa-lg" aria-hidden="true"></i> NFT
+                </button>
+              </a>
+            </li>
           }
-        </div>
+        </ul>
+        </nav>
       }
-    </section>
+    </article>
   </div>
 </mat-card>

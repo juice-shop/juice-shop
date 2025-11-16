@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, type OnInit } from '@angular/core'
+import { Component, type OnInit, inject } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { MatDialogRef } from '@angular/material/dialog'
 import { CookieService } from 'ngy-cookie'
@@ -20,17 +20,16 @@ import { MatButtonModule } from '@angular/material/button'
   imports: [MatButtonModule, MatTooltip, MatIconModule, TranslateModule]
 })
 export class WelcomeBannerComponent implements OnInit {
-  public title: string = 'Welcome to OWASP Juice Shop'
-  public message: string = "<p>Being a web application with a vast number of intended security vulnerabilities, the <strong>OWASP Juice Shop</strong> is supposed to be the opposite of a best practice or template application for web developers: It is an awareness, training, demonstration and exercise tool for security risks in modern web applications. The <strong>OWASP Juice Shop</strong> is an open-source project hosted by the non-profit <a href='https://owasp.org' target='_blank'>Open Worldwide Application Security Project (OWASP)</a> and is developed and maintained by volunteers. Check out the link below for more information and documentation on the project.</p><h1><a href='https://owasp-juice.shop' target='_blank'>https://owasp-juice.shop</a></h1>"
-  public showHackingInstructor: boolean = true
-  public showDismissBtn: boolean = true
+  dialogRef = inject<MatDialogRef<WelcomeBannerComponent>>(MatDialogRef);
+  private readonly configurationService = inject(ConfigurationService);
+  private readonly cookieService = inject(CookieService);
+
+  public title = 'Welcome to OWASP Juice Shop'
+  public message = "<p>Being a web application with a vast number of intended security vulnerabilities, the <strong>OWASP Juice Shop</strong> is supposed to be the opposite of a best practice or template application for web developers: It is an awareness, training, demonstration and exercise tool for security risks in modern web applications. The <strong>OWASP Juice Shop</strong> is an open-source project hosted by the non-profit <a href='https://owasp.org' target='_blank'>Open Worldwide Application Security Project (OWASP)</a> and is developed and maintained by volunteers. Check out the link below for more information and documentation on the project.</p><h1><a href='https://owasp-juice.shop' target='_blank'>https://owasp-juice.shop</a></h1>"
+  public showHackingInstructor = true
+  public showDismissBtn = true
 
   private readonly welcomeBannerStatusCookieKey = 'welcomebanner_status'
-
-  constructor (
-    public dialogRef: MatDialogRef<WelcomeBannerComponent>,
-    private readonly configurationService: ConfigurationService,
-    private readonly cookieService: CookieService) { }
 
   ngOnInit (): void {
     this.configurationService.getApplicationConfiguration().subscribe({
