@@ -193,7 +193,7 @@ describe('/api/Users', () => {
       })
   })
 
-  if (utils.isChallengeEnabled(challenges.usernameXssChallenge)) {
+  if (utils.isChallengeEnabled(challenges.persistedXssUserChallenge)) {
     it('POST new user with XSS attack in email address', () => {
       return frisby.post(`${API_URL}/Users`, {
         headers: jsonHeader,
