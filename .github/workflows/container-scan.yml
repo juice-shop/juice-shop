@@ -1,4 +1,4 @@
-name: "Improved Container Security Pipeline"
+name: "Optimized Container Security Pipeline"
 
 on:
   workflow_call:
@@ -8,117 +8,106 @@ on:
       - feature/dat
 
 jobs:
-  lint-dockerfile:
+  # STAGE 1: LINT (Kiểm tra chất lượng Dockerfile)
+  hadolint:
     name: "Hadolint - Dockerfile Linting"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # Job này không cần Docker nên chạy ubuntu-latest cho nhanh
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Run Hadolint
         uses: hadolint/hadolint-action@v3.1.0
+        continue-on-error: false # Đặt là 'false' để pipeline DỪNG LẠI nếu Dockerfile có lỗi nghiêm trọng
         with:
           dockerfile: Dockerfile
-          failure-threshold: warning # Fail on warnings or worse
+          failure-threshold: warning # Dừng nếu có lỗi mức warning
           format: sarif
           output-file: hadolint-results.sarif
 
       - name: Upload Hadolint results
         uses: github/codeql-action/upload-sarif@v3
-        if: always() # Upload results even if the check fails
+        if: always() # Luôn upload kết quả dù job fail hay pass
         with:
           sarif_file: hadolint-results.sarif
 
-  build-and-push:
-    name: "Build Image and Generate SBOM"
-    runs-on: self-hosted # Self-hosted runner is recommended for Docker builds
-    needs: lint-dockerfile # Only run if the Dockerfile linting succeeds
-    permissions:
-      contents: read
-      packages: write
+  # STAGE 2: BUILD (Build ảnh 1 lần duy nhất)
+  build-image:
+    name: "Build Docker Image"
+    runs-on: self-hosted # CHẠY TRÊN SELF-HOSTED RUNNER
+    needs: hadolint # Chỉ build khi LINT thành công
+    
+    # Cung cấp output để các job sau có thể sử dụng
+    outputs:
+      image_tag: ${{ steps.image_id.outputs.image_tag }}
+      
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Build Docker image
+        id: image_id
+        run: |
+          IMAGE_TAG="juice-shop:${{ github.sha }}"
+          docker build -t $IMAGE_TAG .
+          echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Generate SBOM with Syft
-        uses: anchore/sbom-action@v0
-        with:
-          image: "juice-shop" # Tell Syft what to scan during build
-          output-file: "sbom.json"
-          format: "spdx-json"
-
-      - name: Build and push Docker image
-        id: build_push
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/juice-shop:${{ github.sha }}
-
-      - name: Upload SBOM as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: sbom-${{ github.sha }}
-          path: sbom.json
-
-  scan-image-trivy:
-    name: "Scan Image with Trivy"
-    runs-on: self-hosted
-    needs: build-and-push
-    permissions:
-      security-events: write
+  # STAGE 3: SCAN (Chạy song song 2 job scan)
+  trivy-scan:
+    name: "Trivy - Container Vulnerability Scanner"
+    runs-on: self-hosted # CHẠY TRÊN SELF-HOSTED RUNNER
+    needs: build-image # Phải đợi build-image xong
     steps:
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-          
-      - name: Run Trivy vulnerability scanner
+      - name: Run Trivy vulnerability scanner (SARIF)
         uses: aquasecurity/trivy-action@master
+        continue-on-error: true
         with:
-          image-ref: "${{ secrets.DOCKERHUB_USERNAME }}/juice-shop:${{ github.sha }}"
+          image-ref: ${{ needs.build-image.outputs.image_tag }} # Lấy tag từ job build
           format: "sarif"
           output: "trivy-results.sarif"
-          severity: "CRITICAL,HIGH"
+          severity: "CRITICAL,HIGH,MEDIUM"
 
-      - name: Upload Trivy scan results to GitHub Security
+      - name: Upload Trivy results to GitHub Security
         uses: github/codeql-action/upload-sarif@v3
         if: always()
         with:
           sarif_file: "trivy-results.sarif"
+      
+      # Bạn vẫn có thể giữ lại bước xuất JSON nếu cần
+      - name: Run Trivy with JSON output
+        uses: aquasecurity/trivy-action@master
+        continue-on-error: true
+        with:
+          image-ref: ${{ needs.build-image.outputs.image_tag }}
+          format: "json"
+          output: "trivy-results.json"
 
-  scan-sbom-grype:
-    name: "Scan SBOM with Grype"
-    runs-on: self-hosted
-    needs: build-and-push
-    permissions:
-      security-events: write
+      - name: Upload Trivy JSON report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: trivy-report
+          path: trivy-results.json
+
+  grype-scan:
+    name: "Grype - Vulnerability Scanner"
+    runs-on: self-hosted # CHẠY TRÊN SELF-HOSTED RUNNER
+    needs: build-image # Phải đợi build-image xong
     steps:
-      - name: Download SBOM artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: sbom-${{ github.sha }}
-
-      - name: Scan SBOM with Grype
+      # Không cần checkout code hay build image nữa
+      - name: Scan with Grype
         uses: anchore/scan-action@v3
+        id: grype
+        continue-on-error: true
         with:
-          sbom: "sbom.json"
-          output-format: sarif
+          image: ${{ needs.build-image.outputs.image_tag }} # Lấy tag từ job build
           fail-build: false
-          
-      - name: Upload Grype scan results to GitHub Security
+          severity-cutoff: high
+          output-format: sarif # Yêu cầu Grype xuất ra SARIF
+
+      - name: Upload Grype results
         uses: github/codeql-action/upload-sarif@v3
         if: always()
         with:
-          # The anchore/scan-action automatically places the sarif in the correct output path
+          # 'scan-action' tự động đặt tên file output là 'results.sarif'
           sarif_file: results.sarif
