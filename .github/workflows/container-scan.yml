@@ -1,107 +1,16 @@
 name: "Container Security Scanning"
 
-# Dat's workflow - Container and Image Security
-# This workflow is called by security-enhanced.yml OR can run independently
-
 on:
-  workflow_call: {}
-  workflow_dispatch: {}
+  workflow_call:
+  workflow_dispatch:
   push:
     branches:
       - feature/dat
 
-# Minimal permissions needed for uploading SARIF and artifacts
-permissions:
-  contents: read
-  security-events: write
-  checks: write
-
-concurrency:
-  group: container-scan-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
-  trivy-scan:
-    name: "Trivy - Container Vulnerability Scanner"
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Cache Trivy DB
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/trivy
-          key: trivy-db-${{ runner.os }}-${{ hashFiles('**/Dockerfile') }}
-          restore-keys: |
-            trivy-db-${{ runner.os }}-
-
-      - name: Build Docker image
-        run: docker build -t juice-shop:scan -f Dockerfile .
-
-      - name: Run Trivy vulnerability scanner (SARIF)
-        uses: aquasecurity/trivy-action@master
-        continue-on-error: true
-        with:
-          image-ref: "juice-shop:scan"
-          format: "sarif"
-          output: "trivy-results.sarif"
-          severity: "CRITICAL,HIGH,MEDIUM"
-          vuln-type: "os,library"
-
-      - name: Upload Trivy results to GitHub Security
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
-        with:
-          sarif_file: "trivy-results.sarif"
-
-      - name: Run Trivy with JSON output
-        uses: aquasecurity/trivy-action@master
-        continue-on-error: true
-        with:
-          image-ref: "juice-shop:scan"
-          format: "json"
-          output: "trivy-results.json"
-          vuln-type: "os,library"
-
-      - name: Upload Trivy JSON report
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: trivy-report
-          path: trivy-results.json
-
-  grype-scan:
-    name: "Grype - Vulnerability Scanner"
-    runs-on: ubuntu-latest
-    timeout-minutes: 25
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Build Docker image
-        run: docker build -t juice-shop:scan -f Dockerfile .
-
-      - name: Scan with Grype (Anchore)
-        uses: anchore/scan-action@v3
-        id: grype
-        continue-on-error: true
-        with:
-          image: "juice-shop:scan"
-          fail-build: false
-          severity-cutoff: high
-
-      - name: Upload Grype results (SARIF)
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
-        with:
-          sarif_file: ${{ steps.grype.outputs.sarif }}
-
   hadolint:
     name: "Hadolint - Dockerfile Linting"
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -120,3 +29,97 @@ jobs:
         if: always()
         with:
           sarif_file: hadolint-results.sarif
+
+  build:
+    name: "Build Docker Image"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t juice-shop:scan .
+
+      - name: Save Docker image
+        run: docker save juice-shop:scan -o image.tar
+
+      - name: Upload image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: image.tar
+          retention-days: 1
+
+  trivy-scan:
+    name: "Trivy - Container Vulnerability Scanner"
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download image artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+
+      - name: Load Docker image
+        run: docker load -i image.tar
+
+      - name: Run Trivy vulnerability scanner (SARIF)
+        uses: aquasecurity/trivy-action@master
+        continue-on-error: true
+        with:
+          image-ref: "juice-shop:scan"
+          format: "sarif"
+          output: "trivy-results.sarif"
+          severity: "CRITICAL,HIGH,MEDIUM"
+
+      - name: Upload Trivy results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: "trivy-results.sarif"
+
+      - name: Run Trivy with JSON output (for artifact)
+        uses: aquasecurity/trivy-action@master
+        continue-on-error: true
+        with:
+          image-ref: "juice-shop:scan"
+          format: "json"
+          output: "trivy-results.json"
+          severity: "CRITICAL,HIGH,MEDIUM"
+
+      - name: Upload Trivy JSON report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: trivy-report-json
+          path: trivy-results.json
+          retention-days: 7
+
+  grype-scan:
+    name: "Grype - Vulnerability Scanner"
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download image artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+
+      - name: Load Docker image
+        run: docker load -i image.tar
+
+      - name: Scan with Grype
+        uses: anchore/scan-action@v3
+        id: grype
+        continue-on-error: true
+        with:
+          image: "juice-shop:scan"
+          fail-build: false
+          severity-cutoff: high
+          output-format: sarif
+
+      - name: Upload Grype results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: ${{ steps.grype.outputs.sarif }}
