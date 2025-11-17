@@ -1,13 +1,12 @@
 fixes:
   - id: 1
-    explanation: 'Wrong!'
+    explanation: 'These arithmetic inversions just break the logic of the contract by gradually reducing the available supply.'
   - id: 2
-    explanation: 'Wrong!'
+    explanation: 'The supply is no longer increased after minting, changing the behavior of the contract but not fixing any potential security issue.'
   - id: 3
-    explanation: 'Wrong!'
+    explanation: 'Not emitting the event that notifies listeners about the minting of a new NFT makes the contract completely useless.'
   - id: 4
-    explanation: 'Correct!'
+    explanation: "Using SafeMath's sub() fuction fixes any potential underflow attack against the tokenId variable of type uint256."
 hints:
-  - 'Hint1'
-  - 'Hint2'
-  - 'Hint3'
+  - 'What problem can occur when dealing with Integer variables?'
+  - 'Read up specifically on Integer overflow and underflow issues in Solidity to understand the problem better.'

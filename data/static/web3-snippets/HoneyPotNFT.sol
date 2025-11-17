@@ -12,7 +12,7 @@ contract HoneyPotNFT is ERC721, Ownable {
 
     IERC20 public token = IERC20(0x36435796Ca9be2bf150CE0dECc2D8Fab5C4d6E13);
     uint256 public constant mintPrice = 1000 * (10**18);
-    uint256 public totalSupply = 0;
+    uint256 public totalSupply = 0; // vuln-code-snippet neutral-line nftMintChallenge
 
     string public constant fixedMetadataHash = "QmRad1vxT3soFMNx9j3bBmkABb4C86anY1f5XeonosHy3m";
     event NFTMinted(address indexed owner, uint256 tokenId);
@@ -22,8 +22,8 @@ contract HoneyPotNFT is ERC721, Ownable {
     function mintNFT() external {
         token.transferFrom(msg.sender, address(this), mintPrice);
         _safeMint(msg.sender, totalSupply);
-        totalSupply = totalSupply.add(1); // vuln-code-snippet vuln-line nftMintChallenge
-        emit NFTMinted(msg.sender, totalSupply - 1); // vuln-code-snippet neutral-line nftMintChallenge
+        totalSupply = totalSupply.add(1); // vuln-code-snippet neutral-line nftMintChallenge
+        emit NFTMinted(msg.sender, totalSupply - 1); // vuln-code-snippet vuln-line nftMintChallenge
     }
 
     function tokenURI(uint256 tokenId) public view override returns (string memory) {
