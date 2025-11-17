@@ -832,15 +832,27 @@
 	},
 	"web3WalletChallenge_2.sol": {
 		"added": [],
-		"removed": []
+		"removed": [
+			33
+		]
 	},
 	"web3WalletChallenge_3_correct.sol": {
 		"added": [],
 		"removed": []
 	},
 	"web3WalletChallenge_4.sol": {
-		"added": [],
-		"removed": []
+		"added": [
+			22,
+			23,
+			24,
+			26
+		],
+		"removed": [
+			22,
+			23,
+			24,
+			24
+		]
 	},
 	"xssBonusChallenge_1_correct.ts": {
 		"added": [],
