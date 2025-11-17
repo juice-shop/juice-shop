@@ -10,6 +10,30 @@ on:
         description: "Deployment environment (staging or production)"
         required: true
         type: string
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+      AWS_REGION:
+        required: false
+      EC2_HOST:
+        required: false
+      EC2_SSH_KEY:
+        required: false
+      EB_APPLICATION_NAME:
+        required: false
+      S3_BUCKET:
+        required: false
+      APP_RUNNER_ARN:
+        required: false
+      ECR_REGISTRY:
+        required: false
+      PROD_URL:
+        required: false
+      STAGING_URL:
+        required: false
+
   workflow_dispatch: # Can be triggered manually
     inputs:
       environment:
