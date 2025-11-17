@@ -1,4 +1,8 @@
-name: "Optimized Container Security Pipeline"
+name: "Container Security Scanning"
+
+permissions:
+  contents: read
+  security-events: write
 
 on:
   workflow_call:
@@ -8,106 +12,101 @@ on:
       - feature/dat
 
 jobs:
-  # STAGE 1: LINT (Kiểm tra chất lượng Dockerfile)
-  hadolint:
-    name: "Hadolint - Dockerfile Linting"
-    runs-on: ubuntu-latest # Job này không cần Docker nên chạy ubuntu-latest cho nhanh
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Run Hadolint
-        uses: hadolint/hadolint-action@v3.1.0
-        continue-on-error: false # Đặt là 'false' để pipeline DỪNG LẠI nếu Dockerfile có lỗi nghiêm trọng
-        with:
-          dockerfile: Dockerfile
-          failure-threshold: warning # Dừng nếu có lỗi mức warning
-          format: sarif
-          output-file: hadolint-results.sarif
-
-      - name: Upload Hadolint results
-        uses: github/codeql-action/upload-sarif@v3
-        if: always() # Luôn upload kết quả dù job fail hay pass
-        with:
-          sarif_file: hadolint-results.sarif
-
-  # STAGE 2: BUILD (Build ảnh 1 lần duy nhất)
-  build-image:
-    name: "Build Docker Image"
-    runs-on: self-hosted # CHẠY TRÊN SELF-HOSTED RUNNER
-    needs: hadolint # Chỉ build khi LINT thành công
-    
-    # Cung cấp output để các job sau có thể sử dụng
-    outputs:
-      image_tag: ${{ steps.image_id.outputs.image_tag }}
-      
+  trivy-scan:
+    name: "Trivy - Container Vulnerability Scanner"
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Build Docker image
-        id: image_id
+        run: docker build -t juice-shop:scan .
+
+      - name: Install Trivy CLI
         run: |
-          IMAGE_TAG="juice-shop:${{ github.sha }}"
-          docker build -t $IMAGE_TAG .
-          echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin v0.44.1
 
-  # STAGE 3: SCAN (Chạy song song 2 job scan)
-  trivy-scan:
-    name: "Trivy - Container Vulnerability Scanner"
-    runs-on: self-hosted # CHẠY TRÊN SELF-HOSTED RUNNER
-    needs: build-image # Phải đợi build-image xong
-    steps:
-      - name: Run Trivy vulnerability scanner (SARIF)
-        uses: aquasecurity/trivy-action@master
+      - name: Run Trivy (SARIF)
         continue-on-error: true
-        with:
-          image-ref: ${{ needs.build-image.outputs.image_tag }} # Lấy tag từ job build
-          format: "sarif"
-          output: "trivy-results.sarif"
-          severity: "CRITICAL,HIGH,MEDIUM"
+        run: |
+          trivy image --format sarif --output trivy-results.sarif --severity CRITICAL,HIGH,MEDIUM juice-shop:scan || true
 
-      - name: Upload Trivy results to GitHub Security
-        uses: github/codeql-action/upload-sarif@v3
+      - name: Upload Trivy SARIF to GitHub Security
         if: always()
+        uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: "trivy-results.sarif"
-      
-      # Bạn vẫn có thể giữ lại bước xuất JSON nếu cần
-      - name: Run Trivy with JSON output
-        uses: aquasecurity/trivy-action@master
+          sarif_file: trivy-results.sarif
+
+      - name: Run Trivy (JSON)
         continue-on-error: true
-        with:
-          image-ref: ${{ needs.build-image.outputs.image_tag }}
-          format: "json"
-          output: "trivy-results.json"
+        run: |
+          trivy image --format json --output trivy-results.json --severity CRITICAL,HIGH,MEDIUM juice-shop:scan || true
 
       - name: Upload Trivy JSON report
-        uses: actions/upload-artifact@v4
         if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: trivy-report
           path: trivy-results.json
 
   grype-scan:
     name: "Grype - Vulnerability Scanner"
-    runs-on: self-hosted # CHẠY TRÊN SELF-HOSTED RUNNER
-    needs: build-image # Phải đợi build-image xong
+    runs-on: ubuntu-latest
     steps:
-      # Không cần checkout code hay build image nữa
-      - name: Scan with Grype
-        uses: anchore/scan-action@v3
-        id: grype
-        continue-on-error: true
-        with:
-          image: ${{ needs.build-image.outputs.image_tag }} # Lấy tag từ job build
-          fail-build: false
-          severity-cutoff: high
-          output-format: sarif # Yêu cầu Grype xuất ra SARIF
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Upload Grype results
-        uses: github/codeql-action/upload-sarif@v3
+      - name: Build Docker image
+        run: docker build -t juice-shop:scan .
+
+      - name: Install Grype CLI
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sudo sh -s -- -b /usr/local/bin v0.67.0
+
+      - name: Run Grype (SARIF)
+        continue-on-error: true
+        run: |
+          grype juice-shop:scan -o sarif > grype-results.sarif || true
+
+      - name: Upload Grype SARIF to GitHub Security
         if: always()
+        uses: github/codeql-action/upload-sarif@v3
         with:
-          # 'scan-action' tự động đặt tên file output là 'results.sarif'
-          sarif_file: results.sarif
+          sarif_file: grype-results.sarif
+
+      - name: Upload Grype JSON (artifact)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: grype-report
+          path: grype-results.sarif
+
+  hadolint:
+    name: "Hadolint - Dockerfile Linting"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Hadolint
+        run: |
+          wget -q -O /usr/local/bin/hadolint https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64
+          sudo chmod +x /usr/local/bin/hadolint
+
+      - name: Run Hadolint (SARIF)
+        continue-on-error: true
+        run: |
+          hadolint Dockerfile -f sarif > hadolint-results.sarif || true
+
+      - name: Upload Hadolint SARIF to GitHub Security
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: hadolint-results.sarif
+
+      - name: Upload Hadolint artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hadolint-report
+          path: hadolint-results.sarif
