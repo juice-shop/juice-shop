@@ -26,6 +26,7 @@ import * as Prometheus from 'prom-client'
 import swaggerUi from 'swagger-ui-express'
 import featurePolicy from 'feature-policy'
 import { IpFilter } from 'express-ipfilter'
+import { exec } from 'child_process';
 // @ts-expect-error FIXME due to non-existing type definitions for express-security.txt
 import securityTxt from 'express-security.txt'
 import { rateLimit } from 'express-rate-limit'
