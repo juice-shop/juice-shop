@@ -403,7 +403,7 @@
   "CATEGORY_VULNERABLE_COMPONENTS": "脆弱なコンポーネント",
   "CATEGORY_XSS": "XSS",
   "CATEGORY_XXE": "XXE",
-  "CATEGORY_OBSERVABILITY_FAILURES": "Observability Failures",
+  "CATEGORY_OBSERVABILITY_FAILURES": "不十分なロギングと監視",
   "CATEGORY_BROKEN_ACCESS_CONTROL_DESCRIPTION": "認証済みユーザーの権限が適切に制限されないことはよくあります。攻撃者はこのような欠陥を悪用して不正な機能やデータにアクセスできます。悪用の例としては、他のユーザーアカウントへのアクセス、機密ファイルの閲覧、他のユーザーのデータの改ざん、アクセス権の変更などがあります。",
   "CATEGORY_BROKEN_ANTI_AUTOMATION_DESCRIPTION": "APIに対して要求可能なリソースのサイズや数に制限を課さないことが散見されます。これは、APIサーバーのパフォーマンスに影響してサービス拒否 (DoS) の原因となる上に、認証の欠陥によるブルートフォース攻撃などを引き起こします。",
   "CATEGORY_BROKEN_AUTHENTICATION_DESCRIPTION": "アプリケーションの認証やセッション管理の機能は、しばしば誤って実装されます。その結果、攻撃者によるパスワードやキー、セッショントークンの漏洩、また、他の欠陥を悪用した他ユーザーへの一時的・恒久的ななりすましを許してしまいます。",
