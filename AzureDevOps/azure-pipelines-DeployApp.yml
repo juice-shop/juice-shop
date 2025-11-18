@@ -1,0 +1,118 @@
+trigger: none 
+
+resources:
+- repo: self
+
+variables:
+- group: DevSecOps-Variables
+
+stages:
+- stage: Build  
+  displayName: Build and push stage  
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      name: 'Default'
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'Azure-Service-Connection-Development'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          echo 'listing azure resources'
+          
+          az account show 
+          
+          az resource list --subscription $(az account show --query 'id' --output tsv)
+
+          az account set --subscription $(az account show --query 'id' --output tsv)
+          
+          sudo docker build -t $(ContainerRegistry).azurecr.io/devsecops:$(Build.BuildId) .
+          
+          az acr login -n $(ContainerRegistry)
+
+          docker push $(ContainerRegistry).azurecr.io/devsecops:$(Build.BuildId)
+        addSpnToEnvironment: true
+
+- stage: Deploy_Dev
+  displayName: Deploy container to WebApp in development
+  dependsOn: Build
+  jobs:
+  - deployment: Deploy_to_Dev
+    displayName: Deployment to development environment
+    environment: Development
+    pool:
+      name: 'Default'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureAppServiceSettings@1
+            inputs:
+              azureSubscription: 'Azure-Service-Connection-Development'
+              appName: $(DevAppName)
+              resourceGroupName: $(DevResourceGroup)
+              generalSettings: |
+                [{
+                     "linuxFxVersion": "DOCKER|$(ContainerRegistry).azurecr.io/devsecops:$(Build.BuildId)"
+                 }
+                ]
+          - task: AzureAppServiceManage@0
+            inputs:
+              azureSubscription: 'Azure-Service-Connection-Development'
+              Action: 'Stop Azure App Service'
+              WebAppName: '$(DevAppName)'
+
+          - task: AzureAppServiceManage@0
+            inputs:
+              azureSubscription: 'Azure-Service-Connection-Development'
+              Action: 'Start Azure App Service'
+              WebAppName: '$(DevAppName)'
+
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: 'Azure-Service-Connection-Development'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                echo 'upgrading Service Plan'
+                
+                az appservice plan update --name sp-devsecops-$(LabInstanceID) --resource-group $(DevResourceGroup) --sku P1v3
+              addSpnToEnvironment: true
+              
+- stage: Deploy_Prod
+  displayName: Deploy container to WebApp in production
+  dependsOn: Deploy_Dev
+  jobs:
+  - deployment: Deploy_to_Prod
+    displayName: Deployment to production environment
+    environment: Production
+    pool:
+      name: 'Default'
+    strategy:     
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureAppServiceSettings@1
+            inputs:
+              azureSubscription: 'Azure-Service-Connection-Production'
+              appName: '$(ProdAppName)'
+              resourceGroupName: '$(ProdResourceGroup)'
+              generalSettings: |
+                [{
+                     "linuxFxVersion": "DOCKER|$(ContainerRegistry).azurecr.io/devsecops:$(Build.BuildId)"
+                 }
+                ]
+          - task: AzureAppServiceManage@0
+            inputs:
+              azureSubscription: 'Azure-Service-Connection-Production'
+              Action: 'Stop Azure App Service'
+              WebAppName: '$(ProdAppName)'
+
+          - task: AzureAppServiceManage@0
+            inputs:
+              azureSubscription: 'Azure-Service-Connection-Production'
+              Action: 'Start Azure App Service'
+              WebAppName: '$(ProdAppName)'
