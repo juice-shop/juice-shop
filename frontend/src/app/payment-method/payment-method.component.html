@@ -75,7 +75,7 @@
         <mat-form-field class="half-field" appearance="outline" color="accent">
           <mat-label translate>LABEL_EXPIRY_MONTH</mat-label>
           <select matNativeControl [formControl]="monthControl" required>
-            @for (i of monthRange; track i) {
+            @for (i of monthRange; let idx = $index; track idx) {
               <option value="{{ i }}">{{ i }}</option>
             }
           </select>
@@ -88,7 +88,7 @@
         <mat-form-field class="half-field" appearance="outline" color="accent">
           <mat-label translate>LABEL_EXPIRY_YEAR</mat-label>
           <select matNativeControl [formControl]="yearControl" required>
-            @for (i of yearRange; track i) {
+            @for (i of yearRange; let idx = $index; track idx) {
               <option value="{{ i }}">{{ i }}</option>
             }
           </select>
