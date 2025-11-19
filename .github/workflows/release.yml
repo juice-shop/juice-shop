@@ -4,7 +4,7 @@ on:
     tags:
       - v*
 env:
-  CYCLONEDX_NPM_VERSION: '^2.0.0||^3.0.0'
+  CYCLONEDX_NPM_VERSION: '^2.0.0||^3.0.0||^4.0.0'   # keep in sync with package.json
 jobs:
   package:
     runs-on: ${{ matrix.os }}
