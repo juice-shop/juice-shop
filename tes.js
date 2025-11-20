@@ -1,2 +1,2 @@
 this is testing
-password = thisispassword
+const password = 'EinBelegtesBrotMitSchinkenSCHINKEN!'
