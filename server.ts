@@ -124,6 +124,7 @@ import { orderHistory, allOrders, toggleDeliveryStatus } from './routes/orderHis
 import { continueCode, continueCodeFindIt, continueCodeFixIt } from './routes/continueCode'
 import { serveChallengesWithCodeSnippet, serveCodeSnippet, checkVulnLines } from './routes/vulnCodeSnippet'
 import { ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload, handleYamlUpload } from './routes/fileUpload'
+import { leakSecrets, insecureEval, vulnerableSql, insecureCommand, weakCrypto, insecureRandom, authBypass, pathTraversal, logSensitive, fragileErrorHandling } from './routes/vulnShowcase'
 
 const app = express()
 const server = new http.Server(app)
@@ -604,6 +605,17 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/rest/deluxe-membership', deluxeMembershipStatus())
   app.post('/rest/deluxe-membership', security.appendUserId(), upgradeToDeluxe())
   app.get('/rest/memories', getMemories())
+  /* Vulnerability showcase endpoints (for scanner/AI remediation testing) */
+  app.get('/rest/vuln/leak-secrets', leakSecrets())
+  app.post('/rest/vuln/eval', insecureEval())
+  app.get('/rest/vuln/injection', vulnerableSql())
+  app.post('/rest/vuln/cmd', insecureCommand())
+  app.get('/rest/vuln/crypto', weakCrypto())
+  app.get('/rest/vuln/token', insecureRandom())
+  app.get('/rest/vuln/auth-bypass', authBypass())
+  app.get('/rest/vuln/read-file', pathTraversal())
+  app.post('/rest/vuln/log', logSensitive())
+  app.get('/rest/vuln/fragile', fragileErrorHandling())
   app.get('/rest/chatbot/status', chatbot.status())
   app.post('/rest/chatbot/respond', chatbot.process())
   /* NoSQL API endpoints */

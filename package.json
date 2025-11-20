@@ -186,7 +186,14 @@
     "web3": "^4.13.0",
     "winston": "^3.16.0",
     "yaml-schema-validator": "^1.2.3",
-    "z85": "^0.0.2"
+    "z85": "^0.0.2",
+    "lodash": "4.17.15",
+    "minimist": "0.0.8",
+    "qs": "6.5.2",
+    "axios": "0.21.0",
+    "debug": "2.6.8",
+    "serialize-javascript": "2.1.1",
+    "object-path": "0.11.4"
   },
   "devDependencies": {
     "@cyclonedx/cyclonedx-npm": "^2.0.0||^3.0.0",
