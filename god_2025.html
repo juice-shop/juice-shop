@@ -128,6 +128,29 @@
                 </section>
 
                 <section>
+                    <h3>Solution Webhook also tracks hints</h3>
+                    <p>Number of available and used hints is part of the payload</p>
+                    <pre><code>{
+    "solution": {
+        "challenge": "localXssChallenge",
+        "hintsAvailable": 2, // <-- new
+        "hintsUnlocked": 0,  // <-- new
+        "cheatScore": 0,
+        "totalCheatScore": 0.15,
+        "issuedOn": "2025-09-04T18:24:33.027Z"
+    },
+    "ctfFlag": "b0d70dce...b85fac6785dba2349b",
+    "issuer": {
+        "hostName": "fv-az116-673",
+        "os": "Linux (5.4.0-1031-azure)",
+        "appName": "OWASP Juice Shop",
+        "config": "default",
+        "version": "19.0.0"
+    }
+}					</code></pre>
+                </section>
+
+                <section>
                     <h2>Auto-sync with eBook</h2>
                     <p>
                         Juice Shop and its Companion Guide use the same YAML data source
@@ -145,6 +168,14 @@
 
                 <section>
                     <h1 style="font-size:80px">MultiJuicer Enhancements</h1>
+                </section>
+
+                <section>
+                    <h2>Security & convenience boost </h2>
+                    <p>
+                        Joining a team is now 50% more secure and easier than ever
+                    </p>
+                    <img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/docs/modules/ROOT/assets/images/part4/multi-juicer_register.png"/>
                 </section>
 
                 <section>
