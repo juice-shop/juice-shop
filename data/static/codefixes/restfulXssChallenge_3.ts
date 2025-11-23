@@ -37,6 +37,7 @@ ngAfterViewInit () {
         this.routerSubscription = this.router.events.subscribe(() => {
           this.filterTable()
         })
+        this.breakpoint = this.calculateBreakpoint(window.innerWidth)
         this.cdRef.detectChanges()
       },
       error: (err) => { console.log(err) }
@@ -48,3 +49,13 @@ ngAfterViewInit () {
       tableData[i].description = this.sanitizer.bypassSecurityTrustHtml(tableData[i].description)
     }
   }
+
+
+  private calculateBreakpoint (width: number): number {
+    if (width >= 2600) return 6
+    if (width >= 1740) return 4
+    if (width >= 1280) return 3
+    if (width >= 850) return 2
+    return 1
+  }
+  
