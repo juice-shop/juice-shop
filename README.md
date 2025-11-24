@@ -1,241 +1,308 @@
-# ![Juice Shop Logo](https://raw.githubusercontent.com/juice-shop/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_100px.png) OWASP Juice Shop
 
-[![OWASP Flagship](https://img.shields.io/badge/owasp-flagship%20project-48A646.svg)](https://owasp.org/projects/#sec-flagships)
-[![GitHub release](https://img.shields.io/github/release/juice-shop/juice-shop.svg)](https://github.com/juice-shop/juice-shop/releases/latest)
-[![Twitter Follow](https://img.shields.io/twitter/follow/owasp_juiceshop.svg?style=social&label=Follow)](https://twitter.com/owasp_juiceshop)
-[![Subreddit subscribers](https://img.shields.io/reddit/subreddit-subscribers/owasp_juiceshop?style=social)](https://reddit.com/r/owasp_juiceshop)
+# Juice Shop Master
 
-![CI/CD Pipeline](https://github.com/juice-shop/juice-shop/workflows/CI/CD%20Pipeline/badge.svg?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/juice-shop/juice-shop/badge.svg?branch=develop)](https://coveralls.io/github/juice-shop/juice-shop?branch=develop)[![Cypress tests](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/3hrkhu/master&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/3hrkhu/runs)
-[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/223/badge)](https://www.bestpractices.dev/projects/223)
-![GitHub stars](https://img.shields.io/github/stars/juice-shop/juice-shop.svg?label=GitHub%20%E2%98%85&style=flat)
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
+This project contains my completed hacking challenges from the OWASP Juice Shop application.
+The content of this repository is provided solely for educational and ethical security research purposes.
 
-> [The most trustworthy online shop out there.](https://twitter.com/dschadow/status/706781693504589824)
-> ([@dschadow](https://github.com/dschadow)) —
-> [The best juice shop on the whole internet!](https://twitter.com/shehackspurple/status/907335357775085568)
-> ([@shehackspurple](https://twitter.com/shehackspurple)) —
-> [Actually the most bug-free vulnerable application in existence!](https://youtu.be/TXAztSpYpvE?t=26m35s)
-> ([@vanderaj](https://twitter.com/vanderaj)) —
-> [First you 😂😂then you 😢](https://twitter.com/kramse/status/1073168529405472768)
-> ([@kramse](https://twitter.com/kramse)) —
-> [But this doesn't have anything to do with juice.](https://twitter.com/coderPatros/status/1199268774626488320)
-> ([@coderPatros' wife](https://twitter.com/coderPatros))
+---
 
-OWASP Juice Shop is probably the most modern and sophisticated insecure web application! It can be used in security
-trainings, awareness demos, CTFs and as a guinea pig for security tools! Juice Shop encompasses vulnerabilities from the
-entire
-[OWASP Top Ten](https://owasp.org/www-project-top-ten) along with many other security flaws found in real-world
-applications!
-
-![Juice Shop Screenshot Slideshow](screenshots/slideshow.gif)
-
-For a detailed introduction, full list of features and architecture overview please visit the official project page:
-<https://owasp-juice.shop>
-
-## Table of contents
-
-- [Setup](#setup)
-    - [From Sources](#from-sources)
-    - [Packaged Distributions](#packaged-distributions)
-    - [Docker Container](#docker-container)
-    - [Vagrant](#vagrant)
-- [Demo](#demo)
-- [Documentation](#documentation)
-    - [Node.js version compatibility](#nodejs-version-compatibility)
-    - [Troubleshooting](#troubleshooting)
-    - [Official companion guide](#official-companion-guide)
+## Table of Contents
+- [Project Description](#project-description)
+- [Quickstart](#quickstart)
+- [Prerequisites](#prerequisites)
+- [Usage](#usage)
+- [Features](#features)
+- [Challenge Documentation & Videos](#challenge-documentation--videos)
+- [Security Notice](#security-notice)
+- [Submitting the Project / Push to GitHub](#submitting-the-project--push-to-github)
 - [Contributing](#contributing)
-- [References](#references)
-- [Merchandise](#merchandise)
-- [Donations](#donations)
-- [Contributors](#contributors)
-- [Licensing](#licensing)
+- [License](#license)
+- [Resources](#resources)
 
-## Setup
+---
 
-> You can find some less common installation variations as well as instructions to run Juice Shop on a variety of cloud computing providers in
-> [the _Running OWASP Juice Shop_ documentation](https://pwning.owasp-juice.shop/companion-guide/latest/part1/running.html).
+## Project Description
+This repository documents several hacking challenges solved within the OWASP Juice Shop environment.
+Each challenge includes a written report, related materials, and a demonstration video showing how the vulnerability is exploited.
 
-### From Sources
+---
 
-![GitHub repo size](https://img.shields.io/github/repo-size/juice-shop/juice-shop.svg)
+## Quickstart
 
-1. Install [node.js](#nodejs-version-compatibility)
-2. Run `git clone https://github.com/juice-shop/juice-shop.git --depth 1` (or
-   clone [your own fork](https://github.com/juice-shop/juice-shop/fork)
-   of the repository)
-3. Go into the cloned folder with `cd juice-shop`
-4. Run `npm install` (only has to be done before first start or when you change the source code)
-5. Run `npm start`
-6. Browse to <http://localhost:3000>
+### 1. Fork the Project
 
-### Packaged Distributions
+Go to the official OWASP Juice Shop repository <https://github.com/juice-shop/juice-shop.git> and click the *Fork* button to create your own copy:
 
-[![GitHub release](https://img.shields.io/github/downloads/juice-shop/juice-shop/total.svg)](https://github.com/juice-shop/juice-shop/releases/latest)
-[![SourceForge](https://img.shields.io/sourceforge/dm/juice-shop?label=sourceforge%20downloads)](https://sourceforge.net/projects/juice-shop/)
-[![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop?label=sourceforge%20downloads)](https://sourceforge.net/projects/juice-shop/)
+### 2. Clone Your Fork
 
-1. Install a 64bit [node.js](#nodejs-version-compatibility) on your Windows, MacOS or Linux machine
-2. Download `juice-shop-<version>_<node-version>_<os>_x64.zip` (or
-   `.tgz`) attached to
-   [latest release](https://github.com/juice-shop/juice-shop/releases/latest)
-3. Unpack and `cd` into the unpacked folder
-4. Run `npm start`
-5. Browse to <http://localhost:3000>
+Clone the project from *your own GitHub account*:
+```bash
+git clone https://github.com/<your-username>/juice-shop.git
+```
+Replace <your-username> with your actual GitHub username.
 
-> Each packaged distribution includes some binaries for `sqlite3` and
-> `libxmljs2` bound to the OS and node.js version which `npm install` was
-> executed on.
+### 3. Install Dependencies
+```bash
+cd juice-shop
+npm install
+```
 
-### Docker Container
+### 4. Start the Application
+```bash
+npm start
+```
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/bkimminich/juice-shop.svg)](https://hub.docker.com/r/bkimminich/juice-shop)
-![Docker Stars](https://img.shields.io/docker/stars/bkimminich/juice-shop.svg)
-[![](https://images.microbadger.com/badges/image/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop
-"Get your own image badge on microbadger.com")
-[![](https://images.microbadger.com/badges/version/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop
-"Get your own version badge on microbadger.com")
+### 5. Visit
 
-1. Install [Docker](https://www.docker.com)
-2. Run `docker pull bkimminich/juice-shop`
-3. Run `docker run --rm -p 127.0.0.1:3000:3000 bkimminich/juice-shop`
-4. Browse to <http://localhost:3000> (on macOS and Windows browse to
-   <http://192.168.99.100:3000> if you are using docker-machine instead of the native docker installation)
+Now visit the application at:
+```
+http://localhost:3000
+```
 
-### Vagrant
+## Prerequisites
 
-1. Install [Vagrant](https://www.vagrantup.com/downloads.html) and
-   [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
-2. Run `git clone https://github.com/juice-shop/juice-shop.git` (or
-   clone [your own fork](https://github.com/juice-shop/juice-shop/fork)
-   of the repository)
-3. Run `cd vagrant && vagrant up`
-4. Browse to [192.168.56.110](http://192.168.56.110)
+Before running the project, ensure you have:
 
-## Demo
+- Node.js
 
-Feel free to have a look at the latest version of OWASP Juice Shop:
-<http://demo.owasp-juice.shop>
+- npm
 
-> This is a deployment-test and sneak-peek instance only! You are __not
-> supposed__ to use this instance for your own hacking endeavours! No
-> guaranteed uptime! Guaranteed stern looks if you break it!
+- A modern web browser
 
-## Documentation
+- Basic understanding of web security concepts
 
-### Node.js version compatibility
+## Usage
 
-![GitHub package.json dynamic](https://img.shields.io/github/package-json/cpu/juice-shop/juice-shop)
-![GitHub package.json dynamic](https://img.shields.io/github/package-json/os/juice-shop/juice-shop)
+1. Run Juice Shop locally.
 
-OWASP Juice Shop officially supports the following versions of
-[node.js](http://nodejs.org) in line with the official
-[node.js LTS schedule](https://github.com/nodejs/LTS) as close as possible. Docker images and packaged distributions are
-offered accordingly.
+2. Attempt the security challenges.
 
-| node.js | Supported              | Tested             | [Packaged Distributions](#packaged-distributions) | [Docker images](#docker-container) from `master` | [Docker images](#docker-container) from `develop` |
-|:--------|:-----------------------|:-------------------|:--------------------------------------------------|:-------------------------------------------------|:--------------------------------------------------|
-| 25.x    | :x:                    | :x:                |                                                   |                                                  |                                                   |
-| 24.x    | :heavy_check_mark:     | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
-| 23.x    | ( :heavy_check_mark: ) | :x:                |                                                   |                                                  |                                                   |
-| 22.x    | :heavy_check_mark:     | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     | `latest` (`linux/amd64`, `linux/arm64`)          | `snapshot` (`linux/amd64`, `linux/arm64`)         |
-| 21.x    | ( :heavy_check_mark: ) | :x:                |                                                   |                                                  |                                                   |
-| 20.x    | :heavy_check_mark:     | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
-| <20.x   | :x:                    | :x:                |                                                   |                                                  |                                                   |
+3. Use browser developer tools or ethical hacking utilities.
 
-Juice Shop is automatically tested _only on the latest `.x` minor version_ of each node.js version mentioned above!
-There is no guarantee that older minor node.js releases will always work with Juice Shop!
-Please make sure you stay up to date with your chosen version.
+4. Document each challenge in its corresponding folder.
 
-### Troubleshooting
+## Features
 
-[![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
+- Structured challenge documentation
 
-If you need help with the application setup please check our
-[our existing _Troubleshooting_](https://pwning.owasp-juice.shop/companion-guide/latest/part4/troubleshooting.html)
-guide. If this does not solve your issue please post your specific problem or question in the
-[Gitter Chat](https://gitter.im/bkimminich/juice-shop) where community members can best try to help you.
+- Video demonstrations for each vulnerability
 
-:stop_sign: **Please avoid opening GitHub issues for support requests or questions!**
+- Organized folder structure
 
-### Official companion guide
+- Educational cybersecurity content
 
-[![Write Goodreads Review](https://img.shields.io/badge/goodreads-write%20review-49557240.svg)](https://www.goodreads.com/review/edit/49557240)
+## Challenge Documentation & videos
 
-OWASP Juice Shop comes with an official companion guide eBook. It will give you a complete overview of all
-vulnerabilities found in the application including hints how to spot and exploit them. In the appendix you will even
-find complete step-by-step solutions to every challenge. Extensive documentation of
-[custom re-branding](https://pwning.owasp-juice.shop/companion-guide/latest/part4/customization.html),
-[CTF-support](https://pwning.owasp-juice.shop/companion-guide/latest/part4/ctf.html),
-[trainer's guide](https://pwning.owasp-juice.shop/companion-guide/latest/part4/trainers.html)
-and much more is also included.
+Below are the three selected challenges for the Juice Shop Master project.
 
-[Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) is published under
-[CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
-and is available **for free** in PDF, Kindle and ePub format on LeanPub. You can also
-[browse the full content online](https://pwning.owasp-juice.shop)!
+All explanations and technical steps reflect the actual methods used during exploitation using Burp Suite.
 
-[<img alt="Pwning OWASP Juice Shop cover" src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/docs/modules/ROOT/assets/images/cover.jpg" width="200"/>](https://leanpub.com/juice-shop)
-[<img alt="Pwning OWASP Juice Shop back cover" src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/docs/modules/ROOT/assets/images/introduction/back.jpg" width="200"/>](https://leanpub.com/juice-shop)
+Each challenge includes:
+
+- A description of the vulnerability
+
+- The exact method used (based on Burp Suite workflow)
+
+- The exploitation steps
+
+- Security risks
+
+- Results
+
+- The demonstration video
+
+### 1. Client-side XSS Protection
+
+#### Category: 
+
+Cross-Site Scripting (XSS) / Client-Side Input Validation
+
+#### Description
+
+The Juice Shop application attempts to block malicious input using client-side validation.
+However, because validation happens only on the frontend, it can be bypassed by intercepting and modifying the request before it reaches the server.
+
+#### Exploitation Steps
+
+1. Register a new user inside Juice Shop but before clicking “Register,” turn on Intercept in Burp Suite.
+
+2. Click Register, allowing Burp to intercept the POST /api/user request.
+
+3. Send the intercepted request to Repeater.
+
+4. From the Scoreboard hint, copy the provided payload:
+```
+<iframe src="javascript:alert(`xss`)">
+```
+5. Replace the email field in the JSON request with this payload.
+
+6. Escape internal quotes to keep JSON valid:
+```
+<iframe src=\"javascript:alert(`xss`)\">
+```
+7. Click Send in Repeater to forward the modified request.
+
+8. The browser processes the injected payload, triggering the XSS and solving the challenge.
+
+#### Risks & Impact
+
+- Execution of arbitrary JavaScript in a victim’s browser
+
+- Session hijacking
+
+- Account takeover
+
+- Phishing, redirects, or keylogging
+
+- Full compromise of user interaction inside the application
+
+#### Result
+
+The challenge is solved once the JavaScript alert executes successfully, proving that client-side protection was bypassed.
+
+#### Challenge Video
+
+- Client-side XSS Protection — [Watch Video](https://www.loom.com/share/53404102561e450685a398f69a681a15)
+
+### 2. CAPTCHA Bypass challenge
+
+#### Category:
+
+Input Validation / Bot Prevention Failure
+
+#### Description
+
+The CAPTCHA mechanism in Juice Shop does not validate the CAPTCHA value on the server.
+This makes it possible to submit feedback repeatedly without solving the CAPTCHA, simply by replaying the request.
+
+#### Exploitation Steps
+
+1. Log out and go to the Customer Feedback section.
+
+2. Write a comment, choose a rating, and solve the CAPTCHA only once.
+
+3. Enable Intercept in Burp Suite and click Submit.
+
+4. In Burp, capture the POST /api/feedback request.
+
+5. Send this request to Repeater.
+
+6. Back in the browser, write another comment but do not solve the CAPTCHA.
+
+7. Instead, repeatedly click Send in Repeater to bypass the CAPTCHA.
+
+8. Each repeated request is accepted successfully despite not solving the CAPTCHA image again.
+
+#### Risks & Impact
+
+- Automated spam through mass feedback submissions
+
+- CAPTCHA becomes ineffective
+
+- Bots can abuse forms and generate noise
+
+- Potential for automated large-scale attacks
+
+#### Result
+
+The challenge is solved once multiple feedback entries are submitted without ever solving the CAPTCHA again.
+
+#### Challenge Video
+
+- CAPTCHA Bypass — [Watch Video](https://www.loom.com/share/9cfd73dc034749449d7da6e9cf5f9f26)
+
+### 3. Admin Registration challenge
+
+#### Category:
+
+Access Control / Account Privilege Escalation
+
+#### Description
+
+Juice Shop exposes internal API functionality allowing the creation of admin users.
+When user creation requests are intercepted, an attacker can modify the payload and assign admin privileges to a new account.
+
+#### Exploitation Steps
+
+1. Begin registering a new user in Juice Shop.
+
+2. Before clicking Register, enable Intercept in Burp Suite.
+
+3. Submit the form and intercept the POST /api/user request.
+
+4. Forward the request to Repeater.
+
+5. Under the "passwordRepeat" parameter, manually insert the following:
+```
+"role": "admin",
+```
+
+6. Send the modified request.
+
+7. Turn off Intercept and log in using the newly created account.
+
+8. The account now has administrative privileges.
+
+
+#### Risks & Impact
+
+- Unauthorized admin account creation
+
+- Full application compromise
+
+- Access to sensitive data
+
+- Ability to modify or delete users, products, and orders
+
+- Severe privilege escalation
+
+#### Result
+
+The challenge is solved when the created user is successfully logged in as an admin.
+
+#### Challenge Video
+
+- Admin Registration — [Watch Video](https://www.loom.com/share/9197fd6d39ab4cb0b444707d4ba0a1fa)
+
+## Security Notice
+
+- No real personal data was used in this project.
+
+- No passwords, tokens, SSH keys, or sensitive information are stored in the repository.
+
+- Environment variables were used where credentials were required.
+
+- All activities were performed for ethical and educational purposes.
+
+## Submitting the Project / Push to GitHub
+
+After completing all challenges and documentation, push your changes to a **feature branch** called `my-challenges`:
+
+```bash
+
+#### Create and switch to the feature branch
+git checkout -b my-challenges
+
+#### Add all project files
+git add .
+
+#### Commit your changes
+git commit -m "Add project and challenge documentation"
+
+#### Push to your forked repository
+git push origin my-challenges
+```
 
 ## Contributing
 
-[![GitHub contributors](https://img.shields.io/github/contributors/juice-shop/juice-shop.svg)](https://github.com/juice-shop/juice-shop/graphs/contributors)
-[![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
-[![Crowdin](https://d322cqt584bo4o.cloudfront.net/owasp-juice-shop/localized.svg)](https://crowdin.com/project/owasp-juice-shop)
-![GitHub issues by-label](https://img.shields.io/github/issues/juice-shop/juice-shop/help%20wanted.svg)
-![GitHub issues by-label](https://img.shields.io/github/issues/juice-shop/juice-shop/good%20first%20issue.svg)
+Contributions are welcome!
 
-We are always happy to get new contributors on board! Please check
-[CONTRIBUTING.md](CONTRIBUTING.md) to learn how to
-[contribute to our codebase](CONTRIBUTING.md#code-contributions) or the
-[translation into different languages](CONTRIBUTING.md#i18n-contributions)!
+Feel free to open a pull request to improve documentation or add enhancements.
 
-## References
+## License
 
-Did you write a blog post, magazine article or do a podcast about or mentioning OWASP Juice Shop? Or maybe you held or
-joined a conference talk or meetup session, a hacking workshop or public training where this project was mentioned?
+This project is licensed under the MIT License.
 
-Add it to our ever-growing list of [REFERENCES.md](REFERENCES.md) by forking and opening a Pull Request!
+## Resources
 
-## Merchandise
-
-* On [Spreadshirt.com](http://shop.spreadshirt.com/juiceshop) and
-  [Spreadshirt.de](http://shop.spreadshirt.de/juiceshop) you can get some swag (Shirts, Hoodies, Mugs) with the official
-  OWASP Juice Shop logo
-* On
-  [StickerYou.com](https://www.stickeryou.com/products/owasp-juice-shop/794)
-  you can get variants of the OWASP Juice Shop logo as single stickers to decorate your laptop with. They can also print
-  magnets, iron-ons, sticker sheets and temporary tattoos.
-
-## Donations
-
-[![](https://img.shields.io/badge/support-owasp%20juice%20shop-blue)](https://owasp.org/donate/?reponame=www-project-juice-shop&title=OWASP+Juice+Shop)
-
-The OWASP Foundation gratefully accepts donations via Stripe. Projects such as Juice Shop can then request reimbursement
-for expenses from the Foundation. If you'd like to express your support of the Juice Shop project, please make sure to
-tick the "Publicly list me as a supporter of OWASP Juice Shop" checkbox on the donation form. You can find our more
-about donations and how they are used here:
-
-<https://pwning.owasp-juice.shop/companion-guide/latest/part3/donations.html>
-
-## Contributors
-
-The OWASP Juice Shop Project Leaders are:
-
-- [Björn Kimminich](https://github.com/bkimminich) aka `bkimminich` [![Keybase PGP](https://img.shields.io/keybase/pgp/bkimminich)](https://keybase.io/bkimminich)
-- [Jannik Hollenbach](https://github.com/J12934) aka `J12934`
-
-For a list of all contributors to the OWASP Juice Shop please visit our
-[HALL_OF_FAME.md](HALL_OF_FAME.md).
-
-## Licensing
-
-[![license](https://img.shields.io/github/license/juice-shop/juice-shop.svg)](LICENSE)
-
-This program is free software: you can redistribute it and/or modify it under the terms of the [MIT license](LICENSE).
-OWASP Juice Shop and any contributions are Copyright © by Bjoern Kimminich & the OWASP Juice Shop contributors
-2014-2025.
-
-![Juice Shop Logo](https://raw.githubusercontent.com/juice-shop/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_400px.png)
+A list of external tools, tutorials, or references will be added here.
