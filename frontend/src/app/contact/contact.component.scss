@@ -18,11 +18,34 @@ mat-card {
   position: relative;
 }
 
+.feedback-hint {
+  margin-left: 0.3125rem;
+}
+
 .rating-container {
   align-items: center;
   display: flex;
   margin-bottom: 15px;
   margin-top: 15px;
+}
+
+.rating-label {
+  float: left;
+  font-weight: 500;
+  margin-right: 0.5rem;
+}
+
+.captcha-info {
+  margin-bottom: 0.625rem;
+  margin-top: 0.625rem;
+}
+
+.captcha-label {
+  font-weight: 500;
+}
+
+.captcha-note {
+  font-size: small;
 }
 
 ::ng-deep .mat-mdc-slider {
