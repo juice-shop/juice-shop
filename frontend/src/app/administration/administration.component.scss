@@ -44,6 +44,15 @@ mat-header-cell {
   display: block;
 }
 
+.cell-middle {
+  vertical-align: middle;
+}
+
+.hidden-table {
+  height: 0;
+  visibility: hidden;
+}
+
 .mat-column-comment {
   flex: 0 0 55% !important;
   -ms-hyphens: auto;
