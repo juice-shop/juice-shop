@@ -48,6 +48,3 @@ ngAfterViewInit () {
       tableData[i].description = this.sanitizer.bypassSecurityTrustHtml(tableData[i].description)
     }
   }
-
-
-  
