@@ -49,6 +49,7 @@ mat-toolbar {
 }
 
 .warn-notification {
+  font-size: 47px;
   left: 15px;
   top: -15px;
 }
@@ -112,12 +113,47 @@ mat-search-bar {
   width: auto;
 }
 
+.nav-button {
+  height: 3rem;
+}
+
+.nav-square-button {
+  height: 3rem;
+  width: 3rem;
+}
+
+.nav-home-button {
+  height: 3.75rem;
+}
+
+.nav-account-button {
+  vertical-align: middle;
+}
+
+.app-name {
+  font-size: x-large;
+}
+
+.basket-label {
+  margin-right: 0.625rem;
+}
+
 .language-search-container {
   padding: 8px 16px;
 }
 
 .language-search-field {
   width: 100%;
+}
+
+.language-option {
+  width: 15rem;
+}
+
+.language-option-content {
+  display: inline-block;
+  margin-left: 0.3125rem;
+  width: 12.5rem;
 }
 
 .search-icon {
