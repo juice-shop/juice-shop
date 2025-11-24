@@ -48,6 +48,10 @@ mat-header-cell {
   display: flex;
 }
 
+.cell {
+  max-width: 6rem;
+}
+
 mat-row {
   align-items: center;
   display: flex;
