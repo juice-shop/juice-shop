@@ -119,6 +119,14 @@ mat-footer-cell:last-of-type {
   justify-content: center;
 }
 
+.header-hidden {
+  display: none;
+}
+
+.cell-initial-font {
+  font-size: initial;
+}
+
 // Quantity controls
 .quantity-controls {
   align-items: center;
