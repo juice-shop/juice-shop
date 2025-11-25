@@ -136,3 +136,24 @@ div {
   align-items: center;
   display: flex;
 }
+
+.warn-notification {
+  font-size: 47px;
+}
+
+.auto-focus-absorber {
+  height: 0;
+  position: absolute;
+}
+
+.review-label-spacing {
+  margin-right: 0.3125rem;
+}
+
+.hint-spacing {
+  margin-left: 0.3125rem;
+}
+
+.submit-button-spacing {
+  margin-left: 0.3125rem;
+}
