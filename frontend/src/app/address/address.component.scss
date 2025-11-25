@@ -76,3 +76,8 @@ svg {
 .add-new-address {
   margin-top: 20px;
 }
+
+/* Refactoring inline styles */
+.hidden-header {
+  display: none;
+}

@@ -14,7 +14,7 @@
     @if (addressExist) {
       <mat-table [dataSource]="dataSource" class="address-table">
         <ng-container matColumnDef="Selection">
-          <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
+          <mat-header-cell *matHeaderCellDef class="hidden-header"></mat-header-cell>
           <mat-cell *matCellDef="let element; let row">
             <mat-radio-button
               (click)="emitSelectionToParent(element.id)"
@@ -24,25 +24,25 @@
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="Name">
-          <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
+          <mat-header-cell *matHeaderCellDef class="hidden-header"></mat-header-cell>
           <mat-cell *matCellDef="let element">
             {{ element?.fullName }}
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="Address">
-          <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
+          <mat-header-cell *matHeaderCellDef class="hidden-header"></mat-header-cell>
           <mat-cell *matCellDef="let element">
             {{ element?.streetAddress }}, {{ element?.city }}, {{ element?.state }}, {{ element?.zipCode }}
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="Country">
-          <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
+          <mat-header-cell *matHeaderCellDef class="hidden-header"></mat-header-cell>
           <mat-cell *matCellDef="let element">
             {{ element?.country }}
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="Edit">
-          <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
+          <mat-header-cell *matHeaderCellDef class="hidden-header"></mat-header-cell>
           <mat-cell *matCellDef="let element">
             <button mat-icon-button routerLink="/address/edit/{{ element.id }}">
               <i class="far fa-edit"></i>
@@ -50,7 +50,7 @@
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="Remove">
-          <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
+          <mat-header-cell *matHeaderCellDef class="hidden-header"></mat-header-cell>
           <mat-cell *matCellDef="let element">
             <button mat-icon-button (click)="deleteAddress(element.id)">
               <i class="far fa-trash-alt"></i>
