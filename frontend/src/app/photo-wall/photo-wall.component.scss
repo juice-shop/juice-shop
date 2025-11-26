@@ -19,6 +19,10 @@ mat-form-field {
   width: 60%;
 }
 
+.photo-wall-card {
+  margin-bottom: 0.625rem;
+}
+
 input {
   &[type='file'] {
     visibility: hidden;
@@ -49,6 +53,10 @@ input {
   display: grid;
   grid-gap: 20px;
   grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+}
+
+.share-memory-section {
+  margin-top: 0.625rem;
 }
 
 .grid img {
