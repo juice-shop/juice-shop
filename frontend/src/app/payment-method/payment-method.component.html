@@ -39,7 +39,7 @@
   }
   <div>
     <mat-expansion-panel class="mat-elevation-z0">
-      <mat-expansion-panel-header style="margin-bottom: 12px;">
+      <mat-expansion-panel-header class="panel-header-spacing">
         <mat-panel-title>
           {{"ADD_NEW_CARD" | translate}}
         </mat-panel-title>
@@ -99,7 +99,7 @@
           }
         </mat-form-field>
       </div>
-      <button type="submit" id="submitButton" style="margin-top:5px; float:right;" mat-raised-button color="primary"
+      <button type="submit" id="submitButton" class="submit-button" mat-raised-button color="primary"
         [disabled]="nameControl.invalid || numberControl.invalid || monthControl.invalid || yearControl.invalid"
         (click)="save()">
         <mat-icon>send</mat-icon>
