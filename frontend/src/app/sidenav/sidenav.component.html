@@ -11,7 +11,7 @@
 
 <mat-nav-list>
 
-  <button mat-button style="height: 0; position: absolute;">
+  <button mat-button class="auto-focus-absorb">
     <!-- 'absorbs' the auto-focus behavior -->
   </button>
   <h3 mat-subheader class="side-subHeader show-lt-md-only" translate>ACCOUNT</h3>
@@ -264,7 +264,7 @@
   }
 
   @if (scoreBoardVisible || showGitHubLink) {
-    <mat-divider style="margin-bottom: 10px;"></mat-divider>
+    <mat-divider class="divider-spacing"></mat-divider>
   }
 
   @if (scoreBoardVisible) {
@@ -299,11 +299,11 @@
 
 <div class="appVersion">
   <span>
-    <span style="font-size: 13px;">{{applicationName}}</span>
+    <span class="app-name">{{applicationName}}</span>
     <br>
-      <span style="font-size: 12px;">{{version}}</span>
+      <span class="app-version">{{version}}</span>
       <br>
-        <div style="margin-top: 10px;">
+        <div class="tech-icons">
           <i class="icon-angular"></i>&nbsp;
           <i class="icon-html5"></i>&nbsp;
           <i class="icon-sass"></i>&nbsp;
