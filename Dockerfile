@@ -2,9 +2,24 @@
 FROM node:22.11.0-bullseye AS installer
 
 WORKDIR /juice-shop
-COPY . .
 
-# Install required global tools with pinned versions (no "latest")
+# Copy only required project files (whitelist — avoids accidental secrets)
+COPY package*.json ./
+COPY tsconfig*.json ./
+COPY angular.json ./
+COPY gulpfile.js ./
+COPY server.js ./
+
+# App directories (explicit safe whitelist)
+COPY backend ./backend
+COPY frontend ./frontend
+COPY data ./data
+COPY config ./config
+COPY i18n ./i18n
+COPY scripts ./scripts
+COPY lib ./lib
+
+# Install required global tools with pinned versions
 ARG CYCLONEDX_NPM_VERSION="2.0.0"
 RUN npm install -g typescript@5.6.3 ts-node@10.9.2 "@cyclonedx/cyclonedx-npm@${CYCLONEDX_NPM_VERSION}"
 
@@ -54,10 +69,11 @@ LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
 WORKDIR /juice-shop
 
 # Copy built artifacts with correct ownership
-COPY --from=installer --chown=65532:0 /juice-shop .
+COPY --from=installer --chown=65532:0 /juice-shop ./
 
 # Non-root runtime user
 USER 65532
 
 EXPOSE 3000
 CMD ["/juice-shop/build/app.js"]
+
