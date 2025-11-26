@@ -30,7 +30,16 @@ export interface Notification {
 }
 export const notifications: Notification[] = []
 
-export let retrieveBlueprintChallengeFile: string | null = null
-export function setRetrieveBlueprintChallengeFile (retrieveBlueprintChallengeFileArg: string) {
-  retrieveBlueprintChallengeFile = retrieveBlueprintChallengeFileArg
+let _retrieveBlueprintChallengeFile: string | null = null
+
+export function setRetrieveBlueprintChallengeFile(value: string) {
+  // Optionally validate input to prevent path traversal or unsafe values:
+  if (value.includes('..')) {
+    throw new Error('Invalid blueprint challenge file path')
+  }
+  _retrieveBlueprintChallengeFile = value
+}
+
+export function getRetrieveBlueprintChallengeFile(): string | null {
+  return _retrieveBlueprintChallengeFile
 }
