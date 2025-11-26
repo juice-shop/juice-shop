@@ -96,3 +96,24 @@ mat-nav-list {
 @media (max-width: 959.98px) {
   .show-lt-md-only { display: block !important; }
 }
+
+.auto-focus-absorb {
+  height: 0;
+  position: absolute;
+}
+
+.divider-spacing {
+  margin-bottom: 0.625rem;
+}
+
+.app-name {
+  font-size: 13px;
+}
+
+.app-version {
+  font-size: 12px;
+}
+
+.tech-icons {
+  margin-top: 0.625rem;
+}
