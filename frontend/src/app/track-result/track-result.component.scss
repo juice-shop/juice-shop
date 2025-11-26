@@ -60,6 +60,15 @@ mat-card {
     padding: 0;
   }
 }
+
+.delivery-status {
+  text-align: center;
+}
+
+.eta-badge {
+  width: max-content;
+}
+
 @media (max-width: 959.98px) {
   .mat-column-price { display: none; }
 }
