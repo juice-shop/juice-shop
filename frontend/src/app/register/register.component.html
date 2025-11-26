@@ -31,7 +31,7 @@
               matInput aria-label="Field for the password">
               <mat-hint translate>
                 <i class="fas fa-exclamation-circle"></i>
-                <em style="margin-left:5px;" translate>{{ 'INVALID_PASSWORD_LENGTH' | translate: {length: '5-40'} }}</em>
+                <em class="hint-spacing" translate>{{ 'INVALID_PASSWORD_LENGTH' | translate: {length: '5-40'} }}</em>
               </mat-hint>
               <mat-hint align="end">{{password.value?.length || 0}}/20</mat-hint>
               @if (passwordControl.invalid && passwordControl.errors.required) {
@@ -91,7 +91,7 @@
                   </mat-select>
                   <mat-hint translate>
                     <i class="fas fa-exclamation-circle"></i>
-                    <em style="margin-left:5px;" translate>CANNOT_BE_CHANGED_LATER</em>
+                    <em class="hint-spacing" translate>CANNOT_BE_CHANGED_LATER</em>
                   </mat-hint>
                   @if (securityQuestionControl.invalid && securityQuestionControl.errors.required) {
                     <mat-error translate>
