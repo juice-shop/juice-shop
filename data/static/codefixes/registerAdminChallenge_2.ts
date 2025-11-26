@@ -1,7 +1,5 @@
 /* Generated API endpoints */
-  import { HintModel } from '../../../models/hint'
-
-finale.initialize({ app, sequelize })
+  finale.initialize({ app, sequelize })
 
   const autoModels = [
     { name: 'Product', exclude: [], model: ProductModel },
