@@ -46,7 +46,6 @@ RUN rm -f data/chatbot/botDefaultTrainingData.json \
 # Generate SBOM
 RUN npm run sbom
 
-
 # ---------- Runtime stage ----------
 FROM gcr.io/distroless/nodejs22-debian12@sha256:3ae934f1461c2919320b8c228f5788febcc13d953ee7a127d50b371a19b8d20a
 
@@ -71,9 +70,12 @@ WORKDIR /juice-shop
 # Copy built artifacts with correct ownership
 COPY --from=installer --chown=65532:0 /juice-shop ./
 
+# ---------- FIXED LINE 72: Remove write permissions to avoid writable resources ----------
+RUN chmod -R a-w /juice-shop
+
 # Non-root runtime user
 USER 65532
 
 EXPOSE 3000
-CMD ["/juice-shop/build/app.js"]
 
+CMD ["/juice-shop/build/app.js"]
