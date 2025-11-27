@@ -26,3 +26,12 @@ mat-dialog-content {
   display: flex;
   gap: 10px;
 }
+
+.feedback-content {
+  margin-top: 10px !important;
+}
+
+.auto-focus-absorb {
+  height: 0;
+  position: absolute;
+}
