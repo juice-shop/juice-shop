@@ -258,9 +258,9 @@ describe('verify', () => {
     it('"jwtUnsignedChallenge" is solved when forged unsigned token has email jwtn3d@juice-sh.op in the payload', () => {
       /*
       Header: { "alg": "none", "typ": "JWT" }
-      Payload: { "data": { "email": "jwtn3d@juice-sh.op" }, "iat": 1508639612, "exp": 9999999999 }
+      Payload: { "data": { "id": 99, "email": "jwtn3d@juice-sh.op" } }
        */
-      req.headers = { authorization: 'Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJkYXRhIjp7ImVtYWlsIjoiand0bjNkQGp1aWNlLXNoLm9wIn0sImlhdCI6MTUwODYzOTYxMiwiZXhwIjo5OTk5OTk5OTk5fQ.' }
+      req.headers = { authorization: 'Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJkYXRhIjp7ImlkIjo5OSwiZW1haWwiOiJqd3RuM2RAanVpY2Utc2gub3AifSwiaWF0IjoxNzY0MjQzNzE5fQ.' }
 
       verify.jwtChallenges()(req, res, next)
 
@@ -292,9 +292,9 @@ describe('verify', () => {
       it('"jwtForgedChallenge" is solved when forged token HMAC-signed with public RSA-key has email rsa_lord@juice-sh.op in the payload', () => {
         /*
         Header: { "alg": "HS256", "typ": "JWT" }
-        Payload: { "data": { "email": "rsa_lord@juice-sh.op" }, "iat": 1508639612, "exp": 9999999999 }
+        Payload: { "data": { "id": 99, "email": "rsa_lord@juice-sh.op" } }
          */
-        req.headers = { authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImVtYWlsIjoicnNhX2xvcmRAanVpY2Utc2gub3AifSwiaWF0IjoxNTgyMjIxNTc1fQ.ycFwtqh4ht4Pq9K5rhiPPY256F9YCTIecd4FHFuSEAg' }
+        req.headers = { authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjo5OSwiZW1haWwiOiJyc2FfbG9yZEBqdWljZS1zaC5vcCJ9LCJpYXQiOjE3NjQyNDM5OTR9.GeKn2U-i6rRL16330AcJTofEiGpCooOjs95SlDroLSI' }
 
         verify.jwtChallenges()(req, res, next)
 
@@ -304,9 +304,9 @@ describe('verify', () => {
       it('"jwtForgedChallenge" is solved when forged token HMAC-signed with public RSA-key has string "rsa_lord@" in the payload', () => {
         /*
         Header: { "alg": "HS256", "typ": "JWT" }
-        Payload: { "data": { "email": "rsa_lord@" }, "iat": 1508639612, "exp": 9999999999 }
+        Payload: { "data": { "email": "rsa_lord@" } }
          */
-        req.headers = { authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImVtYWlsIjoicnNhX2xvcmRAIn0sImlhdCI6MTU4MjIyMTY3NX0.50f6VAIQk2Uzpf3sgH-1JVrrTuwudonm2DKn2ec7Tg8' }
+        req.headers = { authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoicnNhX2xvcmRAIn0sImlhdCI6MTc2NDI0NDA3MX0.QIJVZwVJk0soddT73JHbv9Y_M-u9b4WugzeTIot1MU0' }
 
         verify.jwtChallenges()(req, res, next)
 

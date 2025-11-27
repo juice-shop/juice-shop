@@ -114,13 +114,30 @@ function jwtChallenge (challenge: Challenge, req: Request, algorithm: string, em
       return
     }
 
-    jwt.verify(token, security.publicKey, (err: jwt.VerifyErrors | null) => {
-      if (err === null) {
+    // For unsigned tokens (alg: none), verification will fail but we still need to check the challenge
+    if (algorithm === 'none') {
+      challengeUtils.solveIf(challenge, () => {
+        return hasAlgorithm(token, algorithm) && hasEmail(decoded as { data: { email: string } }, email)
+      })
+    } else if (algorithm === 'HS256') {
+      // For HMAC tokens, use jws.verify with the public key as the secret (this is the vulnerability)
+      // jsonwebtoken 9.0.0 prevents this, so we use jws instead
+      const isValid = jws.verify(token, algorithm, security.publicKey)
+      if (isValid) {
         challengeUtils.solveIf(challenge, () => {
           return hasAlgorithm(token, algorithm) && hasEmail(decoded as { data: { email: string } }, email)
         })
       }
-    })
+    } else {
+      // For other algorithms, use normal verification
+      jwt.verify(token, security.publicKey, (err: jwt.VerifyErrors | null) => {
+        if (err === null) {
+          challengeUtils.solveIf(challenge, () => {
+            return hasAlgorithm(token, algorithm) && hasEmail(decoded as { data: { email: string } }, email)
+          })
+        }
+      })
+    }
   }
 }
 

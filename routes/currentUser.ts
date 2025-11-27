@@ -18,7 +18,19 @@ export function retrieveLoggedInUser () {
     } catch (err) {
       user = undefined
     } finally {
-      const response = { user: { id: (user?.data ? user.data.id : undefined), email: (user?.data ? user.data.email : undefined), lastLoginIp: (user?.data ? user.data.lastLoginIp : undefined), profileImage: (user?.data ? user.data.profileImage : undefined) } }
+      const responseUser: any = {}
+      if (user?.data) {
+        responseUser.id = user.data.id
+        responseUser.email = user.data.email
+        responseUser.lastLoginIp = user.data.lastLoginIp
+        responseUser.profileImage = user.data.profileImage
+      } else {
+        responseUser.id = undefined
+        responseUser.email = undefined
+        responseUser.lastLoginIp = undefined
+        responseUser.profileImage = undefined
+      }
+      const response = { user: responseUser }
       if (req.query.callback === undefined) {
         res.json(response)
       } else {

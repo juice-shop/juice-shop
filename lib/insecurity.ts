@@ -20,7 +20,7 @@ import * as utils from './utils'
 import * as z85 from 'z85'
 
 export const publicKey = fs ? fs.readFileSync('encryptionkeys/jwt.pub', 'utf8') : 'placeholder-public-key'
-const privateKey = '-----BEGIN RSA PRIVATE KEY-----\r\nMIICXAIBAAKBgQDNwqLEe9wgTXCbC7+RPdDbBbeqjdbs4kOPOIGzqLpXvJXlxxW8iMz0EaM4BKUqYsIa+ndv3NAn2RxCd5ubVdJJcX43zO6Ko0TFEZx/65gY3BE0O6syCEmUP4qbSd6exou/F+WTISzbQ5FBVPVmhnYhG/kpwt/cIxK5iUn5hm+4tQIDAQABAoGBAI+8xiPoOrA+KMnG/T4jJsG6TsHQcDHvJi7o1IKC/hnIXha0atTX5AUkRRce95qSfvKFweXdJXSQ0JMGJyfuXgU6dI0TcseFRfewXAa/ssxAC+iUVR6KUMh1PE2wXLitfeI6JLvVtrBYswm2I7CtY0q8n5AGimHWVXJPLfGV7m0BAkEA+fqFt2LXbLtyg6wZyxMA/cnmt5Nt3U2dAu77MzFJvibANUNHE4HPLZxjGNXN+a6m0K6TD4kDdh5HfUYLWWRBYQJBANK3carmulBwqzcDBjsJ0YrIONBpCAsXxk8idXb8jL9aNIg15Wumm2enqqObahDHB5jnGOLmbasizvSVqypfM9UCQCQl8xIqy+YgURXzXCN+kwUgHinrutZms87Jyi+D8Br8NY0+Nlf+zHvXAomD2W5CsEK7C+8SLBr3k/TsnRWHJuECQHFE9RA2OP8WoaLPuGCyFXaxzICThSRZYluVnWkZtxsBhW2W8z1b8PvWUE7kMy7TnkzeJS2LSnaNHoyxi7IaPQUCQCwWU4U+v4lD7uYBw00Ga/xt+7+UqFPlPVdz1yyr4q24Zxaw0LgmuEvgU5dycq8N7JxjTubX0MIRR+G9fmDBBl8=\r\n-----END RSA PRIVATE KEY-----'
+const privateKey = '-----BEGIN PRIVATE KEY-----\r\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCx+cRp5Zny1Xdx\r\nCF5LFsDhBM8fpqmPlI4vO+x4X/oqU0pkP38ttNc5Xm7mpIQVPIXRffn/Om+/fB0S\r\n9tr+G5jcZzAoo7hPIAftDKiLx9jXhrhQrK3mhI+SNSGNI7z5glS5YcAj82XokcLe\r\nvGMQ+Cd7S6gUl2fzmYxjthOmy5REYLlPAL5dJXPLRwtI7eYTQKzPodmxi5dd/u1a\r\nzH4TO5LathTx85DFnohxw5B04/vT8Mv6TzIUYfoeRYwdbhx2PsG+0+SRDDyK3pdM\r\nqbaa8Id2kF0dTiiMM+ad073bmfgunve7NBSd2rkQBU/AqaH9cy43GqGKxZR+UEff\r\nGS7kCG03AgMBAAECggEAI2IyZBFjVY2OJRlSUeBwsWv41+SVIngY+pgRz+7Y+DA+\r\nAodDPC2PepblOpKrteMmAbvnh5AxJmNBDoOoj0uiTPNw9itymbyXBtB08/FkEZl1\r\nrIhgPIvPVXSduodH6103hfHCtwMNmDregNT4ZyfHBbLJdGqTnrFA4ZQR/R/NVviF\r\nBJgRahYUM3aGWcfAuGUN6mZdMKUYX+kRrLi0B5HjjX0kjNvgRbvNUrmsA2afy7yx\r\nnQDq6QK5E94GhUN14OIteMtKVDA9FJWodZH7PvSaqeheSZbiytC2JQp2Un/naPVV\r\nczYl9arUByMNq1NAdN4IdiYo3kree6+gE8KQUcKJvQKBgQDcM2u4kpc9WSSfQx8T\r\nSQRGQcFviPbRkUHW7C895qTMMXjr7EvHWoBNRA3I5+Q7er9ug5FxQVG0YKeAd9SW\r\nLZFl6ustHS8sy+H0wliJxqMlwTw5pKmH3IKJIqaexgwK/0d7uGS3ByXwgapLU6Sq\r\n+Ui69p73bQgCNO0/mybRAXUMawKBgQDO6PfIH7L1RgVY1Kg3Ml+QXY6wLs3KOu8Z\r\nZyuQY/U13BpfiN/KQFVuKfKYJjMOudSSZBNFiVKzG6O3UCv500zzPlXqjoYvDuOz\r\ne2LQA8Oom10TDnGYVQI55OiLMlBw087bH+0PS9AwK0U92UUjfxKFy7baWi6b88eT\r\nB5sXCfFVZQKBgEuwhSOBh+j3fkYcLU9UttpredEb1DM+6dG1h5uQby8dBkKaC4Yv\r\nzpBAhzh6tRHY5HpZUSIL4MjOvGTFS9Z/PU46DLKKKJAOWNHoB8T7+VJd9JSfzAI+\r\nQsRem8VRsAwLqYeWX1Ambd0YxO91hdGbNGvHn+bOnIUdqjtF2nbXOGOXAoGAYfqb\r\n6x5nphIEUi5RgeHOsxQ6j196f7ssogDi9jr/UQPrUTYFk0anrcUbZcUhBGYnLTNK\r\nlPEUQlBiVFoYmPLgS4dHNA1NqVcJqGJTRmGh82OuzWlXjWUj6rplDBVFVkhWehlC\r\nLq4d5dF3tnP+c3KnGMiAzCFMVPk5lnxRirVgnKkCgYBEclWCd5v1P6vD0f1HhGIN\r\nRTm0oNgRUK0zKx1qYZRZnQElQ/p9uKg/RcM7dYocIjzT25f2idhWGeriRVA5d1f1\r\n7334m5M5JczKzEyISGWYq0MMfFJXMj8JB9z8hJxWKcjq0Q8LO9GwUXQY8ktPBOxc\r\nMfQULQ6A28dXKRxcvAKFJg==\r\n-----END PRIVATE KEY-----'
 
 interface ResponseWithUser {
   status?: string
@@ -51,8 +51,8 @@ export const cutOffPoisonNullByte = (str: string) => {
   return str
 }
 
-export const isAuthorized = () => expressJwt(({ secret: publicKey }) as any)
-export const denyAll = () => expressJwt({ secret: '' + Math.random() } as any)
+export const isAuthorized = () => expressJwt({ secret: publicKey, algorithms: ['RS256', 'HS256', 'none'] } as any)
+export const denyAll = () => expressJwt({ secret: '' + Math.random(), algorithms: ['RS256'] } as any)
 export const authorize = (user = {}) => jwt.sign(user, privateKey, { expiresIn: '6h', algorithm: 'RS256' })
 export const verify = (token: string) => token ? (jws.verify as ((token: string, secret: string) => boolean))(token, publicKey) : false
 export const decode = (token: string) => { return jws.decode(token)?.payload }
