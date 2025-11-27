@@ -1,0 +1,57 @@
+name: LLM Security Analysis
+
+on:
+  pull_request:
+    paths:
+      - "**/*.js"
+      - "**/*.ts"
+      - "**/*.ts"
+      - "**/*.html"
+
+jobs:
+  analyze-code:
+    runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract modified code
+        id: diff
+        run: |
+          git fetch origin main
+          git diff origin/main --unified=0 > diff.txt
+          echo "diff<<EOF" >> $GITHUB_OUTPUT
+          cat diff.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Send code to GitHub Model for analysis
+        id: llm
+        run: |
+          response=$(curl -s -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"model\": \"gpt-4o-mini\",
+              \"messages\": [{
+                \"role\": \"system\",
+                \"content\": \"You are an application security expert. Identify vulnerabilities in the provided Juice Shop code diff and propose fixes.\"
+              },{
+                \"role\": \"user\",
+                \"content\": \"Analyze the following code diff for security issues and remediation steps:\n${{ steps.diff.outputs.diff }}\"
+              }]
+            }" \
+            https://api.github.com/models)
+          
+          echo "analysis=$response" >> $GITHUB_OUTPUT
+
+      - name: Comment on PR
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: LLM Security Analysis
+          message: ${{ steps.llm.outputs.analysis }}
+
