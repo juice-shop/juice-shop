@@ -14,12 +14,12 @@
         <p>#{{id}}</p>
       </div>
 
-      <div style="margin-top: 10px !important;">
+      <div class="feedback-content">
         <cite [innerHTML]="feedback"></cite>
       </div>
   </div>
   <mat-dialog-actions align="end" class="dialogAction">
-    <button mat-button style="height: 0; position: absolute;">
+    <button mat-button class="auto-focus-absorb">
       <!-- 'absorbs' the auto-focus behavior -->
     </button>
     <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="Close Dialog">
