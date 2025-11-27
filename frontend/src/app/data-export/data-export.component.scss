@@ -36,10 +36,23 @@ mat-card {
   margin-right: 8px;
 }
 
+.captcha-label {
+  float: left;
+  font-weight: 500;
+  margin-bottom: 20px;
+  margin-top: 40px;
+}
+
 .captcha-image {
   float: left;
   margin-bottom: 10px;
+  margin-left: 10px;
   margin-top: 20px;
+}
+
+.captcha-input-field {
+  margin-top: 10px;
+  width: 100%;
 }
 
 .center-container {
