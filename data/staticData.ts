@@ -1,13 +1,13 @@
 import path from 'node:path'
 import { readFile } from 'node:fs/promises'
-import { safeLoad } from 'js-yaml'
+import { load } from 'js-yaml'
 import logger from '../lib/logger'
 import { type ChallengeKey } from 'models/challenge'
 
 export async function loadStaticData (file: string) {
   const filePath = path.resolve('./data/static/' + file + '.yml')
   return await readFile(filePath, 'utf8')
-    .then(safeLoad)
+    .then(load)
     .catch(() => logger.error('Could not open file: "' + filePath + '"'))
 }
 

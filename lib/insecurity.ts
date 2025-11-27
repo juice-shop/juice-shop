@@ -57,7 +57,11 @@ export const authorize = (user = {}) => jwt.sign(user, privateKey, { expiresIn: 
 export const verify = (token: string) => token ? (jws.verify as ((token: string, secret: string) => boolean))(token, publicKey) : false
 export const decode = (token: string) => { return jws.decode(token)?.payload }
 
-export const sanitizeHtml = (html: string) => sanitizeHtmlLib(html)
+export const sanitizeHtml = (html: string) => {
+  const result = sanitizeHtmlLib(html)
+  // Unescape entities to match 1.4.2 behavior (intentionally vulnerable)
+  return result.replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+}
 export const sanitizeLegacy = (input = '') => input.replace(/<(?:\w+)\W+?[\w]/gi, '')
 export const sanitizeFilename = (filename: string) => sanitizeFilenameLib(filename)
 export const sanitizeSecure = (html: string): string => {
