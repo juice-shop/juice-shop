@@ -50,6 +50,10 @@ ngAfterViewInit () {
     }
   }
 
+  onResize (event: any) {
+    this.breakpoint = this.calculateBreakpoint(event.target.innerWidth)
+  }
+
   private calculateBreakpoint (width: number): number {
     if (width >= 2600) return 6
     if (width >= 1740) return 4
