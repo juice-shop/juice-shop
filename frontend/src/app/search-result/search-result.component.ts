@@ -132,6 +132,18 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
       tableData[i].description = this.sanitizer.bypassSecurityTrustHtml(tableData[i].description) // vuln-code-snippet vuln-line restfulXssChallenge
     } // vuln-code-snippet neutral-line restfulXssChallenge
   } // vuln-code-snippet neutral-line restfulXssChallenge
+
+  onResize (event: any) {
+    this.breakpoint = this.calculateBreakpoint(event.target.innerWidth)
+  }
+
+  private calculateBreakpoint (width: number): number {
+    if (width >= 2600) return 6
+    if (width >= 1740) return 4
+    if (width >= 1280) return 3
+    if (width >= 850) return 2
+    return 1
+  }
   // vuln-code-snippet end restfulXssChallenge
 
   ngOnDestroy () {
@@ -145,7 +157,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
       this.dataSource.disconnect()
     }
   }
-  
+
   // vuln-code-snippet start localXssChallenge xssBonusChallenge
   filterTable () {
     let queryParam: string = this.route.snapshot.queryParams.q
@@ -261,18 +273,6 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
 
   isLoggedIn () {
     return localStorage.getItem('token')
-  }
-
-  onResize (event: any) {
-    this.breakpoint = this.calculateBreakpoint(event.target.innerWidth)
-  }
-
-  private calculateBreakpoint (width: number): number {
-    if (width >= 2600) return 6
-    if (width >= 1740) return 4
-    if (width >= 1280) return 3
-    if (width >= 850) return 2
-    return 1
   }
 
   isDeluxe () {
