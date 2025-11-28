@@ -139,6 +139,11 @@
 .withdraw-container button {
   height: 68px;
 }
+
+.full-width-field {
+  width: 100%;
+}
+
 @media (max-width: 1100px) {
   .container {
     flex-direction: column;

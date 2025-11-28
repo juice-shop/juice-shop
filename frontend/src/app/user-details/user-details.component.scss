@@ -23,3 +23,8 @@ mat-divider {
   display: flex;
   gap: 10px;
 }
+
+.focus-absorber {
+  height: 0;
+  position: absolute;
+}
