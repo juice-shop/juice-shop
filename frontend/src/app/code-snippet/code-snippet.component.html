@@ -44,7 +44,7 @@
     @if (tab.value === 0) {
       <!-- empty div to still have the space-between work -->
       <!-- size of the div is fixed to 78.25px which is the height of the select. this ensures the layout doesn't jump when switching tabs -->
-      <div style="height: 78.25px;"></div>
+      <div class="tab-placeholder"></div>
     } @else {
       @if (tab.value === 1) {
         <mat-form-field appearance="fill">
