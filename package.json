@@ -126,6 +126,7 @@
     "config": "^3.3.12",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
     "dottie": "^2.0.6",
     "download": "^8.0.0",
     "errorhandler": "^1.5.1",
