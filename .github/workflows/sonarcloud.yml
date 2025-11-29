@@ -6,26 +6,26 @@ on:
       - master
       - fix/**
   pull_request:
-    types: [opened, synchronize, reopened]
 
 jobs:
-  build:
+  sonarcloud:
     name: Build & Analyze
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "24"
+          node-version: 24
 
       - name: Install dependencies
         run: npm install
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarqube-scan-action@v5
+      - name: Run SonarCloud Scan
+        uses: sonarsource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: "https://sonarcloud.io"
