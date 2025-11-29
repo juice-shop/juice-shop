@@ -1,3 +1,43 @@
-:host {
-  display: flex;
+.rating {
+  $total: 6;
+  $star-size: 16px;
+  $stars-gap: 3px;
+  $section: $star-size + $stars-gap;
+  $bg-shift: $stars-gap / -2;
+
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 24 24' width='16' height='16' xmlns='http://www.w3.org/2000/svg'><path fill='%23DDD' stroke-linejoin='round' stroke='%23DDD' d='M 525.333 570.775 L 528.39 578.125 L 536.325 578.761 L 530.28 583.94 L 532.127 591.684 L 525.333 587.534 L 518.539 591.684 L 520.386 583.94 L 514.341 578.761 L 522.276 578.125 Z' transform='matrix(-0.809017, 0.587785, -0.587785, -0.809017, 779.285368, 175.34678)'></path></svg>");
+  background-position: $bg-shift 0;
+  background-repeat: repeat-x;
+  background-size: $section $star-size;
+  border-radius: 0;
+  display: block;
+  height: $star-size;
+  position: relative;
+  width: $section * $total - $stars-gap;
+
+  // firefox bar
+  &:-moz-meter-optimum::-moz-meter-bar {
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 24 24' width='16' height='16' xmlns='http://www.w3.org/2000/svg'><path fill='orange' stroke-linejoin='round' stroke='orange' d='M 525.333 570.775 L 528.39 578.125 L 536.325 578.761 L 530.28 583.94 L 532.127 591.684 L 525.333 587.534 L 518.539 591.684 L 520.386 583.94 L 514.341 578.761 L 522.276 578.125 Z' transform='matrix(-0.809017, 0.587785, -0.587785, -0.809017, 779.285368, 175.34678)'></path></svg>");
+    background-position: $bg-shift 0;
+    background-repeat: repeat-x;
+    background-size: $section $star-size;
+  }
+
+  // webkit gray background
+  &::-webkit-meter-bar {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    height: $star-size;
+  }
+
+  // webkit bar
+  &::-webkit-meter-optimum-value {
+    background-color: transparent;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 24 24' width='16' height='16' xmlns='http://www.w3.org/2000/svg'><path fill='orange' stroke-linejoin='round' stroke='orange' d='M 525.333 570.775 L 528.39 578.125 L 536.325 578.761 L 530.28 583.94 L 532.127 591.684 L 525.333 587.534 L 518.539 591.684 L 520.386 583.94 L 514.341 578.761 L 522.276 578.125 Z' transform='matrix(-0.809017, 0.587785, -0.587785, -0.809017, 779.285368, 175.34678)'></path></svg>");
+    background-position: $bg-shift 0;
+    background-repeat: repeat-x;
+    background-size: $section $star-size;
+    height: 100%;
+  }
 }
