@@ -1,8 +1,6 @@
 import { Component, Input, type OnInit, inject } from '@angular/core'
 import { EnrichedChallenge } from '../../types/EnrichedChallenge'
-// I reverted this to the original style found in your context. 
-// If this errors locally, change it back to '../../../Services/configuration.service'
-import { Config } from 'src/app/Services/configuration.service' 
+import { Config } from 'src/app/Services/configuration.service'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
@@ -17,7 +15,6 @@ import { SnackBarHelperService } from 'src/app/Services/snack-bar-helper.service
   imports: [DifficultyStarsComponent, MatTooltip, MatIconModule, NgClass, TranslateModule]
 })
 export class ChallengeCardComponent implements OnInit {
-  // This is the new service we need
   private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   @Input()
@@ -44,7 +41,6 @@ export class ChallengeCardComponent implements OnInit {
     this.startHackingInstructorFor = startHackingInstructorFor
   }
 
-  // This is the ONLY new logic added
   copyPayload (event: MouseEvent) {
     const target = event.target as HTMLElement
     const codeElement = target.closest('code')
