@@ -94,6 +94,14 @@
   display: none;
 }
 
+.description-row ::ng-deep code {
+  cursor: copy;
+
+  &:hover {
+    background-color: var(--theme-background-light);
+  }
+}
+
 @supports not selector(::-webkit-scrollbar) {
   html {
     scrollbar-width: thin;
