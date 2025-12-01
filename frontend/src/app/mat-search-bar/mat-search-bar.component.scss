@@ -1,5 +1,6 @@
 :host {
   align-items: center;
+  direction: rtl;
   display: flex;
   flex-direction: row;
   height: 24px;
@@ -7,29 +8,89 @@
   position: relative;
   width: 24px;
 }
-  
+
 .mat-search_field {
+  direction: ltr;
   padding: 0 24px 0 0;
   position: absolute;
+  right: 0;
+  width: 150px;
   z-index: 1;
 
   ::ng-deep .mat-mdc-text-field-wrapper {
+    background-color: transparent !important;
+    height: 24px;
     padding: 0;
+  }
+
+  ::ng-deep .mat-mdc-form-field-flex {
+    background-color: transparent !important;
+    height: 24px;
   }
 
   ::ng-deep .mat-mdc-form-field-infix {
     align-items: flex-end;
+    background-color: transparent;
+    border: 0;
     display: flex;
-    padding: 0.5em;
+    height: 24px;
+    min-height: unset;
+    padding: 0;
+  }
+
+  ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
+
+  ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: transparent !important;
+  }
+
+  ::ng-deep .mdc-text-field--filled .mdc-line-ripple::before,
+  ::ng-deep .mdc-text-field--filled .mdc-line-ripple::after {
+    border-bottom-color: #fff;
+  }
+
+  ::ng-deep input.mat-mdc-input-element {
+    caret-color: #fff;
+    color: #fff;
+    font-size: 14px;
+    height: 24px;
+    padding: 0;
+  }
+
+  ::ng-deep .mdc-notched-outline__leading,
+  ::ng-deep .mdc-notched-outline__notch,
+  ::ng-deep .mdc-notched-outline__trailing {
+    background-color: transparent !important;
+    border: 0 !important;
+  }
+
+  ::ng-deep .mat-mdc-form-field-focus-overlay {
+    background-color: transparent !important;
+  }
+
+  ::ng-deep .mdc-text-field {
+    background-color: transparent !important;
+    border: 0 !important;
+    height: 24px;
+    min-height: unset;
+    outline: none !important;
+    padding: 0 !important;
+  }
+
+  ::ng-deep .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
+    padding-bottom: 0;
+    padding-top: 0;
   }
 }
-  
+
 .mat-search_icons {
   display: block;
-  left: 0;
   margin: 0;
   padding: 0;
   position: absolute;
+  right: 0;
   top: 0;
 
   &:hover {
@@ -39,8 +100,8 @@
   .mat-search_icon-close,
   .mat-search_icon-search {
     border-radius: 50%;
-    left: 0;
     position: absolute;
+    right: 0;
     top: 0;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 2;
