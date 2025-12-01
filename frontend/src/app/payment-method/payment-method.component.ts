@@ -47,14 +47,12 @@ export class PaymentMethodComponent implements OnInit {
   public storedCards: any
   public card: any = {}
   public dataSource
-  public monthRange: any[]
-  public yearRange: any[]
+  public readonly monthRange = Array.from(Array(12).keys()).map(i => i + 1)
+  public readonly yearRange = Array.from(Array(20).keys()).map(i => i + 2080)
   public cardsExist = false
   public paymentId: any = undefined
 
   ngOnInit (): void {
-    this.monthRange = Array.from(Array(12).keys()).map(i => i + 1)
-    this.yearRange = Array.from(Array(20).keys()).map(i => i + 2080)
     if (this.allowDelete) {
       this.displayedColumns.push('Remove')
     } else {
