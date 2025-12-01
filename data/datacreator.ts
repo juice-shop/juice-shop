@@ -58,8 +58,36 @@ export default async () => {
     prepareFilesystem
   ]
 
-  for (const creator of creators) {
-    await creator()
+ const sequelize = ProductModel.sequelize
+  if (!sequelize) {
+    throw new Error('Sequelize instance not available on ProductModel')
+  }
+
+  // Reduce SQLite disk I/O while seeding: enable WAL and relax sync
+  try {
+    await sequelize.query('PRAGMA journal_mode=WAL')
+    await sequelize.query('PRAGMA synchronous=OFF')
+    await sequelize.query('PRAGMA temp_store=MEMORY')
+    await sequelize.query('PRAGMA cache_size=-20000') // ~20MB cache
+  } catch (e) {
+    logger.warn(`Could not apply SQLite PRAGMAs: ${utils.getErrorMessage(e)}`)
+  }
+
+  try {
+    for (const creator of creators) {
+      console.log(`Running data creator: ${creator.name}...`)
+      await creator()
+    }
+  } finally {
+    // Restore safer defaults for regular operation
+    try {
+      await sequelize.query('PRAGMA synchronous=FULL')
+      await sequelize.query('PRAGMA journal_mode=DELETE')
+      await sequelize.query('PRAGMA temp_store=DEFAULT')
+      await sequelize.query('PRAGMA cache_size=0') // let SQLite decide default
+    } catch (e) {
+      logger.warn(`Could not restore SQLite PRAGMAs: ${utils.getErrorMessage(e)}`)
+    }
   }
 }
 
@@ -85,6 +113,7 @@ async function createChallenges () {
       }
 
       try {
+        console.log(`Creating challenge: ${name} (Enabled: ${isChallengeEnabled}${!isChallengeEnabled ? `, Disabled Because: ${disabledBecause}` : ''})`)
         datacache.challenges[key] = await ChallengeModel.create({
           key,
           name,
