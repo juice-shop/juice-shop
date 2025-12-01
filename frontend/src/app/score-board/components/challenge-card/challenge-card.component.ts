@@ -1,4 +1,4 @@
-import { Component, Input, type OnInit } from '@angular/core'
+import { Component, Input, type OnInit, inject } from '@angular/core'
 import { EnrichedChallenge } from '../../types/EnrichedChallenge'
 import { Config } from 'src/app/Services/configuration.service'
 import { TranslateModule } from '@ngx-translate/core'
@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
 import { NgClass } from '@angular/common'
 import { DifficultyStarsComponent } from '../difficulty-stars/difficulty-stars.component'
+import { SnackBarHelperService } from 'src/app/Services/snack-bar-helper.service'
 
 @Component({
   selector: 'challenge-card',
@@ -14,6 +15,8 @@ import { DifficultyStarsComponent } from '../difficulty-stars/difficulty-stars.c
   imports: [DifficultyStarsComponent, MatTooltip, MatIconModule, NgClass, TranslateModule]
 })
 export class ChallengeCardComponent implements OnInit {
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
+
   @Input()
   public challenge: EnrichedChallenge
 
@@ -36,5 +39,18 @@ export class ChallengeCardComponent implements OnInit {
     const { hasInstructions, startHackingInstructorFor } = await import('../../../../hacking-instructor')
     this.hasInstructions = hasInstructions
     this.startHackingInstructorFor = startHackingInstructorFor
+  }
+
+  copyPayload (event: MouseEvent) {
+    const target = event.target as HTMLElement
+    const codeElement = target.closest('code')
+    if (codeElement) {
+      const text = codeElement.innerText
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+          this.snackBarHelperService.open('COPY_SUCCESS', 'confirmBar')
+        })
+      }
+    }
   }
 }

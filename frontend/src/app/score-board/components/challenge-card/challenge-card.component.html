@@ -7,7 +7,7 @@
     [difficulty]="challenge.difficulty"
   ></difficulty-stars>
 </div>
-<div class="description-row" [innerHtml]="challenge.description"></div>
+<div class="description-row" [innerHtml]="challenge.description" (click)="copyPayload($event)"></div>
 <div class="bottom-row">
   <div class="tags">
     @for (tag of challenge.tagList; track tag) {
