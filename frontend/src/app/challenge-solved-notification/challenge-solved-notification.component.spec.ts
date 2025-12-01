@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { ClipboardModule } from 'ngx-clipboard'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 import { CountryMappingService } from '../Services/country-mapping.service'
@@ -58,7 +57,6 @@ describe('ChallengeSolvedNotificationComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(),
         CookieModule.forRoot(),
-        ClipboardModule,
         MatCardModule,
         MatButtonModule,
         MatIconModule,
