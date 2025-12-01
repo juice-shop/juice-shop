@@ -20,8 +20,18 @@
   ::ng-deep .mat-mdc-form-field-infix {
     align-items: center;
     display: flex;
-    min-height: 48px;
-    padding: 0.5em;
+    height: 48px;
+    padding: 0;
+  }
+
+  ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
+
+  ::ng-deep input {
+    height: 48px;
+    line-height: 48px;
+    padding: 0 12px;
   }
 }
 
@@ -32,6 +42,8 @@
   padding: 0;
   position: absolute;
   top: 12px;
+  height: 24px;
+  align-items: center;
 
   &:hover {
     cursor: pointer;
@@ -45,6 +57,9 @@
     top: 0;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 2;
+    height: 24px;
+    width: 24px;
+    line-height: 24px;
   }
 
   .mat-search_icon-close,
