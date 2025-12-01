@@ -58,7 +58,7 @@ export default async () => {
     prepareFilesystem
   ]
 
- const sequelize = ProductModel.sequelize
+  const sequelize = ProductModel.sequelize
   if (!sequelize) {
     throw new Error('Sequelize instance not available on ProductModel')
   }
