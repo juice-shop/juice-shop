@@ -201,3 +201,29 @@ $badge-size: 24px;
     color: var(--theme-accent);
   }
 }
+::ng-deep .description-row code {
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 0 4px;
+  transition: background-color 0.2s;
+
+  // Visual feedback when hovering
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.2); 
+  }
+
+  // A fake "Tooltip" using CSS
+  &:hover::after {
+    content: "Click to copy";
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-left: 8px;
+    white-space: nowrap;
+    z-index: 10;
+    pointer-events: none;
+  }
+}

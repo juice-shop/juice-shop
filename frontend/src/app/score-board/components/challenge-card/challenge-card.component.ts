@@ -37,4 +37,13 @@ export class ChallengeCardComponent implements OnInit {
     this.hasInstructions = hasInstructions
     this.startHackingInstructorFor = startHackingInstructorFor
   }
+  copyPayload(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    // Check if the user clicked on a <code> tag inside the description
+    if (target.tagName === 'CODE') {
+      const payload = target.innerText;
+      
+      navigator.clipboard.writeText(payload)
+    }
+  }
 }
