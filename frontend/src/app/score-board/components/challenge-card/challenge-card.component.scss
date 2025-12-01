@@ -96,6 +96,7 @@
 
 .description-row ::ng-deep code {
   cursor: copy;
+
   &:hover {
     background-color: var(--theme-background-light);
   }
