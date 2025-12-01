@@ -75,8 +75,8 @@
         <mat-form-field class="half-field" appearance="outline" color="accent">
           <mat-label translate>LABEL_EXPIRY_MONTH</mat-label>
           <select matNativeControl [formControl]="monthControl" required>
-            @for (i of monthRange; track i) {
-              <option value="{{ i }}">{{ i }}</option>
+            @for (month of monthRange; track month) {
+              <option value="{{ month }}">{{ month }}</option>
             }
           </select>
           @if (monthControl.invalid && monthControl.errors.required) {
@@ -88,8 +88,8 @@
         <mat-form-field class="half-field" appearance="outline" color="accent">
           <mat-label translate>LABEL_EXPIRY_YEAR</mat-label>
           <select matNativeControl [formControl]="yearControl" required>
-            @for (i of yearRange; track i) {
-              <option value="{{ i }}">{{ i }}</option>
+            @for (year of yearRange; track year) {
+              <option value="{{ year }}">{{ year }}</option>
             }
           </select>
           @if (yearControl.invalid && yearControl.errors.required) {
