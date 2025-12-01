@@ -11,12 +11,9 @@
         @if (showCtfFlagsInNotifications) {
           <br/>
           <div>
-            <span class="icon-box"><mat-icon>outlined_flag</mat-icon> {{notification.flag}}</span>&nbsp;
-            <button ngxClipboard mat-stroked-button [cbContent]="notification.flag" (cbOnSuccess)="notification.copied = true" [disabled]="notification.copied">
-              <mat-icon>content_copy</mat-icon>
-              <span [hidden]="!notification.copied">{{"COPY_SUCCESS" | translate}}</span>
-              <span [hidden]="notification.copied">{{"COPY_TO_CLIPBOARD" | translate}}</span>
-            </button>
+            <span class="icon-box flag-box" (click)="copyToClipboard(notification.flag)" [matTooltip]="'COPY_TO_CLIPBOARD' | translate">
+              <mat-icon>outlined_flag</mat-icon> {{notification.flag}}
+            </span>
             <br/>
             @if (showCtfCountryDetailsInNotifications !== 'none') {
               <span class="icon-box">
