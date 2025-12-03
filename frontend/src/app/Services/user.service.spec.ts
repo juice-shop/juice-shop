@@ -156,4 +156,34 @@ describe('UserService', () => {
       httpMock.verify()
     })
   ))
+
+  it('should fetch user info from Google via oauthLogin', inject([UserService, HttpTestingController],
+    fakeAsync((service: UserService, httpMock: HttpTestingController) => {
+      let res: any
+      service.oauthLogin('at').subscribe((data) => (res = data))
+
+      const req = httpMock.expectOne('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=at')
+      req.flush({ id: '123' })
+      tick()
+
+      expect(req.request.method).toBe('GET')
+      expect(res).toEqual({ id: '123' })
+      httpMock.verify()
+    })
+  ))
+
+  it('should save last login ip via the rest api', inject([UserService, HttpTestingController],
+    fakeAsync((service: UserService, httpMock: HttpTestingController) => {
+      let res: any
+      service.saveLastLoginIp().subscribe((data) => (res = data))
+
+      const req = httpMock.expectOne('http://localhost:3000/rest/saveLoginIp')
+      req.flush({})
+      tick()
+
+      expect(req.request.method).toBe('GET')
+      expect(res).toEqual({})
+      httpMock.verify()
+    })
+  ))
 })
