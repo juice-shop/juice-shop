@@ -282,6 +282,10 @@ mentioned or used!
 
 ### [Google Summer of Code](http://owasp.org/gsoc)
 
+* Student project from
+  [Google Summer of Code 2025](https://summerofcode.withgoogle.com/archive/2025/projects)
+    * [Juice Shop side-project rennovation](https://summerofcode.withgoogle.com/organizations/owasp-foundation/projects/details/rzlkFqYj)
+      by Harsh Kumar (mentored by Jannik Hollenbach and Björn Kimminich)
 * Student projects from
   [Google Summer of Code 2023](https://summerofcode.withgoogle.com/archive/2023/projects)
   * [Companion Guide Tech Stack](https://summerofcode.withgoogle.com/organizations/owasp-foundation/projects/details/h2der3Mf)
