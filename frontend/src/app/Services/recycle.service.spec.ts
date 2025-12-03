@@ -50,4 +50,17 @@ describe('RecycleService', () => {
       httpMock.verify()
     })
   ))
+
+  it('should handle error when finding recycles', inject([RecycleService, HttpTestingController],
+    fakeAsync((service: RecycleService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.find().subscribe({ next: () => fail('expected error'), error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/api/Recycles/')
+      req.error(new ErrorEvent('Request failed'), { status: 503, statusText: 'Service Unavailable' })
+
+      tick()
+      expect(capturedError.status).toBe(503)
+      httpMock.verify()
+    })
+  ))
 })
