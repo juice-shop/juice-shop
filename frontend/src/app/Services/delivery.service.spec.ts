@@ -45,4 +45,30 @@ describe('DeliveryService', () => {
       httpMock.verify()
     })
   ))
+
+  it('should handle error when getting delivery methods', inject([DeliveryService, HttpTestingController],
+    fakeAsync((service: DeliveryService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.get().subscribe({ next: () => fail('expected error'), error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/api/Deliverys')
+      req.error(new ErrorEvent('Request failed'), { status: 500, statusText: 'Internal Server Error' })
+
+      tick()
+      expect(capturedError.status).toBe(500)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when getting a single delivery method', inject([DeliveryService, HttpTestingController],
+    fakeAsync((service: DeliveryService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.getById(1).subscribe({ next: () => fail('expected error'), error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/api/Deliverys/1')
+      req.error(new ErrorEvent('Not Found'), { status: 404, statusText: 'Not Found' })
+
+      tick()
+      expect(capturedError.status).toBe(404)
+      httpMock.verify()
+    })
+  ))
 })
