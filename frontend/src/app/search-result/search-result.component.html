@@ -10,7 +10,8 @@
       @if (searchValue) {
         <div>
           <span>{{"TITLE_SEARCH_RESULTS" | translate}} - </span>
-          <span id="searchValue" [innerHTML]="searchValue"></span>
+          <span *ngIf="safeSearchValue" id="searchValue">{{ safeSearchValue }}</span>
+
         </div>
       } @else {
         <div>{{"TITLE_ALL_PRODUCTS" | translate}}</div>

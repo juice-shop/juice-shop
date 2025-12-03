@@ -69,12 +69,24 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
   public dataSource!: MatTableDataSource<TableEntry>
   public gridDataSource!: any
   public searchValue?: SafeHtml
+  public safeSearchValue: any
   public resultsLength = 0
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | null = null
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator | null = null
   private readonly productSubscription?: Subscription
   private routerSubscription?: Subscription
   public breakpoint = 6
   public emptyState = false
+
+  isDangerousInput(str: string): boolean {
+    return /<script|iframe|javascript:|onerror|onload/i.test(str)
+  }
+
+  sanitizeSearchValue(query: string): string {
+    if (this.isDangerousInput(query)) {
+      return ''
+    }
+    return query
+  }
 
   // vuln-code-snippet start restfulXssChallenge
   ngAfterViewInit () {
@@ -108,6 +120,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
         for (let i = 1; i <= Math.ceil(this.dataSource.data.length / 12); i++) {
           this.pageSizeOptions.push(i * 12)
         }
+        
         this.paginator.pageSizeOptions = this.pageSizeOptions
         this.dataSource.paginator = this.paginator
         this.gridDataSource = this.dataSource.connect()
@@ -168,7 +181,10 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
         this.io.socket().emit('verifyLocalXssChallenge', queryParam)
       }) // vuln-code-snippet hide-end
       this.dataSource.filter = queryParam.toLowerCase()
-      this.searchValue = this.sanitizer.bypassSecurityTrustHtml(queryParam) // vuln-code-snippet vuln-line localXssChallenge xssBonusChallenge
+      const trusted = this.sanitizer.bypassSecurityTrustHtml(queryParam)
+      const safe = this.sanitizeSearchValue(queryParam)
+      this.searchValue = trusted
+      this.safeSearchValue = safe
       this.gridDataSource.subscribe((result: any) => {
         if (result.length === 0) {
           this.emptyState = true
