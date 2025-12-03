@@ -1,1 +1,7 @@
-<meter class="rating" [min]="0" [max]="6" [value]="difficulty"></meter>
+<span class="stars" 
+      role="img" 
+      [attr.aria-label]="'Difficulty ' + difficulty + ' of 6'">
+  @for (i of [1,2,3,4,5,6]; track i) {
+    <span class="star" [class.filled]="i <= difficulty" aria-hidden="true">★</span>
+  }
+</span>
