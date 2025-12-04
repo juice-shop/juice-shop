@@ -1,0 +1,35 @@
+# example workflow for Polaris scans using the Black Duck Security Scan Action
+# https://github.com/marketplace/actions/black-duck-security-scan
+name: polaris-ss-action
+on:
+  push:
+    branches: [ main, master, develop, stage, release ]
+  pull_request:
+    branches: [ main, master, develop, stage, release ]
+  workflow_dispatch:
+jobs:
+  polaris:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Source
+      uses: actions/checkout@v4
+    - name: Setup Java JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: 21
+        distribution: temurin
+        cache: maven
+    - name: Polaris Scan
+      uses: blackduck-inc/black-duck-security-scan@v2
+      with:
+        polaris_server_url: ${{ vars.POLARIS_SERVERURL }}
+        polaris_access_token: ${{ secrets.POLARIS_ACCESSTOKEN }}
+        polaris_assessment_types: SAST
+        polaris_application_name: tenjupaul-${{ github.event.repository.name }}
+        polaris_prComment_enabled: true
+        polaris_reports_sarif_create: true
+        polaris_upload_sarif_report: true
+        coverity_build_command: mvn -B -DskipTests package
+        coverity_clean_command: mvn -B clean
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        include_diagnostics: false
