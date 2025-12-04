@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatIconModule } from '@angular/material/icon'
 import { TranslateModule } from '@ngx-translate/core'
-import { of } from 'rxjs'
+import { of, throwError } from 'rxjs'
 
 import { HackingChallengeProgressScoreCardComponent } from './components/hacking-challenge-progress-score-card/hacking-challenge-progress-score-card.component'
 import { CodingChallengeProgressScoreCardComponent } from './components/coding-challenge-progress-score-card/coding-challenge-progress-score-card.component'
@@ -54,7 +54,7 @@ describe('ScoreBoardComponent', () => {
 
   beforeEach(async () => {
     challengeService = jasmine.createSpyObj('ChallengeService', ['find'])
-    hintService = jasmine.createSpyObj('HintService', ['getAll'])
+    hintService = jasmine.createSpyObj('HintService', ['getAll', 'put'])
     codeSnippetService = jasmine.createSpyObj('CodeSnippetService', [
       'challenges'
     ])
@@ -142,6 +142,13 @@ describe('ScoreBoardComponent', () => {
 
   it('should not filter any challenges on default settings', (): void => {
     expect(component.filteredChallenges).toHaveSize(3)
+  })
+
+  it('should handle error when unlocking a hint', (): void => {
+    hintService.put.and.returnValue(throwError('Error'))
+    console.log = jasmine.createSpy('log')
+    component.unlockHint(123)
+    expect(console.log).toHaveBeenCalledWith('Error')
   })
 
   it('should mark challenges as solved on "challenge solved" websocket', (): void => {
