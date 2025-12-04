@@ -49,19 +49,19 @@ interface TableEntry {
   imports: [MatGridList, MatGridTile, MatCardModule, TranslateModule, MatTooltip, MatCardImage, MatButtonModule, MatCardTitle, MatCardContent, MatDivider, MatPaginator, AsyncPipe]
 })
 export class SearchResultComponent implements OnDestroy, AfterViewInit {
-  private readonly deluxeGuard = inject(DeluxeGuard);
-  private readonly dialog = inject(MatDialog);
-  private readonly productService = inject(ProductService);
-  private readonly quantityService = inject(QuantityService);
-  private readonly basketService = inject(BasketService);
-  private readonly translateService = inject(TranslateService);
-  private readonly router = inject(Router);
-  private readonly route = inject(ActivatedRoute);
-  private readonly sanitizer = inject(DomSanitizer);
-  private readonly ngZone = inject(NgZone);
-  private readonly io = inject(SocketIoService);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
-  private readonly cdRef = inject(ChangeDetectorRef);
+  private readonly deluxeGuard = inject(DeluxeGuard)
+  private readonly dialog = inject(MatDialog)
+  private readonly productService = inject(ProductService)
+  private readonly quantityService = inject(QuantityService)
+  private readonly basketService = inject(BasketService)
+  private readonly translateService = inject(TranslateService)
+  private readonly router = inject(Router)
+  private readonly route = inject(ActivatedRoute)
+  private readonly sanitizer = inject(DomSanitizer)
+  private readonly ngZone = inject(NgZone)
+  private readonly io = inject(SocketIoService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
+  private readonly cdRef = inject(ChangeDetectorRef)
 
   public displayedColumns = ['Image', 'Product', 'Description', 'Price', 'Select']
   public tableData!: any[]

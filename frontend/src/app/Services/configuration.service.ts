@@ -99,7 +99,7 @@ export interface Config {
   providedIn: 'root'
 })
 export class ConfigurationService {
-  private readonly http = inject(HttpClient);
+  private readonly http = inject(HttpClient)
 
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/rest/admin'

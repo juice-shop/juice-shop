@@ -19,7 +19,7 @@ interface OrderDetail {
   providedIn: 'root'
 })
 export class BasketService {
-  private readonly http = inject(HttpClient);
+  private readonly http = inject(HttpClient)
 
   public hostServer = environment.hostServer
   public itemTotal = new Subject<any>()
