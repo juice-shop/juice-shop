@@ -52,4 +52,32 @@ describe('ChatbotService', () => {
       httpMock.verify()
     })
   ))
+
+  it('should handle error when fetching chatbot status', inject([ChatbotService, HttpTestingController],
+    fakeAsync((service: ChatbotService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.getChatbotStatus().subscribe({ next: () => {}, error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/chatbot/status')
+      req.flush(null, { status: 503, statusText: 'Service Unavailable' })
+
+      tick()
+      expect(capturedError).toBeTruthy()
+      expect(capturedError.status).toBe(503)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when getting chatbot response', inject([ChatbotService, HttpTestingController],
+    fakeAsync((service: ChatbotService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.getResponse('query', 'apiQuery').subscribe({ next: () => {}, error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/chatbot/respond')
+      req.flush(null, { status: 400, statusText: 'Bad Request' })
+
+      tick()
+      expect(capturedError).toBeTruthy()
+      expect(capturedError.status).toBe(400)
+      httpMock.verify()
+    })
+  ))
 })

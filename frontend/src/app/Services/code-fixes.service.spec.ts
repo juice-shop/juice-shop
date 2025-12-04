@@ -14,21 +14,33 @@ describe('CodeFixesService', () => {
     service = TestBed.inject(CodeFixesService)
   })
 
-  it('should be created', () => {
+  it('should be created', inject([CodeFixesService], (service: CodeFixesService) => {
     expect(service).toBeTruthy()
-  })
+  }))
 
-  it('should get code fixes for challenge directly from the rest api', inject([CodeFixesService, HttpTestingController],
+  it('should get fixes directly from the rest api', inject([CodeFixesService, HttpTestingController],
     fakeAsync((service: CodeFixesService, httpMock: HttpTestingController) => {
       let res: any
-      service.get('testChallenge').subscribe((data) => (res = data))
-
-      const req = httpMock.expectOne('http://localhost:3000/snippets/fixes/testChallenge')
-      req.flush({ snippet: 'apiResponse' })
+      service.get('testKey').subscribe((data) => (res = data))
+      const req = httpMock.expectOne('http://localhost:3000/snippets/fixes/testKey')
+      req.flush('apiResponse')
       tick()
-
       expect(req.request.method).toBe('GET')
-      expect(res).toEqual({ snippet: 'apiResponse' })
+      expect(res).toBe('apiResponse')
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when getting fixes', inject([CodeFixesService, HttpTestingController],
+    fakeAsync((service: CodeFixesService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.get('testKey').subscribe({ next: () => {}, error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/snippets/fixes/testKey')
+      req.flush(null, { status: 500, statusText: 'Server Error' })
+
+      tick()
+      expect(capturedError).toBeTruthy()
+      expect(capturedError.status).toBe(500)
       httpMock.verify()
     })
   ))
