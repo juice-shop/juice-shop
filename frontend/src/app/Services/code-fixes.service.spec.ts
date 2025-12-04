@@ -14,9 +14,9 @@ describe('CodeFixesService', () => {
     service = TestBed.inject(CodeFixesService)
   })
 
-  it('should be created', inject([CodeFixesService], (service: CodeFixesService) => {
+  it('should be created', () => {
     expect(service).toBeTruthy()
-  }))
+  })
 
   it('should get fixes directly from the rest api', inject([CodeFixesService, HttpTestingController],
     fakeAsync((service: CodeFixesService, httpMock: HttpTestingController) => {
