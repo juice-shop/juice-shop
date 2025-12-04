@@ -90,7 +90,6 @@ describe('TwoFactorAuthEnterComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TwoFactorAuthEnterComponent)
     component = fixture.componentInstance
-    twoFactorAuthService.verify.and.re
     fixture.detectChanges()
   })
 
