@@ -9,7 +9,7 @@ import { SocketIoService } from '../Services/socket-io.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { RouterTestingModule } from '@angular/router/testing'
-import { of } from 'rxjs'
+import { of, throwError } from 'rxjs'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { CookieModule, CookieService } from 'ngy-cookie'
 import { LoginGuard } from '../app.guard'
@@ -43,6 +43,7 @@ describe('SidenavComponent', () => {
   let socketIoService: any
   let loginGuard
   let location: Location
+  let translateService: any
 
   beforeEach(waitForAsync(() => {
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
@@ -89,7 +90,7 @@ describe('SidenavComponent', () => {
     })
       .compileComponents()
     location = TestBed.inject(Location)
-    TestBed.inject(TranslateService)
+    translateService = TestBed.inject(TranslateService)
   }))
 
   beforeEach(() => {
@@ -173,4 +174,26 @@ describe('SidenavComponent', () => {
     tick()
     expect(location.path()).toBe('/')
   }))
+
+  it('should handle error when getting scoreboard status', fakeAsync(() => {
+    challengeService.find.and.returnValue(throwError('Error'))
+    console.log = jasmine.createSpy('log')
+    component.getScoreBoardStatus()
+    expect(console.log).toHaveBeenCalledWith('Error')
+  }))
+
+  it('should handle error when getting user details', fakeAsync(() => {
+    userService.whoAmI.and.returnValue(throwError('Error'))
+    console.log = jasmine.createSpy('log')
+    component.getUserDetails()
+    expect(console.log).toHaveBeenCalledWith('Error')
+  }))
+
+  it('should handle error when getting application details', fakeAsync(() => {
+    configurationService.getApplicationConfiguration.and.returnValue(throwError('Error'))
+    console.log = jasmine.createSpy('log')
+    component.getApplicationDetails()
+    expect(console.log).toHaveBeenCalledWith('Error')
+  }))
+
 })
