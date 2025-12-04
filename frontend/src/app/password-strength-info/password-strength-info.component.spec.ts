@@ -14,12 +14,11 @@ describe('PasswordStrengthInfoComponent', () => {
 
     fixture = TestBed.createComponent(PasswordStrengthInfoComponent)
     component = fixture.componentInstance
+    component.passwordComponent = { minLength: 8 } as any
     fixture.detectChanges()
   })
 
-  xit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy()
   })
-
-  // todo: unit test each conditional | passwordLength message
 })
