@@ -31,11 +31,11 @@ library.add(faRocket, faShippingFast, faTruck)
   imports: [MatCardModule, TranslateModule, MatDivider, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatRadioButton, NgClass, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatButtonModule, MatIconModule]
 })
 export class DeliveryMethodComponent implements OnInit {
-  private readonly location = inject(Location);
-  private readonly deliverySerivce = inject(DeliveryService);
-  private readonly addressService = inject(AddressService);
-  private readonly router = inject(Router);
-  private readonly ngZone = inject(NgZone);
+  private readonly location = inject(Location)
+  private readonly deliverySerivce = inject(DeliveryService)
+  private readonly addressService = inject(AddressService)
+  private readonly router = inject(Router)
+  private readonly ngZone = inject(NgZone)
 
   public displayedColumns = ['Selection', 'Name', 'Price', 'ETA']
   public methods: DeliveryMethod[]

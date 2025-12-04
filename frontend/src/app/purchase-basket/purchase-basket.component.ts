@@ -25,10 +25,10 @@ library.add(faTrashAlt, faMinusSquare, faPlusSquare)
   imports: [MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, MatIconButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow, TranslateModule]
 })
 export class PurchaseBasketComponent implements OnInit {
-  private readonly deluxeGuard = inject(DeluxeGuard);
-  private readonly basketService = inject(BasketService);
-  private readonly userService = inject(UserService);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
+  private readonly deluxeGuard = inject(DeluxeGuard)
+  private readonly basketService = inject(BasketService)
+  private readonly userService = inject(UserService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   @Input() public allowEdit = false
   @Input() public displayTotal = false

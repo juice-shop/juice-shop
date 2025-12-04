@@ -17,9 +17,9 @@ import { CookieService } from 'ngy-cookie'
 })
 
 export class WelcomeComponent implements OnInit {
-  private readonly dialog = inject(MatDialog);
-  private readonly configurationService = inject(ConfigurationService);
-  private readonly cookieService = inject(CookieService);
+  private readonly dialog = inject(MatDialog)
+  private readonly configurationService = inject(ConfigurationService)
+  private readonly cookieService = inject(CookieService)
 
   private readonly welcomeBannerStatusCookieKey = 'welcomebanner_status'
 

@@ -25,9 +25,9 @@ import { MatIconModule } from '@angular/material/icon'
   imports: [MatCardModule, TranslateModule, MatRadioGroup, FormsModule, ReactiveFormsModule, MatLabel, MatRadioButton, MatFormFieldModule, MatInputModule, MatHint, MatError, MatButtonModule, MatIconModule]
 })
 export class DataExportComponent implements OnInit {
-  sanitizer = inject(DomSanitizer);
-  private readonly imageCaptchaService = inject(ImageCaptchaService);
-  private readonly dataSubjectService = inject(DataSubjectService);
+  sanitizer = inject(DomSanitizer)
+  private readonly imageCaptchaService = inject(ImageCaptchaService)
+  private readonly dataSubjectService = inject(DataSubjectService)
 
   public captchaControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5)])
   public formatControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
