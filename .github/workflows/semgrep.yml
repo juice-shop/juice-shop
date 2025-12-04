@@ -1,0 +1,25 @@
+name: Semgrep
+
+on:
+  pull_request:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  semgrep:
+    name: semgrep
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Semgrep (silent-mode)
+        uses: semgrep/semgrep-action@v1
+        continue-on-error: true
+        with:
+          config: p/owasp-top-ten
+
