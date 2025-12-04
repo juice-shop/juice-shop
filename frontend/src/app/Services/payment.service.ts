@@ -12,7 +12,7 @@ import { catchError, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class PaymentService {
-  private readonly http = inject(HttpClient);
+  private readonly http = inject(HttpClient)
 
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/api/Cards'

@@ -17,7 +17,7 @@ import { MatCardModule } from '@angular/material/card'
 })
 
 export class LastLoginIpComponent implements OnInit {
-  private readonly sanitizer = inject(DomSanitizer);
+  private readonly sanitizer = inject(DomSanitizer)
 
   lastLoginIp: any = '?'
 

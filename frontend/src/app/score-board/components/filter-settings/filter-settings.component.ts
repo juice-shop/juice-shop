@@ -23,7 +23,7 @@ import { MatFormFieldModule, MatPrefix, MatLabel } from '@angular/material/form-
   imports: [MatFormFieldModule, MatIconModule, MatPrefix, MatLabel, TranslateModule, MatInputModule, MatSelect, MatSelectTrigger, MatOption, DifficultyStarsComponent, MatIconButton, MatTooltip, CategoryFilterComponent, DifficultySelectionSummaryPipe]
 })
 export class FilterSettingsComponent implements OnChanges {
-  private readonly dialog = inject(MatDialog);
+  private readonly dialog = inject(MatDialog)
 
   @Input()
   public allChallenges: EnrichedChallenge[]

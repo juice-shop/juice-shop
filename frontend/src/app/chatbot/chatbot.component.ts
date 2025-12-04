@@ -41,11 +41,11 @@ interface MessageActions {
   imports: [MatCardModule, MatFormFieldModule, MatLabel, TranslateModule, MatInputModule, FormsModule, ReactiveFormsModule]
 })
 export class ChatbotComponent implements OnInit, OnDestroy {
-  private readonly userService = inject(UserService);
-  private readonly chatbotService = inject(ChatbotService);
-  private readonly cookieService = inject(CookieService);
-  private readonly formSubmitService = inject(FormSubmitService);
-  private readonly translate = inject(TranslateService);
+  private readonly userService = inject(UserService)
+  private readonly chatbotService = inject(ChatbotService)
+  private readonly cookieService = inject(CookieService)
+  private readonly formSubmitService = inject(FormSubmitService)
+  private readonly translate = inject(TranslateService)
 
   public messageControl: UntypedFormControl = new UntypedFormControl()
   public messages: ChatMessage[] = []

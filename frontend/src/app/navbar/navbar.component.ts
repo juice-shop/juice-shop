@@ -83,19 +83,19 @@ library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, 
   ]
 })
 export class NavbarComponent implements OnInit {
-  private readonly administrationService = inject(AdministrationService);
-  private readonly challengeService = inject(ChallengeService);
-  private readonly configurationService = inject(ConfigurationService);
-  private readonly userService = inject(UserService);
-  private readonly ngZone = inject(NgZone);
-  private readonly cookieService = inject(CookieService);
-  private readonly router = inject(Router);
-  private readonly translate = inject(TranslateService);
-  private readonly io = inject(SocketIoService);
-  private readonly langService = inject(LanguagesService);
-  private readonly loginGuard = inject(LoginGuard);
-  private readonly snackBar = inject(MatSnackBar);
-  private readonly basketService = inject(BasketService);
+  private readonly administrationService = inject(AdministrationService)
+  private readonly challengeService = inject(ChallengeService)
+  private readonly configurationService = inject(ConfigurationService)
+  private readonly userService = inject(UserService)
+  private readonly ngZone = inject(NgZone)
+  private readonly cookieService = inject(CookieService)
+  private readonly router = inject(Router)
+  private readonly translate = inject(TranslateService)
+  private readonly io = inject(SocketIoService)
+  private readonly langService = inject(LanguagesService)
+  private readonly loginGuard = inject(LoginGuard)
+  private readonly snackBar = inject(MatSnackBar)
+  private readonly basketService = inject(BasketService)
 
   public userEmail = ''
   public languages: any[] = []

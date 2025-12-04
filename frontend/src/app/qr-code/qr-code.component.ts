@@ -21,7 +21,7 @@ library.add(faArrowCircleLeft)
   imports: [MatDivider, QrCodeModule, MatButtonModule, MatDialogClose, TranslateModule]
 })
 export class QrCodeComponent implements OnInit {
-  dialogData = inject(MAT_DIALOG_DATA);
+  dialogData = inject(MAT_DIALOG_DATA)
 
   public title!: string
   public url!: string
