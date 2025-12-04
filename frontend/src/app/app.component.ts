@@ -24,8 +24,8 @@ dom.watch()
   imports: [MatSidenavContainer, MatSidenav, SidenavComponent, NavbarComponent, ServerStartedNotificationComponent, ChallengeSolvedNotificationComponent, WelcomeComponent, RouterOutlet]
 })
 export class AppComponent {
-  private readonly _document = inject<HTMLDocument>(DOCUMENT);
-  private readonly translate = inject(TranslateService);
+  private readonly _document = inject<HTMLDocument>(DOCUMENT)
+  private readonly translate = inject(TranslateService)
 
   constructor () {
     this.translate.setDefaultLang('en')

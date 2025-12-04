@@ -32,9 +32,9 @@ library.add(faSave, faEdit)
   imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatIconModule, MatSuffix, MatTooltip, MatError, MatHint, MatSlideToggle, PasswordStrengthComponent, PasswordStrengthInfoComponent, MatButtonModule]
 })
 export class ForgotPasswordComponent {
-  private readonly securityQuestionService = inject(SecurityQuestionService);
-  private readonly userService = inject(UserService);
-  private readonly translate = inject(TranslateService);
+  private readonly securityQuestionService = inject(SecurityQuestionService)
+  private readonly userService = inject(UserService)
+  private readonly translate = inject(TranslateService)
 
   public emailControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.email])
   public securityQuestionControl: UntypedFormControl = new UntypedFormControl({ disabled: true, value: '' }, [Validators.required])

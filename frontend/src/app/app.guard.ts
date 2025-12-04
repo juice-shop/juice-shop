@@ -10,8 +10,8 @@ import { Injectable, NgZone, inject } from '@angular/core'
 
 @Injectable()
 export class LoginGuard implements CanActivate {
-  private readonly router = inject(Router);
-  private readonly ngZone = inject(NgZone);
+  private readonly router = inject(Router)
+  private readonly ngZone = inject(NgZone)
 
 
   canActivate () {
@@ -46,7 +46,7 @@ export class LoginGuard implements CanActivate {
 
 @Injectable()
 export class AdminGuard implements CanActivate {
-  private readonly loginGuard = inject(LoginGuard);
+  private readonly loginGuard = inject(LoginGuard)
 
 
   canActivate () {
@@ -62,7 +62,7 @@ export class AdminGuard implements CanActivate {
 
 @Injectable()
 export class AccountingGuard implements CanActivate {
-  private readonly loginGuard = inject(LoginGuard);
+  private readonly loginGuard = inject(LoginGuard)
 
 
   canActivate () {
@@ -78,7 +78,7 @@ export class AccountingGuard implements CanActivate {
 
 @Injectable()
 export class DeluxeGuard {
-  private readonly loginGuard = inject(LoginGuard);
+  private readonly loginGuard = inject(LoginGuard)
 
 
   isDeluxe () {
