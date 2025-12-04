@@ -32,7 +32,7 @@ import { MatGridListModule } from '@angular/material/grid-list'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatTooltipModule } from '@angular/material/tooltip'
 
-import { of } from 'rxjs'
+import { of, throwError } from 'rxjs'
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
@@ -90,6 +90,7 @@ describe('TwoFactorAuthEnterComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TwoFactorAuthEnterComponent)
     component = fixture.componentInstance
+    twoFactorAuthService.verify.and.re
     fixture.detectChanges()
   })
 
@@ -118,9 +119,10 @@ describe('TwoFactorAuthEnterComponent', () => {
     expect(sessionStorage.getItem('bid')).toBe('42')
   })
 
-  xit('should notify about user login after 2FA verification', () => { // FIXME Spy call is not registered at all
+  it('should notice error when 2FA verification fails', () => {
+    twoFactorAuthService.verify.and.returnValue(throwError({ error: 'Error' }))
     component.verify()
-
-    expect(userService.isLoggedIn.next).toHaveBeenCalledWith(true)
+    expect(component.errored).toBeTrue()
   })
+
 })
