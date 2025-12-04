@@ -19,6 +19,7 @@ module.exports = tseslint.config(
     ],
     processor: angular.processInlineTemplates,
     rules: {
+      "semi": ["error", "never"],
       "@typescript-eslint/prefer-nullish-coalescing": "off", // requires the `strictNullChecks` compiler option
       // FIXME warnings below this line need to be checked and fixed.
       "@typescript-eslint/strict-boolean-expressions": "off",

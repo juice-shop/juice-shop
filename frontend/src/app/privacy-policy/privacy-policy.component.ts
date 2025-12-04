@@ -17,8 +17,8 @@ import { MatCardModule } from '@angular/material/card'
   imports: [MatCardModule, TranslateModule, MatDivider]
 })
 export class PrivacyPolicyComponent implements OnInit {
-  private readonly _document = inject<HTMLDocument>(DOCUMENT);
-  private readonly configurationService = inject(ConfigurationService);
+  private readonly _document = inject<HTMLDocument>(DOCUMENT)
+  private readonly configurationService = inject(ConfigurationService)
 
   public applicationName = 'OWASP Juice Shop'
   public privacyContactEmail!: string

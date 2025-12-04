@@ -24,13 +24,13 @@ import { MatCardModule } from '@angular/material/card'
   imports: [MatCardModule, TranslateModule, PurchaseBasketComponent, MatButtonModule, MatIconModule]
 })
 export class OrderSummaryComponent implements OnInit {
-  private readonly router = inject(Router);
-  private readonly addressService = inject(AddressService);
-  private readonly paymentService = inject(PaymentService);
-  private readonly basketService = inject(BasketService);
-  private readonly deliveryService = inject(DeliveryService);
-  private readonly ngZone = inject(NgZone);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
+  private readonly router = inject(Router)
+  private readonly addressService = inject(AddressService)
+  private readonly paymentService = inject(PaymentService)
+  private readonly basketService = inject(BasketService)
+  private readonly deliveryService = inject(DeliveryService)
+  private readonly ngZone = inject(NgZone)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   public bonus = 0
   public itemTotal = 0

@@ -19,7 +19,7 @@ interface Passwords {
   providedIn: 'root'
 })
 export class UserService {
-  private readonly http = inject(HttpClient);
+  private readonly http = inject(HttpClient)
 
   public isLoggedIn = new Subject<any>()
   private readonly hostServer = environment.hostServer

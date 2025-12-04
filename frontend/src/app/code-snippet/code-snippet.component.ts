@@ -50,13 +50,13 @@ export interface RandomFixes {
   imports: [MatDialogTitle, MatDialogContent, MatTabGroup, MatTab, CodeAreaComponent, TranslateModule, MatTabLabel, MatIconModule, CodeFixesComponent, MatDialogActions, MatCardModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, MatIconButton, MatButtonModule, MatDialogClose]
 })
 export class CodeSnippetComponent implements OnInit {
-  dialogData = inject(MAT_DIALOG_DATA);
-  private readonly configurationService = inject(ConfigurationService);
-  private readonly codeSnippetService = inject(CodeSnippetService);
-  private readonly vulnLinesService = inject(VulnLinesService);
-  private readonly codeFixesService = inject(CodeFixesService);
-  private readonly challengeService = inject(ChallengeService);
-  private readonly cookieService = inject(CookieService);
+  dialogData = inject(MAT_DIALOG_DATA)
+  private readonly configurationService = inject(ConfigurationService)
+  private readonly codeSnippetService = inject(CodeSnippetService)
+  private readonly vulnLinesService = inject(VulnLinesService)
+  private readonly codeFixesService = inject(CodeFixesService)
+  private readonly challengeService = inject(ChallengeService)
+  private readonly cookieService = inject(CookieService)
 
   public snippet: CodeSnippet = null
   public fixes: string [] = null

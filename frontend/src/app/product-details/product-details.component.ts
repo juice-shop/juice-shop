@@ -34,14 +34,14 @@ library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp, faCrown)
   imports: [MatDialogContent, MatTooltip, MatDivider, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, TranslateModule, MatIconButton, MatIconModule, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormsModule, ReactiveFormsModule, MatDialogActions, MatDialogClose, AsyncPipe]
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
-  private readonly dialog = inject(MatDialog);
+  private readonly dialog = inject(MatDialog)
   data = inject<{
     productData: Product;
-}>(MAT_DIALOG_DATA);
-  private readonly productReviewService = inject(ProductReviewService);
-  private readonly userService = inject(UserService);
-  private readonly snackBar = inject(MatSnackBar);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
+}>(MAT_DIALOG_DATA)
+  private readonly productReviewService = inject(ProductReviewService)
+  private readonly userService = inject(UserService)
+  private readonly snackBar = inject(MatSnackBar)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   public author = 'Anonymous'
   public reviews$: any

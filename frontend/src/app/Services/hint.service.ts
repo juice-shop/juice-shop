@@ -14,7 +14,7 @@ import { Hint } from '../Models/hint.model'
   providedIn: 'root'
 })
 export class HintService {
-  private readonly http = inject(HttpClient);
+  private readonly http = inject(HttpClient)
 
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/api/Hints'

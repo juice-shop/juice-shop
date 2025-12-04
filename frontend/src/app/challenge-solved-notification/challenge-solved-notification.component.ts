@@ -40,15 +40,15 @@ interface ChallengeSolvedNotification {
   imports: [MatCardModule, MatButtonModule, MatIconModule, LowerCasePipe, TranslateModule]
 })
 export class ChallengeSolvedNotificationComponent implements OnInit {
-  private readonly ngZone = inject(NgZone);
-  private readonly configurationService = inject(ConfigurationService);
-  private readonly challengeService = inject(ChallengeService);
-  private readonly countryMappingService = inject(CountryMappingService);
-  private readonly translate = inject(TranslateService);
-  private readonly cookieService = inject(CookieService);
-  private readonly ref = inject(ChangeDetectorRef);
-  private readonly io = inject(SocketIoService);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
+  private readonly ngZone = inject(NgZone)
+  private readonly configurationService = inject(ConfigurationService)
+  private readonly challengeService = inject(ChallengeService)
+  private readonly countryMappingService = inject(CountryMappingService)
+  private readonly translate = inject(TranslateService)
+  private readonly cookieService = inject(CookieService)
+  private readonly ref = inject(ChangeDetectorRef)
+  private readonly io = inject(SocketIoService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   public notifications: ChallengeSolvedNotification[] = []
   public showCtfFlagsInNotifications = false
