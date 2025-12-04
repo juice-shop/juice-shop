@@ -10,10 +10,10 @@ import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/test
 import { ConfigurationService } from '../Services/configuration.service'
 import { MatCardModule } from '@angular/material/card'
 import { MatDividerModule } from '@angular/material/divider'
+import { throwError, of } from 'rxjs'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 import { PrivacyPolicyComponent } from './privacy-policy.component'
-import { of } from 'rxjs'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('PrivacyPolicyComponent', () => {
   let component: PrivacyPolicyComponent
@@ -53,4 +53,12 @@ describe('PrivacyPolicyComponent', () => {
   it('should compile', () => {
     expect(component).toBeTruthy()
   })
+
+  it('should handle error when getting application configuration', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(throwError('Error'))
+    console.log = jasmine.createSpy('log')
+    component.ngOnInit()
+    expect(console.log).toHaveBeenCalledWith('Error')
+  })
+
 })
