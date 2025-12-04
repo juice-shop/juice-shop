@@ -28,10 +28,10 @@ library.add(faFacebook, faTwitter, faSlack, faReddit, faNewspaper, faStar, fasSt
   imports: [MatCardModule, TranslateModule, GalleryComponent, GalleryImageDef, MatButtonModule]
 })
 export class AboutComponent implements OnInit {
-  private readonly configurationService = inject(ConfigurationService);
-  private readonly feedbackService = inject(FeedbackService);
-  private readonly sanitizer = inject(DomSanitizer);
-  private readonly gallery = inject(Gallery);
+  private readonly configurationService = inject(ConfigurationService)
+  private readonly feedbackService = inject(FeedbackService)
+  private readonly sanitizer = inject(DomSanitizer)
+  private readonly gallery = inject(Gallery)
 
   public blueSkyUrl?: string
   public mastodonUrl?: string

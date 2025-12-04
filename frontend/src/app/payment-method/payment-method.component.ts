@@ -30,9 +30,9 @@ library.add(faPaperPlane, faTrashAlt)
 })
 
 export class PaymentMethodComponent implements OnInit {
-  paymentService = inject(PaymentService);
-  private readonly translate = inject(TranslateService);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
+  paymentService = inject(PaymentService)
+  private readonly translate = inject(TranslateService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   @Output() emitSelection = new EventEmitter()
   @Input() public allowDelete = false
