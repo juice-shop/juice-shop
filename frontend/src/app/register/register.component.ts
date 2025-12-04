@@ -39,15 +39,15 @@ library.add(faUserPlus, faExclamationCircle)
   imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatHint, MatSlideToggle, PasswordStrengthComponent, PasswordStrengthInfoComponent, MatSelect, MatOption, MatButtonModule, RouterLink, MatIconModule]
 })
 export class RegisterComponent implements OnInit {
-  private readonly securityQuestionService = inject(SecurityQuestionService);
-  private readonly userService = inject(UserService);
-  private readonly securityAnswerService = inject(SecurityAnswerService);
-  private readonly router = inject(Router);
-  private readonly formSubmitService = inject(FormSubmitService);
-  private readonly translateService = inject(TranslateService);
-  private readonly snackBar = inject(MatSnackBar);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
-  private readonly ngZone = inject(NgZone);
+  private readonly securityQuestionService = inject(SecurityQuestionService)
+  private readonly userService = inject(UserService)
+  private readonly securityAnswerService = inject(SecurityAnswerService)
+  private readonly router = inject(Router)
+  private readonly formSubmitService = inject(FormSubmitService)
+  private readonly translateService = inject(TranslateService)
+  private readonly snackBar = inject(MatSnackBar)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
+  private readonly ngZone = inject(NgZone)
 
   public emailControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.email])
   public passwordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)])

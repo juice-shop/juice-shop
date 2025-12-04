@@ -17,11 +17,11 @@ import { MatCardModule } from '@angular/material/card'
   imports: [MatCardModule, TranslateModule]
 })
 export class OAuthComponent implements OnInit {
-  private readonly cookieService = inject(CookieService);
-  private readonly userService = inject(UserService);
-  private readonly router = inject(Router);
-  private readonly route = inject(ActivatedRoute);
-  private readonly ngZone = inject(NgZone);
+  private readonly cookieService = inject(CookieService)
+  private readonly userService = inject(UserService)
+  private readonly router = inject(Router)
+  private readonly route = inject(ActivatedRoute)
+  private readonly ngZone = inject(NgZone)
 
 
   ngOnInit (): void {
