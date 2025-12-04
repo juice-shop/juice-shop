@@ -43,7 +43,6 @@ describe('SidenavComponent', () => {
   let socketIoService: any
   let loginGuard
   let location: Location
-  let translateService: any
 
   beforeEach(waitForAsync(() => {
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
@@ -90,7 +89,6 @@ describe('SidenavComponent', () => {
     })
       .compileComponents()
     location = TestBed.inject(Location)
-    translateService = TestBed.inject(TranslateService)
   }))
 
   beforeEach(() => {
