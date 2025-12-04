@@ -186,4 +186,33 @@ describe('UserService', () => {
       httpMock.verify()
     })
   ))
+
+  // Added: error handling tests to UserService spec to cover error wording convention
+  it('should handle error when login fails', inject([UserService, HttpTestingController],
+    fakeAsync((service: UserService, httpMock: HttpTestingController) => {
+      let errorResponse: any
+      service.login(null).subscribe({ next: () => {}, error: (err) => (errorResponse = err) })
+      const req = httpMock.expectOne('http://localhost:3000/rest/user/login')
+      req.flush({ message: 'Invalid' }, { status: 401, statusText: 'Unauthorized' })
+
+      tick()
+      expect(errorResponse).toBeTruthy()
+      expect(errorResponse.status).toBe(401)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when fetching whoAmI', inject([UserService, HttpTestingController],
+    fakeAsync((service: UserService, httpMock: HttpTestingController) => {
+      let errorResponse: any
+      service.whoAmI().subscribe({ next: () => {}, error: (err) => (errorResponse = err) })
+      const req = httpMock.expectOne('http://localhost:3000/rest/user/whoami')
+      req.error(new ErrorEvent('Network'))
+
+      tick()
+      expect(errorResponse).toBeTruthy()
+      expect(errorResponse.error).toBeTruthy()
+      httpMock.verify()
+    })
+  ))
 })
