@@ -42,12 +42,12 @@ export interface Order {
   imports: [MatCardModule, MatCardTitle, TranslateModule, MatIconButton, MatTooltip, MatIconModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatCardContent]
 })
 export class OrderHistoryComponent implements OnInit {
-  private readonly router = inject(Router);
-  private readonly dialog = inject(MatDialog);
-  private readonly orderHistoryService = inject(OrderHistoryService);
-  private readonly basketService = inject(BasketService);
-  private readonly productService = inject(ProductService);
-  private readonly ngZone = inject(NgZone);
+  private readonly router = inject(Router)
+  private readonly dialog = inject(MatDialog)
+  private readonly orderHistoryService = inject(OrderHistoryService)
+  private readonly basketService = inject(BasketService)
+  private readonly productService = inject(ProductService)
+  private readonly ngZone = inject(NgZone)
 
   public tableColumns = ['product', 'price', 'quantity', 'total price', 'review']
   public orders: Order[] = []

@@ -24,13 +24,13 @@ import { MatCardModule } from '@angular/material/card'
   imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatHint, MatButtonModule, MatIconModule]
 })
 export class AddressCreateComponent implements OnInit {
-  private readonly location = inject(Location);
-  private readonly formSubmitService = inject(FormSubmitService);
-  private readonly addressService = inject(AddressService);
-  private readonly router = inject(Router);
-  activatedRoute = inject(ActivatedRoute);
-  private readonly translate = inject(TranslateService);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
+  private readonly location = inject(Location)
+  private readonly formSubmitService = inject(FormSubmitService)
+  private readonly addressService = inject(AddressService)
+  private readonly router = inject(Router)
+  activatedRoute = inject(ActivatedRoute)
+  private readonly translate = inject(TranslateService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   public countryControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
   public nameControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
