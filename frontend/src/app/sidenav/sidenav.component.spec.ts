@@ -173,4 +173,35 @@ describe('SidenavComponent', () => {
     tick()
     expect(location.path()).toBe('/')
   }))
+
+  it('should show Privacy Policy link in COMPANY section for guest users', () => {
+    // Arrange: Set up as guest user (not logged in)
+    userService.getLoggedInState.and.returnValue(of(false))
+    spyOn(localStorage, 'getItem').and.returnValue(null)
+    component.ngOnInit()
+    fixture.detectChanges()
+
+    // Act: Query for privacy policy link in the component's HTML
+    const compiled = fixture.nativeElement
+    const privacyPolicyLinks = compiled.querySelectorAll('a[routerLink="/privacy-security/privacy-policy"]')
+
+    // Assert: Privacy policy link should exist and be visible for guest users
+    expect(privacyPolicyLinks.length).toBeGreaterThan(0)
+  })
+
+  it('should show Privacy Policy link in COMPANY section for logged-in users', () => {
+    // Arrange: Set up as logged-in user
+    userService.getLoggedInState.and.returnValue(of(true))
+    spyOn(localStorage, 'getItem').and.returnValue('dummy-token')
+    userService.whoAmI.and.returnValue(of({ email: 'test@juice-sh.op' }))
+    component.ngOnInit()
+    fixture.detectChanges()
+
+    // Act: Query for privacy policy link in the component's HTML
+    const compiled = fixture.nativeElement
+    const privacyPolicyLinks = compiled.querySelectorAll('a[routerLink="/privacy-security/privacy-policy"]')
+
+    // Assert: Privacy policy link should exist for logged-in users (both in submenu and COMPANY section)
+    expect(privacyPolicyLinks.length).toBeGreaterThan(0)
+  })
 })

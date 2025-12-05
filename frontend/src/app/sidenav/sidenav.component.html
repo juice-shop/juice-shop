@@ -254,6 +254,12 @@
       {{"LABEL_PHOTO_WALL" | translate}}
     </span>
   </a>
+  <a mat-list-item routerLink="/privacy-security/privacy-policy" (click)="onToggleSidenav()" aria-label="Go to privacy policy page">
+    <mat-icon>assignment</mat-icon>
+    <span class="menu-text truncate">
+      {{"TITLE_PRIVACY_POLICY" | translate}}
+    </span>
+  </a>
   @if (isLoggedIn()) {
     <a mat-list-item routerLink="/deluxe-membership" (click)="onToggleSidenav()" aria-label="Go to deluxe membership page">
       <mat-icon>card_membership</mat-icon>
