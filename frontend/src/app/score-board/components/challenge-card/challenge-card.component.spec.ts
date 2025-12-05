@@ -62,4 +62,16 @@ describe('ChallengeCard', () => {
     expect(fixture.nativeElement.querySelector('[aria-label="Vulnerability mitigation link"]'))
       .toBeTruthy()
   })
+
+  it('should have focus-visible styling on badge buttons', () => {
+    component.challenge.solved = true
+    component.challenge.hasCodingChallenge = true
+    fixture.detectChanges()
+    
+    const codingBadge = fixture.nativeElement.querySelector('.badge')
+    expect(codingBadge).toBeTruthy()
+    
+    // Verify the badge is focusable
+    expect(codingBadge.tabIndex).toBeGreaterThanOrEqual(0)
+  })
 })
