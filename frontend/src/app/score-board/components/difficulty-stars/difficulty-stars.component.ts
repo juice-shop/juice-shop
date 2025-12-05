@@ -8,11 +8,10 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
   imports: []
 })
 export class DifficultyStarsComponent {
-  // difficulty value between 0 and maxDifficulty
-  readonly difficulty = input.required<number>()
-  readonly maxDifficulty = input(6)
 
-  readonly stars = computed(() => Array.from({ length: this.maxDifficulty() }, (_, i) => i + 1))
+  readonly difficulty = input.required<1 | 2 | 3 | 4 | 5 | 6>()
+  // only filled stars shown per difficulty level
+  readonly stars = computed(() => Array.from({ length: this.difficulty() }, (_, i) => i + 1))
+  readonly ariaLabel = computed(() => `Difficulty ${this.difficulty()} of 6`)
 
-  readonly ariaLabel = computed(() => `Difficulty ${this.difficulty()} of ${this.maxDifficulty()}`)
 }

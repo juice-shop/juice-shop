@@ -1,13 +1,9 @@
 .stars {
   display: inline-flex;
-  gap: 2px;
+  gap: 0.125rem;
 }
 
 .star {
-  color: #ddd;
-  font-size: 24px;
-
-  &.filled {
-    color: #ffa500;
-  }
+  color: #ffa500;
+  font-size: 1.5rem;
 }
