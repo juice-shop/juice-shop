@@ -21,7 +21,7 @@
           <mat-label translate>LABEL_COMMENT</mat-label>
           <mat-hint translate>
             <i class="fas fa-exclamation-circle"></i>
-            <em style="margin-left:5px;" translate>{{ 'MAX_TEXTAREA_LENGTH' | translate: {length: '160'} }}</em>
+            <em class="feedback-hint" translate>{{ 'MAX_TEXTAREA_LENGTH' | translate: {length: '160'} }}</em>
           </mat-hint>
           <textarea #comment id="comment" ngDefaultControl [formControl]="feedbackControl" matInput
             matAutosizeMinRows="4" matAutosizeMaxRows="4" matTextareaAutosize cols="50" maxlength="160"
@@ -35,17 +35,17 @@
         </mat-form-field>
 
         <div class="rating-container">
-          <label style="font-weight:500; margin-right: 8px; float:left;" translate>LABEL_RATING</label>
+          <label class="rating-label" translate>LABEL_RATING</label>
           <mat-slider id="rating" min="1" max="5" step="1" showTickMarks discrete [displayWith]="formatRating" aria-label="Slider for selecting the star rating">
             <input matSliderThumb [(ngModel)]="rating" />
           </mat-slider>
         </div>
 
-        <div style="margin-bottom: 10px; margin-top: 10px; ">
-          <label style="font-weight:500;">CAPTCHA:</label>&nbsp;&nbsp;<span style="font-size:small;"
-        translate>LABEL_WHAT_IS</span>&nbsp;
-        <code id="captcha" aria-label="CAPTCHA code which must be solved">{{captcha}}</code>&nbsp;<label
-      style="font-size:small;">?</label>
+        <div class="captcha-info">
+          <label class="captcha-label">CAPTCHA:</label>&nbsp;&nbsp;
+          <span class="captcha-note" translate>LABEL_WHAT_IS</span>&nbsp;
+          <code id="captcha" aria-label="CAPTCHA code which must be solved">{{captcha}}</code>&nbsp;
+          <label class="captcha-note">?</label>
     </div>
     <mat-form-field appearance="outline" color="accent">
       <mat-label translate>LABEL_RESULT</mat-label>

@@ -25,10 +25,10 @@
         @if (presenceOfCaptcha) {
           <div>
             <div>
-              <span style="float: left; margin-top: 40px; font-weight: 500; margin-bottom: 20px;" translate>CAPTCHA <span>:</span></span>
-              <div class="captcha-image" [innerHTML]="captcha" style="margin-left: 10px;"></div>
+              <span class="captcha-label" translate>CAPTCHA <span>:</span></span>
+              <div class="captcha-image" [innerHTML]="captcha"></div>
             </div>
-            <mat-form-field style="margin-top: 10px; width: 100%;" appearance="outline" color="accent">
+            <mat-form-field class="captcha-input-field" appearance="outline" color="accent">
               <mat-label translate>ENTER_CAPTCHA</mat-label>
               <input #captchaInput [formControl]="captchaControl" type="text" matInput
                 placeholder="{{ 'TYPE_THESE_LETTERS' | translate: {length: '5'} }}" maxlength="5"

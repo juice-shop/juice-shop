@@ -41,10 +41,10 @@ const BeeFaucetAddress = '0x860e3616aD0E0dEDc23352891f3E10C4131EA5BC'
   imports: [MatCardModule, TranslateModule, MatButtonModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, MatIconModule]
 })
 export class FaucetComponent implements OnInit {
-  private readonly keysService = inject(KeysService);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
-  private readonly translateService = inject(TranslateService);
-  private readonly changeDetectorRef = inject(ChangeDetectorRef);
+  private readonly keysService = inject(KeysService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
+  private readonly translateService = inject(TranslateService)
+  private readonly changeDetectorRef = inject(ChangeDetectorRef)
 
 
   userData: object

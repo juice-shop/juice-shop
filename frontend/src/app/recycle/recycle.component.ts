@@ -32,12 +32,12 @@ library.add(faPaperPlane)
   imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatError, AddressComponent, MatDatepickerInput, MatDatepickerToggle, MatSuffix, MatDatepicker, MatCheckbox, MatButtonModule, MatCardImage, MatCardContent]
 })
 export class RecycleComponent implements OnInit {
-  private readonly recycleService = inject(RecycleService);
-  private readonly userService = inject(UserService);
-  private readonly configurationService = inject(ConfigurationService);
-  private readonly formSubmitService = inject(FormSubmitService);
-  private readonly translate = inject(TranslateService);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
+  private readonly recycleService = inject(RecycleService)
+  private readonly userService = inject(UserService)
+  private readonly configurationService = inject(ConfigurationService)
+  private readonly formSubmitService = inject(FormSubmitService)
+  private readonly translate = inject(TranslateService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   @ViewChild('addressComp', { static: true }) public addressComponent: AddressComponent
   public requestorControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
