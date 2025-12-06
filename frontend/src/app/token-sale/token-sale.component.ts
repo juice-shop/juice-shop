@@ -23,7 +23,7 @@ library.add(faBitcoin, faUniversity, faGraduationCap, faCommentAlt, faComments, 
   imports: [MatCardModule, MatCardHeader, MatCardTitle, MatCardSubtitle, TranslateModule, MatButtonModule]
 })
 export class TokenSaleComponent implements OnInit {
-  private readonly configurationService = inject(ConfigurationService);
+  private readonly configurationService = inject(ConfigurationService)
 
   public altcoinName = 'Juicycoin'
 

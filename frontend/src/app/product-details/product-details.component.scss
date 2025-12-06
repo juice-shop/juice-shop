@@ -121,7 +121,6 @@ div {
   }
 }
 
-
 .no-shrink {
   flex: 0 0 auto;
 }
@@ -136,4 +135,25 @@ div {
 .like-container {
   align-items: center;
   display: flex;
+}
+
+.warn-notification {
+  font-size: 47px;
+}
+
+.auto-focus-absorber {
+  height: 0;
+  position: absolute;
+}
+
+.review-label-spacing {
+  margin-right: 0.3125rem;
+}
+
+.hint-spacing {
+  margin-left: 0.3125rem;
+}
+
+.submit-button-spacing {
+  margin-left: 0.3125rem;
 }

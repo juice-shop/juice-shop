@@ -33,11 +33,11 @@ interface TokenEnterFormFields {
   imports: [MatCardModule, TranslateModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatIconModule, MatSuffix, MatTooltip, MatHint, MatError, MatButtonModule, MatIconModule]
 })
 export class TwoFactorAuthEnterComponent {
-  private readonly twoFactorAuthService = inject(TwoFactorAuthService);
-  private readonly cookieService = inject(CookieService);
-  private readonly userService = inject(UserService);
-  private readonly router = inject(Router);
-  private readonly ngZone = inject(NgZone);
+  private readonly twoFactorAuthService = inject(TwoFactorAuthService)
+  private readonly cookieService = inject(CookieService)
+  private readonly userService = inject(UserService)
+  private readonly router = inject(Router)
+  private readonly ngZone = inject(NgZone)
 
   public twoFactorForm: UntypedFormGroup = new UntypedFormGroup({
     token: new UntypedFormControl('', [Validators.minLength(6), Validators.maxLength(6), Validators.required, Validators.pattern('^[\\d]{6}$')])

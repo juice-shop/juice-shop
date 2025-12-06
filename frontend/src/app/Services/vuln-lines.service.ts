@@ -12,7 +12,7 @@ export interface result {
   providedIn: 'root'
 })
 export class VulnLinesService {
-  private readonly http = inject(HttpClient);
+  private readonly http = inject(HttpClient)
 
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/snippets/verdict'

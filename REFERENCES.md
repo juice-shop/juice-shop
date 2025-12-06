@@ -282,6 +282,10 @@ mentioned or used!
 
 ### [Google Summer of Code](http://owasp.org/gsoc)
 
+* Student project from
+  [Google Summer of Code 2025](https://summerofcode.withgoogle.com/archive/2025/projects)
+    * [Juice Shop side-project rennovation](https://summerofcode.withgoogle.com/organizations/owasp-foundation/projects/details/rzlkFqYj)
+      by Harsh Kumar (mentored by Jannik Hollenbach and Björn Kimminich)
 * Student projects from
   [Google Summer of Code 2023](https://summerofcode.withgoogle.com/archive/2023/projects)
   * [Companion Guide Tech Stack](https://summerofcode.withgoogle.com/organizations/owasp-foundation/projects/details/h2der3Mf)
@@ -317,7 +321,9 @@ mentioned or used!
 
 #### 2025
 
-* :date: [OWASP Juice Shop Workshop](https://www.meetup.com/it-security-kassel/events/306942921)
+* [News from the Juice Shop ecosystem](https://god.owasp.de/2025/program-detail.html?talk=talkTwentytwo) by Björn Kimminich, German OWASP Day 2025, Düsseldorf, 26.11.2025 ([media.ccc](https://media.ccc.de/v/god2025-56495-news-from-the-juice-shop-e))
+* [All the WAF power to the devs - why it reduces friction… and where it backfires](https://god.owasp.de/2025/program-detail.html?talk=talkSix) by Lukas Funk, German OWASP Day 2025, Düsseldorf, 26.11.2025 :mega: [media.ccc](https://media.ccc.de/v/god2025-56478-all-the-waf-power-to-the-d)
+* [OWASP Juice Shop Workshop](https://www.meetup.com/it-security-kassel/events/306942921)
   with Björn Kimminich, [93. IT-Security-Meetup Kassel](https://www.meetup.com/it-security-kassel/), 10.09.2025
 * [OWASP Juice Shop Demo: Your vitamin shot for security awareness & education](https://owasp2025globalappseceu.sched.com/event/1yOPV/owasp-juice-shop-demo-your-vitamin-shot-for-security-awareness-education) with Björn Kimminich, [OWASP Global AppSec EU 2025, Barcelona](https://owasp.glueup.com/event/owasp-global-appsec-eu-2025-123983), 29.05.2025
 * [OWASP Juice Shop Demo: Your vitamin shot for security awareness & education](https://owasp2025globalappseceu.sched.com/event/1yPXh/owasp-juice-shop-demo-your-vitamin-shot-for-security-awareness-education) with Björn Kimminich, [OWASP Global AppSec EU 2025, Barcelona](https://owasp.glueup.com/event/owasp-global-appsec-eu-2025-123983), 30.05.2025

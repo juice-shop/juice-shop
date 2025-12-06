@@ -10,12 +10,12 @@ import { ChangeDetectorRef, Component, NgZone, type OnInit, inject } from '@angu
 import { CookieService } from 'ngy-cookie'
 import { CountryMappingService } from '../Services/country-mapping.service'
 import { SocketIoService } from '../Services/socket-io.service'
-import { ClipboardModule } from 'ngx-clipboard'
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 import { LowerCasePipe } from '@angular/common'
 import { firstValueFrom } from 'rxjs'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 interface ChallengeSolvedMessage {
   challenge: string
@@ -37,17 +37,18 @@ interface ChallengeSolvedNotification {
   selector: 'app-challenge-solved-notification',
   templateUrl: './challenge-solved-notification.component.html',
   styleUrls: ['./challenge-solved-notification.component.scss'],
-  imports: [MatCardModule, MatButtonModule, MatIconModule, ClipboardModule, LowerCasePipe, TranslateModule]
+  imports: [MatCardModule, MatButtonModule, MatIconModule, LowerCasePipe, TranslateModule]
 })
 export class ChallengeSolvedNotificationComponent implements OnInit {
-  private readonly ngZone = inject(NgZone);
-  private readonly configurationService = inject(ConfigurationService);
-  private readonly challengeService = inject(ChallengeService);
-  private readonly countryMappingService = inject(CountryMappingService);
-  private readonly translate = inject(TranslateService);
-  private readonly cookieService = inject(CookieService);
-  private readonly ref = inject(ChangeDetectorRef);
-  private readonly io = inject(SocketIoService);
+  private readonly ngZone = inject(NgZone)
+  private readonly configurationService = inject(ConfigurationService)
+  private readonly challengeService = inject(ChallengeService)
+  private readonly countryMappingService = inject(CountryMappingService)
+  private readonly translate = inject(TranslateService)
+  private readonly cookieService = inject(CookieService)
+  private readonly ref = inject(ChangeDetectorRef)
+  private readonly io = inject(SocketIoService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   public notifications: ChallengeSolvedNotification[] = []
   public showCtfFlagsInNotifications = false
@@ -142,5 +143,13 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
       },
       error: (err) => { console.log(err) }
     })
+  }
+
+  copyToClipboard (text: string) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(() => {
+        this.snackBarHelperService.open('COPY_SUCCESS', 'confirmBar')
+      })
+    }
   }
 }

@@ -7,7 +7,7 @@
 <mat-card appearance="outlined" class="mat-elevation-z6 mat-own-card">
   <div class="mdc-card">
     <h1><span translate>TITLE_SEARCH_RESULTS</span> - <span [innerHtml]="results.orderNo"></span></h1>
-    <div style="text-align: center;">
+    <div class="delivery-status">
       <h3 translate>LABEL_EXPECTED_DELIVERY</h3>
       <div class="container-fluid well">
         <div class="row fa-4x">
@@ -29,12 +29,12 @@
           @if (status === Status.Delivered) {
             <span class="fa-layers fa-fw">
               <span><i class="fas fa-home confirmation"></i></span>
-              <span class="fa-layers-counter accent-notification" style="width: max-content">{{results.eta}} {{'LABEL_DAYS' | translate}}</span>
+              <span class="fa-layers-counter accent-notification eta-badge">{{results.eta}} {{'LABEL_DAYS' | translate}}</span>
             </span>
           } @else {
             <span class="fa-layers fa-fw">
               <span><i class="fas fa-home"></i></span>
-              <span class="fa-layers-counter accent-notification" style="width: max-content">{{results.eta}} {{'LABEL_DAYS' | translate}}</span>
+              <span class="fa-layers-counter accent-notification eta-badge">{{results.eta}} {{'LABEL_DAYS' | translate}}</span>
             </span>
           }
         </div>

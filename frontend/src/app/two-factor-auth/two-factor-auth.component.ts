@@ -34,11 +34,11 @@ library.add(faUnlockAlt, faSave)
   imports: [MatCardModule, TranslateModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatButtonModule, QrCodeModule, MatError, MatIconModule, MatSuffix, MatTooltip, MatHint, MatIconModule]
 })
 export class TwoFactorAuthComponent implements OnInit {
-  private readonly twoFactorAuthService = inject(TwoFactorAuthService);
-  private readonly configurationService = inject(ConfigurationService);
-  private readonly snackBar = inject(MatSnackBar);
-  private readonly translateService = inject(TranslateService);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
+  private readonly twoFactorAuthService = inject(TwoFactorAuthService)
+  private readonly configurationService = inject(ConfigurationService)
+  private readonly snackBar = inject(MatSnackBar)
+  private readonly translateService = inject(TranslateService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   public data?: string
 

@@ -49,4 +49,30 @@ describe('DataSubjectService', () => {
       httpMock.verify()
     })
   ))
+
+  it('should handle error when sending erasure request', inject([DataSubjectService, HttpTestingController],
+    fakeAsync((service: DataSubjectService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.erase({ foo: 'bar' }).subscribe({ next: () => fail('expected error'), error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/user/erasure-request')
+      req.error(new ErrorEvent('Request failed'), { status: 400, statusText: 'Bad Request' })
+
+      tick()
+      expect(capturedError.status).toBe(400)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when requesting data export', inject([DataSubjectService, HttpTestingController],
+    fakeAsync((service: DataSubjectService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.dataExport({ id: 1 }).subscribe({ next: () => fail('expected error'), error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/user/data-export')
+      req.error(new ErrorEvent('Request failed'), { status: 503, statusText: 'Service Unavailable' })
+
+      tick()
+      expect(capturedError.status).toBe(503)
+      httpMock.verify()
+    })
+  ))
 })

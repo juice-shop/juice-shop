@@ -1,3 +1,4 @@
+*	OUTOFSCOPE	.*\/socket\.io\/.*
 10109	IGNORE	(Modern Web Application)
 10035	IGNORE	(Strict-Transport-Security Header Not Set)
 10098	IGNORE	(Cross-Domain Misconfiguration)
