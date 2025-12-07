@@ -6,7 +6,7 @@
 import { enableProdMode, importProvidersFrom } from '@angular/core'
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 
-import { AppModule, HttpLoaderFactory } from './app/app.module'
+import { HttpLoaderFactory } from './app/app.module'
 import { environment } from './environments/environment'
 import { AppComponent } from './app/app.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -85,7 +85,7 @@ import { RequestInterceptor } from './app/Services/request.interceptor';
 import { HTTP_INTERCEPTORS, HttpClient, withInterceptorsFromDi, provideHttpClient } from '@angular/common/http';
 
 if (environment.production) {
-  enableProdMode()
+    enableProdMode()
 }
 
 bootstrapApplication(AppComponent, {
@@ -149,4 +149,4 @@ bootstrapApplication(AppComponent, {
         provideAnimations()
     ]
 })
-  .catch((err: Error) => console.log(err))
+    .catch((err: Error) => console.log(err))
