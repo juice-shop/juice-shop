@@ -43,6 +43,7 @@ import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, LoginGuard } from './app.guard'
 import { NFTUnlockComponent } from './nft-unlock/nft-unlock.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
+import {CtcLogin} from "./crack-the-code/ctc-login/ctc-login";
 
 const loadFaucetModule = async () => {
   const module = await import('./faucet/faucet.module')
@@ -59,6 +60,10 @@ const loadWeb3SandboxModule = async () => {
 }
 // vuln-code-snippet start adminSectionChallenge scoreBoardChallenge web3SandboxChallenge
 const routes: Routes = [
+  {
+    path: 'ctc',
+    component: CtcLogin,
+  },
   { // vuln-code-snippet neutral-line adminSectionChallenge
     path: 'administration', // vuln-code-snippet vuln-line adminSectionChallenge
     component: AdministrationComponent, // vuln-code-snippet neutral-line adminSectionChallenge

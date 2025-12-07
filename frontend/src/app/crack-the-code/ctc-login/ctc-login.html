@@ -1,0 +1,78 @@
+<div class="auth-container">
+  <mat-card class="form-container" appearance="outlined">
+    <mat-card-content>
+      <div class="logo-container">
+        <img class="logo-image" mat-card-m-image src="./assets/public/images/crak-the-code/CTC.png" alt="Logo Image">
+      </div>
+      <div class="login" *ngIf="!showSignup">
+        <form class="login-form" [formGroup]="signInForm" (ngSubmit)="onLogin()">
+          <mat-form-field class="username-field" appearance="outline">
+            <mat-label>Username or E-mail</mat-label>
+            <input matInput type="email" formControlName="username">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hideSignInPassword ? 'password' : 'text'" formControlName="password">
+            <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()"
+                    aria-label="Toggle password visibility">
+              <mat-icon>
+                {{ hideSignInPassword ? 'visibility_off' : 'visibility' }}
+              </mat-icon>
+            </button>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" class="login-btn" type="submit" [disabled]="signInForm.invalid">
+            Sign In
+          </button>
+        </form>
+        <div class="login-helper">
+          <span class="password-reset">Forgot Password?</span>
+          <span class="signup" (click)="showSignUp()">Sign Up</span>
+        </div>
+      </div>
+      <div class="register" *ngIf="showSignup">
+        <form class="signup-form" [formGroup]="signUpForm" (ngSubmit)="onSignup()">
+          <mat-form-field class="username-field" appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput type="text" formControlName="username">
+          </mat-form-field>
+
+          <mat-form-field class="username-field" appearance="outline">
+            <mat-label>E-mail</mat-label>
+            <input matInput type="email" formControlName="email">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hideSignUpPassword ? 'password' : 'text'" formControlName="password">
+            <button mat-icon-button matSuffix type="button" (click)="toggleSignUpPasswordVisibility()"
+                    aria-label="Toggle password visibility">
+              <mat-icon>
+                {{ hideSignUpPassword ? 'visibility_off' : 'visibility' }}
+              </mat-icon>
+            </button>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Confirm password</mat-label>
+            <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword">
+            <button mat-icon-button matSuffix type="button" (click)="toggleConfirmPasswordVisibility()"
+                    aria-label="Toggle password visibility">
+              <mat-icon>
+                {{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}
+              </mat-icon>
+            </button>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" class="signup-btn" type="submit" [disabled]="signUpForm.invalid">
+            Sign Up
+          </button>
+        </form>
+        <div class="signup-helper">
+          <span>Have an account? <span class="signin" (click)="showSignIn()">Sign in</span></span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
