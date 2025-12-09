@@ -29,7 +29,7 @@ import { of } from 'rxjs'
 import { ConfigurationService } from '../Services/configuration.service'
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
 import { throwError } from 'rxjs/internal/observable/throwError'
-import { QrCodeModule } from 'ng-qrcode'
+import { QrCodeComponent } from 'ng-qrcode'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('TwoFactorAuthComponent', () => {
@@ -56,7 +56,7 @@ describe('TwoFactorAuthComponent', () => {
         MatDialogModule,
         MatDividerModule,
         MatButtonModule,
-        QrCodeModule,
+        QrCodeComponent,
         MatSnackBarModule,
         MatTooltipModule,
         TwoFactorAuthComponent],
