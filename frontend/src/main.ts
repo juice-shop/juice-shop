@@ -6,7 +6,6 @@
 import { enableProdMode, importProvidersFrom } from '@angular/core'
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 
-import { HttpLoaderFactory } from './app/app.module'
 import { environment } from './environments/environment'
 import { AppComponent } from './app/app.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -85,6 +84,10 @@ import { HTTP_INTERCEPTORS, HttpClient, withInterceptorsFromDi, provideHttpClien
 
 if (environment.production) {
     enableProdMode()
+}
+
+function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json')
 }
 
 bootstrapApplication(AppComponent, {
