@@ -10,7 +10,7 @@ import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/test
 import { TranslateModule } from '@ngx-translate/core'
 import { QrCodeComponent } from './qr-code.component'
 import { MatButtonModule } from '@angular/material/button'
-import { QrCodeModule } from 'ng-qrcode'
+import { QrCodeComponent as NgQrCodeComponent } from 'ng-qrcode'
 
 describe('QrCodeComponent', () => {
   let component: QrCodeComponent
@@ -20,7 +20,7 @@ describe('QrCodeComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        QrCodeModule,
+        NgQrCodeComponent,
         MatDividerModule,
         MatButtonModule,
         MatDialogModule,
