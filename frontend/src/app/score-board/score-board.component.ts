@@ -59,6 +59,7 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
   public filteredChallenges: EnrichedChallenge[] = []
   public filterSetting: FilterSetting = structuredClone(DEFAULT_FILTER_SETTING)
   public applicationConfiguration: Config | null = null
+  public lastUnlockedChallengeKey: string | null = null
 
   public isInitialized = false
 
@@ -193,7 +194,8 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
     await firstValueFrom(this.challengeService.repeatNotification(encodeURIComponent(challenge.name)))
   }
 
-  unlockHint (hintId: number) {
+    unlockHint (hintId: number, challengeKey?: string) {
+    this.lastUnlockedChallengeKey = challengeKey ?? null
     this.hintService.put(hintId, { unlocked: true }).subscribe({
       next: () => {
         this.ngOnInit()
