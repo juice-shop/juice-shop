@@ -34,6 +34,10 @@
   color: var(--theme-text-fade-30);
 }
 
+:host ::ng-deep .mat-mdc-form-field.mat-focused .mdc-floating-label {
+  color: var(--theme-text-fade-30) !important;
+}
+
 .reset-filters-wrapper {
   align-items: center;
   display: flex;

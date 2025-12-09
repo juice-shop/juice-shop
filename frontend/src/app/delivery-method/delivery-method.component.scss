@@ -41,6 +41,14 @@ mat-table {
   width: 100%;
 }
 
+.spacer-row {
+  height: 12px;
+}
+
+.action-row {
+  margin-top: 1.25rem;
+}
+
 .mat-column-Selection { width: 20%; }
 .mat-column-Name { width: 30%; }
 .mat-column-Price { width: 25%; }

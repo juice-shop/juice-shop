@@ -45,9 +45,9 @@ const compilerReleases = {
   imports: [CodemirrorModule, FormsModule, MatButtonModule, MatIconModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule]
 })
 export class Web3SandboxComponent implements OnInit {
-  private readonly keysService = inject(KeysService);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
-  private readonly changeDetectorRef = inject(ChangeDetectorRef);
+  private readonly keysService = inject(KeysService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
+  private readonly changeDetectorRef = inject(ChangeDetectorRef)
 
 
   ngOnInit (): void {

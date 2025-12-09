@@ -10,7 +10,7 @@
 </h1>
 <mat-table [dataSource]="dataSource">
   <ng-container matColumnDef="image">
-    <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
+    <mat-header-cell *matHeaderCellDef class="header-hidden"></mat-header-cell>
     <mat-cell *matCellDef="let element" class="content-align">
       <img [src]="'assets/public/images/products/'+element.image" alt={{element.name}}
         class="img-responsive img-thumbnail">
@@ -19,18 +19,18 @@
     </ng-container>
 
     <ng-container matColumnDef="product">
-      <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
-      <mat-cell *matCellDef="let element" style="font-size: initial;"> {{element.name}}</mat-cell>
+      <mat-header-cell *matHeaderCellDef class="header-hidden"></mat-header-cell>
+      <mat-cell *matCellDef="let element" class="cell-initial-font"> {{element.name}}</mat-cell>
       <mat-footer-cell *matFooterCellDef></mat-footer-cell>
     </ng-container>
 
     <ng-container matColumnDef="quantity">
-      <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
+      <mat-header-cell *matHeaderCellDef class="header-hidden"></mat-header-cell>
       <mat-cell *matCellDef="let element" class="content-align">
         @if (allowEdit) {
           <button mat-icon-button (click)="dec(element.BasketItem.id)"><i class="fas fa-minus-square"></i></button>
         }
-        <span style="font-size: initial;"> {{element.BasketItem.quantity}}</span>
+        <span class="cell-initial-font"> {{element.BasketItem.quantity}}</span>
         @if (allowEdit) {
           <button mat-icon-button (click)="inc(element.BasketItem.id)"><i class="fas fa-plus-square"></i></button>
         }
@@ -39,14 +39,14 @@
     </ng-container>
 
     <ng-container matColumnDef="price">
-      <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
-      <mat-cell *matCellDef="let element" style="font-size: initial;"> {{element.price}}&curren;</mat-cell>
+      <mat-header-cell *matHeaderCellDef class="header-hidden"></mat-header-cell>
+      <mat-cell *matCellDef="let element" class="cell-initial-font"> {{element.price}}&curren;</mat-cell>
       <mat-footer-cell *matFooterCellDef></mat-footer-cell>
     </ng-container>
 
     @if (allowEdit) {
       <ng-container matColumnDef="remove">
-        <mat-header-cell *matHeaderCellDef style="display: none;"></mat-header-cell>
+        <mat-header-cell *matHeaderCellDef class="header-hidden"></mat-header-cell>
         <mat-cell *matCellDef="let element">
           <button mat-icon-button (click)="delete(element.BasketItem.id)"><i class="far fa-trash-alt"></i></button>
         </mat-cell>

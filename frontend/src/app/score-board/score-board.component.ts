@@ -45,15 +45,15 @@ interface CodeChallengeSolvedWebsocket {
   imports: [HackingChallengeProgressScoreCardComponent, CodingChallengeProgressScoreCardComponent, DifficultyOverviewScoreCardComponent, FilterSettingsComponent, MatProgressSpinner, ChallengesUnavailableWarningComponent, TutorialModeWarningComponent, ChallengeCardComponent, NgClass, TranslateModule]
 })
 export class ScoreBoardComponent implements OnInit, OnDestroy {
-  private readonly challengeService = inject(ChallengeService);
-  private readonly hintService = inject(HintService);
-  private readonly configurationService = inject(ConfigurationService);
-  private readonly sanitizer = inject(DomSanitizer);
-  private readonly ngZone = inject(NgZone);
-  private readonly io = inject(SocketIoService);
-  private readonly dialog = inject(MatDialog);
-  private readonly router = inject(Router);
-  private readonly route = inject(ActivatedRoute);
+  private readonly challengeService = inject(ChallengeService)
+  private readonly hintService = inject(HintService)
+  private readonly configurationService = inject(ConfigurationService)
+  private readonly sanitizer = inject(DomSanitizer)
+  private readonly ngZone = inject(NgZone)
+  private readonly io = inject(SocketIoService)
+  private readonly dialog = inject(MatDialog)
+  private readonly router = inject(Router)
+  private readonly route = inject(ActivatedRoute)
 
   public allChallenges: EnrichedChallenge[] = []
   public filteredChallenges: EnrichedChallenge[] = []

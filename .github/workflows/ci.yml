@@ -20,7 +20,7 @@ on:
 env:
   NODE_DEFAULT_VERSION: 22
   NODE_OPTIONS: "--max_old_space_size=4096"
-  CYCLONEDX_NPM_VERSION: '^2.0.0||^3.0.0'
+  CYCLONEDX_NPM_VERSION: '^2.0.0||^3.0.0||^4.0.0'   # keep in sync with package.json
 jobs:
   lint:
     runs-on: ubuntu-latest

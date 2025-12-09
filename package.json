@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "19.1.1",
+  "version": "19.2.0-SNAPSHOT",
   "private": true,
   "description": "Probably the most modern and sophisticated insecure web application",
   "keywords": [
@@ -188,7 +188,7 @@
     "z85": "^0.0.2"
   },
   "devDependencies": {
-    "@cyclonedx/cyclonedx-npm": "^2.0.0||^3.0.0",
+    "@cyclonedx/cyclonedx-npm": "^2.0.0||^3.0.0||^4.00",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@types/chai": "^4.3.20",
     "@types/clarinet": "^0.12.3",

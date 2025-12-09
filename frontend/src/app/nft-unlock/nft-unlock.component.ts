@@ -17,7 +17,7 @@ import { MatCardModule, MatCardTitle } from '@angular/material/card'
   imports: [MatCardModule, MatButtonModule, TranslateModule, MatCardTitle, FormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatDivider]
 })
 export class NFTUnlockComponent implements OnInit {
-  private readonly keysService = inject(KeysService);
+  private readonly keysService = inject(KeysService)
 
   privateKey: string
   formSubmitted = false

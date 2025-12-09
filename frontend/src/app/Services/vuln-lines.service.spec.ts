@@ -29,4 +29,17 @@ describe('VulnLinesService', () => {
       httpMock.verify()
     })
   ))
+
+  it('should handle error when submitting solution', inject([VulnLinesService, HttpTestingController],
+    fakeAsync((service: VulnLinesService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.check('key', [3, 4]).subscribe({ next: () => fail('expected error'), error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/snippets/verdict')
+      req.error(new ErrorEvent('Request failed'), { status: 400, statusText: 'Bad Request' })
+
+      tick()
+      expect(capturedError.status).toBe(400)
+      httpMock.verify()
+    })
+  ))
 })

@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "19.1.1",
+  "version": "19.2.0-SNAPSHOT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -49,7 +49,6 @@
     "ng-gallery": "^12.0.0",
     "ng-qrcode": "^20.0.0",
     "ng2-file-upload": "^9.0.0",
-    "ngx-clipboard": "^15.1.0",
     "ngx-highlightjs": "^6.1.2",
     "ngx-window-token": "^6.0.0",
     "ngy-cookie": "^6.0.0",
