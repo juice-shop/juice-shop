@@ -67,6 +67,17 @@ For a detailed introduction, full list of features and architecture overview ple
    of the repository)
 3. Go into the cloned folder with `cd juice-shop`
 4. Run `npm install` (only has to be done before first start or when you change the source code)
+
+   > ⚠️ **Note for Windows users**
+   > Running `npm install` on **native Windows shells (PowerShell / CMD / Git Bash)** may
+   > fail when compiling native Node.js modules (e.g., `sqlite3`, `libxmljs2`).
+   >
+   > For the smoothest experience, we recommend installing and running Juice Shop in
+   > **WSL2** or using **Docker**.
+   >
+   > If you prefer native Windows, ensure the required build tools for `node-gyp`
+   > are installed (C++ Build Tools + Python 3).
+
 5. Run `npm start`
 6. Browse to <http://localhost:3000>
 
