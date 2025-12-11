@@ -7,66 +7,51 @@
 import { ProductDetailsComponent } from '../product-details/product-details.component'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ProductService } from '../Services/product.service'
-import { BasketService } from '../Services/basket.service'
 import { type AfterViewInit, Component, NgZone, type OnDestroy, ViewChild, ChangeDetectorRef, inject } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { forkJoin, type Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
 import { MatDialog } from '@angular/material/dialog'
 import { DomSanitizer, type SafeHtml } from '@angular/platform-browser'
-import { TranslateService, TranslateModule } from '@ngx-translate/core'
+import { TranslateModule } from '@ngx-translate/core'
 import { SocketIoService } from '../Services/socket-io.service'
-import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCartPlus, faEye } from '@fortawesome/free-solid-svg-icons'
-import { type Product } from '../Models/product.model'
+import { ProductTableEntry, type Product } from '../Models/product.model'
 import { QuantityService } from '../Services/quantity.service'
 import { DeluxeGuard } from '../app.guard'
 import { MatDivider } from '@angular/material/divider'
 import { MatButtonModule } from '@angular/material/button'
-import { MatTooltip } from '@angular/material/tooltip'
-import { MatCardModule, MatCardImage, MatCardTitle, MatCardContent } from '@angular/material/card'
+import { MatCardModule, MatCardTitle, MatCardContent } from '@angular/material/card'
 import { MatGridList, MatGridTile } from '@angular/material/grid-list'
 import { AsyncPipe } from '@angular/common'
+import { ProductComponent } from '../product/product.component'
 
 library.add(faEye, faCartPlus)
-
-interface TableEntry {
-  name: string
-  price: number
-  deluxePrice: number
-  id: number
-  image: string
-  description: string
-  quantity?: number
-}
 
 @Component({
   selector: 'app-search-result',
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.scss'],
-  imports: [MatGridList, MatGridTile, MatCardModule, TranslateModule, MatTooltip, MatCardImage, MatButtonModule, MatCardTitle, MatCardContent, MatDivider, MatPaginator, AsyncPipe]
+  imports: [MatGridList, MatGridTile, MatCardModule, TranslateModule, MatButtonModule, MatCardTitle, MatCardContent, MatDivider, MatPaginator, AsyncPipe, ProductComponent]
 })
 export class SearchResultComponent implements OnDestroy, AfterViewInit {
   private readonly deluxeGuard = inject(DeluxeGuard)
   private readonly dialog = inject(MatDialog)
   private readonly productService = inject(ProductService)
   private readonly quantityService = inject(QuantityService)
-  private readonly basketService = inject(BasketService)
-  private readonly translateService = inject(TranslateService)
   private readonly router = inject(Router)
   private readonly route = inject(ActivatedRoute)
   private readonly sanitizer = inject(DomSanitizer)
   private readonly ngZone = inject(NgZone)
   private readonly io = inject(SocketIoService)
-  private readonly snackBarHelperService = inject(SnackBarHelperService)
   private readonly cdRef = inject(ChangeDetectorRef)
 
   public displayedColumns = ['Image', 'Product', 'Description', 'Price', 'Select']
   public tableData!: any[]
   public pageSizeOptions: number[] = []
-  public dataSource!: MatTableDataSource<TableEntry>
+  public dataSource!: MatTableDataSource<ProductTableEntry>
   public gridDataSource!: any
   public searchValue?: SafeHtml
   public resultsLength = 0
@@ -82,7 +67,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
     const quantities = this.quantityService.getAll()
     forkJoin([quantities, products]).subscribe({
       next: ([quantities, products]) => {
-        const dataTable: TableEntry[] = []
+        const dataTable: ProductTableEntry[] = []
         this.tableData = products
         this.trustProductDescription(products) // vuln-code-snippet neutral-line restfulXssChallenge
         for (const product of products) {
@@ -92,7 +77,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
             deluxePrice: product.deluxePrice,
             id: product.id,
             image: product.image,
-            description: product.description
+            description: product.description,
           })
         }
         for (const quantity of quantities) {
@@ -104,7 +89,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
           }
           entry.quantity = quantity.quantity
         }
-        this.dataSource = new MatTableDataSource<TableEntry>(dataTable)
+        this.dataSource = new MatTableDataSource<ProductTableEntry>(dataTable)
         for (let i = 1; i <= Math.ceil(this.dataSource.data.length / 12); i++) {
           this.pageSizeOptions.push(i * 12)
         }
@@ -200,79 +185,8 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
     })
   }
 
-  addToBasket (id?: number) {
-    this.basketService.find(Number(sessionStorage.getItem('bid'))).subscribe({
-      next: (basket) => {
-        const productsInBasket: any = basket.Products
-        let found = false
-        for (let i = 0; i < productsInBasket.length; i++) {
-          if (productsInBasket[i].id === id) {
-            found = true
-            this.basketService.get(productsInBasket[i].BasketItem.id).subscribe({
-              next: (existingBasketItem) => {
-
-                const newQuantity = existingBasketItem.quantity + 1
-                this.basketService.put(existingBasketItem.id, { quantity: newQuantity }).subscribe({
-                  next: (updatedBasketItem) => {
-                    this.productService.get(updatedBasketItem.ProductId).subscribe({
-                      next: (product) => {
-                        this.translateService.get('BASKET_ADD_SAME_PRODUCT', { product: product.name }).subscribe({
-                          next: (basketAddSameProduct) => {
-                            this.snackBarHelperService.open(basketAddSameProduct, 'confirmBar')
-                            this.basketService.updateNumberOfCartItems()
-                          },
-                          error: (translationId) => {
-                            this.snackBarHelperService.open(translationId, 'confirmBar')
-                            this.basketService.updateNumberOfCartItems()
-                          }
-                        })
-                      },
-                      error: (err) => { console.log(err) }
-                    })
-                  },
-                  error: (err) => {
-                    this.snackBarHelperService.open(err.error?.error, 'errorBar')
-                    console.log(err)
-                  }
-                })
-              },
-              error: (err) => { console.log(err) }
-            })
-            break
-          }
-        }
-        if (!found) {
-          this.basketService.save({ ProductId: id, BasketId: sessionStorage.getItem('bid'), quantity: 1 }).subscribe({
-            next: (newBasketItem) => {
-              this.productService.get(newBasketItem.ProductId).subscribe({
-                next: (product) => {
-                  this.translateService.get('BASKET_ADD_PRODUCT', { product: product.name }).subscribe({
-                    next: (basketAddProduct) => {
-                      this.snackBarHelperService.open(basketAddProduct, 'confirmBar')
-                      this.basketService.updateNumberOfCartItems()
-                    },
-                    error: (translationId) => {
-                      this.snackBarHelperService.open(translationId, 'confirmBar')
-                      this.basketService.updateNumberOfCartItems()
-                    }
-                  })
-                },
-                error: (err) => { console.log(err) }
-              })
-            },
-            error: (err) => {
-              this.snackBarHelperService.open(err.error?.error, 'errorBar')
-              console.log(err)
-            }
-          })
-        }
-      },
-      error: (err) => { console.log(err) }
-    })
-  }
-
-  isLoggedIn () {
-    return localStorage.getItem('token')
+  isLoggedIn (): boolean {
+    return localStorage.getItem('token') !== null;
   }
 
   isDeluxe () {

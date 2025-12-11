@@ -1,0 +1,62 @@
+@let product = item();
+
+<mat-card appearance="outlined" class="mat-card">
+  <article class="product">
+    @if (product.quantity <= 5 && product.quantity > 0) {
+      <aside class="ribbon">
+        <span translate [translateParams]="{ quantity: product.quantity }"
+          >LABEL_ONLY_QUANTITY_LEFT</span
+        >
+      </aside>
+    }
+    @if (product.quantity <= 0) {
+      <aside class="ribbon ribbon-sold">
+        <span>{{ "LABEL_SOLD_OUT" | translate }}</span>
+      </aside>
+    }
+    <section
+      class="content"
+      (click)="showDetail(item)"
+      aria-label="Click for more information about the product"
+      matTooltip="Click for more information"
+      matTooltipPosition="above"
+    >
+      <img
+        mat-card-image
+        [src]="'assets/public/images/products/' + product.image"
+        alt="{{ product.name }}"
+        class="img-thumbnail"
+        role="button"
+      />
+      <div class="info-box">
+        <div class="item-name">{{ product.name }}</div>
+        <div class="item-price">
+          @if (!isDeluxe() || product.price === product.deluxePrice) {
+            <span>{{ product.price }}&curren;</span>
+          }
+          @if (isDeluxe() && product.price !== product.deluxePrice) {
+            <span>
+              <s>{{ product.price }}</s>
+              {{ product.deluxePrice }}&curren;
+            </span>
+          }
+        </div>
+      </div>
+    </section>
+    <footer class="footer">
+      @if (isLoggedIn()) {
+        <button
+          (click)="addToBasket(product.id)"
+          aria-label="Add to Basket"
+          class="btn-basket"
+          color="primary"
+          mat-button
+          mat-raised-button
+        >
+          <mat-icon class="icon">add_shopping_cart</mat-icon>
+          {{ "ADD_BASKET" | translate }}
+        </button>
+      }
+    </footer>
+  </article>
+</mat-card>

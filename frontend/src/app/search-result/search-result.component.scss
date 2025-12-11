@@ -34,17 +34,6 @@ $bg-heading: rgba(0, 0, 0, 0.2);
   gap: 12px;
 }
 
-.item-price {
-  font-size: initial;
-  margin-top: 12px;
-  text-align: center;
-}
-
-.item-name {
-  font-size: large;
-  text-align: center;
-}
-
 .emptyState {
   display: block;
   height: auto !important;
@@ -121,10 +110,6 @@ $bg-heading: rgba(0, 0, 0, 0.2);
   width: 100%;
 }
 
-.btn-basket {
-  margin-top: 20px;
-}
-
 .mdc-card {
   border: 0;
   display: flex;
@@ -148,23 +133,12 @@ mat-grid-tile {
   margin-top: 10px;
 }
 
-.product {
-  margin-left: -17px;
-  margin-right: 6px;
-  margin-top: -17px;
-}
-
 
 .center-align {
   display: flex;
   justify-content: center;
 }
 
-
-.info-box {
-  align-self: center;
-  width: 40%;
-}
 
 .basket-btn-container {
   display: flex;

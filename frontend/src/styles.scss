@@ -40,25 +40,25 @@
     color: mat.m2-get-color-from-palette(map.get($theme, accent));
   }
 
-  .ribbon::before {
-    border: 5px solid mat.m2-get-color-from-palette(map.get($theme, accent));
-  }
+  // .ribbon::before {
+  //   border: 5px solid mat.m2-get-color-from-palette(map.get($theme, accent));
+  // }
 
-  .ribbon span {
-    background-color: mat.m2-get-color-from-palette(map.get($theme, accent));
-  }
+  // .ribbon span {
+  //   background-color: mat.m2-get-color-from-palette(map.get($theme, accent));
+  // }
 
   .error {
     color: mat.m2-get-color-from-palette(map.get($theme, warn));
   }
 
-  .ribbon-sold::before {
-    border: 5px solid mat.m2-get-color-from-palette(map.get($theme, warn));
-  }
+  // .ribbon-sold::before {
+  //   border: 5px solid mat.m2-get-color-from-palette(map.get($theme, warn));
+  // }
 
-  .ribbon-sold span {
-    background-color: mat.m2-get-color-from-palette(map.get($theme, warn));
-  }
+  // .ribbon-sold span {
+  //   background-color: mat.m2-get-color-from-palette(map.get($theme, warn));
+  // }
 
   .primary-notification {
     background-color: mat.m2-get-color-from-palette(map.get($theme, primary), darker);
