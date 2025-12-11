@@ -60,6 +60,12 @@ describe('/api/Cards', () => {
       .expect('status', 201)
   })
 
+  it('GET all cards returns masked card numbers', () => {
+    return frisby.get(API_URL + '/Cards', { headers: authHeader })
+      .expect('status', 200)
+      .expect('bodyContains', '"cardNum":"************4321"')
+  })
+
   it('POST new card with invalid card number', () => {
     return frisby.post(API_URL + '/Cards', {
       headers: authHeader,
@@ -139,6 +145,19 @@ describe('/api/Cards/:id', () => {
       .expect('status', 200)
   })
 
+  it('GET card by id returns masked card number', () => {
+    return frisby.get(API_URL + '/Cards/' + cardId, { headers: authHeader })
+      .expect('status', 200)
+      .expect('bodyContains', '"cardNum":"************4321"')
+  })
+
+  it('GET card by non-existing id returns 400 for authorized user', () => {
+    const nonExistingId = 999999
+    return frisby.get(API_URL + '/Cards/' + nonExistingId, { headers: authHeader })
+      .expect('status', 400)
+      .expect('json', { status: 'error', data: 'Malicious activity detected' })
+  })
+
   it('PUT update card by id is forbidden via authorized API call', () => {
     return frisby.put(API_URL + '/Cards/' + cardId, {
       headers: authHeader,
@@ -152,5 +171,11 @@ describe('/api/Cards/:id', () => {
   it('DELETE card by id', () => {
     return frisby.del(API_URL + '/Cards/' + cardId, { headers: authHeader })
       .expect('status', 200)
+  })
+
+  it('DELETE card by id again returns 400 for authorized user', () => {
+    return frisby.del(API_URL + '/Cards/' + cardId, { headers: authHeader })
+      .expect('status', 400)
+      .expect('json', { status: 'error', data: 'Malicious activity detected.' })
   })
 })
