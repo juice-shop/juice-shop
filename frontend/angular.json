@@ -35,9 +35,6 @@
               "node_modules/codemirror/lib/codemirror.css",
               "node_modules/codemirror/theme/dracula.css"
             ],
-            "stylePreprocessorOptions": {
-              "includePaths": ["src/styles"]
-            },
             "allowedCommonJsDependencies": [
               "jwt-decode",
               "file-saver",
