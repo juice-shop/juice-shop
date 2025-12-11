@@ -1,0 +1,80 @@
+.mat-card {
+  border: 0;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  aspect-ratio: 1 / 1;
+  padding: 0 1rem 1rem 0;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-box {
+  align-self: center;
+  width: 40%;
+  text-align: center;
+}
+
+.item-price {
+  font-size: initial;
+  margin-top: 12px;
+}
+
+.item-name {
+  font-size: large;
+}
+
+.img-thumbnail {
+  align-self: start;
+  height: auto;
+  object-fit: cover;
+  width: 60%; /* image ~60%, info-box ~40% */
+}
+
+.footer {
+  text-align: center;
+}
+
+.ribbon {
+  background-color: var(--theme-accent);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  font: 700 18px/1 'Lato', sans-serif;
+  left: -50px;
+  transform: rotate(-45deg);
+  padding: 1rem 0;
+  position: absolute;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  top: 25px;
+  width: 200px;
+  z-index: 1;
+}
+
+.ribbon-sold {
+  background-color: var(--theme-warn);
+  color: white;
+}
+
+.icon {
+  margin-right: 1.5rem;
+}
+.btn-basket {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-basket:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2.5rem;
+  bottom: 0;
+  background-color: var(--theme-accent);
+}
