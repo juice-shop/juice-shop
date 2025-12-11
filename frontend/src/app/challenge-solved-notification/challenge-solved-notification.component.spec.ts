@@ -38,6 +38,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
   let cookieService: any
   let challengeService: any
   let configurationService: any
+  let countryMappingService: any
   let mockSocket: any
 
   beforeEach(waitForAsync(() => {
@@ -53,6 +54,8 @@ describe('ChallengeSolvedNotificationComponent', () => {
     challengeService = jasmine.createSpyObj('ChallengeService', ['continueCode'])
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
+    countryMappingService = jasmine.createSpyObj('CountryMappingService', ['getCountryMapping'])
+    countryMappingService.getCountryMapping.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(),
@@ -67,7 +70,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
         { provide: CookieService, useValue: cookieService },
         { provide: ChallengeService, useValue: challengeService },
         { provide: ConfigurationService, useValue: configurationService },
-        CountryMappingService,
+        { provide: CountryMappingService, useValue: countryMappingService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
       ]
@@ -182,4 +185,25 @@ describe('ChallengeSolvedNotificationComponent', () => {
     expect(component.showCtfCountryDetailsInNotifications).toBe('none')
     expect(component.countryMap).toBeUndefined()
   })
+
+  it('should load countries for FBCTF when configured to show country details', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { showCountryDetailsInNotifications: 'both' } }))
+    countryMappingService.getCountryMapping.and.returnValue(of({ scoreBoardChallenge: { name: 'Canada', code: 'CA' }, errorHandlingChallenge: { name: 'Austria', code:'AT' }}))
+    component.ngOnInit()
+
+    expect(component.showCtfCountryDetailsInNotifications).toBe('both')
+    expect(component.countryMap).toEqual({ scoreBoardChallenge: { name: 'Canada', code: 'CA' }, errorHandlingChallenge: { name: 'Austria', code:'AT' }})
+  })
+
+  it('should show mapped country for FBCTF when configured accordingly', fakeAsync(() => {
+    translateService.get.and.returnValue(of('CHALLENGE_SOLVED'))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { showCountryDetailsInNotifications: 'both' } }))
+    countryMappingService.getCountryMapping.and.returnValue(of({ test: { name: 'Canada', code: 'CA' }}))
+    component.ngOnInit()
+    component.notifications = []
+    component.showNotification({ key: 'test', challenge: 'Test', flag: '1234' })
+    tick()
+
+    expect(component.notifications).toEqual([{ key: 'test', message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: { name: 'Canada', code: 'CA' } }])
+  }))
 })
