@@ -27,7 +27,7 @@ let initializationPromise: Promise<any> | null = null
 
 export async function initializeChatbot () {
   if (initializationPromise !== null) {
-    return initializationPromise
+    return await initializationPromise
   }
 
   initializationPromise = (async () => {
@@ -51,7 +51,7 @@ export async function initializeChatbot () {
     return bot.train()
   })()
 
-  return initializationPromise
+  return await initializationPromise
 }
 
 void initializeChatbot()
