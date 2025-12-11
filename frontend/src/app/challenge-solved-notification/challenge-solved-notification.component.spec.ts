@@ -10,6 +10,7 @@ import { CookieModule, CookieService } from 'ngy-cookie'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { type ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing'
 import { SocketIoService } from '../Services/socket-io.service'
@@ -39,6 +40,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
   let challengeService: any
   let configurationService: any
   let countryMappingService: any
+  let snackBarHelperService: any
   let mockSocket: any
 
   beforeEach(waitForAsync(() => {
@@ -56,6 +58,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
     countryMappingService = jasmine.createSpyObj('CountryMappingService', ['getCountryMapping'])
     countryMappingService.getCountryMapping.and.returnValue(of({}))
+    snackBarHelperService = jasmine.createSpyObj('SnackBarHelperService', ['open'])
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(),
@@ -71,6 +74,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
         { provide: ChallengeService, useValue: challengeService },
         { provide: ConfigurationService, useValue: configurationService },
         { provide: CountryMappingService, useValue: countryMappingService },
+        { provide: SnackBarHelperService, useValue: snackBarHelperService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
       ]
@@ -206,4 +210,29 @@ describe('ChallengeSolvedNotificationComponent', () => {
 
     expect(component.notifications).toEqual([{ key: 'test', message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: { name: 'Canada', code: 'CA' } }])
   }))
+
+  it('should copy text to clipboard when navigator.clipboard is available', fakeAsync(() => {
+    const mockClipboard = {
+      writeText: jasmine.createSpy('writeText').and.returnValue(Promise.resolve())
+    }
+    Object.defineProperty(navigator, 'clipboard', {
+      value: mockClipboard,
+      writable: true
+    })
+    component.copyToClipboard('test-flag-123')
+    tick()
+
+    expect(mockClipboard.writeText).toHaveBeenCalledWith('test-flag-123')
+    expect(snackBarHelperService.open).toHaveBeenCalledWith('COPY_SUCCESS', 'confirmBar')
+  }))
+
+  it('should not attempt to copy when navigator.clipboard is unavailable', () => {
+    Object.defineProperty(navigator, 'clipboard', {
+      value: undefined,
+      writable: true
+    })
+    component.copyToClipboard('test-flag-123')
+
+    expect(snackBarHelperService.open).not.toHaveBeenCalled()
+  })
 })
