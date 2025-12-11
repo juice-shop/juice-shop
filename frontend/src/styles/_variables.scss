@@ -1,0 +1,20 @@
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+// Spacing Tokens
+// Standardized spacing for margins, paddings, and gaps using REM units.
+// Example: margin-bottom: $space-m;
+
+$space-xxxs: 0.125rem; // 2px
+$space-xxs: 0.25rem;   // 4px
+$space-xs: 0.5rem;     // 8px
+$space-s: 0.625rem;    // 10px
+$space-m: 1rem;        // 16px
+$space-ms: 1.25rem;    // 20px
+$space-ml: 1.5rem;     // 24px
+$space-l: 2rem;        // 32px
+$space-xls: 2.5rem;    // 40px
+$space-xl: 3rem;       // 48px
+$space-xxl: 4rem;      // 64px
