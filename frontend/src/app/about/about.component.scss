@@ -2,9 +2,10 @@
  * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
+@import 'variables';
 
 mat-card {
-  margin-bottom: 30px;
+  margin-bottom: $space-l;
   margin-left: auto;
   margin-right: auto;
   width: 80%;
@@ -21,7 +22,7 @@ mat-card {
 }
 
 .social-nav {
-  margin-top: 20px;
+  margin-top: $space-m;
 }
 
 .social {
@@ -32,7 +33,7 @@ mat-card {
 }
 
 button {
-  margin: 5px;
+  margin: $space-xxs;
 }
 
 .text-justify {
@@ -46,7 +47,7 @@ button {
   color: rgb(255, 255, 255);
   left: 0;
   margin: 0;
-  padding: 10px;
+  padding: $space-s;
   position: absolute;
   right: 0;
 }
