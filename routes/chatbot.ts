@@ -23,26 +23,35 @@ import { challenges } from '../data/datacache'
 let trainingFile = config.get<string>('application.chatBot.trainingData')
 let testCommand: string
 export let bot: Bot | null = null
+let initializationPromise: Promise<any> | null = null
 
 export async function initializeChatbot () {
-  if (utils.isUrl(trainingFile)) {
-    const file = utils.extractFilename(trainingFile)
-    const data = await download(trainingFile)
-    await fs.writeFile('data/chatbot/' + file, data)
+  if (initializationPromise !== null) {
+    return initializationPromise
   }
 
-  await fs.copyFile(
-    'data/static/botDefaultTrainingData.json',
-    'data/chatbot/botDefaultTrainingData.json'
-  )
+  initializationPromise = (async () => {
+    if (utils.isUrl(trainingFile)) {
+      const file = utils.extractFilename(trainingFile)
+      const data = await download(trainingFile)
+      await fs.writeFile('data/chatbot/' + file, data)
+    }
 
-  trainingFile = utils.extractFilename(trainingFile)
-  const trainingSet = await fs.readFile(`data/chatbot/${trainingFile}`, 'utf8')
-  validateChatBot(JSON.parse(trainingSet))
+    await fs.copyFile(
+      'data/static/botDefaultTrainingData.json',
+      'data/chatbot/botDefaultTrainingData.json'
+    )
 
-  testCommand = JSON.parse(trainingSet).data[0].utterances[0]
-  bot = new Bot(config.get('application.chatBot.name'), config.get('application.chatBot.greeting'), trainingSet, config.get('application.chatBot.defaultResponse'))
-  return bot.train()
+    trainingFile = utils.extractFilename(trainingFile)
+    const trainingSet = await fs.readFile(`data/chatbot/${trainingFile}`, 'utf8')
+    validateChatBot(JSON.parse(trainingSet))
+
+    testCommand = JSON.parse(trainingSet).data[0].utterances[0]
+    bot = new Bot(config.get('application.chatBot.name'), config.get('application.chatBot.greeting'), trainingSet, config.get('application.chatBot.defaultResponse'))
+    return bot.train()
+  })()
+
+  return initializationPromise
 }
 
 void initializeChatbot()
