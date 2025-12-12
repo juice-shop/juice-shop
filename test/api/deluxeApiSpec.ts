@@ -99,7 +99,7 @@ describe('/rest/deluxe-membership', () => {
       })
   })
 
-  it('POST upgrade deluxe membership status for customers', async () => {
+  it('POST upgrade deluxe membership status for customers with card payment', async () => {
     const { token } = await login({
       email: `bender@${config.get<string>('application.domain')}`,
       password: 'OhG0dPlease1nsertLiquor!'
@@ -120,6 +120,40 @@ describe('/rest/deluxe-membership', () => {
     })
       .expect('status', 200)
       .expect('json', 'status', 'success')
+      .promise()
+  })
+
+  it('POST upgrade deluxe membership status for customers with wallet payment', async () => {
+    const { token } = await login({
+      email: `mc.safesearch@${config.get<string>('application.domain')}`,
+      password: 'Mr. N00dles'
+    })
+
+    await frisby.post(REST_URL + '/deluxe-membership', {
+      headers: { Authorization: 'Bearer ' + token, 'content-type': 'application/json' },
+      body: {
+        paymentMode: 'wallet'
+      }
+    })
+      .expect('status', 200)
+      .expect('json', 'status', 'success')
+      .promise()
+  })
+
+  it('POST upgrade deluxe membership fails for customers with insufficient wallet balance', async () => {
+    const { token } = await login({
+      email: `amy@${config.get<string>('application.domain')}`,
+      password: 'K1f.....................'
+    })
+
+    await frisby.post(REST_URL + '/deluxe-membership', {
+      headers: { Authorization: 'Bearer ' + token, 'content-type': 'application/json' },
+      body: {
+        paymentMode: 'wallet'
+      }
+    })
+      .expect('status', 400)
+        .expect('json', 'error', 'Insuffienct funds in Wallet')
       .promise()
   })
 
