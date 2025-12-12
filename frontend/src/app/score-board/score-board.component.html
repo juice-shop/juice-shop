@@ -38,6 +38,7 @@
           [openCodingChallengeDialog]="openCodingChallengeDialog.bind(this)"
           [repeatChallengeNotification]="repeatChallengeNotification.bind(this)"
           [unlockHint]="unlockHint.bind(this)"
+          [lastUnlockedChallengeKey]="lastUnlockedChallengeKey"
           [ngClass]="{ solved: challenge.solved, unsolved: !challenge.solved, disabled: challenge.disabledEnv !== null }"
           />
       }
