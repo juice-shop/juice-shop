@@ -74,7 +74,7 @@ describe('ChallengeCard', () => {
   it('should copy payload to clipboard and show confirmation', async () => {
     const codeTag = appendCodeToFixture('javascript:alert(`xss`)')
 
-    spyOnProperty(navigator as any, 'clipboard', 'get').and.returnValue({ writeText: jasmine.createSpy('writeText').and.returnValue(Promise.resolve()) })
+    spyOn(navigator.clipboard, 'writeText').and.returnValue(Promise.resolve())
     spyOn((component as any).snackBarHelperService, 'open')
 
     component.copyPayload({ target: codeTag } as unknown as MouseEvent)
@@ -89,7 +89,7 @@ describe('ChallengeCard', () => {
     const existingCodeTag = fixture.nativeElement.querySelector('code')
     if (existingCodeTag) existingCodeTag.remove()
 
-    spyOnProperty(navigator as any, 'clipboard', 'get').and.returnValue({ writeText: jasmine.createSpy('writeText').and.returnValue(Promise.resolve()) })
+    spyOn(navigator.clipboard, 'writeText').and.returnValue(Promise.resolve())
     spyOn((component as any).snackBarHelperService, 'open')
 
     component.copyPayload({ target: fixture.nativeElement } as unknown as MouseEvent)
@@ -103,7 +103,7 @@ describe('ChallengeCard', () => {
   it('should handle unavailable clipboard gracefully', async () => {
     const codeTag = appendCodeToFixture('javascript:alert(`xss`)')
 
-    spyOnProperty(navigator as any, 'clipboard', 'get').and.returnValue(undefined)
+    Object.defineProperty(navigator, 'clipboard', { value: undefined, configurable: true })
     spyOn((component as any).snackBarHelperService, 'open')
 
     component.copyPayload({ target: codeTag } as unknown as MouseEvent)
