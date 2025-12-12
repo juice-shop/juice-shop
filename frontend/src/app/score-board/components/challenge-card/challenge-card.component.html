@@ -91,8 +91,9 @@
         class="badge not-completable"
         [style.padding]="'0 6px 0 4px'"
         [matTooltip]="challenge.hintText + (challenge.nextHint ? '\n\n' + ('CLICK_TO_UNLOCK_NEXT_HINT' | translate: { next: challenge.hintsUnlocked+1, total: challenge.hintsAvailable}) : '')"
+        #hintTooltip="matTooltip"
         matTooltipClass="multiline-tooltip"
-        (click)="unlockHint(challenge.nextHint)"
+        (click)="unlockHint(challenge.nextHint, challenge.key)"
         [disabled]="!challenge.nextHint"
         >
         <mat-icon>{{ challenge.nextHint ? 'lightbulb_outlined' : 'lightbulb' }}</mat-icon>
