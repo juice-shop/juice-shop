@@ -74,14 +74,20 @@ describe('ChallengeCard', () => {
   it('should copy payload to clipboard and show confirmation', async () => {
     const codeTag = appendCodeToFixture('javascript:alert(`xss`)')
 
-    spyOn(navigator.clipboard, 'writeText').and.returnValue(Promise.resolve())
+    const mockClipboard = {
+      writeText: jasmine.createSpy('writeText').and.returnValue(Promise.resolve())
+    }
+    Object.defineProperty(navigator, 'clipboard', {
+      value: mockClipboard,
+      writable: true
+    })
     spyOn((component as any).snackBarHelperService, 'open')
 
     component.copyPayload({ target: codeTag } as unknown as MouseEvent)
     fixture.detectChanges()
     await fixture.whenStable()
 
-    expect((navigator as any).clipboard.writeText).toHaveBeenCalledWith('javascript:alert(`xss`)')
+    expect(mockClipboard.writeText).toHaveBeenCalledWith('javascript:alert(`xss`)')
     expect((component as any).snackBarHelperService.open).toHaveBeenCalledWith('COPY_SUCCESS', 'confirmBar')
   })
 
@@ -89,21 +95,27 @@ describe('ChallengeCard', () => {
     const existingCodeTag = fixture.nativeElement.querySelector('code')
     if (existingCodeTag) existingCodeTag.remove()
 
-    spyOn(navigator.clipboard, 'writeText').and.returnValue(Promise.resolve())
+    const mockClipboard = {
+      writeText: jasmine.createSpy('writeText').and.returnValue(Promise.resolve())
+    }
+    Object.defineProperty(navigator, 'clipboard', {
+      value: mockClipboard,
+      writable: true
+    })
     spyOn((component as any).snackBarHelperService, 'open')
 
     component.copyPayload({ target: fixture.nativeElement } as unknown as MouseEvent)
     fixture.detectChanges()
     await fixture.whenStable()
 
-    expect((navigator as any).clipboard.writeText).not.toHaveBeenCalled()
+    expect(mockClipboard.writeText).not.toHaveBeenCalled()
     expect((component as any).snackBarHelperService.open).not.toHaveBeenCalled()
   })
 
   it('should handle unavailable clipboard gracefully', async () => {
     const codeTag = appendCodeToFixture('javascript:alert(`xss`)')
 
-    Object.defineProperty(navigator, 'clipboard', { value: undefined, configurable: true })
+    Object.defineProperty(navigator, 'clipboard', { value: undefined, writable: true })
     spyOn((component as any).snackBarHelperService, 'open')
 
     component.copyPayload({ target: codeTag } as unknown as MouseEvent)
