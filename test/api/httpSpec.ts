@@ -38,4 +38,10 @@ describe('HTTP', () => {
       .expect('status', 200)
       .expectNot('header', 'X-XSS-Protection')
   })
+
+  it('unexpected path under known sub-path caught by generic error handler', () => {
+    return frisby.get(URL + '/rest/x')
+      .expect('status', 500)
+      .expect('bodyContains', '<title>Error: Unexpected path: /rest/x</title>')
+  })
 })
