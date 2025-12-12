@@ -12,7 +12,6 @@ import type { Product, Challenge } from 'data/types'
 import type { Product as ProductConfig } from '../../lib/config.types'
 import * as security from '../../lib/insecurity'
 import { type UserModel } from 'models/user'
-import * as utils from '../../lib/utils'
 import * as verify from '../../routes/verify'
 import { isWindows } from '../../lib/utils'
 const expect = chai.expect
