@@ -153,7 +153,7 @@ describe('/rest/deluxe-membership', () => {
       }
     })
       .expect('status', 400)
-        .expect('json', 'error', 'Insuffienct funds in Wallet')
+      .expect('json', 'error', 'Insuffienct funds in Wallet')
       .promise()
   })
 
