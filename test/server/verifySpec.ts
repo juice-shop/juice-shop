@@ -252,7 +252,7 @@ describe('verify', () => {
   describe('jwtChallenges', () => {
     beforeEach(() => {
       challenges.jwtUnsignedChallenge = { solved: false, save } as unknown as Challenge
-      challenges.jwtForgedChallenge = { solved: false, save } as unknown as Challenge
+      challenges.jwtForgedChallenge = { solved: false, save, disabledEnv: ['Windows'] } as unknown as Challenge
     })
 
     it('"jwtUnsignedChallenge" is solved when forged unsigned token has email jwtn3d@juice-sh.op in the payload', () => {
@@ -285,7 +285,7 @@ describe('verify', () => {
 
       verify.jwtChallenges()(req, res, next)
 
-      expect(challenges.jwtForgedChallenge.solved).to.equal(false)
+      expect(challenges.jwtUnsignedChallenge.solved).to.equal(false)
     })
 
     if (utils.isChallengeEnabled(challenges.jwtForgedChallenge)) {
