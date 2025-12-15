@@ -114,7 +114,7 @@ describe('utils', () => {
     })
   })
 
-  describe('utils.getChallengeEnablementStatus', () => {
+  describe('getChallengeEnablementStatus', () => {
     const defaultIsEnvironmentFunctions = {
       isDocker: () => false,
       isHeroku: () => false,
@@ -163,5 +163,49 @@ describe('utils', () => {
           .to.deep.equal({ enabled: true, disabledBecause: null })
       })
     }
+  })
+
+  describe('startsWith', () => {
+    it('accepts string starting with another string', () => {
+      expect(utils.startsWith('Bla Blubb', 'Bla')).to.equal(true)
+    })
+
+    it('rejects string not starting with another string', () => {
+      expect(utils.startsWith('Bla Blubb', 'Lala')).to.equal(false)
+    })
+  })
+
+  describe('endsWith', () => {
+    it('accepts string ending with another string', () => {
+      expect(utils.endsWith('Bla Blubb', 'Blubb')).to.equal(true)
+    })
+
+    it('rejects string not ending with another string', () => {
+      expect(utils.endsWith('Bla Blubb', 'Lala')).to.equal(false)
+    })
+  })
+
+  describe('contains', () => {
+    it('accepts string containing another string', () => {
+      expect(utils.contains('Bla Blubb', 'la Bl')).to.equal(true)
+    })
+
+    it('rejects string containing another string', () => {
+      expect(utils.contains('Bla Blubb', 'Lala')).to.equal(false)
+    })
+  })
+
+  describe('toISO8601', () => {
+    it('converts date to ISO 8601 representation', () => {
+      expect(utils.toISO8601(new Date('2025-12-15T00:00:00Z'))).to.equal('2025-12-15')
+    })
+
+    it('prepends single-digit months with a zero', () => {
+      expect(utils.toISO8601(new Date('2025-03-15T00:00:00Z'))).to.equal('2025-03-15')
+    })
+
+    it('prepends single-digit days with a zero', () => {
+      expect(utils.toISO8601(new Date('2025-12-01T00:00:00Z'))).to.equal('2025-12-01')
+    })
   })
 })
