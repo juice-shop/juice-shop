@@ -69,6 +69,9 @@ export class CodeSnippetComponent implements OnInit {
   public solved: Solved = { findIt: false, fixIt: false }
   public showFeedbackButtons = true
   public randomFixes: RandomFixes[] = []
+  private snippetLoaded = false
+  private fixesLoaded = false
+  private initialTabSet = false
 
   ngOnInit (): void {
     this.configurationService.getApplicationConfiguration().subscribe({
@@ -86,9 +89,13 @@ export class CodeSnippetComponent implements OnInit {
           this.result = ResultState.Right
           this.solved.findIt = true
         }
+        this.snippetLoaded = true
+        this.setInitialTabIfReady()
       },
       error: (err) => {
         this.snippet = { snippet: err.error }
+        this.snippetLoaded = true
+        this.setInitialTabIfReady()
       }
     })
     this.codeFixesService.get(this.dialogData.key).subscribe({
@@ -98,9 +105,13 @@ export class CodeSnippetComponent implements OnInit {
           this.shuffle()
         }
         this.solved.fixIt = this.dialogData.codingChallengeStatus >= 2
+        this.fixesLoaded = true
+        this.setInitialTabIfReady()
       },
       error: () => {
         this.fixes = null
+        this.fixesLoaded = true
+        this.setInitialTabIfReady()
       }
     })
   }
@@ -228,5 +239,24 @@ export class CodeSnippetComponent implements OnInit {
       case 'clear':
         return 'warn'
     }
+  }
+
+  private setInitialTabIfReady (): void {
+    if (this.initialTabSet) return
+    if (!this.snippetLoaded || !this.fixesLoaded) return
+
+    const status = this.dialogData.codingChallengeStatus
+    let initialIndex = 0
+    if (status >= 2) {
+      initialIndex = 0
+    } else if (status >= 1 && this.fixes !== null) {
+      initialIndex = 1
+    } else {
+      initialIndex = 0
+    }
+
+    this.tab.setValue(initialIndex)
+    this.toggleTab(initialIndex)
+    this.initialTabSet = true
   }
 }
