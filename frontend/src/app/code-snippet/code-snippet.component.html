@@ -8,7 +8,7 @@
     <mat-tab>
       <ng-template mat-tab-label>
         <span class="tab-header-text">{{'TAB_FIND_IT' | translate}}</span>
-        <mat-icon class="materaial-icons-outlined" [color]="lockColor()">{{lockIcon()}}</mat-icon>
+        <mat-icon class="materaial-icons-outlined" [color]="findLockColor()">{{findLockIcon()}}</mat-icon>
       </ng-template>
       @if (snippet !== null) {
         <app-code-area [code]="snippet?.snippet" [vulnLines]="snippet?.vulnLines" (addLine)="addLine($event)"></app-code-area>
@@ -16,10 +16,10 @@
         <pre><code translate>LOADING_CODE_SNIPPET</code></pre>
       }
     </mat-tab>
-    <mat-tab [disabled]="lockIcon() === 'lock'">
+    <mat-tab [disabled]="fixes === null || !solved.findIt">
       <ng-template mat-tab-label>
         <span class="tab-header-text">{{'TAB_FIX_IT' | translate}}</span>
-        <mat-icon class="materaial-icons-outlined" [color]="lockColor()">{{lockIcon()}}</mat-icon>
+        <mat-icon class="materaial-icons-outlined" [color]="fixLockColor()">{{fixLockIcon()}}</mat-icon>
       </ng-template>
       @if (snippet !== null && fixes !== null) {
         <app-code-fixes [snippet]="snippet?.snippet" [fixes]="fixes"
