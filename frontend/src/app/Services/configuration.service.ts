@@ -80,7 +80,6 @@ export interface Config {
     restrictToTutorialsFirst: boolean
     safetyMode: string
     overwriteUrlForProductTamperingChallenge: string
-    showFeedbackButtons: boolean
   }
   hackingInstructor: {
     isEnabled: boolean
