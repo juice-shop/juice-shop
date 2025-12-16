@@ -63,7 +63,6 @@ export class CodeSnippetComponent implements OnInit {
   public selectedLines: number[]
   public selectedFix = 0
   public tab: UntypedFormControl = new UntypedFormControl(0)
-  public lock: ResultState = ResultState.Undecided
   public result: ResultState = ResultState.Undecided
   public hint: string = null
   public explanation: string = null
@@ -85,7 +84,6 @@ export class CodeSnippetComponent implements OnInit {
         this.solved.findIt = false
         if (this.dialogData.codingChallengeStatus >= 1) {
           this.result = ResultState.Right
-          this.lock = ResultState.Right
           this.solved.findIt = true
         }
       },
@@ -145,27 +143,22 @@ export class CodeSnippetComponent implements OnInit {
     })
   }
 
-  lockIcon (): string {
-    if (this.fixes === null) {
-      return 'lock'
-    }
-    switch (this.lock) {
-      case ResultState.Right:
-        return 'lock_open'
-      case ResultState.Wrong:
-        return 'lock'
-      case ResultState.Undecided:
-        return 'lock'
-    }
+  findLockIcon (): string {
+    return this.solved.findIt ? 'lock_open' : 'lock'
   }
 
-  lockColor (): ThemePalette {
-    switch (this.lockIcon()) {
-      case 'lock_open':
-        return 'accent'
-      case 'lock':
-        return 'warn'
-    }
+  findLockColor (): ThemePalette {
+    return this.solved.findIt ? 'accent' as ThemePalette : 'warn' as ThemePalette
+  }
+
+  fixLockIcon (): string {
+    if (this.fixes === null) return 'lock'
+    return this.solved.fixIt ? 'lock_open' : 'lock'
+  }
+
+  fixLockColor (): ThemePalette {
+    if (this.fixes === null) return 'warn' as ThemePalette
+    return this.solved.fixIt ? 'accent' as ThemePalette : 'warn' as ThemePalette
   }
 
   shuffle () {
@@ -206,7 +199,6 @@ export class CodeSnippetComponent implements OnInit {
         })
       }
       this.result = ResultState.Right
-      this.lock = ResultState.Right
       import('../../confetti').then(module => {
         module.shootConfetti()
       })
