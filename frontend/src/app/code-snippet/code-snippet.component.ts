@@ -12,9 +12,8 @@ import { Component, type OnInit, inject } from '@angular/core'
 
 import { MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog'
 import { UntypedFormControl, FormsModule } from '@angular/forms'
-import { ConfigurationService } from '../Services/configuration.service'
 import { type ThemePalette } from '@angular/material/core'
-import { MatIconButton, MatButtonModule } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
 
@@ -47,11 +46,10 @@ export interface RandomFixes {
   templateUrl: './code-snippet.component.html',
   styleUrls: ['./code-snippet.component.scss'],
   host: { class: 'code-snippet' },
-  imports: [MatDialogTitle, MatDialogContent, MatTabGroup, MatTab, CodeAreaComponent, TranslateModule, MatTabLabel, MatIconModule, CodeFixesComponent, MatDialogActions, MatCardModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, MatIconButton, MatButtonModule, MatDialogClose]
+  imports: [MatDialogTitle, MatDialogContent, MatTabGroup, MatTab, CodeAreaComponent, TranslateModule, MatTabLabel, MatIconModule, CodeFixesComponent, MatDialogActions, MatCardModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, MatButtonModule, MatDialogClose]
 })
 export class CodeSnippetComponent implements OnInit {
   dialogData = inject(MAT_DIALOG_DATA)
-  private readonly configurationService = inject(ConfigurationService)
   private readonly codeSnippetService = inject(CodeSnippetService)
   private readonly vulnLinesService = inject(VulnLinesService)
   private readonly codeFixesService = inject(CodeFixesService)
@@ -67,20 +65,12 @@ export class CodeSnippetComponent implements OnInit {
   public hint: string = null
   public explanation: string = null
   public solved: Solved = { findIt: false, fixIt: false }
-  public showFeedbackButtons = true
   public randomFixes: RandomFixes[] = []
   private snippetLoaded = false
   private fixesLoaded = false
   private initialTabSet = false
 
   ngOnInit (): void {
-    this.configurationService.getApplicationConfiguration().subscribe({
-      next: (config) => {
-        this.showFeedbackButtons = config.challenges.showFeedbackButtons
-      },
-      error: (err) => { console.log(err) }
-    })
-
     this.codeSnippetService.get(this.dialogData.key).subscribe({
       next: (snippet) => {
         this.snippet = snippet
