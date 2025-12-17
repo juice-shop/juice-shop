@@ -1,0 +1,5 @@
+Contribution Summary:
+- Added a new contribution.txt file
+- This file explains the purpose of my contribution
+- Prepared the repository for future enhancements
+
