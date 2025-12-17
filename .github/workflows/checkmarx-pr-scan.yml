@@ -1,0 +1,27 @@
+name: Checkmarx PR Scan
+ 
+on:
+  pull_request:
+    branches: [ main, master ]
+ 
+jobs:
+  checkmarx:
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+ 
+    - name: Run Checkmarx One Scan
+      uses: checkmarx/ast-github-action@v2
+      with:
+        project_name: github-${{ github.repository }}
+        cx_tenant: ${{ secrets.CX_TENANT }}
+        base_uri: ${{ secrets.CX_BASE_URI }}
+        cx_client_id: ${{ secrets.CX_CLIENT_ID }}
+        cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
+        additional_params: |
+          --scan-types sast,sca,iac
+          --pr
+          --branch ${{ github.head_ref }}
+          --base-branch ${{ github.base_ref }}
