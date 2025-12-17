@@ -33,6 +33,17 @@
               }
             </div>
           }
+          @if (notification.hasCodingChallenge) {
+            <div class="notification-actions">
+              <button
+                class="view-challenge-button"
+                (click)="navigateToChallenge(notification.key)"
+              >
+                <mat-icon>code</mat-icon>
+                <span>{{ "LAUNCH ASSOCIATED CODING CHALLANGE" | translate }}</span>
+              </button>
+            </div>
+          }
         </div>
       </mat-card>
     }

@@ -1,4 +1,4 @@
-import { Component, Input, type OnInit, inject, type OnChanges, type SimpleChanges, ViewChild } from '@angular/core'
+import { Component, Input, type OnInit, inject, type OnChanges, type SimpleChanges, ViewChild, HostBinding } from '@angular/core'
 import { EnrichedChallenge } from '../../types/EnrichedChallenge'
 import { Config } from 'src/app/Services/configuration.service'
 import { TranslateModule } from '@ngx-translate/core'
@@ -38,6 +38,16 @@ export class ChallengeCardComponent implements OnInit, OnChanges {
   @ViewChild('hintTooltip')
   public hintTooltip?: MatTooltip
 
+  @ViewChild('codingChallengeTooltip')
+  public codingChallengeTooltip?: MatTooltip
+
+  @Input()
+  public highlightCodingButton: boolean = false
+
+  @Input()
+  @HostBinding('attr.id')
+  public challengeId?: string
+
   private previousHintsUnlocked?: number
 
   public hasInstructions: (challengeName: string) => boolean = () => false
@@ -60,6 +70,18 @@ export class ChallengeCardComponent implements OnInit, OnChanges {
         queueMicrotask(() => setTimeout(()=>{this.hintTooltip?.show()}, 50))
       }
       this.previousHintsUnlocked = currentHintsUnlocked
+    }
+
+    if (changes['highlightCodingButton']) {
+      if (changes['highlightCodingButton'].currentValue === true) {
+        queueMicrotask(() => {
+          setTimeout(() => {
+            this.codingChallengeTooltip?.show()
+          }, 1000)
+        })
+      } else if (changes['highlightCodingButton'].previousValue === true && changes['highlightCodingButton'].currentValue === false) {
+        this.codingChallengeTooltip?.hide()
+      }
     }
   }
 
