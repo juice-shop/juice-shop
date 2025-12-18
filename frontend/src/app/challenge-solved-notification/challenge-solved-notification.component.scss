@@ -42,32 +42,32 @@ mat-card {
 }
 
 .notification-actions {
-  margin-top: 12px;
   display: flex;
   justify-content: flex-start;
+  margin-top: 12px;
 }
 
 .view-challenge-button {
-  display: inline-flex;
   align-items: center;
-  gap: 6px;
 
-  padding: 6px 12px;
-  height: 32px;
-
-  background-color: #ffffff;
-  color: #2e7d32;
-  border-radius: 6px;
+  background-color: #fff;
   border: 1px solid rgba(46, 125, 50, 0.35);
+  border-radius: 6px;
+  color: #2e7d32;
+
+  cursor: pointer;
+  display: inline-flex;
 
   font-size: 12px;
   font-weight: 700;
+  gap: 6px;
+  height: 32px;
   letter-spacing: 0.3px;
 
-  cursor: pointer;
+  padding: 6px 12px;
   transition: background-color 0.15s ease,
-              box-shadow 0.15s ease,
-              transform 0.05s ease;
+    box-shadow 0.15s ease,
+    transform 0.05s ease;
 
   mat-icon {
     font-size: 18px;
