@@ -21,29 +21,33 @@ export function resetPassword () {
     const repeatPassword = body.repeat
     if (!email || !answer) {
       next(new Error('Blocked illegal activity by ' + connection.remoteAddress))
-    } else if (!newPassword || newPassword === 'undefined') {
+      return
+    }
+    if (!newPassword || newPassword === 'undefined') {
       res.status(401).send(res.__('Password cannot be empty.'))
-    } else if (newPassword !== repeatPassword) {
+      return
+    }
+    if (newPassword !== repeatPassword) {
       res.status(401).send(res.__('New and repeated password do not match.'))
-    } else {
-      try {
-        const data = await SecurityAnswerModel.findOne({
-          include: [{
-            model: UserModel,
-            where: { email }
-          }]
-        })
-        if ((data != null) && security.hmac(answer) === data.answer) {
-          const user = await UserModel.findByPk(data.UserId)
-          const updatedUser = await user?.update({ password: newPassword })
-          verifySecurityAnswerChallenges(updatedUser, answer)
-          res.json({ user: updatedUser })
-        } else {
-          res.status(401).send(res.__('Wrong answer to security question.'))
-        }
-      } catch (error) {
-        next(error)
+      return
+    }
+    try {
+      const data = await SecurityAnswerModel.findOne({
+        include: [{
+          model: UserModel,
+          where: { email }
+        }]
+      })
+      if ((data != null) && security.hmac(answer) === data.answer) {
+        const user = await UserModel.findByPk(data.UserId)
+        const updatedUser = await user?.update({ password: newPassword })
+        verifySecurityAnswerChallenges(updatedUser, answer)
+        res.json({ user: updatedUser })
+      } else {
+        res.status(401).send(res.__('Wrong answer to security question.'))
       }
+    } catch (error) {
+      next(error)
     }
   }
 }
