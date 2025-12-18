@@ -356,7 +356,7 @@
   "INFO_FULL_CHALLENGE_MODE": "Completa le rimanenti sfide tutorial per svelare tutte le {{num}} sfide e sbloccate i filtri Tabellone Segnapunti avanzati!",
   "INFO_NEXT_TUTORIAL_TIER": "Complete the {{tier}} tutorial challenges to unveil the next difficulty tier!",
   "SHOW_COMMENT": "Mostra Commento",
-  "INFO_VULNERABILITY_MITIGATION_LINK": "Click to learn how to avoid or mitigate similar vulnerabilities!",
+  "INFO_VULNERABILITY_MITIGATION_LINK": "Clicca per scoprire come evitare o mitigare vulnerabilità simili!",
   "BACKUP_HEADLINE": "File Based Backups",
   "BTN_SAVE_BACKUP": "Salva Backup",
   "SAVE_BACKUP_TOOLTIP": "Save challenge progress and application settings to file.",
