@@ -20,7 +20,6 @@ import { CodingChallengesInstruction } from './challenges/codingChallenges'
 import { AdminSectionInstruction } from './challenges/adminSection'
 import { ReflectedXssInstruction } from './challenges/reflectedXss'
 import { ExposedCredentialsInstruction } from './challenges/exposedCredentials'
-import { waitInMs } from './helpers/helpers'
 
 const challengeInstructions: ChallengeInstruction[] = [
   ScoreBoardInstruction,
@@ -40,15 +39,15 @@ const challengeInstructions: ChallengeInstruction[] = [
 ]
 
 challengeInstructions.map((challenge) => {
-  const lastHint = challenge.hints.at(-1);
+  const lastHint = challenge.hints.at(-1)
   if (lastHint) {
     lastHint.text +=
       `\n\n---\n\n` +
       `Liked this Challenge?... Solve some Coding-Challenges related to this challenge.\n\n` +
-      `##### [What are coding challenges?](https://demo.owasp-juice.shop/#/hacking-instructor?challenge=Coding%20Challenges)`;
+      `##### [What are coding challenges?](https://demo.owasp-juice.shop/#/hacking-instructor?challenge=Coding%20Challenges)`
   }
-  return challenge;
-});
+  return challenge
+})
 
 export interface ChallengeInstruction {
   name: string
