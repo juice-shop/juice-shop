@@ -44,7 +44,7 @@ interface CodeChallengeSolvedWebsocket {
   styleUrls: ['./score-board.component.scss'],
   imports: [HackingChallengeProgressScoreCardComponent, CodingChallengeProgressScoreCardComponent, DifficultyOverviewScoreCardComponent, FilterSettingsComponent, MatProgressSpinner, ChallengesUnavailableWarningComponent, TutorialModeWarningComponent, ChallengeCardComponent, NgClass, TranslateModule]
 })
-export class ScoreBoardComponent implements OnInit, OnDestroy {
+export class ScoreBoardComponent implements OnInit, OnDestroy, AfterViewInit {
   private readonly challengeService = inject(ChallengeService)
   private readonly hintService = inject(HintService)
   private readonly configurationService = inject(ConfigurationService)
@@ -223,7 +223,7 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
         element.scrollIntoView({ behavior: 'smooth', block: 'center' })
       }
       else{
-        return;
+        return
       }
       setTimeout(() => {
         this.highlightedChallengeKey = null
