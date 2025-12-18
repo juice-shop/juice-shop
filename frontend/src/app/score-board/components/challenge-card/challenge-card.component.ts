@@ -42,7 +42,7 @@ export class ChallengeCardComponent implements OnInit, OnChanges {
   public codingChallengeTooltip?: MatTooltip
 
   @Input()
-  public highlightCodingButton: boolean = false
+  public highlightCodingButton = false
 
   @Input()
   @HostBinding('attr.id')

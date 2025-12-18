@@ -51,7 +51,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
   private readonly ref = inject(ChangeDetectorRef)
   private readonly io = inject(SocketIoService)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
-  private readonly router = inject(Router);
+  private readonly router = inject(Router)
 
   public notifications: ChallengeSolvedNotification[] = []
   public showCtfFlagsInNotifications = false
@@ -124,13 +124,13 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
           country = this.countryMap[challenge.key]
         }
 
-        let hasCodingChallenge = false;
+        let hasCodingChallenge = false
         this.challengeService.find().subscribe({
           next: (challenges) => {
             const matchingChallenge = challenges.find(
               (c) => c.key === challenge.key
-            );
-            hasCodingChallenge = matchingChallenge?.hasCodingChallenge ?? false;
+            )
+            hasCodingChallenge = matchingChallenge?.hasCodingChallenge ?? false
 
             this.notifications.push({
               message,
@@ -139,8 +139,8 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
               country,
               copied: false,
               hasCodingChallenge,
-            });
-            this.ref.detectChanges();
+            })
+            this.ref.detectChanges()
             
           },
           error: () => {
@@ -151,8 +151,8 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
               country,
               copied: false,
               hasCodingChallenge: false,
-            });
-            this.ref.detectChanges();
+            })
+            this.ref.detectChanges()
           },
         })
         this.ref.detectChanges()
@@ -183,12 +183,12 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
 
   navigateToChallenge(challengeKey: string) {
     if (!challengeKey) {
-      return;
+      return
     }
     this.ngZone.run(() => {
       void this.router.navigate(["/score-board"], {
         queryParams: { highlightChallenge: challengeKey },
-      });
-    });
+      })
+    })
   }
 }
