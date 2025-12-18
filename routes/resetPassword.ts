@@ -14,7 +14,7 @@ import * as security from '../lib/insecurity'
 import { UserModel } from '../models/user'
 
 export function resetPassword () {
-  return ({ body, connection }: Request, res: Response, next: NextFunction) => {
+  return async ({ body, connection }: Request, res: Response, next: NextFunction) => {
     const email = body.email
     const answer = body.answer
     const newPassword = body.new
@@ -26,29 +26,24 @@ export function resetPassword () {
     } else if (newPassword !== repeatPassword) {
       res.status(401).send(res.__('New and repeated password do not match.'))
     } else {
-      SecurityAnswerModel.findOne({
-        include: [{
-          model: UserModel,
-          where: { email }
-        }]
-      }).then((data: SecurityAnswerModel | null) => {
+      try {
+        const data = await SecurityAnswerModel.findOne({
+          include: [{
+            model: UserModel,
+            where: { email }
+          }]
+        })
         if ((data != null) && security.hmac(answer) === data.answer) {
-          UserModel.findByPk(data.UserId).then((user: UserModel | null) => {
-            user?.update({ password: newPassword }).then((user: UserModel) => {
-              verifySecurityAnswerChallenges(user, answer)
-              res.json({ user })
-            }).catch((error: unknown) => {
-              next(error)
-            })
-          }).catch((error: unknown) => {
-            next(error)
-          })
+          const user = await UserModel.findByPk(data.UserId)
+          const updatedUser = await user?.update({ password: newPassword })
+          verifySecurityAnswerChallenges(updatedUser, answer)
+          res.json({ user: updatedUser })
         } else {
           res.status(401).send(res.__('Wrong answer to security question.'))
         }
-      }).catch((error: unknown) => {
+      } catch (error) {
         next(error)
-      })
+      }
     }
   }
 }
