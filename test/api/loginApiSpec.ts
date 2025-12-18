@@ -37,6 +37,10 @@ describe('/rest/user/login', () => {
             umail: Joi.string(),
             bid: Joi.number()
           })
+          // New assertions
+          .expect('json', 'authentication.umail', 'kalli@kasper.le')
+          .expect('json', 'authentication.bid', Joi.number().greater(0))
+          .expect('jsonTypes', 'authentication.token', Joi.string().min(1))
       })
   })
 
