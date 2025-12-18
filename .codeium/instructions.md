@@ -4,7 +4,7 @@ This file provides guidelines for using Codeium when contributing to OWASP Juice
 
 ## Primary Reference
 
-For comprehensive guidelines on using AI assistants (including Codeium) with this project, please refer to [CLAUDE.md](../.claude/CLAUDE.mdLAUDE.md). That document covers:
+For comprehensive guidelines on using AI assistants (including Codeium) with this project, please refer to [CLAUDE.md](../CLAUDE.md). That document covers:
 
 - Recommended use cases
 - Code quality and style requirements
@@ -13,7 +13,7 @@ For comprehensive guidelines on using AI assistants (including Codeium) with thi
 - Development workflow best practices
 - Quality checklists
 
-**All contributors using Codeium must follow the guidelines in [CLAUDE.md](../.claude/CLAUDE.mdLAUDE.md) before submitting pull requests.**
+**All contributors using Codeium must follow the guidelines in [CLAUDE.md](../CLAUDE.md) before submitting pull requests.**
 
 ## Codeium-Specific Context
 
@@ -34,9 +34,9 @@ The following context is provided to help Codeium better assist with contributio
    - Approved by maintainers before implementation
    - Well-documented in challenges
 
-2. **Challenge Development**: Do not create challenges without prior maintainer discussion. Consult [CLAUDE.md](../.claude/CLAUDE.mdLAUDE.md#recommended-use-cases) before proposing new challenges.
+2. **Challenge Development**: Do not create challenges without prior maintainer discussion. Consult [CLAUDE.md](../CLAUDE.md#recommended-use-cases) before proposing new challenges.
 
-3. **Code Changes and RSN**: When modifying code that is part of a coding challenge, the Refactoring Safety Net (RSN) must pass. See [CLAUDE.md](../.claude/CLAUDE.mdLAUDE.md#refactoring-safety-net-rsn) for details.
+3. **Code Changes and RSN**: When modifying code that is part of a coding challenge, the Refactoring Safety Net (RSN) must pass. See [CLAUDE.md](../CLAUDE.md#refactoring-safety-net-rsn) for details.
 
 4. **Dependency Updates**: Always verify compatibility when suggesting package updates. Check:
    - `package.json` (backend)
@@ -63,7 +63,7 @@ Before suggesting code or accepting Codeium suggestions, ensure:
 - Tests pass: `npm test`, `npm run frisby`, `npm run cypress:open`
 - RSN passes (if modifying challenge-related code): `npm run rsn`
 - Code follows JS Standard Style
-- AI-generated noise is removed (see [CLAUDE.md](../.claude/CLAUDE.mdLAUDE.md#1-clean-up-ai-generated-noise))
+- AI-generated noise is removed (see [CLAUDE.md](../CLAUDE.md#1-clean-up-ai-generated-noise))
 - Commits are signed off: `git commit -s`
 
 ### Common Tasks with Codeium
@@ -80,7 +80,7 @@ Before suggesting code or accepting Codeium suggestions, ensure:
 
 ## Quick Checklist for Codeium-Assisted Work
 
-- [ ] Reviewed [CLAUDE.md](../.claude/CLAUDE.mdLAUDE.md) guidelines
+- [ ] Reviewed [CLAUDE.md](../CLAUDE.md) guidelines
 - [ ] Code passes ESLint (`npm run lint`)
 - [ ] Tests pass (`npm test`, `npm run frisby`)
 - [ ] RSN passes if applicable (`npm run rsn`)
@@ -92,7 +92,7 @@ Before suggesting code or accepting Codeium suggestions, ensure:
 
 ## Getting Help
 
-- Review [CLAUDE.md](../.claude/CLAUDE.mdLAUDE.md) for detailed guidance
+- Review [CLAUDE.md](../CLAUDE.md) for detailed guidance
 - Check the [Contribution Guide](../CONTRIBUTING.md)
 - Refer to the [project documentation](https://pwning.owasp-juice.shop/)
 - Connect with the community via Slack or GitHub issues
