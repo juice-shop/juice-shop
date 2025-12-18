@@ -4,7 +4,6 @@
  */
 
 /* jslint node: true */
-
 import {
   Model,
   type InferAttributes,
@@ -31,11 +30,7 @@ const SecurityQuestionModelInit = (sequelize: Sequelize) => {
         autoIncrement: true
       },
       question: {
-        type: DataTypes.STRING,
-        allowNull: false, // Security Question cannot be null
-        validate: {
-          notEmpty: true
-        }
+        type: DataTypes.STRING
       }
     },
     {

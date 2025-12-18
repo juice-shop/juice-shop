@@ -9,25 +9,24 @@ import { UserModel } from '../models/user'
 import { SecurityQuestionModel } from '../models/securityQuestion'
 
 export function securityQuestion () {
-  return ({ query }: Request, res: Response, next: NextFunction) => {
+  return async ({ query }: Request, res: Response, next: NextFunction) => {
     const email = query.email
-    SecurityAnswerModel.findOne({
-      include: [{
-        model: UserModel,
-        where: { email: email?.toString() }
-      }]
-    }).then((answer: SecurityAnswerModel | null) => {
+    try {
+      const answer = await SecurityAnswerModel.findOne({
+        include: [{
+          model: UserModel,
+          where: { email: email?.toString() }
+        }]
+      })
+
       if (answer != null) {
-        SecurityQuestionModel.findByPk(answer.SecurityQuestionId).then((question: SecurityQuestionModel | null) => {
-          res.json({ question })
-        }).catch((error: Error) => {
-          next(error)
-        })
+        const question = await SecurityQuestionModel.findByPk(answer.SecurityQuestionId)
+        res.json({ question })
       } else {
         res.json({})
       }
-    }).catch((error: unknown) => {
+    } catch (error) {
       next(error)
-    })
+    }
   }
 }
