@@ -10,24 +10,22 @@ import {
   type InferCreationAttributes,
   DataTypes,
   type CreationOptional,
-  type Sequelize
+  type Sequelize,
+  type ForeignKey
 } from 'sequelize'
 
 class Wallet extends Model<
 InferAttributes<Wallet>,
 InferCreationAttributes<Wallet>
 > {
-  declare UserId: number
   declare id: CreationOptional<number>
   declare balance: CreationOptional<number>
+  declare UserId: ForeignKey<number> // foreign key to associate with User model
 }
 
 const WalletModelInit = (sequelize: Sequelize) => {
   Wallet.init(
     {
-      UserId: {
-        type: DataTypes.INTEGER
-      },
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -35,10 +33,13 @@ const WalletModelInit = (sequelize: Sequelize) => {
       },
       balance: {
         type: DataTypes.INTEGER,
+        defaultValue: 0,
         validate: {
           isInt: true
-        },
-        defaultValue: 0
+        }
+      },
+      UserId: {
+        type: DataTypes.INTEGER
       }
     },
     {
