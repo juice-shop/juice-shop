@@ -40,9 +40,13 @@ export function resetPassword () {
       })
       if ((data != null) && security.hmac(answer) === data.answer) {
         const user = await UserModel.findByPk(data.UserId)
-        const updatedUser = await user?.update({ password: newPassword })
-        verifySecurityAnswerChallenges(updatedUser, answer)
-        res.json({ user: updatedUser })
+        if (user) {
+          const updatedUser = await user.update({ password: newPassword })
+          verifySecurityAnswerChallenges(updatedUser, answer)
+          res.json({ user: updatedUser })
+        } else {
+          throw new Error('User not found')
+        }
       } else {
         res.status(401).send(res.__('Wrong answer to security question.'))
       }
