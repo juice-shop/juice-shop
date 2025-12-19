@@ -6,7 +6,7 @@
 @use '../../styles/variables' as *;
 
 mat-card {
-  margin-bottom: $space-l;
+  margin-bottom: $space-xl;
   margin-left: auto;
   margin-right: auto;
   width: 80%;
@@ -34,7 +34,7 @@ mat-card {
 }
 
 button {
-  margin: $space-xxs;
+  margin: $space-2xs;
 }
 
 .text-justify {
