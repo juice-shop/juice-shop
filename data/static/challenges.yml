@@ -7,7 +7,7 @@
   difficulty: 3
   hints:
     - 'You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.'
-    - 'A matrix of known data entities and their supported HTTP verbs through the API can help you here.'
+    - 'Mapping API endpoints to the HTTP methods they accept (such as GET, POST, PUT, DELETE) can help you identify which backend operations are exposed.'
     - 'Careless developers might have exposed API methods that the client does not even need.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html'
   key: restfulXssChallenge
