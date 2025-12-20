@@ -44,8 +44,6 @@ export function resetPassword () {
           const updatedUser = await user.update({ password: newPassword })
           verifySecurityAnswerChallenges(updatedUser, answer)
           res.json({ user: updatedUser })
-        } else {
-          throw new Error('User not found')
         }
       } else {
         res.status(401).send(res.__('Wrong answer to security question.'))
