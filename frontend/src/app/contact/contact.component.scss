@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 $star-off: #c8c8c8;
 $star-on: #ffd700;
 
@@ -25,8 +27,8 @@ mat-card {
 .rating-container {
   align-items: center;
   display: flex;
-  margin-bottom: 15px;
-  margin-top: 15px;
+  margin-bottom: $space-m;
+  margin-top: $space-m;
 }
 
 .rating-label {
@@ -95,7 +97,7 @@ mat-hint {
 
 #submitButton {
   margin-left: 20%;
-  margin-top: 30px;
+  margin-top: $space-xl;
   width: 60%;
 }
 
