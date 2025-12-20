@@ -6,17 +6,19 @@
 <div class="center-align">
   <div class="table-container custom-slate">
 
-    <div class="heading mat-elevation-z6">
-      @if (searchValue) {
-        <div>
-          <span>{{"TITLE_SEARCH_RESULTS" | translate}} - </span>
-          <span id="searchValue" [innerHTML]="searchValue"></span>
-        </div>
-      } @else {
-        <div>{{"TITLE_ALL_PRODUCTS" | translate}}</div>
-      }
-      <div id="search-result-heading"></div>
+    <header class="heading mat-elevation-z6">
+  @if (searchValue) {
+    <div>
+      <h2 style="display: inline; margin: 0; font-size: inherit;">
+        <span>{{"TITLE_SEARCH_RESULTS" | translate}} - </span>
+        <span id="searchValue" [innerHTML]="searchValue"></span>
+      </h2>
     </div>
+  } @else {
+    <h1 style="margin: 0; font-size: inherit;">{{"TITLE_ALL_PRODUCTS" | translate}}</h1>
+  }
+  <div id="search-result-heading"></div>
+</header>
 
     @if (!emptyState) {
       <div>
