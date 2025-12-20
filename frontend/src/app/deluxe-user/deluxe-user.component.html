@@ -5,7 +5,7 @@
 
 @if (error) {
   <div class="heading mat-elevation-z6">
-    <span class="error">{{error}}</span>
+    <span class="error">{{ error }}</span>
   </div>
 }
 
@@ -20,13 +20,10 @@
   </svg>
   <div class="card-text">
     <strong class="item-name" translate="">LABEL_DELUXE_MEMBERSHIP</strong>
-    <span translate [translateParams]="{appname: applicationName}">DESCRIPTION_DELUXE_MEMBERSHIP</span>
+    <span translate [translateParams]="{ appname: applicationName }">DESCRIPTION_DELUXE_MEMBERSHIP</span>
     @if (!error) {
-      <span>
-        {{ membershipCost }}&curren;
-      </span>
-      <button (click)="upgradeToDeluxe()" aria-label="Become deluxe member" color="primary"
-        mat-button mat-raised-button>
+      <span> {{ membershipCost }}&curren; </span>
+      <button (click)="upgradeToDeluxe()" aria-label="Become deluxe member" color="primary" mat-button mat-raised-button>
         <span translate>LABEL_BECOME_MEMBER</span>
       </button>
     }

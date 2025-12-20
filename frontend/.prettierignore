@@ -1,0 +1,20 @@
+# Ignore all files except HTML
+*.ts
+*.js
+*.scss
+*.css
+*.json
+*.svg
+*.png
+*.jpg
+*.jpeg
+*.ico
+*.stl
+*.mp4
+*.ai
+
+# Ignore directories
+node_modules/
+dist/
+coverage/
+.angular/

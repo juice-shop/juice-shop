@@ -1,10 +1,6 @@
 <mat-card appearance="outlined">
   <div class="mdc-card container">
-    <button
-      class="detail-container offer-container warning-container align-self-center"
-      mat-raised-button
-      color="warn"
-      >
+    <button class="detail-container offer-container warning-container align-self-center" mat-raised-button color="warn">
       {{ 'BTN_SBT_NOTE' | translate }}
     </button>
 
@@ -20,23 +16,19 @@
           </div>
           <div class="owner-text">
             {{ 'OWNED_BY' | translate }}
-            <a
-              target="_blank"
-              href="https://testnets.opensea.io/0x8343d2eb2B13A2495De435a1b15e85b98115Ce05"
-              >8343D2</a
-              >
-            </div>
+            <a target="_blank" href="https://testnets.opensea.io/0x8343d2eb2B13A2495De435a1b15e85b98115Ce05">8343D2</a>
+          </div>
+          <mat-divider class="detail-divider"></mat-divider>
+          <div class="detail-box mat-elevation-z6">
+            <div class="box-title">{{ 'LABEL_ACCOUNT_ADDRESS' | translate }}</div>
             <mat-divider class="detail-divider"></mat-divider>
-            <div class="detail-box mat-elevation-z6">
-              <div class="box-title">{{ 'LABEL_ACCOUNT_ADDRESS' | translate }}</div>
-              <mat-divider class="detail-divider"></mat-divider>
-              <p class="box-text">0x8343d2eb2B13A2495De435a1b15e85b98115Ce05</p>
-            </div>
-            <div class="detail-box mat-elevation-z6">
-              <div class="box-title">{{ 'LABEL_DESCRIPTION' | translate }}</div>
-              <mat-divider class="detail-divider"></mat-divider>
-              <p class="box-text" [innerHTML]="'NFT_SBT_BOX_TEXT' | translate: i18nParams"></p>
-            </div>
+            <p class="box-text">0x8343d2eb2B13A2495De435a1b15e85b98115Ce05</p>
+          </div>
+          <div class="detail-box mat-elevation-z6">
+            <div class="box-title">{{ 'LABEL_DESCRIPTION' | translate }}</div>
+            <mat-divider class="detail-divider"></mat-divider>
+            <p class="box-text" [innerHTML]="'NFT_SBT_BOX_TEXT' | translate: i18nParams"></p>
+          </div>
         </div>
       } @else {
         <div>
@@ -56,7 +48,7 @@
                   type="text"
                   [attr.aria-label]="'LABEL_PRIVATE_KEY' | translate"
                   class="text-ellipsis"
-                  />
+                />
               </mat-form-field>
               <h5 class="error">{{ errorMessage }}</h5>
             </div>

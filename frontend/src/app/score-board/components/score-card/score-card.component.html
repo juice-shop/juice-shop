@@ -1,7 +1,7 @@
 <div class="score-group">
   <p class="score">
     @if (showAsPercentage === true) {
-      {{ (score / total) * 100 | number : "1.0-0" }}%
+      {{ (score / total) * 100 | number: '1.0-0' }}%
     } @else {
       {{ score }}/<span class="fraction-total">{{ total }}</span>
     }

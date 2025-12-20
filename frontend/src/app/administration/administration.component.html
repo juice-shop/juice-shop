@@ -34,14 +34,9 @@
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="userColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: userColumns; "></mat-row>
-
+          <mat-row *matRowDef="let row; columns: userColumns"></mat-row>
         </mat-table>
-        <mat-paginator #paginatorUsers
-          [pageSize]="10"
-          [length]="resultsLengthUser"
-          class="mat-elevation-z0"
-          color="accent">
+        <mat-paginator #paginatorUsers [pageSize]="10" [length]="resultsLengthUser" class="mat-elevation-z0" color="accent">
         </mat-paginator>
       </div>
       <div class="customer-table">
@@ -51,7 +46,7 @@
         <mat-table [dataSource]="feedbackDataSource">
           <ng-container matColumnDef="user">
             <mat-header-cell *matHeaderCellDef translate></mat-header-cell>
-            <mat-cell *matCellDef="let feedback"> {{feedback.UserId}}</mat-cell>
+            <mat-cell *matCellDef="let feedback"> {{ feedback.UserId }}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="comment">
@@ -65,9 +60,7 @@
             <mat-header-cell *matHeaderCellDef translate></mat-header-cell>
             <mat-cell *matCellDef="let feedback">
               @for (i of times(feedback.rating); track i) {
-                <mat-icon>
-                  star_rate
-                </mat-icon>
+                <mat-icon> star_rate </mat-icon>
               }
             </mat-cell>
           </ng-container>
@@ -80,24 +73,19 @@
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="feedbackColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: feedbackColumns;"></mat-row>
+          <mat-row *matRowDef="let row; columns: feedbackColumns"></mat-row>
         </mat-table>
-        <mat-paginator #paginatorFeedb
-          [pageSize]="10"
-          [length]="resultsLengthFeedback"
-          class="mat-elevation-z0"
-          color="accent">
+        <mat-paginator #paginatorFeedb [pageSize]="10" [length]="resultsLengthFeedback" class="mat-elevation-z0" color="accent">
         </mat-paginator>
       </div>
     </div>
   </div>
 </mat-card>
 
-<mat-table [dataSource]="userDataSourceHidden" style="visibility: hidden; height: 0px;">
+<mat-table [dataSource]="userDataSourceHidden" style="visibility: hidden; height: 0px">
   <ng-container matColumnDef="user">
     <mat-header-cell *matHeaderCellDef></mat-header-cell>
-    <mat-cell *matCellDef="let user" style="vertical-align: middle">
-    </mat-cell>
+    <mat-cell *matCellDef="let user" style="vertical-align: middle"> </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="email">
@@ -113,7 +101,7 @@
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="userColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: userColumns; "></mat-row>
+  <mat-row *matRowDef="let row; columns: userColumns"></mat-row>
 </mat-table>
 
-<img src="assets/public/images/padding/19px.png"/>
+<img src="assets/public/images/padding/19px.png" />
