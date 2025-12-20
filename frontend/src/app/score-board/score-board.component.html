@@ -25,10 +25,7 @@
     [filterSetting]="filterSetting"
     (filterSettingChange)="onFilterSettingUpdate($event)"
   ></challenges-unavailable-warning>
-  <tutorial-mode-warning
-    [allChallenges]="allChallenges"
-    [applicationConfig]="applicationConfiguration"
-  ></tutorial-mode-warning>
+  <tutorial-mode-warning [allChallenges]="allChallenges" [applicationConfig]="applicationConfiguration"></tutorial-mode-warning>
   @if (filteredChallenges.length > 0) {
     <div class="challenges">
       @for (challenge of filteredChallenges; track getChallengeKey($index, challenge)) {
@@ -40,7 +37,7 @@
           [unlockHint]="unlockHint.bind(this)"
           [lastUnlockedChallengeKey]="lastUnlockedChallengeKey"
           [ngClass]="{ solved: challenge.solved, unsolved: !challenge.solved, disabled: challenge.disabledEnv !== null }"
-          />
+        />
       }
     </div>
   } @else {
@@ -51,6 +48,5 @@
       </div>
     }
   }
-  <img src="assets/public/images/padding/1px.png"/>
+  <img src="assets/public/images/padding/1px.png" />
 }
-

@@ -2,13 +2,13 @@
   ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
 -->
-<h2 mat-dialog-title>{{'TITLE_CODING_CHALLENGE' | translate}}: {{dialogData.name}}</h2>
+<h2 mat-dialog-title>{{ 'TITLE_CODING_CHALLENGE' | translate }}: {{ dialogData.name }}</h2>
 <mat-dialog-content>
   <mat-tab-group mat-stretch-tabs [selectedIndex]="tab.value" (selectedIndexChange)="toggleTab($event)">
     <mat-tab>
       <ng-template mat-tab-label>
-        <span class="tab-header-text">{{'TAB_FIND_IT' | translate}}</span>
-        <mat-icon class="materaial-icons-outlined" [color]="findLockColor()">{{findLockIcon()}}</mat-icon>
+        <span class="tab-header-text">{{ 'TAB_FIND_IT' | translate }}</span>
+        <mat-icon class="materaial-icons-outlined" [color]="findLockColor()">{{ findLockIcon() }}</mat-icon>
       </ng-template>
       @if (snippet !== null) {
         <app-code-area [code]="snippet?.snippet" [vulnLines]="snippet?.vulnLines" (addLine)="addLine($event)"></app-code-area>
@@ -18,12 +18,16 @@
     </mat-tab>
     <mat-tab [disabled]="fixes === null || !solved.findIt">
       <ng-template mat-tab-label>
-        <span class="tab-header-text">{{'TAB_FIX_IT' | translate}}</span>
-        <mat-icon class="materaial-icons-outlined" [color]="fixLockColor()">{{fixLockIcon()}}</mat-icon>
+        <span class="tab-header-text">{{ 'TAB_FIX_IT' | translate }}</span>
+        <mat-icon class="materaial-icons-outlined" [color]="fixLockColor()">{{ fixLockIcon() }}</mat-icon>
       </ng-template>
       @if (snippet !== null && fixes !== null) {
-        <app-code-fixes [snippet]="snippet?.snippet" [fixes]="fixes"
-        [randomFixes]="randomFixes" [selectedFix]="selectedFix"></app-code-fixes>
+        <app-code-fixes
+          [snippet]="snippet?.snippet"
+          [fixes]="fixes"
+          [randomFixes]="randomFixes"
+          [selectedFix]="selectedFix"
+        ></app-code-fixes>
       }
     </mat-tab>
   </mat-tab-group>
@@ -31,13 +35,12 @@
 <mat-dialog-actions>
   @if (hint && tab.value === 0) {
     <mat-card appearance="outlined" class="primary-notification">
-      <div class="mdc-card">{{hint}}</div>
+      <div class="mdc-card">{{ hint }}</div>
     </mat-card>
   }
   @if (explanation && tab.value === 1) {
-    <mat-card appearance="outlined"
-      [class]="resultColor() === 'warn' ? 'warn-notification' : 'accent-notification'">
-      <div class="mdc-card">{{explanation}}</div>
+    <mat-card appearance="outlined" [class]="resultColor() === 'warn' ? 'warn-notification' : 'accent-notification'">
+      <div class="mdc-card">{{ explanation }}</div>
     </mat-card>
   }
   <div class="button-row">
@@ -51,8 +54,7 @@
           <mat-label translate>LABEL_CORRECT_FIX</mat-label>
           <select matNativeControl (change)="changeFix($event)">
             @for (fix of randomFixes; track fix; let i = $index) {
-              <option [value]="i" [selected]="selectedFix === i">Fix {{ i+1 }}
-              </option>
+              <option [value]="i" [selected]="selectedFix === i">Fix {{ i + 1 }}</option>
             }
           </select>
         </mat-form-field>
@@ -60,16 +62,21 @@
     }
 
     <div class="button-group">
-      <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="Close Dialog"
-        [mat-dialog-close]="solved" id="findItCloseButton">
+      <button
+        mat-stroked-button
+        mat-dialog-close
+        class="close-dialog buttons"
+        aria-label="Close Dialog"
+        [mat-dialog-close]="solved"
+        id="findItCloseButton"
+      >
         <mat-icon>close</mat-icon>
-        <span>{{'BTN_CLOSE' | translate}}</span>
+        <span>{{ 'BTN_CLOSE' | translate }}</span>
       </button>
 
       @if (tab.value === 0) {
-        <button mat-stroked-button (click)="checkLines()" [disabled]="this.solved.findIt"
-          id="findItSubmitButton">
-          <span>{{'BTN_SUBMIT' | translate}}</span>
+        <button mat-stroked-button (click)="checkLines()" [disabled]="this.solved.findIt" id="findItSubmitButton">
+          <span>{{ 'BTN_SUBMIT' | translate }}</span>
           <mat-icon [color]="resultColor()">
             {{ resultIcon() }}
           </mat-icon>
@@ -77,9 +84,8 @@
       }
 
       @if (tab.value === 1) {
-        <button mat-stroked-button (click)="checkFix()" [disabled]="this.solved.fixIt"
-          id="fixItSubmitButton">
-          <span>{{'BTN_SUBMIT' | translate}}</span>
+        <button mat-stroked-button (click)="checkFix()" [disabled]="this.solved.fixIt" id="fixItSubmitButton">
+          <span>{{ 'BTN_SUBMIT' | translate }}</span>
           <mat-icon [color]="resultColor()">
             {{ resultIcon() }}
           </mat-icon>

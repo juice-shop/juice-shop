@@ -10,7 +10,7 @@
 
       @if (error) {
         <div>
-          <p class="error">{{error}}</p>
+          <p class="error">{{ error }}</p>
         </div>
       }
 
@@ -30,31 +30,41 @@
             </div>
             <mat-form-field class="captcha-input-field" appearance="outline" color="accent">
               <mat-label translate>ENTER_CAPTCHA</mat-label>
-              <input #captchaInput [formControl]="captchaControl" type="text" matInput
-                placeholder="{{ 'TYPE_THESE_LETTERS' | translate: {length: '5'} }}" maxlength="5"
-                aria-label="Input for the CAPTCHA">
-                <mat-hint align="end">{{captchaInput.value?.length || 0}}/5</mat-hint>
-                @if (captchaControl.invalid && captchaControl.errors.required ) {
-                  <mat-error translate>MANDATORY_CAPTCHA
-                  </mat-error>
-                }
-                @if (captchaControl.invalid && captchaControl.errors.minlength) {
-                  <mat-error translate>MANDATORY_CAPTCHA
-                  </mat-error>
-                }
-              </mat-form-field>
-            </div>
-          }
-        </div>
-        <button type="submit" id="submitButton" color="primary" mat-raised-button (click)="save()"
-          [disabled]="formatControl.invalid || (captchaControl.invalid && presenceOfCaptcha)"
-          aria-label="Button to send the request">
-          <mat-icon aria-hidden="true" fontIcon="file_download"></mat-icon>
-          {{'BTN_REQUEST' | translate}}
-        </button>
-        <p class="hint">
-          <span translate>DATA_EXPORT_HINT</span>
-        </p>
+              <input
+                #captchaInput
+                [formControl]="captchaControl"
+                type="text"
+                matInput
+                placeholder="{{ 'TYPE_THESE_LETTERS' | translate: { length: '5' } }}"
+                maxlength="5"
+                aria-label="Input for the CAPTCHA"
+              />
+              <mat-hint align="end">{{ captchaInput.value?.length || 0 }}/5</mat-hint>
+              @if (captchaControl.invalid && captchaControl.errors.required) {
+                <mat-error translate>MANDATORY_CAPTCHA </mat-error>
+              }
+              @if (captchaControl.invalid && captchaControl.errors.minlength) {
+                <mat-error translate>MANDATORY_CAPTCHA </mat-error>
+              }
+            </mat-form-field>
+          </div>
+        }
       </div>
-    </mat-card>
-  </div>
+      <button
+        type="submit"
+        id="submitButton"
+        color="primary"
+        mat-raised-button
+        (click)="save()"
+        [disabled]="formatControl.invalid || (captchaControl.invalid && presenceOfCaptcha)"
+        aria-label="Button to send the request"
+      >
+        <mat-icon aria-hidden="true" fontIcon="file_download"></mat-icon>
+        {{ 'BTN_REQUEST' | translate }}
+      </button>
+      <p class="hint">
+        <span translate>DATA_EXPORT_HINT</span>
+      </p>
+    </div>
+  </mat-card>
+</div>

@@ -4,7 +4,7 @@
 -->
 
 <div class="container">
-  <h1>{{"MY_PAYMENT_OPTIONS" | translate}}</h1>
+  <h1>{{ 'MY_PAYMENT_OPTIONS' | translate }}</h1>
   @if (cardsExist) {
     <div>
       <mat-table [dataSource]="dataSource">
@@ -33,7 +33,7 @@
           </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
       </mat-table>
     </div>
   }
@@ -41,35 +41,29 @@
     <mat-expansion-panel class="mat-elevation-z0">
       <mat-expansion-panel-header class="panel-header-spacing">
         <mat-panel-title>
-          {{"ADD_NEW_CARD" | translate}}
+          {{ 'ADD_NEW_CARD' | translate }}
         </mat-panel-title>
         <mat-panel-description>
-          {{"ADD_NEW_CARD_DESCRIPTION" | translate}}
+          {{ 'ADD_NEW_CARD_DESCRIPTION' | translate }}
         </mat-panel-description>
       </mat-expansion-panel-header>
       <div>
         <mat-form-field appearance="outline" color="accent">
           <mat-label translate>LABEL_NAME</mat-label>
-          <input [formControl]="nameControl" type="text" matInput>
+          <input [formControl]="nameControl" type="text" matInput />
           @if (nameControl.invalid && nameControl.errors.required) {
-            <mat-error translate>
-              MANDATORY_NAME
-            </mat-error>
+            <mat-error translate> MANDATORY_NAME </mat-error>
           }
         </mat-form-field>
         <mat-form-field appearance="outline" color="accent">
           <mat-label translate>LABEL_CARD_NUMBER</mat-label>
-          <input #cardIn [formControl]="numberControl" type="number" matInput>
-          <mat-hint align="end">{{cardIn .value?.length || 0}}/16</mat-hint>
+          <input #cardIn [formControl]="numberControl" type="number" matInput />
+          <mat-hint align="end">{{ cardIn.value?.length || 0 }}/16</mat-hint>
           @if (numberControl.invalid && numberControl.errors.required) {
-            <mat-error translate>
-              MANDATORY_CARD_NUMBER
-            </mat-error>
+            <mat-error translate> MANDATORY_CARD_NUMBER </mat-error>
           }
           @if (numberControl.invalid && (numberControl.errors.min || numberControl.errors.max)) {
-            <mat-error translate>
-              VALID_CARD_NUMBER
-            </mat-error>
+            <mat-error translate> VALID_CARD_NUMBER </mat-error>
           }
         </mat-form-field>
         <mat-form-field class="half-field" appearance="outline" color="accent">
@@ -80,9 +74,7 @@
             }
           </select>
           @if (monthControl.invalid && monthControl.errors.required) {
-            <mat-error translate>
-              MANDATORY_EXPIRY_MONTH
-            </mat-error>
+            <mat-error translate> MANDATORY_EXPIRY_MONTH </mat-error>
           }
         </mat-form-field>
         <mat-form-field class="half-field" appearance="outline" color="accent">
@@ -93,17 +85,21 @@
             }
           </select>
           @if (yearControl.invalid && yearControl.errors.required) {
-            <mat-error translate>
-              MANDATORY_EXPIRY_YEAR
-            </mat-error>
+            <mat-error translate> MANDATORY_EXPIRY_YEAR </mat-error>
           }
         </mat-form-field>
       </div>
-      <button type="submit" id="submitButton" class="submit-button" mat-raised-button color="primary"
+      <button
+        type="submit"
+        id="submitButton"
+        class="submit-button"
+        mat-raised-button
+        color="primary"
         [disabled]="nameControl.invalid || numberControl.invalid || monthControl.invalid || yearControl.invalid"
-        (click)="save()">
+        (click)="save()"
+      >
         <mat-icon>send</mat-icon>
-        {{'BTN_SUBMIT' | translate}}
+        {{ 'BTN_SUBMIT' | translate }}
       </button>
     </mat-expansion-panel>
   </div>

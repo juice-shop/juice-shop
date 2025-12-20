@@ -8,7 +8,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "lint:scss": "npx stylelint \"**/*.scss\"",
-    "lint:fix": "ng lint --fix && npx stylelint \"**/*.scss\" --fix"
+    "lint:fix": "ng lint --fix && npx stylelint \"**/*.scss\" --fix",
+    "format:html": "prettier --write \"src/**/*.html\"",
+    "format:html:check": "prettier --check \"src/**/*.html\""
   },
   "private": true,
   "dependencies": {
@@ -63,6 +65,7 @@
   },
   "devDependencies": {
     "@angular/language-service": "^20.1.0",
+    "@eslint/js": "9.33.0",
     "@types/express-serve-static-core": "^4.17.9",
     "@types/file-saver": "^2.0.1",
     "@types/jasmine": "~5.1.0",
@@ -70,7 +73,6 @@
     "@types/jwt-decode": "^2.2.1",
     "@types/node": "^20.17.19",
     "@types/socket.io-client": "^1.4.33",
-    "@eslint/js":"9.33.0",
     "angular-eslint": "^20.1.0",
     "eslint": "^9.33.0",
     "jasmine": "^5.1.0",
@@ -81,10 +83,11 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "prettier": "^3.7.4",
     "stylelint": "^13.8.0",
     "stylelint-config-sass-guidelines": "^7.1.0",
     "stylelint-scss": "^3.18.0",
-    "typescript-eslint": "^8.42.0",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "typescript-eslint": "^8.42.0"
   }
 }

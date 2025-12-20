@@ -7,10 +7,16 @@
         <i class="env-icon" [ngClass]="'icon-' + disabledBecauseOfEnv.toString().toLowerCase()"></i>
       }
     </ng-container>
-    @if (disabledBecauseOfEnv ==='Safety Mode') {
-      <span warning-text [innerHTML]="'INFO_DISABLED_CHALLENGES' | translate: {num: numberOfDisabledChallenges,env:'safety mode being turned on'}"></span>
+    @if (disabledBecauseOfEnv === 'Safety Mode') {
+      <span
+        warning-text
+        [innerHTML]="'INFO_DISABLED_CHALLENGES' | translate: { num: numberOfDisabledChallenges, env: 'safety mode being turned on' }"
+      ></span>
     } @else {
-      <span warning-text [innerHTML]="'INFO_DISABLED_CHALLENGES' | translate: {num: numberOfDisabledChallenges, env: disabledBecauseOfEnv}"></span>
+      <span
+        warning-text
+        [innerHTML]="'INFO_DISABLED_CHALLENGES' | translate: { num: numberOfDisabledChallenges, env: disabledBecauseOfEnv }"
+      ></span>
     }
     <button warning-action mat-button color="accent" (click)="toggleShowDisabledChallenges()">
       @if (filterSetting.showDisabledChallenges === true) {
