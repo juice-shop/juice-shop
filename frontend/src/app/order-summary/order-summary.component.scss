@@ -3,31 +3,33 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 .btn-pay {
   display: block;
-  margin-top: 20px;
-  padding: 10px;
+  margin-top: $space-ml;
+  padding: $space-s;
   width: 100%;
 }
 
 mat-card {
   height: auto;
   margin-bottom: -10px !important;
-  margin-top: 20px;
+  margin-top: $space-ml;
 }
 
 mat-cell {
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: $space-s;
+  padding-right: $space-s;
 }
 
 .price:last-of-type {
-  padding-right: 10px;
+  padding-right: $space-s;
   text-align: right;
 }
 
 .label:first-of-type {
-  padding-left: 10px;
+  padding-left: $space-s;
 }
 
 table { width: 100%; }
@@ -37,22 +39,22 @@ table { width: 100%; }
 .order-summary {
   font-size: x-large;
   font-weight: 500;
-  margin-bottom: 15px;
-  padding-bottom: 10px;
-  padding-left: 10px;
+  margin-bottom: $space-m;
+  padding-bottom: $space-s;
+  padding-left: $space-s;
 }
 
 .bonus-points {
   color: var(--theme-text);
-  margin-top: 10px;
+  margin-top: $space-s;
   text-align: center;
 }
 
 .mdc-card {
   border: 0;
   border-bottom: 0;
-  margin-top: -5px;
-  padding: 5px;
+  margin-top: -$space-2xs;
+  padding: $space-2xs;
   width: 100%;
 }
 
@@ -60,7 +62,7 @@ table { width: 100%; }
   background-color: var(--theme-background);
   margin: auto;
   max-width: 1200px;
-  padding: 20px;
+  padding: $space-ml;
   width: 60% !important;
 }
 
@@ -68,7 +70,7 @@ table { width: 100%; }
 .mat-table .mat-footer-cell {
   border-bottom: 1px solid var(--theme-background-light);
   border-radius: 5px !important;
-  padding: 10px 0;
+  padding: $space-s 0;
 }
 
 .mat-table {
@@ -80,18 +82,18 @@ table { width: 100%; }
 .mat-cell,
 .mat-footer-cell {
   color: var(--theme-text);
-  padding: 12px 0;
+  padding: $space-s 0;
 }
 
 .mat-footer-cell.label {
   font-weight: bold;
   text-align: start;
-  text-indent: 10px;
+  text-indent: $space-s;
 }
 
 .mat-footer-cell.price {
   font-weight: bold;
-  padding-right: 10px !important;
+  padding-right: $space-s !important;
   text-align: end;
 }
 
@@ -99,13 +101,13 @@ table { width: 100%; }
   align-items: stretch;
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: $space-ml;
 }
 
 .column {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: $space-ml;
 }
 
 .flex-50 { flex: 0 0 50%;
