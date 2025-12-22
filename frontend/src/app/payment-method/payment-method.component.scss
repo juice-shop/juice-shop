@@ -3,10 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 .container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: $space-ml;
 }
 
 mat-table {
@@ -39,7 +41,7 @@ mat-table {
   background: rgba(0, 0, 0, 0.2);
   font-size: x-large;
   justify-content: center;
-  padding: 12px 20px;
+  padding: $space-s $space-ml;
 }
 
 mat-form-field {
@@ -51,8 +53,8 @@ mat-form-field {
 }
 
 .detail-divider {
-  margin-bottom: 12px;
-  margin-top: 12px;
+  margin-bottom: $space-s;
+  margin-top: $space-s;
 }
 
 mat-header-row {
@@ -67,10 +69,10 @@ input::-webkit-inner-spin-button {
 }
 
 .panel-header-spacing {
-  margin-bottom: 0.75rem;
+  margin-bottom: $space-m;
 }
 
 .submit-button {
   float: right;
-  margin-top: 0.3125rem;
+  margin-top: $space-2xs;
 }
