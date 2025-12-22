@@ -3,9 +3,11 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 :host {
   display: block;
-  margin: 24px;
+  margin: $space-l;
 }
 
 .text-justify {
@@ -37,13 +39,13 @@ mat-icon {
   font-size: 24px !important;
   height: 24px !important;
   justify-content: center;
-  margin-right: 1px !important;
+  margin-right: $space-3xs !important;
   width: 24px !important;
 }
 
 @media screen and (max-width: 1279px) {
   mat-icon {
-    margin-left: 1px !important;
+    margin-left: $space-3xs !important;
   }
 }
 
