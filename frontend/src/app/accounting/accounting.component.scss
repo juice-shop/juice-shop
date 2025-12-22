@@ -17,7 +17,7 @@ $bg-heading: rgba(0, 0, 0, 0.13);
 
 .container {
   display: grid;
-  gap: $space-xxl;
+  gap: $space-2xl;
   grid-template-columns: 1fr 1fr;
 
   @media (max-width: 1400px) {
