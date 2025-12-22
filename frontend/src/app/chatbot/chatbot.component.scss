@@ -76,18 +76,18 @@ mat-form-field {
 .message-box-container {
   border-top: solid 1px #fff;
   bottom: 0;
-  margin-bottom: -20px;
+  margin-bottom: -$space-ml;
   position: sticky;
 }
 
 .form-wrapper {
   font-size: 10px;
-  padding-top: 15px;
+  padding-top: $space-m;
 }
 
 .message-container {
   height: auto;
-  margin-right: 25px;
+  margin-right: $space-l;
   overflow: hidden;
   width: auto;
 }
@@ -98,7 +98,7 @@ mat-form-field {
   float: right;
   font-size: 15px;
   line-height: 1.3;
-  margin-bottom: 25px;
+  margin-bottom: $space-l;
   max-width: 500px;
   padding: $space-m;
   position: relative;
@@ -137,15 +137,15 @@ mat-form-field {
 .juicy-chat-bot-image {
   float: left;
   height: 70px;
-  margin-top: 20px;
+  margin-top: $space-ml;
 }
 
 .profile-image {
   border-radius: 50%;
   float: right;
   height: 40px;
-  margin-left: 10px;
-  margin-top: 20px;
+  margin-left: $space-s;
+  margin-top: $space-ml;
 }
 
 .powered-by {
@@ -179,7 +179,7 @@ mat-form-field {
   .profile-image,
   .juicy-chat-bot-image {
     grid-row: 2;
-    margin-bottom: 20px;
+    margin-bottom: $space-ml;
     margin-top: 0;
   }
 
