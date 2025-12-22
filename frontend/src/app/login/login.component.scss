@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 $break-line: #c0c0c0;
 
 mat-card {
@@ -60,7 +62,7 @@ mat-form-field:nth-child(2) {
 }
 
 .textOnLine {
-  padding: 0 5px;
+  padding: 0 $space-2xs;
 }
 
 .line {

@@ -1,11 +1,18 @@
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+@use '../../styles/variables' as *;
+
 .container {
   display: flex;
-  gap: 34px;
-  margin: 0 40px;
+  gap: $space-xl;
+  margin: 0 $space-2xl;
 }
 
 .faucet-container {
-  padding: 40px 80px;
+  padding: $space-2xl $space-4xl;
 
   p {
     text-align: center;
@@ -25,8 +32,8 @@
   display: flex;
   font-size: 18px;
   justify-content: center;
-  margin: 20px 0;
-  padding: 8px;
+  margin: $space-ml 0;
+  padding: $space-xs;
   text-align: center;
   width: 100%;
 
@@ -40,7 +47,7 @@
 .faucet-image {
   display: flex;
   justify-content: center;
-  padding: 16px;
+  padding: $space-m;
 
   img {
     width: 250px;
@@ -48,7 +55,7 @@
 }
 
 .metamask-button {
-  margin: 16px;
+  margin: $space-m;
   margin-left: auto;
 
   span {
@@ -61,20 +68,20 @@
     height: 24px;
     width: 24px;
   }
-  
+
   button {
     height: 54px;
-    padding: 8px 6px;
+    padding: $space-xs $space-2xs;
     width: 220px;
   }
-  
+
 }
 
 .withdraw-container {
   align-items: center;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: $space-ml;
   width: 100%;
 
   div {
@@ -87,7 +94,7 @@
     font-weight: 500;
     justify-self: end;
     margin-top: -20px;
-    padding: 16px 24px;
+    padding: $space-m $space-l;
     width: 300px;
   }
 }
@@ -95,7 +102,7 @@
 .honeypot-container {
   display: flex;
   flex-direction: column;
-  padding: 40px 80px;
+  padding: $space-2xl $space-4xl;
   text-align: center;
   width: 35%;
 
@@ -107,12 +114,12 @@
 .honeypot-image {
   height: 320px;
   margin: 0 auto;
-  margin-bottom: 16px;
+  margin-bottom: $space-m;
   width: 320px;
 
   img {
     height: 300px;
-    margin: 10px;
+    margin: $space-s;
   }
 }
 
@@ -131,8 +138,8 @@
   font-weight: 500;
   height: 68px;
   justify-content: center;
-  margin-top: 32px;
-  padding: 16px 48px;
+  margin-top: $space-xl;
+  padding: $space-m $space-3xl;
   width: 100%;
 }
 
@@ -150,24 +157,24 @@
   }
 
   .honeypot-container {
-    margin-bottom: 40px;
+    margin-bottom: $space-2xl;
     width: auto;
   }
 
   .faucet-balance {
     flex-direction: column;
-    padding: 24px 0;
+    padding: $space-l 0;
   }
 
   .metamask-button {
     margin: auto;
-    margin-top: 16px;
+    margin-top: $space-m;
   }
 }
 @media (max-width: 580px) {
   .faucet-container,
   .honeypot-container {
-    padding: 30px;
+    padding: $space-xl;
   }
 
   .honeypot-image {

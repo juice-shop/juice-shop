@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 mat-divider {
-  margin-bottom: 10px;
+  margin-bottom: $space-s;
 }
 
 .dialogAction {
@@ -15,13 +17,13 @@ mat-divider {
 .container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: $space-s;
 }
 
 .row {
   align-items: baseline;
   display: flex;
-  gap: 10px;
+  gap: $space-s;
 }
 
 .focus-absorber {
