@@ -105,9 +105,9 @@ mat-toolbar {
 
 mat-search-bar {
   font-size: 13px;
-  margin-right: 80px;
+  margin-right: $space-4xl;
   min-width: 200px;
-  padding-right: 100px;
+  padding-right: $space-4xl;
 }
 
 .buttons {
@@ -137,7 +137,7 @@ mat-search-bar {
 }
 
 .basket-label {
-  margin-right: 0.625rem;
+  margin-right: $space-s;
 }
 
 .language-search-container {
@@ -154,7 +154,7 @@ mat-search-bar {
 
 .language-option-content {
   display: inline-block;
-  margin-left: 0.3125rem;
+  margin-left: $space-2xs;
   width: 12.5rem;
 }
 
