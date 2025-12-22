@@ -3,13 +3,15 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 .container {
   font-size: 14px;
-  margin: 40px;
+  margin: $space-2xl;
 }
 
 mat-card {
-  margin-bottom: 10px;
+  margin-bottom: $space-s;
 
   .notificationMessage {
     align-items: center;
@@ -31,7 +33,7 @@ mat-card {
 .flag-box {
   border-radius: 4px;
   cursor: copy;
-  padding: 2px 4px;
+  padding: $space-3xs $space-2xs;
   transition: background-color 0.2s ease;
 
   &:hover {
