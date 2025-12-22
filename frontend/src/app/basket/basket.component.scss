@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 $bg-heading: rgba(0, 0, 0, 0.13);
 
 .container {
@@ -18,7 +20,7 @@ mat-card {
 .heading {
   background: $bg-heading;
   justify-content: center;
-  padding: 12px 20px;
+  padding: $space-s $space-ml;
 }
 
 .mat-mdc-row {

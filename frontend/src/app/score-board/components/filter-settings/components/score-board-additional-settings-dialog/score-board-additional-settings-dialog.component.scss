@@ -1,6 +1,12 @@
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+@use '../../../../../../styles/variables' as *;
 
 .mat-mdc-radio-button ~ .mat-mdc-radio-button {
-  margin-left: 16px;
+  margin-left: $space-m;
 }
 
 mat-dialog-actions {
@@ -9,7 +15,7 @@ mat-dialog-actions {
 
 h1 {
   font-size: 24px !important;
-  margin-bottom: 24px;
+  margin-bottom: $space-l;
 }
 
 .settings {
@@ -19,11 +25,11 @@ h1 {
 
 .setting-group {
   border-bottom: 3px solid var(--theme-background-lighter);
-  margin-bottom: 16px;
+  margin-bottom: $space-m;
 
   h2 {
     font-size: 18px;
-    margin-bottom: 8px;
+    margin-bottom: $space-xs;
   }
 
   &:last-child {
@@ -35,13 +41,13 @@ h1 {
 .setting {
   align-items: center;
   display: grid;
-  gap: 16px;
+  gap: $space-m;
   grid-template-columns: auto max-content;
-  margin-bottom: 16px;
+  margin-bottom: $space-m;
 }
 
 button mat-icon {
-  margin-right: 8px;
+  margin-right: $space-xs;
 }
 
 h2 {
