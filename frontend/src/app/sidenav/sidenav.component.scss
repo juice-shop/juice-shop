@@ -3,11 +3,13 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 mat-toolbar {
   font-size: 20px;
   height: auto;
   min-width: 100%;
-  padding-bottom: 5px;
+  padding-bottom: $space-2xs;
   width: 100%;
 }
 
@@ -17,7 +19,7 @@ a {
 
 .menu-text {
   font-size: 16px;
-  padding-left: 10px;
+  padding-left: $space-s;
 }
 
 .mat-mdc-list-base,
@@ -30,23 +32,23 @@ a {
   ::ng-deep .mdc-list-item__primary-text {
     align-items: center;
     display: flex;
-    padding: 0 16px;
+    padding: 0 $space-m;
   }
 }
 
 .toolbar-title {
-  margin: 0 16px;
+  margin: 0 $space-m;
 }
 
 .mat-mdc-subheader {
   font-size: 18px;
   font-weight: 900;
-  margin-left: 18px;
-  margin-top: 10px;
+  margin-left: $space-ml;
+  margin-top: $space-s;
 }
 
 .app-nav-list-icon {
-  margin: 0 12px;
+  margin: 0 $space-s;
 }
 
 .side-subHeader {
@@ -54,7 +56,7 @@ a {
 }
 
 mat-nav-list {
-  margin-bottom: 50px;
+  margin-bottom: $space-3xl;
 }
 
 .menu-button {
@@ -68,7 +70,7 @@ mat-nav-list {
 
 .submenu {
   overflow-y: hidden;
-  padding-left: 30px;
+  padding-left: $space-xl;
   transform: scaleY(0);
   transform-origin: top;
   transition: transform 300ms ease;
@@ -79,8 +81,8 @@ mat-nav-list {
 }
 
 .appVersion {
-  margin-bottom: 20px;
-  margin-top: 20px;
+  margin-bottom: $space-ml;
+  margin-top: $space-ml;
   text-align: center;
 }
 
@@ -103,7 +105,7 @@ mat-nav-list {
 }
 
 .divider-spacing {
-  margin-bottom: 0.625rem;
+  margin-bottom: $space-s;
 }
 
 .app-name {
@@ -115,5 +117,5 @@ mat-nav-list {
 }
 
 .tech-icons {
-  margin-top: 0.625rem;
+  margin-top: $space-s;
 }

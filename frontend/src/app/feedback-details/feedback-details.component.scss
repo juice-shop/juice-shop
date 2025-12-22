@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 mat-divider {
-  margin-bottom: 10px;
+  margin-bottom: $space-s;
 }
 
 .dialogAction {
@@ -24,11 +26,11 @@ mat-dialog-content {
 .user-line {
   align-items: baseline;
   display: flex;
-  gap: 10px;
+  gap: $space-s;
 }
 
 .feedback-content {
-  margin-top: 10px !important;
+  margin-top: $space-s !important;
 }
 
 .auto-focus-absorb {
