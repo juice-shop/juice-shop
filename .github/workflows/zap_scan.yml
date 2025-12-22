@@ -10,13 +10,14 @@ jobs:
     name: Scan Juice Shop preview instance on Heroku
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 #v6.0.1
         with:
           ref: develop
       - name: ZAP Scan
-        uses: zaproxy/action-baseline@7c4deb10e6261301961c86d65d54a516394f9aed # v0.14.0
+        uses: zaproxy/action-baseline@de8ad967d3548d44ef623df22cf95c3b0baf8b25 # v0.15.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: 'ghcr.io/zaproxy/zaproxy:stable'
           target: 'https://preview.owasp-juice.shop'
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a -j'
