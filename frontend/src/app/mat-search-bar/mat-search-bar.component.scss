@@ -1,3 +1,10 @@
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+@use '../../styles/variables' as *;
+
 :host {
   align-items: center;
   direction: rtl;
@@ -11,7 +18,7 @@
 
 .mat-search_field {
   direction: ltr;
-  padding: 0 24px 0 0;
+  padding: 0 $space-l 0 0;
   position: absolute;
   right: 0;
   width: 150px;

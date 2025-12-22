@@ -3,12 +3,14 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 .qr-code {
-  margin: 16px;
+  margin: $space-m;
 }
 
 .content-column {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: $space-s;
 }

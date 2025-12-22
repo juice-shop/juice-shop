@@ -1,17 +1,24 @@
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+@use '../../styles/variables' as *;
+
 .playground-wallet {
   display: flex;
   justify-content: center;
-  margin-bottom: 18px;
+  margin-bottom: $space-ml;
 }
 
 .sandbox-container {
-  margin: 32px;
+  margin: $space-xl;
 
   &_body {
     display: flex;
     flex-direction: row;
-    gap: 32px;
-    padding: 40px;
+    gap: $space-xl;
+    padding: $space-2xl;
   }
 
   &_body_left {
@@ -41,53 +48,53 @@
 .deployedaddresstext {
   color: rgb(45, 151, 45);
   font-weight: 600;
-  margin: 10px 0;
+  margin: $space-s 0;
   word-break: break-all;
 }
 
 .invokecontainer {
   display: flex;
   flex-direction: column;
-  margin-top: 16px;
+  margin-top: $space-m;
   max-height: 200px;
   overflow: scroll;
-  padding: 16px;
+  padding: $space-m;
   width: 100%;
 }
 
 .error-container {
   display: flex;
   flex-direction: column;
-  margin: 16px 0;
+  margin: $space-m 0;
   max-height: 300px;
   overflow: scroll;
-  padding: 16px;
+  padding: $space-m;
 
   ul {
     font-size: 12px;
-    padding-left: 16px;
+    padding-left: $space-m;
   }
 }
 
 .editor-title {
   font-size: 20px;
   font-weight: 500;
-  margin-bottom: 16px;
-  padding: 0 8px;
+  margin-bottom: $space-m;
+  padding: 0 $space-xs;
   width: 100%;
 }
 
 .function-container {
   display: flex;
   flex-direction: column;
-  margin-top: 8px;
+  margin-top: $space-xs;
 }
 
 .functionwtext-container {
   align-items: flex-start;
   display: flex;
   justify-content: space-between;
-  margin-top: 8px;
+  margin-top: $space-xs;
 }
 
 .output-container {
@@ -103,7 +110,7 @@
 
 .invoke-output {
   font-size: 12px;
-  padding: 4px;
+  padding: $space-2xs;
 }
 
 h2 {
@@ -111,19 +118,19 @@ h2 {
 }
 
 ul {
-  padding-left: 16px;
+  padding-left: $space-m;
 }
 
 .contracts-title {
   font-weight: 500;
-  margin-top: 16px;
+  margin-top: $space-m;
 }
 
 .form-fields-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: $space-m;
+  margin-bottom: $space-m;
   width: 100%;
 }
 
