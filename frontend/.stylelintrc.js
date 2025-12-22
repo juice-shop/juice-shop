@@ -21,6 +21,9 @@ module.exports = {
     'value-no-vendor-prefix': null,
     'selector-no-vendor-prefix': null,
     'selector-no-qualifying-type': null,
-    'selector-class-pattern': null
+    'selector-class-pattern': null,
+    'declaration-property-value-disallowed-list': {
+      '/^(margin|padding|gap)/': ['/(px|rem)$/']
+    }
   }
 }
