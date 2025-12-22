@@ -6,7 +6,8 @@
 module.exports = {
   extends: 'stylelint-config-sass-guidelines',
   plugins: [
-    'stylelint-scss'
+    'stylelint-scss',
+    './stylelint-plugin-spacing-fixer.js'
   ],
   rules: {
     'selector-max-id': 1,
@@ -24,6 +25,10 @@ module.exports = {
     'selector-class-pattern': null,
     'declaration-property-value-disallowed-list': {
       '/^(margin|padding|gap)/': ['/(px|rem)$/']
+    },
+    'stylelint-plugin-spacing-fixer/declaration-property-value-disallowed-list': {
+      '/^(margin|padding|gap)/': ['/(px|rem)$/']
     }
   }
 }
+
