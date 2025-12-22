@@ -17,7 +17,7 @@
 > ([@shehackspurple](https://twitter.com/shehackspurple)) —
 > [Actually the most bug-free vulnerable application in existence!](https://youtu.be/TXAztSpYpvE?t=26m35s)
 > ([@vanderaj](https://twitter.com/vanderaj)) —
-> [First you 😂😂then you 😢](https://twitter.com/kramse/status/1073168529405472768)
+> [First you 😂😂 then you 😢](https://twitter.com/kramse/status/1073168529405472768)
 > ([@kramse](https://twitter.com/kramse)) —
 > [But this doesn't have anything to do with juice.](https://twitter.com/coderPatros/status/1199268774626488320)
 > ([@coderPatros' wife](https://twitter.com/coderPatros))
@@ -61,7 +61,7 @@ For a detailed introduction, full list of features and architecture overview ple
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/juice-shop/juice-shop.svg)
 
-1. Install [node.js](#nodejs-version-compatibility)
+1. Install a 64-bit [node.js](#nodejs-version-compatibility)
 2. Run `git clone https://github.com/juice-shop/juice-shop.git --depth 1` (or
    clone [your own fork](https://github.com/juice-shop/juice-shop/fork)
    of the repository)
