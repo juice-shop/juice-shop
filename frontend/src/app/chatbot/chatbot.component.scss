@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 $bg-chat: rgba(0, 0, 0, 0.3);
 
 mat-card {
@@ -50,7 +52,7 @@ mat-form-field {
 #chat-window {
   flex: 1;
   overflow-y: auto;
-  padding: 20px;
+  padding: $space-ml;
 
   ::-webkit-scrollbar {
     background: none;
@@ -98,7 +100,7 @@ mat-form-field {
   line-height: 1.3;
   margin-bottom: 25px;
   max-width: 500px;
-  padding: 15px;
+  padding: $space-m;
   position: relative;
 
   &::after {
@@ -117,9 +119,9 @@ mat-form-field {
   float: left;
   font-size: 15px;
   line-height: 1.3;
-  margin-bottom: 25px;
+  margin-bottom: $space-l;
   max-width: 500px;
-  padding: 15px;
+  padding: $space-m;
   position: relative;
 
   &::after {
