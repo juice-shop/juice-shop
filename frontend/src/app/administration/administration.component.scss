@@ -100,7 +100,7 @@ mat-header-cell {
 mat-cell:last-child,
 mat-footer-cell:last-child,
 mat-header-cell:last-child {
-  padding-right: 50px;
+  padding-right: $space-3xl;
 }
 
 mat-row {
