@@ -39,7 +39,7 @@ mat-form-field {
 .invoice {
   display: flex;
   margin-left: $space-3xs;
-  margin-top: 15px;
+  margin-top: $space-m;
 }
 
 em {
@@ -55,8 +55,8 @@ em {
   color: var(--theme-text-fade-30) !important;
   display: flex;
   font-size: 11px;
-  margin-left: -10px !important;
-  margin-right: -10px !important;
+  margin-left: -$space-s !important;
+  margin-right: -$space-s !important;
 }
 
 .center-container {

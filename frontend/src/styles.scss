@@ -8,6 +8,7 @@
 @use 'sass:color';
 
 @use './styles/theme' as *;
+@use './styles/variables' as *;
 
 @use './hacking-instructor/hacking-instructor.scss';
 
@@ -78,7 +79,7 @@
     background-color: mat.m2-get-color-from-palette(map.get($theme, primary), 0.05);
     border: 1px solid mat.m2-get-color-from-palette(map.get($theme, primary));
     border-radius: 3px;
-    padding: 3px;
+    padding: $space-3xs;
   }
 }
 
@@ -279,7 +280,7 @@ $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
   background-color: $bg-hacking-instructor;
   border-radius: 1px;
   font-family: monospace;
-  padding: 0 4px;
+  padding: 0 $space-2xs;
 }
 
 .CodeMirror {
@@ -288,7 +289,7 @@ $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
 }
 
 div.mdc-card {
-  padding: 16px;
+  padding: $space-m;
 }
 
 .mat-mdc-button {
