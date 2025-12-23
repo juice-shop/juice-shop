@@ -33,7 +33,11 @@ mat-card {
 .flag-box {
   border-radius: 4px;
   cursor: copy;
+<<<<<<< HEAD
   padding: $space-3xs $space-2xs;
+=======
+  padding: 2px 2px;
+>>>>>>> ab73e3962 (button style change + other config changes)
   transition: background-color 0.2s ease;
 
   &:hover {
@@ -41,33 +45,31 @@ mat-card {
   }
 }
 
-.notification-actions {
+.contents{
+  justify-content: space-around;
   display: flex;
-  justify-content: flex-start;
-  margin-top: 12px;
+  flex-direction: column;
+  gap: 6px;
 }
+
 
 .view-challenge-button {
   align-items: center;
-
-  background-color: #fff;
-  border: 1px solid rgba(46, 125, 50, 0.35);
-  border-radius: 6px;
-  color: #2e7d32;
+  backdrop-filter: saturate(1.1);
+  border: 3px solid ;
+  border-radius: 4px;
+  color: inherit;
 
   cursor: pointer;
   display: inline-flex;
 
-  font-size: 12px;
-  font-weight: 700;
-  gap: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  gap: 2px;
   height: 32px;
-  letter-spacing: 0.3px;
-
-  padding: 6px 12px;
-  transition: background-color 0.15s ease,
-    box-shadow 0.15s ease,
-    transform 0.05s ease;
+  letter-spacing: normal;
+  padding: 0 12px;
+  transition: background-color 0.15s ease;
 
   mat-icon {
     font-size: 18px;
@@ -76,11 +78,11 @@ mat-card {
   }
 
   &:hover {
-    background-color: #f1f8f4;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    background-color: rgba(211, 211, 211, 0.04);
+    box-shadow: none;
   }
 
   &:active {
-    transform: translateY(1px);
+    transform: none;
   }
 }
