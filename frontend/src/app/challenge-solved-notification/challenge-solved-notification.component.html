@@ -7,7 +7,24 @@
   @for (notification of notifications; track notification.key) {
     <mat-card appearance="outlined" class="accent-notification">
       <div class="mdc-card">
-        <div class="notificationMessage">{{notification.message}}<button id="closeButton" mat-button (click)="closeNotification($index, $event.shiftKey)">X</button></div>
+        <div class="notificationMessage"><div class="contents">{{notification.message}}
+          
+          @if (notification.hasCodingChallenge && codingChallengesEnabled !==
+      'never') {
+            <div class="notification-actions">
+              <button
+                class="view-challenge-button"
+                mat-stroked-button 
+                color="white"     
+                (click)="navigateToChallenge(notification.key)"
+              >
+                <mat-icon>code</mat-icon>
+                <span>{{ "Launch associated Coding Challenge" | translate }}</span>
+              </button>
+            </div>
+          }</div>
+          
+          <button id="closeButton" mat-button (click)="closeNotification($index, $event.shiftKey)">X</button></div>
         @if (showCtfFlagsInNotifications) {
           <br/>
           <div>
@@ -31,17 +48,6 @@
                   }
                 </span>
               }
-            </div>
-          }
-          @if (notification.hasCodingChallenge) {
-            <div class="notification-actions">
-              <button
-                class="view-challenge-button"
-                (click)="navigateToChallenge(notification.key)"
-              >
-                <mat-icon>code</mat-icon>
-                <span>{{ "LAUNCH ASSOCIATED CODING CHALLANGE" | translate }}</span>
-              </button>
             </div>
           }
         </div>
