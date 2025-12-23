@@ -57,7 +57,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
   public showCtfFlagsInNotifications = false
   public showCtfCountryDetailsInNotifications = 'none'
   public countryMap?: any
-  public codingChallengesEnabled = "solved";
+  public codingChallengesEnabled = "solved"
 
   ngOnInit (): void {
     this.ngZone.runOutsideAngular(() => {
@@ -104,7 +104,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
       }
 
        if (config?.challenges?.codingChallengesEnabled) {
-          this.codingChallengesEnabled = config.challenges.codingChallengesEnabled;
+          this.codingChallengesEnabled = config.challenges.codingChallengesEnabled
         }
 
     })
