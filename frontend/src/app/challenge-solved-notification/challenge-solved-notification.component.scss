@@ -30,33 +30,18 @@ mat-card {
   vertical-align: middle;
 }
 
-.flag-box {
-  border-radius: 4px;
-  cursor: copy;
-<<<<<<< HEAD
-  padding: $space-3xs $space-2xs;
-=======
-  padding: 2px 2px;
->>>>>>> ab73e3962 (button style change + other config changes)
-  transition: background-color 0.2s ease;
 
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-}
-
-.contents{
-  justify-content: space-around;
+.contents {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: $space-2xs;
+  justify-content: space-around;
 }
-
 
 .view-challenge-button {
   align-items: center;
   backdrop-filter: saturate(1.1);
-  border: 3px solid ;
+  border: 3px solid;
   border-radius: 4px;
   color: inherit;
 
@@ -65,10 +50,10 @@ mat-card {
 
   font-size: 15px;
   font-weight: 500;
-  gap: 2px;
+  gap: $space-3xs;
   height: 32px;
   letter-spacing: normal;
-  padding: 0 12px;
+  padding: 0 $space-s;
   transition: background-color 0.15s ease;
 
   mat-icon {
