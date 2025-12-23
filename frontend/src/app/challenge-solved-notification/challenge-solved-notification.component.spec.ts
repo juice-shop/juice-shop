@@ -54,6 +54,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
     translateService.onDefaultLangChange = new EventEmitter()
     cookieService = jasmine.createSpyObj('CookieService', ['put'])
     challengeService = jasmine.createSpyObj('ChallengeService', ['continueCode', 'find'])
+    challengeService.find.and.returnValue(of([]))
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
     countryMappingService = jasmine.createSpyObj('CountryMappingService', ['getCountryMapping'])
@@ -119,7 +120,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
     tick()
 
     expect(translateService.get).toHaveBeenCalledWith('CHALLENGE_SOLVED', { challenge: 'Test' })
-    expect(component.notifications).toEqual([{ key: 'test', message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: undefined }])
+    expect(component.notifications).toEqual([{ key: 'test', message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: undefined, hasCodingChallenge: false }])
   }))
 
   it('should store retrieved continue code as cookie for 1 year', () => {
@@ -208,7 +209,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
     component.showNotification({ key: 'test', challenge: 'Test', flag: '1234' })
     tick()
 
-    expect(component.notifications).toEqual([{ key: 'test', message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: { name: 'Canada', code: 'CA' } }])
+    expect(component.notifications).toEqual([{ key: 'test', message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: { name: 'Canada', code: 'CA' }, hasCodingChallenge: false }])
   }))
 
   it('should copy text to clipboard when navigator.clipboard is available', fakeAsync(() => {
