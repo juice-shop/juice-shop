@@ -53,7 +53,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
     cookieService = jasmine.createSpyObj('CookieService', ['put'])
-    challengeService = jasmine.createSpyObj('ChallengeService', ['continueCode'])
+    challengeService = jasmine.createSpyObj('ChallengeService', ['continueCode', 'find'])
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
     countryMappingService = jasmine.createSpyObj('CountryMappingService', ['getCountryMapping'])
