@@ -38,17 +38,6 @@ const challengeInstructions: ChallengeInstruction[] = [
   ExposedCredentialsInstruction
 ]
 
-challengeInstructions.map((challenge) => {
-  const lastHint = challenge.hints.at(-1)
-  if (lastHint) {
-    lastHint.text +=
-      `\n\n---\n\n` +
-      `Liked this Challenge?... Solve some Coding-Challenges related to this challenge.\n\n` +
-      `##### [What are coding challenges?](https://demo.owasp-juice.shop/#/hacking-instructor?challenge=Coding%20Challenges)`
-  }
-  return challenge
-})
-
 export interface ChallengeInstruction {
   name: string
   hints: ChallengeHint[]
