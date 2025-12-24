@@ -105,6 +105,7 @@ describe('UserService', () => {
       service.whoAmI().subscribe((data) => (res = data))
 
       const req = httpMock.expectOne('http://localhost:3000/rest/user/whoami')
+      // const req = httpMock.expectOne('http://localhost:3000/rest/user/whoami?showSensitive=false')
       req.flush({ user: 'apiResponse' })
       tick()
 
@@ -206,7 +207,7 @@ describe('UserService', () => {
     fakeAsync((service: UserService, httpMock: HttpTestingController) => {
       let errorResponse: any
       service.whoAmI().subscribe({ next: () => {}, error: (err) => (errorResponse = err) })
-      const req = httpMock.expectOne('http://localhost:3000/rest/user/whoami')
+      const req = httpMock.expectOne('http://localhost:3000/rest/user/whoami?showSensitive=false')
       req.error(new ErrorEvent('Network'))
 
       tick()

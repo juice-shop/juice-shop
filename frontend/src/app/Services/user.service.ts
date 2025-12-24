@@ -60,7 +60,7 @@ export class UserService {
   }
 
   whoAmI () {
-    return this.http.get(this.hostServer + '/rest/user/whoami').pipe(map((response: any) => response.user), catchError((err) => { throw err }))
+    return this.http.get(this.hostServer + '/rest/user/whoami?showSensitive=false').pipe(map((response: any) => response.user), catchError((err) => { throw err }))
   }
 
   oauthLogin (accessToken: string) {
