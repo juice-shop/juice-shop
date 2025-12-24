@@ -344,3 +344,6 @@ ctf:
     leakedApiKeyChallenge:
       name: San Marino
       code: SM
+    passwordHashLeakChallenge:
+      name: Italy
+      code: IT
