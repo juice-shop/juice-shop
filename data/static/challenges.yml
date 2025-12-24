@@ -1,3 +1,18 @@
+---
+- 
+  name: 'Password Hash Leak'
+  category: 'Sensitive Data Exposure'
+  tags:
+    - API
+    - Authentication
+  description: 'Obtain the password hash of the currently logged-in user directly from a REST API.'
+  difficulty: 2
+  hints:
+    - 'Did you look at the whoami endpoint?'
+    - 'You must be authenticated to receive a password hash in the response.'
+    - 'Did you see any parameters being sent to that endpoint?'
+  mitigationUrl: 'https://owasp.org/API-Security/editions/2019/en/0xa3-excessive-data-exposure/'
+  key: passwordHashLeakChallenge
 -
   name: 'API-only XSS'
   category: 'XSS'
