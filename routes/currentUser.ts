@@ -12,22 +12,24 @@ export function retrieveLoggedInUser () {
   return (req: Request, res: Response) => {
     let user
     let response: any
+    // Reusable empty user object to avoid duplication for unauthenticated / error responses
+    const emptyUser = { id: undefined, email: undefined, lastLoginIp: undefined, profileImage: undefined, passwordHash: undefined }
+    // Compute showHash in outer scope so it can be referenced after the try/catch (challenge check)
+    let showHash = false
     try {
       if (security.verify(req.cookies.token)) {
         // Retrieve the authenticated user from the token
         user = security.authenticatedUsers.get(req.cookies.token)
-        // Check if the showSensitive query parameter is present
-        const hasShowSensitive = typeof req.query?.showSensitive !== 'undefined'
-        // Get the raw value of showSensitive from the query
-        const rawShowSensitive = req.query?.showSensitive
-        // Determine if the password hash should be shown (true/1)
-        const showHash = hasShowSensitive && (String(rawShowSensitive) === 'true' || String(rawShowSensitive) === '1')
+        // Determine if the password hash should be shown — only when the query value is exactly 'true'
+        showHash = req.query?.showSensitive === 'true'
         // Build the base user object with non-sensitive fields
+        // Always include a passwordHash field (may be masked or real depending on query)
         const baseUser = {
           id: user?.data?.id,
           email: user?.data?.email,
           lastLoginIp: user?.data?.lastLoginIp,
-          profileImage: user?.data?.profileImage
+          profileImage: user?.data?.profileImage,
+          passwordHash: undefined
         }
         // Prepare the response object
         response = { user: baseUser }
@@ -35,19 +37,19 @@ export function retrieveLoggedInUser () {
         if (user?.data != null) {
           // Get the stored password hash
           const stored = (user as any).data.password
-          if (hasShowSensitive) {
-            // Show the real hash if requested, otherwise mask it with asterisks
-            response.user.passwordHash = showHash ? stored : (stored ? String(stored).replace(/./g, '*') : undefined)
-          }
+          // Always return the passwordHash field.
+          // If showSensitive is explicitly requested (true or '1'), return the real hash.
+          // Otherwise, return a masked version (asterisks) when a stored hash exists.
+          response.user.passwordHash = showHash ? stored : (stored ? String(stored).replace(/./g, '*') : undefined)
         }
       } else {
-        response = { user: { id: undefined, email: undefined, lastLoginIp: undefined, profileImage: undefined } }
+        response = { user: emptyUser }
       }
     } catch (err) {
-      response = { user: { id: undefined, email: undefined, lastLoginIp: undefined, profileImage: undefined } }
+      response = { user: emptyUser }
     }
-    // Solve passwordHashLeakChallenge if showSensitive=true or showSensitive=1 causing passwordHash to be returned
-    if (response?.user?.passwordHash && (req.query?.showSensitive === 'true' || req.query?.showSensitive === '1')) {
+    // Solve passwordHashLeakChallenge only when showSensitive is exactly 'true' causing real passwordHash to be returned
+    if (response?.user?.passwordHash && showHash) {
       challengeUtils.solveIf(challenges.passwordHashLeakChallenge, () => true)
     }
     if (req.query.callback === undefined) {
