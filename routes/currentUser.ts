@@ -26,13 +26,12 @@ export function retrieveLoggedInUser () {
         hasShowSensitive = typeof req.query?.showSensitive !== 'undefined'
         showHash = req.query?.showSensitive === 'true'
         // Build the base user object with non-sensitive fields
-        // Always include a passwordHash field (may be masked or real depending on query)
+        // Do NOT include `passwordHash` here — it will be added only if the client provided `showSensitive`
         const baseUser = {
           id: user?.data?.id,
           email: user?.data?.email,
           lastLoginIp: user?.data?.lastLoginIp,
-          profileImage: user?.data?.profileImage,
-          passwordHash: undefined
+          profileImage: user?.data?.profileImage
         }
         // Prepare the response object
         response = { user: baseUser }
