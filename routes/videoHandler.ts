@@ -19,6 +19,10 @@ const entities = new Entities()
 export const getVideo = () => {
   return (req: Request, res: Response) => {
     const path = videoPath()
+    if (!fs.existsSync(path)) {
+      res.status(404).send('Video not found')
+      return
+    }
     const stat = fs.statSync(path)
     const fileSize = stat.size
     const range = req.headers.range
@@ -36,14 +40,24 @@ export const getVideo = () => {
         'Content-Type': 'video/mp4'
       }
       res.writeHead(206, head)
-      file.pipe(res)
+      file.pipe(res).on('error', (err) => {
+        console.error('Stream error:', err)
+        if (!res.headersSent) {
+          res.status(500).end()
+        }
+      })
     } else {
       const head = {
         'Content-Length': fileSize,
         'Content-Type': 'video/mp4'
       }
       res.writeHead(200, head)
-      fs.createReadStream(path).pipe(res)
+      fs.createReadStream(path).pipe(res).on('error', (err) => {
+        console.error('Stream error:', err)
+        if (!res.headersSent) {
+          res.status(500).end()
+        }
+      })
     }
   }
 }
@@ -51,7 +65,11 @@ export const getVideo = () => {
 export const promotionVideo = () => {
   return (req: Request, res: Response) => {
     fs.readFile('views/promotionVideo.pug', function (err, buf) {
-      if (err != null) throw err
+      if (err != null) {
+        console.error('Failed to read promotion video template:', err)
+        res.status(500).send('Error loading promotion video')
+        return
+      }
       let template = buf.toString()
       const subs = getSubsFromFile()
 
@@ -79,8 +97,13 @@ export const promotionVideo = () => {
 
 function getSubsFromFile () {
   const subtitles = config.get<string>('application.promotion.subtitles') ?? 'owasp_promo.vtt'
-  const data = fs.readFileSync('frontend/dist/frontend/assets/public/videos/' + subtitles, 'utf8')
-  return data.toString()
+  try {
+    const data = fs.readFileSync('frontend/dist/frontend/assets/public/videos/' + subtitles, 'utf8')
+    return data.toString()
+  } catch (err) {
+    console.warn('Failed to read subtitle file:', err)
+    return ''
+  }
 }
 
 function videoPath () {
