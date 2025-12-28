@@ -343,10 +343,9 @@ describe('/rest/user/whoami', () => {
         return frisby.get(`${REST_URL}/user/whoami?fields=id,email`, { headers: { Cookie: `token=${json.authentication.token}` } })
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
-          .inspectJSON((json) => {
-            if (json.user.password !== undefined) {
-              throw new Error('password should not be present in response')
-            }
+          .expect('jsonTypes', 'user', {
+            id: Joi.number(),
+            email: Joi.string()
           })
       })
   })
