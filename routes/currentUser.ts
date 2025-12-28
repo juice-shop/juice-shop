@@ -13,48 +13,57 @@ export function retrieveLoggedInUser () {
     let user
     let response: any
     // Reusable empty user object to avoid duplication for unauthenticated / error responses
-    // Note: do not include `passwordHash` here — omit the field entirely when no showSensitive is provided
     const emptyUser = { id: undefined, email: undefined, lastLoginIp: undefined, profileImage: undefined }
-    // Compute showHash and hasShowSensitive in outer scope so they can be referenced after the try/catch (challenge check)
-    let showHash = false
-    let hasShowSensitive = false
     try {
       if (security.verify(req.cookies.token)) {
         // Retrieve the authenticated user from the token
         user = security.authenticatedUsers.get(req.cookies.token)
-        // Determine whether the showSensitive parameter is present and whether it equals the literal string 'true'
-        hasShowSensitive = typeof req.query?.showSensitive !== 'undefined'
-        showHash = req.query?.showSensitive === 'true'
-        // Build the base user object with non-sensitive fields
-        // Do NOT include `passwordHash` here — it will be added only if the client provided `showSensitive`
-        const baseUser = {
-          id: user?.data?.id,
-          email: user?.data?.email,
-          lastLoginIp: user?.data?.lastLoginIp,
-          profileImage: user?.data?.profileImage
-        }
-        // Prepare the response object
-        response = { user: baseUser }
-        // If user data exists, handle password hash exposure
-        if (user?.data != null) {
-          // Get the stored password hash
-          const stored = (user as any).data.password
-          // Only include the passwordHash field if the showSensitive parameter was provided.
-          // - If showSensitive is exactly the string 'true', include the real hash.
-          // - If showSensitive is provided but not 'true', include a masked value (asterisks) if a hash exists.
-          // - If showSensitive is not provided, omit the passwordHash field entirely.
-          if (hasShowSensitive) {
-            response.user.passwordHash = showHash ? stored : (stored ? String(stored).replace(/./g, '*') : undefined)
+
+        // Parse the fields parameter if provided
+        const fieldsParam = req.query?.fields as string | undefined
+        const requestedFields = fieldsParam ? fieldsParam.split(',').map(f => f.trim()) : []
+
+        // If fields parameter is provided, only return those fields
+        // Vulnerable: passwordHash is not in the allowlist, so it can be tricked into being returned
+        let baseUser: any = {}
+
+        if (requestedFields.length > 0) {
+          // When fields are specified, return only those fields
+          for (const field of requestedFields) {
+            if (field === 'id') {
+              baseUser.id = user?.data?.id
+            } else if (field === 'email') {
+              baseUser.email = user?.data?.email
+            } else if (field === 'lastLoginIp') {
+              baseUser.lastLoginIp = user?.data?.lastLoginIp
+            } else if (field === 'profileImage') {
+              baseUser.profileImage = user?.data?.profileImage
+            } else if (field === 'password') {
+              // Vulnerable: no validation prevents returning password
+              if (user?.data != null) {
+                baseUser.password = (user as any).data.password
+              }
+            }
+          }
+        } else {
+          // If no fields parameter, return standard fields
+          baseUser = {
+            id: user?.data?.id,
+            email: user?.data?.email,
+            lastLoginIp: user?.data?.lastLoginIp,
+            profileImage: user?.data?.profileImage
           }
         }
+
+        response = { user: baseUser }
       } else {
         response = { user: emptyUser }
       }
     } catch (err) {
       response = { user: emptyUser }
     }
-    // Solve passwordHashLeakChallenge only when showSensitive is exactly 'true' causing real passwordHash to be returned
-    if (response?.user?.passwordHash && showHash) {
+    // Solve passwordHashLeakChallenge when password is included in response
+    if (response?.user?.password) {
       challengeUtils.solveIf(challenges.passwordHashLeakChallenge, () => true)
     }
     if (req.query.callback === undefined) {
