@@ -33,24 +33,24 @@ describe('currentUser sensitive output (dev-only)', () => {
     process.env.ENABLE_SENSITIVE_API = originalEnableSensitiveApi
   })
 
-  it('should include passwordHash when dev guards are enabled and showSensitive=true is provided', () => {
+  it('should include password when fields parameter explicitly requests it', () => {
     req.cookies.token = token
-    req.query.showSensitive = 'true'
+    req.query.fields = 'id,email,password'
     authenticatedUsers.put(token, { data: { id: 1, email: 'admin@juice-sh.op', lastLoginIp: '0.0.0.0', profileImage: '/assets/public/images/uploads/default.svg', password: 'deadbeef' } as unknown as any })
     retrieveLoggedInUser()(req, res)
     void expect(res.json).to.have.been.called
     const calledWith = (res.json as sinon.SinonSpy).getCall(0).args[0]
     void expect(calledWith).to.have.property('user')
-    void expect(calledWith.user).to.have.property('passwordHash', 'deadbeef')
+    void expect(calledWith.user).to.have.property('password', 'deadbeef')
   })
 
-  it('should not include passwordHash when showSensitive is missing even if env enabled', () => {
+  it('should not include password when fields parameter is missing', () => {
     req.cookies.token = token
-    // no showSensitive param
+    // no fields param
     authenticatedUsers.put(token, { data: { id: 1, email: 'admin@juice-sh.op', lastLoginIp: '0.0.0.0', profileImage: '/assets/public/images/uploads/default.svg', password: 'deadbeef' } as unknown as any })
     retrieveLoggedInUser()(req, res)
     void expect(res.json).to.have.been.called
     const calledWith = (res.json as sinon.SinonSpy).getCall(0).args[0]
-    void expect(calledWith.user).to.not.have.property('passwordHash')
+    void expect(calledWith.user).to.not.have.property('password')
   })
 })
