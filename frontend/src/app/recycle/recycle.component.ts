@@ -72,7 +72,7 @@ export class RecycleComponent implements OnInit {
   }
 
   initRecycle () {
-    this.userService.whoAmI().subscribe({
+    this.userService.whoAmI(['id', 'email']).subscribe({
       next: (data) => {
         this.recycle = {}
         this.recycle.UserId = data.id

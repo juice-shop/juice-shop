@@ -104,7 +104,22 @@ describe('UserService', () => {
       let res: any
       service.whoAmI().subscribe((data) => (res = data))
 
-      const req = httpMock.expectOne('http://localhost:3000/rest/user/whoami?showSensitive=false')
+      const req = httpMock.expectOne('http://localhost:3000/rest/user/whoami')
+      req.flush({ user: 'apiResponse' })
+      tick()
+
+      expect(req.request.method).toBe('GET')
+      expect(res).toBe('apiResponse')
+      httpMock.verify()
+    })
+  ))
+
+  it('should return the logged-in users identity with specific fields parameter', inject([UserService, HttpTestingController],
+    fakeAsync((service: UserService, httpMock: HttpTestingController) => {
+      let res: any
+      service.whoAmI(['id', 'email']).subscribe((data) => (res = data))
+
+      const req = httpMock.expectOne('http://localhost:3000/rest/user/whoami?fields=id,email')
       req.flush({ user: 'apiResponse' })
       tick()
 
@@ -206,7 +221,7 @@ describe('UserService', () => {
     fakeAsync((service: UserService, httpMock: HttpTestingController) => {
       let errorResponse: any
       service.whoAmI().subscribe({ next: () => {}, error: (err) => (errorResponse = err) })
-      const req = httpMock.expectOne('http://localhost:3000/rest/user/whoami?showSensitive=false')
+      const req = httpMock.expectOne('http://localhost:3000/rest/user/whoami')
       req.error(new ErrorEvent('Network'))
 
       tick()
