@@ -46,7 +46,7 @@ export class PurchaseBasketComponent implements OnInit {
       this.tableColumns.push('remove')
     }
     this.load()
-    this.userService.whoAmI().subscribe({
+    this.userService.whoAmI(['email']).subscribe({
       next: (data) => {
         this.userEmail = data.email || 'anonymous'
         this.userEmail = '(' + this.userEmail + ')'
