@@ -59,8 +59,9 @@ export class UserService {
     return this.http.post(this.hostServer + '/rest/user/reset-password', params).pipe(map((response: any) => response.user), catchError((err) => { throw err }))
   }
 
-  whoAmI () {
-    return this.http.get(this.hostServer + '/rest/user/whoami?showSensitive=false').pipe(map((response: any) => response.user), catchError((err) => { throw err }))
+  whoAmI (fields?: string[]) {
+    const queryParam = fields && fields.length > 0 ? `?fields=${fields.join(',')}` : ''
+    return this.http.get(this.hostServer + '/rest/user/whoami' + queryParam).pipe(map((response: any) => response.user), catchError((err) => { throw err }))
   }
 
   oauthLogin (accessToken: string) {
