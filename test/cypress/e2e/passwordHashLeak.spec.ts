@@ -1,5 +1,3 @@
-import { describe, it, beforeEach, expect } from '@jest/globals'
-
 describe('challenge "Password Hash Leak"', () => {
   beforeEach(() => {
     cy.login({ email: 'admin@juice-sh.op', password: 'admin123' })
@@ -13,8 +11,8 @@ describe('challenge "Password Hash Leak"', () => {
         // Cypress automatically handles cookies after cy.login
       }
     }).then((res) => {
-      expect(res.body.user.password).toEqual(expect.any(String))
-      expect(res.body.user.password.length).toBeGreaterThan(0)
+      expect(res.body.user.password).to.be.a('string')
+      expect(res.body.user.password.length).to.be.greaterThan(0)
       cy.expectChallengeSolved({ challenge: 'Password Hash Leak' })
     })
   })
