@@ -15,7 +15,6 @@ export function retrieveLoggedInUser () {
     const emptyUser = { id: undefined, email: undefined, lastLoginIp: undefined, profileImage: undefined }
     try {
       if (security.verify(req.cookies.token)) {
-        
         user = security.authenticatedUsers.get(req.cookies.token)
 
         // Parse the fields parameter into an array, splitting by comma.
@@ -38,7 +37,7 @@ export function retrieveLoggedInUser () {
               baseUser.profileImage = user?.data?.profileImage
             } else if (field === 'password') {
               // Only returned if explicitly requested, not returned by default
-              baseUser.password = user?.data?.password 
+              baseUser.password = user?.data?.password
             }
           }
         } else {
@@ -60,7 +59,7 @@ export function retrieveLoggedInUser () {
     }
     // Solve passwordHashLeakChallenge when password field is included in response
     challengeUtils.solveIf(challenges.passwordHashLeakChallenge, () => response?.user?.password)
-    
+
     if (req.query.callback === undefined) {
       res.json(response)
     } else {
