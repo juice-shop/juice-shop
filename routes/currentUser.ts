@@ -12,7 +12,10 @@ export function retrieveLoggedInUser () {
   return (req: Request, res: Response) => {
     let user
     try {
-      if (security.verify(req.cookies.token)) {
+      // First try to get user from Authorization header (for forged JWT tokens)
+      user = security.authenticatedUsers.from(req)
+      // Fall back to cookie token - check authenticatedUsers directly (for forged cookie tokens)
+      if (!user) {
         user = security.authenticatedUsers.get(req.cookies.token)
       }
     } catch (err) {

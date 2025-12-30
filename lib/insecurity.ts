@@ -186,16 +186,31 @@ export const appendUserId = () => {
 }
 
 export const updateAuthenticatedUsers = () => (req: Request, res: Response, next: NextFunction) => {
-  const token = req.cookies.token || utils.jwtFrom(req)
-  if (token) {
-    jwt.verify(token, publicKey, (err: Error | null, decoded: any) => {
+  const headerToken = utils.jwtFrom(req)
+  const cookieToken = req.cookies.token
+
+  // Register header token and set as cookie (to propagate forged header token)
+  if (headerToken) {
+    jwt.verify(headerToken, publicKey, (err: Error | null, decoded: any) => {
       if (err === null) {
-        if (authenticatedUsers.get(token) === undefined) {
-          authenticatedUsers.put(token, decoded)
-          res.cookie('token', token)
+        if (authenticatedUsers.get(headerToken) === undefined) {
+          authenticatedUsers.put(headerToken, decoded)
+          res.cookie('token', headerToken)
         }
       }
     })
   }
+
+  // Register cookie token (for forged cookie tokens)
+  if (cookieToken && cookieToken !== headerToken) {
+    jwt.verify(cookieToken, publicKey, (err: Error | null, decoded: any) => {
+      if (err === null) {
+        if (authenticatedUsers.get(cookieToken) === undefined) {
+          authenticatedUsers.put(cookieToken, decoded)
+        }
+      }
+    })
+  }
+
   next()
 }
