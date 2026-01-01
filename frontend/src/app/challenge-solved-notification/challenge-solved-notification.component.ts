@@ -31,7 +31,10 @@ interface ChallengeSolvedNotification {
   flag: string
   country?: { code: string, name: string }
   copied: boolean
+  codingChallengeId?: string  
 }
+
+
 
 @Component({
   selector: 'app-challenge-solved-notification',
@@ -124,7 +127,14 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
           key: challenge.key,
           flag: challenge.flag,
           country,
-          copied: false
+          copied: false,
+          // Only show button for coding challenges
+          codingChallengeId:
+          challenge.challenge &&
+          challenge.challenge.toLowerCase().includes('coding')
+            ? challenge.key
+            : undefined
+
         })
         this.ref.detectChanges()
       })
@@ -143,4 +153,19 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
       error: (err) => { console.log(err) }
     })
   }
+
+  hasCodingChallenge(notification: ChallengeSolvedNotification): boolean {
+  return !!notification.codingChallengeId
+}
+
+openCodingChallenge(notification: ChallengeSolvedNotification): void {
+  // For now, just log (safe & error-free)
+  console.log('Opening coding challenge:', notification.codingChallengeId)
+
+  // Later you can:
+  // - navigate to a route
+  // - open a dialog
+  // - load a coding editor
+}
+
 }

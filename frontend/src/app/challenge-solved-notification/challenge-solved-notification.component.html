@@ -7,7 +7,28 @@
   @for (notification of notifications; track notification.key) {
     <mat-card appearance="outlined" class="accent-notification">
       <div class="mdc-card">
-        <div class="notificationMessage">{{notification.message}}<button id="closeButton" mat-button (click)="closeNotification($index, $event.shiftKey)">X</button></div>
+        <!-- <div class="notificationMessage">{{notification.message}}<button id="closeButton" mat-button (click)="closeNotification($index, $event.shiftKey)">X</button></div> -->
+         <div class="notificationMessage">
+  {{notification.message}}
+
+  @if (hasCodingChallenge(notification)) {
+    <button
+      mat-stroked-button
+      color="primary"
+      class="coding-challenge-btn"
+      (click)="openCodingChallenge(notification)">
+      Coding Challenge
+    </button>
+  }
+
+  <button
+    id="closeButton"
+    mat-button
+    (click)="closeNotification($index, $event.shiftKey)">
+    X
+  </button>
+</div>
+
         @if (showCtfFlagsInNotifications) {
           <br/>
           <div>
