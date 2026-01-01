@@ -159,13 +159,9 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
 }
 
 openCodingChallenge(notification: ChallengeSolvedNotification): void {
-  // For now, just log (safe & error-free)
   console.log('Opening coding challenge:', notification.codingChallengeId)
 
-  // Later you can:
-  // - navigate to a route
-  // - open a dialog
-  // - load a coding editor
+  
 }
 
 }
