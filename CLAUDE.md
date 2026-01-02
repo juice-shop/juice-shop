@@ -2,6 +2,11 @@
 
 This guide helps contributors use Claude (AI assistant) effectively when working on OWASP Juice Shop while maintaining code quality and adhering to project standards.
 
+> This document is supposed to be the primary source of context for **all** AI tools. Context files of tools other than Claude should refer to [this `CLAUDE.md` file](CLAUDE.md) for detailed guidelines. This is already the case for:
+> * GitHub CoPilot ([`.github/copilot-instructions.md`](.github/copilot-instructions.md))
+> * Codeium ([`.codeium/instructions.md`](.codeium/instructions.md))
+> * Continue.dev ([`.continue/instructions.md`](.continue/instructions.md))
+
 ## Before You Start
 
 Claude can assist with various development tasks, but all contributions must still meet the requirements in [CONTRIBUTING.md](CONTRIBUTING.md). The AI is a tool to enhance productivity, not a replacement for understanding the codebase and contribution guidelines.
@@ -167,6 +172,8 @@ Before submitting a Claude-assisted PR:
 - [ ] PR based on `develop` branch
 - [ ] Single, focused scope
 - [ ] All CI checks passing
+- [ ] PR based on `develop` branch
+- [ ] PR contains AI Tool Disclosure and Affirmation
 
 ## Refactoring Safety Net (RSN)
 
