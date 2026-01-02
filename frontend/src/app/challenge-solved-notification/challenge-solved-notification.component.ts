@@ -16,6 +16,7 @@ import { MatCardModule } from '@angular/material/card'
 import { LowerCasePipe } from '@angular/common'
 import { firstValueFrom } from 'rxjs'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
+import { Router } from '@angular/router'
 
 interface ChallengeSolvedMessage {
   challenge: string
@@ -31,6 +32,7 @@ interface ChallengeSolvedNotification {
   flag: string
   country?: { code: string, name: string }
   copied: boolean
+  hasCodingChallenge?: boolean;
 }
 
 @Component({
@@ -49,11 +51,13 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
   private readonly ref = inject(ChangeDetectorRef)
   private readonly io = inject(SocketIoService)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
+  private readonly router = inject(Router)
 
   public notifications: ChallengeSolvedNotification[] = []
   public showCtfFlagsInNotifications = false
   public showCtfCountryDetailsInNotifications = 'none'
   public countryMap?: any
+  public codingChallengesEnabled = "solved"
 
   ngOnInit (): void {
     this.ngZone.runOutsideAngular(() => {
@@ -98,6 +102,11 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
           this.showCtfCountryDetailsInNotifications = 'none'
         }
       }
+
+       if (config?.challenges?.codingChallengesEnabled) {
+          this.codingChallengesEnabled = config.challenges.codingChallengesEnabled
+        }
+
     })
   }
 
@@ -120,12 +129,37 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
         if (this.showCtfCountryDetailsInNotifications && this.showCtfCountryDetailsInNotifications !== 'none') {
           country = this.countryMap[challenge.key]
         }
-        this.notifications.push({
-          message,
-          key: challenge.key,
-          flag: challenge.flag,
-          country,
-          copied: false
+
+        let hasCodingChallenge = false
+        this.challengeService.find().subscribe({
+          next: (challenges) => {
+            const matchingChallenge = challenges.find(
+              (c) => c.key === challenge.key
+            )
+            hasCodingChallenge = matchingChallenge?.hasCodingChallenge ?? false
+
+            this.notifications.push({
+              message,
+              key: challenge.key,
+              flag: challenge.flag,
+              country,
+              copied: false,
+              hasCodingChallenge,
+            })
+            this.ref.detectChanges()
+            
+          },
+          error: () => {
+            this.notifications.push({
+              message,
+              key: challenge.key,
+              flag: challenge.flag,
+              country,
+              copied: false,
+              hasCodingChallenge: false,
+            })
+            this.ref.detectChanges()
+          },
         })
         this.ref.detectChanges()
       })
@@ -151,5 +185,16 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
         this.snackBarHelperService.open('COPY_SUCCESS', 'confirmBar')
       })
     }
+  }
+
+  navigateToChallenge(challengeKey: string) {
+    if (!challengeKey) {
+      return
+    }
+    this.ngZone.run(() => {
+      void this.router.navigate(["/score-board"], {
+        queryParams: { highlightChallenge: challengeKey },
+      })
+    })
   }
 }
