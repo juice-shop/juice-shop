@@ -5,22 +5,28 @@
 [![Twitter Follow](https://img.shields.io/twitter/follow/owasp_juiceshop.svg?style=social&label=Follow)](https://twitter.com/owasp_juiceshop)
 [![Subreddit subscribers](https://img.shields.io/reddit/subreddit-subscribers/owasp_juiceshop?style=social)](https://reddit.com/r/owasp_juiceshop)
 
+### Status
+
 ![CI/CD Pipeline](https://github.com/juice-shop/juice-shop/workflows/CI/CD%20Pipeline/badge.svg?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/juice-shop/juice-shop/badge.svg?branch=develop)](https://coveralls.io/github/juice-shop/juice-shop?branch=develop)[![Cypress tests](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/3hrkhu/master&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/3hrkhu/runs)
+[![Coverage Status](https://coveralls.io/repos/github/juice-shop/juice-shop/badge.svg?branch=develop)](https://coveralls.io/github/juice-shop/juice-shop?branch=develop)
+[![Cypress tests](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/3hrkhu/master&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/3hrkhu/runs)
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/223/badge)](https://www.bestpractices.dev/projects/223)
 ![GitHub stars](https://img.shields.io/github/stars/juice-shop/juice-shop.svg?label=GitHub%20%E2%98%85&style=flat)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 
-> [The most trustworthy online shop out there.](https://twitter.com/dschadow/status/706781693504589824)
-> ([@dschadow](https://github.com/dschadow)) —
-> [The best juice shop on the whole internet!](https://twitter.com/shehackspurple/status/907335357775085568)
-> ([@shehackspurple](https://twitter.com/shehackspurple)) —
-> [Actually the most bug-free vulnerable application in existence!](https://youtu.be/TXAztSpYpvE?t=26m35s)
-> ([@vanderaj](https://twitter.com/vanderaj)) —
-> [First you 😂😂then you 😢](https://twitter.com/kramse/status/1073168529405472768)
-> ([@kramse](https://twitter.com/kramse)) —
-> [But this doesn't have anything to do with juice.](https://twitter.com/coderPatros/status/1199268774626488320)
-> ([@coderPatros' wife](https://twitter.com/coderPatros))
+### What people say
+
+> - "The most trustworthy online shop out there" - [Tweet](https://twitter.com/dschadow/status/706781693504589824)
+> - ([@dschadow](https://github.com/dschadow))
+> - "The best juice shop on the whole internet!" - [Tweet](https://twitter.com/shehackspurple/status/907335357775085568)
+> - ([@shehackspurple](https://twitter.com/shehackspurple))
+> - "Actually the most bug-free vulnerable application in existence!" - [YouTube](https://youtu.be/TXAztSpYpvE?t=26m35s)
+> - ([@vanderaj](https://twitter.com/vanderaj))
+> - "First you 😂😂then you 😢" - [Tweet](https://twitter.com/kramse/status/1073168529405472768)
+> - ([@kramse](https://twitter.com/kramse))
+> - "But this doesn't have anything to do with juice." - [Tweet](https://twitter.com/coderPatros/status/1199268774626488320)
+> - ([@coderPatros' wife](https://twitter.com/coderPatros))
+
 
 OWASP Juice Shop is probably the most modern and sophisticated insecure web application! It can be used in security
 trainings, awareness demos, CTFs and as a guinea pig for security tools! Juice Shop encompasses vulnerabilities from the
@@ -81,12 +87,13 @@ For a detailed introduction, full list of features and architecture overview ple
    `.tgz`) attached to
    [latest release](https://github.com/juice-shop/juice-shop/releases/latest)
 3. Unpack and `cd` into the unpacked folder
-4. Run `npm start`
-5. Browse to <http://localhost:3000>
+4. Run `npm test` to verify setup
+5. Run `npm start`
+6. Browse to <http://localhost:3000>
 
-> Each packaged distribution includes some binaries for `sqlite3` and
-> `libxmljs2` bound to the OS and node.js version which `npm install` was
-> executed on.
+> - Each packaged distribution includes some binaries for `sqlite3` and
+> - `libxmljs2` bound to the OS and node.js version which `npm install` was
+> - executed on.
 
 ### Docker Container
 
@@ -98,9 +105,11 @@ For a detailed introduction, full list of features and architecture overview ple
 "Get your own version badge on microbadger.com")
 
 1. Install [Docker](https://www.docker.com)
-2. Run `docker pull bkimminich/juice-shop`
-3. Run `docker run --rm -p 127.0.0.1:3000:3000 bkimminich/juice-shop`
-4. Browse to <http://localhost:3000> (on macOS and Windows browse to
+2. Verify Docker installation: `docker --version`.  
+3. Pull the official Juice Shop image:  
+   `docker pull bkimminich/juice-shop`
+4. Run the Juice Shop container `docker run --rm -p 127.0.0.1:3000:3000 bkimminich/juice-shop`
+5. Browse to <http://localhost:3000> (on macOS and Windows browse to
    <http://192.168.99.100:3000> if you are using docker-machine instead of the native docker installation)
 
 ### Vagrant
@@ -110,17 +119,18 @@ For a detailed introduction, full list of features and architecture overview ple
 2. Run `git clone https://github.com/juice-shop/juice-shop.git` (or
    clone [your own fork](https://github.com/juice-shop/juice-shop/fork)
    of the repository)
-3. Run `cd vagrant && vagrant up`
-4. Browse to [192.168.56.110](http://192.168.56.110)
+3. Navigate to the Vagrant folder `cd juice-shop/vagrant`
+4. Start and provision the VM `vagrant up`
+5. Browse to [192.168.56.110](http://192.168.56.110)
 
 ## Demo
 
 Feel free to have a look at the latest version of OWASP Juice Shop:
 <http://demo.owasp-juice.shop>
 
-> This is a deployment-test and sneak-peek instance only! You are __not
-> supposed__ to use this instance for your own hacking endeavours! No
-> guaranteed uptime! Guaranteed stern looks if you break it!
+> - This is a deployment-test and sneak-peek instance only! You are __not
+> - supposed__ to use this instance for your own hacking endeavours! No
+> - guaranteed uptime! Guaranteed stern looks if you break it!
 
 ## Documentation
 
