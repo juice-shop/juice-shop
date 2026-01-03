@@ -19,11 +19,7 @@ describe('/rest/languages', () => {
         icons: Joi.array(),
         percentage: Joi.number(),
         shortKey: Joi.string(),
-        gauge: Joi.string(),
-        backendPercentage: Joi.number(),
-        backendGauge: Joi.string(),
-        combinedPercentage: Joi.number(),
-        combinedGauge: Joi.string()
+        gauge: Joi.string()
       })
   })
 })
