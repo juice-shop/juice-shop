@@ -10,35 +10,41 @@ import { type Request, type Response, type NextFunction } from 'express'
 export function getLanguageList () {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const languages: Array<{ key: string, lang: any, icons: string[], shortKey: string, percentage: unknown, gauge: string, backendPercentage: number, backendGauge: string, combinedPercentage: number, combinedGauge: string }> = []
+      const languages: Array<{ key: string, lang: any, icons: string[], shortKey: string, percentage: number, gauge: string }> = []
 
       const enContentStr = await readFile('frontend/dist/frontend/assets/i18n/en.json', 'utf-8')
       const enContent = JSON.parse(enContentStr)
 
-      const backendEnContentStr = await readFile('i18n/en.json', 'utf-8')
-      const backendEnContent = JSON.parse(backendEnContentStr)
+      let backendEnContent: any = null
+      try {
+        const backendEnContentStr = await readFile('i18n/en.json', 'utf-8')
+        backendEnContent = JSON.parse(backendEnContentStr)
+      } catch {
+        // Backend translations not available, will use frontend-only percentages
+      }
 
       const languageFiles = await readdir('frontend/dist/frontend/assets/i18n/')
 
       const languagePromises = languageFiles.map(async (fileName) => {
         const content = await readFile('frontend/dist/frontend/assets/i18n/' + fileName, 'utf-8')
         const fileContent = JSON.parse(content)
-        const percentage = calcPercentage(fileContent, enContent)
+        const frontendPercentage = calcPercentage(fileContent, enContent)
         const key = fileName.substring(0, fileName.indexOf('.'))
         const locale = locales.find((l) => l.key === key)
 
         let backendPercentage = 0
-        try {
-          const backendContent = await readFile('i18n/' + fileName, 'utf-8')
-          const backendFileContent = JSON.parse(backendContent)
-          backendPercentage = calcPercentage(backendFileContent, backendEnContent)
-        } catch {
-          backendPercentage = 0
+        if (backendEnContent !== null) {
+          try {
+            const backendContent = await readFile('i18n/' + fileName, 'utf-8')
+            const backendFileContent = JSON.parse(backendContent)
+            backendPercentage = calcPercentage(backendFileContent, backendEnContent)
+          } catch {
+            backendPercentage = 0
+          }
         }
 
-        const combinedPercentage = (percentage + backendPercentage) / 2
-        const backendGauge = (backendPercentage > 90 ? 'full' : (backendPercentage > 70 ? 'three-quarters' : (backendPercentage > 50 ? 'half' : (backendPercentage > 30 ? 'quarter' : 'empty'))))
-        const combinedGauge = (combinedPercentage > 90 ? 'full' : (combinedPercentage > 70 ? 'three-quarters' : (combinedPercentage > 50 ? 'half' : (combinedPercentage > 30 ? 'quarter' : 'empty'))))
+        const percentage = backendEnContent !== null ? (frontendPercentage + backendPercentage) / 2 : frontendPercentage
+        const gauge = (percentage > 90 ? 'full' : (percentage > 70 ? 'three-quarters' : (percentage > 50 ? 'half' : (percentage > 30 ? 'quarter' : 'empty'))))
 
         const lang: any = {
           key,
@@ -46,11 +52,7 @@ export function getLanguageList () {
           icons: locale?.icons,
           shortKey: locale?.shortKey,
           percentage,
-          gauge: (percentage > 90 ? 'full' : (percentage > 70 ? 'three-quarters' : (percentage > 50 ? 'half' : (percentage > 30 ? 'quarter' : 'empty')))),
-          backendPercentage,
-          backendGauge,
-          combinedPercentage,
-          combinedGauge
+          gauge
         }
         if (!(fileName === 'en.json' || fileName === 'tlh_AA.json')) {
           return lang
@@ -65,7 +67,7 @@ export function getLanguageList () {
         }
       })
 
-      languages.push({ key: 'en', icons: ['gb', 'us'], shortKey: 'EN', lang: 'English', percentage: 100, gauge: 'full', backendPercentage: 100, backendGauge: 'full', combinedPercentage: 100, combinedGauge: 'full' })
+      languages.push({ key: 'en', icons: ['gb', 'us'], shortKey: 'EN', lang: 'English', percentage: 100, gauge: 'full' })
       languages.sort((a, b) => a.lang.localeCompare(b.lang))
       res.status(200).json(languages)
     } catch (err: any) {
