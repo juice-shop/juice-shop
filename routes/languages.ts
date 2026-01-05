@@ -45,8 +45,8 @@ export function getLanguageList () {
           }
         }
 
-        const percentage = backendEnContent !== null ? (frontendPercentage + backendPercentage) / 2 : frontendPercentage
-        const gauge = (percentage > 90 ? 'full' : (percentage > 70 ? 'three-quarters' : (percentage > 50 ? 'half' : (percentage > 30 ? 'quarter' : 'empty'))))
+        const percentage = Math.round(backendEnContent !== null ? (frontendPercentage + backendPercentage) / 2 : frontendPercentage)
+        const gauge = (percentage > 80 ? 'full' : (percentage > 60 ? 'three-quarters' : (percentage > 40 ? 'half' : (percentage > 20 ? 'quarter' : 'empty'))))
 
         const lang: any = {
           key,
