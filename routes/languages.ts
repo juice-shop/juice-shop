@@ -6,6 +6,8 @@
 import locales from '../data/static/locales.json'
 import { readFile, readdir } from 'node:fs/promises'
 import { type Request, type Response, type NextFunction } from 'express'
+import logger from '../lib/logger'
+import * as utils from '../lib/utils'
 
 export function getLanguageList () {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -19,8 +21,8 @@ export function getLanguageList () {
       try {
         const backendEnContentStr = await readFile('i18n/en.json', 'utf-8')
         backendEnContent = JSON.parse(backendEnContentStr)
-      } catch {
-        // Backend translations not available, will use frontend-only percentages
+      } catch (e: unknown) {
+        logger.warn('Backend translations not available, will use frontend-only percentages: ' + utils.getErrorMessage(e))
       }
 
       const languageFiles = await readdir('frontend/dist/frontend/assets/i18n/')
