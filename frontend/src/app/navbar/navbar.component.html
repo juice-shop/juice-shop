@@ -125,7 +125,7 @@
       <div class="language-search-container" (click)="$event.stopPropagation()">
         <mat-form-field class="language-search-field">
           <mat-icon matPrefix class="search-icon">search</mat-icon>
-          <mat-label>{{ 'SEARCH' | translate }}</mat-label>
+          <mat-label>{{ 'SEARCH_PLACEHOLDER' | translate }}</mat-label>
           <input type="search" matInput [(ngModel)]="languageSearchQuery" (input)="filterLanguages()">
         </mat-form-field>
       </div>
@@ -143,7 +143,7 @@
             }
             {{language?.lang}}
           </div>
-          <i [class]="'fas fa-thermometer-' + language.gauge + (language.percentage > 70 ? ' confirmation' : ' error')"></i>
+          <i [class]="'fas fa-thermometer-' + language.gauge" [title]="language.percentage + '% translated'"></i>
         </mat-radio-button>
       }
     </mat-menu>
