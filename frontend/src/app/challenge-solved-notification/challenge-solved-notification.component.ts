@@ -24,6 +24,7 @@ interface ChallengeSolvedMessage {
   isRestore?: any
   flag: any
   key?: any
+  codingChallenge?: boolean
 }
 
 interface ChallengeSolvedNotification {
@@ -32,7 +33,7 @@ interface ChallengeSolvedNotification {
   flag: string
   country?: { code: string, name: string }
   copied: boolean
-  hasCodingChallenge?: boolean;
+  codingChallenge?: boolean;
 }
 
 @Component({
@@ -102,11 +103,6 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
           this.showCtfCountryDetailsInNotifications = 'none'
         }
       }
-
-       if (config?.challenges?.codingChallengesEnabled) {
-          this.codingChallengesEnabled = config.challenges.codingChallengesEnabled
-        }
-
     })
   }
 
@@ -129,37 +125,13 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
         if (this.showCtfCountryDetailsInNotifications && this.showCtfCountryDetailsInNotifications !== 'none') {
           country = this.countryMap[challenge.key]
         }
-
-        let hasCodingChallenge = false
-        this.challengeService.find().subscribe({
-          next: (challenges) => {
-            const matchingChallenge = challenges.find(
-              (c) => c.key === challenge.key
-            )
-            hasCodingChallenge = matchingChallenge?.hasCodingChallenge ?? false
-
-            this.notifications.push({
-              message,
-              key: challenge.key,
-              flag: challenge.flag,
-              country,
-              copied: false,
-              hasCodingChallenge,
-            })
-            this.ref.detectChanges()
-            
-          },
-          error: () => {
-            this.notifications.push({
-              message,
-              key: challenge.key,
-              flag: challenge.flag,
-              country,
-              copied: false,
-              hasCodingChallenge: false,
-            })
-            this.ref.detectChanges()
-          },
+        this.notifications.push({
+          message,
+          key: challenge.key,
+          flag: challenge.flag,
+          country,
+          copied: false,
+          codingChallenge: challenge.codingChallenge ?? false,
         })
         this.ref.detectChanges()
       })
