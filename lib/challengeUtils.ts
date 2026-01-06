@@ -46,13 +46,23 @@ export const solve = function (challenge: any, isRestore = false) {
 export const sendNotification = function (challenge: { difficulty?: number, key: any, name: any, description?: any }, isRestore: boolean) {
   if (!notSolved(challenge)) {
     const flag = utils.ctfFlag(challenge.name)
+
+    const challengeKey = challenge.key as ChallengeKey
+    const fullChallenge = challenges[challengeKey]
+
+    let hasCodingChallenge = false
+    if (fullChallenge) {
+      hasCodingChallenge = Boolean(fullChallenge.hasCodingChallenge) ?? false
+    }
+
     const notification = {
       key: challenge.key,
       name: challenge.name,
       challenge: challenge.name + ' (' + entities.decode(sanitizeHtml(challenge.description, { allowedTags: [], allowedAttributes: {} })) + ')',
       flag,
       hidden: !config.get('challenges.showSolvedNotifications'),
-      isRestore
+      isRestore,
+      codingChallenge: config.get('challenges.codingChallengesEnabled') !== 'never' && hasCodingChallenge
     }
     const wasPreviouslyShown = notifications.some(({ key }) => key === challenge.key)
     notifications.push(notification)

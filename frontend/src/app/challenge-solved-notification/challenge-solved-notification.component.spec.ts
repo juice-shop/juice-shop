@@ -120,7 +120,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
     tick()
 
     expect(translateService.get).toHaveBeenCalledWith('CHALLENGE_SOLVED', { challenge: 'Test' })
-    expect(component.notifications).toEqual([{ key: 'test', message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: undefined, hasCodingChallenge: false }])
+    expect(component.notifications).toEqual([{ key: 'test', message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: undefined, codingChallenge: false }])
   }))
 
   it('should store retrieved continue code as cookie for 1 year', () => {
@@ -209,7 +209,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
     component.showNotification({ key: 'test', challenge: 'Test', flag: '1234' })
     tick()
 
-    expect(component.notifications).toEqual([{ key: 'test', message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: { name: 'Canada', code: 'CA' }, hasCodingChallenge: false }])
+    expect(component.notifications).toEqual([{ key: 'test', message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: { name: 'Canada', code: 'CA' }, codingChallenge: false }])
   }))
 
   it('should copy text to clipboard when navigator.clipboard is available', fakeAsync(() => {
