@@ -9,17 +9,15 @@
       <div class="mdc-card">
         <div class="notificationMessage"><div class="contents">{{notification.message}}
           
-          @if (notification.hasCodingChallenge && codingChallengesEnabled !==
-      'never') {
+          @if (notification.codingChallenge) {
             <div class="notification-actions">
               <button
                 class="view-challenge-button"
                 mat-stroked-button 
-                color="white"     
                 (click)="navigateToChallenge(notification.key)"
               >
                 <mat-icon>code</mat-icon>
-                <span>{{ "Launch associated Coding Challenge" | translate }}</span>
+                <span>{{ "JUMP_TO_RELATED_CODING_CHALLENGE" | translate }}</span>
               </button>
             </div>
           }</div>
