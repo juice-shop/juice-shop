@@ -34,7 +34,11 @@ function captchas () {
 }
 
 captchas.verifyCaptcha = () => (req: Request, res: Response, next: NextFunction) => {
-  CaptchaModel.findOne({ where: { captchaId: req.body.captchaId } }).then((captcha: Captcha | null) => {
+  const captchaId = Number(req.body.captchaId);
+  if (isNaN(captchaId)) {
+  return res.status(400).send('Invalid captchaId');
+  }
+  CaptchaModel.findOne({ where: { captchaId: captchaId } }).then((captcha: Captcha | null) => {
     if ((captcha != null) && req.body.captcha === captcha.answer) {
       next()
     } else {

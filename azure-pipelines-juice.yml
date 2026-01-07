@@ -1,0 +1,124 @@
+---
+variables:
+  - group: AWS-ECR-Credentials
+  - group: common
+  - group: PR-ENV-Credentials
+  - name: agent_pool
+    value: 'AU-k8s-linux'
+  - name: build_location
+    value: 'AU'
+  - name: docker_file
+    value: 'Dockerfile'
+  - name: job_name
+    value: 'juice_shop'
+  - name: repositoryname
+    value: 'juice-shop'
+  - name: working_directory
+    value: '$(Build.SourcesDirectory)/$(repositoryname)'
+  - name : node_version
+    value: '17.2.0'
+
+pr: none
+
+trigger:
+  branches:
+    include:
+      - 'master'
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: InfoTrackGlobal/azure.devops.templates
+      endpoint: InfoTrackGlobal
+
+stages:
+  - stage: Docker_Build
+    displayName: Docker Build
+    jobs:
+      - template: docker-build/linux-docker-builds.yaml@templates
+        parameters:
+          agent_pool: $(agent_pool)
+          build_location: $(build_location)
+          countries:
+            - AU
+          docker_file: $(docker_file)
+          k8settings: k8_settings.json
+          repositoryname: $(repositoryname)
+          working_directory: $(working_directory)
+          set_version_buildarg: true
+
+  - stage: AU_Test_Release
+    displayName: AU Test Release
+    dependsOn: Docker_Build
+    variables:
+      - name: version
+        value: $[ stageDependencies.Docker_Build.Build_Docker_Image.outputs['gitversion.docker_version'] ]
+      - name: prnumbers
+        value: $[ stageDependencies.Docker_Build.Github_Release.outputs['releaseNotes.prnumbers'] ]
+    jobs:
+      - template: k8s-deployments/k8s-deployments.yaml@templates
+        parameters:
+          job_name: ${{ variables.job_name }}
+          country: AU
+          environment: Test
+          k8settings: k8_settings.json
+          prnumbers: $(prnumbers)
+          repositoryname: $(repositoryname)
+          version: $(version)
+          working_directory: $(working_directory)
+          node_version: $(node_version)
+      - template: k8s-deployments/k8s-black-phase.yaml@templates
+        parameters:
+          job_name: ${{ variables.job_name }}
+          country: AU
+          dependson: Deploy_Application_${{ variables.job_name }}
+          environment: Test
+          k8settings: k8_settings.json
+          repositoryname: $(repositoryname)
+          version: $(version)
+          working_directory: $(working_directory)
+
+  # - stage: AU_Stage_Release
+  #   displayName: AU Stage Release
+  #   dependsOn:
+  #     - Docker_Build
+  #     - AU_Test_Release
+  #   variables:
+  #     - name: version
+  #       value: $[ stageDependencies.Docker_Build.Build_Docker_Image.outputs['gitversion.docker_version'] ]
+  #   jobs:
+  #     - template: k8s-deployments/k8s-deployments.yaml@templates
+  #       parameters:
+  #         job_name: ${{ variables.job_name }}
+  #         country: AU
+  #         environment: Stage
+  #         k8settings: k8_settings.json
+  #         protect_environment: Stage
+  #         repositoryname: $(repositoryname)
+  #         tests_directory: $(tests_directory)
+  #         version: $(version)
+  #         working_directory: $(working_directory)
+  #         node_version: $(node_version)
+  #     - job: Manual_Validation_stage
+  #       displayName: Manual Approval
+  #       dependsOn: Deploy_Application_juice_shop
+  #       pool: server
+  #       timeoutInMinutes: 4320
+  #       steps:
+  #         - task: ManualValidation@0
+  #           timeoutInMinutes: 1440
+  #           displayName: Manual Testing Verification
+  #           inputs:
+  #             instructions: 'Please perform any manual validation before resuming release'
+  #             onTimeout: 'reject'
+  #     - template: k8s-deployments/k8s-black-phase.yaml@templates
+  #       parameters:
+  #         job_name: ${{ variables.job_name }}
+  #         country: AU
+  #         dependson: Manual_Validation_stage
+  #         environment: Stage
+  #         k8settings: k8_settings.json
+  #         repositoryname: $(repositoryname)
+  #         version: $(version)
+  #         working_directory: $(working_directory)

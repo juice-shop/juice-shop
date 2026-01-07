@@ -1,0 +1,38 @@
+{
+  "Default": {
+    "app_name": "juice-shop",
+    "app_owner": "{app_owner}",
+    "app_port": 3000,
+    "base_template": "SanityTemplate",
+    "cpu_limit": "500m",
+    "cpu_request": "50m",
+    "healthcheck_address": "/",
+    "healthcheck_protocol": "HTTP",
+    "memory_limit": "750Mi",
+    "memory_request": "200Mi",
+    "min_replicas": 2,
+    "max_replicas": 5,
+    "service_prefix": "/juice-shop/",
+    "service_visibility": "internal",
+    "slack_channel": "#default-alerts-channel",
+    "host_name": "",
+    "env_variables": [
+    ]
+  },
+     "PR": {
+       "env_variables": [
+         {
+           "name": "ASPNETCORE_ENVIRONMENT",
+           "value": "test.au"
+         }
+       ]
+     },
+     "Test": {
+       "env_variables": [
+         {
+           "name": "ASPNETCORE_ENVIRONMENT",
+           "value": "test.au"
+         }
+       ]
+     }
+   }
