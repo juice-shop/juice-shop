@@ -422,6 +422,7 @@
   "CATEGORY_OBSERVABILITY_FAILURES_DESCRIPTION": "",
   "INSUFFICIENT_WALLET_BALANCE": "账户余额不足",
   "LAUNCH_CODING_CHALLENGE": "启动相关编码挑战。",
+  "JUMP_TO_RELATED_CODING_CHALLENGE": "Jump to related coding challenge",
   "LOADING_CODE_SNIPPET": "正在加载代码片断...",
   "SOLVE_HACKING_CHALLENGE": "解决黑客挑战以解锁相关的编码挑战。",
   "LABEL_CORRECT_FIX": "修正",
