@@ -216,3 +216,23 @@ $badge-size: 24px;
     color: var(--theme-accent);
   }
 }
+
+.badge.not-completable.flickering {
+  animation: coding-button-flicker 0.7s ease-in-out infinite;
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--theme-accent) 90%, transparent);
+}
+
+@keyframes coding-button-flicker {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--theme-accent) 90%, transparent);
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    box-shadow: 0 0 20px 10px color-mix(in srgb, var(--theme-accent) 90%, transparent);
+    opacity: 0.85;
+    transform: scale(1.08);
+  }
+}
