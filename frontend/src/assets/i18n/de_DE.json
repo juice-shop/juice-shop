@@ -422,7 +422,7 @@
   "CATEGORY_OBSERVABILITY_FAILURES_DESCRIPTION": "Unzureichende Protokollierung, Überwachung und Alarmierung macht es unmöglich, Angriffe und Vorstöße zu erkennen. Dies tritt auf, wenn prüfbare Ereignisse nicht protokolliert werden, Warnungen und Fehler unklare Nachrichten erzeugen, Logs nicht auf verdächtige Aktivitäten überwacht werden, entsprechende Warnungen fehlen oder unwirksam sind oder Logs sensible Informationen enthalten. Ohne ordentliche Observability können Organisationen aktive Angriffe nicht in Echtzeit erkennen, nicht effektiv auf Sicherheitsvorfälle reagieren und keinen Audit-Trail für forensische Analysen sicherstellen.",
   "INSUFFICIENT_WALLET_BALANCE": "Ungenügendes Guthaben.",
   "LAUNCH_CODING_CHALLENGE": "Starte die zugehörige Programmierherausforderung.",
-  "JUMP_TO_RELATED_CODING_CHALLENGE": "Jump to related coding challenge",
+  "JUMP_TO_RELATED_CODING_CHALLENGE": "Springe zur zugehörigen Programmierherausforderung",
   "LOADING_CODE_SNIPPET": "Lade Code-Ausschnitt...",
   "SOLVE_HACKING_CHALLENGE": "Löse die Hacking-Herausforderung, um die zugehörige Programmierherausforderung freizuschalten.",
   "LABEL_CORRECT_FIX": "Korrekter Fix",
