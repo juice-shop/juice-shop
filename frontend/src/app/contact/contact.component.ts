@@ -50,7 +50,7 @@ export class ContactComponent implements OnInit {
   public error: any
 
   ngOnInit (): void {
-    this.userService.whoAmI().subscribe({
+    this.userService.whoAmI(['id', 'email']).subscribe({
       next: (data: any) => {
         this.feedback = {}
         this.userIdControl.setValue(data.id)

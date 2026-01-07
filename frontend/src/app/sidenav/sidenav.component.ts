@@ -123,7 +123,7 @@ export class SidenavComponent implements OnInit {
   }
 
   getUserDetails () {
-    this.userService.whoAmI().subscribe({
+    this.userService.whoAmI(['email']).subscribe({
       next: (user: any) => {
         this.userEmail = user.email
       },
