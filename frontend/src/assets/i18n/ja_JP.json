@@ -422,6 +422,7 @@
   "CATEGORY_OBSERVABILITY_FAILURES_DESCRIPTION": "不十分なログ記録、監視、およびアラートにより、攻撃や侵害を検知することが困難になる。この状況は、監査可能なイベントがログ記録されない場合、警告やエラーが不明瞭なメッセージを生成する場合、ログが疑わしい活動について監視されない場合、適切なアラートが欠如または効果的でない場合、またはログが機密情報を露出する場合に発生する。適切なセキュリティログとモニタリングなしでは、組織はリアルタイムでアクティブな攻撃を検知できず、セキュリティインシデントに効果的に対応できない。また、フォレンジック分析のための監査証跡を維持できない。",
   "INSUFFICIENT_WALLET_BALANCE": "ウォレットの残高が不足しています。",
   "LAUNCH_CODING_CHALLENGE": "関連するコーディングチャレンジを起動します。",
+  "JUMP_TO_RELATED_CODING_CHALLENGE": "Jump to related coding challenge",
   "LOADING_CODE_SNIPPET": "コードスニペットを読み込んでいます...",
   "SOLVE_HACKING_CHALLENGE": "ハッキングチャレンジを解決して、関連するコーディングチャレンジをアンロックしましょう。",
   "LABEL_CORRECT_FIX": "修正のやり直し",
