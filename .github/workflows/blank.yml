@@ -1,0 +1,62 @@
+name: Security Scan
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Dependency Check
+        run: |
+          echo "Checking for security vulnerabilities..."
+          
+          if [ -f "package.json" ]; then
+            npm audit --audit-level=high || true
+          fi
+          
+          if [ -f "requirements.txt" ]; then
+            pip install safety
+            safety check -r requirements.txt || true
+          fi
+          
+          if [ -f "pom.xml" ]; then
+            echo "Java project detected - run 'mvn dependency-check:check' locally"
+          fi
+          
+          if [ -f "go.mod" ]; then
+            echo "Go project detected - run 'govulncheck ./...' locally"
+          fi
+          
+          echo "Basic security check completed"
+
+      - name: Run Basic Code Scan
+        run: |
+          echo "Scanning code for common issues..."
+          
+          # Проверка на секреты
+          if command -v grep &> /dev/null; then
+            grep -r "password\|secret\|key\|token" \
+              --include="*.js" --include="*.ts" \
+              --include="*.py" --include="*.java" \
+              --include="*.go" --include="*.php" \
+              . 2>/dev/null | head -20 || echo "No obvious secrets found (first 20 lines checked)"
+          fi
+          
+          echo "Code scan completed"
+
+      - name: Summary
+        run: |
+          echo "## Security Scan Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Basic security checks completed." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Recommendations:" >> $GITHUB_STEP_SUMMARY
+          echo "- Review dependencies for vulnerabilities" >> $GITHUB_STEP_SUMMARY
+          echo "- Check for hardcoded secrets" >> $GITHUB_STEP_SUMMARY
+          echo "- Run full SAST/SCA scan if needed" >> $GITHUB_STEP_SUMMARY
