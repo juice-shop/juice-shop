@@ -8,8 +8,8 @@
   description: 'Obtain the password (hash) of the currently logged-in user directly from a REST API endpoint.'
   difficulty: 2
   hints:
-    - 'Look for an endpoint which returns user details.'
-    - 'Can you see any endpoints which let you choose the fields which are returned?'
+    - 'How do user details get populated?'
+    - 'You will need to "ask" for the hash.'
     - 'Did you look at the `whoami` API endpoint?'
   mitigationUrl: 'https://owasp.org/API-Security/editions/2019/en/0xa3-excessive-data-exposure'
   key: passwordHashLeakChallenge
