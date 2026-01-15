@@ -1,0 +1,17 @@
+name: DevSecOps DAST Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Test workflow
+        run: echo "GitHub Actions fonctionne"
