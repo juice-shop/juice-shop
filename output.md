@@ -24,3 +24,18 @@ OWASP Juice Shop – intentionally vulnerable web application.
 
 ## Screenshot
 ![Juice Shop Homepage](screenshots/homepage.png)
+
+## GitHub Questions
+
+### 1. Is there anything wrong with committing directly to the master branch?
+Yes!!!!! It bypasses basic reviews and testing processes, which can cause errors or security issues. For security purposes the tool would scan the PR for new vulnerabilities that are being introduced and potentially block depending to the decided policies. 
+
+### 2. How would you prevent that?
+- Configure branch protection in GitHub settings
+- Require pull requests and approvals
+- Have tools scanning the PRs
+
+### 3. Repository Settings Changes
+- Enabled branch protection rules on master
+- Required pull requests before merging
+- Required at least one reviewer
