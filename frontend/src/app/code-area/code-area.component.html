@@ -1,7 +1,7 @@
-<div id="code-area">
-  <pre id="code"><div id="emphasize">@for (marker of lineMarkers; track marker) {<div class="lineMarker" [id]="'line' + marker.lineNumber" (click)="selectLines(marker.lineNumber)">{{ marker.marked ? '✅' : '🔲'}}</div>}
-</div><code
+<section id="code-area">
+  <pre id="code"><section id="emphasize">@for (marker of lineMarkers; track marker) {<button class="lineMarker" [id]="'line' + marker.lineNumber" (click)="selectLines(marker.lineNumber)">{{ marker.marked ? '✅' : '🔲'}}</button>}
+</section><code
 [highlight]="code" [lineNumbers]="true"
 [languages]="langs"
 ></code></pre>
-</div>
+</section>

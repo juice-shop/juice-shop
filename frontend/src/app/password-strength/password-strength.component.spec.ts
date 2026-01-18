@@ -4,7 +4,8 @@
  */
 
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
-
+import { By } from '@angular/platform-browser'
+import { MatProgressBar } from '@angular/material/progress-bar'
 import { PasswordStrengthComponent } from './password-strength.component'
 
 describe('PasswordStrengthComponent', () => {
@@ -26,26 +27,25 @@ describe('PasswordStrengthComponent', () => {
   })
 
   it('should render mat-progress-bar', () => {
-    const progressBar = fixture.nativeElement.querySelector('mat-progress-bar')
+    component.password = 'password' // Ensure it's not hidden
+    fixture.detectChanges()
+    const progressBar = fixture.debugElement.query(By.directive(MatProgressBar))
     expect(progressBar).toBeTruthy()
   })
 
   it('should bind progress input to mat-progress-bar value', () => {
+    component.password = 'password'
     component.passwordStrength = 50
     fixture.detectChanges()
 
-    const progressBarDebug =
-      fixture.debugElement.nativeElement.querySelector('mat-progress-bar')
-    expect(progressBarDebug).toBeTruthy()
-
-    const matProgressBarInstance = fixture.debugElement.children.find(
-      (el) => el.nativeElement.tagName.toLowerCase() === 'mat-progress-bar'
-    )?.componentInstance
-
-    expect(matProgressBarInstance.value).toBe(50)
+    const progressBarDe = fixture.debugElement.query(By.directive(MatProgressBar))
+    expect(progressBarDe).toBeTruthy()
+    expect(progressBarDe.componentInstance.value).toBe(50)
   })
 
   it('should apply correct class based on progress value', () => {
+    component.password = 'password'
+    fixture.detectChanges()
     const progressBar = fixture.nativeElement.querySelector('mat-progress-bar')
 
     component.passwordStrength = 0
@@ -74,6 +74,8 @@ describe('PasswordStrengthComponent', () => {
   })
 
   it('should have correct ARIA attributes for accessibility', () => {
+    component.password = 'password'
+    fixture.detectChanges()
     const progressBar = fixture.nativeElement.querySelector('mat-progress-bar')
     expect(progressBar.getAttribute('role')).toBe('progressbar')
     expect(progressBar.getAttribute('aria-valuemin')).toBe('0')
@@ -81,6 +83,7 @@ describe('PasswordStrengthComponent', () => {
   })
 
   it('should update aria-valuenow based on progress value', () => {
+    component.password = 'password'
     component.passwordStrength = 45
     fixture.detectChanges()
     const progressBar = fixture.nativeElement.querySelector('mat-progress-bar')

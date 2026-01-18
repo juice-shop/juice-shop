@@ -8,16 +8,16 @@
     <h1>{{"LABEL_COMMENT" | translate}}</h1>
   </header>
   <mat-divider></mat-divider>
-  <div class="container">
-      <div class="user-line">
-        <span>{{"LABEL_USER" | translate}}:</span>
-        <p>#{{id}}</p>
-      </div>
+  <section class="container">
+    <section class="user-line">
+      <span>{{"LABEL_USER" | translate}}:</span>
+      <p>#{{id}}</p>
+    </section>
 
-      <div style="margin-top: 10px !important;">
-        <cite [innerHTML]="feedback"></cite>
-      </div>
-  </div>
+    <p style="margin-top: 10px !important;">
+      <cite [innerHTML]="feedback"></cite>
+    </p>
+  </section>
   <mat-dialog-actions align="end" class="dialogAction">
     <button mat-button style="height: 0; position: absolute;">
       <!-- 'absorbs' the auto-focus behavior -->

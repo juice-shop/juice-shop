@@ -91,8 +91,20 @@ h1 {
   color: var(--theme-text);
 }
 
+section,
+article,
+header,
+footer,
 div {
   color: var(--theme-text);
+}
+
+section,
+article,
+header,
+footer {
+  display: block;
+  margin: 0;
 }
 
 .mat-mdc-form-field-hint {

@@ -5,30 +5,31 @@
 
 <mat-dialog-content>
 
-  <div class="container">
-    <div class="details-row">
-      <div class="no-shrink">
-        <img class="img-thumbnail" [src]="'assets/public/images/products/'+data.productData.image" alt="{{data.productData.name}}">
-      </div>
+  <section class="container">
+    <section class="details-row">
+      <section class="no-shrink">
+        <img class="img-thumbnail" [src]="'assets/public/images/products/'+data.productData.image"
+          alt="{{data.productData.name}}">
+      </section>
 
-      <div>
+      <section>
         <h1>{{data.productData.name}}</h1>
-        <div [innerHTML]="data.productData.description"></div>
-        <br/>
-        <div>
+        <section [innerHTML]="data.productData.description"></section>
+        <br />
+        <section>
           <p class="item-price">{{data.productData.price}}&curren;</p>
           @if (data.productData.points > 0) {
-            <div matTooltip="{{'LABEL_BONUS' | translate}}"
-              aria-label="Bonus points when buying the product">
-              <span class="fa-2x fa-layers fa-fw">
-                <i class="fas fa-crown"></i>
-                <span class="fa-layers-counter fa-layers-bottom-left fa-2x warn-notification" style="font-size: 47px;">{{ data.productData.points }}</span>
-              </span>
-            </div>
+          <section matTooltip="{{'LABEL_BONUS' | translate}}" aria-label="Bonus points when buying the product">
+            <span class="fa-2x fa-layers fa-fw">
+              <i class="fas fa-crown"></i>
+              <span class="fa-layers-counter fa-layers-bottom-left fa-2x warn-notification" style="font-size: 47px;">{{
+                data.productData.points }}</span>
+            </span>
+          </section>
           }
-        </div>
-      </div>
-    </div>
+        </section>
+      </section>
+    </section>
 
     <mat-divider class="detail-divider"></mat-divider>
     <button mat-button style="height: 0; position: absolute;">
@@ -44,34 +45,34 @@
         <!-- 'absorbs' the auto-focus behavior -->
       </button>
       @if ((reviews$| async)?.length >= 1) {
-        <div>
-          @for (review of reviews$|async; track review) {
-            <div class="comment">
-              <div class="review-row">
-                <div class="review-text"
-                  (click)="review.author !== 'Anonymous' && review.author === author && editReview(review)"
-                  matTooltipDisabled="{{review.author !== author}}" matTooltip="{{'LABEL_EDIT_REVIEW' | translate}}"
-                  matTooltipPosition="right">
-                  <cite>{{review.author}}</cite>
-                  <p>{{ review.message }}</p>
-                </div>
-                <div class="like-container">
-                  <button mat-icon-button (click)="likeReview(review)" [disabled]="review.liked || !isLoggedIn()"
-                    class="rw-button" aria-label="Rate a helpful review">
-                    <mat-icon>thumb_up</mat-icon>
-                    <span class="like-counter accent-notification">{{ review.likesCount }}</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          }
-        </div>
+      <section>
+        @for (review of reviews$|async; track $index) {
+        <article class="comment">
+          <section class="review-row">
+            <article class="review-text"
+              (click)="review.author !== 'Anonymous' && review.author === author && editReview(review)"
+              matTooltipDisabled="{{review.author !== author}}" matTooltip="{{'LABEL_EDIT_REVIEW' | translate}}"
+              matTooltipPosition="right">
+              <cite>{{review.author}}</cite>
+              <p>{{ review.message }}</p>
+            </article>
+            <section class="like-container">
+              <button mat-icon-button (click)="likeReview(review)" [disabled]="review.liked || !isLoggedIn()"
+                class="rw-button" aria-label="Rate a helpful review">
+                <mat-icon>thumb_up</mat-icon>
+                <span class="like-counter accent-notification">{{ review.likesCount }}</span>
+              </button>
+            </section>
+          </section>
+        </article>
+        }
+      </section>
       } @else {
-        <div>
-          <span class="noResultText" translate>
-            EMPTY_REVIEW_LIST
-          </span>
-        </div>
+      <p>
+        <span class="noResultText" translate>
+          EMPTY_REVIEW_LIST
+        </span>
+      </p>
       }
 
     </mat-expansion-panel>
@@ -79,17 +80,16 @@
     <mat-divider class="detail-divider"></mat-divider>
 
     <h4 [style.display]="isLoggedIn() ? 'block' : 'none' " translate>WRITE_REVIEW</h4>
-    <mat-form-field appearance="outline" color="accent"
-      [style.display]="isLoggedIn() ? 'block' : 'none' " floatLabel="always">
-      <mat-label >{{"LABEL_REVIEW" | translate}}</mat-label>
+    <mat-form-field appearance="outline" color="accent" [style.display]="isLoggedIn() ? 'block' : 'none' "
+      floatLabel="always">
+      <mat-label>{{"LABEL_REVIEW" | translate}}</mat-label>
       <mat-hint>
         <i class="fas fa-exclamation-circle"></i>
         <em style="margin-left:5px;">{{ 'MAX_TEXTAREA_LENGTH' | translate: {length: '160'} }}</em>
       </mat-hint>
       <textarea [formControl]="reviewControl" #textPut cols="50" matInput
-        placeholder="{{'WRITE_REVIEW_PLACEHOLDER' | translate}}"
-        matTextareaAutosize matAutosizeMinRows="2" maxlength="160"
-      matAutosizeMaxRows="4" aria-label="Text field to review a product"></textarea>
+        placeholder="{{'WRITE_REVIEW_PLACEHOLDER' | translate}}" matTextareaAutosize matAutosizeMinRows="2"
+        maxlength="160" matAutosizeMaxRows="4" aria-label="Text field to review a product"></textarea>
       <mat-hint align="end">{{textPut.value?.length || 0}}/160</mat-hint>
     </mat-form-field>
 
@@ -100,12 +100,11 @@
       </button>
 
       <button type="submit" id="submitButton" [disabled]="!textPut.value.trim()" mat-raised-button color="primary"
-        (click)="addReview(textPut)" style="margin-left: 5px;"
-        aria-label="Send the review" class="buttons"
+        (click)="addReview(textPut)" style="margin-left: 5px;" aria-label="Send the review" class="buttons"
         [style.display]="isLoggedIn() ? 'flex' : 'none' ">
         <mat-icon>send</mat-icon>
         <span>{{'BTN_SUBMIT' | translate}}</span>
       </button>
     </mat-dialog-actions>
-  </div>
+  </section>
 </mat-dialog-content>

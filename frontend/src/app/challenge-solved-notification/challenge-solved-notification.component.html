@@ -3,40 +3,40 @@
   ~ SPDX-License-Identifier: MIT
 -->
 
-<div class="container challenge-solved-toast mat-elevation-z4">
+<section class="container challenge-solved-toast mat-elevation-z4">
   @for (notification of notifications; track notification.key) {
-    <mat-card appearance="outlined" class="accent-notification">
-      <div class="mdc-card">
-        <div class="notificationMessage">{{notification.message}}<button id="closeButton" mat-button (click)="closeNotification($index, $event.shiftKey)">X</button></div>
-        @if (showCtfFlagsInNotifications) {
-          <br/>
-          <div>
-            <span class="icon-box"><mat-icon>outlined_flag</mat-icon> {{notification.flag}}</span>&nbsp;
-            <button ngxClipboard mat-stroked-button [cbContent]="notification.flag" (cbOnSuccess)="notification.copied = true" [disabled]="notification.copied">
-              <mat-icon>content_copy</mat-icon>
-              <span [hidden]="!notification.copied">{{"COPY_SUCCESS" | translate}}</span>
-              <span [hidden]="notification.copied">{{"COPY_TO_CLIPBOARD" | translate}}</span>
-            </button>
-            <br/>
-            @if (showCtfCountryDetailsInNotifications !== 'none') {
-              <span class="icon-box">
-                @if (showCtfCountryDetailsInNotifications === 'flag' || showCtfCountryDetailsInNotifications === 'both') {
-                  <span
-                    class="fi fi-{{notification.country.code | lowercase}}"
-                    >
-                  </span>
-                }
-                @if (showCtfCountryDetailsInNotifications === 'name') {
-                  <mat-icon>my_location</mat-icon>
-                  }&nbsp;
-                  @if (showCtfCountryDetailsInNotifications === 'name' || showCtfCountryDetailsInNotifications === 'both') {
-                    <span>{{notification.country.name}}</span>
-                  }
-                </span>
-              }
-            </div>
+  <mat-card appearance="outlined" class="accent-notification">
+    <section class="mdc-card">
+      <p class="notificationMessage">{{notification.message}}<button id="closeButton" mat-button
+          (click)="closeNotification($index, $event.shiftKey)">X</button></p>
+      @if (showCtfFlagsInNotifications) {
+      <br />
+      <section>
+        <span class="icon-box"><mat-icon>outlined_flag</mat-icon> {{notification.flag}}</span>&nbsp;
+        <button ngxClipboard mat-stroked-button [cbContent]="notification.flag"
+          (cbOnSuccess)="notification.copied = true" [disabled]="notification.copied">
+          <mat-icon>content_copy</mat-icon>
+          <span [hidden]="!notification.copied">{{"COPY_SUCCESS" | translate}}</span>
+          <span [hidden]="notification.copied">{{"COPY_TO_CLIPBOARD" | translate}}</span>
+        </button>
+        <br />
+        @if (showCtfCountryDetailsInNotifications !== 'none') {
+        <span class="icon-box">
+          @if (showCtfCountryDetailsInNotifications === 'flag' || showCtfCountryDetailsInNotifications === 'both') {
+          <span class="fi fi-{{notification.country.code | lowercase}}">
+          </span>
           }
-        </div>
-      </mat-card>
-    }
-  </div>
+          @if (showCtfCountryDetailsInNotifications === 'name') {
+          <mat-icon>my_location</mat-icon>
+          }&nbsp;
+          @if (showCtfCountryDetailsInNotifications === 'name' || showCtfCountryDetailsInNotifications === 'both') {
+          <span>{{notification.country.name}}</span>
+          }
+        </span>
+        }
+      </section>
+      }
+    </section>
+  </mat-card>
+  }
+</section>

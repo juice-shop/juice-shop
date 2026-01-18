@@ -1,23 +1,18 @@
-<div class="container">
+<main class="container">
   <mat-card appearance="outlined" class="mat-elevation-z6 faucet-container">
     <div class="mdc-card">
       <h1>{{"TITLE_BEE_HAVEN" | translate}}</h1>
-      <div class="faucet-image">
+      <section class="faucet-image">
         <img src="assets/public/images/BeeOwner.png" />
-      </div>
+      </section>
       <p>{{"BEE_HAVEN_INTRO" | translate}}</p>
-      <div class="faucet-balance">
+      <section class="faucet-balance">
         <span color="accent">
           {{'FAUCET_BALANCE' | translate}}: {{ BEEBalance }} | {{'BEE_BALANCE' | translate}}:
           {{ myBEEBalance }}
         </span>
         <div class="metamask-button">
-          <button
-            mat-raised-button
-            color="accent"
-            type="button"
-            (click)="handleAuth()"
-            >
+          <button mat-raised-button color="accent" type="button" (click)="handleAuth()">
             <mat-icon>
               account_balance_wallet
             </mat-icon>
@@ -30,52 +25,35 @@
             }
           </button>
         </div>
-      </div>
+      </section>
 
-      <div class="withdraw-container">
-        <div>
+      <form class="withdraw-container">
+        <section>
           <mat-form-field style="width: 100%" color="accent" appearance="outline">
             <mat-label>{{"LABEL_NUMBER_OF_BEES" | translate}}</mat-label>
-            <input
-              matInput
-              [placeholder]="'LABEL_NUMBER_OF_BEES'|translate"
-              type="number"
-              id="withdrawAmount"
-              [(ngModel)]="withdrawAmount"
-              aria-label="Text field for the withdrawal amount"
-              />
+            <input matInput [placeholder]="'LABEL_NUMBER_OF_BEES'|translate" type="number" id="withdrawAmount"
+              [(ngModel)]="withdrawAmount" name="withdrawAmount" aria-label="Text field for the withdrawal amount" />
           </mat-form-field>
-          <h5 class="error">{{ errorMessage }}</h5>
-        </div>
-        <button
-          mat-raised-button
-          type="button"
-          color="primary"
-          (click)="extractBEETokens()"
-          >
+          <p class="error">{{ errorMessage }}</p>
+        </section>
+        <button mat-raised-button type="submit" color="primary" (click)="extractBEETokens()">
           <mat-icon>
             emoji_nature
           </mat-icon>
           {{ "BTN_CLAIM_BEES" | translate }}
         </button>
-      </div>
+      </form>
     </div>
   </mat-card>
   <mat-card appearance="outlined" class="mat-elevation-z6 honeypot-container">
     <div class="mdc-card">
-      <div class="honeypot-image mat-elevation-z6">
+      <section class="honeypot-image mat-elevation-z6">
         <img src="assets/public/images/HoneyPot.png" />
-      </div>
+      </section>
       <h2>{{"BEE_HONEYPOT_TITLE" | translate}}</h2>
       <p>{{"BEE_HONEYPOT_DESCRIPTION" | translate}}</p>
 
-      <button 
-        class="mint_button"
-        mat-raised-button
-        color="warn"
-        [disabled]="mintButtonDisabled"
-        (click)="mintNFT()"
-      >
+      <button class="mint_button" mat-raised-button color="warn" [disabled]="mintButtonDisabled" (click)="mintNFT()">
         <mat-icon>
           image
         </mat-icon>
@@ -83,4 +61,4 @@
       </button>
     </div>
   </mat-card>
-</div>
+</main>

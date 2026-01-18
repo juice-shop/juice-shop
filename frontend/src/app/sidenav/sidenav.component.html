@@ -9,17 +9,17 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-nav-list>
+<nav>
+  <mat-nav-list>
 
-  <button mat-button style="height: 0; position: absolute;">
-    <!-- 'absorbs' the auto-focus behavior -->
-  </button>
-  <h3 mat-subheader class="side-subHeader show-lt-md-only" translate>ACCOUNT</h3>
+    <button mat-button style="height: 0; position: absolute;">
+      <!-- 'absorbs' the auto-focus behavior -->
+    </button>
+    <h3 mat-subheader class="side-subHeader show-lt-md-only" translate>ACCOUNT</h3>
 
-  <div class="show-lt-md-only">
-    @if (!isLoggedIn()) {
-      <a mat-list-item routerLink="/login" (click)="onToggleSidenav();"
-        aria-label="Go to login page">
+    <section class="show-lt-md-only">
+      @if (!isLoggedIn()) {
+      <a mat-list-item routerLink="/login" (click)="onToggleSidenav();" aria-label="Go to login page">
         <mat-icon>
           exit_to_app
         </mat-icon>
@@ -27,10 +27,9 @@
           {{"TITLE_LOGIN" | translate }}
         </span>
       </a>
-    }
-    @if (isLoggedIn()) {
-      <a mat-list-item (click)="onToggleSidenav(); goToProfilePage();"
-        aria-label="Go to user profile">
+      }
+      @if (isLoggedIn()) {
+      <a mat-list-item (click)="onToggleSidenav(); goToProfilePage();" aria-label="Go to user profile">
         <mat-icon>
           account_circle
         </mat-icon>
@@ -38,8 +37,8 @@
           {{ userEmail }}
         </span>
       </a>
-    }
-    @if (isLoggedIn() && isAccounting()) {
+      }
+      @if (isLoggedIn() && isAccounting()) {
       <a mat-list-item routerLink="/accounting" (click)="onToggleSidenav();" aria-label="Go to accounting page">
         <mat-icon>
           account_balance
@@ -48,9 +47,9 @@
           {{"ACCOUNTING" | translate }}
         </span>
       </a>
-    }
+      }
 
-    @if (isLoggedIn()) {
+      @if (isLoggedIn()) {
       <mat-list-item (click)="showOrdersSubmenu = !showOrdersSubmenu" class="parent"
         aria-label="Show Orders and Payment Menu">
         <mat-icon>
@@ -63,69 +62,70 @@
           expand_more
         </mat-icon>
       </mat-list-item>
-    }
-    @if (showOrdersSubmenu) {
-      <div class="submenu" [ngClass]="{'expanded' : showOrdersSubmenu}">
+      }
+      @if (showOrdersSubmenu) {
+      <section class="submenu" [ngClass]="{'expanded' : showOrdersSubmenu}">
         @if (isLoggedIn()) {
-          <a mat-list-item routerLink="/order-history"
-            (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu" aria-label="Go to order history page">
-            <mat-icon>
-              archive
-            </mat-icon>
-            <span class="menu-text truncate">
-              {{"LABEL_ORDER_HISTORY" | translate}}
-            </span>
-          </a>
+        <a mat-list-item routerLink="/order-history" (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu"
+          aria-label="Go to order history page">
+          <mat-icon>
+            archive
+          </mat-icon>
+          <span class="menu-text truncate">
+            {{"LABEL_ORDER_HISTORY" | translate}}
+          </span>
+        </a>
         }
         @if (isLoggedIn()) {
-          <a mat-list-item routerLink="/recycle"
-            (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu" aria-label="Go to recycling page">
-            <mat-icon>
-              autorenew
-            </mat-icon>
-            <span class="menu-text truncate">
-              {{"NAV_RECYCLE" | translate}}
-            </span>
-          </a>
+        <a mat-list-item routerLink="/recycle" (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu"
+          aria-label="Go to recycling page">
+          <mat-icon>
+            autorenew
+          </mat-icon>
+          <span class="menu-text truncate">
+            {{"NAV_RECYCLE" | translate}}
+          </span>
+        </a>
         }
         <mat-divider></mat-divider>
         @if (isLoggedIn()) {
-          <a mat-list-item routerLink="/address/saved"
-            (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu" aria-label="Go to saved address page">
-            <mat-icon>
-              my_location
-            </mat-icon>
-            <span class="menu-text truncate">
-              {{"MY_SAVED_ADRESSES" | translate}}
-            </span>
-          </a>
+        <a mat-list-item routerLink="/address/saved" (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu"
+          aria-label="Go to saved address page">
+          <mat-icon>
+            my_location
+          </mat-icon>
+          <span class="menu-text truncate">
+            {{"MY_SAVED_ADRESSES" | translate}}
+          </span>
+        </a>
         }
         @if (isLoggedIn()) {
-          <a mat-list-item routerLink="/saved-payment-methods"
-            (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu" aria-label="Go to saved payment methods page">
-            <mat-icon>
-              credit_card
-            </mat-icon>
-            <span class="menu-text truncate">
-              {{"MY_PAYMENT_OPTIONS" | translate}}
-            </span>
-          </a>
+        <a mat-list-item routerLink="/saved-payment-methods"
+          (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu"
+          aria-label="Go to saved payment methods page">
+          <mat-icon>
+            credit_card
+          </mat-icon>
+          <span class="menu-text truncate">
+            {{"MY_PAYMENT_OPTIONS" | translate}}
+          </span>
+        </a>
         }
         @if (isLoggedIn()) {
-          <a mat-list-item routerLink="/wallet"
-            (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu" aria-label="Go to wallet page">
-            <mat-icon>
-              account_balance_wallet
-            </mat-icon>
-            <span class="menu-text truncate">
-              {{"DIGITAL_WALLET" | translate}}
-            </span>
-          </a>
+        <a mat-list-item routerLink="/wallet" (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu"
+          aria-label="Go to wallet page">
+          <mat-icon>
+            account_balance_wallet
+          </mat-icon>
+          <span class="menu-text truncate">
+            {{"DIGITAL_WALLET" | translate}}
+          </span>
+        </a>
         }
-      </div>
-    }
+      </section>
+      }
 
-    @if (isLoggedIn()) {
+      @if (isLoggedIn()) {
       <mat-list-item (click)="showPrivacySubmenu = !showPrivacySubmenu" class="parent"
         aria-label="Show Privacy and Security Menu">
         <mat-icon>
@@ -138,68 +138,69 @@
           expand_more
         </mat-icon>
       </mat-list-item>
-    }
-    @if (showPrivacySubmenu) {
-      <div class="submenu" [ngClass]="{'expanded' : showPrivacySubmenu}">
+      }
+      @if (showPrivacySubmenu) {
+      <section class="submenu" [ngClass]="{'expanded' : showPrivacySubmenu}">
         @if (isLoggedIn()) {
-          <a mat-list-item routerLink="privacy-security/privacy-policy"
-            (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to privacy policy page">
-            <mat-icon>
-              assignment
-            </mat-icon>
-            <span class="menu-text truncate" translate>TITLE_PRIVACY_POLICY</span>
-          </a>
+        <a mat-list-item routerLink="privacy-security/privacy-policy"
+          (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to privacy policy page">
+          <mat-icon>
+            assignment
+          </mat-icon>
+          <span class="menu-text truncate" translate>TITLE_PRIVACY_POLICY</span>
+        </a>
         }
         @if (isLoggedIn()) {
-          <a mat-list-item routerLink="privacy-security/data-export"
-            (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to data export page">
-            <mat-icon>
-              get_app
-            </mat-icon>
-            <span class="menu-text truncate" translate>TITLE_REQUEST_DATA_EXPORT</span>
-          </a>
+        <a mat-list-item routerLink="privacy-security/data-export"
+          (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to data export page">
+          <mat-icon>
+            get_app
+          </mat-icon>
+          <span class="menu-text truncate" translate>TITLE_REQUEST_DATA_EXPORT</span>
+        </a>
         }
         @if (isLoggedIn()) {
-          <a mat-list-item (click) = "goToDataErasurePage()"
-            (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to data subject page">
-            <mat-icon>
-              delete_forever
-            </mat-icon>
-            <span class="menu-text truncate" translate>DATA_SUBJECT_TITLE</span>
-          </a>
+        <a mat-list-item (click)="goToDataErasurePage()"
+          (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to data subject page">
+          <mat-icon>
+            delete_forever
+          </mat-icon>
+          <span class="menu-text truncate" translate>DATA_SUBJECT_TITLE</span>
+        </a>
         }
         <mat-divider></mat-divider>
         @if (isLoggedIn()) {
-          <a mat-list-item routerLink="privacy-security/change-password"
-            (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to change password page">
-            <mat-icon>
-              edit
-            </mat-icon>
-            <span class="menu-text truncate" translate>TITLE_CHANGE_PASSWORD</span>
-          </a>
+        <a mat-list-item routerLink="privacy-security/change-password"
+          (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to change password page">
+          <mat-icon>
+            edit
+          </mat-icon>
+          <span class="menu-text truncate" translate>TITLE_CHANGE_PASSWORD</span>
+        </a>
         }
         @if (isLoggedIn()) {
-          <a mat-list-item routerLink="privacy-security/two-factor-authentication"
-            (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to two factor authentication page">
-            <mat-icon>
-              exposure_plus_2
-            </mat-icon>
-            <span class="menu-text truncate" translate>TITLE_TWO_FACTOR_AUTH_CONFIG</span>
-          </a>
+        <a mat-list-item routerLink="privacy-security/two-factor-authentication"
+          (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu"
+          aria-label="Go to two factor authentication page">
+          <mat-icon>
+            exposure_plus_2
+          </mat-icon>
+          <span class="menu-text truncate" translate>TITLE_TWO_FACTOR_AUTH_CONFIG</span>
+        </a>
         }
         @if (isLoggedIn()) {
-          <a mat-list-item routerLink="privacy-security/last-login-ip"
-            (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to last login ip page">
-            <mat-icon>
-              place
-            </mat-icon>
-            <span class="menu-text truncate" translate>LAST_LOGIN_IP</span>
-          </a>
+        <a mat-list-item routerLink="privacy-security/last-login-ip"
+          (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to last login ip page">
+          <mat-icon>
+            place
+          </mat-icon>
+          <span class="menu-text truncate" translate>LAST_LOGIN_IP</span>
+        </a>
         }
-      </div>
-    }
+      </section>
+      }
 
-    @if (isLoggedIn()) {
+      @if (isLoggedIn()) {
       <a mat-list-item (click)="onToggleSidenav(); logout()" aria-label="Logout">
         <mat-icon>
           power_settings_new
@@ -208,85 +209,82 @@
           {{"TITLE_LOGOUT" | translate }}
         </span>
       </a>
-    }
-  </div>
+      }
+    </section>
 
-  <mat-divider class="show-lt-md-only"></mat-divider>
+    <mat-divider class="show-lt-md-only"></mat-divider>
 
-  <h3 mat-subheader class="side-subHeader" translate>TITLE_CONTACT</h3>
-  <a mat-list-item routerLink="/contact" (click)="onToggleSidenav();" aria-label="Go to contact us page">
-    <mat-icon>feedback</mat-icon>
-    <span class="menu-text truncate">
-      {{"SECTION_CUSTOMER_FEEDBACK" | translate}}
-    </span>
-  </a>
-  @if (isLoggedIn()) {
-    <a mat-list-item routerLink="/complain" (click)="onToggleSidenav();"
-      aria-label="Go to complain page">
+    <h3 mat-subheader class="side-subHeader" translate>TITLE_CONTACT</h3>
+    <a mat-list-item routerLink="/contact" (click)="onToggleSidenav();" aria-label="Go to contact us page">
+      <mat-icon>feedback</mat-icon>
+      <span class="menu-text truncate">
+        {{"SECTION_CUSTOMER_FEEDBACK" | translate}}
+      </span>
+    </a>
+    @if (isLoggedIn()) {
+    <a mat-list-item routerLink="/complain" (click)="onToggleSidenav();" aria-label="Go to complain page">
       <mat-icon>sentiment_dissatisfied</mat-icon>
       <span class="menu-text truncate">
         {{"NAV_COMPLAIN" | translate}}
       </span>
     </a>
-  }
-  @if (isLoggedIn()) {
-    <a mat-list-item routerLink="/chatbot" (click)="onToggleSidenav();"
-      aria-label="Go to chatbot page">
+    }
+    @if (isLoggedIn()) {
+    <a mat-list-item routerLink="/chatbot" (click)="onToggleSidenav();" aria-label="Go to chatbot page">
       <mat-icon>chat</mat-icon>
       <span class="menu-text truncate">
         {{"SECTION_SUPPORT_CHAT" | translate}}
       </span>
     </a>
-  }
+    }
 
-  <mat-divider></mat-divider>
+    <mat-divider></mat-divider>
 
-  <h3 mat-subheader class="side-subHeader" translate>COMPANY</h3>
-  <a mat-list-item routerLink="/about" (click)="onToggleSidenav()" aria-label="Go to about us page">
-    <mat-icon>business_center</mat-icon>
-    <span class="menu-text truncate">
-      {{"TITLE_ABOUT" | translate}}
-    </span>
-  </a>
-  <a mat-list-item routerLink="/photo-wall" (click)="onToggleSidenav()" aria-label="Go to photo wall">
-    <mat-icon>camera</mat-icon>
-    <span class="menu-text truncate">
-      {{"LABEL_PHOTO_WALL" | translate}}
-    </span>
-  </a>
-  @if (isLoggedIn()) {
-    <a mat-list-item routerLink="/deluxe-membership" (click)="onToggleSidenav()" aria-label="Go to deluxe membership page">
+    <h3 mat-subheader class="side-subHeader" translate>COMPANY</h3>
+    <a mat-list-item routerLink="/about" (click)="onToggleSidenav()" aria-label="Go to about us page">
+      <mat-icon>business_center</mat-icon>
+      <span class="menu-text truncate">
+        {{"TITLE_ABOUT" | translate}}
+      </span>
+    </a>
+    <a mat-list-item routerLink="/photo-wall" (click)="onToggleSidenav()" aria-label="Go to photo wall">
+      <mat-icon>camera</mat-icon>
+      <span class="menu-text truncate">
+        {{"LABEL_PHOTO_WALL" | translate}}
+      </span>
+    </a>
+    @if (isLoggedIn()) {
+    <a mat-list-item routerLink="/deluxe-membership" (click)="onToggleSidenav()"
+      aria-label="Go to deluxe membership page">
       <mat-icon>card_membership</mat-icon>
       <span class="menu-text truncate">
         {{"LABEL_DELUXE_MEMBERSHIP" | translate}}
       </span>
     </a>
-  }
+    }
 
-  @if (scoreBoardVisible || showGitHubLink) {
+    @if (scoreBoardVisible || showGitHubLink) {
     <mat-divider style="margin-bottom: 10px;"></mat-divider>
-  }
+    }
 
-  @if (scoreBoardVisible) {
-    <a mat-list-item routerLink="/score-board" (click)="onToggleSidenav()"
-      aria-label="Open score-board">
+    @if (scoreBoardVisible) {
+    <a mat-list-item routerLink="/score-board" (click)="onToggleSidenav()" aria-label="Open score-board">
       <mat-icon matListIcon class="fas fa-trophy fa-lg"></mat-icon>
       <span class="menu-text truncate">
         {{"TITLE_SCORE_BOARD" | translate}}
       </span>
     </a>
-  }
-  @if (!scoreBoardVisible && offerScoreBoardTutorial) {
-    <a mat-list-item (click)="startHackingInstructor()"
-      aria-label="Launch beginners tutorial">
+    }
+    @if (!scoreBoardVisible && offerScoreBoardTutorial) {
+    <a mat-list-item (click)="startHackingInstructor()" aria-label="Launch beginners tutorial">
       <mat-icon>school</mat-icon>
       <span class="menu-text truncate">
         {{"BTN_GETTING_STARTED" | translate}}
       </span>
     </a>
-  }
+    }
 
-  @if (showGitHubLink) {
+    @if (showGitHubLink) {
     <a mat-list-item href="./redirect?to=https://github.com/juice-shop/juice-shop"
       aria-label="Go to OWASP Juice Shop GitHub page">
       <mat-icon matListIcon class="fab fa-github fa-lg"></mat-icon>
@@ -294,24 +292,25 @@
         GitHub
       </span>
     </a>
-  }
-</mat-nav-list>
+    }
+  </mat-nav-list>
+</nav>
 
-<div class="appVersion">
+<footer class="appVersion">
   <span>
     <span style="font-size: 13px;">{{applicationName}}</span>
     <br>
-      <span style="font-size: 12px;">{{version}}</span>
-      <br>
-        <div style="margin-top: 10px;">
-          <i class="icon-angular"></i>&nbsp;
-          <i class="icon-html5"></i>&nbsp;
-          <i class="icon-sass"></i>&nbsp;
-          <i class="icon-css3"></i>&nbsp;
-          <i class="icon-javascript-alt"></i>&nbsp;
-          <i class="icon-nodejs"></i>&nbsp;
-          <i class="icon-database-alt2"></i>&nbsp;
-          <i class="icon-mongodb"></i>
-        </div>
-      </span>
-    </div>
+    <span style="font-size: 12px;">{{version}}</span>
+    <br>
+    <p style="margin-top: 10px;">
+      <i class="icon-angular"></i>&nbsp;
+      <i class="icon-html5"></i>&nbsp;
+      <i class="icon-sass"></i>&nbsp;
+      <i class="icon-css3"></i>&nbsp;
+      <i class="icon-javascript-alt"></i>&nbsp;
+      <i class="icon-nodejs"></i>&nbsp;
+      <i class="icon-database-alt2"></i>&nbsp;
+      <i class="icon-mongodb"></i>
+    </p>
+  </span>
+</footer>

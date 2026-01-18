@@ -1,71 +1,58 @@
-<mat-card appearance="outlined">
-  <div class="mdc-card container">
-    <button
-      class="detail-container offer-container warning-container align-self-center"
-      mat-raised-button
-      color="warn"
-      >
-      {{ 'BTN_SBT_NOTE' | translate }}
-    </button>
+<main>
+  <mat-card appearance="outlined">
+    <section class="mdc-card container">
+      <button class="detail-container offer-container warning-container align-self-center" mat-raised-button
+        color="warn">
+        {{ 'BTN_SBT_NOTE' | translate }}
+      </button>
 
-    <div class="detail-container offer-container align-self-center">
-      <div>
-        <img src="assets/public/images/products/juicy_chatbot.jpg" />
-      </div>
+      <section class="detail-container offer-container align-self-center">
+        <section>
+          <img src="assets/public/images/products/juicy_chatbot.jpg" />
+        </section>
 
-      @if (successResponse) {
-        <div>
-          <div>
+        @if (successResponse) {
+        <section>
+          <header>
             <mat-card-title>{{ 'TITLE_SBT' | translate }}</mat-card-title>
-          </div>
-          <div class="owner-text">
+          </header>
+          <section class="owner-text">
             {{ 'OWNED_BY' | translate }}
-            <a
-              target="_blank"
-              href="https://testnets.opensea.io/0x8343d2eb2B13A2495De435a1b15e85b98115Ce05"
-              >8343D2</a
-              >
-            </div>
+            <a target="_blank" href="https://testnets.opensea.io/0x8343d2eb2B13A2495De435a1b15e85b98115Ce05">8343D2</a>
+          </section>
+          <mat-divider class="detail-divider"></mat-divider>
+          <article class="detail-box mat-elevation-z6">
+            <section class="box-title">{{ 'LABEL_ACCOUNT_ADDRESS' | translate }}</section>
             <mat-divider class="detail-divider"></mat-divider>
-            <div class="detail-box mat-elevation-z6">
-              <div class="box-title">{{ 'LABEL_ACCOUNT_ADDRESS' | translate }}</div>
-              <mat-divider class="detail-divider"></mat-divider>
-              <p class="box-text">0x8343d2eb2B13A2495De435a1b15e85b98115Ce05</p>
-            </div>
-            <div class="detail-box mat-elevation-z6">
-              <div class="box-title">{{ 'LABEL_DESCRIPTION' | translate }}</div>
-              <mat-divider class="detail-divider"></mat-divider>
-              <p class="box-text" [innerHTML]="'NFT_SBT_BOX_TEXT' | translate: i18nParams"></p>
-            </div>
-        </div>
-      } @else {
-        <div>
-          <div>
+            <p class="box-text">0x8343d2eb2B13A2495De435a1b15e85b98115Ce05</p>
+          </article>
+          <article class="detail-box mat-elevation-z6">
+            <section class="box-title">{{ 'LABEL_DESCRIPTION' | translate }}</section>
+            <mat-divider class="detail-divider"></mat-divider>
+            <p class="box-text" [innerHTML]="'NFT_SBT_BOX_TEXT' | translate: i18nParams"></p>
+          </article>
+        </section>
+        } @else {
+        <section>
+          <header>
             <mat-card-title class="sbt-title">{{ 'TITLE_SBT' | translate }}</mat-card-title>
-          </div>
+          </header>
           <form (ngSubmit)="submitForm()">
-            <div class="form-group">
+            <section class="form-group">
               <mat-form-field color="accent" appearance="outline" class="responsive-field">
                 <mat-label>{{ 'LABEL_PRIVATE_KEY' | translate }}</mat-label>
-                <input
-                  matInput
-                  [(ngModel)]="privateKey"
-                  id="privateKey"
-                  name="privateKey"
-                  required
-                  type="text"
-                  [attr.aria-label]="'LABEL_PRIVATE_KEY' | translate"
-                  class="text-ellipsis"
-                  />
+                <input matInput [(ngModel)]="privateKey" id="privateKey" name="privateKey" required type="text"
+                  [attr.aria-label]="'LABEL_PRIVATE_KEY' | translate" class="text-ellipsis" />
               </mat-form-field>
-              <h5 class="error">{{ errorMessage }}</h5>
-            </div>
+              <p class="error">{{ errorMessage }}</p>
+            </section>
             <button type="submit" class="btn btn-primary" mat-raised-button color="accent">
               {{ 'BTN_AUTHENTICATE' | translate }}
             </button>
           </form>
-        </div>
-      }
-    </div>
-  </div>
-</mat-card>
+        </section>
+        }
+      </section>
+    </section>
+  </mat-card>
+</main>

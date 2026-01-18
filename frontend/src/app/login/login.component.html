@@ -3,26 +3,23 @@
   ~ SPDX-License-Identifier: MIT
 -->
 
-<div class="center-container">
+<main class="center-container">
   <mat-card appearance="outlined" class="mat-elevation-z6">
-    <div class="mdc-card">
-
-      <h1>Login</h1>
+    <section class="mdc-card">
+      <header>
+        <h1>Login</h1>
+      </header>
 
       @if (error) {
-      <div class="error">{{error}}</div>
+      <p class="error">{{error}}</p>
       }
 
-      <div class="form-container" id="login-form">
+      <form class="form-container" id="login-form">
 
         <mat-form-field color="accent" appearance="outline">
           <mat-label translate>LABEL_EMAIL</mat-label>
-          <input id="email" #email name="email"
-            [formControl]="emailControl"
-            (focus)="this.error=null"
-            matInput placeholder=""
-            aria-label="Text field for the login email"
-          >
+          <input id="email" #email name="email" [formControl]="emailControl" (focus)="this.error=null" matInput
+            placeholder="" aria-label="Text field for the login email">
           @if (emailControl.invalid) {
           <mat-error translate>MANDATORY_EMAIL</mat-error>
           }
@@ -30,12 +27,8 @@
 
         <mat-form-field color="accent" appearance="outline">
           <mat-label translate>LABEL_PASSWORD</mat-label>
-          <input id="password" #password name="password"
-            [formControl]="passwordControl"
-            (focus)="this.error=null"
-            matInput placeholder="" [type]="hide ? 'password' : 'text'"
-            aria-label="Text field for the login password"
-          >
+          <input id="password" #password name="password" [formControl]="passwordControl" (focus)="this.error=null"
+            matInput placeholder="" [type]="hide ? 'password' : 'text'" aria-label="Text field for the login password">
           @if (hide) {
           <button mat-icon-button matSuffix (click)="hide = !hide" aria-label="Button to display the password"
             matTooltip="{{ 'SHOW_PWD_TOOLTIP' | translate  }}" matTooltipPosition=right>
@@ -54,22 +47,16 @@
 
         <a class="primary-link forgot-pw" routerLink="/forgot-password" translate>FORGOT_PASSWORD</a>
 
-        <button
-          type="submit"
-          id="loginButton"
-          [disabled]="!emailControl.value||!passwordControl.value"
-          mat-raised-button
-          color="primary"
-          (click)="login()"
-          aria-label="Login"
-        >
+        <button type="submit" id="loginButton" [disabled]="!emailControl.value||!passwordControl.value"
+          mat-raised-button color="primary" (click)="login()" aria-label="Login">
           <mat-icon>
             exit_to_app
           </mat-icon>
           {{'BTN_LOGIN' | translate}}
         </button>
 
-        <mat-checkbox [formControl]="rememberMe" id="rememberMe" aria-label="Checkbox to stay logged in or not logged in">
+        <mat-checkbox [formControl]="rememberMe" id="rememberMe"
+          aria-label="Checkbox to stay logged in or not logged in">
           {{'REMEMBER_ME' | translate}}
         </mat-checkbox>
 
@@ -86,20 +73,16 @@
         }
 
         @if (!oauthUnavailable) {
-        <button id="loginButtonGoogle"
-          mat-raised-button color="accent"
-          (click)="googleLogin()"
-          aria-label="Login with Google"
-          class="google-button"
-        >
+        <button id="loginButtonGoogle" mat-raised-button color="accent" (click)="googleLogin()"
+          aria-label="Login with Google" class="google-button">
           <i class="fab fa-google fa-lg"></i> {{'BTN_GOOGLE_LOGIN' | translate}}
         </button>
         }
 
-        <div id="newCustomerLink">
+        <nav id="newCustomerLink">
           <a class="primary-link" routerLink="/register" translate>NO_CUSTOMER</a>
-        </div>
-      </div>
-    </div>
+        </nav>
+      </form>
+    </section>
   </mat-card>
-</div>
+</main>

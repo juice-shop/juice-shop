@@ -1,18 +1,18 @@
-<div class="score-group">
+<section class="score-group">
   <p class="score">
     @if (showAsPercentage === true) {
-      {{ (score / total) * 100 | number : "1.0-0" }}%
+    {{ (score / total) * 100 | number : "1.0-0" }}%
     } @else {
-      {{ score }}/<span class="fraction-total">{{ total }}</span>
+    {{ score }}/<span class="fraction-total">{{ total }}</span>
     }
   </p>
   <p class="category">{{ description }}</p>
   @if (showProgressBar === true) {
-    <div class="progress-bar-container">
-      <div class="progress-bar" [style.width]="(score / total) * 100 + '%'"></div>
-    </div>
+  <section class="progress-bar-container">
+    <section class="progress-bar" [style.width]="(score / total) * 100 + '%'"></section>
+  </section>
   }
-</div>
-<div class="right-group">
+</section>
+<section class="right-group">
   <ng-content select="[right-side]" />
-</div>
+</section>
