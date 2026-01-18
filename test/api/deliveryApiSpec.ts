@@ -100,6 +100,11 @@ describe('/api/Deliverys/:id', () => {
           expect(json.data.eta).toBe(3)
         })
     })
+
+    it('GET non-existing delivery method returns 400', () => {
+      return frisby.get(API_URL + '/Deliverys/999999', { headers: authHeader })
+        .expect('status', 400)
+    })
   })
 
   describe('for deluxe customer', () => {

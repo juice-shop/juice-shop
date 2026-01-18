@@ -128,8 +128,6 @@ challenges:
   safetyMode:
     type: string
     enum: ['enabled', 'disabled','auto']
-  showFeedbackButtons:
-    type: boolean
   csafHashValue:
     type: string
   metricsIgnoredUserAgents:

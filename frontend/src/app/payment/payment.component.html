@@ -145,6 +145,7 @@
             </div>
           </div>
         </div>
+<<<<<<< HEAD
       </mat-expansion-panel>
       }
       <mat-divider></mat-divider>
@@ -172,6 +173,162 @@
         </button>
       </section>
     </div>
+=======
+        <div class="col col-20">
+          <button type="submit" color="primary" mat-raised-button class="btn btn-float-right"
+            [disabled]="(walletBalance - totalPrice) < 0" (click)="useWallet()">
+            <i class="fas fa-hand-holding-usd fa-lg"></i> {{'LABEL_PAY' | translate}} {{ totalPrice?.toFixed(2) }}¤
+          </button>
+        </div>
+      </div>
+    </div>
+    }
+    <mat-divider></mat-divider>
+    @if (mode !== 'wallet') {
+    <mat-expansion-panel class="mat-elevation-z0" [expanded]="couponPanelExpanded" id="collapseCouponElement">
+      <mat-expansion-panel-header class="detail-divider">
+        <mat-panel-title>
+          {{"ADD_A_COUPON" | translate}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{"VOUCHERS_AND_PROMOTIONAL_CODE" | translate}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      @if (couponConfirmation && !couponControl.dirty) {
+      <div class="confirmation message-spacing">{{
+        couponConfirmation }}
+      </div>
+      }
+      @if (couponError && !couponControl.dirty) {
+      <div class="error message-spacing">{{couponError?.error}}
+      </div>
+      }
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label translate>LABEL_COUPON</mat-label>
+        <mat-hint
+          [innerHtml]="'FOLLOW_FOR_MONTHLY_COUPONS' | translate:{blueSky: blueSkyUrl, reddit: redditUrl}">
+        </mat-hint>
+        <input #coupon id="coupon" [formControl]="couponControl" matInput type="text" placeholder="{{ 'ENTER_COUPON_CODE' | translate}}">
+        <mat-hint align="end">{{coupon.value?.length || 0}}/10</mat-hint>
+        @if (couponControl.invalid && (couponControl.errors.minlength || couponControl.errors.maxlength)) {
+        <mat-error>
+          {{'COUPON_CODE_HINT' | translate}}
+        </mat-error>
+        }
+      </mat-form-field>
+      <button type="submit" id="applyCouponButton" color="accent" class="btn-float-right-spacing"
+        (click)="applyCoupon()" [disabled]="couponControl.invalid" mat-raised-button>
+        <mat-icon>
+          redeem
+        </mat-icon>
+        {{'BTN_REDEEM' | translate}}
+      </button>
+    </mat-expansion-panel>
+    }
+    <mat-divider></mat-divider>
+    @if (mode !== 'wallet') {
+    <mat-expansion-panel class="mat-elevation-z0" [expanded]="paymentPanelExpanded">
+      <mat-expansion-panel-header class="detail-divider">
+        <mat-panel-title>
+          {{"OTHER_PAYMENT_OPTIONS" | translate}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="row responsive-row">
+        <div class="col col-34 mat-elevation-z0">
+          <div class="payment-label">
+            <label translate>LABEL_DONATIONS</label>
+          </div>
+          <small>
+            (@if (applicationName === 'OWASP Juice Shop') {
+              <span translate
+              [translateParams]="{juiceshop: 'OWASP Juice Shop'}">THANKS_FOR_SUPPORT</span>
+            } @else {
+              <span translate
+              [translateParams]="{appname: applicationName}">THANKS_FOR_SUPPORT_CUSTOMIZED</span>
+            }
+            <i class="fas fa-heart error icon-spacing"></i>)
+          </small>
+          <div class="button-container button-container-spacing">
+            <a href="https://pwning.owasp-juice.shop/companion-guide/latest/part3/donations.html">
+              <button mat-stroked-button><i class="fab fa-stripe fa-lg"></i> {{'BTN_CREDIT_CARD' | translate}}</button>
+            </a>
+            @if (false) {
+            <button mat-stroked-button (click)="showBitcoinQrCode()"><i class="fab fa-btc fa-lg"></i>
+              Bitcoin
+            </button>
+            }
+            @if (false) {
+            <button mat-stroked-button (click)="showDashQrCode()"><i class="fa-lg">Ð</i> Dash</button>
+            }
+            @if (false) {
+            <button mat-stroked-button (click)="showEtherQrCode()"><i class="fab fa-ethereum fa-lg"></i>
+              Ether
+            </button>
+            }
+          </div>
+        </div>
+        <span class="fill-remaining-space"></span>
+        <div class="col col-65 mat-elevation-z0">
+          <div class="payment-label">
+            <label translate>LABEL_MERCHANDISE</label>
+          </div>
+          <small>
+            (@if (applicationName === 'OWASP Juice Shop') {
+            <span translate
+              [translateParams]="{juiceshop: 'OWASP Juice Shop'}">OFFICIAL_MERCHANDISE_STORES</span>
+            } @else {
+            <span translate
+              [translateParams]="{appname: applicationName}">OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED</span>
+            }
+            <i class="fas fa-thumbs-up confirmation icon-spacing"></i>)
+          </small>
+          <div class="button-container button-container-spacing">
+            <a href="./redirect?to=http://shop.spreadshirt.com/juiceshop">
+              <button mat-stroked-button><i class="fas fa-tshirt fa-lg"></i> Spreadshirt (US)</button>
+            </a>
+            <a href="./redirect?to=http://shop.spreadshirt.de/juiceshop">
+              <button mat-stroked-button><i class="fas fa-tshirt fa-lg"></i> Spreadshirt (DE)</button>
+            </a>
+            <a href="./redirect?to=https://www.stickeryou.com/products/owasp-juice-shop/794">
+              <button mat-stroked-button><i class="fas fa-sticky-note fa-lg"></i> StickerYou</button>
+            </a>
+            <a href="./redirect?to=http://leanpub.com/juice-shop">
+              <button mat-stroked-button><i class="fab fa-leanpub fa-lg"></i> Leanpub</button>
+            </a>
+            <a href="https://opensea.io/collection/juice-shop">
+              <button mat-stroked-button><i class="fas fa-palette fa-lg"></i> OpenSea</button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+    }
+    <mat-divider></mat-divider>
+    <section  class="nav-section">
+      <button mat-stroked-button class="btn btn-return" (click)="routeToPreviousUrl()">
+        <mat-icon>
+          navigate_before
+        </mat-icon>
+        {{'LABEL_BACK' | translate}}
+      </button>
+      <p class="nav-text">
+        @if (mode !== 'deluxe' && mode !== 'wallet') {
+        <span translate>REVIEW_ALERT</span>
+        }
+        @if (mode === 'wallet') {
+        <span translate>REVIEW_WALLET</span>
+        }
+      </p>
+      <button mat-raised-button mat-button class="btn nextButton" color="primary" aria-label="Proceed to review"
+        [disabled]="paymentId === undefined && paymentMode !== 'wallet'" (click)="choosePayment()">
+        <mat-icon>
+          navigate_next
+        </mat-icon>
+        <span translate>LABEL_CONTINUE</span>
+      </button>
+    </section>
+  </div>
+>>>>>>> upstream/develop
 
   </mat-card>
 </main>

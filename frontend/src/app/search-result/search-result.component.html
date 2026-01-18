@@ -50,6 +50,35 @@
                     <s>{{item.price}}</s> {{ item.deluxePrice }}&curren;
                   </span>
                   }
+<<<<<<< HEAD
+=======
+                  <div class="product" tabindex="0" (keydown.enter)="showDetail(item)" role="button" (click)="showDetail(item)" aria-label="Click for more information about the product"
+                    matTooltip="Click for more information" matTooltipPosition="above">
+                    <img mat-card-image [src]="'assets/public/images/products/'+item.image" alt={{item.name}}
+                      class="img-responsive img-thumbnail" role="button">
+                      <div class="info-box">
+                        <div class="item-name">{{item.name}}</div>
+                        <div class="item-price">
+                          @if (!isDeluxe() || item.price === item.deluxePrice) {
+                            <span>{{item.price}}&curren;</span>
+                          }
+                          @if (isDeluxe() && item.price !== item.deluxePrice) {
+                            <span>
+                              <s>{{item.price}}</s> {{ item.deluxePrice }}&curren;
+                            </span>
+                          }
+                        </div>
+                      </div>
+                  </div>
+                  <div class="basket-btn-container">
+                    @if (isLoggedIn()) {
+                      <button (click)="addToBasket(item.id)" aria-label="Add to Basket" class="btn-basket"
+                        color="primary" mat-button mat-raised-button>
+                        <span>{{"ADD_BASKET" | translate}}</span>
+                      </button>
+                    }
+                  </div>
+>>>>>>> upstream/develop
                 </div>
               </section>
             </article>

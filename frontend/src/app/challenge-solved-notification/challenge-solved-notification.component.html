@@ -5,6 +5,7 @@
 
 <section class="container challenge-solved-toast mat-elevation-z4">
   @for (notification of notifications; track notification.key) {
+<<<<<<< HEAD
   <mat-card appearance="outlined" class="accent-notification">
     <section class="mdc-card">
       <p class="notificationMessage">{{notification.message}}<button id="closeButton" mat-button
@@ -25,6 +26,50 @@
           @if (showCtfCountryDetailsInNotifications === 'flag' || showCtfCountryDetailsInNotifications === 'both') {
           <span class="fi fi-{{notification.country.code | lowercase}}">
           </span>
+=======
+    <mat-card appearance="outlined" class="accent-notification">
+      <div class="mdc-card">
+        <div class="notificationMessage"><div class="contents">{{notification.message}}
+          
+          @if (notification.codingChallenge) {
+            <div class="notification-actions">
+              <button
+                class="view-challenge-button"
+                mat-stroked-button 
+                (click)="navigateToChallenge(notification.key)"
+              >
+                <mat-icon>code</mat-icon>
+                <span>{{ "JUMP_TO_RELATED_CODING_CHALLENGE" | translate }}</span>
+              </button>
+            </div>
+          }</div>
+          
+          <button id="closeButton" mat-button (click)="closeNotification($index, $event.shiftKey)">X</button></div>
+        @if (showCtfFlagsInNotifications) {
+          <br/>
+          <div>
+            <span class="icon-box flag-box" (click)="copyToClipboard(notification.flag)" [matTooltip]="'COPY_TO_CLIPBOARD' | translate">
+              <mat-icon>outlined_flag</mat-icon> {{notification.flag}}
+            </span>
+            <br/>
+            @if (showCtfCountryDetailsInNotifications !== 'none') {
+              <span class="icon-box">
+                @if (showCtfCountryDetailsInNotifications === 'flag' || showCtfCountryDetailsInNotifications === 'both') {
+                  <span
+                    class="fi fi-{{notification.country.code | lowercase}}"
+                    >
+                  </span>
+                }
+                @if (showCtfCountryDetailsInNotifications === 'name') {
+                  <mat-icon>my_location</mat-icon>
+                  }&nbsp;
+                  @if (showCtfCountryDetailsInNotifications === 'name' || showCtfCountryDetailsInNotifications === 'both') {
+                    <span>{{notification.country.name}}</span>
+                  }
+                </span>
+              }
+            </div>
+>>>>>>> upstream/develop
           }
           @if (showCtfCountryDetailsInNotifications === 'name') {
           <mat-icon>my_location</mat-icon>

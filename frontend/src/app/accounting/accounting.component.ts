@@ -38,10 +38,10 @@ interface Order {
   imports: [MatCardModule, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatIconButton, MatTooltip, MatIconModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, MatFormFieldModule, MatInputModule, MatSuffix]
 })
 export class AccountingComponent implements AfterViewInit, OnDestroy {
-  private readonly productService = inject(ProductService);
-  private readonly quantityService = inject(QuantityService);
-  private readonly orderHistoryService = inject(OrderHistoryService);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
+  private readonly productService = inject(ProductService)
+  private readonly quantityService = inject(QuantityService)
+  private readonly orderHistoryService = inject(OrderHistoryService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   public orderHistoryColumns = ['OrderId', 'Price', 'Status', 'StatusButton']
   @ViewChild('paginatorOrderHistory', { static: true }) paginatorOrderHistory: MatPaginator

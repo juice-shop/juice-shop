@@ -14,6 +14,7 @@
         </span>
       </button>
 
+<<<<<<< HEAD
       <span class="fill-remaining-space"></span>
 
       <section>
@@ -21,6 +22,19 @@
       </section>
       <app-mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"
         aria-label="Click to search"></app-mat-search-bar>
+=======
+    <button (click)="onToggleSidenav()" mat-icon-button class="nav-square-button" aria-label="Open Sidenav"
+      matTooltip="{{ 'SIDENAV_HINT' | translate }}" matTooltipPosition="below">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <button mat-button routerLink="/search" class="buttons nav-home-button" aria-label="Back to homepage">
+      <div id="homeButton">
+        <img [src]="logoSrc" class="logo" alt={{applicationName}}>
+        <span class="hide-lt-sm app-name"> {{applicationName}} </span>
+      </div>
+    </button>
+>>>>>>> upstream/develop
 
       <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle; height:48px;"
         class="buttons hide-lt-md" aria-label="Show/hide account menu" id="navbarAccount">
@@ -30,8 +44,27 @@
         <span> {{"ACCOUNT" | translate}} </span>
       </button>
 
+<<<<<<< HEAD
       <mat-menu #userMenu="matMenu">
         @if (isLoggedIn()) {
+=======
+    <div>
+      <div id="product-search-fixture"></div>
+    </div>
+    <app-mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"
+    aria-label="Click to search"></app-mat-search-bar>
+
+    <button [matMenuTriggerFor]="userMenu" mat-button class="buttons hide-lt-md nav-button nav-account-button"
+      aria-label="Show/hide account menu" id="navbarAccount">
+      <mat-icon>
+        account_circle
+      </mat-icon>
+      <span> {{"ACCOUNT" | translate}} </span>
+    </button>
+
+    <mat-menu #userMenu="matMenu">
+      @if (isLoggedIn()) {
+>>>>>>> upstream/develop
         <button (click)="goToProfilePage()" mat-menu-item aria-label="Go to user profile">
           <mat-icon>
             account_circle
@@ -92,6 +125,7 @@
         }
       </mat-menu>
 
+<<<<<<< HEAD
       @if (isLoggedIn()) {
       <button mat-button routerLink="/basket" style="height:48px;" class="buttons" aria-label="Show the shopping cart">
         <mat-icon>
@@ -100,9 +134,20 @@
         <span class="hide-lt-md" style="margin-right: 10px;"> {{"TITLE_BASKET" | translate}}</span>
         <span class="fa-layers-counter fa-layers-top-right fa-3x warn-notification"
           style="font-size: 47px;">{{itemTotal}}</span>
+=======
+    @if (isLoggedIn()) {
+      <button mat-button routerLink="/basket" class="buttons nav-button"
+        aria-label="Show the shopping cart">
+        <mat-icon>
+          shopping_cart
+        </mat-icon>
+        <span class="hide-lt-md basket-label"> {{"TITLE_BASKET" | translate}}</span>
+        <span class="fa-layers-counter fa-layers-top-right fa-3x warn-notification">{{itemTotal}}</span>
+>>>>>>> upstream/develop
       </button>
       }
 
+<<<<<<< HEAD
       <button id="navbarLanguageButton" [matMenuTriggerFor]="menu" mat-button style="height:48px; width: 48px;"
         class="buttons" aria-label="Language selection menu" matTooltip="{{ 'LANGUAGE_SEL_HINT' | translate }}"
         matTooltipPosition="below">
@@ -124,13 +169,45 @@
         <mat-radio-button (click)="changeLanguage(language.key)" [value]="language" class="mat-menu-item"
           style="width: 240px;" [checked]="selectedLanguage === language" [aria-label]="language.lang">
           <div class="mat-body" style="display: inline-block; width: 200px; margin-left: 5px;">
+=======
+    <button id="navbarLanguageButton" [matMenuTriggerFor]="menu" mat-button class="buttons nav-square-button"
+      aria-label="Language selection menu"
+      matTooltip="{{ 'LANGUAGE_SEL_HINT' | translate }}" matTooltipPosition="below">
+      <mat-icon>
+        language
+      </mat-icon>
+      <span class="hide-lt-md"> {{shortKeyLang}} </span>
+    </button>
+
+    <mat-menu #menu="matMenu" [overlapTrigger]="true">
+      <div class="language-search-container" (click)="$event.stopPropagation()">
+        <mat-form-field class="language-search-field">
+          <mat-icon matPrefix class="search-icon">search</mat-icon>
+          <mat-label>{{ 'SEARCH_PLACEHOLDER' | translate }}</mat-label>
+          <input type="search" matInput [(ngModel)]="languageSearchQuery" (input)="filterLanguages()">
+        </mat-form-field>
+      </div>
+      @for (language of filteredLanguages; track language.key) {
+          <mat-radio-button
+          (click)="changeLanguage(language.key)"
+          [value]="language"
+          class="mat-menu-item language-option"
+          [checked]="selectedLanguage === language"
+          [aria-label]="language.lang"
+          >
+          <div class="mat-body language-option-content">
+>>>>>>> upstream/develop
             @for (icon of language.icons; track icon) {
             <span [class]="'fi fi-' + icon"></span>
             }
             {{language?.lang}}
           </div>
+<<<<<<< HEAD
           <i
             [class]="'fas fa-thermometer-' + language.gauge + (language.percentage > 70 ? ' confirmation' : ' error')"></i>
+=======
+          <i [class]="'fas fa-thermometer-' + language.gauge" [title]="language.percentage + '% translated'"></i>
+>>>>>>> upstream/develop
         </mat-radio-button>
         }
       </mat-menu>

@@ -19,6 +19,7 @@
         <section>
           <p class="item-price">{{data.productData.price}}&curren;</p>
           @if (data.productData.points > 0) {
+<<<<<<< HEAD
           <section matTooltip="{{'LABEL_BONUS' | translate}}" aria-label="Bonus points when buying the product">
             <span class="fa-2x fa-layers fa-fw">
               <i class="fas fa-crown"></i>
@@ -26,22 +27,31 @@
                 data.productData.points }}</span>
             </span>
           </section>
+=======
+            <div matTooltip="{{'LABEL_BONUS' | translate}}"
+              aria-label="Bonus points when buying the product">
+              <span class="fa-2x fa-layers fa-fw">
+                <i class="fas fa-crown"></i>
+                <span class="fa-layers-counter fa-layers-bottom-left fa-2x warn-notification">{{ data.productData.points }}</span>
+              </span>
+            </div>
+>>>>>>> upstream/develop
           }
         </section>
       </section>
     </section>
 
     <mat-divider class="detail-divider"></mat-divider>
-    <button mat-button style="height: 0; position: absolute;">
+    <button mat-button class="auto-focus-absorber">
       <!-- 'absorbs' the auto-focus behavior -->
     </button>
     <mat-expansion-panel class="mat-elevation-z0" aria-label="Expand for Reviews">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <span style="margin-right: 5px;" translate>LABEL_REVIEWS</span> <span>({{(reviews$| async)?.length}})</span>
+          <span class="review-label-spacing" translate>LABEL_REVIEWS</span> <span>({{(reviews$| async)?.length}})</span>
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <button mat-button style="height: 0; position: absolute;">
+      <button mat-button class="auto-focus-absorber">
         <!-- 'absorbs' the auto-focus behavior -->
       </button>
       @if ((reviews$| async)?.length >= 1) {
@@ -85,7 +95,7 @@
       <mat-label>{{"LABEL_REVIEW" | translate}}</mat-label>
       <mat-hint>
         <i class="fas fa-exclamation-circle"></i>
-        <em style="margin-left:5px;">{{ 'MAX_TEXTAREA_LENGTH' | translate: {length: '160'} }}</em>
+        <em class="hint-spacing">{{ 'MAX_TEXTAREA_LENGTH' | translate: {length: '160'} }}</em>
       </mat-hint>
       <textarea [formControl]="reviewControl" #textPut cols="50" matInput
         placeholder="{{'WRITE_REVIEW_PLACEHOLDER' | translate}}" matTextareaAutosize matAutosizeMinRows="2"
@@ -100,7 +110,12 @@
       </button>
 
       <button type="submit" id="submitButton" [disabled]="!textPut.value.trim()" mat-raised-button color="primary"
+<<<<<<< HEAD
         (click)="addReview(textPut)" style="margin-left: 5px;" aria-label="Send the review" class="buttons"
+=======
+        (click)="addReview(textPut)" class="buttons submit-button-spacing"
+        aria-label="Send the review"
+>>>>>>> upstream/develop
         [style.display]="isLoggedIn() ? 'flex' : 'none' ">
         <mat-icon>send</mat-icon>
         <span>{{'BTN_SUBMIT' | translate}}</span>

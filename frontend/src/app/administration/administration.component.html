@@ -3,6 +3,7 @@
   ~ SPDX-License-Identifier: MIT
 -->
 
+<<<<<<< HEAD
 <main>
   <mat-card appearance="outlined" class="mat-elevation-z6 mat-own-card">
     <div class="mdc-card">
@@ -17,15 +18,37 @@
               <mat-header-cell *matHeaderCellDef></mat-header-cell>
               <mat-cell *matCellDef="let user" style="vertical-align: middle">
                 @if (doesUserHaveAnActiveSession(user)) {
+=======
+<mat-card appearance="outlined" class="mat-elevation-z6 mat-own-card">
+  <div class="mdc-card">
+    <h1 translate>TITLE_ADMINISTRATION</h1>
+    <div class="container">
+      <div class="user-table">
+        <div class="heading">
+          <span translate>SECTION_USER</span>
+        </div>
+        <mat-table [dataSource]="userDataSource">
+          <ng-container matColumnDef="user">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let user" class="cell-middle">
+              @if (doesUserHaveAnActiveSession(user)) {
+>>>>>>> upstream/develop
                 <i class="fas fa-user fa-lg confirmation"></i>
                 }
               </mat-cell>
             </ng-container>
 
+<<<<<<< HEAD
             <ng-container matColumnDef="email">
               <mat-header-cell *matHeaderCellDef translate></mat-header-cell>
               <mat-cell *matCellDef="let user" [innerHTML]="user.email" style="vertical-align: middle"></mat-cell>
             </ng-container>
+=======
+          <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef translate></mat-header-cell>
+            <mat-cell *matCellDef="let user" [innerHTML]="user.email" class="cell-middle"></mat-cell>
+          </ng-container>
+>>>>>>> upstream/develop
 
             <ng-container matColumnDef="user_detail">
               <mat-header-cell *matHeaderCellDef></mat-header-cell>
@@ -90,16 +113,16 @@
   </mat-card>
 </main>
 
-<mat-table [dataSource]="userDataSourceHidden" style="visibility: hidden; height: 0px;">
+<mat-table [dataSource]="userDataSourceHidden" class="hidden-table">
   <ng-container matColumnDef="user">
     <mat-header-cell *matHeaderCellDef></mat-header-cell>
-    <mat-cell *matCellDef="let user" style="vertical-align: middle">
+    <mat-cell *matCellDef="let user" class="cell-middle">
     </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="email">
     <mat-header-cell *matHeaderCellDef translate></mat-header-cell>
-    <mat-cell *matCellDef="let user" [innerHTML]="user.email" style="vertical-align: middle"></mat-cell>
+    <mat-cell *matCellDef="let user" [innerHTML]="user.email" class="cell-middle"></mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="user_detail">

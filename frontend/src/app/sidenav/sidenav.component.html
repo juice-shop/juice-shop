@@ -12,10 +12,17 @@
 <nav>
   <mat-nav-list>
 
+<<<<<<< HEAD
     <button mat-button style="height: 0; position: absolute;">
       <!-- 'absorbs' the auto-focus behavior -->
     </button>
     <h3 mat-subheader class="side-subHeader show-lt-md-only" translate>ACCOUNT</h3>
+=======
+  <button mat-button class="auto-focus-absorb">
+    <!-- 'absorbs' the auto-focus behavior -->
+  </button>
+  <h3 mat-subheader class="side-subHeader show-lt-md-only" translate>ACCOUNT</h3>
+>>>>>>> upstream/develop
 
     <section class="show-lt-md-only">
       @if (!isLoggedIn()) {
@@ -263,9 +270,15 @@
     </a>
     }
 
+<<<<<<< HEAD
     @if (scoreBoardVisible || showGitHubLink) {
     <mat-divider style="margin-bottom: 10px;"></mat-divider>
     }
+=======
+  @if (scoreBoardVisible || showGitHubLink) {
+    <mat-divider class="divider-spacing"></mat-divider>
+  }
+>>>>>>> upstream/develop
 
     @if (scoreBoardVisible) {
     <a mat-list-item routerLink="/score-board" (click)="onToggleSidenav()" aria-label="Open score-board">
@@ -298,8 +311,9 @@
 
 <footer class="appVersion">
   <span>
-    <span style="font-size: 13px;">{{applicationName}}</span>
+    <span class="app-name">{{applicationName}}</span>
     <br>
+<<<<<<< HEAD
     <span style="font-size: 12px;">{{version}}</span>
     <br>
     <p style="margin-top: 10px;">
@@ -314,3 +328,19 @@
     </p>
   </span>
 </footer>
+=======
+      <span class="app-version">{{version}}</span>
+      <br>
+        <div class="tech-icons">
+          <i class="icon-angular"></i>&nbsp;
+          <i class="icon-html5"></i>&nbsp;
+          <i class="icon-sass"></i>&nbsp;
+          <i class="icon-css3"></i>&nbsp;
+          <i class="icon-javascript-alt"></i>&nbsp;
+          <i class="icon-nodejs"></i>&nbsp;
+          <i class="icon-database-alt2"></i>&nbsp;
+          <i class="icon-mongodb"></i>
+        </div>
+      </span>
+    </div>
+>>>>>>> upstream/develop

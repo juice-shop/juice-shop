@@ -14,6 +14,7 @@
         {{ confirmation }}
       </p>
 
+<<<<<<< HEAD
       @if (fileUploadError && fileUploadError.name == "mimeType") {
       <p class="error fileUploadError" role="alert">
         {{ "INVALID_FILE_TYPE" | translate: { type: "PDF, ZIP" } }}
@@ -23,6 +24,17 @@
       <p class="error fileUploadError" role="alert">
         {{ "INVALID_FILE_SIZE" | translate: { size: "100 KB" } }}
       </p>
+=======
+      @if (fileUploadError && fileUploadError.name === "mimeType") {
+        <p class="error fileUploadError" role="alert">
+          {{ "INVALID_FILE_TYPE" | translate: { type: "PDF, ZIP" } }}
+        </p>
+      }
+      @if (fileUploadError && fileUploadError.name === "fileSize") {
+        <p class="error fileUploadError" role="alert">
+          {{ "INVALID_FILE_SIZE" | translate: { size: "100 KB" } }}
+        </p>
+>>>>>>> upstream/develop
       }
     </section>
 

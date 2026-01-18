@@ -36,7 +36,33 @@
             tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo
             duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
+<<<<<<< HEAD
             <span>{{"GIVE_US_ALL_YOUR_MONEY" | translate }}</span>
+=======
+<mat-card appearance="outlined">
+  <div class="mdc-card container">
+    <div class="whitepaper-container offer-container align-self-center">
+      <mat-card-header>
+        <mat-card-title>
+          {{'TITLE_TOKENSALE' | translate}}
+        </mat-card-title>
+        <mat-card-subtitle [innerHtml]="'SECTION_ICO' | translate:{juicycoin: altcoinName}"></mat-card-subtitle>
+      </mat-card-header>
+      <div class="divider"></div>
+      <mat-card appearance="outlined" class="mat-elevation-z6">
+        <div class="mdc-card">
+          <h4>{{'SECTION_WHITEPAPER' | translate}} <small class="whitepaper-reference">(<span>{{"WHITEPAPER_REFERENCES" | translate}}</span>)</small></h4>
+          <div class="whitepaper-buttons">
+            <a href="https://ponzico.win/ponzico.pdf" target="_blank" rel="noopener noreferrer"><button mat-raised-button color="accent"><i class="fas fa-university fa-lg"></i> PonzICO Whitepaper</button></a>
+            <a href="https://www.sec.gov/investor/alerts/ia_virtualcurrencies.pdf" target="_blank" rel="noopener noreferrer"><button mat-raised-button color="accent"><i class="fas fa-graduation-cap fa-lg"></i> PonziCoin Whitepaper</button></a>
+          </div>
+        </div>
+      </mat-card>
+      <div class="offer-box">
+        <h3>{{"SECTION_SALES_PITCH" | translate }}</h3>
+        <p class="text-justify">
+          Lorem ipsum dolor sit amet <strong><i class='fab fa-bitcoin'></i> {{altcoinName}}</strong>, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+>>>>>>> upstream/develop
 
             Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu
             feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril
@@ -133,6 +159,7 @@
           </section>
         </mat-card>
 
+<<<<<<< HEAD
         <mat-card appearance="outlined" class="mat-elevation-z6">
           <section class="mdc-card">
             <h5><i class='fas fa-comments fa-2x'></i> <span style="margin-left: 10px;"
@@ -145,3 +172,24 @@
     </section>
   </mat-card>
 </main>
+=======
+      <mat-card appearance="outlined" class="mat-elevation-z6">
+        <div class="mdc-card">
+          <h5><i class='fas fa-comment-alt fa-2x'></i> Justo duo dolores et ea rebum?</h5>
+          <small class="text-justify">
+            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+          </small>
+        </div>
+      </mat-card>
+
+      <mat-card appearance="outlined" class="mat-elevation-z6">
+        <div class="mdc-card">  
+          <h5><i class='fas fa-comments fa-2x'></i> <span class="faq-question-label" [innerHtml]="'ICO_FAQ_QUESTION' | translate:{juicycoin: altcoinName}"></span></h5>
+          <small class="text-justify">{{"ICO_FAQ_ANSWER" | translate}}</small>
+        </div>
+      </mat-card>
+    </div>
+    <img src="assets/public/images/padding/56px.png"/>
+  </div>
+</mat-card>
+>>>>>>> upstream/develop

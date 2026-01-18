@@ -3,11 +3,22 @@
 <section class="name-row">
   <section class="dot"></section>
   <span class="name">{{ challenge.name }}</span>
+<<<<<<< HEAD
   <difficulty-stars [difficulty]="challenge.difficulty"></difficulty-stars>
 </section>
 <section class="description-row" [innerHtml]="challenge.description"></section>
 <section class="bottom-row">
   <section class="tags">
+=======
+  <difficulty-stars
+    [difficulty]="challenge.difficulty"
+    aria-label="Difficulty {{ challenge.difficulty }} of 6"
+  ></difficulty-stars>
+</div>
+<div class="description-row" [innerHtml]="challenge.description" (click)="copyPayload($event)"></div>
+<div class="bottom-row">
+  <div class="tags">
+>>>>>>> upstream/develop
     @for (tag of challenge.tagList; track tag) {
     <span class="tag" [matTooltip]="('TAG_' + tag?.toUpperCase().split(' ').join('_') + '_DESCRIPTION' | translate)">{{
       tag }}</span>
@@ -27,6 +38,7 @@
     }
     <!-- coding challenge badge -->
     @if (applicationConfiguration.challenges.codingChallengesEnabled !== 'never' && challenge.hasCodingChallenge) {
+<<<<<<< HEAD
     <button class="badge" (click)="openCodingChallengeDialog(challenge.key)"
       [disabled]="challenge.solved === false && applicationConfiguration.challenges.codingChallengesEnabled !== 'always'"
       [ngClass]="{
@@ -38,6 +50,25 @@
       }
       <mat-icon>code</mat-icon>
     </button>
+=======
+      <button
+        class="badge not-completable"
+        (click)="openCodingChallengeDialog(challenge.key)"
+        [disabled]="challenge.solved === false && applicationConfiguration.challenges.codingChallengesEnabled !== 'always'"
+      [ngClass]="{
+        'partially-completed': challenge.codingChallengeStatus === 1,
+        'completed': challenge.codingChallengeStatus === 2,
+        'flickering': highlightCodingButton
+      }"
+        [matTooltip]="(challenge.solved ? 'LAUNCH_CODING_CHALLENGE' : 'SOLVE_HACKING_CHALLENGE') | translate"
+        #codingChallengeTooltip="matTooltip"
+        >
+        @if (challenge.codingChallengeStatus !== 0) {
+          <span class="badge-status">{{ challenge.codingChallengeStatus }}/2</span>
+        }
+        <mat-icon>code</mat-icon>
+      </button>
+>>>>>>> upstream/develop
     }
     <!-- mitigation link-->
     @if (challenge.mitigationUrl && challenge.solved) {
@@ -63,12 +94,27 @@
     }
     <!-- challenge hints  -->
     @if (challenge.hintsAvailable > 0) {
+<<<<<<< HEAD
     <button class="badge not-completable" [style.padding]="'0 6px 0 4px'"
       [matTooltip]="challenge.hintText + (challenge.nextHint ? '\n\n' + ('CLICK_TO_UNLOCK_NEXT_HINT' | translate: { next: challenge.hintsUnlocked+1, total: challenge.hintsAvailable}) : '')"
       matTooltipClass="multiline-tooltip" (click)="unlockHint(challenge.nextHint)" [disabled]="!challenge.nextHint">
       <mat-icon>{{ challenge.nextHint ? 'lightbulb_outlined' : 'lightbulb' }}</mat-icon>
       {{ challenge.hintsUnlocked }}/{{ challenge.hintsAvailable }}
     </button>
+=======
+      <button
+        class="badge not-completable"
+        [style.padding]="'0 6px 0 4px'"
+        [matTooltip]="challenge.hintText + (challenge.nextHint ? '\n\n' + ('CLICK_TO_UNLOCK_NEXT_HINT' | translate: { next: challenge.hintsUnlocked+1, total: challenge.hintsAvailable}) : '')"
+        #hintTooltip="matTooltip"
+        matTooltipClass="multiline-tooltip"
+        (click)="unlockHint(challenge.nextHint, challenge.key)"
+        [disabled]="!challenge.nextHint"
+        >
+        <mat-icon>{{ challenge.nextHint ? 'lightbulb_outlined' : 'lightbulb' }}</mat-icon>
+        {{ challenge.hintsUnlocked }}/{{ challenge.hintsAvailable }}
+      </button>
+>>>>>>> upstream/develop
     }
   </section>
 </section>
