@@ -13,19 +13,19 @@
     </button>
 
     <button mat-button routerLink="/search" style="height:60px;" class="buttons" aria-label="Back to homepage">
-      <div id="homeButton">
+      <span id="homeButton">
         <img [src]="logoSrc" class="logo" alt={{applicationName}}>
         <span class="hide-lt-sm" style="font-size: x-large"> {{applicationName}} </span>
-      </div>
+      </span>
     </button>
 
     <span class="fill-remaining-space"></span>
 
-    <div>
-      <div id="product-search-fixture"></div>
-    </div>
-    <app-mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"
-    aria-label="Click to search"></app-mat-search-bar>
+    <search role="search">
+      <span id="product-search-fixture"></span>
+      <app-mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"
+      aria-label="Click to search"></app-mat-search-bar>
+    </search>
 
     <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle; height:48px;" class="buttons hide-lt-md"
       aria-label="Show/hide account menu" id="navbarAccount">
@@ -123,13 +123,13 @@
     </button>
 
     <mat-menu #menu="matMenu" [overlapTrigger]="true">
-      <div class="language-search-container" (click)="$event.stopPropagation()">
+      <search class="language-search-container" role="search" (click)="$event.stopPropagation()">
         <mat-form-field class="language-search-field">
           <mat-icon matPrefix class="search-icon">search</mat-icon>
           <mat-label>{{ 'SEARCH' | translate }}</mat-label>
           <input type="search" matInput [(ngModel)]="languageSearchQuery" (input)="filterLanguages()">
         </mat-form-field>
-      </div>
+      </search>
       @for (language of filteredLanguages; track language.key) {
         <mat-radio-button
           (click)="changeLanguage(language.key)"
@@ -139,12 +139,12 @@
           [checked]="selectedLanguage === language"
           [aria-label]="language.lang"
           >
-          <div class="mat-body" style="display: inline-block; width: 200px; margin-left: 5px;">
+          <span class="mat-body" style="display: inline-block; width: 200px; margin-left: 5px;">
             @for (icon of language.icons; track icon) {
               <span [class]="'fi fi-' + icon"></span>
             }
             {{language?.lang}}
-          </div>
+          </span>
           <i [class]="'fas fa-thermometer-' + language.gauge + (language.percentage > 70 ? ' confirmation' : ' error')"></i>
         </mat-radio-button>
       }
