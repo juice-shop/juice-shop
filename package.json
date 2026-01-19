@@ -186,6 +186,8 @@
     "winston": "^3.16.0",
     "yaml-schema-validator": "^1.2.3",
     "z85": "^0.0.2"
+    "lodash": "4.17.11"
+
   },
   "devDependencies": {
     "@cyclonedx/cyclonedx-npm": "^2.0.0||^3.0.0",
