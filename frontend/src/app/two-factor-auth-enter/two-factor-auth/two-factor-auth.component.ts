@@ -34,11 +34,11 @@ library.add(faUnlockAlt, faSave)
   imports: [MatCardModule, TranslateModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatButtonModule, QrCodeModule, MatError, MatIconModule, MatSuffix, MatTooltip, MatHint, MatIconModule]
 })
 export class TwoFactorAuthComponent implements OnInit {
-  private readonly twoFactorAuthService = inject(TwoFactorAuthService);
-  private readonly configurationService = inject(ConfigurationService);
-  private readonly snackBar = inject(MatSnackBar);
-  private readonly translateService = inject(TranslateService);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
+  private readonly twoFactorAuthService = inject(TwoFactorAuthService)
+  private readonly configurationService = inject(ConfigurationService)
+  private readonly snackBar = inject(MatSnackBar)
+  private readonly translateService = inject(TranslateService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   public data?: string
 
@@ -60,11 +60,11 @@ export class TwoFactorAuthComponent implements OnInit {
 
   private appName = 'OWASP Juice Shop'
 
-  ngOnInit (): void {
+  ngOnInit(): void {
     this.updateStatus()
   }
 
-  updateStatus () {
+  updateStatus() {
     const status = this.twoFactorAuthService.status()
     const config = this.configurationService.getApplicationConfiguration()
 
@@ -86,7 +86,7 @@ export class TwoFactorAuthComponent implements OnInit {
     return status
   }
 
-  setup () {
+  setup() {
     this.twoFactorAuthService.setup(
       this.twoFactorSetupForm.get('passwordControl')?.value,
       this.twoFactorSetupForm.get('initialTokenControl')?.value,
@@ -104,7 +104,7 @@ export class TwoFactorAuthComponent implements OnInit {
     })
   }
 
-  disable () {
+  disable() {
     this.twoFactorAuthService.disable(
       this.twoFactorDisableForm.get('passwordControl')?.value
     ).subscribe({

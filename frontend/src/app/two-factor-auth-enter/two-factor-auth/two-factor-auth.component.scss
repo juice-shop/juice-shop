@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../../styles/variables' as *;
+
 mat-card {
-  margin-bottom: 50px;
+  margin-bottom: $space-3xl;
   margin-left: auto;
   margin-right: auto;
   min-width: 320px;
@@ -12,7 +14,7 @@ mat-card {
 }
 
 mat-form-field {
-  padding-top: 10px;
+  padding-top: $space-s;
 }
 
 .form-container {
@@ -24,16 +26,16 @@ mat-form-field {
 #setupTwoFactorAuth,
 #disableTwoFactorAuth {
   margin-left: 20%;
-  margin-top: 30px;
+  margin-top: $space-xl;
   width: 60%;
 }
 
 .two-factor-qr-code {
-  margin: 16px 0;
+  margin: $space-m 0;
 }
 
 #two-factor-auth-disable {
-  margin-top: 32px;
+  margin-top: $space-xl;
 }
 
 #two-factor-auth-disable-title {
@@ -41,7 +43,7 @@ mat-form-field {
 }
 
 button {
-  margin-top: 5px;
+  margin-top: $space-2xs;
 }
 
 .center-container {
