@@ -27,17 +27,8 @@ export function retrieveLoggedInUser () {
         if (requestedFields.length > 0) {
           // When fields are specified, return only those fields
           for (const field of requestedFields) {
-            if (field === 'id') {
-              baseUser.id = user?.data?.id
-            } else if (field === 'email') {
-              baseUser.email = user?.data?.email
-            } else if (field === 'lastLoginIp') {
-              baseUser.lastLoginIp = user?.data?.lastLoginIp
-            } else if (field === 'profileImage') {
-              baseUser.profileImage = user?.data?.profileImage
-            } else if (field === 'password') {
-              // Only returned if explicitly requested, not returned by default
-              baseUser.password = user?.data?.password
+            if (user?.data[field as keyof typeof user.data] !== undefined) {
+              baseUser[field] = user?.data[field as keyof typeof user.data]
             }
           }
         } else {
