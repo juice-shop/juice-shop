@@ -1,4 +1,3 @@
-
 import path = require('path')
 import fs = require('fs')
 import { load } from 'js-yaml'
