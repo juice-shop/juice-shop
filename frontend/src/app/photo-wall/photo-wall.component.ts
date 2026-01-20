@@ -29,9 +29,9 @@ library.add(faTwitter)
   imports: [MatCardModule, MatIconButton, MatCardTitle, TranslateModule, MatCardContent, FormsModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatLabel, MatInputModule, MatError]
 })
 export class PhotoWallComponent implements OnInit {
-  private readonly photoWallService = inject(PhotoWallService);
-  private readonly configurationService = inject(ConfigurationService);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
+  private readonly photoWallService = inject(PhotoWallService)
+  private readonly configurationService = inject(ConfigurationService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   public emptyState = true
   public imagePreview: string

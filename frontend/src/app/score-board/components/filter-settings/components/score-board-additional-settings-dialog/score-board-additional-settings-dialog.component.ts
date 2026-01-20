@@ -11,6 +11,6 @@ import { MatDialogContent, MatDialogTitle, MatDialogActions, MatDialogClose } fr
   styleUrls: ['./score-board-additional-settings-dialog.component.scss'],
   imports: [MatDialogContent, MatDialogTitle, TranslateModule, MatButtonModule, MatIconModule, MatDialogActions, MatDialogClose]
 })
-export class ScoreBoardAdditionalSettingsDialogComponent {  localBackupService = inject(LocalBackupService);
+export class ScoreBoardAdditionalSettingsDialogComponent {  localBackupService = inject(LocalBackupService)
 
 }

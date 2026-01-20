@@ -14,7 +14,7 @@
         <mat-table [dataSource]="userDataSource">
           <ng-container matColumnDef="user">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
-            <mat-cell *matCellDef="let user" style="vertical-align: middle">
+            <mat-cell *matCellDef="let user" class="cell-middle">
               @if (doesUserHaveAnActiveSession(user)) {
                 <i class="fas fa-user fa-lg confirmation"></i>
               }
@@ -23,7 +23,7 @@
 
           <ng-container matColumnDef="email">
             <mat-header-cell *matHeaderCellDef translate></mat-header-cell>
-            <mat-cell *matCellDef="let user" [innerHTML]="user.email" style="vertical-align: middle"></mat-cell>
+            <mat-cell *matCellDef="let user" [innerHTML]="user.email" class="cell-middle"></mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="user_detail">
@@ -93,16 +93,16 @@
   </div>
 </mat-card>
 
-<mat-table [dataSource]="userDataSourceHidden" style="visibility: hidden; height: 0px;">
+<mat-table [dataSource]="userDataSourceHidden" class="hidden-table">
   <ng-container matColumnDef="user">
     <mat-header-cell *matHeaderCellDef></mat-header-cell>
-    <mat-cell *matCellDef="let user" style="vertical-align: middle">
+    <mat-cell *matCellDef="let user" class="cell-middle">
     </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="email">
     <mat-header-cell *matHeaderCellDef translate></mat-header-cell>
-    <mat-cell *matCellDef="let user" [innerHTML]="user.email" style="vertical-align: middle"></mat-cell>
+    <mat-cell *matCellDef="let user" [innerHTML]="user.email" class="cell-middle"></mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="user_detail">

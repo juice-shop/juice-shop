@@ -28,8 +28,8 @@ contract ETHWalletBank {
     }
     (bool result, ) = msg.sender.call{ value: _amount }("");
     require(result, "Withdrawal call failed");
-    balances[msg.sender] -= _amount;
     userWithdrawing[msg.sender] = 0;
+    balances[msg.sender] -= _amount;
   }
 
   receive() external payable {}

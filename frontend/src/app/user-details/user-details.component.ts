@@ -23,8 +23,8 @@ library.add(faArrowCircleLeft)
   imports: [MatDialogContent, MatDivider, TranslateModule, MatDialogActions, MatButtonModule, MatDialogClose, MatIconModule]
 })
 export class UserDetailsComponent implements OnInit {
-  dialogData = inject(MAT_DIALOG_DATA);
-  private readonly userService = inject(UserService);
+  dialogData = inject(MAT_DIALOG_DATA)
+  private readonly userService = inject(UserService)
 
   public user: any
 

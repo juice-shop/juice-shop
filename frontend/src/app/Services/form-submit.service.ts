@@ -10,7 +10,7 @@ import { DOCUMENT } from '@angular/common'
   providedIn: 'root'
 })
 export class FormSubmitService {
-  private readonly _document = inject<HTMLDocument>(DOCUMENT);
+  private readonly _document = inject<HTMLDocument>(DOCUMENT)
 
 
   attachEnterKeyHandler (formId: string, submitButtonId: string, onSubmit: any) {

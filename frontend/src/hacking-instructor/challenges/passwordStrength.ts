@@ -40,7 +40,7 @@ export const PasswordStrengthInstruction: ChallengeInstruction = {
       text: "Enter the admin's email address into the **email field**.",
       fixture: '#email',
       unskippable: true,
-      resolved: waitForInputToHaveValue('#email', 'admin@juice-sh.op') // TODO Use domain from config instead
+      resolved: waitForInputToHaveValue('#email', 'admin@juice-sh.op', { replacement: ['juice-sh.op', 'application.domain'] })
     },
     {
       text: 'Now for the password. Lucky for us, the admin chose a really, really, **really** stupid one. Just try any that comes to your mind!',

@@ -12,13 +12,13 @@ import { type DiffTableFormat } from '@winarg/ngx-text-diff/lib/ngx-text-diff.mo
   imports: [NgxTextDiffModule]
 })
 export class CodeFixesComponent implements OnInit, DoCheck {
-  private readonly cookieService = inject(CookieService);
-  private readonly differs = inject(KeyValueDiffers);
+  private readonly cookieService = inject(CookieService)
+  private readonly differs = inject(KeyValueDiffers)
 
   differ: KeyValueDiffer<string, DiffTableFormat>
 
   constructor () {
-    const cookieService = this.cookieService;
+    const cookieService = this.cookieService
 
     this.cookieService = cookieService
     this.differ = this.differs.find({}).create()

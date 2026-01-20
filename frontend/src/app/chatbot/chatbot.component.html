@@ -14,13 +14,13 @@
               <div id="chat-window">
                 @for (message of messages; track message; let index = $index) {
                   <div class="message-container">
-                    @if (message.author == 'bot') {
+                    @if (message.author === 'bot') {
                       <img src="{{juicyImageSrc}}" class="juicy-chat-bot-image"/>
                     }
-                    @if (message.author == 'user') {
+                    @if (message.author === 'user') {
                       <img src="{{profileImageSrc}}" class="profile-image"/>
                     }
-                    <div class="{{message.author == 'user' ? 'speech-bubble-right' : 'speech-bubble-left'}}">
+                    <div class="{{message.author === 'user' ? 'speech-bubble-right' : 'speech-bubble-left'}}">
                       {{message.body}}
                     </div>
                   </div>

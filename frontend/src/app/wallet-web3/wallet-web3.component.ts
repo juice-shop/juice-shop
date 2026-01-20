@@ -33,9 +33,9 @@ const client = createClient({
   imports: [MatCardModule, MatButtonModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, MatIconModule]
 })
 export class WalletWeb3Component implements OnInit {
-  private readonly keysService = inject(KeysService);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
-  private readonly changeDetectorRef = inject(ChangeDetectorRef);
+  private readonly keysService = inject(KeysService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
+  private readonly changeDetectorRef = inject(ChangeDetectorRef)
 
 
   userData: object

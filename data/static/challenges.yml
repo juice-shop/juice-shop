@@ -23,7 +23,6 @@
   hints:
     - 'Who would want a server access log to be accessible through a web application?'
     - 'Normally, server log files are written to disk on server side and are not accessible from the outside.'
-    - 'Which raises the question: Who would want a server access log to be accessible through a web application?'
     - 'One particular file found in the folder you might already have found during the "Access a confidential document" challenge might give you an idea who is interested in such a public exposure.'
     - 'Drilling down one level into the file system might not be sufficient.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html'

@@ -37,20 +37,7 @@ ngAfterViewInit () {
         this.routerSubscription = this.router.events.subscribe(() => {
           this.filterTable()
         })
-        if (window.innerWidth < 2600) {
-          this.breakpoint = 4
-          if (window.innerWidth < 1740) {
-            this.breakpoint = 3
-            if (window.innerWidth < 1280) {
-              this.breakpoint = 2
-              if (window.innerWidth < 850) {
-                this.breakpoint = 1
-              }
-            }
-          }
-        } else {
-          this.breakpoint = 6
-        }
+        this.breakpoint = this.calculateBreakpoint(window.innerWidth)
         this.cdRef.detectChanges()
       },
       error: (err) => { console.log(err) }
@@ -61,4 +48,16 @@ ngAfterViewInit () {
     for (let i = 0; i < tableData.length; i++) {
       tableData[i].description = tableData[i].description.replaceAll('<', '&lt;').replaceAll('>', '&gt;')
     }
+  }
+
+  onResize (event: any) {
+    this.breakpoint = this.calculateBreakpoint(event.target.innerWidth)
+  }
+
+  private calculateBreakpoint (width: number): number {
+    if (width >= 2600) return 6
+    if (width >= 1740) return 4
+    if (width >= 1280) return 3
+    if (width >= 850) return 2
+    return 1
   }

@@ -39,7 +39,7 @@
   }
   <div>
     <mat-expansion-panel class="mat-elevation-z0">
-      <mat-expansion-panel-header style="margin-bottom: 12px;">
+      <mat-expansion-panel-header class="panel-header-spacing">
         <mat-panel-title>
           {{"ADD_NEW_CARD" | translate}}
         </mat-panel-title>
@@ -75,8 +75,8 @@
         <mat-form-field class="half-field" appearance="outline" color="accent">
           <mat-label translate>LABEL_EXPIRY_MONTH</mat-label>
           <select matNativeControl [formControl]="monthControl" required>
-            @for (i of monthRange; track i) {
-              <option value="{{ i }}">{{ i }}</option>
+            @for (month of monthRange; track month) {
+              <option value="{{ month }}">{{ month }}</option>
             }
           </select>
           @if (monthControl.invalid && monthControl.errors.required) {
@@ -88,8 +88,8 @@
         <mat-form-field class="half-field" appearance="outline" color="accent">
           <mat-label translate>LABEL_EXPIRY_YEAR</mat-label>
           <select matNativeControl [formControl]="yearControl" required>
-            @for (i of yearRange; track i) {
-              <option value="{{ i }}">{{ i }}</option>
+            @for (year of yearRange; track year) {
+              <option value="{{ year }}">{{ year }}</option>
             }
           </select>
           @if (yearControl.invalid && yearControl.errors.required) {
@@ -99,7 +99,7 @@
           }
         </mat-form-field>
       </div>
-      <button type="submit" id="submitButton" style="margin-top:5px; float:right;" mat-raised-button color="primary"
+      <button type="submit" id="submitButton" class="submit-button" mat-raised-button color="primary"
         [disabled]="nameControl.invalid || numberControl.invalid || monthControl.invalid || yearControl.invalid"
         (click)="save()">
         <mat-icon>send</mat-icon>

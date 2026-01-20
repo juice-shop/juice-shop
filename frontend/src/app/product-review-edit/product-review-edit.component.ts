@@ -31,10 +31,10 @@ library.add(faPaperPlane, faArrowCircleLeft)
 export class ProductReviewEditComponent implements OnInit {
   data = inject<{
     reviewData: Review;
-}>(MAT_DIALOG_DATA);
-  private readonly productReviewService = inject(ProductReviewService);
-  private readonly dialogRef = inject<MatDialogRef<ProductReviewEditComponent>>(MatDialogRef);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
+}>(MAT_DIALOG_DATA)
+  private readonly productReviewService = inject(ProductReviewService)
+  private readonly dialogRef = inject<MatDialogRef<ProductReviewEditComponent>>(MatDialogRef)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   public editReviewControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(160)])
   public error: string | null = null

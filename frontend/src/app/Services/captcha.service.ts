@@ -12,7 +12,7 @@ import { catchError } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class CaptchaService {
-  private readonly http = inject(HttpClient);
+  private readonly http = inject(HttpClient)
 
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/rest/captcha'

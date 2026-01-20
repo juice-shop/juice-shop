@@ -25,8 +25,8 @@ library.add(faWindows)
   imports: [MatButtonModule, MatTooltip, MatIconModule, TranslateModule]
 })
 export class ChallengeStatusBadgeComponent {
-  private readonly challengeService = inject(ChallengeService);
-  private readonly windowRefService = inject(WindowRefService);
+  private readonly challengeService = inject(ChallengeService)
+  private readonly windowRefService = inject(WindowRefService)
 
   @Input() public challenge: Challenge = { } as Challenge
   @Input() public allowRepeatNotifications = false
