@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-import path = require('path')
-import fs = require('fs')
+import path from 'path'
+import fs from 'fs'
 import { load } from 'js-yaml'
 import { expect } from 'chai'
 
