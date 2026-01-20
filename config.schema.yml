@@ -742,3 +742,8 @@ ctf:
         type: string
       code:
         type: string
+    passwordHashLeakChallenge:
+      name:
+        type: string
+      code:
+        type: string

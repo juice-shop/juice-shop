@@ -51,7 +51,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   ngOnInit (): void {
     this.data.productData.points = Math.round(this.data.productData.price / 10)
     this.reviews$ = this.productReviewService.get(this.data.productData.id)
-    this.userSubscription = this.userService.whoAmI().subscribe({
+    this.userSubscription = this.userService.whoAmI(['email']).subscribe({
       next: (user: any) => {
         if (user?.email) {
           this.author = user.email
