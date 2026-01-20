@@ -3,23 +3,25 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 $bg-heading: rgba(0, 0, 0, 0.13);
 
 .heading {
   background: $bg-heading;
   font-size: large;
   justify-content: center;
-  margin-bottom: 10px;
-  padding: 12px;
+  margin-bottom: $space-s;
+  padding: $space-m;
 }
 
 .container {
   display: grid;
-  gap: 48px;
+  gap: $space-3xl;
   grid-template-columns: 1fr 1fr;
 
   @media (max-width: 1100px) {
-    gap: 24px;
+    gap: $space-l;
     grid-template-columns: 1fr;
   }
 }
@@ -44,6 +46,15 @@ mat-header-cell {
   display: block;
 }
 
+.cell-middle {
+  vertical-align: middle;
+}
+
+.hidden-table {
+  height: 0;
+  visibility: hidden;
+}
+
 .mat-column-comment {
   flex: 0 0 55% !important;
   -ms-hyphens: auto;
@@ -51,7 +62,7 @@ mat-header-cell {
   -webkit-hyphens: auto;
   hyphens: auto;
   overflow-wrap: break-word;
-  padding: 5px;
+  padding: $space-3xs;
   white-space: unset !important;
   width: 55% !important;
 
@@ -66,7 +77,7 @@ mat-header-cell {
   -webkit-hyphens: auto;
   hyphens: auto;
   overflow-wrap: break-word;
-  padding: 5px;
+  padding: $space-3xs;
   white-space: unset !important;
   width: 7% !important;
   word-break: break-word;
@@ -89,7 +100,7 @@ mat-header-cell {
 mat-cell:last-child,
 mat-footer-cell:last-child,
 mat-header-cell:last-child {
-  padding-right: 50px;
+  padding-right: $space-3xl;
 }
 
 mat-row {
@@ -98,7 +109,7 @@ mat-row {
 
 .mat-own-card {
   display: block;
-  margin-bottom: 20px;
+  margin-bottom: $space-ml;
   margin-left: 10%;
   margin-right: 10%;
 }

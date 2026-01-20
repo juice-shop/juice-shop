@@ -57,6 +57,20 @@ describe('AboutComponent', () => {
     expect(component).toBeTruthy()
   })
 
+  it('should set Mastodon link as obtained from configuration', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { mastodonUrl: 'MASTODON' } } }))
+    component.ngOnInit()
+
+    expect(component.mastodonUrl).toBe('MASTODON')
+  })
+
+  it('should set BlueSky link as obtained from configuration', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { blueSkyUrl: 'BLUESKY' } } }))
+    component.ngOnInit()
+
+    expect(component.blueSkyUrl).toBe('BLUESKY')
+  })
+
   it('should set Twitter link as obtained from configuration', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { twitterUrl: 'TWITTER' } } }))
     component.ngOnInit()
@@ -99,3 +113,4 @@ describe('AboutComponent', () => {
     expect(component.nftUrl).toBe('NFT')
   })
 })
+

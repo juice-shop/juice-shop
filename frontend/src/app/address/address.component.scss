@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
 
 .btn-new-address {
   display: block;
@@ -14,7 +15,7 @@
   display: block;
   margin-left: auto;
   margin-right: 0;
-  margin-top: -37px;
+  margin-top: -$space-2xl;
 }
 
 mat-header-row {
@@ -28,7 +29,7 @@ mat-header-row {
 
 .heading-text {
   justify-content: center;
-  padding: 12px 20px;
+  padding: $space-s $space-ml;
 }
 
 .div-boundary {
@@ -48,6 +49,10 @@ mat-table {
 
 mat-cell {
   padding: 0 !important;
+}
+
+.header-hidden {
+  display: none;
 }
 
 svg {
@@ -74,5 +79,5 @@ svg {
 }
 
 .add-new-address {
-  margin-top: 20px;
+  margin-top: $space-ml;
 }

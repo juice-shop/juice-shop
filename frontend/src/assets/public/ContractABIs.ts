@@ -464,7 +464,7 @@ export const nftABI = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-];
+]
 export const contractABI = [
   {
     inputs: [],
@@ -759,7 +759,7 @@ export const contractABI = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-];
+]
 
 export const BeeTokenABI = [
   {
@@ -1055,7 +1055,7 @@ export const BeeTokenABI = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-];
+]
 export const BeeFaucetABI = [
   {
     inputs: [],
@@ -1109,7 +1109,7 @@ export const BeeFaucetABI = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-];
+]
 export const web3WalletABI = [
   {
     anonymous: false,
@@ -1211,4 +1211,4 @@ export const web3WalletABI = [
     stateMutability: 'payable',
     type: 'receive',
   },
-];
+]

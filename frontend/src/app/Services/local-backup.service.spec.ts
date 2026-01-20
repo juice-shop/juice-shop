@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import * as FileSaver from 'file-saver'
 import { ChallengeService } from './challenge.service'
+import { throwError } from 'rxjs'
 
 describe('LocalBackupService', () => {
   let snackBar: any
@@ -73,4 +74,25 @@ describe('LocalBackupService', () => {
       expect(snackBar.open).toHaveBeenCalled()
     })
   })))
+
+  it('should log and fallback to cookies when continue code retrieval fails during save', inject([LocalBackupService], (service: LocalBackupService) => {
+    spyOn(FileSaver, 'saveAs').and.stub()
+    // ensure cookie fallback values exist
+    cookieService.put('continueCode', 'C1')
+    cookieService.put('continueCodeFindIt', 'C2')
+    cookieService.put('continueCodeFixIt', 'C3')
+
+    // simulate server failure for continue codes
+    challengeService.continueCode.and.returnValue(throwError('Error'))
+    challengeService.continueCodeFindIt.and.returnValue(throwError('Error'))
+    challengeService.continueCodeFixIt.and.returnValue(throwError('Error'))
+
+    console.log = jasmine.createSpy('log')
+
+    service.save('test-backup')
+
+    expect(console.log).toHaveBeenCalledWith('Failed to retrieve continue code(s) for backup from server. Using cookie values as fallback.')
+    expect(FileSaver.saveAs).toHaveBeenCalled()
+  }))
+
 })
