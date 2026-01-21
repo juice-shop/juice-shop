@@ -17,7 +17,7 @@ describe('Challenge Tags', () => {
       if (challenge.tags) {
         challenge.tags.forEach((tag: string) => {
           const tagKey = `TAG_${tag.toUpperCase().replace(/\s/g, '_')}`
-          expect(en[tagKey], `Tag "${tag}" of challenge "${challenge.name}" is missing in en.json (expected key: ${tagKey})`).to.not.equal(undefined)
+          expect(en[tagKey], `Challenge "${challenge.name}" uses invalid tag "${tag}". All tags must be defined in generic keys starting with "TAG_" in "i18n/en.json". Expected key: "${tagKey}"`).to.not.equal(undefined)
         })
       }
     })
