@@ -75,7 +75,6 @@ async function processQuery (user: User, req: Request, res: Response, next: Next
   }
 
   if (bot.factory.run(`currentUser('${user.id}')`) !== username) {
-    bot.addUser(`${user.id}`, username)
     try {
       bot.addUser(`${user.id}`, username)
     } catch (err) {
@@ -142,7 +141,11 @@ async function setUserName (user: User, req: Request, res: Response) {
     const updatedUserResponse = utils.queryResultToJson(updatedUser)
     const updatedToken = security.authorize(updatedUserResponse)
     security.authenticatedUsers.put(updatedToken, updatedUserResponse)
-    bot.addUser(`${updatedUser.id}`, req.body.query)
+    try {
+      bot.addUser(`${updatedUser.id}`, req.body.query)
+    } catch (err) {
+      logger.error(`Could not add user to chatbot: ${utils.getErrorMessage(err)}`)
+    }
     res.status(200).json({
       action: 'response',
       body: bot.greet(`${updatedUser.id}`),
@@ -209,6 +212,7 @@ export function process () {
         action: 'response',
         body: `${config.get<string>('application.chatBot.name')} isn't ready at the moment, please wait while I set things up`
       })
+      return
     }
     const token = req.cookies.token || utils.jwtFrom(req)
     if (!token) {
