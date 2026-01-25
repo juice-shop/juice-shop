@@ -84,7 +84,6 @@ async function processQuery (user: User, req: Request, res: Response, next: Next
   }
 
   if (bot.factory.run(`currentUser('${user.id}')`) !== username) {
-    bot.addUser(`${user.id}`, username)
     try {
       bot.addUser(`${user.id}`, username)
     } catch (err) {
@@ -218,6 +217,7 @@ export function process () {
         action: 'response',
         body: `${config.get<string>('application.chatBot.name')} isn't ready at the moment, please wait while I set things up`
       })
+      return
     }
     const token = req.cookies.token || utils.jwtFrom(req)
     if (!token) {
