@@ -43,19 +43,25 @@
   name: 'Admin Section'
   category: 'Broken Access Control'
   tags:
-    - Good for Demos
+  - Good for Demos
   description: 'Access the administration section of the store.'
   difficulty: 2
   hints:
-    - 'It is just slightly harder to find than the score board link.'
-    - 'Knowing it exists, you can simply guess what URL the admin section might have.'
-    - 'Alternatively, you can try to find a reference or clue within the parts of the application that are not usually visible in the browser.'
-    - 'It is probably just slightly harder to find and gain access to than the score board link.'
-    - 'There is some access control in place, but there are at least three ways to bypass it.'
+  - 'It is just slightly harder to find than the score board link.'
+  - 'Knowing it exists, you can simply guess what URL the admin section might have.'
+  - 'Alternatively, you can try to find a reference or clue within the parts of the application that are not usually visible in the browser.'
+  - 'It is probably just slightly harder to find and gain access to than the score board link.'
+  - 'There is some access control in place, but there are at least three ways to bypass it.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html'
   key: adminSectionChallenge
   tutorial:
-    order: 8
+  order: 8
+  learningLevel: Beginner
+  learningObjectives:
+  - Understand that some pages are for admins only
+  - Learn that guessing URLs can expose hidden pages
+  - See why proper access control is important
+
 -
   name: 'Arbitrary File Write'
   category: 'Vulnerable Components'
