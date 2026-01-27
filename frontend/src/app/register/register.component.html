@@ -29,11 +29,13 @@
             <mat-label translate>LABEL_PASSWORD</mat-label>
             <input #password id="passwordControl" [formControl]="passwordControl" (focus)="this.error=null" type="password"
               matInput aria-label="Field for the password">
+            <span matTextSuffix class="character-counter">{{password.value?.length || 0}}/40</span>
+            @if (passwordControl.pristine) {
               <mat-hint translate>
                 <i class="fas fa-exclamation-circle"></i>
                 <em class="hint-spacing" translate>{{ 'INVALID_PASSWORD_LENGTH' | translate: {length: '5-40'} }}</em>
               </mat-hint>
-              <mat-hint align="end">{{password.value?.length || 0}}/20</mat-hint>
+              }
               @if (passwordControl.invalid && passwordControl.errors.required) {
                 <mat-error translate>MANDATORY_PASSWORD
                 </mat-error>
@@ -49,19 +51,19 @@
               <mat-label translate>LABEL_PASSWORD_REPEAT</mat-label>
               <input #repeatPassword id="repeatPasswordControl" [formControl]="repeatPasswordControl"
                 (focus)="this.error=null" type="password" matInput aria-label="Field to confirm the password">
-                <mat-hint align="end">{{repeatPassword.value?.length || 0}}/40</mat-hint>
+               <span matTextSuffix class="character-counter">{{repeatPassword.value?.length || 0}}/40</span>
                 @if (repeatPasswordControl.invalid && repeatPasswordControl.errors.required) {
                   <mat-error translate>
                     MANDATORY_PASSWORD_REPEAT
                   </mat-error>
-                }
-                @if (repeatPasswordControl.invalid && repeatPasswordControl.errors.notSame) {
+                } @else if (repeatPasswordControl.invalid && repeatPasswordControl.errors.notSame) {
                   <mat-error translate>
                     PASSWORDS_NOT_MATCHING
                   </mat-error>
                 }
               </mat-form-field>
 
+            <div class="password-advice-wrapper">
               <mat-slide-toggle #passwordInfoToggle [color]="passwordStrength.color">{{'SHOW_PASSWORD_ADVICE' | translate}}</mat-slide-toggle>
               <app-password-strength #passwordStrength [password]="password.value"></app-password-strength>
               @if (passwordInfoToggle.checked) {
@@ -73,6 +75,7 @@
                   [minCharsCriteriaMsg]="'MIN_CHARS_CRITERIA_MSG' | translate:{value: 8}">
                 </app-password-strength-info>
               }
+            </div>
 
               <div class="security-container">
 
