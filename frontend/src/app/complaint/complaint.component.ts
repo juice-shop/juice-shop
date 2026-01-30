@@ -7,19 +7,21 @@ import { environment } from '../../environments/environment'
 import { ComplaintService } from '../Services/complaint.service'
 import { UserService } from '../Services/user.service'
 import { Component, ElementRef, type OnInit, ViewChild, inject } from '@angular/core'
-import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { CommonModule } from '@angular/common'
+import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms'
 import { FileUploader, FileUploadModule } from 'ng2-file-upload'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
-import { MatButtonModule } from '@angular/material/button'
-import { MatInputModule } from '@angular/material/input'
-import { MatFormFieldModule, MatLabel, MatHint, MatError } from '@angular/material/form-field'
 
+// --- REPLACEMENT FOR SHARED MODULE ---
 import { MatCardModule } from '@angular/material/card'
-
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
+import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
+// -------------------------------------
 
 library.add(faBomb)
 
@@ -27,18 +29,31 @@ library.add(faBomb)
   selector: 'app-complaint',
   templateUrl: './complaint.component.html',
   styleUrls: ['./complaint.component.scss'],
-  imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatHint, MatError, FileUploadModule, MatButtonModule, MatIconModule]
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule,
+    FileUploadModule,
+    // Direct Material Imports (No SharedModule needed)
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule
+  ]
 })
 export class ComplaintComponent implements OnInit {
-  private readonly userService = inject(UserService);
-  private readonly complaintService = inject(ComplaintService);
-  private readonly formSubmitService = inject(FormSubmitService);
-  private readonly translate = inject(TranslateService);
+  private readonly userService = inject(UserService)
+  private readonly complaintService = inject(ComplaintService)
+  private readonly formSubmitService = inject(FormSubmitService)
+  private readonly translate = inject(TranslateService)
 
   public customerControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
   public messageControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.maxLength(160)])
-  @ViewChild('fileControl', { static: true }) fileControl!: ElementRef // For controlling the DOM Element for file input.
-  public fileUploadError: any = undefined // For controlling error handling related to file input.
+  @ViewChild('fileControl', { static: true }) fileControl!: ElementRef
+  public fileUploadError: any = undefined
   public uploader: FileUploader = new FileUploader({
     url: environment.hostServer + '/file-upload',
     authToken: `Bearer ${localStorage.getItem('token')}`,
@@ -54,7 +69,6 @@ export class ComplaintComponent implements OnInit {
     this.initComplaint()
     this.uploader.onWhenAddingFileFailed = (item, filter) => {
       this.fileUploadError = filter
-
       throw new Error(`Error due to : ${filter.name}`)
     }
     this.uploader.onAfterAddingFile = () => {
