@@ -12,7 +12,7 @@ import { catchError, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class SecurityAnswerService {
-  private readonly http = inject(HttpClient);
+  private readonly http = inject(HttpClient)
 
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/api/SecurityAnswers'

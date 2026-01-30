@@ -12,7 +12,6 @@ import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/test
 import { CodeSnippetComponent } from './code-snippet.component'
 import { CodeSnippetService } from '../Services/code-snippet.service'
 import { CookieModule, CookieService } from 'ngy-cookie'
-import { ConfigurationService } from '../Services/configuration.service'
 import { of, throwError } from 'rxjs'
 import { CodeFixesService } from '../Services/code-fixes.service'
 import { VulnLinesService } from '../Services/vuln-lines.service'
@@ -23,7 +22,6 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 describe('CodeSnippetComponent', () => {
   let component: CodeSnippetComponent
   let fixture: ComponentFixture<CodeSnippetComponent>
-  let configurationService: any
   let cookieService: any
   let codeSnippetService: any
   let codeFixesService: any
@@ -31,8 +29,6 @@ describe('CodeSnippetComponent', () => {
   let challengeService: any
 
   beforeEach(waitForAsync(() => {
-    configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {}, challenges: {} }))
     cookieService = jasmine.createSpyObj('CookieService', ['put', 'hasKey'])
     codeSnippetService = jasmine.createSpyObj('CodeSnippetService', ['get', 'check'])
     codeSnippetService.get.and.returnValue(of({}))
@@ -53,7 +49,6 @@ describe('CodeSnippetComponent', () => {
       providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: { dialogData: {} } },
-        { provide: ConfigurationService, useValue: configurationService },
         { provide: CookieService, useValue: cookieService },
         { provide: CodeSnippetService, useValue: codeSnippetService },
         { provide: CodeFixesService, useValue: codeFixesService },
@@ -76,13 +71,6 @@ describe('CodeSnippetComponent', () => {
     expect(component).toBeTruthy()
   })
 
-  it('should log the error on retrieving configuration', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(throwError('Error'))
-    console.log = jasmine.createSpy('log')
-    component.ngOnInit()
-    expect(console.log).toHaveBeenCalledWith('Error')
-  })
-
   it('should set the retrieved snippet', () => {
     codeSnippetService.get.and.returnValue(of({ snippet: 'Snippet' }))
     component.ngOnInit()
@@ -92,7 +80,10 @@ describe('CodeSnippetComponent', () => {
   it('Default status and icons should reflect both challenge phases yet unsolved', () => {
     component.ngOnInit()
     expect(component.result).toBe(0)
-    expect(component.lock).toBe(0)
+    expect(component.findLockIcon()).toBe('lock')
+    expect(component.findLockColor()).toBe('warn')
+    expect(component.fixLockIcon()).toBe('lock')
+    expect(component.fixLockColor()).toBe('warn')
     expect(component.solved.findIt).toBeFalse()
   })
 
@@ -100,7 +91,10 @@ describe('CodeSnippetComponent', () => {
     component.dialogData.codingChallengeStatus = 1
     component.ngOnInit()
     expect(component.result).toBe(1)
-    expect(component.lock).toBe(1)
+    expect(component.findLockIcon()).toBe('lock_open')
+    expect(component.findLockColor()).toBe('accent')
+    expect(component.fixLockIcon()).toBe('lock')
+    expect(component.fixLockColor()).toBe('warn')
     expect(component.solved.findIt).toBeTrue()
   })
 
@@ -134,31 +128,34 @@ describe('CodeSnippetComponent', () => {
     expect(component.explanation).toBeNull()
   })
 
-  it('lock icon is red and "locked" when no fixes are available', () => {
+  it('Fix It lock icon is red and "locked" when no fixes are available', () => {
     component.fixes = null
-    expect(component.lockIcon()).toBe('lock')
-    expect(component.lockColor()).toBe('warn')
+    expect(component.fixLockIcon()).toBe('lock')
+    expect(component.fixLockColor()).toBe('warn')
   })
 
-  it('lock icon is red and "locked" by default', () => {
+  it('Find It and Fix It lock icons are red and "locked" by default when unsolved', () => {
     component.fixes = ['Fix1', 'Fix2', 'Fix3']
-    component.lock = 0
-    expect(component.lockIcon()).toBe('lock')
-    expect(component.lockColor()).toBe('warn')
+    component.solved.findIt = false
+    component.solved.fixIt = false
+    expect(component.findLockIcon()).toBe('lock')
+    expect(component.findLockColor()).toBe('warn')
+    expect(component.fixLockIcon()).toBe('lock')
+    expect(component.fixLockColor()).toBe('warn')
   })
 
-  it('lock icon is red and "locked" when "Find It" phase is unsolved', () => {
+  it('Find It lock icon is red and "locked" when "Find It" phase is unsolved', () => {
     component.fixes = ['Fix1', 'Fix2', 'Fix3']
-    component.lock = 2
-    expect(component.lockIcon()).toBe('lock')
-    expect(component.lockColor()).toBe('warn')
+    component.solved.findIt = false
+    expect(component.findLockIcon()).toBe('lock')
+    expect(component.findLockColor()).toBe('warn')
   })
 
-  it('lock icon is green and "lock_open" when "Find It" phase is in solved', () => {
+  it('Find It lock icon is green and "lock_open" when "Find It" phase is solved', () => {
     component.fixes = ['Fix1', 'Fix2', 'Fix3']
-    component.lock = 1
-    expect(component.lockIcon()).toBe('lock_open')
-    expect(component.lockColor()).toBe('accent')
+    component.solved.findIt = true
+    expect(component.findLockIcon()).toBe('lock_open')
+    expect(component.findLockColor()).toBe('accent')
   })
 
   it('result icon is "send" when choice is not yet submitted', () => {

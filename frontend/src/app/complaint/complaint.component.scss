@@ -3,15 +3,17 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 mat-card {
   height: auto;
   min-width: 320px;
-  padding: 16px;
+  padding: $space-m;
   width: 30%;
 }
 
 mat-form-field {
-  padding-top: 10px;
+  padding-top: $space-s;
 }
 
 .form-container {
@@ -22,12 +24,12 @@ mat-form-field {
 
 #submitButton {
   margin-left: 20%;
-  margin-top: 30px;
+  margin-top: $space-xl;
   width: 60%;
 }
 
 #file {
-  margin-left: 10px;
+  margin-left: $space-s;
 }
 
 .mdc-card {
@@ -36,15 +38,15 @@ mat-form-field {
 
 .invoice {
   display: flex;
-  margin-left: 3px;
-  margin-top: 15px;
+  margin-left: $space-3xs;
+  margin-top: $space-m;
 }
 
 em {
   color: var(--theme-text-fade-30) !important;
   display: flex;
   font-size: 11px;
-  margin-left: 5px;
+  margin-left: $space-2xs;
   white-space: nowrap;
 }
 
@@ -53,8 +55,8 @@ em {
   color: var(--theme-text-fade-30) !important;
   display: flex;
   font-size: 11px;
-  margin-left: -10px !important;
-  margin-right: -10px !important;
+  margin-left: -$space-s !important;
+  margin-right: -$space-s !important;
 }
 
 .center-container {

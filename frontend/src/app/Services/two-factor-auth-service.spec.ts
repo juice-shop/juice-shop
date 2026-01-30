@@ -83,4 +83,61 @@ describe('TwoFactorAuthServiceService', () => {
       httpMock.verify()
     })
   ))
+
+  it('should handle error when verifying TOTP token', inject([TwoFactorAuthService, HttpTestingController],
+    fakeAsync((service: TwoFactorAuthService, httpMock: HttpTestingController) => {
+      localStorage.setItem('totp_tmp_token', '000000')
+      let capturedError: any
+      service.verify('654321').subscribe({ next: () => fail('expected error'), error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/2fa/verify')
+      req.error(new ErrorEvent('Unauthorized'), { status: 401, statusText: 'Unauthorized' })
+
+      tick()
+      expect(req.request.method).toBe('POST')
+      expect(capturedError.status).toBe(401)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when retrieving 2FA status', inject([TwoFactorAuthService, HttpTestingController],
+    fakeAsync((service: TwoFactorAuthService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.status().subscribe({ next: () => fail('expected error'), error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/2fa/status')
+      req.error(new ErrorEvent('Service Unavailable'), { status: 503, statusText: 'Service Unavailable' })
+
+      tick()
+      expect(req.request.method).toBe('GET')
+      expect(capturedError.status).toBe(503)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when setting up 2FA', inject([TwoFactorAuthService, HttpTestingController],
+    fakeAsync((service: TwoFactorAuthService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.setup('pwd', 'initial', 'setup').subscribe({ next: () => fail('expected error'), error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/2fa/setup')
+      req.error(new ErrorEvent('Bad Request'), { status: 400, statusText: 'Bad Request' })
+
+      tick()
+      expect(req.request.method).toBe('POST')
+      expect(capturedError.status).toBe(400)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when disabling 2FA', inject([TwoFactorAuthService, HttpTestingController],
+    fakeAsync((service: TwoFactorAuthService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.disable('pwd').subscribe({ next: () => fail('expected error'), error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/2fa/disable')
+      req.error(new ErrorEvent('Forbidden'), { status: 403, statusText: 'Forbidden' })
+
+      tick()
+      expect(req.request.method).toBe('POST')
+      expect(capturedError.status).toBe(403)
+      httpMock.verify()
+    })
+  ))
 })

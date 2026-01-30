@@ -24,12 +24,12 @@ interface HackingProgress {
   imports: [MatCardModule, MatCardContent, TranslateModule, MatButtonModule, MatIconModule]
 })
 export class ServerStartedNotificationComponent implements OnInit {
-  private readonly ngZone = inject(NgZone);
-  private readonly challengeService = inject(ChallengeService);
-  private readonly translate = inject(TranslateService);
-  private readonly cookieService = inject(CookieService);
-  private readonly ref = inject(ChangeDetectorRef);
-  private readonly io = inject(SocketIoService);
+  private readonly ngZone = inject(NgZone)
+  private readonly challengeService = inject(ChallengeService)
+  private readonly translate = inject(TranslateService)
+  private readonly cookieService = inject(CookieService)
+  private readonly ref = inject(ChangeDetectorRef)
+  private readonly io = inject(SocketIoService)
 
   public hackingProgress: HackingProgress = {} as HackingProgress
 

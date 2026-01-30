@@ -30,15 +30,15 @@ import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar'
   imports: [MatToolbar, MatToolbarRow, MatNavList, MatButtonModule, MatListSubheaderCssMatStyler, TranslateModule, MatListItem, RouterLink, MatIconModule, NgClass, MatDivider]
 })
 export class SidenavComponent implements OnInit {
-  private readonly administrationService = inject(AdministrationService);
-  private readonly challengeService = inject(ChallengeService);
-  private readonly ngZone = inject(NgZone);
-  private readonly io = inject(SocketIoService);
-  private readonly userService = inject(UserService);
-  private readonly cookieService = inject(CookieService);
-  private readonly router = inject(Router);
-  private readonly configurationService = inject(ConfigurationService);
-  private readonly loginGuard = inject(LoginGuard);
+  private readonly administrationService = inject(AdministrationService)
+  private readonly challengeService = inject(ChallengeService)
+  private readonly ngZone = inject(NgZone)
+  private readonly io = inject(SocketIoService)
+  private readonly userService = inject(UserService)
+  private readonly cookieService = inject(CookieService)
+  private readonly router = inject(Router)
+  private readonly configurationService = inject(ConfigurationService)
+  private readonly loginGuard = inject(LoginGuard)
 
   public applicationName = 'OWASP Juice Shop'
   public showGitHubLink = true
@@ -123,7 +123,7 @@ export class SidenavComponent implements OnInit {
   }
 
   getUserDetails () {
-    this.userService.whoAmI().subscribe({
+    this.userService.whoAmI(['email']).subscribe({
       next: (user: any) => {
         this.userEmail = user.email
       },

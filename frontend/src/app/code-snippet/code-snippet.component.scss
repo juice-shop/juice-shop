@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 :host {
   display: block;
   width: 65em;
@@ -13,9 +15,9 @@
 }
 
 mat-dialog-actions {
-  --mat-dialog-actions-padding: 20px 24px;
+  --mat-dialog-actions-padding: $space-ml $space-l;
   display: grid;
-  gap: 16px;
+  gap: $space-m;
   grid-template-columns: 1fr;
 }
 
@@ -28,6 +30,10 @@ mat-dialog-actions {
 .button-group {
   align-items: center;
   display: flex;
-  gap: 8px;
+  gap: $space-xs;
   justify-content: flex-end;
+}
+
+.tab-placeholder {
+  height: 78.25px;
 }
