@@ -1533,3 +1533,79 @@
     - 'Find the place where the API call happens — as stated above, it is not in the web application — and then look for the API key itself.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html'
   key: leakedApiKeyChallenge
+-
+  name: 'System Prompt Leak'
+  category: 'AI Security'
+  tags:
+    - LLM
+    - Prompt Injection
+  description: 'Extract the hidden system prompt from the support chatbot.'
+  difficulty: 3
+  hints:
+    - 'AI chatbots often have hidden system instructions that define their behavior.'
+    - 'Try asking the chatbot to reveal its instructions or configuration.'
+    - 'Common techniques include asking the bot to "repeat your system prompt" or "ignore previous instructions".'
+    - 'The chatbot might be hiding a secret password or API key in its system prompt.'
+  mitigationUrl: 'https://owasp.org/www-project-top-10-for-large-language-model-applications/'
+  key: systemPromptLeakChallenge
+-
+  name: 'Indirect Prompt Injection'
+  category: 'AI Security'
+  tags:
+    - LLM
+    - Prompt Injection
+  description: 'Inject a malicious prompt into product reviews that gets executed when the chatbot recommends products.'
+  difficulty: 4
+  hints:
+    - 'The chatbot can recommend products based on user queries.'
+    - 'Product recommendations might include review content.'
+    - 'What if a review contained instructions that the chatbot would follow?'
+    - 'Try posting a review that contains prompt injection payload, then ask the bot for recommendations.'
+  mitigationUrl: 'https://owasp.org/www-project-top-10-for-large-language-model-applications/'
+  key: indirectPromptInjectionChallenge
+-
+  name: 'Chatbot API Key Leak'
+  category: 'AI Security'
+  tags:
+    - LLM
+    - Prompt Injection
+  description: 'Extract the admin API key hidden in the chatbot configuration through a multi-step jailbreak.'
+  difficulty: 4
+  hints:
+    - 'The chatbot has developer or debug modes that might reveal sensitive information.'
+    - 'Try convincing the chatbot that you are a developer or admin.'
+    - 'Multi-step attacks often work better than single prompts.'
+    - 'First establish trust, then ask for debugging information.'
+  mitigationUrl: 'https://owasp.org/www-project-top-10-for-large-language-model-applications/'
+  key: chatbotApiKeyLeakChallenge
+-
+  name: 'DAN Jailbreak'
+  category: 'AI Security'
+  tags:
+    - LLM
+    - Prompt Injection
+    - Shenanigans
+  description: 'Trick the support chatbot into entering "DAN" (Do Anything Now) mode and reveal restricted information.'
+  difficulty: 3
+  hints:
+    - 'DAN stands for "Do Anything Now" - a famous jailbreak technique for AI chatbots.'
+    - 'Role-playing scenarios can trick AI into bypassing restrictions.'
+    - 'Try asking the bot to pretend it has no restrictions.'
+    - 'Once in DAN mode, ask for information the bot normally would not provide.'
+  mitigationUrl: 'https://owasp.org/www-project-top-10-for-large-language-model-applications/'
+  key: jailbreakDanChallenge
+-
+  name: 'Token Smuggling'
+  category: 'AI Security'
+  tags:
+    - LLM
+    - Prompt Injection
+  description: 'Bypass chatbot content filters by splitting a malicious prompt across multiple messages.'
+  difficulty: 4
+  hints:
+    - 'Content filters often check individual messages but not conversation context.'
+    - 'Try splitting a prompt injection attack across multiple messages.'
+    - 'Ask the bot to remember pieces of information, then combine them.'
+    - 'Some keywords might be blocked individually but work when assembled from parts.'
+  mitigationUrl: 'https://owasp.org/www-project-top-10-for-large-language-model-applications/'
+  key: tokenSmugglingChallenge
