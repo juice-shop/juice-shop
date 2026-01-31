@@ -78,7 +78,7 @@
   "INVALID_COUPON_LENGTH": "يجب أن يكون رمز القسيمة {{length}} حرفاً.",
   "INVALID_COUPON": "رمز كوبون خير صالح.",
   "LABEL_COUPON": "القسيمة",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "Need a coupon code? Follow us on <a href='{{blueSky}}' target='_blank'>BlueSky</a> or <a href='{{reddit}}' target='_blank'>Reddit</a> for monthly coupons and other spam!",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "",
   "BTN_REDEEM": "استرداد",
   "THANKS_FOR_SUPPORT": "شكرا لكم على دعم {{juiceshop}}!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "شكرا لكم على دعم المشروع المفتوح المصدر وراء {{appname}}!",
