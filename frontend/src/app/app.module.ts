@@ -86,8 +86,6 @@ export function HttpLoaderFactory (http: HttpClient) {
     ProductDetailsComponent,
     ComplaintComponent,
     ChatbotComponent,
-    TrackResultComponent,
-    RecycleComponent,
     QrCodeComponent,
     UserDetailsComponent,
     ServerStartedNotificationComponent,
