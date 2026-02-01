@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment'
 import { Injectable, inject } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
+import {throwError} from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +19,11 @@ export class ProductService {
   private readonly host = this.hostServer + '/api/Products'
 
   search (criteria: string) {
-    return this.http.get(`${this.hostServer}/rest/products/search?q=${criteria}`).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.get(`${this.hostServer}/rest/products/search?q=${criteria}`).pipe(map((response: any) => response.data), catchError(err=>throwError(()=>err)))
   }
 
   find (params: any) {
-    return this.http.get(this.host + '/', { params }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.get(this.host + '/', { params }).pipe(map((response: any) => response.data), catchError(err=>throwError(()=>err)))
   }
 
   get (id: number) {
@@ -31,6 +32,6 @@ export class ProductService {
   }
 
   put (id: number, params) {
-    return this.http.put(`${this.host}/${id}`, params).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.put(`${this.host}/${id}`, params).pipe(map((response: any) => response.data), catchError(err=>throwError(()=>err)))
   }
 }

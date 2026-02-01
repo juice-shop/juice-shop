@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment'
 import { HttpClient } from '@angular/common/http'
 import { Injectable, inject } from '@angular/core'
 import { catchError, map } from 'rxjs/operators'
+import {throwError} from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,6 @@ export class ComplaintService {
   private readonly host = this.hostServer + '/api/Complaints'
 
   save (params: any) {
-    return this.http.post(this.host + '/', params).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.post(this.host + '/', params).pipe(map((response: any) => response.data), catchError(err=>throwError(()=>err)))
   }
 }

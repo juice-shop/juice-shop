@@ -8,6 +8,7 @@ import { Injectable, inject } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
 import { type DeliveryMethod } from '../Models/deliveryMethod.model'
+import {throwError} from 'rxjs'
 
 interface DeliveryMultipleMethodResponse {
   status: string
@@ -29,11 +30,11 @@ export class DeliveryService {
   private readonly host = this.hostServer + '/api/Deliverys'
 
   get () {
-    return this.http.get(this.host).pipe(map((response: DeliveryMultipleMethodResponse) => response.data), catchError((err) => { throw err }))
+    return this.http.get(this.host).pipe(map((response: DeliveryMultipleMethodResponse) => response.data), catchError(err=>throwError(()=>err)))
   }
 
-  getById (id) {
+  getById (id:any) {
 
-    return this.http.get(`${this.host}/${id}`).pipe(map((response: DeliverySingleMethodResponse) => response.data), catchError((err) => { throw err }))
+    return this.http.get(`${this.host}/${id}`).pipe(map((response: DeliverySingleMethodResponse) => response.data), catchError(err=>throwError(()=>err)))
   }
 }

@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment'
 import { HttpClient } from '@angular/common/http'
 import { Injectable, inject } from '@angular/core'
 import { catchError, map } from 'rxjs/operators'
+import {throwError} from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class AdministrationService {
   getApplicationVersion () {
     return this.http.get(this.host + '/application-version').pipe(
       map((response: any) => response.version),
-      catchError((error: Error) => { throw error })
+      catchError(catchError((error: Error) => throwError(() => error)))
     )
   }
 }

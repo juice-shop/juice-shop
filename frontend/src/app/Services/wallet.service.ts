@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment'
 import { Injectable, inject } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
+import { throwError } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +19,10 @@ export class WalletService {
   private readonly host = this.hostServer + '/rest/wallet/balance'
 
   get () {
-    return this.http.get(this.host).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.get(this.host).pipe(map((response: any) => response.data), catchError(err=>throwError(()=>err)))
   }
 
   put (params) {
-    return this.http.put(this.host, params).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.put(this.host, params).pipe(map((response: any) => response.data), catchError(err=>throwError(()=>err)))
   }
 }

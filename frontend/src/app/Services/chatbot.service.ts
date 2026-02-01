@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment'
 import { HttpClient } from '@angular/common/http'
 import { Injectable, inject } from '@angular/core'
 import { catchError, map } from 'rxjs/operators'
+import {throwError} from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +19,10 @@ export class ChatbotService {
   private readonly host = this.hostServer + '/rest/chatbot'
 
   getChatbotStatus () {
-    return this.http.get(this.host + '/status').pipe(map((response: any) => response), catchError((error: Error) => { throw error }))
+    return this.http.get(this.host + '/status').pipe(map((response: any) => response), catchError((error: Error) => throwError(() => error)))
   }
 
-  getResponse (action, query) {
-    return this.http.post(this.host + '/respond', { action, query }).pipe(map((response: any) => response), catchError((error: Error) => { throw error }))
+  getResponse (action:any, query:any) {
+    return this.http.post(this.host + '/respond', { action, query }).pipe(map((response: any) => response), catchError((error: Error) => throwError(() => error)))
   }
 }

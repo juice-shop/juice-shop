@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment'
 import { Injectable, inject } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
-import { type Observable } from 'rxjs'
+import { type Observable, throwError } from 'rxjs'
 
 interface ConfigResponse {
   config: Config
@@ -109,7 +109,7 @@ export class ConfigurationService {
     if (this.configObservable) {
       return this.configObservable
     } else {
-      this.configObservable = this.http.get<ConfigResponse>(this.host + '/application-configuration').pipe(map((response: ConfigResponse) => response.config, catchError((err) => { throw err })))
+      this.configObservable = this.http.get<ConfigResponse>(this.host + '/application-configuration').pipe(map((response: ConfigResponse) => response.config, catchError(err=>throwError(()=>err))))
       return this.configObservable
     }
   }

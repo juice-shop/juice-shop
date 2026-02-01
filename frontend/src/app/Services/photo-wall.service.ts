@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment'
 import { Injectable, inject } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
+import { throwError } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +22,10 @@ export class PhotoWallService {
     const postData = new FormData()
     postData.append('image', image, caption)
     postData.append('caption', caption)
-    return this.http.post(this.host, postData).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.post(this.host, postData).pipe(map((response: any) => response.data), catchError(err=>throwError(()=>err)))
   }
 
   get () {
-    return this.http.get(this.host + '/').pipe(map((response: any) => response.data), catchError((err: Error) => { throw err }))
+    return this.http.get(this.host + '/').pipe(map((response: any) => response.data), catchError((error: Error) => throwError(() => error)))
   }
 }

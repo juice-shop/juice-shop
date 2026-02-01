@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core'
 import { environment } from '../../environments/environment'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
+import { throwError } from 'rxjs'
 
 export interface result {
   verdict: boolean
@@ -21,6 +22,6 @@ export class VulnLinesService {
     return this.http.post(this.host, {
       key,
       selectedLines
-    }).pipe(map((response: result) => response), catchError((error: any) => { throw error }))
+    }).pipe(map((response: result) => response), catchError((error: any) => throwError(() => error)))
   }
 }

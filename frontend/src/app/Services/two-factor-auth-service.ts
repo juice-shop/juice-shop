@@ -7,7 +7,7 @@ import { Injectable, inject } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
 import { environment } from '../../environments/environment'
-import { type Observable } from 'rxjs'
+import { type Observable, throwError } from 'rxjs'
 
 interface TwoFactorVerifyResponse {
   authentication: AuthenticationPayload
@@ -37,12 +37,12 @@ export class TwoFactorAuthService {
     return this.http.post<TwoFactorVerifyResponse>(`${environment.hostServer}/rest/2fa/verify`, {
       tmpToken: localStorage.getItem('totp_tmp_token'),
       totpToken
-    }).pipe(map((response: TwoFactorVerifyResponse) => response.authentication), catchError((error) => { throw error }))
+    }).pipe(map((response: TwoFactorVerifyResponse) => response.authentication), catchError(error=>throwError(()=>error)))
   }
 
   status (): Observable<TwoFactorAuthStatusPayload> {
     return this.http.get<TwoFactorAuthStatusPayload>(`${environment.hostServer}/rest/2fa/status`)
-      .pipe(map((response: TwoFactorAuthStatusPayload) => response), catchError((error) => { throw error }))
+      .pipe(map((response: TwoFactorAuthStatusPayload) => response), catchError(error=>throwError(()=>error)))
   }
 
   setup (password: string, initialToken: string, setupToken?: string): Observable<void> {
@@ -50,11 +50,11 @@ export class TwoFactorAuthService {
       password,
       setupToken,
       initialToken
-    }).pipe(map(() => undefined), catchError((error) => { throw error }))
+    }).pipe(map(() => undefined), catchError(error=>throwError(()=>error)))
   }
 
   disable (password: string): Observable<void> {
     return this.http.post(`${environment.hostServer}/rest/2fa/disable`, { password })
-      .pipe(map(() => undefined), catchError((error) => { throw error }))
+      .pipe(map(() => undefined), catchError(error=>throwError(()=>error)))
   }
 }

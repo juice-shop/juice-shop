@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment'
 import { HttpClient } from '@angular/common/http'
 import { Injectable, inject } from '@angular/core'
 import { catchError, map } from 'rxjs/operators'
+import {throwError} from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +21,10 @@ export class RecycleService {
   find (params?: any) {
     return this.http.get(this.host + '/', {
       params
-    }).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
+    }).pipe(map((response: any) => response.data), catchError(error=>throwError(()=>error)))
   }
 
   save (params: any) {
-    return this.http.post(this.host + '/', params).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
+    return this.http.post(this.host + '/', params).pipe(map((response: any) => response.data), catchError(error=>throwError(()=>error)))
   }
 }

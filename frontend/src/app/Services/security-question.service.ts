@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable, inject } from '@angular/core'
 import { environment } from 'src/environments/environment'
 import { catchError, map } from 'rxjs/operators'
+import { throwError } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +19,13 @@ export class SecurityQuestionService {
   private readonly host = this.hostServer + '/api/SecurityQuestions'
 
   find (params: any) {
-    return this.http.get(this.host + '/', { params }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.get(this.host + '/', { params }).pipe(map((response: any) => response.data), catchError(err=>throwError(()=>err)))
   }
 
   findBy (email: string) {
     return this.http.get(this.hostServer + '/' + 'rest/user/security-question?email=' + email).pipe(
       map((response: any) => response.question),
-      catchError((error) => { throw error })
+      catchError(error=>throwError(()=>error))
     )
   }
 }

@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment'
 import { HttpClient } from '@angular/common/http'
 import { Injectable, inject } from '@angular/core'
 import { catchError } from 'rxjs/operators'
+import {throwError} from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,6 @@ export class CountryMappingService {
   private readonly hostServer = environment.hostServer
 
   getCountryMapping () {
-    return this.http.get(this.hostServer + '/rest/country-mapping').pipe(catchError((err) => { throw err }))
+    return this.http.get(this.hostServer + '/rest/country-mapping').pipe(catchError(err=>throwError(()=>err)))
   }
 }

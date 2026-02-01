@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment'
 import { Injectable, inject } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
+import { throwError } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -18,19 +19,19 @@ export class PaymentService {
   private readonly host = this.hostServer + '/api/Cards'
 
   get () {
-    return this.http.get(this.host).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.get(this.host).pipe(map((response: any) => response.data), catchError(err=>throwError(()=>err)))
   }
 
-  getById (id) {
+  getById (id:any) {
 
-    return this.http.get(`${this.host}/${id}`).pipe(map((response: any) => response.data), catchError((err: Error) => { throw err }))
+    return this.http.get(`${this.host}/${id}`).pipe(map((response: any) => response.data), catchError((error: Error) => throwError(() => error)))
   }
 
-  save (params) {
-    return this.http.post(this.host + '/', params).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+  save (params:any) {
+    return this.http.post(this.host + '/', params).pipe(map((response: any) => response.data), catchError(err=>throwError(()=>err)))
   }
 
   del (id: number) {
-    return this.http.delete(`${this.host}/${id}`).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.delete(`${this.host}/${id}`).pipe(map((response: any) => response.data), catchError(err=>throwError(()=>err)))
   }
 }

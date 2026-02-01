@@ -7,6 +7,7 @@ import { Injectable, inject } from '@angular/core'
 import { environment } from '../../environments/environment'
 import { HttpClient } from '@angular/common/http'
 import { catchError } from 'rxjs/operators'
+import {throwError} from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,6 @@ export class LanguagesService {
   private readonly hostServer = environment.hostServer
 
   getLanguages () {
-    return this.http.get(`${this.hostServer}/rest/languages`).pipe(catchError((err) => { throw err }))
+    return this.http.get(`${this.hostServer}/rest/languages`).pipe(catchError(err=>throwError(()=>err)))
   }
 }

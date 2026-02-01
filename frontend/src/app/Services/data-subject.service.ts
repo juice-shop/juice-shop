@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment'
 import { HttpClient } from '@angular/common/http'
 import { Injectable, inject } from '@angular/core'
 import { catchError } from 'rxjs/operators'
+import {throwError} from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +20,11 @@ export class DataSubjectService {
   private readonly host = this.hostServer + '/rest/user'
 
   erase (params: any) {
-    return this.http.post(this.host + '/erasure-request', params).pipe(catchError((error: Error) => { throw error })
+    return this.http.post(this.host + '/erasure-request', params).pipe(catchError((error: Error) => throwError(() => error))
     )
   }
 
   dataExport (params: any) {
-    return this.http.post(this.host + '/data-export', params).pipe(catchError((err) => { throw err }))
+    return this.http.post(this.host + '/data-export', params).pipe(catchError(err=>throwError(()=>err)))
   }
 }

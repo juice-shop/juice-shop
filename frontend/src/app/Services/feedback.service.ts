@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment'
 import { Injectable, inject } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
+import {throwError} from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -20,14 +21,14 @@ export class FeedbackService {
   find (params?: any) {
     return this.http.get(this.host + '/', {
       params
-    }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    }).pipe(map((response: any) => response.data), catchError(err=>throwError(()=>err)))
   }
 
   save (params: any) {
-    return this.http.post(this.host + '/', params).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.post(this.host + '/', params).pipe(map((response: any) => response.data), catchError(err=>throwError(()=>err)))
   }
 
   del (id: number) {
-    return this.http.delete(`${this.host}/${id}`).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.delete(`${this.host}/${id}`).pipe(map((response: any) => response.data), catchError(err=>throwError(()=>err)))
   }
 }
