@@ -34,24 +34,25 @@ jobs:
           npm run build -- --configuration production
 
       - name: "Install Playwright for screenshot"
-        run: npm install -g playwright
+        run: |
+          npm install playwright
 
       - name: "Take screenshot of bundle report"
         run: |
           npx playwright install chromium
-          node -e "
-            const { chromium } = require('playwright');
-            (async () => {
-              const browser = await chromium.launch();
-              const page = await browser.newPage();
-              const filePath = 'file://${{ github.workspace }}/frontend/dist/frontend/bundle-report.html';
-              await page.goto(filePath);
-              await page.setViewportSize({ width: 1920, height: 1080 });
-              await page.screenshot({ path: 'screenshots/webpack-analysis.png', fullPage: true });
-              await browser.close();
-              console.log('Screenshot saved to screenshots/webpack-analysis.png');
-            })();
-          "
+          node << 'EOF'
+          const { chromium } = require('playwright');
+          (async () => {
+            const browser = await chromium.launch();
+            const page = await browser.newPage();
+            const filePath = 'file://${{ github.workspace }}/frontend/dist/frontend/bundle-report.html';
+            await page.goto(filePath);
+            await page.setViewportSize({ width: 1920, height: 1080 });
+            await page.screenshot({ path: 'screenshots/webpack-analysis.png', fullPage: true });
+            await browser.close();
+            console.log('Screenshot saved to screenshots/webpack-analysis.png');
+          })();
+          EOF
 
       - name: "Commit and push screenshot to master"
         run: |
