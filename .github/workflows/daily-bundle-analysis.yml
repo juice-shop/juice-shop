@@ -1,7 +1,8 @@
-name: "Webpack Bundle Analysis"
+name: "Release Bundle Analysis"
 on:
-  schedule:
-    - cron: '0 2 * * *'
+  push:
+    tags:
+      - v*
   workflow_dispatch:
 
 env:
@@ -14,8 +15,6 @@ jobs:
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
-        with:
-          ref: develop
 
       - name: "Use Node.js ${{ env.NODE_DEFAULT_VERSION }}"
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af #v4.1.0
@@ -54,11 +53,12 @@ jobs:
             })();
           "
 
-      - name: "Commit and push screenshot"
+      - name: "Commit and push screenshot to master"
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          git checkout master || git checkout -b master
           git add screenshots/webpack-analysis.png
           git diff --quiet && git diff --staged --quiet || git commit -m "📸 Update bundle analysis screenshot" -s
-          git push
+          git push origin master
         continue-on-error: true
