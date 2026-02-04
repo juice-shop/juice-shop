@@ -1,0 +1,49 @@
+<mat-card class="bounty-card">
+  <mat-card-header>
+    <mat-card-title>Bug Bounty Portal</mat-card-title>
+    <mat-card-subtitle>Report vulnerabilities, get paid.</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="summary-section">
+      <h3>Potential Payout: <span class="accent-text">{{ potentialPayout | number:'1.2-2' }}</span> JSC</h3>
+      <button mat-raised-button color="primary" (click)="claim()" [disabled]="potentialPayout === 0 || loading">
+        <mat-icon>monetization_on</mat-icon> Claim Rewards
+      </button>
+    </div>
+
+    <mat-table [dataSource]="bounties" class="mat-elevation-z8">
+      <!-- Challenge Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Create Vulnerability </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+
+      <!-- Difficulty Column -->
+      <ng-container matColumnDef="difficulty">
+        <mat-header-cell *matHeaderCellDef> Severity </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <mat-icon *ngFor="let i of [].constructor(element.difficulty)">star</mat-icon>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Reward Column -->
+      <ng-container matColumnDef="reward">
+        <mat-header-cell *matHeaderCellDef> Bounty </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.reward | number:'1.2-2'}} JSC </mat-cell>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <span *ngIf="element.claimed" class="status-claimed">Paid</span>
+          <span *ngIf="!element.claimed" class="status-unclaimed">Actionable</span>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="['name', 'difficulty', 'reward', 'status']"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: ['name', 'difficulty', 'reward', 'status'];"></mat-row>
+    </mat-table>
+
+  </mat-card-content>
+</mat-card>

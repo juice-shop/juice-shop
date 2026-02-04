@@ -58,6 +58,9 @@
     font-size: 16px;
     font-weight: 600;
     line-height: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -151,7 +154,7 @@ $badge-size: 24px;
   padding: 0;
 
   position: relative;
-  
+
   mat-icon {
     font-size: 16px;
     height: 16px;

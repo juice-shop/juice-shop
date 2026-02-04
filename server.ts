@@ -125,6 +125,7 @@ import { serveCodeSnippet, checkVulnLines } from './routes/vulnCodeSnippet'
 import { orderHistory, allOrders, toggleDeliveryStatus } from './routes/orderHistory'
 import { continueCode, continueCodeFindIt, continueCodeFixIt } from './routes/continueCode'
 import { ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload, handleYamlUpload } from './routes/fileUpload'
+import * as bounty from './routes/bounty'
 
 const app = express()
 const server = new http.Server(app)
@@ -307,7 +308,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.post('/rest/memories', uploadToDisk.single('image'), ensureFileIsPassed, security.appendUserId(), metrics.observeFileUploadMetricsMiddleware(), addMemory())
 
   app.use(bodyParser.text({ type: '*/*' }))
-  app.use(function jsonParser (req: Request, res: Response, next: NextFunction) {
+  app.use(function jsonParser(req: Request, res: Response, next: NextFunction) {
     // @ts-expect-error FIXME intentionally saving original request in this property
     req.rawBody = req.body
     if (req.headers['content-type']?.includes('application/json')) {
@@ -338,7 +339,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use('/rest/user/reset-password', rateLimit({
     windowMs: 5 * 60 * 1000,
     max: 100,
-    keyGenerator ({ headers, ip }: { headers: any, ip: any }) { return headers['X-Forwarded-For'] ?? ip } // vuln-code-snippet vuln-line resetPasswordMortyChallenge
+    keyGenerator({ headers, ip }: { headers: any, ip: any }) { return headers['X-Forwarded-For'] ?? ip } // vuln-code-snippet vuln-line resetPasswordMortyChallenge
   }))
   // vuln-code-snippet end resetPasswordMortyChallenge
 
@@ -618,6 +619,9 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.put('/rest/order-history/:id/delivery-status', security.isAccounting(), toggleDeliveryStatus())
   app.get('/rest/wallet/balance', security.appendUserId(), getWalletBalance())
   app.put('/rest/wallet/balance', security.appendUserId(), addWalletBalance())
+  /* Bug Bounty */
+  app.get('/rest/bounty/status', security.appendUserId(), bounty.getBountyStatus())
+  app.put('/rest/bounty/claim', security.appendUserId(), bounty.claimBounty())
   app.get('/rest/deluxe-membership', deluxeMembershipStatus())
   app.post('/rest/deluxe-membership', security.appendUserId(), upgradeToDeluxe())
   app.get('/rest/memories', getMemories())
@@ -700,7 +704,7 @@ const uploadToDisk = multer({
   })
 })
 
-const expectedModels = ['Address', 'Basket', 'BasketItem', 'Captcha', 'Card', 'Challenge', 'Complaint', 'Delivery', 'Feedback', 'ImageCaptcha', 'Memory', 'PrivacyRequestModel', 'Product', 'Quantity', 'Recycle', 'SecurityAnswer', 'SecurityQuestion', 'User', 'Wallet', 'Hint']
+const expectedModels = ['Address', 'Basket', 'BasketItem', 'Captcha', 'Card', 'Challenge', 'Complaint', 'Delivery', 'Feedback', 'ImageCaptcha', 'Memory', 'PrivacyRequestModel', 'Product', 'Quantity', 'Recycle', 'SecurityAnswer', 'SecurityQuestion', 'User', 'Wallet', 'Bounty', 'Hint']
 while (!expectedModels.every(model => Object.keys(sequelize.models).includes(model))) {
   logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length.toString())} of ${colors.bold(expectedModels.length.toString())} are initialized (${colors.yellow('WAITING')})`)
 }
@@ -713,7 +717,7 @@ const Metrics = metrics.observeMetrics() // vuln-code-snippet neutral-line expos
 app.get('/metrics', metrics.serveMetrics()) // vuln-code-snippet vuln-line exposedMetricsChallenge
 errorhandler.title = `${config.get<string>('application.name')} (Express ${utils.version('express')})`
 
-export async function start (readyCallback?: () => void) {
+export async function start(readyCallback?: () => void) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
   await sequelize.sync({ force: true })
   await datacreator()
@@ -739,7 +743,7 @@ export async function start (readyCallback?: () => void) {
   void collectDurationPromise('customizeEasterEgg', customizeEasterEgg)() // vuln-code-snippet hide-line
 }
 
-export function close (exitCode: number | undefined) {
+export function close(exitCode: number | undefined) {
   if (server) {
     clearInterval(metricsUpdateLoop)
     server.close()

@@ -1,0 +1,37 @@
+.bounty-card {
+  margin: 20px;
+  padding: 20px;
+}
+
+.summary-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  background: var(--theme-background-lighter);
+  padding: 15px;
+  border-radius: 4px;
+}
+
+.accent-text {
+  color: var(--theme-accent);
+  font-weight: bold;
+}
+
+.status-claimed {
+  color: var(--theme-receiving);
+  font-weight: bold;
+}
+
+.status-unclaimed {
+  color: var(--theme-warn);
+  font-weight: bold;
+}
+
+mat-table {
+  width: 100%;
+}
+
+mat-header-cell {
+  font-weight: bold;
+}

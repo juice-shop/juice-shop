@@ -24,6 +24,7 @@ import { SecurityAnswerModelInit } from './securityAnswer'
 import { SecurityQuestionModelInit } from './securityQuestion'
 import { UserModelInit } from './user'
 import { WalletModelInit } from './wallet'
+import { BountyModelInit } from './bounty'
 import { Sequelize, Transaction } from 'sequelize'
 
 /* jslint node: true */
@@ -58,6 +59,7 @@ SecurityAnswerModelInit(sequelize)
 SecurityQuestionModelInit(sequelize)
 UserModelInit(sequelize)
 WalletModelInit(sequelize)
+BountyModelInit(sequelize)
 
 relationsInit(sequelize)
 

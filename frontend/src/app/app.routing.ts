@@ -19,6 +19,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ComplaintComponent } from './complaint/complaint.component'
 import { ChatbotComponent } from './chatbot/chatbot.component'
 import { RecycleComponent } from './recycle/recycle.component'
+import { BugBountyComponent } from './bug-bounty/bug-bounty.component'
 import { RouterModule, type Routes, type UrlMatchResult, type UrlSegment } from '@angular/router'
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
 import { ErrorPageComponent } from './error-page/error-page.component'
@@ -147,6 +148,10 @@ const routes: Routes = [
     component: WalletComponent
   },
   {
+    path: 'bug-bounty',
+    component: BugBountyComponent
+  },
+  {
     path: 'login',
     component: LoginComponent
   },
@@ -254,7 +259,7 @@ const routes: Routes = [
 
 export const Routing = RouterModule.forRoot(routes, { useHash: true })
 
-export function oauthMatcher (url: UrlSegment[]): UrlMatchResult {
+export function oauthMatcher(url: UrlSegment[]): UrlMatchResult {
   if (url.length === 0) {
     return null as unknown as UrlMatchResult
   }
@@ -266,7 +271,7 @@ export function oauthMatcher (url: UrlSegment[]): UrlMatchResult {
   return null as unknown as UrlMatchResult
 }
 
-export function tokenMatcher (url: UrlSegment[]): UrlMatchResult { // vuln-code-snippet neutral-line tokenSaleChallenge
+export function tokenMatcher(url: UrlSegment[]): UrlMatchResult { // vuln-code-snippet neutral-line tokenSaleChallenge
   if (url.length === 0) { // vuln-code-snippet neutral-line tokenSaleChallenge
     return null as unknown as UrlMatchResult // vuln-code-snippet neutral-line tokenSaleChallenge
   } // vuln-code-snippet neutral-line tokenSaleChallenge
@@ -280,7 +285,7 @@ export function tokenMatcher (url: UrlSegment[]): UrlMatchResult { // vuln-code-
   return null as unknown as UrlMatchResult // vuln-code-snippet neutral-line tokenSaleChallenge
 } // vuln-code-snippet neutral-line tokenSaleChallenge
 
-export function token1 (...args: number[]) { // vuln-code-snippet neutral-line tokenSaleChallenge
+export function token1(...args: number[]) { // vuln-code-snippet neutral-line tokenSaleChallenge
   const L = Array.prototype.slice.call(args) // vuln-code-snippet neutral-line tokenSaleChallenge
   const D = L.shift() // vuln-code-snippet neutral-line tokenSaleChallenge
   return L.reverse().map(function (C, A) { // vuln-code-snippet neutral-line tokenSaleChallenge
@@ -288,7 +293,7 @@ export function token1 (...args: number[]) { // vuln-code-snippet neutral-line t
   }).join('') // vuln-code-snippet neutral-line tokenSaleChallenge
 } // vuln-code-snippet neutral-line tokenSaleChallenge
 
-export function token2 (...args: number[]) { // vuln-code-snippet neutral-line tokenSaleChallenge
+export function token2(...args: number[]) { // vuln-code-snippet neutral-line tokenSaleChallenge
   const T = Array.prototype.slice.call(arguments) // vuln-code-snippet neutral-line tokenSaleChallenge
   const M = T.shift() // vuln-code-snippet neutral-line tokenSaleChallenge
   return T.reverse().map(function (m, H) { // vuln-code-snippet neutral-line tokenSaleChallenge
