@@ -27,6 +27,7 @@ jobs:
           npm install --ignore-scripts
           cd frontend
           npm install --ignore-scripts --legacy-peer-deps
+          npm install webpack-bundle-analyzer
 
       - name: "Build frontend with bundle analysis"
         run: |
