@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-const stylelint = require('stylelint');
+import stylelint from 'stylelint'
 
 const SPACING_VARIABLES = [
   { name: '$space-3xs', rem: 0.125, px: 2 },
@@ -80,7 +80,7 @@ function normalizeToPixels (value) {
 
 const ruleName = 'stylelint-plugin-spacing-fixer/declaration-property-value-disallowed-list';
 
-module.exports = stylelint.createPlugin(ruleName,
+const plugin = stylelint.createPlugin(ruleName,
   function (primaryOption, secondaryOption, context) {
     return function (root, result) {
       if (!primaryOption) return;
@@ -125,5 +125,4 @@ module.exports = stylelint.createPlugin(ruleName,
   }
 );
 
-module.exports.ruleName = ruleName;
-
+export default plugin
