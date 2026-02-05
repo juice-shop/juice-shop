@@ -90,9 +90,9 @@ jobs:
           category: semgrep
 
 # -------------------------------------------------
-# SYFT (SBOM)
+# SYFT (SBOM) + GRYPE (VULNS)
 # -------------------------------------------------
-  syft:
+  syft-grype:
     runs-on: ubuntu-latest
     needs: build
     env:
@@ -100,32 +100,22 @@ jobs:
 
     steps:
       - name: Generate SBOM
-        uses: anchore/syft-action@v0
+        uses: anchore/sbom-action@v0
         with:
           image: ${{ env.IMAGE }}
-          format: sarif
-          output-file: syft.sarif
+          format: spdx-json
+          output-file: sbom.spdx.json
 
-      - name: Upload Syft SARIF
-        uses: github/codeql-action/upload-sarif@v4
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v4
         with:
-          sarif_file: syft.sarif
-          category: syft
+            name: sbom
+            path: sbom.spdx.json
 
-# -------------------------------------------------
-# GRYPE (IMAGE VULNS)
-# -------------------------------------------------
-  grype:
-    runs-on: ubuntu-latest
-    needs: build
-    env:
-      IMAGE: ${{ needs.build.outputs.image }}
-
-    steps:
-      - name: Scan Image
-        uses: anchore/grype-action@v0
+      - name: Scan SBOM
+        uses: anchore/scan-action@v7
         with:
-          image: ${{ env.IMAGE }}
+          sbom: sbom.spdx.json
           output-format: sarif
           output-file: grype.sarif
           fail-build: false
