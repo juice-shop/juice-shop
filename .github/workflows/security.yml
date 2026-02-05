@@ -10,20 +10,25 @@ permissions:
   security-events: write
   packages: write
 
-env:
-  IMAGE: ghcr.io/${{ github.repository }}./juice-shop:ci
-
 jobs:
 # -------------------------------------------------
-# BUILD & PUSH IMAGE
+# BUILD & PUSH IMAGE (COMMIT SHA)
 # -------------------------------------------------
   build:
     runs-on: ubuntu-latest
     outputs:
-      image: ${{ env.IMAGE }}
+      image: ${{ steps.meta.outputs.tags }}
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Docker metadata (commit SHA)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=sha,prefix=sha-,format=short
 
       - name: Login to GHCR
         uses: docker/login-action@v3
@@ -37,10 +42,10 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.IMAGE }}
+          tags: ${{ steps.meta.outputs.tags }}
 
 # -------------------------------------------------
-# GITLEAKS 
+# GITLEAKS
 # -------------------------------------------------
   gitleaks:
     runs-on: ubuntu-latest
@@ -59,7 +64,7 @@ jobs:
           GITLEAKS_ENABLE_COMMENTS: "false"
 
 # -------------------------------------------------
-# SEMGREP
+# SEMGREP (OFFICIAL CLI METHOD)
 # -------------------------------------------------
   semgrep:
     runs-on: ubuntu-latest
@@ -69,8 +74,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install Semgrep
-        run: |
-          pip install semgrep
+        run: pip install semgrep
 
       - name: Run Semgrep (SARIF)
         run: |
@@ -86,11 +90,13 @@ jobs:
           category: semgrep
 
 # -------------------------------------------------
-# SYFT (SBOM → SARIF)
+# SYFT (SBOM)
 # -------------------------------------------------
   syft:
     runs-on: ubuntu-latest
     needs: build
+    env:
+      IMAGE: ${{ needs.build.outputs.image }}
 
     steps:
       - name: Generate SBOM
@@ -112,6 +118,8 @@ jobs:
   grype:
     runs-on: ubuntu-latest
     needs: build
+    env:
+      IMAGE: ${{ needs.build.outputs.image }}
 
     steps:
       - name: Scan Image
