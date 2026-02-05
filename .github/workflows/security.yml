@@ -2,7 +2,7 @@ name: DevSecOps CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main", "cyber-tedu" ]
   pull_request:
 
 permissions:
