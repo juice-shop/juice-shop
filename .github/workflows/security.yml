@@ -1,0 +1,79 @@
+name: build
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build an image from Dockerfile
+        run: |
+          docker build -t juice-shop:${{ github.sha }} .
+  sast-scan:
+    name: Semgrep
+    runs-on: ubuntu-20.04
+    container: returntocorp/semgrep
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Semgrep Scan
+      run: semgrep ci --config=auto --sarif --output=semgrep.sarif || true
+    - name: Upload SARIF File
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: 'semgrep.sarif'
+        if: always()
+  gitleaks-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: FetchSourceCode
+        uses: actions/checkout@v3
+      - name: SecretScan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITLEAKS_ENABLE_UPLOAD_ARTIFACT: true
+          GITLEAKS_ENABLE_SUMMARY: true
+        continue-on-error: true
+      - name: Upload
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'results.sarif'
+        if: always()
+  syft-scan:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Generate SBOM
+      uses: anchore/sbom-action@v0
+      with:
+        image: 'juice-shop:${{ github.sha }}'
+        output-file: "sbom.spdx.json"
+        format: "spdx-json"
+    - name: Upload SBOM Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: sbom-artifact
+        path: sbom.spdx.json
+  zap_scan:
+    runs-on: ubuntu-latest
+    name: Scan the webapplication
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: ZAP Scan
+      id: scan
+      uses: zaproxy/action-full-scan@v0.10.0
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        docker_name: 'ghcr.io/zaproxy/zaproxy:stable'
+        target: 'https://www.zaproxy.org/'
+        rules_file_name: '.zap/rules.tsv'
+        cmd_options: '-a'
+    - name: upload Zap scan SARIF report
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: ${{ steps.scan.outputs.sarif }}
