@@ -1,172 +1,149 @@
-name: Juice Shop Parallel Security Pipeline
+name: DevSecOps CI
 
 on:
   push:
-    branches: [ "master", "cyber-tedu" ]
+    branches: [ main ]
+  pull_request:
 
 permissions:
   contents: read
-  packages: write
   security-events: write
-  actions: read
+  packages: write
 
 env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}/juice-shop
+  IMAGE: ghcr.io/${{ github.repository_owner }}/juice-shop:ci
 
 jobs:
-  # ------------------------------------------------
-  # BUILD & PUSH IMAGE
-  # ------------------------------------------------
+# -------------------------------------------------
+# BUILD & PUSH IMAGE
+# -------------------------------------------------
   build:
     runs-on: ubuntu-latest
     outputs:
-      image: ${{ steps.meta.outputs.tags }}
-      digest: ${{ steps.build.outputs.digest }}
+      image: ${{ env.IMAGE }}
+
     steps:
       - uses: actions/checkout@v4
 
       - name: Login to GHCR
         uses: docker/login-action@v3
         with:
-          registry: ${{ env.REGISTRY }}
+          registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=ref,event=branch
-            type=sha
-
-      - name: Build and push image
-        id: build
+      - name: Build & Push Image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ env.IMAGE }}
 
-  # ------------------------------------------------
-  # GITLEAKS (SECRETS)
-  # ------------------------------------------------
-  secrets:
+# -------------------------------------------------
+# GITLEAKS 
+# -------------------------------------------------
+  gitleaks:
     runs-on: ubuntu-latest
     needs: build
+
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Gitleaks Scan
+      - name: Run Gitleaks
         uses: gitleaks/gitleaks-action@v2
-        with:
-          args: detect --source . --report-format sarif --report-path gitleaks.sarif
-        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_ENABLE_UPLOAD_ARTIFACT: "true"
+          GITLEAKS_ENABLE_COMMENTS: "false"
 
-      - name: Upload Gitleaks SARIF
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: gitleaks.sarif
-
-  # ------------------------------------------------
-  # SEMGREP (SAST)
-  # ------------------------------------------------
-  sast:
+# -------------------------------------------------
+# SEMGREP
+# -------------------------------------------------
+  semgrep:
     runs-on: ubuntu-latest
     needs: build
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: Semgrep Scan
-        uses: semgrep/semgrep-action@v1
-        with:
-          config: p/owasp-top-ten
-          generateSarif: true
-          sarifFile: semgrep.sarif
-        env:
-          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+      - name: Install Semgrep
+        run: |
+          pip install semgrep
+
+      - name: Run Semgrep (SARIF)
+        run: |
+          semgrep ci \
+            --config p/owasp-top-ten \
+            --sarif > semgrep.sarif
         continue-on-error: true
 
       - name: Upload Semgrep SARIF
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: semgrep.sarif
+          category: semgrep
 
-  # ------------------------------------------------
-  # IMAGE SECURITY (SYFT + GRYPE)
-  # ------------------------------------------------
-  image-security:
+# -------------------------------------------------
+# SYFT (SBOM → SARIF)
+# -------------------------------------------------
+  syft:
     runs-on: ubuntu-latest
     needs: build
+
     steps:
-      - name: Login to GHCR
-        uses: docker/login-action@v3
+      - name: Generate SBOM
+        uses: anchore/syft-action@v0
         with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Generate SBOM (Syft)
-        uses: anchore/sbom-action@v0
-        with:
-          image: ${{ needs.build.outputs.image }}
-          format: spdx-json
-          output-file: sbom.spdx.json
-
-      - name: Upload SBOM
-        uses: actions/upload-artifact@v4
-        with:
-          name: sbom
-          path: sbom.spdx.json
-
-      - name: Grype Scan
-        uses: anchore/scan-action@v3
-        with:
-          image: ${{ needs.build.outputs.image }}
+          image: ${{ env.IMAGE }}
           format: sarif
+          output-file: syft.sarif
+
+      - name: Upload Syft SARIF
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: syft.sarif
+          category: syft
+
+# -------------------------------------------------
+# GRYPE (IMAGE VULNS)
+# -------------------------------------------------
+  grype:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Scan Image
+        uses: anchore/grype-action@v0
+        with:
+          image: ${{ env.IMAGE }}
+          output-format: sarif
           output-file: grype.sarif
-          severity-cutoff: high
-        continue-on-error: true
+          fail-build: false
 
       - name: Upload Grype SARIF
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: grype.sarif
+          category: grype
 
-  # ------------------------------------------------
-  # DAST (OWASP ZAP)
-  # ------------------------------------------------
-  dast:
+# -------------------------------------------------
+# ZAP (DAST)
+# -------------------------------------------------
+  zap:
     runs-on: ubuntu-latest
     needs: build
+
     steps:
-      - name: Login to GHCR
-        uses: docker/login-action@v3
+      - name: OWASP ZAP Baseline
+        uses: zaproxy/action-baseline@v0.11.0
         with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Run Juice Shop
-        run: |
-          docker run -d -p 3000:3000 --name juice-shop \
-            ${{ needs.build.outputs.image }}
-          sleep 20
-
-      - name: ZAP Baseline Scan
-        uses: zaproxy/action-baseline@v0.12.0
-        with:
-          target: "http://localhost:3000"
-          cmd_options: "-a"
-        continue-on-error: true
+          target: https://juice-shop.herokuapp.com
+          fail_action: false
 
       - name: Upload ZAP SARIF
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: zap.sarif
-
-      - name: Cleanup
-        if: always()
-        run: docker rm -f juice-shop
+          category: zap
