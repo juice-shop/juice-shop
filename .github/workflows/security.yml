@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - cyber-tedu
   pull_request:
 jobs:
   build:
