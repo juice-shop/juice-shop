@@ -18,7 +18,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       image: ${{ steps.meta.outputs.tags }}
-
     steps:
       - uses: actions/checkout@v4
 
@@ -49,8 +48,6 @@ jobs:
 # -------------------------------------------------
   gitleaks:
     runs-on: ubuntu-latest
-    needs: build
-
     steps:
       - uses: actions/checkout@v4
         with:
@@ -64,12 +61,10 @@ jobs:
           GITLEAKS_ENABLE_COMMENTS: "false"
 
 # -------------------------------------------------
-# SEMGREP (OFFICIAL CLI METHOD)
+# SEMGREP
 # -------------------------------------------------
   semgrep:
     runs-on: ubuntu-latest
-    needs: build
-
     steps:
       - uses: actions/checkout@v4
 
@@ -131,17 +126,20 @@ jobs:
 # -------------------------------------------------
   zap:
     runs-on: ubuntu-latest
-    needs: build
-
     steps:
-      - name: OWASP ZAP Baseline
-        uses: zaproxy/action-baseline@v0.11.0
+      - name: ZAP Scan
+        id: scan
+        uses: zaproxy/action-full-scan@v0.10.0
         with:
-          target: https://juice-shop.herokuapp.com
+          token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: 'ghcr.io/zaproxy/zaproxy:stable'
+          target: 'https://juice-shop.herokuapp.com'
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a'
           fail_action: false
-
-      - name: Upload ZAP SARIF
+      
+      - name: Upload Zap scan SARIF report
         uses: github/codeql-action/upload-sarif@v4
         with:
-          sarif_file: zap.sarif
+          sarif_file: ${{ steps.scan.outputs.sarif }}
           category: zap
