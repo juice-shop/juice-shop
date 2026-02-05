@@ -11,7 +11,7 @@ permissions:
   packages: write
 
 env:
-  IMAGE: ghcr.io/${{ github.repository_owner }}/juice-shop:ci
+  IMAGE: ghcr.io/${{ github.repository }}./juice-shop:ci
 
 jobs:
 # -------------------------------------------------
