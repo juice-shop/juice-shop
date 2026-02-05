@@ -287,5 +287,10 @@
       "angular",
       "inject"
     ]
+  },
+  "overrides": {
+    "download": {
+      "got": "11.8.5"
+    }
   }
 }
