@@ -3,16 +3,18 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 mat-toolbar {
   height: auto;
   min-width: 100%;
-  padding: 4px 0;
+  padding: $space-2xs 0;
   width: 100%;
 }
 
 .mat-mdc-button {
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-left: $space-2xs;
+  padding-right: $space-2xs;
 }
 
 .navbar-toolbar {
@@ -36,7 +38,7 @@ mat-toolbar {
 #navbarLanguageButton mat-icon {
   font-size: 24px;
   height: 26px;
-  margin-right: 2px;
+  margin-right: $space-3xs;
   width: 26px;
 }
 
@@ -49,6 +51,7 @@ mat-toolbar {
 }
 
 .warn-notification {
+  font-size: 47px;
   left: 15px;
   top: -15px;
 }
@@ -79,17 +82,17 @@ mat-toolbar {
 }
 
 .language-select {
-  margin-left: 10px;
+  margin-left: $space-s;
   width: 11%;
 }
 
 .user-info {
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: $space-s;
+  margin-right: $space-s;
 }
 
 .fi {
-  margin-right: 2px;
+  margin-right: $space-3xs;
 }
 
 :host ::ng-deep mat-form-field {
@@ -102,9 +105,9 @@ mat-toolbar {
 
 mat-search-bar {
   font-size: 13px;
-  margin-right: 80px;
+  margin-right: $space-4xl;
   min-width: 200px;
-  padding-right: 100px;
+  padding-right: $space-4xl;
 }
 
 .buttons {
@@ -112,12 +115,47 @@ mat-search-bar {
   width: auto;
 }
 
+.nav-button {
+  height: 3rem;
+}
+
+.nav-square-button {
+  height: 3rem;
+  width: 3rem;
+}
+
+.nav-home-button {
+  height: 3.75rem;
+}
+
+.nav-account-button {
+  vertical-align: middle;
+}
+
+.app-name {
+  font-size: x-large;
+}
+
+.basket-label {
+  margin-right: $space-s;
+}
+
 .language-search-container {
-  padding: 8px 16px;
+  padding: $space-xs $space-m;
 }
 
 .language-search-field {
   width: 100%;
+}
+
+.language-option {
+  width: 15rem;
+}
+
+.language-option-content {
+  display: inline-block;
+  margin-left: $space-2xs;
+  width: 12.5rem;
 }
 
 .search-icon {
@@ -137,7 +175,7 @@ mat-search-bar {
 
 @media screen and (max-width: 959px) and (min-width: 600px) {
   #homeButton {
-    margin-left: 8px;
+    margin-left: $space-xs;
   }
 
   #homeButton span {
@@ -146,7 +184,7 @@ mat-search-bar {
   }
 
   button[mat-button] {
-    padding: 0 8px;
+    padding: 0 $space-xs;
   }
 
   .buttons {

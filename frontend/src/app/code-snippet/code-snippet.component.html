@@ -8,7 +8,7 @@
     <mat-tab>
       <ng-template mat-tab-label>
         <span class="tab-header-text">{{'TAB_FIND_IT' | translate}}</span>
-        <mat-icon class="materaial-icons-outlined" [color]="lockColor()">{{lockIcon()}}</mat-icon>
+        <mat-icon class="materaial-icons-outlined" [color]="findLockColor()">{{findLockIcon()}}</mat-icon>
       </ng-template>
       @if (snippet !== null) {
         <app-code-area [code]="snippet?.snippet" [vulnLines]="snippet?.vulnLines" (addLine)="addLine($event)"></app-code-area>
@@ -16,10 +16,10 @@
         <pre><code translate>LOADING_CODE_SNIPPET</code></pre>
       }
     </mat-tab>
-    <mat-tab [disabled]="lockIcon() === 'lock'">
+    <mat-tab [disabled]="fixes === null || !solved.findIt">
       <ng-template mat-tab-label>
         <span class="tab-header-text">{{'TAB_FIX_IT' | translate}}</span>
-        <mat-icon class="materaial-icons-outlined" [color]="lockColor()">{{lockIcon()}}</mat-icon>
+        <mat-icon class="materaial-icons-outlined" [color]="fixLockColor()">{{fixLockIcon()}}</mat-icon>
       </ng-template>
       @if (snippet !== null && fixes !== null) {
         <app-code-fixes [snippet]="snippet?.snippet" [fixes]="fixes"
@@ -44,7 +44,7 @@
     @if (tab.value === 0) {
       <!-- empty div to still have the space-between work -->
       <!-- size of the div is fixed to 78.25px which is the height of the select. this ensures the layout doesn't jump when switching tabs -->
-      <div style="height: 78.25px;"></div>
+      <div class="tab-placeholder"></div>
     } @else {
       @if (tab.value === 1) {
         <mat-form-field appearance="fill">
@@ -60,21 +60,6 @@
     }
 
     <div class="button-group">
-      @if (this.showFeedbackButtons && this.solved.fixIt) {
-        <a
-          [href]="'https://docs.google.com/forms/d/e/1FAIpQLSdaNEuz0dzFA2sexCa0AJ4QOb2OYdEL04eQOLFD2Y4T-BW6ag/viewform?usp=pp_url&entry.384948954=' + dialogData.name + '&entry.435235279=Coding+Challenge&entry.1734944650=Yes'"
-          target="_blank">
-          <button mat-icon-button><mat-icon color="accent">thumb_up</mat-icon></button>
-        </a>
-      }
-      @if (this.showFeedbackButtons && this.solved.fixIt) {
-        <a
-          [href]="'https://docs.google.com/forms/d/e/1FAIpQLSdaNEuz0dzFA2sexCa0AJ4QOb2OYdEL04eQOLFD2Y4T-BW6ag/viewform?usp=pp_url&entry.384948954=' + dialogData.name + '&entry.435235279=Coding+Challenge&entry.1734944650=No'"
-          target="_blank">
-          <button mat-icon-button><mat-icon color="warn">thumb_down</mat-icon></button>
-        </a>
-      }
-
       <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="Close Dialog"
         [mat-dialog-close]="solved" id="findItCloseButton">
         <mat-icon>close</mat-icon>

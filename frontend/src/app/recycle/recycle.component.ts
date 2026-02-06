@@ -7,7 +7,7 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { UserService } from '../Services/user.service'
 import { RecycleService } from '../Services/recycle.service'
 import { Component, type OnInit, ViewChild, inject } from '@angular/core'
-import { CommonModule } from '@angular/common' // <--- Added this!
+import { CommonModule } from '@angular/common'
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
@@ -16,9 +16,9 @@ import { AddressComponent } from '../address/address.component'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { MatButtonModule } from '@angular/material/button'
-import { MatCheckboxModule } from '@angular/material/checkbox' // <--- Fixed import name
-import { MatDatepickerModule } from '@angular/material/datepicker' // <--- Fixed import name
-import { MatNativeDateModule } from '@angular/material/core' // <--- Required for Datepicker!
+import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatNativeDateModule } from '@angular/material/core'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatCardModule } from '@angular/material/card'
@@ -31,16 +31,16 @@ library.add(faPaperPlane)
   styleUrls: ['./recycle.component.scss'],
   standalone: true,
   imports: [
-    CommonModule, // <--- Crucial for *ngIf / *ngFor
+    CommonModule,
     MatCardModule,
     TranslateModule,
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    AddressComponent, // Ensure AddressComponent is also standalone or this might error
+    AddressComponent,
     MatDatepickerModule,
-    MatNativeDateModule, // <--- Added this
+    MatNativeDateModule,
     MatCheckboxModule,
     MatButtonModule
   ]
@@ -53,9 +53,8 @@ export class RecycleComponent implements OnInit {
   private readonly translate = inject(TranslateService)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
 
-  // Added '!' to tell TypeScript this will be defined later
   @ViewChild('addressComp', { static: true }) public addressComponent!: AddressComponent
-  
+
   public requestorControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
   public recycleQuantityControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(1000)])
   public pickUpDateControl: UntypedFormControl = new UntypedFormControl()
@@ -86,8 +85,9 @@ export class RecycleComponent implements OnInit {
   }
 
   initRecycle () {
-    this.userService.whoAmI().subscribe({
-      next: (data: any) => {
+    // FIX: Using the upstream version that requests specific fields
+    this.userService.whoAmI(['id', 'email']).subscribe({
+      next: (data) => {
         this.recycle = {}
         this.recycle.UserId = data.id
         this.userEmail = data.email
@@ -159,7 +159,6 @@ export class RecycleComponent implements OnInit {
     this.pickup.setValue(false)
   }
 
-  // Added type 'any' to fix implicit any error
   getMessage (id: any) {
     this.addressId = id
   }

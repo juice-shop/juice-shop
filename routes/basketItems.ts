@@ -17,7 +17,7 @@ interface RequestWithRawBody extends Request {
 }
 
 export function addBasketItem () {
-  return (req: Request, res: Response, next: NextFunction) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     const result = utils.parseJsonCustom((req as RequestWithRawBody).rawBody)
     const productIds = []
     const basketIds = []
@@ -45,11 +45,12 @@ export function addBasketItem () {
       challengeUtils.solveIf(challenges.basketManipulateChallenge, () => { return user && basketItem.BasketId && basketItem.BasketId !== 'undefined' && user.bid != basketItem.BasketId }) // eslint-disable-line eqeqeq
 
       const basketItemInstance = BasketItemModel.build(basketItem)
-      basketItemInstance.save().then((addedBasketItem: BasketItemModel) => {
+      try {
+        const addedBasketItem = await basketItemInstance.save()
         res.json({ status: 'success', data: addedBasketItem })
-      }).catch((error: Error) => {
+      } catch (error) {
         next(error)
-      })
+      }
     }
   }
 }
@@ -61,10 +62,10 @@ export function quantityCheckBeforeBasketItemAddition () {
     })
   }
 }
-
 export function quantityCheckBeforeBasketItemUpdate () {
-  return (req: Request, res: Response, next: NextFunction) => {
-    BasketItemModel.findOne({ where: { id: req.params.id } }).then((item: BasketItemModel | null) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const item = await BasketItemModel.findOne({ where: { id: req.params.id } })
       const user = security.authenticatedUsers.from(req)
       challengeUtils.solveIf(challenges.basketManipulateChallenge, () => { return user && req.body.BasketId && user.bid != req.body.BasketId }) // eslint-disable-line eqeqeq
       if (req.body.quantity) {
@@ -75,9 +76,9 @@ export function quantityCheckBeforeBasketItemUpdate () {
       } else {
         next()
       }
-    }).catch((error: Error) => {
+    } catch (error) {
       next(error)
-    })
+    }
   }
 }
 

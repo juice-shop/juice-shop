@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "19.1.1",
+  "version": "19.2.0-SNAPSHOT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -49,7 +49,6 @@
     "ng-gallery": "^12.0.0",
     "ng-qrcode": "^20.0.0",
     "ng2-file-upload": "^9.0.0",
-    "ngx-clipboard": "^15.1.0",
     "ngx-highlightjs": "^6.1.2",
     "ngx-window-token": "^6.0.0",
     "ngy-cookie": "^6.0.0",
@@ -64,6 +63,7 @@
   },
   "devDependencies": {
     "@angular/language-service": "^20.1.0",
+    "@eslint/js": "9.33.0",
     "@types/express-serve-static-core": "^4.17.9",
     "@types/file-saver": "^2.0.1",
     "@types/jasmine": "~5.1.0",
@@ -71,7 +71,6 @@
     "@types/jwt-decode": "^2.2.1",
     "@types/node": "^20.17.19",
     "@types/socket.io-client": "^1.4.33",
-    "@eslint/js":"9.33.0",
     "angular-eslint": "^20.1.0",
     "eslint": "^9.33.0",
     "jasmine": "^5.1.0",
@@ -85,7 +84,8 @@
     "stylelint": "^13.8.0",
     "stylelint-config-sass-guidelines": "^7.1.0",
     "stylelint-scss": "^3.18.0",
+    "ts-node": "^10.9.2",
     "typescript-eslint": "^8.42.0",
-    "ts-node": "^10.9.2"
+    "webpack-bundle-analyzer": "^5.2.0"
   }
 }

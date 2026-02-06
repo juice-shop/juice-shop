@@ -3,14 +3,16 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 .btn-pay {
   display: block;
   width: 100%;
 }
 
 .mat-mdc-raised-button {
-  margin-right: 3px;
-  margin-top: 3px;
+  margin-right: $space-3xs;
+  margin-top: $space-3xs;
 }
 
 #card {

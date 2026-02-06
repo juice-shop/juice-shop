@@ -30,10 +30,10 @@ library.add(faBomb)
   imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatHint, MatError, FileUploadModule, MatButtonModule, MatIconModule]
 })
 export class ComplaintComponent implements OnInit {
-  private readonly userService = inject(UserService);
-  private readonly complaintService = inject(ComplaintService);
-  private readonly formSubmitService = inject(FormSubmitService);
-  private readonly translate = inject(TranslateService);
+  private readonly userService = inject(UserService)
+  private readonly complaintService = inject(ComplaintService)
+  private readonly formSubmitService = inject(FormSubmitService)
+  private readonly translate = inject(TranslateService)
 
   public customerControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
   public messageControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.maxLength(160)])
@@ -68,7 +68,7 @@ export class ComplaintComponent implements OnInit {
   }
 
   initComplaint () {
-    this.userService.whoAmI().subscribe({
+    this.userService.whoAmI(['id', 'email']).subscribe({
       next: (user: any) => {
         this.complaint = {}
         this.complaint.UserId = user.id

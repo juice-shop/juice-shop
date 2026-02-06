@@ -37,14 +37,14 @@ const oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
 })
 
 export class LoginComponent implements OnInit {
-  private readonly configurationService = inject(ConfigurationService);
-  private readonly userService = inject(UserService);
-  private readonly windowRefService = inject(WindowRefService);
-  private readonly cookieService = inject(CookieService);
-  private readonly router = inject(Router);
-  private readonly formSubmitService = inject(FormSubmitService);
-  private readonly basketService = inject(BasketService);
-  private readonly ngZone = inject(NgZone);
+  private readonly configurationService = inject(ConfigurationService)
+  private readonly userService = inject(UserService)
+  private readonly windowRefService = inject(WindowRefService)
+  private readonly cookieService = inject(CookieService)
+  private readonly router = inject(Router)
+  private readonly formSubmitService = inject(FormSubmitService)
+  private readonly basketService = inject(BasketService)
+  private readonly ngZone = inject(NgZone)
 
   public emailControl = new UntypedFormControl('', [Validators.required])
 

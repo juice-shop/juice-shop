@@ -1,3 +1,15 @@
+---
+- 
+  name: 'Password Hash Leak'
+  category: 'Sensitive Data Exposure'
+  description: 'Obtain the password (hash) of the currently logged-in user directly from a REST API endpoint.'
+  difficulty: 2
+  hints:
+    - 'You need to understand what happens "behind the scenes", so make sure to use your DevTools or a proxy to inspect network traffic.'
+    - 'Look for an API endpoint that already returns some user information.'
+    - 'An overly generic solution for data retrieval can backfire if not properly safeguarded.'
+  mitigationUrl: 'https://owasp.org/API-Security/editions/2019/en/0xa3-excessive-data-exposure'
+  key: passwordHashLeakChallenge
 -
   name: 'API-only XSS'
   category: 'XSS'
@@ -23,7 +35,6 @@
   hints:
     - 'Who would want a server access log to be accessible through a web application?'
     - 'Normally, server log files are written to disk on server side and are not accessible from the outside.'
-    - 'Which raises the question: Who would want a server access log to be accessible through a web application?'
     - 'One particular file found in the folder you might already have found during the "Access a confidential document" challenge might give you an idea who is interested in such a public exposure.'
     - 'Drilling down one level into the file system might not be sufficient.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html'

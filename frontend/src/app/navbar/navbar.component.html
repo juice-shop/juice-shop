@@ -7,15 +7,15 @@
 
   <mat-toolbar-row class="navbar-row">
 
-    <button (click)="onToggleSidenav()" mat-icon-button style="height:48px; width: 48px;" aria-label="Open Sidenav"
+    <button (click)="onToggleSidenav()" mat-icon-button class="nav-square-button" aria-label="Open Sidenav"
       matTooltip="{{ 'SIDENAV_HINT' | translate }}" matTooltipPosition="below">
       <mat-icon>menu</mat-icon>
     </button>
 
-    <button mat-button routerLink="/search" style="height:60px;" class="buttons" aria-label="Back to homepage">
+    <button mat-button routerLink="/search" class="buttons nav-home-button" aria-label="Back to homepage">
       <div id="homeButton">
         <img [src]="logoSrc" class="logo" alt={{applicationName}}>
-        <span class="hide-lt-sm" style="font-size: x-large"> {{applicationName}} </span>
+        <span class="hide-lt-sm app-name"> {{applicationName}} </span>
       </div>
     </button>
 
@@ -27,7 +27,7 @@
     <app-mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"
     aria-label="Click to search"></app-mat-search-bar>
 
-    <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle; height:48px;" class="buttons hide-lt-md"
+    <button [matMenuTriggerFor]="userMenu" mat-button class="buttons hide-lt-md nav-button nav-account-button"
       aria-label="Show/hide account menu" id="navbarAccount">
       <mat-icon>
         account_circle
@@ -102,18 +102,17 @@
     </mat-menu>
 
     @if (isLoggedIn()) {
-      <button mat-button routerLink="/basket" style="height:48px;" class="buttons"
+      <button mat-button routerLink="/basket" class="buttons nav-button"
         aria-label="Show the shopping cart">
         <mat-icon>
           shopping_cart
         </mat-icon>
-        <span class="hide-lt-md" style="margin-right: 10px;"> {{"TITLE_BASKET" | translate}}</span>
-        <span class="fa-layers-counter fa-layers-top-right fa-3x warn-notification"
-        style="font-size: 47px;">{{itemTotal}}</span>
+        <span class="hide-lt-md basket-label"> {{"TITLE_BASKET" | translate}}</span>
+        <span class="fa-layers-counter fa-layers-top-right fa-3x warn-notification">{{itemTotal}}</span>
       </button>
     }
 
-    <button id="navbarLanguageButton" [matMenuTriggerFor]="menu" mat-button style="height:48px; width: 48px;" class="buttons"
+    <button id="navbarLanguageButton" [matMenuTriggerFor]="menu" mat-button class="buttons nav-square-button"
       aria-label="Language selection menu"
       matTooltip="{{ 'LANGUAGE_SEL_HINT' | translate }}" matTooltipPosition="below">
       <mat-icon>
@@ -126,26 +125,25 @@
       <div class="language-search-container" (click)="$event.stopPropagation()">
         <mat-form-field class="language-search-field">
           <mat-icon matPrefix class="search-icon">search</mat-icon>
-          <mat-label>{{ 'SEARCH' | translate }}</mat-label>
+          <mat-label>{{ 'SEARCH_PLACEHOLDER' | translate }}</mat-label>
           <input type="search" matInput [(ngModel)]="languageSearchQuery" (input)="filterLanguages()">
         </mat-form-field>
       </div>
       @for (language of filteredLanguages; track language.key) {
-        <mat-radio-button
+          <mat-radio-button
           (click)="changeLanguage(language.key)"
           [value]="language"
-          class="mat-menu-item"
-          style="width: 240px;"
+          class="mat-menu-item language-option"
           [checked]="selectedLanguage === language"
           [aria-label]="language.lang"
           >
-          <div class="mat-body" style="display: inline-block; width: 200px; margin-left: 5px;">
+          <div class="mat-body language-option-content">
             @for (icon of language.icons; track icon) {
               <span [class]="'fi fi-' + icon"></span>
             }
             {{language?.lang}}
           </div>
-          <i [class]="'fas fa-thermometer-' + language.gauge + (language.percentage > 70 ? ' confirmation' : ' error')"></i>
+          <i [class]="'fas fa-thermometer-' + language.gauge" [title]="language.percentage + '% translated'"></i>
         </mat-radio-button>
       }
     </mat-menu>
