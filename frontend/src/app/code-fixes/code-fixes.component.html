@@ -1,6 +1,0 @@
-@for (fix of randomFixes;  track fix.index) {
-  @if (selectedFix === $index) {
-    <td-ngx-text-diff [left]="snippet" [right]="fix?.fix" [format]="format" #codeComponent>
-    </td-ngx-text-diff>
-  }
-}
