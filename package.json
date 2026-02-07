@@ -162,7 +162,7 @@
     "median": "^0.0.2",
     "morgan": "^1.10.0",
     "multer": "^2.0.2",
-    "node-pre-gyp": "^0.15.0",
+    "node-pre-gyp": "^0.17.0",
     "notevil": "^1.3.3",
     "on-finished": "^2.3.0",
     "otplib": "^12.0.1",
