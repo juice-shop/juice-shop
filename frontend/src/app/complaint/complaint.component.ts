@@ -21,7 +21,6 @@ import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
-import { MatIconModule } from '@angular/material/icon'
 import { MatSnackBarModule } from '@angular/material/snack-bar' // <--- 2. Import Module
 // -------------------------------------
 
@@ -70,13 +69,13 @@ export class ComplaintComponent implements OnInit {
   ngOnInit (): void {
     this.initComplaint()
 
-    // 1. Handle File Add Failure (e.g. file too big)
+    // Handle File Add Failure (e.g. file too big)
     this.uploader.onWhenAddingFileFailed = (item, filter) => {
       this.fileUploadError = filter
       throw new Error(`Error due to : ${filter.name}`)
     }
 
-    // 2. Clear errors when adding a new file
+    // Clear errors when adding a new file
     this.uploader.onAfterAddingFile = () => {
       this.fileUploadError = undefined
     }
@@ -88,7 +87,7 @@ export class ComplaintComponent implements OnInit {
     }
 
     // 4. NEW: Handle Upload Failure (Crucial Fix!)
-    this.uploader.onErrorItem = (item, response, status, headers) => {
+    this.uploader.onErrorItem = (item, response, status) => {
         console.error('File Upload Failed:', response, status);
         // Show a red popup so we know it failed
         this.snackBarHelperService.open('File upload failed! Check console for details.', 'errorBar');
