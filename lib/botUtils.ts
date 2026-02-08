@@ -34,3 +34,50 @@ export function testFunction (query: string, user: string) {
     body: '3be2e438b7f3d04c89d7749f727bb3bd'
   }
 }
+
+export async function userInfo (query: string, user: any) {
+  const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/
+  const emailMatch = query.match(emailRegex)
+
+  if (!emailMatch) {
+    return {
+      action: 'response',
+      body: 'Please provide an email address to look up user information. For example: "What do you know about user@example.com?"'
+    }
+  }
+
+  const requestedEmail = emailMatch[0]
+  const authenticatedEmail = user.email
+  const { UserModel } = await import('../models/user')
+  const targetUser = await UserModel.findOne({ where: { email: requestedEmail } })
+
+  if (!targetUser) {
+    return {
+      action: 'response',
+      body: `No user found with email ${requestedEmail}.`
+    }
+  }
+
+  if (requestedEmail !== authenticatedEmail) {
+    challengeUtils.solveIf(challenges.chatbotUserInfoChallenge, () => { return true })
+  }
+  const maskIp = (ip: string | undefined): string => {
+    if (!ip || ip === '0.0.0.0' || ip === '') return 'Never logged in'
+    if (ip.startsWith('192.168.')) return '192.168.xxx.xxx'
+    if (ip.startsWith('10.')) return '10.x.x.x'
+    if (ip.startsWith('172.')) return '172.x.x.x'
+    return 'xxx.xxx.xxx.xxx (masked)'
+  }
+
+  const userSummary = `User information for ${requestedEmail}:
+- Username: ${targetUser.username ?? 'Not set'}
+- Role: ${targetUser.role}
+- Last login IP: ${maskIp(targetUser.lastLoginIp)}
+- Account status: ${targetUser.isActive ? 'Active' : 'Inactive'}
+- Profile image: ${targetUser.profileImage}`
+
+  return {
+    action: 'response',
+    body: userSummary
+  }
+}

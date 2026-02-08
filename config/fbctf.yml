@@ -347,3 +347,7 @@ ctf:
     passwordHashLeakChallenge:
       name: Italy
       code: IT
+    chatbotUserInfoChallenge:
+      name: Finland
+      code: FI
+

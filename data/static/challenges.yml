@@ -1544,3 +1544,15 @@
     - 'Find the place where the API call happens — as stated above, it is not in the web application — and then look for the API key itself.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html'
   key: leakedApiKeyChallenge
+-
+  name: 'Chatbot Data Exposure'
+  category: 'Broken Access Control'
+  description: 'Retrieve sensitive user information through the support chatbot for a user account that does not belong to you.'
+  difficulty: 3
+  hints:
+    - 'The support chatbot is quite talkative when you ask it the right questions.'
+    - 'Perhaps the chatbot has been given access to more than just product information.'
+    - 'Try asking the chatbot about things you''ve encountered while exploring the shop.'
+    - 'Sometimes aggregate information about users can enable more sophisticated attacks.'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html'
+  key: chatbotUserInfoChallenge

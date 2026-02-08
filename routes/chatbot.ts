@@ -100,6 +100,13 @@ async function processQuery (user: User, req: Request, res: Response, next: Next
     return
   }
 
+  const emailPattern = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/
+  if (emailPattern.test(req.body.query) && /(user|info|about|know|profile)/i.test(req.body.query)) {
+    const userInfoResponse = await botUtils.userInfo(req.body.query, user)
+    res.status(200).json(userInfoResponse)
+    return
+  }
+
   try {
     const response = await bot.respond(req.body.query, `${user.id}`)
     if (response.action === 'function') {
