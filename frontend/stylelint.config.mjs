@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: MIT
  */
 
-module.exports = {
+export default {
   extends: 'stylelint-config-sass-guidelines',
   plugins: [
     'stylelint-scss',
-    './stylelint-plugin-spacing-fixer.js'
+    './stylelint-plugin-spacing-fixer.mjs'
   ],
   rules: {
     'selector-max-id': 1,
@@ -15,7 +15,7 @@ module.exports = {
     'selector-pseudo-element-no-unknown': [
       true,
       {
-        'ignorePseudoElements': ['ng-deep']
+        ignorePseudoElements: ['ng-deep']
       }
     ],
     'property-no-vendor-prefix': null,
@@ -31,4 +31,3 @@ module.exports = {
     }
   }
 }
-
