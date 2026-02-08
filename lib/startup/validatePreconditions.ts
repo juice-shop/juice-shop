@@ -35,6 +35,7 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
     checkIfRequiredFileExists('frontend/dist/frontend/vendor.js'),
     checkIfPortIsAvailable(process.env.PORT ?? config.get<number>('server.port')),
     checkIfDomainReachable('https://www.alchemy.com/')
+    //@ts-ignore FIXME Type problem by accessing key via variable
   ])).every(condition => condition)
 
   if ((!success || !asyncConditions) && exitOnFailure) {
@@ -86,12 +87,12 @@ export const checkIfDomainReachable = async (domain: string) => {
       return true
     })
     .catch(() => {
-      logger.warn(`Domain ${colors.bold(domain)} is not reachable (${colors.yellow('NOT OK')} in a future major release)`)
+      logger.warn(`Domain ${colors.bold(domain)} is not reachable (${colors.yellow('NOT OK')} )`)
       // @ts-expect-error FIXME Type problem by accessing key via variable
       domainDependencies[domain].forEach((dependency: string) => {
         logger.warn(`${colors.italic(dependency)} will not work as intended without access to ${colors.bold(domain)}`)
       })
-      return true // TODO Consider switching to "false" with breaking release v16.0.0 or later
+      return false
     })
 }
 
