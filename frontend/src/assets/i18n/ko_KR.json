@@ -422,6 +422,7 @@
   "CATEGORY_OBSERVABILITY_FAILURES_DESCRIPTION": "Insufficient logging, monitoring, and alerting makes it impossible to detect attacks and breaches. This occurs when auditable events are not logged, warnings and errors generate unclear messages, logs are not monitored for suspicious activity, appropriate alerting is missing or ineffective, or logs expose sensitive information. Without proper observability, organizations cannot detect active attacks in real-time, respond to security incidents effectively, or maintain an audit trail for forensic analysis.",
   "INSUFFICIENT_WALLET_BALANCE": "지갑 잔액이 부족합니다.",
   "LAUNCH_CODING_CHALLENGE": "관련 코딩 챌린지를 시작하세요.",
+  "JUMP_TO_RELATED_CODING_CHALLENGE": "Jump to related coding challenge",
   "LOADING_CODE_SNIPPET": "코드 스니펫 로드 중...",
   "SOLVE_HACKING_CHALLENGE": "해킹 챌린지를 해결하여 관련 코딩 챌린지의 잠금을 해제하세요.",
   "LABEL_CORRECT_FIX": "올바른 수정",

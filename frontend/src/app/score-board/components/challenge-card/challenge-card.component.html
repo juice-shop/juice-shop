@@ -36,14 +36,16 @@
     <!-- coding challenge badge -->
     @if (applicationConfiguration.challenges.codingChallengesEnabled !== 'never' && challenge.hasCodingChallenge) {
       <button
-        class="badge"
+        class="badge not-completable"
         (click)="openCodingChallengeDialog(challenge.key)"
         [disabled]="challenge.solved === false && applicationConfiguration.challenges.codingChallengesEnabled !== 'always'"
       [ngClass]="{
         'partially-completed': challenge.codingChallengeStatus === 1,
-        'completed': challenge.codingChallengeStatus === 2
+        'completed': challenge.codingChallengeStatus === 2,
+        'flickering': highlightCodingButton
       }"
         [matTooltip]="(challenge.solved ? 'LAUNCH_CODING_CHALLENGE' : 'SOLVE_HACKING_CHALLENGE') | translate"
+        #codingChallengeTooltip="matTooltip"
         >
         @if (challenge.codingChallengeStatus !== 0) {
           <span class="badge-status">{{ challenge.codingChallengeStatus }}/2</span>
@@ -91,8 +93,9 @@
         class="badge not-completable"
         [style.padding]="'0 6px 0 4px'"
         [matTooltip]="challenge.hintText + (challenge.nextHint ? '\n\n' + ('CLICK_TO_UNLOCK_NEXT_HINT' | translate: { next: challenge.hintsUnlocked+1, total: challenge.hintsAvailable}) : '')"
+        #hintTooltip="matTooltip"
         matTooltipClass="multiline-tooltip"
-        (click)="unlockHint(challenge.nextHint)"
+        (click)="unlockHint(challenge.nextHint, challenge.key)"
         [disabled]="!challenge.nextHint"
         >
         <mat-icon>{{ challenge.nextHint ? 'lightbulb_outlined' : 'lightbulb' }}</mat-icon>

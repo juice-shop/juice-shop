@@ -1,4 +1,4 @@
-import { Component, Input, type OnInit, inject } from '@angular/core'
+import { Component, Input, type OnInit, inject, type OnChanges, type SimpleChanges, ViewChild, HostBinding } from '@angular/core'
 import { EnrichedChallenge } from '../../types/EnrichedChallenge'
 import { Config } from 'src/app/Services/configuration.service'
 import { TranslateModule } from '@ngx-translate/core'
@@ -14,7 +14,7 @@ import { SnackBarHelperService } from 'src/app/Services/snack-bar-helper.service
   styleUrls: ['./challenge-card.component.scss'],
   imports: [DifficultyStarsComponent, MatTooltip, MatIconModule, NgClass, TranslateModule]
 })
-export class ChallengeCardComponent implements OnInit {
+export class ChallengeCardComponent implements OnInit, OnChanges {
   private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   @Input()
@@ -27,10 +27,28 @@ export class ChallengeCardComponent implements OnInit {
   public repeatChallengeNotification: (challengeKey: string) => void
 
   @Input()
-  public unlockHint: (hintId: number) => void
+  public unlockHint: (hintId: number, challengeKey?: string) => void
 
   @Input()
   public applicationConfiguration: Config
+
+  @Input()
+  public lastUnlockedChallengeKey: string | null = null
+
+  @ViewChild('hintTooltip')
+  public hintTooltip?: MatTooltip
+
+  @ViewChild('codingChallengeTooltip')
+  public codingChallengeTooltip?: MatTooltip
+
+  @Input()
+  public highlightCodingButton = false
+
+  @Input()
+  @HostBinding('attr.id')
+  public challengeId?: string
+
+  private previousHintsUnlocked?: number
 
   public hasInstructions: (challengeName: string) => boolean = () => false
   public startHackingInstructorFor: (challengeName: string) => Promise<void> = async () => {}
@@ -39,6 +57,32 @@ export class ChallengeCardComponent implements OnInit {
     const { hasInstructions, startHackingInstructorFor } = await import('../../../../hacking-instructor')
     this.hasInstructions = hasInstructions
     this.startHackingInstructorFor = startHackingInstructorFor
+  }
+
+  ngOnChanges (changes: SimpleChanges): void {
+    if (changes['challenge']?.currentValue) {
+      const currentHintsUnlocked = this.challenge?.hintsUnlocked
+      if (
+        this.lastUnlockedChallengeKey === this.challenge?.key &&
+        this.previousHintsUnlocked !== undefined &&
+        currentHintsUnlocked !== this.previousHintsUnlocked
+      ) {
+        queueMicrotask(() => setTimeout(()=>{this.hintTooltip?.show()}, 50))
+      }
+      this.previousHintsUnlocked = currentHintsUnlocked
+    }
+
+    if (changes['highlightCodingButton']) {
+      if (changes['highlightCodingButton'].currentValue === true) {
+        queueMicrotask(() => {
+          setTimeout(() => {
+            this.codingChallengeTooltip?.show()
+          }, 1000)
+        })
+      } else if (changes['highlightCodingButton'].previousValue === true && changes['highlightCodingButton'].currentValue === false) {
+        this.codingChallengeTooltip?.hide()
+      }
+    }
   }
 
   copyPayload (event: MouseEvent) {

@@ -12,9 +12,8 @@ import { Component, type OnInit, inject } from '@angular/core'
 
 import { MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog'
 import { UntypedFormControl, FormsModule } from '@angular/forms'
-import { ConfigurationService } from '../Services/configuration.service'
 import { type ThemePalette } from '@angular/material/core'
-import { MatIconButton, MatButtonModule } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
 
@@ -47,11 +46,10 @@ export interface RandomFixes {
   templateUrl: './code-snippet.component.html',
   styleUrls: ['./code-snippet.component.scss'],
   host: { class: 'code-snippet' },
-  imports: [MatDialogTitle, MatDialogContent, MatTabGroup, MatTab, CodeAreaComponent, TranslateModule, MatTabLabel, MatIconModule, CodeFixesComponent, MatDialogActions, MatCardModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, MatIconButton, MatButtonModule, MatDialogClose]
+  imports: [MatDialogTitle, MatDialogContent, MatTabGroup, MatTab, CodeAreaComponent, TranslateModule, MatTabLabel, MatIconModule, CodeFixesComponent, MatDialogActions, MatCardModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, MatButtonModule, MatDialogClose]
 })
 export class CodeSnippetComponent implements OnInit {
   dialogData = inject(MAT_DIALOG_DATA)
-  private readonly configurationService = inject(ConfigurationService)
   private readonly codeSnippetService = inject(CodeSnippetService)
   private readonly vulnLinesService = inject(VulnLinesService)
   private readonly codeFixesService = inject(CodeFixesService)
@@ -63,34 +61,31 @@ export class CodeSnippetComponent implements OnInit {
   public selectedLines: number[]
   public selectedFix = 0
   public tab: UntypedFormControl = new UntypedFormControl(0)
-  public lock: ResultState = ResultState.Undecided
   public result: ResultState = ResultState.Undecided
   public hint: string = null
   public explanation: string = null
   public solved: Solved = { findIt: false, fixIt: false }
-  public showFeedbackButtons = true
   public randomFixes: RandomFixes[] = []
+  private snippetLoaded = false
+  private fixesLoaded = false
+  private initialTabSet = false
 
   ngOnInit (): void {
-    this.configurationService.getApplicationConfiguration().subscribe({
-      next: (config) => {
-        this.showFeedbackButtons = config.challenges.showFeedbackButtons
-      },
-      error: (err) => { console.log(err) }
-    })
-
     this.codeSnippetService.get(this.dialogData.key).subscribe({
       next: (snippet) => {
         this.snippet = snippet
         this.solved.findIt = false
         if (this.dialogData.codingChallengeStatus >= 1) {
           this.result = ResultState.Right
-          this.lock = ResultState.Right
           this.solved.findIt = true
         }
+        this.snippetLoaded = true
+        this.setInitialTabIfReady()
       },
       error: (err) => {
         this.snippet = { snippet: err.error }
+        this.snippetLoaded = true
+        this.setInitialTabIfReady()
       }
     })
     this.codeFixesService.get(this.dialogData.key).subscribe({
@@ -100,9 +95,13 @@ export class CodeSnippetComponent implements OnInit {
           this.shuffle()
         }
         this.solved.fixIt = this.dialogData.codingChallengeStatus >= 2
+        this.fixesLoaded = true
+        this.setInitialTabIfReady()
       },
       error: () => {
         this.fixes = null
+        this.fixesLoaded = true
+        this.setInitialTabIfReady()
       }
     })
   }
@@ -145,27 +144,22 @@ export class CodeSnippetComponent implements OnInit {
     })
   }
 
-  lockIcon (): string {
-    if (this.fixes === null) {
-      return 'lock'
-    }
-    switch (this.lock) {
-      case ResultState.Right:
-        return 'lock_open'
-      case ResultState.Wrong:
-        return 'lock'
-      case ResultState.Undecided:
-        return 'lock'
-    }
+  findLockIcon (): string {
+    return this.solved.findIt ? 'lock_open' : 'lock'
   }
 
-  lockColor (): ThemePalette {
-    switch (this.lockIcon()) {
-      case 'lock_open':
-        return 'accent'
-      case 'lock':
-        return 'warn'
-    }
+  findLockColor (): ThemePalette {
+    return this.solved.findIt ? 'accent' as ThemePalette : 'warn' as ThemePalette
+  }
+
+  fixLockIcon (): string {
+    if (this.fixes === null) return 'lock'
+    return this.solved.fixIt ? 'lock_open' : 'lock'
+  }
+
+  fixLockColor (): ThemePalette {
+    if (this.fixes === null) return 'warn' as ThemePalette
+    return this.solved.fixIt ? 'accent' as ThemePalette : 'warn' as ThemePalette
   }
 
   shuffle () {
@@ -206,7 +200,6 @@ export class CodeSnippetComponent implements OnInit {
         })
       }
       this.result = ResultState.Right
-      this.lock = ResultState.Right
       import('../../confetti').then(module => {
         module.shootConfetti()
       })
@@ -236,5 +229,24 @@ export class CodeSnippetComponent implements OnInit {
       case 'clear':
         return 'warn'
     }
+  }
+
+  private setInitialTabIfReady (): void {
+    if (this.initialTabSet) return
+    if (!this.snippetLoaded || !this.fixesLoaded) return
+
+    const status = this.dialogData.codingChallengeStatus
+    let initialIndex = 0
+    if (status >= 2) {
+      initialIndex = 0
+    } else if (status >= 1 && this.fixes !== null) {
+      initialIndex = 1
+    } else {
+      initialIndex = 0
+    }
+
+    this.tab.setValue(initialIndex)
+    this.toggleTab(initialIndex)
+    this.initialTabSet = true
   }
 }
