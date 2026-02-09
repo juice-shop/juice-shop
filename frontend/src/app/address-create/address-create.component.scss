@@ -3,10 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 .page-center {
   display: flex;
   justify-content: center;
-  padding: 16px;
+  padding: $space-l;
 }
 
 mat-card {
@@ -34,7 +36,7 @@ mat-card {
 }
 
 .actions {
-  margin-top: 16px;
+  margin-top: $space-l;
 }
 
 .actions::after {
@@ -55,8 +57,8 @@ input::-webkit-inner-spin-button {
   color: var(--theme-text-fade-30);
   display: flex;
   font-size: 11px;
-  margin-left: -10px;
-  margin-right: -10px;
+  margin-left: -$space-s;
+  margin-right: -$space-s;
 }
 
 .mdc-card {
@@ -65,10 +67,10 @@ input::-webkit-inner-spin-button {
 
 mat-error {
   font-size: 10.5px;
-  margin-left: -10px;
-  margin-top: -3px;
+  margin-left: -$space-s;
+  margin-top: -$space-3xs;
 }
 
 .hint-spacing {
-  margin-left: 5px;
+  margin-left: $space-2xs;
 }

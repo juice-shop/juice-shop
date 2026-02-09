@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 mat-card {
   height: auto;
   min-width: 320px;
@@ -11,7 +13,7 @@ mat-card {
 
 #totpSubmitButton {
   margin-left: 20%;
-  margin-top: 30px;
+  margin-top: $space-xl;
   width: 60%;
 }
 
@@ -26,5 +28,5 @@ mat-card {
 }
 
 .two-factor-error {
-  margin-bottom: 10px;
+  margin-bottom: $space-s;
 }

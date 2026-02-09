@@ -68,7 +68,7 @@ export class ComplaintComponent implements OnInit {
   }
 
   initComplaint () {
-    this.userService.whoAmI().subscribe({
+    this.userService.whoAmI(['id', 'email']).subscribe({
       next: (user: any) => {
         this.complaint = {}
         this.complaint.UserId = user.id

@@ -10,6 +10,7 @@ import { CookieModule, CookieService } from 'ngy-cookie'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { type ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing'
 import { SocketIoService } from '../Services/socket-io.service'
@@ -38,6 +39,8 @@ describe('ChallengeSolvedNotificationComponent', () => {
   let cookieService: any
   let challengeService: any
   let configurationService: any
+  let countryMappingService: any
+  let snackBarHelperService: any
   let mockSocket: any
 
   beforeEach(waitForAsync(() => {
@@ -50,9 +53,13 @@ describe('ChallengeSolvedNotificationComponent', () => {
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
     cookieService = jasmine.createSpyObj('CookieService', ['put'])
-    challengeService = jasmine.createSpyObj('ChallengeService', ['continueCode'])
+    challengeService = jasmine.createSpyObj('ChallengeService', ['continueCode', 'find'])
+    challengeService.find.and.returnValue(of([]))
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
+    countryMappingService = jasmine.createSpyObj('CountryMappingService', ['getCountryMapping'])
+    countryMappingService.getCountryMapping.and.returnValue(of({}))
+    snackBarHelperService = jasmine.createSpyObj('SnackBarHelperService', ['open'])
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(),
@@ -67,7 +74,8 @@ describe('ChallengeSolvedNotificationComponent', () => {
         { provide: CookieService, useValue: cookieService },
         { provide: ChallengeService, useValue: challengeService },
         { provide: ConfigurationService, useValue: configurationService },
-        CountryMappingService,
+        { provide: CountryMappingService, useValue: countryMappingService },
+        { provide: SnackBarHelperService, useValue: snackBarHelperService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
       ]
@@ -112,7 +120,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
     tick()
 
     expect(translateService.get).toHaveBeenCalledWith('CHALLENGE_SOLVED', { challenge: 'Test' })
-    expect(component.notifications).toEqual([{ key: 'test', message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: undefined }])
+    expect(component.notifications).toEqual([{ key: 'test', message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: undefined, codingChallenge: false }])
   }))
 
   it('should store retrieved continue code as cookie for 1 year', () => {
@@ -181,5 +189,51 @@ describe('ChallengeSolvedNotificationComponent', () => {
 
     expect(component.showCtfCountryDetailsInNotifications).toBe('none')
     expect(component.countryMap).toBeUndefined()
+  })
+
+  it('should load countries for FBCTF when configured to show country details', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { showCountryDetailsInNotifications: 'both' } }))
+    countryMappingService.getCountryMapping.and.returnValue(of({ scoreBoardChallenge: { name: 'Canada', code: 'CA' }, errorHandlingChallenge: { name: 'Austria', code:'AT' }}))
+    component.ngOnInit()
+
+    expect(component.showCtfCountryDetailsInNotifications).toBe('both')
+    expect(component.countryMap).toEqual({ scoreBoardChallenge: { name: 'Canada', code: 'CA' }, errorHandlingChallenge: { name: 'Austria', code:'AT' }})
+  })
+
+  it('should show mapped country for FBCTF when configured accordingly', fakeAsync(() => {
+    translateService.get.and.returnValue(of('CHALLENGE_SOLVED'))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { showCountryDetailsInNotifications: 'both' } }))
+    countryMappingService.getCountryMapping.and.returnValue(of({ test: { name: 'Canada', code: 'CA' }}))
+    component.ngOnInit()
+    component.notifications = []
+    component.showNotification({ key: 'test', challenge: 'Test', flag: '1234' })
+    tick()
+
+    expect(component.notifications).toEqual([{ key: 'test', message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: { name: 'Canada', code: 'CA' }, codingChallenge: false }])
+  }))
+
+  it('should copy text to clipboard when navigator.clipboard is available', fakeAsync(() => {
+    const mockClipboard = {
+      writeText: jasmine.createSpy('writeText').and.returnValue(Promise.resolve())
+    }
+    Object.defineProperty(navigator, 'clipboard', {
+      value: mockClipboard,
+      writable: true
+    })
+    component.copyToClipboard('test-flag-123')
+    tick()
+
+    expect(mockClipboard.writeText).toHaveBeenCalledWith('test-flag-123')
+    expect(snackBarHelperService.open).toHaveBeenCalledWith('COPY_SUCCESS', 'confirmBar')
+  }))
+
+  it('should not attempt to copy when navigator.clipboard is unavailable', () => {
+    Object.defineProperty(navigator, 'clipboard', {
+      value: undefined,
+      writable: true
+    })
+    component.copyToClipboard('test-flag-123')
+
+    expect(snackBarHelperService.open).not.toHaveBeenCalled()
   })
 })

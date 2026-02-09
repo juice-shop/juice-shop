@@ -1,12 +1,19 @@
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+@use '../../styles/variables' as *;
+
 .header_container {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: $space-xl;
 }
 
 .dwbutton_container {
   display: flex;
-  gap: 12px;
+  gap: $space-s;
   justify-content: space-between;
 }
 
@@ -17,7 +24,7 @@ mat-card {
 }
 
 mat-form-field {
-  padding-top: 10px;
+  padding-top: $space-s;
   width: 100%;
 }
 
@@ -37,7 +44,7 @@ mat-form-field {
   background: rgba(0, 0, 0, 0.2);
   font-size: x-large;
   justify-content: center;
-  padding: 12px 20px;
+  padding: $space-s $space-ml;
 }
 @media (max-width: 1100px) {
   mat-card {
@@ -53,6 +60,6 @@ mat-form-field {
 
   .header_container {
     flex-direction: column;
-    margin-bottom: 16px;
+    margin-bottom: $space-m;
   }
 }

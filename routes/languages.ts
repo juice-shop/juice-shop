@@ -4,71 +4,87 @@
  */
 
 import locales from '../data/static/locales.json'
-import fs from 'node:fs'
+import { readFile, readdir } from 'node:fs/promises'
 import { type Request, type Response, type NextFunction } from 'express'
+import logger from '../lib/logger'
+import * as utils from '../lib/utils'
 
-export function getLanguageList () { // TODO Refactor and extend to also load backend translations from /i18n/*json and calculate joint percentage/gauge
-  return (req: Request, res: Response, next: NextFunction) => {
-    const languages: Array<{ key: string, lang: any, icons: string[], shortKey: string, percentage: unknown, gauge: string }> = []
-    let count = 0
-    let enContent: any
+export function getLanguageList () {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const languages: Array<{ key: string, lang: any, icons: string[], shortKey: string, percentage: number, gauge: string }> = []
 
-    fs.readFile('frontend/dist/frontend/assets/i18n/en.json', 'utf-8', (err, content) => {
-      if (err != null) {
-        next(new Error(`Unable to retrieve en.json language file: ${err.message}`))
+      const enContentStr = await readFile('frontend/dist/frontend/assets/i18n/en.json', 'utf-8')
+      const enContent = JSON.parse(enContentStr)
+
+      let backendEnContent: any = null
+      try {
+        const backendEnContentStr = await readFile('i18n/en.json', 'utf-8')
+        backendEnContent = JSON.parse(backendEnContentStr)
+      } catch (e: unknown) {
+        logger.warn('Backend translations not available, will use frontend-only percentages: ' + utils.getErrorMessage(e))
       }
-      enContent = JSON.parse(content)
-      fs.readdir('frontend/dist/frontend/assets/i18n/', (err, languageFiles) => {
-        if (err != null) {
-          next(new Error(`Unable to read i18n directory: ${err.message}`))
-        }
-        languageFiles.forEach((fileName) => {
-          // eslint-disable-next-line @typescript-eslint/no-misused-promises
-          fs.readFile('frontend/dist/frontend/assets/i18n/' + fileName, 'utf-8', async (err, content) => {
-            if (err != null) {
-              next(new Error(`Unable to retrieve ${fileName} language file: ${err.message}`))
-            }
-            const fileContent = JSON.parse(content)
-            const percentage = await calcPercentage(fileContent, enContent)
-            const key = fileName.substring(0, fileName.indexOf('.'))
-            const locale = locales.find((l) => l.key === key)
-            const lang: any = {
-              key,
-              lang: fileContent.LANGUAGE,
-              icons: locale?.icons,
-              shortKey: locale?.shortKey,
-              percentage,
-              gauge: (percentage > 90 ? 'full' : (percentage > 70 ? 'three-quarters' : (percentage > 50 ? 'half' : (percentage > 30 ? 'quarter' : 'empty'))))
-            }
-            if (!(fileName === 'en.json' || fileName === 'tlh_AA.json')) {
-              languages.push(lang)
-            }
-            count++
-            if (count === languageFiles.length) {
-              languages.push({ key: 'en', icons: ['gb', 'us'], shortKey: 'EN', lang: 'English', percentage: 100, gauge: 'full' })
-              languages.sort((a, b) => a.lang.localeCompare(b.lang))
-              res.status(200).json(languages)
-            }
-          })
-        })
-      })
-    })
 
-    async function calcPercentage (fileContent: any, enContent: any): Promise<number> {
-      const totalStrings = Object.keys(enContent).length
-      let differentStrings = 0
-      return await new Promise((resolve, reject) => {
-        try {
-          for (const key in fileContent) {
-            if (Object.prototype.hasOwnProperty.call(fileContent, key) && fileContent[key] !== enContent[key]) {
-              differentStrings++
-            }
+      const languageFiles = await readdir('frontend/dist/frontend/assets/i18n/')
+
+      const languagePromises = languageFiles.map(async (fileName) => {
+        const content = await readFile('frontend/dist/frontend/assets/i18n/' + fileName, 'utf-8')
+        const fileContent = JSON.parse(content)
+        const frontendPercentage = calcPercentage(fileContent, enContent)
+        const key = fileName.substring(0, fileName.indexOf('.'))
+        const locale = locales.find((l) => l.key === key)
+
+        let backendPercentage = 0
+        if (backendEnContent !== null) {
+          try {
+            const backendContent = await readFile('i18n/' + fileName, 'utf-8')
+            const backendFileContent = JSON.parse(backendContent)
+            backendPercentage = calcPercentage(backendFileContent, backendEnContent)
+          } catch {
+            backendPercentage = 0
           }
-          resolve((differentStrings / totalStrings) * 100)
-        } catch (err) {
-          reject(err)
+        }
+
+        const percentage = Math.round(backendEnContent !== null ? (frontendPercentage + backendPercentage) / 2 : frontendPercentage)
+        const gauge = (percentage > 80 ? 'full' : (percentage > 60 ? 'three-quarters' : (percentage > 40 ? 'half' : (percentage > 20 ? 'quarter' : 'empty'))))
+
+        const lang: any = {
+          key,
+          lang: fileContent.LANGUAGE,
+          icons: locale?.icons,
+          shortKey: locale?.shortKey,
+          percentage,
+          gauge
+        }
+        if (!(fileName === 'en.json' || fileName === 'tlh_AA.json')) {
+          return lang
+        }
+        return null
+      })
+
+      const results = await Promise.all(languagePromises)
+      results.forEach((lang) => {
+        if (lang !== null) {
+          languages.push(lang)
         }
       })
+
+      languages.push({ key: 'en', icons: ['gb', 'us'], shortKey: 'EN', lang: 'English', percentage: 100, gauge: 'full' })
+      languages.sort((a, b) => a.lang.localeCompare(b.lang))
+      res.status(200).json(languages)
+    } catch (err: any) {
+      next(err)
     }
+  }
+
+  function calcPercentage (fileContent: any, enContent: any): number {
+    const totalStrings = Object.keys(enContent).length
+    let differentStrings = 0
+    for (const key in fileContent) {
+      if (Object.prototype.hasOwnProperty.call(fileContent, key) && fileContent[key] !== enContent[key]) {
+        differentStrings++
+      }
+    }
+    return (differentStrings / totalStrings) * 100
   }
 }
