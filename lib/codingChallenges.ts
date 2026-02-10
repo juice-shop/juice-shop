@@ -56,22 +56,31 @@ function getCodeChallengesFromFile (file: FileMatch) {
 }
 
 function getCodingChallengeFromFileContent (source: string, challengeKey: string) {
-  const snippets = source.match(`[/#]{0,2} vuln-code-snippet start.*${challengeKey}([^])*vuln-code-snippet end.*${challengeKey}`)
-  if (snippets == null) {
+  // Use non-greedy match and matchAll to support multiple code snippets for the same challenge
+  const snippetRegex = new RegExp(`[/#]{0,2} vuln-code-snippet start.*${challengeKey}([^])*?vuln-code-snippet end.*${challengeKey}`, 'g')
+  const allMatches = [...source.matchAll(snippetRegex)]
+  if (allMatches.length === 0) {
     throw new BrokenBoundary('Broken code snippet boundaries for: ' + challengeKey)
   }
-  let snippet = snippets[0] // TODO Currently only a single code snippet is supported
-  snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet start.*[\r\n]{0,2}/g, '')
-  snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet end.*/g, '')
-  snippet = snippet.replace(/.*[/#]{0,2} vuln-code-snippet hide-line[\r\n]{0,2}/g, '')
-  snippet = snippet.replace(/.*[/#]{0,2} vuln-code-snippet hide-start([^])*[/#]{0,2} vuln-code-snippet hide-end[\r\n]{0,2}/g, '')
-  snippet = snippet.trim()
+
+  const processedSnippets: string[] = []
+  for (const match of allMatches) {
+    let snippetPart = match[0]
+    snippetPart = snippetPart.replace(/\s?[/#]{0,2} vuln-code-snippet start.*[\r\n]{0,2}/g, '')
+    snippetPart = snippetPart.replace(/\s?[/#]{0,2} vuln-code-snippet end.*/g, '')
+    snippetPart = snippetPart.replace(/.*[/#]{0,2} vuln-code-snippet hide-line[\r\n]{0,2}/g, '')
+    snippetPart = snippetPart.replace(/.*[/#]{0,2} vuln-code-snippet hide-start([^])*?[/#]{0,2} vuln-code-snippet hide-end[\r\n]{0,2}/g, '')
+    snippetPart = snippetPart.trim()
+    processedSnippets.push(snippetPart)
+  }
+
+  let snippet = processedSnippets.join('\n\n// ...\n\n')
 
   let lines = snippet.split('\r\n')
   if (lines.length === 1) lines = snippet.split('\n')
   if (lines.length === 1) lines = snippet.split('\r')
-  const vulnLines = []
-  const neutralLines = []
+  const vulnLines: number[] = []
+  const neutralLines: number[] = []
   for (let i = 0; i < lines.length; i++) {
     if (new RegExp(`vuln-code-snippet vuln-line.*${challengeKey}`).exec(lines[i]) != null) {
       vulnLines.push(i + 1)
