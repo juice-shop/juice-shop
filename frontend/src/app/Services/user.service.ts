@@ -19,7 +19,7 @@ interface Passwords {
   providedIn: 'root'
 })
 export class UserService {
-  private readonly http = inject(HttpClient);
+  private readonly http = inject(HttpClient)
 
   public isLoggedIn = new Subject<any>()
   private readonly hostServer = environment.hostServer
@@ -59,8 +59,9 @@ export class UserService {
     return this.http.post(this.hostServer + '/rest/user/reset-password', params).pipe(map((response: any) => response.user), catchError((err) => { throw err }))
   }
 
-  whoAmI () {
-    return this.http.get(this.hostServer + '/rest/user/whoami').pipe(map((response: any) => response.user), catchError((err) => { throw err }))
+  whoAmI (fields?: string[]) {
+    const queryParam = fields && fields.length > 0 ? `?fields=${fields.join(',')}` : ''
+    return this.http.get(this.hostServer + '/rest/user/whoami' + queryParam).pipe(map((response: any) => response.user), catchError((err) => { throw err }))
   }
 
   oauthLogin (accessToken: string) {

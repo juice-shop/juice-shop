@@ -14,8 +14,8 @@ import { AddressComponent } from '../address/address.component'
   imports: [AddressComponent]
 })
 export class AddressSelectComponent {
-  private readonly router = inject(Router);
-  private readonly ngZone = inject(NgZone);
+  private readonly router = inject(Router)
+  private readonly ngZone = inject(NgZone)
 
   public addressId: any = undefined
   public showNextButton = true

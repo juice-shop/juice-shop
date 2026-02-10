@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "19.1.1",
+  "version": "19.2.0-SNAPSHOT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -49,7 +49,6 @@
     "ng-gallery": "^12.0.0",
     "ng-qrcode": "^20.0.0",
     "ng2-file-upload": "^9.0.0",
-    "ngx-clipboard": "^15.1.0",
     "ngx-highlightjs": "^6.1.2",
     "ngx-window-token": "^6.0.0",
     "ngy-cookie": "^6.0.0",
@@ -82,9 +81,9 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "stylelint": "^13.8.0",
-    "stylelint-config-sass-guidelines": "^7.1.0",
-    "stylelint-scss": "^3.18.0",
+    "stylelint": "^16.10.0",
+    "stylelint-config-sass-guidelines": "^12.1.0",
+    "stylelint-scss": "^6.0.0",
     "ts-node": "^10.9.2",
     "typescript-eslint": "^8.42.0",
     "webpack-bundle-analyzer": "^5.2.0"
