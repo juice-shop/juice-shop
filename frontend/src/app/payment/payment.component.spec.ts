@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -19,12 +19,12 @@ import { MatExpansionModule } from '@angular/material/expansion'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatRadioModule } from '@angular/material/radio'
 import { ConfigurationService } from '../Services/configuration.service'
-import { EventEmitter } from '@angular/core'
+import { Component, EventEmitter } from '@angular/core'
 import { BasketService } from '../Services/basket.service'
 import { QrCodeComponent } from '../qr-code/qr-code.component'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { PaymentMethodComponent } from '../payment-method/payment-method.component'
-import { RouterTestingModule } from '@angular/router/testing'
+import { RouterModule } from '@angular/router'
 import { OrderSummaryComponent } from '../order-summary/order-summary.component'
 import { PurchaseBasketComponent } from '../purchase-basket/purchase-basket.component'
 import { CookieService } from 'ngy-cookie'
@@ -53,6 +53,9 @@ describe('PaymentComponent', () => {
   let userService: any
   let snackBar: any
 
+  @Component({ template: '' })
+  class DummyDeluxeMembershipComponent {}
+
   beforeEach(waitForAsync(() => {
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
@@ -80,10 +83,11 @@ describe('PaymentComponent', () => {
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([
+      imports: [RouterModule.forRoot([
         { path: 'order-summary', component: OrderSummaryComponent },
         { path: 'login', component: LoginComponent },
-        { path: 'wallet', component: WalletComponent }
+        { path: 'wallet', component: WalletComponent },
+        { path: 'deluxe-membership', component: DummyDeluxeMembershipComponent }
       ]),
       TranslateModule.forRoot(),
       ReactiveFormsModule,

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core'
+import { Component, ChangeDetectorRef, inject, OnInit } from '@angular/core'
 import { KeysService } from '../Services/keys.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { getDefaultProvider, ethers } from 'ethers'
@@ -44,12 +44,11 @@ const compilerReleases = {
   styleUrls: ['./web3-sandbox.component.scss'],
   imports: [CodemirrorModule, FormsModule, MatButtonModule, MatIconModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule]
 })
-export class Web3SandboxComponent {
-  constructor (
-    private readonly keysService: KeysService,
-    private readonly snackBarHelperService: SnackBarHelperService,
-    private readonly changeDetectorRef: ChangeDetectorRef
-  ) {}
+export class Web3SandboxComponent implements OnInit {
+  private readonly keysService = inject(KeysService);
+  private readonly snackBarHelperService = inject(SnackBarHelperService);
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
+
 
   ngOnInit (): void {
     this.handleAuth()
@@ -63,14 +62,14 @@ export class Web3SandboxComponent {
   compiledContracts = []
   deployedContractAddress = ''
   contractNames = []
-  commonGweiValue: number = 0
+  commonGweiValue = 0
   contractFunctions = []
   invokeOutput = ''
-  selectedCompilerVersion: string = '0.8.21'
+  selectedCompilerVersion = '0.8.21'
   compilerVersions: string[] = Object.keys(compilerReleases)
   compilerErrors = []
 
-  code: string = `// SPDX-License-Identifier: MIT
+  code = `// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.14;
 
 contract HelloWorld {
@@ -175,7 +174,7 @@ contract HelloWorld {
     }
   }
 
-  getInputHints (inputs: Array<{ name: string, type: string }>): string {
+  getInputHints (inputs: { name: string, type: string }[]): string {
     return inputs.map((input) => `${input.name}: ${input.type}`).join(', ')
   }
 
@@ -258,7 +257,7 @@ contract HelloWorld {
     }
   }
 
-  async handleChainChanged (chainId: string) {
+  async handleChainChanged () {
     await this.handleAuth()
   }
 
@@ -310,7 +309,7 @@ contract HelloWorld {
       console.log('session', this.session)
       this.changeDetectorRef.detectChanges()
     } catch (err) {
-      console.log('An error occurred')
+      console.log('An error occurred', err)
     }
   }
 }

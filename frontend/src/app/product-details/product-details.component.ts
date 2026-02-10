@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { ProductReviewEditComponent } from '../product-review-edit/product-review-edit.component'
 import { UserService } from '../Services/user.service'
 import { ProductReviewService } from '../Services/product-review.service'
-import { Component, Inject, type OnDestroy, type OnInit } from '@angular/core'
+import { Component, type OnDestroy, type OnInit, inject } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialog, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowCircleLeft, faCrown, faPaperPlane, faThumbsUp, faUserEdit } from '@fortawesome/free-solid-svg-icons'
@@ -34,13 +34,19 @@ library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp, faCrown)
   imports: [MatDialogContent, MatTooltip, MatDivider, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, TranslateModule, MatIconButton, MatIconModule, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormsModule, ReactiveFormsModule, MatDialogActions, MatDialogClose, AsyncPipe]
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
-  public author: string = 'Anonymous'
+  private readonly dialog = inject(MatDialog);
+  data = inject<{
+    productData: Product;
+}>(MAT_DIALOG_DATA);
+  private readonly productReviewService = inject(ProductReviewService);
+  private readonly userService = inject(UserService);
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly snackBarHelperService = inject(SnackBarHelperService);
+
+  public author = 'Anonymous'
   public reviews$: any
   public userSubscription: any
   public reviewControl: UntypedFormControl = new UntypedFormControl('', [Validators.maxLength(160)])
-  constructor (private readonly dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: { productData: Product }, private readonly productReviewService: ProductReviewService,
-    private readonly userService: UserService, private readonly snackBar: MatSnackBar, private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit (): void {
     this.data.productData.points = Math.round(this.data.productData.price / 10)

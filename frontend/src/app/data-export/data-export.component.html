@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
 -->
 
@@ -46,15 +46,15 @@
             </div>
           }
         </div>
-        <button type="submit" style="margin-top: 15px;" id="submitButton" color="primary" mat-raised-button (click)="save()"
+        <button type="submit" id="submitButton" color="primary" mat-raised-button (click)="save()"
           [disabled]="formatControl.invalid || (captchaControl.invalid && presenceOfCaptcha)"
           aria-label="Button to send the request">
-          <mat-icon>download</mat-icon>
+          <mat-icon aria-hidden="true" fontIcon="file_download"></mat-icon>
           {{'BTN_REQUEST' | translate}}
         </button>
-        <div class="hint">
+        <p class="hint">
           <span translate>DATA_EXPORT_HINT</span>
-        </div>
+        </p>
       </div>
     </mat-card>
   </div>

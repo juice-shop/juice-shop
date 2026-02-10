@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { environment } from '../../environments/environment'
 import { ComplaintService } from '../Services/complaint.service'
 import { UserService } from '../Services/user.service'
-import { Component, ElementRef, type OnInit, ViewChild } from '@angular/core'
+import { Component, ElementRef, type OnInit, ViewChild, inject } from '@angular/core'
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { FileUploader, FileUploadModule } from 'ng2-file-upload'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -30,6 +30,11 @@ library.add(faBomb)
   imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatHint, MatError, FileUploadModule, MatButtonModule, MatIconModule]
 })
 export class ComplaintComponent implements OnInit {
+  private readonly userService = inject(UserService);
+  private readonly complaintService = inject(ComplaintService);
+  private readonly formSubmitService = inject(FormSubmitService);
+  private readonly translate = inject(TranslateService);
+
   public customerControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
   public messageControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.maxLength(160)])
   @ViewChild('fileControl', { static: true }) fileControl!: ElementRef // For controlling the DOM Element for file input.
@@ -45,13 +50,11 @@ export class ComplaintComponent implements OnInit {
   public complaint: any = undefined
   public confirmation: any
 
-  constructor (private readonly userService: UserService, private readonly complaintService: ComplaintService, private readonly formSubmitService: FormSubmitService, private readonly translate: TranslateService) { }
-
   ngOnInit (): void {
     this.initComplaint()
     this.uploader.onWhenAddingFileFailed = (item, filter) => {
       this.fileUploadError = filter
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
       throw new Error(`Error due to : ${filter.name}`)
     }
     this.uploader.onAfterAddingFile = () => {

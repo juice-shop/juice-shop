@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { Component, NgZone, type OnInit } from '@angular/core'
+import { Component, NgZone, type OnInit, inject } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { BasketService } from '../Services/basket.service'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
@@ -50,6 +50,20 @@ library.add(faCartArrowDown, faGift, faHeart, faLeanpub, faThumbsUp, faTshirt, f
   imports: [MatCardModule, PaymentMethodComponent, MatDivider, TranslateModule, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatIconModule]
 })
 export class PaymentComponent implements OnInit {
+  private readonly location = inject(Location);
+  private readonly cookieService = inject(CookieService);
+  private readonly userService = inject(UserService);
+  private readonly deliveryService = inject(DeliveryService);
+  private readonly walletService = inject(WalletService);
+  private readonly router = inject(Router);
+  private readonly dialog = inject(MatDialog);
+  private readonly configurationService = inject(ConfigurationService);
+  private readonly basketService = inject(BasketService);
+  private readonly translate = inject(TranslateService);
+  private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly ngZone = inject(NgZone);
+  private readonly snackBarHelperService = inject(SnackBarHelperService);
+
   public couponConfirmation: any
   public couponError: any
   public card: any = {}
@@ -60,13 +74,13 @@ export class PaymentComponent implements OnInit {
   public couponControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)])
   public clientDate: any
   public paymentId: any = undefined
-  public couponPanelExpanded: boolean = false
-  public paymentPanelExpanded: boolean = false
+  public couponPanelExpanded = false
+  public paymentPanelExpanded = false
   public mode: any
-  public walletBalance: number = 0
+  public walletBalance = 0
   public walletBalanceStr: string
   public totalPrice: any = 0
-  public paymentMode: string = 'card'
+  public paymentMode = 'card'
   private readonly campaigns = {
     WMNSDY2019: { validOn: 1551999600000, discount: 75 },
     WMNSDY2020: { validOn: 1583622000000, discount: 60 },
@@ -78,13 +92,6 @@ export class PaymentComponent implements OnInit {
     ORANGE2022: { validOn: 1651618800000, discount: 40 },
     ORANGE2023: { validOn: 1683154800000, discount: 40 }
   }
-
-  constructor (private readonly location: Location, private readonly cookieService: CookieService,
-    private readonly userService: UserService, private readonly deliveryService: DeliveryService, private readonly walletService: WalletService,
-    private readonly router: Router, private readonly dialog: MatDialog, private readonly configurationService: ConfigurationService,
-    private readonly basketService: BasketService, private readonly translate: TranslateService,
-    private readonly activatedRoute: ActivatedRoute, private readonly ngZone: NgZone,
-    private readonly snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit (): void {
     this.initTotal()
@@ -145,11 +152,11 @@ export class PaymentComponent implements OnInit {
   applyCoupon () {
     this.campaignCoupon = this.couponControl.value
     this.clientDate = new Date()
-    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+
     const offsetTimeZone = (this.clientDate.getTimezoneOffset() + 60) * 60 * 1000
     this.clientDate.setHours(0, 0, 0, 0)
     this.clientDate = this.clientDate.getTime() - offsetTimeZone
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
     sessionStorage.setItem('couponDetails', `${this.campaignCoupon}-${this.clientDate}`)
     const campaign = this.campaigns[this.couponControl.value]
     if (campaign) {
@@ -242,7 +249,7 @@ export class PaymentComponent implements OnInit {
     }
   }
 
-  // eslint-disable-next-line no-empty,@typescript-eslint/no-empty-function
+
   noop () { }
 
   showBitcoinQrCode () {

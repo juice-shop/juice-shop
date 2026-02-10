@@ -119,7 +119,7 @@
                 (click)="invokeFunction(func)"
               >
                 <mat-icon>call_to_action</mat-icon>
-                {{ "BTN_INVOKE" | translate}} {{ func.name }}
+                {{ "BTN_INVOKE" | translate: {name: func.name} }}
               </button>
               <mat-form-field appearance="outline" color="accent">
                 <textarea
@@ -134,7 +134,7 @@
             </div>
             @if (func.outputValue !== '') {
             <div class="invoke-output">
-              {{ "LABEL_OUTPUT_FOR" | translate }} {{ func.name }}: {{ func.outputValue }}
+              {{ "LABEL_OUTPUT_FOR" | translate: {name: func.name} }}: {{ func.outputValue }}
             </div>
             }
             } @else {
@@ -145,11 +145,11 @@
                 (click)="invokeFunction(func)"
                 >
                 <mat-icon>call_to_action</mat-icon>
-                {{ "BTN_INVOKE" | translate}} {{ func.name }}
+                {{ "BTN_INVOKE" | translate: {name: func.name} }}
               </button>
               @if (func.outputValue !== '') {
               <div class="invoke-output">
-                {{ "LABEL_OUTPUT_FOR" | translate }} {{ func.name }}: {{ func.outputValue }}
+                {{ "LABEL_OUTPUT_FOR" | translate: {name: func.name} }}: {{ func.outputValue }}
               </div>
               }
             </div>

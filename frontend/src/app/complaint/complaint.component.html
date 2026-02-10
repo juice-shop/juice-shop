@@ -1,67 +1,95 @@
 <!--
-  ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
 -->
 
-<div class="center-container">
+<main class="center-container">
   <mat-card appearance="outlined" class="mat-elevation-z6">
-    <div class="mdc-card">
+    <h1>{{ "NAV_COMPLAIN" | translate }}</h1>
 
-      <h1>{{"NAV_COMPLAIN" | translate}}</h1>
+    <section aria-live="polite">
+      <p class="confirmation" [hidden]="!(confirmation && !messageControl.dirty)">
+        {{ confirmation }}
+      </p>
 
-      <div class="confirmation" [hidden]="!(confirmation && !messageControl.dirty)">{{ confirmation }}</div>
-
-      @if ((fileUploadError && fileUploadError.name == 'mimeType')) {
-        <div class="error fileUploadError">{{
-          "INVALID_FILE_TYPE" | translate: { type: 'PDF, ZIP' } }}
-        </div>
+      @if (fileUploadError && fileUploadError.name == "mimeType") {
+        <p class="error fileUploadError" role="alert">
+          {{ "INVALID_FILE_TYPE" | translate: { type: "PDF, ZIP" } }}
+        </p>
       }
-      @if ((fileUploadError && fileUploadError.name == 'fileSize')) {
-        <div class="error fileUploadError">{{
-          "INVALID_FILE_SIZE" | translate: { size: '100 KB' } }}
-        </div>
+      @if (fileUploadError && fileUploadError.name == "fileSize") {
+        <p class="error fileUploadError" role="alert">
+          {{ "INVALID_FILE_SIZE" | translate: { size: "100 KB" } }}
+        </p>
       }
+    </section>
 
-      <div class="form-container" id="complaint-form">
+    <form class="form-container" id="complaint-form">
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>{{ "LABEL_CUSTOMER" | translate }}</mat-label>
+        <input
+          [formControl]="customerControl"
+          type="text"
+          matInput
+          aria-label="Text field for the mail address of the user"
+        />
+      </mat-form-field>
 
-        <mat-form-field appearance="outline" color="accent">
-          <mat-label >{{"LABEL_CUSTOMER" | translate }}</mat-label>
-          <input [formControl]="customerControl" type="text" matInput aria-label="Text field for the mail address of the user">
-        </mat-form-field>
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>{{ "LABEL_MESSAGE" | translate }}</mat-label>
+        <mat-hint>
+          <i class="fas fa-exclamation-circle"></i>
+          <em>{{ "MAX_TEXTAREA_LENGTH" | translate: { length: "160" } }}</em>
+        </mat-hint>
+        <textarea
+          #complaintMessage
+          id="complaintMessage"
+          [formControl]="messageControl"
+          matAutosizeMinRows="4"
+          matAutosizeMaxRows="4"
+          matTextareaAutosize
+          cols="50"
+          maxlength="160"
+          matInput
+          placeholder="{{ 'WRITE_MESSAGE_PLACEHOLDER' | translate }}"
+          aria-label="Field for entering the complaint"
+          aria-required="true"
+          aria-describedby="messageCounter"
+        ></textarea>
+        @if (messageControl.invalid && messageControl?.errors.required) {
+          <mat-error role="alert">{{ "MANDATORY_MESSAGE" | translate }} </mat-error>
+        }
+        <mat-hint align="end" id="messageCounter">
+          <output>{{ complaintMessage.value?.length || 0 }}</output
+          >/160
+        </mat-hint>
+      </mat-form-field>
 
-        <mat-form-field appearance="outline" color="accent">
-          <mat-label>{{"LABEL_MESSAGE" | translate}}</mat-label>
-          <mat-hint>
-            <i class="fas fa-exclamation-circle"></i>
-            <em style="margin-left:5px;">{{ 'MAX_TEXTAREA_LENGTH' | translate: {length: '160'} }}</em>
-          </mat-hint>
-          <textarea #complaintMessage id="complaintMessage" [formControl]="messageControl" matAutosizeMinRows="4" matAutosizeMaxRows="4"
-            matTextareaAutosize cols="50" maxlength="160" matInput
-            placeholder="{{ 'WRITE_MESSAGE_PLACEHOLDER' | translate}}"
-          aria-label="Field for entering the complaint"></textarea>
-          @if (messageControl.invalid && messageControl?.errors.required) {
-            <mat-error>{{"MANDATORY_MESSAGE" |
-              translate}}
-            </mat-error>
-          }
-          <mat-hint align="end">{{complaintMessage.value?.length || 0}}/160</mat-hint>
-        </mat-form-field>
+      <p class="invoice">
+        <label for="file">{{ "LABEL_INVOICE" | translate }}<span>:</span></label>
+        <input
+          #fileControl
+          ng2FileSelect
+          [uploader]="uploader"
+          id="file"
+          type="file"
+          accept=".pdf,.zip"
+          aria-label="Input area for uploading a single invoice PDF or XML B2B order file or a ZIP archive containing multiple invoices or orders<!---->"
+        />
+      </p>
+    </form>
 
-        <div class="invoice">
-          <label for="file">{{"LABEL_INVOICE" | translate }}<span>:</span></label>
-          <input #fileControl ng2FileSelect [uploader]="uploader" id="file" type="file" accept=".pdf,.zip" style="margin-left: 10px;" aria-label="Input area for uploading a single invoice PDF or XML B2B order file or a ZIP archive containing multiple invoices or orders<!---->">
-        </div>
-
-      </div>
-
-      <button type="submit" id="submitButton" [disabled]="messageControl.invalid || fileUploadError" (click)="save()"
-        mat-raised-button color="primary" aria-label="Button to send the complaint">
-        <mat-icon>
-          send
-        </mat-icon>
-        {{'BTN_SUBMIT' | translate}}
-      </button>
-
-    </div>
+    <button
+      type="submit"
+      id="submitButton"
+      [disabled]="messageControl.invalid || fileUploadError"
+      (click)="save()"
+      mat-raised-button
+      color="primary"
+      aria-label="Button to send the complaint"
+    >
+      <mat-icon> send </mat-icon>
+      {{ "BTN_SUBMIT" | translate }}
+    </button>
   </mat-card>
-</div>
+</main>

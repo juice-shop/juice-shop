@@ -1,16 +1,18 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { type CanActivate, Router } from '@angular/router'
 import * as jwtDecode from 'jwt-decode'
 import { roles } from './roles'
-import { Injectable, NgZone } from '@angular/core'
+import { Injectable, NgZone, inject } from '@angular/core'
 
 @Injectable()
 export class LoginGuard implements CanActivate {
-  constructor (private readonly router: Router, private readonly ngZone: NgZone) {}
+  private readonly router = inject(Router);
+  private readonly ngZone = inject(NgZone);
+
 
   canActivate () {
     if (localStorage.getItem('token')) {
@@ -44,7 +46,8 @@ export class LoginGuard implements CanActivate {
 
 @Injectable()
 export class AdminGuard implements CanActivate {
-  constructor (private readonly loginGuard: LoginGuard) {}
+  private readonly loginGuard = inject(LoginGuard);
+
 
   canActivate () {
     const payload = this.loginGuard.tokenDecode()
@@ -59,7 +62,8 @@ export class AdminGuard implements CanActivate {
 
 @Injectable()
 export class AccountingGuard implements CanActivate {
-  constructor (private readonly loginGuard: LoginGuard) {}
+  private readonly loginGuard = inject(LoginGuard);
+
 
   canActivate () {
     const payload = this.loginGuard.tokenDecode()
@@ -74,7 +78,8 @@ export class AccountingGuard implements CanActivate {
 
 @Injectable()
 export class DeluxeGuard {
-  constructor (private readonly loginGuard: LoginGuard) {}
+  private readonly loginGuard = inject(LoginGuard);
+
 
   isDeluxe () {
     const payload = this.loginGuard.tokenDecode()

@@ -17,7 +17,7 @@
     - Gitpod
 -
   name: 'Access Log'
-  category: 'Sensitive Data Exposure'
+  category: 'Observability Failures'
   description: 'Gain access to any access log file of the server.'
   difficulty: 4
   hints:
@@ -555,7 +555,7 @@
   key: continueCodeChallenge
 -
   name: 'Leaked Access Logs'
-  category: 'Sensitive Data Exposure'
+  category: 'Observability Failures'
   tags:
     - OSINT
   description: 'Dumpster dive the Internet for a leaked password and log in to the original user account it belongs to. (Creating a new account with the same password does not qualify as a solution.)'
@@ -714,7 +714,7 @@
   key: basketManipulateChallenge
 -
   name: 'Misplaced Signature File'
-  category: 'Sensitive Data Exposure'
+  category: 'Observability Failures'
   tags:
     - Good Practice
     - Contraption
@@ -1341,7 +1341,7 @@
   key: svgInjectionChallenge
 -
   name: 'Exposed Metrics'
-  category: 'Sensitive Data Exposure'
+  category: 'Observability Failures'
   tags:
     - Good Practice
   description: 'Find the endpoint that serves usage data to be scraped by a <a href="https://github.com/prometheus/prometheus">popular monitoring system</a>.'

@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { TranslateService } from '@ngx-translate/core'
-import { Component, type OnInit } from '@angular/core'
+import { Component, type OnInit, inject } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSlash, faHandPaper } from '@fortawesome/free-solid-svg-icons'
@@ -19,10 +19,10 @@ library.add(faUserSlash, faHandPaper)
   imports: [MatCardModule]
 })
 export class ErrorPageComponent implements OnInit {
-  public error: string | null = null
+  private readonly route = inject(ActivatedRoute);
+  private readonly translate = inject(TranslateService);
 
-  constructor (private readonly route: ActivatedRoute, private readonly translate: TranslateService) {
-  }
+  public error: string | null = null
 
   ngOnInit (): void {
     const errorKey = this.route.snapshot.queryParams.error

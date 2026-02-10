@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { environment } from '../../environments/environment'
-import { Injectable } from '@angular/core'
+import { Injectable, inject } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
 import { Subject } from 'rxjs'
@@ -19,11 +19,11 @@ interface Passwords {
   providedIn: 'root'
 })
 export class UserService {
+  private readonly http = inject(HttpClient);
+
   public isLoggedIn = new Subject<any>()
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/api/Users'
-
-  constructor (private readonly http: HttpClient) { }
 
   find (params?: any) {
     return this.http.get(this.hostServer + '/rest/user/authentication-details/', { params }).pipe(map((response: any) =>

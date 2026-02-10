@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -110,7 +110,7 @@ describe('RegisterComponent', () => {
   })
 
   it('password should not be more than 20 characters', () => {
-    let password: string = ''
+    let password = ''
     for (let i = 0; i < 41; i++) {
       password += 'a'
     }
@@ -130,8 +130,8 @@ describe('RegisterComponent', () => {
   })
 
   it('password and repeat password should be the same', () => {
-    const password: string = 'aaaaa'
-    const passwordRepeat: string = 'aaaaa'
+    const password = 'aaaaa'
+    const passwordRepeat = 'aaaaa'
     component.passwordControl.setValue(password)
     component.repeatPasswordControl.setValue('bbbbb')
     expect(component.repeatPasswordControl.valid).toBeFalsy()

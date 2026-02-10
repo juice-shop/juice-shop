@@ -1,20 +1,20 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { HttpClient } from '@angular/common/http'
 import { environment } from '../../environments/environment'
-import { Injectable } from '@angular/core'
+import { Injectable, inject } from '@angular/core'
 import { catchError } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImageCaptchaService {
-  private readonly hostServer = environment.hostServer
+  private readonly http = inject(HttpClient);
 
-  constructor (private readonly http: HttpClient) { }
+  private readonly hostServer = environment.hostServer
 
   getCaptcha () {
     return this.http.get(this.hostServer + '/rest/image-captcha/').pipe(catchError((err) => { throw err }))

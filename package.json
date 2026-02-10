@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "19.0.0",
+  "version": "19.1.1",
   "private": true,
   "description": "Probably the most modern and sophisticated insecure web application",
   "keywords": [
@@ -53,12 +53,12 @@
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "frisby": "nyc --report-dir=./build/reports/coverage/api-tests jest --silent --runInBand --forceExit",
-    "postinstall": "cd frontend && npm install --legacy-peer-deps && cd .. && npm run build:frontend && (npm run --silent build:server || cd .)",
+    "postinstall": "cd frontend && npm install && cd .. && npm run build:frontend && (npm run --silent build:server || cd .)",
     "lint": "eslint *.ts data lib models routes test/**/*.ts views && cd frontend && npm run lint && npm run lint:scss && cd ..",
     "lint:config": "schema validate -s config.schema.yml",
     "lint:fix": "eslint *.ts data lib models routes test/**/*.ts views rsn --fix && cd frontend && npm run lint:fix && cd ..",
     "package": "grunt package",
-    "package:ci": "npm prune --production && npm dedupe && cd frontend && npm prune --legacy-peer-deps --production && cd .. && npm run --silent sbom && grunt package",
+    "package:ci": "npm prune --production && npm dedupe && cd frontend && npm prune --production && cd .. && npm run --silent sbom && grunt package",
     "serve": "concurrently --kill-others \"ts-node app.ts\" \"cd frontend && npm run start\"",
     "serve:dev": "concurrently --kill-others \"ts-node-dev app.ts\" \"cd frontend && npm run start\"",
     "start": "node build/app",
