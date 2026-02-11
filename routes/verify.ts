@@ -143,8 +143,8 @@ async function checkPatternInFeedbackAndComplaints (
     if (count > 0) {
       challengeUtils.solve(challenge)
     }
-  }).catch((error: Error) => {
-    console.error(`Error checking feedback for challenge ${challenge.key}:`, error.message)
+  }).catch(() => {
+    throw new Error('Unable to retrieve feedback details. Please try again')
   })
 
   const complaintCheck = ComplaintModel.findAndCountAll({
@@ -153,8 +153,8 @@ async function checkPatternInFeedbackAndComplaints (
     if (count > 0) {
       challengeUtils.solve(challenge)
     }
-  }).catch((error: Error) => {
-    console.error(`Error checking complaints for challenge ${challenge.key}:`, error.message)
+  }).catch(() => {
+    throw new Error('Unable to retrieve complaint details. Please try again')
   })
 
   await Promise.all([feedbackCheck, complaintCheck])
