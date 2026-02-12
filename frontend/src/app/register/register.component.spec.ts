@@ -109,7 +109,7 @@ describe('RegisterComponent', () => {
     expect(component.passwordControl.valid).toBe(true)
   })
 
-  it('password should not be more than 20 characters', () => {
+  it('password should not be more than 40 characters', () => {
     let password = ''
     for (let i = 0; i < 41; i++) {
       password += 'a'

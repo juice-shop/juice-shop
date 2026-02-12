@@ -12,7 +12,12 @@ mat-card {
 }
 
 mat-form-field {
+  margin-bottom: $space-m;
   padding-top: $space-s;
+  
+  @media (max-width: 400px) {
+    margin-bottom: $space-ml;
+  }
 }
 
 .form-container {
@@ -52,4 +57,36 @@ mat-form-field {
 
 .hint-spacing {
   margin-left: $space-2xs;
+}
+
+.character-counter {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  margin-left: $space-xs;
+  white-space: nowrap;
+}
+
+.password-advice-wrapper {
+  margin-bottom: $space-m;
+  margin-top: $space-m;
+  
+  @media (max-width: 400px) {
+    margin-bottom: $space-ml;
+    margin-top: $space-ml;
+  }
+}
+
+mat-slide-toggle {
+  display: block;
+  margin-bottom: $space-xs;
+}
+
+app-password-strength {
+  display: block;
+  margin-bottom: $space-xs;
+}
+
+::ng-deep .mat-mdc-form-field-error {
+  line-height: 1.2;
+  margin-top: $space-3xs;
 }
