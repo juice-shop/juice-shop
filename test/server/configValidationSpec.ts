@@ -14,7 +14,8 @@ import validateConfig, {
   checkMinimumRequiredNumberOfMemories,
   checkUniqueSpecialOnMemories,
   checkSpecialMemoriesHaveNoUserAssociated,
-  checkNecessaryExtraKeysOnSpecialProducts
+  checkNecessaryExtraKeysOnSpecialProducts,
+  checkForIllogicalCombos
 } from '../../lib/startup/validateConfig'
 import type { Memory, Product } from 'lib/config.types'
 
@@ -483,5 +484,37 @@ describe('configValidation', () => {
     }
 
     expect(checkYamlSchema(config)).to.equal(false)
+  })
+
+  describe('checkForIllogicalCombos', () => {
+    const BASE_CONFIG = {
+      challenges: { restrictToTutorialsFirst: false, showSolvedNotifications: true },
+      hackingInstructor: { isEnabled: true },
+      ctf: { showFlagsInNotifications: false, showCountryDetailsInNotifications: 'none' }
+    }
+
+    it('should accept a config without systemWideNotifications set', () => {
+      expect(checkForIllogicalCombos(BASE_CONFIG)).to.equal(true)
+    })
+
+    it('should accept a config with systemWideNotifications url and pollFrequencySeconds set', () => {
+      const config = { ...BASE_CONFIG, ctf: { ...BASE_CONFIG.ctf, systemWideNotifications: { url: 'http://example.com/notify', pollFrequencySeconds: 30 } } }
+      expect(checkForIllogicalCombos(config)).to.equal(true)
+    })
+
+    it('should fail if systemWideNotifications url is set but pollFrequencySeconds is missing', () => {
+      const config = { ...BASE_CONFIG, ctf: { ...BASE_CONFIG.ctf, systemWideNotifications: { url: 'http://example.com/notify' } } }
+      expect(checkForIllogicalCombos(config)).to.equal(false)
+    })
+
+    it('should fail if systemWideNotifications url is set but pollFrequencySeconds is zero', () => {
+      const config = { ...BASE_CONFIG, ctf: { ...BASE_CONFIG.ctf, systemWideNotifications: { url: 'http://example.com/notify', pollFrequencySeconds: 0 } } }
+      expect(checkForIllogicalCombos(config)).to.equal(false)
+    })
+
+    it('should fail if systemWideNotifications url is set but pollFrequencySeconds is negative', () => {
+      const config = { ...BASE_CONFIG, ctf: { ...BASE_CONFIG.ctf, systemWideNotifications: { url: 'http://example.com/notify', pollFrequencySeconds: -10 } } }
+      expect(checkForIllogicalCombos(config)).to.equal(false)
+    })
   })
 })
