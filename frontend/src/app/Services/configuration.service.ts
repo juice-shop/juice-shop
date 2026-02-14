@@ -91,6 +91,10 @@ export interface Config {
     showFlagsInNotifications: boolean
     showCountryDetailsInNotifications: string
     countryMapping: any[]
+    systemWideNotifications?: {
+      url?: string
+      pollFrequencySeconds?: number
+    }
   }
 }
 

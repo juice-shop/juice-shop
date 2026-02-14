@@ -191,6 +191,11 @@ ctf:
     type: boolean
   showCountryDetailsInNotifications:
     type: string
+  systemWideNotifications:
+    url:
+      type: string
+    pollFrequencySeconds:
+      type: number
   countryMapping:
     scoreBoardChallenge:
       name:

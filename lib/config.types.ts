@@ -124,6 +124,10 @@ export interface CtfConfig {
     name: string
     code: string
   }>
+  systemWideNotifications?: {
+    url?: string
+    pollFrequencySeconds?: number
+  }
 }
 
 export interface AppConfig {

@@ -180,6 +180,13 @@ export const checkForIllogicalCombos = (configuration = config.util.toObject()) 
     logger.warn(`CTF country mappings for FBCTF are enabled while CTF flags are disabled (${colors.red('NOT OK')})`)
     success = false
   }
+  const notifications = configuration.ctf?.systemWideNotifications
+  if (notifications?.url) {
+    if (!notifications.pollFrequencySeconds || typeof notifications.pollFrequencySeconds !== 'number' || notifications.pollFrequencySeconds <= 0) {
+      logger.warn(`ctf.systemWideNotifications.url is set but pollFrequencySeconds is missing or not a positive number (${colors.red('NOT OK')})`)
+      success = false
+    }
+  }
   return success
 }
 
