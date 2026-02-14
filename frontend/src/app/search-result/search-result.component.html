@@ -3,67 +3,56 @@
   ~ SPDX-License-Identifier: MIT
 -->
 
-<div class="center-align">
-  <div class="table-container custom-slate">
-    <div class="heading mat-elevation-z6">
-      @if (searchValue) {
-        <div>
-          <span>{{ "TITLE_SEARCH_RESULTS" | translate }} - </span>
-          <span id="searchValue" [innerHTML]="searchValue"></span>
-        </div>
-      } @else {
-        <div>{{ "TITLE_ALL_PRODUCTS" | translate }}</div>
-      }
-      <div id="search-result-heading"></div>
-    </div>
-
-    @if (!emptyState) {
+<main class="container">
+  <div class="heading mat-elevation-z6">
+    @if (searchValue) {
       <div>
-        <mat-grid-list
-          #table
-          (window:resize)="onResize($event)"
-          [cols]="breakpoint"
-          gutterSize="30px"
-        >
-          @for (item of gridDataSource | async; track item.id) {
-            <mat-grid-tile>
-              <app-product class="product" [item]="item" [isLoggedIn]="isLoggedIn()" [isDeluxe]="isDeluxe()"></app-product>
-            </mat-grid-tile>
-          }
-        </mat-grid-list>
+        <span>{{ "TITLE_SEARCH_RESULTS" | translate }} - </span>
+        <span id="searchValue" [innerHTML]="searchValue"></span>
       </div>
     } @else {
-      <mat-card appearance="outlined" class="mat-elevation-z6 emptyState">
-        <div class="mdc-card">
-          <img
-            alt=" No results found"
-            class="img-responsive noResult"
-            src="assets/public/images/products/no-results.png"
-          />
-          <mat-card-title>
-            <span class="noResultText">
-              {{ "NO_SEARCH_RESULT" | translate }}
-            </span>
-          </mat-card-title>
-          <mat-card-content>
-            <span class="noResultText">
-              {{ "EMPTY_SEARCH_RESULT" | translate }}
-            </span>
-          </mat-card-content>
-        </div>
-      </mat-card>
+      <div>{{ "TITLE_ALL_PRODUCTS" | translate }}</div>
     }
-
-    <mat-divider></mat-divider>
-
-    <mat-paginator
-      #paginator
-      [pageSize]="12"
-      [pageSizeOptions]="pageSizeOptions"
-      [length]="resultsLength"
-      class="mat-elevation-z6"
-      color="accent"
-    >
-    </mat-paginator>
+    <div id="search-result-heading"></div>
   </div>
-</div>
+
+  @if (!emptyState) {
+    <div class="products-grid">
+      @for (item of gridDataSource | async; track item.id) {
+          <app-product class="product" [item]="item" [isLoggedIn]="isLoggedIn()" [isDeluxe]="isDeluxe()"></app-product>
+        }
+    </div>
+  } @else {
+    <mat-card appearance="outlined" class="mat-elevation-z6 emptyState">
+      <div class="mdc-card">
+        <img
+          alt=" No results found"
+          class="img-responsive noResult"
+          src="assets/public/images/products/no-results.png"
+        />
+        <mat-card-title>
+          <span class="noResultText">
+            {{ "NO_SEARCH_RESULT" | translate }}
+          </span>
+        </mat-card-title>
+        <mat-card-content>
+          <span class="noResultText">
+            {{ "EMPTY_SEARCH_RESULT" | translate }}
+          </span>
+        </mat-card-content>
+      </div>
+    </mat-card>
+  }
+
+  <mat-divider></mat-divider>
+
+  <mat-paginator
+    #paginator
+    [pageSize]="12"
+    [pageSizeOptions]="pageSizeOptions"
+    [length]="resultsLength"
+    class="mat-elevation-z6"
+    color="accent"
+  >
+  </mat-paginator>
+</main>

@@ -4,27 +4,24 @@
  */
 
 /* eslint-disable @typescript-eslint/prefer-for-of */
-import { ProductDetailsComponent } from '../product-details/product-details.component'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ProductService } from '../Services/product.service'
 import { type AfterViewInit, Component, NgZone, type OnDestroy, ViewChild, ChangeDetectorRef, inject } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
-import { forkJoin, type Subscription } from 'rxjs'
+import { BehaviorSubject, forkJoin, type Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
-import { MatDialog } from '@angular/material/dialog'
 import { DomSanitizer, type SafeHtml } from '@angular/platform-browser'
 import { TranslateModule } from '@ngx-translate/core'
 import { SocketIoService } from '../Services/socket-io.service'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCartPlus, faEye } from '@fortawesome/free-solid-svg-icons'
-import { ProductTableEntry, type Product } from '../Models/product.model'
+import { ProductTableEntry } from '../Models/product.model'
 import { QuantityService } from '../Services/quantity.service'
 import { DeluxeGuard } from '../app.guard'
 import { MatDivider } from '@angular/material/divider'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule, MatCardTitle, MatCardContent } from '@angular/material/card'
-import { MatGridList, MatGridTile } from '@angular/material/grid-list'
 import { AsyncPipe } from '@angular/common'
 import { ProductComponent } from '../product/product.component'
 
@@ -34,11 +31,10 @@ library.add(faEye, faCartPlus)
   selector: 'app-search-result',
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.scss'],
-  imports: [MatGridList, MatGridTile, MatCardModule, TranslateModule, MatButtonModule, MatCardTitle, MatCardContent, MatDivider, MatPaginator, AsyncPipe, ProductComponent]
+  imports: [MatCardModule, TranslateModule, MatButtonModule, MatCardTitle, MatCardContent, MatDivider, MatPaginator, AsyncPipe, ProductComponent]
 })
 export class SearchResultComponent implements OnDestroy, AfterViewInit {
   private readonly deluxeGuard = inject(DeluxeGuard)
-  private readonly dialog = inject(MatDialog)
   private readonly productService = inject(ProductService)
   private readonly quantityService = inject(QuantityService)
   private readonly router = inject(Router)
@@ -48,17 +44,15 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
   private readonly io = inject(SocketIoService)
   private readonly cdRef = inject(ChangeDetectorRef)
 
-  public displayedColumns = ['Image', 'Product', 'Description', 'Price', 'Select']
-  public tableData!: any[]
+  public tableData!: ProductTableEntry[]
   public pageSizeOptions: number[] = []
   public dataSource!: MatTableDataSource<ProductTableEntry>
-  public gridDataSource!: any
+  public gridDataSource!: BehaviorSubject<ProductTableEntry[]>
   public searchValue?: SafeHtml
   public resultsLength = 0
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | null = null
-  private readonly productSubscription?: Subscription
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator
   private routerSubscription?: Subscription
-  public breakpoint = 6
+  private gridDataSourceSubscription?: Subscription
   public emptyState = false
 
   // vuln-code-snippet start restfulXssChallenge
@@ -105,7 +99,6 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
         if (challenge && this.route.snapshot.url.join('').match(/hacking-instructor/)) {
           this.startHackingInstructor(decodeURIComponent(challenge))
         } // vuln-code-snippet hide-end
-        this.breakpoint = this.calculateBreakpoint(window.innerWidth)
         this.cdRef.detectChanges()
       },
       error: (err) => { console.log(err) }
@@ -118,28 +111,19 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
     } // vuln-code-snippet neutral-line restfulXssChallenge
   } // vuln-code-snippet neutral-line restfulXssChallenge
 
-  onResize (event: any) {
-    this.breakpoint = this.calculateBreakpoint(event.target.innerWidth)
-  }
-
-  private calculateBreakpoint (width: number): number {
-    if (width >= 2600) return 6
-    if (width >= 1740) return 4
-    if (width >= 1280) return 3
-    if (width >= 850) return 2
-    return 1
-  }
   // vuln-code-snippet end restfulXssChallenge
 
   ngOnDestroy () {
     if (this.routerSubscription) {
       this.routerSubscription.unsubscribe()
     }
-    if (this.productSubscription) {
-      this.productSubscription.unsubscribe()
-    }
+
     if (this.dataSource) {
       this.dataSource.disconnect()
+    }
+
+    if (this.gridDataSourceSubscription) {
+      this.gridDataSourceSubscription.unsubscribe()
     }
   }
 
@@ -153,7 +137,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
       }) // vuln-code-snippet hide-end
       this.dataSource.filter = queryParam.toLowerCase()
       this.searchValue = this.sanitizer.bypassSecurityTrustHtml(queryParam) // vuln-code-snippet vuln-line localXssChallenge xssBonusChallenge
-      this.gridDataSource.subscribe((result: any) => {
+      this.gridDataSourceSubscription = this.gridDataSource.subscribe((result: ProductTableEntry[]) => {
         if (result.length === 0) {
           this.emptyState = true
         } else {
@@ -175,18 +159,8 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
     })
   }
 
-  showDetail (element: Product) {
-    this.dialog.open(ProductDetailsComponent, {
-      width: '500px',
-      height: 'max-content',
-      data: {
-        productData: element
-      }
-    })
-  }
-
   isLoggedIn (): boolean {
-    return localStorage.getItem('token') !== null;
+    return localStorage.getItem('token') !== null
   }
 
   isDeluxe () {

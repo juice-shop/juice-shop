@@ -1,13 +1,21 @@
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+/* eslint-disable @typescript-eslint/prefer-for-of */
 import { Component, inject, input } from '@angular/core'
 import { BasketService } from '../Services/basket.service'
 import { ProductService } from '../Services/product.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
-import { ProductTableEntry } from '../Models/product.model'
+import { Product, ProductTableEntry } from '../Models/product.model'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatCardModule } from '@angular/material/card'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatButton } from '@angular/material/button'
 import { MatIcon } from '@angular/material/icon'
+import { ProductDetailsComponent } from '../product-details/product-details.component'
+import { MatDialog } from '@angular/material/dialog'
 
 @Component({
   selector: 'app-product',
@@ -20,6 +28,8 @@ export class ProductComponent {
   private readonly productService = inject(ProductService)
   private readonly translateService = inject(TranslateService)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
+  private readonly dialog = inject(MatDialog)
+
 
   item = input.required<ProductTableEntry>()
   isLoggedIn = input.required<boolean>()
@@ -132,6 +142,16 @@ export class ProductComponent {
       },
       error: (err) => {
         console.log(err)
+      }
+    })
+  }
+
+  showDetails(product: Product) {
+    this.dialog.open(ProductDetailsComponent, {
+      width: '500px',
+      height: 'max-content',
+      data: {
+        productData: product
       }
     })
   }

@@ -15,8 +15,10 @@
       </aside>
     }
     <section
-      class="content"
-      (click)="showDetail(item)"
+      tabindex="0"
+      (keydown.enter)="showDetails(product)"
+      role="button"
+      (click)="showDetails(product)"
       aria-label="Click for more information about the product"
       matTooltip="Click for more information"
       matTooltipPosition="above"
@@ -26,34 +28,35 @@
         [src]="'assets/public/images/products/' + product.image"
         alt="{{ product.name }}"
         class="img-thumbnail"
-        role="button"
       />
       <div class="info-box">
-        <div class="item-name">{{ product.name }}</div>
-        <div class="item-price">
-          @if (!isDeluxe() || product.price === product.deluxePrice) {
-            <span>{{ product.price }}&curren;</span>
-          }
-          @if (isDeluxe() && product.price !== product.deluxePrice) {
-            <span>
-              <s>{{ product.price }}</s>
-              {{ product.deluxePrice }}&curren;
-            </span>
-          }
-        </div>
+        <div class="name">{{ product.name }}</div>
       </div>
     </section>
     <footer class="footer">
+       <div class="price">
+          @if (!isDeluxe() || product.price === product.deluxePrice) {
+            {{ product.price }}&curren;
+          }
+          @if (isDeluxe() && product.price !== product.deluxePrice) {
+            
+            {{ product.deluxePrice }}&curren;
+            <s>{{ product.price }}</s>
+          }
+        
+          <!-- <s class="expired">{{ product.price }}</s>
+          {{ product.deluxePrice }}&curren; -->
+        </div>
       @if (isLoggedIn()) {
         <button
           (click)="addToBasket(product.id)"
-          aria-label="Add to Basket"
+          aria-label="{{ 'ADD_BASKET' | translate }}"
           class="btn-basket"
           color="primary"
           mat-button
           mat-raised-button
         >
-          <mat-icon class="icon">add_shopping_cart</mat-icon>
+          <mat-icon class="icon-basket">add_shopping_cart</mat-icon>
           {{ "ADD_BASKET" | translate }}
         </button>
       }

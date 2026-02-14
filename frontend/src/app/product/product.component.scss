@@ -1,44 +1,53 @@
+
+@use './../../styles/variables' as *;
+
+
 .mat-card {
   border: 0;
 }
 
 .product {
+  overflow: hidden;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  aspect-ratio: 1 / 1;
-  padding: 0 1rem 1rem 0;
-}
-
-.content {
-  display: flex;
-  justify-content: space-between;
+  height: 100%;
 }
 
 .info-box {
-  align-self: center;
-  width: 40%;
   text-align: center;
 }
 
-.item-price {
-  font-size: initial;
-  margin-top: 12px;
+.name {
+  margin-top: $space-s;
+  font-weight: bold;
+  font-size: medium;
+  cursor: pointer;
+  padding: 0 $space-m;
 }
 
-.item-name {
+.price {
   font-size: large;
+  margin-bottom: $space-s;
+  font-weight: bold;
+  display: flex;
+  gap: $space-xs;
+}
+
+.expired {
+  color: var(--theme-warn);
+  opacity: 0.7;
+  font-size: small;
 }
 
 .img-thumbnail {
-  align-self: start;
-  height: auto;
-  object-fit: cover;
-  width: 60%; /* image ~60%, info-box ~40% */
+  width: 100%;
+  cursor: pointer;
 }
 
 .footer {
-  text-align: center;
+  padding: $space-m;
 }
 
 .ribbon {
@@ -58,18 +67,21 @@
 
 .ribbon-sold {
   background-color: var(--theme-warn);
-  color: white;
+  color: #fff;
 }
 
-.icon {
-  margin-right: 1.5rem;
+.icon-basket {
+  position: absolute;
+  left: 1rem; 
 }
+
 .btn-basket {
   position: relative;
   overflow: hidden;
+  width: 100%;
 }
 
-.btn-basket:before {
+.btn-basket::before {
   content: '';
   position: absolute;
   top: 0;
