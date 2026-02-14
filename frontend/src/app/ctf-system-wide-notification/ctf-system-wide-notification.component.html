@@ -1,0 +1,17 @@
+<!--
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+-->
+
+@if (notification) {
+  <div class="container ctf-system-notification mat-elevation-z4">
+    <mat-card appearance="outlined" class="primary-notification">
+      <div class="mdc-card">
+        <div class="notificationMessage">
+          <div class="contents">{{notification.message}}</div>
+          <button id="closeButton" mat-button (click)="dismiss()">X</button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+}
