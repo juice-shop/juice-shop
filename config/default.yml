@@ -461,3 +461,6 @@ ctf:
   showFlagsInNotifications: false
   showCountryDetailsInNotifications: none # Options: none  name  flag  both
   countryMapping: ~
+  systemWideNotifications:
+    url: ~ # URL of an external endpoint returning { message, enabled, updatedAt }
+    pollFrequencySeconds: ~ # Required when url is set
