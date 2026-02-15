@@ -7,6 +7,7 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { UserService } from '../Services/user.service'
 import { RecycleService } from '../Services/recycle.service'
 import { Component, type OnInit, ViewChild, inject } from '@angular/core'
+import { CommonModule } from '@angular/common'
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
@@ -15,13 +16,12 @@ import { AddressComponent } from '../address/address.component'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { MatButtonModule } from '@angular/material/button'
-import { MatCheckbox } from '@angular/material/checkbox'
-import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker'
-
+import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatNativeDateModule } from '@angular/material/core'
 import { MatInputModule } from '@angular/material/input'
-import { MatFormFieldModule, MatLabel, MatError, MatSuffix } from '@angular/material/form-field'
-
-import { MatCardModule, MatCardImage, MatCardContent } from '@angular/material/card'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatCardModule } from '@angular/material/card'
 
 library.add(faPaperPlane)
 
@@ -29,7 +29,21 @@ library.add(faPaperPlane)
   selector: 'app-recycle',
   templateUrl: './recycle.component.html',
   styleUrls: ['./recycle.component.scss'],
-  imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatError, AddressComponent, MatDatepickerInput, MatDatepickerToggle, MatSuffix, MatDatepicker, MatCheckbox, MatButtonModule, MatCardImage, MatCardContent]
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatCardModule,
+    TranslateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AddressComponent,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
+    MatButtonModule
+  ]
 })
 export class RecycleComponent implements OnInit {
   private readonly recycleService = inject(RecycleService)
@@ -39,7 +53,8 @@ export class RecycleComponent implements OnInit {
   private readonly translate = inject(TranslateService)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
 
-  @ViewChild('addressComp', { static: true }) public addressComponent: AddressComponent
+  @ViewChild('addressComp', { static: true }) public addressComponent!: AddressComponent
+
   public requestorControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
   public recycleQuantityControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(1000)])
   public pickUpDateControl: UntypedFormControl = new UntypedFormControl()
@@ -56,9 +71,7 @@ export class RecycleComponent implements OnInit {
     this.configurationService.getApplicationConfiguration().subscribe({
       next: (config: any) => {
         if (config?.application?.recyclePage) {
-
           this.topImage = `assets/public/images/products/${config.application.recyclePage.topProductImage}`
-
           this.bottomImage = `assets/public/images/products/${config.application.recyclePage.bottomProductImage}`
         }
       },
@@ -72,6 +85,7 @@ export class RecycleComponent implements OnInit {
   }
 
   initRecycle () {
+    // FIX: Using the upstream version that requests specific fields
     this.userService.whoAmI(['id', 'email']).subscribe({
       next: (data) => {
         this.recycle = {}
@@ -145,7 +159,7 @@ export class RecycleComponent implements OnInit {
     this.pickup.setValue(false)
   }
 
-  getMessage (id) {
+  getMessage (id: any) {
     this.addressId = id
   }
 }
