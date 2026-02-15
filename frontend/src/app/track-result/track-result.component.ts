@@ -43,6 +43,9 @@ export class TrackResultComponent implements OnInit {
 
   ngOnInit (): void {
     this.orderId = this.route.snapshot.queryParams.id
+    if (!this.orderId) {
+      return
+    }
     this.trackOrderService.find(this.orderId).subscribe((results) => {
 
       this.results.orderNo = this.sanitizer.bypassSecurityTrustHtml(`<code>${results.data[0].orderId}</code>`)
