@@ -127,7 +127,7 @@ import { continueCode, continueCodeFindIt, continueCodeFixIt } from './routes/co
 import { ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload, handleYamlUpload } from './routes/fileUpload'
 
 const app = express()
-// Serve vendor static files locally 
+// Serve vendor static files locally
 app.use('/vendor/cookieconsent', express.static(path.resolve('node_modules/cookieconsent/build')))
 app.use('/vendor/jquery', express.static(path.resolve('node_modules/jquery/dist')))
 app.use('/vendor/material-design-lite', express.static(path.resolve('node_modules/material-design-lite/dist')))
