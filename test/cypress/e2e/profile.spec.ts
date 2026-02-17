@@ -21,7 +21,7 @@ describe('/profile', () => {
         if (!isDocker) {
           cy.visit('/profile')
           cy.get('#url').type(
-            "https://a.png; script-src 'unsafe-inline' 'self' 'unsafe-eval' https://cdnjs.cloudflare.com http://ajax.googleapis.com"
+            "https://a.png; script-src 'unsafe-inline' 'self' 'unsafe-eval'"
           )
           cy.get('#submitUrl').click()
           cy.get('#username').type('<<a|ascript>alert(`xss`)</script>')
