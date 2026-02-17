@@ -146,7 +146,7 @@ export class ProductComponent {
     })
   }
 
-  showDetails(product: Product) {
+  showDetail(product: Product) {
     this.dialog.open(ProductDetailsComponent, {
       width: '500px',
       height: 'max-content',
