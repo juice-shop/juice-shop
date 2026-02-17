@@ -285,16 +285,16 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Swagger documentation for B2B v2 endpoints */
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
+  app.use(express.static(path.resolve('frontend/dist/frontend')))
+  app.use(cookieParser('kekse'))
+  // vuln-code-snippet end directoryListingChallenge accessLogDisclosureChallenge
+
   /* Serve vendor dependencies locally instead of from CDN */
   app.use('/vendor/cookieconsent', express.static(path.resolve('node_modules/cookieconsent/build')))
   app.use('/vendor/jquery', express.static(path.resolve('node_modules/jquery/dist')))
   app.use('/vendor/material-design-lite', express.static(path.resolve('node_modules/material-design-lite/dist')))
   app.use('/vendor/material-icons', express.static(path.resolve('node_modules/material-icons/iconfont')))
   app.use('/vendor/fontsource-roboto', express.static(path.resolve('node_modules/@fontsource/roboto')))
-
-  app.use(express.static(path.resolve('frontend/dist/frontend')))
-  app.use(cookieParser('kekse'))
-  // vuln-code-snippet end directoryListingChallenge accessLogDisclosureChallenge
 
   /* Configure and enable backend-side i18n */
   i18n.configure({
