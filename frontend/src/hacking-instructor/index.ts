@@ -67,6 +67,10 @@ export interface ChallengeHint {
    * Function declaring the condition under which the tutorial will continue.
    */
   resolved: () => Promise<void>
+  /**
+   * Optional condition to skip this hint entirely.
+   */
+  skipIf?: () => boolean | Promise<boolean>
 }
 
 function createElement (tag: string, styles: Record<string, string>, attributes: Record<string, string> = {}): HTMLElement {
@@ -187,6 +191,10 @@ export async function startHackingInstructorFor (challengeName: string): Promise
   const challengeInstruction = challengeInstructions.find(({ name }) => name === challengeName) ?? TutorialUnavailableInstruction
 
   for (const hint of challengeInstruction.hints) {
+    if (hint.skipIf && await hint.skipIf()) {
+      continue
+    }
+
     const element = loadHint(hint)
     if (!element) {
       console.warn(`Could not find Element with fixture "${hint.fixture}"`)
