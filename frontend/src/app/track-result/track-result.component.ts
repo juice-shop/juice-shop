@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { ActivatedRoute, RouterModule } from '@angular/router' // <--- Added RouterModule
+import { ActivatedRoute, RouterModule } from '@angular/router' 
 import { MatTableDataSource, MatTableModule } from '@angular/material/table'
 import { Component, type OnInit, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
@@ -11,7 +11,6 @@ import { TrackOrderService } from '../Services/track-order.service'
 import { DomSanitizer } from '@angular/platform-browser'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faHome, faSync, faTruck, faTruckLoading, faWarehouse } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatCardModule } from '@angular/material/card'
 import { MatButtonModule } from '@angular/material/button'
@@ -32,11 +31,10 @@ export enum Status {
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule, // <--- Required if the HTML has "Back to Home" links
+    RouterModule,
     MatCardModule,
     TranslateModule,
     MatTableModule,
-    FontAwesomeModule,
     MatButtonModule
   ]
 })
@@ -46,7 +44,7 @@ export class TrackResultComponent implements OnInit {
   private readonly sanitizer = inject(DomSanitizer)
 
   public displayedColumns = ['product', 'price', 'quantity', 'total price']
-  // Fixed: Added <any> to silence strict type errors
+
   public dataSource = new MatTableDataSource<any>() 
   public orderId?: string
   public results: any = {}
@@ -54,7 +52,7 @@ export class TrackResultComponent implements OnInit {
   public Status = Status
 
   ngOnInit (): void {
-    // Fixed: Accessed as array to avoid undefined errors
+    
     this.orderId = this.route.snapshot.queryParams['id'] 
     
     this.trackOrderService.find(this.orderId).subscribe((results: any) => {
