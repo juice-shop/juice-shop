@@ -83,7 +83,6 @@ export class ComplaintComponent implements OnInit {
 
     this.uploader.onErrorItem = (item, response, status) => {
         console.error('File Upload Failed:', response, status);
-        this.snackBarHelperService.open('File upload failed! Check console for details.', 'errorBar');
     }
 
     this.formSubmitService.attachEnterKeyHandler('complaint-form', 'submitButton', () => { this.save() })

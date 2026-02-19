@@ -30,9 +30,9 @@ export enum Status {
   imports: [MatCardModule, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow]
 })
 export class TrackResultComponent implements OnInit {
-  private readonly route = inject(ActivatedRoute)
-  private readonly trackOrderService = inject(TrackOrderService)
-  private readonly sanitizer = inject(DomSanitizer)
+  private readonly route = inject(ActivatedRoute);
+  private readonly trackOrderService = inject(TrackOrderService);
+  private readonly sanitizer = inject(DomSanitizer);
 
   public displayedColumns = ['product', 'price', 'quantity', 'total price']
   public dataSource = new MatTableDataSource()
@@ -43,9 +43,6 @@ export class TrackResultComponent implements OnInit {
 
   ngOnInit (): void {
     this.orderId = this.route.snapshot.queryParams.id
-    if (!this.orderId) {
-      return
-    }
     this.trackOrderService.find(this.orderId).subscribe((results) => {
 
       this.results.orderNo = this.sanitizer.bypassSecurityTrustHtml(`<code>${results.data[0].orderId}</code>`)
