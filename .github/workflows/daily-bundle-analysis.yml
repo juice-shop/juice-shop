@@ -25,13 +25,17 @@ jobs:
         run: |
           npm install --ignore-scripts
           cd frontend
-          npm install --ignore-scripts --legacy-peer-deps
-          npm install webpack-bundle-analyzer
+          npm install --ignore-scripts
 
-      - name: "Build frontend with bundle analysis"
+      - name: "Build frontend"
+        dir: frontend
         run: |
           cd frontend
-          npm run build -- --configuration production
+          npm run build --configuration production
+
+      - name: "Generate bundle report"
+        run: |
+          bundle-visalizer
 
       - name: "Install Playwright for screenshot"
         run: npm install -g playwright
@@ -47,9 +51,9 @@ jobs:
               const filePath = 'file://${{ github.workspace }}/frontend/dist/frontend/bundle-report.html';
               await page.goto(filePath);
               await page.setViewportSize({ width: 1920, height: 1080 });
-              await page.screenshot({ path: 'screenshots/webpack-analysis.png', fullPage: true });
+              await page.screenshot({ path: 'screenshots/bundle-analysis.png', fullPage: true });
               await browser.close();
-              console.log('Screenshot saved to screenshots/webpack-analysis.png');
+              console.log('Screenshot saved to screenshots/bundle-analysis.png');
             })();
           "
 
@@ -58,7 +62,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git checkout master || git checkout -b master
-          git add screenshots/webpack-analysis.png
+          git add screenshots/bundle-analysis.png
           git diff --quiet && git diff --staged --quiet || git commit -m "📸 Update bundle analysis screenshot" -s
           git push origin master
         continue-on-error: true

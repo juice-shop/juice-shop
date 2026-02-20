@@ -4,7 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --configuration production",
+    "build": "ng build --configuration production && npm run sbom",
+    "sbom": "cyclonedx-esbuild --output-reproducible --output-file dist/bom/bom.json dist/frontend/stats.json",
+    "bundle-visalizer": "esbuild-visualizer --metadata dist/frontend/stats.json --filename dist/frontend/bundle-report.html",
     "test": "ng test",
     "lint": "ng lint",
     "lint:scss": "npx stylelint \"**/*.scss\"",
@@ -12,7 +14,6 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-builders/custom-webpack": "20.0.0",
     "@angular-devkit/build-angular": "^20.1.0",
     "@angular/animations": "^20.1.0",
     "@angular/cdk": "^20.1.0",
@@ -27,7 +28,6 @@
     "@angular/platform-browser-dynamic": "^20.1.0",
     "@angular/router": "^20.1.0",
     "@ctrl/ngx-codemirror": "^6.1.0",
-    "@cyclonedx/webpack-plugin": "^5.0.0",
     "@fortawesome/fontawesome-svg-core": "~1.2.30",
     "@fortawesome/free-brands-svg-icons": "^5.14.0",
     "@fortawesome/free-regular-svg-icons": "^5.14.0",
@@ -63,6 +63,7 @@
   },
   "devDependencies": {
     "@angular/language-service": "^20.1.0",
+    "@cyclonedx/cyclonedx-esbuild": "^1.0.0",
     "@eslint/js": "9.33.0",
     "@types/express-serve-static-core": "^4.17.9",
     "@types/file-saver": "^2.0.1",
@@ -72,6 +73,7 @@
     "@types/node": "^20.17.19",
     "@types/socket.io-client": "^1.4.33",
     "angular-eslint": "^20.1.0",
+    "esbuild-visualizer": "^0.7.0",
     "eslint": "^9.33.0",
     "jasmine": "^5.1.0",
     "jasmine-core": "~5.9.0",
@@ -85,7 +87,6 @@
     "stylelint-config-sass-guidelines": "^12.1.0",
     "stylelint-scss": "^6.0.0",
     "ts-node": "^10.9.2",
-    "typescript-eslint": "^8.42.0",
-    "webpack-bundle-analyzer": "^5.2.0"
+    "typescript-eslint": "^8.42.0"
   }
 }
