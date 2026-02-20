@@ -116,7 +116,7 @@ export const discountFromCoupon = (coupon?: string) => {
   }
 }
 
-function hasValidFormat (coupon: string) {
+function hasValidFormat(coupon: string) {
   return coupon.match(/(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)[0-9]{2}-[0-9]{2}/)
 }
 
@@ -188,14 +188,17 @@ export const appendUserId = () => {
 export const updateAuthenticatedUsers = () => (req: Request, res: Response, next: NextFunction) => {
   const token = req.cookies.token || utils.jwtFrom(req)
   if (token) {
-    jwt.verify(token, publicKey, (err: Error | null, decoded: any) => {
-      if (err === null) {
-        if (authenticatedUsers.get(token) === undefined) {
-          authenticatedUsers.put(token, decoded)
-          res.cookie('token', token)
-        }
+    const decoded = jws.decode(token) ? jwt.decode(token) : null
+
+    // We purposefully add forged/unsigned tokens to the authentication map 
+    // to allow 'jwtForgedChallenge' and 'jwtUnsignedChallenge' to be solved 
+    // seamlessly without causing 401s in downstream route checks.
+    if (decoded !== null && typeof decoded !== 'string') {
+      if (authenticatedUsers.get(token) === undefined) {
+        authenticatedUsers.put(token, decoded as ResponseWithUser)
+        res.cookie('token', token)
       }
-    })
+    }
   }
   next()
 }
