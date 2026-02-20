@@ -39,6 +39,7 @@
     "canvas-confetti": "^1.9.3",
     "codemirror": "^5.65.14",
     "codemirror-solidity": "^0.2.5",
+    "cookieconsent": "^3.1.1",
     "ethers": "^5.7.2",
     "file-saver": "^2.0.2",
     "flag-icons": "^6.9.2",
