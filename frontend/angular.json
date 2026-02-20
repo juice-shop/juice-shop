@@ -36,7 +36,8 @@
               "node_modules/font-mfizz/dist/font-mfizz.css",
               "node_modules/highlight.js/styles/github.css",
               "node_modules/codemirror/lib/codemirror.css",
-              "node_modules/codemirror/theme/dracula.css"
+              "node_modules/codemirror/theme/dracula.css",
+              "node_modules/cookieconsent/build/cookieconsent.min.css"
             ],
             "allowedCommonJsDependencies": [
               "jwt-decode",
@@ -60,7 +61,9 @@
               "codemirror-solidity/solidity",
               "@wagmi/core"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/cookieconsent/build/cookieconsent.min.js"
+            ],
             "extractLicenses": false,
             "sourceMap": true,
             "optimization": false,
