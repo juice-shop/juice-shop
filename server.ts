@@ -290,7 +290,6 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   // vuln-code-snippet end directoryListingChallenge accessLogDisclosureChallenge
 
   /* Serve vendor dependencies locally instead of from CDN */
-  app.use('/vendor/jquery', express.static(path.resolve('node_modules/jquery/dist')))
   app.use('/vendor/material-design-lite', express.static(path.resolve('node_modules/material-design-lite/dist')))
   app.use('/vendor/material-icons', express.static(path.resolve('node_modules/material-icons/iconfont')))
   app.use('/vendor/fontsource-roboto', express.static(path.resolve('node_modules/@fontsource/roboto')))
