@@ -50,7 +50,8 @@ export class CodeFixesComponent implements OnInit, DoCheck {
     }
   }
 
-  ngDoCheck () {
+  ngDoCheck() {
+    if (!this.codeComponent) return
     try {
       const change = this.differ.diff({ 'diff-format': this.codeComponent.format })
       if (change) {
