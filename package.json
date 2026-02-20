@@ -70,9 +70,7 @@
     "rsn:verbose": "ts-node rsn/rsn-verbose.ts",
     "rsn:update": "ts-node rsn/rsn-update.ts",
     "vagrant": "cd vagrant && vagrant up",
-    "sbom": "npm run sbom:json && npm run sbom:xml",
-    "sbom:json": "cyclonedx-npm --omit=dev --output-format=JSON --output-file=bom.json",
-    "sbom:xml": " cyclonedx-npm --omit=dev --output-format=XML  --output-file=bom.xml"
+    "sbom": "cyclonedx-npm --omit=dev --output-format=JSON --output-file=bom.json"
   },
   "jest": {
     "transform": {
