@@ -14,13 +14,11 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
-import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
-import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 library.add(faBomb)
 
@@ -38,8 +36,7 @@ library.add(faBomb)
     FormsModule,
     ReactiveFormsModule,
     FileUploadModule,
-    TranslateModule,
-    MatSnackBarModule
+    TranslateModule
   ]
 })
 export class ComplaintComponent implements OnInit {
@@ -47,7 +44,6 @@ export class ComplaintComponent implements OnInit {
   private readonly complaintService = inject(ComplaintService)
   private readonly formSubmitService = inject(FormSubmitService)
   private readonly translate = inject(TranslateService)
-  private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   public customerControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
   public messageControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.maxLength(160)])
@@ -118,11 +114,9 @@ export class ComplaintComponent implements OnInit {
       next: (savedComplaint: any) => {
         this.translate.get('CUSTOMER_SUPPORT_COMPLAINT_REPLY', { ref: savedComplaint.id }).subscribe({
           next: (customerSupportReply) => {
-            this.snackBarHelperService.open(customerSupportReply, 'confirmBar')
             this.confirmation = customerSupportReply
           },
           error: (translationId) => {
-            this.snackBarHelperService.open(translationId, 'confirmBar')
             this.confirmation = translationId
           }
         })

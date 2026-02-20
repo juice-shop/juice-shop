@@ -6,7 +6,7 @@
 import { ComplaintService } from '../Services/complaint.service'
 import { UserService } from '../Services/user.service'
 import { ReactiveFormsModule } from '@angular/forms'
-import { NoopAnimationsModule } from '@angular/platform-browser/animations' // Changed to Noop (Faster for tests)
+import { NoopAnimationsModule } from '@angular/platform-browser/animations' 
 import { FileItem } from 'ng2-file-upload'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 
@@ -40,8 +40,8 @@ describe('ComplaintComponent', () => {
       imports: [
         ReactiveFormsModule,
         TranslateModule.forRoot(),
-        NoopAnimationsModule, // Use Noop for testing
-        ComplaintComponent    // IMPORT the component (Standalone), do not Declare it
+        NoopAnimationsModule,
+        ComplaintComponent    
       ],
       providers: [
         { provide: UserService, useValue: userService },
