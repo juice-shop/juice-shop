@@ -78,7 +78,7 @@ export class ComplaintComponent implements OnInit {
     }
 
     this.uploader.onErrorItem = (item, response, status) => {
-        console.error('File Upload Failed:', response, status);
+        console.error('File Upload Failed:', response, status)
     }
 
     this.formSubmitService.attachEnterKeyHandler('complaint-form', 'submitButton', () => { this.save() })
