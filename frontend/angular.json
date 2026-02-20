@@ -56,7 +56,9 @@
               "ethers/lib/ethers",
               "ethers/lib/utils",
               "js-sha3",
-              "qrcode"
+              "qrcode",
+              "codemirror-solidity/solidity",
+              "@wagmi/core"
             ],
             "scripts": [],
             "extractLicenses": false,
