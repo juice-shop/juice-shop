@@ -52,8 +52,12 @@ export class WelcomeBannerComponent implements OnInit {
   startHackingInstructor () {
     this.closeWelcome()
     console.log('Starting instructions for challenge "Score Board"')
+    this.launchHackingInstructor('Score Board')
+  }
+
+  protected launchHackingInstructor (challengeName: string) {
     import('../../hacking-instructor').then(module => {
-      module.startHackingInstructorFor('Score Board')
+      module.startHackingInstructorFor(challengeName)
     })
   }
 
