@@ -34,8 +34,9 @@ jobs:
           npm run build --configuration production
 
       - name: "Generate bundle report"
+        dir: frontend
         run: |
-          bundle-visalizer
+          npm run bundle-visalizer
 
       - name: "Install Playwright for screenshot"
         run: npm install -g playwright
