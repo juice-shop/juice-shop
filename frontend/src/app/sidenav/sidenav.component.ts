@@ -160,7 +160,7 @@ export class SidenavComponent implements OnInit {
   startHackingInstructor () {
     this.onToggleSidenav()
     console.log('Starting instructions for challenge "Score Board"')
-    import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
+    import('../../hacking-instructor').then(module => {
       module.startHackingInstructorFor('Score Board')
     })
   }

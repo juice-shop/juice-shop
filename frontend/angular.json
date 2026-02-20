@@ -16,11 +16,14 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/frontend",
+            "outputPath": {
+              "base": "dist/frontend",
+              "browser": ""
+            },
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -56,19 +59,10 @@
               "qrcode"
             ],
             "scripts": [],
-            "aot": false,
-            "vendorChunk": true,
             "extractLicenses": false,
-            "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true,
-            "customWebpackConfig": {
-              "path": "./webpack.angular.js",
-              "mergeRules": {
-                "externals": "replace"
-              }
-            }
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -79,13 +73,10 @@
                 }
               ],
               "optimization": true,
-              "outputHashing": "none",
+              "outputHashing": "media",
               "sourceMap": false,
-              "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
-              "vendorChunk": true,
-              "buildOptimizer": true
+              "statsJson": true
             }
           },
           "defaultConfiguration": ""
