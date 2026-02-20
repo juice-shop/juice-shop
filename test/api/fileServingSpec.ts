@@ -25,8 +25,8 @@ describe('Server', () => {
     return frisby.get(URL)
       .expect('status', 200)
       .expect('header', 'content-type', /text\/html/)
+      .expect('bodyContains', 'scripts.js')
       .expect('bodyContains', 'main.js')
-      .expect('bodyContains', 'runtime.js')
       .expect('bodyContains', 'polyfills.js')
   })
 
@@ -34,8 +34,8 @@ describe('Server', () => {
     return frisby.get(URL + '/whatever')
       .expect('status', 200)
       .expect('header', 'content-type', /text\/html/)
+      .expect('bodyContains', 'scripts.js')
       .expect('bodyContains', 'main.js')
-      .expect('bodyContains', 'runtime.js')
       .expect('bodyContains', 'polyfills.js')
   })
 

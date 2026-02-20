@@ -77,7 +77,7 @@ describe('/redirect', () => {
       .expect('status', 200)
       .expect('header', 'content-type', /text\/html/)
       .expect('bodyContains', 'main.js')
-      .expect('bodyContains', 'runtime.js')
+      .expect('bodyContains', 'scripts.js')
       .expect('bodyContains', 'polyfills.js')
   })
 })
