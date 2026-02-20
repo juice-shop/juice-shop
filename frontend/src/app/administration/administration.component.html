@@ -64,7 +64,7 @@
           <ng-container matColumnDef="rating">
             <mat-header-cell *matHeaderCellDef translate></mat-header-cell>
             <mat-cell *matCellDef="let feedback">
-              @for (i of times(feedback.rating); track i) {
+              @for (i of times(feedback.rating); track $index) {
                 <mat-icon>
                   star_rate
                 </mat-icon>
