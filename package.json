@@ -151,7 +151,6 @@
     "helmet": "^4.6.0",
     "html-entities": "^1.4.0",
     "i18n": "^0.11.1",
-    "jquery": "^4.0.0",
     "js-yaml": "^3.14.0",
     "jsonwebtoken": "0.4.0",
     "jssha": "^3.3.1",
