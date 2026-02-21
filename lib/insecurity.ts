@@ -116,7 +116,7 @@ export const discountFromCoupon = (coupon?: string) => {
   }
 }
 
-function hasValidFormat (coupon: string) {
+function hasValidFormat(coupon: string) {
   return coupon.match(/(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)[0-9]{2}-[0-9]{2}/)
 }
 
@@ -177,7 +177,7 @@ export const isCustomer = (req: Request) => {
 export const appendUserId = () => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
-      req.body.UserId = authenticatedUsers.tokenMap[utils.jwtFrom(req)].data.id
+      req.body.UserId = (req as any).user?.data?.id || authenticatedUsers.tokenMap[utils.jwtFrom(req)]?.data?.id
       next()
     } catch (error: unknown) {
       res.status(401).json({ status: 'error', message: utils.getErrorMessage(error) })
