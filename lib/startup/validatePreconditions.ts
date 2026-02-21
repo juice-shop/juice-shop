@@ -35,7 +35,7 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
     checkIfRequiredFileExists('frontend/dist/frontend/vendor.js'),
     checkIfPortIsAvailable(process.env.PORT ?? config.get<number>('server.port')),
     checkIfDomainReachable('https://www.alchemy.com/')
-  ])).every(condition => condition)
+  ])).every((condition: boolean) => condition)
 
   if ((!success || !asyncConditions) && exitOnFailure) {
     logger.error(colors.red('Exiting due to unsatisfied precondition!'))
@@ -115,7 +115,7 @@ export const checkIfPortIsAvailable = async (port: number | string) => {
 }
 
 export const checkIfRequiredFileExists = async (pathRelativeToProjectRoot: string) => {
-  const fileName = pathRelativeToProjectRoot.substr(pathRelativeToProjectRoot.lastIndexOf('/') + 1)
+  const fileName = pathRelativeToProjectRoot.slice(pathRelativeToProjectRoot.lastIndexOf('/') + 1)
 
   return await access(path.resolve(pathRelativeToProjectRoot)).then(() => {
     logger.info(`Required file ${colors.bold(fileName)} is present (${colors.green('OK')})`)
