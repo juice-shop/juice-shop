@@ -22,7 +22,7 @@ describe('/#/contact', () => {
       cy.get('#userId').clear().type('2')
       cy.get('#rating').type('{rightarrow}{rightarrow}{rightarrow}')
       cy.get('#comment').type('Picard stinks!')
-      cy.get('#submitButton').click({ force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+      cy.get('#submitButton').should('not.be.disabled').click()
 
       cy.visit('/#/administration')
 
@@ -58,7 +58,7 @@ describe('/#/contact', () => {
           cy.get('#comment').type(
             '<<script>Foo</script>iframe src="javascript:alert(`xss`)">'
           )
-          cy.get('#submitButton').click({ force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+          cy.get('#submitButton').should('not.be.disabled').click()
 
           cy.visit('/#/about')
           cy.on('window:alert', (t) => {
@@ -81,7 +81,7 @@ describe('/#/contact', () => {
       cy.get('#comment').type('sanitize-html 1.4.2 is non-recursive.')
       cy.get('#comment').type('express-jwt 0.1.3 has broken crypto.')
 
-      cy.get('#submitButton').click({ force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+      cy.get('#submitButton').should('not.be.disabled').click()
       cy.expectChallengeSolved({ challenge: 'Vulnerable Library' })
     })
   })
@@ -92,7 +92,7 @@ describe('/#/contact', () => {
       cy.get('#comment').type(
         'The following libraries are bad for crypto: z85, base85, md5 and hashids'
       )
-      cy.get('#submitButton').click({ force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+      cy.get('#submitButton').should('not.be.disabled').click()
       cy.expectChallengeSolved({ challenge: 'Weird Crypto' })
     })
   })
@@ -103,7 +103,7 @@ describe('/#/contact', () => {
       cy.get('#comment').type(
         'You are a typosquatting victim of this NPM package: epilogue-js'
       )
-      cy.get('#submitButton').click({ force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+      cy.get('#submitButton').should('not.be.disabled').click()
       cy.expectChallengeSolved({ challenge: 'Legacy Typosquatting' })
     })
   })
@@ -114,7 +114,7 @@ describe('/#/contact', () => {
       cy.get('#comment').type(
         'You are a typosquatting victim of this NPM package: ngy-cookie'
       )
-      cy.get('#submitButton').click({ force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+      cy.get('#submitButton').should('not.be.disabled').click()
       cy.expectChallengeSolved({ challenge: 'Frontend Typosquatting' })
     })
   })
@@ -125,7 +125,7 @@ describe('/#/contact', () => {
       cy.get('#comment').type(
         'Pickle Rick is hiding behind one of the support team ladies'
       )
-      cy.get('#submitButton').click({ force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+      cy.get('#submitButton').should('not.be.disabled').click()
       cy.expectChallengeSolved({ challenge: 'Steganography' })
     })
   })
@@ -151,7 +151,7 @@ describe('/#/contact', () => {
           await sendPostRequest(responseJson)
         }
 
-        async function sendPostRequest (captcha: {
+        async function sendPostRequest(captcha: {
           captchaId: number
           answer: string
         }) {
@@ -199,7 +199,7 @@ describe('/#/contact', () => {
             await sendPostRequest(responseJson)
           }
 
-          async function sendPostRequest (captcha: {
+          async function sendPostRequest(captcha: {
             captchaId: number
             answer: string
           }) {
@@ -229,7 +229,7 @@ describe('/#/contact', () => {
       cy.get('#comment').type(
         'Turn on 2FA! Now!!! https://github.com/eslint/eslint-scope/issues/39'
       )
-      cy.get('#submitButton').click({ force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+      cy.get('#submitButton').should('not.be.disabled').click()
       cy.expectChallengeSolved({ challenge: 'Supply Chain Attack' })
     })
   })
@@ -242,13 +242,13 @@ describe('/#/contact', () => {
           pastebinLeakProduct.keywordsForPastebinDataLeakChallenge ? pastebinLeakProduct.keywordsForPastebinDataLeakChallenge.toString() : '?'
         )
       })
-      cy.get('#submitButton').click({ force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+      cy.get('#submitButton').should('not.be.disabled').click()
       cy.expectChallengeSolved({ challenge: 'Leaked Unsafe Product' })
     })
   })
 })
 
-function solveNextCaptcha () {
+function solveNextCaptcha() {
   cy.get('#captcha')
     .should('be.visible')
     .invoke('text')
