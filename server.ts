@@ -522,7 +522,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
       resource.list.fetch.after((req: Request, res: Response, context: { instance: string | any[], continue: any }) => {
         for (let i = 0; i < context.instance.length; i++) {
           let description = context.instance[i].description
-          if (utils.contains(description, '<em>(This challenge is <strong>')) {
+          if (description ? description.includes('<em>(This challenge is <strong>') : false) {
             const warning = description.substring(description.indexOf(' <em>(This challenge is <strong>'))
             description = description.substring(0, description.indexOf(' <em>(This challenge is <strong>'))
             context.instance[i].description = req.__(description) + req.__(warning)
