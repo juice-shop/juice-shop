@@ -15,7 +15,7 @@ import portscanner from 'portscanner'
 // @ts-expect-error FIXME due to non-existing type definitions for check-internet-connected
 import checkInternetConnected from 'check-internet-connected'
 
-const domainDependencies = {
+const domainDependencies: Record<string, string[]> = {
   'https://www.alchemy.com/': ['"Mint the Honeypot" challenge', '"Wallet Depletion" challenge']
 }
 
@@ -35,7 +35,7 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
     checkIfRequiredFileExists('frontend/dist/frontend/vendor.js'),
     checkIfPortIsAvailable(process.env.PORT ?? config.get<number>('server.port')),
     checkIfDomainReachable('https://www.alchemy.com/')
-  ])).every(condition => condition)
+  ])).every((condition: boolean) => condition)
 
   if ((!success || !asyncConditions) && exitOnFailure) {
     logger.error(colors.red('Exiting due to unsatisfied precondition!'))
@@ -86,12 +86,11 @@ export const checkIfDomainReachable = async (domain: string) => {
       return true
     })
     .catch(() => {
-      logger.warn(`Domain ${colors.bold(domain)} is not reachable (${colors.yellow('NOT OK')} in a future major release)`)
-      // @ts-expect-error FIXME Type problem by accessing key via variable
+      logger.warn(`Domain ${colors.bold(domain)} is not reachable (${colors.red('NOT OK')})`)
       domainDependencies[domain].forEach((dependency: string) => {
         logger.warn(`${colors.italic(dependency)} will not work as intended without access to ${colors.bold(domain)}`)
       })
-      return true // TODO Consider switching to "false" with breaking release v16.0.0 or later
+      return false
     })
 }
 
