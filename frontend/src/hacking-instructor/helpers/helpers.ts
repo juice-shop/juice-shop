@@ -14,6 +14,17 @@ const playbackDelays = {
   slower: 1.5
 }
 
+export async function isChallengeSolved (challengeName: string): Promise<boolean> {
+  try {
+    const res = await fetch('/api/Challenges/')
+    const json = await res.json()
+    const challenges: { name: string, solved: boolean }[] = json.data || []
+    return challenges.some(c => c.name === challengeName && c.solved)
+  } catch {
+    return false
+  }
+}
+
 export async function sleep (timeInMs: number): Promise<void> {
   await new Promise((resolve) => {
     setTimeout(resolve, timeInMs)

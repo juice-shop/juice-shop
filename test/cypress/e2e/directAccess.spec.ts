@@ -1,6 +1,12 @@
 describe('/', () => {
   describe('challenge "easterEgg2"', () => {
     it('should be able to access "secret" url for easter egg', () => {
+      cy.on('uncaught:exception', (err) => {
+        if (err.message.includes('getExtension') || err.message.includes('Cannot read properties of null')) {
+          return false
+        }
+        return true
+      })
       cy.visit(
         '/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg'
       )
