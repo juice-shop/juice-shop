@@ -18,7 +18,7 @@ $bg-heading: rgba(0, 0, 0, 0.2);
   font-size: x-large;
   justify-content: center;
   padding: $space-s $space-ml;
-  margin-bottom: $space-s;
+  margin-bottom: $space-m;
   
 }
 
@@ -45,20 +45,18 @@ $bg-heading: rgba(0, 0, 0, 0.2);
   text-align: center;
 }
 
-
 .mdc-card {
   border: 0;
 }
 
-
-.mat-divider.mat-divider-horizontal {
-  margin-top: $space-s;
+.paginator {
+  margin-top: $space-m;
 }
 
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: $space-xl;
+  gap: $space-l;
   justify-content: center;
 }
 
@@ -67,7 +65,6 @@ $bg-heading: rgba(0, 0, 0, 0.2);
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
-
 
 @media (max-width: 580px) {
   .container {
