@@ -62,7 +62,7 @@ export const unquote = function (str: string) {
 
 export const trunc = function (str: string, length: number) {
   str = str.replace(/(\r\n|\n|\r)/gm, '')
-  return (str.length > length) ? str.substr(0, length - 1) + '...' : str
+  return (str.length > length) ? str.slice(0, length - 1) + '...' : str
 }
 
 export const version = (module?: string) => {
@@ -210,7 +210,7 @@ export const parseJsonCustom = (jsonString: string) => {
 
 export const toSimpleIpAddress = (ipv6: string) => {
   if (startsWith(ipv6, '::ffff:')) {
-    return ipv6.substr(7)
+    return ipv6.slice(7)
   } else if (ipv6 === '::1') {
     return '127.0.0.1'
   } else {
