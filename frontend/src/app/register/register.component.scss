@@ -32,6 +32,28 @@ mat-form-field {
   margin-top: 40px;
 }
 
+.login-link {
+  align-self: center;
+  font-size: 12px;
+  margin-top: 15px;
+  text-align: center;
+
+  span {
+    color: #666;
+    margin-right: 5px;
+  }
+
+  a {
+    color: #3f51b5;
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 .security-container {
   display: flex;
   flex-direction: column;
