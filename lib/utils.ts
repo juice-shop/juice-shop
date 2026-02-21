@@ -19,7 +19,7 @@ import isDocker from './is-docker'
 import isWindows from './is-windows'
 export { default as isDocker } from './is-docker'
 export { default as isWindows } from './is-windows'
-// import isGitpod from 'is-gitpod') // FIXME Roll back to this when https://github.com/dword-design/is-gitpod/issues/94 is resolve
+// import isGitpod from 'is-gitpod') // FIXME Roll back to this when https://github.com/dword-design/is-gitpod/issues/94 is resolved
 const isGitpod = () => false
 
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
@@ -38,7 +38,7 @@ export const isUrl = (url: string) => {
   return startsWith(url, 'http')
 }
 
-export const startsWith = (str: string, prefix: string) => str ? str.indexOf(prefix) === 0 : false
+export const startsWith = (str: string, prefix: string) => str ? str.startsWith(prefix) : false
 
 export const endsWith = (str?: string, suffix?: string) => (str && suffix) ? str.includes(suffix, str.length - suffix.length) : false
 
