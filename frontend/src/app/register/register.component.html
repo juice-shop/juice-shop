@@ -25,7 +25,7 @@
             }
           </mat-form-field>
 
-          <mat-form-field appearance="outline" color="accent">
+          <mat-form-field appearance="outline" color="accent" subscriptSizing="dynamic">
             <mat-label translate>LABEL_PASSWORD</mat-label>
             <input #password id="passwordControl" [formControl]="passwordControl" (focus)="this.error=null" type="password"
               matInput aria-label="Field for the password">
@@ -45,7 +45,7 @@
               }
             </mat-form-field>
 
-            <mat-form-field appearance="outline" color="accent">
+            <mat-form-field appearance="outline" color="accent" subscriptSizing="dynamic">
               <mat-label translate>LABEL_PASSWORD_REPEAT</mat-label>
               <input #repeatPassword id="repeatPasswordControl" [formControl]="repeatPasswordControl"
                 (focus)="this.error=null" type="password" matInput aria-label="Field to confirm the password">
