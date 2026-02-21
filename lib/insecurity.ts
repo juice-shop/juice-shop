@@ -45,7 +45,7 @@ export const hmac = (data: string) => crypto.createHmac('sha256', 'pa4qacea4VK9t
 
 export const cutOffPoisonNullByte = (str: string) => {
   const nullByte = '%00'
-  if (utils.contains(str, nullByte)) {
+  if (str.includes(nullByte)) {
     return str.substring(0, str.indexOf(nullByte))
   }
   return str

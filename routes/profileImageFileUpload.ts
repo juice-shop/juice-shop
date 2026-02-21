@@ -8,7 +8,7 @@ import { type Request, type Response, type NextFunction } from 'express'
 import fileType from 'file-type'
 
 import logger from '../lib/logger'
-import * as utils from '../lib/utils'
+
 import { UserModel } from '../models/user'
 import * as security from '../lib/insecurity'
 
@@ -27,7 +27,7 @@ export function profileImageFileUpload () {
       next(new Error('Illegal file type'))
       return
     }
-    if (uploadedFileType === null || !utils.startsWith(uploadedFileType.mime, 'image')) {
+    if (uploadedFileType === null || !uploadedFileType.mime.startsWith('image')) {
       res.status(415)
       next(new Error(`Profile image upload does not accept this file type${uploadedFileType ? (': ' + uploadedFileType.mime) : '.'}`))
       return

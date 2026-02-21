@@ -45,8 +45,7 @@ const ProductModelInit = (sequelize: Sequelize) => {
         set (description: string) {
           if (utils.isChallengeEnabled(challenges.restfulXssChallenge)) {
             challengeUtils.solveIf(challenges.restfulXssChallenge, () => {
-              return utils.contains(
-                description,
+              return description.includes(
                 '<iframe src="javascript:alert(`xss`)">'
               )
             })

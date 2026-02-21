@@ -11,7 +11,7 @@ import { type Challenge } from '../data/types'
 import { getCodeChallenges } from './codingChallenges'
 import logger from './logger'
 import { type NextFunction, type Request, type Response } from 'express'
-import * as utils from './utils'
+
 // @ts-expect-error FIXME due to non-existing type definitions for median
 import median from 'median'
 import { type ChallengeKey } from 'models/challenge'
@@ -43,7 +43,7 @@ const preSolveInteractions: Array<{ challengeKey: ChallengeKey, urlFragments: st
 export const checkForPreSolveInteractions = () => ({ url }: Request, res: Response, next: NextFunction) => {
   preSolveInteractions.forEach((preSolveInteraction) => {
     for (let i = 0; i < preSolveInteraction.urlFragments.length; i++) {
-      if (utils.endsWith(url, preSolveInteraction.urlFragments[i])) {
+      if (url.endsWith(preSolveInteraction.urlFragments[i])) {
         preSolveInteraction.interactions[i] = true
       }
     }

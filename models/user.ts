@@ -60,8 +60,7 @@ const UserModelInit = (sequelize: Sequelize) => { // vuln-code-snippet start wea
         set (email: string) {
           if (utils.isChallengeEnabled(challenges.persistedXssUserChallenge)) {
             challengeUtils.solveIf(challenges.persistedXssUserChallenge, () => {
-              return utils.contains(
-                email,
+              return email.includes(
                 '<iframe src="javascript:alert(`xss`)">'
               )
             })
@@ -87,8 +86,8 @@ const UserModelInit = (sequelize: Sequelize) => { // vuln-code-snippet start wea
           const profileImage = this.getDataValue('profileImage')
           if (
             role === security.roles.admin &&
-          (!profileImage ||
-            profileImage === '/assets/public/images/uploads/default.svg')
+            (!profileImage ||
+              profileImage === '/assets/public/images/uploads/default.svg')
           ) {
             this.setDataValue(
               'profileImage',
@@ -129,7 +128,7 @@ const UserModelInit = (sequelize: Sequelize) => { // vuln-code-snippet start wea
   User.addHook('afterValidate', async (user: User) => {
     if (
       user.email &&
-    user.email.toLowerCase() ===
+      user.email.toLowerCase() ===
       `acc0unt4nt@${config.get<string>('application.domain')}`.toLowerCase()
     ) {
       await Promise.reject(

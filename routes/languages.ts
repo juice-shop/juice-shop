@@ -4,71 +4,82 @@
  */
 
 import locales from '../data/static/locales.json'
-import fs from 'node:fs'
-import { type Request, type Response, type NextFunction } from 'express'
+import fs from 'node:fs/promises'
+import path from 'node:path'
+import { type Request, type Response } from 'express'
 
-export function getLanguageList () { // TODO Refactor and extend to also load backend translations from /i18n/*json and calculate joint percentage/gauge
-  return (req: Request, res: Response, next: NextFunction) => {
-    const languages: Array<{ key: string, lang: any, icons: string[], shortKey: string, percentage: unknown, gauge: string }> = []
-    let count = 0
-    let enContent: any
+export function getLanguageList () {
+  return async (req: Request, res: Response) => {
+    const FRONTEND_I18N = 'frontend/dist/frontend/assets/i18n/'
+    const BACKEND_I18N = 'i18n/'
 
-    fs.readFile('frontend/dist/frontend/assets/i18n/en.json', 'utf-8', (err, content) => {
-      if (err != null) {
-        next(new Error(`Unable to retrieve en.json language file: ${err.message}`))
-      }
-      enContent = JSON.parse(content)
-      fs.readdir('frontend/dist/frontend/assets/i18n/', (err, languageFiles) => {
-        if (err != null) {
-          next(new Error(`Unable to read i18n directory: ${err.message}`))
-        }
-        languageFiles.forEach((fileName) => {
-          // eslint-disable-next-line @typescript-eslint/no-misused-promises
-          fs.readFile('frontend/dist/frontend/assets/i18n/' + fileName, 'utf-8', async (err, content) => {
-            if (err != null) {
-              next(new Error(`Unable to retrieve ${fileName} language file: ${err.message}`))
-            }
-            const fileContent = JSON.parse(content)
-            const percentage = await calcPercentage(fileContent, enContent)
-            const key = fileName.substring(0, fileName.indexOf('.'))
-            const locale = locales.find((l) => l.key === key)
-            const lang: any = {
-              key,
-              lang: fileContent.LANGUAGE,
-              icons: locale?.icons,
-              shortKey: locale?.shortKey,
-              percentage,
-              gauge: (percentage > 90 ? 'full' : (percentage > 70 ? 'three-quarters' : (percentage > 50 ? 'half' : (percentage > 30 ? 'quarter' : 'empty'))))
-            }
-            if (!(fileName === 'en.json' || fileName === 'tlh_AA.json')) {
-              languages.push(lang)
-            }
-            count++
-            if (count === languageFiles.length) {
-              languages.push({ key: 'en', icons: ['gb', 'us'], shortKey: 'EN', lang: 'English', percentage: 100, gauge: 'full' })
-              languages.sort((a, b) => a.lang.localeCompare(b.lang))
-              res.status(200).json(languages)
-            }
-          })
+    try {
+      const [enFrontend, enBackend] = await Promise.all([
+        fs.readFile(path.resolve(FRONTEND_I18N, 'en.json'), 'utf-8').then(JSON.parse),
+        fs.readFile(path.resolve(BACKEND_I18N, 'en.json'), 'utf-8').then(JSON.parse)
+      ])
+
+      const [frontendFiles, backendFiles] = await Promise.all([
+        fs.readdir(path.resolve(FRONTEND_I18N)),
+        fs.readdir(path.resolve(BACKEND_I18N))
+      ])
+
+      const allFiles = Array.from(new Set([...frontendFiles, ...backendFiles])).filter(f => f.endsWith('.json'))
+      const languages: Array<{ key: string, lang: string, icons: string[] | undefined, shortKey: string | undefined, percentage: number, gauge: string }> = []
+
+      await Promise.all(allFiles.map(async (fileName) => {
+        if (fileName === 'en.json' || fileName === 'tlh_AA.json') return
+
+        const [frontendContent, backendContent] = await Promise.all([
+          fs.readFile(path.resolve(FRONTEND_I18N, fileName), 'utf-8').then(JSON.parse).catch(() => ({})),
+          fs.readFile(path.resolve(BACKEND_I18N, fileName), 'utf-8').then(JSON.parse).catch(() => ({}))
+        ])
+
+        const percentage = calcJointPercentage(enFrontend, enBackend, frontendContent, backendContent)
+        const key = fileName.substring(0, fileName.indexOf('.'))
+        const locale = locales.find((l) => l.key === key)
+
+        languages.push({
+          key,
+          lang: (frontendContent.LANGUAGE || backendContent.LANGUAGE || key) as string,
+          icons: locale?.icons,
+          shortKey: locale?.shortKey,
+          percentage,
+          gauge: getGauge(percentage)
         })
-      })
-    })
+      }))
 
-    async function calcPercentage (fileContent: any, enContent: any): Promise<number> {
-      const totalStrings = Object.keys(enContent).length
-      let differentStrings = 0
-      return await new Promise((resolve, reject) => {
-        try {
-          for (const key in fileContent) {
-            if (Object.prototype.hasOwnProperty.call(fileContent, key) && fileContent[key] !== enContent[key]) {
-              differentStrings++
-            }
-          }
-          resolve((differentStrings / totalStrings) * 100)
-        } catch (err) {
-          reject(err)
-        }
-      })
+      languages.push({ key: 'en', icons: ['gb', 'us'], shortKey: 'EN', lang: 'English', percentage: 100, gauge: 'full' })
+      languages.sort((a, b) => a.lang.localeCompare(b.lang))
+      res.status(200).json(languages)
+    } catch (err) {
+      res.status(500).json({ error: (err instanceof Error ? err.message : 'Internal Server Error') })
     }
+  }
+
+  function calcJointPercentage (enFrontend: any, enBackend: any, frontendContent: any, backendContent: any): number {
+    const totalStrings = Object.keys(enFrontend).length + Object.keys(enBackend).length
+    let differentStrings = 0
+
+    for (const key in frontendContent) {
+      if (Object.prototype.hasOwnProperty.call(frontendContent, key) && frontendContent[key] !== enFrontend[key]) {
+        differentStrings++
+      }
+    }
+    for (const key in backendContent) {
+      if (Object.prototype.hasOwnProperty.call(backendContent, key) && backendContent[key] !== enBackend[key]) {
+        differentStrings++
+      }
+    }
+
+    return totalStrings > 0 ? (differentStrings / totalStrings) * 100 : 0
+  }
+
+  function getGauge (percentage: number): string {
+    if (percentage > 90) return 'full'
+    if (percentage > 70) return 'three-quarters'
+    if (percentage > 50) return 'half'
+    if (percentage > 30) return 'quarter'
+    return 'empty'
   }
 }
