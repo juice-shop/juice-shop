@@ -88,7 +88,7 @@ export function getUserProfile () {
       const CSP = `img-src 'self' ${user?.profileImage}; script-src 'self' 'unsafe-eval'`
 
       challengeUtils.solveIf(challenges.usernameXssChallenge, () => {
-        return username && user?.profileImage.match(/;[ ]*script-src(.)*'unsafe-inline'/g) !== null && utils.contains(username, '<script>alert(`xss`)</script>')
+        return username && user?.profileImage.match(/;[ ]*script-src(.)*'unsafe-inline'/g) !== null && (username ? username.includes('<script>alert(`xss`)</script>') : false)
       })
 
       res.set({

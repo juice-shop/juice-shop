@@ -42,14 +42,12 @@ export const startsWith = (str: string, prefix: string) => str ? str.indexOf(pre
 
 export const endsWith = (str?: string, suffix?: string) => (str && suffix) ? str.includes(suffix, str.length - suffix.length) : false
 
-export const contains = (str: string, element: string) => str ? str.includes(element) : false // TODO Inline all usages as this function is not adding any functionality to String.includes
-
 export const containsEscaped = function (str: string, element: string) {
-  return contains(str, element.replace(/"/g, '\\"'))
+  return str ? str.includes(element.replace(/"/g, '\\"')) : false
 }
 
 export const containsOrEscaped = function (str: string, element: string) {
-  return contains(str, element) || containsEscaped(str, element)
+  return str ? (str.includes(element) || str.includes(element.replace(/"/g, '\\"'))) : false
 }
 
 export const unquote = function (str: string) {
@@ -112,7 +110,7 @@ export const toISO8601 = (date: Date) => {
 
 export const extractFilename = (url: string) => {
   let file = decodeURIComponent(url.substring(url.lastIndexOf('/') + 1))
-  if (contains(file, '?')) {
+  if (file.includes('?')) {
     file = file.substring(0, file.indexOf('?'))
   }
   return file

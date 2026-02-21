@@ -87,7 +87,7 @@ function handleXmlUpload ({ file }: Request, res: Response, next: NextFunction) 
         next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + utils.trunc(xmlString, 400) + ' (' + file.originalname + ')'))
       } catch (err: unknown) {
         const errorMessage = err instanceof Error ? err.message : String(err)
-        if (utils.contains(errorMessage, 'Script execution timed out')) {
+        if (errorMessage.includes('Script execution timed out')) {
           if (challengeUtils.notSolved(challenges.xxeDosChallenge)) {
             challengeUtils.solve(challenges.xxeDosChallenge)
           }
@@ -119,7 +119,7 @@ function handleYamlUpload ({ file }: Request, res: Response, next: NextFunction)
         next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + utils.trunc(yamlString, 400) + ' (' + file.originalname + ')'))
       } catch (err: unknown) {
         const errorMessage = err instanceof Error ? err.message : String(err)
-        if (utils.contains(errorMessage, 'Invalid string length') || utils.contains(errorMessage, 'Script execution timed out')) {
+        if (errorMessage.includes('Invalid string length') || errorMessage.includes('Script execution timed out')) {
           if (challengeUtils.notSolved(challenges.yamlBombChallenge)) {
             challengeUtils.solve(challenges.yamlBombChallenge)
           }

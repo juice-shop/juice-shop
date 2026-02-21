@@ -185,13 +185,13 @@ describe('utils', () => {
     })
   })
 
-  describe('contains', () => {
+  describe('containsOrEscaped', () => {
     it('accepts string containing another string', () => {
-      expect(utils.contains('Bla Blubb', 'la Bl')).to.equal(true)
+      expect(utils.containsOrEscaped('Bla Blubb', 'la Bl')).to.equal(true)
     })
 
-    it('rejects string containing another string', () => {
-      expect(utils.contains('Bla Blubb', 'Lala')).to.equal(false)
+    it('rejects string not containing another string', () => {
+      expect(utils.containsOrEscaped('Bla Blubb', 'Lala')).to.equal(false)
     })
   })
 
