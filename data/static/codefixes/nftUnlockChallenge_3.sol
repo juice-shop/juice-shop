@@ -24,7 +24,10 @@ contract JuiceShopSBT is ERC721, ERC721URIStorage, Ownable {
     address to,
     uint256 tokenId
     ) internal override virtual {
-    require(from == address(0), "Err: token transfer is BLOCKED");
+    // Incorrect fix: Only allowing transfers TO the zero address means the 
+    // token can be burned, but it can NEVER be minted in the first place, 
+    // rendering the contract useless.
+    require(to == address(0), "Err: token transfer is BLOCKED");
     super._beforeTokenTransfer(from, to, tokenId);
     }
 

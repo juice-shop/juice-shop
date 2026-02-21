@@ -24,7 +24,9 @@ contract JuiceShopSBT is ERC721, ERC721URIStorage, Ownable {
     address to,
     uint256 tokenId
     ) internal override virtual {
-    require(from == address(0), "Err: token transfer is BLOCKED");
+    // Correct Fix: A Soul Bound Token (SBT) must allow minting (from == 0x0)
+    // AND burning (to == 0x0), but block all standard transfers between users.
+    require(from == address(0) || to == address(0), "Err: token transfer is BLOCKED");
     super._beforeTokenTransfer(from, to, tokenId);
     }
 
