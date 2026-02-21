@@ -44,13 +44,9 @@
             {{ product.price }}&curren;
           }
           @if (isDeluxe() && product.price !== product.deluxePrice) {
-            
-                        {{ product.deluxePrice }}&curren;
-<s>{{ product.price }}</s>
+            <s class="expired">{{ product.price }}</s>
+            {{ product.deluxePrice }}&curren;
           }
-        
-          <!-- <s class="expired">{{ product.price }}</s>
-          {{ product.deluxePrice }}&curren; -->
         </div>
       @if (isLoggedIn()) {
         <button
