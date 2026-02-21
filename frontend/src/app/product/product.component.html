@@ -1,3 +1,8 @@
+<!--
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+-->
+
 @let product = item();
 
 <mat-card appearance="outlined" class="mat-card">
@@ -40,8 +45,8 @@
           }
           @if (isDeluxe() && product.price !== product.deluxePrice) {
             
-            {{ product.deluxePrice }}&curren;
-            <s>{{ product.price }}</s>
+                        {{ product.deluxePrice }}&curren;
+<s>{{ product.price }}</s>
           }
         
           <!-- <s class="expired">{{ product.price }}</s>
