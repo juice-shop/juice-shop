@@ -57,9 +57,9 @@ mat-header-cell {
 
 .mat-column-comment {
   flex: 0 0 55% !important;
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
+  hyphens: auto;
+  hyphens: auto;
+  hyphens: auto;
   hyphens: auto;
   overflow-wrap: break-word;
   padding: $space-3xs;
@@ -72,9 +72,9 @@ mat-header-cell {
 
 .mat-column-user {
   flex: 0 0 7% !important;
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
+  hyphens: auto;
+  hyphens: auto;
+  hyphens: auto;
   hyphens: auto;
   overflow-wrap: break-word;
   padding: $space-3xs;
@@ -86,9 +86,9 @@ mat-header-cell {
 
 .mat-column-rating {
   flex: 0 0 20% !important;
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
+  hyphens: auto;
+  hyphens: auto;
+  hyphens: auto;
   hyphens: auto;
   overflow-wrap: break-word;
   white-space: unset !important;
@@ -115,8 +115,8 @@ mat-row {
 }
 
 p {
-  -webkit-box-orient: vertical;
-  display: -webkit-box;
+  box-orient: vertical;
+  display: box;
   line-clamp: 2;
   overflow: hidden;
 }
