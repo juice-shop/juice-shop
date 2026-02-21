@@ -2,14 +2,14 @@
 
 <mat-card appearance="outlined" class="mat-card">
   <article class="product">
-    @if (product.quantity <= 5 && product.quantity > 0) {
+    @if (product?.quantity <= 5 && product?.quantity > 0) {
       <aside class="ribbon">
         <span translate [translateParams]="{ quantity: product.quantity }"
           >LABEL_ONLY_QUANTITY_LEFT</span
         >
       </aside>
     }
-    @if (product.quantity <= 0) {
+    @if (product?.quantity <= 0) {
       <aside class="ribbon ribbon-sold">
         <span>{{ "LABEL_SOLD_OUT" | translate }}</span>
       </aside>
