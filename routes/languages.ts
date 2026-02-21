@@ -72,7 +72,7 @@ export function getLanguageList () {
       languages.push({ key: 'en', icons: ['gb', 'us'], shortKey: 'EN', lang: 'English', percentage: 100, gauge: 'full' })
       languages.sort((a, b) => a.lang.localeCompare(b.lang))
       res.status(200).json(languages)
-    } catch (err: any) {
+    } catch (err: unknown) {
       next(err)
     }
   }
