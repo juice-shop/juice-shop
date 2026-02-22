@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { inject, TestBed, waitForAsync } from '@angular/core/testing'
+import { inject, TestBed } from '@angular/core/testing'
+import { firstValueFrom, throwError } from 'rxjs'
 
 import { LocalBackupService } from './local-backup.service'
 import { CookieModule, CookieService } from 'ngy-cookie'
@@ -12,7 +13,6 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import * as FileSaver from 'file-saver'
 import { ChallengeService } from './challenge.service'
-import { throwError } from 'rxjs'
 
 describe('LocalBackupService', () => {
   let snackBar: any
@@ -59,21 +59,21 @@ describe('LocalBackupService', () => {
     expect(FileSaver.saveAs).toHaveBeenCalledWith(blob, `owasp_juice_shop-${new Date().toISOString().split('T')[0]}.json`)
   }))
 
-  it('should restore language from backup file', waitForAsync(inject([LocalBackupService], (service: LocalBackupService) => {
+  it('should restore language from backup file', async () => {
+    const service = TestBed.inject(LocalBackupService)
     cookieService.put('language', 'de')
-    service.restore(new File(['{ "version": 1, "language": "cn" }'], 'test.json')).subscribe(() => {
-      expect(cookieService.get('language')).toBe('cn')
-      expect(snackBar.open).toHaveBeenCalled()
-    })
-  })))
+    await firstValueFrom(service.restore(new File(['{ "version": 1, "language": "cn" }'], 'test.json')))
+    expect(cookieService.get('language')).toBe('cn')
+    expect(snackBar.open).toHaveBeenCalled()
+  })
 
-  it('should not restore language from an outdated backup version', waitForAsync(inject([LocalBackupService], (service: LocalBackupService) => {
+  it('should not restore language from an outdated backup version', async () => {
+    const service = TestBed.inject(LocalBackupService)
     cookieService.put('language', 'de')
-    service.restore(new File(['{ "version": 0, "language": "cn" }'], 'test.json')).subscribe(() => {
-      expect(cookieService.get('language')).toBe('de')
-      expect(snackBar.open).toHaveBeenCalled()
-    })
-  })))
+    await firstValueFrom(service.restore(new File(['{ "version": 0, "language": "cn" }'], 'test.json')))
+    expect(cookieService.get('language')).toBe('de')
+    expect(snackBar.open).toHaveBeenCalled()
+  })
 
   it('should log and fallback to cookies when continue code retrieval fails during save', inject([LocalBackupService], (service: LocalBackupService) => {
     spyOn(FileSaver, 'saveAs').and.stub()
