@@ -28,13 +28,11 @@ jobs:
           npm install --ignore-scripts
 
       - name: "Build frontend"
-        dir: frontend
         run: |
           cd frontend
           npm run build --configuration production
 
       - name: "Generate bundle report"
-        dir: frontend
         run: |
           npm run bundle-visalizer
 
