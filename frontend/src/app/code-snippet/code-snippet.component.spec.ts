@@ -15,6 +15,7 @@ import { CookieModule, CookieService } from 'ngy-cookie'
 import { of, throwError } from 'rxjs'
 import { CodeFixesService } from '../Services/code-fixes.service'
 import { VulnLinesService } from '../Services/vuln-lines.service'
+import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs'
 import { ChallengeService } from '../Services/challenge.service'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
@@ -55,7 +56,16 @@ describe('CodeSnippetComponent', () => {
         { provide: VulnLinesService, useValue: vulnLinesService },
         { provide: ChallengeService, useValue: challengeService },
         provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
+        provideHttpClientTesting(),
+        {
+          provide: HIGHLIGHT_OPTIONS,
+          useValue: {
+            coreLibraryLoader: async () => await import('highlight.js/lib/core'),
+            languages: {
+              typescript: async () => await import('highlight.js/lib/languages/typescript')
+            }
+          }
+        }
       ]
     })
       .compileComponents()

@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel, MatError } from '@angular/material/form-field'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatIconButton, MatButtonModule } from '@angular/material/button'
+import { MatIconModule } from '@angular/material/icon'
 
 import { MatCardModule, MatCardTitle, MatCardContent } from '@angular/material/card'
 
@@ -26,7 +27,7 @@ library.add(faTwitter)
   selector: 'app-photo-wall',
   templateUrl: './photo-wall.component.html',
   styleUrls: ['./photo-wall.component.scss'],
-  imports: [MatCardModule, MatIconButton, MatCardTitle, TranslateModule, MatCardContent, FormsModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatLabel, MatInputModule, MatError]
+  imports: [MatCardModule, MatIconModule, MatIconButton, MatCardTitle, TranslateModule, MatCardContent, FormsModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatLabel, MatInputModule, MatError]
 })
 export class PhotoWallComponent implements OnInit {
   private readonly photoWallService = inject(PhotoWallService)
