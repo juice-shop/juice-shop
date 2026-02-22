@@ -106,7 +106,7 @@ bootstrapApplication(AppComponent, {
             provide: HIGHLIGHT_OPTIONS,
             useValue: {
                 coreLibraryLoader: async () => await import('highlight.js/lib/core'),
-                lineNumbersLoader: async () => await import('highlightjs-line-numbers.js'),
+                lineNumbersLoader: async () => await import('ngx-highlightjs/line-numbers'),
                 languages: {
                     typescript: async () => await import('highlight.js/lib/languages/typescript'),
                     javascript: async () => await import('highlight.js/lib/languages/javascript'),
