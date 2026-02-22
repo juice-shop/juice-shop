@@ -16,11 +16,14 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/frontend",
+            "outputPath": {
+              "base": "dist/frontend",
+              "browser": ""
+            },
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -28,12 +31,13 @@
             "assets": ["src/assets"],
             "styles": [
               "src/styles.scss",
-              "node_modules/material-icons/iconfont/material-icons.scss",
+              "node_modules/material-icons/iconfont/material-icons.css",
               "node_modules/flag-icons/css/flag-icons.min.css",
               "node_modules/font-mfizz/dist/font-mfizz.css",
               "node_modules/highlight.js/styles/github.css",
               "node_modules/codemirror/lib/codemirror.css",
-              "node_modules/codemirror/theme/dracula.css"
+              "node_modules/codemirror/theme/dracula.css",
+              "node_modules/cookieconsent/build/cookieconsent.min.css"
             ],
             "allowedCommonJsDependencies": [
               "jwt-decode",
@@ -53,22 +57,17 @@
               "ethers/lib/ethers",
               "ethers/lib/utils",
               "js-sha3",
-              "qrcode"
+              "qrcode",
+              "codemirror-solidity/solidity",
+              "@wagmi/core"
             ],
-            "scripts": [],
-            "aot": false,
-            "vendorChunk": true,
+            "scripts": [
+              "node_modules/cookieconsent/build/cookieconsent.min.js"
+            ],
             "extractLicenses": false,
-            "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true,
-            "customWebpackConfig": {
-              "path": "./webpack.angular.js",
-              "mergeRules": {
-                "externals": "replace"
-              }
-            }
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -79,13 +78,10 @@
                 }
               ],
               "optimization": true,
-              "outputHashing": "none",
+              "outputHashing": "media",
               "sourceMap": false,
-              "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
-              "vendorChunk": true,
-              "buildOptimizer": true
+              "statsJson": true
             }
           },
           "defaultConfiguration": ""
