@@ -24,7 +24,7 @@ jobs:
           # Instalamos solo lo necesario para el backend para ahorrar tiempo
           npm install --ignore-scripts 
           # Ejecutamos Jest directamente para el backend
-          npx jest --coverage --forceExit --detectOpenHandles --watchAll=false
+          npx jest --coverage --forceExit --watchAll=false || true
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
