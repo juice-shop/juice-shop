@@ -16,15 +16,19 @@ jobs:
         with:
           fetch-depth: 0 # Importante para el análisis de Churn
 
-      - name: Install Dependencies
-        run: npm install #--ignore-scripts # Instalación rápida
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm' # Habilita caché para acelerar futuras ejecuciones
 
-      - name: Run Tests (Coverage)
+      - name: Install Dependencies
+        run: npm install --legacy-peer-deps #--ignore-scripts # Instalación rápida
+
+      - name: Run All Tests (Frontend & Backend)
         run: |
-          # Instalamos solo lo necesario para el backend para ahorrar tiempo
-          npm install --ignore-scripts 
-          # Ejecutamos Jest directamente para el backend
-          npx jest --coverage --forceExit --watchAll=false || true
+          export CHROME_BIN=/usr/bin/google-chrome
+          npm test -- --browsers=ChromeHeadless --watch=false || echo "Algunos tests fallaron, continuando con el análisis..."
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -35,6 +39,6 @@ jobs:
           args: >
             -Dsonar.projectKey=dacaslles_juice-shop
             -Dsonar.organization=dacaslles
-            -Dsonar.sources=app.ts,server.ts,lib,models,routes
-            -Dsonar.exclusions=data/**,**/node_modules/**,**/dist/**,**/*.json,test/**,cypress/**
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.sources=app.ts,server.ts,lib,models,routes,frontend/src,test
+            -Dsonar.exclusions=data/**,**/node_modules/**,**/dist/**,**/*.json,cypress/**
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info,frontend/coverage/lcov.info
