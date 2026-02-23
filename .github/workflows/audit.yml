@@ -1,4 +1,4 @@
-name: SonarCloud_Audit
+name: SonarQubeAudit
 on:
   push:
     branches:
@@ -8,8 +8,8 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  sonarcloud:
-    name: SonarCloud Scan
+  sonarqube:
+    name: SonarQube Scan
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,7 +20,11 @@ jobs:
         run: npm install --ignore-scripts # Instalación rápida
 
       - name: Run Tests (Coverage)
-        run: npm test -- --coverage --watchAll=false # Genera el reporte para Sonar
+        run: |
+          # Instalamos solo lo necesario para el backend para ahorrar tiempo
+          npm install --ignore-scripts 
+          # Ejecutamos Jest directamente para el backend
+          npx jest --coverage --forceExit --detectOpenHandles --watchAll=false
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
