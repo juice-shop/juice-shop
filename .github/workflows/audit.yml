@@ -16,12 +16,6 @@ jobs:
         with:
           fetch-depth: 0 # Importante para el análisis de Churn
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm' # Habilita caché para acelerar futuras ejecuciones
-
       - name: Install Dependencies
         run: npm install --legacy-peer-deps #--ignore-scripts # Instalación rápida
 
