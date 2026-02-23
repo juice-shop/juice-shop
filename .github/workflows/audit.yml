@@ -1,0 +1,36 @@
+name: SonarCloud_Audit
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  sonarcloud:
+    name: SonarCloud Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Importante para el análisis de Churn
+
+      - name: Install Dependencies
+        run: npm install --ignore-scripts # Instalación rápida
+
+      - name: Run Tests (Coverage)
+        run: npm test -- --coverage --watchAll=false # Genera el reporte para Sonar
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=dacaslles_juice-shop
+            -Dsonar.organization=dacaslles
+            -Dsonar.sources=app.ts,server.ts,lib,models,routes
+            -Dsonar.exclusions=data/**,**/node_modules/**,**/dist/**,**/*.json,test/**,cypress/**
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
