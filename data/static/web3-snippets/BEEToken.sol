@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: MIT
+// vuln-code-snippet start beeTokenIntegratedVulnChallenge
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/math/SafeMath.sol"; // vuln-code-snippet neutral-line beeTokenIntegratedVulnChallenge
+import "@openzeppelin/contracts/access/Ownable.sol"; // vuln-code-snippet neutral-line beeTokenIntegratedVulnChallenge
 
 
 contract BeeToken is IERC20 {
@@ -50,7 +51,7 @@ contract BeeToken is IERC20 {
     }
 
     function approve(address spender, uint256 amount) external override returns (bool) {
-        _approve(msg.sender, spender, amount);
+        _approve(msg.sender, spender, amount); // vuln-code-snippet vuln-line beeTokenIntegratedVulnChallenge
         return true;
     }
 
@@ -65,8 +66,8 @@ contract BeeToken is IERC20 {
         return true;
     }
 
-    function mintTokens(address recipient, uint256 amount) external onlyOwner {
-        _mint(recipient, amount);
+    function mintTokens(address recipient, uint256 amount) external onlyOwner { // vuln-code-snippet neutral-line beeTokenIntegratedVulnChallenge
+        _mint(recipient, amount); // vuln-code-snippet neutral-line beeTokenIntegratedVulnChallenge
     }
 
     function decreaseAllowance(address spender, uint256 subtractedValue) external returns (bool) {
@@ -105,3 +106,4 @@ contract BeeToken is IERC20 {
         emit Transfer(sender, recipient, amount);
     }
 }
+// vuln-code-snippet end beeTokenIntegratedVulnChallenge
