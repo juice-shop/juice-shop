@@ -22,7 +22,13 @@ jobs:
       - name: Run All Tests (Frontend & Backend)
         run: |
           export CHROME_BIN=/usr/bin/google-chrome
-          npm test -- --browsers=ChromeHeadless --watch=false || echo "Algunos tests fallaron, continuando con el análisis..."
+          cd frontend && npm run test -- --watch=false --code-coverage --browsers=ChromeHeadless && cd ..
+          npm run test:server || echo "Algunos tests fallaron, continuando con el análisis..."
+
+      - name: Debug - List all lcov files
+        run: |
+          echo "Buscando archivos de cobertura generados..."
+          find . -name "lcov.info"
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
