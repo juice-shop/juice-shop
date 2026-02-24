@@ -43,4 +43,4 @@ jobs:
             -Dsonar.tests=test,frontend/src
             -Dsonar.test.inclusions=test/**,frontend/src/**/*.spec.ts,frontend/src/**/*.test.ts
             -Dsonar.exclusions=data/**,**/node_modules/**,**/dist/**,**/*.json,cypress/**
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info,frontend/coverage/lcov.info,build/reports/coverage/server-tests/lcov.info,frontend/coverage/juice-shop/lcov.info
+            -Dsonar.javascript.lcov.reportPaths=build/reports/coverage/frontend-tests/lcov.info,build/reports/coverage/server-tests/lcov.info
