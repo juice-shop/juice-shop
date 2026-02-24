@@ -39,6 +39,7 @@ jobs:
           args: >
             -Dsonar.projectKey=dacaslles_juice-shop
             -Dsonar.organization=dacaslles
+            -Dsonar.qualitygate.wait=true
             -Dsonar.sources=app.ts,server.ts,lib,models,routes,frontend/src
             -Dsonar.tests=test,frontend/src
             -Dsonar.test.inclusions=test/**,frontend/src/**/*.spec.ts,frontend/src/**/*.test.ts
