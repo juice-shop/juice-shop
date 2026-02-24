@@ -5,6 +5,7 @@
 
 import type { BasketItemModel } from 'models/basketitem'
 import type { ChallengeKey, ChallengeModel } from 'models/challenge'
+
 import type { ComplaintModel } from 'models/complaint'
 import type { FeedbackModel } from 'models/feedback'
 import type { ProductModel } from 'models/product'
