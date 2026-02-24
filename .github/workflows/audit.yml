@@ -34,7 +34,7 @@ jobs:
             -Dsonar.projectKey=dacaslles_juice-shop
             -Dsonar.organization=dacaslles
             -Dsonar.sources=app.ts,server.ts,lib,models,routes,frontend/src
-            -Dsonar.tests=test,frontend/src/**/*.spec.ts
-            -Dsonar.test.inclusions=test/**,**/*.spec.ts,**/*.test.ts
+            -Dsonar.tests=test,frontend/src
+            -Dsonar.test.inclusions=test/**,frontend/src/**/*.spec.ts,frontend/src/**/*.test.ts
             -Dsonar.exclusions=data/**,**/node_modules/**,**/dist/**,**/*.json,cypress/**
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info,frontend/coverage/lcov.info
