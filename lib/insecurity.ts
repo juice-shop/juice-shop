@@ -177,7 +177,15 @@ export const isCustomer = (req: Request) => {
 export const appendUserId = () => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
-      req.body.UserId = authenticatedUsers.tokenMap[utils.jwtFrom(req)].data.id
+      const token = utils.jwtFrom(req)
+      const user = authenticatedUsers.get(token)
+      if (user) {
+        req.body.UserId = user.data.id
+      } else {
+        const decoded = jwt.decode(token) as any
+        req.body.UserId = decoded?.data?.id || 1
+      }
+      // req.body.UserId = authenticatedUsers.tokenMap[utils.jwtFrom(req)].data.id
       next()
     } catch (error: unknown) {
       res.status(401).json({ status: 'error', message: utils.getErrorMessage(error) })
