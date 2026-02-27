@@ -82,6 +82,9 @@ export default defineConfig({
         },
         isWindows () {
           return utils.isWindows()
+        },
+        isOllama () {
+          return utils.isOllama()
         }
       })
     }

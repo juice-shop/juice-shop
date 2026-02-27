@@ -119,7 +119,8 @@ describe('utils', () => {
       isDocker: () => false,
       isHeroku: () => false,
       isWindows: () => false,
-      isGitpod: () => false
+      isGitpod: () => false,
+      isOllama: () => false
     }
 
     for (const safetyMode of ['enabled', 'disabled', 'auto'] as const) {

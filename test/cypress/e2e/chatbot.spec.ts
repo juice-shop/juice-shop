@@ -3,6 +3,36 @@ describe('/chatbot', () => {
     cy.login({ email: 'admin', password: 'admin123' })
   })
 
+  describe('challenge "couponExtraction"', () => {
+    it('should be possible to redeem the secret LLM coupon code', () => {
+      cy.task<boolean>('isOllama').then((isOllama) => {
+        if (!isOllama) {
+          cy.log('Skipping: Ollama is not running')
+          return
+        }
+        cy.window().then(async () => {
+          await fetch(`${Cypress.config('baseUrl')}/api/BasketItems/`, {
+            method: 'POST',
+            cache: 'no-cache',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({ ProductId: 1, BasketId: 1, quantity: 1 })
+          })
+        })
+        cy.request({
+          method: 'PUT',
+          url: '/rest/basket/1/coupon/JUICE50OFF',
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        }).then((response) => {
+          expect(response.body).to.have.property('discount', 50)
+        })
+        cy.expectChallengeSolved({ challenge: 'Coupon Extraction' })
+      })
+    })
+  })
+
   describe('challenge "killChatbot"', () => {
     it('should be possible to kill the chatbot by setting the process to null', () => {
       cy.visit('/profile')

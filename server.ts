@@ -600,6 +600,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/rest/products/search', searchProducts())
   app.get('/rest/basket/:id', retrieveBasket())
   app.post('/rest/basket/:id/checkout', placeOrder())
+  app.put('/rest/basket/:id/coupon/:coupon', chatbot.verifyLlmCouponChallenge())
   app.put('/rest/basket/:id/coupon/:coupon', applyCoupon())
   app.get('/rest/admin/application-version', retrieveAppVersion())
   app.get('/rest/admin/application-configuration', retrieveAppConfiguration())
@@ -719,6 +720,13 @@ app.get('/metrics', metrics.serveMetrics()) // vuln-code-snippet vuln-line expos
 errorhandler.title = `${config.get<string>('application.name')} (Express ${utils.version('express')})`
 
 export async function start (readyCallback?: () => void) {
+  const ollamaAvailable = await utils.initOllamaCheck()
+  const ollamaUrl = process.env.OLLAMA_URL ?? 'http://localhost:11434'
+  if (ollamaAvailable) {
+    logger.info(colors.cyan(`Ollama connected at ${colors.bold(ollamaUrl)} - LLM chatbot active (Coupon Extraction challenge available)`))
+  } else {
+    logger.info(colors.cyan('Ollama not available - falling back to built-in chatbot (Bully Chatbot challenge available)'))
+  }
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
   await sequelize.sync({ force: true })
   await datacreator()

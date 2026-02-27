@@ -195,6 +195,7 @@
   "BTN_SHOW_ALL": "Show all",
   "BTN_SHOW_UNAVAILABLE": "Show unavailable",
   "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/companion-guide/latest/part1/challenges.html#_potentially_dangerous_challenges'>security concerns</a> or technical incompatibility!",
+  "INFO_DISABLED_CHALLENGES_OLLAMA": "{{num}} challenges require <a href='https://ollama.com'>Ollama</a> running locally to work. Start Ollama and restart the Juice Shop to enable them!",
   "SHOW_DISABLED_CHALLENGES": "Show them anyways",
   "HIDE_DISABLED_CHALLENGES": "Hide disabled challenges",
   "BTN_HIDE_ALL": "Hide all",

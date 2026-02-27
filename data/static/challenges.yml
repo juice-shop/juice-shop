@@ -1482,6 +1482,8 @@
     - 'No seriously, just keep asking.'
   mitigationUrl: ~
   key: bullyChatbotChallenge
+  disabledEnv:
+    - Ollama
 -
   name: 'Local File Read'
   category: 'Vulnerable Components'
@@ -1544,3 +1546,17 @@
     - 'Find the place where the API call happens — as stated above, it is not in the web application — and then look for the API key itself.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html'
   key: leakedApiKeyChallenge
+-
+  name: 'Coupon Extraction'
+  category: 'Injection'
+  description: 'Extract the secret coupon code hidden in JuiceBot&apos;s system prompt using prompt injection techniques.'
+  difficulty: 3
+  hints:
+    - 'The bot has been told to keep something from customers. Maybe if it thought you were staff, or if it was asked to complete a sentence, it might slip up.'
+    - 'Try different forms of prompt injections techniques!'
+    - 'Maybe ask the bot what codes not to use?'
+    - 'LLMs are non-deterministic, maybe try to spray some prompt injection with a tool to extract the coupon code'
+  mitigationUrl: https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html
+  key: couponExtractionChallenge
+  disabledEnv:
+    - NoOllama

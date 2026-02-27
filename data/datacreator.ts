@@ -91,7 +91,7 @@ async function createChallenges () {
           category,
           tags: (tags != null) ? tags.join(',') : undefined,
           // todo(@J12934) currently missing the 'not available' text. Needs changes to the model and utils functions
-          description: isChallengeEnabled ? description : (description + ' <em>(This challenge is <strong>potentially harmful</strong> on ' + disabledBecause + '!)</em>'),
+          description: isChallengeEnabled ? description : (disabledBecause === 'NoOllama' ? (description + ' <em>(This challenge requires <strong>Ollama</strong> to be running!)</em>') : (disabledBecause === 'Ollama' ? (description + ' <em>(This challenge only works without <strong>Ollama</strong> running!)</em>') : (description + ' <em>(This challenge is <strong>potentially harmful</strong> on ' + disabledBecause + '!)</em>'))),
           difficulty,
           solved: false,
           mitigationUrl: showMitigations ? mitigationUrl : null,
