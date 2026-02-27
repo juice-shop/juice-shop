@@ -3,6 +3,13 @@
  * SPDX-License-Identifier: MIT
  */
 
+
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 mat-form-field {
   width: 100%;
 }
@@ -45,24 +52,32 @@ input {
 }
 
 .grid {
-  align-items: center;
+  align-items: stretch;
   display: grid;
   grid-gap: 20px;
   grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+  grid-auto-rows: 250px;
 }
 
 .grid img {
-  border-radius: 4px;
-  box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 0;
+  box-shadow: none;
   max-width: 100%;
 }
 
 .container {
   position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.3);
 }
 
 .image {
   display: block;
+  width: 100%;                 
+  height: 100%;                
+  object-fit: cover;           /* crops to fill tile uniformly */
+  border-radius: 0;  
 }
 
 .overlay {
