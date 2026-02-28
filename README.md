@@ -76,7 +76,7 @@ For a detailed introduction, full list of features and architecture overview ple
 [![SourceForge](https://img.shields.io/sourceforge/dm/juice-shop?label=sourceforge%20downloads)](https://sourceforge.net/projects/juice-shop/)
 [![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop?label=sourceforge%20downloads)](https://sourceforge.net/projects/juice-shop/)
 
-1. Install a 64bit [node.js](#nodejs-version-compatibility) on your Windows, MacOS or Linux machine
+1. Install a 64bit [node.js](#nodejs-version-compatibility) on your Windows, macOS or Linux machine
 2. Download `juice-shop-<version>_<node-version>_<os>_x64.zip` (or
    `.tgz`) attached to
    [latest release](https://github.com/juice-shop/juice-shop/releases/latest)
@@ -137,11 +137,11 @@ offered accordingly.
 | node.js | Supported              | Tested             | [Packaged Distributions](#packaged-distributions) | [Docker images](#docker-container) from `master` | [Docker images](#docker-container) from `develop` |
 |:--------|:-----------------------|:-------------------|:--------------------------------------------------|:-------------------------------------------------|:--------------------------------------------------|
 | 25.x    | :x:                    | :x:                |                                                   |                                                  |                                                   |
-| 24.x    | :heavy_check_mark:     | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
+| 24.x    | :heavy_check_mark:     | :heavy_check_mark: | Windows (`x64`), macOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
 | 23.x    | ( :heavy_check_mark: ) | :x:                |                                                   |                                                  |                                                   |
-| 22.x    | :heavy_check_mark:     | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     | `latest` (`linux/amd64`, `linux/arm64`)          | `snapshot` (`linux/amd64`, `linux/arm64`)         |
+| 22.x    | :heavy_check_mark:     | :heavy_check_mark: | Windows (`x64`), macOS (`x64`), Linux (`x64`)     | `latest` (`linux/amd64`, `linux/arm64`)          | `snapshot` (`linux/amd64`, `linux/arm64`)         |
 | 21.x    | ( :heavy_check_mark: ) | :x:                |                                                   |                                                  |                                                   |
-| 20.x    | :heavy_check_mark:     | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
+| 20.x    | :heavy_check_mark:     | :heavy_check_mark: | Windows (`x64`), macOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
 | <20.x   | :x:                    | :x:                |                                                   |                                                  |                                                   |
 
 Juice Shop is automatically tested _only on the latest `.x` minor version_ of each node.js version mentioned above!
@@ -152,7 +152,7 @@ Please make sure you stay up to date with your chosen version.
 
 [![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
 
-If you need help with the application setup please check 
+If you need help with the application setup please check
 [our existing _Troubleshooting_](https://pwning.owasp-juice.shop/companion-guide/latest/part4/troubleshooting.html)
 guide. If this does not solve your issue please post your specific problem or question in the
 [Gitter Chat](https://gitter.im/bkimminich/juice-shop) where community members can best try to help you.
@@ -215,8 +215,7 @@ Add it to our ever-growing list of [REFERENCES.md](REFERENCES.md) by forking and
 
 The OWASP Foundation gratefully accepts donations via Stripe. Projects such as Juice Shop can then request reimbursement
 for expenses from the Foundation. If you'd like to express your support of the Juice Shop project, please make sure to
-tick the "Publicly list me as a supporter of OWASP Juice Shop" checkbox on the donation form. You can find our more
-about donations and how they are used here:
+tick the "Publicly list me as a supporter of OWASP Juice Shop" checkbox on the donation form. You can find out more about donations and how they are used here:
 
 <https://pwning.owasp-juice.shop/companion-guide/latest/part3/donations.html>
 
