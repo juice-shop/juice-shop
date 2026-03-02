@@ -3,7 +3,7 @@
   ~ SPDX-License-Identifier: MIT
 -->
 
-<div class="center-container">
+<main class="center-container">
   <mat-card appearance="outlined" class="mat-elevation-z6">
     <div class="mdc-card">
 
@@ -13,7 +13,7 @@
       <div class="error">{{error}}</div>
       }
 
-      <div class="form-container" id="login-form">
+      <form class="form-container" id="login-form">
 
         <mat-form-field color="accent" appearance="outline">
           <mat-label translate>LABEL_EMAIL</mat-label>
@@ -86,7 +86,9 @@
         }
 
         @if (!oauthUnavailable) {
-        <button id="loginButtonGoogle"
+        <button 
+          type = "button"
+          id="loginButtonGoogle"
           mat-raised-button color="accent"
           (click)="googleLogin()"
           aria-label="Login with Google"
@@ -99,7 +101,7 @@
         <div id="newCustomerLink">
           <a class="primary-link" routerLink="/register" translate>NO_CUSTOMER</a>
         </div>
-      </div>
+      </form>
     </div>
   </mat-card>
-</div>
+</main>
