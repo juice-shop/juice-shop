@@ -36,13 +36,13 @@ const fileUploadErrorsMetric = new Prometheus.Counter({
   labelNames: ['file_type']
 })
 
-export function observeRequestMetricsMiddleware () {
-  const httpRequestsMetric = new Prometheus.Counter({
-    name: 'http_requests_count',
-    help: 'Total HTTP request count grouped by status code.',
-    labelNames: ['status_code']
-  })
+const httpRequestsMetric = new Prometheus.Counter({
+  name: 'http_requests_count',
+  help: 'Total HTTP request count grouped by status code.',
+  labelNames: ['status_code']
+})
 
+export function observeRequestMetricsMiddleware () {
   return (req: Request, res: Response, next: NextFunction) => {
     onFinished(res, () => {
       const statusCode = `${Math.floor(res.statusCode / 100)}XX`
