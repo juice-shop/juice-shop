@@ -35,6 +35,7 @@ For a detailed introduction, full list of features and architecture overview ple
 
 ## Table of contents
 
+- [Quick Start](#quick-start)
 - [Setup](#setup)
     - [From Sources](#from-sources)
     - [Packaged Distributions](#packaged-distributions)
@@ -51,6 +52,54 @@ For a detailed introduction, full list of features and architecture overview ple
 - [Donations](#donations)
 - [Contributors](#contributors)
 - [Licensing](#licensing)
+
+---
+
+## Quick Start
+
+If you want to run OWASP Juice Shop quickly on your local machine, follow the steps below.
+
+### Option 1 – Run from Source
+
+**Prerequisite:**  
+Install a supported Node.js LTS version (see compatibility table below).
+
+1. Clone the repository:
+   git clone https://github.com/juice-shop/juice-shop.git
+
+2. Navigate into the project folder:
+   cd juice-shop
+
+3. Install dependencies:
+   npm install
+
+4. Start the application:
+   npm start
+
+5. Open your browser and visit:
+   http://localhost:3000
+
+
+
+### Option 2 – Run with Docker
+
+**Prerequisite:**  
+Install Docker.
+
+1. Pull the official image:
+   docker pull bkimminich/juice-shop
+
+2. Run the container:
+   docker run --rm -p 127.0.0.1:3000:3000 bkimminich/juice-shop
+
+3. Open:
+   http://localhost:3000
+
+💡 Beginner Tips
+
+- The first installation may take several minutes. This is normal.
+- If the browser does not open automatically, manually enter the URL.
+- Make sure you are using a supported Node.js version.
 
 ## Setup
 
