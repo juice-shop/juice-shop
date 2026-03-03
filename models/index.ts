@@ -28,7 +28,7 @@ import { WalletModelInit } from './wallet'
 import { Sequelize, Transaction } from 'sequelize'
 
 /* jslint node: true */
-const sequelize = new Sequelize('database', 'username', 'password', {
+let sequelize = new Sequelize('database', 'username', 'password', {
   dialect: 'sqlite',
   retry: {
     match: [/SQLITE_BUSY/],
@@ -63,4 +63,46 @@ WalletModelInit(sequelize)
 
 relationsInit(sequelize)
 
-export { sequelize }
+function createSequelize (options?: { inMemory?: boolean }) {
+  return new Sequelize('database', 'username', 'password', {
+    dialect: 'sqlite',
+    retry: {
+      match: [/SQLITE_BUSY/],
+      name: 'query',
+      max: 5
+    },
+    transactionType: Transaction.TYPES.IMMEDIATE,
+    storage: options?.inMemory ? ':memory:' : 'data/juiceshop.sqlite',
+    logging: false
+  })
+}
+
+function initModels (seq: Sequelize) {
+  AddressModelInit(seq)
+  BasketModelInit(seq)
+  BasketItemModelInit(seq)
+  CaptchaModelInit(seq)
+  CardModelInit(seq)
+  ChallengeModelInit(seq)
+  ComplaintModelInit(seq)
+  DeliveryModelInit(seq)
+  FeedbackModelInit(seq)
+  HintModelInit(seq)
+  ImageCaptchaModelInit(seq)
+  MemoryModelInit(seq)
+  PrivacyRequestModelInit(seq)
+  ProductModelInit(seq)
+  QuantityModelInit(seq)
+  RecycleModelInit(seq)
+  SecurityAnswerModelInit(seq)
+  SecurityQuestionModelInit(seq)
+  UserModelInit(seq)
+  WalletModelInit(seq)
+  relationsInit(seq)
+}
+
+function setSequelize (seq: Sequelize) {
+  sequelize = seq
+}
+
+export { sequelize, createSequelize, initModels, setSequelize }

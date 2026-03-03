@@ -32,7 +32,7 @@ import { rateLimit } from 'express-rate-limit'
 import { getStream } from 'file-stream-rotator'
 import type { Request, Response, NextFunction } from 'express'
 
-import { sequelize } from './models'
+import { sequelize, createSequelize, initModels, setSequelize } from './models'
 import { UserModel } from './models/user'
 import { CardModel } from './models/card'
 import { HintModel } from './models/hint'
@@ -167,8 +167,7 @@ void collectDurationPromise('validatePreconditions', validatePreconditions)()
 void collectDurationPromise('cleanupFtpFolder', cleanupFtpFolder)()
 void collectDurationPromise('validateConfig', validateConfig)({})
 
-// Function called first to ensure that all the i18n files are reloaded successfully before other linked operations.
-restoreOverwrittenFilesWithOriginals().then(() => {
+function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
   /* Locals */
   app.locals.captchaId = 0
   app.locals.captchaReqId = 1
@@ -479,7 +478,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   // vuln-code-snippet start registerAdminChallenge
   /* Generated API endpoints */
-  finale.initialize({ app, sequelize })
+  finale.initialize({ app, sequelize: seq })
 
   const autoModels = [
     { name: 'User', exclude: ['password', 'totpSecret'], model: UserModel },
@@ -678,6 +677,11 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Error Handling */
   app.use(verify.errorHandlingChallenge())
   app.use(errorhandler())
+}
+
+// Function called first to ensure that all the i18n files are reloaded successfully before other linked operations.
+restoreOverwrittenFilesWithOriginals().then(() => {
+  configureApp(app, sequelize)
 }).catch((err) => {
   console.error(err)
 })
@@ -721,6 +725,21 @@ let metricsUpdateLoop: any
 const Metrics = metrics.observeMetrics() // vuln-code-snippet neutral-line exposedMetricsChallenge
 app.get('/metrics', utils.asyncHandler(metrics.serveMetrics())) // vuln-code-snippet vuln-line exposedMetricsChallenge
 errorhandler.title = `${config.get<string>('application.name')} (Express ${utils.version('express')})`
+
+export async function createApp (options?: { inMemoryDb?: boolean }) {
+  const seq = options?.inMemoryDb ? createSequelize({ inMemory: true }) : sequelize
+  if (options?.inMemoryDb) {
+    initModels(seq)
+    setSequelize(seq)
+  }
+  Prometheus.register.clear()
+  const testApp = express()
+  testApp.set('view engine', 'hbs')
+  configureApp(testApp, seq)
+  await seq.sync({ force: true })
+  await datacreator()
+  return { app: testApp, sequelize: seq }
+}
 
 export async function start (readyCallback?: () => void) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
