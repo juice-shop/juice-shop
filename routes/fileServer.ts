@@ -27,13 +27,34 @@ export function servePublicFiles () {
     if (file && (endsWithAllowlistedFileType(file) || (file === 'incident-support.kdbx'))) {
       file = security.cutOffPoisonNullByte(file)
 
+      try {
+        file = decodeURIComponent(file)
+      } catch {
+        res.status(403)
+        return next(new Error('Invalid file name encoding!'))
+      }
+      const safeName = path.basename(file)
+      if (safeName !== file) {
+        res.status(403)
+        return next(new Error('Invalid file name!'))
+      }
+      if (file.includes('..') || file.includes('/') || file.includes('\\') || file.includes(':')) {
+        res.status(403)
+        return next(new Error('Invalid file name!'))
+      }
+
       challengeUtils.solveIf(challenges.directoryListingChallenge, () => { return file.toLowerCase() === 'acquisitions.md' })
       verifySuccessfulPoisonNullByteExploit(file)
-
-      res.sendFile(path.resolve('ftp/', file))
+      const baseDir = path.resolve('ftp')
+      const absPath = path.resolve(baseDir, file)
+      if (!absPath.startsWith(baseDir + path.sep)) {
+        res.status(403)
+        return next(new Error('Access denied!'))
+      }
+      return res.sendFile(absPath)
     } else {
       res.status(403)
-      next(new Error('Only .md and .pdf files are allowed!'))
+      return next(new Error('Only .md and .pdf files are allowed!'))
     }
   }
 
