@@ -118,7 +118,9 @@ describe('TwoFactorAuthEnterComponent', () => {
     expect(sessionStorage.getItem('bid')).toBe('42')
   })
 
-  xit('should notify about user login after 2FA verification', () => { // FIXME Spy call is not registered at all
+  it('should notify about user login after 2FA verification', () => {
+    twoFactorAuthService.verify.and.returnValue(of({ token: 'TOKEN', bid: 42 }))
+
     component.verify()
 
     expect(userService.isLoggedIn.next).toHaveBeenCalledWith(true)
