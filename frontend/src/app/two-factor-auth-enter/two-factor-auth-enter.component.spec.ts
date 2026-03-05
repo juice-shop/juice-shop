@@ -120,8 +120,16 @@ describe('TwoFactorAuthEnterComponent', () => {
 
   it('should notice error when 2FA verification fails', () => {
     twoFactorAuthService.verify.and.returnValue(throwError({ error: 'Error' }))
+
     component.verify()
     expect(component.errored).toBeTrue()
+  })
+
+  it('should notify about user login after 2FA verification', () => {
+    twoFactorAuthService.verify.and.returnValue(of({ token: 'TOKEN', bid: 42 }))
+
+    component.verify()
+    expect(userService.isLoggedIn.next).toHaveBeenCalledWith(true)
   })
 
 })

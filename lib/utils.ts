@@ -127,7 +127,7 @@ export const downloadToFile = async (url: string, dest: string) => {
   }
 }
 
-export const jwtFrom = ({ headers }: { headers: any }) => {
+export const jwtFrom = ({ headers }: { headers: { authorization?: string } }) => {
   if (headers?.authorization) {
     const parts = headers.authorization.split(' ')
     if (parts.length === 2) {
@@ -194,15 +194,17 @@ export function isChallengeEnabled (challenge: Challenge): boolean {
   return enabled
 }
 
-export const parseJsonCustom = (jsonString: string) => {
+export const parseJsonCustom = (jsonString: string): Array<{ key: string, value: unknown }> => {
   const parser = clarinet.parser()
-  const result: any[] = []
-  parser.onkey = parser.onopenobject = (k: any) => {
-    result.push({ key: k, value: null })
+  const result: Array<{ key: string, value: unknown }> = []
+
+  parser.onkey = parser.onopenobject = (k?: string) => {
+    result.push({ key: k ?? '', value: null })
   }
-  parser.onvalue = (v: any) => {
+  parser.onvalue = (v: unknown) => {
     result[result.length - 1].value = v
   }
+
   parser.write(jsonString)
   parser.close()
   return result
