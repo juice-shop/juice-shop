@@ -3,45 +3,76 @@
  * SPDX-License-Identifier: MIT
  */
 
-$break-line: #c0c0c0;
+$break-line: #e2cfcf;
+
+// added styles to the login page to match the color scheme of the login page and to align the elements to the centerx
+h1{
+  font-size: 25px;
+  text-align: center;
+  color: rgb(164, 212, 196);
+}
+
+i{
+ 
+ color: rgb(164, 212, 196);
+}
 
 mat-card {
-  height: auto;
-  min-width: 320px;
+  height: 520px;
+  min-width: 300px;
   width: 25%;
+  margin-top: 2rem;
+  border-radius: 2rem;
+  border: 6px white;
+  
 }
 
 .form-container {
   display: flex;
   flex-direction: column;
   position: relative;
+  margin-top: 2rem;
+  // background-color: rgb(29, 32, 32);
+  // border-radius: 1rem;
 
 }
 
 .forgot-pw {
-  font-size: 11px;
-  margin-top: -15px;
+  font-size: 12px;
+  margin-top: -26px;
+  margin-left: 0.6rem;
 }
 
 mat-checkbox {
   margin-bottom: 20px;
-  margin-left: 20%;
+  margin-left: 30%;
   margin-top: 5px;
+  font-weight: 12px;
 }
 
 mat-form-field {
   padding-top: 10px;
+  border: #ece5e5;
+  border-radius: 1rem;
 }
 
 mat-form-field:nth-child(2) {
   padding-bottom: 20px;
 }
 
+// aligned the login button to the center and changed the font size to match the color scheme of the login page
 #loginButton,
 #loginButtonGoogle {
-  margin-left: 20%;
+  background-color: rgb(171, 229, 210);
+  color: black;
+  margin-left: 30%;
   margin-top: 30px;
-  width: 60%;
+  height: 50px;
+  width: 36%;
+  text-align: center;
+  border-radius: 3rem;
+  font-weight: 700;
+  font-size: 18px;
 
 }
 
@@ -68,14 +99,21 @@ mat-form-field:nth-child(2) {
   width: 50%;
 }
 
+//aligned the new customer link to the center and changed the font size to match the color scheme of the login page
 #newCustomerLink {
   align-self: center;
-  font-size: 12px;
+  font-size: 18px;
   margin-top: 40px;
+ 
+}
+//changed the color of the forgot password link to match the color scheme of the login page
+.primary-link forgot-pw{
+   color: rgb(164, 212, 196);
 }
 
 .center-container {
   align-items: stretch;
   display: flex;
   justify-content: center;
+  border-radius: 2rem;
 }
