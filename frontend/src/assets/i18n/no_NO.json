@@ -369,7 +369,7 @@
   "TAG_PREREQUISITE": "Forutsetninger",
   "TAG_PREREQUISITE_DESCRIPTION": "Markerer utfordringer som må løses før en eller flere utfordringer kan løses (realistisk).",
   "TAG_OSINT": "OSINT",
-  "TAG_OSINT_DESCRIPTION": "Marks challenges which require some Internet research or \"social stalking\" activity outside the application.",
+  "TAG_OSINT_DESCRIPTION": "",
   "TAG_CONTRAPTION": "Contraption",
   "TAG_CONTRAPTION_DESCRIPTION": "Indicates that a challenge is not exactly part of a realistic scenario but might be a bit forced or crafted.",
   "TAG_SHENANIGANS": "Shenanigans",
