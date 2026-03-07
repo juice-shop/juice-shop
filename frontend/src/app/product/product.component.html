@@ -1,0 +1,73 @@
+<!--
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+-->
+
+@let product = item();
+
+<mat-card appearance="outlined" class="mat-card">
+  <article class="product">
+    @if (product?.quantity <= 5 && product?.quantity > 0) {
+      <aside class="ribbon">
+        <span translate [translateParams]="{ quantity: product.quantity }"
+          >LABEL_ONLY_QUANTITY_LEFT</span
+        >
+      </aside>
+    }
+    @if (product?.quantity <= 0) {
+      <aside class="ribbon ribbon-sold">
+        <span>{{ "LABEL_SOLD_OUT" | translate }}</span>
+      </aside>
+    }
+    <section
+      tabindex="0"
+      (keydown.enter)="showDetail(product)"
+      role="button"
+      (click)="showDetail(product)"
+      aria-label="Click for more information about the product"
+      matTooltip="Click for more information"
+      matTooltipPosition="above"
+    >
+      <div
+        class="image-container"
+        [style.background-image]="
+          'url(' + 'assets/public/images/products/' + product.image + ')'
+        "
+      >
+        <img
+          mat-card-image
+          [src]="'assets/public/images/products/' + product.image"
+          alt="{{ product.name }}"
+          class="img-thumbnail"
+        />
+      </div>
+      <div class="info-box">
+        <div class="name">{{ product.name }}</div>
+      </div>
+    </section>
+    <footer class="footer">
+       <div class="price">
+          @if (!isDeluxe() || product.price === product.deluxePrice) {
+            {{ product.price }}&curren;
+          }
+          @if (isDeluxe() && product.price !== product.deluxePrice) {
+            <s class="expired">{{ product.price }}</s>
+            {{ product.deluxePrice }}&curren;
+          }
+        </div>
+      @if (isLoggedIn()) {
+        <button
+          (click)="addToBasket(product.id)"
+          aria-label="{{ 'ADD_BASKET' | translate }}"
+          class="btn-basket"
+          color="primary"
+          mat-button
+          mat-raised-button
+        >
+          <mat-icon class="icon-basket">add_shopping_cart</mat-icon>
+          {{ "ADD_BASKET" | translate }}
+        </button>
+      }
+    </footer>
+  </article>
+</mat-card>

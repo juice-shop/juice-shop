@@ -3,7 +3,7 @@ ngAfterViewInit () {
     const quantities = this.quantityService.getAll()
     forkJoin([quantities, products]).subscribe({
       next: ([quantities, products]) => {
-        const dataTable: TableEntry[] = []
+        const dataTable: ProductTableEntry[] = []
         this.tableData = products
         this.trustProductDescription(products)
         for (const product of products) {
@@ -25,9 +25,9 @@ ngAfterViewInit () {
           }
           entry.quantity = quantity.quantity
         }
-        this.dataSource = new MatTableDataSource<TableEntry>(dataTable)
-        for (let i = 1; i <= Math.ceil(this.dataSource.data.length / 12); i++) {
-          this.pageSizeOptions.push(i * 12)
+        this.dataSource = new MatTableDataSource<ProductTableEntry>(dataTable)
+        for (let i = 1; i <= Math.ceil(this.dataSource.data.length / 30); i++) {
+          this.pageSizeOptions.push(i * 30)
         }
         this.paginator.pageSizeOptions = this.pageSizeOptions
         this.dataSource.paginator = this.paginator
