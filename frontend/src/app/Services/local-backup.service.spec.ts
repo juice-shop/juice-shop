@@ -8,9 +8,8 @@ import { firstValueFrom, throwError } from 'rxjs'
 
 import { LocalBackupService } from './local-backup.service'
 import { CookieModule, CookieService } from 'ngy-cookie'
-import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core'
+import { TranslateNoOpLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import * as FileSaver from 'file-saver'
 import { ChallengeService } from './challenge.service'
 
@@ -30,10 +29,9 @@ describe('LocalBackupService', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateFakeLoader
+            useClass: TranslateNoOpLoader
           }
-        }),
-        BrowserAnimationsModule
+        })
       ],
       providers: [
         { provide: MatSnackBar, useValue: snackBar },

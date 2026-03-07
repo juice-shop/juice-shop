@@ -6,7 +6,6 @@
 import { ComplaintService } from '../Services/complaint.service'
 import { UserService } from '../Services/user.service'
 import { ReactiveFormsModule } from '@angular/forms'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { FileItem, FileUploadModule } from 'ng2-file-upload'
@@ -38,13 +37,13 @@ describe('ComplaintComponent', () => {
     translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
+    translateService.onFallbackLangChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
 
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule,
         FileUploadModule,
         TranslateModule.forRoot(),
-        BrowserAnimationsModule,
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,

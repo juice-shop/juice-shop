@@ -19,7 +19,6 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { CodeSnippetService } from '../Services/code-snippet.service'
 import { ChallengeService } from '../Services/challenge.service'
 import { type Challenge } from '../Models/challenge.model'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { HintService } from '../Services/hint.service'
 
@@ -74,8 +73,7 @@ describe('ScoreBoardComponent', () => {
         WarningCardComponent,
         ChallengesUnavailableWarningComponent,
         TutorialModeWarningComponent,
-        ScoreCardComponent,
-        BrowserAnimationsModule],
+        ScoreCardComponent],
       providers: [
         { provide: ChallengeService, useValue: challengeService },
         { provide: HintService, useValue: hintService },

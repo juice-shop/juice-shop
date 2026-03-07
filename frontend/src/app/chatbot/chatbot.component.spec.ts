@@ -5,7 +5,6 @@
 
 import { ChatbotService } from '../Services/chatbot.service'
 import { ReactiveFormsModule } from '@angular/forms'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
@@ -46,13 +45,13 @@ describe('ComplaintComponent', () => {
     translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
+    translateService.onFallbackLangChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
 
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule,
         CookieModule.forRoot(),
         TranslateModule.forRoot(),
-        BrowserAnimationsModule,
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,

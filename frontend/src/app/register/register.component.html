@@ -83,7 +83,7 @@
                   <mat-select [formControl]="securityQuestionControl" placeholder="" [(value)]="selected"
                     (focus)="this.error=null" name="securityQuestion"
                     aria-label="Selection list for the security question">
-                    @for (question of securityQuestions; track question) {
+                    @for (question of securityQuestions; track question.id) {
                       <mat-option [value]="question.id" class="mat-body">
                         {{question.question}}
                       </mat-option>
