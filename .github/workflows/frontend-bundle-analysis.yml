@@ -30,10 +30,10 @@ jobs:
           cd frontend
           npm install --ignore-scripts
           npm run build
-          cd ..
 
       - name: "Generate bundle report"
         run: |
+          cd frontend
           npm run bundle-visualizer
 
       - name: "Install Playwright for screenshot"
