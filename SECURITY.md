@@ -12,8 +12,8 @@ We provide security patches for the latest released minor version.
 
 | Version | Supported          |
 |:--------|:-------------------|
-| 19.2.x  | :white_check_mark: |
-| <19.2   | :x:                |
+| 19.3.x  | :white_check_mark: |
+| <19.3   | :x:                |
 
 ## Reporting a Vulnerability
 
