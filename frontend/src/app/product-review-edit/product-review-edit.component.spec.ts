@@ -13,7 +13,6 @@ import { MatButtonModule } from '@angular/material/button'
 import { of, throwError } from 'rxjs'
 import { ProductReviewService } from 'src/app/Services/product-review.service'
 import { MatInputModule } from '@angular/material/input'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('ProductReviewEditComponent', () => {
@@ -32,7 +31,6 @@ describe('ProductReviewEditComponent', () => {
       imports: [
         TranslateModule.forRoot(),
         ReactiveFormsModule,
-        BrowserAnimationsModule,
         MatDialogModule,
         MatFormFieldModule,
         MatInputModule,

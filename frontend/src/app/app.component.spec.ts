@@ -25,7 +25,6 @@ import { MatMenuModule } from '@angular/material/menu'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatListModule } from '@angular/material/list'
 import { MatCardModule } from '@angular/material/card'
-import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatDialogModule } from '@angular/material/dialog'
@@ -54,7 +53,6 @@ describe('AppComponent', () => {
         MatSidenavModule,
         MatMenuModule,
         MatTooltipModule,
-        NoopAnimationsModule,
         MatSnackBarModule,
         MatRadioModule,
         MatDividerModule,

@@ -14,7 +14,6 @@ import { MatGridListModule } from '@angular/material/grid-list'
 import { MatCardModule } from '@angular/material/card'
 import { MatSnackBar } from '@angular/material/snack-bar'
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatTableModule } from '@angular/material/table'
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
@@ -98,7 +97,6 @@ describe('SearchResultComponent', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule,
         TranslateModule.forRoot(),
-        BrowserAnimationsModule,
         MatTableModule,
         MatPaginatorModule,
         MatDialogModule,

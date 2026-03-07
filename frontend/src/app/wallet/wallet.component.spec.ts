@@ -10,7 +10,6 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { of, throwError } from 'rxjs'
 import { RouterTestingModule } from '@angular/router/testing'
@@ -44,7 +43,6 @@ describe('WalletComponent', () => {
       imports: [RouterTestingModule,
         TranslateModule.forRoot(),
         ReactiveFormsModule,
-        BrowserAnimationsModule,
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,

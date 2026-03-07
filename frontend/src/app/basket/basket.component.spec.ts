@@ -13,7 +13,6 @@ import { BasketComponent } from './basket.component'
 import { MatCardModule } from '@angular/material/card'
 import { MatTableModule } from '@angular/material/table'
 import { MatButtonModule } from '@angular/material/button'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { ReactiveFormsModule } from '@angular/forms'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -34,7 +33,6 @@ describe('BasketComponent', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule,
         TranslateModule.forRoot(),
-        BrowserAnimationsModule,
         ReactiveFormsModule,
         MatFormFieldModule,
         MatInputModule,

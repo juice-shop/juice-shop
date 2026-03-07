@@ -10,7 +10,6 @@ import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angula
 import { MatCardModule } from '@angular/material/card'
 import { MatTableModule } from '@angular/material/table'
 import { MatButtonModule } from '@angular/material/button'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { ReactiveFormsModule } from '@angular/forms'
 import { of } from 'rxjs'
@@ -53,7 +52,6 @@ describe('PurchaseBasketComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(),
-        BrowserAnimationsModule,
         ReactiveFormsModule,
         MatInputModule,
         MatCardModule,

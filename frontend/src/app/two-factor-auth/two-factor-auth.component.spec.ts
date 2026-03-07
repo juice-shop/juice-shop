@@ -8,7 +8,6 @@ import { TwoFactorAuthComponent } from './two-factor-auth.component'
 
 import { ReactiveFormsModule } from '@angular/forms'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { TranslateModule } from '@ngx-translate/core'
 
@@ -46,7 +45,6 @@ describe('TwoFactorAuthComponent', () => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule,
         TranslateModule.forRoot(),
-        BrowserAnimationsModule,
         MatCheckboxModule,
         MatFormFieldModule,
         MatCardModule,

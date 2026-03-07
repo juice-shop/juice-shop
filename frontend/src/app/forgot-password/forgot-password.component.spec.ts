@@ -10,7 +10,6 @@ import { type ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } 
 import { ForgotPasswordComponent } from './forgot-password.component'
 import { SecurityQuestionService } from '../Services/security-question.service'
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -37,7 +36,6 @@ describe('ForgotPasswordComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(),
         ReactiveFormsModule,
-        BrowserAnimationsModule,
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,

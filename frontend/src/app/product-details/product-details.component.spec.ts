@@ -11,7 +11,6 @@ import { MatDividerModule } from '@angular/material/divider'
 import { UserService } from '../Services/user.service'
 import { ProductReviewService } from '../Services/product-review.service'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -52,7 +51,6 @@ describe('ProductDetailsComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(),
         ReactiveFormsModule,
-        BrowserAnimationsModule,
         MatDialogModule,
         MatFormFieldModule,
         MatInputModule,

@@ -10,7 +10,6 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { of, throwError } from 'rxjs'
 import { MatTableModule } from '@angular/material/table'
@@ -47,7 +46,6 @@ describe('PaymentMethodComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(),
         ReactiveFormsModule,
-        BrowserAnimationsModule,
         MatCardModule,
         MatTableModule,
         MatFormFieldModule,

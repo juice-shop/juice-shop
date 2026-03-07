@@ -10,7 +10,6 @@ import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angula
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatCardModule } from '@angular/material/card'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatTableModule } from '@angular/material/table'
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { of } from 'rxjs'
@@ -54,7 +53,6 @@ describe('PhotoWallComponent', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule,
         TranslateModule.forRoot(),
-        BrowserAnimationsModule,
         MatTableModule,
         MatPaginatorModule,
         MatFormFieldModule,

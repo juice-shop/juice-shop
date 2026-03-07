@@ -11,7 +11,6 @@ import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angula
 import { PaymentComponent } from './payment.component'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { of, throwError } from 'rxjs'
 import { MatTableModule } from '@angular/material/table'
@@ -92,7 +91,6 @@ describe('PaymentComponent', () => {
       ]),
       TranslateModule.forRoot(),
       ReactiveFormsModule,
-      BrowserAnimationsModule,
       MatCardModule,
       MatTableModule,
       MatFormFieldModule,
