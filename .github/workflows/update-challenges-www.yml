@@ -6,6 +6,7 @@ on:
     paths:
       - 'data/static/challenges.yml'
       - 'data/static/codefixes/*.info.yml'
+  workflow_dispatch:
 
 jobs:
   UpdateChallengesOnWebsite:
