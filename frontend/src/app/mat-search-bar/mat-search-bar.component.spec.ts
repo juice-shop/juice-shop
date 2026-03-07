@@ -4,7 +4,6 @@
  */
 
 import {type ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { fakeAsync, tick } from '@angular/core/testing'
 
 import { MatSearchBarComponent } from './mat-search-bar.component'
@@ -15,7 +14,7 @@ describe('MatSearchBarComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [BrowserAnimationsModule, MatSearchBarComponent]
+      imports: [MatSearchBarComponent]
     }).compileComponents()
 
     fixture = TestBed.createComponent(MatSearchBarComponent)

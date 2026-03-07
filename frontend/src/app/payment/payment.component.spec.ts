@@ -11,7 +11,6 @@ import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angula
 import { PaymentComponent } from './payment.component'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { of, throwError } from 'rxjs'
 import { MatTableModule } from '@angular/material/table'
@@ -19,7 +18,7 @@ import { MatExpansionModule } from '@angular/material/expansion'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatRadioModule } from '@angular/material/radio'
 import { ConfigurationService } from '../Services/configuration.service'
-import { Component, EventEmitter } from '@angular/core'
+import { Component, EventEmitter, provideZoneChangeDetection } from '@angular/core'
 import { BasketService } from '../Services/basket.service'
 import { QrCodeComponent } from '../qr-code/qr-code.component'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
@@ -63,6 +62,7 @@ describe('PaymentComponent', () => {
     translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
+    translateService.onFallbackLangChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
     basketService = jasmine.createSpyObj('BasketService', ['applyCoupon'])
     basketService.applyCoupon.and.returnValue(of({}))
@@ -91,7 +91,6 @@ describe('PaymentComponent', () => {
       ]),
       TranslateModule.forRoot(),
       ReactiveFormsModule,
-      BrowserAnimationsModule,
       MatCardModule,
       MatTableModule,
       MatFormFieldModule,
@@ -115,7 +114,8 @@ describe('PaymentComponent', () => {
         { provide: UserService, useValue: userService },
         { provide: MatSnackBar, useValue: snackBar },
         provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
+        provideHttpClientTesting(),
+        provideZoneChangeDetection()
       ]
     })
       .compileComponents()

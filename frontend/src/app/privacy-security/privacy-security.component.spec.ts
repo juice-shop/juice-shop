@@ -4,7 +4,6 @@
  */
 
 import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
-import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { PrivacySecurityComponent } from './privacy-security.component'
 import { RouterOutlet } from '@angular/router'
 
@@ -15,7 +14,6 @@ describe('PrivacySecurityComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        NoopAnimationsModule,
         RouterOutlet,
         PrivacySecurityComponent
       ]

@@ -10,14 +10,13 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { of, throwError } from 'rxjs'
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { WalletComponent } from './wallet.component'
 import { WalletService } from '../Services/wallet.service'
-import { EventEmitter } from '@angular/core'
+import { EventEmitter, provideZoneChangeDetection } from '@angular/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
@@ -36,6 +35,7 @@ describe('WalletComponent', () => {
     translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
+    translateService.onFallbackLangChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
@@ -43,7 +43,6 @@ describe('WalletComponent', () => {
       imports: [RouterTestingModule,
         TranslateModule.forRoot(),
         ReactiveFormsModule,
-        BrowserAnimationsModule,
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
@@ -54,7 +53,8 @@ describe('WalletComponent', () => {
         { provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar },
         provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
+        provideHttpClientTesting(),
+        provideZoneChangeDetection()
       ]
     })
       .compileComponents()

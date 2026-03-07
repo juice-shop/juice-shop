@@ -8,7 +8,7 @@ import { MatCardModule } from '@angular/material/card'
 import { ConfigurationService } from '../Services/configuration.service'
 import { CtfSystemWideNotificationService } from '../Services/ctf-system-wide-notification.service'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
-import { type ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, discardPeriodicTasks, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing'
 import { of, throwError } from 'rxjs'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
@@ -52,10 +52,12 @@ describe('CtfSystemWideNotificationComponent', () => {
         provideHttpClientTesting()
       ]
     }).compileComponents()
+  }))
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(CtfSystemWideNotificationComponent)
     component = fixture.componentInstance
-  }))
+  })
 
   afterEach(() => {
     component.ngOnDestroy()
@@ -74,6 +76,7 @@ describe('CtfSystemWideNotificationComponent', () => {
 
     expect(notificationService.fetchNotification).not.toHaveBeenCalled()
     expect(component.notification).toBeNull()
+    discardPeriodicTasks()
   }))
 
   it('should not start polling if pollFrequencySeconds is not configured', fakeAsync(() => {
@@ -85,6 +88,7 @@ describe('CtfSystemWideNotificationComponent', () => {
 
     expect(notificationService.fetchNotification).not.toHaveBeenCalled()
     expect(component.notification).toBeNull()
+    discardPeriodicTasks()
   }))
 
   it('should show notification when enabled is true and message is non-empty', fakeAsync(() => {
@@ -93,6 +97,7 @@ describe('CtfSystemWideNotificationComponent', () => {
     tick(0)
 
     expect(component.notification).toEqual({ message: 'hello world', enabled: true, updatedAt: '2026-01-01T00:00:00Z' })
+    discardPeriodicTasks()
   }))
 
   it('should not show notification when enabled is false', fakeAsync(() => {
@@ -101,6 +106,7 @@ describe('CtfSystemWideNotificationComponent', () => {
     tick(0)
 
     expect(component.notification).toBeNull()
+    discardPeriodicTasks()
   }))
 
   it('should not show notification when message is empty string', fakeAsync(() => {
@@ -109,6 +115,7 @@ describe('CtfSystemWideNotificationComponent', () => {
     tick(0)
 
     expect(component.notification).toBeNull()
+    discardPeriodicTasks()
   }))
 
   it('should not show notification when message is null', fakeAsync(() => {
@@ -117,6 +124,7 @@ describe('CtfSystemWideNotificationComponent', () => {
     tick(0)
 
     expect(component.notification).toBeNull()
+    discardPeriodicTasks()
   }))
 
   it('should hide notification and record dismissedAt when dismiss is called', fakeAsync(() => {
@@ -129,6 +137,7 @@ describe('CtfSystemWideNotificationComponent', () => {
 
     expect(component.notification).toBeNull()
     expect((component as any).dismissedAt).toBe('2026-01-01T00:00:00Z')
+    discardPeriodicTasks()
   }))
 
   it('should not show notification again after dismiss if updatedAt is unchanged', fakeAsync(() => {
@@ -140,6 +149,7 @@ describe('CtfSystemWideNotificationComponent', () => {
     tick(POLL_FREQUENCY * 1000)
 
     expect(component.notification).toBeNull()
+    discardPeriodicTasks()
   }))
 
   it('should show notification again after dismiss if updatedAt changes', fakeAsync(() => {
@@ -152,6 +162,7 @@ describe('CtfSystemWideNotificationComponent', () => {
     tick(POLL_FREQUENCY * 1000)
 
     expect(component.notification).toEqual({ message: 'new message', enabled: true, updatedAt: '2026-02-01T00:00:00Z' })
+    discardPeriodicTasks()
   }))
 
   it('should handle fetch errors gracefully and keep notification null', fakeAsync(() => {
@@ -160,6 +171,7 @@ describe('CtfSystemWideNotificationComponent', () => {
     tick(0)
 
     expect(component.notification).toBeNull()
+    discardPeriodicTasks()
   }))
 
   it('should unsubscribe from polling on destroy', fakeAsync(() => {
@@ -172,5 +184,6 @@ describe('CtfSystemWideNotificationComponent', () => {
     tick(POLL_FREQUENCY * 1000)
 
     expect(notificationService.fetchNotification).not.toHaveBeenCalled()
+    discardPeriodicTasks()
   }))
 })

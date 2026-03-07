@@ -17,7 +17,6 @@ import { CodeFixesService } from '../Services/code-fixes.service'
 import { VulnLinesService } from '../Services/vuln-lines.service'
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs'
 import { ChallengeService } from '../Services/challenge.service'
-import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('CodeSnippetComponent', () => {
@@ -41,8 +40,7 @@ describe('CodeSnippetComponent', () => {
     challengeService.continueCodeFixIt.and.returnValue(of('continueCodeFixIt'))
 
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule,
-        CookieModule.forRoot(),
+      imports: [CookieModule.forRoot(),
         TranslateModule.forRoot(),
         MatDividerModule,
         MatDialogModule,

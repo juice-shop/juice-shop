@@ -13,7 +13,6 @@ import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { NavbarComponent } from './navbar.component'
 import { Location } from '@angular/common'
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatSelectModule } from '@angular/material/select'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
@@ -85,7 +84,6 @@ describe('NavbarComponent', () => {
       ]),
       CookieModule.forRoot(),
       TranslateModule.forRoot(),
-      BrowserAnimationsModule,
       MatToolbarModule,
       MatIconModule,
       MatFormFieldModule,

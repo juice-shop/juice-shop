@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { enableProdMode, importProvidersFrom } from '@angular/core'
+import { enableProdMode, importProvidersFrom, provideZoneChangeDetection } from '@angular/core'
 
 import { environment } from './environments/environment'
 import { AppComponent } from './app/app.component'
@@ -41,11 +41,10 @@ import { MatToolbarModule } from '@angular/material/toolbar'
 import { FileUploadModule } from 'ng2-file-upload'
 import { NgxTextDiffModule } from '@winarg/ngx-text-diff'
 import { GalleryModule } from 'ng-gallery'
-import { provideAnimations } from '@angular/platform-browser/animations'
 import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 
-import { TranslateHttpLoader } from '@ngx-translate/http-loader'
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core'
+import { TranslateModule, provideTranslateService } from '@ngx-translate/core'
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader'
 import { Routing } from './app/app.routing'
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser'
 import { PhotoWallService } from './app/Services/photo-wall.service'
@@ -78,25 +77,16 @@ import { ConfigurationService } from './app/Services/configuration.service'
 import { ProductService } from './app/Services/product.service'
 import { HIGHLIGHT_OPTIONS, HighlightModule } from 'ngx-highlightjs'
 import { RequestInterceptor } from './app/Services/request.interceptor'
-import { HTTP_INTERCEPTORS, HttpClient, withInterceptorsFromDi, provideHttpClient } from '@angular/common/http'
+import { HTTP_INTERCEPTORS, withInterceptorsFromDi, provideHttpClient } from '@angular/common/http'
 
 if (environment.production) {
     enableProdMode()
 }
 
-function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http, './assets/i18n/', '.json')
-}
-
 bootstrapApplication(AppComponent, {
     providers: [
-        importProvidersFrom(BrowserModule, Routing, TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
-            }
-        }), CookieModule.forRoot(), ReactiveFormsModule, GalleryModule, NgxTextDiffModule, FileUploadModule, MatToolbarModule, MatIconModule, FormsModule, MatFormFieldModule, MatSelectModule, MatButtonModule, MatSidenavModule, MatRippleModule, MatTableModule, MatPaginatorModule, MatCardModule, MatInputModule, MatCheckboxModule, MatDialogModule, MatDividerModule, MatDatepickerModule, MatNativeDateModule, MatExpansionModule, MatProgressBarModule, MatTooltipModule, MatMenuModule, MatListModule, MatButtonToggleModule, LayoutModule, MatGridListModule, MatBadgeModule, MatRadioModule, MatSnackBarModule, MatSliderModule, MatTabsModule, MatSlideToggleModule, MatChipsModule, MatAutocompleteModule, HighlightModule),
+        provideZoneChangeDetection(),
+        importProvidersFrom(BrowserModule, Routing, TranslateModule.forRoot(), CookieModule.forRoot(), ReactiveFormsModule, GalleryModule, NgxTextDiffModule, FileUploadModule, MatToolbarModule, MatIconModule, FormsModule, MatFormFieldModule, MatSelectModule, MatButtonModule, MatSidenavModule, MatRippleModule, MatTableModule, MatPaginatorModule, MatCardModule, MatInputModule, MatCheckboxModule, MatDialogModule, MatDividerModule, MatDatepickerModule, MatNativeDateModule, MatExpansionModule, MatProgressBarModule, MatTooltipModule, MatMenuModule, MatListModule, MatButtonToggleModule, LayoutModule, MatGridListModule, MatBadgeModule, MatRadioModule, MatSnackBarModule, MatSliderModule, MatTabsModule, MatSlideToggleModule, MatChipsModule, MatAutocompleteModule, HighlightModule),
         {
             provide: HTTP_INTERCEPTORS,
             useClass: RequestInterceptor,
@@ -146,7 +136,13 @@ bootstrapApplication(AppComponent, {
         DeliveryService,
         PhotoWallService,
         provideHttpClient(withInterceptorsFromDi()),
-        provideAnimations()
+        provideTranslateService({
+          loader: provideTranslateHttpLoader({
+            prefix: '/assets/i18n/',
+            suffix: '.json'
+          }),
+          fallbackLang: 'en'
+        })
     ]
 })
     .catch((err: Error) => console.log(err))
