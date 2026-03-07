@@ -1,0 +1,124 @@
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+@use './../../styles/variables' as *;
+
+.mat-card {
+  border: 0;
+  border-radius: 0;
+}
+
+.product {
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.info-box {
+  text-align: center;
+}
+
+.name {
+  margin-top: $space-s;
+  font-weight: bold;
+  font-size: medium;
+  cursor: pointer;
+  padding: 0 $space-m;
+}
+
+.price {
+  font-size: large;
+  margin-bottom: $space-s;
+  font-weight: bold;
+  display: flex;
+  gap: $space-xs;
+}
+
+.expired {
+  color: var(--theme-warn);
+  opacity: 0.7;
+  font-size: small;
+}
+
+.image-container {
+  aspect-ratio: 0.897;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-position: center;
+  background-size: cover;
+}
+
+.image-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: inherit;
+  background-position: inherit;
+  background-size: inherit;
+  filter: blur(8px);
+  transform: scale(1.08);
+}
+
+.img-thumbnail {
+  width: 100%;
+  height: 100%;
+  max-height: 340px;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.footer {
+  padding: $space-m;
+}
+
+.ribbon {
+  background-color: var(--theme-accent);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  font: 700 18px/1 'Lato', sans-serif;
+  left: -50px;
+  transform: rotate(-45deg);
+  padding: $space-m 0;
+  position: absolute;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  top: 25px;
+  width: 200px;
+  z-index: 10;
+}
+
+.ribbon-sold {
+  background-color: var(--theme-warn);
+  color: #fff;
+}
+
+.icon-basket {
+  position: absolute;
+  left: 1rem; 
+}
+
+.btn-basket {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.btn-basket::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2.5rem;
+  bottom: 0;
+  background-color: var(--theme-accent);
+}

@@ -600,7 +600,8 @@
 	},
 	"restfulXssChallenge_1_correct.ts": {
 		"added": [
-			52
+			44,
+			45
 		],
 		"removed": []
 	},
@@ -610,20 +611,13 @@
 	},
 	"restfulXssChallenge_3.ts": {
 		"added": [
-			40,
-			52,
-			53,
-			54,
-			55,
-			56,
-			57,
-			58,
-			59,
-			60,
-			61,
-			62
+			29,
+			30
 		],
-		"removed": []
+		"removed": [
+			29,
+			30
+		]
 	},
 	"restfulXssChallenge_4.ts": {
 		"added": [],

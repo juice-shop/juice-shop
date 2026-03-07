@@ -114,7 +114,7 @@ describe('AccountingComponent', () => {
       width: '500px',
       height: 'max-content',
       data: {
-        productData: { id: 42, name: 'A', description: 'B', image: 'C', price: 10, points: 1 }
+        productData: { id: 42, name: 'A', description: 'B', image: 'C', price: 10, deluxePrice: undefined, points: 1 }
       }
     })
   })
