@@ -21,6 +21,7 @@ mentioned or used!
 * [Summits & Open Source Events](#summits--open-source-events)
   + [Google Summer of Code](#googlesummerofcode)
 * [Conference and Meetup Appearances](#conference-and-meetup-appearances)
+  - [2026](#2026)
   - [2025](#2025)
   - [2024](#2024)
   - [2023](#2023)
@@ -236,6 +237,9 @@ mentioned or used!
 
 ## Summits & Open Source Events
 
+* Juice Shop at [OWASP Project Summit 2026](https://projectsummit.owasp.org), 04.-10.03.2026
+  * [OWASP Contributor Mixer](https://luma.com/txn0myuk?tk=BHp1Ej), 05.03.2026
+  * [OWASP Juice Shop: For Developers](https://luma.com/4hp7c8bm) with Björn Kimminich & Jannik Hollenbach, 06.03.2026 
 * [Juice Shop Track](https://open-security-summit-2020.heysummit.com/topics/owasp-juiceshop/)
   at [Open Security Summit 2020](https://open-security-summit.org/)
     * [OWASP Juice Shop Cocktail Party: Ask us anything!](https://open-security-summit-2020.heysummit.com/talks/owasp-juice-shop-cocktail-party-ask-us-anything/)
@@ -318,6 +322,10 @@ mentioned or used!
 ## Conference and Meetup Appearances
 
 > Upcoming events are marked with :date:. The availability of link destinations for past events cannot be guaranteed. 
+
+#### 2026
+
+* [OWASP Juice Shop: Take your security vitamins!](https://ndcsecurity.com/agenda/owasp-juice-shop-take-your-security-vitamins/7a1238226e90) by Björn Kimminich & Jannik Hollenbach, [NDC Security 2026](https://ndcsecurity.com/), Oslo, 05.03.2026
 
 #### 2025
 
