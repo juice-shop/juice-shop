@@ -10,7 +10,6 @@ import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angula
 import { ChangePasswordComponent } from './change-password.component'
 import { ReactiveFormsModule } from '@angular/forms'
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -30,7 +29,6 @@ describe('ChangePasswordComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(),
         ReactiveFormsModule,
-        BrowserAnimationsModule,
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,

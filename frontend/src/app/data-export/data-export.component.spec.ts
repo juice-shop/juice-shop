@@ -12,7 +12,6 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { of, throwError } from 'rxjs'
 import { DomSanitizer } from '@angular/platform-browser'
 import { SecurityContext } from '@angular/core'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { DataSubjectService } from '../Services/data-subject.service'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
@@ -37,7 +36,6 @@ describe('DataExportComponent', () => {
       imports: [TranslateModule.forRoot(),
         MatFormFieldModule,
         ReactiveFormsModule,
-        BrowserAnimationsModule,
         MatInputModule,
         MatCardModule,
         MatRadioModule,

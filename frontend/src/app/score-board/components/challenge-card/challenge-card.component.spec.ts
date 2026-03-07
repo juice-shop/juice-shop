@@ -1,4 +1,5 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
+import { provideZoneChangeDetection } from '@angular/core'
 
 import { ChallengeCardComponent } from './challenge-card.component'
 import { type Config } from 'src/app/Services/configuration.service'
@@ -27,7 +28,8 @@ describe('ChallengeCard', () => {
 
   async function setup () {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), MatIconModule, MatTooltipModule, ChallengeCardComponent]
+      imports: [TranslateModule.forRoot(), MatIconModule, MatTooltipModule, ChallengeCardComponent],
+      providers: [provideZoneChangeDetection()]
     })
       .compileComponents()
 

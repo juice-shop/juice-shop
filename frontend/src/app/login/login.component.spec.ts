@@ -12,7 +12,6 @@ import { LoginComponent } from './login.component'
 import { RouterTestingModule } from '@angular/router/testing'
 import { ReactiveFormsModule } from '@angular/forms'
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatIconModule } from '@angular/material/icon'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -49,7 +48,6 @@ describe('LoginComponent', () => {
       ReactiveFormsModule,
       CookieModule.forRoot(),
       TranslateModule.forRoot(),
-      BrowserAnimationsModule,
       MatCheckboxModule,
       MatFormFieldModule,
       MatCardModule,

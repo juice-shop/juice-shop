@@ -14,7 +14,6 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { RouterTestingModule } from '@angular/router/testing'
 import { Location } from '@angular/common'
 import { TranslateModule } from '@ngx-translate/core'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatButtonModule } from '@angular/material/button'
 import { MatSelectModule } from '@angular/material/select'
 import { MatInputModule } from '@angular/material/input'
@@ -49,7 +48,6 @@ describe('RegisterComponent', () => {
       ]),
       TranslateModule.forRoot(),
       ReactiveFormsModule,
-      BrowserAnimationsModule,
       MatCardModule,
       MatFormFieldModule,
       MatCheckboxModule,

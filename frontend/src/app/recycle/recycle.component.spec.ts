@@ -10,7 +10,6 @@ import { UserService } from '../Services/user.service'
 import { RecycleService } from '../Services/recycle.service'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
@@ -55,13 +54,13 @@ describe('RecycleComponent', () => {
     translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
+    translateService.onFallbackLangChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
       imports: [RouterTestingModule,
         TranslateModule.forRoot(),
-        BrowserAnimationsModule,
         ReactiveFormsModule,
         MatFormFieldModule,
         MatInputModule,
