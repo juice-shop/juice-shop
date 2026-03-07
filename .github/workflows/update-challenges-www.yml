@@ -6,6 +6,7 @@ on:
     paths:
       - 'data/static/challenges.yml'
       - 'data/static/codefixes/*.info.yml'
+  workflow_dispatch:
 
 jobs:
   UpdateChallengesOnWebsite:
@@ -33,7 +34,8 @@ jobs:
         echo $CHALLENGES > _data/snippets.json
     - uses: stefanzweifel/git-auto-commit-action@8621497c8c39c72f3e2a999a26b4ca1b5058a842 #v5.0.1
       with:
-        commit_message: "Auto-update challenges.yml and snippets.json from ${{ github.sha }}"
+        file_pattern: '_data/challenges.yml _data/snippets.json'
+        commit_message: "🤖 Auto-update challenges.yml and snippets.json from ${{ github.sha }}"
         branch: master
         commit_options: '--signoff'
 

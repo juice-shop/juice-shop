@@ -4,7 +4,7 @@
  */
 
 import { TestBed } from '@angular/core/testing'
-import { TranslateFakeLoader, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core'
+import { TranslateNoOpLoader, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 import { SnackBarHelperService } from './snack-bar-helper.service'
@@ -16,7 +16,7 @@ describe('SnackBarHelperService', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateFakeLoader
+            useClass: TranslateNoOpLoader
           }
         }),
         MatSnackBarModule

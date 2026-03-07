@@ -18,11 +18,17 @@
 
 .mat-search_field {
   direction: ltr;
+  overflow: hidden;
   padding: 0 $space-l 0 0;
   position: absolute;
   right: 0;
-  width: 150px;
+  transition: width 300ms ease-in-out;
+  width: 0;
   z-index: 1;
+
+  &--visible {
+    width: 150px;
+  }
 
   ::ng-deep .mat-mdc-text-field-wrapper {
     background-color: transparent !important;

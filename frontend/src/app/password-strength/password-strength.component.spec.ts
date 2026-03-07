@@ -6,6 +6,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { PasswordStrengthComponent } from './password-strength.component'
+import { provideZoneChangeDetection } from '@angular/core'
 
 describe('PasswordStrengthComponent', () => {
   let component: PasswordStrengthComponent
@@ -13,7 +14,8 @@ describe('PasswordStrengthComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PasswordStrengthComponent]
+      imports: [PasswordStrengthComponent],
+      providers: [provideZoneChangeDetection()]
     }).compileComponents()
 
     fixture = TestBed.createComponent(PasswordStrengthComponent)

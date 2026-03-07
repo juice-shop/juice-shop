@@ -10,7 +10,6 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { MatTableModule } from '@angular/material/table'
 import { MatExpansionModule } from '@angular/material/expansion'
@@ -35,13 +34,13 @@ describe('SavedPaymentMethodsComponent', () => {
     translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
+    translateService.onFallbackLangChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(),
         ReactiveFormsModule,
-        BrowserAnimationsModule,
         MatCardModule,
         MatTableModule,
         MatFormFieldModule,

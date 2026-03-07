@@ -15,7 +15,6 @@ import { EventEmitter } from '@angular/core'
 import { ContactComponent } from './contact.component'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FeedbackService } from '../Services/feedback.service'
 import { MatSliderModule } from '@angular/material/slider'
 import { of, throwError } from 'rxjs'
@@ -35,6 +34,7 @@ describe('ContactComponent', () => {
     translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
+    translateService.onFallbackLangChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
     userService = jasmine.createSpyObj('UserService', ['whoAmI'])
     userService.whoAmI.and.returnValue(of({}))
@@ -48,7 +48,6 @@ describe('ContactComponent', () => {
       imports: [TranslateModule.forRoot(),
         ReactiveFormsModule,
         MatSliderModule,
-        BrowserAnimationsModule,
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,

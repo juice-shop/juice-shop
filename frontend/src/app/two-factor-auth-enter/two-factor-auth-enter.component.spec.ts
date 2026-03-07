@@ -13,7 +13,6 @@ import { WindowRefService } from '../Services/window-ref.service'
 import { ReactiveFormsModule } from '@angular/forms'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { TranslateModule } from '@ngx-translate/core'
 import { CookieModule, CookieService } from 'ngy-cookie'
@@ -58,7 +57,6 @@ describe('TwoFactorAuthEnterComponent', () => {
       ReactiveFormsModule,
       CookieModule.forRoot(),
       TranslateModule.forRoot(),
-      BrowserAnimationsModule,
       MatCheckboxModule,
       MatFormFieldModule,
       MatCardModule,
