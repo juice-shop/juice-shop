@@ -600,65 +600,28 @@
 	},
 	"restfulXssChallenge_1_correct.ts": {
 		"added": [
-			6
+			44,
+			45
 		],
-		"removed": [
-			6,
-			40,
-			51,
-			52,
-			53,
-			54,
-			55
-		]
+		"removed": []
 	},
 	"restfulXssChallenge_2.ts": {
-		"added": [
-			6
-		],
-		"removed": [
-			6,
-			40,
-			51,
-			52,
-			53,
-			54,
-			55,
-			56,
-			57,
-			58,
-			59,
-			60,
-			61
-		]
+		"added": [],
+		"removed": []
 	},
 	"restfulXssChallenge_3.ts": {
 		"added": [
-			6
+			29,
+			30
 		],
 		"removed": [
-			6
+			29,
+			30
 		]
 	},
 	"restfulXssChallenge_4.ts": {
-		"added": [
-			6
-		],
-		"removed": [
-			6,
-			40,
-			51,
-			52,
-			53,
-			54,
-			55,
-			56,
-			57,
-			58,
-			59,
-			60,
-			61
-		]
+		"added": [],
+		"removed": []
 	},
 	"scoreBoardChallenge_1_correct.ts": {
 		"added": [],

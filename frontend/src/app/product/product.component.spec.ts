@@ -6,9 +6,8 @@
 import { type ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatDialog } from '@angular/material/dialog'
-import { MatSnackBar } from '@angular/material/snack-bar'
 import { of, throwError } from 'rxjs'
-import { EventEmitter } from '@angular/core'
+import { provideZoneChangeDetection } from '@angular/core'
 
 import { ProductComponent } from './product.component'
 import { ProductDetailsComponent } from '../product-details/product-details.component'
@@ -22,9 +21,10 @@ describe('ProductComponent', () => {
   let fixture: ComponentFixture<ProductComponent>
   let productService: jasmine.SpyObj<ProductService>
   let basketService: jasmine.SpyObj<BasketService>
-  let translateService: jasmine.SpyObj<TranslateService>
+  let translateService: TranslateService
+  let translateServiceGetSpy: jasmine.Spy
   let dialog: jasmine.SpyObj<MatDialog>
-  let snackBar: jasmine.SpyObj<MatSnackBar>
+  let snackBarHelper: jasmine.SpyObj<SnackBarHelperService>
 
   const testProduct: ProductTableEntry = {
     id: 1,
@@ -46,12 +46,7 @@ describe('ProductComponent', () => {
     basketService.get.and.returnValue(of({ id: 1, quantity: 1 } as any))
     basketService.put.and.returnValue(of({ ProductId: 1 } as any))
     basketService.save.and.returnValue(of({ ProductId: 1 } as any))
-    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
-    translateService = jasmine.createSpyObj('TranslateService', ['get'])
-    translateService.get.and.returnValue(of('ok'))
-    Object.defineProperty(translateService, 'onLangChange', { value: new EventEmitter() })
-    Object.defineProperty(translateService, 'onTranslationChange', { value: new EventEmitter() })
-    Object.defineProperty(translateService, 'onDefaultLangChange', { value: new EventEmitter() })
+    snackBarHelper = jasmine.createSpyObj('SnackBarHelperService', ['open'])
 
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), ProductComponent],
@@ -59,11 +54,14 @@ describe('ProductComponent', () => {
         { provide: MatDialog, useValue: dialog },
         { provide: ProductService, useValue: productService },
         { provide: BasketService, useValue: basketService },
-        { provide: TranslateService, useValue: translateService },
-        { provide: SnackBarHelperService, useValue: snackBar }
+        { provide: SnackBarHelperService, useValue: snackBarHelper },
+        provideZoneChangeDetection(),
       ]
     })
     .compileComponents()
+
+    translateService = TestBed.inject(TranslateService)
+    translateServiceGetSpy = spyOn(translateService, 'get').and.returnValue(of('ok'))
 
     fixture = TestBed.createComponent(ProductComponent)
     component = fixture.componentInstance
@@ -94,7 +92,7 @@ describe('ProductComponent', () => {
     expect(basketService.find).toHaveBeenCalled()
     expect(basketService.save).toHaveBeenCalled()
     expect(productService.get).toHaveBeenCalled()
-    expect(translateService.get).toHaveBeenCalledWith('BASKET_ADD_PRODUCT', { product: 'Cherry Juice' })
+    expect(translateServiceGetSpy).toHaveBeenCalledWith('BASKET_ADD_PRODUCT', { product: 'Cherry Juice' })
   })
 
   it('should translate BASKET_ADD_PRODUCT message', () => {
@@ -102,13 +100,13 @@ describe('ProductComponent', () => {
     productService.search.and.returnValue(of([]))
     basketService.save.and.returnValue(of({ ProductId: 1 }))
     productService.get.and.returnValue(of({ name: 'Cherry Juice' }))
-    translateService.get.and.returnValue(of('Translation of BASKET_ADD_PRODUCT'))
+    translateServiceGetSpy.and.returnValue(of('Translation of BASKET_ADD_PRODUCT'))
     sessionStorage.setItem('bid', '4711')
     component.addToBasket(1)
     expect(basketService.find).toHaveBeenCalled()
     expect(basketService.save).toHaveBeenCalled()
     expect(productService.get).toHaveBeenCalled()
-    expect(snackBar.open).toHaveBeenCalled()
+    expect(snackBarHelper.open).toHaveBeenCalled()
   })
 
   it('should add similar product to basket', () => {
@@ -116,14 +114,14 @@ describe('ProductComponent', () => {
     basketService.get.and.returnValue(of({ id: 42, quantity: 5 }))
     basketService.put.and.returnValue(of({ ProductId: 2 }))
     productService.get.and.returnValue(of({ name: 'Tomato Juice' }))
-    translateService.get.and.returnValue(of(undefined))
+    translateServiceGetSpy.and.returnValue(of(undefined))
     sessionStorage.setItem('bid', '4711')
     component.addToBasket(2)
     expect(basketService.find).toHaveBeenCalled()
     expect(basketService.get).toHaveBeenCalled()
     expect(basketService.put).toHaveBeenCalled()
     expect(productService.get).toHaveBeenCalled()
-    expect(translateService.get).toHaveBeenCalledWith('BASKET_ADD_SAME_PRODUCT', { product: 'Tomato Juice' })
+    expect(translateServiceGetSpy).toHaveBeenCalledWith('BASKET_ADD_SAME_PRODUCT', { product: 'Tomato Juice' })
   })
 
   it('should translate BASKET_ADD_SAME_PRODUCT message', () => {
@@ -131,7 +129,7 @@ describe('ProductComponent', () => {
     basketService.get.and.returnValue(of({ id: 42, quantity: 5 }))
     basketService.put.and.returnValue(of({ ProductId: 2 }))
     productService.get.and.returnValue(of({ name: 'Tomato Juice' }))
-    translateService.get.and.returnValue(of('Translation of BASKET_ADD_SAME_PRODUCT'))
+    translateServiceGetSpy.and.returnValue(of('Translation of BASKET_ADD_SAME_PRODUCT'))
     sessionStorage.setItem('bid', '4711')
     component.addToBasket(2)
     expect(basketService.find).toHaveBeenCalled()
@@ -144,7 +142,7 @@ describe('ProductComponent', () => {
     basketService.find.and.returnValue(throwError(() => 'Error'))
     sessionStorage.setItem('bid', '815')
     component.addToBasket(undefined)
-    expect(snackBar.open).not.toHaveBeenCalled()
+    expect(snackBarHelper.open).not.toHaveBeenCalled()
   }))
 
   it('should log errors retrieving basket directly to browser console', fakeAsync(() => {
@@ -160,7 +158,7 @@ describe('ProductComponent', () => {
     basketService.get.and.returnValue(throwError(() => 'Error'))
     sessionStorage.setItem('bid', '4711')
     component.addToBasket(2)
-    expect(snackBar.open).not.toHaveBeenCalled()
+    expect(snackBarHelper.open).not.toHaveBeenCalled()
   }))
 
   it('should log errors retrieving basket item directly to browser console', fakeAsync(() => {
@@ -186,7 +184,7 @@ describe('ProductComponent', () => {
     productService.get.and.returnValue(throwError(() => 'Error'))
     sessionStorage.setItem('bid', '4711')
     component.addToBasket(2)
-    expect(snackBar.open).not.toHaveBeenCalled()
+    expect(snackBarHelper.open).not.toHaveBeenCalled()
   }))
 
   it('should log errors retrieving product associated with basket item directly to browser console', fakeAsync(() => {
@@ -203,7 +201,7 @@ describe('ProductComponent', () => {
     basketService.save.and.returnValue(throwError(() => 'Error'))
     sessionStorage.setItem('bid', '4711')
     component.addToBasket(2)
-    expect(snackBar.open).toHaveBeenCalled()
+    expect(snackBarHelper.open).toHaveBeenCalled()
   }))
 
   it('should log errors creating new basket item directly to browser console', fakeAsync(() => {
@@ -212,7 +210,7 @@ describe('ProductComponent', () => {
     console.log = jasmine.createSpy('log')
     sessionStorage.setItem('bid', '4711')
     component.addToBasket(2)
-    expect(snackBar.open).toHaveBeenCalled()
+    expect(snackBarHelper.open).toHaveBeenCalled()
   }))
 
   it('should not add anything on error retrieving product after creating new basket item', fakeAsync(() => {
@@ -220,7 +218,7 @@ describe('ProductComponent', () => {
     productService.get.and.returnValue(throwError(() => 'Error'))
     sessionStorage.setItem('bid', '4711')
     component.addToBasket(2)
-    expect(snackBar.open).not.toHaveBeenCalled()
+    expect(snackBarHelper.open).not.toHaveBeenCalled()
   }))
 
   it('should log errors retrieving product after creating new basket item directly to browser console', fakeAsync(() => {

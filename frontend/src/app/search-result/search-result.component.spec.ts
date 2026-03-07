@@ -76,10 +76,10 @@ describe('SearchResultComponent', () => {
     basketService.updateNumberOfCartItems.and.returnValue(undefined)
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
     translateService.get.and.returnValue(of({}))
-    translateService.onLangChange = new EventEmitter()
-    translateService.onTranslationChange = new EventEmitter()
-    translateService.onFallbackLangChange = new EventEmitter()
-    translateService.onDefaultLangChange = new EventEmitter()
+    Object.defineProperty(translateService, 'onLangChange', { value: new EventEmitter() })
+    Object.defineProperty(translateService, 'onTranslationChange', { value: new EventEmitter() })
+    Object.defineProperty(translateService, 'onFallbackLangChange', { value: new EventEmitter() })
+    Object.defineProperty(translateService, 'onDefaultLangChange', { value: new EventEmitter() })
     sanitizer = jasmine.createSpyObj('DomSanitizer', ['bypassSecurityTrustHtml', 'sanitize'])
     sanitizer.bypassSecurityTrustHtml.and.returnValue(of({}))
     sanitizer.sanitize.and.returnValue('')
@@ -92,7 +92,6 @@ describe('SearchResultComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(),
-        RouterTestingModule,
         TranslateModule.forRoot(),
         MatTableModule,
         MatPaginatorModule,
