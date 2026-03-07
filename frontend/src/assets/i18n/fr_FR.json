@@ -115,7 +115,7 @@
   "STATUS_SOLVED": "résolu",
   "STATUS_PARTIALLY_SOLVED": "partiellement résolu",
   "STATUS_UNAVAILABLE": "indisponible",
-  "STATUS_ALL": "all",
+  "STATUS_ALL": "tous",
   "CALL_FOR_CONTRIBUTIONS": "Got an idea for a new challenge? Found a vulnerability that is not tracked here? Let us know via <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> community chat or by opening a <a href='https://github.com/juice-shop/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a> issue!",
   "CALL_FOR_FEEDBACK": "Aidez-nous à rendre {{appname}} encore meilleur pour vous en répondant à notre  <a href='{{questionnaire}}'><i class='fas fa-poll-h'>questionnaire utilisateur</i></a>!",
   "CHALLENGE_SOLVED": "Vous avez résolu avec succès un challenge : {{challenge}}",
