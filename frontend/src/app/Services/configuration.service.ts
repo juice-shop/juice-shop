@@ -80,7 +80,6 @@ export interface Config {
     restrictToTutorialsFirst: boolean
     safetyMode: string
     overwriteUrlForProductTamperingChallenge: string
-    showFeedbackButtons: boolean
   }
   hackingInstructor: {
     isEnabled: boolean
@@ -92,6 +91,10 @@ export interface Config {
     showFlagsInNotifications: boolean
     showCountryDetailsInNotifications: string
     countryMapping: any[]
+    systemWideNotifications?: {
+      url?: string
+      pollFrequencySeconds?: number
+    }
   }
 }
 
@@ -99,7 +102,7 @@ export interface Config {
   providedIn: 'root'
 })
 export class ConfigurationService {
-  private readonly http = inject(HttpClient);
+  private readonly http = inject(HttpClient)
 
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/rest/admin'

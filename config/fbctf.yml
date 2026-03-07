@@ -8,7 +8,6 @@ application:
     showOnFirstStart: false
 challenges:
   showHints: false
-  showFeedbackButtons: false
 hackingInstructor:
   isEnabled: false
 ctf:
@@ -345,3 +344,6 @@ ctf:
     leakedApiKeyChallenge:
       name: San Marino
       code: SM
+    passwordHashLeakChallenge:
+      name: Italy
+      code: IT

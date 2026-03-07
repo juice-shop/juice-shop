@@ -35,6 +35,7 @@ import type { Request, Response, NextFunction } from 'express'
 import { sequelize } from './models'
 import { UserModel } from './models/user'
 import { CardModel } from './models/card'
+import { HintModel } from './models/hint'
 import { WalletModel } from './models/wallet'
 import { ProductModel } from './models/product'
 import { RecycleModel } from './models/recycle'
@@ -47,7 +48,6 @@ import { BasketItemModel } from './models/basketitem'
 import { SecurityAnswerModel } from './models/securityAnswer'
 import { PrivacyRequestModel } from './models/privacyRequests'
 import { SecurityQuestionModel } from './models/securityQuestion'
-import { HintModel } from './models/hint'
 
 import logger from './lib/logger'
 import * as utils from './lib/utils'
@@ -288,6 +288,11 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use(express.static(path.resolve('frontend/dist/frontend')))
   app.use(cookieParser('kekse'))
   // vuln-code-snippet end directoryListingChallenge accessLogDisclosureChallenge
+
+  /* Serve vendor dependencies locally instead of from CDN */
+  app.use('/vendor/material-design-lite', express.static(path.resolve('node_modules/material-design-lite/dist')))
+  app.use('/vendor/material-icons', express.static(path.resolve('node_modules/material-icons/iconfont')))
+  app.use('/vendor/fontsource-roboto', express.static(path.resolve('node_modules/@fontsource/roboto')))
 
   /* Configure and enable backend-side i18n */
   i18n.configure({

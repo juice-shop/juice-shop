@@ -31,12 +31,12 @@ library.add(faStar, faPaperPlane)
   imports: [MatCardModule, TranslateModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatLabel, MatInputModule, MatHint, MatError, MatSliderModule, MatButtonModule, MatIconModule]
 })
 export class ContactComponent implements OnInit {
-  private readonly userService = inject(UserService);
-  private readonly captchaService = inject(CaptchaService);
-  private readonly feedbackService = inject(FeedbackService);
-  private readonly formSubmitService = inject(FormSubmitService);
-  private readonly translate = inject(TranslateService);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
+  private readonly userService = inject(UserService)
+  private readonly captchaService = inject(CaptchaService)
+  private readonly feedbackService = inject(FeedbackService)
+  private readonly formSubmitService = inject(FormSubmitService)
+  private readonly translate = inject(TranslateService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   public authorControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
   public feedbackControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.maxLength(160)])
@@ -50,7 +50,7 @@ export class ContactComponent implements OnInit {
   public error: any
 
   ngOnInit (): void {
-    this.userService.whoAmI().subscribe({
+    this.userService.whoAmI(['id', 'email']).subscribe({
       next: (data: any) => {
         this.feedback = {}
         this.userIdControl.setValue(data.id)

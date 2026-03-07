@@ -3,13 +3,15 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 .container {
   font-size: 14px;
-  margin: 40px;
+  margin: $space-2xl;
 }
 
 mat-card {
-  margin-bottom: 10px;
+  margin-bottom: $space-s;
 
   .notificationMessage {
     align-items: center;
@@ -26,4 +28,57 @@ mat-card {
 .icon-box {
   display: inline-flex;
   vertical-align: middle;
+}
+
+.flag-box {
+  border-radius: 4px;
+  cursor: copy;
+  padding: $space-3xs $space-2xs;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+
+.contents {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2xs;
+  justify-content: space-around;
+}
+
+.view-challenge-button {
+  align-items: center;
+  backdrop-filter: saturate(1.1);
+  border: 3px solid;
+  border-radius: 4px;
+  color: inherit;
+
+  cursor: pointer;
+  display: inline-flex;
+
+  font-size: 15px;
+  font-weight: 500;
+  gap: $space-3xs;
+  height: 32px;
+  letter-spacing: normal;
+  padding: 0 $space-s;
+  transition: background-color 0.15s ease;
+
+  mat-icon {
+    font-size: 18px;
+    height: 18px;
+    width: 18px;
+  }
+
+  &:hover {
+    background-color: rgba(211, 211, 211, 0.04);
+    box-shadow: none;
+  }
+
+  &:active {
+    transform: none;
+  }
 }

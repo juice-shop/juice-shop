@@ -19,8 +19,8 @@ library.add(faUserSlash, faHandPaper)
   imports: [MatCardModule]
 })
 export class ErrorPageComponent implements OnInit {
-  private readonly route = inject(ActivatedRoute);
-  private readonly translate = inject(TranslateService);
+  private readonly route = inject(ActivatedRoute)
+  private readonly translate = inject(TranslateService)
 
   public error: string | null = null
 

@@ -3,9 +3,11 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 mat-card {
   height: auto;
-  margin-bottom: 50px;
+  margin-bottom: $space-3xl;
   margin-left: auto;
   margin-right: auto;
   min-width: 320px;
@@ -14,7 +16,7 @@ mat-card {
 
 #submitButton {
   margin-left: 20%;
-  margin-top: 30px;
+  margin-top: $space-xl;
   width: 60%;
 }
 
@@ -23,23 +25,36 @@ mat-card {
   font-size: 10px;
   justify-content: center;
   margin-bottom: 0;
-  margin-top: 5px;
+  margin-top: $space-2xs;
 }
 
 .mat-mdc-radio-button ~ .mat-mdc-radio-button {
-  margin-bottom: 16px;
-  margin-left: 16px;
+  margin-bottom: $space-m;
+  margin-left: $space-m;
 }
 
 .radio-label {
   font-weight: 500;
-  margin-right: 8px;
+  margin-right: $space-xs;
+}
+
+.captcha-label {
+  float: left;
+  font-weight: 500;
+  margin-bottom: $space-ml;
+  margin-top: $space-2xl;
 }
 
 .captcha-image {
   float: left;
-  margin-bottom: 10px;
-  margin-top: 20px;
+  margin-bottom: $space-s;
+  margin-left: $space-s;
+  margin-top: $space-ml;
+}
+
+.captcha-input-field {
+  margin-top: $space-s;
+  width: 100%;
 }
 
 .center-container {

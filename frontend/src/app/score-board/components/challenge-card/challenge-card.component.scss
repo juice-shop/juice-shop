@@ -1,3 +1,10 @@
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+@use '../../../../styles/variables' as *;
+
 :host {
   background-color: var(--theme-background-darker);
   border-radius: 2px;
@@ -7,7 +14,7 @@
 
   max-height: 144px;
   overflow: hidden;
-  padding: 12px 16px;
+  padding: $space-s $space-l;
 
   &.solved {
     border-top: 4px solid var(--theme-accent);
@@ -43,10 +50,10 @@
 
 .name-row {
   align-items: center;
-  column-gap: 6px;
+  column-gap: $space-2xs;
   display: grid;
   grid-template-columns: 12px auto min-content;
-  margin-top: 8px;
+  margin-top: $space-xs;
 
   .dot {
     border-radius: 50%;
@@ -70,7 +77,7 @@
   font-size: 12px;
   font-weight: 400;
   line-height: 14px;
-  margin-top: 12px;
+  margin-top: $space-s;
 
   overflow-y: auto;
 }
@@ -94,6 +101,14 @@
   display: none;
 }
 
+.description-row ::ng-deep code {
+  cursor: copy;
+
+  &:hover {
+    background-color: var(--theme-background-light);
+  }
+}
+
 @supports not selector(::-webkit-scrollbar) {
   html {
     scrollbar-width: thin;
@@ -102,15 +117,15 @@
 
 .bottom-row {
   align-items: end;
-  column-gap: 4px;
+  column-gap: $space-2xs;
   display: grid;
   grid-template-columns: auto min-content;
-  margin-top: 16px;
+  margin-top: $space-m;
 
   .tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 4px;
+    gap: $space-2xs;
   }
 
   .tag {
@@ -121,12 +136,12 @@
     font-style: normal;
     font-weight: 400;
     line-height: 14px;
-    padding: 6px;
+    padding: $space-2xs;
   }
 }
 
 .badge-group {
-  column-gap: 4px;
+  column-gap: $space-2xs;
   display: flex;
 }
 
@@ -151,7 +166,7 @@ $badge-size: 24px;
   padding: 0;
 
   position: relative;
-  
+
   mat-icon {
     font-size: 16px;
     height: 16px;
@@ -163,7 +178,7 @@ $badge-size: 24px;
     border: 1px solid var(--theme-background-light);
     border-radius: 4px;
     font-size: 10px;
-    padding: 0 5px;
+    padding: 0 $space-2xs;
     position: absolute;
     top: -35%;
   }
@@ -199,5 +214,25 @@ $badge-size: 24px;
 
   .badge-status {
     color: var(--theme-accent);
+  }
+}
+
+.badge.not-completable.flickering {
+  animation: coding-button-flicker 0.7s ease-in-out infinite;
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--theme-accent) 90%, transparent);
+}
+
+@keyframes coding-button-flicker {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--theme-accent) 90%, transparent);
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    box-shadow: 0 0 20px 10px color-mix(in srgb, var(--theme-accent) 90%, transparent);
+    opacity: 0.85;
+    transform: scale(1.08);
   }
 }

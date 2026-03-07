@@ -3,13 +3,15 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 $bg-heading: rgba(0, 0, 0, 0.13);
 
 .container {
   align-items: stretch;
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: $space-ml;
   justify-content: center;
 }
 
@@ -26,8 +28,8 @@ $bg-heading: rgba(0, 0, 0, 0.13);
 .heading {
   background: $bg-heading;
   justify-content: center;
-  margin-bottom: 10px;
-  padding: 12px 20px;
+  margin-bottom: $space-s;
+  padding: $space-m $space-ml;
 }
 
 .whitepaper-container.offer-container {
@@ -40,7 +42,7 @@ $bg-heading: rgba(0, 0, 0, 0.13);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: $space-xs;
 }
 
 .faq-container {
@@ -50,16 +52,16 @@ $bg-heading: rgba(0, 0, 0, 0.13);
 }
 
 a:nth-child(1) {
-  padding-right: 10px;
+  padding-right: $space-s;
 }
 
 .title {
-  padding-bottom: 27px;
+  padding-bottom: $space-l;
 }
 
 .divider {
   border: 0.5px solid #f2f2f2;
-  margin-bottom: 10px;
+  margin-bottom: $space-s;
 }
 
 .text-justify {
@@ -67,7 +69,7 @@ a:nth-child(1) {
 }
 
 mat-card {
-  margin-bottom: 10px;
+  margin-bottom: $space-s;
 }
 
 mat-card:nth-child(1) {
@@ -83,8 +85,8 @@ mat-card:nth-child(1) {
 .faq-container {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  margin-top: -7px;
+  gap: $space-2xs;
+  margin-top: -$space-xs;
 }
 
 mat-card-title {
@@ -94,12 +96,12 @@ mat-card-title {
 .offer-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: $space-m;
 }
 
 mat-card-header {
-  margin-left: -15px;
-  margin-top: 15px;
+  margin-left: -$space-m;
+  margin-top: $space-m;
 }
 
 h4 {
@@ -107,7 +109,7 @@ h4 {
 }
 
 .faq-container mat-card-title {
-  margin-bottom: 12px;
+  margin-bottom: $space-s;
 }
 
 img {
@@ -118,9 +120,17 @@ img {
 
 .offer-container { display: flex;
   flex-direction: column;
-  gap: 16px; }
+  gap: $space-m; }
 
 .faq-container { display: flex;
   flex-direction: column;
-  gap: 4px;
-  margin-top: -7px; }
+  gap: $space-2xs;
+  margin-top: -$space-xs; }
+
+.whitepaper-reference {
+  margin-left: $space-s;
+}
+
+.faq-question-label {
+  margin-left: $space-s;
+}

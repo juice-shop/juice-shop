@@ -18,7 +18,7 @@ import { MatIconModule } from '@angular/material/icon'
   imports: [MatDialogContent, MatDivider, MatDialogActions, MatButtonModule, MatDialogClose, TranslateModule, MatIconModule]
 })
 export class FeedbackDetailsComponent implements OnInit {
-  dialogData = inject(MAT_DIALOG_DATA);
+  dialogData = inject(MAT_DIALOG_DATA)
 
   public feedback: any
   public id: any

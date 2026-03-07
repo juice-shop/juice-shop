@@ -30,10 +30,10 @@ library.add(faUser, faEye, faHome, faArchive, faTrashAlt)
   imports: [MatCardModule, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatButtonModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, MatTooltip, MatIconModule]
 })
 export class AdministrationComponent implements OnInit {
-  private readonly dialog = inject(MatDialog);
-  private readonly userService = inject(UserService);
-  private readonly feedbackService = inject(FeedbackService);
-  private readonly sanitizer = inject(DomSanitizer);
+  private readonly dialog = inject(MatDialog)
+  private readonly userService = inject(UserService)
+  private readonly feedbackService = inject(FeedbackService)
+  private readonly sanitizer = inject(DomSanitizer)
 
   public userDataSource: any
   public userDataSourceHidden: any

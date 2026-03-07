@@ -34,14 +34,14 @@ library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp, faCrown)
   imports: [MatDialogContent, MatTooltip, MatDivider, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, TranslateModule, MatIconButton, MatIconModule, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormsModule, ReactiveFormsModule, MatDialogActions, MatDialogClose, AsyncPipe]
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
-  private readonly dialog = inject(MatDialog);
+  private readonly dialog = inject(MatDialog)
   data = inject<{
     productData: Product;
-}>(MAT_DIALOG_DATA);
-  private readonly productReviewService = inject(ProductReviewService);
-  private readonly userService = inject(UserService);
-  private readonly snackBar = inject(MatSnackBar);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
+}>(MAT_DIALOG_DATA)
+  private readonly productReviewService = inject(ProductReviewService)
+  private readonly userService = inject(UserService)
+  private readonly snackBar = inject(MatSnackBar)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   public author = 'Anonymous'
   public reviews$: any
@@ -51,7 +51,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   ngOnInit (): void {
     this.data.productData.points = Math.round(this.data.productData.price / 10)
     this.reviews$ = this.productReviewService.get(this.data.productData.id)
-    this.userSubscription = this.userService.whoAmI().subscribe({
+    this.userSubscription = this.userService.whoAmI(['email']).subscribe({
       next: (user: any) => {
         if (user?.email) {
           this.author = user.email
