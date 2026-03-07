@@ -5,7 +5,8 @@
 
 import { environment } from 'src/environments/environment'
 import { Injectable, NgZone, inject } from '@angular/core'
-import { io, type Socket } from 'socket.io-client'
+import io from 'socket.io-client'
+type Socket = ReturnType<typeof io>
 
 @Injectable({
   providedIn: 'root'

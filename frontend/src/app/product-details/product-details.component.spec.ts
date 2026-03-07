@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+import { provideZoneChangeDetection } from '@angular/core'
 import { TranslateModule } from '@ngx-translate/core'
 import { ProductReviewEditComponent } from '../product-review-edit/product-review-edit.component'
 import { By } from '@angular/platform-browser'
@@ -69,7 +70,8 @@ describe('ProductDetailsComponent', () => {
         { provide: MatDialog, useValue: dialog },
         { provide: MAT_DIALOG_DATA, useValue: { productData: {} } },
         provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
+        provideHttpClientTesting(),
+        provideZoneChangeDetection()
       ]
     })
       .compileComponents()
