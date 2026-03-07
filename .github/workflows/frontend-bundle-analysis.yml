@@ -30,7 +30,7 @@ jobs:
       - name: "Build frontend"
         run: |
           cd frontend
-          npm run build --configuration production
+          npm run build
 
       - name: "Generate bundle report"
         run: |
