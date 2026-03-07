@@ -55,7 +55,7 @@ describe('/rest/basket/:id', () => {
   })
 
   // todo: Endpoint should return a 200, but returns a 401 right now, even though the challenges are marked as solved...
-  it.skip('GET basket should accept forged JWTs', () => {
+  it('GET basket should accept forged JWTs', () => {
     const header = Buffer.from(JSON.stringify({ alg: 'none', typ: 'JWT' })).toString('base64url')
     const payload = Buffer.from(JSON.stringify({ data: { email: 'jim@juice-sh.op' }, iat: 1508639612, exp: 9999999999 })).toString('base64url')
     const unsignedToken = `${header}.${payload}.`
