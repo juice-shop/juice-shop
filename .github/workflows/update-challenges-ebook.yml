@@ -5,6 +5,7 @@ on:
     branches: [ master, develop ]
     paths:
       - 'data/static/challenges.yml'
+  workflow_dispatch:
 
 jobs:
   UpdateChallengesOnWebsite:
