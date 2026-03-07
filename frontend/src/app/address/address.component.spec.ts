@@ -10,7 +10,6 @@ import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angula
 import { AddressComponent } from './address.component'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { of, throwError } from 'rxjs'
 import { RouterTestingModule } from '@angular/router/testing'
@@ -55,7 +54,6 @@ describe('AddressComponent', () => {
       ]),
       TranslateModule.forRoot(),
       ReactiveFormsModule,
-      BrowserAnimationsModule,
       MatCardModule,
       MatTableModule,
       MatFormFieldModule,

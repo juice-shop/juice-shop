@@ -6,7 +6,6 @@ import { TranslateModule } from '@ngx-translate/core'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { MatSelectModule } from '@angular/material/select'
-import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatDialogModule, MatDialog } from '@angular/material/dialog'
 import { DifficultySelectionSummaryPipe } from './pipes/difficulty-selection-summary.pipe'
@@ -20,7 +19,6 @@ describe('FilterSettingsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        NoopAnimationsModule,
         TranslateModule.forRoot(),
         MatFormFieldModule,
         MatInputModule,

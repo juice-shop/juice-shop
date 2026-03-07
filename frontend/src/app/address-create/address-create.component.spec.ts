@@ -11,7 +11,6 @@ import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angula
 import { AddressCreateComponent } from './address-create.component'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { of, throwError } from 'rxjs'
 import { RouterTestingModule } from '@angular/router/testing'
@@ -47,7 +46,6 @@ describe('AddressCreateComponent', () => {
       imports: [RouterTestingModule,
         TranslateModule.forRoot(),
         ReactiveFormsModule,
-        BrowserAnimationsModule,
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,

@@ -10,7 +10,6 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { MatTableModule } from '@angular/material/table'
 import { MatExpansionModule } from '@angular/material/expansion'
@@ -51,7 +50,6 @@ describe('AddressSelectComponent', () => {
       ]),
       TranslateModule.forRoot(),
       ReactiveFormsModule,
-      BrowserAnimationsModule,
       MatCardModule,
       MatTableModule,
       MatFormFieldModule,

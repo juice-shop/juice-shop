@@ -13,7 +13,6 @@ import { of, throwError } from 'rxjs'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { CookieModule, CookieService } from 'ngy-cookie'
 import { LoginGuard } from '../app.guard'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { SidenavComponent } from './sidenav.component'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatIconModule } from '@angular/material/icon'
@@ -66,7 +65,6 @@ describe('SidenavComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(),
-        BrowserAnimationsModule,
         MatToolbarModule,
         MatIconModule,
         MatButtonModule,

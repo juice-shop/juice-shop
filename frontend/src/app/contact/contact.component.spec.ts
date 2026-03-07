@@ -15,7 +15,6 @@ import { EventEmitter } from '@angular/core'
 import { ContactComponent } from './contact.component'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FeedbackService } from '../Services/feedback.service'
 import { MatSliderModule } from '@angular/material/slider'
 import { of, throwError } from 'rxjs'
@@ -49,7 +48,6 @@ describe('ContactComponent', () => {
       imports: [TranslateModule.forRoot(),
         ReactiveFormsModule,
         MatSliderModule,
-        BrowserAnimationsModule,
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,

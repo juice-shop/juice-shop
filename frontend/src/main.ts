@@ -41,7 +41,6 @@ import { MatToolbarModule } from '@angular/material/toolbar'
 import { FileUploadModule } from 'ng2-file-upload'
 import { NgxTextDiffModule } from '@winarg/ngx-text-diff'
 import { GalleryModule } from 'ng-gallery'
-import { provideAnimations } from '@angular/platform-browser/animations'
 import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 
 import { TranslateModule, provideTranslateService } from '@ngx-translate/core'
@@ -143,8 +142,7 @@ bootstrapApplication(AppComponent, {
             suffix: '.json'
           }),
           fallbackLang: 'en'
-        }),
-        provideAnimations()
+        })
     ]
 })
     .catch((err: Error) => console.log(err))
