@@ -64,6 +64,7 @@
             "scripts": [
               "node_modules/cookieconsent/build/cookieconsent.min.js"
             ],
+            "outputHashing": "media",
             "extractLicenses": false,
             "sourceMap": true,
             "optimization": false,
