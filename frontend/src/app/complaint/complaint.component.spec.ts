@@ -38,6 +38,7 @@ describe('ComplaintComponent', () => {
     translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
+    translateService.onFallbackLangChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
 
     TestBed.configureTestingModule({

@@ -31,6 +31,7 @@ import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
 import { throwError } from 'rxjs/internal/observable/throwError'
 import { QrCodeComponent } from 'ng-qrcode'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
+import { provideZoneChangeDetection } from '@angular/core'
 
 describe('TwoFactorAuthComponent', () => {
   let component: TwoFactorAuthComponent
@@ -64,7 +65,8 @@ describe('TwoFactorAuthComponent', () => {
         { provide: ConfigurationService, useValue: configurationService },
         { provide: TwoFactorAuthService, useValue: twoFactorAuthService },
         provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
+        provideHttpClientTesting(),
+        provideZoneChangeDetection()
       ]
     }).compileComponents()
   }))
