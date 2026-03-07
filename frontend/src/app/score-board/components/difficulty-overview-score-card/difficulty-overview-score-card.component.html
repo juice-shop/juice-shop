@@ -6,7 +6,7 @@
   [showProgressBar]="false"
   >
   <div right-side class="difficulties-group">
-    @for (difficulty of difficultySummaries; track difficulty) {
+    @for (difficulty of difficultySummaries; track difficulty.difficulty) {
       <div class="difficulty-container">
         <div class="star-container">
           <svg
