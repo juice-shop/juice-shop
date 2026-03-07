@@ -27,11 +27,11 @@ library.add(faEdit, faTrashAlt)
   imports: [MatCardModule, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatRadioButton, MatIconButton, RouterLink, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatButtonModule, MatIconModule]
 })
 export class AddressComponent implements OnInit {
-  private readonly addressService = inject(AddressService);
-  private readonly translate = inject(TranslateService);
-  private readonly router = inject(Router);
-  private readonly ngZone = inject(NgZone);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
+  private readonly addressService = inject(AddressService)
+  private readonly translate = inject(TranslateService)
+  private readonly router = inject(Router)
+  private readonly ngZone = inject(NgZone)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   @Output() emitSelection = new EventEmitter()
   @Input() public allowEdit = false

@@ -50,4 +50,30 @@ describe('QuantityService', () => {
       httpMock.verify()
     })
   ))
+
+  it('should handle error when getting all quantities', inject([QuantityService, HttpTestingController],
+    fakeAsync((service: QuantityService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.getAll().subscribe({ next: () => fail('expected error'), error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/api/Quantitys/')
+      req.error(new ErrorEvent('Request failed'), { status: 500, statusText: 'Internal Server Error' })
+
+      tick()
+      expect(capturedError.status).toBe(500)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when updating a quantity', inject([QuantityService, HttpTestingController],
+    fakeAsync((service: QuantityService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.put(7, {}).subscribe({ next: () => fail('expected error'), error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/api/Quantitys/7')
+      req.error(new ErrorEvent('Request failed'), { status: 400, statusText: 'Bad Request' })
+
+      tick()
+      expect(capturedError.status).toBe(400)
+      httpMock.verify()
+    })
+  ))
 })

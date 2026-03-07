@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { inject, TestBed, waitForAsync } from '@angular/core/testing'
+import { inject, TestBed } from '@angular/core/testing'
+import { firstValueFrom, throwError } from 'rxjs'
 
 import { LocalBackupService } from './local-backup.service'
 import { CookieModule, CookieService } from 'ngy-cookie'
@@ -58,19 +59,40 @@ describe('LocalBackupService', () => {
     expect(FileSaver.saveAs).toHaveBeenCalledWith(blob, `owasp_juice_shop-${new Date().toISOString().split('T')[0]}.json`)
   }))
 
-  it('should restore language from backup file', waitForAsync(inject([LocalBackupService], (service: LocalBackupService) => {
+  it('should restore language from backup file', async () => {
+    const service = TestBed.inject(LocalBackupService)
     cookieService.put('language', 'de')
-    service.restore(new File(['{ "version": 1, "language": "cn" }'], 'test.json')).subscribe(() => {
-      expect(cookieService.get('language')).toBe('cn')
-      expect(snackBar.open).toHaveBeenCalled()
-    })
-  })))
+    await firstValueFrom(service.restore(new File(['{ "version": 1, "language": "cn" }'], 'test.json')))
+    expect(cookieService.get('language')).toBe('cn')
+    expect(snackBar.open).toHaveBeenCalled()
+  })
 
-  it('should not restore language from an outdated backup version', waitForAsync(inject([LocalBackupService], (service: LocalBackupService) => {
+  it('should not restore language from an outdated backup version', async () => {
+    const service = TestBed.inject(LocalBackupService)
     cookieService.put('language', 'de')
-    service.restore(new File(['{ "version": 0, "language": "cn" }'], 'test.json')).subscribe(() => {
-      expect(cookieService.get('language')).toBe('de')
-      expect(snackBar.open).toHaveBeenCalled()
-    })
-  })))
+    await firstValueFrom(service.restore(new File(['{ "version": 0, "language": "cn" }'], 'test.json')))
+    expect(cookieService.get('language')).toBe('de')
+    expect(snackBar.open).toHaveBeenCalled()
+  })
+
+  it('should log and fallback to cookies when continue code retrieval fails during save', inject([LocalBackupService], (service: LocalBackupService) => {
+    spyOn(FileSaver, 'saveAs').and.stub()
+    // ensure cookie fallback values exist
+    cookieService.put('continueCode', 'C1')
+    cookieService.put('continueCodeFindIt', 'C2')
+    cookieService.put('continueCodeFixIt', 'C3')
+
+    // simulate server failure for continue codes
+    challengeService.continueCode.and.returnValue(throwError('Error'))
+    challengeService.continueCodeFindIt.and.returnValue(throwError('Error'))
+    challengeService.continueCodeFixIt.and.returnValue(throwError('Error'))
+
+    console.log = jasmine.createSpy('log')
+
+    service.save('test-backup')
+
+    expect(console.log).toHaveBeenCalledWith('Failed to retrieve continue code(s) for backup from server. Using cookie values as fallback.')
+    expect(FileSaver.saveAs).toHaveBeenCalled()
+  }))
+
 })

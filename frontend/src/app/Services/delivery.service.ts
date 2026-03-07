@@ -23,7 +23,7 @@ interface DeliverySingleMethodResponse {
   providedIn: 'root'
 })
 export class DeliveryService {
-  private readonly http = inject(HttpClient);
+  private readonly http = inject(HttpClient)
 
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/api/Deliverys'

@@ -1,8 +1,6 @@
 /** Authorization **/
   /* Baskets: Unauthorized users are not allowed to access baskets */
-  import * as security from '../../../lib/insecurity'
-
-app.use('/rest/basket', security.isAuthorized(), security.appendUserId())
+  app.use('/rest/basket', security.isAuthorized(), security.appendUserId())
   /* BasketItems: API only accessible for authenticated users */
   app.use('/api/BasketItems', security.isAuthorized())
   app.use('/api/BasketItems/:id', security.isAuthorized())

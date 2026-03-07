@@ -169,6 +169,7 @@ Before submitting a Claude-assisted PR:
 - [ ] RSN check passing (if modified code relevant for a coding challenge)
 - [ ] Manual testing completed
 - [ ] Commits are signed off
+- [ ] PR based on `develop` branch
 - [ ] Single, focused scope
 - [ ] All CI checks passing
 - [ ] PR based on `develop` branch

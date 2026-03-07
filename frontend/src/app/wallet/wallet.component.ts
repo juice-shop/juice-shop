@@ -22,9 +22,9 @@ import { MatIconModule } from '@angular/material/icon'
   imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, FormsModule, MatInputModule, ReactiveFormsModule, MatError, MatButtonModule, MatIconModule]
 })
 export class WalletComponent implements OnInit {
-  private readonly router = inject(Router);
-  private readonly walletService = inject(WalletService);
-  private readonly ngZone = inject(NgZone);
+  private readonly router = inject(Router)
+  private readonly walletService = inject(WalletService)
+  private readonly ngZone = inject(NgZone)
 
   public balance: string
   public balanceControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(1000)])

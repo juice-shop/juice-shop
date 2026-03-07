@@ -20,7 +20,7 @@
           </b>
         </div>
         <div class="col col-20">
-          <button type="submit" color="primary" mat-raised-button class="btn" style="float: right;"
+          <button type="submit" color="primary" mat-raised-button class="btn btn-float-right"
             [disabled]="(walletBalance - totalPrice) < 0" (click)="useWallet()">
             <i class="fas fa-hand-holding-usd fa-lg"></i> {{'LABEL_PAY' | translate}} {{ totalPrice?.toFixed(2) }}¤
           </button>
@@ -40,12 +40,12 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       @if (couponConfirmation && !couponControl.dirty) {
-      <div style="margin-top:5px;" class="confirmation">{{
+      <div class="confirmation message-spacing">{{
         couponConfirmation }}
       </div>
       }
       @if (couponError && !couponControl.dirty) {
-      <div style="margin-top:5px;" class="error">{{couponError?.error}}
+      <div class="error message-spacing">{{couponError?.error}}
       </div>
       }
       <mat-form-field appearance="outline" color="accent">
@@ -61,7 +61,7 @@
         </mat-error>
         }
       </mat-form-field>
-      <button type="submit" id="applyCouponButton" color="accent" style="margin-top:5px; float: right;"
+      <button type="submit" id="applyCouponButton" color="accent" class="btn-float-right-spacing"
         (click)="applyCoupon()" [disabled]="couponControl.invalid" mat-raised-button>
         <mat-icon>
           redeem
@@ -91,9 +91,9 @@
               <span translate
               [translateParams]="{appname: applicationName}">THANKS_FOR_SUPPORT_CUSTOMIZED</span>
             }
-            <i style="margin-left: 3px;" class="fas fa-heart error"></i>)
+            <i class="fas fa-heart error icon-spacing"></i>)
           </small>
-          <div class="button-container" style="margin-top: 6px;">
+          <div class="button-container button-container-spacing">
             <a href="https://pwning.owasp-juice.shop/companion-guide/latest/part3/donations.html">
               <button mat-stroked-button><i class="fab fa-stripe fa-lg"></i> {{'BTN_CREDIT_CARD' | translate}}</button>
             </a>
@@ -125,9 +125,9 @@
             <span translate
               [translateParams]="{appname: applicationName}">OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED</span>
             }
-            <i style="margin-left: 3px;" class="fas fa-thumbs-up confirmation"></i>)
+            <i class="fas fa-thumbs-up confirmation icon-spacing"></i>)
           </small>
-          <div class="button-container" style="margin-top: 6px;">
+          <div class="button-container button-container-spacing">
             <a href="./redirect?to=http://shop.spreadshirt.com/juiceshop">
               <button mat-stroked-button><i class="fas fa-tshirt fa-lg"></i> Spreadshirt (US)</button>
             </a>

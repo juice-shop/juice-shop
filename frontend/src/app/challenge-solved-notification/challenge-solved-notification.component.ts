@@ -10,12 +10,13 @@ import { ChangeDetectorRef, Component, NgZone, type OnInit, inject } from '@angu
 import { CookieService } from 'ngy-cookie'
 import { CountryMappingService } from '../Services/country-mapping.service'
 import { SocketIoService } from '../Services/socket-io.service'
-import { ClipboardModule } from 'ngx-clipboard'
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 import { LowerCasePipe } from '@angular/common'
 import { firstValueFrom } from 'rxjs'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
+import { Router } from '@angular/router'
 
 interface ChallengeSolvedMessage {
   challenge: string
@@ -23,6 +24,7 @@ interface ChallengeSolvedMessage {
   isRestore?: any
   flag: any
   key?: any
+  codingChallenge?: boolean
 }
 
 interface ChallengeSolvedNotification {
@@ -31,28 +33,32 @@ interface ChallengeSolvedNotification {
   flag: string
   country?: { code: string, name: string }
   copied: boolean
+  codingChallenge?: boolean;
 }
 
 @Component({
   selector: 'app-challenge-solved-notification',
   templateUrl: './challenge-solved-notification.component.html',
   styleUrls: ['./challenge-solved-notification.component.scss'],
-  imports: [MatCardModule, MatButtonModule, MatIconModule, ClipboardModule, LowerCasePipe, TranslateModule]
+  imports: [MatCardModule, MatButtonModule, MatIconModule, LowerCasePipe, TranslateModule]
 })
 export class ChallengeSolvedNotificationComponent implements OnInit {
-  private readonly ngZone = inject(NgZone);
-  private readonly configurationService = inject(ConfigurationService);
-  private readonly challengeService = inject(ChallengeService);
-  private readonly countryMappingService = inject(CountryMappingService);
-  private readonly translate = inject(TranslateService);
-  private readonly cookieService = inject(CookieService);
-  private readonly ref = inject(ChangeDetectorRef);
-  private readonly io = inject(SocketIoService);
+  private readonly ngZone = inject(NgZone)
+  private readonly configurationService = inject(ConfigurationService)
+  private readonly challengeService = inject(ChallengeService)
+  private readonly countryMappingService = inject(CountryMappingService)
+  private readonly translate = inject(TranslateService)
+  private readonly cookieService = inject(CookieService)
+  private readonly ref = inject(ChangeDetectorRef)
+  private readonly io = inject(SocketIoService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
+  private readonly router = inject(Router)
 
   public notifications: ChallengeSolvedNotification[] = []
   public showCtfFlagsInNotifications = false
   public showCtfCountryDetailsInNotifications = 'none'
   public countryMap?: any
+  public codingChallengesEnabled = "solved"
 
   ngOnInit (): void {
     this.ngZone.runOutsideAngular(() => {
@@ -124,7 +130,8 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
           key: challenge.key,
           flag: challenge.flag,
           country,
-          copied: false
+          copied: false,
+          codingChallenge: challenge.codingChallenge ?? false,
         })
         this.ref.detectChanges()
       })
@@ -141,6 +148,25 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
         this.cookieService.put('continueCode', continueCode, { expires })
       },
       error: (err) => { console.log(err) }
+    })
+  }
+
+  copyToClipboard (text: string) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(() => {
+        this.snackBarHelperService.open('COPY_SUCCESS', 'confirmBar')
+      })
+    }
+  }
+
+  navigateToChallenge(challengeKey: string) {
+    if (!challengeKey) {
+      return
+    }
+    this.ngZone.run(() => {
+      void this.router.navigate(["/score-board"], {
+        queryParams: { highlightChallenge: challengeKey },
+      })
     })
   }
 }

@@ -19,13 +19,13 @@
           </ng-container>
 
           <ng-container matColumnDef="Price">
-            <mat-header-cell *matHeaderCellDef translate="LABEL_PRICE" style="max-width: 96px;"></mat-header-cell>
-            <mat-cell *matCellDef="let element" style="max-width: 96px;"> {{element.totalPrice?.toFixed(2) }}&curren;</mat-cell>
+            <mat-header-cell *matHeaderCellDef translate="LABEL_PRICE" class="cell"></mat-header-cell>
+            <mat-cell *matCellDef="let element" class="cell"> {{element.totalPrice?.toFixed(2) }}&curren;</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="Status">
-            <mat-header-cell *matHeaderCellDef translate="LABEL_STATUS" style="max-width: 96px;"></mat-header-cell>
-            <mat-cell *matCellDef="let element" style="max-width: 96px;">
+            <mat-header-cell *matHeaderCellDef translate="LABEL_STATUS" class="cell"></mat-header-cell>
+            <mat-cell *matCellDef="let element" class="cell">
               @if (element.delivered) {
               <div class="confirmation" translate>LABEL_DELIVERED</div>
               } @else {
@@ -35,8 +35,8 @@
           </ng-container>
 
           <ng-container matColumnDef="StatusButton">
-            <mat-header-cell *matHeaderCellDef style="max-width: 96px;"></mat-header-cell>
-            <mat-cell *matCellDef="let element" style="max-width: 96px;">
+            <mat-header-cell *matHeaderCellDef class="cell"></mat-header-cell>
+            <mat-cell *matCellDef="let element" class="cell">
               @if (element.delivered) {
                 <button mat-icon-button aria-label="Print order confirmation"
                   matTooltip="{{ 'LABEL_MARK_AS_TRANSIT' | translate }}" matTooltipPosition="below"

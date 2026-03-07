@@ -69,6 +69,7 @@ describe('WelcomeBannerComponent', () => {
   })
 
   it('should dismiss and add cookie when starting hacking instructor', () => {
+    spyOn(component as any, 'launchHackingInstructor')
     component.startHackingInstructor()
     expect(cookieService.get('welcomebanner_status')).toBe('dismiss')
     expect(matDialogRef.close).toHaveBeenCalled()

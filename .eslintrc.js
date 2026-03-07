@@ -20,6 +20,9 @@ module.exports = {
     ecmaVersion: 2018,
     project: './tsconfig.json'
   },
+  rules: {
+    'semi': ['error', 'never']
+  },
   ignorePatterns: [
     '.eslintrc.js',
     'app/private/**',

@@ -33,4 +33,18 @@ describe('ImageCaptchaService', () => {
       httpMock.verify()
     })
   ))
+
+  it('should handle error when getting captcha', inject([ImageCaptchaService, HttpTestingController],
+    fakeAsync((service: ImageCaptchaService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.getCaptcha().subscribe({ next: () => {}, error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/image-captcha/')
+      req.flush(null, { status: 503, statusText: 'Service Unavailable' })
+
+      tick()
+      expect(capturedError).toBeTruthy()
+      expect(capturedError.status).toBe(503)
+      httpMock.verify()
+    })
+  ))
 })

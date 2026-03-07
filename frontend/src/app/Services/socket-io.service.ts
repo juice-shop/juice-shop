@@ -11,7 +11,7 @@ import { io, type Socket } from 'socket.io-client'
   providedIn: 'root'
 })
 export class SocketIoService {
-  private readonly ngZone = inject(NgZone);
+  private readonly ngZone = inject(NgZone)
 
   private _socket: Socket
 

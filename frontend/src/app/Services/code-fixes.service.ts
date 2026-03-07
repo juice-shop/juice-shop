@@ -20,7 +20,7 @@ export interface Solved {
   providedIn: 'root'
 })
 export class CodeFixesService {
-  private readonly http = inject(HttpClient);
+  private readonly http = inject(HttpClient)
 
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/snippets/fixes'

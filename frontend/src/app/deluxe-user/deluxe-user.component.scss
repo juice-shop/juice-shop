@@ -3,10 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 :host {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: $space-s;
   margin-left: 10%;
   margin-right: 10%;
 }
@@ -14,13 +16,13 @@
 .heading {
   background: rgba(0, 0, 0, 0.2);
   font-size: x-large;
-  padding: 16px 24px;
+  padding: $space-m $space-l;
 }
 
 .deluxe-membership {
   align-items: center;
   display: grid;
-  gap: 16px;
+  gap: $space-m;
   grid-template-columns: minmax(min-content, 600px) auto;
 
   strong {
@@ -31,8 +33,8 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 16px;
+    gap: $space-s;
+    padding: $space-m;
     text-align: center;
   }
 
@@ -43,7 +45,7 @@
 
 .feature-cards-container {
   display: grid;
-  gap: 10px;
+  gap: $space-s;
   grid-template-columns: repeat(3, 1fr);
 
   @media screen and (max-width: 768px) {
@@ -54,15 +56,15 @@
 .feature-card {
   align-items: center;
   display: grid;
-  gap: 10px;
+  gap: $space-s;
   grid-template-columns: max-content auto;
-  padding: 16px;
+  padding: $space-m;
 
   .card-text {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    padding: 0 16px;
+    gap: $space-xs;
+    padding: 0 $space-m;
     text-align: center;
   }
 

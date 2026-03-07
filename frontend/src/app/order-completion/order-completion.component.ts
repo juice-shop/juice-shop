@@ -29,11 +29,11 @@ library.add(faTwitter)
   imports: [MatCardModule, TranslateModule, RouterLink, MatIconButton, MatTooltip, MatIconModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow]
 })
 export class OrderCompletionComponent implements OnInit {
-  private readonly configurationService = inject(ConfigurationService);
-  private readonly addressService = inject(AddressService);
-  private readonly trackOrderService = inject(TrackOrderService);
-  activatedRoute = inject(ActivatedRoute);
-  private readonly basketService = inject(BasketService);
+  private readonly configurationService = inject(ConfigurationService)
+  private readonly addressService = inject(AddressService)
+  private readonly trackOrderService = inject(TrackOrderService)
+  activatedRoute = inject(ActivatedRoute)
+  private readonly basketService = inject(BasketService)
 
   public tableColumns = ['product', 'price', 'quantity', 'total price']
   public dataSource

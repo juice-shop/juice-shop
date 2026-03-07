@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 mat-form-field {
   width: 100%;
 }
@@ -16,8 +18,8 @@ mat-form-field {
 .nav-section {
   display: grid;
   grid-template-columns: auto auto auto;
-  margin-bottom: 20px;
-  margin-top: 20px;
+  margin-bottom: $space-ml;
+  margin-top: $space-ml;
 }
 
 .nav-text {
@@ -42,14 +44,14 @@ mat-card {
 }
 
 .mat-mdc-raised-button {
-  margin-right: 3px;
+  margin-right: $space-3xs;
 }
 
 .custom-card {
-  padding-bottom: 18px;
-  padding-left: 24px;
-  padding-right: 24px;
-  padding-top: 18px;
+  padding-bottom: $space-ml;
+  padding-left: $space-l;
+  padding-right: $space-l;
+  padding-top: $space-ml;
 }
 
 .card-title {
@@ -63,8 +65,8 @@ mat-card {
 }
 
 .detail-divider {
-  margin-bottom: 12px;
-  margin-top: 12px;
+  margin-bottom: $space-s;
+  margin-top: $space-s;
 }
 
 .mat-mdc-card .mat-divider-horizontal {
@@ -118,4 +120,25 @@ mat-card {
   .nextButton {
     grid-column: 3 / -1;
   }
+}
+
+.btn-float-right {
+  float: right;
+}
+
+.message-spacing {
+  margin-top: $space-2xs;
+}
+
+.btn-float-right-spacing {
+  float: right;
+  margin-top: $space-2xs;
+}
+
+.icon-spacing {
+  margin-left: $space-3xs;
+}
+
+.button-container-spacing {
+  margin-top: $space-xs;
 }

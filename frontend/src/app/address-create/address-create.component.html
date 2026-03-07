@@ -73,7 +73,7 @@
           ></textarea>
           <mat-hint>
             <i class="fas fa-exclamation-circle"></i>
-            <em style="margin-left:5px;">{{ 'MAX_TEXTAREA_LENGTH' | translate: { length: '160' } }}</em>
+            <em class="hint-spacing">{{ 'MAX_TEXTAREA_LENGTH' | translate: { length: '160' } }}</em>
           </mat-hint>
           <mat-hint align="end">{{ adress.value?.length || 0 }}/160</mat-hint>
           @if (addressControl.invalid && addressControl.errors.required) {

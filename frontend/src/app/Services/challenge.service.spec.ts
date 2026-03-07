@@ -141,4 +141,116 @@ describe('ChallengeService', () => {
       httpMock.verify()
     })
   ))
+
+  it('should handle error when getting all challenges', inject([ChallengeService, HttpTestingController],
+    fakeAsync((service: ChallengeService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.find().subscribe({ next: () => fail('expected error'), error: e => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/api/Challenges/')
+      req.error(new ErrorEvent('Request failed'), { status: 500, statusText: 'Internal Server Error' })
+
+      tick()
+      expect(req.request.method).toBe('GET')
+      expect(capturedError.status).toBe(500)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when getting continue code', inject([ChallengeService, HttpTestingController],
+    fakeAsync((service: ChallengeService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.continueCode().subscribe({ next: () => fail('expected error'), error: e => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/continue-code')
+      req.error(new ErrorEvent('Request failed'), { status: 503, statusText: 'Service Unavailable' })
+
+      tick()
+      expect(req.request.method).toBe('GET')
+      expect(capturedError.status).toBe(503)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when getting "Find It" continue code', inject([ChallengeService, HttpTestingController],
+    fakeAsync((service: ChallengeService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.continueCodeFindIt().subscribe({ next: () => fail('expected error'), error: e => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/continue-code-findIt')
+      req.error(new ErrorEvent('Request failed'), { status: 500, statusText: 'Internal Server Error' })
+
+      tick()
+      expect(req.request.method).toBe('GET')
+      expect(capturedError.status).toBe(500)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when getting "Fix It" continue code', inject([ChallengeService, HttpTestingController],
+    fakeAsync((service: ChallengeService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.continueCodeFixIt().subscribe({ next: () => fail('expected error'), error: e => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/continue-code-fixIt')
+      req.error(new ErrorEvent('Request failed'), { status: 500, statusText: 'Internal Server Error' })
+
+      tick()
+      expect(req.request.method).toBe('GET')
+      expect(capturedError.status).toBe(500)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when restoring progress', inject([ChallengeService, HttpTestingController],
+    fakeAsync((service: ChallengeService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.restoreProgress('CODE').subscribe({ next: () => fail('expected error'), error: e => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/continue-code/apply/CODE')
+      req.error(new ErrorEvent('Bad Request'), { status: 400, statusText: 'Bad Request' })
+
+      tick()
+      expect(req.request.method).toBe('PUT')
+      expect(capturedError.status).toBe(400)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when restoring "Find It" progress', inject([ChallengeService, HttpTestingController],
+    fakeAsync((service: ChallengeService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.restoreProgressFindIt('CODE').subscribe({ next: () => fail('expected error'), error: e => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/continue-code-findIt/apply/CODE')
+      req.error(new ErrorEvent('Bad Request'), { status: 400, statusText: 'Bad Request' })
+
+      tick()
+      expect(req.request.method).toBe('PUT')
+      expect(capturedError.status).toBe(400)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when restoring "Fix It" progress', inject([ChallengeService, HttpTestingController],
+    fakeAsync((service: ChallengeService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.restoreProgressFixIt('CODE').subscribe({ next: () => fail('expected error'), error: e => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/continue-code-fixIt/apply/CODE')
+      req.error(new ErrorEvent('Bad Request'), { status: 400, statusText: 'Bad Request' })
+
+      tick()
+      expect(req.request.method).toBe('PUT')
+      expect(capturedError.status).toBe(400)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when repeating a notification', inject([ChallengeService, HttpTestingController],
+    fakeAsync((service: ChallengeService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.repeatNotification('X').subscribe({ next: () => fail('expected error'), error: e => { capturedError = e } })
+      const req = httpMock.expectOne(r => r.url === 'http://localhost:3000/rest/repeat-notification')
+      req.error(new ErrorEvent('Service Unavailable'), { status: 503, statusText: 'Service Unavailable' })
+
+      tick()
+      expect(req.request.method).toBe('GET')
+      expect(capturedError.status).toBe(503)
+      httpMock.verify()
+    })
+  ))
 })

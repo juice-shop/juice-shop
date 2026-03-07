@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 .ipCard {
   display: block;
   margin: 5%;
@@ -10,14 +12,14 @@
   margin-right: auto;
   margin-top: 0;
   min-width: 320px;
-  padding: 16px;
+  padding: $space-m;
   width: 25%;
 }
 
 
 dl {
   display: grid;
-  gap: 8px;
+  gap: $space-xs;
   grid-template-columns: auto 1fr;
 }
 

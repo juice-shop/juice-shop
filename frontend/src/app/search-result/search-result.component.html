@@ -35,7 +35,7 @@
                       <span>{{"LABEL_SOLD_OUT" | translate }}</span>
                     </div>
                   }
-                  <div class="product" (click)="showDetail(item)" aria-label="Click for more information about the product"
+                  <div class="product" tabindex="0" (keydown.enter)="showDetail(item)" role="button" (click)="showDetail(item)" aria-label="Click for more information about the product"
                     matTooltip="Click for more information" matTooltipPosition="above">
                     <img mat-card-image [src]="'assets/public/images/products/'+item.image" alt={{item.name}}
                       class="img-responsive img-thumbnail" role="button">
@@ -53,7 +53,7 @@
                         </div>
                       </div>
                   </div>
-                  <div style="display: flex; justify-content: center;" class="basket-btn-container">
+                  <div class="basket-btn-container">
                     @if (isLoggedIn()) {
                       <button (click)="addToBasket(item.id)" aria-label="Add to Basket" class="btn-basket"
                         color="primary" mat-button mat-raised-button>

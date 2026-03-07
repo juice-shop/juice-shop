@@ -16,10 +16,10 @@ import { ChallengeService } from './challenge.service'
   providedIn: 'root'
 })
 export class LocalBackupService {
-  private readonly cookieService = inject(CookieService);
-  private readonly challengeService = inject(ChallengeService);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
-  private readonly snackBar = inject(MatSnackBar);
+  private readonly cookieService = inject(CookieService)
+  private readonly challengeService = inject(ChallengeService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
+  private readonly snackBar = inject(MatSnackBar)
 
   private readonly VERSION = 1
 

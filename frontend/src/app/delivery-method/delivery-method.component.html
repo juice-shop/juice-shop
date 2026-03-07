@@ -18,7 +18,7 @@
     @if (address) {
       <mat-divider class="detail-divider"></mat-divider>
     }
-    <div style="height: 12px;"></div>
+    <div class="spacer-row"></div>
     <div>
       <h1 translate>LABEL_CHOOSE_A_DELIVERY_SPEED</h1>
       <mat-table [dataSource]="dataSource">
@@ -46,7 +46,7 @@
         (click)="selection.toggle(row); selectMethod(element.id)"></mat-row>
       </mat-table>
     </div>
-    <div style="margin-top: 20px;">
+    <div class="action-row">
       <button mat-stroked-button class="btn btn-return" (click)="routeToPreviousUrl()">
         <mat-icon>
           navigate_before

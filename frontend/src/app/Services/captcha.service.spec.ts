@@ -34,4 +34,17 @@ describe('CaptchaService', () => {
       httpMock.verify()
     })
   ))
+
+  it('should handle error when getting captcha', inject([CaptchaService, HttpTestingController],
+    fakeAsync((service: CaptchaService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.getCaptcha().subscribe({ next: () => fail('expected error'), error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/captcha/')
+      req.error(new ErrorEvent('Request failed'), { status: 500, statusText: 'Internal Server Error' })
+
+      tick()
+      expect(capturedError.status).toBe(500)
+      httpMock.verify()
+    })
+  ))
 })

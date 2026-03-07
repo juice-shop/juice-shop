@@ -8,7 +8,7 @@ import config from 'config'
 import logger from '../logger'
 import path from 'node:path'
 import colors from 'colors/safe'
-import { access } from 'node:fs/promises'
+import { access, readdir } from 'node:fs/promises'
 import process from 'node:process'
 import semver from 'semver'
 import portscanner from 'portscanner'
@@ -30,9 +30,8 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
     checkIfRequiredFileExists('frontend/dist/frontend/index.html'),
     checkIfRequiredFileExists('frontend/dist/frontend/styles.css'),
     checkIfRequiredFileExists('frontend/dist/frontend/main.js'),
-    checkIfRequiredFileExists('frontend/dist/frontend/tutorial.js'),
-    checkIfRequiredFileExists('frontend/dist/frontend/runtime.js'),
-    checkIfRequiredFileExists('frontend/dist/frontend/vendor.js'),
+    checkIfRequiredFileExists('frontend/dist/frontend/polyfills.js'),
+    checkIfRequiredFilePatternExists('frontend/dist/frontend', /^hacking-instructor-.+\.js$/),
     checkIfPortIsAvailable(process.env.PORT ?? config.get<number>('server.port')),
     checkIfDomainReachable('https://www.alchemy.com/')
   ])).every(condition => condition)
@@ -124,6 +123,22 @@ export const checkIfRequiredFileExists = async (pathRelativeToProjectRoot: strin
     logger.warn(`Required file ${colors.bold(fileName)} is missing (${colors.red('NOT OK')})`)
     return false
   })
+}
+
+export const checkIfRequiredFilePatternExists = async (directory: string, pattern: RegExp) => {
+  try {
+    const files = await readdir(path.resolve(directory))
+    const match = files.find(file => pattern.test(file))
+    if (match) {
+      logger.info(`Required file matching ${colors.bold(String(pattern))} is present (${colors.green('OK')})`)
+      return true
+    }
+    logger.warn(`Required file matching ${colors.bold(String(pattern))} is missing (${colors.red('NOT OK')})`)
+    return false
+  } catch {
+    logger.warn(`Required file matching ${colors.bold(String(pattern))} is missing (${colors.red('NOT OK')})`)
+    return false
+  }
 }
 
 export default validatePreconditions
