@@ -83,9 +83,7 @@ async function streamToClient (
       stream: true
     })
 
-    let toolCallId = ''
-    let functionName = ''
-    let functionArgs = ''
+    const toolCalls = new Map<number, { id: string, name: string, args: string }>()
     let foundToolCall = false
 
     for await (const chunk of stream) {
@@ -94,10 +92,17 @@ async function streamToClient (
 
       if (delta?.tool_calls) {
         foundToolCall = true
-        const tc = delta.tool_calls[0]
-        if (tc.id) toolCallId = tc.id
-        if (tc.function?.name) functionName = tc.function.name
-        if (tc.function?.arguments) functionArgs += tc.function.arguments
+        for (const tc of delta.tool_calls) {
+          const idx = tc.index ?? 0
+          if (!toolCalls.has(idx)) {
+            toolCalls.set(idx, { id: '', name: '', args: '' })
+          }
+          const entry = toolCalls.get(idx)
+          if (entry == null) continue
+          if (tc.id) entry.id = tc.id
+          if (tc.function?.name) entry.name = tc.function.name
+          if (tc.function?.arguments) entry.args += tc.function.arguments
+        }
       } else if (delta?.content) {
         res.write(`data: ${JSON.stringify(chunk)}\n\n`)
       }
@@ -107,28 +112,38 @@ async function streamToClient (
       }
     }
 
-    if (!foundToolCall || functionName !== 'searchProducts' || round === maxToolRounds) {
+    const validToolCalls = [...toolCalls.values()].filter(tc => tc.name === 'searchProducts')
+    if (!foundToolCall || validToolCalls.length === 0 || round === maxToolRounds) {
       break
     }
 
-    const args = JSON.parse(functionArgs)
-    const toolResult = await searchProducts(args.query ?? '')
+    const assistantToolCalls = validToolCalls.map(tc => ({
+      id: tc.id,
+      type: 'function' as const,
+      function: { name: tc.name, arguments: tc.args }
+    }))
+
+    res.write(`data: ${JSON.stringify({ choices: [{ delta: { tool_calls: assistantToolCalls } }] })}\n\n`)
+
+    const toolResults: ChatCompletionMessageParam[] = []
+    for (const tc of validToolCalls) {
+      const args = JSON.parse(tc.args)
+      const toolResult = await searchProducts(args.query ?? '')
+      toolResults.push({
+        role: 'tool' as const,
+        content: toolResult,
+        tool_call_id: tc.id
+      })
+    }
+
     currentMessages = [
       ...currentMessages,
       {
         role: 'assistant' as const,
         content: null,
-        tool_calls: [{
-          id: toolCallId,
-          type: 'function' as const,
-          function: { name: functionName, arguments: functionArgs }
-        }]
+        tool_calls: assistantToolCalls
       },
-      {
-        role: 'tool' as const,
-        content: toolResult,
-        tool_call_id: toolCallId
-      }
+      ...toolResults
     ]
   }
 }
