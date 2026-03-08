@@ -36,95 +36,59 @@ export class ProductComponent {
   isDeluxe = input.required<boolean>()
 
   addToBasket(id?: number) {
-    this.basketService.find(Number(sessionStorage.getItem('bid'))).subscribe({
-      next: (basket) => {
-        const productsInBasket: any = basket.Products
-        let found = false
-        for (let i = 0; i < productsInBasket.length; i++) {
-          if (productsInBasket[i].id === id) {
-            found = true
-            this.basketService
-              .get(productsInBasket[i].BasketItem.id)
-              .subscribe({
-                next: (existingBasketItem) => {
-                  const newQuantity = existingBasketItem.quantity + 1
-                  this.basketService
-                    .put(existingBasketItem.id, { quantity: newQuantity })
-                    .subscribe({
-                      next: (updatedBasketItem) => {
-                        this.productService
-                          .get(updatedBasketItem.ProductId)
-                          .subscribe({
-                            next: (product) => {
-                              this.translateService
-                                .get('BASKET_ADD_SAME_PRODUCT', {
-                                  product: product.name
-                                })
-                                .subscribe({
-                                  next: (basketAddSameProduct) => {
-                                    this.snackBarHelperService.open(
-                                      basketAddSameProduct,
-                                      'confirmBar'
-                                    )
-                                    this.basketService.updateNumberOfCartItems()
-                                  },
-                                  error: (translationId) => {
-                                    this.snackBarHelperService.open(
-                                      translationId,
-                                      'confirmBar'
-                                    )
-                                    this.basketService.updateNumberOfCartItems()
-                                  }
-                                })
-                            },
-                            error: (err) => {
-                              console.log(err)
-                            }
-                          })
-                      },
-                      error: (err) => {
-                        this.snackBarHelperService.open(
-                          err.error?.error,
-                          'errorBar'
-                        )
-                        console.log(err)
-                      }
-                    })
-                },
-                error: (err) => {
-                  console.log(err)
-                }
-              })
-            break
-          }
-        }
-        if (!found) {
-          this.basketService
-            .save({
-              ProductId: id,
-              BasketId: sessionStorage.getItem('bid'),
-              quantity: 1
-            })
-            .subscribe({
-              next: (newBasketItem) => {
-                this.productService.get(newBasketItem.ProductId).subscribe({
-                  next: (product) => {
-                    this.translateService
-                      .get('BASKET_ADD_PRODUCT', { product: product.name })
+    if (this.isLoggedIn()) {
+      this.basketService.find(Number(sessionStorage.getItem('bid'))).subscribe({
+        next: (basket) => {
+          const productsInBasket: any = basket.Products
+          let found = false
+          for (let i = 0; i < productsInBasket.length; i++) {
+            if (productsInBasket[i].id === id) {
+              found = true
+              this.basketService
+                .get(productsInBasket[i].BasketItem.id)
+                .subscribe({
+                  next: (existingBasketItem) => {
+                    const newQuantity = existingBasketItem.quantity + 1
+                    this.basketService
+                      .put(existingBasketItem.id, { quantity: newQuantity })
                       .subscribe({
-                        next: (basketAddProduct) => {
-                          this.snackBarHelperService.open(
-                            basketAddProduct,
-                            'confirmBar'
-                          )
-                          this.basketService.updateNumberOfCartItems()
+                        next: (updatedBasketItem) => {
+                          this.productService
+                            .get(updatedBasketItem.ProductId)
+                            .subscribe({
+                              next: (product) => {
+                                this.translateService
+                                  .get('BASKET_ADD_SAME_PRODUCT', {
+                                    product: product.name
+                                  })
+                                  .subscribe({
+                                    next: (basketAddSameProduct) => {
+                                      this.snackBarHelperService.open(
+                                        basketAddSameProduct,
+                                        'confirmBar'
+                                      )
+                                      this.basketService.updateNumberOfCartItems()
+                                    },
+                                    error: (translationId) => {
+                                      this.snackBarHelperService.open(
+                                        translationId,
+                                        'confirmBar'
+                                      )
+                                      this.basketService.updateNumberOfCartItems()
+                                    }
+                                  })
+                              },
+                              error: (err) => {
+                                console.log(err)
+                              }
+                            })
                         },
-                        error: (translationId) => {
+                        error: (err) => {
                           this.snackBarHelperService.open(
-                            translationId,
-                            'confirmBar'
+                            err.error?.error,
+                            'errorBar'
                           )
-                          this.basketService.updateNumberOfCartItems()
+                          console.log(err)
                         }
                       })
                   },
@@ -132,18 +96,60 @@ export class ProductComponent {
                     console.log(err)
                   }
                 })
-              },
-              error: (err) => {
-                this.snackBarHelperService.open(err.error?.error, 'errorBar')
-                console.log(err)
-              }
-            })
+              break
+            }
+          }
+          if (!found) {
+            this.basketService
+              .save({
+                ProductId: id,
+                BasketId: sessionStorage.getItem('bid'),
+                quantity: 1
+              })
+              .subscribe({
+                next: (newBasketItem) => {
+                  this.productService.get(newBasketItem.ProductId).subscribe({
+                    next: (product) => {
+                      this.translateService
+                        .get('BASKET_ADD_PRODUCT', { product: product.name })
+                        .subscribe({
+                          next: (basketAddProduct) => {
+                            this.snackBarHelperService.open(
+                              basketAddProduct,
+                              'confirmBar'
+                            )
+                            this.basketService.updateNumberOfCartItems()
+                          },
+                          error: (translationId) => {
+                            this.snackBarHelperService.open(
+                              translationId,
+                              'confirmBar'
+                            )
+                            this.basketService.updateNumberOfCartItems()
+                          }
+                        })
+                    },
+                    error: (err) => {
+                      console.log(err)
+                    }
+                  })
+                },
+                error: (err) => {
+                  this.snackBarHelperService.open(err.error?.error, 'errorBar')
+                  console.log(err)
+                }
+              })
+          }
+        },
+        error: (err) => {
+          console.log(err)
         }
-      },
-      error: (err) => {
-        console.log(err)
+      })
+    } else {
+      if (id != null) {
+        this.basketService.addGuestBasketItem(id)
       }
-    })
+    }
   }
 
   showDetail(product: Product) {

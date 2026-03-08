@@ -7,13 +7,17 @@ import { environment } from '../../environments/environment'
 import { Injectable, inject } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
-import { type Observable, Subject } from 'rxjs'
+import { firstValueFrom, type Observable, Subject } from 'rxjs'
 
 interface OrderDetail {
   paymentId: string
   addressId: string
   deliveryMethodId: string
 }
+
+type GuestBasketItems = Record<string, number>
+
+const GUEST_BASKET_ITEMS_KEY = 'guestBasketItems'
 
 @Injectable({
   providedIn: 'root'
@@ -65,5 +69,56 @@ export class BasketService {
 
   getItemTotal (): Observable<any> {
     return this.itemTotal.asObservable()
+  }
+
+  addGuestBasketItem (productId: number, quantity = 1) {
+    const guestBasketItems = this.getGuestBasketItems()
+    const currentQuantity = guestBasketItems[productId] ?? 0
+    guestBasketItems[productId] = currentQuantity + quantity
+    sessionStorage.setItem(GUEST_BASKET_ITEMS_KEY, JSON.stringify(guestBasketItems))
+  }
+
+  async syncGuestBasketItems () {
+    const bid = Number(sessionStorage.getItem('bid'))
+    const guestBasketItems = this.getGuestBasketItems()
+    const productIds = Object.keys(guestBasketItems)
+
+    if (!Number.isFinite(bid) || productIds.length === 0) {
+      return
+    }
+
+    const basket = await firstValueFrom(this.find(bid))
+    const productsInBasket = basket.Products ?? []
+
+    for (const productId of productIds) {
+      const quantityToAdd = guestBasketItems[productId]
+      if (quantityToAdd <= 0) {
+        continue
+      }
+
+      const basketProduct = productsInBasket.find((product) => Number(product.id) === Number(productId))
+      if (basketProduct?.BasketItem?.id != null) {
+        await firstValueFrom(this.put(basketProduct.BasketItem.id, { quantity: basketProduct.BasketItem.quantity + quantityToAdd }))
+        continue
+      }
+
+      await firstValueFrom(this.save({ ProductId: Number(productId), BasketId: bid, quantity: quantityToAdd }))
+    }
+
+    sessionStorage.removeItem(GUEST_BASKET_ITEMS_KEY)
+  }
+
+  private getGuestBasketItems (): GuestBasketItems {
+    const rawItems = sessionStorage.getItem(GUEST_BASKET_ITEMS_KEY)
+    if (rawItems == null) {
+      return {}
+    }
+
+    try {
+      return JSON.parse(rawItems) as GuestBasketItems
+    } catch(error) {
+      console.log('Failed to parse guest basket items from session storage:', error)
+      return {}
+    }
   }
 }

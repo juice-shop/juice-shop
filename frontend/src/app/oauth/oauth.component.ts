@@ -9,6 +9,7 @@ import { CookieService } from 'ngy-cookie'
 import { Component, NgZone, type OnInit, inject } from '@angular/core'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatCardModule } from '@angular/material/card'
+import { BasketService } from '../Services/basket.service'
 
 @Component({
   selector: 'app-oauth',
@@ -19,6 +20,7 @@ import { MatCardModule } from '@angular/material/card'
 export class OAuthComponent implements OnInit {
   private readonly cookieService = inject(CookieService)
   private readonly userService = inject(UserService)
+  private readonly basketService = inject(BasketService)
   private readonly router = inject(Router)
   private readonly route = inject(ActivatedRoute)
   private readonly ngZone = inject(NgZone)
@@ -44,12 +46,18 @@ export class OAuthComponent implements OnInit {
 
   login (profile: any) {
     this.userService.login({ email: profile.email, password: btoa(profile.email.split('').reverse().join('')), oauth: true }).subscribe({
-      next: (authentication) => {
+      next: async (authentication) => {
         const expires = new Date()
         expires.setHours(expires.getHours() + 8)
         this.cookieService.put('token', authentication.token, { expires })
         localStorage.setItem('token', authentication.token)
         sessionStorage.setItem('bid', authentication.bid)
+        try {
+          await this.basketService.syncGuestBasketItems()
+        } catch (err) {
+          console.log(err)
+        }
+        this.basketService.updateNumberOfCartItems()
         this.userService.isLoggedIn.next(true)
         this.ngZone.run(async () => await this.router.navigate(['/']))
       },

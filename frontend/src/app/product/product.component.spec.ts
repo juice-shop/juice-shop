@@ -41,7 +41,7 @@ describe('ProductComponent', () => {
     productService = jasmine.createSpyObj('ProductService', ['search', 'get'])
     productService.search.and.returnValue(of([]))
     productService.get.and.returnValue(of({ name: 'test' } as any))
-    basketService = jasmine.createSpyObj('BasketService', ['find', 'get', 'put', 'save', 'updateNumberOfCartItems'])
+    basketService = jasmine.createSpyObj('BasketService', ['find', 'get', 'put', 'save', 'updateNumberOfCartItems', 'addGuestBasketItem'])
     basketService.find.and.returnValue(of({ Products: [] } as any))
     basketService.get.and.returnValue(of({ id: 1, quantity: 1 } as any))
     basketService.put.and.returnValue(of({ ProductId: 1 } as any))
@@ -144,6 +144,16 @@ describe('ProductComponent', () => {
     component.addToBasket(undefined)
     expect(snackBarHelper.open).not.toHaveBeenCalled()
   }))
+
+  it('should queue product in session storage when user is not logged in', () => {
+    fixture.componentRef.setInput('isLoggedIn', false)
+    fixture.detectChanges()
+
+    component.addToBasket(3)
+
+    expect(basketService.addGuestBasketItem).toHaveBeenCalledWith(3)
+    expect(basketService.find).not.toHaveBeenCalled()
+  })
 
   it('should log errors retrieving basket directly to browser console', fakeAsync(() => {
     basketService.find.and.returnValue(throwError(() => 'Error'))

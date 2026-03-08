@@ -157,4 +157,53 @@ describe('BasketService', () => {
       httpMock.verify()
     })
   ))
+
+  it('should store and aggregate guest basket items in session storage', inject([BasketService],
+    ((service: BasketService) => {
+      sessionStorage.removeItem('guestBasketItems')
+
+      service.addGuestBasketItem(1)
+      service.addGuestBasketItem(1, 2)
+      service.addGuestBasketItem(2)
+
+      expect(sessionStorage.getItem('guestBasketItems')).toBe('{"1":3,"2":1}')
+    })
+  ))
+
+  it('should sync guest basket items into existing basket and clear pending data', inject([BasketService, HttpTestingController],
+    fakeAsync((service: BasketService, httpMock: HttpTestingController) => {
+      sessionStorage.setItem('bid', '42')
+      sessionStorage.setItem('guestBasketItems', '{"1":3,"2":1}')
+
+      service.syncGuestBasketItems()
+
+      const basketReq = httpMock.expectOne('http://localhost:3000/rest/basket/42')
+      expect(basketReq.request.method).toBe('GET')
+      basketReq.flush({
+        data: {
+          Products: [{ id: 1, BasketItem: { id: 10, quantity: 2 } }]
+        }
+      })
+
+      // Continue async flow after firstValueFrom(this.find(...)) resolves.
+      tick()
+
+      const updateReq = httpMock.expectOne('http://localhost:3000/api/BasketItems/10')
+      expect(updateReq.request.method).toBe('PUT')
+      expect(updateReq.request.body).toEqual({ quantity: 5 })
+      updateReq.flush({ data: {} })
+
+      tick()
+
+      const createReq = httpMock.expectOne('http://localhost:3000/api/BasketItems/')
+      expect(createReq.request.method).toBe('POST')
+      expect(createReq.request.body).toEqual({ ProductId: 2, BasketId: 42, quantity: 1 })
+      createReq.flush({ data: {} })
+
+      tick()
+
+      expect(sessionStorage.getItem('guestBasketItems')).toBeNull()
+      httpMock.verify()
+    })
+  ))
 })

@@ -97,12 +97,17 @@ export class LoginComponent implements OnInit {
     this.user.email = this.emailControl.value
     this.user.password = this.passwordControl.value
     this.userService.login(this.user).subscribe({
-      next: (authentication: any) => {
+      next: async (authentication: any) => {
         localStorage.setItem('token', authentication.token)
         const expires = new Date()
         expires.setHours(expires.getHours() + 8)
         this.cookieService.put('token', authentication.token, { expires })
         sessionStorage.setItem('bid', authentication.bid)
+        try {
+          await this.basketService.syncGuestBasketItems()
+        } catch (err) {
+          console.log(err)
+        }
         this.basketService.updateNumberOfCartItems()
         this.userService.isLoggedIn.next(true)
         this.ngZone.run(async () => await this.router.navigate(['/search']))

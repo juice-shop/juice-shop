@@ -46,28 +46,26 @@
       </div>
     </section>
     <footer class="footer">
-       <div class="price">
-          @if (!isDeluxe() || product.price === product.deluxePrice) {
-            {{ product.price }}&curren;
-          }
-          @if (isDeluxe() && product.price !== product.deluxePrice) {
-            <s class="expired">{{ product.price }}</s>
-            {{ product.deluxePrice }}&curren;
-          }
-        </div>
-      @if (isLoggedIn()) {
-        <button
-          (click)="addToBasket(product.id)"
-          aria-label="{{ 'ADD_BASKET' | translate }}"
-          class="btn-basket"
-          color="primary"
-          mat-button
-          mat-raised-button
-        >
-          <mat-icon class="icon-basket">add_shopping_cart</mat-icon>
-          {{ "ADD_BASKET" | translate }}
-        </button>
-      }
+      <div class="price">
+        @if (!isDeluxe() || product.price === product.deluxePrice) {
+          {{ product.price }}&curren;
+        }
+        @if (isDeluxe() && product.price !== product.deluxePrice) {
+          <s class="expired">{{ product.price }}</s>
+          {{ product.deluxePrice }}&curren;
+        }
+      </div>
+      <button
+        (click)="addToBasket(product.id)"
+        aria-label="{{ 'ADD_BASKET' | translate }}"
+        class="btn-basket"
+        color="primary"
+        mat-button
+        mat-raised-button
+      >
+        <mat-icon class="icon-basket">add_shopping_cart</mat-icon>
+        {{ "ADD_BASKET" | translate }}
+      </button>
     </footer>
   </article>
 </mat-card>
