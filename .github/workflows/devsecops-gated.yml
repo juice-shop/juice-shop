@@ -1,0 +1,397 @@
+name: DevSecOps Gated Pipeline
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: devsecops-gated-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: "22"
+  IMAGE_NAME: juice-shop
+  IMAGE_TAG: ci-${{ github.run_id }}
+
+jobs:
+  build_test:
+    name: build_test
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install --prefer-offline --no-audit --progress=false
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build server
+        run: npm run build:server
+
+      - name: Build frontend
+        run: npm run build:frontend
+
+      - name: Run server tests
+        run: npm run test:server
+
+      - name: Run API tests
+        run: npm run test:api
+
+      - name: Smoke test application startup
+        run: |
+          mkdir -p build/reports
+          npm start > build/reports/build-test-app.log 2>&1 &
+          ./scripts/wait-for-http.sh http://127.0.0.1:3000 300
+          bash test/smoke/smoke-test.sh http://127.0.0.1:3000
+
+      - name: Stop application
+        if: always()
+        run: pkill -f "node build/app" || true
+
+      - name: Upload build/test logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-test-logs
+          path: build/reports/build-test-app.log
+
+  security_checks:
+    name: security_checks
+    needs: build_test
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+      id-token: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install --prefer-offline --no-audit --progress=false
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+          queries: security-extended
+
+      - name: Autobuild for CodeQL
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL analysis
+        uses: github/codeql-action/analyze@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Semgrep
+        run: pip install --disable-pip-version-check semgrep
+
+      - name: Determine baseline commit
+        id: baseline
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "sha=${{ github.event.pull_request.base.sha }}" >> "$GITHUB_OUTPUT"
+          elif [ -n "${{ github.event.before }}" ] && [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
+            echo "sha=${{ github.event.before }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run Semgrep scan
+        run: |
+          mkdir -p reports/semgrep
+          if [ -n "${{ steps.baseline.outputs.sha }}" ]; then
+            semgrep scan \
+              --config p/javascript \
+              --config p/nodejs \
+              --config p/secrets \
+              --exclude node_modules \
+              --exclude frontend/node_modules \
+              --exclude legacy \
+              --baseline-commit "${{ steps.baseline.outputs.sha }}" \
+              --sarif \
+              --output reports/semgrep/semgrep.sarif \
+              --error
+          else
+            semgrep scan \
+              --config p/javascript \
+              --config p/nodejs \
+              --config p/secrets \
+              --exclude node_modules \
+              --exclude frontend/node_modules \
+              --exclude legacy \
+              --sarif \
+              --output reports/semgrep/semgrep.sarif \
+              --error
+          fi
+
+      - name: Upload Semgrep SARIF
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: reports/semgrep/semgrep.sarif
+
+      - name: Determine Gitleaks commit range
+        id: gitleaks_range
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "value=${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}" >> "$GITHUB_OUTPUT"
+          elif [ -n "${{ github.event.before }}" ] && [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
+            echo "value=${{ github.event.before }}..${{ github.sha }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run Gitleaks
+        run: |
+          mkdir -p reports/gitleaks
+          if [ -n "${{ steps.gitleaks_range.outputs.value }}" ]; then
+            docker run --rm \
+              -v "$PWD:/repo" \
+              ghcr.io/gitleaks/gitleaks:latest \
+              detect --source /repo \
+              --log-opts "${{ steps.gitleaks_range.outputs.value }}" \
+              --redact \
+              --report-format sarif \
+              --report-path /repo/reports/gitleaks/gitleaks.sarif \
+              --exit-code 1
+          else
+            docker run --rm \
+              -v "$PWD:/repo" \
+              ghcr.io/gitleaks/gitleaks:latest \
+              detect --source /repo \
+              --no-git \
+              --redact \
+              --report-format sarif \
+              --report-path /repo/reports/gitleaks/gitleaks.sarif \
+              --exit-code 0
+          fi
+
+      - name: Upload Gitleaks SARIF
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: reports/gitleaks/gitleaks.sarif
+
+      - name: Run Trivy filesystem scan
+        uses: aquasecurity/trivy-action@0.24.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          format: sarif
+          output: trivy-fs.sarif
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          vuln-type: library
+          scanners: vuln
+          exit-code: "0"
+
+      - name: Upload Trivy filesystem SARIF
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-fs.sarif
+
+      - name: Generate CycloneDX SBOM with Syft
+        uses: anchore/sbom-action@v0
+        with:
+          path: .
+          format: cyclonedx-json
+          output-file: sbom/syft-cyclonedx.json
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v3
+
+      - name: Record signing readiness
+        run: |
+          mkdir -p reports/signing-ready
+          cosign version > reports/signing-ready/cosign-version.txt
+          cat > reports/signing-ready/signing-example.txt <<'EOF'
+          Example keyless signing command (run in trusted CI with OIDC):
+          cosign sign --yes <image-reference-or-digest>
+          EOF
+
+      - name: Upload security artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-artifacts
+          path: |
+            sbom/syft-cyclonedx.json
+            reports/signing-ready
+
+  container_build_and_scan:
+    name: container_build_and_scan
+    needs: security_checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Trivy
+        uses: aquasecurity/setup-trivy@v0.2.2
+
+      - name: Build container image
+        run: docker build -t ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} .
+
+      - name: Scan container image vulnerabilities
+        run: |
+          trivy image \
+            --format sarif \
+            --output trivy-image.sarif \
+            --severity HIGH,CRITICAL \
+            --ignore-unfixed \
+            ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+
+      - name: Gate Dockerfile and Kubernetes misconfigurations
+        run: |
+          trivy config \
+            --exit-code 1 \
+            --severity HIGH,CRITICAL \
+            Dockerfile deployment/kubernetes
+
+      - name: Upload Trivy image SARIF
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-image.sarif
+
+  dast:
+    name: dast
+    needs: container_build_and_scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install --prefer-offline --no-audit --progress=false
+
+      - name: Start application
+        run: |
+          mkdir -p reports/zap build/reports
+          npm start > build/reports/dast-app.log 2>&1 &
+          echo $! > /tmp/juice-shop.pid
+
+      - name: Wait for healthy target
+        run: ./scripts/wait-for-http.sh http://127.0.0.1:3000 300
+
+      - name: Run OWASP ZAP baseline scan
+        run: |
+          docker run --rm \
+            --network=host \
+            -v "$PWD:/zap/wrk:rw" \
+            ghcr.io/zaproxy/zaproxy:stable \
+            zap-baseline.py \
+            -t http://127.0.0.1:3000 \
+            -a \
+            -j \
+            -m 5 \
+            -c .zap/rules.tsv \
+            -w reports/zap/zap-report.md \
+            -r reports/zap/zap-report.html \
+            -J reports/zap/zap-report.json
+
+      - name: Stop application
+        if: always()
+        run: |
+          if [ -f /tmp/juice-shop.pid ]; then
+            kill "$(cat /tmp/juice-shop.pid)" || true
+          fi
+          pkill -f "node build/app" || true
+
+      - name: Upload DAST artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dast-zap-report
+          path: |
+            reports/zap
+            build/reports/dast-app.log
+
+  deploy:
+    name: deploy
+    needs: dast
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Create Kind cluster
+        uses: helm/kind-action@v1.10.0
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v4
+        with:
+          version: v1.32.0
+
+      - name: Build deployment image
+        run: docker build -t ${{ env.IMAGE_NAME }}:kind .
+
+      - name: Load image into Kind
+        run: kind load docker-image ${{ env.IMAGE_NAME }}:kind
+
+      - name: Deploy manifests
+        run: kubectl apply -k deployment/kubernetes/overlays/local
+
+      - name: Wait for rollout
+        run: kubectl -n juice-shop rollout status deployment/juice-shop --timeout=300s
+
+      - name: Smoke test deployed service
+        run: |
+          kubectl -n juice-shop port-forward service/juice-shop 3000:3000 > /tmp/port-forward.log 2>&1 &
+          ./scripts/wait-for-http.sh http://127.0.0.1:3000 180
+          bash test/smoke/smoke-test.sh http://127.0.0.1:3000
+
+      - name: Upload deployment diagnostics
+        if: always()
+        run: |
+          mkdir -p reports/k8s
+          kubectl -n juice-shop get all -o wide > reports/k8s/get-all.txt || true
+          kubectl -n juice-shop describe deployment juice-shop > reports/k8s/deployment-describe.txt || true
+          cp /tmp/port-forward.log reports/k8s/port-forward.log || true
+
+      - name: Publish deployment diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: k8s-deploy-diagnostics
+          path: reports/k8s
