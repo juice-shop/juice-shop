@@ -12,6 +12,7 @@ import { ProductModel } from '../models/product'
 import * as security from '../lib/insecurity'
 import * as challengeUtils from '../lib/challengeUtils'
 import { challenges } from '../data/datacache'
+import logger from '../lib/logger'
 
 const botName = config.get<string>('application.chatBot.name')
 const appName = config.get<string>('application.name')
@@ -123,6 +124,7 @@ async function streamToClient (
 
     const toolCalls = new Map<number, { id: string, name: string, args: string }>()
     let foundToolCall = false
+    let accumulatedContent = ''
 
     for await (const chunk of stream) {
       const delta = chunk.choices?.[0]?.delta
@@ -142,6 +144,7 @@ async function streamToClient (
           if (tc.function?.arguments) entry.args += tc.function.arguments
         }
       } else if (delta?.content) {
+        accumulatedContent += delta.content
         res.write(`data: ${JSON.stringify(chunk)}\n\n`)
       }
 
@@ -183,7 +186,7 @@ async function streamToClient (
       ...currentMessages,
       {
         role: 'assistant' as const,
-        content: null,
+        content: accumulatedContent || null,
         tool_calls: assistantToolCalls
       },
       ...toolResults
