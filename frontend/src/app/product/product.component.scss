@@ -25,7 +25,6 @@
 
 .name {
   margin-top: $space-s;
-  font-weight: bold;
   font-size: medium;
   cursor: pointer;
   padding: 0 $space-m;
@@ -34,7 +33,6 @@
 .price {
   font-size: large;
   margin-bottom: $space-s;
-  font-weight: bold;
   display: flex;
   gap: $space-xs;
 }
@@ -104,7 +102,7 @@
 
 .icon-basket {
   position: absolute;
-  left: 1rem; 
+  left: 1rem;
 }
 
 .btn-basket {
