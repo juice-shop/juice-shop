@@ -10,7 +10,7 @@ The application container already runs with strong baseline controls:
 
 Additional repository hardening:
 
-- Container scanning workflow (`container-scan.yml`) validates both vulnerabilities and configuration posture.
+- The `container_build_and_scan` stage in `devsecops-gated.yml` validates image vulnerabilities and configuration posture.
 - `.dockerignore` is tightened to reduce unnecessary build context and accidental artifact inclusion.
 
 ## Kubernetes Hardening

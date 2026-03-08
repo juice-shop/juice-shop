@@ -26,10 +26,10 @@ This repository is a security-focused fork of OWASP Juice Shop, positioned as a 
 
 ## Security Controls by Layer
 
-- CI policy enforcement: `.github/workflows/build-test.yml`.
-- Code analysis: CodeQL + Semgrep (`codeql-analysis.yml`, `sast-secrets.yml`).
-- Secret detection: Gitleaks on new commit ranges (`sast-secrets.yml`).
-- Dependency and container scanning: Trivy (`sast-secrets.yml`, `container-scan.yml`).
-- SBOM + signing readiness: Syft + optional keyless Cosign (`sbom-sign.yml`).
-- DAST against repository-controlled target: local app instance + ZAP baseline (`dast-zap.yml`).
+- CI policy enforcement: `build_test` stage in `.github/workflows/devsecops-gated.yml`.
+- Code analysis: CodeQL + Semgrep in `security_checks`.
+- Secret detection: Gitleaks on push/PR commit ranges in `security_checks`.
+- Dependency and container scanning: Trivy filesystem/image/config scans in `security_checks` and `container_build_and_scan`.
+- SBOM + signing readiness: Syft + Cosign readiness artifacts in `security_checks`.
+- DAST against repository-controlled target: local app instance + ZAP baseline in `dast`.
 - Deployment hardening: non-root containers, read-only root filesystem, dropped capabilities, probes, resource limits, and network policy (`deployment/kubernetes/`).

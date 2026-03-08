@@ -5,8 +5,7 @@
 [![Twitter Follow](https://img.shields.io/twitter/follow/owasp_juiceshop.svg?style=social&label=Follow)](https://twitter.com/owasp_juiceshop)
 [![Subreddit subscribers](https://img.shields.io/reddit/subreddit-subscribers/owasp_juiceshop?style=social)](https://reddit.com/r/owasp_juiceshop)
 
-[![Build and Test](https://github.com/juice-shop/juice-shop/actions/workflows/build-test.yml/badge.svg)](https://github.com/juice-shop/juice-shop/actions/workflows/build-test.yml)
-[![CodeQL Analysis](https://github.com/juice-shop/juice-shop/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/juice-shop/juice-shop/actions/workflows/codeql-analysis.yml)
+[![DevSecOps Gated Pipeline](https://github.com/CamranShahvali/sock-shop-devsecops-security/actions/workflows/devsecops-gated.yml/badge.svg)](https://github.com/CamranShahvali/sock-shop-devsecops-security/actions/workflows/devsecops-gated.yml)
 [![Coverage Status](https://coveralls.io/repos/github/juice-shop/juice-shop/badge.svg?branch=develop)](https://coveralls.io/github/juice-shop/juice-shop?branch=develop)
 [![Cypress tests](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/3hrkhu/develop&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/3hrkhu/runs)
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/223/badge)](https://www.bestpractices.dev/projects/223)
@@ -132,11 +131,12 @@ Feel free to have a look at the latest version of OWASP Juice Shop:
 ![GitHub package.json dynamic](https://img.shields.io/github/package-json/cpu/juice-shop/juice-shop)
 ![GitHub package.json dynamic](https://img.shields.io/github/package-json/os/juice-shop/juice-shop)
 
-This repository standardizes on **Node.js `22.x`** for local development and CI.
+This repository standardizes on **Node.js `22.x`** for local development and CI execution.
 
 - `.nvmrc` pins Node `22`
-- `package.json` and `frontend/package.json` engines specify `22.x`
-- GitHub Actions workflows that execute Node use Node `22`
+- CI workflows run Node `22`
+- `frontend/package.json` engines pin `22.x`
+- root `package.json` engines support `20 - 24` to preserve upstream compatibility and server precondition expectations
 
 Use `nvm` to align your shell with the supported runtime:
 
@@ -189,6 +189,17 @@ For this repository specifically:
 rm -rf node_modules frontend/node_modules
 npm install --prefer-offline --no-audit --progress=false
 ```
+
+### Dependency Risk Note
+
+This fork inherits intentionally vulnerable and deprecated dependencies from the upstream Juice Shop training project.
+`npm install` can report vulnerabilities and deprecations by design.
+
+Pipeline handling in this repository:
+
+- SAST/secrets/dependency/container scans publish SARIF artifacts for triage.
+- Trivy misconfiguration scans gate on HIGH/CRITICAL findings.
+- SBOMs are generated (Syft) and signing readiness is documented (Cosign).
 
 :stop_sign: **Please avoid opening GitHub issues for support requests or questions!**
 
