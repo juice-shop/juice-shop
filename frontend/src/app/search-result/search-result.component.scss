@@ -19,11 +19,12 @@ $bg-heading: rgba(0, 0, 0, 0.2);
   justify-content: center;
   padding: $space-s $space-ml;
   margin-bottom: $space-m;
-  
+
 }
 
 .product {
   display: flex;
+  flex-direction: column;
 }
 
 .emptyState {
