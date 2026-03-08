@@ -8,7 +8,6 @@
 .mat-card {
   border: 0;
   border-radius: 0;
-  touch-action: pan-y;
 }
 
 .product {
@@ -25,12 +24,10 @@
   touch-action: pan-y;
   cursor: pointer;
   outline: none;
-  -webkit-tap-highlight-color: transparent;
 }
 
 .info-box {
   text-align: center;
-  pointer-events: none;
 }
 
 .name {
@@ -65,7 +62,6 @@
   justify-content: center;
   background-position: center;
   background-size: cover;
-  pointer-events: none;
 }
 
 .image-container::before {

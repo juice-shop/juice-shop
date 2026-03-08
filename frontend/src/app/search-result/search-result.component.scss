@@ -19,7 +19,7 @@ $bg-heading: rgba(0, 0, 0, 0.2);
   justify-content: center;
   padding: $space-s $space-ml;
   margin-bottom: $space-m;
-
+  
 }
 
 .product {
@@ -58,7 +58,6 @@ $bg-heading: rgba(0, 0, 0, 0.2);
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: $space-l;
   justify-content: center;
-  touch-action: pan-y;
 }
 
 @media (max-width: 959.98px) {
