@@ -280,12 +280,19 @@ jobs:
             --ignore-unfixed \
             ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
 
-      - name: Gate Dockerfile and Kubernetes misconfigurations
+      - name: Gate Dockerfile misconfigurations
         run: |
           trivy config \
             --exit-code 1 \
             --severity HIGH,CRITICAL \
-            Dockerfile deployment/kubernetes
+            Dockerfile
+
+      - name: Gate Kubernetes misconfigurations
+        run: |
+          trivy config \
+            --exit-code 1 \
+            --severity HIGH,CRITICAL \
+            deployment/kubernetes
 
       - name: Upload Trivy image SARIF
         if: always()
