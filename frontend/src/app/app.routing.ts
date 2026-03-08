@@ -17,7 +17,6 @@ import { LoginComponent } from './login/login.component'
 import { AdministrationComponent } from './administration/administration.component'
 import { ChangePasswordComponent } from './change-password/change-password.component'
 import { ComplaintComponent } from './complaint/complaint.component'
-import { ChatbotComponent } from './chatbot/chatbot.component'
 import { RecycleComponent } from './recycle/recycle.component'
 import { RouterModule, type Routes, type UrlMatchResult, type UrlSegment } from '@angular/router'
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
@@ -125,10 +124,6 @@ const routes: Routes = [
   {
     path: 'complain',
     component: ComplaintComponent
-  },
-  {
-    path: 'chatbot',
-    component: ChatbotComponent
   },
   {
     path: 'order-summary',

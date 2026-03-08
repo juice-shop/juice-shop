@@ -11,8 +11,6 @@ application:
   chatBot:
     name: 'Brian'
     greeting: "Hi <customer-name>, it's me, your friend and pal <bot-name>!"
-    trainingData: 'https://gist.githubusercontent.com/bkimminich/d62bd52a1df4831a0fae7fb06062e3f0/raw/59dadc1e0ab1b5cb9264e85bc78736aaa3f0eb6b/bot7msTrainingData.json'
-    defaultResponse: "Sorry, but \"no comprende\"!"
     avatar: 'https://images.squarespace-cdn.com/content/v1/59f9e1c4d0e6281017434039/94c89793-630d-41a4-9976-91fef527f8d0/BrianJohnson-headshot-2022-2-small.png?format=500w'
   social:
     blueSkyUrl: null

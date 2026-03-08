@@ -70,10 +70,6 @@ const routes: Routes = [
     component: ComplaintComponent
   },
   {
-    path: 'chatbot',
-    component: ChatbotComponent
-  },
-  {
     path: 'order-summary',
     component: OrderSummaryComponent
   },
