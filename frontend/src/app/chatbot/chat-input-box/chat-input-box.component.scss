@@ -1,0 +1,48 @@
+.input-wrapper {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  transition: border-color 0.15s;
+  overflow: hidden;
+
+  &:focus-within {
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+.chat-textarea {
+  display: block;
+  width: 100%;
+  min-height: 56px;
+  padding: 16px 56px 16px 20px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: 16px;
+  font-family: inherit;
+  resize: none;
+  outline: none;
+  box-sizing: border-box;
+  line-height: 1.5;
+}
+
+.send-button {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  width: 36px !important;
+  height: 36px !important;
+  padding: 0 !important;
+
+  ::ng-deep .mat-mdc-button-touch-target {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  &:not([disabled]) {
+    background-color: #1976d2;
+    color: white;
+    border-radius: 10px;
+  }
+}

@@ -2,18 +2,18 @@
   ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
 -->
-
+@if (notifications.length > 0) {
 <div class="container challenge-solved-toast mat-elevation-z4">
   @for (notification of notifications; track notification.key) {
     <mat-card appearance="outlined" class="accent-notification">
       <div class="mdc-card">
         <div class="notificationMessage"><div class="contents">{{notification.message}}
-          
+
           @if (notification.codingChallenge) {
             <div class="notification-actions">
               <button
                 class="view-challenge-button"
-                mat-stroked-button 
+                mat-stroked-button
                 (click)="navigateToChallenge(notification.key)"
               >
                 <mat-icon>code</mat-icon>
@@ -21,7 +21,7 @@
               </button>
             </div>
           }</div>
-          
+
           <button id="closeButton" mat-button (click)="closeNotification($index, $event.shiftKey)">X</button></div>
         @if (showCtfFlagsInNotifications) {
           <br/>
@@ -50,5 +50,6 @@
           }
         </div>
       </mat-card>
-    }
-  </div>
+  }
+</div>
+}

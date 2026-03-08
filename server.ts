@@ -77,6 +77,7 @@ import * as twoFactorAuth from './routes/2fa'
 import { applyCoupon } from './routes/coupon'
 import dataErasure from './routes/dataErasure'
 import { dataExport } from './routes/dataExport'
+import { chat } from './routes/chat'
 import { retrieveBasket } from './routes/basket'
 import { searchProducts } from './routes/search'
 import { trackOrder } from './routes/trackOrder'
@@ -630,6 +631,9 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.put('/rest/products/:id/reviews', createProductReviews())
   app.patch('/rest/products/reviews', security.isAuthorized(), updateProductReviews())
   app.post('/rest/products/reviews', security.isAuthorized(), likeProductReviews())
+
+  /* Chat API endpoint */
+  app.post('/rest/chat', chat())
 
   /* Web3 API endpoints */
   app.post('/rest/web3/submitKey', checkKeys())

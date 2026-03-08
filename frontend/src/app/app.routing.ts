@@ -42,6 +42,7 @@ import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, LoginGuard } from './app.guard'
 import { NFTUnlockComponent } from './nft-unlock/nft-unlock.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
+import { ChatbotComponent } from './chatbot/chatbot.component'
 
 const loadFaucetModule = async () => {
   const module = await import('./faucet/faucet.module')
@@ -222,6 +223,10 @@ const routes: Routes = [
     path: 'web3-sandbox', // vuln-code-snippet vuln-line web3SandboxChallenge
     loadChildren: async () => await loadWeb3SandboxModule() // vuln-code-snippet neutral-line web3SandboxChallenge
   }, // vuln-code-snippet neutral-line web3SandboxChallenge
+  {
+    path: 'chatbot',
+    component: ChatbotComponent
+  },
   {
     path: 'bee-haven',
     loadChildren: async () => await loadFaucetModule()
