@@ -1,1 +1,5 @@
-# Use 'default' configuration during automated test execution
+# Use deterministic challenge behavior during automated test execution.
+# Jest runs with NODE_ENV=test, so API tests should not depend on host environment
+# detection (Docker/Heroku/etc.) for challenge enablement.
+challenges:
+  safetyMode: disabled
