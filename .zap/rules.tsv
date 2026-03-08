@@ -18,3 +18,4 @@
 90005	IGNORE	(Sec-Fetch-Mode Header is Missing)
 90005	IGNORE	(Sec-Fetch-Site Header is Missing)
 90005	IGNORE	(Sec-Fetch-User Header is Missing)
+110009	INFO	(Accepted risk: upstream training challenge intentionally exposes stack traces on /ftp error paths)
