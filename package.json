@@ -258,7 +258,7 @@
     "typescript": "~5.3.3"
   },
   "engines": {
-    "node": "22.x"
+    "node": "20 - 24"
   },
   "os": [
     "win32",
