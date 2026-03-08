@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, ChangeDetectionStrategy, input, output, model } from '@angular/core'
+import { Component, ChangeDetectionStrategy, input, output, model, viewChild, ElementRef } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
@@ -28,6 +28,11 @@ export class ChatInputBoxComponent {
   message = model('')
   disabled = input(false)
   messageSent = output<string>()
+  private readonly textarea = viewChild<ElementRef<HTMLTextAreaElement>>('textareaEl')
+
+  focus () {
+    this.textarea()?.nativeElement.focus()
+  }
 
   onEnterKey (event: Event) {
     const keyEvent = event as KeyboardEvent
