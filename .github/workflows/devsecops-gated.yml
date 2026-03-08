@@ -323,6 +323,7 @@ jobs:
       - name: Start application
         run: |
           mkdir -p reports/zap build/reports
+          chmod 777 reports/zap
           npm start > build/reports/dast-app.log 2>&1 &
           echo $! > /tmp/juice-shop.pid
 
@@ -333,17 +334,18 @@ jobs:
         run: |
           docker run --rm \
             --network=host \
-            -v "$PWD:/zap/wrk:rw" \
+            -v "$PWD/reports/zap:/zap/wrk:rw" \
+            -v "$PWD/.zap/rules.tsv:/zap/rules.tsv:ro" \
             ghcr.io/zaproxy/zaproxy:stable \
             zap-baseline.py \
             -t http://127.0.0.1:3000 \
             -a \
             -j \
             -m 5 \
-            -c .zap/rules.tsv \
-            -w reports/zap/zap-report.md \
-            -r reports/zap/zap-report.html \
-            -J reports/zap/zap-report.json
+            -c /zap/rules.tsv \
+            -w zap-report.md \
+            -r zap-report.html \
+            -J zap-report.json
 
       - name: Stop application
         if: always()
