@@ -17,13 +17,6 @@
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  touch-action: pan-y;
-}
-
-.product-details-container {
-  touch-action: pan-y;
-  cursor: pointer;
-  outline: none;
 }
 
 .info-box {
@@ -34,8 +27,8 @@
   margin-top: $space-s;
   font-weight: bold;
   font-size: medium;
+  cursor: pointer;
   padding: 0 $space-m;
-  pointer-events: none;
 }
 
 .price {
@@ -82,7 +75,7 @@
   object-fit: contain;
   position: relative;
   z-index: 1;
-  pointer-events: none;
+  cursor: pointer;
 }
 
 .footer {
@@ -111,7 +104,7 @@
 
 .icon-basket {
   position: absolute;
-  left: 1rem;
+  left: 1rem; 
 }
 
 .btn-basket {
