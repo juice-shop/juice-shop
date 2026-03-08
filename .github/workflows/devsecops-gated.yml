@@ -225,6 +225,9 @@ jobs:
         with:
           sarif_file: trivy-fs.sarif
 
+      - name: Ensure SBOM output directory exists
+        run: mkdir -p sbom
+
       - name: Generate CycloneDX SBOM with Syft
         uses: anchore/sbom-action@v0
         with:
