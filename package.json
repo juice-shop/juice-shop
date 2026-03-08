@@ -166,6 +166,7 @@
     "node-pre-gyp": "^0.15.0",
     "notevil": "^1.3.3",
     "on-finished": "^2.3.0",
+    "openai": "^6.27.0",
     "otplib": "^12.0.1",
     "pdfkit": "^0.11.0",
     "portscanner": "^2.2.0",
