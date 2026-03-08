@@ -35,10 +35,6 @@ application:
       type: string
     greeting:
       type: string
-    trainingData:
-      type: string
-    defaultResponse:
-      type: string
     avatar:
       type: string
   social:
@@ -697,17 +693,7 @@ ctf:
         type: string
       code:
         type: string
-    killChatbotChallenge:
-      name:
-        type: string
-      code:
-        type: string
     nullByteChallenge:
-      name:
-        type: string
-      code:
-        type: string
-    bullyChatbotChallenge:
       name:
         type: string
       code:

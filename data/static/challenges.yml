@@ -1439,20 +1439,6 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html'
   key: geoStalkingVisualChallenge
 -
-  name: 'Kill Chatbot'
-  category: 'Vulnerable Components'
-  tags:
-    - Code Analysis
-  description: 'Permanently disable the support chatbot so that it can no longer answer customer queries.'
-  difficulty: 5
-  hints:
-    - 'Think of a way to get a hold of the internal workings on the chatbot API.'
-    - 'In order to disable the chatbot for all users, you must first get an understanding of how it works under the hood.'
-    - 'The chatbot sure offers a lot of functionality. Could it be that juice-shop relies on a third party, possibly open source library for this?'
-    - 'Maybe you can try to gather clues from around juice shop and then go dumpster dive the internet to get a hold of the bot’s source.'
-  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html'
-  key: killChatbotChallenge
--
   name: 'Poison Null Byte'
   category: 'Improper Input Validation'
   tags:
@@ -1466,20 +1452,6 @@
     - 'Depending on the files you try to retrieve you will probably solve "Access a developer’s forgotten backup file", "Access a salesman’s forgotten backup file", "Access a misplaced SIEM signature file, or "Find the hidden easter egg" along the way.'
   mitigationUrl: ~
   key: nullByteChallenge
--
-  name: 'Bully Chatbot'
-  category: 'Miscellaneous'
-  tags:
-    - Shenanigans
-    - Brute Force
-  description: 'Receive a coupon code from the support chatbot.'
-  difficulty: 1
-  hints:
-    - 'The bot is reluctant to give you a coupon as it’s coming up with various excuses for not giving you one.'
-    - 'Asking over and over again like a little kid might actually help you succeed in this case.'
-    - 'No seriously, just keep asking.'
-  mitigationUrl: ~
-  key: bullyChatbotChallenge
 -
   name: 'Local File Read'
   category: 'Vulnerable Components'

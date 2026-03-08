@@ -48,7 +48,6 @@ module.exports = function (grunt) {
               'config/*.yml',
               'data/*.ts',
               'data/static/**',
-              'data/chatbot/.gitkeep',
               'encryptionkeys/**',
               'frontend/dist/frontend/**',
               'frontend/dist/bom/**',

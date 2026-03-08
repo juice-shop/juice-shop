@@ -23,8 +23,6 @@ export interface ApplicationConfig {
   chatBot: {
     name: string
     greeting: string
-    trainingData: string
-    defaultResponse: string
     avatar: string
   }
   social: {

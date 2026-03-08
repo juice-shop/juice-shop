@@ -14,7 +14,6 @@ application:
   chatBot:
     name: 'Conny'
     greeting: "Hi there, hacker known as <customer-name>! I'm <bot-name>, the friendly chatbot of DEF CON."
-    defaultResponse: "Sorry, hacker! I couldn't reverse-engineer the meaning of your question."
     avatar: 'https://defcon.org/images/defcon-main/dc-forums.png'
   social:
     blueSkyUrl: 'https://bsky.app/profile/defcon.bsky.social'

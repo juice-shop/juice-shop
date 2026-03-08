@@ -35,15 +35,6 @@ export default defineConfig({
             (product) => product.useForChristmasSpecialChallenge
           )[0]
         },
-        GetCouponIntent () {
-          const trainingData = require(`data/chatbot/${utils.extractFilename(
-            config.get('application.chatBot.trainingData')
-          )}`)
-          const couponIntent = trainingData.data.filter(
-            (data: { intent: string }) => data.intent === 'queries.couponCode'
-          )[0]
-          return couponIntent
-        },
         GetFromMemories (property: string) {
           for (const memory of config.get<MemoryConfig[]>('memories') as any) {
             if (memory[property]) {

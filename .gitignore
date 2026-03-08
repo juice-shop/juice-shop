@@ -12,8 +12,6 @@ i18n/*.json
 i18n/*.invalid
 !frontend/src/assets/i18n/*.json
 !data/static/i18n/*.json
-data/chatbot/*.*
-!data/chatbot/.gitkeep
 /data/juiceshop.sqlite-journal
 
 # Build

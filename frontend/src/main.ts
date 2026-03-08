@@ -62,7 +62,6 @@ import { ChallengeService } from './app/Services/challenge.service'
 import { BasketService } from './app/Services/basket.service'
 import { RecycleService } from './app/Services/recycle.service'
 import { TrackOrderService } from './app/Services/track-order.service'
-import { ChatbotService } from './app/Services/chatbot.service'
 import { ComplaintService } from './app/Services/complaint.service'
 import { ProductReviewService } from './app/Services/product-review.service'
 import { WindowRefService } from './app/Services/window-ref.service'
@@ -116,7 +115,6 @@ bootstrapApplication(AppComponent, {
         WindowRefService,
         ProductReviewService,
         ComplaintService,
-        ChatbotService,
         TrackOrderService,
         RecycleService,
         BasketService,
