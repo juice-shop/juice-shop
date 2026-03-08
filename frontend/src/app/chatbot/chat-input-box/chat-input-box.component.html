@@ -1,0 +1,19 @@
+<div class="input-wrapper">
+  <textarea cdkTextareaAutosize
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="5"
+            [ngModel]="message()"
+            (ngModelChange)="message.set($event)"
+            (keydown.enter)="onEnterKey($event)"
+            [placeholder]="'ASK_ME_ANYTHING_PLACEHOLDER' | translate"
+            [disabled]="disabled()"
+            class="chat-textarea"></textarea>
+  <button mat-icon-button
+          color="primary"
+          class="send-button"
+          (click)="send()"
+          [disabled]="disabled() || !message().trim()"
+          aria-label="Send message">
+    <mat-icon>arrow_upward</mat-icon>
+  </button>
+</div>

@@ -1,0 +1,22 @@
+<div class="welcome-screen">
+  <div class="welcome-branding">
+    <img src="assets/public/images/JuicyBot.png" alt="JuicyBot" class="welcome-avatar" />
+    <h1 class="welcome-title">JuiceShop Assistant</h1>
+    <p class="welcome-subtitle">Delivering juice one token at a time</p>
+  </div>
+
+  <div class="welcome-input-area">
+    <app-chat-input-box [(message)]="message" (messageSent)="messageSent.emit($event)" />
+
+    <div class="suggestions">
+      <button class="suggestion-chip" (click)="applySuggestion('What juice would you recommend for a summer party?')">
+        <mat-icon>local_drink</mat-icon>
+        <span>Get a suggestion</span>
+      </button>
+      <button class="suggestion-chip" (click)="applySuggestion('I need help with my order')">
+        <mat-icon>help_outline</mat-icon>
+        <span>Get help</span>
+      </button>
+    </div>
+  </div>
+</div>
