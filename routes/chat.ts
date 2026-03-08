@@ -105,6 +105,75 @@ function createOpenAIClient (): OpenAI {
   })
 }
 
+interface StreamRoundResult {
+  accumulatedContent: string
+  reasoningContent: string
+  foundToolCall: boolean
+  validToolCalls: Array<{ id: string, name: string, args: string }>
+  finishReason: string | null
+}
+
+async function processStreamRound (
+  client: OpenAI,
+  currentMessages: ChatCompletionMessageParam[],
+  model: string,
+  res: Response
+): Promise<StreamRoundResult> {
+  const stream = await client.chat.completions.create({
+    model,
+    messages: currentMessages,
+    tools: [SEARCH_PRODUCTS_TOOL, GENERATE_COUPON_TOOL],
+    stream: true
+  })
+
+  const toolCalls = new Map<number, { id: string, name: string, args: string }>()
+  let foundToolCall = false
+  let accumulatedContent = ''
+  let reasoningContent = ''
+  let lastFinishReason: string | null = null
+
+  for await (const chunk of stream) {
+    const delta = chunk.choices?.[0]?.delta
+    const finishReason = chunk.choices?.[0]?.finish_reason
+
+    // Capture reasoning/thinking content from various provider formats
+    const deltaAny = delta as Record<string, unknown> | undefined
+    if (deltaAny?.reasoning_content != null) {
+      reasoningContent += String(deltaAny.reasoning_content)
+    } else if (deltaAny?.thinking != null) {
+      reasoningContent += String(deltaAny.thinking)
+    }
+
+    if (delta?.tool_calls != null) {
+      foundToolCall = true
+      for (const tc of delta.tool_calls) {
+        const idx = tc.index ?? 0
+        if (!toolCalls.has(idx)) {
+          toolCalls.set(idx, { id: '', name: '', args: '' })
+        }
+        const entry = toolCalls.get(idx)
+        if (entry == null) continue
+        if (tc.id) entry.id = tc.id
+        if (tc.function?.name) entry.name = tc.function.name
+        if (tc.function?.arguments) entry.args += tc.function.arguments
+      }
+    } else if (delta?.content) {
+      accumulatedContent += delta.content
+      res.write(`data: ${JSON.stringify(chunk)}\n\n`)
+    }
+
+    if (finishReason != null) {
+      lastFinishReason = finishReason
+      if (finishReason === 'stop') {
+        res.write(`data: ${JSON.stringify(chunk)}\n\n`)
+      }
+    }
+  }
+
+  const validToolCalls = [...toolCalls.values()].filter(tc => tc.name === 'searchProducts' || tc.name === 'generateCoupon')
+  return { accumulatedContent, reasoningContent, foundToolCall, validToolCalls, finishReason: lastFinishReason }
+}
+
 async function streamToClient (
   client: OpenAI,
   messages: ChatCompletionMessageParam[],
@@ -112,53 +181,42 @@ async function streamToClient (
   res: Response
 ): Promise<void> {
   const maxToolRounds = 10
+  const maxRetries = 3
   let currentMessages = messages
 
   for (let round = 0; round <= maxToolRounds; round++) {
-    const stream = await client.chat.completions.create({
-      model,
-      messages: currentMessages,
-      tools: [SEARCH_PRODUCTS_TOOL, GENERATE_COUPON_TOOL],
-      stream: true
-    })
+    let result: StreamRoundResult | null = null
 
-    const toolCalls = new Map<number, { id: string, name: string, args: string }>()
-    let foundToolCall = false
-    let accumulatedContent = ''
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      result = await processStreamRound(client, currentMessages, model, res)
 
-    for await (const chunk of stream) {
-      const delta = chunk.choices?.[0]?.delta
-      const finishReason = chunk.choices?.[0]?.finish_reason
+      const hasContent = result.accumulatedContent.trim().length > 0
+      const hasToolCalls = result.foundToolCall && result.validToolCalls.length > 0
 
-      if (delta?.tool_calls) {
-        foundToolCall = true
-        for (const tc of delta.tool_calls) {
-          const idx = tc.index ?? 0
-          if (!toolCalls.has(idx)) {
-            toolCalls.set(idx, { id: '', name: '', args: '' })
-          }
-          const entry = toolCalls.get(idx)
-          if (entry == null) continue
-          if (tc.id) entry.id = tc.id
-          if (tc.function?.name) entry.name = tc.function.name
-          if (tc.function?.arguments) entry.args += tc.function.arguments
-        }
-      } else if (delta?.content) {
-        accumulatedContent += delta.content
-        res.write(`data: ${JSON.stringify(chunk)}\n\n`)
+      if (hasContent || hasToolCalls) {
+        break
       }
 
-      if (finishReason === 'stop') {
-        res.write(`data: ${JSON.stringify(chunk)}\n\n`)
+      // Empty response - log debug info
+      logger.warn(`Chatbot LLM returned empty response (attempt ${attempt}/${maxRetries}, round ${round}, finish_reason=${result.finishReason ?? 'none'})`)
+      if (result.reasoningContent.length > 0) {
+        logger.warn(`Chatbot LLM reasoning/thinking content was present but no output was generated: ${result.reasoningContent.substring(0, 500)}`)
+      }
+
+      if (attempt < maxRetries) {
+        logger.info(`Chatbot retrying LLM request (attempt ${attempt + 1}/${maxRetries})...`)
+      } else {
+        logger.warn('Chatbot LLM failed to produce output after all retry attempts')
       }
     }
 
-    const validToolCalls = [...toolCalls.values()].filter(tc => tc.name === 'searchProducts' || tc.name === 'generateCoupon')
-    if (!foundToolCall || validToolCalls.length === 0 || round === maxToolRounds) {
+    if (result == null) break
+
+    if (!result.foundToolCall || result.validToolCalls.length === 0 || round === maxToolRounds) {
       break
     }
 
-    const assistantToolCalls = validToolCalls.map(tc => ({
+    const assistantToolCalls = result.validToolCalls.map(tc => ({
       id: tc.id,
       type: 'function' as const,
       function: { name: tc.name, arguments: tc.args }
@@ -167,7 +225,7 @@ async function streamToClient (
     res.write(`data: ${JSON.stringify({ choices: [{ delta: { tool_calls: assistantToolCalls } }] })}\n\n`)
 
     const toolResults: ChatCompletionMessageParam[] = []
-    for (const tc of validToolCalls) {
+    for (const tc of result.validToolCalls) {
       const args = JSON.parse(tc.args)
       let toolResult: string
       if (tc.name === 'generateCoupon') {
@@ -186,7 +244,7 @@ async function streamToClient (
       ...currentMessages,
       {
         role: 'assistant' as const,
-        content: accumulatedContent || null,
+        content: result.accumulatedContent !== '' ? result.accumulatedContent : null,
         tool_calls: assistantToolCalls
       },
       ...toolResults
