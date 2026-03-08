@@ -13,6 +13,9 @@
     "lint:fix": "ng lint --fix && npx stylelint \"**/*.scss\" --fix"
   },
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "dependencies": {
     "@angular-devkit/build-angular": "^20.1.0",
     "@angular/animations": "^20.1.0",

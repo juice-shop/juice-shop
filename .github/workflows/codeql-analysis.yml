@@ -20,6 +20,9 @@ permissions:
   contents: read
   security-events: write
 
+env:
+  NODE_VERSION: "22"
+
 jobs:
   analyze:
     name: Analyze JavaScript and TypeScript
@@ -32,6 +35,11 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3

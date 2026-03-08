@@ -5,8 +5,8 @@
 [![Twitter Follow](https://img.shields.io/twitter/follow/owasp_juiceshop.svg?style=social&label=Follow)](https://twitter.com/owasp_juiceshop)
 [![Subreddit subscribers](https://img.shields.io/reddit/subreddit-subscribers/owasp_juiceshop?style=social)](https://reddit.com/r/owasp_juiceshop)
 
-[![CI/CD Pipeline](https://github.com/juice-shop/juice-shop/actions/workflows/ci.yml/badge.svg?branch=develop)](https://github.com/juice-shop/juice-shop/actions/workflows/ci.yml)
-[![Release Pipeline](https://github.com/juice-shop/juice-shop/actions/workflows/release.yml/badge.svg)](https://github.com/juice-shop/juice-shop/actions/workflows/release.yml)
+[![Build and Test](https://github.com/juice-shop/juice-shop/actions/workflows/build-test.yml/badge.svg)](https://github.com/juice-shop/juice-shop/actions/workflows/build-test.yml)
+[![CodeQL Analysis](https://github.com/juice-shop/juice-shop/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/juice-shop/juice-shop/actions/workflows/codeql-analysis.yml)
 [![Coverage Status](https://coveralls.io/repos/github/juice-shop/juice-shop/badge.svg?branch=develop)](https://coveralls.io/github/juice-shop/juice-shop?branch=develop)
 [![Cypress tests](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/3hrkhu/develop&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/3hrkhu/runs)
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/223/badge)](https://www.bestpractices.dev/projects/223)
@@ -44,7 +44,8 @@ For a detailed introduction, full list of features and architecture overview ple
     - [Vagrant](#vagrant)
 - [Demo](#demo)
 - [Documentation](#documentation)
-    - [Node.js version compatibility](#nodejs-version-compatibility)
+    - [Runtime baseline (Node 22)](#runtime-baseline-node-22)
+    - [Local run methods](#local-run-methods)
     - [Troubleshooting](#troubleshooting)
     - [Official companion guide](#official-companion-guide)
 - [Contributing](#contributing)
@@ -63,12 +64,12 @@ For a detailed introduction, full list of features and architecture overview ple
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/juice-shop/juice-shop.svg)
 
-1. Install [node.js](#nodejs-version-compatibility)
+1. Install [Node.js 22](#runtime-baseline-node-22) (recommended with `nvm`)
 2. Run `git clone https://github.com/juice-shop/juice-shop.git --depth 1` (or
    clone [your own fork](https://github.com/juice-shop/juice-shop/fork)
    of the repository)
 3. Go into the cloned folder with `cd juice-shop`
-4. Run `npm install` (only has to be done before first start or when you change the source code)
+4. Run `npm install --prefer-offline --no-audit --progress=false` (only has to be done before first start or when you change the source code)
 5. Run `npm start`
 6. Browse to <http://localhost:3000>
 
@@ -78,7 +79,7 @@ For a detailed introduction, full list of features and architecture overview ple
 [![SourceForge](https://img.shields.io/sourceforge/dm/juice-shop?label=sourceforge%20downloads)](https://sourceforge.net/projects/juice-shop/)
 [![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop?label=sourceforge%20downloads)](https://sourceforge.net/projects/juice-shop/)
 
-1. Install a 64bit [node.js](#nodejs-version-compatibility) on your Windows, MacOS or Linux machine
+1. Install a 64bit [Node.js 22](#runtime-baseline-node-22) on your Windows, MacOS or Linux machine
 2. Download `juice-shop-<version>_<node-version>_<os>_x64.zip` (or
    `.tgz`) attached to
    [latest release](https://github.com/juice-shop/juice-shop/releases/latest)
@@ -126,38 +127,68 @@ Feel free to have a look at the latest version of OWASP Juice Shop:
 
 ## Documentation
 
-### Node.js version compatibility
+### Runtime baseline (Node 22)
 
 ![GitHub package.json dynamic](https://img.shields.io/github/package-json/cpu/juice-shop/juice-shop)
 ![GitHub package.json dynamic](https://img.shields.io/github/package-json/os/juice-shop/juice-shop)
 
-OWASP Juice Shop officially supports the following versions of
-[node.js](http://nodejs.org) in line with the official
-[node.js LTS schedule](https://github.com/nodejs/LTS) as close as possible. Docker images and packaged distributions are
-offered accordingly.
+This repository standardizes on **Node.js `22.x`** for local development and CI.
 
-| node.js | Supported              | Tested             | [Packaged Distributions](#packaged-distributions) | [Docker images](#docker-container) from `master` | [Docker images](#docker-container) from `develop` |
-|:--------|:-----------------------|:-------------------|:--------------------------------------------------|:-------------------------------------------------|:--------------------------------------------------|
-| 25.x    | :x:                    | :x:                |                                                   |                                                  |                                                   |
-| 24.x    | :heavy_check_mark:     | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  | `snapshot` (`linux/amd64`, `linux/arm64`)         |
-| 23.x    | ( :heavy_check_mark: ) | :x:                |                                                   |                                                  |                                                   |
-| 22.x    | :heavy_check_mark:     | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     | `latest` (`linux/amd64`, `linux/arm64`)          |                                                   |
-| 21.x    | ( :heavy_check_mark: ) | :x:                |                                                   |                                                  |                                                   |
-| 20.x    | :heavy_check_mark:     | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
-| <20.x   | :x:                    | :x:                |                                                   |                                                  |                                                   |
+- `.nvmrc` pins Node `22`
+- `package.json` and `frontend/package.json` engines specify `22.x`
+- GitHub Actions workflows that execute Node use Node `22`
 
-Juice Shop is automatically tested _only on the latest `.x` minor version_ of each node.js version mentioned above!
-There is no guarantee that older minor node.js releases will always work with Juice Shop!
-Please make sure you stay up to date with your chosen version.
+Use `nvm` to align your shell with the supported runtime:
+
+```bash
+nvm install 22
+nvm use 22
+node -v
+npm -v
+```
+
+### Local run methods
+
+#### Native Linux/WSL with Node 22 (recommended)
+
+```bash
+nvm install 22
+nvm use 22
+npm install --prefer-offline --no-audit --progress=false
+npm start
+```
+
+Then open <http://localhost:3000>.
+
+#### Docker-based run method
+
+```bash
+docker build -t juice-shop-local .
+docker run --rm -p 127.0.0.1:3000:3000 juice-shop-local
+```
+
+Then open <http://localhost:3000>.
 
 ### Troubleshooting
 
 [![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
 
-If you need help with the application setup please check 
+If you need help with the application setup please check
 [our existing _Troubleshooting_](https://pwning.owasp-juice.shop/companion-guide/latest/part4/troubleshooting.html)
 guide. If this does not solve your issue please post your specific problem or question in the
 [Gitter Chat](https://gitter.im/bkimminich/juice-shop) where community members can best try to help you.
+
+For this repository specifically:
+
+- Node `18.x` is not a supported local runtime baseline and can break native modules (`libxmljs2`, `sqlite3`).
+- Mixed Windows/WSL npm setups can fail with errors like `CMD.EXE ... UNC paths are not supported` or native module ABI mismatches.
+- In WSL/Linux shells, ensure Node 22 is active (`nvm use 22`) before install/start.
+- If modules were installed with the wrong runtime, clean and reinstall:
+
+```bash
+rm -rf node_modules frontend/node_modules
+npm install --prefer-offline --no-audit --progress=false
+```
 
 :stop_sign: **Please avoid opening GitHub issues for support requests or questions!**
 
