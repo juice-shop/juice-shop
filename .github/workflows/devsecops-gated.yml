@@ -32,7 +32,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: npm
 
       - name: Install dependencies
         run: npm install --prefer-offline --no-audit --progress=false
@@ -63,8 +62,18 @@ jobs:
         if: always()
         run: pkill -f "node build/app" || true
 
-      - name: Upload build/test logs
+      - name: Check for build log artifact
         if: always()
+        id: build_log
+        run: |
+          if [ -f build/reports/build-test-app.log ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload build/test logs
+        if: always() && steps.build_log.outputs.exists == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: build-test-logs
@@ -90,7 +99,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: npm
 
       - name: Install dependencies
         run: npm install --prefer-offline --no-audit --progress=false
@@ -298,7 +306,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: npm
 
       - name: Install dependencies
         run: npm install --prefer-offline --no-audit --progress=false
