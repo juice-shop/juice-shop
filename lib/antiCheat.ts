@@ -21,11 +21,14 @@ const tightlyCoupledChallenges = {
   nullByteChallenge: ['easterEggLevelOneChallenge', 'forgottenDevBackupChallenge', 'forgottenBackupChallenge', 'misplacedSignatureFileChallenge'],
   deprecatedInterfaceChallenge: ['uploadTypeChallenge', 'xxeFileDisclosureChallenge', 'xxeDosChallenge', 'yamlBombChallenge'],
   uploadSizeChallenge: ['uploadTypeChallenge', 'xxeFileDisclosureChallenge', 'xxeDosChallenge', 'yamlBombChallenge'],
-  uploadTypeChallenge: ['uploadSizeChallenge', 'xxeFileDisclosureChallenge', 'xxeDosChallenge', 'yamlBombChallenge']
+  uploadTypeChallenge: ['xxeFileDisclosureChallenge', 'xxeDosChallenge', 'yamlBombChallenge']
 }
 
 const looselyCoupledChallenges = [
-  ['localXssChallenge', 'xssBonusChallenge']
+  ['easterEggLevelOneChallenge', 'forgottenDevBackupChallenge', 'forgottenBackupChallenge', 'misplacedSignatureFileChallenge'],
+  ['uploadSizeChallenge', 'uploadTypeChallenge'],
+  ['localXssChallenge', 'xssBonusChallenge'],
+  ['fileWriteChallenge', 'videoXssChallenge']
 ]
 
 const trivialChallenges = ['errorHandlingChallenge', 'privacyPolicyChallenge', 'closeNotificationsChallenge']
