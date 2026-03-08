@@ -102,6 +102,9 @@ mat-footer-cell:last-of-type {
   height: auto;
   max-width: 80px;
   transition: transform $transition-speed ease;
+  border: var(--theme-thumbnail-border);
+  padding: $space-3xs;
+  box-sizing: border-box;
 }
 
 .img-thumbnail:hover {

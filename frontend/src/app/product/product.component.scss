@@ -53,6 +53,8 @@
   justify-content: center;
   background-position: center;
   background-size: cover;
+  border: var(--theme-thumbnail-border);
+  box-sizing: border-box;
 }
 
 .image-container::before {
