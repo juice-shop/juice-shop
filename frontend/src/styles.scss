@@ -60,7 +60,6 @@
 
 @mixin image-thumbnail-theme($theme) {
   .img-thumbnail {
-    background-color: mat.m2-get-color-from-palette(map.get($theme, primary), 0.05);
     border: 1px solid mat.m2-get-color-from-palette(map.get($theme, primary));
     border-radius: 3px;
     padding: $space-3xs;
