@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: juice-shop-ingress
+  namespace: juice-shop
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: juice-shop
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector: {}
+      ports:
+        - protocol: TCP
+          port: 3000

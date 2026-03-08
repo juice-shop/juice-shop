@@ -1,0 +1,91 @@
+name: Deploy to Kubernetes (Kind)
+
+on:
+  push:
+    branches: [master, main, develop]
+    paths:
+      - "deployment/kubernetes/**"
+      - ".github/workflows/deploy-k8s.yml"
+  pull_request:
+    paths:
+      - "deployment/kubernetes/**"
+      - ".github/workflows/deploy-k8s.yml"
+  workflow_dispatch:
+    inputs:
+      deploy_kind:
+        description: "Create Kind cluster and deploy manifests"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  validate-manifests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v4
+        with:
+          version: v1.32.0
+
+      - name: Render manifests
+        run: kubectl kustomize deployment/kubernetes/overlays/local > /tmp/juice-shop-k8s.yaml
+
+      - name: Validate manifests with kubectl dry-run
+        run: kubectl apply --dry-run=client -f /tmp/juice-shop-k8s.yaml
+
+  deploy-kind:
+    if: github.event_name == 'workflow_dispatch' && inputs.deploy_kind == true
+    needs: validate-manifests
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Create Kind cluster
+        uses: helm/kind-action@v1.10.0
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v4
+        with:
+          version: v1.32.0
+
+      - name: Build container image
+        run: docker build -t juice-shop:kind .
+
+      - name: Load image into Kind
+        run: kind load docker-image juice-shop:kind
+
+      - name: Deploy manifests
+        run: kubectl apply -k deployment/kubernetes/overlays/local
+
+      - name: Wait for deployment rollout
+        run: kubectl -n juice-shop rollout status deployment/juice-shop --timeout=300s
+
+      - name: Smoke test deployed service
+        run: |
+          kubectl -n juice-shop port-forward service/juice-shop 3000:3000 > /tmp/port-forward.log 2>&1 &
+          ./scripts/wait-for-http.sh http://127.0.0.1:3000 180
+          bash test/smoke/smoke-test.sh http://127.0.0.1:3000
+
+      - name: Upload deployment diagnostics
+        if: always()
+        run: |
+          mkdir -p reports/k8s
+          kubectl -n juice-shop get all -o wide > reports/k8s/get-all.txt || true
+          kubectl -n juice-shop describe deployment juice-shop > reports/k8s/deployment-describe.txt || true
+          cp /tmp/port-forward.log reports/k8s/port-forward.log || true
+
+      - name: Publish deployment diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: k8s-deploy-diagnostics
+          path: reports/k8s

@@ -1,0 +1,82 @@
+name: DAST ZAP Baseline
+
+on:
+  push:
+    branches: [master, main, develop]
+    paths-ignore:
+      - "*.md"
+      - "docs/**"
+      - "legacy/**"
+  pull_request:
+    paths-ignore:
+      - "*.md"
+      - "docs/**"
+      - "legacy/**"
+  schedule:
+    - cron: "40 3 * * 3"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dast-zap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      NODE_VERSION: "22"
+      TARGET_URL: "http://127.0.0.1:3000"
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Start application
+        run: |
+          mkdir -p reports/zap build/reports
+          npm start > build/reports/dast-app.log 2>&1 &
+          echo $! > /tmp/juice-shop.pid
+
+      - name: Wait for healthy target
+        run: ./scripts/wait-for-http.sh "${{ env.TARGET_URL }}" 300
+
+      - name: Run OWASP ZAP baseline
+        run: |
+          docker run --rm \
+            --network=host \
+            -v "$PWD:/zap/wrk:rw" \
+            ghcr.io/zaproxy/zaproxy:stable \
+            zap-baseline.py \
+            -t "${{ env.TARGET_URL }}" \
+            -a \
+            -j \
+            -m 5 \
+            -c .zap/rules.tsv \
+            -w reports/zap/zap-report.md \
+            -r reports/zap/zap-report.html \
+            -J reports/zap/zap-report.json
+
+      - name: Stop application
+        if: always()
+        run: |
+          if [ -f /tmp/juice-shop.pid ]; then
+            kill "$(cat /tmp/juice-shop.pid)" || true
+          fi
+          pkill -f "node build/app" || true
+
+      - name: Upload DAST artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dast-zap-report
+          path: |
+            reports/zap
+            build/reports/dast-app.log

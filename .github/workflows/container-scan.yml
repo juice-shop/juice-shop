@@ -1,0 +1,65 @@
+name: Container Security Scan
+
+on:
+  push:
+    branches: [master, main, develop]
+    paths:
+      - "Dockerfile"
+      - ".dockerignore"
+      - "package.json"
+      - "package-lock.json"
+      - "frontend/package.json"
+      - "frontend/package-lock.json"
+      - "deployment/kubernetes/**"
+      - ".github/workflows/container-scan.yml"
+  pull_request:
+    paths:
+      - "Dockerfile"
+      - ".dockerignore"
+      - "package.json"
+      - "package-lock.json"
+      - "frontend/package.json"
+      - "frontend/package-lock.json"
+      - "deployment/kubernetes/**"
+      - ".github/workflows/container-scan.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  container-security:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Trivy
+        uses: aquasecurity/setup-trivy@v0.2.2
+
+      - name: Build container image
+        run: docker build -t juice-shop:security-scan .
+
+      - name: Scan image vulnerabilities (report only)
+        run: |
+          trivy image \
+            --format sarif \
+            --output trivy-image.sarif \
+            --severity HIGH,CRITICAL \
+            --ignore-unfixed \
+            juice-shop:security-scan
+
+      - name: Gate Dockerfile and Kubernetes misconfigurations
+        run: |
+          trivy config \
+            --exit-code 1 \
+            --severity HIGH,CRITICAL \
+            Dockerfile deployment/kubernetes
+
+      - name: Upload Trivy image SARIF
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-image.sarif

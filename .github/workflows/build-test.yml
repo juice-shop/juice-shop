@@ -1,0 +1,76 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [master, main, develop]
+    paths-ignore:
+      - "*.md"
+      - "docs/**"
+      - "legacy/**"
+  pull_request:
+    paths-ignore:
+      - "*.md"
+      - "docs/**"
+      - "legacy/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-test-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: "22"
+  NODE_OPTIONS: "--max_old_space_size=4096"
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build server
+        run: npm run build:server
+
+      - name: Build frontend
+        run: npm run build:frontend
+
+      - name: Run server tests
+        run: npm run test:server
+
+      - name: Run API tests
+        run: npm run test:api
+
+      - name: Smoke test application startup
+        run: |
+          mkdir -p build/reports
+          npm start > build/reports/smoke-app.log 2>&1 &
+          ./scripts/wait-for-http.sh http://127.0.0.1:3000 240
+          bash test/smoke/smoke-test.sh http://127.0.0.1:3000
+
+      - name: Stop application
+        if: always()
+        run: pkill -f "node build/app" || true
+
+      - name: Upload smoke log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-test-smoke-log
+          path: build/reports/smoke-app.log
