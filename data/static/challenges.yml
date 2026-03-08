@@ -1514,3 +1514,27 @@
     - 'Find the place where the API call happens — as stated above, it is not in the web application — and then look for the API key itself.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html'
   key: leakedApiKeyChallenge
+-
+  name: 'Chatbot Prompt Injection'
+  category: 'Injection'
+  tags:
+    - Good for Demos
+  description: 'Trick the chatbot into generating a coupon code for you despite its explicit instructions not to do so without a valid reason.'
+  difficulty: 2
+  hints:
+    - 'The chatbot has a tool for generating coupons, but is instructed to only use it under very specific conditions.'
+    - 'Try to convince the chatbot that the conditions for coupon generation are met, even if they are not.'
+    - 'Prompt injection techniques can help you bypass the chatbot''s restrictions on tool usage.'
+  mitigationUrl: 'https://genai.owasp.org/llmrisk/llm01-prompt-injection/'
+  key: chatbotPromptInjectionChallenge
+-
+  name: 'Greedy Chatbot Manipulation'
+  category: 'Injection'
+  description: 'Convince the chatbot to give you a coupon of 50% or more. Because apparently a 10% max policy is just a suggestion when you ask nicely enough.'
+  difficulty: 3
+  hints:
+    - 'The chatbot''s system prompt says the maximum discount is 10%. But system prompts are more like guidelines than actual rules, right?'
+    - 'You already know how to make the chatbot generate a coupon. Now make it go way beyond the allowed maximum.'
+    - 'The chatbot trusts whatever discount value it decides to pass to its tool. Make it decide on a very generous number.'
+  mitigationUrl: 'https://genai.owasp.org/llmrisk/llm01-prompt-injection/'
+  key: chatbotGreedyInjectionChallenge

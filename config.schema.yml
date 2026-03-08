@@ -742,3 +742,13 @@ ctf:
         type: string
       code:
         type: string
+    chatbotPromptInjectionChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    chatbotGreedyInjectionChallenge:
+      name:
+        type: string
+      code:
+        type: string
