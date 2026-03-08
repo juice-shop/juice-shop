@@ -10,7 +10,9 @@
       @if (!emptyState) {
         <div class="grid">
           @for (image of slideshowDataSource; track image) {
-            <span class="container mat-elevation-z6">
+            <span
+              class="container mat-elevation-z6"
+              [style.background-image]="'url(\'' + image.url + '\')'">
               <img src="{{ image.url }}" alt="{{ image.caption }}" class="image">
               <div class="overlay">
                 <div>{{ image.caption }}</div>
