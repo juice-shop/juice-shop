@@ -55,6 +55,10 @@
   background-size: cover;
   border: var(--theme-thumbnail-border);
   box-sizing: border-box;
+
+  @media (max-width: 580px) {
+    aspect-ratio: 16 / 9;
+  }
 }
 
 .image-container::before {
