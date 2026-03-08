@@ -59,34 +59,41 @@ export const checkForPreSolveInteractions = () => ({ url }: Request, res: Respon
   next()
 }
 
-export const calculateCheatScore = (challenge: Challenge) => {
-  const timestamp = new Date()
-  let cheatScore = 0
-  let timeFactor = 2
-  timeFactor *= (config.get('challenges.showHints') ? 1 : 1.5)
-  timeFactor *= (challenge.tutorialOrder && config.get('hackingInstructor.isEnabled') ? 0.5 : 1)
-  if (areTightlyCoupled(challenge, previous().challenge) || isLooselyCoupledToPreviouslySolved(challenge) || isTrivial(challenge)) {
-    timeFactor = 0
-  }
+export const calculateCheatScore = (challenge: Challenge, isCheating = false) => {
+  if (isCheating) {
+    logger.info(`Cheat score for ${colors.cyan(challenge.key)} solved by using a bypass, direct access, etc. cheat: ${colors.red('1')}`)
+    solves.push({ challenge, phase: 'hack it', timestamp: new Date(), cheatScore: 1 })
+    return 1
+  } else {
+    const timestamp = new Date()
+    let cheatScore = 0
+    let timeFactor = 2
+    timeFactor *= (config.get('challenges.showHints') ? 1 : 1.5)
+    timeFactor *= (challenge.tutorialOrder && config.get('hackingInstructor.isEnabled') ? 0.5 : 1)
+    if (areTightlyCoupled(challenge, previous().challenge) || isLooselyCoupledToPreviouslySolved(challenge) || isTrivial(challenge)) {
+      timeFactor = 0
+    }
 
-  const minutesExpectedToSolve = challenge.difficulty * timeFactor
-  const minutesSincePreviousSolve = (timestamp.getTime() - previous().timestamp.getTime()) / 60000
-  if (minutesExpectedToSolve > 0) {
-    cheatScore += Math.max(0, 1 - (minutesSincePreviousSolve / minutesExpectedToSolve))
-  }
+    const minutesExpectedToSolve = challenge.difficulty * timeFactor
+    const minutesSincePreviousSolve = (timestamp.getTime() - previous().timestamp.getTime()) / 60000
+    if (minutesExpectedToSolve > 0) {
+      cheatScore += Math.max(0, 1 - (minutesSincePreviousSolve / minutesExpectedToSolve))
+    }
 
-  const preSolveInteraction = preSolveInteractions.find((preSolveInteraction) => preSolveInteraction.challengeKey === challenge.key)
-  let percentPrecedingInteraction = -1
-  if (preSolveInteraction) {
-    percentPrecedingInteraction = preSolveInteraction.interactions.filter(Boolean).length / (preSolveInteraction.interactions.length)
-    const multiplierForMissingExpectedInteraction = 1 + Math.max(0, 1 - percentPrecedingInteraction) / 2
-    cheatScore *= multiplierForMissingExpectedInteraction
+    const preSolveInteraction = preSolveInteractions.find((preSolveInteraction) => preSolveInteraction.challengeKey === challenge.key)
+    let percentPrecedingInteraction = -1
+    if (preSolveInteraction) {
+      percentPrecedingInteraction = preSolveInteraction.interactions.filter(Boolean).length / (preSolveInteraction.interactions.length)
+      const multiplierForMissingExpectedInteraction = 1 + Math.max(0, 1 - percentPrecedingInteraction) / 2
+      cheatScore *= multiplierForMissingExpectedInteraction
+    }
+
     cheatScore = Math.min(1, cheatScore)
-  }
 
-  logger.info(`Cheat score for ${areTightlyCoupled(challenge, previous().challenge) ? 'tightly coupled ' : (isLooselyCoupledToPreviouslySolved(challenge) ? 'loosely coupled ' : (isTrivial(challenge) ? 'trivial ' : ''))}${challenge.tutorialOrder ? 'tutorial ' : ''}${colors.cyan(challenge.key)} solved in ${Math.round(minutesSincePreviousSolve)}min (expected ~${minutesExpectedToSolve}min) with${config.get('challenges.showHints') ? '' : 'out'} hints allowed${percentPrecedingInteraction > -1 ? (' and ' + percentPrecedingInteraction * 100 + '% expected preceding URL interaction') : ''}: ${cheatScore < 0.33 ? colors.green(cheatScore.toString()) : (cheatScore < 0.66 ? colors.yellow(cheatScore.toString()) : colors.red(cheatScore.toString()))}`)
-  solves.push({ challenge, phase: 'hack it', timestamp, cheatScore })
-  return cheatScore
+    logger.info(`Cheat score for ${areTightlyCoupled(challenge, previous().challenge) ? 'tightly coupled ' : (isLooselyCoupledToPreviouslySolved(challenge) ? 'loosely coupled ' : (isTrivial(challenge) ? 'trivial ' : ''))}${challenge.tutorialOrder ? 'tutorial ' : ''}${colors.cyan(challenge.key)} solved in ${Math.round(minutesSincePreviousSolve)}min (expected ~${minutesExpectedToSolve}min) with${config.get('challenges.showHints') ? '' : 'out'} hints allowed${percentPrecedingInteraction > -1 ? (' and ' + percentPrecedingInteraction * 100 + '% expected preceding URL interaction') : ''}: ${cheatScore < 0.33 ? colors.green(cheatScore.toString()) : (cheatScore < 0.66 ? colors.yellow(cheatScore.toString()) : colors.red(cheatScore.toString()))}`)
+    solves.push({ challenge, phase: 'hack it', timestamp, cheatScore })
+    return cheatScore
+  }
 }
 
 export const calculateFindItCheatScore = async (challenge: Challenge) => {

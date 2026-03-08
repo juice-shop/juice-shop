@@ -26,7 +26,7 @@ describe('verify', () => {
   let err: any
 
   beforeEach(() => {
-    req = { body: {}, headers: {} }
+    req = { body: {}, headers: {}, header: sinon.stub().returns(undefined) }
     res = { json: sinon.spy() }
     next = sinon.spy()
     save = () => ({
