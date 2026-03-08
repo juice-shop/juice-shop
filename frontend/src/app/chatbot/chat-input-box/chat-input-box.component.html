@@ -1,5 +1,6 @@
 <div class="input-wrapper">
-  <textarea cdkTextareaAutosize
+  <textarea #textareaEl
+            cdkTextareaAutosize
             cdkAutosizeMinRows="1"
             cdkAutosizeMaxRows="5"
             [ngModel]="message()"

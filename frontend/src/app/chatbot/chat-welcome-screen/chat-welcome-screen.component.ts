@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, ChangeDetectionStrategy, output, model } from '@angular/core'
+import { Component, ChangeDetectionStrategy, output, model, viewChild } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 import { ChatInputBoxComponent } from '../chat-input-box/chat-input-box.component'
 
@@ -21,8 +21,10 @@ import { ChatInputBoxComponent } from '../chat-input-box/chat-input-box.componen
 export class ChatWelcomeScreenComponent {
   message = model('')
   messageSent = output<string>()
+  private readonly inputBox = viewChild(ChatInputBoxComponent)
 
   applySuggestion (text: string) {
     this.message.set(text)
+    this.inputBox()?.focus()
   }
 }
