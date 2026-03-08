@@ -37,6 +37,10 @@ application:
       type: string
     avatar:
       type: string
+    model:
+      type: string
+    llmApiUrl:
+      type: string
   social:
     blueSkyUrl:
       type: string

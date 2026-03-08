@@ -38,7 +38,8 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
     checkIfRequiredFilePatternExists('frontend/dist/frontend', /^hacking-instructor-.+\.js$/),
     checkIfPortIsAvailable(process.env.PORT ?? config.get<number>('server.port')),
     checkIfDomainReachable('https://www.alchemy.com/'),
-    checkIfEnvironmentVariableExists('ALCHEMY_API_KEY')
+    checkIfEnvironmentVariableExists('ALCHEMY_API_KEY'),
+    checkIfLlmApiReachable()
   ])).every(condition => condition)
 
   if ((!success || !asyncConditions) && exitOnFailure) {
@@ -160,6 +161,23 @@ export const checkIfRequiredFilePatternExists = async (directory: string, patter
     logger.warn(`Required file matching ${colors.bold(String(pattern))} is missing (${colors.red('NOT OK')})`)
     return false
   }
+}
+
+export const checkIfLlmApiReachable = async () => {
+  const llmApiUrl = config.get<string>('application.chatBot.llmApiUrl')
+  try {
+    const response = await fetch(`${llmApiUrl}/models`, { signal: AbortSignal.timeout(5000) })
+    if (response.ok) {
+      logger.info(`LLM API at ${colors.bold(llmApiUrl)} is reachable (${colors.green('OK')})`)
+    } else {
+      logger.warn(`LLM API at ${colors.bold(llmApiUrl)} returned status ${response.status} (${colors.yellow('NOT OK')})`)
+      logger.warn(`${colors.italic('LLM chatbot challenges')} will not work without a running LLM API`)
+    }
+  } catch {
+    logger.warn(`LLM API at ${colors.bold(llmApiUrl)} is not reachable (${colors.yellow('NOT OK')})`)
+    logger.warn(`${colors.italic('LLM chatbot challenges')} will not work without a running LLM API`)
+  }
+  return true
 }
 
 export default validatePreconditions

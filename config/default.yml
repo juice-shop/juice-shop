@@ -19,6 +19,8 @@ application:
     name: 'Juicy'
     greeting: "Nice to meet you <customer-name>, I'm <bot-name>"
     avatar: 'JuicyChatBot.png'
+    model: 'qwen3.5:0.8b'
+    llmApiUrl: 'http://localhost:11434/v1'
   social:
     blueSkyUrl: 'https://bsky.app/profile/owasp-juice.shop'
     mastodonUrl: 'https://fosstodon.org/@owasp_juiceshop'
