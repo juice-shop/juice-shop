@@ -24,6 +24,8 @@ export interface ApplicationConfig {
     name: string
     greeting: string
     avatar: string
+    model: string
+    llmApiUrl: string
   }
   social: {
     twitterUrl: string
