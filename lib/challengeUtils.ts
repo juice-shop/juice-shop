@@ -19,19 +19,19 @@ const globalWithSocketIO = global as typeof globalThis & {
   io: SocketIOClientStatic & Server
 }
 
-export const solveIf = function (challenge: any, criteria: () => any, isRestore: boolean = false) {
+export const solveIf = function (challenge: any, criteria: () => any, isRestore: boolean = false, isCheating = false) {
   if (notSolved(challenge) && criteria()) {
-    solve(challenge, isRestore)
+    solve(challenge, isRestore, isCheating)
   }
 }
 
-export const solve = function (challenge: any, isRestore = false) {
+export const solve = function (challenge: any, isRestore = false, isCheating = false) {
   challenge.solved = true
   challenge.save().then(async (solvedChallenge: { difficulty: number, key: string, name: string, id: number }) => {
     logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} ${solvedChallenge.difficulty}-star ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
     sendNotification(solvedChallenge, isRestore)
     if (!isRestore) {
-      const cheatScore = calculateCheatScore(challenge)
+      const cheatScore = calculateCheatScore(challenge, isCheating)
       const hintsAvailable = await HintModel.count({ where: { ChallengeId: solvedChallenge.id } })
       const hintsUnlocked = await HintModel.count({ where: { ChallengeId: solvedChallenge.id, unlocked: true } })
       if (process.env.SOLUTIONS_WEBHOOK) {
