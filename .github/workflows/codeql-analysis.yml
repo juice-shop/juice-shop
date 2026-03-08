@@ -2,7 +2,8 @@ name: CodeQL Analysis
 
 on:
   push:
-    branches: [master, main, develop]
+    branches:
+      - "**"
     paths-ignore:
       - "*.md"
       - "docs/**"
@@ -12,6 +13,7 @@ on:
       - "*.md"
       - "docs/**"
       - "legacy/**"
+  workflow_dispatch:
   schedule:
     - cron: "17 3 * * 1"
 

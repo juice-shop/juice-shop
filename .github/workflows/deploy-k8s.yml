@@ -2,7 +2,8 @@ name: Deploy to Kubernetes (Kind)
 
 on:
   push:
-    branches: [master, main, develop]
+    branches:
+      - "**"
     paths:
       - "deployment/kubernetes/**"
       - ".github/workflows/deploy-k8s.yml"

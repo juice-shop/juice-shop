@@ -2,7 +2,8 @@ name: Container Security Scan
 
 on:
   push:
-    branches: [master, main, develop]
+    branches:
+      - "**"
     paths:
       - "Dockerfile"
       - ".dockerignore"
