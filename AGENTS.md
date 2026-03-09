@@ -66,7 +66,7 @@ See [CLAUDE.md](./.claude/CLAUDE.md#recommended-use-cases) for the full list. In
 See [CLAUDE.md](./.claude/CLAUDE.md#testing-requirements) for detailed guidelines. Essential checklist:
 
 - **ESLint**: `npm run lint` (follows [JS Standard Style](http://standardjs.com/))
-- **Tests**: `npm test`, `npm run frisby`, `npm run cypress:open` (all must pass)
+- **Tests**: `npm test`, `npm run frisby`, `npm run cypress:run` (all must pass)
 - **RSN**: `npm run rsn` (required if modifying challenge-related code)
 - **No AI noise**: Remove verbose/redundant comments
 - **Sign-off**: `git commit -s` (DCO required)
@@ -135,7 +135,7 @@ git commit -s     # Sign-off commit
 **Testing Frameworks**: Jest (unit), Frisby (API), Cypress (E2E)
 - `npm test` - Run all tests
 - `npm run frisby` - API tests only
-- `npm run cypress:open` - Interactive E2E tests
+- `npm run cypress:run` - Interactive E2E tests
 
 ## Contribution Guidelines Summary
 
