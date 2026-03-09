@@ -22,7 +22,6 @@ export interface ApplicationConfig {
   customMetricsPrefix: string
   chatBot: {
     name: string
-    greeting: string
     avatar: string
     model: string
     llmApiUrl: string
