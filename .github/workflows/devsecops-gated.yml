@@ -4,14 +4,20 @@ on:
   push:
     branches:
       - "**"
+    paths-ignore:
+      - "**/*.md"
+      - "docs/**"
   pull_request:
+    paths-ignore:
+      - "**/*.md"
+      - "docs/**"
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: devsecops-gated-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 env:
@@ -33,8 +39,19 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
+      - name: Restore npm cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-npm-${{ hashFiles('package.json', 'frontend/package.json', '.npmrc') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-npm-
+
       - name: Install dependencies
-        run: npm install --prefer-offline --no-audit --progress=false
+        run: npm install --prefer-offline --no-audit --progress=false --ignore-scripts
+
+      - name: Install frontend dependencies
+        run: npm install --prefix frontend --prefer-offline --no-audit --progress=false
 
       - name: Lint
         run: npm run lint
@@ -61,6 +78,17 @@ jobs:
       - name: Stop application
         if: always()
         run: pkill -f "node build/app" || true
+
+      - name: Upload build outputs for downstream jobs
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: |
+            build
+            frontend/dist
+          if-no-files-found: error
+          retention-days: 1
 
       - name: Check for build log artifact
         if: always()
@@ -100,8 +128,16 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
+      - name: Restore npm cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-npm-${{ hashFiles('package.json', 'frontend/package.json', '.npmrc') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-npm-
+
       - name: Install dependencies
-        run: npm install --prefer-offline --no-audit --progress=false
+        run: npm install --prefer-offline --no-audit --progress=false --ignore-scripts
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
@@ -258,7 +294,7 @@ jobs:
 
   container_build_and_scan:
     name: container_build_and_scan
-    needs: security_checks
+    needs: build_test
     runs-on: ubuntu-latest
     timeout-minutes: 60
     permissions:
@@ -303,9 +339,24 @@ jobs:
         with:
           sarif_file: trivy-image.sarif
 
+      - name: Export container image for deploy
+        if: success()
+        run: |
+          mkdir -p reports/image
+          docker save ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} | gzip -1 > reports/image/${{ env.IMAGE_NAME }}.tar.gz
+
+      - name: Upload container image artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: container-image
+          path: reports/image/${{ env.IMAGE_NAME }}.tar.gz
+          if-no-files-found: error
+          retention-days: 1
+
   dast:
     name: dast
-    needs: container_build_and_scan
+    needs: build_test
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -317,8 +368,22 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
+      - name: Restore npm cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-npm-${{ hashFiles('package.json', 'frontend/package.json', '.npmrc') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-npm-
+
+      - name: Download build outputs
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+          path: .
+
       - name: Install dependencies
-        run: npm install --prefer-offline --no-audit --progress=false
+        run: npm install --prefer-offline --no-audit --progress=false --ignore-scripts
 
       - name: Start application
         run: |
@@ -366,7 +431,10 @@ jobs:
 
   deploy:
     name: deploy
-    needs: dast
+    needs:
+      - security_checks
+      - container_build_and_scan
+      - dast
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 90
@@ -382,8 +450,16 @@ jobs:
         with:
           version: v1.32.0
 
-      - name: Build deployment image
-        run: docker build -t ${{ env.IMAGE_NAME }}:kind .
+      - name: Download deployment image artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: container-image
+          path: reports/image
+
+      - name: Load deployment image
+        run: |
+          gunzip -c reports/image/${{ env.IMAGE_NAME }}.tar.gz | docker load
+          docker tag ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} ${{ env.IMAGE_NAME }}:kind
 
       - name: Load image into Kind
         run: kind load docker-image ${{ env.IMAGE_NAME }}:kind
