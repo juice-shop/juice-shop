@@ -165,6 +165,14 @@ const routes: Routes = [
     loadChildren: async () => await loadWeb3SandboxModule()
   },
   {
+    path: 'chatbot',
+    component: ChatbotComponent,
+    children: [
+      { path: '', component: ChatWelcomePageComponent },
+      { path: 'conversation/:id', component: ChatConversationComponent }
+    ]
+  },
+  {
     path: 'bee-haven',
     loadChildren: async () => await loadFaucetModule()
   },
