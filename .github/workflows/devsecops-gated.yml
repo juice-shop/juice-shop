@@ -48,10 +48,7 @@ jobs:
             ${{ runner.os }}-node-${{ env.NODE_VERSION }}-npm-
 
       - name: Install dependencies
-        run: npm install --prefer-offline --no-audit --progress=false --ignore-scripts
-
-      - name: Install frontend dependencies
-        run: npm install --prefix frontend --prefer-offline --no-audit --progress=false
+        run: npm install --prefer-offline --no-audit --progress=false
 
       - name: Lint
         run: npm run lint
@@ -383,7 +380,7 @@ jobs:
           path: .
 
       - name: Install dependencies
-        run: npm install --prefer-offline --no-audit --progress=false --ignore-scripts
+        run: npm install --prefer-offline --no-audit --progress=false
 
       - name: Start application
         run: |
