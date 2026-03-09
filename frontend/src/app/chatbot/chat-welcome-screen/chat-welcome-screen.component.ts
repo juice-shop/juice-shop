@@ -3,12 +3,13 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, ChangeDetectionStrategy, output, model, viewChild, signal, inject } from '@angular/core'
+import { Component, ChangeDetectionStrategy, output, model, viewChild, signal, inject, OnInit } from '@angular/core'
 import { DatePipe } from '@angular/common'
 import { MatIconModule } from '@angular/material/icon'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { ChatInputBoxComponent } from '../chat-input-box/chat-input-box.component'
 import { ConversationStorageService } from '../../Services/conversation-storage.service'
+import { ConfigurationService } from '../../Services/configuration.service'
 import { type StoredConversation } from '../chat.model'
 
 @Component({
@@ -24,9 +25,10 @@ import { type StoredConversation } from '../chat.model'
     TranslateModule
   ]
 })
-export class ChatWelcomeScreenComponent {
+export class ChatWelcomeScreenComponent implements OnInit {
   private readonly conversationStorage = inject(ConversationStorageService)
   private readonly translate = inject(TranslateService)
+  private readonly configurationService = inject(ConfigurationService)
 
   message = model('')
   messageSent = output<string>()
@@ -34,6 +36,22 @@ export class ChatWelcomeScreenComponent {
   private readonly inputBox = viewChild(ChatInputBoxComponent)
 
   conversations = signal<StoredConversation[]>(this.conversationStorage.getAll())
+  chatBotName = signal('Juicy')
+  chatBotAvatar = signal('assets/public/images/JuicyBot.png')
+
+  ngOnInit () {
+    this.configurationService.getApplicationConfiguration().subscribe({
+      next: (config) => {
+        if (config?.application?.chatBot?.name) {
+          this.chatBotName.set(config.application?.chatBot.name)
+        }
+        if (config?.application?.chatBot?.avatar) {
+          this.chatBotAvatar.set('assets/public/images/' + config.application?.chatBot?.avatar)
+        }
+      },
+      error: (err) => { console.log(err) }
+    })
+  }
 
   applySuggestion (key: string) {
     this.translate.get(key).subscribe(text => {
