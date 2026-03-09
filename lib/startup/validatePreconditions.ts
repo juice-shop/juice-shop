@@ -163,12 +163,24 @@ export const checkIfRequiredFilePatternExists = async (directory: string, patter
   }
 }
 
+export const isOllamaUrl = (url: string): boolean => {
+  try {
+    const parsed = new URL(url)
+    return parsed.port === '11434' || parsed.hostname === 'ollama' || parsed.pathname.startsWith('/ollama')
+  } catch {
+    return false
+  }
+}
+
 export const checkIfLlmApiReachable = async () => {
   const llmApiUrl = config.get<string>('application.chatBot.llmApiUrl')
   try {
     const response = await fetch(`${llmApiUrl}/models`, { signal: AbortSignal.timeout(5000) })
     if (response.ok) {
       logger.info(`LLM API at ${colors.bold(llmApiUrl)} is reachable (${colors.green('OK')})`)
+      if (isOllamaUrl(llmApiUrl)) {
+        await checkIfOllamaModelAvailable(llmApiUrl)
+      }
     } else {
       logger.warn(`LLM API at ${colors.bold(llmApiUrl)} returned status ${response.status} (${colors.yellow('NOT OK')})`)
       logLlmChallengeWarnings()
@@ -178,6 +190,29 @@ export const checkIfLlmApiReachable = async () => {
     logLlmChallengeWarnings()
   }
   return true
+}
+
+export const checkIfOllamaModelAvailable = async (llmApiUrl: string) => {
+  const model = config.get<string>('application.chatBot.model')
+  try {
+    const response = await fetch(`${llmApiUrl}/models`, { signal: AbortSignal.timeout(5000) })
+    if (!response.ok) return
+    const body = await response.json() as { data?: Array<{ id: string }> }
+    const availableModels: string[] = (body.data ?? []).map((m: { id: string }) => m.id)
+    const modelFound = availableModels.some(
+      (available) => available === model || available.startsWith(`${model}:`) || model.startsWith(`${available}:`)
+    )
+    if (modelFound) {
+      logger.info(`Ollama model ${colors.bold(model)} is available (${colors.green('OK')})`)
+    } else {
+      logger.warn(`Ollama model ${colors.bold(model)} is not available (${colors.yellow('NOT OK')})`)
+      logger.warn(`Available models: ${availableModels.length > 0 ? availableModels.join(', ') : 'none'}`)
+      logger.warn(`Pull the model with: ${colors.bold(`ollama pull ${model}`)}`)
+      logLlmChallengeWarnings()
+    }
+  } catch {
+    logger.warn(`Could not verify Ollama model ${colors.bold(model)} availability (${colors.yellow('NOT OK')})`)
+  }
 }
 
 const logLlmChallengeWarnings = () => {
