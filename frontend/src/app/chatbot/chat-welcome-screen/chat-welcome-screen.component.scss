@@ -70,7 +70,7 @@
   width: 100%;
   padding: $space-s $space-m;
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--theme-background-darkest);
   background: transparent;
   color: inherit;
   cursor: pointer;
@@ -78,7 +78,7 @@
   transition: background 0.15s;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--theme-background-lighter);
   }
 }
 
@@ -143,7 +143,7 @@
   gap: $space-xs;
   padding: $space-s $space-m;
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--theme-background-darkest);
   background: transparent;
   color: inherit;
   cursor: pointer;
@@ -151,7 +151,7 @@
   transition: background 0.15s;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--theme-background-lighter);
   }
 
   mat-icon {

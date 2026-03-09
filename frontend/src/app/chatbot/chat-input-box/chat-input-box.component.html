@@ -14,7 +14,7 @@
           class="send-button"
           (click)="send()"
           [disabled]="disabled() || !message().trim()"
-          aria-label="Send message">
+          [attr.aria-label]="'CHATBOT_SEND_MESSAGE' | translate">
     <mat-icon>arrow_upward</mat-icon>
   </button>
 </div>
