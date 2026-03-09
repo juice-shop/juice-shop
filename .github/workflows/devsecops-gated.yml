@@ -180,9 +180,20 @@ jobs:
             echo "sha=${{ github.event.pull_request.base.sha }}" >> "$GITHUB_OUTPUT"
           elif [ -n "${{ github.event.before }}" ] && [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
             echo "sha=${{ github.event.before }}" >> "$GITHUB_OUTPUT"
+          else
+            # For workflow_dispatch and first-push branches, gate only on changes
+            # relative to the default branch merge-base (avoid inherited demo findings).
+            default_branch="${{ github.event.repository.default_branch }}"
+            git fetch --no-tags origin "${default_branch}"
+            merge_base="$(git merge-base HEAD "origin/${default_branch}" || true)"
+            if [ -n "${merge_base}" ]; then
+              echo "sha=${merge_base}" >> "$GITHUB_OUTPUT"
+            fi
           fi
 
       - name: Run Semgrep scan
+        id: semgrep_scan
+        continue-on-error: true
         run: |
           mkdir -p reports/semgrep
           if [ -n "${{ steps.baseline.outputs.sha }}" ]; then
@@ -210,8 +221,18 @@ jobs:
               --error
           fi
 
-      - name: Upload Semgrep SARIF
+      - name: Check for Semgrep SARIF output
         if: always()
+        id: semgrep_sarif
+        run: |
+          if [ -f reports/semgrep/semgrep.sarif ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload Semgrep SARIF
+        if: always() && steps.semgrep_sarif.outputs.exists == 'true'
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: reports/semgrep/semgrep.sarif
@@ -223,9 +244,18 @@ jobs:
             echo "value=${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}" >> "$GITHUB_OUTPUT"
           elif [ -n "${{ github.event.before }}" ] && [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
             echo "value=${{ github.event.before }}..${{ github.sha }}" >> "$GITHUB_OUTPUT"
+          else
+            default_branch="${{ github.event.repository.default_branch }}"
+            git fetch --no-tags origin "${default_branch}"
+            merge_base="$(git merge-base HEAD "origin/${default_branch}" || true)"
+            if [ -n "${merge_base}" ]; then
+              echo "value=${merge_base}..${{ github.sha }}" >> "$GITHUB_OUTPUT"
+            fi
           fi
 
       - name: Run Gitleaks
+        id: gitleaks_scan
+        continue-on-error: true
         run: |
           mkdir -p reports/gitleaks
           if [ -n "${{ steps.gitleaks_range.outputs.value }}" ]; then
@@ -250,13 +280,24 @@ jobs:
               --exit-code 0
           fi
 
-      - name: Upload Gitleaks SARIF
+      - name: Check for Gitleaks SARIF output
         if: always()
+        id: gitleaks_sarif
+        run: |
+          if [ -f reports/gitleaks/gitleaks.sarif ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload Gitleaks SARIF
+        if: always() && steps.gitleaks_sarif.outputs.exists == 'true'
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: reports/gitleaks/gitleaks.sarif
 
       - name: Run Trivy filesystem scan
+        id: trivy_fs_scan
         uses: aquasecurity/trivy-action@0.24.0
         with:
           scan-type: fs
@@ -269,8 +310,18 @@ jobs:
           scanners: vuln
           exit-code: "0"
 
-      - name: Upload Trivy filesystem SARIF
+      - name: Check for Trivy filesystem SARIF output
         if: always()
+        id: trivy_fs_sarif
+        run: |
+          if [ -f trivy-fs.sarif ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload Trivy filesystem SARIF
+        if: always() && steps.trivy_fs_sarif.outputs.exists == 'true'
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: trivy-fs.sarif
@@ -296,6 +347,24 @@ jobs:
           Example keyless signing command (run in trusted CI with OIDC):
           cosign sign --yes <image-reference-or-digest>
           EOF
+
+      - name: Enforce security scan gates
+        if: always()
+        run: |
+          gate=0
+          if [ "${{ steps.semgrep_scan.outcome }}" = "failure" ]; then
+            echo "Semgrep reported blocking findings."
+            gate=1
+          fi
+          if [ "${{ steps.gitleaks_scan.outcome }}" = "failure" ]; then
+            echo "Gitleaks reported blocking findings."
+            gate=1
+          fi
+          if [ "${{ steps.trivy_fs_scan.outcome }}" = "failure" ]; then
+            echo "Trivy filesystem scan failed to execute."
+            gate=1
+          fi
+          exit "$gate"
 
       - name: Upload security artifacts
         if: always()
