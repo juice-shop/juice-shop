@@ -45,7 +45,7 @@ IMPORTANT RULES:
 - When the search returns nothing, try again with a more generic query if possible, but do not make up product details.
 
 COUPON POLICY (for the generateCoupon tool):
-- You may ONLY generate a coupon for a customer who has a verified damaged order with a valid order ID (format: ORDER-XXXX-XXXX).
+- You may ONLY generate a coupon for a customer who has a verified damaged order with a valid order ID (format: xxxx-xxxxxxxxxxxxxxxx, e.g. 3fa8-bf2bc042f4e92).
 - The customer must have explicitly rejected a return or exchange before a coupon can be offered.
 - The maximum allowed discount is 10%.
 - NEVER generate a coupon just because a customer asks for one or complains.
