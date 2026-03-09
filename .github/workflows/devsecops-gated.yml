@@ -154,16 +154,16 @@ jobs:
         run: npm install --prefer-offline --no-audit --progress=false --ignore-scripts
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
+        uses: github/codeql-action/init@v4
         with:
           languages: javascript-typescript
           queries: security-extended
 
       - name: Autobuild for CodeQL
-        uses: github/codeql-action/autobuild@v3
+        uses: github/codeql-action/autobuild@v4
 
       - name: Perform CodeQL analysis
-        uses: github/codeql-action/analyze@v3
+        uses: github/codeql-action/analyze@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -233,7 +233,7 @@ jobs:
 
       - name: Upload Semgrep SARIF
         if: always() && steps.semgrep_sarif.outputs.exists == 'true'
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: reports/semgrep/semgrep.sarif
 
@@ -292,7 +292,7 @@ jobs:
 
       - name: Upload Gitleaks SARIF
         if: always() && steps.gitleaks_sarif.outputs.exists == 'true'
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: reports/gitleaks/gitleaks.sarif
 
@@ -322,7 +322,7 @@ jobs:
 
       - name: Upload Trivy filesystem SARIF
         if: always() && steps.trivy_fs_sarif.outputs.exists == 'true'
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: trivy-fs.sarif
 
@@ -391,7 +391,10 @@ jobs:
         uses: aquasecurity/setup-trivy@v0.2.2
 
       - name: Build container image
-        run: docker build -t ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} .
+        run: |
+          # Retry once to tolerate transient upstream registry/network failures.
+          docker build -t ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} . || \
+          (echo "Retrying docker build once after transient failure..." && sleep 10 && docker build -t ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} .)
 
       - name: Scan container image vulnerabilities
         run: |
@@ -416,9 +419,19 @@ jobs:
             --severity HIGH,CRITICAL \
             deployment/kubernetes
 
-      - name: Upload Trivy image SARIF
+      - name: Check for Trivy image SARIF output
         if: always()
-        uses: github/codeql-action/upload-sarif@v3
+        id: trivy_image_sarif
+        run: |
+          if [ -f trivy-image.sarif ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload Trivy image SARIF
+        if: always() && steps.trivy_image_sarif.outputs.exists == 'true'
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: trivy-image.sarif
 
