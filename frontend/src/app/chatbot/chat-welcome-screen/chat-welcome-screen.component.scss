@@ -41,6 +41,90 @@
   margin: 0;
 }
 
+// History section
+
+.history-section {
+  width: 100%;
+  max-width: 680px;
+  margin-bottom: $space-l;
+}
+
+.history-heading {
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.6;
+  margin: 0;
+  margin-top: $space-m;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2xs;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: $space-s $space-m;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+}
+
+.history-item-content {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3xs;
+  min-width: 0;
+}
+
+.history-title {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.history-date {
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+.history-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: inherit;
+  opacity: 0.4;
+  cursor: pointer;
+  padding: $space-3xs;
+  border-radius: 4px;
+  transition: opacity 0.15s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
 .welcome-input-area {
   width: 100%;
   max-width: 680px;

@@ -6,16 +6,24 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
 import { ChatWelcomeScreenComponent } from './chat-welcome-screen.component'
+import { ConversationStorageService } from '../../Services/conversation-storage.service'
 
 describe('ChatWelcomeScreenComponent', () => {
   let component: ChatWelcomeScreenComponent
   let fixture: ComponentFixture<ChatWelcomeScreenComponent>
+  let conversationStorage: jasmine.SpyObj<ConversationStorageService>
 
   beforeEach(() => {
+    conversationStorage = jasmine.createSpyObj('ConversationStorageService', ['getAll', 'delete'])
+    conversationStorage.getAll.and.returnValue([])
+
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
         ChatWelcomeScreenComponent
+      ],
+      providers: [
+        { provide: ConversationStorageService, useValue: conversationStorage }
       ]
     }).compileComponents()
 
@@ -63,5 +71,57 @@ describe('ChatWelcomeScreenComponent', () => {
     spyOn(component.messageSent, 'emit')
     component.messageSent.emit('Hello')
     expect(component.messageSent.emit).toHaveBeenCalledWith('Hello')
+  })
+
+  it('should not show history section when no conversations', () => {
+    const section = fixture.nativeElement.querySelector('.history-section')
+    expect(section).toBeNull()
+  })
+
+  it('should show history section when conversations exist', () => {
+    component.conversations.set([
+      { id: 'conv_1', title: 'Test', messages: [], createdAt: 1000, updatedAt: 2000 }
+    ])
+    fixture.detectChanges()
+
+    const section = fixture.nativeElement.querySelector('.history-section')
+    expect(section).toBeTruthy()
+  })
+
+  it('should render history items', () => {
+    component.conversations.set([
+      { id: 'conv_1', title: 'First conv', messages: [], createdAt: 1000, updatedAt: 2000 },
+      { id: 'conv_2', title: 'Second conv', messages: [], createdAt: 1000, updatedAt: 3000 }
+    ])
+    fixture.detectChanges()
+
+    const items = fixture.nativeElement.querySelectorAll('.history-item')
+    expect(items.length).toBe(2)
+  })
+
+  it('should emit conversationSelected when history item is clicked', () => {
+    spyOn(component.conversationSelected, 'emit')
+    component.conversations.set([
+      { id: 'conv_1', title: 'Test', messages: [], createdAt: 1000, updatedAt: 2000 }
+    ])
+    fixture.detectChanges()
+
+    const item = fixture.nativeElement.querySelector('.history-item')
+    item.click()
+    expect(component.conversationSelected.emit).toHaveBeenCalledWith('conv_1')
+  })
+
+  it('should delete conversation and refresh list', () => {
+    conversationStorage.getAll.and.returnValue([])
+    component.conversations.set([
+      { id: 'conv_1', title: 'Test', messages: [], createdAt: 1000, updatedAt: 2000 }
+    ])
+    fixture.detectChanges()
+
+    const event = new Event('click')
+    component.deleteConversation(event, 'conv_1')
+
+    expect(conversationStorage.delete).toHaveBeenCalledWith('conv_1')
+    expect(component.conversations().length).toBe(0)
   })
 })

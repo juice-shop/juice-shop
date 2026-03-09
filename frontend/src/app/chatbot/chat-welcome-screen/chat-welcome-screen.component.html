@@ -19,4 +19,23 @@
       </button>
     </div>
   </div>
+
+  @if (conversations().length > 0) {
+    <div class="history-section">
+      <h2 class="history-heading">Recent conversations</h2>
+      <div class="history-list">
+        @for (conv of conversations(); track conv.id) {
+          <button class="history-item" (click)="conversationSelected.emit(conv.id)">
+            <div class="history-item-content">
+              <span class="history-title">{{ conv.title }}</span>
+              <span class="history-date">{{ conv.updatedAt | date:'short' }}</span>
+            </div>
+            <button class="history-delete" (click)="deleteConversation($event, conv.id)" aria-label="Delete conversation">
+              <mat-icon>delete_outline</mat-icon>
+            </button>
+          </button>
+        }
+      </div>
+    </div>
+  }
 </div>
