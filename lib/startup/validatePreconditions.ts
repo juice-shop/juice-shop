@@ -15,12 +15,12 @@ import portscanner from 'portscanner'
 // @ts-expect-error FIXME due to non-existing type definitions for check-internet-connected
 import checkInternetConnected from 'check-internet-connected'
 
-const variableDependencies = {
-  ALCHEMY_API_KEY: ['"Mint the Honeypot" challenge', '"Wallet Depletion" challenge']
+export const variableDependencies = {
+  ALCHEMY_API_KEY: ['"Mint the Honey Pot" challenge', '"Wallet Depletion" challenge']
 }
 
-const domainDependencies = {
-  'https://www.alchemy.com/': ['"Mint the Honeypot" challenge', '"Wallet Depletion" challenge']
+export const domainDependencies = {
+  'https://www.alchemy.com/': ['"Mint the Honey Pot" challenge', '"Wallet Depletion" challenge']
 }
 
 const validatePreconditions = async ({ exitOnFailure = true } = {}) => {

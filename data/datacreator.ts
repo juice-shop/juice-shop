@@ -33,6 +33,7 @@ import { ordersCollection, reviewsCollection } from './mongodb'
 import { AllHtmlEntities as Entities } from 'html-entities'
 import * as datacache from './datacache'
 import * as security from '../lib/insecurity'
+import { variableDependencies, domainDependencies } from '../lib/startup/validatePreconditions'
 // @ts-expect-error FIXME due to non-existing type definitions for replace
 import replace from 'replace'
 
@@ -82,6 +83,12 @@ async function createChallenges () {
 
       if (hasCodingChallenge) {
         tags = tags ? [...tags, 'With Coding Challenge'] : ['With Coding Challenge']
+      }
+
+      const isExternalDependency = Object.values(variableDependencies).some(deps => deps.some(dep => dep.includes(name) || dep.includes(key))) ||
+        Object.values(domainDependencies).some(deps => deps.some(dep => dep.includes(name) || dep.includes(key)))
+      if (isExternalDependency) {
+        tags = tags ? [...tags, 'External Dependency'] : ['External Dependency']
       }
 
       try {
