@@ -11,6 +11,7 @@ export interface ChatChunk {
   deltaContent?: string
   deltaToolCalls?: ToolCall[]
   finishReason?: string | null
+  error?: string
 }
 
 export interface ToolCall {
@@ -56,6 +57,14 @@ export class ChatService {
             }
 
             const parsed = JSON.parse(data)
+
+            if (parsed.error) {
+              chunks.push({ error: parsed.error })
+              done = true
+              resolve?.()
+              return
+            }
+
             const delta = parsed.choices?.[0]?.delta
             const finishReason = parsed.choices?.[0]?.finish_reason
 
@@ -73,6 +82,7 @@ export class ChatService {
         }
       },
       error: () => {
+        chunks.push({ error: 'connection_failed' })
         done = true
         resolve?.()
       },

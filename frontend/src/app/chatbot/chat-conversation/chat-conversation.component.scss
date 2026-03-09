@@ -72,6 +72,15 @@
     color: var(--theme-text);
     border-bottom-left-radius: 4px;
   }
+
+  &.error {
+    display: flex;
+    align-items: flex-start;
+    gap: $space-xs;
+    background-color: var(--theme-warn-fade-20);
+    border: 1px solid var(--theme-warn-fade-40);
+    color: var(--theme-text);
+  }
 }
 
 .tool-call-card {

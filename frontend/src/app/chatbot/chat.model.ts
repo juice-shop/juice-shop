@@ -11,6 +11,7 @@ export interface ChatMessage {
   role: 'user' | 'assistant'
   content: string
   tool_calls?: ToolCall[]
+  error?: boolean
 }
 
 export interface StoredConversation {

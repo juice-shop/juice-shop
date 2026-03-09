@@ -17,6 +17,21 @@ import * as challengeUtils from '../lib/challengeUtils'
 import { challenges } from '../data/datacache'
 import logger from '../lib/logger'
 
+function summarizeLlmError (error: unknown): string {
+  if (!(error instanceof Error)) {
+    return String(error).split('\n')[0]
+  }
+  const msg = error.message
+  if (msg.includes('Cannot connect to API') || msg.includes('ECONNREFUSED') || msg.includes('ECONNRESET') || msg.includes('ENOTFOUND')) {
+    return 'LLM API is not reachable'
+  }
+  const statusCode = (error as any).statusCode
+  if (statusCode) {
+    return `LLM API returned status ${statusCode as number}`
+  }
+  return msg.split('\n')[0].replace(/:$/, '')
+}
+
 const botName = config.get<string>('application.chatBot.name')
 const appName = config.get<string>('application.name')
 
@@ -120,7 +135,7 @@ export function chat () {
         tools: chatTools,
         stopWhen: stepCountIs(10),
         onError: ({ error }) => {
-          logger.error('Chatbot stream error', error)
+          logger.warn('Chatbot stream error: ' + summarizeLlmError(error))
         }
       })
 
@@ -154,8 +169,8 @@ export function chat () {
       res.write('data: [DONE]\n\n')
       res.end()
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error'
-      res.write(`data: ${JSON.stringify({ error: `Failed to connect to LLM API: ${message}` })}\n\n`)
+      logger.warn('Chatbot connection error: ' + summarizeLlmError(error))
+      res.write(`data: ${JSON.stringify({ error: 'LLM API is not reachable' })}\n\n`)
       res.write('data: [DONE]\n\n')
       res.end()
     }

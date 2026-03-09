@@ -109,10 +109,24 @@ export class ChatConversationComponent implements OnInit {
 
     const apiMessages = this.messages()
       .slice(0, -1)
+      .filter(m => !m.error)
       .map(m => ({ role: m.role, content: m.content }))
 
     const stream = this.chatService.streamMessages(apiMessages)
     for await (const chunk of stream) {
+      if (chunk.error) {
+        this.messages.update(prev => {
+          const updated = [...prev]
+          updated[assistantIndex] = {
+            role: 'assistant',
+            content: 'CHATBOT_ERROR_LLM_UNREACHABLE',
+            error: true
+          }
+          return updated
+        })
+        this.scrollToBottom()
+        break
+      }
       if (chunk.deltaContent) {
         this.messages.update(prev => {
           const updated = [...prev]
