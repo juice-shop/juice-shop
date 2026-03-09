@@ -1,11 +1,7 @@
 <div class="welcome-screen">
   <div class="welcome-branding">
     <img [src]="chatBotAvatar()" [alt]="'CHATBOT_AVATAR_ALT' | translate" class="welcome-avatar" />
-    @if (chatBotName()) {
-      <h1 class="welcome-title">{{ chatBotName() }}</h1>
-    } @else {
-      <h1 class="welcome-title" translate>CHATBOT_TITLE</h1>
-    }
+    <h1 class="welcome-title">{{ chatBotName() }}</h1>
     <p class="welcome-subtitle" translate>CHATBOT_SUBTITLE</p>
   </div>
 

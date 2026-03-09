@@ -3,11 +3,7 @@
     <mat-icon>chevron_left</mat-icon>
   </a>
   <img [src]="chatBotAvatar()" [alt]="'CHATBOT_AVATAR_ALT' | translate" class="header-avatar" />
-  @if (chatBotName()) {
-    <span class="header-title">{{ chatBotName() }}</span>
-  } @else {
-    <span class="header-title" translate>CHATBOT_TITLE</span>
-  }
+  <span class="header-title">{{ chatBotName() }}</span>
 </div>
 
 <div class="chat-window" #chatWindow>
