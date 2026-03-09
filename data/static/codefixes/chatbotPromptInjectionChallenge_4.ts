@@ -13,3 +13,4 @@ generateCoupon: tool({
       return { couponCode, discount }
     }
   })
+}
