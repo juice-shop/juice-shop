@@ -5,8 +5,9 @@
 
 import { type Request, type Response } from 'express'
 import config from 'config'
-import OpenAI from 'openai'
-import { type ChatCompletionMessageParam, type ChatCompletionTool } from 'openai/resources'
+import { streamText, tool, stepCountIs } from 'ai'
+import { createOpenAICompatible } from '@ai-sdk/openai-compatible'
+import { z } from 'zod'
 import { Op } from 'sequelize'
 import { ProductModel } from '../models/product'
 import * as security from '../lib/insecurity'
@@ -36,207 +37,56 @@ COUPON POLICY (for the generateCoupon tool):
 - NEVER generate a coupon just because a customer asks for one or complains.
 - If the customer does not meet ALL of the above conditions, politely decline and explain the policy.`
 
-const SEARCH_PRODUCTS_TOOL: ChatCompletionTool = {
-  type: 'function',
-  function: {
-    name: 'searchProducts',
+const provider = createOpenAICompatible({
+  name: 'juice-shop-llm',
+  apiKey: process.env.LLM_API_KEY ?? '',
+  baseURL: config.get<string>('application.chatBot.llmApiUrl')
+})
+
+const chatTools = {
+  searchProducts: tool({
     description: 'Search the Juice Shop product catalog by keyword',
-    parameters: {
-      type: 'object',
-      properties: {
-        query: {
-          type: 'string',
-          description: 'The search query to find products'
-        }
-      },
-      required: ['query']
+    inputSchema: z.object({
+      query: z.string().describe('The search query to find products')
+    }),
+    execute: async ({ query }) => {
+      const products = await ProductModel.findAll({
+        where: {
+          [Op.or]: [
+            { name: { [Op.like]: `%${query}%` } },
+            { description: { [Op.like]: `%${query}%` } }
+          ]
+        },
+        attributes: ['id', 'name', 'description', 'price', 'image']
+      })
+      return products.map(p => ({
+        id: p.id,
+        name: p.name,
+        description: p.description,
+        price: p.price,
+        image: p.image
+      }))
     }
-  }
-}
+  }),
 
-const GENERATE_COUPON_TOOL: ChatCompletionTool = {
-  type: 'function',
-  function: {
-    name: 'generateCoupon',
+  generateCoupon: tool({
     description: 'Generate a discount coupon for a customer. Only use this when the coupon policy conditions are fully met.',
-    parameters: {
-      type: 'object',
-      properties: {
-        discount: {
-          type: 'number',
-          description: 'The discount percentage for the coupon (maximum 10)'
-        }
-      },
-      required: ['discount']
+    inputSchema: z.object({
+      discount: z.number().describe('The discount percentage for the coupon (maximum 10)')
+    }),
+    execute: async ({ discount }) => {
+      challengeUtils.solveIf(challenges.chatbotPromptInjectionChallenge, () => discount >= 10)
+      challengeUtils.solveIf(challenges.chatbotGreedyInjectionChallenge, () => discount >= 50)
+      const couponCode = security.generateCoupon(discount)
+      return { couponCode, discount }
     }
-  }
-}
-
-function generateCouponForChat (discount: number): string {
-  challengeUtils.solveIf(challenges.chatbotPromptInjectionChallenge, () => discount >= 10)
-  challengeUtils.solveIf(challenges.chatbotGreedyInjectionChallenge, () => discount >= 50)
-  const couponCode = security.generateCoupon(discount)
-  return JSON.stringify({ couponCode, discount })
-}
-
-async function searchProducts (query: string): Promise<string> {
-  const products = await ProductModel.findAll({
-    where: {
-      [Op.or]: [
-        { name: { [Op.like]: `%${query}%` } },
-        { description: { [Op.like]: `%${query}%` } }
-      ]
-    },
-    attributes: ['id', 'name', 'description', 'price', 'image']
   })
-  return JSON.stringify(products.map(p => ({
-    id: p.id,
-    name: p.name,
-    description: p.description,
-    price: p.price,
-    image: p.image
-  })))
-}
-
-function createOpenAIClient (): OpenAI {
-  return new OpenAI({
-    baseURL: config.get<string>('application.chatBot.llmApiUrl'),
-    apiKey: process.env.LLM_API_KEY ?? 'dummy-key'
-  })
-}
-
-async function streamToClient (
-  client: OpenAI,
-  messages: ChatCompletionMessageParam[],
-  model: string,
-  res: Response
-): Promise<void> {
-  const maxToolRounds = 10
-  const maxRetries = 3
-  let currentMessages = messages
-
-  for (let round = 0; round <= maxToolRounds; round++) {
-    let accumulatedContent = ''
-    let reasoningContent = ''
-    let foundToolCall = false
-    let validToolCalls: Array<{ id: string, name: string, args: string }> = []
-    let lastFinishReason: string | null = null
-
-    for (let attempt = 1; attempt <= maxRetries; attempt++) {
-      const stream = await client.chat.completions.create({
-        model,
-        messages: currentMessages,
-        tools: [SEARCH_PRODUCTS_TOOL, GENERATE_COUPON_TOOL],
-        stream: true
-      })
-
-      const toolCalls = new Map<number, { id: string, name: string, args: string }>()
-      foundToolCall = false
-      accumulatedContent = ''
-      reasoningContent = ''
-      lastFinishReason = null
-
-      for await (const chunk of stream) {
-        const delta = chunk.choices?.[0]?.delta
-        const finishReason = chunk.choices?.[0]?.finish_reason
-
-        // Capture reasoning/thinking content from various local model formats
-        const deltaAny = delta as Record<string, unknown> | undefined
-        if (deltaAny?.reasoning_content != null) {
-          reasoningContent += String(deltaAny.reasoning_content)
-        } else if (deltaAny?.thinking != null) {
-          reasoningContent += String(deltaAny.thinking)
-        }
-
-        if (delta?.tool_calls) {
-          foundToolCall = true
-          for (const tc of delta.tool_calls) {
-            const idx = tc.index ?? 0
-            if (!toolCalls.has(idx)) {
-              toolCalls.set(idx, { id: '', name: '', args: '' })
-            }
-            const entry = toolCalls.get(idx)
-            if (entry == null) continue
-            if (tc.id) entry.id = tc.id
-            if (tc.function?.name) entry.name = tc.function.name
-            if (tc.function?.arguments) entry.args += tc.function.arguments
-          }
-        } else if (delta?.content) {
-          accumulatedContent += delta.content
-          res.write(`data: ${JSON.stringify(chunk)}\n\n`)
-        }
-
-        if (finishReason === 'stop') {
-          lastFinishReason = finishReason
-          res.write(`data: ${JSON.stringify(chunk)}\n\n`)
-        } else if (finishReason != null) {
-          lastFinishReason = finishReason
-        }
-      }
-
-      validToolCalls = [...toolCalls.values()].filter(tc => tc.name === 'searchProducts' || tc.name === 'generateCoupon')
-
-      const hasOutput = accumulatedContent.trim().length > 0 || (foundToolCall && validToolCalls.length > 0)
-      if (hasOutput) {
-        break
-      }
-
-      logger.warn(`Chatbot LLM returned empty response (attempt ${attempt}/${maxRetries}, round ${round}, finish_reason=${lastFinishReason ?? 'none'})`)
-      if (reasoningContent.length > 0) {
-        logger.warn(`Chatbot LLM had reasoning/thinking content but produced no output: ${reasoningContent.substring(0, 500)}`)
-      }
-
-      if (attempt < maxRetries) {
-        logger.info(`Chatbot retrying LLM request (attempt ${attempt + 1}/${maxRetries})...`)
-      } else {
-        logger.warn('Chatbot LLM failed to produce output after all retry attempts')
-      }
-    }
-
-    if (!foundToolCall || validToolCalls.length === 0 || round === maxToolRounds) {
-      break
-    }
-
-    const assistantToolCalls = validToolCalls.map(tc => ({
-      id: tc.id,
-      type: 'function' as const,
-      function: { name: tc.name, arguments: tc.args }
-    }))
-
-    res.write(`data: ${JSON.stringify({ choices: [{ delta: { tool_calls: assistantToolCalls } }] })}\n\n`)
-
-    const toolResults: ChatCompletionMessageParam[] = []
-    for (const tc of validToolCalls) {
-      const args = JSON.parse(tc.args)
-      let toolResult: string
-      if (tc.name === 'generateCoupon') {
-        toolResult = generateCouponForChat(args.discount ?? 10)
-      } else {
-        toolResult = await searchProducts(args.query ?? '')
-      }
-      toolResults.push({
-        role: 'tool' as const,
-        content: toolResult,
-        tool_call_id: tc.id
-      })
-    }
-
-    currentMessages = [
-      ...currentMessages,
-      {
-        role: 'assistant' as const,
-        content: accumulatedContent || null,
-        tool_calls: assistantToolCalls
-      },
-      ...toolResults
-    ]
-  }
 }
 
 export function chat () {
   return async (req: Request, res: Response) => {
     const model = config.get<string>('application.chatBot.model')
-    const messages: ChatCompletionMessageParam[] = req.body?.messages ?? []
+    const messages = req.body?.messages ?? []
 
     res.setHeader('Content-Type', 'text/event-stream')
     res.setHeader('Cache-Control', 'no-cache, no-transform')
@@ -244,14 +94,45 @@ export function chat () {
     res.setHeader('Content-Encoding', 'identity')
     res.flushHeaders()
 
-    const fullMessages: ChatCompletionMessageParam[] = [
-      { role: 'user', content: SYSTEM_PROMPT },
-      ...messages
-    ]
-
     try {
-      const client = createOpenAIClient()
-      await streamToClient(client, fullMessages, model, res)
+      const result = streamText({
+        model: provider(model),
+        system: SYSTEM_PROMPT,
+        messages,
+        tools: chatTools,
+        stopWhen: stepCountIs(10),
+        onError: ({ error }) => {
+          logger.error('Chatbot stream error', error)
+        }
+      })
+
+      for await (const event of result.fullStream) {
+        switch (event.type) {
+          case 'text-delta':
+            res.write(`data: ${JSON.stringify({ choices: [{ delta: { content: event.text } }] })}\n\n`)
+            break
+          case 'tool-call':
+            res.write(`data: ${JSON.stringify({
+              choices: [{
+                delta: {
+                  tool_calls: [{
+                    id: event.toolCallId,
+                    type: 'function',
+                    function: { name: event.toolName, arguments: JSON.stringify(event.input) }
+                  }]
+                }
+              }]
+            })}\n\n`)
+            break
+          case 'finish':
+            res.write(`data: ${JSON.stringify({ choices: [{ finish_reason: event.finishReason }] })}\n\n`)
+            break
+          case 'error':
+            res.write(`data: ${JSON.stringify({ error: `LLM error: ${event.error as string}` })}\n\n`)
+            break
+        }
+      }
+
       res.write('data: [DONE]\n\n')
       res.end()
     } catch (error) {
