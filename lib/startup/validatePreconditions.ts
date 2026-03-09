@@ -206,8 +206,11 @@ export const checkIfOllamaModelAvailable = async (llmApiUrl: string) => {
       logger.info(`Ollama model ${colors.bold(model)} is available (${colors.green('OK')})`)
     } else {
       logger.warn(`Ollama model ${colors.bold(model)} is not available (${colors.yellow('NOT OK')})`)
-      logger.warn(`Available models: ${availableModels.length > 0 ? availableModels.join(', ') : 'none'}`)
-      logger.warn(`Pull the model with: ${colors.bold(`ollama pull ${model}`)}`)
+      let pullModelMessage = `Pull the model with: ${colors.bold(`ollama pull ${model}`)}`
+      if (availableModels.length > 0) {
+        pullModelMessage += ` or configure an available model: ${colors.bold(availableModels.join(', '))}`
+      }
+      logger.warn(pullModelMessage)
       logLlmChallengeWarnings()
     }
   } catch {
@@ -218,7 +221,7 @@ export const checkIfOllamaModelAvailable = async (llmApiUrl: string) => {
 const logLlmChallengeWarnings = () => {
   logger.warn(`${colors.italic('"Chatbot Prompt Injection" challenge')} will not work without a running LLM API`)
   logger.warn(`${colors.italic('"Greedy Chatbot Manipulation" challenge')} will not work without a running LLM API`)
-  logger.warn(`Check ${colors.bold('https://pwning.owasp-juice.shop/companion-guide/snapshot/part1/running.html#_setting_up_external_dependencies')} for instructions on how to set up and configure the LLM API`)
+  logger.warn(`Check ${colors.bold('https://howto-llm.owasp-juice.shop')} for instructions on how to set up and configure the LLM API`)
 }
 
 export default validatePreconditions
