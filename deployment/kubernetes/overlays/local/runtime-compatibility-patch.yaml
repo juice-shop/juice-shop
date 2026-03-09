@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: juice-shop
+  namespace: juice-shop
+spec:
+  template:
+    spec:
+      containers:
+        - name: juice-shop
+          securityContext:
+            # Local demo/CI deploy requires startup writes under /juice-shop
+            # (e.g. ftp/legal.md and i18n refresh) from upstream app behavior.
+            readOnlyRootFilesystem: false
+          volumeMounts:
+            - name: logs
+              mountPath: /juice-shop/logs
+            - name: uploads
+              mountPath: /juice-shop/uploads
+            - name: tmp
+              mountPath: /tmp
+            - name: data
+              $patch: delete
+      volumes:
+        - name: data
+          $patch: delete

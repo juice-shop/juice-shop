@@ -8,3 +8,6 @@ images:
   - name: juice-shop
     newName: juice-shop
     newTag: kind
+
+patches:
+  - path: runtime-compatibility-patch.yaml
