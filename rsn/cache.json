@@ -64,6 +64,46 @@
 		],
 		"removed": []
 	},
+	"chatbotGreedyInjectionChallenge_1.ts": {
+		"added": [
+			2,
+			5,
+			55
+		],
+		"removed": [
+			4,
+			54
+		]
+	},
+	"chatbotGreedyInjectionChallenge_2_correct.ts": {
+		"added": [
+			55
+		],
+		"removed": [
+			55
+		]
+	},
+	"chatbotGreedyInjectionChallenge_3.ts": {
+		"added": [
+			55
+		],
+		"removed": [
+			55,
+			57,
+			59,
+			60,
+			61,
+			62
+		]
+	},
+	"chatbotGreedyInjectionChallenge_4.ts": {
+		"added": [
+			18
+		],
+		"removed": [
+			18
+		]
+	},
 	"chatbotPromptInjectionChallenge_1.ts": {
 		"added": [],
 		"removed": []

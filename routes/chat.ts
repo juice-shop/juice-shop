@@ -45,7 +45,8 @@ async function getUserNameFromToken (req: Request): Promise<string | undefined> 
   return user?.username ?? undefined
 }
 
-function buildSystemPrompt (userName?: string) {
+// vuln-code-snippet start chatbotGreedyInjectionChallenge
+function buildSystemPrompt (userName?: string) { // vuln-code-snippet neutral-line chatbotGreedyInjectionChallenge
   const userIdentifier = userName ? `\nThe customer you are currently chatting with is ${userName}.` : ''
   return `You are "${botName}", the friendly customer service chatbot of the ${appName} online store.
 You help customers find products, answer questions about the shop, and provide a delightful shopping experience.
@@ -101,9 +102,9 @@ const chatTools = {
 
   // vuln-code-snippet start chatbotPromptInjectionChallenge
   generateCoupon: tool({
-    description: 'Generate a discount coupon for a customer. Only use this when the coupon policy conditions are fully met.', // vuln-code-snippet neutral-line chatbotPromptInjectionChallenge
+    description: 'Generate a discount coupon for a customer. Only use this when the coupon policy conditions are fully met.', // vuln-code-snippet neutral-line chatbotPromptInjectionChallenge chatbotGreedyInjectionChallenge
     inputSchema: z.object({
-      discount: z.number().describe('The discount percentage for the coupon (maximum 10)') // vuln-code-snippet vuln-line chatbotPromptInjectionChallenge
+      discount: z.number().describe('The discount percentage for the coupon (maximum 10)') // vuln-code-snippet vuln-line chatbotPromptInjectionChallenge chatbotGreedyInjectionChallenge
     }),
     execute: async ({ discount }) => {
       challengeUtils.solveIf(challenges.chatbotPromptInjectionChallenge, () => discount >= 10) // vuln-code-snippet hide-line
@@ -112,8 +113,7 @@ const chatTools = {
       return { couponCode, discount } // vuln-code-snippet neutral-line chatbotPromptInjectionChallenge
     }
   })
-  // vuln-code-snippet end chatbotPromptInjectionChallenge
-}
+} // vuln-code-snippet end chatbotGreedyInjectionChallenge chatbotPromptInjectionChallenge
 
 export function chat () {
   return async (req: Request, res: Response) => {
