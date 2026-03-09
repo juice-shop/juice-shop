@@ -5,10 +5,11 @@
 
 import chai from 'chai'
 import net from 'node:net'
+import sinon from 'sinon'
 import semver from 'semver'
 import sinonChai from 'sinon-chai'
 import { engines as supportedEngines } from './../../package.json'
-import { checkIfRunningOnSupportedNodeVersion, checkIfPortIsAvailable, checkIfEnvironmentVariableExists } from '../../lib/startup/validatePreconditions'
+import { checkIfRunningOnSupportedNodeVersion, checkIfPortIsAvailable, checkIfEnvironmentVariableExists, isOllamaUrl, checkIfOllamaModelAvailable } from '../../lib/startup/validatePreconditions'
 
 const expect = chai.expect
 chai.use(sinonChai)
@@ -90,6 +91,93 @@ describe('preconditionValidation', () => {
 
     it('should return true if a non-existing environment variable is checked', () => {
       expect(checkIfEnvironmentVariableExists('NON_EXISTING_VAR')).to.equal(true)
+    })
+  })
+
+  describe('isOllamaUrl', () => {
+    it('should detect URL with Ollama default port 11434', () => {
+      expect(isOllamaUrl('http://localhost:11434/v1')).to.equal(true)
+      expect(isOllamaUrl('http://127.0.0.1:11434/v1')).to.equal(true)
+      expect(isOllamaUrl('https://myserver.example.com:11434/v1')).to.equal(true)
+    })
+
+    it('should detect URL with ollama hostname', () => {
+      expect(isOllamaUrl('http://ollama:11434/v1')).to.equal(true)
+      expect(isOllamaUrl('http://ollama/v1')).to.equal(true)
+    })
+
+    it('should detect URL with /ollama path prefix', () => {
+      expect(isOllamaUrl('http://myserver.example.com/ollama/v1')).to.equal(true)
+    })
+
+    it('should not flag non-Ollama URLs', () => {
+      expect(isOllamaUrl('http://localhost:8080/v1')).to.equal(false)
+      expect(isOllamaUrl('https://api.openai.com/v1')).to.equal(false)
+    })
+
+    it('should handle invalid URLs gracefully', () => {
+      expect(isOllamaUrl('not-a-url')).to.equal(false)
+      expect(isOllamaUrl('')).to.equal(false)
+    })
+  })
+
+  describe('checkIfOllamaModelAvailable', () => {
+    let fetchStub: sinon.SinonStub
+
+    beforeEach(() => {
+      fetchStub = sinon.stub(global, 'fetch')
+    })
+
+    afterEach(() => {
+      fetchStub.restore()
+    })
+
+    it('should succeed when model is listed in Ollama response', async () => {
+      fetchStub.resolves({
+        ok: true,
+        json: async () => ({ data: [{ id: 'qwen3.5:9b' }, { id: 'llama3:8b' }] })
+      })
+      await checkIfOllamaModelAvailable('http://localhost:11434/v1')
+      expect(fetchStub.calledOnce).to.equal(true)
+    })
+
+    it('should warn when configured model tag does not match pulled model tag', async () => {
+      fetchStub.resolves({
+        ok: true,
+        json: async () => ({ data: [{ id: 'qwen3.5:9b-q4' }] })
+      })
+      await checkIfOllamaModelAvailable('http://localhost:11434/v1')
+      expect(fetchStub.calledOnce).to.equal(true)
+    })
+
+    it('should warn when model is not in the available list', async () => {
+      fetchStub.resolves({
+        ok: true,
+        json: async () => ({ data: [{ id: 'llama3:8b' }, { id: 'mistral:7b' }] })
+      })
+      await checkIfOllamaModelAvailable('http://localhost:11434/v1')
+      expect(fetchStub.calledOnce).to.equal(true)
+    })
+
+    it('should handle empty model list', async () => {
+      fetchStub.resolves({
+        ok: true,
+        json: async () => ({ data: [] })
+      })
+      await checkIfOllamaModelAvailable('http://localhost:11434/v1')
+      expect(fetchStub.calledOnce).to.equal(true)
+    })
+
+    it('should handle non-ok response gracefully', async () => {
+      fetchStub.resolves({ ok: false, status: 500 })
+      await checkIfOllamaModelAvailable('http://localhost:11434/v1')
+      expect(fetchStub.calledOnce).to.equal(true)
+    })
+
+    it('should handle fetch error gracefully', async () => {
+      fetchStub.rejects(new Error('Connection refused'))
+      await checkIfOllamaModelAvailable('http://localhost:11434/v1')
+      expect(fetchStub.calledOnce).to.equal(true)
     })
   })
 })
