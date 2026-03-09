@@ -12,6 +12,7 @@
 }
 
 .product {
+  touch-action: pan-y;
   overflow: hidden;
   position: relative;
   display: flex;
