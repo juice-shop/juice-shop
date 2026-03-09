@@ -1,0 +1,7 @@
+repos:
+  - repo: https://github.com/semgrep/pre-commit
+    rev: "v1.150.0"
+    hooks:
+      - id: semgrep
+        name: Semgrep SAST
+        args: ["--config", "p/default", "--error", "--skip-unknown-extensions"]
