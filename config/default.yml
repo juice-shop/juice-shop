@@ -17,7 +17,6 @@ application:
   customMetricsPrefix: juiceshop
   chatBot:
     name: 'Juicy'
-    greeting: "Nice to meet you <customer-name>, I'm <bot-name>"
     avatar: 'JuicyChatBot.png'
     model: 'qwen3.5:9b'
     llmApiUrl: 'http://localhost:11434/v1'

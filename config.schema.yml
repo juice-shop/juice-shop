@@ -33,8 +33,6 @@ application:
   chatBot:
     name:
       type: string
-    greeting:
-      type: string
     avatar:
       type: string
     model:

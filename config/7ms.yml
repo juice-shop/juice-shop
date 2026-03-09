@@ -10,7 +10,6 @@ application:
   customMetricsPrefix: sevenminsec
   chatBot:
     name: 'Brian'
-    greeting: "Hi <customer-name>, it's me, your friend and pal <bot-name>!"
     avatar: 'https://images.squarespace-cdn.com/content/v1/59f9e1c4d0e6281017434039/94c89793-630d-41a4-9976-91fef527f8d0/BrianJohnson-headshot-2022-2-small.png?format=500w'
   social:
     blueSkyUrl: null
