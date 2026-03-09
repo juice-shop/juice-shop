@@ -6,7 +6,6 @@
 import sinon from 'sinon'
 import chai from 'chai'
 import sinonChai from 'sinon-chai'
-import config from 'config'
 import { retrieveAppConfiguration } from '../../routes/appConfiguration'
 const expect = chai.expect
 chai.use(sinonChai)
@@ -20,6 +19,21 @@ describe('appConfiguration', () => {
     res = { json: sinon.spy() }
 
     retrieveAppConfiguration()(req, res)
-    expect(res.json).to.have.been.calledWith({ config })
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    expect(res.json).to.have.been.calledOnce
+    const returnedConfig = res.json.firstCall.args[0].config
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    expect(returnedConfig.application).to.exist
+  })
+
+  it('should not expose chatBot.llmApiUrl', () => {
+    req = {}
+    res = { json: sinon.spy() }
+
+    retrieveAppConfiguration()(req, res)
+    const returnedConfig = res.json.firstCall.args[0].config
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    expect(returnedConfig.application.chatBot).to.exist
+    expect(returnedConfig.application.chatBot).to.not.have.property('llmApiUrl')
   })
 })
