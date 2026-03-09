@@ -38,18 +38,18 @@ describe('ChatWelcomeScreenComponent', () => {
 
   it('should render the welcome title', () => {
     const title = fixture.nativeElement.querySelector('.welcome-title')
-    expect(title.textContent).toContain('JuiceShop Assistant')
+    expect(title.textContent).toContain('CHATBOT_TITLE')
   })
 
   it('should render the welcome subtitle', () => {
     const subtitle = fixture.nativeElement.querySelector('.welcome-subtitle')
-    expect(subtitle.textContent).toContain('Delivering juice one token at a time')
+    expect(subtitle.textContent).toContain('CHATBOT_SUBTITLE')
   })
 
   it('should render the JuicyBot avatar', () => {
     const avatar = fixture.nativeElement.querySelector('.welcome-avatar')
     expect(avatar).toBeTruthy()
-    expect(avatar.getAttribute('alt')).toBe('JuicyBot')
+    expect(avatar.getAttribute('alt')).toBe('CHATBOT_AVATAR_ALT')
   })
 
   it('should render suggestion chips', () => {
