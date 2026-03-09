@@ -64,7 +64,7 @@ For any code changes Claude helps with:
   ```bash
   npm test                    # Unit tests
   npm run frisby              # API integration tests
-  npm start & npm run cypress:open  # E2E tests
+  npm start & npm run cypress:run  # E2E tests
   npm run rsn                 # Refactoring Safety Net (for code changes impacting coding challenge snippets)
   ```
 

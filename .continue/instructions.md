@@ -60,7 +60,7 @@ The following context is provided to help Continue.dev better assist with contri
 Before suggesting code or accepting Continue suggestions, ensure:
 
 - ESLint compliance: `npm run lint`
-- Tests pass: `npm test`, `npm run frisby`, `npm run cypress:open`
+- Tests pass: `npm test`, `npm run frisby`, `npm run cypress:run`
 - RSN passes (if modifying challenge-related code): `npm run rsn`
 - Code follows JS Standard Style
 - AI-generated noise is removed (see [CLAUDE.md](../.claude/CLAUDE.mdLAUDE.md#1-clean-up-ai-generated-noise))
