@@ -18,6 +18,14 @@
   flex-shrink: 0;
 }
 
+.back-link {
+  display: flex;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .header-avatar {
   width: 28px;
   height: 28px;
