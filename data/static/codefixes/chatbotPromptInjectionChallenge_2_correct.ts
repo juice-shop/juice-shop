@@ -1,16 +1,4 @@
-lookupMyOrderStatus: tool({
-    description: 'Look up the status of an order for the currently logged-in customer.',
-    inputSchema: z.object({
-      orderId: z.string().describe('The order ID to look up (format: xxxx-xxxxxxxxxxxxxxxx)')
-    }),
-    execute: async ({ orderId }) => {
-      const order = await OrderModel.findOne({ where: { orderId, UserId: loggedInUserId } })
-      if (!order) return { error: 'Order not found or does not belong to you.' }
-      return { orderId: order.orderId, status: order.status, damaged: order.damaged }
-    }
-  }),
-
-  generateCoupon: tool({
+generateCoupon: tool({
     description: 'Generate a discount coupon for a customer with a verified damaged order. Requires a valid order ID.',
     inputSchema: z.object({
       discount: z.number().describe('The discount percentage for the coupon (maximum 10)'),
@@ -23,3 +11,16 @@ lookupMyOrderStatus: tool({
       return { couponCode, discount }
     }
   })
+
+  lookupMyOrderStatus: tool({
+    description: 'Look up the status of an order for the currently logged-in customer.',
+    inputSchema: z.object({
+      orderId: z.string().describe('The order ID to look up (format: xxxx-xxxxxxxxxxxxxxxx)')
+    }),
+    execute: async ({ orderId }) => {
+      const order = await OrderModel.findOne({ where: { orderId, UserId: loggedInUserId } })
+      if (!order) return { error: 'Order not found or does not belong to you.' }
+      return { orderId: order.orderId, status: order.status, damaged: order.damaged }
+    }
+  }),
+}
