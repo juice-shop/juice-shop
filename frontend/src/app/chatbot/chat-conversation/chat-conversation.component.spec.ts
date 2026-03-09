@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router'
 import { ChatConversationComponent } from './chat-conversation.component'
 import { ChatService } from '../../Services/chat.service'
 import { ConversationStorageService } from '../../Services/conversation-storage.service'
+import { ChatInputBoxComponent } from '../chat-input-box/chat-input-box.component'
 
 describe('ChatConversationComponent', () => {
   let component: ChatConversationComponent
@@ -153,5 +154,37 @@ describe('ChatConversationComponent', () => {
 
     expect(component.messages().length).toBe(2)
     expect(component.messages()[0].content).toBe('Hi')
+  })
+
+  it('should focus chat input after sending a message', async () => {
+    async function * emptyStream () {}
+    chatService.streamMessages.and.returnValue(emptyStream())
+
+    const chatInputDebug = fixture.debugElement.query(
+      (de) => de.componentInstance instanceof ChatInputBoxComponent
+    )
+    const chatInputComponent = chatInputDebug.componentInstance as ChatInputBoxComponent
+    spyOn(chatInputComponent, 'focus')
+
+    await component.sendMessage('Hello')
+
+    expect(chatInputComponent.focus).toHaveBeenCalled()
+  })
+
+  it('should refocus chat input after stream completes', async () => {
+    async function * contentStream () {
+      yield { deltaContent: 'Hi there' }
+    }
+    chatService.streamMessages.and.returnValue(contentStream())
+
+    const chatInputDebug = fixture.debugElement.query(
+      (de) => de.componentInstance instanceof ChatInputBoxComponent
+    )
+    const chatInputComponent = chatInputDebug.componentInstance as ChatInputBoxComponent
+    spyOn(chatInputComponent, 'focus')
+
+    await component.sendMessage('Hello')
+
+    expect(chatInputComponent.focus).toHaveBeenCalledTimes(2)
   })
 })

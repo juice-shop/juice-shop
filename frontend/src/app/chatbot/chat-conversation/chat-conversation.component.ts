@@ -34,6 +34,7 @@ export class ChatConversationComponent implements OnInit {
   private readonly router = inject(Router)
   private readonly injector = inject(Injector)
   private readonly chatWindow = viewChild<ElementRef<HTMLDivElement>>('chatWindow')
+  private readonly chatInput = viewChild(ChatInputBoxComponent)
 
   messages = signal<ChatMessage[]>([])
   isLoading = signal(false)
@@ -103,6 +104,7 @@ export class ChatConversationComponent implements OnInit {
     this.messageInput.set('')
     this.isLoading.set(true)
     this.scrollToBottom()
+    this.chatInput()?.focus()
 
     const assistantIndex = this.messages().length
     this.messages.update(prev => [...prev, { role: 'assistant', content: '' }])
@@ -150,6 +152,7 @@ export class ChatConversationComponent implements OnInit {
       this.scrollToBottom()
     }
     this.isLoading.set(false)
+    this.chatInput()?.focus()
     this.persistConversation()
   }
 }
