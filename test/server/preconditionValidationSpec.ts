@@ -8,7 +8,7 @@ import net from 'node:net'
 import semver from 'semver'
 import sinonChai from 'sinon-chai'
 import { engines as supportedEngines } from './../../package.json'
-import { checkIfRunningOnSupportedNodeVersion, checkIfPortIsAvailable } from '../../lib/startup/validatePreconditions'
+import { checkIfRunningOnSupportedNodeVersion, checkIfPortIsAvailable, checkIfEnvironmentVariableExists } from '../../lib/startup/validatePreconditions'
 
 const expect = chai.expect
 chai.use(sinonChai)
@@ -69,6 +69,27 @@ describe('preconditionValidation', () => {
       after((done) => {
         testServer.close(done)
       })
+    })
+  })
+
+  describe('checkIfEnvironmentVariableExists', () => {
+    const originalEnv = process.env.ALCHEMY_API_KEY
+    after(() => {
+      process.env.ALCHEMY_API_KEY = originalEnv
+    })
+
+    it('should return true if environment variable is present', () => {
+      process.env.ALCHEMY_API_KEY = 'test-key'
+      expect(checkIfEnvironmentVariableExists('ALCHEMY_API_KEY')).to.equal(true)
+    })
+
+    it('should return true if environment variable is not present', () => {
+      delete process.env.ALCHEMY_API_KEY
+      expect(checkIfEnvironmentVariableExists('ALCHEMY_API_KEY')).to.equal(true)
+    })
+
+    it('should return true if a non-existing environment variable is checked', () => {
+      expect(checkIfEnvironmentVariableExists('NON_EXISTING_VAR')).to.equal(true)
     })
   })
 })

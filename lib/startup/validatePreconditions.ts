@@ -15,6 +15,10 @@ import portscanner from 'portscanner'
 // @ts-expect-error FIXME due to non-existing type definitions for check-internet-connected
 import checkInternetConnected from 'check-internet-connected'
 
+const variableDependencies = {
+  ALCHEMY_API_KEY: ['"Mint the Honeypot" challenge', '"Wallet Depletion" challenge']
+}
+
 const domainDependencies = {
   'https://www.alchemy.com/': ['"Mint the Honeypot" challenge', '"Wallet Depletion" challenge']
 }
@@ -33,7 +37,8 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
     checkIfRequiredFileExists('frontend/dist/frontend/polyfills.js'),
     checkIfRequiredFilePatternExists('frontend/dist/frontend', /^hacking-instructor-.+\.js$/),
     checkIfPortIsAvailable(process.env.PORT ?? config.get<number>('server.port')),
-    checkIfDomainReachable('https://www.alchemy.com/')
+    checkIfDomainReachable('https://www.alchemy.com/'),
+    checkIfEnvironmentVariableExists('ALCHEMY_API_KEY')
   ])).every(condition => condition)
 
   if ((!success || !asyncConditions) && exitOnFailure) {
@@ -78,6 +83,22 @@ export const checkIfRunningOnSupportedCPU = (runningArch: string) => {
   return true
 }
 
+export const checkIfEnvironmentVariableExists = (varName: string) => {
+  if (process.env[varName]) {
+    logger.info(`Environment variable ${colors.bold(varName)} is present (${colors.green('OK')})`)
+    return true
+  }
+  logger.warn(`Environment variable ${colors.bold(varName)} is not present (${colors.yellow('NOT OK')})`)
+  // @ts-expect-error FIXME Type problem by accessing key via variable
+  if (variableDependencies[varName]) {
+    // @ts-expect-error FIXME Type problem by accessing key via variable
+    variableDependencies[varName].forEach((dependency: string) => {
+      logger.warn(`${colors.italic(dependency)} will not work as intended without a valid ${colors.bold(varName)}`)
+    })
+  }
+  return true
+}
+
 export const checkIfDomainReachable = async (domain: string) => {
   return checkInternetConnected({ domain })
     .then(() => {
@@ -85,7 +106,7 @@ export const checkIfDomainReachable = async (domain: string) => {
       return true
     })
     .catch(() => {
-      logger.warn(`Domain ${colors.bold(domain)} is not reachable (${colors.yellow('NOT OK')} in a future major release)`)
+      logger.warn(`Domain ${colors.bold(domain)} is not reachable (${colors.yellow('NOT OK')})`)
       // @ts-expect-error FIXME Type problem by accessing key via variable
       domainDependencies[domain].forEach((dependency: string) => {
         logger.warn(`${colors.italic(dependency)} will not work as intended without access to ${colors.bold(domain)}`)

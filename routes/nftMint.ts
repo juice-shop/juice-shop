@@ -13,7 +13,7 @@ let isEventListenerCreated = false
 export function nftMintListener () {
   return async (req: Request, res: Response) => {
     try {
-      const provider = new WebSocketProvider('wss://eth-sepolia.g.alchemy.com/v2/FZDapFZSs1l6yhHW4VnQqsi18qSd-3GJ')
+      const provider = new WebSocketProvider(`wss://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY ?? ''}`)
       const contract = new Contract(nftAddress, nftABI, provider)
       if (!isEventListenerCreated) {
         void contract.on('NFTMinted', (minter: string) => {
