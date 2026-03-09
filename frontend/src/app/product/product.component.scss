@@ -18,6 +18,7 @@
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  touch-action: pan-y; // allow vertical swipe-scrolling on mobile (#3148)
 }
 
 .info-box {
