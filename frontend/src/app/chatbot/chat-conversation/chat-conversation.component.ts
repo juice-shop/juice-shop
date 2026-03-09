@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { TranslateModule } from '@ngx-translate/core'
 import { ChatService } from '../../Services/chat.service'
 import { ConversationStorageService } from '../../Services/conversation-storage.service'
+import { ConfigurationService } from '../../Services/configuration.service'
 import { ChatInputBoxComponent } from '../chat-input-box/chat-input-box.component'
 import { type ChatMessage, type StoredConversation } from '../chat.model'
 
@@ -28,6 +29,7 @@ import { type ChatMessage, type StoredConversation } from '../chat.model'
 export class ChatConversationComponent implements OnInit {
   private readonly chatService = inject(ChatService)
   private readonly conversationStorage = inject(ConversationStorageService)
+  private readonly configurationService = inject(ConfigurationService)
   private readonly route = inject(ActivatedRoute)
   private readonly router = inject(Router)
   private readonly injector = inject(Injector)
@@ -36,10 +38,24 @@ export class ChatConversationComponent implements OnInit {
   messages = signal<ChatMessage[]>([])
   isLoading = signal(false)
   messageInput = signal('')
+  chatBotName = signal('Juicy')
+  chatBotAvatar = signal('assets/public/images/JuicyBot.png')
 
   private conversationId = ''
 
   ngOnInit () {
+    this.configurationService.getApplicationConfiguration().subscribe({
+      next: (config) => {
+        if (config?.application?.chatBot?.name) {
+          this.chatBotName.set(config.application.chatBot.name)
+        }
+        if (config?.application?.chatBot?.avatar) {
+          this.chatBotAvatar.set('assets/public/images/' + config.application.chatBot.avatar)
+        }
+      },
+      error: (err) => { console.log(err) }
+    })
+
     this.conversationId = this.route.snapshot.params['id']
     const existing = this.conversationStorage.getById(this.conversationId)
     if (existing) {

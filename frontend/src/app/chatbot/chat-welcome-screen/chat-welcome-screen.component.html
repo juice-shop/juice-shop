@@ -1,7 +1,11 @@
 <div class="welcome-screen">
   <div class="welcome-branding">
-    <img src="assets/public/images/JuicyBot.png" [alt]="'CHATBOT_AVATAR_ALT' | translate" class="welcome-avatar" />
-    <h1 class="welcome-title" translate>CHATBOT_TITLE</h1>
+    <img [src]="chatBotAvatar()" [alt]="'CHATBOT_AVATAR_ALT' | translate" class="welcome-avatar" />
+    @if (chatBotName()) {
+      <h1 class="welcome-title">{{ chatBotName() }}</h1>
+    } @else {
+      <h1 class="welcome-title" translate>CHATBOT_TITLE</h1>
+    }
     <p class="welcome-subtitle" translate>CHATBOT_SUBTITLE</p>
   </div>
 
