@@ -128,6 +128,7 @@ jobs:
         uses: nick-invision/retry@7152eba30c6575329ac0576536151aca5a72780e #v3.0.0
         env:
           NODE_ENV: test
+          ALCHEMY_API_KEY: ${{ secrets.ALCHEMY_API_KEY }}
         with:
           timeout_minutes: 5
           max_attempts: 3

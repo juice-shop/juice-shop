@@ -7,9 +7,9 @@ import * as frisby from 'frisby'
 import { Joi } from 'frisby'
 
 const REST_URL = 'http://localhost:3000/rest/web3'
+const describeIfAlchemyApiKeyExists = process.env.ALCHEMY_API_KEY ? describe : describe.skip
 
-// todo: disabled as they always cause 429 errors on CI due to rate limiting from the blockchainy thing they try to connect to via websocket
-describe.skip('/submitKey', () => {
+describeIfAlchemyApiKeyExists('/submitKey', () => {
   it('POST missing key in request body gets rejected as non-Ethereum key', () => {
     return frisby.post(REST_URL + '/submitKey')
       .expect('status', 401)
@@ -69,8 +69,7 @@ describe.skip('/submitKey', () => {
   })
 })
 
-// todo: disabled as they always cause 429 errors on CI due to rate limiting from the blockchainy thing they try to connect to via websocket
-describe.skip('/nftUnlocked', () => {
+describeIfAlchemyApiKeyExists('/nftUnlocked', () => {
   it('GET solution status of "Unlock NFT" challenge', () => {
     return frisby.get(REST_URL + '/nftUnlocked')
       .expect('status', 200)
@@ -81,8 +80,7 @@ describe.skip('/nftUnlocked', () => {
   })
 })
 
-// todo: disabled as they always cause 429 errors on CI due to rate limiting from the blockchainy thing they try to connect to via websocket
-describe.skip('/nftMintListen', () => {
+describeIfAlchemyApiKeyExists('/nftMintListen', () => {
   it('GET call confirms registration of event listener', () => {
     return frisby.get(REST_URL + '/nftMintListen')
       .expect('status', 200)
@@ -94,8 +92,7 @@ describe.skip('/nftMintListen', () => {
   })
 })
 
-// todo: disabled as they always cause 429 errors on CI due to rate limiting from the blockchainy thing they try to connect to via websocket
-describe.skip('/walletNFTVerify', () => {
+describeIfAlchemyApiKeyExists('/walletNFTVerify', () => {
   it('POST missing wallet address fails to solve minting challenge', () => {
     return frisby.post(REST_URL + '/walletNFTVerify')
       .expect('status', 200)
@@ -119,8 +116,7 @@ describe.skip('/walletNFTVerify', () => {
   })
 })
 
-// todo: disabled as they always cause 429 errors on CI due to rate limiting from the blockchainy thing they try to connect to via websocket
-describe.skip('/walletExploitAddress', () => {
+describeIfAlchemyApiKeyExists('/walletExploitAddress', () => {
   it('POST missing wallet address in request body still leads to success notification', () => {
     return frisby.post(REST_URL + '/walletExploitAddress')
       .expect('status', 200)
