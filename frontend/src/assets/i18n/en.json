@@ -489,5 +489,6 @@
   "CHATBOT_SUGGESTION_HELP": "Get help",
   "CHATBOT_PROMPT_HELP": "I need help with my order",
   "CHATBOT_RECENT_CONVERSATIONS": "Recent conversations",
-  "CHATBOT_DELETE_CONVERSATION": "Delete conversation"
+  "CHATBOT_DELETE_CONVERSATION": "Delete conversation",
+  "CHATBOT_ERROR_LLM_UNREACHABLE": "Oops! Looks like our AI brain is taking a juice break. The AI endpoint is not configured or reachable. Please talk to the shop administrator to get it back on track!"
 }
