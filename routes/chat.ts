@@ -105,75 +105,6 @@ function createOpenAIClient (): OpenAI {
   })
 }
 
-interface StreamRoundResult {
-  accumulatedContent: string
-  reasoningContent: string
-  foundToolCall: boolean
-  validToolCalls: Array<{ id: string, name: string, args: string }>
-  finishReason: string | null
-}
-
-async function processStreamRound (
-  client: OpenAI,
-  currentMessages: ChatCompletionMessageParam[],
-  model: string,
-  res: Response
-): Promise<StreamRoundResult> {
-  const stream = await client.chat.completions.create({
-    model,
-    messages: currentMessages,
-    tools: [SEARCH_PRODUCTS_TOOL, GENERATE_COUPON_TOOL],
-    stream: true
-  })
-
-  const toolCalls = new Map<number, { id: string, name: string, args: string }>()
-  let foundToolCall = false
-  let accumulatedContent = ''
-  let reasoningContent = ''
-  let lastFinishReason: string | null = null
-
-  for await (const chunk of stream) {
-    const delta = chunk.choices?.[0]?.delta
-    const finishReason = chunk.choices?.[0]?.finish_reason
-
-    // Capture reasoning/thinking content from various provider formats
-    const deltaAny = delta as Record<string, unknown> | undefined
-    if (deltaAny?.reasoning_content != null) {
-      reasoningContent += String(deltaAny.reasoning_content)
-    } else if (deltaAny?.thinking != null) {
-      reasoningContent += String(deltaAny.thinking)
-    }
-
-    if (delta?.tool_calls != null) {
-      foundToolCall = true
-      for (const tc of delta.tool_calls) {
-        const idx = tc.index ?? 0
-        if (!toolCalls.has(idx)) {
-          toolCalls.set(idx, { id: '', name: '', args: '' })
-        }
-        const entry = toolCalls.get(idx)
-        if (entry == null) continue
-        if (tc.id) entry.id = tc.id
-        if (tc.function?.name) entry.name = tc.function.name
-        if (tc.function?.arguments) entry.args += tc.function.arguments
-      }
-    } else if (delta?.content) {
-      accumulatedContent += delta.content
-      res.write(`data: ${JSON.stringify(chunk)}\n\n`)
-    }
-
-    if (finishReason != null) {
-      lastFinishReason = finishReason
-      if (finishReason === 'stop') {
-        res.write(`data: ${JSON.stringify(chunk)}\n\n`)
-      }
-    }
-  }
-
-  const validToolCalls = [...toolCalls.values()].filter(tc => tc.name === 'searchProducts' || tc.name === 'generateCoupon')
-  return { accumulatedContent, reasoningContent, foundToolCall, validToolCalls, finishReason: lastFinishReason }
-}
-
 async function streamToClient (
   client: OpenAI,
   messages: ChatCompletionMessageParam[],
@@ -185,22 +116,74 @@ async function streamToClient (
   let currentMessages = messages
 
   for (let round = 0; round <= maxToolRounds; round++) {
-    let result: StreamRoundResult | null = null
+    let accumulatedContent = ''
+    let reasoningContent = ''
+    let foundToolCall = false
+    let validToolCalls: Array<{ id: string, name: string, args: string }> = []
+    let lastFinishReason: string | null = null
 
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
-      result = await processStreamRound(client, currentMessages, model, res)
+      const stream = await client.chat.completions.create({
+        model,
+        messages: currentMessages,
+        tools: [SEARCH_PRODUCTS_TOOL, GENERATE_COUPON_TOOL],
+        stream: true
+      })
 
-      const hasContent = result.accumulatedContent.trim().length > 0
-      const hasToolCalls = result.foundToolCall && result.validToolCalls.length > 0
+      const toolCalls = new Map<number, { id: string, name: string, args: string }>()
+      foundToolCall = false
+      accumulatedContent = ''
+      reasoningContent = ''
+      lastFinishReason = null
 
-      if (hasContent || hasToolCalls) {
+      for await (const chunk of stream) {
+        const delta = chunk.choices?.[0]?.delta
+        const finishReason = chunk.choices?.[0]?.finish_reason
+
+        // Capture reasoning/thinking content from various local model formats
+        const deltaAny = delta as Record<string, unknown> | undefined
+        if (deltaAny?.reasoning_content != null) {
+          reasoningContent += String(deltaAny.reasoning_content)
+        } else if (deltaAny?.thinking != null) {
+          reasoningContent += String(deltaAny.thinking)
+        }
+
+        if (delta?.tool_calls) {
+          foundToolCall = true
+          for (const tc of delta.tool_calls) {
+            const idx = tc.index ?? 0
+            if (!toolCalls.has(idx)) {
+              toolCalls.set(idx, { id: '', name: '', args: '' })
+            }
+            const entry = toolCalls.get(idx)
+            if (entry == null) continue
+            if (tc.id) entry.id = tc.id
+            if (tc.function?.name) entry.name = tc.function.name
+            if (tc.function?.arguments) entry.args += tc.function.arguments
+          }
+        } else if (delta?.content) {
+          accumulatedContent += delta.content
+          res.write(`data: ${JSON.stringify(chunk)}\n\n`)
+        }
+
+        if (finishReason === 'stop') {
+          lastFinishReason = finishReason
+          res.write(`data: ${JSON.stringify(chunk)}\n\n`)
+        } else if (finishReason != null) {
+          lastFinishReason = finishReason
+        }
+      }
+
+      validToolCalls = [...toolCalls.values()].filter(tc => tc.name === 'searchProducts' || tc.name === 'generateCoupon')
+
+      const hasOutput = accumulatedContent.trim().length > 0 || (foundToolCall && validToolCalls.length > 0)
+      if (hasOutput) {
         break
       }
 
-      // Empty response - log debug info
-      logger.warn(`Chatbot LLM returned empty response (attempt ${attempt}/${maxRetries}, round ${round}, finish_reason=${result.finishReason ?? 'none'})`)
-      if (result.reasoningContent.length > 0) {
-        logger.warn(`Chatbot LLM reasoning/thinking content was present but no output was generated: ${result.reasoningContent.substring(0, 500)}`)
+      logger.warn(`Chatbot LLM returned empty response (attempt ${attempt}/${maxRetries}, round ${round}, finish_reason=${lastFinishReason ?? 'none'})`)
+      if (reasoningContent.length > 0) {
+        logger.warn(`Chatbot LLM had reasoning/thinking content but produced no output: ${reasoningContent.substring(0, 500)}`)
       }
 
       if (attempt < maxRetries) {
@@ -210,13 +193,11 @@ async function streamToClient (
       }
     }
 
-    if (result == null) break
-
-    if (!result.foundToolCall || result.validToolCalls.length === 0 || round === maxToolRounds) {
+    if (!foundToolCall || validToolCalls.length === 0 || round === maxToolRounds) {
       break
     }
 
-    const assistantToolCalls = result.validToolCalls.map(tc => ({
+    const assistantToolCalls = validToolCalls.map(tc => ({
       id: tc.id,
       type: 'function' as const,
       function: { name: tc.name, arguments: tc.args }
@@ -225,7 +206,7 @@ async function streamToClient (
     res.write(`data: ${JSON.stringify({ choices: [{ delta: { tool_calls: assistantToolCalls } }] })}\n\n`)
 
     const toolResults: ChatCompletionMessageParam[] = []
-    for (const tc of result.validToolCalls) {
+    for (const tc of validToolCalls) {
       const args = JSON.parse(tc.args)
       let toolResult: string
       if (tc.name === 'generateCoupon') {
@@ -244,7 +225,7 @@ async function streamToClient (
       ...currentMessages,
       {
         role: 'assistant' as const,
-        content: result.accumulatedContent !== '' ? result.accumulatedContent : null,
+        content: accumulatedContent || null,
         tool_calls: assistantToolCalls
       },
       ...toolResults
@@ -264,7 +245,7 @@ export function chat () {
     res.flushHeaders()
 
     const fullMessages: ChatCompletionMessageParam[] = [
-      { role: 'system', content: SYSTEM_PROMPT },
+      { role: 'user', content: SYSTEM_PROMPT },
       ...messages
     ]
 
