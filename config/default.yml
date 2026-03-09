@@ -16,7 +16,7 @@ application:
   privacyContactEmail: donotreply@owasp-juice.shop
   customMetricsPrefix: juiceshop
   chatBot:
-    name: 'Juicy'
+    name: 'Juicy the Smart Assistant'
     avatar: 'JuicyChatBot.png'
     model: 'qwen3.5:9b'
     llmApiUrl: 'http://localhost:11434/v1'

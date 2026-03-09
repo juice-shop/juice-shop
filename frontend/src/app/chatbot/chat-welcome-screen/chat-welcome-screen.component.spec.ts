@@ -38,7 +38,7 @@ describe('ChatWelcomeScreenComponent', () => {
 
   it('should render the welcome title', () => {
     const title = fixture.nativeElement.querySelector('.welcome-title')
-    expect(title.textContent).toContain('CHATBOT_TITLE')
+    expect(title.textContent).toContain('Juicy')
   })
 
   it('should render the welcome subtitle', () => {
