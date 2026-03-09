@@ -4,7 +4,7 @@
  */
 
 import { Component, ChangeDetectionStrategy, signal, viewChild, ElementRef, afterNextRender, inject, Injector, runInInjectionContext, OnInit } from '@angular/core'
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute, Router, RouterLink } from '@angular/router'
 import { MatIconModule } from '@angular/material/icon'
 import { TranslateModule } from '@ngx-translate/core'
 import { ChatService } from '../../Services/chat.service'
@@ -21,7 +21,8 @@ import { type ChatMessage, type StoredConversation } from '../chat.model'
   imports: [
     MatIconModule,
     ChatInputBoxComponent,
-    TranslateModule
+    TranslateModule,
+    RouterLink
   ]
 })
 export class ChatConversationComponent implements OnInit {
