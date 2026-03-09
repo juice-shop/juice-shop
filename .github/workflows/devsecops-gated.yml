@@ -47,8 +47,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-${{ env.NODE_VERSION }}-npm-
 
+      - name: Ensure clean dependency state
+        run: rm -rf node_modules frontend/node_modules
+
       - name: Install dependencies
         run: npm install --prefer-offline --no-audit --progress=false
+
+      - name: Rebuild libxmljs2 native bindings
+        run: npm rebuild libxmljs2 --build-from-source
 
       - name: Lint
         run: npm run lint
