@@ -46,6 +46,8 @@
   "SECTION_CORPORATE_HISTORY": "Firmengeschichte und Grundsätze",
   "SECTION_CUSTOMER_FEEDBACK": "Kundenfeedback",
   "SECTION_SUPPORT_CHAT": "Support-Chat",
+  "SECTION_AI_CHAT": "KI Chat",
+  "TAG_IMPROVED": "Verbessert",
   "LABEL_POWERED_BY_CHATBOT": "betrieben von {{chatbot}}",
   "ASK_ME_ANYTHING_PLACEHOLDER": "Frag mich irgendetwas",
   "SECTION_SOCIAL_MEDIA": "Folge uns in den Sozialen Medien",
