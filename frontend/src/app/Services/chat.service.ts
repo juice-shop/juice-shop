@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Injectable } from '@angular/core'
+import { Injectable, inject } from '@angular/core'
+import { HttpClient, type HttpDownloadProgressEvent, HttpEventType } from '@angular/common/http'
 import { environment } from '../../environments/environment'
 
 export interface ChatChunk {
@@ -22,47 +23,71 @@ export interface ToolCall {
   providedIn: 'root'
 })
 export class ChatService {
+  private readonly http = inject(HttpClient)
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/rest/chat'
 
   async * streamMessages (messages: { role: string, content: string }[]): AsyncGenerator<ChatChunk> {
-    const response = await fetch(this.host, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages })
+    const chunks: ChatChunk[] = []
+    let resolve: (() => void) | null = null
+    let done = false
+    let processedLength = 0
+
+    this.http.post(this.host, { messages }, {
+      responseType: 'text',
+      observe: 'events',
+      reportProgress: true
+    }).subscribe({
+      next: (event) => {
+        if (event.type === HttpEventType.DownloadProgress) {
+          const text = (event as HttpDownloadProgressEvent).partialText ?? ''
+          const newText = text.slice(processedLength)
+          processedLength = text.length
+
+          const lines = newText.split('\n')
+          for (const line of lines) {
+            const trimmed = line.trim()
+            if (!trimmed || !trimmed.startsWith('data: ')) continue
+            const data = trimmed.slice(6)
+            if (data === '[DONE]') {
+              done = true
+              resolve?.()
+              return
+            }
+
+            const parsed = JSON.parse(data)
+            const delta = parsed.choices?.[0]?.delta
+            const finishReason = parsed.choices?.[0]?.finish_reason
+
+            if (delta) {
+              const chunk: ChatChunk = {}
+              if (delta.content) chunk.deltaContent = delta.content
+              if (delta.tool_calls) chunk.deltaToolCalls = delta.tool_calls
+              if (finishReason) chunk.finishReason = finishReason
+              if (chunk.deltaContent || chunk.deltaToolCalls || chunk.finishReason) {
+                chunks.push(chunk)
+              }
+            }
+          }
+          resolve?.()
+        }
+      },
+      error: () => {
+        done = true
+        resolve?.()
+      },
+      complete: () => {
+        done = true
+        resolve?.()
+      }
     })
 
-    const reader = response.body!.getReader()
-    const decoder = new TextDecoder()
-    let buffer = ''
-
-    while (true) {
-      const { done, value } = await reader.read()
-      if (done) break
-      buffer += decoder.decode(value, { stream: true })
-
-      const lines = buffer.split('\n')
-      buffer = lines.pop()!
-
-      for (const line of lines) {
-        const trimmed = line.trim()
-        if (!trimmed || !trimmed.startsWith('data: ')) continue
-        const data = trimmed.slice(6)
-        if (data === '[DONE]') return
-
-        const parsed = JSON.parse(data)
-        const delta = parsed.choices?.[0]?.delta
-        const finishReason = parsed.choices?.[0]?.finish_reason
-
-        if (delta) {
-          const chunk: ChatChunk = {}
-          if (delta.content) chunk.deltaContent = delta.content
-          if (delta.tool_calls) chunk.deltaToolCalls = delta.tool_calls
-          if (finishReason) chunk.finishReason = finishReason
-          if (chunk.deltaContent || chunk.deltaToolCalls || chunk.finishReason) {
-            yield chunk
-          }
-        }
+    let yielded = 0
+    while (!done || yielded < chunks.length) {
+      if (yielded < chunks.length) {
+        yield chunks[yielded++]
+      } else {
+        await new Promise<void>((r) => { resolve = r })
       }
     }
   }

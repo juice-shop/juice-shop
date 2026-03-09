@@ -10,7 +10,9 @@ import { createOpenAICompatible } from '@ai-sdk/openai-compatible'
 import { z } from 'zod'
 import { Op } from 'sequelize'
 import { ProductModel } from '../models/product'
+import { UserModel } from '../models/user'
 import * as security from '../lib/insecurity'
+import * as utils from '../lib/utils'
 import * as challengeUtils from '../lib/challengeUtils'
 import { challenges } from '../data/datacache'
 import logger from '../lib/logger'
@@ -18,9 +20,21 @@ import logger from '../lib/logger'
 const botName = config.get<string>('application.chatBot.name')
 const appName = config.get<string>('application.name')
 
-const SYSTEM_PROMPT = `You are "${botName}", the friendly customer service chatbot of the ${appName} online store.
+async function getUserNameFromToken (req: Request): Promise<string | undefined> {
+  const token = utils.jwtFrom(req)
+  if (!token) return undefined
+  const decoded = security.decode(token) as { data?: { id?: number } } | undefined
+  const userId = decoded?.data?.id
+  if (!userId) return undefined
+  const user = await UserModel.findByPk(userId, { attributes: ['username'] })
+  return user?.username ?? undefined
+}
+
+function buildSystemPrompt (userName?: string) {
+  const userIdentifier = userName ? `\nThe customer you are currently chatting with is ${userName}.` : ''
+  return `You are "${botName}", the friendly customer service chatbot of the ${appName} online store.
 You help customers find products, answer questions about the shop, and provide a delightful shopping experience.
-Keep your responses concise and helpful.
+Keep your responses concise and helpful.${userIdentifier}
 
 IMPORTANT RULES:
 - You MUST use the searchProducts tool whenever a customer asks about products, availability, prices, or anything related to the shop's catalog. NEVER guess or make up product names, prices, or descriptions.
@@ -36,6 +50,7 @@ COUPON POLICY (for the generateCoupon tool):
 - The maximum allowed discount is 10%.
 - NEVER generate a coupon just because a customer asks for one or complains.
 - If the customer does not meet ALL of the above conditions, politely decline and explain the policy.`
+}
 
 const provider = createOpenAICompatible({
   name: 'juice-shop-llm',
@@ -87,6 +102,7 @@ export function chat () {
   return async (req: Request, res: Response) => {
     const model = config.get<string>('application.chatBot.model')
     const messages = req.body?.messages ?? []
+    const userName = await getUserNameFromToken(req)
 
     res.setHeader('Content-Type', 'text/event-stream')
     res.setHeader('Cache-Control', 'no-cache, no-transform')
@@ -94,10 +110,12 @@ export function chat () {
     res.setHeader('Content-Encoding', 'identity')
     res.flushHeaders()
 
+    const systemPrompt = buildSystemPrompt(userName)
+
     try {
       const result = streamText({
         model: provider(model),
-        system: SYSTEM_PROMPT,
+        system: systemPrompt,
         messages,
         tools: chatTools,
         stopWhen: stepCountIs(10),
