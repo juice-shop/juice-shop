@@ -1,3 +1,5 @@
+@use '../../../styles/variables' as *;
+
 .input-wrapper {
   position: relative;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -15,7 +17,7 @@
   display: block;
   width: 100%;
   min-height: 56px;
-  padding: 16px 56px 16px 20px;
+  padding: $space-m $space-3xl $space-m $space-ml;
   border: none;
   background: transparent;
   color: inherit;
@@ -42,7 +44,7 @@
 
   &:not([disabled]) {
     background-color: #1976d2;
-    color: white;
+    color: #f5f5f5;
     border-radius: 10px;
   }
 }
