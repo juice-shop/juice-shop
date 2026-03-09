@@ -218,7 +218,7 @@ export const checkIfOllamaModelAvailable = async (llmApiUrl: string) => {
 const logLlmChallengeWarnings = () => {
   logger.warn(`${colors.italic('"Chatbot Prompt Injection" challenge')} will not work without a running LLM API`)
   logger.warn(`${colors.italic('"Greedy Chatbot Manipulation" challenge')} will not work without a running LLM API`)
-  logger.warn(`Check ${colors.bold('https://pwning.owasp-juice.shop/companion-guide/latest/part4/customization.html#_configuration_example')} for instructions on how to set up and configure the LLM API`)
+  logger.warn(`Check ${colors.bold('https://pwning.owasp-juice.shop/companion-guide/snapshot/part1/running.html#_setting_up_external_dependencies')} for instructions on how to set up and configure the LLM API`)
 }
 
 export default validatePreconditions
