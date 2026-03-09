@@ -64,6 +64,53 @@
 		],
 		"removed": []
 	},
+	"chatbotPromptInjectionChallenge_1.ts": {
+		"added": [],
+		"removed": []
+	},
+	"chatbotPromptInjectionChallenge_2_correct.ts": {
+		"added": [
+			1,
+			6
+		],
+		"removed": [
+			1,
+			3,
+			5,
+			6,
+			9,
+			10,
+			11,
+			12,
+			13,
+			14,
+			15,
+			16,
+			17,
+			18,
+			19,
+			20
+		]
+	},
+	"chatbotPromptInjectionChallenge_3.ts": {
+		"added": [],
+		"removed": [
+			3,
+			5,
+			6
+		]
+	},
+	"chatbotPromptInjectionChallenge_4.ts": {
+		"added": [
+			6
+		],
+		"removed": [
+			5,
+			6,
+			9,
+			10
+		]
+	},
 	"dbSchemaChallenge_1.ts": {
 		"added": [],
 		"removed": []
