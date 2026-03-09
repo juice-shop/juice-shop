@@ -2,8 +2,8 @@ name: DevSecOps Gated Pipeline
 
 # Trigger model:
 # - Branch pushes and pull requests run build, security, container, and DAST stages.
-# - Protected deploy job runs from main branch only.
-# - Manual deploy validation is available via workflow_dispatch input on non-main branches.
+# - Protected deploy job runs from the repository default branch only.
+# - Manual deploy validation is available via workflow_dispatch input on non-default branches.
 
 on:
   push:
@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
     inputs:
       run_deploy_validation:
-        description: "Run deploy validation job on current non-main branch"
+        description: "Run deploy validation job on current non-default branch"
         required: false
         default: false
         type: boolean
@@ -520,9 +520,9 @@ jobs:
       - container_build_and_scan
       - dast
     # Protected deploy policy:
-    # - runs on main only
+    # - runs on default branch only
     # - never runs on pull_request events
-    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch) && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
@@ -588,9 +588,9 @@ jobs:
     # Manual validation path:
     # - trigger from Actions UI using "Run workflow"
     # - set run_deploy_validation=true
-    # - intended for non-main branches to verify deployment logic before merge
+    # - intended for non-default branches to verify deployment logic before merge
     # - deploys only to ephemeral Kind in the GitHub runner
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.run_deploy_validation == 'true' && github.ref != 'refs/heads/main'
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.run_deploy_validation == 'true' && github.ref != format('refs/heads/{0}', github.event.repository.default_branch)
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
