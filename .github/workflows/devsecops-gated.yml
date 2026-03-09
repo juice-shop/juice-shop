@@ -1,5 +1,10 @@
 name: DevSecOps Gated Pipeline
 
+# Trigger model:
+# - Branch pushes and pull requests run build, security, container, and DAST stages.
+# - Protected deploy job runs from main branch only.
+# - Manual deploy validation is available via workflow_dispatch input on non-main branches.
+
 on:
   push:
     branches:
@@ -12,6 +17,12 @@ on:
       - "**/*.md"
       - "docs/**"
   workflow_dispatch:
+    inputs:
+      run_deploy_validation:
+        description: "Run deploy validation job on current non-main branch"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -435,9 +446,13 @@ jobs:
   deploy:
     name: deploy
     needs:
+      - build_test
       - security_checks
       - container_build_and_scan
       - dast
+    # Protected deploy policy:
+    # - runs on main only
+    # - never runs on pull_request events
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 90
@@ -493,3 +508,71 @@ jobs:
         with:
           name: k8s-deploy-diagnostics
           path: reports/k8s
+
+  deploy_validation:
+    name: deploy_validation
+    needs:
+      - build_test
+      - security_checks
+      - container_build_and_scan
+      - dast
+    # Manual validation path:
+    # - trigger from Actions UI using "Run workflow"
+    # - set run_deploy_validation=true
+    # - intended for non-main branches to verify deployment logic before merge
+    # - deploys only to ephemeral Kind in the GitHub runner
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.run_deploy_validation == 'true' && github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Create Kind cluster
+        uses: helm/kind-action@v1.10.0
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v4
+        with:
+          version: v1.32.0
+
+      - name: Download deployment image artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: container-image
+          path: reports/image
+
+      - name: Load deployment image
+        run: |
+          gunzip -c reports/image/${{ env.IMAGE_NAME }}.tar.gz | docker load
+          docker tag ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} ${{ env.IMAGE_NAME }}:kind
+
+      - name: Load image into Kind
+        run: kind load docker-image ${{ env.IMAGE_NAME }}:kind
+
+      - name: Deploy manifests
+        run: kubectl apply -k deployment/kubernetes/overlays/local
+
+      - name: Wait for rollout
+        run: kubectl -n juice-shop rollout status deployment/juice-shop --timeout=300s
+
+      - name: Smoke test deployed service
+        run: |
+          kubectl -n juice-shop port-forward service/juice-shop 3000:3000 > /tmp/port-forward.log 2>&1 &
+          ./scripts/wait-for-http.sh http://127.0.0.1:3000 180
+          bash test/smoke/smoke-test.sh http://127.0.0.1:3000
+
+      - name: Upload deployment diagnostics
+        if: always()
+        run: |
+          mkdir -p reports/k8s-validation
+          kubectl -n juice-shop get all -o wide > reports/k8s-validation/get-all.txt || true
+          kubectl -n juice-shop describe deployment juice-shop > reports/k8s-validation/deployment-describe.txt || true
+          cp /tmp/port-forward.log reports/k8s-validation/port-forward.log || true
+
+      - name: Publish deployment diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: k8s-deploy-validation-diagnostics
+          path: reports/k8s-validation
