@@ -388,6 +388,8 @@
   "TAG_EXTERNAL_DEPENDENCY_DESCRIPTION": "Marks challenges strictly depending on an external service, local endpoint, or API key in order to be solvable.",
   "TAG_WITH_CODING_CHALLENGE": "With Coding Challenge",
   "TAG_WITH_CODING_CHALLENGE_DESCRIPTION": "Marks a challenge that contains an associated coding challenge.",
+  "TAG_AI/LLM": "AI / LLM",
+  "TAG_AI/LLM_DESCRIPTION": "Marks challenges that require the use of an AI language model to be solved.",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "Broken Access Control",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "Broken Anti Automation",
   "CATEGORY_BROKEN_AUTHENTICATION": "Broken Authentication",

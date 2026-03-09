@@ -1519,7 +1519,7 @@
   category: 'Injection'
   tags:
     - Good for Demos
-    - AI
+    - AI/LLM
   description: 'Trick the chatbot into generating a coupon code for you despite its coupon policy saying otherwise.'
   difficulty: 2
   hints:
@@ -1532,7 +1532,7 @@
   name: 'Greedy Chatbot Manipulation'
   category: 'Injection'
   tags:
-    - AI
+    - AI/LLM
   description: 'Convince the chatbot to give you a coupon of 50% or more. Because apparently a 10% max policy is just a suggestion when you ask nicely enough.'
   difficulty: 3
   hints:
