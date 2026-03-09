@@ -171,13 +171,19 @@ export const checkIfLlmApiReachable = async () => {
       logger.info(`LLM API at ${colors.bold(llmApiUrl)} is reachable (${colors.green('OK')})`)
     } else {
       logger.warn(`LLM API at ${colors.bold(llmApiUrl)} returned status ${response.status} (${colors.yellow('NOT OK')})`)
-      logger.warn(`${colors.italic('LLM chatbot challenges')} will not work without a running LLM API`)
+      logLlmChallengeWarnings()
     }
   } catch {
     logger.warn(`LLM API at ${colors.bold(llmApiUrl)} is not reachable (${colors.yellow('NOT OK')})`)
-    logger.warn(`${colors.italic('LLM chatbot challenges')} will not work without a running LLM API`)
+    logLlmChallengeWarnings()
   }
   return true
+}
+
+const logLlmChallengeWarnings = () => {
+  logger.warn(`${colors.italic('"Chatbot Prompt Injection" challenge')} will not work without a running LLM API`)
+  logger.warn(`${colors.italic('"Greedy Chatbot Manipulation" challenge')} will not work without a running LLM API`)
+  logger.warn(`Check ${colors.bold('https://pwning.owasp-juice.shop/companion-guide/latest/part4/customization.html#_configuration_example')} for instructions on how to set up and configure the LLM API`)
 }
 
 export default validatePreconditions
