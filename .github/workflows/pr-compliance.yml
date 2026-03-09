@@ -1,0 +1,102 @@
+name: 'PR Compliance Check'
+
+on:
+  pull_request_target:
+    types: [opened, edited, reopened]
+
+permissions:
+  pull-requests: write
+  issues: write
+
+jobs:
+  check-compliance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b #v7.1.0
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const author = pr.user.login;
+
+            // Check if author is a member of the juice-shop org
+            try {
+              await github.rest.orgs.checkPublicMembershipForUser({
+                org: 'juice-shop',
+                username: author
+              });
+              console.log(`${author} is a juice-shop org member, skipping checks.`);
+              return;
+            } catch (e) {
+              console.log(`${author} is not a juice-shop org member, running checks.`);
+            }
+
+            const violations = [];
+
+            // Check target branch
+            if (pr.base.ref === 'master') {
+              violations.push(
+                '**Wrong target branch:** This PR targets the `master` branch. ' +
+                'Per our [contributing guidelines](https://github.com/juice-shop/juice-shop/blob/develop/CONTRIBUTING.md), ' +
+                'all PRs must be based on the `develop` branch. Please re-open this PR against `develop`.'
+              );
+            }
+
+            const body = pr.body || '';
+
+            // Check AI disclosure
+            const aiNoContent = body.includes('[x] My contribution does not include any AI-generated content');
+            const aiWithContent = body.includes('[x] My contribution includes AI-generated content, as disclosed below');
+            if (!aiNoContent && !aiWithContent) {
+              violations.push(
+                '**Missing AI Tool Disclosure:** This PR is missing the required AI Tool Disclosure. ' +
+                'Please check one of the AI disclosure boxes in the PR template.'
+              );
+            }
+
+            // Check affirmation
+            const affirmation = body.includes('[x] My code follows the [CONTRIBUTING.md]');
+            if (!affirmation) {
+              violations.push(
+                '**Missing Affirmation:** This PR is missing the required affirmation that your code follows the ' +
+                '[CONTRIBUTING.md](https://github.com/juice-shop/juice-shop/blob/develop/CONTRIBUTING.md) guidelines.'
+              );
+            }
+
+            if (violations.length === 0) {
+              console.log('All compliance checks passed.');
+              return;
+            }
+
+            const comment = [
+              'Hi @' + author + ', thank you for your contribution! :raised_hands:',
+              '',
+              'Unfortunately, this PR does not meet our contributing guidelines and has been closed:',
+              '',
+              ...violations.map(v => '- ' + v),
+              '',
+              'Please address the above and open a new PR. If you have questions, check our ' +
+              '[contributing guidelines](https://github.com/juice-shop/juice-shop/blob/develop/CONTRIBUTING.md) '
+            ].join('\n');
+
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number,
+              labels: ['invalid']
+            });
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number,
+              body: comment
+            });
+
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+              state: 'closed'
+            });
+
+            console.log(`PR #${pr.number} closed for violations: ${violations.length}`);
