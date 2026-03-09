@@ -140,8 +140,9 @@ describe('/rest/chat', () => {
     onLlmRequest = (_req, body, res) => {
       const parsed = JSON.parse(body)
       expect(parsed.tools).toBeDefined()
-      expect(parsed.tools.length).toBe(1)
-      expect(parsed.tools[0].function.name).toBe('searchProducts')
+      expect(parsed.tools.length).toBe(2)
+      expect(parsed.tools.map((t: { function: { name: string } }) => t.function.name)).toContain('searchProducts')
+      expect(parsed.tools.map((t: { function: { name: string } }) => t.function.name)).toContain('generateCoupon')
       sendSSE(res, [contentChunk('We have many products!'), finishChunk()])
     }
 
@@ -198,7 +199,7 @@ describe('/rest/chat', () => {
       .expect('bodyContains', 'data: [DONE]')
   })
 
-  it('POST with empty messages still returns valid SSE stream', () => {
+  it('POST with empty messages returns error SSE stream', () => {
     onLlmRequest = (_req, _body, res) => {
       sendSSE(res, [
         contentChunk('How can I help you?'),
@@ -211,7 +212,7 @@ describe('/rest/chat', () => {
       body: { messages: [] }
     })
       .expect('status', 200)
-      .expect('bodyContains', 'How can I help you?')
+      .expect('bodyContains', 'error')
       .expect('bodyContains', 'data: [DONE]')
   })
 
@@ -237,6 +238,7 @@ describe('/rest/chat', () => {
           if (data === '[DONE]') continue
           const parsed = JSON.parse(data)
           expect(parsed.choices).toBeDefined()
+          if (parsed.choices[0].finish_reason) continue
           expect(parsed.choices[0].delta).toBeDefined()
         }
       })

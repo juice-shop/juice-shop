@@ -135,6 +135,7 @@ export function chat () {
         system: systemPrompt,
         messages,
         tools: chatTools,
+        maxRetries: config.get<number>('application.chatBot.llmMaxRetries'),
         stopWhen: stepCountIs(10),
         onError: ({ error }) => {
           logger.warn('Chatbot stream error: ' + summarizeLlmError(error))

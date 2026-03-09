@@ -39,6 +39,8 @@ application:
       type: string
     llmApiUrl:
       type: string
+    llmMaxRetries:
+      type: number
   social:
     blueSkyUrl:
       type: string

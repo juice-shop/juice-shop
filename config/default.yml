@@ -20,6 +20,7 @@ application:
     avatar: 'JuicyChatBot.png'
     model: 'qwen3.5:9b'
     llmApiUrl: 'http://localhost:11434/v1'
+    llmMaxRetries: 2
   social:
     blueSkyUrl: 'https://bsky.app/profile/owasp-juice.shop'
     mastodonUrl: 'https://fosstodon.org/@owasp_juiceshop'
