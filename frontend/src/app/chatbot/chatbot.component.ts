@@ -59,8 +59,9 @@ export class ChatbotComponent {
     const assistantIndex = this.messages().length
     this.messages.update(prev => [...prev, { role: 'assistant', content: '' }])
 
+    // Send full conversation history, excluding the empty assistant placeholder
     const apiMessages = this.messages()
-      .filter(m => m.role === 'user')
+      .slice(0, -1)
       .map(m => ({ role: m.role, content: m.content }))
 
     const stream = this.chatService.streamMessages(apiMessages)
