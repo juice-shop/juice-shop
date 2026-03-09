@@ -133,7 +133,7 @@
   category: 'Improper Input Validation'
   tags:
       - Web3
-      - Internet Traffic
+      - External Dependency
   description: 'Mint the Honey Pot NFT by gathering BEEs from the bee haven.'
   difficulty: 3
   hints:
@@ -145,7 +145,7 @@
   category: 'Miscellaneous'
   tags:
       - Web3
-      - Internet Traffic
+      - External Dependency
   description: 'Withdraw more ETH from the new wallet than you deposited.'
   difficulty: 6
   hints:
