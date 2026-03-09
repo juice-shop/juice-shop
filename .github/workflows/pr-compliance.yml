@@ -12,7 +12,7 @@ jobs:
   check-compliance:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd #v8.0.0
+      - uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b #v7.1.0
         with:
           script: |
             const pr = context.payload.pull_request;
@@ -62,6 +62,7 @@ jobs:
               );
             }
 
+<<<<<<< HEAD
             // Check DCO (Signed-off-by)
             const { data: commits } = await github.rest.pulls.listCommits({
               owner: context.repo.owner,
@@ -94,6 +95,8 @@ jobs:
               }
             }
 
+=======
+>>>>>>> b1f320b74 (Add action to auto close pr not following the template / contributing)
             if (violations.length === 0) {
               console.log('All compliance checks passed.');
               return;
@@ -131,4 +134,8 @@ jobs:
               state: 'closed'
             });
 
+<<<<<<< HEAD
             console.log(`PR #${pr.number} closed due to ${violations.length} compliance violation(s).`);
+=======
+            console.log(`PR #${pr.number} closed for violations: ${violations.length}`);
+>>>>>>> b1f320b74 (Add action to auto close pr not following the template / contributing)
