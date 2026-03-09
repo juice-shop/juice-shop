@@ -1,0 +1,136 @@
+@use '../../../styles/variables' as *;
+
+:host {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+}
+
+// Chat header
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: $space-s;
+  padding: $space-s 0;
+  flex-shrink: 0;
+}
+
+.header-avatar {
+  width: 28px;
+  height: 28px;
+}
+
+.header-title {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+// Chat window
+
+.chat-window {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: $space-s;
+  padding: $space-xs 0;
+  min-height: 0;
+}
+
+.chat-bubble {
+  max-width: 75%;
+  padding: $space-s $space-m;
+  border-radius: 12px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+
+  &.user {
+    align-self: flex-end;
+    background-color: #1976d2;
+    color: #f5f5f5;
+    border-bottom-right-radius: 4px;
+  }
+
+  &.assistant {
+    align-self: flex-start;
+    background-color: #f5f5f5;
+    color: rgba(0, 0, 0, 0.87);
+    border-bottom-left-radius: 4px;
+  }
+}
+
+.tool-call-card {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-xs;
+  margin-top: $space-xs;
+  padding: $space-xs $space-s;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+
+  .tool-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: rgba(0, 0, 0, 0.54);
+    flex-shrink: 0;
+    margin-top: $space-3xs;
+  }
+
+  .tool-info {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2xs;
+    min-width: 0;
+  }
+
+  .tool-name {
+    font-weight: 500;
+    font-size: 13px;
+  }
+
+  .tool-args {
+    font-family: monospace;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.6);
+    word-break: break-all;
+  }
+}
+
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: $space-2xs;
+}
+
+.typing-indicator .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
+  animation: typing-bounce 1.4s infinite ease-in-out;
+
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.4s; }
+}
+
+@keyframes typing-bounce {
+  0%,
+  80%,
+  100% { opacity: 0.3;
+    transform: scale(0.8); }
+
+  40% { opacity: 1;
+    transform: scale(1); }
+}
+
+// Input area
+
+.input-area {
+  padding: $space-s 0 $space-l;
+  flex-shrink: 0;
+}

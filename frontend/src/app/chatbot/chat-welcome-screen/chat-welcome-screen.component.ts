@@ -3,9 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, ChangeDetectionStrategy, output, model, viewChild } from '@angular/core'
+import { Component, ChangeDetectionStrategy, output, model, viewChild, signal, inject } from '@angular/core'
+import { DatePipe } from '@angular/common'
 import { MatIconModule } from '@angular/material/icon'
 import { ChatInputBoxComponent } from '../chat-input-box/chat-input-box.component'
+import { ConversationStorageService } from '../../Services/conversation-storage.service'
+import { type StoredConversation } from '../chat.model'
 
 @Component({
   standalone: true,
@@ -15,16 +18,28 @@ import { ChatInputBoxComponent } from '../chat-input-box/chat-input-box.componen
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatIconModule,
-    ChatInputBoxComponent
+    ChatInputBoxComponent,
+    DatePipe
   ]
 })
 export class ChatWelcomeScreenComponent {
+  private readonly conversationStorage = inject(ConversationStorageService)
+
   message = model('')
   messageSent = output<string>()
+  conversationSelected = output<string>()
   private readonly inputBox = viewChild(ChatInputBoxComponent)
+
+  conversations = signal<StoredConversation[]>(this.conversationStorage.getAll())
 
   applySuggestion (text: string) {
     this.message.set(text)
     this.inputBox()?.focus()
+  }
+
+  deleteConversation (event: Event, id: string) {
+    event.stopPropagation()
+    this.conversationStorage.delete(id)
+    this.conversations.set(this.conversationStorage.getAll())
   }
 }
