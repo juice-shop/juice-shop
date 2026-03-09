@@ -59,6 +59,19 @@ mat-nav-list {
   margin-bottom: $space-3xl;
 }
 
+.improved-tag {
+  background-color: var(--mdc-filled-button-container-color, #ff6d00);
+  border-radius: $space-2xs;
+  color: var(--mdc-filled-button-label-text-color, #fff);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  margin-left: auto;
+  padding: $space-2xs $space-xs;
+  text-transform: uppercase;
+}
+
 .menu-button {
   transform: rotate(0deg);
   transition: 300ms ease-in-out;
