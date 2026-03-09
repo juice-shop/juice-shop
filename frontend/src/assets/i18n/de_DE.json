@@ -47,7 +47,7 @@
   "SECTION_CUSTOMER_FEEDBACK": "Kundenfeedback",
   "SECTION_SUPPORT_CHAT": "Support-Chat",
   "LABEL_POWERED_BY_CHATBOT": "betrieben von {{chatbot}}",
-  "ASK_ME_ANYTHING_PLACEHOLDER": "Frag mich irgendetwas auf Englisch",
+  "ASK_ME_ANYTHING_PLACEHOLDER": "Frag mich irgendetwas",
   "SECTION_SOCIAL_MEDIA": "Folge uns in den Sozialen Medien",
   "LINK_TERMS_OF_USE": "Schau dir unsere langweiligen Nutzungsbedingungen an, wenn du dich für so elendes Zeug interessieren.",
   "TITLE_ADMINISTRATION": "Administration",
@@ -480,5 +480,15 @@
   "NFT_MINT_TEXT_SUCCESS": "Erfolgreich geprägt",
   "NFT_MINT_TEXT_AWAITING_APPROVAL": "Warte auf Freigabe",
   "NFT_MINT_TEXT_CONFIRM": "Prägung bestätigen...",
-  "NFT_MINT_TEXT_IN_PROGRESS": "Prägung in Arbeit..."
+  "NFT_MINT_TEXT_IN_PROGRESS": "Prägung in Arbeit...",
+  "CHATBOT_TITLE": "JuiceShop Assistent",
+  "CHATBOT_SUBTITLE": "Saft liefern, ein Token nach dem anderen",
+  "CHATBOT_AVATAR_ALT": "JuicyBot",
+  "CHATBOT_SEND_MESSAGE": "Nachricht senden",
+  "CHATBOT_SUGGESTION_RECOMMEND": "Empfehlung erhalten",
+  "CHATBOT_PROMPT_RECOMMEND": "Welchen Saft würdest du für eine Sommerparty empfehlen?",
+  "CHATBOT_SUGGESTION_HELP": "Hilfe erhalten",
+  "CHATBOT_PROMPT_HELP": "Ich brauche Hilfe mit meiner Bestellung",
+  "CHATBOT_RECENT_CONVERSATIONS": "Letzte Unterhaltungen",
+  "CHATBOT_DELETE_CONVERSATION": "Unterhaltung löschen"
 }

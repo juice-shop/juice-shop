@@ -1,28 +1,28 @@
 <div class="welcome-screen">
   <div class="welcome-branding">
-    <img src="assets/public/images/JuicyBot.png" alt="JuicyBot" class="welcome-avatar" />
-    <h1 class="welcome-title">JuiceShop Assistant</h1>
-    <p class="welcome-subtitle">Delivering juice one token at a time</p>
+    <img src="assets/public/images/JuicyBot.png" [alt]="'CHATBOT_AVATAR_ALT' | translate" class="welcome-avatar" />
+    <h1 class="welcome-title" translate>CHATBOT_TITLE</h1>
+    <p class="welcome-subtitle" translate>CHATBOT_SUBTITLE</p>
   </div>
 
   <div class="welcome-input-area">
     <app-chat-input-box [(message)]="message" (messageSent)="messageSent.emit($event)" />
 
     <div class="suggestions">
-      <button class="suggestion-chip" (click)="applySuggestion('What juice would you recommend for a summer party?')">
+      <button class="suggestion-chip" (click)="applySuggestion('CHATBOT_PROMPT_RECOMMEND')">
         <mat-icon>local_drink</mat-icon>
-        <span>Get a suggestion</span>
+        <span translate>CHATBOT_SUGGESTION_RECOMMEND</span>
       </button>
-      <button class="suggestion-chip" (click)="applySuggestion('I need help with my order')">
+      <button class="suggestion-chip" (click)="applySuggestion('CHATBOT_PROMPT_HELP')">
         <mat-icon>help_outline</mat-icon>
-        <span>Get help</span>
+        <span translate>CHATBOT_SUGGESTION_HELP</span>
       </button>
     </div>
   </div>
 
   @if (conversations().length > 0) {
     <div class="history-section">
-      <h2 class="history-heading">Recent conversations</h2>
+      <h2 class="history-heading" translate>CHATBOT_RECENT_CONVERSATIONS</h2>
       <div class="history-list">
         @for (conv of conversations(); track conv.id) {
           <button class="history-item" (click)="conversationSelected.emit(conv.id)">
@@ -30,7 +30,7 @@
               <span class="history-title">{{ conv.title }}</span>
               <span class="history-date">{{ conv.updatedAt | date:'short' }}</span>
             </div>
-            <button class="history-delete" (click)="deleteConversation($event, conv.id)" aria-label="Delete conversation">
+            <button class="history-delete" (click)="deleteConversation($event, conv.id)" [attr.aria-label]="'CHATBOT_DELETE_CONVERSATION' | translate">
               <mat-icon>delete_outline</mat-icon>
             </button>
           </button>

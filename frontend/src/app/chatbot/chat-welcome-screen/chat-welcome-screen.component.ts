@@ -6,6 +6,7 @@
 import { Component, ChangeDetectionStrategy, output, model, viewChild, signal, inject } from '@angular/core'
 import { DatePipe } from '@angular/common'
 import { MatIconModule } from '@angular/material/icon'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { ChatInputBoxComponent } from '../chat-input-box/chat-input-box.component'
 import { ConversationStorageService } from '../../Services/conversation-storage.service'
 import { type StoredConversation } from '../chat.model'
@@ -19,11 +20,13 @@ import { type StoredConversation } from '../chat.model'
   imports: [
     MatIconModule,
     ChatInputBoxComponent,
-    DatePipe
+    DatePipe,
+    TranslateModule
   ]
 })
 export class ChatWelcomeScreenComponent {
   private readonly conversationStorage = inject(ConversationStorageService)
+  private readonly translate = inject(TranslateService)
 
   message = model('')
   messageSent = output<string>()
@@ -32,9 +35,11 @@ export class ChatWelcomeScreenComponent {
 
   conversations = signal<StoredConversation[]>(this.conversationStorage.getAll())
 
-  applySuggestion (text: string) {
-    this.message.set(text)
-    this.inputBox()?.focus()
+  applySuggestion (key: string) {
+    this.translate.get(key).subscribe(text => {
+      this.message.set(text)
+      this.inputBox()?.focus()
+    })
   }
 
   deleteConversation (event: Event, id: string) {

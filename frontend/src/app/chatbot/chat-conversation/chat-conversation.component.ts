@@ -6,6 +6,7 @@
 import { Component, ChangeDetectionStrategy, signal, viewChild, ElementRef, afterNextRender, inject, Injector, runInInjectionContext, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { MatIconModule } from '@angular/material/icon'
+import { TranslateModule } from '@ngx-translate/core'
 import { ChatService } from '../../Services/chat.service'
 import { ConversationStorageService } from '../../Services/conversation-storage.service'
 import { ChatInputBoxComponent } from '../chat-input-box/chat-input-box.component'
@@ -19,7 +20,8 @@ import { type ChatMessage, type StoredConversation } from '../chat.model'
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatIconModule,
-    ChatInputBoxComponent
+    ChatInputBoxComponent,
+    TranslateModule
   ]
 })
 export class ChatConversationComponent implements OnInit {
