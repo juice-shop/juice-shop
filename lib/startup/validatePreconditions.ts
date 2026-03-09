@@ -53,43 +53,43 @@ export const checkIfRunningOnSupportedNodeVersion = (runningVersion: string) => 
   const supportedVersion = pjson.engines.node
   const effectiveVersionRange = semver.validRange(supportedVersion)
   if (!effectiveVersionRange) {
-    logger.warn(`Invalid Node.js version range ${colors.bold(supportedVersion)} in package.json (${colors.red('NOT OK')})`)
+    logger.warn(`Invalid Node.js version range ${colors.bold(supportedVersion)} in package.json (${colors.red('ERROR')})`)
     return false
   }
   if (!semver.satisfies(runningVersion, effectiveVersionRange)) {
-    logger.warn(`Detected Node version ${colors.bold(runningVersion)} is not in the supported version range of ${supportedVersion} (${colors.red('NOT OK')})`)
+    logger.warn(`Detected Node version ${colors.bold(runningVersion)} is not in the supported version range of ${supportedVersion} (${colors.red('ERROR')})`)
     return false
   }
-  logger.info(`Detected Node.js version ${colors.bold(runningVersion)} (${colors.green('OK')})`)
+  logger.info(`Detected Node.js version ${colors.bold(runningVersion)} (${colors.green('SUCCESS')})`)
   return true
 }
 
 export const checkIfRunningOnSupportedOS = (runningOS: string) => {
   const supportedOS = pjson.os
   if (!supportedOS.includes(runningOS)) {
-    logger.warn(`Detected OS ${colors.bold(runningOS)} is not in the list of supported platforms ${supportedOS.toString()} (${colors.red('NOT OK')})`)
+    logger.warn(`Detected OS ${colors.bold(runningOS)} is not in the list of supported platforms ${supportedOS.toString()} (${colors.red('ERROR')})`)
     return false
   }
-  logger.info(`Detected OS ${colors.bold(runningOS)} (${colors.green('OK')})`)
+  logger.info(`Detected OS ${colors.bold(runningOS)} (${colors.green('SUCCESS')})`)
   return true
 }
 
 export const checkIfRunningOnSupportedCPU = (runningArch: string) => {
   const supportedArch = pjson.cpu
   if (!supportedArch.includes(runningArch)) {
-    logger.warn(`Detected CPU ${colors.bold(runningArch)} is not in the list of supported architectures ${supportedArch.toString()} (${colors.red('NOT OK')})`)
+    logger.warn(`Detected CPU ${colors.bold(runningArch)} is not in the list of supported architectures ${supportedArch.toString()} (${colors.red('ERROR')})`)
     return false
   }
-  logger.info(`Detected CPU ${colors.bold(runningArch)} (${colors.green('OK')})`)
+  logger.info(`Detected CPU ${colors.bold(runningArch)} (${colors.green('SUCCESS')})`)
   return true
 }
 
 export const checkIfEnvironmentVariableExists = (varName: string) => {
   if (process.env[varName]) {
-    logger.info(`Environment variable ${colors.bold(varName)} is present (${colors.green('OK')})`)
+    logger.info(`Environment variable ${colors.bold(varName)} is present (${colors.green('SUCCESS')})`)
     return true
   }
-  logger.warn(`Environment variable ${colors.bold(varName)} is not present (${colors.yellow('NOT OK')})`)
+  logger.warn(`Environment variable ${colors.bold(varName)} is not present (${colors.yellow('WARNING')})`)
   // @ts-expect-error FIXME Type problem by accessing key via variable
   if (variableDependencies[varName]) {
     // @ts-expect-error FIXME Type problem by accessing key via variable
@@ -103,11 +103,11 @@ export const checkIfEnvironmentVariableExists = (varName: string) => {
 export const checkIfDomainReachable = async (domain: string) => {
   return checkInternetConnected({ domain })
     .then(() => {
-      logger.info(`Domain ${colors.bold(domain)} is reachable (${colors.green('OK')})`)
+      logger.info(`Domain ${colors.bold(domain)} is reachable (${colors.green('SUCCESS')})`)
       return true
     })
     .catch(() => {
-      logger.warn(`Domain ${colors.bold(domain)} is not reachable (${colors.yellow('NOT OK')})`)
+      logger.warn(`Domain ${colors.bold(domain)} is not reachable (${colors.yellow('WARNING')})`)
       // @ts-expect-error FIXME Type problem by accessing key via variable
       domainDependencies[domain].forEach((dependency: string) => {
         logger.warn(`${colors.italic(dependency)} will not work as intended without access to ${colors.bold(domain)}`)
@@ -124,10 +124,10 @@ export const checkIfPortIsAvailable = async (port: number | string) => {
         reject(error)
       } else {
         if (status === 'open') {
-          logger.warn(`Port ${colors.bold(port.toString())} is in use (${colors.red('NOT OK')})`)
+          logger.warn(`Port ${colors.bold(port.toString())} is in use (${colors.red('ERROR')})`)
           resolve(false)
         } else {
-          logger.info(`Port ${colors.bold(port.toString())} is available (${colors.green('OK')})`)
+          logger.info(`Port ${colors.bold(port.toString())} is available (${colors.green('SUCCESS')})`)
           resolve(true)
         }
       }
@@ -139,10 +139,10 @@ export const checkIfRequiredFileExists = async (pathRelativeToProjectRoot: strin
   const fileName = pathRelativeToProjectRoot.substr(pathRelativeToProjectRoot.lastIndexOf('/') + 1)
 
   return await access(path.resolve(pathRelativeToProjectRoot)).then(() => {
-    logger.info(`Required file ${colors.bold(fileName)} is present (${colors.green('OK')})`)
+    logger.info(`Required file ${colors.bold(fileName)} is present (${colors.green('SUCCESS')})`)
     return true
   }).catch(() => {
-    logger.warn(`Required file ${colors.bold(fileName)} is missing (${colors.red('NOT OK')})`)
+    logger.warn(`Required file ${colors.bold(fileName)} is missing (${colors.red('ERROR')})`)
     return false
   })
 }
@@ -152,13 +152,13 @@ export const checkIfRequiredFilePatternExists = async (directory: string, patter
     const files = await readdir(path.resolve(directory))
     const match = files.find(file => pattern.test(file))
     if (match) {
-      logger.info(`Required file matching ${colors.bold(String(pattern))} is present (${colors.green('OK')})`)
+      logger.info(`Required file matching ${colors.bold(String(pattern))} is present (${colors.green('SUCCESS')})`)
       return true
     }
-    logger.warn(`Required file matching ${colors.bold(String(pattern))} is missing (${colors.red('NOT OK')})`)
+    logger.warn(`Required file matching ${colors.bold(String(pattern))} is missing (${colors.red('ERROR')})`)
     return false
   } catch {
-    logger.warn(`Required file matching ${colors.bold(String(pattern))} is missing (${colors.red('NOT OK')})`)
+    logger.warn(`Required file matching ${colors.bold(String(pattern))} is missing (${colors.red('ERROR')})`)
     return false
   }
 }
@@ -177,16 +177,16 @@ export const checkIfLlmApiReachable = async () => {
   try {
     const response = await fetch(`${llmApiUrl}/models`, { signal: AbortSignal.timeout(5000) })
     if (response.ok) {
-      logger.info(`LLM API at ${colors.bold(llmApiUrl)} is reachable (${colors.green('OK')})`)
+      logger.info(`LLM API at ${colors.bold(llmApiUrl)} is reachable (${colors.green('SUCCESS')})`)
       if (isOllamaUrl(llmApiUrl)) {
         await checkIfOllamaModelAvailable(llmApiUrl)
       }
     } else {
-      logger.warn(`LLM API at ${colors.bold(llmApiUrl)} returned status ${response.status} (${colors.yellow('NOT OK')})`)
+      logger.warn(`LLM API at ${colors.bold(llmApiUrl)} returned status ${response.status} (${colors.yellow('WARNING')})`)
       logLlmChallengeWarnings()
     }
   } catch {
-    logger.warn(`LLM API at ${colors.bold(llmApiUrl)} is not reachable (${colors.yellow('NOT OK')})`)
+    logger.warn(`LLM API at ${colors.bold(llmApiUrl)} is not reachable (${colors.yellow('WARNING')})`)
     logLlmChallengeWarnings()
   }
   return true
@@ -203,25 +203,25 @@ export const checkIfOllamaModelAvailable = async (llmApiUrl: string) => {
       (available) => available === model || available.startsWith(`${model}:`) || model.startsWith(`${available}:`)
     )
     if (modelFound) {
-      logger.info(`Ollama model ${colors.bold(model)} is available (${colors.green('OK')})`)
+      logger.info(`Ollama model ${colors.bold(model)} is available (${colors.green('SUCCESS')})`)
     } else {
-      logger.warn(`Ollama model ${colors.bold(model)} is not available (${colors.yellow('NOT OK')})`)
+      logger.warn(`Ollama model ${colors.bold(model)} is not available (${colors.yellow('WARNING')})`)
       let pullModelMessage = `Pull the model with: ${colors.bold(`ollama pull ${model}`)}`
       if (availableModels.length > 0) {
         pullModelMessage += ` or configure an available model: ${colors.bold(availableModels.join(', '))}`
       }
-      logger.warn(pullModelMessage)
+      logger.info(pullModelMessage)
       logLlmChallengeWarnings()
     }
   } catch {
-    logger.warn(`Could not verify Ollama model ${colors.bold(model)} availability (${colors.yellow('NOT OK')})`)
+    logger.warn(`Could not verify Ollama model ${colors.bold(model)} availability (${colors.yellow('WARNING')})`)
   }
 }
 
 const logLlmChallengeWarnings = () => {
   logger.warn(`${colors.italic('"Chatbot Prompt Injection" challenge')} will not work without a running LLM API`)
   logger.warn(`${colors.italic('"Greedy Chatbot Manipulation" challenge')} will not work without a running LLM API`)
-  logger.warn(`Check ${colors.bold('https://howto-llm.owasp-juice.shop')} for instructions on how to set up and configure the LLM API`)
+  logger.info(`Check ${colors.bold('https://howto-llm.owasp-juice.shop')} for instructions on how to set up and configure the LLM API`)
 }
 
 export default validatePreconditions
