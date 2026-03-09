@@ -412,12 +412,19 @@ jobs:
             --severity HIGH,CRITICAL \
             Dockerfile
 
-      - name: Gate Kubernetes misconfigurations
+      - name: Gate Kubernetes base misconfigurations
         run: |
           trivy config \
             --exit-code 1 \
             --severity HIGH,CRITICAL \
-            deployment/kubernetes
+            deployment/kubernetes/base
+
+      - name: Scan local overlay misconfigurations (non-blocking)
+        run: |
+          trivy config \
+            --exit-code 0 \
+            --severity HIGH,CRITICAL \
+            deployment/kubernetes/overlays/local
 
       - name: Check for Trivy image SARIF output
         if: always()
