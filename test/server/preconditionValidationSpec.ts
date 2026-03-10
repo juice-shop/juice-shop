@@ -84,13 +84,13 @@ describe('preconditionValidation', () => {
       expect(checkIfEnvironmentVariableExists('ALCHEMY_API_KEY')).to.equal(true)
     })
 
-    it('should return true if environment variable is not present', () => {
+    it('should return false if environment variable is not present', () => {
       delete process.env.ALCHEMY_API_KEY
-      expect(checkIfEnvironmentVariableExists('ALCHEMY_API_KEY')).to.equal(true)
+      expect(checkIfEnvironmentVariableExists('ALCHEMY_API_KEY')).to.equal(false)
     })
 
-    it('should return true if a non-existing environment variable is checked', () => {
-      expect(checkIfEnvironmentVariableExists('NON_EXISTING_VAR')).to.equal(true)
+    it('should return false if a non-existing environment variable is checked', () => {
+      expect(checkIfEnvironmentVariableExists('NON_EXISTING_VAR')).to.equal(false)
     })
   })
 
@@ -199,10 +199,10 @@ describe('preconditionValidation', () => {
       expect(fetchStub.calledOnce).to.equal(true)
     })
 
-    it('should return true and log warnings if domain is not reachable', async () => {
+    it('should return false and log warnings if domain is not reachable', async () => {
       fetchStub.rejects(new Error('Network error'))
       const success = await checkIfDomainReachable('https://www.alchemy.com/')
-      expect(success).to.equal(true)
+      expect(success).to.equal(false)
       expect(fetchStub.calledOnce).to.equal(true)
     })
   })

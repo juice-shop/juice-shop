@@ -27,18 +27,23 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
   success = checkIfRunningOnSupportedOS(process.platform) && success
   success = checkIfRunningOnSupportedCPU(process.arch) && success
 
-  const asyncConditions = (await Promise.all([
+  const asyncResults = await Promise.all([
     checkIfRequiredFileExists('build/server.js'),
     checkIfRequiredFileExists('frontend/dist/frontend/index.html'),
     checkIfRequiredFileExists('frontend/dist/frontend/styles.css'),
     checkIfRequiredFileExists('frontend/dist/frontend/main.js'),
     checkIfRequiredFileExists('frontend/dist/frontend/polyfills.js'),
     checkIfRequiredFilePatternExists('frontend/dist/frontend', /^hacking-instructor-.+\.js$/),
-    checkIfPortIsAvailable(process.env.PORT ?? config.get<number>('server.port')),
-    checkIfDomainReachable('https://www.alchemy.com/'),
-    checkIfEnvironmentVariableExists('ALCHEMY_API_KEY'),
-    checkIfLlmApiReachable()
-  ])).every(condition => condition)
+    checkIfPortIsAvailable(process.env.PORT ?? config.get<number>('server.port'))
+  ])
+  const asyncConditions = asyncResults.every(condition => condition)
+
+  const alchemyDomainReachable = await checkIfDomainReachable('https://www.alchemy.com/')
+  const alchemyEnvVarExists = checkIfEnvironmentVariableExists('ALCHEMY_API_KEY')
+  if (!alchemyDomainReachable || !alchemyEnvVarExists) {
+    logger.info(`Check ${colors.bold('https://howto-web3.owasp-juice.shop')} for instructions on how to set up and configure the Alchemy API`)
+  }
+  await checkIfLlmApiReachable()
 
   if ((!success || !asyncConditions) && exitOnFailure) {
     logger.error(colors.red('Exiting due to unsatisfied precondition!'))
@@ -95,7 +100,7 @@ export const checkIfEnvironmentVariableExists = (varName: string) => {
       logger.warn(`${colors.italic(dependency)} will not work as intended without a valid ${colors.bold(varName)}`)
     })
   }
-  return true
+  return false
 }
 
 export const checkIfDomainReachable = async (domain: string) => {
@@ -109,7 +114,7 @@ export const checkIfDomainReachable = async (domain: string) => {
     domainDependencies[domain].forEach((dependency: string) => {
       logger.warn(`${colors.italic(dependency)} will not work as intended without access to ${colors.bold(domain)}`)
     })
-    return true
+    return false
   }
 }
 
