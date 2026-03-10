@@ -54,7 +54,9 @@ jobs:
         run: go install github.com/rhysd/actionlint/cmd/actionlint@latest
 
       - name: Run actionlint
-        run: $(go env GOPATH)/bin/actionlint -color
+        run: |
+          ACTIONLINT_BIN="$(go env GOPATH)/bin/actionlint"
+          "$ACTIONLINT_BIN" -color
 
   build_test:
     name: build_test
@@ -522,6 +524,7 @@ jobs:
         run: test -f .zap/rules.tsv
 
       - name: Run OWASP ZAP baseline scan
+        # Policy file explicitly marks expected app-specific findings (e.g. 10111 auth endpoint detection) as non-blocking.
         run: |
           docker run --rm \
             --network=host \
@@ -533,7 +536,6 @@ jobs:
             -a \
             -j \
             -m 5 \
-            # Policy file explicitly marks expected app-specific findings (e.g. 10111 auth endpoint detection) as non-blocking.
             -c /zap/rules.tsv \
             -w zap-report.md \
             -r zap-report.html \
