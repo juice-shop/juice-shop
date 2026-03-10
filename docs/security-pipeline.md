@@ -72,6 +72,7 @@ flowchart TD
 - Pull request: required checks run; deploy blocked.
 - Manual dispatch with deploy-validation flag: deploy_validation runs.
 - Master push: protected deploy runs.
+- Branch protection required checks on `master`: `workflow_lint`, `build_test`, `security_checks`, `container_build_and_scan`, `dast`.
 
 ## Gate integrity notes
 - Workflow lint must pass before `build_test` can run.

@@ -78,7 +78,7 @@ Event behavior (verified from workflow + run history):
 - **Deploy gating** via explicit `needs` and branch/event conditions.
 - **Artifact reuse** between jobs (build outputs and container image) for consistency and speed.
 - **Branch protection assumptions (verified 2026-03-10)**:
-  - required checks: `build_test`, `security_checks`, `container_build_and_scan`, `dast`,
+  - required checks: `workflow_lint`, `build_test`, `security_checks`, `container_build_and_scan`, `dast`,
   - 1 required approving review on `master`.
 
 ## 6. Major failures, fixes, and lessons learned
