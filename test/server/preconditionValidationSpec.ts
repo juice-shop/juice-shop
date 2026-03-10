@@ -9,7 +9,7 @@ import sinon from 'sinon'
 import semver from 'semver'
 import sinonChai from 'sinon-chai'
 import { engines as supportedEngines } from './../../package.json'
-import { checkIfRunningOnSupportedNodeVersion, checkIfPortIsAvailable, checkIfEnvironmentVariableExists, isOllamaUrl, checkIfOllamaModelAvailable } from '../../lib/startup/validatePreconditions'
+import { checkIfRunningOnSupportedNodeVersion, checkIfPortIsAvailable, checkIfEnvironmentVariableExists, isOllamaUrl, checkIfOllamaModelAvailable, checkIfDomainReachable } from '../../lib/startup/validatePreconditions'
 
 const expect = chai.expect
 chai.use(sinonChai)
@@ -177,6 +177,32 @@ describe('preconditionValidation', () => {
     it('should handle fetch error gracefully', async () => {
       fetchStub.rejects(new Error('Connection refused'))
       await checkIfOllamaModelAvailable('http://localhost:11434/v1')
+      expect(fetchStub.calledOnce).to.equal(true)
+    })
+  })
+
+  describe('checkIfDomainReachable', () => {
+    let fetchStub: sinon.SinonStub
+
+    beforeEach(() => {
+      fetchStub = sinon.stub(global, 'fetch')
+    })
+
+    afterEach(() => {
+      fetchStub.restore()
+    })
+
+    it('should return true if domain is reachable', async () => {
+      fetchStub.resolves({ ok: true })
+      const success = await checkIfDomainReachable('https://www.alchemy.com/')
+      expect(success).to.equal(true)
+      expect(fetchStub.calledOnce).to.equal(true)
+    })
+
+    it('should return true and log warnings if domain is not reachable', async () => {
+      fetchStub.rejects(new Error('Network error'))
+      const success = await checkIfDomainReachable('https://www.alchemy.com/')
+      expect(success).to.equal(true)
       expect(fetchStub.calledOnce).to.equal(true)
     })
   })
