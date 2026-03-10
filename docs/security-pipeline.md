@@ -45,6 +45,7 @@ flowchart TD
 - Starts the app in CI runner context.
 - Waits for health readiness.
 - Runs ZAP baseline with repository-managed rules (`.zap/rules.tsv`).
+- Keeps meaningful findings blocking while classifying expected auth-endpoint detection (`10111`) as informational.
 - Publishes DAST reports/logs as artifacts.
 
 5. `deploy` (protected)
@@ -75,4 +76,5 @@ flowchart TD
 ## Accepted risk boundaries
 - Local Kubernetes overlay scan is non-blocking to support repository-controlled deploy-validation runtime compatibility.
 - Base Kubernetes manifests remain blocking for high/critical misconfiguration findings.
+- ZAP alert `10111` (Authentication Request Identified on `/rest/user/login`) is `INFO` in `.zap/rules.tsv`; this preserves visibility of auth surface while avoiding false gate failures for expected behavior.
 - This repo secures the delivery process around an intentionally vulnerable inherited app; it does not claim the app itself is production-safe.

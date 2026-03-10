@@ -63,7 +63,8 @@ Event behavior (verified from workflow + run history):
   - Kubernetes base-manifest misconfiguration gate.
 - **SBOM generation** via Syft/CycloneDX.
 - **Signing readiness** via Cosign installation + recorded keyless-signing guidance.
-- **DAST** via OWASP ZAP baseline against repository-controlled app runtime.
+- **DAST** via OWASP ZAP baseline against repository-controlled app runtime, using repo policy file `.zap/rules.tsv`.
+  - Alert `10111` ("Authentication Request Identified") is explicitly classified as `INFO` because `/rest/user/login` discovery is expected auth-surface detection, not a vulnerability by itself.
 - **Deploy gating** via explicit `needs` and branch/event conditions.
 - **Artifact reuse** between jobs (build outputs and container image) for consistency and speed.
 - **Branch protection assumptions (verified 2026-03-10)**:
@@ -78,6 +79,7 @@ Event behavior (verified from workflow + run history):
 | Trivy command failures | Invalid multi-target config invocation | Split scans by target with valid CLI usage | Security tooling requires exact operational correctness |
 | SBOM write errors | Output directory not pre-created | Added explicit directory creation pre-step | Pipeline FS preconditions must be explicit |
 | ZAP permission errors | Non-writable container work mount | Established writable report directory/mount strategy | DAST in CI needs explicit writable workspace design |
+| ZAP warning gate false-fail (`10111`) | Baseline exits code 2 for WARN findings, including expected auth-endpoint detection | Added explicit ZAP policy entry (`10111 INFO`) to keep visibility without failing on expected behavior | Security gates must differentiate true risk from expected app behavior with narrowly scoped policy |
 | SARIF upload failures | Unconditional upload of non-existent outputs | Added existence checks and conditional uploads | Reporting robustness is part of security engineering |
 | Deploy skip due branch drift | Branch condition not aligned with actual policy | Explicitly aligned protected deploy to `master` | Branch-policy drift can silently disable release controls |
 | Deploy validation rollout failures | Kind cluster-name mismatch + local overlay/runtime incompatibility | Explicit Kind cluster naming; local deploy compatibility patch; policy split between base gate and local overlay reporting | Separate hardening policy from local validation compatibility clearly |

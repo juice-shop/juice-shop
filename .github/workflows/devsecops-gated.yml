@@ -498,6 +498,9 @@ jobs:
       - name: Wait for healthy target
         run: ./scripts/wait-for-http.sh http://127.0.0.1:3000 300
 
+      - name: Validate ZAP policy file
+        run: test -f .zap/rules.tsv
+
       - name: Run OWASP ZAP baseline scan
         run: |
           docker run --rm \
@@ -510,6 +513,7 @@ jobs:
             -a \
             -j \
             -m 5 \
+            # Policy file explicitly marks expected app-specific findings (e.g. 10111 auth endpoint detection) as non-blocking.
             -c /zap/rules.tsv \
             -w zap-report.md \
             -r zap-report.html \
@@ -531,6 +535,7 @@ jobs:
           path: |
             reports/zap
             build/reports/dast-app.log
+          if-no-files-found: warn
 
   deploy:
     name: deploy

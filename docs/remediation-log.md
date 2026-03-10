@@ -126,3 +126,12 @@ This log records major implementation failures encountered during portfolio hard
 - **Fix implemented:** Upgraded CodeQL action usage to v4.
 - **Why the fix was correct:** Removed deprecation risk and aligned with supported action lifecycle.
 - **Lesson learned:** Security automation dependencies require active lifecycle maintenance.
+
+## 14) ZAP informational authentication alert blocked DAST gate
+- **Title:** ZAP baseline exited on expected authentication-endpoint discovery
+- **Pipeline stage / area affected:** `dast`
+- **Symptom:** ZAP reported `WARN-NEW: Authentication Request Identified [10111]` on `/rest/user/login` and exited with code `2`, failing pipeline runs.
+- **Root cause:** ZAP baseline treats warnings as non-zero exit; alert `10111` was not explicitly policy-tuned even though it is expected auth-surface detection for this app.
+- **Fix implemented:** Added explicit rule entry in `.zap/rules.tsv`: `10111 INFO (...)`, and kept the workflow using `-c /zap/rules.tsv`.
+- **Why the fix was correct:** The pipeline still fails on real vulnerability findings while keeping authentication-endpoint detection visible as informational evidence.
+- **Lesson learned:** Security gates should stay strict, but tooling policy must be narrowly tuned to expected behavior to avoid false-failures.
