@@ -38,12 +38,6 @@ export class ChallengeCardComponent implements OnInit, OnChanges {
   @ViewChild('hintTooltip')
   public hintTooltip?: MatTooltip
 
-  @ViewChild('codingChallengeTooltip')
-  public codingChallengeTooltip?: MatTooltip
-
-  @Input()
-  public highlightCodingButton = false
-
   @Input()
   @HostBinding('attr.id')
   public challengeId?: string
@@ -70,18 +64,6 @@ export class ChallengeCardComponent implements OnInit, OnChanges {
         queueMicrotask(() => setTimeout(()=>{this.hintTooltip?.show()}, 50))
       }
       this.previousHintsUnlocked = currentHintsUnlocked
-    }
-
-    if (changes['highlightCodingButton']) {
-      if (changes['highlightCodingButton'].currentValue === true) {
-        queueMicrotask(() => {
-          setTimeout(() => {
-            this.codingChallengeTooltip?.show()
-          }, 1000)
-        })
-      } else if (changes['highlightCodingButton'].previousValue === true && changes['highlightCodingButton'].currentValue === false) {
-        this.codingChallengeTooltip?.hide()
-      }
     }
   }
 
