@@ -28,15 +28,14 @@
               "zone.js"
             ],
             "tsConfig": "src/tsconfig.app.json",
-            "assets": ["src/assets"],
+            "assets": [
+              "src/assets"
+            ],
             "styles": [
               "src/styles.scss",
               "node_modules/material-icons/iconfont/material-icons.css",
               "node_modules/flag-icons/css/flag-icons.min.css",
               "node_modules/font-mfizz/dist/font-mfizz.css",
-              "node_modules/highlight.js/styles/github.css",
-              "node_modules/codemirror/lib/codemirror.css",
-              "node_modules/codemirror/theme/dracula.css",
               "node_modules/cookieconsent/build/cookieconsent.min.css"
             ],
             "allowedCommonJsDependencies": [
@@ -46,8 +45,6 @@
               "socket.io-parser",
               "debug",
               "qrious",
-              "diff-match-patch",
-              "codemirror",
               "bn.js",
               "aes-js",
               "scrypt-js",
@@ -58,7 +55,6 @@
               "ethers/lib/utils",
               "js-sha3",
               "qrcode",
-              "codemirror-solidity/solidity",
               "@wagmi/core"
             ],
             "scripts": [
@@ -113,11 +109,17 @@
             ],
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "src/styles.scss"
+            ],
             "scripts": [],
-            "assets": ["src/assets"],
+            "assets": [
+              "src/assets"
+            ],
             "codeCoverage": true,
-            "codeCoverageExclude": ["src/hacking-instructor/**/*.ts"]
+            "codeCoverageExclude": [
+              "src/hacking-instructor/**/*.ts"
+            ]
           }
         },
         "lint": {
@@ -134,6 +136,8 @@
   },
   "cli": {
     "analytics": false,
-    "schematicCollections": ["angular-eslint"]
+    "schematicCollections": [
+      "angular-eslint"
+    ]
   }
 }

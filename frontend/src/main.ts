@@ -39,7 +39,6 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { FileUploadModule } from 'ng2-file-upload'
-import { NgxTextDiffModule } from '@winarg/ngx-text-diff'
 import { GalleryModule } from 'ng-gallery'
 import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 
@@ -74,7 +73,6 @@ import { SecurityQuestionService } from './app/Services/security-question.servic
 import { AdministrationService } from './app/Services/administration.service'
 import { ConfigurationService } from './app/Services/configuration.service'
 import { ProductService } from './app/Services/product.service'
-import { HIGHLIGHT_OPTIONS, HighlightModule } from 'ngx-highlightjs'
 import { RequestInterceptor } from './app/Services/request.interceptor'
 import { HTTP_INTERCEPTORS, withInterceptorsFromDi, provideHttpClient } from '@angular/common/http'
 
@@ -85,23 +83,11 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
     providers: [
         provideZoneChangeDetection(),
-        importProvidersFrom(BrowserModule, Routing, TranslateModule.forRoot(), CookieModule.forRoot(), ReactiveFormsModule, GalleryModule, NgxTextDiffModule, FileUploadModule, MatToolbarModule, MatIconModule, FormsModule, MatFormFieldModule, MatSelectModule, MatButtonModule, MatSidenavModule, MatRippleModule, MatTableModule, MatPaginatorModule, MatCardModule, MatInputModule, MatCheckboxModule, MatDialogModule, MatDividerModule, MatDatepickerModule, MatNativeDateModule, MatExpansionModule, MatProgressBarModule, MatTooltipModule, MatMenuModule, MatListModule, MatButtonToggleModule, LayoutModule, MatGridListModule, MatBadgeModule, MatRadioModule, MatSnackBarModule, MatSliderModule, MatTabsModule, MatSlideToggleModule, MatChipsModule, MatAutocompleteModule, HighlightModule),
+        importProvidersFrom(BrowserModule, Routing, TranslateModule.forRoot(), CookieModule.forRoot(), ReactiveFormsModule, GalleryModule, FileUploadModule, MatToolbarModule, MatIconModule, FormsModule, MatFormFieldModule, MatSelectModule, MatButtonModule, MatSidenavModule, MatRippleModule, MatTableModule, MatPaginatorModule, MatCardModule, MatInputModule, MatCheckboxModule, MatDialogModule, MatDividerModule, MatDatepickerModule, MatNativeDateModule, MatExpansionModule, MatProgressBarModule, MatTooltipModule, MatMenuModule, MatListModule, MatButtonToggleModule, LayoutModule, MatGridListModule, MatBadgeModule, MatRadioModule, MatSnackBarModule, MatSliderModule, MatTabsModule, MatSlideToggleModule, MatChipsModule, MatAutocompleteModule),
         {
             provide: HTTP_INTERCEPTORS,
             useClass: RequestInterceptor,
             multi: true
-        },
-        {
-            provide: HIGHLIGHT_OPTIONS,
-            useValue: {
-                coreLibraryLoader: async () => await import('highlight.js/lib/core'),
-                lineNumbersLoader: async () => await import('ngx-highlightjs/line-numbers'),
-                languages: {
-                    typescript: async () => await import('highlight.js/lib/languages/typescript'),
-                    javascript: async () => await import('highlight.js/lib/languages/javascript'),
-                    yaml: async () => await import('highlight.js/lib/languages/yaml')
-                }
-            }
         },
         ProductService,
         ConfigurationService,

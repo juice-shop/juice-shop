@@ -9,7 +9,6 @@ import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { CookieModule, CookieService } from 'ngy-cookie'
 import { of } from 'rxjs'
-import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs'
 
 import { CodingChallengeFindItComponent } from './coding-challenge-find-it.component'
 import { VulnLinesService } from '../Services/vuln-lines.service'
@@ -39,16 +38,7 @@ describe('CodingChallengeFindItComponent', () => {
         { provide: ChallengeService, useValue: challengeService },
         { provide: CookieService, useValue: cookieService },
         provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting(),
-        {
-          provide: HIGHLIGHT_OPTIONS,
-          useValue: {
-            coreLibraryLoader: async () => await import('highlight.js/lib/core'),
-            languages: {
-              typescript: async () => await import('highlight.js/lib/languages/typescript')
-            }
-          }
-        }
+        provideHttpClientTesting()
       ]
     }).compileComponents()
   }))
@@ -67,9 +57,8 @@ describe('CodingChallengeFindItComponent', () => {
   })
 
   it('should initialize line markers from snippet', () => {
-    expect(component.lineMarkers).toHaveSize(3)
-    expect(component.lineMarkers[0].lineNumber).toBe(1)
-    expect(component.lineMarkers[0].marked).toBeFalse()
+    expect(component.markedLines.size).toBe(0)
+    expect(component.selectedLines).toEqual([])
   })
 
   it('should set result to Right if already solved', () => {
@@ -79,6 +68,7 @@ describe('CodingChallengeFindItComponent', () => {
   })
 
   it('should toggle line markers on selectLines', () => {
+    fixture.detectChanges()
     component.selectLines(2)
     expect(component.selectedLines).toEqual([2])
     component.selectLines(2)

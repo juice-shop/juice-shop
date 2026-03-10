@@ -3,17 +3,23 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, EventEmitter, Input, type OnInit, Output, ViewChild, type DoCheck, KeyValueDiffers, type KeyValueDiffer, inject } from '@angular/core'
+import { Component, EventEmitter, Input, type OnInit, type AfterViewInit, type OnDestroy, Output, ViewChild, ElementRef, inject } from '@angular/core'
 import { type ThemePalette } from '@angular/material/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
+import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatIconModule } from '@angular/material/icon'
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { FormsModule } from '@angular/forms'
 import { TranslateModule } from '@ngx-translate/core'
-import { NgxTextDiffComponent, NgxTextDiffModule, type DiffTableFormat } from '@winarg/ngx-text-diff'
 import { CookieService } from 'ngy-cookie'
+
+import { EditorView, basicSetup } from 'codemirror'
+import { EditorState } from '@codemirror/state'
+import { unifiedMergeView } from '@codemirror/merge'
+import { readOnlyExtensions, getLanguageExtension } from '../shared/codemirror-extensions'
+import { juiceShopTheme } from '../shared/codemirror-theme'
 
 import { type CodeSnippet } from '../Services/code-snippet.service'
 import { CodeFixesService } from '../Services/code-fixes.service'
@@ -24,15 +30,15 @@ import { ResultState, type RandomFixes } from '../coding-challenge-page/coding-c
   selector: 'coding-challenge-fix-it',
   templateUrl: './coding-challenge-fix-it.component.html',
   styleUrls: ['./coding-challenge-fix-it.component.scss'],
-  imports: [NgxTextDiffModule, MatButtonModule, MatCardModule, MatIconModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, TranslateModule]
+  imports: [MatButtonModule, MatCardModule, MatCheckboxModule, MatIconModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, TranslateModule]
 })
-export class CodingChallengeFixItComponent implements OnInit, DoCheck {
+export class CodingChallengeFixItComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('diffHost', { static: true }) diffHost!: ElementRef<HTMLDivElement>
+  private diffView: EditorView | null = null
+
   private readonly codeFixesService = inject(CodeFixesService)
   private readonly challengeService = inject(ChallengeService)
   private readonly cookieService = inject(CookieService)
-  private readonly differs = inject(KeyValueDiffers)
-
-  differ: KeyValueDiffer<string, DiffTableFormat>
 
   @Input() challengeKey: string
   @Input() snippet: CodeSnippet
@@ -45,46 +51,65 @@ export class CodingChallengeFixItComponent implements OnInit, DoCheck {
   public randomFixes: RandomFixes[] = []
   public explanation: string = null
   public result: ResultState = ResultState.Undecided
-  public format = 'SideBySide'
-
-  @ViewChild('codeComponent', { static: false }) codeComponent: NgxTextDiffComponent
-
-  constructor () {
-    this.differ = this.differs.find({}).create()
-  }
+  public onlyChangedLines = true
 
   ngOnInit (): void {
     if (this.alreadySolved) {
       this.result = ResultState.Right
     }
     this.shuffle()
-
-    if (this.cookieService.hasKey('code-fixes-component-format')) {
-      this.format = this.cookieService.get('code-fixes-component-format')
-    } else {
-      this.format = 'LineByLine'
-      this.cookieService.put('code-fixes-component-format', 'LineByLine')
-    }
   }
 
-  ngDoCheck () {
-    if (!this.codeComponent) return
-    try {
-      const change = this.differ.diff({ 'diff-format': this.codeComponent.format })
-      if (change) {
-        change.forEachChangedItem(item => {
-          this.format = item.currentValue
-          this.cookieService.put('code-fixes-component-format', this.format)
-        })
-      }
-    } catch {
-      console.warn('Error during diffing')
-    }
+  ngAfterViewInit (): void {
+    this.createDiffView()
+  }
+
+  ngOnDestroy (): void {
+    this.diffView?.destroy()
+  }
+
+  toggleOnlyChangedLines (): void {
+    this.createDiffView()
+  }
+
+  private createDiffView (): void {
+    this.diffView?.destroy()
+    const fix = this.randomFixes[this.selectedFix]
+    if (!fix || !this.snippet) return
+
+    const lang = this.detectLanguage(this.snippet.snippet)
+    this.diffView = new EditorView({
+      parent: this.diffHost.nativeElement,
+      state: EditorState.create({
+        doc: fix.fix,
+        extensions: [
+          basicSetup,
+          ...juiceShopTheme(),
+          getLanguageExtension(lang),
+          unifiedMergeView({
+            original: this.snippet.snippet,
+            highlightChanges: true,
+            gutter: true,
+            mergeControls: false,
+            ...(this.onlyChangedLines ? { collapseUnchanged: { margin: 3, minSize: 4 } } : {})
+          }),
+          ...readOnlyExtensions()
+        ]
+      })
+    })
+  }
+
+  private detectLanguage (code: string): string {
+    if (code.includes('import ') || code.includes('export ') || code.includes(': ')) return 'typescript'
+    if (code.trimStart().startsWith('{')) return 'json'
+    if (code.includes(': ') && !code.includes(';')) return 'yaml'
+    return 'javascript'
   }
 
   setFix (fix: number): void {
     this.selectedFix = fix
     this.explanation = null
+    this.createDiffView()
   }
 
   changeFix (event: Event): void {
