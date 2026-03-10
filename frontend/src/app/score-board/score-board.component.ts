@@ -1,13 +1,11 @@
 import { Component, NgZone, type OnDestroy, type OnInit, inject, AfterViewInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { DomSanitizer } from '@angular/platform-browser'
-import { MatDialog } from '@angular/material/dialog'
 import { type Subscription, combineLatest, firstValueFrom } from 'rxjs'
 
 import { fromQueryParams, toQueryParams } from './filter-settings/query-params-converters'
 import { DEFAULT_FILTER_SETTING, type FilterSetting } from './filter-settings/FilterSetting'
 import { type Config, ConfigurationService } from '../Services/configuration.service'
-import { CodeSnippetComponent } from '../code-snippet/code-snippet.component'
 import { ChallengeService } from '../Services/challenge.service'
 import { HintService } from '../Services/hint.service'
 import { filterChallenges } from './helpers/challenge-filtering'
@@ -51,7 +49,6 @@ export class ScoreBoardComponent implements OnInit, OnDestroy, AfterViewInit {
   private readonly sanitizer = inject(DomSanitizer)
   private readonly ngZone = inject(NgZone)
   private readonly io = inject(SocketIoService)
-  private readonly dialog = inject(MatDialog)
   private readonly router = inject(Router)
   private readonly route = inject(ActivatedRoute)
 
@@ -184,16 +181,7 @@ export class ScoreBoardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   openCodingChallengeDialog (challengeKey: string) {
-    const challenge = this.allChallenges.find((challenge) => challenge.key === challengeKey)
-
-    this.dialog.open(CodeSnippetComponent, {
-      disableClose: true,
-      data: {
-        key: challengeKey,
-        name: challenge.name,
-        codingChallengeStatus: challenge.codingChallengeStatus
-      }
-    })
+    this.router.navigate(['/coding-challenge', challengeKey])
   }
 
   async repeatChallengeNotification (challengeKey: string) {

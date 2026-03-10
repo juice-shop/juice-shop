@@ -723,32 +723,32 @@
 	},
 	"tokenSaleChallenge_1.ts": {
 		"added": [
-			20
+			24
 		],
 		"removed": [
-			20
+			24
 		]
 	},
 	"tokenSaleChallenge_2.ts": {
 		"added": [
-			20
+			24
 		],
 		"removed": [
-			20
+			24
 		]
 	},
 	"tokenSaleChallenge_3_correct.ts": {
 		"added": [
 			10,
-			20,
-			32,
-			33,
-			40,
-			47,
-			55
+			24,
+			36,
+			37,
+			44,
+			51,
+			59
 		],
 		"removed": [
-			17
+			21
 		]
 	},
 	"unionSqlInjectionChallenge_1.ts": {

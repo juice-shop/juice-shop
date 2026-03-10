@@ -1,0 +1,27 @@
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+@use '../../styles/variables' as *;
+@import 'highlight.js/styles/vs.css';
+
+.section-title {
+  margin-bottom: $space-m;
+}
+
+#emphasize {
+  float: left;
+  padding: 1em 0.5em;
+}
+
+.lineMarker {
+  color: #fff;
+  cursor: pointer;
+}
+
+.action-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: $space-m;
+}

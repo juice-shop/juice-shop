@@ -1,0 +1,40 @@
+<!--
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+-->
+<header class="page-header">
+  <button mat-stroked-button (click)="goBack()" class="back-button">
+    <mat-icon>arrow_back</mat-icon>
+    <span>{{'TITLE_SCORE_BOARD' | translate}}</span>
+  </button>
+  @if (challengeName) {
+    <h2>{{'TITLE_CODING_CHALLENGE' | translate}}: {{challengeName}}</h2>
+  }
+</header>
+
+<div class="page-content">
+  @if (isLoaded && snippet !== null) {
+    <section class="challenge-section">
+      <coding-challenge-find-it
+        [challengeKey]="challengeKey"
+        [snippet]="snippet"
+        [alreadySolved]="findItSolved"
+        (solved)="onFindItSolved()">
+      </coding-challenge-find-it>
+    </section>
+  } @else if (!isLoaded) {
+    <mat-spinner></mat-spinner>
+  }
+
+  @if (findItSolved && fixes !== null) {
+    <section class="challenge-section" #fixItSection>
+      <coding-challenge-fix-it
+        [challengeKey]="challengeKey"
+        [snippet]="snippet"
+        [fixes]="fixes"
+        [alreadySolved]="fixItSolved"
+        (solved)="onFixItSolved()">
+      </coding-challenge-fix-it>
+    </section>
+  }
+</div>

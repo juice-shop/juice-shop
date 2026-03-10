@@ -1,0 +1,24 @@
+<!--
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+-->
+<h3 class="section-title">{{'TAB_FIND_IT' | translate}}</h3>
+<div id="code-area">
+  <pre id="code"><div id="emphasize">@for (marker of lineMarkers; track marker) {<div class="lineMarker" [id]="'line' + marker.lineNumber" (click)="selectLines(marker.lineNumber)">{{ marker.marked ? '&#x2705;' : '&#x1F532;'}}</div>}
+</div><code
+[highlightAuto]="snippet.snippet" lineNumbers
+[languages]="langs"
+></code></pre>
+</div>
+@if (hint) {
+  <mat-card appearance="outlined" class="primary-notification">
+    <div class="mdc-card">{{hint}}</div>
+  </mat-card>
+}
+<div class="action-row">
+  <button mat-stroked-button (click)="checkLines()" [disabled]="alreadySolved || result === 1"
+    id="findItSubmitButton">
+    <span>{{'BTN_SUBMIT' | translate}}</span>
+    <mat-icon [color]="resultColor()">{{ resultIcon() }}</mat-icon>
+  </button>
+</div>

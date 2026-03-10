@@ -42,6 +42,7 @@ import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, LoginGuard } from './app.guard'
 import { NFTUnlockComponent } from './nft-unlock/nft-unlock.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
+import { CodingChallengePageComponent } from './coding-challenge-page/coding-challenge-page.component'
 import { ChatbotComponent } from './chatbot/chatbot.component'
 import { ChatWelcomePageComponent } from './chatbot/chat-welcome-page/chat-welcome-page.component'
 import { ChatConversationComponent } from './chatbot/chat-conversation/chat-conversation.component'
@@ -247,6 +248,10 @@ const routes: Routes = [
     matcher: tokenMatcher, // vuln-code-snippet vuln-line tokenSaleChallenge
     component: TokenSaleComponent // vuln-code-snippet neutral-line tokenSaleChallenge
   }, // vuln-code-snippet neutral-line tokenSaleChallenge
+  {
+    path: 'coding-challenge/:challengeKey',
+    component: CodingChallengePageComponent
+  },
   {
     path: '403',
     component: ErrorPageComponent

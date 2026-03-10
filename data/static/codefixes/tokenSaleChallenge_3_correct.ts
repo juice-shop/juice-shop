@@ -4,6 +4,10 @@
     component: OAuthComponent
   },
   {
+    path: 'coding-challenge/:challengeKey',
+    component: CodingChallengePageComponent
+  },
+  {
     path: '403',
     component: ErrorPageComponent
   },
