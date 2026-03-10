@@ -164,9 +164,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
       return
     }
     this.ngZone.run(() => {
-      void this.router.navigate(["/score-board"], {
-        queryParams: { highlightChallenge: challengeKey },
-      })
+      void this.router.navigate(['/coding-challenge', challengeKey])
     })
   }
 }
