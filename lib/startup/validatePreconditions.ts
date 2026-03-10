@@ -17,8 +17,9 @@ export const variableDependencies = {
   ALCHEMY_API_KEY: ['"Mint the Honey Pot" challenge', '"Wallet Depletion" challenge']
 }
 
-export const domainDependencies = {
-  'https://www.alchemy.com/': ['"Mint the Honey Pot" challenge', '"Wallet Depletion" challenge']
+export const domainDependencies: Record<string, string[]> = {
+  'https://www.alchemy.com/': ['"Mint the Honey Pot" challenge', '"Wallet Depletion" challenge'],
+  [config.get<string>('application.chatBot.llmApiUrl')]: ['"Chatbot Prompt Injection" challenge', '"Greedy Chatbot Manipulation" challenge']
 }
 
 const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
@@ -43,7 +44,13 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
   if (!alchemyDomainReachable || !alchemyEnvVarExists) {
     logger.info(`Check ${colors.bold('https://howto-web3.owasp-juice.shop')} for instructions on how to set up and configure the Alchemy API`)
   }
-  await checkIfLlmApiReachable()
+  const llmApiUrl = config.get<string>('application.chatBot.llmApiUrl')
+  const llmApiReachable = await checkIfDomainReachable(llmApiUrl)
+  if (!llmApiReachable) {
+    logger.info(`Check ${colors.bold('https://howto-llm.owasp-juice.shop')} for instructions on how to set up and configure the LLM API`)
+  } else if (isOllamaUrl(llmApiUrl)) {
+    await checkIfOllamaModelAvailable(llmApiUrl)
+  }
 
   if ((!success || !asyncConditions) && exitOnFailure) {
     logger.error(colors.red('Exiting due to unsatisfied precondition!'))
@@ -110,7 +117,6 @@ export const checkIfDomainReachable = async (domain: string) => {
     return true
   } catch {
     logger.warn(`Domain ${colors.bold(domain)} is not reachable (${colors.yellow('WARNING')})`)
-    // @ts-expect-error FIXME Type problem by accessing key via variable
     domainDependencies[domain].forEach((dependency: string) => {
       logger.warn(`${colors.italic(dependency)} will not work as intended without access to ${colors.bold(domain)}`)
     })
@@ -174,26 +180,6 @@ export const isOllamaUrl = (url: string): boolean => {
   }
 }
 
-export const checkIfLlmApiReachable = async () => {
-  const llmApiUrl = config.get<string>('application.chatBot.llmApiUrl')
-  try {
-    const response = await fetch(`${llmApiUrl}/models`, { signal: AbortSignal.timeout(5000) })
-    if (response.ok) {
-      logger.info(`LLM API at ${colors.bold(llmApiUrl)} is reachable (${colors.green('SUCCESS')})`)
-      if (isOllamaUrl(llmApiUrl)) {
-        await checkIfOllamaModelAvailable(llmApiUrl)
-      }
-    } else {
-      logger.warn(`LLM API at ${colors.bold(llmApiUrl)} returned status ${response.status} (${colors.yellow('WARNING')})`)
-      logLlmChallengeWarnings()
-    }
-  } catch {
-    logger.warn(`LLM API at ${colors.bold(llmApiUrl)} is not reachable (${colors.yellow('WARNING')})`)
-    logLlmChallengeWarnings()
-  }
-  return true
-}
-
 export const checkIfOllamaModelAvailable = async (llmApiUrl: string) => {
   const model = config.get<string>('application.chatBot.model')
   try {
@@ -213,17 +199,10 @@ export const checkIfOllamaModelAvailable = async (llmApiUrl: string) => {
         pullModelMessage += ` or configure an available model: ${colors.bold(availableModels.join(', '))}`
       }
       logger.info(pullModelMessage)
-      logLlmChallengeWarnings()
     }
   } catch {
     logger.warn(`Could not verify Ollama model ${colors.bold(model)} availability (${colors.yellow('WARNING')})`)
   }
-}
-
-const logLlmChallengeWarnings = () => {
-  logger.warn(`${colors.italic('"Chatbot Prompt Injection" challenge')} will not work without a running LLM API`)
-  logger.warn(`${colors.italic('"Greedy Chatbot Manipulation" challenge')} will not work without a running LLM API`)
-  logger.info(`Check ${colors.bold('https://howto-llm.owasp-juice.shop')} for instructions on how to set up and configure the LLM API`)
 }
 
 export default validatePreconditions
