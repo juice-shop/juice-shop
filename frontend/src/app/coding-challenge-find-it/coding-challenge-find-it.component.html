@@ -2,7 +2,13 @@
   ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
 -->
-<h3 class="section-title">{{'TAB_FIND_IT' | translate}}</h3>
+<h3 class="section-title">
+  {{'TAB_FIND_IT' | translate}}
+  @if (alreadySolved() || result === 1) {
+  <mat-icon class="solved-indicator">check_circle</mat-icon>
+  }
+</h3>
+<p class="section-description">{{'DESCRIPTION_FIND_IT' | translate}}</p>
 <div id="code-area">
   <div #editorHost class="editor-host"></div>
 </div>
@@ -12,9 +18,13 @@
 </mat-card>
 }
 <div class="action-row">
-  <button mat-stroked-button (click)="checkLines()" [disabled]="alreadySolved() || result === 1"
-    id="findItSubmitButton">
+  <button mat-stroked-button (click)="checkLines()"
+    [disabled]="alreadySolved() || result === 1 || selectedLines.length === 0" id="findItSubmitButton">
+    @if (result === 1 || selectedLines.length === 0) {
     <span>{{'BTN_SUBMIT' | translate}}</span>
+    } @else {
+    <span>{{'BTN_SUBMIT_VULNERABLE_LINES' | translate: { lines: formatSelectedLines() } }}</span>
+    }
     <mat-icon [color]="resultColor()">{{ resultIcon() }}</mat-icon>
   </button>
 </div>

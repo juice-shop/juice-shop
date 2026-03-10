@@ -2,16 +2,19 @@
   ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
 -->
-<h3 class="section-title">{{'TAB_FIX_IT' | translate}}</h3>
+<h3 class="section-title">
+  {{'TAB_FIX_IT' | translate}}
+  @if (alreadySolved() || result === 1) {
+  <mat-icon class="solved-indicator">check_circle</mat-icon>
+  }
+</h3>
+<p class="section-description">{{'DESCRIPTION_FIX_IT' | translate}}</p>
 <div class="controls-row">
-  <mat-form-field appearance="fill">
-    <mat-label translate>LABEL_CORRECT_FIX</mat-label>
-    <select matNativeControl (change)="changeFix($event)">
-      @for (fix of randomFixes; track fix; let i = $index) {
-      <option [value]="i" [selected]="selectedFix === i">Fix {{ i+1 }}</option>
-      }
-    </select>
-  </mat-form-field>
+  <mat-button-toggle-group [value]="selectedFix" (change)="setFix($event.value)" class="fix-toggles">
+    @for (fix of randomFixes; track fix; let i = $index) {
+    <mat-button-toggle [value]="i">Fix {{ i+1 }}</mat-button-toggle>
+    }
+  </mat-button-toggle-group>
   <mat-checkbox [(ngModel)]="onlyChangedLines" (change)="toggleOnlyChangedLines()" class="changed-lines-toggle">
     {{ 'LABEL_ONLY_CHANGED_LINES' | translate }}
   </mat-checkbox>
@@ -26,7 +29,11 @@
 }
 <div class="action-row">
   <button mat-stroked-button (click)="checkFix()" [disabled]="alreadySolved() || result === 1" id="fixItSubmitButton">
+    @if (result === 1) {
     <span>{{'BTN_SUBMIT' | translate}}</span>
+    } @else {
+    <span>{{'BTN_SUBMIT_FIX' | translate: { fix: selectedFix + 1 } }}</span>
+    }
     <mat-icon [color]="resultColor()">{{ resultIcon() }}</mat-icon>
   </button>
 </div>
