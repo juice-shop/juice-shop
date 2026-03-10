@@ -71,6 +71,7 @@ Execution model:
 Verified directly:
 - Workflow syntax validation: `actionlint` passed for active workflow.
 - GitHub Actions event behavior and job outcomes:
+  - Feature-branch push run: `22882208517` (`push` on `devsecops-finalize`) -> required checks passed, `deploy`/`deploy_validation` skipped (expected).
   - PR run: `22880716114` (`pull_request`) -> checks passed, `deploy` skipped (expected).
   - Master push run: `22881386491` (`push` on `master`) -> `deploy` succeeded.
   - Manual feature-branch deploy validation run: `22873458723` (`workflow_dispatch`) -> `deploy_validation` succeeded, protected `deploy` skipped (expected).
