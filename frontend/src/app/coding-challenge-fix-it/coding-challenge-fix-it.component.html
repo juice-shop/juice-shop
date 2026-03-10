@@ -25,7 +25,7 @@
 </mat-card>
 }
 <div class="action-row">
-  <button mat-stroked-button (click)="checkFix()" [disabled]="alreadySolved || result === 1" id="fixItSubmitButton">
+  <button mat-stroked-button (click)="checkFix()" [disabled]="alreadySolved() || result === 1" id="fixItSubmitButton">
     <span>{{'BTN_SUBMIT' | translate}}</span>
     <mat-icon [color]="resultColor()">{{ resultIcon() }}</mat-icon>
   </button>

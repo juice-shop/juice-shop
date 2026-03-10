@@ -46,9 +46,9 @@ describe('CodingChallengeFindItComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CodingChallengeFindItComponent)
     component = fixture.componentInstance
-    component.challengeKey = 'testChallenge'
-    component.snippet = { snippet: 'line1\nline2\nline3', vulnLines: [2] }
-    component.alreadySolved = false
+    fixture.componentRef.setInput('challengeKey', 'testChallenge')
+    fixture.componentRef.setInput('snippet', { snippet: 'line1\nline2\nline3', vulnLines: [2] })
+    fixture.componentRef.setInput('alreadySolved', false)
     fixture.detectChanges()
   })
 
@@ -62,7 +62,7 @@ describe('CodingChallengeFindItComponent', () => {
   })
 
   it('should set result to Right if already solved', () => {
-    component.alreadySolved = true
+    fixture.componentRef.setInput('alreadySolved', true)
     component.ngOnInit()
     expect(component.result).toBe(1)
   })
