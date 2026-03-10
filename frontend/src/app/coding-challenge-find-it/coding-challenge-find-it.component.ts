@@ -24,6 +24,7 @@ import { type CodeSnippet } from '../Services/code-snippet.service'
 import { VulnLinesService, type result } from '../Services/vuln-lines.service'
 import { ChallengeService } from '../Services/challenge.service'
 import { ResultState } from '../coding-challenge-page/coding-challenge.types'
+import { formatSelectedLines } from './format-selected-lines'
 
 const toggleLineEffect = StateEffect.define<{ lineNumber: number, pos: number, on: boolean }>()
 
@@ -187,6 +188,10 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
       this.hint = verdict.hint
       this.cdr.markForCheck()
     })
+  }
+
+  formatSelectedLines (): string {
+    return formatSelectedLines(this.selectedLines)
   }
 
   resultIcon (): string {

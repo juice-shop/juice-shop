@@ -7,7 +7,8 @@
 
 :host {
   display: block;
-  max-width: 65em;
+  width: 100%;
+  max-width: 1400px;
   margin: 0 auto;
   padding: $space-l;
 }
@@ -34,7 +35,5 @@
 }
 
 .challenge-section {
-  padding: $space-l;
-  border: 1px solid var(--theme-border, rgba(0, 0, 0, 0.12));
-  border-radius: 4px;
+  padding: 0;
 }

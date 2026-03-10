@@ -9,8 +9,7 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatIconModule } from '@angular/material/icon'
-import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
-import { MatInputModule } from '@angular/material/input'
+import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { FormsModule } from '@angular/forms'
 import { TranslateModule } from '@ngx-translate/core'
 import { CookieService } from 'ngy-cookie'
@@ -30,7 +29,7 @@ import { ResultState, type RandomFixes } from '../coding-challenge-page/coding-c
   selector: 'coding-challenge-fix-it',
   templateUrl: './coding-challenge-fix-it.component.html',
   styleUrls: ['./coding-challenge-fix-it.component.scss'],
-  imports: [MatButtonModule, MatCardModule, MatCheckboxModule, MatIconModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, TranslateModule]
+  imports: [MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatIconModule, FormsModule, TranslateModule]
 })
 export class CodingChallengeFixItComponent implements OnInit, AfterViewInit, OnDestroy {
   readonly diffHost = viewChild.required<ElementRef<HTMLDivElement>>('diffHost')
@@ -110,10 +109,6 @@ export class CodingChallengeFixItComponent implements OnInit, AfterViewInit, OnD
     this.selectedFix = fix
     this.explanation = null
     this.createDiffView()
-  }
-
-  changeFix (event: Event): void {
-    this.setFix(parseInt((event.target as HTMLSelectElement).value, 10))
   }
 
   checkFix (): void {

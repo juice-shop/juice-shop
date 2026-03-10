@@ -6,13 +6,33 @@
 @use '../../styles/variables' as *;
 
 .section-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: $space-xs;
+  display: flex;
+}
+
+.section-description {
+  color: var(--theme-text-fade-50);
+  margin-top: 0;
   margin-bottom: $space-m;
+}
+
+.solved-indicator {
+  color: var(--theme-accent);
+  vertical-align: middle;
+  margin-left: $space-xs;
 }
 
 .controls-row {
   display: flex;
   align-items: center;
   gap: $space-m;
+  margin-bottom: $space-m;
+}
+
+.fix-toggles {
+  flex-wrap: wrap;
 }
 
 .changed-lines-toggle {
@@ -23,10 +43,15 @@
   margin-bottom: $space-m;
 }
 
-.diff-host {
+.diff-host ::ng-deep {
   .cm-editor {
     border-radius: 16px;
     overflow: hidden;
+  }
+
+  .cm-scroller {
+    max-height: 817px; // intentionally a uneven number to have a partial line visible, hinting at the scrollability of the content
+    overflow-y: auto;
   }
 
   .cm-changedLine.cm-insertedLine { background-color: rgba(0, 180, 0, 0.15); }
