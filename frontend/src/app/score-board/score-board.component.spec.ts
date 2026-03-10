@@ -2,7 +2,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
-import { MatDialogModule } from '@angular/material/dialog'
 import { MatIconModule } from '@angular/material/icon'
 import { TranslateModule } from '@ngx-translate/core'
 import { of, throwError } from 'rxjs'
@@ -16,7 +15,6 @@ import { WarningCardComponent } from './components/warning-card/warning-card.com
 import { ScoreCardComponent } from './components/score-card/score-card.component'
 import { ScoreBoardComponent } from './score-board.component'
 import { ConfigurationService } from '../Services/configuration.service'
-import { CodeSnippetService } from '../Services/code-snippet.service'
 import { ChallengeService } from '../Services/challenge.service'
 import { type Challenge } from '../Models/challenge.model'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
@@ -48,15 +46,11 @@ describe('ScoreBoardComponent', () => {
   let fixture: ComponentFixture<ScoreBoardComponent>
   let challengeService
   let hintService
-  let codeSnippetService
   let configService
 
   beforeEach(async () => {
     challengeService = jasmine.createSpyObj('ChallengeService', ['find'])
     hintService = jasmine.createSpyObj('HintService', ['getAll', 'put'])
-    codeSnippetService = jasmine.createSpyObj('CodeSnippetService', [
-      'challenges'
-    ])
     configService = jasmine.createSpyObj('ConfigurationService', [
       'getApplicationConfiguration'
     ])
@@ -64,7 +58,6 @@ describe('ScoreBoardComponent', () => {
       imports: [TranslateModule.forRoot(),
         RouterTestingModule,
         MatProgressSpinnerModule,
-        MatDialogModule,
         MatIconModule,
         ScoreBoardComponent,
         HackingChallengeProgressScoreCardComponent,
@@ -77,7 +70,6 @@ describe('ScoreBoardComponent', () => {
       providers: [
         { provide: ChallengeService, useValue: challengeService },
         { provide: HintService, useValue: hintService },
-        { provide: CodeSnippetService, useValue: codeSnippetService },
         { provide: ConfigurationService, useValue: configService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
@@ -115,7 +107,6 @@ describe('ScoreBoardComponent', () => {
 
     hintService.getAll.and.returnValue(of([]))
 
-    codeSnippetService.challenges.and.returnValue(of(['challenge-2']))
     configService.getApplicationConfiguration.and.returnValue(
       of({
         challenges: {

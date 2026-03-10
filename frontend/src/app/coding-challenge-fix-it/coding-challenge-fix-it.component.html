@@ -1,0 +1,34 @@
+<!--
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+-->
+<h3 class="section-title">{{'TAB_FIX_IT' | translate}}</h3>
+<mat-form-field appearance="fill">
+  <mat-label translate>LABEL_CORRECT_FIX</mat-label>
+  <select matNativeControl (change)="changeFix($event)">
+    @for (fix of randomFixes; track fix; let i = $index) {
+      <option [value]="i" [selected]="selectedFix === i">Fix {{ i+1 }}</option>
+    }
+  </select>
+</mat-form-field>
+<div class="diff-container">
+  @for (fix of randomFixes; track fix.index) {
+    @if (selectedFix === $index) {
+      <td-ngx-text-diff [left]="snippet.snippet" [right]="fix?.fix" [format]="format" #codeComponent>
+      </td-ngx-text-diff>
+    }
+  }
+</div>
+@if (explanation) {
+  <mat-card appearance="outlined"
+    [class]="resultColor() === 'warn' ? 'warn-notification' : 'accent-notification'">
+    <div class="mdc-card">{{explanation}}</div>
+  </mat-card>
+}
+<div class="action-row">
+  <button mat-stroked-button (click)="checkFix()" [disabled]="alreadySolved || result === 1"
+    id="fixItSubmitButton">
+    <span>{{'BTN_SUBMIT' | translate}}</span>
+    <mat-icon [color]="resultColor()">{{ resultIcon() }}</mat-icon>
+  </button>
+</div>
