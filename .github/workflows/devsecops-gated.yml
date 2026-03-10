@@ -2,8 +2,8 @@ name: DevSecOps Gated Pipeline
 
 # Trigger model:
 # - Branch pushes and pull requests run build, security, container, and DAST stages.
-# - Protected deploy job runs from the repository default branch only.
-# - Manual deploy validation is available via workflow_dispatch input on non-default branches.
+# - Protected deploy job runs from master only.
+# - Manual deploy validation is available via workflow_dispatch input on non-master branches.
 
 on:
   push:
@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
     inputs:
       run_deploy_validation:
-        description: "Run deploy validation job on current non-default branch"
+        description: "Run deploy validation job on current non-master branch"
         required: false
         default: false
         type: boolean
@@ -610,9 +610,9 @@ jobs:
     # Manual validation path:
     # - trigger from Actions UI using "Run workflow"
     # - set run_deploy_validation=true
-    # - intended for non-default branches to verify deployment logic before merge
+    # - intended for non-master branches to verify deployment logic before merge
     # - deploys only to ephemeral Kind in the GitHub runner
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.run_deploy_validation == 'true' && github.ref != format('refs/heads/{0}', github.event.repository.default_branch)
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.run_deploy_validation == 'true' && github.ref != 'refs/heads/master'
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
