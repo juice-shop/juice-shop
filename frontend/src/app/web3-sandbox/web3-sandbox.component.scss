@@ -5,6 +5,15 @@
 
 @use '../../styles/variables' as *;
 
+.editor-host {
+  height: 600px;
+  overflow: auto;
+
+  .cm-editor {
+    height: 100%;
+  }
+}
+
 .playground-wallet {
   display: flex;
   justify-content: center;

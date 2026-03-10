@@ -9,8 +9,35 @@
   margin-bottom: $space-m;
 }
 
+.controls-row {
+  display: flex;
+  align-items: center;
+  gap: $space-m;
+}
+
+.changed-lines-toggle {
+  margin-left: auto;
+}
+
 .diff-container {
   margin-bottom: $space-m;
+}
+
+.diff-host {
+  .cm-editor {
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .cm-changedLine {
+    &.cm-insertedLine { background-color: rgba(0, 180, 0, 0.15); }
+    &.cm-deletedLine { background-color: rgba(255, 0, 0, 0.15); }
+  }
+
+  .cm-changedText {
+    &.cm-insertedText { background-color: rgba(0, 180, 0, 0.3); }
+    &.cm-deletedText { background-color: rgba(255, 0, 0, 0.3); }
+  }
 }
 
 .action-row {

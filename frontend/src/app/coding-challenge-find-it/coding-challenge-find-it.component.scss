@@ -4,20 +4,30 @@
  */
 
 @use '../../styles/variables' as *;
-@import 'highlight.js/styles/vs.css';
 
 .section-title {
   margin-bottom: $space-m;
 }
 
-#emphasize {
-  float: left;
-  padding: 1em 0.5em;
-}
+.editor-host {
+  .cm-editor {
+    border-radius: 16px;
+    overflow: hidden;
+  }
 
-.lineMarker {
-  color: #fff;
-  cursor: pointer;
+  .cm-selected-line {
+    background-color: rgba(255, 213, 79, 0.25) !important;
+  }
+
+  .cm-marker-gutter {
+    width: 2em;
+    cursor: pointer;
+  }
+
+  .cm-line-marker {
+    cursor: pointer;
+    font-size: 14px;
+  }
 }
 
 .action-row {
