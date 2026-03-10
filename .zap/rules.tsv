@@ -18,5 +18,5 @@
 90005	IGNORE	(Sec-Fetch-Mode Header is Missing)
 90005	IGNORE	(Sec-Fetch-Site Header is Missing)
 90005	IGNORE	(Sec-Fetch-User Header is Missing)
-110009	INFO	(Accepted risk: upstream training challenge intentionally exposes stack traces on /ftp error paths)
-10111	INFO	(Expected behavior: login endpoint discovery at /rest/user/login indicates authentication surface, not a vulnerability by itself)
+110009	INFO	(Accepted risk: upstream training challenge intentionally exposes stack traces on /ftp error paths; owner=appsec-maintainers; expires=2026-09-30)
+10111	INFO	(Expected behavior: login endpoint discovery at /rest/user/login indicates authentication surface, not a vulnerability by itself; owner=appsec-maintainers; expires=2026-09-30)

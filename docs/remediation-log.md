@@ -135,3 +135,12 @@ This log records major implementation failures encountered during portfolio hard
 - **Fix implemented:** Added explicit rule entry in `.zap/rules.tsv`: `10111 INFO (...)`, and kept the workflow using `-c /zap/rules.tsv`.
 - **Why the fix was correct:** The pipeline still fails on real vulnerability findings while keeping authentication-endpoint detection visible as informational evidence.
 - **Lesson learned:** Security gates should stay strict, but tooling policy must be narrowly tuned to expected behavior to avoid false-failures.
+
+## 15) ZAP exception governance hardening
+- **Title:** Exception metadata and review lifecycle were implicit
+- **Pipeline stage / area affected:** `dast` policy governance
+- **Symptom:** Exception ownership and expiry were not explicitly encoded in the policy file.
+- **Root cause:** Early policy tuning prioritized functional gating but not full exception lifecycle governance metadata.
+- **Fix implemented:** Added `owner=` and `expires=` metadata directly in `.zap/rules.tsv` exception entries and documented review/expiry process in README and `docs/security-pipeline.md`.
+- **Why the fix was correct:** Exceptions now have accountable owners, a bounded lifetime, and a documented renewal/removal path.
+- **Lesson learned:** Risk acceptance without owner/expiry metadata is incomplete governance.

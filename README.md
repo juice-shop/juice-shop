@@ -25,9 +25,17 @@ This repository demonstrates a senior-level DevSecOps/Application Security harde
 ## 4. Pipeline architecture overview
 Active workflow: `.github/workflows/devsecops-gated.yml`
 
+Simple gated view:
+```text
+workflow_lint -> build_test -> [security_checks, container_build_and_scan, dast] -> deploy (master only)
+                                                                       \
+                                                                        -> deploy_validation (workflow_dispatch only, non-master)
+```
+
 ```mermaid
 flowchart LR
-  A[build_test] --> B[security_checks]
+  L[workflow_lint] --> A[build_test]
+  A --> B[security_checks]
   A --> C[container_build_and_scan]
   A --> D[dast]
   B --> E[deploy]
@@ -39,15 +47,16 @@ flowchart LR
 ```
 
 Stages and intent:
-1. `build_test`: install, lint, build, server/API tests, startup smoke test.
-2. `security_checks`: CodeQL, Semgrep, Gitleaks, Trivy FS scan, SBOM, signing-readiness artifacts.
-3. `container_build_and_scan`: container build, image scan, Dockerfile/Kubernetes config checks.
-4. `dast`: local app startup and OWASP ZAP baseline scan.
-5. `deploy`: protected deployment path for `master` only.
-6. `deploy_validation`: manual deploy test path for non-`master` branches.
+1. `workflow_lint`: validates GitHub Actions workflow syntax/semantics via `actionlint`.
+2. `build_test`: install, lint, build, server/API tests, startup smoke test.
+3. `security_checks`: CodeQL, Semgrep, Gitleaks, Trivy FS scan, SBOM, signing-readiness artifacts.
+4. `container_build_and_scan`: container build, image scan, Dockerfile/Kubernetes config checks.
+5. `dast`: local app startup and OWASP ZAP baseline scan.
+6. `deploy`: protected deployment path for `master` only.
+7. `deploy_validation`: manual deploy test path for non-`master` branches.
 
 Event behavior (verified from workflow + run history):
-- `push` (all branches, with markdown/docs path ignore): runs `build_test`, `security_checks`, `container_build_and_scan`, `dast`; deploy jobs are condition-based.
+- `push` (all branches, with markdown/docs path ignore): runs `workflow_lint`, `build_test`, `security_checks`, `container_build_and_scan`, `dast`; deploy jobs are condition-based.
 - `pull_request` (with same path ignore): runs required validation jobs; `deploy` blocked.
 - `workflow_dispatch`: runs pipeline manually; optional `run_deploy_validation=true` enables feature-branch deploy validation path.
 - `master` only: protected `deploy` may run after all prerequisites pass and event is not PR.
@@ -65,6 +74,7 @@ Event behavior (verified from workflow + run history):
 - **Signing readiness** via Cosign installation + recorded keyless-signing guidance.
 - **DAST** via OWASP ZAP baseline against repository-controlled app runtime, using repo policy file `.zap/rules.tsv`.
   - Alert `10111` ("Authentication Request Identified") is explicitly classified as `INFO` because `/rest/user/login` discovery is expected auth-surface detection, not a vulnerability by itself.
+- **Workflow linting** via `actionlint` as an upstream gate before build/security/deploy stages.
 - **Deploy gating** via explicit `needs` and branch/event conditions.
 - **Artifact reuse** between jobs (build outputs and container image) for consistency and speed.
 - **Branch protection assumptions (verified 2026-03-10)**:
@@ -86,6 +96,12 @@ Event behavior (verified from workflow + run history):
 | CodeQL action deprecation | Stale action major version | Upgraded to v4 family | Keep security dependencies lifecycle-managed |
 
 Full details: `docs/remediation-log.md`
+
+### ZAP policy exception review and expiry
+- ZAP exceptions are scoped in `.zap/rules.tsv` and must include `owner=` and `expires=` metadata in the rule description.
+- Only expected, non-exploitable behavior is eligible for `INFO`/`IGNORE` policy tuning; meaningful vulnerabilities remain blocking.
+- Exceptions are reviewed before expiry and either renewed with updated rationale or removed so the alert blocks again.
+- Expired exceptions should be treated as invalid until explicitly re-approved.
 
 ## 7. Validation evidence
 Verified directly:

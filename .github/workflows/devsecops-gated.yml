@@ -37,8 +37,28 @@ env:
   IMAGE_TAG: ci-${{ github.run_id }}
 
 jobs:
+  workflow_lint:
+    name: workflow_lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go for actionlint
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.23"
+
+      - name: Install actionlint
+        run: go install github.com/rhysd/actionlint/cmd/actionlint@latest
+
+      - name: Run actionlint
+        run: $(go env GOPATH)/bin/actionlint -color
+
   build_test:
     name: build_test
+    needs: workflow_lint
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
