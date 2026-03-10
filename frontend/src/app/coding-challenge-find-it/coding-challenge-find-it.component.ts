@@ -13,7 +13,7 @@ import { CookieService } from 'ngy-cookie'
 
 import { EditorView } from 'codemirror'
 import { EditorState, StateField, StateEffect } from '@codemirror/state'
-import { Decoration, type DecorationSet, gutter, GutterMarker, lineNumbers, highlightActiveLineGutter, highlightSpecialChars, drawSelection, highlightActiveLine, keymap } from '@codemirror/view'
+import { Decoration, type DecorationSet, lineNumbers, highlightSpecialChars, drawSelection, keymap } from '@codemirror/view'
 import { defaultKeymap, history, historyKeymap } from '@codemirror/commands'
 import { bracketMatching, defaultHighlightStyle, syntaxHighlighting } from '@codemirror/language'
 import { highlightSelectionMatches, searchKeymap } from '@codemirror/search'
@@ -71,17 +71,6 @@ const markedLinesField = StateField.define<Set<number>>({
   }
 })
 
-class MarkerWidget extends GutterMarker {
-  constructor (readonly marked: boolean) { super() }
-  toDOM () {
-    const el = document.createElement('span')
-    el.className = 'cm-line-marker'
-    el.textContent = this.marked ? '\u2705' : '\u{1F532}'
-    return el
-  }
-
-  override eq (other: MarkerWidget) { return this.marked === other.marked }
-}
 
 @Component({
   selector: 'coding-challenge-find-it',
@@ -117,18 +106,18 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
 
   ngAfterViewInit (): void {
     const lang = this.detectLanguage(this.snippet.snippet)
-    const markerGutter = gutter({
-      class: 'cm-marker-gutter',
-      lineMarker: (view, line) => {
-        const lineNum = view.state.doc.lineAt(line.from).number
-        const marked = view.state.field(markedLinesField)
-        return new MarkerWidget(marked.has(lineNum))
+    const findItTheme = EditorView.theme({
+      '.cm-selected-line': {
+        backgroundColor: 'rgba(255, 213, 79, 0.25) !important'
+      },
+      '.cm-content': {
+        cursor: 'pointer'
       }
     })
-    const markerClickHandler = EditorView.domEventHandlers({
+    const lineClickHandler = EditorView.domEventHandlers({
       mousedown: (event, view) => {
         const target = event.target as HTMLElement
-        if (!target.closest('.cm-marker-gutter')) return false
+        if (!target.closest('.cm-content')) return false
         const pos = view.posAtCoords({ x: event.clientX, y: event.clientY })
         if (pos === null) return false
         const line = view.state.doc.lineAt(pos)
@@ -144,13 +133,11 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
         doc: this.snippet.snippet,
         extensions: [
           lineNumbers(),
-          highlightActiveLineGutter(),
           highlightSpecialChars(),
           history(),
           drawSelection(),
           syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
           bracketMatching(),
-          highlightActiveLine(),
           highlightSelectionMatches(),
           keymap.of([...defaultKeymap, ...historyKeymap, ...searchKeymap]),
           ...juiceShopTheme(),
@@ -158,8 +145,8 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
           ...readOnlyExtensions(),
           lineHighlightField,
           markedLinesField,
-          markerGutter,
-          markerClickHandler
+          findItTheme,
+          lineClickHandler
         ]
       })
     })
