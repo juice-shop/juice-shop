@@ -61,7 +61,10 @@
     "solidity-browser-compiler": "^1.1.0",
     "tslib": "^2.5.0",
     "typescript": "~5.8.2",
-    "zone.js": "~0.15.0"
+    "zone.js": "~0.15.0",
+    "semver": "7.3.5",
+    "nth-check": "1.0.2",
+    "glob-parent": "5.1.1"
   },
   "devDependencies": {
     "@angular/language-service": "^20.1.0",
