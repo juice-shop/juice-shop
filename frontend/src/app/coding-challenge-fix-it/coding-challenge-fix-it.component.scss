@@ -29,15 +29,11 @@
     overflow: hidden;
   }
 
-  .cm-changedLine {
-    &.cm-insertedLine { background-color: rgba(0, 180, 0, 0.15); }
-    &.cm-deletedLine { background-color: rgba(255, 0, 0, 0.15); }
-  }
+  .cm-changedLine.cm-insertedLine { background-color: rgba(0, 180, 0, 0.15); }
+  .cm-changedLine.cm-deletedLine { background-color: rgba(255, 0, 0, 0.15); }
 
-  .cm-changedText {
-    &.cm-insertedText { background-color: rgba(0, 180, 0, 0.3); }
-    &.cm-deletedText { background-color: rgba(255, 0, 0, 0.3); }
-  }
+  .cm-changedText.cm-insertedText { background-color: rgba(0, 180, 0, 0.3); }
+  .cm-changedText.cm-deletedText { background-color: rgba(255, 0, 0, 0.3); }
 }
 
 .action-row {

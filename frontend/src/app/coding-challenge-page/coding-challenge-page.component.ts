@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, type OnInit, ViewChild, type ElementRef, inject } from '@angular/core'
+import { Component, type OnInit, type ElementRef, inject, viewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
@@ -31,7 +31,7 @@ export class CodingChallengePageComponent implements OnInit {
   private readonly codeFixesService = inject(CodeFixesService)
   private readonly challengeService = inject(ChallengeService)
 
-  @ViewChild('fixItSection') fixItSection: ElementRef
+  readonly fixItSection = viewChild<ElementRef>('fixItSection')
 
   public challengeKey: string
   public challengeName: string
@@ -69,7 +69,7 @@ export class CodingChallengePageComponent implements OnInit {
     this.findItSolved = true
     if (this.fixes !== null) {
       setTimeout(() => {
-        this.fixItSection?.nativeElement?.scrollIntoView({ behavior: 'smooth' })
+        this.fixItSection()?.nativeElement?.scrollIntoView({ behavior: 'smooth' })
       }, 300)
     }
   }

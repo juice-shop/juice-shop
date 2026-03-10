@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, EventEmitter, Input, Output } from '@angular/core'
+import { Component, input, output } from '@angular/core'
 import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
@@ -21,19 +21,19 @@ import { CodingChallengeFixItComponent } from '../coding-challenge-fix-it/coding
 
 @Component({ selector: 'coding-challenge-find-it', template: '', standalone: true })
 class MockFindItComponent {
-  @Input() challengeKey: string
-  @Input() snippet: any
-  @Input() alreadySolved = false
-  @Output() solved = new EventEmitter<void>()
+  readonly challengeKey = input.required<string>()
+  readonly snippet = input.required<any>()
+  readonly alreadySolved = input(false)
+  readonly solved = output<void>()
 }
 
 @Component({ selector: 'coding-challenge-fix-it', template: '', standalone: true })
 class MockFixItComponent {
-  @Input() challengeKey: string
-  @Input() snippet: any
-  @Input() fixes: string[]
-  @Input() alreadySolved = false
-  @Output() solved = new EventEmitter<void>()
+  readonly challengeKey = input.required<string>()
+  readonly snippet = input.required<any>()
+  readonly fixes = input.required<string[]>()
+  readonly alreadySolved = input(false)
+  readonly solved = output<void>()
 }
 
 describe('CodingChallengePageComponent', () => {

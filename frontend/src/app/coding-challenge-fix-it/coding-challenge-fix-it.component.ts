@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, EventEmitter, Input, type OnInit, type AfterViewInit, type OnDestroy, Output, ViewChild, ElementRef, inject } from '@angular/core'
+import { Component, type OnInit, type AfterViewInit, type OnDestroy, ElementRef, inject, input, output, viewChild } from '@angular/core'
 import { type ThemePalette } from '@angular/material/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
@@ -33,19 +33,19 @@ import { ResultState, type RandomFixes } from '../coding-challenge-page/coding-c
   imports: [MatButtonModule, MatCardModule, MatCheckboxModule, MatIconModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, TranslateModule]
 })
 export class CodingChallengeFixItComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('diffHost', { static: true }) diffHost!: ElementRef<HTMLDivElement>
+  readonly diffHost = viewChild.required<ElementRef<HTMLDivElement>>('diffHost')
   private diffView: EditorView | null = null
 
   private readonly codeFixesService = inject(CodeFixesService)
   private readonly challengeService = inject(ChallengeService)
   private readonly cookieService = inject(CookieService)
 
-  @Input() challengeKey: string
-  @Input() snippet: CodeSnippet
-  @Input() fixes: string[]
-  @Input() alreadySolved = false
+  readonly challengeKey = input.required<string>()
+  readonly snippet = input.required<CodeSnippet>()
+  readonly fixes = input.required<string[]>()
+  readonly alreadySolved = input(false)
 
-  @Output() solved = new EventEmitter<void>()
+  readonly solved = output<void>()
 
   public selectedFix = 0
   public randomFixes: RandomFixes[] = []
@@ -54,7 +54,7 @@ export class CodingChallengeFixItComponent implements OnInit, AfterViewInit, OnD
   public onlyChangedLines = true
 
   ngOnInit (): void {
-    if (this.alreadySolved) {
+    if (this.alreadySolved()) {
       this.result = ResultState.Right
     }
     this.shuffle()
@@ -75,11 +75,11 @@ export class CodingChallengeFixItComponent implements OnInit, AfterViewInit, OnD
   private createDiffView (): void {
     this.diffView?.destroy()
     const fix = this.randomFixes[this.selectedFix]
-    if (!fix || !this.snippet) return
+    if (!fix || !this.snippet()) return
 
-    const lang = this.detectLanguage(this.snippet.snippet)
+    const lang = this.detectLanguage(this.snippet().snippet)
     this.diffView = new EditorView({
-      parent: this.diffHost.nativeElement,
+      parent: this.diffHost().nativeElement,
       state: EditorState.create({
         doc: fix.fix,
         extensions: [
@@ -87,7 +87,7 @@ export class CodingChallengeFixItComponent implements OnInit, AfterViewInit, OnD
           ...juiceShopTheme(),
           getLanguageExtension(lang),
           unifiedMergeView({
-            original: this.snippet.snippet,
+            original: this.snippet().snippet,
             highlightChanges: true,
             gutter: true,
             mergeControls: false,
@@ -117,14 +117,14 @@ export class CodingChallengeFixItComponent implements OnInit, AfterViewInit, OnD
   }
 
   checkFix (): void {
-    this.codeFixesService.check(this.challengeKey, this.randomFixes[this.selectedFix].index).subscribe((verdict) => {
+    this.codeFixesService.check(this.challengeKey(), this.randomFixes[this.selectedFix].index).subscribe((verdict) => {
       this.setVerdict(verdict.verdict)
       this.explanation = verdict.explanation
     })
   }
 
   shuffle (): void {
-    this.randomFixes = this.fixes
+    this.randomFixes = this.fixes()
       .map((fix, index) => ({ fix, index, sort: Math.random() }))
       .sort((a, b) => a.sort - b.sort)
       .map(({ fix, index }) => ({ fix, index }))
@@ -168,7 +168,7 @@ export class CodingChallengeFixItComponent implements OnInit, AfterViewInit, OnD
       import('../../confetti').then(module => {
         module.shootConfetti()
       }).then(() => {
-        this.solved.emit()
+        this.solved.emit(undefined)
       })
     } else {
       this.result = ResultState.Wrong

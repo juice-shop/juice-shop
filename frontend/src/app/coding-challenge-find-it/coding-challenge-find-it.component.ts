@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, type OnInit, type AfterViewInit, type OnDestroy, Output, ViewChild, ElementRef, inject } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, type OnInit, type AfterViewInit, type OnDestroy, ElementRef, inject, input, output, viewChild } from '@angular/core'
 import { type ThemePalette } from '@angular/material/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
@@ -80,18 +80,18 @@ const markedLinesField = StateField.define<Set<number>>({
   imports: [MatButtonModule, MatCardModule, MatIconModule, TranslateModule]
 })
 export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('editorHost', { static: true }) editorHost!: ElementRef<HTMLDivElement>
+  readonly editorHost = viewChild.required<ElementRef<HTMLDivElement>>('editorHost')
   private editorView!: EditorView
   private readonly cdr = inject(ChangeDetectorRef)
   private readonly vulnLinesService = inject(VulnLinesService)
   private readonly challengeService = inject(ChallengeService)
   private readonly cookieService = inject(CookieService)
 
-  @Input() challengeKey: string
-  @Input() snippet: CodeSnippet
-  @Input() alreadySolved = false
+  readonly challengeKey = input.required<string>()
+  readonly snippet = input.required<CodeSnippet>()
+  readonly alreadySolved = input(false)
 
-  @Output() solved = new EventEmitter<void>()
+  readonly solved = output<void>()
 
   public selectedLines: number[] = []
   public markedLines = new Set<number>()
@@ -99,13 +99,13 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
   public result: ResultState = ResultState.Undecided
 
   ngOnInit (): void {
-    if (this.alreadySolved) {
+    if (this.alreadySolved()) {
       this.result = ResultState.Right
     }
   }
 
   ngAfterViewInit (): void {
-    const lang = this.detectLanguage(this.snippet.snippet)
+    const lang = this.detectLanguage(this.snippet().snippet)
     const findItTheme = EditorView.theme({
       '.cm-selected-line': {
         backgroundColor: 'rgba(255, 213, 79, 0.25) !important'
@@ -128,9 +128,9 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
     })
 
     this.editorView = new EditorView({
-      parent: this.editorHost.nativeElement,
+      parent: this.editorHost().nativeElement,
       state: EditorState.create({
-        doc: this.snippet.snippet,
+        doc: this.snippet().snippet,
         extensions: [
           lineNumbers(),
           highlightSpecialChars(),
@@ -182,7 +182,7 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
   }
 
   checkLines (): void {
-    this.vulnLinesService.check(this.challengeKey, this.selectedLines).subscribe((verdict: result) => {
+    this.vulnLinesService.check(this.challengeKey(), this.selectedLines).subscribe((verdict: result) => {
       this.setVerdict(verdict.verdict)
       this.hint = verdict.hint
       this.cdr.markForCheck()
@@ -227,7 +227,7 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
       import('../../confetti').then(module => {
         module.shootConfetti()
       }).then(() => {
-        this.solved.emit()
+        this.solved.emit(undefined)
       })
     } else {
       this.result = ResultState.Wrong
