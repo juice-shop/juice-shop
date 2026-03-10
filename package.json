@@ -122,7 +122,6 @@
     "ai": "^6.0.116",
     "body-parser": "^1.20.4",
     "check-dependencies": "^1.1.1",
-    "check-internet-connected": "^2.0.6",
     "clarinet": "^0.12.6",
     "colors": "1.4.0",
     "compression": "^1.8.1",

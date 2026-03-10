@@ -12,8 +12,6 @@ import { access, readdir } from 'node:fs/promises'
 import process from 'node:process'
 import semver from 'semver'
 import portscanner from 'portscanner'
-// @ts-expect-error FIXME due to non-existing type definitions for check-internet-connected
-import checkInternetConnected from 'check-internet-connected'
 
 export const variableDependencies = {
   ALCHEMY_API_KEY: ['"Mint the Honey Pot" challenge', '"Wallet Depletion" challenge']
@@ -101,19 +99,18 @@ export const checkIfEnvironmentVariableExists = (varName: string) => {
 }
 
 export const checkIfDomainReachable = async (domain: string) => {
-  return checkInternetConnected({ domain })
-    .then(() => {
-      logger.info(`Domain ${colors.bold(domain)} is reachable (${colors.green('SUCCESS')})`)
-      return true
+  try {
+    await fetch(domain, { signal: AbortSignal.timeout(5000) })
+    logger.info(`Domain ${colors.bold(domain)} is reachable (${colors.green('SUCCESS')})`)
+    return true
+  } catch {
+    logger.warn(`Domain ${colors.bold(domain)} is not reachable (${colors.yellow('WARNING')})`)
+    // @ts-expect-error FIXME Type problem by accessing key via variable
+    domainDependencies[domain].forEach((dependency: string) => {
+      logger.warn(`${colors.italic(dependency)} will not work as intended without access to ${colors.bold(domain)}`)
     })
-    .catch(() => {
-      logger.warn(`Domain ${colors.bold(domain)} is not reachable (${colors.yellow('WARNING')})`)
-      // @ts-expect-error FIXME Type problem by accessing key via variable
-      domainDependencies[domain].forEach((dependency: string) => {
-        logger.warn(`${colors.italic(dependency)} will not work as intended without access to ${colors.bold(domain)}`)
-      })
-      return true // TODO Consider switching to "false" with breaking release v16.0.0 or later
-    })
+    return true
+  }
 }
 
 export const checkIfPortIsAvailable = async (port: number | string) => {
