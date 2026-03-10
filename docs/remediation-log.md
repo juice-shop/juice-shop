@@ -1,126 +1,128 @@
 # CI/CD Remediation Log
 
-This document records major implementation failures and corrective actions applied during the DevSecOps/AppSec portfolio hardening effort.
+This log records major implementation failures encountered during portfolio hardening, including root causes, fixes, and engineering lessons.
 
 ## 1) Legacy CI/CD overlap and pipeline ambiguity
 - **Title:** GitLab and upstream workflow overlap
 - **Pipeline stage / area affected:** CI orchestration and repository governance
-- **Symptom:** Mixed CI definitions (GitLab + upstream maintenance workflows) diluted ownership and execution clarity.
-- **Root cause:** Inherited fork carried upstream automation not aligned to this repository's GitHub-only model.
+- **Symptom:** Mixed CI definitions diluted ownership and execution clarity.
+- **Root cause:** Inherited fork carried automation not aligned to a GitHub-only operating model.
 - **Fix implemented:** Archived legacy CI artifacts under `legacy/` and kept security-focused GitHub workflows active.
-- **Why the fix was correct:** It reduced ambiguity and enforced a single control plane for checks and deploy behavior.
-- **Lesson learned:** Security posture requires one authoritative automation platform.
+- **Why the fix was correct:** Reduced ambiguity and established one authoritative control plane.
+- **Lesson learned:** Security posture requires a single source of truth for automation.
 
 ## 2) Branch trigger gaps
 - **Title:** Feature-branch CI not consistently triggered
 - **Pipeline stage / area affected:** Workflow triggering model
 - **Symptom:** Some branch pushes/PR events did not execute intended checks.
-- **Root cause:** Restrictive or inconsistent trigger conditions.
-- **Fix implemented:** Standardized triggers for `push`, `pull_request`, and `workflow_dispatch` with coherent branch behavior.
-- **Why the fix was correct:** It guarantees quality/security signals for feature work and review flows.
-- **Lesson learned:** Trigger correctness is foundational to every downstream control.
+- **Root cause:** Restrictive or inconsistent trigger definitions.
+- **Fix implemented:** Standardized `push`, `pull_request`, and `workflow_dispatch` trigger behavior.
+- **Why the fix was correct:** Ensured quality/security signal coverage for feature and review flows.
+- **Lesson learned:** Trigger correctness is foundational to all downstream controls.
 
 ## 3) Build workflow lockfile assumption
 - **Title:** Build stage failed when lockfile was absent
 - **Pipeline stage / area affected:** `build_test`
-- **Symptom:** CI expected lockfile-driven install behavior and failed in a repository without `package-lock.json`.
-- **Root cause:** Workflow used lockfile assumptions inconsistent with repo state.
-- **Fix implemented:** Switched to lockfile-agnostic install behavior (`npm install`) and removed lockfile-dependent cache assumptions.
-- **Why the fix was correct:** It aligned CI install strategy to the actual dependency model.
-- **Lesson learned:** Installation strategy must match repository contract, not preference.
+- **Symptom:** CI expected lockfile-driven install behavior in a repo without lockfile.
+- **Root cause:** Workflow implementation diverged from repository dependency model.
+- **Fix implemented:** Switched to lockfile-agnostic install behavior and removed invalid assumptions.
+- **Why the fix was correct:** Installation now matches actual repository contract.
+- **Lesson learned:** CI dependency strategy must follow repository reality.
 
 ## 4) Broken artifact paths
-- **Title:** Upload steps failed due missing files
+- **Title:** Upload steps failed due to missing files
 - **Pipeline stage / area affected:** SARIF/log artifact publishing
-- **Symptom:** Pipeline failed on uploads for files that were not generated in all paths.
-- **Root cause:** Unconditional upload steps.
-- **Fix implemented:** Added pre-checks and conditional upload logic.
-- **Why the fix was correct:** It preserves failure signaling for real issues while avoiding false negatives.
-- **Lesson learned:** Artifact publication must be conditional unless generation is guaranteed.
+- **Symptom:** Pipeline failures caused by uploading files not always produced.
+- **Root cause:** Unconditional upload behavior.
+- **Fix implemented:** Added file-existence checks and conditional upload logic.
+- **Why the fix was correct:** Preserved actionable failures while removing false negatives.
+- **Lesson learned:** Reporting robustness is part of secure delivery engineering.
 
 ## 5) Native module binding failures (`libxmljs2`)
 - **Title:** Server tests failed from missing native bindings
-- **Pipeline stage / area affected:** `build_test` dependency installation/test execution
-- **Symptom:** `npm run test:server` failed with missing `xmljs.node` bindings.
-- **Root cause:** Install speed optimization used script-skipping behavior incompatible with native addon compilation.
-- **Fix implemented:** Restored lifecycle script execution for runtime/test jobs and explicitly rebuilt `libxmljs2` in `build_test`.
-- **Why the fix was correct:** Native dependencies were compiled in CI context before tests.
-- **Lesson learned:** Performance optimizations must be scoped so they never break runtime correctness.
+- **Pipeline stage / area affected:** `build_test` installation/test execution
+- **Symptom:** `npm run test:server` failed with missing `xmljs.node`.
+- **Root cause:** Install optimization skipped scripts needed for native addon build.
+- **Fix implemented:** Restored script execution where runtime tests require native modules; added explicit rebuild step.
+- **Why the fix was correct:** Native dependencies compile reliably before test execution.
+- **Lesson learned:** Correctness must dominate speed in build-and-test stages.
 
 ## 6) API test instability
 - **Title:** API suites failed intermittently in CI
-- **Pipeline stage / area affected:** `build_test` API test execution
+- **Pipeline stage / area affected:** `build_test` API testing
 - **Symptom:** Multiple API suites failed under CI runtime conditions.
 - **Root cause:** Environment-dependent challenge behavior in test context.
-- **Fix implemented:** Standardized test behavior for `NODE_ENV=test` via test configuration.
-- **Why the fix was correct:** It restored deterministic API test outcomes across CI runs.
+- **Fix implemented:** Standardized deterministic behavior for test runtime.
+- **Why the fix was correct:** Stabilized API test outcomes across pipeline runs.
 - **Lesson learned:** Deterministic tests are mandatory for enforceable branch protection.
 
 ## 7) Trivy configuration scan misuse
 - **Title:** Invalid Trivy config invocation
 - **Pipeline stage / area affected:** `container_build_and_scan`
-- **Symptom:** Trivy failed when config scanning multiple positional targets in one command.
-- **Root cause:** CLI misuse against Trivy command model.
-- **Fix implemented:** Split config scans into valid target-specific invocations.
-- **Why the fix was correct:** It matched tool contract and restored scan execution.
-- **Lesson learned:** Security tool correctness includes exact CLI semantics.
+- **Symptom:** Config scanning failed when passing invalid multi-target positional arguments.
+- **Root cause:** CLI misuse.
+- **Fix implemented:** Split into valid target-specific scan invocations.
+- **Why the fix was correct:** Restored expected scanner behavior and gate execution.
+- **Lesson learned:** Security tooling quality includes precise command semantics.
 
 ## 8) SBOM output directory failure
 - **Title:** SBOM generation failed with `ENOENT`
 - **Pipeline stage / area affected:** `security_checks` SBOM generation
-- **Symptom:** `anchore/sbom-action` could not write `sbom/syft-cyclonedx.json`.
-- **Root cause:** Destination directory did not exist at write time.
-- **Fix implemented:** Added explicit `mkdir -p sbom` before SBOM generation.
-- **Why the fix was correct:** It established required filesystem precondition.
+- **Symptom:** SBOM action could not write output file.
+- **Root cause:** Output directory was not pre-created.
+- **Fix implemented:** Added explicit `mkdir -p` pre-step.
+- **Why the fix was correct:** Satisfied action filesystem preconditions.
 - **Lesson learned:** CI filesystem assumptions should always be explicit.
 
 ## 9) ZAP writable directory failure
-- **Title:** ZAP baseline failed with permission denied on `/zap/wrk`
+- **Title:** ZAP baseline failed on write permissions
 - **Pipeline stage / area affected:** `dast`
-- **Symptom:** ZAP container started but failed writing runtime files.
-- **Root cause:** Mounted directory permissions were not compatible with container write expectations.
-- **Fix implemented:** Prepared writable host directory and mounted it read-write for ZAP output.
-- **Why the fix was correct:** ZAP could generate reports/config successfully in runner context.
-- **Lesson learned:** DAST containers need explicit writable working directories in CI.
+- **Symptom:** ZAP container failed writing runtime files in mounted workdir.
+- **Root cause:** Non-writable mount behavior in runner/container context.
+- **Fix implemented:** Created and mounted writable report/work directory for ZAP.
+- **Why the fix was correct:** ZAP report generation completed reliably.
+- **Lesson learned:** DAST container execution requires explicit writable workspace design.
 
 ## 10) Semgrep and SARIF robustness
-- **Title:** Security stage produced brittle SARIF handling
+- **Title:** Security-stage reporting fragility
 - **Pipeline stage / area affected:** `security_checks`
-- **Symptom:** Blocking Semgrep findings combined with missing SARIF uploads created noisy failures.
-- **Root cause:** Missing conditional logic around optional output artifacts and baseline handling.
-- **Fix implemented:** Added robust SARIF existence checks and improved baseline-aware scanning behavior.
-- **Why the fix was correct:** Findings remain enforceable while reporting remains reliable.
-- **Lesson learned:** Strict gates and robust reporting must be designed together.
+- **Symptom:** Blocking findings plus missing SARIF outputs produced brittle behavior.
+- **Root cause:** Optional outputs were treated as always-present artifacts.
+- **Fix implemented:** Added robust SARIF existence checks and baseline-aware handling.
+- **Why the fix was correct:** Maintained enforceable findings with stable reporting.
+- **Lesson learned:** Strict gates and robust evidence handling must be designed together.
 
 ## 11) Protected deploy branch mismatch
-- **Title:** Protected deploy never executed after merge
+- **Title:** Protected deploy did not run after merge
 - **Pipeline stage / area affected:** `deploy`
-- **Symptom:** Deploy job skipped because branch condition and actual default branch diverged over time.
-- **Root cause:** Branch guard condition did not reflect repository branch strategy.
-- **Fix implemented:** Explicitly aligned protected deploy guard to `refs/heads/master` and preserved PR block.
-- **Why the fix was correct:** Deploy now runs on master push/merge events only.
-- **Lesson learned:** Branch policy drift can silently disable release automation.
+- **Symptom:** Deploy was skipped due to branch condition mismatch over time.
+- **Root cause:** Branch guard drift from actual default/protected branch strategy.
+- **Fix implemented:** Aligned protected deploy condition to `refs/heads/master` and retained PR block.
+- **Why the fix was correct:** Deploy now executes on `master` push/merge events only.
+- **Lesson learned:** Branch-policy drift can silently disable release controls.
 
 ## 12) Deploy validation failures (Kind + rollout)
-- **Title:** Deploy validation failed despite upstream stage success
+- **Title:** Deploy validation failed despite prior-stage success
 - **Pipeline stage / area affected:** `deploy_validation`
-- **Symptom:** Initial failure loading image into Kind; subsequent rollout timeout with crash-looping pod.
+- **Symptom:**
+  - initial image-load failure in Kind,
+  - then rollout timeout with crash-looping pod.
 - **Root cause:**
-  - Kind cluster-name mismatch (`kind load` target mismatch).
-  - Local hardened overlay conflicted with inherited app startup filesystem write behavior.
-  - Trivy blocking K8s scan included local compatibility overlay and blocked on expected local tradeoffs.
+  - Kind cluster-name mismatch.
+  - Local hardened overlay conflicted with inherited app startup write behavior.
+  - K8s blocking gate included local compatibility overlay.
 - **Fix implemented:**
-  - Set explicit Kind cluster name.
-  - Added local overlay compatibility patch for deploy validation path.
-  - Split K8s Trivy policy: blocking on `deployment/kubernetes/base`, non-blocking reporting on local overlay.
-- **Why the fix was correct:** Validation deploy became operational while preserving blocking hardening checks on base manifests.
-- **Lesson learned:** Environment-specific compatibility should be explicit, bounded, and policy-documented.
+  - set explicit Kind cluster name,
+  - added local overlay runtime compatibility patch,
+  - split K8s policy scope: base (blocking), local overlay (non-blocking reporting).
+- **Why the fix was correct:** Deploy validation became operational while base hardening gate remained strict.
+- **Lesson learned:** Compatibility exceptions should be scoped, documented, and policy-bounded.
 
 ## 13) CodeQL action deprecation
 - **Title:** CodeQL action version drift
-- **Pipeline stage / area affected:** `security_checks` and SARIF upload actions
+- **Pipeline stage / area affected:** `security_checks` and SARIF upload integration
 - **Symptom:** Deprecation warning for CodeQL v3 action family.
-- **Root cause:** Workflow still referenced v3 actions.
-- **Fix implemented:** Upgraded all CodeQL actions and SARIF upload action references to v4.
-- **Why the fix was correct:** Eliminated deprecation risk and aligned with supported action versions.
-- **Lesson learned:** Security automation dependencies require proactive lifecycle maintenance.
+- **Root cause:** Outdated action major version references.
+- **Fix implemented:** Upgraded CodeQL action usage to v4.
+- **Why the fix was correct:** Removed deprecation risk and aligned with supported action lifecycle.
+- **Lesson learned:** Security automation dependencies require active lifecycle maintenance.

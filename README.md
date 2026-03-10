@@ -1,128 +1,169 @@
-# Sock Shop DevSecOps/AppSec Portfolio
+# Senior DevSecOps/AppSec Hardening Portfolio: Sock Shop (OWASP Juice Shop Lineage)
 
-## 1. Project title and one-paragraph summary
-This repository is a senior-level DevSecOps/AppSec portfolio project built by securing and operationalizing an inherited open-source application (OWASP Juice Shop lineage). The work focuses on CI/CD rationalization, gated security automation, container and deployment hardening, and failure-driven remediation. The result is a GitHub-native pipeline and deploy model that demonstrates realistic application security engineering decisions rather than a greenfield demo.
+## 1. Project title and executive summary
+This repository demonstrates a senior-level DevSecOps/Application Security hardening engagement on an inherited open-source application. The focus is not to claim the underlying app is “fully secure” (it is intentionally vulnerable by design), but to show how to operationalize governance, gated CI/CD, security controls, deployment policy, and remediation discipline around a complex legacy codebase. The outcome is a GitHub-native delivery model with explicit risk handling, stronger deploy controls, and reproducible security evidence.
 
 ## 2. What this project demonstrates
-- Security onboarding of inherited software with existing technical debt.
-- CI/CD cleanup and standardization to GitHub Actions.
-- Gated pipeline design with explicit quality/security/deploy controls.
-- Multi-layer security automation: SAST, secret scanning, dependency/container scanning, SBOM, signing-readiness, and DAST.
-- Protected deploy policy tied to `master`.
-- Manual deploy validation path for feature branches.
-- Performance optimization with concurrency, caching, and artifact reuse without removing core security coverage.
-- Troubleshooting-driven hardening based on real pipeline failures.
+- Inherited application security onboarding and triage.
+- CI/CD rationalization from mixed legacy automation to one GitHub workflow model.
+- Gated security automation across build, code, dependency, container, and runtime checks.
+- Protected deploy governance tied to branch policy.
+- Failure-driven remediation (pipeline failures treated as engineering inputs, not noise).
+- Pipeline performance optimization without removing core security controls.
+- Practical risk handling where inherited or demo behavior cannot be fully removed safely.
 
-## 3. Architecture / pipeline overview
+## 3. Before vs after
+| Area | Original state | Problems found | Current improved state |
+|---|---|---|---|
+| CI platform | Mixed inherited automation patterns | Competing CI ownership and weak narrative | GitHub Actions-centered pipeline and archived legacy CI artifacts |
+| Trigger model | Inconsistent branch/manual behavior over time | Missing/unclear execution on feature work and manual validation | Explicit push/PR/manual model with deploy/deploy_validation separation |
+| Security signal handling | Some brittle steps (missing outputs, path assumptions) | False-negative pipeline failures and noisy diagnostics | Conditional artifact publishing and resilient reporting |
+| Runtime consistency | Native module and Node-version mismatch incidents | Test failures and environment drift | Node 22 CI runtime, explicit rebuild path for native bindings, aligned version policy |
+| Deploy controls | Branch-condition drift and rollout instability | Deploy skipped unexpectedly or validation failures | Protected deploy on `master`, manual feature-branch deploy validation, Kind/deploy fixes |
+| Security governance | Tooling present but unevenly integrated | Tooling failures and policy ambiguity | Coherent gated chain with documented accepted-risk boundaries |
+
+## 4. Pipeline architecture overview
 Active workflow: `.github/workflows/devsecops-gated.yml`
 
-Gated flow:
-1. `build_test`
-2. `security_checks`
-3. `container_build_and_scan`
-4. `dast`
-5. `deploy` or `deploy_validation`
+```mermaid
+flowchart LR
+  A[build_test] --> B[security_checks]
+  A --> C[container_build_and_scan]
+  A --> D[dast]
+  B --> E[deploy]
+  C --> E
+  D --> E
+  B --> F[deploy_validation]
+  C --> F
+  D --> F
+```
 
-Execution model:
-- `build_test` must pass first.
-- `security_checks`, `container_build_and_scan`, and `dast` start after `build_test`.
-- `deploy` requires all prior jobs and only runs on `refs/heads/master` (never on PR events).
-- `deploy_validation` is manual (`workflow_dispatch` + input flag) and runs only on non-`master` branches.
+Stages and intent:
+1. `build_test`: install, lint, build, server/API tests, startup smoke test.
+2. `security_checks`: CodeQL, Semgrep, Gitleaks, Trivy FS scan, SBOM, signing-readiness artifacts.
+3. `container_build_and_scan`: container build, image scan, Dockerfile/Kubernetes config checks.
+4. `dast`: local app startup and OWASP ZAP baseline scan.
+5. `deploy`: protected deployment path for `master` only.
+6. `deploy_validation`: manual deploy test path for non-`master` branches.
 
-## 4. Security controls implemented
-- **CodeQL**: GitHub code scanning (`github/codeql-action@v4`) in `security_checks`.
-- **Semgrep**: policy scan with baseline-aware behavior for PR/push contexts.
-- **Gitleaks**: commit-range secret scanning with SARIF upload.
+Event behavior (verified from workflow + run history):
+- `push` (all branches, with markdown/docs path ignore): runs `build_test`, `security_checks`, `container_build_and_scan`, `dast`; deploy jobs are condition-based.
+- `pull_request` (with same path ignore): runs required validation jobs; `deploy` blocked.
+- `workflow_dispatch`: runs pipeline manually; optional `run_deploy_validation=true` enables feature-branch deploy validation path.
+- `master` only: protected `deploy` may run after all prerequisites pass and event is not PR.
+
+## 5. Security controls implemented
+- **CodeQL** (`github/codeql-action@v4`) for code scanning.
+- **Semgrep** with baseline-aware behavior for PR and push contexts.
+- **Gitleaks** for commit-range secret scanning.
 - **Trivy**:
-  - filesystem vulnerability scan in `security_checks`.
-  - image vulnerability scan in `container_build_and_scan`.
-  - Dockerfile misconfiguration gate (blocking).
-  - Kubernetes misconfiguration gate for `deployment/kubernetes/base` (blocking).
-  - local overlay scan (non-blocking, explicitly for demo deploy compatibility).
-- **SBOM**: Syft/CycloneDX generation (`anchore/sbom-action`) and artifact publication.
-- **Signing readiness**: Cosign install + recorded keyless signing guidance artifact.
-- **DAST**: OWASP ZAP baseline against repository-controlled local runtime (not third-party demo targets).
-- **Deploy gating**: deploy blocked unless all prerequisite jobs pass.
-- **Artifact reuse**: build output and container image are reused downstream to avoid inconsistent rebuilds.
-- **Branch protection assumption (verified 2026-03-10)**:
-  - required status checks: `build_test`, `security_checks`, `container_build_and_scan`, `dast`
-  - 1 required approving review
-  - default branch: `master`
+  - filesystem vulnerability scan,
+  - container image vulnerability scan,
+  - Dockerfile misconfiguration gate,
+  - Kubernetes base-manifest misconfiguration gate.
+- **SBOM generation** via Syft/CycloneDX.
+- **Signing readiness** via Cosign installation + recorded keyless-signing guidance.
+- **DAST** via OWASP ZAP baseline against repository-controlled app runtime.
+- **Deploy gating** via explicit `needs` and branch/event conditions.
+- **Artifact reuse** between jobs (build outputs and container image) for consistency and speed.
+- **Branch protection assumptions (verified 2026-03-10)**:
+  - required checks: `build_test`, `security_checks`, `container_build_and_scan`, `dast`,
+  - 1 required approving review on `master`.
 
-## 5. Problems encountered and what was fixed
-| Problem | Root cause | Fix | Lesson learned |
+## 6. Major failures, fixes, and lessons learned
+| Problem | Root cause | Remediation | Lesson learned |
 |---|---|---|---|
-| Inherited CI/CD clutter | Mixed GitLab CI and upstream maintenance automation in a GitHub-focused repo | Archived legacy CI and upstream maintenance workflows under `legacy/` and kept security-focused GitHub Actions active | Portfolio repos need one clear automation story |
-| Pipeline triggers missed feature branches | Branch-restricted trigger logic | Enabled push/PR coverage across branches and manual dispatch | Triggers are part of security posture; silent non-execution is risk |
-| Build job failed without lockfile | Workflow assumed lockfile for `npm ci` and npm cache mode | Switched to `npm install` behavior compatible with no lockfile and removed broken assumptions | CI must match the actual dependency model |
-| Broken artifact upload paths | Upload step referenced files not always generated | Added file-existence checks before SARIF/artifact upload | Resilient pipelines fail on signal, not on missing optional outputs |
-| Node support mismatch | App logic used narrower version than tests expected | Aligned runtime support logic to `20 - 24` while standardizing CI runtime on Node 22 | Separate runtime policy from test assertions explicitly |
-| API test instability | Environment-dependent challenge toggles | Made API test behavior deterministic for test runtime | Determinism is required for trustworthy security gates |
-| Trivy config command invalid usage | Attempted to pass multiple positional config targets in one call | Split into correct Trivy invocations by target | Security tooling must be used with strict CLI correctness |
-| SBOM path failure (`ENOENT`) | Output directory not created before SBOM write | Added pre-step to create SBOM output directory | File-system preconditions should be explicit in CI |
-| ZAP write permission failure | `/zap/wrk` mount not writable in GitHub runner/container context | Created and mounted writable report directory for ZAP outputs | DAST containers need explicit writable workspaces in CI |
-| Native module failure (`libxmljs2`) | Install optimizations skipped lifecycle scripts needed for native bindings | Restored script execution for test jobs and rebuilt native bindings in build phase | Do not trade correctness for install speed in runtime/test jobs |
-| Semgrep/SARIF handling instability | Blocking findings and missing SARIF uploads caused noisy failures | Added robust SARIF existence checks and improved handling logic | Security gates should be strict and diagnosable |
-| Deploy skipped unexpectedly | Branch condition targeted wrong branch semantics over time | Protected deploy explicitly aligned to `refs/heads/master` | Branch guard conditions must match real branch strategy |
-| Deploy validation rollout failures | Kind cluster-name mismatch, then app startup/runtime mismatch in hardened local overlay | Set explicit Kind cluster name, added local overlay compatibility patch, and split blocking/non-blocking K8s Trivy scope | Validation environments should be secure but also operationally realistic |
-| CodeQL v3 deprecation warning | Outdated action major version | Upgraded all CodeQL actions to `v4` | Keep security tooling dependencies current |
+| Missing lockfile CI failures | Pipeline expected lockfile behavior | Switched install strategy to match repo reality | CI must reflect repository contract |
+| Native module failures (`libxmljs2`) | Script-skipping optimization prevented binding build | Restored script execution where runtime tests need native addons; explicit rebuild | Optimize safely, never at correctness expense |
+| Trivy command failures | Invalid multi-target config invocation | Split scans by target with valid CLI usage | Security tooling requires exact operational correctness |
+| SBOM write errors | Output directory not pre-created | Added explicit directory creation pre-step | Pipeline FS preconditions must be explicit |
+| ZAP permission errors | Non-writable container work mount | Established writable report directory/mount strategy | DAST in CI needs explicit writable workspace design |
+| SARIF upload failures | Unconditional upload of non-existent outputs | Added existence checks and conditional uploads | Reporting robustness is part of security engineering |
+| Deploy skip due branch drift | Branch condition not aligned with actual policy | Explicitly aligned protected deploy to `master` | Branch-policy drift can silently disable release controls |
+| Deploy validation rollout failures | Kind cluster-name mismatch + local overlay/runtime incompatibility | Explicit Kind cluster naming; local deploy compatibility patch; policy split between base gate and local overlay reporting | Separate hardening policy from local validation compatibility clearly |
+| CodeQL action deprecation | Stale action major version | Upgraded to v4 family | Keep security dependencies lifecycle-managed |
 
-## 6. Validation evidence
+Full details: `docs/remediation-log.md`
+
+## 7. Validation evidence
 Verified directly:
-- Workflow syntax validation: `actionlint` passed for active workflow.
-- GitHub Actions event behavior and job outcomes:
-  - Feature-branch push run: `22882208517` (`push` on `devsecops-finalize`) -> required checks passed, `deploy`/`deploy_validation` skipped (expected).
-  - PR run: `22880716114` (`pull_request`) -> checks passed, `deploy` skipped (expected).
-  - Master push run: `22881386491` (`push` on `master`) -> `deploy` succeeded.
-  - Manual feature-branch deploy validation run: `22873458723` (`workflow_dispatch`) -> `deploy_validation` succeeded, protected `deploy` skipped (expected).
-- Branch protection (API check on 2026-03-10) confirms required checks and review requirements on `master`.
+- Workflow behavior from completed runs:
+  - `push` on feature branch: run `22882208517` succeeded; deploy jobs skipped as expected.
+  - `pull_request`: run `22880716114` succeeded; deploy blocked as expected.
+  - `workflow_dispatch` with deploy validation input: run `22873458723` succeeded; `deploy_validation` ran successfully.
+  - `push` on `master`: run `22881386491` succeeded; protected `deploy` executed successfully.
+- Branch protection queried via GitHub API on 2026-03-10 (`master` required checks and review).
+- Workflow syntax validated with `actionlint` in this project lifecycle.
 
-Unverified in this final pass:
-- A full fresh local manual run from a clean machine image was not re-executed in this specific pass (CI evidence is current).
+Unverified in this specific pass:
+- Fresh local clean-machine validation for all test commands in this exact pass was not re-run.
 
-## 7. How to run locally
-### Native Linux/WSL (recommended)
-1. Install/use Node 22:
-   - `nvm install 22`
-   - `nvm use 22`
-2. Install dependencies:
-   - `npm install --prefer-offline --no-audit --progress=false`
-3. Start app:
-   - `npm start`
-4. Verify health endpoint:
-   - `curl -fsS http://127.0.0.1:3000/rest/admin/application-version`
+## 8. How to run locally
+Supported runtime for local development/CI baseline: **Node 22** (`.nvmrc` present).
 
-Useful verification commands:
-- `npm run lint`
-- `npm run test:server`
-- `npm run test:api`
+Native Linux/WSL:
+```bash
+nvm install 22
+nvm use 22
+npm install --prefer-offline --no-audit --progress=false
+npm start
+```
 
-### Docker run method
-1. Build image:
-   - `docker build -t juice-shop:local .`
-2. Run container:
-   - `docker run --rm -p 3000:3000 juice-shop:local`
-3. Verify endpoint:
-   - `curl -fsS http://127.0.0.1:3000/rest/admin/application-version`
+Verification:
+```bash
+curl -fsS http://127.0.0.1:3000/rest/admin/application-version
+npm run lint
+npm run test:server
+npm run test:api
+```
 
-## 8. How the GitHub automation works
-- **On push (all branches, except docs/markdown-only changes):** runs build, security, container scan, and DAST stages.
-- **On pull_request (except docs/markdown-only changes):** runs same required validation stages; deploy is blocked.
-- **On workflow_dispatch:** can run full pipeline manually; set `run_deploy_validation=true` to run `deploy_validation` on non-`master` branches.
-- **Required checks before merge to `master` (branch protection):**
-  - `build_test`
-  - `security_checks`
-  - `container_build_and_scan`
-  - `dast`
-- **After merge/push to `master`:** protected `deploy` runs automatically after prerequisites succeed.
-- **Auto-merge model:** if enabled in GitHub settings and required checks/review conditions are met, PRs can auto-merge.
+Docker path:
+```bash
+docker build -t juice-shop:local .
+docker run --rm -p 3000:3000 juice-shop:local
+curl -fsS http://127.0.0.1:3000/rest/admin/application-version
+```
 
-## 9. Remaining caveats / accepted risks
-- This remains an inherited intentionally vulnerable application; some dependency and design risks are upstream by nature.
-- ZAP policy tuning includes explicit accepted-risk handling for selected upstream training behaviors.
-- Local deploy overlay intentionally relaxes immutable root filesystem for startup compatibility; blocking K8s hardening gate remains on base manifests.
-- Workflow `paths-ignore` excludes docs/markdown-only changes from expensive CI runs; docs-only changes will not produce full pipeline signals.
-- Branch protection `strict` mode is currently disabled (`strict: false`); requiring branches to be up-to-date before merge would be a stricter posture.
+## 9. How to adapt this for an organization
+Use this repository as a control-framework template, not as a production app baseline.
 
-## 10. Why this is senior-level work
-This repository demonstrates senior-level capability because it shows end-to-end ownership across inherited-system assessment, pipeline architecture, security control integration, troubleshooting under failure, pragmatic risk decisions, and production-style governance (branch protection, required checks, protected deploy). The implementation balances security rigor with operational reliability, and the remediation trail is explicit and auditable.
+1. Replace demo app assumptions:
+- Swap vulnerable/demo workloads with internal services.
+- Remove challenge/demo-specific accepted risks and align to enterprise policies.
+
+2. Keep the gated model:
+- Preserve a clear stage chain (`build/test` -> `security` -> `container` -> `DAST` -> `deploy`).
+- Keep deploy blocked unless all required controls pass.
+
+3. Formalize branch protection:
+- Require status checks and reviewer policy on the protected branch.
+- Enable strict up-to-date checks before merge for stronger change integrity.
+
+4. Define risk acceptance governance:
+- Introduce documented exception records with owner, expiry date, and compensating controls.
+- Make exception scope precise (file/rule/environment), never broad suppression.
+
+5. Calibrate severity and policy thresholds:
+- Define what fails PRs vs what creates follow-up work by severity and exploitability.
+- Version and review these thresholds as policy artifacts.
+
+6. Improve DAST and deployment realism:
+- Use controlled preview environments per PR when feasible.
+- Require explicit production approvals and environment protections.
+
+7. Move from portfolio to enterprise quality:
+- Add signed artifact verification in deploy stage,
+- Add runtime detection/telemetry and incident response hooks,
+- Add policy-as-code controls for deployment/security standards.
+
+See `docs/adoption-guide.md` for detailed implementation guidance.
+
+## 10. Remaining caveats / accepted risks
+- The inherited application itself remains intentionally vulnerable; this repo demonstrates controls around it, not full app hardening.
+- Some dependency risk/deprecation posture is inherited upstream.
+- Local deploy overlay includes compatibility adjustments for startup behavior; security gates remain stricter on base manifests.
+- Docs/markdown-only path ignores reduce pipeline cost but intentionally skip expensive checks on docs-only changes.
+- Branch protection is good but not maximal: `strict` up-to-date merge requirement is currently disabled.
+
+## 11. Why this is senior-level work
+This project demonstrates senior-level ownership because it combines architecture, governance, and execution: inheriting a messy baseline, designing a coherent control framework, debugging failures across build/security/deploy layers, preserving delivery velocity, and documenting tradeoffs honestly. It presents a realistic security engineering story: strong gated DevSecOps/AppSec controls around an inherited intentionally vulnerable application, not a misleading “fully secure app” claim.
