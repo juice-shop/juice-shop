@@ -540,9 +540,9 @@ jobs:
       - container_build_and_scan
       - dast
     # Protected deploy policy:
-    # - runs on default branch only
+    # - runs on master only
     # - never runs on pull_request events
-    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch) && github.event_name != 'pull_request'
+    if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
