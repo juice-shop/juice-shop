@@ -21,4 +21,5 @@ export interface Challenge {
   codingChallengeStatus?: 0 | 1 | 2
   mitigationUrl?: string
   hasCodingChallenge: boolean
+  missingDependencies?: string | null
 }

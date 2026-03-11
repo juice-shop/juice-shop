@@ -57,7 +57,7 @@ import validateConfig from './lib/startup/validateConfig'
 import cleanupFtpFolder from './lib/startup/cleanupFtpFolder'
 import customizeEasterEgg from './lib/startup/customizeEasterEgg' // vuln-code-snippet hide-line
 import customizeApplication from './lib/startup/customizeApplication'
-import validatePreconditions from './lib/startup/validatePreconditions'
+import validatePreconditions, { preconditionsReady } from './lib/startup/validatePreconditions'
 import registerWebsocketEvents from './lib/startup/registerWebsocketEvents'
 import restoreOverwrittenFilesWithOriginals from './lib/startup/restoreOverwrittenFilesWithOriginals'
 
@@ -722,6 +722,7 @@ errorhandler.title = `${config.get<string>('application.name')} (Express ${utils
 export async function start (readyCallback?: () => void) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
   await sequelize.sync({ force: true })
+  await preconditionsReady
   await datacreator()
   datacreatorEnd()
   const port = process.env.PORT ?? config.get('server.port')

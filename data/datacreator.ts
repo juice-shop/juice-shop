@@ -33,7 +33,7 @@ import { ordersCollection, reviewsCollection } from './mongodb'
 import { AllHtmlEntities as Entities } from 'html-entities'
 import * as datacache from './datacache'
 import * as security from '../lib/insecurity'
-import { variableDependencies, domainDependencies } from '../lib/startup/validatePreconditions'
+import { variableDependencies, domainDependencies, preconditionResults } from '../lib/startup/validatePreconditions'
 // @ts-expect-error FIXME due to non-existing type definitions for replace
 import replace from 'replace'
 
@@ -96,6 +96,22 @@ async function createChallenges () {
         }
       })
 
+      const missingDeps: string[] = []
+      Object.entries(variableDependencies).forEach(([variable, deps]) => {
+        if (deps.some(dep => dep.includes(name) || dep.includes(key))) {
+          if (preconditionResults[variable] === false) {
+            missingDeps.push(variable)
+          }
+        }
+      })
+      Object.entries(domainDependencies).forEach(([domain, deps]) => {
+        if (deps.some(dep => dep.includes(name) || dep.includes(key))) {
+          if (preconditionResults[domain] === false) {
+            missingDeps.push(domain)
+          }
+        }
+      })
+
       try {
         datacache.challenges[key] = await ChallengeModel.create({
           key,
@@ -110,7 +126,8 @@ async function createChallenges () {
           disabledEnv: disabledBecause,
           tutorialOrder: (tutorial != null) ? tutorial.order : null,
           codingChallengeStatus: 0,
-          hasCodingChallenge
+          hasCodingChallenge,
+          missingDependencies: missingDeps.length > 0 ? missingDeps.join(',') : null
         })
         if (showHints && hints?.length > 0) await createHints(datacache.challenges[key].id, hints)
       } catch (err) {
