@@ -378,6 +378,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Recycles: POST and GET allowed when logged in only */
   app.get('/api/Recycles', recycles.blockRecycleItems())
   app.post('/api/Recycles', security.isAuthorized())
+  app.get('/api/Recycles/validateOrderId', recycles.validateRecycleOrderId())
   /* Challenge evaluation before finale takes over */
   app.get('/api/Recycles/:id', recycles.getRecycleItem())
   app.put('/api/Recycles/:id', security.denyAll())
