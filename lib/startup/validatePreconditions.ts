@@ -25,7 +25,7 @@ export const domainDependencies: Record<string, string[]> = {
 export const preconditionResults: Record<string, boolean> = {}
 
 let resolvePreconditionsReady: () => void
-export const preconditionsReady: Promise<void> = new Promise((resolve) => {
+export const preconditionsReady = new Promise<void>((resolve) => {
   resolvePreconditionsReady = resolve
 })
 

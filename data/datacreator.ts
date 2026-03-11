@@ -99,14 +99,14 @@ async function createChallenges () {
       const missingDeps: string[] = []
       Object.entries(variableDependencies).forEach(([variable, deps]) => {
         if (deps.some(dep => dep.includes(name) || dep.includes(key))) {
-          if (preconditionResults[variable] === false) {
+          if (!preconditionResults[variable]) {
             missingDeps.push(variable)
           }
         }
       })
       Object.entries(domainDependencies).forEach(([domain, deps]) => {
         if (deps.some(dep => dep.includes(name) || dep.includes(key))) {
-          if (preconditionResults[domain] === false) {
+          if (!preconditionResults[domain]) {
             missingDeps.push(domain)
           }
         }
