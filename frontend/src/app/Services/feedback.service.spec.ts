@@ -64,4 +64,43 @@ describe('FeedbackService', () => {
       httpMock.verify()
     })
   ))
+
+  it('should handle error when getting all feedback', inject([FeedbackService, HttpTestingController],
+    fakeAsync((service: FeedbackService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.find(null).subscribe({ next: () => fail('expected error'), error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/api/Feedbacks/')
+      req.error(new ErrorEvent('Request failed'), { status: 500, statusText: 'Internal Server Error' })
+
+      tick()
+      expect(capturedError.status).toBe(500)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when creating feedback', inject([FeedbackService, HttpTestingController],
+    fakeAsync((service: FeedbackService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.save({ foo: 'bar' }).subscribe({ next: () => fail('expected error'), error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/api/Feedbacks/')
+      req.error(new ErrorEvent('Bad Request'), { status: 400, statusText: 'Bad Request' })
+
+      tick()
+      expect(capturedError.status).toBe(400)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when deleting feedback', inject([FeedbackService, HttpTestingController],
+    fakeAsync((service: FeedbackService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.del(1).subscribe({ next: () => fail('expected error'), error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/api/Feedbacks/1')
+      req.error(new ErrorEvent('Not Found'), { status: 404, statusText: 'Not Found' })
+
+      tick()
+      expect(capturedError.status).toBe(404)
+      httpMock.verify()
+    })
+  ))
 })

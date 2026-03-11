@@ -5,6 +5,8 @@ on:
     branches: [ master ]
     paths:
       - 'data/static/challenges.yml'
+      - 'data/static/codefixes/*.info.yml'
+  workflow_dispatch:
 
 jobs:
   UpdateChallengesOnWebsite:
@@ -17,14 +19,23 @@ jobs:
         token: ${{ secrets.BOT_TOKEN }}
         repository: OWASP/www-project-juice-shop
         ref: master
+    - name: Check out juice-shop source
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
+      with:
+        path: juice-shop
     - name: Update challenges.yml
       run: |
-        cd _data/
-        rm challenges.yml
-        wget https://raw.githubusercontent.com/juice-shop/juice-shop/master/data/static/challenges.yml
+        rm -f _data/challenges.yml
+        cp juice-shop/data/static/challenges.yml _data/challenges.yml
+    - name: Update snippets.json
+      run: |
+        rm -f _data/snippets.json
+        CHALLENGES=$(ls juice-shop/data/static/codefixes/*.info.yml | xargs -n 1 basename | sed 's/\.info\.yml//' | jq -R . | jq -s -c '{"challenges": .}')
+        echo $CHALLENGES > _data/snippets.json
     - uses: stefanzweifel/git-auto-commit-action@8621497c8c39c72f3e2a999a26b4ca1b5058a842 #v5.0.1
       with:
-        commit_message: "Auto-update challenges.yml from ${{ github.sha }}"
+        file_pattern: '_data/challenges.yml _data/snippets.json'
+        commit_message: "🤖 Auto-update challenges.yml and snippets.json from ${{ github.sha }}"
         branch: master
         commit_options: '--signoff'
 

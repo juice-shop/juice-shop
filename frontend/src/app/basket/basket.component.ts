@@ -21,8 +21,8 @@ library.add(faCartArrowDown)
   imports: [MatCardModule, PurchaseBasketComponent, MatButtonModule, TranslateModule]
 })
 export class BasketComponent {
-  private readonly router = inject(Router);
-  private readonly ngZone = inject(NgZone);
+  private readonly router = inject(Router)
+  private readonly ngZone = inject(NgZone)
 
   public productCount = 0
   public bonus = 0

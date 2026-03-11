@@ -11,7 +11,7 @@ import { CookieModule, CookieService } from 'ngy-cookie'
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { WelcomeComponent } from './welcome.component'
-import { of } from 'rxjs'
+import { of, throwError } from 'rxjs'
 import { ConfigurationService } from '../Services/configuration.service'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
@@ -73,5 +73,12 @@ describe('WelcomeComponent', () => {
     cookieService.put('welcomebanner_status', 'dismiss')
     component.ngOnInit()
     expect(dialog.open).not.toHaveBeenCalled()
+  })
+
+  it('should handle error when getting application configuration', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(throwError('Error'))
+    console.log = jasmine.createSpy('log')
+    component.ngOnInit()
+    expect(console.log).toHaveBeenCalledWith('Error')
   })
 })

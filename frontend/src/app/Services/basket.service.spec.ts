@@ -111,4 +111,50 @@ describe('BasketService', () => {
       httpMock.verify()
     })
   ))
+
+  it('should emit total number of items when updating number of cart items', inject([BasketService, HttpTestingController],
+    fakeAsync((service: BasketService, httpMock: HttpTestingController) => {
+      sessionStorage.setItem('bid', '42')
+      const totals: number[] = []
+      service.getItemTotal().subscribe((t) => totals.push(t))
+
+      service.updateNumberOfCartItems()
+      const req = httpMock.expectOne('http://localhost:3000/rest/basket/42')
+      expect(req.request.method).toBe('GET')
+      req.flush({
+        data: {
+          Products: [
+            { BasketItem: { quantity: 2 } },
+            { BasketItem: { quantity: 3 } }
+          ]
+        }
+      })
+
+      tick()
+      expect(totals).toEqual([5])
+      httpMock.verify()
+    })
+  ))
+
+  it('should log error when updating number of cart items fails', inject([BasketService, HttpTestingController],
+    fakeAsync((service: BasketService, httpMock: HttpTestingController) => {
+      sessionStorage.setItem('bid', '99')
+      let consoleSpy: jasmine.Spy
+      const anyJ = (jasmine as any)
+      if (anyJ.isSpy && anyJ.isSpy(console.log as any)) {
+        consoleSpy = console.log as unknown as jasmine.Spy
+        consoleSpy.calls.reset()
+      } else {
+        consoleSpy = spyOn(console, 'log')
+      }
+
+      service.updateNumberOfCartItems()
+      const req = httpMock.expectOne('http://localhost:3000/rest/basket/99')
+      req.error(new ErrorEvent('Request failed'), { status: 500, statusText: 'Internal Error' })
+      tick()
+
+      expect(consoleSpy).toHaveBeenCalled()
+      httpMock.verify()
+    })
+  ))
 })

@@ -35,12 +35,12 @@ const routes: Routes = [
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class FaucetModule {
-  configurationService = inject(ConfigurationService);
-  overlayContainer = inject(OverlayContainer);
+  configurationService = inject(ConfigurationService)
+  overlayContainer = inject(OverlayContainer)
 
   constructor () {
-    const configurationService = this.configurationService;
-    const overlayContainer = this.overlayContainer;
+    const configurationService = this.configurationService
+    const overlayContainer = this.overlayContainer
 
     configurationService.getApplicationConfiguration().subscribe((conf) => {
       overlayContainer.getContainerElement().classList.add(conf.application.theme + '-theme')

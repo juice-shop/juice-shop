@@ -1,13 +1,13 @@
 fixes:
   - id: 1
-    explanation: 'Wrong!'
+    explanation: 'This change is purely syntactical and does not change the behavior of the contract in any way.'
   - id: 2
-    explanation: 'Wrong!'
+    explanation: 'Moving the balance update to an even later point in time does not prevent the reentrancy attack.'
   - id: 3
-    explanation: 'Correct!'
+    explanation: 'The reentrancy attacks is prevented by updating the balance before transferring funds via the external call.'
   - id: 4
-    explanation: 'Wrong!'
+    explanation: 'This change is completely nonsensical. It only messes up the entire logic of the contract and would even increase the balance upon withdrawal.'
 hints:
-  - 'Hint1'
-  - 'Hint2'
-  - 'Hint3'
+  - 'How would an ATM handle the corresponding "real world" scenario?'
+  - 'The order of instructions really matters here.'
+  - 'Read up on "Reentrancy Attacks" to better understand this vulnerability.'

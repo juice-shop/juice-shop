@@ -3,23 +3,25 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 $bg-heading: rgba(0, 0, 0, 0.13);
 
 .heading {
   background: $bg-heading;
   font-size: large;
   justify-content: center;
-  margin-bottom: 10px;
-  padding: 12px;
+  margin-bottom: $space-s;
+  padding: $space-s;
 }
 
 .container {
   display: grid;
-  gap: 48px;
+  gap: $space-2xl;
   grid-template-columns: 1fr 1fr;
 
   @media (max-width: 1400px) {
-    gap: 24px;
+    gap: $space-l;
     grid-template-columns: 1fr;
   }
 }
@@ -34,11 +36,11 @@ mat-header-row {
 
 .orders-table,
 .inventory-table {
-  margin-bottom: 25px;
+  margin-bottom: $space-ml;
 }
 
 mat-header-cell {
-  padding-bottom: 4px;
+  padding-bottom: $space-xs;
 }
 
 mat-cell,
@@ -48,15 +50,19 @@ mat-header-cell {
   display: flex;
 }
 
+.cell {
+  max-width: 6rem;
+}
+
 mat-row {
   align-items: center;
   display: flex;
-  padding: 4px 0;
+  padding: $space-xs 0;
 }
 
 .mat-own-card {
   display: block;
-  margin-bottom: 20px;
+  margin-bottom: $space-ml;
   margin-left: 10%;
   margin-right: 10%;
 }

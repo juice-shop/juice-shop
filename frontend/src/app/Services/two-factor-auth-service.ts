@@ -30,7 +30,7 @@ interface TwoFactorAuthStatusPayload {
   providedIn: 'root'
 })
 export class TwoFactorAuthService {
-  private readonly http = inject(HttpClient);
+  private readonly http = inject(HttpClient)
 
 
   verify (totpToken: string): Observable<AuthenticationPayload> {

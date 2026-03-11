@@ -128,8 +128,6 @@ challenges:
   safetyMode:
     type: string
     enum: ['enabled', 'disabled','auto']
-  showFeedbackButtons:
-    type: boolean
   csafHashValue:
     type: string
   metricsIgnoredUserAgents:
@@ -193,6 +191,11 @@ ctf:
     type: boolean
   showCountryDetailsInNotifications:
     type: string
+  systemWideNotifications:
+    url:
+      type: string
+    pollFrequencySeconds:
+      type: number
   countryMapping:
     scoreBoardChallenge:
       name:
@@ -740,6 +743,11 @@ ctf:
       code:
         type: string
     leakedApiKeyChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    passwordHashLeakChallenge:
       name:
         type: string
       code:

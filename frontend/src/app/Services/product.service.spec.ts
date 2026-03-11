@@ -63,4 +63,32 @@ describe('ProductService', () => {
       httpMock.verify()
     })
   ))
+
+  it('should handle error when searching products', inject([ProductService, HttpTestingController],
+    fakeAsync((service: ProductService, httpMock: HttpTestingController) => {
+      let errorResponse: any
+      service.search('1').subscribe({ next: () => {}, error: (err) => (errorResponse = err) })
+      const req = httpMock.expectOne('http://localhost:3000/rest/products/search?q=1')
+      req.flush(null, { status: 500, statusText: 'Server Error' })
+
+      tick()
+      expect(errorResponse).toBeTruthy()
+      expect(errorResponse.status).toBe(500)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when getting a single product', inject([ProductService, HttpTestingController],
+    fakeAsync((service: ProductService, httpMock: HttpTestingController) => {
+      let errorResponse: any
+      service.get(1).subscribe({ next: () => {}, error: (err) => (errorResponse = err) })
+      const req = httpMock.expectOne('http://localhost:3000/api/Products/1?d=' + encodeURIComponent(new Date().toDateString()))
+      req.error(new ErrorEvent('Network error'))
+
+      tick()
+      expect(errorResponse).toBeTruthy()
+      expect(errorResponse.error).toBeTruthy()
+      httpMock.verify()
+    })
+  ))
 })

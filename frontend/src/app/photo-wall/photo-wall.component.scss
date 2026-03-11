@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 mat-form-field {
   width: 100%;
 }
@@ -15,8 +17,12 @@ mat-form-field {
 
 #submitButton {
   margin-left: 20%;
-  margin-top: 10px;
+  margin-top: $space-s;
   width: 60%;
+}
+
+.photo-wall-card {
+  margin-bottom: $space-s;
 }
 
 input {
@@ -27,7 +33,7 @@ input {
 
 .image-preview {
   height: 5rem;
-  margin: 1rem 0;
+  margin: $space-m 0;
 }
 
 .image-preview img {
@@ -47,8 +53,12 @@ input {
 .grid {
   align-items: center;
   display: grid;
-  grid-gap: 20px;
+  grid-gap: $space-ml;
   grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+}
+
+.share-memory-section {
+  margin-top: $space-s;
 }
 
 .grid img {
@@ -70,7 +80,7 @@ input {
   font-size: 20px;
   left: 0;
   opacity: 0;
-  padding: 20px;
+  padding: $space-ml;
   position: absolute;
   right: 0;
   text-align: center;
@@ -84,7 +94,7 @@ input {
 .emptyState {
   display: block;
   height: auto !important;
-  margin: 20px auto;
+  margin: $space-ml auto;
   width: 50%;
 }
 
@@ -97,7 +107,7 @@ input {
 
 .noResultText {
   display: block;
-  margin-top: 10px;
+  margin-top: $space-s;
   text-align: center;
 }
 

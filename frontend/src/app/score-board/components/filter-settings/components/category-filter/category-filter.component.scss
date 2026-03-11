@@ -1,9 +1,16 @@
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+@use '../../../../../../styles/variables' as *;
+
 :host {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 8px;
-  margin: 24px 0;
+  gap: $space-xs;
+  margin: $space-l 0;
 }
 
 .pill {
@@ -17,7 +24,7 @@
 
   font-weight: 600;
   line-height: 19px;
-  padding: 8px 16px;
+  padding: $space-xs $space-l;
 
   &.selected {
     background-color: var(--theme-accent-dark);

@@ -12,8 +12,8 @@ import type { Product, Challenge } from 'data/types'
 import type { Product as ProductConfig } from '../../lib/config.types'
 import * as security from '../../lib/insecurity'
 import { type UserModel } from 'models/user'
-import * as utils from '../../lib/utils'
 import * as verify from '../../routes/verify'
+import { isWindows } from '../../lib/utils'
 const expect = chai.expect
 
 chai.use(sinonChai)
@@ -252,7 +252,7 @@ describe('verify', () => {
   describe('jwtChallenges', () => {
     beforeEach(() => {
       challenges.jwtUnsignedChallenge = { solved: false, save } as unknown as Challenge
-      challenges.jwtForgedChallenge = { solved: false, save } as unknown as Challenge
+      challenges.jwtForgedChallenge = { solved: false, save, disabledEnv: 'Windows' } as unknown as Challenge
     })
 
     it('"jwtUnsignedChallenge" is solved when forged unsigned token has email jwtn3d@juice-sh.op in the payload', () => {
@@ -285,10 +285,10 @@ describe('verify', () => {
 
       verify.jwtChallenges()(req, res, next)
 
-      expect(challenges.jwtForgedChallenge.solved).to.equal(false)
+      expect(challenges.jwtUnsignedChallenge.solved).to.equal(false)
     })
 
-    if (utils.isChallengeEnabled(challenges.jwtForgedChallenge)) {
+    if (!isWindows()) { // The "jwtForgedChallenge" is disabled on Windows due to an incompatibility
       it('"jwtForgedChallenge" is solved when forged token HMAC-signed with public RSA-key has email rsa_lord@juice-sh.op in the payload', () => {
         /*
         Header: { "alg": "HS256", "typ": "JWT" }

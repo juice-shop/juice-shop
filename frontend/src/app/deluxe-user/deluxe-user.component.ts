@@ -21,12 +21,12 @@ import { MatCardModule } from '@angular/material/card'
 })
 
 export class DeluxeUserComponent implements OnInit {
-  private readonly router = inject(Router);
-  private readonly userService = inject(UserService);
-  private readonly configurationService = inject(ConfigurationService);
-  private readonly route = inject(ActivatedRoute);
-  private readonly ngZone = inject(NgZone);
-  private readonly io = inject(SocketIoService);
+  private readonly router = inject(Router)
+  private readonly userService = inject(UserService)
+  private readonly configurationService = inject(ConfigurationService)
+  private readonly route = inject(ActivatedRoute)
+  private readonly ngZone = inject(NgZone)
+  private readonly io = inject(SocketIoService)
 
   public membershipCost = 0
   public error?: string = undefined

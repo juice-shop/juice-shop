@@ -48,9 +48,9 @@ library.add(faSave, faEdit)
   ]
 })
 export class ChangePasswordComponent implements OnInit {
-  private readonly userService = inject(UserService);
-  private readonly formSubmitService = inject(FormSubmitService);
-  private readonly translate = inject(TranslateService);
+  private readonly userService = inject(UserService)
+  private readonly formSubmitService = inject(FormSubmitService)
+  private readonly translate = inject(TranslateService)
 
   public passwordControl: UntypedFormControl = new UntypedFormControl('', [
     Validators.required

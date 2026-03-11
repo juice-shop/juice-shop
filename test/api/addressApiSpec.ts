@@ -141,6 +141,13 @@ describe('/api/Addresss/:id', () => {
       .expect('status', 200)
   })
 
+  it('GET address by non-existing id returns 400 for authorized user', () => {
+    const nonExistingId = 999999
+    return frisby.get(API_URL + '/Addresss/' + nonExistingId, { headers: authHeader })
+      .expect('status', 400)
+      .expect('json', { status: 'error', data: 'Malicious activity detected.' })
+  })
+
   it('PUT update address by id', () => {
     return frisby.put(API_URL + '/Addresss/' + addressId, {
       headers: authHeader,
@@ -175,5 +182,11 @@ describe('/api/Addresss/:id', () => {
   it('DELETE address by id', () => {
     return frisby.del(API_URL + '/Addresss/' + addressId, { headers: authHeader })
       .expect('status', 200)
+  })
+
+  it('DELETE address by id again returns 400 for authorized user', () => {
+    return frisby.del(API_URL + '/Addresss/' + addressId, { headers: authHeader })
+      .expect('status', 400)
+      .expect('json', { status: 'error', data: 'Malicious activity detected.' })
   })
 })

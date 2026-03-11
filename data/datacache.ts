@@ -27,6 +27,7 @@ export interface Notification {
   flag: string
   hidden: boolean
   isRestore: boolean
+  codingChallenge?: boolean
 }
 export const notifications: Notification[] = []
 

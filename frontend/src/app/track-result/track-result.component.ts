@@ -30,9 +30,9 @@ export enum Status {
   imports: [MatCardModule, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow]
 })
 export class TrackResultComponent implements OnInit {
-  private readonly route = inject(ActivatedRoute);
-  private readonly trackOrderService = inject(TrackOrderService);
-  private readonly sanitizer = inject(DomSanitizer);
+  private readonly route = inject(ActivatedRoute)
+  private readonly trackOrderService = inject(TrackOrderService)
+  private readonly sanitizer = inject(DomSanitizer)
 
   public displayedColumns = ['product', 'price', 'quantity', 'total price']
   public dataSource = new MatTableDataSource()

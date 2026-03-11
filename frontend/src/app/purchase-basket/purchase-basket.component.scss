@@ -3,21 +3,23 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 // Variables
 $bg-heading: rgba(0, 0, 0, 0.2);
-$cell-padding: 5px;
+$cell-padding: $space-2xs;
 $border-radius: 4px;
 $transition-speed: 0.2s;
 
 // Header styles
 h1 {
-  margin-bottom: 12px;
+  margin-bottom: $space-s;
 }
 
 h1 small {
   color: rgba(0, 0, 0, 0.6);
   font-size: 0.8em;
-  margin-left: 8px;
+  margin-left: $space-xs;
 }
 
 .heading {
@@ -25,13 +27,13 @@ h1 small {
   border-radius: $border-radius;
   font-size: x-large;
   justify-content: center;
-  margin-bottom: 12px;
-  padding: 8px 16px;
+  margin-bottom: $space-s;
+  padding: $space-xs $space-m;
 }
 
 // Table styles
 mat-table {
-  margin-bottom: 12px;
+  margin-bottom: $space-s;
   table-layout: fixed;
   width: 100%;
 }
@@ -44,7 +46,7 @@ mat-row {
   border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
   box-sizing: border-box;
   margin: 0;
-  padding: 12px 0;
+  padding: $space-s 0;
   transition: background-color $transition-speed ease;
 }
 
@@ -90,7 +92,7 @@ mat-footer-cell:last-of-type {
     align-items: center;
     display: flex;
     justify-content: center;
-    margin-bottom: 8px;
+    margin-bottom: $space-xs;
     width: 100%;
   }
 }
@@ -119,11 +121,19 @@ mat-footer-cell:last-of-type {
   justify-content: center;
 }
 
+.header-hidden {
+  display: none;
+}
+
+.cell-initial-font {
+  font-size: initial;
+}
+
 // Quantity controls
 .quantity-controls {
   align-items: center;
   display: flex;
-  gap: 8px;
+  gap: $space-xs;
 }
 
 .quantity-controls button {
@@ -144,7 +154,7 @@ mat-footer-cell:last-of-type {
 #price {
   font-size: large;
   font-weight: 500;
-  margin-top: 12px;
+  margin-top: $space-s;
   text-align: right;
   width: 100%;
 }
@@ -157,13 +167,13 @@ mat-footer-cell:last-of-type {
 
   #price {
     font-size: medium;
-    margin-top: 8px;
+    margin-top: $space-xs;
   }
 
   mat-row {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: $space-3xs;
     width: 100%;
   }
 

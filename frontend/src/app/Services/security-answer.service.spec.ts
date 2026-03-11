@@ -35,4 +35,17 @@ describe('SecurityAnswerService', () => {
       httpMock.verify()
     })
   ))
+
+  it('should handle error when creating a security answer', inject([SecurityAnswerService, HttpTestingController],
+    fakeAsync((service: SecurityAnswerService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.save({ a: 1 }).subscribe({ next: () => fail('expected error'), error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/api/SecurityAnswers/')
+      req.error(new ErrorEvent('Request failed'), { status: 400, statusText: 'Bad Request' })
+
+      tick()
+      expect(capturedError.status).toBe(400)
+      httpMock.verify()
+    })
+  ))
 })

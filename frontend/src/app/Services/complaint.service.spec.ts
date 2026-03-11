@@ -35,4 +35,18 @@ describe('ComplaintService', () => {
       httpMock.verify()
     })
   ))
+
+  it('should handle error when creating complaint', inject([ComplaintService, HttpTestingController],
+    fakeAsync((service: ComplaintService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.save({ foo: 'bar' }).subscribe({ next: () => {}, error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/api/Complaints/')
+      req.flush(null, { status: 400, statusText: 'Bad Request' })
+
+      tick()
+      expect(capturedError).toBeTruthy()
+      expect(capturedError.status).toBe(400)
+      httpMock.verify()
+    })
+  ))
 })
