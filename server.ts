@@ -116,6 +116,7 @@ import { getWalletBalance, addWalletBalance } from './routes/wallet'
 import { retrieveAppConfiguration } from './routes/appConfiguration'
 import { updateProductReviews } from './routes/updateProductReviews'
 import { servePrivacyPolicyProof } from './routes/privacyPolicyProof'
+import { proxyFetch, updateIntegrationConfig, importProducts, runDiagnostic, notifyWebhook, promotionCountdown } from './routes/integrations'
 import { profileImageUrlUpload } from './routes/profileImageUrlUpload'
 import { profileImageFileUpload } from './routes/profileImageFileUpload'
 import { serveCodeFixes, checkCorrectFix } from './routes/vulnCodeFixes'
@@ -626,6 +627,12 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/rest/deluxe-membership', deluxeMembershipStatus())
   app.post('/rest/deluxe-membership', security.appendUserId(), upgradeToDeluxe())
   app.get('/rest/memories', getMemories())
+  app.get('/rest/integrations/proxy', proxyFetch())
+  app.post('/rest/integrations/config', updateIntegrationConfig())
+  app.post('/rest/integrations/import', importProducts())
+  app.get('/rest/integrations/diagnostic', runDiagnostic())
+  app.post('/rest/integrations/webhook', notifyWebhook())
+  app.get('/rest/integrations/countdown', promotionCountdown())
   app.get('/rest/chatbot/status', chatbot.status())
   app.post('/rest/chatbot/respond', chatbot.process())
   /* NoSQL API endpoints */
