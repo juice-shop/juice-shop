@@ -34,7 +34,7 @@ export const validateRecycleOrderId = () => (req: Request, res: Response) => {
     return res.status(400).json({ error: 'Order ID is required' })
   }
 
-  const orderIdFormat = /^([0-9a-f]+(-[0-9a-f]*)?)+$/ // lgtm[js/redos] - intentionally vulnerable regex for security training challenge
+  const orderIdFormat = /^([0-9a-f]+(-[0-9a-f]*)?)+$/
 
   const start = Date.now()
   const isValid = orderIdFormat.test(orderId)
