@@ -12,8 +12,6 @@
         "thumbnail": "./public/content/images/thumbnail.stride.jpg",
         "diagramType": "STRIDE",
         "id": 0,
-        "$$hashKey": "object:59",
-        "diagramJson": {
           "cells": [
             {
               "type": "tm.Actor",
@@ -1059,12 +1057,10 @@
               }
             }
           ]
-        },
-        "size": {
-          "height": 590,
-          "width": 1425
-        }
       }
-    ]
-  }
+    ],
+    "diagramTop": 10,
+    "threatTop": 100
+  },
+  "version": "2.6.0"
 }
