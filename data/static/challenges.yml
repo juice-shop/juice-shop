@@ -1541,3 +1541,15 @@
     - 'The chatbot trusts whatever discount value it decides to pass to its tool. Make it decide on a very generous number.'
   mitigationUrl: 'https://genai.owasp.org/llmrisk/llm01-prompt-injection/'
   key: chatbotGreedyInjectionChallenge
+-
+  name: 'ReDoS your Recycling'
+  category: 'Broken Anti Automation'
+  description: 'Perform a <i>ReDoS</i> attack on the recycling order ID validation endpoint keeping the server busy for >2 seconds.'
+  difficulty: 4
+  hints:
+    - 'The recycling page has an order ID validation field. What happens if you craft a special input?'
+    - 'Try an order ID that starts with the correct format but ends with an unexpected character.'
+    - 'A vulnerable regex with nested quantifiers can be tricked into catastrophic backtracking.'
+    - 'Try fe01-aaaaaaaaaaaaaaaa! as your input and see what happens to the response time.'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html'
+  key: redosChallenge
