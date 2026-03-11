@@ -13,7 +13,7 @@
   <div class="tags">
     @for (tag of challenge.tagList; track tag) {
       @if (tag?.startsWith('Requires ')) {
-        <span class="tag" [matTooltip]="'TAG_EXTERNAL_DEPENDENCY_DESCRIPTION' | translate">{{ 'TAG_EXTERNAL_DEPENDENCY' | translate:{ dependency: tag?.substring('Requires '.length) } }}</span>
+        <span class="tag" [class.tag-missing-dependency]="isDependencyMissing(tag)" [matTooltip]="'TAG_EXTERNAL_DEPENDENCY_DESCRIPTION' | translate">{{ 'TAG_EXTERNAL_DEPENDENCY' | translate:{ dependency: tag?.substring('Requires '.length) } }}</span>
       } @else {
         <span class="tag" [matTooltip]="'TAG_' + tag?.toUpperCase().split(' ').join('_') + '_DESCRIPTION' | translate">{{ ('TAG_' + tag?.toUpperCase().split(' ').join('_')) | translate }}</span>
       }

@@ -137,6 +137,10 @@
     font-weight: 400;
     line-height: 14px;
     padding: $space-2xs;
+
+    &.tag-missing-dependency {
+      color: var(--theme-warn);
+    }
   }
 }
 

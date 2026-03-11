@@ -97,4 +97,14 @@ export class ChallengeCardComponent implements OnInit, OnChanges {
       }
     }
   }
+
+  isDependencyMissing (tag: string): boolean {
+    if (!this.challenge.missingDependencies) {
+      return false
+    }
+    const dependency = tag.substring('Requires '.length)
+    return this.challenge.missingDependencies.split(',').some(
+      (missing) => missing.trim() === dependency
+    )
+  }
 }

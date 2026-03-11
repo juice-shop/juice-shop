@@ -22,6 +22,13 @@ export const domainDependencies: Record<string, string[]> = {
   [config.get<string>('application.chatBot.llmApiUrl')]: ['"Chatbot Prompt Injection" challenge', '"Greedy Chatbot Manipulation" challenge']
 }
 
+export const preconditionResults: Record<string, boolean> = {}
+
+let resolvePreconditionsReady: () => void
+export const preconditionsReady: Promise<void> = new Promise((resolve) => {
+  resolvePreconditionsReady = resolve
+})
+
 const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
   let success = true
   success = checkIfRunningOnSupportedNodeVersion(process.version) && success
@@ -41,16 +48,21 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
 
   const alchemyDomainReachable = await checkIfDomainReachable('https://www.alchemy.com/')
   const alchemyEnvVarExists = checkIfEnvironmentVariableExists('ALCHEMY_API_KEY')
+  preconditionResults['https://www.alchemy.com/'] = alchemyDomainReachable
+  preconditionResults.ALCHEMY_API_KEY = alchemyEnvVarExists
   if (!alchemyDomainReachable || !alchemyEnvVarExists) {
     logger.info(`Check ${colors.bold('https://howto-web3.owasp-juice.shop')} for instructions on how to set up and configure the Alchemy API`)
   }
   const llmApiUrl = config.get<string>('application.chatBot.llmApiUrl')
   const llmApiReachable = await checkIfDomainReachable(llmApiUrl)
+  preconditionResults[llmApiUrl] = llmApiReachable
   if (!llmApiReachable) {
     logger.info(`Check ${colors.bold('https://howto-llm.owasp-juice.shop')} for instructions on how to set up and configure the LLM API`)
   } else if (isOllamaUrl(llmApiUrl)) {
     await checkIfOllamaModelAvailable(llmApiUrl)
   }
+
+  resolvePreconditionsReady()
 
   if ((!success || !asyncConditions) && exitOnFailure) {
     logger.error(colors.red('Exiting due to unsatisfied precondition!'))
