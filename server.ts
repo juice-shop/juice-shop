@@ -117,6 +117,7 @@ import { retrieveAppConfiguration } from './routes/appConfiguration'
 import { updateProductReviews } from './routes/updateProductReviews'
 import { servePrivacyPolicyProof } from './routes/privacyPolicyProof'
 import { proxyFetch, updateIntegrationConfig, importProducts, runDiagnostic, notifyWebhook, promotionCountdown } from './routes/integrations'
+import { exportReportArchive, extractReportArchive, getOrdersForReport, restoreReportFilter, downloadReportFile, deviceAnalytics, fetchReportTemplate } from './routes/reporting'
 import { profileImageUrlUpload } from './routes/profileImageUrlUpload'
 import { profileImageFileUpload } from './routes/profileImageFileUpload'
 import { serveCodeFixes, checkCorrectFix } from './routes/vulnCodeFixes'
@@ -633,6 +634,13 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/rest/integrations/diagnostic', runDiagnostic())
   app.post('/rest/integrations/webhook', notifyWebhook())
   app.get('/rest/integrations/countdown', promotionCountdown())
+  app.get('/rest/reports/export', exportReportArchive())
+  app.post('/rest/reports/extract', extractReportArchive())
+  app.get('/rest/reports/orders', getOrdersForReport())
+  app.post('/rest/reports/filter', restoreReportFilter())
+  app.get('/rest/reports/download', downloadReportFile())
+  app.get('/rest/reports/analytics', deviceAnalytics())
+  app.get('/rest/reports/template', fetchReportTemplate())
   app.get('/rest/chatbot/status', chatbot.status())
   app.post('/rest/chatbot/respond', chatbot.process())
   /* NoSQL API endpoints */
