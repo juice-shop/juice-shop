@@ -129,4 +129,36 @@ describe('FilterSettingsComponent', () => {
     component.onSearchQueryFilterChange(searchQuery)
     expect(component.filterSettingChange.emit).toHaveBeenCalledWith(jasmine.objectContaining({ searchQuery }))
   })
+
+  it('should group "Requires ..." tags into a single "External Dependency" tag', () => {
+    component.allChallenges = [
+      { tagList: ['Requires SMTP', 'easy'], category: 'cat1' },
+      { tagList: ['Requires OAuth'], category: 'cat1' },
+      { tagList: ['hard'], category: 'cat2' }
+    ] as any[]
+    component.ngOnChanges()
+    expect(component.tags).toContain(FilterSettingsComponent.EXTERNAL_DEPENDENCY_TAG)
+    expect(component.tags).not.toContain('Requires SMTP')
+    expect(component.tags).not.toContain('Requires OAuth')
+    expect(component.tags).toContain('easy')
+    expect(component.tags).toContain('hard')
+  })
+
+  it('should sort tags alphabetically', () => {
+    component.allChallenges = [
+      { tagList: ['Zebra', 'Apple'], category: 'cat1' },
+      { tagList: ['Mango'], category: 'cat1' }
+    ] as any[]
+    component.ngOnChanges()
+    expect(component.tags).toEqual(['Apple', 'Mango', 'Zebra'])
+  })
+
+  it('should sort tags alphabetically including External Dependency', () => {
+    component.allChallenges = [
+      { tagList: ['Zebra', 'Requires SMTP'], category: 'cat1' },
+      { tagList: ['Apple'], category: 'cat1' }
+    ] as any[]
+    component.ngOnChanges()
+    expect(component.tags).toEqual(['Apple', 'External Dependency', 'Zebra'])
+  })
 })

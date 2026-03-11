@@ -1,6 +1,6 @@
 import { type EnrichedChallenge } from '../types/EnrichedChallenge'
 import { DEFAULT_FILTER_SETTING } from '../filter-settings/FilterSetting'
-import { filterChallenges } from './challenge-filtering'
+import { filterChallenges, EXTERNAL_DEPENDENCY_TAG } from './challenge-filtering'
 
 const CHALLENGE_1 = {
   category: 'foobar',
@@ -90,6 +90,51 @@ describe('filterChallenges', () => {
       [CHALLENGE_1, CHALLENGE_2, CHALLENGE_3],
       { ...DEFAULT_FILTER_SETTING, tags: ['hard'] }
     ).map((challenge) => challenge.key)).toEqual(jasmine.arrayWithExactContents(['challenge-3']))
+  })
+
+  it('should filter challenges with "External Dependency" tag matching any "Requires ..." tag', () => {
+    const challengeWithRequires = {
+      ...CHALLENGE_1,
+      key: 'challenge-requires',
+      tagList: ['easy', 'Requires SMTP']
+    } as EnrichedChallenge
+    const challengeWithOtherRequires = {
+      ...CHALLENGE_2,
+      key: 'challenge-requires-2',
+      tagList: ['Requires OAuth']
+    } as EnrichedChallenge
+    const challengeWithoutRequires = {
+      ...CHALLENGE_3,
+      tagList: ['hard']
+    } as EnrichedChallenge
+
+    expect(filterChallenges(
+      [challengeWithRequires, challengeWithOtherRequires, challengeWithoutRequires],
+      { ...DEFAULT_FILTER_SETTING, tags: [EXTERNAL_DEPENDENCY_TAG] }
+    ).map((challenge) => challenge.key)).toEqual(jasmine.arrayWithExactContents(['challenge-requires', 'challenge-requires-2']))
+  })
+
+  it('should allow combining "External Dependency" with other tags', () => {
+    const challengeWithRequires = {
+      ...CHALLENGE_1,
+      key: 'challenge-requires',
+      tagList: ['Requires SMTP']
+    } as EnrichedChallenge
+    const challengeWithHardTag = {
+      ...CHALLENGE_3,
+      key: 'challenge-hard',
+      tagList: ['hard']
+    } as EnrichedChallenge
+    const challengeWithEasyTag = {
+      ...CHALLENGE_2,
+      key: 'challenge-easy',
+      tagList: ['easy']
+    } as EnrichedChallenge
+
+    expect(filterChallenges(
+      [challengeWithRequires, challengeWithHardTag, challengeWithEasyTag],
+      { ...DEFAULT_FILTER_SETTING, tags: [EXTERNAL_DEPENDENCY_TAG, 'hard'] }
+    ).map((challenge) => challenge.key)).toEqual(jasmine.arrayWithExactContents(['challenge-requires', 'challenge-hard']))
   })
 
   it('should filter challenges based on status properly', () => {
