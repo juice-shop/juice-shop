@@ -71,3 +71,26 @@ describe('/api/Recycles', () => {
       .expect('status', 401)
   })
 })
+
+describe('/api/Recycles/validateOrderId', () => {
+  it('GET returns valid true for a correctly formatted order ID', () => {
+    return frisby.get(`${API_URL}/Recycles/validateOrderId?orderId=fe01-8febb86ca96798ca`)
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', { valid: true })
+  })
+
+  it('GET returns valid false for an order ID with invalid characters', () => {
+    return frisby.get(`${API_URL}/Recycles/validateOrderId?orderId=fe01-xyz`)
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', { valid: false })
+  })
+
+  it('GET returns 400 when orderId parameter is missing', () => {
+    return frisby.get(`${API_URL}/Recycles/validateOrderId`)
+      .expect('status', 400)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', { error: 'Order ID is required' })
+  })
+})
