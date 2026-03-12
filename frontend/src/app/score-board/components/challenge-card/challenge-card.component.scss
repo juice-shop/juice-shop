@@ -131,7 +131,7 @@
   .tag {
     background: #3d3d3d;
     border-radius: 1.82849px;
-    color: #5fc091;
+    color: var(--theme-accent);
     font-size: 10px;
     font-style: normal;
     font-weight: 400;
@@ -139,7 +139,7 @@
     padding: $space-2xs;
   }
 
-  &.tag-missing-dependency {
+  .tag.tag-missing-dependency {
     color: var(--theme-warn);
   }
 }
@@ -159,7 +159,6 @@ $badge-size: 24px;
 
   border-radius: calc($badge-size / 2);
   color: var(--theme-text) !important;
-  color: var(--theme-text);
   cursor: pointer;
 
   display: flex;
