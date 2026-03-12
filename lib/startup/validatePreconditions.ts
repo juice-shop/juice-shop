@@ -205,6 +205,7 @@ export const checkIfOllamaModelAvailable = async (llmApiUrl: string) => {
     )
     if (modelFound) {
       logger.info(`Ollama model ${colors.bold(model)} is available (${colors.green('SUCCESS')})`)
+      return true
     } else {
       logger.warn(`Ollama model ${colors.bold(model)} is not available (${colors.yellow('WARNING')})`)
       let pullModelMessage = `Pull the model with: ${colors.bold(`ollama pull ${model}`)}`
@@ -212,8 +213,8 @@ export const checkIfOllamaModelAvailable = async (llmApiUrl: string) => {
         pullModelMessage += ` or configure an available model: ${colors.bold(availableModels.join(', '))}`
       }
       logger.info(pullModelMessage)
+      return false
     }
-    return true
   } catch {
     logger.warn(`Could not verify Ollama model ${colors.bold(model)} availability (${colors.yellow('WARNING')})`)
     return false
