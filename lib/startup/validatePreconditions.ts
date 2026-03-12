@@ -13,7 +13,7 @@ import process from 'node:process'
 import semver from 'semver'
 import portscanner from 'portscanner'
 
-export const variableDependencies = {
+export const variableDependencies: Record<string, string[]> = {
   ALCHEMY_API_KEY: ['"Mint the Honey Pot" challenge', '"Wallet Depletion" challenge']
 }
 
@@ -59,7 +59,10 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
   if (!llmApiReachable) {
     logger.info(`Check ${colors.bold('https://howto-llm.owasp-juice.shop')} for instructions on how to set up and configure the LLM API`)
   } else if (isOllamaUrl(llmApiUrl)) {
-    await checkIfOllamaModelAvailable(llmApiUrl)
+    const ollamaModel = config.get<string>('application.chatBot.model')
+    const ollamaModelAvailable = await checkIfOllamaModelAvailable(llmApiUrl)
+    variableDependencies[ollamaModel] = ['"Chatbot Prompt Injection" challenge', '"Greedy Chatbot Manipulation" challenge']
+    preconditionResults[ollamaModel] = ollamaModelAvailable
   }
 
   resolvePreconditionsReady()
@@ -112,9 +115,7 @@ export const checkIfEnvironmentVariableExists = (varName: string) => {
     return true
   }
   logger.warn(`Environment variable ${colors.bold(varName)} is not present (${colors.yellow('WARNING')})`)
-  // @ts-expect-error FIXME Type problem by accessing key via variable
   if (variableDependencies[varName]) {
-    // @ts-expect-error FIXME Type problem by accessing key via variable
     variableDependencies[varName].forEach((dependency: string) => {
       logger.warn(`${colors.italic(dependency)} will not work as intended without a valid ${colors.bold(varName)}`)
     })
@@ -196,7 +197,7 @@ export const checkIfOllamaModelAvailable = async (llmApiUrl: string) => {
   const model = config.get<string>('application.chatBot.model')
   try {
     const response = await fetch(`${llmApiUrl}/models`, { signal: AbortSignal.timeout(5000) })
-    if (!response.ok) return
+    if (!response.ok) return false
     const body = await response.json() as { data?: Array<{ id: string }> }
     const availableModels: string[] = (body.data ?? []).map((m: { id: string }) => m.id)
     const modelFound = availableModels.some(
@@ -212,8 +213,10 @@ export const checkIfOllamaModelAvailable = async (llmApiUrl: string) => {
       }
       logger.info(pullModelMessage)
     }
+    return true
   } catch {
     logger.warn(`Could not verify Ollama model ${colors.bold(model)} availability (${colors.yellow('WARNING')})`)
+    return false
   }
 }
 
