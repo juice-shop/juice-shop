@@ -73,13 +73,15 @@ export function getOrdersForReport () {
       return
     }
 
-    let query = `SELECT * FROM Orders WHERE email = '${email}'`
+    const replacements: string[] = [email]
+    let query = 'SELECT * FROM Orders WHERE email = ?'
     if (since) {
-      query += ` AND createdAt >= '${since}'`
+      query += ' AND createdAt >= ?'
+      replacements.push(since)
     }
 
     try {
-      const [rows] = await models.sequelize.query(query)
+      const [rows] = await models.sequelize.query(query, { replacements })
       res.json({ orders: rows })
     } catch (err) {
       next(err)
