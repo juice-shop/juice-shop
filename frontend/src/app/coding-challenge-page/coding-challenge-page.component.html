@@ -3,10 +3,10 @@
   ~ SPDX-License-Identifier: MIT
 -->
 <header class="page-header">
-  <button mat-stroked-button (click)="goBack()" class="back-button">
+  <a mat-stroked-button routerLink="/score-board" class="back-button">
     <mat-icon>arrow_back</mat-icon>
     <span>{{'TITLE_SCORE_BOARD' | translate}}</span>
-  </button>
+  </a>
   @if (challengeName) {
     <h2>{{'TITLE_CODING_CHALLENGE' | translate}}: <strong>{{challengeName}}</strong></h2>
   }
