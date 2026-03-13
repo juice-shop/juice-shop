@@ -131,7 +131,7 @@
   .tag {
     background: #3d3d3d;
     border-radius: 1.82849px;
-    color: var(--theme-accent);
+    color: var(--theme-text-dark);
     font-size: 10px;
     font-style: normal;
     font-weight: 400;
@@ -141,6 +141,10 @@
 
   .tag.tag-missing-dependency {
     color: var(--theme-warn);
+  }
+
+  .tag.tag-available-dependency {
+    color: var(--theme-accent);
   }
 }
 
