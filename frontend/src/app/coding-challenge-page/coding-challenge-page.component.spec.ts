@@ -4,13 +4,13 @@
  */
 
 import { Component, input, output } from '@angular/core'
-import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { RouterTestingModule } from '@angular/router/testing'
 import { ActivatedRoute } from '@angular/router'
-import { of, throwError } from 'rxjs'
+import { of, Subject, throwError } from 'rxjs'
 
 import { CodingChallengePageComponent } from './coding-challenge-page.component'
 import { CodeSnippetService } from '../Services/code-snippet.service'
@@ -136,5 +136,112 @@ describe('CodingChallengePageComponent', () => {
     const { component } = createComponent()
     expect(component.findItSolved).toBeTrue()
     expect(component.fixItSolved).toBeTrue()
+  })
+
+  it('should leave challengeName undefined when challenge key is not found', () => {
+    challengeService.find.and.returnValue(of([
+      { key: 'otherChallenge', name: 'Other', codingChallengeStatus: 0 }
+    ]))
+    const { component } = createComponent()
+    expect(component.challengeName).toBeUndefined()
+    expect(component.findItSolved).toBeFalse()
+    expect(component.fixItSolved).toBeFalse()
+  })
+
+  describe('template rendering', () => {
+    it('should show spinner while loading', () => {
+      codeSnippetService.get.and.returnValue(new Subject())
+      codeFixesService.get.and.returnValue(new Subject())
+      challengeService.find.and.returnValue(new Subject())
+      const { fixture } = createComponent()
+      expect(fixture.nativeElement.querySelector('mat-spinner')).not.toBeNull()
+    })
+
+    it('should render find-it component when loaded with snippet', () => {
+      const { fixture } = createComponent()
+      expect(fixture.nativeElement.querySelector('coding-challenge-find-it')).not.toBeNull()
+    })
+
+    it('should render locked fix-it section when findIt is not solved', () => {
+      const { fixture } = createComponent()
+      const locked = fixture.nativeElement.querySelector('.locked-section')
+      expect(locked).not.toBeNull()
+      expect(locked.querySelector('.locked-icon')).not.toBeNull()
+    })
+
+    it('should render fix-it component when findIt is solved and fixes exist', () => {
+      challengeService.find.and.returnValue(of([
+        { key: 'testChallenge', name: 'Test Challenge', codingChallengeStatus: 1 }
+      ]))
+      const { fixture } = createComponent()
+      expect(fixture.nativeElement.querySelector('coding-challenge-fix-it')).not.toBeNull()
+    })
+
+    it('should not render fix-it component when findIt is solved but fixes are null', () => {
+      challengeService.find.and.returnValue(of([
+        { key: 'testChallenge', name: 'Test Challenge', codingChallengeStatus: 1 }
+      ]))
+      codeFixesService.get.and.returnValue(throwError('Error'))
+      const { fixture } = createComponent()
+      expect(fixture.nativeElement.querySelector('coding-challenge-fix-it')).toBeNull()
+    })
+
+    it('should display challenge name in header', () => {
+      const { fixture } = createComponent()
+      const h2 = fixture.nativeElement.querySelector('h2')
+      expect(h2).not.toBeNull()
+      expect(h2.textContent).toContain('Test Challenge')
+    })
+
+    it('should render back button linking to score-board', () => {
+      const { fixture } = createComponent()
+      const backButton = fixture.nativeElement.querySelector('.back-button')
+      expect(backButton).not.toBeNull()
+      expect(backButton.getAttribute('href')).toBe('/score-board')
+    })
+  })
+
+  describe('onFindItSolved scroll behavior', () => {
+    it('should scroll fixItSection into view when fixes are available', fakeAsync(() => {
+      challengeService.find.and.returnValue(of([
+        { key: 'testChallenge', name: 'Test Challenge', codingChallengeStatus: 1 }
+      ]))
+      const { component } = createComponent()
+      const section = component.fixItSection()
+      expect(section).not.toBeNull()
+      spyOn(section.nativeElement, 'scrollIntoView')
+      component.onFindItSolved()
+      tick(300)
+      expect(section.nativeElement.scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' })
+    }))
+
+    it('should not attempt scroll when fixes are null', fakeAsync(() => {
+      const { component } = createComponent()
+      component.fixes = null
+      component.onFindItSolved()
+      tick(300)
+      expect(component.findItSolved).toBeTrue()
+    }))
+  })
+
+  describe('route param changes', () => {
+    it('should re-fetch data when route params change', () => {
+      const paramsSubject = new Subject<any>()
+      TestBed.overrideProvider(ActivatedRoute, { useValue: { params: paramsSubject } })
+      const fixture = TestBed.createComponent(CodingChallengePageComponent)
+      const component = fixture.componentInstance
+      fixture.detectChanges()
+
+      paramsSubject.next({ challengeKey: 'testChallenge' })
+      expect(codeSnippetService.get).toHaveBeenCalledWith('testChallenge')
+
+      codeSnippetService.get.calls.reset()
+      challengeService.find.and.returnValue(of([
+        { key: 'anotherChallenge', name: 'Another', codingChallengeStatus: 0 }
+      ]))
+      paramsSubject.next({ challengeKey: 'anotherChallenge' })
+      expect(codeSnippetService.get).toHaveBeenCalledWith('anotherChallenge')
+      expect(component.challengeKey).toBe('anotherChallenge')
+    })
   })
 })

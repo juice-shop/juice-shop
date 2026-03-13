@@ -95,4 +95,88 @@ describe('CodingChallengeFixItComponent', () => {
     expect(component.result).toBe(1)
     expect(component.explanation).toBe('Correct!')
   })
+
+  describe('diff view', () => {
+    it('should render a CodeMirror editor in the diff host', () => {
+      const editor = fixture.nativeElement.querySelector('.diff-host .cm-editor')
+      expect(editor).not.toBeNull()
+    })
+
+    it('should recreate diff view when setFix is called', () => {
+      const destroySpy = spyOn<any>(component['diffView']!, 'destroy').and.callThrough()
+      component.setFix(1)
+      expect(destroySpy).toHaveBeenCalled()
+    })
+
+    it('should recreate diff view when toggleOnlyChangedLines is called', () => {
+      const destroySpy = spyOn<any>(component['diffView']!, 'destroy').and.callThrough()
+      component.toggleOnlyChangedLines()
+      expect(destroySpy).toHaveBeenCalled()
+    })
+  })
+
+  describe('template rendering', () => {
+    it('should render one toggle button per fix', () => {
+      fixture.detectChanges()
+      const toggles = fixture.nativeElement.querySelectorAll('mat-button-toggle')
+      expect(toggles.length).toBe(3)
+    })
+
+    it('should not render explanation card when explanation is null', () => {
+      component.explanation = null
+      fixture.detectChanges()
+      expect(fixture.nativeElement.querySelector('mat-card')).toBeNull()
+    })
+
+    it('should render explanation card with warn class on wrong verdict', () => {
+      component.result = 2
+      component.explanation = 'Nope'
+      fixture.changeDetectorRef.detectChanges()
+      const card = fixture.nativeElement.querySelector('mat-card')
+      expect(card).not.toBeNull()
+      expect(card.classList.contains('warn-notification')).toBeTrue()
+    })
+
+    it('should render explanation card with accent class on correct verdict', () => {
+      component.result = 1
+      component.explanation = 'Well done'
+      fixture.changeDetectorRef.detectChanges()
+      const card = fixture.nativeElement.querySelector('mat-card')
+      expect(card).not.toBeNull()
+      expect(card.classList.contains('accent-notification')).toBeTrue()
+    })
+  })
+
+  it('should send the original fix index, not the display position', () => {
+    codeFixesService.check.and.returnValue(of({ verdict: false, explanation: '' }))
+    component.randomFixes = [
+      { fix: 'fix3', index: 2 },
+      { fix: 'fix1', index: 0 },
+      { fix: 'fix2', index: 1 }
+    ]
+    component.selectedFix = 0
+    component.checkFix()
+    expect(codeFixesService.check).toHaveBeenCalledWith('testChallenge', 2)
+  })
+
+  it('should preserve all fix indices after shuffle', () => {
+    component.shuffle()
+    const indices = component.randomFixes.map(f => f.index).sort()
+    expect(indices).toEqual([0, 1, 2])
+  })
+
+  it('should return correct resultColor for each state', () => {
+    component.result = 0
+    expect(component.resultColor()).toBeUndefined()
+    component.result = 1
+    expect(component.resultColor()).toBe('accent')
+    component.result = 2
+    expect(component.resultColor()).toBe('warn')
+  })
+
+  it('should destroy diff view on ngOnDestroy', () => {
+    const spy = spyOn<any>(component['diffView']!, 'destroy')
+    component.ngOnDestroy()
+    expect(spy).toHaveBeenCalled()
+  })
 })

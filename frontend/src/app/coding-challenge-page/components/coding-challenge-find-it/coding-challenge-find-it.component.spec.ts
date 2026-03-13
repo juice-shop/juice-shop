@@ -255,4 +255,48 @@ describe('CodingChallengeFindItComponent', () => {
       expect(hintElement()).toBeNull()
     })
   })
+
+  describe('hint card rendering', () => {
+    it('should not render hint card when hint is null', () => {
+      component.hint = null
+      fixture.detectChanges()
+      expect(fixture.nativeElement.querySelector('mat-card')).toBeNull()
+    })
+
+    it('should render hint card when hint is set', () => {
+      vulnLinesService.check.and.returnValue(of({ verdict: false, hint: 'Look closer' }))
+      component.checkLines()
+      fixture.detectChanges()
+      const card = fixture.nativeElement.querySelector('mat-card')
+      expect(card).not.toBeNull()
+      expect(card.textContent).toContain('Look closer')
+    })
+  })
+
+  describe('verdict idempotency', () => {
+    it('should not change result from Right on subsequent verdicts', () => {
+      vulnLinesService.check.and.returnValue(of({ verdict: true, hint: null }))
+      component.checkLines()
+      expect(component.result).toBe(1)
+      vulnLinesService.check.and.returnValue(of({ verdict: false, hint: 'wrong' }))
+      component.checkLines()
+      expect(component.result).toBe(1)
+    })
+  })
+
+  describe('shaking state', () => {
+    it('should set shaking to true on wrong verdict', () => {
+      vulnLinesService.check.and.returnValue(of({ verdict: false, hint: null }))
+      component.checkLines()
+      expect(component.shaking).toBeTrue()
+    })
+  })
+
+  describe('cleanup', () => {
+    it('should destroy editor view on ngOnDestroy', () => {
+      const spy = spyOn(component['editorView'], 'destroy')
+      component.ngOnDestroy()
+      expect(spy).toHaveBeenCalled()
+    })
+  })
 })
