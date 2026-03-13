@@ -78,4 +78,48 @@ describe('CodingChallengeSectionComponent', () => {
     button.click()
     expect(component.submitClicked.emit).toHaveBeenCalled()
   })
+
+  it('should enable button when submitDisabled is false', () => {
+    fixture.componentRef.setInput('submitDisabled', false)
+    fixture.detectChanges()
+    const button = fixture.nativeElement.querySelector('button')
+    expect(button.disabled).toBeFalse()
+  })
+
+  it('should apply shake class when shaking is true', () => {
+    fixture.componentRef.setInput('shaking', true)
+    fixture.detectChanges()
+    const button = fixture.nativeElement.querySelector('button')
+    expect(button.classList.contains('shake')).toBeTrue()
+  })
+
+  it('should not apply shake class when shaking is false', () => {
+    fixture.componentRef.setInput('shaking', false)
+    fixture.detectChanges()
+    const button = fixture.nativeElement.querySelector('button')
+    expect(button.classList.contains('shake')).toBeFalse()
+  })
+
+  it('should emit shakingDone on animationend event', () => {
+    fixture.componentRef.setInput('shaking', true)
+    fixture.detectChanges()
+    spyOn(component.shakingDone, 'emit')
+    const button = fixture.nativeElement.querySelector('button')
+    button.dispatchEvent(new Event('animationend'))
+    expect(component.shakingDone.emit).toHaveBeenCalled()
+  })
+
+  it('should apply result-icon-wrong class when result is Wrong', () => {
+    fixture.componentRef.setInput('result', ResultState.Wrong)
+    fixture.detectChanges()
+    const icon = fixture.nativeElement.querySelector('mat-icon.result-icon-wrong')
+    expect(icon).not.toBeNull()
+  })
+
+  it('should not apply result-icon-wrong class when result is Right', () => {
+    fixture.componentRef.setInput('result', ResultState.Right)
+    fixture.detectChanges()
+    const icon = fixture.nativeElement.querySelector('mat-icon.result-icon-wrong')
+    expect(icon).toBeNull()
+  })
 })
