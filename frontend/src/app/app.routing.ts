@@ -60,6 +60,12 @@ const loadWeb3SandboxModule = async () => {
   const module = await import('./web3-sandbox/web3-sandbox.module')
   return module.Web3SandboxModule
 }
+
+const loadCodingChallenge = async () => {
+  const module = await import('./coding-challenge-page/coding-challenge-page.component')
+  return module.CodingChallengePageComponent
+}
+
 // vuln-code-snippet start adminSectionChallenge scoreBoardChallenge web3SandboxChallenge
 const routes: Routes = [
   { // vuln-code-snippet neutral-line adminSectionChallenge
@@ -250,7 +256,7 @@ const routes: Routes = [
   }, // vuln-code-snippet neutral-line tokenSaleChallenge
   {
     path: 'coding-challenge/:challengeKey',
-    component: CodingChallengePageComponent
+    loadComponent: async () => await loadCodingChallenge(),
   },
   {
     path: '403',
