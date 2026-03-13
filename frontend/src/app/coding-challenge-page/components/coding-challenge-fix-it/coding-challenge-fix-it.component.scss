@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-@use '../../styles/variables' as *;
+@use '../../../../styles/variables' as *;
 
 .section-title {
   font-size: 1.5rem;
@@ -24,7 +24,26 @@
   margin-left: $space-xs;
 }
 
-.editor-host ::ng-deep {
+.controls-row {
+  display: flex;
+  align-items: center;
+  gap: $space-m;
+  margin-bottom: $space-m;
+}
+
+.fix-toggles {
+  flex-wrap: wrap;
+}
+
+.changed-lines-toggle {
+  margin-left: auto;
+}
+
+.diff-container {
+  margin-bottom: $space-m;
+}
+
+.diff-host ::ng-deep {
   .cm-editor {
     border-radius: 16px;
     overflow: hidden;
@@ -34,6 +53,12 @@
     max-height: 817px; // intentionally a uneven number to have a partial line visible, hinting at the scrollability of the content
     overflow-y: auto;
   }
+
+  .cm-changedLine.cm-insertedLine { background-color: rgba(0, 180, 0, 0.15); }
+  .cm-changedLine.cm-deletedLine { background-color: rgba(255, 0, 0, 0.15); }
+
+  .cm-changedText.cm-insertedText { background-color: rgba(0, 180, 0, 0.3); }
+  .cm-changedText.cm-deletedText { background-color: rgba(255, 0, 0, 0.3); }
 }
 
 .action-row {

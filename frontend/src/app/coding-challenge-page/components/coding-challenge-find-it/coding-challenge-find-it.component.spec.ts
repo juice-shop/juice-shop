@@ -11,8 +11,8 @@ import { CookieModule, CookieService } from 'ngy-cookie'
 import { of } from 'rxjs'
 
 import { CodingChallengeFindItComponent } from './coding-challenge-find-it.component'
-import { VulnLinesService } from '../Services/vuln-lines.service'
-import { ChallengeService } from '../Services/challenge.service'
+import { VulnLinesService } from '../../../Services/vuln-lines.service'
+import { ChallengeService } from '../../../Services/challenge.service'
 
 describe('CodingChallengeFindItComponent', () => {
   let component: CodingChallengeFindItComponent
