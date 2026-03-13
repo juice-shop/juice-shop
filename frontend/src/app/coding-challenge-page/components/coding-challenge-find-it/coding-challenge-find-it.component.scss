@@ -5,10 +5,22 @@
 
 @use '../../../../styles/variables' as *;
 
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: $space-l;
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
 .section-title {
   font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: $space-xs;
+  margin: 0;
   display: flex;
   align-items: center;
   gap: $space-xs;
@@ -16,8 +28,7 @@
 
 .section-description {
   color: var(--theme-text-fade-50);
-  margin-top: 0;
-  margin-bottom: $space-l;
+  margin: 0;
   font-size: 0.9rem;
 }
 
@@ -76,7 +87,6 @@
 .action-row {
   display: flex;
   justify-content: flex-end;
-  margin-top: $space-l;
 
   button {
     font-weight: 500;
@@ -84,7 +94,6 @@
 }
 
 mat-card.primary-notification {
-  margin-top: $space-m;
   border-radius: 8px;
   border-left: 3px solid var(--theme-primary);
 }

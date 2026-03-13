@@ -2,13 +2,15 @@
   ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
 -->
-<h3 class="section-title">
-  {{'TAB_FIX_IT' | translate}}
-  @if (alreadySolved() || result === 1) {
-  <mat-icon class="solved-indicator" aria-hidden="true">check_circle</mat-icon>
-  }
-</h3>
-<p class="section-description">{{'DESCRIPTION_FIX_IT' | translate}}</p>
+<header class="section-header">
+  <h3 class="section-title">
+    {{'TAB_FIX_IT' | translate}}
+    @if (alreadySolved() || result === 1) {
+    <mat-icon class="solved-indicator" aria-hidden="true">check_circle</mat-icon>
+    }
+  </h3>
+  <p class="section-description">{{'DESCRIPTION_FIX_IT' | translate}}</p>
+</header>
 <div class="controls-row">
   <mat-button-toggle-group [value]="selectedFix" (change)="setFix($event.value)" class="fix-toggles" aria-label="Select a code fix to review">
     @for (fix of randomFixes; track fix; let i = $index) {

@@ -38,11 +38,13 @@
     </section>
   } @else if (!findItSolved && isLoaded && snippet !== null) {
     <section class="challenge-section locked-section" aria-disabled="true">
-      <h3 class="section-title">
-        {{'TAB_FIX_IT' | translate}}
-        <mat-icon class="locked-icon" aria-hidden="true">lock</mat-icon>
-      </h3>
-      <p class="section-description">{{'DESCRIPTION_FIX_IT_LOCKED' | translate}}</p>
+      <header class="section-header">
+        <h3 class="section-title">
+          {{'TAB_FIX_IT' | translate}}
+          <mat-icon class="locked-icon" aria-hidden="true">lock</mat-icon>
+        </h3>
+        <p class="section-description">{{'DESCRIPTION_FIX_IT_LOCKED' | translate}}</p>
+      </header>
     </section>
   }
 </div>

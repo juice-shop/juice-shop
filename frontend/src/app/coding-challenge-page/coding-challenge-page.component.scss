@@ -6,7 +6,9 @@
 @use '../../styles/variables' as *;
 
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
@@ -17,7 +19,6 @@
   display: flex;
   align-items: center;
   gap: $space-m;
-  margin-bottom: $space-xl;
 
   h2 {
     margin: 0;
@@ -65,11 +66,8 @@
 
   .section-description {
     color: var(--theme-text-fade-30);
-    margin-top: 0;
-    margin-bottom: 0;
     max-width: 480px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-inline: auto;
   }
 }
 

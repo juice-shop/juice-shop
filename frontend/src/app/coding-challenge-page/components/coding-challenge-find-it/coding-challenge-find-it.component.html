@@ -2,13 +2,15 @@
   ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
 -->
-<h3 class="section-title">
-  {{'TAB_FIND_IT' | translate}}
-  @if (alreadySolved() || result === 1) {
-  <mat-icon class="solved-indicator" aria-hidden="true">check_circle</mat-icon>
-  }
-</h3>
-<p class="section-description">{{'DESCRIPTION_FIND_IT' | translate}}</p>
+<header class="section-header">
+  <h3 class="section-title">
+    {{'TAB_FIND_IT' | translate}}
+    @if (alreadySolved() || result === 1) {
+    <mat-icon class="solved-indicator" aria-hidden="true">check_circle</mat-icon>
+    }
+  </h3>
+  <p class="section-description">{{'DESCRIPTION_FIND_IT' | translate}}</p>
+</header>
 <div id="code-area">
   <div #editorHost class="editor-host"></div>
   @if (showKeyboardHint) {
