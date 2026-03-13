@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { TranslateModule } from '@ngx-translate/core'
 
-import { ResultState, resultIcon } from '../../coding-challenge.types'
+import { ResultState } from '../../coding-challenge.types'
 
 @Component({
   selector: 'coding-challenge-section',
@@ -20,7 +20,7 @@ export class CodingChallengeSectionComponent {
   readonly title = input.required<string>()
   readonly description = input.required<string>()
   readonly solved = input(false)
-  readonly result = input(ResultState.Undecided)
+  readonly result = input<ResultState>(ResultState.Undecided)
   readonly shaking = input(false)
   readonly submitDisabled = input(false)
 
@@ -30,6 +30,13 @@ export class CodingChallengeSectionComponent {
   readonly ResultState = ResultState
 
   resultIcon (): string {
-    return resultIcon(this.result())
+    switch (this.result()) {
+      case ResultState.Right:
+        return 'check'
+      case ResultState.Wrong:
+        return 'clear'
+      default:
+        return 'send'
+    }
   }
 }
