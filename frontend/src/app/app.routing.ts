@@ -256,7 +256,7 @@ const routes: Routes = [
   }, // vuln-code-snippet neutral-line tokenSaleChallenge
   {
     path: 'coding-challenge/:challengeKey',
-    loadComponent: async () => await loadCodingChallenge(),
+    loadComponent: async () => await loadCodingChallenge()
   },
   {
     path: '403',
