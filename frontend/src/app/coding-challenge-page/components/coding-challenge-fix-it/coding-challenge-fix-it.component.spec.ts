@@ -95,21 +95,4 @@ describe('CodingChallengeFixItComponent', () => {
     expect(component.result).toBe(1)
     expect(component.explanation).toBe('Correct!')
   })
-
-  it('result icon is "send" when undecided', () => {
-    component.result = 0
-    expect(component.resultIcon()).toBe('send')
-  })
-
-  it('result icon is "clear" when wrong', () => {
-    component.result = 2
-    expect(component.resultIcon()).toBe('clear')
-    expect(component.resultColor()).toBe('warn')
-  })
-
-  it('result icon is "check" when right', () => {
-    component.result = 1
-    expect(component.resultIcon()).toBe('check')
-    expect(component.resultColor()).toBe('accent')
-  })
 })

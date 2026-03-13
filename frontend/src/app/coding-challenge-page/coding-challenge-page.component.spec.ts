@@ -72,7 +72,7 @@ describe('CodingChallengePageComponent', () => {
         { provide: ChallengeService, useValue: challengeService },
         {
           provide: ActivatedRoute,
-          useValue: { snapshot: { params: { challengeKey: 'testChallenge' } } }
+          useValue: { params: of({ challengeKey: 'testChallenge' }) }
         },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()

@@ -100,23 +100,6 @@ describe('CodingChallengeFindItComponent', () => {
     expect(component.result).toBe(1)
   })
 
-  it('result icon is "send" when undecided', () => {
-    component.result = 0
-    expect(component.resultIcon()).toBe('send')
-  })
-
-  it('result icon is "clear" when wrong', () => {
-    component.result = 2
-    expect(component.resultIcon()).toBe('clear')
-    expect(component.resultColor()).toBe('warn')
-  })
-
-  it('result icon is "check" when right', () => {
-    component.result = 1
-    expect(component.resultIcon()).toBe('check')
-    expect(component.resultColor()).toBe('accent')
-  })
-
   describe('keyboard navigation', () => {
     it('should set the editor root element as focusable with tabindex', () => {
       expect(editorDom().getAttribute('tabindex')).toBe('0')

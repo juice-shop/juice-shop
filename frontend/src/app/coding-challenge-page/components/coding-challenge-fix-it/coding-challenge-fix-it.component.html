@@ -2,41 +2,33 @@
   ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
 -->
-<header class="section-header">
-  <h3 class="section-title">
-    {{'TAB_FIX_IT' | translate}}
-    @if (alreadySolved() || result === 1) {
-    <mat-icon class="solved-indicator" aria-hidden="true">check_circle</mat-icon>
-    }
-  </h3>
-  <p class="section-description">{{'DESCRIPTION_FIX_IT' | translate}}</p>
-</header>
-<div class="controls-row">
-  <mat-button-toggle-group [value]="selectedFix" (change)="setFix($event.value)" class="fix-toggles" aria-label="Select a code fix to review">
-    @for (fix of randomFixes; track fix; let i = $index) {
-    <mat-button-toggle [value]="i">Fix {{ i+1 }}</mat-button-toggle>
-    }
-  </mat-button-toggle-group>
-  <mat-checkbox [(ngModel)]="onlyChangedLines" (change)="toggleOnlyChangedLines()" class="changed-lines-toggle">
-    {{ 'LABEL_ONLY_CHANGED_LINES' | translate }}
-  </mat-checkbox>
-</div>
-<div class="diff-container">
-  <div #diffHost class="diff-host" role="region" aria-label="Code diff view"></div>
-</div>
-<div class="action-row">
+<coding-challenge-section [title]="'TAB_FIX_IT'" [description]="'DESCRIPTION_FIX_IT'"
+  [solved]="alreadySolved() || result === ResultState.Right" [result]="result" [shaking]="shaking"
+  [submitDisabled]="alreadySolved() || result === ResultState.Right" (submitClicked)="checkFix()"
+  (shakingDone)="shaking = false">
+  <div class="controls-row">
+    <mat-button-toggle-group [value]="selectedFix" (change)="setFix($event.value)" class="fix-toggles"
+      aria-label="Select a code fix to review">
+      @for (fix of randomFixes; track fix; let i = $index) {
+      <mat-button-toggle [value]="i">Fix {{ i+1 }}</mat-button-toggle>
+      }
+    </mat-button-toggle-group>
+    <mat-checkbox [(ngModel)]="onlyChangedLines" (change)="toggleOnlyChangedLines()" class="changed-lines-toggle">
+      {{ 'LABEL_ONLY_CHANGED_LINES' | translate }}
+    </mat-checkbox>
+  </div>
+  <div class="diff-container">
+    <div #diffHost class="diff-host" role="region" aria-label="Code diff view"></div>
+  </div>
   @if (explanation) {
-  <mat-card appearance="outlined" [class]="resultColor() === 'warn' ? 'warn-notification' : 'accent-notification'" aria-live="polite">
+  <mat-card notification appearance="outlined"
+    [class]="resultColor() === 'warn' ? 'warn-notification' : 'accent-notification'" aria-live="polite">
     <div class="mdc-card">{{explanation}}</div>
   </mat-card>
   }
-  <button mat-flat-button color="accent" (click)="checkFix()" [disabled]="alreadySolved() || result === 1"
-    [class.shake]="shaking" (animationend)="shaking = false" id="fixItSubmitButton">
-    @if (result === 1) {
-    <span>{{'BTN_SUBMIT' | translate}}</span>
-    } @else {
-    <span>{{'BTN_SUBMIT_FIX' | translate: { fix: selectedFix + 1 } }}</span>
-    }
-    <mat-icon [class.result-icon-wrong]="result === 2">{{ resultIcon() }}</mat-icon>
-  </button>
-</div>
+  @if (result === ResultState.Right) {
+  <span button-label>{{'BTN_SUBMIT' | translate}}</span>
+  } @else {
+  <span button-label>{{'BTN_SUBMIT_FIX' | translate: { fix: selectedFix + 1 } }}</span>
+  }
+</coding-challenge-section>

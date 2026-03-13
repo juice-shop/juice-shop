@@ -2,35 +2,24 @@
   ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
 -->
-<header class="section-header">
-  <h3 class="section-title">
-    {{'TAB_FIND_IT' | translate}}
-    @if (alreadySolved() || result === 1) {
-    <mat-icon class="solved-indicator" aria-hidden="true">check_circle</mat-icon>
+<coding-challenge-section [title]="'TAB_FIND_IT'" [description]="'DESCRIPTION_FIND_IT'"
+  [solved]="alreadySolved() || result === ResultState.Right" [result]="result" [shaking]="shaking"
+  [submitDisabled]="alreadySolved() || result === ResultState.Right || selectedLines.length === 0"
+  (submitClicked)="checkLines()" (shakingDone)="shaking = false">
+  <div id="code-area">
+    <div #editorHost class="editor-host"></div>
+    @if (showKeyboardHint) {
+    <div class="keyboard-hint" aria-hidden="true">{{'KEYBOARD_NAV_HINT' | translate}}</div>
     }
-  </h3>
-  <p class="section-description">{{'DESCRIPTION_FIND_IT' | translate}}</p>
-</header>
-<div id="code-area">
-  <div #editorHost class="editor-host"></div>
-  @if (showKeyboardHint) {
-  <div class="keyboard-hint" aria-hidden="true">{{'KEYBOARD_NAV_HINT' | translate}}</div>
-  }
-</div>
-<div class="action-row">
+  </div>
   @if (hint) {
-  <mat-card appearance="outlined" class="primary-notification" aria-live="polite">
+  <mat-card notification appearance="outlined" class="primary-notification" aria-live="polite">
     <div class="mdc-card">{{hint}}</div>
   </mat-card>
   }
-  <button mat-flat-button color="accent" (click)="checkLines()"
-    [disabled]="alreadySolved() || result === 1 || selectedLines.length === 0"
-    [class.shake]="shaking" (animationend)="shaking = false" id="findItSubmitButton">
-    @if (result === 1 || selectedLines.length === 0) {
-    <span>{{'BTN_SUBMIT' | translate}}</span>
-    } @else {
-    <span>{{'BTN_SUBMIT_VULNERABLE_LINES' | translate: { lines: formatSelectedLines() } }}</span>
-    }
-    <mat-icon [class.result-icon-wrong]="result === 2">{{ resultIcon() }}</mat-icon>
-  </button>
-</div>
+  @if (result === ResultState.Right || selectedLines.length === 0) {
+  <span button-label>{{'BTN_SUBMIT' | translate}}</span>
+  } @else {
+  <span button-label>{{'BTN_SUBMIT_VULNERABLE_LINES' | translate: { lines: formatSelectedLines() } }}</span>
+  }
+</coding-challenge-section>
