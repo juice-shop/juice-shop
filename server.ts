@@ -44,6 +44,7 @@ import { QuantityModel } from './models/quantity'
 import { FeedbackModel } from './models/feedback'
 import { ComplaintModel } from './models/complaint'
 import { ChallengeModel } from './models/challenge'
+import { ChallengeDependencyModel } from './models/challengeDependency'
 import { BasketItemModel } from './models/basketitem'
 import { SecurityAnswerModel } from './models/securityAnswer'
 import { PrivacyRequestModel } from './models/privacyRequests'
@@ -484,7 +485,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     { name: 'Product', exclude: [], model: ProductModel },
     { name: 'Feedback', exclude: [], model: FeedbackModel },
     { name: 'BasketItem', exclude: [], model: BasketItemModel },
-    { name: 'Challenge', exclude: [], model: ChallengeModel },
+    { name: 'Challenge', exclude: [], model: ChallengeModel, include: [ChallengeDependencyModel] },
     { name: 'Complaint', exclude: [], model: ComplaintModel },
     { name: 'Recycle', exclude: [], model: RecycleModel },
     { name: 'SecurityQuestion', exclude: [], model: SecurityQuestionModel },
@@ -496,12 +497,13 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     { name: 'Hint', exclude: [], model: HintModel }
   ]
 
-  for (const { name, exclude, model } of autoModels) {
+  for (const { name, exclude, model, include } of autoModels) {
     const resource = finale.resource({
       model,
       endpoints: [`/api/${name}s`, `/api/${name}s/:id`],
       excludeAttributes: exclude,
-      pagination: false
+      pagination: false,
+      include
     })
 
     // create a wallet when a new user is registered using API

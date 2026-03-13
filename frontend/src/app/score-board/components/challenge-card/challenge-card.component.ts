@@ -99,12 +99,19 @@ export class ChallengeCardComponent implements OnInit, OnChanges {
   }
 
   isDependencyMissing (tag: string): boolean {
-    if (!this.challenge.missingDependencies) {
+    if (!this.challenge.ChallengeDependencies) {
       return false
     }
-    const dependency = tag.substring('Requires '.length)
-    return this.challenge.missingDependencies.split(',').some(
-      (missing) => missing.trim() === dependency
-    )
+    const dependencyName = tag.substring('Requires '.length)
+    return this.challenge.ChallengeDependencies.some((dep) => dep.name === dependencyName && dep.missing)
+  }
+
+  getDependencyDocumentation (tag: string): string | null {
+    if (!this.challenge.ChallengeDependencies) {
+      return null
+    }
+    const dependencyName = tag.substring('Requires '.length)
+    const dependency = this.challenge.ChallengeDependencies.find((dep) => dep.name === dependencyName)
+    return dependency ? dependency.documentation : null
   }
 }

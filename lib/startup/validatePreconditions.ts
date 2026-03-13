@@ -13,13 +13,32 @@ import process from 'node:process'
 import semver from 'semver'
 import portscanner from 'portscanner'
 
-export const variableDependencies: Record<string, string[]> = {
-  ALCHEMY_API_KEY: ['"Mint the Honey Pot" challenge', '"Wallet Depletion" challenge']
+export interface Dependency {
+  dependency: string
+  documentation: string
+  dependentChallenges: string[]
+  missing?: boolean
 }
 
-export const domainDependencies: Record<string, string[]> = {
-  'https://www.alchemy.com/': ['"Mint the Honey Pot" challenge', '"Wallet Depletion" challenge'],
-  [config.get<string>('application.chatBot.llmApiUrl')]: ['"Chatbot Prompt Injection" challenge', '"Greedy Chatbot Manipulation" challenge']
+export const variableDependencies: Record<string, Dependency> = {
+  ALCHEMY_API_KEY: {
+    dependency: 'Alchemy API Key',
+    documentation: 'https://howto-web3.owasp-juice.shop',
+    dependentChallenges: ['"Mint the Honey Pot" challenge', '"Wallet Depletion" challenge']
+  }
+}
+
+export const domainDependencies: Record<string, Dependency> = {
+  'https://www.alchemy.com/': {
+    dependency: 'Alchemy API',
+    documentation: 'https://howto-web3.owasp-juice.shop',
+    dependentChallenges: ['"Mint the Honey Pot" challenge', '"Wallet Depletion" challenge']
+  },
+  [config.get<string>('application.chatBot.llmApiUrl')]: {
+    dependency: 'LLM API',
+    documentation: 'https://howto-llm.owasp-juice.shop',
+    dependentChallenges: ['"Chatbot Prompt Injection" challenge', '"Greedy Chatbot Manipulation" challenge']
+  }
 }
 
 export const preconditionResults: Record<string, boolean> = {}
@@ -61,7 +80,11 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
   } else if (isOllamaUrl(llmApiUrl)) {
     const ollamaModel = config.get<string>('application.chatBot.model')
     const ollamaModelAvailable = await checkIfOllamaModelAvailable(llmApiUrl)
-    variableDependencies[ollamaModel] = ['"Chatbot Prompt Injection" challenge', '"Greedy Chatbot Manipulation" challenge']
+    variableDependencies[ollamaModel] = {
+      dependency: `Ollama Model (${ollamaModel})`,
+      documentation: 'https://howto-llm.owasp-juice.shop',
+      dependentChallenges: ['"Chatbot Prompt Injection" challenge', '"Greedy Chatbot Manipulation" challenge']
+    }
     preconditionResults[ollamaModel] = ollamaModelAvailable
   }
 
@@ -116,7 +139,7 @@ export const checkIfEnvironmentVariableExists = (varName: string) => {
   }
   logger.warn(`Environment variable ${colors.bold(varName)} is not present (${colors.yellow('WARNING')})`)
   if (variableDependencies[varName]) {
-    variableDependencies[varName].forEach((dependency: string) => {
+    variableDependencies[varName].dependentChallenges.forEach((dependency: string) => {
       logger.warn(`${colors.italic(dependency)} will not work as intended without a valid ${colors.bold(varName)}`)
     })
   }
@@ -130,7 +153,7 @@ export const checkIfDomainReachable = async (domain: string) => {
     return true
   } catch {
     logger.warn(`Domain ${colors.bold(domain)} is not reachable (${colors.yellow('WARNING')})`)
-    domainDependencies[domain].forEach((dependency: string) => {
+    domainDependencies[domain].dependentChallenges.forEach((dependency: string) => {
       logger.warn(`${colors.italic(dependency)} will not work as intended without access to ${colors.bold(domain)}`)
     })
     return false
