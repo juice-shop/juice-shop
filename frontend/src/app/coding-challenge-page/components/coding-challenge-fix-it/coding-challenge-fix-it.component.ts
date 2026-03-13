@@ -17,13 +17,13 @@ import { CookieService } from 'ngy-cookie'
 import { EditorView, basicSetup } from 'codemirror'
 import { EditorState } from '@codemirror/state'
 import { unifiedMergeView } from '@codemirror/merge'
-import { readOnlyExtensions, getLanguageExtension } from '../shared/codemirror-extensions'
-import { juiceShopTheme } from '../shared/codemirror-theme'
+import { readOnlyExtensions, getLanguageExtension } from '../../../shared/codemirror-extensions'
+import { juiceShopTheme } from '../../../shared/codemirror-theme'
 
-import { type CodeSnippet } from '../Services/code-snippet.service'
-import { CodeFixesService } from '../Services/code-fixes.service'
-import { ChallengeService } from '../Services/challenge.service'
-import { ResultState, type RandomFixes } from '../coding-challenge-page/coding-challenge.types'
+import { type CodeSnippet } from '../../../Services/code-snippet.service'
+import { CodeFixesService } from '../../../Services/code-fixes.service'
+import { ChallengeService } from '../../../Services/challenge.service'
+import { ResultState, type RandomFixes } from '../../coding-challenge.types'
 
 @Component({
   selector: 'coding-challenge-fix-it',
@@ -160,7 +160,7 @@ export class CodingChallengeFixItComponent implements OnInit, AfterViewInit, OnD
         },
         error: (err) => { console.log(err) }
       })
-      import('../../confetti').then(module => {
+      import('../../../../confetti').then(module => {
         module.shootConfetti()
       }).then(() => {
         this.solved.emit(undefined)

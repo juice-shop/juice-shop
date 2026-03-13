@@ -16,8 +16,8 @@ import { CodingChallengePageComponent } from './coding-challenge-page.component'
 import { CodeSnippetService } from '../Services/code-snippet.service'
 import { CodeFixesService } from '../Services/code-fixes.service'
 import { ChallengeService } from '../Services/challenge.service'
-import { CodingChallengeFindItComponent } from '../coding-challenge-find-it/coding-challenge-find-it.component'
-import { CodingChallengeFixItComponent } from '../coding-challenge-fix-it/coding-challenge-fix-it.component'
+import { CodingChallengeFindItComponent } from './components/coding-challenge-find-it/coding-challenge-find-it.component'
+import { CodingChallengeFixItComponent } from './components/coding-challenge-fix-it/coding-challenge-fix-it.component'
 
 @Component({ selector: 'coding-challenge-find-it', template: '', standalone: true })
 class MockFindItComponent {

@@ -17,13 +17,13 @@ import { Decoration, type DecorationSet, lineNumbers, highlightSpecialChars, dra
 import { defaultKeymap, history, historyKeymap } from '@codemirror/commands'
 import { bracketMatching, defaultHighlightStyle, syntaxHighlighting } from '@codemirror/language'
 import { highlightSelectionMatches, searchKeymap } from '@codemirror/search'
-import { getLanguageExtension, readOnlyExtensions } from '../shared/codemirror-extensions'
-import { juiceShopTheme } from '../shared/codemirror-theme'
+import { getLanguageExtension, readOnlyExtensions } from '../../../shared/codemirror-extensions'
+import { juiceShopTheme } from '../../../shared/codemirror-theme'
 
-import { type CodeSnippet } from '../Services/code-snippet.service'
-import { VulnLinesService, type result } from '../Services/vuln-lines.service'
-import { ChallengeService } from '../Services/challenge.service'
-import { ResultState } from '../coding-challenge-page/coding-challenge.types'
+import { type CodeSnippet } from '../../../Services/code-snippet.service'
+import { VulnLinesService, type result } from '../../../Services/vuln-lines.service'
+import { ChallengeService } from '../../../Services/challenge.service'
+import { ResultState } from '../../coding-challenge.types'
 import { formatSelectedLines } from './format-selected-lines'
 
 const toggleLineEffect = StateEffect.define<{ lineNumber: number, pos: number, on: boolean }>()
@@ -229,7 +229,7 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
         },
         error: (err) => { console.log(err) }
       })
-      import('../../confetti').then(module => {
+      import('../../../../confetti').then(module => {
         module.shootConfetti()
       }).then(() => {
         this.solved.emit(undefined)
