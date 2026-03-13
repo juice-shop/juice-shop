@@ -36,5 +36,13 @@
         (solved)="onFixItSolved()">
       </coding-challenge-fix-it>
     </section>
+  } @else if (!findItSolved && isLoaded && snippet !== null) {
+    <section class="challenge-section locked-section">
+      <h3 class="section-title">
+        {{'TAB_FIX_IT' | translate}}
+        <mat-icon class="locked-icon">lock</mat-icon>
+      </h3>
+      <p class="section-description">{{'DESCRIPTION_FIX_IT_LOCKED' | translate}}</p>
+    </section>
   }
 </div>
