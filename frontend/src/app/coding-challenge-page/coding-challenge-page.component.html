@@ -23,7 +23,7 @@
       </coding-challenge-find-it>
     </section>
   } @else if (!isLoaded) {
-    <mat-spinner></mat-spinner>
+    <mat-spinner aria-label="Loading challenge"></mat-spinner>
   }
 
   @if (findItSolved && fixes !== null) {
@@ -37,10 +37,10 @@
       </coding-challenge-fix-it>
     </section>
   } @else if (!findItSolved && isLoaded && snippet !== null) {
-    <section class="challenge-section locked-section">
+    <section class="challenge-section locked-section" aria-disabled="true">
       <h3 class="section-title">
         {{'TAB_FIX_IT' | translate}}
-        <mat-icon class="locked-icon">lock</mat-icon>
+        <mat-icon class="locked-icon" aria-hidden="true">lock</mat-icon>
       </h3>
       <p class="section-description">{{'DESCRIPTION_FIX_IT_LOCKED' | translate}}</p>
     </section>

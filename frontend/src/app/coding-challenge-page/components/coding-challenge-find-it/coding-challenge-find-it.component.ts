@@ -27,9 +27,14 @@ import { ResultState } from '../../coding-challenge.types'
 import { formatSelectedLines } from './format-selected-lines'
 
 const toggleLineEffect = StateEffect.define<{ lineNumber: number, pos: number, on: boolean }>()
+const focusLineEffect = StateEffect.define<number>()
 
 const highlightDecoration = Decoration.line({
   attributes: { class: 'cm-selected-line' }
+})
+
+const focusDecoration = Decoration.line({
+  attributes: { class: 'cm-keyboard-focused-line' }
 })
 
 const lineHighlightField = StateField.define<DecorationSet>({
@@ -50,6 +55,38 @@ const lineHighlightField = StateField.define<DecorationSet>({
       }
     }
     return decorations
+  },
+  provide: f => EditorView.decorations.from(f)
+})
+
+const focusedLineField = StateField.define<number>({
+  create () { return 0 },
+  update (focusedLine, tr) {
+    for (const effect of tr.effects) {
+      if (effect.is(focusLineEffect)) {
+        return effect.value
+      }
+    }
+    return focusedLine
+  }
+})
+
+const focusHighlightField = StateField.define<DecorationSet>({
+  create () { return Decoration.none },
+  update (_, tr) {
+    for (const effect of tr.effects) {
+      if (effect.is(focusLineEffect)) {
+        if (effect.value === 0) return Decoration.none
+        const line = tr.state.doc.line(effect.value)
+        return Decoration.set([focusDecoration.range(line.from)])
+      }
+    }
+    const lineNum = tr.state.field(focusedLineField, false)
+    if (lineNum && lineNum > 0) {
+      const line = tr.state.doc.line(lineNum)
+      return Decoration.set([focusDecoration.range(line.from)])
+    }
+    return Decoration.none
   },
   provide: f => EditorView.decorations.from(f)
 })
@@ -96,6 +133,8 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
 
   public selectedLines: number[] = []
   public markedLines = new Set<number>()
+  public focusedLine = 0
+  public showKeyboardHint = false
   public hint: string = null
   public result: ResultState = ResultState.Undecided
 
@@ -110,6 +149,10 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
     const findItTheme = EditorView.theme({
       '.cm-selected-line': {
         backgroundColor: 'rgba(255, 213, 79, 0.25) !important'
+      },
+      '.cm-keyboard-focused-line': {
+        backgroundColor: 'rgba(100, 181, 246, 0.25) !important',
+        outline: '1px solid rgba(100, 181, 246, 0.5)'
       },
       '.cm-content': {
         cursor: 'pointer'
@@ -159,15 +202,81 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
           ...readOnlyExtensions(),
           lineHighlightField,
           markedLinesField,
+          focusedLineField,
+          focusHighlightField,
           findItTheme,
           lineClickHandler
         ]
       })
     })
+    this.editorView.dom.setAttribute('tabindex', '0')
+    this.editorView.dom.setAttribute('role', 'listbox')
+    this.editorView.dom.setAttribute('aria-label', 'Code lines - use arrow keys to navigate, space to select')
+    this.editorView.dom.setAttribute('aria-multiselectable', 'true')
+    this.editorView.dom.addEventListener('keydown', this.onKeydown)
+    this.editorView.dom.addEventListener('focus', this.onEditorFocus)
+    this.editorView.dom.addEventListener('blur', this.onEditorBlur)
   }
 
   ngOnDestroy (): void {
+    this.editorView?.dom.removeEventListener('keydown', this.onKeydown)
+    this.editorView?.dom.removeEventListener('focus', this.onEditorFocus)
+    this.editorView?.dom.removeEventListener('blur', this.onEditorBlur)
     this.editorView?.destroy()
+  }
+
+  private readonly onEditorFocus = (): void => {
+    this.showKeyboardHint = true
+    this.cdr.markForCheck()
+  }
+
+  private readonly onEditorBlur = (): void => {
+    this.showKeyboardHint = false
+    this.cdr.markForCheck()
+  }
+
+  private dismissKeyboardHint (): void {
+    if (this.showKeyboardHint) {
+      this.showKeyboardHint = false
+      this.cdr.markForCheck()
+    }
+  }
+
+  private readonly onKeydown = (event: KeyboardEvent): void => {
+    const view = this.editorView
+    if (!view) return
+    if (event.key === 'ArrowDown') {
+      this.dismissKeyboardHint()
+      const current = view.state.field(focusedLineField)
+      const totalLines = view.state.doc.lines
+      const next = current === 0 ? 1 : Math.min(current + 1, totalLines)
+      this.setFocusedLine(view, next)
+      event.preventDefault()
+    } else if (event.key === 'ArrowUp') {
+      this.dismissKeyboardHint()
+      const current = view.state.field(focusedLineField)
+      const next = current <= 1 ? 1 : current - 1
+      this.setFocusedLine(view, next)
+      event.preventDefault()
+    } else if (event.key === ' ') {
+      const current = view.state.field(focusedLineField)
+      if (current === 0) return
+      const line = view.state.doc.line(current)
+      this.toggleLine(view, line.number, line.from)
+      event.preventDefault()
+    }
+  }
+
+  private setFocusedLine (view: EditorView, lineNumber: number): void {
+    const line = view.state.doc.line(lineNumber)
+    view.dispatch({
+      effects: [
+        focusLineEffect.of(lineNumber),
+        EditorView.scrollIntoView(line.from, { y: 'nearest' })
+      ]
+    })
+    this.focusedLine = lineNumber
+    this.cdr.markForCheck()
   }
 
   private toggleLine (view: EditorView, lineNumber: number, lineFrom: number): void {
