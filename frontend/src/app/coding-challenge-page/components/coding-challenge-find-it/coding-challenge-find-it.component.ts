@@ -137,6 +137,7 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
   public showKeyboardHint = false
   public hint: string = null
   public result: ResultState = ResultState.Undecided
+  public shaking = false
 
   ngOnInit (): void {
     if (this.alreadySolved()) {
@@ -358,6 +359,7 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
       })
     } else {
       this.result = ResultState.Wrong
+      this.shaking = true
     }
   }
 }

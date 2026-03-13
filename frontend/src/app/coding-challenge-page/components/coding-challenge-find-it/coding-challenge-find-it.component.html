@@ -17,19 +17,20 @@
   <div class="keyboard-hint" aria-hidden="true">{{'KEYBOARD_NAV_HINT' | translate}}</div>
   }
 </div>
-@if (hint) {
-<mat-card appearance="outlined" class="primary-notification" aria-live="polite">
-  <div class="mdc-card">{{hint}}</div>
-</mat-card>
-}
 <div class="action-row">
+  @if (hint) {
+  <mat-card appearance="outlined" class="primary-notification" aria-live="polite">
+    <div class="mdc-card">{{hint}}</div>
+  </mat-card>
+  }
   <button mat-flat-button color="accent" (click)="checkLines()"
-    [disabled]="alreadySolved() || result === 1 || selectedLines.length === 0" id="findItSubmitButton">
+    [disabled]="alreadySolved() || result === 1 || selectedLines.length === 0"
+    [class.shake]="shaking" (animationend)="shaking = false" id="findItSubmitButton">
     @if (result === 1 || selectedLines.length === 0) {
     <span>{{'BTN_SUBMIT' | translate}}</span>
     } @else {
     <span>{{'BTN_SUBMIT_VULNERABLE_LINES' | translate: { lines: formatSelectedLines() } }}</span>
     }
-    <mat-icon [color]="resultColor()">{{ resultIcon() }}</mat-icon>
+    <mat-icon [class.result-icon-wrong]="result === 2">{{ resultIcon() }}</mat-icon>
   </button>
 </div>
