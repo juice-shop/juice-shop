@@ -27,3 +27,10 @@ export function readOnlyExtensions (): Extension[] {
     EditorState.readOnly.of(true)
   ]
 }
+
+export function detectLanguage (code: string): string {
+  if (code.includes('import ') || code.includes('export ') || code.includes(': ')) return 'typescript'
+  if (code.trimStart().startsWith('{')) return 'json'
+  if (code.includes(': ') && !code.includes(';')) return 'yaml'
+  return 'javascript'
+}

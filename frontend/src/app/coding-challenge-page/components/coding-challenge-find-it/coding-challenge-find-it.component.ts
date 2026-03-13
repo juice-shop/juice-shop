@@ -4,10 +4,7 @@
  */
 
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, type OnInit, type AfterViewInit, type OnDestroy, ElementRef, inject, input, output, viewChild } from '@angular/core'
-import { type ThemePalette } from '@angular/material/core'
-import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
-import { MatIconModule } from '@angular/material/icon'
 import { TranslateModule } from '@ngx-translate/core'
 import { CookieService } from 'ngy-cookie'
 
@@ -17,13 +14,14 @@ import { Decoration, type DecorationSet, lineNumbers, highlightSpecialChars, dra
 import { defaultKeymap, history, historyKeymap } from '@codemirror/commands'
 import { bracketMatching, defaultHighlightStyle, syntaxHighlighting } from '@codemirror/language'
 import { highlightSelectionMatches, searchKeymap } from '@codemirror/search'
-import { getLanguageExtension, readOnlyExtensions } from '../../../shared/codemirror-extensions'
+import { getLanguageExtension, readOnlyExtensions, detectLanguage } from '../../../shared/codemirror-extensions'
 import { juiceShopTheme } from '../../../shared/codemirror-theme'
 
 import { type CodeSnippet } from '../../../Services/code-snippet.service'
 import { VulnLinesService, type result } from '../../../Services/vuln-lines.service'
 import { ChallengeService } from '../../../Services/challenge.service'
-import { ResultState } from '../../coding-challenge.types'
+import { ResultState, handleVerdict } from '../../coding-challenge.types'
+import { CodingChallengeSectionComponent } from '../coding-challenge-section/coding-challenge-section.component'
 import { formatSelectedLines } from './format-selected-lines'
 
 const toggleLineEffect = StateEffect.define<{ lineNumber: number, pos: number, on: boolean }>()
@@ -115,7 +113,7 @@ const markedLinesField = StateField.define<Set<number>>({
   templateUrl: './coding-challenge-find-it.component.html',
   styleUrls: ['./coding-challenge-find-it.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatButtonModule, MatCardModule, MatIconModule, TranslateModule]
+  imports: [MatCardModule, TranslateModule, CodingChallengeSectionComponent]
 })
 export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, OnDestroy {
   readonly editorHost = viewChild.required<ElementRef<HTMLDivElement>>('editorHost')
@@ -130,6 +128,8 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
   readonly alreadySolved = input(false)
 
   readonly solved = output<void>()
+
+  readonly ResultState = ResultState
 
   public selectedLines: number[] = []
   public markedLines = new Set<number>()
@@ -146,7 +146,7 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
   }
 
   ngAfterViewInit (): void {
-    const lang = this.detectLanguage(this.snippet().snippet)
+    const lang = detectLanguage(this.snippet().snippet)
     const findItTheme = EditorView.theme({
       '.cm-selected-line': {
         backgroundColor: 'rgba(255, 213, 79, 0.25) !important'
@@ -298,13 +298,6 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
     this.toggleLine(this.editorView, lineNumber, line.from)
   }
 
-  private detectLanguage (code: string): string {
-    if (code.includes('import ') || code.includes('export ') || code.includes(': ')) return 'typescript'
-    if (code.trimStart().startsWith('{')) return 'json'
-    if (code.includes(': ') && !code.includes(';')) return 'yaml'
-    return 'javascript'
-  }
-
   checkLines (): void {
     this.vulnLinesService.check(this.challengeKey(), this.selectedLines).subscribe((verdict: result) => {
       this.setVerdict(verdict.verdict)
@@ -317,49 +310,16 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
     return formatSelectedLines(this.selectedLines)
   }
 
-  resultIcon (): string {
-    switch (this.result) {
-      case ResultState.Right:
-        return 'check'
-      case ResultState.Wrong:
-        return 'clear'
-      default:
-        return 'send'
-    }
-  }
-
-  resultColor (): ThemePalette {
-    switch (this.resultIcon()) {
-      case 'check':
-        return 'accent'
-      case 'clear':
-        return 'warn'
-    }
-  }
-
   private setVerdict (verdict: boolean): void {
     if (this.result === ResultState.Right) return
-    if (verdict) {
-      this.result = ResultState.Right
-      this.challengeService.continueCodeFindIt().subscribe({
-        next: (continueCode) => {
-          if (!continueCode) {
-            throw (new Error('Received invalid continue code from the server!'))
-          }
-          const expires = new Date()
-          expires.setFullYear(expires.getFullYear() + 1)
-          this.cookieService.put('continueCodeFindIt', continueCode, { expires })
-        },
-        error: (err) => { console.log(err) }
-      })
-      import('../../../../confetti').then(module => {
-        module.shootConfetti()
-      }).then(() => {
-        this.solved.emit(undefined)
-      })
-    } else {
-      this.result = ResultState.Wrong
-      this.shaking = true
-    }
+    handleVerdict({
+      verdict,
+      variant: 'FindIt',
+      challengeService: this.challengeService,
+      cookieService: this.cookieService,
+      solved: this.solved,
+      setResult: (r) => { this.result = r },
+      setShaking: (s) => { this.shaking = s }
+    })
   }
 }

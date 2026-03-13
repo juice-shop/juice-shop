@@ -1,0 +1,22 @@
+<!--
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+-->
+<header class="section-header">
+    <h3 class="section-title">
+        {{ title() | translate }}
+        @if (solved()) {
+        <mat-icon class="solved-indicator" aria-hidden="true">check_circle</mat-icon>
+        }
+    </h3>
+    <p class="section-description">{{ description() | translate }}</p>
+</header>
+<ng-content />
+<div class="action-row">
+    <ng-content select="[notification]" />
+    <button mat-flat-button color="accent" (click)="submitClicked.emit()" [disabled]="submitDisabled()"
+        [class.shake]="shaking()" (animationend)="shakingDone.emit()">
+        <ng-content select="[button-label]" />
+        <mat-icon [class.result-icon-wrong]="result() === ResultState.Wrong">{{ resultIcon() }}</mat-icon>
+    </button>
+</div>

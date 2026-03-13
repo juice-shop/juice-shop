@@ -5,41 +5,6 @@
 
 @use '../../../../styles/variables' as *;
 
-:host {
-  display: flex;
-  flex-direction: column;
-  gap: $space-l;
-  min-width: 0;
-}
-
-.section-header {
-  display: flex;
-  flex-direction: column;
-  gap: $space-xs;
-}
-
-.section-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: $space-xs;
-}
-
-.section-description {
-  color: var(--theme-text-fade-50);
-  margin: 0;
-  font-size: 0.9rem;
-}
-
-.solved-indicator {
-  color: var(--theme-accent);
-  font-size: 1.25rem;
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
 .editor-host ::ng-deep {
   .cm-editor {
     border-radius: 12px;
@@ -83,40 +48,6 @@
     opacity: 1;
     transform: translateX(-50%) translateY(0);
   }
-}
-
-.action-row {
-  display: flex;
-  align-items: center;
-  gap: $space-m;
-
-  mat-card {
-    flex: 1 1 0;
-    min-width: 0;
-  }
-
-  button {
-    font-weight: 500;
-    flex-shrink: 0;
-    margin-left: auto;
-
-    &.shake {
-      animation: shake 0.5s ease-in-out;
-    }
-  }
-
-  .result-icon-wrong {
-    color: #fff;
-  }
-}
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  15% { transform: translateX(-6px) rotate(-2deg); }
-  30% { transform: translateX(5px) rotate(1.5deg); }
-  45% { transform: translateX(-4px) rotate(-1deg); }
-  60% { transform: translateX(3px) rotate(0.5deg); }
-  75% { transform: translateX(-2px); }
 }
 
 mat-card.primary-notification {

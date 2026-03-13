@@ -4,11 +4,8 @@
  */
 
 import { Component, type OnInit, type AfterViewInit, type OnDestroy, ElementRef, inject, input, output, viewChild } from '@angular/core'
-import { type ThemePalette } from '@angular/material/core'
-import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 import { MatCheckboxModule } from '@angular/material/checkbox'
-import { MatIconModule } from '@angular/material/icon'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { FormsModule } from '@angular/forms'
 import { TranslateModule } from '@ngx-translate/core'
@@ -17,19 +14,20 @@ import { CookieService } from 'ngy-cookie'
 import { EditorView, basicSetup } from 'codemirror'
 import { EditorState } from '@codemirror/state'
 import { unifiedMergeView } from '@codemirror/merge'
-import { readOnlyExtensions, getLanguageExtension } from '../../../shared/codemirror-extensions'
+import { readOnlyExtensions, getLanguageExtension, detectLanguage } from '../../../shared/codemirror-extensions'
 import { juiceShopTheme } from '../../../shared/codemirror-theme'
 
 import { type CodeSnippet } from '../../../Services/code-snippet.service'
 import { CodeFixesService } from '../../../Services/code-fixes.service'
 import { ChallengeService } from '../../../Services/challenge.service'
-import { ResultState, type RandomFixes } from '../../coding-challenge.types'
+import { ResultState, type RandomFixes, resultColor, handleVerdict } from '../../coding-challenge.types'
+import { CodingChallengeSectionComponent } from '../coding-challenge-section/coding-challenge-section.component'
 
 @Component({
   selector: 'coding-challenge-fix-it',
   templateUrl: './coding-challenge-fix-it.component.html',
   styleUrls: ['./coding-challenge-fix-it.component.scss'],
-  imports: [MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatIconModule, FormsModule, TranslateModule]
+  imports: [MatButtonToggleModule, MatCardModule, MatCheckboxModule, FormsModule, TranslateModule, CodingChallengeSectionComponent]
 })
 export class CodingChallengeFixItComponent implements OnInit, AfterViewInit, OnDestroy {
   readonly diffHost = viewChild.required<ElementRef<HTMLDivElement>>('diffHost')
@@ -45,6 +43,8 @@ export class CodingChallengeFixItComponent implements OnInit, AfterViewInit, OnD
   readonly alreadySolved = input(false)
 
   readonly solved = output<void>()
+
+  readonly ResultState = ResultState
 
   public selectedFix = 0
   public randomFixes: RandomFixes[] = []
@@ -77,7 +77,7 @@ export class CodingChallengeFixItComponent implements OnInit, AfterViewInit, OnD
     const fix = this.randomFixes[this.selectedFix]
     if (!fix || !this.snippet()) return
 
-    const lang = this.detectLanguage(this.snippet().snippet)
+    const lang = detectLanguage(this.snippet().snippet)
     this.diffView = new EditorView({
       parent: this.diffHost().nativeElement,
       state: EditorState.create({
@@ -97,13 +97,6 @@ export class CodingChallengeFixItComponent implements OnInit, AfterViewInit, OnD
         ]
       })
     })
-  }
-
-  private detectLanguage (code: string): string {
-    if (code.includes('import ') || code.includes('export ') || code.includes(': ')) return 'typescript'
-    if (code.trimStart().startsWith('{')) return 'json'
-    if (code.includes(': ') && !code.includes(';')) return 'yaml'
-    return 'javascript'
   }
 
   setFix (fix: number): void {
@@ -126,49 +119,20 @@ export class CodingChallengeFixItComponent implements OnInit, AfterViewInit, OnD
       .map(({ fix, index }) => ({ fix, index }))
   }
 
-  resultIcon (): string {
-    switch (this.result) {
-      case ResultState.Right:
-        return 'check'
-      case ResultState.Wrong:
-        return 'clear'
-      default:
-        return 'send'
-    }
-  }
-
-  resultColor (): ThemePalette {
-    switch (this.resultIcon()) {
-      case 'check':
-        return 'accent'
-      case 'clear':
-        return 'warn'
-    }
+  resultColor (): string {
+    return resultColor(this.result)
   }
 
   private setVerdict (verdict: boolean): void {
     if (this.result === ResultState.Right) return
-    if (verdict) {
-      this.result = ResultState.Right
-      this.challengeService.continueCodeFixIt().subscribe({
-        next: (continueCode) => {
-          if (!continueCode) {
-            throw (new Error('Received invalid continue code from the server!'))
-          }
-          const expires = new Date()
-          expires.setFullYear(expires.getFullYear() + 1)
-          this.cookieService.put('continueCodeFixIt', continueCode, { expires })
-        },
-        error: (err) => { console.log(err) }
-      })
-      import('../../../../confetti').then(module => {
-        module.shootConfetti()
-      }).then(() => {
-        this.solved.emit(undefined)
-      })
-    } else {
-      this.result = ResultState.Wrong
-      this.shaking = true
-    }
+    handleVerdict({
+      verdict,
+      variant: 'FixIt',
+      challengeService: this.challengeService,
+      cookieService: this.cookieService,
+      solved: this.solved,
+      setResult: (r) => { this.result = r },
+      setShaking: (s) => { this.shaking = s }
+    })
   }
 }
