@@ -5,7 +5,7 @@
 
 import { Component, type OnInit, DestroyRef, type ElementRef, inject, viewChild } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute, RouterLink } from '@angular/router'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatProgressSpinner } from '@angular/material/progress-spinner'
@@ -23,11 +23,10 @@ import { CodingChallengeFixItComponent } from './components/coding-challenge-fix
   selector: 'coding-challenge-page',
   templateUrl: './coding-challenge-page.component.html',
   styleUrls: ['./coding-challenge-page.component.scss'],
-  imports: [MatButtonModule, MatIconModule, MatProgressSpinner, TranslateModule, CodingChallengeFindItComponent, CodingChallengeFixItComponent]
+  imports: [MatButtonModule, MatIconModule, MatProgressSpinner, RouterLink, TranslateModule, CodingChallengeFindItComponent, CodingChallengeFixItComponent]
 })
 export class CodingChallengePageComponent implements OnInit {
   private readonly route = inject(ActivatedRoute)
-  private readonly router = inject(Router)
   private readonly destroyRef = inject(DestroyRef)
   private readonly codeSnippetService = inject(CodeSnippetService)
   private readonly codeFixesService = inject(CodeFixesService)
@@ -83,9 +82,5 @@ export class CodingChallengePageComponent implements OnInit {
 
   onFixItSolved (): void {
     this.fixItSolved = true
-  }
-
-  goBack (): void {
-    this.router.navigate(['/score-board'])
   }
 }
