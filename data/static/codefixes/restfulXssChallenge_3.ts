@@ -26,11 +26,9 @@ ngAfterViewInit () {
           entry.quantity = quantity.quantity
         }
         this.dataSource = new MatTableDataSource<ProductTableEntry>(dataTable)
-        for (let i = 1; i <= Math.ceil(this.dataSource.data.length / 30); i++) {
-          this.pageSizeOptions.push(i * 30)
-        }
-        this.paginator.pageSizeOptions = this.pageSizeOptions
+        this.updatePageSizeOptions()
         this.dataSource.paginator = this.paginator
+        this.setupResponsivePageSize()
         this.gridDataSource = this.dataSource.connect()
         this.resultsLength = this.dataSource.data.length
         this.filterTable()
@@ -44,7 +42,7 @@ ngAfterViewInit () {
   }
 
   trustProductDescription (tableData: any[]) {
-    for (let i = 0; i < tableData.length; i++) {
-      tableData[i].description = this.sanitizer.bypassSecurityTrustHtml(tableData[i].description)
-    }
+    tableData.forEach((product: any) => {
+      product.description = this.sanitizer.bypassSecurityTrustHtml(product.description)
+    })
   }
