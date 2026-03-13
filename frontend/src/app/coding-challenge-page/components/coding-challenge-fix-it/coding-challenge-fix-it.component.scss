@@ -5,10 +5,22 @@
 
 @use '../../../../styles/variables' as *;
 
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: $space-l;
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
 .section-title {
   font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: $space-xs;
+  margin: 0;
   display: flex;
   align-items: center;
   gap: $space-xs;
@@ -16,8 +28,7 @@
 
 .section-description {
   color: var(--theme-text-fade-50);
-  margin-top: 0;
-  margin-bottom: $space-l;
+  margin: 0;
   font-size: 0.9rem;
 }
 
@@ -32,7 +43,6 @@
   display: flex;
   align-items: center;
   gap: $space-m;
-  margin-bottom: $space-l;
   padding: $space-s $space-m;
   background-color: var(--theme-background-darker);
   border-radius: 8px;
@@ -46,10 +56,6 @@
   margin-left: auto;
   font-size: 0.85rem;
   color: var(--theme-text-fade-50);
-}
-
-.diff-container {
-  margin-bottom: $space-m;
 }
 
 .diff-host ::ng-deep {
@@ -75,29 +81,27 @@
 .action-row {
   display: flex;
   justify-content: flex-end;
-  margin-top: $space-l;
 
   button {
     font-weight: 500;
   }
 }
 
-mat-card.accent-notification {
-  margin-top: $space-m;
+mat-card.accent-notification,
+mat-card.warn-notification {
   border-radius: 8px;
-  border-left: 3px solid var(--theme-accent);
+  border-left-width: 3px;
+  border-left-style: solid;
 
   .mdc-card {
     font-size: 0.9rem;
   }
 }
 
-mat-card.warn-notification {
-  margin-top: $space-m;
-  border-radius: 8px;
-  border-left: 3px solid var(--theme-warn);
+mat-card.accent-notification {
+  border-left-color: var(--theme-accent);
+}
 
-  .mdc-card {
-    font-size: 0.9rem;
-  }
+mat-card.warn-notification {
+  border-left-color: var(--theme-warn);
 }
