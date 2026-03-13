@@ -182,7 +182,7 @@ const routes: Routes = [
   },
   {
     path: 'coding-challenge/:challengeKey',
-    component: CodingChallengePageComponent
+    loadComponent: async () => await loadCodingChallenge()
   },
   {
     path: '403',
