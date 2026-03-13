@@ -21,10 +21,10 @@ export interface Challenge {
   codingChallengeStatus?: 0 | 1 | 2
   mitigationUrl?: string
   hasCodingChallenge: boolean
-  ChallengeDependencies?: Array<{
+  ChallengeDependencies?: {
     name: string
     documentation: string
     key: string
     missing: boolean
-  }>
+  }[]
 }
