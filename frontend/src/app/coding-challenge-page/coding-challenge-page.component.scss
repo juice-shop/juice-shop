@@ -37,3 +37,25 @@
 .challenge-section {
   padding: 0;
 }
+
+.locked-section {
+  opacity: 0.5;
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: $space-xs;
+    display: flex;
+  }
+
+  .locked-icon {
+    vertical-align: middle;
+    margin-left: $space-xs;
+  }
+
+  .section-description {
+    color: var(--theme-text-fade-50);
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
