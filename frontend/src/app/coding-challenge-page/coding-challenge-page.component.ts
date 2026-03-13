@@ -3,14 +3,15 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, type OnInit, type ElementRef, inject, viewChild } from '@angular/core'
+import { Component, type OnInit, DestroyRef, type ElementRef, inject, viewChild } from '@angular/core'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { ActivatedRoute, Router } from '@angular/router'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatProgressSpinner } from '@angular/material/progress-spinner'
 import { TranslateModule } from '@ngx-translate/core'
 import { forkJoin, of } from 'rxjs'
-import { catchError } from 'rxjs/operators'
+import { catchError, switchMap } from 'rxjs/operators'
 
 import { CodeSnippetService, type CodeSnippet } from '../Services/code-snippet.service'
 import { CodeFixesService } from '../Services/code-fixes.service'
@@ -27,6 +28,7 @@ import { CodingChallengeFixItComponent } from './components/coding-challenge-fix
 export class CodingChallengePageComponent implements OnInit {
   private readonly route = inject(ActivatedRoute)
   private readonly router = inject(Router)
+  private readonly destroyRef = inject(DestroyRef)
   private readonly codeSnippetService = inject(CodeSnippetService)
   private readonly codeFixesService = inject(CodeFixesService)
   private readonly challengeService = inject(ChallengeService)
@@ -42,17 +44,22 @@ export class CodingChallengePageComponent implements OnInit {
   public isLoaded = false
 
   ngOnInit (): void {
-    this.challengeKey = this.route.snapshot.params['challengeKey']
-
-    forkJoin({
-      challenges: this.challengeService.find({ sort: 'name' }),
-      snippet: this.codeSnippetService.get(this.challengeKey).pipe(
-        catchError((err) => of({ snippet: err.error } as CodeSnippet))
-      ),
-      fixes: this.codeFixesService.get(this.challengeKey).pipe(
-        catchError(() => of(null))
-      )
-    }).subscribe(({ challenges, snippet, fixes }) => {
+    this.route.params.pipe(
+      switchMap((params) => {
+        this.challengeKey = params['challengeKey']
+        this.isLoaded = false
+        return forkJoin({
+          challenges: this.challengeService.find({ sort: 'name' }),
+          snippet: this.codeSnippetService.get(this.challengeKey).pipe(
+            catchError((err) => of({ snippet: err.error } as CodeSnippet))
+          ),
+          fixes: this.codeFixesService.get(this.challengeKey).pipe(
+            catchError(() => of(null))
+          )
+        })
+      }),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(({ challenges, snippet, fixes }) => {
       const challenge = challenges.find(c => c.key === this.challengeKey)
       if (challenge) {
         this.challengeName = challenge.name
