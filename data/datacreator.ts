@@ -9,6 +9,7 @@ import { BasketModel } from '../models/basket'
 import { BasketItemModel } from '../models/basketitem'
 import { CardModel } from '../models/card'
 import { ChallengeModel } from '../models/challenge'
+import { ChallengeDependencyModel } from '../models/challengeDependency'
 import { ComplaintModel } from '../models/complaint'
 import { DeliveryModel } from '../models/delivery'
 import { FeedbackModel } from '../models/feedback'
@@ -85,30 +86,26 @@ async function createChallenges () {
         tags = tags ? [...tags, 'With Coding Challenge'] : ['With Coding Challenge']
       }
 
-      Object.entries(variableDependencies).forEach(([variable, deps]) => {
-        if (deps.some(dep => dep.includes(name) || dep.includes(key))) {
-          tags = tags ? [...tags, `Requires ${variable}`] : [`Requires ${variable}`]
+      Object.entries(variableDependencies).forEach(([variable, dependency]) => {
+        if (dependency.dependentChallenges.some(dep => dep.includes(name) || dep.includes(key))) {
+          tags = tags ? [...tags, `Requires ${dependency.dependency}`] : [`Requires ${dependency.dependency}`]
         }
       })
-      Object.entries(domainDependencies).forEach(([domain, deps]) => {
-        if (deps.some(dep => dep.includes(name) || dep.includes(key))) {
-          tags = tags ? [...tags, `Requires ${domain}`] : [`Requires ${domain}`]
+      Object.entries(domainDependencies).forEach(([domain, dependency]) => {
+        if (dependency.dependentChallenges.some(dep => dep.includes(name) || dep.includes(key))) {
+          tags = tags ? [...tags, `Requires ${dependency.dependency}`] : [`Requires ${dependency.dependency}`]
         }
       })
 
-      const missingDeps: string[] = []
-      Object.entries(variableDependencies).forEach(([variable, deps]) => {
-        if (deps.some(dep => dep.includes(name) || dep.includes(key))) {
-          if (!preconditionResults[variable]) {
-            missingDeps.push(variable)
-          }
+      const challengeDependencies: any[] = []
+      Object.entries(variableDependencies).forEach(([variable, dependency]) => {
+        if (dependency.dependentChallenges.some(dep => dep.includes(name) || dep.includes(key))) {
+          challengeDependencies.push({ ...dependency, key: variable, missing: !preconditionResults[variable] })
         }
       })
-      Object.entries(domainDependencies).forEach(([domain, deps]) => {
-        if (deps.some(dep => dep.includes(name) || dep.includes(key))) {
-          if (!preconditionResults[domain]) {
-            missingDeps.push(domain)
-          }
+      Object.entries(domainDependencies).forEach(([domain, dependency]) => {
+        if (dependency.dependentChallenges.some(dep => dep.includes(name) || dep.includes(key))) {
+          challengeDependencies.push({ ...dependency, key: domain, missing: !preconditionResults[domain] })
         }
       })
 
@@ -126,9 +123,21 @@ async function createChallenges () {
           disabledEnv: disabledBecause,
           tutorialOrder: (tutorial != null) ? tutorial.order : null,
           codingChallengeStatus: 0,
-          hasCodingChallenge,
-          missingDependencies: missingDeps.length > 0 ? missingDeps.join(',') : null
+          hasCodingChallenge
         })
+        if (challengeDependencies.length > 0) {
+          await Promise.all(
+            challengeDependencies.map(async (dep) => {
+              await ChallengeDependencyModel.create({
+                ChallengeId: datacache.challenges[key].id,
+                name: dep.dependency,
+                documentation: dep.documentation,
+                key: dep.key,
+                missing: dep.missing
+              })
+            })
+          )
+        }
         if (showHints && hints?.length > 0) await createHints(datacache.challenges[key].id, hints)
       } catch (err) {
         logger.error(`Could not insert Challenge ${name}: ${utils.getErrorMessage(err)}`)
