@@ -113,6 +113,19 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
       },
       '.cm-content': {
         cursor: 'pointer'
+      },
+      '.cm-lineNumbers .cm-gutterElement': {
+        cursor: 'pointer'
+      }
+    })
+    const gutterClickHandler = lineNumbers({
+      domEventHandlers: {
+        mousedown: (view, blockInfo, event) => {
+          const line = view.state.doc.lineAt(blockInfo.from)
+          event.preventDefault()
+          this.toggleLine(view, line.number, line.from)
+          return true
+        }
       }
     })
     const lineClickHandler = EditorView.domEventHandlers({
@@ -133,7 +146,7 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
       state: EditorState.create({
         doc: this.snippet().snippet,
         extensions: [
-          lineNumbers(),
+          gutterClickHandler,
           highlightSpecialChars(),
           history(),
           drawSelection(),
