@@ -684,8 +684,8 @@
 	},
 	"restfulXssChallenge_1_correct.ts": {
 		"added": [
-			44,
-			45
+			42,
+			43
 		],
 		"removed": []
 	},
@@ -694,14 +694,8 @@
 		"removed": []
 	},
 	"restfulXssChallenge_3.ts": {
-		"added": [
-			29,
-			30
-		],
-		"removed": [
-			29,
-			30
-		]
+		"added": [],
+		"removed": []
 	},
 	"restfulXssChallenge_4.ts": {
 		"added": [],

@@ -4,7 +4,7 @@ fixes:
   - id: 2
     explanation: 'Manually encoding the angular brackets of the HTML tags does not add any security. It is likely to break descriptions with legitimate HTML tags for styling or links, though.'
   - id: 3
-    explanation: 'The change only changes the number of items displayed and is entirely unrelated to the given XSS vulnerability.'
+    explanation: 'Changing the loop style from an indexed for-loop to forEach is a mere refactoring and entirely unrelated to the given XSS vulnerability.'
   - id: 4
     explanation: 'Using bypassSecurityTrustScript() instead of bypassSecurityTrustHtml() changes the context for which input sanitization is bypassed. If at all, this switch might only accidentally keep XSS prevention intact.'
 hints:

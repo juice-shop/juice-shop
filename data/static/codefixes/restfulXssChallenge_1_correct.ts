@@ -25,11 +25,9 @@ ngAfterViewInit () {
           entry.quantity = quantity.quantity
         }
         this.dataSource = new MatTableDataSource<ProductTableEntry>(dataTable)
-        for (let i = 1; i <= Math.ceil(this.dataSource.data.length / 15); i++) {
-          this.pageSizeOptions.push(i * 15)
-        }
-        this.paginator.pageSizeOptions = this.pageSizeOptions
+        this.updatePageSizeOptions()
         this.dataSource.paginator = this.paginator
+        this.setupResponsivePageSize()
         this.gridDataSource = this.dataSource.connect()
         this.resultsLength = this.dataSource.data.length
         this.filterTable()

@@ -6,7 +6,7 @@
 /* eslint-disable @typescript-eslint/prefer-for-of */
 import { ActivatedRoute, Router } from '@angular/router'
 import { ProductService } from '../Services/product.service'
-import { type AfterViewInit, Component, NgZone, type OnDestroy, ViewChild, ChangeDetectorRef, inject } from '@angular/core'
+import { type AfterViewInit, Component, NgZone, type OnDestroy, ViewChild, ChangeDetectorRef, ElementRef, inject } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { BehaviorSubject, forkJoin, type Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
@@ -42,6 +42,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
   private readonly ngZone = inject(NgZone)
   private readonly io = inject(SocketIoService)
   private readonly cdRef = inject(ChangeDetectorRef)
+  private readonly elRef = inject(ElementRef)
 
   public tableData!: ProductTableEntry[]
   public pageSizeOptions: number[] = []
@@ -49,9 +50,11 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
   public gridDataSource!: BehaviorSubject<ProductTableEntry[]>
   public searchValue?: SafeHtml
   public resultsLength = 0
+  public currentPageSize = 15
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator
   private routerSubscription?: Subscription
   private gridDataSourceSubscription?: Subscription
+  private resizeObserver?: ResizeObserver
   public emptyState = false
 
   // vuln-code-snippet start restfulXssChallenge
@@ -83,11 +86,9 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
           entry.quantity = quantity.quantity
         }
         this.dataSource = new MatTableDataSource<ProductTableEntry>(dataTable)
-        for (let i = 1; i <= Math.ceil(this.dataSource.data.length / 15); i++) {
-          this.pageSizeOptions.push(i * 15)
-        }
-        this.paginator.pageSizeOptions = this.pageSizeOptions
+        this.updatePageSizeOptions()
         this.dataSource.paginator = this.paginator
+        this.setupResponsivePageSize()
         this.gridDataSource = this.dataSource.connect()
         this.resultsLength = this.dataSource.data.length
         this.filterTable()
@@ -124,6 +125,10 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
     if (this.gridDataSourceSubscription) {
       this.gridDataSourceSubscription.unsubscribe()
     }
+
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect()
+    }
   }
 
   // vuln-code-snippet start localXssChallenge xssBonusChallenge
@@ -150,6 +155,41 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
     }
   }
   // vuln-code-snippet end localXssChallenge xssBonusChallenge
+
+  private setupResponsivePageSize () {
+    const grid = this.elRef.nativeElement.querySelector('.products-grid')
+    if (!grid) return
+    this.resizeObserver = new ResizeObserver(() => {
+      this.ngZone.run(() => {
+        this.updatePageSize(grid)
+      })
+    })
+    this.resizeObserver.observe(grid)
+  }
+
+  private updatePageSize (grid: Element) {
+    const columns = getComputedStyle(grid).gridTemplateColumns.split(' ').length
+    const pageSize = Math.ceil(15 / columns) * columns
+    if (pageSize !== this.currentPageSize) {
+      this.currentPageSize = pageSize
+      this.paginator.pageSize = pageSize
+      this.updatePageSizeOptions()
+      this.paginator.page.emit({
+        pageIndex: this.paginator.pageIndex,
+        pageSize: this.currentPageSize,
+        length: this.paginator.length
+      })
+      this.cdRef.detectChanges()
+    }
+  }
+
+  private updatePageSizeOptions () {
+    this.pageSizeOptions = []
+    for (let i = 1; i <= Math.ceil(this.dataSource.data.length / this.currentPageSize); i++) {
+      this.pageSizeOptions.push(i * this.currentPageSize)
+    }
+    this.paginator.pageSizeOptions = this.pageSizeOptions
+  }
 
   startHackingInstructor (challengeName: string) {
     console.log(`Starting instructions for challenge "${challengeName}"`)
