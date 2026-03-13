@@ -26,4 +26,10 @@ export class RecycleService {
   save (params: any) {
     return this.http.post(this.host + '/', params).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
+
+  validateOrderId (orderId: string) {
+    return this.http.get(this.host + '/validateOrderId', {
+      params: { orderId }
+    }).pipe(map((response: any) => response), catchError((error) => { throw error }))
+  }
 }

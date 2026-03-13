@@ -44,6 +44,7 @@ export class RecycleComponent implements OnInit {
   public recycleQuantityControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(1000)])
   public pickUpDateControl: UntypedFormControl = new UntypedFormControl()
   public pickup: UntypedFormControl = new UntypedFormControl(false)
+  public orderIdControl: UntypedFormControl = new UntypedFormControl('', [])
   public topImage?: string
   public bottomImage?: string
   public recycles: any
@@ -147,5 +148,27 @@ export class RecycleComponent implements OnInit {
 
   getMessage (id) {
     this.addressId = id
+  }
+
+  validateOrderId () {
+    const orderId = this.orderIdControl.value
+    if (orderId) {
+      this.recycleService.validateOrderId(orderId).subscribe({
+        next: (response: any) => {
+          this.translate.get('ORDER_ID_VALID', { valid: response.valid }).subscribe({
+            next: (message) => {
+              this.snackBarHelperService.open(message, 'infoBar')
+            },
+            error: (translationId) => {
+              this.snackBarHelperService.open(translationId, 'infoBar')
+            }
+          })
+        },
+        error: (err) => {
+          this.snackBarHelperService.open('Error validating order ID', 'errorBar')
+          console.log(err)
+        }
+      })
+    }
   }
 }

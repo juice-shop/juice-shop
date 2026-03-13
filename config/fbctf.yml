@@ -347,3 +347,6 @@ ctf:
     chatbotGreedyInjectionChallenge:
       name: Norway
       code: NO
+    redosChallenge:
+      name: Zimbabwe
+      code: ZW

@@ -1542,14 +1542,13 @@
   mitigationUrl: 'https://genai.owasp.org/llmrisk/llm01-prompt-injection/'
   key: chatbotGreedyInjectionChallenge
 -
-  name: 'ReDoS your Recycling'
+  name: 'Recycling Order Validation'
   category: 'Broken Anti Automation'
-  description: 'Perform a <i>ReDoS</i> attack on the recycling order ID validation endpoint keeping the server busy for >2 seconds.'
+  description: 'Find a way to make the recycling order ID validation endpoint take an unusually long time to respond.'
   difficulty: 4
   hints:
     - 'The recycling page has an order ID validation field. What happens if you craft a special input?'
     - 'Try an order ID that starts with the correct format but ends with an unexpected character.'
     - 'A vulnerable regex with nested quantifiers can be tricked into catastrophic backtracking.'
-    - 'Try fe01-aaaaaaaaaaaaaaaa! as your input and see what happens to the response time.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html'
   key: redosChallenge

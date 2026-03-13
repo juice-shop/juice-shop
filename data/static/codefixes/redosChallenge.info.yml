@@ -1,0 +1,12 @@
+fixes:
+  - id: 1
+    explanation: 'Replacing the vulnerable regex with a more restrictive pattern that prevents catastrophic backtracking while maintaining the same validation logic.'
+  - id: 2
+    explanation: 'Using a regex library with timeout protection or implementing manual timeout in the validation function.'
+  - id: 3
+    explanation: 'Switching to a different validation approach that doesn''t rely on complex regex patterns.'
+  - id: 4
+    explanation: 'The change is unrelated to the regex validation and doesn''t address the ReDoS vulnerability.'
+hints:
+  - "Look for regex patterns with nested quantifiers that could cause exponential backtracking."
+  - "Test the validation endpoint with inputs that match the pattern partially but end unexpectedly."

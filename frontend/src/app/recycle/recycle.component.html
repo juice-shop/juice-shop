@@ -29,6 +29,15 @@
         }
       </mat-form-field>
 
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>{{"LABEL_ORDER_ID" | translate}}</mat-label>
+        <input [formControl]="orderIdControl" type="text" matInput>
+      </mat-form-field>
+
+      <button type="button" mat-raised-button color="accent" (click)="validateOrderId()">
+        <i class="fas fa-check fa-lg"></i> {{'BTN_VALIDATE' | translate}}
+      </button>
+
       <app-address (emitSelection)="getMessage($event)" [addNewAddressDiv]="false" #addressComp class="mat-elevation-z0"></app-address>
 
       @if (pickup.value && recycleQuantityControl.value > 100) {
