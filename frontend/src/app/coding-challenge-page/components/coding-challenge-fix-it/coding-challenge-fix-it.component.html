@@ -28,7 +28,7 @@
 </mat-card>
 }
 <div class="action-row">
-  <button mat-stroked-button (click)="checkFix()" [disabled]="alreadySolved() || result === 1" id="fixItSubmitButton">
+  <button mat-flat-button color="accent" (click)="checkFix()" [disabled]="alreadySolved() || result === 1" id="fixItSubmitButton">
     @if (result === 1) {
     <span>{{'BTN_SUBMIT' | translate}}</span>
     } @else {

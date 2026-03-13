@@ -21,6 +21,8 @@
 
   h2 {
     margin: 0;
+    font-size: 1.75rem;
+    letter-spacing: -0.01em;
   }
 }
 
@@ -35,27 +37,39 @@
 }
 
 .challenge-section {
-  padding: 0;
+  padding: $space-l;
+  background-color: var(--theme-background);
+  border-radius: 12px;
+  border: 1px solid var(--theme-text-fade-10);
 }
 
 .locked-section {
-  opacity: 0.5;
+  background-color: var(--theme-background-darker);
+  border: 1px dashed var(--theme-text-fade-20);
+  text-align: center;
 
   .section-title {
-    font-size: 1.5rem;
-    font-weight: 500;
+    font-size: 1.25rem;
+    font-weight: 600;
     margin-bottom: $space-xs;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $space-xs;
+    color: var(--theme-text-fade-40);
   }
 
   .locked-icon {
     vertical-align: middle;
-    margin-left: $space-xs;
   }
 
   .section-description {
-    color: var(--theme-text-fade-50);
+    color: var(--theme-text-fade-30);
     margin-top: 0;
     margin-bottom: 0;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
+

@@ -21,7 +21,7 @@
 </mat-card>
 }
 <div class="action-row">
-  <button mat-stroked-button (click)="checkLines()"
+  <button mat-flat-button color="accent" (click)="checkLines()"
     [disabled]="alreadySolved() || result === 1 || selectedLines.length === 0" id="findItSubmitButton">
     @if (result === 1 || selectedLines.length === 0) {
     <span>{{'BTN_SUBMIT' | translate}}</span>
