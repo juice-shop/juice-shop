@@ -5,12 +5,12 @@
 <h3 class="section-title">
   {{'TAB_FIX_IT' | translate}}
   @if (alreadySolved() || result === 1) {
-  <mat-icon class="solved-indicator">check_circle</mat-icon>
+  <mat-icon class="solved-indicator" aria-hidden="true">check_circle</mat-icon>
   }
 </h3>
 <p class="section-description">{{'DESCRIPTION_FIX_IT' | translate}}</p>
 <div class="controls-row">
-  <mat-button-toggle-group [value]="selectedFix" (change)="setFix($event.value)" class="fix-toggles">
+  <mat-button-toggle-group [value]="selectedFix" (change)="setFix($event.value)" class="fix-toggles" aria-label="Select a code fix to review">
     @for (fix of randomFixes; track fix; let i = $index) {
     <mat-button-toggle [value]="i">Fix {{ i+1 }}</mat-button-toggle>
     }
@@ -20,10 +20,10 @@
   </mat-checkbox>
 </div>
 <div class="diff-container">
-  <div #diffHost class="diff-host"></div>
+  <div #diffHost class="diff-host" role="region" aria-label="Code diff view"></div>
 </div>
 @if (explanation) {
-<mat-card appearance="outlined" [class]="resultColor() === 'warn' ? 'warn-notification' : 'accent-notification'">
+<mat-card appearance="outlined" [class]="resultColor() === 'warn' ? 'warn-notification' : 'accent-notification'" aria-live="polite">
   <div class="mdc-card">{{explanation}}</div>
 </mat-card>
 }

@@ -5,15 +5,18 @@
 <h3 class="section-title">
   {{'TAB_FIND_IT' | translate}}
   @if (alreadySolved() || result === 1) {
-  <mat-icon class="solved-indicator">check_circle</mat-icon>
+  <mat-icon class="solved-indicator" aria-hidden="true">check_circle</mat-icon>
   }
 </h3>
 <p class="section-description">{{'DESCRIPTION_FIND_IT' | translate}}</p>
 <div id="code-area">
   <div #editorHost class="editor-host"></div>
+  @if (showKeyboardHint) {
+  <div class="keyboard-hint" aria-hidden="true">{{'KEYBOARD_NAV_HINT' | translate}}</div>
+  }
 </div>
 @if (hint) {
-<mat-card appearance="outlined" class="primary-notification">
+<mat-card appearance="outlined" class="primary-notification" aria-live="polite">
   <div class="mdc-card">{{hint}}</div>
 </mat-card>
 }
