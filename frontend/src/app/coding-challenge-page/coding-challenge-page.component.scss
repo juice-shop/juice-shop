@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   gap: $space-xl;
+  box-sizing: border-box;
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
@@ -42,6 +43,7 @@
   background-color: var(--theme-background);
   border-radius: 12px;
   border: 1px solid var(--theme-text-fade-10);
+  min-width: 0;
 }
 
 .locked-section {
