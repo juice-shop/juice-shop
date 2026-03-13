@@ -50,6 +50,7 @@ export class CodingChallengeFixItComponent implements OnInit, AfterViewInit, OnD
   public randomFixes: RandomFixes[] = []
   public explanation: string = null
   public result: ResultState = ResultState.Undecided
+  public shaking = false
   public onlyChangedLines = true
 
   ngOnInit (): void {
@@ -167,6 +168,7 @@ export class CodingChallengeFixItComponent implements OnInit, AfterViewInit, OnD
       })
     } else {
       this.result = ResultState.Wrong
+      this.shaking = true
     }
   }
 }

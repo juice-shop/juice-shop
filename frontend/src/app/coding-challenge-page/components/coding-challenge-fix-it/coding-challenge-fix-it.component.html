@@ -24,18 +24,19 @@
 <div class="diff-container">
   <div #diffHost class="diff-host" role="region" aria-label="Code diff view"></div>
 </div>
-@if (explanation) {
-<mat-card appearance="outlined" [class]="resultColor() === 'warn' ? 'warn-notification' : 'accent-notification'" aria-live="polite">
-  <div class="mdc-card">{{explanation}}</div>
-</mat-card>
-}
 <div class="action-row">
-  <button mat-flat-button color="accent" (click)="checkFix()" [disabled]="alreadySolved() || result === 1" id="fixItSubmitButton">
+  @if (explanation) {
+  <mat-card appearance="outlined" [class]="resultColor() === 'warn' ? 'warn-notification' : 'accent-notification'" aria-live="polite">
+    <div class="mdc-card">{{explanation}}</div>
+  </mat-card>
+  }
+  <button mat-flat-button color="accent" (click)="checkFix()" [disabled]="alreadySolved() || result === 1"
+    [class.shake]="shaking" (animationend)="shaking = false" id="fixItSubmitButton">
     @if (result === 1) {
     <span>{{'BTN_SUBMIT' | translate}}</span>
     } @else {
     <span>{{'BTN_SUBMIT_FIX' | translate: { fix: selectedFix + 1 } }}</span>
     }
-    <mat-icon [color]="resultColor()">{{ resultIcon() }}</mat-icon>
+    <mat-icon [class.result-icon-wrong]="result === 2">{{ resultIcon() }}</mat-icon>
   </button>
 </div>
