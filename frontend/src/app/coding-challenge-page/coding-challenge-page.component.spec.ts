@@ -8,8 +8,7 @@ import { type ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@
 import { TranslateModule } from '@ngx-translate/core'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
-import { RouterTestingModule } from '@angular/router/testing'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, provideRouter } from '@angular/router'
 import { of, Subject, throwError } from 'rxjs'
 
 import { CodingChallengePageComponent } from './coding-challenge-page.component'
@@ -63,10 +62,10 @@ describe('CodingChallengePageComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        RouterTestingModule,
         CodingChallengePageComponent
       ],
       providers: [
+        provideRouter([]),
         { provide: CodeSnippetService, useValue: codeSnippetService },
         { provide: CodeFixesService, useValue: codeFixesService },
         { provide: ChallengeService, useValue: challengeService },
