@@ -146,6 +146,12 @@
   .tag.tag-available-dependency {
     color: var(--theme-accent);
   }
+
+  .tag .dependency-icon {
+    font-size: 10px;
+    height: 10px;
+    width: 10px;
+  }
 }
 
 .badge-group {
