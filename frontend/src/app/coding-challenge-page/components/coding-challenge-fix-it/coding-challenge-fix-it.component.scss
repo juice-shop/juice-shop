@@ -6,29 +6,36 @@
 @use '../../../../styles/variables' as *;
 
 .section-title {
-  font-size: 1.5rem;
-  font-weight: 500;
+  font-size: 1.25rem;
+  font-weight: 600;
   margin-bottom: $space-xs;
   display: flex;
+  align-items: center;
+  gap: $space-xs;
 }
 
 .section-description {
   color: var(--theme-text-fade-50);
   margin-top: 0;
-  margin-bottom: $space-m;
+  margin-bottom: $space-l;
+  font-size: 0.9rem;
 }
 
 .solved-indicator {
   color: var(--theme-accent);
-  vertical-align: middle;
-  margin-left: $space-xs;
+  font-size: 1.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .controls-row {
   display: flex;
   align-items: center;
   gap: $space-m;
-  margin-bottom: $space-m;
+  margin-bottom: $space-l;
+  padding: $space-s $space-m;
+  background-color: var(--theme-background-darker);
+  border-radius: 8px;
 }
 
 .fix-toggles {
@@ -37,6 +44,8 @@
 
 .changed-lines-toggle {
   margin-left: auto;
+  font-size: 0.85rem;
+  color: var(--theme-text-fade-50);
 }
 
 .diff-container {
@@ -45,8 +54,10 @@
 
 .diff-host ::ng-deep {
   .cm-editor {
-    border-radius: 16px;
+    border-radius: 12px;
     overflow: hidden;
+    border: 1px solid var(--theme-text-fade-10);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
 
   .cm-scroller {
@@ -64,5 +75,29 @@
 .action-row {
   display: flex;
   justify-content: flex-end;
+  margin-top: $space-l;
+
+  button {
+    font-weight: 500;
+  }
+}
+
+mat-card.accent-notification {
   margin-top: $space-m;
+  border-radius: 8px;
+  border-left: 3px solid var(--theme-accent);
+
+  .mdc-card {
+    font-size: 0.9rem;
+  }
+}
+
+mat-card.warn-notification {
+  margin-top: $space-m;
+  border-radius: 8px;
+  border-left: 3px solid var(--theme-warn);
+
+  .mdc-card {
+    font-size: 0.9rem;
+  }
 }
