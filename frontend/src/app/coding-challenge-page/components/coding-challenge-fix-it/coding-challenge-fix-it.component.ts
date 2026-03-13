@@ -20,7 +20,8 @@ import { juiceShopTheme } from '../../../shared/codemirror-theme'
 import { type CodeSnippet } from '../../../Services/code-snippet.service'
 import { CodeFixesService } from '../../../Services/code-fixes.service'
 import { ChallengeService } from '../../../Services/challenge.service'
-import { ResultState, type RandomFixes, resultColor, handleVerdict } from '../../coding-challenge.types'
+import { ResultState, type RandomFixes } from '../../coding-challenge.types'
+import { handleVerdict } from '../../helpers/handle-verdict'
 import { CodingChallengeSectionComponent } from '../coding-challenge-section/coding-challenge-section.component'
 
 @Component({
@@ -120,7 +121,14 @@ export class CodingChallengeFixItComponent implements OnInit, AfterViewInit, OnD
   }
 
   resultColor (): string {
-    return resultColor(this.result)
+    switch (this.result) {
+      case ResultState.Right:
+        return 'accent'
+      case ResultState.Wrong:
+        return 'warn'
+      default:
+        return undefined
+    }
   }
 
   private setVerdict (verdict: boolean): void {
