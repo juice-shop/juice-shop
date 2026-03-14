@@ -3,29 +3,22 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { describe, it, before, after } from 'node:test'
+import { describe, it, before } from 'node:test'
 import assert from 'node:assert/strict'
 import request from 'supertest'
 import type { Express } from 'express'
-import type { Sequelize } from 'sequelize'
 import { challenges } from '../../data/datacache'
 import * as utils from '../../lib/utils'
 import * as security from '../../lib/insecurity'
 import { createTestApp } from './helpers/setup'
 
 let app: Express
-let db: Sequelize
 const authHeader = { Authorization: 'Bearer ' + security.authorize(), 'content-type': 'application/json' }
 
 before(async () => {
   const result = await createTestApp()
   app = result.app
-  db = result.sequelize
 }, { timeout: 60000 })
-
-after(async () => {
-  await db?.close()
-})
 
 void describe('/b2b/v2/orders', () => {
   if (utils.isChallengeEnabled(challenges.rceChallenge) || utils.isChallengeEnabled(challenges.rceOccupyChallenge)) {

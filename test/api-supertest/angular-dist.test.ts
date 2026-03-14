@@ -3,25 +3,18 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { describe, it, before, after } from 'node:test'
+import { describe, it, before } from 'node:test'
 import assert from 'node:assert/strict'
 import request from 'supertest'
 import type { Express } from 'express'
-import type { Sequelize } from 'sequelize'
 import { createTestApp } from './helpers/setup'
 
 let app: Express
-let db: Sequelize
 
 before(async () => {
   const result = await createTestApp()
   app = result.app
-  db = result.sequelize
 }, { timeout: 60000 })
-
-after(async () => {
-  await db?.close()
-})
 
 void describe('/api', () => {
   void it('GET main.js contains Cryptocurrency URLs', async () => {
