@@ -15,10 +15,10 @@
 }
 
 mat-dialog-actions {
-  --mat-dialog-actions-padding: $space-ml $space-l;
   display: grid;
   gap: $space-m;
   grid-template-columns: 1fr;
+  padding: $space-m $space-l 0 $space-l;
 }
 
 .button-row {
