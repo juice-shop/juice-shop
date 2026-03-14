@@ -18,14 +18,14 @@ interface CachedCodeChallenge {
 export const findFilesWithCodeChallenges = async (paths: readonly string[]): Promise<FileMatch[]> => {
   const matches = []
   for (const currPath of paths) {
-    if ((await fs.lstat(currPath)).isDirectory()) {
-      const files = await fs.readdir(currPath)
-      const moreMatches = await findFilesWithCodeChallenges(
-        files.map(file => path.resolve(currPath, file))
-      )
-      matches.push(...moreMatches)
-    } else {
-      try {
+    try {
+      if ((await fs.lstat(currPath)).isDirectory()) {
+        const files = await fs.readdir(currPath)
+        const moreMatches = await findFilesWithCodeChallenges(
+          files.map(file => path.resolve(currPath, file))
+        )
+        matches.push(...moreMatches)
+      } else {
         const code = await fs.readFile(currPath, 'utf8')
         if (
           // strings are split so that it doesn't find itself...
@@ -34,9 +34,9 @@ export const findFilesWithCodeChallenges = async (paths: readonly string[]): Pro
         ) {
           matches.push({ path: currPath, content: code })
         }
-      } catch (e) {
-        logger.warn(`File ${currPath} could not be read. it might have been moved or deleted. If coding challenges are contained in the file, they will not be available.`)
       }
+    } catch (e) {
+      logger.warn(`File ${currPath} could not be read. it might have been moved or deleted. If coding challenges are contained in the file, they will not be available.`)
     }
   }
 
