@@ -417,15 +417,15 @@
 	"registerAdminChallenge_2.ts": {
 		"added": [
 			5,
-			27,
 			28,
 			29,
-			32,
+			30,
 			33,
-			34
+			34,
+			35
 		],
 		"removed": [
-			27
+			28
 		]
 	},
 	"registerAdminChallenge_3_correct.ts": {
