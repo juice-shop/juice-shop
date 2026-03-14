@@ -3,17 +3,14 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { describe, it, before, after } from 'node:test'
+import { describe, it, before } from 'node:test'
 import assert from 'node:assert/strict'
 import request from 'supertest'
 import type { Express } from 'express'
-import type { Sequelize } from 'sequelize'
-
 import { createTestApp } from './helpers/setup'
 import { login } from './helpers/auth'
 
 let app: Express
-let db: Sequelize
 let authHeader: { Authorization: string, 'content-type': string }
 let addressId: string
 
@@ -21,7 +18,6 @@ before(
   async () => {
     const result = await createTestApp()
     app = result.app
-    db = result.sequelize
 
     const { token } = await login(app, {
       email: 'jim@juice-sh.op',
@@ -34,10 +30,6 @@ before(
   },
   { timeout: 60000 }
 )
-
-after(async () => {
-  await db?.close()
-})
 
 void describe('/api/Addresss', () => {
   void it('GET all addresses is forbidden via public API', async () => {

@@ -3,15 +3,13 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { describe, it, before, after } from 'node:test'
+import { describe, it, before } from 'node:test'
 import assert from 'node:assert/strict'
 import request from 'supertest'
 import config from 'config'
 import jwt from 'jsonwebtoken'
 import * as otplib from 'otplib'
 import type { Express } from 'express'
-import type { Sequelize } from 'sequelize'
-
 import * as security from '../../lib/insecurity'
 import { createTestApp } from './helpers/setup'
 import { login, register } from './helpers/auth'
@@ -19,7 +17,6 @@ import { login, register } from './helpers/auth'
 const jsonHeader = { 'content-type': 'application/json' }
 
 let app: Express
-let db: Sequelize
 
 function getStatus (token: string) {
   return request(app)
@@ -33,12 +30,7 @@ function getStatus (token: string) {
 before(async () => {
   const result = await createTestApp()
   app = result.app
-  db = result.sequelize
 }, { timeout: 60000 })
-
-after(async () => {
-  await db?.close()
-})
 
 void describe('/rest/2fa/verify', () => {
   void it('POST should return a valid authentication when a valid tmp token is passed', async () => {

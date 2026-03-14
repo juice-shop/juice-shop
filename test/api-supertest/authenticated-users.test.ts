@@ -3,29 +3,22 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { describe, it, before, after } from 'node:test'
+import { describe, it, before } from 'node:test'
 import assert from 'node:assert/strict'
 import request from 'supertest'
 import type { Express } from 'express'
-import type { Sequelize } from 'sequelize'
 import * as security from '../../lib/insecurity'
 import config from 'config'
 import { createTestApp } from './helpers/setup'
 import { login } from './helpers/auth'
 
 let app: Express
-let db: Sequelize
 const authHeader = { Authorization: `Bearer ${security.authorize({ data: { email: 'admin@juice-sh.op' } })}`, 'content-type': 'application/json' }
 
 before(async () => {
   const result = await createTestApp()
   app = result.app
-  db = result.sequelize
 }, { timeout: 60000 })
-
-after(async () => {
-  await db?.close()
-})
 
 void describe('/rest/user/authentication-details', () => {
   void it('GET all users with password replaced by asterisks', async () => {
