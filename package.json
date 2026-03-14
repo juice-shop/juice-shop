@@ -67,7 +67,7 @@
     "test:chromium": "cd frontend && npm run test -- --watch=false --source-map=false --browsers=ChromiumHeadless && cd .. && npm run test:server",
     "test:server": "nyc --report-dir=./build/reports/coverage/server-tests mocha -r ts-node/register -r source-map-support/register --recursive test/server/**/*.ts",
     "test:api": "npm run frisby",
-    "test:api:supertest": "node --import tsx --test --test-force-exit test/api-supertest/**/*.test.ts",
+    "test:api:supertest": "NODE_ENV=test node --import tsx --test --test-force-exit test/api-supertest/**/*.test.ts",
     "test:e2e": "npm run cypress:run",
     "rsn": "ts-node rsn/rsn.ts",
     "rsn:verbose": "ts-node rsn/rsn-verbose.ts",
