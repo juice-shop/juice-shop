@@ -75,27 +75,28 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
   const llmApiUrl = config.get<string>('application.chatBot.llmApiUrl')
   const llmApiReachable = await checkIfDomainReachable(llmApiUrl)
   let llmApiKeyEnvVarExists = true
-  let ollamaModelAvailable = true
+  let llmModelAvailable = true
   preconditionResults[llmApiUrl] = llmApiReachable
-  if (llmApiReachable && isOllamaUrl(llmApiUrl)) {
-    const ollamaModel = config.get<string>('application.chatBot.model')
-    ollamaModelAvailable = await checkIfOllamaModelAvailable(llmApiUrl)
-    variableDependencies[ollamaModel] = {
-      dependency: `Ollama Model (${ollamaModel})`,
+  if (llmApiReachable) {
+    const llmModel = config.get<string>('application.chatBot.model')
+    llmModelAvailable = await checkIfLlmModelAvailable(llmApiUrl)
+    variableDependencies[llmModel] = {
+      dependency: `LLM Model (${llmModel})`,
       documentation: 'https://howto-llm.owasp-juice.shop',
       dependentChallenges: ['"Chatbot Prompt Injection" challenge', '"Greedy Chatbot Manipulation" challenge']
     }
-    preconditionResults[ollamaModel] = ollamaModelAvailable
-  } else {
-    variableDependencies.LLM_API_KEY = {
-      dependency: 'LLM API Key',
-      documentation: 'https://howto-llm.owasp-juice.shop',
-      dependentChallenges: ['"Chatbot Prompt Injection" challenge', '"Greedy Chatbot Manipulation" challenge']
+    preconditionResults[llmModel] = llmModelAvailable
+    if (!isOllamaUrl(llmApiUrl)) {
+      variableDependencies.LLM_API_KEY = {
+        dependency: 'LLM API Key',
+        documentation: 'https://howto-llm.owasp-juice.shop',
+        dependentChallenges: ['"Chatbot Prompt Injection" challenge', '"Greedy Chatbot Manipulation" challenge']
+      }
+      llmApiKeyEnvVarExists = checkIfEnvironmentVariableExists('LLM_API_KEY')
+      preconditionResults.LLM_API_KEY = llmApiKeyEnvVarExists
     }
-    llmApiKeyEnvVarExists = checkIfEnvironmentVariableExists('LLM_API_KEY')
-    preconditionResults.LLM_API_KEY = llmApiKeyEnvVarExists
   }
-  if (!llmApiReachable || !llmApiKeyEnvVarExists || !ollamaModelAvailable) {
+  if (!llmApiReachable || !llmApiKeyEnvVarExists || !llmModelAvailable) {
     logger.info(`Check ${colors.bold('https://howto-llm.owasp-juice.shop')} for instructions on how to set up and configure the LLM API`)
   }
 
@@ -227,7 +228,7 @@ export const isOllamaUrl = (url: string): boolean => {
   }
 }
 
-export const checkIfOllamaModelAvailable = async (llmApiUrl: string) => {
+export const checkIfLlmModelAvailable = async (llmApiUrl: string) => {
   const model = config.get<string>('application.chatBot.model')
   try {
     const response = await fetch(`${llmApiUrl}/models`, { signal: AbortSignal.timeout(5000) })
@@ -238,19 +239,21 @@ export const checkIfOllamaModelAvailable = async (llmApiUrl: string) => {
       (available) => available === model || available.startsWith(`${model}:`) || model.startsWith(`${available}:`)
     )
     if (modelFound) {
-      logger.info(`Ollama model ${colors.bold(model)} is available (${colors.green('SUCCESS')})`)
+      logger.info(`LLM model ${colors.bold(model)} is available (${colors.green('SUCCESS')})`)
       return true
     } else {
-      logger.warn(`Ollama model ${colors.bold(model)} is not available (${colors.yellow('WARNING')})`)
-      let pullModelMessage = `Pull the model with: ${colors.bold(`ollama pull ${model}`)}`
-      if (availableModels.length > 0) {
-        pullModelMessage += ` or configure an available model: ${colors.bold(availableModels.join(', '))}`
+      logger.warn(`LLM model ${colors.bold(model)} is not available (${colors.yellow('WARNING')})`)
+      if (isOllamaUrl(llmApiUrl)) {
+        let pullModelMessage = `Pull the model with: ${colors.bold(`ollama pull ${model}`)}`
+        if (availableModels.length > 0) {
+          pullModelMessage += ` or configure an available model: ${colors.bold(availableModels.join(', '))}`
+        }
+        logger.info(pullModelMessage)
       }
-      logger.info(pullModelMessage)
       return false
     }
   } catch {
-    logger.warn(`Could not verify Ollama model ${colors.bold(model)} availability (${colors.yellow('WARNING')})`)
+    logger.warn(`Could not verify LLM model ${colors.bold(model)} availability (${colors.yellow('WARNING')})`)
     return false
   }
 }

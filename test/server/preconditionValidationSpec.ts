@@ -9,7 +9,7 @@ import sinon from 'sinon'
 import semver from 'semver'
 import sinonChai from 'sinon-chai'
 import { engines as supportedEngines } from './../../package.json'
-import { checkIfRunningOnSupportedNodeVersion, checkIfPortIsAvailable, checkIfEnvironmentVariableExists, isOllamaUrl, checkIfOllamaModelAvailable, checkIfDomainReachable } from '../../lib/startup/validatePreconditions'
+import { checkIfRunningOnSupportedNodeVersion, checkIfPortIsAvailable, checkIfEnvironmentVariableExists, isOllamaUrl, checkIfLlmModelAvailable, checkIfDomainReachable } from '../../lib/startup/validatePreconditions'
 
 const expect = chai.expect
 chai.use(sinonChai)
@@ -137,7 +137,7 @@ describe('preconditionValidation', () => {
         ok: true,
         json: async () => ({ data: [{ id: 'qwen3.5:9b' }, { id: 'llama3:8b' }] })
       })
-      await checkIfOllamaModelAvailable('http://localhost:11434/v1')
+      await checkIfLlmModelAvailable('http://localhost:11434/v1')
       expect(fetchStub.calledOnce).to.equal(true)
     })
 
@@ -146,7 +146,7 @@ describe('preconditionValidation', () => {
         ok: true,
         json: async () => ({ data: [{ id: 'qwen3.5:9b-q4' }] })
       })
-      await checkIfOllamaModelAvailable('http://localhost:11434/v1')
+      await checkIfLlmModelAvailable('http://localhost:11434/v1')
       expect(fetchStub.calledOnce).to.equal(true)
     })
 
@@ -155,7 +155,7 @@ describe('preconditionValidation', () => {
         ok: true,
         json: async () => ({ data: [{ id: 'llama3:8b' }, { id: 'mistral:7b' }] })
       })
-      await checkIfOllamaModelAvailable('http://localhost:11434/v1')
+      await checkIfLlmModelAvailable('http://localhost:11434/v1')
       expect(fetchStub.calledOnce).to.equal(true)
     })
 
@@ -164,19 +164,19 @@ describe('preconditionValidation', () => {
         ok: true,
         json: async () => ({ data: [] })
       })
-      await checkIfOllamaModelAvailable('http://localhost:11434/v1')
+      await checkIfLlmModelAvailable('http://localhost:11434/v1')
       expect(fetchStub.calledOnce).to.equal(true)
     })
 
     it('should handle non-ok response gracefully', async () => {
       fetchStub.resolves({ ok: false, status: 500 })
-      await checkIfOllamaModelAvailable('http://localhost:11434/v1')
+      await checkIfLlmModelAvailable('http://localhost:11434/v1')
       expect(fetchStub.calledOnce).to.equal(true)
     })
 
     it('should handle fetch error gracefully', async () => {
       fetchStub.rejects(new Error('Connection refused'))
-      await checkIfOllamaModelAvailable('http://localhost:11434/v1')
+      await checkIfLlmModelAvailable('http://localhost:11434/v1')
       expect(fetchStub.calledOnce).to.equal(true)
     })
   })
