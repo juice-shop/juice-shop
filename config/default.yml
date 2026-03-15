@@ -100,6 +100,7 @@ products:
     image: apple_juice.jpg
     reviews:
       - { text: 'One of my favorites!', author: admin }
+      - { text: "Great! We'll have an apple party. Everyone brings an apple and - STUFFS IT DOWN EACH OTHER'S THROAT!", author: basil }
   -
     name: 'Orange Juice (1000ml)'
     description: 'Made from oranges hand-picked by Uncle Dittmeyer.'
@@ -415,9 +416,40 @@ products:
     limitPerUser: 1
     image: user_day_ticket.png
     reviews:
-      - { text: 'This is *THE* chance to "meet the makers" of both Juice Shop and DSOMM in the United States!', author: bjoernOwasp }
       - { text: 'The DSOMM Live Assessment session will even use Juice Shop as its "real-world" example!', author: timo }
       - { text: 'We will showcase the amazing MultiJuicer Lego Tower at this event!', author: jannik }
+  -
+    name: 'Pineapple Juice (1000ml)'
+    description: 'Tropical refreshment from the finest sun-ripened pineapples.'
+    price: 2.99
+    image: pineapple_juice.png
+  -
+    name: 'Melon Juice (1000ml)'
+    description: 'Refreshing and sweet juice made from ripe melons.'
+    price: 2.49
+    image: melon_juice.png
+  -
+    name: 'Grape Juice (1000ml)'
+    description: 'Deep purple and full of antioxidants from selected grapes.'
+    price: 2.99
+    image: grape_juice.png
+  -
+    name: 'Dragonfruit Juice (500ml)'
+    description: 'Exotic and vibrant juice made from dragonfruit.'
+    price: 3.99
+    image: dragonfruit_juice.png
+  -
+    name: 'Berry Juice (1000ml)'
+    description: 'A delicious blend of fresh forest berries.'
+    price: 3.49
+    image: berry_juice.png
+  -
+    name: 'Basil Smoothie'
+    description: 'A unique blend of fresh basil and ginger for a healthy kick.'
+    price: 2.99
+    image: basil_smoothie.png
+    reviews:
+      - { text: "(ง'̀-'́)ง", author: basil }
 memories:
   -
     image: 'magn(et)ificent!-1571814229653.jpg'
