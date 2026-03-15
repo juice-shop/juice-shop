@@ -1,6 +1,6 @@
 import { type Request, type Response } from 'express'
 import { WebSocketProvider, Contract } from 'ethers'
-
+import type { EventEmitter } from 'events'
 import * as challengeUtils from '../lib/challengeUtils'
 import { nftABI } from '../data/static/contractABIs'
 import { challenges } from '../data/datacache'
@@ -16,7 +16,7 @@ let provider: WebSocketProvider | null = null
 function getProvider (): WebSocketProvider {
   if (provider === null) {
     provider = new WebSocketProvider('wss://eth-sepolia.g.alchemy.com/v2/FZDapFZSs1l6yhHW4VnQqsi18qSd-3GJ')
-    ;(provider.websocket as unknown as import('events').EventEmitter).on('error', (err: Error) => {
+    ;(provider.websocket as unknown as EventEmitter).on('error', (err: Error) => {
       console.error('[nftMint] WebSocket error:', err.message)
       void provider?.destroy()
       provider = null
