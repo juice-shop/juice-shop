@@ -275,6 +275,7 @@
 -
   email: basil
   password: 'my little nest of vipers'
+  key: basil
   role: 'customer'
   walletBalance: 2
   securityQuestion:
