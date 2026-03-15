@@ -74,18 +74,29 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
   }
   const llmApiUrl = config.get<string>('application.chatBot.llmApiUrl')
   const llmApiReachable = await checkIfDomainReachable(llmApiUrl)
+  let llmApiKeyEnvVarExists = true
+  let ollamaModelAvailable = true
   preconditionResults[llmApiUrl] = llmApiReachable
-  if (!llmApiReachable) {
-    logger.info(`Check ${colors.bold('https://howto-llm.owasp-juice.shop')} for instructions on how to set up and configure the LLM API`)
-  } else if (isOllamaUrl(llmApiUrl)) {
+  if (isOllamaUrl(llmApiUrl)) {
     const ollamaModel = config.get<string>('application.chatBot.model')
-    const ollamaModelAvailable = await checkIfOllamaModelAvailable(llmApiUrl)
+    ollamaModelAvailable = await checkIfOllamaModelAvailable(llmApiUrl)
     variableDependencies[ollamaModel] = {
       dependency: `Ollama Model (${ollamaModel})`,
       documentation: 'https://howto-llm.owasp-juice.shop',
       dependentChallenges: ['"Chatbot Prompt Injection" challenge', '"Greedy Chatbot Manipulation" challenge']
     }
     preconditionResults[ollamaModel] = ollamaModelAvailable
+  } else {
+    variableDependencies.LLM_API_KEY = {
+      dependency: 'LLM API Key',
+      documentation: 'https://howto-llm.owasp-juice.shop',
+      dependentChallenges: ['"Chatbot Prompt Injection" challenge', '"Greedy Chatbot Manipulation" challenge']
+    }
+    llmApiKeyEnvVarExists = checkIfEnvironmentVariableExists('LLM_API_KEY')
+    preconditionResults.LLM_API_KEY = llmApiKeyEnvVarExists
+  }
+  if (!llmApiReachable || !llmApiKeyEnvVarExists || !ollamaModelAvailable) {
+    logger.info(`Check ${colors.bold('https://howto-llm.owasp-juice.shop')} for instructions on how to set up and configure the LLM API`)
   }
 
   resolvePreconditionsReady()
