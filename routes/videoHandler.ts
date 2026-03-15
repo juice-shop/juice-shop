@@ -53,9 +53,10 @@ export const promotionVideo = () => {
     fs.readFile('views/promotionVideo.pug', function (err, buf) {
       if (err != null) throw err
       let template = buf.toString()
-      const subs = getSubsFromFile()
+      const rawSubs = getSubsFromFile()
+      const subs = rawSubs.replace(/<\/script/gi, '<\\/script')
 
-      challengeUtils.solveIf(challenges.videoXssChallenge, () => { return utils.contains(subs, '</script><script>alert(`xss`)</script>') })
+      challengeUtils.solveIf(challenges.videoXssChallenge, () => { return utils.contains(rawSubs, '</script><script>alert(`xss`)</script>') })
 
       const themeKey = config.get<string>('application.theme') as keyof typeof themes
       const theme = themes[themeKey] || themes['bluegrey-lightgreen']

@@ -1,3 +1,9 @@
+import DOMPurify from 'dompurify'
+import { JSDOM } from 'jsdom'
+
+const window = new JSDOM('').window
+const purify = DOMPurify(window as any)
+
 ngAfterViewInit () {
     const products = this.productService.search('')
     const quantities = this.quantityService.getAll()
@@ -46,7 +52,7 @@ ngAfterViewInit () {
 
   encodeProductDescription (tableData: any[]) {
     for (let i = 0; i < tableData.length; i++) {
-      tableData[i].description = tableData[i].description.replaceAll('<', '&lt;').replaceAll('>', '&gt;')
+      tableData[i].description = purify.sanitize(tableData[i].description)
     }
   }
 
