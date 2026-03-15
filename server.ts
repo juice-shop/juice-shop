@@ -76,6 +76,7 @@ import * as delivery from './routes/delivery'
 import * as recycles from './routes/recycles'
 import * as twoFactorAuth from './routes/2fa'
 import { applyCoupon } from './routes/coupon'
+import { validatePromo } from './routes/promo'
 import dataErasure from './routes/dataErasure'
 import { dataExport } from './routes/dataExport'
 import { retrieveBasket } from './routes/basket'
@@ -601,6 +602,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/rest/basket/:id', retrieveBasket())
   app.post('/rest/basket/:id/checkout', placeOrder())
   app.put('/rest/basket/:id/coupon/:coupon', applyCoupon())
+  app.get('/api/validatePromo/:promoCode', validatePromo())
   app.get('/rest/admin/application-version', retrieveAppVersion())
   app.get('/rest/admin/application-configuration', retrieveAppConfiguration())
   app.get('/rest/repeat-notification', repeatNotification())

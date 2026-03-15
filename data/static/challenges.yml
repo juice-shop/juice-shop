@@ -198,6 +198,20 @@
   mitigationUrl: ~
   key: captchaBypassChallenge
 -
+  name: 'ReDoS via Promo Code Validator'
+  category: 'Denial of Service'
+  tags:
+    - vulnerability
+  description: 'Fix the inefficient regular expression complexity vulnerability in the promo code validator.'
+  difficulty: 3
+  hints:
+    - 'The vulnerability is in a promo code validation endpoint.'
+    - 'Look for an endpoint that validates promo codes.'
+    - 'Nested quantifiers in regular expressions can lead to catastrophic backtracking.'
+    - 'A crafted input like SAVE1111! can cause the server to freeze.'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html'
+  key: redosPromoChallenge
+-
   name: 'Change Bender''s Password'
   category: 'Broken Authentication'
   description: 'Change Bender''s password into <i>slurmCl4ssic</i> without using SQL Injection or Forgot Password.'
