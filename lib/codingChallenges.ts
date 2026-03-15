@@ -15,6 +15,10 @@ interface CachedCodeChallenge {
   neutralLines: number[]
 }
 
+function escapeRegExp(string: string): string {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
 export const findFilesWithCodeChallenges = async (paths: readonly string[]): Promise<FileMatch[]> => {
   const matches = []
   for (const currPath of paths) {
@@ -56,7 +60,8 @@ function getCodeChallengesFromFile (file: FileMatch) {
 }
 
 function getCodingChallengeFromFileContent (source: string, challengeKey: string) {
-  const snippets = source.match(`[/#]{0,2} vuln-code-snippet start.*${challengeKey}([^])*vuln-code-snippet end.*${challengeKey}`)
+  const escapedKey = escapeRegExp(challengeKey)
+  const snippets = source.match(new RegExp(`[/#]{0,2} vuln-code-snippet start.*${escapedKey}([^])*vuln-code-snippet end.*${escapedKey}`))
   if (snippets == null) {
     throw new BrokenBoundary('Broken code snippet boundaries for: ' + challengeKey)
   }
@@ -73,9 +78,9 @@ function getCodingChallengeFromFileContent (source: string, challengeKey: string
   const vulnLines = []
   const neutralLines = []
   for (let i = 0; i < lines.length; i++) {
-    if (new RegExp(`vuln-code-snippet vuln-line.*${challengeKey}`).exec(lines[i]) != null) {
+    if (new RegExp(`vuln-code-snippet vuln-line.*${escapedKey}`).exec(lines[i]) != null) {
       vulnLines.push(i + 1)
-    } else if (new RegExp(`vuln-code-snippet neutral-line.*${challengeKey}`).exec(lines[i]) != null) {
+    } else if (new RegExp(`vuln-code-snippet neutral-line.*${escapedKey}`).exec(lines[i]) != null) {
       neutralLines.push(i + 1)
     }
   }

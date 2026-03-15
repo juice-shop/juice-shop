@@ -5,7 +5,7 @@ ngAfterViewInit () {
       next: ([quantities, products]) => {
         const dataTable: TableEntry[] = []
         this.tableData = products
-        this.encodeProductDescription(products)
+        // this.encodeProductDescription(products)
         for (const product of products) {
           dataTable.push({
             name: product.name,
@@ -44,11 +44,11 @@ ngAfterViewInit () {
     })
   }
 
-  encodeProductDescription (tableData: any[]) {
-    for (let i = 0; i < tableData.length; i++) {
-      tableData[i].description = tableData[i].description.replaceAll('<', '&lt;').replaceAll('>', '&gt;')
-    }
-  }
+  // encodeProductDescription (tableData: any[]) {
+  //   for (let i = 0; i < tableData.length; i++) {
+  //     tableData[i].description = tableData[i].description.replaceAll('<', '&lt;').replaceAll('>', '&gt;')
+  //   }
+  // }
 
   onResize (event: any) {
     this.breakpoint = this.calculateBreakpoint(event.target.innerWidth)
