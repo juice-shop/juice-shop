@@ -77,7 +77,7 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
   let llmApiKeyEnvVarExists = true
   let ollamaModelAvailable = true
   preconditionResults[llmApiUrl] = llmApiReachable
-  if (isOllamaUrl(llmApiUrl)) {
+  if (llmApiReachable && isOllamaUrl(llmApiUrl)) {
     const ollamaModel = config.get<string>('application.chatBot.model')
     ollamaModelAvailable = await checkIfOllamaModelAvailable(llmApiUrl)
     variableDependencies[ollamaModel] = {
