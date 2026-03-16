@@ -18,6 +18,11 @@ import * as utils from '../lib/utils'
 
 const entities = new Entities()
 
+const stripControlChars = (value: string) => Array.from(value).filter((char) => {
+  const code = char.charCodeAt(0)
+  return code > 31 && code !== 127
+}).join('')
+
 function favicon () {
   return utils.extractFilename(config.get('application.favicon'))
 }
@@ -85,15 +90,22 @@ export function getUserProfile () {
 
     try {
       const fn = pug.compile(template)
-      const CSP = `img-src 'self' ${user?.profileImage}; script-src 'self' 'unsafe-eval'`
+      const profileImageCspValue = user?.profileImage ? stripControlChars(user.profileImage) : ''
+      const CSP = `img-src 'self' ${profileImageCspValue}; script-src 'self' 'unsafe-eval' https://code.getmdl.io http://ajax.googleapis.com`
 
       challengeUtils.solveIf(challenges.usernameXssChallenge, () => {
         return username && user?.profileImage.match(/;[ ]*script-src(.)*'unsafe-inline'/g) !== null && utils.contains(username, '<script>alert(`xss`)</script>')
       })
 
-      res.set({
-        'Content-Security-Policy': CSP
-      })
+      try {
+        res.set({
+          'Content-Security-Policy': CSP
+        })
+      } catch {
+        res.set({
+          'Content-Security-Policy': "img-src 'self'; script-src 'self' 'unsafe-eval' https://code.getmdl.io http://ajax.googleapis.com"
+        })
+      }
 
       res.send(fn(user))
     } catch (err) {
